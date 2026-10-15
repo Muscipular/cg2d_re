@@ -560,9 +560,9 @@ void WriteLegacyBuyPageCC1A0C(const std::int32_t page)
     gLegacyBuyPageCC1A0C = page;
 }
 
-char* BorrowLegacyShopItemCF4FE0(const std::int32_t index)
+ui::detail::WindowShopItem* BorrowLegacyShopItemCF4FE0(const std::int32_t index)
 {
-    return ui::detail::gShopItemsCF4FE0.data() + index * 0xC58;
+    return &ui::detail::gShopItemsCF4FE0[index];
 }
 
 char* BorrowLegacyRepairItemCE4548(const std::int32_t index)
@@ -3531,15 +3531,15 @@ try {
     std::int32_t total = 0;
     std::int32_t requiredSlots = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(index);
-        if (item[0] != 0) {
-            std::int32_t perSlot = ReadRecordW32(item, 0xC34);
-            const std::int32_t selected = ReadRecordW32(item, 0xC28);
+        const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+        if (item->used != 0) {
+            std::int32_t perSlot = item->maximum;
+            const std::int32_t selected = item->selected;
             if (perSlot <= 0) {
                 perSlot = 2;
             }
             requiredSlots += (perSlot + selected - 1) / perSlot;
-            const std::int32_t price = ReadRecordW32(item, 0xC24);
+            const std::int32_t price = item->price;
             total += price * selected;
         }
     }
@@ -3548,7 +3548,7 @@ try {
     std::int32_t hitPage = ReadLegacyBuyPageCC1A0C();
     std::int32_t hovered = -1;
     for (std::int32_t row = 0; row < 10; ++row) {
-        if (BorrowLegacyShopItemCF4FE0(10 * hitPage + row)[0] == 0) {
+        if (BorrowLegacyShopItemCF4FE0(10 * hitPage + row)->used == 0) {
             continue;
         }
         const std::int32_t top = gLegacyBuyPanel5823A0.y + 68 * (row % 5);
@@ -3606,8 +3606,8 @@ try {
     } else {
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::int32_t index = row + 10 * ReadLegacyBuyPageCC1A0C();
-            char* const item = BorrowLegacyShopItemCF4FE0(index);
-            if (item[0] == 0) {
+            auto* const item = BorrowLegacyShopItemCF4FE0(index);
+            if (item->used == 0) {
                 continue;
             }
             if ((QueryPanelButtonState(&increases[row]) & 0x40) != 0) {
@@ -3616,18 +3616,18 @@ try {
                 decreaseHovered = index;
             }
             if ((QueryPanelButtonState(&increases[row]) & 0x10) != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                const std::int32_t selected = item->selected;
                 if (selected < 20) {
                     const std::int32_t updated = selected + 1;
-                    std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                    std::memcpy(&item->selected, &updated, sizeof(updated));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
             } else if ((QueryPanelButtonState(&decreases[row]) & 0x10) != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                const std::int32_t selected = item->selected;
                 if (selected > 0) {
                     gLegacyBuyMessageD30414 = 0;
                     const std::int32_t updated = selected - 1;
-                    std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                    std::memcpy(&item->selected, &updated, sizeof(updated));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
             }
@@ -3653,23 +3653,23 @@ try {
     };
     std::wstring buffer;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(row + 10 * ReadLegacyBuyPageCC1A0C());
-        if (item[0] == 0) {
+        const auto* const item = BorrowLegacyShopItemCF4FE0(row + 10 * ReadLegacyBuyPageCC1A0C());
+        if (item->used == 0) {
             continue;
         }
         const std::int32_t dx = 176 * (row / 5);
         const std::int32_t dy = 68 * (row % 5);
-        const std::int32_t image = ReadRecordW32(item, 0xC20);
+        const std::int32_t image = item->imageNo;
         const std::int32_t top = gLegacyBuyPanel5823A0.y + dy + 116;
         const std::int32_t left = gLegacyBuyPanel5823A0.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
-        const std::int8_t priceColor = item[0xC3C] != 0 ? 0 : 4;
+        const std::int8_t priceColor = item->allowed != 0 ? 0 : 4;
         if (priceColor != 0) {
             drawAt(kLegacyBuyUnavailable588E20, dx + 21, dy + 123, 6);
         }
-        cg::text::FormatTo(buffer, L"{:7}", ReadRecordW32(item, 0xC24));
+        cg::text::FormatTo(buffer, L"{:7}", item->price);
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(item, 0xC28));
+        cg::text::FormatTo(buffer, L"{:2}", item->selected);
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -3711,10 +3711,10 @@ try {
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         hint = kLegacyBuyConfirm588E04;
     } else if (increaseHovered >= 0) {
-        hint = ReadRecordW32(BorrowLegacyShopItemCF4FE0(increaseHovered), 0xC28) < 20
+        hint = BorrowLegacyShopItemCF4FE0(increaseHovered)->selected < 20
             ? kLegacyBuyIncrease588DEC : kLegacyQuantityIncreaseLimit588ABC;
     } else if (decreaseHovered >= 0) {
-        hint = ReadRecordW32(BorrowLegacyShopItemCF4FE0(decreaseHovered), 0xC28) > 0
+        hint = BorrowLegacyShopItemCF4FE0(decreaseHovered)->selected > 0
             ? kLegacyBuyDecrease588DD4 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
@@ -3736,27 +3736,27 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     if (index < 0 || index >= 20) {
         return;
     }
-    const char* const item = BorrowLegacyShopItemCF4FE0(index);
-    if (item[0] == 0) {
+    const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+    if (item->used == 0) {
         return;
     }
     std::wstring title;
-    const std::int32_t count = ReadRecordW32(item, 0xC30);
+    const std::int32_t count = item->count;
     if (count <= 1) {
-        title = cg::text::FromGbkWide(item + 1);
+        title = cg::text::FromGbkWide(item->name.data());
     } else {
-        title = std::format(L"{}({})", cg::text::FromGbkWide(item + 1), count);
+        title = std::format(L"{}({})", cg::text::FromGbkWide(item->name.data()), count);
     }
-    const std::int32_t flags = ReadRecordW32(item, 0xC40);
-    Sub_504BA0(x, y, 272, 4, 0, title, cg::text::FromGbkWide(item + 0xC44), 0, 0,
+    const std::int32_t flags = item->flags;
+    Sub_504BA0(x, y, 272, 4, 0, title, cg::text::FromGbkWide(item->memo.data()), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     for (std::int32_t row = 0; row < 7; ++row) {
-        const char* const line = item + 0x1E + page * 768 + row * 96;
+        const char* const line = item->description[page * 8].data() + row * 96;
         if (std::strlen(line) != 0) {
             static_cast<void>(ui::detail::WindowItem_SplitTooltipLines(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
-    if (item[0xC3C] == 0 && mode == 0) {
+    if (item->allowed == 0 && mode == 0) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + 10),
             static_cast<std::int16_t>(y + 160), 4, 1, 4, kLegacyBuyUnavailableHint586BF4, 0, 0));
     }
@@ -3795,9 +3795,9 @@ try {
         buffer.clear();
         std::int32_t count = 0;
         for (std::int32_t index = 0; index < 20; ++index) {
-            const char* const item = BorrowLegacyShopItemCF4FE0(index);
-            if (item[0] != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+            const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+            if (item->used != 0) {
+                const std::int32_t selected = item->selected;
                 if (selected != 0) {
                     if (count > 0) {
                         buffer += L"|";
@@ -3829,15 +3829,15 @@ try {
     };
     std::int32_t shown = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(index);
-        if (item[0] != 0 && ReadRecordW32(item, 0xC28) != 0) {
+        const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+        if (item->used != 0 && item->selected != 0) {
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
             const std::int32_t nameX = gLegacyBuyConfirmPanel582468.x + dx + 24;
             const std::int32_t nameY = gLegacyBuyConfirmPanel582468.y + dy + 34;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(item + 1).c_str(), 0, 0));
-            cg::text::FormatTo(buffer, L"x{:2}", ReadRecordW32(item, 0xC28));
+                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(item->name.data()).c_str(), 0, 0));
+            cg::text::FormatTo(buffer, L"x{:2}", item->selected);
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
         }
@@ -3930,11 +3930,11 @@ try {
     std::int32_t total = 0;
     std::int32_t selectedSum = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(index);
-        if (item[0] != 0) {
-            const std::int32_t selected = ReadRecordW32(item, 0xC28);
+        const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+        if (item->used != 0) {
+            const std::int32_t selected = item->selected;
             selectedSum += selected;
-            const std::int32_t price = ReadRecordW32(item, 0xC24);
+            const std::int32_t price = item->price;
             total += price * selected;
         }
     }
@@ -3943,7 +3943,7 @@ try {
     std::int32_t hitPage = gLegacySellPageCF49FC;
     std::int32_t hovered = -1;
     for (std::int32_t row = 0; row < 10; ++row) {
-        if (BorrowLegacyShopItemCF4FE0(10 * hitPage + row)[0] == 0) {
+        if (BorrowLegacyShopItemCF4FE0(10 * hitPage + row)->used == 0) {
             continue;
         }
         const std::int32_t top = gLegacySellPanel582530.y + 68 * (row % 5);
@@ -3991,8 +3991,8 @@ try {
     } else {
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::int32_t index = row + 10 * gLegacySellPageCF49FC;
-            char* const item = BorrowLegacyShopItemCF4FE0(index);
-            if (item[0] == 0) {
+            auto* const item = BorrowLegacyShopItemCF4FE0(index);
+            if (item->used == 0) {
                 continue;
             }
             if ((QueryPanelButtonState(&increases[row]) & 0x40) != 0) {
@@ -4000,21 +4000,21 @@ try {
             } else if ((QueryPanelButtonState(&decreases[row]) & 0x40) != 0) {
                 decreaseHovered = index;
             }
-            if (item[0xC3C] == 0) {
+            if (item->allowed == 0) {
                 continue;
             }
             if ((QueryPanelButtonState(&increases[row]) & 0x10) != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
-                const std::int32_t maximum = ReadRecordW32(item, 0xC34);
+                const std::int32_t selected = item->selected;
+                const std::int32_t maximum = item->maximum;
                 if (selected < maximum) {
-                    const std::int32_t price = ReadRecordW32(item, 0xC24);
+                    const std::int32_t price = item->price;
                     const std::int32_t updated = selected + 1;
                     const std::int32_t amount = price * updated;
                     const std::int32_t gold = world::detail::ReadPlayerValueFC();
                     const std::int32_t currentTotal = gLegacySellTotalCF3FCC;
                     const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
                     if (amount + gold + currentTotal <= limit) {
-                        std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                        std::memcpy(&item->selected, &updated, sizeof(updated));
                         static_cast<void>(audio::PlaySe_52C450(51, 320));
                         gLegacySellLimitMessageCB0A88 = 0;
                     } else {
@@ -4023,10 +4023,10 @@ try {
                     }
                 }
             } else if ((QueryPanelButtonState(&decreases[row]) & 0x10) != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                const std::int32_t selected = item->selected;
                 if (selected > 0) {
                     const std::int32_t updated = selected - 1;
-                    std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                    std::memcpy(&item->selected, &updated, sizeof(updated));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                     gLegacySellLimitMessageCB0A88 = 0;
                 }
@@ -4053,21 +4053,21 @@ try {
     };
     std::wstring buffer;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(row + 10 * gLegacySellPageCF49FC);
-        if (item[0] == 0) {
+        const auto* const item = BorrowLegacyShopItemCF4FE0(row + 10 * gLegacySellPageCF49FC);
+        if (item->used == 0) {
             continue;
         }
         const std::int32_t dx = 176 * (row / 5);
         const std::int32_t dy = 68 * (row % 5);
-        const std::int32_t image = ReadRecordW32(item, 0xC20);
+        const std::int32_t image = item->imageNo;
         const std::int32_t top = gLegacySellPanel582530.y + dy + 116;
         const std::int32_t left = gLegacySellPanel582530.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
-        const std::int8_t priceColor = item[0xC3C] == 0 ? 6
-            : ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        cg::text::FormatTo(buffer, L"{:7}", ReadRecordW32(item, 0xC24));
+        const std::int8_t priceColor = item->allowed == 0 ? 6
+            : item->selected != 0 ? 0 : 7;
+        cg::text::FormatTo(buffer, L"{:7}", item->price);
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(item, 0xC28));
+        cg::text::FormatTo(buffer, L"{:2}", item->selected);
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4110,25 +4110,25 @@ try {
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         hint = kLegacySellConfirm588EA4;
     } else if (increaseHovered >= 0) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(increaseHovered);
-        hint = ReadRecordW32(item, 0xC28) < ReadRecordW32(item, 0xC34)
+        const auto* const item = BorrowLegacyShopItemCF4FE0(increaseHovered);
+        hint = item->selected < item->maximum
             ? kLegacySellIncrease588E8C : kLegacyQuantityIncreaseLimit588ABC;
     } else if (decreaseHovered >= 0) {
-        hint = ReadRecordW32(BorrowLegacyShopItemCF4FE0(decreaseHovered), 0xC28) > 0
+        hint = BorrowLegacyShopItemCF4FE0(decreaseHovered)->selected > 0
             ? kLegacySellDecrease588E74 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
         ui::detail::gHoverTextD68AE8 = hint;
     } else if (increaseHovered < 0 && decreaseHovered < 0) {
         // 原4DBC11先读取备注，再判悬停；越界路径沿RPLAN.24，不另加门禁。
-        const char* const item = BorrowLegacyShopItemCF4FE0(hovered + 10 * gLegacySellPageCF49FC);
-        if (std::strlen(item + 0xC44) != 0 && hovered >= 0) {
-            const std::int32_t flags = ReadRecordW32(item, 0xC40);
+        const auto* const item = BorrowLegacyShopItemCF4FE0(hovered + 10 * gLegacySellPageCF49FC);
+        if (std::strlen(item->memo.data()) != 0 && hovered >= 0) {
+            const std::int32_t flags = item->flags;
             if ((flags & 0x100) != 0) {
-                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->name.data());
                 ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else {
-                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC44);
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->memo.data());
                 ui::detail::gHoverTextD68AE8 += L"[han]";
             }
         }
@@ -4174,14 +4174,14 @@ try {
         buffer.clear();
         std::int32_t count = 0;
         for (std::int32_t index = 0; index < 20; ++index) {
-            const char* const item = BorrowLegacyShopItemCF4FE0(index);
-            if (item[0] != 0) {
-                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+            const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+            if (item->used != 0) {
+                const std::int32_t selected = item->selected;
                 if (selected != 0) {
                     if (count > 0) {
                         buffer += L"|";
                     }
-                    const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
+                    const std::int32_t inventoryIndex = item->inventoryIndex;
                     cg::text::FormatTo(entry, L"{}|{}", inventoryIndex, selected);
                     buffer += entry;
                     ++count;
@@ -4209,21 +4209,21 @@ try {
     };
     std::int32_t shown = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const item = BorrowLegacyShopItemCF4FE0(index);
-        if (item[0] == 0) {
+        const auto* const item = BorrowLegacyShopItemCF4FE0(index);
+        if (item->used == 0) {
             continue;
         }
-        const std::int32_t selected = ReadRecordW32(item, 0xC28);
+        const std::int32_t selected = item->selected;
         if (selected != 0) {
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
-            const std::int32_t flags = ReadRecordW32(item, 0xC40);
-            const char* const name = (flags & 0x100) != 0 ? item + 0xC44 : item + 1;
-            const std::int32_t count = ReadRecordW32(item, 0xC30);
+            const std::int32_t flags = item->flags;
+            const char* const name = (flags & 0x100) != 0 ? item->memo.data() : item->name.data();
+            const std::int32_t count = item->count;
             const std::int8_t color = (flags & 0x100) != 0 ? 5 : (flags & 0x200) != 0 ? 1 : 0;
             std::wstring itemText = cg::text::FromGbkWide(name);
             if (count > 1) {
-                const std::int32_t value = ReadRecordW32(item, 0xC38);
+                const std::int32_t value = item->valueC38;
                 itemText = std::format(kLegacySellQuantity588F28, itemText, value, selected);
             }
             // 原100H/200H分支借旧65坐标，普通分支才取旧66，不能统一改成本面板。
@@ -5953,13 +5953,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         static_cast<void>(ui::Sub_5042D0(gLegacyGiveReceiveQuantityPanel581BD0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    const char* const detail = ui::detail::gShopDetailCC3210.data();
-    const auto value = [detail](const std::size_t offset) { return ReadRecordW32(detail, offset); };
+    const auto* const detail = &ui::detail::gShopDetailCC3210;
+
     std::int32_t available = 0;
     if (ui::detail::gShopValueCAFEA4 == 0) {
-        available = value(0xC24);
+        available = detail->quantity;
     } else {
-        const std::int32_t itemId = value(0xC28);
+        const std::int32_t itemId = detail->itemId;
         for (const auto& item : world::detail::BorrowPlayerItemsFDA8A4()) {
             if (item.used != 0 && item.itemId == itemId) {
                 available += item.count;
@@ -5967,7 +5967,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         }
     }
     const std::int32_t hitY = gLegacyGiveReceiveQuantityPanel581BD0.y;
-    const std::int32_t price = value(0xC2C);
+    const std::int32_t price = detail->price;
     const std::int32_t total = price * ui::detail::gShopValueD046C4;
     const std::int32_t hitX = gLegacyGiveReceiveQuantityPanel581BD0.x;
     const bool hovered = Sub_5049A0(hitX + 20, hitY + 92, hitX + 67, hitY + 139, -1) != 0;
@@ -5987,8 +5987,8 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     } else if ((QueryPanelButtonState(&increase) & 0x10) != 0) {
         if (ui::detail::gShopValueCAFEA4 == 0) {
             const std::int32_t selected = ui::detail::gShopValueD046C4;
-            const std::int32_t capacity = value(0xC30);
-            const std::int32_t current = value(0xC34);
+            const std::int32_t capacity = detail->capacity;
+            const std::int32_t current = detail->valueC34;
             const std::int32_t remaining = available - selected;
             if (remaining > 0 && current + selected < capacity && selected < ui::detail::gQuantityLimit581C94) {
                 ui::detail::gShopValueD672D4 = 0;
@@ -6005,13 +6005,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
             }
         } else {
             const std::int32_t selected = ui::detail::gShopValueD046C4;
-            const std::int32_t quantity = value(0xC24);
+            const std::int32_t quantity = detail->quantity;
             if (selected >= quantity) {
                 ui::detail::gShopValueD672D4 = 1;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 ui::detail::gShopValueD046C4 = 0;
             } else {
-                const std::int32_t current = value(0xC34);
+                const std::int32_t current = detail->valueC34;
                 const std::int32_t money = world::detail::ReadPlayerValueFC();
                 const std::int32_t remaining = current - selected;
                 if (remaining > 0 && total < money && selected < ui::detail::gQuantityLimit581C94) {
@@ -6037,8 +6037,8 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-            const std::int32_t capacity = value(0xC30);
-            const std::int32_t current = value(0xC34);
+            const std::int32_t capacity = detail->capacity;
+            const std::int32_t current = detail->valueC34;
             std::int32_t amount = capacity - current;
             if (amount >= available) {
                 amount = available;
@@ -6067,12 +6067,12 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    const std::int32_t image = value(0xC20);
+    const std::int32_t image = detail->imageNo;
     const std::int32_t imageY = gLegacyGiveReceiveQuantityPanel581BD0.y + 116;
     const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
     static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:7}", value(0xC34));
+    cg::text::FormatTo(buffer, L"{:7}", detail->valueC34);
     drawAt(buffer, 87, 120, 0);
     cg::text::FormatTo(buffer, L"{:2}", ui::detail::gShopValueD046C4);
     drawAt(buffer, 82, 92, 0);
@@ -6087,7 +6087,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         const std::int32_t group = ui::detail::gShopValueD672D4;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
+    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gShopValueCAFEA4 != 0 ? available : detail->quantity);
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
     cg::text::FormatTo(buffer, L"{:7}", ui::detail::gShopValueD046C4);
@@ -6124,13 +6124,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         bool canIncrease = false;
         if (mode == 0) {
             if (available - selected > 0) {
-                const std::int32_t current = value(0xC34);
-                const std::int32_t capacity = value(0xC30);
+                const std::int32_t current = detail->valueC34;
+                const std::int32_t capacity = detail->capacity;
                 canIncrease = current + selected < capacity && selected < ui::detail::gQuantityLimit581C94;
             }
             hint = canIncrease ? kLegacyGiveIncrease588ACC : kLegacyQuantityIncreaseLimit588ABC;
         } else {
-            canIncrease = selected < value(0xC24) && value(0xC34) - selected > 0
+            canIncrease = selected < detail->quantity && detail->valueC34 - selected > 0
                 && total < world::detail::ReadPlayerValueFC() && selected < ui::detail::gQuantityLimit581C94;
             hint = canIncrease ? kLegacyReceiveIncrease588AA8 : kLegacyQuantityIncreaseLimit588ABC;
         }
@@ -6147,11 +6147,11 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
 // 原函数：0x004D61E0。
 std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
-    const char* const name = ui::detail::gShopDetailCC3210.data();
+    const char* const name = ui::detail::gShopDetailCC3210.name.data();
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
         static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
-    const char* const description = ui::detail::gShopDetailCC3210.data() + 0x1D + 768 * page;
+    const char* const description = ui::detail::gShopDetailCC3210.description[page * 8].data();
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = description + 96 * row;
         if (std::strlen(line) != 0) {
@@ -6214,7 +6214,7 @@ try {
     const wchar_t* const format = ui::detail::gShopValueCAFEA4 != 0
         ? kLegacyGiveConfirmReceiveFormat588B40 : kLegacyGiveConfirmGiveFormat588B60;
     const std::int32_t amount = ui::detail::gShopValueD046C4;
-    cg::text::FormatTo(description, format, cg::text::FromGbkWide(ui::detail::gShopDetailCC3210.data()).c_str(), amount);
+    cg::text::FormatTo(description, format, cg::text::FromGbkWide(ui::detail::gShopDetailCC3210.name.data()).c_str(), amount);
     buffer.assign(1, L'\x01'); // 原D01/P05：格式化后、首门禁前写非空哨兵。
     for (std::int32_t row = 0; !buffer.empty(); ++row) {
         static_cast<void>(input::ExtractTextLine(buffer, description, row, 46));

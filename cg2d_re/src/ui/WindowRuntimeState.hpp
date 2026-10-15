@@ -728,12 +728,12 @@ extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64
 extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
 std::int32_t WindowBank_ReadSide() noexcept; // 旧72借读既有存放模式，不复制私有状态。
 const std::byte* WindowMessageBoard_BorrowRecords() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
-extern std::array<char, 20 * 0xC58> gShopItemsCF4FE0; // 原全局：0x00CF4FE0。 买卖共用原字节记录，字段见窗口53 SPEC。
+extern std::array<WindowShopItem, 20> gShopItemsCF4FE0; // 原全局：0x00CF4FE0。 买卖共用商品记录，布局见窗口53 SPEC。
 extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopImageD2DAD0; // 原全局：0x00D2DAD0。
 extern std::int32_t gValueD2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
 extern std::array<char, 32> gShopTextCB0184; // 原全局：0x00CB0184。 模式2字段7反转义结果，不套商品名回退。
-extern std::array<char, 0xC38> gShopDetailCC3210; // 原全局：0x00CC3210。 名称/32行说明/六W32同源，见窗口53 SPEC。
+extern WindowShopDetail gShopDetailCC3210; // 原全局：0x00CC3210。 名称/32行说明/六W32同源，见窗口53 SPEC。
 extern std::int32_t gShopValueCAFEA4; // 原全局：0x00CAFEA4。
 extern std::int32_t gShopValueD046C4; // 原全局：0x00D046C4。
 extern std::int32_t gShopValueD672D4; // 原全局：0x00D672D4。

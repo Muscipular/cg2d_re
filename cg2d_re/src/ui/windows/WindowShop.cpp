@@ -409,7 +409,7 @@ static void WindowShop_HandleSaleDrag(
         return;
     }
     std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
-    if (gShopItemsCF4FE0[item * 0xC58] == 0) {
+    if (gShopItemsCF4FE0[item].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
     if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
@@ -426,7 +426,7 @@ static void WindowShop_HandleSaleDrag(
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
     std::int32_t imageNo;
-    std::memcpy(&imageNo, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC20, sizeof(imageNo));
+    std::memcpy(&imageNo, &gShopItemsCF4FE0[item].imageNo, sizeof(imageNo));
     const std::int32_t y =
         platform::BorrowLegacyMouseStateStorage()->mouseY.value();
     const std::int32_t x =
@@ -449,12 +449,12 @@ static void WindowShop_RemoveSaleSelection()
     }
     std::int32_t source = WindowDrag_ReadSourceIndex();
     std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
-    WindowTrade_WriteValue(gShopItemsCF4FE0.data() + item * 0xC58, 0xC28, std::int32_t{0});
+    gShopItemsCF4FE0[item].selected = std::int32_t{0};
     source = WindowDrag_ReadSourceIndex();
     item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
     const auto selectedMask = static_cast<std::uint32_t>(gShopValueCF467C);
     std::int32_t inventoryIndex;
-    std::memcpy(&inventoryIndex, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC2C, sizeof(inventoryIndex));
+    std::memcpy(&inventoryIndex, &gShopItemsCF4FE0[item].inventoryIndex, sizeof(inventoryIndex));
     gShopValueCF467C = std::bit_cast<std::int32_t>(selectedMask & ~(1u << (inventoryIndex - 8)));
     source = WindowDrag_ReadSourceIndex();
     std::int32_t position = gShopScrollCC488C;
@@ -511,30 +511,30 @@ login::YobiAction* WindowShop_OpenBuy(const char* const text)
         }
     }
     gShopItemCountCB1E10 = 0;
-    gShopItemsCF4FE0.fill(0);
+    gShopItemsCF4FE0.fill({});
     std::int32_t field = 6;
     for (std::int32_t index = 0; index < 20; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
-        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        record[0] = 1;
+        auto* const record = &gShopItemsCF4FE0[index];
+        record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
-        WindowTrade_WriteValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record + 0x1E + row * 96;
+            char* const line = record->description[row].data();
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
         }
-        record[0xC3C] = static_cast<char>(
+        record->allowed = static_cast<char>(
             network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC34, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        record->maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         ++gShopItemCountCB1E10;
     }
     const std::int32_t dialogType = world::detail::gValue581800;
@@ -565,50 +565,50 @@ login::YobiAction* WindowShop_OpenSell(const char* const text)
     gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopReplyItemCountCF4B58 = 0;
     gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
-    gShopItemsCF4FE0.fill(0);
+    gShopItemsCF4FE0.fill({});
     std::int32_t field = 4;
     for (std::int32_t index = 0; index < 20; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
-        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        record[0] = 1;
+        auto* const record = &gShopItemsCF4FE0[index];
+        record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
-        WindowTrade_WriteValue(record, 0xC30, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC2C, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->count = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->inventoryIndex = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->flags = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) != 0) {
-            std::strcpy(record + 0xC44, buffer.data());
+            std::strcpy(record->memo.data(), buffer.data());
         }
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 20; ++row) {
-            char* const line = record + 0x1E + row * 96;
+            char* const line = record->description[row].data();
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
         }
         const auto value = static_cast<std::uint8_t>(
             network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        record[0xC3C] = std::bit_cast<char>(value);
-        WindowTrade_WriteValue(record, 0xC34, static_cast<std::int32_t>(std::bit_cast<std::int8_t>(value)));
-        WindowTrade_WriteValue(record, 0xC38, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        record->allowed = std::bit_cast<char>(value);
+        record->maximum = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(value));
+        record->valueC38 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         ++gShopReplyItemCountCF4B58;
     }
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
         for (; index < 20; ++index) {
-            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-            if (record[0] != 0) {
+            const auto* const record = &gShopItemsCF4FE0[index];
+            if (record->used != 0) {
                 std::int32_t inventoryIndex;
-                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                std::memcpy(&inventoryIndex, &record->inventoryIndex, sizeof(inventoryIndex));
                 if (inventoryIndex == slot + 8) {
                     break;
                 }
@@ -659,31 +659,31 @@ login::YobiAction* WindowShop_OpenExchange(const char* const text)
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         text, '|', 7, 28, gShopTextCB0184.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(gShopTextCB0184.data());
-    gShopItemsCF4FE0.fill(0);
+    gShopItemsCF4FE0.fill({});
     gShopItemCountCB1E10 = 0;
     std::int32_t field = 8;
     for (std::int32_t index = 0; index < 20; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
-        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        record[0] = 1;
-        record[0xC3C] = 1;
+        auto* const record = &gShopItemsCF4FE0[index];
+        record->used = 1;
+        record->allowed = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
-        WindowTrade_WriteValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         const std::int32_t maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        WindowTrade_WriteValue(record, 0xC34, maximum);
+        record->maximum = maximum;
         if (maximum <= 0) {
-            WindowTrade_WriteValue(record, 0xC34, std::int32_t{1});
+            record->maximum = std::int32_t{1};
         }
-        WindowTrade_WriteValue(record, 0xC30, std::int32_t{0});
+        record->count = std::int32_t{0};
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record + 0x1E + row * 96;
+            char* const line = record->description[row].data();
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
@@ -703,7 +703,7 @@ login::YobiAction* WindowShop_OpenItemDetails(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894[20] = 3;
-    gShopDetailCC3210.fill(0);
+    std::memset(&gShopDetailCC3210, 0, sizeof(gShopDetailCC3210));
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -720,26 +720,26 @@ login::YobiAction* WindowShop_OpenItemDetails(const char* const text)
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
-    char* const detail = gShopDetailCC3210.data();
-    WindowTrade_WriteValue(detail, 0xC2C, network::ParseDelimitedInteger_52CFA0(text, '|', 8));
-    WindowTrade_WriteValue(detail, 0xC28, network::ParseDelimitedInteger_52CFA0(text, '|', 9));
+    auto* const detail = &gShopDetailCC3210;
+    detail->price = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
+    detail->itemId = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 10, 768, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    std::strncpy(detail, std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), static_cast<std::uint32_t>(29));
+    std::strncpy(detail->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), static_cast<std::uint32_t>(29));
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 11, 767, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 32; ++row) {
-        char* const line = detail + 0x1D + row * 96;
+        char* const line = detail->description[row].data();
         if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
             line[0] = '\0';
         }
     }
-    WindowTrade_WriteValue(detail, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', 12));
-    WindowTrade_WriteValue(detail, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', 13));
-    WindowTrade_WriteValue(detail, 0xC30, network::ParseDelimitedInteger_52CFA0(text, '|', 14));
-    WindowTrade_WriteValue(detail, 0xC34, network::ParseDelimitedInteger_52CFA0(text, '|', 15));
+    detail->quantity = network::ParseDelimitedInteger_52CFA0(text, '|', 12);
+    detail->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 13);
+    detail->capacity = network::ParseDelimitedInteger_52CFA0(text, '|', 14);
+    detail->valueC34 = network::ParseDelimitedInteger_52CFA0(text, '|', 15);
     std::int32_t value;
-    std::memcpy(&value, detail + 0xC28, sizeof(value));
+    std::memcpy(&value, &detail->itemId, sizeof(value));
     gShopValueD046C4 = 0;
     gValueD2D608 = value;
     gShopValueD672D4 = 0;
@@ -772,33 +772,33 @@ static login::YobiAction* WindowShop_CreateService(
     gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopReplyItemCountCF4B58 = 0;
     gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
-    gShopItemsCF4FE0.fill(0);
+    gShopItemsCF4FE0.fill({});
     std::int32_t field = 3;
     for (std::int32_t index = 0; index < 20; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
-        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        record[0] = 1;
+        auto* const record = &gShopItemsCF4FE0[index];
+        record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
-        WindowTrade_WriteValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC2C, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
-        WindowTrade_WriteValue(record, 0xC34, std::int32_t{1});
-        record[0xC3C] = 1;
+        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->inventoryIndex = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->flags = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record->maximum = std::int32_t{1};
+        record->allowed = 1;
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) != 0) {
-            std::strcpy(record + 0xC44, buffer.data());
+            std::strcpy(record->memo.data(), buffer.data());
         }
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record + 0x1E + row * 96;
+            char* const line = record->description[row].data();
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
@@ -808,10 +808,10 @@ static login::YobiAction* WindowShop_CreateService(
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
         for (; index < 20; ++index) {
-            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-            if (record[0] != 0) {
+            const auto* const record = &gShopItemsCF4FE0[index];
+            if (record->used != 0) {
                 std::int32_t inventoryIndex;
-                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                std::memcpy(&inventoryIndex, &record->inventoryIndex, sizeof(inventoryIndex));
                 if (inventoryIndex == slot + 8) {
                     break;
                 }
@@ -827,7 +827,7 @@ static login::YobiAction* WindowShop_CreateService(
         }
     }
     std::int32_t value;
-    std::memcpy(&value, gShopDetailCC3210.data() + 0xC28, sizeof(value));
+    std::memcpy(&value, &gShopDetailCC3210.itemId, sizeof(value));
     WindowTrade_WriteValue(gShopSelectedSlotsCB03DC.data(), 0, std::int32_t{-1});
     gShopValueCF467C = 0;
     WindowTrade_WriteValue(gShopSelectedSlotsCB03DC.data(), 4, std::int32_t{-1});
@@ -868,43 +868,43 @@ static void WindowShop_RefreshBuyRows()
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
-        const char* record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-        if (record[0] == 0) {
+        const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+        if (record->used == 0) {
             continue;
         }
         std::int32_t price;
-        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
             gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
-        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         std::uint32_t flags;
-        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record + 0xC44);
+            buffer = cg::text::FromGbkWide(record->memo.data());
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
-            std::memcpy(&count, record + 0xC30, sizeof(count));
+            std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record + 1);
+                buffer = cg::text::FromGbkWide(record->name.data());
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record + 1).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
             }
-            record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+            std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
-        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-        if (record[0xC3C] != 0) {
+        record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+        if (record->allowed != 0) {
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
         } else {
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 4;
@@ -923,10 +923,10 @@ static void WindowShop_RefreshBuyQuantities()
         const std::int32_t scroll = gShopScrollCC488C;
         std::wstring& text = gShopCountTextsD2D988[row];
         text.clear();
-        const char* const record = gShopItemsCF4FE0.data() + (scroll + row) * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[scroll + row];
+        if (record->used != 0) {
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             cg::text::FormatTo(text, L"{:2}", selected);
         }
     }
@@ -938,12 +938,12 @@ static void WindowShop_RefreshBuyAmount()
     std::int32_t total = 0;
     gShopTotalD2DAFC = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[index];
+        if (record->used != 0) {
             std::int32_t selected;
             std::int32_t price;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
+            std::memcpy(&price, &record->price, sizeof(price));
             total += price * selected;
         }
     }
@@ -961,12 +961,12 @@ static void WindowShop_CountBuySlots()
     std::int32_t total = 0;
     gShopValueC8AF74 = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[index];
+        if (record->used != 0) {
             std::int32_t divisor;
             std::int32_t selected;
-            std::memcpy(&divisor, record + 0xC34, sizeof(divisor));
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&divisor, &record->maximum, sizeof(divisor));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (divisor <= 0) {
                 divisor = 2;
             }
@@ -991,45 +991,45 @@ static void WindowShop_RefreshSellRows()
         if (index < 0) {
             continue;
         }
-        const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+        const auto* record = &gShopItemsCF4FE0[index];
         std::int32_t price;
-        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
             gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
-        record = gShopItemsCF4FE0.data() + index * 0xC58;
+        record = &gShopItemsCF4FE0[index];
         std::uint32_t flags;
-        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record + 0xC44);
+            buffer = cg::text::FromGbkWide(record->memo.data());
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
-            std::memcpy(&count, record + 0xC30, sizeof(count));
+            std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record + 1);
+                buffer = cg::text::FromGbkWide(record->name.data());
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record + 1).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
             }
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
-            record = gShopItemsCF4FE0.data() + index * 0xC58;
-            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            record = &gShopItemsCF4FE0[index];
+            std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
-        record = gShopItemsCF4FE0.data() + index * 0xC58;
-        if (record[0xC3C] != 0) {
+        record = &gShopItemsCF4FE0[index];
+        if (record->allowed != 0) {
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color =
                 selected != 0 ? 0 : 7;
         } else {
@@ -1053,14 +1053,14 @@ static void WindowShop_RefreshSellQuantities()
         std::int32_t index = std::bit_cast<std::int8_t>(
             gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         if (index >= 0) {
-            const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+            const auto* record = &gShopItemsCF4FE0[index];
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             cg::text::FormatTo(text, L"{:2}", selected);
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
-            record = gShopItemsCF4FE0.data() + index * 0xC58;
+            record = &gShopItemsCF4FE0[index];
             std::int32_t maximum;
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             if (maximum > 1) {
                 gCurrentWindow->elements[row + 42].visible = 1;
                 gCurrentWindow->elements[row + 47].visible = 1;
@@ -1077,11 +1077,11 @@ static void WindowShop_RefreshSellAmount()
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         const std::int32_t index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
         if (index >= 0) {
-            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            const auto* const record = &gShopItemsCF4FE0[index];
             std::int32_t price;
             std::int32_t selected;
-            std::memcpy(&price, record + 0xC24, sizeof(price));
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&price, &record->price, sizeof(price));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             total += price * selected;
         }
     }
@@ -1098,9 +1098,9 @@ static void WindowShop_CountSellItems()
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         const std::int32_t index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
         if (index >= 0) {
-            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            const auto* const record = &gShopItemsCF4FE0[index];
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             total += selected;
         }
     }
@@ -1117,44 +1117,44 @@ static void WindowShop_RefreshExchangeRows()
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
-        const char* record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-        if (record[0] == 0) {
+        const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+        if (record->used == 0) {
             continue;
         }
         std::int32_t price;
-        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
             gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
-        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         std::uint32_t flags;
-        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record + 0xC44);
+            buffer = cg::text::FromGbkWide(record->memo.data());
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
-            std::memcpy(&count, record + 0xC30, sizeof(count));
+            std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record + 1);
+                buffer = cg::text::FromGbkWide(record->name.data());
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record + 1).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
             }
-            record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+            std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
-        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         const std::int32_t available = gShopAvailableCF4A24;
-        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::memcpy(&price, &record->price, sizeof(price));
         const std::int32_t total = gShopTotalD2DAFC;
         if (available >= price + total) {
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
@@ -1176,10 +1176,10 @@ static void WindowShop_RefreshExchangeQuantities()
         text.clear();
         gCurrentWindow->elements[row + 42].visible = 0;
         gCurrentWindow->elements[row + 47].visible = 0;
-        const char* const record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
+        if (record->used != 0) {
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             cg::text::FormatTo(text, L"{:2}", selected);
             gCurrentWindow->elements[row + 42].visible = 1;
             gCurrentWindow->elements[row + 47].visible = 1;
@@ -1193,12 +1193,12 @@ static void WindowShop_RefreshExchangeAmount()
     std::int32_t total = 0;
     gShopTotalD2DAFC = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[index];
+        if (record->used != 0) {
             std::int32_t selected;
             std::int32_t price;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
+            std::memcpy(&price, &record->price, sizeof(price));
             total += price * selected;
         }
     }
@@ -1212,10 +1212,10 @@ static void WindowShop_CountExchangeItems()
     std::int32_t total = 0;
     gShopValueC8AF74 = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-        if (record[0] != 0) {
+        const auto* const record = &gShopItemsCF4FE0[index];
+        if (record->used != 0) {
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             total += selected;
         }
     }
@@ -1226,10 +1226,10 @@ static void WindowShop_CountExchangeItems()
 static void WindowShop_RefreshDetailName()
 {
     std::int32_t price;
-    std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
+    std::memcpy(&price, &gShopDetailCC3210.valueC34, sizeof(price));
     cg::text::FormatTo(gShopPriceTextsD673EC[0], L"{:10}", price);
     WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[17].data),
-        static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), cg::text::FromGbkWide(gShopDetailCC3210.data()));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), cg::text::FromGbkWide(gShopDetailCC3210.name.data()));
 }
 
 // 原函数：0x004B9270。
@@ -1238,7 +1238,7 @@ static void WindowShop_RefreshDetailAmount()
     cg::text::FormatTo(gShopCountTextsD2D988[0], L"{:2}", gShopValueD046C4);
     cg::text::FormatTo(gShopValueTextCF4A28, L"{:10}", gShopValueD046C4);
     std::int32_t price;
-    std::memcpy(&price, gShopDetailCC3210.data() + 0xC2C, sizeof(price));
+    std::memcpy(&price, &gShopDetailCC3210.price, sizeof(price));
     gShopTotalD2DAFC = price * gShopValueD046C4;
 }
 
@@ -1248,11 +1248,11 @@ static void WindowShop_CountDetailItems()
     const std::int32_t mode = gShopValueCAFEA4;
     gShopValueC8AF74 = 0;
     if (mode == 0) {
-        std::memcpy(&gShopValueC8AF74, gShopDetailCC3210.data() + 0xC24, sizeof(gShopValueC8AF74));
+        std::memcpy(&gShopValueC8AF74, &gShopDetailCC3210.quantity, sizeof(gShopValueC8AF74));
         return;
     }
     std::int32_t itemId;
-    std::memcpy(&itemId, gShopDetailCC3210.data() + 0xC28, sizeof(itemId));
+    std::memcpy(&itemId, &gShopDetailCC3210.itemId, sizeof(itemId));
     std::int32_t total = 0;
     for (const world::detail::PlayerItemRecord& record : world::detail::BorrowPlayerItemsFDA8A4()) {
         if (record.used != 0 && record.itemId == itemId) {
@@ -1440,7 +1440,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         if (gShopValueCAFEA4 != 0) {
             amount = gShopValueC8AF74;
         } else {
-            std::memcpy(&amount, gShopDetailCC3210.data() + 0xC24, sizeof(amount));
+            std::memcpy(&amount, &gShopDetailCC3210.quantity, sizeof(amount));
         }
         cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", amount);
     }
@@ -1466,12 +1466,12 @@ static void WindowShop_Submit(const std::int32_t selection)
         text.clear();
         std::int32_t count = 0;
         for (std::int32_t index = 0; index < 20; ++index) {
-            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
-            if (record[0] == 0) {
+            const auto* const record = &gShopItemsCF4FE0[index];
+            if (record->used == 0) {
                 continue;
             }
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected == 0) {
                 continue;
             }
@@ -1480,12 +1480,12 @@ static void WindowShop_Submit(const std::int32_t selection)
             }
             if (mode == 4 || mode == 5) {
                 std::int32_t inventoryIndex;
-                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                std::memcpy(&inventoryIndex, &record->inventoryIndex, sizeof(inventoryIndex));
                 cg::text::FormatTo(fragment, L"{}", inventoryIndex);
             } else {
                 std::int32_t itemIndex = index;
                 if (mode == 1) {
-                    std::memcpy(&itemIndex, record + 0xC2C, sizeof(itemIndex));
+                    std::memcpy(&itemIndex, &record->inventoryIndex, sizeof(itemIndex));
                 }
                 cg::text::FormatTo(fragment, L"{}|{}", itemIndex, selected);
             }
@@ -1546,20 +1546,20 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
             gConfirmationCallbackC8B088 = &WindowShop_Submit;
             std::int32_t count = 0;
             for (std::int32_t item = 0; item < 20; ++item) {
-                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-                if (record[0] == 0) {
+                const auto* const record = &gShopItemsCF4FE0[item];
+                if (record->used == 0) {
                     continue;
                 }
                 std::int32_t quantity;
-                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                std::memcpy(&quantity, &record->selected, sizeof(quantity));
                 if (quantity == 0) {
                     continue;
                 }
                 WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
                 preview.visible = 1;
-                std::strcpy(preview.name.data(), record + 1);
+                std::strcpy(preview.name.data(), record->name.data());
                 std::int32_t imageNo;
-                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+                std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
                 preview.color = 0;
                 preview.imageNo = imageNo;
                 preview.quantity = quantity;
@@ -1610,27 +1610,27 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                 }
                 WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
                 preview.visible = 1;
-                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                const auto* const record = &gShopItemsCF4FE0[item];
                 std::uint32_t flags;
-                std::memcpy(&flags, record + 0xC40, sizeof(flags));
+                std::memcpy(&flags, &record->flags, sizeof(flags));
                 if ((flags & 0x100u) != 0) {
-                    std::strcpy(preview.name.data(), record + 0xC44);
+                    std::strcpy(preview.name.data(), record->memo.data());
                     preview.color = 5;
                 } else {
-                    std::strcpy(preview.name.data(), record + 1);
+                    std::strcpy(preview.name.data(), record->name.data());
                     preview.color = (flags & 0x200u) != 0 ? 1 : 0;
                 }
                 std::int32_t imageNo;
                 std::int32_t quantity;
-                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
-                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
+                std::memcpy(&quantity, &record->selected, sizeof(quantity));
                 preview.imageNo = imageNo;
                 preview.quantity = quantity;
                 std::int32_t itemCount;
-                std::memcpy(&itemCount, record + 0xC30, sizeof(itemCount));
+                std::memcpy(&itemCount, &record->count, sizeof(itemCount));
                 preview.factor = 0;
                 if (itemCount > 1) {
-                    std::memcpy(&preview.factor, record + 0xC38, sizeof(preview.factor));
+                    std::memcpy(&preview.factor, &record->valueC38, sizeof(preview.factor));
                 }
                 ++count;
             }
@@ -1655,11 +1655,11 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
         case 3: {
             WindowConfirmationItem& preview = gConfirmationItemsCB1E40[0];
             preview.visible = 1;
-            const std::size_t length = std::strlen(gShopDetailCC3210.data()) + 1;
+            const std::size_t length = std::strlen(gShopDetailCC3210.name.data()) + 1;
             gConfirmationCallbackC8B088 = &WindowShop_Submit;
-            std::memcpy(preview.name.data(), gShopDetailCC3210.data(), length);
+            std::memcpy(preview.name.data(), gShopDetailCC3210.name.data(), length);
             std::int32_t imageNo;
-            std::memcpy(&imageNo, gShopDetailCC3210.data() + 0xC20, sizeof(imageNo));
+            std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
             preview.color = 0;
             preview.imageNo = imageNo;
             const std::int32_t quantity = gShopValueD046C4;
@@ -1691,7 +1691,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
             }
             gConfirmationCallbackC8B088 = &WindowShop_Submit;
             std::int32_t count = 0;
-            const char* flagsRecord = gShopItemsCF4FE0.data();
+            const auto* flagsRecord = &gShopItemsCF4FE0[0];
             for (std::int32_t slot = 0; slot < 20; ++slot) {
                 const auto item = static_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
                 if (item < 0) {
@@ -1699,23 +1699,23 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                 }
                 WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
                 preview.visible = 1;
-                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-                std::strcpy(preview.name.data(), record + 1);
+                const auto* const record = &gShopItemsCF4FE0[item];
+                std::strcpy(preview.name.data(), record->name.data());
                 preview.color = 0;
                 // 原flags来源按紧凑显示项推进，不跟随选择槽映射。
                 std::uint32_t flags;
-                std::memcpy(&flags, flagsRecord + 0xC40, sizeof(flags));
+                std::memcpy(&flags, &flagsRecord->flags, sizeof(flags));
                 if ((flags & 0x200u) != 0) {
                     preview.color = 1;
                 }
                 std::int32_t imageNo;
                 std::int32_t quantity;
-                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
-                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
+                std::memcpy(&quantity, &record->selected, sizeof(quantity));
                 preview.imageNo = imageNo;
                 preview.quantity = quantity;
                 preview.factor = 0;
-                flagsRecord += 0xC58;
+                ++flagsRecord;
                 ++count;
             }
             for (; count < 20; ++count) {
@@ -1827,7 +1827,7 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
                 // 原D052FC对应description[30][72]；旧行最多32B，此零初值尾字节没有写入者。
                 allowed = 0;
             } else {
-                allowed = static_cast<std::uint8_t>(gShopItemsCF4FE0[item * 0xC58 + 0xC3C]);
+                allowed = static_cast<std::uint8_t>(gShopItemsCF4FE0[item].allowed);
             }
             if (allowed != 0) {
                 available = true;
@@ -1874,8 +1874,8 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
             const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
             if (item >= 0 && item < 20
                 && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
-                char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-                if (record[0xC3C] != 0) {
+                auto* const record = &gShopItemsCF4FE0[item];
+                if (record->allowed != 0) {
                     std::int32_t slot = 0;
                     while (slot < 20 && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]) >= 0) {
                         ++slot;
@@ -1884,7 +1884,7 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
                         bool exceedsLimit = false;
                         if (gMaterialOccupancyCC4894[20] == 1) {
                             std::int32_t amount;
-                            std::memcpy(&amount, record + 0xC24, sizeof(amount));
+                            std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
                             amount += world::detail::ReadPlayerValueFC();
                             exceedsLimit = amount > world::detail::ReadPlayerValue15BD0(0);
@@ -1895,10 +1895,10 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
                         } else {
                             gShopSelectedSlotsCB03DC[slot] = static_cast<char>(item);
                             std::int32_t maximumCount;
-                            std::memcpy(&maximumCount, record + 0xC34, sizeof(maximumCount));
-                            WindowTrade_WriteValue(record, 0xC28, maximumCount);
+                            std::memcpy(&maximumCount, &record->maximum, sizeof(maximumCount));
+                            record->selected = maximumCount;
                             if (maximumCount <= 0) {
-                                WindowTrade_WriteValue(record, 0xC28, std::int32_t{1});
+                                record->selected = std::int32_t{1};
                             }
                             const auto mask = static_cast<std::uint32_t>(gShopValueCF467C);
                             WindowInstance* const window = gCurrentWindow;
@@ -1959,8 +1959,8 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
             const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
             if (item >= 0 && item < 20
                 && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
-                char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-                if (record[0xC3C] != 0) {
+                auto* const record = &gShopItemsCF4FE0[item];
+                if (record->allowed != 0) {
                     std::int32_t slot = 0;
                     while (slot < 20 && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]) >= 0) {
                         ++slot;
@@ -1969,7 +1969,7 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
                         bool exceedsLimit = false;
                         if (gMaterialOccupancyCC4894[20] == 1) {
                             std::int32_t amount;
-                            std::memcpy(&amount, record + 0xC24, sizeof(amount));
+                            std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
                             amount += world::detail::ReadPlayerValueFC();
                             exceedsLimit = amount > world::detail::ReadPlayerValue15BD0(0);
@@ -1980,10 +1980,10 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
                         } else {
                             gShopSelectedSlotsCB03DC[slot] = static_cast<char>(item);
                             std::int32_t maximumCount;
-                            std::memcpy(&maximumCount, record + 0xC34, sizeof(maximumCount));
-                            WindowTrade_WriteValue(record, 0xC28, maximumCount);
+                            std::memcpy(&maximumCount, &record->maximum, sizeof(maximumCount));
+                            record->selected = maximumCount;
                             if (maximumCount <= 0) {
-                                WindowTrade_WriteValue(record, 0xC28, std::int32_t{1});
+                                record->selected = std::int32_t{1};
                             }
                             const auto mask = static_cast<std::uint32_t>(gShopValueCF467C);
                             const std::int32_t position = gShopScrollCC488C;
@@ -2246,7 +2246,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
         case 0: {
             std::int32_t selected;
-            std::memcpy(&selected, gShopItemsCF4FE0.data() + row * 0xC58 + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &gShopItemsCF4FE0[row].selected, sizeof(selected));
             permitted = selected > 0;
             break;
         }
@@ -2255,20 +2255,20 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
         case 5: {
             const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
             std::int32_t selected;
-            std::memcpy(&selected, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &gShopItemsCF4FE0[item].selected, sizeof(selected));
             permitted = selected > 1;
             break;
         }
         case 2: {
-            const char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            const auto* const record = &gShopItemsCF4FE0[row];
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected <= 0) {
                 break;
             }
             std::int32_t remaining = gShopTotalD2DAFC;
             std::int32_t price;
-            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&price, &record->price, sizeof(price));
             std::int32_t itemId = gValueD2D608;
             remaining -= price;
             std::int32_t released = 0;
@@ -2285,7 +2285,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             std::int32_t available = released + world::detail::Sub_518C60();
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
-                std::memcpy(&count, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC30, sizeof(count));
+                std::memcpy(&count, &gShopItemsCF4FE0[item].count, sizeof(count));
                 available -= count;
             }
             if (available >= 0) {
@@ -2293,9 +2293,9 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
                 permitted = 1;
                 break;
             }
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             std::int32_t maximum;
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             std::int32_t candidate = selected % maximum;
             if (candidate == 0) {
                 candidate = maximum;
@@ -2303,7 +2303,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             if (selected < candidate) {
                 break;
             }
-            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&price, &record->price, sizeof(price));
             remaining = gShopTotalD2DAFC;
             const std::int32_t cost = price * candidate;
             itemId = gValueD2D608;
@@ -2323,14 +2323,14 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             std::int32_t occupied = 0;
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
-                std::memcpy(&count, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC30, sizeof(count));
+                std::memcpy(&count, &gShopItemsCF4FE0[item].count, sizeof(count));
                 occupied += count;
             }
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             const std::int32_t adjusted = (selected - candidate + maximum - 1) / maximum;
             std::int32_t count;
-            std::memcpy(&count, record + 0xC30, sizeof(count));
+            std::memcpy(&count, &record->count, sizeof(count));
             if (available >= adjusted - count + occupied) {
                 decrement = candidate;
                 permitted = 1;
@@ -2370,11 +2370,11 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
         case 0: {
-            char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            auto* const record = &gShopItemsCF4FE0[row];
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected > 0) {
-                WindowTrade_WriteValue(record, 0xC28, selected - 1);
+                record->selected = selected - 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2389,11 +2389,11 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
         case 4:
         case 5: {
             const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
-            char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+            auto* const record = &gShopItemsCF4FE0[item];
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected > 1) {
-                WindowTrade_WriteValue(record, 0xC28, selected - 1);
+                record->selected = selected - 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2406,14 +2406,14 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
         }
         case 2:
             if (permitted != 0) {
-                char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+                auto* const record = &gShopItemsCF4FE0[row];
                 std::int32_t selected;
-                std::memcpy(&selected, record + 0xC28, sizeof(selected));
+                std::memcpy(&selected, &record->selected, sizeof(selected));
                 selected -= decrement;
-                WindowTrade_WriteValue(record, 0xC28, selected);
+                record->selected = selected;
                 std::int32_t maximum;
-                std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
-                WindowTrade_WriteValue(record, 0xC30, (selected + maximum - 1) / maximum);
+                std::memcpy(&maximum, &record->maximum, sizeof(maximum));
+                record->count = (selected + maximum - 1) / maximum;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2434,8 +2434,8 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 std::int32_t capacity;
                 std::int32_t current;
-                std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
-                std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
+                std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
                 const std::int32_t available = gShopValueC8AF74;
                 std::int32_t amount = capacity - current;
                 if (amount >= available) {
@@ -2482,10 +2482,10 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
         permitted = 0;
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
         case 0: {
-            const char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
-            if (record[0] != 0) {
+            const auto* const record = &gShopItemsCF4FE0[row];
+            if (record->used != 0) {
                 std::int32_t selected;
-                std::memcpy(&selected, record + 0xC28, sizeof(selected));
+                std::memcpy(&selected, &record->selected, sizeof(selected));
                 permitted = selected < 20;
             }
             break;
@@ -2497,16 +2497,16 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             if (item < 0) {
                 break;
             }
-            const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+            const auto* const record = &gShopItemsCF4FE0[item];
             std::int32_t selected;
             std::int32_t maximum;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             permitted = selected < maximum;
             const std::int32_t total = gShopTotalD2DAFC;
             const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
             std::int32_t price;
-            std::memcpy(&price, gShopItemsCF4FE0.data() + row * 0xC58 + 0xC24, sizeof(price));
+            std::memcpy(&price, &gShopItemsCF4FE0[row].price, sizeof(price));
             const std::int32_t money = world::detail::ReadPlayerValueFC();
             if (price + total + money > limit) {
                 permitted = 0;
@@ -2514,12 +2514,12 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             break;
         }
         case 2: {
-            const char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
-            if (record[0] == 0) {
+            const auto* const record = &gShopItemsCF4FE0[row];
+            if (record->used == 0) {
                 break;
             }
             std::int32_t price;
-            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&price, &record->price, sizeof(price));
             const std::int32_t total = gShopTotalD2DAFC;
             message = -1;
             const std::int32_t cost = total + price;
@@ -2546,16 +2546,16 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             std::int32_t available = released + world::detail::Sub_518C60();
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
-                std::memcpy(&count, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC30, sizeof(count));
+                std::memcpy(&count, &gShopItemsCF4FE0[item].count, sizeof(count));
                 available -= count;
             }
             std::int32_t maximum;
             std::int32_t selected;
             std::int32_t occupied;
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             const std::int32_t numerator = selected + maximum;
-            std::memcpy(&occupied, record + 0xC30, sizeof(occupied));
+            std::memcpy(&occupied, &record->count, sizeof(occupied));
             if (numerator / maximum > occupied) {
                 --available;
             }
@@ -2570,7 +2570,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                 const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                 if (item.used != 0 && item.itemId == gValueD2D608) {
                     const std::int32_t count = item.count;
-                    std::memcpy(&price, record + 0xC24, sizeof(price));
+                    std::memcpy(&price, &record->price, sizeof(price));
                     std::int32_t candidate = (count - increment + price - 1) / price;
                     const std::int32_t currentTotal = gShopTotalD2DAFC;
                     ++candidate;
@@ -2601,8 +2601,8 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                     if (available - detailSelected > 0) {
                         std::int32_t current;
                         std::int32_t capacity;
-                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
-                        std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                        std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
                         if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
                             permitted = 1;
                         }
@@ -2611,10 +2611,10 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                     detailSelected = gShopValueD046C4;
                     detailSelectedRead = true;
                     std::int32_t quantity;
-                    std::memcpy(&quantity, gShopDetailCC3210.data() + 0xC24, sizeof(quantity));
+                    std::memcpy(&quantity, &gShopDetailCC3210.quantity, sizeof(quantity));
                     if (detailSelected < quantity) {
                         std::int32_t current;
-                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
                         if (current - detailSelected > 0) {
                             const std::int32_t total = gShopTotalD2DAFC;
                             const std::int32_t money = world::detail::ReadPlayerValueFC();
@@ -2661,14 +2661,14 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
         case 0: {
-            char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
-            if (record[0] == 0) {
+            auto* const record = &gShopItemsCF4FE0[row];
+            if (record->used == 0) {
                 break;
             }
             std::int32_t selected;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected < 20) {
-                WindowTrade_WriteValue(record, 0xC28, selected + 1);
+                record->selected = selected + 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2685,22 +2685,22 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             if (item < 0) {
                 break;
             }
-            char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+            auto* const record = &gShopItemsCF4FE0[item];
             std::int32_t selected;
             std::int32_t maximum;
-            std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&selected, &record->selected, sizeof(selected));
+            std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             bool canIncrease = false;
             if (selected < maximum) {
                 const std::int32_t total = gShopTotalD2DAFC;
                 const std::int32_t money = world::detail::ReadPlayerValueFC();
                 const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
                 std::int32_t price;
-                std::memcpy(&price, gShopItemsCF4FE0.data() + row * 0xC58 + 0xC24, sizeof(price));
+                std::memcpy(&price, &gShopItemsCF4FE0[row].price, sizeof(price));
                 canIncrease = price + total + money <= limit;
             }
             if (canIncrease) {
-                WindowTrade_WriteValue(record, 0xC28, selected + 1);
+                record->selected = selected + 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2718,19 +2718,19 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             break;
         }
         case 2: {
-            char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
-            if (record[0] == 0) {
+            auto* const record = &gShopItemsCF4FE0[row];
+            if (record->used == 0) {
                 break;
             }
             gShopMessage580848 = message;
             if (permitted != 0) {
                 std::int32_t selected;
-                std::memcpy(&selected, record + 0xC28, sizeof(selected));
+                std::memcpy(&selected, &record->selected, sizeof(selected));
                 selected += increment;
-                WindowTrade_WriteValue(record, 0xC28, selected);
+                record->selected = selected;
                 std::int32_t maximum;
-                std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
-                WindowTrade_WriteValue(record, 0xC30, (selected + maximum - 1) / maximum);
+                std::memcpy(&maximum, &record->maximum, sizeof(maximum));
+                record->count = (selected + maximum - 1) / maximum;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2753,13 +2753,13 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                 } else {
                     std::int32_t current;
                     std::int32_t capacity;
-                    std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
-                    std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                    std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                    std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
                     if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
                         canIncrease = true;
                     } else {
-                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
-                        std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                        std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
                         if (current + detailSelected >= capacity) {
                             gShopMessage580848 = -3;
                         }
@@ -2767,12 +2767,12 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                 }
             } else {
                 std::int32_t quantity;
-                std::memcpy(&quantity, gShopDetailCC3210.data() + 0xC24, sizeof(quantity));
+                std::memcpy(&quantity, &gShopDetailCC3210.quantity, sizeof(quantity));
                 if (detailSelected >= quantity) {
                     gShopMessage580848 = -2;
                 } else {
                     std::int32_t current;
-                    std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                    std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
                     if (current - detailSelected <= 0) {
                         gShopMessage580848 = -3;
                     } else {
@@ -2836,8 +2836,8 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
             223, login::detail::gValueD69768, 0);
     }
-    const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-    if (record[0] == 0) {
+    const auto* const record = &gShopItemsCF4FE0[item];
+    if (record->used == 0) {
         return 0;
     }
     if ((state & 1) != 0) {
@@ -2854,7 +2854,7 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
         }
         gShopTooltipIndex580844 = item + 100;
     }
-    if (record[0xC3C] == 0) {
+    if (record->allowed == 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(3));
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
@@ -2867,7 +2867,7 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
     std::int32_t imageNo;
-    std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+    std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     static_cast<void>(login::detail::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
@@ -2902,7 +2902,7 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
     std::int32_t imageNo;
-    std::memcpy(&imageNo, gShopDetailCC3210.data() + 0xC20, sizeof(imageNo));
+    std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
     static_cast<void>(login::detail::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
@@ -2949,10 +2949,10 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         static_cast<void>(WindowDrag_ResetMouse());
         const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
         gShopSelectedSlotsCB03DC[row] = static_cast<char>(-1);
-        char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
-        WindowTrade_WriteValue(record, 0xC28, std::int32_t{0});
+        auto* const record = &gShopItemsCF4FE0[item];
+        record->selected = std::int32_t{0};
         std::int32_t inventoryIndex;
-        std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+        std::memcpy(&inventoryIndex, &record->inventoryIndex, sizeof(inventoryIndex));
         const auto selectedMask = static_cast<std::uint32_t>(gShopValueCF467C);
         gShopValueCF467C = std::bit_cast<std::int32_t>(selectedMask & ~(1u << (inventoryIndex - 8)));
         WindowShop_RefreshSellRows();
@@ -3014,19 +3014,19 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
             consumed = 1;
         }
         gShopTooltipIndex580844 = item + 100;
-        const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+        const auto* const record = &gShopItemsCF4FE0[item];
         std::wstring buffer;
         std::uint32_t flags = 0;
-        if (std::strlen(record + 0xC44) != 0) {
-            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        if (std::strlen(record->memo.data()) != 0) {
+            std::memcpy(&flags, &record->flags, sizeof(flags));
         }
         if ((flags & 0x100u) != 0) {
-            cg::text::FormatTo(buffer, L"{}[kok]", cg::text::FromGbkWide(record + 1).c_str());
+            cg::text::FormatTo(buffer, L"{}[kok]", cg::text::FromGbkWide(record->name.data()).c_str());
             gHoverTextD68AE8 = buffer;
         } else {
-            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            std::memcpy(&flags, &record->flags, sizeof(flags));
             if ((flags & 0x200u) != 0) {
-                cg::text::FormatTo(buffer, L"{}[han]", cg::text::FromGbkWide(record + 0xC44).c_str());
+                cg::text::FormatTo(buffer, L"{}[han]", cg::text::FromGbkWide(record->memo.data()).c_str());
                 gHoverTextD68AE8 = buffer;
             }
         }
@@ -3035,7 +3035,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
     const WindowElement& element = window->elements[index];
     const std::int32_t drawItem = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
     std::int32_t imageNo;
-    std::memcpy(&imageNo, gShopItemsCF4FE0.data() + drawItem * 0xC58 + 0xC20, sizeof(imageNo));
+    std::memcpy(&imageNo, &gShopItemsCF4FE0[drawItem].imageNo, sizeof(imageNo));
     static_cast<void>(login::detail::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
@@ -3102,7 +3102,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                 const std::int32_t item = gShopInventoryMapD2DAB8[hovered];
                 if (item < 0 || item >= 20
                     || (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << hovered)) != 0
-                    || gShopItemsCF4FE0[item * 0xC58 + 0xC3C] == 0) {
+                    || gShopItemsCF4FE0[item].allowed == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     scanSlot = 0;
@@ -3113,11 +3113,11 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                     if (scanSlot >= 20) {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
-                        char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                        auto* const record = &gShopItemsCF4FE0[item];
                         bool exceedsLimit = false;
                         if (gMaterialOccupancyCC4894[20] == 1) {
                             std::int32_t amount;
-                            std::memcpy(&amount, record + 0xC24, sizeof(amount));
+                            std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
                             amount += world::detail::ReadPlayerValueFC();
                             exceedsLimit = amount > world::detail::ReadPlayerValue15BD0(0);
@@ -3127,11 +3127,11 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                             gShopMessage580848 = -2;
                         } else {
                             std::int32_t maximumCount;
-                            std::memcpy(&maximumCount, record + 0xC34, sizeof(maximumCount));
+                            std::memcpy(&maximumCount, &record->maximum, sizeof(maximumCount));
                             gShopSelectedSlotsCB03DC[scanSlot] = static_cast<char>(item);
-                            WindowTrade_WriteValue(record, 0xC28, maximumCount);
+                            record->selected = maximumCount;
                             if (maximumCount <= 0) {
-                                WindowTrade_WriteValue(record, 0xC28, std::int32_t{1});
+                                record->selected = std::int32_t{1};
                             }
                             const auto mask = static_cast<std::uint32_t>(gShopValueCF467C);
                             const std::int32_t position = gShopScrollCC488C;
@@ -3157,7 +3157,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             if (item >= 0 && item < 20
                 && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << hovered)) == 0) {
                 const std::int32_t mappedItem = gShopInventoryMapD2DAB8[scanSlot];
-                if (gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C] != 0) {
+                if (gShopItemsCF4FE0[mappedItem].allowed != 0) {
                     static_cast<void>(WindowItemDrag_Start(hovered + 8, 0));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
@@ -3268,7 +3268,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             // 原4BCE19读取D052FC；该原行尾字节始终为零，宽字符串不承接固定区旁读。
             const char allowed = mappedItem == 20
                 ? 0
-                : gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C];
+                : gShopItemsCF4FE0[mappedItem].allowed;
             if (allowed == 0) {
                 static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
             }

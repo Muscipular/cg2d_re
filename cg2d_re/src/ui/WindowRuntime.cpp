@@ -264,7 +264,7 @@ std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18�
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
 
-std::array<char, 20 * 0xC58> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
+std::array<WindowShopItem, 20> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
 
 std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
 
@@ -276,7 +276,7 @@ std::int32_t gDialogValueCF4E5C = 0; // 原全局：0x00CF4E5C。
 
 std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
 
-std::array<char, 0xC38> gShopDetailCC3210 {}; // 原全局：0x00CC3210。
+WindowShopDetail gShopDetailCC3210 {}; // 原全局：0x00CC3210。
 
 std::uint16_t gShopPriceTailD67420 {}; // 原D673EC+0x34：第五行价格末两位的非文本别名。
 
@@ -2736,29 +2736,29 @@ std::int32_t WindowItem_DrawShopTooltip(
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
-    const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+    const auto* record = &gShopItemsCF4FE0[index];
     std::uint32_t flags;
-    std::memcpy(&flags, record + 0xC40, sizeof(flags));
-    std::wstring title = cg::text::FromGbkWide(record + 0xC44);
+    std::memcpy(&flags, &record->flags, sizeof(flags));
+    std::wstring title = cg::text::FromGbkWide(record->memo.data());
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
     } else {
         std::int32_t count;
-        std::memcpy(&count, record + 0xC30, sizeof(count));
+        std::memcpy(&count, &record->count, sizeof(count));
         if (count <= 1) {
-            title = cg::text::FromGbkWide(record + 1);
+            title = cg::text::FromGbkWide(record->name.data());
         } else {
-            title = std::format(L"{}({})", cg::text::FromGbkWide(record + 1), count);
+            title = std::format(L"{}({})", cg::text::FromGbkWide(record->name.data()), count);
             key = gTooltipSourceD303FC;
         }
-        record = gShopItemsCF4FE0.data() + (key - 300) * 0xC58;
-        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        record = &gShopItemsCF4FE0[key - 300];
+        std::memcpy(&flags, &record->flags, sizeof(flags));
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
-    const wchar_t* const footer = record[0xC3C] == 0 && showUnavailable != 0
+    const wchar_t* const footer = record->allowed == 0 && showUnavailable != 0
         ? kShopUnavailableHint586BF4 : nullptr;
-    const char* const lines = record + 0x1E + page * 768;
+    const char* const lines = record->description[page * 8].data();
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, footer, 4);
@@ -2782,9 +2782,9 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     gTooltipSourceD303FC = 400;
-    const std::wstring title = cg::text::FromGbkWide(gShopDetailCC3210.data());
+    const std::wstring title = cg::text::FromGbkWide(gShopDetailCC3210.name.data());
     return WindowItem_DrawTooltip(
-        x, y, title.c_str(), 0, gShopDetailCC3210.data() + 0x1D + page * 768,
+        x, y, title.c_str(), 0, gShopDetailCC3210.description[page * 8].data(),
         96, 8, nullptr, 0);
 }
 

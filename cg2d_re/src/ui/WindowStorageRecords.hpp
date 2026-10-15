@@ -111,6 +111,38 @@ struct WindowItemDetailGroup {
     std::int32_t amount; // 原组内偏移：+0xFBF4。
 };
 
+// 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
+struct WindowShopItem {
+    char used; // 原成员偏移：+0x00；按原字节判非零。
+    std::array<char, 29> name; // 原成员偏移：+0x01。
+    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x1E。
+    std::array<std::byte, 2> reservedC1E; // 原成员偏移：+0xC1E。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t price; // 原成员偏移：+0xC24。
+    std::int32_t selected; // 原成员偏移：+0xC28；所选数量。
+    std::int32_t inventoryIndex; // 原成员偏移：+0xC2C。
+    std::int32_t count; // 原成员偏移：+0xC30。
+    std::int32_t maximum; // 原成员偏移：+0xC34；保留单字节来源的S8扩展。
+    std::int32_t valueC38; // 原成员偏移：+0xC38；回复数值，业务含义未定。
+    char allowed; // 原成员偏移：+0xC3C；原U8／S8转换由使用方保留。
+    std::array<std::byte, 3> reservedC3D; // 原成员偏移：+0xC3D。
+    std::int32_t flags; // 原成员偏移：+0xC40；位标志按原位型读取。
+    std::array<char, 20> memo; // 原成员偏移：+0xC44；至记录末端的附文存储区，不另定逻辑长度。
+};
+
+// 原CC3210独立详情；4B77E0整区清零／生产，六个S32仍属同一对象。
+struct WindowShopDetail {
+    std::array<char, 29> name; // 原成员偏移：+0x00。
+    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x1D。
+    std::array<std::byte, 3> reservedC1D; // 原成员偏移：+0xC1D。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t quantity; // 原成员偏移：+0xC24。
+    std::int32_t itemId; // 原成员偏移：+0xC28。
+    std::int32_t price; // 原成员偏移：+0xC2C。
+    std::int32_t capacity; // 原成员偏移：+0xC30。
+    std::int32_t valueC34; // 原成员偏移：+0xC34；原分支显示值／现有数量，不归并用途。
+};
+
 static_assert(std::is_standard_layout_v<WindowTradeItem>);
 static_assert(std::is_trivially_copyable_v<WindowTradeItem>);
 static_assert(sizeof(WindowTradeItem) == 0xC4C);
@@ -212,5 +244,37 @@ static_assert(sizeof(WindowItemDetailGroup) == 0xFBF8);
 static_assert(offsetof(WindowItemDetailGroup, items) == 0x0000);
 static_assert(offsetof(WindowItemDetailGroup, pets) == 0xF550);
 static_assert(offsetof(WindowItemDetailGroup, amount) == 0xFBF4);
+
+static_assert(std::is_standard_layout_v<WindowShopItem>);
+static_assert(std::is_trivially_copyable_v<WindowShopItem>);
+static_assert(sizeof(WindowShopItem) == 0xC58);
+static_assert(offsetof(WindowShopItem, used) == 0x00);
+static_assert(offsetof(WindowShopItem, name) == 0x01);
+static_assert(offsetof(WindowShopItem, description) == 0x1E);
+static_assert(offsetof(WindowShopItem, reservedC1E) == 0xC1E);
+static_assert(offsetof(WindowShopItem, imageNo) == 0xC20);
+static_assert(offsetof(WindowShopItem, price) == 0xC24);
+static_assert(offsetof(WindowShopItem, selected) == 0xC28);
+static_assert(offsetof(WindowShopItem, inventoryIndex) == 0xC2C);
+static_assert(offsetof(WindowShopItem, count) == 0xC30);
+static_assert(offsetof(WindowShopItem, maximum) == 0xC34);
+static_assert(offsetof(WindowShopItem, valueC38) == 0xC38);
+static_assert(offsetof(WindowShopItem, allowed) == 0xC3C);
+static_assert(offsetof(WindowShopItem, reservedC3D) == 0xC3D);
+static_assert(offsetof(WindowShopItem, flags) == 0xC40);
+static_assert(offsetof(WindowShopItem, memo) == 0xC44);
+
+static_assert(std::is_standard_layout_v<WindowShopDetail>);
+static_assert(std::is_trivially_copyable_v<WindowShopDetail>);
+static_assert(sizeof(WindowShopDetail) == 0xC38);
+static_assert(offsetof(WindowShopDetail, name) == 0x00);
+static_assert(offsetof(WindowShopDetail, description) == 0x1D);
+static_assert(offsetof(WindowShopDetail, reservedC1D) == 0xC1D);
+static_assert(offsetof(WindowShopDetail, imageNo) == 0xC20);
+static_assert(offsetof(WindowShopDetail, quantity) == 0xC24);
+static_assert(offsetof(WindowShopDetail, itemId) == 0xC28);
+static_assert(offsetof(WindowShopDetail, price) == 0xC2C);
+static_assert(offsetof(WindowShopDetail, capacity) == 0xC30);
+static_assert(offsetof(WindowShopDetail, valueC34) == 0xC34);
 
 } // namespace cg::ui::detail

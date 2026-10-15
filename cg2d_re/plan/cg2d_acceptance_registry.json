@@ -191166,5 +191166,55 @@
     "blocker_owner": "用户指定由“分析 sub_504180 中的结构体”会话继续补齐真实数据定义/生产。",
     "runtime": "未测试、运行或部署",
     "ledger_validation": "台账-Check仍仅报两份既有外部键盘历史附件缺失，未写派生文件；不计全量台账通过。UTF-8无BOM／LF、JSON、Git差异和3680行函数身份／状态核对通过。"
+  },
+  "ui_shop_records_20261015": {
+    "spec": "doc/cg2d_ui_storage_records_spec.md",
+    "layout_source": "doc/ui_windows/window_53.md#evidence-093",
+    "record_sizes": {
+      "WindowShopItem": 3160,
+      "WindowShopDetail": 3128
+    },
+    "global_byte_sizes": {
+      "gShopItemsCF4FE0": 63200,
+      "gShopDetailCC3210": 3128
+    },
+    "field_offset_assertions": 24,
+    "source_checks": [
+      {
+        "source": "src/ui/WindowRuntime.cpp",
+        "lines": 5233,
+        "address_comments_preserved": true,
+        "literal_sequence_preserved": true,
+        "parse_order_preserved": true
+      },
+      {
+        "source": "src/ui/windows/WindowShop.cpp",
+        "lines": 3430,
+        "address_comments_preserved": true,
+        "literal_sequence_preserved": true,
+        "parse_order_preserved": true
+      },
+      {
+        "source": "src/LegacyUiRecord.cpp",
+        "lines": 18931,
+        "address_comments_preserved": true,
+        "literal_sequence_preserved": true,
+        "parse_order_preserved": true
+      }
+    ],
+    "scope": "只改类型与对应寻址/字段访问；现代商店、公共tooltip和旧买卖面板共用原对象，保留原地址、文本区、位宽及处理序。",
+    "build": "build.bat Debug",
+    "runtime": "未测试或运行",
+    "build_exit_code": 1,
+    "compile_passed": true,
+    "link_passed": false,
+    "layout_assertions_passed": true,
+    "warning_diagnostic_count": 64,
+    "link_blockers": [
+      "gLegacyPetSkillCatalogCA0478",
+      "gLegacyTradeTargetNamesCB1D1C"
+    ],
+    "blocker_owner": "用户已指定原会话继续补齐；本轮不重复接手或填猜测数组。",
+    "ledger_validation": "USR02最终静态检查：UTF-8无BOM／LF、JSON及Git差异检查通过；台账-Check仍只报两份既有外部键盘历史附件缺失，未写派生文件，不计全量台账通过。"
   }
 }

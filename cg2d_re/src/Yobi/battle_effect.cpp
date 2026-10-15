@@ -188,7 +188,7 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
     action->value4CBits = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
     const double y = speed + action->offset44;
     action->offset44 = static_cast<float>(y);
-    if (!(y >= static_cast<double>(action->phase))) {
+    if (!(y >= action->phase)) {
         ++parent->field58;
         static_cast<void>(MarkDeath(action));
     }
@@ -202,20 +202,20 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
 // 原函数：0x0041A270。
 void UpdateBattleScalingEffect_41A270(YobiAction* const action)
 {
-    constexpr float step = std::bit_cast<float>(0x3CA3D70Au);
+    constexpr double step = std::bit_cast<float>(0x3CA3D70Au);
     if (action->phase == 0) {
-        const double scaleX = static_cast<double>(action->scaleX) + step;
+        const double scaleX = action->scaleX + step;
         action->scaleX = static_cast<float>(scaleX);
-        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) + step);
+        action->scaleY = static_cast<float>(action->scaleY + step);
         if (scaleX > 1.0) {
             action->phase = 1;
             action->scaleX = 1.0F;
             action->scaleY = 1.0F;
         }
     } else if (action->phase == 2) {
-        const double scaleX = static_cast<double>(action->scaleX) - step;
+        const double scaleX = action->scaleX - step;
         action->scaleX = static_cast<float>(scaleX);
-        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) - step);
+        action->scaleY = static_cast<float>(action->scaleY - step);
         if (!(scaleX >= 0.0)) {
             action->scaleX = 0.0F;
             action->scaleY = 0.0F;
@@ -288,9 +288,9 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
 // 原函数：0x0041A530。
 void UpdateBattleFallingEffect_41A530(YobiAction* const action)
 {
-    const double y = static_cast<double>(action->offset44) + 3.0;
+    const double y = action->offset44 + 3.0;
     action->offset44 = static_cast<float>(y);
-    if (y > static_cast<double>(action->nameY)) {
+    if (y > action->nameY) {
         YobiAction* const parent = action->battleAttachmentParent10;
         ++parent->field58;
         static_cast<void>(MarkDeath(action));
@@ -328,7 +328,7 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             const std::int32_t xOffset = kBattleRadialXOffsets[index];
             const std::int32_t yOffset = kBattleEmitterYOffsets[index];
             particle->offset40 = static_cast<float>(action->x + xOffset);
-            particle->offset44 = static_cast<float>(static_cast<double>(action->y + yOffset) - 100.0);
+            particle->offset44 = static_cast<float>((action->y + yOffset) - 100.0);
             const std::int32_t parentY = action->y;
             particle->battleAttachmentParent10 = action;
             particle->nameY = parentY + yOffset - 40;
@@ -456,8 +456,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = initialFlags | 0x40000u;
             action->field270 = 0;
             action->offset44 = static_cast<float>(third.offsetY);
-            action->scaleX = static_cast<float>(static_cast<double>(action->scaleX) * 1.5F);
-            action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) * 1.5F);
+            action->scaleX = static_cast<float>(action->scaleX * 1.5);
+            action->scaleY = static_cast<float>(action->scaleY * 1.5);
             action->imageNo = sourcePayload->image102C;
             break;
         }
@@ -1250,14 +1250,14 @@ YobiAction* NewBattleSpiracleShot_418B70(
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
     const float targetBaseY = target->offset44;
     const float targetX = target->offset40;
-    const float targetY = static_cast<float>(static_cast<double>(targetHeight)
-        * 0.5F + targetGraphicOffsetY + targetBaseY);
+    const float targetY = static_cast<float>(targetHeight
+        * 0.5 + targetGraphicOffsetY + targetBaseY);
     const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);
     const float projectionX = action->offset40;
     const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;
     const float projectionBaseY = action->offset44;
-    const float projectionY = static_cast<float>(static_cast<double>(parentHeight)
-        * 0.5F + parentGraphicOffsetY + projectionBaseY);
+    const float projectionY = static_cast<float>(parentHeight
+        * 0.5 + parentGraphicOffsetY + projectionBaseY);
     NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, imageNo);
     if (action->imageNo == 110016 || action->imageNo == 111055) {
         action->rebirthValue1 = 4;
@@ -1298,7 +1298,7 @@ YobiAction* NewBattleBlastWave_419180(
     action->offset44 = initialY;
     action->field270 = 0;
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);
-    action->imageNo = static_cast<std::int32_t>((static_cast<double>(action->angle50) + 11.25)
+    action->imageNo = static_cast<std::int32_t>((action->angle50 + 11.25)
         * 0.044444444444444446);
     if (action->imageNo < 0) {
         action->imageNo += 16;
@@ -1368,9 +1368,9 @@ YobiAction* NewBattleRangeHit_419390(
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 1, 0.0F);
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
-    action->value54 = static_cast<float>(static_cast<double>(render::ReadGraphicDxWidth(parent->graphicIndex)) * 0.5F);
+    action->value54 = static_cast<float>(render::ReadGraphicDxWidth(parent->graphicIndex) * 0.5);
     MoveBattleByAngle_405EA0(action);
-    const double adjustedAngle = static_cast<double>(action->angle50) + 11.25;
+    const double adjustedAngle = action->angle50 + 11.25;
     action->value54 = 10.0F;
     action->imageNo = static_cast<std::int32_t>(adjustedAngle * 0.044444444444444446);
     if (action->imageNo < 0) {
@@ -1408,14 +1408,14 @@ YobiAction* NewBattleRangeHit_419390(
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
     const float targetBaseY = target->offset44;
     const float targetX = target->offset40;
-    const float targetY = static_cast<float>(static_cast<double>(targetHeight)
-        * 0.5F + targetGraphicOffsetY + targetBaseY);
+    const float targetY = static_cast<float>(targetHeight
+        * 0.5 + targetGraphicOffsetY + targetBaseY);
     const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);
     const float projectionX = action->offset40;
     const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;
     const float projectionBaseY = action->offset44;
-    const float projectionY = static_cast<float>(static_cast<double>(parentHeight)
-        * 0.5F + parentGraphicOffsetY + projectionBaseY);
+    const float projectionY = static_cast<float>(parentHeight
+        * 0.5 + parentGraphicOffsetY + projectionBaseY);
     NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, projectionImage);
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const float screenY = action->offset44;
@@ -1686,7 +1686,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     action->value54 = 10.0F;
     action->effectAcceleration48 = 10.0F;
     action->field1D0 = 0;
-    const float halfWidth = static_cast<float>(static_cast<double>(render::ReadGraphicDxWidth(parent->graphicIndex)) * 0.5F);
+    const float halfWidth = static_cast<float>(render::ReadGraphicDxWidth(parent->graphicIndex) * 0.5);
     do {
         action->callback(action);
         if (action->phase != 21) {
@@ -2043,7 +2043,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     action->framePlayingRate = 100;
     action->flags = flags | 0x60000u;
     action->offset40 = parent->offset40;
-    const double y = static_cast<double>(parent->offset44) + 1.0;
+    const double y = parent->offset44 + 1.0;
     action->imageNo = imageNo;
     action->direction = 0;
     action->rebirthValue1 = 4;
@@ -2073,7 +2073,7 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, 0));
         YobiAction* const parent = action->battleAttachmentParent10;
         action->offset40 = parent->offset40;
-        action->offset44 = static_cast<float>(static_cast<double>(parent->offset44) + 1.0);
+        action->offset44 = static_cast<float>(parent->offset44 + 1.0);
     }
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
@@ -2103,7 +2103,7 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     action->flags = flags;
     action->flags = flags | 0x40000u;
     action->offset40 = parent->offset40;
-    const double y = static_cast<double>(parent->offset44) + 1.0;
+    const double y = parent->offset44 + 1.0;
     action->imageNo = imageNo;
     action->direction = 0;
     action->rebirthValue1 = 4;
@@ -2373,10 +2373,10 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
         }
         const std::int32_t initialY = action->deltaY;
         if (initialY != 0) {
-            constexpr float growth = std::bit_cast<float>(0x3D23D70Au);
-            const float scaleX = static_cast<float>(static_cast<double>(action->scaleX) + growth);
+            constexpr double growth = std::bit_cast<float>(0x3D23D70Au);
+            const float scaleX = static_cast<float>(action->scaleX + growth);
             action->scaleX = scaleX;
-            const double scaleY = static_cast<double>(action->scaleY) + growth;
+            const double scaleY = action->scaleY + growth;
             action->scaleY = static_cast<float>(scaleY);
             if (scaleX > 1.0F) {
                 action->scaleX = 1.0F;
@@ -2386,7 +2386,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
             }
             if (action->scaleY >= 1.0F) {
                 action->effectAcceleration48 = static_cast<float>(
-                    static_cast<double>(action->effectAcceleration48) + 1.0);
+                    action->effectAcceleration48 + 1.0);
             }
             if (action->effectAcceleration48 >= 30.0F) {
                 action->deltaY = initialY + 7;
@@ -2399,7 +2399,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
         const std::int32_t position = action->deltaX;
         YobiAction* const source = action->battleAttachmentParent10;
         action->offset40 = static_cast<float>(static_cast<double>(position) + source->offset40);
-        action->offset44 = static_cast<float>(static_cast<double>(source->offset44) - 5.0 + action->deltaY);
+        action->offset44 = static_cast<float>(source->offset44 - 5.0 + action->deltaY);
     }
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);

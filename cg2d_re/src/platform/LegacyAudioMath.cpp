@@ -27,7 +27,7 @@ extern "C" void Cg2dInitializeSoundTablesX87(
     for (std::int32_t value = 127; value >= 0; --value) {
         if ((value & 1) == 0) continue;
         std::int32_t difference = panMaximum - TruncateSoundIntermediate(
-            std::log(static_cast<double>(value)) / logarithmBase * 5000.0);
+            std::log(value) / logarithmBase * 5000.0);
         if (difference > 5000) difference = 10000;
         pan[position++] = difference;
     }
@@ -35,7 +35,7 @@ extern "C" void Cg2dInitializeSoundTablesX87(
     for (std::int32_t value = 127; value >= 0; --value) {
         if ((value & 1) == 0) continue;
         std::int32_t difference = panMaximum - TruncateSoundIntermediate(
-            std::log(static_cast<double>(value)) / logarithmBase * 5000.0);
+            std::log(value) / logarithmBase * 5000.0);
         if (difference > 5000) difference = 10000;
         pan[position--] = -difference;
     }
@@ -46,7 +46,7 @@ extern "C" void Cg2dInitializeSoundTablesX87(
         std::log(127.0) / logarithmBase * -10000.0);
     for (std::int32_t value = 127; value > 0; --value) {
         std::int32_t difference = -volumeBase - TruncateSoundIntermediate(
-            std::log(static_cast<double>(value)) / logarithmBase * 10000.0);
+            std::log(value) / logarithmBase * 10000.0);
         if (difference > 10000) difference = 10000;
         volume[value] = -difference;
     }
@@ -61,7 +61,7 @@ extern "C" void Cg2dInitializeFixedMusicVolumeX87(std::int32_t* const volume) no
         std::log(127.0) / logarithmBase * -10000.0);
     for (std::int32_t value = 127; value >= 0; --value) {
         std::int32_t difference = -base - TruncateSoundIntermediate(
-            std::log(static_cast<double>(value)) / logarithmBase * 10000.0);
+            std::log(value) / logarithmBase * 10000.0);
         if (difference > 10000) difference = 10000;
         volume[value] = -difference;
     }
@@ -71,8 +71,8 @@ extern "C" void Cg2dInitializeFixedMusicVolumeX87(std::int32_t* const volume) no
 extern "C" std::int32_t Cg2dComputeSpatialSoundX87(
     const std::int32_t x, const std::int32_t y, std::int32_t* const distance) noexcept
 {
-    const double horizontal = static_cast<double>(x - 320);
-    const double vertical = static_cast<double>(y - 240);
+    const double horizontal = x - 320;
+    const double vertical = y - 240;
     const std::int32_t length = TruncateSoundIntermediate(
         std::sqrt(vertical * vertical + horizontal * horizontal));
     const std::int32_t scaled = std::bit_cast<std::int32_t>(
@@ -90,7 +90,7 @@ extern "C" std::int32_t Cg2dComputeSpatialScanQuotientX87(
     const std::uint32_t vertical = static_cast<std::uint32_t>(y);
     const std::int32_t square = std::bit_cast<std::int32_t>(
         vertical * vertical + horizontal * horizontal);
-    const std::int32_t length = TruncateSoundIntermediate(std::sqrt(static_cast<double>(square)));
+    const std::int32_t length = TruncateSoundIntermediate(std::sqrt(square));
     return std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(length) << 4) / 106;
 }
 
@@ -99,8 +99,8 @@ extern "C" void Cg2dScaleSpatialSourceX87(
     const std::int32_t x, const std::int32_t y,
     float* const worldX, float* const worldY) noexcept
 {
-    *worldY = static_cast<float>(static_cast<double>(y) * 64.0);
-    *worldX = static_cast<float>(static_cast<double>(x) * 64.0);
+    *worldY = static_cast<float>(y * 64.0);
+    *worldX = static_cast<float>(x * 64.0);
 }
 
 // 原52CE0D..52CE8A：距离采样与发布采样分开；未发布返回索引，发布返回Y。
@@ -110,8 +110,8 @@ extern "C" std::int32_t Cg2dPublishSpatialProjectionX87(
 {
     const volatile float* const sampledX = screenX;
     const volatile float* const sampledY = screenY;
-    const double horizontal = static_cast<double>(*sampledX) - 320.0;
-    const double vertical = static_cast<double>(*sampledY) - 240.0;
+    const double horizontal = *sampledX - 320.0;
+    const double vertical = *sampledY - 240.0;
     const std::int32_t distance = TruncateSoundIntermediate(
         std::sqrt(vertical * vertical + horizontal * horizontal));
     audio::SpatialAudioRecord& record = records[index];

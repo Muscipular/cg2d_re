@@ -213,10 +213,10 @@ void Sub_448A50(YobiAction* const action)
             }
             const double speed = static_cast<double>(action->value54) - 0.11F;
             action->value54 = static_cast<float>(speed);
-            const double x = static_cast<double>(action->offset40) - speed;
+            const double x = action->offset40 - speed;
             action->offset40 = static_cast<float>(x);
             action->offset44 = static_cast<float>(
-                speed * 0.14F + static_cast<double>(action->offset44));
+                speed * 0.14F + action->offset44);
             if (x > 0.0) {
                 action->offset40 = 0.0F;
                 action->offset44 = 0.0F;
@@ -238,7 +238,7 @@ void Sub_448A50(YobiAction* const action)
         action->offset40 = static_cast<float>(
             static_cast<double>(action->offset40) + action->value54);
         action->offset44 = static_cast<float>(
-            static_cast<double>(action->offset44)
+            action->offset44
             - static_cast<double>(action->value54) * 0.2F);
     }
     float screenX;
@@ -266,10 +266,10 @@ void Sub_448BF0(YobiAction* const action)
             }
             const double speed = static_cast<double>(action->value54) - 0.11F;
             action->value54 = static_cast<float>(speed);
-            const double x = speed + static_cast<double>(action->offset40);
+            const double x = speed + action->offset40;
             action->offset40 = static_cast<float>(x);
             action->offset44 = static_cast<float>(
-                static_cast<double>(action->offset44) - speed * 0.14F);
+                action->offset44 - speed * 0.14F);
             if (x < 0.0) {
                 action->offset40 = 0.0F;
                 action->offset44 = 0.0F;
@@ -280,7 +280,7 @@ void Sub_448BF0(YobiAction* const action)
             action->offset40 = static_cast<float>(
                 static_cast<double>(action->offset40) + action->value54);
             action->offset44 = static_cast<float>(
-                static_cast<double>(action->offset44)
+                action->offset44
                 - static_cast<double>(action->value54) * 0.14F);
         }
     } else if (action->characterAction == 3) {
@@ -360,8 +360,8 @@ void Sub_448810(
         MarkDeath(action);
         return;
     }
-    action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
-    action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldX = static_cast<float>(mapX * 64.0);
+    action->worldY = static_cast<float>(mapY * 64.0);
 }
 
 // 原[448D90,44905A)：四种负类型图形生产，先按mode4查重再筛类型。
@@ -441,8 +441,8 @@ void Sub_448D90(
         MarkDeath(action);
         return;
     }
-    action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
-    action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldX = static_cast<float>(mapX * 64.0);
+    action->worldY = static_cast<float>(mapY * 64.0);
 }
 
 // 原[449A00,449BBD)：普通路移动/投影，首帧只置CryptInt标记。
@@ -459,9 +459,9 @@ void Sub_449A00(YobiAction* const action)
         return;
     }
     if (action->characterAction == 1) {
-        const double x = static_cast<double>(action->worldX) - 0.75;
+        const double x = action->worldX - 0.75;
         action->worldX = static_cast<float>(x);
-        action->worldY = static_cast<float>(static_cast<double>(action->worldY) + 0.75);
+        action->worldY = static_cast<float>(action->worldY + 0.75);
         const auto targetX = static_cast<std::int32_t>(static_cast<std::int64_t>(x));
         if ((action->mapX200 >= static_cast<std::int32_t>(targetX))) {
             const auto targetY = static_cast<std::int32_t>(
@@ -475,21 +475,21 @@ void Sub_449A00(YobiAction* const action)
             }
         }
     } else if (action->characterAction == 3) {
-        action->worldX = static_cast<float>(static_cast<double>(action->worldX) - 0.5);
-        action->worldY = static_cast<float>(static_cast<double>(action->worldY) - 0.5);
+        action->worldX = static_cast<float>(action->worldX - 0.5);
+        action->worldY = static_cast<float>(action->worldY - 0.5);
     }
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->offset40) + 0.5));
+        action->offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenX) + 0.5));
+        screenX + 0.5));
     action->x = offsetX + projectedX;
     const auto offsetY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->offset44) + 0.5));
+        action->offset44 + 0.5));
     const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenY) + 0.5));
+        screenY + 0.5));
     action->y = offsetY + projectedY;
     if ((action->mapX1E0 == 0)) {
         action->mapX1E0 = std::int32_t{1};
@@ -572,8 +572,8 @@ void Sub_449700(
     case 1: {
         action->mapX200 = static_cast<std::int32_t>(mapX * 64);
         action->mapY210 = static_cast<std::int32_t>(mapY * 64);
-        action->worldX = static_cast<float>(static_cast<double>(mapX + 10) * 64.0F);
-        action->worldY = static_cast<float>(static_cast<double>(mapY - 10) * 64.0F);
+        action->worldX = static_cast<float>((mapX + 10) * 64.0);
+        action->worldY = static_cast<float>((mapY - 10) * 64.0);
         break;
     }
     case 3: {
@@ -582,8 +582,8 @@ void Sub_449700(
         [[fallthrough]];
     }
     case 2:
-        action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
-        action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+        action->worldX = static_cast<float>(mapX * 64.0);
+        action->worldY = static_cast<float>(mapY * 64.0);
         break;
     default:
         MarkDeath(action);
@@ -751,14 +751,14 @@ void Sub_448290()
 // 原[449670,4496B7)：先归一化角度，两次查表后各自重读幅值。
 void Sub_449670(YobiAction* const action)
 {
-    float angle = static_cast<float>(270.0 - static_cast<double>(action->angle50));
+    float angle = static_cast<float>(270.0 - action->angle50);
     world::detail::Sub_46F8F0(&angle);
     const double xFactor = world::detail::Sub_46F950(angle);
     action->offset40 = static_cast<float>(
-        static_cast<double>(action->offset40) - xFactor * action->value54);
+        action->offset40 - xFactor * action->value54);
     const double yFactor = world::detail::Sub_46F930(angle);
     action->offset44 = static_cast<float>(
-        yFactor * action->value54 + static_cast<double>(action->offset44));
+        yFactor * action->value54 + action->offset44);
 }
 
 // 原[449400,449552)：漂移对象的移动、帧表、投影及四方向退出。
@@ -779,14 +779,14 @@ void Sub_449400(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->offset40) + 0.5));
+        action->offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenX) + 0.5));
+        screenX + 0.5));
     action->x = offsetX + projectedX;
     const auto offsetY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->offset44) + 0.5));
+        action->offset44 + 0.5));
     const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenY) + 0.5));
+        screenY + 0.5));
     const std::int32_t image = action->imageNo;
     action->y = offsetY + projectedY;
     if (image == 4) {
@@ -849,14 +849,14 @@ void Sub_449160()
     case 0:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 213);
         action->worldX = static_cast<float>(
-            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldX) + 550.0F);
+            world::detail::gPlayerRuntimeSlots.action->worldX + 550.0);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
         break;
     case 1:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 33);
         action->worldX = static_cast<float>(
-            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldX) - 400.0F - 150.0F);
+            world::detail::gPlayerRuntimeSlots.action->worldX - 400.0 - 150.0F);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
         break;
@@ -865,14 +865,14 @@ void Sub_449160()
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldY) - 400.0F - 150.0F);
+            world::detail::gPlayerRuntimeSlots.action->worldY - 400.0 - 150.0F);
         break;
     case 3:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 287);
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldY) + 550.0F);
+            world::detail::gPlayerRuntimeSlots.action->worldY + 550.0);
         break;
     }
 }

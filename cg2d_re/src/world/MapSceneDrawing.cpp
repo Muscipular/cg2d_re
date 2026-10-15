@@ -108,14 +108,14 @@ void DrawCutObject(
     const std::int32_t mapY = gMapYStart + row;
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
-    const double scaledY = static_cast<double>(mapY) * 64.0f;
+    const double scaledY = mapY * 64.0;
     const std::int32_t mapX = gMapXStart + column;
     descriptor.clipMode = 1;
     descriptor.mixFlags = cg::render::GraphicMixFlag_None;
     const auto worldY = static_cast<float>(scaledY);
     const std::uint16_t palette = 0;
     descriptor.paletteIndex = palette;
-    const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+    const auto worldX = static_cast<float>(mapX * 64.0);
     Sub_46BE50(
         imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
         drawX, drawY, &descriptor);
@@ -160,10 +160,10 @@ void DrawNormalMapCell(
         if (clipX < 640 && width + clipX - 1 >= 0
             && clipY < 480 && height + clipY - 1 >= 0) {
             const std::int32_t mapY = gMapYStart + row;
-            const double scaledY = static_cast<double>(mapY) * 64.0f;
+            const double scaledY = mapY * 64.0;
             const std::int32_t mapX = gMapXStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
-            const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+            const auto worldX = static_cast<float>(mapX * 64.0);
             Sub_46BE50(
                 imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), nullptr);
@@ -173,10 +173,10 @@ void DrawNormalMapCell(
         static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
         if (object == 1) {
             const std::int32_t mapY = gMapYStart + row;
-            const double scaledY = static_cast<double>(mapY) * 64.0f;
+            const double scaledY = mapY * 64.0;
             const std::int32_t mapX = gMapXStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
-            const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+            const auto worldX = static_cast<float>(mapX * 64.0);
             static_cast<void>(Sub_46BD60(
                 imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), 0, nullptr));

@@ -136,34 +136,32 @@ std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y
 // 原函数：0x004D3040。
 std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
 {
-    const double playerX = static_cast<double>(
-        world::detail::gPlayerX.value()) * 64.0;
-    if (playerX != static_cast<double>(std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
+    const double playerX = world::detail::gPlayerX.value() * 64.0;
+    if (playerX != std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits))) {
         return 0;
     }
-    const double playerY = static_cast<double>(
-        world::detail::gPlayerY.value()) * 64.0;
-    if (playerY != static_cast<double>(std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
+    const double playerY = world::detail::gPlayerY.value() * 64.0;
+    if (playerY != std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
         return 0;
     }
     double distanceX = static_cast<double>(gValueCC4D34 * 64)
-        - static_cast<double>(std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentXBits)));
+        - std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits));
     if (distanceX < 0.0) {
         distanceX = -distanceX;
     }
-    if (distanceX >= static_cast<double>(rangeX * 64)) {
+    if (distanceX >= rangeX * 64) {
         return 1;
     }
     double distanceY = static_cast<double>(gValueCC4D3C * 64)
-        - static_cast<double>(std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentYBits)));
+        - std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits));
     if (distanceY < 0.0) {
         distanceY = -distanceY;
     }
-    return distanceY >= static_cast<double>(rangeY * 64) ? 1 : 0;
+    return distanceY >= rangeY * 64 ? 1 : 0;
 }
 
 // 原函数：0x0049D8F0。

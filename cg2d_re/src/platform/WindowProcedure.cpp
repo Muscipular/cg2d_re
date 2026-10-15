@@ -153,7 +153,7 @@ LRESULT CALLBACK WindowProcedure(
             }
         }
         const std::uint32_t tick = ReadTickCount32();
-        gLastRenderDt = static_cast<double>(tick);
+        gLastRenderDt = tick;
         return 0;
     }
 
@@ -163,7 +163,7 @@ LRESULT CALLBACK WindowProcedure(
             gWindowActiveState = 0;
         }
         const std::uint32_t tick = ReadTickCount32();
-        gLastRenderDt = static_cast<double>(tick);
+        gLastRenderDt = tick;
 
         gCurrentClientWidth = static_cast<std::uint16_t>(lParam32);
         gCurrentClientHeight = static_cast<std::uint16_t>(lParam32 >> 16);
@@ -269,7 +269,7 @@ LRESULT CALLBACK WindowProcedure(
             static_cast<void>(InitializeWindow());
             const std::uint32_t tick = ReadTickCount32();
             gWindowResizePhase = 0;
-            gLastRenderDt = static_cast<double>(tick);
+            gLastRenderDt = tick;
             return 0;
         }
         if (wParam32 == VK_F10) {
@@ -324,7 +324,7 @@ LRESULT CALLBACK WindowProcedure(
                 L"確認",
                 MB_OKCANCEL) == IDCANCEL) {
             const std::uint32_t tick = ReadTickCount32();
-            gLastRenderDt = static_cast<double>(tick);
+            gLastRenderDt = tick;
             return 0;
         }
         return DefWindowProcW(window, message, wParam, lParam);

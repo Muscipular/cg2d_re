@@ -97,7 +97,7 @@ int MainLoop()
             if (windowActiveState == 0) {
                 auto tick = getTickCount();
                 // 原 x87 非“大于”包含 unordered，不能改成 <=。
-                while (!(static_cast<double>(tick) > gLastRenderDt)) {
+                while (!(tick > gLastRenderDt)) {
                     Sleep(1);
                     if (gPendingPaletteReload == 1) {
                         auto* palette = render::GetRendererPalette(render::gRenderer);
@@ -116,7 +116,7 @@ int MainLoop()
             }
             const double threshold = gFrameThreshold + gLastRenderDt;
             const auto tick = getTickCount();
-            if (static_cast<double>(tick) > threshold) {
+            if (tick > threshold) {
                 const std::uint32_t catchUpCount = gCatchUpCount;
                 if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
                     const double deadline = gFrameIncrement + gLastRenderDt;
@@ -146,7 +146,7 @@ int MainLoop()
         render::Flip_44C560();
 
         auto tick = getTickCount();
-        while (!(static_cast<double>(tick) > gLastRenderDt)) {
+        while (!(tick > gLastRenderDt)) {
             Sleep(1);
             tick = getTickCount();
         }

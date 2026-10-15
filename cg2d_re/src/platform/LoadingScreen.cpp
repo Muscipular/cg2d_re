@@ -31,7 +31,7 @@ std::int32_t InitLoading_457B10()
     bool keepRunning = true;
     render::gPaletteCapability = resource::ProbePaletteCapability_45C970();
     std::uint32_t phaseTick = ReadTickCount32();
-    gLastRenderDt = static_cast<double>(phaseTick);
+    gLastRenderDt = phaseTick;
     auto& descriptor = gLoadingDescriptor;
     auto* const colorBytes = reinterpret_cast<unsigned char*>(&descriptor.color);
     for (;;) {
@@ -332,7 +332,7 @@ std::int32_t InitLoading_457B10()
         const double threshold = gFrameThreshold + gLastRenderDt;
         const std::uint32_t tick = ReadTickCount32();
         bool skipDrawing = false;
-        if (static_cast<double>(tick) > threshold) {
+        if (tick > threshold) {
             const std::uint32_t catchUpCount = gCatchUpCount;
             if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
                 const double deadline = gFrameIncrement + gLastRenderDt;
@@ -358,7 +358,7 @@ std::int32_t InitLoading_457B10()
             }
             render::Flip_44C560();
             std::uint32_t waitTick = ReadTickCount32();
-            while (!(static_cast<double>(waitTick) > gLastRenderDt)) {
+            while (!(waitTick > gLastRenderDt)) {
                 Sleep(1);
                 waitTick = ReadTickCount32();
             }

@@ -899,7 +899,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
     const float distanceX = static_cast<float>(payload->x00);
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
         action->offset40 = static_cast<float>(payload->x00);
-        const double y = static_cast<double>(payload->y04);
+        const double y = payload->y04;
         action->phase = 0;
         action->offset44 = static_cast<float>(y);
         payload->flagsFDC |= 1u;

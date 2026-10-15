@@ -33,7 +33,7 @@ std::int32_t FindNearestPaletteColor_451E90(
     const std::int32_t initialDistance =
         initialRedBlue + initialDeltaGreen * initialDeltaGreen;
     const std::int32_t limit = count - 16;
-    double closest = static_cast<double>(initialDistance);
+    double closest = initialDistance;
     std::int32_t selected = 0;
     for (std::int32_t index = 16; index < limit; ++index) {
         const std::int32_t currentBlue = palette[index].blue;
@@ -46,7 +46,7 @@ std::int32_t FindNearestPaletteColor_451E90(
         const std::int32_t greenSquared = deltaGreen * deltaGreen;
         const std::int32_t redGreen = redSquared + greenSquared;
         const std::int32_t distance = redGreen + deltaBlue * deltaBlue;
-        const double current = static_cast<double>(distance);
+        const double current = distance;
         if (current < closest) {
             closest = current;
             selected = index;
@@ -372,12 +372,12 @@ int UpdatePalette_450BB0()
             const std::int32_t greenDifference =
                 static_cast<std::int32_t>(gPaletteTarget[i].green) - greenCurrent;
             gPaletteRedCurrent[i] = static_cast<float>(redCurrent);
-            const double steps = static_cast<double>(gPaletteTransitionSteps);
+            const double steps = gPaletteTransitionSteps;
             const std::int32_t redDifference =
                 static_cast<std::int32_t>(gPaletteTarget[i].red) - redCurrent;
-            gPaletteBlueStep[i] = static_cast<float>(static_cast<double>(blueDifference) / steps);
-            gPaletteGreenStep[i] = static_cast<float>(static_cast<double>(greenDifference) / steps);
-            gPaletteRedStep[i] = static_cast<float>(static_cast<double>(redDifference) / steps);
+            gPaletteBlueStep[i] = static_cast<float>(blueDifference / steps);
+            gPaletteGreenStep[i] = static_cast<float>(greenDifference / steps);
+            gPaletteRedStep[i] = static_cast<float>(redDifference / steps);
         }
         std::fclose(file);
 
@@ -398,11 +398,11 @@ int UpdatePalette_450BB0()
             gPaletteToneGreenCurrent = static_cast<float>(greenCurrent);
             const std::int32_t greenDifference = gPaletteToneTargets[toneTargetIndex][1] - greenCurrent;
             gPaletteToneRedCurrent = static_cast<float>(redCurrent);
-            const double steps = static_cast<double>(gPaletteTransitionSteps);
+            const double steps = gPaletteTransitionSteps;
             const std::int32_t redDifference = gPaletteToneTargets[toneTargetIndex][0] - redCurrent;
-            gPaletteToneBlueStep = static_cast<float>(static_cast<double>(blueDifference) / steps);
-            gPaletteToneGreenStep = static_cast<float>(static_cast<double>(greenDifference) / steps);
-            gPaletteToneRedStep = static_cast<float>(static_cast<double>(redDifference) / steps);
+            gPaletteToneBlueStep = static_cast<float>(blueDifference / steps);
+            gPaletteToneGreenStep = static_cast<float>(greenDifference / steps);
+            gPaletteToneRedStep = static_cast<float>(redDifference / steps);
         } else {
             gPaletteToneRedCurrent = 0.0f;
             gPaletteToneGreenCurrent = 0.0f;
@@ -440,7 +440,7 @@ int UpdatePalette_450BB0()
         for (int i = 16; i < 240; ++i) {
             // 蓝通道的原 __ftol 使用尚未舍入到 float 的 x87 加法值；绿/红使用已存 float。
             const double blue = static_cast<double>(gPaletteBlueStep[i])
-                + static_cast<double>(gPaletteBlueCurrent[i]);
+                + gPaletteBlueCurrent[i];
             gPaletteBlueCurrent[i] = static_cast<float>(blue);
             const float green = static_cast<float>(
                 static_cast<double>(gPaletteGreenStep[i]) + gPaletteGreenCurrent[i]);

@@ -68,7 +68,7 @@ bool Sub_45EF80()
 {
     const double deadline = cg::platform::gLastRenderDt + kFrameGateIncrement;
     const std::uint32_t tick = cg::platform::ReadTickCount32();
-    return static_cast<double>(tick) > deadline;
+    return tick > deadline;
 }
 
 void DrawFiveCapability3Images()

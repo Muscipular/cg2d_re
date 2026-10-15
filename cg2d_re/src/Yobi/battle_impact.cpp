@@ -763,7 +763,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 static_cast<double>(movingHalfHeight) + target->graphicOffsetY + target->offset44);
             TurnBattleTowardPosition_4060D0(action, x, centerY, 0, 0.0F);
             MoveBattleByAngle_405EA0(action);
-            const double speed = static_cast<double>(action->value54) + 0.5;
+            const double speed = action->value54 + 0.5;
             const std::int32_t hit = action->frameEvent;
             action->value54 = static_cast<float>(speed);
             if (hit == 0) {
@@ -1165,7 +1165,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
                 const std::int32_t direction = target->direction + 1;
                 target->offset40 = static_cast<float>(static_cast<double>(offsetX) + action->offset40);
-                const double y = static_cast<double>(action->offset44) - 35.0F - arc
+                const double y = action->offset44 - 35.0 - arc
                     + static_cast<std::int32_t>(gYobiScreenOffsetY);
                 target->direction = direction;
                 target->offset44 = static_cast<float>(y);

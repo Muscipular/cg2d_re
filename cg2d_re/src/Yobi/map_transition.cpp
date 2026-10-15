@@ -170,20 +170,20 @@ YobiAction* Sub_448040(
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 
-    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    const double scaledX = mapX * 64.0;
     action->field27C = 0;
     action->field280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
-    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    const auto worldY = static_cast<float>(mapY * 64.0);
     action->worldY = worldY;
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     const auto y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     auto* const payload = action->payload.mapTransition;
     action->y = y;
     payload->mode = mode;
@@ -244,9 +244,9 @@ std::int32_t Sub_4473B0(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     static_cast<void>(Sub_517880(action, 100, 0, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -297,9 +297,9 @@ std::int32_t Sub_4474E0(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     static_cast<void>(Sub_517880(action, 100, 0, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -480,9 +480,9 @@ void DrawMovingTransition(
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     static_cast<void>(Sub_517880(action, 100, 0, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -505,21 +505,21 @@ void DrawTransitionOrbit(
     for (std::int32_t point = 0; point < 3; ++point) {
         const double xFactor = world::detail::Sub_46F950(angle);
         const float offsetX = static_cast<float>(
-            xFactor * static_cast<double>(payload->value24));
+            xFactor * payload->value24);
         const double yFactor = world::detail::Sub_46F930(angle);
-        const double offsetY = yFactor * static_cast<double>(payload->value24);
+        const double offsetY = yFactor * payload->value24;
         const float projectedY = static_cast<float>(
-            offsetY + static_cast<double>(action->worldY));
+            offsetY + action->worldY);
         const float projectedX = static_cast<float>(
-            static_cast<double>(offsetX) + static_cast<double>(action->worldX));
+            static_cast<double>(offsetX) + action->worldX);
         float screenX;
         float screenY;
         world::ProjectWorldToScreen_46CE30(
             projectedX, projectedY, &screenX, &screenY);
         action->x = static_cast<std::int32_t>(
-            static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+            static_cast<std::int64_t>(screenX + 0.5));
         action->y = static_cast<std::int32_t>(
-            static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+            static_cast<std::int64_t>(screenY + 0.5));
         static_cast<void>(Sub_517880(action, 100, 0, 0));
         if (allowMapAtZero && payload->value24 == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -546,7 +546,7 @@ void DrawTransitionOrbit(
             static_cast<void>(render::DrawGraphic2_521DD0(
                 drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
         }
-        angle = static_cast<float>(static_cast<double>(angle) + 120.0F);
+        angle = static_cast<float>(angle + 120.0);
         world::detail::Sub_46F8F0(&angle);
     }
 }
@@ -574,10 +574,10 @@ std::int32_t UpdateTransitionTrail(
     if (counter >= 30) {
         payload->height3C = 0;
     } else {
-        const double deltaX = static_cast<double>(std::bit_cast<float>(action->field27C));
-        action->worldX = static_cast<float>(deltaX + static_cast<double>(action->worldX));
-        const double deltaY = static_cast<double>(std::bit_cast<float>(action->field280));
-        action->worldY = static_cast<float>(deltaY + static_cast<double>(action->worldY));
+        const double deltaX = std::bit_cast<float>(action->field27C);
+        action->worldX = static_cast<float>(deltaX + action->worldX);
+        const double deltaY = std::bit_cast<float>(action->field280);
+        action->worldY = static_cast<float>(deltaY + action->worldY);
         const std::int32_t velocity = payload->velocity40;
         const std::int32_t height = payload->height3C;
         payload->height3C = height + velocity;
@@ -590,9 +590,9 @@ std::int32_t UpdateTransitionTrail(
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     static_cast<void>(Sub_517880(action, 100, 0, 0));
     if ((action->flags & 2u) == 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -759,7 +759,7 @@ std::int32_t Sub_447070(YobiAction* const action)
         const std::uint32_t now = platform::ReadTickCount32();
         const std::uint32_t deadline = payload->tick14 + 1000u;
         if (deadline < now) {
-            const double angle = static_cast<double>(payload->value20) + 6.0F;
+            const double angle = payload->value20 + 6.0;
             payload->value24 += 4;
             payload->value20 = static_cast<float>(angle);
         }
@@ -783,7 +783,7 @@ std::int32_t Sub_447230(YobiAction* const action)
         return 1;
     }
     if (payload->slots18.values.state18 != 0) {
-        const double angle = static_cast<double>(payload->value20) + 6.0F;
+        const double angle = payload->value20 + 6.0;
         payload->value24 -= 4;
         payload->value20 = static_cast<float>(angle);
         DrawTransitionOrbit(action, payload, static_cast<float>(angle), false);
@@ -911,9 +911,9 @@ void Sub_447E60(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     const std::int32_t characterAction = action->characterAction;
     const std::int32_t stopAtEnd =
         characterAction == 12 || characterAction == 13 || characterAction == 14

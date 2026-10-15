@@ -400,7 +400,7 @@ bool SdlAudioBackend::SetChannelVolume(
     // 增益在SDL取出数据时应用，音量变化也覆盖尚未消费的已排队PCM。
     return SDL_SetAudioStreamGain(
         impl_->channels[index].stream, static_cast<float>(
-            std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0)));
+            std::pow(10.0, hundredthDb / 2000.0)));
 }
 
 bool SdlAudioBackend::SetChannelPan(
@@ -416,7 +416,7 @@ bool SdlAudioBackend::SetChannelPan(
     channel.panLeft = hundredthDb <= 0 ? 1.0f
         : static_cast<float>(std::pow(10.0, -static_cast<double>(hundredthDb) / 2000.0));
     channel.panRight = hundredthDb >= 0 ? 1.0f
-        : static_cast<float>(std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0));
+        : static_cast<float>(std::pow(10.0, hundredthDb / 2000.0));
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return true;
 }
@@ -519,7 +519,7 @@ bool SdlAudioBackend::SetBgmVolume(
     // 流式首段已在设置音量前预填；不将旧音量烘焙进PCM或重复衰减。
     return SDL_SetAudioStreamGain(
         impl_->bgm.stream, static_cast<float>(
-            std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0)));
+            std::pow(10.0, hundredthDb / 2000.0)));
 }
 
 bool SdlAudioBackend::SetBgmFrequency(const std::uint32_t hz) noexcept

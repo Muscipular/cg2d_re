@@ -70,15 +70,15 @@ void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 
     const double xDifference =
         static_cast<double>(previousScreenX)
-        - static_cast<double>(currentScreenX);
+        - currentScreenX;
     const float yDifference = static_cast<float>(
         static_cast<double>(previousScreenY)
-        - static_cast<double>(currentScreenY));
+        - currentScreenY);
 
     *outX = static_cast<float>(
-        xDifference * static_cast<double>(0.125f));
+        xDifference * 0.125);
     *outY = static_cast<float>(
-        static_cast<double>(yDifference) * static_cast<double>(0.125f));
+        yDifference * 0.125);
 }
 
 // 原 SortTextures_520790 的单个保留槽；未列出的记录字段保持原值。
@@ -348,7 +348,7 @@ std::int32_t Sub_521870()
 
     const float phase = gFloat1020EF0;
     gFloat1020EF0 = static_cast<float>(
-        static_cast<double>(phase) - static_cast<double>(yDelta));
+        static_cast<double>(phase) - yDelta);
     Sub_520930(&gFloat1020EF0);
     const std::int32_t integerPhase =
         static_cast<std::int32_t>(gFloat1020EF0);

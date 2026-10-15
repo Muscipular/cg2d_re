@@ -3666,7 +3666,7 @@ std::int32_t WindowScroll_ApplyWheel(
     static_cast<void>(WindowScroll_SetPosition(element, maximum, position));
     std::int32_t remainder = oldY - previous->y;
     const double product = static_cast<double>(wheel)
-        * static_cast<double>(std::bit_cast<float>(std::uint32_t{0x3C088889}));
+        * std::bit_cast<float>(std::uint32_t{0x3C088889});
     const float roundedProduct = static_cast<float>(product);
     const auto whole = static_cast<std::int32_t>(product);
     position += whole;
@@ -3684,8 +3684,8 @@ std::int32_t WindowScroll_ApplyWheel(
     const std::int32_t height = element->height;
     const std::int32_t previousHeight = previous->height;
     const std::int32_t span = height - previousHeight;
-    const double fraction = static_cast<double>(roundedProduct) - static_cast<double>(whole);
-    const double pixels = fraction * static_cast<double>(span) / static_cast<double>(maximum);
+    const double fraction = static_cast<double>(roundedProduct) - whole;
+    const double pixels = fraction * span / maximum;
     const std::int32_t step = static_cast<std::int32_t>(pixels);
     const std::int32_t steppedY = remainderY + step;
     previous->y = steppedY;

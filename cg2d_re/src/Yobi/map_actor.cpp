@@ -54,21 +54,21 @@ YobiAction* Sub_441DB0(
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 
-    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    const double scaledX = mapX * 64.0;
     action->field27C = 0;
     action->field280 = 0;
     action->phase = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
-    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    const auto worldY = static_cast<float>(mapY * 64.0);
     action->worldY = worldY;
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     return action;
 }
 
@@ -234,14 +234,12 @@ bool IsMapActorIdleAtTarget(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return false;
     }
-    const double x = static_cast<double>(
-        action->mapX200.value()) * 64.0F;
+    const double x = action->mapX200.value() * 64.0;
     const float worldX = action->worldX;
     if (x < worldX || x > worldX) {
         return false;
     }
-    const double y = static_cast<double>(
-        action->mapY210.value()) * 64.0F;
+    const double y = action->mapY210.value() * 64.0;
     const float worldY = action->worldY;
     return !(y < worldY || y > worldY);
 }
@@ -471,11 +469,11 @@ void Sub_442AB0(
     assignCoordinate(action->mapY1F0, targetY);
     assignCoordinate(action->mapX200, targetX);
     assignCoordinate(action->mapY210, targetY);
-    const double worldX = static_cast<double>(targetX);
+    const double worldX = targetX;
     action->field27C = 0;
     action->field280 = 0;
     action->worldX = static_cast<float>(worldX * 64.0F);
-    action->worldY = static_cast<float>(static_cast<double>(targetY) * 64.0F);
+    action->worldY = static_cast<float>(targetY * 64.0);
 }
 
 // 原函数：0x00441F60。
@@ -600,7 +598,7 @@ double Sub_442110(
             world::detail::Sub_46CDF0(velocity.directionX, velocity.directionY));
         action->field272 = 1;
     }
-    return static_cast<double>(velocity.rate);
+    return velocity.rate;
 }
 
 // 原函数：0x004422F0。
@@ -619,7 +617,7 @@ void Sub_4422F0(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    const double rate = static_cast<double>(speed);
+    const double rate = speed;
     const float percent = std::bit_cast<float>(0x3C23D70Au);
     action->field27C = std::bit_cast<std::uint32_t>(
         static_cast<float>(rate * direction.x * 4.0F * percent));
@@ -927,9 +925,9 @@ void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const pay
     float projectedY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &projectedX, &projectedY);
     std::int32_t screenX = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
+        static_cast<std::int64_t>(projectedX + 0.5));
     std::int32_t screenY = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(projectedY) + 0.5));
+        static_cast<std::int64_t>(projectedY + 0.5));
     const std::int32_t counter = payload->counter48;
     if (counter <= 360) {
         action->characterAction = 3;
@@ -1161,9 +1159,9 @@ std::int32_t Sub_43E490(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     switch (action->phase) {
     case 0:
         return 0;
@@ -1228,9 +1226,9 @@ void Sub_4417E0(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     player = world::detail::gPlayerRuntimeSlots.action;
     std::int32_t stopAtEnd;
     if (player != action
@@ -1438,10 +1436,8 @@ void Sub_4424B0(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    const float firstTargetX = static_cast<float>(static_cast<double>(
-        action->mapX200.value()) * 64.0F);
-    const double firstTargetY = static_cast<double>(
-        action->mapY210.value()) * 64.0F;
+    const float firstTargetX = static_cast<float>(action->mapX200.value() * 64.0);
+    const double firstTargetY = action->mapY210.value() * 64.0;
     const float firstWorldX = action->worldX;
     // 原 FCOMP/C3；Y在首轮不落F32，只有X比较通过才读取世界Y。
     if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
@@ -1468,10 +1464,8 @@ void Sub_4424B0(YobiAction* const action)
         }
     }
 
-    const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.value()) * 64.0F);
-    const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.value()) * 64.0F);
+    const float targetX = static_cast<float>(action->mapX200.value() * 64.0);
+    const float targetY = static_cast<float>(action->mapY210.value() * 64.0);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -1511,10 +1505,10 @@ void Sub_4424B0(YobiAction* const action)
 
     // 此入口先写count，不使用encoded优先的通用operator=(int32_t)。
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldX) * 0.015625F));
+        action->worldX * 0.015625));
     action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldY) * 0.015625F));
+        action->worldY * 0.015625));
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
@@ -1524,10 +1518,8 @@ void Sub_442730(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.value()) * 64.0F);
-    const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.value()) * 64.0F);
+    const float targetX = static_cast<float>(action->mapX200.value() * 64.0);
+    const float targetY = static_cast<float>(action->mapY210.value() * 64.0);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -1566,10 +1558,10 @@ void Sub_442730(YobiAction* const action)
     }
 
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldX) * 0.015625F));
+        action->worldX * 0.015625));
     action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldY) * 0.015625F));
+        action->worldY * 0.015625));
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
@@ -1579,10 +1571,8 @@ void Sub_4428F0(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.value()) * 64.0F);
-    const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.value()) * 64.0F);
+    const float targetX = static_cast<float>(action->mapX200.value() * 64.0);
+    const float targetY = static_cast<float>(action->mapY210.value() * 64.0);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -1625,10 +1615,10 @@ void Sub_4428F0(YobiAction* const action)
 
     // 倍率入口与442730不同：mask→encoded→count，不提前复制目标载荷。
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldX) * 0.015625F));
+        action->worldX * 0.015625));
     action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(action->worldY) * 0.015625F));
+        action->worldY * 0.015625));
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
@@ -2401,15 +2391,13 @@ std::uint32_t Sub_46A190()
         login::YobiAction* const action = ReadPetMapAction(index);
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
-            const double targetX = static_cast<double>(
-                gPlayerSnapshotX.value()) * 64.0F;
+            const double targetX = gPlayerSnapshotX.value() * 64.0;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
-            const double targetY = static_cast<double>(
-                gPlayerSnapshotY.value()) * 64.0F;
+            const double targetY = gPlayerSnapshotY.value() * 64.0;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -2417,14 +2405,12 @@ std::uint32_t Sub_46A190()
                 continue;
             }
         } else {
-            const double targetX = static_cast<double>(
-                action->mapX200.value()) * 64.0F;
+            const double targetX = action->mapX200.value() * 64.0;
             const float worldX = action->worldX;
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
-            const double targetY = static_cast<double>(
-                action->mapY210.value()) * 64.0F;
+            const double targetY = action->mapY210.value() * 64.0;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
                 || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -2520,15 +2506,15 @@ void MovePlayerOneStep_46B1B0(
         (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
-        static_cast<double>(differenceX),
+        differenceX,
         static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
     gValue9EE8FC = std::bit_cast<std::uint32_t>(
-        static_cast<float>(direction.unroundedX * static_cast<double>(rate) * 4.0F));
+        static_cast<float>(direction.unroundedX * rate * 4.0F));
     gValue9EE900 = std::bit_cast<std::uint32_t>(
-        static_cast<float>(static_cast<double>(direction.y) * static_cast<double>(rate) * 4.0F));
+        static_cast<float>(static_cast<double>(direction.y) * rate * 4.0F));
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
@@ -2551,14 +2537,12 @@ void Sub_46A5F0()
             break;
         }
         login::YobiAction* const action = ReadPetMapAction(index);
-        const double targetX = static_cast<double>(
-            action->mapX200.value()) * 64.0F;
+        const double targetX = action->mapX200.value() * 64.0;
         const float worldX = action->worldX;
         if (targetX < worldX || targetX > worldX) {
             continue;
         }
-        const double targetY = static_cast<double>(
-            action->mapY210.value()) * 64.0F;
+        const double targetY = action->mapY210.value() * 64.0;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
             || std::bit_cast<std::int16_t>(action->field270) <= 0) {

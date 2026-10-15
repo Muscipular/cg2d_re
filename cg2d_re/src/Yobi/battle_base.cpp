@@ -262,9 +262,9 @@ std::int32_t SortBattleActions_405C30()
 void Sub_405CB0(YobiAction* const action)
 {
     if (action->angle50 >= 360.0F) {
-        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - 360.0);
+        action->angle50 = static_cast<float>(action->angle50 - 360.0);
     } else if (action->angle50 < 0.0F) {
-        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) + 360.0);
+        action->angle50 = static_cast<float>(action->angle50 + 360.0);
     }
     if (action->angle50 >= 15.0F && action->angle50 < 60.0F) {
         action->direction = 4;
@@ -300,9 +300,9 @@ void NormalizeBattleAngle_405E60(YobiAction* const action)
     const float upperAngle = action->angle50;
     const float currentAngle = action->angle50;
     if (upperAngle >= 360.0F) {
-        action->angle50 = static_cast<float>(static_cast<double>(currentAngle) - 360.0);
+        action->angle50 = static_cast<float>(currentAngle - 360.0);
     } else if (!(currentAngle >= 0.0F)) {
-        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) + 360.0);
+        action->angle50 = static_cast<float>(action->angle50 + 360.0);
     }
 }
 
@@ -330,15 +330,15 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     const double referenceAngle = world::detail::Sub_46F970(referenceDeltaX, referenceDeltaY);
     float reference = static_cast<float>(referenceAngle);
     if (referenceAngle > 180.0) {
-        reference = static_cast<float>(static_cast<double>(reference) - 360.0);
+        reference = static_cast<float>(reference - 360.0);
     } else if (!(reference > -180.0F)) {
-        reference = static_cast<float>(static_cast<double>(reference) + 360.0);
+        reference = static_cast<float>(reference + 360.0);
     }
     const float deltaY = static_cast<float>(static_cast<double>(targetY) - sourceY);
     const float deltaX = static_cast<float>(static_cast<double>(targetX) - sourceX);
     double difference = world::detail::Sub_46F970(deltaX, deltaY);
     if (!(reference >= 0.0F)) {
-        difference -= static_cast<double>(reference) + 360.0;
+        difference -= reference + 360.0;
     }
     // 原405F85在负基准分支之后仍再次相减，不合并为通常的单次相对角。
     difference -= reference;
@@ -830,12 +830,12 @@ std::int32_t CheckBattleTurnReady_4394A0(
         }
         if (parentPhase != 24) {
             const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
-            const double expectedX = static_cast<double>(point[2]);
-            const double actualX = static_cast<double>(actor->offset40);
+            const double expectedX = point[2];
+            const double actualX = actor->offset40;
             bool displaced = expectedX < actualX || expectedX > actualX;
             if (!displaced) {
-                const double expectedY = static_cast<double>(point[3]);
-                const double actualY = static_cast<double>(actor->offset44);
+                const double expectedY = point[3];
+                const double actualY = actor->offset44;
                 displaced = expectedY < actualY || expectedY > actualY;
             }
             if (displaced) {

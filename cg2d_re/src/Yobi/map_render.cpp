@@ -63,9 +63,9 @@ void Sub_4441A0(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     if (Sub_517880(action, 100, 1, 0) != 0) {
         YobiAction** const slot = action->completionSlot10;
         if (slot != nullptr) {
@@ -112,20 +112,20 @@ YobiAction* Sub_444260(
     (action->mapY210 = static_cast<std::int32_t>(mapY));
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
     (action->mapY1F0 = static_cast<std::int32_t>(mapY));
-    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    const double scaledX = mapX * 64.0;
     action->field27C = 0;
     action->field280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
-    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    const auto worldY = static_cast<float>(mapY * 64.0);
     action->worldY = worldY;
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     action->completionSlot10 = completionSlot;
     return action;
 }
@@ -163,20 +163,20 @@ YobiAction* Sub_444000(
     assignCoordinate(action->mapY210, mapY);
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
-    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    const double scaledX = mapX * 64.0;
     action->field27C = 0;
     action->field280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
-    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    const auto worldY = static_cast<float>(mapY * 64.0);
     action->worldY = worldY;
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     return action;
 }
 
@@ -775,21 +775,21 @@ YobiAction* NewYobiGearPet_441130(
     action->field270 = 0;
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
     (action->mapY1F0 = static_cast<std::int32_t>(mapY));
-    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    const double scaledX = mapX * 64.0;
     action->field27C = 0;
     action->field280 = 0;
     action->phase = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
-    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    const auto worldY = static_cast<float>(mapY * 64.0);
     action->worldY = worldY;
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<std::int64_t>(screenY + 0.5));
     return action;
 }
 
@@ -1543,7 +1543,7 @@ void RenderChara_521F20()
         const std::int32_t offsetX = action->graphicOffsetX;
         const float scaleX = action->scaleX;
         const double scaledX =
-            static_cast<double>(offsetX) * static_cast<double>(scaleX);
+            static_cast<double>(offsetX) * scaleX;
         const std::int32_t scaledOffsetX =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledX));
         const std::int32_t x = action->x;
@@ -1551,7 +1551,7 @@ void RenderChara_521F20()
         const std::int32_t offsetY = action->graphicOffsetY;
         const float scaleY = action->scaleY;
         const double scaledY =
-            static_cast<double>(offsetY) * static_cast<double>(scaleY);
+            static_cast<double>(offsetY) * scaleY;
         const std::int32_t scaledOffsetY =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledY));
         const std::int32_t y = action->y;

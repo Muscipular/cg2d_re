@@ -417,11 +417,11 @@ void Sub_43C9A0()
             YobiAction* const action = gBattleEntries59E980[index];
             if (action != nullptr) {
                 const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
-                const double yEnd = static_cast<double>(payload->y0C);
-                const double yStart = static_cast<double>(payload->y04);
+                const double yEnd = payload->y0C;
+                const double yStart = payload->y04;
                 const float y = static_cast<float>(yEnd - yStart);
-                const double xEnd = static_cast<double>(payload->x08);
-                const double xStart = static_cast<double>(payload->x00);
+                const double xEnd = payload->x08;
+                const double xStart = payload->x00;
                 const float x = static_cast<float>(xEnd - xStart);
                 const float angle = static_cast<float>(Sub_46F970(x, y));
                 gBattleEntries59E980[index]->angle50 = angle;

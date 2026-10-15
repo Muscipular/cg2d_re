@@ -1144,14 +1144,14 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
                         static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
                     }
-                    const double backwardAngle = static_cast<double>(target->angle50) + 180.0;
+                    const double backwardAngle = target->angle50 + 180.0;
                     target->angle50 = static_cast<float>(backwardAngle);
                     if (backwardAngle >= 360.0) {
                         target->angle50 = static_cast<float>(backwardAngle - 360.0);
                     }
                     target->value54 = 8.0F;
                     MoveBattleByAngle_405EA0(target);
-                    const double forwardAngle = static_cast<double>(target->angle50) + 180.0;
+                    const double forwardAngle = target->angle50 + 180.0;
                     target->angle50 = static_cast<float>(forwardAngle);
                     if (forwardAngle >= 360.0) {
                         target->angle50 = static_cast<float>(forwardAngle - 360.0);
@@ -1633,7 +1633,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
     }
     if (turnSign <= 0) {
         const float difference = static_cast<float>(GetBattleAngleDifference_406060(action, action->battleOpponent10));
-        if (-static_cast<double>(action->effectAcceleration48) > difference
+        if (-action->effectAcceleration48 > difference
             || !(static_cast<double>(action->effectAcceleration48)
                 * std::bit_cast<float>(std::uint32_t{0x3E4CCCCD}) >= difference)) {
             action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - action->effectAcceleration48);
@@ -1646,7 +1646,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         const double step = rawDifference > action->effectAcceleration48
                 || static_cast<double>(action->effectAcceleration48)
                     * std::bit_cast<float>(std::uint32_t{0xBE4CCCCD}) > difference
-            ? static_cast<double>(action->effectAcceleration48) : static_cast<double>(difference);
+            ? action->effectAcceleration48 : difference;
         action->angle50 = static_cast<float>(step + action->angle50);
     }
     NormalizeBattleAngle_405E60(action);
@@ -1782,7 +1782,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
     payload->valueFCC = count;
     const std::int32_t duration = 14 * static_cast<std::int32_t>(((payload->flagsFDC >> 1) & 1u) + 1u);
     if (count < duration) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -1825,22 +1825,22 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
             }
         } else {
             static_cast<void>(render::LoadGraphic_522570(action->graphicIndex));
-            const double halfWidth = static_cast<double>(render::ReadGraphicDxWidth(action->graphicIndex)) * 0.5;
+            const double halfWidth = render::ReadGraphicDxWidth(action->graphicIndex) * 0.5;
             if (halfWidth > action->offset40 && payload->valueFD0 != 1) {
-                const double delta = static_cast<double>(action->angle50) - 90.0;
-                action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+                const double delta = action->angle50 - 90.0;
+                action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 1;
             } else if (action->offset40 > 640.0 - halfWidth && payload->valueFD0 != 2) {
-                const double delta = static_cast<double>(action->angle50) - 270.0;
-                action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+                const double delta = action->angle50 - 270.0;
+                action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 2;
             } else if (static_cast<double>(-action->graphicOffsetY) > action->offset44 && payload->valueFD0 != 3) {
-                const double delta = static_cast<double>(action->angle50) - 180.0;
-                action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+                const double delta = action->angle50 - 180.0;
+                action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 3;
@@ -1876,7 +1876,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
     payload->valueFCC = count;
     const std::int32_t duration = 14 * static_cast<std::int32_t>(((flags >> 1) & 1u) + 1u);
     if (count < duration) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -2274,7 +2274,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
     const std::int32_t count = previousCount + 1;
     payload->valueFCC = count;
     if (count < 14 * (initialBit + 1)) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -2365,7 +2365,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
         action->value54 = 15.0F;
         const std::uint8_t angleTimer = *reinterpret_cast<const std::uint8_t*>(&payload->valueFCC);
         if ((angleTimer & 1u) == 0) {
-            action->angle50 = static_cast<float>(static_cast<double>(action->angle50) + 180.0);
+            action->angle50 = static_cast<float>(action->angle50 + 180.0);
         }
         const double angle = action->angle50;
         if (angle >= 360.0) {
@@ -2386,22 +2386,22 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
         }
     } else {
         static_cast<void>(render::LoadGraphic_522570(action->graphicIndex));
-        const double halfWidth = static_cast<double>(render::ReadGraphicDxWidth(action->graphicIndex)) * 0.5;
+        const double halfWidth = render::ReadGraphicDxWidth(action->graphicIndex) * 0.5;
         if (halfWidth > action->offset40 && payload->valueFD0 != 1) {
-            const double delta = static_cast<double>(action->angle50) - 90.0;
-            action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+            const double delta = action->angle50 - 90.0;
+            action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 1;
         } else if (action->offset40 > 640.0 - halfWidth && payload->valueFD0 != 2) {
-            const double delta = static_cast<double>(action->angle50) - 270.0;
-            action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+            const double delta = action->angle50 - 270.0;
+            action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 2;
         } else if (static_cast<double>(-action->graphicOffsetY) > action->offset44 && payload->valueFD0 != 3) {
-            const double delta = static_cast<double>(action->angle50) - 180.0;
-            action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - (delta + delta));
+            const double delta = action->angle50 - 180.0;
+            action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 3;

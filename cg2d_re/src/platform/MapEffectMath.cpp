@@ -60,7 +60,7 @@ extern "C" void Cg2dMapEffectDirection(
     double* const direction) noexcept
 {
     const MapMathControlScope control;
-    const double radians = static_cast<double>(angle) * kRadians54DD18;
+    const double radians = angle * kRadians54DD18;
     const volatile float* const sampledSpeed = speed;
     const volatile std::uint32_t* const sampledX = offsetXBits;
     const volatile std::uint32_t* const sampledY = offsetYBits;
@@ -77,8 +77,8 @@ extern "C" void Cg2dMapEffectMotion(
 {
     const MapMathControlScope control;
     const volatile double* const sampled = direction;
-    const double vertical = static_cast<double>(cameraY) + sampled[1];
-    const double horizontal = static_cast<double>(cameraX) + sampled[0];
+    const double vertical = cameraY + sampled[1];
+    const double horizontal = cameraX + sampled[0];
     result->magnitude = std::sqrt(horizontal * horizontal + vertical * vertical);
     // 原C0/C3分支：正值1，负值或无序-1，零0。
     result->horizontalSign = horizontal > 0.0 ? 1 : (!(horizontal >= 0.0) ? -1 : 0);
@@ -89,13 +89,13 @@ extern "C" std::int32_t Cg2dMapEffectDivisor(
     const std::int32_t exponent, const double* const magnitude) noexcept
 {
     const MapMathControlScope control;
-    const double power = std::pow(1.25, static_cast<double>(exponent));
+    const double power = std::pow(1.25, exponent);
     const volatile double* const sampled = magnitude;
     double divisor = power * *sampled;
     // 原C3判断包含零与无序，保留原F32备用幅值。
     if (divisor == 0.0 || std::isnan(divisor)) divisor = kFallback54E230;
     return std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(
-        TruncateMapIntermediate(static_cast<double>(kSpawnScale54E22C) / divisor)));
+        TruncateMapIntermediate(kSpawnScale54E22C / divisor)));
 }
 
 extern "C" void Cg2dMapEffectStep(
@@ -113,7 +113,7 @@ extern "C" void Cg2dMapObserverProjection(
     const std::int32_t direction, MapObserverProjection* const result) noexcept
 {
     const MapMathControlScope control;
-    const double progress = static_cast<double>(frame) * 100.0 / *duration;
+    const double progress = frame * 100.0 / *duration;
     result->progress = static_cast<float>(progress);
     const double radius = progress * 480.0 * kPercentScale54D4E4 - 240.0;
     const double angle = kObserverAngles[direction];
@@ -124,7 +124,7 @@ extern "C" void Cg2dMapObserverProjection(
 extern "C" std::int64_t Cg2dMapObserverArc(const float* const progress) noexcept
 {
     const MapMathControlScope control;
-    const double difference = static_cast<double>(*progress) - 40.0;
+    const double difference = *progress - 40.0;
     return TruncateMapIntermediate(difference * difference * kArcScale54DD34);
 }
 
@@ -139,9 +139,9 @@ extern "C" void Cg2dMapActorVelocity(
     } else {
         const std::int16_t count = sampled->pathCount;
         const double rate = count > 5 ? 2.0 :
-            (count >= 4 ? static_cast<double>(kActorRate54DD3C) :
-                (count >= 2 ? static_cast<double>(kActorRate54DD40) : 1.0));
-        result->rate = static_cast<float>(static_cast<double>(sampled->speed) * rate * kPercentScale54D4E4);
+            (count >= 4 ? kActorRate54DD3C :
+                (count >= 2 ? kActorRate54DD40 : 1.0));
+        result->rate = static_cast<float>(sampled->speed * rate * kPercentScale54D4E4);
     }
     const std::int32_t targetX = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(sampled->targetX) << 6);
@@ -190,8 +190,8 @@ extern "C" void Cg2dMapActorSpiralOffset(
     const std::int32_t progress, const std::int32_t angle, std::int64_t* const result) noexcept
 {
     const MapMathControlScope control;
-    const double radians = static_cast<double>(angle) * kRadians54DD18;
-    result[0] = TruncateMapIntermediate(std::cos(radians) * (static_cast<double>(progress) * 1.75));
+    const double radians = angle * kRadians54DD18;
+    result[0] = TruncateMapIntermediate(std::cos(radians) * (progress * 1.75));
     result[1] = TruncateMapIntermediate(-std::sin(radians) * (static_cast<double>(progress) * kSpiralY54DD10));
 }
 
@@ -201,9 +201,9 @@ extern "C" void Cg2dMapObserverExitOffset(
     const MapMathControlScope control;
     const double angle = kObserverAngles[direction];
     const std::int32_t horizontal = (frame - 50) * 10;
-    result[0] = TruncateMapIntermediate(std::cos(angle) * static_cast<double>(horizontal));
+    result[0] = TruncateMapIntermediate(std::cos(angle) * horizontal);
     const std::int32_t vertical = (50 - frame) * 10;
-    result[1] = TruncateMapIntermediate(std::sin(angle) * static_cast<double>(vertical));
+    result[1] = TruncateMapIntermediate(std::sin(angle) * vertical);
 }
 
 extern "C" void Cg2dMapTimedOffset(
@@ -211,7 +211,7 @@ extern "C" void Cg2dMapTimedOffset(
     std::uint32_t* const xBits, std::uint32_t* const yBits) noexcept
 {
     const MapMathControlScope control;
-    const double radians = static_cast<double>(angle) * kRadians54DD18;
+    const double radians = angle * kRadians54DD18;
     const volatile float* const sampled = amplitude;
     *xBits = std::bit_cast<std::uint32_t>(static_cast<float>(std::cos(radians) * *sampled));
     *yBits = std::bit_cast<std::uint32_t>(static_cast<float>(-(std::sin(radians) * *sampled)));
@@ -240,8 +240,8 @@ extern "C" float* Cg2dProjectScreenToWorldX87(
     const volatile std::uint32_t* const referenceX,
     const volatile std::uint32_t* const referenceY) noexcept
 {
-    const double horizontal = static_cast<double>(x) - 320.0;
-    const double vertical = (static_cast<double>(y) - 240.0) * detail::kProjectionInverse54E218;
+    const double horizontal = x - 320.0;
+    const double vertical = (y - 240.0) * detail::kProjectionInverse54E218;
     *outX = static_cast<float>(horizontal - vertical + std::bit_cast<float>(static_cast<std::uint32_t>(*referenceX)));
     *outY = static_cast<float>(vertical + horizontal + std::bit_cast<float>(static_cast<std::uint32_t>(*referenceY)));
     return outX;

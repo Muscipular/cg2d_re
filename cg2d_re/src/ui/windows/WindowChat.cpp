@@ -230,10 +230,10 @@ static void WindowChat_SyncScrollThumb()
         elements[8].y = elements[14].y - 14;
         return;
     }
-    const double currentScroll = static_cast<double>(gChatScrollOffsetC9A940);
+    const double currentScroll = gChatScrollOffsetC9A940;
     const std::int32_t span = elements[10].height - 14;
-    const double ratio = currentScroll / static_cast<double>(world::detail::gCountC9A944);
-    const double pixels = ratio * static_cast<double>(span);
+    const double ratio = currentScroll / world::detail::gCountC9A944;
+    const double pixels = ratio * span;
     // 原PC53除法/乘法及__ftol取低S32，不能改为整数先乘后除。
     const auto position = static_cast<std::int32_t>(static_cast<std::int64_t>(pixels));
     elements[8].y = elements[14].y - position - 14;

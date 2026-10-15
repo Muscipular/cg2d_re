@@ -1693,10 +1693,10 @@ std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
     ProjectWorldToScreen_46CE30(0.0F, 0.0F, &projectedX, &projectedY);
     const std::int32_t currentX = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(static_cast<std::int64_t>(
-            static_cast<double>(projectedX) + 0.5)));
+            projectedX + 0.5)));
     const std::int32_t currentY = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(static_cast<std::int64_t>(
-            static_cast<double>(projectedY) + 0.5)));
+            projectedY + 0.5)));
 
     if (gProjectedX55DEA4 == -1) {
         gProjectedX55DEA4 = currentX;
@@ -4984,11 +4984,11 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
-        static_cast<double>(gPlayerX.value());
+        gPlayerX.value();
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
-        static_cast<double>(gPlayerY.value());
+        gPlayerY.value();
     const std::uint8_t snapshotXCount = gPlayerX.readCount;
     const std::uint32_t snapshotXEncoded = gPlayerX.encoded;
     const double scaledY = currentY * 64.0;
@@ -5844,7 +5844,7 @@ void DrawNormalScene_51C7D0()
         }
         const std::uint32_t tick = platform::ReadTickCount32();
         platform::gValue73ECC0 = 2;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51FDE0(15, 8, 0x40000000u));
         gCurrentSceneState = 103;
@@ -5862,7 +5862,7 @@ void DrawNormalScene_51C7D0()
     case 200:
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51D750());
-        platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount32());
+        platform::gLastRenderDt = platform::ReadTickCount32();
         ui::WindowRuntime_ProcessScene();
         gCurrentSceneState = 201;
         [[fallthrough]];
@@ -5934,7 +5934,7 @@ void DrawNormalScene_51C7D0()
         const std::uint32_t tick = platform::ReadTickCount32();
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         Sub_51D6F0();
         [[fallthrough]];
     }
@@ -5979,7 +5979,7 @@ void DrawNormalScene_51C7D0()
         const std::uint32_t tick = platform::ReadTickCount32();
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         Sub_51D6F0();
         const std::int32_t bgm = login::detail::Sub_440FE0();
         audio::gBgmTarget1050818 = bgm;
@@ -6028,7 +6028,7 @@ void DrawNormalScene_51C7D0()
         const std::uint32_t tick = platform::ReadTickCount32();
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         static_cast<void>(render::ResetGraphicCache_456D30());
         Sub_46BD40();
         static_cast<void>(login::detail::YobiUpdateAll_404C50());
@@ -6127,7 +6127,7 @@ void DrawNormalScene_51C7D0()
             static_cast<void>(render::ResetGraphicCache_456D30());
             const std::uint32_t tick = platform::ReadTickCount32();
             const std::uint32_t gate = gValueD67E78;
-            platform::gLastRenderDt = static_cast<double>(tick);
+            platform::gLastRenderDt = tick;
             const std::int32_t selector = gate == 1 ? 15 : 13;
             platform::gValue73ECC0 = 2;
             static_cast<void>(Sub_51FDE0(selector, 8, 0x40000000u));
@@ -6268,7 +6268,7 @@ std::uint32_t Sub_51D640()
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     const std::uint32_t tick = platform::ReadTickCount32();
-    platform::gLastRenderDt = static_cast<double>(tick);
+    platform::gLastRenderDt = tick;
     return tick;
 }
 
@@ -6464,7 +6464,7 @@ void DrawBattleScene_43CBB0()
         }
         const std::uint32_t tick = platform::ReadTickCount32();
         platform::gValue73ECC0 = 2;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
@@ -6478,7 +6478,7 @@ void DrawBattleScene_43CBB0()
             platform::gValue73ECC0 = 3;
             const std::uint32_t tick = platform::ReadTickCount32();
             platform::gValue73ECC0 = 3;
-            platform::gLastRenderDt = static_cast<double>(tick);
+            platform::gLastRenderDt = tick;
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
             static_cast<void>(ui::WindowRuntime_Render());
@@ -7375,8 +7375,8 @@ std::int64_t __cdecl Sub_468F70()
     float y;
     ProjectWorldToScreen_46CE30(0.0F, 0.0F, &x, &y);
     const std::int64_t projectedX = static_cast<std::int64_t>(
-        static_cast<double>(x) + 0.5);
-    const double roundedY = static_cast<double>(y) + 0.5;
+        x + 0.5);
+    const double roundedY = y + 0.5;
     gWorldProjectionSourceA = static_cast<std::uint32_t>(projectedX);
     const std::int64_t projectedY = static_cast<std::int64_t>(roundedY);
     gWorldProjectionSourceC = static_cast<std::uint32_t>(projectedX);
@@ -7419,14 +7419,14 @@ void __cdecl Sub_46F8F0(float* const value)
     constexpr float kFullTurn = 360.0F;
     for (;;) {
         const float upperValue = *value;
-        if (static_cast<double>(upperValue) >= 360.0) {
+        if (upperValue >= 360.0) {
             const float updateValue = *value;
             *value = updateValue - kFullTurn;
             continue;
         }
 
         const float lowerValue = *value;
-        if (static_cast<double>(lowerValue) >= 0.0) {
+        if (lowerValue >= 0.0) {
             return;
         }
         const float updateValue = *value;
@@ -7459,10 +7459,8 @@ double __cdecl Sub_46F970(const float first, const float second)
 
     const bool firstNegative = first < 0.0F;
     const bool secondNegative = second < 0.0F;
-    const double firstAbs = firstNegative ? -static_cast<double>(first)
-                                          : static_cast<double>(first);
-    const double secondAbs = secondNegative ? -static_cast<double>(second)
-                                            : static_cast<double>(second);
+    const double firstAbs = firstNegative ? -first : first;
+    const double secondAbs = secondNegative ? -second : second;
     const bool swapAxes = firstAbs < secondAbs;
     const std::int32_t selector =
         (firstNegative ? 1 : 0) + (secondNegative ? 2 : 0) + (swapAxes ? 4 : 0);
@@ -7470,25 +7468,25 @@ double __cdecl Sub_46F970(const float first, const float second)
         (swapAxes ? firstAbs / secondAbs : secondAbs / firstAbs) * 64.0;
     const std::int32_t index = static_cast<std::int32_t>(scaled);
     const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
-    const float fraction = static_cast<float>(scaled - static_cast<double>(index));
+    const float fraction = static_cast<float>(scaled - index);
     const double leftSample = std::bit_cast<double>(
         gAngleTableBits55EA50[static_cast<std::size_t>(index)]);
-    const double firstWeight = 1.0 - static_cast<double>(fraction);
+    const double firstWeight = 1.0 - fraction;
     const double left = leftSample * firstWeight;
     const double rightSample = std::bit_cast<double>(
         gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)]);
-    const double right = rightSample * static_cast<double>(fraction);
+    const double right = rightSample * fraction;
     const float angle = static_cast<float>(left + right);
 
     switch (selector) {
-    case 0: return static_cast<double>(angle);
-    case 1: return 180.0 - static_cast<double>(angle);
-    case 2: return 360.0 - static_cast<double>(angle);
-    case 3: return static_cast<double>(angle) + 180.0;
-    case 4: return 90.0 - static_cast<double>(angle);
-    case 5: return static_cast<double>(angle) + 90.0;
-    case 6: return static_cast<double>(angle) + 270.0;
-    case 7: return 270.0 - static_cast<double>(angle);
+    case 0: return angle;
+    case 1: return 180.0 - angle;
+    case 2: return 360.0 - angle;
+    case 3: return angle + 180.0;
+    case 4: return 90.0 - angle;
+    case 5: return angle + 90.0;
+    case 6: return angle + 270.0;
+    case 7: return 270.0 - angle;
     default: return 0.0;
     }
 }
@@ -7509,11 +7507,11 @@ std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
 {
     const double direction = Sub_46F970(first, second);
     const float offset = std::bit_cast<float>(0x42E10000U);
-    float angle = static_cast<float>(direction + static_cast<double>(offset));
+    float angle = static_cast<float>(direction + offset);
     Sub_46F8F0(&angle);
     const float multiplier = std::bit_cast<float>(0x3CB60B61U);
     return static_cast<std::int64_t>(
-        static_cast<double>(angle) * static_cast<double>(multiplier));
+        static_cast<double>(angle) * multiplier);
 }
 
 // PDH01：原 [0x46B580,0x46B5B3)；先算 Y/X 两整数差，再依次落 F32，透传方向 S64。
@@ -8155,8 +8153,8 @@ std::uint8_t Sub_46F680()
     static_cast<void>(
         ProjectScreenToWorld_46CE80(mouseX, mouseY, &projectedX, &projectedY));
     const std::int32_t pixelX = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
-    const double biasedY = static_cast<double>(projectedY) + 0.5;
+        static_cast<std::int64_t>(projectedX + 0.5));
+    const double biasedY = projectedY + 0.5;
     gValueC8A78C = pixelX;
     const std::int32_t pixelY =
         static_cast<std::int32_t>(static_cast<std::int64_t>(biasedY));
@@ -8186,9 +8184,9 @@ std::uint8_t Sub_46F680()
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         const std::int32_t drawY = static_cast<std::int32_t>(
-            static_cast<std::int64_t>(static_cast<double>(projectedY) + 0.5));
+            static_cast<std::int64_t>(projectedY + 0.5));
         const std::int32_t drawX = static_cast<std::int32_t>(
-            static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
+            static_cast<std::int64_t>(projectedX + 0.5));
         static_cast<void>(
             login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
@@ -8706,13 +8704,11 @@ std::uint16_t Sub_469FC0()
         if (pending != 0) {
             return static_cast<std::uint16_t>(pending);
         }
-        const double targetX = static_cast<double>(
-            gPlayerSnapshotX.value()) * 64.0F;
+        const double targetX = gPlayerSnapshotX.value() * 64.0;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
-            const double targetY = static_cast<double>(
-                gPlayerSnapshotY.value()) * 64.0F;
+            const double targetY = gPlayerSnapshotY.value() * 64.0;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -8805,13 +8801,13 @@ void Sub_46A410(
         (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
-        static_cast<double>(differenceX),
+        differenceX,
         static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
     if (detail::gPlayerRuntimeSlots.action != nullptr) {
-        const double rate = static_cast<double>(speed);
+        const double rate = speed;
         const float percent = std::bit_cast<float>(0x3C23D70Au);
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.unroundedX * 4.0F * percent));
@@ -8821,7 +8817,7 @@ void Sub_46A410(
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
             static_cast<float>(direction.unroundedX * 4.0F));
         gValue9EE900 = std::bit_cast<std::uint32_t>(
-            static_cast<float>(static_cast<double>(direction.y) * 4.0F));
+            static_cast<float>(direction.y * 4.0));
     }
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
         || direction.y < 0.0F || direction.y > 0.0F) {
@@ -8854,10 +8850,8 @@ void Sub_46A700()
         return;
     }
 
-    const float targetX = static_cast<float>(static_cast<double>(
-        gPlayerSnapshotX.value()) * 64.0F);
-    const double scaledTargetY = static_cast<double>(
-        gPlayerSnapshotY.value()) * 64.0F;
+    const float targetX = static_cast<float>(gPlayerSnapshotX.value() * 64.0);
+    const double scaledTargetY = gPlayerSnapshotY.value() * 64.0;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -8883,7 +8877,7 @@ void Sub_46A700()
             static_cast<double>(std::bit_cast<float>(currentYBits)) + stepY));
     } else {
         // 原先计算X格值，但先发布世界坐标/移动槽/C8222E，再截断并构造临时量。
-        const double gridX = static_cast<double>(targetX) * 0.015625F;
+        const double gridX = targetX * 0.015625;
         gWorldCurrentXBits = std::bit_cast<std::uint32_t>(targetX);
         gWorldCurrentYBits = std::bit_cast<std::uint32_t>(targetY);
         gValue9EE8FC = 0;
@@ -8894,7 +8888,7 @@ void Sub_46A700()
 
         const std::uint32_t currentYBits = gWorldCurrentYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
-            static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
+            std::bit_cast<float>(currentYBits) * 0.015625));
         gPlayerY = static_cast<std::int32_t>(y);
 
         const std::int32_t count = detail::gPlayerRuntimeSlots.value174;
@@ -9674,7 +9668,7 @@ std::int32_t Sub_45EEE0()
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
         gValue58B6D0 = 1;
         gLogoutTransition9A6E94 = next;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        platform::gLastRenderDt = tick;
         ui::WindowRuntime_ProcessScene();
         login::detail::Sub_43F230();
     }
@@ -9708,11 +9702,11 @@ std::int32_t Sub_51D790(
     switch (mode) {
     case 0: {
         const double position = static_cast<double>(gTransitionYFF48F0)
-            - static_cast<double>(gTransitionVelocityFF48F8);
+            - gTransitionVelocityFF48F8;
         gTransitionYFF48F0 = static_cast<float>(position);
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(customAcceleration ? acceleration : defaultY));
+            + (customAcceleration ? acceleration : defaultY));
         if (!(position > -480.0)) {
             completed = 1;
         }
@@ -9721,16 +9715,16 @@ std::int32_t Sub_51D790(
     case 1:
     case 5: {
         const double position = static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(gTransitionYFF48F0);
+            + gTransitionYFF48F0;
         gTransitionYFF48F0 = static_cast<float>(position);
         if (mode == 5) {
             gTransitionAlternateYFF48F4 = static_cast<float>(
                 static_cast<double>(gTransitionAlternateYFF48F4)
-                - static_cast<double>(gTransitionVelocityFF48F8));
+                - gTransitionVelocityFF48F8);
         }
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(customAcceleration ? acceleration : defaultY));
+            + (customAcceleration ? acceleration : defaultY));
         if (position >= 480.0) {
             completed = 1;
         }
@@ -9738,11 +9732,11 @@ std::int32_t Sub_51D790(
     }
     case 2: {
         const double position = static_cast<double>(gTransitionXFF48E8)
-            - static_cast<double>(gTransitionVelocityFF48F8);
+            - gTransitionVelocityFF48F8;
         gTransitionXFF48E8 = static_cast<float>(position);
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(customAcceleration ? acceleration : defaultX));
+            + (customAcceleration ? acceleration : defaultX));
         if (!(position > -640.0)) {
             completed = 1;
         }
@@ -9751,16 +9745,16 @@ std::int32_t Sub_51D790(
     case 3:
     case 4: {
         const double position = static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(gTransitionXFF48E8);
+            + gTransitionXFF48E8;
         gTransitionXFF48E8 = static_cast<float>(position);
         if (mode == 4) {
             gTransitionAlternateXFF48EC = static_cast<float>(
                 static_cast<double>(gTransitionAlternateXFF48EC)
-                - static_cast<double>(gTransitionVelocityFF48F8));
+                - gTransitionVelocityFF48F8);
         }
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
-            + static_cast<double>(customAcceleration ? acceleration : defaultX));
+            + (customAcceleration ? acceleration : defaultX));
         if (position >= 640.0) {
             completed = 1;
         }
@@ -9775,35 +9769,35 @@ std::int32_t Sub_51D790(
             completed = 0;
             active = 0.0;
         } else {
-            active = static_cast<double>(gTransitionActiveLinesFF48FC);
+            active = gTransitionActiveLinesFF48FC;
         }
-        for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+        for (std::int32_t index = 0; index < active; ++index) {
             if ((index & 1) != 0) {
                 const double speed = static_cast<double>(gTransitionVelocityFF48F8)
-                    + static_cast<double>(speeds[index]);
+                    + speeds[index];
                 speeds[index] = static_cast<float>(speed);
-                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));
+                offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
                 const std::int32_t reverse = 480 - index;
                 const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
-                    + static_cast<double>(speeds[reverse]);
+                    + speeds[reverse];
                 speeds[reverse] = static_cast<float>(reverseSpeed);
                 offsetsX[reverse] = static_cast<float>(
-                    reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                    reverseSpeed + offsetsX[reverse]);
             } else {
                 const double speed = static_cast<double>(speeds[index])
-                    - static_cast<double>(gTransitionVelocityFF48F8);
+                    - gTransitionVelocityFF48F8;
                 speeds[index] = static_cast<float>(speed);
-                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));
+                offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
                 const std::int32_t reverse = 478 - index;
                 const double reverseSpeed = static_cast<double>(speeds[reverse])
-                    - static_cast<double>(gTransitionVelocityFF48F8);
+                    - gTransitionVelocityFF48F8;
                 speeds[reverse] = static_cast<float>(reverseSpeed);
                 offsetsX[reverse] = static_cast<float>(
-                    reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                    reverseSpeed + offsetsX[reverse]);
             }
         }
         gTransitionActiveLinesFF48FC = static_cast<float>(
-            active + (step != 0 ? static_cast<double>(step) : 4.0));
+            active + (step != 0 ? step : 4.0));
         if (gTransitionActiveLinesFF48FC > 241.0f) {
             gTransitionActiveLinesFF48FC = 241.0f;
         }
@@ -9827,28 +9821,28 @@ std::int32_t Sub_51D790(
             completed = 0;
             active = 0.0;
         } else {
-            active = static_cast<double>(gTransitionActiveLinesFF48FC);
+            active = gTransitionActiveLinesFF48FC;
         }
         if (mode == 7) {
-            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+            for (std::int32_t index = 0; index < active; ++index) {
                 const std::int32_t reverse = 480 - index;
                 if (reverse >= 240) {
                     const double speed = static_cast<double>(speeds[index])
-                        - static_cast<double>(gTransitionVelocityFF48F8);
+                        - gTransitionVelocityFF48F8;
                     speeds[index] = static_cast<float>(speed);
                     offsetsY[index] = static_cast<float>(
-                        speed + static_cast<double>(offsetsY[index]));
+                        speed + offsetsY[index]);
                     if (reverse > 240) {
                         const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
-                            + static_cast<double>(speeds[reverse]);
+                            + speeds[reverse];
                         speeds[reverse] = static_cast<float>(reverseSpeed);
                         offsetsY[reverse] = static_cast<float>(
-                            reverseSpeed + static_cast<double>(offsetsY[reverse]));
+                            reverseSpeed + offsetsY[reverse]);
                     }
                 }
             }
             gTransitionActiveLinesFF48FC = static_cast<float>(
-                active + (step != 0 ? static_cast<double>(step) : 4.0));
+                active + (step != 0 ? step : 4.0));
             if (gTransitionActiveLinesFF48FC > 241.0f) {
                 gTransitionActiveLinesFF48FC = 241.0f;
             }
@@ -9859,22 +9853,22 @@ std::int32_t Sub_51D790(
                 completed = 1;
             }
         } else {
-            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+            for (std::int32_t index = 0; index < active; ++index) {
                 const float speed = static_cast<float>(
                     static_cast<double>(gTransitionVelocityFF48F8)
-                    + static_cast<double>(speeds[index]));
+                    + speeds[index]);
                 speeds[index] = speed;
                 // 原局部F32重读，不复用上方未舍入的和。
                 if (!(speed >= 100.0f)) {
                     offsetsY[index] = static_cast<float>(
-                        static_cast<double>(speed) + static_cast<double>(offsetsY[index]));
+                        static_cast<double>(speed) + offsetsY[index]);
                 } else {
                     offsetsY[index] = static_cast<float>(
-                        static_cast<double>(offsetsY[index]) + 100.0);
+                        offsetsY[index] + 100.0);
                 }
             }
             gTransitionActiveLinesFF48FC = static_cast<float>(
-                active + (step != 0 ? static_cast<double>(step) : 16.0));
+                active + (step != 0 ? step : 16.0));
             if (gTransitionActiveLinesFF48FC > 480.0f) {
                 gTransitionActiveLinesFF48FC = 480.0f;
             }
@@ -9919,7 +9913,7 @@ std::int32_t Sub_51D790(
     case 6:
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = static_cast<double>(offsetsX[row]);
+            const double position = offsetsX[row];
             rectangle[1] = row;
             rectangle[3] = row + 1;
             rectangle[0] = 0;
@@ -9933,7 +9927,7 @@ std::int32_t Sub_51D790(
     case 8:
         for (std::int32_t row = 479; row > 0; --row) {
             render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = static_cast<double>(offsetsY[row]);
+            const double position = offsetsY[row];
             rectangle[1] = row;
             rectangle[3] = row + 1;
             rectangle[0] = 0;
@@ -10005,14 +9999,14 @@ std::int32_t Sub_51E0D0(
     case 0: {
         double position;
         if (phase == -1) {
-            position = static_cast<double>(initialY);
+            position = initialY;
             gReverseTransitionVelocityFF47C4 = initialSpeedY;
             gReverseTransitionXFF4900 = 0.0f;
-            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);
+            position -= gReverseTransitionVelocityFF47C4;
             gReverseTransitionPhase58B6D4 = 0;
         } else {
             position = static_cast<double>(gReverseTransitionYFF4908)
-                - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                - gReverseTransitionVelocityFF47C4;
         }
         gReverseTransitionYFF4908 = static_cast<float>(position);
         break;
@@ -10021,7 +10015,7 @@ std::int32_t Sub_51E0D0(
     case 5: {
         double position;
         if (phase == -1) {
-            position = static_cast<double>(initialNegativeY);
+            position = initialNegativeY;
             gReverseTransitionXFF4900 = 0.0f;
             if (mode == 5) {
                 gReverseTransitionAlternateYFF490C = initialY;
@@ -10029,28 +10023,28 @@ std::int32_t Sub_51E0D0(
             gReverseTransitionVelocityFF47C4 = initialSpeedY;
             gReverseTransitionPhase58B6D4 = 0;
         } else {
-            position = static_cast<double>(gReverseTransitionYFF4908);
+            position = gReverseTransitionYFF4908;
         }
         gReverseTransitionYFF4908 = static_cast<float>(
-            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);
+            gReverseTransitionVelocityFF47C4 + position);
         if (mode == 5) {
             gReverseTransitionAlternateYFF490C = static_cast<float>(
                 static_cast<double>(gReverseTransitionAlternateYFF490C)
-                - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                - gReverseTransitionVelocityFF47C4);
         }
         break;
     }
     case 2: {
         double position;
         if (phase == -1) {
-            position = static_cast<double>(initialX);
+            position = initialX;
             gReverseTransitionVelocityFF47C4 = initialSpeedX;
             gReverseTransitionYFF4908 = 0.0f;
-            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);
+            position -= gReverseTransitionVelocityFF47C4;
             gReverseTransitionPhase58B6D4 = 0;
         } else {
             position = static_cast<double>(gReverseTransitionXFF4900)
-                - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                - gReverseTransitionVelocityFF47C4;
         }
         gReverseTransitionXFF4900 = static_cast<float>(position);
         break;
@@ -10059,7 +10053,7 @@ std::int32_t Sub_51E0D0(
     case 4: {
         double position;
         if (phase == -1) {
-            position = static_cast<double>(initialNegativeX);
+            position = initialNegativeX;
             if (mode == 4) {
                 gReverseTransitionAlternateXFF4904 = initialX;
             }
@@ -10067,14 +10061,14 @@ std::int32_t Sub_51E0D0(
             gReverseTransitionVelocityFF47C4 = initialSpeedX;
             gReverseTransitionPhase58B6D4 = 0;
         } else {
-            position = static_cast<double>(gReverseTransitionXFF4900);
+            position = gReverseTransitionXFF4900;
         }
         gReverseTransitionXFF4900 = static_cast<float>(
-            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);
+            gReverseTransitionVelocityFF47C4 + position);
         if (mode == 4) {
             gReverseTransitionAlternateXFF4904 = static_cast<float>(
                 static_cast<double>(gReverseTransitionAlternateXFF4904)
-                - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                - gReverseTransitionVelocityFF47C4);
         }
         break;
     }
@@ -10090,28 +10084,28 @@ std::int32_t Sub_51E0D0(
                 for (std::int32_t index = 0; index < active; ++index) {
                     if ((index & 1) != 0) {
                         const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)
-                            + static_cast<double>(speeds[index]);
+                            + speeds[index];
                         speeds[index] = static_cast<float>(speed);
                         offsetsX[index] = static_cast<float>(
-                            speed + static_cast<double>(offsetsX[index]));
+                            speed + offsetsX[index]);
                         const std::int32_t reverse = 480 - index;
                         const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
-                            + static_cast<double>(speeds[reverse]);
+                            + speeds[reverse];
                         speeds[reverse] = static_cast<float>(reverseSpeed);
                         offsetsX[reverse] = static_cast<float>(
-                            reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                            reverseSpeed + offsetsX[reverse]);
                     } else {
                         const double speed = static_cast<double>(speeds[index])
-                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                            - gReverseTransitionVelocityFF47C4;
                         speeds[index] = static_cast<float>(speed);
                         offsetsX[index] = static_cast<float>(
-                            speed + static_cast<double>(offsetsX[index]));
+                            speed + offsetsX[index]);
                         const std::int32_t reverse = 478 - index;
                         const double reverseSpeed = static_cast<double>(speeds[reverse])
-                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                            - gReverseTransitionVelocityFF47C4;
                         speeds[reverse] = static_cast<float>(reverseSpeed);
                         offsetsX[reverse] = static_cast<float>(
-                            reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                            reverseSpeed + offsetsX[reverse]);
                     }
                 }
                 active += step != 0 ? step : 4;
@@ -10133,40 +10127,40 @@ std::int32_t Sub_51E0D0(
             if ((index & 1) != 0) {
                 if (offsetsX[index] > 1.0f) {
                     offsetsX[index] = static_cast<float>(
-                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));
+                        static_cast<double>(offsetsX[index]) - speeds[index]);
                     speeds[index] = static_cast<float>(
                         static_cast<double>(speeds[index])
-                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                        - gReverseTransitionVelocityFF47C4);
                 } else {
                     offsetsX[index] = 0.0f;
                 }
                 const std::int32_t reverse = 480 - index;
                 if (offsetsX[reverse] > 1.0f) {
                     offsetsX[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));
+                        static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
                     speeds[reverse] = static_cast<float>(
                         static_cast<double>(speeds[reverse])
-                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                        - gReverseTransitionVelocityFF47C4);
                 } else {
                     offsetsX[reverse] = 0.0f;
                 }
             } else {
                 if (!(offsetsX[index] >= -1.0f)) {
                     offsetsX[index] = static_cast<float>(
-                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));
+                        static_cast<double>(offsetsX[index]) - speeds[index]);
                     speeds[index] = static_cast<float>(
                         static_cast<double>(gReverseTransitionVelocityFF47C4)
-                        + static_cast<double>(speeds[index]));
+                        + speeds[index]);
                 } else {
                     offsetsX[index] = 0.0f;
                 }
                 const std::int32_t reverse = 478 - index;
                 if (!(offsetsX[reverse] >= -1.0f)) {
                     offsetsX[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));
+                        static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
                     speeds[reverse] = static_cast<float>(
                         static_cast<double>(gReverseTransitionVelocityFF47C4)
-                        + static_cast<double>(speeds[reverse]));
+                        + speeds[reverse]);
                 } else {
                     offsetsX[reverse] = 0.0f;
                 }
@@ -10199,16 +10193,16 @@ std::int32_t Sub_51E0D0(
                     const std::int32_t reverse = 480 - index;
                     if (reverse >= 240) {
                         const double speed = static_cast<double>(speeds[index])
-                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                            - gReverseTransitionVelocityFF47C4;
                         speeds[index] = static_cast<float>(speed);
                         offsetsY[index] = static_cast<float>(
-                            speed + static_cast<double>(offsetsY[index]));
+                            speed + offsetsY[index]);
                         if (reverse > 240) {
                             const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
-                                + static_cast<double>(speeds[reverse]);
+                                + speeds[reverse];
                             speeds[reverse] = static_cast<float>(reverseSpeed);
                             offsetsY[reverse] = static_cast<float>(
-                                reverseSpeed + static_cast<double>(offsetsY[reverse]));
+                                reverseSpeed + offsetsY[reverse]);
                         }
                     }
                 }
@@ -10230,16 +10224,16 @@ std::int32_t Sub_51E0D0(
             const std::int32_t reverse = 480 - index;
             if (reverse >= 240) {
                 offsetsY[index] = static_cast<float>(
-                    static_cast<double>(offsetsY[index]) - static_cast<double>(speeds[index]));
+                    static_cast<double>(offsetsY[index]) - speeds[index]);
                 speeds[index] = static_cast<float>(
                     static_cast<double>(gReverseTransitionVelocityFF47C4)
-                    + static_cast<double>(speeds[index]));
+                    + speeds[index]);
                 if (reverse > 240) {
                     offsetsY[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsY[reverse]) - static_cast<double>(speeds[reverse]));
+                        static_cast<double>(offsetsY[reverse]) - speeds[reverse]);
                     speeds[reverse] = static_cast<float>(
                         static_cast<double>(speeds[reverse])
-                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                        - gReverseTransitionVelocityFF47C4);
                 }
             }
         }
@@ -10271,14 +10265,14 @@ std::int32_t Sub_51E0D0(
                     if (index >= 0) {
                         const float speed = static_cast<float>(
                             static_cast<double>(speeds[index])
-                            - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                            - gReverseTransitionVelocityFF47C4);
                         speeds[index] = speed;
                         if (speed > -100.0f) {
                             offsetsY[index] = static_cast<float>(
-                                static_cast<double>(speed) + static_cast<double>(offsetsY[index]));
+                                static_cast<double>(speed) + offsetsY[index]);
                         } else {
                             offsetsY[index] = static_cast<float>(
-                                static_cast<double>(offsetsY[index]) - 100.0);
+                                offsetsY[index] - 100.0);
                         }
                     }
                 }
@@ -10295,16 +10289,16 @@ std::int32_t Sub_51E0D0(
         for (std::int32_t index = 479; index >= first; --index) {
             if (index >= 0) {
                 const float oldSpeed = speeds[index];
-                const double position = static_cast<double>(offsetsY[index]);
+                const double position = offsetsY[index];
                 if (oldSpeed > -100.0f) {
                     offsetsY[index] = static_cast<float>(
-                        position - static_cast<double>(speeds[index]));
+                        position - speeds[index]);
                 } else {
                     offsetsY[index] = static_cast<float>(position + 100.0);
                 }
                 speeds[index] = static_cast<float>(
                     static_cast<double>(gReverseTransitionVelocityFF47C4)
-                    + static_cast<double>(speeds[index]));
+                    + speeds[index]);
             }
         }
         if (offsetsY[0] >= 0.0f) {
@@ -10327,7 +10321,7 @@ std::int32_t Sub_51E0D0(
         const float decrement = customAcceleration ? acceleration
             : (mode >= 2 && mode <= 4 ? defaultX : defaultY);
         const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)
-            - static_cast<double>(decrement);
+            - decrement;
         gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);
         if (!(velocity > 0.0)) {
             gReverseTransitionPhase58B6D4 = 1;
@@ -10365,7 +10359,7 @@ std::int32_t Sub_51E0D0(
     case 6:
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = static_cast<double>(offsetsX[row]);
+            const double position = offsetsX[row];
             rectangle[1] = row;
             rectangle[3] = row + 1;
             rectangle[0] = 0;
@@ -10380,7 +10374,7 @@ std::int32_t Sub_51E0D0(
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::gCpuTempSurface;
             rectangle[1] = row;
-            const double position = static_cast<double>(offsetsY[row]);
+            const double position = offsetsY[row];
             rectangle[3] = row + 1;
             rectangle[0] = 0;
             rectangle[2] = 640;

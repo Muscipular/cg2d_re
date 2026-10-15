@@ -301,7 +301,7 @@ static void WindowStatusBar_Refresh()
     auto* const timeGraphic = static_cast<WindowGraphicData*>(elements[15].data);
     const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
     const std::int32_t totalMinutes = hours * 60 + minutes;
-    const double offset = static_cast<double>(totalMinutes) * kStatusTimeScale54F638;
+    const double offset = totalMinutes * kStatusTimeScale54F638;
     timeGraphic->offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(offset));
     timeGraphic->offsetY = 0;
     timeGraphic->width = 100;

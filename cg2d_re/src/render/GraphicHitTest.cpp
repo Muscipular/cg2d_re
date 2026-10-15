@@ -113,12 +113,12 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
     const login::YobiAction* const xAction = graphic.reference.action;
     const std::int32_t x = graphic.x;
     const std::int32_t center = x - ReadYobiGraphicOffsetX(xAction);
-    const double centerX = static_cast<double>(center);
-    if (static_cast<double>(ReadLegacyMouseX()) > centerX + 24.0) {
+    const double centerX = center;
+    if (ReadLegacyMouseX() > centerX + 24.0) {
         return false;
     }
     const double lowerX = centerX - 24.0;
-    if (static_cast<double>(ReadLegacyMouseX()) < lowerX) {
+    if (ReadLegacyMouseX() < lowerX) {
         return false;
     }
     const std::int32_t upperImage = graphic.imageNo;
@@ -172,12 +172,12 @@ void DrawQueuedGraphicHover(const GraphicCacheItem32& graphic, const std::uint8_
         x = graphic.x;
         const std::int32_t height = std::bit_cast<std::int16_t>(entry->height);
         const double scaledHeight = static_cast<double>(height)
-            * static_cast<double>(GetYobiActionScaleY(graphic.reference.action));
+            * GetYobiActionScaleY(graphic.reference.action);
         const std::int32_t bottom =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledHeight)) + y + 2;
         const std::int32_t width = std::bit_cast<std::int16_t>(entry->width);
         const double scaledWidth = static_cast<double>(width)
-            * static_cast<double>(GetYobiActionScaleX(graphic.reference.action));
+            * GetYobiActionScaleX(graphic.reference.action);
         const std::int32_t right =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledWidth)) + x + 2;
         DrawGraphicHover(

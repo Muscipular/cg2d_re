@@ -29,7 +29,7 @@ struct LegacyTextureDevice {
 
 namespace {
 
-constexpr float kTextureBias = std::bit_cast<float>(0x3D4CCCCDu);
+constexpr double kTextureBias = std::bit_cast<float>(0x3D4CCCCDu);
 constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 
@@ -366,12 +366,12 @@ std::int32_t RenderTextureToSurface_44D520(
     if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {
         const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
         const double u0 =
-            (static_cast<double>(flipX ? right - 1 : left) + kTextureBias) / textureWidth;
+            ((flipX ? right - 1 : left) + kTextureBias) / textureWidth;
         const double u1 = static_cast<double>(flipX ? left - 1 : right) / textureWidth;
         const double textureHeight = GetLegacyTextureState().height;
         const auto v0 = static_cast<float>(
-            (static_cast<double>(flipY ? bottom - 1 : top) + kTextureBias) / textureHeight);
-        const double v1 = static_cast<double>(flipY ? top - 1 : bottom) / textureHeight;
+            ((flipY ? bottom - 1 : top) + kTextureBias) / textureHeight);
+        const double v1 = (flipY ? top - 1 : bottom) / textureHeight;
         const TextureRectangle destination {
             destinationX, destinationY,
             destinationX + (right - left), destinationY + (bottom - top)
@@ -493,12 +493,12 @@ std::int32_t RenderTexture_44DA90(
     if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {
         const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
         const double u0 =
-            (static_cast<double>(flipX ? sourceRight : sourceLeft) + kTextureBias) / textureWidth;
+            ((flipX ? sourceRight : sourceLeft) + kTextureBias) / textureWidth;
         const double u1 = static_cast<double>(flipX ? sourceLeft : sourceRight) / textureWidth;
         const double textureHeight = GetLegacyTextureState().height;
         const auto v0 = static_cast<float>(
-            (static_cast<double>(flipY ? sourceBottom : sourceTop) + kTextureBias) / textureHeight);
-        const double v1 = static_cast<double>(flipY ? sourceTop : sourceBottom) / textureHeight;
+            ((flipY ? sourceBottom : sourceTop) + kTextureBias) / textureHeight);
+        const double v1 = (flipY ? sourceTop : sourceBottom) / textureHeight;
         return SubmitTexturedRectangle(surface, destination,
             static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),
             mixFlags, color);

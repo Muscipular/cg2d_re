@@ -219,14 +219,14 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
 // 原函数：0x00420590。
 void MoveBattleSequence_420590(YobiAction* const action)
 {
-    float angle = static_cast<float>(270.0 - static_cast<double>(action->angle50));
+    float angle = static_cast<float>(270.0 - action->angle50);
     world::detail::Sub_46F8F0(&angle);
     const double xFactor = world::detail::Sub_46F950(angle);
     const double xStep = xFactor * action->value54;
-    action->offset40 = static_cast<float>(static_cast<double>(action->offset40) - xStep);
+    action->offset40 = static_cast<float>(action->offset40 - xStep);
     const double yFactor = world::detail::Sub_46F930(angle);
     const double yStep = yFactor * action->value54;
-    const double y = yStep + static_cast<double>(action->offset44);
+    const double y = yStep + action->offset44;
     action->offset44 = static_cast<float>(y);
     action->x = static_cast<std::int32_t>(action->offset40);
     // 原4205D2是FST；屏幕Y使用仍留在寄存器中的值，而非刚存回的F32。
@@ -285,7 +285,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
         static_cast<void>((++action->mapY1F0));
-        const double speed = static_cast<double>(action->value54) - 1.0;
+        const double speed = action->value54 - 1.0;
         action->value54 = static_cast<float>(speed);
         if (!(speed > 0.0)) {
             const std::int32_t next = action->imageNo + 1;
@@ -297,7 +297,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     case 4: {
         ++action->counter1DC;
         static_cast<void>((++action->mapY1F0));
-        const double speed = static_cast<double>(action->value54) + 1.0;
+        const double speed = action->value54 + 1.0;
         action->value54 = static_cast<float>(speed);
         if (speed >= 10.0) {
             ++action->imageNo;

@@ -40,7 +40,7 @@ void UpdateBattleAction26_40A9E0(YobiAction* const action)
     if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
         action->characterAction = 9;
     }
-    const double angle = static_cast<double>(action->angle50) + 180.0;
+    const double angle = action->angle50 + 180.0;
     action->framePlayingRate = 50;
     action->value54 = 5.0F;
     action->angle50 = static_cast<float>(angle);
@@ -66,7 +66,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
     const std::int32_t count = payload->valueFCC + 1;
     payload->valueFCC = count;
     if (count < 14 * (initialBit + 1)) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -150,7 +150,7 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
     const std::int32_t count = payload->valueFCC + 1;
     payload->valueFCC = count;
     if (count < 14) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -202,7 +202,7 @@ std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
     const std::int32_t count = payload->valueFCC + 1;
     payload->valueFCC = count;
     if (count < 14) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -233,7 +233,7 @@ std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
     const std::int32_t count = payload->valueFCC + 1;
     payload->valueFCC = count;
     if (count < 14) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {
@@ -701,7 +701,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
     const std::int32_t count = payload->valueFCC + 1;
     payload->valueFCC = count;
     if (count < 14 * (initialBit + 1)) {
-        const double angle = static_cast<double>(action->angle50) + 180.0;
+        const double angle = action->angle50 + 180.0;
         action->value54 = 5.0F;
         action->angle50 = static_cast<float>(angle);
         if (angle >= 360.0) {

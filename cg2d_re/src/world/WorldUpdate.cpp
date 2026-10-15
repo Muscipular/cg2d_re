@@ -147,7 +147,7 @@ void Update()
             platform::gValue73ECC0 = 2;
             detail::Sub_52B990();
             const std::uint32_t tick = platform::ReadTickCount32();
-            platform::gLastRenderDt = static_cast<double>(tick);
+            platform::gLastRenderDt = tick;
             ++gCurrentSceneState;
         } else if (sceneState == 1
             && detail::Sub_51FDE0(2, 0, 0x3F19999Au) == 1) {

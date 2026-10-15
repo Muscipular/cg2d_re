@@ -59,7 +59,7 @@ void AdvanceLoadingFadeFrame()
     ClearKeyFlags_459760();
     const double threshold = gFrameThreshold + gLastRenderDt;
     const std::uint32_t tick = ReadTickCount32();
-    if (static_cast<double>(tick) > threshold) {
+    if (tick > threshold) {
         const std::uint32_t catchUpCount = gCatchUpCount;
         if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
             const double deadline = gFrameIncrement + gLastRenderDt;
@@ -82,7 +82,7 @@ void AdvanceLoadingFadeFrame()
     }
     render::Flip_44C560();
     std::uint32_t waitTick = ReadTickCount32();
-    while (!(static_cast<double>(waitTick) > gLastRenderDt)) {
+    while (!(waitTick > gLastRenderDt)) {
         Sleep(1);
         waitTick = ReadTickCount32();
     }
@@ -111,7 +111,7 @@ std::int32_t FadeInLoading_458390()
         gLoadingGraphicImageNo = 22211;
         palette = 29;
     }
-    gLastRenderDt = static_cast<double>(ReadTickCount32());
+    gLastRenderDt = ReadTickCount32();
     bool firstFrame = true;
     bool keepRunning = true;
     for (;;) {
@@ -146,7 +146,7 @@ std::int32_t FadeInLoading_458390()
 // 原函数：0x004585F0。
 std::int32_t FadeOutLoading_4585F0()
 {
-    gLastRenderDt = static_cast<double>(ReadTickCount32());
+    gLastRenderDt = ReadTickCount32();
     bool firstFrame = true;
     bool keepRunning = true;
     for (;;) {
@@ -266,7 +266,7 @@ int InitializeClient_4576B0()
     login::detail::Sub_44B5C0("initAlbumStartUp Start");
     static_cast<void>(world::InitializeAlbum_518C20());
 
-    const double initialFrameTime = static_cast<double>(ReadTickCount32());
+    const double initialFrameTime = ReadTickCount32();
     world::gPendingSceneType = -1;
     gLastRenderDt = initialFrameTime;
     gWindowEnumerationDeadline = initialFrameTime + 3000.0;

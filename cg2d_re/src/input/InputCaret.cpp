@@ -1,3 +1,4 @@
+#include "../ui/WindowRuntimeState.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 
@@ -93,7 +94,7 @@ void Sub_44A410()
     if (initialContext == nullptr) {
         return;
     }
-    if (initialContext == &input::gInputContext626AA0
+    if (initialContext == &cg::ui::detail::gInputContext626AA0
         && input::gValueC9A96C == 0) {
         return;
     }

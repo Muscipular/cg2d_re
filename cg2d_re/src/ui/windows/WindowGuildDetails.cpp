@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
+input::InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 namespace {
 
@@ -117,23 +114,23 @@ static std::int32_t gGuildPageD67B78 = 0; // 原全局：0x00D67B78。
 static std::int32_t gGuildEditing57F03C = -1; // 原全局：0x0057F03C。
 
 static std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{ // 原全局：0x0057F040。
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         116, 31, 3, 12, 6, {}, 1, 24, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         116, 49, 3, 12, 6, {}, 1, 24, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 165, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 184, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 203, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 222, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 241, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 260, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 279, 3, 12, 6, {}, 1, 16, 0, 0},
 }};
 
@@ -568,11 +565,11 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
-        input::SetContext_44B330(&input::gInputContextD2E130);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
         gFocusedElementDataD45F94 = focused->elements[index].data;
         static_cast<WindowInputData*>(focused->elements[index].data)->context =
-            &input::gInputContextD2E130;
+            &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = 33;
         break;
     }
@@ -583,11 +580,11 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
-        input::SetContext_44B330(&input::gInputContextD2E130);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
         gFocusedElementDataD45F94 = focused->elements[index].data;
         static_cast<WindowInputData*>(focused->elements[index].data)->context =
-            &input::gInputContextD2E130;
+            &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
         break;
     }

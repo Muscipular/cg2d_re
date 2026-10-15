@@ -1,3 +1,4 @@
+#include "../ui/WindowRuntimeState.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/render/Font.hpp"
@@ -822,7 +823,7 @@ std::int32_t ProcessPresetHotkeys_44B340()
         }
     }
     if (selected >= 0) {
-        LoadInitialText_44A160(ContextText(gInputContexts5F9758[selected]).c_str());
+        LoadInitialText_44A160(ContextText(cg::ui::detail::gInputContexts5F9758[selected]).c_str());
         return audio::PlaySe_52C450(51, 320);
     }
     return result;
@@ -1033,10 +1034,10 @@ std::int32_t Sub_449FA0(const std::int32_t index)
 void __cdecl Sub_449DA0()
 {
     std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
-    input::gInputContext626AA0.reset();
+    cg::ui::detail::gInputContext626AA0.reset();
     input::InitializeContext_449CF0(
-        &input::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
-    gInputContext626840 = input::gInputContext626AA0;
+        &cg::ui::detail::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
+    gInputContext626840 = cg::ui::detail::gInputContext626AA0;
 
     for (std::size_t index = 0; index < 19; ++index) {
         gRecords5FB7F8[index].state = 1;
@@ -1226,7 +1227,7 @@ void BrowseChatHistory_44A1B0()
     using world::detail::gCursor62683C;
     NullSub_509080();
     InputContext* const initialContext = gCurrentInputData;
-    if (initialContext != &gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
+    if (initialContext != &cg::ui::detail::gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
         return;
     }
     const std::uint8_t control = platform::gKeyStates[17] & 2u;
@@ -1289,7 +1290,7 @@ void Sub_44AB60()
         return;
     }
     InputContext* context = gCurrentInputData;
-    if (context == &gInputContext626AA0) {
+    if (context == &cg::ui::detail::gInputContext626AA0) {
         if (context->totalByteLength == 0) {
             return;
         }
@@ -1341,25 +1342,25 @@ void Sub_44AB60()
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
         }
-        const std::int32_t color = gInputContext626AA0.field140;
+        const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
         world::detail::gCursor62683C = -1;
         static_cast<void>(world::detail::Sub_50C940(context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;
         gCurrentInputData->clearText();
         context = gCurrentInputData;
-    } else if (context == &gInputContextD66CA8
-               || context == &gInputContextCB03F0
+    } else if (context == &cg::ui::detail::gInputContextD66CA8
+               || context == &cg::ui::detail::gInputContextCB03F0
                || context == &gInputContextCC46E0
-               || context == &gInputContextCC2080
-               || context == &gInputContextD2D828
-               || context == &gInputContextCA0180) {
+               || context == &cg::ui::detail::gInputContextCC2080
+               || context == &cg::ui::detail::gInputContextD2D828
+               || context == &cg::ui::detail::gInputContextCA0180) {
         AppendChar_44ADB0(L'\r');
         context = gCurrentInputData;
     }
-    if (context == &gInputContextC8B1B8) {
+    if (context == &cg::ui::detail::gInputContextC8B1B8) {
         std::wstring message;
-        const std::wstring text = ContextText(gInputContextC8B1B8);
+        const std::wstring text = ContextText(cg::ui::detail::gInputContextC8B1B8);
         const std::wstring playerName = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
@@ -1371,11 +1372,11 @@ void Sub_44AB60()
                 ? std::format(L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */, text)
                 : std::format(L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, text);
         }
-        gInputContextC8B1B8.clearText();
-        gInputContextC8B1B8.caretByteOffset = 0;
-        gInputContextC8B1B8.totalByteLength = 0;
+        cg::ui::detail::gInputContextC8B1B8.clearText();
+        cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
+        cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
         world::detail::Sub_44B050(message, 4, 3);
-        SetContext_44B330(&gInputContext626AA0);
+        SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
     gValue626C0C = 20;
 }

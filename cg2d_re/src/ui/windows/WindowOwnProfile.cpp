@@ -1,22 +1,19 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD2D828 {}; // 原全局：0x00D2D828。
+input::InputContext gInputContextD2D828 {}; // 原全局：0x00D2D828。
 
-InputContext gInputContextD64CB0 {}; // 原全局：0x00D64CB0。
+input::InputContext gInputContextD64CB0 {}; // 原全局：0x00D64CB0。
 
-InputContext gInputContextD2D670 {}; // 原全局：0x00D2D670。
+input::InputContext gInputContextD2D670 {}; // 原全局：0x00D2D670。
 
-InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
+input::InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -33,22 +30,22 @@ static std::int32_t WindowOwnProfile_Update(std::int32_t value);
 
 // 原全局：0x0057CEE8。 窗口58三项/正文的可写输入原型。
 static WindowInputPrototype gOwnProfileInputPrototype57CEE8 { // 原全局：0x0057CEE8。
-    {{&input::gInputContextD64CB0}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD64CB0}, WindowInputReferenceKind::Context},
     97, 108, 3, 12, 6, {}, 1, 26, 0, 0,
 };
 
 static WindowInputPrototype gOwnProfileInputPrototype57D118 { // 原全局：0x0057D118。
-    {{&input::gInputContextD2D670}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD2D670}, WindowInputReferenceKind::Context},
     97, 130, 3, 12, 6, {}, 1, 26, 0, 0,
 };
 
 static WindowInputPrototype gOwnProfileInputPrototype57D348 { // 原全局：0x0057D348。
-    {{&input::gInputContextCAFEC8}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCAFEC8}, WindowInputReferenceKind::Context},
     97, 152, 3, 12, 6, {}, 1, 26, 0, 0,
 };
 
 static WindowInputPrototype gOwnProfileInputPrototype57D578 { // 原全局：0x0057D578。
-    {{&input::gInputContextD2D828}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD2D828}, WindowInputReferenceKind::Context},
     97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
 };
 
@@ -233,11 +230,11 @@ static void WindowOwnProfile_Refresh()
         const std::int32_t image = current.entries410[index].value04;
         static_cast<WindowGraphicData*>(elements[index + 26].data)->imageNo = image;
     }
-    WindowOwnProfile_RefreshEntry(0, &input::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
-    WindowOwnProfile_RefreshEntry(1, &input::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
-    WindowOwnProfile_RefreshEntry(2, &input::gInputContextCAFEC8, &gOwnProfileInputPrototype57D348);
+    WindowOwnProfile_RefreshEntry(0, &cg::ui::detail::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
+    WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
+    WindowOwnProfile_RefreshEntry(2, &cg::ui::detail::gInputContextCAFEC8, &gOwnProfileInputPrototype57D348);
 
-    if (input::gCurrentInputData == &input::gInputContextD2D828) {
+    if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2D828) {
         for (std::int32_t index = 12; index < 16; ++index) {
             gCurrentWindow->elements[index].visible = 0;
         }
@@ -300,19 +297,19 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     switch (index) {
     case 5:
         prototype = &gOwnProfileInputPrototype57CEE8;
-        context = &input::gInputContextD64CB0;
+        context = &cg::ui::detail::gInputContextD64CB0;
         break;
     case 6:
         prototype = &gOwnProfileInputPrototype57D118;
-        context = &input::gInputContextD2D670;
+        context = &cg::ui::detail::gInputContextD2D670;
         break;
     case 7:
         prototype = &gOwnProfileInputPrototype57D348;
-        context = &input::gInputContextCAFEC8;
+        context = &cg::ui::detail::gInputContextCAFEC8;
         break;
     case 8:
         prototype = &gOwnProfileInputPrototype57D578;
-        context = &input::gInputContextD2D828;
+        context = &cg::ui::detail::gInputContextD2D828;
         break;
     default:
         return 0;

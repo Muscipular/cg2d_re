@@ -88,22 +88,22 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         if (WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0) == 0) {
-            gMailInputPrototype57E740.input.context = &input::gInputContextD66CA8;
+            gMailInputPrototype57E740.input.context = &cg::ui::detail::gInputContextD66CA8;
             gMailInputPrototype57E740.input.kind = WindowInputReferenceKind::Context;
         }
-        input::gInputContextD66CA8.maxCharPerLine = 28;
+        cg::ui::detail::gInputContextD66CA8.maxCharPerLine = 28;
         gMailInputPrototype57E740.maxCharPerLine = 28;
-        input::gInputContextD66CA8.maxLine = 10;
+        cg::ui::detail::gInputContextD66CA8.maxLine = 10;
         gMailInputPrototype57E740.maxLine = 10;
-        input::gInputContextD66CA8.field14C = 12;
+        cg::ui::detail::gInputContextD66CA8.field14C = 12;
         gMailInputPrototype57E740.value224 = 12;
-        input::gInputContextD66CA8.encrypt = 0;
+        cg::ui::detail::gInputContextD66CA8.encrypt = 0;
         gMailInputPrototype57E740.encrypt = 0;
-        input::SetContext_44B330(&input::gInputContextD66CA8);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = gCurrentWindow;
         gMailInputPrototype57E740.text.clear();
         gFocusedElementDataD45F94 = focused->elements[1].data;
-        static_cast<WindowInputData*>(focused->elements[1].data)->context = &input::gInputContextD66CA8;
+        static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
         gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
@@ -159,7 +159,7 @@ void WindowMailCompose_Release()
     gLoginWindowRuntime.mailDraftCF4BC8.value08 = pet;
     const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
     gLoginWindowRuntime.mailDraftCF4BC8.value0C = oldSlot;
-    cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()), gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(input::gInputContextD66CA8));
+    cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()), gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
     if (oldSlot != -1) {
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         auto count = occupancy[oldSlot];
@@ -184,16 +184,16 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
-            input::SetContext_44B330(&input::gInputContextD66CA8);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
             WindowInstance* const focused = gCurrentWindow;
             gFocusedElementDataD45F94 = focused->elements[1].data;
-            static_cast<WindowInputData*>(focused->elements[1].data)->context = &input::gInputContextD66CA8;
+            static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    if (input::gCurrentInputData != &input::gInputContextD66CA8) {
-        render::DrawInputText_4568A0(&input::gInputContextD66CA8);
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContextD66CA8) {
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextD66CA8);
     }
     return consumed;
 }
@@ -216,7 +216,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         }
         if ((state & 2) != 0) {
             cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
-                gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(input::gInputContextD66CA8));
+                gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetMailCompose, 1, 0, nullptr));
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Inventory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -245,11 +245,11 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         if ((state & 2) != 0) {
             const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
             if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
-                if (input::gInputContextD66CA8.empty()
+                if (cg::ui::detail::gInputContextD66CA8.empty()
                     || gLoginWindowRuntime.mailGroupCC1A30.count <= 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
-                    combined = input::ContextText(input::gInputContextD66CA8);
+                    combined = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                     packet = input::EscapeTextAndNotify(combined, 1024);
                     for (std::int32_t row = 0; row < gLoginWindowRuntime.mailGroupCC1A30.count; ++row) {
@@ -297,15 +297,15 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
     } else {
         const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
         if ((category == 0 || category == 1 || category == 2) && (state & 2) != 0) {
-            if (input::gInputContextD66CA8.empty()) {
+            if (cg::ui::detail::gInputContextD66CA8.empty()) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (category == 2) {
                 const std::int32_t contact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
                 const std::int32_t key = record.key04;
-                cg::text::StoreGbk(storedText.data(), storedText.size(), input::ContextText(input::gInputContextD66CA8));
+                cg::text::StoreGbk(storedText.data(), storedText.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
                 const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(record.name10.data()), 256);
-                const std::wstring escapedText = input::EscapeText(input::ContextText(input::gInputContextD66CA8), 1024);
+                const std::wstring escapedText = input::EscapeText(input::ContextText(cg::ui::detail::gInputContextD66CA8), 1024);
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
                 static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
@@ -319,11 +319,11 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
                     target = cg::world::detail::gOrderedRecords1051B14[member].value0C;
-                    combined = input::ContextText(input::gInputContextD66CA8);
+                    combined = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 } else {
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
-                    combined = input::ContextText(input::gInputContextD66CA8);
+                    combined = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 }
                 packet = input::EscapeTextAndNotify(combined, 1024);
@@ -350,7 +350,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
     }
     if (closeAfterSend) {
         WindowInstance* const window = gCurrentWindow;
-        input::gInputContextD66CA8.clearText();
+        cg::ui::detail::gInputContextD66CA8.clearText();
         window->state |= 0x8000u;
     }
     if ((state & 8) != 0) {

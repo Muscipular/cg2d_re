@@ -111,7 +111,7 @@ static std::uint32_t WindowPetAttributes_Refresh()
         input::InputContext* const activeInput = input::gCurrentInputData;
         // 原名分支在输入身份判断前固定elements，自定义名分支在判断后读取。
         WindowElement* const originalNameElements = customName ? nullptr : gCurrentWindow->elements;
-        if (activeInput == &input::gInputContextD2D4A0) {
+        if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
             if (customName) {
                 gCurrentWindow->elements[14].visible = 0;
             } else {
@@ -260,7 +260,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;

@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
+input::InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -221,7 +218,7 @@ static std::uint32_t WindowPetDetail_Refresh()
         }
         const bool customName = selectedPet().name6BD[0] != '\0';
         input::InputContext* const activeInput = input::gCurrentInputData;
-        if (activeInput == &input::gInputContextD2D4A0) {
+        if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
             gCurrentWindow->elements[9].visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* const window = gCurrentWindow;
@@ -419,7 +416,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
@@ -549,10 +546,10 @@ std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
     static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
-    input::SetContext_44B330(&input::gInputContextD2D4A0);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextD2D4A0);
     WindowInstance* const focused = gCurrentWindow;
     gFocusedElementDataD45F94 = focused->elements[index].data;
-    static_cast<WindowInputData*>(focused->elements[index].data)->context = &input::gInputContextD2D4A0;
+    static_cast<WindowInputData*>(focused->elements[index].data)->context = &cg::ui::detail::gInputContextD2D4A0;
     return 1;
 }
 

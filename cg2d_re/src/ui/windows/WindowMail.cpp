@@ -1,17 +1,14 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
+input::InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
 
-InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
+input::InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 namespace {
 

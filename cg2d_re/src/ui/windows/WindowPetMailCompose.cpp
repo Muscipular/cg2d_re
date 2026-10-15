@@ -90,11 +90,11 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0));
-        input::SetContext_44B330(&input::gInputContextD66CA8);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = gCurrentWindow;
         gMailInputPrototype57E740.text.clear();
         gFocusedElementDataD45F94 = focused->elements[1].data;
-        static_cast<WindowInputData*>(focused->elements[1].data)->context = &input::gInputContextD66CA8;
+        static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -269,7 +269,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             graphic->imageNo = 0x3BA1B;
         }
         if ((state & 2) != 0) {
-            bool allowed = !input::gInputContextD66CA8.empty();
+            bool allowed = !cg::ui::detail::gInputContextD66CA8.empty();
             if (allowed) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
@@ -288,10 +288,10 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
                     target = cg::world::detail::gOrderedRecords1051B14[member].value0C;
-                    text = input::ContextText(input::gInputContextD66CA8);
+                    text = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                 } else {
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
-                    text = input::ContextText(input::gInputContextD66CA8);
+                    text = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                 }
                 cg::text::StoreGbk(storedText.data(), storedText.size(), text);
                 const std::wstring packet = input::EscapeTextAndNotify(text, 600);
@@ -315,7 +315,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 static_cast<void>(world::detail::Sub_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 WindowInstance* const window = gCurrentWindow;
-                input::gInputContextD66CA8.clearText();
+                cg::ui::detail::gInputContextD66CA8.clearText();
                 window->state |= 0x8000u;
             } else if (category == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));

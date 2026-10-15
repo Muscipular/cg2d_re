@@ -3,16 +3,13 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
+input::InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 namespace {
 
@@ -307,7 +304,7 @@ static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 
 // 原全局：0x005803D0。 借用input唯一CC21E8上下文。
 static WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
-    {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCC21E8}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
 
@@ -1077,7 +1074,7 @@ static std::int32_t WindowTrade_HandlePanel(
         std::uint32_t color;
         color = descriptor->color;
         const std::uint8_t flags =
-            input::gCurrentInputData == &input::gInputContextCC21E8 ? 3 : 1;
+            input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8 ? 3 : 1;
         numericResult = WindowInput_HandleNumber(
             window, numericElement, state, maximum, 223, gTradeNumberHints5805FC.data(),
             flags, color);
@@ -2164,12 +2161,12 @@ static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std:
         if ((state & 2) != 0) {
             WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
-            input::SetContext_44B330(&input::gInputContextCC21E8);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
             gFocusedElementDataD45F94 = window->elements[0].data;
             auto* const data = static_cast<WindowInputData*>(window->elements[0].data);
-            data->context = &input::gInputContextCC21E8;
+            data->context = &cg::ui::detail::gInputContextCC21E8;
         }
-    } else if (input::gCurrentInputData == &input::gInputContextCC21E8) {
+    } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
         static_cast<void>(WindowChat_RestoreInput());
     }
     return 0;

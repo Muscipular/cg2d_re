@@ -152,6 +152,33 @@ struct WindowInstance {
 
 namespace detail {
 
+// 各窗口持有的输入上下文；输入模块仅提供类型和操作。
+extern input::InputContext gInputContext626AA0;
+extern input::InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。
+extern input::InputContext gInputContextD66CA8; // 原全局：0x00D66CA8。
+extern input::InputContext gInputContextCB03F0; // 原全局：0x00CB03F0。
+extern input::InputContext gInputContextCC2080; // 原全局：0x00CC2080。
+extern input::InputContext gInputContextD2D828; // 原全局：0x00D2D828。
+extern input::InputContext gInputContextCA0180; // 原全局：0x00CA0180。
+extern input::InputContext gInputContextCB0610; // 原全局：0x00CB0610。 原窗口61关键词输入，独立15CH虚拟零对象。
+extern input::InputContext gInputContextCB0028; // 原全局：0x00CB0028。 原摆摊名称输入，与说明上下文独立。
+extern input::InputContext gInputContextCC2378; // 原全局：0x00CC2378。 原摆摊说明输入，15CH虚拟零对象。
+extern input::InputContext gInputContextCF4E60; // 原全局：0x00CF4E60。 原摆摊定价输入，独立15CH虚拟零对象。
+extern input::InputContext gInputContextD2DE70; // 原全局：0x00D2DE70。 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
+extern input::InputContext gInputContextD2DC10; // 原全局：0x00D2DC10。 原窗口9称号输入，独立15CH虚拟零对象。
+extern input::InputContext gInputContextD2D4A0; // 原全局：0x00D2D4A0。 原宠物详情共享名称输入，独立15CH虚拟零对象。
+extern input::InputContext gInputContextD64CB0; // 原全局：0x00D64CB0。 原窗口58第一条资料输入。
+extern input::InputContext gInputContextD2D670; // 原全局：0x00D2D670。 原窗口58第二条资料输入。
+extern input::InputContext gInputContextCAFEC8; // 原全局：0x00CAFEC8。 原窗口58第三条资料输入。
+extern input::InputContext gInputContextC8B1B8; // 原全局：0x00C8B1B8。
+extern input::InputContext gInputContextCC21E8; // 原全局：0x00CC21E8。
+extern input::InputContext gInputContextCB0878;
+extern input::InputContext gInputContextCA0018; // 原全局：0x00CA0018。
+extern input::InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
+extern input::InputContext gInputContextCA02E0;
+extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
+
+
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text); // text借用原GBK名称，取消／关闭时可为nullptr。
 // CC4230原回调实际接收技能和等级两个S32，47C7B2/47C7B3压栈，返回不用。

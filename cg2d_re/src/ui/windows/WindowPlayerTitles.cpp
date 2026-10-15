@@ -1,16 +1,13 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
+input::InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -43,7 +40,7 @@ static std::wstring gTitleDraftD45FC0 {}; // 原全局：0x00D45FC0。
 
 // 原全局：0x0057CCB8。 原型当前context为编辑正文来源。
 static WindowInputPrototype gTitleInputPrototype57CCB8 { // 原全局：0x0057CCB8。
-    {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD2DC10}, WindowInputReferenceKind::Context},
     105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
 
@@ -157,11 +154,11 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
-        input::SetContext_44B330(&input::gInputContextD2DC10);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
         WindowInstance* const focused = gCurrentWindow;
         gFocusedElementDataD45F94 = focused->elements[0].data;
         static_cast<WindowInputData*>(focused->elements[0].data)->context =
-            &input::gInputContextD2DC10;
+            &cg::ui::detail::gInputContextD2DC10;
     }
     return 1;
 }
@@ -423,7 +420,7 @@ static void WindowPlayerTitles_Refresh()
     const char* const title = world::detail::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);
 
-    if (input::gCurrentInputData != &input::gInputContextD2DC10) {
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
         auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         draftData->text = gTitleDraftD45FC0;

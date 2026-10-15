@@ -77,7 +77,7 @@ static void WindowItemStorage_Release()
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
 }
 

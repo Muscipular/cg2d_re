@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCB0610 {}; // 原全局：0x00CB0610。
+input::InputContext gInputContextCB0610 {}; // 原全局：0x00CB0610。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -38,7 +35,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(std::int32_t unusedIndex, st
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gProfileSearchInputPrototype580A80 { // 原全局：0x00580A80。
-    {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCB0610}, WindowInputReferenceKind::Context},
     20, 370, 3, 12, 6, {}, 1, 26, 0, 0,
 };
 
@@ -187,7 +184,7 @@ static void WindowProfileSearch_RefreshResults()
 // 原函数：0x004CA450。
 static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
-    if (input::gCurrentInputData == &input::gInputContextCB0610) {
+    if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0610) {
         gCurrentWindow->elements[6].visible = 0;
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(
@@ -241,10 +238,10 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
             gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
             static_cast<void>(WindowInput_ActivateElement(
                 &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
-            input::SetContext_44B330(&input::gInputContextCB0610);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
             gFocusedElementDataD45F94 = gCurrentWindow->elements[7].data;
             static_cast<WindowInputData*>(gCurrentWindow->elements[7].data)->context =
-                &input::gInputContextCB0610;
+                &cg::ui::detail::gInputContextCB0610;
         }
         return 1;
     }

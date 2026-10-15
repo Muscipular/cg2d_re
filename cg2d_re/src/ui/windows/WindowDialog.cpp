@@ -3,16 +3,13 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
+input::InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 namespace {
 
@@ -126,7 +123,7 @@ static constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 
 
 // 原全局：0x0057E478。 同源可写输入原型，57E698为容量成员。
 static WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
-    {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCA02E0}, WindowInputReferenceKind::Context},
     0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
 };
 
@@ -358,10 +355,10 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             const std::int32_t y = window->y + inputY;
             const std::int32_t inputX = window->x + 24;
             static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
-            input::SetContext_44B330(&input::gInputContextCA02E0);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
             window = gCurrentWindow;
             gFocusedElementDataD45F94 = window->elements[7].data;
-            static_cast<WindowInputData*>(window->elements[7].data)->context = &input::gInputContextCA02E0;
+            static_cast<WindowInputData*>(window->elements[7].data)->context = &cg::ui::detail::gInputContextCA02E0;
             gMessageDialog.selectedInput = 0;
         }
         gMessageDialog.closeCallbackPending = 1;
@@ -458,8 +455,8 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     if (inputCount > 0) {
         const std::int32_t inputX = window->x + 24;
         std::int32_t selected = gMessageDialog.selectedInput;
-        if (selected >= 0 && input::gCurrentInputData != &input::gInputContextCA02E0) {
-            gMessageDialog.inputTexts[selected] = input::ContextText(input::gInputContextCA02E0);
+        if (selected >= 0 && input::gCurrentInputData != &cg::ui::detail::gInputContextCA02E0) {
+            gMessageDialog.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
             selected = -1;
             window = gCurrentWindow;
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
@@ -561,7 +558,7 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         if (gMessageDialog.reply != nullptr) {
             const std::int32_t selected = gMessageDialog.selectedInput;
             if (selected >= 0) {
-                gMessageDialog.inputTexts[selected] = input::ContextText(input::gInputContextCA02E0);
+                gMessageDialog.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
             }
             const std::uint8_t count = gMessageDialog.inputCount;
             const std::wstring* const texts = gMessageDialog.inputTexts.data();
@@ -618,16 +615,16 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
             if ((state & 2) != 0) {
                 const std::int32_t previous = gMessageDialog.selectedInput;
                 if (previous >= 0) {
-                    gMessageDialog.inputTexts[previous] = input::ContextText(input::gInputContextCA02E0);
+                    gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
                 }
                 gCurrentWindow->elements[7].visible = 1;
                 const std::int16_t inputY = gMessageDialog.inputY[selected];
                 const std::int32_t y = inputY + gCurrentWindow->y;
                 static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
-                input::SetContext_44B330(&input::gInputContextCA02E0);
+                input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
                 window = gCurrentWindow;
                 gFocusedElementDataD45F94 = window->elements[7].data;
-                static_cast<WindowInputData*>(window->elements[7].data)->context = &input::gInputContextCA02E0;
+                static_cast<WindowInputData*>(window->elements[7].data)->context = &cg::ui::detail::gInputContextCA02E0;
                 const std::wstring* const texts = gMessageDialog.inputTexts.data();
                 gMessageDialog.selectedInput = selected;
                 input::LoadInitialText_44A160(texts[selected]);
@@ -679,7 +676,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 if ((state & 2) != 0) {
                     const std::int32_t previous = gMessageDialog.selectedInput;
                     if (previous >= 0) {
-                        gMessageDialog.inputTexts[previous] = input::ContextText(input::gInputContextCA02E0);
+                        gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
                     }
                     const WindowDialogReplyCallback reply = gMessageDialog.reply;
                     if (reply != nullptr) {

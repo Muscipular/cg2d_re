@@ -1,16 +1,13 @@
 #include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
+input::InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -57,7 +54,7 @@ static std::int32_t WindowChat_Draw(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gChatInputPrototype57E970 { // 原全局：0x0057E970。
-    {{&input::gInputContext626AA0}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContext626AA0}, WindowInputReferenceKind::Context},
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
 };
 
@@ -160,7 +157,7 @@ static void WindowInput_ScrollAndDraw(input::InputContext* const context, const 
 static std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
 {
     if (index == 0) {
-        return input::gInputContexts5F9758[23].field158;
+        return cg::ui::detail::gInputContexts5F9758[23].field158;
     }
     return world::detail::gRecords5FB7F8[index - 1].fontType;
 }
@@ -173,7 +170,7 @@ std::int32_t WindowChat_ResetState()
     world::detail::gCountC9A944 = 0;
     gChatWidthRequestC9A934 = 0;
     gChatHeightRequestC9A93C = 0;
-    input::gInputContext626AA0.field140 = 0;
+    cg::ui::detail::gInputContext626AA0.field140 = 0;
     return 0;
 }
 
@@ -376,7 +373,7 @@ static void WindowChat_RefreshGeometry()
     const std::int32_t button7X = gWindowElements570CB0[7].x;
     elements[7].x = elements[16].x + button7X;
     window = gCurrentWindow;
-    const std::int32_t color = input::gInputContext626AA0.field140;
+    const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
     static_cast<WindowGraphicData*>(window->elements[7].data)->imageNo = color + 245192;
 }
 
@@ -392,8 +389,8 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
         WindowInstance* const current = gCurrentWindow;
         gFocusedElementDataD45F94 = current->elements[0].data;
         static_cast<WindowInputData*>(current->elements[0].data)->context =
-            &input::gInputContext626AA0;
-        input::SetContext_44B330(&input::gInputContext626AA0);
+            &cg::ui::detail::gInputContext626AA0;
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
     }
     if (render::HasLegacy3DDevice_44B610() == 1) {
@@ -538,30 +535,30 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         }
         std::int32_t color;
         if ((state & 2) != 0) {
-            const std::int32_t next = input::gInputContext626AA0.field140 + 1;
-            input::gInputContext626AA0.field140 = next;
+            const std::int32_t next = cg::ui::detail::gInputContext626AA0.field140 + 1;
+            cg::ui::detail::gInputContext626AA0.field140 = next;
             if (next == 4) {
-                input::gInputContext626AA0.field140 = 5;
+                cg::ui::detail::gInputContext626AA0.field140 = 5;
             } else if (next > 9) {
-                input::gInputContext626AA0.field140 = 0;
+                cg::ui::detail::gInputContext626AA0.field140 = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            color = input::gInputContext626AA0.field140;
+            color = cg::ui::detail::gInputContext626AA0.field140;
             world::detail::gInputContext626840.field140 = color;
             consumed = 1;
         } else {
-            color = input::gInputContext626AA0.field140;
+            color = cg::ui::detail::gInputContext626AA0.field140;
         }
         if ((state & 4) != 0) {
             --color;
-            input::gInputContext626AA0.field140 = color;
+            cg::ui::detail::gInputContext626AA0.field140 = color;
             if (color == 4) {
-                input::gInputContext626AA0.field140 = 3;
+                cg::ui::detail::gInputContext626AA0.field140 = 3;
             } else if (color < 0) {
-                input::gInputContext626AA0.field140 = 9;
+                cg::ui::detail::gInputContext626AA0.field140 = 9;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::detail::gInputContext626840.field140 = input::gInputContext626AA0.field140;
+            world::detail::gInputContext626840.field140 = cg::ui::detail::gInputContext626AA0.field140;
             consumed = 1;
         }
         break;
@@ -633,10 +630,10 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
         if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
             for (;;) {
                 WindowInstance* const current = gCurrentWindow;
-                gChatInputPrototype57E970.input.context = &input::gInputContext626AA0;
+                gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
                 gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
                 gChatInputPrototype57E970.x = 8;
-                input::gInputContext626AA0 = world::detail::gInputContext626840;
+                cg::ui::detail::gInputContext626AA0 = world::detail::gInputContext626840;
                 gChatInputPrototype57E970.y = 5;
                 gChatInputPrototype57E970.renderMode = 3;
                 gChatInputPrototype57E970.fontType = 9;
@@ -656,12 +653,12 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
         WindowInstance* const current = gCurrentWindow;
         gFocusedElementDataD45F94 = focusedElements[0].data;
         static_cast<WindowInputData*>(current->elements[0].data)->context =
-            &input::gInputContext626AA0;
-        input::SetContext_44B330(&input::gInputContext626AA0);
+            &cg::ui::detail::gInputContext626AA0;
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         consumed = 1;
     }
-    if (input::gCurrentInputData != &input::gInputContext626AA0) {
-        WindowChat_DrawInput(&input::gInputContext626AA0);
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContext626AA0) {
+        WindowChat_DrawInput(&cg::ui::detail::gInputContext626AA0);
     }
     return consumed;
 }
@@ -677,8 +674,8 @@ static std::int32_t WindowCompactChat_Update(const std::int32_t value)
         WindowInstance* const current = gCurrentWindow;
         gFocusedElementDataD45F94 = current->elements[0].data;
         static_cast<WindowInputData*>(current->elements[0].data)->context =
-            &input::gInputContext626AA0;
-        input::SetContext_44B330(&input::gInputContext626AA0);
+            &cg::ui::detail::gInputContext626AA0;
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     } else {
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 2));
         static_cast<void>(WindowChat_RefreshCompactHeight());
@@ -909,7 +906,7 @@ std::int32_t WindowChat_RestoreInput()
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
         gFocusedElementDataD45F94 = gWindowStates[WindowId_CompactChat].window->elements[0].data;
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
     }
     if (mode != 0) {
@@ -924,10 +921,10 @@ std::int32_t WindowChat_RestoreInput()
     if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
         for (;;) {
             WindowInstance* const currentWindow = gWindowStates[WindowId_Chat].window;
-            gChatInputPrototype57E970.input.context = &input::gInputContext626AA0;
+            gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
             gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
             gChatInputPrototype57E970.x = 8;
-            input::gInputContext626AA0 = world::detail::gInputContext626840;
+            cg::ui::detail::gInputContext626AA0 = world::detail::gInputContext626840;
             gChatInputPrototype57E970.y = 5;
             gChatInputPrototype57E970.renderMode = 3;
             gChatInputPrototype57E970.fontType = 9;
@@ -944,7 +941,7 @@ std::int32_t WindowChat_RestoreInput()
         }
     }
     gFocusedElementDataD45F94 = gWindowStates[WindowId_Chat].window->elements[0].data;
-    input::SetContext_44B330(&input::gInputContext626AA0);
+    input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     return 1;
 }
 

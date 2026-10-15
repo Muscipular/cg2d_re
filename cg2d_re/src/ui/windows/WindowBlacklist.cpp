@@ -1,16 +1,13 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
+input::InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -41,7 +38,7 @@ static std::int32_t WindowBlacklist_Update(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gBlacklistInputPrototype580EF0 { // 原全局：0x00580EF0。
-    {{&input::gInputContextC8B1B8}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextC8B1B8}, WindowInputReferenceKind::Context},
     75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
 };
 
@@ -206,12 +203,12 @@ static void WindowBlacklist_Refresh()
         destination->text = cg::text::FromGbkWide(text);
         gCurrentWindow->elements[39 + row].visible = 0;
     }
-    if (input::gCurrentInputData == &input::gInputContextC8B1B8) {
+    if (input::gCurrentInputData == &cg::ui::detail::gInputContextC8B1B8) {
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gBlacklistInputPrototype580EF0, x, y, 1));
-        render::DrawInputText_4568A0(&input::gInputContextC8B1B8);
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextC8B1B8);
     }
 }
 
@@ -261,8 +258,8 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
     const char* const currentRecord = reinterpret_cast<const char*>(blacklist::gRecords[currentIndex].data());
     if (std::strlen(currentRecord) != 0) {
-        input::gInputContextC8B1B8.reset();
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        cg::ui::detail::gInputContextC8B1B8.reset();
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         world::detail::Sub_44B050(L"此欄位已有名單" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
     }
@@ -276,7 +273,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
     static_cast<void>(WindowInput_ActivateElement(&gBlacklistInputPrototype580EF0, windowX, windowY, 0));
-    input::SetContext_44B330(&input::gInputContextC8B1B8);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextC8B1B8);
     if (changeFocus) {
         gFocusedElementDataD45F94 = gCurrentWindow->elements[0].data;
     }

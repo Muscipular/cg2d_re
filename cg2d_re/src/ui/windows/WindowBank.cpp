@@ -3,16 +3,13 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
+input::InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -85,7 +82,7 @@ static std::int32_t WindowBank_Draw(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gStorageInputPrototype57EBA0 { // 原全局：0x0057EBA0。
-    {{&input::gInputContextCA0018}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCA0018}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
 
@@ -362,7 +359,7 @@ static void WindowBank_Release()
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
 }
 
@@ -452,7 +449,7 @@ static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::i
 {
     const WindowElement* const elements = gCurrentWindow->elements;
     if (elements[30].visible == 0 && elements[31].visible == 0) {
-        if (input::gCurrentInputData == &input::gInputContextCA0018) {
+        if (input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018) {
             static_cast<void>(WindowChat_RestoreInput());
         }
         return 0;
@@ -460,9 +457,9 @@ static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::i
     if ((state & 2) != 0) {
         WindowInstance* const window = gWindowStates[WindowId_Bank].window;
         static_cast<void>(WindowInput_ActivateElement(&gStorageInputPrototype57EBA0, 0, -100, 0));
-        input::SetContext_44B330(&input::gInputContextCA0018);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextCA0018);
         gFocusedElementDataD45F94 = window->elements[0].data;
-        static_cast<WindowInputData*>(window->elements[0].data)->context = &input::gInputContextCA0018;
+        static_cast<WindowInputData*>(window->elements[0].data)->context = &cg::ui::detail::gInputContextCA0018;
     }
     return 0;
 }
@@ -1416,7 +1413,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            input::gCurrentInputData == &input::gInputContextCA0018 ? 2 : 0;
+            input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
         result = WindowInput_HandleNumber(gCurrentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (index == 31) {
@@ -1430,7 +1427,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            input::gCurrentInputData == &input::gInputContextCA0018 ? 2 : 0;
+            input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
         result = WindowInput_HandleNumber(gCurrentWindow, 31, state, maximum, 223,
             gStorageWithdrawHints57EDEC.data(), keyboard, 0xFFFFFFFFu);
     }

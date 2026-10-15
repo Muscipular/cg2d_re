@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
+input::InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -34,7 +31,7 @@ static std::int32_t WindowQuantity_Update(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gNumberInputPrototype57DA70 { // 原全局：0x0057DA70。
-    {{&input::gInputContextCB0878}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCB0878}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
 
@@ -122,10 +119,10 @@ static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::in
 {
     if ((state & 2) != 0) {
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
-        input::SetContext_44B330(&input::gInputContextCB0878);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
         WindowInstance* const window = gCurrentWindow;
         gFocusedElementDataD45F94 = window->elements[0].data;
-        static_cast<WindowInputData*>(window->elements[0].data)->context = &input::gInputContextCB0878;
+        static_cast<WindowInputData*>(window->elements[0].data)->context = &cg::ui::detail::gInputContextCB0878;
     }
     return 0;
 }
@@ -137,7 +134,7 @@ static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std:
     const input::InputContext* const currentInput = input::gCurrentInputData;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
         &gWindowStates[WindowId_Quantity].actionFlags1C)[0]
-        | (currentInput == &input::gInputContextCB0878 ? 2u : 0u);
+        | (currentInput == &cg::ui::detail::gInputContextCB0878 ? 2u : 0u);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value14);
     WindowInstance* const numericWindow = gCurrentWindow;
     const std::uint8_t numeric = WindowInput_HandleNumber(

@@ -5661,7 +5661,7 @@ void DrawNormalScene_51C7D0()
         ui::WindowRuntime_ProcessScene();
         cg::yobi::detail::Sub_43F220();
         static_cast<void>(Sub_518DA0());
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         gCurrentSceneState = 101;
         [[fallthrough]];
     case 101:
@@ -6008,7 +6008,7 @@ void DrawNormalScene_51C7D0()
             gCurrentSceneState = state + 1;
         }
         input::ProcessKeyInput_4596D0();
-        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         Sub_44A410();
         Sub_51D6F0();
@@ -6023,7 +6023,7 @@ void DrawNormalScene_51C7D0()
             gValueD67E78 = 0;
         }
         input::ProcessKeyInput_4596D0();
-        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         Sub_44A410();
         Sub_51D6F0();
@@ -6113,7 +6113,7 @@ waitFrame:
 // 原函数：0x004596D0。
 inputTail:
     input::ProcessKeyInput_4596D0();
-    render::DrawInputText_4568A0(&input::gInputContext626AA0);
+    render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
     RenderInput_4590E0();
     Sub_44A410();
 }
@@ -6284,7 +6284,7 @@ void DrawBattleScene_43CBB0()
         gValue58B6D0 = 1;
         gBattleCommandAction5ABC00 = nullptr;
         gValueFF0C10 = 3;
-        input::SetContext_44B330(&input::gInputContext626AA0);
+        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         Sub_43CB10();
         platform::gValue73ECC0 = 2;
         input::BrowseChatHistory_44A1B0();
@@ -6364,7 +6364,7 @@ void DrawBattleScene_43CBB0()
             cg::NullSub_509080();
         }
         input::ProcessKeyInput_4596D0();
-        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         Sub_44A410();
         break;
@@ -6537,7 +6537,7 @@ void DrawBattleScene_43CBB0()
     }
     case 8: {
         input::ProcessKeyInput_4596D0();
-        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         Sub_44A410();
         const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;

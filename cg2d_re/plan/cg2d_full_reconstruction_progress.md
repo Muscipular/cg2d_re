@@ -2933,3 +2933,5 @@ COR07完成：50个文件迁入资源／渲染／输入／音频／登录／世�
 NS01第一步：公会24个公开符号归入 cg::world::detail，资源名字表与枚举归 cg::resource；同步23份声明、定义、调用文件，选中角色依赖显式指向 login。静态核对旧归属引用与差异通过；编译验收待全部编辑后统一执行 build.bat。
 
 NS01第二步：Yobi 类型及运行时统一归 cg::yobi / cg::yobi::detail，103份源／头同步声明、定义、前置类型和限定调用；移除世界依赖头重复的Yobi函数声明，直接包含所属头。全文件旧 login::Yobi、Yobi目录旧login namespace及旧归属声明检查通过，构造函数和嵌套RawPayload仍保原类型。编译验收待后续编辑结束。
+
+NS03完成：24个窗口输入上下文归 cg::ui::detail，声明移到 WindowRuntimeState.hpp；22个窗口文件消除 input/ui 实现混杂并合并同域块，输入类型继续由 input 持有。对象仍在原翻译单元、原相对定义顺序，30份依赖文件同步；窗口目录跨模块 input namespace 零残留、差异检查通过。

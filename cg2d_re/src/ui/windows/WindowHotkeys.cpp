@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
+input::InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -362,7 +359,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
                     static_cast<std::uint8_t>(login::detail::gValueD69768));
-                const std::wstring text = input::ContextText(input::gInputContexts5F9758[recordIndex]);
+                const std::wstring text = input::ContextText(cg::ui::detail::gInputContexts5F9758[recordIndex]);
                 WindowInstance* const window = gCurrentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);
                 const std::int16_t x = static_cast<std::int16_t>(window->x);
@@ -381,8 +378,8 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
     } else {
         // 原比较上界是最后一项起点，不是整个数组末端。
         const auto currentInput = reinterpret_cast<std::uintptr_t>(input::gCurrentInputData);
-        const auto firstInput = reinterpret_cast<std::uintptr_t>(&input::gInputContexts5F9758[0]);
-        const auto lastInput = reinterpret_cast<std::uintptr_t>(&input::gInputContexts5F9758[23]);
+        const auto firstInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[0]);
+        const auto lastInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[23]);
         if (currentInput >= firstInput && currentInput <= lastInput) {
             WindowChat_RestoreInput();
             gHotkeySelectedCC4B20 = -1;
@@ -741,15 +738,15 @@ static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const
     if ((state & 2) != 0) {
         const auto selected = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(row));
         gHotkeySelectedCC4B20 = selected;
-        input::InputContext* const context = &input::gInputContexts5F9758[selected];
+        input::InputContext* const context = &cg::ui::detail::gInputContexts5F9758[selected];
         gHotkeyInputPrototype57DF48.input = {{context}, WindowInputReferenceKind::Context};
         const std::wstring savedText = input::ContextText(*context);
         static_cast<void>(WindowInput_ActivateElement(&gHotkeyInputPrototype57DF48, 0, 0, 0));
-        input::SetContext_44B330(&input::gInputContexts5F9758[gHotkeySelectedCC4B20]);
+        input::SetContext_44B330(&cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20]);
         input::LoadInitialText_44A160(savedText);
         WindowInstance* const window = gCurrentWindow;
         gFocusedElementDataD45F94 = window->elements[0].data;
-        input::InputContext* const selectedContext = &input::gInputContexts5F9758[gHotkeySelectedCC4B20];
+        input::InputContext* const selectedContext = &cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20];
         static_cast<WindowInputData*>(window->elements[0].data)->context = selectedContext;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;

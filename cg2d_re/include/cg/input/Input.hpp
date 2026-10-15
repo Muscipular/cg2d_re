@@ -100,39 +100,15 @@ std::int32_t ClassifyChatSplit_44B570(std::wstring_view text, std::int32_t unuse
 extern InputContext* gCurrentInputData;
 
 // 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
-extern InputContext gInputContext626AA0;
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
-extern InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。
 // 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
-extern InputContext gInputContextD66CA8; // 原全局：0x00D66CA8。
-extern InputContext gInputContextCB03F0; // 原全局：0x00CB03F0。
 extern InputContext gInputContextCC46E0; // 原全局：0x00CC46E0。
-extern InputContext gInputContextCC2080; // 原全局：0x00CC2080。
-extern InputContext gInputContextD2D828; // 原全局：0x00D2D828。
-extern InputContext gInputContextCA0180; // 原全局：0x00CA0180。
-extern InputContext gInputContextCB0610; // 原全局：0x00CB0610。 原窗口61关键词输入，独立15CH虚拟零对象。
-extern InputContext gInputContextCB0028; // 原全局：0x00CB0028。 原摆摊名称输入，与说明上下文独立。
-extern InputContext gInputContextCC2378; // 原全局：0x00CC2378。 原摆摊说明输入，15CH虚拟零对象。
-extern InputContext gInputContextCF4E60; // 原全局：0x00CF4E60。 原摆摊定价输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD2DE70; // 原全局：0x00D2DE70。 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
 extern InputContext gInputContextD2DFD0; // 原全局：0x00D2DFD0。 旧22宠物改名输入，末尾不包含独立D2E12C计时槽。
-extern InputContext gInputContextD2DC10; // 原全局：0x00D2DC10。 原窗口9称号输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD2D4A0; // 原全局：0x00D2D4A0。 原宠物详情共享名称输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD64CB0; // 原全局：0x00D64CB0。 原窗口58第一条资料输入。
-extern InputContext gInputContextD2D670; // 原全局：0x00D2D670。 原窗口58第二条资料输入。
-extern InputContext gInputContextCAFEC8; // 原全局：0x00CAFEC8。 原窗口58第三条资料输入。
-extern InputContext gInputContextC8B1B8; // 原全局：0x00C8B1B8。
 // 原 CC21E8：交易数值输入，末尾不包含独立的 CC2344 状态。
-extern InputContext gInputContextCC21E8; // 原全局：0x00CC21E8。
 // 原CB0878：窗口42数量输入，独立于交易输入与聊天输入。
-extern InputContext gInputContextCB0878;
 // 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
-extern InputContext gInputContextCA0018; // 原全局：0x00CA0018。
 // 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
-extern InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
 // 原CA02E0：通用对话36/37共享输入上下文，UI只借用。
-extern InputContext gInputContextCA02E0;
-extern InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
 extern InputContext gInputContextD2E2E0; // 原全局：0x00D2E2E0。 旧人物501FD0称号编辑，独立于现代窗口9。
 extern InputContext gInputContextCB01F8; // 原全局：0x00CB01F8。 旧选择32物品名称输入；CB0320/24为本对象字段别名。
 extern InputContext gInputContextCF47E0; // 原全局：0x00CF47E0。 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。

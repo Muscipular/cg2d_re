@@ -2,16 +2,13 @@
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
+input::InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -75,7 +72,7 @@ static std::int32_t WindowTextList_Draw(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gTitleInputPrototype57EE10 { // 原全局：0x0057EE10。
-    {{&input::gInputContextCC49C0}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCC49C0}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
 };
 
@@ -290,7 +287,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (input::gCurrentInputData != &input::gInputContextCC49C0) {
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[3].visible = 1;
         gCurrentWindow->elements[4].visible = 0;
@@ -508,7 +505,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
             gHoverTextD68AE8 = L"變更家族獸名稱。";
         }
         if ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
-            const std::wstring proposedTitle = input::ContextText(input::gInputContextCC49C0);
+            const std::wstring proposedTitle = input::ContextText(cg::ui::detail::gInputContextCC49C0);
             const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
             const std::wstring packet = input::EscapeText(L"N|" + name, 255);
             gWindowTitleCC4118 = proposedTitle;
@@ -536,7 +533,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
     if ((state & 1) != 0) {
         graphic->imageNo = 244217;
     }
-    if (input::gCurrentInputData != &input::gInputContextCC49C0) {
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
         graphic->imageNo = 244216;
     }
     return consumed;
@@ -592,11 +589,11 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
     const std::int32_t y = window->y + window->elements[4].y;
     const std::int32_t x = window->x + window->elements[4].x;
     static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 0));
-    input::SetContext_44B330(&input::gInputContextCC49C0);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextCC49C0);
     input::LoadInitialText_44A160(gWindowTitleCC4118);
     WindowInstance* const focusedWindow = gCurrentWindow;
     gFocusedElementDataD45F94 = focusedWindow->elements[4].data;
-    static_cast<WindowInputData*>(focusedWindow->elements[4].data)->context = &input::gInputContextCC49C0;
+    static_cast<WindowInputData*>(focusedWindow->elements[4].data)->context = &cg::ui::detail::gInputContextCC49C0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }

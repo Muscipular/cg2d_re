@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
+input::InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -35,7 +32,7 @@ static void WindowMessageBoard_Release();
 
 // 原全局：0x00580618。 借Input唯一CC2080，供更新与编辑交互。
 static WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
-    {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCC2080}, WindowInputReferenceKind::Context},
     33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
 };
 

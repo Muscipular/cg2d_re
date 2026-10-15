@@ -247,7 +247,7 @@ static std::int32_t gCurrentWindowIdD67A1C = 0; // 原全局：0x00D67A1C。
 std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
 
 WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
-    {{&input::gInputContextD66CA8}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD66CA8}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
 
@@ -659,7 +659,7 @@ std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0]; // 原全�
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1]; // 原全局：0x00CF4E54。
 
 WindowInputPrototype gPetNameInputPrototype57DCF8 { // 原全局：0x0057DCF8。
-    {{&input::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
     66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
 
@@ -4959,7 +4959,7 @@ void WindowRuntime_DrawCurrent()
             case WindowElementType_Input: {
                 const auto* const data = static_cast<const WindowInputData*>(element->data);
                 if (data == gFocusedElementDataD45F94) {
-                    if (input::gCurrentInputData == &input::gInputContext626AA0) {
+                    if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
                         if (input::gValueC9A96C == 1) {
                             WindowChat_DrawInput(data->context);
                         }

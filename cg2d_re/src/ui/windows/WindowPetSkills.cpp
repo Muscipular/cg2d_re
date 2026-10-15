@@ -127,7 +127,7 @@ static WindowElement* WindowPetSkills_Refresh()
     if (initialPet.used != 0) {
         const bool customName = initialPet.name6BD[0] != '\0';
         input::InputContext* const activeInput = input::gCurrentInputData;
-        if (activeInput == &input::gInputContextD2D4A0) {
+        if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
             gCurrentWindow->elements[11].visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* window;
@@ -310,7 +310,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;

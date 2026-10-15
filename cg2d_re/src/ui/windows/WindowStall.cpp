@@ -5,20 +5,17 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
+input::InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
 
-InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
+input::InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
 
-InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
+input::InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 namespace {
 
@@ -230,17 +227,17 @@ static std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8�
 static std::array<char, 57> gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
 
 static WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
-    {{&input::gInputContextCB0028}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCB0028}, WindowInputReferenceKind::Context},
     230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
 };
 
 static WindowInputPrototype gStallDescriptionInput581360 { // 原全局：0x00581360。
-    {{&input::gInputContextCC2378}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCC2378}, WindowInputReferenceKind::Context},
     299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
 };
 
 static WindowInputPrototype gStallPriceInput581590 { // 原全局：0x00581590。
-    {{&input::gInputContextCF4E60}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCF4E60}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
 
@@ -737,10 +734,10 @@ static WindowElement* WindowStall_EditItemPrice()
 {
     gStallPriceD67C40 = 0;
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
-    input::SetContext_44B330(&input::gInputContextCF4E60);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
     gFocusedElementDataD45F94 = window->elements[1].data;
-    static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+    static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
     WindowElement* const elements = gCurrentWindow->elements;
     elements[1].visible = 1;
     return elements;
@@ -759,10 +756,10 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     }
     gStallPriceD67C40 = 0;
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
-    input::SetContext_44B330(&input::gInputContextCF4E60);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
     gFocusedElementDataD45F94 = window->elements[1].data;
-    static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+    static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
     gCurrentWindow->elements[1].visible = 1;
 }
 
@@ -940,7 +937,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
     }
     if ((state & 2) != 0) {
         input::InputContext* const context = input::gCurrentInputData;
-        if (context == &input::gInputContextCB0028 || context == &input::gInputContextCC2378) {
+        if (context == &cg::ui::detail::gInputContextCB0028 || context == &cg::ui::detail::gInputContextCC2378) {
             WindowChat_RestoreInput();
         }
         gStallButtonStateD67C44 = state;
@@ -1717,12 +1714,12 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     const bool clicked = (state & 2) != 0;
     if (clicked) {
         static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
-        input::SetContext_44B330(&input::gInputContextCF4E60);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
         WindowInstance* const window = gCurrentWindow;
         gFocusedElementDataD45F94 = window->elements[1].data;
-        static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+        static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
     }
-    if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+    if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {
             if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
                 || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
@@ -1749,7 +1746,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     const std::int32_t x = window->x + 206;
     if (cg::ui::HitTestMouseRect_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
         if (clicked) {
-            if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+            if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
                 WindowChat_RestoreInput();
             }
             gCurrentWindow->elements[1].visible = 0;
@@ -1806,7 +1803,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         if (cg::ui::HitTestMouseRect_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
             if (clicked) {
                 static_cast<void>(WindowStall_AddListing(gStallPriceD67C40));
-                if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+                if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
                     WindowChat_RestoreInput();
                 }
                 gCurrentWindow->elements[1].visible = 0;
@@ -2044,7 +2041,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         }
         static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         gCurrentWindow->elements[7].visible = 0;
-        if (input::gCurrentInputData == &input::gInputContextCC2378
+        if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, window->x, window->y, 1));
@@ -2069,7 +2066,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             window->elements[7].visible = 1;
         }
         gCurrentWindow->elements[5].visible = 0;
-        if (input::gCurrentInputData == &input::gInputContextCB0028
+        if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0028
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, window->x, window->y, 1));
@@ -2151,11 +2148,11 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, x, y, 0));
-            input::SetContext_44B330(&input::gInputContextCC2378);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCC2378);
             WindowInstance* const current = gCurrentWindow;
             gFocusedElementDataD45F94 = current->elements[8].data;
             static_cast<WindowInputData*>(current->elements[8].data)->context =
-                &input::gInputContextCC2378;
+                &cg::ui::detail::gInputContextCC2378;
         }
         return 1;
     }
@@ -2178,11 +2175,11 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, x, y, 0));
-            input::SetContext_44B330(&input::gInputContextCB0028);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCB0028);
             WindowInstance* const current = gCurrentWindow;
             gFocusedElementDataD45F94 = current->elements[6].data;
             static_cast<WindowInputData*>(current->elements[6].data)->context =
-                &input::gInputContextCB0028;
+                &cg::ui::detail::gInputContextCB0028;
         }
         return 1;
     }

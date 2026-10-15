@@ -761,7 +761,7 @@ std::int32_t ReturnOne_4A4210() noexcept
             ++sourceEnd;
         }
 
-        cg::input::InputContext& context = cg::input::gInputContexts5F9758[contextIndex];
+        cg::input::InputContext& context = cg::ui::detail::gInputContexts5F9758[contextIndex];
         context.setText(cg::text::FromGbkWide(std::string_view(reinterpret_cast<const char*>(sourceText), static_cast<std::size_t>(sourceEnd - sourceText))));
         context.totalByteLength = static_cast<std::int32_t>(context.text.size());
         context.caretByteOffset = context.totalByteLength;
@@ -846,7 +846,7 @@ std::int32_t Sub_520510(const std::int32_t selected)
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
     const volatile std::int32_t& color =
-        cg::input::gInputContext626AA0.field140;
+        cg::ui::detail::gInputContext626AA0.field140;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
     const volatile std::int32_t& second = cg::platform::gValue554640;
     const volatile std::int32_t& third = cg::platform::gValue554644;
@@ -868,7 +868,7 @@ std::int32_t Sub_520550(const std::int32_t selected)
         reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
     const std::int32_t color = currentBytes[0x30A + selected];
     const std::int32_t first = currentBytes[0x30C + selected];
-    cg::input::gInputContext626AA0.field140 = color;
+    cg::ui::detail::gInputContext626AA0.field140 = color;
     cg::platform::gValue55463C = first;
     const std::int32_t second = currentBytes[0x30E + selected];
     const std::int32_t third = currentBytes[0x310 + selected];
@@ -964,7 +964,7 @@ std::uint32_t Sub_520640()
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
     std::array<std::string, 24> storedTexts;
     for (std::size_t index = 0; index < storedTexts.size(); ++index) {
-        storedTexts[index] = cg::text::ToGbk(cg::input::ContextText(cg::input::gInputContexts5F9758[index]));
+        storedTexts[index] = cg::text::ToGbk(cg::input::ContextText(cg::ui::detail::gInputContexts5F9758[index]));
         if (storedTexts[index].size() >= 0x19) {
             throw cg::text::GbkStorageError(122, std::system_category(), "快捷文字超过原存档字段容量");
         }

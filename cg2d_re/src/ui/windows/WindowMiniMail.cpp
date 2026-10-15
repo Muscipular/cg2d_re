@@ -1,15 +1,12 @@
 #include "../WindowRuntimeInternal.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
+input::InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -28,7 +25,7 @@ static std::int32_t WindowMiniMail_HandleInput(std::int32_t unusedIndex, std::in
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0。
-    {{&input::gInputContextCA0180}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextCA0180}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
 
@@ -98,10 +95,10 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
             gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
-        input::SetContext_44B330(&input::gInputContextCA0180);
+        input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
         gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
         static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
-            &input::gInputContextCA0180;
+            &cg::ui::detail::gInputContextCA0180;
         const std::int32_t target = gMiniMailCompose105F508.target;
         gMiniMailInputPrototype580CB0.text.clear();
         world::detail::gMiniMailSelectionD673E4 = target;
@@ -119,16 +116,16 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
         if (gFocusedElementDataD45F94 != window->elements[1].data) {
             static_cast<void>(WindowInput_ActivateElement(
                 &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
-            input::SetContext_44B330(&input::gInputContextCA0180);
+            input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
             gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
             static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
-                &input::gInputContextCA0180;
+                &cg::ui::detail::gInputContextCA0180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    if (input::gCurrentInputData != &input::gInputContextCA0180) {
-        render::DrawInputText_4568A0(&input::gInputContextCA0180);
+    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCA0180) {
+        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextCA0180);
     }
     return consumed;
 }
@@ -153,11 +150,11 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     if ((state & 2) == 0) {
         return consumed;
     }
-    if (input::gInputContextCA0180.empty()) {
+    if (cg::ui::detail::gInputContextCA0180.empty()) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return consumed;
     }
-    const std::wstring text = input::ContextText(input::gInputContextCA0180);
+    const std::wstring text = input::ContextText(cg::ui::detail::gInputContextCA0180);
     std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
     cg::text::StoreGbk(storedText.data(), storedText.size(), text);
     const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(gMiniMailCompose105F508.name.data()), 256);
@@ -194,7 +191,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
     static_cast<void>(audio::PlaySe_52C450(78, 320));
-    input::gInputContextCA0180.clearText();
+    cg::ui::detail::gInputContextCA0180.clearText();
     world::detail::gMiniMailSelectionD673E4 = -1;
     return 1;
 }

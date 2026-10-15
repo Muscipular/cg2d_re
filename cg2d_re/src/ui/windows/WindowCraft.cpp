@@ -3,16 +3,13 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
-namespace cg::input {
+namespace cg::ui {
+namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
+input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 
-} // namespace cg::input
-
-namespace cg::ui {
-namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -217,7 +214,7 @@ static std::int32_t gMaterialHoveredItemD67424 = 0; // 原全局：0x00D67424。
 
 // 原57D7F8：单选加工输入原型，只借用Input拥有的D2DE70。
 static WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
-    {{&input::gInputContextD2DE70}, WindowInputReferenceKind::Context},
+    {{&cg::ui::detail::gInputContextD2DE70}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
 };
 
@@ -1707,7 +1704,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(gCurrentWindow));
-            if (input::gCurrentInputData == &input::gInputContextD2DE70) {
+            if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                 static_cast<void>(WindowChat_RestoreInput());
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1715,7 +1712,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             std::wstring trimmed;
             std::wstring buffer;
             const auto trimInput = [&] {
-                trimmed = input::ContextText(input::gInputContextD2DE70);
+                trimmed = input::ContextText(cg::ui::detail::gInputContextD2DE70);
                 static_cast<void>(std::erase(trimmed, L' '));
                 // 原删除集合字节仍按GBK解码，直接处理宽正文。
                 for (const wchar_t character : cg::text::FromGbkWide("\x81\x40")) {
@@ -1726,22 +1723,22 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             std::int32_t notice = -1;
             const auto flags = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
-                if (input::Sub_45E770(input::ContextText(input::gInputContextD2DE70)) == 1) {
+                if (input::Sub_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     trimInput();
                     if (trimmed.empty()
-                        && input::gInputContextD2DE70.length() != 0) {
+                        && cg::ui::detail::gInputContextD2DE70.length() != 0) {
                         notice = 1;
                     } else {
                         send = true;
                     }
                 }
-            } else if (!input::gInputContextD2DE70.empty()) {
+            } else if (!cg::ui::detail::gInputContextD2DE70.empty()) {
                 trimInput();
                 if (trimmed.empty()) {
                     notice = 1;
-                } else if (input::Sub_45E770(input::ContextText(input::gInputContextD2DE70)) == 1) {
+                } else if (input::Sub_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     send = true;
@@ -1749,13 +1746,13 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             }
             if (notice >= 0) {
                 gCurrentWindow->elements[notice].visible = 1;
-                if (input::gCurrentInputData == &input::gInputContextD2DE70) {
+                if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                     static_cast<void>(WindowChat_RestoreInput());
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
                 if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-                    buffer = input::ContextText(input::gInputContextD2DE70);
+                    buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
                 } else {
                     buffer.clear();
                 }
@@ -1774,10 +1771,10 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                     platform::gConnectionSocket, skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
-                if (current == &input::gInputContextD2DE70) {
+                if (current == &cg::ui::detail::gInputContextD2DE70) {
                     static_cast<void>(WindowChat_RestoreInput());
                 }
-                input::gInputContextD2DE70.clearText();
+                cg::ui::detail::gInputContextD2DE70.clearText();
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
@@ -2306,11 +2303,11 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
     const std::int32_t y = window->elements[11].y + window->y;
     const std::int32_t x = window->elements[11].x + window->x;
     static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 1));
-    input::SetContext_44B330(&input::gInputContextD2DE70);
+    input::SetContext_44B330(&cg::ui::detail::gInputContextD2DE70);
     WindowInstance* const current = gCurrentWindow;
     gFocusedElementDataD45F94 = current->elements[7].data;
     static_cast<WindowInputData*>(current->elements[7].data)->context =
-        &input::gInputContextD2DE70;
+        &cg::ui::detail::gInputContextD2DE70;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }
@@ -2865,7 +2862,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         hideControls = true;
     } else if (gSelectionModeD2D650 == 4 && expired()) {
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            buffer = input::ContextText(input::gInputContextD2DE70);
+            buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
         } else {
             buffer.clear();
         }
@@ -2946,7 +2943,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
                 static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"刻印的物品";
                 static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"　請選擇。";
-                if (input::gCurrentInputData != &input::gInputContextD2DE70) {
+                if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DE70) {
                     gCurrentWindow->elements[8].visible = 1;
                     gCurrentWindow->elements[6].visible = 1;
                     gCurrentWindow->elements[7].visible = 0;
@@ -2970,7 +2967,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);
     cg::yobi::detail::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
-    if (input::gCurrentInputData == &input::gInputContextD2DE70) {
+    if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[6];
         const std::int32_t y = element->y + window->y;
@@ -3047,7 +3044,7 @@ static std::int32_t WindowCraft_Draw(const std::int32_t)
         const auto y = static_cast<std::int16_t>(element->y + window->y);
         const auto x = static_cast<std::int16_t>(element->x + window->x);
         static_cast<void>(render::DrawText_456780(
-            x, y, 3, 12, 127, input::gInputContextD2DE70.text, 0, 0));
+            x, y, 3, 12, 127, cg::ui::detail::gInputContextD2DE70.text, 0, 0));
     }
     WindowRuntime_DrawCurrent();
     return 1;

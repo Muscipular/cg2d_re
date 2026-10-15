@@ -161,29 +161,23 @@ WindowGraphicData gWindowGraphic561AE8 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic561B00 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B00。
 WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B18。
 WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B30。
-constexpr wchar_t kWindow10Job5860A4[] = L"無職"; // 原常量参考：0x005860A4。
-constexpr wchar_t kWindow10Slots58609C[] = L"10/10"; // 原常量参考：0x0058609C。
-constexpr wchar_t kWindow10Experience5861E0[] = L"經驗值"; // 原常量参考：0x005861E0。
-constexpr wchar_t kWindow10Level586228[] = L"等級"; // 原常量参考：0x00586228。
-constexpr wchar_t kWindow10Skill586094[] = L"技能"; // 原常量参考：0x00586094。
-constexpr wchar_t kWindow10Fp5861C0[] = L"魔力"; // 原常量参考：0x005861C0。
 WindowTextPrototype gWindowText561B48 { // 原全局：0x00561B48。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Job5860A4,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"無職", // 原常量参考：0x005860A4。
 };
 WindowTextPrototype gWindowText561B50 { // 原全局：0x00561B50。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Slots58609C,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10/10", // 原常量参考：0x0058609C。
 };
 WindowTextPrototype gWindowText561B58 { // 原全局：0x00561B58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Experience5861E0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
 };
 WindowTextPrototype gWindowText561B60 { // 原全局：0x00561B60。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
 };
 WindowTextPrototype gWindowText561B68 { // 原全局：0x00561B68。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Skill586094,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
 };
 WindowTextPrototype gWindowText561B70 { // 原全局：0x00561B70。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Fp5861C0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
 };
 std::uint32_t gWindowMouseFlagsD67780 = 0; // 原全局：0x00D67780。
 
@@ -208,18 +202,12 @@ WindowGraphicData gWindowGraphic56DAA8 {0x3B9DE, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56DAC0 {0x3B9DF, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056DAC0。
 WindowGraphicData gWindowGraphic56DAD8 {0x3C115, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAD8。
 WindowGraphicData gWindowGraphic56DAF0 {0x3C114, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAF0。
-constexpr wchar_t kWindow21Name585F14[] = L"name"; // 原常量参考：0x00585F14。
-constexpr wchar_t kWindow21Level585F0C[] = L"level"; // 原常量参考：0x00585F0C。
-constexpr wchar_t kWindow21Guild585F04[] = L"guild"; // 原常量参考：0x00585F04。
-constexpr wchar_t kWindow21Title585EFC[] = L"title"; // 原常量参考：0x00585EFC。
-constexpr wchar_t kWindow21Server585EF4[] = L"server"; // 原常量参考：0x00585EF4。
-constexpr wchar_t kWindow21GuildServer585EE8[] = L"guildserver"; // 原常量参考：0x00585EE8。
-WindowTextPrototype gWindowText56DB08 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21Name585F14}; // 原全局：0x0056DB08。
-WindowTextPrototype gWindowText56DB10 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21Level585F0C}; // 原全局：0x0056DB10。
-WindowTextPrototype gWindowText56DB18 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21Guild585F04}; // 原全局：0x0056DB18。
-WindowTextPrototype gWindowText56DB20 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21Title585EFC}; // 原全局：0x0056DB20。
-WindowTextPrototype gWindowText56DB28 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21Server585EF4}; // 原全局：0x0056DB28。
-WindowTextPrototype gWindowText56DB30 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow21GuildServer585EE8}; // 原全局：0x0056DB30。
+WindowTextPrototype gWindowText56DB08 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"name"}; // 原全局：0x0056DB08。 // 原常量参考：0x00585F14。
+WindowTextPrototype gWindowText56DB10 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"level"}; // 原全局：0x0056DB10。 // 原常量参考：0x00585F0C。
+WindowTextPrototype gWindowText56DB18 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guild"}; // 原全局：0x0056DB18。 // 原常量参考：0x00585F04。
+WindowTextPrototype gWindowText56DB20 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"title"}; // 原全局：0x0056DB20。 // 原常量参考：0x00585EFC。
+WindowTextPrototype gWindowText56DB28 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"server"}; // 原全局：0x0056DB28。 // 原常量参考：0x00585EF4。
+WindowTextPrototype gWindowText56DB30 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guildserver"}; // 原全局：0x0056DB30。 // 原常量参考：0x00585EE8。
 std::uint32_t gWindowMouseFlagsD67840 = 0; // 原全局：0x00D67840。
 
 WindowGraphicData gWindowGraphic56F7A8 {0x3B59C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7A8。
@@ -229,10 +217,8 @@ WindowGraphicData gWindowGraphic56F7F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56F808 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F808。
 WindowGraphicData gWindowGraphic56F820 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F820。
 WindowGraphicData gWindowGraphic56F838 {0x3BAA3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F838。
-constexpr wchar_t kWindow55Rank585ED8[] = L"家族稱號"; // 原常量参考：0x00585ED8。
-constexpr wchar_t kWindow55Member585ECC[] = L"成員名稱"; // 原常量参考：0x00585ECC。
-WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow55Rank585ED8}; // 原全局：0x0056F850。
-WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow55Member585ECC}; // 原全局：0x0056F858。
+WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號"}; // 原全局：0x0056F850。 // 原常量参考：0x00585ED8。
+WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"成員名稱"}; // 原全局：0x0056F858。 // 原常量参考：0x00585ECC。
 std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
 
 WindowGraphicData gWindowGraphic56FCA8 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCA8。
@@ -242,14 +228,10 @@ WindowGraphicData gWindowGraphic56FCF0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56FD08 {0x3BA0C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD08。
 WindowGraphicData gWindowGraphic56FD20 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD20。
 WindowGraphicData gWindowGraphic56FD38 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056FD38。
-constexpr wchar_t kWindow40Content585EC4[] = L"內容"; // 原常量参考：0x00585EC4。
-constexpr wchar_t kWindow40Page585EBC[] = L"頁數"; // 原常量参考：0x00585EBC。
-constexpr wchar_t kWindow40Name586230[] = L"名稱"; // 原常量参考：0x00586230。
-constexpr wchar_t kWindow40Time585EB0[] = L"00/00 00:00"; // 原常量参考：0x00585EB0。
-WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Content585EC4}; // 原全局：0x0056FD50。
-WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Page585EBC}; // 原全局：0x0056FD58。
-WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Name586230}; // 原全局：0x0056FD60。
-WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Time585EB0}; // 原全局：0x0056FD68。
+WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"內容"}; // 原全局：0x0056FD50。 // 原常量参考：0x00585EC4。
+WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"頁數"}; // 原全局：0x0056FD58。 // 原常量参考：0x00585EBC。
+WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱"}; // 原全局：0x0056FD60。 // 原常量参考：0x00586230。
+WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00/00 00:00"}; // 原全局：0x0056FD68。 // 原常量参考：0x00585EB0。
 
 WindowGraphicData gWindowGraphic5700B8 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700B8。
 WindowGraphicData gWindowGraphic5700D0 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700D0。
@@ -257,8 +239,7 @@ WindowGraphicData gWindowGraphic5700E8 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // �
 WindowGraphicData gWindowGraphic570148 {0x3BA08, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570148。
 WindowGraphicData gWindowGraphic570160 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570160。
 WindowGraphicData gWindowGraphic570190 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570190。
-constexpr wchar_t kMailTarget585EA4[] = L"測試人員"; // 原常量参考：0x00585EA4。
-WindowTextPrototype gWindowText5701F0 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kMailTarget585EA4}; // 原全局：0x005701F0。
+WindowTextPrototype gWindowText5701F0 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"測試人員"}; // 原全局：0x005701F0。 // 原常量参考：0x00585EA4。
 
 WindowGraphicData gWindowGraphic570118 {0x3BA0D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570118。
 WindowGraphicData gWindowGraphic570130 {0x3BA0E, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00570130。
@@ -282,8 +263,7 @@ WindowGraphicData gWindowGraphic570668 {0x3BE4B, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic570680 {0x3BE4E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570680。
 WindowGraphicData gWindowGraphic570698 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570698。
 WindowGraphicData gWindowGraphic5706B0 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005706B0。
-constexpr wchar_t kWindow47Content585E9C[] = L"content"; // 原常量参考：0x00585E9C。
-WindowTextPrototype gWindowText5706C8 {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow47Content585E9C}; // 原全局：0x005706C8。
+WindowTextPrototype gWindowText5706C8 {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"content"}; // 原全局：0x005706C8。 // 原常量参考：0x00585E9C。
 
 WindowGraphicData gWindowGraphic56B5E0 {0x3B9C0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5E0。
 WindowGraphicData gWindowGraphic56B5F8 {0x3B9C5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5F8。
@@ -298,50 +278,41 @@ WindowGraphicData gWindowGraphic56C798 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56C7B0 {0x3BA74, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7B0。
 WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056C7C8。
 WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7E0。
-constexpr wchar_t kWindow29Text554184[] = L"觀戰結束"; // 原常量参考：0x00554184。
-WindowTextPrototype gWindowText56B8D0 {{}, kWindow29Text554184}; // 原全局：0x0056B8D0。
+WindowTextPrototype gWindowText56B8D0 {{}, L"觀戰結束"}; // 原全局：0x0056B8D0。 // 原常量参考：0x00554184。
 WindowGraphicData gWindowGraphic56B918 {0x3BA7E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B918。
 WindowGraphicData gWindowGraphic56B930 {0x3BA7F, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056B930。
 WindowGraphicData gWindowGraphic56B960 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B960。
 WindowGraphicData gWindowGraphic56B978 {0x3BA80, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B978。
-constexpr wchar_t kWindow30Text585FA0[] = L"？？？？？？？？"; // 原常量参考：0x00585FA0。
-constexpr wchar_t kWindow30Text585F98[] = L"+000000"; // 原常量参考：0x00585F98。
-constexpr wchar_t kWindow30Text585F90[] = L"+000"; // 原常量参考：0x00585F90。
 WindowTextPrototype gWindowText56B990 { // 原全局：0x0056B990。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow30Text585FA0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？", // 原常量参考：0x00585FA0。
 };
 WindowTextPrototype gWindowText56B998 { // 原全局：0x0056B998。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow30Text585F98,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"+000000", // 原常量参考：0x00585F98。
 };
-WindowTextPrototype gWindowText56B9A0 {{}, kWindow30Text585FA0}; // 原全局：0x0056B9A0。
+WindowTextPrototype gWindowText56B9A0 {{}, L"？？？？？？？？"}; // 原全局：0x0056B9A0。 // 原常量参考：0x00585FA0。
 WindowTextPrototype gWindowText56B9A8 { // 原全局：0x0056B9A8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow30Text585FA0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？", // 原常量参考：0x00585FA0。
 };
 WindowTextPrototype gWindowText56B9B0 { // 原全局：0x0056B9B0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow30Text585F90,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"+000", // 原常量参考：0x00585F90。
 };
 WindowGraphicData gWindowGraphic56C2A0 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C2A0。
-constexpr wchar_t kWindow31Text585F88[] = L"結果"; // 原常量参考：0x00585F88。
-constexpr wchar_t kWindow31Text585F78[] = L"?????  +000000"; // 原常量参考：0x00585F78。
 WindowTextPrototype gWindowText56C2B8 { // 原全局：0x0056C2B8。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow31Text585F88,
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"結果", // 原常量参考：0x00585F88。
 };
 WindowTextPrototype gWindowText56C2C0 { // 原全局：0x0056C2C0。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow31Text585F78,
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"?????  +000000", // 原常量参考：0x00585F78。
 };
-constexpr wchar_t kWindow32Text585F70[] = L"偷襲"; // 原常量参考：0x00585F70。
-constexpr wchar_t kWindow32Text585F68[] = L"被偷襲"; // 原常量参考：0x00585F68。
-WindowTextPrototype gWindowText56C9A8 {{}, kWindow32Text585F70}; // 原全局：0x0056C9A8。
-WindowTextPrototype gWindowText56C9B0 {{}, kWindow32Text585F68}; // 原全局：0x0056C9B0。
-constexpr wchar_t kWindow26Name586230[] = L"名稱"; // 原常量参考：0x00586230。
+WindowTextPrototype gWindowText56C9A8 {{}, L"偷襲"}; // 原全局：0x0056C9A8。 // 原常量参考：0x00585F70。
+WindowTextPrototype gWindowText56C9B0 {{}, L"被偷襲"}; // 原全局：0x0056C9B0。 // 原常量参考：0x00585F68。
 WindowTextPrototype gWindowText56B6F8 { // 原全局：0x0056B6F8。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText56B700 { // 原全局：0x0056B700。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow10Fp5861C0,
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
 };
 WindowTextPrototype gWindowText56B708 { // 原全局：0x0056B708。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow10Skill586094,
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
 };
 
 WindowGraphicData gWindowGraphic55F780 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F780。
@@ -359,20 +330,17 @@ WindowGraphicData gWindowGraphic5658A8 {0x3B5B7, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5658C0 {0x3BAF7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005658C0。
 WindowGraphicData gWindowGraphic565908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565908。
 WindowGraphicData gWindowGraphic565920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565920。
-constexpr wchar_t kPetPage58600C[] = L"1/5"; // 原常量参考：0x0058600C。
-constexpr wchar_t kPetTechnique586004[] = L"技能"; // 原常量参考：0x00586004。
-constexpr wchar_t kPetTechniqueDescription585FF4[] = L"進行攻擊"; // 原常量参考：0x00585FF4。
 WindowTextPrototype gWindowText565950 { // 原全局：0x00565950。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText565988 { // 原全局：0x00565988。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetPage58600C,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"1/5", // 原常量参考：0x0058600C。
 };
 WindowTextPrototype gWindowText565990 { // 原全局：0x00565990。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTechnique586004,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586004。
 };
 WindowTextPrototype gWindowText5659A0 { // 原全局：0x005659A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTechniqueDescription585FF4,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"進行攻擊", // 原常量参考：0x00585FF4。
 };
 WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
     {&gPetTechniqueCostsD66C34[0], 0, 0, 0, 0},
@@ -390,35 +358,29 @@ WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
 WindowGraphicData gWindowGraphic563388 {0x3B5D6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563388。
 WindowGraphicData gWindowGraphic565668 {0x3BAEF, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565668。
 WindowGraphicData gWindowGraphic565938 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565938。
-constexpr wchar_t kPetExperience586020[] = L"10000000/10000000"; // 原常量参考：0x00586020。
-constexpr wchar_t kPetVital586034[] = L"100000/100000"; // 原常量参考：0x00586034。
-constexpr wchar_t kPetTribe586018[] = L"種類"; // 原常量参考：0x00586018。
-constexpr wchar_t kPetTriple586014[] = L"999"; // 原常量参考：0x00586014。
-constexpr wchar_t kPetDouble586010[] = L"99"; // 原常量参考：0x00586010。
-constexpr wchar_t kPetWeight585FF0[] = L"0/0"; // 原常量参考：0x00585FF0。
 WindowTextPrototype gWindowText565958 { // 原全局：0x00565958。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetExperience586020,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10000000/10000000", // 原常量参考：0x00586020。
 };
 WindowTextPrototype gWindowText565960 { // 原全局：0x00565960。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetVital586034,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
 };
 WindowTextPrototype gWindowText565968 { // 原全局：0x00565968。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetVital586034,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
 };
 WindowTextPrototype gWindowText565970 { // 原全局：0x00565970。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTribe586018,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
 };
 WindowTextPrototype gWindowText565978 { // 原全局：0x00565978。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTriple586014,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"999", // 原常量参考：0x00586014。
 };
 WindowTextPrototype gWindowText565980 { // 原全局：0x00565980。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetDouble586010,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
 };
 WindowTextPrototype gWindowText5659A8 { // 原全局：0x005659A8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetDouble586010,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
 };
 WindowTextPrototype gWindowText5659B0 { // 原全局：0x005659B0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetWeight585FF0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"0/0", // 原常量参考：0x00585FF0。
 };
 std::uint32_t gWindowAnimationImage5659B8 = 100000; // 原全局：0x005659B8。
 std::uint32_t gWindowMouseFlagsD677B0 = 0; // 原全局：0x00D677B0。
@@ -435,9 +397,8 @@ WindowGraphicData gWindowGraphic566FC0 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic566FD8 {0x3BB05, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FD8。
 WindowGraphicData gWindowGraphic566FF0 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FF0。
 WindowGraphicData gWindowGraphic567008 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567008。
-constexpr wchar_t kAlbumName586048[] = L"寵物名稱"; // 原常量参考：0x00586048。
 WindowTextPrototype gWindowText567020 { // 原全局：0x00567020。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumName586048,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
 };
 std::uint32_t gWindowMouseFlagsD677C0 = 0; // 原全局：0x00D677C0。
 WindowGraphicData gWindowGraphic5679B0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679B0。
@@ -450,23 +411,20 @@ WindowGraphicData gWindowGraphic567A58 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic567A70 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A70。
 WindowGraphicData gWindowGraphic567A88 {0x3B55F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A88。
 WindowGraphicData gWindowGraphic567AA0 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567AA0。
-constexpr wchar_t kAlbumNumber585FEC[] = L"000"; // 原常量参考：0x00585FEC。
-constexpr wchar_t kAlbumValue585FE8[] = L"00"; // 原常量参考：0x00585FE8。
-constexpr wchar_t kAlbumPage585FE0[] = L"255/255"; // 原常量参考：0x00585FE0。
 WindowTextPrototype gWindowText567AB8 { // 原全局：0x00567AB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumName586048,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
 };
 WindowTextPrototype gWindowText567AC0 { // 原全局：0x00567AC0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumNumber585FEC,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"000", // 原常量参考：0x00585FEC。
 };
 WindowTextPrototype gWindowText567AC8 { // 原全局：0x00567AC8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumValue585FE8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00", // 原常量参考：0x00585FE8。
 };
 WindowTextPrototype gWindowText567AD0 { // 原全局：0x00567AD0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTribe586018,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
 };
 WindowTextPrototype gWindowText567AD8 { // 原全局：0x00567AD8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumPage585FE0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"255/255", // 原常量参考：0x00585FE0。
 };
 std::uint32_t gWindowAnimationImage567AE0 = 100000; // 原全局：0x00567AE0。
 std::uint32_t gWindowMouseFlagsD677D0 = 0; // 原全局：0x00D677D0。
@@ -533,57 +491,47 @@ WindowGraphicData gWindowGraphic55FC90 {0x3BAB2, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic55FCA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCA8。
 WindowGraphicData gWindowGraphic55FCC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x0055FCC0。
 WindowGraphicData gWindowGraphic55FCD8 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCD8。
-constexpr wchar_t kWindow7Penalty586224[] = L"x5"; // 原常量参考：0x00586224。
-constexpr wchar_t kWindow7Job58621C[] = L"職業"; // 原常量参考：0x0058621C。
-constexpr wchar_t kWindow7Guild586214[] = L"家族"; // 原常量参考：0x00586214。
-constexpr wchar_t kWindow7GuildTitle586208[] = L"家族稱號"; // 原常量参考：0x00586208。
-constexpr wchar_t kWindow7Title5861FC[] = L"特殊稱號"; // 原常量参考：0x005861FC。
-constexpr wchar_t kWindow7OwnTitle5861F0[] = L"自定稱號"; // 原常量参考：0x005861F0。
-constexpr wchar_t kWindow7Tribe5861E8[] = L"種族"; // 原常量参考：0x005861E8。
-constexpr wchar_t kWindow7NextExperience5861D0[] = L"下一級經驗值"; // 原常量参考：0x005861D0。
-constexpr wchar_t kWindow7Hp5861C8[] = L"生命值"; // 原常量参考：0x005861C8。
-constexpr wchar_t kWindow7DuelPoint5861B4[] = L"對戰勝利值"; // 原常量参考：0x005861B4。
 WindowTextPrototype gWindowText55FCF0 { // 原全局：0x0055FCF0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText55FCF8 { // 原全局：0x0055FCF8。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
 };
 WindowTextPrototype gWindowText55FD00 { // 原全局：0x0055FD00。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Penalty586224,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"x5", // 原常量参考：0x00586224。
 };
 WindowTextPrototype gWindowText55FD08 { // 原全局：0x0055FD08。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Job58621C,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
 };
 WindowTextPrototype gWindowText55FD10 { // 原全局：0x0055FD10。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Guild586214,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00586214。
 };
 WindowTextPrototype gWindowText55FD18 { // 原全局：0x0055FD18。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7GuildTitle586208,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號", // 原常量参考：0x00586208。
 };
 WindowTextPrototype gWindowText55FD20 { // 原全局：0x0055FD20。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Title5861FC,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"特殊稱號", // 原常量参考：0x005861FC。
 };
 WindowTextPrototype gWindowText55FD28 { // 原全局：0x0055FD28。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7OwnTitle5861F0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自定稱號", // 原常量参考：0x005861F0。
 };
 WindowTextPrototype gWindowText55FD30 { // 原全局：0x0055FD30。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Tribe5861E8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
 };
 WindowTextPrototype gWindowText55FD38 { // 原全局：0x0055FD38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Experience5861E0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
 };
 WindowTextPrototype gWindowText55FD40 { // 原全局：0x0055FD40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7NextExperience5861D0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"下一級經驗值", // 原常量参考：0x005861D0。
 };
 WindowTextPrototype gWindowText55FD48 { // 原全局：0x0055FD48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Hp5861C8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"生命值", // 原常量参考：0x005861C8。
 };
 WindowTextPrototype gWindowText55FD50 { // 原全局：0x0055FD50。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Fp5861C0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
 };
 WindowTextPrototype gWindowText55FD58 { // 原全局：0x0055FD58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7DuelPoint5861B4,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"對戰勝利值", // 原常量参考：0x005861B4。
 };
 
 WindowGraphicData gWindowGraphic563298 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563298。
@@ -595,23 +543,20 @@ WindowGraphicData gWindowGraphic563478 {0x3B586, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic563490 {0x3B589, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563490。
 WindowGraphicData gWindowGraphic5634A8 {0x3B58C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005634A8。
 WindowGraphicData gWindowGraphic5634C0 {0x3B58F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005634C0。
-constexpr wchar_t kWindow15Name586048[] = L"寵物名稱"; // 原常量参考：0x00586048。
-constexpr wchar_t kWindow15Level586044[] = L"300"; // 原常量参考：0x00586044。
-constexpr wchar_t kWindow15Points586034[] = L"100000/100000"; // 原常量参考：0x00586034。
 WindowTextPrototype gWindowText5634D8 { // 原全局：0x005634D8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow15Name586048,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
 };
 WindowTextPrototype gWindowText5634E0 { // 原全局：0x005634E0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow15Level586044,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"300", // 原常量参考：0x00586044。
 };
 WindowTextPrototype gWindowText5634E8 { // 原全局：0x005634E8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow15Points586034,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
 };
 WindowTextPrototype gWindowText5634F0 { // 原全局：0x005634F0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow15Points586034,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
 };
 WindowTextPrototype gWindowText5634F8 { // 原全局：0x005634F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Tribe5861E8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
 };
 std::uint32_t gWindowMouseFlagsD677A0 = 0; // 原全局：0x00D677A0。
 
@@ -624,119 +569,92 @@ WindowGraphicData gWindowGraphic5606F8 {0x3BAB4, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic560710 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560710。
 WindowGraphicData gWindowGraphic560728 {0x3BAB1, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00560728。
 WindowGraphicData gWindowGraphic560740 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560740。
-constexpr wchar_t kWindow8Text5861A8[] = L"新增點數"; // 原常量参考：0x005861A8。
-constexpr wchar_t kWindow8Text5861A0[] = L"體力"; // 原常量参考：0x005861A0。
-constexpr wchar_t kWindow8Text586198[] = L"力量"; // 原常量参考：0x00586198。
-constexpr wchar_t kWindow8Text586190[] = L"強度"; // 原常量参考：0x00586190。
-constexpr wchar_t kWindow8Text586188[] = L"速度"; // 原常量参考：0x00586188。
-constexpr wchar_t kWindow8Text586180[] = L"魔法"; // 原常量参考：0x00586180。
-constexpr wchar_t kWindow8Text586178[] = L"攻擊"; // 原常量参考：0x00586178。
-constexpr wchar_t kWindow8Text586170[] = L"防禦"; // 原常量参考：0x00586170。
-constexpr wchar_t kWindow8Text586168[] = L"敏捷"; // 原常量参考：0x00586168。
-constexpr wchar_t kWindow8Text586160[] = L"精神"; // 原常量参考：0x00586160。
-constexpr wchar_t kWindow8Text586158[] = L"回復"; // 原常量参考：0x00586158。
-constexpr wchar_t kWindow8Text586150[] = L"魅力"; // 原常量参考：0x00586150。
-constexpr wchar_t kWindow8Text586148[] = L"抗毒"; // 原常量参考：0x00586148。
-constexpr wchar_t kWindow8Text586140[] = L"抗昏睡"; // 原常量参考：0x00586140。
-constexpr wchar_t kWindow8Text586138[] = L"抗石化"; // 原常量参考：0x00586138。
-constexpr wchar_t kWindow8Text586130[] = L"抗醉"; // 原常量参考：0x00586130。
-constexpr wchar_t kWindow8Text586128[] = L"抗混亂"; // 原常量参考：0x00586128。
-constexpr wchar_t kWindow8Text586120[] = L"抗遺忘"; // 原常量参考：0x00586120。
-constexpr wchar_t kWindow8Text586118[] = L"必殺率"; // 原常量参考：0x00586118。
-constexpr wchar_t kWindow8Text586110[] = L"反擊率"; // 原常量参考：0x00586110。
-constexpr wchar_t kWindow8Text586108[] = L"命中率"; // 原常量参考：0x00586108。
-constexpr wchar_t kWindow8Text586100[] = L"閃躲率"; // 原常量参考：0x00586100。
-constexpr wchar_t kWindow8Text5860F8[] = L"耐力"; // 原常量参考：0x005860F8。
-constexpr wchar_t kWindow8Text5860F0[] = L"靈巧"; // 原常量参考：0x005860F0。
-constexpr wchar_t kWindow8Text5860E8[] = L"智力"; // 原常量参考：0x005860E8。
-constexpr wchar_t kWindow8Text5860E0[] = L"魔攻"; // 原常量参考：0x005860E0。
-constexpr wchar_t kWindow8Text5860D8[] = L"魔防"; // 原常量参考：0x005860D8。
 WindowTextPrototype gWindowText560758 { // 原全局：0x00560758。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText560760 { // 原全局：0x00560760。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
 };
 WindowTextPrototype gWindowText560768 { // 原全局：0x00560768。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5861A8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"新增點數", // 原常量参考：0x005861A8。
 };
 WindowTextPrototype gWindowText560770 { // 原全局：0x00560770。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5861A0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"體力", // 原常量参考：0x005861A0。
 };
 WindowTextPrototype gWindowText560778 { // 原全局：0x00560778。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586198,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"力量", // 原常量参考：0x00586198。
 };
 WindowTextPrototype gWindowText560780 { // 原全局：0x00560780。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586190,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"強度", // 原常量参考：0x00586190。
 };
 WindowTextPrototype gWindowText560788 { // 原全局：0x00560788。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586188,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"速度", // 原常量参考：0x00586188。
 };
 WindowTextPrototype gWindowText560790 { // 原全局：0x00560790。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586180,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔法", // 原常量参考：0x00586180。
 };
 WindowTextPrototype gWindowText560798 { // 原全局：0x00560798。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586178,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"攻擊", // 原常量参考：0x00586178。
 };
 WindowTextPrototype gWindowText5607A0 { // 原全局：0x005607A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586170,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"防禦", // 原常量参考：0x00586170。
 };
 WindowTextPrototype gWindowText5607A8 { // 原全局：0x005607A8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586168,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"敏捷", // 原常量参考：0x00586168。
 };
 WindowTextPrototype gWindowText5607B0 { // 原全局：0x005607B0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586160,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"精神", // 原常量参考：0x00586160。
 };
 WindowTextPrototype gWindowText5607B8 { // 原全局：0x005607B8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586158,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"回復", // 原常量参考：0x00586158。
 };
 WindowTextPrototype gWindowText5607C0 { // 原全局：0x005607C0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586150,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魅力", // 原常量参考：0x00586150。
 };
 WindowTextPrototype gWindowText5607C8 { // 原全局：0x005607C8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586148,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗毒", // 原常量参考：0x00586148。
 };
 WindowTextPrototype gWindowText5607D0 { // 原全局：0x005607D0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586140,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗昏睡", // 原常量参考：0x00586140。
 };
 WindowTextPrototype gWindowText5607D8 { // 原全局：0x005607D8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586138,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗石化", // 原常量参考：0x00586138。
 };
 WindowTextPrototype gWindowText5607E0 { // 原全局：0x005607E0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586130,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗醉", // 原常量参考：0x00586130。
 };
 WindowTextPrototype gWindowText5607E8 { // 原全局：0x005607E8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586128,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗混亂", // 原常量参考：0x00586128。
 };
 WindowTextPrototype gWindowText5607F0 { // 原全局：0x005607F0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586120,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗遺忘", // 原常量参考：0x00586120。
 };
 WindowTextPrototype gWindowText5607F8 { // 原全局：0x005607F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586118,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"必殺率", // 原常量参考：0x00586118。
 };
 WindowTextPrototype gWindowText560800 { // 原全局：0x00560800。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586110,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"反擊率", // 原常量参考：0x00586110。
 };
 WindowTextPrototype gWindowText560808 { // 原全局：0x00560808。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586108,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"命中率", // 原常量参考：0x00586108。
 };
 WindowTextPrototype gWindowText560810 { // 原全局：0x00560810。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586100,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"閃躲率", // 原常量参考：0x00586100。
 };
 WindowTextPrototype gWindowText560818 { // 原全局：0x00560818。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860F8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"耐力", // 原常量参考：0x005860F8。
 };
 WindowTextPrototype gWindowText560820 { // 原全局：0x00560820。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860F0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"靈巧", // 原常量参考：0x005860F0。
 };
 WindowTextPrototype gWindowText560828 { // 原全局：0x00560828。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860E8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"智力", // 原常量参考：0x005860E8。
 };
 WindowTextPrototype gWindowText560830 { // 原全局：0x00560830。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860E0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔攻", // 原常量参考：0x005860E0。
 };
 WindowTextPrototype gWindowText560838 { // 原全局：0x00560838。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860D8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔防", // 原常量参考：0x005860D8。
 };
 
 WindowGraphicData gWindowGraphic560DA0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DA0。
@@ -756,15 +674,14 @@ WindowGraphicData gWindowGraphic560ED8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic560EF0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560EF0。
 WindowGraphicData gWindowGraphic560F08 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F08。
 WindowGraphicData gWindowGraphic560F20 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F20。
-constexpr wchar_t kWindow9Title5860D0[] = L"稱號"; // 原常量参考：0x005860D0。
 WindowTextPrototype gWindowText560F38 { // 原全局：0x00560F38。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText560F40 { // 原全局：0x00560F40。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
 };
 WindowTextPrototype gWindowText560F48 { // 原全局：0x00560F48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow9Title5860D0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
 };
 std::uint32_t gWindowMouseFlagsD676F0 = 0; // 原全局：0x00D676F0。
 std::uint32_t gWindowMouseFlagsD6772C = 0; // 原全局：0x00D6772C。
@@ -781,33 +698,29 @@ WindowGraphicData gWindowGraphic5614B0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5614C8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614C8。
 WindowGraphicData gWindowGraphic5614E0 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614E0。
 WindowGraphicData gWindowGraphic5614F8 {0x3C113, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614F8。
-constexpr wchar_t kWindow58Guild5860C8[] = L"公會"; // 原常量参考：0x005860C8。
-constexpr wchar_t kWindow58Sell5860B8[] = L"SELL"; // 原常量参考：0x005860B8。
-constexpr wchar_t kWindow58Buy5860B4[] = L"BUY"; // 原常量参考：0x005860B4。
-constexpr wchar_t kWindow58About5860AC[] = L"ABOUT"; // 原常量参考：0x005860AC。
 WindowTextPrototype gWindowText561510 { // 原全局：0x00561510。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
 };
 WindowTextPrototype gWindowText561518 { // 原全局：0x00561518。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
 };
 WindowTextPrototype gWindowText561520 { // 原全局：0x00561520。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow9Title5860D0,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
 };
 WindowTextPrototype gWindowText561528 { // 原全局：0x00561528。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7Job58621C,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
 };
 WindowTextPrototype gWindowText561530 { // 原全局：0x00561530。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow58Guild5860C8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"公會", // 原常量参考：0x005860C8。
 };
 WindowTextPrototype gWindowText561540 { // 原全局：0x00561540。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow58Sell5860B8,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"SELL", // 原常量参考：0x005860B8。
 };
 WindowTextPrototype gWindowText561548 { // 原全局：0x00561548。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow58Buy5860B4,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"BUY", // 原常量参考：0x005860B4。
 };
 WindowTextPrototype gWindowText561550 { // 原全局：0x00561550。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow58About5860AC,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"ABOUT", // 原常量参考：0x005860AC。
 };
 
 WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561FE0。
@@ -820,10 +733,8 @@ WindowGraphicData gWindowGraphic562070 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic562088 {0x3BA3C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562088。
 WindowGraphicData gWindowGraphic5620A0 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620A0。
 WindowGraphicData gWindowGraphic5620B8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620B8。
-constexpr wchar_t kWindow11Placeholder586078[] = // 原常量参考：0x00586078。
-    L"？？？？？？？？？？　　000";
 WindowTextPrototype gWindowText5620D0 { // 原全局：0x005620D0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow11Placeholder586078,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？　　000", // 原常量参考：0x00586078。
 };
 std::int32_t gWindowAnimationImage5620D8 = 0x1AF16; // 原全局：0x005620D8。
 std::int32_t gWindowAnimationImage5620DC = 0x1AF16; // 原全局：0x005620DC。
@@ -833,10 +744,8 @@ WindowGraphicData gWindowGraphic5628C0 {0x3BA3F, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5628D8 {0x3BA3E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628D8。
 WindowGraphicData gWindowGraphic5628F0 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628F0。
 WindowGraphicData gWindowGraphic562908 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562908。
-constexpr wchar_t kWindow13Placeholder586060[] = // 原常量参考：0x00586060。
-    L"？？？？？？？？？？";
 WindowTextPrototype gWindowText562920 { // 原全局：0x00562920。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow13Placeholder586060,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
 };
 std::int32_t gWindowAnimationImage562928 = 0x1AF16; // 原全局：0x00562928。
 std::int32_t gWindowAnimationImage56292C = 0x1AF16; // 原全局：0x0056292C。
@@ -848,7 +757,7 @@ WindowGraphicData gWindowGraphic5625C8 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5625E0 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625E0。
 WindowGraphicData gWindowGraphic5625F8 {0x3BA34, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625F8。
 WindowTextPrototype gWindowText562610 { // 原全局：0x00562610。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow13Placeholder586060,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
 };
 std::int32_t gWindowAnimationImage562618 = 0x1AF16; // 原全局：0x00562618。
 std::int32_t gWindowAnimationImage56261C = 0x1AF16; // 原全局：0x0056261C。
@@ -862,12 +771,11 @@ WindowGraphicData gWindowGraphic562C10 {98140, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原�
 WindowGraphicData gWindowGraphic562C28 {98143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C28。
 WindowGraphicData gWindowGraphic562C40 {98146, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C40。
 WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C58。
-constexpr wchar_t kWindowPlaceholder586054[] = L"？？？？"; // 原常量参考：0x00586054。
 WindowTextPrototype gWindowText562C70 { // 原全局：0x00562C70。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00586054。
 };
 WindowTextPrototype gWindowText562C78 { // 原全局：0x00562C78。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00586054。
 };
 std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
 WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
@@ -899,13 +807,11 @@ WindowGraphicData gWindowGraphic56D040 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic56D058 {243042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D058。
 WindowGraphicData gWindowGraphic56D070 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D070。
 WindowGraphicData gWindowGraphic56D088 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D088。
-constexpr wchar_t kWindowChoicePlaceholder585F64[] = L"■"; // 原常量参考：0x00585F64。
-constexpr wchar_t kWindowChoiceTitle585F54[] = L"請選擇對象。"; // 原常量参考：0x00585F54。
 WindowTextPrototype gWindowText56D0A0 { // 原全局：0x0056D0A0。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowChoicePlaceholder585F64,
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■", // 原常量参考：0x00585F64。
 };
 WindowTextPrototype gWindowText56D0A8 { // 原全局：0x0056D0A8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowChoiceTitle585F54,
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
 };
 
 WindowGraphicData gWindowGraphic56D310 {245320, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D310。
@@ -917,10 +823,10 @@ WindowGraphicData gWindowGraphic56D388 {243220, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic56D3A0 {243220, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D3A0。
 WindowGraphicData gWindowGraphic56D3B8 {243220, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D3B8。
 WindowTextPrototype gWindowText56D3D0 { // 原全局：0x0056D3D0。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowChoicePlaceholder585F64,
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■", // 原常量参考：0x00585F64。
 };
 WindowTextPrototype gWindowText56D3D8 { // 原全局：0x0056D3D8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowChoiceTitle585F54,
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
 };
 WindowTextPrototype gWindowText56D3E0 { // 原全局：0x0056D3E0。
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
@@ -973,17 +879,14 @@ WindowGraphicData gWindowGraphic573C88 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic573CA0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CA0。
 WindowGraphicData gWindowGraphic573CB8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CB8。
 WindowGraphicData gWindowGraphic573CD0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CD0。
-constexpr wchar_t kWindowShopPlaceholder585DE8[] = L"？？？？"; // 原常量参考：0x00585DE8。
-constexpr wchar_t kWindowShopUnavailable585DD8[] = // 原常量参考：0x00585DD8。
-    L"＊目前無法裝備";
 WindowTextPrototype gWindowText573CF8 { // 原全局：0x00573CF8。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText573D00 { // 原全局：0x00573D00。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText573D08 { // 原全局：0x00573D08。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopUnavailable585DD8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
 };
 std::int32_t gWindowAnimationImage573D10 = 100000; // 原全局：0x00573D10。
 WindowNumberData gWindowNumber573D18 {&gShopMoneyTextCC1A00, 0, 3, 1, 0}; // 原全局：0x00573D18。
@@ -1037,17 +940,16 @@ WindowGraphicData gWindowGraphic574770 {243127, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic574788 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00574788。
 WindowGraphicData gWindowGraphic5747A0 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005747A0。
 WindowTextPrototype gWindowText5747C0 { // 原全局：0x005747C0。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00586054。
 };
 WindowTextPrototype gWindowText5747C8 { // 原全局：0x005747C8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00586054。
 };
 WindowTextPrototype gWindowText5747D0 { // 原全局：0x005747D0。
-    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
+    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00586054。
 };
-constexpr wchar_t kWindow54Zero585DF4[] = L"0000000000"; // 原常量参考：0x00585DF4。
 WindowTextPrototype gWindowText5747D8 { // 原全局：0x005747D8。
-    {std::byte{0x8A}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindow54Zero585DF4,
+    {std::byte{0x8A}, std::byte{8}, std::byte{0}, std::byte{0}}, L"0000000000", // 原常量参考：0x00585DF4。
 };
 std::int32_t gWindowAnimationImage5747E0 = 100000; // 原全局：0x005747E0。
 WindowNumberData gWindowNumber5747E8 {&gWindow54MoneyTextC9A9A4, 0, 3, 1, 0}; // 原全局：0x005747E8。
@@ -1105,18 +1007,17 @@ WindowGraphicData gWindowGraphic575888 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5758A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758A0。
 WindowGraphicData gWindowGraphic5758B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758B8。
 WindowGraphicData gWindowGraphic5758D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758D0。
-constexpr wchar_t kWindowShopRemaining585DCC[] = L"剩餘 %2d 個"; // 原常量参考：0x00585DCC。
 WindowTextPrototype gWindowText5758F8 { // 原全局：0x005758F8。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText575900 { // 原全局：0x00575900。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText575908 { // 原全局：0x00575908。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopUnavailable585DD8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
 };
 WindowTextPrototype gWindowText575910 { // 原全局：0x00575910。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowShopRemaining585DCC,
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩餘 %2d 個", // 原常量参考：0x00585DCC。
 };
 std::int32_t gWindowAnimationImage575918 = 100000; // 原全局：0x00575918。
 WindowNumberData gWindowNumber575920 {&gWindow69BalanceTextD2E448, 10, 3, 1, 0}; // 原全局：0x00575920。
@@ -1155,16 +1056,16 @@ WindowGraphicData gWindowGraphic5764A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5764B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764B8。
 WindowGraphicData gWindowGraphic5764D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764D0。
 WindowTextPrototype gWindowText5764F8 { // 原全局：0x005764F8。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText576500 { // 原全局：0x00576500。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
 };
 WindowTextPrototype gWindowText576508 { // 原全局：0x00576508。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopUnavailable585DD8,
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
 };
 WindowTextPrototype gWindowText576510 { // 原全局：0x00576510。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowShopRemaining585DCC,
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩餘 %2d 個", // 原常量参考：0x00585DCC。
 };
 std::int32_t gWindowAnimationImage576518 = 100000; // 原全局：0x00576518。
 WindowNumberData gWindowNumber576520 {&gWindow70BalanceTextCF3F14, 10, 3, 1, 0}; // 原全局：0x00576520。
@@ -1186,15 +1087,10 @@ WindowGraphicData gWindowGraphic576F08 {30000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原�
 WindowGraphicData gWindowGraphic576F20 {245042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F20。
 WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F38。
 WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F50。
-constexpr wchar_t kWindow56Message585D98[] = // 原常量参考：0x00585D98。
-    L"請選擇臉部、眼睛及嘴巴。";
-constexpr wchar_t kWindow56Class585D90[] = L"臉部"; // 原常量参考：0x00585D90。
-constexpr wchar_t kWindow56Fifth585D88[] = L"眼睛"; // 原常量参考：0x00585D88。
-constexpr wchar_t kWindow56Ones585D80[] = L"嘴巴"; // 原常量参考：0x00585D80。
-WindowTextPrototype gWindowText576F68 {{}, kWindow56Message585D98}; // 原全局：0x00576F68。
-WindowTextPrototype gWindowText576F70 {{}, kWindow56Class585D90}; // 原全局：0x00576F70。
-WindowTextPrototype gWindowText576F78 {{}, kWindow56Fifth585D88}; // 原全局：0x00576F78。
-WindowTextPrototype gWindowText576F80 {{}, kWindow56Ones585D80}; // 原全局：0x00576F80。
+WindowTextPrototype gWindowText576F68 {{}, L"請選擇臉部、眼睛及嘴巴。"}; // 原全局：0x00576F68。 // 原常量参考：0x00585D98。
+WindowTextPrototype gWindowText576F70 {{}, L"臉部"}; // 原全局：0x00576F70。 // 原常量参考：0x00585D90。
+WindowTextPrototype gWindowText576F78 {{}, L"眼睛"}; // 原全局：0x00576F78。 // 原常量参考：0x00585D88。
+WindowTextPrototype gWindowText576F80 {{}, L"嘴巴"}; // 原全局：0x00576F80。 // 原常量参考：0x00585D80。
 std::int32_t gWindowAnimationImage576F88 = 100000; // 原全局：0x00576F88。
 
 WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563080。
@@ -1239,21 +1135,19 @@ WindowGraphicData gWindowGraphic571938 {0x3B9F7, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic571950 {0x3BA6C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571950。
 WindowGraphicData gWindowGraphic571968 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571968。
 WindowGraphicData gWindowGraphic571980 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571980。
-constexpr wchar_t kWindowTitle585E88[] = L"家族獸"; // 原常量参考：0x00585E88。
-constexpr wchar_t kWindowLine585E80[] = L"狀態"; // 原常量参考：0x00585E80。
 WindowTextPrototype gWindowText571998 { // 原全局：0x00571998。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTitle585E88,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族獸", // 原常量参考：0x00585E88。
 };
 WindowTextPrototype gWindowTexts5719A0[9] { // 原全局：0x005719A0。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowLine585E80},
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
 };
 std::uint32_t gWindowMouseFlagsD67898 = 0; // 原全局：0x00D67898。
 
@@ -1267,9 +1161,8 @@ WindowGraphicData gWindowGraphic571EB0 {0x3B9F4, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic571EC8 {0x3B9F5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571EC8。
 WindowGraphicData gWindowGraphic571EE0 {0x3B9F2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571EE0。
 WindowGraphicData gWindowGraphic571EF8 {0x3B9F3, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00571EF8。
-constexpr wchar_t kWindowTitle585F04[] = L"guild"; // 原常量参考：0x00585F04。
 WindowTextPrototype gWindowText571F10 { // 原全局：0x00571F10。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTitle585F04,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guild", // 原常量参考：0x00585F04。
 };
 std::uint32_t gWindowMouseFlagsD678A8 = 0; // 原全局：0x00D678A8。
 
@@ -1292,18 +1185,15 @@ WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56CD38 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD38。
 WindowGraphicData gWindowGraphic56CD50 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD50。
 WindowGraphicData gWindowGraphic56CD68 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD68。
-constexpr wchar_t kWindowListPlaceholder585F64[] = L"■"; // 原常量参考：0x00585F64。
-constexpr wchar_t kWindowListTitle585F54[] = // 原常量参考：0x00585F54。
-    L"請選擇對象。";
 WindowTextPrototype gWindowTexts56CD80[5] { // 原全局：0x0056CD80。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
 };
 WindowTextPrototype gWindowText56CDA8 { // 原全局：0x0056CDA8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListTitle585F54,
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
 };
 
 WindowGraphicData gWindowGraphic578BE8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578BE8。
@@ -1317,9 +1207,8 @@ WindowGraphicData gWindowGraphic577218 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic577248 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577248。
 WindowGraphicData gWindowGraphic577260 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577260。
 WindowGraphicData gWindowGraphic577278 {0x3C386, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577278。
-constexpr wchar_t kWindow59Placeholder585D78[] = L"物品"; // 原常量参考：0x00585D78。
 WindowTextPrototype gWindowText577290 { // 原全局：0x00577290。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow59Placeholder585D78,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"物品", // 原常量参考：0x00585D78。
 };
 std::uint32_t gWindowMouseFlagsD67930 = 0; // 原全局：0x00D67930。
 
@@ -1338,21 +1227,17 @@ WindowGraphicData gWindowGraphic578C48 {0x3C11D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic578C60 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C60。
 WindowGraphicData gWindowGraphic578C78 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C78。
 WindowGraphicData gWindowGraphic578C90 {0x3C120, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C90。
-constexpr wchar_t kWindowTextBytes585D70[] = L"類別"; // 原常量参考：0x00585D70。
-constexpr wchar_t kWindowTextBytes585D64[] = L"訊息"; // 原常量参考：0x00585D64。
-constexpr wchar_t kWindowTextBytes585D5C[] = L"名稱"; // 原常量参考：0x00585D5C。
-constexpr wchar_t kWindowTextBytes585D54[] = L"介紹內容"; // 原常量参考：0x00585D54。
 WindowTextPrototype gWindowText578CA8 { // 原全局：0x00578CA8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D70,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"類別", // 原常量参考：0x00585D70。
 };
 WindowTextPrototype gWindowText578CB0 { // 原全局：0x00578CB0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D64,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"訊息", // 原常量参考：0x00585D64。
 };
 WindowTextPrototype gWindowText578CB8 { // 原全局：0x00578CB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D5C,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00585D5C。
 };
 WindowTextPrototype gWindowText578CC0 { // 原全局：0x00578CC0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D54,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"介紹內容", // 原常量参考：0x00585D54。
 };
 
 WindowGraphicData gWindowGraphic5795A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005795A8。
@@ -1361,37 +1246,29 @@ WindowGraphicData gWindowGraphic579638 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic579650 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00579650。
 WindowGraphicData gWindowGraphic579698 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579698。
 WindowGraphicData gWindowGraphic5796B0 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005796B0。
-constexpr wchar_t kWindowTextBytes585D4C[] = L"姓名"; // 原常量参考：0x00585D4C。
-constexpr wchar_t kWindowTextBytes585D44[] = L"等級"; // 原常量参考：0x00585D44。
-constexpr wchar_t kWindowTextBytes585D38[] = L"稱號"; // 原常量参考：0x00585D38。
-constexpr wchar_t kWindowTextBytes585D28[] = L"職業"; // 原常量参考：0x00585D28。
-constexpr wchar_t kWindowTextBytes585D20[] = L"家族"; // 原常量参考：0x00585D20。
-constexpr wchar_t kWindowTextBytes585D10[] = L"出售"; // 原常量参考：0x00585D10。
-constexpr wchar_t kWindowTextBytes585D08[] = L"購買"; // 原常量参考：0x00585D08。
-constexpr wchar_t kWindowTextBytes585D00[] = L"自我介紹"; // 原常量参考：0x00585D00。
 WindowTextPrototype gWindowText5796C8 { // 原全局：0x005796C8。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D4C,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"姓名", // 原常量参考：0x00585D4C。
 };
 WindowTextPrototype gWindowText5796D0 { // 原全局：0x005796D0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D44,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00585D44。
 };
 WindowTextPrototype gWindowText5796D8 { // 原全局：0x005796D8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D38,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x00585D38。
 };
 WindowTextPrototype gWindowText5796E0 { // 原全局：0x005796E0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D28,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x00585D28。
 };
 WindowTextPrototype gWindowText5796E8 { // 原全局：0x005796E8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D20,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00585D20。
 };
 WindowTextPrototype gWindowText5796F8 { // 原全局：0x005796F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D10,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"出售", // 原常量参考：0x00585D10。
 };
 WindowTextPrototype gWindowText579700 { // 原全局：0x00579700。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D08,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"購買", // 原常量参考：0x00585D08。
 };
 WindowTextPrototype gWindowText579708 { // 原全局：0x00579708。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D00,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介紹", // 原常量参考：0x00585D00。
 };
 WindowGraphicData gWindowGraphic5799D0 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799D0。
 WindowGraphicData gWindowGraphic5799E8 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799E8。
@@ -1399,9 +1276,8 @@ WindowGraphicData gWindowGraphic579A00 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // �
 WindowGraphicData gWindowGraphic579A78 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579A78。
 WindowGraphicData gWindowGraphic579AA8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579AA8。
 WindowGraphicData gWindowGraphic579B08 {0x3C123, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579B08。
-constexpr wchar_t kWindowTextBytes585CF4[] = L"收件人"; // 原常量参考：0x00585CF4。
 WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585CF4,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"收件人", // 原常量参考：0x00585CF4。
 };
 
 WindowGraphicData gWindowGraphic579F20 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579F20。
@@ -1410,28 +1286,28 @@ WindowGraphicData gWindowGraphic579FB0 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic579FC8 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00579FC8。
 WindowGraphicData gWindowGraphic57A010 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057A010。
 WindowTextPrototype gWindowText57A028 { // 原全局：0x0057A028。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D4C,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"姓名", // 原常量参考：0x00585D4C。
 };
 WindowTextPrototype gWindowText57A030 { // 原全局：0x0057A030。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D44,
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00585D44。
 };
 WindowTextPrototype gWindowText57A038 { // 原全局：0x0057A038。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D38,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x00585D38。
 };
 WindowTextPrototype gWindowText57A040 { // 原全局：0x0057A040。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D28,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x00585D28。
 };
 WindowTextPrototype gWindowText57A048 { // 原全局：0x0057A048。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D20,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00585D20。
 };
 WindowTextPrototype gWindowText57A058 { // 原全局：0x0057A058。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D10,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"出售", // 原常量参考：0x00585D10。
 };
 WindowTextPrototype gWindowText57A060 { // 原全局：0x0057A060。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D08,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"購買", // 原常量参考：0x00585D08。
 };
 WindowTextPrototype gWindowText57A068 { // 原全局：0x0057A068。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D00,
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介紹", // 原常量参考：0x00585D00。
 };
 
 WindowGraphicData gWindowGraphic57B288 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B288。

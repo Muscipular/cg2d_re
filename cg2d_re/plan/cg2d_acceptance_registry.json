@@ -190983,5 +190983,13 @@
       ],
       "derived_files_written": false
     }
+  },
+  "ui_prototype_literal_20261015": {
+    "source": "src/ui/WindowPrototypes.cpp",
+    "removed_constants": 119,
+    "prototype_initializers": 177,
+    "scope": "仅将静态宽文本中转常量改为相同宽字面量，原常量地址注释移至使用处；原型元数据／正文／绑定／拥有者保持。",
+    "validation": "常量展开后全文词法一致、原地址保留、退休引用为零；未编译、测试或运行。",
+    "ledger_check": "仍仅受两项既有键盘历史附件缺失阻塞，未写派生文件，不计全量台账通过。"
   }
 }

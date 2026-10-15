@@ -17319,7 +17319,7 @@
         {
           "path": "src/ui/WindowPrototypes.cpp",
           "symbol": "WindowRuntime_ReleaseDefault",
-          "definition_line": 1471,
+          "definition_line": 1347,
           "namespace": "cg::ui::detail::(匿名)"
         },
         {

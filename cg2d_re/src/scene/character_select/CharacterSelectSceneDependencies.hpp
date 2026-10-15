@@ -1,8 +1,8 @@
 #pragma once
 
-#include "LoginMessageDependencies.hpp"
-#include "ui/UiControlRecord.hpp"
-#include "world/MailState.hpp"
+#include "../login/LoginMessageDependencies.hpp"
+#include "../../ui/UiControlRecord.hpp"
+#include "../../world/MailState.hpp"
 
 #include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"

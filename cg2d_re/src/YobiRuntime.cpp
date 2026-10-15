@@ -1,8 +1,8 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "LoginMessageDependencies.hpp"
-#include "CharacterSelectSceneDependencies.hpp"
+#include "scene/login/LoginMessageDependencies.hpp"
+#include "scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 #include "world/WorldObjectState.hpp"

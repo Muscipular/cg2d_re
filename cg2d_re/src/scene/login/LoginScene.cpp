@@ -3,7 +3,7 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
-#include "platform/LegacyFormat.hpp"
+#include "../../platform/LegacyFormat.hpp"
 
 #include "cg/LoginInput.hpp"
 #include "cg/LoginMessage.hpp"

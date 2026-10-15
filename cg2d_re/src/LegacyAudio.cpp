@@ -1,6 +1,6 @@
 #include "cg/LegacyAudio.hpp"
 
-#include "LoginStateDependencies.hpp"
+#include "scene/login/LoginStateDependencies.hpp"
 #include "network/NetworkDispatchDependencies.hpp"
 #include "platform/MainLoopDependencies.hpp"
 #include "platform/LegacyFormat.hpp"

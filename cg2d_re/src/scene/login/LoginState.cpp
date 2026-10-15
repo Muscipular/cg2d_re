@@ -5,11 +5,11 @@
 
 #include "cg/LoginState.hpp"
 
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../../platform/LegacyFormat.hpp"
+#include "../../platform/LegacyStdio.hpp"
 
 #include "LoginStateDependencies.hpp"
-#include "world/MailState.hpp"
+#include "../../world/MailState.hpp"
 
 #include "cg/Blacklist.hpp"
 #include "cg/LoginConnection.hpp"

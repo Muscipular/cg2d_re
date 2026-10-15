@@ -6,8 +6,8 @@
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
-#include "platform/LegacyFormat.hpp"
-#include "world/WorldUpdateDependencies.hpp"
+#include "../../platform/LegacyFormat.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #include "cg/CharacterCreationRequest.hpp"
 #include "cg/GraphicInfo.hpp"

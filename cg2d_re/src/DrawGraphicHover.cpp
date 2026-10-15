@@ -1,4 +1,4 @@
-#include "LoginMessageDependencies.hpp"
+#include "scene/login/LoginMessageDependencies.hpp"
 
 #include <bit>
 #include <cstdint>

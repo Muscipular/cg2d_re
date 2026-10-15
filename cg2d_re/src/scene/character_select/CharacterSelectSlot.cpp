@@ -6,7 +6,7 @@
 
 #include "cg/LoginRequest.hpp"
 
-#include "platform/LegacyFormat.hpp"
+#include "../../platform/LegacyFormat.hpp"
 
 #include <array>
 #include <cstddef>

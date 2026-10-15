@@ -2,7 +2,7 @@
 #include "cg/text/Encoding.hpp"
 #include "WorldUpdateDependencies.hpp"
 
-#include "../LoginInputDependencies.hpp"
+#include "../scene/login/LoginInputDependencies.hpp"
 #include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 

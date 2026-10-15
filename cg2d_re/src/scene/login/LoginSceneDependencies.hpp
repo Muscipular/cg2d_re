@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LoginMessageDependencies.hpp"
-#include "ui/UiControlRecord.hpp"
+#include "../../ui/UiControlRecord.hpp"
 
 #include "cg/LegacyAudio.hpp"
 

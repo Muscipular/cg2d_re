@@ -1,6 +1,6 @@
 #include "WorldUpdateDependencies.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/StartupNative.hpp"
 #include "../platform/WindowProcedureState.hpp"

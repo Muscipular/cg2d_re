@@ -1,6 +1,6 @@
 #include "UiControlRecord.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/LoginInput.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"

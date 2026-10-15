@@ -1,4 +1,4 @@
-#include "LoginMessageDependencies.hpp"
+#include "scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/MainLoop.hpp"

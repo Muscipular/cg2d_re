@@ -1,6 +1,6 @@
 #include "MainLoopDependencies.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../render/GraphicDxCacheState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 

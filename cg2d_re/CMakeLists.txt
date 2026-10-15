@@ -85,14 +85,14 @@ add_library(cg2d_re_startup STATIC
     src/Input.cpp
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp
-    src/LoginConnection.cpp
-    src/LoginInput.cpp
+    src/scene/login/LoginConnection.cpp
+    src/scene/login/LoginInput.cpp
     src/LoginSavedState.cpp
-    src/LoginInputController.cpp
-    src/LoginCapability3InputController.cpp
-    src/LoginCapability3Scene.cpp
-    src/LoginCapability4Modal.cpp
-    src/LoginCapability4Scene.cpp
+    src/scene/login/LoginInputController.cpp
+    src/scene/login/LoginCapability3InputController.cpp
+    src/scene/login/LoginCapability3Scene.cpp
+    src/scene/login/LoginCapability4Modal.cpp
+    src/scene/login/LoginCapability4Scene.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
@@ -173,25 +173,25 @@ add_library(cg2d_re_startup STATIC
     src/render/LegacyTextureDrawing.cpp
     src/render/InputText.cpp
     src/render/TextPendingQueue.cpp
-    src/LoginMessage.cpp
+    src/scene/login/LoginMessage.cpp
     src/LoginRequest.cpp
     src/CharacterListRequest.cpp
     src/CharacterDeletionRequest.cpp
     src/CharacterCreationRequest.cpp
-    src/LoginModeScene.cpp
-    src/LoginOuterScene.cpp
-    src/LoginScene.cpp
-    src/CharacterSelectScene.cpp
-    src/CharacterListProgress.cpp
-    src/CharacterAuthenticationFailure.cpp
-    src/CharacterDeletionProgress.cpp
-    src/CharacterDeletionConfirmation.cpp
-    src/CharacterModalButton.cpp
-    src/CharacterSelectModal.cpp
-    src/CharacterVersionUpgrade.cpp
-    src/CharacterSelectPreview.cpp
-    src/CharacterSelectSlot.cpp
-    src/LoginState.cpp
+    src/scene/login/LoginModeScene.cpp
+    src/scene/login/LoginOuterScene.cpp
+    src/scene/login/LoginScene.cpp
+    src/scene/character_select/CharacterSelectScene.cpp
+    src/scene/character_select/CharacterListProgress.cpp
+    src/scene/character_select/CharacterAuthenticationFailure.cpp
+    src/scene/character_select/CharacterDeletionProgress.cpp
+    src/scene/character_select/CharacterDeletionConfirmation.cpp
+    src/scene/character_select/CharacterModalButton.cpp
+    src/scene/character_select/CharacterSelectModal.cpp
+    src/scene/character_select/CharacterVersionUpgrade.cpp
+    src/scene/character_select/CharacterSelectPreview.cpp
+    src/scene/character_select/CharacterSelectSlot.cpp
+    src/scene/login/LoginState.cpp
     src/world/GameTime.cpp
     src/world/MailState.cpp
     src/world/SceneState.cpp

@@ -1,6 +1,6 @@
 #include "cg/platform/LegacyMouse.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../world/WorldObjectState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "MainLoopDependencies.hpp"

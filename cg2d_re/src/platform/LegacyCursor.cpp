@@ -1,6 +1,6 @@
 #include "cg/platform/LegacyCursor.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyMouse.hpp"

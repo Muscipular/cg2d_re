@@ -5,9 +5,9 @@
 #include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
-#include "../CharacterSelectSceneDependencies.hpp"
+#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
-#include "../LoginStateDependencies.hpp"
+#include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"

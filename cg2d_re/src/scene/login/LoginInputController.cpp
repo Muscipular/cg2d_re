@@ -4,7 +4,7 @@
 #include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
-#include "platform/WindowProcedureState.hpp"
+#include "../../platform/WindowProcedureState.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"

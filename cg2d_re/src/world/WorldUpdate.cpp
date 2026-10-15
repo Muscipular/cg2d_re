@@ -1,8 +1,8 @@
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "../CharacterSelectSceneDependencies.hpp"
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/LegacyFormat.hpp"
 #include "WorldUpdateDependencies.hpp"

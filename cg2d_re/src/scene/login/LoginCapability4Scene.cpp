@@ -1,5 +1,5 @@
-#include "platform/StartupNative.hpp"
-#include "world/WorldUpdateDependencies.hpp"
+#include "../../platform/StartupNative.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
 

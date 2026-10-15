@@ -1,7 +1,7 @@
 #include "cg/CharacterCreationRequest.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "CharacterSelectState.hpp"
+#include "scene/character_select/CharacterSelectState.hpp"
 
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"

@@ -1,5 +1,5 @@
 #include "GraphicDxCacheState.hpp"
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"

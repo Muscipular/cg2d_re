@@ -3,11 +3,11 @@
 // UI 实现内部的共享依赖、类型与声明；窗口专属定义位于 windows/。
 #include "WindowPrototypeDependencies.hpp"
 
-#include "../CharacterSelectSceneDependencies.hpp"
-#include "../CharacterSelectState.hpp"
-#include "../LoginInputDependencies.hpp"
-#include "../LoginMessageDependencies.hpp"
-#include "../LoginSceneDependencies.hpp"
+#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
+#include "../scene/character_select/CharacterSelectState.hpp"
+#include "../scene/login/LoginInputDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
+#include "../scene/login/LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/StartupNative.hpp" // ERROR_INSUFFICIENT_BUFFER的Win32声明。
 #include "../platform/LegacyStdio.hpp"

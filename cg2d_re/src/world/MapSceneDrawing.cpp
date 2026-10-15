@@ -1,5 +1,5 @@
 #include "WorldUpdateDependencies.hpp"
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"

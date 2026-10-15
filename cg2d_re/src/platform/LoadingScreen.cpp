@@ -2,7 +2,7 @@
 #include "MainLoopDependencies.hpp"
 #include "StartupNative.hpp"
 
-#include "../LoginMessageDependencies.hpp"
+#include "../scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/LoginMessage.hpp"

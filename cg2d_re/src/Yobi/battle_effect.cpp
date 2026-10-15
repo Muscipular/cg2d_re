@@ -112,8 +112,8 @@ YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
     action->prev = previous;
     action->payload.battleActor = payload;
     action->payloadKind = YobiPayloadKind::BattleActor;
-    // 原0x13E8B载荷按原生结构浅复制，含四段用途未定字节；不回绑其中的T*。
-    std::memcpy(payload, sourcePayload, sizeof(BattleActorPayload));
+    // 原0x13E8B载荷按成员浅复制，含四段用途未定字节；不回绑其中的T*。
+    *payload = *sourcePayload;
     return action;
 }
 

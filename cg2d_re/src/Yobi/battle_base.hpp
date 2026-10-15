@@ -103,6 +103,7 @@ struct BattleActorPayload {
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
 
 static_assert(std::is_trivially_copyable_v<BattleActorPayload>);
+static_assert(std::is_trivially_copy_assignable_v<BattleActorPayload>);
 
 static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
 

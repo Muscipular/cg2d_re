@@ -1049,3 +1049,7 @@ USR03静态核对完成：模板及18处调用已移除，39处商店模式访�
 台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。
 
 USR03编译修复：补回工作区缺失的WindowMaterialState定义及布局断言，解决第837行类型不可见的直接原因；正在执行build.bat Debug验证，详见子项目进度第259节。
+
+## 2026-10-15 cg2d_re Yobi 按动画与功能组拆分方案
+
+已梳理36,997行YobiRuntime.cpp并形成YWS01，拟迁入src/Yobi/base及各动画/功能组cpp/hpp，保留公共接口、业务正文、共享对象与构造顺序。SPEC见cg2d_re/doc/cg2d_yobi_file_split_spec.md；按本次要求等待确认后实施，尚未改源码，不生成/更新JSON台账。详细进度见子项目第279节，仅静态分析，不构建、测试或运行。

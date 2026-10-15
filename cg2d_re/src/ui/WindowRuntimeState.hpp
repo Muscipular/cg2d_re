@@ -286,9 +286,6 @@ login::YobiAction* WindowAttributeTarget_Open(
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x00499830。
 std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘制与九宫格尾。
-// 原函数：0x00499880。
-std::int32_t WindowRuntime_ButtonCloseResult(std::int32_t index, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
-
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
     std::array<WindowElement*, 20> elements00; // 原成员偏移：+0x00。 4C6EC0绑定的非拥有元素，非零模式保留槽19。
@@ -371,12 +368,6 @@ std::int32_t WindowBattleItems_HandleEquipment(std::int32_t index, std::int32_t 
 struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
-
-const WindowDialogTextLine* WindowDialog_BorrowNpcLines() noexcept; // 借用标题及正文，旧/现代对话同源。
-std::int32_t WindowShopChoice_ReadSkillImage() noexcept; // 4A0640生产，旧55/56/57共享预览消费。
-std::int32_t WindowShopChoice_ReadExchangeImage() noexcept; // 4A0790生产，旧74预览消费。
-std::int32_t WindowShopChoice_ReadShopImage() noexcept; // 4A0140生产，旧62预览借读同源图号。
-std::int32_t WindowShopChoice_ReadGiveReceiveImage() noexcept; // 4A0850生产，旧83预览消费。
 
 // 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，数值布局保持48B。
 struct WindowConfirmationItem {
@@ -632,7 +623,6 @@ extern std::int32_t gValue58589C; // 原全局：0x0058589C。 原初值1，命�
 extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::int32_t gChatWindowModeD66E04; // 原全局：0x00D66E04。 原独立S32，窗口35/57选择与设置文件共用。
-extern std::int32_t gLogDisplayGate593F84; // 原全局：0x00593F84。 窗口66与旧402020/4021A0共用，非恒1。
 extern std::uint8_t gValue57DA28; // 原全局：0x0057DA28。 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::uint8_t gValue57E42C; // 原全局：0x0057E42C。 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
@@ -658,13 +648,8 @@ extern std::int32_t gChatHeightUnitsC9A938; // 原全局：0x00C9A938。 原聊�
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
-extern std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0; // 原全局：0x00D460D0。
-extern std::array<WindowTradePet, 2 * 5> gTradePetsC9C108; // 原全局：0x00C9C108。
 extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
 extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
-std::int32_t WindowBank_ReadSide() noexcept; // 旧72借读既有存放模式，不复制私有状态。
-const std::byte* WindowMessageBoard_BorrowRecords() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
-extern std::array<WindowShopItem, 20> gShopItemsCF4FE0; // 原全局：0x00CF4FE0。 买卖共用商品记录，布局见窗口53 SPEC。
 extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopImageD2DAD0; // 原全局：0x00D2DAD0。
 extern std::int32_t gValueD2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
@@ -673,13 +658,6 @@ extern std::int32_t gShopAvailableCF4A24; // 原全局：0x00CF4A24。 模式2�
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 原全局：0x00C9A954。 多窗口共用的行编号缓存，非地址。
 extern std::wstring gConfirmationAcceptHintCC3FCC; // 原全局：0x00CC3FCC。 4C0F20也借用，不建窗口私有副本。
 extern std::wstring gConfirmationCancelHintD45D70; // 原全局：0x00D45D70。
-extern std::int32_t gTradeValueCC4224; // 原全局：0x00CC4224。
-extern std::int32_t gTradeValueCF4688; // 原全局：0x00CF4688。
-extern std::int32_t gTradeValueD046D0; // 原全局：0x00D046D0。
-extern std::int32_t gTradeValueD2E2B0; // 原全局：0x00D2E2B0。
-extern std::int32_t gTradeValueCC3EC4; // 原全局：0x00CC3EC4。 所选物品数值索引，4E5620写-1。
-extern std::int32_t gTradeValueD66E08; // 原全局：0x00D66E08。 所选图号数值。
-extern std::int32_t gTradeValueCC2344; // 原全局：0x00CC2344。 交易选择状态。
 extern std::wstring gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
@@ -687,31 +665,6 @@ extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标�
 extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
 extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
 extern std::int32_t gSelectedItem57EE0C; // 原全局：0x0057EE0C。 原装载初值-1，窗口51只做单向迁移。
-extern std::uint8_t gSkillPairIndexD67AD8; // 原全局：0x00D67AD8。 配方查询按S8解释。
-std::int32_t WindowSkill_ReadRequestFlag() noexcept; // 旧技能请求读取同源低S8，4FF650实际写者已接。
-void WindowSkill_WriteRequestFlag(std::uint8_t value) noexcept; // 4FF650四原写点共用私有唯一D64E13。
-std::uint32_t WindowSkill_ReadExtraDelay() noexcept; // 新旧技能面板共用额外时长。
-void WindowSkill_WriteExtraDelay(std::uint32_t delay) noexcept;
-std::int32_t WindowGather_ReadResult() noexcept; // 旧选择39借用窗口12同源回复。
-std::int32_t WindowGather_ReadResultImage() noexcept;
-std::wstring_view WindowGather_BorrowResultName() noexcept;
-std::wstring_view WindowGather_BorrowResultSuffix() noexcept;
-std::wstring_view WindowGather_BorrowResultDetails() noexcept; // 借用NUL文本，不复制到另一结果缓存。
-std::int32_t WindowSkillResult_ReadResult() noexcept; // 旧选择37与窗口13共享回复结果。
-std::wstring_view WindowSkillResult_BorrowSummary() noexcept;
-std::wstring_view WindowSkillResult_BorrowDetails() noexcept;
-std::int32_t WindowCraft_ReadItemWorkResult() noexcept;
-std::wstring_view WindowCraft_BorrowItemWorkSuffix() noexcept;
-std::wstring_view WindowCraft_BorrowItemWorkDetails() noexcept;
-std::int32_t WindowCraft_ReadSkill() noexcept; // 新旧加工入口与结果回复同源技能类别。
-void WindowCraft_WriteSkill(std::int32_t skillId) noexcept;
-std::int32_t WindowCraft_ReadResult() noexcept;
-std::int32_t WindowCraft_ReadResultImage() noexcept;
-std::wstring_view WindowCraft_BorrowResultName() noexcept;
-void WindowCraft_WriteResultName(std::wstring_view name); // 旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。
-std::wstring_view WindowCraft_BorrowResultSuffix() noexcept;
-std::wstring_view WindowCraft_BorrowResultDetails() noexcept;
-extern std::int32_t gRecipeIndex5846BC; // 原全局：0x005846BC。 原装载初值-1。
 extern std::uint32_t gWindowActionTick62B5AC; // 原全局：0x0062B5AC。 跨UI动作共用，不是交易私有计时槽。
 extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
 extern std::int32_t gTooltipSourceD303FC; // 原全局：0x00D303FC。 原提示源分类/编号缓存，非地址。
@@ -720,15 +673,8 @@ extern std::uint16_t gTooltipYCF46CC; // 原全局：0x00CF46CC。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
-const std::byte* WindowDialog_BorrowHealingRecords() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
 
-
-std::int32_t WindowPet_ReadHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
-extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90; // 原全局：0x00CA0A90。
-extern std::array<std::int32_t, 6> gSelectionCountsD66E0C; // 原全局：0x00D66E0C。
-extern std::array<std::int32_t, 6> gSelectionImagesCF3FF4; // 原全局：0x00CF3FF4。
 extern WindowMaterialState gMaterialOccupancyCC4894; // 原全局：0x00CC4894。 材料值与商店模式CC48A8共用24B对象。
-extern std::array<std::uint8_t, 20> gItemMarksD68A90; // 原全局：0x00D68A90。 不为原越界访问扩展为28B。
 // 原函数：0x004E54E0。
 void WindowTrade_CopyOwnItem(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 // 原函数：0x004D3020。
@@ -754,10 +700,6 @@ void WindowCraft_ResetItemSelection(); // 仅清D67B00，不改变其他物品�
 void WindowItem_RequestTransfer(
     std::int32_t sourceWindow, std::int32_t sourceElement,
     std::int32_t source, std::int32_t target); // IMT01：完整直接/拆分门槛及两全局不同发布序，原数量callback副作用保持；全数量框/运行待。
-// 原函数：0x00488800。
-void WindowItem_TransferQuantity(
-    std::int32_t sourceMode, std::int32_t source,
-    std::int32_t targetMode, std::int32_t target); // IMT01：两低U8模式/原-1及同mode两fresh组读取保持，发送原不消费；全互通待。
 // 原函数：0x0048A830。
 WindowInstance* WindowQuantity_Open(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
@@ -802,20 +744,10 @@ std::int32_t WindowItem_DrawTooltip(
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const char* gbkLines, std::int32_t stride, std::int32_t lineCount,
     const wchar_t* footer, std::int8_t footerColor); // TDR01：完整层5提示，S16正文坐标/色彩续接、可选标题footer与真实背景返回保持。
-// 原函数：0x0048B930。
-std::int32_t WindowItem_DrawDescriptionLines(
-    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
-    const std::wstring_view* lines, std::int32_t unusedStride, std::int32_t lineCount,
-    const wchar_t* footer, std::int8_t footerColor); // 原连续NUL分段改为宽行表，空行仍推进，不使用stride。
-// 原函数：0x0048B450。
-std::int32_t WindowItem_DrawPetTooltip(std::int32_t side, std::int32_t index, std::int32_t page);
 // 原函数：0x0048B1A0。
 std::int32_t WindowItem_DrawEquipmentTooltip(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 // 原函数：0x0048B350。
 std::int32_t WindowItem_DrawDescriptionTooltip(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
-// 原函数：0x0048B560。
-std::int32_t WindowItem_DrawShopTooltip(
-    std::int32_t index, std::int32_t page, std::int32_t showUnavailable); // 同源商品及可选不可装备提示。
 // 原函数：0x0048B750。
 std::int32_t WindowItem_DrawWorkTooltip(std::int32_t page); // CC3210独立详情提示，缓存数值键400。
 // 原函数：0x004AC200。
@@ -844,8 +776,6 @@ std::int32_t WindowScroll_ApplyWheel(
     std::int32_t wheel); // WWS01：原滚轮像素余量、坐标持样/字节载荷，宿主数学图保持。
 // 原函数：0x004E0100。
 void WindowTrade_CopyDisplayItems(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
-// 原函数：0x004E02B0。
-void WindowItem_BuildStorageDescription(std::int32_t index, std::int32_t side, const char* text); // IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。
 // 原函数：0x004A84A0。
 std::int32_t WindowBank_ReceiveStorageData(const char* text); // SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。
 // 原函数：0x004A83A0。
@@ -959,7 +889,6 @@ std::int32_t WindowMail_ResetComposeState(); // 五组选择槽及D2F0B8已证�
 std::int32_t WindowPetList_ResetSelection(); // 所选宠物与两组五槽按原序重置。
 // 原函数：0x004A0940。
 std::int32_t WindowMail_ResetSelectionState(); // D67B40七槽交错清零。
-std::int32_t& WindowMail_BorrowDeleteIndex(); // 旧42/后续旧44借同一现代删除索引owner，不复制状态。
 // 原函数：0x004A3600。
 std::int32_t WindowMail_DeleteContact(std::int32_t unusedIndex, std::int32_t unusedState); // FPkR发送、重读清理及保存。
 // 原函数：0x004A3660。

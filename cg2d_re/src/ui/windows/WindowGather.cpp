@@ -117,31 +117,6 @@ WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 1
 
 // 窗口函数实现。
 
-std::int32_t WindowGather_ReadResult() noexcept
-{
-    return gWindow12ResultD2D820;
-}
-
-std::int32_t WindowGather_ReadResultImage() noexcept
-{
-    return gWindow12ValueCF3FF0;
-}
-
-std::wstring_view WindowGather_BorrowResultName() noexcept
-{
-    return gWindow12NameD2DA94;
-}
-
-std::wstring_view WindowGather_BorrowResultSuffix() noexcept
-{
-    return gWindow12SuffixCB1E1C;
-}
-
-std::wstring_view WindowGather_BorrowResultDetails() noexcept
-{
-    return gWindow12DetailsCC190C;
-}
-
 // 原函数：0x004854A0。
 login::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int32_t level)
 {

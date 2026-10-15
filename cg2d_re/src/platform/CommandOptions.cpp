@@ -44,11 +44,6 @@ std::int8_t ReadBgmFrequencySelectionByte(const std::uint8_t id) noexcept
     return std::bit_cast<std::int8_t>(bytes[id]);
 }
 
-std::uint32_t* BgmRuntimeOrderWords() noexcept
-{
-    return gBgmSelection1050840.runtimeWords;
-}
-
 std::int32_t gValueFF0D40 = 0; // 原全局：0x00FF0D40。
 std::int32_t gRendererModeStorage = 0; // 原全局：0x0062A640。
 std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0]; // 原全局：0x0062A640。

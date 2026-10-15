@@ -13,6 +13,82 @@ namespace detail {
 
 namespace {
 
+// 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
+struct WindowTradeItem {
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::int16_t selection; // 原成员偏移：+0x02；负数禁止选择。
+    std::int32_t imageNo; // 原成员偏移：+0x04。
+    std::int32_t count; // 原成员偏移：+0x08。
+    std::int32_t itemId; // 原成员偏移：+0x0C。
+    std::array<char, 29> name; // 原成员偏移：+0x10。
+    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x2D。
+    std::array<std::byte, 3> reservedC2D; // 原成员偏移：+0xC2D。
+    std::int32_t pages; // 原成员偏移：+0xC30；4E5770写完整S32。
+    std::int32_t flags; // 原成员偏移：+0xC34；本地来源为W16符号扩展。
+    std::array<char, 17> memo; // 原成员偏移：+0xC38。
+    std::array<std::byte, 3> reservedC49; // 原成员偏移：+0xC49。
+};
+
+static_assert(std::is_standard_layout_v<WindowTradeItem>);
+static_assert(std::is_trivially_copyable_v<WindowTradeItem>);
+static_assert(sizeof(WindowTradeItem) == 0xC4C);
+static_assert(offsetof(WindowTradeItem, used) == 0x00);
+static_assert(offsetof(WindowTradeItem, selection) == 0x02);
+static_assert(offsetof(WindowTradeItem, imageNo) == 0x04);
+static_assert(offsetof(WindowTradeItem, count) == 0x08);
+static_assert(offsetof(WindowTradeItem, itemId) == 0x0C);
+static_assert(offsetof(WindowTradeItem, name) == 0x10);
+static_assert(offsetof(WindowTradeItem, description) == 0x2D);
+static_assert(offsetof(WindowTradeItem, reservedC2D) == 0xC2D);
+static_assert(offsetof(WindowTradeItem, pages) == 0xC30);
+static_assert(offsetof(WindowTradeItem, flags) == 0xC34);
+static_assert(offsetof(WindowTradeItem, memo) == 0xC38);
+static_assert(offsetof(WindowTradeItem, reservedC49) == 0xC49);
+
+// 原C9C108交易宠物；4E52B0按原序复制数值及技能，名称借用本记录。
+struct WindowTradePet {
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::int16_t selection; // 原成员偏移：+0x02。
+    std::uint16_t tribe; // 原成员偏移：+0x04；显示时按S16解释。
+    std::array<std::byte, 2> reserved06; // 原成员偏移：+0x06。
+    std::int32_t imageNo; // 原成员偏移：+0x08。
+    std::int32_t level; // 原成员偏移：+0x0C。
+    std::int32_t hp; // 原成员偏移：+0x10。
+    std::int32_t maxHp; // 原成员偏移：+0x14。
+    std::int32_t fp; // 原成员偏移：+0x18。
+    std::int32_t maxFp; // 原成员偏移：+0x1C。
+    std::array<std::int32_t, 6> combatStats; // 原成员偏移：+0x20；来源values70[0..4,10]。
+    std::array<std::int32_t, 5> baseStats; // 原成员偏移：+0x38；来源values70[5..9]。
+    std::array<std::int32_t, 4> elements; // 原成员偏移：+0x4C；来源values70[21..24]。
+    std::int32_t value5C; // 原成员偏移：+0x5C；来源宠物value6A4。
+    std::array<world::detail::PetTechniqueRecord, 10> techniques; // 原成员偏移：+0x60。
+    std::array<char, 17> name; // 原成员偏移：+0x5D8；显示名称。
+    std::array<char, 17> speciesName; // 原成员偏移：+0x5E9；原始名称。
+    std::array<std::byte, 2> reserved5FA; // 原成员偏移：+0x5FA。
+};
+
+static_assert(std::is_standard_layout_v<WindowTradePet>);
+static_assert(std::is_trivially_copyable_v<WindowTradePet>);
+static_assert(sizeof(WindowTradePet) == 0x5FC);
+static_assert(offsetof(WindowTradePet, used) == 0x00);
+static_assert(offsetof(WindowTradePet, selection) == 0x02);
+static_assert(offsetof(WindowTradePet, tribe) == 0x04);
+static_assert(offsetof(WindowTradePet, reserved06) == 0x06);
+static_assert(offsetof(WindowTradePet, imageNo) == 0x08);
+static_assert(offsetof(WindowTradePet, level) == 0x0C);
+static_assert(offsetof(WindowTradePet, hp) == 0x10);
+static_assert(offsetof(WindowTradePet, maxHp) == 0x14);
+static_assert(offsetof(WindowTradePet, fp) == 0x18);
+static_assert(offsetof(WindowTradePet, maxFp) == 0x1C);
+static_assert(offsetof(WindowTradePet, combatStats) == 0x20);
+static_assert(offsetof(WindowTradePet, baseStats) == 0x38);
+static_assert(offsetof(WindowTradePet, elements) == 0x4C);
+static_assert(offsetof(WindowTradePet, value5C) == 0x5C);
+static_assert(offsetof(WindowTradePet, techniques) == 0x60);
+static_assert(offsetof(WindowTradePet, name) == 0x5D8);
+static_assert(offsetof(WindowTradePet, speciesName) == 0x5E9);
+static_assert(offsetof(WindowTradePet, reserved5FA) == 0x5FA);
+
 // 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
 using WindowTradePanelCallback = void (*)(
     std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
@@ -24,6 +100,9 @@ using WindowTradePanelCallback = void (*)(
 } // namespace
 
 // 回调与内部函数前置声明。
+
+// 原函数：0x0048B450。
+static std::int32_t WindowItem_DrawPetTooltip(std::int32_t side, std::int32_t index, std::int32_t page);
 
 // 原函数：0x004E5710。
 static std::int32_t WindowTrade_ResetRemoteItems(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
@@ -220,23 +299,26 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const
 
 // 控件载荷、窗口状态、组件表与原型。
 
+static std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
+static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
+
 // 原全局：0x005803D0。 借用input唯一CC21E8上下文。
 static WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
     {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
 
-std::array<WindowTradePet, 2 * 5> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
+static std::array<WindowTradePet, 2 * 5> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
 
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 
-std::int32_t gTradeValueCC4224 = 0; // 原全局：0x00CC4224。
+static std::int32_t gTradeValueCC4224 = 0; // 原全局：0x00CC4224。
 
-std::int32_t gTradeValueCF4688 = 0; // 原全局：0x00CF4688。
+static std::int32_t gTradeValueCF4688 = 0; // 原全局：0x00CF4688。
 
-std::int32_t gTradeValueD046D0 = 0; // 原全局：0x00D046D0。
+static std::int32_t gTradeValueD046D0 = 0; // 原全局：0x00D046D0。
 
-std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
+static std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
 
 static std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
 
@@ -259,11 +341,11 @@ static std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。 交易�
 
 static std::int32_t gTradeValueD67CBC = 0; // 原全局：0x00D67CBC。
 
-std::int32_t gTradeValueCC3EC4 = 0; // 原全局：0x00CC3EC4。
+static std::int32_t gTradeValueCC3EC4 = 0; // 原全局：0x00CC3EC4。 所选物品数值索引，4E5620写-1。
 
-std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。
+static std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。 所选图号数值。
 
-std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。
+static std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。 交易选择状态。
 
 static std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
 
@@ -374,6 +456,38 @@ static WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572
 WindowPrototype gWindowPrototypeTrade {0, 4, 20, 25, 567, 339, 0x80010101u, 20, gWindowElements572AF8, &WindowTrade_Update, &WindowTrade_Draw, &WindowTrade_Release}; // 43: 54EBD0
 
 // 窗口函数实现。
+
+// 原函数：0x0048B450。
+static std::int32_t WindowItem_DrawPetTooltip(
+    const std::int32_t side, const std::int32_t index, const std::int32_t page)
+{
+    const std::int32_t key = index + 200;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+        const bool left =
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    const std::int32_t sideOffset =
+        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
+    gTooltipSourceD303FC = key;
+    const auto* const record = &gTradeItemsD460D0[key + sideOffset * 20];
+    std::uint32_t flags;
+    std::memcpy(&flags, &record->flags, sizeof(flags));
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record->memo.data() : record->name.data());
+    const std::int8_t titleColor = (flags & 0x100u) != 0
+        ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
+    const char* const lines = record->description[page * 8].data();
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
+}
 
 // 原函数：0x004E5DA0。
 void WindowTrade_SwapRemoteItems(

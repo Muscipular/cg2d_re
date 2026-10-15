@@ -86,16 +86,6 @@ std::int32_t ReadGuildValue10514B4() noexcept
     return gGuildHeader10514A8.value0C;
 }
 
-std::int32_t ReadGuildKey10514A8() noexcept
-{
-    return gGuildHeader10514A8.key00;
-}
-
-std::int32_t& BorrowGuildRankFlags1051514(const std::int32_t index) noexcept
-{
-    return gGuildTextRecords1051514[index].value00;
-}
-
 std::int32_t ReadGuildTextIndex10514B0() noexcept
 {
     return gGuildHeader10514A8.value08;
@@ -264,51 +254,6 @@ std::int32_t Sub_532D80()
 {
     ResetGuildRuntimeFields();
     return ui::WindowGuildDetails_RequestClose();
-}
-
-// 原函数：0x0052FB60。
-int CompareOrderedRecords_52FB60(const void* const left, const void* const right)
-{
-    const auto leftIndex = *static_cast<const std::uint32_t*>(left);
-    const auto rightIndex = *static_cast<const std::uint32_t*>(right);
-    const OrderedRecord1051B14& other = gOrderedRecords1051B14[rightIndex];
-    const OrderedRecord1051B14& current = gOrderedRecords1051B14[leftIndex];
-    const bool currentUsed = current.value08 != 0;
-    const bool otherUsed = other.value08 != 0;
-    if (currentUsed != otherUsed) {
-        return currentUsed ? -1 : 1;
-    }
-    if (!currentUsed) {
-        return 0;
-    }
-
-    if (gOrderMode1057C78 == 0) {
-        return (current.value04 > other.value04) - (current.value04 < other.value04);
-    }
-    if (gOrderMode1057C78 == 1) {
-        const int textOrder = std::strcmp(current.text18, other.text18);
-        if (textOrder != 0) {
-            return textOrder < 0 ? -1 : 1;
-        }
-    } else {
-        const bool currentState = current.value0A != 0;
-        const bool otherState = other.value0A != 0;
-        if (currentState != otherState) {
-            return currentState ? -1 : 1;
-        }
-    }
-    return (current.value0C > other.value0C) - (current.value0C < other.value0C);
-}
-
-// 原函数：0x0052FCC0。
-void BuildOrderedRecordIndices_52FCC0()
-{
-    std::uint32_t* const indices = platform::BgmRuntimeOrderWords();
-    for (std::uint32_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
-        indices[index] = index;
-    }
-    std::qsort(indices, gOrderedRecords1051B14.size(),
-        sizeof(*indices), &CompareOrderedRecords_52FB60);
 }
 
 // GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。

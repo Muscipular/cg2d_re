@@ -69,15 +69,6 @@ int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
     return static_cast<int>(gKeyStates[key] & 4u);
 }
 
-// 原函数：0x004597C0。
-int ReadControlKeyPressFlag_4597C0(const std::int32_t key) noexcept
-{
-    if ((gKeyStates[17] & 2u) == 0) {
-        return 0;
-    }
-    return (gKeyStates[key] & 0x10u) != 0 ? 1 : 0;
-}
-
 namespace {
 
 inline constexpr UINT kResizeWindowFlags = 0x26u;

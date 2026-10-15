@@ -19,7 +19,7 @@ static std::int32_t WindowAdventureLog_Update(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。
+static std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。 窗口66的日志显示门禁。
 
 static WindowGraphicData gWindowGraphic57ADD8 {243001, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADD8。
 

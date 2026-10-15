@@ -1,5 +1,11 @@
 # IDA 函数全量实现表
 
+> 2026-10-15 [UWO02](../doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015)：七个单窗口函数、三记录类型／54布局断言、十七状态和两常量归位；3680原身份／名称／状态与共享门禁保持，只作静态核对。
+
+> 2026-10-15 [LWR03](../doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03)：用户接受取消无显示链旧选择及End残留，六个选择入口改已排除；原3680身份／名称和九个空方法保持，登录／角色共享绘制保留。仅静态核对。
+
+> 2026-10-15 [LWR02](../doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02)：移除312个旧窗口无消费者函数及10组只生产无读者数据的启动初始化，226个有正文库存入口改为已排除；九个空方法状态保持；3680行原身份／名称保留，六个仍有消费者的选择接口和公共绘制保持。仅静态验证，不证明原端不可达或完整功能验收。
+
 > 2026-10-15 [LWR01](../doc/cg2d_legacy_window_retirement_spec.md)：当前工程无消费者的97旧handler及3独占目录初始化已移除，对应99库存入口由94项有正文／5项部分实现改为已排除；4FC730非库存独立入口另记。选择状态和公共Yobi保留。下文旧目录五项缓行属于历史，当前状态以本次99行及实际汇总为准；非原端不可达证明，不提升其余门禁。
 
 > 2026-10-12当前源码核对版。当前 cg2d.exe 已打开 IDA 会话共有 3680 个唯一函数入口；本表按地址升序逐行保留当前名称，名称只作 Markdown 显示转义。状态依据当前 CPP/HPP 定义、明确的共享／内联操作、实际宿主／SDK 服务及对应原入口事实；未继承旧台账的实施状态。
@@ -33,13 +39,13 @@
 
 | 状态 | 实际入口数 |
 |---|---:|
-| 有正文 | 2770 |
+| 有正文 | 2538 |
 | 有承接 | 688 |
 | 空方法 | 9 |
 | 部分实现 | 0 |
 | 未实现 | 0 |
 | 待确认 | 0 |
-| 已排除 | 212 |
+| 已排除 | 444 |
 | 不适用 | 1 |
 
 2026-10-12 进度核对：3680行入口与当前IDA地址集合、名称此前经15页逐项核对零差异；3964处源码引用及9处CMake引用可读。当时2911个正文提供者可定位到定义；本次九个nullsub仅归类为空方法，其中3个已有CPP定义和4个已有承接定位保留，其余2908个有正文及644个有承接不变。序号、身份、名称、提供者均不变，未重新查询IDA；UTF-8无BOM/LF。这不提升全部逻辑、完整接线或运行验收，未实现0不能推为功能缺口归零。
@@ -50,27 +56,27 @@
 
 | 序号 | IDA 地址 | IDA 函数名 | 是否有实现 | 当前提供者 | 接线／缺项 |
 |---:|---|---|---|---|---|
-| 1 | 0x00401000 | `sub_401000` | 有正文 | `src/Blacklist.cpp:146 — PersistAndReset_401000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2 | 0x00401030 | `sub_401030` | 有正文 | `src/Blacklist.cpp:86 — LoadBlacklistFile` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 3 | 0x00401170 | `sub_401170` | 有正文 | `src/Blacklist.cpp:79 — BlacklistRecordAt_401170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 4 | 0x00401190 | `sub_401190` | 有正文 | `src/Blacklist.cpp:158 — GetBlacklistCount_401190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1 | 0x00401000 | `sub_401000` | 有正文 | `src/Blacklist.cpp:139 — PersistAndReset_401000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2 | 0x00401030 | `sub_401030` | 有正文 | `src/Blacklist.cpp:79 — LoadBlacklistFile` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 3 | 0x00401170 | `sub_401170` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 4 | 0x00401190 | `sub_401190` | 有正文 | `src/Blacklist.cpp:151 — GetBlacklistCount_401190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 5 | 0x004011A0 | `sub_4011A0` | 有正文 | `src/Blacklist.cpp:44 — PersistBlacklistFile_4011A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 6 | 0x00401270 | `sub_401270` | 有正文 | `src/Blacklist.cpp:188 — AddBlacklistRecord_401270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 7 | 0x004012F0 | `sub_4012F0` | 有正文 | `src/Blacklist.cpp:234 — RemoveBlacklistRecord_4012F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 8 | 0x004013D0 | `sub_4013D0` | 有正文 | `src/Blacklist.cpp:164 — ContainsBlacklistRecord_4013D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 9 | 0x00401470 | `sub_401470` | 有正文 | `src/Blacklist.cpp:288 — ClearBlacklistRecords_401470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 6 | 0x00401270 | `sub_401270` | 有正文 | `src/Blacklist.cpp:181 — AddBlacklistRecord_401270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 7 | 0x004012F0 | `sub_4012F0` | 有正文 | `src/Blacklist.cpp:227 — RemoveBlacklistRecord_4012F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 8 | 0x004013D0 | `sub_4013D0` | 有正文 | `src/Blacklist.cpp:157 — ContainsBlacklistRecord_4013D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 9 | 0x00401470 | `sub_401470` | 有正文 | `src/Blacklist.cpp:281 — ClearBlacklistRecords_401470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 10 | 0x004014B0 | `sub_4014B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 11 | 0x00401960 | `sub_401960` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 12 | 0x00401AB0 | `sub_401AB0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 13 | 0x00401C10 | `sub_401C10` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | LCI07在原中央位置直接定义两值，默认构造各一次RNG并自动逆序析构；原地址保持；仅静态核对，编译／运行未验 |
-| 14 | 0x00401C20 | `unknown_libname_1` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | 原401C20两值正序构造由全局定义处默认构造承接；原中央位置与两次RNG序保持；SDK退出／完整运行未验 |
-| 15 | 0x00401C50 | `unknown_libname_2` | 有承接 | `src/platform/LegacyMouse.cpp:40 — gStartupValue5939D8 / gStartupValue5939C8逆序析构` | 原401C50逆序退出由同一中央两值的原生全局析构承接；MSVC自动登记；完整运行未验 |
+| 13 | 0x00401C10 | `sub_401C10` | 有承接 | `src/platform/LegacyMouse.cpp:38 — gStartupValue5939C8 / gStartupValue5939D8` | LCI07在原中央位置直接定义两值，默认构造各一次RNG并自动逆序析构；原地址保持；仅静态核对，编译／运行未验 |
+| 14 | 0x00401C20 | `unknown_libname_1` | 有承接 | `src/platform/LegacyMouse.cpp:38 — gStartupValue5939C8 / gStartupValue5939D8` | 原401C20两值正序构造由全局定义处默认构造承接；原中央位置与两次RNG序保持；SDK退出／完整运行未验 |
+| 15 | 0x00401C50 | `unknown_libname_2` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939D8 / gStartupValue5939C8逆序析构` | 原401C50逆序退出由同一中央两值的原生全局析构承接；MSVC自动登记；完整运行未验 |
 | 16 | 0x00401C70 | `sub_401C70` | 有正文 | `src/platform/LegacyCryptInt.cpp:25 — LegacyCryptInt::LegacyCryptInt()` | 零值默认构造委托整数0构造，仍一次共享RNG；原16B／偏移保持；布局／运行未验 |
 | 17 | 0x00401CA0 | `sub_401CA0` | 有承接 | `src/platform/LegacyCryptInt.cpp:41 — LegacyCryptInt::~LegacyCryptInt；释放由默认MSVC delete承接` | LCI08无动态消费者，类专用分配重载退休；原401CA0销毁注释归入析构，未来动态释放沿默认MSVC；原flags／返回ABI保历史，运行未验 |
 | 18 | 0x00401CC0 | `CryptInt_Init` | 有正文 | `src/platform/LegacyCryptInt.cpp:31 — LegacyCryptInt::LegacyCryptInt(int32_t)` | 整数构造接原发布顺序和一次RNG；不显式写尾部padding；完整运行未验 |
 | 19 | 0x00401CF0 | `CryptInt_delete` | 有正文 | `src/platform/LegacyCryptInt.cpp:41 — LegacyCryptInt::~LegacyCryptInt` | 原生析构只恢复token；栈／成员／动态存储实际寿命已迁移；运行未验 |
 | 20 | 0x00401D00 | `CryptInt::eq` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建==` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 21 | 0x00401D10 | `sub_401D10` | 有承接 | `src/YobiRuntime.cpp:33824 — action->mapY1F0.value() != floor` | != 比较内联；共享 value，不重建包装；完整业务／运行未验 |
+| 21 | 0x00401D10 | `sub_401D10` | 有承接 | `src/YobiRuntime.cpp:33822 — action->mapY1F0.value() != floor` | != 比较内联；共享 value，不重建包装；完整业务／运行未验 |
 | 22 | 0x00401D20 | `CryptInt::neq` | 有正文 | `src/platform/LegacyCryptInt.cpp:194 — cg::platform::operator!=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 23 | 0x00401D40 | `sub_401D40` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 24 | 0x00401D50 | `sub_401D50` | 有正文 | `src/platform/LegacyCryptInt.cpp:201 — cg::platform::operator>` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -80,7 +86,7 @@
 | 28 | 0x00401DB0 | `CryptInt::lt` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建<` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 29 | 0x00401DC0 | `sub_401DC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:215 — cg::platform::operator<` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 30 | 0x00401DE0 | `sub_401DE0` | 有正文 | `src/platform/LegacyCryptInt.cpp:155 — LegacyCryptInt::operator++` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 31 | 0x00401E00 | `sub_401E00` | 有承接 | `src/YobiRuntime.cpp:3355 — Sub_446B50` | S16 加值在实际坐标计算中内联；共享 value；完整业务／运行未验 |
+| 31 | 0x00401E00 | `sub_401E00` | 有承接 | `src/YobiRuntime.cpp:3353 — Sub_446B50` | S16 加值在实际坐标计算中内联；共享 value；完整业务／运行未验 |
 | 32 | 0x00401E10 | `CryptInt::add` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建+` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 33 | 0x00401E20 | `sub_401E20` | 有正文 | `src/platform/LegacyCryptInt.cpp:125 — LegacyCryptInt::operator+=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 34 | 0x00401E40 | `sub_401E40` | 有正文 | `src/platform/LegacyCryptInt.cpp:140 — LegacyCryptInt::operator-=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -88,18 +94,18 @@
 | 36 | 0x00401E70 | `CryptInt::dec_0` | 有正文 | `src/platform/LegacyCryptInt.cpp:176 — cg::platform::operator-` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 37 | 0x00401E90 | `CryptInt::mul` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建*` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 38 | 0x00401EA0 | `CryptInt::GetVal` | 有承接 | `src/platform/LegacyCryptInt.cpp:76 — LegacyCryptInt::value` | 原入口为跳转到 401EC0；共用同一读取正文；完整业务／运行未验 |
-| 39 | 0x00401EB0 | `sub_401EB0` | 有承接 | `src/YobiRuntime.cpp:5279 — Sub_4424B0` | 原读取后 fild 转换；当前实际读取后转 float／double；完整业务／运行未验 |
+| 39 | 0x00401EB0 | `sub_401EB0` | 有承接 | `src/YobiRuntime.cpp:5277 — Sub_4424B0` | 原读取后 fild 转换；当前实际读取后转 float／double；完整业务／运行未验 |
 | 40 | 0x00401EC0 | `sub_401EC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:76 — LegacyCryptInt::value` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 41 | 0x00401F50 | `CryptInt::SetNorVal` | 有正文 | `src/platform/LegacyCryptInt.cpp:60 — LegacyCryptInt::SetNorVal_401F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 42 | 0x00401F60 | `sub_401F60` | 有承接 | `src/YobiRuntime.cpp:33824 — action->mapY1F0.value() != floor` | 标量与读取结果 != 在消费者中内联；完整业务／运行未验 |
+| 42 | 0x00401F60 | `sub_401F60` | 有承接 | `src/YobiRuntime.cpp:33822 — action->mapY1F0.value() != floor` | 标量与读取结果 != 在消费者中内联；完整业务／运行未验 |
 | 43 | 0x00401F80 | `CryptInt::gt` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 44 | 0x00401FA0 | `sub_401FA0` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32左整数内建<` | LCI-FA0八处已知调用只消费AL，改为单次读取与布尔比较；高24位保历史，完整机器ABI／运行未验 |
 | 45 | 0x00401FC0 | `CrypyInt::lte` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建<=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 46 | 0x00401FE0 | `CryptInt::Dec2` | 有承接 | `src/platform/LegacyCryptInt.cpp:114 — LegacyCryptInt::operator std::int32_t + S32内建-` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 47 | 0x00402000 | `sub_402000` | 有承接 | `src/YobiRuntime.cpp:36182 — Equal_401D00(&action->mapX200, x)` | 原标量 == 读取值；当前共享 Equal_401D00；完整业务／运行未验 |
-| 48 | 0x00402020 | `sub_402020` | 有正文 | `src/LegacyUiRecord.cpp:1793 — ReloadLegacyLog_402020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 47 | 0x00402000 | `sub_402000` | 有承接 | `src/YobiRuntime.cpp:35734 — Equal_401D00(&action->mapX200, x)` | 原标量 == 读取值；当前共享 Equal_401D00；完整业务／运行未验 |
+| 48 | 0x00402020 | `sub_402020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 49 | 0x004021A0 | `sub_4021A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 50 | 0x00402B30 | `sub_402B30` | 有正文 | `src/LegacyUiRecord.cpp:5410 — Sub_402B30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 50 | 0x00402B30 | `sub_402B30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 51 | 0x00402B70 | `sub_402B70` | 有正文 | `src/platform/LegacyModuleDigest.cpp:69 — Initialize` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 52 | 0x00402BA0 | `sub_402BA0` | 有承接 | `src/platform/LegacyModuleDigest.cpp:191 — StoreLittleEndian32(context.state[index], digest.data() + index * 4)` | 原四 W32 的小端输出在当前 Finalize 的四次循环中承接，共用实际 StoreLittleEndian32；不以单次四字节 helper 冒充原整根正文；完整摘要链／运行未验 |
 | 53 | 0x00402BC0 | `sub_402BC0` | 有正文 | `src/platform/LegacyModuleDigest.cpp:173 — Finalize` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -112,7 +118,7 @@
 | 60 | 0x00403A70 | `sub_403A70` | 有正文 | `src/network/NetworkRuntime.cpp:509 — Sub_403A70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 61 | 0x00403C50 | `sub_403C50` | 有正文 | `src/network/NetworkRuntime.cpp:221 — Sub_403C50` | 保留旧W16帧正文，当前CPP无调用；活动LF接收由ReceivePlaintextProtocolLine另接，旧帧状态不作为当前接线；当前窗口报告采样／清零另在QueuePlaintextProtocolBytes承接 |
 | 62 | 0x00403E50 | `sub_403E50` | 有正文 | `src/network/NetworkRuntime.cpp:306 — Sub_403E50` | 保留旧W16帧正文，当前CPP无调用；活动明文收发由ReceivePlaintextProtocolLine／QueuePlaintextProtocolBytes另接，窗口报告状态采样／清零已接回活动发送路径；不等于原帧整根或网络验收通过 |
-| 63 | 0x00404060 | `sub_404060` | 有正文 | `src/Input.cpp:519 — IsRejectedInputText_404060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 63 | 0x00404060 | `sub_404060` | 有正文 | `src/Input.cpp:513 — IsRejectedInputText_404060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 64 | 0x00404120 | `sub_404120` | 有承接 | `src/platform/MainLoopSupport.cpp:271 — ProtectionChecksum1Startup::ProtectionChecksum1Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
 | 65 | 0x00404130 | `unknown_libname_3` | 有正文 | `src/platform/MainLoopSupport.cpp:283 — ConstructProtectionChecksum1_404130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 66 | 0x00404150 | `unknown_libname_4` | 有正文 | `src/platform/MainLoopSupport.cpp:289 — DestroyProtectionChecksum1_404150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -131,489 +137,489 @@
 | 79 | 0x004048D0 | `sub_4048D0` | 有正文 | `src/platform/MainLoopSupport.cpp:606 — ResetProtection_4048D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 80 | 0x004048E0 | `sub_4048E0` | 有正文 | `src/platform/MainLoopSupport.cpp:636 — CheckWindows_4048E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 81 | 0x00404940 | `EnumFunc` | 有正文 | `src/platform/MainLoopSupport.cpp:224 — CheckWindowsCallback_404940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 82 | 0x00404A40 | `sub_404A40` | 有正文 | `src/YobiRuntime.cpp:1636 — Sub_404A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 83 | 0x00404AE0 | `YobiAction::new` | 有正文 | `src/YobiRuntime.cpp:1667 — NewYobiAction_404AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 84 | 0x00404C50 | `Yobi::UpdateAll` | 有正文 | `src/YobiRuntime.cpp:6586 — YobiUpdateAll_404C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 85 | 0x00404D00 | `Yobi::MarkDeath` | 有正文 | `src/YobiRuntime.cpp:6625 — MarkDeath` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 86 | 0x00404D10 | `sub_404D10` | 有正文 | `src/YobiRuntime.cpp:1458 — DeleteYobiAction_404D10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 87 | 0x00404D30 | `YobiClearUp` | 有正文 | `src/YobiRuntime.cpp:33689 — YobiClearUp_404D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 88 | 0x00404D60 | `sub_404D60` | 有正文 | `src/YobiRuntime.cpp:33700 — Sub_404D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 89 | 0x00404D90 | `SelectIntValue` | 有正文 | `src/YobiRuntime.cpp:11879 — SelectIntValue_404D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 90 | 0x00404DB0 | `BattleEntry::EffectUpdate` | 有正文 | `src/YobiRuntime.cpp:23131 — UpdateBattleActor_404DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:8557 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 92 | 0x00405B60 | `sub_405B60` | 有正文 | `src/YobiRuntime.cpp:26508 — ConsumeBattleFpCost_405B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 93 | 0x00405BD0 | `CompareFunction` | 有正文 | `src/YobiRuntime.cpp:22824 — CompareBattleDrawActions_405BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 94 | 0x00405C30 | `Yobi::sort` | 有正文 | `src/YobiRuntime.cpp:22852 — SortBattleActions_405C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 95 | 0x00405CB0 | `sub_405CB0` | 有正文 | `src/YobiRuntime.cpp:22884 — Sub_405CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 96 | 0x00405E60 | `sub_405E60` | 有正文 | `src/YobiRuntime.cpp:22920 — NormalizeBattleAngle_405E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 97 | 0x00405EA0 | `YobiAction::UpdateXYByRad` | 有正文 | `src/YobiRuntime.cpp:22932 — MoveBattleByAngle_405EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 98 | 0x00405ED0 | `sub_405ED0` | 有正文 | `src/YobiRuntime.cpp:22943 — GetBattleRelativeDirection_405ED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 99 | 0x00406060 | `sub_406060` | 有正文 | `src/YobiRuntime.cpp:22986 — GetBattleAngleDifference_406060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 100 | 0x004060D0 | `sub_4060D0` | 有正文 | `src/YobiRuntime.cpp:23005 — TurnBattleTowardPosition_4060D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 101 | 0x00406190 | `YobiAction::UpdateRad` | 有正文 | `src/YobiRuntime.cpp:23037 — TurnBattleToward_406190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 102 | 0x00406260 | `sub_406260` | 有正文 | `src/YobiRuntime.cpp:29264 — Sub_406260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 103 | 0x004062A0 | `sub_4062A0` | 有正文 | `src/YobiRuntime.cpp:23073 — GetBattleDistanceToPosition_4062A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 104 | 0x00406300 | `sub_406300` | 有正文 | `src/YobiRuntime.cpp:23088 — GetBattleDistance_406300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 105 | 0x00406360 | `sub_406360` | 有正文 | `src/YobiRuntime.cpp:23104 — CountBattleActiveEntries_406360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 106 | 0x00406390 | `sub_406390` | 有正文 | `src/YobiRuntime.cpp:31659 — ApplyBattleEffectFlags_406390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 107 | 0x004065A0 | `sub_4065A0` | 有正文 | `src/YobiRuntime.cpp:23116 — SeedBattleRandom_4065A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 108 | 0x004065E0 | `sub_4065E0` | 有正文 | `src/YobiRuntime.cpp:24797 — ProbeBattleAttackEvent_4065E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 109 | 0x00406630 | `sub_406630` | 有正文 | `src/YobiRuntime.cpp:29255 — UpdateBattleAction236_406630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 110 | 0x00406650 | `sub_406650` | 有正文 | `src/YobiRuntime.cpp:23853 — UpdateBattleAction0_406650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 111 | 0x00406720 | `sub_406720` | 有正文 | `src/YobiRuntime.cpp:23892 — UpdateBattleAction1_406720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 112 | 0x00406760 | `sub_406760` | 有正文 | `src/YobiRuntime.cpp:23908 — UpdateBattleAction2_406760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 113 | 0x004067F0 | `sub_4067F0` | 有正文 | `src/YobiRuntime.cpp:24103 — UpdateBattleAction11_4067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 114 | 0x00406930 | `sub_406930` | 有正文 | `src/YobiRuntime.cpp:24160 — UpdateBattleAction12_406930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 115 | 0x00406A80 | `sub_406A80` | 有正文 | `src/YobiRuntime.cpp:24204 — UpdateBattleAction13_406A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 116 | 0x00406BA0 | `sub_406BA0` | 有正文 | `src/YobiRuntime.cpp:25937 — UpdateBattleAction25_406BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 117 | 0x00406C30 | `sub_406C30` | 有正文 | `src/YobiRuntime.cpp:23932 — UpdateBattleAction3_406C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 118 | 0x00406CD0 | `sub_406CD0` | 有正文 | `src/YobiRuntime.cpp:23991 — UpdateBattleAction6_406CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 119 | 0x00406D70 | `sub_406D70` | 有正文 | `src/YobiRuntime.cpp:23952 — UpdateBattleAction4_406D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 120 | 0x00406E10 | `Battle::Boomerange::runEffect` | 有正文 | `src/YobiRuntime.cpp:24818 — UpdateBattleAction15_406E10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 121 | 0x004070E0 | `Battle::SpiracleShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24983 — UpdateBattleAction70_4070E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 122 | 0x004071C0 | `Battle::BlastWave::runEffect` | 有正文 | `src/YobiRuntime.cpp:25007 — UpdateBattleAction249_4071C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 123 | 0x004072E0 | `sub_4072E0` | 有正文 | `src/YobiRuntime.cpp:25044 — UpdateBattleAction16_4072E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 124 | 0x00408170 | `Battle::BowShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24902 — UpdateBattleAction18_408170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 125 | 0x004082F0 | `Battle::RandomShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24944 — UpdateBattleAction19_4082F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 126 | 0x00408410 | `sub_408410` | 有正文 | `src/YobiRuntime.cpp:25469 — UpdateBattleAction20_408410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 127 | 0x00408750 | `sub_408750` | 有正文 | `src/YobiRuntime.cpp:25571 — UpdateBattleAction21_408750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 128 | 0x004087C0 | `sub_4087C0` | 有正文 | `src/YobiRuntime.cpp:25589 — UpdateBattleAction22_4087C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 129 | 0x004090F0 | `sub_4090F0` | 有正文 | `src/YobiRuntime.cpp:25842 — UpdateBattleAction23_4090F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 130 | 0x00409380 | `sub_409380` | 有正文 | `src/YobiRuntime.cpp:25924 — UpdateBattleAction24_409380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 131 | 0x004093B0 | `sub_4093B0` | 有正文 | `src/YobiRuntime.cpp:25458 — UpdateBattleAction17_4093B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 132 | 0x00409410 | `sub_409410` | 有正文 | `src/YobiRuntime.cpp:24013 — UpdateBattleAction7_409410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 133 | 0x004094A0 | `sub_4094A0` | 有正文 | `src/YobiRuntime.cpp:24036 — UpdateBattleAction8_4094A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 134 | 0x00409510 | `sub_409510` | 有正文 | `src/YobiRuntime.cpp:24054 — UpdateBattleAction9_409510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 135 | 0x00409610 | `sub_409610` | 有正文 | `src/YobiRuntime.cpp:24087 — UpdateBattleAction10_409610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 136 | 0x00409680 | `sub_409680` | 有正文 | `src/YobiRuntime.cpp:24247 — UpdateBattleAction14_409680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 137 | 0x0040A9E0 | `sub_40A9E0` | 有正文 | `src/YobiRuntime.cpp:25969 — UpdateBattleAction26_40A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 138 | 0x0040AA70 | `sub_40AA70` | 有正文 | `src/YobiRuntime.cpp:25989 — UpdateBattleAction27_40AA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 139 | 0x0040ACF0 | `sub_40ACF0` | 有正文 | `src/YobiRuntime.cpp:26075 — UpdateBattleAction28_40ACF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 140 | 0x0040AE50 | `sub_40AE50` | 有正文 | `src/YobiRuntime.cpp:26127 — UpdateBattleAction29_40AE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 141 | 0x0040AF30 | `sub_40AF30` | 有正文 | `src/YobiRuntime.cpp:26158 — UpdateBattleAction30_40AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 142 | 0x0040B020 | `sub_40B020` | 有正文 | `src/YobiRuntime.cpp:26189 — UpdateBattleAction31_40B020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 143 | 0x0040B130 | `sub_40B130` | 有正文 | `src/YobiRuntime.cpp:26575 — UpdateBattleAction45_40B130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 144 | 0x0040B180 | `sub_40B180` | 有正文 | `src/YobiRuntime.cpp:33182 — UpdateBattleAction251_40B180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 145 | 0x0040B200 | `sub_40B200` | 有正文 | `src/YobiRuntime.cpp:26585 — UpdateBattleAction46_40B200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 146 | 0x0040B3C0 | `sub_40B3C0` | 有正文 | `src/YobiRuntime.cpp:26725 — UpdateBattleAction50_40B3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 147 | 0x0040B3F0 | `sub_40B3F0` | 有正文 | `src/YobiRuntime.cpp:26663 — UpdateBattleAction47_40B3F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 148 | 0x0040B410 | `sub_40B410` | 有正文 | `src/YobiRuntime.cpp:26228 — UpdateBattleAction32_40B410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 149 | 0x0040B450 | `sub_40B450` | 有正文 | `src/YobiRuntime.cpp:26239 — UpdateBattleAction33_40B450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 150 | 0x0040B490 | `sub_40B490` | 有正文 | `src/YobiRuntime.cpp:26672 — UpdateBattleAction48_40B490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 151 | 0x0040B5B0 | `sub_40B5B0` | 有正文 | `src/YobiRuntime.cpp:26714 — UpdateBattleAction49_40B5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 152 | 0x0040B5E0 | `sub_40B5E0` | 有正文 | `src/YobiRuntime.cpp:26250 — UpdateBattleAction34_40B5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 153 | 0x0040B930 | `sub_40B930` | 有正文 | `src/YobiRuntime.cpp:26342 — UpdateBattleAction35_40B930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 154 | 0x0040BAD0 | `sub_40BAD0` | 有正文 | `src/YobiRuntime.cpp:26400 — UpdateBattleAction36_40BAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 155 | 0x0040BB20 | `sub_40BB20` | 有正文 | `src/YobiRuntime.cpp:26416 — UpdateBattleAction37_40BB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 156 | 0x0040BB70 | `sub_40BB70` | 有正文 | `src/YobiRuntime.cpp:26432 — UpdateBattleAction38_40BB70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 157 | 0x0040BBC0 | `sub_40BBC0` | 有正文 | `src/YobiRuntime.cpp:26448 — UpdateBattleAction39_40BBC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 158 | 0x0040BD40 | `sub_40BD40` | 有正文 | `src/YobiRuntime.cpp:26500 — UpdateBattleAction40_40BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 159 | 0x0040BD60 | `sub_40BD60` | 有正文 | `src/YobiRuntime.cpp:26525 — UpdateBattleAction41_40BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 160 | 0x0040BDB0 | `sub_40BDB0` | 有正文 | `src/YobiRuntime.cpp:26539 — UpdateBattleAction42_40BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 161 | 0x0040BDF0 | `sub_40BDF0` | 有正文 | `src/YobiRuntime.cpp:26564 — UpdateBattleAction44_40BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 162 | 0x0040BE30 | `sub_40BE30` | 有正文 | `src/YobiRuntime.cpp:26551 — UpdateBattleAction43_40BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 163 | 0x0040BE70 | `sub_40BE70` | 有正文 | `src/YobiRuntime.cpp:26735 — UpdateBattleAction51_40BE70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 164 | 0x0040BE90 | `sub_40BE90` | 有正文 | `src/YobiRuntime.cpp:26744 — UpdateBattleAction52_40BE90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 165 | 0x0040BF20 | `sub_40BF20` | 有正文 | `src/YobiRuntime.cpp:26767 — UpdateBattleAction53_40BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 166 | 0x0040BFE0 | `sub_40BFE0` | 有正文 | `src/YobiRuntime.cpp:26798 — UpdateBattleAction54_40BFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 167 | 0x0040C0C0 | `sub_40C0C0` | 有正文 | `src/YobiRuntime.cpp:26831 — UpdateBattleAction55_40C0C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 168 | 0x0040C0E0 | `sub_40C0E0` | 有正文 | `src/YobiRuntime.cpp:27045 — UpdateBattleAction68_40C0E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 169 | 0x0040C120 | `sub_40C120` | 有正文 | `src/YobiRuntime.cpp:27057 — UpdateBattleAction69_40C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 170 | 0x0040C160 | `sub_40C160` | 有正文 | `src/YobiRuntime.cpp:26840 — UpdateBattleAction56_40C160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 171 | 0x0040C1A0 | `sub_40C1A0` | 有正文 | `src/YobiRuntime.cpp:26853 — UpdateBattleAction57_40C1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 172 | 0x0040C1E0 | `sub_40C1E0` | 有正文 | `src/YobiRuntime.cpp:26865 — UpdateBattleAction58_40C1E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 173 | 0x0040C220 | `sub_40C220` | 有正文 | `src/YobiRuntime.cpp:26889 — UpdateBattleAction60_40C220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 174 | 0x0040C240 | `sub_40C240` | 有正文 | `src/YobiRuntime.cpp:26877 — UpdateBattleAction59_40C240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 175 | 0x0040C280 | `sub_40C280` | 有正文 | `src/YobiRuntime.cpp:26897 — UpdateBattleAction61_40C280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 176 | 0x0040C2B0 | `sub_40C2B0` | 有正文 | `src/YobiRuntime.cpp:26907 — UpdateBattleAction62_40C2B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 177 | 0x0040C2E0 | `sub_40C2E0` | 有正文 | `src/YobiRuntime.cpp:26917 — UpdateBattleAction63_40C2E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 178 | 0x0040C380 | `sub_40C380` | 有正文 | `src/YobiRuntime.cpp:26957 — UpdateBattleAction65_40C380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 179 | 0x0040C480 | `sub_40C480` | 有正文 | `src/YobiRuntime.cpp:27007 — UpdateBattleAction66_40C480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 180 | 0x0040C4D0 | `sub_40C4D0` | 有正文 | `src/YobiRuntime.cpp:27069 — UpdateBattleAction71_40C4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 181 | 0x0040C520 | `sub_40C520` | 有正文 | `src/YobiRuntime.cpp:27276 — UpdateBattleAction86_40C520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 182 | 0x0040C780 | `sub_40C780` | 有正文 | `src/YobiRuntime.cpp:27349 — UpdateBattleAction87_40C780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 183 | 0x0040C8D0 | `sub_40C8D0` | 有正文 | `src/YobiRuntime.cpp:27390 — UpdateBattleAction88_40C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 184 | 0x0040C8F0 | `sub_40C8F0` | 有正文 | `src/YobiRuntime.cpp:27399 — UpdateBattleAction89_40C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 185 | 0x0040C910 | `sub_40C910` | 有正文 | `src/YobiRuntime.cpp:27407 — UpdateBattleAction90_40C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 186 | 0x0040CAA0 | `sub_40CAA0` | 有正文 | `src/YobiRuntime.cpp:27087 — UpdateBattleAction72_40CAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 187 | 0x0040CAC0 | `sub_40CAC0` | 有正文 | `src/YobiRuntime.cpp:33381 — AdvanceBattleLinkedCast_40CAC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 188 | 0x0040CAF0 | `sub_40CAF0` | 有正文 | `src/YobiRuntime.cpp:33391 — AdvanceBattleEffectAndCast_40CAF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 189 | 0x0040CB10 | `sub_40CB10` | 有正文 | `src/YobiRuntime.cpp:27097 — UpdateBattleAction75_40CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 190 | 0x0040CB30 | `sub_40CB30` | 有正文 | `src/YobiRuntime.cpp:27106 — UpdateBattleAction76_40CB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 191 | 0x0040CB50 | `sub_40CB50` | 有正文 | `src/YobiRuntime.cpp:27115 — UpdateBattleAction77_40CB50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 192 | 0x0040CB80 | `sub_40CB80` | 有正文 | `src/YobiRuntime.cpp:27124 — UpdateBattleAction78_40CB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 193 | 0x0040CBB0 | `sub_40CBB0` | 有正文 | `src/YobiRuntime.cpp:26949 — UpdateBattleAction64_40CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 194 | 0x0040CBD0 | `sub_40CBD0` | 有正文 | `src/YobiRuntime.cpp:27133 — UpdateBattleAction79_40CBD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 195 | 0x0040CC80 | `sub_40CC80` | 有正文 | `src/YobiRuntime.cpp:27163 — UpdateBattleAction80_40CC80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 196 | 0x0040CCB0 | `sub_40CCB0` | 有正文 | `src/YobiRuntime.cpp:27174 — UpdateBattleAction81_40CCB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 197 | 0x0040CCE0 | `sub_40CCE0` | 有正文 | `src/YobiRuntime.cpp:27185 — UpdateBattleAction82_40CCE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 198 | 0x0040CD10 | `sub_40CD10` | 有正文 | `src/YobiRuntime.cpp:27196 — UpdateBattleAction83_40CD10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 199 | 0x0040CD70 | `sub_40CD70` | 有正文 | `src/YobiRuntime.cpp:27213 — UpdateBattleAction84_40CD70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 200 | 0x0040CDE0 | `sub_40CDE0` | 有正文 | `src/YobiRuntime.cpp:27234 — UpdateBattleAction85_40CDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 201 | 0x0040CF30 | `sub_40CF30` | 有正文 | `src/YobiRuntime.cpp:27457 — UpdateBattleAction91_40CF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 202 | 0x0040CF50 | `sub_40CF50` | 有正文 | `src/YobiRuntime.cpp:27466 — UpdateBattleAction92_40CF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 203 | 0x0040CF70 | `sub_40CF70` | 有正文 | `src/YobiRuntime.cpp:27475 — UpdateBattleAction93_40CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 204 | 0x0040CFA0 | `sub_40CFA0` | 有正文 | `src/YobiRuntime.cpp:23972 — UpdateBattleAction5_40CFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 205 | 0x0040D010 | `sub_40D010` | 有正文 | `src/YobiRuntime.cpp:27487 — UpdateBattleAction94_40D010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 206 | 0x0040D0B0 | `sub_40D0B0` | 有正文 | `src/YobiRuntime.cpp:27508 — UpdateBattleAction95_40D0B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 207 | 0x0040D170 | `sub_40D170` | 有正文 | `src/YobiRuntime.cpp:27538 — UpdateBattleAction96_40D170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 208 | 0x0040D1A0 | `sub_40D1A0` | 有正文 | `src/YobiRuntime.cpp:27548 — UpdateBattleAction97_40D1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 209 | 0x0040D1D0 | `sub_40D1D0` | 有正文 | `src/YobiRuntime.cpp:27558 — UpdateBattleAction98_40D1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 210 | 0x0040D390 | `sub_40D390` | 有正文 | `src/YobiRuntime.cpp:27610 — UpdateBattleAction99_40D390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 211 | 0x0040D3C0 | `sub_40D3C0` | 有正文 | `src/YobiRuntime.cpp:27621 — UpdateBattleAction100_40D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 212 | 0x0040D580 | `sub_40D580` | 有正文 | `src/YobiRuntime.cpp:27675 — UpdateBattleAction101_40D580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 213 | 0x0040D6C0 | `sub_40D6C0` | 有正文 | `src/YobiRuntime.cpp:27715 — UpdateBattleAction102_40D6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 214 | 0x0040DBE0 | `sub_40DBE0` | 有正文 | `src/YobiRuntime.cpp:30154 — UpdateBattleAction103_40DBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 215 | 0x0040DC90 | `sub_40DC90` | 有正文 | `src/YobiRuntime.cpp:27862 — UpdateBattleAction104_40DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 216 | 0x0040DE40 | `sub_40DE40` | 有正文 | `src/YobiRuntime.cpp:27909 — UpdateBattleAction105_40DE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 217 | 0x0040DF50 | `sub_40DF50` | 有正文 | `src/YobiRuntime.cpp:27952 — UpdateBattleAction106_40DF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 218 | 0x0040DF70 | `sub_40DF70` | 有正文 | `src/YobiRuntime.cpp:27960 — UpdateBattleAction107_40DF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 219 | 0x0040DF80 | `sub_40DF80` | 有正文 | `src/YobiRuntime.cpp:27967 — UpdateBattleAction108_40DF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 220 | 0x0040E4B0 | `sub_40E4B0` | 有正文 | `src/YobiRuntime.cpp:30180 — UpdateBattleAction109_40E4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 221 | 0x0040E560 | `sub_40E560` | 有正文 | `src/YobiRuntime.cpp:28116 — UpdateBattleAction110_40E560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 222 | 0x0040E970 | `sub_40E970` | 有正文 | `src/YobiRuntime.cpp:28247 — UpdateBattleAction111_40E970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 223 | 0x0040EB00 | `sub_40EB00` | 有正文 | `src/YobiRuntime.cpp:30207 — UpdateBattleAction112_40EB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 224 | 0x0040EFE0 | `sub_40EFE0` | 有正文 | `src/YobiRuntime.cpp:28299 — UpdateBattleAction113_40EFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 225 | 0x0040F0A0 | `sub_40F0A0` | 有正文 | `src/YobiRuntime.cpp:28333 — UpdateBattleAction114_40F0A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 226 | 0x0040F790 | `sub_40F790` | 有正文 | `src/YobiRuntime.cpp:29016 — UpdateBattleAction154_40F790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 227 | 0x0040F800 | `sub_40F800` | 有正文 | `src/YobiRuntime.cpp:29032 — UpdateBattleAction155_40F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 228 | 0x0040FB30 | `sub_40FB30` | 有正文 | `src/YobiRuntime.cpp:29141 — UpdateBattleAction156_40FB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 229 | 0x0040FB80 | `sub_40FB80` | 有正文 | `src/YobiRuntime.cpp:28517 — UpdateBattleAction115_40FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 230 | 0x0040FC10 | `sub_40FC10` | 有正文 | `src/YobiRuntime.cpp:28533 — UpdateBattleFactoryAction_40FC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 231 | 0x0040FE50 | `sub_40FE50` | 有正文 | `src/YobiRuntime.cpp:33190 — UpdateBattleAction253_40FE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 232 | 0x0040FEB0 | `sub_40FEB0` | 有正文 | `src/YobiRuntime.cpp:33203 — UpdateBattleAction254_40FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 233 | 0x0040FEF0 | `sub_40FEF0` | 有正文 | `src/YobiRuntime.cpp:29003 — UpdateBattleAction148_40FEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 234 | 0x0040FF40 | `sub_40FF40` | 有正文 | `src/YobiRuntime.cpp:28602 — UpdateBattleAction138_40FF40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 235 | 0x0040FF90 | `sub_40FF90` | 有正文 | `src/YobiRuntime.cpp:28584 — UpdateBattleActions127To129_40FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 236 | 0x00410000 | `sub_410000` | 有正文 | `src/YobiRuntime.cpp:28616 — UpdateBattleAction139_410000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 237 | 0x004106B0 | `sub_4106B0` | 有正文 | `src/YobiRuntime.cpp:27020 — UpdateBattleAction67_4106B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 238 | 0x00410730 | `sub_410730` | 有正文 | `src/YobiRuntime.cpp:28828 — UpdateBattleAction140_410730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 239 | 0x004107C0 | `sub_4107C0` | 有正文 | `src/YobiRuntime.cpp:29226 — UpdateBattleAction159_4107C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 240 | 0x00410B00 | `sub_410B00` | 有正文 | `src/YobiRuntime.cpp:29233 — UpdateBattleAction160_410B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 241 | 0x00410E30 | `sub_410E30` | 有正文 | `src/YobiRuntime.cpp:29240 — UpdateBattleAction162_410E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 242 | 0x00410E90 | `sub_410E90` | 有正文 | `src/YobiRuntime.cpp:28843 — UpdateBattleAction141_410E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 243 | 0x00410F70 | `sub_410F70` | 有正文 | `src/YobiRuntime.cpp:28883 — UpdateBattleAction142_410F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 244 | 0x00410FC0 | `sub_410FC0` | 有正文 | `src/YobiRuntime.cpp:28895 — UpdateBattleAction143_410FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 245 | 0x00411240 | `sub_411240` | 有正文 | `src/YobiRuntime.cpp:28954 — UpdateBattleAction144_411240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 246 | 0x00411290 | `sub_411290` | 有正文 | `src/YobiRuntime.cpp:28967 — UpdateBattleAction145_411290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 247 | 0x00411320 | `sub_411320` | 有正文 | `src/YobiRuntime.cpp:28986 — UpdateBattleAction147_411320` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 248 | 0x004113A0 | `sub_4113A0` | 有正文 | `src/YobiRuntime.cpp:29433 — UpdateBattleAction163_4113A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 249 | 0x00411A50 | `sub_411A50` | 有正文 | `src/YobiRuntime.cpp:29641 — UpdateBattleAction164_411A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 250 | 0x00411CB0 | `sub_411CB0` | 有正文 | `src/YobiRuntime.cpp:29801 — UpdateBattleAction166_411CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 251 | 0x00411D30 | `sub_411D30` | 有正文 | `src/YobiRuntime.cpp:29714 — UpdateBattleAction165_411D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 252 | 0x00411FA0 | `sub_411FA0` | 有正文 | `src/YobiRuntime.cpp:29818 — UpdateBattleAction167_411FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 253 | 0x00411FC0 | `sub_411FC0` | 有正文 | `src/YobiRuntime.cpp:29825 — UpdateBattleAction168_411FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 254 | 0x00411FE0 | `sub_411FE0` | 有正文 | `src/YobiRuntime.cpp:29832 — UpdateBattleAction169_411FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 255 | 0x00412000 | `sub_412000` | 有正文 | `src/YobiRuntime.cpp:29877 — UpdateBattleAction170_412000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 256 | 0x00412020 | `sub_412020` | 有正文 | `src/YobiRuntime.cpp:29884 — UpdateBattleAction171_412020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 257 | 0x004120F0 | `sub_4120F0` | 有正文 | `src/YobiRuntime.cpp:29908 — UpdateBattleActions172_173_4120F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 258 | 0x004121D0 | `sub_4121D0` | 有正文 | `src/YobiRuntime.cpp:29933 — UpdateBattleAction174_4121D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 259 | 0x00412210 | `sub_412210` | 有正文 | `src/YobiRuntime.cpp:29945 — UpdateBattleAction175_412210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 260 | 0x00412260 | `sub_412260` | 有正文 | `src/YobiRuntime.cpp:29957 — UpdateBattleAction176_412260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 261 | 0x00412290 | `sub_412290` | 有正文 | `src/YobiRuntime.cpp:29969 — UpdateBattleAction177_412290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 262 | 0x004122C0 | `sub_4122C0` | 有正文 | `src/YobiRuntime.cpp:29978 — UpdateBattleAction178_4122C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 263 | 0x004122E0 | `sub_4122E0` | 有正文 | `src/YobiRuntime.cpp:29985 — UpdateBattleAction179_4122E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 264 | 0x00412310 | `sub_412310` | 有正文 | `src/YobiRuntime.cpp:29994 — UpdateBattleActions180_203_412310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 265 | 0x004124E0 | `sub_4124E0` | 有正文 | `src/YobiRuntime.cpp:30036 — UpdateBattleAction204_4124E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 266 | 0x004127B0 | `sub_4127B0` | 有正文 | `src/YobiRuntime.cpp:30121 — UpdateBattleAction205_4127B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 267 | 0x004127F0 | `sub_4127F0` | 有正文 | `src/YobiRuntime.cpp:30132 — UpdateBattleAction206_4127F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 268 | 0x00412830 | `sub_412830` | 有正文 | `src/YobiRuntime.cpp:30142 — UpdateBattleAction207_412830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 269 | 0x00412870 | `sub_412870` | 有正文 | `src/YobiRuntime.cpp:31711 — SetBattleAction208Target_412870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 270 | 0x00412900 | `sub_412900` | 有正文 | `src/YobiRuntime.cpp:31730 — UpdateBattleAction209_412900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 271 | 0x00412F70 | `sub_412F70` | 有正文 | `src/YobiRuntime.cpp:31947 — UpdateBattleAction210_412F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 272 | 0x00413070 | `sub_413070` | 有正文 | `src/YobiRuntime.cpp:31970 — ApplyBattleSceneEffects_413070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 273 | 0x00413110 | `sub_413110` | 有正文 | `src/YobiRuntime.cpp:32012 — UpdateBattleAction212_413110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 274 | 0x004131B0 | `sub_4131B0` | 有正文 | `src/YobiRuntime.cpp:32038 — UpdateBattleAction213_4131B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 275 | 0x004132B0 | `sub_4132B0` | 有正文 | `src/YobiRuntime.cpp:32084 — UpdateBattleAction214_4132B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 276 | 0x004133D0 | `sub_4133D0` | 有正文 | `src/YobiRuntime.cpp:32125 — UpdateBattleAction215_4133D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 277 | 0x00413400 | `sub_413400` | 有正文 | `src/YobiRuntime.cpp:32135 — UpdateBattleAction216_413400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 278 | 0x00413550 | `sub_413550` | 有正文 | `src/YobiRuntime.cpp:32191 — UpdateBattleAction218_413550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 279 | 0x00413750 | `sub_413750` | 有正文 | `src/YobiRuntime.cpp:32323 — UpdateBattleAction219_413750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 280 | 0x00413980 | `sub_413980` | 有正文 | `src/YobiRuntime.cpp:32348 — UpdateBattleAction220_413980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 281 | 0x00413B40 | `sub_413B40` | 有正文 | `src/YobiRuntime.cpp:32357 — UpdateBattleAction221_413B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 282 | 0x00413E90 | `sub_413E90` | 有正文 | `src/YobiRuntime.cpp:32456 — UpdateBattleAction222_413E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 283 | 0x00413FE0 | `sub_413FE0` | 有正文 | `src/YobiRuntime.cpp:32494 — UpdateBattleAction223_413FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 284 | 0x00414050 | `sub_414050` | 有正文 | `src/YobiRuntime.cpp:30477 — UpdateBattleAction224_414050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 285 | 0x004150F0 | `sub_4150F0` | 有正文 | `src/YobiRuntime.cpp:31092 — UpdateBattleAction225_4150F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 286 | 0x004154C0 | `sub_4154C0` | 有正文 | `src/YobiRuntime.cpp:30849 — UpdateBattleAction226_4154C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 287 | 0x00415940 | `sub_415940` | 有正文 | `src/YobiRuntime.cpp:30942 — UpdateBattleAction227_415940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 288 | 0x00416000 | `sub_416000` | 有正文 | `src/YobiRuntime.cpp:31210 — UpdateBattleAction228_416000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 289 | 0x00416020 | `sub_416020` | 有正文 | `src/YobiRuntime.cpp:31219 — UpdateBattleAction229_416020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 290 | 0x004160A0 | `sub_4160A0` | 有正文 | `src/YobiRuntime.cpp:31235 — UpdateBattleAction230_4160A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 291 | 0x00416150 | `sub_416150` | 有正文 | `src/YobiRuntime.cpp:31257 — UpdateBattleAction231_416150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 292 | 0x00416220 | `sub_416220` | 有正文 | `src/YobiRuntime.cpp:31288 — UpdateBattleAction232_416220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 293 | 0x00416860 | `sub_416860` | 有正文 | `src/YobiRuntime.cpp:31456 — UpdateBattleAction233_416860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 294 | 0x00416AB0 | `sub_416AB0` | 有正文 | `src/YobiRuntime.cpp:31535 — UpdateBattleAction234_416AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 295 | 0x00416DB0 | `sub_416DB0` | 有正文 | `src/YobiRuntime.cpp:31703 — ApplyBattleCastEffects_416DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 296 | 0x00416DD0 | `sub_416DD0` | 有正文 | `src/YobiRuntime.cpp:32516 — UpdateBattleAction237_416DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 297 | 0x00417410 | `sub_417410` | 有正文 | `src/YobiRuntime.cpp:32694 — UpdateBattleActions238_239_417410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 298 | 0x00417AC0 | `sub_417AC0` | 有正文 | `src/YobiRuntime.cpp:32892 — UpdateBattleAction240_417AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 299 | 0x00417B80 | `sub_417B80` | 有正文 | `src/YobiRuntime.cpp:30340 — UpdateBattleAction241_417B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 300 | 0x00417CC0 | `sub_417CC0` | 有正文 | `src/YobiRuntime.cpp:30381 — UpdateBattleAction242_417CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 301 | 0x00417D80 | `sub_417D80` | 有正文 | `src/YobiRuntime.cpp:32920 — UpdateBattleAction243_417D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 302 | 0x00418550 | `sub_418550` | 有正文 | `src/YobiRuntime.cpp:33119 — UpdateBattleAction244_418550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 303 | 0x00418580 | `sub_418580` | 有正文 | `src/YobiRuntime.cpp:33129 — UpdateBattleAction245_418580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 304 | 0x004185C0 | `sub_4185C0` | 有正文 | `src/YobiRuntime.cpp:33141 — UpdateBattleAction246_4185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 305 | 0x004185F0 | `sub_4185F0` | 有正文 | `src/YobiRuntime.cpp:33151 — UpdateBattleAction247_4185F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 306 | 0x00418620 | `sub_418620` | 有正文 | `src/YobiRuntime.cpp:33161 — UpdateBattleAction248_418620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 307 | 0x004186B0 | `sub_4186B0` | 有正文 | `src/YobiRuntime.cpp:33216 — UpdateBattleAction255_4186B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 308 | 0x00418B50 | `sub_418B50` | 有正文 | `src/YobiRuntime.cpp:33374 — UpdateBattleAction256_418B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 309 | 0x00418B70 | `Battle::SpiracleShot::newEffect` | 有正文 | `src/YobiRuntime.cpp:9437 — NewBattleSpiracleShot_418B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 310 | 0x00418D80 | `YobiBattleEntry::ProjectionUpdate` | 有正文 | `src/YobiRuntime.cpp:9369 — UpdateBattleProjection_418D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 311 | 0x00418DF0 | `YobiBattleEntry::newProjection` | 有正文 | `src/YobiRuntime.cpp:9390 — NewBattleProjection_418DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 312 | 0x00418F10 | `sub_418F10` | 有正文 | `src/YobiRuntime.cpp:9278 — UpdateBattleArcProjection_418F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 313 | 0x00418FF0 | `sub_418FF0` | 有正文 | `src/YobiRuntime.cpp:9318 — NewBattleArcProjection_418FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 314 | 0x00419180 | `Battle::BlastWave::newEffect` | 有正文 | `src/YobiRuntime.cpp:9508 — NewBattleBlastWave_419180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 315 | 0x00419390 | `Battle::RangeHit::newEffect` | 有正文 | `src/YobiRuntime.cpp:9579 — NewBattleRangeHit_419390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 316 | 0x004195F0 | `Battle::Boomerange::newEffect` | 有正文 | `src/YobiRuntime.cpp:9746 — NewBattleBoomerang_4195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 317 | 0x00419BE0 | `sub_419BE0` | 有正文 | `src/YobiRuntime.cpp:10631 — UpdateBattleTransitionEffect_419BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 318 | 0x00419C10 | `sub_419C10` | 有正文 | `src/YobiRuntime.cpp:10641 — NewBattleTransitionEffect_419C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 319 | 0x00419CB0 | `sub_419CB0` | 有正文 | `src/YobiRuntime.cpp:10670 — UpdateBattleOffsetFollowEffect_419CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 320 | 0x00419CF0 | `sub_419CF0` | 有正文 | `src/YobiRuntime.cpp:10687 — NewBattleOffsetFollowEffect_419CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 321 | 0x00419DA0 | `sub_419DA0` | 有正文 | `src/YobiRuntime.cpp:9656 — NewBattleArcShot_419DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 322 | 0x00419FA0 | `sub_419FA0` | 有正文 | `src/YobiRuntime.cpp:10069 — UpdateBattleOneShotEffect_419FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 323 | 0x00419FC0 | `sub_419FC0` | 有正文 | `src/YobiRuntime.cpp:10077 — NewBattleRandomEffect_419FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 324 | 0x0041A0D0 | `sub_41A0D0` | 有正文 | `src/YobiRuntime.cpp:10110 — NewBattleScreenEffect_41A0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 325 | 0x0041A160 | `sub_41A160` | 有正文 | `src/YobiRuntime.cpp:6891 — UpdateBattleCompletingEffect_41A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 326 | 0x0041A1C0 | `sub_41A1C0` | 有正文 | `src/YobiRuntime.cpp:6910 — UpdateBattleParentEffect_41A1C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 327 | 0x0041A200 | `sub_41A200` | 有正文 | `src/YobiRuntime.cpp:6924 — UpdateBattleRisingEffect_41A200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 328 | 0x0041A270 | `sub_41A270` | 有正文 | `src/YobiRuntime.cpp:6948 — UpdateBattleScalingEffect_41A270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 329 | 0x0041A310 | `sub_41A310` | 有正文 | `src/YobiRuntime.cpp:6978 — UpdateBattleRandomEmitter_41A310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 330 | 0x0041A530 | `sub_41A530` | 有正文 | `src/YobiRuntime.cpp:7034 — UpdateBattleFallingEffect_41A530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 331 | 0x0041A590 | `sub_41A590` | 有正文 | `src/YobiRuntime.cpp:7049 — UpdateBattleReverseEmitter_41A590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 332 | 0x0041A7D0 | `sub_41A7D0` | 有正文 | `src/YobiRuntime.cpp:7102 — UpdateBattleIndexedEmitter_41A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 333 | 0x0041A9E0 | `sub_41A9E0` | 有正文 | `src/YobiRuntime.cpp:7178 — UpdateBattleImpactEffect_41A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 334 | 0x0041AF00 | `sub_41AF00` | 有正文 | `src/YobiRuntime.cpp:7344 — UpdateBattleImpactSoundEffect_41AF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 335 | 0x0041B440 | `sub_41B440` | 有正文 | `src/YobiRuntime.cpp:7511 — UpdateBattleFrameEventEffect_41B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 336 | 0x0041BB00 | `sub_41BB00` | 有正文 | `src/YobiRuntime.cpp:7716 — UpdateBattleMovingImpactEffect_41BB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 337 | 0x0041C3B0 | `sub_41C3B0` | 有正文 | `src/YobiRuntime.cpp:7966 — UpdateBattleHomingImpactEffect_41C3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 338 | 0x0041CD00 | `sub_41CD00` | 有正文 | `src/YobiRuntime.cpp:8397 — NewBattleEffect_41CD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 339 | 0x0041E4D0 | `sub_41E4D0` | 有正文 | `src/YobiRuntime.cpp:9933 — UpdateBattleScatterEffect_41E4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 340 | 0x0041E510 | `sub_41E510` | 有正文 | `src/YobiRuntime.cpp:9947 — NewBattleScatterEffect_41E510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 341 | 0x0041E5C0 | `sub_41E5C0` | 有正文 | `src/YobiRuntime.cpp:1875 — UpdateBattleAfterimage_41E5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 342 | 0x0041E5F0 | `sub_41E5F0` | 有正文 | `src/YobiRuntime.cpp:1887 — NewBattleAfterimage_41E5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 343 | 0x0041E640 | `sub_41E640` | 有正文 | `src/YobiRuntime.cpp:9972 — UpdateBattlePositionEffect_41E640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 344 | 0x0041E680 | `sub_41E680` | 有正文 | `src/YobiRuntime.cpp:9984 — NewBattlePositionEffect_41E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 345 | 0x0041E720 | `sub_41E720` | 有正文 | `src/YobiRuntime.cpp:10011 — NewBattleCoordinateEffect_41E720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 346 | 0x0041E7C0 | `sub_41E7C0` | 有正文 | `src/YobiRuntime.cpp:10037 — NewBattleTrailEffect_41E7C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 347 | 0x0041E890 | `sub_41E890` | 有正文 | `src/YobiRuntime.cpp:8930 — DrawBattleTiledEffect_41E890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 348 | 0x0041E920 | `sub_41E920` | 有正文 | `src/YobiRuntime.cpp:8957 — UpdateBattleTiledEffect_41E920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 349 | 0x0041E9D0 | `sub_41E9D0` | 有正文 | `src/YobiRuntime.cpp:8990 — NewBattleTiledEffect_41E9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 350 | 0x0041EAB0 | `sub_41EAB0` | 有正文 | `src/YobiRuntime.cpp:1855 — CloneBattleAction_41EAB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 351 | 0x0041EB10 | `sub_41EB10` | 有正文 | `src/YobiRuntime.cpp:1742 — CopyYobiAction_41EB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 352 | 0x0041F110 | `sub_41F110` | 有正文 | `src/YobiRuntime.cpp:10135 — UpdateBattleNumber_41F110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 353 | 0x0041F1A0 | `sub_41F1A0` | 有正文 | `src/YobiRuntime.cpp:10168 — NewBattleNumber_41F1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 354 | 0x0041F450 | `sub_41F450` | 有正文 | `src/YobiRuntime.cpp:10303 — UpdateBattleFloatingIcon_41F450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 355 | 0x0041F4C0 | `CreateSubYobi` | 有正文 | `src/YobiRuntime.cpp:10330 — NewBattleFloatingIcon_41F4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 356 | 0x0041F570 | `sub_41F570` | 有正文 | `src/YobiRuntime.cpp:10469 — UpdateBattleHitEffect_41F570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 357 | 0x0041F5B0 | `Battle::Boomerange::newHitEffect` | 有正文 | `src/YobiRuntime.cpp:10486 — NewBattleHitEffect_41F5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 358 | 0x0041F660 | `BattleYobi::Debuff::newEffect` | 有正文 | `src/YobiRuntime.cpp:10519 — NewBattleDebuffEffect_41F660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 359 | 0x0041F800 | `BattleYobi::Debuff::UpdateEffect` | 有正文 | `src/YobiRuntime.cpp:10572 — UpdateBattleDebuffEffect_41F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 360 | 0x0041F860 | `sub_41F860` | 有正文 | `src/YobiRuntime.cpp:10593 — NewBattleReverseEffect_41F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 361 | 0x0041F950 | `sub_41F950` | 有正文 | `src/YobiRuntime.cpp:10720 — UpdateBattleCenteredEffect_41F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 362 | 0x0041FA00 | `sub_41FA00` | 有正文 | `src/YobiRuntime.cpp:10744 — NewBattleCenteredEffect_41FA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 363 | 0x0041FB20 | `sub_41FB20` | 有正文 | `src/YobiRuntime.cpp:10784 — UpdateBattleAttachedEffect_41FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 364 | 0x0041FBE0 | `sub_41FBE0` | 有正文 | `src/YobiRuntime.cpp:10823 — NewBattleAttachedEffect_41FBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 365 | 0x0041FCD0 | `sub_41FCD0` | 有正文 | `src/YobiRuntime.cpp:10855 — UpdateBattleStatusEffect_41FCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 366 | 0x0041FE00 | `sub_41FE00` | 有正文 | `src/YobiRuntime.cpp:10916 — NewBattleStatusEffect_41FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 367 | 0x0041FF90 | `sub_41FF90` | 有正文 | `src/YobiRuntime.cpp:10971 — UpdateBattleFieldEffect_41FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 368 | 0x0041FFE0 | `sub_41FFE0` | 有正文 | `src/YobiRuntime.cpp:10989 — NewBattleFieldEffect_41FFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 369 | 0x00420100 | `sub_420100` | 有正文 | `src/YobiRuntime.cpp:6733 — NewBattleSequence_420100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 370 | 0x00420300 | `sub_420300` | 有正文 | `src/YobiRuntime.cpp:6807 — UpdateBattleSequence_420300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 371 | 0x00420590 | `sub_420590` | 有正文 | `src/YobiRuntime.cpp:6790 — MoveBattleSequence_420590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 372 | 0x004205F0 | `sub_4205F0` | 有正文 | `src/YobiRuntime.cpp:9713 — NewBattleCastCopy_4205F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 373 | 0x004206C0 | `sub_4206C0` | 有正文 | `src/YobiRuntime.cpp:10236 — NewBattleTimeNumber_4206C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 374 | 0x004208F0 | `sub_4208F0` | 有正文 | `src/YobiRuntime.cpp:10362 — NewBattleRebirthEffects_4208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 375 | 0x004209C0 | `sub_4209C0` | 有正文 | `src/YobiRuntime.cpp:10389 — NewBattleAttributeEffects_4209C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 376 | 0x00420D50 | `sub_420D50` | 有正文 | `src/YobiRuntime.cpp:7144 — NewBattleRisingEffect_420D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 377 | 0x00420F10 | `sub_420F10` | 有正文 | `src/YobiRuntime.cpp:29839 — SyncBattleAttachmentAlpha_420F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 378 | 0x00421480 | `sub_421480` | 有正文 | `src/YobiRuntime.cpp:11036 — UpdateBattleBackgroundFade_421480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 379 | 0x00421570 | `sub_421570` | 有正文 | `src/YobiRuntime.cpp:11094 — NewBattleBackgroundFade_421570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 380 | 0x00421610 | `sub_421610` | 有正文 | `src/YobiRuntime.cpp:11218 — NewBattleScreenEffect_421610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 381 | 0x004216B0 | `sub_4216B0` | 有正文 | `src/YobiRuntime.cpp:11246 — UpdateBattleScreenEmitter_4216B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 382 | 0x00421700 | `sub_421700` | 有正文 | `src/YobiRuntime.cpp:11261 — NewBattleScreenEmitter_421700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 383 | 0x00421750 | `sub_421750` | 有正文 | `src/YobiRuntime.cpp:6639 — UpdateBattleText_421750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 384 | 0x004217F0 | `sub_4217F0` | 有正文 | `src/YobiRuntime.cpp:6668 — NewBattleText_4217F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 385 | 0x004219D0 | `sub_4219D0` | 有正文 | `src/YobiRuntime.cpp:8226 — UpdateBattleCarryingEffect_4219D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 386 | 0x00421F90 | `sub_421F90` | 有正文 | `src/YobiRuntime.cpp:11279 — UpdateBattleAttachment_421F90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 387 | 0x00421FB0 | `sub_421FB0` | 有正文 | `src/YobiRuntime.cpp:11290 — SyncBattleRider_421FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 388 | 0x004221F0 | `sub_4221F0` | 有正文 | `src/YobiRuntime.cpp:11564 — NewBattleRider_4221F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 389 | 0x004222B0 | `YobiChara::SetRider` | 有正文 | `src/YobiRuntime.cpp:11663 — SetBattleRider_4222B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 390 | 0x00422370 | `sub_422370` | 有正文 | `src/YobiRuntime.cpp:11127 — RestoreBattleStateEffects_422370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 391 | 0x004225D0 | `sub_4225D0` | 有正文 | `src/YobiRuntime.cpp:11375 — SyncBattleGear_4225D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 392 | 0x00422780 | `sub_422780` | 有正文 | `src/YobiRuntime.cpp:11456 — SyncBattleAuxGear_422780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 393 | 0x00422A30 | `sub_422A30` | 有正文 | `src/YobiRuntime.cpp:11595 — NewBattleGear_422A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 394 | 0x00422B00 | `sub_422B00` | 有正文 | `src/YobiRuntime.cpp:11627 — NewBattleAuxGear_422B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 395 | 0x00422BC0 | `sub_422BC0` | 有正文 | `src/YobiRuntime.cpp:11695 — SetBattleGear_422BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 396 | 0x00422C20 | `sub_422C20` | 有正文 | `src/YobiRuntime.cpp:11716 — SetBattleGear_422C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 397 | 0x00422C90 | `sub_422C90` | 有正文 | `src/YobiRuntime.cpp:11738 — SetBattleAuxGear_422C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 398 | 0x00422E50 | `sub_422E50` | 有正文 | `src/YobiRuntime.cpp:9014 — InitBattleTargetEffect_422E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 399 | 0x00423040 | `sub_423040` | 有正文 | `src/YobiRuntime.cpp:9076 — InitBattleOffsetEffect_423040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 400 | 0x004231D0 | `sub_4231D0` | 有正文 | `src/YobiRuntime.cpp:9126 — InitBattleCenterEffect_4231D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 401 | 0x00423350 | `sub_423350` | 有正文 | `src/YobiRuntime.cpp:9176 — InitBattleLowerEffect_423350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 402 | 0x004234B0 | `sub_4234B0` | 有正文 | `src/YobiRuntime.cpp:9223 — InitBattleScreenYEffect_4234B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 82 | 0x00404A40 | `sub_404A40` | 有正文 | `src/YobiRuntime.cpp:1634 — Sub_404A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 83 | 0x00404AE0 | `YobiAction::new` | 有正文 | `src/YobiRuntime.cpp:1665 — NewYobiAction_404AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 84 | 0x00404C50 | `Yobi::UpdateAll` | 有正文 | `src/YobiRuntime.cpp:6584 — YobiUpdateAll_404C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 85 | 0x00404D00 | `Yobi::MarkDeath` | 有正文 | `src/YobiRuntime.cpp:6623 — MarkDeath` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 86 | 0x00404D10 | `sub_404D10` | 有正文 | `src/YobiRuntime.cpp:1456 — DeleteYobiAction_404D10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 87 | 0x00404D30 | `YobiClearUp` | 有正文 | `src/YobiRuntime.cpp:33687 — YobiClearUp_404D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 88 | 0x00404D60 | `sub_404D60` | 有正文 | `src/YobiRuntime.cpp:33698 — Sub_404D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 89 | 0x00404D90 | `SelectIntValue` | 有正文 | `src/YobiRuntime.cpp:11877 — SelectIntValue_404D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 90 | 0x00404DB0 | `BattleEntry::EffectUpdate` | 有正文 | `src/YobiRuntime.cpp:23129 — UpdateBattleActor_404DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:8510 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 92 | 0x00405B60 | `sub_405B60` | 有正文 | `src/YobiRuntime.cpp:26506 — ConsumeBattleFpCost_405B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 93 | 0x00405BD0 | `CompareFunction` | 有正文 | `src/YobiRuntime.cpp:22822 — CompareBattleDrawActions_405BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 94 | 0x00405C30 | `Yobi::sort` | 有正文 | `src/YobiRuntime.cpp:22850 — SortBattleActions_405C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 95 | 0x00405CB0 | `sub_405CB0` | 有正文 | `src/YobiRuntime.cpp:22882 — Sub_405CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 96 | 0x00405E60 | `sub_405E60` | 有正文 | `src/YobiRuntime.cpp:22918 — NormalizeBattleAngle_405E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 97 | 0x00405EA0 | `YobiAction::UpdateXYByRad` | 有正文 | `src/YobiRuntime.cpp:22930 — MoveBattleByAngle_405EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 98 | 0x00405ED0 | `sub_405ED0` | 有正文 | `src/YobiRuntime.cpp:22941 — GetBattleRelativeDirection_405ED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 99 | 0x00406060 | `sub_406060` | 有正文 | `src/YobiRuntime.cpp:22984 — GetBattleAngleDifference_406060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 100 | 0x004060D0 | `sub_4060D0` | 有正文 | `src/YobiRuntime.cpp:23003 — TurnBattleTowardPosition_4060D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 101 | 0x00406190 | `YobiAction::UpdateRad` | 有正文 | `src/YobiRuntime.cpp:23035 — TurnBattleToward_406190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 102 | 0x00406260 | `sub_406260` | 有正文 | `src/YobiRuntime.cpp:29262 — Sub_406260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 103 | 0x004062A0 | `sub_4062A0` | 有正文 | `src/YobiRuntime.cpp:23071 — GetBattleDistanceToPosition_4062A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 104 | 0x00406300 | `sub_406300` | 有正文 | `src/YobiRuntime.cpp:23086 — GetBattleDistance_406300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 105 | 0x00406360 | `sub_406360` | 有正文 | `src/YobiRuntime.cpp:23102 — CountBattleActiveEntries_406360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 106 | 0x00406390 | `sub_406390` | 有正文 | `src/YobiRuntime.cpp:31657 — ApplyBattleEffectFlags_406390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 107 | 0x004065A0 | `sub_4065A0` | 有正文 | `src/YobiRuntime.cpp:23114 — SeedBattleRandom_4065A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 108 | 0x004065E0 | `sub_4065E0` | 有正文 | `src/YobiRuntime.cpp:24795 — ProbeBattleAttackEvent_4065E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 109 | 0x00406630 | `sub_406630` | 有正文 | `src/YobiRuntime.cpp:29253 — UpdateBattleAction236_406630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 110 | 0x00406650 | `sub_406650` | 有正文 | `src/YobiRuntime.cpp:23851 — UpdateBattleAction0_406650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 111 | 0x00406720 | `sub_406720` | 有正文 | `src/YobiRuntime.cpp:23890 — UpdateBattleAction1_406720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 112 | 0x00406760 | `sub_406760` | 有正文 | `src/YobiRuntime.cpp:23906 — UpdateBattleAction2_406760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 113 | 0x004067F0 | `sub_4067F0` | 有正文 | `src/YobiRuntime.cpp:24101 — UpdateBattleAction11_4067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 114 | 0x00406930 | `sub_406930` | 有正文 | `src/YobiRuntime.cpp:24158 — UpdateBattleAction12_406930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 115 | 0x00406A80 | `sub_406A80` | 有正文 | `src/YobiRuntime.cpp:24202 — UpdateBattleAction13_406A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 116 | 0x00406BA0 | `sub_406BA0` | 有正文 | `src/YobiRuntime.cpp:25935 — UpdateBattleAction25_406BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 117 | 0x00406C30 | `sub_406C30` | 有正文 | `src/YobiRuntime.cpp:23930 — UpdateBattleAction3_406C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 118 | 0x00406CD0 | `sub_406CD0` | 有正文 | `src/YobiRuntime.cpp:23989 — UpdateBattleAction6_406CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 119 | 0x00406D70 | `sub_406D70` | 有正文 | `src/YobiRuntime.cpp:23950 — UpdateBattleAction4_406D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 120 | 0x00406E10 | `Battle::Boomerange::runEffect` | 有正文 | `src/YobiRuntime.cpp:24816 — UpdateBattleAction15_406E10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 121 | 0x004070E0 | `Battle::SpiracleShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24981 — UpdateBattleAction70_4070E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 122 | 0x004071C0 | `Battle::BlastWave::runEffect` | 有正文 | `src/YobiRuntime.cpp:25005 — UpdateBattleAction249_4071C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 123 | 0x004072E0 | `sub_4072E0` | 有正文 | `src/YobiRuntime.cpp:25042 — UpdateBattleAction16_4072E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 124 | 0x00408170 | `Battle::BowShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24900 — UpdateBattleAction18_408170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 125 | 0x004082F0 | `Battle::RandomShot::runEffect` | 有正文 | `src/YobiRuntime.cpp:24942 — UpdateBattleAction19_4082F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 126 | 0x00408410 | `sub_408410` | 有正文 | `src/YobiRuntime.cpp:25467 — UpdateBattleAction20_408410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 127 | 0x00408750 | `sub_408750` | 有正文 | `src/YobiRuntime.cpp:25569 — UpdateBattleAction21_408750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 128 | 0x004087C0 | `sub_4087C0` | 有正文 | `src/YobiRuntime.cpp:25587 — UpdateBattleAction22_4087C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 129 | 0x004090F0 | `sub_4090F0` | 有正文 | `src/YobiRuntime.cpp:25840 — UpdateBattleAction23_4090F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 130 | 0x00409380 | `sub_409380` | 有正文 | `src/YobiRuntime.cpp:25922 — UpdateBattleAction24_409380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 131 | 0x004093B0 | `sub_4093B0` | 有正文 | `src/YobiRuntime.cpp:25456 — UpdateBattleAction17_4093B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 132 | 0x00409410 | `sub_409410` | 有正文 | `src/YobiRuntime.cpp:24011 — UpdateBattleAction7_409410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 133 | 0x004094A0 | `sub_4094A0` | 有正文 | `src/YobiRuntime.cpp:24034 — UpdateBattleAction8_4094A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 134 | 0x00409510 | `sub_409510` | 有正文 | `src/YobiRuntime.cpp:24052 — UpdateBattleAction9_409510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 135 | 0x00409610 | `sub_409610` | 有正文 | `src/YobiRuntime.cpp:24085 — UpdateBattleAction10_409610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 136 | 0x00409680 | `sub_409680` | 有正文 | `src/YobiRuntime.cpp:24245 — UpdateBattleAction14_409680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 137 | 0x0040A9E0 | `sub_40A9E0` | 有正文 | `src/YobiRuntime.cpp:25967 — UpdateBattleAction26_40A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 138 | 0x0040AA70 | `sub_40AA70` | 有正文 | `src/YobiRuntime.cpp:25987 — UpdateBattleAction27_40AA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 139 | 0x0040ACF0 | `sub_40ACF0` | 有正文 | `src/YobiRuntime.cpp:26073 — UpdateBattleAction28_40ACF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 140 | 0x0040AE50 | `sub_40AE50` | 有正文 | `src/YobiRuntime.cpp:26125 — UpdateBattleAction29_40AE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 141 | 0x0040AF30 | `sub_40AF30` | 有正文 | `src/YobiRuntime.cpp:26156 — UpdateBattleAction30_40AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 142 | 0x0040B020 | `sub_40B020` | 有正文 | `src/YobiRuntime.cpp:26187 — UpdateBattleAction31_40B020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 143 | 0x0040B130 | `sub_40B130` | 有正文 | `src/YobiRuntime.cpp:26573 — UpdateBattleAction45_40B130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 144 | 0x0040B180 | `sub_40B180` | 有正文 | `src/YobiRuntime.cpp:33180 — UpdateBattleAction251_40B180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 145 | 0x0040B200 | `sub_40B200` | 有正文 | `src/YobiRuntime.cpp:26583 — UpdateBattleAction46_40B200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 146 | 0x0040B3C0 | `sub_40B3C0` | 有正文 | `src/YobiRuntime.cpp:26723 — UpdateBattleAction50_40B3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 147 | 0x0040B3F0 | `sub_40B3F0` | 有正文 | `src/YobiRuntime.cpp:26661 — UpdateBattleAction47_40B3F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 148 | 0x0040B410 | `sub_40B410` | 有正文 | `src/YobiRuntime.cpp:26226 — UpdateBattleAction32_40B410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 149 | 0x0040B450 | `sub_40B450` | 有正文 | `src/YobiRuntime.cpp:26237 — UpdateBattleAction33_40B450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 150 | 0x0040B490 | `sub_40B490` | 有正文 | `src/YobiRuntime.cpp:26670 — UpdateBattleAction48_40B490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 151 | 0x0040B5B0 | `sub_40B5B0` | 有正文 | `src/YobiRuntime.cpp:26712 — UpdateBattleAction49_40B5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 152 | 0x0040B5E0 | `sub_40B5E0` | 有正文 | `src/YobiRuntime.cpp:26248 — UpdateBattleAction34_40B5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 153 | 0x0040B930 | `sub_40B930` | 有正文 | `src/YobiRuntime.cpp:26340 — UpdateBattleAction35_40B930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 154 | 0x0040BAD0 | `sub_40BAD0` | 有正文 | `src/YobiRuntime.cpp:26398 — UpdateBattleAction36_40BAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 155 | 0x0040BB20 | `sub_40BB20` | 有正文 | `src/YobiRuntime.cpp:26414 — UpdateBattleAction37_40BB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 156 | 0x0040BB70 | `sub_40BB70` | 有正文 | `src/YobiRuntime.cpp:26430 — UpdateBattleAction38_40BB70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 157 | 0x0040BBC0 | `sub_40BBC0` | 有正文 | `src/YobiRuntime.cpp:26446 — UpdateBattleAction39_40BBC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 158 | 0x0040BD40 | `sub_40BD40` | 有正文 | `src/YobiRuntime.cpp:26498 — UpdateBattleAction40_40BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 159 | 0x0040BD60 | `sub_40BD60` | 有正文 | `src/YobiRuntime.cpp:26523 — UpdateBattleAction41_40BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 160 | 0x0040BDB0 | `sub_40BDB0` | 有正文 | `src/YobiRuntime.cpp:26537 — UpdateBattleAction42_40BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 161 | 0x0040BDF0 | `sub_40BDF0` | 有正文 | `src/YobiRuntime.cpp:26562 — UpdateBattleAction44_40BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 162 | 0x0040BE30 | `sub_40BE30` | 有正文 | `src/YobiRuntime.cpp:26549 — UpdateBattleAction43_40BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 163 | 0x0040BE70 | `sub_40BE70` | 有正文 | `src/YobiRuntime.cpp:26733 — UpdateBattleAction51_40BE70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 164 | 0x0040BE90 | `sub_40BE90` | 有正文 | `src/YobiRuntime.cpp:26742 — UpdateBattleAction52_40BE90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 165 | 0x0040BF20 | `sub_40BF20` | 有正文 | `src/YobiRuntime.cpp:26765 — UpdateBattleAction53_40BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 166 | 0x0040BFE0 | `sub_40BFE0` | 有正文 | `src/YobiRuntime.cpp:26796 — UpdateBattleAction54_40BFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 167 | 0x0040C0C0 | `sub_40C0C0` | 有正文 | `src/YobiRuntime.cpp:26829 — UpdateBattleAction55_40C0C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 168 | 0x0040C0E0 | `sub_40C0E0` | 有正文 | `src/YobiRuntime.cpp:27043 — UpdateBattleAction68_40C0E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 169 | 0x0040C120 | `sub_40C120` | 有正文 | `src/YobiRuntime.cpp:27055 — UpdateBattleAction69_40C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 170 | 0x0040C160 | `sub_40C160` | 有正文 | `src/YobiRuntime.cpp:26838 — UpdateBattleAction56_40C160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 171 | 0x0040C1A0 | `sub_40C1A0` | 有正文 | `src/YobiRuntime.cpp:26851 — UpdateBattleAction57_40C1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 172 | 0x0040C1E0 | `sub_40C1E0` | 有正文 | `src/YobiRuntime.cpp:26863 — UpdateBattleAction58_40C1E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 173 | 0x0040C220 | `sub_40C220` | 有正文 | `src/YobiRuntime.cpp:26887 — UpdateBattleAction60_40C220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 174 | 0x0040C240 | `sub_40C240` | 有正文 | `src/YobiRuntime.cpp:26875 — UpdateBattleAction59_40C240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 175 | 0x0040C280 | `sub_40C280` | 有正文 | `src/YobiRuntime.cpp:26895 — UpdateBattleAction61_40C280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 176 | 0x0040C2B0 | `sub_40C2B0` | 有正文 | `src/YobiRuntime.cpp:26905 — UpdateBattleAction62_40C2B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 177 | 0x0040C2E0 | `sub_40C2E0` | 有正文 | `src/YobiRuntime.cpp:26915 — UpdateBattleAction63_40C2E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 178 | 0x0040C380 | `sub_40C380` | 有正文 | `src/YobiRuntime.cpp:26955 — UpdateBattleAction65_40C380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 179 | 0x0040C480 | `sub_40C480` | 有正文 | `src/YobiRuntime.cpp:27005 — UpdateBattleAction66_40C480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 180 | 0x0040C4D0 | `sub_40C4D0` | 有正文 | `src/YobiRuntime.cpp:27067 — UpdateBattleAction71_40C4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 181 | 0x0040C520 | `sub_40C520` | 有正文 | `src/YobiRuntime.cpp:27274 — UpdateBattleAction86_40C520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 182 | 0x0040C780 | `sub_40C780` | 有正文 | `src/YobiRuntime.cpp:27347 — UpdateBattleAction87_40C780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 183 | 0x0040C8D0 | `sub_40C8D0` | 有正文 | `src/YobiRuntime.cpp:27388 — UpdateBattleAction88_40C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 184 | 0x0040C8F0 | `sub_40C8F0` | 有正文 | `src/YobiRuntime.cpp:27397 — UpdateBattleAction89_40C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 185 | 0x0040C910 | `sub_40C910` | 有正文 | `src/YobiRuntime.cpp:27405 — UpdateBattleAction90_40C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 186 | 0x0040CAA0 | `sub_40CAA0` | 有正文 | `src/YobiRuntime.cpp:27085 — UpdateBattleAction72_40CAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 187 | 0x0040CAC0 | `sub_40CAC0` | 有正文 | `src/YobiRuntime.cpp:33379 — AdvanceBattleLinkedCast_40CAC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 188 | 0x0040CAF0 | `sub_40CAF0` | 有正文 | `src/YobiRuntime.cpp:33389 — AdvanceBattleEffectAndCast_40CAF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 189 | 0x0040CB10 | `sub_40CB10` | 有正文 | `src/YobiRuntime.cpp:27095 — UpdateBattleAction75_40CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 190 | 0x0040CB30 | `sub_40CB30` | 有正文 | `src/YobiRuntime.cpp:27104 — UpdateBattleAction76_40CB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 191 | 0x0040CB50 | `sub_40CB50` | 有正文 | `src/YobiRuntime.cpp:27113 — UpdateBattleAction77_40CB50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 192 | 0x0040CB80 | `sub_40CB80` | 有正文 | `src/YobiRuntime.cpp:27122 — UpdateBattleAction78_40CB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 193 | 0x0040CBB0 | `sub_40CBB0` | 有正文 | `src/YobiRuntime.cpp:26947 — UpdateBattleAction64_40CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 194 | 0x0040CBD0 | `sub_40CBD0` | 有正文 | `src/YobiRuntime.cpp:27131 — UpdateBattleAction79_40CBD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 195 | 0x0040CC80 | `sub_40CC80` | 有正文 | `src/YobiRuntime.cpp:27161 — UpdateBattleAction80_40CC80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 196 | 0x0040CCB0 | `sub_40CCB0` | 有正文 | `src/YobiRuntime.cpp:27172 — UpdateBattleAction81_40CCB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 197 | 0x0040CCE0 | `sub_40CCE0` | 有正文 | `src/YobiRuntime.cpp:27183 — UpdateBattleAction82_40CCE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 198 | 0x0040CD10 | `sub_40CD10` | 有正文 | `src/YobiRuntime.cpp:27194 — UpdateBattleAction83_40CD10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 199 | 0x0040CD70 | `sub_40CD70` | 有正文 | `src/YobiRuntime.cpp:27211 — UpdateBattleAction84_40CD70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 200 | 0x0040CDE0 | `sub_40CDE0` | 有正文 | `src/YobiRuntime.cpp:27232 — UpdateBattleAction85_40CDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 201 | 0x0040CF30 | `sub_40CF30` | 有正文 | `src/YobiRuntime.cpp:27455 — UpdateBattleAction91_40CF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 202 | 0x0040CF50 | `sub_40CF50` | 有正文 | `src/YobiRuntime.cpp:27464 — UpdateBattleAction92_40CF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 203 | 0x0040CF70 | `sub_40CF70` | 有正文 | `src/YobiRuntime.cpp:27473 — UpdateBattleAction93_40CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 204 | 0x0040CFA0 | `sub_40CFA0` | 有正文 | `src/YobiRuntime.cpp:23970 — UpdateBattleAction5_40CFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 205 | 0x0040D010 | `sub_40D010` | 有正文 | `src/YobiRuntime.cpp:27485 — UpdateBattleAction94_40D010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 206 | 0x0040D0B0 | `sub_40D0B0` | 有正文 | `src/YobiRuntime.cpp:27506 — UpdateBattleAction95_40D0B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 207 | 0x0040D170 | `sub_40D170` | 有正文 | `src/YobiRuntime.cpp:27536 — UpdateBattleAction96_40D170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 208 | 0x0040D1A0 | `sub_40D1A0` | 有正文 | `src/YobiRuntime.cpp:27546 — UpdateBattleAction97_40D1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 209 | 0x0040D1D0 | `sub_40D1D0` | 有正文 | `src/YobiRuntime.cpp:27556 — UpdateBattleAction98_40D1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 210 | 0x0040D390 | `sub_40D390` | 有正文 | `src/YobiRuntime.cpp:27608 — UpdateBattleAction99_40D390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 211 | 0x0040D3C0 | `sub_40D3C0` | 有正文 | `src/YobiRuntime.cpp:27619 — UpdateBattleAction100_40D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 212 | 0x0040D580 | `sub_40D580` | 有正文 | `src/YobiRuntime.cpp:27673 — UpdateBattleAction101_40D580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 213 | 0x0040D6C0 | `sub_40D6C0` | 有正文 | `src/YobiRuntime.cpp:27713 — UpdateBattleAction102_40D6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 214 | 0x0040DBE0 | `sub_40DBE0` | 有正文 | `src/YobiRuntime.cpp:30152 — UpdateBattleAction103_40DBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 215 | 0x0040DC90 | `sub_40DC90` | 有正文 | `src/YobiRuntime.cpp:27860 — UpdateBattleAction104_40DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 216 | 0x0040DE40 | `sub_40DE40` | 有正文 | `src/YobiRuntime.cpp:27907 — UpdateBattleAction105_40DE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 217 | 0x0040DF50 | `sub_40DF50` | 有正文 | `src/YobiRuntime.cpp:27950 — UpdateBattleAction106_40DF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 218 | 0x0040DF70 | `sub_40DF70` | 有正文 | `src/YobiRuntime.cpp:27958 — UpdateBattleAction107_40DF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 219 | 0x0040DF80 | `sub_40DF80` | 有正文 | `src/YobiRuntime.cpp:27965 — UpdateBattleAction108_40DF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 220 | 0x0040E4B0 | `sub_40E4B0` | 有正文 | `src/YobiRuntime.cpp:30178 — UpdateBattleAction109_40E4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 221 | 0x0040E560 | `sub_40E560` | 有正文 | `src/YobiRuntime.cpp:28114 — UpdateBattleAction110_40E560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 222 | 0x0040E970 | `sub_40E970` | 有正文 | `src/YobiRuntime.cpp:28245 — UpdateBattleAction111_40E970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 223 | 0x0040EB00 | `sub_40EB00` | 有正文 | `src/YobiRuntime.cpp:30205 — UpdateBattleAction112_40EB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 224 | 0x0040EFE0 | `sub_40EFE0` | 有正文 | `src/YobiRuntime.cpp:28297 — UpdateBattleAction113_40EFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 225 | 0x0040F0A0 | `sub_40F0A0` | 有正文 | `src/YobiRuntime.cpp:28331 — UpdateBattleAction114_40F0A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 226 | 0x0040F790 | `sub_40F790` | 有正文 | `src/YobiRuntime.cpp:29014 — UpdateBattleAction154_40F790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 227 | 0x0040F800 | `sub_40F800` | 有正文 | `src/YobiRuntime.cpp:29030 — UpdateBattleAction155_40F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 228 | 0x0040FB30 | `sub_40FB30` | 有正文 | `src/YobiRuntime.cpp:29139 — UpdateBattleAction156_40FB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 229 | 0x0040FB80 | `sub_40FB80` | 有正文 | `src/YobiRuntime.cpp:28515 — UpdateBattleAction115_40FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 230 | 0x0040FC10 | `sub_40FC10` | 有正文 | `src/YobiRuntime.cpp:28531 — UpdateBattleFactoryAction_40FC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 231 | 0x0040FE50 | `sub_40FE50` | 有正文 | `src/YobiRuntime.cpp:33188 — UpdateBattleAction253_40FE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 232 | 0x0040FEB0 | `sub_40FEB0` | 有正文 | `src/YobiRuntime.cpp:33201 — UpdateBattleAction254_40FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 233 | 0x0040FEF0 | `sub_40FEF0` | 有正文 | `src/YobiRuntime.cpp:29001 — UpdateBattleAction148_40FEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 234 | 0x0040FF40 | `sub_40FF40` | 有正文 | `src/YobiRuntime.cpp:28600 — UpdateBattleAction138_40FF40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 235 | 0x0040FF90 | `sub_40FF90` | 有正文 | `src/YobiRuntime.cpp:28582 — UpdateBattleActions127To129_40FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 236 | 0x00410000 | `sub_410000` | 有正文 | `src/YobiRuntime.cpp:28614 — UpdateBattleAction139_410000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 237 | 0x004106B0 | `sub_4106B0` | 有正文 | `src/YobiRuntime.cpp:27018 — UpdateBattleAction67_4106B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 238 | 0x00410730 | `sub_410730` | 有正文 | `src/YobiRuntime.cpp:28826 — UpdateBattleAction140_410730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 239 | 0x004107C0 | `sub_4107C0` | 有正文 | `src/YobiRuntime.cpp:29224 — UpdateBattleAction159_4107C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 240 | 0x00410B00 | `sub_410B00` | 有正文 | `src/YobiRuntime.cpp:29231 — UpdateBattleAction160_410B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 241 | 0x00410E30 | `sub_410E30` | 有正文 | `src/YobiRuntime.cpp:29238 — UpdateBattleAction162_410E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 242 | 0x00410E90 | `sub_410E90` | 有正文 | `src/YobiRuntime.cpp:28841 — UpdateBattleAction141_410E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 243 | 0x00410F70 | `sub_410F70` | 有正文 | `src/YobiRuntime.cpp:28881 — UpdateBattleAction142_410F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 244 | 0x00410FC0 | `sub_410FC0` | 有正文 | `src/YobiRuntime.cpp:28893 — UpdateBattleAction143_410FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 245 | 0x00411240 | `sub_411240` | 有正文 | `src/YobiRuntime.cpp:28952 — UpdateBattleAction144_411240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 246 | 0x00411290 | `sub_411290` | 有正文 | `src/YobiRuntime.cpp:28965 — UpdateBattleAction145_411290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 247 | 0x00411320 | `sub_411320` | 有正文 | `src/YobiRuntime.cpp:28984 — UpdateBattleAction147_411320` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 248 | 0x004113A0 | `sub_4113A0` | 有正文 | `src/YobiRuntime.cpp:29431 — UpdateBattleAction163_4113A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 249 | 0x00411A50 | `sub_411A50` | 有正文 | `src/YobiRuntime.cpp:29639 — UpdateBattleAction164_411A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 250 | 0x00411CB0 | `sub_411CB0` | 有正文 | `src/YobiRuntime.cpp:29799 — UpdateBattleAction166_411CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 251 | 0x00411D30 | `sub_411D30` | 有正文 | `src/YobiRuntime.cpp:29712 — UpdateBattleAction165_411D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 252 | 0x00411FA0 | `sub_411FA0` | 有正文 | `src/YobiRuntime.cpp:29816 — UpdateBattleAction167_411FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 253 | 0x00411FC0 | `sub_411FC0` | 有正文 | `src/YobiRuntime.cpp:29823 — UpdateBattleAction168_411FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 254 | 0x00411FE0 | `sub_411FE0` | 有正文 | `src/YobiRuntime.cpp:29830 — UpdateBattleAction169_411FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 255 | 0x00412000 | `sub_412000` | 有正文 | `src/YobiRuntime.cpp:29875 — UpdateBattleAction170_412000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 256 | 0x00412020 | `sub_412020` | 有正文 | `src/YobiRuntime.cpp:29882 — UpdateBattleAction171_412020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 257 | 0x004120F0 | `sub_4120F0` | 有正文 | `src/YobiRuntime.cpp:29906 — UpdateBattleActions172_173_4120F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 258 | 0x004121D0 | `sub_4121D0` | 有正文 | `src/YobiRuntime.cpp:29931 — UpdateBattleAction174_4121D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 259 | 0x00412210 | `sub_412210` | 有正文 | `src/YobiRuntime.cpp:29943 — UpdateBattleAction175_412210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 260 | 0x00412260 | `sub_412260` | 有正文 | `src/YobiRuntime.cpp:29955 — UpdateBattleAction176_412260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 261 | 0x00412290 | `sub_412290` | 有正文 | `src/YobiRuntime.cpp:29967 — UpdateBattleAction177_412290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 262 | 0x004122C0 | `sub_4122C0` | 有正文 | `src/YobiRuntime.cpp:29976 — UpdateBattleAction178_4122C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 263 | 0x004122E0 | `sub_4122E0` | 有正文 | `src/YobiRuntime.cpp:29983 — UpdateBattleAction179_4122E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 264 | 0x00412310 | `sub_412310` | 有正文 | `src/YobiRuntime.cpp:29992 — UpdateBattleActions180_203_412310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 265 | 0x004124E0 | `sub_4124E0` | 有正文 | `src/YobiRuntime.cpp:30034 — UpdateBattleAction204_4124E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 266 | 0x004127B0 | `sub_4127B0` | 有正文 | `src/YobiRuntime.cpp:30119 — UpdateBattleAction205_4127B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 267 | 0x004127F0 | `sub_4127F0` | 有正文 | `src/YobiRuntime.cpp:30130 — UpdateBattleAction206_4127F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 268 | 0x00412830 | `sub_412830` | 有正文 | `src/YobiRuntime.cpp:30140 — UpdateBattleAction207_412830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 269 | 0x00412870 | `sub_412870` | 有正文 | `src/YobiRuntime.cpp:31709 — SetBattleAction208Target_412870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 270 | 0x00412900 | `sub_412900` | 有正文 | `src/YobiRuntime.cpp:31728 — UpdateBattleAction209_412900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 271 | 0x00412F70 | `sub_412F70` | 有正文 | `src/YobiRuntime.cpp:31945 — UpdateBattleAction210_412F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 272 | 0x00413070 | `sub_413070` | 有正文 | `src/YobiRuntime.cpp:31968 — ApplyBattleSceneEffects_413070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 273 | 0x00413110 | `sub_413110` | 有正文 | `src/YobiRuntime.cpp:32010 — UpdateBattleAction212_413110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 274 | 0x004131B0 | `sub_4131B0` | 有正文 | `src/YobiRuntime.cpp:32036 — UpdateBattleAction213_4131B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 275 | 0x004132B0 | `sub_4132B0` | 有正文 | `src/YobiRuntime.cpp:32082 — UpdateBattleAction214_4132B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 276 | 0x004133D0 | `sub_4133D0` | 有正文 | `src/YobiRuntime.cpp:32123 — UpdateBattleAction215_4133D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 277 | 0x00413400 | `sub_413400` | 有正文 | `src/YobiRuntime.cpp:32133 — UpdateBattleAction216_413400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 278 | 0x00413550 | `sub_413550` | 有正文 | `src/YobiRuntime.cpp:32189 — UpdateBattleAction218_413550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 279 | 0x00413750 | `sub_413750` | 有正文 | `src/YobiRuntime.cpp:32321 — UpdateBattleAction219_413750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 280 | 0x00413980 | `sub_413980` | 有正文 | `src/YobiRuntime.cpp:32346 — UpdateBattleAction220_413980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 281 | 0x00413B40 | `sub_413B40` | 有正文 | `src/YobiRuntime.cpp:32355 — UpdateBattleAction221_413B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 282 | 0x00413E90 | `sub_413E90` | 有正文 | `src/YobiRuntime.cpp:32454 — UpdateBattleAction222_413E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 283 | 0x00413FE0 | `sub_413FE0` | 有正文 | `src/YobiRuntime.cpp:32492 — UpdateBattleAction223_413FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 284 | 0x00414050 | `sub_414050` | 有正文 | `src/YobiRuntime.cpp:30475 — UpdateBattleAction224_414050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 285 | 0x004150F0 | `sub_4150F0` | 有正文 | `src/YobiRuntime.cpp:31090 — UpdateBattleAction225_4150F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 286 | 0x004154C0 | `sub_4154C0` | 有正文 | `src/YobiRuntime.cpp:30847 — UpdateBattleAction226_4154C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 287 | 0x00415940 | `sub_415940` | 有正文 | `src/YobiRuntime.cpp:30940 — UpdateBattleAction227_415940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 288 | 0x00416000 | `sub_416000` | 有正文 | `src/YobiRuntime.cpp:31208 — UpdateBattleAction228_416000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 289 | 0x00416020 | `sub_416020` | 有正文 | `src/YobiRuntime.cpp:31217 — UpdateBattleAction229_416020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 290 | 0x004160A0 | `sub_4160A0` | 有正文 | `src/YobiRuntime.cpp:31233 — UpdateBattleAction230_4160A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 291 | 0x00416150 | `sub_416150` | 有正文 | `src/YobiRuntime.cpp:31255 — UpdateBattleAction231_416150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 292 | 0x00416220 | `sub_416220` | 有正文 | `src/YobiRuntime.cpp:31286 — UpdateBattleAction232_416220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 293 | 0x00416860 | `sub_416860` | 有正文 | `src/YobiRuntime.cpp:31454 — UpdateBattleAction233_416860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 294 | 0x00416AB0 | `sub_416AB0` | 有正文 | `src/YobiRuntime.cpp:31533 — UpdateBattleAction234_416AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 295 | 0x00416DB0 | `sub_416DB0` | 有正文 | `src/YobiRuntime.cpp:31701 — ApplyBattleCastEffects_416DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 296 | 0x00416DD0 | `sub_416DD0` | 有正文 | `src/YobiRuntime.cpp:32514 — UpdateBattleAction237_416DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 297 | 0x00417410 | `sub_417410` | 有正文 | `src/YobiRuntime.cpp:32692 — UpdateBattleActions238_239_417410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 298 | 0x00417AC0 | `sub_417AC0` | 有正文 | `src/YobiRuntime.cpp:32890 — UpdateBattleAction240_417AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 299 | 0x00417B80 | `sub_417B80` | 有正文 | `src/YobiRuntime.cpp:30338 — UpdateBattleAction241_417B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 300 | 0x00417CC0 | `sub_417CC0` | 有正文 | `src/YobiRuntime.cpp:30379 — UpdateBattleAction242_417CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 301 | 0x00417D80 | `sub_417D80` | 有正文 | `src/YobiRuntime.cpp:32918 — UpdateBattleAction243_417D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 302 | 0x00418550 | `sub_418550` | 有正文 | `src/YobiRuntime.cpp:33117 — UpdateBattleAction244_418550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 303 | 0x00418580 | `sub_418580` | 有正文 | `src/YobiRuntime.cpp:33127 — UpdateBattleAction245_418580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 304 | 0x004185C0 | `sub_4185C0` | 有正文 | `src/YobiRuntime.cpp:33139 — UpdateBattleAction246_4185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 305 | 0x004185F0 | `sub_4185F0` | 有正文 | `src/YobiRuntime.cpp:33149 — UpdateBattleAction247_4185F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 306 | 0x00418620 | `sub_418620` | 有正文 | `src/YobiRuntime.cpp:33159 — UpdateBattleAction248_418620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 307 | 0x004186B0 | `sub_4186B0` | 有正文 | `src/YobiRuntime.cpp:33214 — UpdateBattleAction255_4186B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 308 | 0x00418B50 | `sub_418B50` | 有正文 | `src/YobiRuntime.cpp:33372 — UpdateBattleAction256_418B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 309 | 0x00418B70 | `Battle::SpiracleShot::newEffect` | 有正文 | `src/YobiRuntime.cpp:9435 — NewBattleSpiracleShot_418B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 310 | 0x00418D80 | `YobiBattleEntry::ProjectionUpdate` | 有正文 | `src/YobiRuntime.cpp:9367 — UpdateBattleProjection_418D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 311 | 0x00418DF0 | `YobiBattleEntry::newProjection` | 有正文 | `src/YobiRuntime.cpp:9388 — NewBattleProjection_418DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 312 | 0x00418F10 | `sub_418F10` | 有正文 | `src/YobiRuntime.cpp:9276 — UpdateBattleArcProjection_418F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 313 | 0x00418FF0 | `sub_418FF0` | 有正文 | `src/YobiRuntime.cpp:9316 — NewBattleArcProjection_418FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 314 | 0x00419180 | `Battle::BlastWave::newEffect` | 有正文 | `src/YobiRuntime.cpp:9506 — NewBattleBlastWave_419180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 315 | 0x00419390 | `Battle::RangeHit::newEffect` | 有正文 | `src/YobiRuntime.cpp:9577 — NewBattleRangeHit_419390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 316 | 0x004195F0 | `Battle::Boomerange::newEffect` | 有正文 | `src/YobiRuntime.cpp:9744 — NewBattleBoomerang_4195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 317 | 0x00419BE0 | `sub_419BE0` | 有正文 | `src/YobiRuntime.cpp:10629 — UpdateBattleTransitionEffect_419BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 318 | 0x00419C10 | `sub_419C10` | 有正文 | `src/YobiRuntime.cpp:10639 — NewBattleTransitionEffect_419C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 319 | 0x00419CB0 | `sub_419CB0` | 有正文 | `src/YobiRuntime.cpp:10668 — UpdateBattleOffsetFollowEffect_419CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 320 | 0x00419CF0 | `sub_419CF0` | 有正文 | `src/YobiRuntime.cpp:10685 — NewBattleOffsetFollowEffect_419CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 321 | 0x00419DA0 | `sub_419DA0` | 有正文 | `src/YobiRuntime.cpp:9654 — NewBattleArcShot_419DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 322 | 0x00419FA0 | `sub_419FA0` | 有正文 | `src/YobiRuntime.cpp:10067 — UpdateBattleOneShotEffect_419FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 323 | 0x00419FC0 | `sub_419FC0` | 有正文 | `src/YobiRuntime.cpp:10075 — NewBattleRandomEffect_419FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 324 | 0x0041A0D0 | `sub_41A0D0` | 有正文 | `src/YobiRuntime.cpp:10108 — NewBattleScreenEffect_41A0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 325 | 0x0041A160 | `sub_41A160` | 有正文 | `src/YobiRuntime.cpp:6889 — UpdateBattleCompletingEffect_41A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 326 | 0x0041A1C0 | `sub_41A1C0` | 有正文 | `src/YobiRuntime.cpp:6908 — UpdateBattleParentEffect_41A1C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 327 | 0x0041A200 | `sub_41A200` | 有正文 | `src/YobiRuntime.cpp:6922 — UpdateBattleRisingEffect_41A200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 328 | 0x0041A270 | `sub_41A270` | 有正文 | `src/YobiRuntime.cpp:6946 — UpdateBattleScalingEffect_41A270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 329 | 0x0041A310 | `sub_41A310` | 有正文 | `src/YobiRuntime.cpp:6976 — UpdateBattleRandomEmitter_41A310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 330 | 0x0041A530 | `sub_41A530` | 有正文 | `src/YobiRuntime.cpp:7032 — UpdateBattleFallingEffect_41A530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 331 | 0x0041A590 | `sub_41A590` | 有正文 | `src/YobiRuntime.cpp:7047 — UpdateBattleReverseEmitter_41A590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 332 | 0x0041A7D0 | `sub_41A7D0` | 有正文 | `src/YobiRuntime.cpp:7100 — UpdateBattleIndexedEmitter_41A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 333 | 0x0041A9E0 | `sub_41A9E0` | 有正文 | `src/YobiRuntime.cpp:7176 — UpdateBattleImpactEffect_41A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 334 | 0x0041AF00 | `sub_41AF00` | 有正文 | `src/YobiRuntime.cpp:7342 — UpdateBattleImpactSoundEffect_41AF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 335 | 0x0041B440 | `sub_41B440` | 有正文 | `src/YobiRuntime.cpp:7509 — UpdateBattleFrameEventEffect_41B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 336 | 0x0041BB00 | `sub_41BB00` | 有正文 | `src/YobiRuntime.cpp:7714 — UpdateBattleMovingImpactEffect_41BB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 337 | 0x0041C3B0 | `sub_41C3B0` | 有正文 | `src/YobiRuntime.cpp:7964 — UpdateBattleHomingImpactEffect_41C3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 338 | 0x0041CD00 | `sub_41CD00` | 有正文 | `src/YobiRuntime.cpp:8395 — NewBattleEffect_41CD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 339 | 0x0041E4D0 | `sub_41E4D0` | 有正文 | `src/YobiRuntime.cpp:9931 — UpdateBattleScatterEffect_41E4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 340 | 0x0041E510 | `sub_41E510` | 有正文 | `src/YobiRuntime.cpp:9945 — NewBattleScatterEffect_41E510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 341 | 0x0041E5C0 | `sub_41E5C0` | 有正文 | `src/YobiRuntime.cpp:1873 — UpdateBattleAfterimage_41E5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 342 | 0x0041E5F0 | `sub_41E5F0` | 有正文 | `src/YobiRuntime.cpp:1885 — NewBattleAfterimage_41E5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 343 | 0x0041E640 | `sub_41E640` | 有正文 | `src/YobiRuntime.cpp:9970 — UpdateBattlePositionEffect_41E640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 344 | 0x0041E680 | `sub_41E680` | 有正文 | `src/YobiRuntime.cpp:9982 — NewBattlePositionEffect_41E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 345 | 0x0041E720 | `sub_41E720` | 有正文 | `src/YobiRuntime.cpp:10009 — NewBattleCoordinateEffect_41E720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 346 | 0x0041E7C0 | `sub_41E7C0` | 有正文 | `src/YobiRuntime.cpp:10035 — NewBattleTrailEffect_41E7C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 347 | 0x0041E890 | `sub_41E890` | 有正文 | `src/YobiRuntime.cpp:8928 — DrawBattleTiledEffect_41E890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 348 | 0x0041E920 | `sub_41E920` | 有正文 | `src/YobiRuntime.cpp:8955 — UpdateBattleTiledEffect_41E920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 349 | 0x0041E9D0 | `sub_41E9D0` | 有正文 | `src/YobiRuntime.cpp:8988 — NewBattleTiledEffect_41E9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 350 | 0x0041EAB0 | `sub_41EAB0` | 有正文 | `src/YobiRuntime.cpp:1853 — CloneBattleAction_41EAB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 351 | 0x0041EB10 | `sub_41EB10` | 有正文 | `src/YobiRuntime.cpp:1740 — CopyYobiAction_41EB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 352 | 0x0041F110 | `sub_41F110` | 有正文 | `src/YobiRuntime.cpp:10133 — UpdateBattleNumber_41F110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 353 | 0x0041F1A0 | `sub_41F1A0` | 有正文 | `src/YobiRuntime.cpp:10166 — NewBattleNumber_41F1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 354 | 0x0041F450 | `sub_41F450` | 有正文 | `src/YobiRuntime.cpp:10301 — UpdateBattleFloatingIcon_41F450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 355 | 0x0041F4C0 | `CreateSubYobi` | 有正文 | `src/YobiRuntime.cpp:10328 — NewBattleFloatingIcon_41F4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 356 | 0x0041F570 | `sub_41F570` | 有正文 | `src/YobiRuntime.cpp:10467 — UpdateBattleHitEffect_41F570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 357 | 0x0041F5B0 | `Battle::Boomerange::newHitEffect` | 有正文 | `src/YobiRuntime.cpp:10484 — NewBattleHitEffect_41F5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 358 | 0x0041F660 | `BattleYobi::Debuff::newEffect` | 有正文 | `src/YobiRuntime.cpp:10517 — NewBattleDebuffEffect_41F660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 359 | 0x0041F800 | `BattleYobi::Debuff::UpdateEffect` | 有正文 | `src/YobiRuntime.cpp:10570 — UpdateBattleDebuffEffect_41F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 360 | 0x0041F860 | `sub_41F860` | 有正文 | `src/YobiRuntime.cpp:10591 — NewBattleReverseEffect_41F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 361 | 0x0041F950 | `sub_41F950` | 有正文 | `src/YobiRuntime.cpp:10718 — UpdateBattleCenteredEffect_41F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 362 | 0x0041FA00 | `sub_41FA00` | 有正文 | `src/YobiRuntime.cpp:10742 — NewBattleCenteredEffect_41FA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 363 | 0x0041FB20 | `sub_41FB20` | 有正文 | `src/YobiRuntime.cpp:10782 — UpdateBattleAttachedEffect_41FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 364 | 0x0041FBE0 | `sub_41FBE0` | 有正文 | `src/YobiRuntime.cpp:10821 — NewBattleAttachedEffect_41FBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 365 | 0x0041FCD0 | `sub_41FCD0` | 有正文 | `src/YobiRuntime.cpp:10853 — UpdateBattleStatusEffect_41FCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 366 | 0x0041FE00 | `sub_41FE00` | 有正文 | `src/YobiRuntime.cpp:10914 — NewBattleStatusEffect_41FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 367 | 0x0041FF90 | `sub_41FF90` | 有正文 | `src/YobiRuntime.cpp:10969 — UpdateBattleFieldEffect_41FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 368 | 0x0041FFE0 | `sub_41FFE0` | 有正文 | `src/YobiRuntime.cpp:10987 — NewBattleFieldEffect_41FFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 369 | 0x00420100 | `sub_420100` | 有正文 | `src/YobiRuntime.cpp:6731 — NewBattleSequence_420100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 370 | 0x00420300 | `sub_420300` | 有正文 | `src/YobiRuntime.cpp:6805 — UpdateBattleSequence_420300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 371 | 0x00420590 | `sub_420590` | 有正文 | `src/YobiRuntime.cpp:6788 — MoveBattleSequence_420590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 372 | 0x004205F0 | `sub_4205F0` | 有正文 | `src/YobiRuntime.cpp:9711 — NewBattleCastCopy_4205F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 373 | 0x004206C0 | `sub_4206C0` | 有正文 | `src/YobiRuntime.cpp:10234 — NewBattleTimeNumber_4206C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 374 | 0x004208F0 | `sub_4208F0` | 有正文 | `src/YobiRuntime.cpp:10360 — NewBattleRebirthEffects_4208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 375 | 0x004209C0 | `sub_4209C0` | 有正文 | `src/YobiRuntime.cpp:10387 — NewBattleAttributeEffects_4209C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 376 | 0x00420D50 | `sub_420D50` | 有正文 | `src/YobiRuntime.cpp:7142 — NewBattleRisingEffect_420D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 377 | 0x00420F10 | `sub_420F10` | 有正文 | `src/YobiRuntime.cpp:29837 — SyncBattleAttachmentAlpha_420F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 378 | 0x00421480 | `sub_421480` | 有正文 | `src/YobiRuntime.cpp:11034 — UpdateBattleBackgroundFade_421480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 379 | 0x00421570 | `sub_421570` | 有正文 | `src/YobiRuntime.cpp:11092 — NewBattleBackgroundFade_421570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 380 | 0x00421610 | `sub_421610` | 有正文 | `src/YobiRuntime.cpp:11216 — NewBattleScreenEffect_421610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 381 | 0x004216B0 | `sub_4216B0` | 有正文 | `src/YobiRuntime.cpp:11244 — UpdateBattleScreenEmitter_4216B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 382 | 0x00421700 | `sub_421700` | 有正文 | `src/YobiRuntime.cpp:11259 — NewBattleScreenEmitter_421700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 383 | 0x00421750 | `sub_421750` | 有正文 | `src/YobiRuntime.cpp:6637 — UpdateBattleText_421750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 384 | 0x004217F0 | `sub_4217F0` | 有正文 | `src/YobiRuntime.cpp:6666 — NewBattleText_4217F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 385 | 0x004219D0 | `sub_4219D0` | 有正文 | `src/YobiRuntime.cpp:8224 — UpdateBattleCarryingEffect_4219D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 386 | 0x00421F90 | `sub_421F90` | 有正文 | `src/YobiRuntime.cpp:11277 — UpdateBattleAttachment_421F90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 387 | 0x00421FB0 | `sub_421FB0` | 有正文 | `src/YobiRuntime.cpp:11288 — SyncBattleRider_421FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 388 | 0x004221F0 | `sub_4221F0` | 有正文 | `src/YobiRuntime.cpp:11562 — NewBattleRider_4221F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 389 | 0x004222B0 | `YobiChara::SetRider` | 有正文 | `src/YobiRuntime.cpp:11661 — SetBattleRider_4222B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 390 | 0x00422370 | `sub_422370` | 有正文 | `src/YobiRuntime.cpp:11125 — RestoreBattleStateEffects_422370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 391 | 0x004225D0 | `sub_4225D0` | 有正文 | `src/YobiRuntime.cpp:11373 — SyncBattleGear_4225D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 392 | 0x00422780 | `sub_422780` | 有正文 | `src/YobiRuntime.cpp:11454 — SyncBattleAuxGear_422780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 393 | 0x00422A30 | `sub_422A30` | 有正文 | `src/YobiRuntime.cpp:11593 — NewBattleGear_422A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 394 | 0x00422B00 | `sub_422B00` | 有正文 | `src/YobiRuntime.cpp:11625 — NewBattleAuxGear_422B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 395 | 0x00422BC0 | `sub_422BC0` | 有正文 | `src/YobiRuntime.cpp:11693 — SetBattleGear_422BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 396 | 0x00422C20 | `sub_422C20` | 有正文 | `src/YobiRuntime.cpp:11714 — SetBattleGear_422C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 397 | 0x00422C90 | `sub_422C90` | 有正文 | `src/YobiRuntime.cpp:11736 — SetBattleAuxGear_422C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 398 | 0x00422E50 | `sub_422E50` | 有正文 | `src/YobiRuntime.cpp:9012 — InitBattleTargetEffect_422E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 399 | 0x00423040 | `sub_423040` | 有正文 | `src/YobiRuntime.cpp:9074 — InitBattleOffsetEffect_423040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 400 | 0x004231D0 | `sub_4231D0` | 有正文 | `src/YobiRuntime.cpp:9124 — InitBattleCenterEffect_4231D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 401 | 0x00423350 | `sub_423350` | 有正文 | `src/YobiRuntime.cpp:9174 — InitBattleLowerEffect_423350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 402 | 0x004234B0 | `sub_4234B0` | 有正文 | `src/YobiRuntime.cpp:9221 — InitBattleScreenYEffect_4234B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 403 | 0x00423640 | `sub_423640` | 有正文 | `src/platform/MainLoopSupport.cpp:717 — Sub_423640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 404 | 0x004237E0 | `GetBattlePosition` | 有正文 | `src/YobiRuntime.cpp:22555 — GetBattlePosition_4237E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 405 | 0x00423800 | `sub_423800` | 有正文 | `src/YobiRuntime.cpp:11824 — MatchBattleAlbum_423800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 406 | 0x004238F0 | `sub_4238F0` | 有正文 | `src/YobiRuntime.cpp:11850 — UpdateBattleAlbumFlag_4238F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 407 | 0x00423960 | `Battle::ParsePacket_M::GetHeader2` | 有正文 | `src/YobiRuntime.cpp:14332 — GetBattleMObjectHeader_423960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 408 | 0x004239D0 | `Battle::ParsePacket_M_RID` | 有正文 | `src/YobiRuntime.cpp:21859 — ParseBattleMRide_4239D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 409 | 0x004242B0 | `sub_4242B0` | 有正文 | `src/YobiRuntime.cpp:11889 — AppendBattleRedirect_4242B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 410 | 0x00424500 | `sub_424500` | 有正文 | `src/YobiRuntime.cpp:11929 — AppendBattleSkillTail_424500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 411 | 0x00424620 | `sub_424620` | 有正文 | `src/YobiRuntime.cpp:11965 — TakeBattleMSkillAttackTargets_424620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 412 | 0x00426FC0 | `sub_426FC0` | 有正文 | `src/YobiRuntime.cpp:13082 — TakeBattleMSkillTargets_426FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 413 | 0x00427470 | `Yobi::BattleSceneUpdate` | 有正文 | `src/YobiRuntime.cpp:21665 — UpdateBattleEvent_427470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 414 | 0x00438230 | `sub_438230` | 有承接 | `src/YobiRuntime.cpp:19753 — targetPayload->value13D8 != 1 \|\| targetPayload->value13DC != statusType` | 原 type=1 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
-| 415 | 0x00438250 | `sub_438250` | 有承接 | `src/YobiRuntime.cpp:20088 — targetPayload->value13D8 != 3 \|\| targetPayload->value13DC != type` | 原 type=3 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
+| 404 | 0x004237E0 | `GetBattlePosition` | 有正文 | `src/YobiRuntime.cpp:22553 — GetBattlePosition_4237E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 405 | 0x00423800 | `sub_423800` | 有正文 | `src/YobiRuntime.cpp:11822 — MatchBattleAlbum_423800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 406 | 0x004238F0 | `sub_4238F0` | 有正文 | `src/YobiRuntime.cpp:11848 — UpdateBattleAlbumFlag_4238F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 407 | 0x00423960 | `Battle::ParsePacket_M::GetHeader2` | 有正文 | `src/YobiRuntime.cpp:14330 — GetBattleMObjectHeader_423960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 408 | 0x004239D0 | `Battle::ParsePacket_M_RID` | 有正文 | `src/YobiRuntime.cpp:21857 — ParseBattleMRide_4239D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 409 | 0x004242B0 | `sub_4242B0` | 有正文 | `src/YobiRuntime.cpp:11887 — AppendBattleRedirect_4242B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 410 | 0x00424500 | `sub_424500` | 有正文 | `src/YobiRuntime.cpp:11927 — AppendBattleSkillTail_424500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 411 | 0x00424620 | `sub_424620` | 有正文 | `src/YobiRuntime.cpp:11963 — TakeBattleMSkillAttackTargets_424620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 412 | 0x00426FC0 | `sub_426FC0` | 有正文 | `src/YobiRuntime.cpp:13080 — TakeBattleMSkillTargets_426FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 413 | 0x00427470 | `Yobi::BattleSceneUpdate` | 有正文 | `src/YobiRuntime.cpp:21663 — UpdateBattleEvent_427470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 414 | 0x00438230 | `sub_438230` | 有承接 | `src/YobiRuntime.cpp:19751 — targetPayload->value13D8 != 1 \|\| targetPayload->value13DC != statusType` | 原 type=1 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
+| 415 | 0x00438250 | `sub_438250` | 有承接 | `src/YobiRuntime.cpp:20086 — targetPayload->value13D8 != 3 \|\| targetPayload->value13DC != type` | 原 type=3 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
 | 416 | 0x00438270 | `sub_438270` | 有承接 | `src/platform/LegacyCryptInt.cpp:66 — LegacyCryptInt::operator=(const LegacyCryptInt&)` | 原三字段载荷复制由同类赋值承接，保留目标token、无读取／RNG，返回目标引用；完整业务／运行未验 |
-| 417 | 0x00438290 | `YobiBattleChara::new` | 有正文 | `src/YobiRuntime.cpp:21820 — NewBattleActor_438290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 418 | 0x004383B0 | `sub_4383B0` | 有正文 | `src/YobiRuntime.cpp:21788 — NewBattleScene_4383B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 419 | 0x004383F0 | `sub_4383F0` | 有正文 | `src/YobiRuntime.cpp:21804 — InitializeBattleScene_4383F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 420 | 0x00438450 | `getIntFromBattleBuffC1` | 有正文 | `src/YobiRuntime.cpp:22076 — TakeBattleCInteger_438450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 421 | 0x004384C0 | `getCharFromBattleBuffC1` | 有正文 | `src/YobiRuntime.cpp:22108 — TakeBattleCString_4384C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 422 | 0x00438550 | `Battle::ParsePacket_C` | 有正文 | `src/YobiRuntime.cpp:22150 — ParseBattleC_438550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 423 | 0x00438F70 | `Battle::ParsePacket_M::TakeInt` | 有正文 | `src/YobiRuntime.cpp:13232 — TakeBattleMInteger_438F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 424 | 0x00438FE0 | `Battle::ParsePacket_M::TakeStr2` | 有正文 | `src/YobiRuntime.cpp:13264 — TakeBattleMString_438FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 425 | 0x00439070 | `Battle::ParsePacket_M::GetHeader` | 有正文 | `src/YobiRuntime.cpp:13206 — GetBattleMHeader_439070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 426 | 0x004390E0 | `InitBattleEntry` | 有正文 | `src/YobiRuntime.cpp:29277 — InitBattleCastList_4390E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 427 | 0x004391E0 | `sub_4391E0` | 有正文 | `src/YobiRuntime.cpp:29309 — ResetBattleCastList_4391E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 428 | 0x004392A0 | `BattleScene::AppendCastList` | 有正文 | `src/YobiRuntime.cpp:29331 — AppendBattleCast_4392A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 429 | 0x004392F0 | `BattleScene::AppendCastList2` | 有正文 | `src/YobiRuntime.cpp:29347 — AppendBattleCastAt_4392F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 430 | 0x00439340 | `sub_439340` | 有正文 | `src/YobiRuntime.cpp:29364 — AdvanceBattleCastState_439340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 431 | 0x00439380 | `BattleEntry::MoveState` | 有正文 | `src/YobiRuntime.cpp:33398 — MoveBattleCastState_439380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 432 | 0x004393A0 | `BattleEntry::AppendEffectList` | 有正文 | `src/YobiRuntime.cpp:29382 — AppendBattleEffectList_4393A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 433 | 0x00439400 | `BattleEntry::AppendEffect` | 有正文 | `src/YobiRuntime.cpp:29398 — AppendBattleEffect_439400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 434 | 0x00439470 | `BattleEntry::MoveEffect` | 有正文 | `src/YobiRuntime.cpp:31631 — AdvanceBattleEffect_439470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 435 | 0x004394A0 | `sub_4394A0` | 有正文 | `src/YobiRuntime.cpp:33408 — CheckBattleTurnReady_4394A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 436 | 0x00439600 | `Battle::ParsePacket_M::TakeInt2` | 有正文 | `src/YobiRuntime.cpp:13310 — TakeBattleMPreviewInteger_439600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 437 | 0x00439670 | `Battle::ParsePacket_M::TakeStr3` | 有正文 | `src/YobiRuntime.cpp:13342 — TakeBattleMPreviewString_439670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 438 | 0x00439700 | `Battle::ParsePacket_M::GetHeader3` | 有正文 | `src/YobiRuntime.cpp:13387 — GetBattleMPreviewHeader_439700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 439 | 0x00439770 | `Battle::ParsePacket_M::handleRID` | 有正文 | `src/YobiRuntime.cpp:13525 — ScanBattleMRideParticipants_439770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 440 | 0x00439920 | `sub_439920` | 有正文 | `src/YobiRuntime.cpp:13600 — ScanBattleMAttackParticipants_439920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 441 | 0x00439B30 | `Battle::ParsePacket_M::Most` | 有正文 | `src/YobiRuntime.cpp:13672 — ScanBattleMParticipants_439B30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 442 | 0x0043B290 | `sub_43B290` | 有正文 | `src/YobiRuntime.cpp:14131 — CheckBattleMParticipants_43B290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 443 | 0x0043B360 | `sub_43B360` | 有正文 | `src/YobiRuntime.cpp:14173 — DispatchBattleEvents_43B360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 444 | 0x0043B610 | `sub_43B610` | 有正文 | `src/YobiRuntime.cpp:21756 — NewBattleEvent_43B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 445 | 0x0043B6C0 | `sub_43B6C0` | 有正文 | `src/YobiRuntime.cpp:22467 — FinishBattleEvent_43B6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 446 | 0x0043B7F0 | `sub_43B7F0` | 有正文 | `src/YobiRuntime.cpp:22526 — AppendBattleQueuedTarget_43B7F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 447 | 0x0043B830 | `sub_43B830` | 有正文 | `src/YobiRuntime.cpp:31619 — AdvanceBattleQueuedTarget_43B830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 448 | 0x0043B860 | `Battle::ParsePacket_M::TakeInt4` | 有正文 | `src/YobiRuntime.cpp:14303 — PeekBattleMInteger_43B860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 449 | 0x0043B8C0 | `Battle::ParsePacket_M::TakeStr` | 有正文 | `src/YobiRuntime.cpp:13480 — TakeBattleMStringAt_43B8C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 450 | 0x0043B940 | `Battle::ParsePacket_M::TakeInt3` | 有正文 | `src/YobiRuntime.cpp:13413 — TakeBattleMIntegerAt_43B940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 451 | 0x0043B9B0 | `sub_43B9B0` | 有正文 | `src/YobiRuntime.cpp:13444 — FindBattleMTarget_43B9B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 452 | 0x0043BAA0 | `sub_43BAA0` | 有正文 | `src/YobiRuntime.cpp:22568 — Sub_43BAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 453 | 0x0043BC10 | `sub_43BC10` | 有正文 | `src/YobiRuntime.cpp:29413 — AppendBattleAuxEffects_43BC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 454 | 0x0043BC90 | `sub_43BC90` | 有正文 | `src/YobiRuntime.cpp:31643 — TakeBattleAuxEffects_43BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 455 | 0x0043BD00 | `BattleScene::HasAppendEffect` | 有正文 | `src/YobiRuntime.cpp:22609 — IsBattleAppendEffectSkill_43BD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 456 | 0x0043BE00 | `BattleScene::AddAppendEffect` | 有正文 | `src/YobiRuntime.cpp:22632 — AddBattleAppendEffect_43BE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 457 | 0x0043BEA0 | `sub_43BEA0` | 有正文 | `src/YobiRuntime.cpp:22670 — FindBattleAppendEffectTechnique_43BEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 458 | 0x0043BED0 | `sub_43BED0` | 有正文 | `src/YobiRuntime.cpp:22684 — ClearBattleAppendEffects_43BED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 459 | 0x0043BF00 | `sub_43BF00` | 有正文 | `src/YobiRuntime.cpp:22539 — GetBattleValueBand_43BF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 460 | 0x0043BF30 | `sub_43BF30` | 有正文 | `src/YobiRuntime.cpp:13575 — TakeBattleMAuxGraphics_43BF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 461 | 0x0043BFF0 | `sub_43BFF0` | 有正文 | `src/YobiRuntime.cpp:22710 — Sub_43BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 462 | 0x0043C040 | `sub_43C040` | 有正文 | `src/YobiRuntime.cpp:22726 — Sub_43C040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 463 | 0x0043C060 | `BattleScene::FlushEntry` | 有正文 | `src/YobiRuntime.cpp:33663 — FlushBattleEntries_43C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 464 | 0x0043C0A0 | `sub_43C0A0` | 有正文 | `src/YobiRuntime.cpp:22736 — DrawBattleEntryHover_43C0A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 465 | 0x0043C120 | `BattleScene::GetSelectedEntry` | 有正文 | `src/YobiRuntime.cpp:22760 — GetSelectedBattleEntry_43C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 417 | 0x00438290 | `YobiBattleChara::new` | 有正文 | `src/YobiRuntime.cpp:21818 — NewBattleActor_438290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 418 | 0x004383B0 | `sub_4383B0` | 有正文 | `src/YobiRuntime.cpp:21786 — NewBattleScene_4383B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 419 | 0x004383F0 | `sub_4383F0` | 有正文 | `src/YobiRuntime.cpp:21802 — InitializeBattleScene_4383F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 420 | 0x00438450 | `getIntFromBattleBuffC1` | 有正文 | `src/YobiRuntime.cpp:22074 — TakeBattleCInteger_438450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 421 | 0x004384C0 | `getCharFromBattleBuffC1` | 有正文 | `src/YobiRuntime.cpp:22106 — TakeBattleCString_4384C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 422 | 0x00438550 | `Battle::ParsePacket_C` | 有正文 | `src/YobiRuntime.cpp:22148 — ParseBattleC_438550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 423 | 0x00438F70 | `Battle::ParsePacket_M::TakeInt` | 有正文 | `src/YobiRuntime.cpp:13230 — TakeBattleMInteger_438F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 424 | 0x00438FE0 | `Battle::ParsePacket_M::TakeStr2` | 有正文 | `src/YobiRuntime.cpp:13262 — TakeBattleMString_438FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 425 | 0x00439070 | `Battle::ParsePacket_M::GetHeader` | 有正文 | `src/YobiRuntime.cpp:13204 — GetBattleMHeader_439070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 426 | 0x004390E0 | `InitBattleEntry` | 有正文 | `src/YobiRuntime.cpp:29275 — InitBattleCastList_4390E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 427 | 0x004391E0 | `sub_4391E0` | 有正文 | `src/YobiRuntime.cpp:29307 — ResetBattleCastList_4391E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 428 | 0x004392A0 | `BattleScene::AppendCastList` | 有正文 | `src/YobiRuntime.cpp:29329 — AppendBattleCast_4392A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 429 | 0x004392F0 | `BattleScene::AppendCastList2` | 有正文 | `src/YobiRuntime.cpp:29345 — AppendBattleCastAt_4392F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 430 | 0x00439340 | `sub_439340` | 有正文 | `src/YobiRuntime.cpp:29362 — AdvanceBattleCastState_439340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 431 | 0x00439380 | `BattleEntry::MoveState` | 有正文 | `src/YobiRuntime.cpp:33396 — MoveBattleCastState_439380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 432 | 0x004393A0 | `BattleEntry::AppendEffectList` | 有正文 | `src/YobiRuntime.cpp:29380 — AppendBattleEffectList_4393A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 433 | 0x00439400 | `BattleEntry::AppendEffect` | 有正文 | `src/YobiRuntime.cpp:29396 — AppendBattleEffect_439400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 434 | 0x00439470 | `BattleEntry::MoveEffect` | 有正文 | `src/YobiRuntime.cpp:31629 — AdvanceBattleEffect_439470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 435 | 0x004394A0 | `sub_4394A0` | 有正文 | `src/YobiRuntime.cpp:33406 — CheckBattleTurnReady_4394A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 436 | 0x00439600 | `Battle::ParsePacket_M::TakeInt2` | 有正文 | `src/YobiRuntime.cpp:13308 — TakeBattleMPreviewInteger_439600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 437 | 0x00439670 | `Battle::ParsePacket_M::TakeStr3` | 有正文 | `src/YobiRuntime.cpp:13340 — TakeBattleMPreviewString_439670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 438 | 0x00439700 | `Battle::ParsePacket_M::GetHeader3` | 有正文 | `src/YobiRuntime.cpp:13385 — GetBattleMPreviewHeader_439700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 439 | 0x00439770 | `Battle::ParsePacket_M::handleRID` | 有正文 | `src/YobiRuntime.cpp:13523 — ScanBattleMRideParticipants_439770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 440 | 0x00439920 | `sub_439920` | 有正文 | `src/YobiRuntime.cpp:13598 — ScanBattleMAttackParticipants_439920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 441 | 0x00439B30 | `Battle::ParsePacket_M::Most` | 有正文 | `src/YobiRuntime.cpp:13670 — ScanBattleMParticipants_439B30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 442 | 0x0043B290 | `sub_43B290` | 有正文 | `src/YobiRuntime.cpp:14129 — CheckBattleMParticipants_43B290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 443 | 0x0043B360 | `sub_43B360` | 有正文 | `src/YobiRuntime.cpp:14171 — DispatchBattleEvents_43B360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 444 | 0x0043B610 | `sub_43B610` | 有正文 | `src/YobiRuntime.cpp:21754 — NewBattleEvent_43B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 445 | 0x0043B6C0 | `sub_43B6C0` | 有正文 | `src/YobiRuntime.cpp:22465 — FinishBattleEvent_43B6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 446 | 0x0043B7F0 | `sub_43B7F0` | 有正文 | `src/YobiRuntime.cpp:22524 — AppendBattleQueuedTarget_43B7F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 447 | 0x0043B830 | `sub_43B830` | 有正文 | `src/YobiRuntime.cpp:31617 — AdvanceBattleQueuedTarget_43B830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 448 | 0x0043B860 | `Battle::ParsePacket_M::TakeInt4` | 有正文 | `src/YobiRuntime.cpp:14301 — PeekBattleMInteger_43B860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 449 | 0x0043B8C0 | `Battle::ParsePacket_M::TakeStr` | 有正文 | `src/YobiRuntime.cpp:13478 — TakeBattleMStringAt_43B8C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 450 | 0x0043B940 | `Battle::ParsePacket_M::TakeInt3` | 有正文 | `src/YobiRuntime.cpp:13411 — TakeBattleMIntegerAt_43B940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 451 | 0x0043B9B0 | `sub_43B9B0` | 有正文 | `src/YobiRuntime.cpp:13442 — FindBattleMTarget_43B9B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 452 | 0x0043BAA0 | `sub_43BAA0` | 有正文 | `src/YobiRuntime.cpp:22566 — Sub_43BAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 453 | 0x0043BC10 | `sub_43BC10` | 有正文 | `src/YobiRuntime.cpp:29411 — AppendBattleAuxEffects_43BC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 454 | 0x0043BC90 | `sub_43BC90` | 有正文 | `src/YobiRuntime.cpp:31641 — TakeBattleAuxEffects_43BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 455 | 0x0043BD00 | `BattleScene::HasAppendEffect` | 有正文 | `src/YobiRuntime.cpp:22607 — IsBattleAppendEffectSkill_43BD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 456 | 0x0043BE00 | `BattleScene::AddAppendEffect` | 有正文 | `src/YobiRuntime.cpp:22630 — AddBattleAppendEffect_43BE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 457 | 0x0043BEA0 | `sub_43BEA0` | 有正文 | `src/YobiRuntime.cpp:22668 — FindBattleAppendEffectTechnique_43BEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 458 | 0x0043BED0 | `sub_43BED0` | 有正文 | `src/YobiRuntime.cpp:22682 — ClearBattleAppendEffects_43BED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 459 | 0x0043BF00 | `sub_43BF00` | 有正文 | `src/YobiRuntime.cpp:22537 — GetBattleValueBand_43BF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 460 | 0x0043BF30 | `sub_43BF30` | 有正文 | `src/YobiRuntime.cpp:13573 — TakeBattleMAuxGraphics_43BF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 461 | 0x0043BFF0 | `sub_43BFF0` | 有正文 | `src/YobiRuntime.cpp:22708 — Sub_43BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 462 | 0x0043C040 | `sub_43C040` | 有正文 | `src/YobiRuntime.cpp:22724 — Sub_43C040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 463 | 0x0043C060 | `BattleScene::FlushEntry` | 有正文 | `src/YobiRuntime.cpp:33661 — FlushBattleEntries_43C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 464 | 0x0043C0A0 | `sub_43C0A0` | 有正文 | `src/YobiRuntime.cpp:22734 — DrawBattleEntryHover_43C0A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 465 | 0x0043C120 | `BattleScene::GetSelectedEntry` | 有正文 | `src/YobiRuntime.cpp:22758 — GetSelectedBattleEntry_43C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 466 | 0x0043C3E0 | `sub_43C3E0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1146 — WindowBattleCommand_DrawTargetHint` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 467 | 0x0043C490 | `sub_43C490` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1170 — WindowBattleCommand_ResetTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:4298 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:4310 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 470 | 0x0043C560 | `BattleScene::CheckCommand` | 有正文 | `src/YobiRuntime.cpp:33555 — CheckBattleCommand_43C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:10514 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 472 | 0x0043C910 | `sub_43C910` | 有正文 | `src/YobiRuntime.cpp:33464 — Sub_43C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:4297 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:4309 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 470 | 0x0043C560 | `BattleScene::CheckCommand` | 有正文 | `src/YobiRuntime.cpp:33553 — CheckBattleCommand_43C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:10452 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 472 | 0x0043C910 | `sub_43C910` | 有正文 | `src/YobiRuntime.cpp:33462 — Sub_43C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 473 | 0x0043C950 | `sub_43C950` | 有正文 | `src/ui/windows/WindowBattleStateNotice.cpp:28 — WindowBattleStateNotice_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 474 | 0x0043C9A0 | `sub_43C9A0` | 有正文 | `src/YobiRuntime.cpp:33479 — Sub_43C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 475 | 0x0043CA50 | `sub_43CA50` | 有正文 | `src/YobiRuntime.cpp:33513 — Sub_43CA50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 476 | 0x0043CA80 | `sub_43CA80` | 有正文 | `src/YobiRuntime.cpp:33527 — Sub_43CA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 474 | 0x0043C9A0 | `sub_43C9A0` | 有正文 | `src/YobiRuntime.cpp:33477 — Sub_43C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 475 | 0x0043CA50 | `sub_43CA50` | 有正文 | `src/YobiRuntime.cpp:33511 — Sub_43CA50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 476 | 0x0043CA80 | `sub_43CA80` | 有正文 | `src/YobiRuntime.cpp:33525 — Sub_43CA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 477 | 0x0043CB10 | `sub_43CB10` | 有正文 | `src/world/MapSceneDrawing.cpp:336 — Sub_43CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:7062 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/LegacyMouse.cpp:52 — WorldObjectsStaticInitializer构造／析构` | 世界表原位置构造，退出由拥有者析构承接；手写atexit退休，登记结果／机器ABI不承诺等价；运行未验 |
+| 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:7021 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/LegacyMouse.cpp:51 — WorldObjectsStaticInitializer构造／析构` | 世界表原位置构造，退出由拥有者析构承接；手写atexit退休，登记结果／机器ABI不承诺等价；运行未验 |
 | 480 | 0x0043D770 | `sub_43D770` | 有正文 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 481 | 0x0043D7A0 | `sub_43D7A0` | 有正文 | `src/world/WorldObjectState.cpp:340 — DestroyWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 482 | 0x0043D7C0 | `sub_43D7C0` | 有承接 | `src/world/WorldObjectState.hpp:19 — WorldObjectRecord::WorldObjectRecord` | 两CryptInt成员按声明序自动构造；千项同一optional数组；C++完成前缀清理承接；运行未验 |
 | 483 | 0x0043D810 | `sub_43D810` | 有承接 | `src/world/WorldObjectState.hpp:21 — WorldObjectRecord::~WorldObjectRecord` | 成员1C→0C及数组元素自动逆序析构，退休手工适配；原SEH／完整运行未验 |
-| 484 | 0x0043D860 | `sub_43D860` | 有正文 | `src/YobiRuntime.cpp:35871 — Sub_43D860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 485 | 0x0043D970 | `sub_43D970` | 有正文 | `src/YobiRuntime.cpp:36036 — Sub_43D970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 486 | 0x0043D9A0 | `sub_43D9A0` | 有正文 | `src/YobiRuntime.cpp:36048 — Sub_43D9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 487 | 0x0043D9D0 | `sub_43D9D0` | 有正文 | `src/YobiRuntime.cpp:36060 — Sub_43D9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 488 | 0x0043DA10 | `sub_43DA10` | 有正文 | `src/YobiRuntime.cpp:36075 — Sub_43DA10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 489 | 0x0043DA40 | `sub_43DA40` | 有正文 | `src/YobiRuntime.cpp:36087 — Sub_43DA40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 490 | 0x0043DA70 | `sub_43DA70` | 有正文 | `src/YobiRuntime.cpp:36099 — Sub_43DA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 491 | 0x0043DAA0 | `sub_43DAA0` | 有正文 | `src/YobiRuntime.cpp:36111 — Sub_43DAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 492 | 0x0043DAD0 | `sub_43DAD0` | 有正文 | `src/YobiRuntime.cpp:36123 — Sub_43DAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 493 | 0x0043DB00 | `sub_43DB00` | 有正文 | `src/YobiRuntime.cpp:36135 — Sub_43DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 494 | 0x0043DB30 | `sub_43DB30` | 有正文 | `src/YobiRuntime.cpp:36147 — Sub_43DB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 495 | 0x0043DB60 | `BattleEntry::showHpBar` | 有正文 | `src/YobiRuntime.cpp:6303 — ShowHpBar_43DB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 496 | 0x0043DD00 | `sub_43DD00` | 有正文 | `src/YobiRuntime.cpp:4825 — Sub_43DD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 497 | 0x0043E490 | `sub_43E490` | 有正文 | `src/YobiRuntime.cpp:4997 — Sub_43E490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 498 | 0x0043EFC0 | `sub_43EFC0` | 有正文 | `src/YobiRuntime.cpp:5219 — Sub_43EFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 499 | 0x0043F180 | `sub_43F180` | 有正文 | `src/YobiRuntime.cpp:5570 — Sub_43F180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 500 | 0x0043F1B0 | `sub_43F1B0` | 有正文 | `src/YobiRuntime.cpp:5589 — Sub_43F1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 501 | 0x0043F1F0 | `sub_43F1F0` | 有正文 | `src/YobiRuntime.cpp:5612 — Sub_43F1F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 502 | 0x0043F220 | `sub_43F220` | 有正文 | `src/YobiRuntime.cpp:5630 — Sub_43F220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 503 | 0x0043F230 | `sub_43F230` | 有正文 | `src/YobiRuntime.cpp:5636 — Sub_43F230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 504 | 0x0043F290 | `sub_43F290` | 有正文 | `src/YobiRuntime.cpp:2394 — Sub_43F290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 505 | 0x0043F330 | `YobiMapChara::new` | 有正文 | `src/YobiRuntime.cpp:2290 — Sub_43F330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 506 | 0x0043F520 | `YobiMapChara::Update` | 有正文 | `src/YobiRuntime.cpp:2740 — Sub_43F520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 507 | 0x0043F910 | `sub_43F910` | 有正文 | `src/YobiRuntime.cpp:2485 — Sub_43F910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 508 | 0x0043FD90 | `sub_43FD90` | 有正文 | `src/YobiRuntime.cpp:5658 — Sub_43FD90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 509 | 0x0043FE00 | `sub_43FE00` | 有正文 | `src/YobiRuntime.cpp:2426 — Sub_43FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 510 | 0x0043FEB0 | `sub_43FEB0` | 有正文 | `src/YobiRuntime.cpp:2337 — Sub_43FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 511 | 0x00440070 | `sub_440070` | 有正文 | `src/YobiRuntime.cpp:2849 — Sub_440070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 512 | 0x00440440 | `sub_440440` | 有正文 | `src/YobiRuntime.cpp:2569 — Sub_440440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 513 | 0x004408C0 | `sub_4408C0` | 有正文 | `src/YobiRuntime.cpp:2380 — Sub_4408C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 514 | 0x00440920 | `sub_440920` | 有正文 | `src/YobiRuntime.cpp:2939 — Sub_440920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:8520 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 516 | 0x00440B70 | `sub_440B70` | 有正文 | `src/YobiRuntime.cpp:6446 — Sub_440B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 517 | 0x00440C50 | `sub_440C50` | 有正文 | `src/YobiRuntime.cpp:6352 — Sub_440C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 518 | 0x00440F50 | `sub_440F50` | 有正文 | `src/YobiRuntime.cpp:6490 — Sub_440F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 519 | 0x00440FE0 | `sub_440FE0` | 有正文 | `src/YobiRuntime.cpp:6526 — Sub_440FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 520 | 0x00440FF0 | `sub_440FF0` | 有正文 | `src/world/SceneState.cpp:2411 — Sub_440FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:8527 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 522 | 0x004410F0 | `YobiGear::new` | 有正文 | `src/YobiRuntime.cpp:6570 — NewYobiGear_4410F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 523 | 0x00441130 | `YobiGearPet::new` | 有正文 | `src/YobiRuntime.cpp:6534 — NewYobiGearPet_441130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 524 | 0x004412D0 | `sub_4412D0` | 有正文 | `src/YobiRuntime.cpp:5775 — Sub_4412D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 525 | 0x00441430 | `sub_441430` | 有正文 | `src/YobiRuntime.cpp:5821 — Sub_441430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 526 | 0x00441570 | `YobiMapChara::DrawGear` | 有正文 | `src/YobiRuntime.cpp:5862 — DrawGear_441570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 527 | 0x004417A0 | `sub_4417A0` | 有正文 | `src/YobiRuntime.cpp:5725 — Sub_4417A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 528 | 0x004417E0 | `sub_4417E0` | 有正文 | `src/YobiRuntime.cpp:5033 — Sub_4417E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 529 | 0x00441DB0 | `sub_441DB0` | 有正文 | `src/YobiRuntime.cpp:3008 — Sub_441DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 530 | 0x00441F60 | `sub_441F60` | 有正文 | `src/YobiRuntime.cpp:4325 — Sub_441F60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 531 | 0x00441FC0 | `sub_441FC0` | 有正文 | `src/YobiRuntime.cpp:4348 — Sub_441FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 532 | 0x00442110 | `sub_442110` | 有正文 | `src/YobiRuntime.cpp:4413 — Sub_442110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 533 | 0x004422F0 | `sub_4422F0` | 有正文 | `src/YobiRuntime.cpp:4450 — Sub_4422F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 534 | 0x00442460 | `sub_442460` | 有正文 | `src/YobiRuntime.cpp:4483 — Sub_442460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 535 | 0x004424B0 | `sub_4424B0` | 有正文 | `src/YobiRuntime.cpp:5279 — Sub_4424B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 536 | 0x00442730 | `sub_442730` | 有正文 | `src/YobiRuntime.cpp:5365 — Sub_442730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 537 | 0x004428F0 | `sub_4428F0` | 有正文 | `src/YobiRuntime.cpp:5420 — Sub_4428F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 538 | 0x00442AB0 | `sub_442AB0` | 有正文 | `src/YobiRuntime.cpp:4301 — Sub_442AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 539 | 0x00442BD0 | `sub_442BD0` | 有正文 | `src/YobiRuntime.cpp:36489 — Sub_442BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 540 | 0x00442C00 | `sub_442C00` | 有正文 | `src/YobiRuntime.cpp:35950 — Sub_442C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 541 | 0x00442C40 | `sub_442C40` | 有正文 | `src/YobiRuntime.cpp:36464 — Sub_442C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 542 | 0x00442C70 | `sub_442C70` | 有正文 | `src/YobiRuntime.cpp:36476 — Sub_442C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 543 | 0x00442CA0 | `sub_442CA0` | 有正文 | `src/YobiRuntime.cpp:35964 — Sub_442CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 544 | 0x00442CD0 | `sub_442CD0` | 有正文 | `src/YobiRuntime.cpp:35976 — Sub_442CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 545 | 0x00442D00 | `sub_442D00` | 有正文 | `src/YobiRuntime.cpp:35988 — Sub_442D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 546 | 0x00442D30 | `sub_442D30` | 有正文 | `src/YobiRuntime.cpp:36000 — Sub_442D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 547 | 0x00442D60 | `sub_442D60` | 有正文 | `src/YobiRuntime.cpp:36012 — Sub_442D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 548 | 0x00442D90 | `sub_442D90` | 有正文 | `src/YobiRuntime.cpp:36024 — Sub_442D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 549 | 0x00442DC0 | `sub_442DC0` | 有正文 | `src/YobiRuntime.cpp:35905 — Sub_442DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 550 | 0x00442F70 | `sub_442F70` | 有正文 | `src/YobiRuntime.cpp:5903 — Sub_442F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 551 | 0x00444000 | `sub_444000` | 有正文 | `src/YobiRuntime.cpp:5734 — Sub_444000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 552 | 0x004441A0 | `sub_4441A0` | 有正文 | `src/YobiRuntime.cpp:3228 — Sub_4441A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 553 | 0x00444260 | `sub_444260` | 有正文 | `src/YobiRuntime.cpp:3263 — Sub_444260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 554 | 0x00444410 | `sub_444410` | 有正文 | `src/YobiRuntime.cpp:36159 — Sub_444410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 484 | 0x0043D860 | `sub_43D860` | 有正文 | `src/YobiRuntime.cpp:35423 — Sub_43D860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 485 | 0x0043D970 | `sub_43D970` | 有正文 | `src/YobiRuntime.cpp:35588 — Sub_43D970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 486 | 0x0043D9A0 | `sub_43D9A0` | 有正文 | `src/YobiRuntime.cpp:35600 — Sub_43D9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 487 | 0x0043D9D0 | `sub_43D9D0` | 有正文 | `src/YobiRuntime.cpp:35612 — Sub_43D9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 488 | 0x0043DA10 | `sub_43DA10` | 有正文 | `src/YobiRuntime.cpp:35627 — Sub_43DA10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 489 | 0x0043DA40 | `sub_43DA40` | 有正文 | `src/YobiRuntime.cpp:35639 — Sub_43DA40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 490 | 0x0043DA70 | `sub_43DA70` | 有正文 | `src/YobiRuntime.cpp:35651 — Sub_43DA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 491 | 0x0043DAA0 | `sub_43DAA0` | 有正文 | `src/YobiRuntime.cpp:35663 — Sub_43DAA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 492 | 0x0043DAD0 | `sub_43DAD0` | 有正文 | `src/YobiRuntime.cpp:35675 — Sub_43DAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 493 | 0x0043DB00 | `sub_43DB00` | 有正文 | `src/YobiRuntime.cpp:35687 — Sub_43DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 494 | 0x0043DB30 | `sub_43DB30` | 有正文 | `src/YobiRuntime.cpp:35699 — Sub_43DB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 495 | 0x0043DB60 | `BattleEntry::showHpBar` | 有正文 | `src/YobiRuntime.cpp:6301 — ShowHpBar_43DB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 496 | 0x0043DD00 | `sub_43DD00` | 有正文 | `src/YobiRuntime.cpp:4823 — Sub_43DD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 497 | 0x0043E490 | `sub_43E490` | 有正文 | `src/YobiRuntime.cpp:4995 — Sub_43E490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 498 | 0x0043EFC0 | `sub_43EFC0` | 有正文 | `src/YobiRuntime.cpp:5217 — Sub_43EFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 499 | 0x0043F180 | `sub_43F180` | 有正文 | `src/YobiRuntime.cpp:5568 — Sub_43F180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 500 | 0x0043F1B0 | `sub_43F1B0` | 有正文 | `src/YobiRuntime.cpp:5587 — Sub_43F1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 501 | 0x0043F1F0 | `sub_43F1F0` | 有正文 | `src/YobiRuntime.cpp:5610 — Sub_43F1F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 502 | 0x0043F220 | `sub_43F220` | 有正文 | `src/YobiRuntime.cpp:5628 — Sub_43F220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 503 | 0x0043F230 | `sub_43F230` | 有正文 | `src/YobiRuntime.cpp:5634 — Sub_43F230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 504 | 0x0043F290 | `sub_43F290` | 有正文 | `src/YobiRuntime.cpp:2392 — Sub_43F290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 505 | 0x0043F330 | `YobiMapChara::new` | 有正文 | `src/YobiRuntime.cpp:2288 — Sub_43F330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 506 | 0x0043F520 | `YobiMapChara::Update` | 有正文 | `src/YobiRuntime.cpp:2738 — Sub_43F520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 507 | 0x0043F910 | `sub_43F910` | 有正文 | `src/YobiRuntime.cpp:2483 — Sub_43F910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 508 | 0x0043FD90 | `sub_43FD90` | 有正文 | `src/YobiRuntime.cpp:5656 — Sub_43FD90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 509 | 0x0043FE00 | `sub_43FE00` | 有正文 | `src/YobiRuntime.cpp:2424 — Sub_43FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 510 | 0x0043FEB0 | `sub_43FEB0` | 有正文 | `src/YobiRuntime.cpp:2335 — Sub_43FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 511 | 0x00440070 | `sub_440070` | 有正文 | `src/YobiRuntime.cpp:2847 — Sub_440070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 512 | 0x00440440 | `sub_440440` | 有正文 | `src/YobiRuntime.cpp:2567 — Sub_440440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 513 | 0x004408C0 | `sub_4408C0` | 有正文 | `src/YobiRuntime.cpp:2378 — Sub_4408C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 514 | 0x00440920 | `sub_440920` | 有正文 | `src/YobiRuntime.cpp:2937 — Sub_440920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:8473 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 516 | 0x00440B70 | `sub_440B70` | 有正文 | `src/YobiRuntime.cpp:6444 — Sub_440B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 517 | 0x00440C50 | `sub_440C50` | 有正文 | `src/YobiRuntime.cpp:6350 — Sub_440C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 518 | 0x00440F50 | `sub_440F50` | 有正文 | `src/YobiRuntime.cpp:6488 — Sub_440F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 519 | 0x00440FE0 | `sub_440FE0` | 有正文 | `src/YobiRuntime.cpp:6524 — Sub_440FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 520 | 0x00440FF0 | `sub_440FF0` | 有正文 | `src/world/SceneState.cpp:2410 — Sub_440FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:8480 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 522 | 0x004410F0 | `YobiGear::new` | 有正文 | `src/YobiRuntime.cpp:6568 — NewYobiGear_4410F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 523 | 0x00441130 | `YobiGearPet::new` | 有正文 | `src/YobiRuntime.cpp:6532 — NewYobiGearPet_441130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 524 | 0x004412D0 | `sub_4412D0` | 有正文 | `src/YobiRuntime.cpp:5773 — Sub_4412D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 525 | 0x00441430 | `sub_441430` | 有正文 | `src/YobiRuntime.cpp:5819 — Sub_441430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 526 | 0x00441570 | `YobiMapChara::DrawGear` | 有正文 | `src/YobiRuntime.cpp:5860 — DrawGear_441570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 527 | 0x004417A0 | `sub_4417A0` | 有正文 | `src/YobiRuntime.cpp:5723 — Sub_4417A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 528 | 0x004417E0 | `sub_4417E0` | 有正文 | `src/YobiRuntime.cpp:5031 — Sub_4417E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 529 | 0x00441DB0 | `sub_441DB0` | 有正文 | `src/YobiRuntime.cpp:3006 — Sub_441DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 530 | 0x00441F60 | `sub_441F60` | 有正文 | `src/YobiRuntime.cpp:4323 — Sub_441F60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 531 | 0x00441FC0 | `sub_441FC0` | 有正文 | `src/YobiRuntime.cpp:4346 — Sub_441FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 532 | 0x00442110 | `sub_442110` | 有正文 | `src/YobiRuntime.cpp:4411 — Sub_442110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 533 | 0x004422F0 | `sub_4422F0` | 有正文 | `src/YobiRuntime.cpp:4448 — Sub_4422F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 534 | 0x00442460 | `sub_442460` | 有正文 | `src/YobiRuntime.cpp:4481 — Sub_442460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 535 | 0x004424B0 | `sub_4424B0` | 有正文 | `src/YobiRuntime.cpp:5277 — Sub_4424B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 536 | 0x00442730 | `sub_442730` | 有正文 | `src/YobiRuntime.cpp:5363 — Sub_442730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 537 | 0x004428F0 | `sub_4428F0` | 有正文 | `src/YobiRuntime.cpp:5418 — Sub_4428F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 538 | 0x00442AB0 | `sub_442AB0` | 有正文 | `src/YobiRuntime.cpp:4299 — Sub_442AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 539 | 0x00442BD0 | `sub_442BD0` | 有正文 | `src/YobiRuntime.cpp:36041 — Sub_442BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 540 | 0x00442C00 | `sub_442C00` | 有正文 | `src/YobiRuntime.cpp:35502 — Sub_442C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 541 | 0x00442C40 | `sub_442C40` | 有正文 | `src/YobiRuntime.cpp:36016 — Sub_442C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 542 | 0x00442C70 | `sub_442C70` | 有正文 | `src/YobiRuntime.cpp:36028 — Sub_442C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 543 | 0x00442CA0 | `sub_442CA0` | 有正文 | `src/YobiRuntime.cpp:35516 — Sub_442CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 544 | 0x00442CD0 | `sub_442CD0` | 有正文 | `src/YobiRuntime.cpp:35528 — Sub_442CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 545 | 0x00442D00 | `sub_442D00` | 有正文 | `src/YobiRuntime.cpp:35540 — Sub_442D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 546 | 0x00442D30 | `sub_442D30` | 有正文 | `src/YobiRuntime.cpp:35552 — Sub_442D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 547 | 0x00442D60 | `sub_442D60` | 有正文 | `src/YobiRuntime.cpp:35564 — Sub_442D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 548 | 0x00442D90 | `sub_442D90` | 有正文 | `src/YobiRuntime.cpp:35576 — Sub_442D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 549 | 0x00442DC0 | `sub_442DC0` | 有正文 | `src/YobiRuntime.cpp:35457 — Sub_442DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 550 | 0x00442F70 | `sub_442F70` | 有正文 | `src/YobiRuntime.cpp:5901 — Sub_442F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 551 | 0x00444000 | `sub_444000` | 有正文 | `src/YobiRuntime.cpp:5732 — Sub_444000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 552 | 0x004441A0 | `sub_4441A0` | 有正文 | `src/YobiRuntime.cpp:3226 — Sub_4441A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 553 | 0x00444260 | `sub_444260` | 有正文 | `src/YobiRuntime.cpp:3261 — Sub_444260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 554 | 0x00444410 | `sub_444410` | 有正文 | `src/YobiRuntime.cpp:35711 — Sub_444410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 555 | 0x00444FA0 | `World::FindObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:87 — Sub_444FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 556 | 0x00445030 | `sub_445030` | 有正文 | `src/YobiRuntime.cpp:36863 — Sub_445030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 557 | 0x004450D0 | `sub_4450D0` | 有正文 | `src/YobiRuntime.cpp:36892 — Sub_4450D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 558 | 0x00445160 | `sub_445160` | 有正文 | `src/YobiRuntime.cpp:36919 — Sub_445160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 559 | 0x004451F0 | `sub_4451F0` | 有正文 | `src/YobiRuntime.cpp:36946 — Sub_4451F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 560 | 0x004452A0 | `sub_4452A0` | 有正文 | `src/YobiRuntime.cpp:36976 — Sub_4452A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 561 | 0x00445350 | `sub_445350` | 有正文 | `src/YobiRuntime.cpp:36598 — Sub_445350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 556 | 0x00445030 | `sub_445030` | 有正文 | `src/YobiRuntime.cpp:36415 — Sub_445030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 557 | 0x004450D0 | `sub_4450D0` | 有正文 | `src/YobiRuntime.cpp:36444 — Sub_4450D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 558 | 0x00445160 | `sub_445160` | 有正文 | `src/YobiRuntime.cpp:36471 — Sub_445160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 559 | 0x004451F0 | `sub_4451F0` | 有正文 | `src/YobiRuntime.cpp:36498 — Sub_4451F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 560 | 0x004452A0 | `sub_4452A0` | 有正文 | `src/YobiRuntime.cpp:36528 — Sub_4452A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 561 | 0x00445350 | `sub_445350` | 有正文 | `src/YobiRuntime.cpp:36150 — Sub_445350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 562 | 0x00445A60 | `sub_445A60` | 有正文 | `src/world/WorldObjectState.cpp:185 — Sub_445A60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 563 | 0x00445D20 | `sub_445D20` | 有正文 | `src/YobiRuntime.cpp:36744 — Sub_445D20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 564 | 0x00445F40 | `sub_445F40` | 有正文 | `src/YobiRuntime.cpp:36805 — Sub_445F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 563 | 0x00445D20 | `sub_445D20` | 有正文 | `src/YobiRuntime.cpp:36296 — Sub_445D20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 564 | 0x00445F40 | `sub_445F40` | 有正文 | `src/YobiRuntime.cpp:36357 — Sub_445F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 565 | 0x00446130 | `World::TakeEmptyObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:118 — Sub_446130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 566 | 0x004461E0 | `sub_4461E0` | 有正文 | `src/world/WorldObjectState.cpp:150 — Sub_4461E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 567 | 0x00446210 | `sub_446210` | 有正文 | `src/world/WorldObjectState.cpp:165 — Sub_446210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -622,75 +628,75 @@
 | 570 | 0x00446470 | `sub_446470` | 有正文 | `src/world/WorldObjectState.cpp:284 — Sub_446470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 571 | 0x004464D0 | `sub_4464D0` | 有正文 | `src/world/WorldObjectState.cpp:303 — Sub_4464D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 572 | 0x00446610 | `sub_446610` | 有正文 | `src/world/WorldObjectState.cpp:46 — Sub_446610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 573 | 0x00446640 | `sub_446640` | 有正文 | `src/YobiRuntime.cpp:36550 — Sub_446640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 574 | 0x004467D0 | `sub_4467D0` | 有正文 | `src/YobiRuntime.cpp:36509 — Sub_4467D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 573 | 0x00446640 | `sub_446640` | 有正文 | `src/YobiRuntime.cpp:36102 — Sub_446640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 574 | 0x004467D0 | `sub_4467D0` | 有正文 | `src/YobiRuntime.cpp:36061 — Sub_4467D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 575 | 0x004468F0 | `sub_4468F0` | 有正文 | `src/world/WorldObjectState.cpp:57 — Sub_4468F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 576 | 0x00446900 | `sub_446900` | 有正文 | `src/world/WorldObjectState.cpp:63 — Sub_446900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 577 | 0x00446970 | `sub_446970` | 有正文 | `src/YobiRuntime.cpp:928 — Sub_446970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 578 | 0x00446990 | `sub_446990` | 有正文 | `src/YobiRuntime.cpp:937 — Sub_446990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 579 | 0x004469C0 | `sub_4469C0` | 有正文 | `src/YobiRuntime.cpp:3302 — Sub_4469C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 580 | 0x00446B50 | `sub_446B50` | 有正文 | `src/YobiRuntime.cpp:3355 — Sub_446B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 581 | 0x00446C10 | `sub_446C10` | 有正文 | `src/YobiRuntime.cpp:3388 — Sub_446C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 582 | 0x00446D80 | `sub_446D80` | 有正文 | `src/YobiRuntime.cpp:3623 — Sub_446D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 583 | 0x00446FA0 | `sub_446FA0` | 有正文 | `src/YobiRuntime.cpp:3686 — Sub_446FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 584 | 0x00447070 | `sub_447070` | 有正文 | `src/YobiRuntime.cpp:3722 — Sub_447070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 585 | 0x00447230 | `sub_447230` | 有正文 | `src/YobiRuntime.cpp:3749 — Sub_447230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 586 | 0x004473B0 | `sub_4473B0` | 有正文 | `src/YobiRuntime.cpp:3120 — Sub_4473B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 587 | 0x004474E0 | `sub_4474E0` | 有正文 | `src/YobiRuntime.cpp:3173 — Sub_4474E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 588 | 0x00447610 | `sub_447610` | 有正文 | `src/YobiRuntime.cpp:3772 — Sub_447610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 589 | 0x00447820 | `sub_447820` | 有正文 | `src/YobiRuntime.cpp:3804 — Sub_447820` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 590 | 0x00447A20 | `sub_447A20` | 有正文 | `src/YobiRuntime.cpp:3832 — Sub_447A20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 591 | 0x00447C40 | `sub_447C40` | 有正文 | `src/YobiRuntime.cpp:3838 — Sub_447C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 592 | 0x00447E60 | `sub_447E60` | 有正文 | `src/YobiRuntime.cpp:3844 — Sub_447E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 593 | 0x00448040 | `sub_448040` | 有正文 | `src/YobiRuntime.cpp:3054 — Sub_448040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 594 | 0x00448240 | `sub_448240` | 有正文 | `src/world/SceneState.cpp:1028 — IsMapFloorAllowed_448240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 595 | 0x00448290 | `sub_448290` | 有正文 | `src/YobiRuntime.cpp:34331 — Sub_448290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 596 | 0x00448370 | `sub_448370` | 有正文 | `src/YobiRuntime.cpp:33711 — Sub_448370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 597 | 0x004483A0 | `sub_4483A0` | 有正文 | `src/YobiRuntime.cpp:34208 — Sub_4483A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 598 | 0x00448810 | `sub_448810` | 有正文 | `src/YobiRuntime.cpp:33919 — Sub_448810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 599 | 0x00448A50 | `sub_448A50` | 有正文 | `src/YobiRuntime.cpp:33813 — Sub_448A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 600 | 0x00448BF0 | `sub_448BF0` | 有正文 | `src/YobiRuntime.cpp:33866 — Sub_448BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 601 | 0x00448D90 | `sub_448D90` | 有正文 | `src/YobiRuntime.cpp:33980 — Sub_448D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 602 | 0x00449160 | `sub_449160` | 有正文 | `src/YobiRuntime.cpp:34432 — Sub_449160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 603 | 0x004493C0 | `sub_4493C0` | 有正文 | `src/world/SceneState.cpp:1043 — Sub_4493C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 604 | 0x00449400 | `sub_449400` | 有正文 | `src/YobiRuntime.cpp:34377 — Sub_449400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 605 | 0x00449570 | `sub_449570` | 有正文 | `src/YobiRuntime.cpp:33727 — Sub_449570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 606 | 0x00449670 | `sub_449670` | 有正文 | `src/YobiRuntime.cpp:34364 — Sub_449670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 607 | 0x004496C0 | `sub_4496C0` | 有正文 | `src/YobiRuntime.cpp:33767 — Sub_4496C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 608 | 0x00449700 | `sub_449700` | 有正文 | `src/YobiRuntime.cpp:34147 — Sub_449700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 609 | 0x00449A00 | `sub_449A00` | 有正文 | `src/YobiRuntime.cpp:34061 — Sub_449A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 610 | 0x00449BC0 | `sub_449BC0` | 有正文 | `src/YobiRuntime.cpp:34128 — Sub_449BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 611 | 0x00449C10 | `sub_449C10` | 有正文 | `src/YobiRuntime.cpp:34114 — Sub_449C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 612 | 0x00449C90 | `sub_449C90` | 有正文 | `src/YobiRuntime.cpp:36435 — Sub_449C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 613 | 0x00449CC0 | `sub_449CC0` | 有正文 | `src/YobiRuntime.cpp:36451 — Sub_449CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 614 | 0x00449CF0 | `sub_449CF0` | 有正文 | `src/Input.cpp:979 — InitializeContext_449CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 615 | 0x00449DA0 | `sub_449DA0` | 有正文 | `src/Input.cpp:1158 — Sub_449DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 616 | 0x00449FA0 | `sub_449FA0` | 有正文 | `src/Input.cpp:1134 — Sub_449FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 617 | 0x0044A090 | `sub_44A090` | 有正文 | `src/Input.cpp:1109 — Sub_44A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 618 | 0x0044A160 | `sub_44A160` | 有正文 | `src/Input.cpp:851 — LoadInitialText_44A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 619 | 0x0044A1B0 | `sub_44A1B0` | 有正文 | `src/Input.cpp:1346 — BrowseChatHistory_44A1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 577 | 0x00446970 | `sub_446970` | 有正文 | `src/YobiRuntime.cpp:926 — Sub_446970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 578 | 0x00446990 | `sub_446990` | 有正文 | `src/YobiRuntime.cpp:935 — Sub_446990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 579 | 0x004469C0 | `sub_4469C0` | 有正文 | `src/YobiRuntime.cpp:3300 — Sub_4469C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 580 | 0x00446B50 | `sub_446B50` | 有正文 | `src/YobiRuntime.cpp:3353 — Sub_446B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 581 | 0x00446C10 | `sub_446C10` | 有正文 | `src/YobiRuntime.cpp:3386 — Sub_446C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 582 | 0x00446D80 | `sub_446D80` | 有正文 | `src/YobiRuntime.cpp:3621 — Sub_446D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 583 | 0x00446FA0 | `sub_446FA0` | 有正文 | `src/YobiRuntime.cpp:3684 — Sub_446FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 584 | 0x00447070 | `sub_447070` | 有正文 | `src/YobiRuntime.cpp:3720 — Sub_447070` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 585 | 0x00447230 | `sub_447230` | 有正文 | `src/YobiRuntime.cpp:3747 — Sub_447230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 586 | 0x004473B0 | `sub_4473B0` | 有正文 | `src/YobiRuntime.cpp:3118 — Sub_4473B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 587 | 0x004474E0 | `sub_4474E0` | 有正文 | `src/YobiRuntime.cpp:3171 — Sub_4474E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 588 | 0x00447610 | `sub_447610` | 有正文 | `src/YobiRuntime.cpp:3770 — Sub_447610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 589 | 0x00447820 | `sub_447820` | 有正文 | `src/YobiRuntime.cpp:3802 — Sub_447820` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 590 | 0x00447A20 | `sub_447A20` | 有正文 | `src/YobiRuntime.cpp:3830 — Sub_447A20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 591 | 0x00447C40 | `sub_447C40` | 有正文 | `src/YobiRuntime.cpp:3836 — Sub_447C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 592 | 0x00447E60 | `sub_447E60` | 有正文 | `src/YobiRuntime.cpp:3842 — Sub_447E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 593 | 0x00448040 | `sub_448040` | 有正文 | `src/YobiRuntime.cpp:3052 — Sub_448040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 594 | 0x00448240 | `sub_448240` | 有正文 | `src/world/SceneState.cpp:1027 — IsMapFloorAllowed_448240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 595 | 0x00448290 | `sub_448290` | 有正文 | `src/YobiRuntime.cpp:34329 — Sub_448290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 596 | 0x00448370 | `sub_448370` | 有正文 | `src/YobiRuntime.cpp:33709 — Sub_448370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 597 | 0x004483A0 | `sub_4483A0` | 有正文 | `src/YobiRuntime.cpp:34206 — Sub_4483A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 598 | 0x00448810 | `sub_448810` | 有正文 | `src/YobiRuntime.cpp:33917 — Sub_448810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 599 | 0x00448A50 | `sub_448A50` | 有正文 | `src/YobiRuntime.cpp:33811 — Sub_448A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 600 | 0x00448BF0 | `sub_448BF0` | 有正文 | `src/YobiRuntime.cpp:33864 — Sub_448BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 601 | 0x00448D90 | `sub_448D90` | 有正文 | `src/YobiRuntime.cpp:33978 — Sub_448D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 602 | 0x00449160 | `sub_449160` | 有正文 | `src/YobiRuntime.cpp:34430 — Sub_449160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 603 | 0x004493C0 | `sub_4493C0` | 有正文 | `src/world/SceneState.cpp:1042 — Sub_4493C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 604 | 0x00449400 | `sub_449400` | 有正文 | `src/YobiRuntime.cpp:34375 — Sub_449400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 605 | 0x00449570 | `sub_449570` | 有正文 | `src/YobiRuntime.cpp:33725 — Sub_449570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 606 | 0x00449670 | `sub_449670` | 有正文 | `src/YobiRuntime.cpp:34362 — Sub_449670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 607 | 0x004496C0 | `sub_4496C0` | 有正文 | `src/YobiRuntime.cpp:33765 — Sub_4496C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 608 | 0x00449700 | `sub_449700` | 有正文 | `src/YobiRuntime.cpp:34145 — Sub_449700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 609 | 0x00449A00 | `sub_449A00` | 有正文 | `src/YobiRuntime.cpp:34059 — Sub_449A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 610 | 0x00449BC0 | `sub_449BC0` | 有正文 | `src/YobiRuntime.cpp:34126 — Sub_449BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 611 | 0x00449C10 | `sub_449C10` | 有正文 | `src/YobiRuntime.cpp:34112 — Sub_449C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 612 | 0x00449C90 | `sub_449C90` | 有正文 | `src/YobiRuntime.cpp:35987 — Sub_449C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 613 | 0x00449CC0 | `sub_449CC0` | 有正文 | `src/YobiRuntime.cpp:36003 — Sub_449CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 614 | 0x00449CF0 | `sub_449CF0` | 有正文 | `src/Input.cpp:952 — InitializeContext_449CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 615 | 0x00449DA0 | `sub_449DA0` | 有正文 | `src/Input.cpp:1131 — Sub_449DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 616 | 0x00449FA0 | `sub_449FA0` | 有正文 | `src/Input.cpp:1107 — Sub_449FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 617 | 0x0044A090 | `sub_44A090` | 有正文 | `src/Input.cpp:1082 — Sub_44A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 618 | 0x0044A160 | `sub_44A160` | 有正文 | `src/Input.cpp:845 — LoadInitialText_44A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 619 | 0x0044A1B0 | `sub_44A1B0` | 有正文 | `src/Input.cpp:1319 — BrowseChatHistory_44A1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 620 | 0x0044A410 | `sub_44A410` | 有正文 | `src/InputCaret.cpp:124 — Sub_44A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 621 | 0x0044A540 | `sub_44A540` | 有正文 | `src/Input.cpp:444 — Sub_44A540` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 622 | 0x0044A580 | `sub_44A580` | 有正文 | `src/Input.cpp:463 — Sub_44A580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 623 | 0x0044A5D0 | `sub_44A5D0` | 有正文 | `src/Input.cpp:438 — Sub_44A5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 624 | 0x0044A7D0 | `sub_44A7D0` | 有正文 | `src/Input.cpp:482 — Sub_44A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 625 | 0x0044A990 | `sub_44A990` | 有正文 | `src/Input.cpp:488 — Sub_44A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 626 | 0x0044AA90 | `sub_44AA90` | 有正文 | `src/Input.cpp:503 — Sub_44AA90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 627 | 0x0044AB60 | `sub_44AB60` | 有正文 | `src/Input.cpp:1409 — Sub_44AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 628 | 0x0044ADB0 | `Input::AppendChar` | 有正文 | `src/Input.cpp:857 — AppendChar_44ADB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 629 | 0x0044B050 | `World::AppendMsgToCharWindow` | 有正文 | `src/Input.cpp:1261 — Sub_44B050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 630 | 0x0044B170 | `sub_44B170` | 有正文 | `src/ui/windows/WindowChat.cpp:723 — WindowChat_ClearHistory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 631 | 0x0044B190 | `sub_44B190` | 有正文 | `src/Input.cpp:359 — ClassifyLastAnsiUnit_44B190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 632 | 0x0044B1D0 | `sub_44B1D0` | 有正文 | `src/Input.cpp:424 — ClassifyTextBoundary_44B1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 633 | 0x0044B250 | `sub_44B250` | 有承接 | `src/Input.cpp:463 — (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u` | 首字节高位决定 1／2 字节步长；实际输入消费者内联；完整业务／运行未验 |
+| 621 | 0x0044A540 | `sub_44A540` | 有正文 | `src/Input.cpp:438 — Sub_44A540` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 622 | 0x0044A580 | `sub_44A580` | 有正文 | `src/Input.cpp:457 — Sub_44A580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 623 | 0x0044A5D0 | `sub_44A5D0` | 有正文 | `src/Input.cpp:432 — Sub_44A5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 624 | 0x0044A7D0 | `sub_44A7D0` | 有正文 | `src/Input.cpp:476 — Sub_44A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 625 | 0x0044A990 | `sub_44A990` | 有正文 | `src/Input.cpp:482 — Sub_44A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 626 | 0x0044AA90 | `sub_44AA90` | 有正文 | `src/Input.cpp:497 — Sub_44AA90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 627 | 0x0044AB60 | `sub_44AB60` | 有正文 | `src/Input.cpp:1382 — Sub_44AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 628 | 0x0044ADB0 | `Input::AppendChar` | 有正文 | `src/Input.cpp:851 — AppendChar_44ADB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 629 | 0x0044B050 | `World::AppendMsgToCharWindow` | 有正文 | `src/Input.cpp:1234 — Sub_44B050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 630 | 0x0044B170 | `sub_44B170` | 有正文 | `src/ui/windows/WindowChat.cpp:744 — WindowChat_ClearHistory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 631 | 0x0044B190 | `sub_44B190` | 有正文 | `src/Input.cpp:353 — ClassifyLastAnsiUnit_44B190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 632 | 0x0044B1D0 | `sub_44B1D0` | 有正文 | `src/Input.cpp:418 — ClassifyTextBoundary_44B1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 633 | 0x0044B250 | `sub_44B250` | 有承接 | `src/Input.cpp:457 — (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u` | 首字节高位决定 1／2 字节步长；实际输入消费者内联；完整业务／运行未验 |
 | 634 | 0x0044B260 | `sub_44B260` | 有正文 | `src/render/Font.cpp:274 — MeasureDefaultText_44B260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 635 | 0x0044B2A0 | `TextMeasure` | 有正文 | `src/render/Font.cpp:278 — TextMeasure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 636 | 0x0044B2E0 | `Font::measure` | 有正文 | `src/render/Font.cpp:227 — Font::measure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 637 | 0x0044B330 | `Input::SetContext` | 有正文 | `src/Input.cpp:887 — SetContext_44B330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 638 | 0x0044B340 | `sub_44B340` | 有正文 | `src/Input.cpp:863 — ProcessPresetHotkeys_44B340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 639 | 0x0044B440 | `sub_44B440` | 有正文 | `src/Input.cpp:386 — ClassifyLegacyBoundary_44B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 640 | 0x0044B4A0 | `sub_44B4A0` | 有正文 | `src/Input.cpp:398 — FindLegacyByte_44B4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 641 | 0x0044B570 | `sub_44B570` | 有正文 | `src/Input.cpp:379 — ClassifyChatSplit_44B570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 637 | 0x0044B330 | `Input::SetContext` | 有正文 | `src/Input.cpp:881 — SetContext_44B330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 638 | 0x0044B340 | `sub_44B340` | 有正文 | `src/Input.cpp:857 — ProcessPresetHotkeys_44B340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 639 | 0x0044B440 | `sub_44B440` | 有正文 | `src/Input.cpp:380 — ClassifyLegacyBoundary_44B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 640 | 0x0044B4A0 | `sub_44B4A0` | 有正文 | `src/Input.cpp:392 — FindLegacyByte_44B4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 641 | 0x0044B570 | `sub_44B570` | 有正文 | `src/Input.cpp:373 — ClassifyChatSplit_44B570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:588 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/LoginState.cpp:99 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1244 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
@@ -750,12 +756,12 @@
 | 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:572 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:456 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 700 | 0x00453DE0 | `sub_453DE0` | 有正文 | `src/Palette.cpp:168 — CountMaskBits_453DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 703 | 0x00453E30 | `unknown_libname_11` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 703 | 0x00453E30 | `unknown_libname_11` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:408 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
@@ -771,7 +777,7 @@
 | 719 | 0x00454B30 | `sub_454B30` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 720 | 0x00454B90 | `sub_454B90` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 721 | 0x00454BE0 | `sub_454BE0` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:152 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:151 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/LegacyAudio.cpp:1244 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/LegacyAudio.cpp:1231 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 725 | 0x00454FE0 | `sub_454FE0` | 有承接 | `src/LegacyAudio.cpp:1588 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:637 — InitializeFixedMusic` | 原单patch GetInstrument／DownloadInstrument／临时Release；固定WAV实际资源解码／PCM流预载承接，原音色下载机制退休；保原身份，不恢复MIDI／DLS或宣称库内HRESULT等价，声音／寿命未验 |
@@ -783,44 +789,44 @@
 | 731 | 0x00455400 | `sub_455400` | 有正文 | `src/LegacyAudio.cpp:1148 — ApplyFixedMusicVolume_455400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 732 | 0x00455450 | `World::StopBGM` | 有正文 | `src/LegacyAudio.cpp:1158 — StopFixedMusic_455450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 733 | 0x00455470 | `sub_455470` | 有正文 | `src/LegacyAudio.cpp:1166 — SetFixedMusicRepeats_455470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 734 | 0x00455490 | `sub_455490` | 有正文 | `src/LegacyUiRecord.cpp:1845 — Sub_455490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 735 | 0x004554A0 | `sub_4554A0` | 有正文 | `src/LegacyUiRecord.cpp:1851 — Sub_4554A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 736 | 0x004554C0 | `sub_4554C0` | 有正文 | `src/LegacyUiRecord.cpp:1860 — Sub_4554C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 737 | 0x004554D0 | `sub_4554D0` | 有正文 | `src/LegacyUiRecord.cpp:1866 — Sub_4554D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 738 | 0x00455540 | `sub_455540` | 有正文 | `src/LegacyUiRecord.cpp:1872 — Sub_455540` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 739 | 0x00455550 | `sub_455550` | 有正文 | `src/LegacyUiRecord.cpp:1878 — Sub_455550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 740 | 0x004555C0 | `sub_4555C0` | 有正文 | `src/LegacyUiRecord.cpp:1884 — Sub_4555C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 741 | 0x004555D0 | `sub_4555D0` | 有正文 | `src/LegacyUiRecord.cpp:1890 — Sub_4555D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 742 | 0x00455640 | `sub_455640` | 有正文 | `src/LegacyUiRecord.cpp:1896 — Sub_455640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 743 | 0x00455650 | `sub_455650` | 有正文 | `src/LegacyUiRecord.cpp:1902 — Sub_455650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 744 | 0x004556C0 | `sub_4556C0` | 有正文 | `src/LegacyUiRecord.cpp:1908 — Sub_4556C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 745 | 0x004556D0 | `sub_4556D0` | 有正文 | `src/LegacyUiRecord.cpp:1914 — Sub_4556D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 746 | 0x00455740 | `sub_455740` | 有正文 | `src/LegacyUiRecord.cpp:1920 — Sub_455740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 747 | 0x00455750 | `sub_455750` | 有正文 | `src/LegacyUiRecord.cpp:1926 — Sub_455750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 748 | 0x004557C0 | `sub_4557C0` | 有正文 | `src/LegacyUiRecord.cpp:1932 — Sub_4557C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 749 | 0x004557D0 | `sub_4557D0` | 有正文 | `src/LegacyUiRecord.cpp:1938 — Sub_4557D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 750 | 0x00455840 | `sub_455840` | 有正文 | `src/LegacyUiRecord.cpp:1958 — Sub_455840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 751 | 0x00455850 | `sub_455850` | 有正文 | `src/LegacyUiRecord.cpp:1964 — Sub_455850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 752 | 0x00455930 | `sub_455930` | 有正文 | `src/LegacyUiRecord.cpp:2003 — Sub_455930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 753 | 0x00455940 | `sub_455940` | 有正文 | `src/LegacyUiRecord.cpp:2009 — Sub_455940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:9107 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:10384 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:10390 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:10396 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:10402 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:10408 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:10414 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:10420 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:10428 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:10434 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:10442 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:10450 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:10458 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:10466 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5926 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:1132 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:226 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5932 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 734 | 0x00455490 | `sub_455490` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 735 | 0x004554A0 | `sub_4554A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 736 | 0x004554C0 | `sub_4554C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 737 | 0x004554D0 | `sub_4554D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 738 | 0x00455540 | `sub_455540` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 739 | 0x00455550 | `sub_455550` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 740 | 0x004555C0 | `sub_4555C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 741 | 0x004555D0 | `sub_4555D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 742 | 0x00455640 | `sub_455640` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 743 | 0x00455650 | `sub_455650` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 744 | 0x004556C0 | `sub_4556C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 745 | 0x004556D0 | `sub_4556D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 746 | 0x00455740 | `sub_455740` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 747 | 0x00455750 | `sub_455750` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 748 | 0x004557C0 | `sub_4557C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 749 | 0x004557D0 | `sub_4557D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 750 | 0x00455840 | `sub_455840` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 751 | 0x00455850 | `sub_455850` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 752 | 0x00455930 | `sub_455930` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 753 | 0x00455940 | `sub_455940` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:9045 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:10322 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:10328 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:10334 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:10340 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:10346 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:10352 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:10358 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:10366 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:10372 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:10380 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:10388 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:10396 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:10404 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5910 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:1131 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:225 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5916 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 772 | 0x00456050 | `sub_456050` | 有正文 | `src/ResourcePaths.cpp:187 — BuildResourcePaths` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 773 | 0x00456190 | `sub_456190` | 有正文 | `src/render/Font.cpp:95 — InitializeFont_456190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 774 | 0x00456530 | `sub_456530` | 有正文 | `src/render/Font.cpp:159 — ReleaseFont_456530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -831,9 +837,9 @@
 | 779 | 0x00456D30 | `Renderer::CacheReset` | 有正文 | `src/render/GraphicCacheState.cpp:17 — ResetGraphicCache_456D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 780 | 0x00456D50 | `sub_456D50` | 有正文 | `src/render/GraphicCacheState.cpp:10 — ClearTextQueueTail_456D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 781 | 0x00456D70 | `Renderer::RenderTextToSurface` | 有正文 | `src/render/Font.cpp:169 — RenderTextToSurface_456D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 782 | 0x00456FD0 | `sub_456FD0` | 有承接 | `src/world/SceneState.cpp:683 — SceneTransitionValueStartup::SceneTransitionValueStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 783 | 0x00456FE0 | `unknown_libname_15` | 有正文 | `src/world/SceneState.cpp:689 — ConstructSceneTransitionValue` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 784 | 0x00457000 | `unknown_libname_16` | 有正文 | `src/world/SceneState.cpp:695 — DestroySceneTransitionValue` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 782 | 0x00456FD0 | `sub_456FD0` | 有承接 | `src/world/SceneState.cpp:682 — SceneTransitionValueStartup::SceneTransitionValueStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 783 | 0x00456FE0 | `unknown_libname_15` | 有正文 | `src/world/SceneState.cpp:688 — ConstructSceneTransitionValue` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 784 | 0x00457000 | `unknown_libname_16` | 有正文 | `src/world/SceneState.cpp:694 — DestroySceneTransitionValue` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 785 | 0x00457010 | `sub_457010` | 有正文 | `src/platform/MainLoopSupport.cpp:619 — RequestRender_457010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 786 | 0x00457020 | `MainLoop` | 有正文 | `src/platform/MainLoop.cpp:47 — MainLoop` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 787 | 0x004574E0 | `GraphicAlloc` | 有正文 | `src/GraphicAlloc.cpp:21 — GraphicAlloc_4574E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -856,8 +862,8 @@
 | 804 | 0x00458DC0 | `sub_458DC0` | 有正文 | `src/platform/MainLoopSupport.cpp:628 — CheckLegacyDxCapability_458DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 805 | 0x00458DE0 | `World::UpdateNRTime` | 有正文 | `src/world/GameTime.cpp:16 — UpdateGameTime` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 806 | 0x00458EC0 | `Time::GetCate` | 有正文 | `src/world/GameTime.cpp:43 — GetCate_458EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 807 | 0x00458F00 | `sub_458F00` | 有正文 | `src/world/SceneState.cpp:7022 — Sub_458F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 808 | 0x00458F40 | `sub_458F40` | 有正文 | `src/world/SceneState.cpp:6995 — Sub_458F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 807 | 0x00458F00 | `sub_458F00` | 有正文 | `src/world/SceneState.cpp:6981 — Sub_458F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 808 | 0x00458F40 | `sub_458F40` | 有正文 | `src/world/SceneState.cpp:6954 — Sub_458F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 809 | 0x00458FD0 | `sub_458FD0` | 有正文 | `src/platform/ImeLifecycle.cpp:18 — InitializeIme_458FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 810 | 0x00459040 | `sub_459040` | 有正文 | `src/platform/ImeLifecycle.cpp:46 — ShutdownIme_459040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 811 | 0x00459090 | `sub_459090` | 有正文 | `src/platform/ImeLifecycle.cpp:62 — IsImeKeyboardLayout_459090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -865,12 +871,12 @@
 | 813 | 0x004590D0 | `sub_4590D0` | 有正文 | `src/platform/ImeLifecycle.cpp:92 — BorrowImeDescription_4590D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 814 | 0x004590E0 | `World::RenderInput` | 有正文 | `src/world/RenderInput.cpp:173 — RenderInput_4590E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 815 | 0x00459580 | `sub_459580` | 有正文 | `src/platform/ImeComposition.cpp:42 — Sub_459580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 816 | 0x004596D0 | `sub_4596D0` | 有正文 | `src/InputKeyDispatch.cpp:15 — ProcessKeyInput_4596D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 816 | 0x004596D0 | `sub_4596D0` | 有正文 | `src/InputKeyDispatch.cpp:11 — ProcessKeyInput_4596D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 817 | 0x00459760 | `sub_459760` | 有正文 | `src/platform/WindowProcedure.cpp:43 — ClearKeyFlags_459760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 818 | 0x00459780 | `resetKeyState` | 有正文 | `src/platform/WindowProcedure.cpp:52 — ResetKeyState_459780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 819 | 0x004597A0 | `sub_4597A0` | 有正文 | `src/platform/WindowProcedure.cpp:67 — ReadKeyFlag4_4597A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 820 | 0x004597B0 | `sub_4597B0` | 有正文 | `src/platform/WindowProcedure.cpp:61 — ReadKeyPressFlag_4597B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 821 | 0x004597C0 | `sub_4597C0` | 有正文 | `src/platform/WindowProcedure.cpp:73 — ReadControlKeyPressFlag_4597C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 821 | 0x004597C0 | `sub_4597C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 822 | 0x004597E0 | `sub_4597E0` | 有正文 | `src/GraphicInfo.cpp:85 — InitializeGraphicMapNumbers_4597E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 823 | 0x004597F0 | `sub_4597F0` | 有正文 | `src/GraphicInfo.cpp:57 — ConstructGraphicMapNumbers_4597F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 824 | 0x00459820 | `sub_459820` | 有正文 | `src/GraphicInfo.cpp:64 — DestroyGraphicMapNumbers_459820` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -927,8 +933,8 @@
 | 875 | 0x0045CA20 | `sub_45CA20` | 有正文 | `src/LoginInputController.cpp:261 — ProcessLoginInput_45CA20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 876 | 0x0045CE00 | `sub_45CE00` | 有正文 | `src/LoginMessage.cpp:72 — ResetLoginMessage` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 877 | 0x0045CE10 | `sub_45CE10` | 有正文 | `src/LoginMessage.cpp:78 — UpdateLoginMessage` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 878 | 0x0045D720 | `sub_45D720` | 有正文 | `src/Input.cpp:329 — Sub_45D720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 879 | 0x0045D760 | `sub_45D760` | 有正文 | `src/Input.cpp:345 — Sub_45D760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 878 | 0x0045D720 | `sub_45D720` | 有正文 | `src/Input.cpp:323 — Sub_45D720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 879 | 0x0045D760 | `sub_45D760` | 有正文 | `src/Input.cpp:339 — Sub_45D760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 880 | 0x0045D7A0 | `sub_45D7A0` | 有正文 | `src/render/TextPendingQueue.cpp:27 — FindClickedTextIndex_45D7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 881 | 0x0045D7D0 | `sub_45D7D0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:26 — ResetAuthenticationFailure_45D7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 882 | 0x0045D7E0 | `sub_45D7E0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:32 — UpdateAuthenticationFailure_45D7E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -942,21 +948,21 @@
 | 890 | 0x0045E090 | `sub_45E090` | 有正文 | `src/CharacterDeletionConfirmation.cpp:132 — ProcessDefaultConfirmationDialog_45E090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 891 | 0x0045E0C0 | `sub_45E0C0` | 有正文 | `src/CharacterDeletionConfirmation.cpp:142 — ProcessCharacterDeletionWarning_45E0C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 892 | 0x0045E3D0 | `sub_45E3D0` | 有正文 | `src/CharacterVersionUpgrade.cpp:49 — ProcessLegacyVersionScene_45E3D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 893 | 0x0045E6E0 | `sub_45E6E0` | 有正文 | `src/YobiRuntime.cpp:35172 — Sub_45E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 894 | 0x0045E770 | `sub_45E770` | 有正文 | `src/Input.cpp:590 — Sub_45E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 893 | 0x0045E6E0 | `sub_45E6E0` | 有正文 | `src/YobiRuntime.cpp:35156 — Sub_45E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 894 | 0x0045E770 | `sub_45E770` | 有正文 | `src/Input.cpp:584 — Sub_45E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 895 | 0x0045E7B0 | `sub_45E7B0` | 有正文 | `src/CharacterSelectScene.cpp:211 — Sub_45E7B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 896 | 0x0045E7D0 | `sub_45E7D0` | 有正文 | `src/CharacterSelectScene.cpp:220 — Sub_45E7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 897 | 0x0045E960 | `sub_45E960` | 有正文 | `src/LoginState.cpp:407 — ProcessState_45E960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 898 | 0x0045EA50 | `sub_45EA50` | 有正文 | `src/LoginState.cpp:447 — ResetLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 899 | 0x0045EA60 | `sub_45EA60` | 有正文 | `src/LoginState.cpp:453 — UpdateLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11839 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11916 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11922 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10533 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11776 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11853 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11859 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10470 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 904 | 0x0045EF80 | `sub_45EF80` | 有正文 | `src/LoginCapability3Scene.cpp:70 — Sub_45EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/LegacyUiRecord.cpp:7468 — Sub_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/LegacyUiRecord.cpp:199 — Sub_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 906 | 0x0045F090 | `sub_45F090` | 有正文 | `src/DrawGraphic.cpp:129 — Sub_45F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 907 | 0x0045F100 | `sub_45F100` | 有正文 | `src/LegacyUiRecord.cpp:7461 — Sub_45F100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 907 | 0x0045F100 | `sub_45F100` | 有正文 | `src/LegacyUiRecord.cpp:192 — Sub_45F100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 908 | 0x0045F190 | `sub_45F190` | 有正文 | `src/LoginCapability3Scene.cpp:201 — Sub_45F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 909 | 0x0045F970 | `sub_45F970` | 有正文 | `src/LoginInput.cpp:451 — InitializeCapabilityInput_45F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 910 | 0x0045FA70 | `sub_45FA70` | 有正文 | `src/LoginCapability3InputController.cpp:79 — ProcessCapability3Input_45FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -987,104 +993,104 @@
 | 935 | 0x00465A20 | `sub_465A20` | 有正文 | `src/platform/StartupCommon.cpp:20 — CaptureDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 936 | 0x00465A30 | `sub_465A30` | 有正文 | `src/platform/WindowLifecycle.cpp:12 — SetWindowedDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 937 | 0x00465A80 | `ReadSetupIni` | 有正文 | `src/platform/SetupIni.cpp:16 — ReadSetupIni` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:60 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:55 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:20 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/platform/RendererRebuild.cpp:20 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:76 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:139 — WindowProcedure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/world/SceneState.cpp:873 — PlayerCoordinatesStartup::PlayerCoordinatesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 944 | 0x00467BA0 | `unknown_libname_17` | 有正文 | `src/world/SceneState.cpp:703 — ConstructLegacyPlayerCoordinates_467BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 945 | 0x00467BD0 | `sub_467BD0` | 有正文 | `src/world/SceneState.cpp:710 — DestroyLegacyPlayerCoordinates_467BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 946 | 0x00467BF0 | `sub_467BF0` | 有承接 | `src/world/SceneState.cpp:885 — PlayerSnapshotXStartup::PlayerSnapshotXStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 947 | 0x00467C00 | `unknown_libname_19` | 有正文 | `src/world/SceneState.cpp:717 — ConstructLegacyPlayerSnapshotX_467C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 948 | 0x00467C20 | `unknown_libname_20` | 有正文 | `src/world/SceneState.cpp:723 — DestroyLegacyPlayerSnapshotX_467C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 949 | 0x00467C30 | `sub_467C30` | 有承接 | `src/world/SceneState.cpp:897 — PlayerSnapshotYStartup::PlayerSnapshotYStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 950 | 0x00467C40 | `unknown_libname_21` | 有正文 | `src/world/SceneState.cpp:729 — ConstructLegacyPlayerSnapshotY_467C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 951 | 0x00467C60 | `unknown_libname_22` | 有正文 | `src/world/SceneState.cpp:735 — DestroyLegacyPlayerSnapshotY_467C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 952 | 0x00467C70 | `sub_467C70` | 有承接 | `src/world/SceneState.cpp:909 — WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 953 | 0x00467C80 | `unknown_libname_23` | 有正文 | `src/world/SceneState.cpp:741 — ConstructLegacyWorldCoordinateState_467C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 954 | 0x00467CA0 | `unknown_libname_24` | 有正文 | `src/world/SceneState.cpp:747 — DestroyLegacyWorldCoordinateState_467CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 955 | 0x00467CB0 | `sub_467CB0` | 有承接 | `src/world/SceneState.cpp:921 — WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 956 | 0x00467CC0 | `unknown_libname_25` | 有正文 | `src/world/SceneState.cpp:753 — ConstructLegacyWorldCoordinateState_467CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 957 | 0x00467CE0 | `unknown_libname_26` | 有正文 | `src/world/SceneState.cpp:759 — DestroyLegacyWorldCoordinateState_467CE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 958 | 0x00467CF0 | `sub_467CF0` | 有承接 | `src/world/SceneState.cpp:933 — WorldCoordinatePairStartup::WorldCoordinatePairStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 959 | 0x00467D00 | `unknown_libname_27` | 有正文 | `src/world/SceneState.cpp:765 — ConstructLegacyWorldCoordinatePair_467D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 960 | 0x00467D30 | `unknown_libname_28` | 有正文 | `src/world/SceneState.cpp:772 — DestroyLegacyWorldCoordinatePair_467D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 961 | 0x00467D50 | `sub_467D50` | 有承接 | `src/world/SceneState.cpp:945 — WorldMoveTargetsStartup::WorldMoveTargetsStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 962 | 0x00467D60 | `sub_467D60` | 有正文 | `src/world/SceneState.cpp:779 — ConstructLegacyWorldMoveTargets_467D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 963 | 0x00467D90 | `sub_467D90` | 有正文 | `src/world/SceneState.cpp:786 — DestroyLegacyWorldMoveTargets_467D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 964 | 0x00467DB0 | `sub_467DB0` | 有承接 | `src/world/SceneState.cpp:957 — WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 965 | 0x00467DC0 | `unknown_libname_31` | 有正文 | `src/world/SceneState.cpp:793 — ConstructLegacyWorldMoveState_467DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 966 | 0x00467DE0 | `unknown_libname_32` | 有正文 | `src/world/SceneState.cpp:799 — DestroyLegacyWorldMoveState_467DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 967 | 0x00467DF0 | `sub_467DF0` | 有承接 | `src/world/SceneState.cpp:969 — WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 968 | 0x00467E00 | `unknown_libname_33` | 有正文 | `src/world/SceneState.cpp:805 — ConstructLegacyWorldMoveState_467E00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 969 | 0x00467E20 | `unknown_libname_34` | 有正文 | `src/world/SceneState.cpp:811 — DestroyLegacyWorldMoveState_467E20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 970 | 0x00467E30 | `sub_467E30` | 有承接 | `src/world/SceneState.cpp:981 — WorldMoveState9FB918Startup::WorldMoveState9FB918Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 971 | 0x00467E40 | `unknown_libname_35` | 有正文 | `src/world/SceneState.cpp:817 — ConstructLegacyWorldMoveState_467E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 972 | 0x00467E60 | `unknown_libname_36` | 有正文 | `src/world/SceneState.cpp:823 — DestroyLegacyWorldMoveState_467E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 973 | 0x00467E70 | `sub_467E70` | 有承接 | `src/world/SceneState.cpp:993 — WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 974 | 0x00467E80 | `unknown_libname_37` | 有正文 | `src/world/SceneState.cpp:829 — ConstructLegacyWorldMoveState_467E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 975 | 0x00467EA0 | `unknown_libname_38` | 有正文 | `src/world/SceneState.cpp:835 — DestroyLegacyWorldMoveState_467EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 976 | 0x00467EB0 | `sub_467EB0` | 有承接 | `src/world/SceneState.cpp:1005 — WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 977 | 0x00467EC0 | `unknown_libname_39` | 有正文 | `src/world/SceneState.cpp:841 — ConstructLegacyWorldMoveState_467EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 978 | 0x00467EE0 | `unknown_libname_40` | 有正文 | `src/world/SceneState.cpp:847 — DestroyLegacyWorldMoveState_467EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 979 | 0x00467EF0 | `sub_467EF0` | 有承接 | `src/world/SceneState.cpp:1017 — RippleGateStartup::RippleGateStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 980 | 0x00467F00 | `unknown_libname_41` | 有正文 | `src/world/SceneState.cpp:853 — ConstructLegacyRippleGate_467F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 981 | 0x00467F20 | `unknown_libname_42` | 有正文 | `src/world/SceneState.cpp:859 — DestroyLegacyRippleGate_467F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 982 | 0x00467F30 | `sub_467F30` | 有正文 | `src/world/SceneState.cpp:5674 — Sub_467F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 983 | 0x004681B0 | `sub_4681B0` | 有正文 | `src/world/SceneState.cpp:5742 — Sub_4681B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 984 | 0x00468200 | `sub_468200` | 有正文 | `src/world/SceneState.cpp:5578 — Sub_468200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 985 | 0x00468290 | `sub_468290` | 有正文 | `src/world/SceneState.cpp:5760 — Sub_468290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 986 | 0x004682E0 | `sub_4682E0` | 有正文 | `src/world/SceneState.cpp:7728 — Sub_4682E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 987 | 0x00468330 | `sub_468330` | 有正文 | `src/world/SceneState.cpp:5623 — Sub_468330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 988 | 0x00468520 | `sub_468520` | 有正文 | `src/world/SceneState.cpp:4836 — Sub_468520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 989 | 0x00468570 | `Map::SaveToDisk` | 有正文 | `src/world/SceneState.cpp:4851 — Sub_468570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 990 | 0x004687B0 | `sub_4687B0` | 有正文 | `src/world/SceneState.cpp:4907 — Sub_4687B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 991 | 0x004688A0 | `sub_4688A0` | 有正文 | `src/world/SceneState.cpp:4940 — Sub_4688A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 992 | 0x00468C00 | `sub_468C00` | 有正文 | `src/world/SceneState.cpp:5784 — Sub_468C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 993 | 0x00468C40 | `sub_468C40` | 有正文 | `src/world/SceneState.cpp:5206 — Sub_468C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:8058 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:8076 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:1104 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:130 — WindowProcedure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/world/SceneState.cpp:872 — PlayerCoordinatesStartup::PlayerCoordinatesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 944 | 0x00467BA0 | `unknown_libname_17` | 有正文 | `src/world/SceneState.cpp:702 — ConstructLegacyPlayerCoordinates_467BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 945 | 0x00467BD0 | `sub_467BD0` | 有正文 | `src/world/SceneState.cpp:709 — DestroyLegacyPlayerCoordinates_467BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 946 | 0x00467BF0 | `sub_467BF0` | 有承接 | `src/world/SceneState.cpp:884 — PlayerSnapshotXStartup::PlayerSnapshotXStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 947 | 0x00467C00 | `unknown_libname_19` | 有正文 | `src/world/SceneState.cpp:716 — ConstructLegacyPlayerSnapshotX_467C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 948 | 0x00467C20 | `unknown_libname_20` | 有正文 | `src/world/SceneState.cpp:722 — DestroyLegacyPlayerSnapshotX_467C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 949 | 0x00467C30 | `sub_467C30` | 有承接 | `src/world/SceneState.cpp:896 — PlayerSnapshotYStartup::PlayerSnapshotYStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 950 | 0x00467C40 | `unknown_libname_21` | 有正文 | `src/world/SceneState.cpp:728 — ConstructLegacyPlayerSnapshotY_467C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 951 | 0x00467C60 | `unknown_libname_22` | 有正文 | `src/world/SceneState.cpp:734 — DestroyLegacyPlayerSnapshotY_467C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 952 | 0x00467C70 | `sub_467C70` | 有承接 | `src/world/SceneState.cpp:908 — WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 953 | 0x00467C80 | `unknown_libname_23` | 有正文 | `src/world/SceneState.cpp:740 — ConstructLegacyWorldCoordinateState_467C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 954 | 0x00467CA0 | `unknown_libname_24` | 有正文 | `src/world/SceneState.cpp:746 — DestroyLegacyWorldCoordinateState_467CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 955 | 0x00467CB0 | `sub_467CB0` | 有承接 | `src/world/SceneState.cpp:920 — WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 956 | 0x00467CC0 | `unknown_libname_25` | 有正文 | `src/world/SceneState.cpp:752 — ConstructLegacyWorldCoordinateState_467CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 957 | 0x00467CE0 | `unknown_libname_26` | 有正文 | `src/world/SceneState.cpp:758 — DestroyLegacyWorldCoordinateState_467CE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 958 | 0x00467CF0 | `sub_467CF0` | 有承接 | `src/world/SceneState.cpp:932 — WorldCoordinatePairStartup::WorldCoordinatePairStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 959 | 0x00467D00 | `unknown_libname_27` | 有正文 | `src/world/SceneState.cpp:764 — ConstructLegacyWorldCoordinatePair_467D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 960 | 0x00467D30 | `unknown_libname_28` | 有正文 | `src/world/SceneState.cpp:771 — DestroyLegacyWorldCoordinatePair_467D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 961 | 0x00467D50 | `sub_467D50` | 有承接 | `src/world/SceneState.cpp:944 — WorldMoveTargetsStartup::WorldMoveTargetsStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 962 | 0x00467D60 | `sub_467D60` | 有正文 | `src/world/SceneState.cpp:778 — ConstructLegacyWorldMoveTargets_467D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 963 | 0x00467D90 | `sub_467D90` | 有正文 | `src/world/SceneState.cpp:785 — DestroyLegacyWorldMoveTargets_467D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 964 | 0x00467DB0 | `sub_467DB0` | 有承接 | `src/world/SceneState.cpp:956 — WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 965 | 0x00467DC0 | `unknown_libname_31` | 有正文 | `src/world/SceneState.cpp:792 — ConstructLegacyWorldMoveState_467DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 966 | 0x00467DE0 | `unknown_libname_32` | 有正文 | `src/world/SceneState.cpp:798 — DestroyLegacyWorldMoveState_467DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 967 | 0x00467DF0 | `sub_467DF0` | 有承接 | `src/world/SceneState.cpp:968 — WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 968 | 0x00467E00 | `unknown_libname_33` | 有正文 | `src/world/SceneState.cpp:804 — ConstructLegacyWorldMoveState_467E00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 969 | 0x00467E20 | `unknown_libname_34` | 有正文 | `src/world/SceneState.cpp:810 — DestroyLegacyWorldMoveState_467E20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 970 | 0x00467E30 | `sub_467E30` | 有承接 | `src/world/SceneState.cpp:980 — WorldMoveState9FB918Startup::WorldMoveState9FB918Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 971 | 0x00467E40 | `unknown_libname_35` | 有正文 | `src/world/SceneState.cpp:816 — ConstructLegacyWorldMoveState_467E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 972 | 0x00467E60 | `unknown_libname_36` | 有正文 | `src/world/SceneState.cpp:822 — DestroyLegacyWorldMoveState_467E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 973 | 0x00467E70 | `sub_467E70` | 有承接 | `src/world/SceneState.cpp:992 — WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 974 | 0x00467E80 | `unknown_libname_37` | 有正文 | `src/world/SceneState.cpp:828 — ConstructLegacyWorldMoveState_467E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 975 | 0x00467EA0 | `unknown_libname_38` | 有正文 | `src/world/SceneState.cpp:834 — DestroyLegacyWorldMoveState_467EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 976 | 0x00467EB0 | `sub_467EB0` | 有承接 | `src/world/SceneState.cpp:1004 — WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 977 | 0x00467EC0 | `unknown_libname_39` | 有正文 | `src/world/SceneState.cpp:840 — ConstructLegacyWorldMoveState_467EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 978 | 0x00467EE0 | `unknown_libname_40` | 有正文 | `src/world/SceneState.cpp:846 — DestroyLegacyWorldMoveState_467EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 979 | 0x00467EF0 | `sub_467EF0` | 有承接 | `src/world/SceneState.cpp:1016 — RippleGateStartup::RippleGateStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 980 | 0x00467F00 | `unknown_libname_41` | 有正文 | `src/world/SceneState.cpp:852 — ConstructLegacyRippleGate_467F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 981 | 0x00467F20 | `unknown_libname_42` | 有正文 | `src/world/SceneState.cpp:858 — DestroyLegacyRippleGate_467F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 982 | 0x00467F30 | `sub_467F30` | 有正文 | `src/world/SceneState.cpp:5658 — Sub_467F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 983 | 0x004681B0 | `sub_4681B0` | 有正文 | `src/world/SceneState.cpp:5726 — Sub_4681B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 984 | 0x00468200 | `sub_468200` | 有正文 | `src/world/SceneState.cpp:5562 — Sub_468200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 985 | 0x00468290 | `sub_468290` | 有正文 | `src/world/SceneState.cpp:5744 — Sub_468290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 986 | 0x004682E0 | `sub_4682E0` | 有正文 | `src/world/SceneState.cpp:7687 — Sub_4682E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 987 | 0x00468330 | `sub_468330` | 有正文 | `src/world/SceneState.cpp:5607 — Sub_468330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 988 | 0x00468520 | `sub_468520` | 有正文 | `src/world/SceneState.cpp:4820 — Sub_468520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 989 | 0x00468570 | `Map::SaveToDisk` | 有正文 | `src/world/SceneState.cpp:4835 — Sub_468570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 990 | 0x004687B0 | `sub_4687B0` | 有正文 | `src/world/SceneState.cpp:4891 — Sub_4687B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 991 | 0x004688A0 | `sub_4688A0` | 有正文 | `src/world/SceneState.cpp:4924 — Sub_4688A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 992 | 0x00468C00 | `sub_468C00` | 有正文 | `src/world/SceneState.cpp:5768 — Sub_468C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 993 | 0x00468C40 | `sub_468C40` | 有正文 | `src/world/SceneState.cpp:5190 — Sub_468C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:8011 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:8029 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:1103 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 997 | 0x00469020 | `sub_469020` | 有正文 | `src/world/MapSceneDrawing.cpp:329 — Sub_469020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:7505 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 999 | 0x004691D0 | `sub_4691D0` | 有正文 | `src/world/SceneState.cpp:5887 — Sub_4691D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1000 | 0x00469240 | `sub_469240` | 有正文 | `src/world/SceneState.cpp:5827 — Sub_469240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5841 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:7579 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5807 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:5022 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:9480 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:9563 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1007 | 0x0046A190 | `sub_46A190` | 有正文 | `src/YobiRuntime.cpp:37040 — Sub_46A190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9660 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:8972 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1010 | 0x0046A5F0 | `sub_46A5F0` | 有正文 | `src/YobiRuntime.cpp:37190 — Sub_46A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9704 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:8992 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8867 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1014 | 0x0046A9E0 | `sub_46A9E0` | 有正文 | `src/world/SceneState.cpp:7771 — Sub_46A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1015 | 0x0046AA00 | `sub_46AA00` | 有正文 | `src/world/SceneState.cpp:7780 — Sub_46AA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1016 | 0x0046AB60 | `sub_46AB60` | 有正文 | `src/world/SceneState.cpp:7977 — Sub_46AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1017 | 0x0046ABD0 | `sub_46ABD0` | 有正文 | `src/world/SceneState.cpp:7872 — Sub_46ABD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1018 | 0x0046AC10 | `sub_46AC10` | 有正文 | `src/world/SceneState.cpp:7889 — Sub_46AC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:8012 — Sub_46AC90` | LCI10局部临时载荷改整数operator=，一次RNG、目标token／reserved与Y→X发送序保持；仅静态，完整业务／运行未验 |
-| 1020 | 0x0046AD00 | `sub_46AD00` | 有正文 | `src/world/SceneState.cpp:7702 — Sub_46AD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1021 | 0x0046ADA0 | `sub_46ADA0` | 有正文 | `src/world/SceneState.cpp:7938 — Sub_46ADA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1022 | 0x0046AE60 | `sub_46AE60` | 有正文 | `src/world/SceneState.cpp:5796 — Sub_46AE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:8027 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1024 | 0x0046AF30 | `sub_46AF30` | 有正文 | `src/world/SceneState.cpp:5173 — Sub_46AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8899 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1026 | 0x0046B1B0 | `Player::MoveOneStep` | 有正文 | `src/YobiRuntime.cpp:37141 — MovePlayerOneStep_46B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:9437 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1028 | 0x0046B4B0 | `sub_46B4B0` | 有正文 | `src/YobiRuntime.cpp:37005 — Sub_46B4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:8224 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:8238 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:8291 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1032 | 0x0046BC90 | `sub_46BC90` | 有正文 | `src/world/SceneState.cpp:7855 — Sub_46BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1033 | 0x0046BCF0 | `sub_46BCF0` | 有正文 | `src/world/SceneState.cpp:7922 — Sub_46BCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:8494 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:10495 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:7464 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 999 | 0x004691D0 | `sub_4691D0` | 有正文 | `src/world/SceneState.cpp:5871 — Sub_4691D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1000 | 0x00469240 | `sub_469240` | 有正文 | `src/world/SceneState.cpp:5811 — Sub_469240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5825 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:7538 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5791 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:5006 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:9418 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:9501 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1007 | 0x0046A190 | `sub_46A190` | 有正文 | `src/YobiRuntime.cpp:36592 — Sub_46A190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9598 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:8910 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1010 | 0x0046A5F0 | `sub_46A5F0` | 有正文 | `src/YobiRuntime.cpp:36742 — Sub_46A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9642 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:8930 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8805 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1014 | 0x0046A9E0 | `sub_46A9E0` | 有正文 | `src/world/SceneState.cpp:7730 — Sub_46A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1015 | 0x0046AA00 | `sub_46AA00` | 有正文 | `src/world/SceneState.cpp:7739 — Sub_46AA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1016 | 0x0046AB60 | `sub_46AB60` | 有正文 | `src/world/SceneState.cpp:7933 — Sub_46AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1017 | 0x0046ABD0 | `sub_46ABD0` | 有正文 | `src/world/SceneState.cpp:7831 — Sub_46ABD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1018 | 0x0046AC10 | `sub_46AC10` | 有正文 | `src/world/SceneState.cpp:7848 — Sub_46AC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:7968 — Sub_46AC90` | LCI10局部临时载荷改整数operator=，一次RNG、目标token／reserved与Y→X发送序保持；仅静态，完整业务／运行未验 |
+| 1020 | 0x0046AD00 | `sub_46AD00` | 有正文 | `src/world/SceneState.cpp:7661 — Sub_46AD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1021 | 0x0046ADA0 | `sub_46ADA0` | 有正文 | `src/world/SceneState.cpp:7897 — Sub_46ADA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1022 | 0x0046AE60 | `sub_46AE60` | 有正文 | `src/world/SceneState.cpp:5780 — Sub_46AE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:7983 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1024 | 0x0046AF30 | `sub_46AF30` | 有正文 | `src/world/SceneState.cpp:5157 — Sub_46AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8837 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1026 | 0x0046B1B0 | `Player::MoveOneStep` | 有正文 | `src/YobiRuntime.cpp:36693 — MovePlayerOneStep_46B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:9375 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1028 | 0x0046B4B0 | `sub_46B4B0` | 有正文 | `src/YobiRuntime.cpp:36557 — Sub_46B4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:8177 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:8191 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:8244 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1032 | 0x0046BC90 | `sub_46BC90` | 有正文 | `src/world/SceneState.cpp:7814 — Sub_46BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1033 | 0x0046BCF0 | `sub_46BCF0` | 有正文 | `src/world/SceneState.cpp:7881 — Sub_46BCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:8447 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:10433 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1036 | 0x0046BD60 | `sub_46BD60` | 有正文 | `src/world/MapDrawCache.cpp:348 — Sub_46BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1037 | 0x0046BE50 | `sub_46BE50` | 有正文 | `src/world/MapDrawCache.cpp:373 — Sub_46BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1038 | 0x0046C060 | `YobiMapChara::DrawGearNormal` | 有正文 | `src/world/MapDrawCache.cpp:440 — DrawGearNormal_46C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1094,141 +1100,141 @@
 | 1042 | 0x0046C420 | `sub_46C420` | 有正文 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1043 | 0x0046C440 | `sub_46C440` | 有正文 | `src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1044 | 0x0046C4D0 | `sub_46C4D0` | 有正文 | `src/world/MapDrawCache.cpp:186 — MergeMapDrawCache_46C4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1045 | 0x0046C760 | `sub_46C760` | 有正文 | `src/world/SceneState.cpp:5483 — Sub_46C760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1046 | 0x0046C840 | `sub_46C840` | 有正文 | `src/world/SceneState.cpp:5309 — Sub_46C840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:8212 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1048 | 0x0046CE30 | `sub_46CE30` | 有正文 | `src/world/SceneState.cpp:1058 — ProjectWorldToScreen_46CE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1049 | 0x0046CE80 | `sub_46CE80` | 有正文 | `src/world/SceneState.cpp:1070 — ProjectScreenToWorld_46CE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1050 | 0x0046CEC0 | `sub_46CEC0` | 有正文 | `src/world/SceneState.cpp:5606 — Sub_46CEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:5613 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:8097 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:8109 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1045 | 0x0046C760 | `sub_46C760` | 有正文 | `src/world/SceneState.cpp:5467 — Sub_46C760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1046 | 0x0046C840 | `sub_46C840` | 有正文 | `src/world/SceneState.cpp:5293 — Sub_46C840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:8165 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1048 | 0x0046CE30 | `sub_46CE30` | 有正文 | `src/world/SceneState.cpp:1057 — ProjectWorldToScreen_46CE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1049 | 0x0046CE80 | `sub_46CE80` | 有正文 | `src/world/SceneState.cpp:1069 — ProjectScreenToWorld_46CE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1050 | 0x0046CEC0 | `sub_46CEC0` | 有正文 | `src/world/SceneState.cpp:5590 — Sub_46CEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:5597 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:8050 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:8062 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1054 | 0x0046CF60 | `sub_46CF60` | 有正文 | `src/world/MapSceneDrawing.cpp:197 — Sub_46CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:7675 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:7748 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1057 | 0x0046DB00 | `sub_46DB00` | 有正文 | `src/world/SceneState.cpp:5518 — Sub_46DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1058 | 0x0046DC60 | `sub_46DC60` | 有正文 | `src/world/SceneState.cpp:5509 — Sub_46DC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1059 | 0x0046DC90 | `sub_46DC90` | 有正文 | `src/world/SceneState.cpp:5556 — Sub_46DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1060 | 0x0046DD40 | `sub_46DD40` | 有正文 | `src/YobiRuntime.cpp:1598 — Sub_46DD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1061 | 0x0046DD90 | `sub_46DD90` | 有正文 | `src/YobiRuntime.cpp:5543 — Sub_46DD90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1062 | 0x0046DE50 | `sub_46DE50` | 有正文 | `src/YobiRuntime.cpp:5507 — Sub_46DE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:7634 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:7707 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1057 | 0x0046DB00 | `sub_46DB00` | 有正文 | `src/world/SceneState.cpp:5502 — Sub_46DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1058 | 0x0046DC60 | `sub_46DC60` | 有正文 | `src/world/SceneState.cpp:5493 — Sub_46DC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1059 | 0x0046DC90 | `sub_46DC90` | 有正文 | `src/world/SceneState.cpp:5540 — Sub_46DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1060 | 0x0046DD40 | `sub_46DD40` | 有正文 | `src/YobiRuntime.cpp:1596 — Sub_46DD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1061 | 0x0046DD90 | `sub_46DD90` | 有正文 | `src/YobiRuntime.cpp:5541 — Sub_46DD90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1062 | 0x0046DE50 | `sub_46DE50` | 有正文 | `src/YobiRuntime.cpp:5505 — Sub_46DE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1063 | 0x0046DFF0 | `sub_46DFF0` | 有正文 | `src/world/MapDrawCache.cpp:407 — Sub_46DFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1064 | 0x0046E0D0 | `sub_46E0D0` | 有正文 | `src/world/SceneState.cpp:2119 — Sub_46E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1065 | 0x0046E2A0 | `sub_46E2A0` | 有正文 | `src/world/SceneState.cpp:1471 — Sub_46E2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1066 | 0x0046E340 | `sub_46E340` | 有正文 | `src/world/SceneState.cpp:1504 — Sub_46E340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1067 | 0x0046E390 | `sub_46E390` | 有正文 | `src/world/SceneState.cpp:1528 — Sub_46E390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1068 | 0x0046E3E0 | `sub_46E3E0` | 有正文 | `src/world/SceneState.cpp:1554 — Sub_46E3E0` | 正文已有；实际五个地图效果调用由同文件1615行的 ApplyMapEffectDirection 承接，调用点1823／1887／1953／2019／2114；独立包装无当前调用不等于缺接线，本步仅定位提供者，不重验原正文或提升完整业务／运行门禁 |
-| 1069 | 0x0046E480 | `sub_46E480` | 有正文 | `src/world/SceneState.cpp:1746 — Sub_46E480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1070 | 0x0046E4A0 | `sub_46E4A0` | 有正文 | `src/world/SceneState.cpp:2109 — Sub_46E4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1071 | 0x0046E4C0 | `sub_46E4C0` | 有正文 | `src/world/SceneState.cpp:2019 — Sub_46E4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1072 | 0x0046E4E0 | `sub_46E4E0` | 有正文 | `src/world/SceneState.cpp:1755 — Sub_46E4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1073 | 0x0046E6C0 | `sub_46E6C0` | 有正文 | `src/world/SceneState.cpp:1821 — Sub_46E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1074 | 0x0046E940 | `sub_46E940` | 有正文 | `src/world/SceneState.cpp:1885 — Sub_46E940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1075 | 0x0046EBB0 | `sub_46EBB0` | 有正文 | `src/world/SceneState.cpp:1954 — Sub_46EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1076 | 0x0046ED50 | `sub_46ED50` | 有正文 | `src/world/SceneState.cpp:2026 — Sub_46ED50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1077 | 0x0046F000 | `sub_46F000` | 有正文 | `src/world/SceneState.cpp:2233 — Sub_46F000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1078 | 0x0046F090 | `sub_46F090` | 有正文 | `src/world/SceneState.cpp:2184 — Sub_46F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1079 | 0x0046F160 | `sub_46F160` | 有正文 | `src/world/SceneState.cpp:2163 — Sub_46F160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1080 | 0x0046F1D0 | `sub_46F1D0` | 有正文 | `src/world/SceneState.cpp:2261 — Sub_46F1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:9014 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:8121 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:8142 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:8151 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:8158 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1064 | 0x0046E0D0 | `sub_46E0D0` | 有正文 | `src/world/SceneState.cpp:2118 — Sub_46E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1065 | 0x0046E2A0 | `sub_46E2A0` | 有正文 | `src/world/SceneState.cpp:1470 — Sub_46E2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1066 | 0x0046E340 | `sub_46E340` | 有正文 | `src/world/SceneState.cpp:1503 — Sub_46E340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1067 | 0x0046E390 | `sub_46E390` | 有正文 | `src/world/SceneState.cpp:1527 — Sub_46E390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1068 | 0x0046E3E0 | `sub_46E3E0` | 有正文 | `src/world/SceneState.cpp:1553 — Sub_46E3E0` | 正文已有；实际五个地图效果调用由同文件1615行的 ApplyMapEffectDirection 承接，调用点1823／1887／1953／2019／2114；独立包装无当前调用不等于缺接线，本步仅定位提供者，不重验原正文或提升完整业务／运行门禁 |
+| 1069 | 0x0046E480 | `sub_46E480` | 有正文 | `src/world/SceneState.cpp:1745 — Sub_46E480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1070 | 0x0046E4A0 | `sub_46E4A0` | 有正文 | `src/world/SceneState.cpp:2108 — Sub_46E4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1071 | 0x0046E4C0 | `sub_46E4C0` | 有正文 | `src/world/SceneState.cpp:2018 — Sub_46E4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1072 | 0x0046E4E0 | `sub_46E4E0` | 有正文 | `src/world/SceneState.cpp:1754 — Sub_46E4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1073 | 0x0046E6C0 | `sub_46E6C0` | 有正文 | `src/world/SceneState.cpp:1820 — Sub_46E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1074 | 0x0046E940 | `sub_46E940` | 有正文 | `src/world/SceneState.cpp:1884 — Sub_46E940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1075 | 0x0046EBB0 | `sub_46EBB0` | 有正文 | `src/world/SceneState.cpp:1953 — Sub_46EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1076 | 0x0046ED50 | `sub_46ED50` | 有正文 | `src/world/SceneState.cpp:2025 — Sub_46ED50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1077 | 0x0046F000 | `sub_46F000` | 有正文 | `src/world/SceneState.cpp:2232 — Sub_46F000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1078 | 0x0046F090 | `sub_46F090` | 有正文 | `src/world/SceneState.cpp:2183 — Sub_46F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1079 | 0x0046F160 | `sub_46F160` | 有正文 | `src/world/SceneState.cpp:2162 — Sub_46F160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1080 | 0x0046F1D0 | `sub_46F1D0` | 有正文 | `src/world/SceneState.cpp:2260 — Sub_46F1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:8952 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:8074 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:8095 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:8104 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:8111 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1086 | 0x0046FAF0 | `RAND` | 有正文 | `src/platform/MainLoopSupport.cpp:705 — RandomRange_46FAF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1087 | 0x0046FB20 | `sub_46FB20` | 有正文 | `src/world/SceneState.cpp:1118 — InitializeRotationTable_46FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:8201 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1087 | 0x0046FB20 | `sub_46FB20` | 有正文 | `src/world/SceneState.cpp:1117 — InitializeRotationTable_46FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:8154 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1089 | 0x0046FBA0 | `sub_46FBA0` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:78 — WindowShortcutBar_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1090 | 0x0046FBC0 | `sub_46FBC0` | 有正文 | `src/ui/WindowRuntime.cpp:3744 — WindowRuntime_DrawDefault` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1090 | 0x0046FBC0 | `sub_46FBC0` | 有正文 | `src/ui/WindowRuntime.cpp:3539 — WindowRuntime_DrawDefault` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1091 | 0x0046FBD0 | `sub_46FBD0` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:87 — WindowShortcutBar_ButtonCollapse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1092 | 0x0046FC60 | `sub_46FC60` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:113 — WindowShortcutBar_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:9120 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:9152 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:9187 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:9227 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:9257 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1098 | 0x004705D0 | `sub_4705D0` | 有正文 | `src/ui/WindowRuntime.cpp:3605 — WindowRuntime_Initialize` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:9058 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:9090 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:9125 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:9165 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:9195 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1098 | 0x004705D0 | `sub_4705D0` | 有正文 | `src/ui/WindowRuntime.cpp:3400 — WindowRuntime_Initialize` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1099 | 0x004705F0 | `sub_4705F0` | 有正文 | `src/platform/ClientShutdown.cpp:31 — Sub_4705F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1100 | 0x00470600 | `sub_470600` | 有正文 | `src/ui/WindowRuntime.cpp:3632 — WindowRuntime_InitializeLogin` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:9293 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1100 | 0x00470600 | `sub_470600` | 有正文 | `src/ui/WindowRuntime.cpp:3427 — WindowRuntime_InitializeLogin` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:9231 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1102 | 0x004708A0 | `sub_4708A0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:231 — WindowStatusBar_ButtonEmote` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1103 | 0x00470910 | `sub_470910` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:251 — WindowStatusBar_ButtonMiniMap` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1104 | 0x00470980 | `sub_470980` | 有正文 | `src/ui/WindowRuntime.cpp:3585 — WindowRuntime_OpenNormalScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1104 | 0x00470980 | `sub_470980` | 有正文 | `src/ui/WindowRuntime.cpp:3380 — WindowRuntime_OpenNormalScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1105 | 0x00470A80 | `sub_470A80` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:272 — WindowStatusBar_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1106 | 0x00470A9F | `?classic@locale@std@@SAABV12@XZ_0` | 有承接 | `src/ui/windows/WindowStatusBar.cpp:272 — WindowStatusBar_Update` | 原共享尾为调用 470AC0 后返回 1；并入实际父正文；完整业务／运行未验 |
 | 1107 | 0x00470AB0 | `?classic@locale@std@@SAABV12@XZ_1` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:283 — WindowCompactStatusBar_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1108 | 0x00470AC0 | `sub_470AC0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:291 — WindowStatusBar_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1109 | 0x00471270 | `UIWindowInstance::free` | 有正文 | `src/ui/WindowRuntime.cpp:4870 — WindowRuntime_Free` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1110 | 0x00471440 | `Window::open` | 有正文 | `src/ui/WindowRuntime.cpp:4601 — WindowRuntime_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1109 | 0x00471270 | `UIWindowInstance::free` | 有正文 | `src/ui/WindowRuntime.cpp:4645 — WindowRuntime_Free` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1110 | 0x00471440 | `Window::open` | 有正文 | `src/ui/WindowRuntime.cpp:4376 — WindowRuntime_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1111 | 0x004718F0 | `sub_4718F0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:352 — WindowCompactStatusBar_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1112 | 0x00471DF0 | `sub_471DF0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:413 — WindowStatusBar_HandleOptionButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1113 | 0x00472160 | `Windows::close` | 有正文 | `src/ui/WindowRuntime.cpp:4940 — WindowRuntime_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1114 | 0x00472190 | `Window::CloseAll` | 有正文 | `src/ui/WindowRuntime.cpp:4949 — WindowRuntime_CloseAll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1115 | 0x00472200 | `sub_472200` | 有正文 | `src/ui/WindowRuntime.cpp:3031 — WindowRuntime_ClearSavedWindowMarkers` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1116 | 0x00472220 | `sub_472220` | 有正文 | `src/ui/WindowRuntime.cpp:3039 — WindowRuntime_MarkExistingWindows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1117 | 0x00472240 | `Window::CloseByCategory` | 有正文 | `src/ui/WindowRuntime.cpp:5042 — WindowRuntime_CloseByCategory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1118 | 0x004722A0 | `MouseEvent::Reset` | 有正文 | `src/ui/WindowRuntime.cpp:3049 — WindowRuntime_ResetMouseAndItemFlags` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1119 | 0x004722E0 | `sub_4722E0` | 有正文 | `src/ui/WindowRuntime.cpp:3063 — WindowRuntime_ClearElementFocus` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1120 | 0x004722F0 | `sub_4722F0` | 有正文 | `src/ui/WindowRuntime.cpp:3069 — WindowRuntime_RestoreMarkedWindows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1113 | 0x00472160 | `Windows::close` | 有正文 | `src/ui/WindowRuntime.cpp:4715 — WindowRuntime_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1114 | 0x00472190 | `Window::CloseAll` | 有正文 | `src/ui/WindowRuntime.cpp:4724 — WindowRuntime_CloseAll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1115 | 0x00472200 | `sub_472200` | 有正文 | `src/ui/WindowRuntime.cpp:2826 — WindowRuntime_ClearSavedWindowMarkers` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1116 | 0x00472220 | `sub_472220` | 有正文 | `src/ui/WindowRuntime.cpp:2834 — WindowRuntime_MarkExistingWindows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1117 | 0x00472240 | `Window::CloseByCategory` | 有正文 | `src/ui/WindowRuntime.cpp:4817 — WindowRuntime_CloseByCategory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1118 | 0x004722A0 | `MouseEvent::Reset` | 有正文 | `src/ui/WindowRuntime.cpp:2844 — WindowRuntime_ResetMouseAndItemFlags` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1119 | 0x004722E0 | `sub_4722E0` | 有正文 | `src/ui/WindowRuntime.cpp:2858 — WindowRuntime_ClearElementFocus` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1120 | 0x004722F0 | `sub_4722F0` | 有正文 | `src/ui/WindowRuntime.cpp:2864 — WindowRuntime_RestoreMarkedWindows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1121 | 0x004723D0 | `sub_4723D0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:487 — WindowStatusBar_HandleHintButton` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1122 | 0x004729B0 | `Window::DrawCurrentWindow` | 有正文 | `src/ui/WindowRuntime.cpp:5064 — WindowRuntime_DrawCurrent` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1123 | 0x00472D20 | `Window::ProsseFocus` | 有正文 | `src/ui/WindowRuntime.cpp:4098 — WindowDrag_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1124 | 0x00472F00 | `Mouse::isInRect` | 有正文 | `src/ui/WindowRuntime.cpp:3960 — WindowRuntime_HitTestRect` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1125 | 0x00472F40 | `sub_472F40` | 有正文 | `src/world/SceneState.cpp:2862 — Sub_472F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1126 | 0x00472F70 | `sub_472F70` | 有正文 | `src/world/SceneState.cpp:2873 — Sub_472F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1127 | 0x00472FA0 | `sub_472FA0` | 有正文 | `src/world/SceneState.cpp:2879 — Sub_472FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1128 | 0x00472FD0 | `sub_472FD0` | 有正文 | `src/world/SceneState.cpp:2885 — Sub_472FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1129 | 0x00473000 | `sub_473000` | 有正文 | `src/world/SceneState.cpp:2891 — Sub_473000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1130 | 0x00473030 | `sub_473030` | 有正文 | `src/world/SceneState.cpp:2897 — Sub_473030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1122 | 0x004729B0 | `Window::DrawCurrentWindow` | 有正文 | `src/ui/WindowRuntime.cpp:4839 — WindowRuntime_DrawCurrent` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1123 | 0x00472D20 | `Window::ProsseFocus` | 有正文 | `src/ui/WindowRuntime.cpp:3873 — WindowDrag_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1124 | 0x00472F00 | `Mouse::isInRect` | 有正文 | `src/ui/WindowRuntime.cpp:3735 — WindowRuntime_HitTestRect` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1125 | 0x00472F40 | `sub_472F40` | 有正文 | `src/world/SceneState.cpp:2861 — Sub_472F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1126 | 0x00472F70 | `sub_472F70` | 有正文 | `src/world/SceneState.cpp:2872 — Sub_472F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1127 | 0x00472FA0 | `sub_472FA0` | 有正文 | `src/world/SceneState.cpp:2878 — Sub_472FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1128 | 0x00472FD0 | `sub_472FD0` | 有正文 | `src/world/SceneState.cpp:2884 — Sub_472FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1129 | 0x00473000 | `sub_473000` | 有正文 | `src/world/SceneState.cpp:2890 — Sub_473000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1130 | 0x00473030 | `sub_473030` | 有正文 | `src/world/SceneState.cpp:2896 — Sub_473030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1131 | 0x00473080 | `sub_473080` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:462 — WindowStatusBar_ReadInjuredPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1132 | 0x004730A0 | `Window::sortLayer` | 有正文 | `src/ui/WindowRuntime.cpp:4181 — WindowRuntime_CompactAndReorder` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1132 | 0x004730A0 | `Window::sortLayer` | 有正文 | `src/ui/WindowRuntime.cpp:3956 — WindowRuntime_CompactAndReorder` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1133 | 0x004731B0 | `sub_4731B0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:473 — WindowStatusBar_FindSortedPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1134 | 0x004731E0 | `sub_4731E0` | 有正文 | `src/ui/windows/WindowBottomBar.cpp:322 — WindowBottomBar_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1135 | 0x00473560 | `Window::ProcessChildElement` | 有正文 | `src/ui/WindowRuntime.cpp:4281 — WindowRuntime_DispatchElementMouse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1135 | 0x00473560 | `Window::ProcessChildElement` | 有正文 | `src/ui/WindowRuntime.cpp:4056 — WindowRuntime_DispatchElementMouse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1136 | 0x00473840 | `sub_473840` | 有正文 | `src/ui/windows/WindowBottomBar.cpp:82 — WindowBottomBar_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1137 | 0x00473E40 | `MouseEvent::Update` | 有正文 | `src/ui/WindowRuntime.cpp:4230 — WindowRuntime_AdvanceMousePhase` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1138 | 0x00473F80 | `Windows::Update` | 有正文 | `src/ui/WindowRuntime.cpp:4489 — WindowRuntime_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1139 | 0x004740F0 | `sub_4740F0` | 有正文 | `src/ui/WindowRuntime.cpp:4460 — WindowInput_FormatSkillSlotCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1140 | 0x00474170 | `sub_474170` | 有正文 | `src/ui/WindowRuntime.cpp:951 — WindowElement_HandleSideArea` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1141 | 0x004741A0 | `sub_4741A0` | 有正文 | `src/ui/WindowRuntime.cpp:4347 — WindowElement_HandleVerticalScroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1142 | 0x00474270 | `sub_474270` | 有正文 | `src/ui/WindowRuntime.cpp:3841 — WindowScroll_ReadPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1143 | 0x004742B0 | `sub_4742B0` | 有正文 | `src/ui/WindowRuntime.cpp:3624 — WindowScroll_ResetPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1144 | 0x004742C0 | `sub_4742C0` | 有正文 | `src/ui/WindowRuntime.cpp:3857 — WindowScroll_SetPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1137 | 0x00473E40 | `MouseEvent::Update` | 有正文 | `src/ui/WindowRuntime.cpp:4005 — WindowRuntime_AdvanceMousePhase` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1138 | 0x00473F80 | `Windows::Update` | 有正文 | `src/ui/WindowRuntime.cpp:4264 — WindowRuntime_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1139 | 0x004740F0 | `sub_4740F0` | 有正文 | `src/ui/WindowRuntime.cpp:4235 — WindowInput_FormatSkillSlotCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1140 | 0x00474170 | `sub_474170` | 有正文 | `src/ui/WindowRuntime.cpp:925 — WindowElement_HandleSideArea` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1141 | 0x004741A0 | `sub_4741A0` | 有正文 | `src/ui/WindowRuntime.cpp:4122 — WindowElement_HandleVerticalScroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1142 | 0x00474270 | `sub_474270` | 有正文 | `src/ui/WindowRuntime.cpp:3616 — WindowScroll_ReadPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1143 | 0x004742B0 | `sub_4742B0` | 有正文 | `src/ui/WindowRuntime.cpp:3419 — WindowScroll_ResetPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1144 | 0x004742C0 | `sub_4742C0` | 有正文 | `src/ui/WindowRuntime.cpp:3632 — WindowScroll_SetPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1145 | 0x00474310 | `sub_474310` | 有正文 | `src/ui/windows/WindowPlayerProfile.cpp:449 — WindowPlayerProfile_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1146 | 0x00474360 | `sub_474360` | 有正文 | `src/ui/windows/WindowPlayerAttributes.cpp:367 — WindowPlayerAttributes_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1147 | 0x004743B0 | `sub_4743B0` | 有正文 | `src/ui/WindowRuntime.cpp:3880 — WindowScroll_ApplyWheel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1147 | 0x004743B0 | `sub_4743B0` | 有正文 | `src/ui/WindowRuntime.cpp:3655 — WindowScroll_ApplyWheel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1148 | 0x004744A0 | `sub_4744A0` | 有正文 | `src/ui/windows/WindowPlayerTitles.cpp:474 — WindowPlayerTitles_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1149 | 0x004744F0 | `sub_4744F0` | 有正文 | `src/ui/windows/WindowOwnProfile.cpp:281 — WindowOwnProfile_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1150 | 0x00474540 | `?classic@locale@std@@SAABV12@XZ_2` | 有正文 | `src/ui/windows/WindowPlayerProfile.cpp:442 — WindowPlayerProfile_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1151 | 0x00474550 | `sub_474550` | 有正文 | `src/ui/WindowRuntime.cpp:1366 — WindowInput_HandleNumber` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1151 | 0x00474550 | `sub_474550` | 有正文 | `src/ui/WindowRuntime.cpp:1308 — WindowInput_HandleNumber` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1152 | 0x00474FB0 | `sub_474FB0` | 有正文 | `src/ui/windows/WindowPlayerProfile.cpp:316 — WindowPlayerProfile_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1153 | 0x004758D0 | `YobiWindow::Update` | 有正文 | `src/YobiRuntime.cpp:1913 — Sub_4758D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1154 | 0x00475950 | `Yobi::newWindow` | 有正文 | `src/YobiRuntime.cpp:1944 — Sub_475950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1155 | 0x00475AA0 | `Yobi::newWindow2` | 有正文 | `src/ui/WindowRuntime.cpp:4767 — WindowRuntime_CreateAnimation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1156 | 0x00475C10 | `sub_475C10` | 有正文 | `src/ui/WindowRuntime.cpp:3147 — WindowRuntime_RestorePositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1157 | 0x00475D40 | `Window::GetFocusWinId` | 有正文 | `src/ui/WindowRuntime.cpp:3973 — WindowDrag_ReadFocusWindowId` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1158 | 0x00475D50 | `sub_475D50` | 有正文 | `src/ui/WindowRuntime.cpp:3979 — WindowDrag_ReadFocusElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1159 | 0x00475D60 | `sub_475D60` | 有正文 | `src/ui/WindowRuntime.cpp:3985 — WindowDrag_ReadKind` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1160 | 0x00475D70 | `sub_475D70` | 有正文 | `src/ui/WindowRuntime.cpp:3991 — WindowDrag_ReadX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1161 | 0x00475D80 | `sub_475D80` | 有正文 | `src/ui/WindowRuntime.cpp:3997 — WindowDrag_ReadY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1162 | 0x00475D90 | `sub_475D90` | 有正文 | `src/ui/WindowRuntime.cpp:4003 — WindowDrag_ReadSourceIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1163 | 0x00475DA0 | `sub_475DA0` | 有正文 | `src/ui/WindowRuntime.cpp:4010 — WindowDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1153 | 0x004758D0 | `YobiWindow::Update` | 有正文 | `src/YobiRuntime.cpp:1911 — Sub_4758D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1154 | 0x00475950 | `Yobi::newWindow` | 有正文 | `src/YobiRuntime.cpp:1942 — Sub_475950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1155 | 0x00475AA0 | `Yobi::newWindow2` | 有正文 | `src/ui/WindowRuntime.cpp:4542 — WindowRuntime_CreateAnimation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1156 | 0x00475C10 | `sub_475C10` | 有正文 | `src/ui/WindowRuntime.cpp:2942 — WindowRuntime_RestorePositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1157 | 0x00475D40 | `Window::GetFocusWinId` | 有正文 | `src/ui/WindowRuntime.cpp:3748 — WindowDrag_ReadFocusWindowId` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1158 | 0x00475D50 | `sub_475D50` | 有正文 | `src/ui/WindowRuntime.cpp:3754 — WindowDrag_ReadFocusElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1159 | 0x00475D60 | `sub_475D60` | 有正文 | `src/ui/WindowRuntime.cpp:3760 — WindowDrag_ReadKind` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1160 | 0x00475D70 | `sub_475D70` | 有正文 | `src/ui/WindowRuntime.cpp:3766 — WindowDrag_ReadX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1161 | 0x00475D80 | `sub_475D80` | 有正文 | `src/ui/WindowRuntime.cpp:3772 — WindowDrag_ReadY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1162 | 0x00475D90 | `sub_475D90` | 有正文 | `src/ui/WindowRuntime.cpp:3778 — WindowDrag_ReadSourceIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1163 | 0x00475DA0 | `sub_475DA0` | 有正文 | `src/ui/WindowRuntime.cpp:3785 — WindowDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1164 | 0x00475DF0 | `sub_475DF0` | 有正文 | `src/ui/windows/WindowPlayerAttributes.cpp:360 — WindowPlayerAttributes_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1165 | 0x00475E00 | `sub_475E00` | 有正文 | `src/ui/windows/WindowPlayerAttributes.cpp:206 — WindowPlayerAttributes_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1166 | 0x004763B0 | `sub_4763B0` | 有正文 | `src/ui/WindowRuntime.cpp:4073 — WindowDrag_SetFocus` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1167 | 0x004763E0 | `MouseEvent::reset` | 有正文 | `src/ui/WindowRuntime.cpp:4086 — WindowDrag_ResetMouse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1168 | 0x00476410 | `sub_476410` | 有正文 | `src/ui/WindowRuntime.cpp:4847 — WindowDrag_Cancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1169 | 0x00476490 | `MouseEvent::setupEventCallback` | 有正文 | `src/ui/WindowRuntime.cpp:4029 — WindowDrag_StartAtPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1170 | 0x00476500 | `InvDragReset` | 有正文 | `src/ui/WindowRuntime.cpp:4051 — WindowDrag_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1171 | 0x00476570 | `sub_476570` | 有正文 | `src/ui/WindowRuntime.cpp:4400 — WindowInput_ActivateElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1172 | 0x00476680 | `sub_476680` | 有正文 | `src/world/SceneState.cpp:2437 — Sub_476680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1173 | 0x00476740 | `sub_476740` | 有正文 | `src/Input.cpp:575 — Sub_476740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1166 | 0x004763B0 | `sub_4763B0` | 有正文 | `src/ui/WindowRuntime.cpp:3848 — WindowDrag_SetFocus` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1167 | 0x004763E0 | `MouseEvent::reset` | 有正文 | `src/ui/WindowRuntime.cpp:3861 — WindowDrag_ResetMouse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1168 | 0x00476410 | `sub_476410` | 有正文 | `src/ui/WindowRuntime.cpp:4622 — WindowDrag_Cancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1169 | 0x00476490 | `MouseEvent::setupEventCallback` | 有正文 | `src/ui/WindowRuntime.cpp:3804 — WindowDrag_StartAtPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1170 | 0x00476500 | `InvDragReset` | 有正文 | `src/ui/WindowRuntime.cpp:3826 — WindowDrag_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1171 | 0x00476570 | `sub_476570` | 有正文 | `src/ui/WindowRuntime.cpp:4175 — WindowInput_ActivateElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1172 | 0x00476680 | `sub_476680` | 有正文 | `src/world/SceneState.cpp:2436 — Sub_476680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1173 | 0x00476740 | `sub_476740` | 有正文 | `src/Input.cpp:569 — Sub_476740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1174 | 0x004767E0 | `sub_4767E0` | 有正文 | `src/ui/windows/WindowPlayerAttributes.cpp:298 — WindowPlayerAttributes_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1175 | 0x00477160 | `sub_477160` | 有正文 | `src/ui/WindowRuntime.cpp:4809 — WindowNumber_InitializeLegacySpacing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1176 | 0x00477170 | `sub_477170` | 有正文 | `src/ui/WindowRuntime.cpp:4816 — WindowNumber_InitializeSpacing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1177 | 0x004771B0 | `sub_4771B0` | 有正文 | `src/ui/WindowRuntime.cpp:3670 — WindowNumber_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1178 | 0x00477460 | `sub_477460` | 有正文 | `src/ui/WindowRuntime.cpp:3731 — WindowNumber_MeasureWidth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1179 | 0x00477490 | `Window::FindByWinId` | 有正文 | `src/ui/WindowRuntime.cpp:3657 — WindowRuntime_FindById` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1175 | 0x00477160 | `sub_477160` | 有正文 | `src/ui/WindowRuntime.cpp:4584 — WindowNumber_InitializeLegacySpacing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1176 | 0x00477170 | `sub_477170` | 有正文 | `src/ui/WindowRuntime.cpp:4591 — WindowNumber_InitializeSpacing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1177 | 0x004771B0 | `sub_4771B0` | 有正文 | `src/ui/WindowRuntime.cpp:3465 — WindowNumber_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1178 | 0x00477460 | `sub_477460` | 有正文 | `src/ui/WindowRuntime.cpp:3526 — WindowNumber_MeasureWidth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1179 | 0x00477490 | `Window::FindByWinId` | 有正文 | `src/ui/WindowRuntime.cpp:3452 — WindowRuntime_FindById` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1180 | 0x004774C0 | `sub_4774C0` | 有正文 | `src/ui/windows/WindowPlayerTitles.cpp:457 — WindowPlayerTitles_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1181 | 0x0047752C | `?classic@locale@std@@SAABV12@XZ_4` | 有承接 | `src/ui/windows/WindowPlayerTitles.cpp:457 — WindowPlayerTitles_Update` | 原共享尾为调用 478010 后返回 1；并入实际父正文；完整业务／运行未验 |
 | 1182 | 0x00477540 | `sub_477540` | 有正文 | `src/ui/windows/WindowPlayerTitles.cpp:145 — WindowPlayerTitles_EditDraft` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1239,191 +1245,191 @@
 | 1187 | 0x00478330 | `sub_478330` | 有正文 | `src/ui/windows/WindowProfile.cpp:23 — WindowProfile_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1188 | 0x00478A10 | `sub_478A10` | 有正文 | `src/ui/windows/WindowOwnProfile.cpp:196 — WindowOwnProfile_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1189 | 0x004792D0 | `sub_4792D0` | 有正文 | `src/ui/windows/WindowOwnProfile.cpp:295 — WindowOwnProfile_EditField` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1190 | 0x00479610 | `sub_479610` | 有正文 | `src/ui/WindowRuntime.cpp:3130 — WindowRuntime_ResetOperationReferences` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1191 | 0x00479640 | `sub_479640` | 有正文 | `src/ui/WindowRuntime.cpp:3112 — WindowRuntime_ResetOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1192 | 0x00479650 | `___inc_tmpoff` | 有正文 | `src/ui/WindowRuntime.cpp:3779 — WindowRuntime_IncrementOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1193 | 0x00479660 | `sub_479660` | 有正文 | `src/ui/WindowRuntime.cpp:3785 — WindowRuntime_DecrementOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1194 | 0x004796C0 | `sub_4796C0` | 有正文 | `src/ui/WindowRuntime.cpp:3118 — WindowRuntime_ResetGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1195 | 0x004796D0 | `sub_4796D0` | 有正文 | `src/ui/WindowRuntime.cpp:3767 — WindowRuntime_IncrementGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1196 | 0x004796E0 | `sub_4796E0` | 有正文 | `src/ui/WindowRuntime.cpp:3773 — WindowRuntime_DecrementGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1197 | 0x004796F0 | `sub_4796F0` | 有正文 | `src/ui/WindowRuntime.cpp:3124 — WindowRuntime_ResetSkillOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1198 | 0x00479700 | `sub_479700` | 有正文 | `src/ui/windows/WindowSkill.cpp:731 — WindowSkill_HandleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1199 | 0x004797A0 | `sub_4797A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:758 — WindowSkill_StartDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1200 | 0x004797C0 | `sub_4797C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:358 — WindowSkill_AdjustSpecialHoverCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1201 | 0x00479820 | `sub_479820` | 有正文 | `src/ui/windows/WindowSkill.cpp:375 — WindowSkill_FindSpecialSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1202 | 0x00479860 | `GetPetCrystalLv` | 有正文 | `src/ui/windows/WindowSkill.cpp:389 — WindowSkill_ReadCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1203 | 0x00479920 | `sub_479920` | 有正文 | `src/ui/windows/WindowSkill.cpp:406 — WindowSkill_ReadCrystalElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1204 | 0x004799D0 | `sub_4799D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:423 — WindowSkill_ReadBattlePetImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1205 | 0x00479A00 | `sub_479A00` | 有正文 | `src/ui/windows/WindowSkill.cpp:430 — WindowSkill_FindPetTechnique` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1206 | 0x00479A70 | `sub_479A70` | 有正文 | `src/ui/windows/WindowSkill.cpp:448 — WindowSkill_CheckPetLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1207 | 0x00479AB0 | `sub_479AB0` | 有正文 | `src/ui/windows/WindowSkill.cpp:459 — WindowSkill_CheckPetFp` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1208 | 0x00479B00 | `sub_479B00` | 有正文 | `src/ui/windows/WindowSkill.cpp:474 — WindowSkill_CanUseSpecialSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1209 | 0x00479B80 | `sub_479B80` | 有正文 | `src/ui/windows/WindowSkill.cpp:821 — WindowSkill_ShowSkillList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1210 | 0x00479C80 | `sub_479C80` | 有正文 | `src/ui/windows/WindowSkill.cpp:958 — WindowSkill_ShowTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1211 | 0x00479DA0 | `sub_479DA0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2149 — WindowSkill_ShowRecipes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1212 | 0x00479EA0 | `sub_479EA0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1011 — WindowSkill_ShowBattleSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1213 | 0x0047A000 | `sub_47A000` | 有正文 | `src/ui/windows/WindowSkill.cpp:1069 — WindowSkill_ShowBattleTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1214 | 0x0047A140 | `sub_47A140` | 有正文 | `src/ui/windows/WindowSkill.cpp:2398 — WindowSkill_SyncStates` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1215 | 0x0047A1A0 | `sub_47A1A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1486 — WindowSkill_ShowPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1216 | 0x0047A320 | `sub_47A320` | 有正文 | `src/ui/windows/WindowSkill.cpp:1533 — WindowSkill_ShowRidingSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1217 | 0x0047A490 | `sub_47A490` | 有正文 | `src/ui/windows/WindowSkill.cpp:1246 — WindowSkill_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1218 | 0x0047A4C0 | `sub_47A4C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1259 — WindowSkill_OpenBattleSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1219 | 0x0047A500 | `BattleScene::SelectionCallback2` | 有正文 | `src/ui/windows/WindowSkill.cpp:1271 — WindowSkill_OpenBattleTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1220 | 0x0047A540 | `BattleScene::OpenSkillWindow` | 有正文 | `src/ui/windows/WindowSkill.cpp:1580 — WindowSkill_OpenPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1221 | 0x0047A580 | `BattleScene::OpenSkillWindow2` | 有正文 | `src/ui/windows/WindowSkill.cpp:1592 — WindowSkill_OpenRidingSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1222 | 0x0047A5C0 | `sub_47A5C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1650 — WindowSkill_Back` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1223 | 0x0047A620 | `sub_47A620` | 有正文 | `src/ui/windows/WindowSkill.cpp:1787 — WindowSkill_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1224 | 0x0047A7A0 | `sub_47A7A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1842 — WindowSkill_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1225 | 0x0047B110 | `sub_47B110` | 有正文 | `src/ui/windows/WindowSkill.cpp:1604 — WindowSkill_ButtonBack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1226 | 0x0047B210 | `sub_47B210` | 有正文 | `src/ui/windows/WindowSkill.cpp:1673 — WindowSkill_ButtonUse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1227 | 0x0047B3D0 | `sub_47B3D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2021 — WindowSkill_ButtonPreviousRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1228 | 0x0047B470 | `sub_47B470` | 有正文 | `src/ui/windows/WindowSkill.cpp:2049 — WindowSkill_ButtonNextRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1229 | 0x0047B520 | `sub_47B520` | 有正文 | `src/ui/windows/WindowSkill.cpp:2079 — WindowSkill_ButtonPreviousPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1230 | 0x0047B5D0 | `sub_47B5D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2106 — WindowSkill_ButtonNextPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1231 | 0x0047B680 | `sub_47B680` | 有正文 | `src/ui/windows/WindowSkill.cpp:2136 — WindowSkill_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1232 | 0x0047B6C0 | `sub_47B6C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:698 — WindowSkill_DrawSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1233 | 0x0047B820 | `sub_47B820` | 有正文 | `src/ui/windows/WindowSkill.cpp:764 — WindowSkill_HandleSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1234 | 0x0047B9B0 | `sub_47B9B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:869 — WindowSkill_HandleTechniqueRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1235 | 0x0047BC00 | `sub_47BC00` | 有正文 | `src/ui/windows/WindowSkill.cpp:2236 — WindowSkill_SelectSkillType` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1236 | 0x0047C240 | `sub_47C240` | 有正文 | `src/ui/windows/WindowSkill.cpp:927 — WindowSkill_HandleRecipeRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1237 | 0x0047C3A0 | `sub_47C3A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2180 — WindowSkill_SelectRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1238 | 0x0047C570 | `sub_47C570` | 有正文 | `src/ui/windows/WindowSkill.cpp:1115 — WindowSkill_HandleBattleSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1239 | 0x0047C700 | `sub_47C700` | 有正文 | `src/ui/windows/WindowSkill.cpp:1177 — WindowSkill_SelectBattleTechnique` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1240 | 0x0047C950 | `sub_47C950` | 有正文 | `src/ui/windows/WindowSkill.cpp:1723 — WindowSkill_ButtonPetSkillBack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1241 | 0x0047CB00 | `sub_47CB00` | 有正文 | `src/ui/windows/WindowSkill.cpp:1285 — WindowSkill_DrawPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1242 | 0x0047CC80 | `sub_47CC80` | 有正文 | `src/ui/windows/WindowSkill.cpp:1361 — WindowSkill_SelectPetSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1243 | 0x0047CE70 | `sub_47CE70` | 有正文 | `src/ui/windows/WindowSkill.cpp:1324 — WindowSkill_DrawRidingSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1244 | 0x0047CFE0 | `sub_47CFE0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1426 — WindowSkill_SelectRidingSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1245 | 0x0047D170 | `sub_47D170` | 有正文 | `src/ui/windows/WindowCraft.cpp:3110 — WindowCraft_SetPreviewPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1246 | 0x0047D220 | `sub_47D220` | 有正文 | `src/ui/windows/WindowCraft.cpp:3134 — WindowCraft_BorrowSecondPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1247 | 0x0047D280 | `sub_47D280` | 有正文 | `src/ui/windows/WindowCraft.cpp:3616 — WindowCraft_SetPreviewImages` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1248 | 0x0047D2E0 | `sub_47D2E0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3581 — WindowCraft_AnimatePreviewPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1249 | 0x0047D490 | `sub_47D490` | 有正文 | `src/ui/windows/WindowCraft.cpp:496 — WindowCraft_ResetItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1250 | 0x0047D4A0 | `sub_47D4A0` | 有正文 | `src/ui/windows/WindowCraft.cpp:502 — WindowCraft_ReadItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1251 | 0x0047D4B0 | `sub_47D4B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2673 — WindowCraft_HasRecipeCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1252 | 0x0047D4F0 | `sub_47D4F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2682 — WindowCraft_HasSelectedCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1253 | 0x0047D530 | `sub_47D530` | 有正文 | `src/ui/windows/WindowCraft.cpp:2693 — WindowCraft_HasMaterialCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1254 | 0x0047D5B0 | `sub_47D5B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2711 — WindowCraft_HasFirstMaterialCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1255 | 0x0047D5F0 | `sub_47D5F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:830 — WindowCraft_OpenRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1256 | 0x0047D780 | `sub_47D780` | 有正文 | `src/ui/windows/WindowCraft.cpp:854 — WindowCraft_OpenItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1257 | 0x0047D8F0 | `sub_47D8F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:874 — WindowCraft_OpenDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1258 | 0x0047DA70 | `sub_47DA70` | 有正文 | `src/ui/windows/WindowCraft.cpp:898 — WindowCraft_OpenRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1259 | 0x0047DB50 | `sub_47DB50` | 有正文 | `src/ui/windows/WindowCraft.cpp:919 — WindowCraft_OpenMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1260 | 0x0047DC20 | `sub_47DC20` | 有正文 | `src/ui/windows/WindowCraft.cpp:400 — WindowCraft_ReleaseMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1261 | 0x0047DCD0 | `sub_47DCD0` | 有正文 | `src/ui/windows/WindowCraft.cpp:438 — WindowCraft_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1262 | 0x0047DE00 | `sub_47DE00` | 有正文 | `src/ui/windows/WindowCraft.cpp:1542 — WindowCraft_HandleMaterialDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1263 | 0x0047DF30 | `sub_47DF30` | 有正文 | `src/ui/windows/WindowCraft.cpp:1580 — WindowCraft_StartMaterialDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1264 | 0x0047DF50 | `sub_47DF50` | 有正文 | `src/ui/windows/WindowCraft.cpp:1316 — WindowCraft_InitializeRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1265 | 0x0047E1B0 | `sub_47E1B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:633 — WindowCraft_WaitCraft` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1266 | 0x0047E5E0 | `sub_47E5E0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3201 — WindowCraft_ShowRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1267 | 0x0047EBE0 | `sub_47EBE0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3292 — WindowCraft_RefreshRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1268 | 0x0047EC00 | `sub_47EC00` | 有正文 | `src/ui/windows/WindowCraft.cpp:2602 — WindowCraft_InitializeItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1269 | 0x0047EF00 | `sub_47EF00` | 有正文 | `src/ui/windows/WindowCraft.cpp:669 — WindowCraft_WaitItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1270 | 0x0047F3D0 | `sub_47F3D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3410 — WindowCraft_ShowItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1271 | 0x0047FAC0 | `sub_47FAC0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3519 — WindowCraft_RefreshItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1272 | 0x0047FAE0 | `sub_47FAE0` | 有正文 | `src/ui/windows/WindowCraft.cpp:938 — WindowCraft_InitializeDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1273 | 0x0047FD00 | `sub_47FD00` | 有正文 | `src/ui/windows/WindowCraft.cpp:955 — WindowCraft_InitializePetDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1274 | 0x0047FF20 | `sub_47FF20` | 有正文 | `src/ui/windows/WindowCraft.cpp:972 — WindowCraft_InitializePacking` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1275 | 0x004801B0 | `sub_4801B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:726 — WindowCraft_WaitPacking` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1276 | 0x00480600 | `sub_480600` | 有正文 | `src/ui/windows/WindowCraft.cpp:763 — WindowCraft_WaitDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1277 | 0x00480A00 | `sub_480A00` | 有正文 | `src/ui/windows/WindowCraft.cpp:989 — WindowCraft_InitializeRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1278 | 0x00480C20 | `sub_480C20` | 有正文 | `src/ui/windows/WindowCraft.cpp:798 — WindowCraft_WaitRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1279 | 0x00481010 | `sub_481010` | 有正文 | `src/ui/windows/WindowCraft.cpp:3038 — WindowCraft_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1280 | 0x004810A0 | `sub_4810A0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2723 — WindowCraft_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1281 | 0x00482000 | `sub_482000` | 有正文 | `src/ui/windows/WindowCraft.cpp:3062 — WindowCraft_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1282 | 0x00482270 | `sub_482270` | 有正文 | `src/ui/windows/WindowCraft.cpp:1598 — WindowCraft_ButtonExecute` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1283 | 0x00482F70 | `sub_482F70` | 有正文 | `src/ui/windows/WindowCraft.cpp:1586 — WindowCraft_ClassifyWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1284 | 0x00482FA0 | `sub_482FA0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1898 — WindowCraft_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1285 | 0x004830B0 | `sub_4830B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1945 — WindowCraft_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1286 | 0x00483150 | `sub_483150` | 有正文 | `src/ui/windows/WindowCraft.cpp:1967 — WindowCraft_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1287 | 0x00483E30 | `sub_483E30` | 有正文 | `src/ui/windows/WindowCraft.cpp:1389 — WindowCraft_ReleaseMaterialSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1288 | 0x00483EB0 | `sub_483EB0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1008 — WindowCraft_HandleMaterialSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1289 | 0x004847C0 | `sub_4847C0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2442 — WindowCraft_HandleSingleMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1290 | 0x00484D60 | `sub_484D60` | 有正文 | `src/ui/windows/WindowCraft.cpp:3153 — WindowCraft_HandleMaterialTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1291 | 0x00484E90 | `sub_484E90` | 有正文 | `src/ui/windows/WindowCraft.cpp:3363 — WindowCraft_HandleItemTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1292 | 0x00484FB0 | `sub_484FB0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2327 — WindowCraft_DrawResultImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1293 | 0x00485110 | `sub_485110` | 有正文 | `src/ui/WindowRuntime.cpp:3942 — WindowElement_DrawHoverFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1294 | 0x00485160 | `sub_485160` | 有正文 | `src/ui/windows/WindowCraft.cpp:2371 — WindowCraft_ButtonCloseIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1295 | 0x00485200 | `sub_485200` | 有正文 | `src/ui/windows/WindowCraft.cpp:2426 — WindowCraft_DrawInvalidEngravingNotice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1296 | 0x00485350 | `sub_485350` | 有正文 | `src/ui/windows/WindowCraft.cpp:2434 — WindowCraft_DrawEmptyEngravingNotice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1297 | 0x004854A0 | `sub_4854A0` | 有正文 | `src/ui/windows/WindowGather.cpp:146 — WindowGather_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1298 | 0x00485700 | `sub_485700` | 有正文 | `src/ui/windows/WindowGather.cpp:242 — WindowGather_Cancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1299 | 0x00485890 | `sub_485890` | 有正文 | `src/ui/windows/WindowGather.cpp:270 — WindowGather_InitializeAction` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1300 | 0x00485AF0 | `sub_485AF0` | 有正文 | `src/ui/windows/WindowGather.cpp:324 — WindowGather_ShowResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1301 | 0x00486020 | `sub_486020` | 有正文 | `src/ui/windows/WindowGather.cpp:399 — WindowGather_RefreshResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1302 | 0x00486040 | `sub_486040` | 有正文 | `src/ui/windows/WindowGather.cpp:463 — WindowGather_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1303 | 0x00486CF0 | `sub_486CF0` | 有正文 | `src/ui/windows/WindowGather.cpp:687 — WindowGather_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1304 | 0x00486E50 | `sub_486E50` | 有正文 | `src/ui/windows/WindowGather.cpp:726 — WindowGather_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1305 | 0x00486F20 | `sub_486F20` | 有正文 | `src/ui/windows/WindowGather.cpp:756 — WindowGather_DrawResultImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1306 | 0x00486FE0 | `sub_486FE0` | 有正文 | `src/ui/windows/WindowSkill.cpp:495 — WindowSkill_MatchesCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1307 | 0x00487020 | `sub_487020` | 有正文 | `src/ui/windows/WindowSkill.cpp:2413 — WindowSkill_SelectTextTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1308 | 0x004871B0 | `sub_4871B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2463 — WindowSkill_OpenTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1309 | 0x004872E0 | `sub_4872E0` | 有正文 | `src/ui/windows/WindowSkill.cpp:504 — WindowSkill_SelectAttributeTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1310 | 0x004874B0 | `sub_4874B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:552 — WindowSkill_OpenAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1311 | 0x004875E0 | `sub_4875E0` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:133 — WindowSkillResult_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1312 | 0x00487660 | `sub_487660` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:154 — WindowSkillResult_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1313 | 0x00487AE0 | `sub_487AE0` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:237 — WindowSkillResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1314 | 0x00487B80 | `sub_487B80` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:257 — WindowSkillResult_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1315 | 0x00487D60 | `sub_487D60` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:287 — WindowSkillResult_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1316 | 0x00487E80 | `sub_487E80` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:323 — WindowSkillResult_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1317 | 0x00487F30 | `sub_487F30` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:109 — WindowSkillResult_ReadPreviewImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1318 | 0x004880D0 | `sub_4880D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1405 — WindowCraft_ReadRequiredSkillLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1319 | 0x00488160 | `sub_488160` | 有正文 | `src/ui/windows/WindowCraft.cpp:1425 — WindowCraft_ReadMaxMaterialLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1320 | 0x00488180 | `sub_488180` | 有正文 | `src/ui/windows/WindowCraft.cpp:1438 — WindowCraft_ReadFirstMaterialId` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1321 | 0x004881D0 | `sub_4881D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1451 — WindowCraft_ValidatePackingMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1190 | 0x00479610 | `sub_479610` | 有正文 | `src/ui/WindowRuntime.cpp:2925 — WindowRuntime_ResetOperationReferences` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1191 | 0x00479640 | `sub_479640` | 有正文 | `src/ui/WindowRuntime.cpp:2907 — WindowRuntime_ResetOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1192 | 0x00479650 | `___inc_tmpoff` | 有正文 | `src/ui/WindowRuntime.cpp:3574 — WindowRuntime_IncrementOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1193 | 0x00479660 | `sub_479660` | 有正文 | `src/ui/WindowRuntime.cpp:3580 — WindowRuntime_DecrementOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1194 | 0x004796C0 | `sub_4796C0` | 有正文 | `src/ui/WindowRuntime.cpp:2913 — WindowRuntime_ResetGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1195 | 0x004796D0 | `sub_4796D0` | 有正文 | `src/ui/WindowRuntime.cpp:3562 — WindowRuntime_IncrementGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1196 | 0x004796E0 | `sub_4796E0` | 有正文 | `src/ui/WindowRuntime.cpp:3568 — WindowRuntime_DecrementGatherOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1197 | 0x004796F0 | `sub_4796F0` | 有正文 | `src/ui/WindowRuntime.cpp:2919 — WindowRuntime_ResetSkillOperationCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1198 | 0x00479700 | `sub_479700` | 有正文 | `src/ui/windows/WindowSkill.cpp:710 — WindowSkill_HandleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1199 | 0x004797A0 | `sub_4797A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:737 — WindowSkill_StartDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1200 | 0x004797C0 | `sub_4797C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:337 — WindowSkill_AdjustSpecialHoverCount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1201 | 0x00479820 | `sub_479820` | 有正文 | `src/ui/windows/WindowSkill.cpp:354 — WindowSkill_FindSpecialSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1202 | 0x00479860 | `GetPetCrystalLv` | 有正文 | `src/ui/windows/WindowSkill.cpp:368 — WindowSkill_ReadCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1203 | 0x00479920 | `sub_479920` | 有正文 | `src/ui/windows/WindowSkill.cpp:385 — WindowSkill_ReadCrystalElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1204 | 0x004799D0 | `sub_4799D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:402 — WindowSkill_ReadBattlePetImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1205 | 0x00479A00 | `sub_479A00` | 有正文 | `src/ui/windows/WindowSkill.cpp:409 — WindowSkill_FindPetTechnique` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1206 | 0x00479A70 | `sub_479A70` | 有正文 | `src/ui/windows/WindowSkill.cpp:427 — WindowSkill_CheckPetLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1207 | 0x00479AB0 | `sub_479AB0` | 有正文 | `src/ui/windows/WindowSkill.cpp:438 — WindowSkill_CheckPetFp` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1208 | 0x00479B00 | `sub_479B00` | 有正文 | `src/ui/windows/WindowSkill.cpp:453 — WindowSkill_CanUseSpecialSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1209 | 0x00479B80 | `sub_479B80` | 有正文 | `src/ui/windows/WindowSkill.cpp:800 — WindowSkill_ShowSkillList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1210 | 0x00479C80 | `sub_479C80` | 有正文 | `src/ui/windows/WindowSkill.cpp:937 — WindowSkill_ShowTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1211 | 0x00479DA0 | `sub_479DA0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2128 — WindowSkill_ShowRecipes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1212 | 0x00479EA0 | `sub_479EA0` | 有正文 | `src/ui/windows/WindowSkill.cpp:990 — WindowSkill_ShowBattleSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1213 | 0x0047A000 | `sub_47A000` | 有正文 | `src/ui/windows/WindowSkill.cpp:1048 — WindowSkill_ShowBattleTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1214 | 0x0047A140 | `sub_47A140` | 有正文 | `src/ui/windows/WindowSkill.cpp:2377 — WindowSkill_SyncStates` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1215 | 0x0047A1A0 | `sub_47A1A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1465 — WindowSkill_ShowPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1216 | 0x0047A320 | `sub_47A320` | 有正文 | `src/ui/windows/WindowSkill.cpp:1512 — WindowSkill_ShowRidingSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1217 | 0x0047A490 | `sub_47A490` | 有正文 | `src/ui/windows/WindowSkill.cpp:1225 — WindowSkill_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1218 | 0x0047A4C0 | `sub_47A4C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1238 — WindowSkill_OpenBattleSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1219 | 0x0047A500 | `BattleScene::SelectionCallback2` | 有正文 | `src/ui/windows/WindowSkill.cpp:1250 — WindowSkill_OpenBattleTechniques` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1220 | 0x0047A540 | `BattleScene::OpenSkillWindow` | 有正文 | `src/ui/windows/WindowSkill.cpp:1559 — WindowSkill_OpenPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1221 | 0x0047A580 | `BattleScene::OpenSkillWindow2` | 有正文 | `src/ui/windows/WindowSkill.cpp:1571 — WindowSkill_OpenRidingSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1222 | 0x0047A5C0 | `sub_47A5C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1629 — WindowSkill_Back` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1223 | 0x0047A620 | `sub_47A620` | 有正文 | `src/ui/windows/WindowSkill.cpp:1766 — WindowSkill_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1224 | 0x0047A7A0 | `sub_47A7A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1821 — WindowSkill_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1225 | 0x0047B110 | `sub_47B110` | 有正文 | `src/ui/windows/WindowSkill.cpp:1583 — WindowSkill_ButtonBack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1226 | 0x0047B210 | `sub_47B210` | 有正文 | `src/ui/windows/WindowSkill.cpp:1652 — WindowSkill_ButtonUse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1227 | 0x0047B3D0 | `sub_47B3D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2000 — WindowSkill_ButtonPreviousRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1228 | 0x0047B470 | `sub_47B470` | 有正文 | `src/ui/windows/WindowSkill.cpp:2028 — WindowSkill_ButtonNextRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1229 | 0x0047B520 | `sub_47B520` | 有正文 | `src/ui/windows/WindowSkill.cpp:2058 — WindowSkill_ButtonPreviousPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1230 | 0x0047B5D0 | `sub_47B5D0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2085 — WindowSkill_ButtonNextPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1231 | 0x0047B680 | `sub_47B680` | 有正文 | `src/ui/windows/WindowSkill.cpp:2115 — WindowSkill_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1232 | 0x0047B6C0 | `sub_47B6C0` | 有正文 | `src/ui/windows/WindowSkill.cpp:677 — WindowSkill_DrawSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1233 | 0x0047B820 | `sub_47B820` | 有正文 | `src/ui/windows/WindowSkill.cpp:743 — WindowSkill_HandleSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1234 | 0x0047B9B0 | `sub_47B9B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:848 — WindowSkill_HandleTechniqueRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1235 | 0x0047BC00 | `sub_47BC00` | 有正文 | `src/ui/windows/WindowSkill.cpp:2215 — WindowSkill_SelectSkillType` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1236 | 0x0047C240 | `sub_47C240` | 有正文 | `src/ui/windows/WindowSkill.cpp:906 — WindowSkill_HandleRecipeRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1237 | 0x0047C3A0 | `sub_47C3A0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2159 — WindowSkill_SelectRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1238 | 0x0047C570 | `sub_47C570` | 有正文 | `src/ui/windows/WindowSkill.cpp:1094 — WindowSkill_HandleBattleSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1239 | 0x0047C700 | `sub_47C700` | 有正文 | `src/ui/windows/WindowSkill.cpp:1156 — WindowSkill_SelectBattleTechnique` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1240 | 0x0047C950 | `sub_47C950` | 有正文 | `src/ui/windows/WindowSkill.cpp:1702 — WindowSkill_ButtonPetSkillBack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1241 | 0x0047CB00 | `sub_47CB00` | 有正文 | `src/ui/windows/WindowSkill.cpp:1264 — WindowSkill_DrawPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1242 | 0x0047CC80 | `sub_47CC80` | 有正文 | `src/ui/windows/WindowSkill.cpp:1340 — WindowSkill_SelectPetSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1243 | 0x0047CE70 | `sub_47CE70` | 有正文 | `src/ui/windows/WindowSkill.cpp:1303 — WindowSkill_DrawRidingSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1244 | 0x0047CFE0 | `sub_47CFE0` | 有正文 | `src/ui/windows/WindowSkill.cpp:1405 — WindowSkill_SelectRidingSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1245 | 0x0047D170 | `sub_47D170` | 有正文 | `src/ui/windows/WindowCraft.cpp:3055 — WindowCraft_SetPreviewPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1246 | 0x0047D220 | `sub_47D220` | 有正文 | `src/ui/windows/WindowCraft.cpp:3079 — WindowCraft_BorrowSecondPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1247 | 0x0047D280 | `sub_47D280` | 有正文 | `src/ui/windows/WindowCraft.cpp:3561 — WindowCraft_SetPreviewImages` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1248 | 0x0047D2E0 | `sub_47D2E0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3526 — WindowCraft_AnimatePreviewPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1249 | 0x0047D490 | `sub_47D490` | 有正文 | `src/ui/windows/WindowCraft.cpp:441 — WindowCraft_ResetItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1250 | 0x0047D4A0 | `sub_47D4A0` | 有正文 | `src/ui/windows/WindowCraft.cpp:447 — WindowCraft_ReadItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1251 | 0x0047D4B0 | `sub_47D4B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2618 — WindowCraft_HasRecipeCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1252 | 0x0047D4F0 | `sub_47D4F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2627 — WindowCraft_HasSelectedCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1253 | 0x0047D530 | `sub_47D530` | 有正文 | `src/ui/windows/WindowCraft.cpp:2638 — WindowCraft_HasMaterialCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1254 | 0x0047D5B0 | `sub_47D5B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2656 — WindowCraft_HasFirstMaterialCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1255 | 0x0047D5F0 | `sub_47D5F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:775 — WindowCraft_OpenRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1256 | 0x0047D780 | `sub_47D780` | 有正文 | `src/ui/windows/WindowCraft.cpp:799 — WindowCraft_OpenItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1257 | 0x0047D8F0 | `sub_47D8F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:819 — WindowCraft_OpenDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1258 | 0x0047DA70 | `sub_47DA70` | 有正文 | `src/ui/windows/WindowCraft.cpp:843 — WindowCraft_OpenRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1259 | 0x0047DB50 | `sub_47DB50` | 有正文 | `src/ui/windows/WindowCraft.cpp:864 — WindowCraft_OpenMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1260 | 0x0047DC20 | `sub_47DC20` | 有正文 | `src/ui/windows/WindowCraft.cpp:345 — WindowCraft_ReleaseMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1261 | 0x0047DCD0 | `sub_47DCD0` | 有正文 | `src/ui/windows/WindowCraft.cpp:383 — WindowCraft_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1262 | 0x0047DE00 | `sub_47DE00` | 有正文 | `src/ui/windows/WindowCraft.cpp:1487 — WindowCraft_HandleMaterialDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1263 | 0x0047DF30 | `sub_47DF30` | 有正文 | `src/ui/windows/WindowCraft.cpp:1525 — WindowCraft_StartMaterialDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1264 | 0x0047DF50 | `sub_47DF50` | 有正文 | `src/ui/windows/WindowCraft.cpp:1261 — WindowCraft_InitializeRecipe` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1265 | 0x0047E1B0 | `sub_47E1B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:578 — WindowCraft_WaitCraft` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1266 | 0x0047E5E0 | `sub_47E5E0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3146 — WindowCraft_ShowRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1267 | 0x0047EBE0 | `sub_47EBE0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3237 — WindowCraft_RefreshRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1268 | 0x0047EC00 | `sub_47EC00` | 有正文 | `src/ui/windows/WindowCraft.cpp:2547 — WindowCraft_InitializeItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1269 | 0x0047EF00 | `sub_47EF00` | 有正文 | `src/ui/windows/WindowCraft.cpp:614 — WindowCraft_WaitItemWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1270 | 0x0047F3D0 | `sub_47F3D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3355 — WindowCraft_ShowItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1271 | 0x0047FAC0 | `sub_47FAC0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3464 — WindowCraft_RefreshItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1272 | 0x0047FAE0 | `sub_47FAE0` | 有正文 | `src/ui/windows/WindowCraft.cpp:883 — WindowCraft_InitializeDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1273 | 0x0047FD00 | `sub_47FD00` | 有正文 | `src/ui/windows/WindowCraft.cpp:900 — WindowCraft_InitializePetDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1274 | 0x0047FF20 | `sub_47FF20` | 有正文 | `src/ui/windows/WindowCraft.cpp:917 — WindowCraft_InitializePacking` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1275 | 0x004801B0 | `sub_4801B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:671 — WindowCraft_WaitPacking` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1276 | 0x00480600 | `sub_480600` | 有正文 | `src/ui/windows/WindowCraft.cpp:708 — WindowCraft_WaitDecoration` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1277 | 0x00480A00 | `sub_480A00` | 有正文 | `src/ui/windows/WindowCraft.cpp:934 — WindowCraft_InitializeRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1278 | 0x00480C20 | `sub_480C20` | 有正文 | `src/ui/windows/WindowCraft.cpp:743 — WindowCraft_WaitRefining` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1279 | 0x00481010 | `sub_481010` | 有正文 | `src/ui/windows/WindowCraft.cpp:2983 — WindowCraft_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1280 | 0x004810A0 | `sub_4810A0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2668 — WindowCraft_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1281 | 0x00482000 | `sub_482000` | 有正文 | `src/ui/windows/WindowCraft.cpp:3007 — WindowCraft_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1282 | 0x00482270 | `sub_482270` | 有正文 | `src/ui/windows/WindowCraft.cpp:1543 — WindowCraft_ButtonExecute` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1283 | 0x00482F70 | `sub_482F70` | 有正文 | `src/ui/windows/WindowCraft.cpp:1531 — WindowCraft_ClassifyWork` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1284 | 0x00482FA0 | `sub_482FA0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1843 — WindowCraft_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1285 | 0x004830B0 | `sub_4830B0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1890 — WindowCraft_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1286 | 0x00483150 | `sub_483150` | 有正文 | `src/ui/windows/WindowCraft.cpp:1912 — WindowCraft_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1287 | 0x00483E30 | `sub_483E30` | 有正文 | `src/ui/windows/WindowCraft.cpp:1334 — WindowCraft_ReleaseMaterialSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1288 | 0x00483EB0 | `sub_483EB0` | 有正文 | `src/ui/windows/WindowCraft.cpp:953 — WindowCraft_HandleMaterialSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1289 | 0x004847C0 | `sub_4847C0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2387 — WindowCraft_HandleSingleMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1290 | 0x00484D60 | `sub_484D60` | 有正文 | `src/ui/windows/WindowCraft.cpp:3098 — WindowCraft_HandleMaterialTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1291 | 0x00484E90 | `sub_484E90` | 有正文 | `src/ui/windows/WindowCraft.cpp:3308 — WindowCraft_HandleItemTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1292 | 0x00484FB0 | `sub_484FB0` | 有正文 | `src/ui/windows/WindowCraft.cpp:2272 — WindowCraft_DrawResultImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1293 | 0x00485110 | `sub_485110` | 有正文 | `src/ui/WindowRuntime.cpp:3717 — WindowElement_DrawHoverFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1294 | 0x00485160 | `sub_485160` | 有正文 | `src/ui/windows/WindowCraft.cpp:2316 — WindowCraft_ButtonCloseIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1295 | 0x00485200 | `sub_485200` | 有正文 | `src/ui/windows/WindowCraft.cpp:2371 — WindowCraft_DrawInvalidEngravingNotice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1296 | 0x00485350 | `sub_485350` | 有正文 | `src/ui/windows/WindowCraft.cpp:2379 — WindowCraft_DrawEmptyEngravingNotice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1297 | 0x004854A0 | `sub_4854A0` | 有正文 | `src/ui/windows/WindowGather.cpp:121 — WindowGather_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1298 | 0x00485700 | `sub_485700` | 有正文 | `src/ui/windows/WindowGather.cpp:217 — WindowGather_Cancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1299 | 0x00485890 | `sub_485890` | 有正文 | `src/ui/windows/WindowGather.cpp:245 — WindowGather_InitializeAction` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1300 | 0x00485AF0 | `sub_485AF0` | 有正文 | `src/ui/windows/WindowGather.cpp:299 — WindowGather_ShowResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1301 | 0x00486020 | `sub_486020` | 有正文 | `src/ui/windows/WindowGather.cpp:374 — WindowGather_RefreshResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1302 | 0x00486040 | `sub_486040` | 有正文 | `src/ui/windows/WindowGather.cpp:438 — WindowGather_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1303 | 0x00486CF0 | `sub_486CF0` | 有正文 | `src/ui/windows/WindowGather.cpp:662 — WindowGather_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1304 | 0x00486E50 | `sub_486E50` | 有正文 | `src/ui/windows/WindowGather.cpp:701 — WindowGather_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1305 | 0x00486F20 | `sub_486F20` | 有正文 | `src/ui/windows/WindowGather.cpp:731 — WindowGather_DrawResultImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1306 | 0x00486FE0 | `sub_486FE0` | 有正文 | `src/ui/windows/WindowSkill.cpp:474 — WindowSkill_MatchesCrystalLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1307 | 0x00487020 | `sub_487020` | 有正文 | `src/ui/windows/WindowSkill.cpp:2392 — WindowSkill_SelectTextTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1308 | 0x004871B0 | `sub_4871B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:2442 — WindowSkill_OpenTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1309 | 0x004872E0 | `sub_4872E0` | 有正文 | `src/ui/windows/WindowSkill.cpp:483 — WindowSkill_SelectAttributeTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1310 | 0x004874B0 | `sub_4874B0` | 有正文 | `src/ui/windows/WindowSkill.cpp:531 — WindowSkill_OpenAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1311 | 0x004875E0 | `sub_4875E0` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:118 — WindowSkillResult_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1312 | 0x00487660 | `sub_487660` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:139 — WindowSkillResult_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1313 | 0x00487AE0 | `sub_487AE0` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:222 — WindowSkillResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1314 | 0x00487B80 | `sub_487B80` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:242 — WindowSkillResult_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1315 | 0x00487D60 | `sub_487D60` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:272 — WindowSkillResult_ButtonContinue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1316 | 0x00487E80 | `sub_487E80` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:308 — WindowSkillResult_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1317 | 0x00487F30 | `sub_487F30` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:94 — WindowSkillResult_ReadPreviewImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1318 | 0x004880D0 | `sub_4880D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1350 — WindowCraft_ReadRequiredSkillLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1319 | 0x00488160 | `sub_488160` | 有正文 | `src/ui/windows/WindowCraft.cpp:1370 — WindowCraft_ReadMaxMaterialLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1320 | 0x00488180 | `sub_488180` | 有正文 | `src/ui/windows/WindowCraft.cpp:1383 — WindowCraft_ReadFirstMaterialId` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1321 | 0x004881D0 | `sub_4881D0` | 有正文 | `src/ui/windows/WindowCraft.cpp:1396 — WindowCraft_ValidatePackingMaterials` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1322 | 0x004883F0 | `sub_4883F0` | 有承接 | `src/ui/windows/WindowBattleItems.cpp:864 — FirstItemSelectorStartup::FirstItemSelectorStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 1323 | 0x00488400 | `unknown_libname_44` | 有正文 | `src/ui/windows/WindowInventory.cpp:1033 — WindowInventory_ConstructSelector` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1324 | 0x00488420 | `sub_488420` | 有正文 | `src/ui/windows/WindowInventory.cpp:1040 — WindowInventory_ReleaseSelectorAtExit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1325 | 0x00488510 | `sub_488510` | 有正文 | `src/ui/windows/WindowInventory.cpp:245 — WindowInventory_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1326 | 0x004885A0 | `sub_4885A0` | 有正文 | `src/ui/WindowRuntime.cpp:961 — WindowItem_RequestTransferQuantity` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1327 | 0x004886E0 | `sub_4886E0` | 有正文 | `src/ui/WindowRuntime.cpp:996 — WindowItem_RequestTransfer` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1328 | 0x00488800 | `sub_488800` | 有正文 | `src/ui/WindowRuntime.cpp:1038 — WindowItem_TransferQuantity` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1329 | 0x004888C0 | `sub_4888C0` | 有正文 | `src/ui/windows/WindowInventory.cpp:167 — WindowInventory_OpenSpecialSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1330 | 0x00488930 | `sub_488930` | 有正文 | `src/ui/windows/WindowInventory.cpp:182 — WindowInventory_TogglePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1331 | 0x00488950 | `sub_488950` | 有正文 | `src/ui/windows/WindowInventory.cpp:188 — WindowInventory_CycleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1332 | 0x00488970 | `sub_488970` | 有正文 | `src/ui/windows/WindowInventory.cpp:194 — WindowInventory_RotatePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1333 | 0x00488990 | `sub_488990` | 有正文 | `src/ui/windows/WindowInventory.cpp:269 — WindowInventory_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1334 | 0x00488B10 | `sub_488B10` | 有正文 | `src/ui/windows/WindowInventory.cpp:324 — WindowInventory_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1335 | 0x00488C50 | `sub_488C50` | 有正文 | `src/ui/windows/WindowInventory.cpp:366 — WindowInventory_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1336 | 0x00488CF0 | `sub_488CF0` | 有正文 | `src/ui/windows/WindowInventory.cpp:386 — WindowInventory_DropMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1337 | 0x00488D30 | `sub_488D30` | 有正文 | `src/ui/windows/WindowInventory.cpp:398 — WindowInventory_HandleMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1338 | 0x00488E60 | `sub_488E60` | 有正文 | `src/ui/windows/WindowInventory.cpp:434 — WindowInventory_RefreshMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1339 | 0x00488E80 | `sub_488E80` | 有正文 | `src/ui/windows/WindowInventory.cpp:441 — WindowInventory_RefreshExtraValue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1340 | 0x00488EA0 | `sub_488EA0` | 有正文 | `src/ui/windows/WindowInventory.cpp:201 — WindowInventory_TabEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1341 | 0x00488EC0 | `sub_488EC0` | 有正文 | `src/ui/windows/WindowInventory.cpp:208 — WindowInventory_TabPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1342 | 0x00488FB0 | `sub_488FB0` | 有正文 | `src/ui/windows/WindowInventory.cpp:448 — WindowInventory_HandleItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1343 | 0x00489760 | `sub_489760` | 有正文 | `src/ui/windows/WindowInventory.cpp:645 — WindowInventory_HandleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1344 | 0x00489EE0 | `sub_489EE0` | 有正文 | `src/ui/windows/WindowInventory.cpp:868 — WindowInventory_TabPlayerAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1345 | 0x00489F00 | `sub_489F00` | 有正文 | `src/ui/windows/WindowInventory.cpp:875 — WindowInventory_HandleItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1346 | 0x0048A6C0 | `sub_48A6C0` | 有正文 | `src/ui/windows/WindowInventory.cpp:122 — WindowInventory_DrawBlockedEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1323 | 0x00488400 | `unknown_libname_44` | 有正文 | `src/ui/windows/WindowInventory.cpp:1122 — WindowInventory_ConstructSelector` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1324 | 0x00488420 | `sub_488420` | 有正文 | `src/ui/windows/WindowInventory.cpp:1129 — WindowInventory_ReleaseSelectorAtExit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1325 | 0x00488510 | `sub_488510` | 有正文 | `src/ui/windows/WindowInventory.cpp:334 — WindowInventory_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1326 | 0x004885A0 | `sub_4885A0` | 有正文 | `src/ui/WindowRuntime.cpp:935 — WindowItem_RequestTransferQuantity` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1327 | 0x004886E0 | `sub_4886E0` | 有正文 | `src/ui/WindowRuntime.cpp:970 — WindowItem_RequestTransfer` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1328 | 0x00488800 | `sub_488800` | 有正文 | `src/ui/windows/WindowInventory.cpp:133 — WindowItem_TransferQuantity` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1329 | 0x004888C0 | `sub_4888C0` | 有正文 | `src/ui/windows/WindowInventory.cpp:256 — WindowInventory_OpenSpecialSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1330 | 0x00488930 | `sub_488930` | 有正文 | `src/ui/windows/WindowInventory.cpp:271 — WindowInventory_TogglePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1331 | 0x00488950 | `sub_488950` | 有正文 | `src/ui/windows/WindowInventory.cpp:277 — WindowInventory_CycleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1332 | 0x00488970 | `sub_488970` | 有正文 | `src/ui/windows/WindowInventory.cpp:283 — WindowInventory_RotatePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1333 | 0x00488990 | `sub_488990` | 有正文 | `src/ui/windows/WindowInventory.cpp:358 — WindowInventory_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1334 | 0x00488B10 | `sub_488B10` | 有正文 | `src/ui/windows/WindowInventory.cpp:413 — WindowInventory_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1335 | 0x00488C50 | `sub_488C50` | 有正文 | `src/ui/windows/WindowInventory.cpp:455 — WindowInventory_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1336 | 0x00488CF0 | `sub_488CF0` | 有正文 | `src/ui/windows/WindowInventory.cpp:475 — WindowInventory_DropMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1337 | 0x00488D30 | `sub_488D30` | 有正文 | `src/ui/windows/WindowInventory.cpp:487 — WindowInventory_HandleMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1338 | 0x00488E60 | `sub_488E60` | 有正文 | `src/ui/windows/WindowInventory.cpp:523 — WindowInventory_RefreshMoney` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1339 | 0x00488E80 | `sub_488E80` | 有正文 | `src/ui/windows/WindowInventory.cpp:530 — WindowInventory_RefreshExtraValue` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1340 | 0x00488EA0 | `sub_488EA0` | 有正文 | `src/ui/windows/WindowInventory.cpp:290 — WindowInventory_TabEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1341 | 0x00488EC0 | `sub_488EC0` | 有正文 | `src/ui/windows/WindowInventory.cpp:297 — WindowInventory_TabPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1342 | 0x00488FB0 | `sub_488FB0` | 有正文 | `src/ui/windows/WindowInventory.cpp:537 — WindowInventory_HandleItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1343 | 0x00489760 | `sub_489760` | 有正文 | `src/ui/windows/WindowInventory.cpp:734 — WindowInventory_HandleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1344 | 0x00489EE0 | `sub_489EE0` | 有正文 | `src/ui/windows/WindowInventory.cpp:957 — WindowInventory_TabPlayerAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1345 | 0x00489F00 | `sub_489F00` | 有正文 | `src/ui/windows/WindowInventory.cpp:964 — WindowInventory_HandleItemSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1346 | 0x0048A6C0 | `sub_48A6C0` | 有正文 | `src/ui/windows/WindowInventory.cpp:211 — WindowInventory_DrawBlockedEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1347 | 0x0048A830 | `sub_48A830` | 有正文 | `src/ui/windows/WindowQuantity.cpp:81 — WindowQuantity_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1348 | 0x0048A8C0 | `sub_48A8C0` | 有正文 | `src/ui/windows/WindowQuantity.cpp:106 — WindowQuantity_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1349 | 0x0048A900 | `sub_48A900` | 有正文 | `src/ui/windows/WindowQuantity.cpp:121 — WindowQuantity_HandleInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1350 | 0x0048A950 | `sub_48A950` | 有正文 | `src/ui/windows/WindowQuantity.cpp:135 — WindowQuantity_ButtonOk` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1351 | 0x0048AA60 | `sub_48AA60` | 有正文 | `src/ui/windows/WindowQuantity.cpp:178 — WindowQuantity_ButtonIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1352 | 0x0048AB10 | `sub_48AB10` | 有正文 | `src/ui/windows/WindowQuantity.cpp:207 — WindowQuantity_ButtonDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1353 | 0x0048ABC0 | `sub_48ABC0` | 有正文 | `src/YobiRuntime.cpp:1998 — Sub_48ABC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1354 | 0x0048AC60 | `sub_48AC60` | 有正文 | `src/YobiRuntime.cpp:2035 — Sub_48AC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1353 | 0x0048ABC0 | `sub_48ABC0` | 有正文 | `src/YobiRuntime.cpp:1996 — Sub_48ABC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1354 | 0x0048AC60 | `sub_48AC60` | 有正文 | `src/YobiRuntime.cpp:2033 — Sub_48AC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1355 | 0x0048AEA0 | `sub_48AEA0` | 有正文 | `src/ui/windows/WindowItemUse.cpp:86 — WindowItemUse_SelectTextTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1356 | 0x0048AF00 | `sub_48AF00` | 有正文 | `src/ui/windows/WindowItemUse.cpp:107 — WindowItemUse_OpenTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1357 | 0x0048B010 | `sub_48B010` | 有正文 | `src/ui/windows/WindowItemUse.cpp:192 — WindowItemUse_SelectAttributeTarget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1358 | 0x0048B0A0 | `sub_48B0A0` | 有正文 | `src/ui/windows/WindowItemUse.cpp:219 — WindowItemUse_OpenAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1359 | 0x0048B1A0 | `sub_48B1A0` | 有正文 | `src/ui/WindowRuntime.cpp:2651 — WindowItem_DrawEquipmentTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1360 | 0x0048B350 | `sub_48B350` | 有正文 | `src/ui/WindowRuntime.cpp:2693 — WindowItem_DrawDescriptionTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1361 | 0x0048B450 | `sub_48B450` | 有正文 | `src/ui/WindowRuntime.cpp:1688 — WindowItem_DrawPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1362 | 0x0048B560 | `sub_48B560` | 有正文 | `src/ui/WindowRuntime.cpp:2722 — WindowItem_DrawShopTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1363 | 0x0048B750 | `sub_48B750` | 有正文 | `src/ui/WindowRuntime.cpp:2768 — WindowItem_DrawWorkTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1364 | 0x0048B810 | `sub_48B810` | 有正文 | `src/ui/WindowRuntime.cpp:1618 — WindowItem_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1365 | 0x0048B930 | `sub_48B930` | 有正文 | `src/ui/WindowRuntime.cpp:1642 — WindowItem_DrawDescriptionLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1366 | 0x0048BA60 | `sub_48BA60` | 有正文 | `src/ui/WindowRuntime.cpp:866 — WindowItemDrag_RemapHover` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1367 | 0x0048BB30 | `sub_48BB30` | 有正文 | `src/ui/WindowRuntime.cpp:921 — WindowItem_ClassifyItemSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1368 | 0x0048BB70 | `sub_48BB70` | 有正文 | `src/ui/WindowRuntime.cpp:933 — WindowItem_ClassifyPetSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1369 | 0x0048BB90 | `sub_48BB90` | 有正文 | `src/ui/WindowRuntime.cpp:1069 — WindowItem_RequestPetTransfer` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1370 | 0x0048BC60 | `sub_48BC60` | 有正文 | `src/ui/WindowRuntime.cpp:939 — WindowItem_FindSortedPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1371 | 0x0048BC90 | `sub_48BC90` | 有正文 | `src/ui/WindowRuntime.cpp:1268 — WindowItemDrag_Handle` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1372 | 0x0048BF10 | `sub_48BF10` | 有正文 | `src/ui/WindowRuntime.cpp:1358 — WindowItemDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1373 | 0x0048BF30 | `sub_48BF30` | 有正文 | `src/ui/WindowRuntime.cpp:1179 — WindowPetDrag_Handle` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1374 | 0x0048C130 | `sub_48C130` | 有正文 | `src/ui/WindowRuntime.cpp:1260 — WindowPetDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1359 | 0x0048B1A0 | `sub_48B1A0` | 有正文 | `src/ui/WindowRuntime.cpp:2515 — WindowItem_DrawEquipmentTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1360 | 0x0048B350 | `sub_48B350` | 有正文 | `src/ui/WindowRuntime.cpp:2557 — WindowItem_DrawDescriptionTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1361 | 0x0048B450 | `sub_48B450` | 有正文 | `src/ui/windows/WindowTrade.cpp:461 — WindowItem_DrawPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1362 | 0x0048B560 | `sub_48B560` | 有正文 | `src/ui/windows/WindowShop.cpp:445 — WindowItem_DrawShopTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1363 | 0x0048B750 | `sub_48B750` | 有正文 | `src/ui/WindowRuntime.cpp:2586 — WindowItem_DrawWorkTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1364 | 0x0048B810 | `sub_48B810` | 有正文 | `src/ui/WindowRuntime.cpp:1560 — WindowItem_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1365 | 0x0048B930 | `sub_48B930` | 有正文 | `src/ui/windows/WindowInventory.cpp:164 — WindowItem_DrawDescriptionLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1366 | 0x0048BA60 | `sub_48BA60` | 有正文 | `src/ui/WindowRuntime.cpp:840 — WindowItemDrag_RemapHover` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1367 | 0x0048BB30 | `sub_48BB30` | 有正文 | `src/ui/WindowRuntime.cpp:895 — WindowItem_ClassifyItemSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1368 | 0x0048BB70 | `sub_48BB70` | 有正文 | `src/ui/WindowRuntime.cpp:907 — WindowItem_ClassifyPetSlot` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1369 | 0x0048BB90 | `sub_48BB90` | 有正文 | `src/ui/WindowRuntime.cpp:1011 — WindowItem_RequestPetTransfer` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1370 | 0x0048BC60 | `sub_48BC60` | 有正文 | `src/ui/WindowRuntime.cpp:913 — WindowItem_FindSortedPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1371 | 0x0048BC90 | `sub_48BC90` | 有正文 | `src/ui/WindowRuntime.cpp:1210 — WindowItemDrag_Handle` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1372 | 0x0048BF10 | `sub_48BF10` | 有正文 | `src/ui/WindowRuntime.cpp:1300 — WindowItemDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1373 | 0x0048BF30 | `sub_48BF30` | 有正文 | `src/ui/WindowRuntime.cpp:1121 — WindowPetDrag_Handle` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1374 | 0x0048C130 | `sub_48C130` | 有正文 | `src/ui/WindowRuntime.cpp:1202 — WindowPetDrag_Start` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1375 | 0x0048C150 | `sub_48C150` | 有正文 | `src/ui/windows/WindowPetList.cpp:328 — WindowPetList_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1376 | 0x0048C1B0 | `sub_48C1B0` | 有正文 | `src/ui/windows/WindowPetList.cpp:761 — WindowPetList_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1377 | 0x0048C1CF | `sub_48C1CF` | 有承接 | `src/ui/windows/WindowPetList.cpp:761 — WindowPetList_Update` | 原共享尾为调用 48C920 后返回 1；并入实际父正文；完整业务／运行未验 |
@@ -1431,7 +1437,7 @@
 | 1379 | 0x0048C920 | `sub_48C920` | 有正文 | `src/ui/windows/WindowPetList.cpp:648 — WindowPetList_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1380 | 0x0048D460 | `sub_48D460` | 有正文 | `src/ui/windows/WindowPetList.cpp:589 — WindowPetList_RefreshStates` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1381 | 0x0048D4E0 | `sub_48D4E0` | 有正文 | `src/ui/windows/WindowPetList.cpp:359 — WindowPetList_SubmitStates` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1382 | 0x0048D540 | `sub_48D540` | 有正文 | `src/ui/WindowRuntime.cpp:1101 — WindowPet_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1382 | 0x0048D540 | `sub_48D540` | 有正文 | `src/ui/WindowRuntime.cpp:1043 — WindowPet_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1383 | 0x0048D9A0 | `sub_48D9A0` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:355 — WindowPetDetail_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1384 | 0x0048DAB0 | `sub_48DAB0` | 有正文 | `src/ui/windows/WindowPetAttributes.cpp:199 — WindowPetAttributes_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1385 | 0x0048DBB0 | `sub_48DBB0` | 有正文 | `src/ui/windows/WindowPetSkills.cpp:240 — WindowPetSkills_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1451,13 +1457,13 @@
 | 1399 | 0x00490780 | `sub_490780` | 有正文 | `src/ui/windows/WindowPetAttributes.cpp:79 — WindowPetAttributes_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1400 | 0x00491AA0 | `sub_491AA0` | 有正文 | `src/ui/windows/WindowPetSkills.cpp:117 — WindowPetSkills_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1401 | 0x004920F0 | `sub_4920F0` | 有正文 | `src/ui/windows/WindowPetSkills.cpp:203 — WindowPetSkills_DrawDraggedSkillTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1402 | 0x00492250 | `sub_492250` | 有正文 | `src/world/SceneState.cpp:4359 — Sub_492250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1402 | 0x00492250 | `sub_492250` | 有正文 | `src/world/SceneState.cpp:4358 — Sub_492250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1403 | 0x00492260 | `sub_492260` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:144 — WindowPetDetail_ResetDraftFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1404 | 0x00492270 | `sub_492270` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:150 — WindowPetDetail_ReadDraftFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1405 | 0x00492280 | `sub_492280` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:156 — WindowPetDetail_InitializeDraft` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1406 | 0x00492350 | `sub_492350` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:171 — WindowPetDetail_SavePetSequences` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1407 | 0x00492390 | `sub_492390` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:183 — WindowPetDetail_HasPetSequenceChanges` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1408 | 0x004923D0 | `sub_4923D0` | 有正文 | `src/ui/WindowRuntime.cpp:3615 — WindowRuntime_ResetAlbumState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1408 | 0x004923D0 | `sub_4923D0` | 有正文 | `src/ui/WindowRuntime.cpp:3410 — WindowRuntime_ResetAlbumState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1409 | 0x004923F0 | `sub_4923F0` | 有正文 | `src/ui/windows/WindowAlbumList.cpp:198 — WindowAlbumList_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1410 | 0x00492410 | `sub_492410` | 有正文 | `src/ui/windows/WindowAlbumDetail.cpp:314 — WindowAlbumDetail_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1411 | 0x00492430 | `sub_492430` | 有正文 | `src/ui/windows/WindowAlbumList.cpp:208 — WindowAlbumList_SelectEntry` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1538,15 +1544,15 @@
 | 1486 | 0x00498160 | `sub_498160` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1098 — WindowBattleCommand_ButtonPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1487 | 0x004982C0 | `BattleScene::DrawCountDown` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1616 — WindowBattleCommand_DrawTimer` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1488 | 0x00498520 | `sub_498520` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1178 — WindowBattleCommand_Dispatch` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1489 | 0x004990A0 | `sub_4990A0` | 有正文 | `src/YobiRuntime.cpp:22697 — Sub_4990A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1489 | 0x004990A0 | `sub_4990A0` | 有正文 | `src/YobiRuntime.cpp:22695 — Sub_4990A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1490 | 0x004990F0 | `sub_4990F0` | 有正文 | `src/ui/windows/WindowSpectator.cpp:26 — WindowSpectator_ButtonEnd` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1491 | 0x004991C0 | `sub_4991C0` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:145 — WindowBattleResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1492 | 0x004996C0 | `sub_4996C0` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:262 — WindowBattleResult_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1493 | 0x00499750 | `sub_499750` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:285 — WindowBattleResult_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1494 | 0x00499790 | `sub_499790` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:297 — WindowDpResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1495 | 0x00499830 | `sub_499830` | 有正文 | `src/ui/WindowRuntime.cpp:3824 — WindowRuntime_DrawLargeFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1496 | 0x00499880 | `sub_499880` | 有正文 | `src/ui/WindowRuntime.cpp:3804 — WindowRuntime_ButtonCloseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1497 | 0x004998F0 | `sub_4998F0` | 有承接 | `src/ui/windows/WindowInventory.cpp:1049 — SecondItemSelectorStartup::SecondItemSelectorStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 1491 | 0x004991C0 | `sub_4991C0` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:168 — WindowBattleResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1492 | 0x004996C0 | `sub_4996C0` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:285 — WindowBattleResult_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1493 | 0x00499750 | `sub_499750` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:308 — WindowBattleResult_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1494 | 0x00499790 | `sub_499790` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:320 — WindowDpResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1495 | 0x00499830 | `sub_499830` | 有正文 | `src/ui/WindowRuntime.cpp:3599 — WindowRuntime_DrawLargeFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1496 | 0x00499880 | `sub_499880` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:148 — WindowRuntime_ButtonCloseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1497 | 0x004998F0 | `sub_4998F0` | 有承接 | `src/ui/windows/WindowInventory.cpp:1138 — SecondItemSelectorStartup::SecondItemSelectorStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
 | 1498 | 0x00499900 | `unknown_libname_45` | 有正文 | `src/ui/windows/WindowBattleItems.cpp:950 — WindowBattleItems_ConstructSelector` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1499 | 0x00499920 | `unknown_libname_46` | 有正文 | `src/ui/windows/WindowBattleItems.cpp:957 — WindowBattleItems_ReleaseSelectorAtExit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1500 | 0x00499930 | `sub_499930` | 有正文 | `src/ui/windows/WindowBattleItems.cpp:109 — WindowBattleItems_TogglePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1566,25 +1572,25 @@
 | 1514 | 0x0049BA10 | `sub_49BA10` | 有正文 | `src/ui/windows/WindowBattlePets.cpp:60 — WindowBattlePets_ButtonReturn` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1515 | 0x0049BB00 | `sub_49BB00` | 有正文 | `src/ui/windows/WindowBattlePets.cpp:160 — WindowBattlePets_SelectRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1516 | 0x0049BD40 | `sub_49BD40` | 有正文 | `src/ui/windows/WindowBattleStateNotice.cpp:39 — WindowBattleStateNotice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1517 | 0x0049BDB0 | `sub_49BDB0` | 有正文 | `src/ui/WindowRuntime.cpp:3751 — WindowRuntime_DrawCompactFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1518 | 0x0049BE00 | `sub_49BE00` | 有正文 | `src/YobiRuntime.cpp:1580 — DrawNineGrid_49BE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1519 | 0x0049C4D0 | `sub_49C4D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:218 — WindowDialog_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1520 | 0x0049C510 | `sub_49C510` | 有正文 | `src/ui/windows/WindowDialog.cpp:233 — WindowDialog_AddImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1521 | 0x0049C5C0 | `sub_49C5C0` | 有正文 | `src/YobiRuntime.cpp:34493 — Sub_49C5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1522 | 0x0049C5E0 | `sub_49C5E0` | 有正文 | `src/YobiRuntime.cpp:34499 — Sub_49C5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1523 | 0x0049C600 | `Window::CreateWithAnime` | 有正文 | `src/ui/windows/WindowDialog.cpp:266 — WindowDialog_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1524 | 0x0049C710 | `sub_49C710` | 有正文 | `src/ui/windows/WindowDialog.cpp:311 — WindowDialog_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:406 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1526 | 0x0049CDF0 | `sub_49CDF0` | 有正文 | `src/ui/windows/WindowDialog.cpp:532 — WindowDialog_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1527 | 0x0049CE70 | `sub_49CE70` | 有正文 | `src/ui/windows/WindowDialog.cpp:548 — WindowDialog_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1528 | 0x0049CF70 | `sub_49CF70` | 有正文 | `src/ui/windows/WindowDialog.cpp:593 — WindowDialog_HandleTextSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1529 | 0x0049D2E0 | `World::OpenDialog` | 有正文 | `src/ui/windows/WindowDialog.cpp:829 — WindowDialog_Route` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1517 | 0x0049BDB0 | `sub_49BDB0` | 有正文 | `src/ui/WindowRuntime.cpp:3546 — WindowRuntime_DrawCompactFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1518 | 0x0049BE00 | `sub_49BE00` | 有正文 | `src/YobiRuntime.cpp:1578 — DrawNineGrid_49BE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1519 | 0x0049C4D0 | `sub_49C4D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:210 — WindowDialog_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1520 | 0x0049C510 | `sub_49C510` | 有正文 | `src/ui/windows/WindowDialog.cpp:225 — WindowDialog_AddImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1521 | 0x0049C5C0 | `sub_49C5C0` | 有正文 | `src/YobiRuntime.cpp:34491 — Sub_49C5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1522 | 0x0049C5E0 | `sub_49C5E0` | 有正文 | `src/YobiRuntime.cpp:34497 — Sub_49C5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1523 | 0x0049C600 | `Window::CreateWithAnime` | 有正文 | `src/ui/windows/WindowDialog.cpp:258 — WindowDialog_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1524 | 0x0049C710 | `sub_49C710` | 有正文 | `src/ui/windows/WindowDialog.cpp:303 — WindowDialog_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:398 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1526 | 0x0049CDF0 | `sub_49CDF0` | 有正文 | `src/ui/windows/WindowDialog.cpp:524 — WindowDialog_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1527 | 0x0049CE70 | `sub_49CE70` | 有正文 | `src/ui/windows/WindowDialog.cpp:540 — WindowDialog_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1528 | 0x0049CF70 | `sub_49CF70` | 有正文 | `src/ui/windows/WindowDialog.cpp:585 — WindowDialog_HandleTextSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1529 | 0x0049D2E0 | `World::OpenDialog` | 有正文 | `src/ui/windows/WindowDialog.cpp:821 — WindowDialog_Route` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1530 | 0x0049D8F0 | `sub_49D8F0` | 有正文 | `src/ui/windows/WindowProfile.cpp:170 — WindowProfile_RouteReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1531 | 0x0049DA30 | `sub_49DA30` | 有正文 | `src/ui/windows/WindowDialog.cpp:708 — WindowDialog_Reply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1532 | 0x0049DDB0 | `sub_49DDB0` | 有正文 | `src/ui/windows/WindowDialog.cpp:766 — WindowDialog_ParseGraphicTag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1533 | 0x0049DF30 | `sub_49DF30` | 有正文 | `src/ui/windows/WindowDialog.cpp:1062 — WindowDialog_OpenText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1534 | 0x0049E1D0 | `sub_49E1D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:1141 — WindowDialog_DrawHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1535 | 0x0049E400 | `sub_49E400` | 有正文 | `src/ui/windows/WindowDialog.cpp:1197 — WindowDialog_OpenHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1531 | 0x0049DA30 | `sub_49DA30` | 有正文 | `src/ui/windows/WindowDialog.cpp:700 — WindowDialog_Reply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1532 | 0x0049DDB0 | `sub_49DDB0` | 有正文 | `src/ui/windows/WindowDialog.cpp:758 — WindowDialog_ParseGraphicTag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1533 | 0x0049DF30 | `sub_49DF30` | 有正文 | `src/ui/windows/WindowDialog.cpp:1054 — WindowDialog_OpenText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1534 | 0x0049E1D0 | `sub_49E1D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:1133 — WindowDialog_DrawHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1535 | 0x0049E400 | `sub_49E400` | 有正文 | `src/ui/windows/WindowDialog.cpp:1189 — WindowDialog_OpenHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1536 | 0x0049E750 | `sub_49E750` | 有正文 | `src/ui/windows/WindowTimerNotice.cpp:26 — WindowTimerNotice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1537 | 0x0049E800 | `sub_49E800` | 有正文 | `src/ui/windows/WindowTradeTarget.cpp:104 — WindowTradeTarget_ReceiveTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1538 | 0x0049E8F0 | `sub_49E8F0` | 有正文 | `src/ui/windows/WindowTradeTarget.cpp:146 — WindowTradeTarget_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1616,23 +1622,23 @@
 | 1564 | 0x0049FA40 | `sub_49FA40` | 有正文 | `src/ui/windows/WindowAttributeTarget.cpp:176 — WindowAttributeTarget_ButtonCancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1565 | 0x0049FB00 | `sub_49FB00` | 有正文 | `src/ui/windows/WindowAttributeTarget.cpp:207 — WindowAttributeTarget_ButtonBack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1566 | 0x0049FBC0 | `sub_49FBC0` | 有正文 | `src/ui/windows/WindowAttributeTarget.cpp:238 — WindowAttributeTarget_SelectRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1567 | 0x0049FCA0 | `sub_49FCA0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:207 — WindowShopChoice_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1568 | 0x0049FD20 | `sub_49FD20` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:234 — WindowShopChoice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1569 | 0x0049FE40 | `sub_49FE40` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:260 — WindowShopChoice_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1570 | 0x0049FF70 | `sub_49FF70` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:294 — WindowShopChoice_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1571 | 0x0049FFA0 | `sub_49FFA0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:302 — WindowShopChoice_SelectRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1572 | 0x004A00C0 | `sub_4A00C0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:335 — WindowShopChoice_SendBuySellChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1573 | 0x004A0140 | `sub_4A0140` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:354 — WindowShopChoice_OpenBuySell` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1574 | 0x004A0280 | `sub_4A0280` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:394 — WindowShopChoice_SendFirstCommandChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1575 | 0x004A0300 | `sub_4A0300` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:438 — WindowShopChoice_OpenFirstCommandList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1576 | 0x004A0420 | `sub_4A0420` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:405 — WindowShopChoice_SendSecondCommandChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1577 | 0x004A04A0 | `sub_4A04A0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:464 — WindowShopChoice_OpenSecondCommandList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1578 | 0x004A05C0 | `sub_4A05C0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:416 — WindowShopChoice_SendExchangeChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1579 | 0x004A0640 | `sub_4A0640` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:490 — WindowShopChoice_OpenSkillChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1580 | 0x004A0700 | `sub_4A0700` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:427 — WindowShopChoice_SendGiveReceiveChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1581 | 0x004A0790 | `sub_4A0790` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:504 — WindowShopChoice_OpenExchangeChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1582 | 0x004A0850 | `sub_4A0850` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:518 — WindowShopChoice_OpenGiveReceiveChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1583 | 0x004A0940 | `sub_4A0940` | 有正文 | `src/ui/windows/WindowMail.cpp:323 — WindowMail_ResetSelectionState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1567 | 0x0049FCA0 | `sub_49FCA0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:187 — WindowShopChoice_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1568 | 0x0049FD20 | `sub_49FD20` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:214 — WindowShopChoice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1569 | 0x0049FE40 | `sub_49FE40` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:240 — WindowShopChoice_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1570 | 0x0049FF70 | `sub_49FF70` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:274 — WindowShopChoice_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1571 | 0x0049FFA0 | `sub_49FFA0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:282 — WindowShopChoice_SelectRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1572 | 0x004A00C0 | `sub_4A00C0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:315 — WindowShopChoice_SendBuySellChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1573 | 0x004A0140 | `sub_4A0140` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:334 — WindowShopChoice_OpenBuySell` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1574 | 0x004A0280 | `sub_4A0280` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:374 — WindowShopChoice_SendFirstCommandChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1575 | 0x004A0300 | `sub_4A0300` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:418 — WindowShopChoice_OpenFirstCommandList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1576 | 0x004A0420 | `sub_4A0420` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:385 — WindowShopChoice_SendSecondCommandChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1577 | 0x004A04A0 | `sub_4A04A0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:444 — WindowShopChoice_OpenSecondCommandList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1578 | 0x004A05C0 | `sub_4A05C0` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:396 — WindowShopChoice_SendExchangeChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1579 | 0x004A0640 | `sub_4A0640` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:470 — WindowShopChoice_OpenSkillChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1580 | 0x004A0700 | `sub_4A0700` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:407 — WindowShopChoice_SendGiveReceiveChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1581 | 0x004A0790 | `sub_4A0790` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:484 — WindowShopChoice_OpenExchangeChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1582 | 0x004A0850 | `sub_4A0850` | 有正文 | `src/ui/windows/WindowShopChoice.cpp:498 — WindowShopChoice_OpenGiveReceiveChoice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1583 | 0x004A0940 | `sub_4A0940` | 有正文 | `src/ui/windows/WindowMail.cpp:318 — WindowMail_ResetSelectionState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1584 | 0x004A0970 | `sub_4A0970` | 有正文 | `src/ui/windows/WindowContacts.cpp:289 — WindowContacts_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1585 | 0x004A09B0 | `sub_4A09B0` | 有正文 | `src/ui/windows/WindowContacts.cpp:304 — WindowContacts_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1586 | 0x004A09E0 | `sub_4A09E0` | 有正文 | `src/ui/windows/WindowContacts.cpp:314 — WindowContacts_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1658,15 +1664,15 @@
 | 1606 | 0x004A31E0 | `sub_4A31E0` | 有正文 | `src/ui/windows/WindowContacts.cpp:1526 — WindowContacts_CompareContactNumber` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1607 | 0x004A3230 | `sub_4A3230` | 有正文 | `src/ui/windows/WindowContacts.cpp:1544 — WindowContacts_CompareMiniMailNumber` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1608 | 0x004A3260 | `sub_4A3260` | 有正文 | `src/ui/windows/WindowContacts.cpp:1560 — WindowContacts_CompareGuildNumber` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1609 | 0x004A32B0 | `sub_4A32B0` | 有正文 | `src/ui/windows/WindowMail.cpp:310 — WindowMail_AdvanceUnreadBlink` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1609 | 0x004A32B0 | `sub_4A32B0` | 有正文 | `src/ui/windows/WindowMail.cpp:305 — WindowMail_AdvanceUnreadBlink` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1610 | 0x004A32E0 | `sub_4A32E0` | 有正文 | `src/ui/windows/WindowContacts.cpp:1179 — WindowContacts_ButtonDelete` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1611 | 0x004A33C0 | `sub_4A33C0` | 有正文 | `src/ui/windows/WindowContacts.cpp:1217 — WindowContacts_ConfirmDeleteContact` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1612 | 0x004A3480 | `sub_4A3480` | 有正文 | `src/ui/windows/WindowContacts.cpp:1233 — WindowContacts_ConfirmDeleteGuildMember` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1613 | 0x004A3540 | `sub_4A3540` | 有正文 | `src/ui/windows/WindowContacts.cpp:1249 — WindowContacts_ConfirmDeleteMiniMail` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1614 | 0x004A3600 | `sub_4A3600` | 有正文 | `src/ui/windows/WindowMail.cpp:225 — WindowMail_DeleteContact` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1615 | 0x004A3660 | `sub_4A3660` | 有正文 | `src/ui/windows/WindowMail.cpp:241 — WindowMail_DeleteGuildMember` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1616 | 0x004A36B0 | `sub_4A36B0` | 有正文 | `src/ui/windows/WindowMail.cpp:254 — WindowMail_DeleteMiniMailContact` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1617 | 0x004A3760 | `sub_4A3760` | 有正文 | `src/ui/windows/WindowMail.cpp:269 — WindowMail_CancelDelete` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1614 | 0x004A3600 | `sub_4A3600` | 有正文 | `src/ui/windows/WindowMail.cpp:220 — WindowMail_DeleteContact` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1615 | 0x004A3660 | `sub_4A3660` | 有正文 | `src/ui/windows/WindowMail.cpp:236 — WindowMail_DeleteGuildMember` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1616 | 0x004A36B0 | `sub_4A36B0` | 有正文 | `src/ui/windows/WindowMail.cpp:249 — WindowMail_DeleteMiniMailContact` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1617 | 0x004A3760 | `sub_4A3760` | 有正文 | `src/ui/windows/WindowMail.cpp:264 — WindowMail_CancelDelete` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1618 | 0x004A3780 | `sub_4A3780` | 有正文 | `src/ui/windows/WindowContacts.cpp:1003 — WindowContacts_ResolveButtonRecord` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1619 | 0x004A37E0 | `sub_4A37E0` | 有正文 | `src/ui/windows/WindowContacts.cpp:878 — WindowContacts_ResolveRecordIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1620 | 0x004A3820 | `sub_4A3820` | 有正文 | `src/ui/windows/WindowContacts.cpp:1578 — WindowContacts_DragScroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1679,7 +1685,7 @@
 | 1627 | 0x004A40C0 | `sub_4A40C0` | 有正文 | `src/ui/windows/WindowContacts.cpp:891 — WindowContacts_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1628 | 0x004A4180 | `sub_4A4180` | 有正文 | `src/ui/windows/WindowGuildRank.cpp:98 — WindowGuildRank_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1629 | 0x004A41A0 | `sub_4A41A0` | 有正文 | `src/ui/windows/WindowGuildRank.cpp:107 — WindowGuildRank_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1630 | 0x004A4210 | `sub_4A4210` | 有正文 | `src/ui/WindowRuntime.cpp:860 — WindowRuntime_ReturnOne` | 原入口的 RET／固定返回已用当前 IDA 核实；不是业务占位；完整接线未验 |
+| 1630 | 0x004A4210 | `sub_4A4210` | 有正文 | `src/ui/WindowRuntime.cpp:834 — WindowRuntime_ReturnOne` | 原入口的 RET／固定返回已用当前 IDA 核实；不是业务占位；完整接线未验 |
 | 1631 | 0x004A4220 | `sub_4A4220` | 有正文 | `src/ui/windows/WindowGuildRank.cpp:124 — WindowGuildRank_SelectRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1632 | 0x004A42C0 | `sub_4A42C0` | 有正文 | `src/ui/windows/WindowGuildRank.cpp:143 — WindowGuildRank_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1633 | 0x004A4370 | `sub_4A4370` | 有正文 | `src/ui/windows/WindowGuildRank.cpp:167 — WindowGuildRank_ButtonOk` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1705,71 +1711,71 @@
 | 1653 | 0x004A6300 | `sub_4A6300` | 有正文 | `src/ui/windows/WindowPetMailCompose.cpp:134 — WindowPetMailCompose_HandleGiftItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1654 | 0x004A6450 | `sub_4A6450` | 有正文 | `src/ui/windows/WindowPetMailCompose.cpp:212 — WindowPetMailCompose_HandleSendButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1655 | 0x004A6AC0 | `sub_4A6AC0` | 有正文 | `src/ui/windows/WindowPetMailCompose.cpp:332 — WindowPetMailCompose_RefreshPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1656 | 0x004A6D00 | `sub_4A6D00` | 有正文 | `src/ui/WindowRuntime.cpp:765 — WindowRuntime_MatchesRuntimePrefix` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1656 | 0x004A6D00 | `sub_4A6D00` | 有正文 | `src/ui/WindowRuntime.cpp:761 — WindowRuntime_MatchesRuntimePrefix` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1657 | 0x004A6D30 | `sub_4A6D30` | 有正文 | `src/ui/windows/WindowPetMailCompose.cpp:197 — WindowPetMailCompose_HasGiftPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1658 | 0x004A6D50 | `sub_4A6D50` | 有正文 | `src/ui/windows/WindowPetMailCompose.cpp:203 — WindowPetMailCompose_HasGiftItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1659 | 0x004A6D80 | `sub_4A6D80` | 有正文 | `src/ui/windows/WindowChat.cpp:147 — WindowChat_ResetState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1660 | 0x004A6DB0 | `sub_4A6DB0` | 有正文 | `src/ui/windows/WindowChat.cpp:159 — WindowChat_ResetScrollRequests` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1661 | 0x004A6DD0 | `sub_4A6DD0` | 有正文 | `src/ui/windows/WindowChat.cpp:363 — WindowChat_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1662 | 0x004A6EA0 | `sub_4A6EA0` | 有正文 | `src/ui/windows/WindowChat.cpp:601 — WindowChat_HandleInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1663 | 0x004A6FC0 | `sub_4A6FC0` | 有正文 | `src/ui/windows/WindowChat.cpp:394 — WindowChat_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1664 | 0x004A7590 | `sub_4A7590` | 有正文 | `src/ui/windows/WindowChat.cpp:772 — WindowChat_DrawInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1665 | 0x004A7640 | `sub_4A7640` | 有正文 | `src/ui/windows/WindowChat.cpp:784 — WindowChat_DrawFixedWidthInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1666 | 0x004A76E0 | `sub_4A76E0` | 有正文 | `src/Input.cpp:1250 — Sub_4A76E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1667 | 0x004A7710 | `___setargv_13` | 有正文 | `src/ui/windows/WindowChat.cpp:732 — WindowChat_RequestHeightIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1668 | 0x004A7720 | `sub_4A7720` | 有正文 | `src/ui/windows/WindowChat.cpp:738 — WindowChat_RequestHeightDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1669 | 0x004A7730 | `___setargv_14` | 有正文 | `src/ui/windows/WindowChat.cpp:744 — WindowChat_RequestWidthIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1670 | 0x004A7740 | `sub_4A7740` | 有正文 | `src/ui/windows/WindowChat.cpp:750 — WindowChat_RequestWidthDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1671 | 0x004A7750 | `sub_4A7750` | 有正文 | `src/ui/windows/WindowChat.cpp:793 — WindowChat_DrawHistory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1672 | 0x004A7B00 | `sub_4A7B00` | 有正文 | `src/ui/windows/WindowChat.cpp:878 — WindowChat_RestoreInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1673 | 0x004A7C40 | `sub_4A7C40` | 有正文 | `src/ui/windows/WindowChat.cpp:223 — WindowChat_RefreshGeometry` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1674 | 0x004A80E0 | `sub_4A80E0` | 有正文 | `src/ui/windows/WindowChat.cpp:935 — WindowChat_ReadInputByteWidth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1675 | 0x004A80F0 | `sub_4A80F0` | 有正文 | `src/ui/windows/WindowChat.cpp:679 — WindowChat_DragScroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1676 | 0x004A8140 | `sub_4A8140` | 有正文 | `src/ui/windows/WindowChat.cpp:196 — WindowChat_SyncScrollThumb` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1677 | 0x004A81D0 | `sub_4A81D0` | 有正文 | `src/ui/windows/WindowChat.cpp:693 — WindowChat_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1678 | 0x004A8240 | `sub_4A8240` | 有正文 | `src/ui/windows/WindowChat.cpp:648 — WindowCompactChat_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1679 | 0x004A82C0 | `sub_4A82C0` | 有正文 | `src/ui/windows/WindowChat.cpp:669 — WindowChat_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1680 | 0x004A82E0 | `sub_4A82E0` | 有正文 | `src/ui/windows/WindowChat.cpp:756 — WindowChat_RefreshCompactHeight` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1681 | 0x004A8330 | `sub_4A8330` | 有正文 | `src/ui/windows/WindowChat.cpp:169 — WindowChat_SwitchMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1682 | 0x004A83A0 | `sub_4A83A0` | 有正文 | `src/ui/windows/WindowBank.cpp:307 — WindowBank_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1683 | 0x004A83D0 | `sub_4A83D0` | 有正文 | `src/ui/windows/WindowBank.cpp:319 — WindowBank_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1684 | 0x004A84A0 | `sub_4A84A0` | 有正文 | `src/ui/windows/WindowBank.cpp:1574 — WindowBank_ReceiveStorageData` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1685 | 0x004A9020 | `sub_4A9020` | 有正文 | `src/ui/windows/WindowBank.cpp:346 — WindowBank_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1686 | 0x004A9160 | `sub_4A9160` | 有正文 | `src/ui/windows/WindowBank.cpp:382 — WindowBank_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1687 | 0x004A92D0 | `sub_4A92D0` | 有正文 | `src/ui/windows/WindowBank.cpp:427 — WindowBank_FocusAmountInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1688 | 0x004A9350 | `sub_4A9350` | 有正文 | `src/ui/windows/WindowBank.cpp:1551 — WindowBank_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1689 | 0x004A93E0 | `sub_4A93E0` | 有正文 | `src/ui/windows/WindowBank.cpp:447 — WindowBank_ButtonFirstPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1690 | 0x004A94A0 | `sub_4A94A0` | 有正文 | `src/ui/windows/WindowBank.cpp:471 — WindowBank_ButtonSecondPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1691 | 0x004A9560 | `sub_4A9560` | 有正文 | `src/ui/windows/WindowBank.cpp:495 — WindowBank_DrawFirstPageSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1692 | 0x004A9580 | `sub_4A9580` | 有正文 | `src/ui/windows/WindowBank.cpp:502 — WindowBank_DrawSecondPageSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1693 | 0x004A95A0 | `sub_4A95A0` | 有正文 | `src/ui/windows/WindowBank.cpp:509 — WindowBank_TabItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1694 | 0x004A96D0 | `sub_4A96D0` | 有正文 | `src/ui/windows/WindowBank.cpp:539 — WindowBank_TabPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1695 | 0x004A9820 | `sub_4A9820` | 有正文 | `src/ui/windows/WindowBank.cpp:572 — WindowBank_TabDeposit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1696 | 0x004A9990 | `sub_4A9990` | 有正文 | `src/ui/windows/WindowBank.cpp:606 — WindowBank_TabWithdraw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1697 | 0x004A9B00 | `sub_4A9B00` | 有正文 | `src/ui/windows/WindowBank.cpp:1460 — WindowBank_DrawCounts` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1698 | 0x004A9D10 | `sub_4A9D10` | 有正文 | `src/ui/windows/WindowBank.cpp:640 — WindowBank_HandleOwnItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1699 | 0x004AA3D0 | `sub_4AA3D0` | 有正文 | `src/ui/windows/WindowBank.cpp:820 — WindowBank_HandleStoredItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1700 | 0x004AA9C0 | `sub_4AA9C0` | 有正文 | `src/ui/windows/WindowBank.cpp:1011 — WindowBank_ButtonPreviousPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1701 | 0x004AAA70 | `sub_4AAA70` | 有正文 | `src/ui/windows/WindowBank.cpp:1041 — WindowBank_ButtonNextPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1702 | 0x004AAB20 | `sub_4AAB20` | 有正文 | `src/ui/windows/WindowBank.cpp:1071 — WindowBank_ScrollPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1703 | 0x004AAB70 | `sub_4AAB70` | 有正文 | `src/ui/windows/WindowBank.cpp:212 — WindowBank_DrawOwnPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1704 | 0x004AAEC0 | `sub_4AAEC0` | 有正文 | `src/ui/windows/WindowBank.cpp:1085 — WindowBank_HandleOwnPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1705 | 0x004AB400 | `sub_4AB400` | 有正文 | `src/ui/windows/WindowBank.cpp:259 — WindowBank_DrawStoredPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1706 | 0x004AB710 | `sub_4AB710` | 有正文 | `src/ui/windows/WindowBank.cpp:1231 — WindowBank_HandleStoredPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1707 | 0x004ABB20 | `sub_4ABB20` | 有正文 | `src/ui/windows/WindowBank.cpp:1366 — WindowBank_HandleAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1708 | 0x004ABE60 | `sub_4ABE60` | 有正文 | `src/YobiRuntime.cpp:2101 — Sub_4ABE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1709 | 0x004ABEF0 | `sub_4ABEF0` | 有正文 | `src/YobiRuntime.cpp:2133 — Sub_4ABEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1659 | 0x004A6D80 | `sub_4A6D80` | 有正文 | `src/ui/windows/WindowChat.cpp:168 — WindowChat_ResetState` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1660 | 0x004A6DB0 | `sub_4A6DB0` | 有正文 | `src/ui/windows/WindowChat.cpp:180 — WindowChat_ResetScrollRequests` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1661 | 0x004A6DD0 | `sub_4A6DD0` | 有正文 | `src/ui/windows/WindowChat.cpp:384 — WindowChat_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1662 | 0x004A6EA0 | `sub_4A6EA0` | 有正文 | `src/ui/windows/WindowChat.cpp:622 — WindowChat_HandleInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1663 | 0x004A6FC0 | `sub_4A6FC0` | 有正文 | `src/ui/windows/WindowChat.cpp:415 — WindowChat_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1664 | 0x004A7590 | `sub_4A7590` | 有正文 | `src/ui/windows/WindowChat.cpp:793 — WindowChat_DrawInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1665 | 0x004A7640 | `sub_4A7640` | 有正文 | `src/ui/windows/WindowChat.cpp:805 — WindowChat_DrawFixedWidthInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1666 | 0x004A76E0 | `sub_4A76E0` | 有正文 | `src/Input.cpp:1223 — Sub_4A76E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1667 | 0x004A7710 | `___setargv_13` | 有正文 | `src/ui/windows/WindowChat.cpp:753 — WindowChat_RequestHeightIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1668 | 0x004A7720 | `sub_4A7720` | 有正文 | `src/ui/windows/WindowChat.cpp:759 — WindowChat_RequestHeightDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1669 | 0x004A7730 | `___setargv_14` | 有正文 | `src/ui/windows/WindowChat.cpp:765 — WindowChat_RequestWidthIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1670 | 0x004A7740 | `sub_4A7740` | 有正文 | `src/ui/windows/WindowChat.cpp:771 — WindowChat_RequestWidthDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1671 | 0x004A7750 | `sub_4A7750` | 有正文 | `src/ui/windows/WindowChat.cpp:814 — WindowChat_DrawHistory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1672 | 0x004A7B00 | `sub_4A7B00` | 有正文 | `src/ui/windows/WindowChat.cpp:899 — WindowChat_RestoreInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1673 | 0x004A7C40 | `sub_4A7C40` | 有正文 | `src/ui/windows/WindowChat.cpp:244 — WindowChat_RefreshGeometry` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1674 | 0x004A80E0 | `sub_4A80E0` | 有正文 | `src/ui/windows/WindowChat.cpp:956 — WindowChat_ReadInputByteWidth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1675 | 0x004A80F0 | `sub_4A80F0` | 有正文 | `src/ui/windows/WindowChat.cpp:700 — WindowChat_DragScroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1676 | 0x004A8140 | `sub_4A8140` | 有正文 | `src/ui/windows/WindowChat.cpp:217 — WindowChat_SyncScrollThumb` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1677 | 0x004A81D0 | `sub_4A81D0` | 有正文 | `src/ui/windows/WindowChat.cpp:714 — WindowChat_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1678 | 0x004A8240 | `sub_4A8240` | 有正文 | `src/ui/windows/WindowChat.cpp:669 — WindowCompactChat_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1679 | 0x004A82C0 | `sub_4A82C0` | 有正文 | `src/ui/windows/WindowChat.cpp:690 — WindowChat_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1680 | 0x004A82E0 | `sub_4A82E0` | 有正文 | `src/ui/windows/WindowChat.cpp:777 — WindowChat_RefreshCompactHeight` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1681 | 0x004A8330 | `sub_4A8330` | 有正文 | `src/ui/windows/WindowChat.cpp:190 — WindowChat_SwitchMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1682 | 0x004A83A0 | `sub_4A83A0` | 有正文 | `src/ui/windows/WindowBank.cpp:328 — WindowBank_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1683 | 0x004A83D0 | `sub_4A83D0` | 有正文 | `src/ui/windows/WindowBank.cpp:340 — WindowBank_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1684 | 0x004A84A0 | `sub_4A84A0` | 有正文 | `src/ui/windows/WindowBank.cpp:1595 — WindowBank_ReceiveStorageData` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1685 | 0x004A9020 | `sub_4A9020` | 有正文 | `src/ui/windows/WindowBank.cpp:367 — WindowBank_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1686 | 0x004A9160 | `sub_4A9160` | 有正文 | `src/ui/windows/WindowBank.cpp:403 — WindowBank_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1687 | 0x004A92D0 | `sub_4A92D0` | 有正文 | `src/ui/windows/WindowBank.cpp:448 — WindowBank_FocusAmountInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1688 | 0x004A9350 | `sub_4A9350` | 有正文 | `src/ui/windows/WindowBank.cpp:1572 — WindowBank_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1689 | 0x004A93E0 | `sub_4A93E0` | 有正文 | `src/ui/windows/WindowBank.cpp:468 — WindowBank_ButtonFirstPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1690 | 0x004A94A0 | `sub_4A94A0` | 有正文 | `src/ui/windows/WindowBank.cpp:492 — WindowBank_ButtonSecondPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1691 | 0x004A9560 | `sub_4A9560` | 有正文 | `src/ui/windows/WindowBank.cpp:516 — WindowBank_DrawFirstPageSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1692 | 0x004A9580 | `sub_4A9580` | 有正文 | `src/ui/windows/WindowBank.cpp:523 — WindowBank_DrawSecondPageSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1693 | 0x004A95A0 | `sub_4A95A0` | 有正文 | `src/ui/windows/WindowBank.cpp:530 — WindowBank_TabItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1694 | 0x004A96D0 | `sub_4A96D0` | 有正文 | `src/ui/windows/WindowBank.cpp:560 — WindowBank_TabPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1695 | 0x004A9820 | `sub_4A9820` | 有正文 | `src/ui/windows/WindowBank.cpp:593 — WindowBank_TabDeposit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1696 | 0x004A9990 | `sub_4A9990` | 有正文 | `src/ui/windows/WindowBank.cpp:627 — WindowBank_TabWithdraw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1697 | 0x004A9B00 | `sub_4A9B00` | 有正文 | `src/ui/windows/WindowBank.cpp:1481 — WindowBank_DrawCounts` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1698 | 0x004A9D10 | `sub_4A9D10` | 有正文 | `src/ui/windows/WindowBank.cpp:661 — WindowBank_HandleOwnItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1699 | 0x004AA3D0 | `sub_4AA3D0` | 有正文 | `src/ui/windows/WindowBank.cpp:841 — WindowBank_HandleStoredItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1700 | 0x004AA9C0 | `sub_4AA9C0` | 有正文 | `src/ui/windows/WindowBank.cpp:1032 — WindowBank_ButtonPreviousPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1701 | 0x004AAA70 | `sub_4AAA70` | 有正文 | `src/ui/windows/WindowBank.cpp:1062 — WindowBank_ButtonNextPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1702 | 0x004AAB20 | `sub_4AAB20` | 有正文 | `src/ui/windows/WindowBank.cpp:1092 — WindowBank_ScrollPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1703 | 0x004AAB70 | `sub_4AAB70` | 有正文 | `src/ui/windows/WindowBank.cpp:233 — WindowBank_DrawOwnPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1704 | 0x004AAEC0 | `sub_4AAEC0` | 有正文 | `src/ui/windows/WindowBank.cpp:1106 — WindowBank_HandleOwnPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1705 | 0x004AB400 | `sub_4AB400` | 有正文 | `src/ui/windows/WindowBank.cpp:280 — WindowBank_DrawStoredPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1706 | 0x004AB710 | `sub_4AB710` | 有正文 | `src/ui/windows/WindowBank.cpp:1252 — WindowBank_HandleStoredPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1707 | 0x004ABB20 | `sub_4ABB20` | 有正文 | `src/ui/windows/WindowBank.cpp:1387 — WindowBank_HandleAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1708 | 0x004ABE60 | `sub_4ABE60` | 有正文 | `src/YobiRuntime.cpp:2099 — Sub_4ABE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1709 | 0x004ABEF0 | `sub_4ABEF0` | 有正文 | `src/YobiRuntime.cpp:2131 — Sub_4ABEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1710 | 0x004AC0C0 | `sub_4AC0C0` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:55 — WindowItemStorage_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1711 | 0x004AC0F0 | `sub_4AC0F0` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:68 — WindowItemStorage_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1712 | 0x004AC140 | `sub_4AC140` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:83 — WindowItemStorage_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1713 | 0x004AC1B0 | `sub_4AC1B0` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:99 — WindowItemStorage_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1714 | 0x004AC1EC | `?classic@locale@std@@SAABV12@XZ_18` | 有承接 | `src/ui/windows/WindowItemStorage.cpp:99 — WindowItemStorage_Draw` | 原绘图／返回 1 共享尾；并入实际父正文；完整业务／运行未验 |
-| 1715 | 0x004AC200 | `sub_4AC200` | 有正文 | `src/ui/windows/WindowBank.cpp:1529 — WindowBank_ButtonCloseIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1715 | 0x004AC200 | `sub_4AC200` | 有正文 | `src/ui/windows/WindowBank.cpp:1550 — WindowBank_ButtonCloseIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1716 | 0x004AC290 | `sub_4AC290` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:115 — WindowItemStorage_HandleOwnItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1717 | 0x004AC890 | `sub_4AC890` | 有正文 | `src/ui/windows/WindowItemStorage.cpp:270 — WindowItemStorage_HandleStoredItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1718 | 0x004ACDF0 | `sub_4ACDF0` | 有正文 | `src/YobiRuntime.cpp:2189 — Sub_4ACDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1719 | 0x004ACE80 | `sub_4ACE80` | 有正文 | `src/YobiRuntime.cpp:2222 — Sub_4ACE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1720 | 0x004AD060 | `sub_4AD060` | 有正文 | `src/ui/windows/WindowTrade.cpp:429 — WindowTrade_RemapTextListSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1718 | 0x004ACDF0 | `sub_4ACDF0` | 有正文 | `src/YobiRuntime.cpp:2187 — Sub_4ACDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1719 | 0x004ACE80 | `sub_4ACE80` | 有正文 | `src/YobiRuntime.cpp:2220 — Sub_4ACE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1720 | 0x004AD060 | `sub_4AD060` | 有正文 | `src/ui/windows/WindowTrade.cpp:543 — WindowTrade_RemapTextListSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1721 | 0x004AD090 | `sub_4AD090` | 有正文 | `src/ui/windows/WindowTextList.cpp:170 — WindowTextList_ReleaseLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1722 | 0x004AD0F0 | `sub_4AD0F0` | 有正文 | `src/ui/windows/WindowTextList.cpp:177 — WindowTextList_RefreshLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1723 | 0x004AD180 | `sub_4AD180` | 有正文 | `src/ui/windows/WindowTextList.cpp:201 — WindowTextList_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1821,50 +1827,50 @@
 | 1769 | 0x004AFE20 | `sub_4AFE20` | 有正文 | `src/ui/windows/WindowGuildDetails.cpp:682 — WindowGuildDetails_HasChangedRank` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1770 | 0x004AFEA0 | `sub_4AFEA0` | 有正文 | `src/ui/windows/WindowGuildDetails.cpp:695 — WindowGuildDetails_HasChangedRanks` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1771 | 0x004AFED0 | `sub_4AFED0` | 有正文 | `src/ui/windows/WindowGuildDetails.cpp:452 — WindowGuildDetails_CommitFocusedInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1772 | 0x004AFF30 | `sub_4AFF30` | 有正文 | `src/ui/windows/WindowTrade.cpp:517 — WindowTrade_AddItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1773 | 0x004AFF70 | `sub_4AFF70` | 有正文 | `src/ui/windows/WindowTrade.cpp:560 — WindowTrade_RemoveItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1774 | 0x004AFFB0 | `sub_4AFFB0` | 有正文 | `src/ui/windows/WindowTrade.cpp:531 — WindowTrade_SwapSelectedItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1775 | 0x004AFFE0 | `sub_4AFFE0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2415 — WindowTrade_ReadSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1776 | 0x004B0000 | `sub_4B0000` | 有正文 | `src/ui/windows/WindowTrade.cpp:409 — WindowTrade_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1777 | 0x004B0060 | `sub_4B0060` | 有正文 | `src/ui/windows/WindowTrade.cpp:540 — WindowTrade_AddPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1778 | 0x004B0090 | `sub_4B0090` | 有正文 | `src/ui/windows/WindowTrade.cpp:575 — WindowTrade_RemovePet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1779 | 0x004B00C0 | `sub_4B00C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:551 — WindowTrade_SwapSelectedPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1780 | 0x004B00F0 | `sub_4B00F0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2422 — WindowTrade_ReadSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1781 | 0x004B0110 | `sub_4B0110` | 有正文 | `src/ui/windows/WindowTrade.cpp:475 — WindowTrade_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1782 | 0x004B0130 | `sub_4B0130` | 有正文 | `src/ui/windows/WindowTrade.cpp:484 — WindowTrade_MovePanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1783 | 0x004B0180 | `sub_4B0180` | 有正文 | `src/ui/windows/WindowTrade.cpp:498 — WindowTrade_SetPanelVisible` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1784 | 0x004B01B0 | `sub_4B01B0` | 有正文 | `src/ui/windows/WindowTrade.cpp:509 — WindowTrade_SetPanelColor` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1785 | 0x004B0200 | `sub_4B0200` | 有正文 | `src/ui/windows/WindowTrade.cpp:587 — WindowTrade_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1786 | 0x004B0290 | `sub_4B0290` | 有正文 | `src/ui/windows/WindowTrade.cpp:608 — WindowTrade_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1787 | 0x004B08D0 | `sub_4B08D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:784 — WindowTrade_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1788 | 0x004B09E0 | `sub_4B09E0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2044 — WindowTrade_HandleAmountInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1789 | 0x004B0A50 | `sub_4B0A50` | 有正文 | `src/ui/windows/WindowTrade.cpp:2429 — WindowTrade_ButtonPublish` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1790 | 0x004B0CF0 | `sub_4B0CF0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2492 — WindowTrade_ButtonWithdraw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1791 | 0x004B0DB0 | `sub_4B0DB0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2522 — WindowTrade_ButtonConfirm` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1792 | 0x004B0F10 | `NULL_FUNC` | 有正文 | `src/ui/WindowRuntime.cpp:853 — WindowElement_NoOp` | 原入口的 RET／固定返回已用当前 IDA 核实；不是业务占位；完整接线未验 |
-| 1793 | 0x004B0F20 | `sub_4B0F20` | 有正文 | `src/ui/windows/WindowTrade.cpp:831 — WindowTrade_DrawPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1794 | 0x004B1260 | `sub_4B1260` | 有正文 | `src/ui/windows/WindowTrade.cpp:882 — WindowTrade_HandlePanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1795 | 0x004B1900 | `sub_4B1900` | 有正文 | `src/ui/windows/WindowTrade.cpp:2029 — WindowTrade_HitTestOwnPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1796 | 0x004B1940 | `sub_4B1940` | 有正文 | `src/ui/windows/WindowTrade.cpp:1029 — WindowTrade_HandleOwnInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1797 | 0x004B2060 | `sub_4B2060` | 有正文 | `src/ui/windows/WindowTrade.cpp:1208 — WindowTrade_HandleOwnPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1798 | 0x004B2480 | `sub_4B2480` | 有正文 | `src/ui/windows/WindowTrade.cpp:1338 — WindowTrade_HandleOwnPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1799 | 0x004B2500 | `sub_4B2500` | 有正文 | `src/ui/windows/WindowTrade.cpp:1354 — WindowTrade_RefreshOwnPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1800 | 0x004B25D0 | `sub_4B25D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:1394 — WindowTrade_HandleOwnItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1801 | 0x004B2710 | `sub_4B2710` | 有正文 | `src/ui/windows/WindowTrade.cpp:1476 — WindowTrade_StartOwnItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1802 | 0x004B2730 | `sub_4B2730` | 有正文 | `src/ui/windows/WindowTrade.cpp:1488 — WindowTrade_HandleSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1803 | 0x004B2E00 | `sub_4B2E00` | 有正文 | `src/ui/windows/WindowTrade.cpp:1433 — WindowTrade_HandleOwnPetDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1804 | 0x004B2F50 | `sub_4B2F50` | 有正文 | `src/ui/windows/WindowTrade.cpp:1482 — WindowTrade_StartOwnPetDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1805 | 0x004B2F70 | `sub_4B2F70` | 有正文 | `src/ui/windows/WindowTrade.cpp:1662 — WindowTrade_HandleSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1806 | 0x004B3430 | `sub_4B3430` | 有正文 | `src/ui/windows/WindowTrade.cpp:1799 — WindowTrade_HandleSelectedPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1807 | 0x004B34C0 | `sub_4B34C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:1818 — WindowTrade_RefreshSelectedPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1808 | 0x004B3580 | `sub_4B3580` | 有正文 | `src/ui/windows/WindowTrade.cpp:1850 — WindowTrade_HandleRemoteSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1809 | 0x004B3610 | `sub_4B3610` | 有正文 | `src/ui/windows/WindowTrade.cpp:1869 — WindowTrade_HandleRemoteItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1810 | 0x004B3B00 | `sub_4B3B00` | 有正文 | `src/ui/windows/WindowTrade.cpp:2299 — WindowTrade_DrawOwnPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1811 | 0x004B3BF0 | `sub_4B3BF0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2329 — WindowTrade_DrawOwnPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1812 | 0x004B4070 | `sub_4B4070` | 有正文 | `src/ui/windows/WindowTrade.cpp:2062 — WindowTrade_DrawRemotePetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1813 | 0x004B4140 | `sub_4B4140` | 有正文 | `src/ui/windows/WindowTrade.cpp:2089 — WindowTrade_DrawRemotePetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1814 | 0x004B45A0 | `sub_4B45A0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2182 — WindowTrade_DrawSelectedPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1815 | 0x004B4680 | `sub_4B4680` | 有正文 | `src/ui/windows/WindowTrade.cpp:2212 — WindowTrade_DrawSelectedPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1772 | 0x004AFF30 | `sub_4AFF30` | 有正文 | `src/ui/windows/WindowTrade.cpp:631 — WindowTrade_AddItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1773 | 0x004AFF70 | `sub_4AFF70` | 有正文 | `src/ui/windows/WindowTrade.cpp:674 — WindowTrade_RemoveItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1774 | 0x004AFFB0 | `sub_4AFFB0` | 有正文 | `src/ui/windows/WindowTrade.cpp:645 — WindowTrade_SwapSelectedItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1775 | 0x004AFFE0 | `sub_4AFFE0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2529 — WindowTrade_ReadSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1776 | 0x004B0000 | `sub_4B0000` | 有正文 | `src/ui/windows/WindowTrade.cpp:523 — WindowTrade_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1777 | 0x004B0060 | `sub_4B0060` | 有正文 | `src/ui/windows/WindowTrade.cpp:654 — WindowTrade_AddPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1778 | 0x004B0090 | `sub_4B0090` | 有正文 | `src/ui/windows/WindowTrade.cpp:689 — WindowTrade_RemovePet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1779 | 0x004B00C0 | `sub_4B00C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:665 — WindowTrade_SwapSelectedPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1780 | 0x004B00F0 | `sub_4B00F0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2536 — WindowTrade_ReadSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1781 | 0x004B0110 | `sub_4B0110` | 有正文 | `src/ui/windows/WindowTrade.cpp:589 — WindowTrade_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1782 | 0x004B0130 | `sub_4B0130` | 有正文 | `src/ui/windows/WindowTrade.cpp:598 — WindowTrade_MovePanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1783 | 0x004B0180 | `sub_4B0180` | 有正文 | `src/ui/windows/WindowTrade.cpp:612 — WindowTrade_SetPanelVisible` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1784 | 0x004B01B0 | `sub_4B01B0` | 有正文 | `src/ui/windows/WindowTrade.cpp:623 — WindowTrade_SetPanelColor` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1785 | 0x004B0200 | `sub_4B0200` | 有正文 | `src/ui/windows/WindowTrade.cpp:701 — WindowTrade_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1786 | 0x004B0290 | `sub_4B0290` | 有正文 | `src/ui/windows/WindowTrade.cpp:722 — WindowTrade_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1787 | 0x004B08D0 | `sub_4B08D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:898 — WindowTrade_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1788 | 0x004B09E0 | `sub_4B09E0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2158 — WindowTrade_HandleAmountInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1789 | 0x004B0A50 | `sub_4B0A50` | 有正文 | `src/ui/windows/WindowTrade.cpp:2543 — WindowTrade_ButtonPublish` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1790 | 0x004B0CF0 | `sub_4B0CF0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2606 — WindowTrade_ButtonWithdraw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1791 | 0x004B0DB0 | `sub_4B0DB0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2636 — WindowTrade_ButtonConfirm` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1792 | 0x004B0F10 | `NULL_FUNC` | 有正文 | `src/ui/WindowRuntime.cpp:827 — WindowElement_NoOp` | 原入口的 RET／固定返回已用当前 IDA 核实；不是业务占位；完整接线未验 |
+| 1793 | 0x004B0F20 | `sub_4B0F20` | 有正文 | `src/ui/windows/WindowTrade.cpp:945 — WindowTrade_DrawPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1794 | 0x004B1260 | `sub_4B1260` | 有正文 | `src/ui/windows/WindowTrade.cpp:996 — WindowTrade_HandlePanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1795 | 0x004B1900 | `sub_4B1900` | 有正文 | `src/ui/windows/WindowTrade.cpp:2143 — WindowTrade_HitTestOwnPetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1796 | 0x004B1940 | `sub_4B1940` | 有正文 | `src/ui/windows/WindowTrade.cpp:1143 — WindowTrade_HandleOwnInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1797 | 0x004B2060 | `sub_4B2060` | 有正文 | `src/ui/windows/WindowTrade.cpp:1322 — WindowTrade_HandleOwnPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1798 | 0x004B2480 | `sub_4B2480` | 有正文 | `src/ui/windows/WindowTrade.cpp:1452 — WindowTrade_HandleOwnPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1799 | 0x004B2500 | `sub_4B2500` | 有正文 | `src/ui/windows/WindowTrade.cpp:1468 — WindowTrade_RefreshOwnPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1800 | 0x004B25D0 | `sub_4B25D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:1508 — WindowTrade_HandleOwnItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1801 | 0x004B2710 | `sub_4B2710` | 有正文 | `src/ui/windows/WindowTrade.cpp:1590 — WindowTrade_StartOwnItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1802 | 0x004B2730 | `sub_4B2730` | 有正文 | `src/ui/windows/WindowTrade.cpp:1602 — WindowTrade_HandleSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1803 | 0x004B2E00 | `sub_4B2E00` | 有正文 | `src/ui/windows/WindowTrade.cpp:1547 — WindowTrade_HandleOwnPetDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1804 | 0x004B2F50 | `sub_4B2F50` | 有正文 | `src/ui/windows/WindowTrade.cpp:1596 — WindowTrade_StartOwnPetDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1805 | 0x004B2F70 | `sub_4B2F70` | 有正文 | `src/ui/windows/WindowTrade.cpp:1776 — WindowTrade_HandleSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1806 | 0x004B3430 | `sub_4B3430` | 有正文 | `src/ui/windows/WindowTrade.cpp:1913 — WindowTrade_HandleSelectedPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1807 | 0x004B34C0 | `sub_4B34C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:1932 — WindowTrade_RefreshSelectedPanel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1808 | 0x004B3580 | `sub_4B3580` | 有正文 | `src/ui/windows/WindowTrade.cpp:1964 — WindowTrade_HandleRemoteSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1809 | 0x004B3610 | `sub_4B3610` | 有正文 | `src/ui/windows/WindowTrade.cpp:1983 — WindowTrade_HandleRemoteItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1810 | 0x004B3B00 | `sub_4B3B00` | 有正文 | `src/ui/windows/WindowTrade.cpp:2413 — WindowTrade_DrawOwnPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1811 | 0x004B3BF0 | `sub_4B3BF0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2443 — WindowTrade_DrawOwnPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1812 | 0x004B4070 | `sub_4B4070` | 有正文 | `src/ui/windows/WindowTrade.cpp:2176 — WindowTrade_DrawRemotePetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1813 | 0x004B4140 | `sub_4B4140` | 有正文 | `src/ui/windows/WindowTrade.cpp:2203 — WindowTrade_DrawRemotePetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1814 | 0x004B45A0 | `sub_4B45A0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2296 — WindowTrade_DrawSelectedPetSkillRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1815 | 0x004B4680 | `sub_4B4680` | 有正文 | `src/ui/windows/WindowTrade.cpp:2326 — WindowTrade_DrawSelectedPetTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1816 | 0x004B4B00 | `sub_4B4B00` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:173 — WindowGroupSelect_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1817 | 0x004B4B70 | `sub_4B4B70` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:193 — WindowGroupSelect_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1818 | 0x004B4B90 | `sub_4B4B90` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:202 — WindowGroupSelect_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1881,57 +1887,57 @@
 | 1829 | 0x004B5760 | `sub_4B5760` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:527 — WindowGroupSelect_SortRecipients` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1830 | 0x004B57B0 | `sub_4B57B0` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:538 — WindowGroupSelect_CompareRecipients` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1831 | 0x004B5A40 | `sub_4B5A40` | 有正文 | `src/ui/windows/WindowGroupSelect.cpp:460 — WindowGroupSelect_Scroll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1832 | 0x004B5A90 | `sub_4B5A90` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:126 — WindowMessageBoard_ResetRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1833 | 0x004B5AD0 | `sub_4B5AD0` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:141 — WindowMessageBoard_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1834 | 0x004B5B50 | `sub_4B5B50` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:160 — WindowMessageBoard_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1835 | 0x004B5B70 | `sub_4B5B70` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:168 — WindowMessageBoard_HandleInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1836 | 0x004B5C30 | `sub_4B5C30` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:188 — WindowMessageBoard_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1837 | 0x004B62A0 | `sub_4B62A0` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:308 — WindowMessageBoard_RefreshRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1838 | 0x004B6970 | `sub_4B6970` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:362 — WindowMessageBoard_ReceiveRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1839 | 0x004B6C20 | `sub_4B6C20` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:353 — WindowMessageBoard_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1840 | 0x004B6C50 | `sub_4B6C50` | 有正文 | `src/ui/windows/WindowShop.cpp:394 — WindowShop_HandleSaleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1841 | 0x004B6DA0 | `sub_4B6DA0` | 有正文 | `src/ui/windows/WindowShop.cpp:439 — WindowShop_StartSaleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1842 | 0x004B6DC0 | `sub_4B6DC0` | 有正文 | `src/ui/windows/WindowShop.cpp:481 — WindowShop_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1843 | 0x004B6E00 | `sub_4B6E00` | 有正文 | `src/ui/windows/WindowShop.cpp:495 — WindowShop_OpenBuy` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1844 | 0x004B70D0 | `sub_4B70D0` | 有正文 | `src/ui/windows/WindowShop.cpp:548 — WindowShop_OpenSell` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1845 | 0x004B74E0 | `sub_4B74E0` | 有正文 | `src/ui/windows/WindowShop.cpp:640 — WindowShop_OpenExchange` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1846 | 0x004B77E0 | `sub_4B77E0` | 有正文 | `src/ui/windows/WindowShop.cpp:703 — WindowShop_OpenItemDetails` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1847 | 0x004B7AB0 | `sub_4B7AB0` | 有正文 | `src/ui/windows/WindowShop.cpp:849 — WindowShop_OpenIdentify` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1848 | 0x004B7EE0 | `sub_4B7EE0` | 有正文 | `src/ui/windows/WindowShop.cpp:856 — WindowShop_OpenRepair` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1849 | 0x004B8310 | `sub_4B8310` | 有正文 | `src/ui/windows/WindowShop.cpp:863 — WindowShop_RefreshBuyRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1850 | 0x004B8670 | `sub_4B8670` | 有正文 | `src/ui/windows/WindowShop.cpp:921 — WindowShop_RefreshBuyQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1851 | 0x004B86C0 | `sub_4B86C0` | 有正文 | `src/ui/windows/WindowShop.cpp:937 — WindowShop_RefreshBuyAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1852 | 0x004B8730 | `sub_4B8730` | 有正文 | `src/ui/windows/WindowShop.cpp:960 — WindowShop_CountBuySlots` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1853 | 0x004B8780 | `sub_4B8780` | 有正文 | `src/ui/windows/WindowShop.cpp:981 — WindowShop_RefreshSellRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1854 | 0x004B8B10 | `sub_4B8B10` | 有正文 | `src/ui/windows/WindowShop.cpp:1047 — WindowShop_RefreshSellQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1855 | 0x004B8BE0 | `sub_4B8BE0` | 有正文 | `src/ui/windows/WindowShop.cpp:1074 — WindowShop_RefreshSellAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1856 | 0x004B8C50 | `sub_4B8C50` | 有正文 | `src/ui/windows/WindowShop.cpp:1095 — WindowShop_CountSellItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1857 | 0x004B8C90 | `sub_4B8C90` | 有正文 | `src/ui/windows/WindowShop.cpp:1112 — WindowShop_RefreshExchangeRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1858 | 0x004B8FF0 | `sub_4B8FF0` | 有正文 | `src/ui/windows/WindowShop.cpp:1173 — WindowShop_RefreshExchangeQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1859 | 0x004B9090 | `sub_4B9090` | 有正文 | `src/ui/windows/WindowShop.cpp:1192 — WindowShop_RefreshExchangeAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1860 | 0x004B90E0 | `sub_4B90E0` | 有正文 | `src/ui/windows/WindowShop.cpp:1211 — WindowShop_CountExchangeItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1861 | 0x004B9110 | `sub_4B9110` | 有正文 | `src/ui/windows/WindowShop.cpp:1227 — WindowShop_RefreshDetailName` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1862 | 0x004B9270 | `sub_4B9270` | 有正文 | `src/ui/windows/WindowShop.cpp:1237 — WindowShop_RefreshDetailAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1863 | 0x004B92C0 | `sub_4B92C0` | 有正文 | `src/ui/windows/WindowShop.cpp:1247 — WindowShop_CountDetailItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1864 | 0x004B9310 | `sub_4B9310` | 有正文 | `src/ui/windows/WindowShop.cpp:1267 — WindowShop_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1865 | 0x004B99D0 | `sub_4B99D0` | 有正文 | `src/ui/windows/WindowShop.cpp:3385 — WindowShop_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1866 | 0x004B9B10 | `sub_4B9B10` | 有正文 | `src/ui/windows/WindowShop.cpp:1452 — WindowShop_Submit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1867 | 0x004B9F40 | `sub_4B9F40` | 有正文 | `src/ui/windows/WindowShop.cpp:1510 — WindowShop_ButtonOk` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1868 | 0x004BA950 | `sub_4BA950` | 有正文 | `src/ui/windows/WindowShop.cpp:1780 — WindowShop_ButtonCancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1869 | 0x004BAA50 | `sub_4BAA50` | 有正文 | `src/ui/windows/WindowShop.cpp:1815 — WindowShop_ButtonAddAll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1870 | 0x004BAD10 | `sub_4BAD10` | 有正文 | `src/ui/windows/WindowShop.cpp:2020 — WindowShop_ButtonPreviousRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1871 | 0x004BAE10 | `sub_4BAE10` | 有正文 | `src/ui/windows/WindowShop.cpp:2066 — WindowShop_ButtonNextRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1872 | 0x004BAF10 | `sub_4BAF10` | 有正文 | `src/ui/windows/WindowShop.cpp:2112 — WindowShop_ButtonPreviousPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1873 | 0x004BB010 | `sub_4BB010` | 有正文 | `src/ui/windows/WindowShop.cpp:2156 — WindowShop_ButtonNextPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1874 | 0x004BB1D0 | `sub_4BB1D0` | 有正文 | `src/ui/windows/WindowShop.cpp:2238 — WindowShop_ButtonDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1875 | 0x004BB6E0 | `sub_4BB6E0` | 有正文 | `src/ui/windows/WindowShop.cpp:2471 — WindowShop_ButtonIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1876 | 0x004BBED0 | `sub_4BBED0` | 有正文 | `src/ui/windows/WindowShop.cpp:2822 — WindowShop_HandleItemIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1877 | 0x004BC060 | `sub_4BC060` | 有正文 | `src/ui/windows/WindowShop.cpp:2878 — WindowShop_HandleDetailIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1878 | 0x004BC150 | `sub_4BC150` | 有正文 | `src/ui/windows/WindowShop.cpp:445 — WindowShop_RemoveSaleSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1879 | 0x004BC230 | `sub_4BC230` | 有正文 | `src/ui/windows/WindowShop.cpp:2913 — WindowShop_HandleSaleSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1880 | 0x004BC660 | `sub_4BC660` | 有正文 | `src/ui/windows/WindowShop.cpp:3046 — WindowShop_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1881 | 0x004BCEE0 | `sub_4BCEE0` | 有正文 | `src/ui/windows/WindowShop.cpp:1934 — WindowShop_HandleSaleDrop` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1882 | 0x004BD100 | `sub_4BD100` | 有正文 | `src/ui/windows/WindowShop.cpp:3294 — WindowShop_HandleConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1832 | 0x004B5A90 | `sub_4B5A90` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:121 — WindowMessageBoard_ResetRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1833 | 0x004B5AD0 | `sub_4B5AD0` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:136 — WindowMessageBoard_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1834 | 0x004B5B50 | `sub_4B5B50` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:155 — WindowMessageBoard_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1835 | 0x004B5B70 | `sub_4B5B70` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:163 — WindowMessageBoard_HandleInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1836 | 0x004B5C30 | `sub_4B5C30` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:183 — WindowMessageBoard_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1837 | 0x004B62A0 | `sub_4B62A0` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:303 — WindowMessageBoard_RefreshRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1838 | 0x004B6970 | `sub_4B6970` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:357 — WindowMessageBoard_ReceiveRecords` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1839 | 0x004B6C20 | `sub_4B6C20` | 有正文 | `src/ui/windows/WindowMessageBoard.cpp:348 — WindowMessageBoard_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1840 | 0x004B6C50 | `sub_4B6C50` | 有正文 | `src/ui/windows/WindowShop.cpp:491 — WindowShop_HandleSaleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1841 | 0x004B6DA0 | `sub_4B6DA0` | 有正文 | `src/ui/windows/WindowShop.cpp:536 — WindowShop_StartSaleDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1842 | 0x004B6DC0 | `sub_4B6DC0` | 有正文 | `src/ui/windows/WindowShop.cpp:578 — WindowShop_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1843 | 0x004B6E00 | `sub_4B6E00` | 有正文 | `src/ui/windows/WindowShop.cpp:592 — WindowShop_OpenBuy` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1844 | 0x004B70D0 | `sub_4B70D0` | 有正文 | `src/ui/windows/WindowShop.cpp:645 — WindowShop_OpenSell` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1845 | 0x004B74E0 | `sub_4B74E0` | 有正文 | `src/ui/windows/WindowShop.cpp:737 — WindowShop_OpenExchange` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1846 | 0x004B77E0 | `sub_4B77E0` | 有正文 | `src/ui/windows/WindowShop.cpp:800 — WindowShop_OpenItemDetails` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1847 | 0x004B7AB0 | `sub_4B7AB0` | 有正文 | `src/ui/windows/WindowShop.cpp:946 — WindowShop_OpenIdentify` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1848 | 0x004B7EE0 | `sub_4B7EE0` | 有正文 | `src/ui/windows/WindowShop.cpp:953 — WindowShop_OpenRepair` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1849 | 0x004B8310 | `sub_4B8310` | 有正文 | `src/ui/windows/WindowShop.cpp:960 — WindowShop_RefreshBuyRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1850 | 0x004B8670 | `sub_4B8670` | 有正文 | `src/ui/windows/WindowShop.cpp:1018 — WindowShop_RefreshBuyQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1851 | 0x004B86C0 | `sub_4B86C0` | 有正文 | `src/ui/windows/WindowShop.cpp:1034 — WindowShop_RefreshBuyAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1852 | 0x004B8730 | `sub_4B8730` | 有正文 | `src/ui/windows/WindowShop.cpp:1057 — WindowShop_CountBuySlots` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1853 | 0x004B8780 | `sub_4B8780` | 有正文 | `src/ui/windows/WindowShop.cpp:1078 — WindowShop_RefreshSellRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1854 | 0x004B8B10 | `sub_4B8B10` | 有正文 | `src/ui/windows/WindowShop.cpp:1144 — WindowShop_RefreshSellQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1855 | 0x004B8BE0 | `sub_4B8BE0` | 有正文 | `src/ui/windows/WindowShop.cpp:1171 — WindowShop_RefreshSellAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1856 | 0x004B8C50 | `sub_4B8C50` | 有正文 | `src/ui/windows/WindowShop.cpp:1192 — WindowShop_CountSellItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1857 | 0x004B8C90 | `sub_4B8C90` | 有正文 | `src/ui/windows/WindowShop.cpp:1209 — WindowShop_RefreshExchangeRows` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1858 | 0x004B8FF0 | `sub_4B8FF0` | 有正文 | `src/ui/windows/WindowShop.cpp:1270 — WindowShop_RefreshExchangeQuantities` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1859 | 0x004B9090 | `sub_4B9090` | 有正文 | `src/ui/windows/WindowShop.cpp:1289 — WindowShop_RefreshExchangeAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1860 | 0x004B90E0 | `sub_4B90E0` | 有正文 | `src/ui/windows/WindowShop.cpp:1308 — WindowShop_CountExchangeItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1861 | 0x004B9110 | `sub_4B9110` | 有正文 | `src/ui/windows/WindowShop.cpp:1324 — WindowShop_RefreshDetailName` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1862 | 0x004B9270 | `sub_4B9270` | 有正文 | `src/ui/windows/WindowShop.cpp:1334 — WindowShop_RefreshDetailAmount` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1863 | 0x004B92C0 | `sub_4B92C0` | 有正文 | `src/ui/windows/WindowShop.cpp:1344 — WindowShop_CountDetailItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1864 | 0x004B9310 | `sub_4B9310` | 有正文 | `src/ui/windows/WindowShop.cpp:1364 — WindowShop_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1865 | 0x004B99D0 | `sub_4B99D0` | 有正文 | `src/ui/windows/WindowShop.cpp:3482 — WindowShop_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1866 | 0x004B9B10 | `sub_4B9B10` | 有正文 | `src/ui/windows/WindowShop.cpp:1549 — WindowShop_Submit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1867 | 0x004B9F40 | `sub_4B9F40` | 有正文 | `src/ui/windows/WindowShop.cpp:1607 — WindowShop_ButtonOk` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1868 | 0x004BA950 | `sub_4BA950` | 有正文 | `src/ui/windows/WindowShop.cpp:1877 — WindowShop_ButtonCancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1869 | 0x004BAA50 | `sub_4BAA50` | 有正文 | `src/ui/windows/WindowShop.cpp:1912 — WindowShop_ButtonAddAll` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1870 | 0x004BAD10 | `sub_4BAD10` | 有正文 | `src/ui/windows/WindowShop.cpp:2117 — WindowShop_ButtonPreviousRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1871 | 0x004BAE10 | `sub_4BAE10` | 有正文 | `src/ui/windows/WindowShop.cpp:2163 — WindowShop_ButtonNextRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1872 | 0x004BAF10 | `sub_4BAF10` | 有正文 | `src/ui/windows/WindowShop.cpp:2209 — WindowShop_ButtonPreviousPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1873 | 0x004BB010 | `sub_4BB010` | 有正文 | `src/ui/windows/WindowShop.cpp:2253 — WindowShop_ButtonNextPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1874 | 0x004BB1D0 | `sub_4BB1D0` | 有正文 | `src/ui/windows/WindowShop.cpp:2335 — WindowShop_ButtonDecrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1875 | 0x004BB6E0 | `sub_4BB6E0` | 有正文 | `src/ui/windows/WindowShop.cpp:2568 — WindowShop_ButtonIncrease` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1876 | 0x004BBED0 | `sub_4BBED0` | 有正文 | `src/ui/windows/WindowShop.cpp:2919 — WindowShop_HandleItemIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1877 | 0x004BC060 | `sub_4BC060` | 有正文 | `src/ui/windows/WindowShop.cpp:2975 — WindowShop_HandleDetailIcon` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1878 | 0x004BC150 | `sub_4BC150` | 有正文 | `src/ui/windows/WindowShop.cpp:542 — WindowShop_RemoveSaleSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1879 | 0x004BC230 | `sub_4BC230` | 有正文 | `src/ui/windows/WindowShop.cpp:3010 — WindowShop_HandleSaleSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1880 | 0x004BC660 | `sub_4BC660` | 有正文 | `src/ui/windows/WindowShop.cpp:3143 — WindowShop_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1881 | 0x004BCEE0 | `sub_4BCEE0` | 有正文 | `src/ui/windows/WindowShop.cpp:2031 — WindowShop_HandleSaleDrop` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1882 | 0x004BD100 | `sub_4BD100` | 有正文 | `src/ui/windows/WindowShop.cpp:3391 — WindowShop_HandleConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1883 | 0x004BD500 | `sub_4BD500` | 有正文 | `src/ui/windows/WindowPetSkillChoice.cpp:459 — WindowPetSkillChoice_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1884 | 0x004BD540 | `sub_4BD540` | 有正文 | `src/ui/windows/WindowPetSkillChoice.cpp:469 — WindowPetSkillChoice_OpenLearn` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1885 | 0x004BD680 | `sub_4BD680` | 有正文 | `src/ui/windows/WindowPetSkillChoice.cpp:503 — WindowPetSkillChoice_OpenForget` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1974,7 +1980,7 @@
 | 1922 | 0x004C1BC0 | `sub_4C1BC0` | 有正文 | `src/ui/windows/WindowCrystalShop.cpp:486 — WindowCrystalShop_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1923 | 0x004C1C50 | `sub_4C1C50` | 有正文 | `src/ui/windows/WindowCrystalShop.cpp:513 — WindowCrystalShop_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1924 | 0x004C1EC0 | `sub_4C1EC0` | 有正文 | `src/ui/windows/WindowCrystalShop.cpp:576 — WindowCrystalShop_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1925 | 0x004C1FB0 | `sub_4C1FB0` | 有正文 | `src/ui/WindowRuntime.cpp:1514 — WindowRuntime_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1925 | 0x004C1FB0 | `sub_4C1FB0` | 有正文 | `src/ui/WindowRuntime.cpp:1456 — WindowRuntime_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1926 | 0x004C2060 | `sub_4C2060` | 有正文 | `src/ui/windows/WindowCrystalShop.cpp:610 — WindowCrystalShop_Submit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1927 | 0x004C21B0 | `sub_4C21B0` | 有正文 | `src/ui/windows/WindowCrystalShop.cpp:647 — WindowCrystalShop_ButtonOk` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1928 | 0x004C2460 | `sub_4C2460` | 有正文 | `src/ui/windows/WindowCrystalTrade.cpp:9 — WindowCrystalTrade_ButtonCancel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2027,42 +2033,42 @@
 | 1975 | 0x004C5EB0 | `sub_4C5EB0` | 有正文 | `src/ui/windows/WindowAppearance.cpp:352 — WindowAppearance_CycleOnesDigit` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1976 | 0x004C5F80 | `sub_4C5F80` | 有正文 | `src/ui/windows/WindowAppearance.cpp:386 — WindowAppearance_SendDialogReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1977 | 0x004C6060 | `sub_4C6060` | 有正文 | `src/ui/windows/WindowAppearance.cpp:417 — WindowAppearance_OpenDialogPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1978 | 0x004C61B0 | `sub_4C61B0` | 有正文 | `src/ui/WindowRuntime.cpp:1721 — WindowItemSelector_ConstructPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1979 | 0x004C63C0 | `sub_4C63C0` | 有正文 | `src/ui/WindowRuntime.cpp:1821 — WindowItemSelector_ReadSlotX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1980 | 0x004C6400 | `sub_4C6400` | 有正文 | `src/ui/WindowRuntime.cpp:1839 — WindowItemSelector_ReadSlotY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1981 | 0x004C6440 | `sub_4C6440` | 有正文 | `src/ui/WindowRuntime.cpp:1857 — WindowItemSelector_ShowPlayerPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1982 | 0x004C6470 | `sub_4C6470` | 有正文 | `src/ui/WindowRuntime.cpp:1869 — WindowItemSelector_ShowPetPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1983 | 0x004C6500 | `sub_4C6500` | 有正文 | `src/ui/WindowRuntime.cpp:1891 — WindowItemSelector_HidePageElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1984 | 0x004C6550 | `sub_4C6550` | 有正文 | `src/ui/WindowRuntime.cpp:1909 — WindowItemSelector_SelectPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1985 | 0x004C6790 | `sub_4C6790` | 有正文 | `src/ui/WindowRuntime.cpp:1996 — WindowItemSelector_UpdatePage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1986 | 0x004C6990 | `sub_4C6990` | 有正文 | `src/ui/WindowRuntime.cpp:2084 — WindowItemSelector_SelectPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1987 | 0x004C69B0 | `sub_4C69B0` | 有正文 | `src/ui/WindowRuntime.cpp:2093 — WindowItemSelector_RefreshPetHeader` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1988 | 0x004C6AC0 | `sub_4C6AC0` | 有正文 | `src/ui/WindowRuntime.cpp:2126 — WindowItemSelector_MoveElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1989 | 0x004C6B10 | `sub_4C6B10` | 有正文 | `src/ui/WindowRuntime.cpp:2139 — WindowItemSelector_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1990 | 0x004C6D90 | `sub_4C6D90` | 有正文 | `src/ui/WindowRuntime.cpp:2217 — WindowItemSelector_DrawPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1991 | 0x004C6EC0 | `sub_4C6EC0` | 有正文 | `src/ui/WindowRuntime.cpp:1761 — WindowItemSelector_BindElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1992 | 0x004C71B0 | `sub_4C71B0` | 有正文 | `src/ui/WindowRuntime.cpp:1754 — WindowItemSelector_ReadSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1993 | 0x004C71C0 | `sub_4C71C0` | 有正文 | `src/ui/WindowRuntime.cpp:2244 — WindowItemSelector_FindPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1994 | 0x004C7240 | `sub_4C7240` | 有正文 | `src/ui/WindowRuntime.cpp:2455 — WindowItemSelector_ReadScreenX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1995 | 0x004C7280 | `sub_4C7280` | 有正文 | `src/ui/WindowRuntime.cpp:2471 — WindowItemSelector_ReadScreenY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1996 | 0x004C72C0 | `sub_4C72C0` | 有正文 | `src/ui/WindowRuntime.cpp:2487 — WindowItemSelector_BorrowSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1997 | 0x004C7340 | `sub_4C7340` | 有正文 | `src/ui/WindowRuntime.cpp:2271 — WindowItemSelector_SetMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1998 | 0x004C7380 | `sub_4C7380` | 有正文 | `src/ui/WindowRuntime.cpp:2289 — WindowItemSelector_HandleTab` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1999 | 0x004C75A0 | `sub_4C75A0` | 有正文 | `src/ui/WindowRuntime.cpp:2507 — WindowItemSelector_HandlePlayerAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2000 | 0x004C78A0 | `sub_4C78A0` | 有正文 | `src/ui/WindowRuntime.cpp:2366 — WindowItemSelector_TogglePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2001 | 0x004C7910 | `sub_4C7910` | 有正文 | `src/ui/WindowRuntime.cpp:2380 — WindowItemSelector_CycleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2002 | 0x004C7A10 | `sub_4C7A10` | 有正文 | `src/ui/WindowRuntime.cpp:2419 — WindowItemSelector_RotatePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2003 | 0x004C7A90 | `sub_4C7A90` | 有正文 | `src/ui/WindowRuntime.cpp:2442 — WindowItemSelector_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2004 | 0x004C7AD0 | `sub_4C7AD0` | 有正文 | `src/ui/WindowRuntime.cpp:3141 — WindowRuntime_ResetShortcutFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2005 | 0x004C7AE0 | `sub_4C7AE0` | 有正文 | `src/ui/WindowRuntime.cpp:3215 — WindowRuntime_ProcessShortcuts` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2006 | 0x004C9060 | `sub_4C9060` | 有正文 | `src/ui/WindowRuntime.cpp:2937 — WindowRuntime_LoadSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2007 | 0x004C9130 | `sub_4C9130` | 有正文 | `src/ui/WindowRuntime.cpp:3017 — WindowRuntime_SaveSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2008 | 0x004C9170 | `sub_4C9170` | 有正文 | `src/ui/WindowRuntime.cpp:2902 — WindowRuntime_ApplySettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2009 | 0x004C9240 | `sub_4C9240` | 有正文 | `src/ui/WindowRuntime.cpp:2841 — WindowRuntime_ResetSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2010 | 0x004C92B0 | `sub_4C92B0` | 有正文 | `src/ui/WindowRuntime.cpp:2974 — WindowRuntime_ClearSavedSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2011 | 0x004C92D0 | `sub_4C92D0` | 有正文 | `src/ui/WindowRuntime.cpp:2981 — WindowRuntime_CaptureSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2012 | 0x004C93A0 | `sub_4C93A0` | 有正文 | `src/ui/WindowRuntime.cpp:2862 — WindowRuntime_HasChangedDefaultPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2013 | 0x004C93E0 | `sub_4C93E0` | 有正文 | `src/ui/WindowRuntime.cpp:2874 — WindowRuntime_RepairSettingsTail` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1978 | 0x004C61B0 | `sub_4C61B0` | 有正文 | `src/ui/WindowRuntime.cpp:1585 — WindowItemSelector_ConstructPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1979 | 0x004C63C0 | `sub_4C63C0` | 有正文 | `src/ui/WindowRuntime.cpp:1685 — WindowItemSelector_ReadSlotX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1980 | 0x004C6400 | `sub_4C6400` | 有正文 | `src/ui/WindowRuntime.cpp:1703 — WindowItemSelector_ReadSlotY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1981 | 0x004C6440 | `sub_4C6440` | 有正文 | `src/ui/WindowRuntime.cpp:1721 — WindowItemSelector_ShowPlayerPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1982 | 0x004C6470 | `sub_4C6470` | 有正文 | `src/ui/WindowRuntime.cpp:1733 — WindowItemSelector_ShowPetPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1983 | 0x004C6500 | `sub_4C6500` | 有正文 | `src/ui/WindowRuntime.cpp:1755 — WindowItemSelector_HidePageElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1984 | 0x004C6550 | `sub_4C6550` | 有正文 | `src/ui/WindowRuntime.cpp:1773 — WindowItemSelector_SelectPage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1985 | 0x004C6790 | `sub_4C6790` | 有正文 | `src/ui/WindowRuntime.cpp:1860 — WindowItemSelector_UpdatePage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1986 | 0x004C6990 | `sub_4C6990` | 有正文 | `src/ui/WindowRuntime.cpp:1948 — WindowItemSelector_SelectPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1987 | 0x004C69B0 | `sub_4C69B0` | 有正文 | `src/ui/WindowRuntime.cpp:1957 — WindowItemSelector_RefreshPetHeader` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1988 | 0x004C6AC0 | `sub_4C6AC0` | 有正文 | `src/ui/WindowRuntime.cpp:1990 — WindowItemSelector_MoveElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1989 | 0x004C6B10 | `sub_4C6B10` | 有正文 | `src/ui/WindowRuntime.cpp:2003 — WindowItemSelector_DrawTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1990 | 0x004C6D90 | `sub_4C6D90` | 有正文 | `src/ui/WindowRuntime.cpp:2081 — WindowItemSelector_DrawPreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1991 | 0x004C6EC0 | `sub_4C6EC0` | 有正文 | `src/ui/WindowRuntime.cpp:1625 — WindowItemSelector_BindElements` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1992 | 0x004C71B0 | `sub_4C71B0` | 有正文 | `src/ui/WindowRuntime.cpp:1618 — WindowItemSelector_ReadSelectedPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1993 | 0x004C71C0 | `sub_4C71C0` | 有正文 | `src/ui/WindowRuntime.cpp:2108 — WindowItemSelector_FindPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1994 | 0x004C7240 | `sub_4C7240` | 有正文 | `src/ui/WindowRuntime.cpp:2319 — WindowItemSelector_ReadScreenX` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1995 | 0x004C7280 | `sub_4C7280` | 有正文 | `src/ui/WindowRuntime.cpp:2335 — WindowItemSelector_ReadScreenY` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1996 | 0x004C72C0 | `sub_4C72C0` | 有正文 | `src/ui/WindowRuntime.cpp:2351 — WindowItemSelector_BorrowSelectedItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1997 | 0x004C7340 | `sub_4C7340` | 有正文 | `src/ui/WindowRuntime.cpp:2135 — WindowItemSelector_SetMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1998 | 0x004C7380 | `sub_4C7380` | 有正文 | `src/ui/WindowRuntime.cpp:2153 — WindowItemSelector_HandleTab` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1999 | 0x004C75A0 | `sub_4C75A0` | 有正文 | `src/ui/WindowRuntime.cpp:2371 — WindowItemSelector_HandlePlayerAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2000 | 0x004C78A0 | `sub_4C78A0` | 有正文 | `src/ui/WindowRuntime.cpp:2230 — WindowItemSelector_TogglePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2001 | 0x004C7910 | `sub_4C7910` | 有正文 | `src/ui/WindowRuntime.cpp:2244 — WindowItemSelector_CycleEquipment` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2002 | 0x004C7A10 | `sub_4C7A10` | 有正文 | `src/ui/WindowRuntime.cpp:2283 — WindowItemSelector_RotatePreview` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2003 | 0x004C7A90 | `sub_4C7A90` | 有正文 | `src/ui/WindowRuntime.cpp:2306 — WindowItemSelector_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2004 | 0x004C7AD0 | `sub_4C7AD0` | 有正文 | `src/ui/WindowRuntime.cpp:2936 — WindowRuntime_ResetShortcutFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2005 | 0x004C7AE0 | `sub_4C7AE0` | 有正文 | `src/ui/WindowRuntime.cpp:3010 — WindowRuntime_ProcessShortcuts` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2006 | 0x004C9060 | `sub_4C9060` | 有正文 | `src/ui/WindowRuntime.cpp:2732 — WindowRuntime_LoadSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2007 | 0x004C9130 | `sub_4C9130` | 有正文 | `src/ui/WindowRuntime.cpp:2812 — WindowRuntime_SaveSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2008 | 0x004C9170 | `sub_4C9170` | 有正文 | `src/ui/WindowRuntime.cpp:2697 — WindowRuntime_ApplySettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2009 | 0x004C9240 | `sub_4C9240` | 有正文 | `src/ui/WindowRuntime.cpp:2636 — WindowRuntime_ResetSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2010 | 0x004C92B0 | `sub_4C92B0` | 有正文 | `src/ui/WindowRuntime.cpp:2769 — WindowRuntime_ClearSavedSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2011 | 0x004C92D0 | `sub_4C92D0` | 有正文 | `src/ui/WindowRuntime.cpp:2776 — WindowRuntime_CaptureSettings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2012 | 0x004C93A0 | `sub_4C93A0` | 有正文 | `src/ui/WindowRuntime.cpp:2657 — WindowRuntime_HasChangedDefaultPositions` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2013 | 0x004C93E0 | `sub_4C93E0` | 有正文 | `src/ui/WindowRuntime.cpp:2669 — WindowRuntime_RepairSettingsTail` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2014 | 0x004C9490 | `sub_4C9490` | 有正文 | `src/world/MailState.cpp:688 — Sub_4C9490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2015 | 0x004C94B0 | `sub_4C94B0` | 有正文 | `src/ui/windows/WindowOwnProfileCategory.cpp:119 — WindowOwnProfileCategory_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2016 | 0x004C94D6 | `?classic@locale@std@@SAABV12@XZ_20` | 有承接 | `src/ui/windows/WindowOwnProfileCategory.cpp:119 — WindowOwnProfileCategory_Update` | 原调用 4C9C70／返回 1 共享尾；并入实际父正文；完整业务／运行未验 |
@@ -2115,8 +2121,8 @@
 | 2063 | 0x004CD220 | `sub_4CD220` | 有正文 | `src/ui/windows/WindowBlacklist.cpp:428 — WindowBlacklist_CancelClear` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2064 | 0x004CD240 | `sub_4CD240` | 有承接 | `src/ui/windows/WindowBattleItems.cpp:966 — StallBrowsePetValuesStartup::StallBrowsePetValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
 | 2065 | 0x004CD250 | `sub_4CD250` | 有承接 | `src/ui/windows/WindowStall.cpp:2768 — WindowStall_ConstructBrowsePetValues` | 固定成员构造／逆序销毁由实际数组 helper 承接；未记完整展开验收；完整业务／运行未验 |
-| 2066 | 0x004CD2D0 | `sub_4CD2D0` | 有承接 | `src/world/WorldUpdateDependencies.hpp:641 — PetRuntimeRecord::~PetRuntimeRecord` | 主／浏览各独立数组及六成员自动逆序析构；旧回调适配退休；运行未验 |
-| 2067 | 0x004CD360 | `sub_4CD360` | 有承接 | `src/world/WorldUpdateDependencies.hpp:639 — PetRuntimeRecord::PetRuntimeRecord` | 主／浏览五项各六成员由C++／std::array正序构造；实际存储独立，RNG序保持；运行未验 |
+| 2066 | 0x004CD2D0 | `sub_4CD2D0` | 有承接 | `src/world/WorldUpdateDependencies.hpp:638 — PetRuntimeRecord::~PetRuntimeRecord` | 主／浏览各独立数组及六成员自动逆序析构；旧回调适配退休；运行未验 |
+| 2067 | 0x004CD360 | `sub_4CD360` | 有承接 | `src/world/WorldUpdateDependencies.hpp:636 — PetRuntimeRecord::PetRuntimeRecord` | 主／浏览五项各六成员由C++／std::array正序构造；实际存储独立，RNG序保持；运行未验 |
 | 2068 | 0x004CD3E0 | `sub_4CD3E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2781 — WindowStallBrowse_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2069 | 0x004CD400 | `sub_4CD400` | 有正文 | `src/ui/windows/WindowStall.cpp:2791 — WindowOwnStall_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2070 | 0x004CD420 | `sub_4CD420` | 有正文 | `src/ui/windows/WindowStall.cpp:2544 — WindowStall_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2154,32 +2160,32 @@
 | 2102 | 0x004D2840 | `sub_4D2840` | 有正文 | `src/ui/windows/WindowStall.cpp:1831 — WindowStall_HandlePurchaseConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2103 | 0x004D3020 | `sub_4D3020` | 有正文 | `src/ui/windows/WindowProfile.cpp:129 — WindowProfile_SaveOrigin` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2104 | 0x004D3040 | `sub_4D3040` | 有正文 | `src/ui/windows/WindowProfile.cpp:137 — WindowProfile_CheckDistance` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2105 | 0x004D3110 | `sub_4D3110` | 有正文 | `src/YobiRuntime.cpp:35399 — Sub_4D3110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:8514 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2107 | 0x004D3180 | `sub_4D3180` | 有正文 | `src/LegacyUiRecord.cpp:2064 — Sub_4D3180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2108 | 0x004D31C0 | `sub_4D31C0` | 有正文 | `src/LegacyUiRecord.cpp:2076 — Sub_4D31C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2105 | 0x004D3110 | `sub_4D3110` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:8467 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2107 | 0x004D3180 | `sub_4D3180` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2108 | 0x004D31C0 | `sub_4D31C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2109 | 0x004D3210 | `sub_4D3210` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2110 | 0x004D3410 | `sub_4D3410` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2111 | 0x004D36B0 | `sub_4D36B0` | 有正文 | `src/LegacyUiRecord.cpp:2260 — Sub_4D36B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2111 | 0x004D36B0 | `sub_4D36B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2112 | 0x004D36F0 | `sub_4D36F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2113 | 0x004D4960 | `sub_4D4960` | 有正文 | `src/LegacyUiRecord.cpp:2271 — Sub_4D4960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2113 | 0x004D4960 | `sub_4D4960` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2114 | 0x004D4A50 | `sub_4D4A50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2115 | 0x004D4ED0 | `sub_4D4ED0` | 有正文 | `src/LegacyUiRecord.cpp:2294 — Sub_4D4ED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2115 | 0x004D4ED0 | `sub_4D4ED0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2116 | 0x004D4F00 | `sub_4D4F00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2117 | 0x004D5220 | `sub_4D5220` | 有正文 | `src/LegacyUiRecord.cpp:2305 — Sub_4D5220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2117 | 0x004D5220 | `sub_4D5220` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2118 | 0x004D5250 | `sub_4D5250` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2119 | 0x004D5580 | `sub_4D5580` | 有正文 | `src/LegacyUiRecord.cpp:2316 — Sub_4D5580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2119 | 0x004D5580 | `sub_4D5580` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2120 | 0x004D55C0 | `sub_4D55C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2121 | 0x004D61E0 | `sub_4D61E0` | 有正文 | `src/LegacyUiRecord.cpp:2327 — Sub_4D61E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2121 | 0x004D61E0 | `sub_4D61E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2122 | 0x004D62A0 | `sub_4D62A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2123 | 0x004D6640 | `sub_4D6640` | 有正文 | `src/YobiRuntime.cpp:35616 — Sub_4D6640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2124 | 0x004D6650 | `nullsub_3` | 空方法 | `src/YobiRuntime.cpp:35616 — Sub_4D6640` | 原父分配失败落入RET，当前父return nullptr定位保留；按用户决定标为空方法，不再核对此入口 |
-| 2125 | 0x004D6690 | `sub_4D6690` | 有正文 | `src/YobiRuntime.cpp:35681 — Sub_4D6690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2126 | 0x004D66E0 | `sub_4D66E0` | 有正文 | `src/LegacyUiRecord.cpp:2089 — Sub_4D66E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2123 | 0x004D6640 | `sub_4D6640` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2124 | 0x004D6650 | `nullsub_3` | 空方法 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 历史父Sub_4D6640已移除` | 原单RET仍按用户决定标为空方法，不再核职责、不补CPP包装；本次仅清理无消费者父实现，未改该入口状态 |
+| 2125 | 0x004D6690 | `sub_4D6690` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2126 | 0x004D66E0 | `sub_4D66E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2127 | 0x004D6710 | `sub_4D6710` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2128 | 0x004D6A30 | `sub_4D6A30` | 有正文 | `src/LegacyUiRecord.cpp:2100 — Sub_4D6A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2128 | 0x004D6A30 | `sub_4D6A30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2129 | 0x004D6A60 | `sub_4D6A60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2130 | 0x004D6E70 | `sub_4D6E70` | 有正文 | `src/LegacyUiRecord.cpp:2111 — Sub_4D6E70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2130 | 0x004D6E70 | `sub_4D6E70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2131 | 0x004D6EA0 | `sub_4D6EA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2132 | 0x004D7440 | `sub_4D7440` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2133 | 0x004D7470 | `sub_4D7470` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
@@ -2188,316 +2194,316 @@
 | 2136 | 0x004D8200 | `sub_4D8200` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2137 | 0x004D8230 | `sub_4D8230` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2138 | 0x004D88C0 | `sub_4D88C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2139 | 0x004D8D70 | `sub_4D8D70` | 有正文 | `src/LegacyUiRecord.cpp:2123 — Sub_4D8D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2139 | 0x004D8D70 | `sub_4D8D70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2140 | 0x004D8DA0 | `sub_4D8DA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2141 | 0x004D91E0 | `sub_4D91E0` | 有正文 | `src/LegacyUiRecord.cpp:2134 — Sub_4D91E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2141 | 0x004D91E0 | `sub_4D91E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2142 | 0x004D9220 | `sub_4D9220` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2143 | 0x004DA400 | `sub_4DA400` | 有正文 | `src/LegacyUiRecord.cpp:2145 — Sub_4DA400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2143 | 0x004DA400 | `sub_4DA400` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2144 | 0x004DA580 | `sub_4DA580` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2145 | 0x004DAA00 | `sub_4DAA00` | 有正文 | `src/LegacyUiRecord.cpp:2179 — Sub_4DAA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2145 | 0x004DAA00 | `sub_4DAA00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2146 | 0x004DAA40 | `sub_4DAA40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2147 | 0x004DBD30 | `sub_4DBD30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2148 | 0x004DC290 | `sub_4DC290` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2149 | 0x004DC7A0 | `sub_4DC7A0` | 有正文 | `src/LegacyUiRecord.cpp:2190 — Sub_4DC7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2149 | 0x004DC7A0 | `sub_4DC7A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2150 | 0x004DC7E0 | `sub_4DC7E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2151 | 0x004DDA30 | `sub_4DDA30` | 有正文 | `src/LegacyUiRecord.cpp:2202 — Sub_4DDA30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2151 | 0x004DDA30 | `sub_4DDA30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2152 | 0x004DDB20 | `sub_4DDB20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2153 | 0x004DDF80 | `sub_4DDF80` | 有正文 | `src/LegacyUiRecord.cpp:2225 — Sub_4DDF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2153 | 0x004DDF80 | `sub_4DDF80` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2154 | 0x004DDFC0 | `sub_4DDFC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2155 | 0x004DF210 | `sub_4DF210` | 有正文 | `src/LegacyUiRecord.cpp:2237 — Sub_4DF210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2155 | 0x004DF210 | `sub_4DF210` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2156 | 0x004DF300 | `sub_4DF300` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2157 | 0x004DF730 | `sub_4DF730` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2158 | 0x004E0100 | `sub_4E0100` | 有正文 | `src/ui/windows/WindowTrade.cpp:2606 — WindowTrade_CopyDisplayItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2159 | 0x004E0270 | `sub_4E0270` | 有正文 | `src/LegacyUiRecord.cpp:2344 — Sub_4E0270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2160 | 0x004E02B0 | `sub_4E02B0` | 有正文 | `src/ui/WindowRuntime.cpp:2793 — WindowItem_BuildStorageDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2158 | 0x004E0100 | `sub_4E0100` | 有正文 | `src/ui/windows/WindowTrade.cpp:2720 — WindowTrade_CopyDisplayItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2159 | 0x004E0270 | `sub_4E0270` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2160 | 0x004E02B0 | `sub_4E02B0` | 有正文 | `src/ui/windows/WindowBank.cpp:211 — WindowItem_BuildStorageDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2161 | 0x004E0380 | `sub_4E0380` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2162 | 0x004E0BC0 | `sub_4E0BC0` | 有正文 | `src/LegacyUiRecord.cpp:2359 — Sub_4E0BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2163 | 0x004E0C70 | `sub_4E0C70` | 有正文 | `src/LegacyUiRecord.cpp:2381 — Sub_4E0C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2164 | 0x004E0D10 | `sub_4E0D10` | 有正文 | `src/LegacyUiRecord.cpp:2396 — Sub_4E0D10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2165 | 0x004E0FF0 | `sub_4E0FF0` | 有正文 | `src/LegacyUiRecord.cpp:2461 — Sub_4E0FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2166 | 0x004E10F0 | `sub_4E10F0` | 有正文 | `src/LegacyUiRecord.cpp:2484 — Sub_4E10F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2167 | 0x004E1840 | `sub_4E1840` | 有正文 | `src/ui/windows/WindowTrade.cpp:394 — WindowTrade_SwapDisplayItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2168 | 0x004E18F0 | `sub_4E18F0` | 有正文 | `src/LegacyUiRecord.cpp:2581 — Sub_4E18F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2169 | 0x004E1980 | `sub_4E1980` | 有正文 | `src/LegacyUiRecord.cpp:2598 — Sub_4E1980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2170 | 0x004E19E0 | `sub_4E19E0` | 有正文 | `src/LegacyUiRecord.cpp:2610 — Sub_4E19E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2171 | 0x004E1B10 | `sub_4E1B10` | 有正文 | `src/LegacyUiRecord.cpp:2638 — Sub_4E1B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2172 | 0x004E1EE0 | `sub_4E1EE0` | 有正文 | `src/LegacyUiRecord.cpp:2695 — Sub_4E1EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2173 | 0x004E2030 | `sub_4E2030` | 有正文 | `src/LegacyUiRecord.cpp:2722 — Sub_4E2030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2174 | 0x004E28F0 | `sub_4E28F0` | 有正文 | `src/LegacyUiRecord.cpp:2970 — Sub_4E28F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2175 | 0x004E2D90 | `sub_4E2D90` | 有正文 | `src/LegacyUiRecord.cpp:3103 — Sub_4E2D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2176 | 0x004E3750 | `sub_4E3750` | 有正文 | `src/LegacyUiRecord.cpp:3259 — Sub_4E3750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2162 | 0x004E0BC0 | `sub_4E0BC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2163 | 0x004E0C70 | `sub_4E0C70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2164 | 0x004E0D10 | `sub_4E0D10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2165 | 0x004E0FF0 | `sub_4E0FF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2166 | 0x004E10F0 | `sub_4E10F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2167 | 0x004E1840 | `sub_4E1840` | 有正文 | `src/ui/windows/WindowTrade.cpp:508 — WindowTrade_SwapDisplayItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2168 | 0x004E18F0 | `sub_4E18F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2169 | 0x004E1980 | `sub_4E1980` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2170 | 0x004E19E0 | `sub_4E19E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2171 | 0x004E1B10 | `sub_4E1B10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2172 | 0x004E1EE0 | `sub_4E1EE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2173 | 0x004E2030 | `sub_4E2030` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2174 | 0x004E28F0 | `sub_4E28F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2175 | 0x004E2D90 | `sub_4E2D90` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2176 | 0x004E3750 | `sub_4E3750` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2177 | 0x004E4020 | `sub_4E4020` | 有正文 | `src/ui/windows/WindowItemUse.cpp:257 — WindowItemUse_ReceiveAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2178 | 0x004E4460 | `sub_4E4460` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2179 | 0x004E4860 | `sub_4E4860` | 有正文 | `src/ui/windows/WindowItemUse.cpp:142 — WindowItemUse_ReceiveTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2180 | 0x004E4A50 | `sub_4E4A50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2181 | 0x004E4E60 | `sub_4E4E60` | 有正文 | `src/ui/windows/WindowTrade.cpp:2593 — WindowTrade_RequestTargetList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2182 | 0x004E4E80 | `sub_4E4E80` | 有正文 | `src/ui/windows/WindowTrade.cpp:2600 — WindowTrade_OpenTargetList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2181 | 0x004E4E60 | `sub_4E4E60` | 有正文 | `src/ui/windows/WindowTrade.cpp:2707 — WindowTrade_RequestTargetList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2182 | 0x004E4E80 | `sub_4E4E80` | 有正文 | `src/ui/windows/WindowTrade.cpp:2714 — WindowTrade_OpenTargetList` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2183 | 0x004E4EA0 | `sub_4E4EA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2184 | 0x004E52B0 | `sub_4E52B0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2639 — WindowTrade_CopyOwnPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2185 | 0x004E54E0 | `sub_4E54E0` | 有正文 | `src/ui/windows/WindowTrade.cpp:437 — WindowTrade_CopyOwnItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2186 | 0x004E5600 | `sub_4E5600` | 有正文 | `src/ui/windows/WindowTrade.cpp:467 — WindowTrade_SyncOwnItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2187 | 0x004E5620 | `sub_4E5620` | 有正文 | `src/ui/windows/WindowTrade.cpp:2567 — WindowTrade_ReceiveStart` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2188 | 0x004E5710 | `sub_4E5710` | 有正文 | `src/ui/windows/WindowTrade.cpp:2702 — WindowTrade_ResetRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2189 | 0x004E5770 | `sub_4E5770` | 有正文 | `src/ui/windows/WindowTrade.cpp:2715 — WindowTrade_BuildRemoteItemDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2190 | 0x004E5830 | `sub_4E5830` | 有正文 | `src/ui/windows/WindowTrade.cpp:2737 — WindowTrade_ReceiveRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2191 | 0x004E5A40 | `sub_4E5A40` | 有正文 | `src/ui/windows/WindowTrade.cpp:2774 — WindowTrade_ReceiveRemotePet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2192 | 0x004E5CD0 | `sub_4E5CD0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2819 — WindowTrade_ReceiveRemotePetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2193 | 0x004E5DA0 | `sub_4E5DA0` | 有正文 | `src/ui/windows/WindowTrade.cpp:379 — WindowTrade_SwapRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2184 | 0x004E52B0 | `sub_4E52B0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2753 — WindowTrade_CopyOwnPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2185 | 0x004E54E0 | `sub_4E54E0` | 有正文 | `src/ui/windows/WindowTrade.cpp:551 — WindowTrade_CopyOwnItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2186 | 0x004E5600 | `sub_4E5600` | 有正文 | `src/ui/windows/WindowTrade.cpp:581 — WindowTrade_SyncOwnItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2187 | 0x004E5620 | `sub_4E5620` | 有正文 | `src/ui/windows/WindowTrade.cpp:2681 — WindowTrade_ReceiveStart` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2188 | 0x004E5710 | `sub_4E5710` | 有正文 | `src/ui/windows/WindowTrade.cpp:2816 — WindowTrade_ResetRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2189 | 0x004E5770 | `sub_4E5770` | 有正文 | `src/ui/windows/WindowTrade.cpp:2829 — WindowTrade_BuildRemoteItemDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2190 | 0x004E5830 | `sub_4E5830` | 有正文 | `src/ui/windows/WindowTrade.cpp:2851 — WindowTrade_ReceiveRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2191 | 0x004E5A40 | `sub_4E5A40` | 有正文 | `src/ui/windows/WindowTrade.cpp:2888 — WindowTrade_ReceiveRemotePet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2192 | 0x004E5CD0 | `sub_4E5CD0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2933 — WindowTrade_ReceiveRemotePetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2193 | 0x004E5DA0 | `sub_4E5DA0` | 有正文 | `src/ui/windows/WindowTrade.cpp:493 — WindowTrade_SwapRemoteItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2194 | 0x004E5E40 | `sub_4E5E40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2195 | 0x004E6CC0 | `sub_4E6CC0` | 有正文 | `src/LegacyUiRecord.cpp:3374 — Sub_4E6CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2196 | 0x004E6D70 | `sub_4E6D70` | 有正文 | `src/LegacyUiRecord.cpp:3396 — Sub_4E6D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2197 | 0x004E6E10 | `sub_4E6E10` | 有正文 | `src/LegacyUiRecord.cpp:3411 — Sub_4E6E10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2198 | 0x004E70B0 | `sub_4E70B0` | 有正文 | `src/LegacyUiRecord.cpp:3470 — Sub_4E70B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2199 | 0x004E7140 | `sub_4E7140` | 有正文 | `src/LegacyUiRecord.cpp:3487 — Sub_4E7140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2200 | 0x004E71A0 | `sub_4E71A0` | 有正文 | `src/LegacyUiRecord.cpp:3499 — Sub_4E71A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2201 | 0x004E7290 | `sub_4E7290` | 有正文 | `src/LegacyUiRecord.cpp:3522 — Sub_4E7290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2202 | 0x004E7380 | `sub_4E7380` | 有正文 | `src/LegacyUiRecord.cpp:3545 — Sub_4E7380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2203 | 0x004E7740 | `sub_4E7740` | 有正文 | `src/LegacyUiRecord.cpp:3602 — Sub_4E7740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2204 | 0x004E7870 | `sub_4E7870` | 有正文 | `src/LegacyUiRecord.cpp:3628 — Sub_4E7870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2205 | 0x004E7FC0 | `sub_4E7FC0` | 有正文 | `src/LegacyUiRecord.cpp:3725 — Sub_4E7FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2206 | 0x004E81B0 | `sub_4E81B0` | 有正文 | `src/LegacyUiRecord.cpp:3770 — Sub_4E81B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2207 | 0x004E82F0 | `sub_4E82F0` | 有正文 | `src/LegacyUiRecord.cpp:3806 — Sub_4E82F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2208 | 0x004E83D0 | `sub_4E83D0` | 有正文 | `src/LegacyUiRecord.cpp:3825 — Sub_4E83D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2209 | 0x004E8920 | `sub_4E8920` | 有正文 | `src/LegacyUiRecord.cpp:3969 — Sub_4E8920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2210 | 0x004E8AD0 | `sub_4E8AD0` | 有正文 | `src/LegacyUiRecord.cpp:4022 — Sub_4E8AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2211 | 0x004E9280 | `sub_4E9280` | 有正文 | `src/LegacyUiRecord.cpp:4117 — Sub_4E9280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2195 | 0x004E6CC0 | `sub_4E6CC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2196 | 0x004E6D70 | `sub_4E6D70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2197 | 0x004E6E10 | `sub_4E6E10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2198 | 0x004E70B0 | `sub_4E70B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2199 | 0x004E7140 | `sub_4E7140` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2200 | 0x004E71A0 | `sub_4E71A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2201 | 0x004E7290 | `sub_4E7290` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2202 | 0x004E7380 | `sub_4E7380` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2203 | 0x004E7740 | `sub_4E7740` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2204 | 0x004E7870 | `sub_4E7870` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2205 | 0x004E7FC0 | `sub_4E7FC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2206 | 0x004E81B0 | `sub_4E81B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2207 | 0x004E82F0 | `sub_4E82F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2208 | 0x004E83D0 | `sub_4E83D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2209 | 0x004E8920 | `sub_4E8920` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2210 | 0x004E8AD0 | `sub_4E8AD0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2211 | 0x004E9280 | `sub_4E9280` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2212 | 0x004E92A0 | `sub_4E92A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2213 | 0x004E97C0 | `sub_4E97C0` | 有正文 | `src/LegacyUiRecord.cpp:4124 — Sub_4E97C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2213 | 0x004E97C0 | `sub_4E97C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2214 | 0x004E97E0 | `sub_4E97E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2215 | 0x004E9C60 | `sub_4E9C60` | 有正文 | `src/LegacyUiRecord.cpp:4131 — Sub_4E9C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2215 | 0x004E9C60 | `sub_4E9C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2216 | 0x004E9C80 | `sub_4E9C80` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2217 | 0x004EA130 | `sub_4EA130` | 有正文 | `src/LegacyUiRecord.cpp:4138 — Sub_4EA130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2217 | 0x004EA130 | `sub_4EA130` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2218 | 0x004EA1B0 | `sub_4EA1B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2219 | 0x004EA670 | `sub_4EA670` | 有正文 | `src/ui/WindowRuntime.cpp:1095 — WindowPet_HasSkill25600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2219 | 0x004EA670 | `sub_4EA670` | 有正文 | `src/ui/WindowRuntime.cpp:1037 — WindowPet_HasSkill25600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2220 | 0x004EA690 | `sub_4EA690` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2221 | 0x004EAA50 | `sub_4EAA50` | 有正文 | `src/LegacyUiRecord.cpp:4173 — Sub_4EAA50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2221 | 0x004EAA50 | `sub_4EAA50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2222 | 0x004EAAA0 | `sub_4EAAA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2223 | 0x004EB120 | `sub_4EB120` | 有正文 | `src/LegacyUiRecord.cpp:4192 — Sub_4EB120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2223 | 0x004EB120 | `sub_4EB120` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2224 | 0x004EB1C0 | `sub_4EB1C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2225 | 0x004EB890 | `sub_4EB890` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2226 | 0x004EBAA0 | `sub_4EBAA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2227 | 0x004EBD20 | `sub_4EBD20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2228 | 0x004EBF70 | `sub_4EBF70` | 有正文 | `src/YobiRuntime.cpp:35653 — Sub_4EBF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2229 | 0x004EBFD0 | `sub_4EBFD0` | 有正文 | `src/YobiRuntime.cpp:35672 — Sub_4EBFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2228 | 0x004EBF70 | `sub_4EBF70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2229 | 0x004EBFD0 | `sub_4EBFD0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2230 | 0x004EC030 | `sub_4EC030` | 有正文 | `src/world/MailState.cpp:164 — CompareContactIndices_4EC030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2231 | 0x004EC1A0 | `sub_4EC1A0` | 有正文 | `src/world/MailState.cpp:283 — Sub_4EC1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2232 | 0x004EC1D0 | `sub_4EC1D0` | 有正文 | `src/LegacyUiRecord.cpp:4150 — Sub_4EC1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2232 | 0x004EC1D0 | `sub_4EC1D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2233 | 0x004EC240 | `sub_4EC240` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2234 | 0x004ECDF0 | `sub_4ECDF0` | 有正文 | `src/LegacyUiRecord.cpp:1743 — Sub_4ECDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2234 | 0x004ECDF0 | `sub_4ECDF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2235 | 0x004ECE00 | `sub_4ECE00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2236 | 0x004ED010 | `sub_4ED010` | 有正文 | `src/LegacyUiRecord.cpp:1751 — Sub_4ED010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2236 | 0x004ED010 | `sub_4ED010` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2237 | 0x004ED020 | `sub_4ED020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2238 | 0x004ED670 | `sub_4ED670` | 有正文 | `src/world/SceneState.cpp:6178 — Sub_4ED670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2239 | 0x004ED6B0 | `sub_4ED6B0` | 有正文 | `src/ui/windows/WindowGather.cpp:406 — WindowGather_ReceiveResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2238 | 0x004ED670 | `sub_4ED670` | 有正文 | `src/world/SceneState.cpp:6149 — Sub_4ED670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2239 | 0x004ED6B0 | `sub_4ED6B0` | 有正文 | `src/ui/windows/WindowGather.cpp:381 — WindowGather_ReceiveResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2240 | 0x004EDB20 | `sub_4EDB20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2241 | 0x004EE130 | `sub_4EE130` | 有正文 | `src/YobiRuntime.cpp:35438 — Sub_4EE130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2241 | 0x004EE130 | `sub_4EE130` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2242 | 0x004EE380 | `sub_4EE380` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2243 | 0x004EE670 | `sub_4EE670` | 有正文 | `src/YobiRuntime.cpp:35498 — Sub_4EE670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2244 | 0x004EE9E0 | `sub_4EE9E0` | 有正文 | `src/YobiRuntime.cpp:35419 — Sub_4EE9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2245 | 0x004EEA40 | `sub_4EEA40` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:347 — WindowSkillResult_ReceiveResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2243 | 0x004EE670 | `sub_4EE670` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2244 | 0x004EE9E0 | `sub_4EE9E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2245 | 0x004EEA40 | `sub_4EEA40` | 有正文 | `src/ui/windows/WindowSkillResult.cpp:332 — WindowSkillResult_ReceiveResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2246 | 0x004EF0F0 | `sub_4EF0F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2247 | 0x004EF5F0 | `sub_4EF5F0` | 有正文 | `src/YobiRuntime.cpp:35775 — Sub_4EF5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2248 | 0x004EF710 | `sub_4EF710` | 有正文 | `src/ui/windows/WindowSkill.cpp:686 — WindowSkill_ClassifyAttributeSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2249 | 0x004EF750 | `sub_4EF750` | 有正文 | `src/ui/windows/WindowSkill.cpp:585 — WindowSkill_ReceiveAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2247 | 0x004EF5F0 | `sub_4EF5F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2248 | 0x004EF710 | `sub_4EF710` | 有正文 | `src/ui/windows/WindowSkill.cpp:665 — WindowSkill_ClassifyAttributeSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2249 | 0x004EF750 | `sub_4EF750` | 有正文 | `src/ui/windows/WindowSkill.cpp:564 — WindowSkill_ReceiveAttributeTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2250 | 0x004EFB70 | `sub_4EFB70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2251 | 0x004F0200 | `sub_4F0200` | 有正文 | `src/ui/windows/WindowSkill.cpp:2498 — WindowSkill_ReceiveTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2251 | 0x004F0200 | `sub_4F0200` | 有正文 | `src/ui/windows/WindowSkill.cpp:2477 — WindowSkill_ReceiveTextTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2252 | 0x004F0460 | `sub_4F0460` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2253 | 0x004F0B40 | `sub_4F0B40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2254 | 0x004F0CD0 | `sub_4F0CD0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2255 | 0x004F0E20 | `sub_4F0E20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2256 | 0x004F0F70 | `sub_4F0F70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2257 | 0x004F1800 | `sub_4F1800` | 有正文 | `src/ui/windows/WindowCraft.cpp:3526 — WindowCraft_ReceiveItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2257 | 0x004F1800 | `sub_4F1800` | 有正文 | `src/ui/windows/WindowCraft.cpp:3471 — WindowCraft_ReceiveItemWorkResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2258 | 0x004F1C40 | `sub_4F1C40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2259 | 0x004F2130 | `sub_4F2130` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2260 | 0x004F24A0 | `sub_4F24A0` | 有正文 | `src/LegacyUiRecord.cpp:4305 — Sub_4F24A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2261 | 0x004F25C0 | `sub_4F25C0` | 有正文 | `src/LegacyUiRecord.cpp:4331 — Sub_4F25C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2262 | 0x004F2650 | `sub_4F2650` | 有正文 | `src/LegacyUiRecord.cpp:4351 — Sub_4F2650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2263 | 0x004F2720 | `sub_4F2720` | 有正文 | `src/LegacyUiRecord.cpp:4377 — Sub_4F2720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2260 | 0x004F24A0 | `sub_4F24A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2261 | 0x004F25C0 | `sub_4F25C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2262 | 0x004F2650 | `sub_4F2650` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2263 | 0x004F2720 | `sub_4F2720` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2264 | 0x004F2A30 | `sub_4F2A30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2265 | 0x004F39F0 | `sub_4F39F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3299 — WindowCraft_ReceiveRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2265 | 0x004F39F0 | `sub_4F39F0` | 有正文 | `src/ui/windows/WindowCraft.cpp:3244 — WindowCraft_ReceiveRecipeResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2266 | 0x004F3ED0 | `sub_4F3ED0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2267 | 0x004F4430 | `sub_4F4430` | 有正文 | `src/ui/windows/WindowCraft.cpp:1380 — WindowCraft_ClassifySpecialMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2268 | 0x004F4470 | `sub_4F4470` | 有正文 | `src/LegacyUiRecord.cpp:4481 — Sub_4F4470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2269 | 0x004F4630 | `sub_4F4630` | 有正文 | `src/ui/windows/WindowCraft.cpp:373 — WindowCraft_CountRecipeMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2270 | 0x004F4690 | `sub_4F4690` | 有正文 | `src/LegacyUiRecord.cpp:4561 — Sub_4F4690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2271 | 0x004F4720 | `sub_4F4720` | 有正文 | `src/LegacyUiRecord.cpp:4586 — Sub_4F4720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2272 | 0x004F4740 | `sub_4F4740` | 有正文 | `src/LegacyUiRecord.cpp:4598 — Sub_4F4740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2273 | 0x004F4760 | `sub_4F4760` | 有正文 | `src/LegacyUiRecord.cpp:4605 — Sub_4F4760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2267 | 0x004F4430 | `sub_4F4430` | 有正文 | `src/ui/windows/WindowCraft.cpp:1325 — WindowCraft_ClassifySpecialMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2268 | 0x004F4470 | `sub_4F4470` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2269 | 0x004F4630 | `sub_4F4630` | 有正文 | `src/ui/windows/WindowCraft.cpp:318 — WindowCraft_CountRecipeMaterial` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2270 | 0x004F4690 | `sub_4F4690` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2271 | 0x004F4720 | `sub_4F4720` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2272 | 0x004F4740 | `sub_4F4740` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2273 | 0x004F4760 | `sub_4F4760` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2274 | 0x004F4790 | `sub_4F4790` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2275 | 0x004F50D0 | `sub_4F50D0` | 有正文 | `src/LegacyUiRecord.cpp:4617 — Sub_4F50D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2276 | 0x004F5170 | `sub_4F5170` | 有正文 | `src/LegacyUiRecord.cpp:4638 — Sub_4F5170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2277 | 0x004F51A0 | `sub_4F51A0` | 有正文 | `src/LegacyUiRecord.cpp:4647 — Sub_4F51A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2275 | 0x004F50D0 | `sub_4F50D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2276 | 0x004F5170 | `sub_4F5170` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2277 | 0x004F51A0 | `sub_4F51A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2278 | 0x004F51D0 | `sub_4F51D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2279 | 0x004F5A60 | `sub_4F5A60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2280 | 0x004F61C0 | `sub_4F61C0` | 有正文 | `src/LegacyUiRecord.cpp:4744 — Sub_4F61C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2280 | 0x004F61C0 | `sub_4F61C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2281 | 0x004F6220 | `sub_4F6220` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2282 | 0x004F6BF0 | `sub_4F6BF0` | 有正文 | `src/LegacyUiRecord.cpp:4761 — Sub_4F6BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2283 | 0x004F6C60 | `sub_4F6C60` | 有正文 | `src/LegacyUiRecord.cpp:4775 — Sub_4F6C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2282 | 0x004F6BF0 | `sub_4F6BF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2283 | 0x004F6C60 | `sub_4F6C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2284 | 0x004F6CA0 | `sub_4F6CA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2285 | 0x004F7140 | `sub_4F7140` | 有正文 | `src/LegacyUiRecord.cpp:4787 — Sub_4F7140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2285 | 0x004F7140 | `sub_4F7140` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2286 | 0x004F7150 | `sub_4F7150` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2287 | 0x004F7870 | `sub_4F7870` | 有正文 | `src/LegacyUiRecord.cpp:4795 — Sub_4F7870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2288 | 0x004F8340 | `sub_4F8340` | 有正文 | `src/LegacyUiRecord.cpp:4977 — Sub_4F8340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2287 | 0x004F7870 | `sub_4F7870` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2288 | 0x004F8340 | `sub_4F8340` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2289 | 0x004F83B0 | `sub_4F83B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2290 | 0x004F8550 | `sub_4F8550` | 有正文 | `src/LegacyUiRecord.cpp:4996 — Sub_4F8550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2291 | 0x004F8E40 | `sub_4F8E40` | 有正文 | `src/LegacyUiRecord.cpp:5109 — Sub_4F8E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2292 | 0x004F9B10 | `sub_4F9B10` | 有正文 | `src/LegacyUiRecord.cpp:5232 — Sub_4F9B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2293 | 0x004F9FF0 | `sub_4F9FF0` | 有正文 | `src/YobiRuntime.cpp:35634 — Sub_4F9FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2290 | 0x004F8550 | `sub_4F8550` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2291 | 0x004F8E40 | `sub_4F8E40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2292 | 0x004F9B10 | `sub_4F9B10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2293 | 0x004F9FF0 | `sub_4F9FF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2294 | 0x004FA050 | `sub_4FA050` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2295 | 0x004FA350 | `sub_4FA350` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:9378 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2297 | 0x004FACE0 | `sub_4FACE0` | 有正文 | `src/YobiRuntime.cpp:35734 — Sub_4FACE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2298 | 0x004FAED0 | `sub_4FAED0` | 有正文 | `src/LegacyUiRecord.cpp:5489 — Sub_4FAED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:9316 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2297 | 0x004FACE0 | `sub_4FACE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2298 | 0x004FAED0 | `sub_4FAED0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2299 | 0x004FAEF0 | `sub_4FAEF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2300 | 0x004FB8F0 | `MouseEvent::resetDrag` | 有正文 | `src/ui/WindowRuntime.cpp:898 — WindowItem_ResetItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2301 | 0x004FB920 | `sub_4FB920` | 有正文 | `src/ui/WindowRuntime.cpp:910 — WindowItem_CancelMatchingItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2302 | 0x004FB940 | `sub_4FB940` | 有正文 | `src/LegacyUiRecord.cpp:4439 — Sub_4FB940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2303 | 0x004FBA30 | `sub_4FBA30` | 有正文 | `src/ui/WindowRuntime.cpp:1539 — WindowItem_SplitTooltipLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2304 | 0x004FBB30 | `sub_4FBB30` | 有正文 | `src/LegacyUiRecord.cpp:5498 — Sub_4FBB30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2300 | 0x004FB8F0 | `MouseEvent::resetDrag` | 有正文 | `src/ui/WindowRuntime.cpp:872 — WindowItem_ResetItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2301 | 0x004FB920 | `sub_4FB920` | 有正文 | `src/ui/WindowRuntime.cpp:884 — WindowItem_CancelMatchingItemDrag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2302 | 0x004FB940 | `sub_4FB940` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2303 | 0x004FBA30 | `sub_4FBA30` | 有正文 | `src/ui/WindowRuntime.cpp:1481 — WindowItem_SplitTooltipLines` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2304 | 0x004FBB30 | `sub_4FBB30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2305 | 0x004FBB40 | `sub_4FBB40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2306 | 0x004FC420 | `sub_4FC420` | 有正文 | `src/LegacyUiRecord.cpp:5953 — Sub_4FC420` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2307 | 0x004FC430 | `sub_4FC430` | 有正文 | `src/LegacyUiRecord.cpp:5959 — Sub_4FC430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2308 | 0x004FC7F0 | `sub_4FC7F0` | 有正文 | `src/LegacyUiRecord.cpp:1639 — Sub_4FC7F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2309 | 0x004FC810 | `sub_4FC810` | 有正文 | `src/LegacyUiRecord.cpp:1647 — Sub_4FC810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2310 | 0x004FC830 | `sub_4FC830` | 有正文 | `src/LegacyUiRecord.cpp:1655 — Sub_4FC830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2311 | 0x004FC850 | `sub_4FC850` | 有正文 | `src/LegacyUiRecord.cpp:1663 — Sub_4FC850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2312 | 0x004FC870 | `sub_4FC870` | 有正文 | `src/LegacyUiRecord.cpp:1671 — Sub_4FC870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2313 | 0x004FC890 | `sub_4FC890` | 有正文 | `src/LegacyUiRecord.cpp:1679 — Sub_4FC890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2314 | 0x004FC8B0 | `sub_4FC8B0` | 有正文 | `src/LegacyUiRecord.cpp:1687 — Sub_4FC8B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2315 | 0x004FC8D0 | `sub_4FC8D0` | 有正文 | `src/LegacyUiRecord.cpp:1695 — Sub_4FC8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2306 | 0x004FC420 | `sub_4FC420` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2307 | 0x004FC430 | `sub_4FC430` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2308 | 0x004FC7F0 | `sub_4FC7F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2309 | 0x004FC810 | `sub_4FC810` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2310 | 0x004FC830 | `sub_4FC830` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2311 | 0x004FC850 | `sub_4FC850` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2312 | 0x004FC870 | `sub_4FC870` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2313 | 0x004FC890 | `sub_4FC890` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2314 | 0x004FC8B0 | `sub_4FC8B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2315 | 0x004FC8D0 | `sub_4FC8D0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2316 | 0x004FC8F0 | `sub_4FC8F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2317 | 0x004FCB90 | `sub_4FCB90` | 有正文 | `src/LegacyUiRecord.cpp:6065 — Sub_4FCB90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2318 | 0x004FCBA0 | `sub_4FCBA0` | 有正文 | `src/LegacyUiRecord.cpp:6071 — Sub_4FCBA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2317 | 0x004FCB90 | `sub_4FCB90` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2318 | 0x004FCBA0 | `sub_4FCBA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2319 | 0x004FD1A0 | `sub_4FD1A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2320 | 0x004FD4C0 | `sub_4FD4C0` | 有正文 | `src/DisplaySettings.cpp:17 — Sub_4FD4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2321 | 0x004FD510 | `sub_4FD510` | 有正文 | `src/DisplaySettings.cpp:29 — Sub_4FD510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2322 | 0x004FD550 | `sub_4FD550` | 有正文 | `src/DisplaySettings.cpp:41 — Sub_4FD550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2323 | 0x004FD5A0 | `sub_4FD5A0` | 有正文 | `src/DisplaySettings.cpp:55 — Sub_4FD5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2324 | 0x004FD5C0 | `sub_4FD5C0` | 有正文 | `src/DisplaySettings.cpp:65 — Sub_4FD5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2325 | 0x004FD5F0 | `sub_4FD5F0` | 有正文 | `src/DisplaySettings.cpp:74 — Sub_4FD5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2326 | 0x004FD640 | `sub_4FD640` | 有正文 | `src/DisplaySettings.cpp:87 — Sub_4FD640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2327 | 0x004FD690 | `sub_4FD690` | 有正文 | `src/LegacyUiRecord.cpp:5481 — Sub_4FD690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2320 | 0x004FD4C0 | `sub_4FD4C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2321 | 0x004FD510 | `sub_4FD510` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2322 | 0x004FD550 | `sub_4FD550` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2323 | 0x004FD5A0 | `sub_4FD5A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2324 | 0x004FD5C0 | `sub_4FD5C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2325 | 0x004FD5F0 | `sub_4FD5F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2326 | 0x004FD640 | `sub_4FD640` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2327 | 0x004FD690 | `sub_4FD690` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2328 | 0x004FD6A0 | `sub_4FD6A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2329 | 0x004FD9F0 | `sub_4FD9F0` | 有正文 | `src/LegacyUiRecord.cpp:6297 — Sub_4FD9F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2330 | 0x004FDA00 | `sub_4FDA00` | 有正文 | `src/LegacyUiRecord.cpp:6303 — Sub_4FDA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2329 | 0x004FD9F0 | `sub_4FD9F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2330 | 0x004FDA00 | `sub_4FDA00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2331 | 0x004FDBD0 | `sub_4FDBD0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2332 | 0x004FDD70 | `sub_4FDD70` | 有正文 | `src/DisplaySettings.cpp:107 — Sub_4FDD70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2333 | 0x004FDDC0 | `sub_4FDDC0` | 有正文 | `src/DisplaySettings.cpp:121 — Sub_4FDDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2334 | 0x004FDE10 | `sub_4FDE10` | 有正文 | `src/LegacyUiRecord.cpp:6373 — Sub_4FDE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2335 | 0x004FDE20 | `sub_4FDE20` | 有正文 | `src/LegacyUiRecord.cpp:6379 — Sub_4FDE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2332 | 0x004FDD70 | `sub_4FDD70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2333 | 0x004FDDC0 | `sub_4FDDC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2334 | 0x004FDE10 | `sub_4FDE10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2335 | 0x004FDE20 | `sub_4FDE20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2336 | 0x004FE0E0 | `sub_4FE0E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2337 | 0x004FE320 | `sub_4FE320` | 有正文 | `src/DisplaySettings.cpp:135 — Sub_4FE320` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2338 | 0x004FE370 | `sub_4FE370` | 有正文 | `src/DisplaySettings.cpp:148 — Sub_4FE370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2339 | 0x004FE3B0 | `sub_4FE3B0` | 有正文 | `src/DisplaySettings.cpp:161 — Sub_4FE3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2340 | 0x004FE3E0 | `sub_4FE3E0` | 有正文 | `src/DisplaySettings.cpp:100 — Sub_4FE3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2341 | 0x004FE3F0 | `sub_4FE3F0` | 有正文 | `src/DisplaySettings.cpp:170 — Sub_4FE3F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2342 | 0x004FE440 | `sub_4FE440` | 有正文 | `src/DisplaySettings.cpp:183 — Sub_4FE440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2343 | 0x004FE490 | `sub_4FE490` | 有正文 | `src/LegacyUiRecord.cpp:6485 — Sub_4FE490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2344 | 0x004FE4A0 | `sub_4FE4A0` | 有正文 | `src/LegacyUiRecord.cpp:6491 — Sub_4FE4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2337 | 0x004FE320 | `sub_4FE320` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2338 | 0x004FE370 | `sub_4FE370` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2339 | 0x004FE3B0 | `sub_4FE3B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2340 | 0x004FE3E0 | `sub_4FE3E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2341 | 0x004FE3F0 | `sub_4FE3F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2342 | 0x004FE440 | `sub_4FE440` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2343 | 0x004FE490 | `sub_4FE490` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2344 | 0x004FE4A0 | `sub_4FE4A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2345 | 0x004FE860 | `sub_4FE860` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2346 | 0x004FEAC0 | `sub_4FEAC0` | 有正文 | `src/DisplaySettings.cpp:196 — Sub_4FEAC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2347 | 0x004FEB00 | `sub_4FEB00` | 有正文 | `src/LegacyUiRecord.cpp:6633 — Sub_4FEB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2348 | 0x004FEB10 | `sub_4FEB10` | 有正文 | `src/LegacyUiRecord.cpp:6639 — Sub_4FEB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2346 | 0x004FEAC0 | `sub_4FEAC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2347 | 0x004FEB00 | `sub_4FEB00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2348 | 0x004FEB10 | `sub_4FEB10` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2349 | 0x004FEF30 | `sub_4FEF30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2350 | 0x004FEFF0 | `sub_4FEFF0` | 有正文 | `src/DisplaySettings.cpp:206 — Sub_4FEFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2351 | 0x004FF020 | `sub_4FF020` | 有正文 | `src/LegacyUiRecord.cpp:6805 — Sub_4FF020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2352 | 0x004FF030 | `sub_4FF030` | 有正文 | `src/LegacyUiRecord.cpp:6811 — Sub_4FF030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2350 | 0x004FEFF0 | `sub_4FEFF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2351 | 0x004FF020 | `sub_4FF020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2352 | 0x004FF030 | `sub_4FF030` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2353 | 0x004FF1A0 | `sub_4FF1A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2354 | 0x004FF310 | `sub_4FF310` | 有正文 | `src/DisplaySettings.cpp:214 — Sub_4FF310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2355 | 0x004FF340 | `sub_4FF340` | 有正文 | `src/LegacyUiRecord.cpp:6868 — Sub_4FF340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2356 | 0x004FF350 | `sub_4FF350` | 有正文 | `src/LegacyUiRecord.cpp:6874 — Sub_4FF350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2354 | 0x004FF310 | `sub_4FF310` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2355 | 0x004FF340 | `sub_4FF340` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2356 | 0x004FF350 | `sub_4FF350` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2357 | 0x004FF4C0 | `sub_4FF4C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2358 | 0x004FF620 | `sub_4FF620` | 有正文 | `src/DisplaySettings.cpp:223 — Sub_4FF620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2358 | 0x004FF620 | `sub_4FF620` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2359 | 0x004FF650 | `sub_4FF650` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2360 | 0x00500370 | `sub_500370` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2361 | 0x005006F0 | `sub_5006F0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2362 | 0x005008C0 | `sub_5008C0` | 有正文 | `src/LegacyUiRecord.cpp:5504 — Sub_5008C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2363 | 0x005014A0 | `sub_5014A0` | 有正文 | `src/LegacyUiRecord.cpp:5661 — Sub_5014A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2364 | 0x00501F60 | `sub_501F60` | 有正文 | `src/LegacyUiRecord.cpp:1759 — Sub_501F60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2365 | 0x00501FD0 | `sub_501FD0` | 有正文 | `src/LegacyUiRecord.cpp:5771 — Sub_501FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2366 | 0x00502930 | `sub_502930` | 有正文 | `src/LegacyUiRecord.cpp:6931 — Sub_502930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2367 | 0x00502940 | `sub_502940` | 有正文 | `src/LegacyUiRecord.cpp:6937 — Sub_502940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2362 | 0x005008C0 | `sub_5008C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2363 | 0x005014A0 | `sub_5014A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2364 | 0x00501F60 | `sub_501F60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2365 | 0x00501FD0 | `sub_501FD0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2366 | 0x00502930 | `sub_502930` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2367 | 0x00502940 | `sub_502940` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2368 | 0x005029B0 | `sub_5029B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2369 | 0x00502B80 | `sub_502B80` | 有正文 | `src/LegacyUiRecord.cpp:6961 — Sub_502B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2370 | 0x00502C30 | `sub_502C30` | 有正文 | `src/LegacyUiRecord.cpp:6999 — Sub_502C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2371 | 0x00502C40 | `sub_502C40` | 有正文 | `src/LegacyUiRecord.cpp:7005 — Sub_502C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2372 | 0x00502C60 | `sub_502C60` | 有正文 | `src/LegacyUiRecord.cpp:7014 — Sub_502C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2373 | 0x00502C70 | `sub_502C70` | 有正文 | `src/LegacyUiRecord.cpp:7020 — Sub_502C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2374 | 0x00502C80 | `sub_502C80` | 有正文 | `src/LegacyUiRecord.cpp:7028 — Sub_502C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2375 | 0x00502C90 | `sub_502C90` | 有正文 | `src/LegacyUiRecord.cpp:7034 — Sub_502C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2376 | 0x00502CA0 | `sub_502CA0` | 有正文 | `src/LegacyUiRecord.cpp:7042 — Sub_502CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2377 | 0x00502CB0 | `sub_502CB0` | 有正文 | `src/LegacyUiRecord.cpp:7048 — Sub_502CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2378 | 0x00502D20 | `sub_502D20` | 有正文 | `src/LegacyUiRecord.cpp:7068 — Sub_502D20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2379 | 0x00502D30 | `sub_502D30` | 有正文 | `src/LegacyUiRecord.cpp:7074 — Sub_502D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2380 | 0x00502DA0 | `sub_502DA0` | 有正文 | `src/LegacyUiRecord.cpp:7080 — Sub_502DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2381 | 0x00502DB0 | `sub_502DB0` | 有正文 | `src/LegacyUiRecord.cpp:7086 — Sub_502DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2382 | 0x00502E20 | `sub_502E20` | 有正文 | `src/LegacyUiRecord.cpp:7092 — Sub_502E20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2383 | 0x00502E30 | `sub_502E30` | 有正文 | `src/LegacyUiRecord.cpp:7098 — Sub_502E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2384 | 0x00502EA0 | `sub_502EA0` | 有正文 | `src/LegacyUiRecord.cpp:7104 — Sub_502EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2385 | 0x00502EB0 | `sub_502EB0` | 有正文 | `src/LegacyUiRecord.cpp:7110 — Sub_502EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2386 | 0x00502F20 | `sub_502F20` | 有正文 | `src/LegacyUiRecord.cpp:7116 — Sub_502F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2387 | 0x00502F30 | `sub_502F30` | 有正文 | `src/LegacyUiRecord.cpp:7122 — Sub_502F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2388 | 0x00502FA0 | `sub_502FA0` | 有正文 | `src/LegacyUiRecord.cpp:7128 — Sub_502FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2389 | 0x00502FB0 | `sub_502FB0` | 有正文 | `src/LegacyUiRecord.cpp:7134 — Sub_502FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2390 | 0x00503020 | `sub_503020` | 有正文 | `src/LegacyUiRecord.cpp:7140 — Sub_503020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2391 | 0x00503030 | `sub_503030` | 有正文 | `src/LegacyUiRecord.cpp:7146 — Sub_503030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2392 | 0x005030A0 | `sub_5030A0` | 有正文 | `src/LegacyUiRecord.cpp:7152 — Sub_5030A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2393 | 0x00503120 | `sub_503120` | 有正文 | `src/LegacyUiRecord.cpp:7174 — Sub_503120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2394 | 0x00503160 | `sub_503160` | 有正文 | `src/LegacyUiRecord.cpp:7185 — Sub_503160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2395 | 0x00503440 | `sub_503440` | 有正文 | `src/LegacyUiRecord.cpp:7293 — Sub_503440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2396 | 0x00503590 | `sub_503590` | 有正文 | `src/LegacyUiRecord.cpp:7347 — Sub_503590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2397 | 0x005035E0 | `sub_5035E0` | 有正文 | `src/LegacyUiRecord.cpp:7362 — Sub_5035E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2369 | 0x00502B80 | `sub_502B80` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2370 | 0x00502C30 | `sub_502C30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2371 | 0x00502C40 | `sub_502C40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2372 | 0x00502C60 | `sub_502C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2373 | 0x00502C70 | `sub_502C70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2374 | 0x00502C80 | `sub_502C80` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2375 | 0x00502C90 | `sub_502C90` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2376 | 0x00502CA0 | `sub_502CA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2377 | 0x00502CB0 | `sub_502CB0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2378 | 0x00502D20 | `sub_502D20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2379 | 0x00502D30 | `sub_502D30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2380 | 0x00502DA0 | `sub_502DA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2381 | 0x00502DB0 | `sub_502DB0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2382 | 0x00502E20 | `sub_502E20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2383 | 0x00502E30 | `sub_502E30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2384 | 0x00502EA0 | `sub_502EA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2385 | 0x00502EB0 | `sub_502EB0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2386 | 0x00502F20 | `sub_502F20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2387 | 0x00502F30 | `sub_502F30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2388 | 0x00502FA0 | `sub_502FA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2389 | 0x00502FB0 | `sub_502FB0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2390 | 0x00503020 | `sub_503020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2391 | 0x00503030 | `sub_503030` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2392 | 0x005030A0 | `sub_5030A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2393 | 0x00503120 | `sub_503120` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2394 | 0x00503160 | `sub_503160` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2395 | 0x00503440 | `sub_503440` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2396 | 0x00503590 | `sub_503590` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2397 | 0x005035E0 | `sub_5035E0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2398 | 0x005036F0 | `sub_5036F0` | 有正文 | `src/LoginInput.cpp:201 — QueryLoginControlState_5036F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2399 | 0x00503780 | `sub_503780` | 有正文 | `src/LoginInput.cpp:255 — DrawLoginControl_503780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2400 | 0x005038B0 | `sub_5038B0` | 有正文 | `src/LegacyUiRecord.cpp:7401 — Sub_5038B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2400 | 0x005038B0 | `sub_5038B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2401 | 0x00503990 | `sub_503990` | 有正文 | `src/CharacterModalButton.cpp:17 — Sub_503990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2402 | 0x00503A20 | `sub_503A20` | 有正文 | `src/CharacterModalButton.cpp:72 — Sub_503A20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2403 | 0x00503AB0 | `sub_503AB0` | 有正文 | `src/Input.cpp:763 — ExtractLegacyLine_503AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2404 | 0x00503B70 | `sub_503B70` | 有正文 | `src/LegacyUiRecord.cpp:5420 — Sub_503B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2405 | 0x00503BC0 | `sub_503BC0` | 有正文 | `src/LegacyUiRecord.cpp:5430 — Sub_503BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2406 | 0x00503BE0 | `sub_503BE0` | 有正文 | `src/LegacyUiRecord.cpp:5437 — Sub_503BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2407 | 0x00503C30 | `sub_503C30` | 有正文 | `src/LegacyUiRecord.cpp:5451 — Sub_503C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2408 | 0x00503C40 | `sub_503C40` | 有正文 | `src/LegacyUiRecord.cpp:5457 — Sub_503C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2409 | 0x00503C50 | `sub_503C50` | 有正文 | `src/LegacyUiRecord.cpp:5463 — Sub_503C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2410 | 0x00503C60 | `sub_503C60` | 有正文 | `src/LegacyUiRecord.cpp:5469 — Sub_503C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2411 | 0x00503C70 | `sub_503C70` | 有正文 | `src/LegacyUiRecord.cpp:5475 — Sub_503C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2403 | 0x00503AB0 | `sub_503AB0` | 有正文 | `src/Input.cpp:757 — ExtractLegacyLine_503AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2404 | 0x00503B70 | `sub_503B70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2405 | 0x00503BC0 | `sub_503BC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2406 | 0x00503BE0 | `sub_503BE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2407 | 0x00503C30 | `sub_503C30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2408 | 0x00503C40 | `sub_503C40` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2409 | 0x00503C50 | `sub_503C50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2410 | 0x00503C60 | `sub_503C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2411 | 0x00503C70 | `sub_503C70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:540 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2413 | 0x00503CB0 | `sub_503CB0` | 有正文 | `src/ui/WindowRuntime.cpp:2815 — WindowRuntime_CycleNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2414 | 0x00503CD0 | `sub_503CD0` | 有正文 | `src/ui/WindowRuntime.cpp:2827 — WindowRuntime_IncrementNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:893 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2416 | 0x00503E60 | `sub_503E60` | 有正文 | `src/Input.cpp:958 — IsChatContext_503E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:4974 — WindowRuntime_ProcessScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10524 — ResetSceneUiState_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:4583 — WindowRuntime_Render` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2420 | 0x00504180 | `sub_504180` | 有正文 | `src/ui/LegacyWindowSelection.cpp:198 — Sub_504180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2421 | 0x005042D0 | `sub_5042D0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:269 — Sub_5042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2422 | 0x00504380 | `sub_504380` | 有正文 | `src/ui/LegacyWindowSelection.cpp:308 — Sub_504380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2423 | 0x005043D0 | `sub_5043D0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:326 — Sub_5043D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2424 | 0x00504410 | `sub_504410` | 有正文 | `src/ui/LegacyWindowSelection.cpp:180 — Sub_504410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2425 | 0x00504460 | `sub_504460` | 有正文 | `src/ui/LegacyWindowSelection.cpp:164 — Sub_504460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2426 | 0x005044C0 | `sub_5044C0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:143 — Sub_5044C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34510 — CreateModalAction_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1359 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2413 | 0x00503CB0 | `sub_503CB0` | 有正文 | `src/ui/WindowRuntime.cpp:2610 — WindowRuntime_CycleNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2414 | 0x00503CD0 | `sub_503CD0` | 有正文 | `src/ui/WindowRuntime.cpp:2622 — WindowRuntime_IncrementNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:887 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2416 | 0x00503E60 | `sub_503E60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:4749 — WindowRuntime_ProcessScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10462 — ResetSceneUiState_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:4358 — WindowRuntime_Render` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2420 | 0x00504180 | `sub_504180` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2421 | 0x005042D0 | `sub_5042D0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2422 | 0x00504380 | `sub_504380` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2423 | 0x005043D0 | `sub_5043D0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2424 | 0x00504410 | `sub_504410` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2425 | 0x00504460 | `sub_504460` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2426 | 0x005044C0 | `sub_5044C0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34508 — CreateModalAction_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1357 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2429 | 0x005049A0 | `sub_5049A0` | 有正文 | `src/LegacyHitTest.cpp:12 — Sub_5049A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10505 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:6195 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2432 | 0x00504AF0 | `sub_504AF0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:257 — Sub_504AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8625 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8641 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2435 | 0x00504BA0 | `sub_504BA0` | 有正文 | `src/LegacyUiRecord.cpp:4461 — Sub_504BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2436 | 0x00504C50 | `sub_504C50` | 有正文 | `src/YobiRuntime.cpp:35578 — Sub_504C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2437 | 0x00504EE0 | `sub_504EE0` | 有正文 | `src/LegacyUiRecord.cpp:4657 — Sub_504EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2438 | 0x00504F10 | `sub_504F10` | 有正文 | `src/world/SceneState.cpp:3411 — Sub_504F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2439 | 0x00504FA0 | `sub_504FA0` | 有正文 | `src/LegacyUiRecord.cpp:4667 — Sub_504FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2440 | 0x00505040 | `sub_505040` | 有正文 | `src/world/SceneState.cpp:3440 — Sub_505040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2441 | 0x005050B0 | `sub_5050B0` | 有正文 | `src/world/SceneState.cpp:3457 — Sub_5050B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2442 | 0x00505110 | `sub_505110` | 有正文 | `src/world/SceneState.cpp:3473 — Sub_505110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10443 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:6166 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2432 | 0x00504AF0 | `sub_504AF0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
+| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8578 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8594 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2435 | 0x00504BA0 | `sub_504BA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2436 | 0x00504C50 | `sub_504C50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2437 | 0x00504EE0 | `sub_504EE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2438 | 0x00504F10 | `sub_504F10` | 有正文 | `src/world/SceneState.cpp:3410 — Sub_504F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2439 | 0x00504FA0 | `sub_504FA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2440 | 0x00505040 | `sub_505040` | 有正文 | `src/world/SceneState.cpp:3439 — Sub_505040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2441 | 0x005050B0 | `sub_5050B0` | 有正文 | `src/world/SceneState.cpp:3456 — Sub_5050B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2442 | 0x00505110 | `sub_505110` | 有正文 | `src/world/SceneState.cpp:3472 — Sub_505110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2443 | 0x00505170 | `sub_505170` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2444 | 0x00505BC0 | `sub_505BC0` | 有正文 | `src/LegacyUiRecord.cpp:4695 — Sub_505BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2444 | 0x00505BC0 | `sub_505BC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2445 | 0x00505C20 | `sub_505C20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2446 | 0x005062A0 | `sub_5062A0` | 有正文 | `src/LegacyUiRecord.cpp:4713 — Sub_5062A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2447 | 0x00506340 | `sub_506340` | 有承接 | `src/platform/LegacyMouse.cpp:464 — MouseRuntimeStartup::MouseRuntimeStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2448 | 0x00506350 | `unknown_libname_47` | 有正文 | `src/platform/LegacyMouse.cpp:448 — ConstructLegacyMouseRuntime_506350` | 正文已有，MUP01补已完成十成员前缀的C++异常清理；X／Y／八按钮原序及成功后登记保持，完整业务／SEH／二次异常／owner／SDK／运行未验 |
+| 2446 | 0x005062A0 | `sub_5062A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2447 | 0x00506340 | `sub_506340` | 有承接 | `src/platform/LegacyMouse.cpp:344 — MouseRuntimeStartup::MouseRuntimeStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 2448 | 0x00506350 | `unknown_libname_47` | 有正文 | `src/platform/LegacyMouse.cpp:328 — ConstructLegacyMouseRuntime_506350` | 正文已有，MUP01补已完成十成员前缀的C++异常清理；X／Y／八按钮原序及成功后登记保持，完整业务／SEH／二次异常／owner／SDK／运行未验 |
 | 2449 | 0x00506530 | `sub_506530` | 有承接 | `include/cg/platform/LegacyMouse.hpp:18 — LegacyMouseState成员自动失败前缀清理／逆序析构` | 原完成前缀清理由原生聚合构造异常规则及成员析构承接；同一存储，原地址保留；原SEH／二次异常／完整owner与运行未验 |
 | 2450 | 0x00506580 | `sub_506580` | 有正文 | `src/platform/LegacyMouseTracker.cpp:165 — ResetLegacyMouseTracker_506580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2451 | 0x005066D0 | `sub_5066D0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:236 — ResetLegacyMouseTrackerDefaults_5066D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2507,21 +2513,21 @@
 | 2455 | 0x00506780 | `sub_506780` | 有正文 | `src/platform/LegacyMouseTracker.cpp:97 — EvictActiveTail_506780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2456 | 0x005067A0 | `sub_5067A0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:108 — AllocateAndActivate_5067A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2457 | 0x005067F0 | `sub_5067F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:255 — TrackLegacyMouseDown_5067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:476 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:494 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:502 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:530 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:551 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:573 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:601 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:622 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:644 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:356 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:374 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:382 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:410 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:431 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:453 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:481 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:502 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:524 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2467 | 0x00506DD0 | `sub_506DD0` | 有正文 | `src/platform/LegacyCursor.cpp:185 — ResetLegacyMouseTail_506DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2468 | 0x00506DE0 | `sub_506DE0` | 有正文 | `src/platform/LegacyCursor.cpp:166 — RequestCursorState_506DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2469 | 0x00506E00 | `World::CursorUpdate` | 有正文 | `src/platform/LegacyCursor.cpp:191 — UpdateCursor_506E00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2470 | 0x00507090 | `sub_507090` | 有正文 | `src/render/GraphicPendingQueue.cpp:132 — DrawMatchingGraphicHover_507090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2471 | 0x00507140 | `sub_507140` | 有正文 | `src/render/GraphicHitTest.cpp:208 — Sub_507140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:253 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:248 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2473 | 0x00507D90 | `GetServerAddressInfo` | 有正文 | `src/LoginScene.cpp:425 — GetServerAddressInfo_507D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2474 | 0x00507DF0 | `NetworkLoop` | 有正文 | `src/network/NetworkRuntime.cpp:4569 — NetworkLoop_507DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2475 | 0x00508140 | `sub_508140` | 有正文 | `src/network/NetworkRuntime.cpp:4544 — InitializeNetworkRuntime_508140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2550,75 +2556,75 @@
 | 2498 | 0x00508FC0 | `sub_508FC0` | 有正文 | `src/CharacterDeletionRequest.cpp:51 — PollCharacterDeletionRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2499 | 0x00509020 | `sub_509020` | 有正文 | `src/CharacterDeletionRequest.cpp:73 — HandleCharacterDeletionResponse_509020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2500 | 0x00509080 | `nullsub_1` | 空方法 | `src/Input.cpp:37 — NullSub_509080` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
-| 2501 | 0x00509090 | `sub_509090` | 有正文 | `src/world/SceneState.cpp:6244 — Sub_509090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2502 | 0x00509100 | `sub_509100` | 有正文 | `src/world/SceneState.cpp:6267 — Sub_509100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2503 | 0x005093C0 | `sub_5093C0` | 有正文 | `src/world/SceneState.cpp:5899 — Sub_5093C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2504 | 0x005093F0 | `Map::FlushNew` | 有正文 | `src/world/SceneState.cpp:6373 — Sub_5093F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2505 | 0x00509550 | `sub_509550` | 有正文 | `src/world/SceneState.cpp:6426 — Sub_509550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2506 | 0x00509650 | `sub_509650` | 有正文 | `src/world/SceneState.cpp:3219 — Sub_509650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2507 | 0x00509BA0 | `sub_509BA0` | 有正文 | `src/world/SceneState.cpp:3311 — Sub_509BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2508 | 0x00509E30 | `sub_509E30` | 有正文 | `src/world/SceneState.cpp:3381 — Sub_509E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2509 | 0x00509EB0 | `sub_509EB0` | 有正文 | `src/world/SceneState.cpp:3487 — Sub_509EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2510 | 0x0050A120 | `sub_50A120` | 有正文 | `src/world/SceneState.cpp:3554 — Sub_50A120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2511 | 0x0050A300 | `sub_50A300` | 有正文 | `src/world/SceneState.cpp:4369 — Sub_50A300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2512 | 0x0050A3E0 | `sub_50A3E0` | 有正文 | `src/world/SceneState.cpp:2487 — Sub_50A3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2513 | 0x0050A6B0 | `sub_50A6B0` | 有正文 | `src/world/SceneState.cpp:4087 — Sub_50A6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2514 | 0x0050AC20 | `sub_50AC20` | 有正文 | `src/world/SceneState.cpp:4186 — Sub_50AC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2515 | 0x0050AEF0 | `sub_50AEF0` | 有正文 | `src/YobiRuntime.cpp:35837 — Sub_50AEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2516 | 0x0050B0D0 | `sub_50B0D0` | 有正文 | `src/world/SceneState.cpp:4227 — Sub_50B0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2517 | 0x0050B380 | `sub_50B380` | 有正文 | `src/world/SceneState.cpp:2591 — Sub_50B380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2518 | 0x0050BCD0 | `sub_50BCD0` | 有正文 | `src/world/SceneState.cpp:2782 — Sub_50BCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2519 | 0x0050BF20 | `sub_50BF20` | 有正文 | `src/world/SceneState.cpp:3741 — Sub_50BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2520 | 0x0050BFA0 | `sub_50BFA0` | 有正文 | `src/world/SceneState.cpp:2903 — Sub_50BFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2521 | 0x0050BFC0 | `sub_50BFC0` | 有正文 | `src/world/SceneState.cpp:2916 — Sub_50BFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2522 | 0x0050BFD0 | `sub_50BFD0` | 有正文 | `src/world/SceneState.cpp:3792 — Sub_50BFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2523 | 0x0050C260 | `sub_50C260` | 有正文 | `src/world/SceneState.cpp:3818 — Sub_50C260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2524 | 0x0050C580 | `sub_50C580` | 有正文 | `src/world/SceneState.cpp:3601 — Sub_50C580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2525 | 0x0050C7A0 | `sub_50C7A0` | 有正文 | `src/world/SceneState.cpp:2934 — Sub_50C7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2501 | 0x00509090 | `sub_509090` | 有正文 | `src/world/SceneState.cpp:6212 — Sub_509090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2502 | 0x00509100 | `sub_509100` | 有正文 | `src/world/SceneState.cpp:6235 — Sub_509100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2503 | 0x005093C0 | `sub_5093C0` | 有正文 | `src/world/SceneState.cpp:5883 — Sub_5093C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2504 | 0x005093F0 | `Map::FlushNew` | 有正文 | `src/world/SceneState.cpp:6341 — Sub_5093F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2505 | 0x00509550 | `sub_509550` | 有正文 | `src/world/SceneState.cpp:6390 — Sub_509550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2506 | 0x00509650 | `sub_509650` | 有正文 | `src/world/SceneState.cpp:3218 — Sub_509650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2507 | 0x00509BA0 | `sub_509BA0` | 有正文 | `src/world/SceneState.cpp:3310 — Sub_509BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2508 | 0x00509E30 | `sub_509E30` | 有正文 | `src/world/SceneState.cpp:3380 — Sub_509E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2509 | 0x00509EB0 | `sub_509EB0` | 有正文 | `src/world/SceneState.cpp:3486 — Sub_509EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2510 | 0x0050A120 | `sub_50A120` | 有正文 | `src/world/SceneState.cpp:3553 — Sub_50A120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2511 | 0x0050A300 | `sub_50A300` | 有正文 | `src/world/SceneState.cpp:4368 — Sub_50A300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2512 | 0x0050A3E0 | `sub_50A3E0` | 有正文 | `src/world/SceneState.cpp:2486 — Sub_50A3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2513 | 0x0050A6B0 | `sub_50A6B0` | 有正文 | `src/world/SceneState.cpp:4086 — Sub_50A6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2514 | 0x0050AC20 | `sub_50AC20` | 有正文 | `src/world/SceneState.cpp:4185 — Sub_50AC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2515 | 0x0050AEF0 | `sub_50AEF0` | 有正文 | `src/YobiRuntime.cpp:35389 — Sub_50AEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2516 | 0x0050B0D0 | `sub_50B0D0` | 有正文 | `src/world/SceneState.cpp:4226 — Sub_50B0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2517 | 0x0050B380 | `sub_50B380` | 有正文 | `src/world/SceneState.cpp:2590 — Sub_50B380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2518 | 0x0050BCD0 | `sub_50BCD0` | 有正文 | `src/world/SceneState.cpp:2781 — Sub_50BCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2519 | 0x0050BF20 | `sub_50BF20` | 有正文 | `src/world/SceneState.cpp:3740 — Sub_50BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2520 | 0x0050BFA0 | `sub_50BFA0` | 有正文 | `src/world/SceneState.cpp:2902 — Sub_50BFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2521 | 0x0050BFC0 | `sub_50BFC0` | 有正文 | `src/world/SceneState.cpp:2915 — Sub_50BFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2522 | 0x0050BFD0 | `sub_50BFD0` | 有正文 | `src/world/SceneState.cpp:3791 — Sub_50BFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2523 | 0x0050C260 | `sub_50C260` | 有正文 | `src/world/SceneState.cpp:3817 — Sub_50C260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2524 | 0x0050C580 | `sub_50C580` | 有正文 | `src/world/SceneState.cpp:3600 — Sub_50C580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2525 | 0x0050C7A0 | `sub_50C7A0` | 有正文 | `src/world/SceneState.cpp:2933 — Sub_50C7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2526 | 0x0050C7F0 | `sub_50C7F0` | 有正文 | `src/ui/windows/WindowWorkResult.cpp:8 — WindowWorkResult_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2527 | 0x0050C870 | `sub_50C870` | 有正文 | `src/world/SceneState.cpp:7043 — Sub_50C870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:8504 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2529 | 0x0050C900 | `sub_50C900` | 有正文 | `src/world/SceneState.cpp:3886 — Sub_50C900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:3035 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:3089 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2532 | 0x0050CE10 | `sub_50CE10` | 有正文 | `src/world/SceneState.cpp:2953 — Sub_50CE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2527 | 0x0050C870 | `sub_50C870` | 有正文 | `src/world/SceneState.cpp:7002 — Sub_50C870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:8457 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2529 | 0x0050C900 | `sub_50C900` | 有正文 | `src/world/SceneState.cpp:3885 — Sub_50C900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:3034 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:3088 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2532 | 0x0050CE10 | `sub_50CE10` | 有正文 | `src/world/SceneState.cpp:2952 — Sub_50CE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2533 | 0x0050CF20 | `sub_50CF20` | 有正文 | `src/network/NetworkRuntime.cpp:766 — Sub_50CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2534 | 0x0050CF60 | `sub_50CF60` | 有正文 | `src/network/NetworkRuntime.cpp:757 — Sub_50CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2535 | 0x0050CF70 | `sub_50CF70` | 有正文 | `src/world/SceneState.cpp:2925 — Sub_50CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2536 | 0x0050CF90 | `sub_50CF90` | 有正文 | `src/world/SceneState.cpp:6221 — Sub_50CF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2537 | 0x0050D000 | `sub_50D000` | 有正文 | `src/world/SceneState.cpp:3194 — Sub_50D000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2538 | 0x0050D080 | `sub_50D080` | 有正文 | `src/world/SceneState.cpp:5910 — Sub_50D080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2539 | 0x0050D120 | `sub_50D120` | 有正文 | `src/world/SceneState.cpp:5959 — Sub_50D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2535 | 0x0050CF70 | `sub_50CF70` | 有正文 | `src/world/SceneState.cpp:2924 — Sub_50CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2536 | 0x0050CF90 | `sub_50CF90` | 有正文 | `src/world/SceneState.cpp:6189 — Sub_50CF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2537 | 0x0050D000 | `sub_50D000` | 有正文 | `src/world/SceneState.cpp:3193 — Sub_50D000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2538 | 0x0050D080 | `sub_50D080` | 有正文 | `src/world/SceneState.cpp:5894 — Sub_50D080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2539 | 0x0050D120 | `sub_50D120` | 有正文 | `src/world/SceneState.cpp:5937 — Sub_50D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2540 | 0x0050D3B0 | `sub_50D3B0` | 有正文 | `src/network/NetworkRuntime.cpp:784 — Sub_50D3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2541 | 0x0050D3C0 | `sub_50D3C0` | 有正文 | `src/world/SceneState.cpp:6044 — Sub_50D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2542 | 0x0050D500 | `sub_50D500` | 有正文 | `src/world/SceneState.cpp:6123 — Sub_50D500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2541 | 0x0050D3C0 | `sub_50D3C0` | 有正文 | `src/world/SceneState.cpp:6015 — Sub_50D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2542 | 0x0050D500 | `sub_50D500` | 有正文 | `src/world/SceneState.cpp:6094 — Sub_50D500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2543 | 0x0050D700 | `sub_50D700` | 有正文 | `src/network/NetworkRuntime.cpp:822 — Sub_50D700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2544 | 0x0050D740 | `sub_50D740` | 有正文 | `src/world/MailState.cpp:295 — Sub_50D740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2545 | 0x0050D8C0 | `sub_50D8C0` | 有正文 | `src/world/MailState.cpp:334 — Sub_50D8C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2546 | 0x0050D9E0 | `sub_50D9E0` | 有正文 | `src/world/MailState.cpp:362 — Sub_50D9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2547 | 0x0050DC70 | `sub_50DC70` | 有正文 | `src/world/MailState.cpp:638 — Sub_50DC70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2548 | 0x0050DD80 | `sub_50DD80` | 有正文 | `src/network/NetworkRuntime.cpp:842 — Sub_50DD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1265 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2976 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:3010 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1257 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2975 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:3009 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2552 | 0x0050E310 | `sub_50E310` | 有正文 | `src/network/NetworkRuntime.cpp:794 — Sub_50E310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2553 | 0x0050E340 | `sub_50E340` | 有正文 | `src/ui/windows/WindowSkill.cpp:2575 — WindowSkill_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2554 | 0x0050E360 | `sub_50E360` | 有正文 | `src/ui/windows/WindowSkill.cpp:2584 — WindowSkill_ReceiveAttributeTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2553 | 0x0050E340 | `sub_50E340` | 有正文 | `src/ui/windows/WindowSkill.cpp:2553 — WindowSkill_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2554 | 0x0050E360 | `sub_50E360` | 有正文 | `src/ui/windows/WindowSkill.cpp:2562 — WindowSkill_ReceiveAttributeTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2555 | 0x0050E380 | `sub_50E380` | 有正文 | `src/ui/windows/WindowItemUse.cpp:352 — WindowItemUse_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2556 | 0x0050E3A0 | `sub_50E3A0` | 有正文 | `src/ui/windows/WindowItemUse.cpp:361 — WindowItemUse_ReceiveAttributeTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2557 | 0x0050E3C0 | `sub_50E3C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2855 — WindowTrade_ReceiveTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2558 | 0x0050E3F0 | `sub_50E3F0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2867 — WindowTrade_ReceiveStartReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2559 | 0x0050E440 | `sub_50E440` | 有正文 | `src/ui/windows/WindowTrade.cpp:2884 — WindowTrade_ReceiveCancelReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2560 | 0x0050E470 | `sub_50E470` | 有正文 | `src/ui/windows/WindowTrade.cpp:2899 — WindowTrade_ReceiveStateReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2561 | 0x0050E4A0 | `sub_50E4A0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2914 — WindowTrade_ReceiveItemReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2562 | 0x0050E4D0 | `sub_50E4D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2928 — WindowTrade_ReceivePetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2563 | 0x0050E500 | `sub_50E500` | 有正文 | `src/ui/windows/WindowTrade.cpp:2943 — WindowTrade_ReceivePetSkillReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2564 | 0x0050E530 | `sub_50E530` | 有正文 | `src/ui/windows/WindowTrade.cpp:2958 — WindowTrade_ReceiveRemoteResetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2565 | 0x0050E570 | `sub_50E570` | 有正文 | `src/ui/windows/WindowTrade.cpp:2978 — WindowTrade_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2566 | 0x0050E5B0 | `sub_50E5B0` | 有正文 | `src/world/SceneState.cpp:1366 — Sub_50E5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:1373 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2557 | 0x0050E3C0 | `sub_50E3C0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2969 — WindowTrade_ReceiveTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2558 | 0x0050E3F0 | `sub_50E3F0` | 有正文 | `src/ui/windows/WindowTrade.cpp:2981 — WindowTrade_ReceiveStartReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2559 | 0x0050E440 | `sub_50E440` | 有正文 | `src/ui/windows/WindowTrade.cpp:2998 — WindowTrade_ReceiveCancelReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2560 | 0x0050E470 | `sub_50E470` | 有正文 | `src/ui/windows/WindowTrade.cpp:3013 — WindowTrade_ReceiveStateReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2561 | 0x0050E4A0 | `sub_50E4A0` | 有正文 | `src/ui/windows/WindowTrade.cpp:3028 — WindowTrade_ReceiveItemReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2562 | 0x0050E4D0 | `sub_50E4D0` | 有正文 | `src/ui/windows/WindowTrade.cpp:3042 — WindowTrade_ReceivePetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2563 | 0x0050E500 | `sub_50E500` | 有正文 | `src/ui/windows/WindowTrade.cpp:3057 — WindowTrade_ReceivePetSkillReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2564 | 0x0050E530 | `sub_50E530` | 有正文 | `src/ui/windows/WindowTrade.cpp:3072 — WindowTrade_ReceiveRemoteResetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2565 | 0x0050E570 | `sub_50E570` | 有正文 | `src/ui/windows/WindowTrade.cpp:3092 — WindowTrade_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2566 | 0x0050E5B0 | `sub_50E5B0` | 有正文 | `src/world/SceneState.cpp:1365 — Sub_50E5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:1372 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2568 | 0x0050E630 | `sub_50E630` | 有正文 | `src/network/NetworkRuntime.cpp:810 — Sub_50E630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:3001 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:3000 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/LegacyAudio.cpp:1204 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2571 | 0x0050E6C0 | `sub_50E6C0` | 有正文 | `src/network/NetworkRuntime.cpp:747 — Sub_50E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:940 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2630,16 +2636,16 @@
 | 2578 | 0x0050E7F0 | `sub_50E7F0` | 有正文 | `src/ui/windows/WindowStall.cpp:2742 — WindowStall_ReceiveBrowseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2579 | 0x0050E820 | `sub_50E820` | 有正文 | `src/ui/windows/WindowStall.cpp:2751 — WindowStall_ReceivePurchaseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2580 | 0x0050E830 | `sub_50E830` | 有正文 | `src/network/NetworkRuntime.cpp:975 — Sub_50E830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2581 | 0x0050E850 | `sub_50E850` | 有正文 | `src/LegacyRecordOrder.cpp:147 — Sub_50E850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2582 | 0x0050EB40 | `sub_50EB40` | 有正文 | `src/LegacyRecordOrder.cpp:217 — Sub_50EB40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2583 | 0x0050EC50 | `sub_50EC50` | 有正文 | `src/LegacyRecordOrder.cpp:420 — UpdateOrderedRecordBatch_50EC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2584 | 0x0050EEB0 | `sub_50EEB0` | 有正文 | `src/LegacyRecordOrder.cpp:389 — UpdateOrderedRecords_50EEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2585 | 0x0050EF20 | `sub_50EF20` | 有正文 | `src/LegacyRecordOrder.cpp:328 — ResetOrderedRecord_50EF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2586 | 0x0050EF50 | `sub_50EF50` | 有正文 | `src/LegacyRecordOrder.cpp:316 — CountRecordsValue08EqualOne_50EF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2587 | 0x0050EF70 | `sub_50EF70` | 有正文 | `src/LegacyRecordOrder.cpp:346 — ParseOrderedRecord_50EF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2581 | 0x0050E850 | `sub_50E850` | 有正文 | `src/LegacyRecordOrder.cpp:137 — Sub_50E850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2582 | 0x0050EB40 | `sub_50EB40` | 有正文 | `src/LegacyRecordOrder.cpp:207 — Sub_50EB40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2583 | 0x0050EC50 | `sub_50EC50` | 有正文 | `src/LegacyRecordOrder.cpp:365 — UpdateOrderedRecordBatch_50EC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2584 | 0x0050EEB0 | `sub_50EEB0` | 有正文 | `src/LegacyRecordOrder.cpp:334 — UpdateOrderedRecords_50EEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2585 | 0x0050EF20 | `sub_50EF20` | 有正文 | `src/LegacyRecordOrder.cpp:273 — ResetOrderedRecord_50EF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2586 | 0x0050EF50 | `sub_50EF50` | 有正文 | `src/LegacyRecordOrder.cpp:261 — CountRecordsValue08EqualOne_50EF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2587 | 0x0050EF70 | `sub_50EF70` | 有正文 | `src/LegacyRecordOrder.cpp:291 — ParseOrderedRecord_50EF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2588 | 0x0050F130 | `sub_50F130` | 有正文 | `src/network/NetworkRuntime.cpp:987 — Sub_50F130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2589 | 0x0050F190 | `sub_50F190` | 有正文 | `src/network/NetworkRuntime.cpp:1007 — Sub_50F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2590 | 0x0050F280 | `sub_50F280` | 有正文 | `src/LegacyRecordOrder.cpp:251 — Sub_50F280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2590 | 0x0050F280 | `sub_50F280` | 有正文 | `src/LegacyRecordOrder.cpp:241 — Sub_50F280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2591 | 0x0050F2A0 | `sub_50F2A0` | 有正文 | `src/world/MailState.cpp:1019 — Sub_50F2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2592 | 0x0050F3A0 | `sub_50F3A0` | 有正文 | `src/world/MailState.cpp:1051 — Sub_50F3A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2593 | 0x0050F430 | `sub_50F430` | 有正文 | `src/world/MailState.cpp:758 — Sub_50F430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2654,7 +2660,7 @@
 | 2602 | 0x0050FF70 | `sub_50FF70` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 2603 | 0x00510120 | `sub_510120` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 2604 | 0x00510140 | `sub_510140` | 有正文 | `src/LoginRequest.cpp:91 — ReadRequestOutcomeFlag` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2605 | 0x00510150 | `sub_510150` | 有正文 | `src/world/SceneState.cpp:4024 — Sub_510150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2605 | 0x00510150 | `sub_510150` | 有正文 | `src/world/SceneState.cpp:4023 — Sub_510150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2606 | 0x00510460 | `sub_510460` | 有正文 | `src/network/NetworkRuntime.cpp:1034 — Sub_510460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2607 | 0x00510490 | `sub_510490` | 有正文 | `src/network/NetworkRuntime.cpp:1046 — Sub_510490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2608 | 0x00510570 | `sub_510570` | 有正文 | `src/network/NetworkRuntime.cpp:1984 — Sub_510570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2759,27 +2765,27 @@
 | 2707 | 0x00517690 | `sub_517690` | 有正文 | `src/network/NetworkRuntime.cpp:1340 — CopyProtocolBytesAndReturn_517690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2708 | 0x005176B0 | `sub_5176B0` | 有正文 | `src/network/NetworkRuntime.cpp:616 — Sub_5176B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2709 | 0x00517730 | `sub_517730` | 有正文 | `src/network/NetworkRuntime.cpp:660 — Sub_517730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2710 | 0x00517880 | `Yobi::FrameMove` | 有正文 | `src/YobiRuntime.cpp:34650 — Sub_517880` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2711 | 0x00517DA0 | `Yobi::PlayFrame` | 有正文 | `src/YobiRuntime.cpp:34766 — PlayFrame_517DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2712 | 0x005182B0 | `sub_5182B0` | 有正文 | `src/YobiRuntime.cpp:5677 — Sub_5182B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2713 | 0x00518300 | `sub_518300` | 有正文 | `src/YobiRuntime.cpp:5698 — Sub_518300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2714 | 0x005183B0 | `sub_5183B0` | 有正文 | `src/YobiRuntime.cpp:36502 — Sub_5183B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2715 | 0x005183D0 | `sub_5183D0` | 有承接 | `src/world/SceneState.cpp:627 — PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2716 | 0x005183E0 | `sub_5183E0` | 有正文 | `src/world/SceneState.cpp:606 — ConstructLegacyPlayerRuntime_5183E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2717 | 0x00518520 | `sub_518520` | 有承接 | `src/world/SceneState.cpp:639 — PetRuntimeValuesStartup::PetRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2718 | 0x00518530 | `sub_518530` | 有正文 | `src/world/SceneState.cpp:663 — ConstructPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2719 | 0x00518560 | `sub_518560` | 有正文 | `src/world/SceneState.cpp:670 — DestroyPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2720 | 0x00518580 | `sub_518580` | 有正文 | `src/world/SceneState.cpp:4346 — Sub_518580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2721 | 0x005185C0 | `sub_5185C0` | 有正文 | `src/world/SceneState.cpp:4286 — Sub_5185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2722 | 0x00518600 | `sub_518600` | 有正文 | `src/world/SceneState.cpp:3669 — Sub_518600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2723 | 0x00518660 | `sub_518660` | 有正文 | `src/world/SceneState.cpp:3654 — Sub_518660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2724 | 0x005186A0 | `sub_5186A0` | 有正文 | `src/world/SceneState.cpp:1183 — Sub_5186A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2725 | 0x00518780 | `sub_518780` | 有正文 | `src/world/SceneState.cpp:1215 — Sub_518780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2726 | 0x00518870 | `sub_518870` | 有正文 | `src/world/SceneState.cpp:1265 — Sub_518870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2727 | 0x00518A40 | `sub_518A40` | 有正文 | `src/world/SceneState.cpp:1312 — Sub_518A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2728 | 0x00518BE0 | `sub_518BE0` | 有正文 | `src/world/SceneState.cpp:1253 — Sub_518BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2729 | 0x00518C20 | `sub_518C20` | 有正文 | `src/world/SceneState.cpp:1147 — InitializeAlbum_518C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:8567 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2710 | 0x00517880 | `Yobi::FrameMove` | 有正文 | `src/YobiRuntime.cpp:34648 — Sub_517880` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2711 | 0x00517DA0 | `Yobi::PlayFrame` | 有正文 | `src/YobiRuntime.cpp:34764 — PlayFrame_517DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2712 | 0x005182B0 | `sub_5182B0` | 有正文 | `src/YobiRuntime.cpp:5675 — Sub_5182B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2713 | 0x00518300 | `sub_518300` | 有正文 | `src/YobiRuntime.cpp:5696 — Sub_518300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2714 | 0x005183B0 | `sub_5183B0` | 有正文 | `src/YobiRuntime.cpp:36054 — Sub_5183B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2715 | 0x005183D0 | `sub_5183D0` | 有承接 | `src/world/SceneState.cpp:626 — PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 2716 | 0x005183E0 | `sub_5183E0` | 有正文 | `src/world/SceneState.cpp:605 — ConstructLegacyPlayerRuntime_5183E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2717 | 0x00518520 | `sub_518520` | 有承接 | `src/world/SceneState.cpp:638 — PetRuntimeValuesStartup::PetRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
+| 2718 | 0x00518530 | `sub_518530` | 有正文 | `src/world/SceneState.cpp:662 — ConstructPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2719 | 0x00518560 | `sub_518560` | 有正文 | `src/world/SceneState.cpp:669 — DestroyPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2720 | 0x00518580 | `sub_518580` | 有正文 | `src/world/SceneState.cpp:4345 — Sub_518580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2721 | 0x005185C0 | `sub_5185C0` | 有正文 | `src/world/SceneState.cpp:4285 — Sub_5185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2722 | 0x00518600 | `sub_518600` | 有正文 | `src/world/SceneState.cpp:3668 — Sub_518600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2723 | 0x00518660 | `sub_518660` | 有正文 | `src/world/SceneState.cpp:3653 — Sub_518660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2724 | 0x005186A0 | `sub_5186A0` | 有正文 | `src/world/SceneState.cpp:1182 — Sub_5186A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2725 | 0x00518780 | `sub_518780` | 有正文 | `src/world/SceneState.cpp:1214 — Sub_518780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2726 | 0x00518870 | `sub_518870` | 有正文 | `src/world/SceneState.cpp:1264 — Sub_518870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2727 | 0x00518A40 | `sub_518A40` | 有正文 | `src/world/SceneState.cpp:1311 — Sub_518A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2728 | 0x00518BE0 | `sub_518BE0` | 有正文 | `src/world/SceneState.cpp:1252 — Sub_518BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2729 | 0x00518C20 | `sub_518C20` | 有正文 | `src/world/SceneState.cpp:1146 — InitializeAlbum_518C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:8520 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2731 | 0x00518C80 | `sub_518C80` | 有正文 | `src/world/MailState.cpp:848 — Sub_518C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2732 | 0x00518CB0 | `sub_518CB0` | 有正文 | `src/world/MailState.cpp:1376 — Sub_518CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2733 | 0x00518DA0 | `sub_518DA0` | 有正文 | `src/world/MailState.cpp:434 — Sub_518DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2795,55 +2801,55 @@
 | 2743 | 0x005194C0 | `sub_5194C0` | 有正文 | `src/world/MailState.cpp:1445 — Sub_5194C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2744 | 0x005194F0 | `sub_5194F0` | 有正文 | `src/world/MailState.cpp:1490 — Sub_5194F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2745 | 0x00519550 | `sub_519550` | 有正文 | `src/world/MailState.cpp:1420 — Sub_519550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2746 | 0x005195C0 | `sub_5195C0` | 有正文 | `src/LegacyRecordOrder.cpp:481 — FindActiveOrderedRecordIndex_5195C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2746 | 0x005195C0 | `sub_5195C0` | 有正文 | `src/LegacyRecordOrder.cpp:426 — FindActiveOrderedRecordIndex_5195C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2747 | 0x005195F0 | `sub_5195F0` | 有正文 | `src/world/MailState.cpp:1467 — Sub_5195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2748 | 0x00519640 | `sub_519640` | 有正文 | `src/LegacyUiRecord.cpp:4734 — Sub_519640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2749 | 0x00519680 | `sub_519680` | 有正文 | `src/ui/WindowRuntime.cpp:773 — WindowItem_HealthImageLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2750 | 0x005196B0 | `sub_5196B0` | 有正文 | `src/world/SceneState.cpp:3764 — Sub_5196B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2751 | 0x00519770 | `sub_519770` | 有正文 | `src/world/SceneState.cpp:4003 — Sub_519770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2752 | 0x00519840 | `sub_519840` | 有正文 | `src/world/SceneState.cpp:4398 — Sub_519840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2753 | 0x0051985F | `?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/world/SceneState.cpp:4398 — Sub_519840` | 原共享 -1 返回尾；当前父实际失败返回承接；完整业务／运行未验 |
-| 2754 | 0x00519870 | `sub_519870` | 有正文 | `src/world/SceneState.cpp:4412 — Sub_519870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2755 | 0x005198A0 | `sub_5198A0` | 有正文 | `src/world/SceneState.cpp:4424 — Sub_5198A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2756 | 0x005198D0 | `sub_5198D0` | 有正文 | `src/world/SceneState.cpp:4442 — Sub_5198D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2757 | 0x005198F0 | `sub_5198F0` | 有正文 | `src/world/SceneState.cpp:4452 — Sub_5198F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2758 | 0x00519920 | `sub_519920` | 有正文 | `src/world/SceneState.cpp:4332 — Sub_519920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2759 | 0x00519950 | `sub_519950` | 有正文 | `src/world/SceneState.cpp:3641 — Sub_519950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:10340 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9797 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9911 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:10157 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9936 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2765 | 0x00519EB0 | `sub_519EB0` | 有正文 | `src/world/SceneState.cpp:7036 — Sub_519EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:9955 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2767 | 0x00519EE0 | `sub_519EE0` | 有正文 | `src/YobiRuntime.cpp:37266 — Sub_519EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:9961 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:9972 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9850 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9903 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:10173 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:10268 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:10181 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:10188 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:10194 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:10200 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:10206 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:10212 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2780 | 0x0051A640 | `sub_51A640` | 有正文 | `src/YobiRuntime.cpp:37239 — Sub_51A640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2781 | 0x0051A660 | `sub_51A660` | 有正文 | `src/YobiRuntime.cpp:37249 — Sub_51A660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2782 | 0x0051A680 | `sub_51A680` | 有正文 | `src/YobiRuntime.cpp:37259 — Sub_51A680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2783 | 0x0051A6A0 | `sub_51A6A0` | 有正文 | `src/YobiRuntime.cpp:35929 — Sub_51A6A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:9982 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8943 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8935 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2748 | 0x00519640 | `sub_519640` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2749 | 0x00519680 | `sub_519680` | 有正文 | `src/ui/WindowRuntime.cpp:769 — WindowItem_HealthImageLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2750 | 0x005196B0 | `sub_5196B0` | 有正文 | `src/world/SceneState.cpp:3763 — Sub_5196B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2751 | 0x00519770 | `sub_519770` | 有正文 | `src/world/SceneState.cpp:4002 — Sub_519770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2752 | 0x00519840 | `sub_519840` | 有正文 | `src/world/SceneState.cpp:4397 — Sub_519840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2753 | 0x0051985F | `?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/world/SceneState.cpp:4397 — Sub_519840` | 原共享 -1 返回尾；当前父实际失败返回承接；完整业务／运行未验 |
+| 2754 | 0x00519870 | `sub_519870` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2755 | 0x005198A0 | `sub_5198A0` | 有正文 | `src/world/SceneState.cpp:4411 — Sub_5198A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2756 | 0x005198D0 | `sub_5198D0` | 有正文 | `src/world/SceneState.cpp:4429 — Sub_5198D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2757 | 0x005198F0 | `sub_5198F0` | 有正文 | `src/world/SceneState.cpp:4439 — Sub_5198F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2758 | 0x00519920 | `sub_519920` | 有正文 | `src/world/SceneState.cpp:4331 — Sub_519920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2759 | 0x00519950 | `sub_519950` | 有正文 | `src/world/SceneState.cpp:3640 — Sub_519950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:10278 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9735 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9849 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:10095 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9874 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2765 | 0x00519EB0 | `sub_519EB0` | 有正文 | `src/world/SceneState.cpp:6995 — Sub_519EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:9893 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2767 | 0x00519EE0 | `sub_519EE0` | 有正文 | `src/YobiRuntime.cpp:36818 — Sub_519EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:9899 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:9910 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9788 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9841 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:10111 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:10206 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:10119 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:10126 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:10132 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:10138 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:10144 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:10150 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2780 | 0x0051A640 | `sub_51A640` | 有正文 | `src/YobiRuntime.cpp:36791 — Sub_51A640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2781 | 0x0051A660 | `sub_51A660` | 有正文 | `src/YobiRuntime.cpp:36801 — Sub_51A660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2782 | 0x0051A680 | `sub_51A680` | 有正文 | `src/YobiRuntime.cpp:36811 — Sub_51A680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2783 | 0x0051A6A0 | `sub_51A6A0` | 有正文 | `src/YobiRuntime.cpp:35481 — Sub_51A6A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:9920 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8881 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8873 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2787 | 0x0051B110 | `sub_51B110` | 有正文 | `src/LoginRequest.cpp:60 — Sub_51B110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2788 | 0x0051B140 | `sub_51B140` | 有正文 | `src/LoginRequest.cpp:69 — CharacterNameExists_51B140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2789 | 0x0051B1B0 | `sub_51B1B0` | 有正文 | `src/CharacterListRequest.cpp:54 — WriteCharacterRecord_51B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2790 | 0x0051B3B0 | `sub_51B3B0` | 有正文 | `src/LoginRequest.cpp:50 — Sub_51B3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:9385 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2792 | 0x0051B530 | `sub_51B530` | 有正文 | `src/world/SceneState.cpp:3850 — Sub_51B530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2793 | 0x0051B5F0 | `sub_51B5F0` | 有正文 | `src/world/SceneState.cpp:3870 — Sub_51B5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2794 | 0x0051B630 | `sub_51B630` | 有正文 | `src/world/SceneState.cpp:3900 — Sub_51B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:9323 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2792 | 0x0051B530 | `sub_51B530` | 有正文 | `src/world/SceneState.cpp:3849 — Sub_51B530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2793 | 0x0051B5F0 | `sub_51B5F0` | 有正文 | `src/world/SceneState.cpp:3869 — Sub_51B5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2794 | 0x0051B630 | `sub_51B630` | 有正文 | `src/world/SceneState.cpp:3899 — Sub_51B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2795 | 0x0051B740 | `sub_51B740` | 有正文 | `src/CharacterSelectPreview.cpp:293 — Sub_51B740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2796 | 0x0051B7D0 | `sub_51B7D0` | 有正文 | `src/CharacterSelectPreview.cpp:329 — Sub_51B7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2797 | 0x0051B910 | `sub_51B910` | 有正文 | `src/CharacterSelectPreview.cpp:383 — Sub_51B910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2852,40 +2858,40 @@
 | 2800 | 0x0051BB80 | `sub_51BB80` | 有正文 | `src/CharacterSelectPreview.cpp:130 — Sub_51BB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2801 | 0x0051BC50 | `sub_51BC50` | 有正文 | `src/CharacterSelectPreview.cpp:261 — Sub_51BC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2802 | 0x0051BD00 | `sub_51BD00` | 有正文 | `src/CharacterSelectPreview.cpp:185 — Sub_51BD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:10218 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:10224 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:10279 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:10287 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:10234 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:10240 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:10246 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:10256 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:10307 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:10298 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:10262 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2814 | 0x0051BEF0 | `sub_51BEF0` | 有正文 | `src/world/SceneState.cpp:581 — Sub_51BEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:10156 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:10162 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:10217 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:10225 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:10172 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:10178 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:10184 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:10194 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:10245 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:10236 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:10200 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2814 | 0x0051BEF0 | `sub_51BEF0` | 有正文 | `src/world/SceneState.cpp:580 — Sub_51BEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2815 | 0x0051BF00 | `sub_51BF00` | 有正文 | `src/CharacterSelectPreview.cpp:218 — Sub_51BF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2816 | 0x0051BFF0 | `sub_51BFF0` | 有正文 | `src/CharacterSelectPreview.cpp:240 — Sub_51BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:10111 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:657 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:29 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:1080 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2821 | 0x0051C790 | `sub_51C790` | 有正文 | `src/world/SceneState.cpp:1088 — SetCurrentSceneTypeAndState` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2822 | 0x0051C7B0 | `sub_51C7B0` | 有正文 | `src/world/SceneState.cpp:1096 — SetPendingSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2823 | 0x0051C7D0 | `World::DrawNormalScene` | 有正文 | `src/world/SceneState.cpp:6462 — DrawNormalScene_51C7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2824 | 0x0051D5B0 | `sub_51D5B0` | 有正文 | `src/world/SceneState.cpp:7473 — Sub_51D5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2825 | 0x0051D640 | `sub_51D640` | 有正文 | `src/world/SceneState.cpp:6942 — Sub_51D640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2826 | 0x0051D6F0 | `sub_51D6F0` | 有正文 | `src/world/SceneState.cpp:6980 — Sub_51D6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2827 | 0x0051D750 | `sub_51D750` | 有正文 | `src/world/SceneState.cpp:6967 — Sub_51D750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:10558 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10850 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:11292 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:11449 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:11625 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11772 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11778 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11784 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:358 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:10049 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:656 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:28 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:1079 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2821 | 0x0051C790 | `sub_51C790` | 有正文 | `src/world/SceneState.cpp:1087 — SetCurrentSceneTypeAndState` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2822 | 0x0051C7B0 | `sub_51C7B0` | 有正文 | `src/world/SceneState.cpp:1095 — SetPendingSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2823 | 0x0051C7D0 | `World::DrawNormalScene` | 有正文 | `src/world/SceneState.cpp:6426 — DrawNormalScene_51C7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2824 | 0x0051D5B0 | `sub_51D5B0` | 有正文 | `src/world/SceneState.cpp:7432 — Sub_51D5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2825 | 0x0051D640 | `sub_51D640` | 有正文 | `src/world/SceneState.cpp:6901 — Sub_51D640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2826 | 0x0051D6F0 | `sub_51D6F0` | 有正文 | `src/world/SceneState.cpp:6939 — Sub_51D6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2827 | 0x0051D750 | `sub_51D750` | 有正文 | `src/world/SceneState.cpp:6926 — Sub_51D750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:10495 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10787 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:11229 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:11386 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:11562 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11709 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11715 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11721 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:354 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2837 | 0x00520160 | `sub_520160` | 有正文 | `src/LoginSavedState.cpp:997 — Sub_520160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2838 | 0x005201B0 | `sub_5201B0` | 有正文 | `src/LoginSavedState.cpp:791 — RestoreCurrentSavedState_5201B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2839 | 0x00520200 | `sub_520200` | 有正文 | `src/LoginSavedState.cpp:1024 — Sub_520200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2923,7 +2929,7 @@
 | 2871 | 0x00521B10 | `Renderer::DrawGraphic` | 有正文 | `src/DrawGraphic.cpp:275 — DrawGraphic` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2872 | 0x00521C80 | `sub_521C80` | 有正文 | `src/DrawGraphic.cpp:166 — Sub_521C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2873 | 0x00521DD0 | `Renderer::DrawGraphic2` | 有正文 | `src/DrawGraphic.cpp:218 — DrawGraphic2_521DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2874 | 0x00521F20 | `World::RenderChara` | 有正文 | `src/YobiRuntime.cpp:37301 — RenderChara_521F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2874 | 0x00521F20 | `World::RenderChara` | 有正文 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2875 | 0x00522180 | `Renderer::DrawGraphic_Hover` | 有正文 | `src/DrawGraphicHover.cpp:9 — DrawGraphicHover` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2876 | 0x00522210 | `sub_522210` | 有正文 | `src/render/GraphicPendingQueue.cpp:259 — Sub_522210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2877 | 0x005222A0 | `sub_5222A0` | 有正文 | `src/render/GraphicPendingQueue.cpp:30 — CompareGraphicCache3_5222A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2993,38 +2999,38 @@
 | 2941 | 0x0052CFF0 | `sub_52CFF0` | 有正文 | `src/network/NetworkRuntime.cpp:1537 — ParseDelimitedIntegerStatus_52CFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2942 | 0x0052D050 | `base62Decode` | 有正文 | `src/network/NetworkRuntime.cpp:1554 — Base62Decode_52D050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2943 | 0x0052D0D0 | `sub_52D0D0` | 有正文 | `src/network/NetworkRuntime.cpp:1588 — ParseDelimitedBase62_52D0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2944 | 0x0052D120 | `sub_52D120` | 有正文 | `src/Input.cpp:711 — DecodeEscapeLetter_52D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2945 | 0x0052D150 | `Unescape` | 有正文 | `src/Input.cpp:726 — UnescapeLegacyText_52D150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2946 | 0x0052D1B0 | `sub_52D1B0` | 有正文 | `src/Input.cpp:600 — EscapeText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2947 | 0x0052D2D0 | `sub_52D2D0` | 有正文 | `src/Input.cpp:700 — EscapeInputText_52D2D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2948 | 0x0052D2F0 | `Unescape2` | 有正文 | `src/Input.cpp:755 — UnescapeLegacyTextAndNotify_52D2F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2944 | 0x0052D120 | `sub_52D120` | 有正文 | `src/Input.cpp:705 — DecodeEscapeLetter_52D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2945 | 0x0052D150 | `Unescape` | 有正文 | `src/Input.cpp:720 — UnescapeLegacyText_52D150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2946 | 0x0052D1B0 | `sub_52D1B0` | 有正文 | `src/Input.cpp:594 — EscapeText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2947 | 0x0052D2D0 | `sub_52D2D0` | 有正文 | `src/Input.cpp:694 — EscapeInputText_52D2D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2948 | 0x0052D2F0 | `Unescape2` | 有正文 | `src/Input.cpp:749 — UnescapeLegacyTextAndNotify_52D2F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2949 | 0x0052D310 | `sub_52D310` | 有正文 | `src/LoginSavedState.cpp:89 — EncodeLegacyBytes_52D310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2950 | 0x0052D460 | `sub_52D460` | 有正文 | `src/LoginSavedState.cpp:171 — DecodeLegacyBytes_52D460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2951 | 0x0052D570 | `sub_52D570` | 有正文 | `src/Input.cpp:829 — RemoveLegacyBytes_52D570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2951 | 0x0052D570 | `sub_52D570` | 有正文 | `src/Input.cpp:823 — RemoveLegacyBytes_52D570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2952 | 0x0052D5C0 | `Graphic::readGraphicData` | 有正文 | `src/GraphicDecode.cpp:6 — ReadGraphicData` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2953 | 0x0052D790 | `sub_52D790` | 有正文 | `src/LegacyUiRecord.cpp:4208 — Sub_52D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2953 | 0x0052D790 | `sub_52D790` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2954 | 0x0052D7B0 | `sub_52D7B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2955 | 0x0052DC60 | `sub_52DC60` | 有正文 | `src/LegacyUiRecord.cpp:4215 — Sub_52DC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2955 | 0x0052DC60 | `sub_52DC60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2956 | 0x0052DCE0 | `sub_52DCE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2957 | 0x0052E180 | `sub_52E180` | 有正文 | `src/world/SceneState.cpp:3970 — Sub_52E180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2958 | 0x0052E1D0 | `sub_52E1D0` | 有正文 | `src/world/SceneState.cpp:3988 — Sub_52E1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2957 | 0x0052E180 | `sub_52E180` | 有正文 | `src/world/SceneState.cpp:3969 — Sub_52E180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2958 | 0x0052E1D0 | `sub_52E1D0` | 有正文 | `src/world/SceneState.cpp:3987 — Sub_52E1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2959 | 0x0052E240 | `sub_52E240` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2960 | 0x0052E600 | `sub_52E600` | 有正文 | `src/LegacyUiRecord.cpp:4227 — Sub_52E600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2960 | 0x0052E600 | `sub_52E600` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2961 | 0x0052E650 | `sub_52E650` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2962 | 0x0052ECB0 | `sub_52ECB0` | 有正文 | `src/LegacyUiRecord.cpp:4246 — Sub_52ECB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2962 | 0x0052ECB0 | `sub_52ECB0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2963 | 0x0052ED50 | `sub_52ED50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2964 | 0x0052F460 | `sub_52F460` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2965 | 0x0052F670 | `sub_52F670` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2966 | 0x0052F910 | `sub_52F910` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2967 | 0x0052FB60 | `sub_52FB60` | 有正文 | `src/LegacyRecordOrder.cpp:270 — CompareOrderedRecords_52FB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2968 | 0x0052FCC0 | `sub_52FCC0` | 有正文 | `src/LegacyRecordOrder.cpp:304 — BuildOrderedRecordIndices_52FCC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2969 | 0x0052FCF0 | `sub_52FCF0` | 有正文 | `src/LegacyUiRecord.cpp:4262 — Sub_52FCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2967 | 0x0052FB60 | `sub_52FB60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2968 | 0x0052FCC0 | `sub_52FCC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
+| 2969 | 0x0052FCF0 | `sub_52FCF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2970 | 0x0052FD60 | `sub_52FD60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2971 | 0x00530B70 | `sub_530B70` | 有正文 | `src/LegacyUiRecord.cpp:4286 — Sub_530B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2971 | 0x00530B70 | `sub_530B70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2972 | 0x00530BA0 | `sub_530BA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2973 | 0x00532430 | `sub_532430` | 有正文 | `src/LegacyUiRecord.cpp:4296 — Sub_532430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2973 | 0x00532430 | `sub_532430` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2974 | 0x00532450 | `sub_532450` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2975 | 0x00532D80 | `sub_532D80` | 有正文 | `src/LegacyRecordOrder.cpp:263 — Sub_532D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2975 | 0x00532D80 | `sub_532D80` | 有正文 | `src/LegacyRecordOrder.cpp:253 — Sub_532D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2976 | 0x00532E70 | `sub_532E70` | 有正文 | `src/platform/StartupCommon.cpp:28 — CreateSaveDirectories` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2977 | 0x00532ED0 | `sub_532ED0` | 有正文 | `src/LoginSavedState.cpp:233 — LoadSavedPhysicalRecord_532ED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2978 | 0x00532FC0 | `sub_532FC0` | 有正文 | `src/LoginSavedState.cpp:278 — WriteDefaultSavedFile_532FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3070,7 +3076,7 @@
 | 3018 | 0x005349A4 | `ImmSetOpenStatus` | 有承接 | `src/platform/ImeLifecycle.cpp:79 — ImmSetOpenStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3019 | 0x005349AA | `ImmGetDescriptionA` | 有承接 | `src/world/RenderInput.cpp:195 — ImmGetDescriptionW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/ImeComposition.cpp:26 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
-| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:437 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
+| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:428 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:107 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4632 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3024 | 0x00534A3C | `recv` | 有承接 | `src/network/NetworkRuntime.cpp:4614 — recv` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3101,7 +3107,7 @@
 | 3049 | 0x005354C0 | `sub_5354C0` | 已排除 | `src/platform/LegacyExternalKeyboardObject.cpp:41 — GetExternalKeyboardResult_5354C0` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3050 | 0x005354D0 | `sub_5354D0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3051 | 0x00535540 | `sub_535540` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 3052 | 0x00536960 | `nullsub_4` | 空方法 | `src/platform/LegacyMouse.cpp:136 — EmptyLegacyExit_536960` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
+| 3052 | 0x00536960 | `nullsub_4` | 空方法 | `src/platform/LegacyMouse.cpp:135 — EmptyLegacyExit_536960` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
 | 3053 | 0x00536970 | `sub_536970` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3054 | 0x00536C30 | `sub_536C30` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3055 | 0x00536EA0 | `sub_536EA0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
@@ -3194,14 +3200,14 @@
 | 3142 | 0x0053AF40 | `sub_53AF40` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3143 | 0x0053AF90 | `sub_53AF90` | 有正文 | `src/GraphicRead.cpp:385 — DecompressDbf_53AF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3144 | 0x0053B1D0 | `_fclose` | 有承接 | `src/Blacklist.cpp:63 — std::fclose（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3145 | 0x0053B226 | `_fgets` | 有承接 | `src/Blacklist.cpp:97 — std::fgets（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3146 | 0x0053B27D | `_rewind` | 有承接 | `src/Blacklist.cpp:94 — std::rewind（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3145 | 0x0053B226 | `_fgets` | 有承接 | `src/Blacklist.cpp:90 — std::fgets（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3146 | 0x0053B27D | `_rewind` | 有承接 | `src/Blacklist.cpp:87 — std::rewind（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3147 | 0x0053B2D1 | `__fsopen` | 有承接 | `include/cg/platform/LegacyStdio.hpp:15 — ::_fsopen（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3148 | 0x0053B2F1 | `_fopen` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3149 | 0x0053B304 | `_sprintf` | 有承接 | `src/CharacterListRequest.cpp:163 — std::sprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有800处调用及原合同保持；完整业务／运行未验 |
 | 3150 | 0x0053B356 | `_fputs` | 有承接 | `src/Blacklist.cpp:59 — std::fputs（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3151 | 0x0053B399 | `__onexit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyMouse.cpp:146 — RegisterLegacyPrimaryEmptyExit` | 原库入口沿真实std::atexit消费者／MSVC服务承接；CryptInt 24组另由LCI01原生构析承接，无手写登记；未记机器ABI或运行已验 |
+| 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyMouse.cpp:145 — RegisterLegacyPrimaryEmptyExit` | 原库入口沿真实std::atexit消费者／MSVC服务承接；CryptInt 24组另由LCI01原生构析承接，无手写登记；未记机器ABI或运行已验 |
 | 3153 | 0x0053B418 | `___onexitinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3154 | 0x0053B447 | `sub_53B447` | 有承接 | `CMakeLists.txt:161 — 宿主CRT启动；src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyFormat.hpp:5 — MSVC std::vfprintf直接声明；src/platform/LegacyFormat.hpp:5 — MSVC std::vfscanf直接声明` | 原53C8CD在C／C++初始化前从58F864间接调用；旧六回调／CPU探测／x87默认精度随MC01-C2退休，当前MSVC整体启动／格式／扫描服务；不新增旧回调槽或声明硬件状态等价 |
 | 3155 | 0x0053B45E | `nullsub_6` | 空方法 | `—` | 原入口单RET，58F868／58F86C两数据槽记录保留；按用户决定标为空方法，结束职责／调用／承接核对，不补CPP包装 |
@@ -3210,37 +3216,37 @@
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:690 — SeedRandom_53B4BF` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
 | 3159 | 0x0053B4C9 | `rand` | 有正文 | `src/platform/MainLoopSupport.cpp:697 — NextRandom_53B4C9` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
 | 3160 | 0x0053B4E7 | `delete` | 有承接 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前 IDA 的原 delete 叶调用 free；本线实际通用释放使用 std::free，与已批准 malloc 分配族成组承接；完整 owner／运行未验 |
-| 3161 | 0x0053B4F2 | `?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3162 | 0x0053B526 | `sub_53B526` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3163 | 0x0053B52D | `sub_53B52D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3164 | 0x0053B534 | `?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3165 | 0x0053B583 | `___CxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3166 | 0x0053B5B9 | `?_CallCatchBlock2@@YAPAXPAUEHRegistrationNode@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3167 | 0x0053B60D | `?CatchGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUCatchGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3168 | 0x0053B632 | `?_CallSETranslator@@YAHPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAX2PBU_s_FuncInfo@@H1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3169 | 0x0053B6E6 | `?TranslatorGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUTranslatorGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3170 | 0x0053B75B | `?_GetRangeOfTrysToCheck@@YAPBU_s_TryBlockMapEntry@@PBU_s_FuncInfo@@HHPAI1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3171 | 0x0053B7D8 | `__global_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3172 | 0x0053B7F8 | `__unwind_handler` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3173 | 0x0053B81A | `__local_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3174 | 0x0053B882 | `__abnormal_termination` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3175 | 0x0053B8A5 | `__NLG_Notify1` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3176 | 0x0053B8AE | `__NLG_Notify` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3161 | 0x0053B4F2 | `?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3162 | 0x0053B526 | `sub_53B526` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3163 | 0x0053B52D | `sub_53B52D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3164 | 0x0053B534 | `?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3165 | 0x0053B583 | `___CxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3166 | 0x0053B5B9 | `?_CallCatchBlock2@@YAPAXPAUEHRegistrationNode@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3167 | 0x0053B60D | `?CatchGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUCatchGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3168 | 0x0053B632 | `?_CallSETranslator@@YAHPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAX2PBU_s_FuncInfo@@H1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3169 | 0x0053B6E6 | `?TranslatorGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUTranslatorGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3170 | 0x0053B75B | `?_GetRangeOfTrysToCheck@@YAPBU_s_TryBlockMapEntry@@PBU_s_FuncInfo@@HHPAI1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3171 | 0x0053B7D8 | `__global_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3172 | 0x0053B7F8 | `__unwind_handler` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3173 | 0x0053B81A | `__local_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3174 | 0x0053B882 | `__abnormal_termination` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3175 | 0x0053B8A5 | `__NLG_Notify1` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3176 | 0x0053B8AE | `__NLG_Notify` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3177 | 0x0053B8C6 | `_localtime` | 有承接 | `src/platform/LegacyTime.cpp:39 — LocalTime_53B8C6` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3178 | 0x0053BA26 | `_time` | 有承接 | `src/platform/LegacyTime.cpp:13 — ReadLegacyTime32_53BA26` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3179 | 0x0053BB02 | `_fflush` | 有承接 | `src/Input.cpp:1246 — std::fflush（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3180 | 0x0053BB3D | `__flush` | 有承接 | `src/Input.cpp:1246 — std::fflush（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3179 | 0x0053BB02 | `_fflush` | 有承接 | `src/Input.cpp:1219 — std::fflush（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3180 | 0x0053BB3D | `__flush` | 有承接 | `src/Input.cpp:1219 — std::fflush（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3181 | 0x0053BB99 | `sub_53BB99` | 有承接 | `include/cg/platform/LegacyStdio.hpp:36 — ::_flushall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3182 | 0x0053BBA2 | `_flsall` | 有承接 | `include/cg/platform/LegacyStdio.hpp:36 — ::_flushall（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3183 | 0x0053BC0F | `sub_53BC0F` | 有承接 | `src/Input.cpp:1211 — std::fprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有11处调用及原合同保持；完整业务／运行未验 |
+| 3183 | 0x0053BC0F | `sub_53BC0F` | 有承接 | `src/Input.cpp:1184 — std::fprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有11处调用及原合同保持；完整业务／运行未验 |
 | 3184 | 0x0053BC41 | `_fseek` | 有承接 | `src/GraphicInfo.cpp:137 — std::fseek（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3185 | 0x0053BCCD | `_fread` | 有承接 | `src/GraphicInfo.cpp:192 — std::fread（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3186 | 0x0053BDC0 | `__alloca_probe` | 有承接 | `src/network/NetworkRuntime.cpp:221 — Sub_403C50；src/network/NetworkRuntime.cpp:306 — Sub_403E50` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3187 | 0x0053BDEF | `_isspace` | 有承接 | `src/Input.cpp:563 — std::isspace` | UWF01邮件分词直接使用wcstok，当前窄strtok已无消费者；原纯转发包装退休；完整业务／运行未验 |
-| 3188 | 0x0053BE17 | `_iscntrl` | 有承接 | `src/Input.cpp:566 — std::iscntrl` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3187 | 0x0053BDEF | `_isspace` | 有承接 | `src/Input.cpp:557 — std::isspace` | UWF01邮件分词直接使用wcstok，当前窄strtok已无消费者；原纯转发包装退休；完整业务／运行未验 |
+| 3188 | 0x0053BE17 | `_iscntrl` | 有承接 | `src/Input.cpp:560 — std::iscntrl` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3189 | 0x0053BE40 | `_strstr` | 有承接 | `src/CharacterSelectScene.cpp:925 — std::strstr` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3190 | 0x0053BEC0 | `_strncpy` | 有承接 | `src/platform/MainLoopSupport.cpp:521 — std::strncpy` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3191 | 0x0053BFC0 | `_strncmp` | 有承接 | `src/YobiRuntime.cpp:35811 — std::strncmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3191 | 0x0053BFC0 | `_strncmp` | 有承接 | `src/YobiRuntime.cpp:35363 — std::strncmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3192 | 0x0053BFF8 | `cAlloc` | 有承接 | `src/platform/LegacyMemory.cpp:19 — CallocateLegacyMemory_53BFF8` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3193 | 0x0053C0A9 | `free` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3194 | 0x0053C112 | `_qsort` | 有承接 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420；src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3255,11 +3261,11 @@
 | 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
 | 3204 | 0x0053C5BE | `_atol` | 有承接 | `include/cg/platform/LegacyTime.hpp:7 — std::atol` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3205 | 0x0053C649 | `_atoi` | 有承接 | `src/LoginScene.cpp:438 — std::atoi` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3206 | 0x0053C654 | `__mkdir` | 有承接 | `src/Input.cpp:1178 — ::_mkdir` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3207 | 0x0053C680 | `_fwrite` | 有承接 | `src/Input.cpp:1126 — std::fwrite（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3206 | 0x0053C654 | `__mkdir` | 有承接 | `src/Input.cpp:1151 — ::_mkdir` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3207 | 0x0053C680 | `_fwrite` | 有承接 | `src/Input.cpp:1099 — std::fwrite（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3208 | 0x0053C790 | `_strncat` | 有承接 | `src/Input.cpp:269 — AppendText（UTF-16 STL正文插入）` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3209 | 0x0053C8B3 | `_fgetc` | 有承接 | `src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3210 | 0x0053C8CD | `__cinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyMouse.cpp:77 — gSurfaceTransformCacheStartup` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3210 | 0x0053C8CD | `__cinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyMouse.cpp:76 — gSurfaceTransformCacheStartup` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3211 | 0x0053C8FA | `_exit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3212 | 0x0053C90B | `__exit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3213 | 0x0053C91C | `_doexit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3271,17 +3277,17 @@
 | 3219 | 0x0053CB78 | `_ftell` | 有承接 | `src/GraphicInfo.cpp:138 — std::ftell（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3220 | 0x0053CCD0 | `__fstat` | 有承接 | `src/platform/LegacyTime.cpp:60 — ReadLegacyFileCreationTime32；include/cg/platform/LegacyTime.hpp:35 — ReadLegacyFileCreationTime32` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3221 | 0x0053CF50 | `__strcmpi` | 有承接 | `src/AnimationRuntime.cpp:395 — ::_stricmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3222 | 0x0053CFDC | `_fputc` | 有承接 | `src/world/SceneState.cpp:4918 — std::fputc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3222 | 0x0053CFDC | `_fputc` | 有承接 | `src/world/SceneState.cpp:4902 — std::fputc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3223 | 0x0053D000 | `__CIpow` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3224 | 0x0053D019 | `_pow` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3225 | 0x0053D022 | `sub_53D022` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3226 | 0x0053D1F5 | `sub_53D1F5` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3227 | 0x0053D21D | `__snprintf` | 有承接 | `include/cg/text/Encoding.hpp:20 — FormatTo` | UWF01最后7处私有显示缓冲改动态宽格式化，原有界窄调用已无消费者；GBK存档／协议容量保持；完整业务／运行未验 |
 | 3228 | 0x0053D26E | `_strtok` | 有承接 | `src/ui/windows/WindowConfirmation.cpp:209 — std::wcstok` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3229 | 0x0053D30A | `__close` | 有承接 | `src/ui/WindowRuntime.cpp:2953 — ::_close（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3230 | 0x0053D3BD | `__filelength` | 有承接 | `src/ui/WindowRuntime.cpp:2951 — ::_filelength（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3231 | 0x0053D435 | `__open` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3232 | 0x0053D44C | `__sopen` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3229 | 0x0053D30A | `__close` | 有承接 | `src/ui/WindowRuntime.cpp:2748 — ::_close（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3230 | 0x0053D3BD | `__filelength` | 有承接 | `src/ui/WindowRuntime.cpp:2746 — ::_filelength（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3231 | 0x0053D435 | `__open` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3232 | 0x0053D44C | `__sopen` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3233 | 0x0053D710 | `_memcpy` | 有承接 | `src/network/NetworkRuntime.cpp:4749 — ConsumeReceiveQueue_508230；src/network/NetworkRuntime.cpp:4768 — ConsumeSendQueue_508280` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3234 | 0x0053DA45 | `_strtol` | 有承接 | `include/cg/platform/LegacyTime.hpp:7 — std::strtol` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3235 | 0x0053DA5C | `_strtoxl` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3309,15 +3315,15 @@
 | 3257 | 0x0053F381 | `_get_short_arg` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3258 | 0x0053F38F | `__freebuf` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3259 | 0x0053F3BA | `__filbuf` | 有承接 | `src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3260 | 0x0053F493 | `__lseek` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3261 | 0x0053F52D | `__ioinit` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3260 | 0x0053F493 | `__lseek` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3261 | 0x0053F52D | `__ioinit` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3262 | 0x0053F6D8 | `__openfile` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3263 | 0x0053F848 | `__getstream` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3264 | 0x0053F8C0 | `__flsbuf` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3265 | 0x0053F9E0 | `_strlen` | 有承接 | `include/cg/platform/LegacyTime.hpp:8 — std::strlen` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3266 | 0x0053FA5B | `sub_53FA5B` | 有承接 | `src/platform/LegacyMemory.cpp:27 — ReallocateLegacyMemory_53FA5B` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3267 | 0x0053FCFB | `sub_53FCFB` | 有承接 | `src/platform/LegacyMemory.cpp:12 — GetLegacyAllocationSize_53FCFB` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:37301 — RenderChara_521F20；src/world/SceneState.cpp:10558 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10495 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3269 | 0x0053FD6E | `__ms_p5_test_fdiv` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3270 | 0x0053FDAC | `__ms_p5_mp_test_fdiv` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3271 | 0x0053FDD5 | `__forcdecpt` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3331,19 +3337,19 @@
 | 3279 | 0x00540177 | `__cftof_g` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3280 | 0x0054019A | `__cfltcvt` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3281 | 0x005401EB | `__shift` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3282 | 0x00540210 | `___InternalCxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3283 | 0x005402AB | `?FindHandler@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@EH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3284 | 0x00540452 | `?FindHandlerForForeignException@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@HH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3285 | 0x005404FA | `?TypeMatch@@YAHPBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_ThrowInfo@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3286 | 0x00540557 | `___FrameUnwindToState` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3282 | 0x00540210 | `___InternalCxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3283 | 0x005402AB | `?FindHandler@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@EH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3284 | 0x00540452 | `?FindHandlerForForeignException@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@HH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3285 | 0x005404FA | `?TypeMatch@@YAHPBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_ThrowInfo@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3286 | 0x00540557 | `___FrameUnwindToState` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3287 | 0x005405F5 | `unknown_libname_49` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
-| 3288 | 0x0054060B | `?CatchIt@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@PBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_TryBlockMapEntry@@H1E@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3289 | 0x00540686 | `?CallCatchBlock@@YAPAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3290 | 0x00540792 | `?ExFilterRethrow@@YAHPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3291 | 0x005407BC | `?BuildCatchObject@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PBU_s_HandlerType@@PBU_s_CatchableType@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3288 | 0x0054060B | `?CatchIt@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@PBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_TryBlockMapEntry@@H1E@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3289 | 0x00540686 | `?CallCatchBlock@@YAPAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3290 | 0x00540792 | `?ExFilterRethrow@@YAHPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3291 | 0x005407BC | `?BuildCatchObject@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PBU_s_HandlerType@@PBU_s_CatchableType@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:30 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3296 | 0x00540AB2 | `sub_540AB2` | 有承接 | `CMakeLists.txt:161 — 宿主VCRuntime` | 原八处引用均在C++ handler／展开链；读58FB74=540A5C、SEH保护后交终止；当前VCRuntime／实际std::terminate承接，不把标准流构造当本叶直接实现 |
 | 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/platform/LegacyTime.cpp:42 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:35 — ::_mktime32(&calendar)` | 原时区初始化包装仅由53B8C6／541160调用并转540B1D；实际::_localtime32／::_mktime32整体承接，不保原私有函数划分；MSVC库内策略沿获批边界，业务／寿命／运行未验 |
@@ -3352,9 +3358,9 @@
 | 3300 | 0x00540F27 | `_cvtdate` | 有承接 | `src/platform/LegacyTime.cpp:42 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:35 — ::_mktime32(&calendar)` | 原夏令时转换仅由540D7B内四处调用；同两MSVC公共日历服务整体承接，不复刻旧辅助边界／存储，不宣原体或机器ABI等价，业务／运行未验 |
 | 3301 | 0x00541067 | `_gmtime` | 有承接 | `src/platform/LegacyTime.cpp:42 — ::_localtime32(&timestamp)` | 原UTC分解仅在旧localtime内三处调用；当前实际::_localtime32整体承接该日历转换链，不宣称直接调用::_gmtime32或新增UTC接口，九S32借用字段及完整寿命／运行未验 |
 | 3302 | 0x00541160 | `___loctotime_t` | 有承接 | `src/platform/LegacyTime.cpp:23 — ConvertLocalTime_541160` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3303 | 0x00541222 | `__commit` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3304 | 0x00541279 | `__write` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3305 | 0x00541426 | `__read` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3303 | 0x00541222 | `__commit` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3304 | 0x00541279 | `__write` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3305 | 0x00541426 | `__read` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3306 | 0x00541620 | `_memcpy_0` | 有承接 | `src/platform/LegacyMemory.cpp:33 — CopyLegacyMemory_541620` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3307 | 0x00541955 | `__isctype` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3308 | 0x005419D0 | `_memset` | 有承接 | `src/platform/LegacyMemory.cpp:41 — FillLegacyMemory_5419D0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3377,10 +3383,10 @@
 | 3325 | 0x00542A54 | `sub_542A54` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原旧calloc／分配／realloc消费并转542C5C／54275C的私有分配链；实际标准分配族整体承接，库内策略沿MC01-C4，完整owner／运行未验 |
 | 3326 | 0x00542C5C | `sub_542C5C` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅542A54内两处调用的私有分配辅助；实际标准分配族整体承接，不伪称同名新叶或旧算法等价，owner／SDK／运行未验 |
 | 3327 | 0x00542D80 | `sub_542D80` | 有承接 | `src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅旧realloc消费的私有扩容辅助；实际std::realloc整体承接，不复刻旧元数据／同名接口，完整块内容／失败／owner／运行未验 |
-| 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3330 | 0x00542F10 | `__allmul` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC std::vfscanf直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3331 | 0x00542F44 | `sub_542F44` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；src/ui/WindowRuntime.cpp:2953 — ::_close（MSVC描述符服务）` | 原九个旧文件／目录父的系统错误→DOS错误／errno转换，当前实际MSVC文件／目录服务及同线程错误访问整体承接，不手写旧表／影子槽，业务错误消费／owner／运行未验 |
+| 3331 | 0x00542F44 | `sub_542F44` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；src/ui/WindowRuntime.cpp:2748 — ::_close（MSVC描述符服务）` | 原九个旧文件／目录父的系统错误→DOS错误／errno转换，当前实际MSVC文件／目录服务及同线程错误访问整体承接，不手写旧表／影子槽，业务错误消费／owner／运行未验 |
 | 3332 | 0x00543097 | `zerotoxdone` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3333 | 0x005430E2 | `_expbigret` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3334 | 0x0054310E | `__ffexpm1` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3399,11 +3405,11 @@
 | 3347 | 0x005434D9 | `__check_range_exit` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3348 | 0x0054357C | `__powhlp` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3349 | 0x005436AC | `__d_inttype` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3350 | 0x00543711 | `__alloc_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3351 | 0x005437A6 | `__set_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3352 | 0x0054381D | `__free_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3353 | 0x00543897 | `__get_osfhandle` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3354 | 0x005438D4 | `__chsize` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3350 | 0x00543711 | `__alloc_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3351 | 0x005437A6 | `__set_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3352 | 0x0054381D | `__free_osfhnd` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3353 | 0x00543897 | `__get_osfhandle` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3354 | 0x005438D4 | `__chsize` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3355 | 0x00543A1A | `_toupper` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3356 | 0x00543AE8 | `___crtLCMapStringA` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3357 | 0x00543D0C | `_strncnt` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3421,12 +3427,12 @@
 | 3369 | 0x00544620 | `__allshl` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC std::vfscanf直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3370 | 0x0054463F | `_ungetc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:26 — std::ungetc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3371 | 0x005446AD | `__fcloseall` | 有承接 | `include/cg/platform/LegacyStdio.hpp:37 — ::_fcloseall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3372 | 0x00544705 | `__isatty` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3372 | 0x00544705 | `__isatty` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3373 | 0x0054472B | `_wctomb` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3374 | 0x005447A0 | `__aullrem` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3375 | 0x00544815 | `__getbuf` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:37301 — RenderChara_521F20；src/world/SceneState.cpp:10558 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:37301 — RenderChara_521F20；src/world/SceneState.cpp:10558 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10495 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10495 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3378 | 0x005448A4 | `__abstract_cw` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3379 | 0x00544936 | `__hw_cw` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3380 | 0x005449BF | `__ZeroTail` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3450,8 +3456,8 @@
 | 3398 | 0x0054503A | `?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3399 | 0x00545080 | `sub_545080` | 有承接 | `CMakeLists.txt:161 — 宿主MSVC exe启动；src/platform/ClientEntry.cpp:263 — WinMain业务边界` | 原55317C C初始化槽安装54503A并保存旧filter；当前MSVC exe pre_cpp初始化持有默认C++异常filter，不再次安装旧入口；完整业务／运行未验 |
 | 3400 | 0x00545091 | `sub_545091` | 有承接 | `CMakeLists.txt:161 — 宿主MSVC生命周期；src/platform/ClientEntry.cpp:263 — WinMain业务边界` | 原553198终止槽恢复保存filter；当前宿主拥有完整filter寿命，旧手工保存／恢复沿MC01-C3退休；既有WinMain报告临时层不冒充本叶 |
-| 3401 | 0x0054509E | `?_ValidateRead@@YAHPBXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3402 | 0x005450BA | `?_ValidateWrite@@YAHPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3401 | 0x0054509E | `?_ValidateRead@@YAHPBXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3402 | 0x005450BA | `?_ValidateWrite@@YAHPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3403 | 0x005450D6 | `?_ValidateExecute@@YAHP6GHXZ@Z` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3404 | 0x005450F0 | `_strcmp` | 有承接 | `include/cg/platform/LegacyTime.hpp:8 — std::strcmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3405 | 0x00545174 | `_abort` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3474,7 +3480,7 @@
 | 3422 | 0x0054623E | `__decomp` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3423 | 0x005462FF | `__frnd` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3424 | 0x00546311 | `__fpclass` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3425 | 0x005463A3 | `__setmode` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3425 | 0x005463A3 | `__setmode` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3426 | 0x00546419 | `___strgtold12` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3427 | 0x005468EA | `__setmbcp` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3428 | 0x00546A83 | `_getSystemCP` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3511,217 +3517,217 @@
 | 3459 | 0x00548069 | `_copy_environ` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3460 | 0x005480D0 | `__mbschr` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3461 | 0x00548143 | `__strdup` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3462 | 0x00548170 | `sub_548170` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3463 | 0x0054817A | `sub_54817A` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3464 | 0x00548193 | `sub_548193` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3465 | 0x0054819D | `sub_54819D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3466 | 0x005481A7 | `sub_5481A7` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3467 | 0x005481C0 | `sub_5481C0` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3468 | 0x005481CA | `sub_5481CA` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3469 | 0x005481D4 | `sub_5481D4` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3470 | 0x005481EF | `sub_5481EF` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3471 | 0x005481F9 | `sub_5481F9` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3472 | 0x0054820E | `sub_54820E` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3473 | 0x00548218 | `sub_548218` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3474 | 0x00548233 | `sub_548233` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3475 | 0x0054823D | `sub_54823D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3476 | 0x00548252 | `sub_548252` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3477 | 0x0054825C | `sub_54825C` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3478 | 0x00548275 | `sub_548275` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3479 | 0x0054827F | `sub_54827F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3480 | 0x00548289 | `sub_548289` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3481 | 0x005482A4 | `sub_5482A4` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:93 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3482 | 0x005482AE | `sub_5482AE` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3483 | 0x005482B8 | `sub_5482B8` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3484 | 0x005482D3 | `sub_5482D3` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3485 | 0x005482DD | `??0Init@ios_base@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3486 | 0x0054843B | `nullsub_5` | 空方法 | `src/platform/LegacyMouse.cpp:141 — EmptyLegacyExit_54843B` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
-| 3487 | 0x00548463 | `sub_548463` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3488 | 0x005484CD | `sub_5484CD` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3489 | 0x0054852C | `sub_54852C` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3490 | 0x00548537 | `sub_548537` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3491 | 0x0054859F | `sub_54859F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3492 | 0x005485FE | `sub_5485FE` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3493 | 0x0054865E | `??0locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3494 | 0x0054867D | `??1locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3495 | 0x00548695 | `?_Decref@facet@locale@std@@QAEPAV123@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3496 | 0x005486B1 | `sub_5486B1` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3497 | 0x005486BF | `sub_5486BF` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3498 | 0x005486C5 | `sub_5486C5` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3499 | 0x005486C9 | `?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3500 | 0x005486E6 | `?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3501 | 0x0054875A | `?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPBDH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3502 | 0x005487D0 | `nullsub_8` | 空方法 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
-| 3503 | 0x005487D3 | `sub_5487D3` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3504 | 0x005487DE | `sub_5487DE` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3505 | 0x00548843 | `?overflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3506 | 0x00548979 | `?pbackfail@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3507 | 0x00548A26 | `?underflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3508 | 0x00548A53 | `?uflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3509 | 0x00548B68 | `unknown_libname_73` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3510 | 0x00548BEA | `unknown_libname_74` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3511 | 0x00548CAC | `?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3512 | 0x00548CD7 | `sub_548CD7` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3513 | 0x00548CF6 | `sub_548CF6` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3514 | 0x00548D12 | `sub_548D12` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3515 | 0x00548D31 | `sub_548D31` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3516 | 0x00548D4D | `sub_548D4D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3517 | 0x00548D69 | `?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ID@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3518 | 0x00548DC2 | `?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3519 | 0x00548E29 | `?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3520 | 0x00548E65 | `?init@?$basic_ios@DU?$char_traits@D@std@@@std@@IAEXPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3521 | 0x00548EA5 | `?_Gndec@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3522 | 0x00548EB5 | `?_Gninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3523 | 0x00548EC5 | `unknown_libname_75` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3524 | 0x00548ED5 | `?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3525 | 0x00548EFC | `?_Init@?$basic_filebuf@DU?$char_traits@D@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3526 | 0x00548F74 | `?_Freeze@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3527 | 0x00548FA0 | `?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3528 | 0x00549025 | `?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3529 | 0x00549055 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3530 | 0x0054908A | `?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3462 | 0x00548170 | `sub_548170` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3463 | 0x0054817A | `sub_54817A` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3464 | 0x00548193 | `sub_548193` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3465 | 0x0054819D | `sub_54819D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3466 | 0x005481A7 | `sub_5481A7` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3467 | 0x005481C0 | `sub_5481C0` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3468 | 0x005481CA | `sub_5481CA` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3469 | 0x005481D4 | `sub_5481D4` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3470 | 0x005481EF | `sub_5481EF` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3471 | 0x005481F9 | `sub_5481F9` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3472 | 0x0054820E | `sub_54820E` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3473 | 0x00548218 | `sub_548218` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3474 | 0x00548233 | `sub_548233` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3475 | 0x0054823D | `sub_54823D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3476 | 0x00548252 | `sub_548252` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3477 | 0x0054825C | `sub_54825C` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3478 | 0x00548275 | `sub_548275` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3479 | 0x0054827F | `sub_54827F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3480 | 0x00548289 | `sub_548289` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3481 | 0x005482A4 | `sub_5482A4` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3482 | 0x005482AE | `sub_5482AE` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:95 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3483 | 0x005482B8 | `sub_5482B8` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:95 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3484 | 0x005482D3 | `sub_5482D3` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:95 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3485 | 0x005482DD | `??0Init@ios_base@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3486 | 0x0054843B | `nullsub_5` | 空方法 | `src/platform/LegacyMouse.cpp:140 — EmptyLegacyExit_54843B` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
+| 3487 | 0x00548463 | `sub_548463` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3488 | 0x005484CD | `sub_5484CD` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3489 | 0x0054852C | `sub_54852C` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3490 | 0x00548537 | `sub_548537` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3491 | 0x0054859F | `sub_54859F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3492 | 0x005485FE | `sub_5485FE` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3493 | 0x0054865E | `??0locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3494 | 0x0054867D | `??1locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3495 | 0x00548695 | `?_Decref@facet@locale@std@@QAEPAV123@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3496 | 0x005486B1 | `sub_5486B1` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3497 | 0x005486BF | `sub_5486BF` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3498 | 0x005486C5 | `sub_5486C5` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3499 | 0x005486C9 | `?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3500 | 0x005486E6 | `?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3501 | 0x0054875A | `?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPBDH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3502 | 0x005487D0 | `nullsub_8` | 空方法 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
+| 3503 | 0x005487D3 | `sub_5487D3` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3504 | 0x005487DE | `sub_5487DE` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3505 | 0x00548843 | `?overflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3506 | 0x00548979 | `?pbackfail@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3507 | 0x00548A26 | `?underflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3508 | 0x00548A53 | `?uflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3509 | 0x00548B68 | `unknown_libname_73` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3510 | 0x00548BEA | `unknown_libname_74` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3511 | 0x00548CAC | `?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3512 | 0x00548CD7 | `sub_548CD7` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3513 | 0x00548CF6 | `sub_548CF6` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3514 | 0x00548D12 | `sub_548D12` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3515 | 0x00548D31 | `sub_548D31` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3516 | 0x00548D4D | `sub_548D4D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3517 | 0x00548D69 | `?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ID@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3518 | 0x00548DC2 | `?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3519 | 0x00548E29 | `?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3520 | 0x00548E65 | `?init@?$basic_ios@DU?$char_traits@D@std@@@std@@IAEXPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3521 | 0x00548EA5 | `?_Gndec@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3522 | 0x00548EB5 | `?_Gninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3523 | 0x00548EC5 | `unknown_libname_75` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3524 | 0x00548ED5 | `?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3525 | 0x00548EFC | `?_Init@?$basic_filebuf@DU?$char_traits@D@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3526 | 0x00548F74 | `?_Freeze@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3527 | 0x00548FA0 | `?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3528 | 0x00549025 | `?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3529 | 0x00549055 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3530 | 0x0054908A | `?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3531 | 0x00549147 | `?_Ungetc@std@@YA_NABDPAU_iobuf@@I@Z` | 有承接 | `include/cg/platform/LegacyStdio.hpp:26 — std::ungetc（标准库提供；无CPP消费者）；src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3532 | 0x00549194 | `unknown_libname_76` | 有承接 | `src/platform/LegacyMouse.cpp:161 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:414 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3533 | 0x005491BE | `sub_5491BE` | 有承接 | `src/platform/LegacyMouse.cpp:146 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3534 | 0x005491D6 | `sub_5491D6` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3535 | 0x005491E0 | `sub_5491E0` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3536 | 0x005491F6 | `sub_5491F6` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:92 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3537 | 0x00549200 | `sub_549200` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3538 | 0x0054920A | `sub_54920A` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3539 | 0x00549220 | `sub_549220` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3540 | 0x0054922A | `sub_54922A` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3541 | 0x00549234 | `sub_549234` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3542 | 0x0054924D | `sub_54924D` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3543 | 0x00549257 | `sub_549257` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3544 | 0x00549261 | `sub_549261` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3545 | 0x0054927A | `sub_54927A` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3546 | 0x00549284 | `sub_549284` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3547 | 0x0054928E | `sub_54928E` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3548 | 0x005492A7 | `sub_5492A7` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3549 | 0x005492B1 | `sub_5492B1` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3550 | 0x005492BB | `sub_5492BB` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3551 | 0x005492D6 | `sub_5492D6` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3552 | 0x005492E0 | `sub_5492E0` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3553 | 0x005492F5 | `sub_5492F5` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3554 | 0x005492FF | `sub_5492FF` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3555 | 0x0054931A | `sub_54931A` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3556 | 0x00549324 | `sub_549324` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3557 | 0x00549339 | `sub_549339` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3558 | 0x00549343 | `sub_549343` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3559 | 0x0054935E | `sub_54935E` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:114 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3560 | 0x00549368 | `sub_549368` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3561 | 0x00549372 | `sub_549372` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3562 | 0x0054938D | `sub_54938D` | 有承接 | `src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3563 | 0x00549397 | `??0_Winit@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3564 | 0x00549525 | `sub_549525` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3565 | 0x0054958F | `sub_54958F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3566 | 0x005495EE | `unknown_libname_77` | 有承接 | `src/platform/LegacyMouse.cpp:81 — FlushLegacyStandardStream` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3567 | 0x00549638 | `sub_549638` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3568 | 0x00549643 | `sub_549643` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3569 | 0x005496AB | `sub_5496AB` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3570 | 0x0054970A | `sub_54970A` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3571 | 0x0054976A | `sub_54976A` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3572 | 0x00549778 | `sub_549778` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3573 | 0x0054977F | `sub_54977F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3574 | 0x00549782 | `sub_549782` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3575 | 0x00549787 | `?uflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3576 | 0x005497A8 | `?xsgetn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3577 | 0x0054982F | `?xsputn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPBGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3578 | 0x005498B7 | `unknown_libname_78` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3579 | 0x005498EE | `unknown_libname_79` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3580 | 0x00549925 | `sub_549925` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3581 | 0x0054992A | `sub_54992A` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3582 | 0x00549935 | `sub_549935` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3583 | 0x0054999A | `?overflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3584 | 0x00549AE2 | `?pbackfail@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3585 | 0x00549B99 | `?underflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3586 | 0x00549BC7 | `?uflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3587 | 0x00549CE5 | `?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3588 | 0x00549D13 | `unknown_libname_80` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3589 | 0x00549D2C | `sub_549D2C` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3590 | 0x00549D4B | `sub_549D4B` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3591 | 0x00549D67 | `sub_549D67` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3592 | 0x00549D86 | `sub_549D86` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3593 | 0x00549DA2 | `sub_549DA2` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3594 | 0x00549DBE | `?init@?$basic_ios@GU?$char_traits@G@std@@@std@@IAEXPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3595 | 0x00549E08 | `?gbump@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEXH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3596 | 0x00549E1C | `?_Gndec@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3597 | 0x00549E2D | `?_Gninc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3598 | 0x00549E3D | `unknown_libname_81` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3599 | 0x00549E51 | `unknown_libname_82` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3600 | 0x00549E61 | `?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3601 | 0x00549E88 | `?_Init@?$basic_filebuf@GU?$char_traits@G@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3602 | 0x00549EDE | `unknown_libname_83` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3603 | 0x00549F20 | `unknown_libname_84` | 有承接 | `src/platform/LegacyMouse.cpp:161 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:414 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3604 | 0x00549F4A | `sub_549F4A` | 有承接 | `src/platform/LegacyMouse.cpp:146 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3605 | 0x00549F62 | `?clear@ios_base@std@@QAEXH_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3606 | 0x00549FFE | `sub_549FFE` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3607 | 0x0054A062 | `sub_54A062` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3608 | 0x0054A06F | `sub_54A06F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3609 | 0x0054A08C | `unknown_libname_85` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3610 | 0x0054A0C9 | `sub_54A0C9` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3611 | 0x0054A0E5 | `sub_54A0E5` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3612 | 0x0054A142 | `unknown_libname_86` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3613 | 0x0054A17F | `sub_54A17F` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3614 | 0x0054A19C | `sub_54A19C` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3615 | 0x0054A1B8 | `sub_54A1B8` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3616 | 0x0054A1D0 | `??1ios_base@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3617 | 0x0054A220 | `??_Gios_base@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3618 | 0x0054A23C | `?_Callfns@ios_base@std@@AAEXW4event@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3619 | 0x0054A25E | `?_Addstd@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3620 | 0x0054A293 | `?_Init@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3621 | 0x0054A2CB | `?_Tidy@ios_base@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3622 | 0x0054A315 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3623 | 0x0054A3E3 | `sub_54A3E3` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3624 | 0x0054A3ED | `nullsub_9` | 空方法 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
-| 3625 | 0x0054A3FA | `sub_54A3FA` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3626 | 0x0054A404 | `?_Init@locale@std@@CAPAV_Locimp@12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3627 | 0x0054A4BD | `sub_54A4BD` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3628 | 0x0054A505 | `??0_Locimp@locale@std@@AAE@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3629 | 0x0054A57E | `unknown_libname_87` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3630 | 0x0054A59B | `??_G_Locimp@locale@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3631 | 0x0054A5B7 | `??1_Locimp@locale@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3632 | 0x0054A638 | `unknown_libname_88` | 有承接 | `src/platform/LegacyMouse.cpp:161 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:414 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3633 | 0x0054A662 | `sub_54A662` | 有承接 | `src/platform/LegacyMouse.cpp:146 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3634 | 0x0054A67A | `?_Xlen@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3635 | 0x0054A6D4 | `sub_54A6D4` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3636 | 0x0054A738 | `sub_54A738` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3637 | 0x0054A755 | `unknown_libname_89` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3638 | 0x0054A792 | `sub_54A792` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3639 | 0x0054A7AE | `sub_54A7AE` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3640 | 0x0054A80B | `unknown_libname_90` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3641 | 0x0054A848 | `sub_54A848` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3642 | 0x0054A865 | `sub_54A865` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3643 | 0x0054A881 | `sub_54A881` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3644 | 0x0054A899 | `?_Xran@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3645 | 0x0054A8F3 | `unknown_libname_91` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3646 | 0x0054A930 | `sub_54A930` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3647 | 0x0054A94D | `sub_54A94D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3648 | 0x0054A969 | `sub_54A969` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3649 | 0x0054A981 | `unknown_libname_92` | 有承接 | `src/platform/LegacyMouse.cpp:161 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:414 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3650 | 0x0054A9AB | `sub_54A9AB` | 有承接 | `src/platform/LegacyMouse.cpp:146 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3532 | 0x00549194 | `unknown_libname_76` | 有承接 | `src/platform/LegacyMouse.cpp:160 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:294 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3533 | 0x005491BE | `sub_5491BE` | 有承接 | `src/platform/LegacyMouse.cpp:145 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3534 | 0x005491D6 | `sub_5491D6` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3535 | 0x005491E0 | `sub_5491E0` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3536 | 0x005491F6 | `sub_5491F6` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3537 | 0x00549200 | `sub_549200` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3538 | 0x0054920A | `sub_54920A` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3539 | 0x00549220 | `sub_549220` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3540 | 0x0054922A | `sub_54922A` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3541 | 0x00549234 | `sub_549234` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3542 | 0x0054924D | `sub_54924D` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3543 | 0x00549257 | `sub_549257` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3544 | 0x00549261 | `sub_549261` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3545 | 0x0054927A | `sub_54927A` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3546 | 0x00549284 | `sub_549284` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3547 | 0x0054928E | `sub_54928E` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3548 | 0x005492A7 | `sub_5492A7` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3549 | 0x005492B1 | `sub_5492B1` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3550 | 0x005492BB | `sub_5492BB` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3551 | 0x005492D6 | `sub_5492D6` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3552 | 0x005492E0 | `sub_5492E0` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3553 | 0x005492F5 | `sub_5492F5` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3554 | 0x005492FF | `sub_5492FF` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3555 | 0x0054931A | `sub_54931A` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3556 | 0x00549324 | `sub_549324` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3557 | 0x00549339 | `sub_549339` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3558 | 0x00549343 | `sub_549343` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3559 | 0x0054935E | `sub_54935E` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:113 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3560 | 0x00549368 | `sub_549368` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:116 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3561 | 0x00549372 | `sub_549372` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:116 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3562 | 0x0054938D | `sub_54938D` | 有承接 | `src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:116 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3563 | 0x00549397 | `??0_Winit@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3564 | 0x00549525 | `sub_549525` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3565 | 0x0054958F | `sub_54958F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3566 | 0x005495EE | `unknown_libname_77` | 有承接 | `src/platform/LegacyMouse.cpp:80 — FlushLegacyStandardStream` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3567 | 0x00549638 | `sub_549638` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3568 | 0x00549643 | `sub_549643` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3569 | 0x005496AB | `sub_5496AB` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3570 | 0x0054970A | `sub_54970A` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3571 | 0x0054976A | `sub_54976A` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3572 | 0x00549778 | `sub_549778` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3573 | 0x0054977F | `sub_54977F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3574 | 0x00549782 | `sub_549782` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3575 | 0x00549787 | `?uflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3576 | 0x005497A8 | `?xsgetn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3577 | 0x0054982F | `?xsputn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPBGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3578 | 0x005498B7 | `unknown_libname_78` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3579 | 0x005498EE | `unknown_libname_79` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3580 | 0x00549925 | `sub_549925` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3581 | 0x0054992A | `sub_54992A` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3582 | 0x00549935 | `sub_549935` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3583 | 0x0054999A | `?overflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3584 | 0x00549AE2 | `?pbackfail@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3585 | 0x00549B99 | `?underflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3586 | 0x00549BC7 | `?uflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3587 | 0x00549CE5 | `?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3588 | 0x00549D13 | `unknown_libname_80` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3589 | 0x00549D2C | `sub_549D2C` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3590 | 0x00549D4B | `sub_549D4B` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3591 | 0x00549D67 | `sub_549D67` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3592 | 0x00549D86 | `sub_549D86` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3593 | 0x00549DA2 | `sub_549DA2` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3594 | 0x00549DBE | `?init@?$basic_ios@GU?$char_traits@G@std@@@std@@IAEXPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3595 | 0x00549E08 | `?gbump@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEXH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3596 | 0x00549E1C | `?_Gndec@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3597 | 0x00549E2D | `?_Gninc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3598 | 0x00549E3D | `unknown_libname_81` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3599 | 0x00549E51 | `unknown_libname_82` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3600 | 0x00549E61 | `?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3601 | 0x00549E88 | `?_Init@?$basic_filebuf@GU?$char_traits@G@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3602 | 0x00549EDE | `unknown_libname_83` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3603 | 0x00549F20 | `unknown_libname_84` | 有承接 | `src/platform/LegacyMouse.cpp:160 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:294 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3604 | 0x00549F4A | `sub_549F4A` | 有承接 | `src/platform/LegacyMouse.cpp:145 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3605 | 0x00549F62 | `?clear@ios_base@std@@QAEXH_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3606 | 0x00549FFE | `sub_549FFE` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3607 | 0x0054A062 | `sub_54A062` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3608 | 0x0054A06F | `sub_54A06F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3609 | 0x0054A08C | `unknown_libname_85` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3610 | 0x0054A0C9 | `sub_54A0C9` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3611 | 0x0054A0E5 | `sub_54A0E5` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3612 | 0x0054A142 | `unknown_libname_86` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3613 | 0x0054A17F | `sub_54A17F` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3614 | 0x0054A19C | `sub_54A19C` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3615 | 0x0054A1B8 | `sub_54A1B8` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3616 | 0x0054A1D0 | `??1ios_base@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3617 | 0x0054A220 | `??_Gios_base@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3618 | 0x0054A23C | `?_Callfns@ios_base@std@@AAEXW4event@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3619 | 0x0054A25E | `?_Addstd@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3620 | 0x0054A293 | `?_Init@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3621 | 0x0054A2CB | `?_Tidy@ios_base@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3622 | 0x0054A315 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3623 | 0x0054A3E3 | `sub_54A3E3` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3624 | 0x0054A3ED | `nullsub_9` | 空方法 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
+| 3625 | 0x0054A3FA | `sub_54A3FA` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3626 | 0x0054A404 | `?_Init@locale@std@@CAPAV_Locimp@12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3627 | 0x0054A4BD | `sub_54A4BD` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3628 | 0x0054A505 | `??0_Locimp@locale@std@@AAE@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3629 | 0x0054A57E | `unknown_libname_87` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3630 | 0x0054A59B | `??_G_Locimp@locale@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3631 | 0x0054A5B7 | `??1_Locimp@locale@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3632 | 0x0054A638 | `unknown_libname_88` | 有承接 | `src/platform/LegacyMouse.cpp:160 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:294 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3633 | 0x0054A662 | `sub_54A662` | 有承接 | `src/platform/LegacyMouse.cpp:145 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3634 | 0x0054A67A | `?_Xlen@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3635 | 0x0054A6D4 | `sub_54A6D4` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3636 | 0x0054A738 | `sub_54A738` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3637 | 0x0054A755 | `unknown_libname_89` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3638 | 0x0054A792 | `sub_54A792` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3639 | 0x0054A7AE | `sub_54A7AE` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3640 | 0x0054A80B | `unknown_libname_90` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3641 | 0x0054A848 | `sub_54A848` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3642 | 0x0054A865 | `sub_54A865` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3643 | 0x0054A881 | `sub_54A881` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3644 | 0x0054A899 | `?_Xran@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3645 | 0x0054A8F3 | `unknown_libname_91` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3646 | 0x0054A930 | `sub_54A930` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3647 | 0x0054A94D | `sub_54A94D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3648 | 0x0054A969 | `sub_54A969` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3649 | 0x0054A981 | `unknown_libname_92` | 有承接 | `src/platform/LegacyMouse.cpp:160 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:294 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3650 | 0x0054A9AB | `sub_54A9AB` | 有承接 | `src/platform/LegacyMouse.cpp:145 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3651 | 0x0054A9C3 | `__Mbrtowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3652 | 0x0054AAD5 | `_btowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3653 | 0x0054AB16 | `GetAdaptersAddresses` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:20 — GetAdaptersAddresses；src/platform/LegacyNetworkAdapter.cpp:16 — Sub_534EF0` | 原 GetAdaptersAddresses import 跳板；当前实际 Windows IP Helper API 调用存在，保留原适配器消费边界；完整网络／运行未验 |
-| 3654 | 0x0054AB1C | `RtlUnwind` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3654 | 0x0054AB1C | `RtlUnwind` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3655 | 0x0054AB30 | `__strnicmp` | 有承接 | `src/platform/MainLoopSupport.cpp:224 — ::_strnicmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3656 | 0x0054ABDD | `__itoa` | 有承接 | `src/world/RenderInput.cpp:132 — std::to_wstring` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3657 | 0x0054AC0A | `_xtoa` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3658 | 0x0054AC66 | `??1type_info@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3659 | 0x0054AC7B | `??_Gtype_info@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3660 | 0x0054AC98 | `__EH_prolog` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3658 | 0x0054AC66 | `??1type_info@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3659 | 0x0054AC7B | `??_Gtype_info@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3660 | 0x0054AC98 | `__EH_prolog` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3661 | 0x0054ACB7 | `_fgetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:29 — std::fgetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3662 | 0x0054ACD9 | `_fsetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:30 — std::fsetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3663 | 0x0054ACF1 | `_setvbuf` | 有承接 | `include/cg/platform/LegacyStdio.hpp:25 — std::setvbuf（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3664 | 0x0054AD92 | `_fputwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:31 — std::fputwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3665 | 0x0054AE87 | `_ungetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:33 — std::ungetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3666 | 0x0054AF70 | `_fgetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:32 — std::fgetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3667 | 0x0054B05D | `sub_54B05D` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3668 | 0x0054B079 | `??0exception@@QAE@ABQBD@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3669 | 0x0054B0B6 | `??0exception@@QAE@ABV0@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3670 | 0x0054B100 | `sub_54B100` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3671 | 0x0054B116 | `?what@exception@@UBEPBDXZ` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3672 | 0x0054B123 | `__CxxThrowException@8` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3667 | 0x0054B05D | `sub_54B05D` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3668 | 0x0054B079 | `??0exception@@QAE@ABQBD@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3669 | 0x0054B0B6 | `??0exception@@QAE@ABV0@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3670 | 0x0054B100 | `sub_54B100` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3671 | 0x0054B116 | `?what@exception@@UBEPBDXZ` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3672 | 0x0054B123 | `__CxxThrowException@8` | 有承接 | `src/platform/LegacyMouse.cpp:89 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:110 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3673 | 0x0054B160 | `_memcmp` | 有承接 | `src/platform/LegacyMemory.cpp:49 — CompareLegacyMemory_54B160` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3674 | 0x0054B1AC | `retnull_0` | 有承接 | `src/platform/LegacyMemory.cpp:49 — CompareLegacyMemory_54B160；include/cg/platform/LegacyMemory.hpp:21 — CompareLegacyMemory_54B160` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3675 | 0x0054B20C | `___termcon` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3729,4 +3735,4 @@
 | 3677 | 0x0054B3C0 | `__fseeki64` | 有承接 | `include/cg/platform/LegacyStdio.hpp:28 — ::_fseeki64（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3678 | 0x0054B450 | `__flswbuf` | 有承接 | `include/cg/platform/LegacyStdio.hpp:31 — std::fputwc（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3679 | 0x0054B574 | `__filwbuf` | 有承接 | `src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3680 | 0x0054B658 | `__lseeki64` | 有承接 | `src/ui/WindowRuntime.cpp:2947 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3680 | 0x0054B658 | `__lseeki64` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

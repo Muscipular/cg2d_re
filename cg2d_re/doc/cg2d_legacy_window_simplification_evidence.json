@@ -1,0 +1,4732 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+  "scope": "用户接受取消无显示链旧选择及End残留；仅当前工程范围排除，不证明原端不可达或恢复完整功能。",
+  "removed_selection_functions": [
+    "Sub_504180",
+    "Sub_5042D0",
+    "Sub_5043D0",
+    "Sub_504410",
+    "Sub_5044C0",
+    "Sub_504AF0"
+  ],
+  "removed_state": [
+    {
+      "symbol": "gLegacyPanelHitIdD046C0",
+      "type": "std::uint32_t",
+      "line": 195
+    },
+    {
+      "symbol": "gLegacySkillList585708",
+      "type": "LegacyPanelRecord",
+      "line": 196
+    },
+    {
+      "symbol": "gLegacySkillPendingD67C48",
+      "type": "std::uint8_t",
+      "line": 199
+    },
+    {
+      "symbol": "gLegacyRequiredFpCC31D8",
+      "type": "std::int32_t",
+      "line": 200
+    },
+    {
+      "symbol": "gLegacyItemWorkSelection584394",
+      "type": "std::int32_t",
+      "line": 201
+    },
+    {
+      "symbol": "gLegacyItemWorkNameCC40D8",
+      "type": "std::wstring",
+      "line": 202
+    },
+    {
+      "symbol": "gLegacyItemWorkImageCC320C",
+      "type": "std::int32_t",
+      "line": 203
+    },
+    {
+      "symbol": "gLegacyCraftPhaseD67D00",
+      "type": "std::int32_t",
+      "line": 204
+    },
+    {
+      "symbol": "gLegacyGemPhaseD68A8C",
+      "type": "std::int32_t",
+      "line": 205
+    },
+    {
+      "symbol": "gLegacyRecipePageD67D0C",
+      "type": "std::int32_t",
+      "line": 206
+    },
+    {
+      "symbol": "gLegacyInventoryValueC8B388",
+      "type": "std::int32_t",
+      "line": 207
+    },
+    {
+      "symbol": "gLegacySpecialUseItemC8A96C",
+      "type": "std::int32_t",
+      "line": 208
+    },
+    {
+      "symbol": "gLegacySpecialUseColumnCF4AA8",
+      "type": "std::int32_t",
+      "line": 209
+    },
+    {
+      "symbol": "gLegacySpecialUseRowD2D614",
+      "type": "std::int32_t",
+      "line": 210
+    },
+    {
+      "symbol": "gLegacySplitSourceCC3E60",
+      "type": "std::int32_t",
+      "line": 211
+    },
+    {
+      "symbol": "gLegacySplitTargetCC21DC",
+      "type": "std::int32_t",
+      "line": 212
+    },
+    {
+      "symbol": "gLegacySplitAmountC8A948",
+      "type": "std::int32_t",
+      "line": 213
+    },
+    {
+      "symbol": "gLegacyLastUsedItemCB01EC",
+      "type": "std::int32_t",
+      "line": 214
+    },
+    {
+      "symbol": "gLegacyShopChoiceModeC9A94C",
+      "type": "std::int32_t",
+      "line": 222
+    },
+    {
+      "symbol": "gLegacyLogStorage593A00",
+      "type": "LegacyLogStorage",
+      "line": 240
+    },
+    {
+      "symbol": "gLegacyLogPanel553440",
+      "type": "LegacyPanelRecord",
+      "line": 241
+    },
+    {
+      "symbol": "gLegacyLogPageCount553504",
+      "type": "std::int32_t",
+      "line": 244
+    },
+    {
+      "symbol": "gLegacyLogPage553508",
+      "type": "std::int32_t",
+      "line": 245
+    },
+    {
+      "symbol": "gLegacyLogFile593F78",
+      "type": "platform::LegacyFile*",
+      "line": 246
+    },
+    {
+      "symbol": "gLegacyLogError593F7C",
+      "type": "std::int32_t",
+      "line": 247
+    },
+    {
+      "symbol": "gLegacyLogLineCount593F80",
+      "type": "std::int32_t",
+      "line": 248
+    },
+    {
+      "symbol": "gLegacyLogCalendar593F88",
+      "type": "platform::LegacyTm53B8C6*",
+      "line": 249
+    },
+    {
+      "symbol": "gLegacyLogInput593F8C",
+      "type": "input::InputContext*",
+      "line": 250
+    },
+    {
+      "symbol": "gLegacyDialogPanelD2D9C8",
+      "type": "LegacyPanelRecord",
+      "line": 263
+    },
+    {
+      "symbol": "gLegacyLineDialogPanelCC4150",
+      "type": "LegacyPanelRecord",
+      "line": 264
+    },
+    {
+      "symbol": "gLegacyDialogLineCountCA043C",
+      "type": "std::int32_t",
+      "line": 265
+    },
+    {
+      "symbol": "gLegacyDialogOffsetXCAFEAC",
+      "type": "std::int32_t",
+      "line": 266
+    },
+    {
+      "symbol": "gLegacyDialogOffsetYCAFEA8",
+      "type": "std::int32_t",
+      "line": 267
+    },
+    {
+      "symbol": "gLegacyDialogColumnsCA0010",
+      "type": "std::int32_t",
+      "line": 268
+    },
+    {
+      "symbol": "gLegacyDialogFirstLineD673D4",
+      "type": "std::int32_t",
+      "line": 269
+    },
+    {
+      "symbol": "gLegacyDialogInputD67C4C",
+      "type": "input::InputContext*",
+      "line": 270
+    },
+    {
+      "symbol": "gLegacyDialogButtons581808",
+      "type": "std::array<character_select::detail::CharacterModalUiRecord, 6>",
+      "line": 277
+    },
+    {
+      "symbol": "gLegacySkillChoicePanel581D60",
+      "type": "LegacyPanelRecord",
+      "line": 286
+    },
+    {
+      "symbol": "gLegacySkillChoiceActionD67C58",
+      "type": "YobiAction*",
+      "line": 289
+    },
+    {
+      "symbol": "gLegacySkillLearningPanel581E28",
+      "type": "LegacyPanelRecord",
+      "line": 297
+    },
+    {
+      "symbol": "gLegacySkillForgetPanel581EF0",
+      "type": "LegacyPanelRecord",
+      "line": 307
+    },
+    {
+      "symbol": "gLegacySkillStatusPanel583C90",
+      "type": "LegacyPanelRecord",
+      "line": 320
+    },
+    {
+      "symbol": "gLegacySkillTargetPanel583D58",
+      "type": "LegacyPanelRecord",
+      "line": 335
+    },
+    {
+      "symbol": "gLegacyItemTargetPanel582D40",
+      "type": "LegacyPanelRecord",
+      "line": 346
+    },
+    {
+      "symbol": "gLegacyTextNoticePanel583EE8",
+      "type": "LegacyPanelRecord",
+      "line": 354
+    },
+    {
+      "symbol": "gLegacyTextNoticePanel583FB0",
+      "type": "LegacyPanelRecord",
+      "line": 357
+    },
+    {
+      "symbol": "gLegacyBuyPanel5823A0",
+      "type": "LegacyPanelRecord",
+      "line": 365
+    },
+    {
+      "symbol": "gLegacyBuyConfirmPanel582468",
+      "type": "LegacyPanelRecord",
+      "line": 368
+    },
+    {
+      "symbol": "gLegacyBuyActionD67C6C",
+      "type": "YobiAction*",
+      "line": 371
+    },
+    {
+      "symbol": "gLegacyBuyImageD2DBFC",
+      "type": "std::int32_t",
+      "line": 372
+    },
+    {
+      "symbol": "gLegacyBuyPageCountD2D63C",
+      "type": "std::int32_t",
+      "line": 373
+    },
+    {
+      "symbol": "gLegacyBuyDetailPageD67C70",
+      "type": "std::int32_t",
+      "line": 374
+    },
+    {
+      "symbol": "gLegacyBuyPreviousHover582464",
+      "type": "std::int32_t",
+      "line": 375
+    },
+    {
+      "symbol": "gLegacyBuyTotalC8AF6C",
+      "type": "std::int32_t",
+      "line": 376
+    },
+    {
+      "symbol": "gLegacyBuyMessageD30414",
+      "type": "std::int32_t",
+      "line": 377
+    },
+    {
+      "symbol": "gLegacySellPanel582530",
+      "type": "LegacyPanelRecord",
+      "line": 378
+    },
+    {
+      "symbol": "gLegacySellConfirmPanel5825F8",
+      "type": "LegacyPanelRecord",
+      "line": 381
+    },
+    {
+      "symbol": "gLegacySellActionD67C74",
+      "type": "YobiAction*",
+      "line": 384
+    },
+    {
+      "symbol": "gLegacySellImageCC3EFC",
+      "type": "std::int32_t",
+      "line": 385
+    },
+    {
+      "symbol": "gLegacySellPageCF49FC",
+      "type": "std::int32_t",
+      "line": 386
+    },
+    {
+      "symbol": "gLegacySellPageCountCA0ABC",
+      "type": "std::int32_t",
+      "line": 387
+    },
+    {
+      "symbol": "gLegacySellDetailPageD67C78",
+      "type": "std::int32_t",
+      "line": 388
+    },
+    {
+      "symbol": "gLegacySellPreviousHover5825F4",
+      "type": "std::int32_t",
+      "line": 389
+    },
+    {
+      "symbol": "gLegacySellTotalCF3FCC",
+      "type": "std::int32_t",
+      "line": 390
+    },
+    {
+      "symbol": "gLegacySellLimitMessageCB0A88",
+      "type": "std::int32_t",
+      "line": 391
+    },
+    {
+      "symbol": "gLegacyHealingPanel5826C0",
+      "type": "LegacyPanelRecord",
+      "line": 392
+    },
+    {
+      "symbol": "gLegacyRepairPanel582788",
+      "type": "LegacyPanelRecord",
+      "line": 405
+    },
+    {
+      "symbol": "gLegacyRepairConfirmPanel582850",
+      "type": "LegacyPanelRecord",
+      "line": 408
+    },
+    {
+      "symbol": "gLegacyRepairItemsCE4548",
+      "type": "std::array<char, 20 * 0xC48>",
+      "line": 412
+    },
+    {
+      "symbol": "gLegacyRepairActionD67C7C",
+      "type": "YobiAction*",
+      "line": 413
+    },
+    {
+      "symbol": "gLegacyRepairImageD673E8",
+      "type": "std::int32_t",
+      "line": 414
+    },
+    {
+      "symbol": "gLegacyRepairPageCF4A08",
+      "type": "std::int32_t",
+      "line": 415
+    },
+    {
+      "symbol": "gLegacyRepairPageCountCC4B24",
+      "type": "std::int32_t",
+      "line": 416
+    },
+    {
+      "symbol": "gLegacyRepairDetailPageD67C80",
+      "type": "std::int32_t",
+      "line": 417
+    },
+    {
+      "symbol": "gLegacyRepairPreviousHover58284C",
+      "type": "std::int32_t",
+      "line": 418
+    },
+    {
+      "symbol": "gLegacyRepairTotalD460C4",
+      "type": "std::int32_t",
+      "line": 419
+    },
+    {
+      "symbol": "gLegacyRepairMessageD64E14",
+      "type": "std::int32_t",
+      "line": 420
+    },
+    {
+      "symbol": "gLegacyShopChoicePanel5822D8",
+      "type": "LegacyPanelRecord",
+      "line": 442
+    },
+    {
+      "symbol": "gLegacyShopChoiceActionD67C68",
+      "type": "YobiAction*",
+      "line": 445
+    },
+    {
+      "symbol": "gLegacyIdentifyPanel582918",
+      "type": "LegacyPanelRecord",
+      "line": 471
+    },
+    {
+      "symbol": "gLegacyIdentifyConfirmPanel5829E0",
+      "type": "LegacyPanelRecord",
+      "line": 474
+    },
+    {
+      "symbol": "gLegacyIdentifyItemsC8B390",
+      "type": "std::array<char, 20 * 0xC48>",
+      "line": 478
+    },
+    {
+      "symbol": "gLegacyIdentifyActionD67C84",
+      "type": "YobiAction*",
+      "line": 479
+    },
+    {
+      "symbol": "gLegacyIdentifyImageCF4698",
+      "type": "std::int32_t",
+      "line": 480
+    },
+    {
+      "symbol": "gLegacyIdentifyPageCC3F00",
+      "type": "std::int32_t",
+      "line": 481
+    },
+    {
+      "symbol": "gLegacyIdentifyPageCountC9A950",
+      "type": "std::int32_t",
+      "line": 482
+    },
+    {
+      "symbol": "gLegacyIdentifyDetailPageD67C88",
+      "type": "std::int32_t",
+      "line": 483
+    },
+    {
+      "symbol": "gLegacyIdentifyPreviousHover5829DC",
+      "type": "std::int32_t",
+      "line": 484
+    },
+    {
+      "symbol": "gLegacyIdentifyTotalCB1E3C",
+      "type": "std::int32_t",
+      "line": 485
+    },
+    {
+      "symbol": "gLegacyIdentifyMessageC9A948",
+      "type": "std::int32_t",
+      "line": 486
+    },
+    {
+      "symbol": "gLegacyMessagePanel582AA8",
+      "type": "LegacyPanelRecord",
+      "line": 497
+    },
+    {
+      "symbol": "gLegacyMessageInputD67C8C",
+      "type": "input::InputContext*",
+      "line": 500
+    },
+    {
+      "symbol": "gLegacyBuyPageCC1A0C",
+      "type": "std::int32_t",
+      "line": 533
+    },
+    {
+      "symbol": "gLegacyStorageTabCF4A34",
+      "type": "std::int32_t",
+      "line": 534
+    },
+    {
+      "symbol": "gLegacyStorageDepositDraftCC4B58",
+      "type": "std::int32_t",
+      "line": 535
+    },
+    {
+      "symbol": "gLegacyBarterItemsCA0B30",
+      "type": "std::array<LegacyBarterItemRecord, 20>",
+      "line": 552
+    },
+    {
+      "symbol": "gLegacyBarterPanel5818B0",
+      "type": "LegacyPanelRecord",
+      "line": 553
+    },
+    {
+      "symbol": "gLegacyBarterConfirmPanel581978",
+      "type": "LegacyPanelRecord",
+      "line": 556
+    },
+    {
+      "symbol": "gLegacyBarterActionD67C50",
+      "type": "YobiAction*",
+      "line": 559
+    },
+    {
+      "symbol": "gLegacyBarterImageCF4A0C",
+      "type": "std::int32_t",
+      "line": 560
+    },
+    {
+      "symbol": "gLegacyBarterDetailPageD67C54",
+      "type": "std::int32_t",
+      "line": 561
+    },
+    {
+      "symbol": "gLegacyBarterPreviousHover581974",
+      "type": "std::int32_t",
+      "line": 562
+    },
+    {
+      "symbol": "gLegacyBarterPageCB10D0",
+      "type": "std::int32_t",
+      "line": 563
+    },
+    {
+      "symbol": "gLegacyBarterPageCountC8A954",
+      "type": "std::int32_t",
+      "line": 564
+    },
+    {
+      "symbol": "gLegacyBarterTotalD2F334",
+      "type": "std::int32_t",
+      "line": 565
+    },
+    {
+      "symbol": "gLegacyBarterMessageCC2E54",
+      "type": "std::int32_t",
+      "line": 566
+    },
+    {
+      "symbol": "gLegacyExchangePanel581A40",
+      "type": "LegacyPanelRecord",
+      "line": 579
+    },
+    {
+      "symbol": "gLegacyGiveReceivePanel581B08",
+      "type": "LegacyPanelRecord",
+      "line": 582
+    },
+    {
+      "symbol": "gLegacyExchangeActionCF4B5C",
+      "type": "YobiAction*",
+      "line": 585
+    },
+    {
+      "symbol": "gLegacyGiveReceiveActionCB2228",
+      "type": "YobiAction*",
+      "line": 586
+    },
+    {
+      "symbol": "gLegacyGiveReceiveModeC8AA98",
+      "type": "std::int32_t",
+      "line": 587
+    },
+    {
+      "symbol": "gLegacyGiveReceiveQuantityPanel581BD0",
+      "type": "LegacyPanelRecord",
+      "line": 588
+    },
+    {
+      "symbol": "gLegacyGiveConfirmPanel581C98",
+      "type": "LegacyPanelRecord",
+      "line": 591
+    },
+    {
+      "symbol": "gLegacyGiveReceiveQuantityActionCB1DD4",
+      "type": "YobiAction*",
+      "line": 601
+    },
+    {
+      "symbol": "gLegacyGiveReceiveImageD2D814",
+      "type": "std::int32_t",
+      "line": 602
+    },
+    {
+      "symbol": "gLegacyGiveReceiveDetailPageD2EAB0",
+      "type": "std::int32_t",
+      "line": 603
+    },
+    {
+      "symbol": "gLegacyAlbumDetailPanel5846C0",
+      "type": "LegacyPanelRecord",
+      "line": 624
+    },
+    {
+      "symbol": "gLegacyAlbumListPanel584788",
+      "type": "LegacyPanelRecord",
+      "line": 627
+    },
+    {
+      "symbol": "gLegacyAlbumSelectionC8AF7C",
+      "type": "std::int32_t",
+      "line": 630
+    },
+    {
+      "symbol": "gLegacyAlbumPageC8B1B0",
+      "type": "std::int32_t",
+      "line": 631
+    },
+    {
+      "symbol": "gLegacyAlbumReturningCC40D0",
+      "type": "std::int32_t",
+      "line": 632
+    },
+    {
+      "symbol": "gLegacyAlbumActionD67D14",
+      "type": "YobiAction*",
+      "line": 633
+    },
+    {
+      "symbol": "gLegacyPetListPanel584850",
+      "type": "LegacyPanelRecord",
+      "line": 639
+    },
+    {
+      "symbol": "gLegacyPetStateOpenD67D18",
+      "type": "std::int16_t",
+      "line": 642
+    },
+    {
+      "symbol": "gLegacyPetStatePreviousD2D48C",
+      "type": "std::int16_t",
+      "line": 643
+    },
+    {
+      "symbol": "gLegacyPetStateValuesCF4E38",
+      "type": "std::array<std::int16_t, 5>",
+      "line": 645
+    },
+    {
+      "symbol": "gLegacyPetStandbyCountCC4D18",
+      "type": "std::int16_t",
+      "line": 646
+    },
+    {
+      "symbol": "gLegacyPetBattleCountD45F8C",
+      "type": "std::int16_t",
+      "line": 647
+    },
+    {
+      "symbol": "gLegacyPetDetailPanel584918",
+      "type": "LegacyPanelRecord",
+      "line": 674
+    },
+    {
+      "symbol": "gLegacyPetSelectionD67ADC",
+      "type": "std::int32_t",
+      "line": 681
+    },
+    {
+      "symbol": "gLegacyPetDetailActionD67AE0",
+      "type": "YobiAction*",
+      "line": 682
+    },
+    {
+      "symbol": "gLegacyPetRenamePanel5849E0",
+      "type": "LegacyPanelRecord",
+      "line": 683
+    },
+    {
+      "symbol": "gLegacyPetRenameInputD67D1C",
+      "type": "input::InputContext*",
+      "line": 686
+    },
+    {
+      "symbol": "gLegacyTradePanel582F00",
+      "type": "LegacyPanelRecord",
+      "line": 689
+    },
+    {
+      "symbol": "gLegacyTradeSplitSourceD45F90",
+      "type": "std::int32_t",
+      "line": 695
+    },
+    {
+      "symbol": "gLegacyTradeSplitTargetD2D668",
+      "type": "std::int32_t",
+      "line": 696
+    },
+    {
+      "symbol": "gLegacyTradeSplitAmountD2D490",
+      "type": "std::int32_t",
+      "line": 697
+    },
+    {
+      "symbol": "gLegacyTradeMouseXCF3FEC",
+      "type": "std::int32_t",
+      "line": 698
+    },
+    {
+      "symbol": "gLegacyTradeMouseYCF3FE8",
+      "type": "std::int32_t",
+      "line": 699
+    },
+    {
+      "symbol": "gLegacyTradeDetailPageD67CC8",
+      "type": "std::int32_t",
+      "line": 700
+    },
+    {
+      "symbol": "gLegacyTradePrevious582FCC",
+      "type": "std::int32_t",
+      "line": 701
+    },
+    {
+      "symbol": "gLegacyTradeRemoteItemPrevious582FC4",
+      "type": "std::int32_t",
+      "line": 705
+    },
+    {
+      "symbol": "gLegacyTradeRemotePetPrevious582FC8",
+      "type": "std::int32_t",
+      "line": 706
+    },
+    {
+      "symbol": "gLegacyTradeLocalPetPrevious582FD0",
+      "type": "std::int32_t",
+      "line": 707
+    },
+    {
+      "symbol": "gLegacyTradeRemoteItemPageD67CC0",
+      "type": "std::int32_t",
+      "line": 708
+    },
+    {
+      "symbol": "gLegacyTradeRemotePetPageD67CC4",
+      "type": "std::int32_t",
+      "line": 709
+    },
+    {
+      "symbol": "gLegacyTradeLocalPetPageD67CCC",
+      "type": "std::int32_t",
+      "line": 710
+    },
+    {
+      "symbol": "gLegacyTradePetActionD67CB4",
+      "type": "YobiAction*",
+      "line": 711
+    },
+    {
+      "symbol": "gLegacyStoragePanel582B70",
+      "type": "LegacyPanelRecord",
+      "line": 740
+    },
+    {
+      "symbol": "gLegacyStoragePreviousLeft582C64",
+      "type": "std::int32_t",
+      "line": 746
+    },
+    {
+      "symbol": "gLegacyStoragePreviousRight582C68",
+      "type": "std::int32_t",
+      "line": 747
+    },
+    {
+      "symbol": "gLegacyStorageSplitModeCA0AA8",
+      "type": "std::int32_t",
+      "line": 748
+    },
+    {
+      "symbol": "gLegacyStorageSplitSourceD3FACC",
+      "type": "std::int32_t",
+      "line": 749
+    },
+    {
+      "symbol": "gLegacyStorageSplitTargetCC4D38",
+      "type": "std::int32_t",
+      "line": 750
+    },
+    {
+      "symbol": "gLegacyStorageSplitAmountCB2220",
+      "type": "std::int32_t",
+      "line": 751
+    },
+    {
+      "symbol": "gLegacyStorageDragSlotCC4C98",
+      "type": "std::int32_t",
+      "line": 752
+    },
+    {
+      "symbol": "gLegacyStorageDragImageCB09D4",
+      "type": "std::int32_t",
+      "line": 753
+    },
+    {
+      "symbol": "gLegacyStorageDetailPageD67C94",
+      "type": "std::int32_t",
+      "line": 754
+    },
+    {
+      "symbol": "gLegacyStorageMessageD67C98",
+      "type": "std::int32_t",
+      "line": 755
+    },
+    {
+      "symbol": "gLegacyStorageMessageTickD67C9C",
+      "type": "std::uint32_t",
+      "line": 756
+    },
+    {
+      "symbol": "gLegacyStorageEmptySlotsCF49BC",
+      "type": "std::int32_t",
+      "line": 757
+    },
+    {
+      "symbol": "gLegacyStorageTakeCountCF4A04",
+      "type": "std::int32_t",
+      "line": 758
+    },
+    {
+      "symbol": "gLegacyStoragePutCountD2DAD4",
+      "type": "std::int32_t",
+      "line": 759
+    },
+    {
+      "symbol": "gLegacyStorageCapacityD30404",
+      "type": "std::int32_t",
+      "line": 760
+    },
+    {
+      "symbol": "gLegacyStorageFeeD40B04",
+      "type": "std::int32_t",
+      "line": 761
+    },
+    {
+      "symbol": "gLegacyStorageMoneyD2F79C",
+      "type": "std::int32_t",
+      "line": 762
+    },
+    {
+      "symbol": "gLegacyStorageWithdrawDraftD2EA98",
+      "type": "std::int32_t",
+      "line": 763
+    },
+    {
+      "symbol": "gLegacyStorageWithdrawAmountCF49B8",
+      "type": "std::int32_t",
+      "line": 764
+    },
+    {
+      "symbol": "gLegacyStorageDepositMessageD67CAC",
+      "type": "std::int32_t",
+      "line": 765
+    },
+    {
+      "symbol": "gLegacyStorageDepositTickD67CB0",
+      "type": "std::uint32_t",
+      "line": 766
+    },
+    {
+      "symbol": "gLegacyStoragePetPreviousLeft582C6C",
+      "type": "std::int32_t",
+      "line": 770
+    },
+    {
+      "symbol": "gLegacyStoragePetPreviousRight582C70",
+      "type": "std::int32_t",
+      "line": 771
+    },
+    {
+      "symbol": "gLegacyStoragePetPageD67CA0",
+      "type": "std::int32_t",
+      "line": 772
+    },
+    {
+      "symbol": "gLegacyStoragePetMessageD67CA4",
+      "type": "std::int32_t",
+      "line": 773
+    },
+    {
+      "symbol": "gLegacyStoragePetTickD67CA8",
+      "type": "std::uint32_t",
+      "line": 774
+    },
+    {
+      "symbol": "gLegacyStoragePetPutCountD2D600",
+      "type": "std::int32_t",
+      "line": 775
+    },
+    {
+      "symbol": "gLegacyStoragePetTakeCountD2D824",
+      "type": "std::int32_t",
+      "line": 776
+    },
+    {
+      "symbol": "gLegacyStoragePetCapacityCB1DDC",
+      "type": "std::int32_t",
+      "line": 777
+    },
+    {
+      "symbol": "gLegacyStoragePetActionD67C90",
+      "type": "YobiAction*",
+      "line": 778
+    },
+    {
+      "symbol": "gLegacySkillDetail585640",
+      "type": "LegacyPanelRecord",
+      "line": 808
+    },
+    {
+      "symbol": "gLegacyProfilePositionTickD68860",
+      "type": "std::uint32_t",
+      "line": 848
+    },
+    {
+      "symbol": "gLegacyProfileInputD6885C",
+      "type": "input::InputContext*",
+      "line": 849
+    },
+    {
+      "symbol": "gLegacyProfilePreviousPage585894",
+      "type": "std::int32_t",
+      "line": 850
+    },
+    {
+      "symbol": "gLegacyProfileEditTickD68864",
+      "type": "std::uint32_t",
+      "line": 851
+    },
+    {
+      "symbol": "gLegacyTitlePageCF49B4",
+      "type": "std::int8_t",
+      "line": 852
+    },
+    {
+      "symbol": "gLegacyTitlePageCountC8AF80",
+      "type": "std::int8_t",
+      "line": 853
+    },
+    {
+      "symbol": "gLegacyTitleDeleteCF4678",
+      "type": "std::int8_t",
+      "line": 854
+    },
+    {
+      "symbol": "gLegacyMapPanelD68868",
+      "type": "LegacyPanelRecord",
+      "line": 855
+    },
+    {
+      "symbol": "gLegacyMapDefaultX57CB24",
+      "type": "std::int32_t",
+      "line": 856
+    },
+    {
+      "symbol": "gLegacyMapDefaultYD67AD4",
+      "type": "std::int32_t",
+      "line": 857
+    },
+    {
+      "symbol": "gLegacyPointResultPanel5838A8",
+      "type": "LegacyPanelRecord",
+      "line": 860
+    },
+    {
+      "symbol": "gLegacyBattleResultPanel583970",
+      "type": "LegacyPanelRecord",
+      "line": 863
+    },
+    {
+      "symbol": "gLegacyPointResultTickCC3E74",
+      "type": "std::uint32_t",
+      "line": 866
+    },
+    {
+      "symbol": "gLegacyBattleResultTickD3FAB8",
+      "type": "std::uint32_t",
+      "line": 867
+    },
+    {
+      "symbol": "gLegacyGatherResultPanel583A38",
+      "type": "LegacyPanelRecord",
+      "line": 869
+    },
+    {
+      "symbol": "gLegacyGatherRepeat583AFC",
+      "type": "std::int32_t",
+      "line": 872
+    },
+    {
+      "symbol": "gLegacyGatherResultTickCA0AB8",
+      "type": "std::uint32_t",
+      "line": 873
+    },
+    {
+      "symbol": "gLegacyGatherResultActionD67CD4",
+      "type": "YobiAction*",
+      "line": 874
+    },
+    {
+      "symbol": "gLegacySkillResultPanel583BC8",
+      "type": "LegacyPanelRecord",
+      "line": 880
+    },
+    {
+      "symbol": "gLegacySkillResultActionD67CDC",
+      "type": "YobiAction*",
+      "line": 883
+    },
+    {
+      "symbol": "gLegacyFpNoticePanel583E20",
+      "type": "LegacyPanelRecord",
+      "line": 884
+    },
+    {
+      "symbol": "gLegacyItemWorkResultPanel584140",
+      "type": "LegacyPanelRecord",
+      "line": 893
+    },
+    {
+      "symbol": "gLegacyItemWorkResultActionD67CE0",
+      "type": "YobiAction*",
+      "line": 896
+    },
+    {
+      "symbol": "gLegacyItemWorkNamePanel584208",
+      "type": "LegacyPanelRecord",
+      "line": 897
+    },
+    {
+      "symbol": "gLegacyItemWorkPanel5842D0",
+      "type": "LegacyPanelRecord",
+      "line": 900
+    },
+    {
+      "symbol": "gLegacyItemWorkInputD67CE4",
+      "type": "input::InputContext*",
+      "line": 903
+    },
+    {
+      "symbol": "gLegacyItemWorkInitGateD67CE8",
+      "type": "std::int32_t",
+      "line": 905
+    },
+    {
+      "symbol": "gLegacyItemWorkButtonKindD67CF4",
+      "type": "std::int32_t",
+      "line": 906
+    },
+    {
+      "symbol": "gLegacyItemWorkPhaseCC4220",
+      "type": "std::int32_t",
+      "line": 907
+    },
+    {
+      "symbol": "gLegacyItemWorkActionD67CEC",
+      "type": "YobiAction*",
+      "line": 908
+    },
+    {
+      "symbol": "gLegacyItemWorkHover584398",
+      "type": "std::int32_t",
+      "line": 909
+    },
+    {
+      "symbol": "gLegacyItemWorkPageD67CF8",
+      "type": "std::int32_t",
+      "line": 910
+    },
+    {
+      "symbol": "gLegacyItemWorkTickD2E12C",
+      "type": "std::uint32_t",
+      "line": 911
+    },
+    {
+      "symbol": "gLegacyItemWorkDurationCC3EDC",
+      "type": "std::uint32_t",
+      "line": 912
+    },
+    {
+      "symbol": "gLegacyCraftResultPanel5843A0",
+      "type": "LegacyPanelRecord",
+      "line": 950
+    },
+    {
+      "symbol": "gLegacyCraftResultActionD67CFC",
+      "type": "YobiAction*",
+      "line": 953
+    },
+    {
+      "symbol": "gLegacyCraftExecutionPanel584530",
+      "type": "LegacyPanelRecord",
+      "line": 954
+    },
+    {
+      "symbol": "gLegacyCraftExecutionActionD67D08",
+      "type": "YobiAction*",
+      "line": 957
+    },
+    {
+      "symbol": "gLegacyCraftExecutionTickD2F78C",
+      "type": "std::uint32_t",
+      "line": 958
+    },
+    {
+      "symbol": "gLegacyCraftExecutionDurationD2DC08",
+      "type": "std::uint32_t",
+      "line": 959
+    },
+    {
+      "symbol": "gLegacyCraftMaterialsPanel584468",
+      "type": "LegacyPanelRecord",
+      "line": 963
+    },
+    {
+      "symbol": "gLegacyCraftMarksC8AA7C",
+      "type": "std::array<std::uint8_t, 20>",
+      "line": 966
+    },
+    {
+      "symbol": "gLegacyCraftMaterialPageD67D04",
+      "type": "std::int32_t",
+      "line": 967
+    },
+    {
+      "symbol": "gLegacyCraftMaterialHoverD45F84",
+      "type": "std::int32_t",
+      "line": 968
+    },
+    {
+      "symbol": "gLegacyCraftDragSlotD2F330",
+      "type": "std::int32_t",
+      "line": 969
+    },
+    {
+      "symbol": "gLegacyCraftDragImageCC3E7C",
+      "type": "std::int32_t",
+      "line": 970
+    },
+    {
+      "symbol": "gLegacyCraftRecipePanel5845F8",
+      "type": "LegacyPanelRecord",
+      "line": 980
+    },
+    {
+      "symbol": "gLegacyRecipePageCountD67D10",
+      "type": "std::int32_t",
+      "line": 983
+    },
+    {
+      "symbol": "gLegacyInventoryPanel584C00",
+      "type": "LegacyPanelRecord",
+      "line": 988
+    },
+    {
+      "symbol": "gLegacyInventoryActionD67D2C",
+      "type": "YobiAction*",
+      "line": 991
+    },
+    {
+      "symbol": "gLegacyInventoryPageD67D28",
+      "type": "std::int32_t",
+      "line": 992
+    },
+    {
+      "symbol": "gLegacyInventoryHoverC8AF78",
+      "type": "std::int32_t",
+      "line": 993
+    },
+    {
+      "symbol": "gLegacyItemSplitPanel584078",
+      "type": "LegacyPanelRecord",
+      "line": 1011
+    },
+    {
+      "symbol": "gLegacyMoneyPanel584DA8",
+      "type": "LegacyPanelRecord",
+      "line": 1022
+    },
+    {
+      "symbol": "gLegacyMoneyAmountD2D618",
+      "type": "std::int32_t",
+      "line": 1025
+    },
+    {
+      "symbol": "gLegacyEngravingPanel582FD8",
+      "type": "LegacyPanelRecord",
+      "line": 1032
+    },
+    {
+      "symbol": "gLegacyEngravingHover58309C",
+      "type": "std::int32_t",
+      "line": 1035
+    },
+    {
+      "symbol": "gLegacyEngravingPageC8AA9C",
+      "type": "std::int32_t",
+      "line": 1036
+    },
+    {
+      "symbol": "gLegacyEngravingTargetCC1A14",
+      "type": "std::int32_t",
+      "line": 1037
+    },
+    {
+      "symbol": "gLegacyBurialPanel5830A0",
+      "type": "LegacyPanelRecord",
+      "line": 1043
+    },
+    {
+      "symbol": "gLegacyBurialHover583164",
+      "type": "std::int32_t",
+      "line": 1046
+    },
+    {
+      "symbol": "gLegacyBurialPageCC4B64",
+      "type": "std::int32_t",
+      "line": 1047
+    },
+    {
+      "symbol": "gLegacyBurialSelectedCC4214",
+      "type": "std::int32_t",
+      "line": 1048
+    },
+    {
+      "symbol": "gLegacyBurialExcludedCC48AC",
+      "type": "std::int32_t",
+      "line": 1049
+    },
+    {
+      "symbol": "gLegacyBurialExcludedColumnD2E2B4",
+      "type": "std::int32_t",
+      "line": 1050
+    },
+    {
+      "symbol": "gLegacyBurialExcludedRowD671D0",
+      "type": "std::int32_t",
+      "line": 1051
+    },
+    {
+      "symbol": "gLegacyMailGiftPanel583168",
+      "type": "LegacyPanelRecord",
+      "line": 1056
+    },
+    {
+      "symbol": "gLegacyMailGiftHover58322C",
+      "type": "std::int32_t",
+      "line": 1059
+    },
+    {
+      "symbol": "gLegacyMailGiftPageCC2E58",
+      "type": "std::int32_t",
+      "line": 1060
+    },
+    {
+      "symbol": "gLegacyMailGiftSelectedCC1A2C",
+      "type": "std::int32_t",
+      "line": 1061
+    },
+    {
+      "symbol": "gLegacyMailGiftColumnD2D498",
+      "type": "std::int32_t",
+      "line": 1062
+    },
+    {
+      "symbol": "gLegacyMailGiftRowCC3E6C",
+      "type": "std::int32_t",
+      "line": 1063
+    },
+    {
+      "symbol": "gLegacyMailComposePanel583230",
+      "type": "LegacyPanelRecord",
+      "line": 1066
+    },
+    {
+      "symbol": "gLegacyMailContactCC4228",
+      "type": "std::int32_t",
+      "line": 1069
+    },
+    {
+      "symbol": "gLegacyMailValueCC2E60",
+      "type": "std::int32_t",
+      "line": 1070
+    },
+    {
+      "symbol": "gLegacyMailPetPanel5832F8",
+      "type": "LegacyPanelRecord",
+      "line": 1073
+    },
+    {
+      "symbol": "gLegacyMailContactPanel5837A8",
+      "type": "LegacyPanelRecord",
+      "line": 1078
+    },
+    {
+      "symbol": "gLegacyMailUnreadActionsCC3E48",
+      "type": "std::array<YobiAction*, 4>",
+      "line": 1081
+    },
+    {
+      "symbol": "gLegacyMailSelectedD30410",
+      "type": "std::int32_t",
+      "line": 1082
+    },
+    {
+      "symbol": "gLegacyMailPreviousPageD2DACC",
+      "type": "std::int32_t",
+      "line": 1083
+    },
+    {
+      "symbol": "gLegacyMailDeliveryPanel583550",
+      "type": "LegacyPanelRecord",
+      "line": 1093
+    },
+    {
+      "symbol": "gLegacyMailDeletePanel583618",
+      "type": "LegacyPanelRecord",
+      "line": 1098
+    },
+    {
+      "symbol": "gLegacyMailNormalPanel583488",
+      "type": "LegacyPanelRecord",
+      "line": 1107
+    },
+    {
+      "symbol": "gLegacyMailSelectedFlagsCB0AA8",
+      "type": "std::array<std::uint8_t, 60>",
+      "line": 1110
+    },
+    {
+      "symbol": "gLegacyMailSortPanel5836E0",
+      "type": "LegacyPanelRecord",
+      "line": 1115
+    },
+    {
+      "symbol": "gLegacyMailReadPanel5833C0",
+      "type": "LegacyPanelRecord",
+      "line": 1122
+    },
+    {
+      "symbol": "gLegacyGuildContactPanel58EF90",
+      "type": "LegacyPanelRecord",
+      "line": 1126
+    },
+    {
+      "symbol": "gLegacyGuildPage1050B78",
+      "type": "std::int32_t",
+      "line": 1129
+    },
+    {
+      "symbol": "gLegacyGuildInitialPage1050DA4",
+      "type": "std::int32_t",
+      "line": 1130
+    },
+    {
+      "symbol": "gLegacyGuildReadTarget1050DB4",
+      "type": "std::int32_t",
+      "line": 1131
+    },
+    {
+      "symbol": "gLegacyGuildUnreadActions1050DB8",
+      "type": "std::array<YobiAction*, 4>",
+      "line": 1132
+    },
+    {
+      "symbol": "gLegacyGuildComposeTarget1051340",
+      "type": "std::int32_t",
+      "line": 1133
+    },
+    {
+      "symbol": "gLegacyGuildComposePage1051330",
+      "type": "std::int32_t",
+      "line": 1134
+    },
+    {
+      "symbol": "gLegacyGuildMailTarget1050DCC",
+      "type": "std::int32_t",
+      "line": 1135
+    },
+    {
+      "symbol": "gLegacyGuildDeleteTarget105132C",
+      "type": "std::int32_t",
+      "line": 1136
+    },
+    {
+      "symbol": "gLegacyGuildRankTarget1057C70",
+      "type": "std::int32_t",
+      "line": 1137
+    },
+    {
+      "symbol": "gLegacyGuildSortPanel58EEC8",
+      "type": "LegacyPanelRecord",
+      "line": 1151
+    },
+    {
+      "symbol": "gLegacyGuildDeletePanel58EE00",
+      "type": "LegacyPanelRecord",
+      "line": 1157
+    },
+    {
+      "symbol": "gLegacyGuildDeliveryPanel58ED38",
+      "type": "LegacyPanelRecord",
+      "line": 1167
+    },
+    {
+      "symbol": "gLegacyGuildPetPanel58EAE0",
+      "type": "LegacyPanelRecord",
+      "line": 1173
+    },
+    {
+      "symbol": "gLegacyGuildPetIndex1050DB0",
+      "type": "std::int32_t",
+      "line": 1176
+    },
+    {
+      "symbol": "gLegacyGuildGiftPanel58E950",
+      "type": "LegacyPanelRecord",
+      "line": 1179
+    },
+    {
+      "symbol": "gLegacyGuildGiftHover58EA14",
+      "type": "std::int32_t",
+      "line": 1182
+    },
+    {
+      "symbol": "gLegacyGuildGiftPage1050DAC",
+      "type": "std::int32_t",
+      "line": 1183
+    },
+    {
+      "symbol": "gLegacyGuildGiftSelected1050DA8",
+      "type": "std::int32_t",
+      "line": 1184
+    },
+    {
+      "symbol": "gLegacyGuildGiftColumn1050F10",
+      "type": "std::int32_t",
+      "line": 1185
+    },
+    {
+      "symbol": "gLegacyGuildGiftRow1050DC8",
+      "type": "std::int32_t",
+      "line": 1186
+    },
+    {
+      "symbol": "gLegacyGuildComposePanel58EA18",
+      "type": "LegacyPanelRecord",
+      "line": 1188
+    },
+    {
+      "symbol": "gLegacyGuildReadPanel58EBA8",
+      "type": "LegacyPanelRecord",
+      "line": 1192
+    },
+    {
+      "symbol": "gLegacyGuildReadPage1050EF8",
+      "type": "std::int32_t",
+      "line": 1195
+    },
+    {
+      "symbol": "gLegacyGuildNormalPanel58EC70",
+      "type": "LegacyPanelRecord",
+      "line": 1196
+    },
+    {
+      "symbol": "gLegacyGuildSelectedFlags1050CDC",
+      "type": "std::array<std::uint8_t, 200>",
+      "line": 1199
+    },
+    {
+      "symbol": "gLegacyGuildRankPanel58F160",
+      "type": "LegacyPanelRecord",
+      "line": 1202
+    },
+    {
+      "symbol": "gLegacyGuildRankReady1057C8C",
+      "type": "std::int32_t",
+      "line": 1205
+    },
+    {
+      "symbol": "gLegacyGuildRankPage1051334",
+      "type": "std::int32_t",
+      "line": 1206
+    },
+    {
+      "symbol": "gLegacyGuildRankPageCount105133C",
+      "type": "std::int32_t",
+      "line": 1207
+    },
+    {
+      "symbol": "gLegacyGuildRankSelected1051338",
+      "type": "std::int32_t",
+      "line": 1208
+    },
+    {
+      "symbol": "gLegacyGuildRankHighlights1050ED8",
+      "type": "std::array<std::int32_t, 8>",
+      "line": 1209
+    },
+    {
+      "symbol": "gLegacyGuildRankTick1057C90",
+      "type": "std::uint32_t",
+      "line": 1210
+    },
+    {
+      "symbol": "gLegacyGuildEditAllowed1050F14",
+      "type": "std::int32_t",
+      "line": 1211
+    },
+    {
+      "symbol": "gLegacyGuildDetailsPanel58F098",
+      "type": "LegacyPanelRecord",
+      "line": 1215
+    },
+    {
+      "symbol": "gLegacyGuildDetailsSelected58F15C",
+      "type": "std::int32_t",
+      "line": 1218
+    },
+    {
+      "symbol": "gLegacyGuildDetailsInputs1057C7C",
+      "type": "std::array<input::InputContext*, 3>",
+      "line": 1219
+    },
+    {
+      "symbol": "gLegacyGuildDetailsTick1057C88",
+      "type": "std::uint32_t",
+      "line": 1220
+    },
+    {
+      "symbol": "gLegacyGuildNameCache1050DD0",
+      "type": "std::array<char, 128>",
+      "line": 1221
+    },
+    {
+      "symbol": "gLegacyGuildSecondCache1050E50",
+      "type": "std::array<char, 128>",
+      "line": 1222
+    },
+    {
+      "symbol": "gLegacyGuildDetailsPageCount1050ED0",
+      "type": "std::int32_t",
+      "line": 1223
+    },
+    {
+      "symbol": "gLegacyGuildDetailsPage1050ED4",
+      "type": "std::int32_t",
+      "line": 1224
+    },
+    {
+      "symbol": "gLegacyGuildDetailsHighlights1050EFC",
+      "type": "std::array<std::int32_t, 5>",
+      "line": 1225
+    },
+    {
+      "symbol": "gLegacyEmotePanel584AA8",
+      "type": "LegacyPanelRecord",
+      "line": 1231
+    },
+    {
+      "symbol": "gLegacyBlacklistPanel5531D0",
+      "type": "LegacyPanelRecord",
+      "line": 1284
+    },
+    {
+      "symbol": "gLegacyBlacklistInput5939B8",
+      "type": "input::InputContext*",
+      "line": 1287
+    },
+    {
+      "symbol": "gLegacyPresetPanel5850C8",
+      "type": "LegacyPanelRecord",
+      "line": 1295
+    },
+    {
+      "symbol": "gLegacyPresetRowD30408",
+      "type": "std::int32_t",
+      "line": 1302
+    },
+    {
+      "symbol": "gLegacyItemUseStatusPanel582C78",
+      "type": "LegacyPanelRecord",
+      "line": 1303
+    },
+    {
+      "symbol": "gLegacyGemExecutionPanel58AB28",
+      "type": "LegacyPanelRecord",
+      "line": 1311
+    },
+    {
+      "symbol": "gLegacyGemActionD68A88",
+      "type": "YobiAction*",
+      "line": 1314
+    },
+    {
+      "symbol": "gLegacyGemTickD68AB4",
+      "type": "std::uint32_t",
+      "line": 1315
+    },
+    {
+      "symbol": "gLegacyGemDurationD68AB8",
+      "type": "std::int32_t",
+      "line": 1316
+    },
+    {
+      "symbol": "gLegacyGemElapsedD68ABC",
+      "type": "std::int32_t",
+      "line": 1317
+    },
+    {
+      "symbol": "gLegacyGemMaterialsPanel58AA60",
+      "type": "LegacyPanelRecord",
+      "line": 1321
+    },
+    {
+      "symbol": "gLegacyGemMaterialHoverD68A84",
+      "type": "std::int32_t",
+      "line": 1324
+    },
+    {
+      "symbol": "gLegacyGemDragImageD68AA4",
+      "type": "std::int32_t",
+      "line": 1325
+    },
+    {
+      "symbol": "gLegacyGemDragSlotD68AA8",
+      "type": "std::int32_t",
+      "line": 1326
+    },
+    {
+      "symbol": "gLegacyGemMaterialPageD68AAC",
+      "type": "std::int32_t",
+      "line": 1327
+    },
+    {
+      "symbol": "gLegacyAttributeBlinkCC3EF8",
+      "type": "std::uint32_t",
+      "line": 1354
+    },
+    {
+      "symbol": "gLegacyAttributeTickD67440",
+      "type": "std::uint32_t",
+      "line": 1355
+    },
+    {
+      "symbol": "gLegacySettingsMenu584E70",
+      "type": "LegacyPanelRecord",
+      "line": 1357
+    },
+    {
+      "symbol": "gLegacySettingsButtonsD67D38",
+      "type": "std::array<LegacyPanelTextButtonRecord, 8>",
+      "line": 1360
+    },
+    {
+      "symbol": "gLegacyChatSettings585000",
+      "type": "LegacyPanelRecord",
+      "line": 1378
+    },
+    {
+      "symbol": "gLegacyChatRecordsD67E80",
+      "type": "std::array<LegacyPanelTextButtonRecord, 18>",
+      "line": 1381
+    },
+    {
+      "symbol": "gLegacyMusicSettings585190",
+      "type": "LegacyPanelRecord",
+      "line": 1414
+    },
+    {
+      "symbol": "gLegacyMusicRecordsD68150",
+      "type": "std::array<LegacyPanelTextButtonRecord, 5>",
+      "line": 1417
+    },
+    {
+      "symbol": "gLegacySoundSettings585258",
+      "type": "LegacyPanelRecord",
+      "line": 1418
+    },
+    {
+      "symbol": "gLegacySoundRecordsD68218",
+      "type": "std::array<LegacyPanelTextButtonRecord, 8>",
+      "line": 1421
+    },
+    {
+      "symbol": "gLegacyMouseSettings585320",
+      "type": "LegacyPanelRecord",
+      "line": 1434
+    },
+    {
+      "symbol": "gLegacyMouseRecordsD68358",
+      "type": "std::array<LegacyPanelTextButtonRecord, 11>",
+      "line": 1437
+    },
+    {
+      "symbol": "gLegacyHotkeyHelp5853E8",
+      "type": "LegacyPanelRecord",
+      "line": 1454
+    },
+    {
+      "symbol": "gLegacyHotkeyRecordsD68510",
+      "type": "std::array<LegacyPanelTextButtonRecord, 13>",
+      "line": 1457
+    },
+    {
+      "symbol": "gLegacyScanlineSettings5854B0",
+      "type": "LegacyPanelRecord",
+      "line": 1470
+    },
+    {
+      "symbol": "gLegacyScanlineRecordsD68718",
+      "type": "std::array<LegacyPanelTextButtonRecord, 4>",
+      "line": 1473
+    },
+    {
+      "symbol": "gLegacyButtonSettings585578",
+      "type": "LegacyPanelRecord",
+      "line": 1480
+    },
+    {
+      "symbol": "gLegacyButtonRecordsD687B8",
+      "type": "std::array<LegacyPanelTextButtonRecord, 4>",
+      "line": 1483
+    },
+    {
+      "symbol": "gLegacyUiHeight556C28",
+      "type": "std::int32_t",
+      "line": 1484
+    },
+    {
+      "symbol": "gLegacyUiY556C2C",
+      "type": "std::int32_t",
+      "line": 1485
+    },
+    {
+      "symbol": "gLegacyUiWidth556C30",
+      "type": "std::int32_t",
+      "line": 1486
+    },
+    {
+      "symbol": "gLegacyUiX62B39C",
+      "type": "std::int32_t",
+      "line": 1487
+    },
+    {
+      "symbol": "gLegacyUiInitWords62B3B8",
+      "type": "std::array<std::array<std::int32_t, 8>, 5>",
+      "line": 1489
+    },
+    {
+      "symbol": "gLegacyUiInitWords62B460",
+      "type": "std::array<std::int32_t, 8>",
+      "line": 1490
+    },
+    {
+      "symbol": "gLegacyUiInitWords62B488",
+      "type": "std::array<std::int32_t, 8>",
+      "line": 1491
+    },
+    {
+      "symbol": "gLegacyUiInitWords62B4A8",
+      "type": "std::array<std::array<std::int32_t, 8>, 3>",
+      "line": 1492
+    },
+    {
+      "symbol": "gLegacyUiInitWords62B508",
+      "type": "std::array<std::array<std::int32_t, 8>, 5>",
+      "line": 1493
+    },
+    {
+      "symbol": "gLegacyBottomWidth5858A0",
+      "type": "std::int32_t",
+      "line": 1494
+    },
+    {
+      "symbol": "gLegacyBottomHeight5858A4",
+      "type": "std::int32_t",
+      "line": 1495
+    },
+    {
+      "symbol": "gLegacyBottomXD68930",
+      "type": "std::int32_t",
+      "line": 1496
+    },
+    {
+      "symbol": "gLegacyBottomYCB1DD8",
+      "type": "std::int32_t",
+      "line": 1497
+    },
+    {
+      "symbol": "gLegacyBottomHeightCA0014",
+      "type": "std::int32_t",
+      "line": 1498
+    },
+    {
+      "symbol": "gLegacyBottomHeightD2DAB4",
+      "type": "std::int32_t",
+      "line": 1499
+    },
+    {
+      "symbol": "gLegacyBottomInitWordsD68938",
+      "type": "std::array<std::array<std::int32_t, 9>, 8>",
+      "line": 1501
+    },
+    {
+      "symbol": "gLegacyLogoutPanel584F38",
+      "type": "LegacyPanelRecord",
+      "line": 1513
+    },
+    {
+      "symbol": "gLegacyProfilePanel5857D0",
+      "type": "LegacyPanelRecord",
+      "line": 1527
+    },
+    {
+      "symbol": "gLegacyGatherPanel583B00",
+      "source": "src/YobiRuntime.cpp"
+    },
+    {
+      "symbol": "gLegacyGatherActionD67CD8",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35352
+    },
+    {
+      "symbol": "gLegacyGatherPhaseCC3E78",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35353
+    },
+    {
+      "symbol": "gLegacyGatherKindCF3F10",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35354
+    },
+    {
+      "symbol": "gLegacyGatherStopD2D494",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35355
+    },
+    {
+      "symbol": "gLegacyGatherStopD2D64C",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35356
+    },
+    {
+      "symbol": "gLegacyGatherStopD64E0C",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35357
+    },
+    {
+      "symbol": "gLegacyGatherTickCC3E84",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35358
+    },
+    {
+      "symbol": "gLegacyGatherTickD2F794",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35359
+    },
+    {
+      "symbol": "gLegacyGatherTickC8B38C",
+      "source": "src/YobiRuntime.cpp",
+      "line": 35360
+    }
+  ],
+  "removed_private_constants": [
+    {
+      "symbol": "kLegacyLogFailure55358C",
+      "line": 251
+    },
+    {
+      "symbol": "kLegacyLogAfterDay553534",
+      "line": 252
+    },
+    {
+      "symbol": "kLegacyLogBeforeDay553544",
+      "line": 253
+    },
+    {
+      "symbol": "kLegacyLogWrite553554",
+      "line": 254
+    },
+    {
+      "symbol": "kLegacyLogLast553560",
+      "line": 255
+    },
+    {
+      "symbol": "kLegacyLogFirst55356C",
+      "line": 256
+    },
+    {
+      "symbol": "kLegacyLogNext553574",
+      "line": 257
+    },
+    {
+      "symbol": "kLegacyLogPrevious553580",
+      "line": 258
+    },
+    {
+      "symbol": "kLegacyLogWriteFormat5535A0",
+      "line": 259
+    },
+    {
+      "symbol": "kLegacyLogClose55331C",
+      "line": 260
+    },
+    {
+      "symbol": "kLegacyDialogButton58599C",
+      "line": 271
+    },
+    {
+      "symbol": "kLegacyDialogButton585994",
+      "line": 272
+    },
+    {
+      "symbol": "kLegacyDialogButton58598C",
+      "line": 273
+    },
+    {
+      "symbol": "kLegacyDialogButton585984",
+      "line": 274
+    },
+    {
+      "symbol": "kLegacyDialogButton58597C",
+      "line": 275
+    },
+    {
+      "symbol": "kLegacyDialogButton585974",
+      "line": 276
+    },
+    {
+      "symbol": "kLegacySkillChoiceLearn585AC4",
+      "line": 290
+    },
+    {
+      "symbol": "kLegacySkillChoiceForget588BC8",
+      "line": 291
+    },
+    {
+      "symbol": "kLegacySkillChoiceCancel588BBC",
+      "line": 292
+    },
+    {
+      "symbol": "kLegacySkillChoiceLearnHint588BA8",
+      "line": 293
+    },
+    {
+      "symbol": "kLegacySkillChoiceForgetHint588B90",
+      "line": 294
+    },
+    {
+      "symbol": "kLegacySkillChoiceCancelHint588B80",
+      "line": 295
+    },
+    {
+      "symbol": "kLegacySkillLearningAccept588C20",
+      "line": 300
+    },
+    {
+      "symbol": "kLegacySkillLearningCancel588C18",
+      "line": 301
+    },
+    {
+      "symbol": "kLegacySkillLearningSlots588C00",
+      "line": 302
+    },
+    {
+      "symbol": "kLegacySkillLearningCost588BEC",
+      "line": 303
+    },
+    {
+      "symbol": "kLegacySkillLearningAcceptHint588BE0",
+      "line": 304
+    },
+    {
+      "symbol": "kLegacySkillLearningCancelHint588BD4",
+      "line": 305
+    },
+    {
+      "symbol": "kLegacySkillForgetCancel588CBC",
+      "line": 310
+    },
+    {
+      "symbol": "kLegacySkillForgetNotes588CA4",
+      "line": 311
+    },
+    {
+      "symbol": "kLegacySkillForgetWarning588C94",
+      "line": 312
+    },
+    {
+      "symbol": "kLegacySkillForgetNoRestore588C88",
+      "line": 313
+    },
+    {
+      "symbol": "kLegacySkillForgetCareful588C7C",
+      "line": 314
+    },
+    {
+      "symbol": "kLegacySkillForgetSelect588C68",
+      "line": 315
+    },
+    {
+      "symbol": "kLegacySkillForgetTotal588C48",
+      "line": 316
+    },
+    {
+      "symbol": "kLegacySkillForgetCancelHint588C38",
+      "line": 317
+    },
+    {
+      "symbol": "kLegacySkillForgetRowHint588C28",
+      "line": 318
+    },
+    {
+      "symbol": "kLegacySkillStatusPrompt589B58",
+      "line": 323
+    },
+    {
+      "symbol": "kLegacySkillStatusHeader589B2C",
+      "line": 324
+    },
+    {
+      "symbol": "kLegacySkillStatusCancelTransform589B20",
+      "line": 325
+    },
+    {
+      "symbol": "kLegacySkillStatusCancelDisguise589B14",
+      "line": 326
+    },
+    {
+      "symbol": "kLegacySkillStatusCancelRestore589B08",
+      "line": 327
+    },
+    {
+      "symbol": "kLegacySkillStatusCancelHeal589AFC",
+      "line": 328
+    },
+    {
+      "symbol": "kLegacySkillStatusTransform589AEC",
+      "line": 329
+    },
+    {
+      "symbol": "kLegacySkillStatusDisguise589ADC",
+      "line": 330
+    },
+    {
+      "symbol": "kLegacySkillStatusSelf589ACC",
+      "line": 331
+    },
+    {
+      "symbol": "kLegacySkillStatusPet589AB8",
+      "line": 332
+    },
+    {
+      "symbol": "kLegacySkillStatusPerson589AA8",
+      "line": 333
+    },
+    {
+      "symbol": "kLegacySkillTargetTransform589BD8",
+      "line": 340
+    },
+    {
+      "symbol": "kLegacySkillTargetDisguiseSelf589BC4",
+      "line": 341
+    },
+    {
+      "symbol": "kLegacySkillTargetDisguisePerson589BAC",
+      "line": 342
+    },
+    {
+      "symbol": "kLegacySkillTargetRestoreSelf589B98",
+      "line": 343
+    },
+    {
+      "symbol": "kLegacySkillTargetRestorePerson589B80",
+      "line": 344
+    },
+    {
+      "symbol": "kLegacyTextNotice589C24",
+      "line": 360
+    },
+    {
+      "symbol": "kLegacyTextNotice589C08",
+      "line": 361
+    },
+    {
+      "symbol": "kLegacyTextNotice589C4C",
+      "line": 362
+    },
+    {
+      "symbol": "kLegacyTextNotice589C34",
+      "line": 363
+    },
+    {
+      "symbol": "kLegacyHealingPrompt588FF8",
+      "line": 395
+    },
+    {
+      "symbol": "kLegacyHealingHeader588FD0",
+      "line": 396
+    },
+    {
+      "symbol": "kLegacyHealingTotal588FA8",
+      "line": 397
+    },
+    {
+      "symbol": "kLegacyHealingGold588F94",
+      "line": 398
+    },
+    {
+      "symbol": "kLegacyHealingCancel588F34",
+      "line": 399
+    },
+    {
+      "symbol": "kLegacyHealingOne588F40",
+      "line": 400
+    },
+    {
+      "symbol": "kLegacyHealingHealthy588F54",
+      "line": 401
+    },
+    {
+      "symbol": "kLegacyHealingAllHealthy588F6C",
+      "line": 402
+    },
+    {
+      "symbol": "kLegacyHealingAll588F80",
+      "line": 403
+    },
+    {
+      "symbol": "kLegacyRepairWelcome587D2C",
+      "line": 421
+    },
+    {
+      "symbol": "kLegacyRepairDecrease589010",
+      "line": 422
+    },
+    {
+      "symbol": "kLegacyRepairIncrease589024",
+      "line": 423
+    },
+    {
+      "symbol": "kLegacyRepairCancel589034",
+      "line": 424
+    },
+    {
+      "symbol": "kLegacyRepairConfirm589048",
+      "line": 425
+    },
+    {
+      "symbol": "kLegacyRepairPrompt589058",
+      "line": 426
+    },
+    {
+      "symbol": "kLegacyRepairNoMoney58906C",
+      "line": 427
+    },
+    {
+      "symbol": "kLegacyRepairStopHint58907C",
+      "line": 428
+    },
+    {
+      "symbol": "kLegacyRepairAcceptHint589084",
+      "line": 429
+    },
+    {
+      "symbol": "kLegacyRepairQuestion58908C",
+      "line": 430
+    },
+    {
+      "symbol": "kLegacyRepairSummary5890A4",
+      "line": 431
+    },
+    {
+      "symbol": "kLegacyShopBuyInitial588DCC",
+      "line": 434
+    },
+    {
+      "symbol": "kLegacyShopSellInitial588DC4",
+      "line": 435
+    },
+    {
+      "symbol": "kLegacyShopStopInitial588DB8",
+      "line": 436
+    },
+    {
+      "symbol": "kLegacyShopBuy588DAC",
+      "line": 437
+    },
+    {
+      "symbol": "kLegacyShopSell588DA0",
+      "line": 438
+    },
+    {
+      "symbol": "kLegacyShopCancel588D94",
+      "line": 439
+    },
+    {
+      "symbol": "kLegacyShopBuyHint588D84",
+      "line": 440
+    },
+    {
+      "symbol": "kLegacyShopSellHint588D70",
+      "line": 441
+    },
+    {
+      "symbol": "kLegacyIdentifyDecrease5890D0",
+      "line": 487
+    },
+    {
+      "symbol": "kLegacyIdentifyIncrease5890E4",
+      "line": 488
+    },
+    {
+      "symbol": "kLegacyIdentifyConfirm5890F4",
+      "line": 489
+    },
+    {
+      "symbol": "kLegacyIdentifyCancel589104",
+      "line": 490
+    },
+    {
+      "symbol": "kLegacyIdentifyPrompt589110",
+      "line": 491
+    },
+    {
+      "symbol": "kLegacyIdentifyStopHint589124",
+      "line": 492
+    },
+    {
+      "symbol": "kLegacyIdentifyAcceptHint589130",
+      "line": 493
+    },
+    {
+      "symbol": "kLegacyIdentifyQuestion589138",
+      "line": 494
+    },
+    {
+      "symbol": "kLegacyIdentifySummary589150",
+      "line": 495
+    },
+    {
+      "symbol": "kLegacyMessageDelete58917C",
+      "line": 501
+    },
+    {
+      "symbol": "kLegacyMessagePrevious58918C",
+      "line": 502
+    },
+    {
+      "symbol": "kLegacyMessageCancel589198",
+      "line": 503
+    },
+    {
+      "symbol": "kLegacyMessageEmpty5891A4",
+      "line": 504
+    },
+    {
+      "symbol": "kLegacyMessagePost5891B4",
+      "line": 505
+    },
+    {
+      "symbol": "kLegacyMessageNext553574",
+      "line": 506
+    },
+    {
+      "symbol": "kLegacySellDecrease588E74",
+      "line": 508
+    },
+    {
+      "symbol": "kLegacySellIncrease588E8C",
+      "line": 509
+    },
+    {
+      "symbol": "kLegacySellConfirm588EA4",
+      "line": 510
+    },
+    {
+      "symbol": "kLegacySellCancel588EB4",
+      "line": 511
+    },
+    {
+      "symbol": "kLegacySellLimitLine588ECC",
+      "line": 512
+    },
+    {
+      "symbol": "kLegacySellLimitLine588EC0",
+      "line": 513
+    },
+    {
+      "symbol": "kLegacySellStopHint588ED8",
+      "line": 514
+    },
+    {
+      "symbol": "kLegacySellAcceptHint588EE0",
+      "line": 515
+    },
+    {
+      "symbol": "kLegacySellQuestion588EE8",
+      "line": 516
+    },
+    {
+      "symbol": "kLegacySellSummary588F00",
+      "line": 517
+    },
+    {
+      "symbol": "kLegacySellQuantity588F28",
+      "line": 518
+    },
+    {
+      "symbol": "kLegacyBuyUnavailable588E20",
+      "line": 520
+    },
+    {
+      "symbol": "kLegacyBuyCancel588E14",
+      "line": 521
+    },
+    {
+      "symbol": "kLegacyBuyConfirm588E04",
+      "line": 522
+    },
+    {
+      "symbol": "kLegacyBuyDecrease588DD4",
+      "line": 523
+    },
+    {
+      "symbol": "kLegacyBuyIncrease588DEC",
+      "line": 524
+    },
+    {
+      "symbol": "kLegacyBuyUnavailableHint586BF4",
+      "line": 525
+    },
+    {
+      "symbol": "kLegacyBuyQuestion588E34",
+      "line": 526
+    },
+    {
+      "symbol": "kLegacyBuyAcceptHint588E2C",
+      "line": 527
+    },
+    {
+      "symbol": "kLegacyBuyStopHint588E24",
+      "line": 528
+    },
+    {
+      "symbol": "kLegacyBuySummary588E4C",
+      "line": 529
+    },
+    {
+      "symbol": "kLegacyBarterCancel588994",
+      "line": 567
+    },
+    {
+      "symbol": "kLegacyBarterConfirm588984",
+      "line": 568
+    },
+    {
+      "symbol": "kLegacyBarterIncrease58896C",
+      "line": 569
+    },
+    {
+      "symbol": "kLegacyBarterDecrease588954",
+      "line": 570
+    },
+    {
+      "symbol": "kLegacyBarterQuestion5889C0",
+      "line": 573
+    },
+    {
+      "symbol": "kLegacyBarterAcceptHint5889B8",
+      "line": 574
+    },
+    {
+      "symbol": "kLegacyBarterStopHint5889AC",
+      "line": 575
+    },
+    {
+      "symbol": "kLegacyBarterSummary5889D8",
+      "line": 576
+    },
+    {
+      "symbol": "kLegacyGiveConfirmReceiveFormat588B40",
+      "line": 594
+    },
+    {
+      "symbol": "kLegacyGiveConfirmGiveFormat588B60",
+      "line": 596
+    },
+    {
+      "symbol": "kLegacyGiveConfirmReceiveHint588B20",
+      "line": 598
+    },
+    {
+      "symbol": "kLegacyGiveConfirmGiveHint588B30",
+      "line": 599
+    },
+    {
+      "symbol": "kLegacyGiveConfirmCancelReceive588B10",
+      "line": 600
+    },
+    {
+      "symbol": "kLegacyExchangeChoice588A40",
+      "line": 604
+    },
+    {
+      "symbol": "kLegacyExchangeCancel588A34",
+      "line": 605
+    },
+    {
+      "symbol": "kLegacyExchangeHint588A20",
+      "line": 606
+    },
+    {
+      "symbol": "kLegacyExchangeCancelHint588A10",
+      "line": 607
+    },
+    {
+      "symbol": "kLegacyGiveReceiveCancel588A70",
+      "line": 608
+    },
+    {
+      "symbol": "kLegacyGiveChoice588A64",
+      "line": 609
+    },
+    {
+      "symbol": "kLegacyReceiveChoice585A40",
+      "line": 610
+    },
+    {
+      "symbol": "kLegacyGiveHint588A58",
+      "line": 611
+    },
+    {
+      "symbol": "kLegacyGiveReceiveCancelHint588A4C",
+      "line": 612
+    },
+    {
+      "symbol": "kLegacyQuantityUnit5889A4",
+      "line": 613
+    },
+    {
+      "symbol": "kLegacyQuantityIncreaseLimit588ABC",
+      "line": 614
+    },
+    {
+      "symbol": "kLegacyReceiveIncrease588AA8",
+      "line": 615
+    },
+    {
+      "symbol": "kLegacyGiveIncrease588ACC",
+      "line": 616
+    },
+    {
+      "symbol": "kLegacyQuantityDecreaseLimit588944",
+      "line": 617
+    },
+    {
+      "symbol": "kLegacyReceiveDecrease588A80",
+      "line": 618
+    },
+    {
+      "symbol": "kLegacyGiveDecrease588A94",
+      "line": 619
+    },
+    {
+      "symbol": "kLegacyReceiveCancel588AEC",
+      "line": 620
+    },
+    {
+      "symbol": "kLegacyGiveCancel588AFC",
+      "line": 621
+    },
+    {
+      "symbol": "kLegacyReceiveHint588AE0",
+      "line": 622
+    },
+    {
+      "symbol": "kLegacyAlbumSkipTen58A0F0",
+      "line": 634
+    },
+    {
+      "symbol": "kLegacyAlbumBack58A0FC",
+      "line": 635
+    },
+    {
+      "symbol": "kLegacyAlbumOpen58A114",
+      "line": 636
+    },
+    {
+      "symbol": "kLegacyPetStateConfirm58A1F0",
+      "line": 648
+    },
+    {
+      "symbol": "kLegacyPetStateCancel58A1D8",
+      "line": 649
+    },
+    {
+      "symbol": "kLegacyPetStateBattle586C40",
+      "line": 650
+    },
+    {
+      "symbol": "kLegacyPetStateBattleCurrent586C5C",
+      "line": 651
+    },
+    {
+      "symbol": "kLegacyPetStateStandby586C78",
+      "line": 652
+    },
+    {
+      "symbol": "kLegacyPetStateStandbyCurrent586C94",
+      "line": 653
+    },
+    {
+      "symbol": "kLegacyPetStateRestCurrent58A140",
+      "line": 654
+    },
+    {
+      "symbol": "kLegacyPetStateRest58A158",
+      "line": 655
+    },
+    {
+      "symbol": "kLegacyPetStateStandbyRejected58A174",
+      "line": 656
+    },
+    {
+      "symbol": "kLegacyPetStateBattleRejected58A194",
+      "line": 657
+    },
+    {
+      "symbol": "kLegacyPetStateSwap58A1B0",
+      "line": 658
+    },
+    {
+      "symbol": "kLegacyPetOpenDetails586D0C",
+      "line": 662
+    },
+    {
+      "symbol": "kLegacyPetChooseState58A12C",
+      "line": 663
+    },
+    {
+      "symbol": "kLegacyPetBasicTab585958",
+      "line": 665
+    },
+    {
+      "symbol": "kLegacyPetAttributeTab58593C",
+      "line": 666
+    },
+    {
+      "symbol": "kLegacyPetSkillTab585920",
+      "line": 667
+    },
+    {
+      "symbol": "kLegacyPetBack58A204",
+      "line": 668
+    },
+    {
+      "symbol": "kLegacyPetRename586D38",
+      "line": 669
+    },
+    {
+      "symbol": "kLegacyPetLevelLimit58A214",
+      "line": 670
+    },
+    {
+      "symbol": "kLegacyPetVitality58A288",
+      "line": 671
+    },
+    {
+      "symbol": "kLegacyPetToughness58A260",
+      "line": 672
+    },
+    {
+      "symbol": "kLegacyPetMagic58A238",
+      "line": 673
+    },
+    {
+      "symbol": "kLegacyTradeAvailable589524",
+      "line": 712
+    },
+    {
+      "symbol": "kLegacyTradeUnavailable58953C",
+      "line": 713
+    },
+    {
+      "symbol": "kLegacyTradeSelected589554",
+      "line": 714
+    },
+    {
+      "symbol": "kLegacyTradeRemoteItem5894DC",
+      "line": 715
+    },
+    {
+      "symbol": "kLegacyTradeRemotePet5894F4",
+      "line": 716
+    },
+    {
+      "symbol": "kLegacyTradeRemoteMoney58950C",
+      "line": 717
+    },
+    {
+      "symbol": "kLegacyTradePetAvailable589568",
+      "line": 718
+    },
+    {
+      "symbol": "kLegacyTradePetSelected589580",
+      "line": 719
+    },
+    {
+      "symbol": "kLegacyTradeChoosing5894CC",
+      "line": 720
+    },
+    {
+      "symbol": "kLegacyTradePublished5894B8",
+      "line": 721
+    },
+    {
+      "symbol": "kLegacyTradeConfirming5894AC",
+      "line": 722
+    },
+    {
+      "symbol": "kLegacyTradeConfirmSelected589484",
+      "line": 723
+    },
+    {
+      "symbol": "kLegacyTradeConfirm589478",
+      "line": 724
+    },
+    {
+      "symbol": "kLegacyTradeRemoteItemTab589458",
+      "line": 726
+    },
+    {
+      "symbol": "kLegacyTradeRemotePetTab589438",
+      "line": 727
+    },
+    {
+      "symbol": "kLegacyTradeRemoteMoneyTab589418",
+      "line": 728
+    },
+    {
+      "symbol": "kLegacyTradeLocalItemTab589400",
+      "line": 729
+    },
+    {
+      "symbol": "kLegacyTradeLocalPetTab5893E8",
+      "line": 730
+    },
+    {
+      "symbol": "kLegacyTradeLocalMoneyTab5893D0",
+      "line": 731
+    },
+    {
+      "symbol": "kLegacyTradePublishItems5893B4",
+      "line": 732
+    },
+    {
+      "symbol": "kLegacyTradePublishPets589398",
+      "line": 733
+    },
+    {
+      "symbol": "kLegacyTradePublishMoney589380",
+      "line": 734
+    },
+    {
+      "symbol": "kLegacyTradePetCount58949C",
+      "line": 735
+    },
+    {
+      "symbol": "kLegacyTradeItemCount5894A4",
+      "line": 736
+    },
+    {
+      "symbol": "kLegacyTradeMoney589494",
+      "line": 737
+    },
+    {
+      "symbol": "kLegacyStorageNoMoney58906C",
+      "line": 779
+    },
+    {
+      "symbol": "kLegacyStorageFee589284",
+      "line": 780
+    },
+    {
+      "symbol": "kLegacyStorageGold589278",
+      "line": 781
+    },
+    {
+      "symbol": "kLegacyStorageAmount588FC4",
+      "line": 782
+    },
+    {
+      "symbol": "kLegacyStorageTake589268",
+      "line": 783
+    },
+    {
+      "symbol": "kLegacyStorageFull589230",
+      "line": 784
+    },
+    {
+      "symbol": "kLegacyStorageCanPut589244",
+      "line": 785
+    },
+    {
+      "symbol": "kLegacyStoragePut589258",
+      "line": 786
+    },
+    {
+      "symbol": "kLegacyStorageCannotPut5878BC",
+      "line": 787
+    },
+    {
+      "symbol": "kLegacyStorageClear5859FC",
+      "line": 788
+    },
+    {
+      "symbol": "kLegacyStorageAmountLimit5892D4",
+      "line": 789
+    },
+    {
+      "symbol": "kLegacyStorageDeposit5892F4",
+      "line": 790
+    },
+    {
+      "symbol": "kLegacyStorageCannotDeposit5892E8",
+      "line": 791
+    },
+    {
+      "symbol": "kLegacyStorageBalance589314",
+      "line": 792
+    },
+    {
+      "symbol": "kLegacyStorageWithdraw589304",
+      "line": 793
+    },
+    {
+      "symbol": "kLegacyStoragePetTake5892C4",
+      "line": 794
+    },
+    {
+      "symbol": "kLegacyStoragePetPut5892B4",
+      "line": 795
+    },
+    {
+      "symbol": "kLegacyStoragePetCanPut5892A0",
+      "line": 796
+    },
+    {
+      "symbol": "kLegacyStoragePetFull58928C",
+      "line": 797
+    },
+    {
+      "symbol": "kLegacyStorageItemTab589214",
+      "line": 798
+    },
+    {
+      "symbol": "kLegacyStoragePetTab589200",
+      "line": 799
+    },
+    {
+      "symbol": "kLegacyStorageDepositTab5891F8",
+      "line": 800
+    },
+    {
+      "symbol": "kLegacyStorageWithdrawTab5891F0",
+      "line": 801
+    },
+    {
+      "symbol": "kLegacyStorageConfirm5891C4",
+      "line": 802
+    },
+    {
+      "symbol": "kLegacyStorageCancel5891BC",
+      "line": 803
+    },
+    {
+      "symbol": "kLegacyStorageItemCount5891D4",
+      "line": 804
+    },
+    {
+      "symbol": "kLegacyStoragePetCount5891CC",
+      "line": 805
+    },
+    {
+      "symbol": "kLegacySkillDetailNoFp58A9D4",
+      "line": 811
+    },
+    {
+      "symbol": "kLegacySkillDetailNoSpace58A9C4",
+      "line": 812
+    },
+    {
+      "symbol": "kLegacySkillDetailHiddenFp58A9BC",
+      "line": 813
+    },
+    {
+      "symbol": "kLegacySkillDetailUse58A9AC",
+      "line": 814
+    },
+    {
+      "symbol": "kLegacySkillDetailBack554088",
+      "line": 815
+    },
+    {
+      "symbol": "kLegacySkillDetailUnavailable58A994",
+      "line": 816
+    },
+    {
+      "symbol": "kLegacySkillDetailTransform554104",
+      "line": 817
+    },
+    {
+      "symbol": "kLegacySkillDetailRelease554114",
+      "line": 818
+    },
+    {
+      "symbol": "kLegacySkillClose55331C",
+      "line": 819
+    },
+    {
+      "symbol": "kLegacySkillOpen5864C8",
+      "line": 821
+    },
+    {
+      "symbol": "kLegacyAttributeLimit58A220",
+      "line": 823
+    },
+    {
+      "symbol": "kLegacyAttributeHint58AA08",
+      "line": 825
+    },
+    {
+      "symbol": "kLegacyAttributeHint58A274",
+      "line": 827
+    },
+    {
+      "symbol": "kLegacyAttributeHint58A9F4",
+      "line": 829
+    },
+    {
+      "symbol": "kLegacyAttributeHint58A24C",
+      "line": 831
+    },
+    {
+      "symbol": "kLegacyAttributeHint58A9E0",
+      "line": 833
+    },
+    {
+      "symbol": "kLegacyProfileTab5858D8",
+      "line": 835
+    },
+    {
+      "symbol": "kLegacyProfileTab5858C0",
+      "line": 837
+    },
+    {
+      "symbol": "kLegacyProfileTab5858A8",
+      "line": 839
+    },
+    {
+      "symbol": "kLegacyProfileRear586344",
+      "line": 841
+    },
+    {
+      "symbol": "kLegacyProfileFront586360",
+      "line": 843
+    },
+    {
+      "symbol": "kLegacyMapEast58AA54",
+      "line": 858
+    },
+    {
+      "symbol": "kLegacyMapSouth58AA4C",
+      "line": 859
+    },
+    {
+      "symbol": "kLegacyGatherNoFp5864F0",
+      "line": 875
+    },
+    {
+      "symbol": "kLegacyGatherNoSpace589868",
+      "line": 876
+    },
+    {
+      "symbol": "kLegacyGatherLimit589858",
+      "line": 877
+    },
+    {
+      "symbol": "kLegacyGatherStop589848",
+      "line": 878
+    },
+    {
+      "symbol": "kLegacyGatherStart58983C",
+      "line": 879
+    },
+    {
+      "symbol": "kLegacySkillRetry589A94",
+      "line": 887
+    },
+    {
+      "symbol": "kLegacyFpConfirm55C5D4",
+      "line": 889
+    },
+    {
+      "symbol": "kLegacyFpNotice589BFC",
+      "line": 890
+    },
+    {
+      "symbol": "kLegacyFpRequired589BE8",
+      "line": 891
+    },
+    {
+      "symbol": "kItemWorkText589F84",
+      "line": 914
+    },
+    {
+      "symbol": "kItemWorkText589F6C",
+      "line": 915
+    },
+    {
+      "symbol": "kItemWorkText589F54",
+      "line": 916
+    },
+    {
+      "symbol": "kItemWorkText589F40",
+      "line": 917
+    },
+    {
+      "symbol": "kItemWorkText589F2C",
+      "line": 918
+    },
+    {
+      "symbol": "kItemWorkText589F1C",
+      "line": 919
+    },
+    {
+      "symbol": "kItemWorkText589F04",
+      "line": 920
+    },
+    {
+      "symbol": "kItemWorkText589EF4",
+      "line": 921
+    },
+    {
+      "symbol": "kItemWorkText589EDC",
+      "line": 922
+    },
+    {
+      "symbol": "kItemWorkText589EC4",
+      "line": 925
+    },
+    {
+      "symbol": "kItemWorkText589EAC",
+      "line": 928
+    },
+    {
+      "symbol": "kItemWorkText589E94",
+      "line": 931
+    },
+    {
+      "symbol": "kItemWorkText589E80",
+      "line": 932
+    },
+    {
+      "symbol": "kItemWorkText589E58",
+      "line": 933
+    },
+    {
+      "symbol": "kItemWorkText589E30",
+      "line": 934
+    },
+    {
+      "symbol": "kItemWorkText589E1C",
+      "line": 935
+    },
+    {
+      "symbol": "kItemWorkText589E04",
+      "line": 936
+    },
+    {
+      "symbol": "kItemWorkText589DF4",
+      "line": 937
+    },
+    {
+      "symbol": "kItemWorkText589DE0",
+      "line": 938
+    },
+    {
+      "symbol": "kItemWorkText589DD0",
+      "line": 939
+    },
+    {
+      "symbol": "kItemWorkText589DBC",
+      "line": 940
+    },
+    {
+      "symbol": "kItemWorkText589DAC",
+      "line": 941
+    },
+    {
+      "symbol": "kItemWorkText589D98",
+      "line": 942
+    },
+    {
+      "symbol": "kItemWorkText589D88",
+      "line": 943
+    },
+    {
+      "symbol": "kItemWorkText589D74",
+      "line": 944
+    },
+    {
+      "symbol": "kItemWorkText589D54",
+      "line": 945
+    },
+    {
+      "symbol": "kItemWorkText589D44",
+      "line": 946
+    },
+    {
+      "symbol": "kItemWorkText589D30",
+      "line": 947
+    },
+    {
+      "symbol": "kItemWorkText589D10",
+      "line": 948
+    },
+    {
+      "symbol": "kItemWorkText589024",
+      "line": 949
+    },
+    {
+      "symbol": "kLegacyCraftMissing58A098",
+      "line": 960
+    },
+    {
+      "symbol": "kLegacyCraftExecute58A0A8",
+      "line": 961
+    },
+    {
+      "symbol": "kLegacyCraftBack58A084",
+      "line": 962
+    },
+    {
+      "symbol": "kLegacyMaterialText58A078",
+      "line": 971
+    },
+    {
+      "symbol": "kLegacyMaterialText58A064",
+      "line": 972
+    },
+    {
+      "symbol": "kLegacyMaterialText58A054",
+      "line": 973
+    },
+    {
+      "symbol": "kLegacyMaterialText58A044",
+      "line": 974
+    },
+    {
+      "symbol": "kLegacyMaterialText58A034",
+      "line": 975
+    },
+    {
+      "symbol": "kLegacyMaterialText58A010",
+      "line": 976
+    },
+    {
+      "symbol": "kLegacyMaterialText58A020",
+      "line": 977
+    },
+    {
+      "symbol": "kLegacyMaterialText589FFC",
+      "line": 978
+    },
+    {
+      "symbol": "kLegacyMaterialText589FEC",
+      "line": 979
+    },
+    {
+      "symbol": "kLegacyRecipeBack58A0E0",
+      "line": 985
+    },
+    {
+      "symbol": "kLegacyRecipeUnavailable58A0B8",
+      "line": 986
+    },
+    {
+      "symbol": "kLegacyRecipeSelect58A0D0",
+      "line": 987
+    },
+    {
+      "symbol": "kLegacyInventoryTarget58A394",
+      "line": 1001
+    },
+    {
+      "symbol": "kLegacyInventoryMoney58A37C",
+      "line": 1003
+    },
+    {
+      "symbol": "kLegacyInventoryHead585C38",
+      "line": 1004
+    },
+    {
+      "symbol": "kLegacyInventoryBody585C20",
+      "line": 1005
+    },
+    {
+      "symbol": "kLegacyInventoryHand585C08",
+      "line": 1006
+    },
+    {
+      "symbol": "kLegacyInventoryFeet585BF0",
+      "line": 1007
+    },
+    {
+      "symbol": "kLegacyInventoryAccessory585BDC",
+      "line": 1008
+    },
+    {
+      "symbol": "kLegacyInventoryCrystal585BC8",
+      "line": 1009
+    },
+    {
+      "symbol": "kLegacyInventoryMemo58A38C",
+      "line": 1010
+    },
+    {
+      "symbol": "kLegacySplitConfirm589CC4",
+      "line": 1014
+    },
+    {
+      "symbol": "kLegacySplitEmpty589CB4",
+      "line": 1015
+    },
+    {
+      "symbol": "kLegacySplitBack589CA4",
+      "line": 1016
+    },
+    {
+      "symbol": "kLegacySplitAll589C98",
+      "line": 1017
+    },
+    {
+      "symbol": "kLegacySplitClear589C84",
+      "line": 1018
+    },
+    {
+      "symbol": "kLegacySplitBackspace585B34",
+      "line": 1019
+    },
+    {
+      "symbol": "kLegacySplitLimit589C64",
+      "line": 1020
+    },
+    {
+      "symbol": "kLegacySplitDigit589C78",
+      "line": 1021
+    },
+    {
+      "symbol": "kLegacyMoneyDrop585B54",
+      "line": 1026
+    },
+    {
+      "symbol": "kLegacyMoneyEmpty585B44",
+      "line": 1027
+    },
+    {
+      "symbol": "kLegacyMoneyAll585B28",
+      "line": 1028
+    },
+    {
+      "symbol": "kLegacyMoneyClear585B14",
+      "line": 1029
+    },
+    {
+      "symbol": "kLegacyMoneyDigit585B6C",
+      "line": 1030
+    },
+    {
+      "symbol": "kLegacyMoneyLimit58A3B4",
+      "line": 1031
+    },
+    {
+      "symbol": "kLegacyEngravingSelect5895C0",
+      "line": 1038
+    },
+    {
+      "symbol": "kLegacyEngravingReject5895AC",
+      "line": 1039
+    },
+    {
+      "symbol": "kLegacyEngravingClose5868EC",
+      "line": 1040
+    },
+    {
+      "symbol": "kLegacyEngravingChoose589594",
+      "line": 1041
+    },
+    {
+      "symbol": "kLegacyBurialSelect5895FC",
+      "line": 1052
+    },
+    {
+      "symbol": "kLegacyBurialReject5895E4",
+      "line": 1053
+    },
+    {
+      "symbol": "kLegacyBurialChoose5895D0",
+      "line": 1054
+    },
+    {
+      "symbol": "kLegacyMailGift58960C",
+      "line": 1064
+    },
+    {
+      "symbol": "kLegacyMailSend589640",
+      "line": 1071
+    },
+    {
+      "symbol": "kLegacyMailReturn589628",
+      "line": 1072
+    },
+    {
+      "symbol": "kLegacyMailPet589660",
+      "line": 1076
+    },
+    {
+      "symbol": "kLegacyMailEdit5897AC",
+      "line": 1088
+    },
+    {
+      "symbol": "kLegacyMailGroup589798",
+      "line": 1089
+    },
+    {
+      "symbol": "kLegacyMailContactSend589780",
+      "line": 1090
+    },
+    {
+      "symbol": "kLegacyMailContactRead589760",
+      "line": 1091
+    },
+    {
+      "symbol": "kLegacyMailContactDelete589750",
+      "line": 1092
+    },
+    {
+      "symbol": "kLegacyMailNormalMode5896E0",
+      "line": 1096
+    },
+    {
+      "symbol": "kLegacyMailPetMode5896D0",
+      "line": 1097
+    },
+    {
+      "symbol": "kLegacyMailDeleteYes589728",
+      "line": 1101
+    },
+    {
+      "symbol": "kLegacyMailDeleteLead589714",
+      "line": 1102
+    },
+    {
+      "symbol": "kLegacyMailDeleteEnd589708",
+      "line": 1103
+    },
+    {
+      "symbol": "kLegacyMailDeleteHint589700",
+      "line": 1104
+    },
+    {
+      "symbol": "kLegacyMailKeepHint5896F4",
+      "line": 1105
+    },
+    {
+      "symbol": "kLegacyMailChooseRecipients5896A4",
+      "line": 1111
+    },
+    {
+      "symbol": "kLegacyMailSendSelected5896B8",
+      "line": 1112
+    },
+    {
+      "symbol": "kLegacyMailUnselect58968C",
+      "line": 1113
+    },
+    {
+      "symbol": "kLegacyMailSelect589678",
+      "line": 1114
+    },
+    {
+      "symbol": "kLegacyMailSortFirst589744",
+      "line": 1118
+    },
+    {
+      "symbol": "kLegacyMailSortSecond589738",
+      "line": 1119
+    },
+    {
+      "symbol": "kLegacyMailSortThird58972C",
+      "line": 1120
+    },
+    {
+      "symbol": "kLegacyGuildClose58F248",
+      "line": 1142
+    },
+    {
+      "symbol": "kLegacyGuildPage58F2D4",
+      "line": 1143
+    },
+    {
+      "symbol": "kLegacyGuildSort58F4A8",
+      "line": 1144
+    },
+    {
+      "symbol": "kLegacyGuildDetails58F490",
+      "line": 1145
+    },
+    {
+      "symbol": "kLegacyGuildContacts58F474",
+      "line": 1146
+    },
+    {
+      "symbol": "kLegacyGuildSend58F2EC",
+      "line": 1147
+    },
+    {
+      "symbol": "kLegacyGuildRead58F44C",
+      "line": 1148
+    },
+    {
+      "symbol": "kLegacyGuildRemove58F42C",
+      "line": 1149
+    },
+    {
+      "symbol": "kLegacyGuildRank58F410",
+      "line": 1150
+    },
+    {
+      "symbol": "kLegacyGuildSortFirst58F408",
+      "line": 1154
+    },
+    {
+      "symbol": "kLegacyGuildSortSecond58F400",
+      "line": 1155
+    },
+    {
+      "symbol": "kLegacyGuildSortThird58F3F4",
+      "line": 1156
+    },
+    {
+      "symbol": "kLegacyGuildDeleteYes58F3EC",
+      "line": 1160
+    },
+    {
+      "symbol": "kLegacyGuildDeleteNo58F3E4",
+      "line": 1161
+    },
+    {
+      "symbol": "kLegacyGuildDeleteDenied58F3C8",
+      "line": 1162
+    },
+    {
+      "symbol": "kLegacyGuildDeleteLead58F3B8",
+      "line": 1163
+    },
+    {
+      "symbol": "kLegacyGuildDeleteEnd58F3AC",
+      "line": 1164
+    },
+    {
+      "symbol": "kLegacyGuildDeleteHint58F3A0",
+      "line": 1165
+    },
+    {
+      "symbol": "kLegacyGuildKeepHint58F38C",
+      "line": 1166
+    },
+    {
+      "symbol": "kLegacyGuildNormalMode58F374",
+      "line": 1170
+    },
+    {
+      "symbol": "kLegacyGuildPetMode58F358",
+      "line": 1171
+    },
+    {
+      "symbol": "kLegacyGuildReturn58F264",
+      "line": 1172
+    },
+    {
+      "symbol": "kLegacyGuildPetHint58F2B4",
+      "line": 1177
+    },
+    {
+      "symbol": "kLegacyGuildGift58F224",
+      "line": 1187
+    },
+    {
+      "symbol": "kLegacyGuildSendMail58F288",
+      "line": 1191
+    },
+    {
+      "symbol": "kLegacyGuildUnselect58F310",
+      "line": 1200
+    },
+    {
+      "symbol": "kLegacyGuildChooseRecipients58F33C",
+      "line": 1201
+    },
+    {
+      "symbol": "kLegacyGuildRankRequired58F584",
+      "line": 1212
+    },
+    {
+      "symbol": "kLegacyGuildRankRemove58F568",
+      "line": 1213
+    },
+    {
+      "symbol": "kLegacyGuildRankSelect58F4FC",
+      "line": 1214
+    },
+    {
+      "symbol": "kLegacyGuildNameEdit58F550",
+      "line": 1226
+    },
+    {
+      "symbol": "kLegacyGuildSecondEdit58F534",
+      "line": 1227
+    },
+    {
+      "symbol": "kLegacyGuildRankEdit58F518",
+      "line": 1228
+    },
+    {
+      "symbol": "kLegacyGuildPermissionFirst58F4E4",
+      "line": 1229
+    },
+    {
+      "symbol": "kLegacyGuildPermissionSecond58F4D0",
+      "line": 1230
+    },
+    {
+      "symbol": "kLegacyEmoteLabels58A370",
+      "line": 1234
+    },
+    {
+      "symbol": "kLegacyEmoteHints5871B0",
+      "line": 1254
+    },
+    {
+      "symbol": "kLegacyBlacklistText5533F4",
+      "line": 1274
+    },
+    {
+      "symbol": "kLegacyBlacklistText5533B4",
+      "line": 1275
+    },
+    {
+      "symbol": "kLegacyBlacklistText553370",
+      "line": 1276
+    },
+    {
+      "symbol": "kLegacyBlacklistText55332C",
+      "line": 1277
+    },
+    {
+      "symbol": "kLegacyBlacklistText553304",
+      "line": 1278
+    },
+    {
+      "symbol": "kLegacyBlacklistText5532EC",
+      "line": 1279
+    },
+    {
+      "symbol": "kLegacyBlacklistText5532D8",
+      "line": 1280
+    },
+    {
+      "symbol": "kLegacyBlacklistText553294",
+      "line": 1281
+    },
+    {
+      "symbol": "kLegacyBlacklistText5532C4",
+      "line": 1282
+    },
+    {
+      "symbol": "kLegacyBlacklistText5532B0",
+      "line": 1283
+    },
+    {
+      "symbol": "kLegacyPresetConfirm58A6C0",
+      "line": 1288
+    },
+    {
+      "symbol": "kLegacyPresetCtrl58A68C",
+      "line": 1289
+    },
+    {
+      "symbol": "kLegacyPresetShift58A66C",
+      "line": 1290
+    },
+    {
+      "symbol": "kLegacyPresetNormal58A6A8",
+      "line": 1291
+    },
+    {
+      "symbol": "kLegacyPresetTab585910",
+      "line": 1292
+    },
+    {
+      "symbol": "kLegacyPresetTab585900",
+      "line": 1293
+    },
+    {
+      "symbol": "kLegacyPresetTab5858F0",
+      "line": 1294
+    },
+    {
+      "symbol": "kLegacyItemUsePrevious58597C",
+      "line": 1307
+    },
+    {
+      "symbol": "kLegacyItemUseHeader58932C",
+      "line": 1309
+    },
+    {
+      "symbol": "kLegacyGemMissing58AC7C",
+      "line": 1318
+    },
+    {
+      "symbol": "kLegacyGemExecute58ACB0",
+      "line": 1319
+    },
+    {
+      "symbol": "kLegacyGemBack5871F0",
+      "line": 1320
+    },
+    {
+      "symbol": "kLegacyGemTooFew58ACA4",
+      "line": 1328
+    },
+    {
+      "symbol": "kLegacyGemInvalid58AC90",
+      "line": 1329
+    },
+    {
+      "symbol": "kLegacyGemRegistered58AC6C",
+      "line": 1330
+    },
+    {
+      "symbol": "kLegacyGemWorking58AC58",
+      "line": 1331
+    },
+    {
+      "symbol": "kLegacyGemNone58AC28",
+      "line": 1332
+    },
+    {
+      "symbol": "kLegacyGemRegister58AC3C",
+      "line": 1333
+    },
+    {
+      "symbol": "kLegacyGemSelected58AC10",
+      "line": 1334
+    },
+    {
+      "symbol": "kLegacyGemSelect58AC00",
+      "line": 1335
+    },
+    {
+      "symbol": "kLegacyGemReject58ABEC",
+      "line": 1336
+    },
+    {
+      "symbol": "kLegacyCraftAdd589FC8",
+      "line": 1337
+    },
+    {
+      "symbol": "kLegacyCraftChoose589FD8",
+      "line": 1338
+    },
+    {
+      "symbol": "kLegacyResultLimit5897D4",
+      "line": 1340
+    },
+    {
+      "symbol": "kLegacyTitleSubmit5863C4",
+      "line": 1341
+    },
+    {
+      "symbol": "kLegacyTitlePage58A98C",
+      "line": 1343
+    },
+    {
+      "symbol": "kLegacyTitleDelete5863E8",
+      "line": 1344
+    },
+    {
+      "symbol": "kLegacyTitleCancelDelete58AA3C",
+      "line": 1346
+    },
+    {
+      "symbol": "kLegacyTitleClear5863FC",
+      "line": 1348
+    },
+    {
+      "symbol": "kLegacyTitleRemove58AA1C",
+      "line": 1350
+    },
+    {
+      "symbol": "kLegacyTitleSelect58AA2C",
+      "line": 1352
+    },
+    {
+      "symbol": "kLegacySettingsText58A4A4",
+      "line": 1361
+    },
+    {
+      "symbol": "kLegacySettingsHint586DE8",
+      "line": 1362
+    },
+    {
+      "symbol": "kLegacySettingsText58A498",
+      "line": 1363
+    },
+    {
+      "symbol": "kLegacySettingsHint58A484",
+      "line": 1364
+    },
+    {
+      "symbol": "kLegacySettingsText58A478",
+      "line": 1365
+    },
+    {
+      "symbol": "kLegacySettingsHint58A460",
+      "line": 1366
+    },
+    {
+      "symbol": "kLegacySettingsText58A454",
+      "line": 1367
+    },
+    {
+      "symbol": "kLegacySettingsHint58A440",
+      "line": 1368
+    },
+    {
+      "symbol": "kLegacySettingsText58A434",
+      "line": 1369
+    },
+    {
+      "symbol": "kLegacySettingsHint58A420",
+      "line": 1370
+    },
+    {
+      "symbol": "kLegacySettingsText58A414",
+      "line": 1371
+    },
+    {
+      "symbol": "kLegacySettingsHint58A400",
+      "line": 1372
+    },
+    {
+      "symbol": "kLegacySettingsText58A3F4",
+      "line": 1373
+    },
+    {
+      "symbol": "kLegacySettingsHint58A3E4",
+      "line": 1374
+    },
+    {
+      "symbol": "kLegacySettingsText58A3D8",
+      "line": 1375
+    },
+    {
+      "symbol": "kLegacySettingsHint58A3C8",
+      "line": 1376
+    },
+    {
+      "symbol": "kLegacyChat58A584",
+      "line": 1382
+    },
+    {
+      "symbol": "kLegacyChat58A57C",
+      "line": 1383
+    },
+    {
+      "symbol": "kLegacyChat58A578",
+      "line": 1384
+    },
+    {
+      "symbol": "kLegacyChat58A574",
+      "line": 1385
+    },
+    {
+      "symbol": "kLegacyChat58A570",
+      "line": 1386
+    },
+    {
+      "symbol": "kLegacyChat58A560",
+      "line": 1387
+    },
+    {
+      "symbol": "kLegacyChat58A554",
+      "line": 1388
+    },
+    {
+      "symbol": "kLegacyChat58A54C",
+      "line": 1389
+    },
+    {
+      "symbol": "kLegacyChat5877B4",
+      "line": 1390
+    },
+    {
+      "symbol": "kLegacyChat58A540",
+      "line": 1391
+    },
+    {
+      "symbol": "kLegacyChat58A538",
+      "line": 1392
+    },
+    {
+      "symbol": "kLegacyChat58A524",
+      "line": 1393
+    },
+    {
+      "symbol": "kLegacyChat58A514",
+      "line": 1394
+    },
+    {
+      "symbol": "kLegacyChat58A508",
+      "line": 1395
+    },
+    {
+      "symbol": "kLegacyChat58A500",
+      "line": 1396
+    },
+    {
+      "symbol": "kLegacyChat58A4F8",
+      "line": 1397
+    },
+    {
+      "symbol": "kLegacyChat58A4E8",
+      "line": 1398
+    },
+    {
+      "symbol": "kLegacyChat58A668",
+      "line": 1399
+    },
+    {
+      "symbol": "kLegacyChat58A664",
+      "line": 1400
+    },
+    {
+      "symbol": "kLegacyChat58A654",
+      "line": 1401
+    },
+    {
+      "symbol": "kLegacyChat58A63C",
+      "line": 1402
+    },
+    {
+      "symbol": "kLegacyChat58A62C",
+      "line": 1403
+    },
+    {
+      "symbol": "kLegacyChat58A614",
+      "line": 1404
+    },
+    {
+      "symbol": "kLegacyChat58A604",
+      "line": 1405
+    },
+    {
+      "symbol": "kLegacyChat58A5F4",
+      "line": 1406
+    },
+    {
+      "symbol": "kLegacyChat58A5E0",
+      "line": 1407
+    },
+    {
+      "symbol": "kLegacyChat58A5C4",
+      "line": 1408
+    },
+    {
+      "symbol": "kLegacyChat58A5B0",
+      "line": 1409
+    },
+    {
+      "symbol": "kLegacyChat58A594",
+      "line": 1410
+    },
+    {
+      "symbol": "kLegacyChat553FB4",
+      "line": 1411
+    },
+    {
+      "symbol": "kLegacyChat5531A4",
+      "line": 1412
+    },
+    {
+      "symbol": "kLegacyAudio58A6D4",
+      "line": 1422
+    },
+    {
+      "symbol": "kLegacyAudio58A720",
+      "line": 1423
+    },
+    {
+      "symbol": "kLegacyAudio58A76C",
+      "line": 1424
+    },
+    {
+      "symbol": "kLegacyAudio58A764",
+      "line": 1425
+    },
+    {
+      "symbol": "kLegacyAudio58A714",
+      "line": 1426
+    },
+    {
+      "symbol": "kLegacyAudio58A700",
+      "line": 1427
+    },
+    {
+      "symbol": "kLegacyAudio58A6F4",
+      "line": 1428
+    },
+    {
+      "symbol": "kLegacyAudio58A6E0",
+      "line": 1429
+    },
+    {
+      "symbol": "kLegacyAudio58A750",
+      "line": 1430
+    },
+    {
+      "symbol": "kLegacyAudio58A740",
+      "line": 1431
+    },
+    {
+      "symbol": "kLegacyAudio58A730",
+      "line": 1432
+    },
+    {
+      "symbol": "kLegacyMouse58A7B0",
+      "line": 1438
+    },
+    {
+      "symbol": "kLegacyMouse58A7A0",
+      "line": 1439
+    },
+    {
+      "symbol": "kLegacyMouse58A790",
+      "line": 1440
+    },
+    {
+      "symbol": "kLegacyMouse58A784",
+      "line": 1441
+    },
+    {
+      "symbol": "kLegacyMouse58A774",
+      "line": 1442
+    },
+    {
+      "symbol": "kLegacyMouse58A838",
+      "line": 1443
+    },
+    {
+      "symbol": "kLegacyMouse58A830",
+      "line": 1444
+    },
+    {
+      "symbol": "kLegacyMouse58A820",
+      "line": 1445
+    },
+    {
+      "symbol": "kLegacyMouse58A814",
+      "line": 1446
+    },
+    {
+      "symbol": "kLegacyMouse58A7FC",
+      "line": 1447
+    },
+    {
+      "symbol": "kLegacyMouse58A7EC",
+      "line": 1448
+    },
+    {
+      "symbol": "kLegacyMouse58A7D4",
+      "line": 1449
+    },
+    {
+      "symbol": "kLegacyMouse58A7C0",
+      "line": 1450
+    },
+    {
+      "symbol": "kLegacyMouse5535F8",
+      "line": 1451
+    },
+    {
+      "symbol": "kLegacyMouse58A80C",
+      "line": 1452
+    },
+    {
+      "symbol": "kLegacyHotkey58A8AC",
+      "line": 1458
+    },
+    {
+      "symbol": "kLegacyHotkey58A8A8",
+      "line": 1459
+    },
+    {
+      "symbol": "kLegacyHotkey58A89C",
+      "line": 1460
+    },
+    {
+      "symbol": "kLegacyHotkey58A898",
+      "line": 1461
+    },
+    {
+      "symbol": "kLegacyHotkey58A884",
+      "line": 1462
+    },
+    {
+      "symbol": "kLegacyHotkey58A87C",
+      "line": 1463
+    },
+    {
+      "symbol": "kLegacyHotkey58A86C",
+      "line": 1464
+    },
+    {
+      "symbol": "kLegacyHotkey58A85C",
+      "line": 1465
+    },
+    {
+      "symbol": "kLegacyHotkey58A850",
+      "line": 1466
+    },
+    {
+      "symbol": "kLegacyHotkey58A84C",
+      "line": 1467
+    },
+    {
+      "symbol": "kLegacyHotkey58A840",
+      "line": 1468
+    },
+    {
+      "symbol": "kLegacyHotkey553F00",
+      "line": 1469
+    },
+    {
+      "symbol": "kLegacyScanline586E24",
+      "line": 1474
+    },
+    {
+      "symbol": "kLegacyScanline58A8F8",
+      "line": 1475
+    },
+    {
+      "symbol": "kLegacyScanline58A8E8",
+      "line": 1476
+    },
+    {
+      "symbol": "kLegacyScanline58A8D4",
+      "line": 1477
+    },
+    {
+      "symbol": "kLegacyScanline58A8BC",
+      "line": 1478
+    },
+    {
+      "symbol": "kLegacyButton58A914",
+      "line": 1503
+    },
+    {
+      "symbol": "kLegacyButton58A4BC",
+      "line": 1504
+    },
+    {
+      "symbol": "kLegacyButton58A904",
+      "line": 1505
+    },
+    {
+      "symbol": "kLegacyButton58A97C",
+      "line": 1506
+    },
+    {
+      "symbol": "kLegacyButton58A970",
+      "line": 1507
+    },
+    {
+      "symbol": "kLegacyButton58A948",
+      "line": 1508
+    },
+    {
+      "symbol": "kLegacyButton58A920",
+      "line": 1510
+    },
+    {
+      "symbol": "kLegacyLogout58A4D8",
+      "line": 1516
+    },
+    {
+      "symbol": "kLegacyLogout58A4C8",
+      "line": 1517
+    },
+    {
+      "symbol": "kLegacyLogout586E60",
+      "line": 1519
+    },
+    {
+      "symbol": "kLegacyLogout586E48",
+      "line": 1521
+    },
+    {
+      "symbol": "kLegacyLogout58A4B0",
+      "line": 1523
+    }
+  ],
+  "removed_shared_constants": [
+    "kLegacyBarterNo588A00",
+    "kLegacyBarterYes588A08",
+    "kLegacyItemUseCancel589008",
+    "kLegacyItemUseTitle585F54",
+    "kLegacyLogout553FD0",
+    "kLegacyRecipePage586D2C",
+    "kLegacySkillTargetNext589360",
+    "kLegacySkillTargetPrevious589358",
+    "kLegacyTradeCancel5889AC"
+  ],
+  "retired_files": [
+    "src/ui/LegacyWindowSelection.cpp",
+    "include/cg/ui/LegacyWindowSelection.hpp",
+    "src/LegacyPanelRuntime.hpp",
+    "src/LegacyPanelTexts.hpp"
+  ],
+  "selection_consumers_before": {
+    "Sub_504180": [
+      {
+        "source": "src/InputKeyDispatch.cpp",
+        "line": 56,
+        "code": "static_cast<void>(ui::Sub_504180(99u));"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 172,
+        "code": "std::int32_t __cdecl Sub_504180(const std::uint32_t id)"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 237,
+        "code": "const std::int32_t result = Sub_504180(1);"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5933,
+        "code": "static_cast<void>(ui::Sub_504180(1));"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 17,
+        "code": "std::int32_t __cdecl Sub_504180(std::uint32_t id);"
+      }
+    ],
+    "Sub_5042D0": [
+      {
+        "source": "src/InputKeyDispatch.cpp",
+        "line": 52,
+        "code": "static_cast<void>(ui::Sub_5042D0(100u));"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 243,
+        "code": "std::int32_t __cdecl Sub_5042D0(const std::uint32_t id)"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6635,
+        "code": "static_cast<void>(ui::Sub_5042D0(100));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6889,
+        "code": "static_cast<void>(ui::Sub_5042D0(100));"
+      },
+      {
+        "source": "src/world/WorldUpdate.cpp",
+        "line": 239,
+        "code": "static_cast<void>(ui::Sub_5042D0(100));"
+      },
+      {
+        "source": "src/ui/windows/WindowSkill.cpp",
+        "line": 2546,
+        "code": "static_cast<void>(ui::Sub_5042D0(19));"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 19,
+        "code": "std::int32_t __cdecl Sub_5042D0(std::uint32_t id);"
+      }
+    ],
+    "Sub_5043D0": [
+      {
+        "source": "src/InputKeyDispatch.cpp",
+        "line": 51,
+        "code": "if (ui::Sub_5043D0(2) != 0) {"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 282,
+        "code": "std::int32_t __cdecl Sub_5043D0(const std::int32_t index)"
+      },
+      {
+        "source": "src/world/WorldUpdate.cpp",
+        "line": 238,
+        "code": "if (ui::Sub_5043D0(2) != 0) {"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 21,
+        "code": "std::int32_t __cdecl Sub_5043D0(std::int32_t index);"
+      }
+    ],
+    "Sub_504410": [
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 154,
+        "code": "std::int32_t __cdecl Sub_504410(const std::uint32_t id)"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 191,
+        "code": "static_cast<std::uint32_t>(Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5955,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5990,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6374,
+        "code": "static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6867,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 7929,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 8018,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 15,
+        "code": "std::int32_t __cdecl Sub_504410(std::uint32_t id);"
+      }
+    ],
+    "Sub_5044C0": [
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 143,
+        "code": "std::int32_t __cdecl Sub_5044C0(const std::uint32_t id)"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 159,
+        "code": "const std::int32_t index = Sub_5044C0(id);"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 182,
+        "code": "const std::int32_t index = Sub_5044C0(id);"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 206,
+        "code": "const std::int32_t previousIndex = Sub_5044C0(previousSelection);"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 257,
+        "code": "const std::int32_t index = Sub_5044C0(id);"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 13,
+        "code": "std::int32_t __cdecl Sub_5044C0(std::uint32_t id);"
+      }
+    ],
+    "Sub_504AF0": [
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 231,
+        "code": "std::int32_t __cdecl Sub_504AF0()"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 250,
+        "code": "static_cast<void>(Sub_504AF0());"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 267,
+        "code": "static_cast<void>(Sub_504AF0());"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 276,
+        "code": "static_cast<void>(Sub_504AF0());"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6202,
+        "code": "static_cast<void>(ui::Sub_504AF0());"
+      },
+      {
+        "source": "include/cg/ui/LegacyWindowSelection.hpp",
+        "line": 23,
+        "code": "std::int32_t __cdecl Sub_504AF0();"
+      }
+    ],
+    "gValueCAFEA0": [
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 189,
+        "code": "if (categoryByte != 0 && world::detail::gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 190,
+        "code": "world::detail::gValueCAFEA0 ="
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 233,
+        "code": "const std::uint32_t current = world::detail::gValueCAFEA0;"
+      },
+      {
+        "source": "src/ui/LegacyWindowSelection.cpp",
+        "line": 238,
+        "code": "world::detail::gValueCAFEA0 = 0;"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 4609,
+        "code": "std::uint32_t gValueCAFEA0 = 0;"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5932,
+        "code": "if (gValueCAFEA0 != 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5934,
+        "code": "gValueCAFEA0 = 0;"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5954,
+        "code": "if (gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5955,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5989,
+        "code": "&& gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 5990,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6372,
+        "code": "if (gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6373,
+        "code": "gValueCAFEA0 ="
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6866,
+        "code": "if (gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 6867,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 7928,
+        "code": "if (gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 7929,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 8017,
+        "code": "if (gValueCAFEA0 == 0) {"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 8018,
+        "code": "gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));"
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "line": 10501,
+        "code": "gValueCAFEA0 = 0;"
+      },
+      {
+        "source": "src/world/WorldUpdateDependencies.hpp",
+        "line": 339,
+        "code": "extern std::uint32_t gValueCAFEA0;"
+      }
+    ]
+  },
+  "current_state_invariant_before": {
+    "selection_slots": "[0,0,0]初态；集合外唯一无条件发布为99，其余是关闭19／清空100或受CAFEA0!=0保护的发布1。",
+    "restoration_flag": "CAFEA0初值0；非零候选仅为504410(1)查询结果，编号1从未建立，故始终0；无地址借出。",
+    "reachable_selection": "首槽只能为0或99，另两槽保持0；仅End关闭分支触发音效57，其他清理无可见绘制。",
+    "accepted_difference": "取消End旧99号不可见切换和伴随关闭音效；现代窗口／其他按键与声音保持。"
+  },
+  "records": [
+    {
+      "inventory_id": "F:00104180",
+      "original_entry": "0x00504180",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_504180"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    },
+    {
+      "inventory_id": "F:001042D0",
+      "original_entry": "0x005042D0",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_5042D0"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    },
+    {
+      "inventory_id": "F:001043D0",
+      "original_entry": "0x005043D0",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_5043D0"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    },
+    {
+      "inventory_id": "F:00104410",
+      "original_entry": "0x00504410",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_504410"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    },
+    {
+      "inventory_id": "F:001044C0",
+      "original_entry": "0x005044C0",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_5044C0"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    },
+    {
+      "inventory_id": "F:00104AF0",
+      "original_entry": "0x00504AF0",
+      "status": "用户范围排除：无显示链旧选择及End残留经确认移除",
+      "symbols": [
+        "Sub_504AF0"
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
+      ]
+    }
+  ],
+  "historical_direct_locations": [
+    {
+      "inventory_id": "F:00104180",
+      "original_entry": "0x504180",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_504180",
+          "definition_line": 172,
+          "namespace": "cg::ui"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:001042D0",
+      "original_entry": "0x5042D0",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_5042D0",
+          "definition_line": 243,
+          "namespace": "cg::ui"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:001043D0",
+      "original_entry": "0x5043D0",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_5043D0",
+          "definition_line": 282,
+          "namespace": "cg::ui"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:00104410",
+      "original_entry": "0x504410",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_504410",
+          "definition_line": 154,
+          "namespace": "cg::ui"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:001044C0",
+      "original_entry": "0x5044C0",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_5044C0",
+          "definition_line": 143,
+          "namespace": "cg::ui"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:00104AF0",
+      "original_entry": "0x504AF0",
+      "definitions": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbol": "Sub_504AF0",
+          "definition_line": 231,
+          "namespace": "cg::ui"
+        }
+      ]
+    }
+  ],
+  "direct_location_counts": {
+    "inventory_functions": 3680,
+    "source_files": 264,
+    "direct_inventory_entries": 2448,
+    "direct_definitions": 2465,
+    "multiple_definition_entries": 13,
+    "shared_tag_definitions": 1,
+    "non_inventory_definitions": 38,
+    "without_direct_definition": 1232
+  },
+  "direct_definitions_updated": 874,
+  "historical_location_exceptions": [
+    "SortBattleDrawPointers_53C112",
+    "ShortSortBattleDrawActions_53C266"
+  ],
+  "historical_location_boundary": "两项既有排序符号在LWR02前已失名，原定位保持为历史线索，不计本轮定义定位通过；原音频两处过期行号也未改。",
+  "historical_inventory_rows": [
+    {
+      "inventory_id": "F:00104180",
+      "original_entry": "0x00504180",
+      "original_name": "`sub_504180`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:172 — Sub_504180`"
+    },
+    {
+      "inventory_id": "F:001042D0",
+      "original_entry": "0x005042D0",
+      "original_name": "`sub_5042D0`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:243 — Sub_5042D0`"
+    },
+    {
+      "inventory_id": "F:001043D0",
+      "original_entry": "0x005043D0",
+      "original_name": "`sub_5043D0`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:282 — Sub_5043D0`"
+    },
+    {
+      "inventory_id": "F:00104410",
+      "original_entry": "0x00504410",
+      "original_name": "`sub_504410`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:154 — Sub_504410`"
+    },
+    {
+      "inventory_id": "F:001044C0",
+      "original_entry": "0x005044C0",
+      "original_name": "`sub_5044C0`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:143 — Sub_5044C0`"
+    },
+    {
+      "inventory_id": "F:00104AF0",
+      "original_entry": "0x00504AF0",
+      "original_name": "`sub_504AF0`",
+      "previous_state": "有正文",
+      "historical_provider": "`src/ui/LegacyWindowSelection.cpp:231 — Sub_504AF0`"
+    }
+  ],
+  "inventory_states_after": {
+    "有正文": 2538,
+    "已排除": 444,
+    "有承接": 688,
+    "不适用": 1,
+    "空方法": 9
+  },
+  "semantic_current_sources_retired": 12,
+  "preexisting_semantic_correction": "非独立库存4FC730在LWR01已删除，旧semantic当前来源仍指LUR，现转历史；不新增六项之外的库存排除。",
+  "ui_symbol_records_retired": 0,
+  "ui_symbol_records_updated": 58,
+  "historical_dispositions": [
+    {
+      "inventory_id": "F:00104180",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001042D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00104410",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001044C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00104AF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+      ],
+      "boundary": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。"
+    }
+  ],
+  "delivery": "用户在后续UI归位任务中明确要求完成后提交；本阶段改动纳入同一批代码提交，其他会话既有改动排除。",
+  "validation": {
+    "source_files_with_exact_edits": 13,
+    "removed_code_references": 0,
+    "preserved_function_bodies_equal": 1136,
+    "shared_render_functions_preserved": 10,
+    "changed_functions": [
+      {
+        "source": "src/InputKeyDispatch.cpp",
+        "symbol": "ProcessKeyInput_4596D0",
+        "previous_line": 15
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_455FC0",
+        "previous_line": 5920
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_50D120",
+        "previous_line": 5947
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_504A50",
+        "previous_line": 6183
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_5093F0",
+        "previous_line": 6361
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "DrawNormalScene_51C7D0",
+        "previous_line": 6450
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46ADA0",
+        "previous_line": 7926
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46AEA0",
+        "previous_line": 8015
+      },
+      {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "ResetSceneUiState_504100",
+        "previous_line": 10497
+      },
+      {
+        "source": "src/world/WorldUpdate.cpp",
+        "symbol": "Sub_455C90",
+        "previous_line": 226
+      },
+      {
+        "source": "src/ui/windows/WindowSkill.cpp",
+        "symbol": "WindowSkill_ReceiveTextTargets",
+        "previous_line": 2478
+      }
+    ],
+    "original_inventory_identities_preserved": 3680,
+    "inventory_states_changed_to_excluded": 6,
+    "empty_method_states_preserved": 9,
+    "direct_locations_in_changed_sources_verified": 874,
+    "shared_feature_gates_and_tasks_unchanged": true,
+    "retired_current_semantic_sources": 0,
+    "encoding": "UTF-8无BOM/LF",
+    "build": "本轮未编译、测试或运行；历史编译不作为本轮验证。"
+  },
+  "counts": {
+    "removed_selection_functions": 6,
+    "removed_panel_states": 371,
+    "removed_private_constants": 540,
+    "removed_shared_constants": 9,
+    "retired_source_or_header_files": 4
+  },
+  "ledger_validation": {
+    "command": "plan/measure_cg2d.ps1 -Check",
+    "exit_code": 1,
+    "remaining_errors": [
+      "src/platform/LegacyExternalKeyboard.cpp",
+      "src/platform/LegacyExternalKeyboardObject.cpp"
+    ],
+    "interpretation": "两份既有历史附件缺失；不计全量台账通过",
+    "derived_files_written": false
+  },
+  "side_effect_audit": {
+    "dead_data": "361项LegacyUiRecord状态与10项旧采集状态无当前代码消费者；聚合／标量／空指针／空字符串初始化不调用业务服务。",
+    "embedded_input": "LegacyLogStorage中默认InputContext只将引用关联自身InputFields；无RNG、音效、IO或设备注册。",
+    "removed_player_flags_query": "保存旧选择的空效块中ReadPlayerFlags18A只借现有玩家存储并memcpy读取flags18A，未写状态、消费RNG或执行外部服务。",
+    "scope": "仅当前代码与批准的旧窗口退役；非原二进制可达性证明，不提升功能或运行门禁。"
+  },
+  "historical_delivery_before_user_submission_request": "按用户此前约定不暂存或提交；由另一会话统一处理。"
+}

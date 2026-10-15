@@ -5,6 +5,17 @@ namespace detail {
 
 // 回调与内部函数前置声明。
 
+// 原函数：0x00488800。
+static void WindowItem_TransferQuantity(
+    std::int32_t sourceMode, std::int32_t source,
+    std::int32_t targetMode, std::int32_t target); // IMT01：两低U8模式/原-1及同mode两fresh组读取保持，发送原不消费；全互通待。
+
+// 原函数：0x0048B930。
+static std::int32_t WindowItem_DrawDescriptionLines(
+    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
+    const std::wstring_view* lines, std::int32_t unusedStride, std::int32_t lineCount,
+    const wchar_t* footer, std::int8_t footerColor); // 原连续NUL分段改为宽行表，空行仍推进，不使用stride。
+
 // 原函数：0x00488930。
 static std::int32_t WindowInventory_TogglePreview(std::int32_t unusedIndex, std::int32_t state);
 
@@ -116,6 +127,84 @@ static WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562
 WindowPrototype gWindowPrototypeInventory {0, 4, 340, 120, 278, 259, 0x80010101u, 24, gWindowElements562CD8, &WindowInventory_Update, &WindowInventory_Draw, &WindowInventory_Release}; // 14: 54E4E0
 
 // 窗口函数实现。
+
+// IMT01：原70条，target=-1先声/原门槛与低U8模式、同mode两fresh组读取；正确正文保，全互通待。
+// 原函数：0x00488800。
+static void WindowItem_TransferQuantity(
+    const std::int32_t sourceMode, const std::int32_t source,
+    const std::int32_t targetMode, const std::int32_t target)
+{
+    if (target == -1) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (source < 0 || target < -1) {
+        return;
+    }
+    const std::uint8_t from = static_cast<std::uint8_t>(sourceMode);
+    const std::uint8_t to = static_cast<std::uint8_t>(targetMode);
+    if (from != 0) {
+        if (from == to) {
+            const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
+            const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
+            static_cast<void>(network::Sub_516C90(
+                platform::gConnectionSocket, sourceGroup, source, targetGroup, target, -1));
+        } else {
+            const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
+            static_cast<void>(network::Sub_516C90(
+                platform::gConnectionSocket, sourceGroup, source, 0, target, -1));
+        }
+    } else if (to != 0) {
+        const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
+        static_cast<void>(network::Sub_516C90(
+            platform::gConnectionSocket, 0, source, targetGroup, target, -1));
+    }
+}
+
+// 原函数：0x0048B930。
+static std::int32_t WindowItem_DrawDescriptionLines(
+    const std::int32_t x, const std::int32_t y,
+    const wchar_t* const title, const std::int8_t titleColor,
+    const std::wstring_view* lines, const std::int32_t, const std::int32_t lineCount,
+    const wchar_t* const footer, const std::int8_t footerColor)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    static_cast<void>(render::ClearTextQueueTail_456D50(5));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+    if (title != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
+            5, 12, titleColor, title, 0, 0));
+    }
+    gTooltipColorD67D30 = 0;
+    std::int32_t lineY = 0;
+    for (std::int32_t line = 0; line < lineCount; ++line) {
+        if (!lines->empty()) {
+            const std::int32_t shortY =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+            const std::int32_t shortX =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+            static_cast<void>(WindowItem_SplitTooltipLines(
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, *lines, 0, 0));
+        }
+        lineY += 13;
+        ++lines;
+    }
+    if (footer != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
+            5, 12, footerColor, footer, 0, 0));
+    }
+    return render::DrawGraphic3_520970(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+        230, 244317, 0, 1, 0, &descriptor);
+}
 
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 // 原函数：0x0048A6C0。

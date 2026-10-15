@@ -106,3 +106,24 @@ InputContext 的默认构造只绑定自身字段和自有正文，析构为默�
 其他共享类型、协议写入数据、跨窗口状态和公开接口保持。迁移保持类型／布局断言和函数正文，私有化仅改变链接可见性；只删除上述四个零调用辅助函数。同步UI符号位置、当前函数表／直接定位及限定验收记录，原3680身份／状态保持。静态核对唯一实体、全部消费者、原地址／初值／正文、初始化序、UTF-8／JSON和差异；不构建、测试或运行。
 
 本次复查完成：3个类型及布局断言归入对应窗口，27个唯一窗口变量收为static并移除共享extern；4个已无消费者的辅助函数及2视图类型删除。额外核42项别名／常量，均涉及共享字段、公开接口或多窗口使用，继续共享。6个窗口文件精确变换、229个保留函数正文、原初值／初始化序、3680身份／状态及UI符号位置核对通过。台账-Check仍仅两份既有键盘历史附件缺失，未写派生文件；未编译、测试或运行。详见[归位证据](cg2d_ui_definition_ownership_evidence.json)。
+
+<a id="ui-window-ownership-followup-20261015"></a>
+
+## 旧窗口清理后的第二轮专属定义归位（UWO02）
+
+2026-10-15，用户继续要求检查src/ui哪些定义可进入具体Window文件，并明确完成后提交。以当前未提交的旧窗口清理为本步基线，先记录边界，再按第8条工程委托执行；提交一并收妥本会话旧窗口清理，排除其他会话既有进度改动。只调整所有权与可见性，不改业务或新增包装。
+
+本轮核四个内部头的279个类型／别名／extern／常量标记、39个单CPP表面候选及运行层的单窗口函数消费者；不能把类型名只出现于一个CPP等同于私有。窗口实例、共享聚合成员、回调参数合同与公共运行机制继续共享。
+
+- 七个只被具体窗口消费、在运行层无其他调用的函数迁入并收为static：WindowInput_ScrollAndDraw归WindowChat；WindowItem_TransferQuantity与WindowItem_DrawDescriptionLines归WindowInventory；WindowItem_DrawPetTooltip归WindowTrade；WindowItem_DrawShopTooltip归WindowShop；WindowItem_BuildStorageDescription归WindowBank；WindowRuntime_ButtonCloseResult归WindowBattleResult。保留完整正文／签名和原地址注释，共享声明改为各文件内部前置声明。
+- WindowTradeItem、WindowTradePet与WindowShopItem及其所有原布局断言归入交易／商店的私有类型区。交易物品表D460D0和商店商品表CF4FE0从运行层迁入各自窗口，数组大小断言同行迁移；两者都是原生平凡聚合零初始化，不含RNG、IO或设备构造。
+- 日志一项、交易八项、制作六项已有窗口定义收为static，加上上述两张迁入表共17项，移除共享extern。原初值、容量、字段宽度和已有对象相对初始化顺序保持；原地址及有效用途注释留在定义。
+- 对话健康图号表57CBA4归WindowDialog；商店不可装备提示586BF4随其唯一提示绘制函数归WindowShop，保持字面量及地址注释。维持组件在函数之前，每个具名namespace只定义一次，私有类型使用文件已有或唯一匿名namespace。
+
+WindowStorageItem／WindowStoragePetSummary仍是跨窗口详情聚合的成员，WindowListRecordD3FAD4／WindowChoiceSlotsCC4CA0仍是同一共享owner的字段；BattlePetVitals通过数组被战斗命令生产、宠物窗口消费。SkillWindowSelectionCallback和两种WindowDialog回调虽然只有单CPP显式提名，仍出现在共享入口签名中。WindowRuntime_FindById、WindowDrag_SetFocus和WindowNumber_MeasureWidth属于公共窗口查找／拖动／测宽机制，继续留公共层，不因当前只有一个外部调用方迁入业务窗口。
+
+逐单元核移动前后正文／类型／断言／初值一致，迁入对象唯一且无窗口外引用；核函数前置声明、类型与组件顺序、必要包含和初始化边界。同步直接定位、全量函数表当前提供者、语义来源、UI符号位置和限定验收登记；3680原身份／名称／状态、公共门禁与任务保持。只作UTF-8无BOM／LF、JSON、差异及台账静态检查，不编译、测试、运行或计算摘要。
+
+UWO02完成：七函数归位并收static；三种记录及54条原布局断言归交易／商店，17项状态与两常量归相应窗口私有。13个文件精确变换、七个迁移函数正文及419个保留函数正文、类型／断言、初值／字面量、原型绑定／已有初始化次序、所有私有符号唯一消费者静态核对通过；402项受影响当前直接定位、3680原身份／名称／状态和九个空方法保持，共同功能门禁与任务不变。
+
+UTF-8无BOM／LF、JSON与Git差异静态检查通过；台账-Check仍只报LegacyExternalKeyboard.cpp和LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。本轮未编译、测试或运行；54条断言按原文迁移，未把源码核对计为编译验证。详见cg2d_ui_window_ownership_followup_evidence.json。按用户最新指令集中提交本会话LWR02／LWR03与UWO02，排除其他会话既有进度。

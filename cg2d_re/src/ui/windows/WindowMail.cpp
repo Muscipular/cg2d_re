@@ -216,11 +216,6 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
     graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
 }
 
-std::int32_t& WindowMail_BorrowDeleteIndex()
-{
-    return gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-}
-
 // 原函数：0x004A3600。
 std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
 {

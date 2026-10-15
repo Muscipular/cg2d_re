@@ -318,12 +318,6 @@ const char* LegacyText593850() noexcept
     return reinterpret_cast<const char*>(&gLegacyInput593850);
 }
 
-InputContext* BorrowLegacyBlacklistContext593858() noexcept
-{
-    static InputContext view(gLegacyInput593850.context);
-    return &view;
-}
-
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 // 原函数：0x0045D720。
 InputContext* Sub_45D720(
@@ -953,27 +947,6 @@ std::int32_t ExtractGbkTextLine(
     return ExtractTextLine(destination, text::FromGbkWide(source), requestedLine, width);
 }
 
-
-// 原函数：0x00503E60。
-std::int32_t IsChatContext_503E60()
-{
-    return gCurrentInputData == &gInputContext626AA0 ? 1 : 0;
-}
-
-InputContext* BorrowLegacyPresetContext5F9758(const std::int32_t index) noexcept
-{
-    if (index < 24) { return &gInputContexts5F9758[index]; }
-    // 原15CH步长只用于GBK存储；适配对象只借原字段，正文每次操作从原owner读取。
-    static_assert(54 * sizeof(LegacyInputStorage) <= sizeof(world::detail::gRecords5FB7F8));
-    static std::array<std::optional<InputContext>, 54> views;
-    auto& view = views[static_cast<std::size_t>(index - 24)];
-    if (!view.has_value()) {
-        auto* const bytes = reinterpret_cast<std::byte*>(world::detail::gRecords5FB7F8);
-        auto* const storage = reinterpret_cast<LegacyInputStorage*>(bytes + static_cast<std::ptrdiff_t>(index - 24) * sizeof(LegacyInputStorage));
-        view.emplace(*storage);
-    }
-    return &*view;
-}
 
 // 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(

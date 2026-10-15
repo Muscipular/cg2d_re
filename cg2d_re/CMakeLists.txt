@@ -82,7 +82,6 @@ add_library(cg2d_re_startup STATIC
     src/LegacyRecordOrder.cpp
     src/LegacyAudio.cpp
     src/Blacklist.cpp
-    src/DisplaySettings.cpp
     src/Input.cpp
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp
@@ -97,7 +96,6 @@ add_library(cg2d_re_startup STATIC
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
-    src/ui/LegacyWindowSelection.cpp
     src/ui/WindowRuntime.cpp
     src/ui/windows/WindowAdventureLog.cpp
     src/ui/windows/WindowAlbumDetail.cpp

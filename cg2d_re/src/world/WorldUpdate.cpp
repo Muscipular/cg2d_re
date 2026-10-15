@@ -1,5 +1,4 @@
 #include "cg/world/SceneState.hpp"
-#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
@@ -235,9 +234,6 @@ std::int32_t Sub_455C90()
     bool hovered = false;
     login::YobiAction* action = gDisconnectAction62B5B4;
     if (action == nullptr) {
-        if (ui::Sub_5043D0(2) != 0) {
-            static_cast<void>(ui::Sub_5042D0(100));
-        }
         gDisconnectState62B3A8 = -2;
         gDisconnectWidth62B32C = 380;
         gDisconnectHeight62B304 = 144;

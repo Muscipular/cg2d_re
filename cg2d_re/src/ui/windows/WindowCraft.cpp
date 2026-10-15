@@ -146,20 +146,20 @@ static std::int32_t WindowCraft_Draw(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。
+static std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。 配方查询按S8解释。
 
-std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。
+static std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。 原装载初值-1。
 
 // 原全局：0x00D67B00。 原数值状态，47D490清零；非地址。
 static std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
 
-std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
+static std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
 
 static std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
 
-std::array<std::int32_t, 6> gSelectionCountsD66E0C {}; // 原全局：0x00D66E0C。
+static std::array<std::int32_t, 6> gSelectionCountsD66E0C {}; // 原全局：0x00D66E0C。
 
-std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {}; // 原全局：0x00CF3FF4。
+static std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {}; // 原全局：0x00CF3FF4。
 
 static std::int32_t gSelectedItemD460C0 = 0; // 原全局：0x00D460C0。
 
@@ -171,7 +171,7 @@ static std::uint8_t gSelectionModeD2D650 = 0; // 原全局：0x00D2D650。
 
 static std::array<std::uint8_t, 28> gItemMarksD67290 {}; // 原全局：0x00D67290。
 
-std::array<std::uint8_t, 20> gItemMarksD68A90 {}; // 原全局：0x00D68A90。
+static std::array<std::uint8_t, 20> gItemMarksD68A90 {}; // 原全局：0x00D68A90。 不为原越界访问扩展为28B。
 
 static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。 483150唯一读写，区别于材料/单选悬停槽。
 
@@ -313,61 +313,6 @@ static WindowElementPrototype gWindowElements5620E0[31] { // 原全局：0x00562
 WindowPrototype gWindowPrototypeCraft {0, 4, 37, 102, 563, 239, 0x80010101u, 31, gWindowElements5620E0, &WindowCraft_Update, &WindowCraft_Draw, &WindowCraft_Release}; // 11: 54E450
 
 // 窗口函数实现。
-
-std::int32_t WindowCraft_ReadItemWorkResult() noexcept
-{
-    return gItemWorkResultCB05FC;
-}
-
-std::wstring_view WindowCraft_BorrowItemWorkSuffix() noexcept
-{
-    return gItemWorkSuffixD2DADC;
-}
-
-std::wstring_view WindowCraft_BorrowItemWorkDetails() noexcept
-{
-    return gItemWorkDetailsD2DB00;
-}
-
-std::int32_t WindowCraft_ReadSkill() noexcept
-{
-    return gItemWorkSkillIdD67CF0;
-}
-
-void WindowCraft_WriteSkill(const std::int32_t skillId) noexcept
-{
-    gItemWorkSkillIdD67CF0 = skillId;
-}
-
-std::int32_t WindowCraft_ReadResult() noexcept
-{
-    return gCraftResultCC46D8;
-}
-
-std::int32_t WindowCraft_ReadResultImage() noexcept
-{
-    return gCraftResultImageCF4B60;
-}
-
-std::wstring_view WindowCraft_BorrowResultName() noexcept
-{
-    return gCraftNameCF46D4;
-}
-
-void WindowCraft_WriteResultName(const std::wstring_view name)
-{
-    gCraftNameCF46D4 = name;
-}
-
-std::wstring_view WindowCraft_BorrowResultSuffix() noexcept
-{
-    return gCraftResultSuffixD672B4;
-}
-
-std::wstring_view WindowCraft_BorrowResultDetails() noexcept
-{
-    return gCraftResultDetailsD2E92C;
-}
 
 // 原函数：0x004F4630。
 std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)

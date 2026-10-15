@@ -100,7 +100,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1786
+        1765
       ]
     },
     {
@@ -110,7 +110,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1841
+        1820
       ]
     },
     {
@@ -120,7 +120,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        997
+        976
       ]
     },
     {
@@ -130,7 +130,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2723
+        2668
       ]
     },
     {
@@ -140,7 +140,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3062
+        3007
       ]
     },
     {
@@ -150,7 +150,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3038
+        2983
       ]
     },
     {
@@ -160,7 +160,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        463
+        438
       ]
     },
     {
@@ -170,7 +170,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        219
+        194
       ]
     },
     {
@@ -180,7 +180,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        237
+        222
       ]
     },
     {
@@ -190,7 +190,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        257
+        242
       ]
     },
     {
@@ -200,7 +200,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        154
+        139
       ]
     },
     {
@@ -210,7 +210,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        269
+        358
       ]
     },
     {
@@ -220,7 +220,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        324
+        413
       ]
     },
     {
@@ -230,7 +230,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        245
+        334
       ]
     },
     {
@@ -480,7 +480,7 @@
       "source": "src/ui/windows/WindowBattleResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        145
+        168
       ]
     },
     {
@@ -490,7 +490,7 @@
       "source": "src/ui/windows/WindowBattleResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        262
+        285
       ]
     },
     {
@@ -500,7 +500,7 @@
       "source": "src/ui/windows/WindowBattleResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        297
+        320
       ]
     },
     {
@@ -540,7 +540,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        363
+        384
       ]
     },
     {
@@ -550,7 +550,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        311
+        303
       ]
     },
     {
@@ -560,7 +560,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        406
+        398
       ]
     },
     {
@@ -570,7 +570,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        532
+        524
       ]
     },
     {
@@ -640,7 +640,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        346
+        367
       ]
     },
     {
@@ -650,7 +650,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        382
+        403
       ]
     },
     {
@@ -660,7 +660,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        319
+        340
       ]
     },
     {
@@ -680,7 +680,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口43初始化、关闭检查与四阶段更新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        608
+        722
       ]
     },
     {
@@ -690,7 +690,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "四类提示后绘制完整当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        784
+        898
       ]
     },
     {
@@ -700,7 +700,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口43释放回调，原返回值弃用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        587
+        701
       ]
     },
     {
@@ -840,7 +840,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        141
+        136
       ]
     },
     {
@@ -850,7 +850,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        160
+        155
       ]
     },
     {
@@ -890,7 +890,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        234
+        214
       ]
     },
     {
@@ -900,7 +900,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        260
+        240
       ]
     },
     {
@@ -910,7 +910,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        294
+        274
       ]
     },
     {
@@ -920,7 +920,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1267
+        1364
       ]
     },
     {
@@ -930,7 +930,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3385
+        3482
       ]
     },
     {
@@ -940,7 +940,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        481
+        578
       ]
     },
     {
@@ -1030,7 +1030,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        648
+        669
       ]
     },
     {
@@ -1230,7 +1230,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原默认draw回调，完整绘制后返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3744
+        3539
       ]
     },
     {
@@ -1240,7 +1240,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        860
+        834
       ]
     },
     {
@@ -1250,7 +1250,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4479
+        4254
       ]
     },
     {
@@ -1280,7 +1280,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "完整元素绘制后叠加九宫格背景。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3751
+        3546
       ]
     },
     {
@@ -1290,7 +1290,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "31/46共用绘制与九宫格尾。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3824
+        3599
       ]
     },
     {
@@ -1300,7 +1300,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        669
+        690
       ]
     },
     {
@@ -1340,7 +1340,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WSB01：原完整零返回事件回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        853
+        827
       ]
     },
     {
@@ -1350,7 +1350,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WCL01：bit2置bit13，hover优先，否则低BYTE bit5。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        951
+        925
       ]
     },
     {
@@ -1360,7 +1360,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4347
+        4122
       ]
     },
     {
@@ -1370,7 +1370,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "元素外扩一像素悬停框。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3942
+        3717
       ]
     },
     {
@@ -1990,7 +1990,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口43的20个槽号及28B标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        409
+        523
       ]
     },
     {
@@ -2000,7 +2000,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口51仅first命中时迁移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        429
+        543
       ]
     },
     {
@@ -2010,7 +2010,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "清交易U8，创建窗口43动画并发布借用T*。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        475
+        589
       ]
     },
     {
@@ -2020,7 +2020,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        484
+        598
       ]
     },
     {
@@ -2030,7 +2030,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        498
+        612
       ]
     },
     {
@@ -2040,7 +2040,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        509
+        623
       ]
     },
     {
@@ -2050,7 +2050,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空槽领取并标记物品。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        517
+        631
       ]
     },
     {
@@ -2060,7 +2060,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "仅交换选择槽字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        531
+        645
       ]
     },
     {
@@ -2070,7 +2070,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空槽领取并标记宠物。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        540
+        654
       ]
     },
     {
@@ -2080,7 +2080,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        551
+        665
       ]
     },
     {
@@ -2090,7 +2090,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "释放物品选择，再减同源悬停字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        560
+        674
       ]
     },
     {
@@ -2100,7 +2100,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "只释放宠物选择及标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        575
+        689
       ]
     },
     {
@@ -2110,7 +2110,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空宠物槽仍画背景。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        831
+        945
       ]
     },
     {
@@ -2120,7 +2120,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "TQN01：低W16坐标/scroll BYTE及声效后fresh滚动目标，callback与真实S32 0/2返回保。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        882
+        996
       ]
     },
     {
@@ -2130,7 +2130,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "自有物品交易页，20格玩家背包。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1029
+        1143
       ]
     },
     {
@@ -2140,7 +2140,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "自有宠物交易页，按索引对取原宠物。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1208
+        1322
       ]
     },
     {
@@ -2150,7 +2150,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1338
+        1452
       ]
     },
     {
@@ -2160,7 +2160,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1354
+        1468
       ]
     },
     {
@@ -2170,7 +2170,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1394
+        1508
       ]
     },
     {
@@ -2180,7 +2180,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1433
+        1547
       ]
     },
     {
@@ -2190,7 +2190,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "kind6，绑定真实物品拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1476
+        1590
       ]
     },
     {
@@ -2200,7 +2200,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "kind7，绑定真实宠物拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1482
+        1596
       ]
     },
     {
@@ -2210,7 +2210,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方已选物品完整交互/绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1488
+        1602
       ]
     },
     {
@@ -2220,7 +2220,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方已选宠物完整交互/绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1662
+        1776
       ]
     },
     {
@@ -2230,7 +2230,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1799
+        1913
       ]
     },
     {
@@ -2240,7 +2240,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1818
+        1932
       ]
     },
     {
@@ -2250,7 +2250,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "对方交易面板入口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1850
+        1964
       ]
     },
     {
@@ -2260,7 +2260,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1869
+        1983
       ]
     },
     {
@@ -2270,7 +2270,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "X未命中则不读Y。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2029
+        2143
       ]
     },
     {
@@ -2280,7 +2280,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "交易输入激活/聊天恢复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2044
+        2158
       ]
     },
     {
@@ -2290,7 +2290,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "外部宠物技能名称行，空行仍绘背景。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2062
+        2176
       ]
     },
     {
@@ -2300,7 +2300,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "外部宠物提示，重量行固定Y=31。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2089
+        2203
       ]
     },
     {
@@ -2310,7 +2310,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "交易宠物技能行，空文本仍绘制行图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2182
+        2296
       ]
     },
     {
@@ -2320,7 +2320,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "完整交易宠物提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2212
+        2326
       ]
     },
     {
@@ -2330,7 +2330,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方技能按S16索引对取名称。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2299
+        2413
       ]
     },
     {
@@ -2340,7 +2340,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "完整己方宠物提示，含重量行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2329
+        2443
       ]
     },
     {
@@ -2350,7 +2350,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "S8物品槽，负值归-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2415
+        2529
       ]
     },
     {
@@ -2360,7 +2360,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "S8宠物槽，负值归-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2422
+        2536
       ]
     },
     {
@@ -2370,7 +2370,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "公开两组交易槽及数值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2429
+        2543
       ]
     },
     {
@@ -2380,7 +2380,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "撤回公开，无计时门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2492
+        2606
       ]
     },
     {
@@ -2390,7 +2390,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "确认/撤销确认，共享500ms门槛。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2522
+        2636
       ]
     },
     {
@@ -2400,7 +2400,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "全量清交易双侧后复制己方，最后打开43。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2567
+        2681
       ]
     },
     {
@@ -2410,7 +2410,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "先发送选择请求，失败仍继续本地打开。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2593
+        2707
       ]
     },
     {
@@ -2420,7 +2420,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "选择表绑定真实交易回调后打开44。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2600
+        2714
       ]
     },
     {
@@ -2430,7 +2430,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "背包index+8到交易，不复制描述。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        437
+        551
       ]
     },
     {
@@ -2440,7 +2440,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "顺序同步20条交易物品。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        467
+        581
       ]
     },
     {
@@ -2450,7 +2450,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "先清侧状态，再清物品/宠物整组。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2702
+        2816
       ]
     },
     {
@@ -2460,7 +2460,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "32行及页数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2715
+        2829
       ]
     },
     {
@@ -2470,7 +2470,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "每条14字段，返回终止字段状态1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2737
+        2851
       ]
     },
     {
@@ -2480,7 +2480,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "单宠物属性与双名称。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2774
+        2888
       ]
     },
     {
@@ -2490,7 +2490,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "只预清第一条技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2819
+        2933
       ]
     },
     {
@@ -2500,7 +2500,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "交易整条换位。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        379
+        493
       ]
     },
     {
@@ -2510,7 +2510,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "展示整条换位。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        394
+        508
       ]
     },
     {
@@ -2520,7 +2520,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "另一展示副本，逐行复制描述。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2606
+        2720
       ]
     },
     {
@@ -2530,7 +2530,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "同源玩家宠物属性及十项技能按存储索引复制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2639
+        2753
       ]
     },
     {
@@ -2680,7 +2680,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        773
+        769
       ]
     },
     {
@@ -2690,7 +2690,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "IDE01：signed槽0..7/8..27/100..119分类1/2/3，其它0，真实S32，四CALL只来源/全消费待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        921
+        895
       ]
     },
     {
@@ -2700,7 +2700,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "宠物槽分类1/2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        933
+        907
       ]
     },
     {
@@ -2710,7 +2710,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "DE0B08五个S16索引的首匹配位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        939
+        913
       ]
     },
     {
@@ -2720,7 +2720,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        961
+        935
       ]
     },
     {
@@ -2730,17 +2730,17 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "IMT01：完整直接/拆分门槛及两全局不同发布序，原数量callback副作用保持；全数量框/运行待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        996
+        970
       ]
     },
     {
       "old_symbol": "Sub_488800",
       "new_symbol": "WindowItem_TransferQuantity",
       "original_entry": "0x00488800",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "IMT01：两低U8模式/原-1及同mode两fresh组读取保持，发送原不消费；全互通待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1038
+        133
       ]
     },
     {
@@ -2750,7 +2750,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "普通/窗口41两路宠物换位请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1069
+        1011
       ]
     },
     {
@@ -2760,7 +2760,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "物品拖动重置，不等同窗口拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        898
+        872
       ]
     },
     {
@@ -2770,7 +2770,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "仅清与本次回复槽号相同的非负拖动编号。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        910
+        884
       ]
     },
     {
@@ -2780,28 +2780,28 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1618,
-        1630
+        1560,
+        1572
       ]
     },
     {
       "old_symbol": "Sub_48B930",
       "new_symbol": "WindowItem_DrawDescriptionLines",
       "original_entry": "0x0048B930",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "原连续NUL分段改为宽行表，空行仍推进，不使用stride。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1642
+        164
       ]
     },
     {
       "old_symbol": "Sub_48B450",
       "new_symbol": "WindowItem_DrawPetTooltip",
       "original_entry": "0x0048B450",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1688
+        461
       ]
     },
     {
@@ -2811,7 +2811,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原$分段、颜色续接与即时测宽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1539
+        1481
       ]
     },
     {
@@ -2821,7 +2821,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "玩家/所选宠物装备提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2651
+        2515
       ]
     },
     {
@@ -2831,17 +2831,17 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2693
+        2557
       ]
     },
     {
       "old_symbol": "Sub_48B560",
       "new_symbol": "WindowItem_DrawShopTooltip",
       "original_entry": "0x0048B560",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowShop.cpp",
       "basis": "同源商品及可选不可装备提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2722
+        445
       ]
     },
     {
@@ -2851,17 +2851,17 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "CC3210独立详情提示，缓存数值键400。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2768
+        2586
       ]
     },
     {
       "old_symbol": "Sub_4E02B0",
       "new_symbol": "WindowItem_BuildStorageDescription",
       "original_entry": "0x004E02B0",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowBank.cpp",
       "basis": "IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2793
+        211
       ]
     },
     {
@@ -2871,7 +2871,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1179
+        1121
       ]
     },
     {
@@ -2881,7 +2881,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1260
+        1202
       ]
     },
     {
@@ -2891,7 +2891,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "IDE01：物品回调，两fresh分类/两点击BYTE及descriptor持址，reset/取消后原继续，完整分发及运行待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1268
+        1210
       ]
     },
     {
@@ -2901,7 +2901,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "IDE01：mode先发布/真实kind2入口及S32透传，十三CALL只来源，完整回调/owner及运行待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1358
+        1300
       ]
     },
     {
@@ -2911,7 +2911,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "UI迁移后再交换同源悬停字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        866
+        840
       ]
     },
     {
@@ -2921,7 +2921,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1721
+        1585
       ]
     },
     {
@@ -2931,7 +2931,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原+70同源S32。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1754
+        1618
       ]
     },
     {
@@ -2941,7 +2941,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1761
+        1625
       ]
     },
     {
@@ -2951,7 +2951,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1821
+        1685
       ]
     },
     {
@@ -2961,7 +2961,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1839
+        1703
       ]
     },
     {
@@ -2971,7 +2971,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1857
+        1721
       ]
     },
     {
@@ -2981,7 +2981,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1869
+        1733
       ]
     },
     {
@@ -2991,7 +2991,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1891
+        1755
       ]
     },
     {
@@ -3001,7 +3001,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1909
+        1773
       ]
     },
     {
@@ -3011,7 +3011,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1996
+        1860
       ]
     },
     {
@@ -3021,7 +3021,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2084
+        1948
       ]
     },
     {
@@ -3031,7 +3031,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2093
+        1957
       ]
     },
     {
@@ -3041,7 +3041,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2126
+        1990
       ]
     },
     {
@@ -3051,7 +3051,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "消费本帧hover，宠物物品固定借CF3B10索引。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2139
+        2003
       ]
     },
     {
@@ -3061,7 +3061,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2217
+        2081
       ]
     },
     {
@@ -3071,7 +3071,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2244
+        2108
       ]
     },
     {
@@ -3081,7 +3081,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2271
+        2135
       ]
     },
     {
@@ -3091,7 +3091,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2289
+        2153
       ]
     },
     {
@@ -3101,7 +3101,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2366
+        2230
       ]
     },
     {
@@ -3111,7 +3111,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2380
+        2244
       ]
     },
     {
@@ -3121,7 +3121,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2419
+        2283
       ]
     },
     {
@@ -3131,7 +3131,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2442
+        2306
       ]
     },
     {
@@ -3141,7 +3141,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "X；负局部坐标不读取窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2455
+        2319
       ]
     },
     {
@@ -3151,7 +3151,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "Y；与X分开采样模式和当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2471
+        2335
       ]
     },
     {
@@ -3161,7 +3161,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "借用同源物品表；失败不写输出。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2487
+        2351
       ]
     },
     {
@@ -3171,7 +3171,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2507
+        2371
       ]
     },
     {
@@ -3181,7 +3181,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "装备屏蔽页完整绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        122
+        211
       ]
     },
     {
@@ -3191,7 +3191,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "对话29选择入口，发布特殊回调后绑定焦点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        167
+        256
       ]
     },
     {
@@ -3201,7 +3201,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        182
+        271
       ]
     },
     {
@@ -3211,7 +3211,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        188
+        277
       ]
     },
     {
@@ -3221,7 +3221,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        194
+        283
       ]
     },
     {
@@ -3231,7 +3231,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        201
+        290
       ]
     },
     {
@@ -3241,7 +3241,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        208
+        297
       ]
     },
     {
@@ -3251,7 +3251,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "库存关闭按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        366
+        455
       ]
     },
     {
@@ -3261,7 +3261,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        386
+        475
       ]
     },
     {
@@ -3271,7 +3271,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        398
+        487
       ]
     },
     {
@@ -3281,7 +3281,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        434
+        523
       ]
     },
     {
@@ -3291,7 +3291,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        441
+        530
       ]
     },
     {
@@ -3301,7 +3301,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "普通背包完整交互/绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        448
+        537
       ]
     },
     {
@@ -3311,7 +3311,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "IER01：库存装备完整原根，四读取合同对齐；原S32返回/全部callee与运行待。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        645
+        734
       ]
     },
     {
@@ -3321,7 +3321,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        868
+        957
       ]
     },
     {
@@ -3331,7 +3331,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "两模式物品选择/退出与完整绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        875
+        964
       ]
     },
     {
@@ -3341,7 +3341,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "只清内嵌图号/计数及窗口36十元素可见性。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        218
+        210
       ]
     },
     {
@@ -3351,7 +3351,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        233
+        225
       ]
     },
     {
@@ -3361,7 +3361,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        266
+        258
       ]
     },
     {
@@ -3371,7 +3371,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "六按钮与原位图号恢复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        548
+        540
       ]
     },
     {
@@ -3381,7 +3381,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "输入行切换/文本行选择。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        593
+        585
       ]
     },
     {
@@ -3391,7 +3391,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        708
+        700
       ]
     },
     {
@@ -3401,7 +3401,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "内嵌g,标记原字节解析。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        766
+        758
       ]
     },
     {
@@ -3411,7 +3411,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "SRD01：完整同类续接/重入新建及原五参数分派，原位text与副作用保持，非全机器返回等价。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        829
+        821
       ]
     },
     {
@@ -3421,7 +3421,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "50E110门禁后原共享尾入口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1040
+        1032
       ]
     },
     {
@@ -3431,7 +3431,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "原位文本处理，借用共享行表创建常规对话。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1062
+        1054
       ]
     },
     {
@@ -3441,7 +3441,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1141
+        1133
       ]
     },
     {
@@ -3451,7 +3451,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "六治疗记录及第七合计项，共借CB1398行表。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1197
+        1189
       ]
     },
     {
@@ -3461,7 +3461,7 @@
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1265
+        1257
       ]
     },
     {
@@ -3471,7 +3471,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "窗口52只借用文本及回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        207
+        187
       ]
     },
     {
@@ -3481,7 +3481,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        302
+        282
       ]
     },
     {
@@ -3491,7 +3491,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "商店回复仅索引0..1发送，其他返回原索引。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        335
+        315
       ]
     },
     {
@@ -3501,7 +3501,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "商店图号/标题/五行正文及买卖选择。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        354
+        334
       ]
     },
     {
@@ -3511,7 +3511,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "CB03D4命令表的选择回复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        394
+        374
       ]
     },
     {
@@ -3521,7 +3521,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "CF47D8命令表的选择回复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        405
+        385
       ]
     },
     {
@@ -3531,7 +3531,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "索引0..1分别发送1/2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        416
+        396
       ]
     },
     {
@@ -3541,7 +3541,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "仅索引0发送原字节1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        427
+        407
       ]
     },
     {
@@ -3551,7 +3551,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        438
+        418
       ]
     },
     {
@@ -3561,7 +3561,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        464
+        444
       ]
     },
     {
@@ -3571,7 +3571,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "技能三选项。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        490
+        470
       ]
     },
     {
@@ -3581,7 +3581,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "交易两选项。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        504
+        484
       ]
     },
     {
@@ -3591,7 +3591,7 @@
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "给出/接收标签，正文取第四字段。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        518
+        498
       ]
     },
     {
@@ -3701,7 +3701,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        307
+        328
       ]
     },
     {
@@ -3711,7 +3711,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存取数值输入焦点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        427
+        448
       ]
     },
     {
@@ -3721,7 +3721,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存放第一页请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        447
+        468
       ]
     },
     {
@@ -3731,7 +3731,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存放第二页请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        471
+        492
       ]
     },
     {
@@ -3741,7 +3741,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "第一页选中图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        495
+        516
       ]
     },
     {
@@ -3751,7 +3751,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "第二页选中图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        502
+        523
       ]
     },
     {
@@ -3761,7 +3761,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "物品页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        509
+        530
       ]
     },
     {
@@ -3771,7 +3771,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        539
+        560
       ]
     },
     {
@@ -3781,7 +3781,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存款页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        572
+        593
       ]
     },
     {
@@ -3791,7 +3791,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "取款页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        606
+        627
       ]
     },
     {
@@ -3801,7 +3801,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "自有存放物品面板。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        640
+        661
       ]
     },
     {
@@ -3811,7 +3811,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        820
+        841
       ]
     },
     {
@@ -3821,7 +3821,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物上一行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1011
+        1032
       ]
     },
     {
@@ -3831,7 +3831,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物下一行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1041
+        1062
       ]
     },
     {
@@ -3841,7 +3841,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "两侧宠物滚轮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1071
+        1092
       ]
     },
     {
@@ -3851,7 +3851,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "自有宠物存放行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1085
+        1106
       ]
     },
     {
@@ -3861,7 +3861,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "外部宠物提领行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1231
+        1252
       ]
     },
     {
@@ -3871,7 +3871,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1366
+        1387
       ]
     },
     {
@@ -3881,7 +3881,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "双侧数量和金额。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1460
+        1481
       ]
     },
     {
@@ -3891,7 +3891,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38右上关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1529
+        1550
       ]
     },
     {
@@ -3901,7 +3901,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38/41共用关闭按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1551
+        1572
       ]
     },
     {
@@ -3911,7 +3911,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1574
+        1595
       ]
     },
     {
@@ -3921,7 +3921,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        212
+        233
       ]
     },
     {
@@ -3931,7 +3931,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        259
+        280
       ]
     },
     {
@@ -4121,7 +4121,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "73ECBC先减后负值归2，返回归位前结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2815
+        2610
       ]
     },
     {
@@ -4131,7 +4131,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "名称模式S16递增，保存标量后持久化。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2827
+        2622
       ]
     },
     {
@@ -4141,7 +4141,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2841
+        2636
       ]
     },
     {
@@ -4151,7 +4151,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "文件三处x与固定原型比较，首差异返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2862
+        2657
       ]
     },
     {
@@ -4161,7 +4161,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原文件长度尾部修复，不增加索引保护。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2874
+        2669
       ]
     },
     {
@@ -4171,7 +4171,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2902
+        2697
       ]
     },
     {
@@ -4181,7 +4181,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WinSaveDate完整加载/默认回退，保留双打开与返回差别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2937
+        2732
       ]
     },
     {
@@ -4191,7 +4191,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "仅清521CH设置文件区。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2974
+        2769
       ]
     },
     {
@@ -4201,7 +4201,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原序捕获窗口设置，返回窗口33的marker快照。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2981
+        2776
       ]
     },
     {
@@ -4211,7 +4211,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "打开成功才捕获并保存；原打开失败同样返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3017
+        2812
       ]
     },
     {
@@ -4221,7 +4221,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "仅清71个marker50，不释放窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3031
+        2826
       ]
     },
     {
@@ -4231,7 +4231,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只将现存窗口marker写1，空窗口保留旧值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3039
+        2834
       ]
     },
     {
@@ -4241,7 +4241,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "完整鼠标/拖动重置，先清D67B08七W32。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3049
+        2844
       ]
     },
     {
@@ -4251,7 +4251,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清异型元素焦点引用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3063
+        2858
       ]
     },
     {
@@ -4261,7 +4261,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "marker严格1才分派，四个特殊窗口按原序恢复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3069
+        2864
       ]
     },
     {
@@ -4271,7 +4271,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清窗口操作S32计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3112
+        2907
       ]
     },
     {
@@ -4281,7 +4281,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清D67AFC。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3118
+        2913
       ]
     },
     {
@@ -4291,7 +4291,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清D67AFD。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3124
+        2919
       ]
     },
     {
@@ -4301,7 +4301,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "清两借用Yobi槽与计数/三个字节，不释放对象。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3130
+        2925
       ]
     },
     {
@@ -4311,7 +4311,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清CF4AAC。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3141
+        2936
       ]
     },
     {
@@ -4321,7 +4321,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "普通场景完整重开，保持626C14与22/23门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3585
+        3380
       ]
     },
     {
@@ -4331,7 +4331,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "三个UI数值依序写5/0/0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3615
+        3410
       ]
     },
     {
@@ -4341,7 +4341,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原窗口操作S32计数加1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3779
+        3574
       ]
     },
     {
@@ -4351,7 +4351,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原操作计数减1及严格零时的退出发送/技能状态刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3785
+        3580
       ]
     },
     {
@@ -4361,7 +4361,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "仅递增既有D67AFC低U8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3767
+        3562
       ]
     },
     {
@@ -4371,7 +4371,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只递减既有D67AFC低U8，不清其他操作计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3773
+        3568
       ]
     },
     {
@@ -4381,7 +4381,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4181
+        3956
       ]
     },
     {
@@ -4391,7 +4391,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "每轮窗口处理前的鼠标阶段推进。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4230
+        4005
       ]
     },
     {
@@ -4401,7 +4401,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "固定元素派发鼠标事件，回调后重读共享阶段。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4281
+        4056
       ]
     },
     {
@@ -4411,7 +4411,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3960
+        3735
       ]
     },
     {
@@ -4841,7 +4841,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "四条记录只清已证字段和四个文本首字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        126
+        121
       ]
     },
     {
@@ -4851,7 +4851,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "输入焦点及非空文本提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        168
+        163
       ]
     },
     {
@@ -4861,7 +4861,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "删除/写入/取消/翻页完整交互。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        188
+        183
       ]
     },
     {
@@ -4871,7 +4871,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        308
+        303
       ]
     },
     {
@@ -4881,7 +4881,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "清对话类型、关闭入口时实例并透传SE57结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        353
+        348
       ]
     },
     {
@@ -4891,7 +4891,7 @@
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "原位反转义后生产同源四记录。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        362
+        357
       ]
     },
     {
@@ -4901,7 +4901,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "kind9出售拖动生命周期。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        394
+        491
       ]
     },
     {
@@ -4911,7 +4911,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "透传kind9注册返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        439
+        536
       ]
     },
     {
@@ -4921,7 +4921,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "三次读取来源，撤销选择并刷新窗口53。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        445
+        542
       ]
     },
     {
@@ -4931,7 +4931,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53买入商品及三组四行正文。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        495
+        592
       ]
     },
     {
@@ -4941,7 +4941,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53出售商品、库存映射及占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        548
+        645
       ]
     },
     {
@@ -4951,7 +4951,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53模式2五字段商品及指定物品文本。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        640
+        737
       ]
     },
     {
@@ -4961,7 +4961,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53模式3独立详情，保留其他商品状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        703
+        800
       ]
     },
     {
@@ -4971,7 +4971,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53鉴定，库存映射保留未匹配物品哨兵20。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        849
+        946
       ]
     },
     {
@@ -4981,7 +4981,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53修理，与鉴定仅模式和提示不同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        856
+        953
       ]
     },
     {
@@ -4991,7 +4991,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "买入五行名称/价格/不可装备提示，保留原分行终止偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        863
+        960
       ]
     },
     {
@@ -5001,7 +5001,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "买入五行所选数量文本。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        921
+        1018
       ]
     },
     {
@@ -5011,7 +5011,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20商品金额合计及元素7颜色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        937
+        1034
       ]
     },
     {
@@ -5021,7 +5021,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20商品按上限分组计算占用数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        960
+        1057
       ]
     },
     {
@@ -5031,7 +5031,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售五行按S8选择槽取商品，不另检查use。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        981
+        1078
       ]
     },
     {
@@ -5041,7 +5041,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售数量及上限>1时的加减元素可见性。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1047
+        1144
       ]
     },
     {
@@ -5051,7 +5051,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20选择槽的金额合计，元素7颜色固定0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1074
+        1171
       ]
     },
     {
@@ -5061,7 +5061,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20选择槽直接累计所选数，不做买入分组。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1095
+        1192
       ]
     },
     {
@@ -5071,7 +5071,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2五行，按指定物品数量与价格加合计比较。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1112
+        1209
       ]
     },
     {
@@ -5081,7 +5081,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2数量，使用项直接重显加减元素。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1173
+        1270
       ]
     },
     {
@@ -5091,7 +5091,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2合计写CF4A28，不写金额颜色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1192
+        1289
       ]
     },
     {
@@ -5101,7 +5101,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2全部使用商品累计所选数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1211
+        1308
       ]
     },
     {
@@ -5111,7 +5111,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3首行详情名与数值，短名称的次行借593850。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1227
+        1324
       ]
     },
     {
@@ -5121,7 +5121,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3三次读取D046C4，先两个显示值后乘详情单价。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1237
+        1334
       ]
     },
     {
@@ -5131,7 +5131,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3详情数值或全部28玩家物品的匹配数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1247
+        1344
       ]
     },
     {
@@ -5141,7 +5141,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "确认选择低U8为0才按模式发送，返回值不消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1452
+        1549
       ]
     },
     {
@@ -5151,7 +5151,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "六模式确认生产，借用同源覆盖层。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1510
+        1607
       ]
     },
     {
@@ -5161,7 +5161,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "取消发送command2，发送后关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1780
+        1877
       ]
     },
     {
@@ -5171,7 +5171,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "批量加入出售选择，每轮固定重置/音效尾。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1815
+        1912
       ]
     },
     {
@@ -5181,7 +5181,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "kind2拖放加入，hover模式门禁独立。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1934
+        2031
       ]
     },
     {
@@ -5191,7 +5191,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向前一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2020
+        2117
       ]
     },
     {
@@ -5201,7 +5201,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向后一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2066
+        2163
       ]
     },
     {
@@ -5211,7 +5211,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向前五行，音效后重读位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2112
+        2209
       ]
     },
     {
@@ -5221,7 +5221,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向后五行，先上限后负值修正。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2156
+        2253
       ]
     },
     {
@@ -5231,7 +5231,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "共享滚轮更新并刷新，恒返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2207
+        2304
       ]
     },
     {
@@ -5241,7 +5241,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量减少，兑换模式两轮背包占槽计算。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2238
+        2335
       ]
     },
     {
@@ -5251,7 +5251,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量增加，保留行价格与选择槽索引差别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2471
+        2568
       ]
     },
     {
@@ -5261,7 +5261,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "商品图标，仅hover内bit4翻页。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2822
+        2919
       ]
     },
     {
@@ -5271,7 +5271,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "独立详情图标，bit4无hover门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2878
+        2975
       ]
     },
     {
@@ -5281,7 +5281,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售选择行，接kind9交换/取消/拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2913
+        3010
       ]
     },
     {
@@ -5291,7 +5291,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "背包20格命中、加入/拖动/翻页及两组绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3046
+        3143
       ]
     },
     {
@@ -5301,7 +5301,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "确认覆盖层，事件直接读共享鼠标。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3294
+        3391
       ]
     },
     {
@@ -6101,7 +6101,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "D67B40七槽交错清零。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        323
+        318
       ]
     },
     {
@@ -6111,7 +6111,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "FPkR发送、重读清理及保存。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        225
+        220
       ]
     },
     {
@@ -6121,7 +6121,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "公会编号请求与两保存。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        241
+        236
       ]
     },
     {
@@ -6131,7 +6131,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "迷你姓名转义、发送及重读清理。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        254
+        249
       ]
     },
     {
@@ -6141,7 +6141,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "取消时必要重开窗口21。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        269
+        264
       ]
     },
     {
@@ -6151,7 +6151,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "邮件闪烁相位推进；开窗不重置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        310
+        305
       ]
     },
     {
@@ -6211,7 +6211,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "只清CF4E50/54。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3624
+        3419
       ]
     },
     {
@@ -6221,7 +6221,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WSP01：原整数位置换算及两高度取样，借用字节载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3841
+        3616
       ]
     },
     {
@@ -6231,7 +6231,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3857
+        3632
       ]
     },
     {
@@ -6241,7 +6241,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WWS01：原滚轮像素余量、坐标持样/字节载荷，宿主数学图保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3880
+        3655
       ]
     },
     {
@@ -7391,7 +7391,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        765
+        761
       ]
     },
     {
@@ -7401,7 +7401,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "聊天初始范围、回看、数量、调整请求和颜色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        147
+        168
       ]
     },
     {
@@ -7411,7 +7411,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "仅重置回看、两调整请求与数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        159
+        180
       ]
     },
     {
@@ -7421,7 +7421,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        169
+        190
       ]
     },
     {
@@ -7431,7 +7431,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        196
+        217
       ]
     },
     {
@@ -7441,7 +7441,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        223
+        244
       ]
     },
     {
@@ -7451,7 +7451,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        394
+        415
       ]
     },
     {
@@ -7461,7 +7461,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "共用聊天点击，焦点取35槽、上下文写当前窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        601
+        622
       ]
     },
     {
@@ -7471,7 +7471,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "WSP01：日志数量前后分别取样，返回滚动结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        679
+        700
       ]
     },
     {
@@ -7481,7 +7481,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "首窗口滚轮，零日志只调整滑块Y。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        693
+        714
       ]
     },
     {
@@ -7491,7 +7491,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "不清日志正文或写指针。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        715
+        736
       ]
     },
     {
@@ -7501,7 +7501,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "清512条日志首字节，再清数量与回看。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        723
+        744
       ]
     },
     {
@@ -7511,7 +7511,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "请求高度+1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        732
+        753
       ]
     },
     {
@@ -7521,7 +7521,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "请求高度-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        738
+        759
       ]
     },
     {
@@ -7531,7 +7531,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "请求宽度+1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        744
+        765
       ]
     },
     {
@@ -7541,7 +7541,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "请求宽度-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        750
+        771
       ]
     },
     {
@@ -7551,7 +7551,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "按聊天宽度滚动目标输入并绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        772
+        793
       ]
     },
     {
@@ -7561,7 +7561,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "按固定1024像素滚动目标输入并绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        784
+        805
       ]
     },
     {
@@ -7571,7 +7571,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "原字节分行、底部逆序绘制及前项字体回写。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        793
+        814
       ]
     },
     {
@@ -7581,7 +7581,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "窗口57高度循环调整并清两个请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        756
+        777
       ]
     },
     {
@@ -7591,7 +7591,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        878
+        899
       ]
     },
     {
@@ -7601,7 +7601,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3670
+        3465
       ]
     },
     {
@@ -7611,7 +7611,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原数字字符数乘运行步进减扣宽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3731
+        3526
       ]
     },
     {
@@ -7631,7 +7631,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六槽/单选两路释放，单选尾接聊天恢复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        400
+        345
       ]
     },
     {
@@ -7641,7 +7641,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "窗口11选择/材料及两组标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        438
+        383
       ]
     },
     {
@@ -7651,7 +7651,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前配方五材料首匹配数量，不读used。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        373
+        318
       ]
     },
     {
@@ -7661,7 +7661,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造等待模式1，按配方等级生成同源截止。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        633
+        578
       ]
     },
     {
@@ -7671,7 +7671,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选等待模式4，刻印排除宠物辅助。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        669
+        614
       ]
     },
     {
@@ -7681,7 +7681,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "打包等待模式13，仍读取绝对单选槽等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        726
+        671
       ]
     },
     {
@@ -7691,7 +7691,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "装饰等待固定8000ms，原被AL覆盖的返回值由caller弃用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        763
+        708
       ]
     },
     {
@@ -7701,7 +7701,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "精炼等待模式10，一次RAND且不读物品等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        798
+        743
       ]
     },
     {
@@ -7711,7 +7711,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造开窗，保存同源配方id。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        830
+        775
       ]
     },
     {
@@ -7721,7 +7721,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选加工开窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        854
+        799
       ]
     },
     {
@@ -7731,7 +7731,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "装饰开窗，kind严格1为宠物装备。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        874
+        819
       ]
     },
     {
@@ -7741,7 +7741,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "精炼开窗，条件设置世界状态9。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        898
+        843
       ]
     },
     {
@@ -7751,7 +7751,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "材料开窗，无条件设置世界状态9。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        919
+        864
       ]
     },
     {
@@ -7761,7 +7761,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "装饰模式6，固定魔力100。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        938
+        883
       ]
     },
     {
@@ -7771,7 +7771,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "宠物装备装饰模式15，独立标题。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        955
+        900
       ]
     },
     {
@@ -7781,7 +7781,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "模式12材料类别文本与完整六材料交互。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        972
+        917
       ]
     },
     {
@@ -7791,7 +7791,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "精炼模式9，采样同源计时并按发送模式配置动作。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        989
+        934
       ]
     },
     {
@@ -7801,7 +7801,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六材料完整投放/换位/逐帧校验与绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1008
+        953
       ]
     },
     {
@@ -7811,7 +7811,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造模式0完整初始化，逆序发布五材料需求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1316
+        1261
       ]
     },
     {
@@ -7821,7 +7821,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "技能分类对应的特殊材料类别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1380
+        1325
       ]
     },
     {
@@ -7831,7 +7831,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "先释放再发布材料槽/占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1389
+        1334
       ]
     },
     {
@@ -7841,7 +7841,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "完整快照后查技能等级，附加值只读低U8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1405
+        1350
       ]
     },
     {
@@ -7851,7 +7851,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "前三材料占用等级与0的最大值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1425
+        1370
       ]
     },
     {
@@ -7861,7 +7861,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六槽中首个材料类别0/1/2对应的itemId。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1438
+        1383
       ]
     },
     {
@@ -7871,7 +7871,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "模式12完整材料校验、清理与发布。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1451
+        1396
       ]
     },
     {
@@ -7881,7 +7881,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "材料/单选拖动与释放。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1542
+        1487
       ]
     },
     {
@@ -7891,7 +7891,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "安装类型10的47DE00拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1580
+        1525
       ]
     },
     {
@@ -7901,7 +7901,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "加工分类；类别7优先归2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1586
+        1531
       ]
     },
     {
@@ -7911,7 +7911,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "执行资格、五等待及刻印直接发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1598
+        1543
       ]
     },
     {
@@ -7921,7 +7921,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "续作，初始化后独立重读模式5。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1898
+        1843
       ]
     },
     {
@@ -7931,7 +7931,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "底部关闭，点击仍返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1945
+        1890
       ]
     },
     {
@@ -7941,7 +7941,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "20格背包投放/快速选择/拖动及绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1967
+        1912
       ]
     },
     {
@@ -7951,7 +7951,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "结果图，负图号不绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2327
+        2272
       ]
     },
     {
@@ -7961,7 +7961,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "刻印输入焦点，借用唯一D2DE70。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2346
+        2291
       ]
     },
     {
@@ -7971,7 +7971,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "右上关闭，点击返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2371
+        2316
       ]
     },
     {
@@ -7981,7 +7981,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "非法刻印字符覆盖提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2426
+        2371
       ]
     },
     {
@@ -7991,7 +7991,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "空白刻印覆盖提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2434
+        2379
       ]
     },
     {
@@ -8001,7 +8001,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选投放/校验/拖动与绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2442
+        2387
       ]
     },
     {
@@ -8011,7 +8011,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选模式3完整初始化，返回借用载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2602
+        2547
       ]
     },
     {
@@ -8021,7 +8021,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "晶石等级读取后比较当前配方等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2673
+        2618
       ]
     },
     {
@@ -8031,7 +8031,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选物品不加8，晶石读取后重新取得选择索引。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2682
+        2627
       ]
     },
     {
@@ -8041,7 +8041,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六材料首个匹配类别，晶石读取后重取槽号再比较等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2693
+        2638
       ]
     },
     {
@@ -8051,7 +8051,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "首材料slot+8等级在晶石读取前快照。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2711
+        2656
       ]
     },
     {
@@ -8061,7 +8061,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双预览定位/显隐，返回原36B元素数值偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3110
+        3055
       ]
     },
     {
@@ -8071,7 +8071,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "返回第二个借用载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3134
+        3079
       ]
     },
     {
@@ -8081,7 +8081,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六材料槽悬停、翻页与图形绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3153
+        3098
       ]
     },
     {
@@ -8091,7 +8091,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造结果完整窗口11展示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3201
+        3146
       ]
     },
     {
@@ -8101,7 +8101,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "仅已有窗口11才更新，不自动创建。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3292
+        3237
       ]
     },
     {
@@ -8111,7 +8111,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "JgO制造分支，原字节摘要与展示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3299
+        3244
       ]
     },
     {
@@ -8121,7 +8121,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单物品悬停/翻页，物品编号不加8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3363
+        3308
       ]
     },
     {
@@ -8131,7 +8131,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "物品加工结果展示，保留入口选择快照及交叉门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3410
+        3355
       ]
     },
     {
@@ -8141,7 +8141,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "仅已有窗口11才展示物品结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3519
+        3464
       ]
     },
     {
@@ -8151,7 +8151,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "JgO第二分支七字段及独立摘要。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3526
+        3471
       ]
     },
     {
@@ -8161,7 +8161,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双预览六点插值，实际借当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3581
+        3526
       ]
     },
     {
@@ -8171,7 +8171,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双动画图号，非正才隐藏；返回原数值元素偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3616
+        3561
       ]
     },
     {
@@ -8181,7 +8181,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "仅清D67B00，不改变其他物品状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        496
+        441
       ]
     },
     {
@@ -8191,7 +8191,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "原S32 D67B00窄读，不返回其他状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        502
+        447
       ]
     },
     {
@@ -8201,7 +8201,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "低U8请求状态及窗口12创建。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        146
+        121
       ]
     },
     {
@@ -8211,7 +8211,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "取消窗口12操作并归空闲，保留末动画载荷返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        242
+        217
       ]
     },
     {
@@ -8221,7 +8221,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "窗口12计时/操作初始化。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        270
+        245
       ]
     },
     {
@@ -8231,7 +8231,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "窗口12完整结果展示及双计时槽发布。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        324
+        299
       ]
     },
     {
@@ -8241,7 +8241,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "仅更新已有窗口12，不自动创建。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        399
+        374
       ]
     },
     {
@@ -8251,7 +8251,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "JgO第四分支，失败不解析正文。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        406
+        381
       ]
     },
     {
@@ -8261,7 +8261,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "FP/背包检查与重启。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        687
+        662
       ]
     },
     {
@@ -8271,7 +8271,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "关闭或取消，hover后重取窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        726
+        701
       ]
     },
     {
@@ -8281,7 +8281,7 @@
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "结果图及固定框，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        756
+        731
       ]
     },
     {
@@ -8291,7 +8291,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "技能预览分组图号转换。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        109
+        94
       ]
     },
     {
@@ -8301,7 +8301,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "原操作计数、关联关闭及窗口13创建。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        133
+        118
       ]
     },
     {
@@ -8311,7 +8311,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "窗口13按分类完整填充结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        168
+        153
       ]
     },
     {
@@ -8321,7 +8321,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "先比较FP，再继续技能请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        287
+        272
       ]
     },
     {
@@ -8331,7 +8331,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "关闭入口窗口，音效后写图号。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        323
+        308
       ]
     },
     {
@@ -8341,7 +8341,7 @@
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "JgO第三分支，七字段及窗口13。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        347
+        332
       ]
     },
     {
@@ -8351,7 +8351,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "槽7特殊悬停计数，两条件独立。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        357
+        336
       ]
     },
     {
@@ -8361,7 +8361,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能索引对中查1009，按S16读取槽号。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        374
+        353
       ]
     },
     {
@@ -8371,7 +8371,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "玩家物品槽7的晶石等级，未用/未知返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        388
+        367
       ]
     },
     {
@@ -8381,7 +8381,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同一槽7的属性0..3；未用0，未知ID为-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        405
+        384
       ]
     },
     {
@@ -8391,7 +8391,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "重新选取出战宠物并读取原图号，未命中0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        422
+        401
       ]
     },
     {
@@ -8401,7 +8401,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物技术索引对中查40330..40332。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        429
+        408
       ]
     },
     {
@@ -8411,7 +8411,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物等级闭区间。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        447
+        426
       ]
     },
     {
@@ -8421,7 +8421,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前宠物FP的单次CryptInt比较。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        458
+        437
       ]
     },
     {
@@ -8431,7 +8431,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能/晶石/宠物技术/属性/等级条件链。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        473
+        452
       ]
     },
     {
@@ -8441,7 +8441,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前技能技术value90与重读晶石等级等值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        494
+        473
       ]
     },
     {
@@ -8451,7 +8451,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "按属性目标编号发送技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        503
+        482
       ]
     },
     {
@@ -8461,7 +8461,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同源六属性视图与46创建，不回滚计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        551
+        530
       ]
     },
     {
@@ -8471,7 +8471,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "ND自身/远端属性生产，分类1跳过人物行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        584
+        563
       ]
     },
     {
@@ -8481,7 +8481,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "221..224分类0..3，其余-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        685
+        664
       ]
     },
     {
@@ -8491,7 +8491,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "固定配对对应技能，需求槽数按S8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        697
+        676
       ]
     },
     {
@@ -8501,7 +8501,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "kind4拖动，仅message0推进。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        730
+        709
       ]
     },
     {
@@ -8511,7 +8511,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "安装479700并透传返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        757
+        736
       ]
     },
     {
@@ -8521,7 +8521,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "列表排序请求、打开技术与右键拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        763
+        742
       ]
     },
     {
@@ -8531,7 +8531,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能列表定位，不以used过滤索引查找。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        820
+        799
       ]
     },
     {
@@ -8541,7 +8541,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技术行，>=100按战斗FP着色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        868
+        847
       ]
     },
     {
@@ -8551,7 +8551,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "配方行与独立图号表。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        926
+        905
       ]
     },
     {
@@ -8561,7 +8561,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "切技术模式，负参数保留原技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        957
+        936
       ]
     },
     {
@@ -8571,7 +8571,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗列表及原过滤表尾字节计数门槛。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1010
+        989
       ]
     },
     {
@@ -8581,7 +8581,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术初始化。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1068
+        1047
       ]
     },
     {
@@ -8591,7 +8591,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗列表行，技能标志决定可用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1114
+        1093
       ]
     },
     {
@@ -8601,7 +8601,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术选择，独立FP读取与回调后重取窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1176
+        1155
       ]
     },
     {
@@ -8611,7 +8611,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "清选择回调并创建普通技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1245
+        1224
       ]
     },
     {
@@ -8621,7 +8621,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置回调并创建战斗列表窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1258
+        1237
       ]
     },
     {
@@ -8631,7 +8631,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1270
+        1249
       ]
     },
     {
@@ -8641,7 +8641,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物行绘制，两次宠物查询。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1284
+        1263
       ]
     },
     {
@@ -8651,7 +8651,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘行绘制，固定技术记录。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1323
+        1302
       ]
     },
     {
@@ -8661,7 +8661,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物选择，不加滚动偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1360
+        1339
       ]
     },
     {
@@ -8671,7 +8671,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘选择，FP不足不补失败音效。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1425
+        1404
       ]
     },
     {
@@ -8681,7 +8681,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物模式初始化，保留弃用结果的FP读取。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1485
+        1464
       ]
     },
     {
@@ -8691,7 +8691,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘模式初始化，名称借自身战斗对象。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1532
+        1511
       ]
     },
     {
@@ -8701,7 +8701,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置CC4D14并创建宠物技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1579
+        1558
       ]
     },
     {
@@ -8711,7 +8711,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置CC4D14并创建骑乘技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1591
+        1570
       ]
     },
     {
@@ -8721,7 +8721,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "固定入口窗口的返回按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1603
+        1582
       ]
     },
     {
@@ -8731,7 +8731,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗返回：模式4退列表，0/3/5/6关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1649
+        1628
       ]
     },
     {
@@ -8741,7 +8741,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1672
+        1651
       ]
     },
     {
@@ -8751,7 +8751,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "无可用宠物技能时略过，通知-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1722
+        1701
       ]
     },
     {
@@ -8761,7 +8761,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "前一行，bit400。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2020
+        1999
       ]
     },
     {
@@ -8771,7 +8771,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "后一行，bit400。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2048
+        2027
       ]
     },
     {
@@ -8781,7 +8781,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "前十行，音效后重读页码。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2078
+        2057
       ]
     },
     {
@@ -8791,7 +8791,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "后十行，不额外钳制负上限。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2105
+        2084
       ]
     },
     {
@@ -8801,7 +8801,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同源滚轮，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2135
+        2114
       ]
     },
     {
@@ -8811,7 +8811,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "切配方，滚动先用旧上限。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2148
+        2127
       ]
     },
     {
@@ -8821,7 +8821,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "转生一致才处理配方，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2179
+        2158
       ]
     },
     {
@@ -8831,7 +8831,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "五类技能选择与完整失败音效。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2235
+        2214
       ]
     },
     {
@@ -8841,7 +8841,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "窗口10模式2的技能状态差异请求，原返回无人消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2397
+        2376
       ]
     },
     {
@@ -8851,7 +8851,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "请求属性/发送技能及释放通知。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2412
+        2391
       ]
     },
     {
@@ -8861,7 +8861,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能目标名称/颜色借用及45创建，不回滚失败计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2462
+        2441
       ]
     },
     {
@@ -8871,7 +8871,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "ysVc完整名单生产；唯一回复调用方弃用混合返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2497
+        2476
       ]
     },
     {
@@ -9241,7 +9241,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "原25600技能检查，返回0/1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1095
+        1037
       ]
     },
     {
@@ -9401,17 +9401,17 @@
       "source": "src/ui/windows/WindowBattleResult.cpp",
       "basis": "窗口30点击关闭，索引未使用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        285
+        308
       ]
     },
     {
       "old_symbol": "Sub_499880",
       "new_symbol": "WindowRuntime_ButtonCloseResult",
       "original_entry": "0x00499880",
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowBattleResult.cpp",
       "basis": "结果窗关闭按钮，固定入口图形载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3804
+        148
       ]
     },
     {
@@ -9421,7 +9421,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源焦点窗口，不是当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3973
+        3748
       ]
     },
     {
@@ -9431,7 +9431,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源焦点元素。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3979
+        3754
       ]
     },
     {
@@ -9441,7 +9441,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源拖动种类。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3985
+        3760
       ]
     },
     {
@@ -9451,7 +9451,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源落点X，S16扩展。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3991
+        3766
       ]
     },
     {
@@ -9461,7 +9461,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源落点Y，S16扩展。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3997
+        3772
       ]
     },
     {
@@ -9471,7 +9471,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "同源来源索引。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4003
+        3778
       ]
     },
     {
@@ -9481,7 +9481,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4010
+        3785
       ]
     },
     {
@@ -9491,7 +9491,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4029
+        3804
       ]
     },
     {
@@ -9501,7 +9501,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "仅阶段4/5调用message3后完整清理。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4051
+        3826
       ]
     },
     {
@@ -9511,7 +9511,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "已有kind才写焦点两槽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4073
+        3848
       ]
     },
     {
@@ -9521,7 +9521,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "通用鼠标重置，不清来源索引/坐标。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4086
+        3861
       ]
     },
     {
@@ -9531,7 +9531,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4098
+        3873
       ]
     },
     {
@@ -10061,7 +10061,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4400
+        4175
       ]
     },
     {
@@ -10071,7 +10071,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "NPI01：数值键/Backspace/四鼠标操作原序，AL返回0/1/3；非Enter/Esc处理器。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1366
+        1308
       ]
     },
     {
@@ -10081,7 +10081,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "前10项技能索引的S16槽数，直接宽格式化。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        4460
+        4235
       ]
     },
     {
@@ -10131,7 +10131,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2574
+        2552
       ]
     },
     {
@@ -10141,7 +10141,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2583
+        2561
       ]
     },
     {
@@ -10171,7 +10171,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2855
+        2969
       ]
     },
     {
@@ -10181,7 +10181,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2867
+        2981
       ]
     },
     {
@@ -10191,7 +10191,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2884
+        2998
       ]
     },
     {
@@ -10201,7 +10201,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2899
+        3013
       ]
     },
     {
@@ -10211,7 +10211,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2914
+        3028
       ]
     },
     {
@@ -10221,7 +10221,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2928
+        3042
       ]
     },
     {
@@ -10231,7 +10231,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2943
+        3057
       ]
     },
     {
@@ -10241,7 +10241,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2958
+        3072
       ]
     },
     {
@@ -10251,7 +10251,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2978
+        3092
       ]
     },
     {
@@ -10301,7 +10301,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1101
+        1043
       ]
     },
     {
@@ -10311,7 +10311,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1514
+        1456
       ]
     },
     {
@@ -10321,7 +10321,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3147
+        2942
       ]
     },
     {
@@ -10331,7 +10331,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3215
+        3010
       ]
     },
     {
@@ -10341,7 +10341,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3520
+        3315
       ]
     },
     {
@@ -10351,7 +10351,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3535
+        3330
       ]
     },
     {
@@ -10361,7 +10361,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "启动UI完整初始化，返回category加载结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3605
+        3400
       ]
     },
     {
@@ -10371,7 +10371,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3632
+        3427
       ]
     },
     {
@@ -10381,7 +10381,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "顺序扫描71显示槽；原循环不跳过空槽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3657
+        3452
       ]
     },
     {
@@ -10391,7 +10391,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4489
+        4264
       ]
     },
     {
@@ -10401,7 +10401,7 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        935
+        956
       ]
     },
     {
@@ -10411,7 +10411,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4583
+        4358
       ]
     },
     {
@@ -10421,7 +10421,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4601
+        4376
       ]
     },
     {
@@ -10431,7 +10431,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4767
+        4542
       ]
     },
     {
@@ -10441,7 +10441,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1033
+        1122
       ]
     },
     {
@@ -10451,7 +10451,7 @@
       "source": "src/ui/windows/WindowInventory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1040
+        1129
       ]
     },
     {
@@ -10481,7 +10481,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4809
+        4584
       ]
     },
     {
@@ -10491,7 +10491,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4816
+        4591
       ]
     },
     {
@@ -10501,7 +10501,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4840
+        4615
       ],
       "original_data_address": "0x00584DA4"
     },
@@ -10512,7 +10512,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4847
+        4622
       ]
     },
     {
@@ -10522,7 +10522,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4870
+        4645
       ]
     },
     {
@@ -10532,7 +10532,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4940
+        4715
       ]
     },
     {
@@ -10542,7 +10542,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4949
+        4724
       ]
     },
     {
@@ -10552,7 +10552,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4974
+        4749
       ]
     },
     {
@@ -10562,7 +10562,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        5042
+        4817
       ]
     },
     {
@@ -10572,7 +10572,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        5064
+        4839
       ]
     },
     {
@@ -10582,7 +10582,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        5220
+        4995
       ],
       "original_code_position": "0x00440ADB"
     },
@@ -10622,7 +10622,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        788
+        784
       ]
     },
     {
@@ -10632,17 +10632,17 @@
       "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        138
+        159
       ]
     },
     {
       "old_symbol": "ScrollInputAndDraw",
       "new_symbol": "WindowInput_ScrollAndDraw",
       "original_entry": null,
-      "source": "src/ui/WindowRuntime.cpp",
+      "source": "src/ui/windows/WindowChat.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        822
+        142
       ]
     },
     {
@@ -10652,7 +10652,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        837
+        816
       ]
     },
     {
@@ -10662,7 +10662,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1572
+        1514
       ]
     },
     {
@@ -10752,7 +10752,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3196
+        2991
       ]
     },
     {
@@ -10762,7 +10762,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3207
+        3002
       ]
     },
     {
@@ -10772,7 +10772,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3470
+        3265
       ]
     },
     {
@@ -10782,7 +10782,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3481
+        3276
       ]
     },
     {
@@ -10792,7 +10792,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3575
+        3370
       ]
     },
     {
@@ -10802,7 +10802,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2394
+        2339
       ]
     },
     {
@@ -10812,7 +10812,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        508
+        453
       ]
     },
     {
@@ -10822,7 +10822,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        531
+        476
       ]
     },
     {
@@ -10832,7 +10832,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        563
+        508
       ]
     },
     {
@@ -10842,7 +10842,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        578
+        523
       ]
     },
     {
@@ -10852,7 +10852,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        590
+        535
       ]
     },
     {
@@ -10862,7 +10862,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        608
+        553
       ]
     },
     {
@@ -10872,7 +10872,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        756
+        853
       ]
     },
     {
@@ -10922,7 +10922,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        278
+        273
       ]
     },
     {
@@ -10932,7 +10932,7 @@
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        289
+        284
       ]
     },
     {
@@ -11003,9 +11003,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "借用标题及正文，旧/现代对话同源。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         207
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyChoiceImageCC4890",
@@ -11013,9 +11015,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "4A0640生产，旧55/56/57共享预览消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         186
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyChoiceImageC9A99C",
@@ -11023,9 +11027,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "4A0790生产，旧74预览消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         191
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyShopImageC9A9A0",
@@ -11033,9 +11039,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "4A0140生产，旧62预览借读同源图号。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         196
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyChoiceImageD2EA74",
@@ -11043,9 +11051,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowShopChoice.cpp",
       "basis": "4A0850生产，旧83预览消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         201
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyHealingRecordsD672F0",
@@ -11053,9 +11063,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowDialog.cpp",
       "basis": "借既有七条32B治疗记录，不扩到D673D0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         212
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyItemUseTargetView",
@@ -11087,9 +11099,11 @@
       "original_entry": null,
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "复用519680分级与57CBA4图号表。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         846
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyItemUseStatus",
@@ -11121,9 +11135,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "旧技能请求读取同源低S8，4FF650实际写者已接。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         336
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "WriteSkillRequestD64E13",
@@ -11131,9 +11147,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "4FF650四原写点共用私有唯一D64E13。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         341
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadSkillExtraDelayCF46C4",
@@ -11141,9 +11159,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "新旧技能面板共用额外时长。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         346
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "WriteSkillExtraDelayCF46C4",
@@ -11151,9 +11171,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         351
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadGatherResultD2D820",
@@ -11161,9 +11183,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "旧选择39借用窗口12同源回复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         120
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadGatherResultImageCF3FF0",
@@ -11171,9 +11195,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         125
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyStorageSideD67618",
@@ -11181,9 +11207,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "旧72借读既有存放模式，不复制私有状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         206
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyMessageRecordsD30138",
@@ -11191,9 +11219,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowMessageBoard.cpp",
       "basis": "旧73只读借现代50同源2C0H字节区，四条B0H。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         120
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowGatherResultNameD2DA94",
@@ -11201,9 +11231,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         130
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowGatherResultSuffixCB1E1C",
@@ -11211,9 +11243,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         135
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowGatherResultDetailsCC190C",
@@ -11221,9 +11255,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowGather.cpp",
       "basis": "借用NUL文本，不复制到另一结果缓存。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         140
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacySkillResultD66E2C",
@@ -11231,9 +11267,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "旧选择37与窗口13共享回复结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         93
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacySkillSummaryCC18CC",
@@ -11241,9 +11279,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         98
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacySkillDetailsCB0FDC",
@@ -11251,9 +11291,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkillResult.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         103
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyItemWorkResultCB05FC",
@@ -11261,9 +11303,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         317
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyItemWorkSuffixD2DADC",
@@ -11271,9 +11315,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         322
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyItemWorkDetailsD2DB00",
@@ -11281,9 +11327,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         327
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyItemWorkSkillD67CF0",
@@ -11291,9 +11339,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "新旧加工入口与结果回复同源技能类别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         332
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "WriteLegacyItemWorkSkillD67CF0",
@@ -11301,9 +11351,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         337
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyCraftResultCC46D8",
@@ -11311,9 +11363,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         342
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadLegacyCraftImageCF4B60",
@@ -11321,9 +11375,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         347
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyCraftNameCF46D4",
@@ -11331,9 +11387,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         352
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "WriteLegacyCraftNameCF46D4",
@@ -11341,9 +11399,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         357
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyCraftSuffixD672B4",
@@ -11351,9 +11411,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         362
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyCraftDetailsD2E92C",
@@ -11361,9 +11423,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         367
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "BorrowLegacyMailDeleteIndexD2DA8C",
@@ -11371,9 +11435,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowMail.cpp",
       "basis": "旧42/后续旧44借同一现代删除索引owner，不复制状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         219
-      ]
+      ],
+      "retired_note": "LWR02：当前无集合外消费者的旧窗口桥接函数已移除；原命名关系保留为历史。"
     },
     {
       "old_symbol": "ReadValueD67BE0",
@@ -11382,7 +11448,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4829
+        4604
       ]
     },
     {
@@ -11392,7 +11458,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        4834
+        4609
       ]
     }
   ],
@@ -11401,5 +11467,22 @@
     "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
     "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
     "location_records_refreshed": 229
+  },
+  "legacy_window_cleanup_lwr02": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+    "evidence": "doc/cg2d_legacy_window_cleanup_evidence.json",
+    "retired_helper_records": 33,
+    "location_records_refreshed": 363
+  },
+  "legacy_window_simplification_lwr03": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+    "evidence": "doc/cg2d_legacy_window_simplification_evidence.json",
+    "retired_symbol_records": 0,
+    "updated_symbol_records": 58
+  },
+  "ui_window_ownership_followup_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015",
+    "evidence": "doc/cg2d_ui_window_ownership_followup_evidence.json",
+    "updated_symbol_records": 425
   }
 }

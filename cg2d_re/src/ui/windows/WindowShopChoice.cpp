@@ -183,26 +183,6 @@ static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 
-std::int32_t WindowShopChoice_ReadSkillImage() noexcept
-{
-    return gChoiceImageCC4890;
-}
-
-std::int32_t WindowShopChoice_ReadExchangeImage() noexcept
-{
-    return gChoiceImageC9A99C;
-}
-
-std::int32_t WindowShopChoice_ReadShopImage() noexcept
-{
-    return gShopImageC9A9A0;
-}
-
-std::int32_t WindowShopChoice_ReadGiveReceiveImage() noexcept
-{
-    return gChoiceImageD2EA74;
-}
-
 // 原函数：0x0049FCA0。
 static login::YobiAction* WindowShopChoice_Open(
     const std::wstring_view title, const std::int32_t imageNo,

@@ -119,6 +119,8 @@ static void WindowDialog_Release();
 
 // 控件载荷、窗口状态、组件表与原型。
 
+static constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524}; // 原全局：0x0057CBA4。
+
 // 原全局：0x0057E478。 同源可写输入原型，57E698为容量成员。
 static WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
     {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
@@ -203,16 +205,6 @@ static WindowElementPrototype gWindowElements56CA88[19] { // 原全局：0x0056C
 WindowPrototype gWindowPrototypeDialog {2, 3, 0, 0, 0, 30, 0x80010101u, 19, gWindowElements56CA88, &WindowDialog_Update, &WindowDialog_Draw, &WindowDialog_Release}; // 36: 54E870
 
 // 窗口函数实现。
-
-const WindowDialogTextLine* WindowDialog_BorrowNpcLines() noexcept
-{
-    return gNpcDialogLinesCC24D4.data();
-}
-
-const std::byte* WindowDialog_BorrowHealingRecords() noexcept
-{
-    return reinterpret_cast<const std::byte*>(gHealingDialogRecordsD672F0.data());
-}
 
 // 原函数：0x0049C4D0。
 void WindowDialog_Reset()

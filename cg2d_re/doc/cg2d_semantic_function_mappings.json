@@ -28,6 +28,16 @@
       "path": "doc/cg2d_legacy_window_retirement_evidence.json",
       "scope": "LWR01用户授权废弃当前工程无消费者的99库存入口；不证明原端不可达。",
       "evidence_document": "doc/cg2d_legacy_window_retirement_spec.md"
+    },
+    {
+      "path": "doc/cg2d_legacy_window_cleanup_evidence.json",
+      "scope": "LWR02用户授权退休226个有正文库存入口；仅当前工程无消费者函数与死数据初始化，非原端不可达证明。",
+      "evidence_document": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02"
+    },
+    {
+      "path": "doc/cg2d_legacy_window_simplification_evidence.json",
+      "scope": "LWR03：六个无显示链旧选择入口经用户确认排除，不证明原端不可达。",
+      "evidence_document": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
     }
   ],
   "pending_record_policy": "18个未闭合功能入口身份保留，仅作历史功能跟踪，不作为函数实现状态依据；实施状态以plan/cg2d_ida_function_implementation_table.md为准。具名适配、当前原命令明文及客户端WAV源码已落位；CAA01五个必要SDL提供者的Debug链接只保留历史结果。旧7/旧8已有正文、原调用来源仍待证，不再记源码暂停；完整功能与运行验收均未由正文或链接数量证明。",
@@ -68,13 +78,14 @@
     {
       "original_entry": "0x402020",
       "inventory_id": "F:00002020",
-      "status": "具名适配完整本体/内部接线源码已对齐，完整功能未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "implementation_state": "完整102条装载/计数本体及页面内两caller已接",
       "remaining_requirement": "P03/P04源码工作项已关闭；57CAE8旧路由、文件/输入/音频全链及运行仍待，不以本体存在代功能验收",
       "evidence_documents": [
         "doc/ui_windows/legacy_log_viewer.md"
       ],
-      "decision_spec": "doc/cg2d_local_determinism_spec.md"
+      "decision_spec": "doc/cg2d_local_determinism_spec.md",
+      "historical_status_before_lwr02": "具名适配完整本体/内部接线源码已对齐，完整功能未验"
     },
     {
       "original_entry": "0x4021A0",
@@ -121,13 +132,14 @@
     {
       "original_entry": "0x4F7870",
       "inventory_id": "F:000F7870",
-      "status": "具名适配与完整本体/唯一父源码已接；工作项关闭，完整旧20/运行仍待",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "implementation_state": "旧20完整内嵌选择器已实现，既有4F7150调用已接",
       "remaining_requirement": "两hover入口-1及正常扫描/尾重查已实施；真实旧表外层、输入/明文帧/音频完整链与运行仍待，不算叶功能已验收。",
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_list.md"
       ],
-      "decision_spec": "doc/cg2d_local_determinism_spec.md"
+      "decision_spec": "doc/cg2d_local_determinism_spec.md",
+      "historical_status_before_lwr02": "具名适配与完整本体/唯一父源码已接；工作项关闭，完整旧20/运行仍待"
     },
     {
       "original_entry": "0x4D8DA0",
@@ -52628,20 +52640,6 @@
           "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F8550",
-            "Sub_4F8E40",
-            "Sub_4F9B10",
-            "Sub_5008C0",
-            "Sub_5014A0",
-            "Sub_501FD0",
-            "Sub_503160",
-            "ReloadLegacyLog_402020"
-          ],
-          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
-        },
-        {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "DescribeHoveredYobi_507140",
@@ -62446,6 +62444,21 @@
             "Sub_4E4EA0"
           ],
           "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F8550",
+            "Sub_4F8E40",
+            "Sub_4F9B10",
+            "Sub_5008C0",
+            "Sub_5014A0",
+            "Sub_501FD0",
+            "Sub_503160",
+            "ReloadLegacyLog_402020"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收",
+          "retired_by": "LWR02"
         }
       ]
     },
@@ -62472,11 +62485,12 @@
           "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/ui/windows/WindowShop.cpp",
           "symbols": [
             "WindowItem_DrawShopTooltip"
           ],
-          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         },
         {
           "path": "src/ui/windows/WindowShop.cpp",
@@ -62498,13 +62512,6 @@
           "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
           "symbols": [
             "WindowCrystalExchangeShop_RefreshRows"
-          ],
-          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
-        },
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4DA400"
           ],
           "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
         }
@@ -62806,7 +62813,17 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DA400"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x53CADC",
@@ -66073,14 +66090,6 @@
             "CompareBattleDrawActions_405BD0"
           ],
           "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
-        },
-        {
-          "path": "src/LegacyRecordOrder.cpp",
-          "symbols": [
-            "BuildOrderedRecordIndices_52FCC0",
-            "CompareOrderedRecords_52FB60"
-          ],
-          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         }
       ],
       "evidence_documents": [
@@ -66128,7 +66137,18 @@
         "remaining_original_call_domains": 0,
         "private_sort_implementation_retired": true,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x541A43",
@@ -102153,17 +102173,16 @@
     {
       "original_entry": "0x4E2D90",
       "inventory_id": "F:000E2D90",
-      "status": "既有金额子页全部格式已接真实核心；原外层内部回调保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E3743",
       "instruction_count": 600,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E2D90"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -102355,22 +102374,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E2D90"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有金额子页全部格式已接真实核心；原外层内部回调保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E3750",
       "inventory_id": "F:000E3750",
-      "status": "既有金额子页全部格式已接真实核心；原外层内部回调保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E401C",
       "instruction_count": 542,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E3750"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -102562,7 +102590,17 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E3750"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有金额子页全部格式已接真实核心；原外层内部回调保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E0380",
@@ -102878,17 +102916,16 @@
     {
       "original_entry": "0x4E0D10",
       "inventory_id": "F:000E0D10",
-      "status": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E0FEF",
       "instruction_count": 212,
       "original_direct_reference_count": 2,
       "original_direct_call_reference_count": 2,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E0D10"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -102984,22 +103021,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E0D10"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E10F0",
       "inventory_id": "F:000E10F0",
-      "status": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E1837",
       "instruction_count": 414,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E10F0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -103119,22 +103165,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E10F0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E1B10",
       "inventory_id": "F:000E1B10",
-      "status": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E1EDB",
       "instruction_count": 317,
       "original_direct_reference_count": 2,
       "original_direct_call_reference_count": 2,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E1B10"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -103486,22 +103541,31 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E1B10"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E2030",
       "inventory_id": "F:000E2030",
-      "status": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E28E9",
       "instruction_count": 659,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E2030"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -103629,22 +103693,31 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E2030"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E28F0",
       "inventory_id": "F:000E28F0",
-      "status": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E2D88",
       "instruction_count": 357,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E28F0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -103764,7 +103837,17 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E28F0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有仓库父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E5E40",
@@ -104152,17 +104235,16 @@
     {
       "original_entry": "0x4E6E10",
       "inventory_id": "F:000E6E10",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E70A9",
       "instruction_count": 192,
       "original_direct_reference_count": 2,
       "original_direct_call_reference_count": 2,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E6E10"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -104258,22 +104340,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E6E10"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E7380",
       "inventory_id": "F:000E7380",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E773E",
       "instruction_count": 312,
       "original_direct_reference_count": 2,
       "original_direct_call_reference_count": 2,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E7380"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -104625,22 +104716,31 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E7380"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E7870",
       "inventory_id": "F:000E7870",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E7FB7",
       "instruction_count": 414,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E7870"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -104760,22 +104860,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E7870"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E82F0",
       "inventory_id": "F:000E82F0",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E83C3",
       "instruction_count": 68,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E82F0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -104864,22 +104973,31 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E82F0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4E8AD0",
       "inventory_id": "F:000E8AD0",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4E9274",
       "instruction_count": 459,
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 0,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4E8AD0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "inbound_evidence": [
@@ -104999,7 +105117,17 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E8AD0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验"
     },
     {
       "original_entry": "0x4CD4F0",
@@ -105887,17 +106015,16 @@
     {
       "original_entry": "0x4F24A0",
       "inventory_id": "F:000F24A0",
-      "status": "既有物品加工名称限长复制已接真实核心；其他依赖及完整运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4F25B8",
       "instruction_count": 91,
       "original_direct_reference_count": 2,
       "original_direct_call_reference_count": 2,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F24A0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "copy_call_connections": [
@@ -105979,7 +106106,17 @@
           "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
         ],
         "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F24A0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "既有物品加工名称限长复制已接真实核心；其他依赖及完整运行未验"
     },
     {
       "original_entry": "0x4F2A30",
@@ -155784,16 +155921,14 @@
     {
       "original_entry": "0x4F8550",
       "inventory_id": "F:000F8550",
-      "status": "旧宠物基本页十三原格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4F8E3F",
       "instruction_count": 650,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F8550"
-          ],
-          "relationship": "仅八格式接口改变，六项循环对应六真实原点，其他正文/返回0保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -156239,21 +156374,30 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F8550"
+          ],
+          "relationship": "仅八格式接口改变，六项循环对应六真实原点，其他正文/返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧宠物基本页十三原格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x4F8E40",
       "inventory_id": "F:000F8E40",
-      "status": "旧宠物属性页二十七原格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4F9AF4",
       "instruction_count": 916,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F8E40"
-          ],
-          "relationship": "仅十一格式接口改变，四项循环承接二十独立原点，其他正文/S32返回0保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -157161,21 +157305,30 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F8E40"
+          ],
+          "relationship": "仅十一格式接口改变，四项循环承接二十独立原点，其他正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧宠物属性页二十七原格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x4F9B10",
       "inventory_id": "F:000F9B10",
-      "status": "旧宠物技能页两原格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x4F9FF0",
       "instruction_count": 347,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F9B10"
-          ],
-          "relationship": "仅两格式接口改变，其他正文/S32返回0保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -157271,7 +157424,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F9B10"
+          ],
+          "relationship": "仅两格式接口改变，其他正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧宠物技能页两原格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x4FAEF0",
@@ -158188,16 +158352,14 @@
     {
       "original_entry": "0x5008C0",
       "inventory_id": "F:001008C0",
-      "status": "旧人物基本资料十六原格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x501491",
       "instruction_count": 985,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_5008C0"
-          ],
-          "relationship": "仅四源码格式接口改变，现drawNumber十三绑定调用对应十三原点、另三直接原点，其它正文/S32返回0保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -158794,21 +158956,30 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5008C0"
+          ],
+          "relationship": "仅四源码格式接口改变，现drawNumber十三绑定调用对应十三原点、另三直接原点，其它正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧人物基本资料十六原格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x5014A0",
       "inventory_id": "F:001014A0",
-      "status": "旧人物属性页三十原格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x501F5C",
       "instruction_count": 820,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_5014A0"
-          ],
-          "relationship": "仅三个源码格式接口改变，现drawNumber二十八绑定及血魔两直接格式对应三十原点，其它正文/S32返回0保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -159903,21 +160074,30 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5014A0"
+          ],
+          "relationship": "仅三个源码格式接口改变，现drawNumber二十八绑定及血魔两直接格式对应三十原点，其它正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧人物属性页三十原格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x501FD0",
       "inventory_id": "F:00101FD0",
-      "status": "旧称号/地图/公共页签已证格式已接线；原父及整体验收未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x50292B",
       "instruction_count": 658,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_501FD0"
-          ],
-          "relationship": "仅1格式接口改变，其他正文/原返回域保持"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -160018,7 +160198,18 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_501FD0"
+          ],
+          "relationship": "仅1格式接口改变，其他正文/原返回域保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧称号/地图/公共页签已证格式已接线；原父及整体验收未闭合"
     },
     {
       "original_entry": "0x5029B0",
@@ -160137,16 +160328,14 @@
     {
       "original_entry": "0x503160",
       "inventory_id": "F:00103160",
-      "status": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "original_end_exclusive": "0x50343f",
       "instruction_count": 231,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_503160"
-          ],
-          "relationship": "已有公共旧面板完整正文；BVL01一个既有体两个取样片段实修，原格式/字段与其余正文保"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -160382,7 +160571,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503160"
+          ],
+          "relationship": "已有公共旧面板完整正文；BVL01一个既有体两个取样片段实修，原格式/字段与其余正文保",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。"
     },
     {
       "original_entry": "0x505170",
@@ -166488,21 +166688,12 @@
           "0x4D670A"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D66E0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D66E0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166529,7 +166720,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D66E0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D66E0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D6A30",
@@ -166543,21 +166753,12 @@
           "0x4D6A5D"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D6A30"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D6A30"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166584,7 +166785,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D6A30"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D6A30"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D6E70",
@@ -166598,21 +166818,12 @@
           "0x4D6E9D"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D6E70"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D6E70"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166639,7 +166850,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D6E70"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D6E70"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D8D70",
@@ -166653,21 +166883,12 @@
           "0x4D8D9F"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D8D70"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D8D70"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166694,7 +166915,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D8D70"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D8D70"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D91E0",
@@ -166708,21 +166948,12 @@
           "0x4D9212"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D91E0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D91E0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166749,7 +166980,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D91E0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D91E0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4DAA00",
@@ -166763,21 +167013,12 @@
           "0x4DAA32"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4DAA00"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4DAA00"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166804,7 +167045,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DAA00"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DAA00"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4DC7A0",
@@ -166818,21 +167078,12 @@
           "0x4DC7DC"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4DC7A0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4DC7A0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166861,7 +167112,26 @@
       },
       "existing_reset_after_publication": [
         "gLegacyRepairMessageD64E14"
-      ]
+      ],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DC7A0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DC7A0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4DDF80",
@@ -166875,21 +167145,12 @@
           "0x4DDFBC"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4DDF80"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4DDF80"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166918,7 +167179,26 @@
       },
       "existing_reset_after_publication": [
         "gLegacyIdentifyMessageC9A948"
-      ]
+      ],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DDF80"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DDF80"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D36B0",
@@ -166932,21 +167212,12 @@
           "0x4D36E2"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D36B0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D36B0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -166973,7 +167244,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D36B0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D36B0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D4ED0",
@@ -166987,21 +167277,12 @@
           "0x4D4EFF"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D4ED0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D4ED0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167028,7 +167309,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D4ED0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D4ED0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D5220",
@@ -167042,21 +167342,12 @@
           "0x4D524F"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D5220"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D5220"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167083,7 +167374,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D5220"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D5220"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D5580",
@@ -167097,21 +167407,12 @@
           "0x4D55B2"
         ]
       ],
-      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4D5580"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4D5580"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167138,7 +167439,26 @@
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
-      "existing_reset_after_publication": []
+      "existing_reset_after_publication": [],
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D5580"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D5580"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合"
     },
     {
       "original_entry": "0x4D6640",
@@ -167156,21 +167476,12 @@
           "0x4D6690"
         ]
       ],
-      "status": "BMR01既有typed预览工厂18条/79B及失败共享RET归属登记；完整上游/寿命/运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
-          "symbols": [
-            "Sub_4D6640"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "include/cg/YobiRuntime.hpp",
-          "symbols": [
-            "Sub_4D6640"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167204,7 +167515,26 @@
         }
       ],
       "display_priority": "固定0xDD/低U8",
-      "original_code_bytes": 79
+      "original_code_bytes": 79,
+      "historical_sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BMR01既有typed预览工厂18条/79B及失败共享RET归属登记；完整上游/寿命/运行未验"
     },
     {
       "original_entry": "0x4F9FF0",
@@ -167218,21 +167548,12 @@
           "0x4FA043"
         ]
       ],
-      "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
-          "symbols": [
-            "Sub_4F9FF0"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "include/cg/YobiRuntime.hpp",
-          "symbols": [
-            "Sub_4F9FF0"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167260,7 +167581,26 @@
           "relationship": "既有typed lambda以同一YobiAction*调用并弃S32返回，不强转函数指针"
         }
       ],
-      "display_priority": "实际参数低U8"
+      "display_priority": "实际参数低U8",
+      "historical_sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4F9FF0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4F9FF0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验"
     },
     {
       "original_entry": "0x4D6690",
@@ -167274,21 +167614,12 @@
           "0x4D66E0"
         ]
       ],
-      "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
-          "symbols": [
-            "Sub_4D6690"
-          ],
-          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
-        },
-        {
-          "path": "include/cg/YobiRuntime.hpp",
-          "symbols": [
-            "Sub_4D6690"
-          ],
-          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -167318,7 +167649,26 @@
           16
         ],
         "returns": "原完整S32结果，不固定成功"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4D6690"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4D6690"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验"
     },
     {
       "original_entry": "0x404A40",
@@ -168974,14 +169324,12 @@
     {
       "original_entry": "0x402020",
       "inventory_id": "F:00002020",
-      "status": "完整旧日志装载/计数本体及4021A0两内部caller源码已实现；具名P03入口适配已接，运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "ReloadLegacyLog_402020"
-          ],
-          "relationship": "真实原102条语义，两个打开阶段、共享calendar/文件名、原忽略fgets后的计数和S32页数返回"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -169026,7 +169374,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "ReloadLegacyLog_402020"
+          ],
+          "relationship": "真实原102条语义，两个打开阶段、共享calendar/文件名、原忽略fgets后的计数和S32页数返回",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "完整旧日志装载/计数本体及4021A0两内部caller源码已实现；具名P03入口适配已接，运行未验"
     },
     {
       "original_entry": "0x4021A0",
@@ -169097,14 +169456,12 @@
     {
       "original_entry": "0x4F7870",
       "inventory_id": "F:000F7870",
-      "status": "旧20内嵌状态选择器完整634条本体与唯一直接父源码已接；D01/P06两hover入口-1实施，旧表外层及运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F7870"
-          ],
-          "relationship": "完整五物理槽初始化、15选项/确认取消、状态限制/交换、LKQy请求与提示；4F7150沿既有真实调用"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -169148,7 +169505,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F7870"
+          ],
+          "relationship": "完整五物理槽初始化、15选项/确认取消、状态限制/交换、LKQy请求与提示；4F7150沿既有真实调用",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧20内嵌状态选择器完整634条本体与唯一直接父源码已接；D01/P06两hover入口-1实施，旧表外层及运行未验"
     },
     {
       "original_entry": "0x4FF650",
@@ -170691,15 +171059,8 @@
     {
       "original_entry": "0x455490",
       "inventory_id": "F:00055490",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455490"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170737,20 +171098,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455490"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4554C0",
       "inventory_id": "F:000554C0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4554C0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170788,20 +171153,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4554C0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x455540",
       "inventory_id": "F:00055540",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455540"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170839,20 +171208,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455540"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4555C0",
       "inventory_id": "F:000555C0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4555C0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170890,20 +171263,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4555C0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x455640",
       "inventory_id": "F:00055640",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455640"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170941,20 +171318,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455640"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4556C0",
       "inventory_id": "F:000556C0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4556C0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -170992,20 +171373,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4556C0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x455740",
       "inventory_id": "F:00055740",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455740"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171043,20 +171428,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455740"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4557C0",
       "inventory_id": "F:000557C0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4557C0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171094,20 +171483,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4557C0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x455840",
       "inventory_id": "F:00055840",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455840"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171145,20 +171538,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455840"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x455930",
       "inventory_id": "F:00055930",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_455930"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171196,7 +171593,18 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_455930"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x45B370",
@@ -171252,15 +171660,8 @@
     {
       "original_entry": "0x4FC420",
       "inventory_id": "F:000FC420",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FC420"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171298,20 +171699,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FC420"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4FCB90",
       "inventory_id": "F:000FCB90",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FCB90"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171349,20 +171754,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FCB90"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4FE490",
       "inventory_id": "F:000FE490",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FE490"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171400,20 +171809,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FE490"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4FEB00",
       "inventory_id": "F:000FEB00",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FEB00"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171451,20 +171864,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FEB00"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4FF020",
       "inventory_id": "F:000FF020",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FF020"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171502,20 +171919,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FF020"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x4FF340",
       "inventory_id": "F:000FF340",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FF340"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171553,20 +171974,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FF340"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502930",
       "inventory_id": "F:00102930",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502930"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171604,20 +172029,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502930"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502C30",
       "inventory_id": "F:00102C30",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502C30"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171655,20 +172084,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502C30"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502C60",
       "inventory_id": "F:00102C60",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502C60"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171706,20 +172139,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502C60"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502C80",
       "inventory_id": "F:00102C80",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502C80"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171757,20 +172194,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502C80"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502CA0",
       "inventory_id": "F:00102CA0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502CA0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171808,20 +172249,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502CA0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502D20",
       "inventory_id": "F:00102D20",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502D20"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171859,20 +172304,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502D20"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502DA0",
       "inventory_id": "F:00102DA0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502DA0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171910,20 +172359,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502DA0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502E20",
       "inventory_id": "F:00102E20",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502E20"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -171961,20 +172414,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502E20"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502EA0",
       "inventory_id": "F:00102EA0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502EA0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -172012,20 +172469,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502EA0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502F20",
       "inventory_id": "F:00102F20",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502F20"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -172063,20 +172524,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502F20"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x502FA0",
       "inventory_id": "F:00102FA0",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_502FA0"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -172114,20 +172579,24 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_502FA0"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x503020",
       "inventory_id": "F:00103020",
-      "status": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_503020"
-          ],
-          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价"
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -172165,7 +172634,18 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503020"
+          ],
+          "relationship": "已有源体位置，当前仅确认命名定义存在；不据本组审算法/数据/异常或记整函数等价",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "已有初始化源体；AIS01仅原表/源位置及当前启动调用绑定补登记，完整本体/语义未审，不进入已审或已验分子"
     },
     {
       "original_entry": "0x459580",
@@ -178636,18 +179116,9 @@
       "parent_inventory_id": "F:000D6640",
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
-          "symbols": [
-            "Sub_4D6640"
-          ],
-          "relationship": "分配为空时直接返回同一空T*，不生成独立C3空函数后继续成功写入"
-        },
-        {
-          "path": "include/cg/YobiRuntime.hpp",
-          "symbols": [
-            "Sub_4D6640"
-          ],
-          "relationship": "仅父三S32参数/非拥有YobiAction*接口，没有独立RET声明"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -178659,7 +179130,25 @@
         "doc/cg2d_function_boundary_classifications.json#/records/1"
       ],
       "boundary": "原一条C3/一字节、4D664E分配结果条件判断未跳时顺序落入，EAX沿空分配结果返回。该RET不置零，只有已证正常失败语义由同一工厂承接，未知独立入向不能当固定空函数。原库存ID/范围/字节保留；不恢复音频、不造旧路由或默认成功，完整分配/全部父/alias/寿命/ABI及运行未验。",
-      "verification_level": "三原库存身份55条/203B及四字节回调前缀、失败分支/实际表槽和现有源段限定静态；不构建或执行"
+      "verification_level": "三原库存身份55条/203B及四字节回调前缀、失败分支/实际表槽和现有源段限定静态；不构建或执行",
+      "historical_sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "分配为空时直接返回同一空T*，不生成独立C3空函数后继续成功写入",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "仅父三S32参数/非拥有YobiAction*接口，没有独立RET声明",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x54AB16",
@@ -179301,17 +179790,9 @@
           "relationship": "已有完整生产/每行写后发布同一行T*、同源借用及case16接线保持，不新增正文或镜像"
         },
         {
-          "path": "src/ui/windows/WindowDialog.cpp",
-          "symbols": [
-            "WindowDialog_BorrowNpcLines"
-          ],
-          "relationship": "已有完整生产/每行写后发布同一行T*、同源借用及case16接线保持，不新增正文或镜像"
-        },
-        {
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
             "WindowDialogTextLine",
-            "WindowDialog_BorrowNpcLines",
             "WindowShopChoice_OpenSkillChoice"
           ],
           "relationship": "既有81B行类型/非拥有借用/根声明保持"
@@ -179409,6 +179890,22 @@
             "Sub_4D6710"
           ],
           "relationship": "仅既有旧55五行消费同一共享owner，未完整重验该父或外层路由"
+        },
+        {
+          "path": "src/ui/windows/WindowDialog.cpp",
+          "symbols": [
+            "WindowDialog_BorrowNpcLines"
+          ],
+          "relationship": "已有完整生产/每行写后发布同一行T*、同源借用及case16接线保持，不新增正文或镜像",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "WindowDialog_BorrowNpcLines"
+          ],
+          "relationship": "既有81B行类型/非拥有借用/根声明保持",
+          "retired_by": "LWR02"
         }
       ]
     },
@@ -182408,18 +182905,9 @@
       "instruction_count": 160,
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
-          "symbols": [
-            "Sub_4FAAA0"
-          ],
-          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文"
-        },
-        {
-          "path": "include/cg/YobiRuntime.hpp",
-          "symbols": [
-            "Sub_4FAAA0"
-          ],
-          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -182579,28 +183067,37 @@
           "doc/cg2d_ui_preview_sampling_evidence.json"
         ]
       },
-      "original_ida_item_count": 163
-    },
-    {
-      "original_entry": "0x4face0",
-      "inventory_id": "F:000FACE0",
-      "status": "UPS01既有完整预览创建/回调纳管；源正文未改、完整页面/owner寿命运行未验",
-      "original_end_exclusive": "0x4faec3",
-      "instruction_count": 159,
-      "sources": [
+      "original_ida_item_count": 163,
+      "historical_sources": [
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "Sub_4FACE0"
+            "Sub_4FAAA0"
           ],
-          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文"
+          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文",
+          "retired_by": "LWR02"
         },
         {
           "path": "include/cg/YobiRuntime.hpp",
           "symbols": [
-            "Sub_4FACE0"
+            "Sub_4FAAA0"
           ],
-          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner",
+          "retired_by": "LWR02"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4face0",
+      "inventory_id": "F:000FACE0",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
+      "original_end_exclusive": "0x4faec3",
+      "instruction_count": 159,
+      "sources": [
+        {
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -182626,28 +183123,38 @@
         ],
         "source_body_changed": false,
         "full_runtime_verified": false
-      }
-    },
-    {
-      "original_entry": "0x4ef5f0",
-      "inventory_id": "F:000EF5F0",
-      "status": "UPS01结果零判定先于图号读取已修/原身份纳管；完整页面/owner寿命运行未验",
-      "original_end_exclusive": "0x4ef70a",
-      "instruction_count": 71,
-      "sources": [
+      },
+      "historical_sources": [
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "Sub_4EF5F0"
+            "Sub_4FACE0"
           ],
-          "relationship": "UPS01仅结果判定先于图号读取的三具名替换；原空门禁/六图号族/四动作与未匹配保旧保持"
+          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文",
+          "retired_by": "LWR02"
         },
         {
           "path": "include/cg/YobiRuntime.hpp",
           "symbols": [
-            "Sub_4EF5F0"
+            "Sub_4FACE0"
           ],
-          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "UPS01既有完整预览创建/回调纳管；源正文未改、完整页面/owner寿命运行未验"
+    },
+    {
+      "original_entry": "0x4ef5f0",
+      "inventory_id": "F:000EF5F0",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
+      "original_end_exclusive": "0x4ef70a",
+      "instruction_count": 71,
+      "sources": [
+        {
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -182688,7 +183195,26 @@
         ],
         "source_body_changed": true,
         "full_runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4EF5F0"
+          ],
+          "relationship": "UPS01仅结果判定先于图号读取的三具名替换；原空门禁/六图号族/四动作与未匹配保旧保持",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4EF5F0"
+          ],
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "UPS01结果零判定先于图号读取已修/原身份纳管；完整页面/owner寿命运行未验"
     },
     {
       "original_entry": "0x504120",
@@ -218223,21 +218749,12 @@
         ]
       ],
       "instruction_count": 116,
-      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_503440"
-          ],
-          "relationship": "BVM01完整116条325B/两页公共绘制正文正确保持：S8 hover→原悬停字段读序/低W16边界，五页每轮fresh S8 selected、含零图号仍绘，原有符号height/width除2；flags低bit0才绘关闭钮，之后fresh选页/背景图号，unsigned image<=999原W32透传，否则按height/y/width/x绘212层并沿返回。16B descriptor原全清后FFFFFFF及mode4，现正确保持，不误删合法清零。仅此根完整基线与现相关桥接，所有父/像素/ABI运行未验。"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_503440"
-          ],
-          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -218307,7 +218824,26 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503440"
+          ],
+          "relationship": "BVM01完整116条325B/两页公共绘制正文正确保持：S8 hover→原悬停字段读序/低W16边界，五页每轮fresh S8 selected、含零图号仍绘，原有符号height/width除2；flags低bit0才绘关闭钮，之后fresh选页/背景图号，unsigned image<=999原W32透传，否则按height/y/width/x绘212层并沿返回。16B descriptor原全清后FFFFFFF及mode4，现正确保持，不误删合法清零。仅此根完整基线与现相关桥接，所有父/像素/ABI运行未验。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_503440"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。"
     },
     {
       "original_entry": "0x503590",
@@ -218321,28 +218857,12 @@
         ]
       ],
       "instruction_count": 29,
-      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_503590"
-          ],
-          "relationship": "BVM01完整29条72B/一页关闭区域查询正确保持：y→height→x→width，bottom/right+1原S32；只区域命中才交closeButton给503990，低AL&40非零→1，否则0。实际Cpp借既有QueryPanelButtonState，当前桥接源矩形改原top→left→height→width四阶段，正常值/核心命中与1/0结果保；此原函数正文无改动、新I只桥接，不冒充全68调用处/外路由或运行完成。"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_503590"
-          ],
-          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "QueryPanelButtonState"
-          ],
-          "relationship": "原503990实际命中兼容桥；仅一个桥接片段恢复源top/left/height/width，核心及本查询主体不改"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -218412,7 +218932,34 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503590"
+          ],
+          "relationship": "BVM01完整29条72B/一页关闭区域查询正确保持：y→height→x→width，bottom/right+1原S32；只区域命中才交closeButton给503990，低AL&40非零→1，否则0。实际Cpp借既有QueryPanelButtonState，当前桥接源矩形改原top→left→height→width四阶段，正常值/核心命中与1/0结果保；此原函数正文无改动、新I只桥接，不冒充全68调用处/外路由或运行完成。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_503590"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "QueryPanelButtonState"
+          ],
+          "relationship": "原503990实际命中兼容桥；仅一个桥接片段恢复源top/left/height/width，核心及本查询主体不改",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。"
     },
     {
       "original_entry": "0x5035E0",
@@ -218426,21 +218973,12 @@
         ]
       ],
       "instruction_count": 107,
-      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_5035E0"
-          ],
-          "relationship": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_5035E0"
-          ],
-          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -218510,7 +219048,26 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5035E0"
+          ],
+          "relationship": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_5035E0"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。"
     },
     {
       "original_entry": "0x4C7AE0",
@@ -222836,26 +223393,11 @@
         ]
       ],
       "instruction_count": 24,
-      "status": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F61C0"
-          ],
-          "relationship": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4F61C0"
-          ],
-          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口"
-        },
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "Sub_4F9FF0",
             "MarkDeath"
           ],
           "relationship": "公共工厂1126与既有MarkDeath回收标记边界复用，不称实际对象已经释放"
@@ -222936,7 +223478,34 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F61C0"
+          ],
+          "relationship": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4F61C0"
+          ],
+          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4F9FF0"
+          ],
+          "relationship": "公共工厂1126与既有MarkDeath回收标记边界复用，不称实际对象已经释放",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
     },
     {
       "original_entry": "0x4f6bf0",
@@ -222950,21 +223519,12 @@
         ]
       ],
       "instruction_count": 46,
-      "status": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4F6BF0"
-          ],
-          "relationship": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。"
-        },
-        {
-          "path": "src/LegacyPanelRuntime.hpp",
-          "symbols": [
-            "Sub_4F6BF0"
-          ],
-          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -223034,7 +223594,26 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F6BF0"
+          ],
+          "relationship": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4F6BF0"
+          ],
+          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
     },
     {
       "original_entry": "0x504180",
@@ -223048,31 +223627,18 @@
         ]
       ],
       "instruction_count": 85,
-      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
-      "sources": [
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_504180"
-          ],
-          "relationship": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_504180"
-          ],
-          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
-        }
-      ],
+      "status": "用户范围排除：无显示链旧选择及End残留已退休（LWR03）",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_window_selection_spec.md"
+        "doc/cg2d_legacy_window_selection_spec.md",
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+        "doc/cg2d_legacy_window_simplification_evidence.json"
       ],
-      "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "boundary": "用户接受取消旧99号不可见切换和伴随关闭音效；源码函数／选择表／保存状态移除，原身份及证据保留，不计实现或验收。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "legacy_selection_category_sampling": {
         "spec_id": "BWA01",
@@ -223129,7 +223695,27 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_504180"
+          ],
+          "relationship": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_504180"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "historical_boundary_before_lwr03": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     },
     {
       "original_entry": "0x5042d0",
@@ -223143,31 +223729,18 @@
         ]
       ],
       "instruction_count": 54,
-      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
-      "sources": [
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_5042D0"
-          ],
-          "relationship": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_5042D0"
-          ],
-          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
-        }
-      ],
+      "status": "用户范围排除：无显示链旧选择及End残留已退休（LWR03）",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_window_selection_spec.md"
+        "doc/cg2d_legacy_window_selection_spec.md",
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+        "doc/cg2d_legacy_window_simplification_evidence.json"
       ],
-      "boundary": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "boundary": "用户接受取消旧99号不可见切换和伴随关闭音效；源码函数／选择表／保存状态移除，原身份及证据保留，不计实现或验收。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "legacy_selection_category_sampling": {
         "spec_id": "BWA01",
@@ -223224,7 +223797,27 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_5042D0"
+          ],
+          "relationship": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_5042D0"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "historical_boundary_before_lwr03": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     },
     {
       "original_entry": "0x504410",
@@ -223238,31 +223831,18 @@
         ]
       ],
       "instruction_count": 31,
-      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
-      "sources": [
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_504410"
-          ],
-          "relationship": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_504410"
-          ],
-          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
-        }
-      ],
+      "status": "用户范围排除：无显示链旧选择及End残留已退休（LWR03）",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_window_selection_spec.md"
+        "doc/cg2d_legacy_window_selection_spec.md",
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+        "doc/cg2d_legacy_window_simplification_evidence.json"
       ],
-      "boundary": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "boundary": "用户接受取消旧99号不可见切换和伴随关闭音效；源码函数／选择表／保存状态移除，原身份及证据保留，不计实现或验收。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "legacy_selection_category_sampling": {
         "spec_id": "BWA01",
@@ -223319,7 +223899,27 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_504410"
+          ],
+          "relationship": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_504410"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "historical_boundary_before_lwr03": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     },
     {
       "original_entry": "0x504460",
@@ -223333,21 +223933,12 @@
         ]
       ],
       "instruction_count": 29,
-      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_504460"
-          ],
-          "relationship": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_504460"
-          ],
-          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -223414,7 +224005,26 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_504460"
+          ],
+          "relationship": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。",
+          "retired_by": "LWR02"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_504460"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     },
     {
       "original_entry": "0x5044c0",
@@ -223428,31 +224038,18 @@
         ]
       ],
       "instruction_count": 11,
-      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
-      "sources": [
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_5044C0"
-          ],
-          "relationship": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_5044C0"
-          ],
-          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
-        }
-      ],
+      "status": "用户范围排除：无显示链旧选择及End残留已退休（LWR03）",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_window_selection_spec.md"
+        "doc/cg2d_legacy_window_selection_spec.md",
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+        "doc/cg2d_legacy_window_simplification_evidence.json"
       ],
-      "boundary": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "boundary": "用户接受取消旧99号不可见切换和伴随关闭音效；源码函数／选择表／保存状态移除，原身份及证据保留，不计实现或验收。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "legacy_selection_category_sampling": {
         "spec_id": "BWA01",
@@ -223509,7 +224106,27 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_5044C0"
+          ],
+          "relationship": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_5044C0"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "historical_boundary_before_lwr03": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     },
     {
       "original_entry": "0x504af0",
@@ -223523,31 +224140,18 @@
         ]
       ],
       "instruction_count": 8,
-      "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
-      "sources": [
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "Sub_504AF0"
-          ],
-          "relationship": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。"
-        },
-        {
-          "path": "include/cg/ui/LegacyWindowSelection.hpp",
-          "symbols": [
-            "Sub_504AF0"
-          ],
-          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口"
-        }
-      ],
+      "status": "用户范围排除：无显示链旧选择及End残留已退休（LWR03）",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
-        "doc/cg2d_legacy_window_selection_spec.md"
+        "doc/cg2d_legacy_window_selection_spec.md",
+        "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+        "doc/cg2d_legacy_window_simplification_evidence.json"
       ],
-      "boundary": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "boundary": "用户接受取消旧99号不可见切换和伴随关闭音效；源码函数／选择表／保存状态移除，原身份及证据保留，不计实现或验收。",
       "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
       "result_stage_baseline": {
         "spec_id": "BWB01",
@@ -223607,7 +224211,27 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "Sub_504AF0"
+          ],
+          "relationship": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
+          "symbols": [
+            "Sub_504AF0"
+          ],
+          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "historical_boundary_before_lwr03": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。"
     },
     {
       "original_entry": "0x504a50",
@@ -228664,13 +229288,12 @@
     {
       "original_entry": "0x4FDD70",
       "inventory_id": "F:000FDD70",
-      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/DisplaySettings.cpp",
-          "symbols": [
-            "Sub_4FDD70"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228690,18 +229313,27 @@
         "page_binding_implemented": false,
         "runtime_verified": false
       },
-      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FDD70"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验"
     },
     {
       "original_entry": "0x4FDDC0",
       "inventory_id": "F:000FDDC0",
-      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/DisplaySettings.cpp",
-          "symbols": [
-            "Sub_4FDDC0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228721,18 +229353,27 @@
         "page_binding_implemented": false,
         "runtime_verified": false
       },
-      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FDDC0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验"
     },
     {
       "original_entry": "0x4FE320",
       "inventory_id": "F:000FE320",
-      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/DisplaySettings.cpp",
-          "symbols": [
-            "Sub_4FE320"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228752,18 +229393,27 @@
         "page_binding_implemented": false,
         "runtime_verified": false
       },
-      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE320"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验"
     },
     {
       "original_entry": "0x4FE370",
       "inventory_id": "F:000FE370",
-      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/DisplaySettings.cpp",
-          "symbols": [
-            "Sub_4FE370"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228783,18 +229433,27 @@
         "page_binding_implemented": false,
         "runtime_verified": false
       },
-      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE370"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验"
     },
     {
       "original_entry": "0x4FE3B0",
       "inventory_id": "F:000FE3B0",
-      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/DisplaySettings.cpp",
-          "symbols": [
-            "Sub_4FE3B0"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228814,19 +229473,23 @@
         "page_binding_implemented": false,
         "runtime_verified": false
       },
-      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE3B0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验"
     },
     {
       "original_entry": "0x4FD9F0",
       "inventory_id": "F:000FD9F0",
-      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FD9F0"
-          ]
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -228852,18 +229515,27 @@
         "compile_verified": false,
         "runtime_verified": false
       },
-      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FD9F0"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验"
     },
     {
       "original_entry": "0x4FDA00",
       "inventory_id": "F:000FDA00",
-      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FDA00"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -228901,7 +229573,17 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDA00"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验"
     },
     {
       "original_entry": "0x4FDBD0",
@@ -228964,14 +229646,8 @@
     {
       "original_entry": "0x4FDE10",
       "inventory_id": "F:000FDE10",
-      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FDE10"
-          ]
-        },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
@@ -228997,18 +229673,27 @@
         "compile_verified": false,
         "runtime_verified": false
       },
-      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDE10"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验"
     },
     {
       "original_entry": "0x4FDE20",
       "inventory_id": "F:000FDE20",
-      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_4FDE20"
-          ]
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -229046,7 +229731,17 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDE20"
+          ],
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验"
     },
     {
       "original_entry": "0x4FE0E0",
@@ -230729,14 +231424,12 @@
       "original_end_exclusive": "0x401181",
       "instruction_count": 5,
       "original_byte_count": 17,
-      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "status": "LWR02：用户授权废弃当前工程无消费者的旧窗口函数；原身份／证据保留，不计实现或验收。",
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
-          "symbols": [
-            "cg::blacklist::BlacklistRecordAt_401170"
-          ],
-          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -230755,7 +231448,18 @@
         "source_body_implemented": true,
         "machine_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::BlacklistRecordAt_401170"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验"
     },
     {
       "original_entry": "0x401190",
@@ -237905,23 +238609,8 @@
       "original_role": "Sub_4FC730",
       "original_end_exclusive": "0x4fc7e5",
       "instruction_count": 57,
-      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
-      "sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_4FC730"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
-        },
-        {
-          "path": "src/ui/LegacyWindowSelection.cpp",
-          "symbols": [
-            "gLegacyWindowRecords57C368"
-          ],
-          "relationship": "原第52项+04与当前handlerToken同一代码身份；原20B/现32B指针承载分别记录，不当可调用路由。"
-        }
-      ],
+      "status": "LWR01已退休的非独立库存旧handler；LWR03清除陈旧当前源码关联，不新增库存身份或处置数量。",
+      "sources": [],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
@@ -237968,7 +238657,28 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_4FC730"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        },
+        {
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "symbols": [
+            "gLegacyWindowRecords57C368"
+          ],
+          "relationship": "原第52项+04与当前handlerToken同一代码身份；原20B/现32B指针承载分别记录，不当可调用路由。",
+          "retired_by": "LWR03：无显示链的旧选择／死数据已移除，仅保留历史提供关系。"
+        }
+      ],
+      "historical_status_before_lwr03": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "scope_disposition": "excluded",
+      "retirement_spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03"
     },
     {
       "original_entry": "0x503bb0",
@@ -237980,11 +238690,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503BB0"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238021,7 +238729,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503BB0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d00",
@@ -238033,11 +238751,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D00"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238074,7 +238790,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D00"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d10",
@@ -238086,11 +238812,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D10"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238127,7 +238851,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d20",
@@ -238139,11 +238873,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D20"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238180,7 +238912,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D20"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d30",
@@ -238192,11 +238934,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D30"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238233,7 +238973,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D30"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d40",
@@ -238245,11 +238995,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D40"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238286,7 +239034,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D40"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d50",
@@ -238298,11 +239056,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D50"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238339,7 +239095,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D50"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d60",
@@ -238351,11 +239117,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D60"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238392,7 +239156,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D60"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d70",
@@ -238404,11 +239178,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D70"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238445,7 +239217,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D70"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d80",
@@ -238457,11 +239239,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D80"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238498,7 +239278,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D80"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503d90",
@@ -238510,11 +239300,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503D90"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238551,7 +239339,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D90"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503da0",
@@ -238563,11 +239361,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503DA0"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238604,7 +239400,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DA0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503db0",
@@ -238616,11 +239422,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503DB0"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238657,7 +239461,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DB0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503dc0",
@@ -238669,11 +239483,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503DC0"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238710,7 +239522,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DC0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503e00",
@@ -238722,11 +239544,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503E00"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238763,7 +239583,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E00"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503e10",
@@ -238775,11 +239605,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503E10"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238816,7 +239644,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503e20",
@@ -238828,11 +239666,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503E20"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238869,7 +239705,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E20"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x503e30",
@@ -238881,11 +239727,9 @@
       "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "cg::login::detail::Sub_503E30"
-          ],
-          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+          "path": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+          "symbols": [],
+          "relationship": "LWR02：原正文／语义关系保留为历史，当前工程已移除无消费者代码。"
         }
       ],
       "evidence_documents": [
@@ -238922,7 +239766,17 @@
       "original_binding_evidence_documents": [
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
-      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。",
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E30"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x52c910",
@@ -239484,14 +240338,6 @@
             "CompareBattleDrawActions_405BD0"
           ],
           "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
-        },
-        {
-          "path": "src/LegacyRecordOrder.cpp",
-          "symbols": [
-            "BuildOrderedRecordIndices_52FCC0",
-            "CompareOrderedRecords_52FB60"
-          ],
-          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         }
       ],
       "evidence_documents": [
@@ -239623,7 +240469,18 @@
         "git_commit_subject": "[#] 补充旧目录与名单生产定位边界",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "inventory_id": "F:0013C112"
-      }
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "inventory_id": "F:00004D90",
@@ -256147,11 +257004,12 @@
           "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
         },
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/ui/windows/WindowChat.cpp",
           "symbols": [
             "WindowInput_ScrollAndDraw"
           ],
-          "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
+          "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
@@ -256251,11 +257109,12 @@
           "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
         },
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/ui/windows/WindowChat.cpp",
           "symbols": [
             "WindowInput_ScrollAndDraw"
           ],
-          "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
+          "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
@@ -273824,18 +274683,20 @@
       "status": "IMT01完整移动请求/拆分/模式根纳管，正确正文保持；限定S/全部callback与owner、机器ABI及运行待",
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/ui/windows/WindowInventory.cpp",
           "symbols": [
             "WindowItem_TransferQuantity"
           ],
-          "relationship": "IMT01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+          "relationship": "IMT01完整原根/字段/发布顺序核对，正确body保持，仅合同注释",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         },
         {
-          "path": "src/ui/WindowRuntimeState.hpp",
+          "path": "src/ui/windows/WindowInventory.cpp",
           "symbols": [
             "WindowItem_TransferQuantity"
           ],
-          "relationship": "IMT01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+          "relationship": "IMT01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         }
       ],
       "evidence_documents": [
@@ -278914,18 +279775,20 @@
       "status": "IDR01完整描述生产根纳管，正确正文只两注释；限定S，完整消费/绘制/owner/ABI/运行待",
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/ui/windows/WindowBank.cpp",
           "symbols": [
             "WindowItem_BuildStorageDescription"
           ],
-          "relationship": "IDR01完整描述生产根，32行/last前一行回扫和S32页数正确正文保持，仅合同注释"
+          "relationship": "IDR01完整描述生产根，32行/last前一行回扫和S32页数正确正文保持，仅合同注释",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         },
         {
-          "path": "src/ui/WindowRuntimeState.hpp",
+          "path": "src/ui/windows/WindowBank.cpp",
           "symbols": [
             "WindowItem_BuildStorageDescription"
           ],
-          "relationship": "IDR01既有void及三参数声明保持，仅合同注释"
+          "relationship": "IDR01既有void及三参数声明保持，仅合同注释",
+          "ownership_update": "UWO02：原正文／类型／状态迁入唯一消费者文件，原身份与业务保持。"
         }
       ],
       "evidence_documents": [
@@ -281245,14 +282108,6 @@
             "CompareBattleDrawActions_405BD0"
           ],
           "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
-        },
-        {
-          "path": "src/LegacyRecordOrder.cpp",
-          "symbols": [
-            "BuildOrderedRecordIndices_52FCC0",
-            "CompareOrderedRecords_52FB60"
-          ],
-          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         }
       ],
       "evidence_documents": [
@@ -281277,7 +282132,18 @@
         "va": 5489254
       },
       "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
-      "verification_level": "只验证本组标准排序接线及私有实现退休，不复刻库内shortsort/原机器ABI，也不声称全业务验收"
+      "verification_level": "只验证本组标准排序接线及私有实现退休，不复刻库内shortsort/原机器ABI，也不声称全业务验收",
+      "historical_sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻",
+          "retired_by": "LWR02"
+        }
+      ]
     },
     {
       "original_entry": "0x419C10",
@@ -285839,5 +286705,33 @@
       "WindowSkill_BorrowStatusView"
     ],
     "scope": "仅单窗口定义归位和已无消费者的辅助层清理；共享聚合／状态／原型别名保持，原库存状态不变。"
+  },
+  "legacy_window_cleanup_lwr02": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02",
+    "evidence": "doc/cg2d_legacy_window_cleanup_evidence.json",
+    "function_count": 312,
+    "startup_component_count": 10,
+    "inventory_entries_retired": 226,
+    "scope": "六个选择接口及共享Yobi／绘制仍保留；不裁剪记录字段，不提升门禁。",
+    "retired_empty_files": [
+      "src/DisplaySettings.cpp",
+      "include/cg/DisplaySettings.hpp"
+    ]
+  },
+  "legacy_window_simplification_lwr03": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03",
+    "evidence": "doc/cg2d_legacy_window_simplification_evidence.json",
+    "inventory_entries_retired": 6,
+    "removed_current_source_records": 12
+  },
+  "ui_window_ownership_followup_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015",
+    "evidence": "doc/cg2d_ui_window_ownership_followup_evidence.json",
+    "moved_functions": 7,
+    "moved_types": 3,
+    "private_states": 17,
+    "moved_constants": 2,
+    "updated_source_records": 7,
+    "inventory_states_changed": false
   }
 }

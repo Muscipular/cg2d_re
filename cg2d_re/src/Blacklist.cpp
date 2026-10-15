@@ -75,13 +75,6 @@ static_assert(sizeof(Record) == 17);
 static_assert(sizeof(RecordTable) == 0x6A4);
 static_assert(sizeof(PathBuffer) == 0x200);
 
-// 原函数：0x00401170。
-char* BlacklistRecordAt_401170(const std::int32_t index) noexcept
-{
-    return reinterpret_cast<char*>(
-        gRecords[static_cast<std::size_t>(index)].data());
-}
-
 // 原函数：0x00401030。
 std::int8_t LoadBlacklistFile(const std::int32_t fileId)
 {

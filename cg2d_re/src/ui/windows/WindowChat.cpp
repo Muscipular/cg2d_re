@@ -13,6 +13,10 @@ namespace detail {
 
 // 回调与内部函数前置声明。
 
+// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
+// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
+static void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width);
+
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A6EA0。
 static std::int32_t WindowChat_HandleInput(std::int32_t unused, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
@@ -132,6 +136,23 @@ WindowPrototype gWindowPrototypeChat {0, 4, 364, 428, 640, 25, 0x80010101u, 20, 
 WindowPrototype gWindowPrototypeCompactChat {0, 4, 0, 428, 0, 0, 0x80010101u, 2, gWindowElements570FD8, &WindowCompactChat_Update, &WindowChat_Draw, &WindowRuntime_ReleaseDefault}; // 57: 54EAE0
 
 // 窗口函数实现。
+
+// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
+// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
+static void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width)
+{
+    const std::wstring contents = input::ContextText(*context);
+    const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
+    std::size_t offset = input::ContextUtf16Offset(*context, context->field158);
+    context->field154 = width;
+    if (caret < offset) { offset = caret; }
+    else {
+        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->field13C,
+            static_cast<std::int32_t>(caret - offset)) > context->field154) { offset = cg::text::Next(contents, offset); }
+    }
+    input::SetVisibleUtf16Offset(*context, offset);
+    render::DrawInputText_4568A0(context);
+}
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
 // CLD01：索引0借第24项输入field158，保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。

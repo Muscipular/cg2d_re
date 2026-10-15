@@ -117,11 +117,6 @@ WindowPrototype gWindowPrototypeMessageBoard {0, 4, 5, 20, 634, 424, 0x80010101u
 
 // 窗口函数实现。
 
-const std::byte* WindowMessageBoard_BorrowRecords() noexcept
-{
-    return gWindow50AlternateRecordsD30138.data();
-}
-
 // 原函数：0x004B5A90。
 void WindowMessageBoard_ResetRecords()
 {

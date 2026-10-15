@@ -13,6 +13,9 @@ namespace detail {
 
 // 回调与内部函数前置声明。
 
+// 原函数：0x004E02B0。
+static void WindowItem_BuildStorageDescription(std::int32_t index, std::int32_t side, const char* text); // IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。
+
 // 原函数：0x004A92D0。
 static std::int32_t WindowBank_FocusAmountInput(std::int32_t unused, std::int32_t state); // 存取数值输入焦点。
 
@@ -203,9 +206,27 @@ WindowPrototype gWindowPrototypeBank {0, 4, 20, 25, 567, 339, 0x80010101u, 38, g
 
 // 窗口函数实现。
 
-std::int32_t WindowBank_ReadSide() noexcept
+// IDR01：原4E02B0完整83条；32行提取、仅行首清零及从last前一行回扫/S32页数发布保持。
+// 原函数：0x004E02B0。
+static void WindowItem_BuildStorageDescription(
+    const std::int32_t index, const std::int32_t side, const char* const text)
 {
-    return std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
+    auto& rows = record->description;
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = rows[line].data();
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    // 原回扫从最后成功行的前一行开始，空行不清整行残留。
+    while (last > 0 && std::strlen(rows[last - 1].data()) == 0) {
+        --last;
+    }
+    record->pages = last < 0 ? std::int32_t{0} : last / 8 + 1;
 }
 
 // 原函数：0x004AAB70。

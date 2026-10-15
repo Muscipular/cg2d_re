@@ -258,13 +258,11 @@ std::int32_t gChatHeightUnitsC9A938 = 0; // 原全局：0x00C9A938。
 
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
-std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
 
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
 
-std::array<WindowShopItem, 20> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
 
 std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
 
@@ -288,13 +286,11 @@ std::wstring gConfirmationAcceptHintCC3FCC {}; // 原全局：0x00CC3FCC。
 
 std::wstring gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
 
-static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 
-static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 
@@ -817,23 +813,6 @@ static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
     return events;
 }
 
-// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
-// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
-void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width)
-{
-    const std::wstring contents = input::ContextText(*context);
-    const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
-    std::size_t offset = input::ContextUtf16Offset(*context, context->field158);
-    context->field154 = width;
-    if (caret < offset) { offset = caret; }
-    else {
-        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->field13C,
-            static_cast<std::int32_t>(caret - offset)) > context->field154) { offset = cg::text::Next(contents, offset); }
-    }
-    input::SetVisibleUtf16Offset(*context, offset);
-    render::DrawInputText_4568A0(context);
-}
-
 void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents)
 {
     const auto font = std::to_integer<std::uint8_t>(first->style.font);
@@ -841,11 +820,6 @@ void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData*
     const std::size_t prefix = rows.front().size();
     first->text = contents.substr(0, prefix);
     second->text = contents.substr(prefix);
-}
-
-std::int32_t WindowPet_ReadHealthImage(const std::int32_t health)
-{
-    return gHealthImages57CBA4[WindowItem_HealthImageLevel(health)];
 }
 
 // WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
@@ -1030,38 +1004,6 @@ void WindowItem_RequestTransfer(
             sourceWindow, sourceElement, 244309, count, count, 0,
             [](const std::int32_t amount) { static_cast<void>(WindowItem_RequestTransferQuantity(amount)); },
             1, 0, 0));
-    }
-}
-
-// IMT01：原70条，target=-1先声/原门槛与低U8模式、同mode两fresh组读取；正确正文保，全互通待。
-// 原函数：0x00488800。
-void WindowItem_TransferQuantity(
-    const std::int32_t sourceMode, const std::int32_t source,
-    const std::int32_t targetMode, const std::int32_t target)
-{
-    if (target == -1) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-    }
-    if (source < 0 || target < -1) {
-        return;
-    }
-    const std::uint8_t from = static_cast<std::uint8_t>(sourceMode);
-    const std::uint8_t to = static_cast<std::uint8_t>(targetMode);
-    if (from != 0) {
-        if (from == to) {
-            const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::Sub_516C90(
-                platform::gConnectionSocket, sourceGroup, source, targetGroup, target, -1));
-        } else {
-            const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::Sub_516C90(
-                platform::gConnectionSocket, sourceGroup, source, 0, target, -1));
-        }
-    } else if (to != 0) {
-        const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-        static_cast<void>(network::Sub_516C90(
-            platform::gConnectionSocket, 0, source, targetGroup, target, -1));
     }
 }
 
@@ -1636,84 +1578,6 @@ std::int32_t WindowItem_DrawTooltip(
     return WindowItem_DrawTooltipLines(x, y, title, titleColor,
         [gbkLines, stride](const std::int32_t line) { return cg::text::FromGbkWide(gbkLines + line * stride); },
         lineCount, footer, footerColor);
-}
-
-// 原函数：0x0048B930。
-std::int32_t WindowItem_DrawDescriptionLines(
-    const std::int32_t x, const std::int32_t y,
-    const wchar_t* const title, const std::int8_t titleColor,
-    const std::wstring_view* lines, const std::int32_t, const std::int32_t lineCount,
-    const wchar_t* const footer, const std::int8_t footerColor)
-{
-    render::GraphicDescriptor16 descriptor {};
-    const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
-    if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
-            5, 12, titleColor, title, 0, 0));
-    }
-    gTooltipColorD67D30 = 0;
-    std::int32_t lineY = 0;
-    for (std::int32_t line = 0; line < lineCount; ++line) {
-        if (!lines->empty()) {
-            const std::int32_t shortY =
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-            const std::int32_t shortX =
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-            static_cast<void>(WindowItem_SplitTooltipLines(
-                shortX + 10, shortY + lineY + 22, 5, 12, 0, *lines, 0, 0));
-        }
-        lineY += 13;
-        ++lines;
-    }
-    if (footer != nullptr) {
-        static_cast<void>(render::DrawText_456780(
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
-            5, 12, footerColor, footer, 0, 0));
-    }
-    return render::DrawGraphic3_520970(
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-        230, 244317, 0, 1, 0, &descriptor);
-}
-
-// 原函数：0x0048B450。
-std::int32_t WindowItem_DrawPetTooltip(
-    const std::int32_t side, const std::int32_t index, const std::int32_t page)
-{
-    const std::int32_t key = index + 200;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
-        const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
-        const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
-    }
-    const std::int32_t sideOffset =
-        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
-    gTooltipSourceD303FC = key;
-    const auto* const record = &gTradeItemsD460D0[key + sideOffset * 20];
-    std::uint32_t flags;
-    std::memcpy(&flags, &record->flags, sizeof(flags));
-    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record->memo.data() : record->name.data());
-    const std::int8_t titleColor = (flags & 0x100u) != 0
-        ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
-    const char* const lines = record->description[page * 8].data();
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
 }
 
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
@@ -2718,52 +2582,6 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
 }
 
-// 原函数：0x0048B560。
-std::int32_t WindowItem_DrawShopTooltip(
-    const std::int32_t index, const std::int32_t page, const std::int32_t showUnavailable)
-{
-    std::int32_t key = index + 300;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
-        const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
-        const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
-    }
-    gTooltipSourceD303FC = key;
-    const auto* record = &gShopItemsCF4FE0[index];
-    std::uint32_t flags;
-    std::memcpy(&flags, &record->flags, sizeof(flags));
-    std::wstring title = cg::text::FromGbkWide(record->memo.data());
-    std::int8_t titleColor;
-    if ((flags & 0x100u) != 0) {
-        titleColor = 5;
-    } else {
-        std::int32_t count;
-        std::memcpy(&count, &record->count, sizeof(count));
-        if (count <= 1) {
-            title = cg::text::FromGbkWide(record->name.data());
-        } else {
-            title = std::format(L"{}({})", cg::text::FromGbkWide(record->name.data()), count);
-            key = gTooltipSourceD303FC;
-        }
-        record = &gShopItemsCF4FE0[key - 300];
-        std::memcpy(&flags, &record->flags, sizeof(flags));
-        titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
-    }
-    const wchar_t* const footer = record->allowed == 0 && showUnavailable != 0
-        ? kShopUnavailableHint586BF4 : nullptr;
-    const char* const lines = record->description[page * 8].data();
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, footer, 4);
-}
-
 // 原函数：0x0048B750。
 std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
 {
@@ -2786,29 +2604,6 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
     return WindowItem_DrawTooltip(
         x, y, title.c_str(), 0, gShopDetailCC3210.description[page * 8].data(),
         96, 8, nullptr, 0);
-}
-
-// IDR01：原4E02B0完整83条；32行提取、仅行首清零及从last前一行回扫/S32页数发布保持。
-// 原函数：0x004E02B0。
-void WindowItem_BuildStorageDescription(
-    const std::int32_t index, const std::int32_t side, const char* const text)
-{
-    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
-    auto& rows = record->description;
-    std::int32_t last = -1;
-    for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = rows[line].data();
-        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
-            last = line;
-        } else {
-            row[0] = '\0';
-        }
-    }
-    // 原回扫从最后成功行的前一行开始，空行不清整行残留。
-    while (last > 0 && std::strlen(rows[last - 1].data()) == 0) {
-        --last;
-    }
-    record->pages = last < 0 ? std::int32_t{0} : last / 8 + 1;
 }
 
 // 原函数：0x00503CB0。
@@ -3798,26 +3593,6 @@ void WindowRuntime_DecrementOperationCount()
     gValue5F9754 = 0;
     occupancy[7] = next;
     WindowSkill_SyncStates();
-}
-
-// 原函数：0x00499880。
-std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
-{
-    WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
-    const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-    }
-    graphic->imageNo = 0x3B568;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B56A;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B569;
-    }
-    return consumed;
 }
 
 // 原函数：0x00499830。

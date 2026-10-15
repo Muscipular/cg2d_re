@@ -90,21 +90,6 @@ WindowPrototype gWindowPrototypeSkillResult {0, 4, 383, 118, 198, 232, 0x8001010
 
 // 窗口函数实现。
 
-std::int32_t WindowSkillResult_ReadResult() noexcept
-{
-    return gWindow13ResultD66E2C;
-}
-
-std::wstring_view WindowSkillResult_BorrowSummary() noexcept
-{
-    return gWindow13SummaryCC18CC;
-}
-
-std::wstring_view WindowSkillResult_BorrowDetails() noexcept
-{
-    return gWindow13DetailsCB0FDC;
-}
-
 // 原函数：0x00487F30。
 std::int32_t WindowSkillResult_ReadPreviewImage(const std::int32_t imageNo, const std::int32_t offset)
 {

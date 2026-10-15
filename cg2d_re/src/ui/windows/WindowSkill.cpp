@@ -1,5 +1,4 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "cg/ui/LegacyWindowSelection.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -333,26 +332,6 @@ static WindowElementPrototype gWindowElements561B78[30] { // 原全局：0x00561
 WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30, gWindowElements561B78, &WindowSkill_Update, &WindowSkill_Draw, &WindowSkill_Release}; // 10: 54E420
 
 // 窗口函数实现。
-
-std::int32_t WindowSkill_ReadRequestFlag() noexcept
-{
-    return std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
-}
-
-void WindowSkill_WriteRequestFlag(const std::uint8_t value) noexcept
-{
-    gSkillRequestByteD64E13 = value;
-}
-
-std::uint32_t WindowSkill_ReadExtraDelay() noexcept
-{
-    return gSkillExtraDelayCF46C4;
-}
-
-void WindowSkill_WriteExtraDelay(const std::uint32_t delay) noexcept
-{
-    gSkillExtraDelayCF46C4 = delay;
-}
 
 // 原函数：0x004797C0。
 void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::int32_t second)
@@ -2563,7 +2542,6 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
             L"沒有可變裝的角色！";
         world::detail::Sub_44B050(message, 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(ui::Sub_5042D0(19));
     }
 }
 

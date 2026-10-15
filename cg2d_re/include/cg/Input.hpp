@@ -119,8 +119,6 @@ extern InputContext* gCurrentInputData;
 extern InputContext gInputContext626AA0;
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
 extern InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。
-// 旧6的15CH*(行+26*页)地址视图；24以后的原地址落入既有聊天存储，不创建额外预设。
-InputContext* BorrowLegacyPresetContext5F9758(std::int32_t index) noexcept;
 // 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
 extern InputContext gInputContextD66CA8; // 原全局：0x00D66CA8。
 extern InputContext gInputContextCB03F0; // 原全局：0x00CB03F0。
@@ -162,9 +160,6 @@ extern std::int32_t gValueC9A96C;
 
 // 原 [593850,5939B4) 的前缀文本；紧邻独立 InputContext@593858。
 const char* LegacyText593850() noexcept;
-// 旧99借同一连续owner内的593858上下文，保留前缀与上下文的原地址关系。
-InputContext* BorrowLegacyBlacklistContext593858() noexcept;
-
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
 extern std::int32_t gValue626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
@@ -176,8 +171,6 @@ void SetContext_44B330(InputContext* context);
 
 // 原 503E40/503E60：当前上下文地址比较，返回完整 W32 的 0 或 1。
 std::int32_t IsCurrentContext_503E40(const InputContext* context);
-// 原函数：0x00503E60。
-std::int32_t IsChatContext_503E60();
 // 原44B340：Shift优先于Ctrl，扫描F1..F8并追加最后命中的同源预设文本。
 std::int32_t ProcessPresetHotkeys_44B340();
 

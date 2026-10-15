@@ -1,5 +1,4 @@
 #include "../platform/StartupNative.hpp"
-#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -4408,18 +4407,6 @@ std::int32_t Sub_519840(const std::int32_t id)
     return -1;
 }
 
-// 原函数：0x00519870。
-std::int32_t Sub_519870()
-{
-    std::int32_t count = 0;
-    for (const TitleRecord& record : gTitlesFF0508) {
-        if (record.id >= 0) {
-            ++count;
-        }
-    }
-    return count / 8 + 1;
-}
-
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
 void Sub_5198A0(
     std::uint8_t* destination,
@@ -4616,9 +4603,6 @@ std::uint16_t gValueF7CA04 = 0; // 原全局：0x00F7CA04。
 std::uint16_t gValueFF03D8 = 0; // 原全局：0x00FF03D8。
 std::uint16_t gValueFF0D36 = 0; // 原全局：0x00FF0D36。
 std::uint32_t gValueFF0D38 = 0; // 原全局：0x00FF0D38。
-
-// 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
-std::uint32_t gValueCAFEA0 = 0;
 
 // 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
 std::uint32_t gValue9A6204 = 0;
@@ -5941,12 +5925,6 @@ void Sub_455FC0()
         }
         return;
     }
-    if (gValueCAFEA0 != 0) {
-        static_cast<void>(ui::Sub_504180(1));
-        gValueCAFEA0 = 0;
-        gValue62B5B0 = 0;
-        return;
-    }
     if (ui::detail::gWindowStates[cg::ui::WindowId_TimerNotice].window == nullptr
         && gWindow39Action62B5B8 == nullptr) {
         gWindow39Action62B5B8 = ui::WindowRuntime_CreateAnimation(
@@ -5963,9 +5941,6 @@ void Sub_50D120(
         return;
     }
     if (gValueD67E78 != 0) {
-        if (gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
-        }
         static_cast<void>(Sub_519D50());
         Sub_4464D0();
         static_cast<void>(Sub_4681B0());
@@ -5997,10 +5972,6 @@ void Sub_50D120(
         return;
     }
     if (type > 0) {
-        if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0
-            && gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
-        }
         const bool modeTwo = type == 2;
         gValue5ABFC4 = 1;
         gBattleType5ABFC8 = type;
@@ -6210,9 +6181,6 @@ void Sub_504A50()
         gValueFF0D44 = 0;
         gValueFF0C10 = 0;
     } else {
-        if (mode == 3) {
-            static_cast<void>(ui::Sub_504AF0());
-        }
         gValueFF0C10 = 0;
     }
 }
@@ -6381,10 +6349,6 @@ std::int32_t __cdecl Sub_5093F0(
     gValueC82208 = 1;
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (gValueC8220C == 0) {
-            if (gValueCAFEA0 == 0) {
-                gValueCAFEA0 =
-                    static_cast<std::uint32_t>(ui::Sub_504410(1));
-            }
             gCurrentSceneState = 200;
             static_cast<void>(Sub_51D5B0());
         }
@@ -6644,7 +6608,6 @@ void DrawNormalScene_51C7D0()
                 gValueFF0D58 = 0;
                 audio::gBgmRequest1050810 = 1;
             }
-            static_cast<void>(ui::Sub_5042D0(100));
             static_cast<void>(ui::WindowRuntime_Render());
         }
         goto inputTail;
@@ -6875,9 +6838,6 @@ void DrawNormalScene_51C7D0()
         if (gValue5ABFC4 != 1) {
             return;
         }
-        if (gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
-        }
         static_cast<void>(Sub_519D50());
         Sub_4464D0();
         static_cast<void>(Sub_4681B0());
@@ -6898,7 +6858,6 @@ void DrawNormalScene_51C7D0()
         gValueF7CA04 = 0;
         gValueC8A79C = 0;
         gValue58B6D0 = 1;
-        static_cast<void>(ui::Sub_5042D0(100));
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(login::detail::Sub_43F230());
         Sub_51BEF0();
@@ -7937,9 +7896,6 @@ void __cdecl Sub_46BCF0()
 // 原 [0x46ADA0,0x46AE53)：type 1 当次读取探测值，发送后更新请求状态。
 void* __cdecl Sub_46ADA0()
 {
-    if (gValueCAFEA0 == 0) {
-        gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
-    }
     static_cast<void>(Sub_4681B0());
 
     const std::uint16_t sequenceLow =
@@ -8026,9 +7982,6 @@ std::int32_t __cdecl Sub_46AC90()
 // 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
 std::int32_t __cdecl Sub_46AEA0()
 {
-    if (gValueCAFEA0 == 0) {
-        gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
-    }
     static_cast<void>(Sub_4681B0());
 
     const std::uint32_t mapValue = gValue9ED440;
@@ -8729,11 +8682,6 @@ std::int32_t ReadPlayerFpOnce()
     return BorrowPlayerRuntimeStorage()->fp.value();
 }
 
-platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
-{
-    return BorrowPlayerRuntimeStorage()->fp;
-}
-
 std::int32_t ReadPlayerMaxFpOnce()
 {
     return BorrowPlayerRuntimeStorage()->maxFp.value();
@@ -8742,16 +8690,6 @@ std::int32_t ReadPlayerMaxFpOnce()
 bool IsPlayerFpLessThan(const std::int32_t cost)
 {
     return (BorrowPlayerRuntimeStorage()->fp < static_cast<std::int32_t>(cost));
-}
-
-bool IsCostGreaterThanPlayerFp(const std::int32_t cost)
-{
-    return (static_cast<std::int32_t>(cost) > BorrowPlayerRuntimeStorage()->fp);
-}
-
-bool IsPlayerFpGreaterEqual(const std::int32_t cost)
-{
-    return (BorrowPlayerRuntimeStorage()->fp >= static_cast<std::int32_t>(cost));
 }
 
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
@@ -10520,12 +10458,11 @@ std::int32_t Sub_43C8F0()
     return -1;
 }
 
-// 原 [0x504100,0x504113)；依次清 W32/W16/W32 三槽并返回完整 EAX32 零。
+// 原 [0x504100,0x504113)；LWR03移除旧选择备份CAFEA0，其余两槽清理及返回0保持。
 std::int32_t ResetSceneUiState_504100()
 {
     gValueD2F788 = 0;
     gValueFF0C10 = 0;
-    gValueCAFEA0 = 0;
     return 0;
 }
 

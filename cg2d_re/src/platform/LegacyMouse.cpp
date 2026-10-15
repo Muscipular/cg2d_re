@@ -1,7 +1,6 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "../LoginMessageDependencies.hpp"
-#include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -180,25 +179,6 @@ struct LegacyPrimaryEmptyExitStaticInitializer {
 
 const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticInitializer;
 
-// 原CRT 55302C..553050；无析构登记，不能把十五组记录改为统一写序。
-struct LegacyUi455490StaticInitializer {
-    LegacyUi455490StaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_455490());
-        static_cast<void>(cg::login::detail::Sub_4554C0());
-        static_cast<void>(cg::login::detail::Sub_455540());
-        static_cast<void>(cg::login::detail::Sub_4555C0());
-        static_cast<void>(cg::login::detail::Sub_455640());
-        static_cast<void>(cg::login::detail::Sub_4556C0());
-        static_cast<void>(cg::login::detail::Sub_455740());
-        static_cast<void>(cg::login::detail::Sub_4557C0());
-        static_cast<void>(cg::login::detail::Sub_455840());
-        static_cast<void>(cg::login::detail::Sub_455930());
-    }
-};
-
-const LegacyUi455490StaticInitializer gLegacyUi455490StaticInitializer;
-
 // 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
 // 原函数：0x00456FD0；同一中央位置构造，MSVC按完成逆序析构。
 const cg::world::SceneTransitionValueStartup gSceneTransitionValueStartup;
@@ -285,106 +265,6 @@ const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
 // 原CRT 5530A4；浏览宠物拥有者接管构析，不与玩家宠物共享。
 // 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。
 const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
-
-// 原CRT 5530A8；文字记录持有真实回调，不引入额外析构或RNG消费。
-struct LegacySettingsMenuStaticInitializer {
-    LegacySettingsMenuStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FC420());
-    }
-};
-
-const LegacySettingsMenuStaticInitializer gLegacySettingsMenuStaticInitializer;
-
-// 原CRT 5530AC；复用既有显示设置回调，不增加初始化之外的操作。
-struct LegacyChatSettingsStaticInitializer {
-    LegacyChatSettingsStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FCB90());
-    }
-};
-
-const LegacyChatSettingsStaticInitializer gLegacyChatSettingsStaticInitializer;
-
-// 原相邻CRT 5530B0/5530B4；真实音乐/音效控件构造位于聊天与鼠标设置之间。
-struct LegacyMusicSettingsStaticInitializer final {
-    LegacyMusicSettingsStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FD9F0());
-    }
-};
-static_assert(std::is_trivially_destructible_v<LegacyMusicSettingsStaticInitializer>);
-const LegacyMusicSettingsStaticInitializer gLegacyMusicSettingsStaticInitializer;
-
-struct LegacySoundSettingsStaticInitializer final {
-    LegacySoundSettingsStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FDE10());
-    }
-};
-static_assert(std::is_trivially_destructible_v<LegacySoundSettingsStaticInitializer>);
-const LegacySoundSettingsStaticInitializer gLegacySoundSettingsStaticInitializer;
-
-// 原CRT 5530B8；沿原序接在两音频设置构造之后。
-struct LegacyMouseSettingsStaticInitializer {
-    LegacyMouseSettingsStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FE490());
-    }
-};
-
-const LegacyMouseSettingsStaticInitializer gLegacyMouseSettingsStaticInitializer;
-
-// 原相邻CRT 5530BC/5530C0；两构造均无析构或RNG消费。
-struct LegacyHotkeyAndScanlineStaticInitializer {
-    LegacyHotkeyAndScanlineStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FEB00());
-        static_cast<void>(cg::login::detail::Sub_4FF020());
-    }
-};
-
-const LegacyHotkeyAndScanlineStaticInitializer gLegacyHotkeyAndScanlineStaticInitializer;
-
-// 原CRT 5530C4，紧邻已接的5530C0与5530C8。
-struct LegacyButtonSettingsStaticInitializer {
-    LegacyButtonSettingsStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_4FF340());
-    }
-};
-
-const LegacyButtonSettingsStaticInitializer gLegacyButtonSettingsStaticInitializer;
-
-// 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
-struct LegacyMapPanelStaticInitializer {
-    LegacyMapPanelStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_502930());
-    }
-};
-
-const LegacyMapPanelStaticInitializer gLegacyMapPanelStaticInitializer;
-
-// 原CRT 5530CC..5530F4；逐项调用，不能跨条目提前缓存尺寸或位置。
-struct LegacyBottomBarStaticInitializer {
-    LegacyBottomBarStaticInitializer()
-    {
-        static_cast<void>(cg::login::detail::Sub_502C30());
-        static_cast<void>(cg::login::detail::Sub_502C60());
-        static_cast<void>(cg::login::detail::Sub_502C80());
-        static_cast<void>(cg::login::detail::Sub_502CA0());
-        static_cast<void>(cg::login::detail::Sub_502D20());
-        static_cast<void>(cg::login::detail::Sub_502DA0());
-        static_cast<void>(cg::login::detail::Sub_502E20());
-        static_cast<void>(cg::login::detail::Sub_502EA0());
-        static_cast<void>(cg::login::detail::Sub_502F20());
-        static_cast<void>(cg::login::detail::Sub_502FA0());
-        static_cast<void>(cg::login::detail::Sub_503020());
-    }
-};
-
-const LegacyBottomBarStaticInitializer gLegacyBottomBarStaticInitializer;
 
 // 原函数：0x00506340；同一中央位置构造，MSVC按完成逆序析构。
 const cg::platform::MouseRuntimeStartup gMouseRuntimeStartup;

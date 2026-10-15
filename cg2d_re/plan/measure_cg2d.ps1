@@ -100,6 +100,18 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 追踪旧窗口分发并同步语义函数名([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # LWR02：旧显示设置空壳退休；仅历史附件核固定归位提交，当前source不得回退。
+    $historicalDisplaySettings = @('src/DisplaySettings.cpp', 'include/cg/DisplaySettings.hpp')
+    if (-not $exists -and $relativePath -cin $historicalDisplaySettings -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将单窗口类型与状态收归实现文件([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
+    # LWR03：旧选择与专属面板头退休；只有历史附件允许读取固定归位前态。
+    $historicalLegacySelection = @('src/ui/LegacyWindowSelection.cpp', 'include/cg/ui/LegacyWindowSelection.hpp', 'src/LegacyPanelRuntime.hpp', 'src/LegacyPanelTexts.hpp')
+    if (-not $exists -and $relativePath -cin $historicalLegacySelection -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将单窗口类型与状态收归实现文件([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }
@@ -160,7 +172,13 @@ foreach ($section in @('records','pending_records')) {
                     Require ($start -ge $bounds[0] -and $end -le $bounds[1] -and $start -lt $end) "$ref 代码片段越出原库存区间"
                     Require ($identity.start -eq $r.original_entry -and $identity.end_exclusive -eq $r.original_end_exclusive) "$ref 代码身份与原入口/边界不符"
                 }
-                Require (@($identity.evidence_refs).Count -gt 0 -and @($r.sources).Count -gt 0) "$ref 代码身份缺原证据或源码关联"
+                # LWR03：4FC730无独立F身份，已随旧handler退休；核原身份和历史来源，不伪造当前正文。
+                $retiredLegacyFragment = $r.original_entry -eq '0x4fc730' -and $r.scope_disposition -eq 'excluded' -and $r.retirement_spec -eq 'doc/cg2d_legacy_window_retirement_spec.md#legacy-window-simplification-lwr03' -and @($r.historical_sources).Count -gt 0
+                Require (@($identity.evidence_refs).Count -gt 0 -and (@($r.sources).Count -gt 0 -or $retiredLegacyFragment)) "$ref 代码身份缺原证据或源码关联"
+                if ($retiredLegacyFragment) {
+                    Check-Path $r.retirement_spec "$ref 历史排除"
+                    $row['scope_disposition']='excluded'
+                }
                 foreach ($path in @($identity.evidence_refs)) { Check-Path $path "$ref 代码身份" }
                 $row['code_identity']=$identity
             }

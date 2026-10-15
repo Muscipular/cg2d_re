@@ -235,9 +235,7 @@ inline constexpr std::array<const wchar_t*, 3> kShopHints57E6C4 { // 原常量�
     L"還是算了。",
 };
 
-inline constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊現在無法裝備"; // 原常量参考：0x00586BF4。
 
-inline constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524}; // 原全局：0x0057CBA4。
 
 inline constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221, 243222, 243223, 243224}; // 原全局：0x0057E6A4。
 
@@ -321,10 +319,6 @@ extern std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4; // 原全局�
 // 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
 // 原函数：0x00519680。
 std::int32_t WindowItem_HealthImageLevel(const std::int32_t health);
-
-// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
-// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
-void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width);
 
 void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents);
 

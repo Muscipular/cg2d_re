@@ -1169,8 +1169,6 @@ float GetYobiActionScaleY(const YobiAction* action) noexcept;
 std::int32_t ReadYobiGraphicOffsetX(const YobiAction* action) noexcept;
 std::int32_t ReadYobiGraphicOffsetY(const YobiAction* action) noexcept;
 std::uint32_t ReadYobiActionFlags(const YobiAction* action) noexcept;
-void SetYobiActionFlag2(YobiAction* action, bool enabled) noexcept; // 旧29初始化/显示只改原+24的2位。
-void ClearYobiActionFlags0C(YobiAction* action) noexcept; // 旧24换图后独立清原+24的0CH位。
 // 原5076E4..507BE4：完整对象描述阶段，按原位置重取队列中的非拥有对象。
 // 原函数：0x00507140。
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* graphic);
@@ -1197,7 +1195,6 @@ std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B0(YobiAction* action, std::int32_t value);
 std::int32_t GetYobiActionField2B0(const YobiAction* action) noexcept; // 原动作S32，摆摊预览逐次借读。
-void SetYobiActionField2B4(YobiAction* action, std::int32_t value); // 原上次动作，旧加工启动时置-1。
 void SetYobiActionField15(YobiAction* action, std::uint8_t value);
 std::uint8_t GetYobiActionField15(const YobiAction* action) noexcept; // 原+15显示层，选择器预览借读。
 std::int32_t GetYobiActionField30(YobiAction* action);
@@ -1210,34 +1207,12 @@ void SetYobiActionField308(YobiAction* action, std::uint8_t value);
 std::uint8_t ReadYobiBatchType(const YobiAction* action) noexcept; // 原+308，战斗场景状态条绘制门禁。
 void SetYobiActionField309(YobiAction* action, std::uint8_t value); // 原描述符替换掩码。
 void SetYobiActionField310(YobiAction* action, std::uint8_t value); // 原掩码替换值，与309独立写入。
-std::uint8_t GetYobiActionField310(const YobiAction* action) noexcept; // 旧结果页按位或，不能替换其他位。
 void SetYobiActionField30C(YobiAction* action, std::int32_t value);
 std::uint8_t GetYobiActionField30F(YobiAction* action);
 void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 
 // 原45E6E0：创建预览16阶段推进，仅阶段转换时读取一次+170，尾部置上次动作为-1。
 std::int32_t Sub_45E6E0(YobiAction* action);
-
-// 旧UI通用预览；工厂直写图号，详情页自行决定是否做51B740转换。
-// 原函数：0x004D6640。
-YobiAction* Sub_4D6640(std::int32_t image, std::int32_t x, std::int32_t y); // 旧对话固定DD层预览，失败返回空T*。
-// 原函数：0x004F9FF0。
-YobiAction* Sub_4F9FF0(
-    std::int32_t image, std::int32_t x, std::int32_t y, std::uint8_t displayPriority);
-// 旧42未读提示专用预览；方向0/flags14H，包含动作5的八动作循环集合。
-// 原函数：0x004EBF70。
-YobiAction* Sub_4EBF70(
-    std::int32_t image, std::int32_t x, std::int32_t y, std::uint8_t displayPriority);
-// 原函数：0x004EBFD0。
-std::int32_t Sub_4EBFD0(YobiAction* action); // 原回调返回完整517880结果，注册时显式弃返回。
-// 原函数：0x004D6690。
-std::int32_t Sub_4D6690(YobiAction* action); // 旧UI通用预览，指定七动作循环播放。
-// 旧技能/采集结果面板共用预览；保留100900/100901和原图号分类，不套普通对象创建。
-YobiAction* Sub_4FAAA0(std::int32_t image, std::int32_t x, std::int32_t y);
-// 原函数：0x004FACE0。
-std::int32_t Sub_4FACE0(YobiAction* action); // 完整回调，注册时显式弃返回。
-// 原函数：0x004EF5F0。
-void Sub_4EF5F0(YobiAction* action, std::int32_t result); // 非零/零结果动作，低图号可保留旧动作。
 
 // 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关；取样沿YFPS01 SPEC。
 std::int32_t Sub_517880(

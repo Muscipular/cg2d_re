@@ -40,8 +40,6 @@ void Sub_50F280(std::uintptr_t unusedSocket, std::int32_t key); // 编号相等�
 // 原函数：0x00532D80。
 std::int32_t Sub_532D80(); // 登录窄重置，不清邮件；返回窗口48关闭请求的音效结果。
 std::int32_t ReadGuildValue10514B4() noexcept; // 窗口51权限读取，共用回复写入的value0C。
-std::int32_t ReadGuildKey10514A8() noexcept; // 旧95初始化资格读取同源公会key，-1表示无公会。
-std::int32_t& BorrowGuildRankFlags1051514(std::int32_t index) noexcept; // 旧95借真实flags异或，协议/读取者共用。
 std::int32_t ReadGuildTextIndex10514B0() noexcept; // 窗口7分支与索引各自读取value08。
 std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21权限，借同源职级记录value00。
 std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗口21三行按钮只读权限首字节。
@@ -52,11 +50,6 @@ const char* BorrowGuildSecondText10514E5() noexcept; // 窗口48借用同一公�
 const char* BorrowGuildAuxText1057BF4(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
 const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
 
-// MC01-C8：qsort的两个W32索引参数；有效项在前，同键/双空槽返回0。
-// 原函数：0x0052FB60。
-int CompareOrderedRecords_52FB60(const void* left, const void* right);
-// 原 52FCC0：原位填 0..199 后用上述比较器重排共享运行表。
-void BuildOrderedRecordIndices_52FCC0();
 // GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;
 // 原 50EF20：仅重置已证字段与四个文本首字节，其他字节保留。

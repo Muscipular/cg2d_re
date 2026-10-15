@@ -3,7 +3,53 @@
 namespace cg::ui {
 namespace detail {
 
+namespace {
+
+// 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
+struct WindowShopItem {
+    char used; // 原成员偏移：+0x00；按原字节判非零。
+    std::array<char, 29> name; // 原成员偏移：+0x01。
+    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x1E。
+    std::array<std::byte, 2> reservedC1E; // 原成员偏移：+0xC1E。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t price; // 原成员偏移：+0xC24。
+    std::int32_t selected; // 原成员偏移：+0xC28；所选数量。
+    std::int32_t inventoryIndex; // 原成员偏移：+0xC2C。
+    std::int32_t count; // 原成员偏移：+0xC30。
+    std::int32_t maximum; // 原成员偏移：+0xC34；保留单字节来源的S8扩展。
+    std::int32_t valueC38; // 原成员偏移：+0xC38；回复数值，业务含义未定。
+    char allowed; // 原成员偏移：+0xC3C；原U8／S8转换由使用方保留。
+    std::array<std::byte, 3> reservedC3D; // 原成员偏移：+0xC3D。
+    std::int32_t flags; // 原成员偏移：+0xC40；位标志按原位型读取。
+    std::array<char, 20> memo; // 原成员偏移：+0xC44；至记录末端的附文存储区，不另定逻辑长度。
+};
+
+static_assert(std::is_standard_layout_v<WindowShopItem>);
+static_assert(std::is_trivially_copyable_v<WindowShopItem>);
+static_assert(sizeof(WindowShopItem) == 0xC58);
+static_assert(offsetof(WindowShopItem, used) == 0x00);
+static_assert(offsetof(WindowShopItem, name) == 0x01);
+static_assert(offsetof(WindowShopItem, description) == 0x1E);
+static_assert(offsetof(WindowShopItem, reservedC1E) == 0xC1E);
+static_assert(offsetof(WindowShopItem, imageNo) == 0xC20);
+static_assert(offsetof(WindowShopItem, price) == 0xC24);
+static_assert(offsetof(WindowShopItem, selected) == 0xC28);
+static_assert(offsetof(WindowShopItem, inventoryIndex) == 0xC2C);
+static_assert(offsetof(WindowShopItem, count) == 0xC30);
+static_assert(offsetof(WindowShopItem, maximum) == 0xC34);
+static_assert(offsetof(WindowShopItem, valueC38) == 0xC38);
+static_assert(offsetof(WindowShopItem, allowed) == 0xC3C);
+static_assert(offsetof(WindowShopItem, reservedC3D) == 0xC3D);
+static_assert(offsetof(WindowShopItem, flags) == 0xC40);
+static_assert(offsetof(WindowShopItem, memo) == 0xC44);
+
+} // namespace
+
 // 回调与内部函数前置声明。
+
+// 原函数：0x0048B560。
+static std::int32_t WindowItem_DrawShopTooltip(
+    std::int32_t index, std::int32_t page, std::int32_t showUnavailable); // 同源商品及可选不可装备提示。
 
 // 原函数：0x004B8310。
 static void WindowShop_RefreshBuyRows(); // 买入五行名称/价格/不可装备提示，保留原分行终止偏移。
@@ -121,6 +167,11 @@ static std::int32_t WindowShop_Update(std::int32_t value);
 static std::int32_t WindowShop_Draw(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
+
+static std::array<WindowShopItem, 20> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
+static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
+
+static constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊現在無法裝備"; // 原常量参考：0x00586BF4。
 
 // 原全局：0x00CF4B58。 出售回复中实际读取的商品数。
 static std::int32_t gShopReplyItemCountCF4B58 = 0; // 原全局：0x00CF4B58。
@@ -389,6 +440,52 @@ static WindowElementPrototype gWindowElements573D80[66] { // 原全局：0x00573
 WindowPrototype gWindowPrototypeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 66, gWindowElements573D80, &WindowShop_Update, &WindowShop_Draw, &WindowShop_Release}; // 53: 54EC60
 
 // 窗口函数实现。
+
+// 原函数：0x0048B560。
+static std::int32_t WindowItem_DrawShopTooltip(
+    const std::int32_t index, const std::int32_t page, const std::int32_t showUnavailable)
+{
+    std::int32_t key = index + 300;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+        const bool left =
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    gTooltipSourceD303FC = key;
+    const auto* record = &gShopItemsCF4FE0[index];
+    std::uint32_t flags;
+    std::memcpy(&flags, &record->flags, sizeof(flags));
+    std::wstring title = cg::text::FromGbkWide(record->memo.data());
+    std::int8_t titleColor;
+    if ((flags & 0x100u) != 0) {
+        titleColor = 5;
+    } else {
+        std::int32_t count;
+        std::memcpy(&count, &record->count, sizeof(count));
+        if (count <= 1) {
+            title = cg::text::FromGbkWide(record->name.data());
+        } else {
+            title = std::format(L"{}({})", cg::text::FromGbkWide(record->name.data()), count);
+            key = gTooltipSourceD303FC;
+        }
+        record = &gShopItemsCF4FE0[key - 300];
+        std::memcpy(&flags, &record->flags, sizeof(flags));
+        titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
+    }
+    const wchar_t* const footer = record->allowed == 0 && showUnavailable != 0
+        ? kShopUnavailableHint586BF4 : nullptr;
+    const char* const lines = record->description[page * 8].data();
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, footer, 4);
+}
 
 // 原函数：0x004B6C50。
 static void WindowShop_HandleSaleDrag(

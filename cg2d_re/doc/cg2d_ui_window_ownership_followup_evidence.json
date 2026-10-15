@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "spec": "doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015",
+  "scope": "仅把真实单窗口消费者的定义收归对应实现；不改业务、原身份／状态或共享门禁。",
+  "header_definition_markers_scanned": 279,
+  "single_cpp_candidates": 39,
+  "function_migrations": [
+    {
+      "symbol": "WindowInput_ScrollAndDraw",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 822,
+      "destination": "src/ui/windows/WindowChat.cpp",
+      "definition_line": 142
+    },
+    {
+      "symbol": "WindowItem_TransferQuantity",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 1033,
+      "destination": "src/ui/windows/WindowInventory.cpp",
+      "definition_line": 133
+    },
+    {
+      "symbol": "WindowItem_DrawDescriptionLines",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 1637,
+      "destination": "src/ui/windows/WindowInventory.cpp",
+      "definition_line": 164
+    },
+    {
+      "symbol": "WindowItem_DrawPetTooltip",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 1683,
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "definition_line": 461
+    },
+    {
+      "symbol": "WindowItem_DrawShopTooltip",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 2717,
+      "destination": "src/ui/windows/WindowShop.cpp",
+      "definition_line": 445
+    },
+    {
+      "symbol": "WindowItem_BuildStorageDescription",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 2788,
+      "destination": "src/ui/windows/WindowBank.cpp",
+      "definition_line": 211
+    },
+    {
+      "symbol": "WindowRuntime_ButtonCloseResult",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "line_before": 3799,
+      "destination": "src/ui/windows/WindowBattleResult.cpp",
+      "definition_line": 148
+    }
+  ],
+  "type_migrations": [
+    {
+      "symbol": "WindowTradeItem",
+      "source_before": "src/ui/WindowStorageRecords.hpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "layout_assertion_count": 15,
+      "definition_line": 17
+    },
+    {
+      "symbol": "WindowTradePet",
+      "source_before": "src/ui/WindowStorageRecords.hpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "layout_assertion_count": 21,
+      "definition_line": 49
+    },
+    {
+      "symbol": "WindowShopItem",
+      "source_before": "src/ui/WindowStorageRecords.hpp",
+      "destination": "src/ui/windows/WindowShop.cpp",
+      "layout_assertion_count": 18,
+      "definition_line": 9
+    }
+  ],
+  "state_ownership": [
+    {
+      "symbol": "gLogDisplayGate593F84",
+      "source_before": "src/ui/windows/WindowAdventureLog.cpp",
+      "destination": "src/ui/windows/WindowAdventureLog.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 22
+    },
+    {
+      "symbol": "gTradePetsC9C108",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 311
+    },
+    {
+      "symbol": "gTradeValueCC4224",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 315
+    },
+    {
+      "symbol": "gTradeValueCF4688",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 317
+    },
+    {
+      "symbol": "gTradeValueD046D0",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 319
+    },
+    {
+      "symbol": "gTradeValueD2E2B0",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 321
+    },
+    {
+      "symbol": "gTradeValueCC3EC4",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 344
+    },
+    {
+      "symbol": "gTradeValueD66E08",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 346
+    },
+    {
+      "symbol": "gTradeValueCC2344",
+      "source_before": "src/ui/windows/WindowTrade.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 348
+    },
+    {
+      "symbol": "gSkillPairIndexD67AD8",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 149
+    },
+    {
+      "symbol": "gRecipeIndex5846BC",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 151
+    },
+    {
+      "symbol": "gSelectedSlotsCA0A90",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 156
+    },
+    {
+      "symbol": "gSelectionCountsD66E0C",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 160
+    },
+    {
+      "symbol": "gSelectionImagesCF3FF4",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 162
+    },
+    {
+      "symbol": "gItemMarksD68A90",
+      "source_before": "src/ui/windows/WindowCraft.cpp",
+      "destination": "src/ui/windows/WindowCraft.cpp",
+      "visibility": "static；原对象不重排",
+      "definition_line": 174
+    },
+    {
+      "symbol": "gTradeItemsD460D0",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "destination": "src/ui/windows/WindowTrade.cpp",
+      "visibility": "迁入static；原生平凡聚合零初始化",
+      "definition_line": 302
+    },
+    {
+      "symbol": "gShopItemsCF4FE0",
+      "source_before": "src/ui/WindowRuntime.cpp",
+      "destination": "src/ui/windows/WindowShop.cpp",
+      "visibility": "迁入static；原生平凡聚合零初始化",
+      "definition_line": 171
+    }
+  ],
+  "constant_migrations": [
+    {
+      "symbol": "gHealthImages57CBA4",
+      "source_before": "src/ui/WindowRuntimeInternal.hpp",
+      "destination": "src/ui/windows/WindowDialog.cpp",
+      "definition_line": 122
+    },
+    {
+      "symbol": "kShopUnavailableHint586BF4",
+      "source_before": "src/ui/WindowRuntimeInternal.hpp",
+      "destination": "src/ui/windows/WindowShop.cpp",
+      "definition_line": 174
+    }
+  ],
+  "retained_boundaries": [
+    "WindowStorageItem／WindowStoragePetSummary仍是共享详情聚合成员，不能凭显式类型名次数迁移。",
+    "WindowListRecordD3FAD4／WindowChoiceSlotsCC4CA0仍属于同一LoginWindowRuntimeSlots。",
+    "BattlePetVitals由战斗命令生产并经同一数组被宠物窗口消费。",
+    "三种技能／对话回调别名仍用于共享入口声明。",
+    "窗口查找、拖动焦点、数字测宽等公共机制保留；多个核心调用者的物品／宠物分类和名称模式辅助也保持。"
+  ],
+  "direct_locations_updated": 402,
+  "function_definitions_moved": 6,
+  "table_locations_updated": 415,
+  "semantic_source_records_updated": 7,
+  "ui_symbol_records_updated": 425,
+  "validation": {
+    "build": "未编译、测试或运行，旧构建不作为当前验证。",
+    "exact_source_file_transformations": 13,
+    "preserved_function_bodies_equal": 419,
+    "moved_function_bodies_equal": 7,
+    "moved_types_equal": 3,
+    "moved_type_layout_assertions_equal": 54,
+    "private_state_initializers_equal": 17,
+    "moved_constant_literals_equal": 2,
+    "private_symbols_have_only_owner_references": true,
+    "current_direct_locations_verified": 402,
+    "original_inventory_identities_and_states_preserved": 3680,
+    "empty_method_states_preserved": 9,
+    "shared_registry_state_unchanged": true,
+    "prototype_bindings_and_existing_initialization_order_unchanged": true,
+    "encoding": "UTF-8无BOM/LF"
+  },
+  "ledger_validation": {
+    "command": "plan/measure_cg2d.ps1 -Check",
+    "exit_code": 1,
+    "remaining_errors": [
+      "src/platform/LegacyExternalKeyboard.cpp",
+      "src/platform/LegacyExternalKeyboardObject.cpp"
+    ],
+    "interpretation": "仅两份既有历史附件缺失，不计全量台账通过。",
+    "derived_files_written": false
+  },
+  "delivery": "用户后续明确要求完成后提交；本批纳入本会话尚未提交的旧窗口清理及UWO02，排除其他会话既有改动。"
+}

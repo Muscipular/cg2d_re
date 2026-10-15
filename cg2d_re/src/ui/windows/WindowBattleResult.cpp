@@ -5,6 +5,9 @@ namespace detail {
 
 // 回调与内部函数前置声明。
 
+// 原函数：0x00499880。
+static std::int32_t WindowRuntime_ButtonCloseResult(std::int32_t index, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
+
 // 原函数：0x00499750。
 static std::int32_t WindowBattleResult_ButtonClose(std::int32_t index, std::int32_t state); // 窗口30点击关闭，索引未使用。
 
@@ -140,6 +143,26 @@ WindowPrototype gWindowPrototypeBattleResult {1, 3, 40, 40, 490, 301, 0x80010101
 WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u, 4, gWindowElements56C2C8, &WindowDpResult_Update, &WindowRuntime_DrawLargeFrame, &WindowRuntime_ReleaseDefault}; // 31: 54E7B0
 
 // 窗口函数实现。
+
+// 原函数：0x00499880。
+static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    graphic->imageNo = 0x3B568;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B56A;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B569;
+    }
+    return consumed;
+}
 
 // 原函数：0x004991C0。
 static std::int32_t WindowBattleResult_Update(const std::int32_t value)

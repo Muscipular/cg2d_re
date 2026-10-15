@@ -335,9 +335,6 @@ extern std::uint32_t gValue62B38C; // 原全局：0x0062B38C。
 extern std::int32_t gValueD2F788; // 原全局：0x00D2F788。
 extern std::uint16_t gValueFF0C10; // 原全局：0x00FF0C10。
 
-// 原 0xCAFEA0：504100 重置的独立 W32 槽。
-extern std::uint32_t gValueCAFEA0;
-
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84：43C8F0 顺序重置的独立 S32 槽。
 extern std::int32_t gValue5ABB70; // 原全局：0x005ABB70。
 extern std::int32_t gValue5ABB6C; // 原全局：0x005ABB6C。
@@ -761,8 +758,6 @@ extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F
 void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
 std::int32_t Sub_519840(std::int32_t id); // 原表首匹配索引，未找到返回-1。
-// 原函数：0x00519870。
-std::int32_t Sub_519870(); // 非负编号数量/8+1。
 // 原函数：0x005198D0。
 void Sub_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。
 
@@ -1438,11 +1433,8 @@ std::int32_t ReadPlayerPenalty() noexcept; // 原FDA7F8的完整S32。
 std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
 std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
 std::int32_t ReadPlayerFpOnce(); // 原FDA738。
-platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept; // 旧25的原始16B格式实参，不解密或增加读取计数。
 std::int32_t ReadPlayerMaxFpOnce(); // 原FDA748。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
-bool IsCostGreaterThanPlayerFp(std::int32_t cost); // 4F2720实际401F80入口，保留右值单读。
-bool IsPlayerFpGreaterEqual(std::int32_t cost); // 旧制造执行实际401D70，不改为401DB0取反。
 std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;

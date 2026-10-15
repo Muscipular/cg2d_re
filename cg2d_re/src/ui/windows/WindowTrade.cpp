@@ -464,14 +464,14 @@ static std::int32_t WindowItem_DrawPetTooltip(
     const std::int32_t key = index + 200;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int32_t sideOffset =
@@ -926,7 +926,7 @@ static std::int32_t WindowTrade_Draw(const std::int32_t)
                 gTradePreviewCC2E64 = preview;
             }
             if (preview >= 0) {
-                const bool left = (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+                const bool left = (platform::gLegacyMouseState.mouseX < 320);
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
                 if (ownPet != 0) {
@@ -1015,7 +1015,7 @@ static std::int32_t WindowTrade_HandlePanel(
     const std::int16_t y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementY + windowY));
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t scrollPosition = *scrollValue;
         WindowElement* const wheelElement = &elements[scrollElement];
         *scrollValue = WindowScroll_ApplyWheel(wheelElement, scrollPosition, 2, wheel);
@@ -1086,9 +1086,9 @@ static std::int32_t WindowTrade_HandlePanel(
             numericElement == -1 ? nullptr : &window->elements[numericElement].state;
         const std::int32_t scrollSnapshot = *scrollValue;
         const std::int32_t mouseY =
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+            platform::gLegacyMouseState.mouseY.value();
         const std::int32_t mouseX =
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+            platform::gLegacyMouseState.mouseX.value();
         callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
                  &itemCount, &petCount, &amount, &displayAmount, descriptor);
     }
@@ -1209,7 +1209,7 @@ static void WindowTrade_HandleOwnInventory(
         }
         gTradeHoverSlotCB0A4C = hovered;
     }
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
         && (WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)) {
         if (world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0
             && (world::detail::BorrowPlayerItemsFDA8A4()[hovered].flags & 1u) != 0
@@ -1373,9 +1373,9 @@ static void WindowTrade_HandleOwnPets(
         petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hovered].index);
         if (petIndex >= 0) {
             gHoverTextD68AE8 = L"用滑鼠拖放方式，登錄此筆寵物交易。";
-            if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
+            if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
                 && (WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)) {
-                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0
+                if (world::detail::gPetRuntimeRecords[petIndex].used != 0
                     && gTradePetMarksCF3AFC[petIndex] == 0) {
                     std::int32_t target = 0;
                     while (target < 5 && WindowTrade_ReadSelectedPet(target) >= 0) {
@@ -1396,7 +1396,7 @@ static void WindowTrade_HandleOwnPets(
         }
     }
     if ((events & 1u) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
-        && (events & 2u) != 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0
+        && (events & 2u) != 0 && world::detail::gPetRuntimeRecords[petIndex].used != 0
         && gTradePetMarksCF3AFC[petIndex] == 0) {
         static_cast<void>(WindowPetDrag_Start(petIndex, 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1422,7 +1422,7 @@ static void WindowTrade_HandleOwnPets(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, login::detail::gValueD69768, 0);
-            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0) {
+            if (world::detail::gPetRuntimeRecords[petIndex].used != 0) {
                 gTradePreviewCC2E64 = petIndex + 300;
             }
         }
@@ -1522,24 +1522,24 @@ static void WindowTrade_HandleOwnItemDrag(
         || world::detail::BorrowPlayerItemsFDA8A4()[WindowTrade_ReadSelectedItem(sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+            platform::gLegacyMouseState.mouseX.value()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+            platform::gLegacyMouseState.mouseY.value()));
         static_cast<void>(WindowDrag_StartAtPosition(6, sourceIndex, x, y, WindowTrade_HandleOwnItemDrag));
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
         world::detail::BorrowPlayerItemsFDA8A4()[WindowTrade_ReadSelectedItem(sourceIndex)].imageNo;
     const std::int32_t y =
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        platform::gLegacyMouseState.mouseX.value();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -1558,31 +1558,31 @@ static void WindowTrade_HandleOwnPetDrag(
         return;
     }
     if (WindowTrade_ReadSelectedPet(sourceIndex) < 0
-        || (*world::detail::BorrowPetRuntimeF633F8Storage())[WindowTrade_ReadSelectedPet(sourceIndex)].used == 0) {
+        || world::detail::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+            platform::gLegacyMouseState.mouseX.value()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+            platform::gLegacyMouseState.mouseY.value()));
         static_cast<void>(WindowDrag_StartAtPosition(7, sourceIndex, x, y, WindowTrade_HandleOwnPetDrag));
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t slot = WindowTrade_ReadSelectedPet(sourceIndex);
     const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
+        (platform::gLegacyMouseState.mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
+        (platform::gLegacyMouseState.mouseX - 120)));
     WindowBank_DrawOwnPetTooltip(petX, petY, slot, 5);
     const std::int32_t y =
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        platform::gLegacyMouseState.mouseX.value();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
@@ -1681,7 +1681,7 @@ static void WindowTrade_HandleSelectedItem(
         }
         gTradeHoverSlotC8AA78 = hovered;
     }
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)
                            && WindowTrade_RemoveItem(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1854,7 +1854,7 @@ static void WindowTrade_HandleSelectedPet(
     if (phase == 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此筆寵物交易。";
     }
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)
                            && WindowTrade_RemovePet(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1867,7 +1867,7 @@ static void WindowTrade_HandleSelectedPet(
     if (WindowDrag_ReadKind() == 7 && WindowDrag_ReadFocusWindowId() == 43 && WindowDrag_ReadFocusElement() == 8) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (WindowTrade_ReadSelectedPet(source) >= 0
-            && (*world::detail::BorrowPetRuntimeF633F8Storage())[WindowTrade_ReadSelectedPet(source)].used != 0) {
+            && world::detail::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(source)].used != 0) {
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
@@ -1887,7 +1887,7 @@ static void WindowTrade_HandleSelectedPet(
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, login::detail::gValueD69768, 0);
             const std::int32_t slot = WindowTrade_ReadSelectedPet(hovered);
-            if (slot >= 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used != 0) {
+            if (slot >= 0 && world::detail::gPetRuntimeRecords[slot].used != 0) {
                 gTradePreviewCC2E64 = slot + 300;
             }
         }
@@ -1896,7 +1896,7 @@ static void WindowTrade_HandleSelectedPet(
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         const std::int32_t slot = WindowTrade_ReadSelectedPet(scroll + row);
-        if (slot >= 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used != 0) {
+        if (slot >= 0 && world::detail::gPetRuntimeRecords[slot].used != 0) {
             WindowBank_DrawOwnPetTooltip(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
@@ -2145,12 +2145,12 @@ static bool WindowTrade_HitTestOwnPetRow(
     const std::int32_t width, const std::int32_t height)
 {
     const std::int32_t relativeX =
-        (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(x));
+        (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(x));
     if (relativeX < 0 || relativeX >= width) {
         return false;
     }
     const std::int32_t relativeY =
-        (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(y));
+        (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(y));
     return relativeY >= 0 && relativeY < height;
 }
 
@@ -2415,7 +2415,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2446,7 +2446,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[shortIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[shortIndex];
     if (pet.used == 0) {
         return 0;
     }
@@ -2753,7 +2753,7 @@ void WindowTrade_CopyDisplayItems(const std::int32_t side, const std::int32_t in
 static void WindowTrade_CopyOwnPet(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 5; ++index) {
-        world::detail::PetRuntimeRecord& source = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
+        world::detail::PetRuntimeRecord& source = world::detail::gPetRuntimeRecords[index];
         if (source.used == 0) {
             continue;
         }

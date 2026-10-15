@@ -4503,7 +4503,7 @@ void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t 
     if (!TransitionMovementIdle(action)) {
         return;
     }
-    auto& record = (*world::detail::BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = world::detail::gWorldObjects[static_cast<std::size_t>(index)];
     if (record.value34 != -1
         && (action->mapX1E0 == static_cast<std::int32_t>(record.value38))
         && (action->mapY1F0 == static_cast<std::int32_t>(record.value3C))) {
@@ -4546,7 +4546,7 @@ void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const 
     const std::int32_t index = payload->index;
     action->imageNo = index == -1 ? world::detail::ReadPlayerImageNo()
         : std::bit_cast<std::int32_t>(
-            (*world::detail::BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)].imageNo);
+            world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
 }
 
 // 原五条附件路径的槽取样时点不同，见 AAS01；只在本文件选择已证顺序。
@@ -4906,7 +4906,7 @@ std::int32_t Sub_43DD00(
                     (player != nullptr && player == action) || payload->index == -1
                     ? world::detail::ReadPlayerImageNo()
                     : std::bit_cast<std::int32_t>(
-                        (*world::detail::BorrowWorldObjectsStorage())[payload->index].imageNo);
+                        world::detail::gWorldObjects[payload->index].imageNo);
                 action->imageNo = world::detail::Sub_51C0D0(original);
             };
             if (payload->action44 != nullptr) {
@@ -5043,7 +5043,7 @@ void Sub_4417E0(YobiAction* const action)
             return;
         }
     } else if ((reinterpret_cast<const unsigned char*>(
-                    &(*world::detail::BorrowWorldObjectsStorage())[
+                    &world::detail::gWorldObjects[
                         static_cast<std::size_t>(index)].flags120)[0] & 0x80u) != 0) {
         return;
     }
@@ -5054,7 +5054,7 @@ void Sub_4417E0(YobiAction* const action)
         payload = static_cast<MapActorPayload*>(action->payload);
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
-                    &(*world::detail::BorrowWorldObjectsStorage())[
+                    &world::detail::gWorldObjects[
                         static_cast<std::size_t>(index)].flags42)[1] & 2u) == 0) {
             Sub_4424B0(action);
             useSharedRate = false;
@@ -5075,7 +5075,7 @@ void Sub_4417E0(YobiAction* const action)
     player = world::detail::ReadPlayerAction();
     std::int32_t stopAtEnd;
     if (player != action
-        && ((*world::detail::BorrowWorldObjectsStorage())[
+        && (world::detail::gWorldObjects[
                 static_cast<std::size_t>(index)].category & 0x100u) != 0) {
         const std::int32_t characterAction = action->characterAction;
         stopAtEnd = characterAction == 3 || characterAction == 0
@@ -5095,7 +5095,7 @@ void Sub_4417E0(YobiAction* const action)
         payload = static_cast<MapActorPayload*>(action->payload);
         index = payload->index;
         if (player != action) {
-            const std::uint32_t flags = (*world::detail::BorrowWorldObjectsStorage())[
+            const std::uint32_t flags = world::detail::gWorldObjects[
                 static_cast<std::size_t>(index)].flags114;
             if ((flags & 0x1000u) != 0 && (flags & 0x400380u) == 0) {
                 flipStatic = 1;
@@ -5168,7 +5168,7 @@ void Sub_4417E0(YobiAction* const action)
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {
-                world::detail::Sub_4462E0((*world::detail::BorrowWorldObjectsStorage())[
+                world::detail::Sub_4462E0(world::detail::gWorldObjects[
                     static_cast<std::size_t>(index)].objectIndex);
                 return;
             }
@@ -5928,7 +5928,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 ((state & 8u) != 0 ? 1u : 0u)
                 | ((state & 0x10u) != 0 ? 4u : 0u)
                 | ((state & 0x40u) != 0 ? 0x20u : 0u));
-            for (const world::detail::PetRuntimeRecord& pet : (*world::detail::BorrowPetRuntimeF633F8Storage())) {
+            for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeRecords) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
                     action->readiness = pet.values0C[0];
                     action->maxHp = pet.values0C[1];
@@ -5944,9 +5944,9 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             drawBars = true;
         }
     } else {
-        const std::uint16_t originalFlags = (*world::detail::BorrowWorldObjectsStorage())[stateIndex].flags42;
-        state = (*world::detail::BorrowWorldObjectsStorage())[stateIndex].flags120;
-        value = (*world::detail::BorrowWorldObjectsStorage())[stateIndex].value124;
+        const std::uint16_t originalFlags = world::detail::gWorldObjects[stateIndex].flags42;
+        state = world::detail::gWorldObjects[stateIndex].flags120;
+        value = world::detail::gWorldObjects[stateIndex].value124;
         flags = originalFlags;
         if ((action->flags & 0x80000u) != 0) {
             flags &= 0x8400u;
@@ -6150,7 +6150,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
             world::detail::ClearPlayerActionFlags(bits);
         } else {
-            (*world::detail::BorrowWorldObjectsStorage())[stateIndex].flags120 &=
+            world::detail::gWorldObjects[stateIndex].flags120 &=
                 static_cast<std::uint16_t>(~bits);
         }
     };
@@ -35427,7 +35427,7 @@ void Sub_43D860(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    if ((*BorrowWorldObjectsStorage())[payload->index].category != 1) {
+    if (gWorldObjects[payload->index].category != 1) {
         return;
     }
     const auto playerX = static_cast<std::int64_t>(player->worldX);
@@ -35464,7 +35464,7 @@ void Sub_442DC0(
     }
     auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
     auto* const flagBytes = reinterpret_cast<unsigned char*>(
-        &(*BorrowWorldObjectsStorage())[payload->index].flags42);
+        &gWorldObjects[payload->index].flags42);
     flagBytes[1] |= 0x20u;
     const std::uint32_t tick = platform::ReadTickCount32();
     payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
@@ -35505,7 +35505,7 @@ void Sub_442C00(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     record.marker44 = 0;
     if (action->field2E4 != 2) {
         record.flags42 &= 0xFEFFu;
@@ -35519,7 +35519,7 @@ void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x40u;
     record.value10C = value;
 }
@@ -35531,7 +35531,7 @@ std::uint16_t* Sub_442CD0(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags42;
+    auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0xBFFFu;
     return &flags;
 }
@@ -35543,7 +35543,7 @@ void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x80u;
     record.value10C = value;
 }
@@ -35555,7 +35555,7 @@ std::uint16_t* Sub_442D30(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags42;
+    auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0x7FFFu;
     return &flags;
 }
@@ -35567,7 +35567,7 @@ void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 4u;
     record.value10C = value;
 }
@@ -35579,7 +35579,7 @@ std::uint16_t* Sub_442D90(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags42;
+    auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0xEBFFu;
     return &flags;
 }
@@ -35591,7 +35591,7 @@ std::uint16_t* Sub_43D970(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 1u;
     return &flags;
 }
@@ -35603,7 +35603,7 @@ std::uint16_t* Sub_43D9A0(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFFFEu;
     return &flags;
 }
@@ -35618,7 +35618,7 @@ void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
         value = 0;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     *reinterpret_cast<unsigned char*>(&record.flags120) |= 2u;
     record.value124 = value;
 }
@@ -35630,7 +35630,7 @@ void Sub_43DA10(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     record.flags120 &= 0xFFFDu;
     record.value124 = 0;
 }
@@ -35642,7 +35642,7 @@ std::uint16_t* Sub_43DA40(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x24u;
     return &flags;
 }
@@ -35654,7 +35654,7 @@ std::uint16_t* Sub_43DA70(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 8u;
     return &flags;
 }
@@ -35666,7 +35666,7 @@ std::uint16_t* Sub_43DAA0(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFFF7u;
     return &flags;
 }
@@ -35678,7 +35678,7 @@ std::uint16_t* Sub_43DAD0(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x50u;
     return &flags;
 }
@@ -35690,7 +35690,7 @@ std::uint16_t* Sub_43DB00(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
     return &flags;
 }
@@ -35702,7 +35702,7 @@ std::uint16_t* Sub_43DB30(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags120;
+    auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFF7Fu;
     return &flags;
 }
@@ -35728,7 +35728,7 @@ void Sub_444410(
         action->direction = direction;
         return;
     case 50: {
-        auto& record = (*BorrowWorldObjectsStorage())[index];
+        auto& record = gWorldObjects[index];
         record.value34 = direction;
         record.value38 = x;
         record.value3C = y;
@@ -35757,14 +35757,14 @@ void Sub_444410(
         [[fallthrough]];
     }
     case 1: {
-        const std::uint16_t flags = (*BorrowWorldObjectsStorage())[index].flags42;
+        const std::uint16_t flags = gWorldObjects[index].flags42;
         if ((flags & 0x300u) == 0x300u) {
             if (action->field270 < 10) {
                 login::detail::Sub_441FC0(action, x, y);
             } else {
                 ResetMapFollowersFromPath(action);
                 login::detail::Sub_441F60(action, x, y);
-                (*BorrowWorldObjectsStorage())[index].value34 = -1;
+                gWorldObjects[index].value34 = -1;
             }
         } else {
             login::detail::Sub_441F60(action, x, y);
@@ -35861,12 +35861,12 @@ void Sub_444410(
         action->field270 = 0;
         login::detail::Sub_43EFC0(action, 0, 1);
         action->direction = direction;
-        (*BorrowWorldObjectsStorage())[index].value34 = -1;
+        gWorldObjects[index].value34 = -1;
         return;
     case 60: {
         action->imageNo = character_select::detail::Sub_51B740(option1);
         const std::int32_t recordImage = character_select::detail::Sub_51B740(option1);
-        (*BorrowWorldObjectsStorage())[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
+        gWorldObjects[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
         if (option2 > 0) {
             if (payload->action30 == nullptr) {
                 const std::int32_t image = character_select::detail::Sub_51B740(option2);
@@ -35948,7 +35948,7 @@ void Sub_444410(
             const std::int32_t image = character_select::detail::Sub_51B740(option1);
             payload->action44->imageNo = image;
             const std::int32_t original =
-                std::bit_cast<std::int32_t>((*BorrowWorldObjectsStorage())[payload->index].imageNo);
+                std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
             action->imageNo = Sub_51C0D0(original);
             action->phase = 1;
         } else {
@@ -35973,9 +35973,9 @@ void Sub_444410(
         return;
     case 200:
         if (option1 != 0) {
-            reinterpret_cast<unsigned char*>(&(*BorrowWorldObjectsStorage())[payload->index].flags120)[1] |= 0x10u;
+            reinterpret_cast<unsigned char*>(&gWorldObjects[payload->index].flags120)[1] |= 0x10u;
         } else {
-            (*BorrowWorldObjectsStorage())[payload->index].flags120 &= 0xEFFFu;
+            gWorldObjects[payload->index].flags120 &= 0xEFFFu;
         }
         return;
     default:
@@ -35990,7 +35990,7 @@ std::uint16_t Sub_449C90(login::YobiAction* const action)
         return 0;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags42;
+    auto& flags = gWorldObjects[payload->index].flags42;
     std::uint16_t sampledFlags = flags;
     if ((sampledFlags & 0x200u) == 0) {
         sampledFlags |= 0x100u;
@@ -36006,7 +36006,7 @@ void Sub_449CC0(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     if (record.marker44 == 0) {
         record.flags42 &= 0xFEFFu;
     }
@@ -36019,7 +36019,7 @@ std::uint16_t* Sub_442C40(login::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& flags = (*BorrowWorldObjectsStorage())[payload->index].flags42;
+    auto& flags = gWorldObjects[payload->index].flags42;
     reinterpret_cast<unsigned char*>(&flags)[1] |= 2u;
     return &flags;
 }
@@ -36034,7 +36034,7 @@ void Sub_442C70(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    (*BorrowWorldObjectsStorage())[payload->index].flags42 &= 0xFDFFu;
+    gWorldObjects[payload->index].flags42 &= 0xFDFFu;
 }
 
 // 原函数：0x00442BD0。
@@ -36044,7 +36044,7 @@ void Sub_442BD0(login::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    auto& record = (*BorrowWorldObjectsStorage())[payload->index];
+    auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 1u;
     record.marker44 = 1;
 }
@@ -36067,7 +36067,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
     if (index < 0) {
         return;
     }
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     if (record.used == 0 || record.action != nullptr) {
         return;
     }
@@ -36102,7 +36102,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
 void Sub_446640()
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
-        auto& record = (*BorrowWorldObjectsStorage())[index];
+        auto& record = gWorldObjects[index];
         if (record.used == 0 || record.action != nullptr) {
             continue;
         }
@@ -36168,7 +36168,7 @@ void Sub_445350(
         }
         login::YobiAction* const action =
             login::detail::Sub_441DB0(imageNo, mapX, mapY, selectedDirection);
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -36180,7 +36180,7 @@ void Sub_445350(
         record.value34 = -1;
     }
 
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value40 = static_cast<std::uint16_t>(value40);
     record.level2C = level;
@@ -36307,7 +36307,7 @@ void Sub_445D20(
         }
         login::YobiAction* const action =
             login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -36319,7 +36319,7 @@ void Sub_445D20(
         record.value34 = -1;
     }
 
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value48 = value48;
     // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享operator=(int32_t)。
@@ -36368,7 +36368,7 @@ void Sub_445F40(
         }
         login::YobiAction* const action =
             login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -36380,7 +36380,7 @@ void Sub_445F40(
         record.value34 = -1;
     }
 
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value4C = value4C;
     const auto assignCoordinate = [](
@@ -36422,7 +36422,7 @@ std::int32_t Sub_445030(
     }
     std::int32_t index = 0;
     do {
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
@@ -36450,7 +36450,7 @@ std::int32_t Sub_4450D0(
     }
     std::int32_t index = 0;
     do {
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
@@ -36477,7 +36477,7 @@ std::int32_t Sub_445160(
     }
     std::int32_t index = 0;
     do {
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
@@ -36505,7 +36505,7 @@ std::int32_t Sub_4451F0(
     }
     std::int32_t index = 0;
     do {
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
@@ -36535,7 +36535,7 @@ std::int32_t Sub_4452A0(
     }
     std::int32_t index = 0;
     do {
-        auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr

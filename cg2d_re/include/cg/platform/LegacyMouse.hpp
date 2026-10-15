@@ -4,7 +4,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <optional>
 #include <type_traits>
 
 namespace cg::platform {
@@ -51,18 +50,7 @@ static_assert(offsetof(LegacyMouseState, valueD68DB8) == 0xC0);
 static_assert(offsetof(LegacyMouseState, drawingSuppression) == 0xC4);
 static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
 
-std::optional<LegacyMouseState>& BorrowLegacyMouseStateStorage(); // 原全局：0x00D68CF8。
-
-// 对应原CRT 5530F8；鼠标拥有者接管同一十值构析，原构造前缀清理保持。
-// 原函数：0x00506340。
-class MouseRuntimeStartup final {
-public:
-    // 原函数：0x00506340；只接管同组原始载荷的启动寿命。
-    MouseRuntimeStartup();
-    ~MouseRuntimeStartup();
-    MouseRuntimeStartup(const MouseRuntimeStartup&) = delete;
-    MouseRuntimeStartup& operator=(const MouseRuntimeStartup&) = delete;
-};
+extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8；中央有序构造。
 
 // 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
 extern std::uint32_t gValueD68BF0; // 原全局：0x00D68BF0。

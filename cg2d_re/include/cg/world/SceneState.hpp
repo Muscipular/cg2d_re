@@ -50,33 +50,6 @@ extern volatile std::uint32_t gWorldProjectionReferenceYBits; // 原 0xC751A4，
 
 std::int32_t ReadRippleGateOnce();
 
-// 原5184A0/518410，玩家六组CryptInt；排在鼠标构造之后。
-// 对应原CRT 5530FC/553100：玩家六值、主宠物五条六值，两个拥有者独立构析。
-// 原函数：0x005183D0。
-class PlayerRuntimeValuesStartup final {
-public:
-    // 原函数：0x005183D0；只接管同组原始载荷的启动寿命。
-    PlayerRuntimeValuesStartup();
-    ~PlayerRuntimeValuesStartup();
-    PlayerRuntimeValuesStartup(const PlayerRuntimeValuesStartup&) = delete;
-    PlayerRuntimeValuesStartup& operator=(const PlayerRuntimeValuesStartup&) = delete;
-};
-
-// 原函数：0x00518520。
-class PetRuntimeValuesStartup final {
-public:
-    // 原函数：0x00518520；只接管同组原始载荷的启动寿命。
-    PetRuntimeValuesStartup();
-    ~PetRuntimeValuesStartup();
-    PetRuntimeValuesStartup(const PetRuntimeValuesStartup&) = delete;
-    PetRuntimeValuesStartup& operator=(const PetRuntimeValuesStartup&) = delete;
-};
-void ConstructPlayerRuntimeValues();
-void DestroyPlayerRuntimeValues();
-// 原518530/518560，五条宠物各六组CryptInt；排在玩家构造之后。
-void ConstructPetRuntimeValues();
-// 原函数：0x00518560。
-void DestroyPetRuntimeValues();
 // 原51C410：仅校验五槽索引，不检查宠物used。
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(std::int32_t index) noexcept;

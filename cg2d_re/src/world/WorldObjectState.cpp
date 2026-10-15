@@ -5,21 +5,13 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
-#include "cg/world/WorldObjects.hpp"
 
 #include <cstdlib>
 #include <cstring>
-#include <optional>
 
 namespace cg::world {
 namespace detail {
 
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<std::array<WorldObjectRecord, kWorldObjectCapacity>>& BorrowWorldObjectsStorage()
-{
-    static std::optional<std::array<WorldObjectRecord, kWorldObjectCapacity>> storage;
-    return storage;
-} // 原全局：0x005AC4C0。
 std::int32_t gWorldObjectFindCursor = 0; // 原全局：0x005AC498。
 std::int32_t gWorldObjectFreeCursor = 0; // 原全局：0x005AC49C。
 std::int32_t gWorldObjectUsedCount = 0; // 原全局：0x005AC4B4。
@@ -45,7 +37,7 @@ static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
 // 原函数：0x00446610。
 void Sub_446610()
 {
-    for (auto& record : (*BorrowWorldObjectsStorage())) {
+    for (auto& record : gWorldObjects) {
         if (record.used != 0) {
             record.action = nullptr;
             record.value34 = -1;
@@ -89,14 +81,14 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
     const std::int32_t start = gWorldObjectFindCursor;
     const std::int32_t end = gWorldObjectUpperBound;
     for (std::int32_t index = start; index < end; ++index) {
-        const auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        const auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0 && record.objectIndex == objectIndex) {
             gWorldObjectFindCursor = index;
             return index;
         }
     }
     for (std::int32_t index = 0; index < start; ++index) {
-        const auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+        const auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         if (record.used != 0 && record.objectIndex == objectIndex) {
             gWorldObjectFindCursor = index;
             return index;
@@ -110,7 +102,7 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
 {
     const std::int32_t index = Sub_444FA0(objectIndex);
-    return index < 0 ? nullptr : (*BorrowWorldObjectsStorage())[index].action;
+    return index < 0 ? nullptr : gWorldObjects[index].action;
 }
 
 // WOL01：只推进计数/高水位/空槽游标并返回旧槽，不写记录或标占用/分配资源。
@@ -129,14 +121,14 @@ std::int32_t Sub_446130()
         gWorldObjectUpperBound = next;
     }
     for (; next < 1000; ++next) {
-        if ((*BorrowWorldObjectsStorage())[static_cast<std::size_t>(next)].used == 0) {
+        if (gWorldObjects[static_cast<std::size_t>(next)].used == 0) {
             gWorldObjectFreeCursor = next;
             break;
         }
     }
     if (selected > 0 && next >= 1000) {
         for (std::int32_t index = 0; index < selected; ++index) {
-            if ((*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)].used == 0) {
+            if (gWorldObjects[static_cast<std::size_t>(index)].used == 0) {
                 gWorldObjectFreeCursor = index;
                 break;
             }
@@ -197,7 +189,7 @@ std::int32_t Sub_445A60(
     if (index < 0) {
         return 0;
     }
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.action = nullptr;
     record.used = 2;
     record.category = static_cast<std::uint16_t>(Sub_446210(type));
@@ -252,7 +244,7 @@ void Sub_4462E0(const std::int32_t objectIndex)
     if (index < 0) {
         return;
     }
-    auto& record = (*BorrowWorldObjectsStorage())[static_cast<std::size_t>(index)];
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     login::YobiAction* const action = record.action;
     if (action != nullptr) {
         login::detail::ClearMapActorAttachments(action);
@@ -271,7 +263,7 @@ void Sub_4462E0(const std::int32_t objectIndex)
         gWorldObjectFreeCursor = index;
     }
     for (std::int32_t end = gWorldObjectUpperBound; end > 0; --end) {
-        if ((*BorrowWorldObjectsStorage())[static_cast<std::size_t>(end - 1)].used != 0) {
+        if (gWorldObjects[static_cast<std::size_t>(end - 1)].used != 0) {
             gWorldObjectUpperBound = end;
             return;
         }
@@ -286,7 +278,7 @@ void Sub_446470()
     gWorldObjectUsedCount = 0;
     gWorldObjectUpperBound = 0;
     gWorldObjectFreeCursor = 0;
-    for (auto& record : (*BorrowWorldObjectsStorage())) {
+    for (auto& record : gWorldObjects) {
         record.used = 0;
         record.action = nullptr;
         record.flags42 = 0;
@@ -305,7 +297,7 @@ void __cdecl Sub_4464D0()
     gWorldObjectUsedCount = 0;
     gWorldObjectUpperBound = 0;
     gWorldObjectFreeCursor = 0;
-    for (auto& record : (*BorrowWorldObjectsStorage())) {
+    for (auto& record : gWorldObjects) {
         if (record.used == 0) {
             continue;
         }
@@ -325,22 +317,5 @@ void __cdecl Sub_4464D0()
 }
 
 } // namespace detail
-
-// 原函数：0x0043D770。
-// 原0x0053C45E：数组构造由std::array/C++承接。
-// 原0x0053C560、0x005405F5：旧数组展开／筛选入口退休，当前沿MSVC异常机制。
-void ConstructWorldObjects()
-{
-    // 原0x0043D7C0：千项两成员依次构造；完成前缀清理由C++承接。
-    detail::BorrowWorldObjectsStorage().emplace();
-}
-
-// 原函数：0x0043D7A0。
-// 原0x0053C4E0：同一数组由std::array/C++自动逆序析构。
-void DestroyWorldObjects()
-{
-    // 原0x0043D810：元素及其1C/0C成员自动逆序析构。
-    detail::BorrowWorldObjectsStorage().reset();
-}
 
 } // namespace cg::world

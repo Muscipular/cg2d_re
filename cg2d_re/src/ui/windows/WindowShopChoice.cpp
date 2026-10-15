@@ -298,7 +298,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
             static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
             static_cast<std::uint16_t>(y + 14), 223, login::detail::gValueD69768, 0);
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {
                 static_cast<void>(callback(index));

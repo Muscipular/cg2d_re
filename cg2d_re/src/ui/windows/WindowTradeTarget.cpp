@@ -309,7 +309,7 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
         gWindowListOffsetCC3EF4 =
             WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 5, wheel);

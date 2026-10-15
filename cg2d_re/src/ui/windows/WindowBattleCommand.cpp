@@ -320,7 +320,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
         } else {
             const std::int32_t pet = world::detail::Sub_43C4B0();
             const std::int32_t technique = world::detail::gValue553F84;
-            name = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[technique].name.data();
+            name = world::detail::gPetRuntimeRecords[pet].techniquesD8[technique].name.data();
         }
         static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = cg::text::FromGbkWide(name);
     }
@@ -555,7 +555,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, con
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
         gBattleItemWindowActionD2F790 = WindowRuntime_CreateAnimation(WindowId_BattleItems, 1, 0, nullptr);
         gBattleItemTargetFlagCC4D40 = 0;
         login::detail::FlushBattleEntries_43C060();
@@ -607,7 +607,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, cons
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         WindowInstance* const window = gWindowStates[WindowId_BattlePets].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
@@ -964,7 +964,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, co
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         if (gBattleSkillTargetPendingD303F8 != 0) {
             gBattleSkillWindowActionCC1A10 = WindowSkill_OpenBattleTechniques(
                 world::detail::gBattleSelectedSkill5ABB5C, &WindowBattleCommand_SelectSkill);
@@ -1016,7 +1016,7 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
     const std::int32_t targetPet = world::detail::Sub_43C4B0();
     const std::int32_t targetTechnique = world::detail::gValue553F84;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
-        std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[targetPet]
+        std::bit_cast<std::int16_t>(world::detail::gPetRuntimeRecords[targetPet]
             .techniquesD8[targetTechnique].target)));
     const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
         world::detail::gBattleCurrentPosition5ABCA4);
@@ -1024,7 +1024,7 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         const std::int32_t idPet = world::detail::Sub_43C4B0();
         const std::int32_t idTechnique = world::detail::gValue553F84;
         const std::int32_t targetIndex =
-            (*world::detail::BorrowPetRuntimeF633F8Storage())[idPet].techniquesD8[idTechnique].techniqueId >= 200600
+            world::detail::gPetRuntimeRecords[idPet].techniquesD8[idTechnique].techniqueId >= 200600
             ? world::detail::GetBattlePetPosition_405B40(world::detail::gBattleCurrentPosition5ABCA4)
             : world::detail::Sub_43C4B0();
         const std::int32_t currentTechnique = world::detail::gValue553F84;
@@ -1070,7 +1070,7 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
     const auto targetPet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     world::detail::gValue553F84 = technique;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
-        std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[targetPet]
+        std::bit_cast<std::int16_t>(world::detail::gPetRuntimeRecords[targetPet]
             .techniquesD8[technique].target)));
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     if (login::detail::CheckBattleCommand_43C560(position, target) == 0) {
@@ -1114,7 +1114,7 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index
     }
     if (pendingAction == nullptr
         && ((entryState & 2) != 0
-            || (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0)) {
+            || (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0)) {
         if (window != nullptr) {
             window->state |= 0x8000u;
         } else {
@@ -1221,14 +1221,14 @@ void WindowBattleCommand_Dispatch()
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
-                    const std::int32_t cost = (*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[technique].fp;
+                    const std::int32_t cost = gPetRuntimeRecords[pet].techniquesD8[technique].fp;
                     open = login::detail::IsCostGreaterThanYobiActionFp(cost, player);
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                     const std::int32_t currentTechnique = gValue553F84;
                     const auto target =
-                        std::bit_cast<std::int16_t>((*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].target);
+                        std::bit_cast<std::int16_t>(gPetRuntimeRecords[pet].techniquesD8[currentTechnique].target);
                     const std::int32_t currentPosition = gBattleCurrentPosition5ABCA4;
                     open = login::detail::CheckBattleCommand_43C560(
                         currentPosition, static_cast<std::uint32_t>(target)) == 0;
@@ -1328,14 +1328,14 @@ void WindowBattleCommand_Dispatch()
         break;
     }
     case 1: {
-        if (gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
+        if (gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
             gBattleSelectionModes5ABC7C[0] = 0;
             login::detail::FlushBattleEntries_43C060();
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if (gBattleValueCB054C != 0) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
                 bool send = true;
                 switch (gBattleSelectionMode5ABC70) {
                 case 0:
@@ -1438,14 +1438,14 @@ void WindowBattleCommand_Dispatch()
             login::YobiAction* const action = gBattleEntries59E980[position];
             const std::int32_t pet = Sub_43C4B0();
             const std::int32_t currentTechnique = gValue553F84;
-            const std::int32_t cost = (*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].fp;
+            const std::int32_t cost = gPetRuntimeRecords[pet].techniquesD8[currentTechnique].fp;
             open = login::detail::IsCostGreaterThanYobiActionFp(cost, action);
         }
         if (!open) {
             const std::int32_t pet = Sub_43C4B0();
             const std::int32_t currentTechnique = gValue553F84;
             const auto target =
-                std::bit_cast<std::int16_t>((*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].target);
+                std::bit_cast<std::int16_t>(gPetRuntimeRecords[pet].techniquesD8[currentTechnique].target);
             const std::int32_t position = GetBattlePetPosition_405B40(gBattleCurrentPosition5ABCA4);
             open = login::detail::CheckBattleCommand_43C560(position, static_cast<std::uint32_t>(target)) == 0;
         }
@@ -1463,7 +1463,7 @@ void WindowBattleCommand_Dispatch()
     case 4: {
         if (gBattlePetCommandPhase553F88 == 3) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
                 const std::int32_t technique = gValue553F84;
                 cg::text::FormatTo(buffer, L"W|{:X}|{:X}", static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer));
@@ -1481,7 +1481,7 @@ void WindowBattleCommand_Dispatch()
         std::int32_t imageNo = 0;
         switch (phase) {
         case 0: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
                 if (pet < 0) {
@@ -1493,7 +1493,7 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 gHoverTextD68AE8 = L"打開技能視窗。";
                 if ((clicks & 1u) != 0) {
                     gBattlePetCommandPhase553F88 = 1;
@@ -1510,7 +1510,7 @@ void WindowBattleCommand_Dispatch()
                 constexpr wchar_t hint[] = L"關閉技能視窗。";
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
                 gHoverTextD68AE8 = hint;
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & 1u) != 0) {
                     WindowInstance* const window = gWindowStates[WindowId_Skill].window;
@@ -1527,7 +1527,7 @@ void WindowBattleCommand_Dispatch()
         }
         case 2:
         case 3: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
                 login::detail::FlushBattleEntries_43C060();
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
@@ -1542,7 +1542,7 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 gHoverTextD68AE8 = L"返回技能視窗。";
                 if ((clicks & 1u) != 0) {
                     login::detail::FlushBattleEntries_43C060();
@@ -1554,7 +1554,7 @@ void WindowBattleCommand_Dispatch()
             if (!clickedReturn && gValue553F84 != -1) {
                 const std::int32_t namePet = Sub_43C4B0();
                 const std::int32_t nameTechnique = gValue553F84;
-                buffer = std::format(L"{:<16}", cg::text::FromGbkWide((*BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[nameTechnique].name.data()));
+                buffer = std::format(L"{:<16}", cg::text::FromGbkWide(gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name.data()));
                 const std::int32_t nameY = gBattleCommandY553F7C;
                 const std::int32_t nameX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(
@@ -1563,7 +1563,7 @@ void WindowBattleCommand_Dispatch()
                     2, 0, 0, buffer, 0));
                 const std::int32_t costPet = Sub_43C4B0();
                 const std::int32_t costTechnique = gValue553F84;
-                cg::text::FormatTo(buffer, L"{:4}", (*BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp);
+                cg::text::FormatTo(buffer, L"{:4}", gPetRuntimeRecords[costPet].techniquesD8[costTechnique].fp);
                 const std::int32_t costY = gBattleCommandY553F7C;
                 const std::int32_t costX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(
@@ -1697,7 +1697,7 @@ void WindowBattleCommand_SnapshotPetVitals()
         return;
     }
     for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
-        auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
+        auto& pet = world::detail::gPetRuntimeRecords[index];
         gBattlePetVitalsCF4B78[index].hp = pet.values0C[0].value();
         gBattlePetVitalsCF4B78[index].maxHp = pet.values0C[1].value();
         gBattlePetVitalsCF4B78[index].fp = pet.values0C[2].value();

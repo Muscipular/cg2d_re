@@ -191,12 +191,12 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
-                const std::int32_t health = WindowItem_HealthImageLevel((*world::detail::BorrowPetRuntimeF633F8Storage())[slot].values70[25]);
+                const std::int32_t health = WindowItem_HealthImageLevel(world::detail::gPetRuntimeRecords[slot].values70[25]);
                 WindowInstance* const window = gCurrentWindow;
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
-                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[nameSlot];
+                const auto& pet = world::detail::gPetRuntimeRecords[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::FromGbkWide(name);
@@ -206,7 +206,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
                 ? world::detail::IsPlayerNextExperienceEqual(-1)
-                : ((*world::detail::BorrowPetRuntimeF633F8Storage())[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
+                : (world::detail::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text = L"  ---  ";
             } else {

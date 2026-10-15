@@ -284,7 +284,7 @@ static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* cons
         gItemUseStatusCountCC4D44 = count;
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
+            auto& pet = world::detail::gPetRuntimeRecords[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }

@@ -683,8 +683,8 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B8E3;
         }
-        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY + 16);
-        const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX + 16);
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
+        const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
         static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     } else {
         graphic->imageNo = 0x3B8E4;

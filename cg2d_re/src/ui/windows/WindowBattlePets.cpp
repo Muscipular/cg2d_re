@@ -93,7 +93,7 @@ static void WindowBattlePets_Refresh(
 {
     std::int32_t battleImage = 0x3B58D;
     std::int32_t readyImage = 0x3B58A;
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -175,7 +175,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
     std::int32_t visible = -1;
     for (const auto& pair : world::detail::gPetPairsDE0B08) {
         const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
-        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+        const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
         if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
             ++visible;
         }
@@ -188,7 +188,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         return 0;
     }
     std::int32_t consumed = 0;
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+    const auto& pet = world::detail::gPetRuntimeRecords[selected];
     if (pet.used == 1) {
         std::uint16_t flags = pet.flags6AA;
         if (flags == 1 || flags == 2) {

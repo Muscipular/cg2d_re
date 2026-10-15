@@ -119,7 +119,7 @@ static WindowElement* WindowPetSkills_Refresh()
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-        return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
+        return world::detail::gPetRuntimeRecords[index];
     };
     const auto& initialPet = selectedPet();
     std::wstring buffer;
@@ -205,8 +205,8 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
     if (gLoginWindowRuntime.petTechniqueDragD460CC == 0) {
         return 0;
     }
-    const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX - 105);
-    const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - 8);
+    const std::int32_t x = (platform::gLegacyMouseState.mouseX - 105);
+    const std::int32_t y = (platform::gLegacyMouseState.mouseY - 8);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
@@ -219,12 +219,12 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 5)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
-        5, 12, 0, cg::text::FromGbkWide((*world::detail::BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[nameTechnique].name.data()).c_str(),
+        5, 12, 0, cg::text::FromGbkWide(world::detail::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name.data()).c_str(),
         0, 0));
     const auto costPet = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const std::int32_t costTechnique = gLoginWindowRuntime.petTechniqueD2D66C;
-    const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp;
+    const std::int32_t fp = world::detail::gPetRuntimeRecords[costPet].techniquesD8[costTechnique].fp;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", fp);
     static_cast<void>(render::DrawText_456780(
@@ -261,7 +261,7 @@ static std::int32_t WindowPetSkills_Update(const std::int32_t value)
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used == 0) {
+    if (world::detail::gPetRuntimeRecords[selected].used == 0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -319,7 +319,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             WindowChat_RestoreInput();
             if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
+                const char* const name = world::detail::gPetRuntimeRecords[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
                 data->text = cg::text::FromGbkWide(name);
@@ -349,7 +349,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].flags6AA == 2) {
+                if (world::detail::gPetRuntimeRecords[selected].flags6AA == 2) {
                     WindowCraft_ResetItemSelection();
                 }
             }
@@ -384,7 +384,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                             position = 0;
                         }
                     }
-                    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].used != 0) {
+                    if (world::detail::gPetRuntimeRecords[petIndex(position)].used != 0) {
                         break;
                     }
                 }
@@ -396,7 +396,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                     gLoginWindowRuntime.selectedPetCC3E5C = position;
                     selected = petIndex(position);
                 }
-                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+                const auto& pet = world::detail::gPetRuntimeRecords[selected];
                 const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
                 WindowInstance* const window = gCurrentWindow;
@@ -441,12 +441,12 @@ static void WindowPetSkills_HandleDrag(const std::int32_t mode, const std::int32
         }
         return;
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         const auto y = static_cast<std::int16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         static_cast<void>(WindowDrag_StartAtPosition(11, source, x, y, WindowPetSkills_HandleDrag));
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -481,7 +481,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
         for (std::int32_t line = 0; line < 4; ++line) {
             const auto selected = std::bit_cast<std::int16_t>(
                 world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+            const auto& pet = world::detail::gPetRuntimeRecords[selected];
             const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
             const char* const description = pet.techniquesD8[technique].description.data();
             if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
@@ -497,7 +497,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
         gLoginWindowRuntime.petTechniqueValueD2F784 = index - 37;
         gLoginWindowRuntime.petTechniqueD2D66C = source;
         const auto selected = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
-        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+        const auto& pet = world::detail::gPetRuntimeRecords[selected];
         const auto targetTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
         const auto sourceTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[source].index);
         const std::uintptr_t socket = platform::gConnectionSocket;

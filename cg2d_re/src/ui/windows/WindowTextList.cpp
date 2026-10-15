@@ -351,7 +351,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     std::int32_t imageNo = 243048;
     if (login::detail::Sub_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
-        if ((static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
+        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
             gCurrentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -487,7 +487,7 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowLineScrollCF46B8;
         gWindowLineScrollCF46B8 =
             WindowScroll_ApplyWheel(&gCurrentWindow->elements[index - 5], position, count - 9, wheel);

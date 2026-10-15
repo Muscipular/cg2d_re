@@ -158,7 +158,7 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].flags6AA;
+        const std::uint16_t flags = world::detail::gPetRuntimeRecords[pet].flags6AA;
         if (flags == 2 || flags == 1) {
             --remaining;
             if (remaining < 0) {
@@ -206,10 +206,10 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     } else {
         const std::int32_t kind = WindowDrag_ReadKind();
         if (kind == 2) {
-            if (WindowDrag_ReadFocusWindowId() == 27 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+            if (WindowDrag_ReadFocusWindowId() == 27 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
                 static_cast<void>(WindowDrag_ResetMouse());
             }
-        } else if (kind == 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             gCurrentWindow->state |= 0x8000u;
         }
     }
@@ -447,7 +447,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         gBattleItemPageCB01E0 = 0;
     }
     gBattleBackpackHover57E430 = hovered;
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 27 || WindowDrag_ReadFocusWindowId() == 0) {
             const auto& item = items[hovered + 8];
             bool useItem = false;
@@ -549,7 +549,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             const auto& item = items[hovered + 8];
             if (item.used != 0) {
                 const std::int32_t pages = item.pages;
@@ -705,7 +705,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
-        const std::int32_t slots = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].values6D8[0];
+        const std::int32_t slots = world::detail::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, -24);
@@ -820,7 +820,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
         }
         gHoverTextD68AE8 = hint;
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0 && hovered >= 0 && item->used != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0 && hovered >= 0 && item->used != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
             if (hovered == 2 || hovered == 3) {
                 std::int32_t weapons = 0;
@@ -857,7 +857,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             if (item->used != 0) {
                 ++gBattleItemPageCB01E0;
                 if (gBattleItemPageCB01E0 >= item->pages) {

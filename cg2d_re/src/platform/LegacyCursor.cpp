@@ -66,41 +66,41 @@ void UpdatePulse(
     std::uint32_t& anchor)
 {
     if (elapsed <= 500) {
-        const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = 0;
-        BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~bit;
+        gLegacyMouseState.pulseButtons = pulseButtons & ~bit;
         return;
     }
 
     const std::uint32_t currentAnchor = anchor;
     if (currentAnchor == 0) {
-        const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = elapsed;
-        BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | bit;
+        gLegacyMouseState.pulseButtons = pulseButtons | bit;
         return;
     }
 
     const std::uint32_t repeatElapsed = elapsed - currentAnchor;
     if (bit == 0x02u) {
         // 原右侧 506EE5：先保存 pulse，再判断重复间隔并发布锚点。
-        const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         if (repeatElapsed >= 100) {
             anchor = elapsed;
-            BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | bit;
+            gLegacyMouseState.pulseButtons = pulseButtons | bit;
         } else {
-            BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~bit;
+            gLegacyMouseState.pulseButtons = pulseButtons & ~bit;
         }
         return;
     }
 
     if (repeatElapsed >= 100) {
-        const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = elapsed;
-        BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | bit;
+        gLegacyMouseState.pulseButtons = pulseButtons | bit;
         return;
     }
 
-    BorrowLegacyMouseStateStorage()->pulseButtons &= ~bit;
+    gLegacyMouseState.pulseButtons &= ~bit;
 }
 
 login::detail::GraphicDescriptor16 MakeCursorDescriptor()
@@ -121,10 +121,10 @@ void DrawTableCursor()
 
     const std::uint32_t imageState = gValueD68DC4;
     const std::int32_t image = ReadCursorImage(imageState);
-    const std::int32_t mouseY = (BorrowLegacyMouseStateStorage()->mouseY + 16);
+    const std::int32_t mouseY = (gLegacyMouseState.mouseY + 16);
     const std::uint32_t yState = gValueD68DC4;
     const std::int32_t y = mouseY + ReadCursorOffsetY(yState);
-    const std::int32_t mouseX = (BorrowLegacyMouseStateStorage()->mouseX + 16);
+    const std::int32_t mouseX = (gLegacyMouseState.mouseX + 16);
     const std::uint32_t xState = gValueD68DC4;
     const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
@@ -152,9 +152,9 @@ void UpdateNativeCursor()
 
     gValueD68BE8 = gValueD68DC4;
 
-    if (BorrowLegacyMouseStateStorage()->drawingSuppression == 0) {
-        const std::int32_t y = (BorrowLegacyMouseStateStorage()->mouseY + 16);
-        const std::int32_t x = (BorrowLegacyMouseStateStorage()->mouseX + 16);
+    if (gLegacyMouseState.drawingSuppression == 0) {
+        const std::int32_t y = (gLegacyMouseState.mouseY + 16);
+        const std::int32_t x = (gLegacyMouseState.mouseX + 16);
         login::detail::DrawGraphic(
             x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);
     }
@@ -184,40 +184,40 @@ std::int32_t RequestCursorState_506DE0(
 // 原函数：0x00506DD0。
 void ResetLegacyMouseTail_506DD0()
 {
-    BorrowLegacyMouseStateStorage()->tailReset = 0;
+    gLegacyMouseState.tailReset = 0;
 }
 
 // 原函数：0x00506E00。
 void UpdateCursor_506E00()
 {
-    const std::uint32_t leftDownTick = BorrowLegacyMouseStateStorage()->leftDownTick;
-    BorrowLegacyMouseStateStorage()->edgeButtons = 0;
+    const std::uint32_t leftDownTick = gLegacyMouseState.leftDownTick;
+    gLegacyMouseState.edgeButtons = 0;
 
     std::uint32_t leftElapsed;
     if (leftDownTick != 0) {
         const std::uint32_t now = ReadTickCount32();
-        leftElapsed = now - BorrowLegacyMouseStateStorage()->leftDownTick;
-        BorrowLegacyMouseStateStorage()->leftElapsed = leftElapsed;
+        leftElapsed = now - gLegacyMouseState.leftDownTick;
+        gLegacyMouseState.leftElapsed = leftElapsed;
     } else {
-        leftElapsed = BorrowLegacyMouseStateStorage()->leftElapsed;
+        leftElapsed = gLegacyMouseState.leftElapsed;
     }
 
     std::uint32_t rightElapsed;
-    if (BorrowLegacyMouseStateStorage()->rightDownTick != 0) {
+    if (gLegacyMouseState.rightDownTick != 0) {
         const std::uint32_t now = ReadTickCount32();
-        rightElapsed = now - BorrowLegacyMouseStateStorage()->rightDownTick;
+        rightElapsed = now - gLegacyMouseState.rightDownTick;
         // 原 506E43 在发布 rightElapsed 前重新保存左侧样本。
-        leftElapsed = BorrowLegacyMouseStateStorage()->leftElapsed;
-        BorrowLegacyMouseStateStorage()->rightElapsed = rightElapsed;
+        leftElapsed = gLegacyMouseState.leftElapsed;
+        gLegacyMouseState.rightElapsed = rightElapsed;
     } else {
-        rightElapsed = BorrowLegacyMouseStateStorage()->rightElapsed;
+        rightElapsed = gLegacyMouseState.rightElapsed;
     }
 
     UpdatePulse(leftElapsed, 0x01u, gValueD68DC8);
     UpdatePulse(rightElapsed, 0x02u, gValueD68BF0);
 
     if (gValueD67AE4 == 0) {
-        if (BorrowLegacyMouseStateStorage()->drawingSuppression == 0) {
+        if (gLegacyMouseState.drawingSuppression == 0) {
             DrawTableCursor();
         }
     } else {

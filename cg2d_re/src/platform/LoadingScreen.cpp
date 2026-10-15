@@ -45,7 +45,7 @@ std::int32_t InitLoading_457B10()
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        if ((static_cast<std::uint8_t>(BorrowLegacyMouseStateStorage()->edgeButtons) & 3u) != 0
+        if ((static_cast<std::uint8_t>(gLegacyMouseState.edgeButtons) & 3u) != 0
             || (gKeyStates[13] & 2u) != 0
             || (gKeyStates[32] & 2u) != 0
             || (gKeyStates[27] & 2u) != 0) {
@@ -298,14 +298,14 @@ std::int32_t InitLoading_457B10()
             }
             break;
         case 30:
-            BorrowLegacyMouseStateStorage()->drawingSuppression = 1;
+            gLegacyMouseState.drawingSuppression = 1;
             image = 99304;
             static_cast<void>(render::SelectPalette(38, 60));
             phase = 31;
             break;
         case 31: {
             const std::int32_t changing = render::gPaletteChanging;
-            BorrowLegacyMouseStateStorage()->drawingSuppression = 1;
+            gLegacyMouseState.drawingSuppression = 1;
             if (changing == 0) {
                 phaseTick = ReadTickCount32();
                 phase = 32;
@@ -313,7 +313,7 @@ std::int32_t InitLoading_457B10()
             break;
         }
         case 32: {
-            BorrowLegacyMouseStateStorage()->drawingSuppression = 1;
+            gLegacyMouseState.drawingSuppression = 1;
             const std::uint32_t now = ReadTickCount32();
             if (phaseTick + 2000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
@@ -325,7 +325,7 @@ std::int32_t InitLoading_457B10()
             static_cast<void>(render::SelectPalette(19, 0));
             std::int32_t mapped;
             static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
-            BorrowLegacyMouseStateStorage()->drawingSuppression = 0;
+            gLegacyMouseState.drawingSuppression = 0;
             phase = mapped < 1 ? 13 : 17;
             break;
         }

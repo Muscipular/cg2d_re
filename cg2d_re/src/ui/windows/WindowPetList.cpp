@@ -360,7 +360,7 @@ static std::int32_t WindowPetList_SubmitStates()
 {
     std::array<std::int32_t, 5> values;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].follow6D4;
+        const std::int32_t follow = world::detail::gPetRuntimeRecords[slot].follow6D4;
         const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[slot];
         values[slot] = state;
         if (follow != 0) {
@@ -401,7 +401,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         }
         if ((events & 2u) != 0) {
             const std::int16_t selected = petIndex(row);
-            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+            const auto& pet = world::detail::gPetRuntimeRecords[selected];
             if (pet.used != 0) {
                 WindowInstance* const detailsWindow = gWindowStates[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
@@ -423,7 +423,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
             consumed = 1;
         } else if ((events & 1u) != 0 && (events & 4u) != 0) {
             const std::int16_t selected = petIndex(row);
-            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used != 0) {
+            if (world::detail::gPetRuntimeRecords[selected].used != 0) {
                 static_cast<void>(WindowPetDrag_Start(selected, 0));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -449,7 +449,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         }
         if ((state & 1) != 0) {
             setImage(0x3B588);
-            const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(row)].follow6D4;
+            const std::int32_t follow = world::detail::gPetRuntimeRecords[petIndex(row)].follow6D4;
             gHoverTextD68AE8 = follow != 0 ? L"無法將此寵物帶在身後散步。" /* 原常量参考：0x00586CF0。 */ : L"將此寵物帶在身後散步。" /* 原常量参考：0x00586CD8。 */;
             consumed = 1;
         }
@@ -457,21 +457,21 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].follow6D4 != 0) {
+        if (world::detail::gPetRuntimeRecords[selected].follow6D4 != 0) {
             static_cast<void>(WindowPetList_SendStates(states));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }
         std::int32_t followCount = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
-            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].follow6D4 != 0) {
+            if (world::detail::gPetRuntimeRecords[petIndex(position)].follow6D4 != 0) {
                 ++followCount;
             }
         }
         if (followCount > 0) {
             return consumed;
         }
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].values70[10] < 60) {
+        if (world::detail::gPetRuntimeRecords[selected].values70[10] < 60) {
             world::detail::Sub_44B050(L"寵物忠誠度需達到60以上才可以帶它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
@@ -595,7 +595,7 @@ static void WindowPetList_RefreshStates()
     gLoginWindowRuntime.valuesCC4CE8[1] = -1;
     gLoginWindowRuntime.countCC4CFC = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
+        const auto& pet = world::detail::gPetRuntimeRecords[slot];
         const std::int32_t state = std::bit_cast<std::int16_t>(pet.flags6AA);
         gLoginWindowRuntime.valuesCC1A18[slot] = state;
         if (state == 2) {
@@ -624,7 +624,7 @@ static void WindowPetList_RefreshAttributeBar(
     }
     const std::int16_t petIndex = std::bit_cast<std::int16_t>(pair->index);
     const std::int32_t segments =
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].values70[21 + attribute] / 10;
+        world::detail::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
     const auto show = [](const std::int32_t element, const std::int32_t image) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
         gCurrentWindow->elements[element].visible = 1;
@@ -665,7 +665,7 @@ static void WindowPetList_Refresh()
         const std::int16_t initialIndex = petIndex();
         WindowInstance* const initialWindow = gCurrentWindow;
         const std::int32_t textBase = 1 + row * 5;
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[initialIndex].used == 0) {
+        if (world::detail::gPetRuntimeRecords[initialIndex].used == 0) {
             initialWindow->elements[textBase].visible = 0;
             for (std::int32_t column = 1; column < 5; ++column) {
                 gCurrentWindow->elements[textBase + column].visible = 0;
@@ -693,11 +693,11 @@ static void WindowPetList_Refresh()
             gCurrentWindow->elements[226 + row].visible = 1;
         }
         const std::int16_t loyaltyIndex = petIndex();
-        const bool canSelect = (*world::detail::BorrowPetRuntimeF633F8Storage())[loyaltyIndex].values70[10] == 100
+        const bool canSelect = world::detail::gPetRuntimeRecords[loyaltyIndex].values70[10] == 100
             || gLoginWindowRuntime.valuesCC1A18[loyaltyIndex] == 3;
         gCurrentWindow->elements[241 + row].visible = canSelect ? 1 : 0;
 
-        const auto& namePet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()];
+        const auto& namePet = world::detail::gPetRuntimeRecords[petIndex()];
         const char* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         WindowElement* const nameElements = gCurrentWindow->elements;
@@ -709,21 +709,21 @@ static void WindowPetList_Refresh()
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
         static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->style.color =
             colorState == 3 ? std::byte{7} : std::byte{0};
-        cg::text::FormatTo(buffer, L"{:3}", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
+        cg::text::FormatTo(buffer, L"{:3}", world::detail::gPetRuntimeRecords[petIndex()].value08);
         copyNumber(textBase + 1);
-        const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[1].value();
-        const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[0].value();
+        const std::int32_t maxHp = world::detail::gPetRuntimeRecords[petIndex()].values0C[1].value();
+        const std::int32_t hp = world::detail::gPetRuntimeRecords[petIndex()].values0C[0].value();
         cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         copyNumber(textBase + 2);
-        const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[3].value();
-        const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[2].value();
+        const std::int32_t maxFp = world::detail::gPetRuntimeRecords[petIndex()].values0C[3].value();
+        const std::int32_t fp = world::detail::gPetRuntimeRecords[petIndex()].values0C[2].value();
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
         WindowInstance* const tribeWindow = gCurrentWindow;
         const std::int16_t tribe =
-            std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[tribeIndex].value04);
+            std::bit_cast<std::int16_t>(world::detail::gPetRuntimeRecords[tribeIndex].value04);
         WindowElement* const tribeElements = tribeWindow->elements;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[textBase + 4].data);
@@ -738,7 +738,7 @@ static void WindowPetList_Refresh()
         if (WindowPet_HasSkill25600(petIndex()) == 1) {
             const std::int16_t followIndex = petIndex();
             WindowInstance* const followWindow = gCurrentWindow;
-            const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[followIndex].follow6D4;
+            const std::int32_t follow = world::detail::gPetRuntimeRecords[followIndex].follow6D4;
             static_cast<WindowGraphicData*>(followWindow->elements[226 + row].data)->imageNo =
                 follow != 0 ? 0x3B586 : 0x3B587;
         } else {

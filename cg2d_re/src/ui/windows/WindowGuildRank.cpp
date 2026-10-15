@@ -241,7 +241,7 @@ static std::uint32_t WindowGuildRank_Refresh()
 static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t position = gLoginWindowRuntime.mailRankScrollCA0474;

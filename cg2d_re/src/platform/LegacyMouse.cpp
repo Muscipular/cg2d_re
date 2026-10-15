@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "../LoginMessageDependencies.hpp"
+#include "../world/WorldObjectState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/AnimationRuntime.hpp"
@@ -11,24 +12,17 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
-#include "cg/world/WorldObjects.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 
+#include <array>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <locale>
-#include <optional>
 #include <type_traits>
 
 namespace cg::platform {
 
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<LegacyMouseState>& BorrowLegacyMouseStateStorage()
-{
-    static std::optional<LegacyMouseState> storage;
-    return storage;
-} // 原全局：0x00D68CF8。
 std::uint32_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
 std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
@@ -50,22 +44,19 @@ LegacyCryptInt gProtectionChecksum2{}; // 原全局：0x00594080。
 // 原0x004041A0／0x004041B0／0x004041D0：原中央位置直接构造，MSVC承接逆序析构。
 LegacyCryptInt gProtectionProcessState{}; // 原全局：0x0059E548。
 
+} // namespace cg::platform
+
+namespace cg::world::detail {
+
+// 原CRT553014，原0x0043D760／0x0043D770／0x0043D7A0：原中央位置直接构造及逆序析构。
+// 原0x0053C45E／0x0053C4E0／0x0053C560／0x005405F5：数组寿命及完成前缀清理由C++／MSVC承接。
+// 原0x0043D7C0／0x0043D810：千项各两CryptInt按成员声明序构造、退出双逆序。
+std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects{}; // 原全局：0x005AC4C0。
+
+} // namespace cg::world::detail
+
+namespace cg::platform {
 namespace {
-
-struct WorldObjectsStaticInitializer final {
-    WorldObjectsStaticInitializer()
-    {
-        // 原0x0043D760：原生拥有者接管构造及退出登记。
-        cg::world::ConstructWorldObjects();
-    }
-
-    ~WorldObjectsStaticInitializer()
-    {
-        cg::world::DestroyWorldObjects();
-    }
-};
-
-const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
 // AIS01原553018/55301C：世界表后、宿主窄宽流配置前，同一TU有序初始化。
 struct SurfaceTransformCacheStartup final {
@@ -292,15 +283,28 @@ const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
 // 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。
 const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
 
-// 原函数：0x00506340；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::MouseRuntimeStartup gMouseRuntimeStartup;
+} // namespace
 
-// 原CRT表5530FC/553100紧接鼠标5530F8，退出按声明逆序。
-// 原函数：0x005183D0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::PlayerRuntimeValuesStartup gPlayerRuntimeValuesStartup;
+// 原CRT5530F8，原0x00506340／0x00506350／0x00506370：同一中央位置直接定义。
+// 原0x00506460／0x00506530／0x00506380：X→Y→八坐标构造，退出成员逆序。
+LegacyMouseState gLegacyMouseState{}; // 原全局：0x00D68CF8。
 
-// 原函数：0x00518520；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::PetRuntimeValuesStartup gPetRuntimeValuesStartup;
+} // namespace cg::platform
+
+namespace cg::world::detail {
+
+// 原CRT5530FC，原0x005183D0／0x005183E0／0x00518400：紧接鼠标，原生逆序析构。
+// 原0x005184A0／0x00518410：六CryptInt原声明序构造，普通字段保留零初值。
+PlayerRuntimeSlots gPlayerRuntimeSlots{}; // 原全局：0x00FDA700。
+
+// 原CRT553100，原0x00518520／0x00518530／0x00518560：紧接玩家，独立于摊位浏览宠物。
+// 原0x004CD360／0x004CD2D0：五元素各六成员构造；退出元素及成员逆序。
+std::array<PetRuntimeRecord, 5> gPetRuntimeRecords{}; // 原全局：0x00F633F8。
+
+} // namespace cg::world::detail
+
+namespace cg::platform {
+namespace {
 
 // AIS01原553104/553108：主/宠物后，旧键盘排除项前，不混入待接标准流。
 struct IndependentPaletteContainersStartup final {
@@ -348,40 +352,10 @@ const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164; // �
 
 } // namespace
 
-namespace {
-
-// 原506350固定D68CF8→506460；仅十个CryptInt按原序构造，不动鼠标其他字段。
-LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
-{
-    // 原0x00506460、0x00506530：十成员正序构造及异常时的已完成前缀清理由C++承接。
-    return &BorrowLegacyMouseStateStorage().emplace().mouseX;
-}
-
-// 原506370固定D68CF8→506380；整体退出按八坐标/Y/X逆序，只原析构动作。
-void ReleaseLegacyMouseRuntimeAtExit_506370()
-{
-    // 原0x00506380：八坐标、Y、X由成员析构自动逆序清理。
-    BorrowLegacyMouseStateStorage().reset();
-}
-
-} // namespace
-
-// 原函数：0x00506340；LCI01启动拥有者替代CRT构造／退出登记。
-MouseRuntimeStartup::MouseRuntimeStartup()
-{
-    ConstructLegacyMouseRuntime_506350();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-MouseRuntimeStartup::~MouseRuntimeStartup()
-{
-    ReleaseLegacyMouseRuntimeAtExit_506370();
-}
-
 // 原函数：0x00506870。
 std::int32_t ResetLegacyMouseState_506870()
 {
-    auto& state = *BorrowLegacyMouseStateStorage();
+    auto& state = gLegacyMouseState;
     const LegacyCryptInt::RawPayload zero{};
     state.mouseX.RestoreRaw(zero);
     state.mouseY.RestoreRaw(zero);
@@ -399,9 +373,9 @@ std::int32_t ResetLegacyMouseState_506870()
 // 原函数：0x00506890。
 void ResetLegacyMousePosition_506890(const std::int32_t x, const std::int32_t y)
 {
-    BorrowLegacyMouseStateStorage()->mouseX = static_cast<std::int32_t>(x);
+    gLegacyMouseState.mouseX = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->mouseY = static_cast<std::int32_t>(y);
+    gLegacyMouseState.mouseY = static_cast<std::int32_t>(y);
 }
 
 // 原函数：0x00506900。
@@ -409,20 +383,20 @@ std::int32_t UpdateLegacyMouseLeftDown_506900(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 1u;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 1u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 1u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 1u;
+    gLegacyMouseState.heldButtons = heldButtons | 1u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[0] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[0] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[1] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[1] = static_cast<std::int32_t>(y);
 
     const std::uint32_t tick = ReadTickCount32();
-    BorrowLegacyMouseStateStorage()->leftDownTick = tick;
-    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
+    gLegacyMouseState.leftDownTick = tick;
+    gLegacyMouseState.leftElapsed = 0;
 
     const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 0);
     if (result < gLegacyMouseTrackerThreshold) {
@@ -437,19 +411,19 @@ std::int32_t UpdateLegacyMouseLeftUp_5069E0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons & ~1u;
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 4u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~1u;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    gLegacyMouseState.heldButtons = heldButtons & ~1u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 4u;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[2] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[2] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[3] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[3] = static_cast<std::int32_t>(y);
 
-    BorrowLegacyMouseStateStorage()->leftDownTick = 0;
-    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
+    gLegacyMouseState.leftDownTick = 0;
+    gLegacyMouseState.leftElapsed = 0;
     return 0;
 }
 
@@ -458,20 +432,20 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 1u;
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 0x11u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 1u;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    gLegacyMouseState.heldButtons = heldButtons | 1u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[0] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[0] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[1] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[1] = static_cast<std::int32_t>(y);
 
     const std::uint32_t tick = ReadTickCount32();
-    BorrowLegacyMouseStateStorage()->leftDownTick = tick;
-    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
+    gLegacyMouseState.leftDownTick = tick;
+    gLegacyMouseState.leftElapsed = 0;
     return tick;
 }
 
@@ -480,20 +454,20 @@ std::int32_t UpdateLegacyMouseRightDown_506B50(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 2u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 2u;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 2u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    gLegacyMouseState.heldButtons = heldButtons | 2u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
+    gLegacyMouseState.edgeButtons = edgeButtons | 2u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[4] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[4] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[5] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[5] = static_cast<std::int32_t>(y);
 
     const std::uint32_t tick = ReadTickCount32();
-    BorrowLegacyMouseStateStorage()->rightDownTick = tick;
-    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
+    gLegacyMouseState.rightDownTick = tick;
+    gLegacyMouseState.rightElapsed = 0;
 
     const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 1);
     if (result < gLegacyMouseTrackerThreshold) {
@@ -508,19 +482,19 @@ std::int32_t UpdateLegacyMouseRightUp_506C40(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons & ~2u;
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 8u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~2u;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    gLegacyMouseState.heldButtons = heldButtons & ~2u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 8u;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[6] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[6] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[7] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[7] = static_cast<std::int32_t>(y);
 
-    BorrowLegacyMouseStateStorage()->rightDownTick = 0;
-    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
+    gLegacyMouseState.rightDownTick = 0;
+    gLegacyMouseState.rightElapsed = 0;
     return 0;
 }
 
@@ -529,27 +503,27 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
-    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
-    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 2u;
-    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
-    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 0x22u;
-    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 2u;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    gLegacyMouseState.heldButtons = heldButtons | 2u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[4] = static_cast<std::int32_t>(x);
+    gLegacyMouseState.buttonCoordinates[4] = static_cast<std::int32_t>(x);
 
-    BorrowLegacyMouseStateStorage()->buttonCoordinates[5] = static_cast<std::int32_t>(y);
+    gLegacyMouseState.buttonCoordinates[5] = static_cast<std::int32_t>(y);
 
     const std::uint32_t tick = ReadTickCount32();
-    BorrowLegacyMouseStateStorage()->rightDownTick = tick;
-    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
+    gLegacyMouseState.rightDownTick = tick;
+    gLegacyMouseState.rightElapsed = 0;
     return tick;
 }
 
 // 原函数：0x00506DB0。
 std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 {
-    BorrowLegacyMouseStateStorage()->tailReset += static_cast<std::uint32_t>(delta);
+    gLegacyMouseState.tailReset += static_cast<std::uint32_t>(delta);
     return delta;
 }
 
@@ -557,18 +531,18 @@ std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 
 namespace cg::login::detail {
 
-std::uint32_t& gValueD68D98 = platform::BorrowLegacyMouseStateStorage()->heldButtons; // 原全局：0x00D68D98。
-std::uint32_t& gValueD68D9C = platform::BorrowLegacyMouseStateStorage()->edgeButtons; // 原全局：0x00D68D9C。
-std::uint32_t& gValueD68DA0 = platform::BorrowLegacyMouseStateStorage()->pulseButtons; // 原全局：0x00D68DA0。
+std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons; // 原全局：0x00D68D98。
+std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons; // 原全局：0x00D68D9C。
+std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons; // 原全局：0x00D68DA0。
 
 std::int32_t ReadLegacyMouseX()
 {
-    return platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+    return platform::gLegacyMouseState.mouseX.value();
 }
 
 std::int32_t ReadLegacyMouseY()
 {
-    return platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+    return platform::gLegacyMouseState.mouseY.value();
 }
 
 } // namespace cg::login::detail

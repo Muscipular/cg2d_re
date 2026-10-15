@@ -783,14 +783,14 @@ std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
 // 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
 static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
 {
-    const auto edge = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+    const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
     if ((edge & 1u) != 0) {
         events |= 0x02;
     }
     if ((edge & 2u) != 0) {
         events |= 0x04;
     }
-    const auto held = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->heldButtons);
+    const auto held = static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons);
     if ((held & 1u) != 0) {
         events |= 0x08;
     }
@@ -803,7 +803,7 @@ static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
     if ((edge & 0x20u) != 0) {
         events |= 0x200;
     }
-    const auto pulse = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->pulseButtons);
+    const auto pulse = static_cast<std::uint8_t>(platform::gLegacyMouseState.pulseButtons);
     if ((pulse & 1u) != 0) {
         events |= 0x400;
     }
@@ -1049,7 +1049,7 @@ static std::int32_t WindowPet_DrawTooltip(
     descriptor.bytes[13] = 4;
     const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
-    world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
+    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[index];
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -1130,7 +1130,7 @@ static void WindowPetDrag_Handle(
     }
     const std::int32_t kind = WindowItem_ClassifyPetSlot(sourceIndex);
     if (kind == 1) {
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[sourceIndex].used == 0) {
+        if (world::detail::gPetRuntimeRecords[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 2) {
@@ -1141,26 +1141,26 @@ static void WindowPetDrag_Handle(
         }
     }
     const std::int32_t clickMode = gPetDragModeD2EA1C;
-    const auto clicked = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+    const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
     if (clickMode == 0) {
         if ((clicked & 2u) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+                platform::gLegacyMouseState.mouseX.value()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+                platform::gLegacyMouseState.mouseY.value()));
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
     } else {
         if ((clicked & 1u) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+                platform::gLegacyMouseState.mouseX.value()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+                platform::gLegacyMouseState.mouseY.value()));
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             WindowDrag_Cancel();
         }
     }
@@ -1170,30 +1170,30 @@ static void WindowPetDrag_Handle(
         const std::int32_t drawKind = WindowItem_ClassifyPetSlot(sourceIndex);
         if (drawKind == 1) {
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
+                (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
+                (platform::gLegacyMouseState.mouseX - 120)));
             WindowBank_DrawOwnPetTooltip(x, y, sourceIndex, 5);
         } else if (drawKind == 2) {
             const std::int32_t slot = sourceIndex - 100;
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
+                (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
+                (platform::gLegacyMouseState.mouseX - 120)));
             WindowBank_DrawStoredPetTooltip(x, y, slot, 5);
         } else {
             return;
         }
         const std::int32_t y =
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+            platform::gLegacyMouseState.mouseY.value();
         const std::int32_t x =
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+            platform::gLegacyMouseState.mouseX.value();
         static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && WindowItem_ClassifyPetSlot(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+            platform::gLegacyMouseState.mouseX.value()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+            platform::gLegacyMouseState.mouseY.value()));
         static_cast<void>(WindowPet_DrawTooltip(x, y, sourceIndex, 5, 230, color));
     }
 }
@@ -1234,7 +1234,7 @@ static void WindowItemDrag_Handle(
     if (kind == 1) {
         const world::detail::PlayerItemRecord* item;
         if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
-            item = &(*world::detail::BorrowPetRuntimeF633F8Storage())[
+            item = &world::detail::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
             item = &world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex];
@@ -1254,15 +1254,15 @@ static void WindowItemDrag_Handle(
             static_cast<void>(WindowDrag_ResetMouse());
         }
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+            platform::gLegacyMouseState.mouseX.value()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+            platform::gLegacyMouseState.mouseY.value()));
         static_cast<void>(WindowDrag_StartAtPosition(2, sourceIndex, x, y, WindowItemDrag_Handle));
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -1273,7 +1273,7 @@ static void WindowItemDrag_Handle(
         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
         drawDescriptor = &descriptor;
         if (mode > 0) {
-            imageNo = (*world::detail::BorrowPetRuntimeF633F8Storage())[
+            imageNo = world::detail::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
         } else {
             imageNo = world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].imageNo;
@@ -1289,9 +1289,9 @@ static void WindowItemDrag_Handle(
         return;
     }
     const std::int32_t y =
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        platform::gLegacyMouseState.mouseX.value();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
@@ -1323,10 +1323,10 @@ std::uint8_t WindowInput_HandleNumber(
     // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
     const auto hit = [](const std::int32_t left, const std::int32_t top,
                        const std::int32_t right, const std::int32_t bottom) {
-        return (static_cast<std::int32_t>(left) <= platform::BorrowLegacyMouseStateStorage()->mouseX)
-            && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(right))
-            && (static_cast<std::int32_t>(top) <= platform::BorrowLegacyMouseStateStorage()->mouseY)
-            && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(bottom));
+        return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
+            && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
     };
     std::int32_t selected = -1;
     for (std::int32_t row = 0; row < 3; ++row) {
@@ -1740,7 +1740,7 @@ static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
     state->elements00[16]->visible = 1;
     const std::int32_t itemSlots =
         state->value3ED != 0 && world::IsValidPetIndex_51C410(state->selectedPet70)
-        ? (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0] : 0;
+        ? world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0] : 0;
     for (std::int32_t position = itemSlots; position < 6; ++position) {
         state->elements00[9 + position]->visible = 1;
     }
@@ -1775,7 +1775,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
+            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(state, 0));
         }
     }
@@ -1798,7 +1798,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
             static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
-                     position < (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0];
+                     position < world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
                      ++position) {
                     state->elements00[9 + position]->visible = 1;
                 }
@@ -1865,7 +1865,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
     if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
+            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(state, 0));
         }
     }
@@ -1898,7 +1898,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
     case 3: {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
+            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             *state->mode68 = 0;
         }
         if (*state->mode68 == 0) {
@@ -1960,7 +1960,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
         return;
     }
     const std::int32_t selected = state->selectedPet70;
-    auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
+    auto* const pet = &world::detail::gPetRuntimeRecords[selected];
     if (selected == state->previousPet74 && pet->updated510C == 0) {
         return;
     }
@@ -2034,7 +2034,7 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
         }
         slot = state->hoverIndex3F8;
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
-        item = &(*world::detail::BorrowPetRuntimeF633F8Storage())[pet].items6E4[slot];
+        item = &world::detail::gPetRuntimeRecords[pet].items6E4[slot];
     }
     if (item->used != 0) {
         const auto* const occupancy =
@@ -2085,7 +2085,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
         return selected;
     }
     login::YobiAction* const preview = state->preview;
-    const std::int32_t imageNo = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].imageNo6A0;
+    const std::int32_t imageNo = world::detail::gPetRuntimeRecords[selected].imageNo6A0;
     login::detail::SetYobiActionField2A8(preview, imageNo);
     const std::int32_t result = login::detail::Sub_517880(preview, 100, 0, 0);
     const std::int32_t graphicIndex = login::detail::GetYobiActionField20(preview);
@@ -2119,7 +2119,7 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
         const auto& pair = world::detail::gPetPairsDE0B08[position];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-            const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[index].flags6AA;
+            const std::uint16_t flags = world::detail::gPetRuntimeRecords[index].flags6AA;
             if (flags == 2 || flags == 1) {
                 ++matched;
             }
@@ -2263,13 +2263,13 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
             }
             const std::int32_t selected = state->selectedPet70;
             std::int32_t position = 0;
-            std::int32_t itemSlots = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].values6D8[0];
+            std::int32_t itemSlots = world::detail::gPetRuntimeRecords[selected].values6D8[0];
             while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
                 state->elements00[9 + position]->visible = visible;
                 const std::int32_t nextSelected = state->selectedPet70;
                 ++position;
-                itemSlots = (*world::detail::BorrowPetRuntimeF633F8Storage())[nextSelected].values6D8[0];
+                itemSlots = world::detail::gPetRuntimeRecords[nextSelected].values6D8[0];
             }
         }
         consumed = true;
@@ -2359,8 +2359,8 @@ bool WindowItemSelector_BorrowSelectedItem(
         return true;
     }
     if (mode > 0 && world::IsValidPetIndex_51C410(state->selectedPet70)) {
-        *items = (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].items6E4.data();
-        *count = (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0];
+        *items = world::detail::gPetRuntimeRecords[state->selectedPet70].items6E4.data();
+        *count = world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
         return true;
     }
     return false;
@@ -2516,14 +2516,14 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
 {
     if (gTooltipSourceD303FC != index) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
@@ -2533,7 +2533,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
     if (petEquipment) {
         const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
         const std::int32_t itemIndex = gTooltipSourceD303FC;
-        record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[itemIndex];
+        record = &world::detail::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {
         record = &world::detail::BorrowPlayerItemsFDA8A4()[index];
     }
@@ -2559,14 +2559,14 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
     const std::int32_t key = index + 100;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -2587,14 +2587,14 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
 {
     if (gTooltipSourceD303FC != 400) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
@@ -3736,11 +3736,11 @@ static std::int32_t WindowRuntime_HitTestRect(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
-    const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(left));
+    const std::int32_t x = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(left));
     if (x < 0 || x >= width) {
         return 0;
     }
-    const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(top));
+    const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(top));
     return y >= 0 && y < height ? 1 : 0;
 }
 
@@ -3879,24 +3879,24 @@ static std::int32_t WindowDrag_Update()
         const std::uint32_t state = window->state;
         if ((state & 2u) == 0) {
             if ((state & 0x800u) != 0) {
-                if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
                     std::int32_t* const x = &window->x;
-                    const std::int32_t deltaX = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
+                    const std::int32_t deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
                     window = gCurrentWindow;
                     std::int32_t* const y = &window->y;
-                    const std::int32_t deltaY = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(window->dragMouseY20));
+                    const std::int32_t deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->dragMouseY20));
                     *y += deltaY;
-                    const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+                    const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.value();
                     gCurrentWindow->dragMouseX1C = mouseX;
-                    const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+                    const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.value();
                     gCurrentWindow->dragMouseY20 = mouseY;
                 } else {
                     window->state = state & ~std::uint32_t{0x800};
                 }
                 result = 2;
                 window = gCurrentWindow;
-            } else if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
                 std::int32_t count = window->secondaryCount;
                 for (std::int32_t index = 0; index < count; ++index) {
                     const WindowDragRect& rect = window->dragRects40[index];
@@ -3911,9 +3911,9 @@ static std::int32_t WindowDrag_Update()
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
                         if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
-                            const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+                            const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.value();
                             gCurrentWindow->dragMouseX1C = mouseX;
-                            const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+                            const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.value();
                             gCurrentWindow->dragMouseY20 = mouseY;
                             gCurrentWindow->state |= 0x800u;
                             result |= 2;
@@ -3942,7 +3942,7 @@ static std::int32_t WindowDrag_Update()
             const std::int32_t x = window->x;
             if (WindowRuntime_HitTestRect(x, y, width, height) != 0) {
                 result |= 1;
-                if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
                     gCurrentWindow->state |= 0x2000u;
                 }
             }
@@ -4009,7 +4009,7 @@ static void WindowRuntime_AdvanceMousePhase()
         const WindowDragCallback callback = gDragCallback57C118;
         if (callback == nullptr) {
             gWindowHasFocusCA0AB4 = 1;
-            *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
+            *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
             return;
         }
         const std::int32_t events = WindowRuntime_AppendMouseEvents(0);
@@ -4023,7 +4023,7 @@ static void WindowRuntime_AdvanceMousePhase()
     case 3:
         gMousePhase57C128 = 4;
         gWindowHasFocusCA0AB4 = 1;
-        *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
         return;
     case 4: {
         const WindowDragCallback callback = gDragCallback57C118;
@@ -4045,7 +4045,7 @@ static void WindowRuntime_AdvanceMousePhase()
         return;
     case 1:
         gWindowHasFocusCA0AB4 = 1;
-        *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
         break;
     default:
         break;
@@ -4064,7 +4064,7 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
     std::int32_t events = 0;
     std::int32_t phase = gMousePhase57C128;
     if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
-        if (static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 0xD4u) {
+        if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
             if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
                 phase = gMousePhase57C128;
                 if (phase == 1 || phase == 4) {
@@ -4085,9 +4085,9 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
             WindowElement* const currentElement = &currentWindow->elements[index];
             if (currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = static_cast<WindowMouseData*>(currentElement->data);
-                data->deltaX = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
+                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
                 WindowInstance* const yWindow = gCurrentWindow;
-                data->deltaY = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
+                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
             }
         }
         phase = gMousePhase57C128;
@@ -4104,7 +4104,7 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
     if (element->visible == 1 && element->mouseCallback(index, events) != 0) {
         phase = gMousePhase57C128;
         auto* const eventByte = reinterpret_cast<unsigned char*>(
-            &platform::BorrowLegacyMouseStateStorage()->valueD68DB4);
+            &platform::gLegacyMouseState.valueD68DB4);
         *eventByte = 0xD4;
         gWindowHasFocusCA0AB4 = 1;
         if (phase == 4) {
@@ -4138,7 +4138,7 @@ std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const 
     if ((std::to_integer<std::uint8_t>(data[0]) & 2u) != 0) {
         WindowInstance* const window = gCurrentWindow;
         WindowElement* const previous = &window->elements[index - 1];
-        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(window->y));
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->y));
         previous->y = y - (previous->height >> 1);
     }
     WindowElement* element = &gCurrentWindow->elements[index];
@@ -4318,7 +4318,7 @@ std::int32_t WindowRuntime_Update()
             if (hasFocus) {
                 const std::int32_t phase = gMousePhase57C128;
                 *reinterpret_cast<unsigned char*>(
-                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 212;
+                    &platform::gLegacyMouseState.valueD68DB4) = 212;
                 const bool releaseDrag = phase == 4;
                 gWindowHasFocusCA0AB4 = 1;
                 if (releaseDrag) {
@@ -4344,10 +4344,10 @@ std::int32_t WindowRuntime_Update()
     const std::int32_t phase = gMousePhase57C128;
     gCurrentWindowIdD67A1C = 0;
     if (phase == 1
-        && static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212u) {
+        && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
         world::detail::gValueC8A780 = 1;
         *reinterpret_cast<unsigned char*>(
-            &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 212;
+            &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
     if (!encodingFailed) { reportedFailure = false; reportedContext = nullptr; reportedText.clear(); }
     return 1;

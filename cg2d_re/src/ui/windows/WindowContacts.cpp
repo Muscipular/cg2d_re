@@ -913,7 +913,7 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
         break;
     }
     const std::int32_t mode = gValueD67B38;
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     const std::int32_t result = WindowScroll_ApplyWheel(
         &gCurrentWindow->elements[17], position, count - (mode == 0 ? 3 : 9), wheel);

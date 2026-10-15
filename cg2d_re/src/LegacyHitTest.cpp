@@ -16,16 +16,16 @@ std::int32_t Sub_5049A0(
     const std::int32_t bottom,
     const std::int32_t layer)
 {
-    if (!(platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(right))) {
+    if (!(platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))) {
         return 0;
     }
-    if (!(static_cast<std::int32_t>(left) <= platform::BorrowLegacyMouseStateStorage()->mouseX)) {
+    if (!(static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)) {
         return 0;
     }
-    if (!(platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(bottom))) {
+    if (!(platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom))) {
         return 0;
     }
-    if (!(static_cast<std::int32_t>(top) <= platform::BorrowLegacyMouseStateStorage()->mouseY)) {
+    if (!(static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)) {
         return 0;
     }
 

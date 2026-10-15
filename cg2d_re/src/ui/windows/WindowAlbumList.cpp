@@ -319,7 +319,7 @@ static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const s
 static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel(window->elements + 2, scroll, 950, wheel);

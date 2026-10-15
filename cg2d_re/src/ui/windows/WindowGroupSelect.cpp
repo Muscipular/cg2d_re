@@ -461,7 +461,7 @@ static std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int3
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = count - 7;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;

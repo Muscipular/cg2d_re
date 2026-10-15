@@ -184,7 +184,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
@@ -348,7 +348,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {

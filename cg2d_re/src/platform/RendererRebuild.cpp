@@ -69,8 +69,8 @@ void RebuildRenderer_466B80()
     }
     resource::ReleaseIndependentPalettes_522C50();
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
-    platform::BorrowLegacyMouseStateStorage()->heldButtons = 0;
-    platform::BorrowLegacyMouseStateStorage()->edgeButtons = 0;
+    platform::gLegacyMouseState.heldButtons = 0;
+    platform::gLegacyMouseState.edgeButtons = 0;
     platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount32());
 }
 

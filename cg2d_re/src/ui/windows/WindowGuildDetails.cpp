@@ -631,7 +631,7 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(const std::int32_t inde
 static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gGuildPageD67B78;

@@ -305,7 +305,7 @@ static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].flags6AA;
+        const std::uint16_t flags = world::detail::gPetRuntimeRecords[pet].flags6AA;
         if (flags == 1 || flags == 2) {
             --remaining;
             if (remaining < 0) {
@@ -428,11 +428,11 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     } else if (mode == 1 || mode == 2) {
         const std::wstring_view* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
-        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY + static_cast<std::int32_t>(top ? 60 : -174));
+            (platform::gLegacyMouseState.mouseY < 240);
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY + static_cast<std::int32_t>(top ? 60 : -174));
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
-        const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX + static_cast<std::int32_t>(left ? 60 : -257));
+            (platform::gLegacyMouseState.mouseX < 320);
+        const std::int32_t x = (platform::gLegacyMouseState.mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(WindowItem_DrawDescriptionLines(
             x, y, cg::text::FromGbkWide(input::LegacyText593850()).c_str(), 0, text, 31, 4, nullptr, 0));
     }
@@ -606,7 +606,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     }
     gInventoryHover57DA2C = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
-        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
             const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
@@ -651,7 +651,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
@@ -841,7 +841,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
     gEquipmentHover57DA68 = hovered;
     if (selectedItem < 0 && hovered >= 0
-        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
             if (item->used != 0 && (*reinterpret_cast<const unsigned char*>(&item->canUseInField) & 1u) != 0) {
                 if (item->imageNo == 26569) {
@@ -890,7 +890,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             if (item->used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
                 ++page;
@@ -977,7 +977,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     if ((events & 0x20u) != 0 && WindowDrag_ReadKind() == 1 && WindowDrag_ReadFocusWindowId() == 14) {
         events |= 1u;
-        if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
             events |= 2u;
         }
     }
@@ -1055,14 +1055,14 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         }
         consumed = 1;
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         leaveSelection();
     }
     const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemCB0A44].imageNo;
     const std::int32_t mouseY =
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        platform::gLegacyMouseState.mouseY.value();
     const std::int32_t mouseX =
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        platform::gLegacyMouseState.mouseX.value();
     static_cast<void>(login::detail::DrawGraphic(mouseX, mouseY, 230, imageNo, 0, &descriptor));
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;

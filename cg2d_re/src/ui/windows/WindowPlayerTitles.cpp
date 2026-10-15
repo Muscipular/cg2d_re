@@ -384,7 +384,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t page = gTitlePageCF4E54;
         gTitlePageCF4E54 = WindowScroll_ApplyWheel(window->elements + 2, page, 58, wheel);

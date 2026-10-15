@@ -93,3 +93,7 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 ## 其余坐标／场景标量直接定义（LCI17，2026-10-15）
 
 [LCI17](cg2d_cryptint_class_spec.md#cryptint-other-direct-globals)将其余15个世界标量／12组启动改为中央原位置直接定义。场景值前后的资源初始化、玩家X→Y→快照X→Y→其余世界状态与波纹门禁顺序保持，各值一次RNG；三组双值退出仍逆序。玩家／宠物复合记录保持现有独立寿命；旧标量CRT／Startup和构析叶仅保历史。当前直接位置及语义／登记同步，不提升编译、整表／异常或运行门禁。
+
+## 世界／玩家／主宠物直接定义（LCI18，2026-10-15）
+
+[LCI18](cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals)将世界千项表、玩家整体及主宠物五项表改为LegacyMouse.cpp原中央位置直接对象。世界表仍在防护值与变换缓存之间，鼠标→玩家→主宠物仍紧邻原启动序；元素／成员正序构造、退出双逆序和各组RNG保持。PlayerRuntimeSlots类型及字段断言移既有WorldUpdateDependencies.hpp，ClearRaw正文仍在SceneState.cpp；运行期清零不重构对象。原WorldObjects.hpp与纯Borrow／optional／启动包装退休，原身份／证据保历史，成员及摊位浏览的现存实现保留。仅静态，不提升异常、SDK或运行门禁。

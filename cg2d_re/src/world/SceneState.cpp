@@ -237,90 +237,6 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9D
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
-// 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
-struct PlayerRuntimeSlots {
-    // 原0x005184A0：成员正序构造及失败前缀清理由C++承接。
-    PlayerRuntimeSlots() = default;
-    // 原0x00518410：成员自动逆序析构。
-    ~PlayerRuntimeSlots() = default;
-    void ClearRaw() noexcept; // 原主数据整块清零，不消费六次构造RNG。
-    std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
-    std::int32_t level; // 原 FDA704。
-    std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
-    std::int32_t timerRemaining0C; // 原成员偏移：+0x0C。 原FDA70C；458F40按帧扣减的S32。
-    std::int32_t timerMode10; // 原成员偏移：+0x10。 原FDA710；保留完整模式，非零才扣减。
-    std::uint32_t timerTick14; // 原成员偏移：+0x14。 原FDA714；50C7A0与458F40同源。
-    platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
-    platform::LegacyCryptInt maxHp; // 原 FDA728。
-    platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
-    platform::LegacyCryptInt maxFp; // 原 FDA748。
-    platform::LegacyCryptInt value58; // 原成员偏移：+0x58。 原 FDA758；5184A0第五构造对象。
-    platform::LegacyCryptInt value68; // 原成员偏移：+0x68。 原 FDA768；5184A0第六构造对象。
-    std::array<std::int32_t, 14> values78; // 原成员偏移：+0x78。 原FDA778..FDA7AC，509650两段数值。
-    std::array<std::int32_t, 2> valuesB0; // 原成员偏移：+0xB0。 原FDA7B0/FDA7B4，509BA0尾部两值。
-    std::int32_t valueB8; // 原成员偏移：+0xB8。 原FDA7B8。
-    std::array<std::int32_t, 6> valuesBC; // 原成员偏移：+0xBC。 原FDA7BC..FDA7D0。
-    std::array<std::int32_t, 4> valuesD4; // 原成员偏移：+0xD4。 原FDA7D4..FDA7E0。
-    std::array<std::int32_t, 4> valuesE4; // 原成员偏移：+0xE4。 原FDA7E4..FDA7F0。
-    std::int32_t valueF4; // 原成员偏移：+0xF4。 原FDA7F4。
-    std::int32_t valueF8; // 原成员偏移：+0xF8。 原FDA7F8。
-    std::int32_t valueFC; // 原成员偏移：+0xFC。 原FDA7FC；与末尾15BCC共用回复门禁。
-    std::int32_t titleIndex100; // 原成员偏移：+0x100。 原FDA800，直接索引FF0508原表。
-    std::int32_t value104; // 原成员偏移：+0x104。 原FDA804。
-    std::array<char, 17> name; // 原 FDA808；旧编码字节。
-    std::array<char, 17> ownTitle; // 原 FDA819。
-    std::array<char, 33> text12A; // 原成员偏移：+0x12A。 原 FDA82A。
-    std::array<char, 33> text14B; // 原成员偏移：+0x14B。 原 FDA84B。
-    std::int32_t value16C; // 原成员偏移：+0x16C。 原FDA86C。
-    std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
-    std::int32_t value174; // 原成员偏移：+0x174。 原 FDA874；46A700仅在到达时按S32递减。
-    std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
-    std::int32_t value17C; // 原成员偏移：+0x17C。 原FDA87C，不与imageNo合并。
-    std::uint32_t objectIndex;
-    std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
-    std::uint16_t value188; // 原成员偏移：+0x188。 原 FDA888；519A80 符号扩展读取。
-    std::uint16_t flags18A; // 原成员偏移：+0x18A。 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
-    std::uint32_t flags18C; // 原成员偏移：+0x18C。 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
-    std::int32_t value190; // 原成员偏移：+0x190。 原 FDA890；51BDD0/51BE50 写入的完整动作值。
-    std::uint16_t options194; // 原成员偏移：+0x194。 原FDA894低W16；选项切换/回复与聊天门禁共用。
-    std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
-    std::array<detail::PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
-    login::YobiAction* action;
-    std::array<char, 17> text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
-    std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
-    std::array<std::int32_t, 3> values15BD0; // 原成员偏移：+0x15BD0。 原FF02D0/FF02D4/FF02D8。
-};
-
-static_assert(offsetof(PlayerRuntimeSlots, flags18C)
-    == offsetof(PlayerRuntimeSlots, flags18A) + sizeof(std::uint16_t));
-
-void PlayerRuntimeSlots::ClearRaw() noexcept
-{
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
-    const platform::LegacyCryptInt::RawPayload zero{};
-    hp.RestoreRaw(zero);
-    maxHp.RestoreRaw(zero);
-    fp.RestoreRaw(zero);
-    maxFp.RestoreRaw(zero);
-    value58.RestoreRaw(zero);
-    value68.RestoreRaw(zero);
-    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
-    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
-    for (auto& item : items) { item = {}; }
-    action = nullptr;
-    text15BB8.fill(0);
-    value15BCC = 0;
-    values15BD0.fill(0);
-}
-
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<PlayerRuntimeSlots>& BorrowPlayerRuntimeStorage()
-{
-    static std::optional<PlayerRuntimeSlots> storage;
-    return storage;
-}
-
 // 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
 struct SkillRuntimeSlots {
     std::array<char, 0x1C> jobName;
@@ -565,13 +481,13 @@ const char* ReadText9DAD30() noexcept
 
 std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->objectIndex;
+    return detail::gPlayerRuntimeSlots.objectIndex;
 }
 
 // 原函数：0x0051BEF0。
 void Sub_51BEF0() noexcept
 {
-    BorrowPlayerRuntimeStorage()->flags18C &= 0xFF7FFFFFu;
+    detail::gPlayerRuntimeSlots.flags18C &= 0xFF7FFFFFu;
 }
 
 std::uint32_t gWorldProjectionSourceA = 0; // 原全局：0x009EE908。
@@ -591,77 +507,10 @@ volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
 static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
 
-namespace {
-
-// 原5183E0固定FDA700→5184A0；六成员沿同一玩家owner，真实this返回。
-PlayerRuntimeSlots* ConstructLegacyPlayerRuntime_5183E0()
-{
-    ConstructPlayerRuntimeValues();
-    return &(*BorrowPlayerRuntimeStorage());
-}
-
-// 原518400固定FDA700→518410；同一六成员逆序，其他玩家字段不动。
-void ReleaseLegacyPlayerRuntimeAtExit_518400()
-{
-    DestroyPlayerRuntimeValues();
-}
-
-} // namespace
-
-// 原函数：0x005183D0；LCI01启动拥有者替代CRT构造／退出登记。
-PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup()
-{
-    ConstructLegacyPlayerRuntime_5183E0();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-PlayerRuntimeValuesStartup::~PlayerRuntimeValuesStartup()
-{
-    ReleaseLegacyPlayerRuntimeAtExit_518400();
-}
-
-// 原函数：0x00518520；LCI01启动拥有者替代CRT构造／退出登记。
-PetRuntimeValuesStartup::PetRuntimeValuesStartup()
-{
-    ConstructPetRuntimeValues();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-PetRuntimeValuesStartup::~PetRuntimeValuesStartup()
-{
-    DestroyPetRuntimeValues();
-}
-
-void ConstructPlayerRuntimeValues()
-{
-    // 原0x005184A0：六成员沿声明顺序各构造一次。
-    BorrowPlayerRuntimeStorage().emplace();
-}
-
-void DestroyPlayerRuntimeValues()
-{
-    // 原0x00518410：六成员由同一聚合逆序析构。
-    BorrowPlayerRuntimeStorage().reset();
-}
-
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
 {
     return index >= 0 && index < 5;
-}
-
-// 原函数：0x00518530。
-void ConstructPetRuntimeValues()
-{
-    // 原0x004CD360：五元素及各六成员的构造由std::array/C++承接。
-    detail::BorrowPetRuntimeF633F8Storage().emplace();
-}
-
-// 原函数：0x00518560。
-void DestroyPetRuntimeValues()
-{
-    // 原0x004CD2D0：同一数组自动逆序结束元素及成员寿命。
-    detail::BorrowPetRuntimeF633F8Storage().reset();
 }
 
 namespace {
@@ -802,6 +651,26 @@ std::uint32_t InitializeAlbum_518C20()
 }
 
 namespace detail {
+
+void PlayerRuntimeSlots::ClearRaw() noexcept
+{
+    auto* const bytes = reinterpret_cast<std::byte*>(this);
+    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
+    const platform::LegacyCryptInt::RawPayload zero{};
+    hp.RestoreRaw(zero);
+    maxHp.RestoreRaw(zero);
+    fp.RestoreRaw(zero);
+    maxFp.RestoreRaw(zero);
+    value58.RestoreRaw(zero);
+    value68.RestoreRaw(zero);
+    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
+    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
+    for (auto& item : items) { item = {}; }
+    action = nullptr;
+    text15BB8.fill(0);
+    value15BCC = 0;
+    values15BD0.fill(0);
+}
 
  // 原全局：0x0073ECD0。
 
@@ -2080,7 +1949,7 @@ std::int32_t Sub_440FF0()
 // 原函数：0x00476680。
 void Sub_476680()
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -2140,7 +2009,7 @@ void Sub_50A3E0(
     if (mask == 0) {
         if (slot.flags != 0) {
             const std::uint32_t objectIndex = slot.objectIndex;
-            if (objectIndex != BorrowPlayerRuntimeStorage()->objectIndex) {
+            if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
                 login::YobiAction* const action =
                     FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
                 if (action != nullptr) {
@@ -2210,7 +2079,7 @@ void Sub_50A3E0(
             slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
     }
     const std::uint32_t objectIndex = slot.objectIndex;
-    if (objectIndex != BorrowPlayerRuntimeStorage()->objectIndex) {
+    if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
         login::YobiAction* const action =
             FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
@@ -2223,7 +2092,7 @@ void Sub_50A3E0(
             slot.action = nullptr;
         }
     } else {
-        slot.action = BorrowPlayerRuntimeStorage()->action;
+        slot.action = detail::gPlayerRuntimeSlots.action;
         Sub_51A5E0();
         if (index == 0) {
             Sub_51A5A0();
@@ -2289,42 +2158,42 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t attachmentImage = std::atoi(field);
 
             login::YobiAction* object;
-            if (static_cast<std::uint32_t>(objectIndex) == BorrowPlayerRuntimeStorage()->objectIndex) {
+            if (static_cast<std::uint32_t>(objectIndex) == detail::gPlayerRuntimeSlots.objectIndex) {
                 const std::int32_t mappedImage =
                     character_select::detail::Sub_51B740(imageNo);
-                if (BorrowPlayerRuntimeStorage()->direction < 0) {
-                    BorrowPlayerRuntimeStorage()->direction = direction;
+                if (detail::gPlayerRuntimeSlots.direction < 0) {
+                    detail::gPlayerRuntimeSlots.direction = direction;
                 }
-                if (BorrowPlayerRuntimeStorage()->action == nullptr) {
+                if (detail::gPlayerRuntimeSlots.action == nullptr) {
                     Sub_519CD0(mappedImage, x, y, direction);
                     Sub_51A4B0();
                 } else {
-                    Sub_519E50(mappedImage, BorrowPlayerRuntimeStorage()->direction);
+                    Sub_519E50(mappedImage, detail::gPlayerRuntimeSlots.direction);
                 }
-                object = BorrowPlayerRuntimeStorage()->action;
+                object = detail::gPlayerRuntimeSlots.action;
                 login::detail::UpdateMapActorMode(
-                    BorrowPlayerRuntimeStorage()->action, mode, attachmentImage);
+                    detail::gPlayerRuntimeSlots.action, mode, attachmentImage);
                 if (mode == 2) {
-                    if ((BorrowPlayerRuntimeStorage()->flags18A & 0x200u) == 0) {
-                        BorrowPlayerRuntimeStorage()->flags18A |= 0x100u;
+                    if ((detail::gPlayerRuntimeSlots.flags18A & 0x200u) == 0) {
+                        detail::gPlayerRuntimeSlots.flags18A |= 0x100u;
                     }
-                } else if (static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->flags18C) == 0) {
-                    BorrowPlayerRuntimeStorage()->flags18A &= 0xFEFFu;
+                } else if (static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.flags18C) == 0) {
+                    detail::gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
                 }
                 gValue9A4B94 &= 0xFDu;
                 static_cast<void>(Sub_468200());
                 Sub_51A090(name, titles, level, value40, flag1, flag2);
-                if ((BorrowPlayerRuntimeStorage()->flags18A & 0x100u) != 0
+                if ((detail::gPlayerRuntimeSlots.flags18A & 0x100u) != 0
                     && gPetMapCharaSlots[0].flags != 0) {
-                    gPetMapCharaSlots[0].level08 = BorrowPlayerRuntimeStorage()->level;
+                    gPetMapCharaSlots[0].level08 = detail::gPlayerRuntimeSlots.level;
                     std::strcpy(
-                        gPetMapCharaSlots[0].name18.data(), BorrowPlayerRuntimeStorage()->name.data());
+                        gPetMapCharaSlots[0].name18.data(), detail::gPlayerRuntimeSlots.name.data());
                 }
                 for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
                     auto& slot = gPetMapCharaSlots[i];
                     if (slot.flags != 0
                         && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-                        slot.action = BorrowPlayerRuntimeStorage()->action;
+                        slot.action = detail::gPlayerRuntimeSlots.action;
                         Sub_51A5E0();
                         if (i == 0) {
                             Sub_51A5A0();
@@ -2455,8 +2324,8 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         const std::int32_t option2 = network::ParseDelimitedInteger_52CFA0(row, '|', 7);
         const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
         const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
-        if (BorrowPlayerRuntimeStorage()->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-            login::YobiAction* const player = BorrowPlayerRuntimeStorage()->action;
+        if (detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+            login::YobiAction* const player = detail::gPlayerRuntimeSlots.action;
             if (player != nullptr && login::detail::GetYobiActionField2A8(player) != 0) {
                 Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
             }
@@ -2487,14 +2356,14 @@ namespace {
 std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
     // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
-    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->options194);
+    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.options194);
     if ((options & mask) != 0) {
-        BorrowPlayerRuntimeStorage()->options194 &= static_cast<std::uint16_t>(~mask);
+        detail::gPlayerRuntimeSlots.options194 &= static_cast<std::uint16_t>(~mask);
     } else {
-        BorrowPlayerRuntimeStorage()->options194 |= mask;
+        detail::gPlayerRuntimeSlots.options194 |= mask;
     }
     // 原473060取样后先读socket再保留低W16；原高W16被丢弃，不借新端下一字段冒充。
-    const std::uint32_t sampledOptions = BorrowPlayerRuntimeStorage()->options194;
+    const std::uint32_t sampledOptions = detail::gPlayerRuntimeSlots.options194;
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
     return network::Sub_511A00(socket, value);
@@ -2510,7 +2379,7 @@ std::int32_t Sub_472F40()
 
 std::uint8_t ReadPlayerOptions194LowByte() noexcept
 {
-    return *reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->options194);
+    return *reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.options194);
 }
 
 // 原函数：0x00472F70。
@@ -2552,7 +2421,7 @@ std::uint32_t Sub_50BFA0(
         return gate;
     }
     const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
-    BorrowPlayerRuntimeStorage()->options194 = static_cast<std::uint16_t>(options);
+    detail::gPlayerRuntimeSlots.options194 = static_cast<std::uint16_t>(options);
     return options;
 }
 
@@ -2561,7 +2430,7 @@ std::uint16_t Sub_50BFC0(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {
     const auto low = static_cast<std::uint16_t>(value);
-    BorrowPlayerRuntimeStorage()->value1A0 = low;
+    detail::gPlayerRuntimeSlots.value1A0 = low;
     return low;
 }
 
@@ -2570,7 +2439,7 @@ std::int32_t Sub_50CF70(
     const std::uintptr_t /*socket*/, const std::int32_t index,
     const std::int32_t value)
 {
-    (*BorrowPetRuntimeF633F8Storage())[index].lvFlag6C = value;
+    gPetRuntimeRecords[index].lvFlag6C = value;
     return index;
 }
 
@@ -2585,10 +2454,10 @@ std::uint32_t Sub_50C7A0(
     }
     const std::int32_t duration = seconds < 0 ? 0 : seconds;
     const std::int32_t firstScale = duration * 5;
-    BorrowPlayerRuntimeStorage()->timerMode10 = mode;
-    BorrowPlayerRuntimeStorage()->timerRemaining0C = firstScale * 5 * 5 * 8;
+    detail::gPlayerRuntimeSlots.timerMode10 = mode;
+    detail::gPlayerRuntimeSlots.timerRemaining0C = firstScale * 5 * 5 * 8;
     const std::uint32_t tick = platform::ReadTickCount32();
-    BorrowPlayerRuntimeStorage()->timerTick14 = tick;
+    detail::gPlayerRuntimeSlots.timerTick14 = tick;
     input::gValue626C14 = 0;
     return tick;
 }
@@ -2725,7 +2594,7 @@ std::int32_t Sub_50C940(
 
 void MarkPlayerChatActive() noexcept
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 0x20u;
 }
 
@@ -2823,8 +2692,8 @@ void Sub_50CAE0(
     if (objectIndex < 0) {
         return;
     }
-    if (BorrowPlayerRuntimeStorage()->action != nullptr
-        && BorrowPlayerRuntimeStorage()->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+    if (detail::gPlayerRuntimeSlots.action != nullptr
+        && detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
         Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
     } else {
         login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
@@ -2850,7 +2719,7 @@ void Sub_50D000(
         gValueFF0D36 = 0;
         static_cast<void>(Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->direction));
+            static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.direction));
         const std::int32_t y = gPlayerSnapshotY.value();
         const std::int32_t x = gPlayerSnapshotX.value();
         static_cast<void>(
@@ -2879,31 +2748,31 @@ std::int32_t Sub_509650(
             ++field;
         }
     };
-    parseCrypt(&BorrowPlayerRuntimeStorage()->hp, 0x3u);
-    parseCrypt(&BorrowPlayerRuntimeStorage()->maxHp, 0x5u);
-    parseCrypt(&BorrowPlayerRuntimeStorage()->fp, 0x9u);
-    parseCrypt(&BorrowPlayerRuntimeStorage()->maxFp, 0x11u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.hp, 0x3u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.maxHp, 0x5u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.fp, 0x9u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.maxFp, 0x11u);
 
     std::uint32_t bit = 0x20u;
     for (std::int32_t index = 0; index < 8; ++index) {
         if ((flags & (bit | 1u)) != 0) {
-            BorrowPlayerRuntimeStorage()->values78[index] =
+            detail::gPlayerRuntimeSlots.values78[index] =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
             ++field;
         }
         bit <<= 1;
     }
-    parseCrypt(&BorrowPlayerRuntimeStorage()->value58, 0x2001u);
-    parseCrypt(&BorrowPlayerRuntimeStorage()->value68, 0x4001u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.value58, 0x2001u);
+    parseCrypt(&detail::gPlayerRuntimeSlots.value68, 0x4001u);
 
     const std::array<std::int32_t*, 12> targets {{
-        &BorrowPlayerRuntimeStorage()->level,
-        &BorrowPlayerRuntimeStorage()->values78[8], &BorrowPlayerRuntimeStorage()->values78[9],
-        &BorrowPlayerRuntimeStorage()->values78[10], &BorrowPlayerRuntimeStorage()->values78[11],
-        &BorrowPlayerRuntimeStorage()->values78[12], &BorrowPlayerRuntimeStorage()->values78[13],
-        &BorrowPlayerRuntimeStorage()->valueB8,
-        &BorrowPlayerRuntimeStorage()->valuesE4[0], &BorrowPlayerRuntimeStorage()->valuesE4[1],
-        &BorrowPlayerRuntimeStorage()->valuesE4[2], &BorrowPlayerRuntimeStorage()->valuesE4[3],
+        &detail::gPlayerRuntimeSlots.level,
+        &detail::gPlayerRuntimeSlots.values78[8], &detail::gPlayerRuntimeSlots.values78[9],
+        &detail::gPlayerRuntimeSlots.values78[10], &detail::gPlayerRuntimeSlots.values78[11],
+        &detail::gPlayerRuntimeSlots.values78[12], &detail::gPlayerRuntimeSlots.values78[13],
+        &detail::gPlayerRuntimeSlots.valueB8,
+        &detail::gPlayerRuntimeSlots.valuesE4[0], &detail::gPlayerRuntimeSlots.valuesE4[1],
+        &detail::gPlayerRuntimeSlots.valuesE4[2], &detail::gPlayerRuntimeSlots.valuesE4[3],
     }};
     bit = 0x8000u;
     for (std::int32_t* const target : targets) {
@@ -2915,12 +2784,12 @@ std::int32_t Sub_509650(
     }
     const std::uint32_t tailGate = flags & 0x8000001u;
     if (tailGate != 0) {
-        BorrowPlayerRuntimeStorage()->valueFC =
+        detail::gPlayerRuntimeSlots.valueFC =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         ++field;
     }
     if ((flags & 0x10000001u) != 0) {
-        BorrowPlayerRuntimeStorage()->titleIndex100 =
+        detail::gPlayerRuntimeSlots.titleIndex100 =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         ++field;
     }
@@ -2929,7 +2798,7 @@ std::int32_t Sub_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 16) {
-            std::strcpy(BorrowPlayerRuntimeStorage()->name.data(), name);
+            std::strcpy(detail::gPlayerRuntimeSlots.name.data(), name);
         }
         ++field;
     }
@@ -2938,14 +2807,14 @@ std::int32_t Sub_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
         input::UnescapeLegacyTextAndNotify_52D2F0(title);
         if (std::strlen(title) <= 16) {
-            std::strcpy(BorrowPlayerRuntimeStorage()->ownTitle.data(), title);
+            std::strcpy(detail::gPlayerRuntimeSlots.ownTitle.data(), title);
         }
         ++field;
     }
     if (tailGate != 0) {
         const std::int32_t result =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        BorrowPlayerRuntimeStorage()->value15BCC = result;
+        detail::gPlayerRuntimeSlots.value15BCC = result;
         return result;
     }
     return 0;
@@ -2961,12 +2830,12 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
     std::int32_t field = 2;
     const std::array<std::int32_t*, 12> firstTargets {{
-        &BorrowPlayerRuntimeStorage()->valuesD4[0], &BorrowPlayerRuntimeStorage()->valuesD4[1],
-        &BorrowPlayerRuntimeStorage()->valuesD4[2], &BorrowPlayerRuntimeStorage()->valuesD4[3],
-        &BorrowPlayerRuntimeStorage()->valuesBC[0], &BorrowPlayerRuntimeStorage()->valuesBC[1],
-        &BorrowPlayerRuntimeStorage()->valuesBC[2], &BorrowPlayerRuntimeStorage()->valuesBC[3],
-        &BorrowPlayerRuntimeStorage()->valuesBC[4], &BorrowPlayerRuntimeStorage()->valuesBC[5],
-        &BorrowPlayerRuntimeStorage()->value104, &BorrowPlayerRuntimeStorage()->valueF4,
+        &detail::gPlayerRuntimeSlots.valuesD4[0], &detail::gPlayerRuntimeSlots.valuesD4[1],
+        &detail::gPlayerRuntimeSlots.valuesD4[2], &detail::gPlayerRuntimeSlots.valuesD4[3],
+        &detail::gPlayerRuntimeSlots.valuesBC[0], &detail::gPlayerRuntimeSlots.valuesBC[1],
+        &detail::gPlayerRuntimeSlots.valuesBC[2], &detail::gPlayerRuntimeSlots.valuesBC[3],
+        &detail::gPlayerRuntimeSlots.valuesBC[4], &detail::gPlayerRuntimeSlots.valuesBC[5],
+        &detail::gPlayerRuntimeSlots.value104, &detail::gPlayerRuntimeSlots.valueF4,
     }};
     std::uint32_t bit = 2;
     for (std::int32_t* const target : firstTargets) {
@@ -2977,13 +2846,13 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
         bit <<= 1;
     }
     if ((flags & 0x2001u) != 0) {
-        BorrowPlayerRuntimeStorage()->value00 = static_cast<std::uint16_t>(
+        detail::gPlayerRuntimeSlots.value00 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(payload, '|', field));
         ++field;
     }
     const std::array<std::int32_t*, 4> middleTargets {{
-        &BorrowPlayerRuntimeStorage()->valueF8, &BorrowPlayerRuntimeStorage()->value08,
-        &BorrowPlayerRuntimeStorage()->value17C, &BorrowPlayerRuntimeStorage()->value16C,
+        &detail::gPlayerRuntimeSlots.valueF8, &detail::gPlayerRuntimeSlots.value08,
+        &detail::gPlayerRuntimeSlots.value17C, &detail::gPlayerRuntimeSlots.value16C,
     }};
     bit = 0x4000u;
     for (std::int32_t* const target : middleTargets) {
@@ -2995,21 +2864,21 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
     }
     if ((flags & 0x40001u) != 0) {
         std::int32_t speed = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        BorrowPlayerRuntimeStorage()->walkSpeed = speed;
+        detail::gPlayerRuntimeSlots.walkSpeed = speed;
         if (speed <= 0) {
             speed = 100;
-            BorrowPlayerRuntimeStorage()->walkSpeed = speed;
+            detail::gPlayerRuntimeSlots.walkSpeed = speed;
         }
-        login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+        login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
         if (action != nullptr) {
             login::detail::SetYobiWalkSpeed(action, speed);
         }
         ++field;
     }
     const std::array<std::int32_t*, 5> lastTargets {{
-        &BorrowPlayerRuntimeStorage()->valuesB0[0], &BorrowPlayerRuntimeStorage()->valuesB0[1],
-        &BorrowPlayerRuntimeStorage()->values15BD0[0], &BorrowPlayerRuntimeStorage()->values15BD0[1],
-        &BorrowPlayerRuntimeStorage()->values15BD0[2],
+        &detail::gPlayerRuntimeSlots.valuesB0[0], &detail::gPlayerRuntimeSlots.valuesB0[1],
+        &detail::gPlayerRuntimeSlots.values15BD0[0], &detail::gPlayerRuntimeSlots.values15BD0[1],
+        &detail::gPlayerRuntimeSlots.values15BD0[2],
     }};
     bit = 0x80000u;
     for (std::int32_t* const target : lastTargets) {
@@ -3333,7 +3202,7 @@ void Sub_518600(
 
 std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4()
 {
-    return BorrowPlayerRuntimeStorage()->items;
+    return detail::gPlayerRuntimeSlots.items;
 } // 原全局：0x00FDA8A4。
 
 namespace {
@@ -3559,7 +3428,7 @@ void Sub_51B630(
         if (firstIndex >= 6) {
             return;
         }
-        firstBase = (*BorrowPetRuntimeF633F8Storage())[firstGroup - 1].items6E4.data();
+        firstBase = gPetRuntimeRecords[firstGroup - 1].items6E4.data();
     }
     if (secondGroup == 0) {
         if (secondIndex >= 28) {
@@ -3570,7 +3439,7 @@ void Sub_51B630(
         if (secondIndex >= 6) {
             return;
         }
-        secondBase = (*BorrowPetRuntimeF633F8Storage())[secondGroup - 1].items6E4.data();
+        secondBase = gPetRuntimeRecords[secondGroup - 1].items6E4.data();
     }
     if (firstBase == nullptr || secondBase == nullptr) {
         return;
@@ -3597,12 +3466,6 @@ void PetRuntimeRecord::ClearRaw() noexcept
     bytes510D.fill(std::byte{0});
 }
 
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<std::array<PetRuntimeRecord, 5>>& BorrowPetRuntimeF633F8Storage()
-{
-    static std::optional<std::array<PetRuntimeRecord, 5>> storage;
-    return storage;
-} // 原全局：0x00F633F8。
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
 std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
 std::uint32_t gValueD67B28 = 0; // 原全局：0x00D67B28。
@@ -3616,7 +3479,7 @@ std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId
     if (index < 0 || index >= 5) {
         return 0;
     }
-    const PetRuntimeRecord& pet = (*BorrowPetRuntimeF633F8Storage())[index];
+    const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
     if (pet.used == 0) {
         return 0;
     }
@@ -3647,7 +3510,7 @@ std::int32_t Sub_52E1D0(const std::int32_t index)
 void Sub_519770(
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {
-    PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[itemIndex];
+    PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
@@ -3682,7 +3545,7 @@ void Sub_510150(
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[index];
+        PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[index];
         if (std::strlen(name) == 0) {
             record.used = 0;
             record.name.clear();
@@ -3736,7 +3599,7 @@ void Sub_50A6B0(
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
     std::int32_t field = 2;
     if (flags == 0) {
         record.ClearRaw();
@@ -3821,7 +3684,7 @@ void Sub_50A6B0(
         }
     }
     Sub_519920();
-    Sub_518580(BorrowPetRuntimeF633F8Storage()->data(), gPetPairsDE0B08.data(), 5);
+    Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
     Sub_492250();
     record.updated510C = 1;
 }
@@ -3835,7 +3698,7 @@ void Sub_50AC20(
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
     if (flags == 0) {
         record.used = 0;
         record.name6AC[0] = '\0';
@@ -3863,7 +3726,7 @@ void Sub_50AC20(
         }
     }
     Sub_519920();
-    Sub_518580(BorrowPetRuntimeF633F8Storage()->data(), gPetPairsDE0B08.data(), 5);
+    Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
     Sub_492250();
 }
 
@@ -3874,7 +3737,7 @@ void Sub_50B0D0(
     if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
-    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
     if (record.used == 0) {
         return;
     }
@@ -3942,7 +3805,7 @@ void Sub_5185C0(
 std::int32_t Sub_43C4B0()
 {
     for (std::int32_t index = 0; index < 5; ++index) {
-        const PetRuntimeRecord& pet = (*BorrowPetRuntimeF633F8Storage())[index];
+        const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
         if (pet.used == 1 && pet.flags6AA == 2) {
             return index;
         }
@@ -3977,7 +3840,7 @@ std::int32_t Sub_519920()
 {
     std::int32_t count = 0;
     gPetCountDE0B00 = 0;
-    for (const PetRuntimeRecord& record : (*BorrowPetRuntimeF633F8Storage())) {
+    for (const PetRuntimeRecord& record : gPetRuntimeRecords) {
         if (record.used != 0) {
             ++count;
         }
@@ -6523,26 +6386,26 @@ void __cdecl Sub_458F40()
 {
     const std::int32_t scene = gCurrentSceneType;
     if (scene == 9) {
-        if (BorrowPlayerRuntimeStorage()->action == nullptr) {
+        if (detail::gPlayerRuntimeSlots.action == nullptr) {
             return;
         }
     } else if (scene != 10) {
         return;
     }
     const std::uint32_t tick = platform::ReadTickCount32();
-    if (BorrowPlayerRuntimeStorage()->timerMode10 != 0) {
-        const std::uint32_t previousTick = BorrowPlayerRuntimeStorage()->timerTick14;
-        const std::int32_t remaining = BorrowPlayerRuntimeStorage()->timerRemaining0C;
+    if (detail::gPlayerRuntimeSlots.timerMode10 != 0) {
+        const std::uint32_t previousTick = detail::gPlayerRuntimeSlots.timerTick14;
+        const std::int32_t remaining = detail::gPlayerRuntimeSlots.timerRemaining0C;
         const std::int32_t delta =
             std::bit_cast<std::int32_t>(previousTick - tick);
         const std::int32_t updated = remaining + delta;
-        BorrowPlayerRuntimeStorage()->timerRemaining0C = updated;
+        detail::gPlayerRuntimeSlots.timerRemaining0C = updated;
         if (updated < 0) {
-            BorrowPlayerRuntimeStorage()->timerRemaining0C = 0;
-            BorrowPlayerRuntimeStorage()->timerMode10 = 0;
+            detail::gPlayerRuntimeSlots.timerRemaining0C = 0;
+            detail::gPlayerRuntimeSlots.timerMode10 = 0;
         }
     }
-    BorrowPlayerRuntimeStorage()->timerTick14 = tick;
+    detail::gPlayerRuntimeSlots.timerTick14 = tick;
 }
 
 // GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
@@ -6562,7 +6425,7 @@ void __cdecl Sub_458F00()
 // GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
 std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
 {
-    BorrowPlayerRuntimeStorage()->objectIndex = std::bit_cast<std::uint32_t>(value);
+    detail::gPlayerRuntimeSlots.objectIndex = std::bit_cast<std::uint32_t>(value);
     return value;
 }
 
@@ -6978,7 +6841,7 @@ void DrawBattleScene_43CBB0()
         if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             ui::detail::gHoverTextD68AE8 = kBattleExitHint554194;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
-                &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+                &platform::gLegacyMouseState.edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;
             static_cast<void>(0);
             if (exitClicked) {
@@ -8053,7 +7916,7 @@ std::int32_t Sub_4410E0()
 std::uint32_t ReadPlayerFlags18A() noexcept
 {
     // 原FDA88A一次跨字段W32读取，flags18A与flags18C低W16相邻。
-    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&(*BorrowPlayerRuntimeStorage()));
+    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots);
     std::uint32_t flags;
     std::memcpy(&flags, bytes + offsetof(PlayerRuntimeSlots, flags18A), sizeof(flags));
     return flags;
@@ -8061,17 +7924,17 @@ std::uint32_t ReadPlayerFlags18A() noexcept
 
 std::int32_t ReadPlayerWalkSpeed() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->walkSpeed;
+    return detail::gPlayerRuntimeSlots.walkSpeed;
 }
 
 std::int32_t ReadPlayerValueFC() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valueFC;
+    return detail::gPlayerRuntimeSlots.valueFC;
 }
 
 std::int32_t ReadPlayerValue16C() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value16C;
+    return detail::gPlayerRuntimeSlots.value16C;
 }
 
 // 原函数：0x00405B40。
@@ -8098,17 +7961,17 @@ std::int32_t Sub_518C60()
 
 std::int32_t ReadPlayerValue15BCC() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value15BCC;
+    return detail::gPlayerRuntimeSlots.value15BCC;
 }
 
 std::int32_t ReadPlayerLevel() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->level;
+    return detail::gPlayerRuntimeSlots.level;
 }
 
 std::int32_t ReadPlayerValue08() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value08;
+    return detail::gPlayerRuntimeSlots.value08;
 }
 
 const char* BorrowPlayerJobName() noexcept
@@ -8118,27 +7981,27 @@ const char* BorrowPlayerJobName() noexcept
 
 std::int32_t ReadPlayerTimerRemaining0C() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->timerRemaining0C;
+    return detail::gPlayerRuntimeSlots.timerRemaining0C;
 }
 
 std::int32_t ReadPlayerTimerMode10() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->timerMode10;
+    return detail::gPlayerRuntimeSlots.timerMode10;
 }
 
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 {
-    const std::int32_t remaining = BorrowPlayerRuntimeStorage()->timerRemaining0C - 1000 * seconds;
+    const std::int32_t remaining = detail::gPlayerRuntimeSlots.timerRemaining0C - 1000 * seconds;
     const bool negative = remaining < 0;
-    BorrowPlayerRuntimeStorage()->timerRemaining0C = remaining;
+    detail::gPlayerRuntimeSlots.timerRemaining0C = remaining;
     if (negative) {
-        BorrowPlayerRuntimeStorage()->timerRemaining0C = 0;
+        detail::gPlayerRuntimeSlots.timerRemaining0C = 0;
     }
 }
 
 std::int32_t ReadPlayerInjury() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valueF4;
+    return detail::gPlayerRuntimeSlots.valueF4;
 }
 
 // SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
@@ -8150,7 +8013,7 @@ std::int32_t Sub_504B10()
     }
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if ((*BorrowPetRuntimeF633F8Storage())[index].lvFlag6C != 0) {
+        if (gPetRuntimeRecords[index].lvFlag6C != 0) {
             return position;
         }
     }
@@ -8163,7 +8026,7 @@ std::int32_t Sub_504B60()
 {
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if ((*BorrowPetRuntimeF633F8Storage())[index].values70[25] != 0) {
+        if (gPetRuntimeRecords[index].values70[25] != 0) {
             return index;
         }
     }
@@ -8172,137 +8035,137 @@ std::int32_t Sub_504B60()
 
 std::int32_t ReadPlayerAttribute(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valuesE4[index];
+    return detail::gPlayerRuntimeSlots.valuesE4[index];
 }
 
 std::int32_t ReadPlayerValue78(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->values78[index];
+    return detail::gPlayerRuntimeSlots.values78[index];
 }
 
 std::int32_t ReadPlayerValueB0(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valuesB0[index];
+    return detail::gPlayerRuntimeSlots.valuesB0[index];
 }
 
 std::int32_t ReadPlayerValueBC(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valuesBC[index];
+    return detail::gPlayerRuntimeSlots.valuesBC[index];
 }
 
 std::int32_t ReadPlayerValueD4(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valuesD4[index];
+    return detail::gPlayerRuntimeSlots.valuesD4[index];
 }
 
 std::int32_t ReadPlayerTitleIndex() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->titleIndex100;
+    return detail::gPlayerRuntimeSlots.titleIndex100;
 }
 
 std::int16_t ReadPlayerTribe() noexcept
 {
-    return std::bit_cast<std::int16_t>(BorrowPlayerRuntimeStorage()->value00);
+    return std::bit_cast<std::int16_t>(detail::gPlayerRuntimeSlots.value00);
 }
 
 std::int32_t ReadPlayerExperienceOnce()
 {
-    return BorrowPlayerRuntimeStorage()->value58.value();
+    return detail::gPlayerRuntimeSlots.value58.value();
 }
 
 std::int32_t ReadPlayerNextExperienceOnce()
 {
-    return BorrowPlayerRuntimeStorage()->value68.value();
+    return detail::gPlayerRuntimeSlots.value68.value();
 }
 
 bool IsPlayerNextExperienceEqual(const std::int32_t expected)
 {
-    return (BorrowPlayerRuntimeStorage()->value68 == static_cast<std::int32_t>(expected));
+    return (detail::gPlayerRuntimeSlots.value68 == static_cast<std::int32_t>(expected));
 }
 
 std::int32_t ReadPlayerDuelPoint() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value104;
+    return detail::gPlayerRuntimeSlots.value104;
 }
 
 std::uint16_t ReadPlayerValue1A0() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value1A0;
+    return detail::gPlayerRuntimeSlots.value1A0;
 }
 
 std::int32_t ReadPlayerPenalty() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->valueF8;
+    return detail::gPlayerRuntimeSlots.valueF8;
 }
 
 std::int32_t ReadPlayerHpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->hp.value();
+    return detail::gPlayerRuntimeSlots.hp.value();
 }
 
 std::int32_t ReadPlayerMaxHpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->maxHp.value();
+    return detail::gPlayerRuntimeSlots.maxHp.value();
 }
 
 std::int32_t ReadPlayerFpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->fp.value();
+    return detail::gPlayerRuntimeSlots.fp.value();
 }
 
 std::int32_t ReadPlayerMaxFpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->maxFp.value();
+    return detail::gPlayerRuntimeSlots.maxFp.value();
 }
 
 bool IsPlayerFpLessThan(const std::int32_t cost)
 {
-    return (BorrowPlayerRuntimeStorage()->fp < static_cast<std::int32_t>(cost));
+    return (detail::gPlayerRuntimeSlots.fp < static_cast<std::int32_t>(cost));
 }
 
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
 {
-    return BorrowPlayerRuntimeStorage()->values15BD0[index];
+    return detail::gPlayerRuntimeSlots.values15BD0[index];
 }
 
 std::uint8_t ReadPlayerActionFlagsByte() noexcept
 {
-    return reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
+    return reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
 }
 
 std::uint16_t ReadPlayerActionFlags() noexcept
 {
-    return static_cast<std::uint16_t>(BorrowPlayerRuntimeStorage()->flags18C >> 16);
+    return static_cast<std::uint16_t>(detail::gPlayerRuntimeSlots.flags18C >> 16);
 }
 
 std::int32_t ReadPlayerActionValue190() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value190;
+    return detail::gPlayerRuntimeSlots.value190;
 }
 
 void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
 {
-    BorrowPlayerRuntimeStorage()->flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
+    detail::gPlayerRuntimeSlots.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
 }
 
 void SetPlayerActionFlags(const std::uint16_t mask) noexcept
 {
-    BorrowPlayerRuntimeStorage()->flags18C |= static_cast<std::uint32_t>(mask) << 16;
+    detail::gPlayerRuntimeSlots.flags18C |= static_cast<std::uint32_t>(mask) << 16;
 }
 
 char* BorrowPlayerStallName() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->text15BB8.data();
+    return detail::gPlayerRuntimeSlots.text15BB8.data();
 }
 
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
 {
-    *hp = BorrowPlayerRuntimeStorage()->hp;
-    *maxHp = BorrowPlayerRuntimeStorage()->maxHp;
-    *fp = BorrowPlayerRuntimeStorage()->fp;
-    *maxFp = BorrowPlayerRuntimeStorage()->maxFp;
+    *hp = detail::gPlayerRuntimeSlots.hp;
+    *maxHp = detail::gPlayerRuntimeSlots.maxHp;
+    *fp = detail::gPlayerRuntimeSlots.fp;
+    *maxFp = detail::gPlayerRuntimeSlots.maxFp;
 }
 
 const char* BorrowTitleText(const std::int32_t index) noexcept
@@ -8317,12 +8180,12 @@ const char* BorrowTitleText(const std::int32_t index) noexcept
 const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
 {
     switch (mode) {
-    case 1: return BorrowPlayerRuntimeStorage()->name.data();
-    case 2: return BorrowPlayerRuntimeStorage()->ownTitle.data();
-    case 3: return BorrowTitleText(BorrowPlayerRuntimeStorage()->titleIndex100);
-    case 4: return BorrowPlayerRuntimeStorage()->text12A.data();
-    case 5: return BorrowPlayerRuntimeStorage()->text14B.data();
-    case 6: return BorrowPlayerRuntimeStorage()->text15BB8.data();
+    case 1: return detail::gPlayerRuntimeSlots.name.data();
+    case 2: return detail::gPlayerRuntimeSlots.ownTitle.data();
+    case 3: return BorrowTitleText(detail::gPlayerRuntimeSlots.titleIndex100);
+    case 4: return detail::gPlayerRuntimeSlots.text12A.data();
+    case 5: return detail::gPlayerRuntimeSlots.text14B.data();
+    case 6: return detail::gPlayerRuntimeSlots.text15BB8.data();
     default: return nullptr;
     }
 }
@@ -8331,12 +8194,12 @@ std::uint32_t gActorBarsEnabled5AC490 = 0; // 原全局：0x005AC490。
 
 std::int32_t ReadPlayerImageNo() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->imageNo;
+    return detail::gPlayerRuntimeSlots.imageNo;
 }
 
 std::int32_t ReadPlayerValue17C() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->value17C;
+    return detail::gPlayerRuntimeSlots.value17C;
 }
 
 std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
@@ -8394,9 +8257,9 @@ void ResetMapFollowersFromPath(login::YobiAction* const leader)
     for (std::int32_t i = 1; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
-            const bool isPlayer = slot.objectIndex == BorrowPlayerRuntimeStorage()->objectIndex;
+            const bool isPlayer = slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex;
             login::detail::ResetMapFollowerFromPath(
-                leader, i, slot.action, isPlayer, &BorrowPlayerRuntimeStorage()->direction);
+                leader, i, slot.action, isPlayer, &detail::gPlayerRuntimeSlots.direction);
         }
     }
 }
@@ -8450,7 +8313,7 @@ login::YobiAction* Sub_51B080()
 {
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
-            if (slot.objectIndex == BorrowPlayerRuntimeStorage()->objectIndex) {
+            if (slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex) {
                 login::YobiAction* const action = slot.action;
                 if (action != nullptr) {
                     login::detail::ClearMapActorPathCount(action);
@@ -8520,9 +8383,9 @@ void Sub_46A940()
 std::uint8_t Sub_46F680()
 {
     const float mouseY = static_cast<float>(
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+        platform::gLegacyMouseState.mouseY.value());
     const float mouseX = static_cast<float>(
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+        platform::gLegacyMouseState.mouseX.value());
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -8548,9 +8411,9 @@ std::uint8_t Sub_46F680()
     gValueC8A7A8 = 0;
     gValueC8A7AC = 0;
 
-    if ((platform::BorrowLegacyMouseStateStorage()->mouseY < 456)
+    if ((platform::gLegacyMouseState.mouseY < 456)
         && ((*reinterpret_cast<const unsigned char*>(
-                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
+                    &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
             || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
         && gValueC8A79C == 0) {
@@ -8565,10 +8428,10 @@ std::uint8_t Sub_46F680()
         static_cast<void>(
             login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
-    const bool mouseBelowLimit = (platform::BorrowLegacyMouseStateStorage()->mouseY < 456);
+    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < 456);
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
-                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
+                    &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
             || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
         gValueC8A778 = 0;
@@ -8577,14 +8440,14 @@ std::uint8_t Sub_46F680()
     }
 
     const auto leftClick = *reinterpret_cast<const unsigned char*>(
-        &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        &platform::gLegacyMouseState.edgeButtons);
     if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
         gValueC8A7A0 = 1;
         gValueC8A778 = 0;
         gValueC8A794 = platform::ReadTickCount32();
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1u) != 0
+            &platform::gLegacyMouseState.heldButtons) & 1u) != 0
         && gValueC8A774 == 0) {
         const std::uint32_t baseline = gValueC8A794;
         gValueC8A7A4 = 1;
@@ -8597,12 +8460,12 @@ std::uint8_t Sub_46F680()
         gValueC8A794 = 0;
     }
     const auto rightClick = *reinterpret_cast<const unsigned char*>(
-        &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        &platform::gLegacyMouseState.edgeButtons);
     if ((rightClick & 2u) != 0 && gValueC8A7A8 == 0) {
         gValueC8A7A8 = 1;
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::BorrowLegacyMouseStateStorage()->heldButtons) & 2u) != 0
+            &platform::gLegacyMouseState.heldButtons) & 2u) != 0
         && gValueC8A7A8 == 0) {
         gValueC8A7AC = 1;
     }
@@ -8625,7 +8488,7 @@ std::int32_t Sub_455A90()
 // 原函数：0x00470050。
 void Sub_470050()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -8657,7 +8520,7 @@ void Sub_470050()
 // 原函数：0x00470150。
 void Sub_470150()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -8694,7 +8557,7 @@ void Sub_470270()
 {
     const bool joinTeam = gValueFF0D36 == 0;
     if (joinTeam) {
-        const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+        const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
         if (direction < 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
@@ -8732,7 +8595,7 @@ void Sub_470270()
 // 原函数：0x004703C0。
 void Sub_4703C0()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -8762,7 +8625,7 @@ void Sub_4703C0()
 // 原函数：0x004704A0。
 void Sub_4704A0()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -8798,7 +8661,7 @@ void Sub_4704A0()
 // 原函数：0x00470670。
 void Sub_470670()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -8834,7 +8697,7 @@ void Sub_470670()
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 {
-    login::YobiAction* const initialAction = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const initialAction = detail::gPlayerRuntimeSlots.action;
     if (initialAction == nullptr || gCurrentSceneType == 10
         || gValue9A86D8 != 0 || gValue9FB92E != 0) {
         return reinterpret_cast<std::uintptr_t>(initialAction);
@@ -8850,7 +8713,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     if (gEmoteRequestTickD67D20 + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
     if (!useLimitedActions) {
         const std::int32_t image = login::detail::GetYobiActionField2A8(action);
@@ -8942,7 +8805,7 @@ std::uint32_t Sub_51B3E0()
 // 原函数：0x0046B370。
 void Sub_46B370()
 {
-    if (BorrowPlayerRuntimeStorage()->action == nullptr) {
+    if (detail::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const float movementX = std::bit_cast<float>(gValue9EE8FC);
@@ -9020,7 +8883,7 @@ std::uint8_t Sub_469C90()
         }
         if (forceContinuousMove || gValueC8A79C == 1) {
             const auto click = *reinterpret_cast<const unsigned char*>(
-                &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+                &platform::gLegacyMouseState.edgeButtons);
             if ((click & 1u) != 0) {
                 gValueC8A79C = 0;
             } else {
@@ -9126,7 +8989,7 @@ std::uint16_t Sub_469FC0()
                     const std::int16_t direction =
                         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
                     Sub_46BCF0();
-                    const std::int32_t speed = BorrowPlayerRuntimeStorage()->walkSpeed;
+                    const std::int32_t speed = detail::gPlayerRuntimeSlots.walkSpeed;
                     const std::int16_t deltaY =
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
                     // 原401E00忽略实参高W16；复用单次读取的加法与S16扩展。
@@ -9183,7 +9046,7 @@ void Sub_46A410(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    if (BorrowPlayerRuntimeStorage()->action != nullptr) {
+    if (detail::gPlayerRuntimeSlots.action != nullptr) {
         const double rate = static_cast<double>(speed);
         const float percent = std::bit_cast<float>(0x3C23D70Au);
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
@@ -9270,12 +9133,12 @@ void Sub_46A700()
             static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
         gPlayerY = static_cast<std::int32_t>(y);
 
-        const std::int32_t count = BorrowPlayerRuntimeStorage()->value174;
+        const std::int32_t count = detail::gPlayerRuntimeSlots.value174;
         if (count > 0) {
             const std::int32_t remaining = count - 1;
-            BorrowPlayerRuntimeStorage()->value174 = remaining;
+            detail::gPlayerRuntimeSlots.value174 = remaining;
             if (remaining <= 0) {
-                login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+                login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
                 if (action != nullptr) {
                     login::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
@@ -9290,7 +9153,7 @@ void Sub_46A700()
     }
     Sub_51A060(1);
     static_cast<void>(Sub_51A640());
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         gMapCharaSceneSlots.value55DE98 =
             login::detail::ReadYobiDirectionLow16(action);
@@ -9302,11 +9165,11 @@ void Sub_46A700()
 // 原函数：0x00519A80。
 void Sub_519A80()
 {
-    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
-    Sub_519CD0(BorrowPlayerRuntimeStorage()->imageNo, x, y, direction);
-    const auto flags = static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->flags18A);
+    Sub_519CD0(detail::gPlayerRuntimeSlots.imageNo, x, y, direction);
+    const auto flags = static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
 
@@ -9314,33 +9177,33 @@ void Sub_519A80()
     char titles[256];
     cg::NullSub_509080();
     input::EscapeGbkText(
-        BorrowPlayerRuntimeStorage()->ownTitle.data(), escaped, 256);
+        detail::gPlayerRuntimeSlots.ownTitle.data(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
     cg::NullSub_509080();
     input::EscapeGbkText(
-        BorrowPlayerRuntimeStorage()->text12A.data(), escaped, 256);
+        detail::gPlayerRuntimeSlots.text12A.data(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
     cg::NullSub_509080();
     input::EscapeGbkText(
-        BorrowPlayerRuntimeStorage()->text14B.data(), escaped, 256);
+        detail::gPlayerRuntimeSlots.text14B.data(), escaped, 256);
     std::strcat(titles, escaped);
     const std::int32_t value188 =
-        std::bit_cast<std::int16_t>(BorrowPlayerRuntimeStorage()->value188);
-    const std::int32_t level = BorrowPlayerRuntimeStorage()->level;
+        std::bit_cast<std::int16_t>(detail::gPlayerRuntimeSlots.value188);
+    const std::int32_t level = detail::gPlayerRuntimeSlots.level;
     Sub_51A090(
-        BorrowPlayerRuntimeStorage()->name.data(), titles, level, value188, flag40, flag80);
+        detail::gPlayerRuntimeSlots.name.data(), titles, level, value188, flag40, flag80);
 
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        login::detail::CopyYobiPlayerHp(action, &BorrowPlayerRuntimeStorage()->hp);
+        login::detail::CopyYobiPlayerHp(action, &detail::gPlayerRuntimeSlots.hp);
         login::detail::CopyYobiPlayerMaxHp(
-            BorrowPlayerRuntimeStorage()->action, &BorrowPlayerRuntimeStorage()->maxHp);
-        const std::uint32_t objectIndex = BorrowPlayerRuntimeStorage()->objectIndex;
+            detail::gPlayerRuntimeSlots.action, &detail::gPlayerRuntimeSlots.maxHp);
+        const std::uint32_t objectIndex = detail::gPlayerRuntimeSlots.objectIndex;
         for (auto& slot : gPetMapCharaSlots) {
             if (slot.flags != 0 && slot.objectIndex == objectIndex) {
-                slot.action = BorrowPlayerRuntimeStorage()->action;
+                slot.action = detail::gPlayerRuntimeSlots.action;
                 break;
             }
         }
@@ -9361,7 +9224,7 @@ login::YobiAction* Sub_51A090(
     const auto nameLength = static_cast<std::int32_t>(std::strlen(name));
     if (nameLength <= 16) {
         // 519A80 的源就是本槽；原 rep movs 允许同源复制。
-        std::memmove(BorrowPlayerRuntimeStorage()->name.data(), name, std::strlen(name) + 1);
+        std::memmove(detail::gPlayerRuntimeSlots.name.data(), name, std::strlen(name) + 1);
     }
 
     char first[256];
@@ -9371,30 +9234,30 @@ login::YobiAction* Sub_51A090(
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
-        std::strcpy(BorrowPlayerRuntimeStorage()->ownTitle.data(), first);
+        std::strcpy(detail::gPlayerRuntimeSlots.ownTitle.data(), first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
-        std::strcpy(BorrowPlayerRuntimeStorage()->text12A.data(), second);
+        std::strcpy(detail::gPlayerRuntimeSlots.text12A.data(), second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
-        std::strcpy(BorrowPlayerRuntimeStorage()->text14B.data(), third);
+        std::strcpy(detail::gPlayerRuntimeSlots.text14B.data(), third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
-        std::strcpy(BorrowPlayerRuntimeStorage()->text15BB8.data(), fourth);
+        std::strcpy(detail::gPlayerRuntimeSlots.text15BB8.data(), fourth);
     }
-    BorrowPlayerRuntimeStorage()->level = level;
-    BorrowPlayerRuntimeStorage()->value188 = static_cast<std::uint16_t>(value188);
+    detail::gPlayerRuntimeSlots.level = level;
+    detail::gPlayerRuntimeSlots.value188 = static_cast<std::uint16_t>(value188);
     if (flag40 != 0) {
-        BorrowPlayerRuntimeStorage()->flags18A |= 0x40u;
+        detail::gPlayerRuntimeSlots.flags18A |= 0x40u;
     }
     if (flag80 != 0) {
-        BorrowPlayerRuntimeStorage()->flags18A |= 0x80u;
+        detail::gPlayerRuntimeSlots.flags18A |= 0x80u;
     }
     return login::detail::PublishPlayerActionIdentity(
         name, titles, nameLength, level, value188);
@@ -9402,15 +9265,15 @@ login::YobiAction* Sub_51A090(
 
 login::YobiAction* ReadPlayerAction() noexcept
 {
-    return BorrowPlayerRuntimeStorage()->action;
+    return detail::gPlayerRuntimeSlots.action;
 }
 
 // 原函数：0x0051A4B0。
 void Sub_51A4B0()
 {
     login::detail::CopyInitialPlayerActionIdentity(
-        BorrowPlayerRuntimeStorage()->name.data(), BorrowPlayerRuntimeStorage()->ownTitle.data(),
-        &BorrowPlayerRuntimeStorage()->level, &BorrowPlayerRuntimeStorage()->hp, &BorrowPlayerRuntimeStorage()->maxHp);
+        detail::gPlayerRuntimeSlots.name.data(), detail::gPlayerRuntimeSlots.ownTitle.data(),
+        &detail::gPlayerRuntimeSlots.level, &detail::gPlayerRuntimeSlots.hp, &detail::gPlayerRuntimeSlots.maxHp);
 }
 
 // 原函数：0x00519CD0。
@@ -9418,9 +9281,9 @@ void Sub_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
-    login::YobiAction* const oldAction = BorrowPlayerRuntimeStorage()->action;
-    BorrowPlayerRuntimeStorage()->imageNo = imageNo;
-    BorrowPlayerRuntimeStorage()->direction = direction;
+    login::YobiAction* const oldAction = detail::gPlayerRuntimeSlots.action;
+    detail::gPlayerRuntimeSlots.imageNo = imageNo;
+    detail::gPlayerRuntimeSlots.direction = direction;
     if (oldAction != nullptr) {
         Sub_519E50(imageNo, direction);
         static_cast<void>(Sub_519EC0(x, y));
@@ -9430,30 +9293,30 @@ void Sub_519CD0(
 
     login::YobiAction* const action =
         login::detail::Sub_441DB0(imageNo, x, y, direction);
-    BorrowPlayerRuntimeStorage()->action = action;
+    detail::gPlayerRuntimeSlots.action = action;
     if (action != nullptr) {
         login::detail::SetYobiPlayerFlag(action);
-        login::YobiAction* const current = BorrowPlayerRuntimeStorage()->action;
-        login::detail::SetYobiWalkSpeed(current, BorrowPlayerRuntimeStorage()->walkSpeed);
+        login::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
+        login::detail::SetYobiWalkSpeed(current, detail::gPlayerRuntimeSlots.walkSpeed);
     }
 }
 
 // 原函数：0x00519E50。
 void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
-    BorrowPlayerRuntimeStorage()->imageNo = imageNo;
-    BorrowPlayerRuntimeStorage()->direction = direction;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    detail::gPlayerRuntimeSlots.imageNo = imageNo;
+    detail::gPlayerRuntimeSlots.direction = direction;
     if (action == nullptr) {
         return;
     }
     login::detail::SetYobiActionField2A8(action, imageNo);
-    login::detail::SetYobiActionField2B8(BorrowPlayerRuntimeStorage()->action, direction);
-    login::YobiAction* const current = BorrowPlayerRuntimeStorage()->action;
+    login::detail::SetYobiActionField2B8(detail::gPlayerRuntimeSlots.action, direction);
+    login::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
     if (login::detail::ReadMapActorAttachment44(current) != nullptr) {
         const std::int32_t mapped =
             Sub_51C0D0(login::detail::GetYobiActionField2A8(current));
-        login::detail::SetYobiActionField2A8(BorrowPlayerRuntimeStorage()->action, mapped);
+        login::detail::SetYobiActionField2A8(detail::gPlayerRuntimeSlots.action, mapped);
     }
 }
 
@@ -9466,8 +9329,8 @@ std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
 // 原函数：0x0051A040。
 std::int32_t Sub_51A040(const std::int32_t direction)
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
-    BorrowPlayerRuntimeStorage()->direction = direction;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    detail::gPlayerRuntimeSlots.direction = direction;
     if (action != nullptr) {
         login::detail::SetYobiActionField2B8(action, direction);
     }
@@ -9477,7 +9340,7 @@ std::int32_t Sub_51A040(const std::int32_t direction)
 // 原函数：0x0051A060。
 void Sub_51A060(const std::int32_t characterAction)
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         login::detail::Sub_43EFC0(
             action, characterAction, characterAction == 1 ? 0 : 1);
@@ -9496,8 +9359,8 @@ void Sub_51A840(
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
-        login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
-        BorrowPlayerRuntimeStorage()->walkSpeed = speed;
+        login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+        detail::gPlayerRuntimeSlots.walkSpeed = speed;
         login::detail::SetYobiWalkSpeed(action, speed);
         Sub_51A060(1);
         return;
@@ -9581,7 +9444,7 @@ void Sub_51A840(
         return;
     case 60:
         login::detail::ApplyPlayerAppearanceReply(
-            option1, option2, option3, option4, &BorrowPlayerRuntimeStorage()->imageNo);
+            option1, option2, option3, option4, &detail::gPlayerRuntimeSlots.imageNo);
         return;
     case 63:
         static_cast<void>(Sub_51BDD0(option1));
@@ -9592,16 +9455,16 @@ void Sub_51A840(
         static_cast<void>(Sub_51A040(direction));
         return;
     case 70:
-        login::detail::ApplyPlayerRideReply(option1, option2, &BorrowPlayerRuntimeStorage()->value174);
+        login::detail::ApplyPlayerRideReply(option1, option2, &detail::gPlayerRuntimeSlots.value174);
         return;
     case 80:
         login::detail::ApplyPlayerPhase3Reply(option1);
         return;
     case 200:
         if (option1 != 0) {
-            reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[3] |= 0x10u;
+            reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[3] |= 0x10u;
         } else {
-            auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
+            auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
             std::uint16_t actionFlags;
             std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
             actionFlags &= 0xEFFFu;
@@ -9662,11 +9525,11 @@ std::int32_t Sub_51C0D0(const std::int32_t imageNo)
 // 原函数：0x00519D50。
 std::int8_t Sub_519D50()
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         login::detail::ClearMapActorAttachments(action);
-        login::detail::MarkDeath(BorrowPlayerRuntimeStorage()->action);
-        BorrowPlayerRuntimeStorage()->action = nullptr;
+        login::detail::MarkDeath(detail::gPlayerRuntimeSlots.action);
+        detail::gPlayerRuntimeSlots.action = nullptr;
     }
     Sub_51A5B0();
     if (Sub_51BEC0() == 0) {
@@ -9678,58 +9541,58 @@ std::int8_t Sub_519D50()
 // 原函数：0x0051A5A0。
 void Sub_51A5A0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 1u;
-    *reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) = 1u;
+    *reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) = 1u;
 }
 
 // 原函数：0x0051A5E0。
 void Sub_51A5E0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 2u;
 }
 
 // 原函数：0x0051A5F0。
 void Sub_51A5F0()
 {
-    BorrowPlayerRuntimeStorage()->flags18A &= 0xFDFFu;
+    detail::gPlayerRuntimeSlots.flags18A &= 0xFDFFu;
 }
 
 // 原函数：0x0051A600。
 void Sub_51A600()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A)[1] |= 0x40u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A)[1] |= 0x40u;
 }
 
 // 原函数：0x0051A610。
 void Sub_51A610()
 {
-    BorrowPlayerRuntimeStorage()->flags18A &= 0xBFFFu;
+    detail::gPlayerRuntimeSlots.flags18A &= 0xBFFFu;
 }
 
 // 原函数：0x0051A620。
 void Sub_51A620()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A)[1] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A)[1] |= 0x80u;
 }
 
 // 原函数：0x0051A630。
 void Sub_51A630()
 {
-    BorrowPlayerRuntimeStorage()->flags18A &= 0x7FFFu;
+    detail::gPlayerRuntimeSlots.flags18A &= 0x7FFFu;
 }
 
 // 原函数：0x0051BDB0。
 void Sub_51BDB0()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 1u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 1u;
 }
 
 // 原函数：0x0051BDC0。
 void Sub_51BDC0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFEu;
@@ -9739,19 +9602,19 @@ void Sub_51BDC0()
 // 原函数：0x0051BE10。
 void Sub_51BE10()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x24u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x24u;
 }
 
 // 原函数：0x0051BE20。
 void Sub_51BE20()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 8u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 8u;
 }
 
 // 原函数：0x0051BE30。
 void Sub_51BE30()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFF7u;
@@ -9761,22 +9624,22 @@ void Sub_51BE30()
 // 原函数：0x0051BE40。
 void Sub_51BE40()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x50u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x50u;
 }
 
 // 原函数：0x0051BEE0。
 void Sub_51BEE0()
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x80u;
 }
 
 // 原函数：0x0051A5B0。
 login::YobiAction* Sub_51A5B0()
 {
-    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
-    *reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) = 0;
+    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    *reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) = 0;
     if (action == nullptr || login::detail::GetYobiActionField2E4(action) != 2) {
-        BorrowPlayerRuntimeStorage()->flags18A &= 0xFEFFu;
+        detail::gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
     }
     return action;
 }
@@ -9784,28 +9647,28 @@ login::YobiAction* Sub_51A5B0()
 // 原函数：0x0051BDD0。
 std::int32_t Sub_51BDD0(const std::int32_t value)
 {
-    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 2u;
-    BorrowPlayerRuntimeStorage()->value190 = value;
+    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 2u;
+    detail::gPlayerRuntimeSlots.value190 = value;
     return value;
 }
 
 // 原函数：0x0051BDF0。
 void Sub_51BDF0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFDu;
     std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
-    BorrowPlayerRuntimeStorage()->value190 = 0;
+    detail::gPlayerRuntimeSlots.value190 = 0;
 }
 
 // 原函数：0x0051BEC0。
 std::int32_t Sub_51BEC0()
 {
     const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
-    const std::int32_t value = BorrowPlayerRuntimeStorage()->value190;
+        reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
+    const std::int32_t value = detail::gPlayerRuntimeSlots.value190;
     return (flags & 2u) != 0 ? value : 0;
 }
 
@@ -9813,8 +9676,8 @@ std::int32_t Sub_51BEC0()
 std::int8_t Sub_51BE50(const std::int32_t requested)
 {
     const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
-    if ((flags & 2u) != 0 && BorrowPlayerRuntimeStorage()->value190 == requested) {
+        reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
+    if ((flags & 2u) != 0 && detail::gPlayerRuntimeSlots.value190 == requested) {
         return std::bit_cast<std::int8_t>(flags);
     }
 
@@ -9827,7 +9690,7 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
-    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
     actionBytes[0] |= 2u;
     if (value == 0) {
         std::uint16_t actionFlags;
@@ -9835,7 +9698,7 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
         actionFlags &= 0xFFFDu;
         std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
     }
-    BorrowPlayerRuntimeStorage()->value190 = value;
+    detail::gPlayerRuntimeSlots.value190 = value;
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
 }
 
@@ -9850,8 +9713,8 @@ void Sub_5199A0()
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
     // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
-    BorrowPlayerRuntimeStorage()->ClearRaw();
-    for (PetRuntimeRecord& record : *BorrowPetRuntimeF633F8Storage()) {
+    detail::gPlayerRuntimeSlots.ClearRaw();
+    for (PetRuntimeRecord& record : gPetRuntimeRecords) {
         record.ClearRaw();
     }
     gPetMapCharaSlots.fill({});
@@ -9875,15 +9738,15 @@ void Sub_5199A0()
 
     const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t value = gValueFDA6F8;
-    BorrowPlayerRuntimeStorage()->value17C = selectedGraphic;
-    BorrowPlayerRuntimeStorage()->value104 = value;
+    detail::gPlayerRuntimeSlots.value17C = selectedGraphic;
+    detail::gPlayerRuntimeSlots.value104 = value;
     for (TitleRecord& title : gTitlesFF0508) {
         title.id = -1;
     }
     for (std::int32_t index = 0; index < 15; ++index) {
         Sub_519950(index);
     }
-    BorrowPlayerRuntimeStorage()->direction = -1;
+    detail::gPlayerRuntimeSlots.direction = -1;
 }
 
 // 原函数：0x00455AC0。

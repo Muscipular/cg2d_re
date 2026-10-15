@@ -5,7 +5,6 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <optional>
 
 namespace cg::login {
 struct YobiAction;
@@ -57,7 +56,7 @@ struct WorldObjectRecord {
 };
 
 inline constexpr std::size_t kWorldObjectCapacity = 1000;
-std::optional<std::array<WorldObjectRecord, kWorldObjectCapacity>>& BorrowWorldObjectsStorage(); // 原全局：0x005AC4C0。
+extern std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects; // 原全局：0x005AC4C0。
 extern std::int32_t gWorldObjectFindCursor; // 原5AC498。
 extern std::int32_t gWorldObjectFreeCursor; // 原5AC49C。
 extern std::int32_t gWorldObjectUsedCount; // 原5AC4B4。

@@ -719,13 +719,13 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     }
     const std::int32_t count = world::detail::gCountC9A944;
     if (count == 0) {
-        if (platform::BorrowLegacyMouseStateStorage()->tailReset != 0) {
+        if (platform::gLegacyMouseState.tailReset != 0) {
             WindowElement* const elements = window->elements;
             elements[8].y = elements[14].y - 14;
         }
         return 0;
     }
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = count - gChatScrollOffsetC9A940;
     const std::int32_t next = WindowScroll_ApplyWheel(&window->elements[9], position, count, wheel);
     gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - next;

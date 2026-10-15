@@ -497,7 +497,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
                         std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[candidate].index);
-                    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+                    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
                     cg::text::FormatTo(buffer, L"現在{}擁有{}點的能力點數。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
@@ -591,7 +591,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             } else if (target == -1) {
                 gHoverTextD68AE8 = L"現在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
-                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+                const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
                 const wchar_t* format;

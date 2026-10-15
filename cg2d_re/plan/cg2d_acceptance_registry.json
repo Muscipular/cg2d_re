@@ -327,7 +327,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
-        "doc/cg2d_cryptint_direct_globals_evidence.json"
+        "doc/cg2d_cryptint_direct_globals_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1370,7 +1371,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
-        "doc/cg2d_cryptint_direct_globals_evidence.json"
+        "doc/cg2d_cryptint_direct_globals_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -74895,7 +74897,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
-        "doc/cg2d_cryptint_direct_globals_evidence.json"
+        "doc/cg2d_cryptint_direct_globals_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -74975,7 +74978,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
-        "doc/cg2d_cryptint_direct_globals_evidence.json"
+        "doc/cg2d_cryptint_direct_globals_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -80033,7 +80037,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -80182,7 +80187,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -80191,7 +80197,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -80236,7 +80243,8 @@
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     },
     {
@@ -81867,7 +81875,8 @@
       "evidence_refs": [
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ],
       "array_services_retired_lci15": {
         "recorded_on": "2026-10-14",
@@ -81891,7 +81900,8 @@
       "evidence_refs": [
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ],
       "array_services_retired_lci15": {
         "recorded_on": "2026-10-14",
@@ -103671,7 +103681,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ],
       "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
     },
@@ -106698,6 +106709,46 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:0003D770",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:0003D7A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:001183E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00118530",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00118560",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
       ]
     }
   ],
@@ -194401,5 +194452,51 @@
     "build_verified": false,
     "runtime_verified": false,
     "full_acceptance_unchanged": true
+  },
+  "cryptint_composite_direct_globals_lci18": {
+    "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
+    "source": "src/platform/LegacyMouse.cpp",
+    "global_names": [
+      "gWorldObjects",
+      "gLegacyMouseState",
+      "gPlayerRuntimeSlots",
+      "gPetRuntimeRecords"
+    ],
+    "inventory_ids": [
+      "F:0003D760",
+      "F:0003D770",
+      "F:0003D7A0",
+      "F:00106340",
+      "F:00106350",
+      "F:001183D0",
+      "F:001183E0",
+      "F:00118520",
+      "F:00118530",
+      "F:00118560"
+    ],
+    "shared_member_and_array_ids": [
+      "F:0003D7C0",
+      "F:0003D810",
+      "F:000CD2D0",
+      "F:000CD360",
+      "F:0013C45E",
+      "F:0013C4E0",
+      "F:0013C560",
+      "F:001405F5"
+    ],
+    "source_static_results": {
+      "source_files": 58,
+      "access_replacements": 861,
+      "access_projected_functions": 347,
+      "unchanged_functions": 1681,
+      "central_variables_order_kept": 48,
+      "moved_player_type_lines": 57,
+      "moved_clear_raw_lines": 20,
+      "default_cryptint_rng_calls_in_scope": 2046,
+      "only_static_source_check": true
+    },
+    "build_verified": false,
+    "runtime_verified": false,
+    "all_full_acceptance_gates_unchanged": true
   }
 }

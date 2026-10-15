@@ -234,7 +234,7 @@ void WindowBank_DrawOwnPetTooltip(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
+    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[index];
     if (pet.used == 0) {
         return;
     }
@@ -420,7 +420,7 @@ static std::int32_t WindowBank_Draw(const std::int32_t)
     if (preview >= 0) {
         if (preview >= 200) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
-            const bool left = (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            const bool left = (platform::gLegacyMouseState.mouseX < 320);
             const std::int32_t x = left ? 413 : 0;
             const std::int32_t index =
                 std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].actionFlags1C);
@@ -730,7 +730,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         gWindowStates[WindowId_Bank].value20 = 0;
     }
     gBankOwnHover57EDCC = hovered;
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t target = 0;
@@ -756,7 +756,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
@@ -909,7 +909,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         gWindowStates[WindowId_Bank].value20 = 0;
     }
     gBankExternalHover57EDD0 = hovered;
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t target = 0;
@@ -940,7 +940,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             }
             consumed = 1;
         }
-        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
@@ -1094,7 +1094,7 @@ static std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::i
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
         *scroll = static_cast<std::uint32_t>(
             WindowScroll_ApplyWheel(&gCurrentWindow->elements[index - 3], current, 2, wheel));
@@ -1153,7 +1153,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         if (source != petIndex) {
             bool allowed = true;
             if (gWindowStates[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
-                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+                const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
                 for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -1173,17 +1173,17 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         WindowDrag_Reset();
     }
     const bool hover = (events & 1u) != 0;
-    if (hover && (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0) {
+    if (hover && world::detail::gPetRuntimeRecords[petIndex].used != 0) {
         const std::int32_t level = world::detail::ReadPlayerLevel();
         const std::int32_t amount = world::detail::ReadPlayerValueFC();
         if (amount >= level) {
             gHoverTextD68AE8 = L"用滑鼠拖放來存放寵物。";
         }
     }
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
     const std::uint16_t used = pet.used;
     if (used != 0 && (events & 0x21u) != 0
-        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t target = 0;
@@ -1265,7 +1265,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         if (source != petIndex + 100) {
             bool allowed = true;
             if (gWindowStates[WindowId_Bank].value10 == 1 && source < 5) {
-                const auto& sourcePet = (*world::detail::BorrowPetRuntimeF633F8Storage())[source];
+                const auto& sourcePet = world::detail::gPetRuntimeRecords[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
                 const bool hasWeight = weight > 0;
@@ -1297,14 +1297,14 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0 && (events & 0x21u) != 0
-        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t position = 0;
             for (; position < 5; ++position) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
                     world::detail::gPetPairsDE0B08[position].index);
-                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[target].used == 0) {
+                if (world::detail::gPetRuntimeRecords[target].used == 0) {
                     break;
                 }
             }
@@ -1494,7 +1494,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].used != 0) {
+        if (world::detail::gPetRuntimeRecords[index].used != 0) {
             ++count;
         }
     }

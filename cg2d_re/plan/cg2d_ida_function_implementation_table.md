@@ -68,9 +68,9 @@
 | 10 | 0x004014B0 | `sub_4014B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 11 | 0x00401960 | `sub_401960` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 12 | 0x00401AB0 | `sub_401AB0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 13 | 0x00401C10 | `sub_401C10` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | LCI07在原中央位置直接定义两值，默认构造各一次RNG并自动逆序析构；原地址保持；仅静态核对，编译／运行未验 |
-| 14 | 0x00401C20 | `unknown_libname_1` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | 原401C20两值正序构造由全局定义处默认构造承接；原中央位置与两次RNG序保持；SDK退出／完整运行未验 |
-| 15 | 0x00401C50 | `unknown_libname_2` | 有承接 | `src/platform/LegacyMouse.cpp:40 — gStartupValue5939D8 / gStartupValue5939C8逆序析构` | 原401C50逆序退出由同一中央两值的原生全局析构承接；MSVC自动登记；完整运行未验 |
+| 13 | 0x00401C10 | `sub_401C10` | 有承接 | `src/platform/LegacyMouse.cpp:33 — gStartupValue5939C8 / gStartupValue5939D8` | LCI07在原中央位置直接定义两值，默认构造各一次RNG并自动逆序析构；原地址保持；仅静态核对，编译／运行未验 |
+| 14 | 0x00401C20 | `unknown_libname_1` | 有承接 | `src/platform/LegacyMouse.cpp:33 — gStartupValue5939C8 / gStartupValue5939D8` | 原401C20两值正序构造由全局定义处默认构造承接；原中央位置与两次RNG序保持；SDK退出／完整运行未验 |
+| 15 | 0x00401C50 | `unknown_libname_2` | 有承接 | `src/platform/LegacyMouse.cpp:34 — gStartupValue5939D8 / gStartupValue5939C8逆序析构` | 原401C50逆序退出由同一中央两值的原生全局析构承接；MSVC自动登记；完整运行未验 |
 | 16 | 0x00401C70 | `sub_401C70` | 有正文 | `src/platform/LegacyCryptInt.cpp:25 — LegacyCryptInt::LegacyCryptInt()` | 零值默认构造委托整数0构造，仍一次共享RNG；原16B／偏移保持；布局／运行未验 |
 | 17 | 0x00401CA0 | `sub_401CA0` | 有承接 | `src/platform/LegacyCryptInt.cpp:41 — LegacyCryptInt::~LegacyCryptInt；释放由默认MSVC delete承接` | LCI08无动态消费者，类专用分配重载退休；原401CA0销毁注释归入析构，未来动态释放沿默认MSVC；原flags／返回ABI保历史，运行未验 |
 | 18 | 0x00401CC0 | `CryptInt_Init` | 有正文 | `src/platform/LegacyCryptInt.cpp:31 — LegacyCryptInt::LegacyCryptInt(int32_t)` | 整数构造接原发布顺序和一次RNG；不显式写尾部padding；完整运行未验 |
@@ -119,15 +119,15 @@
 | 61 | 0x00403C50 | `sub_403C50` | 有正文 | `src/network/NetworkRuntime.cpp:221 — Sub_403C50` | 保留旧W16帧正文，当前CPP无调用；活动LF接收由ReceivePlaintextProtocolLine另接，旧帧状态不作为当前接线；当前窗口报告采样／清零另在QueuePlaintextProtocolBytes承接 |
 | 62 | 0x00403E50 | `sub_403E50` | 有正文 | `src/network/NetworkRuntime.cpp:306 — Sub_403E50` | 保留旧W16帧正文，当前CPP无调用；活动明文收发由ReceivePlaintextProtocolLine／QueuePlaintextProtocolBytes另接，窗口报告状态采样／清零已接回活动发送路径；不等于原帧整根或网络验收通过 |
 | 63 | 0x00404060 | `sub_404060` | 有正文 | `src/Input.cpp:513 — IsRejectedInputText_404060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 64 | 0x00404120 | `sub_404120` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 65 | 0x00404130 | `unknown_libname_3` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 66 | 0x00404150 | `unknown_libname_4` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 67 | 0x00404160 | `sub_404160` | 有承接 | `src/platform/LegacyMouse.cpp:48 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 68 | 0x00404170 | `unknown_libname_5` | 有承接 | `src/platform/LegacyMouse.cpp:48 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 69 | 0x00404190 | `unknown_libname_6` | 有承接 | `src/platform/LegacyMouse.cpp:48 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 70 | 0x004041A0 | `sub_4041A0` | 有承接 | `src/platform/LegacyMouse.cpp:51 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 71 | 0x004041B0 | `unknown_libname_7` | 有承接 | `src/platform/LegacyMouse.cpp:51 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 72 | 0x004041D0 | `unknown_libname_8` | 有承接 | `src/platform/LegacyMouse.cpp:51 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 64 | 0x00404120 | `sub_404120` | 有承接 | `src/platform/LegacyMouse.cpp:39 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 65 | 0x00404130 | `unknown_libname_3` | 有承接 | `src/platform/LegacyMouse.cpp:39 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 66 | 0x00404150 | `unknown_libname_4` | 有承接 | `src/platform/LegacyMouse.cpp:39 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 67 | 0x00404160 | `sub_404160` | 有承接 | `src/platform/LegacyMouse.cpp:42 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 68 | 0x00404170 | `unknown_libname_5` | 有承接 | `src/platform/LegacyMouse.cpp:42 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 69 | 0x00404190 | `unknown_libname_6` | 有承接 | `src/platform/LegacyMouse.cpp:42 — cg::platform::gProtectionChecksum2` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 70 | 0x004041A0 | `sub_4041A0` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 71 | 0x004041B0 | `unknown_libname_7` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 72 | 0x004041D0 | `unknown_libname_8` | 有承接 | `src/platform/LegacyMouse.cpp:45 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 73 | 0x004041E0 | `sub_4041E0` | 有正文 | `src/platform/MainLoopSupport.cpp:252 — InitializeProtection_4041E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 74 | 0x004042B0 | `sub_4042B0` | 有正文 | `src/platform/MainLoopSupport.cpp:487 — ReleaseProtection_4042B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 75 | 0x004042D0 | `sub_4042D0` | 有正文 | `src/platform/MainLoopSupport.cpp:141 — CheckProcessModules_4042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -146,7 +146,7 @@
 | 88 | 0x00404D60 | `sub_404D60` | 有正文 | `src/YobiRuntime.cpp:33698 — Sub_404D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 89 | 0x00404D90 | `SelectIntValue` | 有正文 | `src/YobiRuntime.cpp:11877 — SelectIntValue_404D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 90 | 0x00404DB0 | `BattleEntry::EffectUpdate` | 有正文 | `src/YobiRuntime.cpp:23129 — UpdateBattleActor_404DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:8078 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:7941 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 92 | 0x00405B60 | `sub_405B60` | 有正文 | `src/YobiRuntime.cpp:26506 — ConsumeBattleFpCost_405B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 93 | 0x00405BD0 | `CompareFunction` | 有正文 | `src/YobiRuntime.cpp:22822 — CompareBattleDrawActions_405BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 94 | 0x00405C30 | `Yobi::sort` | 有正文 | `src/YobiRuntime.cpp:22850 — SortBattleActions_405C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -523,22 +523,22 @@
 | 465 | 0x0043C120 | `BattleScene::GetSelectedEntry` | 有正文 | `src/YobiRuntime.cpp:22758 — GetSelectedBattleEntry_43C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 466 | 0x0043C3E0 | `sub_43C3E0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1146 — WindowBattleCommand_DrawTargetHint` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 467 | 0x0043C490 | `sub_43C490` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1170 — WindowBattleCommand_ResetTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:3942 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:3954 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:3805 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:3817 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 470 | 0x0043C560 | `BattleScene::CheckCommand` | 有正文 | `src/YobiRuntime.cpp:33553 — CheckBattleCommand_43C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:10020 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:9883 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 472 | 0x0043C910 | `sub_43C910` | 有正文 | `src/YobiRuntime.cpp:33462 — Sub_43C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 473 | 0x0043C950 | `sub_43C950` | 有正文 | `src/ui/windows/WindowBattleStateNotice.cpp:28 — WindowBattleStateNotice_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 474 | 0x0043C9A0 | `sub_43C9A0` | 有正文 | `src/YobiRuntime.cpp:33477 — Sub_43C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 475 | 0x0043CA50 | `sub_43CA50` | 有正文 | `src/YobiRuntime.cpp:33511 — Sub_43CA50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 476 | 0x0043CA80 | `sub_43CA80` | 有正文 | `src/YobiRuntime.cpp:33525 — Sub_43CA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 477 | 0x0043CB10 | `sub_43CB10` | 有正文 | `src/world/MapSceneDrawing.cpp:336 — Sub_43CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:6589 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/LegacyMouse.cpp:56 — WorldObjectsStaticInitializer构造／析构` | 世界表原位置构造，退出由拥有者析构承接；手写atexit退休，登记结果／机器ABI不承诺等价；运行未验 |
-| 480 | 0x0043D770 | `sub_43D770` | 有正文 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 481 | 0x0043D7A0 | `sub_43D7A0` | 有正文 | `src/world/WorldObjectState.cpp:340 — DestroyWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 482 | 0x0043D7C0 | `sub_43D7C0` | 有承接 | `src/world/WorldObjectState.hpp:19 — WorldObjectRecord::WorldObjectRecord` | 两CryptInt成员按声明序自动构造；千项同一optional数组；C++完成前缀清理承接；运行未验 |
-| 483 | 0x0043D810 | `sub_43D810` | 有承接 | `src/world/WorldObjectState.hpp:21 — WorldObjectRecord::~WorldObjectRecord` | 成员1C→0C及数组元素自动逆序析构，退休手工适配；原SEH／完整运行未验 |
+| 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:6452 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 480 | 0x0043D770 | `sub_43D770` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 481 | 0x0043D7A0 | `sub_43D7A0` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 482 | 0x0043D7C0 | `sub_43D7C0` | 有承接 | `src/world/WorldObjectState.hpp:18 — WorldObjectRecord::WorldObjectRecord` | 两CryptInt成员按声明序自动构造；千项同一中央直接数组；C++完成前缀清理承接；运行未验 |
+| 483 | 0x0043D810 | `sub_43D810` | 有承接 | `src/world/WorldObjectState.hpp:20 — WorldObjectRecord::~WorldObjectRecord` | 成员1C→0C及数组元素自动逆序析构，退休手工适配；原SEH／完整运行未验 |
 | 484 | 0x0043D860 | `sub_43D860` | 有正文 | `src/YobiRuntime.cpp:35423 — Sub_43D860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 485 | 0x0043D970 | `sub_43D970` | 有正文 | `src/YobiRuntime.cpp:35588 — Sub_43D970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 486 | 0x0043D9A0 | `sub_43D9A0` | 有正文 | `src/YobiRuntime.cpp:35600 — Sub_43D9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -570,13 +570,13 @@
 | 512 | 0x00440440 | `sub_440440` | 有正文 | `src/YobiRuntime.cpp:2567 — Sub_440440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 513 | 0x004408C0 | `sub_4408C0` | 有正文 | `src/YobiRuntime.cpp:2378 — Sub_4408C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 514 | 0x00440920 | `sub_440920` | 有正文 | `src/YobiRuntime.cpp:2937 — Sub_440920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:8041 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:7904 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 516 | 0x00440B70 | `sub_440B70` | 有正文 | `src/YobiRuntime.cpp:6444 — Sub_440B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 517 | 0x00440C50 | `sub_440C50` | 有正文 | `src/YobiRuntime.cpp:6350 — Sub_440C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 518 | 0x00440F50 | `sub_440F50` | 有正文 | `src/YobiRuntime.cpp:6488 — Sub_440F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 519 | 0x00440FE0 | `sub_440FE0` | 有正文 | `src/YobiRuntime.cpp:6524 — Sub_440FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 520 | 0x00440FF0 | `sub_440FF0` | 有正文 | `src/world/SceneState.cpp:2055 — Sub_440FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:8048 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 520 | 0x00440FF0 | `sub_440FF0` | 有正文 | `src/world/SceneState.cpp:1924 — Sub_440FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:7911 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 522 | 0x004410F0 | `YobiGear::new` | 有正文 | `src/YobiRuntime.cpp:6568 — NewYobiGear_4410F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 523 | 0x00441130 | `YobiGearPet::new` | 有正文 | `src/YobiRuntime.cpp:6532 — NewYobiGearPet_441130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 524 | 0x004412D0 | `sub_4412D0` | 有正文 | `src/YobiRuntime.cpp:5773 — Sub_4412D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -610,28 +610,28 @@
 | 552 | 0x004441A0 | `sub_4441A0` | 有正文 | `src/YobiRuntime.cpp:3226 — Sub_4441A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 553 | 0x00444260 | `sub_444260` | 有正文 | `src/YobiRuntime.cpp:3261 — Sub_444260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 554 | 0x00444410 | `sub_444410` | 有正文 | `src/YobiRuntime.cpp:35711 — Sub_444410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 555 | 0x00444FA0 | `World::FindObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:87 — Sub_444FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 555 | 0x00444FA0 | `World::FindObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:79 — Sub_444FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 556 | 0x00445030 | `sub_445030` | 有正文 | `src/YobiRuntime.cpp:36415 — Sub_445030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 557 | 0x004450D0 | `sub_4450D0` | 有正文 | `src/YobiRuntime.cpp:36444 — Sub_4450D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 558 | 0x00445160 | `sub_445160` | 有正文 | `src/YobiRuntime.cpp:36471 — Sub_445160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 559 | 0x004451F0 | `sub_4451F0` | 有正文 | `src/YobiRuntime.cpp:36498 — Sub_4451F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 560 | 0x004452A0 | `sub_4452A0` | 有正文 | `src/YobiRuntime.cpp:36528 — Sub_4452A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 561 | 0x00445350 | `sub_445350` | 有正文 | `src/YobiRuntime.cpp:36150 — Sub_445350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 562 | 0x00445A60 | `sub_445A60` | 有正文 | `src/world/WorldObjectState.cpp:185 — Sub_445A60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 562 | 0x00445A60 | `sub_445A60` | 有正文 | `src/world/WorldObjectState.cpp:177 — Sub_445A60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 563 | 0x00445D20 | `sub_445D20` | 有正文 | `src/YobiRuntime.cpp:36296 — Sub_445D20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 564 | 0x00445F40 | `sub_445F40` | 有正文 | `src/YobiRuntime.cpp:36357 — Sub_445F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 565 | 0x00446130 | `World::TakeEmptyObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:118 — Sub_446130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 566 | 0x004461E0 | `sub_4461E0` | 有正文 | `src/world/WorldObjectState.cpp:150 — Sub_4461E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 567 | 0x00446210 | `sub_446210` | 有正文 | `src/world/WorldObjectState.cpp:165 — Sub_446210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 568 | 0x004462B0 | `World::FindObjectYobi` | 有正文 | `src/world/WorldObjectState.cpp:110 — FindObjectYobi_4462B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 569 | 0x004462E0 | `sub_4462E0` | 有正文 | `src/world/WorldObjectState.cpp:245 — Sub_4462E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 570 | 0x00446470 | `sub_446470` | 有正文 | `src/world/WorldObjectState.cpp:284 — Sub_446470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 571 | 0x004464D0 | `sub_4464D0` | 有正文 | `src/world/WorldObjectState.cpp:303 — Sub_4464D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 572 | 0x00446610 | `sub_446610` | 有正文 | `src/world/WorldObjectState.cpp:46 — Sub_446610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 565 | 0x00446130 | `World::TakeEmptyObjectIndex` | 有正文 | `src/world/WorldObjectState.cpp:110 — Sub_446130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 566 | 0x004461E0 | `sub_4461E0` | 有正文 | `src/world/WorldObjectState.cpp:142 — Sub_4461E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 567 | 0x00446210 | `sub_446210` | 有正文 | `src/world/WorldObjectState.cpp:157 — Sub_446210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 568 | 0x004462B0 | `World::FindObjectYobi` | 有正文 | `src/world/WorldObjectState.cpp:102 — FindObjectYobi_4462B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 569 | 0x004462E0 | `sub_4462E0` | 有正文 | `src/world/WorldObjectState.cpp:237 — Sub_4462E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 570 | 0x00446470 | `sub_446470` | 有正文 | `src/world/WorldObjectState.cpp:276 — Sub_446470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 571 | 0x004464D0 | `sub_4464D0` | 有正文 | `src/world/WorldObjectState.cpp:295 — Sub_4464D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 572 | 0x00446610 | `sub_446610` | 有正文 | `src/world/WorldObjectState.cpp:38 — Sub_446610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 573 | 0x00446640 | `sub_446640` | 有正文 | `src/YobiRuntime.cpp:36102 — Sub_446640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 574 | 0x004467D0 | `sub_4467D0` | 有正文 | `src/YobiRuntime.cpp:36061 — Sub_4467D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 575 | 0x004468F0 | `sub_4468F0` | 有正文 | `src/world/WorldObjectState.cpp:57 — Sub_4468F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 576 | 0x00446900 | `sub_446900` | 有正文 | `src/world/WorldObjectState.cpp:63 — Sub_446900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 575 | 0x004468F0 | `sub_4468F0` | 有正文 | `src/world/WorldObjectState.cpp:49 — Sub_4468F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 576 | 0x00446900 | `sub_446900` | 有正文 | `src/world/WorldObjectState.cpp:55 — Sub_446900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 577 | 0x00446970 | `sub_446970` | 有正文 | `src/YobiRuntime.cpp:926 — Sub_446970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 578 | 0x00446990 | `sub_446990` | 有正文 | `src/YobiRuntime.cpp:935 — Sub_446990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 579 | 0x004469C0 | `sub_4469C0` | 有正文 | `src/YobiRuntime.cpp:3300 — Sub_4469C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -649,7 +649,7 @@
 | 591 | 0x00447C40 | `sub_447C40` | 有正文 | `src/YobiRuntime.cpp:3836 — Sub_447C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 592 | 0x00447E60 | `sub_447E60` | 有正文 | `src/YobiRuntime.cpp:3842 — Sub_447E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 593 | 0x00448040 | `sub_448040` | 有正文 | `src/YobiRuntime.cpp:3052 — Sub_448040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 594 | 0x00448240 | `sub_448240` | 有正文 | `src/world/SceneState.cpp:677 — IsMapFloorAllowed_448240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 594 | 0x00448240 | `sub_448240` | 有正文 | `src/world/SceneState.cpp:526 — IsMapFloorAllowed_448240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 595 | 0x00448290 | `sub_448290` | 有正文 | `src/YobiRuntime.cpp:34329 — Sub_448290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 596 | 0x00448370 | `sub_448370` | 有正文 | `src/YobiRuntime.cpp:33709 — Sub_448370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 597 | 0x004483A0 | `sub_4483A0` | 有正文 | `src/YobiRuntime.cpp:34206 — Sub_4483A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -658,7 +658,7 @@
 | 600 | 0x00448BF0 | `sub_448BF0` | 有正文 | `src/YobiRuntime.cpp:33864 — Sub_448BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 601 | 0x00448D90 | `sub_448D90` | 有正文 | `src/YobiRuntime.cpp:33978 — Sub_448D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 602 | 0x00449160 | `sub_449160` | 有正文 | `src/YobiRuntime.cpp:34430 — Sub_449160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 603 | 0x004493C0 | `sub_4493C0` | 有正文 | `src/world/SceneState.cpp:692 — Sub_4493C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 603 | 0x004493C0 | `sub_4493C0` | 有正文 | `src/world/SceneState.cpp:541 — Sub_4493C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 604 | 0x00449400 | `sub_449400` | 有正文 | `src/YobiRuntime.cpp:34375 — Sub_449400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 605 | 0x00449570 | `sub_449570` | 有正文 | `src/YobiRuntime.cpp:33725 — Sub_449570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 606 | 0x00449670 | `sub_449670` | 有正文 | `src/YobiRuntime.cpp:34362 — Sub_449670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -699,7 +699,7 @@
 | 641 | 0x0044B570 | `sub_44B570` | 有正文 | `src/Input.cpp:373 — ClassifyChatSplit_44B570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:497 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/LoginState.cpp:99 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1244 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
+| 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1246 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
 | 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:146 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:210 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:553 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -756,12 +756,12 @@
 | 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:572 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:456 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 700 | 0x00453DE0 | `sub_453DE0` | 有正文 | `src/Palette.cpp:168 — CountMaskBits_453DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 703 | 0x00453E30 | `unknown_libname_11` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 703 | 0x00453E30 | `unknown_libname_11` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
+| 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:408 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
@@ -777,7 +777,7 @@
 | 719 | 0x00454B30 | `sub_454B30` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 720 | 0x00454B90 | `sub_454B90` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 721 | 0x00454BE0 | `sub_454BE0` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:156 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:147 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/LegacyAudio.cpp:1244 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/LegacyAudio.cpp:1231 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 725 | 0x00454FE0 | `sub_454FE0` | 有承接 | `src/LegacyAudio.cpp:1588 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:637 — InitializeFixedMusic` | 原单patch GetInstrument／DownloadInstrument／临时Release；固定WAV实际资源解码／PCM流预载承接，原音色下载机制退休；保原身份，不恢复MIDI／DLS或宣称库内HRESULT等价，声音／寿命未验 |
@@ -809,24 +809,24 @@
 | 751 | 0x00455850 | `sub_455850` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 752 | 0x00455930 | `sub_455930` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 753 | 0x00455940 | `sub_455940` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:8613 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:9890 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:9896 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:9902 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:9908 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:9914 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:9920 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:9926 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:9934 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:9940 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:9948 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:9956 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:9964 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:9972 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5478 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:781 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:8476 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:9753 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:9759 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:9765 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:9771 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:9777 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:9783 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:9789 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:9797 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:9803 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:9811 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:9819 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:9827 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:9835 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5341 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:630 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:225 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5484 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5347 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 772 | 0x00456050 | `sub_456050` | 有正文 | `src/ResourcePaths.cpp:187 — BuildResourcePaths` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 773 | 0x00456190 | `sub_456190` | 有正文 | `src/render/Font.cpp:95 — InitializeFont_456190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 774 | 0x00456530 | `sub_456530` | 有正文 | `src/render/Font.cpp:159 — ReleaseFont_456530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -837,9 +837,9 @@
 | 779 | 0x00456D30 | `Renderer::CacheReset` | 有正文 | `src/render/GraphicCacheState.cpp:17 — ResetGraphicCache_456D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 780 | 0x00456D50 | `sub_456D50` | 有正文 | `src/render/GraphicCacheState.cpp:10 — ClearTextQueueTail_456D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 781 | 0x00456D70 | `Renderer::RenderTextToSurface` | 有正文 | `src/render/Font.cpp:169 — RenderTextToSurface_456D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 782 | 0x00456FD0 | `sub_456FD0` | 有承接 | `src/platform/LegacyMouse.cpp:193 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 783 | 0x00456FE0 | `unknown_libname_15` | 有承接 | `src/platform/LegacyMouse.cpp:193 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 784 | 0x00457000 | `unknown_libname_16` | 有承接 | `src/platform/LegacyMouse.cpp:193 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 782 | 0x00456FD0 | `sub_456FD0` | 有承接 | `src/platform/LegacyMouse.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 783 | 0x00456FE0 | `unknown_libname_15` | 有承接 | `src/platform/LegacyMouse.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 784 | 0x00457000 | `unknown_libname_16` | 有承接 | `src/platform/LegacyMouse.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 785 | 0x00457010 | `sub_457010` | 有正文 | `src/platform/MainLoopSupport.cpp:528 — RequestRender_457010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 786 | 0x00457020 | `MainLoop` | 有正文 | `src/platform/MainLoop.cpp:47 — MainLoop` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 787 | 0x004574E0 | `GraphicAlloc` | 有正文 | `src/GraphicAlloc.cpp:21 — GraphicAlloc_4574E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -862,8 +862,8 @@
 | 804 | 0x00458DC0 | `sub_458DC0` | 有正文 | `src/platform/MainLoopSupport.cpp:537 — CheckLegacyDxCapability_458DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 805 | 0x00458DE0 | `World::UpdateNRTime` | 有正文 | `src/world/GameTime.cpp:16 — UpdateGameTime` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 806 | 0x00458EC0 | `Time::GetCate` | 有正文 | `src/world/GameTime.cpp:43 — GetCate_458EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 807 | 0x00458F00 | `sub_458F00` | 有正文 | `src/world/SceneState.cpp:6549 — Sub_458F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 808 | 0x00458F40 | `sub_458F40` | 有正文 | `src/world/SceneState.cpp:6522 — Sub_458F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 807 | 0x00458F00 | `sub_458F00` | 有正文 | `src/world/SceneState.cpp:6412 — Sub_458F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 808 | 0x00458F40 | `sub_458F40` | 有正文 | `src/world/SceneState.cpp:6385 — Sub_458F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 809 | 0x00458FD0 | `sub_458FD0` | 有正文 | `src/platform/ImeLifecycle.cpp:18 — InitializeIme_458FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 810 | 0x00459040 | `sub_459040` | 有正文 | `src/platform/ImeLifecycle.cpp:46 — ShutdownIme_459040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 811 | 0x00459090 | `sub_459090` | 有正文 | `src/platform/ImeLifecycle.cpp:62 — IsImeKeyboardLayout_459090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -955,10 +955,10 @@
 | 897 | 0x0045E960 | `sub_45E960` | 有正文 | `src/LoginState.cpp:407 — ProcessState_45E960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 898 | 0x0045EA50 | `sub_45EA50` | 有正文 | `src/LoginState.cpp:447 — ResetLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 899 | 0x0045EA60 | `sub_45EA60` | 有正文 | `src/LoginState.cpp:453 — UpdateLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11344 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11421 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11427 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10038 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11207 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11284 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11290 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:9901 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 904 | 0x0045EF80 | `sub_45EF80` | 有正文 | `src/LoginCapability3Scene.cpp:70 — Sub_45EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/ui/LegacyUiRecord.cpp:30 — DrawUiControl_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 906 | 0x0045F090 | `sub_45F090` | 有正文 | `src/DrawGraphic.cpp:129 — Sub_45F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -998,99 +998,99 @@
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/platform/RendererRebuild.cpp:20 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:76 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:130 — WindowProcedure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 944 | 0x00467BA0 | `unknown_libname_17` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 945 | 0x00467BD0 | `sub_467BD0` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 946 | 0x00467BF0 | `sub_467BF0` | 有承接 | `src/platform/LegacyMouse.cpp:233 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 947 | 0x00467C00 | `unknown_libname_19` | 有承接 | `src/platform/LegacyMouse.cpp:233 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 948 | 0x00467C20 | `unknown_libname_20` | 有承接 | `src/platform/LegacyMouse.cpp:233 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 949 | 0x00467C30 | `sub_467C30` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 950 | 0x00467C40 | `unknown_libname_21` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 951 | 0x00467C60 | `unknown_libname_22` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
-| 952 | 0x00467C70 | `sub_467C70` | 有承接 | `src/platform/LegacyMouse.cpp:238 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 953 | 0x00467C80 | `unknown_libname_23` | 有承接 | `src/platform/LegacyMouse.cpp:238 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 954 | 0x00467CA0 | `unknown_libname_24` | 有承接 | `src/platform/LegacyMouse.cpp:238 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 955 | 0x00467CB0 | `sub_467CB0` | 有承接 | `src/platform/LegacyMouse.cpp:241 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 956 | 0x00467CC0 | `unknown_libname_25` | 有承接 | `src/platform/LegacyMouse.cpp:241 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 957 | 0x00467CE0 | `unknown_libname_26` | 有承接 | `src/platform/LegacyMouse.cpp:241 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 958 | 0x00467CF0 | `sub_467CF0` | 有承接 | `src/platform/LegacyMouse.cpp:244 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 959 | 0x00467D00 | `unknown_libname_27` | 有承接 | `src/platform/LegacyMouse.cpp:244 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 960 | 0x00467D30 | `unknown_libname_28` | 有承接 | `src/platform/LegacyMouse.cpp:244 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 961 | 0x00467D50 | `sub_467D50` | 有承接 | `src/platform/LegacyMouse.cpp:248 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 962 | 0x00467D60 | `sub_467D60` | 有承接 | `src/platform/LegacyMouse.cpp:248 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 963 | 0x00467D90 | `sub_467D90` | 有承接 | `src/platform/LegacyMouse.cpp:248 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 964 | 0x00467DB0 | `sub_467DB0` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 965 | 0x00467DC0 | `unknown_libname_31` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 966 | 0x00467DE0 | `unknown_libname_32` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 967 | 0x00467DF0 | `sub_467DF0` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 968 | 0x00467E00 | `unknown_libname_33` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 969 | 0x00467E20 | `unknown_libname_34` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 970 | 0x00467E30 | `sub_467E30` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 971 | 0x00467E40 | `unknown_libname_35` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 972 | 0x00467E60 | `unknown_libname_36` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 973 | 0x00467E70 | `sub_467E70` | 有承接 | `src/platform/LegacyMouse.cpp:261 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 974 | 0x00467E80 | `unknown_libname_37` | 有承接 | `src/platform/LegacyMouse.cpp:261 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 975 | 0x00467EA0 | `unknown_libname_38` | 有承接 | `src/platform/LegacyMouse.cpp:261 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 976 | 0x00467EB0 | `sub_467EB0` | 有承接 | `src/platform/LegacyMouse.cpp:264 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 977 | 0x00467EC0 | `unknown_libname_39` | 有承接 | `src/platform/LegacyMouse.cpp:264 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 978 | 0x00467EE0 | `unknown_libname_40` | 有承接 | `src/platform/LegacyMouse.cpp:264 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 979 | 0x00467EF0 | `sub_467EF0` | 有承接 | `src/platform/LegacyMouse.cpp:267 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 980 | 0x00467F00 | `unknown_libname_41` | 有承接 | `src/platform/LegacyMouse.cpp:267 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 981 | 0x00467F20 | `unknown_libname_42` | 有承接 | `src/platform/LegacyMouse.cpp:267 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
-| 982 | 0x00467F30 | `sub_467F30` | 有正文 | `src/world/SceneState.cpp:5226 — Sub_467F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 983 | 0x004681B0 | `sub_4681B0` | 有正文 | `src/world/SceneState.cpp:5294 — Sub_4681B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 984 | 0x00468200 | `sub_468200` | 有正文 | `src/world/SceneState.cpp:5130 — Sub_468200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 985 | 0x00468290 | `sub_468290` | 有正文 | `src/world/SceneState.cpp:5312 — Sub_468290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 986 | 0x004682E0 | `sub_4682E0` | 有正文 | `src/world/SceneState.cpp:7255 — Sub_4682E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 987 | 0x00468330 | `sub_468330` | 有正文 | `src/world/SceneState.cpp:5175 — Sub_468330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 988 | 0x00468520 | `sub_468520` | 有正文 | `src/world/SceneState.cpp:4388 — Sub_468520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 989 | 0x00468570 | `Map::SaveToDisk` | 有正文 | `src/world/SceneState.cpp:4403 — Sub_468570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 990 | 0x004687B0 | `sub_4687B0` | 有正文 | `src/world/SceneState.cpp:4459 — Sub_4687B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 991 | 0x004688A0 | `sub_4688A0` | 有正文 | `src/world/SceneState.cpp:4492 — Sub_4688A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 992 | 0x00468C00 | `sub_468C00` | 有正文 | `src/world/SceneState.cpp:5336 — Sub_468C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 993 | 0x00468C40 | `sub_468C40` | 有正文 | `src/world/SceneState.cpp:4758 — Sub_468C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:7579 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:7597 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:753 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/platform/LegacyMouse.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 944 | 0x00467BA0 | `unknown_libname_17` | 有承接 | `src/platform/LegacyMouse.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 945 | 0x00467BD0 | `sub_467BD0` | 有承接 | `src/platform/LegacyMouse.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 946 | 0x00467BF0 | `sub_467BF0` | 有承接 | `src/platform/LegacyMouse.cpp:224 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 947 | 0x00467C00 | `unknown_libname_19` | 有承接 | `src/platform/LegacyMouse.cpp:224 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 948 | 0x00467C20 | `unknown_libname_20` | 有承接 | `src/platform/LegacyMouse.cpp:224 — cg::world::detail::gPlayerSnapshotX` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 949 | 0x00467C30 | `sub_467C30` | 有承接 | `src/platform/LegacyMouse.cpp:226 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 950 | 0x00467C40 | `unknown_libname_21` | 有承接 | `src/platform/LegacyMouse.cpp:226 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 951 | 0x00467C60 | `unknown_libname_22` | 有承接 | `src/platform/LegacyMouse.cpp:226 — cg::world::detail::gPlayerSnapshotY` | LCI16同一中央位置直接定义LegacyCryptInt；MSVC生成默认构造／逆序析构，去optional、Borrow与启动包装；原RNG及业务读取保持，仅静态核对，编译／运行未验 |
+| 952 | 0x00467C70 | `sub_467C70` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 953 | 0x00467C80 | `unknown_libname_23` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 954 | 0x00467CA0 | `unknown_libname_24` | 有承接 | `src/platform/LegacyMouse.cpp:229 — cg::world::detail::gValue9EE8D0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 955 | 0x00467CB0 | `sub_467CB0` | 有承接 | `src/platform/LegacyMouse.cpp:232 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 956 | 0x00467CC0 | `unknown_libname_25` | 有承接 | `src/platform/LegacyMouse.cpp:232 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 957 | 0x00467CE0 | `unknown_libname_26` | 有承接 | `src/platform/LegacyMouse.cpp:232 — cg::world::detail::gValue9EE8E0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 958 | 0x00467CF0 | `sub_467CF0` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 959 | 0x00467D00 | `unknown_libname_27` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 960 | 0x00467D30 | `unknown_libname_28` | 有承接 | `src/platform/LegacyMouse.cpp:235 — cg::world::detail::gValueC27FF8／gValueC27FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 961 | 0x00467D50 | `sub_467D50` | 有承接 | `src/platform/LegacyMouse.cpp:239 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 962 | 0x00467D60 | `sub_467D60` | 有承接 | `src/platform/LegacyMouse.cpp:239 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 963 | 0x00467D90 | `sub_467D90` | 有承接 | `src/platform/LegacyMouse.cpp:239 — cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 964 | 0x00467DB0 | `sub_467DB0` | 有承接 | `src/platform/LegacyMouse.cpp:243 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 965 | 0x00467DC0 | `unknown_libname_31` | 有承接 | `src/platform/LegacyMouse.cpp:243 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 966 | 0x00467DE0 | `unknown_libname_32` | 有承接 | `src/platform/LegacyMouse.cpp:243 — cg::world::detail::gValueC821E8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 967 | 0x00467DF0 | `sub_467DF0` | 有承接 | `src/platform/LegacyMouse.cpp:246 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 968 | 0x00467E00 | `unknown_libname_33` | 有承接 | `src/platform/LegacyMouse.cpp:246 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 969 | 0x00467E20 | `unknown_libname_34` | 有承接 | `src/platform/LegacyMouse.cpp:246 — cg::world::detail::gValue9E03C0` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 970 | 0x00467E30 | `sub_467E30` | 有承接 | `src/platform/LegacyMouse.cpp:249 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 971 | 0x00467E40 | `unknown_libname_35` | 有承接 | `src/platform/LegacyMouse.cpp:249 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 972 | 0x00467E60 | `unknown_libname_36` | 有承接 | `src/platform/LegacyMouse.cpp:249 — cg::world::detail::gValue9FB918` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 973 | 0x00467E70 | `sub_467E70` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 974 | 0x00467E80 | `unknown_libname_37` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 975 | 0x00467EA0 | `unknown_libname_38` | 有承接 | `src/platform/LegacyMouse.cpp:252 — cg::world::detail::gValueAF0FE8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 976 | 0x00467EB0 | `sub_467EB0` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 977 | 0x00467EC0 | `unknown_libname_39` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 978 | 0x00467EE0 | `unknown_libname_40` | 有承接 | `src/platform/LegacyMouse.cpp:255 — cg::world::detail::gValueC821D8` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 979 | 0x00467EF0 | `sub_467EF0` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 980 | 0x00467F00 | `unknown_libname_41` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 981 | 0x00467F20 | `unknown_libname_42` | 有承接 | `src/platform/LegacyMouse.cpp:258 — cg::world::detail::gRippleGate` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
+| 982 | 0x00467F30 | `sub_467F30` | 有正文 | `src/world/SceneState.cpp:5089 — Sub_467F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 983 | 0x004681B0 | `sub_4681B0` | 有正文 | `src/world/SceneState.cpp:5157 — Sub_4681B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 984 | 0x00468200 | `sub_468200` | 有正文 | `src/world/SceneState.cpp:4993 — Sub_468200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 985 | 0x00468290 | `sub_468290` | 有正文 | `src/world/SceneState.cpp:5175 — Sub_468290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 986 | 0x004682E0 | `sub_4682E0` | 有正文 | `src/world/SceneState.cpp:7118 — Sub_4682E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 987 | 0x00468330 | `sub_468330` | 有正文 | `src/world/SceneState.cpp:5038 — Sub_468330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 988 | 0x00468520 | `sub_468520` | 有正文 | `src/world/SceneState.cpp:4251 — Sub_468520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 989 | 0x00468570 | `Map::SaveToDisk` | 有正文 | `src/world/SceneState.cpp:4266 — Sub_468570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 990 | 0x004687B0 | `sub_4687B0` | 有正文 | `src/world/SceneState.cpp:4322 — Sub_4687B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 991 | 0x004688A0 | `sub_4688A0` | 有正文 | `src/world/SceneState.cpp:4355 — Sub_4688A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 992 | 0x00468C00 | `sub_468C00` | 有正文 | `src/world/SceneState.cpp:5199 — Sub_468C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 993 | 0x00468C40 | `sub_468C40` | 有正文 | `src/world/SceneState.cpp:4621 — Sub_468C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:7442 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:7460 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:602 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 997 | 0x00469020 | `sub_469020` | 有正文 | `src/world/MapSceneDrawing.cpp:329 — Sub_469020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:7032 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 999 | 0x004691D0 | `sub_4691D0` | 有正文 | `src/world/SceneState.cpp:5439 — Sub_4691D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1000 | 0x00469240 | `sub_469240` | 有正文 | `src/world/SceneState.cpp:5379 — Sub_469240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5393 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:7106 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5359 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:4574 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:8986 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:9069 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:6895 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 999 | 0x004691D0 | `sub_4691D0` | 有正文 | `src/world/SceneState.cpp:5302 — Sub_4691D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1000 | 0x00469240 | `sub_469240` | 有正文 | `src/world/SceneState.cpp:5242 — Sub_469240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5256 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:6969 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5222 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:4437 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:8849 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:8932 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1007 | 0x0046A190 | `sub_46A190` | 有正文 | `src/YobiRuntime.cpp:36592 — Sub_46A190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9166 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:8478 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9029 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:8341 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1010 | 0x0046A5F0 | `sub_46A5F0` | 有正文 | `src/YobiRuntime.cpp:36742 — Sub_46A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9210 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:8498 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8373 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1014 | 0x0046A9E0 | `sub_46A9E0` | 有正文 | `src/world/SceneState.cpp:7298 — Sub_46A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1015 | 0x0046AA00 | `sub_46AA00` | 有正文 | `src/world/SceneState.cpp:7307 — Sub_46AA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1016 | 0x0046AB60 | `sub_46AB60` | 有正文 | `src/world/SceneState.cpp:7501 — Sub_46AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1017 | 0x0046ABD0 | `sub_46ABD0` | 有正文 | `src/world/SceneState.cpp:7399 — Sub_46ABD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1018 | 0x0046AC10 | `sub_46AC10` | 有正文 | `src/world/SceneState.cpp:7416 — Sub_46AC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:7536 — Sub_46AC90` | LCI10局部临时载荷改整数operator=，一次RNG、目标token／reserved与Y→X发送序保持；仅静态，完整业务／运行未验 |
-| 1020 | 0x0046AD00 | `sub_46AD00` | 有正文 | `src/world/SceneState.cpp:7229 — Sub_46AD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1021 | 0x0046ADA0 | `sub_46ADA0` | 有正文 | `src/world/SceneState.cpp:7465 — Sub_46ADA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1022 | 0x0046AE60 | `sub_46AE60` | 有正文 | `src/world/SceneState.cpp:5348 — Sub_46AE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:7551 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1024 | 0x0046AF30 | `sub_46AF30` | 有正文 | `src/world/SceneState.cpp:4725 — Sub_46AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8405 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9073 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:8361 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8236 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1014 | 0x0046A9E0 | `sub_46A9E0` | 有正文 | `src/world/SceneState.cpp:7161 — Sub_46A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1015 | 0x0046AA00 | `sub_46AA00` | 有正文 | `src/world/SceneState.cpp:7170 — Sub_46AA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1016 | 0x0046AB60 | `sub_46AB60` | 有正文 | `src/world/SceneState.cpp:7364 — Sub_46AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1017 | 0x0046ABD0 | `sub_46ABD0` | 有正文 | `src/world/SceneState.cpp:7262 — Sub_46ABD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1018 | 0x0046AC10 | `sub_46AC10` | 有正文 | `src/world/SceneState.cpp:7279 — Sub_46AC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:7399 — Sub_46AC90` | LCI10局部临时载荷改整数operator=，一次RNG、目标token／reserved与Y→X发送序保持；仅静态，完整业务／运行未验 |
+| 1020 | 0x0046AD00 | `sub_46AD00` | 有正文 | `src/world/SceneState.cpp:7092 — Sub_46AD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1021 | 0x0046ADA0 | `sub_46ADA0` | 有正文 | `src/world/SceneState.cpp:7328 — Sub_46ADA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1022 | 0x0046AE60 | `sub_46AE60` | 有正文 | `src/world/SceneState.cpp:5211 — Sub_46AE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:7414 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1024 | 0x0046AF30 | `sub_46AF30` | 有正文 | `src/world/SceneState.cpp:4588 — Sub_46AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8268 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1026 | 0x0046B1B0 | `Player::MoveOneStep` | 有正文 | `src/YobiRuntime.cpp:36693 — MovePlayerOneStep_46B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:8943 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:8806 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1028 | 0x0046B4B0 | `sub_46B4B0` | 有正文 | `src/YobiRuntime.cpp:36557 — Sub_46B4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:7745 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:7759 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:7812 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1032 | 0x0046BC90 | `sub_46BC90` | 有正文 | `src/world/SceneState.cpp:7382 — Sub_46BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1033 | 0x0046BCF0 | `sub_46BCF0` | 有正文 | `src/world/SceneState.cpp:7449 — Sub_46BCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:8015 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:10001 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:7608 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:7622 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:7675 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1032 | 0x0046BC90 | `sub_46BC90` | 有正文 | `src/world/SceneState.cpp:7245 — Sub_46BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1033 | 0x0046BCF0 | `sub_46BCF0` | 有正文 | `src/world/SceneState.cpp:7312 — Sub_46BCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:7878 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:9864 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1036 | 0x0046BD60 | `sub_46BD60` | 有正文 | `src/world/MapDrawCache.cpp:348 — Sub_46BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1037 | 0x0046BE50 | `sub_46BE50` | 有正文 | `src/world/MapDrawCache.cpp:373 — Sub_46BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1038 | 0x0046C060 | `YobiMapChara::DrawGearNormal` | 有正文 | `src/world/MapDrawCache.cpp:440 — DrawGearNormal_46C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1100,63 +1100,63 @@
 | 1042 | 0x0046C420 | `sub_46C420` | 有正文 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1043 | 0x0046C440 | `sub_46C440` | 有正文 | `src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1044 | 0x0046C4D0 | `sub_46C4D0` | 有正文 | `src/world/MapDrawCache.cpp:186 — MergeMapDrawCache_46C4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1045 | 0x0046C760 | `sub_46C760` | 有正文 | `src/world/SceneState.cpp:5035 — Sub_46C760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1046 | 0x0046C840 | `sub_46C840` | 有正文 | `src/world/SceneState.cpp:4861 — Sub_46C840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:7733 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1048 | 0x0046CE30 | `sub_46CE30` | 有正文 | `src/world/SceneState.cpp:707 — ProjectWorldToScreen_46CE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1049 | 0x0046CE80 | `sub_46CE80` | 有正文 | `src/world/SceneState.cpp:719 — ProjectScreenToWorld_46CE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1050 | 0x0046CEC0 | `sub_46CEC0` | 有正文 | `src/world/SceneState.cpp:5158 — Sub_46CEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:5165 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:7618 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:7630 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1045 | 0x0046C760 | `sub_46C760` | 有正文 | `src/world/SceneState.cpp:4898 — Sub_46C760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1046 | 0x0046C840 | `sub_46C840` | 有正文 | `src/world/SceneState.cpp:4724 — Sub_46C840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:7596 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1048 | 0x0046CE30 | `sub_46CE30` | 有正文 | `src/world/SceneState.cpp:556 — ProjectWorldToScreen_46CE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1049 | 0x0046CE80 | `sub_46CE80` | 有正文 | `src/world/SceneState.cpp:568 — ProjectScreenToWorld_46CE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1050 | 0x0046CEC0 | `sub_46CEC0` | 有正文 | `src/world/SceneState.cpp:5021 — Sub_46CEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:5028 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:7481 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:7493 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1054 | 0x0046CF60 | `sub_46CF60` | 有正文 | `src/world/MapSceneDrawing.cpp:197 — Sub_46CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:7202 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:7275 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1057 | 0x0046DB00 | `sub_46DB00` | 有正文 | `src/world/SceneState.cpp:5070 — Sub_46DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1058 | 0x0046DC60 | `sub_46DC60` | 有正文 | `src/world/SceneState.cpp:5061 — Sub_46DC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1059 | 0x0046DC90 | `sub_46DC90` | 有正文 | `src/world/SceneState.cpp:5108 — Sub_46DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:7065 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:7138 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1057 | 0x0046DB00 | `sub_46DB00` | 有正文 | `src/world/SceneState.cpp:4933 — Sub_46DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1058 | 0x0046DC60 | `sub_46DC60` | 有正文 | `src/world/SceneState.cpp:4924 — Sub_46DC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1059 | 0x0046DC90 | `sub_46DC90` | 有正文 | `src/world/SceneState.cpp:4971 — Sub_46DC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1060 | 0x0046DD40 | `sub_46DD40` | 有正文 | `src/YobiRuntime.cpp:1596 — Sub_46DD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1061 | 0x0046DD90 | `sub_46DD90` | 有正文 | `src/YobiRuntime.cpp:5541 — Sub_46DD90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1062 | 0x0046DE50 | `sub_46DE50` | 有正文 | `src/YobiRuntime.cpp:5505 — Sub_46DE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1063 | 0x0046DFF0 | `sub_46DFF0` | 有正文 | `src/world/MapDrawCache.cpp:407 — Sub_46DFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1064 | 0x0046E0D0 | `sub_46E0D0` | 有正文 | `src/world/SceneState.cpp:1763 — Sub_46E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1065 | 0x0046E2A0 | `sub_46E2A0` | 有正文 | `src/world/SceneState.cpp:1115 — Sub_46E2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1066 | 0x0046E340 | `sub_46E340` | 有正文 | `src/world/SceneState.cpp:1148 — Sub_46E340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1067 | 0x0046E390 | `sub_46E390` | 有正文 | `src/world/SceneState.cpp:1172 — Sub_46E390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1068 | 0x0046E3E0 | `sub_46E3E0` | 有正文 | `src/world/SceneState.cpp:1198 — Sub_46E3E0` | 正文已有；实际五个地图效果调用由同文件1615行的 ApplyMapEffectDirection 承接，调用点1823／1887／1953／2019／2114；独立包装无当前调用不等于缺接线，本步仅定位提供者，不重验原正文或提升完整业务／运行门禁 |
-| 1069 | 0x0046E480 | `sub_46E480` | 有正文 | `src/world/SceneState.cpp:1390 — Sub_46E480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1070 | 0x0046E4A0 | `sub_46E4A0` | 有正文 | `src/world/SceneState.cpp:1753 — Sub_46E4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1071 | 0x0046E4C0 | `sub_46E4C0` | 有正文 | `src/world/SceneState.cpp:1663 — Sub_46E4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1072 | 0x0046E4E0 | `sub_46E4E0` | 有正文 | `src/world/SceneState.cpp:1399 — Sub_46E4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1073 | 0x0046E6C0 | `sub_46E6C0` | 有正文 | `src/world/SceneState.cpp:1465 — Sub_46E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1074 | 0x0046E940 | `sub_46E940` | 有正文 | `src/world/SceneState.cpp:1529 — Sub_46E940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1075 | 0x0046EBB0 | `sub_46EBB0` | 有正文 | `src/world/SceneState.cpp:1598 — Sub_46EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1076 | 0x0046ED50 | `sub_46ED50` | 有正文 | `src/world/SceneState.cpp:1670 — Sub_46ED50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1077 | 0x0046F000 | `sub_46F000` | 有正文 | `src/world/SceneState.cpp:1877 — Sub_46F000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1078 | 0x0046F090 | `sub_46F090` | 有正文 | `src/world/SceneState.cpp:1828 — Sub_46F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1079 | 0x0046F160 | `sub_46F160` | 有正文 | `src/world/SceneState.cpp:1807 — Sub_46F160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1080 | 0x0046F1D0 | `sub_46F1D0` | 有正文 | `src/world/SceneState.cpp:1905 — Sub_46F1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:8520 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:7642 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:7663 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:7672 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:7679 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1064 | 0x0046E0D0 | `sub_46E0D0` | 有正文 | `src/world/SceneState.cpp:1632 — Sub_46E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1065 | 0x0046E2A0 | `sub_46E2A0` | 有正文 | `src/world/SceneState.cpp:984 — Sub_46E2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1066 | 0x0046E340 | `sub_46E340` | 有正文 | `src/world/SceneState.cpp:1017 — Sub_46E340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1067 | 0x0046E390 | `sub_46E390` | 有正文 | `src/world/SceneState.cpp:1041 — Sub_46E390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1068 | 0x0046E3E0 | `sub_46E3E0` | 有正文 | `src/world/SceneState.cpp:1067 — Sub_46E3E0` | 正文已有；实际五个地图效果调用由同文件1615行的 ApplyMapEffectDirection 承接，调用点1823／1887／1953／2019／2114；独立包装无当前调用不等于缺接线，本步仅定位提供者，不重验原正文或提升完整业务／运行门禁 |
+| 1069 | 0x0046E480 | `sub_46E480` | 有正文 | `src/world/SceneState.cpp:1259 — Sub_46E480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1070 | 0x0046E4A0 | `sub_46E4A0` | 有正文 | `src/world/SceneState.cpp:1622 — Sub_46E4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1071 | 0x0046E4C0 | `sub_46E4C0` | 有正文 | `src/world/SceneState.cpp:1532 — Sub_46E4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1072 | 0x0046E4E0 | `sub_46E4E0` | 有正文 | `src/world/SceneState.cpp:1268 — Sub_46E4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1073 | 0x0046E6C0 | `sub_46E6C0` | 有正文 | `src/world/SceneState.cpp:1334 — Sub_46E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1074 | 0x0046E940 | `sub_46E940` | 有正文 | `src/world/SceneState.cpp:1398 — Sub_46E940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1075 | 0x0046EBB0 | `sub_46EBB0` | 有正文 | `src/world/SceneState.cpp:1467 — Sub_46EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1076 | 0x0046ED50 | `sub_46ED50` | 有正文 | `src/world/SceneState.cpp:1539 — Sub_46ED50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1077 | 0x0046F000 | `sub_46F000` | 有正文 | `src/world/SceneState.cpp:1746 — Sub_46F000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1078 | 0x0046F090 | `sub_46F090` | 有正文 | `src/world/SceneState.cpp:1697 — Sub_46F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1079 | 0x0046F160 | `sub_46F160` | 有正文 | `src/world/SceneState.cpp:1676 — Sub_46F160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1080 | 0x0046F1D0 | `sub_46F1D0` | 有正文 | `src/world/SceneState.cpp:1774 — Sub_46F1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:8383 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:7505 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:7526 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:7535 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:7542 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1086 | 0x0046FAF0 | `RAND` | 有正文 | `src/platform/MainLoopSupport.cpp:614 — RandomRange_46FAF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1087 | 0x0046FB20 | `sub_46FB20` | 有正文 | `src/world/SceneState.cpp:767 — InitializeRotationTable_46FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:7722 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1087 | 0x0046FB20 | `sub_46FB20` | 有正文 | `src/world/SceneState.cpp:616 — InitializeRotationTable_46FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:7585 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1089 | 0x0046FBA0 | `sub_46FBA0` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:78 — WindowShortcutBar_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1090 | 0x0046FBC0 | `sub_46FBC0` | 有正文 | `src/ui/WindowRuntime.cpp:3539 — WindowRuntime_DrawDefault` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1091 | 0x0046FBD0 | `sub_46FBD0` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:87 — WindowShortcutBar_ButtonCollapse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1092 | 0x0046FC60 | `sub_46FC60` | 有正文 | `src/ui/windows/WindowShortcutBar.cpp:113 — WindowShortcutBar_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:8626 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:8658 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:8693 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:8733 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:8763 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:8489 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:8521 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:8556 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:8596 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:8626 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1098 | 0x004705D0 | `sub_4705D0` | 有正文 | `src/ui/WindowRuntime.cpp:3400 — WindowRuntime_Initialize` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1099 | 0x004705F0 | `sub_4705F0` | 有正文 | `src/platform/ClientShutdown.cpp:31 — Sub_4705F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1100 | 0x00470600 | `sub_470600` | 有正文 | `src/ui/WindowRuntime.cpp:3427 — WindowRuntime_InitializeLogin` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:8799 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:8662 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1102 | 0x004708A0 | `sub_4708A0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:231 — WindowStatusBar_ButtonEmote` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1103 | 0x00470910 | `sub_470910` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:251 — WindowStatusBar_ButtonMiniMap` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1104 | 0x00470980 | `sub_470980` | 有正文 | `src/ui/WindowRuntime.cpp:3380 — WindowRuntime_OpenNormalScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1180,12 +1180,12 @@
 | 1122 | 0x004729B0 | `Window::DrawCurrentWindow` | 有正文 | `src/ui/WindowRuntime.cpp:4839 — WindowRuntime_DrawCurrent` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1123 | 0x00472D20 | `Window::ProsseFocus` | 有正文 | `src/ui/WindowRuntime.cpp:3873 — WindowDrag_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1124 | 0x00472F00 | `Mouse::isInRect` | 有正文 | `src/ui/WindowRuntime.cpp:3735 — WindowRuntime_HitTestRect` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1125 | 0x00472F40 | `sub_472F40` | 有正文 | `src/world/SceneState.cpp:2506 — Sub_472F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1126 | 0x00472F70 | `sub_472F70` | 有正文 | `src/world/SceneState.cpp:2517 — Sub_472F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1127 | 0x00472FA0 | `sub_472FA0` | 有正文 | `src/world/SceneState.cpp:2523 — Sub_472FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1128 | 0x00472FD0 | `sub_472FD0` | 有正文 | `src/world/SceneState.cpp:2529 — Sub_472FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1129 | 0x00473000 | `sub_473000` | 有正文 | `src/world/SceneState.cpp:2535 — Sub_473000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1130 | 0x00473030 | `sub_473030` | 有正文 | `src/world/SceneState.cpp:2541 — Sub_473030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1125 | 0x00472F40 | `sub_472F40` | 有正文 | `src/world/SceneState.cpp:2375 — Sub_472F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1126 | 0x00472F70 | `sub_472F70` | 有正文 | `src/world/SceneState.cpp:2386 — Sub_472F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1127 | 0x00472FA0 | `sub_472FA0` | 有正文 | `src/world/SceneState.cpp:2392 — Sub_472FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1128 | 0x00472FD0 | `sub_472FD0` | 有正文 | `src/world/SceneState.cpp:2398 — Sub_472FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1129 | 0x00473000 | `sub_473000` | 有正文 | `src/world/SceneState.cpp:2404 — Sub_473000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1130 | 0x00473030 | `sub_473030` | 有正文 | `src/world/SceneState.cpp:2410 — Sub_473030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1131 | 0x00473080 | `sub_473080` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:462 — WindowStatusBar_ReadInjuredPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1132 | 0x004730A0 | `Window::sortLayer` | 有正文 | `src/ui/WindowRuntime.cpp:3956 — WindowRuntime_CompactAndReorder` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1133 | 0x004731B0 | `sub_4731B0` | 有正文 | `src/ui/windows/WindowStatusBar.cpp:473 — WindowStatusBar_FindSortedPetIndex` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1227,7 +1227,7 @@
 | 1169 | 0x00476490 | `MouseEvent::setupEventCallback` | 有正文 | `src/ui/WindowRuntime.cpp:3804 — WindowDrag_StartAtPosition` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1170 | 0x00476500 | `InvDragReset` | 有正文 | `src/ui/WindowRuntime.cpp:3826 — WindowDrag_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1171 | 0x00476570 | `sub_476570` | 有正文 | `src/ui/WindowRuntime.cpp:4175 — WindowInput_ActivateElement` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1172 | 0x00476680 | `sub_476680` | 有正文 | `src/world/SceneState.cpp:2081 — Sub_476680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1172 | 0x00476680 | `sub_476680` | 有正文 | `src/world/SceneState.cpp:1950 — Sub_476680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1173 | 0x00476740 | `sub_476740` | 有正文 | `src/Input.cpp:569 — Sub_476740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1174 | 0x004767E0 | `sub_4767E0` | 有正文 | `src/ui/windows/WindowPlayerAttributes.cpp:298 — WindowPlayerAttributes_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1175 | 0x00477160 | `sub_477160` | 有正文 | `src/ui/WindowRuntime.cpp:4584 — WindowNumber_InitializeLegacySpacing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1457,7 +1457,7 @@
 | 1399 | 0x00490780 | `sub_490780` | 有正文 | `src/ui/windows/WindowPetAttributes.cpp:79 — WindowPetAttributes_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1400 | 0x00491AA0 | `sub_491AA0` | 有正文 | `src/ui/windows/WindowPetSkills.cpp:117 — WindowPetSkills_Refresh` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1401 | 0x004920F0 | `sub_4920F0` | 有正文 | `src/ui/windows/WindowPetSkills.cpp:203 — WindowPetSkills_DrawDraggedSkillTooltip` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1402 | 0x00492250 | `sub_492250` | 有正文 | `src/world/SceneState.cpp:4003 — Sub_492250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1402 | 0x00492250 | `sub_492250` | 有正文 | `src/world/SceneState.cpp:3866 — Sub_492250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1403 | 0x00492260 | `sub_492260` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:144 — WindowPetDetail_ResetDraftFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1404 | 0x00492270 | `sub_492270` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:150 — WindowPetDetail_ReadDraftFlag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1405 | 0x00492280 | `sub_492280` | 有正文 | `src/ui/windows/WindowPetDetail.cpp:156 — WindowPetDetail_InitializeDraft` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2120,48 +2120,48 @@
 | 2062 | 0x004CD1E0 | `sub_4CD1E0` | 有正文 | `src/ui/windows/WindowBlacklist.cpp:418 — WindowBlacklist_Clear` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2063 | 0x004CD220 | `sub_4CD220` | 有正文 | `src/ui/windows/WindowBlacklist.cpp:428 — WindowBlacklist_CancelClear` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2064 | 0x004CD240 | `sub_4CD240` | 有承接 | `src/ui/windows/WindowBattleItems.cpp:966 — StallBrowsePetValuesStartup::StallBrowsePetValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2065 | 0x004CD250 | `sub_4CD250` | 有承接 | `src/ui/windows/WindowStall.cpp:2768 — WindowStall_ConstructBrowsePetValues` | 固定成员构造／逆序销毁由实际数组 helper 承接；未记完整展开验收；完整业务／运行未验 |
-| 2066 | 0x004CD2D0 | `sub_4CD2D0` | 有承接 | `src/world/WorldUpdateDependencies.hpp:639 — PetRuntimeRecord::~PetRuntimeRecord` | 主／浏览各独立数组及六成员自动逆序析构；旧回调适配退休；运行未验 |
-| 2067 | 0x004CD360 | `sub_4CD360` | 有承接 | `src/world/WorldUpdateDependencies.hpp:637 — PetRuntimeRecord::PetRuntimeRecord` | 主／浏览五项各六成员由C++／std::array正序构造；实际存储独立，RNG序保持；运行未验 |
-| 2068 | 0x004CD3E0 | `sub_4CD3E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2781 — WindowStallBrowse_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2069 | 0x004CD400 | `sub_4CD400` | 有正文 | `src/ui/windows/WindowStall.cpp:2791 — WindowOwnStall_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2070 | 0x004CD420 | `sub_4CD420` | 有正文 | `src/ui/windows/WindowStall.cpp:2544 — WindowStall_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2071 | 0x004CD4F0 | `sub_4CD4F0` | 有正文 | `src/ui/windows/WindowStall.cpp:1991 — WindowStall_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2072 | 0x004CDB10 | `sub_4CDB10` | 有正文 | `src/ui/windows/WindowStall.cpp:2193 — WindowStall_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2073 | 0x004CDE00 | `sub_4CDE00` | 有正文 | `src/ui/windows/WindowStall.cpp:2569 — WindowStall_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2074 | 0x004CDE40 | `sub_4CDE40` | 有正文 | `src/ui/windows/WindowStall.cpp:440 — WindowStall_ButtonPreviousListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2075 | 0x004CDFA0 | `sub_4CDFA0` | 有正文 | `src/ui/windows/WindowStall.cpp:483 — WindowStall_ButtonNextListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2076 | 0x004CE1F0 | `sub_4CE1F0` | 有正文 | `src/ui/windows/WindowStall.cpp:553 — WindowStall_ButtonPreviousPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2077 | 0x004CE2B0 | `sub_4CE2B0` | 有正文 | `src/ui/windows/WindowStall.cpp:583 — WindowStall_ButtonNextPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2078 | 0x004CE3F0 | `sub_4CE3F0` | 有正文 | `src/ui/windows/WindowStall.cpp:630 — WindowStall_TabCategory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2079 | 0x004CE700 | `sub_4CE700` | 有正文 | `src/ui/windows/WindowStall.cpp:2578 — WindowStall_ReceiveOpenResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2080 | 0x004CE8A0 | `sub_4CE8A0` | 有正文 | `src/ui/windows/WindowStall.cpp:719 — WindowStall_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2081 | 0x004CE8B0 | `sub_4CE8B0` | 有正文 | `src/ui/windows/WindowStall.cpp:2624 — WindowStall_ReceiveCloseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2082 | 0x004CE930 | `sub_4CE930` | 有正文 | `src/ui/windows/WindowStall.cpp:2645 — WindowStall_ReceivePurchaseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2083 | 0x004CECB0 | `sub_4CECB0` | 有正文 | `src/ui/windows/WindowStall.cpp:2517 — WindowStall_RequestPurchase` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2084 | 0x004CED50 | `sub_4CED50` | 有正文 | `src/ui/windows/WindowStall.cpp:725 — WindowStall_ShowPurchaseConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2085 | 0x004CED60 | `sub_4CED60` | 有正文 | `src/ui/windows/WindowStall.cpp:2303 — WindowStall_OpenBrowse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2086 | 0x004CF8A0 | `sub_4CF8A0` | 有正文 | `src/ui/windows/WindowStall.cpp:2497 — WindowStall_BuildItemDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2087 | 0x004CF940 | `sub_4CF940` | 有正文 | `src/ui/windows/WindowStall.cpp:811 — WindowStall_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2088 | 0x004CFC40 | `sub_4CFC40` | 有正文 | `src/ui/windows/WindowStall.cpp:733 — WindowStall_EditItemPrice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2089 | 0x004CFCA0 | `sub_4CFCA0` | 有正文 | `src/ui/windows/WindowStall.cpp:747 — WindowStall_EditPetPrice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2090 | 0x004CFD70 | `sub_4CFD70` | 有正文 | `src/ui/windows/WindowStall.cpp:768 — WindowStall_RemoveListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2091 | 0x004CFE70 | `sub_4CFE70` | 有正文 | `src/ui/windows/WindowStall.cpp:952 — WindowStall_SubmitListings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2092 | 0x004D0230 | `sub_4D0230` | 有正文 | `src/ui/windows/WindowStall.cpp:1041 — WindowStall_DrawTooltipOverlay` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2093 | 0x004D04A0 | `sub_4D04A0` | 有正文 | `src/ui/windows/WindowStall.cpp:1477 — WindowStall_HandleItemRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2094 | 0x004D0990 | `sub_4D0990` | 有正文 | `src/ui/windows/WindowStall.cpp:1082 — WindowStall_DrawPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2095 | 0x004D0A80 | `sub_4D0A80` | 有正文 | `src/ui/windows/WindowStall.cpp:1108 — WindowStall_DrawPetDetails` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2096 | 0x004D0EB0 | `sub_4D0EB0` | 有正文 | `src/ui/windows/WindowStall.cpp:1180 — WindowStall_HandlePetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2097 | 0x004D16F0 | `sub_4D16F0` | 有正文 | `src/ui/windows/WindowStall.cpp:1363 — WindowStall_HandlePetCandidate` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2098 | 0x004D1C00 | `sub_4D1C00` | 有正文 | `src/ui/windows/WindowStall.cpp:1333 — WindowStall_DrawCandidateAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2099 | 0x004D1D50 | `sub_4D1D50` | 有正文 | `src/ui/windows/WindowStall.cpp:1627 — WindowStall_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2100 | 0x004D2260 | `sub_4D2260` | 有正文 | `src/ui/windows/WindowStall.cpp:1715 — WindowStall_HandlePriceInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2101 | 0x004D27C0 | `sub_4D27C0` | 有正文 | `src/ui/windows/WindowStall.cpp:692 — WindowStall_AddListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2102 | 0x004D2840 | `sub_4D2840` | 有正文 | `src/ui/windows/WindowStall.cpp:1831 — WindowStall_HandlePurchaseConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2065 | 0x004CD250 | `sub_4CD250` | 有承接 | `src/ui/windows/WindowStall.cpp:2770 — WindowStall_ConstructBrowsePetValues` | 固定成员构造／逆序销毁由实际数组 helper 承接；未记完整展开验收；完整业务／运行未验 |
+| 2066 | 0x004CD2D0 | `sub_4CD2D0` | 有承接 | `src/world/WorldUpdateDependencies.hpp:697 — PetRuntimeRecord::~PetRuntimeRecord` | 主／浏览各独立数组及六成员自动逆序析构；旧回调适配退休；运行未验 |
+| 2067 | 0x004CD360 | `sub_4CD360` | 有承接 | `src/world/WorldUpdateDependencies.hpp:695 — PetRuntimeRecord::PetRuntimeRecord` | 主／浏览五项各六成员由C++／std::array正序构造；实际存储独立，RNG序保持；运行未验 |
+| 2068 | 0x004CD3E0 | `sub_4CD3E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2783 — WindowStallBrowse_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2069 | 0x004CD400 | `sub_4CD400` | 有正文 | `src/ui/windows/WindowStall.cpp:2793 — WindowOwnStall_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2070 | 0x004CD420 | `sub_4CD420` | 有正文 | `src/ui/windows/WindowStall.cpp:2546 — WindowStall_ButtonClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2071 | 0x004CD4F0 | `sub_4CD4F0` | 有正文 | `src/ui/windows/WindowStall.cpp:1993 — WindowStall_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2072 | 0x004CDB10 | `sub_4CDB10` | 有正文 | `src/ui/windows/WindowStall.cpp:2195 — WindowStall_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2073 | 0x004CDE00 | `sub_4CDE00` | 有正文 | `src/ui/windows/WindowStall.cpp:2571 — WindowStall_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2074 | 0x004CDE40 | `sub_4CDE40` | 有正文 | `src/ui/windows/WindowStall.cpp:442 — WindowStall_ButtonPreviousListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2075 | 0x004CDFA0 | `sub_4CDFA0` | 有正文 | `src/ui/windows/WindowStall.cpp:485 — WindowStall_ButtonNextListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2076 | 0x004CE1F0 | `sub_4CE1F0` | 有正文 | `src/ui/windows/WindowStall.cpp:555 — WindowStall_ButtonPreviousPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2077 | 0x004CE2B0 | `sub_4CE2B0` | 有正文 | `src/ui/windows/WindowStall.cpp:585 — WindowStall_ButtonNextPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2078 | 0x004CE3F0 | `sub_4CE3F0` | 有正文 | `src/ui/windows/WindowStall.cpp:632 — WindowStall_TabCategory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2079 | 0x004CE700 | `sub_4CE700` | 有正文 | `src/ui/windows/WindowStall.cpp:2580 — WindowStall_ReceiveOpenResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2080 | 0x004CE8A0 | `sub_4CE8A0` | 有正文 | `src/ui/windows/WindowStall.cpp:721 — WindowStall_RequestClose` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2081 | 0x004CE8B0 | `sub_4CE8B0` | 有正文 | `src/ui/windows/WindowStall.cpp:2626 — WindowStall_ReceiveCloseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2082 | 0x004CE930 | `sub_4CE930` | 有正文 | `src/ui/windows/WindowStall.cpp:2647 — WindowStall_ReceivePurchaseResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2083 | 0x004CECB0 | `sub_4CECB0` | 有正文 | `src/ui/windows/WindowStall.cpp:2519 — WindowStall_RequestPurchase` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2084 | 0x004CED50 | `sub_4CED50` | 有正文 | `src/ui/windows/WindowStall.cpp:727 — WindowStall_ShowPurchaseConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2085 | 0x004CED60 | `sub_4CED60` | 有正文 | `src/ui/windows/WindowStall.cpp:2305 — WindowStall_OpenBrowse` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2086 | 0x004CF8A0 | `sub_4CF8A0` | 有正文 | `src/ui/windows/WindowStall.cpp:2499 — WindowStall_BuildItemDescription` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2087 | 0x004CF940 | `sub_4CF940` | 有正文 | `src/ui/windows/WindowStall.cpp:813 — WindowStall_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2088 | 0x004CFC40 | `sub_4CFC40` | 有正文 | `src/ui/windows/WindowStall.cpp:735 — WindowStall_EditItemPrice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2089 | 0x004CFCA0 | `sub_4CFCA0` | 有正文 | `src/ui/windows/WindowStall.cpp:749 — WindowStall_EditPetPrice` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2090 | 0x004CFD70 | `sub_4CFD70` | 有正文 | `src/ui/windows/WindowStall.cpp:770 — WindowStall_RemoveListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2091 | 0x004CFE70 | `sub_4CFE70` | 有正文 | `src/ui/windows/WindowStall.cpp:954 — WindowStall_SubmitListings` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2092 | 0x004D0230 | `sub_4D0230` | 有正文 | `src/ui/windows/WindowStall.cpp:1043 — WindowStall_DrawTooltipOverlay` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2093 | 0x004D04A0 | `sub_4D04A0` | 有正文 | `src/ui/windows/WindowStall.cpp:1479 — WindowStall_HandleItemRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2094 | 0x004D0990 | `sub_4D0990` | 有正文 | `src/ui/windows/WindowStall.cpp:1084 — WindowStall_DrawPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2095 | 0x004D0A80 | `sub_4D0A80` | 有正文 | `src/ui/windows/WindowStall.cpp:1110 — WindowStall_DrawPetDetails` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2096 | 0x004D0EB0 | `sub_4D0EB0` | 有正文 | `src/ui/windows/WindowStall.cpp:1182 — WindowStall_HandlePetRow` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2097 | 0x004D16F0 | `sub_4D16F0` | 有正文 | `src/ui/windows/WindowStall.cpp:1365 — WindowStall_HandlePetCandidate` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2098 | 0x004D1C00 | `sub_4D1C00` | 有正文 | `src/ui/windows/WindowStall.cpp:1335 — WindowStall_DrawCandidateAttributes` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2099 | 0x004D1D50 | `sub_4D1D50` | 有正文 | `src/ui/windows/WindowStall.cpp:1629 — WindowStall_HandleInventory` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2100 | 0x004D2260 | `sub_4D2260` | 有正文 | `src/ui/windows/WindowStall.cpp:1717 — WindowStall_HandlePriceInput` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2101 | 0x004D27C0 | `sub_4D27C0` | 有正文 | `src/ui/windows/WindowStall.cpp:694 — WindowStall_AddListing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2102 | 0x004D2840 | `sub_4D2840` | 有正文 | `src/ui/windows/WindowStall.cpp:1833 — WindowStall_HandlePurchaseConfirmation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2103 | 0x004D3020 | `sub_4D3020` | 有正文 | `src/ui/windows/WindowProfile.cpp:129 — WindowProfile_SaveOrigin` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2104 | 0x004D3040 | `sub_4D3040` | 有正文 | `src/ui/windows/WindowProfile.cpp:137 — WindowProfile_CheckDistance` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2105 | 0x004D3110 | `sub_4D3110` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:8035 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:7898 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2107 | 0x004D3180 | `sub_4D3180` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2108 | 0x004D31C0 | `sub_4D31C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2109 | 0x004D3210 | `sub_4D3210` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
@@ -2293,7 +2293,7 @@
 | 2235 | 0x004ECE00 | `sub_4ECE00` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2236 | 0x004ED010 | `sub_4ED010` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2237 | 0x004ED020 | `sub_4ED020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2238 | 0x004ED670 | `sub_4ED670` | 有正文 | `src/world/SceneState.cpp:5717 — Sub_4ED670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2238 | 0x004ED670 | `sub_4ED670` | 有正文 | `src/world/SceneState.cpp:5580 — Sub_4ED670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2239 | 0x004ED6B0 | `sub_4ED6B0` | 有正文 | `src/ui/windows/WindowGather.cpp:381 — WindowGather_ReceiveResult` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2240 | 0x004EDB20 | `sub_4EDB20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2241 | 0x004EE130 | `sub_4EE130` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
@@ -2351,7 +2351,7 @@
 | 2293 | 0x004F9FF0 | `sub_4F9FF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2294 | 0x004FA050 | `sub_4FA050` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2295 | 0x004FA350 | `sub_4FA350` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:8884 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:8747 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2297 | 0x004FACE0 | `sub_4FACE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2298 | 0x004FAED0 | `sub_4FAED0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2299 | 0x004FAEF0 | `sub_4FAEF0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
@@ -2473,7 +2473,7 @@
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:887 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2416 | 0x00503E60 | `sub_503E60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:4749 — WindowRuntime_ProcessScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10030 — ResetSceneUiState_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:9893 — ResetSceneUiState_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:4358 — WindowRuntime_Render` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2420 | 0x00504180 | `sub_504180` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
 | 2421 | 0x005042D0 | `sub_5042D0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
@@ -2485,26 +2485,26 @@
 | 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34508 — CreateModalAction_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1357 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2429 | 0x005049A0 | `sub_5049A0` | 有正文 | `src/LegacyHitTest.cpp:12 — Sub_5049A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10011 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:5734 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:9874 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:5597 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2432 | 0x00504AF0 | `sub_504AF0` | 已排除 | `doc/cg2d_legacy_window_simplification_evidence.json` | LWR03：用户接受移除无显示链的旧选择／End残留；原身份保留，不计实现或验收 |
-| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8146 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8162 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8009 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8025 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2435 | 0x00504BA0 | `sub_504BA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2436 | 0x00504C50 | `sub_504C50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2437 | 0x00504EE0 | `sub_504EE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2438 | 0x00504F10 | `sub_504F10` | 有正文 | `src/world/SceneState.cpp:3055 — Sub_504F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2438 | 0x00504F10 | `sub_504F10` | 有正文 | `src/world/SceneState.cpp:2924 — Sub_504F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2439 | 0x00504FA0 | `sub_504FA0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2440 | 0x00505040 | `sub_505040` | 有正文 | `src/world/SceneState.cpp:3084 — Sub_505040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2441 | 0x005050B0 | `sub_5050B0` | 有正文 | `src/world/SceneState.cpp:3101 — Sub_5050B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2442 | 0x00505110 | `sub_505110` | 有正文 | `src/world/SceneState.cpp:3117 — Sub_505110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2440 | 0x00505040 | `sub_505040` | 有正文 | `src/world/SceneState.cpp:2953 — Sub_505040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2441 | 0x005050B0 | `sub_5050B0` | 有正文 | `src/world/SceneState.cpp:2970 — Sub_5050B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2442 | 0x00505110 | `sub_505110` | 有正文 | `src/world/SceneState.cpp:2986 — Sub_505110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2443 | 0x00505170 | `sub_505170` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2444 | 0x00505BC0 | `sub_505BC0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2445 | 0x00505C20 | `sub_505C20` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2446 | 0x005062A0 | `sub_5062A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2447 | 0x00506340 | `sub_506340` | 有承接 | `src/platform/LegacyMouse.cpp:370 — MouseRuntimeStartup::MouseRuntimeStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2448 | 0x00506350 | `unknown_libname_47` | 有正文 | `src/platform/LegacyMouse.cpp:354 — ConstructLegacyMouseRuntime_506350` | 正文已有，MUP01补已完成十成员前缀的C++异常清理；X／Y／八按钮原序及成功后登记保持，完整业务／SEH／二次异常／owner／SDK／运行未验 |
-| 2449 | 0x00506530 | `sub_506530` | 有承接 | `include/cg/platform/LegacyMouse.hpp:18 — LegacyMouseState成员自动失败前缀清理／逆序析构` | 原完成前缀清理由原生聚合构造异常规则及成员析构承接；同一存储，原地址保留；原SEH／二次异常／完整owner与运行未验 |
+| 2447 | 0x00506340 | `sub_506340` | 有承接 | `src/platform/LegacyMouse.cpp:290 — cg::platform::gLegacyMouseState` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2448 | 0x00506350 | `unknown_libname_47` | 有承接 | `src/platform/LegacyMouse.cpp:290 — cg::platform::gLegacyMouseState` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2449 | 0x00506530 | `sub_506530` | 有承接 | `include/cg/platform/LegacyMouse.hpp:17 — LegacyMouseState成员自动失败前缀清理／逆序析构` | 原完成前缀清理由原生聚合构造异常规则及成员析构承接；同一存储，原地址保留；原SEH／二次异常／完整owner与运行未验 |
 | 2450 | 0x00506580 | `sub_506580` | 有正文 | `src/platform/LegacyMouseTracker.cpp:165 — ResetLegacyMouseTracker_506580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2451 | 0x005066D0 | `sub_5066D0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:236 — ResetLegacyMouseTrackerDefaults_5066D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2452 | 0x005066F0 | `sub_5066F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:43 — InsertAfter_5066F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2513,15 +2513,15 @@
 | 2455 | 0x00506780 | `sub_506780` | 有正文 | `src/platform/LegacyMouseTracker.cpp:97 — EvictActiveTail_506780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2456 | 0x005067A0 | `sub_5067A0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:108 — AllocateAndActivate_5067A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2457 | 0x005067F0 | `sub_5067F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:255 — TrackLegacyMouseDown_5067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:382 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:400 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:408 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:436 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:457 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:479 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:507 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:528 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:550 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:356 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:374 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:382 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:410 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:431 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:453 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:481 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:502 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:524 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2467 | 0x00506DD0 | `sub_506DD0` | 有正文 | `src/platform/LegacyCursor.cpp:185 — ResetLegacyMouseTail_506DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2468 | 0x00506DE0 | `sub_506DE0` | 有正文 | `src/platform/LegacyCursor.cpp:166 — RequestCursorState_506DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2469 | 0x00506E00 | `World::CursorUpdate` | 有正文 | `src/platform/LegacyCursor.cpp:191 — UpdateCursor_506E00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2556,48 +2556,48 @@
 | 2498 | 0x00508FC0 | `sub_508FC0` | 有正文 | `src/CharacterDeletionRequest.cpp:51 — PollCharacterDeletionRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2499 | 0x00509020 | `sub_509020` | 有正文 | `src/CharacterDeletionRequest.cpp:73 — HandleCharacterDeletionResponse_509020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2500 | 0x00509080 | `nullsub_1` | 空方法 | `src/Input.cpp:37 — NullSub_509080` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
-| 2501 | 0x00509090 | `sub_509090` | 有正文 | `src/world/SceneState.cpp:5780 — Sub_509090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2502 | 0x00509100 | `sub_509100` | 有正文 | `src/world/SceneState.cpp:5803 — Sub_509100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2503 | 0x005093C0 | `sub_5093C0` | 有正文 | `src/world/SceneState.cpp:5451 — Sub_5093C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2504 | 0x005093F0 | `Map::FlushNew` | 有正文 | `src/world/SceneState.cpp:5909 — Sub_5093F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2505 | 0x00509550 | `sub_509550` | 有正文 | `src/world/SceneState.cpp:5958 — Sub_509550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2506 | 0x00509650 | `sub_509650` | 有正文 | `src/world/SceneState.cpp:2863 — Sub_509650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2507 | 0x00509BA0 | `sub_509BA0` | 有正文 | `src/world/SceneState.cpp:2955 — Sub_509BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2508 | 0x00509E30 | `sub_509E30` | 有正文 | `src/world/SceneState.cpp:3025 — Sub_509E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2509 | 0x00509EB0 | `sub_509EB0` | 有正文 | `src/world/SceneState.cpp:3131 — Sub_509EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2510 | 0x0050A120 | `sub_50A120` | 有正文 | `src/world/SceneState.cpp:3198 — Sub_50A120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2511 | 0x0050A300 | `sub_50A300` | 有正文 | `src/world/SceneState.cpp:4013 — Sub_50A300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2512 | 0x0050A3E0 | `sub_50A3E0` | 有正文 | `src/world/SceneState.cpp:2131 — Sub_50A3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2513 | 0x0050A6B0 | `sub_50A6B0` | 有正文 | `src/world/SceneState.cpp:3731 — Sub_50A6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2514 | 0x0050AC20 | `sub_50AC20` | 有正文 | `src/world/SceneState.cpp:3830 — Sub_50AC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2501 | 0x00509090 | `sub_509090` | 有正文 | `src/world/SceneState.cpp:5643 — Sub_509090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2502 | 0x00509100 | `sub_509100` | 有正文 | `src/world/SceneState.cpp:5666 — Sub_509100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2503 | 0x005093C0 | `sub_5093C0` | 有正文 | `src/world/SceneState.cpp:5314 — Sub_5093C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2504 | 0x005093F0 | `Map::FlushNew` | 有正文 | `src/world/SceneState.cpp:5772 — Sub_5093F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2505 | 0x00509550 | `sub_509550` | 有正文 | `src/world/SceneState.cpp:5821 — Sub_509550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2506 | 0x00509650 | `sub_509650` | 有正文 | `src/world/SceneState.cpp:2732 — Sub_509650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2507 | 0x00509BA0 | `sub_509BA0` | 有正文 | `src/world/SceneState.cpp:2824 — Sub_509BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2508 | 0x00509E30 | `sub_509E30` | 有正文 | `src/world/SceneState.cpp:2894 — Sub_509E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2509 | 0x00509EB0 | `sub_509EB0` | 有正文 | `src/world/SceneState.cpp:3000 — Sub_509EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2510 | 0x0050A120 | `sub_50A120` | 有正文 | `src/world/SceneState.cpp:3067 — Sub_50A120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2511 | 0x0050A300 | `sub_50A300` | 有正文 | `src/world/SceneState.cpp:3876 — Sub_50A300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2512 | 0x0050A3E0 | `sub_50A3E0` | 有正文 | `src/world/SceneState.cpp:2000 — Sub_50A3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2513 | 0x0050A6B0 | `sub_50A6B0` | 有正文 | `src/world/SceneState.cpp:3594 — Sub_50A6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2514 | 0x0050AC20 | `sub_50AC20` | 有正文 | `src/world/SceneState.cpp:3693 — Sub_50AC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2515 | 0x0050AEF0 | `sub_50AEF0` | 有正文 | `src/YobiRuntime.cpp:35389 — Sub_50AEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2516 | 0x0050B0D0 | `sub_50B0D0` | 有正文 | `src/world/SceneState.cpp:3871 — Sub_50B0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2517 | 0x0050B380 | `sub_50B380` | 有正文 | `src/world/SceneState.cpp:2235 — Sub_50B380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2518 | 0x0050BCD0 | `sub_50BCD0` | 有正文 | `src/world/SceneState.cpp:2426 — Sub_50BCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2519 | 0x0050BF20 | `sub_50BF20` | 有正文 | `src/world/SceneState.cpp:3385 — Sub_50BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2520 | 0x0050BFA0 | `sub_50BFA0` | 有正文 | `src/world/SceneState.cpp:2547 — Sub_50BFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2521 | 0x0050BFC0 | `sub_50BFC0` | 有正文 | `src/world/SceneState.cpp:2560 — Sub_50BFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2522 | 0x0050BFD0 | `sub_50BFD0` | 有正文 | `src/world/SceneState.cpp:3436 — Sub_50BFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2523 | 0x0050C260 | `sub_50C260` | 有正文 | `src/world/SceneState.cpp:3462 — Sub_50C260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2524 | 0x0050C580 | `sub_50C580` | 有正文 | `src/world/SceneState.cpp:3245 — Sub_50C580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2525 | 0x0050C7A0 | `sub_50C7A0` | 有正文 | `src/world/SceneState.cpp:2578 — Sub_50C7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2516 | 0x0050B0D0 | `sub_50B0D0` | 有正文 | `src/world/SceneState.cpp:3734 — Sub_50B0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2517 | 0x0050B380 | `sub_50B380` | 有正文 | `src/world/SceneState.cpp:2104 — Sub_50B380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2518 | 0x0050BCD0 | `sub_50BCD0` | 有正文 | `src/world/SceneState.cpp:2295 — Sub_50BCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2519 | 0x0050BF20 | `sub_50BF20` | 有正文 | `src/world/SceneState.cpp:3254 — Sub_50BF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2520 | 0x0050BFA0 | `sub_50BFA0` | 有正文 | `src/world/SceneState.cpp:2416 — Sub_50BFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2521 | 0x0050BFC0 | `sub_50BFC0` | 有正文 | `src/world/SceneState.cpp:2429 — Sub_50BFC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2522 | 0x0050BFD0 | `sub_50BFD0` | 有正文 | `src/world/SceneState.cpp:3305 — Sub_50BFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2523 | 0x0050C260 | `sub_50C260` | 有正文 | `src/world/SceneState.cpp:3331 — Sub_50C260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2524 | 0x0050C580 | `sub_50C580` | 有正文 | `src/world/SceneState.cpp:3114 — Sub_50C580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2525 | 0x0050C7A0 | `sub_50C7A0` | 有正文 | `src/world/SceneState.cpp:2447 — Sub_50C7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2526 | 0x0050C7F0 | `sub_50C7F0` | 有正文 | `src/ui/windows/WindowWorkResult.cpp:8 — WindowWorkResult_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2527 | 0x0050C870 | `sub_50C870` | 有正文 | `src/world/SceneState.cpp:6570 — Sub_50C870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:8025 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2529 | 0x0050C900 | `sub_50C900` | 有正文 | `src/world/SceneState.cpp:3530 — Sub_50C900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:2679 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:2733 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2532 | 0x0050CE10 | `sub_50CE10` | 有正文 | `src/world/SceneState.cpp:2597 — Sub_50CE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2527 | 0x0050C870 | `sub_50C870` | 有正文 | `src/world/SceneState.cpp:6433 — Sub_50C870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:7888 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2529 | 0x0050C900 | `sub_50C900` | 有正文 | `src/world/SceneState.cpp:3399 — Sub_50C900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:2548 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:2602 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2532 | 0x0050CE10 | `sub_50CE10` | 有正文 | `src/world/SceneState.cpp:2466 — Sub_50CE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2533 | 0x0050CF20 | `sub_50CF20` | 有正文 | `src/network/NetworkRuntime.cpp:766 — Sub_50CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2534 | 0x0050CF60 | `sub_50CF60` | 有正文 | `src/network/NetworkRuntime.cpp:757 — Sub_50CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2535 | 0x0050CF70 | `sub_50CF70` | 有正文 | `src/world/SceneState.cpp:2569 — Sub_50CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2536 | 0x0050CF90 | `sub_50CF90` | 有正文 | `src/world/SceneState.cpp:5757 — Sub_50CF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2537 | 0x0050D000 | `sub_50D000` | 有正文 | `src/world/SceneState.cpp:2838 — Sub_50D000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2538 | 0x0050D080 | `sub_50D080` | 有正文 | `src/world/SceneState.cpp:5462 — Sub_50D080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2539 | 0x0050D120 | `sub_50D120` | 有正文 | `src/world/SceneState.cpp:5505 — Sub_50D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2535 | 0x0050CF70 | `sub_50CF70` | 有正文 | `src/world/SceneState.cpp:2438 — Sub_50CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2536 | 0x0050CF90 | `sub_50CF90` | 有正文 | `src/world/SceneState.cpp:5620 — Sub_50CF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2537 | 0x0050D000 | `sub_50D000` | 有正文 | `src/world/SceneState.cpp:2707 — Sub_50D000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2538 | 0x0050D080 | `sub_50D080` | 有正文 | `src/world/SceneState.cpp:5325 — Sub_50D080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2539 | 0x0050D120 | `sub_50D120` | 有正文 | `src/world/SceneState.cpp:5368 — Sub_50D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2540 | 0x0050D3B0 | `sub_50D3B0` | 有正文 | `src/network/NetworkRuntime.cpp:784 — Sub_50D3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2541 | 0x0050D3C0 | `sub_50D3C0` | 有正文 | `src/world/SceneState.cpp:5583 — Sub_50D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2542 | 0x0050D500 | `sub_50D500` | 有正文 | `src/world/SceneState.cpp:5662 — Sub_50D500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2541 | 0x0050D3C0 | `sub_50D3C0` | 有正文 | `src/world/SceneState.cpp:5446 — Sub_50D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2542 | 0x0050D500 | `sub_50D500` | 有正文 | `src/world/SceneState.cpp:5525 — Sub_50D500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2543 | 0x0050D700 | `sub_50D700` | 有正文 | `src/network/NetworkRuntime.cpp:822 — Sub_50D700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2544 | 0x0050D740 | `sub_50D740` | 有正文 | `src/world/MailState.cpp:295 — Sub_50D740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2545 | 0x0050D8C0 | `sub_50D8C0` | 有正文 | `src/world/MailState.cpp:334 — Sub_50D8C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2605,8 +2605,8 @@
 | 2547 | 0x0050DC70 | `sub_50DC70` | 有正文 | `src/world/MailState.cpp:638 — Sub_50DC70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2548 | 0x0050DD80 | `sub_50DD80` | 有正文 | `src/network/NetworkRuntime.cpp:842 — Sub_50DD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1257 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2620 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:2654 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2489 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:2523 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2552 | 0x0050E310 | `sub_50E310` | 有正文 | `src/network/NetworkRuntime.cpp:794 — Sub_50E310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2553 | 0x0050E340 | `sub_50E340` | 有正文 | `src/ui/windows/WindowSkill.cpp:2553 — WindowSkill_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2554 | 0x0050E360 | `sub_50E360` | 有正文 | `src/ui/windows/WindowSkill.cpp:2562 — WindowSkill_ReceiveAttributeTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2621,20 +2621,20 @@
 | 2563 | 0x0050E500 | `sub_50E500` | 有正文 | `src/ui/windows/WindowTrade.cpp:3057 — WindowTrade_ReceivePetSkillReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2564 | 0x0050E530 | `sub_50E530` | 有正文 | `src/ui/windows/WindowTrade.cpp:3072 — WindowTrade_ReceiveRemoteResetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2565 | 0x0050E570 | `sub_50E570` | 有正文 | `src/ui/windows/WindowTrade.cpp:3092 — WindowTrade_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2566 | 0x0050E5B0 | `sub_50E5B0` | 有正文 | `src/world/SceneState.cpp:1010 — Sub_50E5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:1017 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2566 | 0x0050E5B0 | `sub_50E5B0` | 有正文 | `src/world/SceneState.cpp:879 — Sub_50E5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:886 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2568 | 0x0050E630 | `sub_50E630` | 有正文 | `src/network/NetworkRuntime.cpp:810 — Sub_50E630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:2645 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:2514 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/LegacyAudio.cpp:1204 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2571 | 0x0050E6C0 | `sub_50E6C0` | 有正文 | `src/network/NetworkRuntime.cpp:747 — Sub_50E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:940 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2573 | 0x0050E770 | `sub_50E770` | 有正文 | `src/CharacterSelectScene.cpp:203 — Sub_50E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2574 | 0x0050E780 | `sub_50E780` | 有正文 | `src/network/NetworkRuntime.cpp:961 — Sub_50E780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2575 | 0x0050E7B0 | `sub_50E7B0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:244 — ConfigureLegacyMouseTracker_50E7B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2576 | 0x0050E7D0 | `sub_50E7D0` | 有正文 | `src/ui/windows/WindowStall.cpp:2730 — WindowStall_ReceiveOpenReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2577 | 0x0050E7E0 | `sub_50E7E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2736 — WindowStall_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2578 | 0x0050E7F0 | `sub_50E7F0` | 有正文 | `src/ui/windows/WindowStall.cpp:2742 — WindowStall_ReceiveBrowseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2579 | 0x0050E820 | `sub_50E820` | 有正文 | `src/ui/windows/WindowStall.cpp:2751 — WindowStall_ReceivePurchaseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2576 | 0x0050E7D0 | `sub_50E7D0` | 有正文 | `src/ui/windows/WindowStall.cpp:2732 — WindowStall_ReceiveOpenReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2577 | 0x0050E7E0 | `sub_50E7E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2738 — WindowStall_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2578 | 0x0050E7F0 | `sub_50E7F0` | 有正文 | `src/ui/windows/WindowStall.cpp:2744 — WindowStall_ReceiveBrowseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2579 | 0x0050E820 | `sub_50E820` | 有正文 | `src/ui/windows/WindowStall.cpp:2753 — WindowStall_ReceivePurchaseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2580 | 0x0050E830 | `sub_50E830` | 有正文 | `src/network/NetworkRuntime.cpp:975 — Sub_50E830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2581 | 0x0050E850 | `sub_50E850` | 有正文 | `src/LegacyRecordOrder.cpp:137 — Sub_50E850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2582 | 0x0050EB40 | `sub_50EB40` | 有正文 | `src/LegacyRecordOrder.cpp:207 — Sub_50EB40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2660,7 +2660,7 @@
 | 2602 | 0x0050FF70 | `sub_50FF70` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 2603 | 0x00510120 | `sub_510120` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 2604 | 0x00510140 | `sub_510140` | 有正文 | `src/LoginRequest.cpp:91 — ReadRequestOutcomeFlag` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2605 | 0x00510150 | `sub_510150` | 有正文 | `src/world/SceneState.cpp:3668 — Sub_510150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2605 | 0x00510150 | `sub_510150` | 有正文 | `src/world/SceneState.cpp:3531 — Sub_510150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2606 | 0x00510460 | `sub_510460` | 有正文 | `src/network/NetworkRuntime.cpp:1034 — Sub_510460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2607 | 0x00510490 | `sub_510490` | 有正文 | `src/network/NetworkRuntime.cpp:1046 — Sub_510490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2608 | 0x00510570 | `sub_510570` | 有正文 | `src/network/NetworkRuntime.cpp:1984 — Sub_510570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2770,22 +2770,22 @@
 | 2712 | 0x005182B0 | `sub_5182B0` | 有正文 | `src/YobiRuntime.cpp:5675 — Sub_5182B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2713 | 0x00518300 | `sub_518300` | 有正文 | `src/YobiRuntime.cpp:5696 — Sub_518300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2714 | 0x005183B0 | `sub_5183B0` | 有正文 | `src/YobiRuntime.cpp:36054 — Sub_5183B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2715 | 0x005183D0 | `sub_5183D0` | 有承接 | `src/world/SceneState.cpp:618 — PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2716 | 0x005183E0 | `sub_5183E0` | 有正文 | `src/world/SceneState.cpp:597 — ConstructLegacyPlayerRuntime_5183E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2717 | 0x00518520 | `sub_518520` | 有承接 | `src/world/SceneState.cpp:630 — PetRuntimeValuesStartup::PetRuntimeValuesStartup` | LCI01已批准以原生拥有者构造／析构承接；同一真实载荷、原构造清理及中央位置保持，退出机制沿MSVC；仅静态核对，编译／运行未验 |
-| 2718 | 0x00518530 | `sub_518530` | 有正文 | `src/world/SceneState.cpp:654 — ConstructPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2719 | 0x00518560 | `sub_518560` | 有正文 | `src/world/SceneState.cpp:661 — DestroyPetRuntimeValues` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2720 | 0x00518580 | `sub_518580` | 有正文 | `src/world/SceneState.cpp:3990 — Sub_518580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2721 | 0x005185C0 | `sub_5185C0` | 有正文 | `src/world/SceneState.cpp:3930 — Sub_5185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2722 | 0x00518600 | `sub_518600` | 有正文 | `src/world/SceneState.cpp:3313 — Sub_518600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2723 | 0x00518660 | `sub_518660` | 有正文 | `src/world/SceneState.cpp:3298 — Sub_518660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2724 | 0x005186A0 | `sub_5186A0` | 有正文 | `src/world/SceneState.cpp:827 — Sub_5186A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2725 | 0x00518780 | `sub_518780` | 有正文 | `src/world/SceneState.cpp:859 — Sub_518780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2726 | 0x00518870 | `sub_518870` | 有正文 | `src/world/SceneState.cpp:909 — Sub_518870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2727 | 0x00518A40 | `sub_518A40` | 有正文 | `src/world/SceneState.cpp:956 — Sub_518A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2728 | 0x00518BE0 | `sub_518BE0` | 有正文 | `src/world/SceneState.cpp:897 — Sub_518BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2729 | 0x00518C20 | `sub_518C20` | 有正文 | `src/world/SceneState.cpp:796 — InitializeAlbum_518C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:8088 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2715 | 0x005183D0 | `sub_5183D0` | 有承接 | `src/platform/LegacyMouse.cpp:298 — cg::world::detail::gPlayerRuntimeSlots` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2716 | 0x005183E0 | `sub_5183E0` | 有承接 | `src/platform/LegacyMouse.cpp:298 — cg::world::detail::gPlayerRuntimeSlots` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2717 | 0x00518520 | `sub_518520` | 有承接 | `src/platform/LegacyMouse.cpp:302 — cg::world::detail::gPetRuntimeRecords` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2718 | 0x00518530 | `sub_518530` | 有承接 | `src/platform/LegacyMouse.cpp:302 — cg::world::detail::gPetRuntimeRecords` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2719 | 0x00518560 | `sub_518560` | 有承接 | `src/platform/LegacyMouse.cpp:302 — cg::world::detail::gPetRuntimeRecords` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 2720 | 0x00518580 | `sub_518580` | 有正文 | `src/world/SceneState.cpp:3853 — Sub_518580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2721 | 0x005185C0 | `sub_5185C0` | 有正文 | `src/world/SceneState.cpp:3793 — Sub_5185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2722 | 0x00518600 | `sub_518600` | 有正文 | `src/world/SceneState.cpp:3182 — Sub_518600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2723 | 0x00518660 | `sub_518660` | 有正文 | `src/world/SceneState.cpp:3167 — Sub_518660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2724 | 0x005186A0 | `sub_5186A0` | 有正文 | `src/world/SceneState.cpp:696 — Sub_5186A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2725 | 0x00518780 | `sub_518780` | 有正文 | `src/world/SceneState.cpp:728 — Sub_518780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2726 | 0x00518870 | `sub_518870` | 有正文 | `src/world/SceneState.cpp:778 — Sub_518870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2727 | 0x00518A40 | `sub_518A40` | 有正文 | `src/world/SceneState.cpp:825 — Sub_518A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2728 | 0x00518BE0 | `sub_518BE0` | 有正文 | `src/world/SceneState.cpp:766 — Sub_518BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2729 | 0x00518C20 | `sub_518C20` | 有正文 | `src/world/SceneState.cpp:645 — InitializeAlbum_518C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:7951 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2731 | 0x00518C80 | `sub_518C80` | 有正文 | `src/world/MailState.cpp:848 — Sub_518C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2732 | 0x00518CB0 | `sub_518CB0` | 有正文 | `src/world/MailState.cpp:1376 — Sub_518CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2733 | 0x00518DA0 | `sub_518DA0` | 有正文 | `src/world/MailState.cpp:434 — Sub_518DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2805,51 +2805,51 @@
 | 2747 | 0x005195F0 | `sub_5195F0` | 有正文 | `src/world/MailState.cpp:1467 — Sub_5195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2748 | 0x00519640 | `sub_519640` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2749 | 0x00519680 | `sub_519680` | 有正文 | `src/ui/WindowRuntime.cpp:769 — WindowItem_HealthImageLevel` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2750 | 0x005196B0 | `sub_5196B0` | 有正文 | `src/world/SceneState.cpp:3408 — Sub_5196B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2751 | 0x00519770 | `sub_519770` | 有正文 | `src/world/SceneState.cpp:3647 — Sub_519770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2752 | 0x00519840 | `sub_519840` | 有正文 | `src/world/SceneState.cpp:4042 — Sub_519840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2753 | 0x0051985F | `?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/world/SceneState.cpp:4042 — Sub_519840` | 原共享 -1 返回尾；当前父实际失败返回承接；完整业务／运行未验 |
+| 2750 | 0x005196B0 | `sub_5196B0` | 有正文 | `src/world/SceneState.cpp:3277 — Sub_5196B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2751 | 0x00519770 | `sub_519770` | 有正文 | `src/world/SceneState.cpp:3510 — Sub_519770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2752 | 0x00519840 | `sub_519840` | 有正文 | `src/world/SceneState.cpp:3905 — Sub_519840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2753 | 0x0051985F | `?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/world/SceneState.cpp:3905 — Sub_519840` | 原共享 -1 返回尾；当前父实际失败返回承接；完整业务／运行未验 |
 | 2754 | 0x00519870 | `sub_519870` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2755 | 0x005198A0 | `sub_5198A0` | 有正文 | `src/world/SceneState.cpp:4056 — Sub_5198A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2756 | 0x005198D0 | `sub_5198D0` | 有正文 | `src/world/SceneState.cpp:4074 — Sub_5198D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2757 | 0x005198F0 | `sub_5198F0` | 有正文 | `src/world/SceneState.cpp:4084 — Sub_5198F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2758 | 0x00519920 | `sub_519920` | 有正文 | `src/world/SceneState.cpp:3976 — Sub_519920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2759 | 0x00519950 | `sub_519950` | 有正文 | `src/world/SceneState.cpp:3285 — Sub_519950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:9846 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9303 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9417 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:9663 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9442 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2765 | 0x00519EB0 | `sub_519EB0` | 有正文 | `src/world/SceneState.cpp:6563 — Sub_519EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:9461 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2755 | 0x005198A0 | `sub_5198A0` | 有正文 | `src/world/SceneState.cpp:3919 — Sub_5198A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2756 | 0x005198D0 | `sub_5198D0` | 有正文 | `src/world/SceneState.cpp:3937 — Sub_5198D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2757 | 0x005198F0 | `sub_5198F0` | 有正文 | `src/world/SceneState.cpp:3947 — Sub_5198F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2758 | 0x00519920 | `sub_519920` | 有正文 | `src/world/SceneState.cpp:3839 — Sub_519920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2759 | 0x00519950 | `sub_519950` | 有正文 | `src/world/SceneState.cpp:3154 — Sub_519950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:9709 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9166 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9280 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:9526 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9305 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2765 | 0x00519EB0 | `sub_519EB0` | 有正文 | `src/world/SceneState.cpp:6426 — Sub_519EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:9324 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2767 | 0x00519EE0 | `sub_519EE0` | 有正文 | `src/YobiRuntime.cpp:36818 — Sub_519EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:9467 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:9478 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9356 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9409 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:9679 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:9774 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:9687 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:9694 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:9700 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:9706 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:9712 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:9718 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:9330 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:9341 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9219 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9272 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:9542 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:9637 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:9550 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:9557 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:9563 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:9569 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:9575 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:9581 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2780 | 0x0051A640 | `sub_51A640` | 有正文 | `src/YobiRuntime.cpp:36791 — Sub_51A640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2781 | 0x0051A660 | `sub_51A660` | 有正文 | `src/YobiRuntime.cpp:36801 — Sub_51A660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2782 | 0x0051A680 | `sub_51A680` | 有正文 | `src/YobiRuntime.cpp:36811 — Sub_51A680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2783 | 0x0051A6A0 | `sub_51A6A0` | 有正文 | `src/YobiRuntime.cpp:35481 — Sub_51A6A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:9488 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8449 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8441 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:9351 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8312 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8304 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2787 | 0x0051B110 | `sub_51B110` | 有正文 | `src/LoginRequest.cpp:60 — Sub_51B110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2788 | 0x0051B140 | `sub_51B140` | 有正文 | `src/LoginRequest.cpp:69 — CharacterNameExists_51B140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2789 | 0x0051B1B0 | `sub_51B1B0` | 有正文 | `src/CharacterListRequest.cpp:54 — WriteCharacterRecord_51B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2790 | 0x0051B3B0 | `sub_51B3B0` | 有正文 | `src/LoginRequest.cpp:50 — Sub_51B3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:8891 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2792 | 0x0051B530 | `sub_51B530` | 有正文 | `src/world/SceneState.cpp:3494 — Sub_51B530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2793 | 0x0051B5F0 | `sub_51B5F0` | 有正文 | `src/world/SceneState.cpp:3514 — Sub_51B5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2794 | 0x0051B630 | `sub_51B630` | 有正文 | `src/world/SceneState.cpp:3544 — Sub_51B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:8754 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2792 | 0x0051B530 | `sub_51B530` | 有正文 | `src/world/SceneState.cpp:3363 — Sub_51B530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2793 | 0x0051B5F0 | `sub_51B5F0` | 有正文 | `src/world/SceneState.cpp:3383 — Sub_51B5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2794 | 0x0051B630 | `sub_51B630` | 有正文 | `src/world/SceneState.cpp:3413 — Sub_51B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2795 | 0x0051B740 | `sub_51B740` | 有正文 | `src/CharacterSelectPreview.cpp:293 — Sub_51B740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2796 | 0x0051B7D0 | `sub_51B7D0` | 有正文 | `src/CharacterSelectPreview.cpp:329 — Sub_51B7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2797 | 0x0051B910 | `sub_51B910` | 有正文 | `src/CharacterSelectPreview.cpp:383 — Sub_51B910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2858,39 +2858,39 @@
 | 2800 | 0x0051BB80 | `sub_51BB80` | 有正文 | `src/CharacterSelectPreview.cpp:130 — Sub_51BB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2801 | 0x0051BC50 | `sub_51BC50` | 有正文 | `src/CharacterSelectPreview.cpp:261 — Sub_51BC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2802 | 0x0051BD00 | `sub_51BD00` | 有正文 | `src/CharacterSelectPreview.cpp:185 — Sub_51BD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:9724 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:9730 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:9785 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:9793 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:9740 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:9746 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:9752 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:9762 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:9813 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:9804 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:9768 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2814 | 0x0051BEF0 | `sub_51BEF0` | 有正文 | `src/world/SceneState.cpp:572 — Sub_51BEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:9587 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:9593 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:9648 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:9656 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:9603 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:9609 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:9615 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:9625 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:9676 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:9667 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:9631 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2814 | 0x0051BEF0 | `sub_51BEF0` | 有正文 | `src/world/SceneState.cpp:488 — Sub_51BEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2815 | 0x0051BF00 | `sub_51BF00` | 有正文 | `src/CharacterSelectPreview.cpp:218 — Sub_51BF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2816 | 0x0051BFF0 | `sub_51BFF0` | 有正文 | `src/CharacterSelectPreview.cpp:240 — Sub_51BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:9617 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:648 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:9480 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:511 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:28 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:729 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2821 | 0x0051C790 | `sub_51C790` | 有正文 | `src/world/SceneState.cpp:737 — SetCurrentSceneTypeAndState` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2822 | 0x0051C7B0 | `sub_51C7B0` | 有正文 | `src/world/SceneState.cpp:745 — SetPendingSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2823 | 0x0051C7D0 | `World::DrawNormalScene` | 有正文 | `src/world/SceneState.cpp:5994 — DrawNormalScene_51C7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2824 | 0x0051D5B0 | `sub_51D5B0` | 有正文 | `src/world/SceneState.cpp:7000 — Sub_51D5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2825 | 0x0051D640 | `sub_51D640` | 有正文 | `src/world/SceneState.cpp:6469 — Sub_51D640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2826 | 0x0051D6F0 | `sub_51D6F0` | 有正文 | `src/world/SceneState.cpp:6507 — Sub_51D6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2827 | 0x0051D750 | `sub_51D750` | 有正文 | `src/world/SceneState.cpp:6494 — Sub_51D750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:10063 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10355 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:10797 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:10954 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:11130 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11277 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11283 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11289 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:578 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2821 | 0x0051C790 | `sub_51C790` | 有正文 | `src/world/SceneState.cpp:586 — SetCurrentSceneTypeAndState` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2822 | 0x0051C7B0 | `sub_51C7B0` | 有正文 | `src/world/SceneState.cpp:594 — SetPendingSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2823 | 0x0051C7D0 | `World::DrawNormalScene` | 有正文 | `src/world/SceneState.cpp:5857 — DrawNormalScene_51C7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2824 | 0x0051D5B0 | `sub_51D5B0` | 有正文 | `src/world/SceneState.cpp:6863 — Sub_51D5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2825 | 0x0051D640 | `sub_51D640` | 有正文 | `src/world/SceneState.cpp:6332 — Sub_51D640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2826 | 0x0051D6F0 | `sub_51D6F0` | 有正文 | `src/world/SceneState.cpp:6370 — Sub_51D6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2827 | 0x0051D750 | `sub_51D750` | 有正文 | `src/world/SceneState.cpp:6357 — Sub_51D750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:9926 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10218 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:10660 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:10817 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:10993 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11140 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11146 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11152 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:354 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2837 | 0x00520160 | `sub_520160` | 有正文 | `src/LoginSavedState.cpp:997 — Sub_520160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2838 | 0x005201B0 | `sub_5201B0` | 有正文 | `src/LoginSavedState.cpp:791 — RestoreCurrentSavedState_5201B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3012,8 +3012,8 @@
 | 2954 | 0x0052D7B0 | `sub_52D7B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2955 | 0x0052DC60 | `sub_52DC60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2956 | 0x0052DCE0 | `sub_52DCE0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
-| 2957 | 0x0052E180 | `sub_52E180` | 有正文 | `src/world/SceneState.cpp:3614 — Sub_52E180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2958 | 0x0052E1D0 | `sub_52E1D0` | 有正文 | `src/world/SceneState.cpp:3632 — Sub_52E1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2957 | 0x0052E180 | `sub_52E180` | 有正文 | `src/world/SceneState.cpp:3477 — Sub_52E180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2958 | 0x0052E1D0 | `sub_52E1D0` | 有正文 | `src/world/SceneState.cpp:3495 — Sub_52E1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2959 | 0x0052E240 | `sub_52E240` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2960 | 0x0052E600 | `sub_52E600` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2961 | 0x0052E650 | `sub_52E650` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
@@ -3107,7 +3107,7 @@
 | 3049 | 0x005354C0 | `sub_5354C0` | 已排除 | `src/platform/LegacyExternalKeyboardObject.cpp:41 — GetExternalKeyboardResult_5354C0` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3050 | 0x005354D0 | `sub_5354D0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3051 | 0x00535540 | `sub_535540` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 3052 | 0x00536960 | `nullsub_4` | 空方法 | `src/platform/LegacyMouse.cpp:140 — EmptyLegacyExit_536960` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
+| 3052 | 0x00536960 | `nullsub_4` | 空方法 | `src/platform/LegacyMouse.cpp:131 — EmptyLegacyExit_536960` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
 | 3053 | 0x00536970 | `sub_536970` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3054 | 0x00536C30 | `sub_536C30` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3055 | 0x00536EA0 | `sub_536EA0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
@@ -3207,7 +3207,7 @@
 | 3149 | 0x0053B304 | `_sprintf` | 有承接 | `src/CharacterListRequest.cpp:163 — std::sprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有800处调用及原合同保持；完整业务／运行未验 |
 | 3150 | 0x0053B356 | `_fputs` | 有承接 | `src/Blacklist.cpp:59 — std::fputs（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3151 | 0x0053B399 | `__onexit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyMouse.cpp:150 — RegisterLegacyPrimaryEmptyExit` | 原库入口沿真实std::atexit消费者／MSVC服务承接；CryptInt 24组另由LCI01原生构析承接，无手写登记；未记机器ABI或运行已验 |
+| 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyMouse.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库入口沿真实std::atexit消费者／MSVC服务承接；CryptInt 24组另由LCI01原生构析承接，无手写登记；未记机器ABI或运行已验 |
 | 3153 | 0x0053B418 | `___onexitinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3154 | 0x0053B447 | `sub_53B447` | 有承接 | `CMakeLists.txt:161 — 宿主CRT启动；src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyFormat.hpp:5 — MSVC std::vfprintf直接声明；src/platform/LegacyFormat.hpp:5 — MSVC std::vfscanf直接声明` | 原53C8CD在C／C++初始化前从58F864间接调用；旧六回调／CPU探测／x87默认精度随MC01-C2退休，当前MSVC整体启动／格式／扫描服务；不新增旧回调槽或声明硬件状态等价 |
 | 3155 | 0x0053B45E | `nullsub_6` | 空方法 | `—` | 原入口单RET，58F868／58F86C两数据槽记录保留；按用户决定标为空方法，结束职责／调用／承接核对，不补CPP包装 |
@@ -3216,22 +3216,22 @@
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:599 — SeedRandom_53B4BF` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
 | 3159 | 0x0053B4C9 | `rand` | 有正文 | `src/platform/MainLoopSupport.cpp:606 — NextRandom_53B4C9` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
 | 3160 | 0x0053B4E7 | `delete` | 有承接 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前 IDA 的原 delete 叶调用 free；本线实际通用释放使用 std::free，与已批准 malloc 分配族成组承接；完整 owner／运行未验 |
-| 3161 | 0x0053B4F2 | `?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3162 | 0x0053B526 | `sub_53B526` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3163 | 0x0053B52D | `sub_53B52D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3164 | 0x0053B534 | `?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3165 | 0x0053B583 | `___CxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3166 | 0x0053B5B9 | `?_CallCatchBlock2@@YAPAXPAUEHRegistrationNode@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3167 | 0x0053B60D | `?CatchGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUCatchGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3168 | 0x0053B632 | `?_CallSETranslator@@YAHPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAX2PBU_s_FuncInfo@@H1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3169 | 0x0053B6E6 | `?TranslatorGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUTranslatorGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3170 | 0x0053B75B | `?_GetRangeOfTrysToCheck@@YAPBU_s_TryBlockMapEntry@@PBU_s_FuncInfo@@HHPAI1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3171 | 0x0053B7D8 | `__global_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3172 | 0x0053B7F8 | `__unwind_handler` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3173 | 0x0053B81A | `__local_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3174 | 0x0053B882 | `__abnormal_termination` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3175 | 0x0053B8A5 | `__NLG_Notify1` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3176 | 0x0053B8AE | `__NLG_Notify` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3161 | 0x0053B4F2 | `?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3162 | 0x0053B526 | `sub_53B526` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3163 | 0x0053B52D | `sub_53B52D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3164 | 0x0053B534 | `?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3165 | 0x0053B583 | `___CxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3166 | 0x0053B5B9 | `?_CallCatchBlock2@@YAPAXPAUEHRegistrationNode@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3167 | 0x0053B60D | `?CatchGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUCatchGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3168 | 0x0053B632 | `?_CallSETranslator@@YAHPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAX2PBU_s_FuncInfo@@H1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3169 | 0x0053B6E6 | `?TranslatorGuardHandler@@YA?AW4_EXCEPTION_DISPOSITION@@PAUEHExceptionRecord@@PAUTranslatorGuardRN@@PAX2@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3170 | 0x0053B75B | `?_GetRangeOfTrysToCheck@@YAPBU_s_TryBlockMapEntry@@PBU_s_FuncInfo@@HHPAI1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3171 | 0x0053B7D8 | `__global_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3172 | 0x0053B7F8 | `__unwind_handler` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3173 | 0x0053B81A | `__local_unwind2` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3174 | 0x0053B882 | `__abnormal_termination` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3175 | 0x0053B8A5 | `__NLG_Notify1` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3176 | 0x0053B8AE | `__NLG_Notify` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3177 | 0x0053B8C6 | `_localtime` | 有承接 | `src/platform/LegacyTime.cpp:39 — LocalTime_53B8C6` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3178 | 0x0053BA26 | `_time` | 有承接 | `src/platform/LegacyTime.cpp:13 — ReadLegacyTime32_53BA26` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3179 | 0x0053BB02 | `_fflush` | 有承接 | `src/Input.cpp:1219 — std::fflush（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3256,16 +3256,16 @@
 | 3198 | 0x0053C3AC | `_malloc` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3199 | 0x0053C3BE | `__nh_malloc` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3200 | 0x0053C3EA | `sub_53C3EA` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)` | 原仅__nh_malloc调用并转旧两池／HeapAlloc；实际std::malloc整体承接分配及已批库内策略，不复刻模式，业务／owner／运行未验 |
-| 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
-| 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/world/WorldObjectState.cpp:340 — DestroyWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
-| 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
+| 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 3204 | 0x0053C5BE | `_atol` | 有承接 | `include/cg/platform/LegacyTime.hpp:7 — std::atol` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3205 | 0x0053C649 | `_atoi` | 有承接 | `src/LoginScene.cpp:448 — std::atoi` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3206 | 0x0053C654 | `__mkdir` | 有承接 | `src/Input.cpp:1151 — ::_mkdir` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3207 | 0x0053C680 | `_fwrite` | 有承接 | `src/Input.cpp:1099 — std::fwrite（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3208 | 0x0053C790 | `_strncat` | 有承接 | `src/Input.cpp:269 — AppendText（UTF-16 STL正文插入）` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3209 | 0x0053C8B3 | `_fgetc` | 有承接 | `src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3210 | 0x0053C8CD | `__cinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyMouse.cpp:81 — gSurfaceTransformCacheStartup` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3210 | 0x0053C8CD | `__cinit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；src/platform/LegacyMouse.cpp:72 — gSurfaceTransformCacheStartup` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3211 | 0x0053C8FA | `_exit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3212 | 0x0053C90B | `__exit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3213 | 0x0053C91C | `_doexit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3277,7 +3277,7 @@
 | 3219 | 0x0053CB78 | `_ftell` | 有承接 | `src/GraphicInfo.cpp:138 — std::ftell（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3220 | 0x0053CCD0 | `__fstat` | 有承接 | `src/platform/LegacyTime.cpp:60 — ReadLegacyFileCreationTime32；include/cg/platform/LegacyTime.hpp:35 — ReadLegacyFileCreationTime32` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3221 | 0x0053CF50 | `__strcmpi` | 有承接 | `src/AnimationRuntime.cpp:395 — ::_stricmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3222 | 0x0053CFDC | `_fputc` | 有承接 | `src/world/SceneState.cpp:4470 — std::fputc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3222 | 0x0053CFDC | `_fputc` | 有承接 | `src/world/SceneState.cpp:4333 — std::fputc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3223 | 0x0053D000 | `__CIpow` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3224 | 0x0053D019 | `_pow` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3225 | 0x0053D022 | `sub_53D022` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3323,7 +3323,7 @@
 | 3265 | 0x0053F9E0 | `_strlen` | 有承接 | `include/cg/platform/LegacyTime.hpp:8 — std::strlen` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3266 | 0x0053FA5B | `sub_53FA5B` | 有承接 | `src/platform/LegacyMemory.cpp:27 — ReallocateLegacyMemory_53FA5B` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3267 | 0x0053FCFB | `sub_53FCFB` | 有承接 | `src/platform/LegacyMemory.cpp:12 — GetLegacyAllocationSize_53FCFB` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10063 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:9926 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3269 | 0x0053FD6E | `__ms_p5_test_fdiv` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3270 | 0x0053FDAC | `__ms_p5_mp_test_fdiv` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3271 | 0x0053FDD5 | `__forcdecpt` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3337,19 +3337,19 @@
 | 3279 | 0x00540177 | `__cftof_g` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3280 | 0x0054019A | `__cfltcvt` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3281 | 0x005401EB | `__shift` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3282 | 0x00540210 | `___InternalCxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3283 | 0x005402AB | `?FindHandler@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@EH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3284 | 0x00540452 | `?FindHandlerForForeignException@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@HH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3285 | 0x005404FA | `?TypeMatch@@YAHPBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_ThrowInfo@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3286 | 0x00540557 | `___FrameUnwindToState` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3287 | 0x005405F5 | `unknown_libname_49` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
-| 3288 | 0x0054060B | `?CatchIt@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@PBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_TryBlockMapEntry@@H1E@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3289 | 0x00540686 | `?CallCatchBlock@@YAPAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3290 | 0x00540792 | `?ExFilterRethrow@@YAHPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3291 | 0x005407BC | `?BuildCatchObject@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PBU_s_HandlerType@@PBU_s_CatchableType@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3282 | 0x00540210 | `___InternalCxxFrameHandler` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3283 | 0x005402AB | `?FindHandler@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@EH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3284 | 0x00540452 | `?FindHandlerForForeignException@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@HH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3285 | 0x005404FA | `?TypeMatch@@YAHPBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_ThrowInfo@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3286 | 0x00540557 | `___FrameUnwindToState` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3287 | 0x005405F5 | `unknown_libname_49` | 有承接 | `src/platform/LegacyMouse.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
+| 3288 | 0x0054060B | `?CatchIt@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@PBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_TryBlockMapEntry@@H1E@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3289 | 0x00540686 | `?CallCatchBlock@@YAPAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3290 | 0x00540792 | `?ExFilterRethrow@@YAHPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3291 | 0x005407BC | `?BuildCatchObject@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PBU_s_HandlerType@@PBU_s_CatchableType@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:30 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3296 | 0x00540AB2 | `sub_540AB2` | 有承接 | `CMakeLists.txt:161 — 宿主VCRuntime` | 原八处引用均在C++ handler／展开链；读58FB74=540A5C、SEH保护后交终止；当前VCRuntime／实际std::terminate承接，不把标准流构造当本叶直接实现 |
 | 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/platform/LegacyTime.cpp:42 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:35 — ::_mktime32(&calendar)` | 原时区初始化包装仅由53B8C6／541160调用并转540B1D；实际::_localtime32／::_mktime32整体承接，不保原私有函数划分；MSVC库内策略沿获批边界，业务／寿命／运行未验 |
@@ -3383,8 +3383,8 @@
 | 3325 | 0x00542A54 | `sub_542A54` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原旧calloc／分配／realloc消费并转542C5C／54275C的私有分配链；实际标准分配族整体承接，库内策略沿MC01-C4，完整owner／运行未验 |
 | 3326 | 0x00542C5C | `sub_542C5C` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅542A54内两处调用的私有分配辅助；实际标准分配族整体承接，不伪称同名新叶或旧算法等价，owner／SDK／运行未验 |
 | 3327 | 0x00542D80 | `sub_542D80` | 有承接 | `src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅旧realloc消费的私有扩容辅助；实际std::realloc整体承接，不复刻旧元数据／同名接口，完整块内容／失败／owner／运行未验 |
-| 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3330 | 0x00542F10 | `__allmul` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC std::vfscanf直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3331 | 0x00542F44 | `sub_542F44` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入；src/ui/WindowRuntime.cpp:2748 — ::_close（MSVC描述符服务）` | 原九个旧文件／目录父的系统错误→DOS错误／errno转换，当前实际MSVC文件／目录服务及同线程错误访问整体承接，不手写旧表／影子槽，业务错误消费／owner／运行未验 |
 | 3332 | 0x00543097 | `zerotoxdone` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3431,8 +3431,8 @@
 | 3373 | 0x0054472B | `_wctomb` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3374 | 0x005447A0 | `__aullrem` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3375 | 0x00544815 | `__getbuf` | 有承接 | `src/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10063 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:10063 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:9926 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:36853 — RenderChara_521F20；src/world/SceneState.cpp:9926 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3378 | 0x005448A4 | `__abstract_cw` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3379 | 0x00544936 | `__hw_cw` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3380 | 0x005449BF | `__ZeroTail` | 有承接 | `src/platform/LegacyFormat.hpp:5 — MSVC 直接声明；src/platform/LegacyFormat.hpp:5 — MSVC 直接声明` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3456,8 +3456,8 @@
 | 3398 | 0x0054503A | `?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3399 | 0x00545080 | `sub_545080` | 有承接 | `CMakeLists.txt:161 — 宿主MSVC exe启动；src/platform/ClientEntry.cpp:263 — WinMain业务边界` | 原55317C C初始化槽安装54503A并保存旧filter；当前MSVC exe pre_cpp初始化持有默认C++异常filter，不再次安装旧入口；完整业务／运行未验 |
 | 3400 | 0x00545091 | `sub_545091` | 有承接 | `CMakeLists.txt:161 — 宿主MSVC生命周期；src/platform/ClientEntry.cpp:263 — WinMain业务边界` | 原553198终止槽恢复保存filter；当前宿主拥有完整filter寿命，旧手工保存／恢复沿MC01-C3退休；既有WinMain报告临时层不冒充本叶 |
-| 3401 | 0x0054509E | `?_ValidateRead@@YAHPBXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3402 | 0x005450BA | `?_ValidateWrite@@YAHPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3401 | 0x0054509E | `?_ValidateRead@@YAHPBXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3402 | 0x005450BA | `?_ValidateWrite@@YAHPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3403 | 0x005450D6 | `?_ValidateExecute@@YAHP6GHXZ@Z` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3404 | 0x005450F0 | `_strcmp` | 有承接 | `include/cg/platform/LegacyTime.hpp:8 — std::strcmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3405 | 0x00545174 | `_abort` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3517,217 +3517,217 @@
 | 3459 | 0x00548069 | `_copy_environ` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3460 | 0x005480D0 | `__mbschr` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3461 | 0x00548143 | `__strdup` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3462 | 0x00548170 | `sub_548170` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3463 | 0x0054817A | `sub_54817A` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3464 | 0x00548193 | `sub_548193` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3465 | 0x0054819D | `sub_54819D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3466 | 0x005481A7 | `sub_5481A7` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3467 | 0x005481C0 | `sub_5481C0` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3468 | 0x005481CA | `sub_5481CA` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3469 | 0x005481D4 | `sub_5481D4` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3470 | 0x005481EF | `sub_5481EF` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3471 | 0x005481F9 | `sub_5481F9` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3472 | 0x0054820E | `sub_54820E` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3473 | 0x00548218 | `sub_548218` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3474 | 0x00548233 | `sub_548233` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3475 | 0x0054823D | `sub_54823D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3476 | 0x00548252 | `sub_548252` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3477 | 0x0054825C | `sub_54825C` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3478 | 0x00548275 | `sub_548275` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3479 | 0x0054827F | `sub_54827F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3480 | 0x00548289 | `sub_548289` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3481 | 0x005482A4 | `sub_5482A4` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:97 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3482 | 0x005482AE | `sub_5482AE` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:100 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3483 | 0x005482B8 | `sub_5482B8` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:100 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3484 | 0x005482D3 | `sub_5482D3` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:100 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3485 | 0x005482DD | `??0Init@ios_base@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3486 | 0x0054843B | `nullsub_5` | 空方法 | `src/platform/LegacyMouse.cpp:145 — EmptyLegacyExit_54843B` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
-| 3487 | 0x00548463 | `sub_548463` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3488 | 0x005484CD | `sub_5484CD` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3489 | 0x0054852C | `sub_54852C` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3490 | 0x00548537 | `sub_548537` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3491 | 0x0054859F | `sub_54859F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3492 | 0x005485FE | `sub_5485FE` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3493 | 0x0054865E | `??0locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3494 | 0x0054867D | `??1locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3495 | 0x00548695 | `?_Decref@facet@locale@std@@QAEPAV123@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3496 | 0x005486B1 | `sub_5486B1` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3497 | 0x005486BF | `sub_5486BF` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3498 | 0x005486C5 | `sub_5486C5` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3499 | 0x005486C9 | `?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3500 | 0x005486E6 | `?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3501 | 0x0054875A | `?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPBDH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3502 | 0x005487D0 | `nullsub_8` | 空方法 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
-| 3503 | 0x005487D3 | `sub_5487D3` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3504 | 0x005487DE | `sub_5487DE` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3505 | 0x00548843 | `?overflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3506 | 0x00548979 | `?pbackfail@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3507 | 0x00548A26 | `?underflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3508 | 0x00548A53 | `?uflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3509 | 0x00548B68 | `unknown_libname_73` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3510 | 0x00548BEA | `unknown_libname_74` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3511 | 0x00548CAC | `?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3512 | 0x00548CD7 | `sub_548CD7` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3513 | 0x00548CF6 | `sub_548CF6` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3514 | 0x00548D12 | `sub_548D12` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3515 | 0x00548D31 | `sub_548D31` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3516 | 0x00548D4D | `sub_548D4D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3517 | 0x00548D69 | `?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ID@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3518 | 0x00548DC2 | `?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3519 | 0x00548E29 | `?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3520 | 0x00548E65 | `?init@?$basic_ios@DU?$char_traits@D@std@@@std@@IAEXPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3521 | 0x00548EA5 | `?_Gndec@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3522 | 0x00548EB5 | `?_Gninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3523 | 0x00548EC5 | `unknown_libname_75` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3524 | 0x00548ED5 | `?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3525 | 0x00548EFC | `?_Init@?$basic_filebuf@DU?$char_traits@D@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3526 | 0x00548F74 | `?_Freeze@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3527 | 0x00548FA0 | `?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3528 | 0x00549025 | `?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3529 | 0x00549055 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3530 | 0x0054908A | `?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3462 | 0x00548170 | `sub_548170` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3463 | 0x0054817A | `sub_54817A` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3464 | 0x00548193 | `sub_548193` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3465 | 0x0054819D | `sub_54819D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3466 | 0x005481A7 | `sub_5481A7` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3467 | 0x005481C0 | `sub_5481C0` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3468 | 0x005481CA | `sub_5481CA` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3469 | 0x005481D4 | `sub_5481D4` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3470 | 0x005481EF | `sub_5481EF` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3471 | 0x005481F9 | `sub_5481F9` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3472 | 0x0054820E | `sub_54820E` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3473 | 0x00548218 | `sub_548218` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3474 | 0x00548233 | `sub_548233` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3475 | 0x0054823D | `sub_54823D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3476 | 0x00548252 | `sub_548252` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3477 | 0x0054825C | `sub_54825C` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3478 | 0x00548275 | `sub_548275` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3479 | 0x0054827F | `sub_54827F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3480 | 0x00548289 | `sub_548289` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3481 | 0x005482A4 | `sub_5482A4` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:88 — std::cerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3482 | 0x005482AE | `sub_5482AE` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3483 | 0x005482B8 | `sub_5482B8` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3484 | 0x005482D3 | `sub_5482D3` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:91 — std::clog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3485 | 0x005482DD | `??0Init@ios_base@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3486 | 0x0054843B | `nullsub_5` | 空方法 | `src/platform/LegacyMouse.cpp:136 — EmptyLegacyExit_54843B` | 已有CPP空方法与原RET记录保留；按用户决定标为空方法，不再核对此入口 |
+| 3487 | 0x00548463 | `sub_548463` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3488 | 0x005484CD | `sub_5484CD` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3489 | 0x0054852C | `sub_54852C` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3490 | 0x00548537 | `sub_548537` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3491 | 0x0054859F | `sub_54859F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3492 | 0x005485FE | `sub_5485FE` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3493 | 0x0054865E | `??0locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3494 | 0x0054867D | `??1locale@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3495 | 0x00548695 | `?_Decref@facet@locale@std@@QAEPAV123@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3496 | 0x005486B1 | `sub_5486B1` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3497 | 0x005486BF | `sub_5486BF` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3498 | 0x005486C5 | `sub_5486C5` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3499 | 0x005486C9 | `?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3500 | 0x005486E6 | `?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3501 | 0x0054875A | `?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPBDH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3502 | 0x005487D0 | `nullsub_8` | 空方法 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
+| 3503 | 0x005487D3 | `sub_5487D3` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3504 | 0x005487DE | `sub_5487DE` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3505 | 0x00548843 | `?overflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3506 | 0x00548979 | `?pbackfail@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3507 | 0x00548A26 | `?underflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3508 | 0x00548A53 | `?uflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3509 | 0x00548B68 | `unknown_libname_73` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3510 | 0x00548BEA | `unknown_libname_74` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3511 | 0x00548CAC | `?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3512 | 0x00548CD7 | `sub_548CD7` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3513 | 0x00548CF6 | `sub_548CF6` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3514 | 0x00548D12 | `sub_548D12` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3515 | 0x00548D31 | `sub_548D31` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3516 | 0x00548D4D | `sub_548D4D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3517 | 0x00548D69 | `?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ID@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3518 | 0x00548DC2 | `?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3519 | 0x00548E29 | `?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3520 | 0x00548E65 | `?init@?$basic_ios@DU?$char_traits@D@std@@@std@@IAEXPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3521 | 0x00548EA5 | `?_Gndec@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3522 | 0x00548EB5 | `?_Gninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEPADXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3523 | 0x00548EC5 | `unknown_libname_75` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3524 | 0x00548ED5 | `?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3525 | 0x00548EFC | `?_Init@?$basic_filebuf@DU?$char_traits@D@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3526 | 0x00548F74 | `?_Freeze@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3527 | 0x00548FA0 | `?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3528 | 0x00549025 | `?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3529 | 0x00549055 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3530 | 0x0054908A | `?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3531 | 0x00549147 | `?_Ungetc@std@@YA_NABDPAU_iobuf@@I@Z` | 有承接 | `include/cg/platform/LegacyStdio.hpp:26 — std::ungetc（标准库提供；无CPP消费者）；src/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3532 | 0x00549194 | `unknown_libname_76` | 有承接 | `src/platform/LegacyMouse.cpp:165 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:320 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3533 | 0x005491BE | `sub_5491BE` | 有承接 | `src/platform/LegacyMouse.cpp:150 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3534 | 0x005491D6 | `sub_5491D6` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3535 | 0x005491E0 | `sub_5491E0` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3536 | 0x005491F6 | `sub_5491F6` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:96 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3537 | 0x00549200 | `sub_549200` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3538 | 0x0054920A | `sub_54920A` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3539 | 0x00549220 | `sub_549220` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3540 | 0x0054922A | `sub_54922A` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3541 | 0x00549234 | `sub_549234` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3542 | 0x0054924D | `sub_54924D` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3543 | 0x00549257 | `sub_549257` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3544 | 0x00549261 | `sub_549261` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3545 | 0x0054927A | `sub_54927A` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3546 | 0x00549284 | `sub_549284` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3547 | 0x0054928E | `sub_54928E` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3548 | 0x005492A7 | `sub_5492A7` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3549 | 0x005492B1 | `sub_5492B1` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3550 | 0x005492BB | `sub_5492BB` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3551 | 0x005492D6 | `sub_5492D6` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3552 | 0x005492E0 | `sub_5492E0` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3553 | 0x005492F5 | `sub_5492F5` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3554 | 0x005492FF | `sub_5492FF` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3555 | 0x0054931A | `sub_54931A` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:117 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3556 | 0x00549324 | `sub_549324` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3557 | 0x00549339 | `sub_549339` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3558 | 0x00549343 | `sub_549343` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3559 | 0x0054935E | `sub_54935E` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:118 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3560 | 0x00549368 | `sub_549368` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:121 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3561 | 0x00549372 | `sub_549372` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:121 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3562 | 0x0054938D | `sub_54938D` | 有承接 | `src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:121 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3563 | 0x00549397 | `??0_Winit@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3564 | 0x00549525 | `sub_549525` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3565 | 0x0054958F | `sub_54958F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3566 | 0x005495EE | `unknown_libname_77` | 有承接 | `src/platform/LegacyMouse.cpp:84 — FlushLegacyStandardStream` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3567 | 0x00549638 | `sub_549638` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3568 | 0x00549643 | `sub_549643` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3569 | 0x005496AB | `sub_5496AB` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3570 | 0x0054970A | `sub_54970A` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3571 | 0x0054976A | `sub_54976A` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3572 | 0x00549778 | `sub_549778` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3573 | 0x0054977F | `sub_54977F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3574 | 0x00549782 | `sub_549782` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3575 | 0x00549787 | `?uflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3576 | 0x005497A8 | `?xsgetn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3577 | 0x0054982F | `?xsputn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPBGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3578 | 0x005498B7 | `unknown_libname_78` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3579 | 0x005498EE | `unknown_libname_79` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3580 | 0x00549925 | `sub_549925` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3581 | 0x0054992A | `sub_54992A` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3582 | 0x00549935 | `sub_549935` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3583 | 0x0054999A | `?overflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3584 | 0x00549AE2 | `?pbackfail@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3585 | 0x00549B99 | `?underflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3586 | 0x00549BC7 | `?uflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3587 | 0x00549CE5 | `?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3588 | 0x00549D13 | `unknown_libname_80` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3589 | 0x00549D2C | `sub_549D2C` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3590 | 0x00549D4B | `sub_549D4B` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3591 | 0x00549D67 | `sub_549D67` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3592 | 0x00549D86 | `sub_549D86` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3593 | 0x00549DA2 | `sub_549DA2` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3594 | 0x00549DBE | `?init@?$basic_ios@GU?$char_traits@G@std@@@std@@IAEXPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3595 | 0x00549E08 | `?gbump@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEXH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3596 | 0x00549E1C | `?_Gndec@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3597 | 0x00549E2D | `?_Gninc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3598 | 0x00549E3D | `unknown_libname_81` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3599 | 0x00549E51 | `unknown_libname_82` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3600 | 0x00549E61 | `?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3601 | 0x00549E88 | `?_Init@?$basic_filebuf@GU?$char_traits@G@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3602 | 0x00549EDE | `unknown_libname_83` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3603 | 0x00549F20 | `unknown_libname_84` | 有承接 | `src/platform/LegacyMouse.cpp:165 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:320 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3604 | 0x00549F4A | `sub_549F4A` | 有承接 | `src/platform/LegacyMouse.cpp:150 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3605 | 0x00549F62 | `?clear@ios_base@std@@QAEXH_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3606 | 0x00549FFE | `sub_549FFE` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3607 | 0x0054A062 | `sub_54A062` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3608 | 0x0054A06F | `sub_54A06F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3609 | 0x0054A08C | `unknown_libname_85` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3610 | 0x0054A0C9 | `sub_54A0C9` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3611 | 0x0054A0E5 | `sub_54A0E5` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3612 | 0x0054A142 | `unknown_libname_86` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3613 | 0x0054A17F | `sub_54A17F` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3614 | 0x0054A19C | `sub_54A19C` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3615 | 0x0054A1B8 | `sub_54A1B8` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3616 | 0x0054A1D0 | `??1ios_base@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3617 | 0x0054A220 | `??_Gios_base@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3618 | 0x0054A23C | `?_Callfns@ios_base@std@@AAEXW4event@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3619 | 0x0054A25E | `?_Addstd@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3620 | 0x0054A293 | `?_Init@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3621 | 0x0054A2CB | `?_Tidy@ios_base@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3622 | 0x0054A315 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3623 | 0x0054A3E3 | `sub_54A3E3` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3624 | 0x0054A3ED | `nullsub_9` | 空方法 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
-| 3625 | 0x0054A3FA | `sub_54A3FA` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3626 | 0x0054A404 | `?_Init@locale@std@@CAPAV_Locimp@12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3627 | 0x0054A4BD | `sub_54A4BD` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3628 | 0x0054A505 | `??0_Locimp@locale@std@@AAE@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3629 | 0x0054A57E | `unknown_libname_87` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3630 | 0x0054A59B | `??_G_Locimp@locale@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3631 | 0x0054A5B7 | `??1_Locimp@locale@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3632 | 0x0054A638 | `unknown_libname_88` | 有承接 | `src/platform/LegacyMouse.cpp:165 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:320 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3633 | 0x0054A662 | `sub_54A662` | 有承接 | `src/platform/LegacyMouse.cpp:150 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3634 | 0x0054A67A | `?_Xlen@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3635 | 0x0054A6D4 | `sub_54A6D4` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3636 | 0x0054A738 | `sub_54A738` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3637 | 0x0054A755 | `unknown_libname_89` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3638 | 0x0054A792 | `sub_54A792` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3639 | 0x0054A7AE | `sub_54A7AE` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3640 | 0x0054A80B | `unknown_libname_90` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3641 | 0x0054A848 | `sub_54A848` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3642 | 0x0054A865 | `sub_54A865` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3643 | 0x0054A881 | `sub_54A881` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3644 | 0x0054A899 | `?_Xran@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3645 | 0x0054A8F3 | `unknown_libname_91` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3646 | 0x0054A930 | `sub_54A930` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3647 | 0x0054A94D | `sub_54A94D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3648 | 0x0054A969 | `sub_54A969` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3649 | 0x0054A981 | `unknown_libname_92` | 有承接 | `src/platform/LegacyMouse.cpp:165 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:320 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3650 | 0x0054A9AB | `sub_54A9AB` | 有承接 | `src/platform/LegacyMouse.cpp:150 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3532 | 0x00549194 | `unknown_libname_76` | 有承接 | `src/platform/LegacyMouse.cpp:156 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:324 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3533 | 0x005491BE | `sub_5491BE` | 有承接 | `src/platform/LegacyMouse.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3534 | 0x005491D6 | `sub_5491D6` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3535 | 0x005491E0 | `sub_5491E0` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3536 | 0x005491F6 | `sub_5491F6` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3537 | 0x00549200 | `sub_549200` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3538 | 0x0054920A | `sub_54920A` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3539 | 0x00549220 | `sub_549220` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3540 | 0x0054922A | `sub_54922A` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3541 | 0x00549234 | `sub_549234` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3542 | 0x0054924D | `sub_54924D` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3543 | 0x00549257 | `sub_549257` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3544 | 0x00549261 | `sub_549261` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3545 | 0x0054927A | `sub_54927A` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3546 | 0x00549284 | `sub_549284` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3547 | 0x0054928E | `sub_54928E` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3548 | 0x005492A7 | `sub_5492A7` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3549 | 0x005492B1 | `sub_5492B1` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3550 | 0x005492BB | `sub_5492BB` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3551 | 0x005492D6 | `sub_5492D6` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3552 | 0x005492E0 | `sub_5492E0` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3553 | 0x005492F5 | `sub_5492F5` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3554 | 0x005492FF | `sub_5492FF` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3555 | 0x0054931A | `sub_54931A` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:108 — std::wcout` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3556 | 0x00549324 | `sub_549324` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3557 | 0x00549339 | `sub_549339` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3558 | 0x00549343 | `sub_549343` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3559 | 0x0054935E | `sub_54935E` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:109 — std::wcerr` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3560 | 0x00549368 | `sub_549368` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3561 | 0x00549372 | `sub_549372` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3562 | 0x0054938D | `sub_54938D` | 有承接 | `src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:112 — std::wclog` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3563 | 0x00549397 | `??0_Winit@std@@QAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3564 | 0x00549525 | `sub_549525` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3565 | 0x0054958F | `sub_54958F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3566 | 0x005495EE | `unknown_libname_77` | 有承接 | `src/platform/LegacyMouse.cpp:75 — FlushLegacyStandardStream` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3567 | 0x00549638 | `sub_549638` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3568 | 0x00549643 | `sub_549643` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3569 | 0x005496AB | `sub_5496AB` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3570 | 0x0054970A | `sub_54970A` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3571 | 0x0054976A | `sub_54976A` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3572 | 0x00549778 | `sub_549778` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3573 | 0x0054977F | `sub_54977F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3574 | 0x00549782 | `sub_549782` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3575 | 0x00549787 | `?uflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3576 | 0x005497A8 | `?xsgetn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3577 | 0x0054982F | `?xsputn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPBGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3578 | 0x005498B7 | `unknown_libname_78` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3579 | 0x005498EE | `unknown_libname_79` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3580 | 0x00549925 | `sub_549925` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3581 | 0x0054992A | `sub_54992A` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3582 | 0x00549935 | `sub_549935` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3583 | 0x0054999A | `?overflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3584 | 0x00549AE2 | `?pbackfail@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3585 | 0x00549B99 | `?underflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3586 | 0x00549BC7 | `?uflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3587 | 0x00549CE5 | `?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3588 | 0x00549D13 | `unknown_libname_80` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3589 | 0x00549D2C | `sub_549D2C` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3590 | 0x00549D4B | `sub_549D4B` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3591 | 0x00549D67 | `sub_549D67` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3592 | 0x00549D86 | `sub_549D86` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3593 | 0x00549DA2 | `sub_549DA2` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3594 | 0x00549DBE | `?init@?$basic_ios@GU?$char_traits@G@std@@@std@@IAEXPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3595 | 0x00549E08 | `?gbump@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEXH@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3596 | 0x00549E1C | `?_Gndec@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3597 | 0x00549E2D | `?_Gninc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEPAGXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3598 | 0x00549E3D | `unknown_libname_81` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3599 | 0x00549E51 | `unknown_libname_82` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3600 | 0x00549E61 | `?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3601 | 0x00549E88 | `?_Init@?$basic_filebuf@GU?$char_traits@G@std@@@std@@IAEXPAU_iobuf@@W4_Initfl@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3602 | 0x00549EDE | `unknown_libname_83` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3603 | 0x00549F20 | `unknown_libname_84` | 有承接 | `src/platform/LegacyMouse.cpp:156 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:324 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3604 | 0x00549F4A | `sub_549F4A` | 有承接 | `src/platform/LegacyMouse.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3605 | 0x00549F62 | `?clear@ios_base@std@@QAEXH_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3606 | 0x00549FFE | `sub_549FFE` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3607 | 0x0054A062 | `sub_54A062` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3608 | 0x0054A06F | `sub_54A06F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3609 | 0x0054A08C | `unknown_libname_85` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3610 | 0x0054A0C9 | `sub_54A0C9` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3611 | 0x0054A0E5 | `sub_54A0E5` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3612 | 0x0054A142 | `unknown_libname_86` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3613 | 0x0054A17F | `sub_54A17F` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3614 | 0x0054A19C | `sub_54A19C` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3615 | 0x0054A1B8 | `sub_54A1B8` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3616 | 0x0054A1D0 | `??1ios_base@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3617 | 0x0054A220 | `??_Gios_base@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3618 | 0x0054A23C | `?_Callfns@ios_base@std@@AAEXW4event@12@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3619 | 0x0054A25E | `?_Addstd@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3620 | 0x0054A293 | `?_Init@ios_base@std@@IAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3621 | 0x0054A2CB | `?_Tidy@ios_base@std@@AAEXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3622 | 0x0054A315 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3623 | 0x0054A3E3 | `sub_54A3E3` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3624 | 0x0054A3ED | `nullsub_9` | 空方法 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 已有标准流／MSVC提供者定位保留；按用户决定标为空方法，不再核对此入口 |
+| 3625 | 0x0054A3FA | `sub_54A3FA` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3626 | 0x0054A404 | `?_Init@locale@std@@CAPAV_Locimp@12@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3627 | 0x0054A4BD | `sub_54A4BD` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3628 | 0x0054A505 | `??0_Locimp@locale@std@@AAE@_N@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3629 | 0x0054A57E | `unknown_libname_87` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3630 | 0x0054A59B | `??_G_Locimp@locale@std@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3631 | 0x0054A5B7 | `??1_Locimp@locale@std@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3632 | 0x0054A638 | `unknown_libname_88` | 有承接 | `src/platform/LegacyMouse.cpp:156 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:324 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3633 | 0x0054A662 | `sub_54A662` | 有承接 | `src/platform/LegacyMouse.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3634 | 0x0054A67A | `?_Xlen@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3635 | 0x0054A6D4 | `sub_54A6D4` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3636 | 0x0054A738 | `sub_54A738` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3637 | 0x0054A755 | `unknown_libname_89` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3638 | 0x0054A792 | `sub_54A792` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3639 | 0x0054A7AE | `sub_54A7AE` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3640 | 0x0054A80B | `unknown_libname_90` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3641 | 0x0054A848 | `sub_54A848` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3642 | 0x0054A865 | `sub_54A865` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3643 | 0x0054A881 | `sub_54A881` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3644 | 0x0054A899 | `?_Xran@std@@YAXXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3645 | 0x0054A8F3 | `unknown_libname_91` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3646 | 0x0054A930 | `sub_54A930` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3647 | 0x0054A94D | `sub_54A94D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3648 | 0x0054A969 | `sub_54A969` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3649 | 0x0054A981 | `unknown_libname_92` | 有承接 | `src/platform/LegacyMouse.cpp:156 — RegisterLegacyEmptyExitPair；src/platform/LegacyMouse.cpp:324 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3650 | 0x0054A9AB | `sub_54A9AB` | 有承接 | `src/platform/LegacyMouse.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3651 | 0x0054A9C3 | `__Mbrtowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3652 | 0x0054AAD5 | `_btowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3653 | 0x0054AB16 | `GetAdaptersAddresses` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:20 — GetAdaptersAddresses；src/platform/LegacyNetworkAdapter.cpp:16 — Sub_534EF0` | 原 GetAdaptersAddresses import 跳板；当前实际 Windows IP Helper API 调用存在，保留原适配器消费边界；完整网络／运行未验 |
-| 3654 | 0x0054AB1C | `RtlUnwind` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3654 | 0x0054AB1C | `RtlUnwind` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3655 | 0x0054AB30 | `__strnicmp` | 有承接 | `src/platform/MainLoopSupport.cpp:205 — ::_strnicmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3656 | 0x0054ABDD | `__itoa` | 有承接 | `src/world/RenderInput.cpp:132 — std::to_wstring` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3657 | 0x0054AC0A | `_xtoa` | 有承接 | `include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3658 | 0x0054AC66 | `??1type_info@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3659 | 0x0054AC7B | `??_Gtype_info@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3660 | 0x0054AC98 | `__EH_prolog` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3658 | 0x0054AC66 | `??1type_info@@UAE@XZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3659 | 0x0054AC7B | `??_Gtype_info@@UAEPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3660 | 0x0054AC98 | `__EH_prolog` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3661 | 0x0054ACB7 | `_fgetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:29 — std::fgetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3662 | 0x0054ACD9 | `_fsetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:30 — std::fsetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3663 | 0x0054ACF1 | `_setvbuf` | 有承接 | `include/cg/platform/LegacyStdio.hpp:25 — std::setvbuf（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3664 | 0x0054AD92 | `_fputwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:31 — std::fputwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3665 | 0x0054AE87 | `_ungetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:33 — std::ungetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3666 | 0x0054AF70 | `_fgetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:32 — std::fgetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3667 | 0x0054B05D | `sub_54B05D` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3668 | 0x0054B079 | `??0exception@@QAE@ABQBD@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3669 | 0x0054B0B6 | `??0exception@@QAE@ABV0@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3670 | 0x0054B100 | `sub_54B100` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3671 | 0x0054B116 | `?what@exception@@UBEPBDXZ` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3672 | 0x0054B123 | `__CxxThrowException@8` | 有承接 | `src/platform/LegacyMouse.cpp:94 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:115 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3667 | 0x0054B05D | `sub_54B05D` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3668 | 0x0054B079 | `??0exception@@QAE@ABQBD@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3669 | 0x0054B0B6 | `??0exception@@QAE@ABV0@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3670 | 0x0054B100 | `sub_54B100` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3671 | 0x0054B116 | `?what@exception@@UBEPBDXZ` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3672 | 0x0054B123 | `__CxxThrowException@8` | 有承接 | `src/platform/LegacyMouse.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3673 | 0x0054B160 | `_memcmp` | 有承接 | `src/platform/LegacyMemory.cpp:49 — CompareLegacyMemory_54B160` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3674 | 0x0054B1AC | `retnull_0` | 有承接 | `src/platform/LegacyMemory.cpp:49 — CompareLegacyMemory_54B160；include/cg/platform/LegacyMemory.hpp:21 — CompareLegacyMemory_54B160` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3675 | 0x0054B20C | `___termcon` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

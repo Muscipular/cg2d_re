@@ -558,7 +558,7 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
 {
     WindowState* const windowState = gCurrentWindowState;
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t mode = gValueCF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;

@@ -402,13 +402,13 @@ static std::int32_t WindowSkill_ReadCrystalElement()
 std::int32_t WindowSkill_ReadBattlePetImage()
 {
     const std::int32_t index = world::detail::Sub_43C4B0();
-    return index < 0 ? 0 : (*world::detail::BorrowPetRuntimeF633F8Storage())[index].imageNo6A0;
+    return index < 0 ? 0 : world::detail::gPetRuntimeRecords[index].imageNo6A0;
 }
 
 // 原函数：0x00479A00。
 static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 {
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
     const std::int32_t count = pet.value6A4;
     for (std::int32_t index = 0; index < count; ++index) {
         const auto slot = std::bit_cast<std::int16_t>(pet.techniquePairs650[index].index);
@@ -426,7 +426,7 @@ static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 // 原函数：0x00479A70。
 static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
-    const std::int32_t level = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].value08;
+    const std::int32_t level = world::detail::gPetRuntimeRecords[petIndex].value08;
     const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
     if (level < range[0]) {
         return 0;
@@ -446,7 +446,7 @@ std::int32_t WindowSkill_CheckPetFp()
         return 0;
     }
     const std::int32_t required = kPetCrystalFp54F340[level - 1];
-    return ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
+    return (world::detail::gPetRuntimeRecords[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
 }
 
 // 原函数：0x00479B00。
@@ -464,7 +464,7 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
         return 0;
     }
     const std::int32_t attribute = WindowSkill_ReadCrystalElement();
-    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].values70[21 + attribute] < 50) {
+    if (world::detail::gPetRuntimeRecords[index].values70[21 + attribute] < 50) {
         return 0;
     }
     return WindowSkill_CheckPetLevel(index, level) != 0 ? 1 : 0;
@@ -593,7 +593,7 @@ static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const 
         }
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
+            auto& pet = world::detail::gPetRuntimeRecords[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
@@ -713,22 +713,22 @@ static void WindowSkill_HandleDrag(
     if (message != 0) {
         return;
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         const auto y = static_cast<std::int16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         static_cast<void>(WindowDrag_StartAtPosition(4, sourceIndex, x, y, WindowSkill_HandleDrag));
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t y =
-        (platform::BorrowLegacyMouseStateStorage()->mouseY - 8);
+        (platform::gLegacyMouseState.mouseY - 8);
     const std::int32_t x =
-        (platform::BorrowLegacyMouseStateStorage()->mouseX - 103);
+        (platform::gLegacyMouseState.mouseX - 103);
     WindowSkill_DrawSkillRow(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
@@ -1269,11 +1269,11 @@ static void WindowSkill_DrawPetSkillRow(
     const std::int32_t petIndex = world::detail::Sub_43C4B0();
     const std::int32_t pairPetIndex = world::detail::Sub_43C4B0();
     const auto technique = std::bit_cast<std::int16_t>(
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPetIndex].techniquePairs650[pairIndex].index);
+        world::detail::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
-    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
+    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -1309,9 +1309,9 @@ static void WindowSkill_DrawRidingSkillRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.bytes[13] = 4;
     const auto technique = std::bit_cast<std::int16_t>(
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquePairs650[pairIndex].index);
+        world::detail::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
+    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -1342,9 +1342,9 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
     const std::int32_t pairIndex = index - 17;
     std::int32_t pairPet = world::detail::Sub_43C4B0();
     auto technique = std::bit_cast<std::int16_t>(
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPet].techniquePairs650[pairIndex].index);
+        world::detail::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
     const std::int32_t namePet = world::detail::Sub_43C4B0();
-    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[technique].name[0] == '\0') {
+    if (world::detail::gPetRuntimeRecords[namePet].techniquesD8[technique].name[0] == '\0') {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -1353,17 +1353,17 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
         pairPet = world::detail::Sub_43C4B0();
         technique = std::bit_cast<std::int16_t>(
-            (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPet].techniquePairs650[pairIndex].index);
+            world::detail::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
         const std::int32_t costPet = world::detail::Sub_43C4B0();
         const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t cost = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[technique].fp;
+        const std::int32_t cost = world::detail::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
         if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
                 const std::int32_t pet = world::detail::Sub_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
-                    (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquePairs650[pairIndex].index);
+                    world::detail::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
                 gPetSkillSelectionCallbackCC4D14(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -1407,8 +1407,8 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
     const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquePairs650[pairIndex].index);
-    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
+        world::detail::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
+    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return 0;
     }
@@ -1423,7 +1423,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
                 const auto selected = std::bit_cast<std::int16_t>(
-                    (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquePairs650[pairIndex].index);
+                    world::detail::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
                 callback(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -1478,7 +1478,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     if (petIndex < 0) {
         return;
     }
-    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
     const char* name = pet->name6BD.data();
     if (name[0] == '\0') {
         name = pet->name6AC.data();
@@ -1531,7 +1531,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
     const char* const name = login::detail::BorrowYobiNameC4(displayAction);
     textData->text = cg::text::FromGbkWide(name);
-    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
     std::int32_t count = pet->value6A4;
     while (index < count) {
@@ -1714,7 +1714,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
     } else {
         petIndex = state;
     }
-    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
     std::int32_t count = 0;
     std::int32_t unavailable = 0;
     std::int32_t row = 0;
@@ -1984,7 +1984,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                     hover = gSkillWindowHoverD2F744;
                     pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
                 }
-                drawDescription((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[hover].description.data(), line, 26);
+                drawDescription(world::detail::gPetRuntimeRecords[pet].techniquesD8[hover].description.data(), line, 26);
             }
         }
         break;
@@ -2115,7 +2115,7 @@ static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const s
 static std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = gSkillWindowMaximumCA000C;
         const std::int32_t position = gSkillWindowScrollD2D648;
         gSkillWindowScrollD2D648 =

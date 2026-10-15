@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
 
+#include <optional>
+
 namespace cg::input {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -533,13 +535,13 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t maximum = gStallPetCountD67BD4 - 3;
             const std::int32_t page = gStallPetPageD67BD0;
             gStallPetPageD67BD0 = WindowScroll_ApplyWheel(
                 gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
         } else {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t maximum = gStallItemCountD67BCC - 10;
             const std::int32_t page = gStallItemPageD67BC8;
             gStallItemPageD67BC8 = WindowScroll_ApplyWheel(
@@ -616,7 +618,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gStallPetCandidatePageD67BD8;
             gStallPetCandidatePageD67BD8 =
@@ -746,7 +748,7 @@ static WindowElement* WindowStall_EditItemPrice()
 // 原函数：0x004CFCA0。
 static void WindowStall_EditPetPrice(const std::int32_t petIndex)
 {
-    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
@@ -1189,7 +1191,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         return 0;
     }
     world::detail::PetRuntimeRecord* const pet = own
-        ? &(*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetOffersCC3E98[position].slot]
+        ? &world::detail::gPetRuntimeRecords[gStallPetOffersCC3E98[position].slot]
         : &WindowStall_BorrowBrowseStorage()->pets[position];
     if (pet->used == 0) {
         return 0;
@@ -1334,7 +1336,7 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
 {
-    const std::int32_t segments = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].values70[21 + attribute] / 10;
+    const std::int32_t segments = world::detail::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
@@ -1366,7 +1368,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         return 0;
     }
     const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
-    const auto* const initialPet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row];
+    const auto* const initialPet = &world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row];
     if (initialPet->used == 0) {
         if ((state & 2) != 0) {
             gStallPetSelection581128 = -1;
@@ -1382,18 +1384,18 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     };
     cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(initialPet->name6AC.data()).c_str());
     drawText(298, 132);
-    cg::text::FormatTo(buffer, L"{:3}", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
-    const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
+    const std::int32_t maxHp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
+    const std::int32_t hp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
-    const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
+    const std::int32_t maxFp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
+    const std::int32_t fp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
-        (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value04);
+        world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
         cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
@@ -2243,7 +2245,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         for (std::int32_t index = petCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
             const std::int32_t slot = offer->slot;
-            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used == 0) {
+            if (world::detail::gPetRuntimeRecords[slot].used == 0) {
                 --petCount;
                 gStallPetUsedCF400C[slot] = 0;
                 gStallPetCountD67BD4 = petCount;

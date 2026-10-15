@@ -305,7 +305,7 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
         gTextChoiceOffsetD2D9C0 =
             WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, offset, count - 5, wheel);

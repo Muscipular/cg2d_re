@@ -101,7 +101,7 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-原24个相关CRT包装中，18组共22个标量按LCI07／LCI16／LCI17直接定义，另6组复合对象沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
+原24个相关CRT包装中，18组共22个标量按LCI07／LCI16／LCI17直接定义，鼠标／玩家／主宠物三组按LCI18直接定义，另3组预览／浏览对象沿不可拷贝启动拥有者；世界千项表同样按LCI18中央直接定义。
 22个标量直接默认构造、退出逆序析构；复合对象仍在原位置构造／销毁，16B值布局保持。
 直接定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
@@ -130,9 +130,9 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 | 0x004883F0 | `cg::ui::FirstItemSelectorStartup` | `ConstructLegacyFirstItemSelector_488400` / `ReleaseLegacyFirstItemSelectorAtExit_488420` |
 | 0x004998F0 | `cg::ui::SecondItemSelectorStartup` | `ConstructLegacySecondItemSelector_499900` / `ReleaseLegacySecondItemSelectorAtExit_499920` |
 | 0x004CD240 | `cg::ui::StallBrowsePetValuesStartup` | `ConstructStallBrowsePetValues` / `DestroyStallBrowsePetValues` |
-| 0x00506340 | `cg::platform::MouseRuntimeStartup` | `ConstructLegacyMouseRuntime_506350` / `ReleaseLegacyMouseRuntimeAtExit_506370` |
-| 0x005183D0 | `cg::world::PlayerRuntimeValuesStartup` | `ConstructLegacyPlayerRuntime_5183E0` / `ReleaseLegacyPlayerRuntimeAtExit_518400` |
-| 0x00518520 | `cg::world::PetRuntimeValuesStartup` | `ConstructPetRuntimeValues` / `DestroyPetRuntimeValues` |
+| 0x00506340 | `cg::platform::gLegacyMouseState`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
+| 0x005183D0 | `cg::world::detail::gPlayerRuntimeSlots`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
+| 0x00518520 | `cg::world::detail::gPetRuntimeRecords`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
 
 ## LCI01阶段静态核对结果（历史）
 
@@ -489,3 +489,28 @@ UTF-8无BOM／LF、删除范围、无活动引用、三数组正文、原地址�
 当前22个中央标量定义的原声明／构造顺序静态核对保持，LegacyCryptInt实现全文不变，默认构造每值一次RNG。118个访问投影函数与1647个保留函数正文已核，另外以整文件精确重放覆盖属性函数等辅助扫描器未单列的部分；不以简化解析器代替编译。45个原入口仍保原身份／名称，其中30行由正文改为原生承接；303项直接定位同步，六个原显式函数退出直接定义集合。相关过期位置及既有53B4C9提供者名称指向当前Rand16，数值源码未改。51个本组／相邻快照记录的来源、当前邻接或旧调用／存储历史归属同步，新增24条原生承接处置；其它语义和验收门禁保持。
 
 UTF-8无BOM／LF、JSON、源码／原地址与Git差异核对通过。台账-Check仍仅两份既有旧键盘历史附件缺失，未写派生文件，不计全量台账通过；本轮不编译、测试或运行。完成后精确提交，排除其他会话既有进度。证据见doc/cg2d_cryptint_direct_globals_evidence.json。
+
+<a id="cryptint-composite-direct-globals"></a>
+## 第一轮复合存储包装精简（LCI18，2026-10-15）
+
+用户要求先精简一轮Borrow包装，并补充PlayerRuntimeSlots直接定义。按已核源码，鼠标状态、1000项世界对象表、玩家整体、五项主宠物表的optional各只有启动emplace与退出reset，不承担运行期重建、判空或额外发布。本轮在LegacyMouse.cpp原四个中央初始化位置直接定义gLegacyMouseState、gWorldObjects、gPlayerRuntimeSlots、gPetRuntimeRecords，沿已有完整类型及既有头声明唯一extern；原有值初始化与成员正序构造、数组／成员逆序析构由C++／MSVC承接。
+
+世界表仍紧接防护三值、先于变换缓存及标准流；鼠标仍在摊位浏览之后、玩家之前；主宠物仍在玩家之后、独立调色板之前。世界1000×2、鼠标10、玩家6、主宠物5×6各保持原RNG消费与顺序；普通字段保原零初值及后续ClearRaw／业务读写，不提前读取、不新增复制或第二owner。去四个Borrow／optional、对应四组启动包装及其纯构析叶；失去用途的WorldObjects.hpp和包含删除，原入口／数组helper地址注释随实际定义保留，函数表转指原生承接。
+
+摊位浏览、两个选择器的预览对象及其它图形容器不在本轮范围；保留其封装、额外发布和生命周期。所有业务访问仅替换对同一对象的取存储表达式，value()及赋值、字段、索引与调用顺序保持。原身份与既有证据保历史，当前提供者／源码定位／验收登记同步；不将本次静态简化外推为完整异常、SDK或运行等价。
+
+本轮沿用户授权及既有工程委托实施，不编译、测试、运行、计算摘要、引依赖或委派；完成必要静态核对与台账文本汇总后精确提交。验收门禁及其它会话改动保持。
+
+### LCI18追加玩家整体（用户本轮补充）
+
+用户补充PlayerRuntimeSlots直接定义为全局静态对象。已核其optional同样只有中央拥有者构造／销毁，ClearRaw为运行期原始载荷清零，不结束或重开对象寿命。将现有结构及相邻字段断言原样移入WorldUpdateDependencies.hpp中PlayerItemRecord之后；ClearRaw实现仍在SceneState.cpp，归cg::world::detail。在鼠标之后、主宠物之前的原中央位置直接定义唯一gPlayerRuntimeSlots，内部extern声明供SceneState使用，保持六成员构造及RNG、普通字段零初值和逆序析构；同时移除其Borrow／optional、Startup和纯构析叶。物品／显示文本等现有语义访问接口继续保留，不据此扩大其它模块对整体字段的访问。
+
+### LCI18源码与静态结果
+
+四个真实复合对象已在原中央位置直接定义，删除四Borrow／optional、四组纯启动类型及22个相关访问／构析函数；WorldObjects.hpp已无消费者并删除。58个源／头文件的861处存储访问同步；PlayerRuntimeSlots的57行结构／相邻断言和20行ClearRaw实现逐字保持，类型移入既有内部头，ClearRaw归原SceneState.cpp的detail命名空间。摊位文件补显式optional包含，避免依赖本轮已移除的传递包含。
+
+整文件精确变换、347个访问投影函数和1681个保留函数正文静态核对通过；中央48个变量的声明投影顺序保持，四组共2046次默认构造RNG及同组逆序退出沿相同实际类型，LegacyCryptInt实现未改。只核本轮源码，未执行构造／算法／客户端，不以辅助解析器代替编译。
+
+3680行原身份／原名称保持，六行由正文改为原生承接，十个本组入口与四个数组helper指向真实全局对象；355项直接定位行号、646行函数表位置／本组承接说明同步，直接定义数量不变。25条相关语义记录更新当前提供者／访问表达式；26个旧生命周期字段明确归历史，六个业务格式字段只投影存储名称，增加五条adapted处置，其余验收门禁保持。
+
+UTF-8无BOM／LF、JSON、无旧代码引用和差异核对通过。台账-Check仍仅两份既有旧键盘历史附件缺失，未写派生文件，不计全量台账通过；未编译、测试、运行或修改IDA数据库。精确提交本步。

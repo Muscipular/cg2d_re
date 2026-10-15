@@ -448,14 +448,14 @@ static std::int32_t WindowItem_DrawShopTooltip(
     std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value());
+            platform::gLegacyMouseState.mouseX.value());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value());
+            platform::gLegacyMouseState.mouseY.value());
         const bool left =
-            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -510,15 +510,15 @@ static void WindowShop_HandleSaleDrag(
     if (gShopItemsCF4FE0[item].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseX.value()));
+            platform::gLegacyMouseState.mouseX.value()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::BorrowLegacyMouseStateStorage()->mouseY.value()));
+            platform::gLegacyMouseState.mouseY.value()));
         static_cast<void>(WindowDrag_StartAtPosition(9, sourceIndex, x, y, &WindowShop_HandleSaleDrag));
     }
-    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -526,9 +526,9 @@ static void WindowShop_HandleSaleDrag(
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopItemsCF4FE0[item].imageNo, sizeof(imageNo));
     const std::int32_t y =
-        platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
-        platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        platform::gLegacyMouseState.mouseX.value();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -2305,7 +2305,7 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gShopScrollCC488C;
         gShopScrollCC488C =
             WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
@@ -3043,7 +3043,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
             gHoverTextD68AE8 = kShopHints57E6C4[2];
         }
     }
-    if ((events & 0x21u) != 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+    if ((events & 0x21u) != 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
         gShopSelectedSlotsCB03DC[row] = static_cast<char>(-1);
@@ -3194,7 +3194,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
     }
     gShopInventoryHover58084C = hovered;
     const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
-    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
             if (WindowDrag_ReadFocusWindowId() == 53 || WindowDrag_ReadFocusWindowId() == 0) {
                 const std::int32_t item = gShopInventoryMapD2DAB8[hovered];
@@ -3400,7 +3400,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -3417,7 +3417,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
     if (cancelHover) {
         cancelImage = 245328;
         gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
-        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;

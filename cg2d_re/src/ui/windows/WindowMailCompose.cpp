@@ -109,7 +109,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         const auto petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used == 0) {
+        if (world::detail::gPetRuntimeRecords[petIndex].used == 0) {
             continue;
         }
         const std::int32_t available = world::detail::Sub_52E1D0(petIndex);

@@ -337,7 +337,7 @@ static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const st
     if ((state & 0x21) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();

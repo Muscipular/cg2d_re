@@ -916,7 +916,7 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
         window->elements[row + 59].visible = 1;
         static_cast<WindowTextData*>(window->elements[row + 34].data)->text.clear();
         static_cast<WindowTextData*>(window->elements[row + 44].data)->text.clear();
-        const world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
+        const world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[petIndex];
         const bool used = pet.used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
@@ -961,7 +961,7 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t pet = 0; pet < index; ++pet) {
-                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].used == 0) {
+                if (world::detail::gPetRuntimeRecords[pet].used == 0) {
                     ++empty;
                 }
             }
@@ -1804,7 +1804,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
         case 0:
         case 1: {
             const std::int32_t count = gWindow54ValueCB01E4;
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t position = gWindow54PetScrollCC31DC;
             gWindow54PetScrollCC31DC =
                 WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 10, wheel);
@@ -1815,7 +1815,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
         case 4:
         case 12:
         case 13: {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             if (index <= 17) {
                 const std::int32_t count = gWindow54ValueCB01E4;
                 const std::int32_t position = gWindow54PetScrollCC31DC;
@@ -2014,7 +2014,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         return 1;
     }
     std::int32_t petCount = 0;
-    for (const world::detail::PetRuntimeRecord& pet : (*world::detail::BorrowPetRuntimeF633F8Storage())) {
+    for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeRecords) {
         if (pet.used != 0) {
             ++petCount;
         }
@@ -2073,7 +2073,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -2097,7 +2097,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     if (cancelHover) {
         cancelImage = 245328;
         gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
-        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & 1u) != 0) {
             cancelImage = 245327;

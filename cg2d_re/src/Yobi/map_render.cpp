@@ -856,7 +856,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
-                if (blacklist::GetBlacklistCount_401190() >= 72) {
+                if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
                     Sub_44B050(L"你的黑名單已滿，無法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
@@ -865,8 +865,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 std::wstring message;
-                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
-                    const std::int8_t added = blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
+                    const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
                     cg::text::FormatTo(message, added != 0 ? L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
                     cg::text::FormatTo(message, L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
@@ -878,8 +878,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 std::wstring message;
-                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
-                    const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+                    const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
                     cg::text::FormatTo(message, removed != 0 ? L"已將{}從黑名單中移除" /* 原常量参考：0x005532EC。 */ : L"從黑名單移除{}失敗" /* 原常量参考：0x005532D8。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
                     cg::text::FormatTo(message, L"{}不在黑名單中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());

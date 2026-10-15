@@ -9,7 +9,7 @@
 #include <cstring>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B226、0x0053B27D、0x0053B2F1、0x0053B356；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
-namespace cg::blacklist {
+namespace cg::world::blacklist {
 
 namespace {
 
@@ -292,4 +292,4 @@ std::int8_t ClearBlacklistRecords_401470()
     return 1;
 }
 
-} // namespace cg::blacklist
+} // namespace cg::world::blacklist

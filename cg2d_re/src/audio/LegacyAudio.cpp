@@ -31,6 +31,7 @@
 #include <Windows.h>
 #include <mmsystem.h>
 
+namespace cg::audio {
 namespace {
 
 // 原 104DFD0 起的 BGM 播放记录；52B990 读取每项 +0x40。
@@ -68,7 +69,6 @@ static_assert(sizeof(gRecords) == 0x2600);
 
 } // namespace
 
-namespace cg::audio {
 
 // 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
 struct BgmConfigRecord final {
@@ -1216,6 +1216,21 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
     platform::Cg2dInitializeFixedMusicVolumeX87(gFixedMusicVolume62B0C8.data());
     audio::SetFixedMusicReverb_455030(25, 6);
     return 0;
+}
+
+// 原458AE0的DX设备检查改为真实SDL音频设备；独立DINPUT入口观察保留。
+std::int32_t Sub_458AE0()
+{
+    platform::SdlAudioBackend probe;
+    if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {
+        ::OutputDebugStringA("SDL audio device is unavailable\n"); return 0;
+    }
+    HMODULE input = ::LoadLibraryA("DINPUT.DLL");
+    if (input == nullptr) { ::OutputDebugStringA("Couldn't LoadLibrary DInput\r\n"); return 0x200; }
+    const bool available = ::GetProcAddress(input, "DirectInputCreateA") != nullptr;
+    ::FreeLibrary(input);
+    if (!available) { ::OutputDebugStringA("Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
+    return 0x600;
 }
 
 } // namespace cg::audio

@@ -28,6 +28,9 @@ struct LegacyTm53B8C6 {
     std::int32_t dst;           // +20 夏令时标记
 };
 
+// 原53B8C6：按九个S32字段返回当前线程的借用时间对象。
+LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
+
 // 原53BA26：直接MSVC _time32，业务结果保持S32；output可空。
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output);
 

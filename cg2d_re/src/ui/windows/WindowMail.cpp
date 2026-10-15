@@ -220,8 +220,8 @@ std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
     static_cast<void>(network::Sub_511190(platform::gConnectionSocket, index));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     static_cast<void>(world::detail::Sub_5192C0(currentIndex));
-    static_cast<void>(world::detail::Sub_519300());
-    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(cg::world::detail::Sub_519300());
+    static_cast<void>(cg::world::detail::Sub_519550());
     if (gWindowStates[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));
     }
@@ -236,8 +236,8 @@ std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t key = cg::world::detail::gOrderedRecords1051B14[index].value0C;
     static_cast<void>(network::Sub_511430(socket, key));
-    static_cast<void>(world::detail::Sub_519300());
-    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(cg::world::detail::Sub_519300());
+    static_cast<void>(cg::world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
 }

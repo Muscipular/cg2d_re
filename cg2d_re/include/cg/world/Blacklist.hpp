@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace cg::blacklist {
+namespace cg::world::blacklist {
 
 inline constexpr std::size_t kRecordCount = 100;
 inline constexpr std::size_t kRecordSize = 17;
@@ -48,4 +48,4 @@ std::int8_t RemoveBlacklistRecord_4012F0(const std::wstring_view name);
 // 原401470：首记录和游标均非零才清表；非负fileId持久化，忽略保存返回。
 std::int8_t ClearBlacklistRecords_401470();
 
-} // namespace cg::blacklist
+} // namespace cg::world::blacklist

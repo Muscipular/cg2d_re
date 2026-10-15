@@ -5,7 +5,6 @@
 #include "LegacyFormat.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
-#include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -25,20 +24,6 @@
 
 namespace cg::platform {
 
-// 原458AE0的DX设备检查改为真实SDL音频设备；独立DINPUT入口观察保留。
-std::int32_t Sub_458AE0()
-{
-    SdlAudioBackend probe;
-    if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {
-        ::OutputDebugStringA("SDL audio device is unavailable\n"); return 0;
-    }
-    HMODULE input = ::LoadLibraryA("DINPUT.DLL");
-    if (input == nullptr) { ::OutputDebugStringA("Couldn't LoadLibrary DInput\r\n"); return 0x200; }
-    const bool available = ::GetProcAddress(input, "DirectInputCreateA") != nullptr;
-    ::FreeLibrary(input);
-    if (!available) { ::OutputDebugStringA("Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
-    return 0x600;
-}
 
 namespace {
 
@@ -533,13 +518,11 @@ void RequestRender_457010() noexcept
     gForceRender = 1;
 }
 
-// 原458AE0的SDL音频设备探测与DINPUT入口检查，提供者在LegacyAudio.cpp，返回实际探测码。
-std::int32_t Sub_458AE0();
 
 // 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。
 std::int32_t CheckLegacyDxCapability_458DC0()
 {
-    const std::uint32_t code = std::bit_cast<std::uint32_t>(Sub_458AE0());
+    const std::uint32_t code = std::bit_cast<std::uint32_t>(cg::audio::Sub_458AE0());
     gDxCapabilityCode73ED38 = code;
     return code <= 0x500u ? 1 : 0;
 }

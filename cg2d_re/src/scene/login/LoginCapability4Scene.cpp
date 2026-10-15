@@ -31,7 +31,6 @@ std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
 std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
 
 
-
 std::int32_t DrawCapability4Base()
 {
     return cg::render::Sub_45F090(0, 0, 3, 99657, 0, -1);
@@ -84,43 +83,43 @@ std::int32_t Sub_464840()
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 3, 99653, 0, fade));
+                    cg::render::Sub_45F090(0, 0, 3, 99653, 0, fade));
             } else if (phaseBits == 1U) {
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 3, 99653, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 3, 99653, 0, -1));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 4, 99654, 0, fade));
+                    cg::render::Sub_45F090(0, 0, 4, 99654, 0, fade));
             } else if (phaseBits == 2U) {
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 3, 99653, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 3, 99653, 0, -1));
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 4, 99654, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 4, 99654, 0, -1));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 5, 99655, 0, fade));
+                    cg::render::Sub_45F090(0, 0, 5, 99655, 0, fade));
             } else {
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 3, 99653, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 3, 99653, 0, -1));
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 4, 99654, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 4, 99654, 0, -1));
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 5, 99655, 0, -1));
+                    cg::render::Sub_45F090(0, 0, 5, 99655, 0, -1));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    render::Sub_45F090(0, 0, 6, 99656, 0, fade));
+                    cg::render::Sub_45F090(0, 0, 6, 99656, 0, fade));
             }
 
             gValue9A4D00 = gValue9A4D00 + 6;

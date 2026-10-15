@@ -984,8 +984,8 @@ std::int32_t Sub_50E830(const std::uintptr_t)
     if (state != 0) {
         return std::bit_cast<std::int32_t>(state);
     }
-    character_select::detail::Sub_5194C0();
-    return character_select::detail::Sub_519550();
+    cg::world::detail::Sub_5194C0();
+    return cg::world::detail::Sub_519550();
 }
 
 // GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
@@ -1026,7 +1026,7 @@ void Sub_50F190(
     const char* const recordName =
         (cg::world::detail::gOrderedRecords1051B14.data() + index)->text18;
     cg::text::FormatTo(message, kind == -1 ? L"您收到來自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到來自家族成員 {} 的寵物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
-    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(cg::world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::detail::Sub_44B050(message, 4, 3);
 }

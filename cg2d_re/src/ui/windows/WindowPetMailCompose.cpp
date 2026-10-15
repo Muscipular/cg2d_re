@@ -311,8 +311,8 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 } else {
                     world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
                 }
-                static_cast<void>(world::detail::Sub_519300());
-                static_cast<void>(world::detail::Sub_519550());
+                static_cast<void>(cg::world::detail::Sub_519300());
+                static_cast<void>(cg::world::detail::Sub_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 WindowInstance* const window = gCurrentWindow;
                 cg::ui::detail::gInputContextD66CA8.clearText();

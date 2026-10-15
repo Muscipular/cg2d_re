@@ -37,6 +37,10 @@ enum class YobiPayloadKind : std::uint8_t {
 
 namespace detail {
 
+// 原46DD40：清除地图注册标记并给对应动作标死。
+void Sub_46DD40();
+
+
 // 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
 void DrawNineGrid_49BE00(
     std::int32_t baseImageNo,

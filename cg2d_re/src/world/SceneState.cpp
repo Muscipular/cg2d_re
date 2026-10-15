@@ -2479,7 +2479,7 @@ void Sub_50CAE0(
         } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
             stripPrefix(4);
         }
-        if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
             return;
         }
         if (color < 0) {
@@ -5873,7 +5873,7 @@ void DrawNormalScene_51C7D0()
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         Sub_458F00();
         return;
     case 252: {
@@ -6012,7 +6012,7 @@ void DrawNormalScene_51C7D0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         Sub_51D6F0();
         ++gCurrentSceneState;
         return;
@@ -6027,7 +6027,7 @@ void DrawNormalScene_51C7D0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         Sub_51D6F0();
         return;
     }
@@ -6056,7 +6056,7 @@ void DrawNormalScene_51C7D0()
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         Sub_458F00();
         if (gValue5ABFC4 != 1) {
             return;
@@ -6117,7 +6117,7 @@ inputTail:
     input::ProcessKeyInput_4596D0();
     render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
     RenderInput_4590E0();
-    Sub_44A410();
+    cg::input::detail::Sub_44A410();
 }
 
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
@@ -6356,7 +6356,7 @@ void DrawBattleScene_43CBB0()
             input::BrowseChatHistory_44A1B0();
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
-            Sub_44A410();
+            cg::input::detail::Sub_44A410();
             cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene();
             ++gCurrentSceneState;
@@ -6368,7 +6368,7 @@ void DrawBattleScene_43CBB0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         break;
     case 2: {
         input::ProcessKeyInput_4596D0();
@@ -6376,7 +6376,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -6437,7 +6437,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -6458,7 +6458,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -6473,7 +6473,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -6504,7 +6504,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -6518,7 +6518,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::detail::ClearBattleAppendEffects_43BED0();
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
-        static_cast<void>(audio::Sub_52B990());
+        static_cast<void>(cg::audio::Sub_52B990());
         static_cast<void>(Sub_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -6541,7 +6541,7 @@ void DrawBattleScene_43CBB0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        Sub_44A410();
+        cg::input::detail::Sub_44A410();
         const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;
         if (Sub_51FDE0(selector, 8, 0x40000000U) != 1) {
             break;
@@ -6562,7 +6562,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::detail::Sub_43BAA0());
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
-        static_cast<void>(audio::Sub_52B990());
+        static_cast<void>(cg::audio::Sub_52B990());
         static_cast<void>(Sub_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -9527,7 +9527,7 @@ std::int32_t Sub_45EEE0()
     } else if (phase == 0) {
         Sub_51D750();
         platform::gValue73ECC0 = 2;
-        audio::Sub_52B990();
+        cg::audio::Sub_52B990();
         const std::uint32_t tick = platform::ReadTickCount32();
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
         gValue58B6D0 = 1;
@@ -10830,7 +10830,7 @@ std::int32_t Sub_45EBB0()
         if (transition == 0) {
             return transition;
         }
-        Sub_520160();
+        cg::login::detail::Sub_520160();
         gLogoutTransition9A6E94 = 0;
         Sub_519D50();
         Sub_446470();

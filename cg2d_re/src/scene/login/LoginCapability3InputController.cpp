@@ -45,7 +45,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
     std::int32_t result = 0;
     const std::int32_t nonzeroMode = mode != 0 ? 1 : 0;
 
-    if ((detail::QueryUiControlInputState_45F100(&primaryButton) & 1) != 0
+    if ((cg::ui::QueryUiControlInputState_45F100(&primaryButton) & 1) != 0
         && mode == 0) {
         primaryButton.normalImageNo = primaryButton.clickedImageNo;
         if (gInputContext9A5678.length() == 0
@@ -62,7 +62,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
             gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
                 passwordByteLength)));
         }
-    } else if ((detail::QueryUiControlInputState_45F100(&secondaryButton) & 1) != 0
+    } else if ((cg::ui::QueryUiControlInputState_45F100(&secondaryButton) & 1) != 0
         && mode == 0) {
         secondaryButton.normalImageNo = secondaryButton.clickedImageNo;
         result = 2;
@@ -170,9 +170,9 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         }
     }
 
-    detail::DrawUiControl_45EFD0(
+    cg::ui::DrawUiControl_45EFD0(
         &primaryButton, 207, 0, 0, nonzeroMode);
-    detail::DrawUiControl_45EFD0(
+    cg::ui::DrawUiControl_45EFD0(
         &secondaryButton, 207, 0, 0, nonzeroMode);
     static_cast<void>(render::DrawText3_456560(
         540,

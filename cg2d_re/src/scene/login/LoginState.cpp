@@ -319,7 +319,7 @@ std::int32_t UpdateServerConnection()
 
     if (phase == 2) {
         cg::network::ShutdownNetworkRuntime_5081A0();
-        cg::blacklist::PersistAndReset_401000(gValue55A054);
+        cg::world::blacklist::PersistAndReset_401000(gValue55A054);
         if (cg::network::InitializeNetworkRuntime_508140() != 0) {
             gValue9A6E3C = 3;
             ResetServerConnectionState_508350();
@@ -353,7 +353,7 @@ std::int32_t UpdateServerConnection()
             cg::yobi::detail::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
-        cg::blacklist::LoadBlacklistFile(gValue55A054);
+        cg::world::blacklist::LoadBlacklistFile(gValue55A054);
     }
 
     cg::yobi::YobiAction* const action = gServerConnectionAction;

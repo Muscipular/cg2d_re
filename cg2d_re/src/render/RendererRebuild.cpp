@@ -1,7 +1,7 @@
-#include "MainLoopDependencies.hpp"
+#include "../platform/MainLoopDependencies.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "../render/GraphicDxCacheState.hpp"
+#include "GraphicDxCacheState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include "cg/resource/GraphicRead.hpp"

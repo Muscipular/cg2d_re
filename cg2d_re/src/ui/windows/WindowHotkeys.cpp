@@ -333,7 +333,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int8_t marker = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(login::detail::gValueD69768));
+            static_cast<std::uint8_t>(render::gValueD69768));
         const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gValueCF4AAC;
         const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
@@ -359,7 +359,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
                     &gHotkeyInputPrototype57DF48, x + 96, y + row * 16 + 58, 2));
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
-                    static_cast<std::uint8_t>(login::detail::gValueD69768));
+                    static_cast<std::uint8_t>(render::gValueD69768));
                 const std::wstring text = input::ContextText(cg::ui::detail::gInputContexts5F9758[recordIndex]);
                 WindowInstance* const window = gCurrentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);

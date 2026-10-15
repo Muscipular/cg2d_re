@@ -10,19 +10,12 @@
 #include <cstdint>
 #include <string>
 
-namespace cg::yobi {
-struct YobiAction;
-}
-
-namespace cg::world::detail {
-struct OrderedRecord1051B14;
-}
-
 namespace cg::input {
 class InputContext;
 }
 
 namespace cg::world::detail {
+struct OrderedRecord1051B14;
 struct PlayerItemRecord;
 struct ContactRuntimeRecord;
 struct MiniMailContactRecord;

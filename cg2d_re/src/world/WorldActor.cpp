@@ -31,7 +31,6 @@ std::int32_t Sub_5183B0(const std::int32_t imageNo)
 }
 
 
-
 // 原函数：0x0050AEF0。
 void Sub_50AEF0(const std::uintptr_t, const char* const payload)
 {

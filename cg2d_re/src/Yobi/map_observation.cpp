@@ -1214,7 +1214,7 @@ std::int32_t ReadMapObservationDirection() noexcept
 std::int32_t Sub_440FE0()
 {
     static_cast<void>(Sub_440B70());
-    static_cast<void>(audio::Sub_52B990());
+    static_cast<void>(cg::audio::Sub_52B990());
     return 0x25;
 }
 

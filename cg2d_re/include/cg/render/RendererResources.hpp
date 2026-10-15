@@ -52,4 +52,8 @@ std::int32_t SetPaletteEntries(
     PaletteBinding* palette, std::uint32_t flags, std::uint32_t first,
     std::uint32_t count, const PaletteEntry* entries) noexcept;
 
+
+// 原466B80：按原顺序重建渲染资源及缓存。
+void RebuildRenderer_466B80();
+
 } // namespace cg::render

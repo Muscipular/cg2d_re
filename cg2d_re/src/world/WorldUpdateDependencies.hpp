@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../scene/login/LoginRequestDependencies.hpp"
+
+#include "cg/platform/LegacyTime.hpp"
+
 #include "../scene/login/LoginSavedState.hpp"
 
 #include <string_view>
@@ -21,10 +25,6 @@
 #include <string>
 #include <type_traits>
 
-namespace cg::yobi {
-struct YobiAction;
-}
-
 namespace cg::render {
 struct GraphicDescriptor16;
 }
@@ -33,30 +33,11 @@ namespace cg::input {
 class InputContext;
 } // namespace cg::input
 
-namespace cg::login::detail {
-
-// 原函数：0x00508C90。
-std::int32_t Sub_508C90(); // 原 [0x508C90,0x508CF0)，登出回复与超时轮询。
-// 原函数：0x00508C40。
-std::uint32_t Sub_508C40(); // 原 [0x508C40,0x508C81)，真实请求启动依赖。
-
-} // namespace cg::login::detail
-
-namespace cg::platform {
-
-// 原 0x53B8C6 返回九个 S32 槽；调用方按已确认偏移读取时间字段。
-struct LegacyTm53B8C6;
-// 原函数：0x0053B8C6。
-LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
-
-} // namespace cg::platform
-
-namespace cg::login::detail {
-
-
-} // namespace cg::login::detail
 
 namespace cg::world::detail {
+
+// 原FF0D34：世界状态持有，网络回复写入的W16字段。
+extern std::uint16_t gValueFF0D34;
 
 // 原80H相册记录；518870生产，列表／详情／423800借用同一对象。
 struct AlbumRecord {
@@ -852,8 +833,6 @@ void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00476680。
 void Sub_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
-// 原函数：0x0044A410。
-void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
 // 原函数：0x00449DA0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 // 原函数：0x0046A9E0。
@@ -1445,7 +1424,6 @@ void Sub_50E5D0(
     std::int32_t value18, std::int32_t value1C, std::int32_t value20,
     std::int32_t value24, std::int32_t value28, std::int32_t value2C,
     std::int32_t value30, char* text, const char* name); // 相册记录回复，socket未用。
-using cg::audio::Sub_52B990;               // 原 0x52B990。
 // 原函数：0x0045EBB0。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 // 原函数：0x0045EEE0。
@@ -1676,7 +1654,6 @@ extern std::uint32_t gBattleTurn5ABB74; // 原全局：0x005ABB74。
 extern std::uint32_t gBattleTurnSnapshot5ABC08; // 原全局：0x005ABC08。
 extern std::uint32_t gValue5ABCB0; // 原全局：0x005ABCB0。
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。
-using cg::login::detail::Sub_520160;
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
 

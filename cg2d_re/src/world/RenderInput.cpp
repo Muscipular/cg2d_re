@@ -74,7 +74,6 @@ std::wstring CandidateText(
 }
 
 
-
 void DrawCandidateEntry(
     const std::uint32_t pageIndex,
     const std::int32_t targetStart,

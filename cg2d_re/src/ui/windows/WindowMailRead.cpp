@@ -96,8 +96,8 @@ static std::int32_t WindowMailRead_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowMailRead_FindUnread();
-        static_cast<void>(world::detail::Sub_519300());
-        static_cast<void>(world::detail::Sub_519550());
+        static_cast<void>(cg::world::detail::Sub_519300());
+        static_cast<void>(cg::world::detail::Sub_519550());
         static_cast<void>(world::detail::Sub_518DA0());
         cg::core::NullSub_509080();
     }

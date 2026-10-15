@@ -1,10 +1,25 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 namespace cg::audio {
 
-struct SpatialAudioRecord;
+// 原103D1C0的50项记录；52CD40只写+04/+00，后三个S32保留。
+struct SpatialAudioRecord final {
+    std::uint32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+};
+
+static_assert(offsetof(SpatialAudioRecord, value00) == 0x00);
+static_assert(offsetof(SpatialAudioRecord, value04) == 0x04);
+static_assert(offsetof(SpatialAudioRecord, value08) == 0x08);
+static_assert(offsetof(SpatialAudioRecord, value0C) == 0x0C);
+static_assert(offsetof(SpatialAudioRecord, value10) == 0x10);
+static_assert(sizeof(SpatialAudioRecord) == 0x14);
 
 // 原52BE60：普通BGM加载与播放；音频模块持有实际播放状态。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
@@ -13,6 +28,8 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 std::int32_t Sub_454EE0();
 // 原52CCA0：更新音频播放状态。
 void Sub_52CCA0();
+// 原458AE0：实际音频设备探测与旧DINPUT入口可用性检查。
+std::int32_t Sub_458AE0();
 
 extern std::uint32_t gValue103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
 extern std::uint32_t gValue10507D4; // 原 0x10507D4；5241A0 写入，音效/BGM/更新入口共读。
@@ -21,6 +38,9 @@ extern std::int32_t gBgmRequest1050810; // 原 0x1050810；世界场景生产、
 extern std::int32_t gBgmStage1050814; // 原 0x1050814；52C910 与清理入口共用的阶段 W32。
 extern volatile std::uint32_t gMciDeviceId; // 原 0x10507EC；两次 MCI 调用各自重读。
 extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返回的完整 W32。
+
+// 原455280：加载并播放内置固定音乐。
+std::int32_t PlayFixedMusic_455280(std::int32_t type, std::uint32_t repeats);
 
 // 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
 std::int32_t LoadBgmConfig_524060();

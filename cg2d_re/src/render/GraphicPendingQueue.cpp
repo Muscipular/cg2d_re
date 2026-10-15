@@ -24,7 +24,6 @@ namespace cg::render {
 std::uint32_t gValueD69768 = 0;
 
 
-
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
 

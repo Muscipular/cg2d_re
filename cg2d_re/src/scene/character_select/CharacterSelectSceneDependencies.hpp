@@ -53,10 +53,6 @@ std::int32_t Sub_503A20(
     std::uint32_t hoverImageSequence,
     std::uint8_t layer);
 
-using cg::login::Sub_51B3B0;
-
-// sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
-using cg::login::Sub_51B110;
 
 // 原函数：0x0045E7B0。
 std::int32_t Sub_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
@@ -89,10 +85,6 @@ std::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢�
 // 原 [0x50E770,0x50E77A)：忽略 socket，取第二个 S32 的低字节写 Puk 版本 W8 并返回。
 std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::int32_t pukVersion);
 
-using cg::world::detail::Sub_519290;
-using cg::world::detail::Sub_5194C0;
-using cg::world::detail::Sub_519300;
-using cg::world::detail::Sub_519550;
 // 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。
 std::int32_t Sub_51BA10(std::int32_t imageNo);
 // 原 [0x51BF00,0x51BFEF)：三段早退后按 signed 商索引 14 项局部图号表。
@@ -129,13 +121,7 @@ std::int32_t Sub_4C5650(
     std::int32_t quarter,
     std::int32_t fifth,
     std::int32_t ones);
-using cg::audio::Sub_52B990;
 
-// 原函数：0x0045F100。 共用控件输入位图。
-using cg::ui::QueryUiControlInputState_45F100;
-// 原函数：0x0045EFD0。 共用控件底图及悬停边框。
-using cg::ui::DrawUiControl_45EFD0;
-using cg::render::Sub_45F090;
 using cg::network::Sub_512D30;
 
 // BRT01：原9A5C10正常只读首NUL；新端1B owner静态存活，由创建/升级共享。

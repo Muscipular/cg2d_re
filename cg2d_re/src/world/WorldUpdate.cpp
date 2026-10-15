@@ -67,7 +67,7 @@ void Update()
         cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        detail::Sub_44A410();
+        cg::input::detail::Sub_44A410();
         return;
     }
     case 2:
@@ -89,7 +89,7 @@ void Update()
         cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        detail::Sub_44A410();
+        cg::input::detail::Sub_44A410();
         return;
     case 5:
         platform::gValue73ECC0 = 0;
@@ -120,7 +120,7 @@ void Update()
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
-        detail::Sub_52B990();
+        cg::audio::Sub_52B990();
         gValueD67B08.fill(0);
         return;
     case 6:
@@ -150,7 +150,7 @@ void Update()
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;
-            detail::Sub_52B990();
+            cg::audio::Sub_52B990();
             const std::uint32_t tick = platform::ReadTickCount32();
             platform::gLastRenderDt = tick;
             ++gCurrentSceneState;
@@ -163,7 +163,7 @@ void Update()
         if (detail::Sub_455C90() == 0) {
             goto sceneSixTail;
         }
-        detail::Sub_520160();
+        cg::login::detail::Sub_520160();
         detail::Sub_519D50();
         detail::Sub_446470();
         cg::network::ShutdownNetworkRuntime_5081A0();
@@ -189,7 +189,7 @@ void Update()
         cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        detail::Sub_44A410();
+        cg::input::detail::Sub_44A410();
         return;
     default:
         return;

@@ -286,8 +286,8 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                             }
                         }
                     }
-                    static_cast<void>(world::detail::Sub_519300());
-                    static_cast<void>(world::detail::Sub_519550());
+                    static_cast<void>(cg::world::detail::Sub_519300());
+                    static_cast<void>(cg::world::detail::Sub_519550());
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
                     closeAfterSend = true;
                 }
@@ -340,8 +340,8 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 } else {
                     world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
                 }
-                static_cast<void>(world::detail::Sub_519300());
-                static_cast<void>(world::detail::Sub_519550());
+                static_cast<void>(cg::world::detail::Sub_519300());
+                static_cast<void>(cg::world::detail::Sub_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;
             }

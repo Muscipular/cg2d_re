@@ -36,6 +36,7 @@
 
 namespace cg::input {
 
+
 InputContext::InputContext() noexcept
     : x(ownFields_.x),
       y(ownFields_.y),
@@ -991,9 +992,8 @@ void BrowseChatHistory_44A1B0()
     SetVisibleUtf16Offset(*gCurrentInputData, offset);
 }
 
-} // namespace cg::input
 
-namespace cg::input::detail {
+namespace detail {
 
 // 原函数：0x0044AB60。
 void Sub_44AB60()
@@ -1077,10 +1077,10 @@ void Sub_44AB60()
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = L"您…如此厭惡自己的聲音嗎？" /* 原常量参考：0x00554938。 */;
-        } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
+        } else if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
             message = std::format(L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, text);
         } else {
-            message = blacklist::AddBlacklistRecord_401270(text) != 0
+            message = cg::world::blacklist::AddBlacklistRecord_401270(text) != 0
                 ? std::format(L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */, text)
                 : std::format(L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, text);
         }
@@ -1093,4 +1093,6 @@ void Sub_44AB60()
     gValue626C0C = 20;
 }
 
-} // namespace cg::input::detail
+} // namespace detail
+
+} // namespace cg::input

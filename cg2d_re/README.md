@@ -26,7 +26,11 @@
 - `src/scene/login/`、`include/cg/scene/login/`：登录场景、登录／角色请求及保存状态。
 - `src/scene/character_select/`、`include/cg/scene/character_select/`：选人、创建／删除交互及进度场景。
 - `src/world/`、`include/cg/world/`：世界状态、地图、邮件、公会资料与黑名单；公会文件为GuildState。
-- `src/Yobi/`、`include/cg/Yobi/`：既有Yobi动作及各动画／功能分组。
+- `src/Yobi/`、`include/cg/Yobi/`：Yobi动作及各动画／功能分组，统一使用 `cg::yobi`。
+- `include/cg/core/`：跨模块的共用基础接口。
+- `src/platform/RuntimeInitialization.cpp`：集中保留跨模块的原静态初始化、RNG和析构顺序。
 - `platform/`、`ui/`、`network/`、`text/`保留既有职责；实现私有头紧邻所属源码。
 
 本轮迁移映射、保留理由与静态验证边界见[代码审查与组织整理SPEC](doc/cg2d_code_organization_review_spec.md)。历史文档中的旧路径可按该映射定位，历史行号不视为当前源码行号。
+
+全文件 namespace 整理、逐文件结果及合理保留的多 namespace 见[命名空间整理 SPEC](doc/cg2d_namespace_organization_spec.md)。

@@ -74,13 +74,13 @@ std::int32_t ProcessCharacterSlot_461B30(
     const login::CharacterRecord& record =
         login::gCharacterRecords[static_cast<std::size_t>(slot)];
 
-    if (detail::Sub_51B110(slot) != 0) {
+    if (cg::login::Sub_51B110(slot) != 0) {
         style = mode;
         for (std::int32_t item = 1; item < 3; ++item) {
             detail::CharacterSelectUiRecord& uiRecord =
                 uiRecords[static_cast<std::size_t>(item)];
-            detail::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, mode);
-            if (mode == 0 && (detail::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
+            cg::ui::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, mode);
+            if (mode == 0 && (cg::ui::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
                 result = item;
             }
         }
@@ -95,7 +95,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             color = 8;
         }
 
-        detail::Sub_45F090(
+        cg::render::Sub_45F090(
             coordinates[4].x,
             coordinates[4].y,
             10,
@@ -159,8 +159,8 @@ std::int32_t ProcessCharacterSlot_461B30(
             cg::yobi::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {
-        detail::DrawUiControl_45EFD0(&uiRecords[0], 5, 0, 0, mode);
-        if ((detail::QueryUiControlInputState_45F100(&uiRecords[0]) & 1) != 0) {
+        cg::ui::DrawUiControl_45EFD0(&uiRecords[0], 5, 0, 0, mode);
+        if ((cg::ui::QueryUiControlInputState_45F100(&uiRecords[0]) & 1) != 0) {
             result = 0;
         }
         style = mode + 1;
@@ -168,7 +168,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
     cg::render::DrawText3_456560(30, 450, 0, 4, detail::gText9A4EAC, 0);
 
-    if (state::gPukVersion >= 5u && detail::Sub_51B110(slot) != 0) {
+    if (state::gPukVersion >= 5u && cg::login::Sub_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {
             const std::uint32_t toggle = static_cast<std::uint32_t>(
                 record.previewState);
@@ -182,21 +182,21 @@ std::int32_t ProcessCharacterSlot_461B30(
 
             detail::CharacterSelectUiRecord& uiRecord =
                 uiRecords[static_cast<std::size_t>(item)];
-            detail::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, style);
-            if (style == 0 && (detail::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
+            cg::ui::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, style);
+            if (style == 0 && (cg::ui::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
                 result = item;
             }
         }
     }
 
-    detail::Sub_45F090(
+    cg::render::Sub_45F090(
         coordinates[6].x,
         coordinates[6].y,
         4,
         245062,
         0,
         -1);
-    detail::Sub_45F090(baseX, 51, 4, 245061, 0, -1);
+    cg::render::Sub_45F090(baseX, 51, 4, 245061, 0, -1);
     return result;
 }
 

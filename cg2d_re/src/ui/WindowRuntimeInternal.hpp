@@ -235,7 +235,6 @@ inline constexpr std::array<const wchar_t*, 3> kShopHints57E6C4 { // 原常量�
 };
 
 
-
 inline constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221, 243222, 243223, 243224}; // 原全局：0x0057E6A4。
 
 inline constexpr wchar_t kSettingsClose55331C[] = L"關閉這個視窗。"; // 原常量参考：0x0055331C。

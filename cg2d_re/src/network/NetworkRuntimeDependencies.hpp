@@ -1,5 +1,11 @@
 #pragma once
 
+#include "../world/WorldUpdateDependencies.hpp"
+
+#include "../platform/MainLoopDependencies.hpp"
+
+#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
+
 #include <string_view>
 
 #include <cstdint>
@@ -110,30 +116,3 @@ std::uint8_t* Sub_517730(
     std::int32_t capacity);
 
 } // namespace cg::network::detail
-
-namespace cg::character_select::detail {
-
-extern std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
-
-} // namespace cg::character_select::detail
-
-namespace cg::platform {
-
-// 原函数：0x00404600。
-void ParseProtectionTables_404600(const char* input);
-
-} // namespace cg::platform
-
-namespace cg::world::detail {
-
-// 原 0xD2F788/0xFF0C10/0xFF0D04/0xFF0D08：复用世界状态的唯一 S32/W16 存储。
-extern std::int32_t gValueD2F788; // 原全局：0x00D2F788。
-extern std::uint16_t gValueFF0C10; // 原全局：0x00FF0C10。
-extern std::int32_t gValueFF0D04; // 原全局：0x00FF0D04。
-extern std::int32_t gValueFF0D08; // 原全局：0x00FF0D08。
-extern std::uint16_t gValueFF0D34; // 原全局：0x00FF0D34。
-
-// 原 World::AppendMsgToCharWindow@0x44B050：复用已有聊天窗口入口。
-void Sub_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
-
-} // namespace cg::world::detail

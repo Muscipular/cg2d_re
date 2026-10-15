@@ -85,4 +85,8 @@ std::uint32_t TakeScreenshotThrottled_503C80();
 // 原 44C3C0：节点、缓存面、设备、接口、调色板、Back、SDL 呈现器与 renderer owner。
 void RendererDestroy_44C3C0() noexcept;
 
+// 原4536D0、44C6B0：设备状态检测；保留原节点/面检查次序。
+int IsLost_4536D0();
+int TestCooperativeLevel_44C6B0();
+
 } // namespace cg::render

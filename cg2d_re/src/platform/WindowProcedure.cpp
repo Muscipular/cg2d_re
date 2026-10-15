@@ -3,7 +3,7 @@
 
 #include "ImeComposition.hpp"
 #include "MainLoopDependencies.hpp"
-#include "WindowProcedureDependencies.hpp"
+#include "cg/render/SdlPresenter.hpp"
 #include "WindowProcedureState.hpp"
 
 #include "cg/input/Input.hpp"

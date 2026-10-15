@@ -25,6 +25,7 @@
 #include <Windows.h>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
+namespace cg::login::detail {
 namespace {
 
 struct SavedPath final {
@@ -89,7 +90,6 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 
 } // namespace
 
-namespace cg::login::detail {
 
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
 void EncodeLegacyBytes_52D310(
@@ -235,7 +235,7 @@ std::int32_t DecodeLegacyBytes_52D460(
     return lastDecodedBytes;
 }
 
-} // namespace cg::login::detail
+
 namespace {
 
 // 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
@@ -794,7 +794,6 @@ std::int32_t ReturnOne_4A4210() noexcept
 
 } // namespace
 
-namespace cg::login::detail {
 
 // 原函数：0x005201B0。
 std::int32_t RestoreCurrentSavedState_5201B0()
@@ -1287,4 +1286,3 @@ void Sub_533730()
 }
 
 } // namespace cg::login::detail
-

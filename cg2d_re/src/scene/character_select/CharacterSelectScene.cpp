@@ -324,7 +324,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
             if (gate == 1) {
                 const std::int32_t selected = login::gSelectedCharacterIndex;
                 world::gCurrentSceneState = 30;
-                login::Sub_51B3B0(static_cast<std::uint32_t>(selected));
+                cg::login::Sub_51B3B0(static_cast<std::uint32_t>(selected));
                 const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
@@ -996,7 +996,7 @@ std::int32_t Sub_4631D0()
             state::gValueF633F4 = element2;
             state::gValueDE0B04 = element3;
             world::detail::gValueFDA6F8 = 0;
-            audio::Sub_52B990();
+            cg::audio::Sub_52B990();
             Sub_4642C0();
         } else if (answer == 2) {
             state::gValue9A5AFC = 1;
@@ -1520,7 +1520,7 @@ std::int32_t ProcessScene_460FF0()
         case 14: {
             const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
             if (result == 1) {
-                detail::Sub_51B3B0(static_cast<std::uint32_t>(
+                cg::login::Sub_51B3B0(static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
                 const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
@@ -1586,7 +1586,7 @@ std::int32_t ProcessScene_460FF0()
     const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
     if (secondaryState <= 20u
         && (secondaryState <= 9u || secondaryState >= 19u)) {
-        return detail::Sub_45F090(0, 0, 3, 245060, 0, -1);
+        return cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1);
     }
 
     for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
@@ -1603,10 +1603,10 @@ std::int32_t ProcessScene_460FF0()
         case 0:
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
             world::detail::Sub_518BE0();
-            detail::Sub_519290();
-            detail::Sub_5194C0();
-            detail::Sub_519300();
-            detail::Sub_519550();
+            cg::world::detail::Sub_519290();
+            cg::world::detail::Sub_5194C0();
+            cg::world::detail::Sub_519300();
+            cg::world::detail::Sub_519550();
             world::SetCurrentSceneType(4);
             login::detail::PlaySe(53, 320, 240);
             cg::yobi::detail::YobiClearUp_404D30();
@@ -1622,7 +1622,7 @@ std::int32_t ProcessScene_460FF0()
             world::SetCurrentSceneType(5);
             login::detail::PlaySe(59, 320, 240);
             state::gCharacterEntryState = 0;
-            detail::Sub_52B990();
+            cg::audio::Sub_52B990();
             cg::yobi::detail::YobiClearUp_404D30();
             ClearPreviewActions();
             break;
@@ -1669,25 +1669,25 @@ std::int32_t ProcessScene_460FF0()
     if (gUpdateAvailable != 0) {
         if (uiStyle == 0
             && world::gCurrentSceneState == 11
-            && (detail::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
+            && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
             world::SetCurrentSceneType(13);
             uiStyle = 1;
         }
-        detail::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
-        detail::Sub_45F090(252, 392, 4, 245078, 0, -1);
+        cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
+        cg::render::Sub_45F090(252, 392, 4, 245078, 0, -1);
     }
 
     if (uiStyle == 0
         && world::gCurrentSceneState == 11
-        && (detail::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
+        && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
         cg::yobi::detail::YobiClearUp_404D30();
         ClearPreviewActions();
         cg::network::ShutdownNetworkRuntime_5081A0();
         world::SetCurrentSceneType(2);
         login::detail::PlaySe(54, 320, 240);
     }
-    detail::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
-    detail::Sub_45F090(0, 0, 3, 245060, 0, -1);
+    cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
+    cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1);
 
     std::int32_t result = gUpdateAvailable;
     if (result != 0) {

@@ -78,7 +78,7 @@ void DrawCapability4SavedSlotGraphic(
 {
     const std::int32_t drawX = kCapability4SavedSlotGeometry[slotIndex].x + offsetX;
     const std::int32_t drawY = kCapability4SavedSlotGeometry[slotIndex].y + offsetY;
-    static_cast<void>(render::Sub_45F090(
+    static_cast<void>(cg::render::Sub_45F090(
         drawX,
         drawY,
         layer,

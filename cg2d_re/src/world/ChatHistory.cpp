@@ -47,7 +47,6 @@ std::uint32_t gValue626BFC = 0; // 原全局：0x00626BFC。
 char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
 
 
-
 ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
 std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
 
@@ -65,8 +64,6 @@ constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658�
 constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
 constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
 constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
-
-
 
 
 } // namespace

@@ -1,5 +1,11 @@
 #pragma once
 
+#include "cg/render/SurfaceState.hpp"
+
+#include "cg/render/SdlPresenter.hpp"
+
+#include "cg/render/GraphicCacheState.hpp"
+
 #include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -8,22 +14,6 @@
 
 #include <cstdint>
 
-namespace cg::render {
-
-// 原函数：0x00466B80。
-void RebuildRenderer_466B80();
-// 原函数：0x0044C6B0。
-int TestCooperativeLevel_44C6B0();
-// 原函数：0x00456D30。
-std::uint32_t ResetGraphicCache_456D30();
-// 原函数：0x00520790。
-void SortTextures_520790();
-// 原函数：0x004512C0。
-std::int32_t ClearSurface_4512C0() noexcept;
-// 原函数：0x0044C560。
-void Flip_44C560();
-
-} // namespace cg::render
 
 namespace cg::platform {
 

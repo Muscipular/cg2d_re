@@ -8,16 +8,6 @@
 #include <cstring>
 
 namespace cg::character_select {
-namespace {
-
-constexpr wchar_t kReturnText[] = L"返回"; // 原地址：0x55CE04
-constexpr wchar_t kCannotDeleteFamilyLeader[] = L"無法刪除家族負責人。"; // 原地址：0x55CDEC
-constexpr wchar_t kDisbandFamilyFirst[] = L"若要解散家族，"; // 原地址：0x55CDDC
-constexpr wchar_t kLeaveFamilyFirst[] = L"請在退出此家族之後，"; // 原地址：0x55CDC4
-constexpr wchar_t kDeleteAfterLeaving[] = L"再進行刪除。"; // 原地址：0x55CDB4
-
-} // namespace
-
 // 原函数：0x00462090。
 std::int32_t ProcessCharacterModal_462090(
     std::int32_t x,
@@ -30,7 +20,7 @@ std::int32_t ProcessCharacterModal_462090(
         y + 48,
         54,
         18,
-        kReturnText,
+        L"返回" /* 原地址：0x55CE04 */,
     };
     std::int32_t result = 0;
 
@@ -75,7 +65,7 @@ std::int32_t ProcessCharacterModal_462090(
     std::wstring textBuffer;
     std::int32_t textWidth;
 
-    textBuffer = kCannotDeleteFamilyLeader;
+    textBuffer = L"無法刪除家族負責人。" /* 原地址：0x55CDEC */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -87,7 +77,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    textBuffer = kDisbandFamilyFirst;
+    textBuffer = L"若要解散家族，" /* 原地址：0x55CDDC */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -99,7 +89,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    textBuffer = kLeaveFamilyFirst;
+    textBuffer = L"請在退出此家族之後，" /* 原地址：0x55CDC4 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -111,7 +101,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    textBuffer = kDeleteAfterLeaving;
+    textBuffer = L"再進行刪除。" /* 原地址：0x55CDB4 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),

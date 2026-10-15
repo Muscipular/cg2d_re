@@ -22,9 +22,6 @@ namespace {
 
 // 原 [73ED28,73ED38)，跨次调用保留；只有 phase 0 执行原初始化写入。
 render::GraphicDescriptor16 gLoadingDescriptor{};
-constexpr wchar_t kLoadingMessage[] =
-    L"沒有按照正常程序安裝";
-
 } // namespace
 
 // 原 InitLoading@[457B10,4582FE)，完整阶段及公共帧尾见 cg2d_loading_screen.md。
@@ -225,7 +222,7 @@ std::int32_t InitLoading_457B10()
             login::ResetLoginMessage();
             break;
         case 25:
-            if (login::UpdateLoginMessage(kLoadingMessage) == 1) {
+            if (login::UpdateLoginMessage(L"沒有按照正常程序安裝") == 1) {
                 return 0;
             }
             break;

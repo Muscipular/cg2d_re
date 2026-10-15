@@ -11,9 +11,6 @@
 namespace cg::character_select {
 namespace {
 
-// 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。
-constexpr wchar_t kCharacterListProgressText[] =
-    L"登入成功，開始計費！";
 constexpr std::int32_t kLegacyGlyphWidth = 8;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
@@ -45,7 +42,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     std::int32_t result = 0;
 
     if (stage == 0) {
-        gCharacterListProgressText = kCharacterListProgressText;
+        gCharacterListProgressText = L"登入成功，開始計費！" /* 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。 */;
         const std::uint32_t textWidth =
             static_cast<std::uint32_t>(login::detail::TextMeasure(gCharacterListProgressText, 0));
         const std::int32_t columns =

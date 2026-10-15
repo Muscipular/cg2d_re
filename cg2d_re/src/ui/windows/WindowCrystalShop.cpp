@@ -650,8 +650,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        constexpr wchar_t hint587FA8[] = L"買進指定的物品。";
-        gHoverTextD68AE8 = hint587FA8;
+        gHoverTextD68AE8 = L"買進指定的物品。" /* 原常量参考：0x00587FA8。 */;
     }
     if (gWindow69SlotsCA0AC8 <= 0) {
         if ((state & 2) != 0) {
@@ -703,16 +702,10 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
                 right.visible = 1;
                 right.x = 454;
                 right.value = total;
-                constexpr wchar_t heading588378[] =
-                    L"持有水晶            顆     花費水晶            顆";
-                constexpr wchar_t question587F0C[] =
-                    L"確認要購買這些物品？";
-                constexpr wchar_t accept587F00[] = L"買進物品。";
-                constexpr wchar_t cancel585AD0[] = L"還是算了。";
-                (gWindow69ConfirmHeadingCC3F68 = heading588378);
-                (gWindow69ConfirmQuestionCC3F04 = question587F0C);
-                gWindow69ConfirmAcceptD2E81C = accept587F00;
-                gWindow69ConfirmCancelCB076C = cancel585AD0;
+                (gWindow69ConfirmHeadingCC3F68 = L"持有水晶            顆     花費水晶            顆" /* 原常量参考：0x00588378。 */);
+                (gWindow69ConfirmQuestionCC3F04 = L"確認要購買這些物品？" /* 原常量参考：0x00587F0C。 */);
+                gWindow69ConfirmAcceptD2E81C = L"買進物品。" /* 原常量参考：0x00587F00。 */;
+                gWindow69ConfirmCancelCB076C = L"還是算了。" /* 原常量参考：0x00585AD0。 */;
                 gCurrentWindow->elements[0].visible = 1;
                 gCurrentWindow->state |= 2u;
                 static_cast<void>(audio::PlaySe_52C450(78, 320));

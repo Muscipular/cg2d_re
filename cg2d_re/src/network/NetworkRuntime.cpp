@@ -774,10 +774,7 @@ void Sub_50CF20(
         return;
     }
 
-    constexpr wchar_t kMessage[] =
-        L"失敗了！";
-
-    world::detail::Sub_44B050(kMessage, 4, 3);
+    world::detail::Sub_44B050(L"失敗了！", 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
@@ -944,15 +941,10 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         if (const_cast<char*>(std::strstr(previous, text)) != nullptr) {
             return;
         }
-        constexpr wchar_t format58B0B0[] =
-            L"IP 位址由[{}]變成[{}]。";
-        constexpr wchar_t warning58B094[] =
-            L"網路有可能是被再連接了。";
-
         std::wstring message;
-        cg::text::FormatTo(message, format58B0B0, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
+        cg::text::FormatTo(message, L"IP 位址由[{}]變成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
         world::detail::Sub_44B050(message, 4, 3);
-        world::detail::Sub_44B050(warning58B094, 4, 3);
+        world::detail::Sub_44B050(L"網路有可能是被再連接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -1008,11 +1000,6 @@ void Sub_50F190(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
-    constexpr wchar_t kGuildMailFormat58B0EC[] =
-        L"您收到來自家族 {} 的信件～";
-    constexpr wchar_t kGuildPetMailFormat58B0C8[] =
-        L"您收到來自家族成員 {} 的寵物信件～";
-
     char name[32];
     std::wstring message;
     char text[300];
@@ -1024,7 +1011,7 @@ void Sub_50F190(
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
         (login::detail::gOrderedRecords1051B14.data() + index)->text18;
-    cg::text::FormatTo(message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8, cg::text::FromGbkWide(recordName).c_str());
+    cg::text::FormatTo(message, kind == -1 ? L"您收到來自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到來自家族成員 {} 的寵物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::detail::Sub_44B050(message, 4, 3);
@@ -1387,8 +1374,6 @@ std::int32_t AppendProtocolText_5170D0(
 // 原函数：0x00517120。
 std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
 {
-    static constexpr std::uint8_t kSpace[] {' ', '\0'};
-
     const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);
     std::uint8_t* const formatted = FormatProtocolInteger_517670(value);
@@ -1402,7 +1387,7 @@ std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
         gNetworkRuntimeState.buffer58B5FC;
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(secondDestination),
-        reinterpret_cast<const char*>(kSpace),
+        " ",
         secondCapacity));
 
     return gNetworkRuntimeState.buffer58B5FC;
@@ -1411,13 +1396,11 @@ std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
 // 原函数：0x00517160。
 std::uint8_t* FormatProtocolTextToken_517160(const std::wstring_view text)
 {
-    static constexpr char kSpace[] {' ', '\0'};
-
     std::uint8_t* const escaped = EscapeProtocolText_5171F0(text);
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
-        reinterpret_cast<char*>(escaped), kSpace, capacity));
+        reinterpret_cast<char*>(escaped), " ", capacity));
     return escaped;
 }
 

@@ -27,33 +27,8 @@
 
 namespace {
 
-// 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。
-constexpr wchar_t kLoginTimeoutMessage[] =
-    L"處理登入逾時。";
-// 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。
-constexpr wchar_t kLoginFailureMessage[] =
-    L"登入處理失敗，或斷線後，數分鐘內無法登入。";
 // 原 0x55BAD8「登入中」正文 6 字节；字符串字面量隐式追加唯一 NUL。
 constexpr wchar_t kLoginProgressText[] = L"登入中";
-// 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kServerConnectingText[] =
-    L"伺服器連接中";
-
-constexpr wchar_t kServerInfoFailureMessage[] =
-    L"伺服器的名稱不正確。";
-constexpr wchar_t kSocketFailureMessage[] =
-    L"網路通訊協定（TCP）錯誤。";
-constexpr wchar_t kServerAddressFailureFormat[] =
-    L"無法取得伺服器的 IP 位址。({})";
-constexpr wchar_t kConnectFailureMessage[] =
-    L"無法開始處理與伺服器的連接。";
-constexpr wchar_t kConnectExceptionMessage[] =
-    L"無法連上伺服器。 ";
-constexpr wchar_t kLoginRejectedMessage[] =
-    L"無法登入。";
-constexpr wchar_t kConnectionTimeoutMessage[] =
-    L"與伺服器的連接逾時。";
-
 // 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
 struct LoginProgressLayout {
     std::int32_t rowCount;
@@ -124,7 +99,7 @@ std::int32_t Sub_508360()
                 static_cast<std::int32_t>(gValue58AD94),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>((gRequestMessage = kServerInfoFailureMessage));
+            static_cast<void>((gRequestMessage = L"伺服器的名稱不正確。"));
             return -2;
         }
 
@@ -132,7 +107,7 @@ std::int32_t Sub_508360()
         platform::gConnectionSocket =
             static_cast<std::uintptr_t>(connectionSocket);
         if (connectionSocket == INVALID_SOCKET) {
-            static_cast<void>((gRequestMessage = kSocketFailureMessage));
+            static_cast<void>((gRequestMessage = L"網路通訊協定（TCP）錯誤。"));
             return -3;
         }
 
@@ -159,7 +134,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(cg::text::FormatTo(gRequestMessage, kServerAddressFailureFormat, cg::text::FromGbkWide(serverAddress)));
+                static_cast<void>(cg::text::FormatTo(gRequestMessage, L"無法取得伺服器的 IP 位址。({})", cg::text::FromGbkWide(serverAddress)));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -4;
@@ -185,7 +160,7 @@ std::int32_t Sub_508360()
                 static_cast<void>(Sub_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                static_cast<void>((gRequestMessage = kConnectFailureMessage));
+                static_cast<void>((gRequestMessage = L"無法開始處理與伺服器的連接。"));
                 return -5;
             }
         }
@@ -221,7 +196,7 @@ std::int32_t Sub_508360()
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
-            static_cast<void>((gRequestMessage = kConnectExceptionMessage));
+            static_cast<void>((gRequestMessage = L"無法連上伺服器。 "));
             static_cast<void>(::closesocket(
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             return -6;
@@ -255,7 +230,7 @@ std::int32_t Sub_508360()
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
-                static_cast<void>((gRequestMessage = kLoginRejectedMessage));
+                static_cast<void>((gRequestMessage = L"無法登入。"));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -7;
@@ -280,7 +255,7 @@ std::int32_t Sub_508360()
 
     const std::uint32_t now = platform::ReadTickCount32();
     if (now - gRequestStartTick > 600000U) {
-        static_cast<void>((gRequestMessage = kConnectionTimeoutMessage));
+        static_cast<void>((gRequestMessage = L"與伺服器的連接逾時。"));
         return -1;
     }
     return 0;
@@ -309,7 +284,7 @@ std::int32_t UpdateServerConnection()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        gServerConnectingText = kServerConnectingText;
+        gServerConnectingText = L"伺服器連接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
 
         std::int32_t columnCount =
             (detail::TextMeasure(gServerConnectingText, 0) + 111) / 64;
@@ -419,10 +394,10 @@ std::int32_t ProcessState_45E960()
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = kLoginTimeoutMessage;
+            gValue9A5348 = L"處理登入逾時。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
         } else if (result == -2) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = kLoginFailureMessage;
+            gValue9A5348 = L"登入處理失敗，或斷線後，數分鐘內無法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
         }
     }
 

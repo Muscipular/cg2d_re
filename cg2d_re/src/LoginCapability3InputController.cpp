@@ -30,8 +30,6 @@ constexpr Capability3InputButton32 kPrimaryButton {
 constexpr Capability3InputButton32 kSecondaryButton {
     {332, 438, 64, 16}, 245153, 245155, 245154,
 };
-constexpr wchar_t kVersion[] = L"7.1.00";
-
 std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
@@ -203,7 +201,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         424,
         0,
         render::gPaletteCapability >= 1 ? 3 : 0,
-        kVersion,
+        L"7.1.00",
         0));
     return result;
 }

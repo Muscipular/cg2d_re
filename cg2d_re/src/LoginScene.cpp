@@ -30,79 +30,16 @@ namespace {
 // 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
 constexpr wchar_t kWindowName[] = L"魔力寶貝";
 constexpr wchar_t kVersion[] = L"7.1.00";
-constexpr char kPasswordExpiredUrl[] = "http://www.softstar.com.tw/Game/Index.aspx";
-
-// 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kNetworkNotReady[] =
-    L"NETWORK還沒準備好。";
 // 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
 constexpr wchar_t kCannotConnect[] =
     L"無法連上伺服器。 ";
-// 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kServerCrowded[] =
-    L"此伺服器很擁擠。";
-// 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kVersionError[] =
-    L"版本錯誤";
-// 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kInsufficientPoints[] =
-    L"點數不足";
 // 原 0x55C6E4「此帳號已在線上」正文 14 字节；字符串字面量隐式追加 NUL。
 constexpr wchar_t kAlreadyOnline[] =
     L"此帳號已在線上";
-// 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kLoginServerError[] =
-    L"登入伺服器發生錯誤";
-// 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kStoredTimeExpired[] =
-    L"儲值時間已到";
-// 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kBillingError[] =
-    L"計費方式有問題";
 // 原 0x55C6A4「目前停權中」正文 10 字节；字符串字面量隐式追加 NUL。
 constexpr wchar_t kSuspended[] =
     L"目前停權中";
-// 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kUnknownError[] =
-    L"未知的錯誤";
-// 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kServerBusy[] =
-    L"伺服器負荷過重，請稍候再試。";
-// 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kWaitBeforeRetry[] =
-    L"請休息一下滑鼠，數秒後再嘗試。";
-// 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kNoTrialService[] =
-    L"此伺服器不提供試玩服務";
-// 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kMachineLocked[] =
-    L"此電腦沒有權限登入。（行動鎖上鎖）";
-// 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountFrozen[] =
-    L"此帳號已使用行動鎖凍結。";
-// 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kCannotConnectUpdate[] =
-    L"無法連上更新伺服器";
-// 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kRestartForVersion[] =
-    L"版本錯誤，請重新啟動魔力寶貝。";
-
-
 constexpr wchar_t kMultiline[] = L"Multiline";
-constexpr wchar_t kMultilineNew[] = L"Multiline_New";
-
-// 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp0[] =
-    L"您可能遇到以下 3 種情形之一：";
-// 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp1[] =
-    L"1.密碼錯誤，請查明後重新輸入";
-// 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp2[] =
-    L"2.未儲值，請至 SOFTSTAR 網站儲值";
-// 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp3[] =
-    L"3.新會員系統中查無此帳號";
 // 原 0x55C71C「--->請速回 SOFTSTAR 網站」正文 24 字节；字符串字面量隐式追加 NUL。
 constexpr wchar_t kAccountHelp4[] =
     L"--->請速回 SOFTSTAR 網站";
@@ -110,49 +47,6 @@ constexpr wchar_t kAccountHelp4[] =
 constexpr wchar_t kAccountHelp5[] =
     L"--->註冊新帳號並移轉舊帳號";
 
-
-// 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange0[] =
-    L"＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝";
-// 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange1[] =
-    L"大宇資訊已於２００５／０５／１３全面變更";
-// 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange2[] =
-    L"所有玩家會員密碼、以及魔力寶貝遊戲密碼，";
-// 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange3[] =
-    L"請玩家至SOFTSTAR會員中心領取新的密碼，";
-// 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange4[] =
-    L"詳情請參閱SOFTSTAR官方網站資訊：";
-// 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kPasswordChange5[] =
-    L"　　　　http://www.softstar.com.tw";
-
-
-// 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kMachineCode0[] =
-    L"本台機器之機碼已停用。";
-// 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kMachineCode1[] =
-    L"請檢查遊戲點數。";
-// 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kMachineCode2[] =
-    L"可能是點數不足導致登錄之機碼停用。";
-// 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kMachineCode3[] =
-    L"儲值後請稍待數分鐘系統處理時間。";
-
-
-// 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。
-constexpr wchar_t kPasswordExpiredMessage[] =
-    LR"(親愛的玩家您好：
-由於您的遊戲密碼已經過期，
-請登入大宇會員系統更換遊戲密碼，
-請定期更換密碼以確保帳號安全。
-點擊確定，將前往SOFTSTAR網頁。
-)";
 
 // 原559958起25个64B槽的正文；当前静态中文采用UTF-16，索引仍由CategoryTitle承接。
 constexpr std::array<const wchar_t*, 25> kCategoryTitles {
@@ -378,10 +272,10 @@ void SetServerWindowTitle(
 
 void CopyAccountHelpLines()
 {
-    CopyText(cg::login::gValue9A620C[6], kAccountHelp0);
-    CopyText(cg::login::gValue9A620C[7], kAccountHelp1);
-    CopyText(cg::login::gValue9A620C[8], kAccountHelp2);
-    CopyText(cg::login::gValue9A620C[9], kAccountHelp3);
+    CopyText(cg::login::gValue9A620C[6], L"您可能遇到以下 3 種情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gValue9A620C[7], L"1.密碼錯誤，請查明後重新輸入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gValue9A620C[8], L"2.未儲值，請至 SOFTSTAR 網站儲值" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gValue9A620C[9], L"3.新會員系統中查無此帳號" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
 }
 
 void DrawCategoryControls()
@@ -551,7 +445,7 @@ std::int32_t ProcessScene_45FEA0()
             break;
         case -1:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, kNetworkNotReady);
+            CopyText(gLoginSceneMessage, L"NETWORK還沒準備好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         case -2: {
@@ -562,11 +456,11 @@ std::int32_t ProcessScene_45FEA0()
                 gValueDA3B24 = 0;
             } else if (error == 1234) {
                 gValueDA3B24 = 0;
-                CopyText(gLoginSceneMessage, kServerCrowded);
+                CopyText(gLoginSceneMessage, L"此伺服器很擁擠。" /* 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
             } else {
                 switch (error) {
                 case 1:
-                    CopyText(gLoginSceneMessage, kVersionError);
+                    CopyText(gLoginSceneMessage, L"版本錯誤" /* 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 2:
@@ -579,20 +473,20 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 case 3:
                     CopyText(gLoginSceneMessage, kMultiline);
-                    CopyText(gLoginSceneMessage, kMultilineNew);
-                    CopyText(gValue9A620C[0], kPasswordChange0);
-                    CopyText(gValue9A620C[1], kPasswordChange1);
-                    CopyText(gValue9A620C[2], kPasswordChange2);
-                    CopyText(gValue9A620C[3], kPasswordChange3);
-                    CopyText(gValue9A620C[4], kPasswordChange4);
-                    CopyText(gValue9A620C[5], kPasswordChange5);
+                    CopyText(gLoginSceneMessage, L"Multiline_New");
+                    CopyText(gValue9A620C[0], L"＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝" /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[1], L"大宇資訊已於２００５／０５／１３全面變更" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[2], L"所有玩家會員密碼、以及魔力寶貝遊戲密碼，" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[3], L"請玩家至SOFTSTAR會員中心領取新的密碼，" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[4], L"詳情請參閱SOFTSTAR官方網站資訊：" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[5], L"　　　　http://www.softstar.com.tw" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     CopyAccountHelpLines();
                     gValueDA3B24 = 0;
                     CopyText(gValue9A620C[10], kAccountHelp4);
                     CopyText(gValue9A620C[11], kAccountHelp5);
                     break;
                 case 4:
-                    CopyText(gLoginSceneMessage, kInsufficientPoints);
+                    CopyText(gLoginSceneMessage, L"點數不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 6:
@@ -604,15 +498,15 @@ std::int32_t ProcessScene_45FEA0()
                     CopyText(gLoginSceneMessage, kAlreadyOnline);
                     break;
                 case 8:
-                    CopyText(gLoginSceneMessage, kLoginServerError);
+                    CopyText(gLoginSceneMessage, L"登入伺服器發生錯誤" /* 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 9:
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kStoredTimeExpired);
+                    CopyText(gLoginSceneMessage, L"儲值時間已到" /* 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 10:
-                    CopyText(gLoginSceneMessage, kBillingError);
+                    CopyText(gLoginSceneMessage, L"計費方式有問題" /* 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 11:
@@ -627,42 +521,47 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 case 15:
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kUnknownError);
+                    CopyText(gLoginSceneMessage, L"未知的錯誤" /* 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 16:
-                    CopyText(gLoginSceneMessage, kServerBusy);
+                    CopyText(gLoginSceneMessage, L"伺服器負荷過重，請稍候再試。" /* 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 18:
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kWaitBeforeRetry);
+                    CopyText(gLoginSceneMessage, L"請休息一下滑鼠，數秒後再嘗試。" /* 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 19:
-                    CopyText(gLoginSceneMessage, kNoTrialService);
+                    CopyText(gLoginSceneMessage, L"此伺服器不提供試玩服務" /* 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。 */);
                     gValueDA3B24 = 0;
                     break;
                 case 20:
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kMachineLocked);
+                    CopyText(gLoginSceneMessage, L"此電腦沒有權限登入。（行動鎖上鎖）" /* 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 21:
                     CopyText(gLoginSceneMessage, kMultiline);
-                    CopyText(gValue9A620C[6], kMachineCode0);
-                    CopyText(gValue9A620C[7], kMachineCode1);
-                    CopyText(gValue9A620C[8], kMachineCode2);
-                    CopyText(gValue9A620C[9], kMachineCode3);
+                    CopyText(gValue9A620C[6], L"本台機器之機碼已停用。" /* 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[7], L"請檢查遊戲點數。" /* 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[8], L"可能是點數不足導致登錄之機碼停用。" /* 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[9], L"儲值後請稍待數分鐘系統處理時間。" /* 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     CopyText(gValue9A620C[10], L" ");
                     CopyText(gValue9A620C[11], L" ");
                     gValueDA3B24 = 0;
                     break;
                 case 22:
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kAccountFrozen);
+                    CopyText(gLoginSceneMessage, L"此帳號已使用行動鎖凍結。" /* 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 23:
                     gOpenUrlAfterMessage = 1;
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, kPasswordExpiredMessage);
+                    CopyText(gLoginSceneMessage, LR"(親愛的玩家您好：
+由於您的遊戲密碼已經過期，
+請登入大宇會員系統更換遊戲密碼，
+請定期更換密碼以確保帳號安全。
+點擊確定，將前往SOFTSTAR網頁。
+)" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
                     break;
                 default:
                     CopyText(gLoginSceneMessage, kCannotConnect);
@@ -675,12 +574,12 @@ std::int32_t ProcessScene_45FEA0()
         }
         case -3:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, kCannotConnectUpdate);
+            CopyText(gLoginSceneMessage, L"無法連上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         case -4:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, kRestartForVersion);
+            CopyText(gLoginSceneMessage, L"版本錯誤，請重新啟動魔力寶貝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         default:
@@ -698,7 +597,7 @@ std::int32_t ProcessScene_45FEA0()
             platform::ExecuteLegacyShell(
                 platform::gLegacyWindow,
                 nullptr,
-                kPasswordExpiredUrl,
+                "http://www.softstar.com.tw/Game/Index.aspx",
                 nullptr,
                 nullptr,
                 1);

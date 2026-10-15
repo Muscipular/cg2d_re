@@ -256,15 +256,6 @@ constexpr std::uint8_t kModalDisplayPriority = 0xD4;
 constexpr std::uint8_t kSpriteBatch = 0;
 constexpr std::uint8_t kModalLayer = 0xD4;
 
-constexpr wchar_t kConfirmCaption[] = L"確認";
-constexpr wchar_t kActionAllocationText[] = L"GetAction Erorr!!";
-constexpr wchar_t kActionAllocationCaption[] = L"GetAction Erorr";
-constexpr wchar_t kActionPayloadText[] =
-    L"記憶體容量不足！pAct";
-constexpr wchar_t kYobiAllocationText[] =
-    L"記憶體容量不足！yobi";
-constexpr wchar_t kYobiAllocationCaption[] = L"GetYobi Erorr";
-
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
 std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
 std::uint32_t gStartTick5F973C = 0; // 原全局：0x005F973C。
@@ -542,9 +533,6 @@ constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 { // 原常�
 std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 // BCVI01：现1025个S32位置槽的映像覆盖区为零；114按效果索引存位置编号。
 std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {}; // 原全局：0x0059E9D8。
-constexpr wchar_t kBattleInspectFailure5539BC[] = L"無法調查出 {} 的情報"; // 原常量参考：0x005539BC。
-constexpr wchar_t kBattleInspectHp5539E8[] = L"{} 的生命為 {} / {}"; // 原常量参考：0x005539E8。
-constexpr wchar_t kBattleInspectFp5539D4[] = L"{} 的魔力為 {} / {}"; // 原常量参考：0x005539D4。
 YobiAction* gBattleFactoryEffect59F9E8 = nullptr; // 原全局：0x0059F9E8。
 
 // 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
@@ -1661,8 +1649,8 @@ YobiAction* NewYobiAction_404AE0(
     auto* const action = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     if (action == nullptr) {
-        platform::ShowWideMessage(kActionAllocationText, kConfirmCaption, 0);
-        platform::ShowWideMessage(kActionPayloadText, kActionAllocationCaption, 0);
+        platform::ShowWideMessage(L"GetAction Erorr!!", L"確認", 0);
+        platform::ShowWideMessage(L"記憶體容量不足！pAct", L"GetAction Erorr", 0);
         return nullptr;
     }
 
@@ -1674,7 +1662,7 @@ YobiAction* NewYobiAction_404AE0(
         if (missingPayload) {
             std::destroy_at(action);
             std::free(action);
-            platform::ShowWideMessage(kYobiAllocationText, kYobiAllocationCaption, 0);
+            platform::ShowWideMessage(L"記憶體容量不足！yobi", L"GetYobi Erorr", 0);
             return nullptr;
         }
         std::memset(payload, 0, payloadSize);
@@ -27872,15 +27860,15 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
                     std::memcpy(arguments.data() + 4, &target->maxHp, sizeof(platform::LegacyCryptInt));
                     const char* const name = target->nameC4.data();
                     std::memcpy(arguments.data(), &target->readiness, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, kBattleInspectHp5539E8, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的生命為 {} / {}" /* 原常量参考：0x005539E8。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                     std::memcpy(arguments.data() + 4, &target->barMaximum1C0, sizeof(platform::LegacyCryptInt));
                     std::memcpy(arguments.data(), &target->barValue1B0, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, kBattleInspectFp5539D4, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的魔力為 {} / {}" /* 原常量参考：0x005539D4。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                 }
             } else {
-                cg::text::FormatTo(message, kBattleInspectFailure5539BC, cg::text::FromGbkWide(target->nameC4.data()).c_str());
+                cg::text::FormatTo(message, L"無法調查出 {} 的情報" /* 原常量参考：0x005539BC。 */, cg::text::FromGbkWide(target->nameC4.data()).c_str());
                 world::detail::Sub_44B050(message, 4, 3);
             }
             static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -34897,15 +34885,6 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     constexpr wchar_t kFull58AD04[] =
         L"等級 {:<3} {:<16}  生命 {:4}/{:<4}  魔力 {:4}/{:<4}";
     constexpr wchar_t kLevel58AD5C[] = L"等級 {:<3} {:<16}";
-    constexpr wchar_t kTitle58AD44[] = L"等級 {:<3} {:<16} [{:<16}]";
-    constexpr wchar_t kFullBlacklist553294[] =
-        L"你的黑名單已滿，無法再加入";
-    constexpr wchar_t kAddFailed5532B0[] = L"{}加入黑名單失敗";
-    constexpr wchar_t kAdded5532C4[] = L"已將{}加入黑名單";
-    constexpr wchar_t kRemoveFailed5532D8[] = L"從黑名單移除{}失敗";
-    constexpr wchar_t kRemoved5532EC[] = L"已將{}從黑名單中移除";
-    constexpr wchar_t kAlready554928[] = L"{}已在黑名單中";
-    constexpr wchar_t kAbsent58AD34[] = L"{}不在黑名單中";
     using namespace ui::detail;
     using namespace world::detail;
 
@@ -34938,7 +34917,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         } else if ((flags & 0x100u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(gHoverTextD68AE8, kTitle58AD44, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
+            cg::text::FormatTo(gHoverTextD68AE8, L"等級 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
             const char* const title = graphic->reference.action->text144.data();
             if (std::strlen(title) != 0) {
                 gHoverTitleD68BF4 = std::format(L"{:<16}", cg::text::FromGbkWide(title));
@@ -34947,7 +34926,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
                 if (blacklist::GetBlacklistCount_401190() >= 72) {
-                    Sub_44B050(kFullBlacklist553294, 4, 3);
+                    Sub_44B050(L"你的黑名單已滿，無法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
                 const char* const name = graphic->reference.action->nameC4.data();
@@ -34957,9 +34936,9 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 std::wstring message;
                 if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
                     const std::int8_t added = blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, added != 0 ? L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    cg::text::FormatTo(message, kAlready554928, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
@@ -34970,9 +34949,9 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 std::wstring message;
                 if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
                     const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, removed != 0 ? L"已將{}從黑名單中移除" /* 原常量参考：0x005532EC。 */ : L"從黑名單移除{}失敗" /* 原常量参考：0x005532D8。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    cg::text::FormatTo(message, kAbsent58AD34, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}不在黑名單中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             }
@@ -35343,8 +35322,6 @@ namespace cg::world::detail {
 
 namespace {
 
-constexpr wchar_t kChatFamilyPrefix554580[] = L"[家族]"; // 原常量参考：0x00554580。
-
 void AllocateActorChatText(
     login::detail::MapActorPayload* const payload, const char* const name,
     const char* const text, const std::int32_t color,
@@ -35352,7 +35329,7 @@ void AllocateActorChatText(
 {
     // 原聊天源和姓名为GBK；只在气泡私有拥有者处转成动态UTF-16。
     std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
-    const std::string familyPrefix = cg::text::ToGbk(kChatFamilyPrefix554580);
+    const std::string familyPrefix = cg::text::ToGbk(L"[家族]" /* 原常量参考：0x00554580。 */);
     if (std::strncmp(text, "[GP]", 4) == 0) { offset += 4; }
     else if (std::strncmp(text, "[MIC]", 5) == 0) { offset += 5; }
     else if (std::strncmp(text, familyPrefix.c_str(), familyPrefix.size()) == 0) { offset += static_cast<std::int32_t>(familyPrefix.size()); }

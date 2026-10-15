@@ -25,9 +25,6 @@ constexpr std::int32_t kWhiteColor = 0x00FFFFFF;
 constexpr std::uint64_t kFrameGateIncrementBits = 0x4030AAAAAAAAAAABULL;
 constexpr double kFrameGateIncrement =
     std::bit_cast<double>(kFrameGateIncrementBits);
-// 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kCredentialsPrompt[] = L"請設定ID、PASSWORD。";
-
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
 std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。
@@ -159,7 +156,7 @@ std::int32_t ProcessCapability3InputAndDraw()
             0));
     } else if (result < 0) {
         cg::world::gCurrentSceneState = 8;
-        gMessage9A50E8 = kCredentialsPrompt;
+        gMessage9A50E8 = L"請設定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         cg::login::gInputContext9A5960.clearText();
         static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(cg::login::gInputContext9A5960).c_str()));
     }

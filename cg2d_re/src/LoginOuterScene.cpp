@@ -20,9 +20,6 @@ namespace cg::login {
 
 namespace {
 
-// 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kIncorrectAccountOrPassword[] = L"不正確的帳號和密碼。";
-
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。
 YobiAction* gValue9A6E24 = nullptr;
 
@@ -135,7 +132,7 @@ void ProcessOuterScene_45C2D0()
             platform::gLegacyWindow, 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;
-        gValue9A4BA0 = kIncorrectAccountOrPassword;
+        gValue9A4BA0 = L"不正確的帳號和密碼。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
     }
 }
 

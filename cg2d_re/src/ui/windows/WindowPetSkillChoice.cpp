@@ -1999,10 +1999,8 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         if (gWindow54MessageC9FCE0 >= -1 || gWindow54HoverD2DAD8 != selected) {
             gWindow54MessageC9FCE0 = selected;
         }
-        constexpr wchar_t hint[] =
-            L"把此技能讓寵物學習。";
         gWindow54HoverD2DAD8 = selected;
-        gHoverTextD68AE8 = hint;
+        gHoverTextD68AE8 = L"把此技能讓寵物學習。";
     }
     if ((state & 2) == 0) {
         return 0;
@@ -2108,35 +2106,22 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     }
     static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
-    constexpr wchar_t learnFormat588344[] = L"學習『{}』";
-    constexpr wchar_t petFormat588338[] = L"讓『{}』";
-    constexpr wchar_t petMeasure588320[] =
-        L"讓『1234567890123456』";
-    constexpr wchar_t slotFormat58830C[] =
-        L"使用『{}』的位置";
-    constexpr wchar_t emptySlot5882F4[] =
-        L"使用『空欄位』的位置";
     constexpr wchar_t learnSuffix5882E8[] = L"來學習。";
-    constexpr wchar_t moneyFormat5882D4[] =
-        L"所持金　 {:7}金幣";
-    constexpr wchar_t priceFormat5882C0[] =
-        L"購入金額 {:7}金幣";
-    constexpr wchar_t question5882B0[] = L"這樣可以嗎？";
     std::wstring buffer;
-    cg::text::FormatTo(buffer, learnFormat588344, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"學習『{}』" /* 原常量参考：0x00588344。 */, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
     std::int32_t width = login::detail::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
-    cg::text::FormatTo(buffer, petFormat588338, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"讓『{}』" /* 原常量参考：0x00588338。 */, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
-    width = login::detail::TextMeasure(petMeasure588320, 0);
+    width = login::detail::TextMeasure(L"讓『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
-        cg::text::FormatTo(buffer, slotFormat58830C, cg::text::FromGbkWide(slot.name.data()).c_str());
+        cg::text::FormatTo(buffer, L"使用『{}』的位置" /* 原常量参考：0x0058830C。 */, cg::text::FromGbkWide(slot.name.data()).c_str());
     } else {
-        buffer = emptySlot5882F4;
+        buffer = L"使用『空欄位』的位置" /* 原常量参考：0x005882F4。 */;
     }
     width = login::detail::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
@@ -2144,11 +2129,11 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     width = login::detail::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    cg::text::FormatTo(buffer, moneyFormat5882D4, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"所持金　 {:7}金幣" /* 原常量参考：0x005882D4。 */, world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
-    cg::text::FormatTo(buffer, priceFormat5882C0, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    cg::text::FormatTo(buffer, L"購入金額 {:7}金幣" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));
-    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, question5882B0, 0, 0));
+    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, L"這樣可以嗎？" /* 原常量参考：0x005882B0。 */, 0, 0));
     login::detail::DrawNineGrid_49BE00(
         245300, 160, 110, 320, 240, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);

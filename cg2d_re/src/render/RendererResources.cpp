@@ -66,22 +66,9 @@ std::int32_t gRendererBlueOffset = 0; // 原全局：0x0062971C。
 namespace {
 
 constexpr wchar_t kConfirmCaption[] = L"確認";
-constexpr wchar_t kDepthError[] =
-    L"因螢幕顏色不是16Bit，顯示畫面將改為全螢幕顯示。";
-constexpr wchar_t kBackError[] =
-    L"Back Buffer產生失敗。";
-constexpr wchar_t kInterfaceError[] =
-    L"Direct3D Object產生失敗。";
 constexpr wchar_t kMode1Message[] =
     LR"(先前設定的畫面成像模式無法啟動。
 將以畫面成像模式1啟動。)";
-constexpr wchar_t kMode2Message[] =
-    LR"(先前設定的畫面成像模式無法啟動。
-將以畫面成像模式2啟動。)";
-constexpr wchar_t kMode3Message[] =
-    LR"(先前設定的畫面成像模式無法啟動。
-將以畫面成像模式3啟動。)";
-
 bool CreateRendererTextureInterface() noexcept
 {
     SDL_Surface* const back = GetCpuBackSdlSurface();
@@ -214,7 +201,7 @@ std::int8_t RendererInit_44B630()
     platform::gDeviceBitsPerPixel = ::GetDeviceCaps(dc, BITSPIXEL);
     ::ReleaseDC(reinterpret_cast<HWND>(platform::gLegacyWindow), dc);
     if ((platform::gRendererFlags & 8u) != 0 && platform::gDeviceBitsPerPixel < 16) {
-        platform::ShowWideMessage(kDepthError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"因螢幕顏色不是16Bit，顯示畫面將改為全螢幕顯示。", kConfirmCaption, 0x10);
         return 1;
     }
     if (!AllocateRendererResources()) {
@@ -234,7 +221,7 @@ std::int8_t RendererInit_44B630()
         return 1;
     }
     if (!CreateCpuBackSurface()) {
-        platform::ShowWideMessage(kBackError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"Back Buffer產生失敗。", kConfirmCaption, 0x10);
         return 1;
     }
     SDL_Surface* const back = GetCpuBackSdlSurface();
@@ -276,7 +263,7 @@ std::int8_t RendererInit_44B630()
         return 0;
     }
     if (!CreateRendererTextureInterface()) {
-        platform::ShowWideMessage(kInterfaceError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"Direct3D Object產生失敗。", kConfirmCaption, 0x10);
         return DowngradeRenderer();
     }
     // 保留三个原创建分支；native 均执行实际 CPU 设备分配，不冒称旧硬件 GUID。
@@ -366,10 +353,12 @@ std::int8_t RendererInit_44B630()
         return 0;
     }
     if (platform::gSupportedRenderMode == 3) {
-        platform::ShowWideMessage(kMode3Message, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(LR"(先前設定的畫面成像模式無法啟動。
+將以畫面成像模式3啟動。)", kConfirmCaption, 0x10);
     }
     if (platform::gSupportedRenderMode == 2) {
-        platform::ShowWideMessage(kMode2Message, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(LR"(先前設定的畫面成像模式無法啟動。
+將以畫面成像模式2啟動。)", kConfirmCaption, 0x10);
     }
     WriteRendererModeFile(false);
     platform::gRendererMode = platform::gSupportedRenderMode;

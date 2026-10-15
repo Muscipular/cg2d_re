@@ -24200,7 +24200,7 @@
           "format_bytes": "a6f8aa41beb9b373b1b5a4a400",
           "argument_widths": [],
           "source_format_symbol": "UpdateServerConnection",
-          "source_format_expression": "kServerConnectingText",
+          "source_format_expression": "L\"伺服器連接中\"",
           "source_expression": "无变参",
           "destination_expression": "gServerConnectingText",
           "destination_capacity": 256,
@@ -33969,7 +33969,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "std::isspace",
-        "line": 597,
+        "line": 588,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -34145,7 +34145,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "std::iscntrl",
-        "line": 600,
+        "line": 591,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -34495,7 +34495,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "::_mkdir",
-        "line": 1295,
+        "line": 1239,
         "cpp_calls": 6,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -39992,7 +39992,7 @@
       "current_provider": {
         "path": "src/YobiRuntime.cpp",
         "symbol": "std::strncmp",
-        "line": 35919,
+        "line": 35896,
         "cpp_calls": 9,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -41226,7 +41226,7 @@
       "current_provider": {
         "path": "src/CharacterSelectScene.cpp",
         "symbol": "std::strstr",
-        "line": 918,
+        "line": 912,
         "cpp_calls": 48,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -43519,7 +43519,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "std::strncat",
-        "line": 934,
+        "line": 925,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -44721,7 +44721,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "std::strncpy",
-        "line": 228,
+        "line": 219,
         "cpp_calls": 35,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -54555,7 +54555,7 @@
       "current_provider": {
         "path": "src/LoginScene.cpp",
         "symbol": "std::atoi",
-        "line": 473,
+        "line": 367,
         "cpp_calls": 45,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -63908,7 +63908,7 @@
       "current_provider": {
         "path": "src/CharacterListRequest.cpp",
         "symbol": "std::sprintf",
-        "line": 186,
+        "line": 183,
         "current_cpp_calls": 800,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
@@ -67754,7 +67754,7 @@
       "current_provider": {
         "path": "src/Input.cpp",
         "symbol": "std::fprintf",
-        "line": 1333,
+        "line": 1277,
         "current_cpp_calls": 11,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
@@ -100570,42 +100570,42 @@
             {
               "format_push_site": "0x453A2B",
               "format_address": "0x556640",
-              "source_constant": "kScreenshotDcFailure556640",
+              "source_constant": "L\"畫面儲存失敗(G1)。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             },
             {
               "format_push_site": "0x453A52",
               "format_address": "0x55661C",
-              "source_constant": "kScreenshotBitmapFailure55661C",
+              "source_constant": "L\"畫面儲存失敗(G2)。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             },
             {
               "format_push_site": "0x453A9D",
               "format_address": "0x5565F8",
-              "source_constant": "kScreenshotBlitFailure5565F8",
+              "source_constant": "L\"畫面儲存失敗(G3)。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             },
             {
               "format_push_site": "0x453ADB",
               "format_address": "0x5565D4",
-              "source_constant": "kScreenshotDibFailure5565D4",
+              "source_constant": "L\"畫面儲存失敗(G4)。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             },
             {
               "format_push_site": "0x453B2B",
               "format_address": "0x5565BC",
-              "source_constant": "kScreenshotSuccess5565BC",
+              "source_constant": "L\"畫面已儲存。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             },
             {
               "format_push_site": "0x453B38",
               "format_address": "0x556598",
-              "source_constant": "kScreenshotWriteFailure556598",
+              "source_constant": "L\"畫面儲存失敗(7)。({})\"",
               "source": "src/render/SdlPresenter.cpp",
               "symbol": "TakeScreenshot_453760"
             }
@@ -100941,19 +100941,19 @@
       "business_format_argument_evidence": [
         {
           "call_site": "0x5083BD",
-          "source_format": "kServerInfoFailureMessage",
+          "source_format": "L\"伺服器的名稱不正確。\"",
           "format_address": "0x58AF74",
           "value_argument_count": 0
         },
         {
           "call_site": "0x5083F6",
-          "source_format": "kSocketFailureMessage",
+          "source_format": "L\"網路通訊協定（TCP）錯誤。\"",
           "format_address": "0x58AF58",
           "value_argument_count": 0
         },
         {
           "call_site": "0x5084A4",
-          "source_format": "kServerAddressFailureFormat",
+          "source_format": "L\"無法取得伺服器的 IP 位址。({})\"",
           "format_address": "0x58AF38",
           "value_argument_count": 1,
           "value_contract": "serverAddress原字节"
@@ -100967,25 +100967,25 @@
         },
         {
           "call_site": "0x50853A",
-          "source_format": "kConnectFailureMessage",
+          "source_format": "L\"無法開始處理與伺服器的連接。\"",
           "format_address": "0x58AF04",
           "value_argument_count": 0
         },
         {
           "call_site": "0x508574",
-          "source_format": "kConnectionTimeoutMessage",
+          "source_format": "L\"與伺服器的連接逾時。\"",
           "format_address": "0x58AEEC",
           "value_argument_count": 0
         },
         {
           "call_site": "0x508669",
-          "source_format": "kConnectExceptionMessage",
+          "source_format": "L\"無法連上伺服器。 \"",
           "format_address": "0x55C62C",
           "value_argument_count": 0
         },
         {
           "call_site": "0x50879E",
-          "source_format": "kLoginRejectedMessage",
+          "source_format": "L\"無法登入。\"",
           "format_address": "0x58AED4",
           "value_argument_count": 0
         }
@@ -101663,13 +101663,13 @@
             {
               "format_push_site": "0x50F21C",
               "format_address": "0x58B0EC",
-              "source_constant": "kGuildMailFormat58B0EC",
+              "source_constant": "L\"您收到來自家族 {} 的信件～\"",
               "condition": "kind S32 == -1"
             },
             {
               "format_push_site": "0x50F230",
               "format_address": "0x58B0C8",
-              "source_constant": "kGuildPetMailFormat58B0C8",
+              "source_constant": "L\"您收到來自家族成員 {} 的寵物信件～\"",
               "condition": "kind S32 != -1"
             }
           ],
@@ -102476,19 +102476,19 @@
             {
               "format_push_site": "0x44AD60",
               "format_address": "0x554928",
-              "source_constant": "kBlacklistExistingFormat554928",
+              "source_constant": "L\"{}已在黑名單中\"",
               "condition": "Contains返回AL非零"
             },
             {
               "format_push_site": "0x44AD48",
               "format_address": "0x5532C4",
-              "source_constant": "kBlacklistAddedFormat5532C4",
+              "source_constant": "L\"已將{}加入黑名單\"",
               "condition": "Contains返回AL零且Add返回AL非零"
             },
             {
               "format_push_site": "0x44AD54",
               "format_address": "0x5532B0",
-              "source_constant": "kBlacklistFailedFormat5532B0",
+              "source_constant": "L\"{}加入黑名單失敗\"",
               "condition": "Contains返回AL零且Add返回AL零"
             }
           ],
@@ -125756,7 +125756,7 @@
             "T*"
           ],
           "source_format_symbol": "DescribeHoveredYobi_507140",
-          "source_format_expression": "kTitle58AD44",
+          "source_format_expression": "L\"等級 {:<3} {:<16} [{:<16}]\"",
           "source_expression": "fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data()",
           "destination_expression": "gHoverTextD68AE8.data()",
           "destination_capacity": 256,
@@ -125798,7 +125798,7 @@
             {
               "format_address": "0x5532C4",
               "format_bytes": "a477b14e2573a55ba44ab6c2a657b3e600",
-              "source_format_expression": "kAdded5532C4",
+              "source_format_expression": "L\"已將{}加入黑名單\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125808,7 +125808,7 @@
             {
               "format_address": "0x5532B0",
               "format_bytes": "2573a55ba44ab6c2a657b3e6a5a2b1d100",
-              "source_format_expression": "kAddFailed5532B0",
+              "source_format_expression": "L\"{}加入黑名單失敗\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125818,7 +125818,7 @@
             {
               "format_address": "0x554928",
               "format_bytes": "2573a477a662b6c2a657b3e6a4a400",
-              "source_format_expression": "kAlready554928",
+              "source_format_expression": "L\"{}已在黑名單中\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125828,10 +125828,10 @@
           ],
           "source_format_branches": [
             {
-              "source_format_expression": "added != 0 ? kAdded5532C4 : kAddFailed5532B0"
+              "source_format_expression": "added != 0 ? L\"已將{}加入黑名單\" : L\"{}加入黑名單失敗\""
             },
             {
-              "source_format_expression": "kAlready554928"
+              "source_format_expression": "L\"{}已在黑名單中\""
             }
           ],
           "consumer_expression": "Sub_44B050(message, 4, 3)",
@@ -125855,7 +125855,7 @@
             {
               "format_address": "0x5532EC",
               "format_bytes": "a477b14e2573b171b6c2a657b3e6a4a4b2beb0a300",
-              "source_format_expression": "kRemoved5532EC",
+              "source_format_expression": "L\"已將{}從黑名單中移除\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125865,7 +125865,7 @@
             {
               "format_address": "0x5532D8",
               "format_bytes": "b171b6c2a657b3e6b2beb0a32573a5a2b1d100",
-              "source_format_expression": "kRemoveFailed5532D8",
+              "source_format_expression": "L\"從黑名單移除{}失敗\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125875,7 +125875,7 @@
             {
               "format_address": "0x58AD34",
               "format_bytes": "2573a4a3a662b6c2a657b3e6a4a400",
-              "source_format_expression": "kAbsent58AD34",
+              "source_format_expression": "L\"{}不在黑名單中\"",
               "source_expression": "graphic->reference.action->nameC4.data()",
               "argument_widths": [
                 "T*"
@@ -125885,10 +125885,10 @@
           ],
           "source_format_branches": [
             {
-              "source_format_expression": "removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8"
+              "source_format_expression": "removed != 0 ? L\"已將{}從黑名單中移除\" : L\"從黑名單移除{}失敗\""
             },
             {
-              "source_format_expression": "kAbsent58AD34"
+              "source_format_expression": "L\"{}不在黑名單中\""
             }
           ],
           "consumer_expression": "Sub_44B050(message, 4, 3)",
@@ -129659,7 +129659,7 @@
           "original_destination": "0xCC3F68",
           "destination_expression": "gWindow69ConfirmHeadingCC3F68.data()",
           "source_expression": null,
-          "format_expression": "heading588378",
+          "format_expression": "L\"持有水晶            顆     花費水晶            顆\"",
           "argument_widths": [],
           "buffer_capacity": 50,
           "relationship": "原文案无百分号，零变参写固定共享buffer，不额外包装"
@@ -129674,7 +129674,7 @@
           "original_destination": "0xCC3F04",
           "destination_expression": "gWindow69ConfirmQuestionCC3F04.data()",
           "source_expression": null,
-          "format_expression": "question587F0C",
+          "format_expression": "L\"確認要購買這些物品？\"",
           "argument_widths": [],
           "buffer_capacity": 21,
           "relationship": "原文案无百分号，零变参写固定共享buffer，不额外包装"
@@ -129838,7 +129838,7 @@
           "original_destination": "0xCF4A40",
           "destination_expression": "gWindow70ConfirmHeadingCF4A40.data()",
           "source_expression": null,
-          "format_expression": "heading5883D4",
+          "format_expression": "L\"持有交易品               花費交易品            \"",
           "argument_widths": [],
           "buffer_capacity": 48,
           "relationship": "原文案无百分号，零变参写固定共享buffer，不额外包装"
@@ -129853,7 +129853,7 @@
           "original_destination": "0xCF4ABC",
           "destination_expression": "gWindow70ConfirmQuestionCF4ABC.data()",
           "source_expression": null,
-          "format_expression": "question5883BC",
+          "format_expression": "L\"確認要交換這些物品？\"",
           "argument_widths": [],
           "buffer_capacity": 21,
           "relationship": "原文案无百分号，零变参写固定共享buffer，不额外包装"
@@ -130361,7 +130361,7 @@
           "format_push_site": "0x4C1157",
           "destination_expression": "buffer.data()",
           "source_expression": "gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()",
-          "format_expression": "learnFormat588344",
+          "format_expression": "L\"學習『{}』\"",
           "argument_widths": [
             "borrowed pointer"
           ],
@@ -130376,7 +130376,7 @@
           "format_push_site": "0x4C11AB",
           "destination_expression": "buffer.data()",
           "source_expression": "gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()",
-          "format_expression": "petFormat588338",
+          "format_expression": "L\"讓『{}』\"",
           "argument_widths": [
             "borrowed pointer"
           ],
@@ -130391,7 +130391,7 @@
           "format_push_site": "0x4C1211",
           "destination_expression": "buffer.data()",
           "source_expression": "slot.name.data()",
-          "format_expression": "slotFormat58830C",
+          "format_expression": "L\"使用『{}』的位置\"",
           "argument_widths": [
             "borrowed pointer"
           ],
@@ -130406,7 +130406,7 @@
           "format_push_site": "0x4C12B8",
           "destination_expression": "buffer.data()",
           "source_expression": "world::detail::ReadPlayerValueFC()",
-          "format_expression": "moneyFormat5882D4",
+          "format_expression": "L\"所持金　 {:7}金幣\"",
           "argument_widths": [
             "S32"
           ],
@@ -130421,7 +130421,7 @@
           "format_push_site": "0x4C12FA",
           "destination_expression": "buffer.data()",
           "source_expression": "gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price",
-          "format_expression": "priceFormat5882C0",
+          "format_expression": "L\"購入金額 {:7}金幣\"",
           "argument_widths": [
             "S32"
           ],
@@ -166062,7 +166062,7 @@
           "format_bytes": "b342b27ab56ea558b94faec9a14300",
           "argument_widths": [],
           "source_format_symbol": "Sub_508C90",
-          "source_format_expression": "kLogoutTimeoutMessage",
+          "source_format_expression": "L\"處理登出逾時。\"",
           "source_expression": "无变参",
           "destination_expression": "gRequestMessage",
           "destination_capacity": 1024,
@@ -166436,7 +166436,7 @@
             "T*"
           ],
           "source_format_symbol": "Sub_50DC70",
-          "source_format_expression": "kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064",
+          "source_format_expression": "kind == -1 ? L\"收到從{}寄來的郵件！\" : L\"由{}送來了寵物郵件！\"",
           "source_expression": "contactName",
           "destination_expression": "message",
           "destination_capacity": 256,
@@ -166446,7 +166446,7 @@
             {
               "format_address": "0x58B07C",
               "format_bytes": "a6aca8ecb1712573b148a8d3aabab66ca5f3a14900",
-              "source_format_expression": "kReceivedMailFormat58B07C",
+              "source_format_expression": "L\"收到從{}寄來的郵件！\"",
               "source_expression": "contactName",
               "argument_widths": [
                 "T*"
@@ -166456,7 +166456,7 @@
             {
               "format_address": "0x58B064",
               "format_bytes": "a5d12573b065a8d3a446c364aaabb66ca5f3a14900",
-              "source_format_expression": "kReceivedPetMailFormat58B064",
+              "source_format_expression": "L\"由{}送來了寵物郵件！\"",
               "source_expression": "contactName",
               "argument_widths": [
                 "T*"
@@ -166466,7 +166466,7 @@
           ],
           "source_format_branches": [
             {
-              "source_format_expression": "kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064"
+              "source_format_expression": "kind == -1 ? L\"收到從{}寄來的郵件！\" : L\"由{}送來了寵物郵件！\""
             }
           ],
           "original_format_push_sites": [
@@ -168561,7 +168561,7 @@
             "S32"
           ],
           "source_format_symbol": "Sub_455C90",
-          "source_format_expression": "kErrorFormat",
+          "source_format_expression": "L\"伺服器連線中斷({})\"",
           "source_expression": "network::ReadNetworkErrorD9F2CC()",
           "destination_expression": "errorText",
           "destination_capacity": 256,
@@ -168912,7 +168912,7 @@
             "S32"
           ],
           "source_format_symbol": "InitializeClient_4576B0",
-          "source_format_expression": "kSavedStateErrorFormat",
+          "source_format_expression": "L\"讀入存檔失敗。(code = {})\"",
           "source_expression": "static_cast<int>(gValueFF4E28)",
           "destination_expression": "message",
           "destination_capacity": 1024,
@@ -246272,7 +246272,7 @@
       "current_provider": {
         "path": "src/AnimationRuntime.cpp",
         "symbol": "::_stricmp",
-        "line": 397,
+        "line": 395,
         "cpp_calls": 2,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -293452,17 +293452,17 @@
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_DrawPetSkills",
-        "line": 1142
+        "line": 1141
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_DrawPetDetails",
-        "line": 1168
+        "line": 1167
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_Draw",
-        "line": 2253
+        "line": 2252
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
@@ -293526,7 +293526,7 @@
       {
         "path": "src/ui/windows/WindowBattleItems.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 294
+        "line": 292
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
@@ -293626,22 +293626,22 @@
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 1073
+        "line": 1066
       },
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_ShowTooltip",
-        "line": 1184
+        "line": 1177
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 1070
+        "line": 1063
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_ShowTooltip",
-        "line": 1176
+        "line": 1169
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
@@ -293776,17 +293776,17 @@
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "UpdateBattleText_421750",
-        "line": 6639
+        "line": 6627
       },
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "NewBattleText_4217F0",
-        "line": 6668
+        "line": 6656
       },
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "NewBattleTimeNumber_4206C0",
-        "line": 10236
+        "line": 10224
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -293806,52 +293806,52 @@
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "ClearRaw",
-        "line": 310
+        "line": 288
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "ApplyPlayerItemFields",
-        "line": 3698
+        "line": 3655
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_5196B0",
-        "line": 3764
+        "line": 3721
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_50BFD0",
-        "line": 3792
+        "line": 3749
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_51B530",
-        "line": 3850
+        "line": 3807
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_51B630",
-        "line": 3900
+        "line": 3857
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "ClearRaw",
-        "line": 3949
+        "line": 3906
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_519770",
-        "line": 4003
+        "line": 3960
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_510150",
-        "line": 4024
+        "line": 3981
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_5199A0",
-        "line": 10340
+        "line": 10297
       },
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
@@ -293871,32 +293871,32 @@
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_HandleItemRow",
-        "line": 1529
+        "line": 1528
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_HandlePurchaseConfirmation",
-        "line": 1883
+        "line": 1882
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_Draw",
-        "line": 2247
+        "line": 2246
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_OpenBrowse",
-        "line": 2357
+        "line": 2356
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_BuildItemDescription",
-        "line": 2554
+        "line": 2553
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_ReceivePurchaseResult",
-        "line": 2703
+        "line": 2702
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
@@ -293934,7 +293934,7 @@
       {
         "path": "src/ui/windows/WindowBattleItems.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 313
+        "line": 311
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
@@ -293969,12 +293969,12 @@
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 1080
+        "line": 1073
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 1075
+        "line": 1068
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",

@@ -30,8 +30,6 @@ std::int32_t PlaySe(
 
 namespace {
 
-constexpr wchar_t kMultilineToken[] = L"Multiline";
-constexpr wchar_t kMultilineNewToken[] = L"Multiline_New";
 // 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
 constexpr wchar_t kConfirmText[] = L"確定";
 
@@ -91,7 +89,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     }
     const std::int32_t lineCount = static_cast<std::int32_t>(lines.size());
 
-    if (text == kMultilineToken) {
+    if (text == L"Multiline") {
         if (gMessageState == 0) {
             gMessageState = 1;
             gMessageResult = -2;
@@ -157,7 +155,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         return 0;
     }
 
-    if (text == kMultilineNewToken) {
+    if (text == L"Multiline_New") {
         if (gMessageState == 0) {
             gMessageState = 1;
             gMessageResult = -2;

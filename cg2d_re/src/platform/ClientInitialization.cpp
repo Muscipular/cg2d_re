@@ -46,15 +46,6 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 namespace {
 
 constexpr wchar_t kConfirmCaption[] = L"確認";
-constexpr wchar_t kRendererError[] = L"DirectDraw初期化失敗。";
-constexpr wchar_t kSurfaceMemoryError[] = L"記憶體配置錯誤";
-constexpr wchar_t kAllocationError[] = L"配置錯誤";
-constexpr wchar_t kGraphicError[] = L"Graphic.bin開啟失敗。";
-constexpr wchar_t kGraphicV3Error[] = L"GraphicV3.bin開啟失敗";
-constexpr wchar_t kGraphicInformation[] = L"檔案是否損毀，必須使用新的啟動程式。請按「ＯＫ」閱讀詳細說明。";
-constexpr wchar_t kGraphicVersionError[] = L"程式版本不正確，請購買資料片或下載離線更新檔。";
-constexpr wchar_t kSavedStateErrorFormat[] = L"讀入存檔失敗。(code = {})";
-constexpr wchar_t kAnimeError[] = L"Anime.bin 讀取錯誤";
 constexpr std::uint32_t kErrorMessageFlags = 0x10;
 
 // 原 73ECE8；两段淡变共用的图号，PE 零填充初值。
@@ -196,14 +187,14 @@ int InitializeClient_4576B0()
         reportRendererFailure = render::RendererInit_44B630() != 0;
     }
     if (reportRendererFailure) {
-        ShowWideMessage(kRendererError, kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"DirectDraw初期化失敗。", kConfirmCaption, kErrorMessageFlags);
         PostLegacyWindowMessage(gLegacyWindow, 0x10, 0, 0);
     }
 
     // 原失败提示/PostMessage 之后仍继续，不在此插入返回或清理。
     render::gRenderQueueMode103CF10 = 1;
     if (render::BuildSurfaceCache_5231A0() == 0) {
-        ShowWideMessage(kSurfaceMemoryError, L"Error Code = 22", kErrorMessageFlags);
+        ShowWideMessage(L"記憶體配置錯誤", L"Error Code = 22", kErrorMessageFlags);
         return 0;
     }
     render::InitializeGraphicPaletteCache_44E0C0();
@@ -211,7 +202,7 @@ int InitializeClient_4576B0()
         return 0;
     }
     if (resource::GraphicAlloc_4574E0() == 0) {
-        ShowWideMessage(kAllocationError, kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"配置錯誤", kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
     static_cast<void>(render::InvalidateGraphicRefs_523350());
@@ -219,14 +210,14 @@ int InitializeClient_4576B0()
         resource::gGraphicPaths, resource::gGraphicInfoPaths);
     switch (graphicResult) {
     case 1:
-        ShowWideMessage(kGraphicError, kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"Graphic.bin開啟失敗。", kConfirmCaption, kErrorMessageFlags);
         return 0;
     case 2:
-        ShowWideMessage(kGraphicV3Error, kConfirmCaption, kErrorMessageFlags);
-        ShowWideMessage(kGraphicInformation, L"INFORMATION", kErrorMessageFlags);
+        ShowWideMessage(L"GraphicV3.bin開啟失敗", kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"檔案是否損毀，必須使用新的啟動程式。請按「ＯＫ」閱讀詳細說明。", L"INFORMATION", kErrorMessageFlags);
         return 0;
     case 7:
-        ShowWideMessage(kGraphicVersionError, kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"程式版本不正確，請購買資料片或下載離線更新檔。", kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
 
@@ -238,7 +229,7 @@ int InitializeClient_4576B0()
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
     if (RestoreCurrentSavedState_5201B0() == 0) {
-        const std::wstring message = std::format(kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
+        const std::wstring message = std::format(L"讀入存檔失敗。(code = {})", static_cast<int>(gValueFF4E28));
         ShowWideMessage(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
@@ -264,7 +255,7 @@ int InitializeClient_4576B0()
     login::detail::Sub_44B5C0("InitSprBinFileOpen Start");
     if (resource::animation::AnimeInit_45BB20(
             resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
-        ShowWideMessage(kAnimeError, kConfirmCaption, kErrorMessageFlags);
+        ShowWideMessage(L"Anime.bin 讀取錯誤", kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
     resource::animation::CoordLoadInit_45C040(

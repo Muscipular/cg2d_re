@@ -20,10 +20,6 @@ constexpr std::size_t kRequestField18Offset = 0x18;
 constexpr std::size_t kRequestField4COffset = 0x4C;
 constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-// 0x55C9F8 原文：處理登入逾時。
-constexpr wchar_t kRequestTimeoutMessage[] = L"處理登入逾時。";
-// 0x55CA18 原文：處理登出逾時。
-constexpr wchar_t kLogoutTimeoutMessage[] = L"處理登出逾時。";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
@@ -141,7 +137,7 @@ std::int32_t PollLoginRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
+    static_cast<void>(gRequestMessage = L"處理登入逾時。" /* 0x55C9F8 原文：處理登入逾時。 */);
     return -1;
 }
 
@@ -215,7 +211,7 @@ std::int32_t Sub_508C90()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = kLogoutTimeoutMessage);
+    static_cast<void>(gRequestMessage = L"處理登出逾時。" /* 0x55CA18 原文：處理登出逾時。 */);
     return -1;
 }
 

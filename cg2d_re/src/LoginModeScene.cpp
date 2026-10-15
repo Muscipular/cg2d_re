@@ -19,9 +19,6 @@ namespace cg::login {
 
 namespace {
 
-// 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。
-constexpr wchar_t kMissingCredentials[] = L"請輸入ＩＤ和ＰＡＳＳＷＯＲＤ";
-
 // 原 0x9A5FE0：本函数私有的 256 字节消息缓冲，映像初值为零。
 std::wstring gLoginModeMessage {};
 
@@ -92,7 +89,7 @@ void ProcessModeScene_45C5A0()
             platform::gLegacyWindow, 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 100;
-        gLoginModeMessage = kMissingCredentials;
+        gLoginModeMessage = L"請輸入ＩＤ和ＰＡＳＳＷＯＲＤ" /* 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。 */;
     }
 
     if (result < 0 || world::gCurrentSceneState == 100) {

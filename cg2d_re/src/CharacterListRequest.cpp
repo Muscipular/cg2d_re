@@ -14,9 +14,6 @@
 namespace {
 
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-// 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。
-constexpr wchar_t kRequestTimeoutMessage[] = L"取得角色列表逾時。";
-constexpr char kOutOfServiceResult[] = "OUTOFSERVICE";
 constexpr char kInvalidCharacterName[] = "???";
 constexpr std::size_t kOuterTokenCapacity = 1024;
 constexpr std::size_t kJobTokenCapacity = 64;
@@ -180,7 +177,7 @@ std::int32_t PollCharacterListRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
+    static_cast<void>(gRequestMessage = L"取得角色列表逾時。" /* 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。 */);
     return -1;
 }
 
@@ -197,7 +194,7 @@ std::int32_t HandleCharacterListResponse_5089B0(
     const bool succeeded = result == 0;
     gRequestStatus = 2;
     if (!succeeded) {
-        const std::int32_t comparison = CompareUnsignedBytes(data, kOutOfServiceResult);
+        const std::int32_t comparison = CompareUnsignedBytes(data, "OUTOFSERVICE");
         if (comparison == 0) {
             gCharacterListReplyCode = 2;
         }

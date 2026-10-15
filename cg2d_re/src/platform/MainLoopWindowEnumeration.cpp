@@ -15,11 +15,6 @@
 namespace cg::platform {
 namespace {
 
-// 原0x559384、0x55937C、0x559370：直接比较UTF-16标题前缀。
-constexpr wchar_t kPrefix559384[] = L"魔力寶貝";
-constexpr wchar_t kPrefix55937C[] = L"PC精靈";
-constexpr wchar_t kPrefix559370[] = L" 信息資料 ";
-
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
 BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
 {
@@ -36,16 +31,16 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         - static_cast<std::uint32_t>(rect.left);
 
     auto* lowFlagByte = reinterpret_cast<unsigned char*>(&gWindowReportFlags);
-    if (title.starts_with(kPrefix559384)) {
+    if (title.starts_with(L"魔力寶貝" /* 原0x559384、0x55937C、0x559370：直接比较UTF-16标题前缀。 */)) {
         *lowFlagByte |= 1u;
     }
-    if (title.starts_with(kPrefix55937C)) {
+    if (title.starts_with(L"PC精靈" /* 原常量参考：0x0055937C。 */)) {
         *lowFlagByte |= 2u;
     }
 
     std::uint16_t flags;
     std::memcpy(&flags, &gWindowReportFlags, sizeof(flags));
-    if (title.starts_with(kPrefix559370)) {
+    if (title.starts_with(L" 信息資料 " /* 原常量参考：0x00559370。 */)) {
         flags = static_cast<std::uint16_t>(flags | 4u);
         std::memcpy(&gWindowReportFlags, &flags, sizeof(flags));
     }

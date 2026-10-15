@@ -2538,9 +2538,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets());
     } else if (gSkillTargetKindCF4A10 == 0) {
-        constexpr wchar_t message[] =
-            L"沒有可變裝的角色！";
-        world::detail::Sub_44B050(message, 4, 3);
+        world::detail::Sub_44B050(L"沒有可變裝的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
 }

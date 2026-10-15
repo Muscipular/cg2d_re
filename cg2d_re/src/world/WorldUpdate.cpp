@@ -209,16 +209,6 @@ std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
 std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
 std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
-constexpr wchar_t kErrorFormat[] =
-    L"伺服器連線中斷({})";
-constexpr wchar_t kTryOtherServer[] =
-    L"請嘗試其他的伺服器。";
-constexpr wchar_t kDisconnected[] =
-    L"與伺服器的連線被切斷了。";
-constexpr wchar_t kReturnToServerSelect[] =
-    L"回到伺服器選擇畫面。";
-
-
 } // namespace
 
 // 原函数：0x00455C90。
@@ -287,12 +277,12 @@ std::int32_t Sub_455C90()
     std::wstring errorText;
     const bool connectionError = login::gValue593FC0 != 0;
     if (connectionError) {
-        cg::text::FormatTo(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
+        cg::text::FormatTo(errorText, L"伺服器連線中斷({})", network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
-        thirdText = kTryOtherServer;
+        thirdText = L"請嘗試其他的伺服器。";
     } else {
-        secondText = kDisconnected;
-        thirdText = kReturnToServerSelect;
+        secondText = L"與伺服器的連線被切斷了。";
+        thirdText = L"回到伺服器選擇畫面。";
     }
 
     width = login::detail::TextMeasure(secondText, 0);

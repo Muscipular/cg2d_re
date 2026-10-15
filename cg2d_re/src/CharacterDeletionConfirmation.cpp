@@ -8,23 +8,6 @@
 #include <cstring>
 
 namespace cg::character_select {
-namespace {
-
-// 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。
-constexpr wchar_t kConfirmText[] = L"  確  定 ";
-// 原55C8C8「  取  消 」；9B正文，字面量隐式追加NUL。
-constexpr wchar_t kCancelText[] = L"  取  消 ";
-// 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kWarningTitle[] = L"＊＊＊ 警  告 ＊＊＊";
-// 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kDeletionCannotRecoverLine1[] = L"所選擇的人物一經刪除";
-// 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。
-constexpr wchar_t kDeletionCannotRecoverLine2[] = L"將無法恢復";
-// 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。
-constexpr wchar_t kDeletionQuestion[] = L"確定要刪除嗎？";
-
-} // namespace
-
 // 原函数：0x0045DEE0。
 std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t x,
@@ -150,7 +133,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         y + 48,
         90,
         18,
-        kConfirmText,
+        L"  確  定 " /* 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。 */,
     };
     detail::CharacterModalUiRecord cancelRecord {
         x + 28,
@@ -159,7 +142,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         y + 48,
         90,
         18,
-        kCancelText,
+        L"  取  消 " /* 原55C8C8「  取  消 」；9B正文，字面量隐式追加NUL。 */,
     };
     std::int32_t result = 0;
 
@@ -218,7 +201,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     std::wstring textBuffer;
     std::int32_t textWidth;
 
-    textBuffer = kWarningTitle;
+    textBuffer = L"＊＊＊ 警  告 ＊＊＊" /* 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -230,7 +213,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = kDeletionCannotRecoverLine1;
+    textBuffer = L"所選擇的人物一經刪除" /* 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -242,7 +225,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = kDeletionCannotRecoverLine2;
+    textBuffer = L"將無法恢復" /* 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -254,7 +237,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = kDeletionQuestion;
+    textBuffer = L"確定要刪除嗎？" /* 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。 */;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),

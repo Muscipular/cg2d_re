@@ -91,8 +91,6 @@ ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
 ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
 static_assert(sizeof(gProfiles1074938) == 0x1050);
 constexpr wchar_t kProfileDefault58F614[] = L"未設定"; // 原常量参考：0x0058F614。
-constexpr wchar_t kProfileHidden58F61C[] = L"不公開"; // 原常量参考：0x0058F61C。
-
 static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
 static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
 static_assert(offsetof(ProfileSearchRecord, used) == 0);
@@ -137,10 +135,6 @@ static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
 static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
 CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
-constexpr wchar_t kReceivedMailFormat58B07C[] = // 原常量参考：0x0058B07C。
-    L"收到從{}寄來的郵件！";
-constexpr wchar_t kReceivedPetMailFormat58B064[] = // 原常量参考：0x0058B064。
-    L"由{}送來了寵物郵件！";
 constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
     L"提示！您收到來自 {} 的迷你郵件～";
 
@@ -648,7 +642,7 @@ void Sub_50DC70(
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5191C0(index, 0, name, text);
     const char* const contactName = gContactsF19FB0[index].name10.data();
-    cg::text::FormatTo(message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064, cg::text::FromGbkWide(contactName).c_str());
+    cg::text::FormatTo(message, kind == -1 ? L"收到從{}寄來的郵件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送來了寵物郵件！" /* 原常量参考：0x0058B064。 */, cg::text::FromGbkWide(contactName).c_str());
     static_cast<void>(Sub_519300());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == index) {
@@ -940,7 +934,7 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     char sourceText[256];
     std::array<std::array<char, 256>, 4> escaped;
     for (std::int32_t index = 0; index < 3; ++index) {
-        const std::string hidden = cg::text::ToGbk(kProfileHidden58F61C);
+        const std::string hidden = cg::text::ToGbk(L"不公開" /* 原常量参考：0x0058F61C。 */);
         const char* source = hidden.c_str();
         if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
             if (mode == 1) {

@@ -749,8 +749,7 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
-            constexpr wchar_t message[] = L"請卸下寵物身上的裝備後再操作。";
-            world::detail::Sub_44B050(message, 4, 3);
+            world::detail::Sub_44B050(L"請卸下寵物身上的裝備後再操作。", 4, 3);
             return;
         }
     }

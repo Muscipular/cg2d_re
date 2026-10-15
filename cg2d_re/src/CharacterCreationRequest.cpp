@@ -17,10 +17,6 @@ namespace {
 constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::size_t kPreviewToggleOffset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-// 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。
-constexpr wchar_t kRequestTimeoutMessage[] = L"新建角色逾時。";
-constexpr char kSuccessfulResult[] = "successful";
-
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kPreviewToggleOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 
@@ -73,7 +69,7 @@ std::int32_t PollCharacterCreationRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
+    static_cast<void>(gRequestMessage = L"新建角色逾時。" /* 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。 */);
     return -1;
 }
 
@@ -92,7 +88,7 @@ void HandleCharacterCreationResponse_508EE0(
     std::size_t index = 0;
     for (;;) {
         const auto received = static_cast<unsigned char>(result[index]);
-        const auto expected = static_cast<unsigned char>(kSuccessfulResult[index]);
+        const auto expected = static_cast<unsigned char>("successful"[index]);
         if (received != expected) {
             return;
         }

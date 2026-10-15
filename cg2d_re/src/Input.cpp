@@ -137,15 +137,6 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
 
-constexpr wchar_t kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
-    L"您…如此厭惡自己的聲音嗎？";
-constexpr wchar_t kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
-    L"{}已在黑名單中";
-constexpr wchar_t kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
-    L"已將{}加入黑名單";
-constexpr wchar_t kBlacklistFailedFormat5532B0[] = // 原常量参考：0x005532B0。
-    L"{}加入黑名單失敗";
-
 std::int8_t SignedByte(const char value)
 {
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
@@ -1020,60 +1011,11 @@ static_assert(sizeof(ChatHistory621FF8) == 0x4844);
 namespace {
 
 constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658。
-constexpr char kFileFormat_55351C[] = "chat_%02d%02d%02d.txt"; // 原常量参考：0x0055351C。
 constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
-constexpr char kReadMode_554908[] = "r"; // 原常量参考：0x00554908。
 constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
 constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
-constexpr char kChatHistoryReadMode[] = "rb";
-constexpr char kChatHistoryWriteMode[] = "wb";
-constexpr char kChatHistoryUpdateMode[] = "r+b";
 
-constexpr auto kFirstSeparator_5548CC = [] { // 原常量参考：0x005548CC。
-    std::array<char, 56> text {};
-    for (std::size_t i = 0; i < 8; ++i) {
-        text[i] = ' ';
-    }
-    for (std::size_t i = 8; i < 31; ++i) {
-        text[i] = '>';
-    }
-    for (std::size_t i = 31; i < 54; ++i) {
-        text[i] = '<';
-    }
-    text[54] = '\n';
-    return text;
-}();
 
-constexpr wchar_t kDateTitle_55488C[] = // 原常量参考：0x0055488C。
-    LR"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
-)";
-
-constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
-    std::array<char, 65> text {};
-    text[0] = '\n';
-    text[1] = ' ';
-    text[2] = ' ';
-    for (std::size_t i = 3; i < 63; ++i) {
-        text[i] = '-';
-    }
-    text[63] = '\n';
-    return text;
-}();
-
-constexpr wchar_t kSessionTime_554820[] = // 原常量参考：0x00554820。
-    LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
-)";
-
-constexpr auto kAfterSession_5547DC = [] { // 原常量参考：0x005547DC。
-    std::array<char, 65> text {};
-    text[0] = ' ';
-    text[1] = ' ';
-    for (std::size_t i = 2; i < 63; ++i) {
-        text[i] = '-';
-    }
-    text[63] = '\n';
-    return text;
-}();
 
 
 } // namespace
@@ -1086,7 +1028,7 @@ std::int32_t Sub_44A090()
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const readStream = std::fopen(path, kChatHistoryReadMode);
+    platform::LegacyFile* const readStream = std::fopen(path, "rb");
     if (readStream != nullptr) {
         const std::uint32_t count =
             static_cast<std::uint32_t>(std::fread(&gChatHistory621FF8, 0x4844, 1, readStream));
@@ -1094,7 +1036,7 @@ std::int32_t Sub_44A090()
         return count >= 1 ? 1 : 0;
     }
 
-    platform::LegacyFile* const writeStream = std::fopen(path, kChatHistoryWriteMode);
+    platform::LegacyFile* const writeStream = std::fopen(path, "wb");
     if (writeStream != nullptr) {
         static_cast<std::uint32_t>(std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream));
         std::fclose(writeStream);
@@ -1110,7 +1052,7 @@ std::int32_t Sub_449FA0(const std::int32_t index)
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const stream = std::fopen(path, kChatHistoryUpdateMode);
+    platform::LegacyFile* const stream = std::fopen(path, "r+b");
     if (stream == nullptr) {
         return 0;
     }
@@ -1165,7 +1107,7 @@ void __cdecl Sub_449DA0()
     const std::int32_t fileYear = readTimeField(0x14);
     std::sprintf(
         gLogFileName554648,
-        kFileFormat_55351C,
+        "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
         fileYear % 100, fileMonth + 1, fileDay);
     std::sprintf(
         gLogPath62699C,
@@ -1174,23 +1116,24 @@ void __cdecl Sub_449DA0()
         gLogFileName554648);
 
     platform::LegacyFile* const readStream =
-        std::fopen(gLogPath62699C, kReadMode_554908);
+        std::fopen(gLogPath62699C, "r" /* 原常量参考：0x00554908。 */);
     gLogStream626C1C = readStream;
     platform::LegacyFile* gate;
     if (readStream == nullptr) {
         platform::LegacyFile* const appendStream =
             std::fopen(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
-        std::fprintf(appendStream, kFirstSeparator_5548CC.data());
+        std::fprintf(appendStream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
 
         const std::int32_t titleMonth = readTimeField(0x10);
         const std::int32_t titleDay = readTimeField(0x0C);
         const std::int32_t titleYear = readTimeField(0x14);
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(kDateTitle_55488C).c_str(),
+            cg::text::ToGbk(LR"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
+)" /* 原常量参考：0x0055488C。 */).c_str(),
             titleYear % 100, titleMonth + 1, titleDay);
-        std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
+        std::fprintf(gLogStream626C1C, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
         gate = gLogStream626C1C;
     } else {
         std::fclose(readStream);
@@ -1201,7 +1144,7 @@ void __cdecl Sub_449DA0()
     }
 
     if (gate != nullptr) {
-        std::fprintf(gate, kBeforeSession_554848.data());
+        std::fprintf(gate, "\n  ------------------------------------------------------------\n" /* 原常量参考：0x00554848。 */);
 
         const std::int32_t sessionSecond = readTimeField(0x00);
         const std::int32_t sessionMinute = readTimeField(0x04);
@@ -1211,10 +1154,11 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionYear = readTimeField(0x14);
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(kSessionTime_554820).c_str(),
+            cg::text::ToGbk(LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
+)" /* 原常量参考：0x00554820。 */).c_str(),
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
-        std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
+        std::fprintf(gLogStream626C1C, "  -------------------------------------------------------------\n" /* 原常量参考：0x005547DC。 */);
     }
     std::fflush(gLogStream626C1C);
 }
@@ -1459,13 +1403,13 @@ void Sub_44AB60()
         const std::wstring playerName = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
-            message = kBlacklistSelfText554938;
+            message = L"您…如此厭惡自己的聲音嗎？" /* 原常量参考：0x00554938。 */;
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            message = std::format(kBlacklistExistingFormat554928, text);
+            message = std::format(L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, text);
         } else {
             message = blacklist::AddBlacklistRecord_401270(text) != 0
-                ? std::format(kBlacklistAddedFormat5532C4, text)
-                : std::format(kBlacklistFailedFormat5532B0, text);
+                ? std::format(L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */, text)
+                : std::format(L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, text);
         }
         gInputContextC8B1B8.clearText();
         gInputContextC8B1B8.caretByteOffset = 0;

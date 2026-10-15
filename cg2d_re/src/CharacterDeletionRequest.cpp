@@ -14,10 +14,6 @@ namespace {
 
 constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-// 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。
-constexpr wchar_t kRequestTimeoutMessage[] = L"刪除角色逾時。";
-constexpr char kSuccessfulResult[] = "successful";
-
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 
 } // namespace
@@ -65,7 +61,7 @@ std::int32_t PollCharacterDeletionRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
+    static_cast<void>(gRequestMessage = L"刪除角色逾時。" /* 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。 */);
     return -1;
 }
 
@@ -84,7 +80,7 @@ void HandleCharacterDeletionResponse_509020(
     std::size_t index = 0;
     for (;;) {
         const auto received = static_cast<unsigned char>(result[index]);
-        const auto expected = static_cast<unsigned char>(kSuccessfulResult[index]);
+        const auto expected = static_cast<unsigned char>("successful"[index]);
         if (received != expected) {
             return;
         }

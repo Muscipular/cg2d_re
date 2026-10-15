@@ -194570,5 +194570,20 @@
     },
     "execution_policy_unchanged": true,
     "all_full_acceptance_gates_unchanged": true
+  },
+  "single_use_literals_sli01": {
+    "decision_ref": "doc/cg2d_text_encoding_spec.md#single-use-string-literals-20261015",
+    "source_files": 42,
+    "single_use_string_variables_removed": 213,
+    "log_separator_variables_removed": 3,
+    "protocol_space_variables_removed": 2,
+    "inline_uses": 219,
+    "remaining_readonly_variables_for_user_decision": 76,
+    "original_text_and_encoding_kept": true,
+    "original_address_comments_kept": true,
+    "business_branches_and_call_order_kept": true,
+    "other_thread_changes_kept": true,
+    "only_static": true,
+    "all_full_acceptance_gates_unchanged": true
   }
 }

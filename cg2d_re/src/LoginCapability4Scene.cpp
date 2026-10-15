@@ -22,13 +22,6 @@
 
 namespace {
 
-// 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kCapability4CredentialsPrompt[] = L"請設定ID、PASSWORD。";
-// 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。
-constexpr wchar_t kCapability4DeletePrompt[] = L"確定要刪除這帳號記錄嗎？";
-// 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。
-constexpr wchar_t kCapability4DeleteSucceeded[] = L"帳號記錄已成功刪除。";
-
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
 std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
@@ -228,7 +221,7 @@ std::int32_t Sub_464840()
     }
 
     case 6:
-        gValue9A4A78 = kCapability4CredentialsPrompt;
+        gValue9A4A78 = L"請設定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }
@@ -243,7 +236,7 @@ std::int32_t Sub_464840()
     }
 
     case 8: {
-        gValue9A4A78 = kCapability4DeletePrompt;
+        gValue9A4A78 = L"確定要刪除這帳號記錄嗎？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
         const std::int32_t result =
             login::detail::UpdateCapability4Modal_464450(gValue9A4A78);
         if (result == 1) {
@@ -268,7 +261,7 @@ std::int32_t Sub_464840()
     }
 
     case 10:
-        gValue9A4A78 = kCapability4DeleteSucceeded;
+        gValue9A4A78 = L"帳號記錄已成功刪除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }

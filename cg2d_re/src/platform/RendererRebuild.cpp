@@ -19,10 +19,6 @@ namespace cg::render {
 // 原 [466B80,466D41)：失败投递后仍继续；分支与资源顺序见 cg2d_sdl_presenter.md。
 void RebuildRenderer_466B80()
 {
-    constexpr wchar_t kRendererError[] =
-        L"DirectDraw初期化失敗。";
-    constexpr wchar_t kConfirmCaption[] = L"確認";
-
     const std::uint32_t previousQueueMode = gRenderQueueMode103CF10;
     RendererDestroy_44C3C0();
     const std::int8_t rendererResult = RendererInit_44B630();
@@ -32,7 +28,7 @@ void RebuildRenderer_466B80()
         reportRendererFailure = RendererInit_44B630() != 0;
     }
     if (reportRendererFailure) {
-        platform::ShowWideMessage(kRendererError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"DirectDraw初期化失敗。", L"確認", 0x10);
         platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
     }
 

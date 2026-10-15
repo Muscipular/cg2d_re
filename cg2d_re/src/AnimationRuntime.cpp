@@ -66,8 +66,6 @@ static_assert(offsetof(AnimeInfoPair, count) == 0x08);
 static_assert(offsetof(AnimeInfoPair, flag) == 0x0A);
 static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
 
-constexpr wchar_t kAnimeSizeErrorCaption[] = L"動畫資料損壞。";
-
 } // namespace
 
 // 原函数：0x0045B370。
@@ -155,7 +153,7 @@ std::int32_t AnimeInit_45BB20(
             if (count > 10000u) {
                 std::wstring message;
                 cg::text::FormatTo(message, L"i={},animsize={}", slot, static_cast<int>(count));
-                platform::ShowWideMessage(message, kAnimeSizeErrorCaption, 0);
+                platform::ShowWideMessage(message, L"動畫資料損壞。", 0);
                 std::fclose(file);
                 return cleanupFailure(5);
             }

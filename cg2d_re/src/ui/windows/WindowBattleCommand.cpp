@@ -1507,9 +1507,8 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
-                constexpr wchar_t hint[] = L"關閉技能視窗。";
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
-                gHoverTextD68AE8 = hint;
+                gHoverTextD68AE8 = L"關閉技能視窗。";
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & 1u) != 0) {

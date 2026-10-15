@@ -248,10 +248,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149,
     };
     static constexpr wchar_t noSpace[] = L"物品欄位不足！";
-    static constexpr wchar_t noWeapon[] = L"沒有裝備武器！";
     static constexpr wchar_t unidentified[] =
         L"無法裝備未鑑定物品！";
-    static constexpr wchar_t canEquip[] = L"可裝備此物品。";
     static constexpr wchar_t cannotEquip[] =
         L"無法裝備此物品。";
     static constexpr wchar_t canUse[] = L"可使用此物品。";
@@ -378,7 +376,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 world::detail::Sub_44B050(noSpace, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (weapons == 0) {
-                world::detail::Sub_44B050(noWeapon, 4, 3);
+                world::detail::Sub_44B050(L"沒有裝備武器！", 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 gCurrentWindow->state |= 0x8000u;
@@ -417,7 +415,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             const wchar_t* hint = cannotUse;
             if (type < 23) {
                 hint = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
-                    && item.hasDescription != 0 ? canEquip : cannotEquip;
+                    && item.hasDescription != 0 ? L"可裝備此物品。" : cannotEquip;
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0) {
                 if (item.hasDescription != 0) {
                     if (type == kMedicineType) {
@@ -684,9 +682,6 @@ static std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, co
 std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
     static constexpr wchar_t noSpace[] = L"物品欄位不足！";
-    static constexpr wchar_t unidentified[] =
-        L"無法裝備未鑑定物品！";
-    static constexpr wchar_t noWeapon[] = L"沒有裝備武器！";
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -763,7 +758,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     world::detail::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (world::detail::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
-                    world::detail::Sub_44B050(unidentified, 4, 3);
+                    world::detail::Sub_44B050(L"無法裝備未鑑定物品！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     gCurrentWindow->state |= 0x8000u;
@@ -834,7 +829,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     world::detail::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (weapons == 0) {
-                    world::detail::Sub_44B050(noWeapon, 4, 3);
+                    world::detail::Sub_44B050(L"沒有裝備武器！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     gCurrentWindow->state |= 0x8000u;

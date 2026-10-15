@@ -50,18 +50,6 @@ namespace {
 constexpr wchar_t kSurfaceFailureCaption[] =
     L"確認";
 
-// 原58D398「AutoMap作業用Surface產生失敗。」；正文30B，字面量隐式追加唯一NUL。
-constexpr wchar_t kAutoMapCreateFailed[] =
-    L"AutoMap作業用Surface產生失敗。";
-
-// 原58D384「建立戰鬥畫面錯誤」；正文16B，字面量隐式追加唯一NUL。
-constexpr wchar_t kTempSurfaceCreateFailed[] =
-    L"建立戰鬥畫面錯誤";
-
-// 原58D374「建立繪圖頁失敗」；正文14B，字面量隐式追加唯一NUL。
-constexpr wchar_t kTextureNodeCreateFailed[] =
-    L"建立繪圖頁失敗";
-
 class TextureSurfaceOwner final {
 public:
     ~TextureSurfaceOwner()
@@ -646,12 +634,12 @@ std::int32_t BuildSurfaceCache_5231A0()
     gTextureFallbackCount = 0;
 
     if (!CreateCpuAutoMapSurface()) {
-        platform::ShowWideMessage(kAutoMapCreateFailed, kSurfaceFailureCaption, 0x10);
+        platform::ShowWideMessage(L"AutoMap作業用Surface產生失敗。" /* 原58D398「AutoMap作業用Surface產生失敗。」；正文30B，字面量隐式追加唯一NUL。 */, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
     if (!CreateCpuTempSurface() && !CreateCpuTempSurfaceFallback()) {
-        platform::ShowWideMessage(kTempSurfaceCreateFailed, kSurfaceFailureCaption, 0x10);
+        platform::ShowWideMessage(L"建立戰鬥畫面錯誤" /* 原58D384「建立戰鬥畫面錯誤」；正文16B，字面量隐式追加唯一NUL。 */, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
@@ -678,7 +666,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         std::memcpy(&width, &gTextureSizeW, sizeof(width));
         node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
         if (node.surface == nullptr) {
-            platform::ShowWideMessage(kTextureNodeCreateFailed, kSurfaceFailureCaption, 0x10);
+            platform::ShowWideMessage(L"建立繪圖頁失敗" /* 原58D374「建立繪圖頁失敗」；正文14B，字面量隐式追加唯一NUL。 */, kSurfaceFailureCaption, 0x10);
             return 0;
         }
         ++gTextureFallbackCount;

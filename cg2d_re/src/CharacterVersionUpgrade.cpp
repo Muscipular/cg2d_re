@@ -30,9 +30,6 @@ constexpr wchar_t kUpgradeFailedText[] =
     L"版本升級失敗。";
 constexpr wchar_t kCannotUpgradeText[] =
     L"無法更新版本。";
-constexpr wchar_t kLegacyVersionRequest[] = L"abcdefg"; // 原 0x55C910。
-
-
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
 login::YobiAction* gVersionUpgradeAction = nullptr;
 // 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
@@ -62,7 +59,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
                 static_cast<void>(detail::Sub_512D30(
                     platform::gConnectionSocket,
                     2,
-                    kLegacyVersionRequest));
+                    L"abcdefg" /* 原 0x55C910。 */));
                 world::gCurrentSceneState = 3;
             } else {
                 world::gCurrentSceneState = 202;

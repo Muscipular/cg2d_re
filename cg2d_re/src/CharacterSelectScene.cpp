@@ -120,7 +120,6 @@ constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参
     33101, 33101, 33101, 33101, 33101, 33101, 33101,
 }};
 
-constexpr wchar_t kCreationConfirm55C9B0[] = L"可以嗎？"; // 原常量参考：0x0055C9B0。
 constexpr std::array<const wchar_t*, 6> kCreationErrors {{
     L"沒有輸入姓名！", // 55C9A0。
     L"角色名稱重複", // 55C918。
@@ -186,12 +185,7 @@ struct CreationRequestProgress {
 };
 
 CreationRequestProgress gCreationRequestProgress {};
-constexpr wchar_t kCreationProgress55C9C0[] = L"創造角色中"; // 原常量参考：0x0055C9C0。
-
 std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
-constexpr wchar_t kCreationDuplicate55C980[] = // 原常量参考：0x0055C980。
-    L"已經有相同名字的角色存在了！";
-
 std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
@@ -219,7 +213,7 @@ std::int32_t Sub_45E7B0()
 // 原函数：0x0045E7D0。
 std::int32_t Sub_45E7D0()
 {
-    const std::wstring_view text = kCreationProgress55C9C0;
+    const std::wstring_view text = L"創造角色中" /* 原常量参考：0x0055C9C0。 */;
     if (gCreationRequestProgress.phase == 0) {
         gCreationRequestProgress.phase = 1;
         const auto textWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(text, 0));
@@ -375,7 +369,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
                 world::gCurrentSceneState = sceneState;
             }
             if (sceneState == 101) {
-                if (login::UpdateLoginMessage(kCreationDuplicate55C980) != 0) {
+                if (login::UpdateLoginMessage(L"已經有相同名字的角色存在了！" /* 原常量参考：0x0055C980。 */) != 0) {
                     sceneState = 10;
                     gCreationRestore9A6EB8 = 1;
                     world::gCurrentSceneState = sceneState;
@@ -956,7 +950,7 @@ std::int32_t Sub_4631D0()
     bool skipMessages = false;
     if (state::gValue9A5AFC == 10) {
         const std::int32_t answer = ProcessDefaultConfirmationDialog_45E090(
-            320, 240, kCreationConfirm55C9B0, 0);
+            320, 240, L"可以嗎？" /* 原常量参考：0x0055C9B0。 */, 0);
         if (answer == 1) {
             const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
             const std::uint8_t mode = state::gValue9A4B88;
@@ -1264,32 +1258,6 @@ static_assert(sizeof(gDeleteCharacterName) == 132);
 namespace cg::character_select {
 namespace {
 
-// 原 0x55CD68: 角色资料读取失败提示。
-constexpr wchar_t kCharacterDataReadFailed[] =
-    L"角色資料讀取失敗。";
-// 原 0x55CD4C: 服务器维护提示。
-constexpr wchar_t kServerMaintenance[] =
-    L"目前伺服器正在停機維護中。";
-// 原 0x55C854: 删除角色确认提示。
-constexpr wchar_t kDeleteQuestion[] =
-    L"真的要刪除嗎？";
-// 原 0x55CD94: 按住 CTRL 删除角色提示。
-constexpr wchar_t kDeleteWithControl[] =
-    L"想要刪除時，請按著 CTRL鍵不放";
-// 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。
-constexpr wchar_t kClickYesAgain[] =
-    L"再點選『是』。        ";
-// 原 0x55CD38: 无法删除角色提示。
-constexpr wchar_t kCannotDeleteCharacter[] =
-    L"無法刪除此角色。";
-// 原 0x55CD28: 更新确认提示。
-constexpr wchar_t kUpdateQuestion[] =
-    L"要進行更新嗎？";
-// 原 0x55C818: 资料片专用账号及客户端更新提示。
-constexpr wchar_t kExpansionOnlyAccount[] =
-    L"這個帳號僅適用於資料片版本，請將用戶端的版本更新至資料片。";
-
-
 constexpr std::size_t kNameOffset = 0x00;
 constexpr std::size_t kGraphicNoOffset = 0x18;
 constexpr std::size_t kDeleteFlagOffset = 0x20;
@@ -1508,12 +1476,12 @@ std::int32_t ProcessScene_460FF0()
             world::gCurrentSceneState = 5;
             break;
         case 5:
-            if (login::UpdateLoginMessage(kCharacterDataReadFailed) != 0) {
+            if (login::UpdateLoginMessage(L"角色資料讀取失敗。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
                 world::SetCurrentSceneType(2);
             }
             break;
         case 6:
-            if (login::UpdateLoginMessage(kServerMaintenance) != 0) {
+            if (login::UpdateLoginMessage(L"目前伺服器正在停機維護中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
                 world::SetCurrentSceneType(2);
             }
             break;
@@ -1584,11 +1552,11 @@ std::int32_t ProcessScene_460FF0()
                 ProcessDefaultConfirmationDialog_45E090(
                     320,
                     240,
-                    kDeleteQuestion,
+                    L"真的要刪除嗎？" /* 原 0x55C854: 删除角色确认提示。 */,
                     0);
             if (login::detail::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
-                login::detail::DrawText3(166, 326, 2, 4, kDeleteWithControl, 0);
-                login::detail::DrawText3(166, 346, 2, 4, kClickYesAgain, 0);
+                login::detail::DrawText3(166, 326, 2, 4, L"想要刪除時，請按著 CTRL鍵不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
+                login::detail::DrawText3(166, 346, 2, 4, L"再點選『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                 if (result == 1) {
                     if ((platform::gKeyStates[17] & 2u) != 0) {
                         world::gCurrentSceneState = 14;
@@ -1633,7 +1601,7 @@ std::int32_t ProcessScene_460FF0()
             world::gCurrentSceneState = 16;
             break;
         case 16:
-            if (login::UpdateLoginMessage(kCannotDeleteCharacter) != 0) {
+            if (login::UpdateLoginMessage(L"無法刪除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
                 world::gCurrentSceneState = 0;
             }
             break;
@@ -1646,7 +1614,7 @@ std::int32_t ProcessScene_460FF0()
                 ProcessConfirmationDialog_45DEE0(
                     320,
                     240,
-                    kUpdateQuestion,
+                    L"要進行更新嗎？" /* 原 0x55CD28: 更新确认提示。 */,
                     0,
                     384,
                     96);
@@ -1662,7 +1630,7 @@ std::int32_t ProcessScene_460FF0()
             world::gCurrentSceneState = 20;
             break;
         case 20:
-            if (login::UpdateLoginMessage(kExpansionOnlyAccount) != 0) {
+            if (login::UpdateLoginMessage(L"這個帳號僅適用於資料片版本，請將用戶端的版本更新至資料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
                 world::SetCurrentSceneType(2);
             }
             break;

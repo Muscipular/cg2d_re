@@ -307,3 +307,44 @@ TUE01扩展（用户要求检查其它绘制入口）：连同测宽及局部dra
 用户012555转储的匹配Age8符号确认4F39F0将GBK“苹果薄荷10”与UTF-8“ 失去了！”混拼后交ToUtf16，报1113。按[诊断与局部方案](cg2d_craft_result_gbk_crash_20261015.md)，字段解转义后先FromGbkWide，再用std::format与宽字面量生成动态wstring，取消独立256B格式化数组。保原0x004F39F0／0x00589F9C注释、六字段／八段及空字段终止、读取发布与窗口更新顺序。
 
 补LF仍按完整GBK行小于28字节判断：原名称字节长度加后缀9字节；不为判宽把正文转回窄串。仅修该混合编码支路，共用数值格式／通用编码器保持；六行精确差异、原地址与源码行号核对通过，未编译、测试、运行或部署。
+
+<a id="single-use-string-literals-20261015"></a>
+### SLI01：单次引用的字符串直接内联
+
+用户要求先清理已确认可直接使用字面量的字符串，剩余项交由用户判断。本轮仅展开213项单次引用的只读字符串、三个日志分隔串及两处协议空格数组；直接保留原宽／窄字面量、文字、空格、LF、NUL与格式参数，原用途／地址注释移至使用点。分隔串的固定字符数量按原初始化循环逐项保持。
+
+保留76项复用或参与长度计算的常量、动态选择变量、按索引访问的文字表、可写缓冲区，以及窗口类名和版本零前缀的共享存储；这些不随本轮展开。保持所有业务分支、读取／调用／发布顺序和返回值，不迁移编码或变更协议。
+
+文件使用UTF-8精确补丁更新；与正在清理Borrow的线程串行落地，应用前核对当前内容，保留其所有改动。仅作源码静态核对，同步受影响定位与唯一进度，不编译、测试、运行或计算摘要；本轮不提升任何功能验收状态。
+
+待用户判断的76项如下；它们的现有引用均保留。
+
+| 文件 | 数量 | 保留变量 |
+|---|---:|---|
+| `src/CharacterDeletionProgress.cpp` | 1 | `kCharacterDeletionProgressText` |
+| `src/CharacterListRequest.cpp` | 1 | `kInvalidCharacterName` |
+| `src/CharacterSelectState.hpp` | 2 | `kVersion20`、`kVersion30` |
+| `src/CharacterVersionUpgrade.cpp` | 4 | `kUpgradeProgressText`、`kUpgradeSucceededText`、`kUpgradeFailedText`、`kCannotUpgradeText` |
+| `src/Input.cpp` | 4 | `kLogDirectory_554658`、`kPathFormat_553514`、`kAppendMode_554904`、`kChatHistoryName554910` |
+| `src/InputCaret.cpp` | 1 | `kCaretText` |
+| `src/LoginInputController.cpp` | 1 | `kVersion` |
+| `src/LoginMessage.cpp` | 1 | `kConfirmText` |
+| `src/LoginRequest.cpp` | 1 | `kSuccessfulResult` |
+| `src/LoginScene.cpp` | 8 | `kWindowName`、`kVersion`、`kCannotConnect`、`kAlreadyOnline`、`kSuspended`、`kMultiline`、`kAccountHelp4`、`kAccountHelp5` |
+| `src/LoginState.cpp` | 1 | `kLoginProgressText` |
+| `src/YobiRuntime.cpp` | 2 | `kFull58AD04`、`kLevel58AD5C` |
+| `src/platform/ClientInitialization.cpp` | 1 | `kConfirmCaption` |
+| `src/platform/LegacyModuleDigest.cpp` | 1 | `kDigits` |
+| `src/render/Font.cpp` | 1 | `kFaceName5590E0` |
+| `src/render/GraphicDxCache.cpp` | 1 | `kSurfaceFailureCaption` |
+| `src/render/RendererResources.cpp` | 2 | `kConfirmCaption`、`kMode1Message` |
+| `src/ui/WindowRuntime.cpp` | 1 | `kTribeUnopened585C50` |
+| `src/ui/WindowRuntimeInternal.hpp` | 22 | `kCraftLevelUp58661C`、`kCraftExperience58660C`、`kCraftEndurance586600`、`kCraftDexterity5865F4`、`kCraftIntelligence5865E8`、`kCraftExperience589820`、`kCraftLevelUp589814`、`kCraftEndurance589808`、`kCraftDexterity5897FC`、`kCraftIntelligence5897F0`、`kWindow12Unknown554590`、`kWindow12NoFp5864F0`、`kWindow13Text5868EC`、`kMiniMailCostHint588588`、`kSettingsClose55331C`、`kReplyMailHint587730`、`kSkillEnableRebirth5864A0`、`kSkillDisableRebirth5864B4`、`kStatusGuildUnavailable586270`、`kPetPlaceHint586C14`、`kPetSelectHint586D2C`、`kPetRenameHint586D38` |
+| `src/world/MailState.cpp` | 2 | `kProfileDefault58F614`、`kReceivedMiniMailFormat58B108` |
+| `src/world/SceneState.cpp` | 9 | `kCutReadMode554920`、`kCutCaption5536B8`、`kCutMessage55DE20`、`kCutCaption55DE30`、`kMapPathPrefix`、`kMapReadMode`、`kUnknownText554590`、`gText55BAE0`、`kAlbumSignature` |
+| `src/ui/windows/WindowBattleItems.cpp` | 6 | `noSpace`（2处定义）、`unidentified`、`cannotEquip`、`canUse`、`cannotUse` |
+| `src/ui/windows/WindowPetSkillChoice.cpp` | 1 | `learnSuffix5882E8` |
+| `src/ui/windows/WindowShop.cpp` | 1 | `kShopUnavailableHint586BF4` |
+| `src/ui/windows/WindowStall.cpp` | 1 | `message` |
+
+另保留 `platform::gWindowClassName` 和 `character_select::detail::gVersionPayload9A5C10` 两项共享存储；前者只读但跨窗口注册／创建使用，后者沿BRT01唯一零前缀对象合同。动态文字选择变量、可写配置和按索引访问的文字表继续保持原实现。

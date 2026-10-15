@@ -261,9 +261,9 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::BorrowPlayerYStorage()->value();
+            world::detail::gPlayerY.value();
         const std::int32_t x =
-            world::detail::BorrowPlayerXStorage()->value();
+            world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromGbkWide(buffer.data())));
         gCurrentWindow->state |= 0x8000u;
@@ -402,9 +402,9 @@ static std::int32_t WindowAppearance_SendDialogReply(
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped));
     world::detail::gValue581800 = -1;

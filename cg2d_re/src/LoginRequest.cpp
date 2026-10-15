@@ -250,7 +250,7 @@ std::int32_t Sub_508CF0(
     gReplyCodeDA3B2E = 2;
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
     // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
-    *world::detail::BorrowValue73ECD0Storage() = std::int32_t{0};
+    world::detail::gSceneTransitionValue = std::int32_t{0};
     static_cast<void>(world::SetPendingSceneType(7));
     return audio::PlaySe_52C450(60, 320);
 }

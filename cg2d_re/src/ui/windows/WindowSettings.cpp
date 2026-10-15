@@ -618,7 +618,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
         if (world::gCurrentSceneType == 10) {
             world::gCurrentSceneState = 9;
         } else {
-            *world::detail::BorrowValue73ECD0Storage() = std::int32_t{0};
+            world::detail::gSceneTransitionValue = std::int32_t{0};
             static_cast<void>(world::SetPendingSceneType(7));
         }
         static_cast<void>(audio::PlaySe_52C450(60, 320));

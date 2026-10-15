@@ -349,9 +349,9 @@ static void WindowBank_Release()
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
@@ -1317,9 +1317,9 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
                     std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
                 const std::int32_t y =
-                    world::detail::BorrowPlayerYStorage()->value();
+                    world::detail::gPlayerY.value();
                 const std::int32_t x =
-                    world::detail::BorrowPlayerXStorage()->value();
+                    world::detail::gPlayerX.value();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             }
@@ -1452,9 +1452,9 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             window = gCurrentWindow;

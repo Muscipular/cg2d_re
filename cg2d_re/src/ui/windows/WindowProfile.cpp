@@ -137,13 +137,13 @@ std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y
 std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
 {
     const double playerX = static_cast<double>(
-        world::detail::BorrowPlayerXStorage()->value()) * 64.0;
+        world::detail::gPlayerX.value()) * 64.0;
     if (playerX != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
         return 0;
     }
     const double playerY = static_cast<double>(
-        world::detail::BorrowPlayerYStorage()->value()) * 64.0;
+        world::detail::gPlayerY.value()) * 64.0;
     if (playerY != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
         return 0;
@@ -192,8 +192,8 @@ static void WindowProfile_RouteReply(
     gDialogValueCF4E5C = value;
     world::detail::gDialogRequestCC21E0 = request;
     world::detail::gDialogTargetD2DE6C = target;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     switch (type) {
     case 38:

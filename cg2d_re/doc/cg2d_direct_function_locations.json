@@ -12,12 +12,12 @@
   "counts": {
     "inventory_functions": 3680,
     "source_files": 264,
-    "direct_inventory_entries": 2448,
-    "direct_definitions": 2461,
+    "direct_inventory_entries": 2442,
+    "direct_definitions": 2455,
     "multiple_definition_entries": 11,
     "shared_tag_definitions": 1,
     "non_inventory_definitions": 38,
-    "without_direct_definition": 1232
+    "without_direct_definition": 1238
   },
   "records": [
     {
@@ -477,85 +477,13 @@
       ]
     },
     {
-      "inventory_id": "F:00004130",
-      "original_entry": "0x404130",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "ConstructProtectionChecksum1_404130",
-          "definition_line": 230,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00004150",
-      "original_entry": "0x404150",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "DestroyProtectionChecksum1_404150",
-          "definition_line": 235,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00004170",
-      "original_entry": "0x404170",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "ConstructProtectionChecksum2_404170",
-          "definition_line": 240,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00004190",
-      "original_entry": "0x404190",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "DestroyProtectionChecksum2_404190",
-          "definition_line": 245,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000041B0",
-      "original_entry": "0x4041B0",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "ConstructProtectionProcessState_4041B0",
-          "definition_line": 250,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000041D0",
-      "original_entry": "0x4041D0",
-      "definitions": [
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "DestroyProtectionProcessState_4041D0",
-          "definition_line": 255,
-          "namespace": "cg::platform"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000041E0",
       "original_entry": "0x4041E0",
       "definitions": [
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeProtection_4041E0",
-          "definition_line": 260,
+          "definition_line": 252,
           "namespace": "cg::platform"
         }
       ]
@@ -567,7 +495,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "ReleaseProtection_4042B0",
-          "definition_line": 499,
+          "definition_line": 487,
           "namespace": "cg::platform"
         }
       ]
@@ -579,7 +507,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckProcessModules_4042D0",
-          "definition_line": 124,
+          "definition_line": 141,
           "namespace": "cg::platform::(匿名)"
         }
       ]
@@ -591,7 +519,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckProtection_4043B0",
-          "definition_line": 294,
+          "definition_line": 285,
           "namespace": "cg::platform"
         }
       ]
@@ -603,7 +531,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "ParseProtectionTables_404600",
-          "definition_line": 410,
+          "definition_line": 402,
           "namespace": "cg::platform"
         }
       ]
@@ -615,7 +543,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckDebugger_404880",
-          "definition_line": 167,
+          "definition_line": 184,
           "namespace": "cg::platform::(匿名)"
         }
       ]
@@ -627,7 +555,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "ResetProtection_4048D0",
-          "definition_line": 526,
+          "definition_line": 515,
           "namespace": "cg::platform"
         }
       ]
@@ -639,7 +567,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckWindows_4048E0",
-          "definition_line": 554,
+          "definition_line": 545,
           "namespace": "cg::platform"
         }
       ]
@@ -651,7 +579,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckWindowsCallback_404940",
-          "definition_line": 187,
+          "definition_line": 205,
           "namespace": "cg::platform::(匿名)"
         }
       ]
@@ -759,7 +687,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "GetBattlePetPosition_405B40",
-          "definition_line": 8450,
+          "definition_line": 8078,
           "namespace": "cg::world::detail"
         }
       ]
@@ -4503,7 +4431,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "Sub_423640",
-          "definition_line": 634,
+          "definition_line": 626,
           "namespace": "cg::platform"
         }
       ]
@@ -5235,7 +5163,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_43C4B0",
-          "definition_line": 4249,
+          "definition_line": 3942,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5247,7 +5175,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_43C4E0",
-          "definition_line": 4261,
+          "definition_line": 3954,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5271,7 +5199,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_43C8F0",
-          "definition_line": 10392,
+          "definition_line": 10020,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5343,7 +5271,7 @@
         {
           "path": "src/world/MapSceneDrawing.cpp",
           "symbol": "Sub_43CB10",
-          "definition_line": 320,
+          "definition_line": 336,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5355,7 +5283,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "DrawBattleScene_43CBB0",
-          "definition_line": 6961,
+          "definition_line": 6589,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5739,7 +5667,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_440B50",
-          "definition_line": 8413,
+          "definition_line": 8041,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5799,7 +5727,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_440FF0",
-          "definition_line": 2362,
+          "definition_line": 2055,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5811,7 +5739,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4410E0",
-          "definition_line": 8420,
+          "definition_line": 8048,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6687,7 +6615,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "IsMapFloorAllowed_448240",
-          "definition_line": 979,
+          "definition_line": 677,
           "namespace": "cg::world"
         }
       ]
@@ -6795,7 +6723,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4493C0",
-          "definition_line": 994,
+          "definition_line": 692,
           "namespace": "cg::world"
         }
       ]
@@ -7227,7 +7155,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "ResetSystemLog_44B5A0",
-          "definition_line": 508,
+          "definition_line": 497,
           "namespace": "cg::platform"
         }
       ]
@@ -7671,7 +7599,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455A90",
-          "definition_line": 8985,
+          "definition_line": 8613,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7683,7 +7611,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455AC0",
-          "definition_line": 10262,
+          "definition_line": 9890,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7695,7 +7623,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455AD0",
-          "definition_line": 10268,
+          "definition_line": 9896,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7707,7 +7635,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455AE0",
-          "definition_line": 10274,
+          "definition_line": 9902,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7719,7 +7647,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455AF0",
-          "definition_line": 10280,
+          "definition_line": 9908,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7731,7 +7659,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B00",
-          "definition_line": 10286,
+          "definition_line": 9914,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7743,7 +7671,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B10",
-          "definition_line": 10292,
+          "definition_line": 9920,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7755,7 +7683,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B20",
-          "definition_line": 10298,
+          "definition_line": 9926,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7767,7 +7695,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B40",
-          "definition_line": 10306,
+          "definition_line": 9934,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7779,7 +7707,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B50",
-          "definition_line": 10312,
+          "definition_line": 9940,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7791,7 +7719,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B70",
-          "definition_line": 10320,
+          "definition_line": 9948,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7803,7 +7731,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455B90",
-          "definition_line": 10328,
+          "definition_line": 9956,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7815,7 +7743,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455BB0",
-          "definition_line": 10336,
+          "definition_line": 9964,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7827,7 +7755,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455BD0",
-          "definition_line": 10344,
+          "definition_line": 9972,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7839,7 +7767,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455C60",
-          "definition_line": 5850,
+          "definition_line": 5478,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7851,7 +7779,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "NextRotationValue_455C70",
-          "definition_line": 1083,
+          "definition_line": 781,
           "namespace": "cg::world"
         }
       ]
@@ -7875,7 +7803,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_455FC0",
-          "definition_line": 5856,
+          "definition_line": 5484,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7995,7 +7923,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "RequestRender_457010",
-          "definition_line": 538,
+          "definition_line": 528,
           "namespace": "cg::platform"
         }
       ]
@@ -8055,7 +7983,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "KeepAlive_457AB0",
-          "definition_line": 581,
+          "definition_line": 572,
           "namespace": "cg::platform"
         }
       ]
@@ -8127,7 +8055,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "ReadSystemSeconds_4589D0",
-          "definition_line": 724,
+          "definition_line": 717,
           "namespace": "cg::platform"
         }
       ]
@@ -8139,7 +8067,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckSystemSeconds_458A10",
-          "definition_line": 735,
+          "definition_line": 730,
           "namespace": "cg::platform"
         }
       ]
@@ -8163,7 +8091,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "CheckLegacyDxCapability_458DC0",
-          "definition_line": 547,
+          "definition_line": 537,
           "namespace": "cg::platform"
         }
       ]
@@ -8187,7 +8115,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_458F00",
-          "definition_line": 6921,
+          "definition_line": 6549,
           "namespace": "cg::world::detail"
         }
       ]
@@ -8199,7 +8127,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_458F40",
-          "definition_line": 6894,
+          "definition_line": 6522,
           "namespace": "cg::world::detail"
         }
       ]
@@ -8943,7 +8871,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_45EBB0",
-          "definition_line": 11716,
+          "definition_line": 11344,
           "namespace": "cg::world::detail"
         }
       ]
@@ -8955,7 +8883,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_45ED80",
-          "definition_line": 11793,
+          "definition_line": 11421,
           "namespace": "cg::world::detail"
         }
       ]
@@ -8967,7 +8895,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_45ED90",
-          "definition_line": 11799,
+          "definition_line": 11427,
           "namespace": "cg::world::detail"
         }
       ]
@@ -8979,7 +8907,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_45EEE0",
-          "definition_line": 10410,
+          "definition_line": 10038,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9351,7 +9279,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_467F30",
-          "definition_line": 5598,
+          "definition_line": 5226,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9363,7 +9291,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4681B0",
-          "definition_line": 5666,
+          "definition_line": 5294,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9375,7 +9303,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468200",
-          "definition_line": 5502,
+          "definition_line": 5130,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9387,7 +9315,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468290",
-          "definition_line": 5684,
+          "definition_line": 5312,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9399,7 +9327,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4682E0",
-          "definition_line": 7627,
+          "definition_line": 7255,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9411,7 +9339,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468330",
-          "definition_line": 5547,
+          "definition_line": 5175,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9423,7 +9351,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468520",
-          "definition_line": 4760,
+          "definition_line": 4388,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9435,7 +9363,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468570",
-          "definition_line": 4775,
+          "definition_line": 4403,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9447,7 +9375,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4687B0",
-          "definition_line": 4831,
+          "definition_line": 4459,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9459,7 +9387,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4688A0",
-          "definition_line": 4864,
+          "definition_line": 4492,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9471,7 +9399,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468C00",
-          "definition_line": 5708,
+          "definition_line": 5336,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9483,7 +9411,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468C40",
-          "definition_line": 5130,
+          "definition_line": 4758,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9495,7 +9423,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468F30",
-          "definition_line": 7951,
+          "definition_line": 7579,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9507,7 +9435,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_468F70",
-          "definition_line": 7969,
+          "definition_line": 7597,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9519,7 +9447,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "CopyWorldProjectionState_468FF0",
-          "definition_line": 1055,
+          "definition_line": 753,
           "namespace": "cg::world"
         }
       ]
@@ -9531,7 +9459,7 @@
         {
           "path": "src/world/MapSceneDrawing.cpp",
           "symbol": "Sub_469020",
-          "definition_line": 314,
+          "definition_line": 329,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9543,7 +9471,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469030",
-          "definition_line": 7404,
+          "definition_line": 7032,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9555,7 +9483,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4691D0",
-          "definition_line": 5811,
+          "definition_line": 5439,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9567,7 +9495,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469240",
-          "definition_line": 5751,
+          "definition_line": 5379,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9579,7 +9507,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469290",
-          "definition_line": 5765,
+          "definition_line": 5393,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9591,7 +9519,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4693F0",
-          "definition_line": 7478,
+          "definition_line": 7106,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9603,7 +9531,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469810",
-          "definition_line": 5731,
+          "definition_line": 5359,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9615,7 +9543,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469870",
-          "definition_line": 4946,
+          "definition_line": 4574,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9627,7 +9555,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469C90",
-          "definition_line": 9358,
+          "definition_line": 8986,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9639,7 +9567,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_469FC0",
-          "definition_line": 9441,
+          "definition_line": 9069,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9663,7 +9591,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A410",
-          "definition_line": 9538,
+          "definition_line": 9166,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9675,7 +9603,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A5A0",
-          "definition_line": 8850,
+          "definition_line": 8478,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9699,7 +9627,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A700",
-          "definition_line": 9582,
+          "definition_line": 9210,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9711,7 +9639,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A940",
-          "definition_line": 8870,
+          "definition_line": 8498,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9723,7 +9651,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A990",
-          "definition_line": 8745,
+          "definition_line": 8373,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9735,7 +9663,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46A9E0",
-          "definition_line": 7670,
+          "definition_line": 7298,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9747,7 +9675,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AA00",
-          "definition_line": 7679,
+          "definition_line": 7307,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9759,7 +9687,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AB60",
-          "definition_line": 7873,
+          "definition_line": 7501,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9771,7 +9699,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46ABD0",
-          "definition_line": 7771,
+          "definition_line": 7399,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9783,7 +9711,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AC10",
-          "definition_line": 7788,
+          "definition_line": 7416,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9795,7 +9723,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AC90",
-          "definition_line": 7908,
+          "definition_line": 7536,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9807,7 +9735,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AD00",
-          "definition_line": 7601,
+          "definition_line": 7229,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9819,7 +9747,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46ADA0",
-          "definition_line": 7837,
+          "definition_line": 7465,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9831,7 +9759,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AE60",
-          "definition_line": 5720,
+          "definition_line": 5348,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9843,7 +9771,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AEA0",
-          "definition_line": 7923,
+          "definition_line": 7551,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9855,7 +9783,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AF30",
-          "definition_line": 5097,
+          "definition_line": 4725,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9867,7 +9795,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46AFE0",
-          "definition_line": 8777,
+          "definition_line": 8405,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9891,7 +9819,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46B370",
-          "definition_line": 9315,
+          "definition_line": 8943,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9915,7 +9843,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46B580",
-          "definition_line": 8117,
+          "definition_line": 7745,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9927,7 +9855,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46B5C0",
-          "definition_line": 8131,
+          "definition_line": 7759,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9939,7 +9867,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46B6F0",
-          "definition_line": 8184,
+          "definition_line": 7812,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9951,7 +9879,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46BC90",
-          "definition_line": 7754,
+          "definition_line": 7382,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9963,7 +9891,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46BCF0",
-          "definition_line": 7821,
+          "definition_line": 7449,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9975,7 +9903,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46BD20",
-          "definition_line": 8387,
+          "definition_line": 8015,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9987,7 +9915,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46BD40",
-          "definition_line": 10373,
+          "definition_line": 10001,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10107,7 +10035,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46C760",
-          "definition_line": 5407,
+          "definition_line": 5035,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10119,7 +10047,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46C840",
-          "definition_line": 5233,
+          "definition_line": 4861,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10131,7 +10059,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46CDF0",
-          "definition_line": 8105,
+          "definition_line": 7733,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10143,7 +10071,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "ProjectWorldToScreen_46CE30",
-          "definition_line": 1009,
+          "definition_line": 707,
           "namespace": "cg::world"
         }
       ]
@@ -10155,7 +10083,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "ProjectScreenToWorld_46CE80",
-          "definition_line": 1021,
+          "definition_line": 719,
           "namespace": "cg::world"
         }
       ]
@@ -10167,7 +10095,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46CEC0",
-          "definition_line": 5530,
+          "definition_line": 5158,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10179,7 +10107,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46CEE0",
-          "definition_line": 5537,
+          "definition_line": 5165,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10191,7 +10119,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46CF00",
-          "definition_line": 7990,
+          "definition_line": 7618,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10203,7 +10131,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46CF20",
-          "definition_line": 8002,
+          "definition_line": 7630,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10215,7 +10143,7 @@
         {
           "path": "src/world/MapSceneDrawing.cpp",
           "symbol": "Sub_46CF60",
-          "definition_line": 195,
+          "definition_line": 197,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10227,7 +10155,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46D9C0",
-          "definition_line": 7574,
+          "definition_line": 7202,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10239,7 +10167,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46DA80",
-          "definition_line": 7647,
+          "definition_line": 7275,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10251,7 +10179,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46DB00",
-          "definition_line": 5442,
+          "definition_line": 5070,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10263,7 +10191,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC60",
-          "definition_line": 5433,
+          "definition_line": 5061,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10275,7 +10203,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC90",
-          "definition_line": 5480,
+          "definition_line": 5108,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10335,7 +10263,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E0D0",
-          "definition_line": 2070,
+          "definition_line": 1763,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10347,7 +10275,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E2A0",
-          "definition_line": 1422,
+          "definition_line": 1115,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10359,7 +10287,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E340",
-          "definition_line": 1455,
+          "definition_line": 1148,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10371,7 +10299,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E390",
-          "definition_line": 1479,
+          "definition_line": 1172,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10383,7 +10311,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E3E0",
-          "definition_line": 1505,
+          "definition_line": 1198,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10395,7 +10323,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E480",
-          "definition_line": 1697,
+          "definition_line": 1390,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10407,7 +10335,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E4A0",
-          "definition_line": 2060,
+          "definition_line": 1753,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10419,7 +10347,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E4C0",
-          "definition_line": 1970,
+          "definition_line": 1663,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10431,7 +10359,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E4E0",
-          "definition_line": 1706,
+          "definition_line": 1399,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10443,7 +10371,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E6C0",
-          "definition_line": 1772,
+          "definition_line": 1465,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10455,7 +10383,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46E940",
-          "definition_line": 1836,
+          "definition_line": 1529,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10467,7 +10395,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46EBB0",
-          "definition_line": 1905,
+          "definition_line": 1598,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10479,7 +10407,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46ED50",
-          "definition_line": 1977,
+          "definition_line": 1670,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10491,7 +10419,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F000",
-          "definition_line": 2184,
+          "definition_line": 1877,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10503,7 +10431,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F090",
-          "definition_line": 2135,
+          "definition_line": 1828,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10515,7 +10443,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F160",
-          "definition_line": 2114,
+          "definition_line": 1807,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10527,7 +10455,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F1D0",
-          "definition_line": 2212,
+          "definition_line": 1905,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10539,7 +10467,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F680",
-          "definition_line": 8892,
+          "definition_line": 8520,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10551,7 +10479,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F8F0",
-          "definition_line": 8014,
+          "definition_line": 7642,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10563,7 +10491,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F930",
-          "definition_line": 8035,
+          "definition_line": 7663,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10575,7 +10503,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F950",
-          "definition_line": 8044,
+          "definition_line": 7672,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10587,7 +10515,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46F970",
-          "definition_line": 8051,
+          "definition_line": 7679,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10599,7 +10527,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "RandomRange_46FAF0",
-          "definition_line": 622,
+          "definition_line": 614,
           "namespace": "cg::platform"
         }
       ]
@@ -10611,7 +10539,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "InitializeRotationTable_46FB20",
-          "definition_line": 1069,
+          "definition_line": 767,
           "namespace": "cg::world"
         }
       ]
@@ -10623,7 +10551,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_46FB80",
-          "definition_line": 8094,
+          "definition_line": 7722,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10683,7 +10611,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_470050",
-          "definition_line": 8998,
+          "definition_line": 8626,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10695,7 +10623,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_470150",
-          "definition_line": 9030,
+          "definition_line": 8658,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10707,7 +10635,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_470270",
-          "definition_line": 9065,
+          "definition_line": 8693,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10719,7 +10647,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4703C0",
-          "definition_line": 9105,
+          "definition_line": 8733,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10731,7 +10659,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4704A0",
-          "definition_line": 9135,
+          "definition_line": 8763,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10779,7 +10707,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_470670",
-          "definition_line": 9171,
+          "definition_line": 8799,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11055,7 +10983,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_472F40",
-          "definition_line": 2813,
+          "definition_line": 2506,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11067,7 +10995,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_472F70",
-          "definition_line": 2824,
+          "definition_line": 2517,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11079,7 +11007,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_472FA0",
-          "definition_line": 2830,
+          "definition_line": 2523,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11091,7 +11019,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_472FD0",
-          "definition_line": 2836,
+          "definition_line": 2529,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11103,7 +11031,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_473000",
-          "definition_line": 2842,
+          "definition_line": 2535,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11115,7 +11043,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_473030",
-          "definition_line": 2848,
+          "definition_line": 2541,
           "namespace": "cg::world::detail"
         }
       ]
@@ -11619,7 +11547,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_476680",
-          "definition_line": 2388,
+          "definition_line": 2081,
           "namespace": "cg::world::detail"
         }
       ]
@@ -14307,7 +14235,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_492250",
-          "definition_line": 4310,
+          "definition_line": 4003,
           "namespace": "cg::world::detail"
         }
       ]
@@ -18951,7 +18879,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "WindowElement_NoOp",
-          "definition_line": 436,
+          "definition_line": 428,
           "namespace": "cg::world::(匿名)"
         }
       ]
@@ -22587,7 +22515,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4D3170",
-          "definition_line": 8407,
+          "definition_line": 8035,
           "namespace": "cg::world::detail"
         }
       ]
@@ -22839,7 +22767,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4ED670",
-          "definition_line": 6089,
+          "definition_line": 5717,
           "namespace": "cg::world::detail"
         }
       ]
@@ -22959,13 +22887,13 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "RequestEmoteWithResult_4FA8E0",
-          "definition_line": 9207,
+          "definition_line": 8835,
           "namespace": "cg::world::detail"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_4FA8E0",
-          "definition_line": 9256,
+          "definition_line": 8884,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23133,7 +23061,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "ResetSceneUiState_504100",
-          "definition_line": 10402,
+          "definition_line": 10030,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23193,7 +23121,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_504A30",
-          "definition_line": 10383,
+          "definition_line": 10011,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23205,7 +23133,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_504A50",
-          "definition_line": 6106,
+          "definition_line": 5734,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23217,7 +23145,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_504B10",
-          "definition_line": 8518,
+          "definition_line": 8146,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23229,7 +23157,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_504B60",
-          "definition_line": 8534,
+          "definition_line": 8162,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23241,7 +23169,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_504F10",
-          "definition_line": 3362,
+          "definition_line": 3055,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23253,7 +23181,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_505040",
-          "definition_line": 3391,
+          "definition_line": 3084,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23265,7 +23193,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5050B0",
-          "definition_line": 3408,
+          "definition_line": 3101,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23277,7 +23205,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_505110",
-          "definition_line": 3424,
+          "definition_line": 3117,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23385,7 +23313,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "ResetLegacyMouseState_506870",
-          "definition_line": 366,
+          "definition_line": 382,
           "namespace": "cg::platform"
         }
       ]
@@ -23397,7 +23325,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "ResetLegacyMousePosition_506890",
-          "definition_line": 384,
+          "definition_line": 400,
           "namespace": "cg::platform"
         }
       ]
@@ -23409,7 +23337,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseLeftDown_506900",
-          "definition_line": 392,
+          "definition_line": 408,
           "namespace": "cg::platform"
         }
       ]
@@ -23421,7 +23349,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseLeftUp_5069E0",
-          "definition_line": 420,
+          "definition_line": 436,
           "namespace": "cg::platform"
         }
       ]
@@ -23433,7 +23361,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseLeftDoubleClick_506A90",
-          "definition_line": 441,
+          "definition_line": 457,
           "namespace": "cg::platform"
         }
       ]
@@ -23445,7 +23373,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseRightDown_506B50",
-          "definition_line": 463,
+          "definition_line": 479,
           "namespace": "cg::platform"
         }
       ]
@@ -23457,7 +23385,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseRightUp_506C40",
-          "definition_line": 491,
+          "definition_line": 507,
           "namespace": "cg::platform"
         }
       ]
@@ -23469,7 +23397,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "UpdateLegacyMouseRightDoubleClick_506CF0",
-          "definition_line": 512,
+          "definition_line": 528,
           "namespace": "cg::platform"
         }
       ]
@@ -23481,7 +23409,7 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbol": "AddLegacyMouseWheelDelta_506DB0",
-          "definition_line": 534,
+          "definition_line": 550,
           "namespace": "cg::platform"
         }
       ]
@@ -23727,7 +23655,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "HandleLoginResponse_508BC0",
-          "definition_line": 135,
+          "definition_line": 149,
           "namespace": "cg::login"
         }
       ]
@@ -23739,7 +23667,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "Sub_508C40",
-          "definition_line": 171,
+          "definition_line": 186,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23751,7 +23679,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "Sub_508C90",
-          "definition_line": 185,
+          "definition_line": 200,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23763,7 +23691,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "Sub_508CF0",
-          "definition_line": 207,
+          "definition_line": 223,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23817,7 +23745,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509090",
-          "definition_line": 6152,
+          "definition_line": 5780,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23829,7 +23757,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509100",
-          "definition_line": 6175,
+          "definition_line": 5803,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23841,7 +23769,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5093C0",
-          "definition_line": 5823,
+          "definition_line": 5451,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23853,7 +23781,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5093F0",
-          "definition_line": 6281,
+          "definition_line": 5909,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23865,7 +23793,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509550",
-          "definition_line": 6330,
+          "definition_line": 5958,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23877,7 +23805,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509650",
-          "definition_line": 3170,
+          "definition_line": 2863,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23889,7 +23817,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509BA0",
-          "definition_line": 3262,
+          "definition_line": 2955,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23901,7 +23829,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509E30",
-          "definition_line": 3332,
+          "definition_line": 3025,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23913,7 +23841,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_509EB0",
-          "definition_line": 3438,
+          "definition_line": 3131,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23925,7 +23853,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50A120",
-          "definition_line": 3505,
+          "definition_line": 3198,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23937,7 +23865,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50A300",
-          "definition_line": 4320,
+          "definition_line": 4013,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23949,7 +23877,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50A3E0",
-          "definition_line": 2438,
+          "definition_line": 2131,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23961,7 +23889,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50A6B0",
-          "definition_line": 4038,
+          "definition_line": 3731,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23973,7 +23901,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50AC20",
-          "definition_line": 4137,
+          "definition_line": 3830,
           "namespace": "cg::world::detail"
         }
       ]
@@ -23997,7 +23925,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50B0D0",
-          "definition_line": 4178,
+          "definition_line": 3871,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24009,7 +23937,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50B380",
-          "definition_line": 2542,
+          "definition_line": 2235,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24021,7 +23949,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50BCD0",
-          "definition_line": 2733,
+          "definition_line": 2426,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24033,7 +23961,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50BF20",
-          "definition_line": 3692,
+          "definition_line": 3385,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24045,7 +23973,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50BFA0",
-          "definition_line": 2854,
+          "definition_line": 2547,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24057,7 +23985,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50BFC0",
-          "definition_line": 2867,
+          "definition_line": 2560,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24069,7 +23997,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50BFD0",
-          "definition_line": 3743,
+          "definition_line": 3436,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24081,7 +24009,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C260",
-          "definition_line": 3769,
+          "definition_line": 3462,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24093,7 +24021,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C580",
-          "definition_line": 3552,
+          "definition_line": 3245,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24105,7 +24033,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C7A0",
-          "definition_line": 2885,
+          "definition_line": 2578,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24129,7 +24057,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C870",
-          "definition_line": 6942,
+          "definition_line": 6570,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24141,7 +24069,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C8D0",
-          "definition_line": 8397,
+          "definition_line": 8025,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24153,7 +24081,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C900",
-          "definition_line": 3837,
+          "definition_line": 3530,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24165,7 +24093,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50C940",
-          "definition_line": 2986,
+          "definition_line": 2679,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24177,7 +24105,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50CAE0",
-          "definition_line": 3040,
+          "definition_line": 2733,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24189,7 +24117,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50CE10",
-          "definition_line": 2904,
+          "definition_line": 2597,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24225,7 +24153,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50CF70",
-          "definition_line": 2876,
+          "definition_line": 2569,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24237,7 +24165,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50CF90",
-          "definition_line": 6129,
+          "definition_line": 5757,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24249,7 +24177,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50D000",
-          "definition_line": 3145,
+          "definition_line": 2838,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24261,7 +24189,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50D080",
-          "definition_line": 5834,
+          "definition_line": 5462,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24273,7 +24201,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50D120",
-          "definition_line": 5877,
+          "definition_line": 5505,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24297,7 +24225,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50D3C0",
-          "definition_line": 5955,
+          "definition_line": 5583,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24309,7 +24237,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50D500",
-          "definition_line": 6034,
+          "definition_line": 5662,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24405,7 +24333,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50E1A0",
-          "definition_line": 2927,
+          "definition_line": 2620,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24417,7 +24345,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50E210",
-          "definition_line": 2961,
+          "definition_line": 2654,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24597,7 +24525,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50E5B0",
-          "definition_line": 1317,
+          "definition_line": 1010,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24609,7 +24537,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50E5D0",
-          "definition_line": 1324,
+          "definition_line": 1017,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24633,7 +24561,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_50E650",
-          "definition_line": 2952,
+          "definition_line": 2645,
           "namespace": "cg::world::detail"
         }
       ]
@@ -24981,7 +24909,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_510150",
-          "definition_line": 3975,
+          "definition_line": 3668,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26301,7 +26229,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518580",
-          "definition_line": 4297,
+          "definition_line": 3990,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26313,7 +26241,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5185C0",
-          "definition_line": 4237,
+          "definition_line": 3930,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26325,7 +26253,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518600",
-          "definition_line": 3620,
+          "definition_line": 3313,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26337,7 +26265,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518660",
-          "definition_line": 3605,
+          "definition_line": 3298,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26349,7 +26277,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5186A0",
-          "definition_line": 1134,
+          "definition_line": 827,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26361,7 +26289,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518780",
-          "definition_line": 1166,
+          "definition_line": 859,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26373,7 +26301,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518870",
-          "definition_line": 1216,
+          "definition_line": 909,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26385,7 +26313,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518A40",
-          "definition_line": 1263,
+          "definition_line": 956,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26397,7 +26325,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518BE0",
-          "definition_line": 1204,
+          "definition_line": 897,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26409,7 +26337,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "InitializeAlbum_518C20",
-          "definition_line": 1098,
+          "definition_line": 796,
           "namespace": "cg::world"
         }
       ]
@@ -26421,7 +26349,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_518C60",
-          "definition_line": 8460,
+          "definition_line": 8088,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26649,7 +26577,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5196B0",
-          "definition_line": 3715,
+          "definition_line": 3408,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26661,7 +26589,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519770",
-          "definition_line": 3954,
+          "definition_line": 3647,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26673,7 +26601,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519840",
-          "definition_line": 4349,
+          "definition_line": 4042,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26685,7 +26613,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5198A0",
-          "definition_line": 4363,
+          "definition_line": 4056,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26697,7 +26625,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5198D0",
-          "definition_line": 4381,
+          "definition_line": 4074,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26709,7 +26637,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5198F0",
-          "definition_line": 4391,
+          "definition_line": 4084,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26721,7 +26649,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519920",
-          "definition_line": 4283,
+          "definition_line": 3976,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26733,7 +26661,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519950",
-          "definition_line": 3592,
+          "definition_line": 3285,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26745,7 +26673,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_5199A0",
-          "definition_line": 10218,
+          "definition_line": 9846,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26757,7 +26685,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519A80",
-          "definition_line": 9675,
+          "definition_line": 9303,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26769,7 +26697,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519CD0",
-          "definition_line": 9789,
+          "definition_line": 9417,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26781,7 +26709,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519D50",
-          "definition_line": 10035,
+          "definition_line": 9663,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26793,7 +26721,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519E50",
-          "definition_line": 9814,
+          "definition_line": 9442,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26805,7 +26733,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519EB0",
-          "definition_line": 6935,
+          "definition_line": 6563,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26817,7 +26745,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_519EC0",
-          "definition_line": 9833,
+          "definition_line": 9461,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26841,7 +26769,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A040",
-          "definition_line": 9839,
+          "definition_line": 9467,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26853,7 +26781,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A060",
-          "definition_line": 9850,
+          "definition_line": 9478,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26865,7 +26793,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A090",
-          "definition_line": 9728,
+          "definition_line": 9356,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26877,7 +26805,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A4B0",
-          "definition_line": 9781,
+          "definition_line": 9409,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26889,7 +26817,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A5A0",
-          "definition_line": 10051,
+          "definition_line": 9679,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26901,7 +26829,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A5B0",
-          "definition_line": 10146,
+          "definition_line": 9774,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26913,7 +26841,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A5E0",
-          "definition_line": 10059,
+          "definition_line": 9687,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26925,7 +26853,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A5F0",
-          "definition_line": 10066,
+          "definition_line": 9694,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26937,7 +26865,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A600",
-          "definition_line": 10072,
+          "definition_line": 9700,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26949,7 +26877,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A610",
-          "definition_line": 10078,
+          "definition_line": 9706,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26961,7 +26889,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A620",
-          "definition_line": 10084,
+          "definition_line": 9712,
           "namespace": "cg::world::detail"
         }
       ]
@@ -26973,7 +26901,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A630",
-          "definition_line": 10090,
+          "definition_line": 9718,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27033,7 +26961,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51A840",
-          "definition_line": 9860,
+          "definition_line": 9488,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27045,7 +26973,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B080",
-          "definition_line": 8821,
+          "definition_line": 8449,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27057,7 +26985,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B0F0",
-          "definition_line": 8813,
+          "definition_line": 8441,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27069,7 +26997,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "Sub_51B110",
-          "definition_line": 61,
+          "definition_line": 60,
           "namespace": "cg::login"
         }
       ]
@@ -27105,7 +27033,7 @@
         {
           "path": "src/LoginRequest.cpp",
           "symbol": "Sub_51B3B0",
-          "definition_line": 52,
+          "definition_line": 50,
           "namespace": "cg::login"
         }
       ]
@@ -27117,7 +27045,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B3E0",
-          "definition_line": 9263,
+          "definition_line": 8891,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27129,7 +27057,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B530",
-          "definition_line": 3801,
+          "definition_line": 3494,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27141,7 +27069,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B5F0",
-          "definition_line": 3821,
+          "definition_line": 3514,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27153,7 +27081,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51B630",
-          "definition_line": 3851,
+          "definition_line": 3544,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27261,7 +27189,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BDB0",
-          "definition_line": 10096,
+          "definition_line": 9724,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27273,7 +27201,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BDC0",
-          "definition_line": 10102,
+          "definition_line": 9730,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27285,7 +27213,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BDD0",
-          "definition_line": 10157,
+          "definition_line": 9785,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27297,7 +27225,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BDF0",
-          "definition_line": 10165,
+          "definition_line": 9793,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27309,7 +27237,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BE10",
-          "definition_line": 10112,
+          "definition_line": 9740,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27321,7 +27249,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BE20",
-          "definition_line": 10118,
+          "definition_line": 9746,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27333,7 +27261,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BE30",
-          "definition_line": 10124,
+          "definition_line": 9752,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27345,7 +27273,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BE40",
-          "definition_line": 10134,
+          "definition_line": 9762,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27357,7 +27285,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BE50",
-          "definition_line": 10185,
+          "definition_line": 9813,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27369,7 +27297,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BEC0",
-          "definition_line": 10176,
+          "definition_line": 9804,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27381,7 +27309,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BEE0",
-          "definition_line": 10140,
+          "definition_line": 9768,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27393,7 +27321,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51BEF0",
-          "definition_line": 580,
+          "definition_line": 572,
           "namespace": "cg::world"
         }
       ]
@@ -27429,7 +27357,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51C0D0",
-          "definition_line": 9989,
+          "definition_line": 9617,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27441,7 +27369,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "IsValidPetIndex_51C410",
-          "definition_line": 656,
+          "definition_line": 648,
           "namespace": "cg::world"
         }
       ]
@@ -27453,7 +27381,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "DrawNormalScene_51C7D0",
-          "definition_line": 6366,
+          "definition_line": 5994,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27465,7 +27393,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51D5B0",
-          "definition_line": 7372,
+          "definition_line": 7000,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27477,7 +27405,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51D640",
-          "definition_line": 6841,
+          "definition_line": 6469,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27489,7 +27417,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51D6F0",
-          "definition_line": 6879,
+          "definition_line": 6507,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27501,7 +27429,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51D750",
-          "definition_line": 6866,
+          "definition_line": 6494,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27513,7 +27441,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51D790",
-          "definition_line": 10435,
+          "definition_line": 10063,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27525,7 +27453,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51E0D0",
-          "definition_line": 10727,
+          "definition_line": 10355,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27537,7 +27465,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51EC10",
-          "definition_line": 11169,
+          "definition_line": 10797,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27549,7 +27477,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51EF80",
-          "definition_line": 11326,
+          "definition_line": 10954,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27561,7 +27489,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51F610",
-          "definition_line": 11502,
+          "definition_line": 11130,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27573,7 +27501,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51F860",
-          "definition_line": 11649,
+          "definition_line": 11277,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27585,7 +27513,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51FA70",
-          "definition_line": 11655,
+          "definition_line": 11283,
           "namespace": "cg::world::detail"
         }
       ]
@@ -27597,7 +27525,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_51FC90",
-          "definition_line": 11661,
+          "definition_line": 11289,
           "namespace": "cg::world::detail"
         }
       ]
@@ -28407,7 +28335,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "Sub_52CD30",
-          "definition_line": 518,
+          "definition_line": 507,
           "namespace": "cg::platform"
         }
       ]
@@ -28641,7 +28569,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_52E180",
-          "definition_line": 3921,
+          "definition_line": 3614,
           "namespace": "cg::world::detail"
         }
       ]
@@ -28653,7 +28581,7 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbol": "Sub_52E1D0",
-          "definition_line": 3939,
+          "definition_line": 3632,
           "namespace": "cg::world::detail"
         }
       ]
@@ -29193,7 +29121,7 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbol": "SeedRandom_53B4BF",
-          "definition_line": 607,
+          "definition_line": 599,
           "namespace": "cg::platform"
         }
       ]
@@ -29204,8 +29132,8 @@
       "definitions": [
         {
           "path": "src/platform/MainLoopSupport.cpp",
-          "symbol": "NextRandom_53B4C9",
-          "definition_line": 613,
+          "symbol": "Rand16",
+          "definition_line": 606,
           "namespace": "cg::platform"
         }
       ]
@@ -29828,7 +29756,7 @@
       "definition": {
         "path": "src/world/SceneState.cpp",
         "symbol": "ReadPlayerObjectIndex_FDA880",
-        "definition_line": 574,
+        "definition_line": 566,
         "namespace": "cg::world"
       }
     }
@@ -29860,8 +29788,14 @@
     "F:00003C50",
     "F:00003E50",
     "F:00004120",
+    "F:00004130",
+    "F:00004150",
     "F:00004160",
+    "F:00004170",
+    "F:00004190",
     "F:000041A0",
+    "F:000041B0",
+    "F:000041D0",
     "F:00004D00",
     "F:00024620",
     "F:00038230",

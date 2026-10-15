@@ -89,3 +89,7 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 ## 玩家快照当前直接定义（LCI16，2026-10-15）
 
 [LCI16](cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct)覆盖本文件两个快照表项的阶段提供者：C751C0／C751B0在中央原位置直接定义LegacyCryptInt，编译器承接默认构造及逆序析构；旧Init／构析叶与Startup仅保历史。玩家坐标之后先X后Y、后续世界状态之前的相对序及每槽一次RNG保持，三字段／value／赋值消费者继续使用各自同一对象。本步只静态核对，不提升原整表／异常／SDK和运行门禁。
+
+## 其余坐标／场景标量直接定义（LCI17，2026-10-15）
+
+[LCI17](cg2d_cryptint_class_spec.md#cryptint-other-direct-globals)将其余15个世界标量／12组启动改为中央原位置直接定义。场景值前后的资源初始化、玩家X→Y→快照X→Y→其余世界状态与波纹门禁顺序保持，各值一次RNG；三组双值退出仍逆序。玩家／宠物复合记录保持现有独立寿命；旧标量CRT／Startup和构析叶仅保历史。当前直接位置及语义／登记同步，不提升编译、整表／异常或运行门禁。

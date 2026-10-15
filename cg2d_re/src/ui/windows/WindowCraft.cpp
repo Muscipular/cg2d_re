@@ -780,8 +780,8 @@ login::YobiAction* WindowCraft_OpenRecipe(
     gCraftRecipeIndexD2D638 = recipe;
     gSelectionModeD2D650 = 0;
     gCraftRecipeIdD2E440 = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -801,8 +801,8 @@ login::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const std:
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -825,8 +825,8 @@ login::YobiAction* WindowCraft_OpenDecoration(
     if (kind == 1) {
         gSelectionModeD2D650 = 15;
     }
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -845,8 +845,8 @@ login::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const std:
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -866,8 +866,8 @@ login::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const std
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();

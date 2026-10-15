@@ -135,9 +135,9 @@ std::int32_t WindowEmote_Select(const std::int32_t index)
     WindowEmote_ClearSelection();
     gEmoteSelectionCF4FC4[index] = 1;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     return WindowProfile_SaveOrigin(x, y);
 }
 

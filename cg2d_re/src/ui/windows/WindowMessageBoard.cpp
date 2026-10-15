@@ -224,9 +224,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::BorrowPlayerYStorage()->value();
+            world::detail::gPlayerY.value();
         const std::int32_t x =
-            world::detail::BorrowPlayerXStorage()->value();
+            world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
@@ -250,9 +250,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
@@ -281,9 +281,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             escaped.clear();
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(WindowMessageBoard_Close());

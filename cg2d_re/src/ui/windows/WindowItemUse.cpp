@@ -141,8 +141,8 @@ static login::YobiAction* WindowItemUse_OpenTextTargets()
 // 原函数：0x004E4860。
 static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
     const char* const ownName = world::detail::BorrowPlayerDisplayText(1);
@@ -198,8 +198,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
-        const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-        const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+        const std::int32_t y = world::detail::gPlayerY.value();
+        const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
@@ -256,8 +256,8 @@ static login::YobiAction* WindowItemUse_OpenAttributeTargets()
 // 原函数：0x004E4020。
 static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;

@@ -773,9 +773,9 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
         ownName->text = std::format(L"{:<16}", cg::text::FromGbkWide(playerName));
         const std::int32_t y =
-            world::detail::BorrowPlayerYStorage()->value();
+            world::detail::gPlayerY.value();
         const std::int32_t x =
-            world::detail::BorrowPlayerXStorage()->value();
+            world::detail::gPlayerX.value();
         static_cast<void>(WindowProfile_SaveOrigin(x, y));
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {

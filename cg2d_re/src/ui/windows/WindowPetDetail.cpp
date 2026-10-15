@@ -453,8 +453,8 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-                const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+                const std::int32_t y = world::detail::gPlayerY.value();
+                const std::int32_t x = world::detail::gPlayerX.value();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));

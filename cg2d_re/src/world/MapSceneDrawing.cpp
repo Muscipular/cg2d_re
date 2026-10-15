@@ -202,8 +202,8 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
     gValue55DA8C = previousCount + 1u;
-    if (((*BorrowPlayerXStorage()) != (*BorrowValue9EE8D0Storage()))
-        || ((*BorrowPlayerYStorage()) != (*BorrowValue9EE8E0Storage()))
+    if ((gPlayerX != gValue9EE8D0)
+        || (gPlayerY != gValue9EE8E0)
         || gValue9EE910 != 0) {
         const std::int32_t loadYEnd = gMapYEnd;
         const std::int32_t loadXEnd = gMapXEnd;
@@ -285,41 +285,41 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
 
     Sub_46C2F0();
     static_cast<void>(Sub_46C1C0());
-    const std::int32_t playerX = BorrowPlayerXStorage()->value();
+    const std::int32_t playerX = gPlayerX.value();
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        BorrowValue9EE8D0Storage()->readCount = readCount;
-        BorrowValue9EE8D0Storage()->encoded = encoded;
-        BorrowValue9EE8D0Storage()->mask = mask;
+        gValue9EE8D0.readCount = readCount;
+        gValue9EE8D0.encoded = encoded;
+        gValue9EE8D0.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        BorrowValue9EE8D0Storage()->mask = mask;
-        BorrowValue9EE8D0Storage()->encoded = encoded;
-        BorrowValue9EE8D0Storage()->readCount = readCount;
+        gValue9EE8D0.mask = mask;
+        gValue9EE8D0.encoded = encoded;
+        gValue9EE8D0.readCount = readCount;
     }
     temporary.reset();
-    const std::int32_t playerY = BorrowPlayerYStorage()->value();
+    const std::int32_t playerY = gPlayerY.value();
     temporary.emplace(static_cast<std::int32_t>(playerY));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        BorrowValue9EE8E0Storage()->readCount = readCount;
-        BorrowValue9EE8E0Storage()->encoded = encoded;
-        BorrowValue9EE8E0Storage()->mask = mask;
+        gValue9EE8E0.readCount = readCount;
+        gValue9EE8E0.encoded = encoded;
+        gValue9EE8E0.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        BorrowValue9EE8E0Storage()->mask = mask;
-        BorrowValue9EE8E0Storage()->encoded = encoded;
-        BorrowValue9EE8E0Storage()->readCount = readCount;
+        gValue9EE8E0.mask = mask;
+        gValue9EE8E0.encoded = encoded;
+        gValue9EE8E0.readCount = readCount;
     }
     temporary.reset();
     audio::Sub_52CD60();

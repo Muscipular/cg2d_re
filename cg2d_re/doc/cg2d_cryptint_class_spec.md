@@ -101,32 +101,32 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-原24个相关CRT包装中，首项按LCI07由两个LegacyCryptInt全局定义承接，玩家快照两项按LCI16直接定义，另21组沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
-首项两值与玩家X／Y快照直接默认构造、退出逆序析构；其余组同一optional为空时不构造值，原位置emplace／reset，16B值布局保持。
-四定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
+原24个相关CRT包装中，18组共22个标量按LCI07／LCI16／LCI17直接定义，另6组复合对象沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
+22个标量直接默认构造、退出逆序析构；复合对象仍在原位置构造／销毁，16B值布局保持。
+直接定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
 五个原初始化汇总桥已退休；LCI06将成员／数组完成前缀清理由C++与STL承接，原地址保留。
 
 | 原入口 | 当前原生承接 | 构造 / 清理正文 |
 |---|---|---|
 | 0x00401C10 | `gStartupValue5939C8` / `gStartupValue5939D8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；编译器生成有序初始化及逆序退出 |
-| 0x00404120 | `cg::platform::ProtectionChecksum1Startup` | `ConstructProtectionChecksum1_404130` / `DestroyProtectionChecksum1_404150` |
-| 0x00404160 | `cg::platform::ProtectionChecksum2Startup` | `ConstructProtectionChecksum2_404170` / `DestroyProtectionChecksum2_404190` |
-| 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
-| 0x00456FD0 | `cg::world::SceneTransitionValueStartup` | `ConstructSceneTransitionValue` / `DestroySceneTransitionValue` |
-| 0x00467B90 | `cg::world::PlayerCoordinatesStartup` | `ConstructLegacyPlayerCoordinates_467BA0` / `DestroyLegacyPlayerCoordinates_467BD0` |
+| 0x00404120 | `cg::platform::gProtectionChecksum1`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原404130／404150由全局寿命承接 |
+| 0x00404160 | `cg::platform::gProtectionChecksum2`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原404170／404190由全局寿命承接 |
+| 0x004041A0 | `cg::platform::gProtectionProcessState`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原4041B0／4041D0由全局寿命承接 |
+| 0x00456FD0 | `cg::world::detail::gSceneTransitionValue`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原456FE0／457000由全局寿命承接 |
+| 0x00467B90 | `cg::world::detail::gPlayerX／gPlayerY`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467BA0／467BD0由全局寿命承接 |
 | 0x00467BF0 | `cg::world::detail::gPlayerSnapshotX`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467C00／467C20由全局寿命承接 |
 | 0x00467C30 | `cg::world::detail::gPlayerSnapshotY`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467C40／467C60由全局寿命承接 |
-| 0x00467C70 | `cg::world::WorldCoordinateState9EE8D0Startup` | `ConstructLegacyWorldCoordinateState_467C80` / `DestroyLegacyWorldCoordinateState_467CA0` |
-| 0x00467CB0 | `cg::world::WorldCoordinateState9EE8E0Startup` | `ConstructLegacyWorldCoordinateState_467CC0` / `DestroyLegacyWorldCoordinateState_467CE0` |
-| 0x00467CF0 | `cg::world::WorldCoordinatePairStartup` | `ConstructLegacyWorldCoordinatePair_467D00` / `DestroyLegacyWorldCoordinatePair_467D30` |
-| 0x00467D50 | `cg::world::WorldMoveTargetsStartup` | `ConstructLegacyWorldMoveTargets_467D60` / `DestroyLegacyWorldMoveTargets_467D90` |
-| 0x00467DB0 | `cg::world::WorldMoveStateC821E8Startup` | `ConstructLegacyWorldMoveState_467DC0` / `DestroyLegacyWorldMoveState_467DE0` |
-| 0x00467DF0 | `cg::world::WorldMoveState9E03C0Startup` | `ConstructLegacyWorldMoveState_467E00` / `DestroyLegacyWorldMoveState_467E20` |
-| 0x00467E30 | `cg::world::WorldMoveState9FB918Startup` | `ConstructLegacyWorldMoveState_467E40` / `DestroyLegacyWorldMoveState_467E60` |
-| 0x00467E70 | `cg::world::WorldMoveStateAF0FE8Startup` | `ConstructLegacyWorldMoveState_467E80` / `DestroyLegacyWorldMoveState_467EA0` |
-| 0x00467EB0 | `cg::world::WorldMoveStateC821D8Startup` | `ConstructLegacyWorldMoveState_467EC0` / `DestroyLegacyWorldMoveState_467EE0` |
-| 0x00467EF0 | `cg::world::RippleGateStartup` | `ConstructLegacyRippleGate_467F00` / `DestroyLegacyRippleGate_467F20` |
+| 0x00467C70 | `cg::world::detail::gValue9EE8D0`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467C80／467CA0由全局寿命承接 |
+| 0x00467CB0 | `cg::world::detail::gValue9EE8E0`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467CC0／467CE0由全局寿命承接 |
+| 0x00467CF0 | `cg::world::detail::gValueC27FF8／gValueC27FE8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467D00／467D30由全局寿命承接 |
+| 0x00467D50 | `cg::world::detail::gMoveTargetX9A7F88／gMoveTargetY9A7F98`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467D60／467D90由全局寿命承接 |
+| 0x00467DB0 | `cg::world::detail::gValueC821E8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467DC0／467DE0由全局寿命承接 |
+| 0x00467DF0 | `cg::world::detail::gValue9E03C0`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467E00／467E20由全局寿命承接 |
+| 0x00467E30 | `cg::world::detail::gValue9FB918`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467E40／467E60由全局寿命承接 |
+| 0x00467E70 | `cg::world::detail::gValueAF0FE8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467E80／467EA0由全局寿命承接 |
+| 0x00467EB0 | `cg::world::detail::gValueC821D8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467EC0／467EE0由全局寿命承接 |
+| 0x00467EF0 | `cg::world::detail::gRippleGate`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467F00／467F20由全局寿命承接 |
 | 0x004883F0 | `cg::ui::FirstItemSelectorStartup` | `ConstructLegacyFirstItemSelector_488400` / `ReleaseLegacyFirstItemSelectorAtExit_488420` |
 | 0x004998F0 | `cg::ui::SecondItemSelectorStartup` | `ConstructLegacySecondItemSelector_499900` / `ReleaseLegacySecondItemSelectorAtExit_499920` |
 | 0x004CD240 | `cg::ui::StallBrowsePetValuesStartup` | `ConstructStallBrowsePetValues` / `DestroyStallBrowsePetValues` |
@@ -470,3 +470,22 @@ UTF-8无BOM／LF、删除范围、无活动引用、三数组正文、原地址�
 ### LCI16静态结果
 
 两直接定义已落在原中央位置，30处业务访问同步；两Borrow／optional、两Startup类型与四构析叶已删除。五文件精确变换、10个业务函数访问投影和1039个保留函数完整正文静态核对通过，构造先X后Y、退出先Y后X及每槽一次RNG保持。271项直接源码行号与函数表当前位置同步，六条语义及四条新增原生承接处置更新；原3680身份／名称、九空方法状态和其它验收门禁保持。UTF-8无BOM／LF、JSON与差异通过，台账-Check仍仅两份旧键盘历史附件缺失，未写派生文件，不计全量台账通过；未编译、测试或运行。
+
+<a id="cryptint-other-direct-globals"></a>
+## 其余同类标量直接定义（LCI17，2026-10-15）
+
+用户要求其它类似存储一并处理。本步覆盖已核仅启动构造／退出销毁的18个LegacyCryptInt标量（15组）：三个防护值；场景共享值；玩家X／Y；9EE8D0／9EE8E0；C27FF8／C27FE8；移动目标X／Y；C821E8、9E03C0、9FB918、AF0FE8、C821D8；波纹门禁。源码中各Borrow只有一处emplace和一处reset，均由对应启动拥有者调用，无运行期重建。
+
+在LegacyMouse.cpp原各组位置直接定义，防护值归cg::platform、世界值归cg::world::detail，既有内部依赖头声明extern；跨场景和窗口消费者使用同一对象。保持组内原构造序及全局逆序析构，保持与现有快照、世界表、图形容器等邻接初始化的相对序；每标量默认构造仍一次共享RNG。地址未证业务含义的值保留地址名，不猜新语义。去18个Borrow／optional、15个Startup类型及其构析／叶包装。ReadRippleGateOnce还被网络、渲染和工作结果窗口共用，保留读取接口，正文直接读取唯一全局对象，不将内部存储声明扩散到这些模块。
+
+保留每处value、三字段取样／发布、整数赋值、同类复制及算术次序；不改LegacyCryptInt实现，不把可复用局部optional直接默认构造。鼠标、世界表和宠物等复合对象另按实际类型与额外初始化核查，选择器的预览发布和私有记录不因同名包装而自动套用本项。原45个入口身份／地址保留，以实际全局构析承接，不标范围排除；同步当前定位／语义／登记与唯一进度。
+
+本步沿用户最新扩大范围和既有工程委托实施，仅静态核对及文本汇总，不编译、测试、运行、计算摘要、引依赖或委派，完成后精确提交，排除其他会话既有进度。
+
+### LCI17源码与静态结果
+
+18个标量已在原中央位置直接定义，内部依赖头与场景／窗口调用同步；本批38个源／头文件、403处访问表达式（含三个sizeof断言）精确变换，18个Borrow／optional、15个Startup类型及78个相关函数已退休。ReadRippleGateOnce保留接口，正文直接读同一波纹门禁；局部可复用临时optional和复合记录拥有者未改。
+
+当前22个中央标量定义的原声明／构造顺序静态核对保持，LegacyCryptInt实现全文不变，默认构造每值一次RNG。118个访问投影函数与1647个保留函数正文已核，另外以整文件精确重放覆盖属性函数等辅助扫描器未单列的部分；不以简化解析器代替编译。45个原入口仍保原身份／名称，其中30行由正文改为原生承接；303项直接定位同步，六个原显式函数退出直接定义集合。相关过期位置及既有53B4C9提供者名称指向当前Rand16，数值源码未改。51个本组／相邻快照记录的来源、当前邻接或旧调用／存储历史归属同步，新增24条原生承接处置；其它语义和验收门禁保持。
+
+UTF-8无BOM／LF、JSON、源码／原地址与Git差异核对通过。台账-Check仍仅两份既有旧键盘历史附件缺失，未写派生文件，不计全量台账通过；本轮不编译、测试或运行。完成后精确提交，排除其他会话既有进度。证据见doc/cg2d_cryptint_direct_globals_evidence.json。

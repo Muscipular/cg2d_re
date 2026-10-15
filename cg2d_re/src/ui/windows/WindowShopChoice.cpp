@@ -177,9 +177,9 @@ static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 
@@ -323,9 +323,9 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }

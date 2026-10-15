@@ -325,7 +325,9 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
+        "doc/cg2d_cryptint_direct_globals_evidence.json"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1366,7 +1368,9 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
+        "doc/cg2d_cryptint_direct_globals_evidence.json"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -74889,7 +74893,9 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
+        "doc/cg2d_cryptint_direct_globals_evidence.json"
       ]
     },
     {
@@ -74967,7 +74973,9 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
+        "doc/cg2d_cryptint_direct_globals_evidence.json"
       ]
     },
     {
@@ -79935,7 +79943,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79944,7 +79953,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79953,7 +79963,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79962,7 +79973,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79971,7 +79983,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79980,7 +79993,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79989,7 +80003,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -79998,7 +80013,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80007,7 +80023,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80025,7 +80042,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80034,7 +80052,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80063,7 +80082,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80072,7 +80092,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80081,7 +80102,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80090,7 +80112,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80099,7 +80122,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80108,7 +80132,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80117,7 +80142,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80126,7 +80152,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80135,7 +80162,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -80144,7 +80172,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     },
     {
@@ -106477,6 +106506,198 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
+      ]
+    },
+    {
+      "inventory_id": "F:00056FE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00057000",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067BA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067BD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067C80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067CA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067CC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067CE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067D00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067D30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067D60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067D90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067DC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067DE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067EA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067EC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067EE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067F00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
+      ]
+    },
+    {
+      "inventory_id": "F:00067F20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals"
       ]
     }
   ],
@@ -194112,6 +194333,70 @@
     "construction_rng_calls": 2,
     "startup_order_kept": true,
     "original_function_identity_kept": true,
+    "only_static_source_checked": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "full_acceptance_unchanged": true
+  },
+  "cryptint_other_direct_globals_lci17": {
+    "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
+    "evidence": "doc/cg2d_cryptint_direct_globals_evidence.json",
+    "inventory_ids": [
+      "F:00004120",
+      "F:00004130",
+      "F:00004150",
+      "F:00004160",
+      "F:00004170",
+      "F:00004190",
+      "F:000041A0",
+      "F:000041B0",
+      "F:000041D0",
+      "F:00056FD0",
+      "F:00056FE0",
+      "F:00057000",
+      "F:00067B90",
+      "F:00067BA0",
+      "F:00067BD0",
+      "F:00067C70",
+      "F:00067C80",
+      "F:00067CA0",
+      "F:00067CB0",
+      "F:00067CC0",
+      "F:00067CE0",
+      "F:00067CF0",
+      "F:00067D00",
+      "F:00067D30",
+      "F:00067D50",
+      "F:00067D60",
+      "F:00067D90",
+      "F:00067DB0",
+      "F:00067DC0",
+      "F:00067DE0",
+      "F:00067DF0",
+      "F:00067E00",
+      "F:00067E20",
+      "F:00067E30",
+      "F:00067E40",
+      "F:00067E60",
+      "F:00067E70",
+      "F:00067E80",
+      "F:00067EA0",
+      "F:00067EB0",
+      "F:00067EC0",
+      "F:00067EE0",
+      "F:00067EF0",
+      "F:00067F00",
+      "F:00067F20"
+    ],
+    "source": "src/platform/LegacyMouse.cpp",
+    "global_count": 18,
+    "startup_group_count": 15,
+    "access_replacements": 403,
+    "deleted_functions": 78,
+    "deleted_startup_types": 15,
+    "default_constructor_rng_calls": 18,
+    "original_function_identity_kept": true,
+    "startup_order_kept": true,
     "only_static_source_checked": true,
     "build_verified": false,
     "runtime_verified": false,

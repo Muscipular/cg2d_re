@@ -34,19 +34,23 @@ std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
 namespace {
 
-// 原CRT553004..553010：两值直接构造后接三个保护拥有者，保持五次RNG序。
+// 原CRT553004..553010：两值直接构造后接三个防护值，保持五次RNG序。
 // 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
 LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
 LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
 
-// 原函数：0x00404120；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::ProtectionChecksum1Startup gProtectionChecksum1Startup;
+} // namespace
 
-// 原函数：0x00404160；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::ProtectionChecksum2Startup gProtectionChecksum2Startup;
+// 原0x00404120／0x00404130／0x00404150：原中央位置直接构造，MSVC承接逆序析构。
+LegacyCryptInt gProtectionChecksum1{}; // 原全局：0x00594070。
 
-// 原函数：0x004041A0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::ProtectionProcessStateStartup gProtectionProcessStateStartup;
+// 原0x00404160／0x00404170／0x00404190：原中央位置直接构造，MSVC承接逆序析构。
+LegacyCryptInt gProtectionChecksum2{}; // 原全局：0x00594080。
+
+// 原0x004041A0／0x004041B0／0x004041D0：原中央位置直接构造，MSVC承接逆序析构。
+LegacyCryptInt gProtectionProcessState{}; // 原全局：0x0059E548。
+
+namespace {
 
 struct WorldObjectsStaticInitializer final {
     WorldObjectsStaticInitializer()
@@ -180,9 +184,18 @@ struct LegacyPrimaryEmptyExitStaticInitializer {
 
 const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticInitializer;
 
-// 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
-// 原函数：0x00456FD0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::SceneTransitionValueStartup gSceneTransitionValueStartup;
+} // namespace
+} // namespace cg::platform
+
+namespace cg::world::detail {
+
+// 原0x00456FD0／0x00456FE0／0x00457000：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
+
+} // namespace cg::world::detail
+
+namespace cg::platform {
+namespace {
 
 // AIS01原553058/55305C：场景值后、动画共享值前；各项仍即时登记。
 struct GraphicInfoContainersStartup final {
@@ -207,53 +220,56 @@ struct AnimationSharedValueStaticInitializer {
 
 const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
 
-// 原函数：0x00467B90；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::PlayerCoordinatesStartup gPlayerCoordinatesStartup;
-
 } // namespace
 } // namespace cg::platform
 
 namespace cg::world::detail {
+
+// 原0x00467B90／0x00467BA0／0x00467BD0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gPlayerX{}; // 原全局：0x009EE8A8。
+platform::LegacyCryptInt gPlayerY{}; // 原全局：0x009EE8C0。
 
 // 原0x00467BF0／0x00467C00／0x00467C20：中央原位置直接构造，MSVC承接退出析构。
 platform::LegacyCryptInt gPlayerSnapshotX{}; // 原全局：0x00C751C0。
 // 原0x00467C30／0x00467C40／0x00467C60：紧接X构造，退出先Y后X；各构造一次RNG。
 platform::LegacyCryptInt gPlayerSnapshotY{}; // 原全局：0x00C751B0。
 
+// 原0x00467C70／0x00467C80／0x00467CA0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValue9EE8D0{}; // 原全局：0x009EE8D0。
+
+// 原0x00467CB0／0x00467CC0／0x00467CE0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValue9EE8E0{}; // 原全局：0x009EE8E0。
+
+// 原0x00467CF0／0x00467D00／0x00467D30：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValueC27FF8{}; // 原全局：0x00C27FF8。
+platform::LegacyCryptInt gValueC27FE8{}; // 原全局：0x00C27FE8。
+
+// 原0x00467D50／0x00467D60／0x00467D90：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gMoveTargetX9A7F88{}; // 原全局：0x009A7F88。
+platform::LegacyCryptInt gMoveTargetY9A7F98{}; // 原全局：0x009A7F98。
+
+// 原0x00467DB0／0x00467DC0／0x00467DE0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValueC821E8{}; // 原全局：0x00C821E8。
+
+// 原0x00467DF0／0x00467E00／0x00467E20：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValue9E03C0{}; // 原全局：0x009E03C0。
+
+// 原0x00467E30／0x00467E40／0x00467E60：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValue9FB918{}; // 原全局：0x009FB918。
+
+// 原0x00467E70／0x00467E80／0x00467EA0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValueAF0FE8{}; // 原全局：0x00AF0FE8。
+
+// 原0x00467EB0／0x00467EC0／0x00467EE0：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gValueC821D8{}; // 原全局：0x00C821D8。
+
+// 原0x00467EF0／0x00467F00／0x00467F20：原中央位置直接构造，MSVC承接逆序析构。
+platform::LegacyCryptInt gRippleGate{}; // 原全局：0x009A7FA8。
+
 } // namespace cg::world::detail
 
 namespace cg::platform {
 namespace {
-
-// 原函数：0x00467C70；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldCoordinateState9EE8D0Startup gWorldCoordinateState9EE8D0Startup;
-
-// 原函数：0x00467CB0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldCoordinateState9EE8E0Startup gWorldCoordinateState9EE8E0Startup;
-
-// 原函数：0x00467CF0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldCoordinatePairStartup gWorldCoordinatePairStartup;
-
-// 原函数：0x00467D50；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveTargetsStartup gWorldMoveTargetsStartup;
-
-// 原函数：0x00467DB0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveStateC821E8Startup gWorldMoveStateC821E8Startup;
-
-// 原函数：0x00467DF0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveState9E03C0Startup gWorldMoveState9E03C0Startup;
-
-// 原函数：0x00467E30；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveState9FB918Startup gWorldMoveState9FB918Startup;
-
-// 原函数：0x00467E70；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveStateAF0FE8Startup gWorldMoveStateAF0FE8Startup;
-
-// 原函数：0x00467EB0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::WorldMoveStateC821D8Startup gWorldMoveStateC821D8Startup;
-
-// 原函数：0x00467EF0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::RippleGateStartup gRippleGateStartup;
 
 // 原CRT 553098紧接553094 Ripple；不增加RNG调用或析构步骤。
 struct WindowNumberSpacingStaticInitializer {

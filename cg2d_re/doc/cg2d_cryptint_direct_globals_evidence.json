@@ -1,0 +1,903 @@
+{
+  "scope": "LCI17仅源码静态迁移证据，不代编译或运行。",
+  "source_files": [
+    "include/cg/world/SceneState.hpp",
+    "src/LoginRequest.cpp",
+    "src/YobiRuntime.cpp",
+    "src/platform/LegacyMouse.cpp",
+    "src/platform/MainLoopDependencies.hpp",
+    "src/platform/MainLoopSupport.cpp",
+    "src/ui/WindowRuntime.cpp",
+    "src/ui/windows/WindowAppearance.cpp",
+    "src/ui/windows/WindowBank.cpp",
+    "src/ui/windows/WindowCraft.cpp",
+    "src/ui/windows/WindowCrystalExchangeShop.cpp",
+    "src/ui/windows/WindowCrystalShop.cpp",
+    "src/ui/windows/WindowCrystalTrade.cpp",
+    "src/ui/windows/WindowDialog.cpp",
+    "src/ui/windows/WindowEmote.cpp",
+    "src/ui/windows/WindowGather.cpp",
+    "src/ui/windows/WindowInventory.cpp",
+    "src/ui/windows/WindowItemUse.cpp",
+    "src/ui/windows/WindowMessageBoard.cpp",
+    "src/ui/windows/WindowMiniMail.cpp",
+    "src/ui/windows/WindowMiniMap.cpp",
+    "src/ui/windows/WindowPetAttributes.cpp",
+    "src/ui/windows/WindowPetDetail.cpp",
+    "src/ui/windows/WindowPetSkillChoice.cpp",
+    "src/ui/windows/WindowPetSkills.cpp",
+    "src/ui/windows/WindowProfile.cpp",
+    "src/ui/windows/WindowProfileCategory.cpp",
+    "src/ui/windows/WindowProfileSearch.cpp",
+    "src/ui/windows/WindowSettings.cpp",
+    "src/ui/windows/WindowShop.cpp",
+    "src/ui/windows/WindowShopChoice.cpp",
+    "src/ui/windows/WindowSkill.cpp",
+    "src/ui/windows/WindowTextList.cpp",
+    "src/ui/windows/WindowTrade.cpp",
+    "src/ui/windows/WindowTradeTarget.cpp",
+    "src/world/MapSceneDrawing.cpp",
+    "src/world/SceneState.cpp",
+    "src/world/WorldUpdateDependencies.hpp"
+  ],
+  "deleted_functions": [
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9A7F98Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldCoordinateState_467CE0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveState_467EE0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyRippleGate_467F20"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValueAF0FE8Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldCoordinateState_467CA0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyRippleGate_467F00"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowPlayerYStorage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9E03C0Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue73ECD0Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyPlayerCoordinates_467BD0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9FB918Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveState_467E60"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldCoordinatePair_467D30"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyPlayerCoordinates_467BA0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveState_467E20"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveState_467EA0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveState_467DC0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValueC27FE8Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveState_467E80"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveTargets_467D60"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowRippleGateStorage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveState_467E00"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructSceneTransitionValue"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9EE8D0Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroySceneTransitionValue"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldCoordinatePair_467D00"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9EE8E0Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValueC821D8Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveTargets_467D90"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValueC821E8Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldCoordinateState_467C80"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveState_467E40"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValue9A7F88Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowPlayerXStorage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "BorrowValueC27FF8Storage"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "DestroyLegacyWorldMoveState_467DE0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldMoveState_467EC0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "ConstructLegacyWorldCoordinateState_467CC0"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "SceneTransitionValueStartup::SceneTransitionValueStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "SceneTransitionValueStartup::~SceneTransitionValueStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "PlayerCoordinatesStartup::PlayerCoordinatesStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "PlayerCoordinatesStartup::~PlayerCoordinatesStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinateState9EE8D0Startup::~WorldCoordinateState9EE8D0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinateState9EE8E0Startup::~WorldCoordinateState9EE8E0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinatePairStartup::WorldCoordinatePairStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldCoordinatePairStartup::~WorldCoordinatePairStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveTargetsStartup::WorldMoveTargetsStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveTargetsStartup::~WorldMoveTargetsStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateC821E8Startup::~WorldMoveStateC821E8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveState9E03C0Startup::~WorldMoveState9E03C0Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveState9FB918Startup::WorldMoveState9FB918Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveState9FB918Startup::~WorldMoveState9FB918Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateAF0FE8Startup::~WorldMoveStateAF0FE8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "WorldMoveStateC821D8Startup::~WorldMoveStateC821D8Startup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "RippleGateStartup::RippleGateStartup"
+    ],
+    [
+      "src/world/SceneState.cpp",
+      "RippleGateStartup::~RippleGateStartup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "DestroyProtectionProcessState_4041D0"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ConstructProtectionChecksum2_404170"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "DestroyProtectionChecksum1_404150"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "DestroyProtectionChecksum2_404190"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "BorrowProtectionProcessStateStorage"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "BorrowProtectionChecksum1Storage"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ConstructProtectionProcessState_4041B0"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ConstructProtectionChecksum1_404130"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "BorrowProtectionChecksum2Storage"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionChecksum1Startup::ProtectionChecksum1Startup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionChecksum1Startup::~ProtectionChecksum1Startup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionChecksum2Startup::ProtectionChecksum2Startup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionChecksum2Startup::~ProtectionChecksum2Startup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionProcessStateStartup::ProtectionProcessStateStartup"
+    ],
+    [
+      "src/platform/MainLoopSupport.cpp",
+      "ProtectionProcessStateStartup::~ProtectionProcessStateStartup"
+    ]
+  ],
+  "consumer_replacements": {
+    "src/ui/windows/WindowSkill.cpp": 6,
+    "src/ui/windows/WindowTradeTarget.cpp": 2,
+    "src/ui/windows/WindowBank.cpp": 6,
+    "src/ui/windows/WindowItemUse.cpp": 6,
+    "src/ui/windows/WindowMessageBoard.cpp": 6,
+    "src/ui/windows/WindowPetAttributes.cpp": 2,
+    "src/ui/windows/WindowCraft.cpp": 10,
+    "src/ui/windows/WindowCrystalShop.cpp": 2,
+    "src/world/SceneState.cpp": 204,
+    "src/world/MapSceneDrawing.cpp": 18,
+    "src/ui/windows/WindowProfileSearch.cpp": 4,
+    "src/YobiRuntime.cpp": 36,
+    "src/LoginRequest.cpp": 1,
+    "src/ui/windows/WindowShopChoice.cpp": 4,
+    "src/ui/windows/WindowPetSkillChoice.cpp": 16,
+    "src/ui/windows/WindowShop.cpp": 4,
+    "src/ui/WindowRuntime.cpp": 12,
+    "src/ui/windows/WindowDialog.cpp": 8,
+    "src/ui/windows/WindowEmote.cpp": 2,
+    "src/ui/windows/WindowTextList.cpp": 6,
+    "src/ui/windows/WindowProfile.cpp": 4,
+    "src/ui/windows/WindowAppearance.cpp": 4,
+    "src/ui/windows/WindowTrade.cpp": 2,
+    "src/ui/windows/WindowMiniMap.cpp": 2,
+    "src/ui/windows/WindowSettings.cpp": 1,
+    "src/ui/windows/WindowCrystalTrade.cpp": 2,
+    "src/ui/windows/WindowPetSkills.cpp": 2,
+    "src/platform/MainLoopSupport.cpp": 11,
+    "src/ui/windows/WindowMiniMail.cpp": 2,
+    "src/ui/windows/WindowProfileCategory.cpp": 2,
+    "src/ui/windows/WindowGather.cpp": 4,
+    "src/ui/windows/WindowPetDetail.cpp": 2,
+    "src/ui/windows/WindowInventory.cpp": 8,
+    "src/ui/windows/WindowCrystalExchangeShop.cpp": 2
+  },
+  "groups": [
+    {
+      "type": "ProtectionChecksum1Startup",
+      "ns": "cg::platform",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "init": "404120",
+      "ctor": "ConstructProtectionChecksum1_404130",
+      "dtor": "DestroyProtectionChecksum1_404150",
+      "ctor_ea": "404130",
+      "dtor_ea": "404150",
+      "values": [
+        [
+          "BorrowProtectionChecksum1Storage",
+          "gProtectionChecksum1",
+          "594070"
+        ]
+      ]
+    },
+    {
+      "type": "ProtectionChecksum2Startup",
+      "ns": "cg::platform",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "init": "404160",
+      "ctor": "ConstructProtectionChecksum2_404170",
+      "dtor": "DestroyProtectionChecksum2_404190",
+      "ctor_ea": "404170",
+      "dtor_ea": "404190",
+      "values": [
+        [
+          "BorrowProtectionChecksum2Storage",
+          "gProtectionChecksum2",
+          "594080"
+        ]
+      ]
+    },
+    {
+      "type": "ProtectionProcessStateStartup",
+      "ns": "cg::platform",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "init": "4041A0",
+      "ctor": "ConstructProtectionProcessState_4041B0",
+      "dtor": "DestroyProtectionProcessState_4041D0",
+      "ctor_ea": "4041B0",
+      "dtor_ea": "4041D0",
+      "values": [
+        [
+          "BorrowProtectionProcessStateStorage",
+          "gProtectionProcessState",
+          "59E548"
+        ]
+      ]
+    },
+    {
+      "type": "SceneTransitionValueStartup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "456FD0",
+      "ctor": "ConstructSceneTransitionValue",
+      "dtor": "DestroySceneTransitionValue",
+      "ctor_ea": "456FE0",
+      "dtor_ea": "457000",
+      "values": [
+        [
+          "BorrowValue73ECD0Storage",
+          "gSceneTransitionValue",
+          "73ECD0"
+        ]
+      ]
+    },
+    {
+      "type": "PlayerCoordinatesStartup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467B90",
+      "ctor": "ConstructLegacyPlayerCoordinates_467BA0",
+      "dtor": "DestroyLegacyPlayerCoordinates_467BD0",
+      "ctor_ea": "467BA0",
+      "dtor_ea": "467BD0",
+      "values": [
+        [
+          "BorrowPlayerXStorage",
+          "gPlayerX",
+          "9EE8A8"
+        ],
+        [
+          "BorrowPlayerYStorage",
+          "gPlayerY",
+          "9EE8C0"
+        ]
+      ]
+    },
+    {
+      "type": "WorldCoordinateState9EE8D0Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467C70",
+      "ctor": "ConstructLegacyWorldCoordinateState_467C80",
+      "dtor": "DestroyLegacyWorldCoordinateState_467CA0",
+      "ctor_ea": "467C80",
+      "dtor_ea": "467CA0",
+      "values": [
+        [
+          "BorrowValue9EE8D0Storage",
+          "gValue9EE8D0",
+          "9EE8D0"
+        ]
+      ]
+    },
+    {
+      "type": "WorldCoordinateState9EE8E0Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467CB0",
+      "ctor": "ConstructLegacyWorldCoordinateState_467CC0",
+      "dtor": "DestroyLegacyWorldCoordinateState_467CE0",
+      "ctor_ea": "467CC0",
+      "dtor_ea": "467CE0",
+      "values": [
+        [
+          "BorrowValue9EE8E0Storage",
+          "gValue9EE8E0",
+          "9EE8E0"
+        ]
+      ]
+    },
+    {
+      "type": "WorldCoordinatePairStartup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467CF0",
+      "ctor": "ConstructLegacyWorldCoordinatePair_467D00",
+      "dtor": "DestroyLegacyWorldCoordinatePair_467D30",
+      "ctor_ea": "467D00",
+      "dtor_ea": "467D30",
+      "values": [
+        [
+          "BorrowValueC27FF8Storage",
+          "gValueC27FF8",
+          "C27FF8"
+        ],
+        [
+          "BorrowValueC27FE8Storage",
+          "gValueC27FE8",
+          "C27FE8"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveTargetsStartup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467D50",
+      "ctor": "ConstructLegacyWorldMoveTargets_467D60",
+      "dtor": "DestroyLegacyWorldMoveTargets_467D90",
+      "ctor_ea": "467D60",
+      "dtor_ea": "467D90",
+      "values": [
+        [
+          "BorrowValue9A7F88Storage",
+          "gMoveTargetX9A7F88",
+          "9A7F88"
+        ],
+        [
+          "BorrowValue9A7F98Storage",
+          "gMoveTargetY9A7F98",
+          "9A7F98"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveStateC821E8Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467DB0",
+      "ctor": "ConstructLegacyWorldMoveState_467DC0",
+      "dtor": "DestroyLegacyWorldMoveState_467DE0",
+      "ctor_ea": "467DC0",
+      "dtor_ea": "467DE0",
+      "values": [
+        [
+          "BorrowValueC821E8Storage",
+          "gValueC821E8",
+          "C821E8"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveState9E03C0Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467DF0",
+      "ctor": "ConstructLegacyWorldMoveState_467E00",
+      "dtor": "DestroyLegacyWorldMoveState_467E20",
+      "ctor_ea": "467E00",
+      "dtor_ea": "467E20",
+      "values": [
+        [
+          "BorrowValue9E03C0Storage",
+          "gValue9E03C0",
+          "9E03C0"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveState9FB918Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467E30",
+      "ctor": "ConstructLegacyWorldMoveState_467E40",
+      "dtor": "DestroyLegacyWorldMoveState_467E60",
+      "ctor_ea": "467E40",
+      "dtor_ea": "467E60",
+      "values": [
+        [
+          "BorrowValue9FB918Storage",
+          "gValue9FB918",
+          "9FB918"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveStateAF0FE8Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467E70",
+      "ctor": "ConstructLegacyWorldMoveState_467E80",
+      "dtor": "DestroyLegacyWorldMoveState_467EA0",
+      "ctor_ea": "467E80",
+      "dtor_ea": "467EA0",
+      "values": [
+        [
+          "BorrowValueAF0FE8Storage",
+          "gValueAF0FE8",
+          "AF0FE8"
+        ]
+      ]
+    },
+    {
+      "type": "WorldMoveStateC821D8Startup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467EB0",
+      "ctor": "ConstructLegacyWorldMoveState_467EC0",
+      "dtor": "DestroyLegacyWorldMoveState_467EE0",
+      "ctor_ea": "467EC0",
+      "dtor_ea": "467EE0",
+      "values": [
+        [
+          "BorrowValueC821D8Storage",
+          "gValueC821D8",
+          "C821D8"
+        ]
+      ]
+    },
+    {
+      "type": "RippleGateStartup",
+      "ns": "cg::world",
+      "source": "src/world/SceneState.cpp",
+      "header": "include/cg/world/SceneState.hpp",
+      "init": "467EF0",
+      "ctor": "ConstructLegacyRippleGate_467F00",
+      "dtor": "DestroyLegacyRippleGate_467F20",
+      "ctor_ea": "467F00",
+      "dtor_ea": "467F20",
+      "values": [
+        [
+          "BorrowRippleGateStorage",
+          "gRippleGate",
+          "9A7FA8"
+        ]
+      ]
+    }
+  ],
+  "verification": {
+    "unchanged_functions": 1647,
+    "access_projected_functions": 118,
+    "only_static": true,
+    "compiled": false,
+    "executed": false
+  },
+  "static_results": {
+    "unchanged_functions": 1647,
+    "access_projected_functions": 118,
+    "source_files": 38,
+    "access_replacements": 403,
+    "direct_location_updates": 303,
+    "table_location_updates": 832,
+    "original_function_rows": 3680,
+    "adapted_function_mappings": 45,
+    "corrected_related_stale_direct_locations": [
+      [
+        "src/platform/MainLoopSupport.cpp",
+        260,
+        "InitializeProtection_4041E0",
+        252
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        499,
+        "ReleaseProtection_4042B0",
+        487
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        294,
+        "CheckProtection_4043B0",
+        285
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        410,
+        "ParseProtectionTables_404600",
+        402
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        167,
+        "CheckDebugger_404880",
+        184
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        526,
+        "ResetProtection_4048D0",
+        515
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        554,
+        "CheckWindows_4048E0",
+        545
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        187,
+        "CheckWindowsCallback_404940",
+        205
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        634,
+        "Sub_423640",
+        626
+      ],
+      [
+        "src/world/MapSceneDrawing.cpp",
+        320,
+        "Sub_43CB10",
+        336
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        508,
+        "ResetSystemLog_44B5A0",
+        497
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        538,
+        "RequestRender_457010",
+        528
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        581,
+        "KeepAlive_457AB0",
+        572
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        724,
+        "ReadSystemSeconds_4589D0",
+        717
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        735,
+        "CheckSystemSeconds_458A10",
+        730
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        547,
+        "CheckLegacyDxCapability_458DC0",
+        537
+      ],
+      [
+        "src/world/MapSceneDrawing.cpp",
+        314,
+        "Sub_469020",
+        329
+      ],
+      [
+        "src/world/MapSceneDrawing.cpp",
+        195,
+        "Sub_46CF60",
+        197
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        622,
+        "RandomRange_46FAF0",
+        614
+      ],
+      [
+        "src/LoginRequest.cpp",
+        135,
+        "HandleLoginResponse_508BC0",
+        149
+      ],
+      [
+        "src/LoginRequest.cpp",
+        171,
+        "Sub_508C40",
+        186
+      ],
+      [
+        "src/LoginRequest.cpp",
+        185,
+        "Sub_508C90",
+        200
+      ],
+      [
+        "src/LoginRequest.cpp",
+        207,
+        "Sub_508CF0",
+        223
+      ],
+      [
+        "src/LoginRequest.cpp",
+        61,
+        "Sub_51B110",
+        60
+      ],
+      [
+        "src/LoginRequest.cpp",
+        52,
+        "Sub_51B3B0",
+        50
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        518,
+        "Sub_52CD30",
+        507
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        607,
+        "SeedRandom_53B4BF",
+        599
+      ]
+    ],
+    "build_verified": false,
+    "runtime_verified": false,
+    "existing_rng_provider_symbol_correction": {
+      "original_entry": "0x0053B4C9",
+      "previous_symbol": "NextRandom_53B4C9",
+      "current_symbol": "Rand16",
+      "source_unchanged": true
+    },
+    "untouched_preexisting_unresolved_symbols": [],
+    "locator_additional_corrections": [
+      [
+        "src/platform/MainLoopSupport.cpp",
+        "CheckProcessModules_4042D0",
+        105,
+        141
+      ],
+      [
+        "src/platform/MainLoopSupport.cpp",
+        "Rand16",
+        522,
+        606
+      ],
+      [
+        "src/world/SceneState.cpp",
+        "ReadPlayerObjectIndex_FDA880",
+        574,
+        566
+      ]
+    ],
+    "table_additional_corrections": [],
+    "history_call_storage_fields_moved": 26,
+    "final_function_table_status_changes": 30,
+    "direct_definition_entries_after": 2442,
+    "whole_ledger_check": {
+      "exit_code": 1,
+      "preexisting_missing_history_paths": [
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "src/platform/LegacyExternalKeyboardObject.cpp"
+      ],
+      "derived_files_written": false,
+      "whole_ledger_passed": false
+    }
+  }
+}

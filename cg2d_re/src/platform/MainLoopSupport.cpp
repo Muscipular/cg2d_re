@@ -19,7 +19,6 @@
 #include <cstdlib>
 #include <cwchar>
 #include <cstring> // 原CRT接口：0x0053BEC0、0x0053BFC0、0x0054AB30、0x0053CF50；原参数／返回合同由直接调用承接。
-#include <optional>
 #include <random>
 #include <tlhelp32.h>
 
@@ -66,24 +65,6 @@ HMODULE gProtectionModule = nullptr;
 using IsDebuggerPresentFunction = BOOL (WINAPI*)();
 IsDebuggerPresentFunction gIsDebuggerPresent = nullptr;
 
-std::optional<LegacyCryptInt>& BorrowProtectionProcessStateStorage()
-{
-    static std::optional<LegacyCryptInt> storage;
-    return storage;
-}
-
-std::optional<LegacyCryptInt>& BorrowProtectionChecksum1Storage()
-{
-    static std::optional<LegacyCryptInt> storage;
-    return storage;
-}
-
-std::optional<LegacyCryptInt>& BorrowProtectionChecksum2Storage()
-{
-    static std::optional<LegacyCryptInt> storage;
-    return storage;
-}
-
 std::uint8_t gProtectionBuffer1[0x5000]{};
 std::uint8_t gProtectionBuffer2[0x5000]{};
 
@@ -101,9 +82,9 @@ ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
 std::uint32_t gProtectionAuxiliaryRecordCount = 0;
 OSVERSIONINFOA gProtectionVersionInfo{};
 
-static_assert(sizeof((*BorrowProtectionProcessStateStorage())) == 16);
-static_assert(sizeof((*BorrowProtectionChecksum1Storage())) == 16);
-static_assert(sizeof((*BorrowProtectionChecksum2Storage())) == 16);
+static_assert(sizeof(gProtectionProcessState) == 16);
+static_assert(sizeof(gProtectionChecksum1) == 16);
+static_assert(sizeof(gProtectionChecksum2) == 16);
 static_assert(sizeof(gProtectionBuffer1) == 0x5000);
 static_assert(sizeof(gProtectionBuffer2) == 0x5000);
 static_assert(sizeof(ProtectionAuxiliaryRecord) == 0x28);
@@ -171,7 +152,7 @@ void UpdateProtectionChecksum(
     BOOL hasModule = Module32First(snapshot, &moduleEntry);
     while (hasModule != FALSE) {
         const DWORD currentProcessId = static_cast<DWORD>(
-            BorrowProtectionProcessStateStorage()->value());
+            gProtectionProcessState.value());
         const std::uint8_t* moduleNameTable =
             moduleEntry.th32ProcessID == currentProcessId
             ? gProtectionBuffer2
@@ -267,78 +248,6 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
 } // namespace
 
-// 原函数：0x00404120；LCI01启动拥有者替代CRT构造／退出登记。
-ProtectionChecksum1Startup::ProtectionChecksum1Startup()
-{
-    ConstructProtectionChecksum1_404130();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-ProtectionChecksum1Startup::~ProtectionChecksum1Startup()
-{
-    DestroyProtectionChecksum1_404150();
-}
-
-// 原函数：0x00404130。
-void ConstructProtectionChecksum1_404130()
-{
-    BorrowProtectionChecksum1Storage().emplace();
-}
-
-// 原函数：0x00404150。
-void DestroyProtectionChecksum1_404150()
-{
-    BorrowProtectionChecksum1Storage().reset();
-}
-
-// 原函数：0x00404160；LCI01启动拥有者替代CRT构造／退出登记。
-ProtectionChecksum2Startup::ProtectionChecksum2Startup()
-{
-    ConstructProtectionChecksum2_404170();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-ProtectionChecksum2Startup::~ProtectionChecksum2Startup()
-{
-    DestroyProtectionChecksum2_404190();
-}
-
-// 原函数：0x00404170。
-void ConstructProtectionChecksum2_404170()
-{
-    BorrowProtectionChecksum2Storage().emplace();
-}
-
-// 原函数：0x00404190。
-void DestroyProtectionChecksum2_404190()
-{
-    BorrowProtectionChecksum2Storage().reset();
-}
-
-// 原函数：0x004041A0；LCI01启动拥有者替代CRT构造／退出登记。
-ProtectionProcessStateStartup::ProtectionProcessStateStartup()
-{
-    ConstructProtectionProcessState_4041B0();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-ProtectionProcessStateStartup::~ProtectionProcessStateStartup()
-{
-    DestroyProtectionProcessState_4041D0();
-}
-
-// 原函数：0x004041B0。
-void ConstructProtectionProcessState_4041B0()
-{
-    BorrowProtectionProcessStateStorage().emplace();
-}
-
-// 原函数：0x004041D0。
-void DestroyProtectionProcessState_4041D0()
-{
-    BorrowProtectionProcessStateStorage().reset();
-}
-
 // 原函数：0x004041E0。
 void InitializeProtection_4041E0(const char* moduleName)
 {
@@ -369,7 +278,7 @@ void InitializeProtection_4041E0(const char* moduleName)
 
     const std::uint32_t processIdBits =
         static_cast<std::uint32_t>(GetCurrentProcessId());
-    ((*BorrowProtectionProcessStateStorage()) = static_cast<std::int32_t>(std::bit_cast<std::int32_t>(processIdBits)));
+    (gProtectionProcessState = static_cast<std::int32_t>(std::bit_cast<std::int32_t>(processIdBits)));
 }
 
 // 原函数：0x004043B0。
@@ -451,7 +360,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (BorrowProtectionChecksum1Storage()->value() != checksum) {
+    if (gProtectionChecksum1.value() != checksum) {
         return 1;
     }
 
@@ -472,7 +381,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (BorrowProtectionChecksum2Storage()->value() != checksum) {
+    if (gProtectionChecksum2.value() != checksum) {
         return 1;
     }
 
@@ -494,8 +403,8 @@ void ParseProtectionTables_404600(const char* input)
 {
     std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
     std::memset(gProtectionBuffer2, 0, sizeof(gProtectionBuffer2));
-    ((*BorrowProtectionChecksum1Storage()) = 0);
-    ((*BorrowProtectionChecksum2Storage()) = 0);
+    (gProtectionChecksum1 = 0);
+    (gProtectionChecksum2 = 0);
     gProtectionAuxiliaryRecordCount = 0;
     for (ProtectionAuxiliaryRecord& record : gProtectionAuxiliaryRecords) {
         record.flagA = 0;
@@ -570,8 +479,8 @@ void ParseProtectionTables_404600(const char* input)
         }
     }
 
-    UpdateProtectionChecksum(&(*BorrowProtectionChecksum1Storage()), gProtectionBuffer1);
-    UpdateProtectionChecksum(&(*BorrowProtectionChecksum2Storage()), gProtectionBuffer2);
+    UpdateProtectionChecksum(&gProtectionChecksum1, gProtectionBuffer1);
+    UpdateProtectionChecksum(&gProtectionChecksum2, gProtectionBuffer2);
 }
 
 // 原函数：0x004042B0。

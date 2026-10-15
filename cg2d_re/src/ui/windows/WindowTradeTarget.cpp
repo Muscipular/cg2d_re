@@ -126,9 +126,9 @@ login::YobiAction* WindowTradeTarget_ReceiveTargets(
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     return WindowRuntime_CreateAnimation(WindowId_TradeTarget, 1, 0, nullptr);
 }

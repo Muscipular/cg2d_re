@@ -3302,8 +3302,8 @@ void Sub_4469C0(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (((*world::detail::BorrowPlayerXStorage()) != (*world::detail::BorrowValue9EE8D0Storage()))
-        || ((*world::detail::BorrowPlayerYStorage()) != (*world::detail::BorrowValue9EE8E0Storage()))) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3356,8 +3356,8 @@ void Sub_446B50(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (((*world::detail::BorrowPlayerXStorage()) != (*world::detail::BorrowValue9EE8D0Storage()))
-        || ((*world::detail::BorrowPlayerYStorage()) != (*world::detail::BorrowValue9EE8E0Storage()))) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
     const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(payload->value02);
@@ -3391,22 +3391,22 @@ void Sub_446C10(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (((*world::detail::BorrowPlayerXStorage()) != (*world::detail::BorrowValue9EE8D0Storage()))
-        || ((*world::detail::BorrowPlayerYStorage()) != (*world::detail::BorrowValue9EE8E0Storage()))) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
-    if (TransitionDistance(&(*world::detail::BorrowPlayerXStorage()), &action->mapX1E0) <= 1
-        && TransitionDistance(&(*world::detail::BorrowPlayerYStorage()), &action->mapY1F0) <= 1) {
+    if (TransitionDistance(&world::detail::gPlayerX, &action->mapX1E0) <= 1
+        && TransitionDistance(&world::detail::gPlayerY, &action->mapY1F0) <= 1) {
         return;
     }
-    if (((*world::detail::BorrowPlayerXStorage()) - action->mapX1E0) > 0) {
+    if ((world::detail::gPlayerX - action->mapX1E0) > 0) {
         stepX = 1;
-    } else if (((*world::detail::BorrowPlayerXStorage()) - action->mapX1E0) < 0) {
+    } else if ((world::detail::gPlayerX - action->mapX1E0) < 0) {
         stepX = -1;
     }
-    if (((*world::detail::BorrowPlayerYStorage()) - action->mapY1F0) > 0) {
+    if ((world::detail::gPlayerY - action->mapY1F0) > 0) {
         stepY = 1;
-    } else if (((*world::detail::BorrowPlayerYStorage()) - action->mapY1F0) < 0) {
+    } else if ((world::detail::gPlayerY - action->mapY1F0) < 0) {
         stepY = -1;
     }
     const std::int32_t x =
@@ -3621,8 +3621,8 @@ std::int32_t UpdateTransitionTrail(
 std::int32_t Sub_446D80(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
-    if (TransitionDistance(&action->mapX1E0, &(*world::detail::BorrowPlayerXStorage())) >= 13
-        || TransitionDistance(&action->mapY1F0, &(*world::detail::BorrowPlayerYStorage())) >= 13) {
+    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
@@ -3778,8 +3778,8 @@ std::int32_t Sub_447610(YobiAction* const action)
         payload->countdown38 = 10;
         payload->frame30 = frame ^ 1u;
     }
-    if (TransitionDistance(&action->mapX1E0, &(*world::detail::BorrowPlayerXStorage())) >= 13
-        || TransitionDistance(&action->mapY1F0, &(*world::detail::BorrowPlayerYStorage())) >= 13) {
+    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
@@ -3817,8 +3817,8 @@ std::int32_t Sub_447820(YobiAction* const action)
         return 0;
     }
     if (TransitionMovementIdle(action)
-        && (TransitionDistance(&action->mapX1E0, &(*world::detail::BorrowPlayerXStorage())) > 1
-            || TransitionDistance(&action->mapY1F0, &(*world::detail::BorrowPlayerYStorage())) > 1)) {
+        && (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) > 1
+            || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) > 1)) {
         Sub_446C10(action);
     }
     Sub_4424B0(action);
@@ -5150,21 +5150,21 @@ void Sub_4417E0(YobiAction* const action)
     } else if ((action->flags & 0x400u) != 0) {
         if (world::detail::ReadPlayerAction() != action) {
             const std::int32_t lowerX =
-                ((*world::detail::BorrowPlayerXStorage()) - 16);
+                (world::detail::gPlayerX - 16);
             bool outside = (action->mapX1E0 < static_cast<std::int32_t>(lowerX));
             if (!outside) {
                 const std::int32_t upperX =
-                    ((*world::detail::BorrowPlayerXStorage()) + 16);
+                    (world::detail::gPlayerX + 16);
                 outside = (upperX < action->mapX1E0);
             }
             if (!outside) {
                 const std::int32_t lowerY =
-                    ((*world::detail::BorrowPlayerYStorage()) - 16);
+                    (world::detail::gPlayerY - 16);
                 outside = (action->mapY1F0 < static_cast<std::int32_t>(lowerY));
             }
             if (!outside) {
                 const std::int32_t upperY =
-                    ((*world::detail::BorrowPlayerYStorage()) + 16);
+                    (world::detail::gPlayerY + 16);
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {
@@ -36582,8 +36582,8 @@ void Sub_46B4B0(const std::int32_t direction)
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = BorrowPlayerYStorage()->value();
-    const std::int32_t x = BorrowPlayerXStorage()->value();
+    const std::int32_t y = gPlayerY.value();
+    const std::int32_t x = gPlayerX.value();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC8223C = platform::ReadTickCount32();
 }
@@ -36820,13 +36820,13 @@ void Sub_519EE0()
     if (ReadPlayerAction() == nullptr) {
         return;
     }
-    const std::int32_t y = BorrowPlayerYStorage()->value();
-    const std::int32_t x = BorrowPlayerXStorage()->value();
+    const std::int32_t y = gPlayerY.value();
+    const std::int32_t x = gPlayerX.value();
     const std::int32_t blocked = Sub_469810(x, y);
     login::YobiAction* action = ReadPlayerAction();
     if (blocked != 0) {
-        *BorrowPlayerXStorage() = action->mapX1E0;
-        *BorrowPlayerYStorage() = action->mapY1F0;
+        gPlayerX = action->mapX1E0;
+        gPlayerY = action->mapY1F0;
     }
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
@@ -36835,9 +36835,9 @@ void Sub_519EE0()
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
     action = ReadPlayerAction();
-    action->mapX1E0 = (*BorrowPlayerXStorage());
+    action->mapX1E0 = gPlayerX;
     action = ReadPlayerAction();
-    action->mapY1F0 = (*BorrowPlayerYStorage());
+    action->mapY1F0 = gPlayerY;
     action = ReadPlayerAction();
     action->field27C = gValue9EE8FC;
     const std::uint32_t movementY = gValue9EE900;

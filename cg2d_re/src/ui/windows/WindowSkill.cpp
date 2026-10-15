@@ -563,8 +563,8 @@ static login::YobiAction* WindowSkill_OpenAttributeTargets()
 // 原函数：0x004EF750。
 static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gSkillSelectedTargetCC4B1C;
     const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
@@ -1675,8 +1675,8 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-        const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+        const std::int32_t y = world::detail::gPlayerY.value();
+        const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
@@ -2476,8 +2476,8 @@ static login::YobiAction* WindowSkill_OpenTextTargets()
 // 原函数：0x004F0200。
 static void WindowSkill_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::detail::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;

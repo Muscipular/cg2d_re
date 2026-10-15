@@ -147,8 +147,8 @@ login::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int32_
         default:
             break;
     }
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    const std::int32_t y = world::detail::gPlayerY.value();
+    const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     gSkillExtraDelayCF46C4 = 2000;
     WindowRuntime_IncrementOperationCount();
@@ -680,8 +680,8 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-        const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+        const std::int32_t y = world::detail::gPlayerY.value();
+        const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(WindowProfile_SaveOrigin(x, y));
         static_cast<void>(WindowGather_InitializeAction(gCurrentWindow));
         static_cast<void>(audio::PlaySe_52C450(51, 320));

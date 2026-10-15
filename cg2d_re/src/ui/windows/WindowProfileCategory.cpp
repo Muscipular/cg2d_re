@@ -289,8 +289,8 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
         buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-        const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+        const std::int32_t y = world::detail::gPlayerY.value();
+        const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();

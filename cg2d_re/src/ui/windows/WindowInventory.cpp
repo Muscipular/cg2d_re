@@ -476,8 +476,8 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
 {
     if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::detail::Sub_440B50() == 0) {
-        const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
-        const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+        const std::int32_t y = world::detail::gPlayerY.value();
+        const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
     }
 }
@@ -628,9 +628,9 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                         const std::int32_t group = mode > 0
                             ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
                         const std::int32_t y =
-                            world::detail::BorrowPlayerYStorage()->value();
+                            world::detail::gPlayerY.value();
                         const std::int32_t x =
-                            world::detail::BorrowPlayerXStorage()->value();
+                            world::detail::gPlayerX.value();
                         static_cast<void>(network::Sub_510A00(
                             platform::gConnectionSocket, x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -866,9 +866,9 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                                 platform::gConnectionSocket, group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
-                                world::detail::BorrowPlayerYStorage()->value();
+                                world::detail::gPlayerY.value();
                             const std::int32_t x =
-                                world::detail::BorrowPlayerXStorage()->value();
+                                world::detail::gPlayerX.value();
                             static_cast<void>(network::Sub_510A00(
                                 platform::gConnectionSocket, x, y, hovered, 0));
                         }
@@ -1045,9 +1045,9 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
                 const std::int32_t y =
-                    world::detail::BorrowPlayerYStorage()->value();
+                    world::detail::gPlayerY.value();
                 const std::int32_t x =
-                    world::detail::BorrowPlayerXStorage()->value();
+                    world::detail::gPlayerX.value();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, request, target, 0, escaped));
                 leaveSelection();

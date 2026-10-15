@@ -1334,9 +1334,9 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1387,9 +1387,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1403,9 +1403,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1422,9 +1422,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::wstring text = cg::text::FromGbkWide(input::LegacyText593850());
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
             world::detail::gValue581800 = -2;
@@ -1862,9 +1862,9 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::BorrowPlayerYStorage()->value();
+            world::detail::gPlayerY.value();
         const std::int32_t x =
-            world::detail::BorrowPlayerXStorage()->value();
+            world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
         gCurrentWindow->state |= 0x8000u;
@@ -1931,9 +1931,9 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::BorrowPlayerYStorage()->value();
+            world::detail::gPlayerY.value();
         const std::int32_t x =
-            world::detail::BorrowPlayerXStorage()->value();
+            world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
         world::detail::gValue581800 = -2;
@@ -2032,9 +2032,9 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::BorrowPlayerYStorage()->value();
+        world::detail::gPlayerY.value();
     const std::int32_t x =
-        world::detail::BorrowPlayerXStorage()->value();
+        world::detail::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     world::detail::gValue581800 = -2;
@@ -2082,9 +2082,9 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::BorrowPlayerYStorage()->value();
+                world::detail::gPlayerY.value();
             const std::int32_t x =
-                world::detail::BorrowPlayerXStorage()->value();
+                world::detail::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText));
             gCurrentWindow->state &= ~2u;

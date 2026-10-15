@@ -338,7 +338,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     }
     gStorageExternalHover57EE08 = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
-        const char* const record = gItemDetailStorageCC4D58.data() + hovered * 0xC44;
+        const auto* const record = &gItemDetailStorageCC4D58[0].items[hovered];
         if ((events & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -354,7 +354,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             if (used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
                 std::int32_t pages;
-                std::memcpy(&pages, record + 0xC3C, sizeof(pages));
+                std::memcpy(&pages, &record->pages, sizeof(pages));
                 ++page;
                 gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -395,7 +395,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
         std::uint16_t used;
-        std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
+        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
             gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
@@ -406,7 +406,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const char* const record = gItemDetailStorageCC4D58.data() + position * 0xC44;
+        const auto* const record = &gItemDetailStorageCC4D58[0].items[position];
         std::uint16_t used;
         std::memcpy(&used, record, sizeof(used));
         if (used == 0) {
@@ -421,10 +421,10 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t windowY = window->y;
         const std::int32_t y = elementY + 52 * (position / 5) + windowY + 64;
         std::int32_t imageNo;
-        std::memcpy(&imageNo, record + 4, sizeof(imageNo));
+        std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
         std::int32_t count;
-        std::memcpy(&count, record + 8, sizeof(count));
+        std::memcpy(&count, &record->count, sizeof(count));
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(

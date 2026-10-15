@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -2570,7 +2571,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
             L"沒有可變裝的角色！";
         world::detail::Sub_44B050(message, 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(audio::Sub_5042D0(19));
+        static_cast<void>(ui::Sub_5042D0(19));
     }
 }
 

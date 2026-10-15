@@ -258,11 +258,11 @@ std::int32_t gChatHeightUnitsC9A938 = 0; // 原全局：0x00C9A938。
 
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
-std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
+std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
 
-std::array<char, 5 * 0x600> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
+std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
 
-std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
+std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
 
 std::array<char, 20 * 0xC58> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
 
@@ -1009,14 +1009,14 @@ void WindowItem_RequestTransfer(
         count = world::detail::BorrowPlayerItemsFDA8A4()[source].count;
     } else {
         std::memcpy(
-            &count, gItemDetailStorageCC4D58.data() + (source - 100) * 0xC44 + 8, sizeof(count));
+            &count, &gItemDetailStorageCC4D58[0].items[source - 100].count, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
         used = std::bit_cast<std::int16_t>(world::detail::BorrowPlayerItemsFDA8A4()[target].used);
     } else {
         std::memcpy(
-            &used, gItemDetailStorageCC4D58.data() + (target - 100) * 0xC44, sizeof(used));
+            &used, &gItemDetailStorageCC4D58[0].items[target - 100], sizeof(used));
     }
     if (source < 8 || target < 8 || count <= 0 || used != 0 || !split) {
         gItemMoveSourceCF46B0 = source;
@@ -1193,7 +1193,7 @@ static void WindowPetDrag_Handle(
         }
     } else if (kind == 2) {
         std::uint16_t used;
-        std::memcpy(&used, gPetStorageD64E18.data() + (sourceIndex - 100) * 0x600, sizeof(used));
+        std::memcpy(&used, &gPetStorageD64E18[sourceIndex - 100], sizeof(used));
         if (used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
@@ -1307,7 +1307,7 @@ static void WindowItemDrag_Handle(
     } else if (kind == 3) {
         std::uint16_t used;
         std::memcpy(
-            &used, gItemDetailStorageCC4D58.data() + (sourceIndex - 100) * 0xC44, sizeof(used));
+            &used, &gItemDetailStorageCC4D58[0].items[sourceIndex - 100], sizeof(used));
         if (used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
@@ -1342,7 +1342,7 @@ static void WindowItemDrag_Handle(
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
-            gItemDetailStorageCC4D58.data() + (sourceIndex - 100) * 0xC44 + 4, sizeof(imageNo));
+            &gItemDetailStorageCC4D58[0].items[sourceIndex - 100].imageNo, sizeof(imageNo));
     } else {
         return;
     }
@@ -1704,13 +1704,13 @@ std::int32_t WindowItem_DrawPetTooltip(
     const std::int32_t sideOffset =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
     gTooltipSourceD303FC = key;
-    const char* const record = gTradeItemsD460D0.data() + (key + sideOffset * 20) * 0xC4C;
+    const auto* const record = &gTradeItemsD460D0[key + sideOffset * 20];
     std::uint32_t flags;
-    std::memcpy(&flags, record + 0xC34, sizeof(flags));
-    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record + 0xC38 : record + 0x10);
+    std::memcpy(&flags, &record->flags, sizeof(flags));
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record->memo.data() : record->name.data());
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
-    const char* const lines = record + 0x2D + page * 768;
+    const char* const lines = record->description[page * 8].data();
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
@@ -2706,13 +2706,13 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
-    const char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;
+    const auto* const record = &gItemDetailStorageCC4D58[0].items[index];
     std::uint32_t flags;
-    std::memcpy(&flags, record + 0xC40, sizeof(flags));
-    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record + 0xC29 : record + 0xC);
+    std::memcpy(&flags, &record->flags, sizeof(flags));
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record->memo.data() : record->name.data());
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
-    const char* const lines = record + 0x29 + page * 768;
+    const char* const lines = record->description[page * 8].data();
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
@@ -2793,11 +2793,11 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
 void WindowItem_BuildStorageDescription(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
-    char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44 + side * 0xFBF8;
-    char* const rows = record + 0x29;
+    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
+    auto& rows = record->description;
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = rows + line * 96;
+        char* const row = rows[line].data();
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
             last = line;
         } else {
@@ -2805,10 +2805,10 @@ void WindowItem_BuildStorageDescription(
         }
     }
     // 原回扫从最后成功行的前一行开始，空行不清整行残留。
-    while (last > 0 && std::strlen(rows + (last - 1) * 96) == 0) {
+    while (last > 0 && std::strlen(rows[last - 1].data()) == 0) {
         --last;
     }
-    WindowTrade_WriteValue(record, 0xC3C, last < 0 ? std::int32_t{0} : last / 8 + 1);
+    record->pages = last < 0 ? std::int32_t{0} : last / 8 + 1;
 }
 
 // 原函数：0x00503CB0。

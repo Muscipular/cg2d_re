@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "spec": "doc/cg2d_ui_storage_records_spec.md",
+  "scope": "四块共享交易／存放记录的字段、布局与访问迁移；不改变原函数状态，不代运行验收。",
+  "ida_source": "当前已打开的cg2d.exe会话，串行只读查询；反编译类型仅为辅助。",
+  "records": [
+    {
+      "type": "WindowTradeItem",
+      "size": 3148,
+      "global": "gTradeItemsD460D0",
+      "address": "0x00D460D0",
+      "count": 40
+    },
+    {
+      "type": "WindowStorageItem",
+      "size": 3140,
+      "owner": "WindowItemDetailGroup.items",
+      "count": 20
+    },
+    {
+      "type": "WindowTradePet",
+      "size": 1532,
+      "global": "gTradePetsC9C108",
+      "address": "0x00C9C108",
+      "count": 10
+    },
+    {
+      "type": "WindowStoragePet",
+      "size": 1536,
+      "global": "gPetStorageD64E18",
+      "address": "0x00D64E18",
+      "count": 5
+    },
+    {
+      "type": "WindowStoragePetSummary",
+      "size": 340,
+      "owner": "WindowItemDetailGroup.pets",
+      "offset": 62800,
+      "count": 5
+    },
+    {
+      "type": "WindowItemDetailGroup",
+      "size": 64504,
+      "global": "gItemDetailStorageCC4D58",
+      "address": "0x00CC4D58",
+      "count": 2,
+      "amount_offset": 64500
+    }
+  ],
+  "decisions": [
+    "分别保留C4C/C44物品与5FC/600宠物布局，不合并为可选字段模型。",
+    "原CC4D58组内间隔由旧面板消费证实为5条154宠物摘要。",
+    "已有IDA物品类型覆盖页数字段或把DWORD拆成两W16；004E0253等真实读写优先。",
+    "技能类型复用world::detail::PetTechniqueRecord；移至独立内部头，大小8C及字段保持。",
+    "GBK文本固定容量、保留字节、清零/复制范围、解析与写入顺序保持。"
+  ],
+  "original_instructions": [
+    {
+      "entry": "0x4e54e0",
+      "end": "0x4e55fd",
+      "instructions": [
+        {
+          "address": "0x4e5500",
+          "instruction": "lea     eax, [esi+eax*4]"
+        },
+        {
+          "address": "0x4e551d",
+          "instruction": "lea     ebx, gInvItemData2.use[edx]"
+        },
+        {
+          "address": "0x4e5527",
+          "instruction": "lea     eax, [esi+esi*4]"
+        },
+        {
+          "address": "0x4e5532",
+          "instruction": "lea     ebp, [esi+eax*2]"
+        },
+        {
+          "address": "0x4e5538",
+          "instruction": "cmp     ss:(gPlayerDataVal.Items.use+62E0h)[ebp], 0"
+        },
+        {
+          "address": "0x4e5546",
+          "instruction": "mov     ecx, ss:(gPlayerDataVal.Items.imageNo+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e554c",
+          "instruction": "mov     eax, ss:(gPlayerDataVal.Items.count+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e5557",
+          "instruction": "mov     bx, ss:(gPlayerDataVal.Items.flag+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e555e",
+          "instruction": "mov     gInvItemData2.imageNo[edx], ecx"
+        },
+        {
+          "address": "0x4e5564",
+          "instruction": "mov     ecx, ss:(gPlayerDataVal.Items.itemId+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e556a",
+          "instruction": "mov     gInvItemData2.field_8[edx], eax"
+        },
+        {
+          "address": "0x4e5570",
+          "instruction": "mov     gInvItemData2.itemId[edx], ecx"
+        },
+        {
+          "address": "0x4e5579",
+          "instruction": "lea     esi, (gPlayerDataVal.Items.memo+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e557f",
+          "instruction": "mov     gInvItemData2.flag[edx], eax"
+        },
+        {
+          "address": "0x4e5596",
+          "instruction": "lea     eax, gInvItemData2.memo[edx]"
+        },
+        {
+          "address": "0x4e55c1",
+          "instruction": "lea     edi, (gPlayerDataVal.Items.name+62E0h)[ebp]"
+        },
+        {
+          "address": "0x4e55cc",
+          "instruction": "lea     ebp, gInvItemData2.name[edx]"
+        },
+        {
+          "address": "0x4e55ef",
+          "instruction": "mov     gInvItemData2.field_2[edx], 0FFFFh"
+        }
+      ]
+    },
+    {
+      "entry": "0x4e0100",
+      "end": "0x4e026a",
+      "instructions": [
+        {
+          "address": "0x4e0136",
+          "instruction": "imul    edx, 0C5Ch"
+        },
+        {
+          "address": "0x4e0144",
+          "instruction": "cmp     (gPlayerDataVal.Items.use+62E0h)[edx], ax"
+        },
+        {
+          "address": "0x4e0150",
+          "instruction": "lea     esi, gInvItemData3.use[ebp]"
+        },
+        {
+          "address": "0x4e0160",
+          "instruction": "mov     ecx, (gPlayerDataVal.Items.imageNo+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0166",
+          "instruction": "mov     eax, (gPlayerDataVal.Items.count+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0171",
+          "instruction": "mov     ss:gInvItemData3.field_4[ebp], ecx"
+        },
+        {
+          "address": "0x4e0177",
+          "instruction": "mov     ss:gInvItemData3.field_8[ebp], eax"
+        },
+        {
+          "address": "0x4e017d",
+          "instruction": "mov     ax, (gPlayerDataVal.Items.flag+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0187",
+          "instruction": "lea     esi, (gPlayerDataVal.Items.memo+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0191",
+          "instruction": "mov     ss:gInvItemData3.field_C40[ebp], ecx"
+        },
+        {
+          "address": "0x4e01b4",
+          "instruction": "lea     ebx, gInvItemData3.memo[ebp]"
+        },
+        {
+          "address": "0x4e01cc",
+          "instruction": "lea     edi, (gPlayerDataVal.Items.name+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e01d7",
+          "instruction": "lea     ebx, gInvItemData3.name[ebp]"
+        },
+        {
+          "address": "0x4e01f1",
+          "instruction": "lea     ebx, (gPlayerDataVal.Items.desc+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0203",
+          "instruction": "lea     ecx, gInvItemData3.desc[ebp]"
+        },
+        {
+          "address": "0x4e024b",
+          "instruction": "mov     ecx, (gPlayerDataVal.Items.descLine+62E0h)[edx]"
+        },
+        {
+          "address": "0x4e0253",
+          "instruction": "mov     dword ptr ss:gInvItemData3.field_C3C[ebp], ecx"
+        },
+        {
+          "address": "0x4e025c",
+          "instruction": "mov     ss:gInvItemData3.field_2[ebp], 0FFFFh"
+        }
+      ]
+    },
+    {
+      "entry": "0x4e1b10",
+      "end": "0x4e1edb",
+      "instructions": [
+        {
+          "address": "0x4e1bb6",
+          "instruction": "mov     ebp, offset unk_57CBB8"
+        },
+        {
+          "address": "0x4e1bc2",
+          "instruction": "mov     eax, [ebp+0]"
+        },
+        {
+          "address": "0x4e1bdc",
+          "instruction": "imul    ecx"
+        },
+        {
+          "address": "0x4e1be8",
+          "instruction": "lea     ecx, ds:0[edx*8]"
+        },
+        {
+          "address": "0x4e1c18",
+          "instruction": "cmp     ebp, offset dword_57CBD8"
+        },
+        {
+          "address": "0x4e1c6b",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1c86",
+          "instruction": "lea     ebx, [ebp+0BFh]"
+        },
+        {
+          "address": "0x4e1cf2",
+          "instruction": "push    offset a4d4d; \"%4d/%4d\""
+        },
+        {
+          "address": "0x4e1d2b",
+          "instruction": "push    offset a4d4d; \"%4d/%4d\""
+        },
+        {
+          "address": "0x4e1d5d",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1d92",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1dc7",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1dfc",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1e31",
+          "instruction": "push    offset a3d_1; Format"
+        },
+        {
+          "address": "0x4e1e66",
+          "instruction": "push    offset a2d_2; Format"
+        },
+        {
+          "address": "0x4e1e91",
+          "instruction": "push    offset a12; \"1/2\""
+        },
+        {
+          "address": "0x4e1e9f",
+          "instruction": "lea     edx, [ebp+0F0h]"
+        }
+      ]
+    },
+    {
+      "entry": "0x4e1ee0",
+      "end": "0x4e2026",
+      "instructions": [
+        {
+          "address": "0x4e1f28",
+          "instruction": "lea     ecx, [ebp+26h]"
+        },
+        {
+          "address": "0x4e1f4f",
+          "instruction": "lea     edx, [esi+esi*4]"
+        },
+        {
+          "address": "0x4e1f54",
+          "instruction": "lea     eax, [esi+edx*2]"
+        },
+        {
+          "address": "0x4e1f5c",
+          "instruction": "lea     ecx, [ebp+eax*2+1Dh]"
+        },
+        {
+          "address": "0x4e1fc2",
+          "instruction": "lea     edx, [ebp+5]"
+        },
+        {
+          "address": "0x4e1fe1",
+          "instruction": "push    offset a22; \"2/2\""
+        },
+        {
+          "address": "0x4e1fea",
+          "instruction": "lea     edx, [ebp+9]"
+        }
+      ]
+    }
+  ],
+  "auxiliary_ida_types": [
+    {
+      "address": "0xd460d0",
+      "type": "InvItemData2[20]",
+      "array_counts": [
+        20
+      ],
+      "size": 3148,
+      "fields": [
+        {
+          "name": "use",
+          "offset": 0,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "field_2",
+          "offset": 2,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "imageNo",
+          "offset": 4,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "field_8",
+          "offset": 8,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "itemId",
+          "offset": 12,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "name",
+          "offset": 16,
+          "size": 29,
+          "type": "char[29]"
+        },
+        {
+          "name": "desc",
+          "offset": 45,
+          "size": 3079,
+          "type": "char[3079]"
+        },
+        {
+          "name": "flag",
+          "offset": 3124,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "memo",
+          "offset": 3128,
+          "size": 17,
+          "type": "char[17]"
+        },
+        {
+          "name": "field_C49",
+          "offset": 3145,
+          "size": 1,
+          "type": "char"
+        },
+        {
+          "name": "field_C4A",
+          "offset": 3146,
+          "size": 1,
+          "type": "char"
+        },
+        {
+          "name": "field_C4B",
+          "offset": 3147,
+          "size": 1,
+          "type": "char"
+        }
+      ]
+    },
+    {
+      "address": "0xc9c108",
+      "type": "__int16[]",
+      "array_counts": [
+        0
+      ]
+    },
+    {
+      "address": "0xd64e18",
+      "type": "__int16[]",
+      "array_counts": [
+        0
+      ]
+    },
+    {
+      "address": "0xcc4d58",
+      "type": "InvItemData3[20]",
+      "array_counts": [
+        20
+      ],
+      "size": 3140,
+      "fields": [
+        {
+          "name": "use",
+          "offset": 0,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "field_2",
+          "offset": 2,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "field_4",
+          "offset": 4,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "field_8",
+          "offset": 8,
+          "size": 4,
+          "type": "int"
+        },
+        {
+          "name": "name",
+          "offset": 12,
+          "size": 29,
+          "type": "char[29]"
+        },
+        {
+          "name": "desc",
+          "offset": 41,
+          "size": 3072,
+          "type": "char[3072]"
+        },
+        {
+          "name": "memo",
+          "offset": 3113,
+          "size": 17,
+          "type": "char[17]"
+        },
+        {
+          "name": "field_C3A",
+          "offset": 3130,
+          "size": 1,
+          "type": "char"
+        },
+        {
+          "name": "field_C3B",
+          "offset": 3131,
+          "size": 1,
+          "type": "char"
+        },
+        {
+          "name": "field_C3C",
+          "offset": 3132,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "field_C3E",
+          "offset": 3134,
+          "size": 2,
+          "type": "__int16"
+        },
+        {
+          "name": "field_C40",
+          "offset": 3136,
+          "size": 4,
+          "type": "int"
+        }
+      ]
+    }
+  ]
+}

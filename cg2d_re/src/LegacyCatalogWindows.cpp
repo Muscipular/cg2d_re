@@ -1,4 +1,5 @@
 #include "CharacterSelectSceneDependencies.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/text/Encoding.hpp"
 #include "CharacterSelectState.hpp"
 #include "LegacyPanelRuntime.hpp"
@@ -145,7 +146,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
         const char* const name = gLegacyTradeTargetNamesCB1D1C[gLegacyTradeTargetSelectionCC4D48].data();
         static_cast<void>(ui::detail::WindowTrade_ReceiveStart(name));
     } else if ((cancelState & 1) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyTradeTargetPanel582E08.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyTradeTargetPanel582E08.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else if ((pageState & 1) != 0) {
         gLegacyTradeTargetPageCC3208 = (gLegacyTradeTargetPageCC3208 - 1) & 1;
@@ -228,7 +229,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     std::int32_t hovered = -1;
@@ -262,11 +263,11 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
-            static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+            static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
     } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
         --gLegacyPetSkillCatalogPageD45F74;
         if (gLegacyPetSkillCatalogPageD45F74 < 0) {
@@ -388,7 +389,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     std::int32_t hovered = -1;
@@ -416,7 +417,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         const std::uint32_t panelId = gLegacyPetSkillPetPanel582080.id;
         gLegacyPetSkillPetSelectionC8A94C = hovered;
-        static_cast<void>(audio::Sub_5042D0(panelId));
+        static_cast<void>(ui::Sub_5042D0(panelId));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -426,7 +427,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
@@ -517,7 +518,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         return 0;
     }
     if (state == 2) {
-        if (audio::Sub_504410(61) == 0) {
+        if (ui::Sub_504410(61) == 0) {
             world::detail::gValue581800 = -1;
         }
         if (gLegacyPetSkillSlotsActionD67C64 != nullptr) {
@@ -531,7 +532,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     std::int32_t selected = gLegacyPetSkillPetSelectionC8A94C;
@@ -551,7 +552,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     }
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
         gLegacyPetSkillSlotCF4B64 = hovered;
-        static_cast<void>(audio::Sub_504180(61));
+        static_cast<void>(ui::Sub_504180(61));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -561,7 +562,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
@@ -661,14 +662,14 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         return 0;
     }
     if (state == 2) {
-        const std::int32_t result = audio::Sub_504410(60);
+        const std::int32_t result = ui::Sub_504410(60);
         if (result == 0) {
             world::detail::gValue581800 = -1;
         }
         return static_cast<std::uint32_t>(result);
     }
     if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
@@ -681,10 +682,10 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 0, requestText));
-        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     } else if ((character_select::detail::Sub_503990(&decline) & 1) != 0) {
-        static_cast<void>(audio::Sub_504180(60));
+        static_cast<void>(ui::Sub_504180(60));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
     std::wstring buffer;

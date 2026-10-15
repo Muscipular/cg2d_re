@@ -98,6 +98,7 @@ add_library(cg2d_re_startup STATIC
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
+    src/ui/LegacyWindowSelection.cpp
     src/ui/WindowRuntime.cpp
     src/ui/windows/WindowAdventureLog.cpp
     src/ui/windows/WindowAlbumDetail.cpp

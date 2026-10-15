@@ -260,7 +260,7 @@ void WindowBank_DrawStoredPetTooltip(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    const char* const record = gPetStorageD64E18.data() + index * 0x600;
+    const auto* const record = &gPetStorageD64E18[index];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -273,36 +273,34 @@ void WindowBank_DrawStoredPetTooltip(
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
-        textLayer, 13, color, cg::text::FromGbkWide(record + 0x5D4).c_str(), 0, 0));
+        textLayer, 13, color, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
     std::wstring buffer;
-    const auto drawNumber = [&](const std::size_t offset, const std::wstring_view format,
+    const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
-        std::int32_t value;
-        std::memcpy(&value, record + offset, sizeof(value));
         cg::text::FormatTo(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
     };
-    drawNumber(0x08, L"{:3}", 35, 22);
+    drawNumber(record->level, L"{:3}", 35, 22);
     std::int16_t tribe;
-    std::memcpy(&tribe, record + 2, sizeof(tribe));
+    std::memcpy(&tribe, &record->tribe, sizeof(tribe));
     if (tribe >= 0 && tribe < 20) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
     }
-    drawNumber(0x10, L"{:4}", 210, 5);
-    drawNumber(0x18, L"{:4}", 210, 22);
-    drawNumber(0x1C, L"{:3}", 95, 40);
-    drawNumber(0x20, L"{:3}", 155, 40);
-    drawNumber(0x24, L"{:3}", 215, 40);
-    drawNumber(0x28, L"{:3}", 95, 55);
-    drawNumber(0x2C, L"{:3}", 155, 55);
-    drawNumber(0x44, L"{:3}", 215, 55);
-    drawNumber(0x58, L"{:2}", 45, 55);
+    drawNumber(record->maxHp, L"{:4}", 210, 5);
+    drawNumber(record->maxFp, L"{:4}", 210, 22);
+    drawNumber(record->combatStats[0], L"{:3}", 95, 40);
+    drawNumber(record->combatStats[1], L"{:3}", 155, 40);
+    drawNumber(record->combatStats[2], L"{:3}", 215, 40);
+    drawNumber(record->combatStats[3], L"{:3}", 95, 55);
+    drawNumber(record->combatStats[4], L"{:3}", 155, 55);
+    drawNumber(record->combatValue44, L"{:3}", 215, 55);
+    drawNumber(record->value58, L"{:2}", 45, 55);
 }
 
 // 原函数：0x004A83A0。
@@ -717,7 +715,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
             std::int32_t target = 0;
             for (; target < 20; ++target) {
                 std::uint16_t used;
-                std::memcpy(&used, gItemDetailStorageCC4D58.data() + target * 0xC44, sizeof(used));
+                std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[target], sizeof(used));
                 if (used == 0) {
                     break;
                 }
@@ -881,7 +879,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     }
     if ((events & 1u) != 0 && hovered >= 0) {
         std::uint16_t used;
-        std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
+        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
             gHoverTextD68AE8 = L"用滑鼠拖放來提領物品。";
         }
@@ -901,7 +899,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 std::uint16_t used;
-                std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
+                std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
                 if (used == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -911,7 +909,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         }
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
-        const char* const record = gItemDetailStorageCC4D58.data() + hovered * 0xC44;
+        const auto* const record = &gItemDetailStorageCC4D58[0].items[hovered];
         if ((events & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -927,7 +925,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             if (used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
                 std::int32_t pages;
-                std::memcpy(&pages, record + 0xC3C, sizeof(pages));
+                std::memcpy(&pages, &record->pages, sizeof(pages));
                 ++page;
                 gWindowStates[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -968,7 +966,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
         std::uint16_t used;
-        std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
+        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
@@ -979,7 +977,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const char* const record = gItemDetailStorageCC4D58.data() + position * 0xC44;
+        const auto* const record = &gItemDetailStorageCC4D58[0].items[position];
         std::uint16_t used;
         std::memcpy(&used, record, sizeof(used));
         if (used == 0) {
@@ -994,10 +992,10 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         const std::int32_t windowY = window->y;
         const std::int32_t y = elementY + 52 * (position / 5) + windowY + 51;
         std::int32_t imageNo;
-        std::memcpy(&imageNo, record + 4, sizeof(imageNo));
+        std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
         std::int32_t count;
-        std::memcpy(&count, record + 8, sizeof(count));
+        std::memcpy(&count, &record->count, sizeof(count));
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
@@ -1170,7 +1168,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
             std::int32_t target = 0;
             for (; target < 5; ++target) {
                 std::uint16_t targetUsed;
-                std::memcpy(&targetUsed, gPetStorageD64E18.data() + target * 0x600, sizeof(targetUsed));
+                std::memcpy(&targetUsed, &gPetStorageD64E18[target], sizeof(targetUsed));
                 if (targetUsed == 0) {
                     break;
                 }
@@ -1269,12 +1267,12 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
     const bool hover = (events & 1u) != 0;
     if (hover) {
         std::uint16_t used;
-        std::memcpy(&used, gPetStorageD64E18.data() + petIndex * 0x600, sizeof(used));
+        std::memcpy(&used, &gPetStorageD64E18[petIndex], sizeof(used));
         if (used != 0) {
             gHoverTextD68AE8 = L"用滑鼠拖放來提領寵物。";
         }
     }
-    const char* const record = gPetStorageD64E18.data() + petIndex * 0x600;
+    const auto* const record = &gPetStorageD64E18[petIndex];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0 && (events & 0x21u) != 0
@@ -1379,12 +1377,12 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                     const std::int32_t limit = world::detail::ReadPlayerValue15BD0(side + 1);
                     std::int32_t amount;
                     std::memcpy(&amount,
-                        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+                        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
                     maximum = limit - amount;
                 } else {
                     std::int32_t amount;
                     std::memcpy(&amount,
-                        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+                        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
                     maximum = 1000000 - amount;
                 }
             }
@@ -1403,7 +1401,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
-            gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+            &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
         if (maximum > amount) {
             maximum = amount;
         }
@@ -1492,7 +1490,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         std::uint16_t used;
-        std::memcpy(&used, gItemDetailStorageCC4D58.data() + index * 0xC44, sizeof(used));
+        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[index], sizeof(used));
         if (used != 0) {
             ++count;
         }
@@ -1505,7 +1503,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         std::uint16_t used;
-        std::memcpy(&used, gPetStorageD64E18.data() + index * 0x600, sizeof(used));
+        std::memcpy(&used, &gPetStorageD64E18[index], sizeof(used));
         if (used != 0) {
             ++count;
         }
@@ -1518,7 +1516,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
     std::int32_t amount;
     std::memcpy(&amount,
-        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
     cg::text::FormatTo(buffer, L"{:10}", amount);
     window = gCurrentWindow;
     y = window->y + 285;
@@ -1583,27 +1581,27 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
     if (std::strlen(buffer) != 1) {
         return 0;
     }
-    const auto readItem = [&](char* const record, const std::int32_t index,
+    const auto readItem = [&](WindowStorageItem* const record, const std::int32_t index,
                               const std::int32_t field, const bool requireDescriptionField) {
         const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         if (imageNo <= 0) {
             return;
         }
-        WindowTrade_WriteValue(record, 0, std::uint16_t{1});
-        WindowTrade_WriteValue(record, 4, imageNo);
-        WindowTrade_WriteValue(record, 8, network::ParseDelimitedInteger_52CFA0(text, '|', field + 1));
-        WindowTrade_WriteValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field + 2));
+        record->used = std::uint16_t{1};
+        record->imageNo = imageNo;
+        record->count = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
+        record->flags = network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
         if (network::ExtractDelimitedField_52CED0(text, '|', field + 3, 1023, buffer) != 0) {
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record + 0x0C, std::strlen(buffer) > 28 ? "???" : buffer);
+        std::strcpy(record->name.data(), std::strlen(buffer) > 28 ? "???" : buffer);
         if (network::ExtractDelimitedField_52CED0(text, '|', field + 4, 1023, buffer) != 0) {
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
         if (std::strlen(buffer) != 0) {
-            std::strcpy(record + 0xC29, buffer);
+            std::strcpy(record->memo.data(), buffer);
         }
         const std::int32_t descriptionStatus =
             network::ExtractDelimitedField_52CED0(text, '|', field + 5, 1023, buffer);
@@ -1613,69 +1611,67 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
         WindowItem_BuildStorageDescription(index, 0, buffer);
     };
-    const auto readPet = [&](char* const record, const std::int32_t field) {
+    const auto readPet = [&](WindowStoragePet* const record, const std::int32_t field) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field, 1023, buffer) != 0) {
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record + 0x5D4, std::strlen(buffer) > 16 ? "???" : buffer);
+        std::strcpy(record->name.data(), std::strlen(buffer) > 16 ? "???" : buffer);
         const std::int32_t level = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
-        WindowTrade_WriteValue(record, 8, level);
+        record->level = level;
         if (level < 0) {
             return;
         }
-        WindowTrade_WriteValue(record, 0, std::uint16_t{1});
-        WindowTrade_WriteValue(record, 2, static_cast<std::uint16_t>(
-            network::ParseDelimitedInteger_52CFA0(text, '|', field + 2)));
-        static constexpr std::array<std::size_t, 9> firstOffsets {
-            0x10, 0x18, 0x1C, 0x20, 0x24, 0x28, 0x2C, 0x44, 0x58,
+        record->used = std::uint16_t{1};
+        record->tribe = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 2));
+        const std::array<std::int32_t*, 9> firstFields {
+            &record->maxHp, &record->maxFp, &record->combatStats[0], &record->combatStats[1], &record->combatStats[2], &record->combatStats[3], &record->combatStats[4], &record->combatValue44, &record->value58,
         };
         for (std::int32_t value = 0; value < 9; ++value) {
-            WindowTrade_WriteValue(record, firstOffsets[value],
-                network::ParseDelimitedInteger_52CFA0(text, '|', field + 3 + value));
+            *firstFields[value] = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3 + value);
         }
         network::ExtractDelimitedField_52CED0(text, '|', field + 12, 1023, buffer);
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record + 0x5E5, buffer);
-        static constexpr std::array<std::size_t, 12> lastOffsets {
-            4, 0x30, 0x34, 0x38, 0x3C, 0x40, 0x48, 0x4C, 0x50, 0x54, 0x5F8, 0x5FC,
+        std::strcpy(record->speciesName.data(), buffer);
+        const std::array<std::int32_t*, 12> lastFields {
+            &record->imageNo, &record->baseStats[0], &record->baseStats[1], &record->baseStats[2], &record->baseStats[3], &record->baseStats[4], &record->elements[0], &record->elements[1], &record->elements[2], &record->elements[3], &record->weight, &record->maxWeight,
         };
         for (std::int32_t value = 0; value < 12; ++value) {
-            WindowTrade_WriteValue(record, lastOffsets[value],
-                network::ParseDelimitedInteger_52CFA0(text, '|', field + 13 + value));
+            *lastFields[value] = network::ParseDelimitedInteger_52CFA0(text, '|', field + 13 + value);
         }
         for (std::int32_t skill = 0; skill < 10; ++skill) {
             network::ExtractDelimitedField_52CED0(text, '|', field + 25 + skill, 1023, buffer);
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-            std::strcpy(record + 0x62 + skill * 0x8C, std::strlen(buffer) > 24 ? "???" : buffer);
+            std::strcpy(record->techniques[skill].name.data(), std::strlen(buffer) > 24 ? "???" : buffer);
         }
     };
     switch (buffer[0]) {
     case 'A': {
-        std::memset(gItemDetailStorageCC4D58.data(), 0, 20 * 0xC44);
+        std::memset(gItemDetailStorageCC4D58[0].items.data(), 0, sizeof(gItemDetailStorageCC4D58[0].items));
         for (std::int32_t index = 0; index < 20; ++index) {
-            readItem(gItemDetailStorageCC4D58.data() + index * 0xC44, index, 2 + index * 6, true);
+            readItem(&gItemDetailStorageCC4D58[0].items[index], index, 2 + index * 6, true);
         }
-        std::memset(gPetStorageD64E18.data(), 0, gPetStorageD64E18.size());
+        std::memset(gPetStorageD64E18.data(), 0, sizeof(gPetStorageD64E18));
         for (std::int32_t index = 0; index < 5; ++index) {
-            readPet(gPetStorageD64E18.data() + index * 0x600, 122 + index * 35);
+            readPet(&gPetStorageD64E18[index], 122 + index * 35);
         }
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 297);
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        WindowTrade_WriteValue(gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4, amount);
+        gItemDetailStorageCC4D58[side].amount = amount;
         return 1;
     }
     case 'G': {
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        WindowTrade_WriteValue(gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4, amount);
+        gItemDetailStorageCC4D58[side].amount = amount;
         return 0;
     }
     case 'I': {
         std::int32_t field = 2;
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
-            char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;
+            auto* const record = &gItemDetailStorageCC4D58[0].items[index];
             std::memset(record, 0, 0xC44);
             readItem(record, index, field + 1, false);
             field += 7;
@@ -1687,7 +1683,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         std::int32_t field = 2;
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
-            char* const record = gPetStorageD64E18.data() + index * 0x600;
+            auto* const record = &gPetStorageD64E18[index];
             std::memset(record, 0, 0x600);
             readPet(record, field + 1);
             field += 36;

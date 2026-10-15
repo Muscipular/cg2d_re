@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/WindowRuntime.hpp"
+#include "WindowStorageRecords.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
@@ -721,10 +722,10 @@ extern std::int32_t gChatHeightUnitsC9A938; // 原全局：0x00C9A938。 原聊�
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
-extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0; // 原全局：0x00D460D0。
-extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108; // 原全局：0x00C9C108。
-extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
-extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组首20条C44物品、末W32金额，间隔未冻结。
+extern std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0; // 原全局：0x00D460D0。
+extern std::array<WindowTradePet, 2 * 5> gTradePetsC9C108; // 原全局：0x00C9C108。
+extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
+extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
 std::int32_t WindowBank_ReadSide() noexcept; // 旧72借读既有存放模式，不复制私有状态。
 const std::byte* WindowMessageBoard_BorrowRecords() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
 extern std::array<char, 20 * 0xC58> gShopItemsCF4FE0; // 原全局：0x00CF4FE0。 买卖共用原字节记录，字段见窗口53 SPEC。

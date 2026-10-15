@@ -6,6 +6,7 @@
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
@@ -54,9 +55,9 @@ std::int32_t Sub_4FD550()
 std::int32_t Sub_4FD5A0()
 {
     if (input::IsChatContext_503E60() == 0) {
-        static_cast<void>(audio::Sub_504380(6u));
+        static_cast<void>(ui::Sub_504380(6u));
     }
-    static_cast<void>(audio::Sub_504180(6u));
+    static_cast<void>(ui::Sub_504180(6u));
     return 0;
 }
 
@@ -98,7 +99,7 @@ std::int32_t Sub_4FD640()
 // 原函数：0x004FE3E0。
 std::int32_t Sub_4FE3E0()
 {
-    static_cast<void>(audio::Sub_504180(3u));
+    static_cast<void>(ui::Sub_504180(3u));
     return 0;
 }
 

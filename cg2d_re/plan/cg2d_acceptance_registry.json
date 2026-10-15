@@ -4911,7 +4911,8 @@
         "doc/cg2d_storage_opening_actions_spec.md",
         "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004B170",
@@ -191092,5 +191093,77 @@
     "layout_assertions": "编译通过，大小4B、对齐1B及字段偏移0/1/2/3成立。",
     "remaining_warnings": "既有C4701/C4703未初始化路径警告保留。",
     "ledger_validation": "-Check仍仅报两份既有外部键盘历史附件缺失，未写派生文件。"
+  },
+  "legacy_window_selection_lws01": {
+    "spec": "doc/cg2d_legacy_window_selection_spec.md",
+    "scope": "57C368唯一旧窗口表及12个控制/借用入口由cg::audio迁入cg::ui；类别S8，97个真实函数绑定和按ID取得handler。",
+    "sources": [
+      "src/ui/LegacyWindowSelection.cpp",
+      "include/cg/ui/LegacyWindowSelection.hpp"
+    ],
+    "original_table": {
+      "base": "0x0057C368",
+      "end_exclusive": "0x0057CB24",
+      "count": 99,
+      "stride": 20
+    },
+    "native_layout": {
+      "size": 40,
+      "id_offset": 0,
+      "handler_offset": 8,
+      "category_offset": 16,
+      "action_offset": 24,
+      "dirty_offset": 32
+    },
+    "handler_binding_count": 97,
+    "empty_handler_ids": [
+      0,
+      100
+    ],
+    "original_handler_caller_verified": false,
+    "gate_states_changed": false,
+    "static_validation": "99项原/新/IDA初值一致；97个handler各有唯一声明与真实定义；12个迁移入口限定词法变换一致；实际音频正文、3680行原身份/状态和功能门禁保持。",
+    "build": "build.bat Debug：源码和布局断言通过；链接失败，两项旧目录/名单数组缺定义。",
+    "runtime": "未测试或运行",
+    "commit_owner": "用户指定由“整理 UI 窗口代码命名”会话统一合并与提交；本会话不暂存、不提交。",
+    "ledger_validation": "measure_cg2d.ps1 -Check仅报两份既有键盘历史附件缺失，未写派生文件，不计全量台账通过。",
+    "integration_state": "等待用户指定的另一会话统一合并",
+    "handoff_reason": "最终检查发现共享LegacyAudio.cpp再次被其它流程回写为旧表版本；本会话停止反复覆盖，完整13文件代码迁移在交接补丁中。用户指定由“整理 UI 窗口代码命名”统一合并与提交，集成检查须在合并后重做。",
+    "static_validation_scope": "99项初值、97个真实绑定与12个迁移入口限定变换在恢复迁出后的快照通过；不代表当前再次被回写后的工作树已经集成完成。",
+    "handoff_integrated": true,
+    "compile_passed": true,
+    "link_passed": false,
+    "build_exit_code": 1
+  },
+  "ui_storage_records_20261015": {
+    "spec": "doc/cg2d_ui_storage_records_spec.md",
+    "evidence": "doc/cg2d_ui_storage_records_evidence.json",
+    "record_sizes": {
+      "WindowTradeItem": 3148,
+      "WindowStorageItem": 3140,
+      "WindowTradePet": 1532,
+      "WindowStoragePet": 1536,
+      "WindowStoragePetSummary": 340,
+      "WindowItemDetailGroup": 64504
+    },
+    "global_byte_sizes": {
+      "gTradeItemsD460D0": 125920,
+      "gTradePetsC9C108": 15320,
+      "gPetStorageD64E18": 7680,
+      "gItemDetailStorageCC4D58": 129008
+    },
+    "static_validation": "原地址注释、字段偏移、定长文本容量、旧数字寻址替换、清零/复制范围及共享对象核对；函数表3680行原身份/状态保持。",
+    "layout_assertions": "源码编译通过；6类记录全部字段偏移、大小和复制性质，以及4块全局总大小断言通过。",
+    "build": "build.bat Debug",
+    "build_exit_code": 1,
+    "compile_passed": true,
+    "link_passed": false,
+    "link_blockers": [
+      "gLegacyPetSkillCatalogCA0478",
+      "gLegacyTradeTargetNamesCB1D1C"
+    ],
+    "blocker_owner": "用户指定由“分析 sub_504180 中的结构体”会话继续补齐真实数据定义/生产。",
+    "runtime": "未测试、运行或部署",
+    "ledger_validation": "台账-Check仍仅报两份既有外部键盘历史附件缺失，未写派生文件；不计全量台账通过。UTF-8无BOM／LF、JSON、Git差异和3680行函数身份／状态核对通过。"
   }
 }

@@ -6,6 +6,7 @@
 #include "cg/Input.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/platform/KeyState.hpp"
 
 namespace cg::input {
@@ -47,12 +48,12 @@ void ProcessKeyInput_4596D0()
             return;
         }
 
-        if (audio::Sub_5043D0(2) != 0) {
-            static_cast<void>(audio::Sub_5042D0(100u));
+        if (ui::Sub_5043D0(2) != 0) {
+            static_cast<void>(ui::Sub_5042D0(100u));
             static_cast<void>(login::detail::PlaySe(57, 320, 240));
             return;
         }
-        static_cast<void>(audio::Sub_504180(99u));
+        static_cast<void>(ui::Sub_504180(99u));
 
     } catch (const cg::text::GbkStorageError&) {
         platform::ShowWideMessage(L"文字无法按GBK保存，或已超出字段容量。", L"文字编码", 0x10U);

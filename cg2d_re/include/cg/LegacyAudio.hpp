@@ -2,10 +2,6 @@
 
 #include <cstdint>
 
-namespace cg::login {
-struct YobiAction;
-}
-
 namespace cg::audio {
 
 struct SpatialAudioRecord;
@@ -56,28 +52,5 @@ std::uint32_t Sub_52B990() noexcept;
 // 原函数：0x0052B940。
 void Sub_52B940(); // 原资源清理入口，普通场景复用既有实现。
 std::int32_t ReadBgmRecordIndex58D4F8() noexcept; // 只读真实当前BGM号，不替代目标1050818。
-
-// 原 57C368 表与 CC236C 三槽的共享音效选择入口。
-// 原函数：0x005044C0。
-std::int32_t __cdecl Sub_5044C0(std::uint32_t id);
-// 原函数：0x00504410。
-std::int32_t __cdecl Sub_504410(std::uint32_t id);
-// 原函数：0x00504180。
-std::int32_t __cdecl Sub_504180(std::uint32_t id);
-// 原函数：0x005042D0。
-std::int32_t __cdecl Sub_5042D0(std::uint32_t id);
-// 原函数：0x00504380。
-std::int32_t __cdecl Sub_504380(std::uint32_t id);
-// 原函数：0x005043D0。
-std::int32_t __cdecl Sub_5043D0(std::int32_t index);
-std::uint32_t ReadLegacyPanelSelectionCC236C() noexcept; // 旧面板直接读取首槽编号，不经类别映射。
-std::uint32_t ReadLegacyPanelSelectionCC2370() noexcept; // 旧选择31关闭时读取同源第二槽。
-// 原函数：0x00504AF0。
-std::int32_t __cdecl Sub_504AF0();
-// 原函数：0x00504460。
-std::int32_t Sub_504460(std::uint32_t id); // 旧面板按同源action槽切换选择，不直接清理对象。
-// 沿用57C368唯一表的非拥有运行期槽，不建立UI平行表；索引来自5044C0。
-login::YobiAction*& BorrowLegacyPanelAction57C374(std::int32_t index) noexcept;
-std::uint8_t& BorrowLegacyPanelDirty57C378(std::int32_t index) noexcept;
 
 } // namespace cg::audio

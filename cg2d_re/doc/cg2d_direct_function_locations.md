@@ -1,5 +1,7 @@
 # R1：直接函数定义定位
 
+> 2026-10-15 LWS01：57C368旧窗口记录及选择入口已迁至 `src/ui/LegacyWindowSelection.cpp`（`cg::ui`），类别按S8定义，97个非空handler绑定真实实现；见[类型与绑定SPEC](cg2d_legacy_window_selection_spec.md)。当前定位见机器清单；历史LegacyAudio归属保留为原记录，未证调度时机及验收门禁不变。
+
 ## 范围与实施方案
 
 本清单补充[原函数元数据](cg2d_ida_inventory.json)和[显式语义映射](cg2d_semantic_function_mappings.md)，用于直接定位当前C++源码本体。不是函数验收表，不把地址命名、源码本体存在或脚本成功当作语义一致、编译、链接或运行通过。

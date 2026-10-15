@@ -640,7 +640,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        348
+        346
       ]
     },
     {
@@ -650,7 +650,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        384
+        382
       ]
     },
     {
@@ -660,7 +660,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        321
+        319
       ]
     },
     {
@@ -680,7 +680,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口43初始化、关闭检查与四阶段更新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        609
+        608
       ]
     },
     {
@@ -690,7 +690,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "四类提示后绘制完整当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        785
+        784
       ]
     },
     {
@@ -700,7 +700,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "窗口43释放回调，原返回值弃用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        588
+        587
       ]
     },
     {
@@ -2010,7 +2010,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "清交易U8，创建窗口43动画并发布借用T*。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        476
+        475
       ]
     },
     {
@@ -2020,7 +2020,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        485
+        484
       ]
     },
     {
@@ -2030,7 +2030,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        499
+        498
       ]
     },
     {
@@ -2040,7 +2040,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        510
+        509
       ]
     },
     {
@@ -2050,7 +2050,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空槽领取并标记物品。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        518
+        517
       ]
     },
     {
@@ -2060,7 +2060,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "仅交换选择槽字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        532
+        531
       ]
     },
     {
@@ -2070,7 +2070,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空槽领取并标记宠物。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        541
+        540
       ]
     },
     {
@@ -2080,7 +2080,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        552
+        551
       ]
     },
     {
@@ -2090,7 +2090,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "释放物品选择，再减同源悬停字节。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        561
+        560
       ]
     },
     {
@@ -2100,7 +2100,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "只释放宠物选择及标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        576
+        575
       ]
     },
     {
@@ -2110,7 +2110,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "空宠物槽仍画背景。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        832
+        831
       ]
     },
     {
@@ -2120,7 +2120,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "TQN01：低W16坐标/scroll BYTE及声效后fresh滚动目标，callback与真实S32 0/2返回保。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        885
+        882
       ]
     },
     {
@@ -2130,7 +2130,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "自有物品交易页，20格玩家背包。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1032
+        1029
       ]
     },
     {
@@ -2140,7 +2140,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "自有宠物交易页，按索引对取原宠物。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1211
+        1208
       ]
     },
     {
@@ -2150,7 +2150,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1341
+        1338
       ]
     },
     {
@@ -2160,7 +2160,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1357
+        1354
       ]
     },
     {
@@ -2170,7 +2170,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1397
+        1394
       ]
     },
     {
@@ -2180,7 +2180,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1436
+        1433
       ]
     },
     {
@@ -2190,7 +2190,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "kind6，绑定真实物品拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1479
+        1476
       ]
     },
     {
@@ -2200,7 +2200,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "kind7，绑定真实宠物拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1485
+        1482
       ]
     },
     {
@@ -2210,7 +2210,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方已选物品完整交互/绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1491
+        1488
       ]
     },
     {
@@ -2220,7 +2220,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方已选宠物完整交互/绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1665
+        1662
       ]
     },
     {
@@ -2230,7 +2230,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1802
+        1799
       ]
     },
     {
@@ -2240,7 +2240,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1821
+        1818
       ]
     },
     {
@@ -2250,7 +2250,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "对方交易面板入口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1853
+        1850
       ]
     },
     {
@@ -2260,7 +2260,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1872
+        1869
       ]
     },
     {
@@ -2270,7 +2270,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "X未命中则不读Y。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2032
+        2029
       ]
     },
     {
@@ -2280,7 +2280,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "交易输入激活/聊天恢复。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2047
+        2044
       ]
     },
     {
@@ -2290,7 +2290,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "外部宠物技能名称行，空行仍绘背景。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2065
+        2062
       ]
     },
     {
@@ -2300,7 +2300,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "外部宠物提示，重量行固定Y=31。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2092
+        2089
       ]
     },
     {
@@ -2310,7 +2310,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "交易宠物技能行，空文本仍绘制行图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2185
+        2182
       ]
     },
     {
@@ -2320,7 +2320,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "完整交易宠物提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2215
+        2212
       ]
     },
     {
@@ -2330,7 +2330,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "己方技能按S16索引对取名称。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2302
+        2299
       ]
     },
     {
@@ -2340,7 +2340,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "完整己方宠物提示，含重量行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2332
+        2329
       ]
     },
     {
@@ -2350,7 +2350,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "S8物品槽，负值归-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2418
+        2415
       ]
     },
     {
@@ -2360,7 +2360,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "S8宠物槽，负值归-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2425
+        2422
       ]
     },
     {
@@ -2370,7 +2370,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "公开两组交易槽及数值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2432
+        2429
       ]
     },
     {
@@ -2380,7 +2380,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "撤回公开，无计时门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2495
+        2492
       ]
     },
     {
@@ -2390,7 +2390,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "确认/撤销确认，共享500ms门槛。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2525
+        2522
       ]
     },
     {
@@ -2400,7 +2400,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "全量清交易双侧后复制己方，最后打开43。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2570
+        2567
       ]
     },
     {
@@ -2410,7 +2410,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "先发送选择请求，失败仍继续本地打开。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2596
+        2593
       ]
     },
     {
@@ -2420,7 +2420,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "选择表绑定真实交易回调后打开44。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2603
+        2600
       ]
     },
     {
@@ -2440,7 +2440,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "顺序同步20条交易物品。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        468
+        467
       ]
     },
     {
@@ -2450,7 +2450,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "先清侧状态，再清物品/宠物整组。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2706
+        2702
       ]
     },
     {
@@ -2460,7 +2460,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "32行及页数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2719
+        2715
       ]
     },
     {
@@ -2470,7 +2470,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "每条14字段，返回终止字段状态1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2741
+        2737
       ]
     },
     {
@@ -2480,7 +2480,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "单宠物属性与双名称。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2782
+        2774
       ]
     },
     {
@@ -2490,7 +2490,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "只预清第一条技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2820
+        2819
       ]
     },
     {
@@ -2520,7 +2520,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "另一展示副本，逐行复制描述。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2609
+        2606
       ]
     },
     {
@@ -2530,7 +2530,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "同源玩家宠物属性及十项技能按存储索引复制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2643
+        2639
       ]
     },
     {
@@ -3701,7 +3701,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        309
+        307
       ]
     },
     {
@@ -3711,7 +3711,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存取数值输入焦点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        429
+        427
       ]
     },
     {
@@ -3721,7 +3721,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存放第一页请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        449
+        447
       ]
     },
     {
@@ -3731,7 +3731,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存放第二页请求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        473
+        471
       ]
     },
     {
@@ -3741,7 +3741,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "第一页选中图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        497
+        495
       ]
     },
     {
@@ -3751,7 +3751,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "第二页选中图。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        504
+        502
       ]
     },
     {
@@ -3761,7 +3761,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "物品页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        511
+        509
       ]
     },
     {
@@ -3771,7 +3771,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        541
+        539
       ]
     },
     {
@@ -3781,7 +3781,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "存款页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        574
+        572
       ]
     },
     {
@@ -3791,7 +3791,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "取款页签。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        608
+        606
       ]
     },
     {
@@ -3801,7 +3801,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "自有存放物品面板。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        642
+        640
       ]
     },
     {
@@ -3811,7 +3811,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        822
+        820
       ]
     },
     {
@@ -3821,7 +3821,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物上一行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1013
+        1011
       ]
     },
     {
@@ -3831,7 +3831,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "宠物下一行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1043
+        1041
       ]
     },
     {
@@ -3841,7 +3841,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "两侧宠物滚轮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1073
+        1071
       ]
     },
     {
@@ -3851,7 +3851,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "自有宠物存放行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1087
+        1085
       ]
     },
     {
@@ -3861,7 +3861,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "外部宠物提领行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1233
+        1231
       ]
     },
     {
@@ -3871,7 +3871,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1368
+        1366
       ]
     },
     {
@@ -3881,7 +3881,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "双侧数量和金额。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1462
+        1460
       ]
     },
     {
@@ -3891,7 +3891,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38右上关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1531
+        1529
       ]
     },
     {
@@ -3901,7 +3901,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38/41共用关闭按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1553
+        1551
       ]
     },
     {
@@ -3911,7 +3911,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1576
+        1574
       ]
     },
     {
@@ -10171,7 +10171,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2856
+        2855
       ]
     },
     {
@@ -10181,7 +10181,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2868
+        2867
       ]
     },
     {
@@ -10191,7 +10191,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2885
+        2884
       ]
     },
     {
@@ -10201,7 +10201,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2900
+        2899
       ]
     },
     {
@@ -10211,7 +10211,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2915
+        2914
       ]
     },
     {
@@ -10221,7 +10221,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2929
+        2928
       ]
     },
     {
@@ -10231,7 +10231,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2944
+        2943
       ]
     },
     {
@@ -10241,7 +10241,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2959
+        2958
       ]
     },
     {
@@ -10251,7 +10251,7 @@
       "source": "src/ui/windows/WindowTrade.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2979
+        2978
       ]
     },
     {
@@ -10663,7 +10663,7 @@
       "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1571
+        1572
       ]
     },
     {

@@ -17,6 +17,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -35806,7 +35807,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
         return 0;
     }
     if (result == 2) {
-        if (audio::ReadLegacyPanelSelectionCC236C() != 19) {
+        if (ui::ReadLegacyPanelSelectionCC236C() != 19) {
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
@@ -35857,7 +35858,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
         }
     }
     if (ui::detail::WindowProfile_CheckDistance(1, 1) != 0) {
-        static_cast<void>(audio::Sub_5042D0(gLegacyGatherPanel583B00.id));
+        static_cast<void>(ui::Sub_5042D0(gLegacyGatherPanel583B00.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (Sub_4EE670() != 0) {
@@ -35867,7 +35868,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
         static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, {}));
         const std::uint32_t id = gLegacyGatherPanel583B00.id;
         gLegacySkillPendingD67C48 = 1;
-        static_cast<void>(audio::Sub_5042D0(id));
+        static_cast<void>(ui::Sub_5042D0(id));
     }
     const std::int32_t kind = gLegacyGatherKindCF3F10;
     const std::int32_t y = gLegacyGatherPanel583B00.y + 168;

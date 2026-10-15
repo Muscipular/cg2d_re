@@ -148998,11 +148998,11 @@
         "ida_function_xref_created": false,
         "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
         "current_identity_table": {
-          "path": "src/LegacyAudio.cpp",
-          "line": 391,
-          "symbol": "gSoundRecords57C368",
-          "field": "handlerToken",
-          "callable_native_callback": false
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "line": 143,
+          "symbol": "gLegacyWindowRecords57C368",
+          "field": "handler",
+          "callable_native_callback": true
         },
         "original_table_callback_dispatch_proved": false,
         "capacity_or_production_proved": false,
@@ -149330,11 +149330,11 @@
         "ida_function_xref_created": false,
         "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
         "current_identity_table": {
-          "path": "src/LegacyAudio.cpp",
-          "line": 392,
-          "symbol": "gSoundRecords57C368",
-          "field": "handlerToken",
-          "callable_native_callback": false
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "line": 144,
+          "symbol": "gLegacyWindowRecords57C368",
+          "field": "handler",
+          "callable_native_callback": true
         },
         "original_table_callback_dispatch_proved": false,
         "capacity_or_production_proved": false,
@@ -149657,11 +149657,11 @@
         "ida_function_xref_created": false,
         "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
         "current_identity_table": {
-          "path": "src/LegacyAudio.cpp",
-          "line": 393,
-          "symbol": "gSoundRecords57C368",
-          "field": "handlerToken",
-          "callable_native_callback": false
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "line": 145,
+          "symbol": "gLegacyWindowRecords57C368",
+          "field": "handler",
+          "callable_native_callback": true
         },
         "original_table_callback_dispatch_proved": false,
         "capacity_or_production_proved": false,
@@ -149915,11 +149915,11 @@
         "ida_function_xref_created": false,
         "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
         "current_identity_table": {
-          "path": "src/LegacyAudio.cpp",
-          "line": 394,
-          "symbol": "gSoundRecords57C368",
-          "field": "handlerToken",
-          "callable_native_callback": false
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "line": 146,
+          "symbol": "gLegacyWindowRecords57C368",
+          "field": "handler",
+          "callable_native_callback": true
         },
         "original_table_callback_dispatch_proved": false,
         "capacity_or_production_proved": false,
@@ -150317,11 +150317,11 @@
         "ida_function_xref_created": false,
         "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
         "current_identity_table": {
-          "path": "src/LegacyAudio.cpp",
-          "line": 359,
-          "symbol": "gSoundRecords57C368",
-          "field": "handlerToken",
-          "callable_native_callback": false
+          "path": "src/ui/LegacyWindowSelection.cpp",
+          "line": 111,
+          "symbol": "gLegacyWindowRecords57C368",
+          "field": "handler",
+          "callable_native_callback": true
         },
         "original_table_callback_dispatch_proved": false,
         "capacity_or_production_proved": false,
@@ -222254,14 +222254,14 @@
       "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_504180"
           ],
           "relationship": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_504180"
           ],
@@ -222272,7 +222272,8 @@
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
-        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
@@ -222348,14 +222349,14 @@
       "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_5042D0"
           ],
           "relationship": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_5042D0"
           ],
@@ -222366,7 +222367,8 @@
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
-        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
@@ -222442,14 +222444,14 @@
       "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_504410"
           ],
           "relationship": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_504410"
           ],
@@ -222460,7 +222462,8 @@
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
-        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
@@ -222536,14 +222539,14 @@
       "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_504460"
           ],
           "relationship": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_504460"
           ],
@@ -222554,7 +222557,8 @@
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
-        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
@@ -222630,14 +222634,14 @@
       "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_5044C0"
           ],
           "relationship": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_5044C0"
           ],
@@ -222648,7 +222652,8 @@
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
-        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
       "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
@@ -222724,14 +222729,14 @@
       "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
       "sources": [
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
             "Sub_504AF0"
           ],
           "relationship": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。"
         },
         {
-          "path": "include/cg/LegacyAudio.hpp",
+          "path": "include/cg/ui/LegacyWindowSelection.hpp",
           "symbols": [
             "Sub_504AF0"
           ],
@@ -222742,7 +222747,8 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
       "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
@@ -237094,9 +237100,9 @@
           "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
         },
         {
-          "path": "src/LegacyAudio.cpp",
+          "path": "src/ui/LegacyWindowSelection.cpp",
           "symbols": [
-            "gSoundRecords57C368"
+            "gLegacyWindowRecords57C368"
           ],
           "relationship": "原第52项+04与当前handlerToken同一代码身份；原20B/现32B指针承载分别记录，不当可调用路由。"
         }
@@ -237109,7 +237115,8 @@
         "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_legacy_window_selection_spec.md"
       ],
       "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
       "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
@@ -281823,52 +281830,56 @@
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_DrawOwnPetTooltip",
-        "line": 277
+        "line": 212
       },
       {
-        "path": "src/ui/WindowRuntime.cpp",
+        "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_DrawStoredPetTooltip",
-        "line": 1110
+        "line": 259
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowPet_DrawTooltip",
-        "line": 1166
+        "line": 1101
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawPetRow",
-        "line": 898
+        "line": 831
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleOwnInventory",
-        "line": 1097
+        "line": 1029
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleSelectedItem",
-        "line": 1558
+        "line": 1488
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleRemoteItem",
-        "line": 1941
+        "line": 1869
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 1446
+        "line": 1446,
+        "current_definition_lines": [
+          1618,
+          1630
+        ]
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawDescriptionLines",
-        "line": 1492
+        "line": 1642
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawPetTooltip",
-        "line": 1732
+        "line": 1688
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
@@ -281888,7 +281899,7 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItemSelector_HandlePlayerAttributes",
-        "line": 2571
+        "line": 2507
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
@@ -281898,72 +281909,72 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 2718
+        "line": 2651
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawDescriptionTooltip",
-        "line": 2761
+        "line": 2693
       },
       {
-        "path": "src/ui/windows/WindowTrade.cpp",
+        "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawShopTooltip",
-        "line": 1788
+        "line": 2722
       },
       {
-        "path": "src/ui/windows/WindowTrade.cpp",
+        "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawWorkTooltip",
-        "line": 2109
+        "line": 2768
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawRemotePetSkillRow",
-        "line": 2133
+        "line": 2062
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawRemotePetTooltip",
-        "line": 2160
+        "line": 2089
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawSelectedPetSkillRow",
-        "line": 2253
+        "line": 2182
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawSelectedPetTooltip",
-        "line": 2283
+        "line": 2212
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawOwnPetSkillRow",
-        "line": 2370
+        "line": 2299
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawOwnPetTooltip",
-        "line": 2400
+        "line": 2329
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_HandleOwnItems",
-        "line": 710
+        "line": 640
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_HandleStoredItems",
-        "line": 890
+        "line": 820
       },
       {
         "path": "src/ui/windows/WindowItemStorage.cpp",
         "symbol": "WindowItemStorage_HandleOwnItems",
-        "line": 188
+        "line": 115
       },
       {
         "path": "src/ui/windows/WindowItemStorage.cpp",
         "symbol": "WindowItemStorage_HandleStoredItems",
-        "line": 343
+        "line": 270
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
@@ -281981,9 +281992,9 @@
         "line": 1073
       },
       {
-        "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
+        "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_ShowTooltip",
-        "line": 356
+        "line": 1184
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
@@ -281991,9 +282002,9 @@
         "line": 1070
       },
       {
-        "path": "src/ui/windows/WindowAppearance.cpp",
+        "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_ShowTooltip",
-        "line": 187
+        "line": 1176
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
@@ -282003,17 +282014,17 @@
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawSkillRow",
-        "line": 870
+        "line": 706
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_HandleTechniqueRow",
-        "line": 1042
+        "line": 877
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_HandleRecipeRow",
-        "line": 1100
+        "line": 935
       },
       {
         "path": "src/ui/windows/WindowBattleCommand.cpp",
@@ -282021,19 +282032,19 @@
         "line": 477
       },
       {
-        "path": "src/ui/windows/WindowSkill.cpp",
+        "path": "src/ui/windows/WindowBattlePets.cpp",
         "symbol": "WindowBattlePets_Refresh",
-        "line": 1285
+        "line": 89
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawPetSkillRow",
-        "line": 1461
+        "line": 1293
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawRidingSkillRow",
-        "line": 1500
+        "line": 1332
       },
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
@@ -282043,102 +282054,102 @@
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F0460",
-        "line": 3098
+        "line": 2991
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E4A50",
-        "line": 3265
+        "line": 3158
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4DA400",
-        "line": 3828
+        "line": 3733
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4DDA30",
-        "line": 4729
+        "line": 4634
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4DF210",
-        "line": 5120
+        "line": 5025
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4DF730",
-        "line": 5250
+        "line": 5155
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4D4960",
-        "line": 5717
+        "line": 5621
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4D61E0",
-        "line": 6244
+        "line": 6148
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E0FF0",
-        "line": 6659
+        "line": 6563
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E1B10",
-        "line": 6837
+        "line": 6740
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E7290",
-        "line": 8107
+        "line": 8006
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E7380",
-        "line": 8130
+        "line": 8029
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_52E650",
-        "line": 10346
+        "line": 10244
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4ED020",
-        "line": 11614
+        "line": 11511
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4FB940",
-        "line": 12954
+        "line": 12851
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_504BA0",
-        "line": 12976
+        "line": 12873
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F6220",
-        "line": 14203
+        "line": 14100
       },
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "UpdateBattleText_421750",
-        "line": 6638
+        "line": 6639
       },
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "NewBattleText_4217F0",
-        "line": 6667
+        "line": 6668
       },
       {
         "path": "src/YobiRuntime.cpp",
         "symbol": "NewBattleTimeNumber_4206C0",
-        "line": 10235
+        "line": 10236
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282163,27 +282174,27 @@
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "ApplyPlayerItemFields",
-        "line": 3705
+        "line": 3698
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_5196B0",
-        "line": 3771
+        "line": 3764
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_50BFD0",
-        "line": 3799
+        "line": 3792
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_51B530",
-        "line": 3857
+        "line": 3850
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_51B630",
-        "line": 3907
+        "line": 3900
       },
       {
         "path": "src/world/SceneState.cpp",
@@ -282193,17 +282204,17 @@
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_519770",
-        "line": 4010
+        "line": 4003
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_510150",
-        "line": 4031
+        "line": 4024
       },
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_5199A0",
-        "line": 10347
+        "line": 10340
       },
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
@@ -282216,9 +282227,9 @@
         "line": 670
       },
       {
-        "path": "src/ui/windows/WindowStall.cpp",
+        "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_CopyOwnItem",
-        "line": 449
+        "line": 437
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
@@ -282253,27 +282264,35 @@
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleOwnInventory",
-        "line": 1095
+        "line": 1029
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleSelectedItem",
-        "line": 1554
+        "line": 1488
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltipLines",
-        "line": 1635
+        "line": 1572
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 1681
+        "line": 1681,
+        "current_definition_lines": [
+          1618,
+          1630
+        ]
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 1693
+        "line": 1693,
+        "current_definition_lines": [
+          1618,
+          1630
+        ]
       },
       {
         "path": "src/ui/windows/WindowBattleItems.cpp",
@@ -282293,12 +282312,12 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 2730
+        "line": 2651
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_CopyDisplayItems",
-        "line": 2687
+        "line": 2606
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
@@ -282338,77 +282357,77 @@
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E92A0",
-        "line": 8701
+        "line": 8608
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4E9C80",
-        "line": 8973
+        "line": 8880
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4EA1B0",
-        "line": 9105
+        "line": 9012
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_52D7B0",
-        "line": 9993
+        "line": 9900
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_52DCE0",
-        "line": 10125
+        "line": 10032
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F1C40",
-        "line": 12181
+        "line": 12087
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F3ED0",
-        "line": 12292
+        "line": 12198
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F24A0",
-        "line": 12484
+        "line": 12390
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F2A30",
-        "line": 12618
+        "line": 12524
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4FB940",
-        "line": 12945
+        "line": 12851
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F4790",
-        "line": 13123
+        "line": 13029
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4F51D0",
-        "line": 13385
+        "line": 13291
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_505170",
-        "line": 13601
+        "line": 13507
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_505C20",
-        "line": 13879
+        "line": 13785
       },
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4FAEF0",
-        "line": 15690
+        "line": 15596
       }
     ],
     "evidence_refs": [
@@ -284969,5 +284988,16 @@
     "spec": "doc/cg2d_ui_window_split_spec.md",
     "scope": "清理73条不再消费的长度/对齐计算与缓冲声明，11处局部变量按用途改名，原地址/业务分支保持。",
     "validation": "build.bat Debug 两轮配置、编译、链接退出0；本轮74条未使用/遮蔽告警消除，既有未初始化路径告警仍待；未运行或部署。"
+  },
+  "legacy_window_selection_lws01": {
+    "spec": "doc/cg2d_legacy_window_selection_spec.md",
+    "source_relocations": 13,
+    "handler_bindings": 97,
+    "empty_handler_ids": [
+      0,
+      100
+    ],
+    "scope": "仅同步当前UI归属、真实函数绑定和S8类别类型；历史原证/验收和未证调度时机保持。",
+    "runtime_verified": false
   }
 }

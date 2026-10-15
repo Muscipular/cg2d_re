@@ -226,7 +226,7 @@ static WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
 
-std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
+std::array<WindowTradePet, 2 * 5> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
 
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 
@@ -382,8 +382,8 @@ void WindowTrade_SwapRemoteItems(
     if (first < 8 || first >= 28 || second < 8 || second >= 28) {
         return;
     }
-    char* const left = gTradeItemsD460D0.data() + (side * 20 + first - 8) * 0xC4C;
-    char* const right = gTradeItemsD460D0.data() + (side * 20 + second - 8) * 0xC4C;
+    auto* const left = &gTradeItemsD460D0[side * 20 + first - 8];
+    auto* const right = &gTradeItemsD460D0[side * 20 + second - 8];
     std::array<char, 0xC4C> temporary;
     std::memcpy(temporary.data(), left, temporary.size());
     std::memmove(left, right, temporary.size());
@@ -397,8 +397,8 @@ void WindowTrade_SwapDisplayItems(
     if (first < 8 || first >= 28 || second < 8 || second >= 28) {
         return;
     }
-    char* const left = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + (first - 8) * 0xC44;
-    char* const right = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + (second - 8) * 0xC44;
+    auto* const left = &gItemDetailStorageCC4D58[side].items[first - 8];
+    auto* const right = &gItemDetailStorageCC4D58[side].items[second - 8];
     std::array<char, 0xC44> temporary;
     std::memcpy(temporary.data(), left, temporary.size());
     std::memmove(left, right, temporary.size());
@@ -439,7 +439,7 @@ void WindowTrade_CopyOwnItem(const std::int32_t side, const std::int32_t index)
     if (index < 0 || index >= 20) {
         return;
     }
-    char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
+    auto* const record = &gTradeItemsD460D0[index + side * 20];
     std::memset(record, 0, 0xC4C);
     const world::detail::PlayerItemRecord& source = world::detail::BorrowPlayerItemsFDA8A4()[index + 8];
     if (source.used == 0) {
@@ -447,20 +447,19 @@ void WindowTrade_CopyOwnItem(const std::int32_t side, const std::int32_t index)
     }
     const std::int32_t imageNo = source.imageNo;
     const std::int32_t count = source.count;
-    WindowTrade_WriteValue(record, 0, std::uint16_t{1});
+    record->used = std::uint16_t{1};
     const std::uint16_t flags = source.flags;
-    WindowTrade_WriteValue(record, 4, imageNo);
+    record->imageNo = imageNo;
     const std::int32_t itemId = source.itemId;
-    WindowTrade_WriteValue(record, 8, count);
-    WindowTrade_WriteValue(record, 0x0C, itemId);
-    WindowTrade_WriteValue(record, 0xC34,
-        static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
+    record->count = count;
+    record->itemId = itemId;
+    record->flags = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags));
     if (!source.memo.empty()) {
-        cg::text::StoreGbk(record + 0xC38, 17, source.memo);
+        cg::text::StoreGbk(record->memo.data(), 17, source.memo);
     }
-    cg::text::StoreGbk(record + 0x10, 29, source.name);
+    cg::text::StoreGbk(record->name.data(), 29, source.name);
     if ((flags & 1u) == 0) {
-        WindowTrade_WriteValue(record, 2, std::uint16_t{0xFFFF});
+        record->selection = std::bit_cast<std::int16_t>(std::uint16_t{0xFFFF});
     }
 }
 
@@ -834,7 +833,7 @@ static std::int32_t WindowTrade_DrawPetRow(
     const std::int32_t index, const std::uint8_t textLayer, const std::uint8_t graphicLayer,
     const render::GraphicDescriptor16* const descriptor)
 {
-    const char* const record = gTradePetsC9C108.data() + (index + side * 5) * 0x5FC;
+    const auto* const record = &gTradePetsC9C108[index + side * 5];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0) {
@@ -845,36 +844,34 @@ static std::int32_t WindowTrade_DrawPetRow(
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
-            textLayer, 8, color, cg::text::FromGbkWide(record + 0x5D8).c_str(), 0, 0));
+            textLayer, 8, color, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
         std::wstring buffer;
-        const auto drawNumber = [&](const std::size_t offset, const std::wstring_view format,
+        const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                     const std::int32_t dx, const std::int32_t dy) {
-            std::int32_t value;
-            std::memcpy(&value, record + offset, sizeof(value));
             cg::text::FormatTo(buffer, format, value);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, color, buffer, 0, 0));
         };
-        drawNumber(0x0C, L"{:3}", 35, 22);
+        drawNumber(record->level, L"{:3}", 35, 22);
         std::int16_t tribe;
-        std::memcpy(&tribe, record + 4, sizeof(tribe));
+        std::memcpy(&tribe, &record->tribe, sizeof(tribe));
         if (tribe >= 0 && tribe < 20) {
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
                 textLayer, 8, color, gTribeNames57CB54[tribe], 0, 0));
         }
-        drawNumber(0x14, L"{:4}", 210, 5);
-        drawNumber(0x1C, L"{:4}", 210, 22);
-        drawNumber(0x20, L"{:3}", 95, 40);
-        drawNumber(0x24, L"{:3}", 155, 40);
-        drawNumber(0x28, L"{:3}", 215, 40);
-        drawNumber(0x2C, L"{:3}", 95, 55);
-        drawNumber(0x30, L"{:3}", 155, 55);
-        drawNumber(0x34, L"{:3}", 215, 55);
-        drawNumber(0x5C, L"{:2}", 45, 55);
+        drawNumber(record->maxHp, L"{:4}", 210, 5);
+        drawNumber(record->maxFp, L"{:4}", 210, 22);
+        drawNumber(record->combatStats[0], L"{:3}", 95, 40);
+        drawNumber(record->combatStats[1], L"{:3}", 155, 40);
+        drawNumber(record->combatStats[2], L"{:3}", 215, 40);
+        drawNumber(record->combatStats[3], L"{:3}", 95, 55);
+        drawNumber(record->combatStats[4], L"{:3}", 155, 55);
+        drawNumber(record->combatStats[5], L"{:3}", 215, 55);
+        drawNumber(record->value5C, L"{:2}", 45, 55);
     }
     return render::DrawGraphic3_520970(
         x, y, graphicLayer, 243141, 0, 1, 0, descriptor);
@@ -1376,7 +1373,7 @@ static void WindowTrade_RefreshOwnPanel(
     std::int32_t items = 0;
     for (std::int32_t position = 0; position < 20; ++position) {
         std::uint16_t used;
-        std::memcpy(&used, gTradeItemsD460D0.data() + (position + 20) * 0xC4C, sizeof(used));
+        std::memcpy(&used, &gTradeItemsD460D0[position + 20], sizeof(used));
         if (used != 0) {
             ++items;
         }
@@ -1385,7 +1382,7 @@ static void WindowTrade_RefreshOwnPanel(
     std::int32_t pets = 0;
     for (std::int32_t position = 0; position < 5; ++position) {
         std::uint16_t used;
-        std::memcpy(&used, gTradePetsC9C108.data() + (position + 5) * 0x5FC, sizeof(used));
+        std::memcpy(&used, &gTradePetsC9C108[position + 5], sizeof(used));
         if (used != 0) {
             ++pets;
         }
@@ -1887,7 +1884,7 @@ static void WindowTrade_HandleRemoteItem(
                 if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     hovered = slot;
                     std::uint16_t used;
-                    std::memcpy(&used, gTradeItemsD460D0.data() + slot * 0xC4C, sizeof(used));
+                    std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
                     if (used != 0) {
                         gHoverTextD68AE8 = L"以此物品向對方提出交易。";
                     }
@@ -1902,12 +1899,12 @@ static void WindowTrade_HandleRemoteItem(
             gTradeHoverSlotC8B314 = hovered;
         }
         if (hovered >= 0 && (state & 4) != 0) {
-            const char* const record = gTradeItemsD460D0.data() + hovered * 0xC4C;
+            const auto* const record = &gTradeItemsD460D0[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
                 std::int32_t pages;
-                std::memcpy(&pages, record + 0xC30, sizeof(pages));
+                std::memcpy(&pages, &record->pages, sizeof(pages));
                 gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
                 if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
                     gTradeTooltipPageCB10D4 = 0;
@@ -1921,25 +1918,25 @@ static void WindowTrade_HandleRemoteItem(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, login::detail::gValueD69768, 0);
-            const char* const record = gTradeItemsD460D0.data() + hovered * 0xC4C;
+            const auto* const record = &gTradeItemsD460D0[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                const char* const memo = record + 0xC38;
+                const char* const memo = record->memo.data();
                 const std::size_t memoLength = std::strlen(memo);
                 gTradePreviewCC2E64 = hovered + 200;
                 bool showName = false;
                 if (memoLength != 0) {
                     std::uint32_t flags;
-                    std::memcpy(&flags, record + 0xC34, sizeof(flags));
+                    std::memcpy(&flags, &record->flags, sizeof(flags));
                     showName = (flags & 0x100u) != 0;
                 }
                 if (showName) {
-                    cg::text::FormatTo(buffer, L"{}[kok]", cg::text::FromGbkWide(record + 0x10).c_str());
+                    cg::text::FormatTo(buffer, L"{}[kok]", cg::text::FromGbkWide(record->name.data()).c_str());
                     gHoverTextD68AE8 = buffer;
                 } else {
                     std::uint32_t flags;
-                    std::memcpy(&flags, record + 0xC34, sizeof(flags));
+                    std::memcpy(&flags, &record->flags, sizeof(flags));
                     if ((flags & 0x200u) != 0) {
                         cg::text::FormatTo(buffer, L"{}[han]", cg::text::FromGbkWide(memo).c_str());
                         gHoverTextD68AE8 = buffer;
@@ -1952,7 +1949,7 @@ static void WindowTrade_HandleRemoteItem(
         static_cast<void>(render::DrawText_456780(
             0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         for (std::int32_t slot = 0; slot < 20; ++slot) {
-            const char* const record = gTradeItemsD460D0.data() + slot * 0xC4C;
+            const auto* const record = &gTradeItemsD460D0[slot];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used == 0) {
@@ -1961,17 +1958,17 @@ static void WindowTrade_HandleRemoteItem(
             const std::int32_t centerX = x + 50 * (slot % 5) + 37;
             const std::int32_t centerY = y + 52 * (slot / 5) + 51;
             std::int16_t value02;
-            std::memcpy(&value02, record + 2, sizeof(value02));
+            std::memcpy(&value02, &record->selection, sizeof(value02));
             if (value02 < 0) {
                 static_cast<void>(login::detail::DrawGraphic(
                     centerX, centerY, 223, 23040, 0, nullptr));
             }
             std::int32_t imageNo;
-            std::memcpy(&imageNo, record + 4, sizeof(imageNo));
+            std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
             static_cast<void>(login::detail::DrawGraphic(
                 centerX, centerY, 223, imageNo, 0, descriptor));
             std::int32_t count;
-            std::memcpy(&count, record + 8, sizeof(count));
+            std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
                 static_cast<void>(render::DrawText_456780(
@@ -1989,7 +1986,7 @@ static void WindowTrade_HandleRemoteItem(
                     const std::int32_t slot = scroll + row;
                     if (slot >= 0) {
                         std::uint16_t used;
-                        std::memcpy(&used, gTradePetsC9C108.data() + slot * 0x5FC, sizeof(used));
+                        std::memcpy(&used, &gTradePetsC9C108[slot], sizeof(used));
                         if (used != 0) {
                             gHoverTextD68AE8 = L"以此寵物向對方提出交易。";
                             gTradePreviewCC2E64 = slot + 500;
@@ -2010,7 +2007,7 @@ static void WindowTrade_HandleRemoteItem(
     std::int32_t items = 0;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::uint16_t used;
-        std::memcpy(&used, gTradeItemsD460D0.data() + slot * 0xC4C, sizeof(used));
+        std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
         if (used != 0) {
             ++items;
         }
@@ -2019,7 +2016,7 @@ static void WindowTrade_HandleRemoteItem(
     std::int32_t pets = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         std::uint16_t used;
-        std::memcpy(&used, gTradePetsC9C108.data() + slot * 0x5FC, sizeof(used));
+        std::memcpy(&used, &gTradePetsC9C108[slot], sizeof(used));
         if (used != 0) {
             ++pets;
         }
@@ -2070,7 +2067,7 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
-    const char* const text = gPetStorageD64E18.data() + index * 0x600 + 0x62 + skill * 0x8C;
+    const char* const text = gPetStorageD64E18[index].techniques[skill].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
@@ -2095,7 +2092,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
-    const char* const record = gPetStorageD64E18.data() + shortIndex * 0x600;
+    const auto* const record = &gPetStorageD64E18[shortIndex];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -2107,7 +2104,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
-    const char* const title = record + 0x5E5;
+    const char* const title = record->speciesName.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
@@ -2119,7 +2116,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
-        std::memcpy(&value, record + 0x30 + row * 4, sizeof(value));
+        std::memcpy(&value, &record->baseStats[row], sizeof(value));
         cg::text::FormatTo(buffer, L"{:10}", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
@@ -2127,10 +2124,10 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
             5, 12, 0, buffer, 0, 0));
     }
     std::int32_t maximumWeight;
-    std::memcpy(&maximumWeight, record + 0x5FC, sizeof(maximumWeight));
+    std::memcpy(&maximumWeight, &record->maxWeight, sizeof(maximumWeight));
     if (maximumWeight > 0) {
         std::int32_t weight;
-        std::memcpy(&weight, record + 0x5F8, sizeof(weight));
+        std::memcpy(&weight, &record->weight, sizeof(weight));
         cg::text::FormatTo(buffer, L"{:3} / {:3}", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
@@ -2140,7 +2137,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
-    std::memcpy(&imageNo, record + 4, sizeof(imageNo));
+    std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
     static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
     login::YobiAction* const action = gPreviewActionD67B84;
@@ -2153,7 +2150,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
         std::int32_t value;
-        std::memcpy(&value, record + 0x48 + row * 4, sizeof(value));
+        std::memcpy(&value, &record->elements[row], sizeof(value));
         const std::int32_t segments = value / 10;
         const auto& images = gPetBarImages57E434[row];
         const std::int32_t barY = shortY + 97 + row * 11;
@@ -2193,7 +2190,7 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
     const char* const text =
-        gTradePetsC9C108.data() + (index + shortSide * 5) * 0x5FC + 0x66 + skill * 0x8C;
+        gTradePetsC9C108[index + shortSide * 5].techniques[skill].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
@@ -2222,7 +2219,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     const std::int32_t shortSide =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side));
     const std::int32_t slot = shortIndex + shortSide * 5;
-    const char* const record = gTradePetsC9C108.data() + slot * 0x5FC;
+    const auto* const record = &gTradePetsC9C108[slot];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -2234,7 +2231,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
-    const char* const title = record + 0x5E9;
+    const char* const title = record->speciesName.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
@@ -2246,7 +2243,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
-        std::memcpy(&value, record + 0x38 + row * 4, sizeof(value));
+        std::memcpy(&value, &record->baseStats[row], sizeof(value));
         cg::text::FormatTo(buffer, L"{:10}", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
@@ -2257,7 +2254,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
-    std::memcpy(&imageNo, record + 8, sizeof(imageNo));
+    std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
     static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
     login::YobiAction* const action = gPreviewActionD67B84;
@@ -2270,7 +2267,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
         std::int32_t value;
-        std::memcpy(&value, record + 0x4C + row * 4, sizeof(value));
+        std::memcpy(&value, &record->elements[row], sizeof(value));
         const std::int32_t segments = value / 10;
         const auto& images = gPetBarImages57E434[row];
         const std::int32_t barY = shortY + 97 + row * 11;
@@ -2569,8 +2566,8 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
 // 原函数：0x004E5620。
 login::YobiAction* WindowTrade_ReceiveStart(const char* const name)
 {
-    gTradeItemsD460D0.fill('\0');
-    gTradePetsC9C108.fill('\0');
+    gTradeItemsD460D0.fill({});
+    gTradePetsC9C108.fill({});
     gTradeValueCF4A1C = 0;
     gTradeValueD673E0 = 0;
     gTradeValueCC4C94 = 0;
@@ -2613,29 +2610,28 @@ void WindowTrade_CopyDisplayItems(const std::int32_t side, const std::int32_t in
     }
     const world::detail::PlayerItemRecord& source = world::detail::BorrowPlayerItemsFDA8A4()[index + 8];
     const bool used = source.used != 0;
-    char* const record = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + index * 0xC44;
+    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
     std::memset(record, 0, 0xC44);
     if (!used) {
         return;
     }
     const std::int32_t imageNo = source.imageNo;
     const std::int32_t count = source.count;
-    WindowTrade_WriteValue(record, 0, std::uint16_t{1});
-    WindowTrade_WriteValue(record, 4, imageNo);
-    WindowTrade_WriteValue(record, 8, count);
+    record->used = std::uint16_t{1};
+    record->imageNo = imageNo;
+    record->count = count;
     const std::uint16_t flags = source.flags;
-    WindowTrade_WriteValue(record, 0xC40,
-        static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
+    record->flags = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags));
     if (!source.memo.empty()) {
-        cg::text::StoreGbk(record + 0xC29, 17, source.memo);
+        cg::text::StoreGbk(record->memo.data(), 17, source.memo);
     }
-    cg::text::StoreGbk(record + 0x0C, 29, source.name);
+    cg::text::StoreGbk(record->name.data(), 29, source.name);
     for (std::int32_t line = 0; line < 32; ++line) {
-        cg::text::StoreGbk(record + 0x29 + line * 96, 96, source.description[line]);
+        cg::text::StoreGbk(record->description[line].data(), 96, source.description[line]);
     }
-    WindowTrade_WriteValue(record, 0xC3C, source.pages);
+    record->pages = source.pages;
     if ((flags & 0x60u) != 0) {
-        WindowTrade_WriteValue(record, 2, std::uint16_t{0xFFFF});
+        record->selection = std::bit_cast<std::int16_t>(std::uint16_t{0xFFFF});
     }
 }
 
@@ -2647,56 +2643,56 @@ static void WindowTrade_CopyOwnPet(const std::int32_t side)
         if (source.used == 0) {
             continue;
         }
-        char* const record = gTradePetsC9C108.data() + (index + side * 5) * 0x5FC;
+        auto* const record = &gTradePetsC9C108[index + side * 5];
         const bool hasUserName = source.name6BD[0] != '\0';
-        WindowTrade_WriteValue(record, 0, std::uint16_t{1});
-        std::strcpy(record + 0x5D8,
+        record->used = std::uint16_t{1};
+        std::strcpy(record->name.data(),
             hasUserName ? source.name6BD.data() : source.name6AC.data());
         const std::int32_t imageNo = source.imageNo6A0;
         const std::int32_t value08 = source.value08;
-        std::strcpy(record + 0x5E9, source.name6AC.data());
-        WindowTrade_WriteValue(record, 4, source.value04);
-        WindowTrade_WriteValue(record, 8, imageNo);
-        WindowTrade_WriteValue(record, 0x0C, value08);
+        std::strcpy(record->speciesName.data(), source.name6AC.data());
+        record->tribe = source.value04;
+        record->imageNo = imageNo;
+        record->level = value08;
+        const std::array<std::int32_t*, 3> initialVitals {&record->hp, &record->maxHp, &record->fp};
         for (std::int32_t value = 0; value < 3; ++value) {
-            WindowTrade_WriteValue(record, 0x10 + value * 4,
-                source.values0C[value].value());
+            *initialVitals[value] = source.values0C[value].value();
         }
         const std::int32_t fourth =
             source.values0C[3].value();
         std::int32_t first = source.values70[5];
         std::int32_t second = source.values70[6];
-        WindowTrade_WriteValue(record, 0x1C, fourth);
+        record->maxFp = fourth;
         std::int32_t third = source.values70[7];
-        WindowTrade_WriteValue(record, 0x38, first);
+        record->baseStats[0] = first;
         first = source.values70[8];
-        WindowTrade_WriteValue(record, 0x3C, second);
+        record->baseStats[1] = second;
         second = source.values70[9];
-        WindowTrade_WriteValue(record, 0x40, third);
+        record->baseStats[2] = third;
         third = source.values70[0];
-        WindowTrade_WriteValue(record, 0x44, first);
+        record->baseStats[3] = first;
         first = source.values70[1];
-        WindowTrade_WriteValue(record, 0x48, second);
+        record->baseStats[4] = second;
         second = source.values70[2];
-        WindowTrade_WriteValue(record, 0x20, third);
+        record->combatStats[0] = third;
         third = source.values70[3];
-        WindowTrade_WriteValue(record, 0x24, first);
+        record->combatStats[1] = first;
         first = source.values70[4];
-        WindowTrade_WriteValue(record, 0x28, second);
+        record->combatStats[2] = second;
         second = source.values70[10];
-        WindowTrade_WriteValue(record, 0x2C, third);
+        record->combatStats[3] = third;
         third = source.value6A4;
-        WindowTrade_WriteValue(record, 0x30, first);
-        WindowTrade_WriteValue(record, 0x34, second);
-        WindowTrade_WriteValue(record, 0x5C, third);
+        record->combatStats[4] = first;
+        record->combatStats[5] = second;
+        record->value5C = third;
         for (std::int32_t value = 0; value < 4; ++value) {
-            WindowTrade_WriteValue(record, 0x4C + value * 4, source.values70[21 + value]);
+            record->elements[value] = source.values70[21 + value];
         }
         for (std::int32_t skill = 0; skill < 10; ++skill) {
             const std::int16_t sourceIndex =
                 std::bit_cast<std::int16_t>(source.techniquePairs650[skill].index);
             std::memcpy(
-                record + 0x60 + skill * 0x8C,
+                &record->techniques[skill],
                 &source.techniquesD8[sourceIndex], sizeof(world::detail::PetTechniqueRecord));
         }
     }
@@ -2710,8 +2706,8 @@ static std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
     } else {
         gTradeValueD046D0 = 0;
     }
-    std::memset(gTradeItemsD460D0.data() + side * 0xF5F0, 0, 0xF5F0);
-    std::memset(gTradePetsC9C108.data() + side * 0x1DEC, 0, 0x1DEC);
+    std::memset(gTradeItemsD460D0.data() + side * 20, 0, 20 * sizeof(WindowTradeItem));
+    std::memset(gTradePetsC9C108.data() + side * 5, 0, 5 * sizeof(WindowTradePet));
     return 0;
 }
 
@@ -2719,11 +2715,11 @@ static std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
 static void WindowTrade_BuildRemoteItemDescription(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
-    char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
-    char* const rows = record + 0x2D;
+    auto* const record = &gTradeItemsD460D0[index + side * 20];
+    auto& rows = record->description;
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = rows + line * 96;
+        char* const row = rows[line].data();
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
             last = line;
         } else {
@@ -2731,10 +2727,10 @@ static void WindowTrade_BuildRemoteItemDescription(
         }
     }
     // 原回扫从最后成功行的前一行开始，不检查最后成功行本身。
-    while (last > 0 && std::strlen(rows + (last - 1) * 96) == 0) {
+    while (last > 0 && std::strlen(rows[last - 1].data()) == 0) {
         --last;
     }
-    WindowTrade_WriteValue(record, 0xC30, last < 0 ? std::int32_t{0} : last / 8 + 1);
+    record->pages = last < 0 ? std::int32_t{0} : last / 8 + 1;
 }
 
 // 原函数：0x004E5830。
@@ -2748,12 +2744,12 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
     std::int32_t status =
         network::ExtractDelimitedField_52CED0(text, '|', field + 1, 255, name);
     while (status != 1) {
-        char* const record = gTradeItemsD460D0.data() + index * 0xC4C;
+        auto* const record = &gTradeItemsD460D0[index];
         std::memset(record, 0, 0xC4C);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        WindowTrade_WriteValue(record, 0, std::uint16_t{1});
+        record->used = std::uint16_t{1};
         if (std::strlen(name) <= 28) {
-            std::strcpy(record + 0x10, name);
+            std::strcpy(record->name.data(), name);
         }
         network::ExtractDelimitedField_52CED0(text, '|', field + 3, 767, description);
         input::UnescapeLegacyTextAndNotify_52D2F0(description);
@@ -2761,16 +2757,12 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
         network::ExtractDelimitedField_52CED0(text, '|', field + 13, 255, memo);
         input::UnescapeLegacyTextAndNotify_52D2F0(memo);
         if (std::strlen(memo) <= 16) {
-            std::strcpy(record + 0xC38, memo);
+            std::strcpy(record->memo.data(), memo);
         }
-        WindowTrade_WriteValue(record, 4,
-            network::ParseDelimitedInteger_52CFA0(text, '|', field + 4));
-        WindowTrade_WriteValue(record, 0x0C,
-            network::ParseDelimitedInteger_52CFA0(text, '|', field + 10));
-        WindowTrade_WriteValue(record, 8,
-            network::ParseDelimitedInteger_52CFA0(text, '|', field + 12));
-        WindowTrade_WriteValue(record, 0xC34,
-            network::ParseDelimitedInteger_52CFA0(text, '|', field + 9));
+        record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field + 4);
+        record->itemId = network::ParseDelimitedInteger_52CFA0(text, '|', field + 10);
+        record->count = network::ParseDelimitedInteger_52CFA0(text, '|', field + 12);
+        record->flags = network::ParseDelimitedInteger_52CFA0(text, '|', field + 9);
         field += 14;
         index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         status = network::ExtractDelimitedField_52CED0(text, '|', field + 1, 255, name);
@@ -2781,7 +2773,7 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
 // 原函数：0x004E5A40。
 static std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const char* const text)
 {
-    char* const record = gTradePetsC9C108.data() + index * 0x5FC;
+    auto* const record = &gTradePetsC9C108[index];
     std::memset(record, 0, 0x5FC);
     char name[256];
     std::int32_t result =
@@ -2790,28 +2782,35 @@ static std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const
         return result;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
-    std::strcpy(record + 0x5D8, std::strlen(name) <= 16 ? name : "???");
+    std::strcpy(record->name.data(), std::strlen(name) <= 16 ? name : "???");
     result = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-    WindowTrade_WriteValue(record, 0x0C, result);
+    record->level = result;
     if (result < 0) {
         return result;
     }
-    WindowTrade_WriteValue(record, 0, std::uint16_t{1});
-    WindowTrade_WriteValue(record, 4, static_cast<std::uint16_t>(
-        network::ParseDelimitedInteger_52CFA0(text, '|', 3)));
-    WindowTrade_WriteValue(record, 0x14, network::ParseDelimitedInteger_52CFA0(text, '|', 4));
+    record->used = std::uint16_t{1};
+    record->tribe = static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(text, '|', 3));
+    record->maxHp = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    const std::array<std::int32_t*, 7> replyCombat {
+        &record->maxFp, &record->combatStats[0], &record->combatStats[1],
+        &record->combatStats[2], &record->combatStats[3], &record->combatStats[4], &record->combatStats[5],
+    };
     for (std::int32_t field = 5; field <= 11; ++field) {
-        WindowTrade_WriteValue(record, 0x1C + (field - 5) * 4,
-            network::ParseDelimitedInteger_52CFA0(text, '|', field));
+        *replyCombat[field - 5] = network::ParseDelimitedInteger_52CFA0(text, '|', field);
     }
-    WindowTrade_WriteValue(record, 0x5C, network::ParseDelimitedInteger_52CFA0(text, '|', 12));
+    record->value5C = network::ParseDelimitedInteger_52CFA0(text, '|', 12);
     network::ExtractDelimitedField_52CED0(text, '|', 13, 255, name);
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
-    std::strcpy(record + 0x5E9, std::strlen(name) <= 16 ? name : "???");
-    WindowTrade_WriteValue(record, 8, network::ParseDelimitedInteger_52CFA0(text, '|', 14));
+    std::strcpy(record->speciesName.data(), std::strlen(name) <= 16 ? name : "???");
+    record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 14);
+    const std::array<std::int32_t*, 9> replyStats {
+        &record->baseStats[0], &record->baseStats[1], &record->baseStats[2], &record->baseStats[3], &record->baseStats[4],
+        &record->elements[0], &record->elements[1], &record->elements[2], &record->elements[3],
+    };
     for (std::int32_t field = 15; field <= 23; ++field) {
         result = network::ParseDelimitedInteger_52CFA0(text, '|', field);
-        WindowTrade_WriteValue(record, 0x38 + (field - 15) * 4, result);
+        *replyStats[field - 15] = result;
     }
     return result;
 }
@@ -2822,13 +2821,13 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
     if (index < 0 || index >= 5) {
         return index;
     }
-    char* const record = gTradePetsC9C108.data() + index * 0x5FC;
+    auto* const record = &gTradePetsC9C108[index];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
         return index;
     }
-    char* skill = record + 0x60;
+    auto* skill = record->techniques.data();
     std::memset(skill, 0, 0x8C);
     char name[256];
     for (std::int32_t field = 1; field <= 10; ++field) {
@@ -2839,11 +2838,11 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         const std::size_t length = std::strlen(name);
-        WindowTrade_WriteValue(skill, 0, std::uint16_t{1});
+        skill->used = std::uint16_t{1};
         if (length <= 24) {
-            std::strcpy(skill + 6, name);
+            std::strcpy(skill->name.data(), name);
         }
-        skill += 0x8C;
+        ++skill;
     }
     return 10;
 }

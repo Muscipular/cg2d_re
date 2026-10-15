@@ -1,4 +1,5 @@
 #include "../platform/StartupNative.hpp"
+#include "cg/ui/LegacyWindowSelection.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -5941,7 +5942,7 @@ void Sub_455FC0()
         return;
     }
     if (gValueCAFEA0 != 0) {
-        static_cast<void>(audio::Sub_504180(1));
+        static_cast<void>(ui::Sub_504180(1));
         gValueCAFEA0 = 0;
         gValue62B5B0 = 0;
         return;
@@ -5963,7 +5964,7 @@ void Sub_50D120(
     }
     if (gValueD67E78 != 0) {
         if (gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
         }
         static_cast<void>(Sub_519D50());
         Sub_4464D0();
@@ -5998,7 +5999,7 @@ void Sub_50D120(
     if (type > 0) {
         if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0
             && gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
         }
         const bool modeTwo = type == 2;
         gValue5ABFC4 = 1;
@@ -6210,7 +6211,7 @@ void Sub_504A50()
         gValueFF0C10 = 0;
     } else {
         if (mode == 3) {
-            static_cast<void>(audio::Sub_504AF0());
+            static_cast<void>(ui::Sub_504AF0());
         }
         gValueFF0C10 = 0;
     }
@@ -6382,7 +6383,7 @@ std::int32_t __cdecl Sub_5093F0(
         if (gValueC8220C == 0) {
             if (gValueCAFEA0 == 0) {
                 gValueCAFEA0 =
-                    static_cast<std::uint32_t>(audio::Sub_504410(1));
+                    static_cast<std::uint32_t>(ui::Sub_504410(1));
             }
             gCurrentSceneState = 200;
             static_cast<void>(Sub_51D5B0());
@@ -6643,7 +6644,7 @@ void DrawNormalScene_51C7D0()
                 gValueFF0D58 = 0;
                 audio::gBgmRequest1050810 = 1;
             }
-            static_cast<void>(audio::Sub_5042D0(100));
+            static_cast<void>(ui::Sub_5042D0(100));
             static_cast<void>(ui::WindowRuntime_Render());
         }
         goto inputTail;
@@ -6875,7 +6876,7 @@ void DrawNormalScene_51C7D0()
             return;
         }
         if (gValueCAFEA0 == 0) {
-            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+            gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
         }
         static_cast<void>(Sub_519D50());
         Sub_4464D0();
@@ -6897,7 +6898,7 @@ void DrawNormalScene_51C7D0()
         gValueF7CA04 = 0;
         gValueC8A79C = 0;
         gValue58B6D0 = 1;
-        static_cast<void>(audio::Sub_5042D0(100));
+        static_cast<void>(ui::Sub_5042D0(100));
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(login::detail::Sub_43F230());
         Sub_51BEF0();
@@ -7937,7 +7938,7 @@ void __cdecl Sub_46BCF0()
 void* __cdecl Sub_46ADA0()
 {
     if (gValueCAFEA0 == 0) {
-        gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+        gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
     }
     static_cast<void>(Sub_4681B0());
 
@@ -8026,7 +8027,7 @@ std::int32_t __cdecl Sub_46AC90()
 std::int32_t __cdecl Sub_46AEA0()
 {
     if (gValueCAFEA0 == 0) {
-        gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+        gValueCAFEA0 = static_cast<std::uint32_t>(ui::Sub_504410(1));
     }
     static_cast<void>(Sub_4681B0());
 

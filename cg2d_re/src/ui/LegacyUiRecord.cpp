@@ -93,14 +93,10 @@ void DrawUiControl_45EFD0(
     const std::int32_t frameRight = (controlWidth + controlLeft) + 2;
     const std::int32_t frameLeft = controlLeft - 2;
     cg::login::detail::DrawGraphicHover(
-        static_cast<std::uint16_t>(
-            std::bit_cast<std::uint32_t>(frameLeft)),
-        static_cast<std::uint16_t>(
-            std::bit_cast<std::uint32_t>(frameTop)),
-        static_cast<std::uint16_t>(
-            std::bit_cast<std::uint32_t>(frameRight)),
-        static_cast<std::uint16_t>(
-            std::bit_cast<std::uint32_t>(frameBottom)),
+        (frameLeft & 0xFFFF),
+        (frameTop & 0xFFFF),
+        (frameRight & 0xFFFF),
+        (frameBottom & 0xFFFF),
         renderLayer,
         std::bit_cast<std::uint32_t>(hoverFrameImageNo),
         hoverFrameMode == 2 ? 1 : 0);

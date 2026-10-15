@@ -67,7 +67,7 @@ void ConstructSceneTransitionValue();
 // 原函数：0x00457000。
 void DestroySceneTransitionValue();
 
-// 原CRT 553064..553094的十三组坐标／门禁；各自拥有者保原构造及逆序清理。
+// 原CRT 553064..553094十三组坐标／门禁；快照直接定义，其余由启动拥有者保原构造及逆序清理。
 // 原函数：0x00467B90。
 class PlayerCoordinatesStartup final {
 public:
@@ -76,26 +76,6 @@ public:
     ~PlayerCoordinatesStartup();
     PlayerCoordinatesStartup(const PlayerCoordinatesStartup&) = delete;
     PlayerCoordinatesStartup& operator=(const PlayerCoordinatesStartup&) = delete;
-};
-
-// 原函数：0x00467BF0。
-class PlayerSnapshotXStartup final {
-public:
-    // 原函数：0x00467BF0；只接管同组原始载荷的启动寿命。
-    PlayerSnapshotXStartup();
-    ~PlayerSnapshotXStartup();
-    PlayerSnapshotXStartup(const PlayerSnapshotXStartup&) = delete;
-    PlayerSnapshotXStartup& operator=(const PlayerSnapshotXStartup&) = delete;
-};
-
-// 原函数：0x00467C30。
-class PlayerSnapshotYStartup final {
-public:
-    // 原函数：0x00467C30；只接管同组原始载荷的启动寿命。
-    PlayerSnapshotYStartup();
-    ~PlayerSnapshotYStartup();
-    PlayerSnapshotYStartup(const PlayerSnapshotYStartup&) = delete;
-    PlayerSnapshotYStartup& operator=(const PlayerSnapshotYStartup&) = delete;
 };
 
 // 原函数：0x00467C70。

@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "../LoginMessageDependencies.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -209,11 +210,20 @@ const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializ
 // 原函数：0x00467B90；同一中央位置构造，MSVC按完成逆序析构。
 const cg::world::PlayerCoordinatesStartup gPlayerCoordinatesStartup;
 
-// 原函数：0x00467BF0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::PlayerSnapshotXStartup gPlayerSnapshotXStartup;
+} // namespace
+} // namespace cg::platform
 
-// 原函数：0x00467C30；同一中央位置构造，MSVC按完成逆序析构。
-const cg::world::PlayerSnapshotYStartup gPlayerSnapshotYStartup;
+namespace cg::world::detail {
+
+// 原0x00467BF0／0x00467C00／0x00467C20：中央原位置直接构造，MSVC承接退出析构。
+platform::LegacyCryptInt gPlayerSnapshotX{}; // 原全局：0x00C751C0。
+// 原0x00467C30／0x00467C40／0x00467C60：紧接X构造，退出先Y后X；各构造一次RNG。
+platform::LegacyCryptInt gPlayerSnapshotY{}; // 原全局：0x00C751B0。
+
+} // namespace cg::world::detail
+
+namespace cg::platform {
+namespace {
 
 // 原函数：0x00467C70；同一中央位置构造，MSVC按完成逆序析构。
 const cg::world::WorldCoordinateState9EE8D0Startup gWorldCoordinateState9EE8D0Startup;

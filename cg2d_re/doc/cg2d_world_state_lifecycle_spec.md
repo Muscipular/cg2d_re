@@ -85,3 +85,7 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 [BSB01 SPEC](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)把4417E0的两个上界比较接具名401FA0：先保持原Add_401E10结果，再单次读取当前action的mapX1E0／mapY1F0，左S32比较和原AL条件保持。具名体保返回高24位，调用只取低W8；没有额外数值构造／销毁、计数或RNG，也不改同一action／载荷与回调其余正文。
 
 同一入口六鼠标下界复用既有唯一LegacyMouseState，原薄读取没有附加副作用。4417E0完整原块仅两点上下文，AAS01既有骑乘取样／附加绘制范围保持，不以本步升级所有回调／资源／owner寿命、SDK或机器ABI／运行门禁；U11继续open，网络原格式明文和音频暂停保持。
+
+## 玩家快照当前直接定义（LCI16，2026-10-15）
+
+[LCI16](cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct)覆盖本文件两个快照表项的阶段提供者：C751C0／C751B0在中央原位置直接定义LegacyCryptInt，编译器承接默认构造及逆序析构；旧Init／构析叶与Startup仅保历史。玩家坐标之后先X后Y、后续世界状态之前的相对序及每槽一次RNG保持，三字段／value／赋值消费者继续使用各自同一对象。本步只静态核对，不提升原整表／异常／SDK和运行门禁。

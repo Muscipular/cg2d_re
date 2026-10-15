@@ -712,30 +712,6 @@ void DestroyLegacyPlayerCoordinates_467BD0()
     detail::BorrowPlayerXStorage().reset();
 }
 
-// 原467C00：按C751C0构造，返回末对象真实this。
-platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotX_467C00()
-{
-    return &detail::BorrowPlayerSnapshotXStorage().emplace();
-}
-
-// 原467C20无参退出：按C751C0析构，只复用原叶动作。
-void DestroyLegacyPlayerSnapshotX_467C20()
-{
-    detail::BorrowPlayerSnapshotXStorage().reset();
-}
-
-// 原467C40：按C751B0构造，返回末对象真实this。
-platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotY_467C40()
-{
-    return &detail::BorrowPlayerSnapshotYStorage().emplace();
-}
-
-// 原467C60无参退出：按C751B0析构，只复用原叶动作。
-void DestroyLegacyPlayerSnapshotY_467C60()
-{
-    detail::BorrowPlayerSnapshotYStorage().reset();
-}
-
 // 原467C80：按9EE8D0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinateState_467C80()
 {
@@ -872,30 +848,6 @@ PlayerCoordinatesStartup::PlayerCoordinatesStartup()
 PlayerCoordinatesStartup::~PlayerCoordinatesStartup()
 {
     DestroyLegacyPlayerCoordinates_467BD0();
-}
-
-// 原函数：0x00467BF0；LCI01启动拥有者替代CRT构造／退出登记。
-PlayerSnapshotXStartup::PlayerSnapshotXStartup()
-{
-    ConstructLegacyPlayerSnapshotX_467C00();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-PlayerSnapshotXStartup::~PlayerSnapshotXStartup()
-{
-    DestroyLegacyPlayerSnapshotX_467C20();
-}
-
-// 原函数：0x00467C30；LCI01启动拥有者替代CRT构造／退出登记。
-PlayerSnapshotYStartup::PlayerSnapshotYStartup()
-{
-    ConstructLegacyPlayerSnapshotY_467C40();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-PlayerSnapshotYStartup::~PlayerSnapshotYStartup()
-{
-    DestroyLegacyPlayerSnapshotY_467C60();
 }
 
 // 原函数：0x00467C70；LCI01启动拥有者替代CRT构造／退出登记。
@@ -3206,8 +3158,8 @@ void Sub_50D000(
         static_cast<void>(Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->direction));
-        const std::int32_t y = BorrowPlayerSnapshotYStorage()->value();
-        const std::int32_t x = BorrowPlayerSnapshotXStorage()->value();
+        const std::int32_t y = gPlayerSnapshotY.value();
+        const std::int32_t x = gPlayerSnapshotX.value();
         static_cast<void>(
             network::Sub_512720(platform::gConnectionSocket, x, y, direction));
     }
@@ -4660,18 +4612,6 @@ std::optional<platform::LegacyCryptInt>& BorrowPlayerYStorage()
     return storage;
 } // 原全局：0x009EE8C0。
 // 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotXStorage()
-{
-    static std::optional<platform::LegacyCryptInt> storage;
-    return storage;
-} // 原全局：0x00C751C0。
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotYStorage()
-{
-    static std::optional<platform::LegacyCryptInt> storage;
-    return storage;
-} // 原全局：0x00C751B0。
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
 std::optional<platform::LegacyCryptInt>& BorrowValue9EE8D0Storage()
 {
     static std::optional<platform::LegacyCryptInt> storage;
@@ -5623,17 +5563,17 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     const std::uint32_t snapshotXEncoded = BorrowPlayerXStorage()->encoded;
     const double scaledY = currentY * 64.0;
     const std::uint32_t snapshotXMask = BorrowPlayerXStorage()->mask;
-    BorrowPlayerSnapshotXStorage()->readCount = snapshotXCount;
+    gPlayerSnapshotX.readCount = snapshotXCount;
     const std::uint8_t snapshotYCount = BorrowPlayerYStorage()->readCount;
-    BorrowPlayerSnapshotXStorage()->encoded = snapshotXEncoded;
+    gPlayerSnapshotX.encoded = snapshotXEncoded;
     const std::uint32_t snapshotYEncoded = BorrowPlayerYStorage()->encoded;
-    BorrowPlayerSnapshotXStorage()->mask = snapshotXMask;
+    gPlayerSnapshotX.mask = snapshotXMask;
     const std::uint32_t snapshotYMask = BorrowPlayerYStorage()->mask;
-    BorrowPlayerSnapshotYStorage()->readCount = snapshotYCount;
+    gPlayerSnapshotY.readCount = snapshotYCount;
     gWorldCurrentYBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(scaledY));
-    BorrowPlayerSnapshotYStorage()->encoded = snapshotYEncoded;
-    BorrowPlayerSnapshotYStorage()->mask = snapshotYMask;
+    gPlayerSnapshotY.encoded = snapshotYEncoded;
+    gPlayerSnapshotY.mask = snapshotYMask;
 
     gValue9EE8FC = 0;
     gValue9EE900 = 0;
@@ -5726,9 +5666,9 @@ std::int32_t* Sub_467F30()
 std::int32_t __cdecl Sub_4681B0()
 {
     const std::int32_t y =
-        BorrowPlayerSnapshotYStorage()->value();
+        gPlayerSnapshotY.value();
     const std::int32_t x =
-        BorrowPlayerSnapshotXStorage()->value();
+        gPlayerSnapshotX.value();
     static_cast<void>(Sub_468330(x, y));
     static_cast<void>(Sub_468200());
     gValueC82200 = 0;
@@ -9512,12 +9452,12 @@ std::uint16_t Sub_469FC0()
             return static_cast<std::uint16_t>(pending);
         }
         const double targetX = static_cast<double>(
-            BorrowPlayerSnapshotXStorage()->value()) * 64.0F;
+            gPlayerSnapshotX.value()) * 64.0F;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
             const double targetY = static_cast<double>(
-                BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
+                gPlayerSnapshotY.value()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -9598,16 +9538,16 @@ std::uint16_t Sub_469FC0()
 void Sub_46A410(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    *BorrowPlayerSnapshotXStorage() = static_cast<std::int32_t>(x);
-    *BorrowPlayerSnapshotYStorage() = static_cast<std::int32_t>(y);
+    gPlayerSnapshotX = static_cast<std::int32_t>(x);
+    gPlayerSnapshotY = static_cast<std::int32_t>(y);
 
     const std::int32_t pixelX =
-        ((*BorrowPlayerSnapshotXStorage()) * 64);
+        (gPlayerSnapshotX * 64);
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        ((*BorrowPlayerSnapshotYStorage()) * 64);
+        (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
         static_cast<double>(differenceX),
@@ -9660,9 +9600,9 @@ void Sub_46A700()
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        BorrowPlayerSnapshotXStorage()->value()) * 64.0F);
+        gPlayerSnapshotX.value()) * 64.0F);
     const double scaledTargetY = static_cast<double>(
-        BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
+        gPlayerSnapshotY.value()) * 64.0F;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -9711,9 +9651,9 @@ void Sub_46A700()
                 if (action != nullptr) {
                     login::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
-                        BorrowPlayerSnapshotYStorage()->value();
+                        gPlayerSnapshotY.value();
                     const std::int32_t snapshotX =
-                        BorrowPlayerSnapshotXStorage()->value();
+                        gPlayerSnapshotX.value();
                     static_cast<void>(network::Sub_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
@@ -10254,8 +10194,8 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const std::int32_t y = BorrowPlayerSnapshotYStorage()->value();
-    const std::int32_t x = BorrowPlayerSnapshotXStorage()->value();
+    const std::int32_t y = gPlayerSnapshotY.value();
+    const std::int32_t x = gPlayerSnapshotX.value();
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。

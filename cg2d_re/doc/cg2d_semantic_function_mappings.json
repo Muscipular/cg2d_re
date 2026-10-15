@@ -3726,30 +3726,7 @@
     {
       "original_entry": "0x467BF0",
       "inventory_id": "F:00067BF0",
-      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
-      "sources": [
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [
-            "gPlayerSnapshotXStartup"
-          ],
-          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "PlayerSnapshotXStartup::PlayerSnapshotXStartup PlayerSnapshotXStartup::~PlayerSnapshotXStartup ConstructLegacyPlayerSnapshotX_467C00 DestroyLegacyPlayerSnapshotX_467C20"
-          ],
-          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
-        },
-        {
-          "path": "include/cg/world/SceneState.hpp",
-          "symbols": [
-            "PlayerSnapshotXStartup"
-          ],
-          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
-        }
-      ],
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
@@ -3760,7 +3737,8 @@
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x553068",
       "original_role": "构造并登记退出",
@@ -3768,7 +3746,7 @@
         "0xC751C0"
       ],
       "instruction_count": 6,
-      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467bf0",
@@ -3868,12 +3846,12 @@
         "original_slot": "0x553068",
         "original_target": "0x467BF0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "PlayerSnapshotXStartup",
-        "current_initializer_variable": "gPlayerSnapshotXStartup",
-        "direct_call_symbol": "cg::world::PlayerSnapshotXStartup::PlayerSnapshotXStartup",
-        "expanded_leaf_symbol": "PlayerSnapshotXStartup::PlayerSnapshotXStartup",
+        "current_initializer_type": "LegacyCryptInt直接全局定义",
+        "current_initializer_variable": "gPlayerSnapshotX",
+        "direct_call_symbol": "LegacyCryptInt::LegacyCryptInt()（编译器生成的全局初始化）",
+        "expanded_leaf_symbol": null,
         "current_scope": "active_application",
-        "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
         "binding_only": true,
         "original_body_reviewed_in_this_group": false,
@@ -3898,7 +3876,47 @@
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       },
-      "lci01_current_native_lifecycle": {
+      "historical_sources_before_lci16": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotXStartup"
+          ],
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "PlayerSnapshotXStartup::PlayerSnapshotXStartup PlayerSnapshotXStartup::~PlayerSnapshotXStartup ConstructLegacyPlayerSnapshotX_467C00 DestroyLegacyPlayerSnapshotX_467C20"
+          ],
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "PlayerSnapshotXStartup"
+          ],
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotX"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "lci01_current_native_lifecycle_before_lci16": {
         "runtime_verified": false,
         "destructor": "cg::world::PlayerSnapshotXStartup::~PlayerSnapshotXStartup",
         "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
@@ -3908,35 +3926,61 @@
         "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
         "startup_source": "src/platform/LegacyMouse.cpp",
         "static_source_checked": true
+      },
+      "historical_initializer_order_binding_before_lci16": {
+        "original_table": "0x553000",
+        "original_slot": "0x553068",
+        "original_target": "0x467BF0",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "current_initializer_type": "PlayerSnapshotXStartup",
+        "current_initializer_variable": "gPlayerSnapshotXStartup",
+        "direct_call_symbol": "cg::world::PlayerSnapshotXStartup::PlayerSnapshotXStartup",
+        "expanded_leaf_symbol": "PlayerSnapshotXStartup::PlayerSnapshotXStartup",
+        "current_scope": "active_application",
+        "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
+        "binding_only": true,
+        "original_body_reviewed_in_this_group": false,
+        "full_application_order_connected": false,
+        "runtime_verified": false
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotX",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751C0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x467C00",
       "inventory_id": "F:00067C00",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
-      "sources": [
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeWorldCoordinateStates"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "ConstructLegacyPlayerSnapshotX_467C00"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        }
-      ],
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x553068",
       "original_role": "构造叶",
@@ -3944,7 +3988,7 @@
         "0xC751C0"
       ],
       "instruction_count": 2,
-      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
       "function_chunks": [
         {
           "start": "0x467C00",
@@ -3952,34 +3996,6 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
-      "world_state_crt_internal_call_connections": [
-        {
-          "parent_entry": "0x467C00",
-          "call_site": "0x467C05",
-          "target_entry": "0x401C70",
-          "target_symbol": "platform::LegacyCryptInt::LegacyCryptInt()",
-          "target_source": "src/platform/LegacyCryptInt.cpp",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "ConstructLegacyPlayerSnapshotX_467C00",
-          "transfer": "jmp",
-          "original_this_address": "0xC751C0",
-          "arguments": "&detail::BorrowPlayerSnapshotXStorage",
-          "relationship": "同一固定对象真实零值构造，每对象原随机消费一次，末尾叶返回真实typed this"
-        }
-      ],
-      "world_state_crt_parent_call_connections": [
-        {
-          "parent_entry": "0x467BF0",
-          "call_site": "0x467BF0",
-          "target_entry": "0x467C00",
-          "target_symbol": "ConstructLegacyPlayerSnapshotX_467C00",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "InitializeLegacyPlayerSnapshotX_467BF0",
-          "transfer": "call",
-          "arguments": "无参；真实this返回不设成功门禁",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
-        }
-      ],
       "historical_native_sources_before_lci06": [
         {
           "path": "src/world/SceneState.cpp",
@@ -3996,24 +4012,7 @@
           "relationship": "本轮真实构造或无参退出叶，同一固定对象/次序，末构造返回真实this"
         }
       ],
-      "native_lifecycle_lci06": {
-        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "source_implemented": true,
-        "raw_payload_bytes": 16,
-        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
-        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
-        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
-        "build_verified": false,
-        "runtime_verified": false,
-        "cryptint_default_construction_rng_calls": 1,
-        "cryptint_raw_construction_rng_calls": 0
-      }
-    },
-    {
-      "original_entry": "0x467C20",
-      "inventory_id": "F:00067C20",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
-      "sources": [
+      "historical_sources_before_lci16": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
@@ -4024,18 +4023,105 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "DestroyLegacyPlayerSnapshotX_467C20"
+            "ConstructLegacyPlayerSnapshotX_467C00"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
       ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotX"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "world_state_crt_internal_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467C00",
+          "call_site": "0x467C05",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::LegacyCryptInt::LegacyCryptInt()",
+          "target_source": "src/platform/LegacyCryptInt.cpp",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPlayerSnapshotX_467C00",
+          "transfer": "jmp",
+          "original_this_address": "0xC751C0",
+          "arguments": "&detail::BorrowPlayerSnapshotXStorage",
+          "relationship": "同一固定对象真实零值构造，每对象原随机消费一次，末尾叶返回真实typed this"
+        }
+      ],
+      "world_state_crt_parent_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467BF0",
+          "call_site": "0x467BF0",
+          "target_entry": "0x467C00",
+          "target_symbol": "ConstructLegacyPlayerSnapshotX_467C00",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerSnapshotX_467BF0",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不设成功门禁",
+          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+        }
+      ],
+      "native_lifecycle_lci06_before_lci16": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "source_implemented": true,
+        "raw_payload_bytes": 16,
+        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+        "build_verified": false,
+        "runtime_verified": false,
+        "cryptint_default_construction_rng_calls": 1,
+        "cryptint_raw_construction_rng_calls": 0
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotX",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751C0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x467C20",
+      "inventory_id": "F:00067C20",
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x553068",
       "original_role": "退出回调",
@@ -4043,7 +4129,7 @@
         "0xC751C0"
       ],
       "instruction_count": 2,
-      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
       "function_chunks": [
         {
           "start": "0x467C20",
@@ -4051,21 +4137,6 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
-      "world_state_crt_internal_call_connections": [
-        {
-          "parent_entry": "0x467C20",
-          "call_site": "0x467C25",
-          "target_entry": "0x401CF0",
-          "target_symbol": "platform::LegacyCryptInt::~LegacyCryptInt",
-          "target_source": "src/platform/LegacyCryptInt.cpp",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "DestroyLegacyPlayerSnapshotX_467C20",
-          "transfer": "jmp",
-          "original_this_address": "0xC751C0",
-          "arguments": "&detail::BorrowPlayerSnapshotXStorage",
-          "relationship": "同一对象真实析构，不清其他字段/释放存储；双对象按原逆序"
-        }
-      ],
       "world_state_crt_incoming_callback_references": [
         {
           "parent_entry": "0x467BF0",
@@ -4093,7 +4164,55 @@
           "relationship": "本轮真实构造或无参退出叶，同一固定对象/次序，末构造返回真实this"
         }
       ],
-      "native_lifecycle_lci06": {
+      "historical_sources_before_lci16": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyLegacyPlayerSnapshotX_467C20"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotX"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "world_state_crt_internal_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467C20",
+          "call_site": "0x467C25",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::LegacyCryptInt::~LegacyCryptInt",
+          "target_source": "src/platform/LegacyCryptInt.cpp",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPlayerSnapshotX_467C20",
+          "transfer": "jmp",
+          "original_this_address": "0xC751C0",
+          "arguments": "&detail::BorrowPlayerSnapshotXStorage",
+          "relationship": "同一对象真实析构，不清其他字段/释放存储；双对象按原逆序"
+        }
+      ],
+      "native_lifecycle_lci06_before_lci16": {
         "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "source_implemented": true,
         "raw_payload_bytes": 16,
@@ -4104,35 +4223,36 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotX",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751C0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x467C30",
       "inventory_id": "F:00067C30",
-      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
-      "sources": [
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [
-            "gPlayerSnapshotYStartup"
-          ],
-          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "PlayerSnapshotYStartup::PlayerSnapshotYStartup PlayerSnapshotYStartup::~PlayerSnapshotYStartup ConstructLegacyPlayerSnapshotY_467C40 DestroyLegacyPlayerSnapshotY_467C60"
-          ],
-          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
-        },
-        {
-          "path": "include/cg/world/SceneState.hpp",
-          "symbols": [
-            "PlayerSnapshotYStartup"
-          ],
-          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
-        }
-      ],
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
@@ -4143,7 +4263,8 @@
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x55306C",
       "original_role": "构造并登记退出",
@@ -4151,7 +4272,7 @@
         "0xC751B0"
       ],
       "instruction_count": 6,
-      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467c30",
@@ -4251,12 +4372,12 @@
         "original_slot": "0x55306c",
         "original_target": "0x467C30",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "PlayerSnapshotYStartup",
-        "current_initializer_variable": "gPlayerSnapshotYStartup",
-        "direct_call_symbol": "cg::world::PlayerSnapshotYStartup::PlayerSnapshotYStartup",
-        "expanded_leaf_symbol": "PlayerSnapshotYStartup::PlayerSnapshotYStartup",
+        "current_initializer_type": "LegacyCryptInt直接全局定义",
+        "current_initializer_variable": "gPlayerSnapshotY",
+        "direct_call_symbol": "LegacyCryptInt::LegacyCryptInt()（编译器生成的全局初始化）",
+        "expanded_leaf_symbol": null,
         "current_scope": "active_application",
-        "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
         "binding_only": true,
         "original_body_reviewed_in_this_group": false,
@@ -4281,7 +4402,47 @@
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       },
-      "lci01_current_native_lifecycle": {
+      "historical_sources_before_lci16": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotYStartup"
+          ],
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "PlayerSnapshotYStartup::PlayerSnapshotYStartup PlayerSnapshotYStartup::~PlayerSnapshotYStartup ConstructLegacyPlayerSnapshotY_467C40 DestroyLegacyPlayerSnapshotY_467C60"
+          ],
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "PlayerSnapshotYStartup"
+          ],
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotY"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "lci01_current_native_lifecycle_before_lci16": {
         "runtime_verified": false,
         "destructor": "cg::world::PlayerSnapshotYStartup::~PlayerSnapshotYStartup",
         "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
@@ -4291,35 +4452,61 @@
         "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
         "startup_source": "src/platform/LegacyMouse.cpp",
         "static_source_checked": true
+      },
+      "historical_initializer_order_binding_before_lci16": {
+        "original_table": "0x553000",
+        "original_slot": "0x55306c",
+        "original_target": "0x467C30",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "current_initializer_type": "PlayerSnapshotYStartup",
+        "current_initializer_variable": "gPlayerSnapshotYStartup",
+        "direct_call_symbol": "cg::world::PlayerSnapshotYStartup::PlayerSnapshotYStartup",
+        "expanded_leaf_symbol": "PlayerSnapshotYStartup::PlayerSnapshotYStartup",
+        "current_scope": "active_application",
+        "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
+        "binding_only": true,
+        "original_body_reviewed_in_this_group": false,
+        "full_application_order_connected": false,
+        "runtime_verified": false
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotY",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751B0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x467C40",
       "inventory_id": "F:00067C40",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
-      "sources": [
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeWorldCoordinateStates"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "ConstructLegacyPlayerSnapshotY_467C40"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        }
-      ],
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x55306C",
       "original_role": "构造叶",
@@ -4327,7 +4514,7 @@
         "0xC751B0"
       ],
       "instruction_count": 2,
-      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
       "function_chunks": [
         {
           "start": "0x467C40",
@@ -4335,34 +4522,6 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
-      "world_state_crt_internal_call_connections": [
-        {
-          "parent_entry": "0x467C40",
-          "call_site": "0x467C45",
-          "target_entry": "0x401C70",
-          "target_symbol": "platform::LegacyCryptInt::LegacyCryptInt()",
-          "target_source": "src/platform/LegacyCryptInt.cpp",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "ConstructLegacyPlayerSnapshotY_467C40",
-          "transfer": "jmp",
-          "original_this_address": "0xC751B0",
-          "arguments": "&detail::BorrowPlayerSnapshotYStorage",
-          "relationship": "同一固定对象真实零值构造，每对象原随机消费一次，末尾叶返回真实typed this"
-        }
-      ],
-      "world_state_crt_parent_call_connections": [
-        {
-          "parent_entry": "0x467C30",
-          "call_site": "0x467C30",
-          "target_entry": "0x467C40",
-          "target_symbol": "ConstructLegacyPlayerSnapshotY_467C40",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "InitializeLegacyPlayerSnapshotY_467C30",
-          "transfer": "call",
-          "arguments": "无参；真实this返回不设成功门禁",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
-        }
-      ],
       "historical_native_sources_before_lci06": [
         {
           "path": "src/world/SceneState.cpp",
@@ -4379,24 +4538,7 @@
           "relationship": "本轮真实构造或无参退出叶，同一固定对象/次序，末构造返回真实this"
         }
       ],
-      "native_lifecycle_lci06": {
-        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "source_implemented": true,
-        "raw_payload_bytes": 16,
-        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
-        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
-        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
-        "build_verified": false,
-        "runtime_verified": false,
-        "cryptint_default_construction_rng_calls": 1,
-        "cryptint_raw_construction_rng_calls": 0
-      }
-    },
-    {
-      "original_entry": "0x467C60",
-      "inventory_id": "F:00067C60",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
-      "sources": [
+      "historical_sources_before_lci16": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
@@ -4407,18 +4549,105 @@
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "DestroyLegacyPlayerSnapshotY_467C60"
+            "ConstructLegacyPlayerSnapshotY_467C40"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
       ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotY"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "world_state_crt_internal_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467C40",
+          "call_site": "0x467C45",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::LegacyCryptInt::LegacyCryptInt()",
+          "target_source": "src/platform/LegacyCryptInt.cpp",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPlayerSnapshotY_467C40",
+          "transfer": "jmp",
+          "original_this_address": "0xC751B0",
+          "arguments": "&detail::BorrowPlayerSnapshotYStorage",
+          "relationship": "同一固定对象真实零值构造，每对象原随机消费一次，末尾叶返回真实typed this"
+        }
+      ],
+      "world_state_crt_parent_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467C30",
+          "call_site": "0x467C30",
+          "target_entry": "0x467C40",
+          "target_symbol": "ConstructLegacyPlayerSnapshotY_467C40",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerSnapshotY_467C30",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不设成功门禁",
+          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+        }
+      ],
+      "native_lifecycle_lci06_before_lci16": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "source_implemented": true,
+        "raw_payload_bytes": 16,
+        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+        "build_verified": false,
+        "runtime_verified": false,
+        "cryptint_default_construction_rng_calls": 1,
+        "cryptint_raw_construction_rng_calls": 0
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotY",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751B0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x467C60",
+      "inventory_id": "F:00067C60",
+      "status": "LCI16以同一中央位置的LegacyCryptInt直接全局定义承接构造／退出；原X→Y、逆序析构与业务读写／RNG保持，仅静态，编译及运行未验",
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct"
       ],
       "crt_slot": "0x55306C",
       "original_role": "退出回调",
@@ -4426,7 +4655,7 @@
         "0xC751B0"
       ],
       "instruction_count": 2,
-      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "LCI16当前由直接全局对象承接；旧构造this返回、手工登记边和退出包装仅为下列历史事实，不再作为活动CPP调用。原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
       "function_chunks": [
         {
           "start": "0x467C60",
@@ -4434,21 +4663,6 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
-      "world_state_crt_internal_call_connections": [
-        {
-          "parent_entry": "0x467C60",
-          "call_site": "0x467C65",
-          "target_entry": "0x401CF0",
-          "target_symbol": "platform::LegacyCryptInt::~LegacyCryptInt",
-          "target_source": "src/platform/LegacyCryptInt.cpp",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "DestroyLegacyPlayerSnapshotY_467C60",
-          "transfer": "jmp",
-          "original_this_address": "0xC751B0",
-          "arguments": "&detail::BorrowPlayerSnapshotYStorage",
-          "relationship": "同一对象真实析构，不清其他字段/释放存储；双对象按原逆序"
-        }
-      ],
       "world_state_crt_incoming_callback_references": [
         {
           "parent_entry": "0x467C30",
@@ -4476,7 +4690,55 @@
           "relationship": "本轮真实构造或无参退出叶，同一固定对象/次序，末构造返回真实this"
         }
       ],
-      "native_lifecycle_lci06": {
+      "historical_sources_before_lci16": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyLegacyPlayerSnapshotY_467C60"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "gPlayerSnapshotY"
+          ],
+          "relationship": "LCI16：同一中央位置直接定义LegacyCryptInt，编译器生成有序默认构造及逆序退出；原包装、optional与Borrow已退休。"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
+          ],
+          "relationship": "默认构造每对象一次共享RNG，析构只恢复token；实际成员算法保持。"
+        }
+      ],
+      "world_state_crt_internal_call_connections_before_lci16": [
+        {
+          "parent_entry": "0x467C60",
+          "call_site": "0x467C65",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::LegacyCryptInt::~LegacyCryptInt",
+          "target_source": "src/platform/LegacyCryptInt.cpp",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPlayerSnapshotY_467C60",
+          "transfer": "jmp",
+          "original_this_address": "0xC751B0",
+          "arguments": "&detail::BorrowPlayerSnapshotYStorage",
+          "relationship": "同一对象真实析构，不清其他字段/释放存储；双对象按原逆序"
+        }
+      ],
+      "native_lifecycle_lci06_before_lci16": {
         "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "source_implemented": true,
         "raw_payload_bytes": 16,
@@ -4487,6 +4749,30 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "direct_global_lifecycle_lci16": {
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
+        "source": "src/platform/LegacyMouse.cpp",
+        "definition": "gPlayerSnapshotY",
+        "namespace": "cg::world::detail",
+        "original_object": "0xC751B0",
+        "type": "cg::platform::LegacyCryptInt",
+        "native_object_bytes": 16,
+        "construction_order": [
+          "gPlayerSnapshotX",
+          "gPlayerSnapshotY"
+        ],
+        "destruction_order": [
+          "gPlayerSnapshotY",
+          "gPlayerSnapshotX"
+        ],
+        "previous_initializer": "gPlayerCoordinatesStartup",
+        "next_initializer": "gWorldCoordinateState9EE8D0Startup",
+        "rng_calls_per_object": 1,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {

@@ -101,9 +101,9 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-原24个相关CRT包装中，首项按LCI07由两个LegacyCryptInt全局定义承接，另23组沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
-首项两值直接默认构造、退出逆序析构；其余组同一optional为空时不构造值，原位置emplace／reset，16B值布局保持。
-两定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
+原24个相关CRT包装中，首项按LCI07由两个LegacyCryptInt全局定义承接，玩家快照两项按LCI16直接定义，另21组沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
+首项两值与玩家X／Y快照直接默认构造、退出逆序析构；其余组同一optional为空时不构造值，原位置emplace／reset，16B值布局保持。
+四定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
 五个原初始化汇总桥已退休；LCI06将成员／数组完成前缀清理由C++与STL承接，原地址保留。
 
@@ -115,8 +115,8 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 | 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
 | 0x00456FD0 | `cg::world::SceneTransitionValueStartup` | `ConstructSceneTransitionValue` / `DestroySceneTransitionValue` |
 | 0x00467B90 | `cg::world::PlayerCoordinatesStartup` | `ConstructLegacyPlayerCoordinates_467BA0` / `DestroyLegacyPlayerCoordinates_467BD0` |
-| 0x00467BF0 | `cg::world::PlayerSnapshotXStartup` | `ConstructLegacyPlayerSnapshotX_467C00` / `DestroyLegacyPlayerSnapshotX_467C20` |
-| 0x00467C30 | `cg::world::PlayerSnapshotYStartup` | `ConstructLegacyPlayerSnapshotY_467C40` / `DestroyLegacyPlayerSnapshotY_467C60` |
+| 0x00467BF0 | `cg::world::detail::gPlayerSnapshotX`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467C00／467C20由全局寿命承接 |
+| 0x00467C30 | `cg::world::detail::gPlayerSnapshotY`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467C40／467C60由全局寿命承接 |
 | 0x00467C70 | `cg::world::WorldCoordinateState9EE8D0Startup` | `ConstructLegacyWorldCoordinateState_467C80` / `DestroyLegacyWorldCoordinateState_467CA0` |
 | 0x00467CB0 | `cg::world::WorldCoordinateState9EE8E0Startup` | `ConstructLegacyWorldCoordinateState_467CC0` / `DestroyLegacyWorldCoordinateState_467CE0` |
 | 0x00467CF0 | `cg::world::WorldCoordinatePairStartup` | `ConstructLegacyWorldCoordinatePair_467D00` / `DestroyLegacyWorldCoordinatePair_467D30` |
@@ -455,3 +455,18 @@ LegacyRuntimeExit.cpp／.hpp及单一CMake源项已移除，src／include／构�
 11条既有语义当前绑定同步，20个旧内部调用／计数／初始化字段完整转入具名历史；25条证据的旧文件链接存历史后改当前退休说明，两既有处置、两功能域与C04开放引用同步。
 UTF-8无BOM／LF、删除范围、无活动引用、三数组正文、原地址、完整JSON／历史门禁及本步Git差异静态核对通过；文本汇总器及最终-Check通过3680函数／218导入／3061区间／184叶功能／60任务。
 不把宿主C++／MSVC承接计为原硬件SEH或完整异常运行等价；仅静态，未编译、测试或运行，精确提交本步，其他用户修改保留，不打tag。
+
+<a id="cryptint-player-snapshot-direct"></a>
+## 玩家坐标快照直接定义（LCI16，2026-10-15）
+
+用户要求BorrowPlayerSnapshotXStorage这类存储直接定义CryptInt。本步仅精简C751C0／C751B0这对坐标快照；两槽没有运行期重建接口，原emplace／reset只由各自中央启动拥有者调用。
+
+采用已有LegacyCryptInt类型，在LegacyMouse.cpp原两个Startup实例位置直接定义cg::world::detail::gPlayerSnapshotX／gPlayerSnapshotY，内部WorldUpdateDependencies.hpp声明extern。两定义处于同一翻译单元，仍在PlayerCoordinatesStartup之后、WorldCoordinateState9EE8D0Startup之前，先X后Y各默认构造一次并各消费一次RNG；正常退出逆序析构，登记与异常机制继续由MSVC承接。不能将有副作用的默认构造分散到其他翻译单元。
+
+删除两函数局部optional、Borrow接口、两个Startup类型及对应四个构析叶；业务消费者直接访问同一LegacyCryptInt对象。保持原.value()、三字段访问、整数赋值与同类赋值的次数／位置／顺序，不改LegacyCryptInt实现、其它延后存储或可复用临时量。原467BF0／467C00／467C20、467C30／467C40／467C60与两个全局地址注释归实际定义；六入口均由原生全局构造／析构承接，不标范围排除。
+
+覆盖LCI06及本文件当前启动表对这两项optional／Startup的阶段实现；其它组不变。同步当前函数表、源码定位、语义与验收登记以及唯一进度，仅作必要静态核对及文本汇总，不编译、测试、运行、计算摘要、引入依赖或委派。完成后精确提交，排除其他会话既有改动。
+
+### LCI16静态结果
+
+两直接定义已落在原中央位置，30处业务访问同步；两Borrow／optional、两Startup类型与四构析叶已删除。五文件精确变换、10个业务函数访问投影和1039个保留函数完整正文静态核对通过，构造先X后Y、退出先Y后X及每槽一次RNG保持。271项直接源码行号与函数表当前位置同步，六条语义及四条新增原生承接处置更新；原3680身份／名称、九空方法状态和其它验收门禁保持。UTF-8无BOM／LF、JSON与差异通过，台账-Check仍仅两份旧键盘历史附件缺失，未写派生文件，不计全量台账通过；未编译、测试或运行。

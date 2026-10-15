@@ -36601,14 +36601,14 @@ std::uint32_t Sub_46A190()
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
             const double targetX = static_cast<double>(
-                BorrowPlayerSnapshotXStorage()->value()) * 64.0F;
+                gPlayerSnapshotX.value()) * 64.0F;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<double>(
-                BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
+                gPlayerSnapshotY.value()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -36707,16 +36707,16 @@ void MovePlayerOneStep_46B1B0(
             payload->action2C, previousX, previousY, speed, rate));
     }
 
-    *BorrowPlayerSnapshotXStorage() = static_cast<std::int32_t>(x);
-    *BorrowPlayerSnapshotYStorage() = static_cast<std::int32_t>(y);
+    gPlayerSnapshotX = static_cast<std::int32_t>(x);
+    gPlayerSnapshotY = static_cast<std::int32_t>(y);
 
     const std::int32_t pixelX =
-        ((*BorrowPlayerSnapshotXStorage()) * 64);
+        (gPlayerSnapshotX * 64);
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        ((*BorrowPlayerSnapshotYStorage()) * 64);
+        (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
         static_cast<double>(differenceX),
@@ -36844,9 +36844,9 @@ void Sub_519EE0()
     action = ReadPlayerAction();
     action->field280 = movementY;
     action = ReadPlayerAction();
-    action->mapX200 = (*BorrowPlayerSnapshotXStorage());
+    action->mapX200 = gPlayerSnapshotX;
     action = ReadPlayerAction();
-    action->mapY210 = (*BorrowPlayerSnapshotYStorage());
+    action->mapY210 = gPlayerSnapshotY;
 }
 
 // 原函数：0x00521F20。

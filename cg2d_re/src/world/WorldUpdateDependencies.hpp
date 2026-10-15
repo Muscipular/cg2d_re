@@ -175,8 +175,8 @@ extern std::int16_t gMapSpanX; // 原全局：0x009A86E0。
 extern std::int16_t gMapSpanY; // 原全局：0x009ED43C。
 std::optional<platform::LegacyCryptInt>& BorrowPlayerXStorage(); // 原 9EE8A8；468200 等共享。
 std::optional<platform::LegacyCryptInt>& BorrowPlayerYStorage(); // 原 9EE8C0；468200 等共享。
-std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotXStorage(); // 原 C751C0；4681B0 读取。
-std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotYStorage(); // 原 C751B0；4681B0 读取。
+extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取，中央启动位置直接构造。
+extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取，中央启动位置直接构造。
 std::optional<platform::LegacyCryptInt>& BorrowValue9EE8D0Storage(); // 原全局：0x009EE8D0。
 std::optional<platform::LegacyCryptInt>& BorrowValue9EE8E0Storage(); // 原全局：0x009EE8E0。
 std::optional<platform::LegacyCryptInt>& BorrowValueC27FF8Storage(); // 原全局：0x00C27FF8。

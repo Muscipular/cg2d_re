@@ -10521,7 +10521,7 @@ std::int32_t Sub_43C8F0()
 }
 
 // 原 [0x504100,0x504113)；依次清 W32/W16/W32 三槽并返回完整 EAX32 零。
-std::int32_t Sub_504100()
+std::int32_t ResetSceneUiState_504100()
 {
     gValueD2F788 = 0;
     gValueFF0C10 = 0;
@@ -11935,7 +11935,7 @@ std::int32_t Sub_45ED90()
         const std::int32_t actionWidth = columns * 64;
         const std::int32_t left = initialXWidth / 2;
         gValue9A5AC0 = left;
-        gAction9A6E98 = login::detail::Sub_5044E0(
+        gAction9A6E98 = login::detail::CreateModalAction_5044E0(
             left, 192, actionWidth, 96, 4, 1);
     }
 

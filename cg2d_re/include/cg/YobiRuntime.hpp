@@ -1137,7 +1137,7 @@ std::int32_t Sub_49C5E0(
     std::int32_t divisor);
 
 // 原 modal creator sub_5044E0@[0x5044E0,0x5046C6)。
-YobiAction* Sub_5044E0(
+YobiAction* CreateModalAction_5044E0(
     std::int32_t x,
     std::int32_t y,
     std::int32_t width,

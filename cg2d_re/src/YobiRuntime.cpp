@@ -6724,7 +6724,7 @@ YobiAction* NewBattleText_4217F0(
     if (count > 1) {
         height += count * (render::gFontMetrics[payload->fontType0C].sHeight + 1);
     }
-    payload->panel00 = Sub_5044E0((640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
+    payload->panel00 = CreateModalAction_5044E0((640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     return action;
 }
@@ -34507,7 +34507,7 @@ std::int32_t Sub_49C5E0(
 }
 
 // 原函数：0x005044E0。
-YobiAction* Sub_5044E0(
+YobiAction* CreateModalAction_5044E0(
     const std::int32_t x,
     const std::int32_t y,
     std::int32_t width,

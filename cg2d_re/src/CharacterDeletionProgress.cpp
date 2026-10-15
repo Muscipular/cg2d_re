@@ -52,7 +52,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         const std::int32_t width = columns * kColumnWidth;
         const std::int32_t x = centeredWidth / 2;
         gCharacterDeletionProgressX = x;
-        gCharacterDeletionProgressAction = login::detail::Sub_5044E0(
+        gCharacterDeletionProgressAction = login::detail::CreateModalAction_5044E0(
             x,
             192,
             width,

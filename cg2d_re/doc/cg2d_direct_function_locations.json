@@ -26468,7 +26468,7 @@
       "definitions": [
         {
           "path": "src/world/SceneState.cpp",
-          "symbol": "Sub_504100",
+          "symbol": "ResetSceneUiState_504100",
           "definition_line": 10524,
           "namespace": "cg::world::detail"
         }
@@ -26576,7 +26576,7 @@
       "definitions": [
         {
           "path": "src/YobiRuntime.cpp",
-          "symbol": "Sub_5044E0",
+          "symbol": "CreateModalAction_5044E0",
           "definition_line": 34510,
           "namespace": "cg::login::detail"
         }
@@ -34732,6 +34732,7 @@
     "handler_bindings": 97,
     "runtime_verified": false,
     "static_validation": "99项原/新/IDA初值一致；97个handler唯一声明/定义；12个迁移入口限定词法变换一致，实际音频正文保持。",
-    "commit_owner": "用户指定由“整理 UI 窗口代码命名”会话统一合并与提交。"
+    "commit_owner": "用户指定由“整理 UI 窗口代码命名”会话统一合并与提交。",
+    "dispatch_trace": "doc/cg2d_legacy_window_dispatch_evidence.json"
   }
 }

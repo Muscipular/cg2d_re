@@ -235,7 +235,7 @@ std::int32_t Sub_45E7D0()
         gCreationRequestProgress.rows = 2;
         gCreationRequestProgress.x = x;
         gCreationRequestProgress.y = 192;
-        gCreationRequestProgress.action = login::detail::Sub_5044E0(
+        gCreationRequestProgress.action = login::detail::CreateModalAction_5044E0(
             x, 192, width, 96, 4, 1);
     }
     if (gCreationRequestProgress.phase == 1) {
@@ -1573,7 +1573,7 @@ std::int32_t ProcessScene_460FF0()
             if (result == 1) {
                 world::gCurrentSceneState = 13;
                 gDeleteConfirmationAction =
-                    login::detail::Sub_5044E0(130, 300, 340, 52, 4, 1);
+                    login::detail::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
             } else if (result == 2) {
                 world::gCurrentSceneState = 10;
             }

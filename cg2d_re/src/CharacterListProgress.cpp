@@ -59,7 +59,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         const std::int32_t x = centeredWidth / 2;
         gCharacterListProgressX = x;
         gCharacterListProgressY = 192;
-        gCharacterListProgressAction = login::detail::Sub_5044E0(
+        gCharacterListProgressAction = login::detail::CreateModalAction_5044E0(
             x,
             192,
             width,

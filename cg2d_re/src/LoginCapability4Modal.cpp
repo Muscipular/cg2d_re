@@ -126,7 +126,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         gCapability4ModalHeight = modalHeight;
         gCapability4ModalX = modalX;
         gCapability4ModalY = modalY;
-        gCapability4ModalAction = Sub_5044E0(
+        gCapability4ModalAction = CreateModalAction_5044E0(
             modalX,
             modalY,
             roundedWidth,

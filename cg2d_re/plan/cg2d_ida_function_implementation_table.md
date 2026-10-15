@@ -2465,7 +2465,7 @@
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:893 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2416 | 0x00503E60 | `sub_503E60` | 有正文 | `src/Input.cpp:958 — IsChatContext_503E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:4974 — WindowRuntime_ProcessScene` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10524 — Sub_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10524 — ResetSceneUiState_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:4583 — WindowRuntime_Render` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2420 | 0x00504180 | `sub_504180` | 有正文 | `src/ui/LegacyWindowSelection.cpp:224 — Sub_504180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2421 | 0x005042D0 | `sub_5042D0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:295 — Sub_5042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2474,7 +2474,7 @@
 | 2424 | 0x00504410 | `sub_504410` | 有正文 | `src/ui/LegacyWindowSelection.cpp:206 — Sub_504410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2425 | 0x00504460 | `sub_504460` | 有正文 | `src/ui/LegacyWindowSelection.cpp:190 — Sub_504460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2426 | 0x005044C0 | `sub_5044C0` | 有正文 | `src/ui/LegacyWindowSelection.cpp:159 — Sub_5044C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34510 — Sub_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34510 — CreateModalAction_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1359 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2429 | 0x005049A0 | `sub_5049A0` | 有正文 | `src/LegacyHitTest.cpp:12 — Sub_5049A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10505 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |

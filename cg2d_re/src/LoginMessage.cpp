@@ -100,7 +100,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageLayout.height = 192;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 144;
-            gMessageAction = detail::Sub_5044E0(
+            gMessageAction = detail::CreateModalAction_5044E0(
                 gMessageLayout.x,
                 gMessageLayout.y,
                 gMessageLayout.width,
@@ -166,7 +166,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageLayout.height = 336;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 72;
-            gMessageAction = detail::Sub_5044E0(
+            gMessageAction = detail::CreateModalAction_5044E0(
                 gMessageLayout.x,
                 gMessageLayout.y,
                 gMessageLayout.width,
@@ -246,7 +246,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         gMessageLayout.height = messageHeight;
         gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
         gMessageLayout.y = (kScreenHeight - gMessageLayout.height) / 2;
-        gMessageAction = detail::Sub_5044E0(
+        gMessageAction = detail::CreateModalAction_5044E0(
             gMessageLayout.x,
             gMessageLayout.y,
             gMessageLayout.width,

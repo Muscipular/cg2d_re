@@ -2633,3 +2633,13 @@ LWS01交接状态：最终检查发现共享LegacyAudio.cpp再次被其它流程
 ## 255. 2026-10-15：IDA宠物技能目录结构体定义
 
 按用户明确授权，在当前cg2d.exe数据库建立LegacyPetSkillCatalogRecord并应用到CA0478首条96B，IDA自动命名stru_CA0478；成员偏移／大小和原18处xref已核。保留超出首条的原字符区为char[1440]，邻接项保持；新增中文字段／容量边界注释并刷新相关反编译缓存。详见[IDA结构定义记录](../doc/cg2d_pet_catalog_production_spec.md#catalog-ida-structure-20261015)。不推总容量、不改源码或程序字节，不主动保存／重载IDA数据库，不构建、测试或运行；文档UTF-8与差异检查后提交。
+
+## 257. 2026-10-15：旧窗口逐帧分发追踪与语义改名（LWS01 补查）
+
+按用户要求沿当前cg2d.exe／IDA核实际调用指令，确认457020→51C430→51C7D0／43CBB0→504120，504170尾跳473F80；473FF9／474094分别调用实例update／draw。其回调由471440从57C130现代原型表复制，71槽／70个唯一原型三列回调均不与57C368旧表97个handler重合。Yobi的404C50→5046D0支线只负责面板动画／边框，旧表调用父仍未证。
+
+补查1359872B的.text直接相对CALL／JMP（含分批边界、阳性校验）、四段内97目标绝对地址值和2016个函数外已识别代码Head；结果为相对调用零命中、绝对值仅旧表自身97处、两处间接JMP均是switch。范围／精确调用点／限制集中在doc/cg2d_legacy_window_dispatch_evidence.json及旧窗口SPEC新增节；不据此断言旧代码不可达，不新增猜测轮询或提升门禁。
+
+按用户“功能名_地址”授权，IDA改名ProcessWindowScene_503E80、ResetSceneUiState_504100、CreateModalAction_5044E0、UpdateModalAction_5046D0。项目中504100／5044E0原Sub名称合计25处同步；503E80／5046D0已有语义项目名保留。16个源码／头文件只改名称，直接定位／函数表当前源码列／六处验收符号引用同步；旧表97绑定和wrapper保持。源码反向替换一致、唯一声明／定义及行号、3680行原身份／名称／状态、UTF-8无BOM／LF、JSON和差异静态检查通过；共享LegacyUiRecord保留另一会话USR02改动。
+
+台账-Check仍只报LegacyExternalKeyboard.cpp／LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。本步仅静态分析及授权改名，不构建、测试、运行或保存／重载IDA数据库；源码／证据小步精确提交，排除另一会话商店结构化内容。

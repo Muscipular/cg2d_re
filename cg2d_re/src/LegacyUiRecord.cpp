@@ -18679,7 +18679,7 @@ std::int32_t Sub_503160(
             width = panel->width;
             x = panel->x;
         }
-        actionSlot = Sub_5044E0(x, y, width, height, style, 1);
+        actionSlot = CreateModalAction_5044E0(x, y, width, height, style, 1);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         if (initialize != nullptr) {
             initialize();

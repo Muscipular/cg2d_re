@@ -284998,6 +284998,7 @@
       100
     ],
     "scope": "仅同步当前UI归属、真实函数绑定和S8类别类型；历史原证/验收和未证调度时机保持。",
-    "runtime_verified": false
+    "runtime_verified": false,
+    "dispatch_trace": "doc/cg2d_legacy_window_dispatch_evidence.json"
   }
 }

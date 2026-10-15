@@ -47,7 +47,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         gAuthenticationFailureHeight = 144;
         gAuthenticationFailureX = 64;
         gAuthenticationFailureY = 168;
-        gAuthenticationFailureAction = login::detail::Sub_5044E0(
+        gAuthenticationFailureAction = login::detail::CreateModalAction_5044E0(
             64,
             168,
             512,

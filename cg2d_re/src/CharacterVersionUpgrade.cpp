@@ -76,7 +76,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         if (columns < 2) {
             columns = 2;
         }
-        gLegacyVersionUpgradeAction = login::detail::Sub_5044E0(
+        gLegacyVersionUpgradeAction = login::detail::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -200,7 +200,7 @@ std::int32_t ProcessScene_462330()
         if (columns < 2) {
             columns = 2;
         }
-        gVersionUpgradeAction = login::detail::Sub_5044E0(
+        gVersionUpgradeAction = login::detail::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,

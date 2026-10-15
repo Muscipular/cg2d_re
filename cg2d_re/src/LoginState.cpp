@@ -324,7 +324,7 @@ std::int32_t UpdateServerConnection()
         gServerConnectionLayout.rowCount = 2;
         gServerConnectionLayout.x = x;
         gServerConnectionLayout.y = 192;
-        gServerConnectionAction = detail::Sub_5044E0(
+        gServerConnectionAction = detail::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -467,7 +467,7 @@ std::int32_t UpdateLoginProgress()
         gLoginProgressLayout.y = 192;
         const std::int32_t actionWidth = columnCount * 64;
         gLoginProgressLayout.x = actionX;
-        gLoginProgressAction = detail::Sub_5044E0(
+        gLoginProgressAction = detail::CreateModalAction_5044E0(
             actionX,
             192,
             actionWidth,

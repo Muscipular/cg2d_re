@@ -36,7 +36,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     login::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::Sub_5044E0(
+        modalAction = login::detail::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,

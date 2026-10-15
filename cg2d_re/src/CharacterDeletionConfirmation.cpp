@@ -48,7 +48,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
     login::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::Sub_5044E0(
+        modalAction = login::detail::CreateModalAction_5044E0(
             left,
             top,
             width,
@@ -165,7 +165,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     login::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::Sub_5044E0(
+        modalAction = login::detail::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,

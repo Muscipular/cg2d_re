@@ -103,7 +103,7 @@ void Update()
         gValue9A6E0C = 0;
         detail::Sub_504A30();
         detail::Sub_43C8F0();
-        detail::Sub_504100();
+        detail::ResetSceneUiState_504100();
         detail::Sub_518C80();
         detail::Sub_518CB0();
         gValueFF0D5C = 0xFFFFFFFFu;
@@ -243,7 +243,7 @@ std::int32_t Sub_455C90()
         gDisconnectHeight62B304 = 144;
         gDisconnectX62B390 = 130;
         gDisconnectY62B2EC = 156;
-        action = login::detail::Sub_5044E0(130, 156, 380, 144, 4, 1);
+        action = login::detail::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
         gDisconnectAction62B5B4 = action;
         if (action == nullptr) {
             return 0;

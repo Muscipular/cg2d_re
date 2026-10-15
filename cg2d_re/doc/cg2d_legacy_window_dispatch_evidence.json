@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "scope": "当前已打开cg2d.exe数据库的旧窗口handler静态追踪；原分发入口未证，不新增轮询或提升功能门禁。",
+  "binary": "cg2d.exe",
+  "ida_version": "9.4",
+  "architecture": "x86",
+  "legacy_table": {
+    "base": "0x0057C368",
+    "end_exclusive": "0x0057CB24",
+    "count": 99,
+    "stride": 20,
+    "handler_offset": 4,
+    "non_null_handlers": 97,
+    "empty_ids": [
+      0,
+      100
+    ]
+  },
+  "frame_chain": [
+    {
+      "caller": "0x00457020",
+      "site": "0x00457117",
+      "target": "0x0051C430",
+      "role": "主循环调用World更新"
+    },
+    {
+      "caller": "0x0051C430",
+      "site": "0x0051C63C",
+      "target": "0x0051C7D0",
+      "role": "scene9普通场景"
+    },
+    {
+      "caller": "0x0051C430",
+      "site": "0x0051C71C",
+      "target": "0x0043CBB0",
+      "role": "scene10战斗场景"
+    },
+    {
+      "caller": "0x0051C7D0",
+      "site": "0x0051D28C",
+      "target": "0x00504120",
+      "role": "普通场景稳定state3调用窗口处理；其它state亦有调用"
+    },
+    {
+      "caller": "0x0043CBB0",
+      "site": "0x0043CE4B",
+      "target": "0x00504120",
+      "role": "战斗场景稳定state2调用窗口处理；其它state亦有调用"
+    },
+    {
+      "caller": "0x00504120",
+      "site": "0x00504170",
+      "target": "0x00473F80",
+      "role": "超时处理后尾跳现代窗口遍历"
+    }
+  ],
+  "modern_dispatch": {
+    "function": "0x00473F80",
+    "instances": "0x00C8B094",
+    "current_instance": "0x00CF4694",
+    "update_call": {
+      "site": "0x00473FF9",
+      "instruction": "call dword ptr [ecx+30h]"
+    },
+    "draw_call": {
+      "site": "0x00474094",
+      "instruction": "call dword ptr [ecx+34h]"
+    },
+    "producer": {
+      "function": "0x00471440",
+      "prototype_table": "0x0057C130",
+      "lookup_site": "0x004714FD",
+      "update_copy": {
+        "read_site": "0x00471523",
+        "write_site": "0x00471526",
+        "source_offset": 36,
+        "destination_offset": 48
+      },
+      "draw_copy": {
+        "read_site": "0x00471529",
+        "write_site": "0x0047152C",
+        "source_offset": 40,
+        "destination_offset": 52
+      },
+      "release_copy": {
+        "read_site": "0x0047152F",
+        "write_site": "0x00471532",
+        "source_offset": 44,
+        "destination_offset": 56
+      }
+    },
+    "prototype_slots": 71,
+    "unique_prototypes": 70,
+    "callback_fields": [
+      36,
+      40,
+      44
+    ],
+    "callbacks_overlapping_legacy_handlers": [],
+    "conclusion": "已证分发使用现代原型回调，与旧表97个handler目标无重合。"
+  },
+  "yobi_branch": {
+    "tick": "0x00404C50",
+    "call_site": "0x00404C94",
+    "constructor": "0x005044E0",
+    "callback_write_site": "0x0050450E",
+    "callback": "0x005046D0",
+    "callback_role": "面板边框动画与九宫格绘制；已读完整正文，未调用旧handler或旧表。",
+    "call_semantics": "call next->update(next)"
+  },
+  "direct_relative_scan": {
+    "coverage": "逐字节E8/E9+signed rel32扫描，要求5字节均已加载；包括未识别为指令的字节。",
+    "range": [
+      "0x00401000",
+      "0x0054D000"
+    ],
+    "bytes": 1359872,
+    "batches": [
+      {
+        "start": "0x401000",
+        "end": "0x441000",
+        "bytes": 262144,
+        "handler_count": 97,
+        "matches": []
+      },
+      {
+        "start": "0x441000",
+        "end": "0x481000",
+        "bytes": 262144,
+        "handler_count": 97,
+        "matches": []
+      },
+      {
+        "start": "0x481000",
+        "end": "0x4c1000",
+        "bytes": 262144,
+        "handler_count": 97,
+        "matches": []
+      },
+      {
+        "start": "0x4c1000",
+        "end": "0x501000",
+        "bytes": 262144,
+        "handler_count": 97,
+        "matches": []
+      },
+      {
+        "start": "0x501000",
+        "end": "0x54d000",
+        "bytes": 311296,
+        "handler_count": 97,
+        "matches": []
+      }
+    ],
+    "handler_matches": 0,
+    "boundary_check": "四个相邻批次边界另读前后4字节，未命中。",
+    "positive_control": {
+      "range": [
+        "0x00401000",
+        "0x00405000"
+      ],
+      "extra_target": "0x00503440",
+      "matches": [
+        "0x00401902",
+        "0x00402B13"
+      ]
+    }
+  },
+  "absolute_address_scan": {
+    "coverage": "四段内按0/1/2/3字节对齐扫描W32小端handler绝对地址；相邻1MiB批次末补3字节，要求4字节均已加载，未加载BSS不计。",
+    "ranges": [
+      [
+        "0x00401000",
+        "0x0054D000"
+      ],
+      [
+        "0x0054D000",
+        "0x0054D39C"
+      ],
+      [
+        "0x0054D39C",
+        "0x00553000"
+      ],
+      [
+        "0x00553000",
+        "0x01088000"
+      ]
+    ],
+    "batches": 16,
+    "table_matches": 97,
+    "outside_table_matches": [],
+    "table_match_sites": [
+      "0x57c380",
+      "0x57c394",
+      "0x57c3a8",
+      "0x57c3bc",
+      "0x57c3d0",
+      "0x57c3e4",
+      "0x57c3f8",
+      "0x57c40c",
+      "0x57c420",
+      "0x57c434",
+      "0x57c448",
+      "0x57c45c",
+      "0x57c470",
+      "0x57c484",
+      "0x57c498",
+      "0x57c4ac",
+      "0x57c4c0",
+      "0x57c4d4",
+      "0x57c4e8",
+      "0x57c4fc",
+      "0x57c510",
+      "0x57c524",
+      "0x57c538",
+      "0x57c54c",
+      "0x57c560",
+      "0x57c574",
+      "0x57c588",
+      "0x57c59c",
+      "0x57c5b0",
+      "0x57c5c4",
+      "0x57c5d8",
+      "0x57c5ec",
+      "0x57c600",
+      "0x57c614",
+      "0x57c628",
+      "0x57c63c",
+      "0x57c650",
+      "0x57c664",
+      "0x57c678",
+      "0x57c68c",
+      "0x57c6a0",
+      "0x57c6b4",
+      "0x57c6c8",
+      "0x57c6dc",
+      "0x57c6f0",
+      "0x57c704",
+      "0x57c718",
+      "0x57c72c",
+      "0x57c740",
+      "0x57c754",
+      "0x57c768",
+      "0x57c77c",
+      "0x57c790",
+      "0x57c7a4",
+      "0x57c7b8",
+      "0x57c7cc",
+      "0x57c7e0",
+      "0x57c7f4",
+      "0x57c808",
+      "0x57c81c",
+      "0x57c830",
+      "0x57c844",
+      "0x57c858",
+      "0x57c86c",
+      "0x57c880",
+      "0x57c894",
+      "0x57c8a8",
+      "0x57c8bc",
+      "0x57c8d0",
+      "0x57c8e4",
+      "0x57c8f8",
+      "0x57c90c",
+      "0x57c920",
+      "0x57c934",
+      "0x57c948",
+      "0x57c95c",
+      "0x57c970",
+      "0x57c984",
+      "0x57c998",
+      "0x57c9ac",
+      "0x57c9c0",
+      "0x57c9d4",
+      "0x57c9e8",
+      "0x57c9fc",
+      "0x57ca10",
+      "0x57ca24",
+      "0x57ca38",
+      "0x57ca4c",
+      "0x57ca60",
+      "0x57ca74",
+      "0x57ca88",
+      "0x57ca9c",
+      "0x57cab0",
+      "0x57cac4",
+      "0x57cad8",
+      "0x57caec",
+      "0x57cb00"
+    ]
+  },
+  "unowned_code_scan": {
+    "coverage": "补查.text内已识别但未归属函数的代码Head；不等同覆盖所有未识别字节的间接分支。",
+    "heads": 393169,
+    "code_heads_outside_function": 2016,
+    "batches": [
+      {
+        "range": [
+          "0x401000",
+          "0x441000"
+        ],
+        "counts": {
+          "heads": 72258,
+          "code_heads_outside_function": 0,
+          "indirect_branches": 0
+        },
+        "branches": []
+      },
+      {
+        "range": [
+          "0x441000",
+          "0x481000"
+        ],
+        "counts": {
+          "heads": 76006,
+          "code_heads_outside_function": 427,
+          "indirect_branches": 1
+        },
+        "branches": [
+          {
+            "ea": "0x474bf4",
+            "asm": "jmp     ds:jpt_474BF4[ecx*4]; switch jump"
+          }
+        ]
+      },
+      {
+        "range": [
+          "0x481000",
+          "0x4c1000"
+        ],
+        "counts": {
+          "heads": 76692,
+          "code_heads_outside_function": 681,
+          "indirect_branches": 1
+        },
+        "branches": [
+          {
+            "ea": "0x4bb17c",
+            "asm": "jmp     ds:jpt_4BB17C[eax*4]; switch jump"
+          }
+        ]
+      },
+      {
+        "range": [
+          "0x4c1000",
+          "0x501000"
+        ],
+        "counts": {
+          "heads": 74370,
+          "code_heads_outside_function": 478,
+          "indirect_branches": 0
+        },
+        "branches": []
+      },
+      {
+        "range": [
+          "0x501000",
+          "0x54d000"
+        ],
+        "counts": {
+          "heads": 93843,
+          "code_heads_outside_function": 430,
+          "indirect_branches": 0
+        },
+        "branches": []
+      }
+    ],
+    "indirect_branches": 2,
+    "branches": [
+      {
+        "site": "0x00474BF4",
+        "kind": "六项switch跳表",
+        "table": "0x00474F8C",
+        "targets": [
+          "0x00474BFB",
+          "0x00474CC6",
+          "0x00474D91",
+          "0x00474F87",
+          "0x00474E83",
+          "0x00474EFA"
+        ]
+      },
+      {
+        "site": "0x004BB17C",
+        "kind": "六项switch跳表",
+        "table": "0x004BB1AC",
+        "targets": [
+          "0x004BB183",
+          "0x004BB190",
+          "0x004BB19D",
+          "0x004BB1A7",
+          "0x004BB190",
+          "0x004BB190"
+        ]
+      }
+    ],
+    "targets_overlapping_legacy_handlers": []
+  },
+  "renames": [
+    {
+      "address": "0x00503E80",
+      "old_ida_name": "sub_503E80",
+      "ida_name": "ProcessWindowScene_503E80",
+      "source_symbol": "cg::ui::WindowRuntime_ProcessScene",
+      "role": "按场景处理现代窗口开关"
+    },
+    {
+      "address": "0x00504100",
+      "old_ida_name": "sub_504100",
+      "ida_name": "ResetSceneUiState_504100",
+      "source_symbol": "cg::world::detail::ResetSceneUiState_504100",
+      "role": "依序清W32/W16/W32三个场景UI槽并返回0"
+    },
+    {
+      "address": "0x005044E0",
+      "old_ida_name": "sub_5044E0",
+      "ida_name": "CreateModalAction_5044E0",
+      "source_symbol": "cg::login::detail::CreateModalAction_5044E0",
+      "role": "创建并初始化Yobi面板对象、安装5046D0回调"
+    },
+    {
+      "address": "0x005046D0",
+      "old_ida_name": "sub_5046D0",
+      "ida_name": "UpdateModalAction_5046D0",
+      "source_symbol": "cg::login::detail::UpdateModalAction_5046D0",
+      "role": "处理Yobi面板开框动画与边框绘制"
+    }
+  ],
+  "conclusion": {
+    "modern_frame_dispatch_verified": true,
+    "legacy_handler_dispatch_verified": false,
+    "legacy_handlers_unreachable_proven": false
+  },
+  "limits": [
+    "未找到旧表+04调用父，不把现代每帧分发当成旧表分发。",
+    "静态地址扫描不排除运行期计算、间接搬运、重写或动态加载形成的目标，不据此断言旧handler不可达。",
+    "未穷举所有未识别字节的间接分支或证明全部运行期别名。",
+    "原型名、结构类型及函数名仅作定位，字段来源与关键CALL/JMP已核实际指令。",
+    "无新增客户端调用或数据容量推断；不删除wrapper、不搬迁97个handler。",
+    "只执行静态分析与用户授权的四项IDA改名，不保存或重载数据库、不构建、测试或运行。"
+  ]
+}

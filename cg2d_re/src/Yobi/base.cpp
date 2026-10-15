@@ -30,6 +30,8 @@ YobiAction::YobiAction(RawFields)
     std::memset(bytes + middle, 0, offsetof(YobiAction, mapX1E0) - middle);
     constexpr std::size_t tail = offsetof(YobiAction, mapY210) + sizeof(mapY210);
     std::memset(bytes + tail, 0, sizeof(YobiAction) - tail);
+    payload.raw = nullptr;
+    payloadKind = YobiPayloadKind::None;
 }
 
 namespace detail {
@@ -59,7 +61,24 @@ namespace {
 // 原函数：0x00404D10。
 void DeleteYobiAction_404D10(YobiAction* const action)
 {
-    void* const payload = action->payload;
+    // 按有效成员转回分配地址，不能借raw读取其它活动指针成员。
+    void* payload = nullptr;
+    switch (action->payloadKind) {
+    case YobiPayloadKind::None:
+    case YobiPayloadKind::Raw: payload = action->payload.raw; break;
+    case YobiPayloadKind::BattleActor: payload = action->payload.battleActor; break;
+    case YobiPayloadKind::BattleScene: payload = action->payload.battleScene; break;
+    case YobiPayloadKind::BattleRideCarrier: payload = action->payload.battleRideCarrier; break;
+    case YobiPayloadKind::BattleRingEmitter: payload = action->payload.battleRingEmitter; break;
+    case YobiPayloadKind::BattleFollowOffset: payload = action->payload.battleFollowOffset; break;
+    case YobiPayloadKind::BattleTransitionEffect: payload = action->payload.battleTransitionEffect; break;
+    case YobiPayloadKind::BattleText: payload = action->payload.battleText; break;
+    case YobiPayloadKind::MapActor: payload = action->payload.mapActor; break;
+    case YobiPayloadKind::MapChara: payload = action->payload.mapChara; break;
+    case YobiPayloadKind::MapTransition: payload = action->payload.mapTransition; break;
+    case YobiPayloadKind::WindowOpening: payload = action->payload.windowOpening; break;
+    case YobiPayloadKind::WindowUi: payload = action->payload.windowUi; break;
+    }
     if (payload != nullptr) {
         std::free(payload);
     }
@@ -110,7 +129,8 @@ YobiAction* Sub_404A40()
 // 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
     const std::uint8_t priority,
-    const std::uint32_t payloadSize)
+    const std::uint32_t payloadSize,
+    const YobiPayloadKind payloadKind)
 {
     auto* const action = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
@@ -124,7 +144,25 @@ YobiAction* NewYobiAction_404AE0(
     if (payloadSize != 0) {
         void* const payload = std::calloc(std::size_t{1}, payloadSize);
         const bool missingPayload = payload == nullptr;
-        action->payload = payload;
+        action->payloadKind = payloadKind;
+        switch (payloadKind) {
+        case YobiPayloadKind::None:
+            action->payloadKind = YobiPayloadKind::Raw;
+            [[fallthrough]];
+        case YobiPayloadKind::Raw: action->payload.raw = payload; break;
+        case YobiPayloadKind::BattleActor: action->payload.battleActor = static_cast<BattleActorPayload*>(payload); break;
+        case YobiPayloadKind::BattleScene: action->payload.battleScene = static_cast<BattleScenePayload*>(payload); break;
+        case YobiPayloadKind::BattleRideCarrier: action->payload.battleRideCarrier = static_cast<BattleRideCarrierPayload*>(payload); break;
+        case YobiPayloadKind::BattleRingEmitter: action->payload.battleRingEmitter = static_cast<BattleRingEmitterPayload*>(payload); break;
+        case YobiPayloadKind::BattleFollowOffset: action->payload.battleFollowOffset = static_cast<BattleFollowOffsetPayload*>(payload); break;
+        case YobiPayloadKind::BattleTransitionEffect: action->payload.battleTransitionEffect = static_cast<BattleTransitionEffectPayload*>(payload); break;
+        case YobiPayloadKind::BattleText: action->payload.battleText = static_cast<BattleTextPayload*>(payload); break;
+        case YobiPayloadKind::MapActor: action->payload.mapActor = static_cast<MapActorPayload*>(payload); break;
+        case YobiPayloadKind::MapChara: action->payload.mapChara = static_cast<MapCharaPayload*>(payload); break;
+        case YobiPayloadKind::MapTransition: action->payload.mapTransition = static_cast<MapTransitionPayload*>(payload); break;
+        case YobiPayloadKind::WindowOpening: action->payload.windowOpening = static_cast<WindowOpeningPayload*>(payload); break;
+        case YobiPayloadKind::WindowUi: action->payload.windowUi = static_cast<YobiUIData*>(payload); break;
+        }
         if (missingPayload) {
             std::destroy_at(action);
             std::free(action);

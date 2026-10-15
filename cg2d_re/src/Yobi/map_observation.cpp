@@ -18,28 +18,6 @@ namespace cg::login {
 
 namespace detail {
 
-namespace {
-
-constexpr std::size_t kYobiRegistryRowCount = 399;
-
-constexpr std::size_t kYobiRegistryColumnCount = 399;
-
-constexpr std::size_t kYobiRegistryEntryCount =
-    kYobiRegistryRowCount * kYobiRegistryColumnCount;
-
-// 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
-std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
-
-std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
-
-static_assert(
-    std::tuple_size_v<decltype(gYobiRegistryFlags)>
-    == std::size_t{399} * std::size_t{399});
-
-static_assert(
-    std::tuple_size_v<decltype(gYobiRegistryActions)>
-    == std::size_t{399} * std::size_t{399});
-
 // 原 payload +00..+2F；原生指针扩宽后只供三种地图角色及观察链使用。
 struct MapCharaPayload {
     std::array<std::uint32_t, 5> values;
@@ -61,6 +39,28 @@ static_assert(offsetof(MapCharaPayload, frame) == 0x40);
 static_assert(offsetof(MapCharaPayload, next) == 0x48);
 
 static_assert(sizeof(MapCharaPayload) == 0x50);
+
+namespace {
+
+constexpr std::size_t kYobiRegistryRowCount = 399;
+
+constexpr std::size_t kYobiRegistryColumnCount = 399;
+
+constexpr std::size_t kYobiRegistryEntryCount =
+    kYobiRegistryRowCount * kYobiRegistryColumnCount;
+
+// 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
+std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
+
+std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
+
+static_assert(
+    std::tuple_size_v<decltype(gYobiRegistryFlags)>
+    == std::size_t{399} * std::size_t{399});
+
+static_assert(
+    std::tuple_size_v<decltype(gYobiRegistryActions)>
+    == std::size_t{399} * std::size_t{399});
 
 YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
 
@@ -146,7 +146,7 @@ void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexc
 
 YobiAction* NewMapCharaAction()
 {
-    return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
+    return NewYobiAction_404AE0(2, sizeof(MapCharaPayload), YobiPayloadKind::MapChara);
 }
 
 // 两种观察节点的真实回调，声明供以下生产入口绑定。
@@ -251,7 +251,7 @@ void Sub_4408C0(
     YobiAction* const action, const std::int32_t first, const std::int32_t second,
     const std::int32_t third, const std::int32_t fourth, const std::int32_t fifth)
 {
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     const std::array<std::int32_t, 5> values {first, second, third, fourth, fifth};
     for (std::size_t i = 0; i < values.size(); ++i) {
         if (values[i] > 0) {
@@ -264,7 +264,7 @@ void Sub_4408C0(
 YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
-    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
+    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
     const std::uint32_t objectIndex = payload->values[index];
     YobiAction* const source = objectIndex == playerIndex
         ? world::detail::gPlayerRuntimeSlots.action
@@ -296,7 +296,7 @@ YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
-    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
+    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
     const std::uint32_t objectIndex = payload->values[index];
     YobiAction* const source = objectIndex == playerIndex
         ? world::detail::gPlayerRuntimeSlots.action
@@ -357,7 +357,7 @@ void Sub_43F910(YobiAction* const action)
     const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
-    auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
+    auto* const payload = parent->payload.mapChara;
     const std::uint32_t objectIndex = payload->values[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
         ? world::detail::gPlayerRuntimeSlots.action
@@ -440,7 +440,7 @@ void Sub_440440(YobiAction* const action)
 {
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
-    auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
+    auto* const payload = parent->payload.mapChara;
     const std::uint32_t objectIndex = payload->values[initialSlot];
     YobiAction* const source = objectIndex == world::detail::gPlayerRuntimeSlots.objectIndex
         ? world::detail::gPlayerRuntimeSlots.action
@@ -610,7 +610,7 @@ void DrawObservationChildren(
 void Sub_43F520(YobiAction* const action)
 {
     const float worldY = action->worldY;
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     const float worldX = action->worldX;
     constexpr std::array<std::int16_t, 8> angles {45, 0, 315, 270, 225, 180, 135, 90};
     float screenX;
@@ -719,7 +719,7 @@ void Sub_43F520(YobiAction* const action)
 void Sub_440070(YobiAction* const action)
 {
     const float worldY = action->worldY;
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     const float worldX = action->worldX;
     float screenX;
     float screenY;
@@ -938,7 +938,7 @@ YobiAction* Sub_43F180(YobiAction* const action)
         return nullptr;
     }
     for (;;) {
-        auto* const payload = static_cast<MapCharaPayload*>(current->payload);
+        auto* const payload = current->payload.mapChara;
         YobiAction* const next = payload->next;
         if (next == nullptr) {
             payload->next = action;
@@ -953,16 +953,16 @@ void* Sub_43F1B0(YobiAction* const action)
 {
     YobiAction* current = gMapCharaHead;
     if (current == action) {
-        auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+        auto* const payload = action->payload.mapChara;
         gMapCharaHead = payload->next;
         return payload;
     }
     while (current != nullptr) {
-        auto* const payload = static_cast<MapCharaPayload*>(current->payload);
+        auto* const payload = current->payload.mapChara;
         YobiAction* const next = payload->next;
         if (next == action) {
             YobiAction* const removedAction = payload->next;
-            auto* const removed = static_cast<MapCharaPayload*>(removedAction->payload);
+            auto* const removed = removedAction->payload.mapChara;
             payload->next = removed->next;
             return removed;
         }
@@ -977,7 +977,7 @@ YobiAction* Sub_43F1F0(const std::uint32_t value)
     YobiAction* current = gMapCharaHead;
     while (current != nullptr) {
         const auto* const payload =
-            static_cast<const MapCharaPayload*>(current->payload);
+            static_cast<const MapCharaPayload*>(current->payload.mapChara);
         YobiAction* const next = payload->next;
         for (const std::uint32_t entry : payload->values) {
             if (entry == value) {
@@ -1002,7 +1002,7 @@ void* Sub_43F230()
     YobiAction* last = nullptr;
     while (current != nullptr) {
         const auto* const payload =
-            static_cast<const MapCharaPayload*>(current->payload);
+            static_cast<const MapCharaPayload*>(current->payload.mapChara);
         YobiAction* const next = payload->next;
         for (YobiAction* const child : payload->partyActions) {
             if (child != nullptr) {
@@ -1039,7 +1039,7 @@ std::int32_t* Sub_43FD90(
 // 原 440C50；唯一 callback 写者为 440B70，见 Yobi 观察回调 SPEC。
 void Sub_440C50(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     const std::int32_t initialFrame = payload->frame;
     const std::int32_t initialDirection = action->direction;
     platform::detail::MapObserverProjection projection;
@@ -1142,7 +1142,7 @@ YobiAction* Sub_440B70()
     action->imageNo = gMapImage5F9734;
     action->characterAction = 3;
     const std::int32_t initialDirection = gMapDirection5F9740;
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     action->direction = initialDirection;
     action->displayPriority = 10;
     action->flags = 0x20;
@@ -1184,7 +1184,7 @@ void* Sub_440F50()
     }
 
     const std::int32_t imageNo = action->imageNo;
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    auto* const payload = action->payload.mapChara;
     gMapImage5F9734 = imageNo;
     gMapDirection5F9740 = action->field58;
     gMapDuration5F9744 =

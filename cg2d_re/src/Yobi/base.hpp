@@ -14,6 +14,58 @@ namespace cg::login {
 
 using YobiCallback = void (*)(YobiAction* action);
 
+namespace detail {
+
+struct BattleActorPayload;
+struct BattleScenePayload;
+struct BattleRideCarrierPayload;
+struct BattleRingEmitterPayload;
+struct BattleFollowOffsetPayload;
+struct BattleTransitionEffectPayload;
+struct BattleTextPayload;
+struct MapActorPayload;
+struct MapCharaPayload;
+struct MapTransitionPayload;
+struct WindowOpeningPayload;
+struct YobiUIData;
+
+} // namespace detail
+
+// 独立分配的载荷指针；只访问YobiAction::payloadKind对应的有效成员。
+union YobiPayload {
+    void* raw = nullptr;
+    detail::BattleActorPayload* battleActor;
+    detail::BattleScenePayload* battleScene;
+    detail::BattleRideCarrierPayload* battleRideCarrier;
+    detail::BattleRingEmitterPayload* battleRingEmitter;
+    detail::BattleFollowOffsetPayload* battleFollowOffset;
+    detail::BattleTransitionEffectPayload* battleTransitionEffect;
+    detail::BattleTextPayload* battleText;
+    detail::MapActorPayload* mapActor;
+    detail::MapCharaPayload* mapChara;
+    detail::MapTransitionPayload* mapTransition;
+    detail::WindowOpeningPayload* windowOpening;
+    detail::YobiUIData* windowUi;
+};
+
+static_assert(sizeof(YobiPayload) == sizeof(void*));
+static_assert(alignof(YobiPayload) == alignof(void*));
+static_assert(std::is_trivially_copyable_v<YobiPayload>);
+static_assert(sizeof(YobiPayloadKind) == 1);
+
+// 原+290..2A3；只有+294已证为战斗动作113的S32时长，其余保留原字节。
+struct YobiExtraState290 {
+    std::array<std::byte, 4> bytes290;
+    std::int32_t castDuration294;
+    std::array<std::byte, 12> bytes298;
+};
+
+static_assert(sizeof(YobiExtraState290) == 20);
+static_assert(alignof(YobiExtraState290) == alignof(std::int32_t));
+static_assert(offsetof(YobiExtraState290, castDuration294) == 4);
+static_assert(offsetof(YobiExtraState290, bytes298) == 8);
+static_assert(std::is_trivially_copyable_v<YobiExtraState290>);
+
 // 原 x86 +offset 只作为字段来源证据；原生 x64 对象不复制 0x330 指针布局。
 struct YobiAction {
     // 预览沿声明顺序默认构造十成员；普通动态节点保留原calloc零载荷。
@@ -24,7 +76,7 @@ struct YobiAction {
     YobiAction* prev; // 原成员偏移：+0x00。
     YobiAction* next; // 原成员偏移：+0x04。
     YobiCallback callback; // 原成员偏移：+0x08。
-    void* payload; // 原成员偏移：+0x0C。
+    YobiPayload payload; // 原成员偏移：+0x0C。 本机使用带类别的指针联合体。
     union {
         YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
@@ -34,6 +86,7 @@ struct YobiAction {
     };
     std::uint8_t priority; // 原成员偏移：+0x14。
     std::uint8_t displayPriority; // 原成员偏移：+0x15。
+    YobiPayloadKind payloadKind = YobiPayloadKind::None; // 本机载荷类别，使用原生对齐空隙，不复用业务字段。
     std::int32_t cacheIndex; // 原成员偏移：+0x18。
     std::int32_t deathFlag; // 原成员偏移：+0x1C。
     std::int32_t graphicIndex; // 原成员偏移：+0x20。
@@ -100,7 +153,7 @@ struct YobiAction {
     std::uint32_t field280; // 原成员偏移：+0x280。
     std::int32_t walkSpeed; // 原成员偏移：+0x284。
     std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。
-    std::array<std::byte, 20> bytes290; // 原+290..2A3的五W32复制范围；不作为本机地址存储。
+    YobiExtraState290 extraState290; // 原+290..2A3；不作为本机地址存储。
     std::int32_t framePlayingRate; // 原成员偏移：+0x2A4。
     std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
     std::int32_t characterAction; // 原成员偏移：+0x2B0。

@@ -14,8 +14,6 @@ namespace cg::login {
 
 namespace detail {
 
-namespace {
-
 // 原475950/48AC60共用布局的24H载荷；函数指针与完成槽留在action各自家族字段。
 struct WindowOpeningPayload {
     std::uint16_t id; // 原成员偏移：+0x00。 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。
@@ -50,12 +48,6 @@ static_assert(offsetof(WindowOpeningPayload, value1C) == 0x1C);
 static_assert(offsetof(WindowOpeningPayload, flag20) == 0x20);
 
 static_assert(sizeof(WindowOpeningPayload) == 0x24);
-
-constexpr std::uint8_t kModalPriority = 3;
-
-constexpr std::uint8_t kModalDisplayPriority = 0xD4;
-
-constexpr std::uint8_t kModalLayer = 0xD4;
 
 struct YobiUIData {
     std::int16_t winId; // 原成员偏移：+0x00。
@@ -101,6 +93,14 @@ static_assert(offsetof(YobiUIData, tileStyle) == 0x20);
 static_assert(offsetof(YobiUIData, trailingZero0) == 0x22);
 
 static_assert(offsetof(YobiUIData, trailingZero1) == 0x23);
+
+namespace {
+
+constexpr std::uint8_t kModalPriority = 3;
+
+constexpr std::uint8_t kModalDisplayPriority = 0xD4;
+
+constexpr std::uint8_t kModalLayer = 0xD4;
 
 } // namespace
 
@@ -420,7 +420,7 @@ void AssignReady(YobiAction* const action)
 // 原函数：0x005046D0。
 void UpdateModalAction_5046D0(YobiAction* const action)
 {
-    auto* const payload = static_cast<YobiUIData*>(action->payload);
+    auto* const payload = action->payload.windowUi;
 
     if (action->phase == 0) {
         login::detail::DrawGraphicHover(
@@ -539,7 +539,7 @@ void DrawNineGrid_49BE00(
 // 原函数：0x004758D0。
 void Sub_4758D0(YobiAction* const action)
 {
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
@@ -575,7 +575,7 @@ YobiAction* Sub_475950(
     YobiAction** const completionSlot)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         if (completionSlot != nullptr) {
             *completionSlot = nullptr;
@@ -583,7 +583,7 @@ YobiAction* Sub_475950(
         static_cast<void>(ui::WindowRuntime_Open(id));
         return nullptr;
     }
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     action->callback = &Sub_4758D0;
     action->displayPriority = 0xDF;
     action->flags |= 6u;
@@ -624,7 +624,7 @@ YobiAction* Sub_475950(
 // QIP01：原48ABC0完整59条；描边后更新半宽/半高，S16计数>=10发布/标死，再无条件W16自增。
 void Sub_48ABC0(YobiAction* const action)
 {
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
@@ -667,7 +667,7 @@ YobiAction* Sub_48AC60(
 {
     ui::detail::gWindowStates[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window != nullptr) {
         ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -688,7 +688,7 @@ YobiAction* Sub_48AC60(
         x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
     }
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     action->callback = Sub_48ABC0;
     action->flags |= 6u;
     action->graphicIndex = imageNo;
@@ -727,7 +727,7 @@ YobiAction* Sub_48AC60(
 // SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。
 void Sub_4ABE60(YobiAction* const action)
 {
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
@@ -762,7 +762,7 @@ YobiAction* Sub_4ABEF0(
     const std::uint32_t flags, const std::uint32_t mode)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
         return nullptr;
@@ -778,7 +778,7 @@ YobiAction* Sub_4ABEF0(
         x = ui::detail::gWindowStates[cg::ui::WindowId_Bank].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_Bank].y;
     }
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
     action->callback = Sub_4ABE60;
     action->displayPriority = 0xDF;
@@ -815,7 +815,7 @@ YobiAction* Sub_4ABEF0(
 // SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。
 void Sub_4ACDF0(YobiAction* const action)
 {
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
@@ -851,7 +851,7 @@ YobiAction* Sub_4ACE80(
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
         return nullptr;
@@ -867,7 +867,7 @@ YobiAction* Sub_4ACE80(
         x = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].y;
     }
-    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
     action->callback = Sub_4ACDF0;
     action->displayPriority = 0xDF;
@@ -930,12 +930,12 @@ YobiAction* CreateModalAction_5044E0(
 {
     YobiAction* const action = NewYobiAction_404AE0(
         kModalPriority,
-        static_cast<std::uint32_t>(sizeof(YobiUIData)));
+        static_cast<std::uint32_t>(sizeof(YobiUIData)), YobiPayloadKind::WindowUi);
     if (action == nullptr) {
         return nullptr;
     }
 
-    auto* const payload = static_cast<YobiUIData*>(action->payload);
+    auto* const payload = action->payload.windowUi;
     action->flags |= 6U;
     action->callback = UpdateModalAction_5046D0;
     action->displayPriority = kModalDisplayPriority;

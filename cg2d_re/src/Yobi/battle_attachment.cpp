@@ -27,7 +27,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
     YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
-    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (registered != parent) {
         static_cast<void>(MarkDeath(action));
         return;
@@ -113,7 +113,7 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     YobiAction* const parent = action->battleAttachmentParent10;
     YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
     const bool hasRegisteredParent = registered == parent;
-    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (!hasRegisteredParent) {
         static_cast<void>(MarkDeath(action));
         return;
@@ -197,7 +197,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     if (parent == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (payload == nullptr) {
         return;
     }
@@ -316,7 +316,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     action->phase = 0;
     action->field270 = 1;
     action->battleAttachmentParent10 = parent;
-    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     YobiAction* const source = action->battleAttachmentParent10;
     const std::int32_t x = static_cast<std::int32_t>(source->offset40);
@@ -348,7 +348,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     action->phase = 0;
     action->field270 = 2;
     action->battleAttachmentParent10 = parent;
-    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     YobiAction* const source = action->battleAttachmentParent10;
     const std::int32_t x = static_cast<std::int32_t>(source->offset40);
@@ -382,7 +382,7 @@ YobiAction* NewBattleAuxGear_422B00(
     const std::uint16_t field270 = static_cast<std::uint16_t>(sortIndex);
     action->phase = 0;
     action->battleAttachmentParent10 = parent;
-    const std::int32_t position = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    const std::int32_t position = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     action->field270 = field270;
     action->value1D4 = position;
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -398,7 +398,7 @@ YobiAction* NewBattleAuxGear_422B00(
 std::int32_t SetBattleRider_4222B0(
     YobiAction* const action, const std::int32_t imageNo, const std::int32_t ridingImageNo)
 {
-    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const payload = action->payload.battleActor;
     if (ridingImageNo > 0) {
         if (payload->rider13C8 == nullptr) {
             const std::int32_t mapped = world::detail::Sub_51C0D0(imageNo);
@@ -429,7 +429,7 @@ std::int32_t SetBattleRider_4222B0(
 // 原函数：0x00422BC0。
 void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
 {
-    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const payload = action->payload.battleActor;
     if (imageNo > 0) {
         if (payload->gear13B4 == nullptr) {
             payload->gear13B4 = NewBattleGear_422A30(action, imageNo);
@@ -451,7 +451,7 @@ void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
 void SetBattleGear_422C20(
     YobiAction* const action, const std::int32_t imageNo, const std::int32_t index)
 {
-    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const payload = action->payload.battleActor;
     if (imageNo > 0) {
         if (payload->gear13B4 == nullptr) {
             payload->gear13B4 = NewBattleGear_422A30(action, imageNo);
@@ -474,7 +474,7 @@ void SetBattleAuxGear_422C90(
     YobiAction* const action, const std::int32_t imageNo,
     const std::int32_t type, const std::int32_t index)
 {
-    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const payload = action->payload.battleActor;
     if (imageNo <= 0) {
         if (type > 0) {
             YobiAction* const firstGear = payload->auxiliaryGear13B8[0];
@@ -560,7 +560,7 @@ void SyncBattleAttachmentAlpha_420F10(
     YobiAction* const action, const std::int32_t alpha, const std::int8_t delta,
     const std::uint32_t addMask, const std::uint32_t removeMask)
 {
-    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const payload = action->payload.battleActor;
     // 保存槽地址而非对象快照，保留每个操作后的重取及多个槽指向同一对象的重复处理。
     const std::array<YobiAction**, 9> slots {
         &payload->effect1054, &payload->attachedEffect1058, &payload->effect105C,

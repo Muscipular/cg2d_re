@@ -28,11 +28,11 @@ std::int32_t AppendBattleRedirect_4242B0(
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 25);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 0);
     AppendBattleEffectList_4393A0(gBattleAllEntries59E980[redirect], target, flags, value);
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->targetPosition100C = target;
+    gBattleAllEntries59E980[redirect]->payload.battleActor->targetPosition100C = target;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 41);
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->value1018 = 252;
+    gBattleAllEntries59E980[redirect]->payload.battleActor->value1018 = 252;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 80);
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->reactionImage1010 = 0x5748;
+    gBattleAllEntries59E980[redirect]->payload.battleActor->reactionImage1010 = 0x5748;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 69);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 36);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 75);
@@ -206,7 +206,7 @@ namespace {
     case FinishKind::LastCaster: {
         YobiAction* const last = gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr) {
-            auto* const lastPayload = static_cast<BattleActorPayload*>(last->payload);
+            auto* const lastPayload = last->payload.battleActor;
             if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & 2u) == 0) {
                 if (gBattleMSkill5AAA78 == 105) {
                     lastPayload->flash1004 = 0;
@@ -232,12 +232,12 @@ namespace {
     case FinishKind::BothCasters: {
         YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &static_cast<BattleActorPayload*>(caster->payload)->flagsFDC) & 2u) == 0) {
+                &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
             Sub_406260(caster);
         }
         YobiAction* const last = gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &static_cast<BattleActorPayload*>(last->payload)->flagsFDC) & 2u) == 0) {
+                &last->payload.battleActor->flagsFDC) & 2u) == 0) {
             Sub_406260(last);
         }
         break;
@@ -245,16 +245,15 @@ namespace {
     case FinishKind::CasterFlash: {
         YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &static_cast<BattleActorPayload*>(caster->payload)->flagsFDC) & 2u) == 0) {
+                &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
             Sub_406260(caster);
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->flash1004 = 0;
         }
         break;
     }
     case FinishKind::EffectTargets: {
-        auto* const casterPayload = static_cast<BattleActorPayload*>(
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload);
+        auto* const casterPayload = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor;
         for (BattleEntryEffectRecord* effect = casterPayload->effects1C.data(); effect->position != -1; ++effect) {
             YobiAction* const target = gBattleAllEntries59E980[effect->position];
             if (target != nullptr && target->characterAction != 10 && target->phase != 34) {

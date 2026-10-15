@@ -21,8 +21,6 @@ namespace cg::login {
 
 namespace detail {
 
-namespace {
-
 // 原4217F0的18H（24B）文本载荷；末4B用途未定，行表/行字节由421750释放。
 struct BattleTextPayload {
     YobiAction* panel00; // 原成员偏移：+0x00。
@@ -34,6 +32,8 @@ struct BattleTextPayload {
 };
 
 static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) + 16);
+
+namespace {
 
 } // namespace
 
@@ -68,7 +68,7 @@ constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C { // 原常量
 // 原函数：0x00421750。
 void UpdateBattleText_421750(YobiAction* const action)
 {
-    auto* const payload = static_cast<BattleTextPayload*>(action->payload);
+    auto* const payload = action->payload.battleText;
     if (!(payload->panel00->readiness > 0)) {
         return;
     }
@@ -99,12 +99,12 @@ YobiAction* NewBattleText_4217F0(
     const std::int8_t style, const char* const text,
     const std::int32_t fontType, const std::int32_t duration)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTextPayload));
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTextPayload), YobiPayloadKind::BattleText);
     if (action == nullptr) {
         return nullptr;
     }
     const std::uint32_t flags = action->flags;
-    auto* const payload = static_cast<BattleTextPayload*>(action->payload);
+    auto* const payload = action->payload.battleText;
     action->callback = UpdateBattleText_421750;
     action->flags = flags | 0x40000u;
     payload->lineCount08 = 0;

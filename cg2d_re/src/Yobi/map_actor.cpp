@@ -32,7 +32,7 @@ YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapActorPayload));
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapActorPayload), YobiPayloadKind::MapActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -84,12 +84,12 @@ void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexce
 
 YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
 {
-    return static_cast<const MapActorPayload*>(action->payload)->action44;
+    return static_cast<const MapActorPayload*>(action->payload.mapActor)->action44;
 }
 
 void BeginMapActorPhase2(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     action->phase = 2;
     payload->counter48 = 0;
 }
@@ -198,7 +198,7 @@ void UpdateMapActorMode(
 
 void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const text)
 {
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     char buffer[2048];
     network::ExtractDelimitedField_52CED0(text, '|', 17, 2047, buffer);
     if (std::strlen(buffer) != 0) {
@@ -280,7 +280,7 @@ void ApplyPlayerAppearanceReply(
     std::int32_t* const playerImageNo)
 {
     auto* const payload =
-        static_cast<MapActorPayload*>(world::detail::gPlayerRuntimeSlots.action->payload);
+        world::detail::gPlayerRuntimeSlots.action->payload.mapActor;
     if (payload == nullptr) {
         return;
     }
@@ -361,7 +361,7 @@ void ApplyPlayerRideReply(
 {
     YobiAction* const action = world::detail::gPlayerRuntimeSlots.action;
     if (imageNo >= 0) {
-        auto* const payload = static_cast<MapActorPayload*>(action->payload);
+        auto* const payload = action->payload.mapActor;
         if (payload->action44 == nullptr) {
             YobiAction* const ride = NewYobiAction_404AE0(2, 0);
             payload->action44 = ride;
@@ -388,7 +388,7 @@ void ApplyPlayerRideReply(
     if (action->phase == 2) {
         return;
     }
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     action->phase = 2;
     YobiAction* const ride = payload->action44;
     payload->counter48 = 0;
@@ -404,7 +404,7 @@ void ApplyPlayerRideReply(
 void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
 {
     YobiAction* const action = world::detail::gPlayerRuntimeSlots.action;
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     action->phase = 3;
     const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
     world::detail::gPlayerRuntimeSlots.action->imageNo = mappedImage;
@@ -983,7 +983,7 @@ std::int32_t Sub_43DD00(
     YobiAction* const action, const char* const text, std::int32_t field)
 {
     MapActorPayload* const payload =
-        action != nullptr ? static_cast<MapActorPayload*>(action->payload) : nullptr;
+        action != nullptr ? action->payload.mapActor : nullptr;
     char buffer[2048];
     network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
     ++field;
@@ -1136,7 +1136,7 @@ std::int32_t Sub_43DD00(
         if (child == nullptr) {
             return field;
         }
-        auto* const childPayload = static_cast<MapActorPayload*>(child->payload);
+        auto* const childPayload = child->payload.mapActor;
         childPayload->index =
             world::detail::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
         payload->action2C->flags |= 0x80100u;
@@ -1154,7 +1154,7 @@ std::int32_t Sub_43DD00(
 std::int32_t Sub_43E490(YobiAction* const action)
 {
     const float worldY = action->worldY;
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     const float worldX = action->worldX;
     const std::int32_t index = payload->index;
     float screenX;
@@ -1189,7 +1189,7 @@ std::int32_t Sub_43E490(YobiAction* const action)
 // 原函数：0x004417E0。
 void Sub_4417E0(YobiAction* const action)
 {
-    auto* payload = static_cast<MapActorPayload*>(action->payload);
+    auto* payload = action->payload.mapActor;
     std::int32_t index = payload->index;
     std::int32_t primaryIndex = -1;
     bool useSharedRate = true;
@@ -1210,7 +1210,7 @@ void Sub_4417E0(YobiAction* const action)
         return;
     }
     if (world::detail::gPlayerRuntimeSlots.action != action) {
-        payload = static_cast<MapActorPayload*>(action->payload);
+        payload = action->payload.mapActor;
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
                     &world::detail::gWorldObjects[
@@ -1251,7 +1251,7 @@ void Sub_4417E0(YobiAction* const action)
     }
     std::uint32_t flipStatic = 0;
     if (world::detail::gValue9DAD68 == 1) {
-        payload = static_cast<MapActorPayload*>(action->payload);
+        payload = action->payload.mapActor;
         index = payload->index;
         if (player != action) {
             const std::uint32_t flags = world::detail::gWorldObjects[
@@ -1377,7 +1377,7 @@ void Sub_43EFC0(
     YobiAction* const action, const std::int32_t characterAction,
     const std::int32_t restart)
 {
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     YobiAction* const ride = payload->action44;
     if (ride != nullptr) {
         ride->characterAction = characterAction;
@@ -1459,7 +1459,7 @@ void Sub_4424B0(YobiAction* const action)
                 static_cast<float>(Sub_442110(action, nextX, nextY, speed, 0.0F));
             Sub_442460(action);
             if ((action->flags & 0x200000u) == 0) {
-                auto* const payload = static_cast<MapActorPayload*>(action->payload);
+                auto* const payload = action->payload.mapActor;
                 YobiAction* const child = payload->action2C;
                 if (child != nullptr) {
                     Sub_442110(child, previousX, previousY, child->walkSpeed, rate);
@@ -1635,7 +1635,7 @@ void Sub_4428F0(YobiAction* const action)
 // WLR01：玩家519D50、单项删除4462E0与整表4464D0共用八槽/text清理；正确正文保持。
 void ClearMapActorAttachments(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     if (payload == nullptr) {
         return;
     }
@@ -1710,7 +1710,7 @@ void Sub_444410(
     if (action == nullptr) {
         return;
     }
-    auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
+    auto* const payload = action->payload.mapActor;
     const std::int32_t index = payload->index;
     switch (characterAction) {
     case 0:
@@ -2004,7 +2004,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
         return;
     }
     record.used = 2;
-    static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+    record.action->payload.mapActor->index = index;
     action = record.action;
     const std::int32_t level = record.level2C;
     action->field1D0 = level;
@@ -2039,7 +2039,7 @@ void Sub_446640()
             continue;
         }
         record.used = 2;
-        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index =
+        record.action->payload.mapActor->index =
             static_cast<std::int32_t>(index);
         const std::uint16_t category = record.category;
         if (category == 1 || category == 8) {
@@ -2094,7 +2094,7 @@ void Sub_445350(
             return;
         }
         record.used = 2;
-        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+        record.action->payload.mapActor->index = index;
         record.category = static_cast<std::uint16_t>(Sub_446210(type));
         record.objectIndex = objectIndex;
         record.value34 = -1;
@@ -2496,7 +2496,7 @@ void MovePlayerOneStep_46B1B0(
 {
     login::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
     auto* const payload = player == nullptr
-        ? nullptr : static_cast<login::detail::MapActorPayload*>(player->payload);
+        ? nullptr : player->payload.mapActor;
     const float rate = static_cast<float>(
         static_cast<double>(speed) * std::bit_cast<float>(0x3C23D70Au));
     if (payload != nullptr && payload->action2C != nullptr) {

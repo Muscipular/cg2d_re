@@ -17,6 +17,24 @@ namespace cg::login {
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
 struct YobiAction;
 
+// 本机载荷类别；与YobiPayload的有效指针成员对应，不写入协议或原端数据。
+enum class YobiPayloadKind : std::uint8_t {
+    None,
+    Raw,
+    BattleActor,
+    BattleScene,
+    BattleRideCarrier,
+    BattleRingEmitter,
+    BattleFollowOffset,
+    BattleTransitionEffect,
+    BattleText,
+    MapActor,
+    MapChara,
+    MapTransition,
+    WindowOpening,
+    WindowUi,
+};
+
 namespace detail {
 
 // 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
@@ -49,9 +67,11 @@ extern volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude; // 原全局：
 YobiAction* Sub_404A40();
 
 // 原 YobiAction::new@[0x404AE0,0x404C42)。priority 的有效范围为 [0, 0xFE]。
+// payloadKind只标记本机指针类型；默认Raw保留原按字节分配的调用形式。
 YobiAction* NewYobiAction_404AE0(
     std::uint8_t priority,
-    std::uint32_t payloadSize);
+    std::uint32_t payloadSize,
+    YobiPayloadKind payloadKind = YobiPayloadKind::Raw);
 
 // 原41EAB0：克隆战斗对象及原生载荷，保留新节点链表位置，内部T*仍为借用引用。
 YobiAction* CloneBattleAction_41EAB0(YobiAction* source);

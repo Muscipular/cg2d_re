@@ -68,7 +68,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     gBattlePreviewParticipants5AAA48.fill(0);
     for (YobiAction* const event : gBattleEventActions5ABA9C) {
         if (event != nullptr) {
-            const auto* const payload = static_cast<const BattleScenePayload*>(event->payload);
+            const auto* const payload = static_cast<const BattleScenePayload*>(event->payload.battleScene);
             for (std::int32_t position = 0;
                  position < static_cast<std::int32_t>(gBattlePreviewParticipants5AAA48.size()); ++position) {
                 if ((payload->entryMaskA8 & (1U << position)) != 0) {
@@ -95,7 +95,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             return;
         }
         if (previousEvent != nullptr && priorSource == source) {
-            auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
+            auto* const payload = previousEvent->payload.battleScene;
             const std::int32_t messages = payload->remainingMessages5C;
             const std::uint32_t eventMask = payload->entryMaskA8;
             payload->remainingMessages5C = messages + 1;
@@ -111,7 +111,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                 if (previousEvent != nullptr
                     && (kind == static_cast<std::int32_t>(BattleMDataHeader::Chat)
                         || kind == static_cast<std::int32_t>(BattleMStatusHeader::QueuedValue))) {
-                    auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
+                    auto* const payload = previousEvent->payload.battleScene;
                     const std::int32_t messages = payload->remainingMessages5C;
                     const std::uint32_t eventMask = payload->entryMaskA8;
                     payload->remainingMessages5C = messages + 1;
@@ -131,7 +131,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                             && gBattleEventActions5ABA9C[slot] != nullptr) {
                             ++slot;
                         }
-                        static_cast<BattleScenePayload*>(lastCreated->payload)->remainingMessages5C = 1;
+                        lastCreated->payload.battleScene->remainingMessages5C = 1;
                         gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
                         previousSource = source;
                         previousEvent = lastCreated;
@@ -151,12 +151,12 @@ YobiAction* NewBattleEvent_43B610(
     const std::uint32_t participants, const std::int32_t group)
 {
     using namespace world::detail;
-    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));
+    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
     }
     const std::uint32_t flags = scene->flags | 2U;
-    auto* const payload = static_cast<BattleScenePayload*>(scene->payload);
+    auto* const payload = scene->payload.battleScene;
     scene->flags = flags;
     scene->callback = UpdateBattleEvent_427470;
     scene->imageNo = 0;
@@ -180,7 +180,7 @@ YobiAction* NewBattleEvent_43B610(
 // 原函数：0x004383B0。
 YobiAction* NewBattleScene_4383B0()
 {
-    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));
+    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
     }
@@ -189,7 +189,7 @@ YobiAction* NewBattleScene_4383B0()
     const std::uint32_t updatedFlags = flags | 2U;
     scene->imageNo = 0;
     scene->flags = updatedFlags;
-    static_cast<BattleScenePayload*>(scene->payload)->entryMaskA8 = 0xFFFFFFFFU;
+    scene->payload.battleScene->entryMaskA8 = 0xFFFFFFFFU;
     return scene;
 }
 
@@ -213,7 +213,7 @@ void InitializeBattleScene_4383F0()
 void FinishBattleEvent_43B6C0(YobiAction* const action)
 {
     using namespace world::detail;
-    auto* const payload = static_cast<BattleScenePayload*>(action->payload);
+    auto* const payload = action->payload.battleScene;
     const std::int32_t remaining = payload->remainingMessages5C - 1;
     payload->remainingMessages5C = remaining;
     if (remaining > 0) {
@@ -400,7 +400,7 @@ std::int32_t Sub_43C910()
     for (YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 1u) == 0) {
+                &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 1u) == 0) {
             action->phase = 2;
             pending = true;
         }
@@ -416,7 +416,7 @@ void Sub_43C9A0()
         for (std::int32_t index = first; index < end; ++index) {
             YobiAction* const action = gBattleEntries59E980[index];
             if (action != nullptr) {
-                const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+                const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
                 const double yEnd = static_cast<double>(payload->y0C);
                 const double yStart = static_cast<double>(payload->y04);
                 const float y = static_cast<float>(yEnd - yStart);
@@ -449,7 +449,7 @@ std::int32_t Sub_43CA50()
     for (const YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0) {
+                &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0) {
             ++count;
         }
     }
@@ -521,7 +521,7 @@ std::int32_t CheckBattleCommand_43C560(
                 && ((flags & 0x10u) != 0
                     || ((flags & 0x800u) != 0
                         && (*reinterpret_cast<const std::uint8_t*>(
-                            &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0))
+                            &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0))
                 && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
                 gBattleEntries59E980[slot]->flags |= 8u;

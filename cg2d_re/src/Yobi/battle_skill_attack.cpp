@@ -179,7 +179,7 @@ FinishFirstTargetFailure:
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    static_cast<BattleActorPayload*>(firstCaster->payload)->castLevel1040 = level;
+    firstCaster->payload.battleActor->castLevel1040 = level;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 40);
     if (static_cast<std::uint32_t>(skill) < 2
         || skill == 3
@@ -212,20 +212,20 @@ FinishFirstTargetFailure:
     }
     if (skill == 2017) {
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 151);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
+        gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
         goto ReadFirstTarget;
     }
     if (skill == 2007) {
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 151);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
+        gBattleAllEntries59E980[*initialPosition]->payload.battleActor->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 252);
         goto ReadFirstTarget;
     }
     if (skill < 257 || skill >= 4004) {
         if (skill == 105) {
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 161);
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->flash1004 = 1;
+            gBattleAllEntries59E980[*initialPosition]->payload.battleActor->flash1004 = 1;
             goto ReadFirstTarget;
         }
         if (skill != 113)
@@ -244,7 +244,7 @@ AppendInitialGenericCast:
             coordinate5 = gBattleGraphicPoints553758[coordinateIndex5][2];
             coordinateSum = coordinate15 + coordinate5;
             coordinateSource = *sourcePosition;
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[coordinateSource]->payload)
+            gBattleAllEntries59E980[coordinateSource]->payload.battleActor
                 ->moveTargetXFE8 = coordinateSum / 2;
             coordinateIndex15 = gBattlePointIndices5536FC[15];
             coordinateIndex5 = gBattlePointIndices5536FC[5];
@@ -252,7 +252,7 @@ AppendInitialGenericCast:
             coordinate5 = gBattleGraphicPoints553758[coordinateIndex5][3];
             coordinateSum = coordinate15 + coordinate5;
             coordinateSource = *sourcePosition;
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[coordinateSource]->payload)
+            gBattleAllEntries59E980[coordinateSource]->payload.battleActor
                 ->moveTargetYFEC = coordinateSum / 2;
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 8);
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 6);
@@ -270,9 +270,9 @@ ReadFirstTarget:
     (*targetPosition) = firstTarget;
     if (!gBattleAllEntries59E980[firstTarget])
         goto FinishFirstTargetFailure;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->castSkill103C = skill;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->castSkillLevel1044 = levelIndex;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->fpUsed1008 = fpUsed;
+    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->castSkill103C = skill;
+    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->castSkillLevel1044 = levelIndex;
+    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->fpUsed1008 = fpUsed;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 55);
     mainFlags = TakeBattleMInteger_438F70(scene);
     primaryValue = TakeBattleMInteger_438F70(scene);
@@ -323,12 +323,12 @@ SelectSkill260MoveTail:
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 9);
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 10);
         if (skill == 2008) {
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D608[GetBattleValueBand_43BF00(levelIndex + 1)];
+            gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D608[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
         } else {
             if (skill != 2021)
                 goto SelectSkill260MoveTail;
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
+            gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
         }
 // 原函数：0x004392A0。
@@ -382,8 +382,8 @@ AppendPrimaryEffect:
                 }
                 goto AppendTechniqueEffects;
             case 94:
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1050 = TakeBattleMInteger_438F70(scene);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 260;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1050 = TakeBattleMInteger_438F70(scene);
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 260;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 98);
                 mainAuxIndex = 0;
@@ -400,15 +400,15 @@ AppendPrimaryEffect:
             case 5:
             case 2016:
                 initialReactionPosition = initialPosition;
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22341;
+                gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22341;
                 goto AppendInitialReaction;
             case 84:
                 initialReactionPosition = initialPosition;
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22343;
+                gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22343;
                 goto AppendInitialReaction;
             case 87:
                 initialReactionPosition = initialPosition;
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22342;
+                gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22342;
 // 原函数：0x004392A0。
 AppendInitialReaction:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialReactionPosition], 68);
@@ -488,10 +488,10 @@ AppendMainAuxiliaryEffects:
                 if ((mainFlags & 1) != 0) {
                     if ((secondaryFlags & 0x200) == 0)
                         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*targetPosition);
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*targetPosition);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                     if ((secondaryFlags & 0x200) != 0)
                         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
@@ -514,10 +514,10 @@ AppendMainAuxiliaryEffects:
                     }
                 } else {
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 63);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*targetPosition);
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*targetPosition);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
@@ -553,10 +553,10 @@ AppendMainAuxiliaryEffects:
                         effect2017Redirect.position = (*currentTarget);
                         AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect2017Redirect);
                     }
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*currentTarget);
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*currentTarget);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
@@ -578,10 +578,10 @@ AppendMainAuxiliaryEffects:
                     }
                 } else {
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 63);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*currentTarget);
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*currentTarget);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
@@ -592,7 +592,7 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 76);
                 break;
             case 96:
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 62;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 62;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 77);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
@@ -604,14 +604,14 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 78);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 210;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 210;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 95);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 76);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 64);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1020 = 133;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1020 = 133;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 82);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22403;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22403;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 97);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 37);
@@ -638,7 +638,7 @@ AppendMainAuxiliaryEffects:
         }
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 0);
         if (skill == 2016) {
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*currentTarget)]->payload)->image102C = kAttackImages54D6BC[GetBattleValueBand_43BF00(levelIndex + 1)];
+            gBattleAllEntries59E980[(*currentTarget)]->payload.battleActor->image102C = kAttackImages54D6BC[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 252);
         }
         currentMainFlags = mainFlags;
@@ -817,7 +817,7 @@ FindMainNextTarget:
                 }
                 if (skill == 262) {
                     mainCompletedActor = gBattleAllEntries59E980[*initialPosition];
-                    if (static_cast<BattleActorPayload*>(mainCompletedActor->payload)->castSkillLevel1044 >= 9)
+                    if (mainCompletedActor->payload.battleActor->castSkillLevel1044 >= 9)
                         goto AppendMainCompleted76;
                 }
             } else {
@@ -877,15 +877,15 @@ HandleSkill72PostReaction:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 32);
             }
             if ((mainFlags & 0x80000) != 0) {
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 257;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 257;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22332;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22332;
             } else {
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 258;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 258;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22333;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22333;
             }
             positionOrFlag = secondaryFlags & 0x40;
             if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
@@ -986,15 +986,15 @@ HandleSkill2017PostReaction:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 32);
             }
             if ((mainFlags & 0x80000) != 0) {
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 257;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 257;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22332;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22332;
             } else {
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 258;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 258;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22333;
+                gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22333;
             }
             if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
                 if ((mainFlags & 0x80000) != 0) {
@@ -1070,10 +1070,10 @@ HandleSkill2017PostReaction:
             }
         } else if (skill == 81 && !mainFlag8 && (mainFlags & 0xC100) == 0 && ((mainFlags & 0x2000) == 0 || !nextTargetOrDeathFlag)) {
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 64);
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 271;
+            gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 271;
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1030 = skill81Value;
-            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1034 = 5;
+            gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1030 = skill81Value;
+            gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1034 = 5;
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 160);
         }
 ReadNextAttackRound:
@@ -1101,7 +1101,7 @@ PrepareInitialTail:
             initialPositionAtTail = initialPosition;
             if (skill == 262) {
                 nextInitialActor = gBattleAllEntries59E980[*initialPosition];
-                if (static_cast<BattleActorPayload*>(nextInitialActor->payload)->castSkillLevel1044 >= 9)
+                if (nextInitialActor->payload.battleActor->castSkillLevel1044 >= 9)
                     AppendBattleCast_4392A0(scene, nextInitialActor, 76);
             }
         }
@@ -1138,7 +1138,7 @@ FinalizeInitialActor:
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPositionAtTail], 76);
         } else if (skill == 262) {
             tailInitialActor = gBattleAllEntries59E980[*initialPositionAtTail];
-            if (static_cast<BattleActorPayload*>(tailInitialActor->payload)->castSkillLevel1044 >= 9)
+            if (tailInitialActor->payload.battleActor->castSkillLevel1044 >= 9)
                 AppendBattleCast_4392A0(scene, tailInitialActor, 76);
         }
     }
@@ -1160,13 +1160,13 @@ void TakeBattleMSkillTargets_426FC0(
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    static_cast<BattleActorPayload*>(first->payload)->castSkill103C = skill;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->castLevel1040 = level;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->castSkillLevel1044 = technique;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->fpUsed1008 = fpUsed;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->attackModeFF4 = attackMode;
+    first->payload.battleActor->castSkill103C = skill;
+    gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->castLevel1040 = level;
+    gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->castSkillLevel1044 = technique;
+    gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->fpUsed1008 = fpUsed;
+    gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->attackModeFF4 = attackMode;
     const std::int32_t initialImage = SelectIntValue_404D90(kBattleSkillImages54D710.data(), 5, technique);
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->image102C = initialImage;
+    gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->image102C = initialImage;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*sourcePosition], 25);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*sourcePosition], 55);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*sourcePosition], 151);
@@ -1219,7 +1219,7 @@ void TakeBattleMSkillTargets_426FC0(
         const std::int32_t* const images = *targetPosition < 10
             ? kBattleSkillImages54D724.data() : kBattleSkillImages54D710.data();
         const std::int32_t image = SelectIntValue_404D90(images, 5, technique);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*sourcePosition]->payload)->image102C = image;
+        gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->image102C = image;
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*targetPosition], 25);
         if ((flags & 0x200u) != 0) {
             const std::int32_t redirect = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1297,15 +1297,15 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
         ++payload->packetSubState58;
         return;
     }
-    auto* const casterPayload = static_cast<BattleActorPayload*>(caster->payload);
+    auto* const casterPayload = caster->payload.battleActor;
     const std::int32_t casterSkill = gBattleMSkill5AAA78;
     casterPayload->castSkill103C = casterSkill;
     const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
     YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
     const std::int32_t casterLevel = gBattleMSkillLevelIndex5A3A18;
-    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = casterLevel;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->attackModeFF4 = mode;
+    levelCaster->payload.battleActor->castSkillLevel1044 = casterLevel;
+    gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->fpUsed1008 = fpUsed;
+    gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->attackModeFF4 = mode;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
     std::int32_t skill = gBattleMSkill5AAA78;
     if (skill == 0 || skill == 1 || skill == 3 || skill == 6 || skill == 81 || skill == 84
@@ -1316,14 +1316,14 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
         skill = gBattleMSkill5AAA78;
     } else if (skill == 105) {
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->flash1004 = 1;
+        gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->flash1004 = 1;
         skill = gBattleMSkill5AAA78;
     } else if (skill == 2007) {
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
         const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
         const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const imageCaster = gBattleAllEntries59E980[imageCasterPosition];
-        auto* const imageCasterPayload = static_cast<BattleActorPayload*>(imageCaster->payload);
+        auto* const imageCasterPayload = imageCaster->payload.battleActor;
         const std::int32_t image = kBattleMSkill2007Images54D5F4[band];
         imageCasterPayload->image102C = image;
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 252);
@@ -1340,7 +1340,7 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
             const std::int32_t middleXSum = firstX + secondX;
             YobiAction* const middleXCaster = gBattleAllEntries59E980[middleXCasterPosition];
             const std::int32_t middleX = middleXSum / 2;
-            static_cast<BattleActorPayload*>(middleXCaster->payload)->moveTargetXFE8 = middleX;
+            middleXCaster->payload.battleActor->moveTargetXFE8 = middleX;
             const std::int32_t firstYIndex = gBattlePointIndices5536FC[15];
             const std::int32_t secondYIndex = gBattlePointIndices5536FC[5];
             const std::int32_t firstY = gBattleGraphicPoints553758[firstYIndex][3];
@@ -1349,7 +1349,7 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
             const std::int32_t middleYCasterPosition = gBattleMCasterPosition5AAA64;
             const std::int32_t middleY = middleYSum / 2;
             YobiAction* const middleYCaster = gBattleAllEntries59E980[middleYCasterPosition];
-            static_cast<BattleActorPayload*>(middleYCaster->payload)->moveTargetYFEC = middleY;
+            middleYCaster->payload.battleActor->moveTargetYFEC = middleY;
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 8);
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 6);
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
@@ -1524,12 +1524,12 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
                 AppendBattleEffectList_4393A0(redirectActor, redirectTargetPosition, redirectFlags, tailAmount);
                 YobiAction* const redirectFieldActor = gBattleAllEntries59E980[redirectPosition];
                 const std::int32_t redirectFieldTargetPosition = gBattleMTargetPosition5AAA40;
-                static_cast<BattleActorPayload*>(redirectFieldActor->payload)->targetPosition100C
+                redirectFieldActor->payload.battleActor->targetPosition100C
                     = redirectFieldTargetPosition;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirectPosition], 41);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirectPosition]->payload)->value1018 = 252;
+                gBattleAllEntries59E980[redirectPosition]->payload.battleActor->value1018 = 252;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirectPosition], 80);
-                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirectPosition]->payload)
+                gBattleAllEntries59E980[redirectPosition]->payload.battleActor
                     ->reactionImage1010 = 22344;
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirectPosition], 69);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirectPosition], 36);
@@ -1666,11 +1666,11 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
     const std::int32_t skill = gBattleMSkill5AAA78;
     gBattleMCasterPosition5AAA64 = position;
     gBattleMValue5ABA7C = position;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[position]->payload)->castSkill103C = skill;
+    gBattleAllEntries59E980[position]->payload.battleActor->castSkill103C = skill;
     const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
     YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
     const std::int32_t casterLevel = gBattleMSkillLevelIndex5A3A18;
-    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = casterLevel;
+    levelCaster->payload.battleActor->castSkillLevel1044 = casterLevel;
     YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
     if (caster == nullptr) {
         FinishBattleEvent_43B6C0(scene);
@@ -1678,7 +1678,7 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
         ++payload->packetSubState58;
         return;
     }
-    static_cast<BattleActorPayload*>(caster->payload)->attackModeFF4 = mode;
+    caster->payload.battleActor->attackModeFF4 = mode;
     if (mode == 2) {
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 15);

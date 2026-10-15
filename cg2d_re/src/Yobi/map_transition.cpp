@@ -17,8 +17,6 @@ namespace cg::login {
 
 namespace detail {
 
-namespace {
-
 // 原448040的+18/+1C：模式0/1是附件指针，其他模式是S32状态。
 union MapTransitionSlots18 {
     struct {
@@ -112,6 +110,8 @@ static_assert(offsetof(MapTransitionPayload, flags10C) == 0x114);
 
 static_assert(sizeof(MapTransitionPayload) == 0x118);
 
+namespace {
+
 // 原446970；唯一caller弃EAX，只在偶数时写回S16。
 void Sub_446970(std::int16_t* const value)
 {
@@ -150,7 +150,7 @@ YobiAction* Sub_448040(
     const std::int16_t mode, const std::int16_t value02,
     const std::int32_t objectIndex)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapTransitionPayload));
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapTransitionPayload), YobiPayloadKind::MapTransition);
     if (action == nullptr) {
         return nullptr;
     }
@@ -184,7 +184,7 @@ YobiAction* Sub_448040(
         static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
     const auto y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     action->y = y;
     payload->mode = mode;
     payload->value02 = value02;
@@ -212,7 +212,7 @@ YobiAction* Sub_448040(
 // 原函数：0x004473B0。
 std::int32_t Sub_4473B0(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->visible2C = 1;
@@ -265,7 +265,7 @@ std::int32_t Sub_4473B0(YobiAction* const action)
 // 原函数：0x004474E0。
 std::int32_t Sub_4474E0(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->visible2C = 1;
@@ -327,7 +327,7 @@ void Sub_4469C0(YobiAction* const action)
         || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     std::int32_t attempt = 0;
     std::int16_t direction = payload->value02;
     std::int32_t candidateX;
@@ -373,7 +373,7 @@ void Sub_4469C0(YobiAction* const action)
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
 void Sub_446B50(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
@@ -406,7 +406,7 @@ std::int32_t TransitionDistance(
 // 原446C10：玩家快照稳定且距离超过一格时，按各轴符号追加目标格。
 void Sub_446C10(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     std::int32_t stepX = 0;
     std::int32_t stepY = 0;
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
@@ -555,7 +555,7 @@ void DrawTransitionOrbit(
 std::int32_t UpdateTransitionTrail(
     YobiAction* const action, const std::uint8_t yOffsetAxis)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->counter10 = 0;
@@ -645,7 +645,7 @@ std::int32_t UpdateTransitionTrail(
 // 原函数：0x00446D80。
 std::int32_t Sub_446D80(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
         || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
         world::detail::Sub_4467D0(payload->objectIndex28);
@@ -708,7 +708,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
 // 原函数：0x00446FA0。
 std::int32_t Sub_446FA0(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.attachments.action18 == nullptr) {
         const std::uint32_t firstTick = platform::ReadTickCount32();
         if (payload->tick14 < firstTick) {
@@ -744,7 +744,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
 // 原函数：0x00447070。
 std::int32_t Sub_447070(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->value20 = 0.0F;
@@ -771,7 +771,7 @@ std::int32_t Sub_447070(YobiAction* const action)
 // 原函数：0x00447230。
 std::int32_t Sub_447230(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->slots18.values.state1C = 0;
@@ -794,7 +794,7 @@ std::int32_t Sub_447230(YobiAction* const action)
 // 原函数：0x00447610。
 std::int32_t Sub_447610(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->visible2C = 1;
@@ -826,7 +826,7 @@ std::int32_t Sub_447610(YobiAction* const action)
 // 原函数：0x00447820。
 std::int32_t Sub_447820(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->visible2C = 1;
@@ -866,7 +866,7 @@ std::int32_t Sub_447C40(YobiAction* const action)
 // 原函数：0x00447E60。
 void Sub_447E60(YobiAction* const action)
 {
-    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    auto* const payload = action->payload.mapTransition;
     std::int32_t result = 1;
     switch (payload->mode) {
     case 0:

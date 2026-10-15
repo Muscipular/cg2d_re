@@ -5,7 +5,6 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
-#include <bit>
 #include <cstddef>
 #include <cstdint>
 
@@ -29,30 +28,12 @@ std::int32_t SubW32(
     return left - right;
 }
 
-std::int16_t LowS16(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
-std::int8_t LowS8(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
-std::int8_t IncrementModeW8(const std::uint8_t mode) noexcept
-{
-    return std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(mode + 1U));
-}
-
 void DrawBasicCaret()
 {
     input::InputContext* const context = input::gCurrentInputData;
     const std::int32_t color = context->field140;
     const std::int32_t fontType = context->field13C;
-    const std::int8_t renderMode = IncrementModeW8(context->field138[0]);
+    const std::int8_t renderMode = static_cast<std::int8_t>(context->field138[0] + 1U);
     const std::int32_t y = context->y;
     const std::int32_t x = context->x;
     const std::int32_t halfCaretWidth =
@@ -60,11 +41,11 @@ void DrawBasicCaret()
         / 2;
     const std::int32_t drawX = SubW32(x, halfCaretWidth);
     static_cast<void>(render::DrawText2_456670(
-        LowS16(drawX),
-        LowS16(y),
+        static_cast<std::int16_t>(drawX),
+        static_cast<std::int16_t>(y),
         renderMode,
-        LowS8(fontType),
-        LowS8(color),
+        static_cast<std::int8_t>(fontType),
+        static_cast<std::int8_t>(color),
         kCaretText,
         0));
 }
@@ -75,8 +56,7 @@ void DrawImeCaret()
         input::gCurrentInputData;
     const std::int32_t color = preMeasureContext->field140;
     const std::int32_t fontType = preMeasureContext->field13C;
-    const std::int8_t renderMode = IncrementModeW8(
-        preMeasureContext->field138[0]);
+    const std::int8_t renderMode = static_cast<std::int8_t>(preMeasureContext->field138[0] + 1U);
     const std::int32_t y = preMeasureContext->y;
     const std::int32_t cursorPosition =
         platform::gImeCompositionCursorPosition;
@@ -99,11 +79,11 @@ void DrawImeCaret()
         measuredWidth,
         SubW32(postMeasureX, halfCaretWidth));
     static_cast<void>(render::DrawText2_456670(
-        LowS16(drawX),
-        LowS16(y),
+        static_cast<std::int16_t>(drawX),
+        static_cast<std::int16_t>(y),
         renderMode,
-        LowS8(fontType),
-        LowS8(color),
+        static_cast<std::int8_t>(fontType),
+        static_cast<std::int8_t>(color),
         kCaretText,
         0));
 }

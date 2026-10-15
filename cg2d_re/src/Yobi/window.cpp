@@ -172,8 +172,8 @@ void DrawNineGridImpl_49BE00(
     const std::int32_t y = y16;
     const std::int32_t width = width16;
     const std::int32_t height = height16;
-    const std::int32_t tileWidth = LowSignedByte(tileWidth16);
-    const std::int32_t tileHeight = LowSignedByte(tileHeight16);
+    const std::int32_t tileWidth = static_cast<std::int8_t>(tileWidth16);
+    const std::int32_t tileHeight = static_cast<std::int8_t>(tileHeight16);
     const std::int32_t halfWidth = tileWidth >> 1;
     const std::int32_t halfHeight = tileHeight >> 1;
 

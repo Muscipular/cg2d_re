@@ -15,7 +15,6 @@
 #include "cg/render/TextPendingQueue.hpp"
 
 #include <array>
-#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -64,12 +63,6 @@ std::int32_t SubtractW32(
     const std::int32_t right) noexcept
 {
     return left - right;
-}
-
-std::uint16_t LowW16(const std::int32_t value) noexcept
-{
-    return static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(value));
 }
 
 // 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
@@ -124,10 +117,10 @@ std::int32_t ProcessCapability4Input_464E30()
         drawY,
         render::gFontMetrics.data()[drawFontType].doubleHeight);
     detail::DrawGraphicHover(
-        LowW16(SubtractW32(drawX, 1)),
-        LowW16(SubtractW32(drawY, 1)),
-        LowW16(compositionRight),
-        LowW16(compositionBottom),
+        static_cast<std::uint16_t>(SubtractW32(drawX, 1)),
+        static_cast<std::uint16_t>(SubtractW32(drawY, 1)),
+        static_cast<std::uint16_t>(compositionRight),
+        static_cast<std::uint16_t>(compositionBottom),
         211,
         0,
         1);

@@ -108,13 +108,6 @@ std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
     return std::bit_cast<std::uint32_t>(remainder) + lowerBits;
 }
 
-std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
-{
-    return static_cast<std::int32_t>(
-        std::bit_cast<std::int16_t>(
-            static_cast<std::uint16_t>(valueBits)));
-}
-
 void UpdateProtectionChecksum(
     LegacyCryptInt* checksum,
     const std::uint8_t* table)
@@ -666,8 +659,8 @@ void Sub_423640()
         }
     }
 
-    const std::int32_t offsetX = SignedLowWord(offsetXBits);
-    const std::int32_t offsetY = SignedLowWord(offsetYBits);
+    const std::int32_t offsetX = static_cast<std::int16_t>(offsetXBits);
+    const std::int32_t offsetY = static_cast<std::int16_t>(offsetYBits);
     std::int32_t destinationX = offsetX;
     std::int32_t destinationY = offsetY;
     std::int32_t sourceLeft = 0;

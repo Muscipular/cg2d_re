@@ -1,18 +1,8 @@
 #include "CharacterSelectSceneDependencies.hpp"
 
-#include <bit>
 #include <cstdint>
 
 namespace cg::character_select::detail {
-namespace {
-
-std::int16_t LowInt16(std::int32_t value)
-{
-    return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(value));
-}
-
-} // namespace
-
 // 原函数：0x00503990。
 std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
 {
@@ -112,8 +102,8 @@ std::int32_t Sub_503A20(
     }
 
     const wchar_t* const text = uiRecord->text;
-    const std::int16_t textY = LowInt16(uiRecord->textY);
-    const std::int16_t textX = LowInt16(uiRecord->textX);
+    const std::int16_t textY = static_cast<std::int16_t>(uiRecord->textY);
+    const std::int16_t textX = static_cast<std::int16_t>(uiRecord->textX);
     return login::detail::DrawText(
         textX,
         textY,

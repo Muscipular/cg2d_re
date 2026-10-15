@@ -30,18 +30,6 @@ std::int32_t SubW32(
     return left - right;
 }
 
-std::int16_t LowS16(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
-std::int8_t LowS8(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
 // 原456BED/456C0B/456C2F分别读取完整W32模式，不能共用入口快照。
 std::int32_t ReadRenderMode(const input::InputContext& context) noexcept
 {
@@ -80,17 +68,17 @@ void DrawInputText_4568A0(input::InputContext* const context)
             const std::int8_t renderMode = std::bit_cast<std::int8_t>(context->field138[0]);
             const std::int32_t y = context->field134;
             const std::int32_t x = context->field130;
-            static_cast<void>(DrawText2_456670(LowS16(x), LowS16(AddW32(y, yOffset)), renderMode,
-                LowS8(fontType), LowS8(color), displayed.c_str(), 0));
+            static_cast<void>(DrawText2_456670(static_cast<std::int16_t>(x), static_cast<std::int16_t>(AddW32(y, yOffset)), renderMode,
+                static_cast<std::int8_t>(fontType), static_cast<std::int8_t>(color), displayed.c_str(), 0));
             yOffset = AddW32(yOffset, context->field14C);
         }
     } else {
         TextPendingRecord& entry = gTextPendingRecords[static_cast<std::size_t>(initialCountBits)];
-        entry.x = LowS16(context->field130);
-        entry.y = LowS16(context->field134);
+        entry.x = static_cast<std::int16_t>(context->field130);
+        entry.y = static_cast<std::int16_t>(context->field134);
         entry.renderMode = context->field138[0];
-        entry.color = std::bit_cast<std::uint8_t>(LowS8(context->field140));
-        entry.fontType = std::bit_cast<std::uint8_t>(LowS8(context->field13C));
+        entry.color = static_cast<std::uint8_t>(context->field140);
+        entry.fontType = static_cast<std::uint8_t>(context->field13C);
         entry.value7 = 0;
         const std::size_t visibleStart = input::ContextUtf16Offset(*context, context->field158);
         const std::wstring_view visible(contents.data() + visibleStart, contents.size() - visibleStart);

@@ -66,23 +66,6 @@ std::int32_t MulW32(
     return left * right;
 }
 
-std::int16_t LowS16(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
-std::uint16_t LowU16(const std::int32_t value) noexcept
-{
-    return static_cast<std::uint16_t>(std::bit_cast<std::uint32_t>(value));
-}
-
-std::int8_t LowS8(const std::int32_t value) noexcept
-{
-    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(
-        std::bit_cast<std::uint32_t>(value)));
-}
-
 std::uint32_t ReadField138Bits(
     const input::InputContext& context) noexcept
 {
@@ -133,16 +116,16 @@ void DrawCandidateEntry(
     const std::int32_t numberWidth = login::detail::TextMeasure(number, fontType);
     const std::int32_t left = AddW32(AddW32(context->x, targetStart), oldUnits);
     const std::int32_t top = AddW32(context->y, height);
-    static_cast<void>(render::DrawText2_456670(LowS16(left + 5), LowS16(top), 4, LowS8(fontType), 0, number, 0));
+    static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
     const CANDIDATELIST* const candidateList = CurrentCandidateList();
     const std::wstring body = CandidateText(candidateList, pageIndex);
     const std::int32_t bodyWidth = login::detail::TextMeasure(body.c_str(), fontType);
     const std::int32_t bodyX = left + numberWidth + 10;
-    static_cast<void>(render::DrawText2_456670(LowS16(bodyX), LowS16(top), 4, LowS8(fontType), 0, body.c_str(), 0));
+    static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(bodyX), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, body.c_str(), 0));
     units = oldUnits + numberWidth + bodyWidth + 15;
     const CANDIDATELIST* const selectionList = CurrentCandidateList();
     const bool selected = selectionList->dwSelection == selectionList->dwPageStart + pageIndex;
-    login::detail::DrawGraphicHover(LowU16(left), LowU16(top), LowU16(bodyX + bodyWidth), LowU16(top + height),
+    login::detail::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
         selected ? std::uint8_t{0xD9} : std::uint8_t{0xD8}, selected ? 0U : 252U, 1);
 }
 
@@ -240,8 +223,8 @@ void RenderInput_4590E0()
     const std::int32_t compositionY = context->y;
     const std::int32_t compositionX = context->x;
     static_cast<void>(render::DrawText2_456670(
-        LowS16(compositionX), LowS16(compositionY), compositionMode,
-        LowS8(compositionFontType), 0, platform::gImeComposition, 0));
+        static_cast<std::int16_t>(compositionX), static_cast<std::int16_t>(compositionY), compositionMode,
+        static_cast<std::int8_t>(compositionFontType), 0, platform::gImeComposition, 0));
 
     input::InputContext* const measureContext = input::gCurrentInputData;
     const std::int32_t compositionWidth = login::detail::TextMeasure(
@@ -253,8 +236,8 @@ void RenderInput_4590E0()
     const std::int32_t boxHeight = render::gFontMetrics[
         static_cast<std::size_t>(boxFontType)].doubleHeight;
     login::detail::DrawGraphicHover(
-        LowU16(SubW32(boxX, 1)), LowU16(SubW32(boxY, 1)),
-        LowU16(AddW32(boxX, compositionWidth)), LowU16(AddW32(boxY, boxHeight)),
+        static_cast<std::uint16_t>(SubW32(boxX, 1)), static_cast<std::uint16_t>(SubW32(boxY, 1)),
+        static_cast<std::uint16_t>(AddW32(boxX, compositionWidth)), static_cast<std::uint16_t>(AddW32(boxY, boxHeight)),
         baseLayer, 1, 1);
 
     const std::wstring_view composition(platform::gImeComposition);
@@ -284,10 +267,10 @@ void RenderInput_4590E0()
         const std::int32_t highlightHeight = render::gFontMetrics[
             static_cast<std::size_t>(highlightFontType)].doubleHeight;
         login::detail::DrawGraphicHover(
-            LowU16(SubW32(AddW32(highlightX, targetStart), 1)),
-            LowU16(SubW32(highlightY, 1)),
-            LowU16(AddW32(highlightX, scannedWidth)),
-            LowU16(AddW32(highlightY, highlightHeight)),
+            static_cast<std::uint16_t>(SubW32(AddW32(highlightX, targetStart), 1)),
+            static_cast<std::uint16_t>(SubW32(highlightY, 1)),
+            static_cast<std::uint16_t>(AddW32(highlightX, scannedWidth)),
+            static_cast<std::uint16_t>(AddW32(highlightY, highlightHeight)),
             static_cast<std::uint8_t>(baseLayer + 1U), 252, 1);
     }
 

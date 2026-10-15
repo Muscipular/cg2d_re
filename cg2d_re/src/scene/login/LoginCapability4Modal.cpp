@@ -59,12 +59,6 @@ std::int32_t MultiplyW32(
         * std::bit_cast<std::uint32_t>(right));
 }
 
-std::int16_t Low16(const std::int32_t value)
-{
-    return std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(std::bit_cast<std::uint32_t>(value)));
-}
-
 } // namespace
 
 namespace cg::login::detail {
@@ -216,8 +210,8 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
             gCapability4ModalX,
             textHorizontalOffset);
         DrawText(
-            Low16(textX),
-            Low16(textY),
+            static_cast<std::int16_t>(textX),
+            static_cast<std::int16_t>(textY),
             2,
             0,
             0,

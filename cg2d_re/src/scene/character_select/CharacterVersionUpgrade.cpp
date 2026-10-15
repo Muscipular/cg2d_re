@@ -9,7 +9,6 @@
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include <bit>
 #include <cstdint>
 
 namespace cg::character_select {
@@ -35,17 +34,12 @@ login::YobiAction* gVersionUpgradeAction = nullptr;
 // 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
 login::YobiAction* gLegacyVersionUpgradeAction = nullptr;
 
-std::uint32_t UnsignedBits(std::int32_t value)
-{
-    return std::bit_cast<std::uint32_t>(value);
-}
-
 } // namespace
 
 // 原函数：0x0045E3D0。
 std::int32_t ProcessLegacyVersionScene_45E3D0()
 {
-    switch (UnsignedBits(world::gCurrentSceneState)) {
+    switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
         gLegacyVersionUpgradeAction = nullptr;
         [[fallthrough]];
@@ -150,7 +144,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
 // 原函数：0x00462330。
 std::int32_t ProcessScene_462330()
 {
-    switch (UnsignedBits(world::gCurrentSceneState)) {
+    switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
         gVersionUpgradeAction = nullptr;
         [[fallthrough]];

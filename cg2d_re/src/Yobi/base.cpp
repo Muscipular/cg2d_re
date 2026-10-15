@@ -155,12 +155,6 @@ YobiAction* gYobiActionStart = nullptr; // 原全局：0x0059E56C。
 
 YobiAction* gYobiActionEnd = nullptr; // 原全局：0x0059E568。
 
-std::int32_t LowSignedByte(const std::int16_t value)
-{
-    return static_cast<std::int32_t>(
-        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value)));
-}
-
 namespace {
 
 // 原函数：0x00404D10。

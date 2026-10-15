@@ -124,11 +124,6 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
 
-std::int8_t SignedByte(const char value)
-{
-    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-}
-
 class EditText final {
 public:
     explicit EditText(InputContext& value)
@@ -311,7 +306,7 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
     std::int32_t result = 0;
     const char* current = text;
     while (*current != '\0') {
-        if (SignedByte(*current) < 0) {
+        if (static_cast<std::int8_t>(*current) < 0) {
             if (current[1] == '\0') {
                 return 3;
             }
@@ -347,7 +342,7 @@ std::uint8_t ClassifyLegacyBoundary_44B440(
 // 原 [0x44B4A0,0x44B561)：目标首字节经 movsx 后，双字节目标分支对 W8 输入不可达。
 char* FindLegacyByte_44B4A0(char* const text, const char* const target)
 {
-    const std::int32_t wanted = SignedByte(target[0]);
+    const std::int32_t wanted = static_cast<std::int8_t>(target[0]);
     bool trailingByte = false;
     for (char* current = text; *current != '\0'; ++current) {
         if (trailingByte) {
@@ -513,7 +508,7 @@ bool IsRejectedInputText_404060(const std::wstring_view text)
         if (std::isspace(firstByte) != 0) {
             return true;
         }
-        if (std::iscntrl(SignedByte(legacyText[index])) != 0) {
+        if (std::iscntrl(static_cast<std::int8_t>(legacyText[index])) != 0) {
             return true;
         }
     }

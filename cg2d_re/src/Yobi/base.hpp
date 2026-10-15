@@ -204,9 +204,6 @@ extern YobiAction* gYobiActionStart;
 // 共享原状态，只在本组实现中定义；原全局：0x0059E568。
 extern YobiAction* gYobiActionEnd;
 
-// 按原S8位型读取低字节，供窗口绘制参数转换。
-std::int32_t LowSignedByte(const std::int16_t value);
-
 } // namespace detail
 
 } // namespace cg::login

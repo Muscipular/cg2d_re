@@ -129,11 +129,6 @@ constexpr std::array<const wchar_t*, 6> kCreationErrors {{
     L"人物名稱不可含有非法字元！", // 55CE14。
 }};
 
-std::int32_t CreationSignedByte(const std::uint8_t value)
-{
-    return std::bit_cast<std::int8_t>(value);
-}
-
 std::uint8_t CreationMouseByte(const std::uint32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
@@ -146,9 +141,9 @@ std::int32_t MapCreationGraphic(const std::int32_t base, const std::int32_t mode
     if (mode == 0) {
         graphic = Sub_51BAC0(graphic);
     }
-    const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
-    const std::int32_t style = CreationSignedByte(state::gValue9A5668);
-    const std::int32_t color = CreationSignedByte(state::gValue9A4B80);
+    const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
+    const std::int32_t style = static_cast<std::int8_t>(state::gValue9A5668);
+    const std::int32_t color = static_cast<std::int8_t>(state::gValue9A4B80);
     return graphic + color + (mode == 0
         ? 10 * (style + 100 * variant) : 5 * (style + 5 * variant));
 }
@@ -444,10 +439,10 @@ std::int32_t Sub_462930()
     };
 
     for (std::int32_t index = 0; index < 14; ++index) {
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
         const std::int32_t image = kCreationGraphic55C354[14 * version + index];
         if (image >= 206000 && image <= 206300) {
-            if (CreationSignedByte(selected) >= 7 && selected != 10) {
+            if (static_cast<std::int8_t>(selected) >= 7 && selected != 10) {
                 selected = 0;
                 state::gValue9A4CFC = 0;
             }
@@ -485,7 +480,7 @@ std::int32_t Sub_462930()
             versionPlus = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
                 const std::uint8_t puk = state::gPukVersion;
-                const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+                const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
                 const std::int32_t limit = puk >= 8 ? 2 : 1;
                 if (version < limit) {
                     ++state::gValue9A57E0;
@@ -497,7 +492,7 @@ std::int32_t Sub_462930()
         if (Sub_464290(&kCreationVersionHit54E020[1]) != 0) {
             versionMinus = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-                if (CreationSignedByte(state::gValue9A57E0) > 0) {
+                if (static_cast<std::int8_t>(state::gValue9A57E0) > 0) {
                     --state::gValue9A57E0;
                 } else {
                     state::gValue9A57E0 = 0;
@@ -510,7 +505,7 @@ std::int32_t Sub_462930()
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 - 1);
             state::gValue9A5B00 = next;
-            if (CreationSignedByte(next) < 0) {
+            if (static_cast<std::int8_t>(next) < 0) {
                 state::gValue9A5B00 = 3;
             }
         }
@@ -520,7 +515,7 @@ std::int32_t Sub_462930()
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 + 1);
             state::gValue9A5B00 = next;
-            if (CreationSignedByte(next) > 3) {
+            if (static_cast<std::int8_t>(next) > 3) {
                 state::gValue9A5B00 = 0;
             }
         }
@@ -577,10 +572,10 @@ std::int32_t Sub_462930()
         }
     }
 
-    const auto& selectedPosition = kCreationSelectDraw54DF00[CreationSignedByte(state::gValue9A4CFC)];
+    const auto& selectedPosition = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gValue9A4CFC)];
     login::detail::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
     if (render::HasLegacy3DDevice_44B610() != 0) {
-        const auto& position = kCreationSelectDraw54DF00[CreationSignedByte(state::gValue9A4CFC)];
+        const auto& position = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gValue9A4CFC)];
         login::detail::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
     }
     login::detail::DrawGraphic(
@@ -592,7 +587,7 @@ std::int32_t Sub_462930()
         login::detail::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
     }
     login::detail::DrawGraphic(
-        203, 412, 10, kCreationVersionLabels54E058[CreationSignedByte(state::gValue9A57E0)], 0, nullptr);
+        203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(state::gValue9A57E0)], 0, nullptr);
     const std::uint8_t labelPuk = state::gPukVersion;
     login::detail::DrawGraphic(
         221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
@@ -601,7 +596,7 @@ std::int32_t Sub_462930()
     const std::int32_t* const graphicTable = listPuk >= 7 ? kCreationGraphic55C354.data()
         : (listPuk >= 5 ? kCreationGraphic55C3FC.data() : kCreationGraphic55C46C.data());
     for (std::int32_t index = 0; index < 14; ++index) {
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
         const auto& position = kCreationSelectDraw54DF00[index];
         login::detail::DrawGraphic(
             position[0], position[1], 10, graphicTable[14 * version + index], 0, nullptr);
@@ -615,9 +610,9 @@ std::int32_t Sub_462930()
     login::YobiAction* const second = state::gCreateActions[1];
     if (second != nullptr) {
         login::detail::SetYobiActionField15(second, 2);
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
-        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
-        const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
+        const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
         const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
         login::detail::SetYobiActionField2A8(state::gCreateActions[1], motion);
         login::detail::Sub_517880(state::gCreateActions[1], 100, 1, 0);
@@ -630,20 +625,20 @@ std::int32_t Sub_462930()
     if (first != nullptr) {
         login::detail::SetYobiActionField15(first, 2);
         const std::uint8_t puk = state::gPukVersion;
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
-        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
         std::int32_t motion;
         if (puk < 5) {
             const std::int32_t graphic = kCreationGraphic55C46C[14 * version + character];
             if (graphic == 33100 || graphic == 33101) {
-                const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+                const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
                 motion = (graphic == 33100 ? 100900 : 100901) + 6 * variant;
             } else {
-                const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+                const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
                 motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
             }
         } else {
-            const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+            const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
             motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
         }
         login::detail::SetYobiActionField2A8(state::gCreateActions[0], motion);
@@ -714,12 +709,12 @@ std::int32_t Sub_4631D0()
     std::int32_t result = 0;
     std::wstring buffer;
 
-    std::int32_t total = CreationSignedByte(*attributes[3]);
-    total += CreationSignedByte(*attributes[2]);
-    total += CreationSignedByte(*attributes[4]);
-    total += CreationSignedByte(*attributes[1]);
-    total += CreationSignedByte(*attributes[0]);
-    total += CreationSignedByte(state::gValue9A4D04);
+    std::int32_t total = static_cast<std::int8_t>(*attributes[3]);
+    total += static_cast<std::int8_t>(*attributes[2]);
+    total += static_cast<std::int8_t>(*attributes[4]);
+    total += static_cast<std::int8_t>(*attributes[1]);
+    total += static_cast<std::int8_t>(*attributes[0]);
+    total += static_cast<std::int8_t>(state::gValue9A4D04);
     const std::int32_t attributeLimit = total >> 1;
     const std::uint8_t puk = state::gPukVersion;
     const std::uint8_t maxVersion = puk >= 7 ? 2 : (puk >= 5 ? 1 : 0);
@@ -743,13 +738,13 @@ std::int32_t Sub_4631D0()
                     if ((index & 1) == 0) {
                         const auto next = static_cast<std::uint8_t>(value - 1);
                         value = next;
-                        if (CreationSignedByte(next) < 0) {
+                        if (static_cast<std::int8_t>(next) < 0) {
                             value = 4;
                         }
                     } else {
                         const auto next = static_cast<std::uint8_t>(value + 1);
                         value = next;
-                        if (CreationSignedByte(next) > 4) {
+                        if (static_cast<std::int8_t>(next) > 4) {
                             value = 0;
                         }
                     }
@@ -765,7 +760,7 @@ std::int32_t Sub_4631D0()
                     const std::uint8_t version = state::gValue9A57E0;
                     const auto next = static_cast<std::uint8_t>(value - 1);
                     state::gValue9A4B88 = next;
-                    if (CreationSignedByte(next) < (version != 0 ? 1 : 0)) {
+                    if (static_cast<std::int8_t>(next) < (version != 0 ? 1 : 0)) {
                         state::gValue9A4B88 = maxVersion;
                     }
                     audio::PlaySe_52C450(51, 320);
@@ -778,7 +773,7 @@ std::int32_t Sub_4631D0()
                     const std::uint8_t version = state::gValue9A57E0;
                     const auto next = static_cast<std::uint8_t>(value + 1);
                     state::gValue9A4B88 = next;
-                    if (CreationSignedByte(next) > maxVersion) {
+                    if (static_cast<std::int8_t>(next) > maxVersion) {
                         state::gValue9A4B88 = version != 0 ? 1 : 0;
                     }
                     audio::PlaySe_52C450(51, 320);
@@ -786,9 +781,9 @@ std::int32_t Sub_4631D0()
             }
         }
 
-        const std::int32_t remaining = CreationSignedByte(state::gValue9A4D04);
+        const std::int32_t remaining = static_cast<std::int8_t>(state::gValue9A4D04);
         for (std::size_t row = 0; row < attributes.size(); ++row) {
-            const std::int32_t value = CreationSignedByte(*attributes[row]);
+            const std::int32_t value = static_cast<std::int8_t>(*attributes[row]);
             if (value <= 0) {
                 attributeMinus[row] = -1;
             }
@@ -799,11 +794,11 @@ std::int32_t Sub_4631D0()
         for (std::size_t row = 0; row < attributes.size(); ++row) {
             const std::int32_t top = kCreationUi54E0BC[6].bounds.top
                 + 14 * static_cast<std::int32_t>(row);
-            if (CreationSignedByte(*attributes[row]) > 0 && hitRow(6, top) != 0) {
+            if (static_cast<std::int8_t>(*attributes[row]) > 0 && hitRow(6, top) != 0) {
                 attributeMinus[row] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::uint8_t value = *attributes[row];
-                    if (CreationSignedByte(value) > 0) {
+                    if (static_cast<std::int8_t>(value) > 0) {
                         const std::uint8_t left = state::gValue9A4D04;
                         *attributes[row] = static_cast<std::uint8_t>(value - 1);
                         state::gValue9A4D04 = static_cast<std::uint8_t>(left + 1);
@@ -814,14 +809,14 @@ std::int32_t Sub_4631D0()
                 }
                 break;
             }
-            if (CreationSignedByte(state::gValue9A4D04) > 0
-                && CreationSignedByte(*attributes[row]) < attributeLimit && hitRow(7, top) != 0) {
+            if (static_cast<std::int8_t>(state::gValue9A4D04) > 0
+                && static_cast<std::int8_t>(*attributes[row]) < attributeLimit && hitRow(7, top) != 0) {
                 attributePlus[row] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     bool changed = false;
-                    if (CreationSignedByte(state::gValue9A4D04) > 0) {
+                    if (static_cast<std::int8_t>(state::gValue9A4D04) > 0) {
                         const std::uint8_t value = *attributes[row];
-                        if (CreationSignedByte(value) < attributeLimit) {
+                        if (static_cast<std::int8_t>(value) < attributeLimit) {
                             const std::uint8_t left = state::gValue9A4D04;
                             *attributes[row] = static_cast<std::uint8_t>(value + 1);
                             state::gValue9A4D04 = static_cast<std::uint8_t>(left - 1);
@@ -835,7 +830,7 @@ std::int32_t Sub_4631D0()
         }
 
         for (std::size_t row = 0; row < 4; ++row) {
-            const std::int32_t value = CreationSignedByte(elements[row]);
+            const std::int32_t value = static_cast<std::int8_t>(elements[row]);
             if (value <= 0) {
                 elementMinus[row] = -1;
             }
@@ -846,11 +841,11 @@ std::int32_t Sub_4631D0()
         for (std::size_t row = 0; row < 4; ++row) {
             const std::int32_t top = kCreationUi54E0BC[8].bounds.top
                 + 14 * static_cast<std::int32_t>(row);
-            if (CreationSignedByte(elements[row]) > 0 && hitRow(8, top) != 0) {
+            if (static_cast<std::int8_t>(elements[row]) > 0 && hitRow(8, top) != 0) {
                 elementMinus[row] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::uint8_t value = elements[row];
-                    if (CreationSignedByte(value) > 0) {
+                    if (static_cast<std::int8_t>(value) > 0) {
                         const std::uint8_t left = state::gValue9A50C8;
                         elements[row] = static_cast<std::uint8_t>(value - 1);
                         state::gValue9A50C8 = static_cast<std::uint8_t>(left + 1);
@@ -861,12 +856,12 @@ std::int32_t Sub_4631D0()
                 }
                 break;
             }
-            if (CreationSignedByte(elements[row]) < 10 && hitRow(9, top) != 0) {
+            if (static_cast<std::int8_t>(elements[row]) < 10 && hitRow(9, top) != 0) {
                 elementPlus[row] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::size_t opposite = row < 2 ? row + 2 : row - 2;
                     if (elements[opposite] == 0) {
-                        if (CreationSignedByte(state::gValue9A50C8) > 0) {
+                        if (static_cast<std::int8_t>(state::gValue9A50C8) > 0) {
                             const std::uint8_t value = elements[row];
                             const std::uint8_t left = state::gValue9A50C8;
                             elements[row] = static_cast<std::uint8_t>(value + 1);
@@ -875,7 +870,7 @@ std::int32_t Sub_4631D0()
                         } else {
                             std::size_t donor = 0;
                             while (donor < 4
-                                && (donor == row || CreationSignedByte(elements[donor]) <= 0)) {
+                                && (donor == row || static_cast<std::int8_t>(elements[donor]) <= 0)) {
                                 ++donor;
                             }
                             if (donor < 4) {
@@ -898,9 +893,9 @@ std::int32_t Sub_4631D0()
                 const std::int32_t cursor = state::gCreationInput9A51E8.caretByteOffset;
                 if (cursor <= 0) {
                     state::gValue9A5AFC = 100;
-                } else if (CreationSignedByte(state::gValue9A4D04) > 0) {
+                } else if (static_cast<std::int8_t>(state::gValue9A4D04) > 0) {
                     state::gValue9A5AFC = 104;
-                } else if (CreationSignedByte(state::gValue9A50C8) > 0) {
+                } else if (static_cast<std::int8_t>(state::gValue9A50C8) > 0) {
                     state::gValue9A5AFC = 106;
                 } else {
                     const std::wstring utf16Name(state::gCreationInput9A51E8.text,
@@ -952,11 +947,11 @@ std::int32_t Sub_4631D0()
         const std::int32_t answer = ProcessDefaultConfirmationDialog_45E090(
             320, 240, L"可以嗎？" /* 原常量参考：0x0055C9B0。 */, 0);
         if (answer == 1) {
-            const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+            const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
             const std::uint8_t mode = state::gValue9A4B88;
             result = 1;
-            const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
-            const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+            const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
+            const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
             state::gValue9A5AFC = 11;
             if (mode == 0) {
                 state::gPreviewToggleState = 0;
@@ -968,30 +963,30 @@ std::int32_t Sub_4631D0()
             // 原ESI沿用上方四项互斥循环终值，未知模式不是零图号。
             std::int32_t graphic = 4;
             if (mode == 2) {
-                const std::int32_t style = CreationSignedByte(state::gValue9A5668);
+                const std::int32_t style = static_cast<std::int8_t>(state::gValue9A5668);
                 graphic = kCreationGraphic55C354[14 * version + character];
-                const std::int32_t color = CreationSignedByte(state::gValue9A4B80);
+                const std::int32_t color = static_cast<std::int8_t>(state::gValue9A4B80);
                 graphic += 5 * (5 * variant + style) + color;
             } else if (mode == 1 || mode == 0) {
                 graphic = MapCreationGraphic(kCreationGraphic55C354[14 * version + character], mode);
             }
 
-            const std::int32_t attribute0 = CreationSignedByte(*attributes[0]);
-            const std::int32_t attribute1 = CreationSignedByte(*attributes[1]);
-            const std::int32_t attribute2 = CreationSignedByte(*attributes[2]);
+            const std::int32_t attribute0 = static_cast<std::int8_t>(*attributes[0]);
+            const std::int32_t attribute1 = static_cast<std::int8_t>(*attributes[1]);
+            const std::int32_t attribute2 = static_cast<std::int8_t>(*attributes[2]);
             state::gValueF633EC = attribute0;
             state::gValueF633F0 = attribute1;
-            const std::int32_t attribute3 = CreationSignedByte(*attributes[3]);
-            const std::int32_t attribute4 = CreationSignedByte(*attributes[4]);
+            const std::int32_t attribute3 = static_cast<std::int8_t>(*attributes[3]);
+            const std::int32_t attribute4 = static_cast<std::int8_t>(*attributes[4]);
             state::gValueDE0AF8 = attribute3;
             const std::uint32_t elementSnapshot = state::gValue9A50D0;
             state::gValueDE03F4 = attribute2;
             state::gValueF7CA00 = attribute4;
-            const std::int32_t element2 = CreationSignedByte(elements[2]);
-            state::gValueF7C948 = CreationSignedByte(static_cast<std::uint8_t>(elementSnapshot));
+            const std::int32_t element2 = static_cast<std::int8_t>(elements[2]);
+            state::gValueF7C948 = static_cast<std::int8_t>(elementSnapshot);
             state::gSelectedGraphicNo = graphic;
-            const std::int32_t element3 = CreationSignedByte(elements[3]);
-            state::gValueFF03D0 = CreationSignedByte(static_cast<std::uint8_t>(elementSnapshot >> 8));
+            const std::int32_t element3 = static_cast<std::int8_t>(elements[3]);
+            state::gValueFF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
             state::gValueF633F4 = element2;
             state::gValueDE0B04 = element3;
             world::detail::gValueFDA6F8 = 0;
@@ -1050,18 +1045,18 @@ std::int32_t Sub_4631D0()
 
     std::uint32_t elementSnapshot = state::gValue9A50D0;
     std::int32_t count = 0;
-    if (CreationSignedByte(static_cast<std::uint8_t>(elementSnapshot)) > 0) {
+    if (static_cast<std::int8_t>(elementSnapshot) > 0) {
         do {
             login::detail::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
             elementSnapshot = state::gValue9A50D0;
             ++count;
-        } while (count < CreationSignedByte(static_cast<std::uint8_t>(elementSnapshot)));
+        } while (count < static_cast<std::int8_t>(elementSnapshot));
     }
     count = 0;
-    if (CreationSignedByte(static_cast<std::uint8_t>(elementSnapshot >> 8)) > 0) {
+    if (static_cast<std::int8_t>(elementSnapshot >> 8) > 0) {
         do {
             login::detail::DrawGraphic(406 + 10 * count, 327, 10, 245053, 0, nullptr);
-            const std::int32_t value = CreationSignedByte(elements[1]);
+            const std::int32_t value = static_cast<std::int8_t>(elements[1]);
             ++count;
             if (count >= value) {
                 break;
@@ -1069,14 +1064,14 @@ std::int32_t Sub_4631D0()
         } while (true);
     }
     for (std::size_t row = 2; row < 4; ++row) {
-        const std::int32_t value = CreationSignedByte(elements[row]);
+        const std::int32_t value = static_cast<std::int8_t>(elements[row]);
         count = 0;
         if (value > 0) {
             do {
                 login::detail::DrawGraphic(
                     406 + 10 * count, 313 + 14 * static_cast<std::int32_t>(row),
                     10, 245052 + static_cast<std::int32_t>(row), 0, nullptr);
-                const std::int32_t current = CreationSignedByte(elements[row]);
+                const std::int32_t current = static_cast<std::int8_t>(elements[row]);
                 ++count;
                 if (count >= current) {
                     break;
@@ -1086,34 +1081,34 @@ std::int32_t Sub_4631D0()
     }
     // 与确认路径不同，此处未知模式沿用第四元素条的计数终值。
     std::int32_t graphic = count;
-    const std::int32_t mode = CreationSignedByte(state::gValue9A4B88);
+    const std::int32_t mode = static_cast<std::int8_t>(state::gValue9A4B88);
     if (mode == 2) {
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
-        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
-        const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
-        const std::int32_t style = CreationSignedByte(state::gValue9A5668);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
+        const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
+        const std::int32_t style = static_cast<std::int8_t>(state::gValue9A5668);
         graphic = kCreationGraphic55C354[14 * version + character];
-        const std::int32_t color = CreationSignedByte(state::gValue9A4B80);
+        const std::int32_t color = static_cast<std::int8_t>(state::gValue9A4B80);
         graphic += 5 * (5 * variant + style) + color;
     } else if (mode == 1 || mode == 0) {
-        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
-        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
+        const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
         graphic = MapCreationGraphic(kCreationGraphic55C354[14 * version + character], mode);
     }
-    if (CreationSignedByte(state::gValue9A4B88) > maxVersion) {
-        graphic = CreationSignedByte(state::gValue9A4CFC) >= 14 ? 33101 : 33100;
+    if (static_cast<std::int8_t>(state::gValue9A4B88) > maxVersion) {
+        graphic = static_cast<std::int8_t>(state::gValue9A4CFC) >= 14 ? 33101 : 33100;
     }
     login::detail::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
     render::DrawInputText_4568A0(&state::gCreationInput9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
-    cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(state::gValue9A4D04));
+    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gValue9A4D04)));
     render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);
     for (std::size_t row = 0; row < attributes.size(); ++row) {
-        cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(*attributes[row]));
+        cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(*attributes[row])));
         render::DrawText_456780(
             479, static_cast<std::int16_t>(199 + 14 * row), 0, 13, color, buffer, 0, 0);
     }
-    cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(state::gValue9A50C8));
+    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gValue9A50C8)));
     render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
     login::detail::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
     login::detail::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
@@ -1271,11 +1266,6 @@ detail::CharacterSelectUiRecord gUpdateUi {
 std::int32_t gUpdateAvailable = 0;
 login::YobiAction* gDeleteConfirmationAction = nullptr;
 
-std::uint32_t UnsignedBits(std::int32_t value)
-{
-    return std::bit_cast<std::uint32_t>(value);
-}
-
 void CopyRecordName(char* destination, const login::CharacterRecord& record)
 {
     char name[kLegacyNameCapacity];
@@ -1382,7 +1372,7 @@ std::int32_t ProcessScene_460FF0()
 {
     std::int32_t interactive = 1;
 
-    const std::uint32_t mainState = UnsignedBits(world::gCurrentSceneState);
+    const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
     if (mainState <= 21u) {
         switch (mainState) {
         case 0:
@@ -1587,7 +1577,7 @@ std::int32_t ProcessScene_460FF0()
         }
     }
 
-    const std::uint32_t secondaryState = UnsignedBits(world::gCurrentSceneState);
+    const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
     if (secondaryState <= 20u
         && (secondaryState <= 9u || secondaryState >= 19u)) {
         return detail::Sub_45F090(0, 0, 3, 245060, 0, -1);
@@ -1598,7 +1588,7 @@ std::int32_t ProcessScene_460FF0()
             login::gCharacterRecords[static_cast<std::size_t>(slot)];
         const std::int32_t action =
             ProcessCharacterSlot_461B30(slot, interactive);
-        const std::uint32_t actionIndex = UnsignedBits(action);
+        const std::uint32_t actionIndex = static_cast<std::uint32_t>(action);
         if (actionIndex > 6u) {
             continue;
         }

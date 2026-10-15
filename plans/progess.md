@@ -1047,3 +1047,5 @@ USR03：按用户要求移除WindowTrade_WriteValue，材料区改为5个S32值�
 USR03静态核对完成：模板及18处调用已移除，39处商店模式访问改具名字段；三处24B整区清零、原地址注释及读写顺序保持。制作／商店源码归一化对照、当前定位、3680行原身份／状态、UTF-8无BOM／LF、JSON与Git差异检查通过。已加入布局断言，本步未编译、测试或运行。
 
 台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。
+
+USR03编译修复：补回工作区缺失的WindowMaterialState定义及布局断言，解决第837行类型不可见的直接原因；正在执行build.bat Debug验证，详见子项目进度第259节。

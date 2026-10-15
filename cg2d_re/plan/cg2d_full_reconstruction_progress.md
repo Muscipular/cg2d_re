@@ -2662,6 +2662,10 @@ USR03静态核对完成：模板及18处调用已移除，39处商店模式访�
 
 台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。
 
+## 259. 2026-10-15：恢复材料状态定义并验证编译（USR03）
+
+用户报告WindowRuntimeState.hpp第837行C4430／C2146。核当前工作区仅缺WindowMaterialState定义及七条布局／类型断言，声明、唯一对象和读写方仍引用该类型；命名空间及包含链正确。定点补回共享头中已提交的定义与断言，其他源码保持，正在按本会话既有build.bat授权验证Debug编译／链接。
+
 ## 260. 2026-10-15：废弃未接入的旧窗口处理器（LWR01）
 
 按用户条件式删除要求先核当前C++引用并记录SPEC：97个handler仅定义／声明／旧表绑定，getter无人消费；三项目录初始化仅由删除集合调用。只废弃处理器层，保留有输入／显示／场景／现代技能窗口消费者的选择状态，以及登录复用的公共Yobi面板。不声称原端旧函数不可达。开始按doc/cg2d_legacy_window_retirement_spec.md执行，限静态检查。

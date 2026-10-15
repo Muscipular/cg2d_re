@@ -1,0 +1,223 @@
+#include "../WindowRuntimeInternal.hpp"
+
+namespace cg::ui {
+namespace detail {
+
+std::int32_t gValueCC4D34 = 0; // 原全局：0x00CC4D34。
+
+std::int32_t gValueCC4D3C = 0; // 原全局：0x00CC4D3C。
+
+// 原函数：0x00478330。
+std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 17: {
+        const bool visible = world::detail::SelectedProfileValue04() != 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = visible
+                ? L"不公開玩家簡介"
+                : L"公開玩家簡介";
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(network::Sub_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
+            if (!visible) {
+                static_cast<void>(world::detail::Sub_533C80(1));
+            }
+            world::detail::SelectedProfileValue04() = visible ? 0 : 1;
+        }
+        return consumed;
+    }
+    case 19:
+    case 20:
+    case 21: {
+        constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};
+        constexpr const wchar_t* hints[] {
+            L"切換成玩家狀態視窗。",
+            L"切換成玩家明細視窗。",
+            L"切換成玩家稱號視窗。",
+        };
+        const std::int32_t position = index - 19;
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = images[position] + 2;
+            gHoverTextD68AE8 = hints[position];
+            consumed = 1;
+        } else {
+            graphic->imageNo = images[position];
+        }
+        const std::int32_t target = index - 12;
+        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(WindowRuntime_Open(target));
+            // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
+            WindowInstance* const sourceForX = gCurrentWindow;
+            WindowInstance* const targetForX = gWindowStates[target].window;
+            const std::int32_t x = sourceForX->x;
+            targetForX->x = x;
+            WindowInstance* const sourceForY = gCurrentWindow;
+            WindowInstance* const targetForY = gWindowStates[target].window;
+            const std::int32_t y = sourceForY->y;
+            targetForY->y = y;
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            return 1;
+        }
+        return consumed;
+    }
+    case 23:
+    case 24:
+    case 25: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243035;
+            gHoverTextD68AE8 = L"開啟目錄視窗";
+            consumed = 1;
+        } else {
+            graphic->imageNo = 243033;
+        }
+        const std::int32_t category = index - 23;
+        if ((state & 2) != 0) {
+            // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
+            if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
+                gWindowStates[WindowId_OwnProfileCategory].flags |= 0x8000u;
+            }
+            gProfileCategory1085DA0 = category;
+            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnProfileCategory, 1, 0, nullptr));
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            consumed = 1;
+        }
+        if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;
+        }
+        return consumed;
+    }
+    case 29: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 244420;
+            gHoverTextD68AE8 = L"決定玩家簡介";
+            consumed = 1;
+        } else {
+            graphic->imageNo = 244418;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(WindowChat_RestoreInput());
+            static_cast<void>(world::detail::Sub_533C80(0));
+            return 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
+    }
+}
+
+// 原函数：0x004D3020。
+std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y)
+{
+    gValueCC4D34 = x;
+    gValueCC4D3C = y;
+    return x;
+}
+
+// 原函数：0x004D3040。
+std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
+{
+    const double playerX = static_cast<double>(
+        world::detail::BorrowPlayerXStorage()->value()) * 64.0;
+    if (playerX != static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
+        return 0;
+    }
+    const double playerY = static_cast<double>(
+        world::detail::BorrowPlayerYStorage()->value()) * 64.0;
+    if (playerY != static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
+        return 0;
+    }
+    double distanceX = static_cast<double>(gValueCC4D34 * 64)
+        - static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits)));
+    if (distanceX < 0.0) {
+        distanceX = -distanceX;
+    }
+    if (distanceX >= static_cast<double>(rangeX * 64)) {
+        return 1;
+    }
+    double distanceY = static_cast<double>(gValueCC4D3C * 64)
+        - static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits)));
+    if (distanceY < 0.0) {
+        distanceY = -distanceY;
+    }
+    return distanceY >= static_cast<double>(rangeY * 64) ? 1 : 0;
+}
+
+// 原函数：0x0049D8F0。
+void WindowProfile_RouteReply(
+    const std::int32_t type, const std::int32_t value, const std::int32_t request,
+    const std::int32_t target, char* const text)
+{
+    if (world::detail::gValue581800 >= 0) {
+        switch (request) {
+        case 326:
+        case 327:
+        case 369:
+        case 388:
+        case 389:
+        case 390:
+            if (type != 32) {
+                WindowRuntime_CloseByCategory(2);
+                WindowRuntime_CloseByCategory(3);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    world::detail::gValue581800 = type;
+    gDialogValueCF4E5C = value;
+    world::detail::gDialogRequestCC21E0 = request;
+    world::detail::gDialogTargetD2DE6C = target;
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
+    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    switch (type) {
+    case 38:
+        world::detail::Sub_4C9E40(value, text);
+        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileCategory, 1, 0, nullptr));
+        return;
+    case 39:
+        world::detail::Sub_4CA330(value, text);
+        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileSearch, 1, 0, nullptr));
+        return;
+    case 40:
+        static_cast<void>(world::detail::Sub_4CAC60(value, text));
+        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileView, 1, 0, nullptr));
+        return;
+    default:
+        return;
+    }
+}
+} // namespace detail
+
+
+// 原函数：0x0050F990。
+void WindowProfile_ReceiveReply(
+    const std::uintptr_t, const std::int32_t type, const std::int32_t value,
+    const std::int32_t request, const std::int32_t target, char* const text)
+{
+    if (world::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::gValueD67E78 != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    detail::WindowProfile_RouteReply(type, value, request, target, text);
+}
+
+} // namespace cg::ui

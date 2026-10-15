@@ -1,0 +1,330 @@
+#include "../WindowRuntimeInternal.hpp"
+
+namespace cg::input {
+
+InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
+} // namespace cg::input
+
+namespace cg::ui {
+namespace detail {
+
+WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
+    {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
+    33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
+};
+namespace {
+
+// 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
+std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {}; // 原全局：0x00D30138。
+
+constexpr wchar_t kWindow50WriteHint587C84[] = L"寫下訊息。"; // 原常量参考：0x00587C84。
+} // namespace
+
+
+const std::byte* WindowMessageBoard_BorrowRecords() noexcept
+{
+    return gWindow50AlternateRecordsD30138.data();
+}
+
+// 原函数：0x004B5A90。
+void WindowMessageBoard_ResetRecords()
+{
+    gLoginWindowRuntime.valueD3FAD0 = 0;
+    for (WindowListRecordD3FAD4& record : gLoginWindowRuntime.recordsD3FAD4) {
+        record.value00 = 0;
+        record.value408 = 0;
+        record.texts08[1][0] = '\0';
+        record.texts08[2][0] = '\0';
+        record.texts08[3][0] = '\0';
+        record.texts08[0][0] = '\0';
+        record.value04 = 0;
+    }
+}
+
+// 原函数：0x004B5AD0。
+std::int32_t WindowMessageBoard_Update(const std::int32_t value)
+{
+    if (value == -1) {
+        gWindow50InputPrototype580618.input.context->clearText();
+        WindowInstance* const window = gCurrentWindow;
+        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
+        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
+        static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+            gWindow50InputPrototype580618.input.context;
+    }
+    WindowMessageBoard_RefreshRecords();
+    if (WindowProfile_CheckDistance(2, 2) != 0) {
+        static_cast<void>(WindowMessageBoard_Close());
+    }
+    return 1;
+}
+
+// 原函数：0x004B5B50。
+void WindowMessageBoard_Release()
+{
+    if (world::detail::gValue581800 == 21) {
+        world::detail::gValue581800 = -1;
+    }
+}
+
+// 原函数：0x004B5B70。
+std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
+        gHoverTextD68AE8 = kWindow50WriteHint587C84;
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 != window->elements[index].data) {
+        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
+        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[index].data;
+        static_cast<WindowInputData*>(gCurrentWindow->elements[index].data)->context =
+            gWindow50InputPrototype580618.input.context;
+    }
+    return 1;
+}
+
+// 原函数：0x004B5C30。
+std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const std::int32_t state)
+{
+    std::wstring escaped;
+    std::wstring text;
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 0:
+    case 31: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = index == 0 ? 243002 : 244547;
+            const wchar_t* const hint = index == 0
+                ? L"關閉這個視窗。"
+                : kShopHints57E6C4[2];
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = index == 0 ? 243001 : 244545;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(WindowMessageBoard_Close());
+        }
+        return consumed;
+    }
+    case 5:
+    case 12:
+    case 19:
+    case 26: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 36818;
+            gHoverTextD68AE8 = L"刪除此訊息。";
+            consumed = 1;
+        } else {
+            graphic->imageNo = 36816;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        cg::text::FormatTo(text, L"{}", (index - 5) / 7);
+        escaped = input::EscapeTextAndNotify(text, 255);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y =
+            world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t x =
+            world::detail::BorrowPlayerXStorage()->value();
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 64, escaped));
+        static_cast<void>(WindowMessageBoard_Close());
+        return 1;
+    }
+    case 30: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[30].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 244544;
+            gHoverTextD68AE8 = kWindow50WriteHint587C84;
+            consumed = 1;
+        } else {
+            graphic->imageNo = 244542;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        input::InputContext* const context = gWindow50InputPrototype580618.input.context;
+        if (!context->empty()) {
+            const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 256);
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t y =
+                world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t x =
+                world::detail::BorrowPlayerXStorage()->value();
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, request, target, 1, escapedText));
+            gWindow50InputPrototype580618.input.context->clearText();
+            static_cast<void>(WindowMessageBoard_Close());
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        return 1;
+    }
+    case 32:
+    case 33: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        const std::int32_t baseImage = index == 32 ? 243033 : 243030;
+        if ((state & 1) != 0) {
+            graphic->imageNo = baseImage + 2;
+            const wchar_t* const hint = index == 32
+                ? L"切換至下一頁視窗。"
+                : L"回到上一頁視窗。";
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = baseImage;
+        }
+        if ((state & 2) != 0) {
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            escaped.clear();
+            const std::int32_t y =
+                world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t x =
+                world::detail::BorrowPlayerXStorage()->value();
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
+            static_cast<void>(WindowMessageBoard_Close());
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = baseImage + 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
+    }
+}
+
+// 原函数：0x004B62A0。
+void WindowMessageBoard_RefreshRecords()
+{
+    std::wstring buffer;
+    for (std::int32_t index = 0; index < 4; ++index) {
+        const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
+        const std::int32_t first = 2 + index * 7;
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[first].data);
+        graphic->imageNo = record.value00;
+        auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
+        name->text = cg::text::FromGbkWide(record.texts08[0].data());
+        std::int32_t time = record.value04;
+        if (time > 0) {
+            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+            const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
+            std::int32_t minute;
+            std::memcpy(&minute, bytes + 4, sizeof(minute));
+            std::int32_t hour;
+            std::memcpy(&hour, bytes + 8, sizeof(hour));
+            std::int32_t day;
+            std::memcpy(&day, bytes + 12, sizeof(day));
+            std::int32_t month;
+            std::memcpy(&month, bytes + 16, sizeof(month));
+            std::int32_t year;
+            std::memcpy(&year, bytes + 20, sizeof(year));
+            cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
+            auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
+            date->text = buffer;
+        } else {
+            gCurrentWindow->elements[first + 2].visible = 0;
+        }
+        for (std::int32_t line = 1; line < 4; ++line) {
+            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 3 + line].data);
+            text->text = cg::text::FromGbkWide(record.texts08[line].data());
+        }
+        gCurrentWindow->elements[first + 3].visible = record.value408 != 0 ? 1 : 0;
+    }
+    gCurrentWindow->elements[32].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
+    gCurrentWindow->elements[33].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 == window->elements[1].data) {
+        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
+    }
+}
+
+// 原函数：0x004B6C20。
+std::int32_t WindowMessageBoard_Close()
+{
+    WindowInstance* const window = gCurrentWindow;
+    world::detail::gValue581800 = -1;
+    window->state |= 0x8000u;
+    return audio::PlaySe_52C450(57, 320);
+}
+
+// 原函数：0x004B6970。
+std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* const text)
+{
+    gLoginWindowRuntime.valueD3FAD0 = static_cast<std::uint32_t>(flags);
+    input::UnescapeLegacyText_52D150(text);
+    gWindow50AlternateRecordsD30138.fill(std::byte{0});
+    char titleGbk[17]{};
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 1, 16, titleGbk));
+    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(titleGbk);
+    std::array<char, 3072> buffer;
+    char* const fieldText = buffer.data();
+    char* const copiedText = buffer.data() + 768;
+    std::int32_t field = 2;
+    std::int32_t offset = 0;
+    do {
+        auto& record = gLoginWindowRuntime.recordsD3FAD4[offset / 0x40C];
+        const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record.value00 = character_select::detail::Sub_51BC50(imageNo);
+        record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record.value408 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
+        std::strcpy(record.texts08[0].data(), std::strlen(fieldText) > 16 ? "???" : fieldText);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
+        std::strcpy(copiedText, fieldText);
+        const auto length = static_cast<std::int32_t>(std::strlen(fieldText));
+        if (std::strlen(fieldText) > 140) {
+            std::strcpy(record.texts08[1].data(), input::LegacyText593850());
+            std::strcpy(record.texts08[2].data(), input::LegacyText593850());
+            std::strcpy(record.texts08[3].data(), input::LegacyText593850());
+        } else {
+            std::int32_t position = 0;
+            for (std::int32_t line = 1; line < 4; ++line) {
+                char* const destination = record.texts08[line].data();
+                std::int32_t used = 0;
+                for (;;) {
+                    const char value = copiedText[position];
+                    if (value == '\r') {
+                        ++position;
+                        break;
+                    }
+                    ++position;
+                    destination[used] = value;
+                    if (position > length) {
+                        break;
+                    }
+                    if (++used >= 70) {
+                        break;
+                    }
+                }
+                destination[used] = '\0';
+                if (input::ClassifyLastAnsiUnit_44B190(destination) == 3) {
+                    --position;
+                    destination[used - 1] = '\0';
+                }
+            }
+        }
+        offset += 0x40C;
+    } while (offset < 0x1030);
+    return offset;
+}
+
+} // namespace detail
+
+} // namespace cg::ui

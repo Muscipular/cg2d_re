@@ -106,32 +106,8 @@ void InputContext::setText(const std::wstring_view value)
     else { text.assign(value); }
 }
 
-InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
-InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
-InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
-InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
 InputContext gInputContextCC46E0 {}; // 原全局：0x00CC46E0。
-InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
-InputContext gInputContextD2D828 {}; // 原全局：0x00D2D828。
-InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
-InputContext gInputContextCB0610 {}; // 原全局：0x00CB0610。
-InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
-InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
-InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
-InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 InputContext gInputContextD2DFD0 {}; // 原全局：0x00D2DFD0。
-InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
-InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
-InputContext gInputContextD64CB0 {}; // 原全局：0x00D64CB0。
-InputContext gInputContextD2D670 {}; // 原全局：0x00D2D670。
-InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
-InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
-InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
-InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
-InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
-InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
-InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
-InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
 InputContext gInputContextD2E2E0 {}; // 原全局：0x00D2E2E0。
 InputContext gInputContextCB01F8 {}; // 原全局：0x00CB01F8。
 InputContext gInputContextCF47E0 {}; // 原全局：0x00CF47E0。

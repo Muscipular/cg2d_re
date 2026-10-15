@@ -1,0 +1,267 @@
+#include "../WindowRuntimeInternal.hpp"
+
+namespace cg::ui {
+namespace detail {
+
+std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。
+namespace {
+
+constexpr wchar_t kLogViewerUpHint5885EC[] = // 原常量参考：0x005885EC。
+    L"往上查看內容。";
+
+constexpr wchar_t kLogViewerDownHint5885DC[] = // 原常量参考：0x005885DC。
+    L"往下查看內容。";
+
+constexpr wchar_t kLogViewerNextHint5885C8[] = // 原常量参考：0x005885C8。
+    L"查看後一天的內容。";
+
+constexpr wchar_t kLogViewerPreviousHint5885B4[] = // 原常量参考：0x005885B4。
+    L"查看前一天的內容。";
+
+constexpr wchar_t kLogViewerFailure55358C[] = // 原常量参考：0x0055358C。
+    L"無法開啟冒險者日誌";
+
+constexpr char kLogViewerFileFormat55351C[] = "chat_%02d%02d%02d.txt"; // 原常量参考：0x0055351C。
+
+constexpr char kLogViewerDirectory554658[] = "Log"; // 原常量参考：0x00554658。
+
+constexpr char kLogViewerPathFormat553514[] = "%s\\%s"; // 原常量参考：0x00553514。
+
+constexpr char kLogViewerReadMode553510[] = "rt"; // 原常量参考：0x00553510。
+
+constexpr char kLogViewerAppendMode55350C[] = "a+t"; // 原常量参考：0x0055350C。
+} // namespace
+
+
+// 原函数：0x004CBD30。
+void WindowAdventureLog_InitializeDate()
+{
+    platform::LegacyTm53B8C6* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
+    gLoginWindowRuntime.valueD67BB0 = 0;
+    if (previous != nullptr) {
+        return;
+    }
+    platform::ReadLegacyTime32_53BA26(&gLoginWindowRuntime.timeCB1DF0);
+    platform::LegacyTm53B8C6* const current =
+        platform::LocalTime_53B8C6(&gLoginWindowRuntime.timeCB1DF0);
+    gLoginWindowRuntime.calendarTimeD67BAC = current;
+    const auto* const bytes = reinterpret_cast<const std::byte*>(current);
+    std::int32_t day;
+    std::memcpy(&day, bytes + 0x0C, sizeof(day));
+    gLoginWindowRuntime.dayD67BC0 = day;
+    std::int32_t month;
+    std::memcpy(&month, bytes + 0x10, sizeof(month));
+    std::int32_t year;
+    std::memcpy(&year, bytes + 0x14, sizeof(year));
+    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
+        year % 100, month + 1, day);
+}
+
+// 原函数：0x004CC540。
+void WindowAdventureLog_Load()
+{
+    platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
+    if (previous != nullptr) {
+        static_cast<void>(std::fclose(previous));
+    }
+    const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
+    platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+    const std::int32_t month = calendar->month0based;
+    const std::int32_t year = calendar->yearMinus1900;
+    std::sprintf(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
+        year % 100, month + 1, day);
+    char path[256];
+    std::sprintf(path, kLogViewerPathFormat553514,
+        kLogViewerDirectory554658, world::detail::gLogFileName554648);
+    platform::LegacyFile* current = std::fopen(path, kLogViewerReadMode553510);
+    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    if (current == nullptr) {
+        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        return;
+    }
+    gLoginWindowRuntime.logViewerErrorD67BBC = 0;
+    static_cast<void>(std::fclose(current));
+    current = std::fopen(path, kLogViewerAppendMode55350C);
+    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    if (current == nullptr) {
+        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        return;
+    }
+    gLogDisplayGate593F84 = 1;
+    gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
+    while (std::feof(current) == 0) {
+        char buffer[3000] {};
+        static_cast<void>(std::fgets(buffer, 1000, current));
+        const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
+        gLoginWindowRuntime.logViewerMaximumD67BB4 += static_cast<std::int32_t>(lines.size()) - 1;
+        const std::int32_t count = gLoginWindowRuntime.logViewerMaximumD67BB4;
+        current = gLoginWindowRuntime.logViewerFileD67BB8;
+        gLoginWindowRuntime.logViewerMaximumD67BB4 = count + 1;
+    }
+}
+
+// 原函数：0x004CC340。
+void WindowAdventureLog_Refresh()
+{
+    char buffer[3000] {};
+    std::vector<std::wstring> rows;
+    if (gLoginWindowRuntime.logViewerFileD67BB8 == nullptr
+        && gLoginWindowRuntime.logViewerErrorD67BBC == 0) {
+        WindowAdventureLog_Load();
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+    gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition(&window->elements[1], maximum);
+    if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
+        static_cast<void>(std::fseek(gLoginWindowRuntime.logViewerFileD67BB8, 0, 0));
+        while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
+            const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
+            rows.insert(rows.end(), lines.begin(), lines.end());
+        }
+        for (std::int32_t line = 0; line < 14; ++line) {
+            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
+            const std::size_t index = static_cast<std::size_t>(page + line);
+            const std::wstring_view text = index < rows.size() ? std::wstring_view(rows[index]) : std::wstring_view{};
+            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11 + line].data);
+            data->text = text;
+        }
+        return;
+    }
+    auto* const first = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+    first->text = kLogViewerFailure55358C;
+    for (std::int32_t line = 12; line < 25; ++line) {
+        WindowInstance* const current = gCurrentWindow;
+        const char* const text = input::LegacyText593850();
+        auto* const data = static_cast<WindowTextData*>(current->elements[line].data);
+        data->text = cg::text::FromGbkWide(text);
+    }
+}
+
+// 原函数：0x004CBD90。
+std::int32_t WindowAdventureLog_Update(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.valueD67BB0 = 0;
+    }
+    WindowAdventureLog_Refresh();
+    return 1;
+}
+
+// 原函数：0x004CBDB0。
+std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 2:
+    case 3: {
+        const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = index == 2 ? kLogViewerUpHint5885EC : kLogViewerDownHint5885DC;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+        }
+        if ((state & 0x400) != 0) {
+            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
+            const bool canMove = index == 2 ? page > 0 : page < gLoginWindowRuntime.logViewerMaximumD67BB4;
+            if (canMove) {
+                gLoginWindowRuntime.valueD67BB0 = page + (index == 2 ? -1 : 1);
+            }
+            static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+            const std::int32_t currentPage = gLoginWindowRuntime.valueD67BB0;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+            static_cast<void>(WindowScroll_SetPosition(&window->elements[1], maximum, currentPage));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            consumed = 1;
+        }
+        break;
+    }
+    case 6:
+    case 7: {
+        const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = index == 6 ? kLogViewerNextHint5885C8 : kLogViewerPreviousHint5885B4;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+        }
+        if ((state & 0x400) != 0) {
+            platform::LegacyFile* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
+            if (stream != nullptr) {
+                static_cast<void>(std::fclose(stream));
+                // MC01-B：随后重载会处理该槽，已关闭FILE不得再交fclose。
+                gLoginWindowRuntime.logViewerFileD67BB8 = nullptr;
+            }
+            if (index == 6) {
+                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
+                const std::int32_t month = calendar->month0based;
+                if (month == 1 && (calendar->day == 29 || day == 29)) {
+                    calendar->month0based = month + 1;
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                } else if ((month == 3 || month == 5 || month == 8 || month == 10)
+                    && (calendar->day == 30 || day == 30)) {
+                    calendar->month0based = month + 1;
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                } else if (calendar->day == 31 || day == 31) {
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                    const std::int32_t currentMonth = calendar->month0based;
+                    if (currentMonth == 11) {
+                        ++calendar->yearMinus1900;
+                        gLoginWindowRuntime.calendarTimeD67BAC->month0based = 0;
+                    } else {
+                        calendar->month0based = currentMonth + 1;
+                    }
+                } else {
+                    gLoginWindowRuntime.dayD67BC0 = day + 1;
+                }
+            } else if (gLoginWindowRuntime.dayD67BC0 == 1) {
+                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                const std::int32_t month = calendar->month0based;
+                if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) {
+                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    --calendar->month0based;
+                } else if (month == 2) {
+                    gLoginWindowRuntime.dayD67BC0 = 29;
+                    --calendar->month0based;
+                } else if (month == 0) {
+                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    --calendar->yearMinus1900;
+                    gLoginWindowRuntime.calendarTimeD67BAC->month0based = 12;
+                    --gLoginWindowRuntime.calendarTimeD67BAC->month0based;
+                } else {
+                    gLoginWindowRuntime.dayD67BC0 = 30;
+                    --calendar->month0based;
+                }
+            } else {
+                --gLoginWindowRuntime.dayD67BC0;
+            }
+            WindowAdventureLog_Load();
+            auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            title->text = cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648);
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+            gLoginWindowRuntime.valueD67BB0 = 0;
+            static_cast<void>(WindowScroll_SetPosition(&window->elements[1], maximum, 0));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return consumed;
+}
+
+} // namespace detail
+
+} // namespace cg::ui

@@ -190991,5 +190991,39 @@
     "scope": "仅将静态宽文本中转常量改为相同宽字面量，原常量地址注释移至使用处；原型元数据／正文／绑定／拥有者保持。",
     "validation": "常量展开后全文词法一致、原地址保留、退休引用为零；未编译、测试或运行。",
     "ledger_check": "仍仅受两项既有键盘历史附件缺失阻塞，未写派生文件，不计全量台账通过。"
+  },
+  "ui_window_split_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md",
+    "source_root": "src/ui/windows",
+    "window_source_count": 68,
+    "input_context_definition_count": 24,
+    "verification": "2168项原单元正文/原地址与共享声明静态核对；仅代码组织变化，不升级任何验收状态。",
+    "build_test_runtime": "未执行",
+    "input_context_sources": {
+      "gInputContext626AA0": "src/ui/windows/WindowChat.cpp",
+      "gInputContexts5F9758": "src/ui/windows/WindowHotkeys.cpp",
+      "gInputContextD66CA8": "src/ui/windows/WindowMail.cpp",
+      "gInputContextCB03F0": "src/ui/windows/WindowMail.cpp",
+      "gInputContextCC2080": "src/ui/windows/WindowMessageBoard.cpp",
+      "gInputContextD2D828": "src/ui/windows/WindowOwnProfile.cpp",
+      "gInputContextCA0180": "src/ui/windows/WindowMiniMail.cpp",
+      "gInputContextCB0610": "src/ui/windows/WindowProfileSearch.cpp",
+      "gInputContextCB0028": "src/ui/windows/WindowStall.cpp",
+      "gInputContextCC2378": "src/ui/windows/WindowStall.cpp",
+      "gInputContextCF4E60": "src/ui/windows/WindowStall.cpp",
+      "gInputContextD2DE70": "src/ui/windows/WindowCraft.cpp",
+      "gInputContextD2DC10": "src/ui/windows/WindowPlayerTitles.cpp",
+      "gInputContextD2D4A0": "src/ui/windows/WindowPetDetail.cpp",
+      "gInputContextD64CB0": "src/ui/windows/WindowOwnProfile.cpp",
+      "gInputContextD2D670": "src/ui/windows/WindowOwnProfile.cpp",
+      "gInputContextCAFEC8": "src/ui/windows/WindowOwnProfile.cpp",
+      "gInputContextC8B1B8": "src/ui/windows/WindowBlacklist.cpp",
+      "gInputContextCC21E8": "src/ui/windows/WindowTrade.cpp",
+      "gInputContextCB0878": "src/ui/windows/WindowQuantity.cpp",
+      "gInputContextCA0018": "src/ui/windows/WindowBank.cpp",
+      "gInputContextCC49C0": "src/ui/windows/WindowTextList.cpp",
+      "gInputContextCA02E0": "src/ui/windows/WindowDialog.cpp",
+      "gInputContextD2E130": "src/ui/windows/WindowGuildDetails.cpp"
+    }
   }
 }

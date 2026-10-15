@@ -99,6 +99,74 @@ add_library(cg2d_re_startup STATIC
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
     src/ui/WindowRuntime.cpp
+    src/ui/windows/WindowAdventureLog.cpp
+    src/ui/windows/WindowAlbumDetail.cpp
+    src/ui/windows/WindowAlbumList.cpp
+    src/ui/windows/WindowAppearance.cpp
+    src/ui/windows/WindowAttributeTarget.cpp
+    src/ui/windows/WindowBank.cpp
+    src/ui/windows/WindowBattleCommand.cpp
+    src/ui/windows/WindowBattleItems.cpp
+    src/ui/windows/WindowBattlePets.cpp
+    src/ui/windows/WindowBattleResult.cpp
+    src/ui/windows/WindowBattleStateNotice.cpp
+    src/ui/windows/WindowBlacklist.cpp
+    src/ui/windows/WindowBottomBar.cpp
+    src/ui/windows/WindowChat.cpp
+    src/ui/windows/WindowConfirmation.cpp
+    src/ui/windows/WindowContacts.cpp
+    src/ui/windows/WindowCraft.cpp
+    src/ui/windows/WindowCrystalExchangeShop.cpp
+    src/ui/windows/WindowCrystalShop.cpp
+    src/ui/windows/WindowCrystalTrade.cpp
+    src/ui/windows/WindowDialog.cpp
+    src/ui/windows/WindowEmote.cpp
+    src/ui/windows/WindowGather.cpp
+    src/ui/windows/WindowGroupSelect.cpp
+    src/ui/windows/WindowGuildDetails.cpp
+    src/ui/windows/WindowGuildRank.cpp
+    src/ui/windows/WindowHotkeys.cpp
+    src/ui/windows/WindowInventory.cpp
+    src/ui/windows/WindowItemStorage.cpp
+    src/ui/windows/WindowItemUse.cpp
+    src/ui/windows/WindowMail.cpp
+    src/ui/windows/WindowMailCompose.cpp
+    src/ui/windows/WindowMailRead.cpp
+    src/ui/windows/WindowMessageBoard.cpp
+    src/ui/windows/WindowMiniMail.cpp
+    src/ui/windows/WindowMiniMap.cpp
+    src/ui/windows/WindowOwnProfile.cpp
+    src/ui/windows/WindowOwnProfileCategory.cpp
+    src/ui/windows/WindowPetAttributes.cpp
+    src/ui/windows/WindowPetDetail.cpp
+    src/ui/windows/WindowPetList.cpp
+    src/ui/windows/WindowPetMailCompose.cpp
+    src/ui/windows/WindowPetSkillChoice.cpp
+    src/ui/windows/WindowPetSkills.cpp
+    src/ui/windows/WindowPlayerAttributes.cpp
+    src/ui/windows/WindowPlayerProfile.cpp
+    src/ui/windows/WindowPlayerTitles.cpp
+    src/ui/windows/WindowProfile.cpp
+    src/ui/windows/WindowProfileCategory.cpp
+    src/ui/windows/WindowProfileReply.cpp
+    src/ui/windows/WindowProfileSearch.cpp
+    src/ui/windows/WindowProfileView.cpp
+    src/ui/windows/WindowQuantity.cpp
+    src/ui/windows/WindowSettings.cpp
+    src/ui/windows/WindowShop.cpp
+    src/ui/windows/WindowShopChoice.cpp
+    src/ui/windows/WindowShortcutBar.cpp
+    src/ui/windows/WindowSkill.cpp
+    src/ui/windows/WindowSkillResult.cpp
+    src/ui/windows/WindowSpectator.cpp
+    src/ui/windows/WindowStall.cpp
+    src/ui/windows/WindowStatusBar.cpp
+    src/ui/windows/WindowTextList.cpp
+    src/ui/windows/WindowTextTarget.cpp
+    src/ui/windows/WindowTimerNotice.cpp
+    src/ui/windows/WindowTrade.cpp
+    src/ui/windows/WindowTradeTarget.cpp
+    src/ui/windows/WindowWorkResult.cpp
     src/ui/WindowPrototypes.cpp
     src/network/NetworkRuntime.cpp
     src/render/GraphicPendingQueue.cpp

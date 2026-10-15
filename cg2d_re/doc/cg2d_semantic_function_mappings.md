@@ -4293,3 +4293,6 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 [先行合同](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline)、[原生表示边界](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision)及[当前状态](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state)补五个既有提供者：401C70/401CA0/401CC0/401CF0/401F50。当前IDA五完整根43条125B、六实际CALL目标；构造各单次共享RNG、W32编码/mask与W8 count、三字节保留区不写、删除仅bit0与同域free及原地址结果有证。
 
 五语义/五adapted F处置新增，源/公头正文保持，未新增函数或功能；未将未核定的完整功能成员强行分配，不新增局部门禁通过。当前显式T*接口、W32令牌和两个void接口不代表原机器thiscall/虚表或所有EAX消费者已验；完整caller/alias/owner和SDK/运行仍待，R01/R04保持open。整体门禁、暂跳过项和执行限制保持，不以新增关联数表示实现完成率。
+
+
+2026-10-15 UWS01：窗口实现已拆至 `src/ui/windows/`，窗口专属输入上下文同步归位；当前 JSON 定位与 UI 符号对应表已同步，历史证据路径按原记录保留。仅源码组织和静态接线核对，未编译、测试或运行；原身份、功能状态及验收结论保持。见 [窗口拆分 SPEC](cg2d_ui_window_split_spec.md)。

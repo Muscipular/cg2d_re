@@ -1349,8 +1349,83 @@ void WindowRuntime_ReleaseDefault()
     static_cast<void>(WindowRuntime_ReturnOne(0));
 }
 
+// 原型记录下标；窗口36/37共用Dialog，窗口38起不能直接用WindowId索引。
+enum WindowPrototypeIndex : std::size_t {
+    WindowPrototypeIndex_None = 0,
+    WindowPrototypeIndex_StatusBar = 1,
+    WindowPrototypeIndex_CompactStatusBar = 2,
+    WindowPrototypeIndex_CollapsedStatusBar = 3,
+    WindowPrototypeIndex_ShortcutBar = 4,
+    WindowPrototypeIndex_CollapsedShortcutBar = 5,
+    WindowPrototypeIndex_BottomBar = 6,
+    WindowPrototypeIndex_PlayerProfile = 7,
+    WindowPrototypeIndex_PlayerAttributes = 8,
+    WindowPrototypeIndex_PlayerTitles = 9,
+    WindowPrototypeIndex_Skill = 10,
+    WindowPrototypeIndex_Craft = 11,
+    WindowPrototypeIndex_Gather = 12,
+    WindowPrototypeIndex_SkillResult = 13,
+    WindowPrototypeIndex_Inventory = 14,
+    WindowPrototypeIndex_PetList = 15,
+    WindowPrototypeIndex_PetDetail = 16,
+    WindowPrototypeIndex_PetAttributes = 17,
+    WindowPrototypeIndex_PetSkills = 18,
+    WindowPrototypeIndex_AlbumList = 19,
+    WindowPrototypeIndex_AlbumDetail = 20,
+    WindowPrototypeIndex_Contacts = 21,
+    WindowPrototypeIndex_MailCompose = 22,
+    WindowPrototypeIndex_PetMailCompose = 23,
+    WindowPrototypeIndex_Settings = 24,
+    WindowPrototypeIndex_Hotkeys = 25,
+    WindowPrototypeIndex_BattleCommand = 26,
+    WindowPrototypeIndex_BattleItems = 27,
+    WindowPrototypeIndex_BattlePets = 28,
+    WindowPrototypeIndex_Spectator = 29,
+    WindowPrototypeIndex_BattleResult = 30,
+    WindowPrototypeIndex_DpResult = 31,
+    WindowPrototypeIndex_BattleStateNotice = 32,
+    WindowPrototypeIndex_MiniMap = 33,
+    WindowPrototypeIndex_Emote = 34,
+    WindowPrototypeIndex_Chat = 35,
+    WindowPrototypeIndex_Dialog = 36, // 窗口36/37共用。
+    WindowPrototypeIndex_ItemStorage = 37,
+    WindowPrototypeIndex_TimerNotice = 38,
+    WindowPrototypeIndex_MailRead = 39,
+    WindowPrototypeIndex_Bank = 40,
+    WindowPrototypeIndex_Quantity = 41,
+    WindowPrototypeIndex_Trade = 42,
+    WindowPrototypeIndex_TradeTarget = 43,
+    WindowPrototypeIndex_TextTarget = 44,
+    WindowPrototypeIndex_AttributeTarget = 45,
+    WindowPrototypeIndex_Confirmation = 46,
+    WindowPrototypeIndex_GuildDetails = 47,
+    WindowPrototypeIndex_GroupSelect = 48,
+    WindowPrototypeIndex_MessageBoard = 49,
+    WindowPrototypeIndex_TextList = 50,
+    WindowPrototypeIndex_ShopChoice = 51,
+    WindowPrototypeIndex_Shop = 52,
+    WindowPrototypeIndex_PetSkillChoice = 53,
+    WindowPrototypeIndex_GuildRank = 54,
+    WindowPrototypeIndex_Appearance = 55,
+    WindowPrototypeIndex_CompactChat = 56,
+    WindowPrototypeIndex_OwnProfile = 57,
+    WindowPrototypeIndex_OwnProfileCategory = 58,
+    WindowPrototypeIndex_ProfileCategory = 59,
+    WindowPrototypeIndex_ProfileSearch = 60,
+    WindowPrototypeIndex_ProfileView = 61,
+    WindowPrototypeIndex_MiniMail = 62,
+    WindowPrototypeIndex_ProfileReply = 63,
+    WindowPrototypeIndex_Blacklist = 64,
+    WindowPrototypeIndex_AdventureLog = 65,
+    WindowPrototypeIndex_OwnStall = 66,
+    WindowPrototypeIndex_StallBrowse = 67,
+    WindowPrototypeIndex_CrystalShop = 68,
+    WindowPrototypeIndex_CrystalExchangeShop = 69,
+    WindowPrototypeIndex_Count = 70,
+};
+
 // 注释为窗口编号和原型原地址；36/37只有一个可变记录。
-std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
+std::array<WindowPrototype, WindowPrototypeIndex_Count> gWindowPrototypeRecords {{
     {0, 0, 0, 0, 0, 0, 0x00000000u, 0, nullptr, nullptr, nullptr, nullptr}, // 0: 54EFB8
     {0, 5, 0, 0, 197, 40, 0x80000080u, 24, gWindowElements55F0A0, &WindowStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}, // 1: 54E2A0
     {0, 5, 0, 0, 197, 32, 0x80000080u, 7, gWindowElements55F3A0, &WindowCompactStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}, // 2: 54E2D0
@@ -1425,7 +1500,7 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 
 } // namespace
 
-WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1]; // 原全局：0x0054E2A0。
+WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[WindowPrototypeIndex_StatusBar]; // 原全局：0x0054E2A0。
 WindowTextPrototype gWindowText572F58 { // 原全局：0x00572F58。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
     L"持有名片＆上線的人員",
@@ -1450,8 +1525,8 @@ WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
     L"家族稱號",
 };
-WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4]; // 原全局：0x0054E240。
-WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6]; // 原全局：0x0054E330。
+WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[WindowPrototypeIndex_ShortcutBar]; // 原全局：0x0054E240。
+WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[WindowPrototypeIndex_BottomBar]; // 原全局：0x0054E330。
 
 WindowElementPrototype gWindowElements55ED60[11] { // 原全局：0x0055ED60。
     {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons},
@@ -4228,77 +4303,77 @@ WindowElementPrototype gWindowElements576F90[15] {
 
 // 71个原生指针；原36/37同源，不因窗口编号不同复制对象。
 std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130 { // 原全局：0x0057C130。
-    &gWindowPrototypeRecords[0], // 0
-    &gWindowPrototypeRecords[1],
-    &gWindowPrototypeRecords[2],
-    &gWindowPrototypeRecords[3],
-    &gWindowPrototypeRecords[4],
-    &gWindowPrototypeRecords[5],
-    &gWindowPrototypeRecords[6],
-    &gWindowPrototypeRecords[7],
-    &gWindowPrototypeRecords[8],
-    &gWindowPrototypeRecords[9],
-    &gWindowPrototypeRecords[10], // 10
-    &gWindowPrototypeRecords[11],
-    &gWindowPrototypeRecords[12],
-    &gWindowPrototypeRecords[13],
-    &gWindowPrototypeRecords[14],
-    &gWindowPrototypeRecords[15],
-    &gWindowPrototypeRecords[16],
-    &gWindowPrototypeRecords[17],
-    &gWindowPrototypeRecords[18],
-    &gWindowPrototypeRecords[19],
-    &gWindowPrototypeRecords[20], // 20
-    &gWindowPrototypeRecords[21],
-    &gWindowPrototypeRecords[22],
-    &gWindowPrototypeRecords[23],
-    &gWindowPrototypeRecords[24],
-    &gWindowPrototypeRecords[25],
-    &gWindowPrototypeRecords[26],
-    &gWindowPrototypeRecords[27],
-    &gWindowPrototypeRecords[28],
-    &gWindowPrototypeRecords[29],
-    &gWindowPrototypeRecords[30], // 30
-    &gWindowPrototypeRecords[31],
-    &gWindowPrototypeRecords[32],
-    &gWindowPrototypeRecords[33],
-    &gWindowPrototypeRecords[34],
-    &gWindowPrototypeRecords[35],
-    &gWindowPrototypeRecords[36],
-    &gWindowPrototypeRecords[36], // 37
-    &gWindowPrototypeRecords[37],
-    &gWindowPrototypeRecords[38],
-    &gWindowPrototypeRecords[39], // 40
-    &gWindowPrototypeRecords[40],
-    &gWindowPrototypeRecords[41],
-    &gWindowPrototypeRecords[42],
-    &gWindowPrototypeRecords[43],
-    &gWindowPrototypeRecords[44],
-    &gWindowPrototypeRecords[45],
-    &gWindowPrototypeRecords[46],
-    &gWindowPrototypeRecords[47],
-    &gWindowPrototypeRecords[48],
-    &gWindowPrototypeRecords[49], // 50
-    &gWindowPrototypeRecords[50],
-    &gWindowPrototypeRecords[51],
-    &gWindowPrototypeRecords[52],
-    &gWindowPrototypeRecords[53],
-    &gWindowPrototypeRecords[54],
-    &gWindowPrototypeRecords[55],
-    &gWindowPrototypeRecords[56],
-    &gWindowPrototypeRecords[57],
-    &gWindowPrototypeRecords[58],
-    &gWindowPrototypeRecords[59], // 60
-    &gWindowPrototypeRecords[60],
-    &gWindowPrototypeRecords[61],
-    &gWindowPrototypeRecords[62],
-    &gWindowPrototypeRecords[63],
-    &gWindowPrototypeRecords[64],
-    &gWindowPrototypeRecords[65],
-    &gWindowPrototypeRecords[66],
-    &gWindowPrototypeRecords[67],
-    &gWindowPrototypeRecords[68],
-    &gWindowPrototypeRecords[69], // 70
+    &gWindowPrototypeRecords[WindowPrototypeIndex_None], // 0
+    &gWindowPrototypeRecords[WindowPrototypeIndex_StatusBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CompactStatusBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CollapsedStatusBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ShortcutBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CollapsedShortcutBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BottomBar],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PlayerProfile],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PlayerAttributes],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PlayerTitles],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Skill], // 10
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Craft],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Gather],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_SkillResult],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Inventory],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetList],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetDetail],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetAttributes],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetSkills],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_AlbumList],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_AlbumDetail], // 20
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Contacts],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_MailCompose],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetMailCompose],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Settings],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Hotkeys],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BattleCommand],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BattleItems],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BattlePets],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Spectator],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BattleResult], // 30
+    &gWindowPrototypeRecords[WindowPrototypeIndex_DpResult],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_BattleStateNotice],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_MiniMap],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Emote],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Chat],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Dialog],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Dialog], // 37
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ItemStorage],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_TimerNotice],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_MailRead], // 40
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Bank],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Quantity],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Trade],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_TradeTarget],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_TextTarget],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_AttributeTarget],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Confirmation],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_GuildDetails],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_GroupSelect],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_MessageBoard], // 50
+    &gWindowPrototypeRecords[WindowPrototypeIndex_TextList],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ShopChoice],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Shop],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_PetSkillChoice],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_GuildRank],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Appearance],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CompactChat],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_OwnProfile],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_OwnProfileCategory],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ProfileCategory], // 60
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ProfileSearch],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ProfileView],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_MiniMail],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_ProfileReply],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_Blacklist],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_AdventureLog],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_OwnStall],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_StallBrowse],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CrystalShop],
+    &gWindowPrototypeRecords[WindowPrototypeIndex_CrystalExchangeShop], // 70
 };
 
 } // namespace cg::ui::detail

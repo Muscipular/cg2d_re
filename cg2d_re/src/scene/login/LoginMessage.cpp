@@ -1,3 +1,6 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/text/Encoding.hpp"
@@ -50,7 +53,7 @@ std::int32_t gMessageResult = -2;
 MessageLayout gMessageLayout {};
 YobiAction* gMessageAction = nullptr;
 
-constexpr detail::GraphicDescriptor16 kGraphicDescriptor {
+constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
 };
 
@@ -80,7 +83,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         const std::size_t newline = text.find(L'\n', start);
         const std::wstring_view line = text.substr(start, newline == std::wstring_view::npos ? newline : newline - start);
         lines.push_back(line);
-        const std::int32_t width = detail::TextMeasure(line, 0);
+        const std::int32_t width = cg::render::TextMeasure(line, 0);
         if (width > maximumTextWidth) { maximumTextWidth = width; }
         if (newline == std::wstring_view::npos) { break; }
         start = newline + 1;
@@ -92,7 +95,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageState = 1;
             gMessageResult = -2;
             gMessageLayout.width =
-                RoundMessageWidth(detail::TextMeasure(gValue9A620C[8], 0));
+                RoundMessageWidth(cg::render::TextMeasure(gValue9A620C[8], 0));
             gMessageLayout.height = 192;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 144;
@@ -120,12 +123,12 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t contentX = gMessageLayout.x
-            + (gMessageLayout.width - detail::TextMeasure(gValue9A620C[6], 0)) / 2;
+            + (gMessageLayout.width - cg::render::TextMeasure(gValue9A620C[6], 0)) / 2;
         for (std::size_t index = 6; index < 12; ++index) {
             const std::int32_t y = gMessageLayout.y
                 + 30
                 + static_cast<std::int32_t>(index - 6) * 20;
-            detail::DrawText(
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(contentX),
                 static_cast<std::int16_t>(y),
                 2,
@@ -136,12 +139,12 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
                 0);
         }
 
-        const std::int32_t confirmWidth = detail::TextMeasure(kConfirmText, 0);
+        const std::int32_t confirmWidth = cg::render::TextMeasure(kConfirmText, 0);
         const std::int32_t confirmX = gMessageLayout.x
             + (gMessageLayout.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(detail::gValueD69768));
-        gMessageResult = detail::DrawText(
+            static_cast<std::uint8_t>(cg::render::gValueD69768));
+        gMessageResult = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(gMessageLayout.y + 156),
             2,
@@ -158,7 +161,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageState = 1;
             gMessageResult = -2;
             gMessageLayout.width =
-                RoundMessageWidth(detail::TextMeasure(gValue9A620C[0], 0));
+                RoundMessageWidth(cg::render::TextMeasure(gValue9A620C[0], 0));
             gMessageLayout.height = 336;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 72;
@@ -186,12 +189,12 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t contentX = gMessageLayout.x
-            + (gMessageLayout.width - detail::TextMeasure(gValue9A620C[0], 0)) / 2;
+            + (gMessageLayout.width - cg::render::TextMeasure(gValue9A620C[0], 0)) / 2;
         for (std::size_t index = 0; index < 6; ++index) {
             const std::int32_t y = gMessageLayout.y
                 + 30
                 + static_cast<std::int32_t>(index) * 20;
-            detail::DrawText(
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(contentX),
                 static_cast<std::int16_t>(y),
                 2,
@@ -205,7 +208,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             const std::int32_t y = gMessageLayout.y
                 + 160
                 + static_cast<std::int32_t>(index - 6) * 20;
-            detail::DrawText(
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(contentX),
                 static_cast<std::int16_t>(y),
                 2,
@@ -216,12 +219,12 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
                 0);
         }
 
-        const std::int32_t confirmWidth = detail::TextMeasure(kConfirmText, 0);
+        const std::int32_t confirmWidth = cg::render::TextMeasure(kConfirmText, 0);
         const std::int32_t confirmX = gMessageLayout.x
             + (gMessageLayout.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(detail::gValueD69768));
-        gMessageResult = detail::DrawText(
+            static_cast<std::uint8_t>(cg::render::gValueD69768));
+        gMessageResult = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(gMessageLayout.y + 296),
             2,
@@ -236,7 +239,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     if (gMessageState == 0) {
         gMessageState = 1;
         const std::int32_t messageHeight =
-            (lineCount - 1) * (detail::gValue558F78 + 2) + 96;
+            (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2) + 96;
         gMessageResult = -2;
         gMessageLayout.width = RoundMessageWidth(maximumTextWidth);
         gMessageLayout.height = messageHeight;
@@ -252,7 +255,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     }
 
     const std::int32_t lineOffset =
-        (lineCount - 1) * (detail::gValue558F78 + 2);
+        (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2);
     const std::int32_t left = gMessageLayout.x + (gMessageLayout.width - 66) / 2;
     const std::int32_t top = gMessageLayout.y + lineOffset + 61;
     const bool hovered = cg::ui::HitTestMouseRect_5049A0(left, top, left + 66, top + 17, -1) != 0;
@@ -275,9 +278,9 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             + (gMessageLayout.width - maximumTextWidth) / 2;
         for (std::int32_t index = 0; index < lineCount; ++index) {
             const std::int32_t y = gMessageLayout.y
-                + index * (detail::gValue558F78 + 2)
+                + index * (cg::render::gFontMetrics[0].doubleHeight + 2)
                 + 30;
-            detail::DrawText(
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(textX),
                 static_cast<std::int16_t>(y),
                 2,
@@ -289,9 +292,9 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t graphicY = gMessageLayout.y
-            + (lineCount - 1) * (detail::gValue558F78 + 2)
+            + (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2)
             + 69;
-        detail::DrawGraphic(
+        cg::render::DrawGraphic(
             gMessageLayout.x + gMessageLayout.width / 2,
             graphicY,
             0xDF,

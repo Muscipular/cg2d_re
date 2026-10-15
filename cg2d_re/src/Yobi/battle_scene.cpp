@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "battle_scene.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
@@ -316,14 +318,14 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
     }
     const std::int32_t graphic = action->graphicIndex;
     const render::DxGraphicEntry* const entries = render::gGraphicDxCache103CFA4;
-    const std::uint32_t hoverImage = gValueD69768;
+    const std::uint32_t hoverImage = cg::render::gValueD69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
     const std::int32_t offsetY = action->graphicOffsetY;
     const std::int32_t x = action->x;
     const std::int32_t height = render::ReadGraphicDxHeightFromEntries(entries, graphic);
     const std::int32_t width = render::ReadGraphicDxWidthFromEntries(entries, graphic);
-    DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(x + offsetX - 2),
         static_cast<std::uint16_t>(y + offsetY - 2),
         static_cast<std::uint16_t>(x + offsetX + width + 2),
@@ -475,7 +477,7 @@ void Sub_43CA80()
         const YobiAction* const action = gBattleEntries59E980[index];
         const char* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
-        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 1);
+        const std::int32_t width = cg::render::TextMeasure(cg::text::FromGbkWide(name).c_str(), 1);
         const std::int32_t x = gBattleEntries59E980[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),

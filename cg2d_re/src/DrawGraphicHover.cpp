@@ -1,9 +1,9 @@
-#include "scene/login/LoginMessageDependencies.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>
 #include <cstdint>
 
-namespace cg::login::detail {
+namespace cg::render {
 
 // 原函数：0x00522180。
 void DrawGraphicHover(
@@ -47,4 +47,4 @@ void DrawGraphicHover(
     SetPendingGraphicBatchTypeAtLegacyIndex(index, std::uint8_t{2});
 }
 
-} // namespace cg::login::detail
+} // namespace cg::render

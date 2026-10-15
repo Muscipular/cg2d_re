@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -348,7 +349,7 @@ static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const 
         return 0;
     }
     if ((state & 1) != 0) {
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, imageNo);
     }
     if ((state & 2) == 0) {

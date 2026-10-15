@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
@@ -217,7 +219,7 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
     if (value == -1) {
         auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
         title->text = gChoiceDialog.title;
-        const std::int32_t measured = login::detail::TextMeasure(gChoiceDialog.title, 1);
+        const std::int32_t measured = cg::render::TextMeasure(gChoiceDialog.title, 1);
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = ((window->width - measured) >> 1) + 6;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
@@ -294,10 +296,10 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
         if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
             continue;
         }
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
             static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
-            static_cast<std::uint16_t>(y + 14), 223, login::detail::gValueD69768, 0);
+            static_cast<std::uint16_t>(y + 14), 223, cg::render::gValueD69768, 0);
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
         if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;

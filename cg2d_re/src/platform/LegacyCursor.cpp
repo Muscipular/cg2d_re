@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -103,9 +104,9 @@ void UpdatePulse(
     gLegacyMouseState.pulseButtons &= ~bit;
 }
 
-login::detail::GraphicDescriptor16 MakeCursorDescriptor()
+cg::render::GraphicDescriptor16 MakeCursorDescriptor()
 {
-    login::detail::GraphicDescriptor16 descriptor {};
+    cg::render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     return descriptor;
@@ -113,7 +114,7 @@ login::detail::GraphicDescriptor16 MakeCursorDescriptor()
 
 void DrawTableCursor()
 {
-    const login::detail::GraphicDescriptor16 descriptor =
+    const cg::render::GraphicDescriptor16 descriptor =
         MakeCursorDescriptor();
 
     const std::uint32_t imageState = gValueD68DC4;
@@ -125,7 +126,7 @@ void DrawTableCursor()
     const std::uint32_t xState = gValueD68DC4;
     const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         x, y, kCursorLayer, image, 0, &descriptor);
 }
 
@@ -152,7 +153,7 @@ void UpdateNativeCursor()
     if (gLegacyMouseState.drawingSuppression == 0) {
         const std::int32_t y = (gLegacyMouseState.mouseY + 16);
         const std::int32_t x = (gLegacyMouseState.mouseX + 16);
-        login::detail::DrawGraphic(
+        cg::render::DrawGraphic(
             x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);
     }
 }

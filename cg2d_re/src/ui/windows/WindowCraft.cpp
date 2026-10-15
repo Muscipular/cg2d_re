@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -1205,7 +1206,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         const WindowElement* const element = &window->elements[index];
         const std::int32_t y = window->y + element->y;
         const std::int32_t x = window->x + element->x;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
             static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
     }
@@ -1213,9 +1214,9 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         const std::int32_t y = window->y + element->y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
     }
@@ -1223,9 +1224,9 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         const std::int32_t y = window->y + element->y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
     }
@@ -1255,7 +1256,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     const WindowElement* const element = &window->elements[index];
     const std::int32_t y = element->y + window->y + 24;
     const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
 }
 
@@ -1520,7 +1521,7 @@ static void WindowCraft_HandleMaterialDrag(
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
         platform::gLegacyMouseState.mouseX.value();
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
 // 原函数：0x0047DF30。
@@ -2220,7 +2221,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             const WindowElement* const element = &window->elements[index];
             const std::int32_t left = element->x + 50 * ((source - 8) % 5) + window->x;
             const std::int32_t top = element->y + 50 * ((source - 8) / 5) + window->y;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 47), static_cast<std::uint16_t>(top + 46), 223, 254, 0);
         }
@@ -2230,8 +2231,8 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         const WindowElement* const element = &window->elements[index];
         const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
         const std::int32_t top = element->y + 50 * (hovered / 5) + window->y;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
-        login::detail::DrawGraphicHover(
+        const std::uint32_t imageNo = cg::render::gValueD69768;
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
         if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
@@ -2252,12 +2253,12 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         const std::int32_t x = element->x + 50 * (position % 5) + window->x + 24;
         const std::int32_t y = element->y + 50 * (position / 5) + window->y + 24;
         if (hoverMarks[position + 8] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24), 223, 249, 0);
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
         }
         const std::int32_t count = item->count;
         if (count > 0) {
@@ -2285,7 +2286,7 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
     const WindowElement* const element = &window->elements[index];
     const std::int32_t y = element->y + window->y + 24;
     const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return 0;
 }
 
@@ -2295,7 +2296,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
     if (gSelectedItemD460C0 < 0) {
         return 0;
     }
-    WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, login::detail::gValueD69768);
+    WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
     if ((state & 2) == 0) {
         return 0;
     }
@@ -2355,13 +2356,13 @@ static std::int32_t WindowCraft_DrawInputNotice(
             imageNo = 0x3B569;
         }
     }
-    static_cast<void>(login::detail::DrawGraphic(320, 277, 226, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(320, 277, 226, imageNo, 0, &descriptor));
     static_cast<void>(render::DrawText_456780(
         145, 185, 4, 0, 0, first, 0,
-        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+        static_cast<std::uint8_t>(cg::render::gValueD69768)));
     static_cast<void>(render::DrawText_456780(
         145, 205, 4, 0, 0, second, 0,
-        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+        static_cast<std::uint8_t>(cg::render::gValueD69768)));
     login::detail::DrawNineGrid_49BE00(
         0x3BE34, 115, 155, 410, 150, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -2490,7 +2491,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         const WindowElement* const element = &window->elements[index];
         const std::int32_t y = window->y + element->y;
         const std::int32_t x = window->x + element->x;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
             static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
     }
@@ -2498,9 +2499,9 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         const std::int32_t y = window->y + element->y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
     }
@@ -2508,9 +2509,9 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         const std::int32_t y = window->y + element->y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
     }
@@ -2541,7 +2542,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     const std::int32_t imageNo = gSelectedImageCC3ED8;
     const std::int32_t y = element->y + windowY + 24;
     const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
 }
 
@@ -3110,8 +3111,8 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
         const std::int32_t y = window->y + element->y;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
-        login::detail::DrawGraphicHover(
+        const std::uint32_t imageNo = cg::render::gValueD69768;
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
             0xDF, imageNo, 0);
@@ -3139,7 +3140,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
     const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
     const std::int32_t y = window->y + element->y + 24;
     const std::int32_t x = window->x + element->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
     return consumed;
 }
 
@@ -3319,8 +3320,8 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
         const WindowElement* const element = &window->elements[index];
         const std::int32_t y = window->y + element->y;
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = login::detail::gValueD69768;
-        login::detail::DrawGraphicHover(
+        const std::uint32_t imageNo = cg::render::gValueD69768;
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
             0xDF, imageNo, 0);
@@ -3348,7 +3349,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
     const std::int32_t imageNo = gSelectedImageCC3ED8;
     const std::int32_t y = window->y + element->y + 24;
     const std::int32_t x = window->x + element->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
     return consumed;
 }
 

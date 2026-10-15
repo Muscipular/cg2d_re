@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -327,10 +328,10 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                     gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                             ? cannotEquip : cannotUse;
                     if ((events & 1u) != 0) {
-                        login::detail::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, login::detail::gValueD69768, 0);
+                            223, cg::render::gValueD69768, 0);
                     }
                 }
                 consumed = 1;
@@ -338,16 +339,16 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (item.used == 0) {
                 continue;
             }
-            static_cast<void>(login::detail::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
             if (occupancy[position + 8] != 0) {
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                     223, 249, 0);
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
             if (item.count > 0) {
@@ -573,7 +574,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 50 * ((source - 8) / 5) + windowY + 48;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -588,17 +589,17 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         const std::int32_t elementY = element.y;
         const std::int32_t windowY = window->y;
         const std::int32_t top = elementY + 50 * (hovered / 5) + windowY + 48;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         if (items[hovered + 8].used != 0) {
             gBattleItemHoverCF49B0 = hovered + 8;
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() < 8) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t hoverColor = login::detail::gValueD69768;
+        const std::uint32_t hoverColor = cg::render::gValueD69768;
         const WindowElement* const elements = window->elements;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
@@ -611,7 +612,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         const std::int32_t bottom = height + windowY + elementY;
         const std::int32_t top = windowY + elementY;
         const std::int32_t left = windowX + elementX;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
             223, hoverColor, 0);
@@ -638,30 +639,30 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (usableLevel < level || items[2].used != 0 || items[3].used != 0
                 || (world::detail::gPlayerRuntimeSlots.fp < cost)
                 || world::detail::gBattleModeFlag5ABFCC == 1) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
         }
         if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
             const std::int32_t type = item.itemType;
             if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
         }
         if (item.hasDescription == 0 || (item.itemType == kMedicineType
                 && (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 x + 105, y + 93, 223, 22738, 0, nullptr));
         }
         if (occupancy[position + 8] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                 223, 249, 0);
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         }
         if (item.count > 0) {
             cg::text::FormatTo(countText, L"{:3}", item.count);
@@ -717,24 +718,24 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     gHoverTextD68AE8 = L"無法在戰鬥中更換裝備。";
                     if ((events & 1u) != 0) {
-                        login::detail::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, login::detail::gValueD69768, 0);
+                            223, cg::render::gValueD69768, 0);
                     }
                 }
                 consumed = 1;
             }
-            static_cast<void>(login::detail::DrawGraphic(left + 129, top + 117, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(left + 129, top + 117, 223, 22738, 0, nullptr));
             if (occupancy[position] != 0) {
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                     223, 249, 0);
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
         }
@@ -869,7 +870,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
         if (source < count) {
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, source, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, source, -24);
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -878,10 +879,10 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     if ((events & 1u) != 0 && hovered >= 0) {
         const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, hovered, -24);
         const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, hovered, -24);
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -889,7 +890,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
                 const WindowInstance* const window = gCurrentWindow;
-                const std::uint32_t hoverColor = login::detail::gValueD69768;
+                const std::uint32_t hoverColor = cg::render::gValueD69768;
                 const WindowElement* const elements = window->elements;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
@@ -902,7 +903,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 const std::int32_t bottom = height + windowY + elementY;
                 const std::int32_t top = windowY + elementY;
                 const std::int32_t left = windowX + elementX;
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
                     223, hoverColor, 0);
@@ -917,22 +918,22 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             continue;
         }
         if ((position != 2 && position != 3) || record.itemType == 7) {
-            static_cast<void>(login::detail::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
         }
         if (record.hasDescription == 0) {
-            static_cast<void>(login::detail::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
         }
         if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
-            static_cast<void>(login::detail::DrawGraphic(x + 105, y + 93, 223, 22739, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22739, 0, &descriptor));
         }
         if (occupancy[position] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                 223, 249, 0);
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, record.imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, record.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &descriptor));
         }
     }
     return consumed;

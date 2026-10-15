@@ -1,3 +1,4 @@
+#include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::input {
@@ -793,7 +794,7 @@ static std::int32_t WindowChat_RefreshCompactHeight()
 void WindowChat_DrawInput(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
-    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
+    static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
     const std::int32_t widthUnits = gChatWidthUnitsC9A930;
     const std::int32_t width = fontWidth * widthUnits;
@@ -805,7 +806,7 @@ void WindowChat_DrawInput(input::InputContext* const context)
 void WindowChat_DrawFixedWidthInput(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
-    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
+    static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     WindowInput_ScrollAndDraw(context, 1024);
 }
 

@@ -131,7 +131,7 @@ void DrawNormalMapCell(
         if (screenX >= -32 && screenX < 672 && screenY >= -24 && screenY < 504) {
             const std::uint8_t layer =
                 (tile >= 5000 && tile <= 5009) || (tile >= 7664 && tile <= 7679) ? 1 : 5;
-            static_cast<void>(login::detail::DrawGraphic(screenX, screenY, layer, tile, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(screenX, screenY, layer, tile, 0, nullptr));
         }
     } else if (markers != 0) {
         if (tile >= 250 && tile <= 299) {
@@ -341,7 +341,7 @@ void Sub_43CB10()
     static_cast<void>(Sub_46BD40());
     Sub_46CF60(0);
     const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
-    static_cast<void>(login::detail::DrawGraphic(320, 240, 200, imageNo, 0, nullptr));
+    static_cast<void>(cg::render::DrawGraphic(320, 240, 200, imageNo, 0, nullptr));
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;

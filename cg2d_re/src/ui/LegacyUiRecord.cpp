@@ -93,7 +93,7 @@ void DrawUiControl_45EFD0(
     const std::int32_t controlWidth = controlRecord->bounds.width;
     const std::int32_t frameRight = (controlWidth + controlLeft) + 2;
     const std::int32_t frameLeft = controlLeft - 2;
-    cg::login::detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         (frameLeft & 0xFFFF),
         (frameTop & 0xFFFF),
         (frameRight & 0xFFFF),

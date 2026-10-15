@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -1160,7 +1161,7 @@ static void WindowBattleCommand_DrawTargetHint()
         return;
     }
     const std::int32_t y = world::detail::gBattleCommandState5ABC3C == 4 ? 88 : 91;
-    static_cast<void>(login::detail::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
+    static_cast<void>(cg::render::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(
         383, static_cast<std::int16_t>(y + 12), 2, 0, 0,
         L"請選擇目標", 0));
@@ -1581,7 +1582,7 @@ void WindowBattleCommand_Dispatch()
         if (draw) {
             const std::int32_t y = gBattleCommandY553F7C;
             const std::int32_t x = gBattleCommandX553F78;
-            gBattlePetSkillGraphicIndex553F8C = login::detail::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
+            gBattlePetSkillGraphicIndex553F8C = cg::render::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
         }
         if (gBattlePlayerActionState5ABC74 == 1) {
             const std::int32_t count = gBattlePetActionCount5ABBBC;
@@ -1679,7 +1680,7 @@ static void WindowBattleCommand_DrawTimer()
         if (buffer[index] != ' ') {
             const std::int32_t digit =
                 std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 304 + index * 32, 240, 209, imageBase + digit - '0', 0, nullptr));
         }
     }

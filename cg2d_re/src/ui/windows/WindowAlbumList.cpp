@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -157,7 +158,7 @@ static void* WindowAlbumList_Refresh()
                 const std::int32_t windowX = window->x;
                 const std::int32_t elementY = elements[firstDigit + digit].y;
                 const std::int32_t elementX = elements[firstDigit + digit].x;
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
             }
             WindowInstance* const window = gCurrentWindow;
@@ -167,7 +168,7 @@ static void* WindowAlbumList_Refresh()
             const std::int32_t windowY = window->y;
             const std::int32_t elementX = elements[firstDigit + 2].x;
             const std::int32_t windowX = window->x;
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
 
             const world::detail::AlbumRecord* const nameRecords = world::detail::GetSelectedAlbumRecords();

@@ -1,3 +1,4 @@
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -103,7 +104,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             -1);
 
         const char* const name = record.name.data();
-        login::detail::DrawText(
+        cg::render::DrawText_456780(
             static_cast<std::int16_t>(coordinates[0].x),
             static_cast<std::int16_t>(coordinates[0].y),
             0,
@@ -165,7 +166,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         style = mode + 1;
     }
 
-    login::detail::DrawText3(30, 450, 0, 4, detail::gText9A4EAC, 0);
+    cg::render::DrawText3_456560(30, 450, 0, 4, detail::gText9A4EAC, 0);
 
     if (state::gPukVersion >= 5u && detail::Sub_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {

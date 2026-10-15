@@ -43,7 +43,7 @@ void RebuildRenderer_466B80()
         static_cast<void>(ResetGraphicCache_456D30());
         static_cast<void>(world::detail::Sub_46BD40());
         world::detail::Sub_46CF60(0);
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             320, 240, 200, world::detail::gBattleBackgroundImage59F9F8, 0, nullptr));
         SortTextures_520790();
         static_cast<void>(ClearSurface_4512C0());

@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "map_render.hpp"
 #include "base.hpp"
 #include "window.hpp"
@@ -440,7 +441,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             stateIndex = payload->textLength24;
             if (stateIndex != 0) {
                 const std::int32_t firstMeasureFont = payload->font28;
-                std::int32_t width = TextMeasure((*drawableText)[0], firstMeasureFont);
+                std::int32_t width = cg::render::TextMeasure((*drawableText)[0], firstMeasureFont);
                 const std::int32_t height = Sub_4417A0(action->imageNo);
                 std::int32_t y = height + action->y - 32;
                 const std::int32_t metricFont = payload->font28;
@@ -449,7 +450,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 if (!(*payload->text1C)[1].empty()) {
                     const std::wstring& secondMeasureText = (*payload->text1C)[1];
                     const std::int32_t secondWidth =
-                        TextMeasure(secondMeasureText, metricFont);
+                        cg::render::TextMeasure(secondMeasureText, metricFont);
                     if (width < secondWidth) {
                         width = secondWidth;
                     }
@@ -463,7 +464,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                     std::memcpy(&actionX, &action->x, sizeof(actionX));
                     const auto x = static_cast<std::int16_t>(
                         static_cast<std::int32_t>(actionX) - width / 2);
-                    DrawText(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
+                    cg::render::DrawText_456780(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                     y -= render::gFontMetrics[payload->font28].doubleHeight;
                 }
                 const std::int32_t halfWidth = width / 2;
@@ -477,7 +478,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 const std::int32_t drawY = y + 4;
                 const auto x = static_cast<std::int16_t>(
                     static_cast<std::int32_t>(actionX) - halfWidth);
-                DrawText(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
+                cg::render::DrawText_456780(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                 const std::int32_t borderActionX = action->x;
                 DrawNineGrid_49BE00(
                     0x3BE84, static_cast<std::int16_t>(borderActionX - halfWidth - 5),
@@ -488,7 +489,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         } else {
             const std::int32_t y = action->y - 84;
             const std::int32_t x = action->x - 20;
-            DrawGraphic(x, y, 0xCE, 0x573F, 0, nullptr);
+            cg::render::DrawGraphic(x, y, 0xCE, 0x573F, 0, nullptr);
         }
     }
 
@@ -525,9 +526,9 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             std::wstring buffer;
             cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text).c_str());
             const auto y = static_cast<std::int16_t>(action->y - 98);
-            const std::int32_t width = TextMeasure(buffer, 1);
+            const std::int32_t width = cg::render::TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
-            DrawText(x, y, 0, 1, color, buffer, 0, 0);
+            cg::render::DrawText_456780(x, y, 0, 1, color, buffer, 0, 0);
         }
     }
 
@@ -754,7 +755,7 @@ std::int32_t ShowHpBar_43DB60(
     const std::int32_t x = action->x + offsetX;
     fields.clip = 0;
     descriptor = ToGraphicDescriptor(fields);
-    return DrawGraphic(x, y, 0xCF, 0x3BDEE, 0, &descriptor);
+    return cg::render::DrawGraphic(x, y, 0xCF, 0x3BDEE, 0, &descriptor);
 }
 
 // 原函数：0x00441130。

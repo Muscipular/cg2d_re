@@ -119,6 +119,9 @@ extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。
 // 原D6976C：S32图形命中索引，初值0；507140生产，战斗/UI消费，不是对象地址。
 extern std::int32_t gHoveredGraphicPendingIndex;
 
+// 原0xD69768：命中处理发布的悬停颜色；角色modal读完整W32，登录消息读低W8。
+extern std::uint32_t gValueD69768;
+
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;
 
@@ -180,6 +183,31 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
 
 // 原 Graphic::LoadPatelet@523140：借用 +22 的 S16 独立调色板索引，保留 0/1/2 返回。
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
+
+// 原函数：0x00521B10。
+std::int32_t DrawGraphic(
+    std::int32_t x,
+    std::int32_t y,
+    std::uint8_t layer,
+    std::int32_t imageNo,
+    std::int32_t value4,
+    const GraphicDescriptor16* descriptor);
+
+// Renderer::DrawGraphic_Hover@0x522180 的还原入口。
+void DrawGraphicHover(
+    std::uint16_t left,
+    std::uint16_t top,
+    std::uint16_t right,
+    std::uint16_t bottom,
+    std::uint8_t layer,
+    std::uint32_t imageNo,
+    std::int32_t step);
+
+// x64 队列适配：以原 DrawGraphic 返回的 legacy 索引写待提交记录的 batchType。
+// index 包括原失败值 -2；调用层不得将其改成数组下标或提前过滤。
+void SetPendingGraphicBatchTypeAtLegacyIndex(
+    std::int32_t index,
+    std::uint8_t type);
 
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(

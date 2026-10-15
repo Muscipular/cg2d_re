@@ -1,5 +1,3 @@
-#include "scene/login/LoginMessageDependencies.hpp"
-
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -242,9 +240,6 @@ std::int32_t DrawGraphic2_521DD0(
     return result;
 }
 
-} // namespace cg::render
-
-namespace cg::login::detail {
 // 原函数：0x00521B10。
 std::int32_t DrawGraphic(
     const std::int32_t x,
@@ -260,8 +255,8 @@ std::int32_t DrawGraphic(
         return -2;
     }
 
-    render::GraphicCacheItem32* const item =
-        render::gLegacyPendingStorage.records.data() + initialCount;
+    GraphicCacheItem32* const item =
+        gLegacyPendingStorage.records.data() + initialCount;
     std::int32_t finalImageNo = imageNo;
     std::int16_t offsetX = 0;
     std::int16_t offsetY = 0;
@@ -274,8 +269,8 @@ std::int32_t DrawGraphic(
             std::bit_cast<std::uint32_t>(finalImageNo), &offsetX, &offsetY);
     }
 
-    render::GraphicCache3* const cache3 =
-        render::gLegacyPendingStorage.cache3.data() + initialCount;
+    GraphicCache3* const cache3 =
+        gLegacyPendingStorage.cache3.data() + initialCount;
     cache3->layer = layer;
     cache3->cacheIndex =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
@@ -288,7 +283,7 @@ std::int32_t DrawGraphic(
     item->imageNo = finalImageNo;
     item->value4 = itemValue4;
     item->reference.action = nullptr;
-    render::CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptor : nullptr);
+    CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptor : nullptr);
 
     const std::uint8_t clip = item->descriptor.clipMode;
     item->batchType = 0;
@@ -297,7 +292,7 @@ std::int32_t DrawGraphic(
     }
     if ((finalImageNo >= 0xC18 && finalImageNo <= 0xC21)
         || (imageNo >= 0x1DF0 && imageNo <= 0x1DFF)) {
-        render::gSpecialGraphicPending = 1;
+        gSpecialGraphicPending = 1;
     }
 
     const std::uint16_t resultBits = platform::gPendingGraphicCount;
@@ -307,4 +302,4 @@ std::int32_t DrawGraphic(
     return result;
 }
 
-} // namespace cg::login::detail
+} // namespace cg::render

@@ -1,3 +1,6 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/CharacterSelectScene.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
@@ -63,7 +66,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
     case 3: {
         gLegacyVersionUpgradeAction = nullptr;
         std::int32_t columns =
-            (login::detail::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
+            (cg::render::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
         if (columns < 2) {
             columns = 2;
         }
@@ -84,8 +87,8 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
                 action,
                 1)) {
             const std::int32_t width =
-                login::detail::TextMeasure(kUpgradeProgressText, 0);
-            login::detail::DrawText(
+                cg::render::TextMeasure(kUpgradeProgressText, 0);
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,
@@ -138,7 +141,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     }
 
-    return login::detail::DrawGraphic(320, 240, 3, 22030, 0, nullptr);
+    return cg::render::DrawGraphic(320, 240, 3, 22030, 0, nullptr);
 }
 
 // 原函数：0x00462330。
@@ -187,7 +190,7 @@ std::int32_t ProcessScene_462330()
     case 3: {
         gVersionUpgradeAction = nullptr;
         std::int32_t columns =
-            (login::detail::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
+            (cg::render::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
         if (columns < 2) {
             columns = 2;
         }
@@ -208,8 +211,8 @@ std::int32_t ProcessScene_462330()
                 action,
                 1)) {
             const std::int32_t width =
-                login::detail::TextMeasure(kUpgradeProgressText, 0);
-            login::detail::DrawText(
+                cg::render::TextMeasure(kUpgradeProgressText, 0);
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,

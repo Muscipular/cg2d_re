@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "window.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -423,7 +424,7 @@ void UpdateModalAction_5046D0(YobiAction* const action)
     auto* const payload = action->payload.windowUi;
 
     if (action->phase == 0) {
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(
                 payload->centerX - payload->currentHalfWidth),
             static_cast<std::uint16_t>(
@@ -487,7 +488,7 @@ void UpdateModalAction_5046D0(YobiAction* const action)
                     imageOffset = column == columnCount - 1 ? 5 : 4;
                 }
 
-                login::detail::DrawGraphic(
+                cg::render::DrawGraphic(
                     drawX,
                     drawY,
                     kModalLayer,
@@ -544,7 +545,7 @@ void Sub_4758D0(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -629,7 +630,7 @@ void Sub_48ABC0(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -732,7 +733,7 @@ void Sub_4ABE60(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -820,7 +821,7 @@ void Sub_4ACDF0(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),

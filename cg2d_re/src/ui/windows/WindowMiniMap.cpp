@@ -1,3 +1,4 @@
+#include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -66,7 +67,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
         if (destination[0] == '\0') {
             const char* const name = world::ReadText9DAD30();
             destination = cg::text::FromGbkWide(name);
-            const std::int32_t measured = login::detail::TextMeasure(cg::text::FromGbkWide(name).c_str(), 12);
+            const std::int32_t measured = cg::render::TextMeasure(cg::text::FromGbkWide(name).c_str(), 12);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t width = window->width;
             WindowElement* const elements = window->elements;

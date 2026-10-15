@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -27,7 +28,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
 {
     if ((state & 1) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t image = login::detail::gValueD69768;
+        const std::uint32_t image = cg::render::gValueD69768;
         WindowElement* const elements = window->elements;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
@@ -35,7 +36,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
         const std::int32_t y = elements[index].y;
         const std::int32_t height = elements[index].height;
         const std::int32_t width = elements[index].width;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(windowX + x - 2),
             static_cast<std::uint16_t>(windowY + y - 2),
             static_cast<std::uint16_t>(width + windowX + x + 2),

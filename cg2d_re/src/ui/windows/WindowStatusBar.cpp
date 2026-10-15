@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -224,7 +225,7 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
         const std::int32_t y = elementY + windowY + 3;
         const std::int32_t windowX = window->x;
         const std::int32_t x = elementX + windowX + (digit == 0 ? -6 : 1);
-        static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
     }
 }
 

@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -531,7 +532,7 @@ static void WindowShop_HandleSaleDrag(
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
         platform::gLegacyMouseState.mouseX.value();
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
 // 原函数：0x004B6DA0。
@@ -2095,11 +2096,11 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::int32_t frame = login::detail::gValueD69768;
+        const std::int32_t frame = cg::render::gValueD69768;
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 3), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + element.width), static_cast<std::uint16_t>(y + element.height),
             223, frame, 0);
@@ -2923,10 +2924,10 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
     }
     const auto* const record = &gShopItemsCF4FE0[item];
     if (record->used == 0) {
@@ -2960,7 +2961,7 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
     const WindowElement& element = window->elements[index];
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
 }
@@ -2986,16 +2987,16 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
 }
@@ -3064,7 +3065,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
             static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
             223, 254, 0);
@@ -3074,20 +3075,20 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
     }
     if ((events & 0x20u) != 0 && WindowDrag_ReadKind() == 9) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
     }
     const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
     if (item < 0) {
@@ -3128,7 +3129,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
     const std::int32_t drawItem = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopItemsCF4FE0[drawItem].imageNo, sizeof(imageNo));
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     return consumed;
 }
@@ -3276,7 +3277,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             const WindowElement& element = window->elements[index];
             const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 2;
             const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 2;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -3288,10 +3289,10 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
         const WindowElement& element = window->elements[index];
         const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 2;
         const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 2;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         const world::detail::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
@@ -3322,12 +3323,12 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
             if (item.itemId == gValueD2D608) {
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                     static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
                     223, 254, 0);
             }
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
@@ -3351,7 +3352,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
             if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << position)) != 0) {
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                     static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
                     223, 256, 0);
@@ -3362,9 +3363,9 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                 ? 0
                 : gShopItemsCF4FE0[mappedItem].allowed;
             if (allowed == 0) {
-                static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
             }
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
@@ -3433,7 +3434,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
             const std::int32_t y = 47 + row * 65;
             const WindowConfirmationItem& item = gConfirmationItemsCB1E40[column * 5 + row];
             if (item.visible != 0) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
@@ -3441,22 +3442,22 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto countFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
                     4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
             }
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

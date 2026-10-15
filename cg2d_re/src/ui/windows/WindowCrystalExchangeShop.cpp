@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
@@ -952,7 +953,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
         const std::int32_t y = element.y + windowY + 24;
         const std::int32_t elementX = element.x;
         const std::int32_t x = elementX + window->x + 24;
-        static_cast<void>(login::detail::DrawGraphic(x, y, 223, 98102, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, 98102, 0, &descriptor));
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
@@ -961,7 +962,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
     const std::int32_t y = element.y + windowY + 24;
     const std::int32_t elementX = element.x;
     const std::int32_t x = elementX + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
 }
 
@@ -1017,7 +1018,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
             const WindowElement& element = window->elements[index];
             const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 2;
             const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 2;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -1029,10 +1030,10 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         const WindowElement& element = window->elements[index];
         const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 2;
         const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 2;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         const world::detail::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             gWindow70Tooltip580860 = hovered + 8;
@@ -1057,12 +1058,12 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         const std::int32_t y = element.y + 50 * (slot / 5) + window->y + 26;
         const std::int32_t itemId = item.itemId;
         if (itemId == gValueD2D608) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                 static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
                 223, 254, 0);
         }
-        static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
@@ -1127,7 +1128,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
             const std::int32_t y = 47 + row * 65;
             const WindowConfirmationItem& item = gWindow70ConfirmItemsCB0AE8[column * 5 + row];
             if (item.visible != 0) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
@@ -1135,22 +1136,22 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto countFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
                     4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
             }
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gWindow70ConfirmHeadingCF4A40, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow70ConfirmQuestionCF4ABC, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gWindow70ConfirmHeadingCF4A40, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow70ConfirmQuestionCF4ABC, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow70ConfirmAmountsD2E290) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

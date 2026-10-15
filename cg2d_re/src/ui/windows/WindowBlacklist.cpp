@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::input {
@@ -191,7 +192,7 @@ static void WindowBlacklist_Refresh()
                 const WindowElement& element = elements[9 + row * 3 + column];
                 const std::int32_t y = element.y + window->y + 4;
                 const std::int32_t x = element.x + window->x + 1;
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     x, y, 223, digit + 0x3B6B4, 0, &descriptor));
             }
             const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;

@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -703,7 +704,7 @@ static void WindowSkill_DrawSkillRow(
     WindowNumber_Draw(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -899,7 +900,7 @@ static void WindowSkill_HandleTechniqueRow(
     }
     const std::int32_t currentKind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -930,7 +931,7 @@ static void WindowSkill_HandleRecipeRow(
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -1296,7 +1297,7 @@ static void WindowSkill_DrawPetSkillRow(
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
@@ -1333,7 +1334,7 @@ static void WindowSkill_DrawRidingSkillRow(
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 

@@ -266,20 +266,15 @@ std::vector<std::wstring> Font::split(const std::wstring_view text, const std::i
     return lines;
 }
 
-} // namespace cg::render
-
-namespace cg::login::detail {
 
 // 原0x0044B260／0x0044B2A0：动态UTF-16正文直接度量。
 std::int32_t MeasureDefaultText_44B260(const std::wstring_view text)
 {
-    return cg::render::Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
+    return Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
 }
 std::int32_t TextMeasure(const std::wstring_view text, const std::int32_t fontType)
 {
-    return cg::render::Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
+    return Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
 }
 
-std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight; // 原全局：0x00558F78。
-
-} // namespace cg::login::detail
+} // namespace cg::render

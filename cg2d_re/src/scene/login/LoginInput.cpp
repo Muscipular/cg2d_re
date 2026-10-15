@@ -278,7 +278,7 @@ void DrawLoginControl_503780(
 
     const std::int32_t drawY = control->drawY;
     const std::int32_t drawX = control->drawX;
-    detail::DrawGraphic(drawX, drawY, layer, imageNo, 1, &descriptor);
+    cg::render::DrawGraphic(drawX, drawY, layer, imageNo, 1, &descriptor);
 
     const std::int32_t sampledState = state;
     if (sampledState == 0) {
@@ -315,7 +315,7 @@ void DrawLoginControl_503780(
     const std::int32_t overlayWidth = control->width;
     const std::int32_t overlayRight = overlayWidth + overlayLeft + 2;
     const std::int32_t overlayDrawLeft = overlayLeft - 2;
-    detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(overlayDrawLeft),
         static_cast<std::uint16_t>(overlayDrawTop),
         static_cast<std::uint16_t>(overlayRight),

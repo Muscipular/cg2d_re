@@ -1,3 +1,5 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/CharacterSelectScene.hpp"
 
 #include "cg/CharacterDeletionRequest.hpp"
@@ -40,7 +42,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
 
     if (stage == 0) {
         const std::uint32_t textWidth =
-            static_cast<std::uint32_t>(login::detail::TextMeasure(kCharacterDeletionProgressText, 0));
+            static_cast<std::uint32_t>(cg::render::TextMeasure(kCharacterDeletionProgressText, 0));
         gCharacterDeletionProgressStage = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
@@ -83,12 +85,12 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         const std::int32_t y = gCharacterDeletionProgressY;
         const std::int32_t verticalHeight = rows * kRowHeight - 16;
         const std::int32_t textY = verticalHeight / 2 + y;
-        const std::int32_t textWidth = login::detail::TextMeasure(kCharacterDeletionProgressText, 0);
+        const std::int32_t textWidth = cg::render::TextMeasure(kCharacterDeletionProgressText, 0);
         const std::int32_t columns = gCharacterDeletionProgressColumns;
         const std::int32_t horizontalWidth = columns * kColumnWidth - textWidth;
         const std::int32_t x = gCharacterDeletionProgressX;
         const std::int32_t textX = horizontalWidth / 2 + x;
-        login::detail::DrawText3(
+        cg::render::DrawText3_456560(
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,

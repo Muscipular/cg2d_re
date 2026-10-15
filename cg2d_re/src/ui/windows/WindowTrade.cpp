@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -1252,7 +1253,7 @@ static void WindowTrade_HandleOwnInventory(
         if (WindowDrag_ReadFocusWindowId() == 43 && WindowDrag_ReadFocusElement() == 11) {
             const std::int32_t left = x + 50 * ((source - 8) % 5) + 13;
             const std::int32_t top = y + 52 * ((source - 8) / 5) + 26;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, 254, 0);
@@ -1262,10 +1263,10 @@ static void WindowTrade_HandleOwnInventory(
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * ((hovered - 8) % 5) + 13;
         const std::int32_t top = y + 52 * ((hovered - 8) / 5) + 26;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[hovered];
         if (item.used != 0) {
             const std::size_t memoLength = item.memo.size();
@@ -1292,23 +1293,23 @@ static void WindowTrade_HandleOwnInventory(
         const std::int32_t centerX = x + 50 * (position % 5) + 37;
         const std::int32_t centerY = y + 52 * (position / 5) + 51;
         if (std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(centerX - 21), static_cast<std::uint16_t>(centerY - 21),
                 static_cast<std::uint16_t>(centerX + 21), static_cast<std::uint16_t>(centerY + 21),
                 223, 251, 0);
         } else if (occupancy[slot] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(centerX - 24), static_cast<std::uint16_t>(centerY - 24),
                 static_cast<std::uint16_t>(centerX + 24), static_cast<std::uint16_t>(centerY + 24),
                 223, 249, 0);
         }
         if ((item.flags & 1u) == 0) {
-            static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, 23040, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, 23040, 0, nullptr));
         }
         const render::GraphicDescriptor16* const mode =
             std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0 || occupancy[slot] != 0
             ? &dimmed : descriptor;
-        static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
+        static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
@@ -1409,7 +1410,7 @@ static void WindowTrade_HandleOwnPets(
             const std::int32_t row = WindowItem_FindSortedPetIndex(source) - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                     223, 254, 0);
@@ -1420,10 +1421,10 @@ static void WindowTrade_HandleOwnPets(
         const std::int32_t row = hovered - scroll;
         if (row >= 0 && row < 3) {
             const std::int32_t top = y + rowY[row];
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
             if (world::detail::gPetRuntimeRecords[petIndex].used != 0) {
                 gTradePreviewCC2E64 = petIndex + 300;
             }
@@ -1435,7 +1436,7 @@ static void WindowTrade_HandleOwnPets(
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         if (std::bit_cast<std::int8_t>(gTradePetMarksCF3AFC[slot]) > 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 238), static_cast<std::uint16_t>(top + 67),
                 223, 251, 0);
@@ -1445,7 +1446,7 @@ static void WindowTrade_HandleOwnPets(
         WindowBank_DrawOwnPetTooltip(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), current, 3);
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             left + 120, top + 35, 223, 243141, 0, descriptor));
     }
 }
@@ -1542,7 +1543,7 @@ static void WindowTrade_HandleOwnItemDrag(
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
         platform::gLegacyMouseState.mouseX.value();
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
 // 原函数：0x004B2E00。
@@ -1585,7 +1586,7 @@ static void WindowTrade_HandleOwnPetDrag(
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
         platform::gLegacyMouseState.mouseX.value();
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
 // 原函数：0x004B2710。
@@ -1630,10 +1631,10 @@ static void WindowTrade_HandleSelectedItem(
             WindowDrag_Reset();
         }
         if ((events & 0x20u) != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
         }
         return;
     }
@@ -1708,7 +1709,7 @@ static void WindowTrade_HandleSelectedItem(
             && world::detail::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(source)].used != 0) {
             const std::int32_t left = x + 50 * (source % 5) + 13;
             const std::int32_t top = y + 52 * (source / 5) + 26;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -1718,10 +1719,10 @@ static void WindowTrade_HandleSelectedItem(
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * (hovered % 5) + 13;
         const std::int32_t top = y + 52 * (hovered / 5) + 26;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         const std::int32_t slot = WindowTrade_ReadSelectedItem(hovered);
         if (slot >= 0) {
             const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
@@ -1758,10 +1759,10 @@ static void WindowTrade_HandleSelectedItem(
         const std::int32_t centerX = x + 50 * (position % 5) + 37;
         const std::int32_t centerY = y + 52 * (position / 5) + 51;
         if ((item.flags & 1u) == 0) {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 centerX, centerY, 223, 23040, 0, nullptr));
         }
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             centerX, centerY, 223, item.imageNo, 0, descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
@@ -1805,10 +1806,10 @@ static void WindowTrade_HandleSelectedPet(
             WindowDrag_Reset();
         }
         if ((events & 0x20u) != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
         }
         return;
     }
@@ -1873,7 +1874,7 @@ static void WindowTrade_HandleSelectedPet(
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                     223, 254, 0);
@@ -1884,10 +1885,10 @@ static void WindowTrade_HandleSelectedPet(
         const std::int32_t row = hovered - scroll;
         if (row >= 0 && row < 3) {
             const std::int32_t top = y + rowY[row];
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
             const std::int32_t slot = WindowTrade_ReadSelectedPet(hovered);
             if (slot >= 0 && world::detail::gPetRuntimeRecords[slot].used != 0) {
                 gTradePreviewCC2E64 = slot + 300;
@@ -1902,7 +1903,7 @@ static void WindowTrade_HandleSelectedPet(
             WindowBank_DrawOwnPetTooltip(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 left + 120, top + 35, 223, 243141, 0, descriptor));
         } else {
             static_cast<void>(render::DrawGraphic3_520970(
@@ -2030,10 +2031,10 @@ static void WindowTrade_HandleRemoteItem(
         if ((state & 1) != 0 && hovered >= 0) {
             const std::int32_t left = x + 50 * (hovered % 5) + 13;
             const std::int32_t top = y + 52 * (hovered / 5) + 25;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
             const auto* const record = &gTradeItemsD460D0[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -2076,12 +2077,12 @@ static void WindowTrade_HandleRemoteItem(
             std::int16_t value02;
             std::memcpy(&value02, &record->selection, sizeof(value02));
             if (value02 < 0) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     centerX, centerY, 223, 23040, 0, nullptr));
             }
             std::int32_t imageNo;
             std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 centerX, centerY, 223, imageNo, 0, descriptor));
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
@@ -2197,7 +2198,7 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return login::detail::DrawGraphic(
+    return cg::render::DrawGraphic(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
@@ -2320,7 +2321,7 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return login::detail::DrawGraphic(
+    return cg::render::DrawGraphic(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
@@ -2437,7 +2438,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return login::detail::DrawGraphic(
+    return cg::render::DrawGraphic(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 

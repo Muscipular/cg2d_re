@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
@@ -215,7 +217,7 @@ std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 // 原函数：0x00455C90。
 std::int32_t Sub_455C90()
 {
-    login::detail::GraphicDescriptor16 descriptor {
+    cg::render::GraphicDescriptor16 descriptor {
         0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
     };
     std::int32_t clicked = 0;
@@ -258,7 +260,7 @@ std::int32_t Sub_455C90()
     }
 
     const std::int32_t row = gDisconnectHeight62B304 / 5;
-    std::int32_t width = login::detail::TextMeasure(gDisconnectText9A4D10, 2);
+    std::int32_t width = cg::render::TextMeasure(gDisconnectText9A4D10, 2);
     const std::int32_t firstWindowWidth = gDisconnectWidth62B32C;
     const std::int32_t firstWindowY = gDisconnectY62B2EC;
     const std::int32_t firstWidthDelta = firstWindowWidth - width;
@@ -283,7 +285,7 @@ std::int32_t Sub_455C90()
         thirdText = L"回到伺服器選擇畫面。";
     }
 
-    width = login::detail::TextMeasure(secondText, 0);
+    width = cg::render::TextMeasure(secondText, 0);
     const std::int32_t secondWindowWidth = gDisconnectWidth62B32C;
     std::int32_t secondWidthDelta;
     std::int32_t secondWindowY;
@@ -302,7 +304,7 @@ std::int32_t Sub_455C90()
         static_cast<std::int16_t>(secondTextY),
         2, 0, 0, secondText, 0, 0));
 
-    width = login::detail::TextMeasure(thirdText, 0);
+    width = cg::render::TextMeasure(thirdText, 0);
     const std::int32_t thirdWindowWidth = gDisconnectWidth62B32C;
     std::int32_t thirdTextX;
     std::int32_t thirdTextY;
@@ -333,7 +335,7 @@ std::int32_t Sub_455C90()
     const std::int32_t imageY = imageWindowY + 4 * row + 9;
     const std::int32_t imageWindowX = gDisconnectX62B390;
     const std::int32_t imageX = (imageWindowWidth >> 1) + imageWindowX;
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         imageX, imageY, 0xDF, imageNo, 0, &descriptor));
     return clicked;
 }

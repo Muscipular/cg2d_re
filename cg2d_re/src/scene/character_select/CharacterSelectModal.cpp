@@ -1,3 +1,6 @@
+#include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include <string>
 
@@ -59,15 +62,15 @@ std::int32_t ProcessCharacterModal_462090(
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        login::detail::gValueD69768,
+        cg::render::gValueD69768,
         std::uint8_t{214});
 
     std::wstring textBuffer;
     std::int32_t textWidth;
 
     textBuffer = L"無法刪除家族負責人。" /* 原地址：0x55CDEC */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 76),
         2,
@@ -78,8 +81,8 @@ std::int32_t ProcessCharacterModal_462090(
         0);
 
     textBuffer = L"若要解散家族，" /* 原地址：0x55CDDC */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 44),
         2,
@@ -90,8 +93,8 @@ std::int32_t ProcessCharacterModal_462090(
         0);
 
     textBuffer = L"請在退出此家族之後，" /* 原地址：0x55CDC4 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 20),
         2,
@@ -102,8 +105,8 @@ std::int32_t ProcessCharacterModal_462090(
         0);
 
     textBuffer = L"再進行刪除。" /* 原地址：0x55CDB4 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y + 4),
         2,

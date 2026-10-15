@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "WindowRuntimeInternal.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
@@ -1114,7 +1116,7 @@ static std::int32_t WindowPet_DrawTooltip(
             }
         }
     }
-    return login::detail::DrawGraphic(
+    return cg::render::DrawGraphic(
         originX + 150, originY + 24, graphicLayer, 243140, 0, &descriptor);
 }
 
@@ -1189,7 +1191,7 @@ static void WindowPetDrag_Handle(
             platform::gLegacyMouseState.mouseY.value();
         const std::int32_t x =
             platform::gLegacyMouseState.mouseX.value();
-        static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && WindowItem_ClassifyPetSlot(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             platform::gLegacyMouseState.mouseX.value()));
@@ -1293,7 +1295,7 @@ static void WindowItemDrag_Handle(
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t x =
         platform::gLegacyMouseState.mouseX.value();
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
 // IDE01：原九条；mode S32先写再真实kind2调用/结果透传，正确正文保，十三父/owner/运行待。
@@ -1345,7 +1347,7 @@ std::uint8_t WindowInput_HandleNumber(
             }
             const auto* const digitDescriptor = &descriptor;
             const std::int32_t digitImage = gNumericKeyImages54F030[digit][imageState];
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 left + 10, bottom - 9, layer, digitImage, 0, digitDescriptor));
         }
     }
@@ -1359,7 +1361,7 @@ std::uint8_t WindowInput_HandleNumber(
     }
     const std::int32_t zeroImage = gNumericKeyImages54F030[0][imageState];
     const auto* const zeroDescriptor = &descriptor;
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 10, y + 68, layer, zeroImage, 0, zeroDescriptor));
     imageState = 0;
     if (hit(x + 48, y + 58, x + 69, y + 77)) {
@@ -1389,7 +1391,7 @@ std::uint8_t WindowInput_HandleNumber(
     }
     const std::int32_t confirmImage = gNumericKeyImages54F030[13][imageState];
     const auto* const confirmDescriptor = &descriptor;
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         x + 58, y + 68, layer, confirmImage, 0, confirmDescriptor));
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t centerY = y + 28 + row * 20;
@@ -1403,7 +1405,7 @@ std::uint8_t WindowInput_HandleNumber(
         }
         const auto* const operationDescriptor = &descriptor;
         const std::int32_t operationImage = gNumericKeyImages54F030[row + 10][imageState];
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             x + 87, centerY, layer, operationImage, 0, operationDescriptor));
     }
     if ((flags & 2u) != 0) {
@@ -1495,7 +1497,7 @@ std::int32_t WindowItem_SplitTooltipLines(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
             renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
             color, prefix, value7, marker));
-        x += login::detail::TextMeasure(prefix, fontType);
+        x += cg::render::TextMeasure(prefix, fontType);
         text.remove_prefix(delimiter + 2);
         if (next != L'$') {
             const std::int32_t digit = next - L'0';
@@ -1919,7 +1921,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         const std::int32_t firstElementX = firstElement->x;
         const std::int32_t firstY = firstElementY + firstWindowY + 180;
         const std::int32_t firstX = firstElementX + firstWindowX + 85;
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             firstX, firstY, 223, firstImage, 0, descriptor));
         const std::int32_t secondIndex = state->imageIndex3F4;
         const WindowElement* const secondElement = state->elements00[1];
@@ -1931,7 +1933,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         const std::int32_t secondWindowX = secondWindow->x;
         const std::int32_t secondY = secondElementY + secondWindowY + 180;
         const std::int32_t secondX = secondElementX + secondWindowX + 118;
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             secondX, secondY, 223, secondImage, 0, descriptor));
         static_cast<void>(WindowItemSelector_DrawPreview(state));
         break;
@@ -1973,7 +1975,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     nameData->text = cg::text::FromGbkWide(name);
     const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->style.font);
     const std::wstring& nameText = nameData->text;
-    const std::int32_t nameWidth = login::detail::TextMeasure(nameText, nameFont);
+    const std::int32_t nameWidth = cg::render::TextMeasure(nameText, nameFont);
     nameElement->x = state->elements00[1]->x - nameWidth / 2 + 101;
     WindowElement* const weightElement = state->elements00[8];
     const std::int32_t maximumWeight = pet->values6D8[2];
@@ -1982,7 +1984,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     cg::text::FormatTo(weightData->text, L"負重:{:3}/{:3}", weight, maximumWeight);
     const std::wstring& weightText = weightData->text;
     const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->style.font);
-    const std::int32_t weightWidth = login::detail::TextMeasure(weightText, weightFont);
+    const std::int32_t weightWidth = cg::render::TextMeasure(weightText, weightFont);
     weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;
 }
 
@@ -2019,10 +2021,10 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
     const std::int32_t windowY = verticalWindow->y;
     const std::int32_t elementY = verticalElement->y;
     const std::int32_t top = localY + (windowY + elementY) - 24;
-    login::detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-        223, login::detail::gValueD69768, 0);
+        223, cg::render::gValueD69768, 0);
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     std::int32_t slot;
     world::detail::PlayerItemRecord* item;
@@ -2041,29 +2043,29 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
         const auto* const occupancy =
             reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
         if (occupancy[slot] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, 249, 0);
             if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[1]));
         } else {
             reinterpret_cast<unsigned char*>(&state->descriptors3B8[2].color)[3] = 5 * state->hoverCount3A8 >= 256
                 ? 0xFF : static_cast<std::uint8_t>(
                     5 * (*reinterpret_cast<const unsigned char*>(&state->hoverCount3A8)));
             if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
-                static_cast<void>(login::detail::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[2]));
         }
     }
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         left + 24, top + 24, 223, 243139, 0, &state->descriptors3B8[0]));
     const std::int32_t hovered = state->hoverIndex3F8;
     if (state->hoverIndex3B0 == hovered) {
@@ -2210,7 +2212,7 @@ bool WindowItemSelector_HandleTab(
     if ((page == 2 || page == 3) && std::bit_cast<std::int8_t>(*state->mode68) == tab) {
         const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
         const std::int32_t image = images54F5F4[tab * 4 + (hovered ? 3 : 1)];
-        static_cast<void>(login::detail::DrawGraphic(x, y, 223, image, 0, descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, image, 0, descriptor));
     }
     std::int32_t imageIndex;
     if ((events & 8) != 0) {
@@ -2423,7 +2425,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
     const WindowInstance* const window = gCurrentWindow;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    static_cast<void>(login::detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         elementX + windowX + 121, elementY + windowY + 118,
         223, 98244, 0, descriptor));
     // 4C7643/4C7696/4C7777三种坐标取样序，仅用于本属性页绘制。
@@ -3502,7 +3504,7 @@ void WindowNumber_Draw(
             }
             imageNo = kNumberSymbolImages54F1A8[style * 13 + color] + symbol;
         }
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             drawX, drawY, layer, imageNo, 0, &descriptor));
     };
 
@@ -3723,7 +3725,7 @@ void WindowElement_DrawHoverFrame(
     const std::int32_t top = window->y + element->y - 1;
     const std::int32_t bottom = element->height + top + 2;
     const std::int32_t right = element->width + left + 2;
-    login::detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
         0xDF, imageNo, 0);

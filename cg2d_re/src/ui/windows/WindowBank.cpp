@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -778,7 +779,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
             const WindowElement& element = window->elements[index];
             const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 13;
             const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 26;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -789,10 +790,10 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         const WindowElement& element = window->elements[index];
         const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 13;
         const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 26;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind() == 2 && WindowDrag_ReadSourceIndex() >= 100) {
@@ -815,16 +816,16 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         const std::int32_t x = element.x + 50 * (position % 5) + window->x + 37;
         const std::int32_t y = element.y + 52 * (position / 5) + window->y + 51;
         if ((item.flags & 0x60u) != 0) {
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
         }
         if (occupancy[position + 8] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                 223, 249, 0);
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         }
         const std::int32_t count = item.count;
         if (count > 0) {
@@ -969,7 +970,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 26;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -984,10 +985,10 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         const std::int32_t elementY = element.y;
         const std::int32_t windowY = window->y;
         const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 26;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, login::detail::gValueD69768, 0);
+            223, cg::render::gValueD69768, 0);
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
@@ -1016,7 +1017,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         const std::int32_t y = elementY + 52 * (position / 5) + windowY + 51;
         std::int32_t imageNo;
         std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-        static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
         std::int32_t count;
         std::memcpy(&count, &record->count, sizeof(count));
         if (count > 0) {
@@ -1132,7 +1133,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
                         const std::int32_t y = window->y;
                         const std::int32_t x = window->x;
                         const WindowElement& element = window->elements[elementIndex];
-                        login::detail::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(x + element.x + 2),
                             static_cast<std::uint16_t>(y + element.y + 2),
                             static_cast<std::uint16_t>(x + element.width + element.x - 2),
@@ -1226,14 +1227,14 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
     }
     drawDragSource();
     if (hover) {
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (pet.used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
         }
     }
     if ((events & 0x20u) != 0) {
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (WindowDrag_ReadKind() == 3 && WindowDrag_ReadSourceIndex() >= 100) {
             const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
@@ -1352,7 +1353,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
                     const std::int32_t y = window->y;
                     const std::int32_t x = window->x;
                     const WindowElement& element = window->elements[row + 17];
-                    login::detail::DrawGraphicHover(
+                    cg::render::DrawGraphicHover(
                         static_cast<std::uint16_t>(x + element.x + 2),
                         static_cast<std::uint16_t>(y + element.y + 2),
                         static_cast<std::uint16_t>(x + element.width + element.x - 2),
@@ -1365,13 +1366,13 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
     if (hover) {
         std::memcpy(&used, record, sizeof(used));
         if (used != 0) {
-            const std::uint32_t imageNo = login::detail::gValueD69768;
+            const std::uint32_t imageNo = cg::render::gValueD69768;
             WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
         }
     }
     if ((events & 0x20u) != 0) {
-        const std::uint32_t imageNo = login::detail::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gValueD69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
     }
     const WindowInstance* const window = gCurrentWindow;

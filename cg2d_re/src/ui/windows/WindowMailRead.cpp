@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -380,7 +381,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     const WindowInstance* const firstWindow = gCurrentWindow;
     const std::int32_t firstY = firstWindow->y;
     const std::int32_t firstX = firstWindow->x;
-    static_cast<void>(login::detail::DrawGraphic(firstX + 202, firstY + 216, 223, 0x3BD32, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(firstX + 202, firstY + 216, 223, 0x3BD32, 0, &descriptor));
     std::int32_t image;
     const WindowInstance* window;
     if (kind == std::byte{0}) {
@@ -403,7 +404,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     }
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    static_cast<void>(login::detail::DrawGraphic(x + 202, y + 216, 223, image, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x + 202, y + 216, 223, image, 0, &descriptor));
     return 1;
 }
 

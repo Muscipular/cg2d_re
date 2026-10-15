@@ -121,11 +121,11 @@ std::int32_t FadeInLoading_458390()
         }
         if (firstFrame) {
             static_cast<void>(render::SelectPalette(palette, 30));
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
             firstFrame = false;
         } else {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
@@ -133,7 +133,7 @@ std::int32_t FadeInLoading_458390()
         }
         AdvanceLoadingFadeFrame();
         if (!keepRunning) {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
             static_cast<void>(render::ClearSurface_4512C0());
             render::DrawAllQueued_520DD0();
@@ -155,12 +155,12 @@ std::int32_t FadeOutLoading_4585F0()
             return 0;
         }
         if (firstFrame) {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
             static_cast<void>(render::SelectPalette(19, 30));
             firstFrame = false;
         } else {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
@@ -239,7 +239,7 @@ int InitializeClient_4576B0()
     if (drawCursor != 0) {
         const std::int32_t y = (gLegacyMouseState.mouseY + 16);
         const std::int32_t x = (gLegacyMouseState.mouseX + 16);
-        static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;
     if (initialization_detail::InitLoading_457B10() == 0) {

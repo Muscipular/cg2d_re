@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -406,7 +407,7 @@ static std::int32_t WindowContacts_Refresh()
             const std::int32_t y = window->y + anchorY - 5;
             const std::int32_t windowX = window->x;
             const std::int32_t anchorX = kMailImageAnchors56F790[row][0];
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
             nameData->text = cg::text::FromGbkWide(record.name);
@@ -1071,7 +1072,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         const std::int32_t firstElementX = firstElements[index].x;
         const std::int32_t firstY = firstElementY + firstWindowY + 55;
         const std::int32_t firstWindowX = firstWindow->x;
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
 
         // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
@@ -1083,7 +1084,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         const std::int32_t y = elementY + windowY + 55;
         const std::int32_t elementX = element->x;
         const std::int32_t windowX = currentWindow->x;
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             elementX + windowX + 182, y, 223, image, 0, &descriptor));
         consumed = 1;
     }

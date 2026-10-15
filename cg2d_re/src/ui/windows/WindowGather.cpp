@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -741,13 +742,13 @@ static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const
         const WindowElement* const element = &window->elements[index];
         const std::int32_t y = element->y + window->y + 24;
         const std::int32_t x = element->x + window->x + 24;
-        static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, resultImage, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, resultImage, 0, &descriptor));
     }
     WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
     const std::int32_t y = element->y + window->y + 24;
     const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, 0x3B5C3, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, 0x3B5C3, 0, &descriptor));
     return 0;
 }
 

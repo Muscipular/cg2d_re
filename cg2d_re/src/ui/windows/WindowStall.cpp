@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -1046,7 +1048,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const std::int32_t width = login::detail::TextMeasure(gStallMessageC8A978, 0);
+    const std::int32_t width = cg::render::TextMeasure(gStallMessageC8A978, 0);
     WindowInstance* window = gCurrentWindow;
     const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
     const auto textX = static_cast<std::int16_t>(window->x + (window->width - width) / 2);
@@ -1061,7 +1063,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
         window = gCurrentWindow;
         const std::int32_t buttonY = window->height / 2 + window->y + 27;
         const std::int32_t buttonX = window->x + window->width / 2;
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             buttonX, buttonY, 227, hit ? 243050 : 243048, 0, &descriptor));
         if (hit && (state & 2) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -1099,7 +1101,7 @@ static std::int32_t WindowStall_DrawPetSkills(
     }
     const std::int32_t shortY = static_cast<std::int16_t>(y);
     const std::int32_t shortX = static_cast<std::int16_t>(x);
-    return login::detail::DrawGraphic(shortX + 105, shortY + 8, 230, 243100, 0, &descriptor);
+    return cg::render::DrawGraphic(shortX + 105, shortY + 8, 230, 243100, 0, &descriptor);
 }
 
 // 原函数：0x004D0A80。
@@ -1256,10 +1258,10 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
             const WindowElement& element = window->elements[index];
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 240), static_cast<std::uint16_t>(y + 90),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -1279,7 +1281,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
             const WindowElement& element = window->elements[index];
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 238), static_cast<std::uint16_t>(y + 88),
                 223, 254, 0);
@@ -1423,10 +1425,10 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
                 const WindowElement& element = window->elements[index];
                 const std::int32_t y = window->y + element.y;
                 const std::int32_t x = window->x + element.x;
-                login::detail::DrawGraphicHover(
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                     static_cast<std::uint16_t>(x + 231), static_cast<std::uint16_t>(y + 48),
-                    223, login::detail::gValueD69768, 0);
+                    223, cg::render::gValueD69768, 0);
                 consumed = 1;
             }
             if ((state & 2) != 0) {
@@ -1442,7 +1444,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
             const WindowElement& element = window->elements[index];
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 229), static_cast<std::uint16_t>(y + 46),
                 223, 254, 0);
@@ -1463,7 +1465,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         const WindowElement& element = window->elements[index];
         const std::int32_t y = window->y + element.y;
         const std::int32_t x = window->x + element.x;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
             static_cast<std::uint16_t>(x + 229), static_cast<std::uint16_t>(y + 46),
             223, 256, 0);
@@ -1545,10 +1547,10 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
             const WindowElement& element = window->elements[index];
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, login::detail::gValueD69768, 0);
+                223, cg::render::gValueD69768, 0);
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -1568,7 +1570,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
             const WindowElement& element = window->elements[index];
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
                 223, 254, 0);
@@ -1617,7 +1619,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     const std::int32_t imageNo = item->imageNo;
     const std::int32_t y = element.y + window->y + 24;
     const std::int32_t x = element.x + window->x + 24;
-    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
 }
 
@@ -1643,7 +1645,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         if (gStallOwn58111C != 0 && gStallItemUsedCC31AC[slot] != 0) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
                 223, 256, 0);
@@ -1663,10 +1665,10 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                 }
                 if (gStallItemUsedCC31AC[slot] == 0 && (item->flags & 0x60u) == 0) {
                     if ((state & 1) != 0) {
-                        login::detail::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                            223, login::detail::gValueD69768, 0);
+                            223, cg::render::gValueD69768, 0);
                     }
                     if (gStallOwn58111C != 0) {
                         if ((state & 2) != 0) {
@@ -1689,7 +1691,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             gStallHover581120 = slot + 8;
         }
         if (gStallOwn58111C != 0 && gValueD67BE0 == 0 && slot == gStallItemSelection581124) {
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
                 223, 254, 0);
@@ -1702,9 +1704,9 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                 3, 1, 1, buffer, 0, 0));
         }
         if (gStallOwn58111C != 0 && (item->flags & 0x60u) != 0) {
-            static_cast<void>(login::detail::DrawGraphic(x + 24, y + 24, 223, 23040, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x + 24, y + 24, 223, 23040, 0, &descriptor));
         }
-        static_cast<void>(login::detail::DrawGraphic(x + 24, y + 24, 223, item->imageNo, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x + 24, y + 24, 223, item->imageNo, 0, &descriptor));
     }
     return (state & 0x21) != 0 ? 1 : 0;
 }
@@ -1773,7 +1775,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
             imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
         }
         if (imageState >= 0) {
-            static_cast<void>(login::detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 left + 10, top + 10, 227, gNumericKeyImages54F030[digit][imageState], 0, &descriptor));
         }
     }
@@ -1785,7 +1787,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             x + 103, y + 74, 227, gNumericKeyImages54F030[10][imageState], 0, &descriptor));
     }
     imageState = 0;
@@ -1796,7 +1798,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             x + 103, y + 114, 227, gNumericKeyImages54F030[12][imageState], 0, &descriptor));
     }
     imageState = 1;
@@ -1815,7 +1817,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         }
     }
     if (imageState >= 0) {
-        static_cast<void>(login::detail::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(
             x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
     }
     std::wstring buffer;
@@ -1918,7 +1920,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, nameLine, 0, 0));
-        static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
         cg::text::FormatTo(buffer, L"{}", gStallBrowseData->itemValuesD13E74[gStallItemSelection581124 - 20]);
         WindowNumber_Draw(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;

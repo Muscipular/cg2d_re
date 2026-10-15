@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -84,19 +85,19 @@ void DrawCandidateEntry(
     const std::int32_t fontType = context->field13C;
     const std::int32_t height = render::gFontMetrics[static_cast<std::size_t>(fontType)].doubleHeight;
     const std::wstring number = std::to_wstring(std::bit_cast<std::int32_t>(pageIndex + 1U));
-    const std::int32_t numberWidth = login::detail::TextMeasure(number, fontType);
+    const std::int32_t numberWidth = cg::render::TextMeasure(number, fontType);
     const std::int32_t left = (context->x + targetStart) + oldUnits;
     const std::int32_t top = context->y + height;
     static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
     const CANDIDATELIST* const candidateList = CurrentCandidateList();
     const std::wstring body = CandidateText(candidateList, pageIndex);
-    const std::int32_t bodyWidth = login::detail::TextMeasure(body.c_str(), fontType);
+    const std::int32_t bodyWidth = cg::render::TextMeasure(body.c_str(), fontType);
     const std::int32_t bodyX = left + numberWidth + 10;
     static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(bodyX), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, body.c_str(), 0));
     units = oldUnits + numberWidth + bodyWidth + 15;
     const CANDIDATELIST* const selectionList = CurrentCandidateList();
     const bool selected = selectionList->dwSelection == selectionList->dwPageStart + pageIndex;
-    login::detail::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
+    cg::render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
         selected ? std::uint8_t{0xD9} : std::uint8_t{0xD8}, selected ? 0U : 252U, 1);
 }
 
@@ -198,7 +199,7 @@ void RenderInput_4590E0()
         static_cast<std::int8_t>(compositionFontType), 0, platform::gImeComposition, 0));
 
     input::InputContext* const measureContext = input::gCurrentInputData;
-    const std::int32_t compositionWidth = login::detail::TextMeasure(
+    const std::int32_t compositionWidth = cg::render::TextMeasure(
         platform::gImeComposition, measureContext->field13C);
     input::InputContext* const boxContext = input::gCurrentInputData;
     const std::int32_t boxY = boxContext->y;
@@ -206,7 +207,7 @@ void RenderInput_4590E0()
     const std::int32_t boxFontType = boxContext->field13C;
     const std::int32_t boxHeight = render::gFontMetrics[
         static_cast<std::size_t>(boxFontType)].doubleHeight;
-    login::detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(boxX - 1), static_cast<std::uint16_t>(boxY - 1),
         static_cast<std::uint16_t>(boxX + compositionWidth), static_cast<std::uint16_t>(boxY + boxHeight),
         baseLayer, 1, 1);
@@ -237,7 +238,7 @@ void RenderInput_4590E0()
         const std::int32_t highlightFontType = highlightContext->field13C;
         const std::int32_t highlightHeight = render::gFontMetrics[
             static_cast<std::size_t>(highlightFontType)].doubleHeight;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>((highlightX + targetStart) - 1),
             static_cast<std::uint16_t>(highlightY - 1),
             static_cast<std::uint16_t>(highlightX + scannedWidth),

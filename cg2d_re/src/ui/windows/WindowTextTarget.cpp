@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -353,7 +354,7 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
         return 0;
     }
     if ((state & 1) != 0) {
-        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, login::detail::gValueD69768);
+        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
         gHoverTextD68AE8 = L"選擇此人物。";
     }
     if ((state & 2) != 0) {

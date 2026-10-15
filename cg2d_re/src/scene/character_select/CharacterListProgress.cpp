@@ -1,3 +1,5 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include <string>
 
@@ -44,7 +46,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     if (stage == 0) {
         gCharacterListProgressText = L"登入成功，開始計費！" /* 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。 */;
         const std::uint32_t textWidth =
-            static_cast<std::uint32_t>(login::detail::TextMeasure(gCharacterListProgressText, 0));
+            static_cast<std::uint32_t>(cg::render::TextMeasure(gCharacterListProgressText, 0));
         const std::int32_t columns =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
         gCharacterListProgressStage = 1;
@@ -88,12 +90,12 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         const std::int32_t y = gCharacterListProgressY;
         const std::int32_t textY = verticalHeight / 2 + y;
         const std::int32_t columns = gCharacterListProgressColumns;
-        const std::int32_t textWidth = login::detail::TextMeasure(gCharacterListProgressText, 0);
+        const std::int32_t textWidth = cg::render::TextMeasure(gCharacterListProgressText, 0);
         const std::int32_t horizontalWidth =
             columns * kColumnWidth - textWidth;
         const std::int32_t x = gCharacterListProgressX;
         const std::int32_t textX = horizontalWidth / 2 + x;
-        login::detail::DrawText3(
+        cg::render::DrawText3_456560(
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,

@@ -1,3 +1,4 @@
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -337,9 +338,9 @@ std::int32_t GetServerAddressInfo_507D90(
     }
 
     const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
-    std::strcpy(serverAddress, record.address.data());
+    std::strcpy(serverAddress, reinterpret_cast<const char*>(record.opaque.data()));
     *port = static_cast<std::uint16_t>(
-        std::atoi(record.portText.data()));
+        std::atoi(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
     return 0;
 }
 
@@ -669,7 +670,7 @@ std::int32_t ProcessScene_45FEA0()
     static_cast<void>(render::HasLegacy3DDevice_44B610());
     detail::Sub_45F090(49, 67, 3, 0x3BEA3, 0, -1);
     detail::Sub_45F090(0, 0, 3, 0x3BEA2, 0, -1);
-    return detail::DrawText3(540, 424, 0, 0, kVersion, 0);
+    return cg::render::DrawText3_456560(540, 424, 0, 0, kVersion, 0);
 }
 
 } // namespace cg::login

@@ -144,7 +144,7 @@ YobiAction* NewBattleText_4217F0(
     }
     std::int32_t width = 80;
     if (longestIndex >= 0) {
-        width = TextMeasure(cg::text::FromGbkWide(payload->lines04[longestIndex]), payload->fontType0C) + 80;
+        width = cg::render::TextMeasure(cg::text::FromGbkWide(payload->lines04[longestIndex]), payload->fontType0C) + 80;
     }
     const std::int32_t count = payload->lineCount08;
     std::int32_t height = 80;
@@ -365,7 +365,7 @@ std::int32_t NewBattleNumber_41F1A0(
             buffer += L"-";
         }
     }
-    const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
+    const std::int32_t halfWidth = cg::render::MeasureDefaultText_44B260(buffer) / 2;
     const std::int32_t length = static_cast<std::int32_t>(buffer.size());
     for (std::int32_t index = 0; index < length; ++index) {
         YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -426,7 +426,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const char* const prefix = seconds < 0 ? "-" : "";
     char buffer[256];
     std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
-    const std::int32_t halfWidth = MeasureDefaultText_44B260(cg::text::FromGbkWide(buffer)) / 2;
+    const std::int32_t halfWidth = cg::render::MeasureDefaultText_44B260(cg::text::FromGbkWide(buffer)) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {
         const std::int8_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));

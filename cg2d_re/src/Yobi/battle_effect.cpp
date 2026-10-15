@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "battle_effect.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
@@ -983,7 +984,7 @@ std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
     for (std::int32_t x = 0; x < 640; x += 64) {
         for (std::int32_t y = 0; y < 480; y += 48) {
             const std::int32_t image = kBattleTiledEffectImages553A74[row + gBattleTiledEffectPhase59F9EC];
-            result = DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr);
+            result = cg::render::DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr);
         }
     }
     return result;
@@ -1012,7 +1013,7 @@ void UpdateBattleTiledEffect_41E920(YobiAction* const action)
             const std::int32_t type = action->phase;
             const std::int32_t phase = action->field58;
             const std::int32_t image = kBattleTiledEffectImages553A74[type * 16 + phase];
-            static_cast<void>(DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr));
         }
     }
     auto* const count = &action->readiness;

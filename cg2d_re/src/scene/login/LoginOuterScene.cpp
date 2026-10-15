@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -43,17 +44,17 @@ void ProcessOuterScene_45C2D0()
             gValue9A6E24 = nullptr;
             world::gCurrentSceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
-            static_cast<void>(detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr));
             static_cast<void>(detail::MarkDeath(gValue9A6E24));
             InitializeInputContexts_45C7C0();
             world::gCurrentSceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
-            static_cast<void>(detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr));
             break;
         case 6:
-            static_cast<void>(detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr));
             break;
         case 7:
@@ -81,7 +82,7 @@ void ProcessOuterScene_45C2D0()
             }
             break;
         case 10:
-            static_cast<void>(detail::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr));
             if (render::gPaletteChanging == 0) {
                 static_cast<void>(world::SetCurrentSceneType(2));

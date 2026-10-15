@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
@@ -91,7 +92,7 @@ std::int32_t ProcessCapability4Input_464E30()
 
     const std::int32_t measureFontType =
         input::gCurrentInputData->field13C;
-    const std::int32_t compositionWidth = detail::TextMeasure(
+    const std::int32_t compositionWidth = cg::render::TextMeasure(
         platform::gImeComposition,
         measureFontType);
     input::InputContext* const drawContext = input::gCurrentInputData;
@@ -102,7 +103,7 @@ std::int32_t ProcessCapability4Input_464E30()
         drawX + compositionWidth;
     const std::int32_t compositionBottom = drawY
         + render::gFontMetrics.data()[drawFontType].doubleHeight;
-    detail::DrawGraphicHover(
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(drawX - 1),
         static_cast<std::uint16_t>(drawY - 1),
         static_cast<std::uint16_t>(compositionRight),
@@ -366,14 +367,14 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
                 < static_cast<std::int32_t>(kBackgroundImages.size())
         ? static_cast<std::size_t>(rawBackgroundIndex)
         : std::size_t{0};
-    static_cast<void>(detail::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(
         320,
         240,
         3,
         kBackgroundImages[backgroundIndex],
         0,
         nullptr));
-    static_cast<void>(detail::DrawText3(
+    static_cast<void>(cg::render::DrawText3_456560(
         540, 424, 0, 0, kVersion, 0));
     return result;
 }

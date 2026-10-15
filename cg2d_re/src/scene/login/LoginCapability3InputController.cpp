@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
@@ -70,7 +71,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
     if (mode < 2) {
         const std::int32_t measureFontType =
             input::gCurrentInputData->field13C;
-        const std::int32_t compositionWidth = detail::TextMeasure(
+        const std::int32_t compositionWidth = cg::render::TextMeasure(
             platform::gImeComposition,
             measureFontType);
         input::InputContext* const drawContext = input::gCurrentInputData;
@@ -80,7 +81,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         const std::int32_t compositionRight = drawX + compositionWidth;
         const std::int32_t compositionBottom = drawY
             + render::gFontMetrics.data()[drawFontType].doubleHeight;
-        detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(drawX - 1),
             static_cast<std::uint16_t>(drawY - 1),
             static_cast<std::uint16_t>(compositionRight),

@@ -1,3 +1,5 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 
@@ -30,7 +32,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
 {
     std::int32_t result = 0;
     bool hovered = false;
-    const login::detail::GraphicDescriptor16 graphicDescriptor {
+    const cg::render::GraphicDescriptor16 graphicDescriptor {
         0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
     };
 
@@ -90,7 +92,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
     const std::int32_t textXOrigin = gAuthenticationFailureX;
     const std::int32_t textY = textYOrigin + 20;
     const std::int32_t textX = textXOrigin + 140;
-    login::detail::DrawText3(
+    cg::render::DrawText3_456560(
         static_cast<std::int16_t>(textX),
         static_cast<std::int16_t>(textY),
         2,
@@ -104,7 +106,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
     const std::int32_t graphicHalfWidth = graphicWidth >> 1;
     const std::int32_t graphicY = graphicYOrigin + 123;
     const std::int32_t graphicX = graphicHalfWidth + graphicXOrigin;
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         graphicX,
         graphicY,
         std::uint8_t{0xDF},

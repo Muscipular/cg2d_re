@@ -1,3 +1,5 @@
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -1990,11 +1992,11 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     }
     if ((state & 1) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::int32_t hoverImage = login::detail::gValueD69768;
+        const std::int32_t hoverImage = cg::render::gValueD69768;
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + element.width),
             static_cast<std::uint16_t>(y + element.height), 223, hoverImage, 0);
@@ -2052,7 +2054,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
             static_cast<std::uint16_t>(x + element.width - 2),
             static_cast<std::uint16_t>(y + element.height - 2), 223, 254, 0);
@@ -2111,12 +2113,12 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     constexpr wchar_t learnSuffix5882E8[] = L"來學習。";
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"學習『{}』" /* 原常量参考：0x00588344。 */, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
-    std::int32_t width = login::detail::TextMeasure(buffer, 0);
+    std::int32_t width = cg::render::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"讓『{}』" /* 原常量参考：0x00588338。 */, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
-    width = login::detail::TextMeasure(L"讓『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
+    width = cg::render::TextMeasure(L"讓『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
@@ -2125,10 +2127,10 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     } else {
         buffer = L"使用『空欄位』的位置" /* 原常量参考：0x005882F4。 */;
     }
-    width = login::detail::TextMeasure(buffer, 0);
+    width = cg::render::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 178, 4, 0, 0, buffer, 0, 0));
-    width = login::detail::TextMeasure(learnSuffix5882E8, 0);
+    width = cg::render::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
     cg::text::FormatTo(buffer, L"所持金　 {:7}金幣" /* 原常量参考：0x005882D4。 */, world::detail::gPlayerRuntimeSlots.valueFC);

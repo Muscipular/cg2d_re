@@ -1,3 +1,6 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
@@ -212,7 +215,7 @@ std::int32_t Sub_45E7D0()
     const std::wstring_view text = L"創造角色中" /* 原常量参考：0x0055C9C0。 */;
     if (gCreationRequestProgress.phase == 0) {
         gCreationRequestProgress.phase = 1;
-        const auto textWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(text, 0));
+        const auto textWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(text, 0));
         std::int32_t columns = std::bit_cast<std::int32_t>((textWidth + 63U) >> 6);
         gCreationRequestProgress.columns = columns;
         if (columns < 2) {
@@ -250,12 +253,12 @@ std::int32_t Sub_45E7D0()
         const std::int32_t unscaledY = 48 * rows - 16;
         const std::int32_t top = gCreationRequestProgress.y;
         const std::int32_t y = unscaledY / 2 + top;
-        const auto textWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(text, 0));
+        const auto textWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(text, 0));
         const std::int32_t columns = gCreationRequestProgress.columns;
         const std::int32_t unscaledX = 64 * columns - static_cast<std::int32_t>(textWidth);
         const std::int32_t left = gCreationRequestProgress.x;
         const std::int32_t x = unscaledX / 2 + left;
-        login::detail::DrawText3(
+        cg::render::DrawText3_456560(
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
     }
     return 0;
@@ -574,23 +577,23 @@ std::int32_t Sub_462930()
     }
 
     const auto& selectedPosition = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gValue9A4CFC)];
-    login::detail::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
+    cg::render::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
     if (render::HasLegacy3DDevice_44B610() != 0) {
         const auto& position = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gValue9A4CFC)];
-        login::detail::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
+        cg::render::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
     }
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         138, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[1])[4 + cancelState], 0, nullptr);
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         289, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[0])[4 + confirmState], 0, nullptr);
     if (state::gPukVersion >= 5) {
-        login::detail::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
-        login::detail::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
+        cg::render::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
+        cg::render::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
     }
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(state::gValue9A57E0)], 0, nullptr);
     const std::uint8_t labelPuk = state::gPukVersion;
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
 
     const std::uint8_t listPuk = state::gPukVersion;
@@ -599,13 +602,13 @@ std::int32_t Sub_462930()
     for (std::int32_t index = 0; index < 14; ++index) {
         const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
         const auto& position = kCreationSelectDraw54DF00[index];
-        login::detail::DrawGraphic(
+        cg::render::DrawGraphic(
             position[0], position[1], 10, graphicTable[14 * version + index], 0, nullptr);
     }
-    login::detail::DrawGraphic(214, 254, 10, 245041, 0, nullptr);
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(214, 254, 10, 245041, 0, nullptr);
+    cg::render::DrawGraphic(
         467, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[0])[4 + variantMinus], 0, nullptr);
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         568, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[1])[4 + variantPlus], 0, nullptr);
 
     login::YobiAction* const second = state::gCreateActions[1];
@@ -651,8 +654,8 @@ std::int32_t Sub_462930()
             }
         }
     }
-    login::detail::DrawGraphic(518, 275, 1, 245044, 0, nullptr);
-    login::detail::DrawGraphic(320, 240, 1, 245040, 0, nullptr);
+    cg::render::DrawGraphic(518, 275, 1, 245044, 0, nullptr);
+    cg::render::DrawGraphic(320, 240, 1, 245040, 0, nullptr);
     return result;
 }
 
@@ -1016,7 +1019,7 @@ std::int32_t Sub_4631D0()
 
     const auto drawButton = [](const std::int32_t x, const std::int32_t y,
                                const std::size_t record, const std::int8_t buttonState) {
-        login::detail::DrawGraphic(
+        cg::render::DrawGraphic(
             x, y, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationUi54E0BC[record])[4 + buttonState], 0, nullptr);
     };
     drawButton(411, 137, 0, arrows[0]);
@@ -1048,7 +1051,7 @@ std::int32_t Sub_4631D0()
     std::int32_t count = 0;
     if (static_cast<std::int8_t>(elementSnapshot) > 0) {
         do {
-            login::detail::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
+            cg::render::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
             elementSnapshot = state::gValue9A50D0;
             ++count;
         } while (count < static_cast<std::int8_t>(elementSnapshot));
@@ -1056,7 +1059,7 @@ std::int32_t Sub_4631D0()
     count = 0;
     if (static_cast<std::int8_t>(elementSnapshot >> 8) > 0) {
         do {
-            login::detail::DrawGraphic(406 + 10 * count, 327, 10, 245053, 0, nullptr);
+            cg::render::DrawGraphic(406 + 10 * count, 327, 10, 245053, 0, nullptr);
             const std::int32_t value = static_cast<std::int8_t>(elements[1]);
             ++count;
             if (count >= value) {
@@ -1069,7 +1072,7 @@ std::int32_t Sub_4631D0()
         count = 0;
         if (value > 0) {
             do {
-                login::detail::DrawGraphic(
+                cg::render::DrawGraphic(
                     406 + 10 * count, 313 + 14 * static_cast<std::int32_t>(row),
                     10, 245052 + static_cast<std::int32_t>(row), 0, nullptr);
                 const std::int32_t current = static_cast<std::int8_t>(elements[row]);
@@ -1099,7 +1102,7 @@ std::int32_t Sub_4631D0()
     if (static_cast<std::int8_t>(state::gValue9A4B88) > maxVersion) {
         graphic = static_cast<std::int8_t>(state::gValue9A4CFC) >= 14 ? 33101 : 33100;
     }
-    login::detail::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
+    cg::render::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
     render::DrawInputText_4568A0(&state::gCreationInput9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gValue9A4D04)));
@@ -1111,8 +1114,8 @@ std::int32_t Sub_4631D0()
     }
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gValue9A50C8)));
     render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
-    login::detail::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
-    login::detail::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
+    cg::render::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
+    cg::render::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
     return result;
 }
 
@@ -1489,8 +1492,8 @@ std::int32_t ProcessScene_460FF0()
                     L"真的要刪除嗎？" /* 原 0x55C854: 删除角色确认提示。 */,
                     0);
             if (login::detail::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
-                login::detail::DrawText3(166, 326, 2, 4, L"想要刪除時，請按著 CTRL鍵不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
-                login::detail::DrawText3(166, 346, 2, 4, L"再點選『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
+                cg::render::DrawText3_456560(166, 326, 2, 4, L"想要刪除時，請按著 CTRL鍵不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
+                cg::render::DrawText3_456560(166, 346, 2, 4, L"再點選『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                 if (result == 1) {
                     if ((platform::gKeyStates[17] & 2u) != 0) {
                         world::gCurrentSceneState = 14;

@@ -1,3 +1,6 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include <string>
@@ -84,14 +87,14 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         }
     }
 
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         x - 40,
         top + 67,
         std::uint8_t{223},
         hover == 1 ? 245325 : 245323,
         0,
         nullptr);
-    login::detail::DrawGraphic(
+    cg::render::DrawGraphic(
         x + 40,
         top + 67,
         std::uint8_t{223},
@@ -99,8 +102,8 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         0,
         nullptr);
 
-    const std::int32_t textWidth = login::detail::TextMeasure(text, 0);
-    login::detail::DrawText(
+    const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (width - textWidth) / 2),
         static_cast<std::int16_t>(top + 24),
         2,
@@ -188,14 +191,14 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        login::detail::gValueD69768,
+        cg::render::gValueD69768,
         std::uint8_t{214});
     detail::Sub_503A20(
         &cancelRecord,
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        login::detail::gValueD69768,
+        cg::render::gValueD69768,
         std::uint8_t{214});
 
     const std::int32_t left = x - 192;
@@ -203,8 +206,8 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     std::int32_t textWidth;
 
     textBuffer = L"＊＊＊ 警  告 ＊＊＊" /* 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 76),
         2,
@@ -215,8 +218,8 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0);
 
     textBuffer = L"所選擇的人物一經刪除" /* 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 44),
         2,
@@ -227,8 +230,8 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0);
 
     textBuffer = L"將無法恢復" /* 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 20),
         2,
@@ -239,8 +242,8 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0);
 
     textBuffer = L"確定要刪除嗎？" /* 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。 */;
-    textWidth = login::detail::TextMeasure(textBuffer, 0);
-    login::detail::DrawText(
+    textWidth = cg::render::TextMeasure(textBuffer, 0);
+    cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y + 4),
         2,

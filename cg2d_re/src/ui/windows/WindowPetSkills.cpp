@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -233,7 +234,7 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
         5, 12, 0, buffer, 0, 0));
     const auto graphicY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const auto graphicX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return login::detail::DrawGraphic(graphicX + 105, graphicY + 8, 230, 0x3B5B7, 0, &descriptor);
+    return cg::render::DrawGraphic(graphicX + 105, graphicY + 8, 230, 0x3B5B7, 0, &descriptor);
 }
 
 // 原函数：0x0048DBB0。

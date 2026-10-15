@@ -1,3 +1,4 @@
+#include "cg/render/Font.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../platform/StartupNative.hpp"
 #include "cg/world/SceneState.hpp"
@@ -1716,7 +1717,7 @@ void Sub_46F1D0()
                 const std::int32_t imageNo = login::detail::GetYobiActionField20(action);
                 const std::int32_t drawY = login::detail::GetYobiActionField34(action);
                 const std::int32_t drawX = login::detail::GetYobiActionField30(action);
-                login::detail::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
+                cg::render::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
             }
             if (drawKind == 7) {
                 const auto index = record->graphicIndex;
@@ -6729,7 +6730,7 @@ std::int32_t __cdecl Sub_469030()
                 gMapTileArray[static_cast<std::size_t>(index)]);
             if (result > 999 && drawX >= -32 && drawX < 672 &&
                 drawY >= -24 && drawY < 504) {
-                result = login::detail::DrawGraphic(
+                result = cg::render::DrawGraphic(
                     drawX, drawY, 5, result, 0, nullptr);
             }
             --scanRow;
@@ -8049,7 +8050,7 @@ std::uint8_t Sub_46F680()
         const std::int32_t drawX = static_cast<std::int32_t>(
             static_cast<std::int64_t>(projectedX + 0.5));
         static_cast<void>(
-            login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
+            cg::render::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
     const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < 456);
     if (!mouseBelowLimit
@@ -10907,7 +10908,7 @@ std::int32_t Sub_45ED90()
 {
     std::int32_t result = 0;
     if (gValue9A6204 == 0) {
-        const std::uint32_t initialTextWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(gText55BAE0, 0));
+        const std::uint32_t initialTextWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(gText55BAE0, 0));
         gValue9A6204 = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
@@ -10946,7 +10947,7 @@ std::int32_t Sub_45ED90()
         const std::int32_t rows = gValue9A5674;
         const std::int32_t top = gValue9A61F8;
         const std::int32_t drawY = top + (48 * rows - 16) / 2;
-        const std::int32_t textWidth = login::detail::TextMeasure(gText55BAE0, 0);
+        const std::int32_t textWidth = cg::render::TextMeasure(gText55BAE0, 0);
         const std::int32_t columns = gValue9A594C;
         const std::int32_t horizontalWidth = columns * 64 - textWidth;
         const std::int32_t left = gValue9A5AC0;

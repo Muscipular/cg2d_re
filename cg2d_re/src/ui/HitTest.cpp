@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -32,13 +33,13 @@ std::int32_t HitTestMouseRect_5049A0(
     }
 
     if (layer >= 0) {
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left),
             static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(right),
             static_cast<std::uint16_t>(bottom),
             static_cast<std::uint8_t>(layer),
-            login::detail::gValueD69768,
+            cg::render::gValueD69768,
             0);
     }
     return 1;

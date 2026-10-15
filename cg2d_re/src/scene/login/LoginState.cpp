@@ -1,3 +1,5 @@
+#include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
 #include <winsock2.h>
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -287,7 +289,7 @@ std::int32_t UpdateServerConnection()
         gServerConnectingText = L"伺服器連接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
 
         std::int32_t columnCount =
-            (detail::TextMeasure(gServerConnectingText, 0) + 111) / 64;
+            (cg::render::TextMeasure(gServerConnectingText, 0) + 111) / 64;
         gServerConnectionLayout.columnCount = columnCount;
         if (columnCount < 2) {
             columnCount = 2;
@@ -356,7 +358,7 @@ std::int32_t UpdateServerConnection()
 
     YobiAction* const action = gServerConnectionAction;
     if (action != nullptr && detail::IsYobiActionReady(action, 1)) {
-        const std::int32_t textWidth = detail::TextMeasure(gServerConnectingText, 0);
+        const std::int32_t textWidth = cg::render::TextMeasure(gServerConnectingText, 0);
         const std::int32_t rowCount = gServerConnectionLayout.rowCount;
         const std::int32_t verticalHeight = rowCount * 48 - 16;
         const std::int32_t y = gServerConnectionLayout.y;
@@ -365,7 +367,7 @@ std::int32_t UpdateServerConnection()
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
         const std::int32_t x = gServerConnectionLayout.x;
         const std::int32_t textX = horizontalWidth / 2 + x;
-        detail::DrawText(
+        cg::render::DrawText_456780(
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,
@@ -432,7 +434,7 @@ std::int32_t UpdateLoginProgress()
 
     if (phase == 0) {
         const std::uint32_t textWidth =
-            static_cast<std::uint32_t>(detail::TextMeasure(kLoginProgressText, 0));
+            static_cast<std::uint32_t>(cg::render::TextMeasure(kLoginProgressText, 0));
         gLoginProgressPhase = 1;
         const std::int32_t columnCount =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
@@ -472,11 +474,11 @@ std::int32_t UpdateLoginProgress()
         const std::int32_t rowCount = gLoginProgressLayout.rowCount;
         const std::int32_t y = gLoginProgressLayout.y;
         const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;
-        const std::int32_t textWidth = detail::TextMeasure(kLoginProgressText, 0);
+        const std::int32_t textWidth = cg::render::TextMeasure(kLoginProgressText, 0);
         const std::int32_t columnCount = gLoginProgressLayout.columnCount;
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
         const std::int32_t x = gLoginProgressLayout.x;
-        detail::DrawText3(
+        cg::render::DrawText3_456560(
             static_cast<std::int16_t>(horizontalWidth / 2 + x),
             static_cast<std::int16_t>(textY),
             2,

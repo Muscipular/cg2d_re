@@ -32,6 +32,12 @@ std::int32_t InitializeFont_456190(std::int32_t family);
 // 原函数：0x00456530。
 std::int32_t ReleaseFont_456530();
 
+// sub_45D990@0x45D990 的直接目标。
+// 原函数：0x0044B2A0。
+std::int32_t TextMeasure(std::wstring_view text, std::int32_t fontType);
+// 原函数：0x0044B260。
+std::int32_t MeasureDefaultText_44B260(std::wstring_view text);
+
 class Font final {
 public:
     Font() = delete;

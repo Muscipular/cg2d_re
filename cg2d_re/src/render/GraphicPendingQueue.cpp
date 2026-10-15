@@ -9,8 +9,6 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include "../scene/login/LoginMessageDependencies.hpp"
-
 #include <bit>
 #include <cstdlib>
 #include <cstring>
@@ -150,7 +148,7 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
             const std::uint8_t hoverLayer =
                 layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA};
             const DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
-            const std::uint32_t hover = login::detail::gValueD69768;
+            const std::uint32_t hover = cg::render::gValueD69768;
             const DxGraphicEntry* const entry = dxBase + imageNo;
             const std::int32_t y = record->y;
             const std::int32_t x = record->x;
@@ -164,7 +162,7 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
             const std::int32_t top = y - 2;
             const std::int32_t right = width + x + 2;
             const std::int32_t left = x - 2;
-            login::detail::DrawGraphicHover(
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left),
                 static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(right),
@@ -427,7 +425,7 @@ char (&gTextFF4E30)[0x88] = render::gLegacyPendingStorage.prefix; // 原全局�
 
 } // namespace cg::platform
 
-namespace cg::login::detail {
+namespace cg::render {
 
 void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::int32_t index,
@@ -444,4 +442,4 @@ void SetPendingGraphicBatchTypeAtLegacyIndex(
     record->batchType = type;
 }
 
-} // namespace cg::login::detail
+} // namespace cg::render

@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -176,7 +177,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     }
     if ((events & 0x21u) != 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t image = login::detail::gValueD69768;
+        const std::uint32_t image = cg::render::gValueD69768;
         const std::int32_t windowY = window->y;
         const WindowElement* const elements = window->elements;
         const std::int32_t windowX = window->x;
@@ -184,7 +185,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
         const std::int32_t elementY = elements[index].y;
         const std::int32_t height = elements[index].height;
         const std::int32_t width = elements[index].width;
-        login::detail::DrawGraphicHover(
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(windowX + elementX),
             static_cast<std::uint16_t>(windowY + elementY),
             static_cast<std::uint16_t>(width + windowX + elementX),
@@ -363,7 +364,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         const WindowInstance* const graphicWindow = gCurrentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
-        static_cast<void>(login::detail::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
+        static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
         const std::int32_t count = world::detail::gPlayerRuntimeSlots.items[countSlot].count;
         if (count > 0) {

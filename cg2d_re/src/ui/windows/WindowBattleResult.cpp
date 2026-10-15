@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -295,7 +296,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            login::detail::DrawGraphic(x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
+            cg::render::DrawGraphic(x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
         }
     }
     WindowRuntime_DrawCurrent();

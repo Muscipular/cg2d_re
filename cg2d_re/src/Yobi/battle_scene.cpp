@@ -64,15 +64,8 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         && gBattleEventActions5ABA9C[slot] != nullptr) {
         ++slot;
     }
-    // 原43B446..43B464按五W32和末W16清共享参与计数。
-    const std::uint32_t zero32 = 0;
-    const std::uint16_t zero16 = 0;
-    std::memcpy(gBattlePreviewParticipants5AAA48.data(), &zero32, sizeof(zero32));
-    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 4, &zero32, sizeof(zero32));
-    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 8, &zero32, sizeof(zero32));
-    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 12, &zero32, sizeof(zero32));
-    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 16, &zero32, sizeof(zero32));
-    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 20, &zero16, sizeof(zero16));
+    // 原43B446..43B464：清零22槽共享参与计数。
+    gBattlePreviewParticipants5AAA48.fill(0);
     for (YobiAction* const event : gBattleEventActions5ABA9C) {
         if (event != nullptr) {
             const auto* const payload = static_cast<const BattleScenePayload*>(event->payload);

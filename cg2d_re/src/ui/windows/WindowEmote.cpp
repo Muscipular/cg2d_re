@@ -6,7 +6,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00495FC0。
-static std::int32_t WindowEmote_ResetSelection(); // 按四W32/一W16清唯一18B选择区，返回0。
+static std::int32_t WindowEmote_ResetSelection(); // 清零唯一18B选择区，返回0。
 
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(std::int32_t index, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
@@ -111,13 +111,7 @@ WindowPrototype gWindowPrototypeEmote {0, 4, 575, 97, 61, 260, 0x80010101u, 20, 
 
 static void WindowEmote_ClearSelection()
 {
-    const std::uint32_t zero32 = 0;
-    const std::uint16_t zero16 = 0;
-    std::memcpy(gEmoteSelectionCF4FC4.data(), &zero32, sizeof(zero32));
-    std::memcpy(gEmoteSelectionCF4FC4.data() + 4, &zero32, sizeof(zero32));
-    std::memcpy(gEmoteSelectionCF4FC4.data() + 8, &zero32, sizeof(zero32));
-    std::memcpy(gEmoteSelectionCF4FC4.data() + 12, &zero32, sizeof(zero32));
-    std::memcpy(gEmoteSelectionCF4FC4.data() + 16, &zero16, sizeof(zero16));
+    gEmoteSelectionCF4FC4.fill(0);
 }
 
 // 原函数：0x00495F50。

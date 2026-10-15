@@ -131,7 +131,6 @@ YobiAction* NewYobiAction_404AE0(
             platform::ShowWideMessage(L"記憶體容量不足！yobi", L"GetYobi Erorr", 0);
             return nullptr;
         }
-        std::memset(payload, 0, payloadSize);
     }
 
     action->callback = nullptr;
@@ -141,17 +140,11 @@ YobiAction* NewYobiAction_404AE0(
     action->framePlayingRate = 100;
     action->scaleX = 1.0F;
     action->scaleY = 1.0F;
-    // 原404BB2–404BE0逐项W16/W32发布；不能仅借calloc省略显式零写。
-    const std::uint16_t descriptorZero = 0;
+    // 原404BB2–404BE0：显式初始化描述符，颜色为全白，其余清零。
     const std::uint32_t descriptorColor = 0xFFFFFFFFu;
-    std::memcpy(action->drawMode.bytes.data(), &descriptorZero, sizeof(descriptorZero));
-    std::memcpy(action->drawMode.bytes.data() + 2, &descriptorZero, sizeof(descriptorZero));
-    std::memcpy(action->drawMode.bytes.data() + 4, &descriptorZero, sizeof(descriptorZero));
-    std::memcpy(action->drawMode.bytes.data() + 6, &descriptorZero, sizeof(descriptorZero));
+    std::memset(action->drawMode.bytes.data(), 0, 8);
     std::memcpy(action->drawMode.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));
-    action->drawMode.bytes[12] = 0;
-    action->drawMode.bytes[13] = 0;
-    std::memcpy(action->drawMode.bytes.data() + 14, &descriptorZero, sizeof(descriptorZero));
+    std::memset(action->drawMode.bytes.data() + 12, 0, 4);
     action->batchType = 0;
     action->color2 = -1;
     action->rebirthValue1 = 0;

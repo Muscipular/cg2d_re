@@ -207,9 +207,7 @@ void DrawSprite(GraphicCacheItem32* const graphic)
         return;
     }
     if (graphic->batchType == 0) {
-        const std::int16_t zero = 0;
-        std::memcpy(graphic->descriptor.data() + 2, &zero, sizeof(zero));
-        std::memcpy(graphic->descriptor.data(), &zero, sizeof(zero));
+        std::memset(graphic->descriptor.data(), 0, 4);
         const std::int16_t fullWidth = ReadGraphicDxWidth(imageNo);
         std::memcpy(graphic->descriptor.data() + 4, &fullWidth, sizeof(fullWidth));
         const std::int16_t fullHeight = ReadGraphicDxHeight(imageNo);
@@ -305,9 +303,7 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
     if (LoadGraphic_522570(imageNo) == 0) {
         return;
     }
-    const std::int16_t zero = 0;
-    std::memcpy(graphic->descriptor.data() + 2, &zero, sizeof(zero));
-    std::memcpy(graphic->descriptor.data(), &zero, sizeof(zero));
+    std::memset(graphic->descriptor.data(), 0, 4);
     const std::int16_t fullWidth = ReadGraphicDxWidth(imageNo);
     std::memcpy(graphic->descriptor.data() + 4, &fullWidth, sizeof(fullWidth));
     std::int32_t width = fullWidth;

@@ -11,7 +11,7 @@
 namespace cg::render {
 namespace {
 
-// 原两入口的四W32读写/空参W16-W32-W8默认发布，保正常源目标别名。
+// 原两入口的四W32读写及空参默认值，保正常源目标别名。
 void CopyGraphicDescriptorWords(
     std::array<std::uint8_t, 16>& output, const GraphicDescriptor16* const descriptor)
 {
@@ -22,15 +22,10 @@ void CopyGraphicDescriptorWords(
             std::memcpy(output.data() + word * 4, &value, sizeof(value));
         }
     } else {
-        const std::uint16_t zero = 0;
-        for (std::int32_t word = 0; word < 4; ++word) {
-            std::memcpy(output.data() + word * 2, &zero, sizeof(zero));
-        }
+        std::memset(output.data(), 0, 8);
         const std::uint32_t color = 0xFFFFFFFFu;
         std::memcpy(output.data() + 8, &color, sizeof(color));
-        output[12] = 0;
-        output[13] = 0;
-        std::memcpy(output.data() + 14, &zero, sizeof(zero));
+        std::memset(output.data() + 12, 0, 4);
     }
 }
 
@@ -134,23 +129,10 @@ std::int32_t Sub_45F090(
     const std::int32_t value4,
     const std::int32_t color)
 {
-    GraphicDescriptor16 descriptor;
-    const std::uint32_t zero32 = 0;
+    GraphicDescriptor16 descriptor{};
     const std::int32_t itemColor = color;
-    std::memcpy(descriptor.bytes.data() + 2, &zero32, sizeof(zero32));
     const GraphicDescriptor16* const descriptorAddress = &descriptor;
-    std::memcpy(descriptor.bytes.data() + 6, &zero32, sizeof(zero32));
     const std::uint8_t itemLayer = layer;
-    std::memcpy(descriptor.bytes.data() + 10, &zero32, sizeof(zero32));
-
-    const std::uint16_t zero16 = 0;
-    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));
-    std::memcpy(descriptor.bytes.data(), &zero16, sizeof(zero16));
-    std::memcpy(descriptor.bytes.data() + 2, &zero16, sizeof(zero16));
-    std::memcpy(descriptor.bytes.data() + 4, &zero16, sizeof(zero16));
-    std::memcpy(descriptor.bytes.data() + 6, &zero16, sizeof(zero16));
-    descriptor.bytes[12] = 0;
-    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));
 
     const std::int32_t itemValue4 = value4;
     std::memcpy(descriptor.bytes.data() + 8, &itemColor, sizeof(itemColor));

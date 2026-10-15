@@ -719,13 +719,9 @@ login::YobiAction* WindowShop_OpenSell(const char* const text)
         }
     }
     gShopValueCF467C = 0;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin(), 4, static_cast<char>(-1));
+    gShopSelectedSlotsCB03DC.fill(static_cast<char>(-1));
     gShopItemCountCB1E10 = 20;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 4, 4, static_cast<char>(-1));
     gValueD2D608 = -1;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 8, 4, static_cast<char>(-1));
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 12, 4, static_cast<char>(-1));
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 16, 4, static_cast<char>(-1));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
@@ -927,14 +923,10 @@ static login::YobiAction* WindowShop_CreateService(
     }
     std::int32_t value;
     std::memcpy(&value, &gShopDetailCC3210.itemId, sizeof(value));
-    std::fill_n(gShopSelectedSlotsCB03DC.begin(), 4, static_cast<char>(-1));
+    gShopSelectedSlotsCB03DC.fill(static_cast<char>(-1));
     gShopValueCF467C = 0;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 4, 4, static_cast<char>(-1));
     gShopItemCountCB1E10 = 20;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 8, 4, static_cast<char>(-1));
     gValueD2D608 = value;
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 12, 4, static_cast<char>(-1));
-    std::fill_n(gShopSelectedSlotsCB03DC.begin() + 16, 4, static_cast<char>(-1));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];

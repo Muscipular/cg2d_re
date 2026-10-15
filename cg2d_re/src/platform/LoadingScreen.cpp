@@ -15,7 +15,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>
-#include <cstring>
 
 namespace cg::platform::initialization_detail {
 namespace {
@@ -54,18 +53,8 @@ std::int32_t InitLoading_457B10()
         switch (phase) {
         case 0: {
             static_cast<void>(render::ClearSurface_4512C0());
-            const std::uint16_t zero = 0;
-            std::memcpy(descriptor.data() + 6, &zero, sizeof(zero));
-            std::memcpy(descriptor.data() + 4, &zero, sizeof(zero));
-            std::memcpy(descriptor.data() + 2, &zero, sizeof(zero));
-            std::memcpy(descriptor.data(), &zero, sizeof(zero));
-            descriptor[10] = 0;
-            descriptor[9] = 0;
-            descriptor[8] = 0;
+            descriptor.fill(0);
             descriptor[11] = 0xFF;
-            descriptor[12] = 0;
-            descriptor[13] = 0;
-            std::memcpy(descriptor.data() + 14, &zero, sizeof(zero));
             static_cast<void>(render::SelectPalette(19, 1));
             phase = 1;
             login::detail::YobiClearUp_404D30();

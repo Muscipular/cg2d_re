@@ -6392,11 +6392,8 @@ void DrawBattleScene_43CBB0()
         return value;
     };
     const auto clearBattleEffects = [] {
-        const std::uint16_t zero = 0;
-        std::memcpy(&gBattleSceneEffectC8A768, &zero, sizeof(zero));
-        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A768) + 2, &zero, sizeof(zero));
-        std::memcpy(&gBattleSceneEffectC8A76C, &zero, sizeof(zero));
-        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A76C) + 2, &zero, sizeof(zero));
+        gBattleSceneEffectC8A768 = 0;
+        gBattleSceneEffectC8A76C = 0;
     };
     switch (state) {
     case 0: {
@@ -6668,12 +6665,8 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(Sub_46E4C0(160));
         }
         const std::int32_t currentState = gCurrentSceneState;
-        const std::uint16_t zero = 0;
-        std::memcpy(&gBattleSceneEffectC8A768, &zero, sizeof(zero));
         const std::int32_t nextState = currentState + 1;
-        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A768) + 2, &zero, sizeof(zero));
-        std::memcpy(&gBattleSceneEffectC8A76C, &zero, sizeof(zero));
-        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A76C) + 2, &zero, sizeof(zero));
+        clearBattleEffects();
         gValue58B6D0 = 1;
         gCurrentSceneState = nextState;
         [[fallthrough]];
@@ -8019,10 +8012,7 @@ void Sub_46A990()
     if (gValueFF0D36 == 0) {
         return;
     }
-    const std::uint32_t emptyPair = 0xFFFFFFFFu;
-    std::memcpy(gPetFollowOrder.data(), &emptyPair, sizeof(emptyPair));
-    std::memcpy(gPetFollowOrder.data() + 2, &emptyPair, sizeof(emptyPair));
-    gPetFollowOrder[4] = 0xFFFFu;
+    gPetFollowOrder.fill(0xFFFFu);
     std::size_t output = 0;
     for (std::size_t index = 0; index < gPetMapCharaSlots.size(); ++index) {
         const auto& slot = gPetMapCharaSlots[index];

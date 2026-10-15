@@ -622,15 +622,8 @@ void ScanBattleMParticipants_439B30(
     using namespace world::detail;
     std::int32_t position = -1;
     *flag = 0;
-    // 原439B55..439B63依次发布五个W32零值和末W16零值。
-    const std::uint32_t zero32 = 0;
-    const std::uint16_t zero16 = 0;
-    std::memcpy(participants, &zero32, sizeof(zero32));
-    std::memcpy(participants + 4, &zero32, sizeof(zero32));
-    std::memcpy(participants + 8, &zero32, sizeof(zero32));
-    std::memcpy(participants + 12, &zero32, sizeof(zero32));
-    std::memcpy(participants + 16, &zero32, sizeof(zero32));
-    std::memcpy(participants + 20, &zero16, sizeof(zero16));
+    // 原439B55..439B63：清零22槽参与计数。
+    std::memset(participants, 0, 22);
     std::array<char, 32> text;
     std::array<char, 256> message;
     const auto skip = [](const std::int32_t count) {

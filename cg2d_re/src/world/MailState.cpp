@@ -1460,7 +1460,7 @@ std::int32_t Sub_5195F0(const std::int32_t key)
     return result;
 }
 
-// GML01：原末匹配后fresh角色，active/key零写后整C88清零，原S32返回保持。
+// GML01：原末匹配后fresh角色，整C88清零（包含active/key），原S32返回保持。
 // 原函数：0x005194F0。
 std::int32_t Sub_5194F0(const std::int32_t key)
 {
@@ -1472,9 +1472,6 @@ std::int32_t Sub_5194F0(const std::int32_t key)
     std::byte* const entry = gGuildMailStorageDE0B30.data()
         + selected * kGuildMailGroupBytes
         + static_cast<std::ptrdiff_t>(index) * kGuildMailEntryBytes;
-    const std::uint32_t zero = 0;
-    std::memcpy(entry + 4, &zero, sizeof(zero));
-    std::memcpy(entry, &zero, sizeof(zero));
     std::memset(entry, 0, kGuildMailEntryBytes);
     return 0;
 }
@@ -1552,11 +1549,8 @@ std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(const std::int16_t sel
         }
         result = keyEnd;
         if (!found) {
-            const std::uint32_t zero = 0;
-            std::memcpy(entry + 4, &zero, sizeof(zero));
-            std::memcpy(entry, &zero, sizeof(zero));
             result = 0;
-            std::memset(entry + 8, 0, kMailNumberBytes);
+            std::memset(entry, 0, kGuildMailEntryBytes);
         }
         entry += kGuildMailEntryBytes;
     }

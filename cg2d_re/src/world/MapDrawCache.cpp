@@ -57,7 +57,7 @@ std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {}; // 原全�
 std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {}; // 原全局：0x009A86E8。
 std::int32_t gMapDrawMergedCount9EE914 = 0; // 原全局：0x009EE914。
 
-// 各生产者共同的逐字段默认值/逐 W32 复制，不清记录的其他字段。
+// 各生产者共同的描述符默认值/逐 W32 复制，不清记录的其他字段。
 void WriteMapDrawDescriptor(
     render::GraphicDescriptor16& destination, const render::GraphicDescriptor16* const source)
 {
@@ -69,15 +69,10 @@ void WriteMapDrawDescriptor(
         }
         return;
     }
-    const std::uint16_t zero = 0;
-    for (std::size_t offset = 0; offset < 8; offset += 2) {
-        std::memcpy(destination.bytes.data() + offset, &zero, sizeof(zero));
-    }
+    std::memset(destination.bytes.data(), 0, 8);
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(destination.bytes.data() + 8, &color, sizeof(color));
-    destination.bytes[12] = 0;
-    destination.bytes[13] = 0;
-    std::memcpy(destination.bytes.data() + 14, &zero, sizeof(zero));
+    std::memset(destination.bytes.data() + 12, 0, 4);
 }
 
 // 原46C4D0六段复制：前44B逐W32读写，再按原序复制两条非拥有链接。

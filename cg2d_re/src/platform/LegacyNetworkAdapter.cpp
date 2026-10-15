@@ -20,14 +20,9 @@ std::int32_t Sub_534EF0(char* const output)
         ::GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, &size);
     char ethernetText[16];
     char wirelessText[16];
-    // 原两槽相距16B，仅交替清三个W32及各自偏移12的U8；不补尾三字节。
-    constexpr std::uint32_t zero = 0;
-    for (std::uint32_t offset = 0; offset != 12; offset += 4) {
-        std::memcpy(ethernetText + offset, &zero, sizeof(zero));
-        std::memcpy(wirelessText + offset, &zero, sizeof(zero));
-    }
-    ethernetText[12] = 0;
-    wirelessText[12] = 0;
+    // 原两槽相距16B，各清前13B，不补尾三字节。
+    std::memset(ethernetText, 0, 13);
+    std::memset(wirelessText, 0, 13);
     if (firstResult != ERROR_BUFFER_OVERFLOW) {
         return -1;
     }

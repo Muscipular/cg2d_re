@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/login/LoginScene.hpp"
@@ -118,7 +119,7 @@ void ProcessOuterScene_45C2D0()
 
     const std::int32_t result = ProcessLoginInput_45CA20(0);
     if (result == 1) {
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
             return;
         }

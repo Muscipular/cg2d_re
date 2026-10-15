@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -1007,7 +1008,7 @@ static std::int32_t WindowStall_SubmitListings()
     if (nameLength != 0) {
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(name, escaped, 275);
     std::strncpy(name, escaped, static_cast<std::uint32_t>(32));
     const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
@@ -1015,7 +1016,7 @@ static std::int32_t WindowStall_SubmitListings()
     if (descriptionLength != 0) {
         std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
     }
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(description, escaped, 275);
     std::strncpy(description, escaped, static_cast<std::uint32_t>(112));
     const std::uintptr_t socket = platform::gConnectionSocket;

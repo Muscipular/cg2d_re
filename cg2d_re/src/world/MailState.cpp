@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
 #include "cg/text/Encoding.hpp"
@@ -938,7 +939,7 @@ std::int32_t Sub_533C80(const std::int32_t mode)
             }
         }
         std::strcpy(sourceText, source);
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         input::EscapeGbkText(sourceText, escaped[index].data(), 256);
     }
     if (mode == 1) {
@@ -947,7 +948,7 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     } else {
         std::strcpy(sourceText, gCurrentProfile10738E8.text728.data());
     }
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(sourceText, escaped[3].data(), 256);
 
     if (mode == 1) {

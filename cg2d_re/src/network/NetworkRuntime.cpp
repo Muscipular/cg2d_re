@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -4362,7 +4363,7 @@ template <typename... Values>
 // 原函数：0x00509080。
 void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
 {
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
 }
 
 } // namespace

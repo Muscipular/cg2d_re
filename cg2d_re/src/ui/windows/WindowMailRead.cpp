@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -98,7 +99,7 @@ static std::int32_t WindowMailRead_Update(const std::int32_t value)
         static_cast<void>(world::detail::Sub_519300());
         static_cast<void>(world::detail::Sub_519550());
         static_cast<void>(world::detail::Sub_518DA0());
-        NullSub_509080();
+        cg::core::NullSub_509080();
     }
     return 1;
 }
@@ -129,7 +130,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
             world::detail::gValueD046D4 = 9;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        NullSub_509080();
+        cg::core::NullSub_509080();
         consumed = 1;
     }
     if ((state & 8) != 0) {
@@ -156,7 +157,7 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
             world::detail::gValueD046D4 = 0;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        NullSub_509080();
+        cg::core::NullSub_509080();
         consumed = 1;
     }
     if ((state & 8) != 0) {

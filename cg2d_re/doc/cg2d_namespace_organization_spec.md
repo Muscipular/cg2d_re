@@ -349,3 +349,9 @@
 | `include/cg/world/SceneState.hpp` | `cg::world` | NS06：核对归属、依赖与前置声明 |
 | `include/cg/Yobi/YobiRuntime.hpp` | `cg::platform`、`cg::render`、`cg::login`、`cg::login::detail` | NS01 / NS04 |
 | `doc/profiling/20261013_fps/SdlOfficialScaffold.cpp` | 历史性能脚手架 | 保留，不执行 |
+
+## 拆分细化
+
+NS04将世界对象协调、世界对象绘制和聊天存储分别落入 WorldActor.cpp、WorldActorDrawing.cpp、ChatHistory.cpp；输入的历史浏览／提交仍属 input，通过 ChatHistory.hpp 借用原历史记录与游标，不新增代理状态。共用空通知函数保留原空操作，改由 core/LegacyNoOp.hpp 提供 inline 定义，移除 Input.cpp 的根 namespace 实现块。以上是既有函数与存储迁移，无新业务。
+
+NS05将原 LegacyMouse.cpp 初始化前缀逐字搬到 RuntimeInitialization.cpp，保留 CMake 原位置和内部排列；鼠标函数正文逐字保留在 LegacyMouse.cpp。该专用文件保留 platform/world 两模块 namespace，其余业务 CPP 不再混入其他模块定义。

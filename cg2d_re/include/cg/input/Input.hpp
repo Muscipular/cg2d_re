@@ -6,13 +6,6 @@
 #include <string_view>
 #include <string>
 
-namespace cg {
-
-// 原 nullsub_1@[0x509080,0x509081)：唯一指令为 retn，不读取参数且不定义返回值。
-void NullSub_509080() noexcept; // UTE01：原单RET/参数未读，真实空操作；机器残值ABI待。
-
-} // namespace cg
-
 namespace cg::input {
 
 // 输入数值字段；保留原成员身份，文字位置／长度统一使用UTF-16码元。

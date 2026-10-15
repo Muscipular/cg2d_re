@@ -1,8 +1,8 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "GraphicDxCacheState.hpp"
+#include "../render/GraphicDxCacheState.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "../platform/MainLoopDependencies.hpp"
+#include "MainLoopDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
@@ -19,12 +19,6 @@
 #include <cstdint>
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 
-namespace cg::render {
-
-// 原D69768零填充W32槽；唯一生产在下方完整507140，既有消费者仍共用此符号。
-std::uint32_t gValueD69768 = 0;
-
-} // namespace cg::render
 
 namespace cg::platform {
 namespace {

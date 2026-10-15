@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
 #include "../character_select/CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
@@ -1008,7 +1009,7 @@ try {
 
     const std::int32_t ignoredSelected = selectedCharacter;
     static_cast<void>(ignoredSelected);
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
 
     const std::int32_t selectedForDisplay = selectedCharacter;
     static_cast<void>(Sub_520510(selectedForDisplay));

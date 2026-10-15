@@ -396,14 +396,3 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
 } // namespace detail
 
 } // namespace cg::yobi
-
-namespace cg::world::detail {
-
-// YGOS01：完整S32动画图号区间判定；仅445350方向门禁调用，不新增公头接口。
-// 原函数：0x005183B0。
-std::int32_t Sub_5183B0(const std::int32_t imageNo)
-{
-    return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
-}
-
-} // namespace cg::world::detail

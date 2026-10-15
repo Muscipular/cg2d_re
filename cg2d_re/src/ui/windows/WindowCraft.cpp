@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -1756,7 +1757,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 } else {
                     buffer.clear();
                 }
-                NullSub_509080();
+                cg::core::NullSub_509080();
                 std::int32_t offset = 0;
                 if (gValue5F9754 != 0) {
                     offset = 100;
@@ -2856,7 +2857,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 buffer += temporary;
             }
         }
-        NullSub_509080();
+        cg::core::NullSub_509080();
         sendRequest(true, false);
         gSelectionModeD2D650 = 2;
         hideControls = true;
@@ -2866,7 +2867,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         } else {
             buffer.clear();
         }
-        NullSub_509080();
+        cg::core::NullSub_509080();
         sendRequest(false, true);
         gSelectionModeD2D650 = 5;
         hideControls = true;
@@ -2890,7 +2891,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 }
             }
             cg::text::FormatTo(buffer, L"{}|{}", ordinarySlot, specialSlot);
-            NullSub_509080();
+            cg::core::NullSub_509080();
             sendRequest(false, false);
             const std::wstring& name = world::detail::gPlayerRuntimeSlots.items[ordinarySlot].name;
             const std::uint8_t currentMode = gSelectionModeD2D650;
@@ -2912,7 +2913,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 }
             }
             cg::text::FormatTo(buffer, L"{}", selected);
-            NullSub_509080();
+            cg::core::NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
             gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected].name;
@@ -2931,7 +2932,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                     }
                 }
             }
-            NullSub_509080();
+            cg::core::NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 14;
             hideControls = true;

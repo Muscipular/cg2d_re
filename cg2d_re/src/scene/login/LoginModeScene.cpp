@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include <string>
@@ -71,7 +72,7 @@ void ProcessModeScene_45C5A0()
 
     const std::int32_t result = ProcessLoginInput_45CA20(inputMode);
     if (result == 1) {
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
             return;
         }

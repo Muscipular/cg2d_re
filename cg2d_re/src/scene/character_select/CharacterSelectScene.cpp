@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "../login/LoginSavedState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
@@ -326,7 +327,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
                 login::Sub_51B3B0(static_cast<std::uint32_t>(selected));
                 const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
-                cg::NullSub_509080();
+                cg::core::NullSub_509080();
                 cg::login::detail::Sub_520200();
                 input::SetContext_44B330(nullptr);
                 sceneState = world::gCurrentSceneState;
@@ -1276,7 +1277,7 @@ void CopyRecordName(char* destination, const login::CharacterRecord& record)
     char name[kLegacyNameCapacity];
     // 与原strcpy相同，调用前提是姓名适合20字节临时区且有NUL终止。
     std::strcpy(name, record.name.data());
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     std::strcpy(destination, name);
 }
 
@@ -1523,7 +1524,7 @@ std::int32_t ProcessScene_460FF0()
                     static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
                 const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
-                cg::NullSub_509080();
+                cg::core::NullSub_509080();
                 cg::login::detail::Sub_520200();
                 if (state::gPendingCharacterCount > 0) {
                     --state::gPendingCharacterCount;
@@ -1631,7 +1632,7 @@ std::int32_t ProcessScene_460FF0()
             if (record.deleteFlag != 0) {
                 char name[kLegacyNameCapacity];
                 std::strcpy(name, record.name.data());
-                cg::NullSub_509080();
+                cg::core::NullSub_509080();
                 world::gCurrentSceneState = 12;
                 std::strcpy(state::gDeleteCharacterName, name);
             } else {

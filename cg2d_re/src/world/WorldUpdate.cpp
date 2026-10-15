@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -112,7 +113,7 @@ void Update()
         gValueFF0D5C = 0xFFFFFFFFu;
         gValueFF0D58 = 0;
         gValueD67E78 = 0;
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         detail::Sub_518780();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::detail::Sub_43F220();

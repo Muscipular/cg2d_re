@@ -71,6 +71,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/SdlAudioBackend.cpp
     src/platform/LegacyWavesReverb.cpp
     src/platform/LegacyAudioMath.cpp
+    src/platform/RuntimeInitialization.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
@@ -82,6 +83,7 @@ add_library(cg2d_re_startup STATIC
     src/world/GuildState.cpp
     src/audio/LegacyAudio.cpp
     src/world/Blacklist.cpp
+    src/world/ChatHistory.cpp
     src/input/Input.cpp
     src/input/InputKeyDispatch.cpp
     src/input/InputCaret.cpp
@@ -100,9 +102,11 @@ add_library(cg2d_re_startup STATIC
     src/Yobi/window.cpp
     src/Yobi/preview.cpp
     src/Yobi/map_actor.cpp
+    src/world/WorldActor.cpp
     src/Yobi/map_observation.cpp
     src/Yobi/map_transition.cpp
     src/Yobi/map_render.cpp
+    src/world/WorldActorDrawing.cpp
     src/Yobi/environment.cpp
     src/Yobi/battle_base.cpp
     src/Yobi/battle_scene.cpp
@@ -192,7 +196,7 @@ add_library(cg2d_re_startup STATIC
     src/ui/WindowPrototypes.cpp
     src/network/NetworkRuntime.cpp
     src/render/GraphicPendingQueue.cpp
-    src/render/GraphicHitTest.cpp
+    src/platform/MouseDispatch.cpp
     src/render/DrawAllQueued.cpp
     src/render/LegacyTextureDrawing.cpp
     src/render/InputText.cpp

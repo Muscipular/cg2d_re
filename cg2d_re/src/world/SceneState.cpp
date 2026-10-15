@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -5778,7 +5779,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
@@ -5867,7 +5868,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -5876,7 +5877,7 @@ void DrawNormalScene_51C7D0()
         Sub_458F00();
         return;
     case 252: {
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         gValueFF0D74 = 0;
         ui::WindowRuntime_ProcessScene();
         gValue62B5B0 = platform::ReadTickCount32();
@@ -5892,7 +5893,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -5906,7 +5907,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_469020();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
         const std::uint32_t changeBgm = gValueFF0D58;
         gValueD67E78 = 0;
@@ -6050,7 +6051,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_46E4A0();
         Sub_469020();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -6340,7 +6341,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        cg::NullSub_509080();
+        cg::core::NullSub_509080();
         ++gCurrentSceneState;
         break;
     }
@@ -6356,13 +6357,13 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             Sub_44A410();
-            cg::NullSub_509080();
+            cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene();
             ++gCurrentSceneState;
         } else {
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
-            cg::NullSub_509080();
+            cg::core::NullSub_509080();
         }
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
@@ -8796,17 +8797,17 @@ void Sub_519A80()
 
     char escaped[256];
     char titles[256];
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(
         detail::gPlayerRuntimeSlots.ownTitle.data(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(
         detail::gPlayerRuntimeSlots.text12A.data(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     input::EscapeGbkText(
         detail::gPlayerRuntimeSlots.text14B.data(), escaped, 256);
     std::strcat(titles, escaped);
@@ -9341,7 +9342,7 @@ void Sub_5199A0()
     const volatile std::int16_t& selected = login::gSelectedCharacterIndex;
     const std::int16_t unusedSelected = selected;
     static_cast<void>(unusedSelected);
-    cg::NullSub_509080();
+    cg::core::NullSub_509080();
     static_cast<void>(login::detail::Sub_520550(selected));
     static_cast<void>(login::detail::Sub_520770(selected));
 

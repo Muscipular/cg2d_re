@@ -1,3 +1,4 @@
+#include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -706,7 +707,7 @@ static std::int32_t WindowDialog_Reply(
         if (row < 0) { world::detail::gValue581800 = -1; }
     } else {
         if (gDialogReply.type == 2) {
-            NullSub_509080();
+            cg::core::NullSub_509080();
             reply = input::EscapeText(std::to_wstring(-gDialogReply.firstLine));
         } else if (gDialogReply.type == 35) {
             if ((button & 1) != 0) {
@@ -716,13 +717,13 @@ static std::int32_t WindowDialog_Reply(
                 if (input::Sub_45E770(texts[0]) == 1) { return 0; }
                 if (input::Sub_45E770(texts[1]) == 1) { return 0; }
             }
-            NullSub_509080();
+            cg::core::NullSub_509080();
             const std::wstring first = input::EscapeText(texts[0]);
-            NullSub_509080();
+            cg::core::NullSub_509080();
             const std::wstring second = input::EscapeText(texts[1]);
             reply = input::EscapeText(first + L"|" + second);
         } else {
-            NullSub_509080();
+            cg::core::NullSub_509080();
             reply = input::EscapeText(inputCount == 1 ? std::wstring_view(texts[0]) : std::wstring_view{});
         }
         // 原255B协议预算保留；动态编辑正文不在此静默截断。
@@ -740,7 +741,7 @@ static std::int32_t WindowDialog_Reply(
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (row >= 0) {
-        NullSub_509080();
+        cg::core::NullSub_509080();
         reply = input::EscapeText(std::to_wstring(row + 1));
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;

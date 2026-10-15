@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -713,8 +714,8 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, 
     WindowElement* const element = &gCurrentWindow->elements[index];
     auto* const graphic = static_cast<WindowGraphicData*>(element->data);
     if (world::detail::gBattleRebirthDisabled5ABC40 != 0
-        || world::detail::ReadPlayerValue08() == 0
-        || world::detail::ReadPlayerTimerRemaining0C() <= 0) {
+        || world::detail::gPlayerRuntimeSlots.value08 == 0
+        || world::detail::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         element->visible = 0;
         graphic->imageNo = 0x3B9CE;
         return 0;

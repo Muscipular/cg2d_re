@@ -580,7 +580,7 @@ int IsLost_4536D0()
             }
         }
     }
-    TextureSurface* const temp = GetCpuTempSurface();
+    TextureSurface* const temp = cg::render::gCpuTempSurface;
     if (temp != nullptr) {
         SDL_Surface* const native = GetTextureSdlSurface(temp);
         if (native == nullptr || native->pixels == nullptr) {

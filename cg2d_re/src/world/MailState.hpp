@@ -27,9 +27,10 @@ struct ProfileRuntimeRecord {
     std::array<char, 0x100> text728; // 原成员偏移：+0x728。
 };
 
-const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
-const ProfileRuntimeRecord& ReadReceivedProfile1074110(); // 窗口64借用DpSY独立回复区。
-ProfileRuntimeRecord& EditCurrentProfile10738E8(); // 窗口58编辑借用，仍归MailState持有。
+// 资料解析／保存与窗口共用原唯一对象；读取者保留const引用。
+extern ProfileRuntimeRecord gViewedProfile105ECE0; // 原0x0105ECE0。
+extern ProfileRuntimeRecord gReceivedProfile1074110; // 原0x01074110。
+extern ProfileRuntimeRecord gCurrentProfile10738E8; // 原0x010738E8。
 const ProfileRuntimeRecord& ReadSelectedProfile1074938(); // 每次按当前S16角色借用持久资料。
 // 原函数：0x00533B00。
 std::int32_t Sub_533B00(); // 固定一次角色，三数值/三文本/正文按原顺序短路比较。
@@ -52,7 +53,7 @@ struct ProfileSearchRuntimeSlots {
     std::array<ProfileSearchRecord, 20> records; // 原成员偏移：+0x08。
 };
 
-const ProfileSearchRuntimeSlots& ReadProfileSearch105C398(); // 同源结果及两头字段，不复制快照。
+extern ProfileSearchRuntimeSlots gProfileSearch105C398; // 原0x0105C398；同一搜索回复对象。
 const char* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 三组标题借用，无额外索引拒绝。
 
 // 原category.dat三组各100条；窗口60只读借用，存储仍归MailState。

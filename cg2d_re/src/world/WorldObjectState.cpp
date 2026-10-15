@@ -236,7 +236,7 @@ std::int32_t Sub_445A60(
 // 原函数：0x004462E0。
 void Sub_4462E0(const std::int32_t objectIndex)
 {
-    if (ReadPlayerObjectIndex_FDA880() == static_cast<std::uint32_t>(objectIndex)) {
+    if (cg::world::detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
         static_cast<void>(Sub_519D50());
         return;
     }

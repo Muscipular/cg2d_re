@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -147,7 +148,7 @@ static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const tex
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
     const char* const ownName = world::detail::GetPlayerDisplayText(1);
     const std::size_t ownNameSize = std::strlen(ownName) + 1;
-    const std::uint32_t ownIndex = world::ReadPlayerObjectIndex_FDA880();
+    const std::uint32_t ownIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
     std::memcpy(gItemUseTargetsCB0EA8[0].name.data(), ownName, ownNameSize);
     std::int32_t count = 1;
     gItemUseTargetCountCC40CC = count;
@@ -264,19 +265,19 @@ static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* cons
     if (gItemUseTargetsCB0EA8[selected].kind == 0) {
         const char* const name = world::detail::GetPlayerDisplayText(1);
         const std::size_t nameSize = std::strlen(name) + 1;
-        const std::int32_t level = world::detail::ReadPlayerLevel();
+        const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
         std::memcpy(gItemUseStatusRecordsCB10D8[0].name.data(), name, nameSize);
-        const std::int32_t injury = world::detail::ReadPlayerInjury();
+        const std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
         gItemUseStatusRecordsCB10D8[0].level = level;
         gItemUseStatusRecordsCB10D8[0].injury = injury;
-        const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+        const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = hp;
-        const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+        const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = maxHp;
-        const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+        const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
         const std::int32_t own = gItemUseStatusCountCC4D44;
         gItemUseStatusRecordsCB10D8[own].fp = fp;
-        const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+        const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
         gItemUseStatusRecordsCB10D8[own].maxFp = maxFp;
         std::int32_t count = gItemUseStatusCountCC4D44 + 1;
         gItemUseStatusRecordsCB10D8[own].kind = 0;

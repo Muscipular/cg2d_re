@@ -1,4 +1,5 @@
 #include "WindowRuntimeInternal.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -4358,7 +4359,7 @@ std::int32_t WindowRuntime_Update()
 std::int32_t WindowRuntime_Render()
 {
     using namespace detail;
-    if (gValue5F9754 != 0 && world::detail::ReadPlayerTimerRemaining0C() <= 0) {
+    if (gValue5F9754 != 0 && world::detail::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = world::detail::gPlayerY.value();
         const std::int32_t x = world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));

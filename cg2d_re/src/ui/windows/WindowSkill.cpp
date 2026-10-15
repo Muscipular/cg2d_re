@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -574,17 +575,17 @@ static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const 
         if (gSkillTargetKindCF4A10 != 1) {
             const char* const name = world::detail::GetPlayerDisplayText(1);
             const std::size_t size = std::strlen(name) + 1;
-            gSkillStatusLevelsCC31C0[0] = world::detail::ReadPlayerLevel();
+            gSkillStatusLevelsCC31C0[0] = world::detail::gPlayerRuntimeSlots.level;
             std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
-            gSkillStatusInjuriesD67600[0] = world::detail::ReadPlayerInjury();
-            const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+            gSkillStatusInjuriesD67600[0] = world::detail::gPlayerRuntimeSlots.valueF4;
+            const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
-            const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+            const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
             gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
-            const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+            const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
             const std::int32_t output = gSkillStatusCountC8AA94;
             gSkillStatusFpCC2348[output] = fp;
-            const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+            const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
             count = gSkillStatusCountC8AA94 + 1;
             gSkillStatusMaxFpD2EA80[output] = maxFp;
             gSkillStatusKindsCA0A78[output] = 0;
@@ -1657,8 +1658,8 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     if ((actionFlags & 0x80u) != 0
         || world::detail::Sub_440B50() != 0
-        || world::detail::ReadPlayerValue08() == 0
-        || world::detail::ReadPlayerTimerRemaining0C() <= 0
+        || world::detail::gPlayerRuntimeSlots.value08 == 0
+        || world::detail::gPlayerRuntimeSlots.timerRemaining0C <= 0
         || world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth == 0) {
         gCurrentWindow->elements[index].visible = 0;
         return 0;
@@ -1880,7 +1881,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 usedSlots += std::bit_cast<std::int8_t>(record->requiredSlots19[0]);
             }
         }
-        const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+        const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", usedSlots, totalSlots);
         static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = buffer;
         break;
@@ -2342,7 +2343,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         fail();
                         return;
                     }
-                    if (login::detail::ReadMapActorAttachment44(world::detail::ReadPlayerAction()) == nullptr
+                    if (login::detail::ReadMapActorAttachment44(world::detail::gPlayerRuntimeSlots.action) == nullptr
                         && insufficientFp()) {
                         world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                         fail();
@@ -2500,7 +2501,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         if (world::detail::ReadPetMapFlags(slot) == 0) {
             continue;
         }
-        const std::uint32_t ownIndex = world::ReadPlayerObjectIndex_FDA880();
+        const std::uint32_t ownIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
         if (world::detail::ReadPetMapObjectIndex(slot) == ownIndex) {
             continue;
         }

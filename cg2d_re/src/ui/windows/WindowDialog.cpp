@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -1156,7 +1157,7 @@ static std::int32_t WindowDialog_DrawHealing(
             }
         }
     }
-    cg::text::FormatTo(buffer, L"               所持金 {:7} 金幣", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"               所持金 {:7} 金幣", world::detail::gPlayerRuntimeSlots.valueFC);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),

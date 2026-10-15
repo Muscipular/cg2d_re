@@ -26,8 +26,6 @@ extern std::array<std::uint32_t, 7> gValueD67B08; // 原 0xD67B08，严格 7 个
 extern std::uint32_t gValue58B6D0;             // 原 0x58B6D0，W32，映像初值 1。
 extern std::uint8_t gValueD9F2CA;              // 原 0xD9F2CA，W8。
 
-// 原 FDA880 玩家首块 W32；从同一玩家运行期 owner 读取，不借用场景时间槽。
-std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept;
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
 void Sub_51BEF0() noexcept;
 

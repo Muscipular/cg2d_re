@@ -51,7 +51,7 @@ int BuildResourcePaths();
 // 原 sub_45A130@[0x45A130,0x45A184)：尝试读取自动地图颜色缓存，失败时重建并写回。
 std::int32_t LoadAutoMapColor_45A130(char* const* graphicInfoPaths);
 
-// 原 oldMapRes@927F48；唯一 500000B 表的进程期只读借用，供地图窗生产查询。
-const std::uint8_t* GetAutoMapColors() noexcept;
+// 原 oldMapRes@927F48；资源加载与地图窗共用唯一500000B颜色表。
+extern std::uint8_t gAutoMapColors927F48[500000]; // 原全局：0x00927F48。
 
 } // namespace cg::resource

@@ -15,10 +15,11 @@
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
-namespace {
 
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
 std::uint8_t gAutoMapColors927F48[500000] {}; // 原全局：0x00927F48。
+
+namespace {
 
 // 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
 bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
@@ -145,11 +146,6 @@ void Sub_45A190()
 } // namespace cg::resource::detail
 
 namespace cg::resource {
-
-const std::uint8_t* GetAutoMapColors() noexcept
-{
-    return gAutoMapColors927F48;
-}
 
 CursorPathStorage gCursorPathStorage { // 原全局：0x0055CE88。
     {

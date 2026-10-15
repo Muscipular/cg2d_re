@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 
 namespace cg::input {
@@ -2129,7 +2130,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         }
         gStallHover581120 = -1;
     }
-    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::detail::gPlayerRuntimeSlots.valueFC);
     return 1;
 }
 
@@ -2193,21 +2194,21 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
     if (gStallOwn58111C != 0) {
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
             login::YobiAction* const target = data->action;
             const std::int32_t value = login::detail::GetYobiActionField2A8(source);
             login::detail::SetYobiActionField2A8(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
             login::YobiAction* const target = data->action;
             const std::int32_t value = login::detail::GetYobiActionField2B0(source);
             login::detail::SetYobiActionField2B0(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
             login::YobiAction* const target = data->action;
             const std::int32_t value = login::detail::GetYobiActionField2B8(source);
             login::detail::SetYobiActionField2B8(target, value);

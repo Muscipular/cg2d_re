@@ -22,7 +22,7 @@ std::int16_t ReadGraphicDxHeight(std::int32_t imageNo) noexcept;
 // 原43C0B8先借DX表，43C0E6/43C0EA随后从同表取高度/宽度低S16。
 // 仅调用期非拥有T*；不检查图号、不加载、不扩宽原W16字段。
 struct DxGraphicEntry;
-const DxGraphicEntry* GetGraphicDxCacheEntries() noexcept;
+extern DxGraphicEntry* gGraphicDxCache103CFA4; // 原全局：0x0103CFA4；同一缓存指针。
 std::int16_t ReadGraphicDxHeightFromEntries(
     const DxGraphicEntry* entries, std::int32_t imageNo) noexcept;
 std::int16_t ReadGraphicDxWidthFromEntries(

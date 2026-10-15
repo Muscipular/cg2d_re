@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -110,7 +111,7 @@ std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 static std::uint32_t WindowProfileView_Refresh()
 {
     const world::detail::ProfileRuntimeRecord& profile =
-        world::detail::ReadViewedProfile105ECE0();
+        world::detail::gViewedProfile105ECE0;
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[14].data)->imageNo =
         profile.value10C;
     for (std::int32_t index = 0; index < 3; ++index) {
@@ -184,9 +185,9 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244251;
     }
     if ((state & 2) != 0) {
-        const std::int32_t money = world::detail::ReadPlayerValueFC();
+        const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
         if (money >= world::detail::ReadCategoryValue105FA20()) {
-            const auto& profile = world::detail::ReadViewedProfile105ECE0();
+            const auto& profile = world::detail::gViewedProfile105ECE0;
             gMiniMailCompose105F508.target = profile.value00;
             std::strcpy(gMiniMailCompose105F508.name.data(), profile.text08.data());
             std::strcpy(gMiniMailCompose105F508.text104.data(), input::LegacyText593850());

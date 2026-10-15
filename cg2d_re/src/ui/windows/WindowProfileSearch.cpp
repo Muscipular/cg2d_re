@@ -156,7 +156,7 @@ WindowPrototype gWindowPrototypeProfileSearch {0, 4, 5, 20, 305, 398, 0x80000080
 // 原函数：0x004CA500。
 static void WindowProfileSearch_RefreshResults()
 {
-    const auto& search = world::detail::ReadProfileSearch105C398();
+    const auto& search = world::detail::gProfileSearch105C398;
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
@@ -279,7 +279,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
         return consumed;
     }
     const std::wstring keyword = input::EscapeText(gProfileSearchKeyword1075988, 256);
-    const auto& search = world::detail::ReadProfileSearch105C398();
+    const auto& search = world::detail::gProfileSearch105C398;
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;
     const std::wstring combined = std::to_wstring(group) + L"|" + std::to_wstring(entry) + L"|" + keyword;
@@ -306,7 +306,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246060;
     }
     if ((state & 2) != 0) {
-        const auto& record = world::detail::ReadProfileSearch105C398().records[position];
+        const auto& record = world::detail::gProfileSearch105C398.records[position];
         const std::int32_t key = record.value104;
         const std::wstring combined = std::to_wstring(key) + L"|" + cg::text::FromGbkWide(record.text04.data());
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
@@ -319,8 +319,8 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
         consumed = 1;
     }
     if (gWindowStates[WindowId_ProfileView].window != nullptr) {
-        const std::int32_t key = world::detail::ReadViewedProfile105ECE0().value00;
-        if (key == world::detail::ReadProfileSearch105C398().records[position].value104) {
+        const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
+        if (key == world::detail::gProfileSearch105C398.records[position].value104) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246058;
         }
     }

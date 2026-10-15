@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -1458,7 +1459,7 @@ static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const s
     descriptor.bytes[13] = 4;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
-    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F530.data(), &gTradeValueD6742C,
         10, &gTradeScrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, WindowTrade_RefreshOwnPanel);
@@ -1922,7 +1923,7 @@ static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, co
         descriptor.bytes[11] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F53C {244367, 244371, 244369};
-    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F53C.data(), &gTradeValueC8AF81,
         7, &gTradeScrollCC4C90, -1, 0, 0, 0, amount, &descriptor, WindowTrade_RefreshSelectedPanel);
@@ -1973,7 +1974,7 @@ static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, 
         descriptor.bytes[11] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F548 {244368, 244372, 244370};
-    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F548.data(), &gTradeTabCC4D1A,
         13, &gTradeScrollD67430, -1, 0, 0, 0, amount, &descriptor, WindowTrade_HandleRemoteItem);

@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -158,7 +159,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         version = character_select::state::gPukVersion;
     }
     const std::int32_t converted = character_select::detail::Sub_51BFF0(
-        character_select::detail::Sub_51BB80(world::detail::ReadPlayerValue17C()));
+        character_select::detail::Sub_51BB80(world::detail::gPlayerRuntimeSlots.value17C));
     gWindow56MinimumCB0F80 = 0;
     if (converted >= 241400) {
         gWindow56MinimumCB0F80 = 1;
@@ -199,7 +200,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         }
     }
     static_cast<void>(character_select::detail::Sub_4C56E0(
-        world::detail::ReadPlayerValue17C(), &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
+        world::detail::gPlayerRuntimeSlots.value17C, &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
         &gWindow56QuarterCC3E88, &gWindow56FifthCB0F88, &gWindow56OnesCF4680));
     const std::int32_t ones = gWindow56OnesCF4680;
     const std::int32_t fifth = gWindow56FifthCB0F88;
@@ -210,7 +211,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         base, imageClass, quarter, fifth, ones);
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
     login::YobiAction* const action = animation->action;
-    login::detail::SetYobiActionField2A8(action, world::detail::ReadPlayerImageNo());
+    login::detail::SetYobiActionField2A8(action, world::detail::gPlayerRuntimeSlots.imageNo);
     login::detail::SetYobiActionField2B0(animation->action, 0);
     login::detail::SetYobiActionField2B8(animation->action, 5);
     return 1;

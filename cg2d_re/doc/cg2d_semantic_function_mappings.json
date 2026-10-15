@@ -129545,7 +129545,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "%10d原S32余额取样与现12B完整S32格式前缀共享owner保持；69玩家晶石/70先51B5F0(D6791C)来源保持，原后置message/tooltip清-1与返回不变，不冻结尾区。仅一个callee差异，不据此完成完整数据生产/路由或运行。",
       "original_incoming": [],
@@ -129576,7 +129577,7 @@
           "format_push_site": "0x4C1E93",
           "original_destination": "0xD2E448",
           "destination_expression": "gWindow69BalanceTextD2E448.data()",
-          "source_expression": "world::detail::ReadPlayerValue15BCC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value15BCC",
           "format_expression": "\"%10d\"",
           "argument_widths": [
             "S32"
@@ -129597,6 +129598,34 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4C1C50",
+          "call_site": "0x4C1E9D",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "format_push_site": "0x4C1E93",
+          "original_destination": "0xD2E448",
+          "destination_expression": "gWindow69BalanceTextD2E448.data()",
+          "source_expression": "world::detail::ReadPlayerValue15BCC()",
+          "format_expression": "\"%10d\"",
+          "argument_widths": [
+            "S32"
+          ],
+          "buffer_capacity": 12,
+          "relationship": "原%10d/S32来源与共享完整前缀保持"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValue15BCC": "cg::world::detail::gPlayerRuntimeSlots.value15BCC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -130286,7 +130315,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "替换槽S32经%d写16B未清requestText后仍无转义发送；隐藏确认元素在格式之前，原target/request/Y/X/发送/取消state2/关闭与音效时点保持。五显示经256B未清buffer借所选技能/宠物/槽原名称或独立S32金币/报价，第二行固定588320示例名测宽，未用槽仍复制空槽文案。共享按钮提示/鼠标独立采样、绘制/窗口重取和返回等其他正文保持，仅六callee差异，不恢复暂停音频/补未知布局/改门禁或验收完整生产/路由/帧/CRT运行。",
       "original_incoming": [],
@@ -130405,7 +130435,7 @@
           "format_bytes": "a9d2abf9aaf7a14020253764aaf7b9f400",
           "format_push_site": "0x4C12B8",
           "destination_expression": "buffer.data()",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "format_expression": "L\"所持金　 {:7}金幣\"",
           "argument_widths": [
             "S32"
@@ -130452,6 +130482,107 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C1016",
+          "target_entry": "0x53B304",
+          "format_address": "0x5531A4",
+          "format_bytes": "256400",
+          "format_push_site": "0x4C1010",
+          "destination_expression": "requestText.data()",
+          "source_expression": "gWindow54ReplacementC8B08C",
+          "format_expression": "\"%d\"",
+          "argument_widths": [
+            "S32"
+          ],
+          "buffer_capacity": 16
+        },
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C115D",
+          "target_entry": "0x53B304",
+          "format_address": "0x588344",
+          "format_bytes": "bec7b2dfa1792573a17a00",
+          "format_push_site": "0x4C1157",
+          "destination_expression": "buffer.data()",
+          "source_expression": "gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()",
+          "format_expression": "L\"學習『{}』\"",
+          "argument_widths": [
+            "borrowed pointer"
+          ],
+          "buffer_capacity": 256
+        },
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C11B1",
+          "target_entry": "0x53B304",
+          "format_address": "0x588338",
+          "format_bytes": "c5fda1792573a17a00",
+          "format_push_site": "0x4C11AB",
+          "destination_expression": "buffer.data()",
+          "source_expression": "gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()",
+          "format_expression": "L\"讓『{}』\"",
+          "argument_widths": [
+            "borrowed pointer"
+          ],
+          "buffer_capacity": 256
+        },
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C1217",
+          "target_entry": "0x53B304",
+          "format_address": "0x58830C",
+          "format_bytes": "a8cfa5cea1792573a17aaabaa6ecb86d00",
+          "format_push_site": "0x4C1211",
+          "destination_expression": "buffer.data()",
+          "source_expression": "slot.name.data()",
+          "format_expression": "L\"使用『{}』的位置\"",
+          "argument_widths": [
+            "borrowed pointer"
+          ],
+          "buffer_capacity": 256
+        },
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C12BE",
+          "target_entry": "0x53B304",
+          "format_address": "0x5882D4",
+          "format_bytes": "a9d2abf9aaf7a14020253764aaf7b9f400",
+          "format_push_site": "0x4C12B8",
+          "destination_expression": "buffer.data()",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "format_expression": "L\"所持金　 {:7}金幣\"",
+          "argument_widths": [
+            "S32"
+          ],
+          "buffer_capacity": 256
+        },
+        {
+          "parent_entry": "0x4C0F20",
+          "call_site": "0x4C1300",
+          "target_entry": "0x53B304",
+          "format_address": "0x5882C0",
+          "format_bytes": "c1caa44aaaf7c34220253764aaf7b9f400",
+          "format_push_site": "0x4C12FA",
+          "destination_expression": "buffer.data()",
+          "source_expression": "gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price",
+          "format_expression": "L\"購入金額 {:7}金幣\"",
+          "argument_widths": [
+            "S32"
+          ],
+          "buffer_capacity": 256
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -131491,7 +131622,8 @@
         "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "一个原点保留关闭/对话类型判断后的玩家金币S32经%10d写现12B C9A9A4，再原消息清-1和返回1；重置/模式分发/窗口重取/回调路由及全部正文不改。 仅本父格式callee差异，不新增容量/保护/补值或扩大循环引用，不据此完成完整生产/父路由/CRT/失败/运行。",
       "original_incoming": [],
@@ -131521,7 +131653,7 @@
           "format_push_site": "0x4BF8F9",
           "format_expression": "\"%10d\"",
           "destination_expression": "gWindow54MoneyTextC9A9A4.data()",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "argument_widths": [
             "S32"
           ],
@@ -131551,6 +131683,32 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4BF7C0",
+          "call_site": "0x4BF903",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "format_push_site": "0x4BF8F9",
+          "format_expression": "\"%10d\"",
+          "destination_expression": "gWindow54MoneyTextC9A9A4.data()",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "argument_widths": [
+            "S32"
+          ],
+          "buffer_capacity": 12
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -134365,7 +134523,8 @@
         "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅三格式callee；S32当前money到CC1A00后mode0再次读取total/money控制元素7色；mode2累计玩家同源used/itemId记录count、发布CF4A24，仅变化时4B8C90后独立重读CF4A24格式CC4B2C。消息非负清-1/tooltip清-1后mode3先4B92C0，再按CAFEA4取C8AF74或CC3210+C24别名CC3E34的S32 amount，两取样分支共一个格式点。共享owner/字段/模式反复取样及原前段更新/绑定/状态/返回全保持，不重验前段与核心或声明整主入口齐备。",
       "original_incoming": [],
@@ -134404,7 +134563,7 @@
           "format_address": "0x586BBC",
           "target_entry": "0x53B304",
           "format_bytes": "2531306400",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "argument_widths": [
             "S32"
           ],
@@ -134464,6 +134623,59 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4B9310",
+          "call_site": "0x4B98AF",
+          "format_address": "0x586BBC",
+          "target_entry": "0x53B304",
+          "format_bytes": "2531306400",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "shop53_money_update",
+          "original_mode": null,
+          "relationship": "S32当前money到CC1A00；mode0格式后另取total与money设置元素7色，不缓存money"
+        },
+        {
+          "parent_entry": "0x4B9310",
+          "call_site": "0x4B9946",
+          "format_address": "0x586BBC",
+          "target_entry": "0x53B304",
+          "format_bytes": "2531306400",
+          "source_expression": "gShopAvailableCF4A24",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "shop53_mode2_changed_total",
+          "original_mode": null,
+          "relationship": "mode2重新累计/发布CF4A24，仅与previous不同才4B8C90，后独立重读CF4A24格式CC4B2C"
+        },
+        {
+          "parent_entry": "0x4B9310",
+          "call_site": "0x4B9991",
+          "format_address": "0x586BBC",
+          "target_entry": "0x53B304",
+          "format_bytes": "2531306400",
+          "source_expression": "amount",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "shop53_mode3_amount_choice",
+          "original_mode": null,
+          "relationship": "mode3先4B92C0，CAFEA4非0选C8AF74，否则CC3210+C24别名CC3E34；两取值分支共一原call/一现表达式"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -135253,7 +135465,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "20B未清buffer复用六次：玩家items[8..27]及五宠物、仓库二十0xC44物品与五0x600宠物各按完整W16 used非0计S32 count；另S32当前money与side位模式解释S32后的CC4D58+side*FBF8+FBF4 S32余额。计数重置/扫描次序/共享owner和格式后分别重读当前window的坐标保持，六4771B0按x357/442/527/85/170/255、y285、其余固定参数原顺序立即消费；数值/字段宽度/原S32返回0/完整正文保持，不引入保护或执行扫描/绘制算法。",
       "original_incoming": [],
@@ -135334,7 +135547,7 @@
           "target_entry": "0x53B304",
           "format_address": "0x586BBC",
           "format_bytes": "2531306400",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "argument_widths": [
             "S32"
           ],
@@ -135389,6 +135602,89 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9B28",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "source_expression": "count",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "玩家items[8..27] W16 used非0计S32 count，20B局部%3d后重取window到x+357/y+285"
+        },
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9B82",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "source_expression": "count",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "玩家五宠物W16 used非0计S32 count，复用局部后x+442/y+285"
+        },
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9BC8",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "S32当前money %10d后重取窗口x+527/y+285"
+        },
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9C23",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "source_expression": "count",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "CC4D58二十条0xC44 W16 used非0计S32 count，x+85/y+285"
+        },
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9C7B",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "source_expression": "count",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "D64E18五条0x600 W16 used非0计S32 count，x+170/y+285"
+        },
+        {
+          "parent_entry": "0x4A9B00",
+          "call_site": "0x4A9CD4",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "source_expression": "amount",
+          "argument_widths": [
+            "S32"
+          ],
+          "relationship": "side位模式解释S32，CC4D58+side*FBF8+FBF4别名CD494C+side*FBF8取S32 amount，x+255/y+285"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -135704,6 +136000,137 @@
           "format_address": "0x553FCC",
           "target_entry": "0x53B304",
           "format_bytes": "25336400",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_1",
+          "relationship": "等级S32，格式后重取当前窗口元素1并内联扫描/复制"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x4755C3",
+          "format_address": "0x5863A0",
+          "target_entry": "0x53B304",
+          "format_bytes": "25396400",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value58.value()",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_2",
+          "relationship": "原401EA0一次取经验S32，元素9消费"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x47561C",
+          "format_address": "0x553FE8",
+          "target_entry": "0x53B304",
+          "format_bytes": "2534642f25346400",
+          "source_expression": "hp, maxHp",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_3",
+          "relationship": "原先401EA0取maxHp、再hp，按hp/maxHp输出到元素11"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x475675",
+          "format_address": "0x553FE8",
+          "target_entry": "0x53B304",
+          "format_bytes": "2534642f25346400",
+          "source_expression": "fp, maxFp",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_4",
+          "relationship": "原先401EA0取maxFp、再fp，按fp/maxFp输出到元素12"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x4756E9",
+          "format_address": "0x5863A0",
+          "target_entry": "0x53B304",
+          "format_bytes": "25396400",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value68.value()",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_5",
+          "relationship": "仅非-1分支原401EA0再次取nextExp；哨兵比较与读取不合并，元素10消费"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x475733",
+          "format_address": "0x5863A0",
+          "target_entry": "0x53B304",
+          "format_bytes": "25396400",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value104",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_6",
+          "relationship": "决斗点数S32，元素13消费"
+        },
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x47584B",
+          "format_address": "0x586390",
+          "target_entry": "0x53B304",
+          "format_bytes": "78256400",
+          "source_expression": "penalty",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_panel_numeric_7",
+          "relationship": "惩罚S32>0才格式，元素2复制后重取窗口发布元素2/16可见"
+        }
+      ],
+      "verification_level": "原651指令仅统计，读取186新格式/参数及消费者邻窗，余465/已过正文/核心不重验；七原点/callee/七现表达式/新586390含NUL字节/S32与256B未清局部/取样-复制次序/整份源限定静态核对；一普通call引用474540@474540仅登记、不推完整父路由或窗口7验收；未构建或执行",
+      "title_none_alias": {
+        "normal_title_index": -1,
+        "original_text_address": "0xFF04F4",
+        "storage_alias": "login::gCharacterRecords[1]+0x80",
+        "source_helper": "cg::world::detail::GetTitleText",
+        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+      },
+      "unicode_utf16_utl02": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/windows/WindowPlayerProfile.cpp",
+            "symbol": "WindowPlayerProfile_Refresh"
+          }
+        ],
+        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "title_none_alias_before_bcl01": {
+        "normal_title_index": -1,
+        "original_text_address": "0xFF04F4",
+        "storage_alias": "login::gCharacterRecords[1]+0x80",
+        "source_helper": "cg::world::detail::BorrowTitleText",
+        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+      },
+      "borrow_cleanup_bcl01": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "active_symbol_and_storage_access_updated": true,
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x474FB0",
+          "call_site": "0x4753E5",
+          "format_address": "0x553FCC",
+          "target_entry": "0x53B304",
+          "format_bytes": "25336400",
           "source_expression": "world::detail::ReadPlayerLevel()",
           "argument_widths": [
             "S32"
@@ -135792,38 +136219,14 @@
           "relationship": "惩罚S32>0才格式，元素2复制后重取窗口发布元素2/16可见"
         }
       ],
-      "verification_level": "原651指令仅统计，读取186新格式/参数及消费者邻窗，余465/已过正文/核心不重验；七原点/callee/七现表达式/新586390含NUL字节/S32与256B未清局部/取样-复制次序/整份源限定静态核对；一普通call引用474540@474540仅登记、不推完整父路由或窗口7验收；未构建或执行",
-      "title_none_alias": {
-        "normal_title_index": -1,
-        "original_text_address": "0xFF04F4",
-        "storage_alias": "login::gCharacterRecords[1]+0x80",
-        "source_helper": "cg::world::detail::GetTitleText",
-        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
-      },
-      "unicode_utf16_utl02": {
-        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
-        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
-        "touched_sources": [
-          {
-            "path": "src/ui/windows/WindowPlayerProfile.cpp",
-            "symbol": "WindowPlayerProfile_Refresh"
-          }
-        ],
-        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
-        "build_verified": false,
-        "runtime_verified": false
-      },
-      "title_none_alias_before_bcl01": {
-        "normal_title_index": -1,
-        "original_text_address": "0xFF04F4",
-        "storage_alias": "login::gCharacterRecords[1]+0x80",
-        "source_helper": "cg::world::detail::BorrowTitleText",
-        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
-      },
-      "borrow_cleanup_bcl01": {
+      "simple_access_cleanup_bcl02": {
         "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
-        "active_symbol_and_storage_access_updated": true,
+        "replacements": {
+          "ReadPlayerDuelPoint": "cg::world::detail::gPlayerRuntimeSlots.value104",
+          "ReadPlayerExperienceOnce": "cg::world::detail::gPlayerRuntimeSlots.value58.value()",
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level",
+          "ReadPlayerNextExperienceOnce": "cg::world::detail::gPlayerRuntimeSlots.value68.value()"
+        },
         "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
@@ -142404,7 +142807,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅一个writeNumber现callee接476827..476FD4共28原53B304点，void()与完整正文保持。沿窗口8逐项字段表，元素1等级%3d、2..15十四项普通S32用%5d、16..28十三项用%4d，保持values78/B0/BC/D4原索引/读序，不改用CryptInt或影子缓存。每项取S32值→共用未清256B格式→重取当前window/data→测strlen+1→读取text并含NUL复制，完全消费后才取下一值；原元素步长24h/data1Ch仅作证据，新端仍原生T*不强转偏移。名称复制、文本后的D2F788独立重读/五属性取序/加点显隐/关联生产函数及所有正文不动，不加保护/清理/缓存，不据本步验收完整属性/窗口8/生产/父路由/画面或运行。",
       "original_incoming": [
@@ -142587,6 +142991,555 @@
         }
       ],
       "business_format_points": [
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476827",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
+          "source_format_expression": "\"%3d\"",
+          "original_value_read_site": "0x47681A",
+          "original_value_address": "0xFDA704",
+          "original_field": "level",
+          "element_index": 1,
+          "original_data_offset": 64,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x47686D",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::gValueD2F788",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476860",
+          "original_value_address": "0xD2F788",
+          "original_field": "gValueD2F788",
+          "element_index": 2,
+          "original_data_offset": 100,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x4768B3",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[0]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x4768A6",
+          "original_value_address": "0xFDA778",
+          "original_field": "values78[0]",
+          "element_index": 3,
+          "original_data_offset": 136,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x4768FC",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[1]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x4768EF",
+          "original_value_address": "0xFDA77C",
+          "original_field": "values78[1]",
+          "element_index": 4,
+          "original_data_offset": 172,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476945",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[2]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476938",
+          "original_value_address": "0xFDA780",
+          "original_field": "values78[2]",
+          "element_index": 5,
+          "original_data_offset": 208,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x47698E",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[3]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476981",
+          "original_value_address": "0xFDA784",
+          "original_field": "values78[3]",
+          "element_index": 6,
+          "original_data_offset": 244,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x4769D7",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[4]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x4769CA",
+          "original_value_address": "0xFDA788",
+          "original_field": "values78[4]",
+          "element_index": 7,
+          "original_data_offset": 280,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476A20",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476A13",
+          "original_value_address": "0xFDA798",
+          "original_field": "values78[8]",
+          "element_index": 8,
+          "original_data_offset": 316,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476A69",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476A5C",
+          "original_value_address": "0xFDA79C",
+          "original_field": "values78[9]",
+          "element_index": 9,
+          "original_data_offset": 352,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476AB2",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476AA5",
+          "original_value_address": "0xFDA7A0",
+          "original_field": "values78[10]",
+          "element_index": 10,
+          "original_data_offset": 388,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476AFB",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[0]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476AEE",
+          "original_value_address": "0xFDA7B0",
+          "original_field": "valuesB0[0]",
+          "element_index": 11,
+          "original_data_offset": 424,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476B44",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476B37",
+          "original_value_address": "0xFDA7A4",
+          "original_field": "values78[11]",
+          "element_index": 12,
+          "original_data_offset": 460,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476B8D",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476B80",
+          "original_value_address": "0xFDA7A8",
+          "original_field": "values78[12]",
+          "element_index": 13,
+          "original_data_offset": 496,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476BD6",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476BC9",
+          "original_value_address": "0xFDA7AC",
+          "original_field": "values78[13]",
+          "element_index": 14,
+          "original_data_offset": 532,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476C1F",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863C0",
+          "format_bytes": "25356400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[1]",
+          "source_format_expression": "\"%5d\"",
+          "original_value_read_site": "0x476C12",
+          "original_value_address": "0xFDA7B4",
+          "original_field": "valuesB0[1]",
+          "element_index": 15,
+          "original_data_offset": 568,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476C68",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[0]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476C5B",
+          "original_value_address": "0xFDA7BC",
+          "original_field": "valuesBC[0]",
+          "element_index": 16,
+          "original_data_offset": 604,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476CB1",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[1]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476CA0",
+          "original_value_address": "0xFDA7C0",
+          "original_field": "valuesBC[1]",
+          "element_index": 17,
+          "original_data_offset": 640,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476CFA",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[2]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476CED",
+          "original_value_address": "0xFDA7C4",
+          "original_field": "valuesBC[2]",
+          "element_index": 18,
+          "original_data_offset": 676,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476D43",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[3]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476D36",
+          "original_value_address": "0xFDA7C8",
+          "original_field": "valuesBC[3]",
+          "element_index": 19,
+          "original_data_offset": 712,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476D8C",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[4]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476D7F",
+          "original_value_address": "0xFDA7CC",
+          "original_field": "valuesBC[4]",
+          "element_index": 20,
+          "original_data_offset": 748,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476DD5",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[5]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476DC8",
+          "original_value_address": "0xFDA7D0",
+          "original_field": "valuesBC[5]",
+          "element_index": 21,
+          "original_data_offset": 784,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476E1E",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[0]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476E11",
+          "original_value_address": "0xFDA7D4",
+          "original_field": "valuesD4[0]",
+          "element_index": 22,
+          "original_data_offset": 820,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476E67",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[1]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476E5A",
+          "original_value_address": "0xFDA7D8",
+          "original_field": "valuesD4[1]",
+          "element_index": 23,
+          "original_data_offset": 856,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476EB0",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[2]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476EA3",
+          "original_value_address": "0xFDA7DC",
+          "original_field": "valuesD4[2]",
+          "element_index": 24,
+          "original_data_offset": 892,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476EF9",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[3]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476EEC",
+          "original_value_address": "0xFDA7E0",
+          "original_field": "valuesD4[3]",
+          "element_index": 25,
+          "original_data_offset": 928,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476F42",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476F35",
+          "original_value_address": "0xFDA78C",
+          "original_field": "values78[5]",
+          "element_index": 26,
+          "original_data_offset": 964,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476F8B",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476F7E",
+          "original_value_address": "0xFDA790",
+          "original_field": "values78[6]",
+          "element_index": 27,
+          "original_data_offset": 1000,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        },
+        {
+          "parent_entry": "0x4767E0",
+          "call_site": "0x476FD4",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_attribute_number",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7]",
+          "source_format_expression": "\"%4d\"",
+          "original_value_read_site": "0x476FC7",
+          "original_value_address": "0xFDA794",
+          "original_field": "values78[7]",
+          "element_index": 28,
+          "original_data_offset": 1036,
+          "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
+        }
+      ],
+      "verification_level": "原776仅统计，本步枚举28个53B304真实目标call，并只读元素1/2/16三代表格式/参数/消费者邻窗共45指令，其他731本步不读。28项S32/原读取地址与现字段/元素/复制顺序沿window_8既有逐项原证，不重核原刷新核心；28新接线对照既有表及现静态展开顺序、三个已登记原字节、整份源仅一callee的限定静态核对。475DF0@475DF0一普通caller/data0只登记，未构建或执行。",
+      "unicode_utf16_utl02": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/windows/WindowPlayerAttributes.cpp",
+            "symbol": "WindowPlayerAttributes_Refresh"
+          }
+        ],
+        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
         {
           "parent_entry": "0x4767E0",
           "call_site": "0x476827",
@@ -143120,18 +144073,16 @@
           "relationship": "沿窗口8已证逐项表：普通S32取值→共用writeNumber一现表达式/未清256B→格式后重取本项data→测长→读text并含NUL复制；本项完全消费后才读下一值"
         }
       ],
-      "verification_level": "原776仅统计，本步枚举28个53B304真实目标call，并只读元素1/2/16三代表格式/参数/消费者邻窗共45指令，其他731本步不读。28项S32/原读取地址与现字段/元素/复制顺序沿window_8既有逐项原证，不重核原刷新核心；28新接线对照既有表及现静态展开顺序、三个已登记原字节、整份源仅一callee的限定静态核对。475DF0@475DF0一普通caller/data0只登记，未构建或执行。",
-      "unicode_utf16_utl02": {
-        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
-        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
-        "touched_sources": [
-          {
-            "path": "src/ui/windows/WindowPlayerAttributes.cpp",
-            "symbol": "WindowPlayerAttributes_Refresh"
-          }
-        ],
-        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level",
+          "ReadPlayerValue78": "cg::world::detail::gPlayerRuntimeSlots.values78[index]",
+          "ReadPlayerValueB0": "cg::world::detail::gPlayerRuntimeSlots.valuesB0[index]",
+          "ReadPlayerValueBC": "cg::world::detail::gPlayerRuntimeSlots.valuesBC[index]",
+          "ReadPlayerValueD4": "cg::world::detail::gPlayerRuntimeSlots.valuesD4[index]"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -143191,7 +144142,7 @@
             "S32"
           ],
           "source_expression_group": "player_level_text",
-          "source_expression": "world::detail::ReadPlayerLevel()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
           "source_format_expression": "\"%3d\"",
           "element_index": 7,
           "original_data_offset": 280,
@@ -143246,6 +144197,33 @@
         "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x478010",
+          "call_site": "0x47805C",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_level_text",
+          "source_expression": "world::detail::ReadPlayerLevel()",
+          "source_format_expression": "\"%3d\"",
+          "element_index": 7,
+          "original_data_offset": 280,
+          "relationship": "原FDA704普通S32等级→buffer未清256B→格式后重取当前window/data→测strlen+1→读text并含NUL复制至元素7，其余文本/输入与源身份保持"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -143270,7 +144248,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅一现callee接478AA4，void()与完整简介刷新正文保持。原姓名复制后读同源等级S32，在未清256B number按%3d格式，随后重取当前window/元素1 data→测长→text含NUL复制。原资料owner借用/头像-公开标志/称号-职业-公会/三个简介输入/正文逐行与颜色/变更检测及关联调用不动，不补CA0478/CC3E64/C8AF84既有数据缺口，不加保护/预清/缓存或改关联方，不据本步验收完整窗口58/资料/布局/父路由/画面或运行。",
       "original_incoming": [
@@ -143301,7 +144280,7 @@
             "S32"
           ],
           "source_expression_group": "player_level_text",
-          "source_expression": "world::detail::ReadPlayerLevel()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
           "source_format_expression": "\"%3d\"",
           "element_index": 1,
           "original_data_offset": 64,
@@ -143334,6 +144313,33 @@
         ],
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x478A10",
+          "call_site": "0x478AA4",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "player_level_text",
+          "source_expression": "world::detail::ReadPlayerLevel()",
+          "source_format_expression": "\"%3d\"",
+          "element_index": 1,
+          "original_data_offset": 64,
+          "relationship": "原FDA704普通S32等级→number未清256B→格式后重取当前window/data→测strlen+1→读text并含NUL复制至元素1，其余文本/输入与源身份保持"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -143830,7 +144836,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_14.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅替换一处格式callee。两个未用S32参数和返回0保持；原普通S32值FDA7FC对应ReadPlayerValueFC()按%10d写既有非拥有目的区CB086C，现有std::array<char,12> owner与初始化保持，不改成格式返回、不新增清零或保护。",
       "original_incoming": [],
@@ -143861,6 +144868,27 @@
             "S32"
           ],
           "source_expression_group": "inventory_value_fc",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
+          "source_format_expression": "\"%10d\"",
+          "destination_expression": "gInventoryMoneyTextCB086C.data()",
+          "original_value_address": "0xFDA7FC",
+          "original_destination_address": "0xCB086C",
+          "destination_capacity": 12,
+          "relationship": "普通S32按十列最低宽度写各自既有12B显示；回调显式返回0"
+        }
+      ],
+      "verification_level": "原8指令全部仅读，488E70原格式/普通dword/目的区与显式返回0已证；无普通call、一个562CD8数据引用只登记，不推真实绑定完整闭合。限定静态核，未构建执行。",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x488E60",
+          "call_site": "0x488E70",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "inventory_value_fc",
           "source_expression": "world::detail::ReadPlayerValueFC()",
           "source_format_expression": "\"%10d\"",
           "destination_expression": "gInventoryMoneyTextCB086C.data()",
@@ -143870,7 +144898,15 @@
           "relationship": "普通S32按十列最低宽度写各自既有12B显示；回调显式返回0"
         }
       ],
-      "verification_level": "原8指令全部仅读，488E70原格式/普通dword/目的区与显式返回0已证；无普通call、一个562CD8数据引用只登记，不推真实绑定完整闭合。限定静态核，未构建执行。"
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x488E80",
@@ -143889,7 +144925,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_14.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅替换一处格式callee。两个未用S32参数和返回0保持；原普通S32值FF02CC对应ReadPlayerValue15BCC()按%10d写既有非拥有目的区CC3ECC，现有std::array<char,12> owner与初始化保持，不改成格式返回、不新增清零或保护。",
       "original_incoming": [],
@@ -143920,6 +144957,27 @@
             "S32"
           ],
           "source_expression_group": "inventory_value_15bcc",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value15BCC",
+          "source_format_expression": "\"%10d\"",
+          "destination_expression": "gInventoryValueTextCC3ECC.data()",
+          "original_value_address": "0xFF02CC",
+          "original_destination_address": "0xCC3ECC",
+          "destination_capacity": 12,
+          "relationship": "普通S32按十列最低宽度写各自既有12B显示；回调显式返回0"
+        }
+      ],
+      "verification_level": "原8指令全部仅读，488E90原格式/普通dword/目的区与显式返回0已证；无普通call、一个562CD8数据引用只登记，不推真实绑定完整闭合。限定静态核，未构建执行。",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x488E80",
+          "call_site": "0x488E90",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "inventory_value_15bcc",
           "source_expression": "world::detail::ReadPlayerValue15BCC()",
           "source_format_expression": "\"%10d\"",
           "destination_expression": "gInventoryValueTextCC3ECC.data()",
@@ -143929,7 +144987,15 @@
           "relationship": "普通S32按十列最低宽度写各自既有12B显示；回调显式返回0"
         }
       ],
-      "verification_level": "原8指令全部仅读，488E90原格式/普通dword/目的区与显式返回0已证；无普通call、一个562CD8数据引用只登记，不推真实绑定完整闭合。限定静态核，未构建执行。"
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValue15BCC": "cg::world::detail::gPlayerRuntimeSlots.value15BCC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x48A950",
@@ -146308,7 +147374,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_27.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅替换499B10格式callee；两个未用S32参数、返回0保持。FDA7FC普通S32值沿ReadPlayerValueFC()按586BBC %10d写既有CF469C 12B文字owner，不改为格式返回、不新预清或保护，不与普通库存显示合并。",
       "original_incoming": [],
@@ -146339,6 +147406,27 @@
             "S32"
           ],
           "source_expression_group": "battle_inventory_value_fc",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
+          "source_format_expression": "\"%10d\"",
+          "destination_expression": "gBattleMoneyTextCF469C.data()",
+          "destination_capacity": 12,
+          "original_value_address": "0xFDA7FC",
+          "original_destination_address": "0xCF469C",
+          "relationship": "各自普通S32按%10d写独立12B战斗文字，回调显式返回0"
+        }
+      ],
+      "verification_level": "原8指令全部仅读；一原点/callee、普通dword S32/%10d与12B独立owner/返回0限定静态核，无普通call、56C430一个数据引用只登记，不推窗口绑定完整，未构建执行。",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x499B00",
+          "call_site": "0x499B10",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "battle_inventory_value_fc",
           "source_expression": "world::detail::ReadPlayerValueFC()",
           "source_format_expression": "\"%10d\"",
           "destination_expression": "gBattleMoneyTextCF469C.data()",
@@ -146348,7 +147436,15 @@
           "relationship": "各自普通S32按%10d写独立12B战斗文字，回调显式返回0"
         }
       ],
-      "verification_level": "原8指令全部仅读；一原点/callee、普通dword S32/%10d与12B独立owner/返回0限定静态核，无普通call、56C430一个数据引用只登记，不推窗口绑定完整，未构建执行。"
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x499B20",
@@ -146367,7 +147463,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_27.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅替换499B30格式callee；两个未用S32参数、返回0保持。FF02CC普通S32值沿ReadPlayerValue15BCC()按586BBC %10d写既有C8A960 12B文字owner，不改为格式返回、不新预清或保护，不与普通库存显示合并。",
       "original_incoming": [],
@@ -146398,6 +147495,27 @@
             "S32"
           ],
           "source_expression_group": "battle_inventory_value_15bcc",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value15BCC",
+          "source_format_expression": "\"%10d\"",
+          "destination_expression": "gBattleValueTextC8A960.data()",
+          "destination_capacity": 12,
+          "original_value_address": "0xFF02CC",
+          "original_destination_address": "0xC8A960",
+          "relationship": "各自普通S32按%10d写独立12B战斗文字，回调显式返回0"
+        }
+      ],
+      "verification_level": "原8指令全部仅读；一原点/callee、普通dword S32/%10d与12B独立owner/返回0限定静态核，无普通call、56C430一个数据引用只登记，不推窗口绑定完整，未构建执行。",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x499B20",
+          "call_site": "0x499B30",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BBC",
+          "format_bytes": "2531306400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "battle_inventory_value_15bcc",
           "source_expression": "world::detail::ReadPlayerValue15BCC()",
           "source_format_expression": "\"%10d\"",
           "destination_expression": "gBattleValueTextC8A960.data()",
@@ -146407,7 +147525,15 @@
           "relationship": "各自普通S32按%10d写独立12B战斗文字，回调显式返回0"
         }
       ],
-      "verification_level": "原8指令全部仅读；一原点/callee、普通dword S32/%10d与12B独立owner/返回0限定静态核，无普通call、56C430一个数据引用只登记，不推窗口绑定完整，未构建执行。"
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValue15BCC": "cg::world::detail::gPlayerRuntimeSlots.value15BCC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4CAFA0",
@@ -147141,7 +148267,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅两格式callee接49E248/49E2E0，四参签名/未用末参、固定非拥有window及S32返回0保持。原七记录level非零才读取cost S32/%7d G写未清64B，按原低S16坐标绘制并每次重新取D69768低S8 marker；前六项伤势图仍在费用消费后取health，最后读玩家FC S32以15空格/原所持金%7d字节写同区并绘制。原尺寸读取/关闭提示/伤势档位与图形/末尾悬停提示及row=-1既有等价边界完整正文保持，不预清、缓存、保护或改变记录owner。",
       "original_incoming": [],
@@ -147194,7 +148321,7 @@
             "S32"
           ],
           "source_expression_group": "healing_player_money",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "source_format_expression": "\"               \\xA9\\xD2\\xAB\\xF9\\xAA\\xF7 %7d \\xAA\\xF7\\xB9\\xF4\"",
           "destination_expression": "buffer.data()",
           "destination_capacity": 64,
@@ -147213,6 +148340,49 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x49E1D0",
+          "call_site": "0x49E248",
+          "target_entry": "0x53B304",
+          "format_address": "0x587348",
+          "format_bytes": "253764204700",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "healing_record_cost",
+          "source_expression": "gHealingDialogRecordsD672F0[index].cost",
+          "source_format_expression": "\"%7d G\"",
+          "destination_expression": "buffer.data()",
+          "destination_capacity": 64,
+          "relationship": "七记录level非零，费用S32写64B后绘文字；原伤势图/每次marker和低S16坐标消费保持"
+        },
+        {
+          "parent_entry": "0x49E1D0",
+          "call_site": "0x49E2E0",
+          "target_entry": "0x53B304",
+          "format_address": "0x587328",
+          "format_bytes": "202020202020202020202020202020a9d2abf9aaf72025376420aaf7b9f400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_expression_group": "healing_player_money",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_format_expression": "\"               \\xA9\\xD2\\xAB\\xF9\\xAA\\xF7 %7d \\xAA\\xF7\\xB9\\xF4\"",
+          "destination_expression": "buffer.data()",
+          "destination_capacity": 64,
+          "relationship": "七记录绘制后读普通FC S32，15空格/原字节写同一64B并绘文字，真实返回0保持"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -153912,7 +155082,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -153982,7 +155153,7 @@
             "S32"
           ],
           "source_format_expression": "\"%7d\"",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "destination_capacity": 256,
           "original_value_read_order": [
             "0x4D784D"
@@ -154269,7 +155440,135 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4D7470",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7470",
+          "destination_expression": "buffer",
+          "call_site": "0x4D76EF",
+          "format_address": "0x5531A4",
+          "format_bytes": "256400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%d\"",
+          "source_expression": "index",
+          "destination_capacity": 16,
+          "consumer_expression": "escaped",
+          "consumer_capacity": 16,
+          "escape_capacity": 15,
+          "condition_expression": "hover>=0/左键，原金额足够且宠物数非零",
+          "relationship": "先固定当前页形成绝对index，发布相对hovered到C8AF70后才格式化绝对index；未清16B→另一未清16B转义/cap15→target/request/Y/X/socket→512620(mode0)，弃返回→关闭/SE57后共同绘制，不补成功门禁"
+        },
+        {
+          "parent_entry": "0x4D7470",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7470",
+          "destination_expression": "buffer",
+          "call_site": "0x4D7861",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D784D"
+          ],
+          "original_unconsumed_variadic_register_push": {
+            "site": "0x4D7852",
+            "register": "EBP",
+            "width": "W32",
+            "relationship": "原预先压一EBP值，只有%d指令消费其后压入的真实gold值；本步保持既有源的一消费参数，不制造额外值"
+          },
+          "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+          "relationship": "四条错误说明绘制后独立读真实gold S32，%7d写共用未清256B，格式后Y→X绘金额，之后才取页号/页数"
+        },
+        {
+          "parent_entry": "0x4D7470",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7470",
+          "destination_expression": "buffer",
+          "call_site": "0x4D78AF",
+          "format_address": "0x586D48",
+          "format_bytes": "25642f256400",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_format_expression": "\"%d/%d\"",
+          "source_expression": "gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D7891",
+            "0x4D7896"
+          ],
+          "consumer_expression": "DrawText/X+172,Y+44/layer2,font0,color0",
+          "relationship": "金额绘制后读同源D45F74页号→未定义外部C8AF84页数，参数页号+1/页数两S32写同256B；不补页数/除零保护，格式后重取Y→X画页码"
+        },
+        {
+          "parent_entry": "0x4D7470",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7470",
+          "destination_expression": "buffer",
+          "call_site": "0x4D7973",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%4d\"",
+          "source_expression": "value",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D794D",
+            "0x4D7966"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 4,
+          "condition_expression": "八行原U16 used非零",
+          "consumer_expression": "DrawText/X+203,Y+88+32*row/layer2,font1,color0",
+          "relationship": "同源96B目录记录名称测宽后重取名称并完成绘制，之后再次重读D45F74，再读该行+4 S32 value格式化；格式后Y→X绘font1数值，不建立值/页号副本"
+        },
+        {
+          "parent_entry": "0x4D7470",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7470",
+          "destination_expression": "buffer",
+          "call_site": "0x4D79DB",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "price",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D79A2",
+            "0x4D79A8",
+            "0x4D79BC"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 8,
+          "condition_expression": "八行原U16 used非零",
+          "consumer_expression": "DrawText/X+261,Y+88+32*row/layer2,font1,color0或6",
+          "relationship": "value绘制后重读页号→真实金额→96B记录+8费用S32，先按S32金额>=费用形成U8颜色0/6，再fmt费用到同256B，格式后Y→X绘font1费用；保持每有效行独立金额读取，不统一缓存"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D7C20",
@@ -154291,7 +155590,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -154412,7 +155712,7 @@
             "S32"
           ],
           "source_format_expression": "\"%7d\"",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "destination_capacity": 64,
           "original_value_read_order": [
             "0x4D8025"
@@ -154602,7 +155902,129 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4D7C20",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7C20",
+          "destination_expression": "buffer",
+          "call_site": "0x4D7EB0",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%4d\"",
+          "source_expression": "skillValue",
+          "destination_capacity": 64,
+          "original_value_read_order": [
+            "0x4D7E88",
+            "0x4D7E8D",
+            "0x4D7EA3"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 4,
+          "consumer_expression": "DrawText/X+202,Y+46/layer2,font1,color0",
+          "relationship": "技能名称测宽/重取名称/绘制后，再读目录页号→目录相对选择→96B记录+4 S32，写共用未清64B，格式后重取本页面板Y→X画技能值"
+        },
+        {
+          "parent_entry": "0x4D7C20",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7C20",
+          "destination_expression": "buffer",
+          "call_site": "0x4D7F04",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "price",
+          "destination_capacity": 64,
+          "original_value_read_order": [
+            "0x4D7EDC",
+            "0x4D7EE5",
+            "0x4D7EF7"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 8,
+          "consumer_expression": "DrawText/X+260,Y+46/layer2,font0,color0",
+          "relationship": "技能值绘制后独立重读目录页号→目录相对选择→96B记录+8费用S32，同64B格式后重取Y/X；字体0与旧58的字体1区别保持"
+        },
+        {
+          "parent_entry": "0x4D7C20",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7C20",
+          "destination_expression": "buffer",
+          "call_site": "0x4D7FA0",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "option.value04",
+          "destination_capacity": 64,
+          "original_value_read_order": [
+            "0x4D7F8F"
+          ],
+          "original_record_stride": 40,
+          "original_field_offset": 4,
+          "condition_expression": "五条D67448候选仅used非零才绘制，与点击allowed&&used区别保持",
+          "consumer_expression": "DrawText/X+272,Y+135+40*row/layer2,font1/color沿名称前快照0或7",
+          "relationship": "固定同源40B候选，allowed色0/7在名称测宽前形成并供名称/数值共用，名称绘制后才读取+4 S32格式化，同64B/40B步长/原同色不改"
+        },
+        {
+          "parent_entry": "0x4D7C20",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7C20",
+          "destination_expression": "buffer",
+          "call_site": "0x4D8036",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "destination_capacity": 64,
+          "original_value_read_order": [
+            "0x4D8025"
+          ],
+          "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+          "relationship": "五候选及右四行说明绘制后再取真实金额S32，同64B，格式后重取Y/X，之后悬停框/按钮/提示/完整503440 flags1尾返回"
+        },
+        {
+          "parent_entry": "0x4D7C20",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D7C20",
+          "destination_expression": "buffer",
+          "call_site": "0x4D812B",
+          "format_address": "0x5531A4",
+          "format_bytes": "256400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%d\"",
+          "source_expression": "hovered",
+          "destination_capacity": 16,
+          "consumer_expression": "escaped",
+          "consumer_capacity": 16,
+          "escape_capacity": 15,
+          "condition_expression": "候选allowed!=0且used!=0首命中hover>=0/低W8左键",
+          "relationship": "相对hover S32写未清16B→独立16B转义/cap15→target/request/Y/X/socket发送mode0弃返回；发送后才读取panelId/发布同源C8A94C相对选择，再关闭/SE57并继续共同绘制，不采用旧58发送前发布"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D8230",
@@ -154624,7 +156046,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -154769,7 +156192,7 @@
           "format_address": "0x5889A8",
           "format_bytes": "25376400",
           "source_format_expression": "\"%7d\"",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "original_value_read_order": [
             "0x4D878F"
           ],
@@ -154938,7 +156361,132 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4D8230",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D8230",
+          "argument_widths": [
+            "S32"
+          ],
+          "destination_expression": "buffer",
+          "destination_capacity": 64,
+          "call_site": "0x4D84C0",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "source_format_expression": "\"%4d\"",
+          "source_expression": "skillValue",
+          "original_value_read_order": [
+            "0x4D8498",
+            "0x4D849E",
+            "0x4D84B3"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 4,
+          "consumer_expression": "DrawText/X+202,Y+46/layer2,font1,color0",
+          "relationship": "技能名称测宽后重取名称并绘制，再新读目录页号/目录相对选择/+4 S32，写同未清64B，格式后新Y/X绘数值"
+        },
+        {
+          "parent_entry": "0x4D8230",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D8230",
+          "argument_widths": [
+            "S32"
+          ],
+          "destination_expression": "buffer",
+          "destination_capacity": 64,
+          "call_site": "0x4D8514",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "price",
+          "original_value_read_order": [
+            "0x4D84EB",
+            "0x4D84F1",
+            "0x4D8507"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 8,
+          "consumer_expression": "DrawText/X+260,Y+46/layer2,font0,color0",
+          "relationship": "技能数值绘后重新取目录页号/目录相对选择/+8费用S32，同64B，格式后新Y/X绘费用，不缓存上项记录"
+        },
+        {
+          "parent_entry": "0x4D8230",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D8230",
+          "argument_widths": [
+            "S32"
+          ],
+          "destination_expression": "buffer",
+          "destination_capacity": 64,
+          "call_site": "0x4D85AD",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04",
+          "original_value_read_order": [
+            "0x4D8590",
+            "0x4D859F"
+          ],
+          "original_record_stride": 40,
+          "original_field_offset": 4,
+          "consumer_expression": "DrawText/X+267,Y+83/layer2,font1,color0",
+          "relationship": "候选名称按C8A94C测宽后再重取选择/名称并绘制；绘制后再次读C8A94C与同源40B候选+4 S32，同64B，格式后新Y/X绘值"
+        },
+        {
+          "parent_entry": "0x4D8230",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D8230",
+          "argument_widths": [
+            "S32"
+          ],
+          "destination_expression": "buffer",
+          "destination_capacity": 64,
+          "call_site": "0x4D8639",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "source_format_expression": "\"%4d\"",
+          "source_expression": "slot.value04",
+          "original_value_read_order": [
+            "0x4D8628"
+          ],
+          "original_record_stride": 92,
+          "original_field_offset": 4,
+          "condition_expression": "十条92B技能槽原U16 used非零",
+          "consumer_expression": "DrawText/X+260,Y+120+24*row/layer2,font1,color0",
+          "relationship": "used非零才测宽/绘制同源技能槽名称，再读固定记录+4 S32格式化，同64B后取Y/X绘数值；随后独立重取候选选择/slots决定23093图，used门槛不扩大至图或点击"
+        },
+        {
+          "parent_entry": "0x4D8230",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D8230",
+          "argument_widths": [
+            "S32"
+          ],
+          "destination_expression": "buffer",
+          "destination_capacity": 64,
+          "call_site": "0x4D87A0",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "original_value_read_order": [
+            "0x4D878F"
+          ],
+          "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+          "relationship": "十行/右四说明与原hover两行说明完成后再读真实金额S32写同64B，格式后新Y/X；接按钮/提示与503440 flags1完整W32尾"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D88C0",
@@ -154955,7 +156503,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只替换六原格式标识符；槽号S32/未清16B直接mode0发送无转义，三非拥有T*名和两个S32金额/费用共用未清256B。96B目录/40B候选/92B槽字段与各次选择读取、技能/槽真实buffer测宽、宠物固定588320示例测宽却画真实buffer、空槽仅原strcpy、原各次布局/前缀空白/按钮副作用/完整返回保持。目录三外部缺口/旧路由与运行不宣闭合。",
       "original_incoming": [],
@@ -155105,7 +156654,7 @@
             "S32"
           ],
           "source_format_expression": "kLegacyPetSkillGold588D5C",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "original_value_read_order": [
@@ -155205,7 +156754,157 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "256400",
+          "call_site": "0x4D89D2",
+          "format_address": "0x5531A4",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%d\"",
+          "source_expression": "gLegacyPetSkillSlotCF4B64",
+          "destination_expression": "requestText",
+          "destination_capacity": 16,
+          "original_value_read_order": [
+            "0x4D89C2"
+          ],
+          "condition_expression": "确认按钮bit1优先于否按钮",
+          "consumer_expression": "network::Sub_512620(...,0,requestText)",
+          "relationship": "新读CF4B64槽号S32写未清16B，直接target/request/Y/X/socket发送mode0，不添加52D2D0转义；弃发送返回，关闭/SE79后共同绘制，否分支只回旧60/SE79"
+        },
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "bec7b2dfa1792573a17a00",
+          "call_site": "0x4D8A82",
+          "format_address": "0x588344",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_expression": "kLegacyPetSkillTitle588344",
+          "source_expression": "skillName",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D8A5D",
+            "0x4D8A63",
+            "0x4D8A75"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 12,
+          "consumer_expression": "TextMeasure(buffer,0)→DrawText/X+160-width/2,Y+20",
+          "relationship": "新读目录页号→相对选择→同源96B记录+C非拥有名称T*，写共用未清256B；测量真实格式后buffer，再按新读面板Y/X居中画layer2/font0/color0"
+        },
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "c5fda1792573a17a00",
+          "call_site": "0x4D8AE2",
+          "format_address": "0x588338",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_expression": "kLegacyPetSkillPetName588338",
+          "source_expression": "petName",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D8AC5",
+            "0x4D8AD4"
+          ],
+          "original_record_stride": 40,
+          "original_field_offset": 12,
+          "consumer_expression": "TextMeasure(kLegacyPetSkillPetMeasure588320,0)→DrawText(buffer)/X+160-width/2,Y+44",
+          "original_measure_site": "0x4D8AEE",
+          "original_measure_text_address": "0x588320",
+          "relationship": "新读C8A94C形成同源40B候选+C非拥有名称T*并格式化到同256B；测量仍是588320固定示例，绘制真实buffer，不能改为动态buffer测宽"
+        },
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "a8cfa5cea1792573a17aaabaa6ecb86d00",
+          "call_site": "0x4D8B54",
+          "format_address": "0x58830C",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_expression": "kLegacyPetSkillUsedSlot58830C",
+          "source_expression": "slot.name.data()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D8B25",
+            "0x4D8B39",
+            "0x4D8B43"
+          ],
+          "original_record_stride": 92,
+          "original_field_offset": 8,
+          "condition_expression": "按新CF4B64固定92B槽，原U16 used非零",
+          "consumer_expression": "两分支汇合TextMeasure(buffer,0)→DrawText/X+160-width/2,Y+68",
+          "relationship": "有用槽+8名称非拥有T*写同256B；空槽仅沿原strcpy固定5882F4到buffer，不新增格式点，之后共用实际buffer测宽和绘制"
+        },
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "abf9a6b3aaf7c342a1402025376420aaf7b9f400",
+          "call_site": "0x4D8C13",
+          "format_address": "0x588D5C",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "kLegacyPetSkillGold588D5C",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D8C00"
+          ],
+          "consumer_expression": "DrawText/X+85,Y+120/layer2,font0,color0",
+          "relationship": "原学习句绘制后独立取真实金额S32，保留原前缀/空白/%7d/后缀字节写同256B，格式后新Y/X画金额"
+        },
+        {
+          "parent_entry": "0x4D88C0",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4D88C0",
+          "format_bytes": "c1cab652aaf7c34220202025376420aaf7b9f400",
+          "call_site": "0x4D8C67",
+          "format_address": "0x588D48",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "kLegacyPetSkillPrice588D48",
+          "source_expression": "price",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4D8C3F",
+            "0x4D8C45",
+            "0x4D8C5A"
+          ],
+          "original_record_stride": 96,
+          "original_field_offset": 8,
+          "consumer_expression": "DrawText/X+85,Y+140/layer2,font0,color0",
+          "relationship": "金额绘制后新取目录页号/相对选择/+8费用S32，保留原前缀三空格/%7d/后缀字节写同256B，格式后Y/X绘费用，随后问题/确认按钮/提示与flags0完整返回"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4DC290",
@@ -155219,7 +156918,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只替换六格式标识符，同源七条32B只读记录保持；扫描七行/绘制六行、level>0与原第七条合计可选区别不变。hover+1 S32/128B→独立16B/cap15转义与原发送、非拥有17B名称、+8费用/+4伤势格式/图形之后重读累加、S32合计与合计后真实金额、原旧字节/各次Y/X、门槛/关闭/提示与完整返回保持。真实旧表路由/收发/画面/生命周期/运行仍未完成。",
       "original_incoming": [],
@@ -155379,7 +157079,7 @@
             "S32"
           ],
           "source_format_expression": "kLegacyHealingGold588F94",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "destination_capacity": 128,
           "original_value_read_order": [
             "0x4DC639"
@@ -155419,7 +157119,142 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "256400",
+          "destination_expression": "buffer",
+          "call_site": "0x4DC3D3",
+          "format_address": "0x5531A4",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%d\"",
+          "source_expression": "hovered + 1",
+          "destination_capacity": 128,
+          "consumer_expression": "escaped",
+          "consumer_capacity": 16,
+          "escape_capacity": 15,
+          "condition_expression": "七行先命中矩形后读level>0，首hover>=0/低W8左键优先于取消",
+          "relationship": "相对hover+1 S32写共用未清128B→独立16B escaped/cap15→target/request/Y/X/socket→mode0发送弃返回→关闭/SE79，共同绘制继续；原合计第6行允许发送7，不增金额/伤势门槛"
+        },
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "25336400",
+          "destination_expression": "buffer",
+          "original_record_stride": 32,
+          "call_site": "0x4DC4D5",
+          "format_address": "0x553FCC",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "level",
+          "destination_capacity": 128,
+          "original_value_read_order": [
+            "0x4DC4C0"
+          ],
+          "original_field_offset": 0,
+          "condition_expression": "六行32B记录原level>0",
+          "consumer_expression": "drawAt(buffer,100,76+20*index,0)",
+          "relationship": "每固定记录新读level S32，通过正值门槛才fmt同128B，格式后面板Y/X取样并绘等级，不将扫描七行与绘制六行合并"
+        },
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "252d31367300",
+          "destination_expression": "buffer",
+          "original_record_stride": 32,
+          "call_site": "0x4DC51A",
+          "format_address": "0x553FE0",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_expression": "\"%-16s\"",
+          "source_expression": "reinterpret_cast<const char*>(record + 12)",
+          "destination_capacity": 128,
+          "original_field_offset": 12,
+          "source_capacity": 17,
+          "condition_expression": "六行32B记录level>0",
+          "consumer_expression": "drawAt(buffer,141,76+20*index,0)",
+          "relationship": "等级绘制后取同源记录+C名称非拥有T*，17B原名称/%-16s最小宽度不增加精度或截断，写同128B后新Y/X绘名称"
+        },
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "25376420aaf7b9f400",
+          "destination_expression": "buffer",
+          "original_record_stride": 32,
+          "call_site": "0x4DC55B",
+          "format_address": "0x588FC4",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "kLegacyStorageAmount588FC4",
+          "source_expression": "ReadRecordW32(record, 8)",
+          "destination_capacity": 128,
+          "original_value_read_order": [
+            "0x4DC54A"
+          ],
+          "original_field_offset": 8,
+          "condition_expression": "六行32B记录level>0",
+          "consumer_expression": "drawAt(buffer,290,76+20*index,0)",
+          "relationship": "名称绘后读取同固定32B记录+8费用S32，原%7d空格/金额后缀字节写同128B并新Y/X绘；之后读取+4伤势、绘213图，图后再重读+8费用/+4伤势分别S32累加，不复用前格式值"
+        },
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "a5feb3a1a440b05faa76c0f8202020202025386420aaf7b9f400",
+          "destination_expression": "buffer",
+          "call_site": "0x4DC608",
+          "format_address": "0x588FA8",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "kLegacyHealingTotal588FA8",
+          "source_expression": "totalCost",
+          "destination_capacity": 128,
+          "consumer_expression": "drawAt(buffer,114,196,0)",
+          "relationship": "只对六行level>0且图后重读的+8费用S32累加，沿原S32总计不扩宽/钳制，原前缀五空格/%8d/后缀写同128B，随后新Y/X画合计；不是直接读取第七条summary费用"
+        },
+        {
+          "parent_entry": "0x4DC290",
+          "target_entry": "0x53B304",
+          "source_format_symbol": "Sub_4DC290",
+          "format_bytes": "abf9a6b3aaf7c3422025376420aaf7b9f400",
+          "destination_expression": "buffer",
+          "call_site": "0x4DC64D",
+          "format_address": "0x588F94",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_expression": "kLegacyHealingGold588F94",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "destination_capacity": 128,
+          "original_value_read_order": [
+            "0x4DC639"
+          ],
+          "consumer_expression": "drawAt(buffer,151,224,0)",
+          "relationship": "本帧六行合计绘制后独立新取真实gold S32，原前缀空格/%7d/后缀写同128B，格式后新Y/X画金额；随后按钮/原hover与totalHealth提示及flags0完整W32尾"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4E4EA0",
@@ -162326,7 +164161,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
-        "doc/cg2d_legacy_window_retirement_evidence.json"
+        "doc/cg2d_legacy_window_retirement_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅四格式接口改变，28槽逆序/完整used W16/图后count S32>0、悬停详情/拖动框后新金额FC、提示原memo扫描与flags W16顺序/name+02或memo+1F T*及两原字节格式、共用未清256B/font1/共享提示复制保持。原预览T*、转生/使用/拖放/详情/选择发布/关闭混合T*/正常W32的uintptr_t返回及尾先503440后悬停发布等正文不动。 原父/旧路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -162393,7 +164229,7 @@
           ],
           "source_format_symbol": "Sub_4FAEF0",
           "source_format_expression": "\"%7d\"",
-          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueFC",
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "original_value_read_order": [
@@ -162496,7 +164332,115 @@
           "relationship": "LWR01：原正文和原语义仅保历史；当前项目已废弃并移除，非原端不可达证明。"
         }
       ],
-      "current_source_state": "用户范围排除：当前工程已废弃"
+      "current_source_state": "用户范围排除：当前工程已废弃",
+      "business_format_points_before_bcl02": [
+        {
+          "parent_entry": "0x4FAEF0",
+          "call_site": "0x4FB578",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_4FAEF0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "count",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4FB55E",
+            "0x4FB563"
+          ],
+          "consumer_expression": "DrawText(countX低S16, countY低S16, 2, 1, 0, buffer, 0, 0)",
+          "relationship": "28槽27→0逆序；used W16非零，0..6装备标记图条件保持，实际物品图Draw后才+ C44 count S32，>0宽3写共用未清256B；格式后新坐标表Y/面板Y及X/面板X，格+(21,31)/font1。",
+          "original_record_stride": 3164,
+          "original_field_offset": 3140,
+          "condition_expression": "slot27..0，item.used完整W16非零；实际物品图绘后count S32>0"
+        },
+        {
+          "parent_entry": "0x4FAEF0",
+          "call_site": "0x4FB69A",
+          "target_entry": "0x53B304",
+          "format_address": "0x5889A8",
+          "format_bytes": "25376400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_4FAEF0",
+          "source_format_expression": "\"%7d\"",
+          "source_expression": "world::detail::ReadPlayerValueFC()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4FB682",
+            "0x4FB68A"
+          ],
+          "consumer_expression": "DrawText(moneyX低S16, moneyY低S16, 2, 1, 0, buffer, 0, 0)",
+          "relationship": "悬停详情与可选拖动内框后，新FDA7FC玩家金额S32宽7覆同256B；格式后新面板Y/X，X+200/Y+71/font1，后金钱按钮与提示保持。"
+        },
+        {
+          "parent_entry": "0x4FAEF0",
+          "call_site": "0x4FB78A",
+          "target_entry": "0x53B304",
+          "format_address": "0x586BCC",
+          "format_bytes": "25735b6b6f6b5d00",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_symbol": "Sub_4FAEF0",
+          "source_format_expression": "\"%s[kok]\"",
+          "source_expression": "item->name.data()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4FB745",
+            "0x4FB755",
+            "0x4FB760",
+            "0x4FB767",
+            "0x4FB779"
+          ],
+          "consumer_expression": "hint = buffer; 后strcpy(ui::detail::gHoverTextD68AE8.data(), hint)",
+          "relationship": "关闭/模式2提示均未命中且hovered>=0，同项used W16非零，先扫描memo+1F确认非空再读flags+C52 W16 bit100，取name+02 T*沿%s[kok]写同256B；不改name来源/后缀、不给strlen新增门禁。后hint指向buffer至原共享提示复制。",
+          "original_record_stride": 3164,
+          "original_field_offset": 2,
+          "condition_expression": "item->used!=0 && strlen(item->memo.data())!=0 && (item->flags & 0x100u)!=0"
+        },
+        {
+          "parent_entry": "0x4FAEF0",
+          "call_site": "0x4FB7C2",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A38C",
+          "format_bytes": "a1792573a17a00",
+          "argument_widths": [
+            "T*"
+          ],
+          "source_format_symbol": "Sub_4FAEF0",
+          "source_format_expression": "kLegacyInventoryMemo58A38C",
+          "source_expression": "item->memo.data()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x4FB79B",
+            "0x4FB7A0",
+            "0x4FB7B1"
+          ],
+          "consumer_expression": "hint = buffer; 后strcpy(ui::detail::gHoverTextD68AE8.data(), hint)",
+          "relationship": "前name/kok提示未命中，同项used W16非零且flags+C52 bit200才取memo+1F T*；原A179%sA17A字节写同256B，hint指向buffer并复制至同共享提示；不猜编码或换括号，空memo按原仍可格式。",
+          "original_record_stride": 3164,
+          "original_field_offset": 31,
+          "condition_expression": "前一name/kok分支不成立后item->used!=0 && (item->flags & 0x200u)!=0"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC"
+        },
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4FBB40",
@@ -163242,7 +165186,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "只换四格式接口，十六原点逐一映射现drawNumber及直接格式；各显示项前文字绘后读取S32/最大血魔先于当前值getter、格式后才新版本U8选旧/新Y、下级经验新等级<130才取值/格式、penalty图绘后重读，原未清256B/输入坐标/font1保持。种族/称号/公会/职业重借与测宽、各版本采样、属性条、肖像/伤势/前后排按钮/时钟/协议/提示/S32返回0等全部其它正文不动，版本或数据生产/原父/旧路由/运行未闭合。",
       "original_incoming": [],
@@ -163348,6 +165293,502 @@
         }
       ],
       "business_format_points": [
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500A7B",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863A0",
+          "format_bytes": "25396400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%9d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value104",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500A62",
+            "0x500A67"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.value104, 185, 145, 162, \"%9d\")",
+          "relationship": "种族文字Draw后新FDA804决斗点S32，沿现drawNumber参数value/format写未清256B；格式后读取当项版本U8，<7/>=7按输入X+185/Y+145或162/font1，不复用入口版本。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.value104, 185, 145, 162, \"%9d\");",
+          "original_value_address": "0xFDA804",
+          "layout_offset_x": 185,
+          "layout_old_offset_y": 145,
+          "layout_new_offset_y": 162
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500C64",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500C4B",
+            "0x500C53"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.level, 62, 122, 140, \"%3d\")",
+          "relationship": "各称号/公会/职业正文之后，职业Draw后新FDA704等级S32，宽3覆同256B；格式后当项新版本取旧/新Y122/140，X62/font1。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.level, 62, 122, 140, \"%3d\");",
+          "original_value_address": "0xFDA704",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 122,
+          "layout_new_offset_y": 140
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500CC8",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FE8",
+          "format_bytes": "2534642f25346400",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%4d/%4d\"",
+          "source_expression": "hp, maxHp",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500CA0",
+            "0x500CA8",
+            "0x500CAD",
+            "0x500CB3",
+            "0x500CB8"
+          ],
+          "consumer_expression": "drawAt(buffer, 55, versionY(191, 206))",
+          "relationship": "等级绘后最大HP FDA728的16B CryptInt先、当前HP FDA718后，原getter401EA0；参数当前/最大两S32宽4覆同256B；格式后新当项版本选择Y191/206，输入X55/font1。",
+          "original_getter_entry": "0x401EA0",
+          "original_getter_value_addresses": [
+            "0xFDA728",
+            "0xFDA718"
+          ]
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500D2F",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FE8",
+          "format_bytes": "2534642f25346400",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%4d/%4d\"",
+          "source_expression": "fp, maxFp",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500D07",
+            "0x500D0F",
+            "0x500D14",
+            "0x500D1A",
+            "0x500D1F"
+          ],
+          "consumer_expression": "drawAt(buffer, 55, versionY(214, 228))",
+          "relationship": "HP绘后最大FP FDA748先、当前FP FDA738后，各16B CryptInt getter401EA0，格式参数当前/最大两S32；新版本Y214/228、输入X55/font1，原读取及副作用次序保持。",
+          "original_getter_entry": "0x401EA0",
+          "original_getter_value_addresses": [
+            "0xFDA748",
+            "0xFDA738"
+          ]
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500D83",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500D6B",
+            "0x500D70"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8], 62, 237, 250, \"%3d\")",
+          "relationship": "前一文字绘后新FDA798 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[8]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+237/新Y+250/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8], 62, 237, 250, \"%3d\");",
+          "original_value_address": "0xFDA798",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 237,
+          "layout_new_offset_y": 250
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500DD7",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500DBF",
+            "0x500DC4"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9], 62, 260, 272, \"%3d\")",
+          "relationship": "前一文字绘后新FDA79C S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[9]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+260/新Y+272/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9], 62, 260, 272, \"%3d\");",
+          "original_value_address": "0xFDA79C",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 260,
+          "layout_new_offset_y": 272
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500E2B",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500E13",
+            "0x500E18"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10], 62, 283, 294, \"%3d\")",
+          "relationship": "前一文字绘后新FDA7A0 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[10]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+283/新Y+294/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10], 62, 283, 294, \"%3d\");",
+          "original_value_address": "0xFDA7A0",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 283,
+          "layout_new_offset_y": 294
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500E7F",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500E67",
+            "0x500E6C"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11], 62, 306, 316, \"%3d\")",
+          "relationship": "前一文字绘后新FDA7A4 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[11]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+306/新Y+316/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11], 62, 306, 316, \"%3d\");",
+          "original_value_address": "0xFDA7A4",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 306,
+          "layout_new_offset_y": 316
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500ED3",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500EBB",
+            "0x500EC0"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12], 62, 329, 338, \"%3d\")",
+          "relationship": "前一文字绘后新FDA7A8 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[12]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+329/新Y+338/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12], 62, 329, 338, \"%3d\");",
+          "original_value_address": "0xFDA7A8",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 329,
+          "layout_new_offset_y": 338
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500F27",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500F0F",
+            "0x500F14"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13], 62, 352, 360, \"%3d\")",
+          "relationship": "前一文字绘后新FDA7AC S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[13]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+62/旧Y+352/新Y+360/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13], 62, 352, 360, \"%3d\");",
+          "original_value_address": "0xFDA7AC",
+          "layout_offset_x": 62,
+          "layout_old_offset_y": 352,
+          "layout_new_offset_y": 360
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500F7B",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500F63",
+            "0x500F68"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5], 193, 306, 316, \"%3d\")",
+          "relationship": "前一文字绘后新FDA78C S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[5]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+193/旧Y+306/新Y+316/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5], 193, 306, 316, \"%3d\");",
+          "original_value_address": "0xFDA78C",
+          "layout_offset_x": 193,
+          "layout_old_offset_y": 306,
+          "layout_new_offset_y": 316
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x500FD5",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x500FBD",
+            "0x500FC2"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6], 193, 329, 338, \"%3d\")",
+          "relationship": "前一文字绘后新FDA790 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[6]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+193/旧Y+329/新Y+338/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6], 193, 329, 338, \"%3d\");",
+          "original_value_address": "0xFDA790",
+          "layout_offset_x": 193,
+          "layout_old_offset_y": 329,
+          "layout_new_offset_y": 338
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x501029",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501011",
+            "0x501016"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7], 193, 352, 360, \"%3d\")",
+          "relationship": "前一文字绘后新FDA794 S32字段，经既有cg::world::detail::gPlayerRuntimeSlots.values78[7]/drawNumber只读value按宽3覆同256B，格式后才采当项版本；输入X+193/旧Y+352/新Y+360/font1，不前移为统一字段或版本快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7], 193, 352, 360, \"%3d\");",
+          "original_value_address": "0xFDA794",
+          "layout_offset_x": 193,
+          "layout_old_offset_y": 352,
+          "layout_new_offset_y": 360
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x501082",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863A0",
+          "format_bytes": "25396400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%9d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.value58.value()",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501065",
+            "0x50106D",
+            "0x501072"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.value58.value(), 55, 145, 162, \"%9d\")",
+          "relationship": "九字段绘后FDA758的16B经验CryptInt getter401EA0取S32，经现drawNumber宽9覆同256B；格式后当项版本Y145/162、输入X55/font1。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.value58.value(), 55, 145, 162, \"%9d\");",
+          "original_value_address": "0xFDA758",
+          "layout_offset_x": 55,
+          "layout_old_offset_y": 145,
+          "layout_new_offset_y": 162,
+          "original_getter_entry": "0x401EA0"
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x501110",
+          "target_entry": "0x53B304",
+          "format_address": "0x5863A0",
+          "format_bytes": "25396400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"%9d\"",
+          "source_expression": "next",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5010BE",
+            "0x5010C3",
+            "0x5010CB",
+            "0x5010D0",
+            "0x5010FB",
+            "0x501100"
+          ],
+          "consumer_expression": "drawAt(nextExperience, 55, versionY(168, 184))",
+          "relationship": "经验绘后新FDA704等级S32<130才FDA768下级经验CryptInt getter401EA0取S32并%9d覆同256B，nextExperience指向buffer；>=130跳getter/格式，沿原58A214固定限值。分支后才新版本Y168/184，输入X55/font1。",
+          "original_getter_entry": "0x401EA0",
+          "original_value_address": "0xFDA768",
+          "condition_expression": "经验绘后cg::world::detail::gPlayerRuntimeSlots.level S32<130；否则原固定限值且不调用getter/格式"
+        },
+        {
+          "parent_entry": "0x5008C0",
+          "call_site": "0x5013AE",
+          "target_entry": "0x53B304",
+          "format_address": "0x586390",
+          "format_bytes": "78256400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5008C0",
+          "source_format_expression": "\"x%d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valueF8",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501395",
+            "0x50139A"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valueF8, 241, 122, 139, \"x%d\")",
+          "relationship": "原penalty非零先以面板坐标画22527图，图后新FDA7F8 penalty S32，x%d覆同256B；格式后重新采当项版本，输入X241/旧Y122/新Y139/font1。不复用图前门槛值或面板坐标。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valueF8, 241, 122, 139, \"x%d\");",
+          "original_value_address": "0xFDA7F8",
+          "layout_offset_x": 241,
+          "layout_old_offset_y": 122,
+          "layout_new_offset_y": 139,
+          "condition_expression": "cg::world::detail::gPlayerRuntimeSlots.valueF8原非零门槛内，图绘后重新读取penalty"
+        }
+      ],
+      "verification_level": "本步只读555/985新格式邻窗及下级经验等级门槛，余430沿既有父合同；四常量沿已核字节，不重复加载。整份源码仅四格式标识符，十六原点/现数值lambda十三实际绑定调用、字段/符号性/参数/容量/各显示项读序与格式后版本/getter副作用次序/条件/布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
+      "unicode_utf16_utl02": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_5008C0"
+          }
+        ],
+        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5008C0"
+          ],
+          "relationship": "仅四源码格式接口改变，现drawNumber十三绑定调用对应十三原点、另三直接原点，其它正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧人物基本资料十六原格式已接线；原父及整体验收未闭合",
+      "business_format_points_before_bcl02": [
         {
           "parent_entry": "0x5008C0",
           "call_site": "0x500A7B",
@@ -163817,32 +166258,19 @@
           "condition_expression": "ReadPlayerPenalty()原非零门槛内，图绘后重新读取penalty"
         }
       ],
-      "verification_level": "本步只读555/985新格式邻窗及下级经验等级门槛，余430沿既有父合同；四常量沿已核字节，不重复加载。整份源码仅四格式标识符，十六原点/现数值lambda十三实际绑定调用、字段/符号性/参数/容量/各显示项读序与格式后版本/getter副作用次序/条件/布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
-      "unicode_utf16_utl02": {
-        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
-        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
-        "touched_sources": [
-          {
-            "path": "src/LegacyUiRecord.cpp",
-            "symbol": "Sub_5008C0"
-          }
-        ],
-        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerDuelPoint": "cg::world::detail::gPlayerRuntimeSlots.value104",
+          "ReadPlayerExperienceOnce": "cg::world::detail::gPlayerRuntimeSlots.value58.value()",
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level",
+          "ReadPlayerPenalty": "cg::world::detail::gPlayerRuntimeSlots.valueF8",
+          "ReadPlayerValue78": "cg::world::detail::gPlayerRuntimeSlots.values78[index]"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
-      },
-      "historical_sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_5008C0"
-          ],
-          "relationship": "仅四源码格式接口改变，现drawNumber十三绑定调用对应十三原点、另三直接原点，其它正文/S32返回0保持",
-          "retired_by": "LWR02"
-        }
-      ],
-      "historical_status_before_lwr02": "旧人物基本资料十六原格式已接线；原父及整体验收未闭合"
+      }
     },
     {
       "original_entry": "0x5014A0",
@@ -163862,7 +166290,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "仅换三个格式接口，三十原点映射现drawNumber二十八绑定/HP FP两直接格式；各值分别新读S32、最大血魔先/参数当前先、入口六值资格快照及求和/门槛原顺序、后期BP新读、五基础属性第一项前penalty一次形成6/0颜色而各值重读、六抗性原字段次序、未清256B/输入布局/font1保持。修正防御Y269/首抗性Y268差异不改。按钮两次查询/协议/音效/闪烁调用/后期BP门槛/五按钮/提示/S32返回0等其余正文不动。原父/旧路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -164052,6 +166481,916 @@
         }
       ],
       "business_format_points": [
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501700",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.level",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5016EC"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.level, 62, 38, \"%3d\")",
+          "relationship": "加点查询/可选协议与音效后新FDA704等级S32，宽3写共用未清256B；现drawNumber绑定输入X62/Y38/font1/color0。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.level, 62, 38, \"%3d\");",
+          "original_value_address": "0xFDA704",
+          "layout_offset_x": 62,
+          "layout_offset_y": 38,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x50174A",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FE8",
+          "format_bytes": "2534642f25346400",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%4d/%4d\"",
+          "source_expression": "hp, maxHp",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x50171F",
+            "0x501727",
+            "0x50172C",
+            "0x501732",
+            "0x501737"
+          ],
+          "consumer_expression": "DrawText(x+55低S16, y+61低S16, 2, 1, 0, buffer, 0, 0)",
+          "relationship": "等级绘后最大HP FDA728先、当前HP FDA718后，各16B CryptInt getter401EA0；参数当前/最大双S32各宽4覆同256B，输入X55/Y61/font1。",
+          "original_getter_entry": "0x401EA0",
+          "original_getter_value_addresses": [
+            "0xFDA728",
+            "0xFDA718"
+          ]
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501794",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FE8",
+          "format_bytes": "2534642f25346400",
+          "argument_widths": [
+            "S32",
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%4d/%4d\"",
+          "source_expression": "fp, maxFp",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501769",
+            "0x501771",
+            "0x501776",
+            "0x50177C",
+            "0x501781"
+          ],
+          "consumer_expression": "DrawText(x+55低S16, y+84低S16, 2, 1, 0, buffer, 0, 0)",
+          "relationship": "HP绘后最大FP FDA748先、当前FP FDA738后，CryptInt getter401EA0顺序/副作用保持；参数当前/最大双S32，输入X55/Y84/font1。",
+          "original_getter_entry": "0x401EA0",
+          "original_getter_value_addresses": [
+            "0xFDA748",
+            "0xFDA738"
+          ]
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x5017CF",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5017B3",
+            "0x5017B8"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8], 62, 107, \"%3d\")",
+          "relationship": "前文字Draw后新FDA798 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y107/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[8], 62, 107, \"%3d\");",
+          "original_value_address": "0xFDA798",
+          "layout_offset_x": 62,
+          "layout_offset_y": 107,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501807",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5017EB",
+            "0x5017F0"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9], 62, 130, \"%3d\")",
+          "relationship": "前文字Draw后新FDA79C S32，经现数值lambda绑定宽3覆同256B；输入X62/Y130/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[9], 62, 130, \"%3d\");",
+          "original_value_address": "0xFDA79C",
+          "layout_offset_x": 62,
+          "layout_offset_y": 130,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501842",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501826",
+            "0x50182B"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10], 62, 153, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7A0 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y153/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[10], 62, 153, \"%3d\");",
+          "original_value_address": "0xFDA7A0",
+          "layout_offset_x": 62,
+          "layout_offset_y": 153,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x50187D",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[0]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501861",
+            "0x501866"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[0], 62, 176, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7B0 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y176/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[0], 62, 176, \"%3d\");",
+          "original_value_address": "0xFDA7B0",
+          "layout_offset_x": 62,
+          "layout_offset_y": 176,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x5018B8",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x50189C",
+            "0x5018A1"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11], 62, 199, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7A4 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y199/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[11], 62, 199, \"%3d\");",
+          "original_value_address": "0xFDA7A4",
+          "layout_offset_x": 62,
+          "layout_offset_y": 199,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x5018F2",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5018D7",
+            "0x5018DC"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12], 62, 222, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7A8 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y222/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[12], 62, 222, \"%3d\");",
+          "original_value_address": "0xFDA7A8",
+          "layout_offset_x": 62,
+          "layout_offset_y": 222,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x50192D",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501911",
+            "0x501916"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13], 62, 245, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7AC S32，经现数值lambda绑定宽3覆同256B；输入X62/Y245/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[13], 62, 245, \"%3d\");",
+          "original_value_address": "0xFDA7AC",
+          "layout_offset_x": 62,
+          "layout_offset_y": 245,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501968",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[1]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x50194C",
+            "0x501951"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[1], 62, 269, \"%3d\")",
+          "relationship": "前文字Draw后新FDA7B4 S32，经现数值lambda绑定宽3覆同256B；输入X62/Y269/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesB0[1], 62, 269, \"%3d\");",
+          "original_value_address": "0xFDA7B4",
+          "layout_offset_x": 62,
+          "layout_offset_y": 269,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x5019A2",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501987",
+            "0x50198C"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5], 186, 206, \"%3d\")",
+          "relationship": "前文字Draw后新FDA78C S32，经现数值lambda绑定宽3覆同256B；输入X186/Y206/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[5], 186, 206, \"%3d\");",
+          "original_value_address": "0xFDA78C",
+          "layout_offset_x": 186,
+          "layout_offset_y": 206,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x5019E3",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x5019C7",
+            "0x5019CC"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6], 186, 228, \"%3d\")",
+          "relationship": "前文字Draw后新FDA790 S32，经现数值lambda绑定宽3覆同256B；输入X186/Y228/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[6], 186, 228, \"%3d\");",
+          "original_value_address": "0xFDA790",
+          "layout_offset_x": 186,
+          "layout_offset_y": 228,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501A1E",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501A02",
+            "0x501A07"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7], 186, 252, \"%3d\")",
+          "relationship": "前文字Draw后新FDA794 S32，经现数值lambda绑定宽3覆同256B；输入X186/Y252/font1/color0，保留单项取值，不用入口资格快照。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[7], 186, 252, \"%3d\");",
+          "original_value_address": "0xFDA794",
+          "layout_offset_x": 186,
+          "layout_offset_y": 252,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501A58",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[0]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501A3D",
+            "0x501A42"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[0], 194, 298, \"%+4d\")",
+          "relationship": "前文字绘后新FDA7D4 S32修正，显式正号宽4覆同256B，输入X194/Y298/font1/color0，不改负值、取值或坐标。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[0], 194, 298, \"%+4d\");",
+          "original_value_address": "0xFDA7D4",
+          "layout_offset_x": 194,
+          "layout_offset_y": 298,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501A99",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[1]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501A7D",
+            "0x501A82"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[1], 194, 321, \"%+4d\")",
+          "relationship": "前文字绘后新FDA7D8 S32修正，显式正号宽4覆同256B，输入X194/Y321/font1/color0，不改负值、取值或坐标。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[1], 194, 321, \"%+4d\");",
+          "original_value_address": "0xFDA7D8",
+          "layout_offset_x": 194,
+          "layout_offset_y": 321,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501AD4",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[2]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501AB8",
+            "0x501ABD"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[2], 194, 344, \"%+4d\")",
+          "relationship": "前文字绘后新FDA7DC S32修正，显式正号宽4覆同256B，输入X194/Y344/font1/color0，不改负值、取值或坐标。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[2], 194, 344, \"%+4d\");",
+          "original_value_address": "0xFDA7DC",
+          "layout_offset_x": 194,
+          "layout_offset_y": 344,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501B0E",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[3]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501AF3",
+            "0x501AF8"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[3], 194, 367, \"%+4d\")",
+          "relationship": "前文字绘后新FDA7E0 S32修正，显式正号宽4覆同256B，输入X194/Y367/font1/color0，不改负值、取值或坐标。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesD4[3], 194, 367, \"%+4d\");",
+          "original_value_address": "0xFDA7E0",
+          "layout_offset_x": 194,
+          "layout_offset_y": 367,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501B49",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FDC",
+          "format_bytes": "25346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%4d\"",
+          "source_expression": "world::detail::gValueD2F788",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501B2D",
+            "0x501B32"
+          ],
+          "consumer_expression": "drawNumber(world::detail::gValueD2F788, 220, 61, \"%4d\")",
+          "relationship": "四修正绘后新D2F788剩余BP S32，宽4覆同256B，输入X220/Y61/font1/color0；不用入口BP资格快照，后penalty独立读。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::gValueD2F788, 220, 61, \"%4d\");",
+          "original_value_address": "0xD2F788",
+          "layout_offset_x": 220,
+          "layout_offset_y": 61,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501B91",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[0]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501B68",
+            "0x501B6D",
+            "0x501B73"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[0], 192, 84, \"%3d\", color)",
+          "relationship": "基础属性第0项：新FDA778 S32，宽3覆同256B，输入X192/Y84/font1；五项共用第一项前501B6D独立penalty读取形成的原色6/0，各属性值分别重读，不用六值资格快照或每项重读颜色。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[0], 192, 84, \"%3d\", color);",
+          "original_value_address": "0xFDA778",
+          "layout_offset_x": 192,
+          "layout_offset_y": 84,
+          "source_color_expression": "color",
+          "source_color_read_site": "0x501B6D",
+          "source_color_value_address": "0xFDA7F8"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501BCE",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[1]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501BB2",
+            "0x501BB7"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[1], 192, 107, \"%3d\", color)",
+          "relationship": "基础属性第1项：新FDA77C S32，宽3覆同256B，输入X192/Y107/font1；五项共用第一项前501B6D独立penalty读取形成的原色6/0，各属性值分别重读，不用六值资格快照或每项重读颜色。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[1], 192, 107, \"%3d\", color);",
+          "original_value_address": "0xFDA77C",
+          "layout_offset_x": 192,
+          "layout_offset_y": 107,
+          "source_color_expression": "color",
+          "source_color_read_site": "0x501B6D",
+          "source_color_value_address": "0xFDA7F8"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501C05",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[2]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501BE9",
+            "0x501BEE"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[2], 192, 130, \"%3d\", color)",
+          "relationship": "基础属性第2项：新FDA780 S32，宽3覆同256B，输入X192/Y130/font1；五项共用第一项前501B6D独立penalty读取形成的原色6/0，各属性值分别重读，不用六值资格快照或每项重读颜色。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[2], 192, 130, \"%3d\", color);",
+          "original_value_address": "0xFDA780",
+          "layout_offset_x": 192,
+          "layout_offset_y": 130,
+          "source_color_expression": "color",
+          "source_color_read_site": "0x501B6D",
+          "source_color_value_address": "0xFDA7F8"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501C3F",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[3]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501C23",
+            "0x501C28"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[3], 192, 153, \"%3d\", color)",
+          "relationship": "基础属性第3项：新FDA784 S32，宽3覆同256B，输入X192/Y153/font1；五项共用第一项前501B6D独立penalty读取形成的原色6/0，各属性值分别重读，不用六值资格快照或每项重读颜色。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[3], 192, 153, \"%3d\", color);",
+          "original_value_address": "0xFDA784",
+          "layout_offset_x": 192,
+          "layout_offset_y": 153,
+          "source_color_expression": "color",
+          "source_color_read_site": "0x501B6D",
+          "source_color_value_address": "0xFDA7F8"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501C79",
+          "target_entry": "0x53B304",
+          "format_address": "0x553FCC",
+          "format_bytes": "25336400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%3d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[4]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501C5D",
+            "0x501C62"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[4], 192, 176, \"%3d\", color)",
+          "relationship": "基础属性第4项：新FDA788 S32，宽3覆同256B，输入X192/Y176/font1；五项共用第一项前501B6D独立penalty读取形成的原色6/0，各属性值分别重读，不用六值资格快照或每项重读颜色。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.values78[4], 192, 176, \"%3d\", color);",
+          "original_value_address": "0xFDA788",
+          "layout_offset_x": 192,
+          "layout_offset_y": 176,
+          "source_color_expression": "color",
+          "source_color_read_site": "0x501B6D",
+          "source_color_value_address": "0xFDA7F8"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501CB3",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[0]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501C97",
+            "0x501C9C"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[0], 69, 268, \"%+4d\")",
+          "relationship": "六抗性第0项，前文字绘后新FDA7BC S32，显式正号宽4覆同256B，输入X69/Y268/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[0], 69, 268, \"%+4d\");",
+          "original_value_address": "0xFDA7BC",
+          "layout_offset_x": 69,
+          "layout_offset_y": 268,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501CF0",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[1]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501CD5",
+            "0x501CDA"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[1], 69, 291, \"%+4d\")",
+          "relationship": "六抗性第1项，前文字绘后新FDA7C0 S32，显式正号宽4覆同256B，输入X69/Y291/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[1], 69, 291, \"%+4d\");",
+          "original_value_address": "0xFDA7C0",
+          "layout_offset_x": 69,
+          "layout_offset_y": 291,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501D2B",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[2]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501D0F",
+            "0x501D14"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[2], 69, 314, \"%+4d\")",
+          "relationship": "六抗性第2项，前文字绘后新FDA7C4 S32，显式正号宽4覆同256B，输入X69/Y314/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[2], 69, 314, \"%+4d\");",
+          "original_value_address": "0xFDA7C4",
+          "layout_offset_x": 69,
+          "layout_offset_y": 314,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501D66",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[3]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501D4A",
+            "0x501D4F"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[3], 69, 337, \"%+4d\")",
+          "relationship": "六抗性第3项，前文字绘后新FDA7C8 S32，显式正号宽4覆同256B，输入X69/Y337/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[3], 69, 337, \"%+4d\");",
+          "original_value_address": "0xFDA7C8",
+          "layout_offset_x": 69,
+          "layout_offset_y": 337,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501DA0",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[4]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501D85",
+            "0x501D8A"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[4], 69, 360, \"%+4d\")",
+          "relationship": "六抗性第4项，前文字绘后新FDA7CC S32，显式正号宽4覆同256B，输入X69/Y360/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[4], 69, 360, \"%+4d\");",
+          "original_value_address": "0xFDA7CC",
+          "layout_offset_x": 69,
+          "layout_offset_y": 360,
+          "source_color_expression": "0"
+        },
+        {
+          "parent_entry": "0x5014A0",
+          "call_site": "0x501DDB",
+          "target_entry": "0x53B304",
+          "format_address": "0x58A29C",
+          "format_bytes": "252b346400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "Sub_5014A0",
+          "source_format_expression": "\"%+4d\"",
+          "source_expression": "world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[5]",
+          "destination_expression": "buffer",
+          "destination_capacity": 256,
+          "original_value_read_order": [
+            "0x501DBF",
+            "0x501DC4"
+          ],
+          "consumer_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[5], 69, 383, \"%+4d\")",
+          "relationship": "六抗性第5项，前文字绘后新FDA7D0 S32，显式正号宽4覆同256B，输入X69/Y383/font1/color0；首抗性Y268与修正防御Y269原差异保持。",
+          "source_helper_symbol": "drawNumber",
+          "source_helper_format_parameter": "format",
+          "source_helper_value_parameter": "value",
+          "source_helper_call_expression": "drawNumber(world::detail::cg::world::detail::gPlayerRuntimeSlots.valuesBC[5], 69, 383, \"%+4d\");",
+          "original_value_address": "0xFDA7D0",
+          "layout_offset_x": 69,
+          "layout_offset_y": 383,
+          "source_color_expression": "0"
+        }
+      ],
+      "verification_level": "本步只读577/820新格式邻窗，余243沿既有父合同；四常量沿已核字节，不重复加载。整份源仅三个格式标识符，三十原点/现数值lambda二十八实际绑定、字段/符号性/参数/容量/资格与颜色快照时点/后期BP及各新读数/getter副作用次序/布局差异/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
+      "unicode_utf16_utl02": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_5014A0"
+          }
+        ],
+        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5014A0"
+          ],
+          "relationship": "仅三个源码格式接口改变，现drawNumber二十八绑定及血魔两直接格式对应三十原点，其它正文/S32返回0保持",
+          "retired_by": "LWR02"
+        }
+      ],
+      "historical_status_before_lwr02": "旧人物属性页三十原格式已接线；原父及整体验收未闭合",
+      "business_format_points_before_bcl02": [
         {
           "parent_entry": "0x5014A0",
           "call_site": "0x501700",
@@ -164935,32 +168274,19 @@
           "source_color_expression": "0"
         }
       ],
-      "verification_level": "本步只读577/820新格式邻窗，余243沿既有父合同；四常量沿已核字节，不重复加载。整份源仅三个格式标识符，三十原点/现数值lambda二十八实际绑定、字段/符号性/参数/容量/资格与颜色快照时点/后期BP及各新读数/getter副作用次序/布局差异/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
-      "unicode_utf16_utl02": {
-        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
-        "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
-        "touched_sources": [
-          {
-            "path": "src/LegacyUiRecord.cpp",
-            "symbol": "Sub_5014A0"
-          }
-        ],
-        "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level",
+          "ReadPlayerValue78": "cg::world::detail::gPlayerRuntimeSlots.values78[index]",
+          "ReadPlayerValueB0": "cg::world::detail::gPlayerRuntimeSlots.valuesB0[index]",
+          "ReadPlayerValueBC": "cg::world::detail::gPlayerRuntimeSlots.valuesBC[index]",
+          "ReadPlayerValueD4": "cg::world::detail::gPlayerRuntimeSlots.valuesD4[index]"
+        },
+        "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
-      },
-      "historical_sources": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbols": [
-            "Sub_5014A0"
-          ],
-          "relationship": "仅三个源码格式接口改变，现drawNumber二十八绑定及血魔两直接格式对应三十原点，其它正文/S32返回0保持",
-          "retired_by": "LWR02"
-        }
-      ],
-      "historical_status_before_lwr02": "旧人物属性页三十原格式已接线；原父及整体验收未闭合"
+      }
     },
     {
       "original_entry": "0x501FD0",
@@ -207925,7 +211251,6 @@
         {
           "path": "include/cg/render/GraphicDxCache.hpp",
           "symbols": [
-            "GetGraphicDxCacheEntries",
             "ReadGraphicDxHeightFromEntries",
             "ReadGraphicDxWidthFromEntries"
           ],
@@ -207934,11 +211259,24 @@
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
-            "GetGraphicDxCacheEntries",
+            "gGraphicDxCache103CFA4"
+          ],
+          "relationship": "BCL02直接访问同一对象／字段；原纯访问包装退休，私有类型与实际业务入口保持，旧函数调用连接保历史。"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
             "ReadGraphicDxHeightFromEntries",
             "ReadGraphicDxWidthFromEntries"
           ],
           "relationship": "只借现有表、不检查/加载；同held表高度后宽度低S16。"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gGraphicDxCache103CFA4"
+          ],
+          "relationship": "BCL02直接访问同一对象／字段；原纯访问包装退休，私有类型与实际业务入口保持，旧函数调用连接保历史。"
         }
       ],
       "evidence_documents": [
@@ -208018,6 +211356,49 @@
       "borrow_cleanup_bcl01": {
         "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
         "active_symbol_and_storage_access_updated": true,
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_sources_before_bcl02": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DrawBattleEntryHover_43C0A0"
+          ],
+          "relationship": "43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetYobiActionFlagsLowByte"
+          ],
+          "relationship": "原+24实际BYTE消费共用桥改真实低字节观察，保flags共享W32。"
+        },
+        {
+          "path": "include/cg/render/GraphicDxCache.hpp",
+          "symbols": [
+            "GetGraphicDxCacheEntries",
+            "ReadGraphicDxHeightFromEntries",
+            "ReadGraphicDxWidthFromEntries"
+          ],
+          "relationship": "不暴露SDK，已证DX调用期非拥有表T*及W16维度桥声明。"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "GetGraphicDxCacheEntries",
+            "ReadGraphicDxHeightFromEntries",
+            "ReadGraphicDxWidthFromEntries"
+          ],
+          "relationship": "只借现有表、不检查/加载；同held表高度后宽度低S16。"
+        }
+      ],
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "GetGraphicDxCacheEntries": "cg::render::gGraphicDxCache103CFA4"
+        },
         "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
@@ -270867,21 +274248,21 @@
           "end_exclusive": "0x4590d6"
         }
       ],
-      "status": "HWT01完整原IME叶纳管，正确正文/原BOOL或描述借用保持；限定S/全父、owner、SDK ABI与运行待",
+      "status": "BCL02纯描述包装退休，由既有IME采样尾直接返回同一描述视图；只静态，完整生产消费／运行未验",
       "sources": [
         {
-          "path": "src/platform/ImeLifecycle.cpp",
+          "path": "src/platform/WindowProcedure.cpp",
           "symbols": [
-            "GetImeDescription_4590D0"
+            "gImeDescription"
           ],
-          "relationship": "HWT01完整原根正常调用/返回与唯一owner已核，正确body不改，仅合同注释"
+          "relationship": "BCL02直接访问同一对象／字段；原纯访问包装退休，私有类型与实际业务入口保持，旧函数调用连接保历史。"
         },
         {
-          "path": "src/platform/ImeLifecycle.hpp",
+          "path": "src/platform/WindowProcedure.cpp",
           "symbols": [
-            "GetImeDescription_4590D0"
+            "gImeDescription"
           ],
-          "relationship": "HWT01真实声明/参数返回保持，仅合同注释"
+          "relationship": "BCL02直接访问同一对象／字段；原纯访问包装退休，私有类型与实际业务入口保持，旧函数调用连接保历史。"
         }
       ],
       "evidence_documents": [
@@ -270892,8 +274273,8 @@
         "doc/cg2d_hover_text_consumption_spec.md#evidence-archive-20261011",
         "doc/cg2d_borrow_cleanup_spec.md"
       ],
-      "boundary": "HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。",
-      "verification_level": "pass，三完整原根237条910B/六页、五实际E8四目标/两IAT调用/十跳三RET及五IME实际CALL有据；4734F0根内共用尾/旧窗口6原型绑定保持。核三含NUL复制的elements/strlen/payload阶段、两颜色W8源、副标题空visible保持、fresh逐项显示、IME调用序及四槽清理/S32返回；四整源只两BYTE源/八注释，三个IME正确body、三个类型/五悬停槽储宽、原型及100B唯一owner保持。进口仍unassessed；全生产消费/容量/父与alias-owner、机器ABI/像素和运行待",
+      "boundary": "保留原身份、采样调用顺序、同一动态UTF-16描述owner及视图寿命；原端事实和HWT01有界验证归历史，完整SDK／生产消费／运行门禁不变。",
+      "verification_level": "BCL02源码静态核对；无独立包装正文，不代编译或运行验收",
       "original_incoming": [
         {
           "ea": 4666624,
@@ -270916,8 +274297,8 @@
         "indirect_import_call_count": 0,
         "jump_count": 0,
         "return_count": 1,
-        "native_signature": "char* GetImeDescription_4590D0() noexcept",
-        "native_provider": "src/platform/ImeLifecycle.cpp::GetImeDescription_4590D0",
+        "native_signature_before_bcl02": "char* GetImeDescription_4590D0() noexcept",
+        "native_provider_before_bcl02": "src/platform/ImeLifecycle.cpp::GetImeDescription_4590D0",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -270964,6 +274345,54 @@
       "borrow_cleanup_bcl01": {
         "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
         "active_symbol_and_storage_access_updated": true,
+        "only_static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "hover_text_consumption_before_bcl02": {
+        "step": "HWT01",
+        "source_snapshot": "[#] 补齐悬停文本消费并对齐颜色读取",
+        "original_end_exclusive": "0x4590d6",
+        "original_instruction_count": 2,
+        "original_code_bytes": 6,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_import_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "char* GetImeDescription_4590D0() noexcept",
+        "native_provider": "src/platform/ImeLifecycle.cpp::GetImeDescription_4590D0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "historical_sources_before_bcl02": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "GetImeDescription_4590D0"
+          ],
+          "relationship": "HWT01完整原根正常调用/返回与唯一owner已核，正确body不改，仅合同注释"
+        },
+        {
+          "path": "src/platform/ImeLifecycle.hpp",
+          "symbols": [
+            "GetImeDescription_4590D0"
+          ],
+          "relationship": "HWT01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "status_before_bcl02": "HWT01完整原IME叶纳管，正确正文/原BOOL或描述借用保持；限定S/全父、owner、SDK ABI与运行待",
+      "boundary_before_bcl02": "HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。",
+      "verification_level_before_bcl02": "pass，三完整原根237条910B/六页、五实际E8四目标/两IAT调用/十跳三RET及五IME实际CALL有据；4734F0根内共用尾/旧窗口6原型绑定保持。核三含NUL复制的elements/strlen/payload阶段、两颜色W8源、副标题空visible保持、fresh逐项显示、IME调用序及四槽清理/S32返回；四整源只两BYTE源/八注释，三个IME正确body、三个类型/五悬停槽储宽、原型及100B唯一owner保持。进口仍unassessed；全生产消费/容量/父与alias-owner、机器ABI/像素和运行待",
+      "simple_access_cleanup_bcl02": {
+        "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+        "replacements": {
+          "GetImeDescription_4590D0": "cg::platform::gImeDescription"
+        },
         "only_static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false

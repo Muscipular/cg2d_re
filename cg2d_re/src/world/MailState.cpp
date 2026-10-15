@@ -26,6 +26,11 @@
 
 namespace cg::world::detail {
 
+ProfileRuntimeRecord gCurrentProfile10738E8 {}; // 原全局：0x010738E8。
+ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
+ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
+ProfileSearchRuntimeSlots gProfileSearch105C398 {}; // 原全局：0x0105C398。
+
 std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {}; // 原全局：0x00F19FB0。
 std::array<std::int32_t, 60> gContactIndicesFDA608 {}; // 原全局：0x00FDA608。
 std::uint16_t gValue62B354 = 0; // 原全局：0x0062B354。
@@ -86,9 +91,6 @@ static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
 // 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
 std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
-ProfileRuntimeRecord gCurrentProfile10738E8 {}; // 原全局：0x010738E8。
-ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
-ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
 static_assert(sizeof(gProfiles1074938) == 0x1050);
 constexpr wchar_t kProfileDefault58F614[] = L"未設定"; // 原常量参考：0x0058F614。
 static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
@@ -105,7 +107,6 @@ static_assert(offsetof(ProfileSearchRuntimeSlots, value00) == 0);
 static_assert(offsetof(ProfileSearchRuntimeSlots, value04) == 4);
 static_assert(offsetof(ProfileSearchRuntimeSlots, records) == 8);
 static_assert(sizeof(ProfileSearchRuntimeSlots) == 0x28F8);
-ProfileSearchRuntimeSlots gProfileSearch105C398 {}; // 原全局：0x0105C398。
 
 struct CategoryRuntimeSlots {
     std::int32_t value00; // 原成员偏移：+0x00。 原105FA10，50F2A0发布、50F3A0比较。
@@ -217,21 +218,6 @@ MailMessageView GetMiniMailMessage10763A0(
         + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
 }
 
-const ProfileRuntimeRecord& ReadViewedProfile105ECE0()
-{
-    return gViewedProfile105ECE0;
-}
-
-const ProfileRuntimeRecord& ReadReceivedProfile1074110()
-{
-    return gReceivedProfile1074110;
-}
-
-ProfileRuntimeRecord& EditCurrentProfile10738E8()
-{
-    return gCurrentProfile10738E8;
-}
-
 const ProfileRuntimeRecord& ReadSelectedProfile1074938()
 {
     return gProfiles1074938[login::gSelectedCharacterIndex];
@@ -245,11 +231,6 @@ std::int32_t ReadCategoryValue105FA20()
 std::int32_t& SelectedProfileValue04()
 {
     return gProfiles1074938[login::gSelectedCharacterIndex].value04;
-}
-
-const ProfileSearchRuntimeSlots& ReadProfileSearch105C398()
-{
-    return gProfileSearch105C398;
 }
 
 const char* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)

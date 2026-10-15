@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -413,11 +414,11 @@ static void WindowPlayerTitles_Refresh()
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     levelData->text = buffer;
 
-    const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
+    const std::int32_t titleIndex = world::detail::gPlayerRuntimeSlots.titleIndex100;
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     const char* const title = world::detail::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);

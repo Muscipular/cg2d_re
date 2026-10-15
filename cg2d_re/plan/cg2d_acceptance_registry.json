@@ -101914,7 +101914,8 @@
         "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-decision",
         "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-acceptance",
         "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state",
-        "doc/cg2d_hover_text_consumption_spec.md#evidence-archive-20261011"
+        "doc/cg2d_hover_text_consumption_spec.md#evidence-archive-20261011",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。"
     },
@@ -194585,5 +194586,60 @@
     "other_thread_changes_kept": true,
     "only_static": true,
     "all_full_acceptance_gates_unchanged": true
+  },
+  "simple_access_cleanup_bcl02": {
+    "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+    "removed_access_functions": 39,
+    "source_files": 45,
+    "replaced_call_sites": 294,
+    "source_body_to_direct_consumption": [
+      "F:000590D0"
+    ],
+    "replacements": {
+      "EditCurrentProfile10738E8": "cg::world::detail::gCurrentProfile10738E8",
+      "GetActiveMapEffectHead": "cg::world::detail::gActiveMapEffectHead",
+      "GetAutoMapColors": "cg::resource::gAutoMapColors927F48",
+      "GetCpuTempSurface": "cg::render::gCpuTempSurface",
+      "GetGraphicDxCacheEntries": "cg::render::gGraphicDxCache103CFA4",
+      "GetImeDescription_4590D0": "cg::platform::gImeDescription",
+      "ReadPlayerAction": "cg::world::detail::gPlayerRuntimeSlots.action",
+      "ReadPlayerActionValue190": "cg::world::detail::gPlayerRuntimeSlots.value190",
+      "ReadPlayerAttribute": "cg::world::detail::gPlayerRuntimeSlots.valuesE4[index]",
+      "ReadPlayerDuelPoint": "cg::world::detail::gPlayerRuntimeSlots.value104",
+      "ReadPlayerExperienceOnce": "cg::world::detail::gPlayerRuntimeSlots.value58.value()",
+      "ReadPlayerFpOnce": "cg::world::detail::gPlayerRuntimeSlots.fp.value()",
+      "ReadPlayerHpOnce": "cg::world::detail::gPlayerRuntimeSlots.hp.value()",
+      "ReadPlayerImageNo": "cg::world::detail::gPlayerRuntimeSlots.imageNo",
+      "ReadPlayerInjury": "cg::world::detail::gPlayerRuntimeSlots.valueF4",
+      "ReadPlayerLevel": "cg::world::detail::gPlayerRuntimeSlots.level",
+      "ReadPlayerMaxFpOnce": "cg::world::detail::gPlayerRuntimeSlots.maxFp.value()",
+      "ReadPlayerMaxHpOnce": "cg::world::detail::gPlayerRuntimeSlots.maxHp.value()",
+      "ReadPlayerNextExperienceOnce": "cg::world::detail::gPlayerRuntimeSlots.value68.value()",
+      "ReadPlayerObjectIndex_FDA880": "cg::world::detail::gPlayerRuntimeSlots.objectIndex",
+      "ReadPlayerPenalty": "cg::world::detail::gPlayerRuntimeSlots.valueF8",
+      "ReadPlayerTimerMode10": "cg::world::detail::gPlayerRuntimeSlots.timerMode10",
+      "ReadPlayerTimerRemaining0C": "cg::world::detail::gPlayerRuntimeSlots.timerRemaining0C",
+      "ReadPlayerTitleIndex": "cg::world::detail::gPlayerRuntimeSlots.titleIndex100",
+      "ReadPlayerValue08": "cg::world::detail::gPlayerRuntimeSlots.value08",
+      "ReadPlayerValue15BCC": "cg::world::detail::gPlayerRuntimeSlots.value15BCC",
+      "ReadPlayerValue15BD0": "cg::world::detail::gPlayerRuntimeSlots.values15BD0[index]",
+      "ReadPlayerValue16C": "cg::world::detail::gPlayerRuntimeSlots.value16C",
+      "ReadPlayerValue17C": "cg::world::detail::gPlayerRuntimeSlots.value17C",
+      "ReadPlayerValue1A0": "cg::world::detail::gPlayerRuntimeSlots.value1A0",
+      "ReadPlayerValue78": "cg::world::detail::gPlayerRuntimeSlots.values78[index]",
+      "ReadPlayerValueB0": "cg::world::detail::gPlayerRuntimeSlots.valuesB0[index]",
+      "ReadPlayerValueBC": "cg::world::detail::gPlayerRuntimeSlots.valuesBC[index]",
+      "ReadPlayerValueD4": "cg::world::detail::gPlayerRuntimeSlots.valuesD4[index]",
+      "ReadPlayerValueFC": "cg::world::detail::gPlayerRuntimeSlots.valueFC",
+      "ReadPlayerWalkSpeed": "cg::world::detail::gPlayerRuntimeSlots.walkSpeed",
+      "ReadProfileSearch105C398": "cg::world::detail::gProfileSearch105C398",
+      "ReadReceivedProfile1074110": "cg::world::detail::gReceivedProfile1074110",
+      "ReadViewedProfile105ECE0": "cg::world::detail::gViewedProfile105ECE0"
+    },
+    "execution_policy_unchanged": true,
+    "all_full_acceptance_gates_unchanged": true,
+    "only_static_source_checked": true,
+    "build_verified": false,
+    "runtime_verified": false
   }
 }

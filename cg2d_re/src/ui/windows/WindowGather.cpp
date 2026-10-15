@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -277,7 +278,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     const std::uint8_t rebirthMode = gValue5F9754;
     gWindow12DeadlineCB0F7C = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::detail::ReadPlayerValue08();
+        const std::int32_t rebirth = world::detail::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gWindow12DeadlineCB0F7C = duration;
     }
@@ -346,12 +347,12 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     login::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[2].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             login::detail::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[2].data)->action, alternateAction);
-            imageNo = world::detail::ReadPlayerImageNo();
+            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -444,7 +445,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         static_cast<void>(WindowGather_InitializeAction(gCurrentWindow));
         return 1;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
     const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);
@@ -469,12 +470,12 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         // 四条阶段路径共用原6/16选择；每次命中仍重取当前窗口和玩家图号。
         const auto setWorkingAction = [](login::YobiAction* const initialAction) {
             login::detail::SetYobiActionField2B0(initialAction, 6);
-            std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+            std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
             for (const auto& range : kCraftAlternateActionImages) {
                 if (imageNo >= range[0] && imageNo <= range[1]) {
                     login::detail::SetYobiActionField2B0(
                         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 16);
-                    imageNo = world::detail::ReadPlayerImageNo();
+                    imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
                 }
             }
             if (imageNo == 0x18A26) {

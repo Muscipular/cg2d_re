@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -401,7 +402,7 @@ updateSelector:
     gWindowStates[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
         && gWindowStates[WindowId_Quantity].value20 == 14 && gWindowStates[WindowId_Quantity].value24 == 1) {
-        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
         gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
@@ -437,12 +438,12 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
             x, y, cg::text::FromGbkWide(input::LegacyText593850()).c_str(), 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
-        character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+        character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
     login::detail::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
     login::detail::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 5);
-    const std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {
         login::detail::AddYobiActionDrawFlags(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 4);
@@ -496,7 +497,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
             && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t amount = world::detail::ReadPlayerValueFC();
+            const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
             static_cast<void>(login::detail::Sub_48AC60(
                 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
         }
@@ -504,7 +505,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
     }
     if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
         && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
-        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
         gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
@@ -522,14 +523,14 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
 // 原函数：0x00488E60。
 static std::int32_t WindowInventory_RefreshMoney(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00488E80。
 static std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::detail::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 

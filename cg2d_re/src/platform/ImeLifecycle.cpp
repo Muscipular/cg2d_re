@@ -88,19 +88,13 @@ std::int32_t ResetImeOpenStatus_4590A0() noexcept
     return std::bit_cast<std::int32_t>(result);
 }
 
-// UTL02：原0x004590D0借用动态UTF-16描述，owner不变，视图只读。
-std::wstring_view GetImeDescription_4590D0() noexcept
-{
-    return gImeDescription;
-}
-
 // HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
 std::wstring_view QueryWindowImeDescription_4734F0() noexcept
 {
     static_cast<void>(IsImeKeyboardLayout_459090());
     std::array<BYTE, 256> keyboardState;
     static_cast<void>(GetKeyboardState(keyboardState.data()));
-    return GetImeDescription_4590D0();
+    return gImeDescription; // 原0x004590D0：借用同一描述，不更新或复制。
 }
 
 } // namespace cg::platform

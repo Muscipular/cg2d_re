@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -127,14 +128,14 @@ static std::int32_t WindowBattleItems_RotatePreview(const std::int32_t, const st
 // 原函数：0x00499B00。
 static std::int32_t WindowBattleItems_RefreshMoney(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00499B20。
 static std::int32_t WindowBattleItems_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::detail::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
@@ -271,7 +272,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         }
         break;
     }
-    const std::int32_t playerLevel = world::detail::ReadPlayerLevel();
+    const std::int32_t playerLevel = world::detail::gPlayerRuntimeSlots.level;
     std::int32_t levelLimit = 1;
     while (levelLimit < 15 && playerLevel > levelLimits[levelLimit - 1]) {
         ++levelLimit;

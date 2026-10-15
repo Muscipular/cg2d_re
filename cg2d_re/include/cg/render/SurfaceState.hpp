@@ -75,8 +75,8 @@ std::int32_t DrawColorAutoMap_44FEB0(
 // 源/目标尚未创建，或目标无法容纳完整源面时，返回原正常资源失败。
 bool CopyBackToTemp() noexcept;
 
-// 非拥有原生 T*；仅同步借用同一 Temp，不延长其生命周期。
-TextureSurface* GetCpuTempSurface() noexcept;
+// 同一Temp的非拥有指针；同步使用，不延长其生命周期。
+extern TextureSurface* gCpuTempSurface;
 
 // 原直接BltFast的native边界：同步借源，不裁剪/改写矩形，保留完整S32坐标。
 // 无色键、混合或缩放；不同于4535B0的上层裁剪及低S16入口。

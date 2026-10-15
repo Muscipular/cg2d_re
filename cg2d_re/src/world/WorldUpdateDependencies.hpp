@@ -631,7 +631,7 @@ struct PlayerRuntimeSlots {
     std::int32_t value174; // 原成员偏移：+0x174。 原 FDA874；46A700仅在到达时按S32递减。
     std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
     std::int32_t value17C; // 原成员偏移：+0x17C。 原FDA87C，不与imageNo合并。
-    std::uint32_t objectIndex;
+    std::uint32_t objectIndex; // 原0x00FDA880；玩家对象索引。
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
     std::uint16_t value188; // 原成员偏移：+0x188。 原 FDA888；519A80 符号扩展读取。
     std::uint16_t flags18A; // 原成员偏移：+0x18A。 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
@@ -1309,8 +1309,8 @@ void Sub_455BB0(); // 原455BB0：仅FF0D40不等于10时写W32[62B36C]=1，不�
 // 原函数：0x00455BD0。
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 struct MapEffectRecord;
+extern MapEffectRecord* gActiveMapEffectHead; // 原0x00C8A72C；唯一活动链首。
 // render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
-const MapEffectRecord* GetActiveMapEffectHead() noexcept;
 const MapEffectRecord* GetNextMapEffect(const MapEffectRecord* record) noexcept;
 std::uint32_t ReadMapEffectWord(const MapEffectRecord& record, std::size_t offset);
 std::uint16_t ReadMapEffectHalf(const MapEffectRecord& record, std::size_t offset);
@@ -1449,7 +1449,6 @@ void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请�
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::uint8_t ReadPlayerActionFlagsByte() noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。
 std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
-std::int32_t ReadPlayerActionValue190() noexcept;
 void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
 void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，保留其他字节。
 void CopyPlayerBarValues(
@@ -1458,47 +1457,19 @@ void CopyPlayerBarValues(
 const char* GetTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
 const char* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
-std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
-std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
-std::int32_t ReadPlayerValue17C() noexcept; // 原FDA87C，窗口56外观分解读取，与FDA878独立。
-std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同源金额，不复制owner。
-std::int32_t ReadPlayerValue16C() noexcept; // 原FDA86C，窗口54借读509650生产的总技能槽数。
-std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值文本借读同源回复字段。
-std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
-std::int32_t ReadPlayerValue08() noexcept; // 原FDA708，技能时长倍率索引，借读既有槽。
-std::int32_t ReadPlayerTimerRemaining0C() noexcept; // 原FDA70C，转生按钮读取同源计时，不改owner。
-std::int32_t ReadPlayerTimerMode10() noexcept; // 原FDA710完整S32，状态栏时长数字选择图号。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
-std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
 // 原函数：0x00504B10。
 std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。
 std::int32_t Sub_504B60(); // SHP01：五S16配对首个受伤宠物原编号，无则-1，不检查used。
-std::int32_t ReadPlayerAttribute(std::int32_t index) noexcept; // 原FDA7E4四S32，窗口7逐条取值。
-std::int32_t ReadPlayerValue78(std::int32_t index) noexcept; // 原FDA778..FDA7AC的14项，窗口8逐值读取。
-std::int32_t ReadPlayerValueB0(std::int32_t index) noexcept; // 原FDA7B0/B4两项，不与values78拼接。
-std::int32_t ReadPlayerValueBC(std::int32_t index) noexcept; // 原FDA7BC..FDA7D0六项。
-std::int32_t ReadPlayerValueD4(std::int32_t index) noexcept; // 原FDA7D4..FDA7E0四项。
-std::int32_t ReadPlayerTitleIndex() noexcept; // 原FDA800，取称号前独立采样。
 std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
-std::int32_t ReadPlayerExperienceOnce(); // 原FDA758，单次CryptInt读取。
-std::int32_t ReadPlayerNextExperienceOnce(); // 原FDA768，不复用比较时的值。
 bool IsPlayerNextExperienceEqual(std::int32_t expected); // 原FDA768，独立401D00比较。
-std::int32_t ReadPlayerDuelPoint() noexcept; // 原FDA804的完整S32。
-std::uint16_t ReadPlayerValue1A0() noexcept; // 原FDA8A0的W16。
-std::int32_t ReadPlayerPenalty() noexcept; // 原FDA7F8的完整S32。
-std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
-std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
-std::int32_t ReadPlayerFpOnce(); // 原FDA738。
-std::int32_t ReadPlayerMaxFpOnce(); // 原FDA748。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
-std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
-login::YobiAction* ReadPlayerAction() noexcept;
 // 原函数：0x00519CD0。
 void Sub_519CD0(
     std::int32_t imageNo, std::int32_t x, std::int32_t y,

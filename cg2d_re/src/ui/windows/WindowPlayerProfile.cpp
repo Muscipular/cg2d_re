@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -206,7 +207,7 @@ static void WindowPlayerProfile_RefreshAttributeBar(
     for (std::int32_t index = 0; index < 10; ++index) {
         gCurrentWindow->elements[firstElement + index].visible = 0;
     }
-    const std::int32_t count = world::detail::ReadPlayerAttribute(attribute) / 10;
+    const std::int32_t count = world::detail::gPlayerRuntimeSlots.valuesE4[static_cast<std::int32_t>(attribute)] / 10;
     if (count == 1) {
         auto* const graphic =
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[firstElement].data);
@@ -303,7 +304,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
                 consumed = 1;
             }
-        } else if (world::detail::ReadPlayerValue1A0() == (index == 23 ? 0 : 1)) {
+        } else if (world::detail::gPlayerRuntimeSlots.value1A0 == (index == 23 ? 0 : 1)) {
             static_cast<void>(network::Sub_512570(platform::gConnectionSocket));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -316,7 +317,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
 static void WindowPlayerProfile_Refresh()
 {
     WindowElement* const portraitElements = gCurrentWindow->elements;
-    const std::int32_t portrait = world::detail::ReadPlayerValue17C();
+    const std::int32_t portrait = world::detail::gPlayerRuntimeSlots.value17C;
     static_cast<WindowGraphicData*>(portraitElements[14].data)->imageNo = portrait;
     WindowPlayerProfile_RefreshAttributeBar(0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
     WindowPlayerProfile_RefreshAttributeBar(1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
@@ -328,7 +329,7 @@ static void WindowPlayerProfile_Refresh()
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     levelData->text = buffer;
 
@@ -355,7 +356,7 @@ static void WindowPlayerProfile_Refresh()
         rankData->text = cg::text::FromGbkWide(rank);
     }
 
-    const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
+    const std::int32_t titleIndex = world::detail::gPlayerRuntimeSlots.titleIndex100;
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
     const char* const title = world::detail::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);
@@ -372,18 +373,18 @@ static void WindowPlayerProfile_Refresh()
     auto* const tribeData = static_cast<WindowTextData*>(tribeElements[8].data);
     tribeData->text = tribe;
 
-    cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerExperienceOnce());
+    cg::text::FormatTo(buffer, L"{:9}", world::detail::gPlayerRuntimeSlots.value58.value());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     experienceData->text = buffer;
 
-    const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
-    const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+    const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
+    const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
     hpData->text = buffer;
 
-    const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
-    const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+    const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
+    const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     fpData->text = buffer;
@@ -392,24 +393,24 @@ static void WindowPlayerProfile_Refresh()
     if (world::detail::IsPlayerNextExperienceEqual(-1)) {
         nextExperience = L"        -";
     } else {
-        cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerNextExperienceOnce());
+        cg::text::FormatTo(buffer, L"{:9}", world::detail::gPlayerRuntimeSlots.value68.value());
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
     nextData->text = nextExperience;
 
-    cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerDuelPoint());
+    cg::text::FormatTo(buffer, L"{:9}", world::detail::gPlayerRuntimeSlots.value104);
     auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
     duelData->text = buffer;
 
-    if (world::detail::ReadPlayerValue1A0() == 1) {
+    if (world::detail::gPlayerRuntimeSlots.value1A0 == 1) {
         gCurrentWindow->elements[22].x = 227;
     } else {
         gCurrentWindow->elements[22].x = 263;
     }
     gCurrentWindow->elements[22].y = 203;
 
-    const std::int32_t injury = world::detail::ReadPlayerInjury();
+    const std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
     std::int32_t injuryImage;
     if (injury == 0) {
         injuryImage = 0x3B614;
@@ -424,7 +425,7 @@ static void WindowPlayerProfile_Refresh()
     }
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[15].data)->imageNo = injuryImage;
 
-    const std::int32_t penalty = world::detail::ReadPlayerPenalty();
+    const std::int32_t penalty = world::detail::gPlayerRuntimeSlots.valueF8;
     if (penalty > 0) {
         cg::text::FormatTo(buffer, L"x{}", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;

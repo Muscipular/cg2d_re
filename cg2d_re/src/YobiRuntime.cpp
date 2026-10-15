@@ -1459,14 +1459,14 @@ void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraph
     const std::uint8_t mode = action->drawMode.bytes[0x0D];
     if ((mode & 1u) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
-        const auto* const entries = render::GetGraphicDxCacheEntries();
+        const auto* const entries = render::gGraphicDxCache103CFA4;
         const std::int32_t offsetX = action->graphicOffsetX;
         const std::int16_t width = render::ReadGraphicDxWidthFromEntries(entries, graphicIndex);
         action->graphicOffsetX = -(offsetX + width);
     }
     if ((mode & 2u) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
-        const auto* const entries = render::GetGraphicDxCacheEntries();
+        const auto* const entries = render::gGraphicDxCache103CFA4;
         const std::int16_t height = render::ReadGraphicDxHeightFromEntries(entries, graphicIndex);
         const std::int32_t offsetY = action->graphicOffsetY;
         action->graphicOffsetY = -(offsetY + height);
@@ -2371,11 +2371,11 @@ void Sub_4408C0(
 // 原函数：0x0043F290。
 YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 {
-    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
     const std::uint32_t objectIndex = payload->values[index];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::detail::ReadPlayerAction()
+        ? world::detail::gPlayerRuntimeSlots.action
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
@@ -2403,11 +2403,11 @@ YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 // 原函数：0x0043FE00。
 YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 {
-    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
     const std::uint32_t objectIndex = payload->values[index];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::detail::ReadPlayerAction()
+        ? world::detail::gPlayerRuntimeSlots.action
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
@@ -2462,13 +2462,13 @@ void SetObservationChildAction(YobiAction* const action)
 // 原函数：0x0043F910。
 void Sub_43F910(YobiAction* const action)
 {
-    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    const std::uint32_t playerIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
     const std::uint32_t objectIndex = payload->values[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::detail::ReadPlayerAction()
+        ? world::detail::gPlayerRuntimeSlots.action
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::detail::Sub_51C0D0(source->imageNo);
@@ -2550,8 +2550,8 @@ void Sub_440440(YobiAction* const action)
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
     const std::uint32_t objectIndex = payload->values[initialSlot];
-    YobiAction* const source = objectIndex == world::ReadPlayerObjectIndex_FDA880()
-        ? world::detail::ReadPlayerAction()
+    YobiAction* const source = objectIndex == world::detail::gPlayerRuntimeSlots.objectIndex
+        ? world::detail::gPlayerRuntimeSlots.action
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::detail::Sub_51C0D0(source->imageNo);
@@ -2621,7 +2621,7 @@ void Sub_440440(YobiAction* const action)
             action->characterAction = 0;
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->values[action->field1D0];
-            if (currentIndex == world::ReadPlayerObjectIndex_FDA880()) {
+            if (currentIndex == world::detail::gPlayerRuntimeSlots.objectIndex) {
                 world::Sub_51BEF0();
             } else {
                 world::detail::Sub_43DB30(source);
@@ -2758,7 +2758,7 @@ void Sub_43F520(YobiAction* const action)
             x += static_cast<std::int32_t>(offset[0]);
             y += static_cast<std::int32_t>(offset[1]);
             static_cast<void>(Sub_517880(action, 100, 0, 0));
-            if (Sub_43F1F0(world::ReadPlayerObjectIndex_FDA880()) == nullptr
+            if (Sub_43F1F0(world::detail::gPlayerRuntimeSlots.objectIndex) == nullptr
                 && frame > 300 && (x < -300 || x > 940)) {
                 Sub_43F1B0(action);
                 for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
@@ -2923,8 +2923,8 @@ std::int32_t Sub_440920(
         return 0;
     }
     YobiAction* const target =
-        static_cast<std::uint32_t>(objectIndex) == world::ReadPlayerObjectIndex_FDA880()
-        ? world::detail::ReadPlayerAction()
+        static_cast<std::uint32_t>(objectIndex) == world::detail::gPlayerRuntimeSlots.objectIndex
+        ? world::detail::gPlayerRuntimeSlots.action
         : world::detail::FindObjectYobi_4462B0(objectIndex);
     if (target == nullptr) {
         return 1;
@@ -2939,7 +2939,7 @@ std::int32_t Sub_440920(
         Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::ReadPlayerObjectIndex_FDA880()) {
+            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
                 world::detail::Sub_51BEE0();
             } else {
                 world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
@@ -2960,7 +2960,7 @@ std::int32_t Sub_440920(
         Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::ReadPlayerObjectIndex_FDA880()) {
+            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
                 ui::WindowRuntime_CloseByCategory(3);
                 world::detail::gValue581800 = -1;
                 world::detail::Sub_51BEE0();
@@ -3925,7 +3925,7 @@ YobiAction* PublishPlayerActionIdentity(
     const std::int32_t originalNameLength, const std::int32_t level,
     const std::int32_t value188)
 {
-    YobiAction* action = world::detail::ReadPlayerAction();
+    YobiAction* action = world::detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return nullptr;
     }
@@ -3941,30 +3941,30 @@ YobiAction* PublishPlayerActionIdentity(
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
         std::strcpy(action->titleE1.data(), first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
         std::strcpy(action->text102.data(), second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
         std::strcpy(action->text123.data(), third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
         std::strcpy(action->text31C.data(), fourth);
     }
-    action = world::detail::ReadPlayerAction();
+    action = world::detail::gPlayerRuntimeSlots.action;
     action->field1D0 = level;
-    action = world::detail::ReadPlayerAction();
+    action = world::detail::gPlayerRuntimeSlots.action;
     action->field1D8 = value188;
     return action;
 }
@@ -3985,22 +3985,22 @@ void CopyInitialPlayerActionIdentity(
     const char* const name, const char* const title, const std::int32_t* const level,
     const platform::LegacyCryptInt* const hp, const platform::LegacyCryptInt* const maxHp)
 {
-    YobiAction* action = world::detail::ReadPlayerAction();
+    YobiAction* action = world::detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
     if (std::strlen(name) <= 16) {
         std::strcpy(action->nameC4.data(), name);
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
     }
     if (std::strlen(title) <= 16) {
         std::strcpy(action->titleE1.data(), title);
-        action = world::detail::ReadPlayerAction();
+        action = world::detail::gPlayerRuntimeSlots.action;
     }
     action->field1D0 = *level;
-    action = world::detail::ReadPlayerAction();
+    action = world::detail::gPlayerRuntimeSlots.action;
     action->readiness = *hp;
-    action = world::detail::ReadPlayerAction();
+    action = world::detail::gPlayerRuntimeSlots.action;
     action->maxHp = *maxHp;
 }
 
@@ -4101,13 +4101,13 @@ void ApplyPlayerAppearanceReply(
     std::int32_t* const playerImageNo)
 {
     auto* const payload =
-        static_cast<MapActorPayload*>(world::detail::ReadPlayerAction()->payload);
+        static_cast<MapActorPayload*>(world::detail::gPlayerRuntimeSlots.action->payload);
     if (payload == nullptr) {
         return;
     }
     *playerImageNo = character_select::detail::Sub_51B740(imageNo);
     const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
-    world::detail::ReadPlayerAction()->imageNo = mappedImage;
+    world::detail::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     if (gearImage != 0) {
         const std::int32_t mappedGear = character_select::detail::Sub_51B740(gearImage);
         bool hasGear = payload->action30 != nullptr;
@@ -4133,8 +4133,8 @@ void ApplyPlayerAppearanceReply(
         std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
         bool hasPet = payload->action34 != nullptr;
         if (!hasPet) {
-            const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.value();
-            const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.value();
+            const std::int32_t y = world::detail::gPlayerRuntimeSlots.action->mapY1F0.value();
+            const std::int32_t x = world::detail::gPlayerRuntimeSlots.action->mapX1E0.value();
             YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
             hasPet = pet != nullptr;
             payload->action34 = pet;
@@ -4149,8 +4149,8 @@ void ApplyPlayerAppearanceReply(
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;
             if (!hasSecondPet) {
-                const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.value();
-                const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.value();
+                const std::int32_t y = world::detail::gPlayerRuntimeSlots.action->mapY1F0.value();
+                const std::int32_t x = world::detail::gPlayerRuntimeSlots.action->mapX1E0.value();
                 YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
                 payload->action38 = pet;
@@ -4180,7 +4180,7 @@ void ApplyPlayerRideReply(
     const std::int32_t imageNo, const std::int32_t steps,
     std::int32_t* const remainingSteps)
 {
-    YobiAction* const action = world::detail::ReadPlayerAction();
+    YobiAction* const action = world::detail::gPlayerRuntimeSlots.action;
     if (imageNo >= 0) {
         auto* const payload = static_cast<MapActorPayload*>(action->payload);
         if (payload->action44 == nullptr) {
@@ -4195,13 +4195,13 @@ void ApplyPlayerRideReply(
         const std::int32_t mappedRide = character_select::detail::Sub_51B740(imageNo);
         payload->action44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
-            world::detail::Sub_51C0D0(world::detail::ReadPlayerImageNo());
-        world::detail::ReadPlayerAction()->imageNo = mappedPlayer;
-        world::detail::ReadPlayerAction()->phase = 1;
+            world::detail::Sub_51C0D0(world::detail::gPlayerRuntimeSlots.imageNo);
+        world::detail::gPlayerRuntimeSlots.action->imageNo = mappedPlayer;
+        world::detail::gPlayerRuntimeSlots.action->phase = 1;
         payload->counter48 = 0;
         *remainingSteps = steps;
         payload->action44->characterAction = 0;
-        if (world::detail::ReadPlayerAction()->characterAction == 1) {
+        if (world::detail::gPlayerRuntimeSlots.action->characterAction == 1) {
             payload->action44->characterAction = 1;
         }
         return;
@@ -4215,7 +4215,7 @@ void ApplyPlayerRideReply(
     payload->counter48 = 0;
     if (ride != nullptr) {
         ride->characterAction = 0;
-        if (world::detail::ReadPlayerAction()->characterAction == 1) {
+        if (world::detail::gPlayerRuntimeSlots.action->characterAction == 1) {
             payload->action44->characterAction = 1;
         }
     }
@@ -4224,11 +4224,11 @@ void ApplyPlayerRideReply(
 
 void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
 {
-    YobiAction* const action = world::detail::ReadPlayerAction();
+    YobiAction* const action = world::detail::gPlayerRuntimeSlots.action;
     auto* const payload = static_cast<MapActorPayload*>(action->payload);
     action->phase = 3;
     const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
-    world::detail::ReadPlayerAction()->imageNo = mappedImage;
+    world::detail::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     payload->counter48 = 0;
 }
 
@@ -4237,7 +4237,7 @@ void ResetMapFollowerFromPath(
     const bool isPlayer, std::int32_t* const playerDirection)
 {
     if (isPlayer) {
-        YobiAction* const player = world::detail::ReadPlayerAction();
+        YobiAction* const player = world::detail::gPlayerRuntimeSlots.action;
         if (player != nullptr) {
             player->field270 = 0;
         }
@@ -4255,7 +4255,7 @@ void ResetMapFollowerFromPath(
         const std::int32_t x = leader->pathX220[index];
         Sub_442AB0(follower, x, y);
     }
-    if (!isPlayer || world::detail::ReadPlayerAction() != nullptr) {
+    if (!isPlayer || world::detail::gPlayerRuntimeSlots.action != nullptr) {
         const std::int32_t index =
             std::bit_cast<std::int16_t>(leader->field270) - position;
         const std::int32_t dy = leader->pathY248[index - 1] - leader->pathY248[index];
@@ -4518,13 +4518,13 @@ void RestoreMountedCharacterAction(YobiAction* const action)
 // 原43ECCF/43ED51：先采玩家指针，非当前玩家时才重读payload索引。
 void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const payload)
 {
-    YobiAction* const player = world::detail::ReadPlayerAction();
+    YobiAction* const player = world::detail::gPlayerRuntimeSlots.action;
     if (player != nullptr && player == action) {
-        action->imageNo = world::detail::ReadPlayerImageNo();
+        action->imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         return;
     }
     const std::int32_t index = payload->index;
-    action->imageNo = index == -1 ? world::detail::ReadPlayerImageNo()
+    action->imageNo = index == -1 ? world::detail::gPlayerRuntimeSlots.imageNo
         : std::bit_cast<std::int32_t>(
             world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
 }
@@ -4881,10 +4881,10 @@ std::int32_t Sub_43DD00(
             character_select::detail::Sub_51B740(std::atoi(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
-                YobiAction* const player = world::detail::ReadPlayerAction();
+                YobiAction* const player = world::detail::gPlayerRuntimeSlots.action;
                 const std::int32_t original =
                     (player != nullptr && player == action) || payload->index == -1
-                    ? world::detail::ReadPlayerImageNo()
+                    ? world::detail::gPlayerRuntimeSlots.imageNo
                     : std::bit_cast<std::int32_t>(
                         world::detail::gWorldObjects[payload->index].imageNo);
                 action->imageNo = world::detail::Sub_51C0D0(original);
@@ -4959,7 +4959,7 @@ std::int32_t Sub_43DD00(
         }
         auto* const childPayload = static_cast<MapActorPayload*>(child->payload);
         childPayload->index =
-            world::detail::ReadPlayerAction() == action ? -1 : payload->index;
+            world::detail::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
         payload->action2C->flags |= 0x80100u;
         std::strcpy(payload->action2C->nameC4.data(), name);
         payload->action2C->field1D0 = level;
@@ -5017,7 +5017,7 @@ void Sub_4417E0(YobiAction* const action)
     if (world::detail::Sub_440B50() != 0) {
         return;
     }
-    YobiAction* player = world::detail::ReadPlayerAction();
+    YobiAction* player = world::detail::gPlayerRuntimeSlots.action;
     if ((player != nullptr && player == action) || index == -1) {
         if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) != 0) {
             return;
@@ -5030,7 +5030,7 @@ void Sub_4417E0(YobiAction* const action)
     if (Sub_43E490(action) != 0) {
         return;
     }
-    if (world::detail::ReadPlayerAction() != action) {
+    if (world::detail::gPlayerRuntimeSlots.action != action) {
         payload = static_cast<MapActorPayload*>(action->payload);
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
@@ -5052,7 +5052,7 @@ void Sub_4417E0(YobiAction* const action)
         static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
-    player = world::detail::ReadPlayerAction();
+    player = world::detail::gPlayerRuntimeSlots.action;
     std::int32_t stopAtEnd;
     if (player != action
         && (world::detail::gWorldObjects[
@@ -5128,7 +5128,7 @@ void Sub_4417E0(YobiAction* const action)
         DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
             ActorAttachmentReadOrder::BeforeXAddition);
     } else if ((action->flags & 0x400u) != 0) {
-        if (world::detail::ReadPlayerAction() != action) {
+        if (world::detail::gPlayerRuntimeSlots.action != action) {
             const std::int32_t lowerX =
                 (world::detail::gPlayerX - 16);
             bool outside = (action->mapX1E0 < static_cast<std::int32_t>(lowerX));
@@ -5175,7 +5175,7 @@ void Sub_4417E0(YobiAction* const action)
             action->flags |= 2u;
         }
     } else {
-        const std::int32_t mode = world::detail::ReadPlayerAction() == action ? 1 : 0;
+        const std::int32_t mode = world::detail::gPlayerRuntimeSlots.action == action ? 1 : 0;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t offsetY = Sub_5182B0(action, 1);
         const std::int32_t drawY = offsetY + action->y;
@@ -5897,11 +5897,11 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     std::uint16_t state;
     std::int32_t value;
     bool drawBars = false;
-    YobiAction* const player = world::detail::ReadPlayerAction();
+    YobiAction* const player = world::detail::gPlayerRuntimeSlots.action;
     if ((player != nullptr && player == action) || stateIndex == -1) {
         flags = static_cast<std::uint16_t>(world::detail::ReadPlayerFlags18A());
         state = world::detail::ReadPlayerActionFlags();
-        value = world::detail::ReadPlayerActionValue190();
+        value = world::detail::gPlayerRuntimeSlots.value190;
         if ((action->flags & 0x80000u) != 0) {
             flags &= 0x8400u;
             state = static_cast<std::uint16_t>(
@@ -6065,7 +6065,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (nameMode > 0) {
         const char* text = nullptr;
         std::int8_t color = 0;
-        if (action == world::detail::ReadPlayerAction()) {
+        if (action == world::detail::gPlayerRuntimeSlots.action) {
             if (nameMode <= 6) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
                 text = world::detail::GetPlayerDisplayText(nameMode);
@@ -6126,7 +6126,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), descriptor, 0);
     };
     const auto clearActionState = [&](const std::uint16_t bits) {
-        YobiAction* const currentPlayer = world::detail::ReadPlayerAction();
+        YobiAction* const currentPlayer = world::detail::gPlayerRuntimeSlots.action;
         if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
             world::detail::ClearPlayerActionFlags(bits);
         } else {
@@ -6468,7 +6468,7 @@ YobiAction* Sub_440B70()
 void* Sub_440F50()
 {
     YobiAction* const action =
-        Sub_43F1F0(world::ReadPlayerObjectIndex_FDA880());
+        Sub_43F1F0(world::detail::gPlayerRuntimeSlots.objectIndex);
     if (action == nullptr) {
         return nullptr;
     }
@@ -9449,7 +9449,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
     const std::int32_t targetPosition = effect->position;
-    const render::DxGraphicEntry* const graphics = render::GetGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const graphics = render::gGraphicDxCache103CFA4;
     YobiAction* const target = gBattleAllEntries59E980[targetPosition];
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
@@ -9608,7 +9608,7 @@ YobiAction* NewBattleRangeHit_419390(
     const std::int32_t projectileImage = action->imageNo;
     YobiAction* const target = gBattleAllEntries59E980[targetPosition];
     const std::int32_t projectionImage = projectileImage - 16;
-    const render::DxGraphicEntry* const graphics = render::GetGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const graphics = render::gGraphicDxCache103CFA4;
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
@@ -22718,7 +22718,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
         return;
     }
     const std::int32_t graphic = action->graphicIndex;
-    const render::DxGraphicEntry* const entries = render::GetGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const entries = render::gGraphicDxCache103CFA4;
     const std::uint32_t hoverImage = gValueD69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
@@ -34044,7 +34044,7 @@ void Sub_449A00(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (action->mapY1F0.value() != floor
-        || world::detail::ReadPlayerAction() == nullptr) {
+        || world::detail::gPlayerRuntimeSlots.action == nullptr) {
         MarkDeath(action);
         return;
     }
@@ -34308,7 +34308,7 @@ void Sub_4483A0(YobiAction* const action)
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
 void Sub_448290()
 {
-    if (world::gCurrentSceneType != 9 || world::detail::ReadPlayerAction() == nullptr) {
+    if (world::gCurrentSceneType != 9 || world::detail::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const std::int32_t floor = world::gMapFloor;
@@ -34409,7 +34409,7 @@ void Sub_449400(YobiAction* const action)
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void Sub_449160()
 {
-    if (world::detail::ReadPlayerAction() == nullptr) {
+    if (world::detail::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     Sub_448290();
@@ -34439,30 +34439,30 @@ void Sub_449160()
     case 0:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 213);
         action->worldX = static_cast<float>(
-            static_cast<double>(world::detail::ReadPlayerAction()->worldX) + 550.0F);
+            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldX) + 550.0F);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::detail::ReadPlayerAction()->worldY);
+            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
         break;
     case 1:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 33);
         action->worldX = static_cast<float>(
-            static_cast<double>(world::detail::ReadPlayerAction()->worldX) - 400.0F - 150.0F);
+            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldX) - 400.0F - 150.0F);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::detail::ReadPlayerAction()->worldY);
+            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
         break;
     case 2:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 107);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::detail::ReadPlayerAction()->worldX);
+            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            static_cast<double>(world::detail::ReadPlayerAction()->worldY) - 400.0F - 150.0F);
+            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldY) - 400.0F - 150.0F);
         break;
     case 3:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 287);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::detail::ReadPlayerAction()->worldX);
+            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            static_cast<double>(world::detail::ReadPlayerAction()->worldY) + 550.0F);
+            static_cast<double>(world::detail::gPlayerRuntimeSlots.action->worldY) + 550.0F);
         break;
     }
 }
@@ -34904,10 +34904,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         if ((flags & 0x80u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            const std::int32_t maxFp = ReadPlayerMaxFpOnce();
-            const std::int32_t fp = ReadPlayerFpOnce();
-            const std::int32_t maxHp = ReadPlayerMaxHpOnce();
-            const std::int32_t hp = ReadPlayerHpOnce();
+            const std::int32_t maxFp = cg::world::detail::gPlayerRuntimeSlots.maxFp.value();
+            const std::int32_t fp = cg::world::detail::gPlayerRuntimeSlots.fp.value();
+            const std::int32_t maxHp = cg::world::detail::gPlayerRuntimeSlots.maxHp.value();
+            const std::int32_t hp = cg::world::detail::gPlayerRuntimeSlots.hp.value();
             cg::text::FormatTo(gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
@@ -35391,7 +35391,7 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
 // 原函数：0x0043D860。
 void Sub_43D860(login::YobiAction* const action)
 {
-    login::YobiAction* const player = ReadPlayerAction();
+    login::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
     if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
         return;
     }
@@ -35451,7 +35451,7 @@ void Sub_51A6A0(
     const std::int32_t duration, const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
-    login::YobiAction* const action = ReadPlayerAction();
+    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -35464,7 +35464,7 @@ void Sub_51A6A0(
         delete previousText;
         payload->text1C = nullptr;
     }
-    AllocateActorChatText(payload, ReadPlayerAction()->nameC4.data(), text, color, font, length);
+    AllocateActorChatText(payload, cg::world::detail::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font, length);
 }
 
 // 原函数：0x00442C00。
@@ -36528,7 +36528,7 @@ void Sub_46B4B0(const std::int32_t direction)
     if (direction < 0 || direction > 7) {
         return;
     }
-    login::YobiAction* const action = ReadPlayerAction();
+    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -36565,7 +36565,7 @@ std::uint32_t Sub_46A190()
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = ReadPlayerObjectIndex_FDA880();
+        const std::uint32_t playerIndex = cg::world::detail::gPlayerRuntimeSlots.objectIndex;
         login::YobiAction* const action = ReadPetMapAction(index);
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
@@ -36643,7 +36643,7 @@ std::uint32_t Sub_46A190()
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = ReadPlayerObjectIndex_FDA880();
+        const std::uint32_t playerIndex = cg::world::detail::gPlayerRuntimeSlots.objectIndex;
         if (ReadPetMapObjectIndex(index) == playerIndex) {
             Sub_46A700();
         } else {
@@ -36662,7 +36662,7 @@ std::uint32_t Sub_46A190()
 void MovePlayerOneStep_46B1B0(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    login::YobiAction* const player = ReadPlayerAction();
+    login::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
     auto* const payload = player == nullptr
         ? nullptr : static_cast<login::detail::MapActorPayload*>(player->payload);
     const float rate = static_cast<float>(
@@ -36671,7 +36671,7 @@ void MovePlayerOneStep_46B1B0(
         const std::int32_t previousY =
             player->mapY1F0.value();
         const std::int32_t previousX =
-            ReadPlayerAction()->mapX1E0.value();
+            cg::world::detail::gPlayerRuntimeSlots.action->mapX1E0.value();
         static_cast<void>(login::detail::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
@@ -36733,7 +36733,7 @@ void Sub_46A5F0()
             continue;
         }
 
-        const std::int32_t speed = ReadPlayerWalkSpeed();
+        const std::int32_t speed = cg::world::detail::gPlayerRuntimeSlots.walkSpeed;
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t nextX = action->pathX220[0];
         static_cast<void>(
@@ -36759,7 +36759,7 @@ void Sub_46A5F0()
 // 原函数：0x0051A640。
 login::YobiAction* Sub_51A640()
 {
-    login::YobiAction* const action = ReadPlayerAction();
+    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         action->field272 = 1;
     }
@@ -36769,7 +36769,7 @@ login::YobiAction* Sub_51A640()
 // 原函数：0x0051A660。
 login::YobiAction* Sub_51A660()
 {
-    login::YobiAction* const action = ReadPlayerAction();
+    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         action->field272 = 0;
     }
@@ -36779,20 +36779,20 @@ login::YobiAction* Sub_51A660()
 // 原函数：0x0051A680。
 std::int32_t Sub_51A680()
 {
-    login::YobiAction* const action = ReadPlayerAction();
+    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->field272);
 }
 
 // 原函数：0x00519EE0。
 void Sub_519EE0()
 {
-    if (ReadPlayerAction() == nullptr) {
+    if (cg::world::detail::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
     const std::int32_t blocked = Sub_469810(x, y);
-    login::YobiAction* action = ReadPlayerAction();
+    login::YobiAction* action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (blocked != 0) {
         gPlayerX = action->mapX1E0;
         gPlayerY = action->mapY1F0;
@@ -36800,21 +36800,21 @@ void Sub_519EE0()
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     action->worldX = std::bit_cast<float>(worldXBits);
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->mapX1E0 = gPlayerX;
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->mapY1F0 = gPlayerY;
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->field27C = gValue9EE8FC;
     const std::uint32_t movementY = gValue9EE900;
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->field280 = movementY;
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->mapX200 = gPlayerSnapshotX;
-    action = ReadPlayerAction();
+    action = cg::world::detail::gPlayerRuntimeSlots.action;
     action->mapY210 = gPlayerSnapshotY;
 }
 

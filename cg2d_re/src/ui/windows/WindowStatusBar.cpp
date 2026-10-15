@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -167,12 +168,12 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
         const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
-        const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
-        const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+        const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
+        const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
-        const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+        const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
+        const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     }
 }
@@ -180,7 +181,7 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 // TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
 static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
-    const std::int32_t duration = world::detail::ReadPlayerTimerRemaining0C();
+    const std::int32_t duration = world::detail::gPlayerRuntimeSlots.timerRemaining0C;
     const std::int32_t hours = duration / 3600000;
     const std::int32_t hoursTens = hours / 10;
     const std::int32_t hoursUnits = hours % 10;
@@ -189,7 +190,7 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
     gCurrentWindow->elements[firstElement].visible = 0;
     gCurrentWindow->elements[firstElement + 1].visible = 0;
     gCurrentWindow->elements[firstElement + 2].visible = 0;
-    const std::int32_t mode = world::detail::ReadPlayerTimerMode10();
+    const std::int32_t mode = world::detail::gPlayerRuntimeSlots.timerMode10;
     WindowInstance* firstWindow;
     if (firstElement == 8) {
         firstWindow = gCurrentWindow;
@@ -308,7 +309,7 @@ static void WindowStatusBar_Refresh()
     WindowStatusBar_DrawTimer(8, &descriptor);
 
     const std::int32_t points = world::detail::Sub_504B10();
-    const std::int32_t initialInjury = world::detail::ReadPlayerInjury();
+    const std::int32_t initialInjury = world::detail::gPlayerRuntimeSlots.valueF4;
     gLoginWindowRuntime.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
         const std::int32_t pet = world::detail::Sub_504B60();
@@ -334,7 +335,7 @@ static void WindowStatusBar_Refresh()
     if (gLoginWindowRuntime.statusHasInjuryD046C8 != 0) {
         injuryBlink = gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
     }
-    const std::int32_t injury = world::detail::ReadPlayerInjury();
+    const std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
     const std::int32_t injuryImage = injury == 0 ? 0x3B941
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
@@ -461,7 +462,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
 // 原函数：0x00473080。
 static std::int32_t WindowStatusBar_ReadInjuredPetIndex()
 {
-    if (world::detail::ReadPlayerInjury() != 0) {
+    if (world::detail::gPlayerRuntimeSlots.valueF4 != 0) {
         return 0;
     }
     const std::int32_t pet = world::detail::Sub_504B60();
@@ -579,7 +580,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     }
     case 11: {
         const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex();
-        std::int32_t injury = world::detail::ReadPlayerInjury();
+        std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
         const bool hover = (state & 1) != 0;
         const std::int32_t petIndex = target - 10;
         if (hover) {
@@ -609,7 +610,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                 }
                 cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
                 gHoverTextD68AE8 = buffer;
-                injury = world::detail::ReadPlayerInjury();
+                injury = world::detail::gPlayerRuntimeSlots.valueF4;
                 static_cast<void>(0);
             }
         }

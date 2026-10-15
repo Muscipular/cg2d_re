@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -184,7 +185,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             const std::uint16_t target = result->value00;
             const char* name;
             if (target == 0xFFFEu) {
-                const std::int32_t health = WindowItem_HealthImageLevel(world::detail::ReadPlayerInjury());
+                const std::int32_t health = WindowItem_HealthImageLevel(world::detail::gPlayerRuntimeSlots.valueF4);
                 WindowInstance* const window = gCurrentWindow;
                 name = world::detail::GetPlayerDisplayText(1);
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);

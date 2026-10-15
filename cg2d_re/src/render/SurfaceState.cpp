@@ -16,6 +16,8 @@
 #include <new>
 
 namespace cg::render {
+
+TextureSurface* gCpuTempSurface {}; // 原Temp面的非拥有指针；创建／释放仍归本模块。
 namespace {
 
 struct CpuBackStorage {
@@ -63,7 +65,6 @@ constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
 
 std::unique_ptr<CpuBackStorage> gCpuBackSurface;
 TextureSurface* gCpuAutoMapSurface {};
-TextureSurface* gCpuTempSurface {};
 
 // 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
 std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
@@ -228,7 +229,7 @@ std::int32_t DrawMapEffects32_452840()
 
     const std::int32_t pitch = back->pitch >> 2;
     auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
-    const world::detail::MapEffectRecord* record = world::detail::GetActiveMapEffectHead();
+    const world::detail::MapEffectRecord* record = world::detail::gActiveMapEffectHead;
     while (record != nullptr) {
         const auto readInt = [record](const std::size_t offset) {
             return std::bit_cast<std::int32_t>(world::detail::ReadMapEffectWord(*record, offset));
@@ -647,11 +648,6 @@ bool CopyBackToTemp() noexcept
     }
     const SDL_Rect rectangle {0, 0, source->w, source->h};
     return BlitWithoutSourceColorKey(source, rectangle, destination, rectangle);
-}
-
-TextureSurface* GetCpuTempSurface() noexcept
-{
-    return gCpuTempSurface;
 }
 
 bool BlitSurfaceRectangleToBack(

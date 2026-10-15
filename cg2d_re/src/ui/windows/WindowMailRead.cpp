@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -395,9 +396,9 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         window = gCurrentWindow;
     } else if (category == 2) {
         window = gCurrentWindow;
-        image = ReadPlayerValue17C();
+        image = cg::world::detail::gPlayerRuntimeSlots.value17C;
     } else {
-        image = ReadPlayerValue17C();
+        image = cg::world::detail::gPlayerRuntimeSlots.value17C;
         window = gCurrentWindow;
     }
     const std::int32_t y = window->y;

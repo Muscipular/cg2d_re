@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -225,7 +226,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
         static_cast<void>(WindowSkillResult_RefreshResult(gCurrentWindow));
     }
     const std::int32_t imageNo =
-        WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo()), 0);
+        WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo), 0);
     login::detail::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
     login::detail::SetYobiActionField2B8(

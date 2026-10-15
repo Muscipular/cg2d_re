@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -455,14 +456,14 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
     login::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
-    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
         const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
             login::detail::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, 16);
             if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
-                imageNo = world::detail::ReadPlayerImageNo();
+                imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
             }
         }
     }
@@ -478,7 +479,7 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
     const std::uint8_t rebirthMode = gValue5F9754;
     gCraftDeadlineCF3B04 = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::detail::ReadPlayerValue08();
+        const std::int32_t rebirth = world::detail::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gCraftDeadlineCF3B04 = duration;
     }
@@ -2962,7 +2963,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         gCurrentWindow->elements[25].visible = 0;
         gCurrentWindow->elements[8].visible = 0;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
     login::detail::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);
@@ -3206,12 +3207,12 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     login::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             login::detail::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
-            imageNo = world::detail::ReadPlayerImageNo();
+            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -3433,12 +3434,12 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     login::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             login::detail::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
-            imageNo = world::detail::ReadPlayerImageNo();
+            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {

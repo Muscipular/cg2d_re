@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -1138,7 +1139,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
                             223, 254, 0);
                     }
                 }
-                const std::int32_t level = world::detail::ReadPlayerLevel();
+                const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
                 gStorageValueCC4218 += level;
             }
         }
@@ -1174,8 +1175,8 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
     }
     const bool hover = (events & 1u) != 0;
     if (hover && world::detail::gPetRuntimeRecords[petIndex].used != 0) {
-        const std::int32_t level = world::detail::ReadPlayerLevel();
-        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
+        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
         if (amount >= level) {
             gHoverTextD68AE8 = L"用滑鼠拖放來存放寵物。";
         }
@@ -1234,7 +1235,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         const std::uint32_t imageNo = login::detail::gValueD69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (WindowDrag_ReadKind() == 3 && WindowDrag_ReadSourceIndex() >= 100) {
-            const std::int32_t level = world::detail::ReadPlayerLevel();
+            const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
             gStorageValueCC4218 += level;
         }
     }
@@ -1336,7 +1337,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100) {
             WindowInstance* const window = gCurrentWindow;
-            const std::int32_t level = world::detail::ReadPlayerLevel();
+            const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
             auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
             cg::text::FormatTo(text->text, L"{:10}", level);
         } else {
@@ -1395,7 +1396,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
             const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
             if (side == 0 || side == 1) {
                 if (kind == 0) {
-                    const std::int32_t limit = world::detail::ReadPlayerValue15BD0(side + 1);
+                    const std::int32_t limit = world::detail::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
                     std::int32_t amount;
                     std::memcpy(&amount,
                         &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
@@ -1408,7 +1409,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 }
             }
         }
-        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
         if (maximum > amount) {
             maximum = amount;
         }
@@ -1417,8 +1418,8 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
         result = WindowInput_HandleNumber(gCurrentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (index == 31) {
-        const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
-        maximum = limit - world::detail::ReadPlayerValueFC();
+        const std::int32_t limit = world::detail::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+        maximum = limit - world::detail::gPlayerRuntimeSlots.valueFC;
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
@@ -1503,7 +1504,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     y = window->y + 285;
     x = window->x + 442;
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
-    cg::text::FormatTo(buffer, L"{:10}", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 527;

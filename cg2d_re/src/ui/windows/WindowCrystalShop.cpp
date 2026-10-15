@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -459,7 +460,7 @@ static void WindowCrystalShop_RefreshAmount()
     gWindow69TotalD45E70 = total;
     cg::text::FormatTo(gWindow69TotalTextCC48B0, L"{:10}", total);
     const std::int32_t currentTotal = gWindow69TotalD45E70;
-    const std::int32_t owned = world::detail::ReadPlayerValue15BCC();
+    const std::int32_t owned = world::detail::gPlayerRuntimeSlots.value15BCC;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
     number->color = currentTotal <= owned ? 10 : 6;
 }
@@ -564,7 +565,7 @@ static std::int32_t WindowCrystalShop_Update(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow69ScrollD2D604 = WindowScroll_ReadPosition(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    cg::text::FormatTo(gWindow69BalanceTextD2E448, L"{:10}", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gWindow69BalanceTextD2E448, L"{:10}", world::detail::gPlayerRuntimeSlots.value15BCC);
     if (gWindow69Message580854 >= 0) {
         gWindow69Message580854 = -1;
     }
@@ -657,7 +658,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t balance = world::detail::ReadPlayerValue15BCC();
+        const std::int32_t balance = world::detail::gPlayerRuntimeSlots.value15BCC;
         if (balance < gWindow69TotalD45E70) {
             gWindow69Message580854 = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -692,7 +693,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
                 }
                 WindowConfirmationAmount& left = gWindow69ConfirmAmountsD2E2B8[0];
                 WindowConfirmationAmount& right = gWindow69ConfirmAmountsD2E2B8[1];
-                const std::int32_t currentBalance = world::detail::ReadPlayerValue15BCC();
+                const std::int32_t currentBalance = world::detail::gPlayerRuntimeSlots.value15BCC;
                 left.y = 343;
                 right.y = 343;
                 const std::int32_t total = gWindow69TotalD45E70;

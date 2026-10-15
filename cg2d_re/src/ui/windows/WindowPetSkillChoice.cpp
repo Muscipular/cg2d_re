@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -774,10 +775,10 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+    const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"{:2}/{:2}", usedSlots, totalSlots);
-    std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
+    std::int32_t freeSlots = world::detail::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -844,10 +845,10 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+    const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"{:2}/{:2}", usedSlots, totalSlots);
-    std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
+    std::int32_t freeSlots = world::detail::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -1147,7 +1148,7 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
             static_cast<WindowTextData*>(window->elements[row + 79].data)->text = cg::text::FromGbkWide(record.name.data());
             cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
             cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
-            const std::int32_t money = world::detail::ReadPlayerValueFC();
+            const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
             const std::int32_t price = record.price;
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =
                 money >= price ? 0 : 6;
@@ -1225,7 +1226,7 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
-    cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
     if (gWindow54MessageC9FCE0 >= 0) {
         gWindow54MessageC9FCE0 = -1;
     }
@@ -2005,7 +2006,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     if ((state & 2) == 0) {
         return 0;
     }
-    const std::int32_t money = world::detail::ReadPlayerValueFC();
+    const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
     if (money < record.price) {
         gWindow54MessageC9FCE0 = -2;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2129,7 +2130,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     width = login::detail::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    cg::text::FormatTo(buffer, L"所持金　 {:7}金幣" /* 原常量参考：0x005882D4。 */, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"所持金　 {:7}金幣" /* 原常量参考：0x005882D4。 */, world::detail::gPlayerRuntimeSlots.valueFC);
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"購入金額 {:7}金幣" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));

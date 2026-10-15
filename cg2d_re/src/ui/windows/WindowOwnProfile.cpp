@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::input {
 
@@ -154,7 +155,7 @@ static void WindowOwnProfile_RefreshEntry(
     const std::int32_t index, input::InputContext* const context,
     WindowInputPrototype* const prototype)
 {
-    auto& current = world::detail::EditCurrentProfile10738E8().entries410[index];
+    auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
     const std::int32_t element = index + 9;
     const bool editing = input::gCurrentInputData == context;
     WindowElement* const elements = gCurrentWindow->elements;
@@ -195,9 +196,9 @@ static void WindowOwnProfile_RefreshEntry(
 // 原函数：0x00478A10。
 static void WindowOwnProfile_Refresh()
 {
-    auto& current = world::detail::EditCurrentProfile10738E8();
+    auto& current = world::detail::gCurrentProfile10738E8;
     WindowElement* const portraitElements = gCurrentWindow->elements;
-    const std::int32_t portrait = world::detail::ReadPlayerValue17C();
+    const std::int32_t portrait = world::detail::gPlayerRuntimeSlots.value17C;
     static_cast<WindowGraphicData*>(portraitElements[18].data)->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data)->imageNo =
@@ -207,7 +208,7 @@ static void WindowOwnProfile_Refresh()
     const char* const name = world::detail::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
     std::wstring number;
-    cg::text::FormatTo(number, L"{:3}", world::detail::ReadPlayerLevel());
+    cg::text::FormatTo(number, L"{:3}", world::detail::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     levelData->text = number;
 
@@ -324,7 +325,7 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     }
     WindowInstance* const window = gCurrentWindow;
     if (gFocusedElementDataD45F94 != window->elements[index].data) {
-        const auto& current = world::detail::EditCurrentProfile10738E8();
+        const auto& current = world::detail::gCurrentProfile10738E8;
         const char* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
         prototype->text = cg::text::FromGbkWide(source);

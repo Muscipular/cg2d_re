@@ -194021,5 +194021,21 @@
     "runtime_verified": false,
     "inventory_states_changed": false,
     "shared_gates_changed": false
+  },
+  "ui_control_expression_inline_uic01": {
+    "spec": "doc/cg2d_ui_naming_enum_spec.md#ui-control-expression-inline-uic01",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "removed_helpers": [
+      "AddUiCoordinate",
+      "UiCoordinateLow16"
+    ],
+    "expanded_additions": 8,
+    "expanded_coordinate_conversions": 4,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

@@ -11468,8 +11468,8 @@
       "source": "src/ui/LegacyUiRecord.cpp",
       "basis": "UIN02：当前IDA只读核原矩形鼠标位图／普通与激活图号及悬停边框；登录与角色选择namespace保持，保留原地址后缀。",
       "current_definition_lines": [
-        171,
-        199
+        156,
+        184
       ]
     },
     {
@@ -11479,8 +11479,8 @@
       "source": "src/ui/LegacyUiRecord.cpp",
       "basis": "UIN02：当前IDA只读核原矩形鼠标位图／普通与激活图号及悬停边框；登录与角色选择namespace保持，保留原地址后缀。",
       "current_definition_lines": [
-        177,
-        206
+        162,
+        191
       ]
     }
   ],

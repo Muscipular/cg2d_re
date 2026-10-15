@@ -56,21 +56,6 @@ std::int32_t QueryUiControlInputStateFromRecord_45F100(
     return cg::login::QueryLoginControlState_5036F0(&hitBounds);
 }
 
-// 保留原有有符号32位坐标加法。
-std::int32_t AddUiCoordinate(
-    const std::int32_t leftCoordinate,
-    const std::int32_t rightCoordinate)
-{
-    return leftCoordinate + rightCoordinate;
-}
-
-// 将边框坐标的低16位交给既有绘制接口。
-std::uint16_t UiCoordinateLow16(const std::int32_t coordinate)
-{
-    return static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(coordinate));
-}
-
 // 将角色选择的具名记录适配为共享输入查询回调。
 std::int32_t QueryCharacterSelectControlInputState(const void* const controlRecord)
 {
@@ -123,9 +108,9 @@ void DrawUiControlWithCallbacks_45EFD0(
     const std::int32_t hitTop = ReadUiControlInt32(controlRecord, kTopOffset);
     const std::int32_t hitHeight = ReadUiControlInt32(controlRecord, kHeightOffset);
     const std::int32_t hitLeft = ReadUiControlInt32(controlRecord, kLeftOffset);
-    const std::int32_t hitBottom = AddUiCoordinate(hitHeight, hitTop);
+    const std::int32_t hitBottom = hitHeight + hitTop;
     const std::int32_t hitWidth = ReadUiControlInt32(controlRecord, kWidthOffset);
-    const std::int32_t hitRight = AddUiCoordinate(hitWidth, hitLeft);
+    const std::int32_t hitRight = hitWidth + hitLeft;
     if (cg::login::detail::Sub_5049A0(
             hitLeft,
             hitTop,
@@ -144,20 +129,20 @@ void DrawUiControlWithCallbacks_45EFD0(
     const std::int32_t controlLeft = ReadUiControlInt32(controlRecord, kLeftOffset);
     const std::int32_t controlHeight =
         ReadUiControlInt32(controlRecord, kHeightOffset);
-    const std::int32_t frameBottom = AddUiCoordinate(
-        AddUiCoordinate(controlHeight, controlTop),
-        2);
-    const std::int32_t frameTop = AddUiCoordinate(controlTop, -2);
+    const std::int32_t frameBottom = (controlHeight + controlTop) + 2;
+    const std::int32_t frameTop = controlTop - 2;
     const std::int32_t controlWidth = ReadUiControlInt32(controlRecord, kWidthOffset);
-    const std::int32_t frameRight = AddUiCoordinate(
-        AddUiCoordinate(controlWidth, controlLeft),
-        2);
-    const std::int32_t frameLeft = AddUiCoordinate(controlLeft, -2);
+    const std::int32_t frameRight = (controlWidth + controlLeft) + 2;
+    const std::int32_t frameLeft = controlLeft - 2;
     cg::login::detail::DrawGraphicHover(
-        UiCoordinateLow16(frameLeft),
-        UiCoordinateLow16(frameTop),
-        UiCoordinateLow16(frameRight),
-        UiCoordinateLow16(frameBottom),
+        static_cast<std::uint16_t>(
+            std::bit_cast<std::uint32_t>(frameLeft)),
+        static_cast<std::uint16_t>(
+            std::bit_cast<std::uint32_t>(frameTop)),
+        static_cast<std::uint16_t>(
+            std::bit_cast<std::uint32_t>(frameRight)),
+        static_cast<std::uint16_t>(
+            std::bit_cast<std::uint32_t>(frameBottom)),
         renderLayer,
         std::bit_cast<std::uint32_t>(hoverFrameImageNo),
         hoverFrameMode == 2 ? 1 : 0);

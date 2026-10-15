@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -1190,7 +1191,7 @@ static void WindowTrade_HandleOwnInventory(
             }
             const std::int32_t left = x + 50 * (position % 5) + 13;
             const std::int32_t top = y + 52 * (position / 5) + 26;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position + 8;
                 break;
             }
@@ -1363,7 +1364,7 @@ static void WindowTrade_HandleOwnPets(
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
-            if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
                 hovered = scroll + row;
                 break;
             }
@@ -1666,7 +1667,7 @@ static void WindowTrade_HandleSelectedItem(
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const std::int32_t left = x + 50 * (slot % 5) + 13;
             const std::int32_t top = y + 52 * (slot / 5) + 26;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = slot;
                 break;
             }
@@ -1845,7 +1846,7 @@ static void WindowTrade_HandleSelectedPet(
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
-            if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
                 hovered = scroll + row;
                 break;
             }
@@ -1996,7 +1997,7 @@ static void WindowTrade_HandleRemoteItem(
             for (std::int32_t slot = 0; slot < 20; ++slot) {
                 const std::int32_t left = x + 50 * (slot % 5) + 13;
                 const std::int32_t top = y + 52 * (slot / 5) + 26;
-                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     hovered = slot;
                     std::uint16_t used;
                     std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
@@ -2097,7 +2098,7 @@ static void WindowTrade_HandleRemoteItem(
         if ((state & 1) != 0) {
             for (std::int32_t row = 0; row < 3; ++row) {
                 const std::int32_t top = y + rowY[row];
-                if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
                     const std::int32_t slot = scroll + row;
                     if (slot >= 0) {
                         std::uint16_t used;

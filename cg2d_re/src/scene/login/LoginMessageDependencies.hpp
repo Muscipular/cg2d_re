@@ -20,15 +20,6 @@ std::int32_t PlaySe(
 std::int32_t ReadLegacyMouseX();
 std::int32_t ReadLegacyMouseY();
 
-// 原 sub_5049A0@[0x5049A0,0x504A25)。
-// RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。
-std::int32_t Sub_5049A0(
-    std::int32_t left,
-    std::int32_t top,
-    std::int32_t right,
-    std::int32_t bottom,
-    std::int32_t layer);
-
 using GraphicDescriptor16 = render::GraphicDescriptor16;
 
 // 原函数：0x00521B10。

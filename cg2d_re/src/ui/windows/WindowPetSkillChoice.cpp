@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -2067,8 +2068,8 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const bool acceptHover = login::detail::Sub_5049A0(240, 310, 306, 327, -1) != 0;
-    const bool cancelHover = login::detail::Sub_5049A0(334, 310, 400, 327, -1) != 0;
+    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(240, 310, 306, 327, -1) != 0;
+    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(334, 310, 400, 327, -1) != 0;
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;

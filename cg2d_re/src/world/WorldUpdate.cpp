@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -247,7 +248,7 @@ std::int32_t Sub_455C90()
     const std::int32_t bottom = hitBaseY + 18;
     const std::int32_t top = hitBaseY + 1;
     const std::int32_t right = left + 66;
-    hovered = login::detail::Sub_5049A0(
+    hovered = cg::ui::HitTestMouseRect_5049A0(
         left, top, right, bottom, -1) != 0;
     if (hovered
         && (static_cast<std::uint8_t>(login::detail::gValueD68D9C) & 1U) != 0) {

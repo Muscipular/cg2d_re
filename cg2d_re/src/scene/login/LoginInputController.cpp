@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -173,7 +174,7 @@ std::int32_t ProcessCapability4Input_464E30()
 
         const std::int32_t accountTop = static_cast<std::int32_t>(gInputContext9A5678Y) - 4;
         const std::int32_t accountLeft = static_cast<std::int32_t>(gInputContext9A5678X) - 5;
-        static_cast<void>(detail::Sub_5049A0(
+        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(
             accountLeft,
             accountTop,
             accountLeft + 372,
@@ -182,7 +183,7 @@ std::int32_t ProcessCapability4Input_464E30()
 
         const std::int32_t passwordTop = static_cast<std::int32_t>(gInputContext9A5960Y) - 4;
         const std::int32_t passwordLeft = static_cast<std::int32_t>(gInputContext9A5960X) - 5;
-        static_cast<void>(detail::Sub_5049A0(
+        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(
             passwordLeft,
             passwordTop,
             passwordLeft + 372,
@@ -282,7 +283,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
         const std::int32_t firstX = gInputContext9A5960X;
         if (rectangleCapability >= 1) {
             const std::int32_t firstY = gInputContext9A5960Y;
-            if (detail::Sub_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(
                     firstX - 5,
                     firstY - 5,
                     firstX + 222,
@@ -294,7 +295,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
 
             const std::int32_t secondY = gInputContext9A5678Y;
             const std::int32_t secondX = gInputContext9A5678X;
-            if (detail::Sub_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(
                     secondX - 5,
                     secondY - 5,
                     secondX + 222,
@@ -305,7 +306,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
             }
         } else {
             const std::int32_t firstY = gInputContext9A5960Y;
-            if (detail::Sub_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(
                     firstX - 5,
                     firstY - 5,
                     firstX + 268,
@@ -317,7 +318,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
 
             const std::int32_t secondY = gInputContext9A5678Y;
             const std::int32_t secondX = gInputContext9A5678X;
-            if (detail::Sub_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(
                     secondX - 5,
                     secondY - 5,
                     secondX + 268,

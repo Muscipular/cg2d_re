@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -290,7 +291,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
         const auto& element = window->elements[2];
         const auto x = static_cast<std::int16_t>(window->x + element.x);
         const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
-        if (login::detail::Sub_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
             continue;
         }
         login::detail::DrawGraphicHover(

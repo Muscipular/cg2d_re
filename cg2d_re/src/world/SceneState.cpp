@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../platform/StartupNative.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
@@ -6745,7 +6746,7 @@ void DrawBattleScene_43CBB0()
         login::YobiAction* const action = gBattleExitAction5ABCDC;
         const std::int32_t y = GetYobiActionField34(action);
         const std::int32_t x = GetYobiActionField30(action);
-        if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
+        if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             ui::detail::gHoverTextD68AE8 = L"結束觀戰。" /* 原常量参考：0x00554194。 */;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
                 &platform::gLegacyMouseState.edgeButtons);

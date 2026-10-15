@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -126,7 +127,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
     if (platform::gMonitorKeyboard == 0 && mode == 0) {
         const std::int32_t passwordY = gInputContext9A5678Y;
         const std::int32_t passwordX = gInputContext9A5678X;
-        if (detail::Sub_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(
                 passwordX - 5,
                 passwordY - 4,
                 passwordX + 227,
@@ -138,7 +139,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 
         const std::int32_t accountY = gInputContext9A5960Y;
         const std::int32_t accountX = gInputContext9A5960X;
-        if (detail::Sub_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(
                 accountX - 5,
                 accountY - 4,
                 accountX + 227,

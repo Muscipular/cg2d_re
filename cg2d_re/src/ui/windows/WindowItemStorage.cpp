@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -159,7 +160,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             const WindowElement& element = window->elements[index];
             const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
             const std::int32_t top = element.y + 52 * (position / 5) + window->y + 39;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }
@@ -320,7 +321,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 52 * (position / 5) + windowY + 39;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }

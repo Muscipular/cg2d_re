@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -986,7 +987,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         const WindowElement& element = elements[index];
         const std::int32_t left = element.x + windowX + 2;
         const std::int32_t top = element.y + windowY + 2;
-        if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
             hovered = 0;
         }
     }
@@ -1082,8 +1083,8 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const bool acceptHover = login::detail::Sub_5049A0(100, 381, 166, 398, -1) != 0;
-    const bool cancelHover = login::detail::Sub_5049A0(510, 381, 576, 398, -1) != 0;
+    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(100, 381, 166, 398, -1) != 0;
+    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(510, 381, 576, 398, -1) != 0;
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;

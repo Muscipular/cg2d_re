@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -589,7 +590,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
             const WindowElement& element = window->elements[index];
             const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
             const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }
@@ -810,7 +811,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
             }
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, position, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, position, -24);
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 gItemSelectorCF3B10.hoverIndex3F8 = position;
                 break;
@@ -1005,7 +1006,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
                 const WindowElement& element = window->elements[index];
                 const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
                 const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
-                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     hovered = position;
                     break;
                 }

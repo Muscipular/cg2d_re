@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "CharacterSelectSceneDependencies.hpp"
 
 #include <cstdint>
@@ -12,7 +13,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
     const std::int32_t width = uiRecord->width;
     const std::int32_t bottom = height + top;
     const std::int32_t right = width + left;
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             left,
             top,
             right,
@@ -74,7 +75,7 @@ std::int32_t Sub_503A20(
         const std::int32_t hitWidth = uiRecord->width;
         const std::int32_t hitBottom = hitHeight + hitTop;
         const std::int32_t hitRight = hitLeft + hitWidth;
-        if (login::detail::Sub_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(
                 hitLeft,
                 hitTop,
                 hitRight,

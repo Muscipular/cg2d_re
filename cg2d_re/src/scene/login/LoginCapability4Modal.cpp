@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "LoginCapability4Modal.hpp"
 #include <cwchar>
 
@@ -141,7 +142,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     const std::int32_t leftHitTop = AddW32(leftHitBaseY, 61);
     const std::int32_t leftHitRight = AddW32(leftHitCenter, 33);
     const std::int32_t leftHitBottom = AddW32(leftHitBaseY, 78);
-    const bool leftHovered = Sub_5049A0(
+    const bool leftHovered = cg::ui::HitTestMouseRect_5049A0(
         leftHitLeft,
         leftHitTop,
         leftHitRight,
@@ -161,7 +162,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     const std::int32_t rightHitTop = AddW32(rightHitBaseY, 61);
     const std::int32_t rightHitRight = AddW32(rightHitCenter, 33);
     const std::int32_t rightHitBottom = AddW32(rightHitBaseY, 78);
-    const bool rightHovered = Sub_5049A0(
+    const bool rightHovered = cg::ui::HitTestMouseRect_5049A0(
         rightHitLeft,
         rightHitTop,
         rightHitRight,

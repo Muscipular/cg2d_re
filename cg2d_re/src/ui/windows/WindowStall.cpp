@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -1055,7 +1056,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
         window = gCurrentWindow;
         const std::int32_t centerY = window->height / 2 + window->y;
         const std::int32_t centerX = window->x + window->width / 2;
-        const bool hit = login::detail::Sub_5049A0(
+        const bool hit = cg::ui::HitTestMouseRect_5049A0(
             centerX - 33, centerY + 18, centerX + 33, centerY + 35, -1) != 0;
         window = gCurrentWindow;
         const std::int32_t buttonY = window->height / 2 + window->y + 27;
@@ -1648,7 +1649,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                 223, 256, 0);
         }
         if (hovered < 0 && (state & 0x21) != 0
-            && login::detail::Sub_5049A0(x, y, x + 48, y + 48, -1) != 0) {
+            && cg::ui::HitTestMouseRect_5049A0(x, y, x + 48, y + 48, -1) != 0) {
             hovered = slot;
             if (gStallInventoryHover5817FC != slot) {
                 gStallDescriptionPageD67C3C = 0;
@@ -1744,7 +1745,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t y = window->y + 115;
     const std::int32_t x = window->x + 206;
-    if (login::detail::Sub_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
         if (clicked) {
             if (input::gCurrentInputData == &input::gInputContextCF4E60) {
                 WindowChat_RestoreInput();
@@ -1762,7 +1763,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         const std::int32_t top = y + positions[digit][1];
         const std::int32_t left = x + positions[digit][0];
         std::int32_t imageState = 0;
-        if (login::detail::Sub_5049A0(left, top, left + 21, top + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 21, top + 19, -1) != 0) {
             if (clicked) {
                 gStallPriceD67C40 = digit + 10 * gStallPriceD67C40;
             }
@@ -1777,7 +1778,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         }
     }
     std::int32_t imageState = 0;
-    if (login::detail::Sub_5049A0(x + 93, y + 64, x + 118, y + 83, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 64, x + 118, y + 83, -1) != 0) {
         if (clicked) {
             gStallPriceD67C40 /= 10;
         }
@@ -1788,7 +1789,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
             x + 103, y + 74, 227, gNumericKeyImages54F030[10][imageState], 0, &descriptor));
     }
     imageState = 0;
-    if (login::detail::Sub_5049A0(x + 93, y + 104, x + 118, y + 123, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 104, x + 118, y + 123, -1) != 0) {
         if (clicked) {
             gStallPriceD67C40 = 0;
         }
@@ -1800,7 +1801,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     }
     imageState = 1;
     if (gStallPriceD67C40 != 0) {
-        if (login::detail::Sub_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
             if (clicked) {
                 static_cast<void>(WindowStall_AddListing(gStallPriceD67C40));
                 if (input::gCurrentInputData == &input::gInputContextCF4E60) {
@@ -1854,7 +1855,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     const std::int32_t acceptTop = y + buttonY;
     const std::int32_t acceptLeft = x + acceptX;
     std::int32_t imageState = 0;
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
         acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
         if ((state & 2) != 0) {
             static_cast<void>(WindowStall_RequestPurchase());
@@ -1870,7 +1871,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     const std::int32_t cancelTop = y + buttonY;
     const std::int32_t cancelLeft = x + cancelX;
     imageState = 0;
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
         cancelLeft, cancelTop, cancelLeft + 49, cancelTop + 17, -1) != 0) {
         if ((state & 2) != 0) {
             gCurrentWindow->elements[1].visible = 0;
@@ -1886,7 +1887,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     std::wstring details;
     if (gStallModeD67BDC == 0) {
         auto* const item = gStallBrowseData->items.data() + (gStallItemSelection581124 - 20);
-        if (login::detail::Sub_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
             if ((state & 1) != 0) {
                 gStallHover581120 = gStallItemSelection581124 + 180;
             }
@@ -1897,7 +1898,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
                 }
             }
         }
-        if (login::detail::Sub_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
             if ((state & 2) != 0) {
                 gCurrentWindow->elements[1].visible = 0;
             } else {
@@ -1929,7 +1930,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         }
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98856, 0, 1, 0, &descriptor));
     } else {
-        if (login::detail::Sub_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
             if ((state & 2) != 0) {
                 gCurrentWindow->elements[1].visible = 0;
             } else {

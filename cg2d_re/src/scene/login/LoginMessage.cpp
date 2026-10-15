@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -254,7 +255,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         (lineCount - 1) * (detail::gValue558F78 + 2);
     const std::int32_t left = gMessageLayout.x + (gMessageLayout.width - 66) / 2;
     const std::int32_t top = gMessageLayout.y + lineOffset + 61;
-    const bool hovered = detail::Sub_5049A0(left, top, left + 66, top + 17, -1) != 0;
+    const bool hovered = cg::ui::HitTestMouseRect_5049A0(left, top, left + 66, top + 17, -1) != 0;
     if (hovered) {
         const std::uint8_t mouseClickState =
             static_cast<std::uint8_t>(detail::gValueD68D9C);

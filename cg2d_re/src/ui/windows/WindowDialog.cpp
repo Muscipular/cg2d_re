@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -595,7 +596,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
     if (inputCount > 0) {
         do {
             const std::int32_t top = gMessageDialog.inputY[selected] + window->y;
-            if (login::detail::Sub_5049A0(inputX, top, inputX + inputWidth, top + 16, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(inputX, top, inputX + inputWidth, top + 16, -1) != 0) {
                 break;
             }
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
@@ -640,7 +641,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
         std::int32_t offset = 0;
         std::int32_t row = 0;
         while (row < lineCount) {
-            if (login::detail::Sub_5049A0(left, top + offset, left + width, top + offset + 20, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top + offset, left + width, top + offset + 20, -1) != 0) {
                 lineCount = gMessageDialog.lineCount;
                 if (row < lineCount) {
                     gMessageDialog.hoveredRow = row;
@@ -658,7 +659,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
         if (row < lineCount) {
             bool found = false;
             do {
-                if (login::detail::Sub_5049A0(
+                if (cg::ui::HitTestMouseRect_5049A0(
                         left, top + offset, left + width, top + offset + 20, -1) != 0) {
                     found = true;
                     break;

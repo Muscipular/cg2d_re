@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -320,7 +321,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 if (occupancy[position + 8] != 0) {
                     continue;
                 }
-                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0
                     && item.used != 0) {
                     const std::int32_t type = item.itemType;
                     gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
@@ -405,7 +406,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }
@@ -713,7 +714,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 if (occupancy[position] != 0) {
                     continue;
                 }
-                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     gHoverTextD68AE8 = L"無法在戰鬥中更換裝備。";
                     if ((events & 1u) != 0) {
                         login::detail::DrawGraphicHover(
@@ -782,7 +783,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             }
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, position, -24);
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }

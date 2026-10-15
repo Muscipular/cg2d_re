@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -1959,7 +1960,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             const WindowElement* const element = &window->elements[index];
             const std::int32_t left = element->x + 50 * (position % 5) + window->x;
             const std::int32_t top = element->y + 50 * (position / 5) + window->y;
-            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }
@@ -2345,7 +2346,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t imageNo = 0x3B568;
-    if (login::detail::Sub_5049A0(287, 268, 353, 285, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
         if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;

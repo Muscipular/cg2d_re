@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
@@ -57,7 +58,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
     const std::int32_t buttonBottom = buttonY + 132;
     const std::int32_t buttonTop = buttonY + 115;
     const std::int32_t buttonRight = buttonLeft + 66;
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             buttonLeft,
             buttonTop,
             buttonRight,

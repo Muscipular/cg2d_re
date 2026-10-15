@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -200,7 +201,7 @@ std::int32_t QueryLoginControlState_5036F0(
     const std::int32_t width = control->width;
     const std::int32_t bottom = height + top;
     const std::int32_t right = width + left;
-    if (detail::Sub_5049A0(left, top, right, bottom, -1) == 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(left, top, right, bottom, -1) == 0) {
         return 0;
     }
 
@@ -268,7 +269,7 @@ void DrawLoginControl_503780(
         const std::int32_t bottom = height + top;
         const std::int32_t width = control->width;
         const std::int32_t right = width + left;
-        if (detail::Sub_5049A0(left, top, right, bottom, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(left, top, right, bottom, -1) != 0) {
             imageNo = control->activeImageNo;
         } else {
             imageNo = control->normalImageNo;
@@ -290,7 +291,7 @@ void DrawLoginControl_503780(
     const std::int32_t hitBottom = hitHeight + hitTop;
     const std::int32_t hitWidth = control->width;
     const std::int32_t hitRight = hitWidth + hitLeft;
-    if (detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             hitLeft,
             hitTop,
             hitRight,

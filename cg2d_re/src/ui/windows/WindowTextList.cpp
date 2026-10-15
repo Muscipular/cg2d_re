@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::input {
@@ -349,7 +350,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t imageNo = 243048;
-    if (login::detail::Sub_5049A0(287, 218, 353, 235, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
         if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;

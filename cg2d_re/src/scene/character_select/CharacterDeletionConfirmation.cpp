@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include <string>
 
@@ -50,7 +51,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         return 0;
     }
 
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             x - 73,
             top + 59,
             left + 158,
@@ -59,7 +60,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         != 0) {
         hover = 1;
     }
-    if (login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             x + 7,
             top + 59,
             left + 158,

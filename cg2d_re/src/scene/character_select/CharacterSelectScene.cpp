@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "cg/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
 #include <optional>
@@ -453,7 +454,7 @@ std::int32_t Sub_462930()
         const std::int32_t height = kCreationSelectSize54DFE0[1];
         const std::int32_t left = position[0];
         const std::int32_t width = kCreationSelectSize54DFE0[0];
-        if (login::detail::Sub_5049A0(left, top, left + width, top + height, -1) != 0
+        if (cg::ui::HitTestMouseRect_5049A0(left, top, left + width, top + height, -1) != 0
             && (CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
             state::gValue9A4CFC = static_cast<std::uint8_t>(index);
             state::gValue9A5B00 = 0;
@@ -725,7 +726,7 @@ std::int32_t Sub_4631D0()
     };
     const auto hitRow = [](const std::size_t record, const std::int32_t top) {
         const auto& bounds = kCreationUi54E0BC[record].bounds;
-        return login::detail::Sub_5049A0(
+        return cg::ui::HitTestMouseRect_5049A0(
             bounds.left, top, bounds.left + bounds.width, top + bounds.height, -1);
     };
 
@@ -1194,7 +1195,7 @@ std::int32_t Sub_464290(const cg::ui::UiControlBounds* const rectangle)
     const std::int32_t left = rectangle->left;
     const std::int32_t height = rectangle->height;
     const std::int32_t width = rectangle->width;
-    return login::detail::Sub_5049A0(
+    return cg::ui::HitTestMouseRect_5049A0(
         left, top, left + width, top + height, -1);
 }
 

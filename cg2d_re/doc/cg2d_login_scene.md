@@ -614,7 +614,7 @@ descriptor 严格为以下 16 字节：
 
 [旧登录控制器文档](cg2d_login_state_controller.md) 将 `Sub_5049A0`、`DrawGraphic`、
 部分共享值仅列为声明的记录已滞后；当前交接已定位
-[LegacyHitTest.cpp](../src/LegacyHitTest.cpp) 原第 7 行、
+[HitTest.cpp](../src/ui/HitTest.cpp) 的 `cg::ui::HitTestMouseRect_5049A0`、
 [DrawGraphic.cpp](../src/DrawGraphic.cpp) 原第 169 行，以及
 [Font.cpp](../src/render/Font.cpp) 的字体高度别名和上述鼠标唯一所有者。
 本项纯继承这些定位，不重审实现，也不回写旧文档。

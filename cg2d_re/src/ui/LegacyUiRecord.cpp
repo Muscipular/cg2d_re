@@ -1,3 +1,4 @@
+#include "cg/ui/HitTest.hpp"
 #include "UiControlRecord.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -69,7 +70,7 @@ void DrawUiControl_45EFD0(
     const std::int32_t hitBottom = hitHeight + hitTop;
     const std::int32_t hitWidth = controlRecord->bounds.width;
     const std::int32_t hitRight = hitWidth + hitLeft;
-    if (cg::login::detail::Sub_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(
             hitLeft,
             hitTop,
             hitRight,

@@ -1,15 +1,17 @@
-#include "scene/login/LoginMessageDependencies.hpp"
+#include "cg/ui/HitTest.hpp"
+
+#include "../scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 
 #include <cstdint>
 
-namespace cg::login::detail {
+namespace cg::ui {
 
 // RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。
 // 原函数：0x005049A0。
-std::int32_t Sub_5049A0(
+std::int32_t HitTestMouseRect_5049A0(
     const std::int32_t left,
     const std::int32_t top,
     const std::int32_t right,
@@ -30,16 +32,16 @@ std::int32_t Sub_5049A0(
     }
 
     if (layer >= 0) {
-        DrawGraphicHover(
+        login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left),
             static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(right),
             static_cast<std::uint16_t>(bottom),
             static_cast<std::uint8_t>(layer),
-            gValueD69768,
+            login::detail::gValueD69768,
             0);
     }
     return 1;
 }
 
-} // namespace cg::login::detail
+} // namespace cg::ui

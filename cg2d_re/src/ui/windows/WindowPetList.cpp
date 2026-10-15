@@ -112,8 +112,6 @@ std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const std::in
                     || gWindowStates[WindowId_PetSkills].window != nullptr) {
                     const char* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                    const std::size_t length = std::strlen(name) + 1;
-                    const std::size_t bulk = length & ~std::size_t{3};
                     gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
                     WindowInstance* const window = gCurrentWindow;
                     const std::int32_t y = window->y;
@@ -359,7 +357,6 @@ void WindowPetList_Refresh()
     std::wstring buffer;
     const auto copyNumber = [&buffer](const std::int32_t element) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
-        const std::size_t length = buffer.size() + 1;
         data->text = buffer;
     };
     const auto setImage = [](const std::int32_t element, const std::int32_t image) {
@@ -410,7 +407,6 @@ void WindowPetList_Refresh()
         const char* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         WindowElement* const nameElements = gCurrentWindow->elements;
-        const std::size_t nameLength = std::strlen(name) + 1;
         auto* const nameData = static_cast<WindowTextData*>(nameElements[textBase].data);
         nameData->text = cg::text::FromGbkWide(name);
 

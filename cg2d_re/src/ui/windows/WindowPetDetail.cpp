@@ -310,7 +310,6 @@ std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-                const std::size_t length = std::strlen(name) + 1;
                 data->text = cg::text::FromGbkWide(name);
             }
             consumed = 1;
@@ -379,8 +378,6 @@ std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::
             gLoginWindowRuntime.selectedPetCC3E5C = position;
             const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            const std::size_t length = std::strlen(name) + 1;
-            const std::size_t whole = length & ~std::size_t{3};
             gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t y = window->y;

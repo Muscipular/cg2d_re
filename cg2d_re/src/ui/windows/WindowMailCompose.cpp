@@ -122,7 +122,6 @@ void WindowMailCompose_Release()
     gLoginWindowRuntime.mailDraftCF4BC8.value04 = target;
     gLoginWindowRuntime.mailDraftCF4BC8.value10 = mode;
     const std::int32_t pet = gLoginWindowRuntime.prefixD2F0B8.value08;
-    const std::size_t length = input::gInputContextD66CA8.length() + 1;
     gLoginWindowRuntime.mailDraftCF4BC8.value08 = pet;
     const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
     gLoginWindowRuntime.mailDraftCF4BC8.value0C = oldSlot;

@@ -940,7 +940,6 @@ std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int
         world::detail::gPetPairsDE0B08[index + scroll - 14].index);
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    std::array<char, 384> buffer;
     // 原4AAEEC/4AB245各执行一次，三次索引查询和费用累计都不能复用前次结果。
     const auto drawDragSource = [index]() {
         if (WindowDrag_ReadKind() == 3) {

@@ -101,7 +101,6 @@ void WindowPlayerAttributes_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
-    const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
@@ -109,7 +108,6 @@ void WindowPlayerAttributes_Refresh()
         const std::int32_t index, const std::int32_t value, const std::wstring_view format) {
         cg::text::FormatTo(buffer, format, value);
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-        const std::size_t length = buffer.size() + 1;
         text->text = buffer;
     };
     writeNumber(1, world::detail::ReadPlayerLevel(), L"{:3}");

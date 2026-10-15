@@ -1335,8 +1335,8 @@ void WindowSkill_ShowPetSkills(WindowInstance* const window)
     gSkillWindowMaximumCA000C = pet->value6A4 - 10;
     window->elements[7].visible = 1;
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
-    for (std::int32_t index = 17; index <= 26; ++index) {
-        window->elements[index].mouseCallback = WindowSkill_SelectPetSkill;
+    for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {
+        window->elements[elementIndex].mouseCallback = WindowSkill_SelectPetSkill;
     }
 }
 
@@ -1382,8 +1382,8 @@ void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     gSkillWindowMaximumCA000C = pet->value6A4 - 10;
     window->elements[7].visible = 1;
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
-    for (std::int32_t index = 17; index <= 26; ++index) {
-        window->elements[index].mouseCallback = WindowSkill_SelectRidingSkill;
+    for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {
+        window->elements[elementIndex].mouseCallback = WindowSkill_SelectRidingSkill;
     }
 }
 

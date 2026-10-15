@@ -278,7 +278,6 @@ std::int32_t WindowBottomBar_Update(const std::int32_t)
         }
 
         WindowElement* const mainElements = gCurrentWindow->elements;
-        const std::size_t mainLength = gHoverTextD68AE8.size() + 1;
         auto* const mainText = static_cast<WindowTextData*>(mainElements[11].data);
         mainText->text = gHoverTextD68AE8;
         mainText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
@@ -286,7 +285,6 @@ std::int32_t WindowBottomBar_Update(const std::int32_t)
             gCurrentWindow->elements[12].visible = 1;
         }
         WindowElement* const titleElements = gCurrentWindow->elements;
-        const std::size_t titleLength = gHoverTitleD68BF4.size() + 1;
         auto* const titleText = static_cast<WindowTextData*>(titleElements[12].data);
         titleText->text = gHoverTitleD68BF4;
         titleText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
@@ -300,7 +298,6 @@ std::int32_t WindowBottomBar_Update(const std::int32_t)
 
     const std::wstring_view description = platform::BorrowWindowImeDescription_4734F0();
     WindowElement* const elements = gCurrentWindow->elements;
-    const std::size_t length = description.size() + 1;
     auto* const text = static_cast<WindowTextData*>(elements[9].data);
     text->text = description;
     gHoverTextD68AE8.clear();

@@ -856,7 +856,6 @@ std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t ind
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const std::size_t length = gWindow70ConfirmAcceptD2DD6C.size() + 1;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         gHoverTextD68AE8 = gWindow70ConfirmAcceptD2DD6C;
         if ((buttons & 1u) != 0) {
@@ -873,8 +872,6 @@ std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t ind
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        const std::size_t length = gWindow70ConfirmCancelCC48BC.size() + 1;
-        const std::size_t prefix = length & ~std::size_t{3};
         gHoverTextD68AE8 = gWindow70ConfirmCancelCC48BC;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         static_cast<void>(0);

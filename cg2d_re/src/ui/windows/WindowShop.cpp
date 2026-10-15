@@ -1464,7 +1464,6 @@ std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t st
             gConfirmationAcceptHintCC3FCC = kShopConfirmAcceptHints[textMode];
             const wchar_t* const cancelHint = kShopHints57E6C4[2];
             if (mode == 2) {
-                const std::size_t length = std::wstring_view(cancelHint).size() + 1;
                 WindowInstance* const window = gCurrentWindow;
                 gConfirmationCancelHintD45D70 = cancelHint;
                 window->elements[0].visible = 1;
@@ -3017,7 +3016,6 @@ std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const std::size_t length = gConfirmationAcceptHintCC3FCC.size() + 1;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
@@ -3034,8 +3032,6 @@ std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        const std::size_t length = gConfirmationCancelHintD45D70.size() + 1;
-        const std::size_t prefix = length & ~std::size_t{3};
         gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         static_cast<void>(0);

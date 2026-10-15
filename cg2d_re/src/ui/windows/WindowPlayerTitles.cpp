@@ -40,7 +40,6 @@ std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t
     }
     WindowInstance* const window = gCurrentWindow;
     if (gFocusedElementDataD45F94 != window->elements[0].data) {
-        const std::size_t length = gTitleDraftD45FC0.size() + 1;
         gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
@@ -299,19 +298,16 @@ void WindowPlayerTitles_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
-    const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
-    const std::size_t levelLength = buffer.size() + 1;
     levelData->text = buffer;
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     const char* const title = world::detail::BorrowTitleText(titleIndex);
-    const std::size_t titleLength = std::strlen(title) + 1;
     titleData->text = cg::text::FromGbkWide(title);
 
     if (input::gCurrentInputData != &input::gInputContextD2DC10) {
@@ -340,7 +336,6 @@ void WindowPlayerTitles_Refresh()
         const char* const text = record->text.data();
         ++record;
         auto* const data = static_cast<WindowTextData*>(window->elements[index].data);
-        const std::size_t length = std::strlen(text) + 1;
         data->text = cg::text::FromGbkWide(text);
     }
 }
@@ -352,12 +347,10 @@ std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
     if (value == -1) {
         const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;
-        const std::size_t draftLength = std::strlen(ownTitle) + 1;
         gTitleDraftD45FC0 = cg::text::FromGbkWide(ownTitle);
 
         WindowElement* const elements = gCurrentWindow->elements;
         const char* const displayTitle = world::detail::BorrowPlayerDisplayText(2);
-        const std::size_t displayLength = std::strlen(displayTitle) + 1;
         auto* const data = static_cast<WindowTextData*>(elements[8].data);
         data->text = cg::text::FromGbkWide(displayTitle);
     }

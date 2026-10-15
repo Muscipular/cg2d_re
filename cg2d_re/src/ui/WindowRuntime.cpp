@@ -4984,12 +4984,12 @@ void WindowRuntime_DrawCurrent()
                     login::detail::ApplyWindowAnimationDrawMode(action);
                 const std::int32_t offsetY = login::detail::Sub_5182B0(action, 1);
                 WindowInstance* const verticalWindow = gCurrentWindow;
-                const std::int32_t elementY = element->y;
-                const std::int32_t drawY = offsetY + verticalWindow->y + elementY;
+                const std::int32_t animationElementY = element->y;
+                const std::int32_t drawY = offsetY + verticalWindow->y + animationElementY;
                 const std::int32_t offsetX = login::detail::Sub_5182B0(action, 0);
                 WindowInstance* const horizontalWindow = gCurrentWindow;
-                const std::int32_t elementX = element->x;
-                const std::int32_t drawX = offsetX + horizontalWindow->x + elementX;
+                const std::int32_t animationElementX = element->x;
+                const std::int32_t drawX = offsetX + horizontalWindow->x + animationElementX;
                 static_cast<void>(render::DrawGraphic2_521DD0(
                     drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
                 break;

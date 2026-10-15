@@ -281968,12 +281968,12 @@
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 2833
+        "line": 2832
       },
       {
         "path": "src/ui/windows/WindowPetSkillChoice.cpp",
         "symbol": "WindowPetSkillChoice_Draw",
-        "line": 939
+        "line": 937
       },
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
@@ -282038,7 +282038,7 @@
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
         "symbol": "WindowPetSkills_DrawDraggedSkillTooltip",
-        "line": 253
+        "line": 251
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -282303,12 +282303,12 @@
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_ButtonAddAll",
-        "line": 1607
+        "line": 1606
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 2842
+        "line": 2841
       },
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
@@ -284964,5 +284964,10 @@
     "window_source_count": 68,
     "verification": "逐单元正文与原地址、跨文件声明、唯一定义和CMake接线静态核对；未编译、测试或运行。",
     "prototype_followup": "70个原型及69张控件表归位；18项共享载荷和编译期索引留中央文件，71槽与36/37共享关系保持，仅静态核对。"
+  },
+  "ui_build_cleanup_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md",
+    "scope": "清理73条不再消费的长度/对齐计算与缓冲声明，11处局部变量按用途改名，原地址/业务分支保持。",
+    "validation": "build.bat Debug 两轮配置、编译、链接退出0；本轮74条未使用/遮蔽告警消除，既有未初始化路径告警仍待；未运行或部署。"
   }
 }

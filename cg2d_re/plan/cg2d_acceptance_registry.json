@@ -191032,5 +191032,15 @@
       "central_source": "src/ui/WindowPrototypes.cpp",
       "verification": "逐原型初值、71槽映射、3处引用别名、控件表与载荷、原地址及唯一定义静态核对；原验收状态保持，未编译、测试或运行。"
     }
+  },
+  "ui_build_cleanup_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md",
+    "build": "build.bat Debug",
+    "build_exit_code": 0,
+    "removed_unused_declarations": 73,
+    "renamed_shadowing_declarations": 11,
+    "resolved_warning_count": 74,
+    "remaining_warning_scope": "首轮已见55条原未初始化路径诊断保留，不补默认值或关闭告警；增量构建不据此核销未重编文件。",
+    "runtime": "未运行、测试或部署"
   }
 }

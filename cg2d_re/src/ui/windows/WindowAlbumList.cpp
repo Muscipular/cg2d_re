@@ -49,7 +49,6 @@ void* WindowAlbumList_Refresh()
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
             auto* const text = static_cast<WindowTextData*>(nameWindow->elements[48 + row].data);
             const char* const name = reinterpret_cast<const char*>(nameRecords + (nameScroll + row) * 0x80 + 0x34);
-            const std::size_t length = std::strlen(name) + 1;
             text->text = cg::text::FromGbkWide(name);
             const std::byte* const flagRecords = world::detail::BorrowSelectedAlbumRecords();
             const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
@@ -60,7 +59,6 @@ void* WindowAlbumList_Refresh()
         } else {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[48 + row].data);
             const char* const source = input::LegacyText593850();
-            const std::size_t length = std::strlen(source) + 1;
             text->text = cg::text::FromGbkWide(source);
             WindowElement* const elements = gCurrentWindow->elements;
             elements[38 + row].visible = 0;

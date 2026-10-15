@@ -145,7 +145,6 @@ std::int32_t WindowPetSkills_Update(const std::int32_t value)
         static_cast<void>(WindowPetDetail_SavePetSequences());
         WindowPetDetail_InitializeDraft();
         WindowPetDetail_ResetDraftFlag();
-        const std::size_t length = gLoginWindowRuntime.petNameDraftD45E74.size() + 1;
         WindowInstance* const window = gCurrentWindow;
         gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
         const std::int32_t y = window->y;
@@ -215,7 +214,6 @@ std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, const std::
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
-                const std::size_t length = std::strlen(name) + 1;
                 data->text = cg::text::FromGbkWide(name);
             }
             consumed = 1;
@@ -292,8 +290,6 @@ std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, const std::
                 }
                 const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
                 const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                const std::size_t length = std::strlen(name) + 1;
-                const std::size_t whole = length & ~std::size_t{3};
                 gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t y = window->y;
@@ -382,7 +378,6 @@ std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, const std:
             const char* const description = pet.techniquesD8[technique].description.data();
             if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
                 auto* const elements = gCurrentWindow->elements;
-                const std::size_t length = buffer.size() + 1;
                 auto* const data = static_cast<WindowTextData*>(elements[33 + line].data);
                 data->text = buffer;
             }

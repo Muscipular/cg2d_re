@@ -23,7 +23,6 @@ void WindowOwnProfileCategory_Refresh()
         const char* const source =
             record.used != 0 ? record.text0C.data() : input::LegacyText593850();
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
-        const std::size_t length = std::strlen(source) + 1;
         data->text = cg::text::FromGbkWide(source);
     }
 }

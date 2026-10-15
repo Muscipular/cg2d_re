@@ -40,7 +40,7 @@
       "source": "src/ui/windows/WindowPlayerProfile.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        267
+        252
       ]
     },
     {
@@ -50,7 +50,7 @@
       "source": "src/ui/windows/WindowPlayerProfile.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        274
+        259
       ]
     },
     {
@@ -60,7 +60,7 @@
       "source": "src/ui/windows/WindowPlayerAttributes.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        164
+        162
       ]
     },
     {
@@ -70,7 +70,7 @@
       "source": "src/ui/windows/WindowPlayerAttributes.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        171
+        169
       ]
     },
     {
@@ -80,7 +80,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        350
+        345
       ]
     },
     {
@@ -90,7 +90,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        369
+        362
       ]
     },
     {
@@ -240,7 +240,7 @@
       "source": "src/ui/windows/WindowPetList.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        471
+        467
       ]
     },
     {
@@ -280,7 +280,7 @@
       "source": "src/ui/windows/WindowPetAttributes.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        162
+        161
       ]
     },
     {
@@ -300,7 +300,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        166
+        165
       ]
     },
     {
@@ -310,7 +310,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        174
+        173
       ]
     },
     {
@@ -320,7 +320,7 @@
       "source": "src/ui/windows/WindowAlbumList.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        74
+        72
       ]
     },
     {
@@ -330,7 +330,7 @@
       "source": "src/ui/windows/WindowAlbumDetail.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        184
+        182
       ]
     },
     {
@@ -930,7 +930,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3102
+        3098
       ]
     },
     {
@@ -950,7 +950,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        808
+        806
       ]
     },
     {
@@ -960,7 +960,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        852
+        850
       ]
     },
     {
@@ -1040,7 +1040,7 @@
       "source": "src/ui/windows/WindowOwnProfile.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        168
+        163
       ]
     },
     {
@@ -1050,7 +1050,7 @@
       "source": "src/ui/windows/WindowOwnProfile.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        175
+        170
       ]
     },
     {
@@ -1060,7 +1060,7 @@
       "source": "src/ui/windows/WindowOwnProfileCategory.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        33
+        32
       ]
     },
     {
@@ -1730,7 +1730,7 @@
       "source": "src/ui/windows/WindowOwnProfileCategory.cpp",
       "basis": "十行分类选择，写当前资料。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        52
+        51
       ]
     },
     {
@@ -1740,7 +1740,7 @@
       "source": "src/ui/windows/WindowOwnProfileCategory.cpp",
       "basis": "窗口59四滚动/翻页按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        99
+        98
       ]
     },
     {
@@ -1750,7 +1750,7 @@
       "source": "src/ui/windows/WindowOwnProfileCategory.cpp",
       "basis": "WSP01：原分类count-10拖动换算；旧X代码1992。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        238
+        237
       ]
     },
     {
@@ -1760,7 +1760,7 @@
       "source": "src/ui/windows/WindowOwnProfileCategory.cpp",
       "basis": "三模式滚轮，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        255
+        254
       ]
     },
     {
@@ -3861,7 +3861,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "外部宠物提领行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1083
+        1082
       ]
     },
     {
@@ -3871,7 +3871,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1218
+        1217
       ]
     },
     {
@@ -3881,7 +3881,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "双侧数量和金额。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1312
+        1311
       ]
     },
     {
@@ -3891,7 +3891,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38右上关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1381
+        1380
       ]
     },
     {
@@ -3901,7 +3901,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "窗口38/41共用关闭按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1403
+        1402
       ]
     },
     {
@@ -3911,7 +3911,7 @@
       "source": "src/ui/windows/WindowBank.cpp",
       "basis": "SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1426
+        1425
       ]
     },
     {
@@ -4431,7 +4431,7 @@
       "source": "src/ui/windows/WindowAlbumList.cpp",
       "basis": "图鉴列表打开选中详情。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        84
+        82
       ]
     },
     {
@@ -4441,7 +4441,7 @@
       "source": "src/ui/windows/WindowAlbumList.cpp",
       "basis": "单行/十行滚动按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        112
+        110
       ]
     },
     {
@@ -4451,7 +4451,7 @@
       "source": "src/ui/windows/WindowAlbumList.cpp",
       "basis": "WSP01：原950参数拖动换算；旧X代码1961。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        184
+        182
       ]
     },
     {
@@ -4461,7 +4461,7 @@
       "source": "src/ui/windows/WindowAlbumList.cpp",
       "basis": "图鉴滚轮，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        195
+        193
       ]
     },
     {
@@ -4491,7 +4491,7 @@
       "source": "src/ui/windows/WindowAlbumDetail.cpp",
       "basis": "图鉴详情四种翻页与旋转。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        194
+        192
       ]
     },
     {
@@ -5161,7 +5161,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "取消发送command2，发送后关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1494
+        1493
       ]
     },
     {
@@ -5171,7 +5171,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "批量加入出售选择，每轮固定重置/音效尾。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1529
+        1528
       ]
     },
     {
@@ -5181,7 +5181,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "kind2拖放加入，hover模式门禁独立。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1648
+        1647
       ]
     },
     {
@@ -5191,7 +5191,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向前一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1734
+        1733
       ]
     },
     {
@@ -5201,7 +5201,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向后一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1780
+        1779
       ]
     },
     {
@@ -5211,7 +5211,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向前五行，音效后重读位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1826
+        1825
       ]
     },
     {
@@ -5221,7 +5221,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向后五行，先上限后负值修正。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1870
+        1869
       ]
     },
     {
@@ -5231,7 +5231,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "共享滚轮更新并刷新，恒返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1921
+        1920
       ]
     },
     {
@@ -5241,7 +5241,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量减少，兑换模式两轮背包占槽计算。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1952
+        1951
       ]
     },
     {
@@ -5251,7 +5251,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量增加，保留行价格与选择槽索引差别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2185
+        2184
       ]
     },
     {
@@ -5261,7 +5261,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "商品图标，仅hover内bit4翻页。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2536
+        2535
       ]
     },
     {
@@ -5271,7 +5271,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "独立详情图标，bit4无hover门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2592
+        2591
       ]
     },
     {
@@ -5281,7 +5281,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售选择行，接kind9交换/取消/拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2627
+        2626
       ]
     },
     {
@@ -5291,7 +5291,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "背包20格命中、加入/拖动/翻页及两组绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2760
+        2759
       ]
     },
     {
@@ -5301,7 +5301,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "确认覆盖层，事件直接读共享鼠标。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3008
+        3007
       ]
     },
     {
@@ -5331,7 +5331,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "窗口54模式2，技能报价及旧窗刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        220
+        218
       ]
     },
     {
@@ -5341,7 +5341,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "同创建流程，模式12显示种族。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        226
+        224
       ]
     },
     {
@@ -5351,7 +5351,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式3候选回复，仅更新存在的窗口54。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        232
+        230
       ]
     },
     {
@@ -5361,7 +5361,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式13候选回复，带种族条件及提示标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        278
+        276
       ]
     },
     {
@@ -5371,7 +5371,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式4固定十槽回复，空名不终止后续槽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        328
+        326
       ]
     },
     {
@@ -5381,7 +5381,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0技能栏/说明/花费，reqSlot按低S8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        377
+        375
       ]
     },
     {
@@ -5391,7 +5391,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式1遗忘映射/警告/回调，与原技能表同源。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        430
+        428
       ]
     },
     {
@@ -5401,7 +5401,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "固定旧窗的五宠物名称/元素及技能分页刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        505
+        503
       ]
     },
     {
@@ -5411,7 +5411,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "玩家索引对转候选映射，绑定真实选择回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        559
+        557
       ]
     },
     {
@@ -5421,7 +5421,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "技能槽计数/候选原序显示，先右侧再左侧刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        628
+        626
       ]
     },
     {
@@ -5431,7 +5431,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0十行原技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        676
+        674
       ]
     },
     {
@@ -5441,7 +5441,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式1十行协议名称/双数值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        708
+        706
       ]
     },
     {
@@ -5451,7 +5451,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "五行，存在性与内容索引不同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        737
+        735
       ]
     },
     {
@@ -5461,7 +5461,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "按候选槽数逐轮重读，不加十行钳制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        775
+        773
       ]
     },
     {
@@ -5471,7 +5471,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0学习请求，bit2恒消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        938
+        936
       ]
     },
     {
@@ -5481,7 +5481,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "分模式关闭/返回，音效后重读模式。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        974
+        972
       ]
     },
     {
@@ -5491,7 +5491,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "bit400上一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1088
+        1086
       ]
     },
     {
@@ -5501,7 +5501,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "下一行，12/13固定左侧且目标index-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1166
+        1164
       ]
     },
     {
@@ -5511,7 +5511,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "上一页，音效后重读位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1248
+        1246
       ]
     },
     {
@@ -5521,7 +5521,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "下一页，先上限后负值修正。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1320
+        1318
       ]
     },
     {
@@ -5531,7 +5531,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "两侧滚轮；模式0/1只更新位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1416
+        1414
       ]
     },
     {
@@ -5541,7 +5541,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "遗忘映射+1发送，发送后关闭窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1460
+        1458
       ]
     },
     {
@@ -5551,7 +5551,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "候选门禁/提示/发送，hintFlag不阻止发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1501
+        1499
       ]
     },
     {
@@ -5561,7 +5561,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "选技能槽并显示元素0，不提前发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1570
+        1568
       ]
     },
     {
@@ -5571,7 +5571,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "技能选择/请求，发送后对话类型=-2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1598
+        1596
       ]
     },
     {
@@ -5581,7 +5581,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "已选技能内框，恒0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1662
+        1660
       ]
     },
     {
@@ -5591,7 +5591,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "确认覆盖层，发原选槽文本后请求关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1680
+        1678
       ]
     },
     {
@@ -5791,7 +5791,7 @@
       "source": "src/ui/windows/WindowCrystalShop.cpp",
       "basis": "保留caller第三实参。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        944
+        941
       ]
     },
     {
@@ -5991,7 +5991,7 @@
       "source": "src/ui/windows/WindowCrystalExchangeShop.cpp",
       "basis": "共用D303FC提示键。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        941
+        938
       ]
     },
     {
@@ -6191,7 +6191,7 @@
       "source": "src/ui/windows/WindowPetList.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        293
+        291
       ]
     },
     {
@@ -6201,7 +6201,7 @@
       "source": "src/ui/windows/WindowPetList.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        356
+        354
       ]
     },
     {
@@ -6831,7 +6831,7 @@
       "source": "src/ui/windows/WindowMailCompose.cpp",
       "basis": "输入聚焦及非当前输入补绘。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        145
+        144
       ]
     },
     {
@@ -6841,7 +6841,7 @@
       "source": "src/ui/windows/WindowMailCompose.cpp",
       "basis": "宠物邮件切换、单发/群发完整六路径。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        169
+        168
       ]
     },
     {
@@ -6851,7 +6851,7 @@
       "source": "src/ui/windows/WindowMailCompose.cpp",
       "basis": "收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        330
+        329
       ]
     },
     {
@@ -9821,7 +9821,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "六行称号选择/删除。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        58
+        57
       ]
     },
     {
@@ -9831,7 +9831,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "完整按钮分派与背景清模式。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        92
+        91
       ]
     },
     {
@@ -9841,7 +9841,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "称号滚轮，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        273
+        272
       ]
     },
     {
@@ -9851,7 +9851,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "WSP01：原称号拖动页码；旧X代码1959。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        286
+        285
       ]
     },
     {
@@ -9861,7 +9861,7 @@
       "source": "src/ui/windows/WindowPlayerTitles.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        298
+        297
       ]
     },
     {
@@ -9941,7 +9941,7 @@
       "source": "src/ui/windows/WindowPetDetail.cpp",
       "basis": "共享名称输入焦点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        423
+        420
       ]
     },
     {
@@ -9951,7 +9951,7 @@
       "source": "src/ui/windows/WindowPetDetail.cpp",
       "basis": "三详情页切换。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        441
+        438
       ]
     },
     {
@@ -9971,7 +9971,7 @@
       "source": "src/ui/windows/WindowPetAttributes.cpp",
       "basis": "宠物详细属性九按钮，9..13发送加点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        179
+        178
       ]
     },
     {
@@ -10001,7 +10001,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "宠物技能页六按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        186
+        185
       ]
     },
     {
@@ -10011,7 +10011,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        330
+        326
       ]
     },
     {
@@ -10021,7 +10021,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        352
+        348
       ]
     },
     {
@@ -10031,7 +10031,7 @@
       "source": "src/ui/windows/WindowPetSkills.cpp",
       "basis": "描述、技能换位与拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        360
+        356
       ]
     },
     {
@@ -10051,7 +10051,7 @@
       "source": "src/ui/windows/WindowOwnProfile.cpp",
       "basis": "窗口58元素5..8编辑焦点。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        189
+        184
       ]
     },
     {
@@ -10723,7 +10723,7 @@
       "source": "src/ui/windows/WindowPetList.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        321
+        319
       ]
     },
     {
@@ -10883,7 +10883,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        162
+        160
       ]
     },
     {

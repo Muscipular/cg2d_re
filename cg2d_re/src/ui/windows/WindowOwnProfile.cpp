@@ -94,22 +94,18 @@ void WindowOwnProfile_Refresh()
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
-    const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
-    const std::size_t levelLength = number.size() + 1;
     levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
     const char* const title = world::detail::BorrowPlayerDisplayText(2);
-    const std::size_t titleLength = std::strlen(title) + 1;
     auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
     titleData->text = cg::text::FromGbkWide(title);
     WindowElement* const jobElements = gCurrentWindow->elements;
     const char* const job = world::detail::BorrowPlayerJobName();
-    const std::size_t jobLength = std::strlen(job) + 1;
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
     jobData->text = cg::text::FromGbkWide(job);
 
@@ -118,7 +114,6 @@ void WindowOwnProfile_Refresh()
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     const char* const guild = guildIndex == -1
         ? input::LegacyText593850() : login::detail::BorrowGuildName10514BC();
-    const std::size_t guildLength = std::strlen(guild) + 1;
     guildData->text = cg::text::FromGbkWide(guild);
 
     for (std::int32_t index = 0; index < 3; ++index) {
@@ -221,7 +216,6 @@ std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const std::int
         const auto& current = world::detail::BorrowCurrentProfile10738E8();
         const char* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
-        const std::size_t length = std::strlen(source) + 1;
         prototype->text = cg::text::FromGbkWide(source);
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;

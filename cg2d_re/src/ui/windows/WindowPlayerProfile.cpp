@@ -135,18 +135,15 @@ void WindowPlayerProfile_Refresh()
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
-    const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
-    const std::size_t levelLength = buffer.size() + 1;
     levelData->text = buffer;
 
     WindowElement* const jobElements = gCurrentWindow->elements;
     const char* const job = world::detail::BorrowPlayerJobName();
-    const std::size_t jobLength = std::strlen(job) + 1;
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
     jobData->text = cg::text::FromGbkWide(job);
 
@@ -155,32 +152,26 @@ void WindowPlayerProfile_Refresh()
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     if (guildIndex != -1) {
         const char* const guild = login::detail::BorrowGuildName10514BC();
-        const std::size_t guildLength = std::strlen(guild) + 1;
         guildData->text = cg::text::FromGbkWide(guild);
         const std::int32_t rankIndex = login::detail::ReadGuildTextIndex10514B0();
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
         const char* const rank = login::detail::BorrowGuildRankText1051518(rankIndex);
-        const std::size_t rankLength = std::strlen(rank) + 1;
         rankData->text = cg::text::FromGbkWide(rank);
     } else {
         const char* const guild = input::LegacyText593850();
-        const std::size_t guildLength = std::strlen(guild) + 1;
         guildData->text = cg::text::FromGbkWide(guild);
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
         const char* const rank = input::LegacyText593850();
-        const std::size_t rankLength = std::strlen(rank) + 1;
         rankData->text = cg::text::FromGbkWide(rank);
     }
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
     const char* const title = world::detail::BorrowTitleText(titleIndex);
-    const std::size_t titleLength = std::strlen(title) + 1;
     titleData->text = cg::text::FromGbkWide(title);
 
     WindowElement* const ownTitleElements = gCurrentWindow->elements;
     const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
-    const std::size_t ownTitleLength = std::strlen(ownTitle) + 1;
     auto* const ownTitleData = static_cast<WindowTextData*>(ownTitleElements[7].data);
     ownTitleData->text = cg::text::FromGbkWide(ownTitle);
 
@@ -193,21 +184,18 @@ void WindowPlayerProfile_Refresh()
 
     cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerExperienceOnce());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const std::size_t experienceLength = buffer.size() + 1;
     experienceData->text = buffer;
 
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
-    const std::size_t hpLength = buffer.size() + 1;
     hpData->text = buffer;
 
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
-    const std::size_t fpLength = buffer.size() + 1;
     fpData->text = buffer;
 
     std::wstring_view nextExperience;
@@ -218,12 +206,10 @@ void WindowPlayerProfile_Refresh()
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
-    const std::size_t nextLength = nextExperience.size() + 1;
     nextData->text = nextExperience;
 
     cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerDuelPoint());
     auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
-    const std::size_t duelLength = buffer.size() + 1;
     duelData->text = buffer;
 
     if (world::detail::ReadPlayerValue1A0() == 1) {
@@ -252,7 +238,6 @@ void WindowPlayerProfile_Refresh()
     if (penalty > 0) {
         cg::text::FormatTo(buffer, L"x{}", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;
-        const std::size_t penaltyLength = buffer.size() + 1;
         auto* const penaltyData = static_cast<WindowTextData*>(penaltyElements[2].data);
         penaltyData->text = buffer;
         gCurrentWindow->elements[2].visible = 1;

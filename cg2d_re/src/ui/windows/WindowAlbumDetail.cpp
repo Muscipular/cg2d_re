@@ -58,12 +58,10 @@ void WindowAlbumDetail_Refresh()
     };
     const auto copyBeforeScan = [](const std::int32_t index, const std::wstring_view source) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-        const std::size_t length = source.size() + 1;
         data->text = source;
     };
     const auto copyAfterScan = [](const std::int32_t index, const std::wstring_view source) {
         WindowElement* const elements = gCurrentWindow->elements;
-        const std::size_t length = source.size() + 1;
         auto* const data = static_cast<WindowTextData*>(elements[index].data);
         data->text = source;
     };

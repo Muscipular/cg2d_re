@@ -137,8 +137,6 @@ login::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
     gNpcDialogLinesCC24D4[row + 10].text = cg::text::FromGbkWide(name);
         std::wstring& destination = gWindow54NamesC8AAA0[row].text;
-        const std::size_t length = std::strlen(name) + 1;
-        const std::size_t wholeWords = length & ~std::size_t{3};
         destination = cg::text::FromGbkWide(name);
         const char first = name[0];
         // 原分段字节复制已并入上面的UTF-16赋值。
@@ -1689,7 +1687,6 @@ std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t index, c
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const std::size_t length = gConfirmationAcceptHintCC3FCC.size() + 1;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
@@ -1713,8 +1710,6 @@ std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t index, c
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        const std::size_t length = gConfirmationCancelHintD45D70.size() + 1;
-        const std::size_t prefix = length & ~std::size_t{3};
         gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
         const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         static_cast<void>(0);

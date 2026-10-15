@@ -179,14 +179,9 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
 static void WindowAlbumDetail_Refresh()
 {
     const auto selectedRecord = []() {
-        const std::byte* const records = world::detail::GetSelectedAlbumRecords();
+        const world::detail::AlbumRecord* const records = world::detail::GetSelectedAlbumRecords();
         const std::int32_t index = gLoginWindowRuntime.valueCB2200;
-        return records + index * 0x80;
-    };
-    const auto readValue = [](const std::byte* const record, const std::size_t offset) {
-        std::int32_t value;
-        std::memcpy(&value, record + offset, sizeof(value));
-        return value;
+        return records + index;
     };
     const auto copyBeforeScan = [](const std::int32_t index, const std::wstring_view source) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
@@ -198,7 +193,7 @@ static void WindowAlbumDetail_Refresh()
         data->text = source;
     };
     std::wstring buffer;
-    if (selectedRecord()[0] != std::byte{0}) {
+    if (selectedRecord()->used != 0) {
         constexpr std::int32_t shown[] {2, 1, 3, 4, 5, 7, 8};
         for (const std::int32_t element : shown) {
             gCurrentWindow->elements[element].visible = 1;
@@ -221,7 +216,7 @@ static void WindowAlbumDetail_Refresh()
         const char* const name = world::detail::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
         copyBeforeScan(2, cg::text::FromGbkWide(name));
 
-        const std::int32_t image = readValue(selectedRecord(), 8);
+        const std::int32_t image = selectedRecord()->imageNo;
         const std::int32_t mapped = character_select::detail::Sub_51B740(image);
         auto* const imageData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
         login::detail::SetYobiActionField2A8(imageData->action, mapped);
@@ -231,11 +226,11 @@ static void WindowAlbumDetail_Refresh()
 
         buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
         copyAfterScan(3, buffer);
-        buffer = std::format(L"{:2}", readValue(selectedRecord(), 0x30));
+        buffer = std::format(L"{:2}", selectedRecord()->value30);
         copyAfterScan(4, buffer);
-        const std::byte* const tribeRecord = selectedRecord();
+        const world::detail::AlbumRecord* const tribeRecord = selectedRecord();
         WindowInstance* const tribeWindow = gCurrentWindow;
-        const auto tribe = std::bit_cast<std::int8_t>(tribeRecord[3]);
+        const auto tribe = std::bit_cast<std::int8_t>(tribeRecord->tribe);
         WindowElement* const tribeElements = tribeWindow->elements;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
@@ -243,22 +238,22 @@ static void WindowAlbumDetail_Refresh()
         buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
-        const std::byte* const firstMarkRecord = selectedRecord();
+        const world::detail::AlbumRecord* const firstMarkRecord = selectedRecord();
         WindowInstance* const firstMarkWindow = gCurrentWindow;
-        const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord[1]);
+        const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord->mark1);
         auto* const firstMarkData = static_cast<WindowGraphicData*>(firstMarkWindow->elements[7].data);
         firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
         WindowInstance* const secondMarkWindow = gCurrentWindow;
-        const std::byte* const secondMarkRecord = selectedRecord();
-        const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord[2]);
+        const world::detail::AlbumRecord* const secondMarkRecord = selectedRecord();
+        const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord->mark2);
         auto* const secondMarkData = static_cast<WindowGraphicData*>(secondMarkWindow->elements[8].data);
         secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
-        const std::byte* const firstRatingRecords = world::detail::GetSelectedAlbumRecords();
-        WindowAlbumDetail_DrawRating(readValue(firstRatingRecords + firstRatingIndex * 0x80, 0x0C), 53);
+        const world::detail::AlbumRecord* const firstRatingRecords = world::detail::GetSelectedAlbumRecords();
+        WindowAlbumDetail_DrawRating(firstRatingRecords[firstRatingIndex].ratings[0], 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
-            WindowAlbumDetail_DrawRating(readValue(selectedRecord(), 0x0C + rating * 4), 53 + rating * 5);
+            WindowAlbumDetail_DrawRating(selectedRecord()->ratings[rating], 53 + rating * 5);
         }
         const auto showSegment = [](const std::int32_t element, const std::int32_t graphic) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = graphic;
@@ -269,7 +264,7 @@ static void WindowAlbumDetail_Refresh()
             for (std::int32_t slot = 0; slot < 10; ++slot) {
                 gCurrentWindow->elements[base + slot].visible = 0;
             }
-            const std::int32_t segments = readValue(selectedRecord(), 0x20 + attribute * 4);
+            const std::int32_t segments = selectedRecord()->attributes[attribute];
             const auto& graphics = gPetBarImages57E434[attribute];
             if (segments == 1) {
                 showSegment(base, graphics[3]);

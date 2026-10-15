@@ -79,8 +79,41 @@ std::int32_t LoadAndPlayBGM(std::uint32_t bgmId); // 原52BE60，复用既有SDL
 
 namespace cg::world::detail {
 
-// 423800借用当前角色960条80h相册记录；只读同源字节，入口固定一次角色S16。
-const std::byte* GetSelectedAlbumRecords();
+// 原80H相册记录；518870生产，列表／详情／423800借用同一对象。
+struct AlbumRecord {
+    std::uint8_t used; // +00：记录存在标记。
+    std::uint8_t mark1; // +01：详情第一图标索引，消费时解释为S8。
+    std::uint8_t mark2; // +02：详情第二图标索引，消费时解释为S8。
+    std::uint8_t tribe; // +03：种族索引，消费时解释为S8。
+    std::int32_t number; // +04：协议编号。
+    std::int32_t imageNo; // +08：预览图号。
+    std::array<std::int32_t, 5> ratings; // +0C：五组评级。
+    std::array<std::int32_t, 4> attributes; // +20：四项属性，战斗匹配只判断非零。
+    std::int32_t value30; // +30：详情独立显示值，具体业务名称未证。
+    std::array<char, 17> name; // +34：原编码名称及NUL。
+    std::array<std::array<char, 29>, 2> description; // +45：两行原编码说明。
+    std::uint8_t fresh; // +7F：新记录标记。
+};
+
+static_assert(std::is_standard_layout_v<AlbumRecord>);
+static_assert(std::is_trivially_copyable_v<AlbumRecord>);
+static_assert(sizeof(AlbumRecord) == 0x80);
+static_assert(alignof(AlbumRecord) == 4);
+static_assert(offsetof(AlbumRecord, used) == 0x0);
+static_assert(offsetof(AlbumRecord, mark1) == 0x1);
+static_assert(offsetof(AlbumRecord, mark2) == 0x2);
+static_assert(offsetof(AlbumRecord, tribe) == 0x3);
+static_assert(offsetof(AlbumRecord, number) == 0x4);
+static_assert(offsetof(AlbumRecord, imageNo) == 0x8);
+static_assert(offsetof(AlbumRecord, ratings) == 0xC);
+static_assert(offsetof(AlbumRecord, attributes) == 0x20);
+static_assert(offsetof(AlbumRecord, value30) == 0x30);
+static_assert(offsetof(AlbumRecord, name) == 0x34);
+static_assert(offsetof(AlbumRecord, description) == 0x45);
+static_assert(offsetof(AlbumRecord, fresh) == 0x7F);
+
+// 423800借用当前角色960条记录，入口固定一次角色S16。
+const AlbumRecord* GetSelectedAlbumRecords();
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
 const char* ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t index);
 

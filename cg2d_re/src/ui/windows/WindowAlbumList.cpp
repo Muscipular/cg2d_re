@@ -136,9 +136,9 @@ static void* WindowAlbumList_Refresh()
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const std::byte* const records = world::detail::GetSelectedAlbumRecords();
+        const world::detail::AlbumRecord* const records = world::detail::GetSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-        const bool used = records[(scroll + row) * 0x80] != std::byte{0};
+        const bool used = records[scroll + row].used != 0;
         const std::int32_t firstDigit = 8 + row * 3;
         gCurrentWindow->elements[firstDigit].visible = 0;
         gCurrentWindow->elements[firstDigit + 1].visible = 0;
@@ -170,15 +170,15 @@ static void* WindowAlbumList_Refresh()
             static_cast<void>(login::detail::DrawGraphic(
                 elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
 
-            const std::byte* const nameRecords = world::detail::GetSelectedAlbumRecords();
+            const world::detail::AlbumRecord* const nameRecords = world::detail::GetSelectedAlbumRecords();
             WindowInstance* const nameWindow = gCurrentWindow;
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
             auto* const text = static_cast<WindowTextData*>(nameWindow->elements[48 + row].data);
-            const char* const name = reinterpret_cast<const char*>(nameRecords + (nameScroll + row) * 0x80 + 0x34);
+            const char* const name = nameRecords[nameScroll + row].name.data();
             text->text = cg::text::FromGbkWide(name);
-            const std::byte* const flagRecords = world::detail::GetSelectedAlbumRecords();
+            const world::detail::AlbumRecord* const flagRecords = world::detail::GetSelectedAlbumRecords();
             const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
-            const bool fresh = flagRecords[(flagScroll + row) * 0x80 + 0x7F] != std::byte{0};
+            const bool fresh = flagRecords[flagScroll + row].fresh != 0;
             WindowInstance* const flagWindow = gCurrentWindow;
             flagWindow->elements[38 + row].visible = fresh ? 1 : 0;
             result = flagWindow;
@@ -216,9 +216,9 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
     }
     if ((state & 2) != 0) {
-        const std::byte* const records = world::detail::GetSelectedAlbumRecords();
+        const world::detail::AlbumRecord* const records = world::detail::GetSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-        if (records[(scroll + index - 58) * 0x80] != std::byte{0}) {
+        if (records[scroll + index - 58].used != 0) {
             if (gWindowStates[WindowId_AlbumDetail].window == nullptr) {
                 gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_AlbumDetail, 1, 0, nullptr));

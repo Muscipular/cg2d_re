@@ -16,18 +16,17 @@ namespace detail {
 // 原[423800,4238EA)：固定角色记录，名称及四项属性均短路匹配。
 std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
 {
-    const std::byte* record = world::detail::GetSelectedAlbumRecords();
-    for (std::int32_t index = 0; index < 960; ++index, record += 0x80) {
-        if (record[0] == std::byte{0}) {
+    const world::detail::AlbumRecord* record = world::detail::GetSelectedAlbumRecords();
+    for (std::int32_t index = 0; index < 960; ++index, ++record) {
+        if (record->used == 0) {
             continue;
         }
-        if (std::strcmp(reinterpret_cast<const char*>(record + 0x34), action->nameC4.data()) != 0) {
+        if (std::strcmp(record->name.data(), action->nameC4.data()) != 0) {
             continue;
         }
         std::size_t field = 0;
         for (; field < action->fields288.size(); ++field) {
-            std::uint32_t value;
-            std::memcpy(&value, record + 0x20 + field * 4, sizeof(value));
+            const std::int32_t value = record->attributes[field];
             if ((value != 0) != (action->fields288[field] != 0)) {
                 break;
             }

@@ -45,27 +45,6 @@ static_assert(offsetof(CANDIDATELIST, dwPageStart) == 0x10);
 static_assert(offsetof(CANDIDATELIST, dwPageSize) == 0x14);
 static_assert(offsetof(CANDIDATELIST, dwOffset) == 0x18);
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
-std::int32_t MulW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left * right;
-}
-
 std::uint32_t ReadField138Bits(
     const input::InputContext& context) noexcept
 {
@@ -114,8 +93,8 @@ void DrawCandidateEntry(
     const std::int32_t height = render::gFontMetrics[static_cast<std::size_t>(fontType)].doubleHeight;
     const std::wstring number = std::to_wstring(std::bit_cast<std::int32_t>(pageIndex + 1U));
     const std::int32_t numberWidth = login::detail::TextMeasure(number, fontType);
-    const std::int32_t left = AddW32(AddW32(context->x, targetStart), oldUnits);
-    const std::int32_t top = AddW32(context->y, height);
+    const std::int32_t left = (context->x + targetStart) + oldUnits;
+    const std::int32_t top = context->y + height;
     static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
     const CANDIDATELIST* const candidateList = CurrentCandidateList();
     const std::wstring body = CandidateText(candidateList, pageIndex);
@@ -236,8 +215,8 @@ void RenderInput_4590E0()
     const std::int32_t boxHeight = render::gFontMetrics[
         static_cast<std::size_t>(boxFontType)].doubleHeight;
     login::detail::DrawGraphicHover(
-        static_cast<std::uint16_t>(SubW32(boxX, 1)), static_cast<std::uint16_t>(SubW32(boxY, 1)),
-        static_cast<std::uint16_t>(AddW32(boxX, compositionWidth)), static_cast<std::uint16_t>(AddW32(boxY, boxHeight)),
+        static_cast<std::uint16_t>(boxX - 1), static_cast<std::uint16_t>(boxY - 1),
+        static_cast<std::uint16_t>(boxX + compositionWidth), static_cast<std::uint16_t>(boxY + boxHeight),
         baseLayer, 1, 1);
 
     const std::wstring_view composition(platform::gImeComposition);
@@ -267,10 +246,10 @@ void RenderInput_4590E0()
         const std::int32_t highlightHeight = render::gFontMetrics[
             static_cast<std::size_t>(highlightFontType)].doubleHeight;
         login::detail::DrawGraphicHover(
-            static_cast<std::uint16_t>(SubW32(AddW32(highlightX, targetStart), 1)),
-            static_cast<std::uint16_t>(SubW32(highlightY, 1)),
-            static_cast<std::uint16_t>(AddW32(highlightX, scannedWidth)),
-            static_cast<std::uint16_t>(AddW32(highlightY, highlightHeight)),
+            static_cast<std::uint16_t>((highlightX + targetStart) - 1),
+            static_cast<std::uint16_t>(highlightY - 1),
+            static_cast<std::uint16_t>(highlightX + scannedWidth),
+            static_cast<std::uint16_t>(highlightY + highlightHeight),
             static_cast<std::uint8_t>(baseLayer + 1U), 252, 1);
     }
 

@@ -29,20 +29,6 @@ constexpr Capability3InputButton32 kPrimaryButton {
 constexpr Capability3InputButton32 kSecondaryButton {
     {332, 438, 64, 16}, 245153, 245155, 245154,
 };
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubtractW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
 // 原 dword_9A6EA0 与 dword_9A6E9C；仅 sub_45FA70 引用。
 std::int32_t gFocus9A6EA0 = 0; // 原全局：0x009A6EA0。
 std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
@@ -90,15 +76,12 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         const std::int32_t drawY = drawContext->y;
         const std::int32_t drawX = drawContext->x;
         const std::int32_t drawFontType = drawContext->field13C;
-        const std::int32_t compositionRight = AddW32(
-            drawX,
-            compositionWidth);
-        const std::int32_t compositionBottom = AddW32(
-            drawY,
-            render::gFontMetrics.data()[drawFontType].doubleHeight);
+        const std::int32_t compositionRight = drawX + compositionWidth;
+        const std::int32_t compositionBottom = drawY
+            + render::gFontMetrics.data()[drawFontType].doubleHeight;
         detail::DrawGraphicHover(
-            static_cast<std::uint16_t>(SubtractW32(drawX, 1)),
-            static_cast<std::uint16_t>(SubtractW32(drawY, 1)),
+            static_cast<std::uint16_t>(drawX - 1),
+            static_cast<std::uint16_t>(drawY - 1),
             static_cast<std::uint16_t>(compositionRight),
             static_cast<std::uint16_t>(compositionBottom),
             211,
@@ -144,10 +127,10 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         const std::int32_t passwordY = gInputContext9A5678Y;
         const std::int32_t passwordX = gInputContext9A5678X;
         if (detail::Sub_5049A0(
-                SubtractW32(passwordX, 5),
-                SubtractW32(passwordY, 4),
-                AddW32(passwordX, 227),
-                AddW32(passwordY, 22),
+                passwordX - 5,
+                passwordY - 4,
+                passwordX + 227,
+                passwordY + 22,
                 206)
             != 0) {
             requestedFocus = 1;
@@ -156,10 +139,10 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         const std::int32_t accountY = gInputContext9A5960Y;
         const std::int32_t accountX = gInputContext9A5960X;
         if (detail::Sub_5049A0(
-                SubtractW32(accountX, 5),
-                SubtractW32(accountY, 4),
-                AddW32(accountX, 227),
-                AddW32(accountY, 22),
+                accountX - 5,
+                accountY - 4,
+                accountX + 227,
+                accountY + 22,
                 206)
             != 0) {
             requestedFocus = 0;

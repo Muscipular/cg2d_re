@@ -16,20 +16,6 @@
 namespace cg::render {
 namespace {
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
 // 原456BED/456C0B/456C2F分别读取完整W32模式，不能共用入口快照。
 std::int32_t ReadRenderMode(const input::InputContext& context) noexcept
 {
@@ -68,9 +54,9 @@ void DrawInputText_4568A0(input::InputContext* const context)
             const std::int8_t renderMode = std::bit_cast<std::int8_t>(context->field138[0]);
             const std::int32_t y = context->field134;
             const std::int32_t x = context->field130;
-            static_cast<void>(DrawText2_456670(static_cast<std::int16_t>(x), static_cast<std::int16_t>(AddW32(y, yOffset)), renderMode,
+            static_cast<void>(DrawText2_456670(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + yOffset), renderMode,
                 static_cast<std::int8_t>(fontType), static_cast<std::int8_t>(color), displayed.c_str(), 0));
-            yOffset = AddW32(yOffset, context->field14C);
+            yOffset = yOffset + context->field14C;
         }
     } else {
         TextPendingRecord& entry = gTextPendingRecords[static_cast<std::size_t>(initialCountBits)];
@@ -113,9 +99,9 @@ void DrawInputText_4568A0(input::InputContext* const context)
         return;
     }
     if (context->maxCharPerLine > 0 && context->maxLine >= 2) {
-        context->x = AddW32(context->field130, Font::measure(contents.c_str() + caretLineStart,
-            context->field13C, static_cast<std::int32_t>(caret - caretLineStart)));
-        context->y = AddW32(context->field134, caretLineYOffset);
+        context->x = context->field130 + Font::measure(contents.c_str() + caretLineStart,
+            context->field13C, static_cast<std::int32_t>(caret - caretLineStart));
+        context->y = context->field134 + caretLineYOffset;
         return;
     }
     std::size_t visibleStart = input::ContextUtf16Offset(*context, context->field158);
@@ -125,7 +111,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
     }
     const std::wstring_view visible(contents.data() + visibleStart, caret - visibleStart);
     const std::wstring displayed = context->encrypt >= 1 ? std::wstring(text::Count(visible), '*') : std::wstring(visible);
-    context->x = AddW32(context->field130, Font::measure(displayed.c_str(), context->field13C, static_cast<std::int32_t>(displayed.size())));
+    context->x = context->field130 + Font::measure(displayed.c_str(), context->field13C, static_cast<std::int32_t>(displayed.size()));
     context->y = context->field134;
 }
 

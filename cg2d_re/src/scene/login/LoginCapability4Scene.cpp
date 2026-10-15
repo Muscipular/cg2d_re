@@ -31,13 +31,6 @@ std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
 
 
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
 std::int32_t DrawCapability4Base()
 {
     return cg::render::Sub_45F090(0, 0, 3, 99657, 0, -1);
@@ -77,7 +70,7 @@ std::int32_t Sub_464840()
     case 1: {
         const std::int32_t frameCounter = gValue9A4F2C;
         const std::int32_t phase = gValue9A4B7C;
-        gValue9A4F2C = AddW32(frameCounter, 1);
+        gValue9A4F2C = frameCounter + 1;
 
         std::int32_t result = phase;
         const std::uint32_t phaseBits =
@@ -129,11 +122,11 @@ std::int32_t Sub_464840()
                     render::Sub_45F090(0, 0, 6, 99656, 0, fade));
             }
 
-            gValue9A4D00 = AddW32(gValue9A4D00, 6);
+            gValue9A4D00 = gValue9A4D00 + 6;
             result = gValue9A4D00;
             if (result >= 255) {
                 if (phaseBits <= 2U) {
-                    gValue9A4B7C = AddW32(phase, 1);
+                    gValue9A4B7C = phase + 1;
                     gValue9A4D00 = 0;
                 } else {
                     world::gCurrentSceneState = 2;
@@ -158,7 +151,7 @@ std::int32_t Sub_464840()
         return DrawCapability4Base();
 
     case 3: {
-        gValue9A4F2C = AddW32(gValue9A4F2C, 1);
+        gValue9A4F2C = gValue9A4F2C + 1;
         if (gValue9A4F2C > 256) {
             gValue9A4F2C = 0;
         }

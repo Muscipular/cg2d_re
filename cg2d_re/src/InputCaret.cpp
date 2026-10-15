@@ -14,20 +14,6 @@ namespace {
 // 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
 inline constexpr wchar_t kCaretText[] = L"|";
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
 void DrawBasicCaret()
 {
     input::InputContext* const context = input::gCurrentInputData;
@@ -39,7 +25,7 @@ void DrawBasicCaret()
     const std::int32_t halfCaretWidth =
         render::gFontMetrics[static_cast<std::size_t>(fontType)].sWidth
         / 2;
-    const std::int32_t drawX = SubW32(x, halfCaretWidth);
+    const std::int32_t drawX = x - halfCaretWidth;
     static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(drawX),
         static_cast<std::int16_t>(y),
@@ -75,9 +61,7 @@ void DrawImeCaret()
         render::gFontMetrics[
             static_cast<std::size_t>(postMeasureFontType)].sWidth
         / 2;
-    const std::int32_t drawX = AddW32(
-        measuredWidth,
-        SubW32(postMeasureX, halfCaretWidth));
+    const std::int32_t drawX = measuredWidth + (postMeasureX - halfCaretWidth);
     static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(drawX),
         static_cast<std::int16_t>(y),

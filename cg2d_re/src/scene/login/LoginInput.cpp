@@ -67,13 +67,6 @@ inline constexpr Capability4SavedSlotGeometry
         {476, 335, 44, 20},
     };
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
 void DrawCapability4SavedSlotGraphic(
     const std::int32_t slotIndex,
     const std::int32_t offsetX,
@@ -81,12 +74,8 @@ void DrawCapability4SavedSlotGraphic(
     const std::uint8_t layer,
     const std::int32_t imageNo)
 {
-    const std::int32_t drawX = AddW32(
-        kCapability4SavedSlotGeometry[slotIndex].x,
-        offsetX);
-    const std::int32_t drawY = AddW32(
-        kCapability4SavedSlotGeometry[slotIndex].y,
-        offsetY);
+    const std::int32_t drawX = kCapability4SavedSlotGeometry[slotIndex].x + offsetX;
+    const std::int32_t drawY = kCapability4SavedSlotGeometry[slotIndex].y + offsetY;
     static_cast<void>(render::Sub_45F090(
         drawX,
         drawY,
@@ -575,9 +564,9 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
         if ((geometry.x < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(geometry.x, geometry.width)))
+            && (platform::gLegacyMouseState.mouseX < geometry.x + geometry.width)
             && (geometry.y < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(geometry.y, geometry.height)))) {
+            && (platform::gLegacyMouseState.mouseY < geometry.y + geometry.height)) {
             const std::uint8_t click =
                 static_cast<std::uint8_t>(detail::gValueD68D9C);
             hoveredSlot = slotIndex;
@@ -588,7 +577,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
         }
 
         visibleCount = detail::gVisibleSavedSlotCount105C364;
-        slotIndex = AddW32(slotIndex, 1);
+        slotIndex = slotIndex + 1;
     } while (slotIndex < visibleCount);
 
     if (visibleCount <= 0) {
@@ -610,14 +599,14 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
             frameImageNo = 246679;
         }
 
-        const std::int32_t oneBased = AddW32(slotIndex, 1);
+        const std::int32_t oneBased = slotIndex + 1;
         if (oneBased < 10) {
             DrawCapability4SavedSlotGraphic(
                 slotIndex,
                 18,
                 3,
                 207,
-                AddW32(digitBase, oneBased));
+                digitBase + oneBased);
         } else {
             const std::int32_t tens = oneBased / 10;
             DrawCapability4SavedSlotGraphic(
@@ -625,14 +614,14 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
                 15,
                 3,
                 207,
-                AddW32(digitBase, tens));
+                digitBase + tens);
             const std::int32_t ones = oneBased % 10;
             DrawCapability4SavedSlotGraphic(
                 slotIndex,
                 21,
                 3,
                 207,
-                AddW32(digitBase, ones));
+                digitBase + ones);
         }
         DrawCapability4SavedSlotGraphic(
             slotIndex,
@@ -642,7 +631,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
             frameImageNo);
 
         visibleCount = detail::gVisibleSavedSlotCount105C364;
-        slotIndex = AddW32(slotIndex, 1);
+        slotIndex = slotIndex + 1;
     } while (slotIndex < visibleCount);
 
     return visibleCount;

@@ -51,20 +51,6 @@ constexpr Capability4InputButton32 kCapability4ExitButton {
     {332, 421, 64, 16}, 245153, 245155, 245154,
 };
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubtractW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
 // 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
 std::int32_t gFocus55A048 = 1; // 原全局：0x0055A048。
 std::int32_t gPending9A6E28 = 0; // 原全局：0x009A6E28。
@@ -112,13 +98,12 @@ std::int32_t ProcessCapability4Input_464E30()
     const std::int32_t drawX = drawContext->x;
     const std::int32_t drawFontType = drawContext->field13C;
     const std::int32_t compositionRight =
-        AddW32(drawX, compositionWidth);
-    const std::int32_t compositionBottom = AddW32(
-        drawY,
-        render::gFontMetrics.data()[drawFontType].doubleHeight);
+        drawX + compositionWidth;
+    const std::int32_t compositionBottom = drawY
+        + render::gFontMetrics.data()[drawFontType].doubleHeight;
     detail::DrawGraphicHover(
-        static_cast<std::uint16_t>(SubtractW32(drawX, 1)),
-        static_cast<std::uint16_t>(SubtractW32(drawY, 1)),
+        static_cast<std::uint16_t>(drawX - 1),
+        static_cast<std::uint16_t>(drawY - 1),
         static_cast<std::uint16_t>(compositionRight),
         static_cast<std::uint16_t>(compositionBottom),
         211,
@@ -160,14 +145,10 @@ std::int32_t ProcessCapability4Input_464E30()
     if (platform::gMonitorKeyboard == 0) {
         if ((static_cast<std::int32_t>(gInputContext9A5678X)
                 < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5678X),
-                    372)))
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5678X) + 372)
             && (static_cast<std::int32_t>(gInputContext9A5678Y)
                 < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5678Y),
-                    26)))
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5678Y) + 26)
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)
                     & 1U)
                 != 0) {
@@ -176,14 +157,10 @@ std::int32_t ProcessCapability4Input_464E30()
         }
         if ((static_cast<std::int32_t>(gInputContext9A5960X)
                 < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5960X),
-                    372)))
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5960X) + 372)
             && (static_cast<std::int32_t>(gInputContext9A5960Y)
                 < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5960Y),
-                    26)))
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5960Y) + 26)
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)
                     & 1U)
                 != 0) {
@@ -194,30 +171,22 @@ std::int32_t ProcessCapability4Input_464E30()
         input::SetContext_44B330(
             gInputContextFocusTable[gValue9A6E20]);
 
-        const std::int32_t accountTop = SubtractW32(
-            static_cast<std::int32_t>(gInputContext9A5678Y),
-            4);
-        const std::int32_t accountLeft = SubtractW32(
-            static_cast<std::int32_t>(gInputContext9A5678X),
-            5);
+        const std::int32_t accountTop = static_cast<std::int32_t>(gInputContext9A5678Y) - 4;
+        const std::int32_t accountLeft = static_cast<std::int32_t>(gInputContext9A5678X) - 5;
         static_cast<void>(detail::Sub_5049A0(
             accountLeft,
             accountTop,
-            AddW32(accountLeft, 372),
-            AddW32(accountTop, 26),
+            accountLeft + 372,
+            accountTop + 26,
             206));
 
-        const std::int32_t passwordTop = SubtractW32(
-            static_cast<std::int32_t>(gInputContext9A5960Y),
-            4);
-        const std::int32_t passwordLeft = SubtractW32(
-            static_cast<std::int32_t>(gInputContext9A5960X),
-            5);
+        const std::int32_t passwordTop = static_cast<std::int32_t>(gInputContext9A5960Y) - 4;
+        const std::int32_t passwordLeft = static_cast<std::int32_t>(gInputContext9A5960X) - 5;
         static_cast<void>(detail::Sub_5049A0(
             passwordLeft,
             passwordTop,
-            AddW32(passwordLeft, 372),
-            AddW32(passwordTop, 26),
+            passwordLeft + 372,
+            passwordTop + 26,
             206));
     }
 

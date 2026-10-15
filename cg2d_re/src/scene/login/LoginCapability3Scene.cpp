@@ -35,27 +35,6 @@ cg::login::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4�
 std::wstring gMessage9A50E8 {}; // 原全局：0x009A50E8。
 
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left + right;
-}
-
-std::int32_t SubW32(
-    const std::int32_t left,
-    const std::int32_t right) noexcept
-{
-    return left - right;
-}
-
-std::int32_t ShiftLeftW32(
-    const std::int32_t value,
-    const unsigned int count) noexcept
-{
-    return value << count;
-}
-
 std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
 {
     const std::uint32_t bits =
@@ -221,7 +200,7 @@ std::int32_t Sub_45F190()
             return DispatchCapability3FromCurrentState();
         }
 
-        const std::int32_t fade = AddW32(gPhaseValue9A5550, 4);
+        const std::int32_t fade = gPhaseValue9A5550 + 4;
         gPhaseValue9A5550 = fade;
         const std::uint32_t fadeBits = std::bit_cast<std::uint32_t>(fade);
         render::gBackgroundColor =
@@ -237,10 +216,10 @@ std::int32_t Sub_45F190()
     }
 
     case 2: {
-        const std::int32_t phase = AddW32(gPhaseValue9A5550, 1);
+        const std::int32_t phase = gPhaseValue9A5550 + 1;
         gPhaseValue9A5550 = phase;
         const std::int32_t numerator =
-            SubW32(ShiftLeftW32(phase, 8U), phase);
+            (phase << 8U) - phase;
         gAlpha9A4D08 = numerator / 40;
         if (phase < 40) {
             return DispatchCapability3FromCurrentState();
@@ -301,30 +280,28 @@ std::int32_t Sub_45F190()
         login::YobiAction* const leftForX = gLeftAction9A50C0;
         login::detail::SetYobiActionField30(
             leftForX,
-            AddW32(login::detail::GetYobiActionField30(leftForX), -3));
+            login::detail::GetYobiActionField30(leftForX) - 3);
 
         login::YobiAction* const leftForY = gLeftAction9A50C0;
         login::detail::SetYobiActionField34(
             leftForY,
-            AddW32(login::detail::GetYobiActionField34(leftForY), 1));
+            login::detail::GetYobiActionField34(leftForY) + 1);
 
         login::YobiAction* const rightForX = gRightAction9A50C4;
         login::detail::SetYobiActionField30(
             rightForX,
-            AddW32(login::detail::GetYobiActionField30(rightForX), 3));
+            login::detail::GetYobiActionField30(rightForX) + 3);
 
         login::YobiAction* const rightForY = gRightAction9A50C4;
         login::detail::SetYobiActionField34(
             rightForY,
-            AddW32(login::detail::GetYobiActionField34(rightForY), -1));
+            login::detail::GetYobiActionField34(rightForY) - 1);
 
         login::YobiAction* const rightForDelta = gRightAction9A50C4;
-        const std::int32_t delta = SubW32(
-            287,
-            login::detail::GetYobiActionField34(rightForDelta));
+        const std::int32_t delta = 287 - login::detail::GetYobiActionField34(rightForDelta);
         gPhaseValue9A5550 = delta;
         if (delta >= 0) {
-            const std::int32_t alpha = ShiftLeftW32(delta, 7U) / 47;
+            const std::int32_t alpha = (delta << 7U) / 47;
             login::detail::SetYobiActionField30F(
                 gLeftAction9A50C0,
                 static_cast<std::uint8_t>(alpha));
@@ -358,7 +335,7 @@ std::int32_t Sub_45F190()
 
     case 4:
         if (gPhaseValue9A5550 > 0) {
-            gPhaseValue9A5550 = AddW32(gPhaseValue9A5550, -1);
+            gPhaseValue9A5550 = gPhaseValue9A5550 - 1;
             if (gPhaseValue9A5550 == 0) {
                 login::YobiAction* const action = gLeftAction9A50C0;
                 if (action != nullptr) {
@@ -370,7 +347,7 @@ std::int32_t Sub_45F190()
         }
 
         if (gAlpha9A4CA0 < 255) {
-            gAlpha9A4CA0 = AddW32(gAlpha9A4CA0, 4);
+            gAlpha9A4CA0 = gAlpha9A4CA0 + 4;
             if (gAlpha9A4CA0 >= 255) {
                 login::YobiAction* const action = gLeftAction9A50C0;
                 gAlpha9A4CA0 = 255;
@@ -383,7 +360,7 @@ std::int32_t Sub_45F190()
             return DispatchCapability3FromCurrentState();
         }
 
-        gAlpha9A5E70 = AddW32(gAlpha9A5E70, 4);
+        gAlpha9A5E70 = gAlpha9A5E70 + 4;
         if (gAlpha9A5E70 <= 255) {
             return DispatchCapability3FromCurrentState();
         }

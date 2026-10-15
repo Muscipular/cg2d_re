@@ -129,11 +129,6 @@ std::uint8_t redMap[256] {};   // 原 0x628FFC，gBGR_Data.r。
 std::uint8_t greenMap[256] {}; // 原 0x6290FC，gBGR_Data.g。
 std::uint8_t blueMap[256] {};  // 原 0x629200，gBGR_Data.b。
 
-std::int32_t Add32(std::int32_t value, std::uint32_t increment) noexcept
-{
-    return value + static_cast<std::int32_t>(increment);
-}
-
 // 原 __ftol@0x53B498 向零截断为 int64，再只写 AL；不可用 uint8 浮点直转。
 std::uint8_t TruncatedLowByte(double value) noexcept
 {
@@ -415,7 +410,7 @@ int UpdatePalette_450BB0()
     }
 
     const std::int32_t transitionSteps = gPaletteTransitionSteps;
-    const std::int32_t transitionFrame = Add32(previousFrame, 1u);
+    const std::int32_t transitionFrame = previousFrame + 1;
     gPaletteTransitionFrame = transitionFrame;
     if (transitionFrame > transitionSteps) {
         for (int i = 16; i < 240; ++i) {
@@ -433,7 +428,7 @@ int UpdatePalette_450BB0()
         }
         const std::int32_t previousCompletionVersion = gPaletteFrameVersion;
         gPaletteTransitionActive = 0;
-        const std::int32_t completionVersion = Add32(previousCompletionVersion, 10u);
+        const std::int32_t completionVersion = previousCompletionVersion + 10;
         gPaletteChanging = 0;
         gPaletteFrameVersion = completionVersion;
     } else {
@@ -473,17 +468,17 @@ int UpdatePalette_450BB0()
     // 8/16/24 位渲染分支已按范围排除；保留已实现的 32 位 CPU 查色表路径。
     RebuildPalette32();
     const std::int32_t rebuiltActivePalette = gActivePalette;
-    const std::int32_t throttle = Add32(gPaletteVersionThrottle, 1u);
+    const std::int32_t throttle = gPaletteVersionThrottle + 1;
     const std::int32_t throttleSteps = gPaletteTransitionSteps;
     gPaletteVersionThrottle = throttle;
     if (throttleSteps <= 120) {
         if (throttle >= 2) {
             gPaletteVersionThrottle = 0;
         }
-        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
+        gPaletteFrameVersion = gPaletteFrameVersion + 1;
     } else if (throttle >= throttleSteps / 20) {
         gPaletteVersionThrottle = 0;
-        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
+        gPaletteFrameVersion = gPaletteFrameVersion + 1;
     }
 
     if (previousActivePalette == rebuiltActivePalette && previousVersion == gPaletteFrameVersion) {

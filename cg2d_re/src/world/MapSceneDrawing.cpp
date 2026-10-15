@@ -2,8 +2,8 @@
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"

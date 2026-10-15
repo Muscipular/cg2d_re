@@ -4,7 +4,7 @@
 #include "../render/GraphicDxCacheState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
-#include "cg/GraphicRead.hpp"
+#include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"

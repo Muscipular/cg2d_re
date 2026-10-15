@@ -1,8 +1,8 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
-#include "cg/CharacterSelectScene.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 
-#include "cg/CharacterDeletionRequest.hpp"
+#include "cg/scene/login/CharacterDeletionRequest.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 

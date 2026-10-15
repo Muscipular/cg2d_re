@@ -14,16 +14,16 @@ find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)
 
 add_library(cg2d_re_core STATIC
     src/text/Encoding.cpp
-    src/ResourceNames.cpp
-    src/ResourcePaths.cpp
-    src/GraphicDecode.cpp
-    src/GraphicInfo.cpp
-    src/AnimationRuntime.cpp
-    src/AnimationCleanup.cpp
-    src/AnimationList.cpp
-    src/GraphicAlloc.cpp
-    src/GraphicRead.cpp
-    src/Palette.cpp
+    src/resource/ResourceNames.cpp
+    src/resource/ResourcePaths.cpp
+    src/resource/GraphicDecode.cpp
+    src/resource/GraphicInfo.cpp
+    src/resource/AnimationRuntime.cpp
+    src/resource/AnimationCleanup.cpp
+    src/resource/AnimationList.cpp
+    src/resource/GraphicAlloc.cpp
+    src/resource/GraphicRead.cpp
+    src/render/Palette.cpp
     src/render/Font.cpp
     src/render/GraphicCacheState.cpp
     src/render/GraphicDxCache.cpp
@@ -79,22 +79,22 @@ add_library(cg2d_re_startup STATIC
     # 用户排除屏幕键盘；LegacyExternalKeyboard*.cpp仅保留为历史源码。
     src/ui/HitTest.cpp
     src/ui/LegacyUiRecord.cpp
-    src/LegacyRecordOrder.cpp
-    src/LegacyAudio.cpp
-    src/Blacklist.cpp
-    src/Input.cpp
-    src/InputKeyDispatch.cpp
-    src/InputCaret.cpp
+    src/world/GuildState.cpp
+    src/audio/LegacyAudio.cpp
+    src/world/Blacklist.cpp
+    src/input/Input.cpp
+    src/input/InputKeyDispatch.cpp
+    src/input/InputCaret.cpp
     src/scene/login/LoginConnection.cpp
     src/scene/login/LoginInput.cpp
-    src/LoginSavedState.cpp
+    src/scene/login/LoginSavedState.cpp
     src/scene/login/LoginInputController.cpp
     src/scene/login/LoginCapability3InputController.cpp
     src/scene/login/LoginCapability3Scene.cpp
     src/scene/login/LoginCapability4Modal.cpp
     src/scene/login/LoginCapability4Scene.cpp
-    src/DrawGraphic.cpp
-    src/DrawGraphicHover.cpp
+    src/render/DrawGraphic.cpp
+    src/render/DrawGraphicHover.cpp
     src/Yobi/base.cpp
     src/Yobi/animation.cpp
     src/Yobi/window.cpp
@@ -198,10 +198,10 @@ add_library(cg2d_re_startup STATIC
     src/render/InputText.cpp
     src/render/TextPendingQueue.cpp
     src/scene/login/LoginMessage.cpp
-    src/LoginRequest.cpp
-    src/CharacterListRequest.cpp
-    src/CharacterDeletionRequest.cpp
-    src/CharacterCreationRequest.cpp
+    src/scene/login/LoginRequest.cpp
+    src/scene/login/CharacterListRequest.cpp
+    src/scene/login/CharacterDeletionRequest.cpp
+    src/scene/login/CharacterCreationRequest.cpp
     src/scene/login/LoginModeScene.cpp
     src/scene/login/LoginOuterScene.cpp
     src/scene/login/LoginScene.cpp

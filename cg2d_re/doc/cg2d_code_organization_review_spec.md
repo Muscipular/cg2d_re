@@ -68,6 +68,32 @@
 - 迁移调用方直接包含所属公共头；渲染实现移除已不需要的登录私有头。`GraphicHitTest.cpp` 的六处宽泛using改为明确限定名，平台鼠标调度入口本身仍归platform。
 - 核声明唯一、旧限定名／别名零残留、直接包含、全部调用实参及函数正文在去除命名空间差异后等价；不新增兼容转发层。
 
-## 后续逐项实施约束
+## COR07：目录与文件组织
 
-COR02～COR07 在各自改动前补充具体字段／符号／路径和验收条件，随后按本次用户授权执行。每项完成后记录当前静态证据并精确提交。保持原函数地址注释、正常／失败分支、数值位型、编码及存储生命周期；新增断言未编译时明确标记，不以静态检查代替编译或运行验收。
+迁移50个文件，保持编译单元数量及CMake条目顺序，不添加转发头或兼容文件。具体归属：
+
+| 当前根目录文件组 | 源码目标 | 公共头目标 |
+| --- | --- | --- |
+| Animation*、GraphicAlloc/Decode/Info/Read、ResourceNames/Paths | `src/resource/`，私有AnimationRuntimeState随实现 | `include/cg/resource/` |
+| DrawGraphic、DrawGraphicHover、Palette | `src/render/` | `include/cg/render/Palette.hpp` |
+| Input、InputCaret、InputKeyDispatch及私有依赖头 | `src/input/` | `include/cg/input/Input.hpp` |
+| LegacyAudio、LegacySeDefinitions.inc | `src/audio/` | `include/cg/audio/LegacyAudio.hpp` |
+| LoginRequest、LoginSavedState、三个Character*Request及私有依赖头 | `src/scene/login/` | Login*及三个请求头统一到`include/cg/scene/login/` |
+| CharacterSelectScene公共头 | 源码维持`src/scene/character_select/` | `include/cg/scene/character_select/` |
+| Blacklist | `src/world/Blacklist.cpp` | `include/cg/world/Blacklist.hpp` |
+| LegacyRecordOrder（实际公会资料、成员及排序） | `src/world/GuildState.cpp` | `include/cg/world/GuildState.hpp` |
+| YobiRuntime公共头 | 维持既有`src/Yobi/`分组 | `include/cg/Yobi/YobiRuntime.hpp` |
+
+- 相对包含按“原文件位置→原目标→迁移目标→新相对路径”解析，公共包含使用新`cg/...`路径；所有原有效边在迁移后必须仍指向同一文件身份。既有循环或未闭依赖不擅自改业务。
+- CMake只替换本线源路径。README补当前目录说明，当前函数表仅同步迁移路径并标明历史行号仍是原记录；历史SPEC／进度中的旧定位不全文重写，本SPEC提供迁移索引。不触碰JSON台账或历史测试脚本。
+- 精确迁移正文：除包含路径外，50个文件的内容逐字保持；所有其他源文件除相应include路径外逐字保持。核完整直接包含解析、无重复／缺失目标、CMake有序列表一一映射、编码与Git重命名差异。源码根不再混放模块文件，空占位文件保留。
+
+## 执行与验收边界
+
+各项均在改动前补充具体字段／符号／路径和验收条件，随后按本次用户授权执行。每项完成后记录当前静态证据并精确提交。保持原函数地址注释、正常／失败分支、数值位型、编码及存储生命周期；新增断言未编译时明确标记，不以静态检查代替编译或运行验收。
+
+## 本轮结果
+
+COR01～COR07均已实施并逐步提交，具体记录见[进度第292节](../plan/cg2d_full_reconstruction_progress.md)。目录迁移后1287条包含边有效，198条构建源码顺序保持，3680行函数身份／名称／状态保持。代码正文、字段布局算术、限定名／实参、存储范围、编码及差异已做静态核对；COR06曾带回两处旧服务器访问，跨步骤检查已修正。
+
+未编译、测试、运行或计算摘要；所有新增static_assert尚未编译。不生成／更新JSON台账。上述保留项仍保留，不以本轮整理声称未知字段已还原、Yobi历史namespace耦合已消除或客户端行为已通过运行验收。

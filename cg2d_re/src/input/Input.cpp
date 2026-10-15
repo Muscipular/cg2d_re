@@ -1,8 +1,8 @@
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/render/Font.hpp"
-#include "cg/Blacklist.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/world/Blacklist.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -10,10 +10,10 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include "InputKeyDispatchDependencies.hpp"
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
-#include "platform/WindowProcedureState.hpp"
-#include "world/WorldUpdateDependencies.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
+#include "../platform/WindowProcedureState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <bit>

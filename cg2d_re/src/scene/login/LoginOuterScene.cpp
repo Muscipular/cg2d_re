@@ -1,15 +1,15 @@
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "cg/LoginScene.hpp"
+#include "cg/scene/login/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
 
-#include "cg/Input.hpp"
-#include "cg/LoginInput.hpp"
-#include "cg/LoginMessage.hpp"
-#include "cg/Palette.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/scene/login/LoginInput.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
+#include "cg/render/Palette.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 

@@ -3,8 +3,8 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "cg/GraphicInfo.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 

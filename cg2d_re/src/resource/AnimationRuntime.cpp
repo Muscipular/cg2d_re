@@ -1,13 +1,13 @@
-#include "cg/AnimationRuntime.hpp"
+#include "cg/resource/AnimationRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include <string>
 
 #include "AnimationRuntimeState.hpp"
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/GraphicAlloc.hpp"
-#include "cg/GraphicInfo.hpp"
+#include "cg/resource/GraphicAlloc.hpp"
+#include "cg/resource/GraphicInfo.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。

@@ -2,7 +2,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
-#include "cg/CharacterSelectScene.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"

@@ -6,8 +6,8 @@
 #include "WindowProcedureDependencies.hpp"
 #include "WindowProcedureState.hpp"
 
-#include "cg/Input.hpp"
-#include "cg/Palette.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyMouse.hpp"

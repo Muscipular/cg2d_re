@@ -3,7 +3,7 @@
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 
-#include "cg/LoginInput.hpp"
+#include "cg/scene/login/LoginInput.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>

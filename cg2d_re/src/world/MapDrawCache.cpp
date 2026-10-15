@@ -1,6 +1,6 @@
 #include "WorldUpdateDependencies.hpp"
 
-#include "cg/GraphicInfo.hpp"
+#include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <algorithm>

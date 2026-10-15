@@ -1,4 +1,4 @@
-#include "cg/LoginConnection.hpp"
+#include "cg/scene/login/LoginConnection.hpp"
 
 namespace cg::login {
 

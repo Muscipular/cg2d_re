@@ -1,7 +1,7 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
-#include "cg/CharacterSelectScene.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"

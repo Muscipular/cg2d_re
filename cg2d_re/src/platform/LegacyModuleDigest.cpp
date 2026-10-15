@@ -1,6 +1,6 @@
 #include "cg/platform/LegacyModuleDigest.hpp"
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX

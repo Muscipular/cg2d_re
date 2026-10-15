@@ -1,8 +1,8 @@
 #include "WorldObjectState.hpp"
 
 #include "WorldUpdateDependencies.hpp"
-#include "cg/Input.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 

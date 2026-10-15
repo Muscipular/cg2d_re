@@ -2,7 +2,7 @@
 #include "cg/text/Encoding.hpp"
 #include <string>
 #include "../world/WorldUpdateDependencies.hpp"
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 
 namespace cg::ui {
 namespace detail {

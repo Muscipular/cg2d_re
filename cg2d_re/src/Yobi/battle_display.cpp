@@ -2,9 +2,9 @@
 #include "base.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
-#include "cg/GraphicInfo.hpp"
-#include "cg/Input.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 

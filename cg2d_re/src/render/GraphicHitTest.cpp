@@ -6,7 +6,7 @@
 #include "../ui/WindowRuntimeState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
-#include "cg/YobiRuntime.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"

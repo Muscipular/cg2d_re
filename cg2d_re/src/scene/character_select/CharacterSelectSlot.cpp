@@ -1,11 +1,11 @@
 #include "cg/render/TextPendingQueue.hpp"
-#include "cg/CharacterSelectScene.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
 
-#include "cg/LoginRequest.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 
 #include "../../platform/LegacyFormat.hpp"
 

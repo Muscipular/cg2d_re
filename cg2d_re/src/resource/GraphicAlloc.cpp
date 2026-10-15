@@ -1,12 +1,12 @@
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。
-#include "cg/GraphicAlloc.hpp"
+#include "cg/resource/GraphicAlloc.hpp"
 
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/AnimationRuntime.hpp"
-#include "cg/GraphicInfo.hpp"
-#include "cg/ResourcePaths.hpp"
-#include "render/GraphicDxCacheState.hpp"
+#include "cg/resource/AnimationRuntime.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/resource/ResourcePaths.hpp"
+#include "../render/GraphicDxCacheState.hpp"
 
 #include <cstdlib>
 #include <cstring>

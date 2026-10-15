@@ -3,7 +3,7 @@
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 

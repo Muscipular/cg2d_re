@@ -1,7 +1,7 @@
-#include "platform/ImeLifecycle.hpp"
-#include "platform/WindowProcedureState.hpp"
+#include "../platform/ImeLifecycle.hpp"
+#include "../platform/WindowProcedureState.hpp"
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 

@@ -1,12 +1,12 @@
-#include "cg/ResourcePaths.hpp"
+#include "cg/resource/ResourcePaths.hpp"
 
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/GraphicRead.hpp"
-#include "cg/Palette.hpp"
-#include "cg/ResourceNames.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/resource/GraphicRead.hpp"
+#include "cg/render/Palette.hpp"
+#include "cg/resource/ResourceNames.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 

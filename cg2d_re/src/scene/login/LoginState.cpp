@@ -5,7 +5,7 @@
 #include "cg/text/Encoding.hpp"
 #include <ws2tcpip.h>
 
-#include "cg/LoginState.hpp"
+#include "cg/scene/login/LoginState.hpp"
 
 #include "../../platform/LegacyFormat.hpp"
 #include "../../platform/LegacyStdio.hpp"
@@ -13,11 +13,11 @@
 #include "LoginStateDependencies.hpp"
 #include "../../world/MailState.hpp"
 
-#include "cg/Blacklist.hpp"
-#include "cg/LoginConnection.hpp"
-#include "cg/LoginMessage.hpp"
-#include "cg/LoginRequest.hpp"
-#include "cg/LoginScene.hpp"
+#include "cg/world/Blacklist.hpp"
+#include "cg/scene/login/LoginConnection.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
+#include "cg/scene/login/LoginScene.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyNetworkAdapter.hpp"

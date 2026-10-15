@@ -1,8 +1,8 @@
 #pragma once
 
-#include "cg/LegacyRecordOrder.hpp"
+#include "cg/world/GuildState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 
 #include <cstdint>
 

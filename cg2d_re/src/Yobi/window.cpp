@@ -2,7 +2,7 @@
 #include "window.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 
 #include <array>
 #include <bit>

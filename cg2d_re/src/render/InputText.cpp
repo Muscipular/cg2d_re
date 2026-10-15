@@ -1,7 +1,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/Font.hpp"

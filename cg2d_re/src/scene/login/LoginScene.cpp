@@ -1,15 +1,15 @@
 #include "cg/render/TextPendingQueue.hpp"
-#include "cg/LoginScene.hpp"
+#include "cg/scene/login/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
 #include "../../platform/LegacyFormat.hpp"
 
-#include "cg/LoginInput.hpp"
-#include "cg/LoginMessage.hpp"
-#include "cg/LoginState.hpp"
-#include "cg/Palette.hpp"
+#include "cg/scene/login/LoginInput.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
+#include "cg/scene/login/LoginState.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
 #include "cg/platform/LegacyTime.hpp"

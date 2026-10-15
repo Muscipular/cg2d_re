@@ -1,9 +1,9 @@
-#include "cg/Palette.hpp"
+#include "cg/render/Palette.hpp"
 
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/ResourcePaths.hpp"
+#include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
 

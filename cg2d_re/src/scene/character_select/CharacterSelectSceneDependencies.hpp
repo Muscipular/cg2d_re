@@ -4,8 +4,8 @@
 #include "../../ui/UiControlRecord.hpp"
 #include "../../world/MailState.hpp"
 
-#include "cg/LegacyAudio.hpp"
-#include "cg/LoginRequest.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 

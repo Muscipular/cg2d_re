@@ -1,12 +1,12 @@
 #include "cg/ui/HitTest.hpp"
-#include "cg/LoginInput.hpp"
+#include "cg/scene/login/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/Palette.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"

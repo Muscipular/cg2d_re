@@ -1,18 +1,18 @@
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 
-#include "scene/login/LoginStateDependencies.hpp"
-#include "network/NetworkDispatchDependencies.hpp"
-#include "platform/MainLoopDependencies.hpp"
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyAudioMath.hpp"
+#include "../scene/login/LoginStateDependencies.hpp"
+#include "../network/NetworkDispatchDependencies.hpp"
+#include "../platform/MainLoopDependencies.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyAudioMath.hpp"
 
-#include "cg/LoginRequest.hpp"
-#include "cg/ResourcePaths.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
+#include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
-#include "world/WorldUpdateDependencies.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <algorithm>
 #include <array>

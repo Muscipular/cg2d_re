@@ -4,9 +4,9 @@
 #include "LegacyTextureDrawing.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/Palette.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/render/Palette.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"

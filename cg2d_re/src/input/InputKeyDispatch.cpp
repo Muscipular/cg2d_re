@@ -1,7 +1,7 @@
 #include "InputKeyDispatchDependencies.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/KeyState.hpp"
 

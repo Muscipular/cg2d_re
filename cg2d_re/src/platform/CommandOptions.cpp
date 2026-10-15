@@ -1,9 +1,9 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
-#include "cg/LoginScene.hpp"
-#include "cg/ResourceNames.hpp"
-#include "cg/ResourcePaths.hpp"
+#include "cg/scene/login/LoginScene.hpp"
+#include "cg/resource/ResourceNames.hpp"
+#include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "StartupNative.hpp"
 #include "LegacyFormat.hpp"

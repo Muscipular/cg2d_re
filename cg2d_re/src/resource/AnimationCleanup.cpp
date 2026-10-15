@@ -1,8 +1,8 @@
 #include <cstdio> // 原CRT：0x0053B1D0；直接沿MSVC文件流。
-#include "cg/AnimationRuntime.hpp"
+#include "cg/resource/AnimationRuntime.hpp"
 
 #include "AnimationRuntimeState.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyStdio.hpp"
 
 #include <cstdlib>
 #include <cstring>

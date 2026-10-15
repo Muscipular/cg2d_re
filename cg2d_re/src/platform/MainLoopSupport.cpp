@@ -4,8 +4,8 @@
 #include "LegacyStdio.hpp"
 #include "LegacyFormat.hpp"
 
-#include "cg/LegacyAudio.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyTime.hpp"

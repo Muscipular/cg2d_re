@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/YobiRuntime.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 
 #include <array>
 #include <cstdint>

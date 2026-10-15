@@ -1,6 +1,6 @@
 #include "cg/render/SurfaceState.hpp"
 
-#include "cg/Palette.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/render/RendererResources.hpp"
 
 #include "BackTextDrawing.hpp"

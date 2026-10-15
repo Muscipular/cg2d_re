@@ -1,11 +1,11 @@
-#include "cg/GraphicRead.hpp"
+#include "cg/resource/GraphicRead.hpp"
 
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/GraphicDecode.hpp"
-#include "cg/GraphicInfo.hpp"
-#include "cg/Palette.hpp"
+#include "cg/resource/GraphicDecode.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/Startup.hpp"
 

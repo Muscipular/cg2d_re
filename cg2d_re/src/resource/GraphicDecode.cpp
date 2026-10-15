@@ -1,4 +1,4 @@
-#include "cg/GraphicDecode.hpp"
+#include "cg/resource/GraphicDecode.hpp"
 
 namespace cg::resource {
 

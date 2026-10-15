@@ -1,4 +1,4 @@
-#include "cg/ResourceNames.hpp"
+#include "cg/resource/ResourceNames.hpp"
 
 namespace cg {
 

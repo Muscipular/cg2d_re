@@ -1,9 +1,9 @@
-#include "cg/Blacklist.hpp"
+#include "cg/world/Blacklist.hpp"
 #include "cg/text/Encoding.hpp"
 #include <system_error>
-#include "cg/Input.hpp"
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "cg/input/Input.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
 #include <bit>
 #include <cstring>

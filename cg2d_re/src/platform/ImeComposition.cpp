@@ -3,7 +3,7 @@
 #include "StartupNative.hpp"
 #include "WindowProcedureState.hpp"
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include <imm.h>

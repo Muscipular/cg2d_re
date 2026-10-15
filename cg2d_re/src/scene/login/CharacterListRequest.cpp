@@ -1,11 +1,11 @@
-#include "cg/CharacterListRequest.hpp"
+#include "cg/scene/login/CharacterListRequest.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "cg/LoginRequest.hpp"
-#include "cg/Input.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "platform/LegacyFormat.hpp"
+#include "../../platform/LegacyFormat.hpp"
 
 #include <bit>
 #include <cstddef>

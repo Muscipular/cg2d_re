@@ -2,13 +2,13 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
-#include "cg/LoginMessage.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "LoginMessageDependencies.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 
 #include <array>
 #include <cstddef>

@@ -3,9 +3,9 @@
 #include "../platform/LegacyFormat.hpp"
 #include "LegacyTextureDrawing.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/GraphicRead.hpp"
-#include "cg/Palette.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/resource/GraphicRead.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"

@@ -1,4 +1,4 @@
-#include "cg/GraphicInfo.hpp"
+#include "cg/resource/GraphicInfo.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 

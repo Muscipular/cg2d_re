@@ -7,7 +7,7 @@
 #include "MailState.hpp"
 #include "PetTechniqueRecord.hpp"
 
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>

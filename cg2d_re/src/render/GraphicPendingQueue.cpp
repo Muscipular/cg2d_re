@@ -3,7 +3,7 @@
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 
-#include "cg/GraphicRead.hpp"
+#include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"

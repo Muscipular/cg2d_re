@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/YobiRuntime.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../ui/WindowRuntimeState.hpp"

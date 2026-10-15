@@ -1,13 +1,13 @@
-#include "cg/LegacyRecordOrder.hpp"
+#include "cg/world/GuildState.hpp"
 
-#include "cg/Input.hpp"
-#include "cg/LoginRequest.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include "world/MailState.hpp"
+#include "MailState.hpp"
 
 #include <bit>
 #include <cstdlib>

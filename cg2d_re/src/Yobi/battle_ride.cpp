@@ -2,7 +2,7 @@
 #include "base.hpp"
 #include "battle_base.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 
 #include <bit>
 #include <cstddef>

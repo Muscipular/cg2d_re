@@ -16,3 +16,17 @@
 
 当前先完善功能，再考虑启动，不再以最小改动限制新工程实现规模。已有资源解码、查询、读取及调色板的局部实现；当前优先沿原入口、配置与参数、窗口、主循环和退出链推进。
 新工程使用独立 x64 CMake 配置，不链接旧工程。真实 `WinMain`、配置读取及窗口函数已落位，部分被调函数仍未实现，尚不能链接完整客户端；不会用演示入口或空实现填补缺口，详见[入口证据](doc/cg2d_startup_flow.md)。索引图读取可参考 cg3a，但控制字、固定颜色和调用副作用仍以 IDA 为准。
+
+## 当前代码目录
+
+- `src/resource/`、`include/cg/resource/`：资源名／路径、图形文件与动画资源。
+- `src/render/`、`include/cg/render/`：绘图、调色板、字体、队列和渲染后端。
+- `src/input/`、`include/cg/input/`：输入正文、光标与按键分派；平台事件仍在platform。
+- `src/audio/`、`include/cg/audio/`：音频业务与既有固定WAV资源；SDL后端仍在platform。
+- `src/scene/login/`、`include/cg/scene/login/`：登录场景、登录／角色请求及保存状态。
+- `src/scene/character_select/`、`include/cg/scene/character_select/`：选人、创建／删除交互及进度场景。
+- `src/world/`、`include/cg/world/`：世界状态、地图、邮件、公会资料与黑名单；公会文件为GuildState。
+- `src/Yobi/`、`include/cg/Yobi/`：既有Yobi动作及各动画／功能分组。
+- `platform/`、`ui/`、`network/`、`text/`保留既有职责；实现私有头紧邻所属源码。
+
+本轮迁移映射、保留理由与静态验证边界见[代码审查与组织整理SPEC](doc/cg2d_code_organization_review_spec.md)。历史文档中的旧路径可按该映射定位，历史行号不视为当前源码行号。

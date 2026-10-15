@@ -3,7 +3,7 @@
 #include "LegacyFormat.hpp"
 #include "LegacyStdio.hpp"
 
-#include "cg/ResourcePaths.hpp"
+#include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"

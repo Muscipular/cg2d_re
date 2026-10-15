@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/Input.hpp"
+#include "cg/input/Input.hpp"
 
 #include <cstddef>
 #include <cstdint>

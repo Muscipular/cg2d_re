@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/Palette.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"

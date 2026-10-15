@@ -4,9 +4,9 @@
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 
-#include "cg/GraphicInfo.hpp"
-#include "cg/LoginMessage.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"

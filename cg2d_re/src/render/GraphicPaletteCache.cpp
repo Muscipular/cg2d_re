@@ -1,7 +1,7 @@
 #include "cg/render/GraphicPaletteCache.hpp"
 
 #include "GraphicDxCacheState.hpp"
-#include "cg/Palette.hpp"
+#include "cg/render/Palette.hpp"
 
 #include <cstring>
 #include <memory>

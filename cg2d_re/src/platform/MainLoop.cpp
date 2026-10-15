@@ -2,8 +2,8 @@
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
 
-#include "cg/LoginRequest.hpp"
-#include "cg/YobiRuntime.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"

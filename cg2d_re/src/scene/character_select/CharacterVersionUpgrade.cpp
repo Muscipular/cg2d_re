@@ -1,13 +1,13 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "cg/CharacterSelectScene.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
 
-#include "cg/LoginMessage.hpp"
-#include "cg/Palette.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
+#include "cg/render/Palette.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/world/SceneState.hpp"

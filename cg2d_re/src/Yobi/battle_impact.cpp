@@ -3,8 +3,8 @@
 #include "battle_base.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "cg/Input.hpp"
-#include "cg/LegacyAudio.hpp"
+#include "cg/input/Input.hpp"
+#include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/RendererResources.hpp"
 

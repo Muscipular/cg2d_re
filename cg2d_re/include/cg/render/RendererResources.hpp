@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/Palette.hpp"
+#include "cg/render/Palette.hpp"
 
 #include <cstdint>
 

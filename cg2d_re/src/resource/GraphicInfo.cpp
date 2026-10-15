@@ -1,9 +1,9 @@
-#include "cg/GraphicInfo.hpp"
+#include "cg/resource/GraphicInfo.hpp"
 
-#include "platform/LegacyFormat.hpp"
-#include "platform/LegacyStdio.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
-#include "cg/GraphicRead.hpp"
+#include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>

@@ -295,7 +295,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->elements[3].visible = 1;
         gCurrentWindow->elements[4].visible = 0;
     }
-    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0) {
         gCurrentWindow->elements[22].visible = 0;
         if (gSelectedItem57EE0C >= 0) {
             gCurrentWindow->elements[22].visible = 1;
@@ -303,12 +303,12 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
     }
     gCurrentWindow->elements[2].visible = 0;
     gCurrentWindow->elements[21].visible = 0;
-    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 0x80u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 0x80u) != 0) {
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[21].visible = 1;
     }
     gCurrentWindow->elements[22].visible = 0;
-    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0) {
         if (gSelectedItem57EE0C < 0) {
             return 1;
         }
@@ -623,7 +623,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
-            if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0
+            if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0
                 || world::detail::gPlayerRuntimeSlots.items[source].itemType == 53) {
                 const unsigned char previous = occupancy[gSelectedItem57EE0C];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {

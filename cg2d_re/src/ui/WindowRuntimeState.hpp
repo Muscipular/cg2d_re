@@ -14,7 +14,7 @@ namespace cg::login {
 struct YobiAction;
 }
 
-namespace cg::login::detail {
+namespace cg::world::detail {
 struct OrderedRecord1051B14;
 }
 
@@ -909,12 +909,12 @@ std::int32_t WindowContacts_CompareContactName(
     const world::detail::ContactRuntimeRecord* right); // 普通姓名原字节比较。
 // 原函数：0x004A3070。
 std::int32_t WindowContacts_CompareGuildName(
-    const login::detail::OrderedRecord1051B14* left,
-    const login::detail::OrderedRecord1051B14* right); // 公会姓名原字节比较。
+    const cg::world::detail::OrderedRecord1051B14* left,
+    const cg::world::detail::OrderedRecord1051B14* right); // 公会姓名原字节比较。
 // 原函数：0x004A30D0。
 std::int32_t WindowContacts_CompareGuildValue(
-    const login::detail::OrderedRecord1051B14* left,
-    const login::detail::OrderedRecord1051B14* right); // 公会value00完整S32差值。
+    const cg::world::detail::OrderedRecord1051B14* left,
+    const cg::world::detail::OrderedRecord1051B14* right); // 公会value00完整S32差值。
 // 原函数：0x004A3100。
 std::int32_t WindowContacts_CompareContactTitle(
     const world::detail::ContactRuntimeRecord* left,
@@ -925,8 +925,8 @@ std::int32_t WindowContacts_CompareContactValue(
     const world::detail::ContactRuntimeRecord* right); // 普通value08完整S32差值。
 // 原函数：0x004A3190。
 std::int32_t WindowContacts_CompareGuildStatus(
-    const login::detail::OrderedRecord1051B14* left,
-    const login::detail::OrderedRecord1051B14* right); // 公会value10完整S32差值。
+    const cg::world::detail::OrderedRecord1051B14* left,
+    const cg::world::detail::OrderedRecord1051B14* right); // 公会value10完整S32差值。
 // 原函数：0x004A31C0。
 std::int32_t WindowContacts_CompareRecordKey(
     const std::int32_t* leftValue04, const std::int32_t* rightValue04); // 借原记录+4字段，相等仍-1。
@@ -936,8 +936,8 @@ std::int32_t WindowContacts_CompareContactNumber(
     const world::detail::ContactRuntimeRecord* right); // 普通S16 value02，零映射最大S32。
 // 原函数：0x004A3260。
 std::int32_t WindowContacts_CompareGuildNumber(
-    const login::detail::OrderedRecord1051B14* left,
-    const login::detail::OrderedRecord1051B14* right); // 公会S16 value0A，零映射最大S32。
+    const cg::world::detail::OrderedRecord1051B14* left,
+    const cg::world::detail::OrderedRecord1051B14* right); // 公会S16 value0A，零映射最大S32。
 // 原函数：0x004A3950。
 std::int32_t WindowGuildDetails_ReadRankPermissions(); // 当前公会职级权限80H。
 // 原函数：0x004A3960。

@@ -326,8 +326,8 @@ static void WindowGroupSelect_Refresh()
         if (visible != 0) {
             WindowInstance* const window = gCurrentWindow;
             const char* const name = mode == 0 ? world::detail::gContactsF19FB0[source].name10.data()
-                : mode == 1 ? login::detail::gOrderedRecords1051B14[source].text18
-                : login::detail::GetGuildRankText(position);
+                : mode == 1 ? cg::world::detail::gOrderedRecords1051B14[source].text18
+                : cg::world::detail::GetGuildRankText(position);
             auto* const text = static_cast<WindowTextData*>(window->elements[12 + row].data);
             text->text = cg::text::FromGbkWide(name);
         }
@@ -406,7 +406,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
                     if (mode == 2) {
                         gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
                     } else if (mode == 1) {
-                        if (login::detail::gOrderedRecords1051B14[source].value0A != 0) {
+                        if (cg::world::detail::gOrderedRecords1051B14[source].value0A != 0) {
                             gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
                         }
                     } else {
@@ -506,7 +506,7 @@ static void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
         WindowGroupSelect_SortRecipients(1);
         for (std::int32_t index = 0; index < 200; ++index) {
             const std::int32_t source = gLoginWindowRuntime.mailGroupOrderCC2E6C[index];
-            if (login::detail::gOrderedRecords1051B14[source].value08 == 1) {
+            if (cg::world::detail::gOrderedRecords1051B14[source].value08 == 1) {
                 gLoginWindowRuntime.mailGroupCC1A30.indices[index] = source;
                 ++gLoginWindowRuntime.mailGroupCC1A30.count;
             }
@@ -514,7 +514,7 @@ static void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
         break;
     case 2:
         for (std::int32_t index = 0; index < 32; ++index) {
-            if (login::detail::ReadGuildRankFlags1051514(index) != 0) {
+            if (cg::world::detail::ReadGuildRankFlags1051514(index) != 0) {
                 gLoginWindowRuntime.mailGroupCC1A30.indices[index] = index;
                 ++gLoginWindowRuntime.mailGroupCC1A30.count;
             }
@@ -542,10 +542,10 @@ static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* cons
     const std::int32_t leftIndex = *left;
     const bool leftUsed = category == 0
         ? world::detail::gContactsF19FB0[leftIndex].used != 0
-        : login::detail::gOrderedRecords1051B14[leftIndex].value08 != 0;
+        : cg::world::detail::gOrderedRecords1051B14[leftIndex].value08 != 0;
     const bool rightUsed = category == 0
         ? world::detail::gContactsF19FB0[rightIndex].used != 0
-        : login::detail::gOrderedRecords1051B14[rightIndex].value08 != 0;
+        : cg::world::detail::gOrderedRecords1051B14[rightIndex].value08 != 0;
     if (leftUsed != rightUsed) {
         return leftUsed ? -1 : 1;
     }
@@ -567,8 +567,8 @@ static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* cons
         case 4: return WindowContacts_CompareContactNumber(current, other);
         }
     } else {
-        const auto* const other = &login::detail::gOrderedRecords1051B14[rightIndex];
-        const auto* const current = &login::detail::gOrderedRecords1051B14[leftIndex];
+        const auto* const other = &cg::world::detail::gOrderedRecords1051B14[rightIndex];
+        const auto* const current = &cg::world::detail::gOrderedRecords1051B14[leftIndex];
         switch (mode) {
         case 0: return WindowContacts_CompareGuildName(current, other);
         case 1: return WindowContacts_CompareGuildValue(current, other);

@@ -145,48 +145,48 @@ int ParseCommandOptions()
     for (int slot = 0; slot < 9; ++slot) {
         if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicOverrideKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicInfoKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
+            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicInfoNames][slot], graphicInfoFormats[slot], value);
         }
         if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeKeys[slot]))) {
             std::sscanf(match + std::strlen(animeKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
+            std::sprintf(cg::resource::gResourceNames[cg::resource::AnimeNames][slot], animeFormats[slot], value);
         }
         if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeInfoKeys[slot]))) {
             std::sscanf(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
+            std::sprintf(cg::resource::gResourceNames[cg::resource::AnimeInfoNames][slot], animeInfoFormats[slot], value);
         }
     }
 
     for (int slot = 0; slot < 9; ++slot) {
-        if (!const_cast<char*>(std::strchr(gResourceNames[CoordinateNames][slot], '*'))) {
+        if (!const_cast<char*>(std::strchr(cg::resource::gResourceNames[cg::resource::CoordinateNames][slot], '*'))) {
             if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateKeys[slot]))) {
                 std::sscanf(match + std::strlen(coordinateKeys[slot]), "%d", &value);
-                std::sprintf(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
+                std::sprintf(cg::resource::gResourceNames[cg::resource::CoordinateNames][slot], coordinateFormats[slot], value);
             }
         }
-        if (!const_cast<char*>(std::strchr(gResourceNames[CoordinateInfoNames][slot], '*'))) {
+        if (!const_cast<char*>(std::strchr(cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot], '*'))) {
             if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateInfoKeys[slot]))) {
                 std::sscanf(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
-                std::sprintf(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
+                std::sprintf(cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
             }
         }
     }
 
     // 原 0x466791-0x466841：单遍逐槽，先数据后 Info，不递归解析别名。
     for (int slot = 0; slot < 9; ++slot) {
-        for (int table = CoordinateNames; table <= CoordinateInfoNames; ++table) {
-            char* destination = gResourceNames[table][slot];
+        for (int table = cg::resource::CoordinateNames; table <= cg::resource::CoordinateInfoNames; ++table) {
+            char* destination = cg::resource::gResourceNames[table][slot];
             if (const_cast<char*>(std::strchr(destination, '*'))) {
                 std::sscanf(destination, "*%d", &value);
-                const char* source = gResourceNames[table][value];
+                const char* source = cg::resource::gResourceNames[table][value];
                 const std::size_t length = std::strlen(source) + 1;
 
                 // 对应先量长、再正向 rep movsd/movsb；临时字保留自引用时的原拷贝行为。

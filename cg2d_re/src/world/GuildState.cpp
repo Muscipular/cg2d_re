@@ -13,7 +13,7 @@
 #include <cstdlib>
 #include <cstring>
 
-namespace cg::login::detail {
+namespace cg::world::detail {
 
 std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {}; // 原全局：0x01051B14。
 std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
@@ -416,7 +416,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     }
 
     const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
-    const std::int16_t selected = gSelectedCharacterIndex;
+    const std::int16_t selected = login::gSelectedCharacterIndex;
     gOrderedRecordCount1051510 = count;
     return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
 }
@@ -435,4 +435,4 @@ std::int32_t FindActiveOrderedRecordIndex_5195C0(
     return -1;
 }
 
-} // namespace cg::login::detail
+} // namespace cg::world::detail

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace cg {
+namespace cg::resource {
 
 // 来源：cg2d_re/doc/cg2d_resource_sources.md 第3、4节。
 // 以下枚举仅为复刻实现的存储区下标，不代表原业务枚举。
@@ -22,4 +22,4 @@ static_assert(sizeof(gResourceNames) == 0x1B00, "Resource name storage size mism
 static_assert(sizeof(gResourceNames[0]) == 0x480, "Resource name table stride mismatch");
 static_assert(sizeof(gResourceNames[0][0]) == 0x80, "Resource name slot stride mismatch");
 
-} // namespace cg
+} // namespace cg::resource

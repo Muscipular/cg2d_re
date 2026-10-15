@@ -8302,8 +8302,8 @@ void Sub_470670()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::int32_t rank = login::detail::ReadGuildTextIndex10514B0();
-    if ((login::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
+    const std::int32_t rank = cg::world::detail::ReadGuildTextIndex10514B0();
+    if ((cg::world::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
         Sub_44B050(LR"(您沒有家族唷，所以不能邀請對方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;

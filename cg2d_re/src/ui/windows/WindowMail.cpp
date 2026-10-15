@@ -148,7 +148,7 @@ MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRe
     };
 }
 
-MailContactView WindowMail_MakeContactView(const login::detail::OrderedRecord1051B14& record)
+MailContactView WindowMail_MakeContactView(const cg::world::detail::OrderedRecord1051B14& record)
 {
     return {
         &record.value08, reinterpret_cast<const std::byte*>(&record.value0A),
@@ -170,7 +170,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
 {
     if (status == 0) {
         data->text = L"離線" /* 原常量参考：0x0058743C。 */;
-        const std::int32_t currentStatus = login::detail::ReadGuildStatus10514AC();
+        const std::int32_t currentStatus = cg::world::detail::ReadGuildStatus10514AC();
         data->style.color = static_cast<std::byte>(
             gLoginWindowRuntime.mailGuildColorsD6784C[currentStatus]);
     } else {
@@ -237,7 +237,7 @@ std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const std::uintptr_t socket = platform::gConnectionSocket;
-    const std::int32_t key = login::detail::gOrderedRecords1051B14[index].value0C;
+    const std::int32_t key = cg::world::detail::gOrderedRecords1051B14[index].value0C;
     static_cast<void>(network::Sub_511430(socket, key));
     static_cast<void>(world::detail::Sub_519300());
     static_cast<void>(world::detail::Sub_519550());

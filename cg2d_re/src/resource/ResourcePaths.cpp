@@ -193,13 +193,13 @@ int BuildResourcePaths()
 
     int result = 0;
     for (int slot = 0; slot < 9; ++slot) {
-        std::sprintf(gGraphicPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicNames][slot]);
-        std::sprintf(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicInfoNames][slot]);
-        std::sprintf(gAnimePaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeNames][slot]);
-        std::sprintf(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeInfoNames][slot]);
-        std::sprintf(gCoordinatePaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateNames][slot]);
+        std::sprintf(gGraphicPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::GraphicNames][slot]);
+        std::sprintf(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::GraphicInfoNames][slot]);
+        std::sprintf(gAnimePaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::AnimeNames][slot]);
+        std::sprintf(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::AnimeInfoNames][slot]);
+        std::sprintf(gCoordinatePaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::CoordinateNames][slot]);
         result = std::sprintf(
-            gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateInfoNames][slot]);
+            gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot]);
     }
     return result;
 }

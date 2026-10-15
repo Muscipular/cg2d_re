@@ -1,6 +1,6 @@
 #include "cg/resource/ResourceNames.hpp"
 
-namespace cg {
+namespace cg::resource {
 
 // 各槽按原始 ASCII 字符串初始化，终止 NUL 后的剩余字节全部补零。
 char gResourceNames[ResourceNameTableCount][9][128] = { // 原全局：0x00556F84。
@@ -72,4 +72,4 @@ char gResourceNames[ResourceNameTableCount][9][128] = { // 原全局：0x00556F8
     }
 };
 
-} // namespace cg
+} // namespace cg::resource

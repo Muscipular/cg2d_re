@@ -385,7 +385,7 @@ std::int32_t ProcessState_45E960()
 {
     if (world::gCurrentSceneState == 0) {
         ResetLoginProgress();
-        detail::Sub_532D80();
+        cg::world::detail::Sub_532D80();
         ++world::gCurrentSceneState;
     }
 

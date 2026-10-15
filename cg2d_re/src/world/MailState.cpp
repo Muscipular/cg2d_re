@@ -446,7 +446,7 @@ std::int32_t Sub_518DA0()
         }
     }
     for (std::int32_t position = 0; position < 200; ++position) {
-        const auto& record = login::detail::gOrderedRecords1051B14[position];
+        const auto& record = cg::world::detail::gOrderedRecords1051B14[position];
         if (record.value08 == 0) {
             continue;
         }
@@ -510,7 +510,7 @@ void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
         }
     }
     for (std::int32_t position = 0; position < 200; ++position) {
-        const auto& member = login::detail::gOrderedRecords1051B14[position];
+        const auto& member = cg::world::detail::gOrderedRecords1051B14[position];
         if (member.value08 == 0) {
             continue;
         }
@@ -532,7 +532,7 @@ void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
                 const GuildMailEntry* const keyEntry = gGuildMailStorageDE0B30.data()
                     + selectedForKey * 200 + static_cast<std::ptrdiff_t>(slot);
                 const std::int32_t key = keyEntry->key;
-                *index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);
+                *index = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(key);
                 return;
             }
         }
@@ -578,7 +578,7 @@ std::int32_t Sub_519090(const std::int32_t index)
 // 原函数：0x005190F0。
 std::int32_t Sub_5190F0(const std::int32_t index)
 {
-    const auto& record = login::detail::gOrderedRecords1051B14[index];
+    const auto& record = cg::world::detail::gOrderedRecords1051B14[index];
     const std::int32_t key = record.value0C;
     const std::int32_t slot = Sub_5195F0(key);
     if (slot == -1) {
@@ -1490,7 +1490,7 @@ std::uintptr_t Sub_519370(
     const std::int32_t key, const std::int32_t kind,
     const char* const name, const char* const text)
 {
-    if (login::detail::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
+    if (cg::world::detail::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
         return 0xFFFFFFFFu;
     }
     const std::int32_t existingIndex = Sub_5195F0(key);
@@ -1538,15 +1538,15 @@ std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(const std::int16_t sel
     GuildMailEntry* entry = gGuildMailStorageDE0B30.data()
         + static_cast<std::ptrdiff_t>(selected) * 200;
     const std::uintptr_t keyEnd =
-        reinterpret_cast<std::uintptr_t>(login::detail::gOrderedRecords1051B14.data())
-        + sizeof(login::detail::gOrderedRecords1051B14)
-        + offsetof(login::detail::OrderedRecord1051B14, value0C);
+        reinterpret_cast<std::uintptr_t>(cg::world::detail::gOrderedRecords1051B14.data())
+        + sizeof(cg::world::detail::gOrderedRecords1051B14)
+        + offsetof(cg::world::detail::OrderedRecord1051B14, value0C);
     std::uintptr_t result = 0;
     for (std::int32_t index = 0; index < 200; ++index) {
         const std::int32_t key = entry->key;
         bool found = false;
-        for (const login::detail::OrderedRecord1051B14& record :
-             login::detail::gOrderedRecords1051B14) {
+        for (const cg::world::detail::OrderedRecord1051B14& record :
+             cg::world::detail::gOrderedRecords1051B14) {
             if (key == record.value0C) {
                 found = true;
             }

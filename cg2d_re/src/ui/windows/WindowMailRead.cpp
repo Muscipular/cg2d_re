@@ -221,10 +221,10 @@ static void WindowMailRead_FindUnread()
     }
     case 1: {
         const std::int32_t member = gValueCF4FC0;
-        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
-        static_cast<void>(login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey));
+        const std::int32_t memberKey = cg::world::detail::gOrderedRecords1051B14[member].value0C;
+        static_cast<void>(cg::world::detail::FindActiveOrderedRecordIndex_5195C0(memberKey));
         const std::int32_t mailMember = gValueCF4FC0;
-        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = cg::world::detail::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = Sub_5195F0(mailKey);
         if (slot == -1) {
             gValueD046D4 = 0;
@@ -265,10 +265,10 @@ static std::uint32_t WindowMailRead_Refresh()
     std::int32_t mailSlot = 0;
     if (category == 1) {
         const std::int32_t member = gValueCF4FC0;
-        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
-        memberIndex = login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t memberKey = cg::world::detail::gOrderedRecords1051B14[member].value0C;
+        memberIndex = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
         const std::int32_t mailMember = gValueCF4FC0;
-        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = cg::world::detail::gOrderedRecords1051B14[mailMember].value0C;
         mailSlot = Sub_5195F0(mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
@@ -314,7 +314,7 @@ static std::uint32_t WindowMailRead_Refresh()
     }
     const char* name;
     if (category == 1) {
-        name = login::detail::gOrderedRecords1051B14[memberIndex].text18;
+        name = cg::world::detail::gOrderedRecords1051B14[memberIndex].text18;
     } else {
         const std::int32_t contact = gValueCF4FC0;
         name = category == 0 ? gContactsF19FB0[contact].name10.data()
@@ -352,10 +352,10 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     }
     case 1: {
         const std::int32_t member = gValueCF4FC0;
-        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
-        identity = login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t memberKey = cg::world::detail::gOrderedRecords1051B14[member].value0C;
+        identity = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
         const std::int32_t mailMember = gValueCF4FC0;
-        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = cg::world::detail::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = Sub_5195F0(mailKey);
         const std::int16_t selected = login::gSelectedCharacterIndex;
         const std::int32_t page = gValueD046D4;
@@ -389,7 +389,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         if (category == 0) {
             source = gContactsF19FB0[identity].value0C;
         } else if (category == 1) {
-            source = login::detail::gOrderedRecords1051B14[identity].value14;
+            source = cg::world::detail::gOrderedRecords1051B14[identity].value14;
         } else {
             source = ReadMiniMailContact1075A90(identity).value0C;
         }

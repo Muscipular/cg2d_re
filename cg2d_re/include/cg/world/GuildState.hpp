@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace cg::login::detail {
+namespace cg::world::detail {
 
 // 原 [1051B14,1057BF4)：解析、计数及排序共用的 200 条 0x7C 字节运行记录。
 struct OrderedRecord1051B14 final {
@@ -67,4 +67,4 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
 // GML01：原5195C0，200项/+8 W16==1/+C key首匹配，S32计数/返回，无则-1。
 std::int32_t FindActiveOrderedRecordIndex_5195C0(std::int32_t key) noexcept;
 
-} // namespace cg::login::detail
+} // namespace cg::world::detail

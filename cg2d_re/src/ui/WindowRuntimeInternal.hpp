@@ -325,7 +325,7 @@ void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callbac
 
 MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRecord& record);
 
-MailContactView WindowMail_MakeContactView(const login::detail::OrderedRecord1051B14& record);
+MailContactView WindowMail_MakeContactView(const cg::world::detail::OrderedRecord1051B14& record);
 
 MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactRecord& record);
 

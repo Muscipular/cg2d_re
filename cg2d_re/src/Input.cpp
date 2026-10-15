@@ -80,7 +80,7 @@ InputContext& InputContext::operator=(const InputContext& other)
     field154 = other.field154;
     const std::size_t visible = ContextUtf16Offset(other, other.field158);
     field158 = static_cast<std::int32_t>(visible);
-    std::memcpy(field138, other.field138, sizeof(field138));
+    field138 = other.field138;
     return *this;
 }
 bool InputContext::empty() const noexcept
@@ -280,7 +280,7 @@ InputContext* Sub_45D720(
     context->field158 = 0;
     context->field134 = y;
     context->field130 = x;
-    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field138 = renderMode;
     context->field140 = color;
     return context;
 }
@@ -295,7 +295,7 @@ InputContext* Sub_45D760(
     context->field130 = x;
     context->field134 = y;
     context->field140 = color;
-    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field138 = renderMode;
     context->field13C = fontType;
     return context;
 }
@@ -914,7 +914,7 @@ void InitializeContext_449CF0(
     const std::int32_t encrypt)
 {
     context->field130 = field130;
-    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field138 = renderMode;
     context->field140 = color;
     context->field134 = field134;
     context->maxCharPerLine = maxCharPerLine;

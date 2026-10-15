@@ -11,20 +11,8 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstring> // 原CRT接口：0x0053BEC0；原参数／返回合同由直接调用承接。
 
 namespace cg::render {
-namespace {
-
-// 原456BED/456C0B/456C2F分别读取完整W32模式，不能共用入口快照。
-std::int32_t ReadRenderMode(const input::InputContext& context) noexcept
-{
-    std::int32_t mode;
-    std::memcpy(&mode, context.field138, sizeof(mode));
-    return mode;
-}
-
-} // namespace
 
 // 原函数：0x004568A0。
 void DrawInputText_4568A0(input::InputContext* const context)
@@ -51,7 +39,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
             // 原0x004569E9..0x00456A19：按当前颜色／字体／模式／Y／X取样。
             const std::int32_t color = context->field140;
             const std::int32_t fontType = context->field13C;
-            const std::int8_t renderMode = std::bit_cast<std::int8_t>(context->field138[0]);
+            const std::int8_t renderMode = static_cast<std::int8_t>(context->field138);
             const std::int32_t y = context->field134;
             const std::int32_t x = context->field130;
             static_cast<void>(DrawText2_456670(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + yOffset), renderMode,
@@ -62,7 +50,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         TextPendingRecord& entry = gTextPendingRecords[static_cast<std::size_t>(initialCountBits)];
         entry.x = static_cast<std::int16_t>(context->field130);
         entry.y = static_cast<std::int16_t>(context->field134);
-        entry.renderMode = context->field138[0];
+        entry.renderMode = static_cast<std::uint8_t>(context->field138);
         entry.color = static_cast<std::uint8_t>(context->field140);
         entry.fontType = static_cast<std::uint8_t>(context->field13C);
         entry.value7 = 0;
@@ -81,16 +69,17 @@ void DrawInputText_4568A0(input::InputContext* const context)
             }
         }
         entry.nextToken = 0;
-        const std::size_t modeIndex = static_cast<std::size_t>(ReadRenderMode(*context));
+        // 原456BED/456C0B/456C2F分别读取完整W32模式，不能共用入口快照。
+        const std::size_t modeIndex = static_cast<std::size_t>(context->field138);
         const std::uint32_t tailToken = gGraphicCache4Queue[modeIndex];
         const std::uint32_t currentToken = initialCountBits + 1U;
         if (tailToken == 0) {
             gGraphicCache4Queue[modeIndex] = currentToken;
-            const std::size_t layerModeIndex = static_cast<std::size_t>(ReadRenderMode(*context));
+            const std::size_t layerModeIndex = static_cast<std::size_t>(context->field138);
             static_cast<void>(QueueText_521A30(currentToken, gTextFontLayerRecords[layerModeIndex].layer));
         } else {
             gTextPendingRecords[static_cast<std::size_t>(tailToken - 1U)].nextToken = currentToken;
-            const std::size_t tailModeIndex = static_cast<std::size_t>(ReadRenderMode(*context));
+            const std::size_t tailModeIndex = static_cast<std::size_t>(context->field138);
             gGraphicCache4Queue[tailModeIndex] = platform::gPendingGraphicCount2 + 1U;
         }
         ++platform::gPendingGraphicCount2;

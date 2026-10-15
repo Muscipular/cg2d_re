@@ -45,14 +45,6 @@ static_assert(offsetof(CANDIDATELIST, dwPageStart) == 0x10);
 static_assert(offsetof(CANDIDATELIST, dwPageSize) == 0x14);
 static_assert(offsetof(CANDIDATELIST, dwOffset) == 0x18);
 
-std::uint32_t ReadField138Bits(
-    const input::InputContext& context) noexcept
-{
-    std::uint32_t bits = 0;
-    std::memcpy(&bits, context.field138, sizeof(bits));
-    return bits;
-}
-
 const CANDIDATELIST* CurrentCandidateList() noexcept
 {
     return static_cast<const CANDIDATELIST*>(platform::gImeCandidateList);
@@ -193,9 +185,9 @@ void RenderInput_4590E0()
         || context == nullptr) {
         return;
     }
-    const std::uint32_t field138Bits = ReadField138Bits(*context);
-    const std::uint8_t baseLayer = field138Bits == 0U ? 0xD2U : 0xE0U;
-    const std::uint8_t compositionModeByte = context->field138[0];
+    const std::int32_t renderMode = context->field138;
+    const std::uint8_t baseLayer = renderMode == 0 ? 0xD2U : 0xE0U;
+    const std::uint8_t compositionModeByte = static_cast<std::uint8_t>(context->field138);
     const std::int32_t compositionFontType = context->field13C;
     const std::int8_t compositionMode = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(compositionModeByte + 1U));

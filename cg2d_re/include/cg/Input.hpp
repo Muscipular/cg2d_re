@@ -23,7 +23,7 @@ struct InputFields {
     std::int32_t totalByteLength; // 原成员偏移：+0x12C。
     std::int32_t field130; // 原成员偏移：+0x130。
     std::int32_t field134; // 原成员偏移：+0x134。
-    std::uint8_t field138[4]; // 原成员偏移：+0x138。
+    std::int32_t field138; // 32位渲染模式；原成员偏移：+0x138，绘制边界取低8位。
     std::int32_t field13C; // 原成员偏移：+0x13C。
     std::int32_t field140; // 原成员偏移：+0x140。
     std::int32_t maxLine; // 原成员偏移：+0x144。
@@ -55,7 +55,7 @@ public:
     std::int32_t& totalByteLength; // 原+0x12C；长度单位与当前输入存储一致。
     std::int32_t& field130; // 原成员偏移：+0x130。
     std::int32_t& field134; // 原成员偏移：+0x134。
-    std::uint8_t (&field138)[4]; // 原成员偏移：+0x138。
+    std::int32_t& field138; // 32位渲染模式；原成员偏移：+0x138，引用自身数值存储。
     std::int32_t& field13C; // 原成员偏移：+0x13C。
     std::int32_t& field140; // 原成员偏移：+0x140。
     std::int32_t& maxLine; // 原成员偏移：+0x144。

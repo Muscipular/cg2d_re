@@ -228,8 +228,8 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             WindowInstance* const window = gCurrentWindow;
             const char* const name = skill->name.data();
             static_cast<WindowTextData*>(window->elements[row + 31].data)->text = cg::text::FromGbkWide(name);
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 31].data)->bytes00[0] = std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->bytes00[0] = std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 31].data)->style.color = std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->style.color = std::byte{0};
             gCurrentWindow->elements[row + 17].visible = 0;
             if (result->value00 != 0) {
                 gCurrentWindow->elements[row + 17].visible = 1;

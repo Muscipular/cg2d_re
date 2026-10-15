@@ -884,9 +884,9 @@ static void WindowShop_RefreshBuyRows()
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = cg::text::FromGbkWide(record + 0xC44);
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -899,8 +899,8 @@ static void WindowShop_RefreshBuyRows()
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
@@ -910,7 +910,7 @@ static void WindowShop_RefreshBuyRows()
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 4;
             gCurrentWindow->elements[row + 27].visible = 1;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = kShopUnavailableHint586BF4;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
                 std::byte{4};
         }
     }
@@ -1005,9 +1005,9 @@ static void WindowShop_RefreshSellRows()
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = cg::text::FromGbkWide(record + 0xC44);
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1021,8 +1021,8 @@ static void WindowShop_RefreshSellRows()
             record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
@@ -1036,7 +1036,7 @@ static void WindowShop_RefreshSellRows()
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 6;
             gCurrentWindow->elements[row + 27].visible = 1;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊無法販賣";
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
                 std::byte{6};
         }
     }
@@ -1133,9 +1133,9 @@ static void WindowShop_RefreshExchangeRows()
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = cg::text::FromGbkWide(record + 0xC44);
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1148,8 +1148,8 @@ static void WindowShop_RefreshExchangeRows()
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
@@ -1162,7 +1162,7 @@ static void WindowShop_RefreshExchangeRows()
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 7;
             gCurrentWindow->elements[row + 27].visible = 1;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊你的數量不夠加工";
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
                 std::byte{4};
         }
     }

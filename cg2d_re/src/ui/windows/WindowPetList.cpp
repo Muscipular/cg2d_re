@@ -707,7 +707,7 @@ static void WindowPetList_Refresh()
         const std::int16_t colorIndex = petIndex();
         WindowInstance* const colorWindow = gCurrentWindow;
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
-        static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
+        static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->style.color =
             colorState == 3 ? std::byte{7} : std::byte{0};
         cg::text::FormatTo(buffer, L"{:3}", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
         copyNumber(textBase + 1);

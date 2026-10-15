@@ -171,7 +171,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
     if (status == 0) {
         data->text = L"離線" /* 原常量参考：0x0058743C。 */;
         const std::int32_t currentStatus = login::detail::ReadGuildStatus10514AC();
-        data->bytes00[0] = static_cast<std::byte>(
+        data->style.color = static_cast<std::byte>(
             gLoginWindowRuntime.mailGuildColorsD6784C[currentStatus]);
     } else {
         std::int32_t server = login::gValue55A054;
@@ -179,7 +179,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
             server -= 25;
         }
         cg::text::FormatTo(data->text, L"{}{}" /* 原常量参考：0x005598F0。 */, kMailGuildStatusText56F0AC.prefixes[server], kMailGuildStatusText56F0AC.Suffix(status));
-        data->bytes00[0] = static_cast<std::byte>(gLoginWindowRuntime.mailGuildColorsD6784C[1]);
+        data->style.color = static_cast<std::byte>(gLoginWindowRuntime.mailGuildColorsD6784C[1]);
     }
 }
 
@@ -192,7 +192,7 @@ void WindowMail_WriteContactStatus(
     if (status == 0) {
         data->text = L"離線" /* 原常量参考：0x0058743C。 */;
         const std::int16_t currentStatus = record.ReadStatus();
-        data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
+        data->style.color = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
     } else {
         std::int32_t server = login::gValue55A054;
         if (server >= 25) {
@@ -203,7 +203,7 @@ void WindowMail_WriteContactStatus(
         if (record.ReadStatus() == 10) {
             cg::text::FormatTo(data->text, L"逆-{}" /* 原常量参考：0x00587434。 */, prefix);
         }
-        data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[1]);
+        data->style.color = static_cast<std::byte>(kMailStatusColors56F09C[1]);
     }
 }
 

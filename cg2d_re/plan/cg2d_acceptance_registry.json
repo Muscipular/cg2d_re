@@ -191062,5 +191062,35 @@
     "remaining_warning_scope": "既有C4701/C4703未初始化路径警告保留，本轮不补默认值或抑制。",
     "runtime": "未运行、测试或部署",
     "ledger_validation": "-Check仅报两份既有外部键盘历史附件缺失，未写派生文件；不计全量台账通过。"
+  },
+  "ui_text_style_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md",
+    "scope": "WindowTextData/WindowTextPrototype的前4字节改为共享WindowTextStyle；类型用途具名化，不改业务或原函数验收状态。",
+    "ida_evidence": {
+      "color_read": "0x00472C35",
+      "font_read": "0x00472C3C",
+      "text_pointer_store": "0x00471689",
+      "text_pointer_load_for_release": "0x00471347",
+      "text_pointer_release": "0x0047134F"
+    },
+    "layout": {
+      "size_bytes": 4,
+      "alignment_bytes": 1,
+      "color_offset": 0,
+      "font_offset": 1,
+      "reserved_offsets": [
+        2,
+        3
+      ]
+    },
+    "changed_cpp_count": 19,
+    "renamed_field_accesses": 55,
+    "static_validation": "CPP差异仅为bytes00[0/1]改为style.color/font；初始化、转换、原地址与函数行号保持；源码无旧字段残留。",
+    "build": "build.bat Debug",
+    "runtime": "未运行、测试或部署",
+    "build_exit_code": 0,
+    "layout_assertions": "编译通过，大小4B、对齐1B及字段偏移0/1/2/3成立。",
+    "remaining_warnings": "既有C4701/C4703未初始化路径警告保留。",
+    "ledger_validation": "-Check仍仅报两份既有外部键盘历史附件缺失，未写派生文件。"
   }
 }

@@ -147,7 +147,7 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
             text->text = cg::text::FromGbkWide(names[offset + row]);
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->style.color =
                 static_cast<std::byte>(color);
             names = gTextChoiceNamesD30130;
         }

@@ -836,7 +836,7 @@ void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::in
 
 void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents)
 {
-    const auto font = std::to_integer<std::uint8_t>(first->bytes00[1]);
+    const auto font = std::to_integer<std::uint8_t>(first->style.font);
     const auto rows = render::Font::split(contents, font, 20 * render::gFontMetrics[font].sWidth);
     const std::size_t prefix = rows.front().size();
     first->text = contents.substr(0, prefix);
@@ -2106,7 +2106,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     auto* const nameData = static_cast<WindowTextData*>(nameElement->data);
     const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
     nameData->text = cg::text::FromGbkWide(name);
-    const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->bytes00[1]);
+    const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->style.font);
     const std::wstring& nameText = nameData->text;
     const std::int32_t nameWidth = login::detail::TextMeasure(nameText, nameFont);
     nameElement->x = state->elements00[1]->x - nameWidth / 2 + 101;
@@ -2116,7 +2116,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
     cg::text::FormatTo(weightData->text, L"負重:{:3}/{:3}", weight, maximumWeight);
     const std::wstring& weightText = weightData->text;
-    const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->bytes00[1]);
+    const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->style.font);
     const std::int32_t weightWidth = login::detail::TextMeasure(weightText, weightFont);
     weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;
 }
@@ -4691,8 +4691,8 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                     std::wstring text;
                     WindowInput_FormatSkillSlotCount(text);
                     if (data->text == L"10/10") { data->text = text; }
-                    data->bytes00[0] = original->bytes00[0];
-                    data->bytes00[1] = original->bytes00[1];
+                    data->style.color = original->style.color;
+                    data->style.font = original->style.font;
                 }
                 element->data = data;
                 break;
@@ -5168,9 +5168,9 @@ void WindowRuntime_DrawCurrent()
 
                     const std::int32_t drawY = y - element->height;
                     const auto color = std::bit_cast<std::int8_t>(
-                        std::to_integer<std::uint8_t>(data->bytes00[0]));
+                        std::to_integer<std::uint8_t>(data->style.color));
                     const auto font = std::bit_cast<std::int8_t>(
-                        std::to_integer<std::uint8_t>(data->bytes00[1]));
+                        std::to_integer<std::uint8_t>(data->style.font));
                     const std::int32_t drawX = x - element->width;
                     static_cast<void>(render::DrawText2_456670(
                         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),

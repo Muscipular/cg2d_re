@@ -345,14 +345,14 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
         WindowElement* const mainElements = gCurrentWindow->elements;
         auto* const mainText = static_cast<WindowTextData*>(mainElements[11].data);
         mainText->text = gHoverTextD68AE8;
-        mainText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
+        mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
         if (gHoverTitleD68BF4.size() != 0) {
             gCurrentWindow->elements[12].visible = 1;
         }
         WindowElement* const titleElements = gCurrentWindow->elements;
         auto* const titleText = static_cast<WindowTextData*>(titleElements[12].data);
         titleText->text = gHoverTitleD68BF4;
-        titleText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
+        titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
         for (std::int32_t index = 1; index <= 7; ++index) {
             gCurrentWindow->elements[index].visible = 0;
         }

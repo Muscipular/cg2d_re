@@ -148,7 +148,7 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
         const char* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
             cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text, L"           {}", cg::text::FromGbkWide(name).c_str());
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->style.color =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
             gCurrentWindow->elements[row + 4].visible = 1;
             const std::int32_t imageIndex = WindowItem_HealthImageLevel(gStatusChoiceRecordsCB03D0[offset + row].injury);

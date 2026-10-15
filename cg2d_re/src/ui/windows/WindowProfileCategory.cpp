@@ -218,7 +218,7 @@ static void WindowProfileCategory_Refresh()
                 gCurrentWindow->elements[textIndex].visible = 1;
                 gCurrentWindow->elements[textIndex + 79].visible = 1;
                 static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->text = cg::text::FromGbkWide(record.text0C.data());
-                static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->bytes00[0] =
+                static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->style.color =
                     record.selected10C != 0 ? std::byte{0} : std::byte{7};
             } else {
                 gCurrentWindow->elements[textIndex].visible = 0;

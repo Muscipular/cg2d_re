@@ -240,7 +240,7 @@ static std::uint32_t WindowPetDetail_Refresh()
             const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
             const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(cg::text::FromGbkWide(name)) != 0;
             auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-            data->bytes00[0] = changed ? std::byte{6} : std::byte{0};
+            data->style.color = changed ? std::byte{6} : std::byte{0};
         }
         const auto& compared = selectedPet();
         const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();

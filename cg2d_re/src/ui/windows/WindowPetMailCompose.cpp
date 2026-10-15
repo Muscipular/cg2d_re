@@ -354,7 +354,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         unavailable = WindowPetMailCompose_HasGiftItem(secondPet) != 0;
     }
     auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
-    colorData->bytes00[0] = unavailable ? std::byte{7} : std::byte{0};
+    colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
     const bool hasItem = gLoginWindowRuntime.prefixD2F0B8.value0C != -1;
     gCurrentWindow->elements[4].visible = 0;
     if (hasItem) {

@@ -188,7 +188,7 @@ static void WindowOwnProfile_RefreshEntry(
             color = saved.value04 != 0 && currentValue != 0 ? std::byte{0} : std::byte{7};
         }
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[element].data)->bytes00[0] = color;
+    static_cast<WindowTextData*>(gCurrentWindow->elements[element].data)->style.color = color;
 }
 
 // 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
@@ -263,7 +263,7 @@ static void WindowOwnProfile_Refresh()
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index].data)->style.color = color;
         }
     }
     const std::int32_t changed = world::detail::Sub_533B00();

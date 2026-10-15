@@ -428,7 +428,7 @@ static void WindowPlayerTitles_Refresh()
         draftData->text = gTitleDraftD45FC0;
         const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2))) == 0;
         auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
-        colorData->bytes00[0] = unchanged ? std::byte{0} : std::byte{6};
+        colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
         gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
         gCurrentWindow->elements[8].visible = 0;

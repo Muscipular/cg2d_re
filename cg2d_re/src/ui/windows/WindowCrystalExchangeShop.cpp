@@ -401,9 +401,9 @@ static void WindowCrystalExchangeShop_RefreshRows()
         item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if ((item->flags & 0x100u) != 0) {
             buffer = cg::text::FromGbkWide(item->tips.data());
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->style.color =
                 std::byte{5};
         } else {
             const std::int32_t stack = item->valueC2C;
@@ -415,8 +415,8 @@ static void WindowCrystalExchangeShop_RefreshRows()
             const std::uint32_t flags =
                 gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row].flags;
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->style.color = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->style.color = color;
         }
         WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data), buffer);
     }

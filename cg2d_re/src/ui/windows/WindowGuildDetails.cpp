@@ -341,7 +341,7 @@ static void WindowGuildDetails_RefreshEditor()
         text->text = cg::text::FromGbkWide(gGuildDraftCF4018.name604.data());
         const bool changed = std::strcmp(gGuildDraftCF4018.name604.data(),
             login::detail::BorrowGuildName10514BC()) != 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->bytes00[0] =
+        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool nameChanged = std::strcmp(gGuildDraftCF4018.name604.data(),
@@ -364,7 +364,7 @@ static void WindowGuildDetails_RefreshEditor()
         text->text = cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data());
         const bool changed = std::strcmp(gGuildDraftCF4018.secondText634.data(),
             login::detail::BorrowGuildSecondText10514E5()) != 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->bytes00[0] =
+        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool secondChanged = std::strcmp(gGuildDraftCF4018.secondText634.data(),
@@ -387,7 +387,7 @@ static void WindowGuildDetails_RefreshEditor()
         const std::int32_t rank = gGuildPageD67B78 + row;
         auto* const text = static_cast<WindowTextData*>(window->elements[row + 11].data);
         const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
-        text->bytes00[0] = changed != 0 ? std::byte{6} : std::byte{0};
+        text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
     }
     const std::int32_t changed = WindowGuildDetails_HasChangedRanks();
     gCurrentWindow->elements[72].visible = changed;

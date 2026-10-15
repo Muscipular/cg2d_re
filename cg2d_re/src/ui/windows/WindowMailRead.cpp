@@ -303,7 +303,7 @@ static std::uint32_t WindowMailRead_Refresh()
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *borrowCurrent().kind01;
             auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
-            color->bytes00[0] = kind == std::byte{0} ? std::byte{4} : std::byte{0};
+            color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
             const char* const text = borrowCurrent().text14;
             static_cast<void>(input::ExtractGbkTextLine(buffer, text, row, 28));
             auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);

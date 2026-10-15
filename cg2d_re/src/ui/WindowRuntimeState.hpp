@@ -80,11 +80,25 @@ struct WindowAnimationData {
     std::uint32_t value04; // 原成员偏移：+0x04。
 };
 
+// 文本实例与原型共用的4B样式；原472C35读颜色、472C3C读字体，不含指针。
+struct WindowTextStyle {
+    std::byte color; // 原成员偏移：+0x00；颜色索引，按原位型消费。
+    std::byte font; // 原成员偏移：+0x01；字体编号。
+    std::byte reserved02; // 原成员偏移：+0x02；保留字节。
+    std::byte reserved03; // 原成员偏移：+0x03；保留字节。
+};
+static_assert(sizeof(WindowTextStyle) == 4);
+static_assert(alignof(WindowTextStyle) == 1);
+static_assert(offsetof(WindowTextStyle, color) == 0);
+static_assert(offsetof(WindowTextStyle, font) == 1);
+static_assert(offsetof(WindowTextStyle, reserved02) == 2);
+static_assert(offsetof(WindowTextStyle, reserved03) == 3);
+
 // 原第3类元素的8B载荷；文本由47167F分配，47134F释放。
 // UTL02：动态UTF-16正文；原256B私有容量退休，协议/资源模型另行承载。
 struct WindowTextData {
-    std::array<std::byte, 4> bytes00; // 原成员偏移：+0x00。
-    std::wstring text; // 原成员偏移：+0x04；UTL02动态UTF-16正文。
+    WindowTextStyle style; // 原成员偏移：+0x00。
+    std::wstring text; // 原x86成员偏移：+0x04（文本指针）；UTL02动态UTF-16正文，当前按原生对齐。
 };
 
 // 原type4的12B鼠标载荷；滚动回调与元素命中共用，不含地址。
@@ -552,11 +566,11 @@ login::YobiAction* WindowDialog_Open(
 
 // UTL02：原型与实例各自拥有动态UTF-16正文，复制使用宽字符串赋值。
 struct WindowTextPrototype {
-    std::array<std::byte, 4> bytes00; // 原成员偏移：+0x00。
-    std::wstring text; // 原成员偏移：+0x04；UTL02拥有UTF-16原型正文。
+    WindowTextStyle style; // 原成员偏移：+0x00。
+    std::wstring text; // 原x86成员偏移：+0x04（文本指针）；UTL02拥有UTF-16原型正文，当前按原生对齐。
     WindowTextPrototype() = default;
-    WindowTextPrototype(std::array<std::byte, 4> bytes, std::wstring_view wide)
-        : bytes00(bytes), text(wide) {}
+    WindowTextPrototype(WindowTextStyle styleValue, std::wstring_view wide)
+        : style(styleValue), text(wide) {}
 };
 
 // 原元素+18按type解释；type0/5/6当前原型值为0且471440不消费。

@@ -45,7 +45,7 @@ extern std::int32_t gVersionMinor;    // 原 0x9A7F5C。
 extern std::int32_t gVersionPatch;    // 原 0x9A7F60。
 
 // 原函数：0x00465A80。
-int ReadSetupIni();                       // 原 0x465A80。
+// int ReadSetupIni();                       // 原 0x465A80。
 // 原函数：0x004659F0。
 int ParseClientVersion();                 // 原 0x4659F0。
 // 原函数：0x00465A20。

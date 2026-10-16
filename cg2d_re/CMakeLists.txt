@@ -52,8 +52,7 @@ add_library(cg2d_re_startup STATIC
     src/render/RendererRebuild.cpp
     src/platform/StartupState.cpp
     src/platform/StartupCommon.cpp
-    src/platform/SetupIni.cpp
-    src/platform/CommandOptions.cpp
+        src/platform/CommandOptions.cpp
     src/platform/WindowLifecycle.cpp
     src/platform/WindowProcedure.cpp
     src/platform/ImeLifecycle.cpp

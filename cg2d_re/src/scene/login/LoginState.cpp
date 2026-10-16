@@ -210,7 +210,7 @@ std::int32_t Sub_508360()
             char adapterScratch[16];
             char accountCopy[44];
             char adapterId[44];
-            static_cast<void>(platform::Sub_534EF0(adapterScratch));
+            static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
             std::strcpy(accountCopy, gValueDA38DC);
             std::strcpy(adapterId, adapterScratch);
             std::strcpy(gValueDA38DC, accountCopy);

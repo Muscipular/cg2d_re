@@ -336,7 +336,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     }
 
     CaptureDesktopColor();
-    ReadSetupIni();
     ParseClientVersion();
     CreateSaveDirectories();
     cg::login::detail::InitializeSavedState_533300();

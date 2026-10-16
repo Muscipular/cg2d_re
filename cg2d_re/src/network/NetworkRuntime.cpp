@@ -289,7 +289,7 @@ static std::int32_t ReceiveProtocolLine(
 
         const auto available = static_cast<std::size_t>(gNetworkRuntimeState.receiveLengthD69790);
         if (!state.frame.empty()) {
-            const std::size_t count = std::min(available, state.frame.size() - state.frameBytes);
+            const std::size_t count = std::min<std::size_t>(available, state.frame.size() - state.frameBytes);
             std::memcpy(state.frame.data() + state.frameBytes, receive, count);
             state.frameBytes += count;
             static_cast<void>(ConsumeReceiveQueue_508230(static_cast<std::int32_t>(count)));

@@ -15,7 +15,7 @@ struct LegacyTextureDevice;
 // 原 RECT 的四项 S32，顺序为 left/top/right/bottom；缓存使用同一数值顺序。
 using TextureRectangle = std::array<std::int32_t, 4>;
 
-// R03/R04：完整图像使用自身实际纹理尺寸计算UV，不借用节点池的64×48尺寸。
+// R03/R04／GRT01：整图源矩形直接交给 GPU 缩放、翻转与混合。
 std::int32_t RenderImageTexture(
     TextureSurface* surface, const TextureRectangle& source,
     const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color);
@@ -27,7 +27,7 @@ struct ColorVertex {
     std::uint32_t color; // 0xAARRGGBB。
 };
 
-// 裁剪到实际Back；共用现有ARGB行面，不改变纹理绑定和混合字段。
+// 裁剪到实际 GPU Back，不改变 legacy 纹理绑定和混合字段。
 std::int32_t RenderColorTriangles(
     std::span<const ColorVertex> vertices, const TextureRectangle& clipRectangle);
 std::int32_t RenderColorRectangle(const TextureRectangle& rectangle, std::uint32_t color);
@@ -60,16 +60,26 @@ enum class LegacyTextureBlend : std::uint32_t {
     InverseSourceAlpha = 6
 };
 
+// GRT01：后端唯一 GPU Back；保持队列提交顺序，CPU 消费者显式同步。
+bool DrawGpuTexture(
+    TextureSurface* surface, const std::array<float, 4>& source,
+    const std::array<float, 4>& destination, std::uint32_t color,
+    LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend) noexcept;
+bool DrawGpuTriangles(std::span<const ColorVertex> vertices, const TextureRectangle& clip) noexcept;
+bool ClearGpuBack(std::uint32_t color) noexcept;
+bool SynchronizeBackToCpu() noexcept;
+void MarkCpuBackModified() noexcept;
+
 // 只读借用 RendererResources 的唯一成员，不补空 owner 或默认能力。
 const LegacyTextureState& GetLegacyTextureState();
 // 原 dwStage@62A648；由 Init 探测后发布，销毁不重置。
 extern std::uint32_t gLegacyTextureStage;
 
-// 私有 native 设备拥有单行 scratch 和绑定引用，借用 Back；不能替代 +9C 接口。
+// 私有 native 设备持有绑定引用和场景状态，借用 Back；不能替代 +9C 接口。
 LegacyTextureDevice* CreateLegacyTextureDevice(
     const SDL_PixelFormatDetails* format, SDL_Surface* back) noexcept;
 void DestroyLegacyTextureDevice(LegacyTextureDevice* device) noexcept;
-// 查询真实 scratch 格式；配置对应 Init 的色键、固定管线和 viewport 阶段。
+// 查询 ARGB 上传格式；配置对应 Init 的透明度与 viewport 阶段。
 const SDL_PixelFormatDetails* GetLegacyTextureDeviceFormat(LegacyTextureDevice* device) noexcept;
 [[nodiscard]] bool EnableLegacyTextureColorKey(LegacyTextureDevice* device) noexcept;
 [[nodiscard]] bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* device) noexcept;
@@ -79,7 +89,7 @@ void ReleaseRendererTextureDevice() noexcept;
 // 独立 +9C 接口槽，设备释放之后、SDL presenter 之前释放。
 void ReleaseRendererTextureInterface() noexcept;
 LegacyTextureDevice* GetRendererTextureDevice() noexcept;
-// DrawAllQueued 的 native 场景边界；失败不改变入场状态，CPU 提交同步完成。
+// DrawAllQueued 的 native 场景边界；失败不改变入场状态，GPU 提交保持原顺序。
 std::int32_t BeginLegacyTextureScene(LegacyTextureDevice* device) noexcept;
 std::int32_t EndLegacyTextureScene(LegacyTextureDevice* device) noexcept;
 // 原 native Set/GetTexture 边界；查询成功返回的一份引用须 ReleaseTextureSurface。
@@ -88,7 +98,7 @@ std::int32_t BindLegacyTexture(
 std::int32_t QueryLegacyTexture(
     LegacyTextureDevice* device, std::uint32_t stage, TextureSurface** surface) noexcept;
 
-// 三个入口共用矩形四顶点提交；F32 UV 保留到 POINT/WRAP 采样，再由 SDL 混合写 Back。
+// legacy 四顶点适配为 GPU 源／目标矩形，不再执行 CPU POINT/WRAP 采样。
 // 顺序为 source blend、destination blend、按共享 stage 绑面、绘制。
 // 前三段失败不成为额外门禁；同步借用顶点并透传最后的完整 W32 状态。
 std::int32_t SubmitLegacyTextureFan(

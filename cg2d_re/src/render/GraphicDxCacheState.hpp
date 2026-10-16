@@ -6,6 +6,8 @@
 #include <type_traits>
 
 struct SDL_Surface;
+struct SDL_Texture;
+struct SDL_Renderer;
 
 namespace cg::render {
 
@@ -30,6 +32,10 @@ TextureSurface* CreatePlainTextureSurface_44C8B0(
 TextureSurface* RetainTextureSurface(TextureSurface* surface) noexcept;
 void ReleaseTextureSurface(TextureSurface* surface) noexcept;
 SDL_Surface* GetTextureSdlSurface(TextureSurface* surface) noexcept;
+// GRT01：CPU 内容变化才重传；GPU 纹理归同一表面所有，renderer 销毁前统一释放。
+void MarkTextureSurfaceModified(TextureSurface* surface) noexcept;
+SDL_Texture* GetTextureGpuTexture(TextureSurface* surface, SDL_Renderer* renderer) noexcept;
+void ReleaseRendererGpuTextures(SDL_Renderer* renderer) noexcept;
 
 // 设备绑定的一份独立持有；缓存中的原生 T* 仍不拥有资源。
 class TextureSurfaceBinding final {
@@ -50,7 +56,8 @@ private:
     TextureSurface* surface_ {};
 };
 
-// 原 0x1C 节点的 x64 字段承载；surface 和 next 仅为非拥有引用。
+// 原 0x1C 节点的 x64 字段承载；GRT01 每图一个节点，blockX/Y 为零、next 为空。
+// surface 和 next 仅为非拥有引用，表面仍由统一 owner 管理。
 struct TextureNode {
     TextureSurface* surface;       // 原 +00：底层 surface 引用，reset 不写。
     std::int32_t imageNo;          // 原 +04：-1 表示解绑。

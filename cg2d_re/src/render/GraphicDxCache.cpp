@@ -1,4 +1,5 @@
 #include "GraphicDxCacheState.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/text/Encoding.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "PngImageInternal.hpp"
@@ -25,6 +26,7 @@
 #include <Windows.h>
 
 #include <SDL3/SDL_surface.h>
+#include <SDL3/SDL_render.h>
 
 #include <algorithm>
 #include <bit>
@@ -49,6 +51,11 @@ struct TextureSurface {
     std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> blitSurface {
         nullptr, SDL_DestroySurface
     };
+    std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> gpuTexture {
+        nullptr, SDL_DestroyTexture
+    };
+    SDL_Renderer* gpuRenderer {}; // 非拥有；销毁 renderer 前清除关联纹理。
+    bool gpuDirty = true;
     TextureSurface* nextOwned {};
     TextureSurface* previousOwned {};
 };
@@ -123,11 +130,36 @@ public:
         delete surface;
     }
 
+    void ReleaseGpuTextures(SDL_Renderer* const renderer) noexcept
+    {
+        for (TextureSurface* surface = head_; surface != nullptr; surface = surface->nextOwned) {
+            if (surface->gpuRenderer == renderer) {
+                surface->gpuTexture.reset();
+                surface->gpuRenderer = nullptr;
+                surface->gpuDirty = true;
+            }
+        }
+    }
+
 private:
     TextureSurface* head_ {};
 };
 
 TextureSurfaceOwner gTextureSurfaceOwner;
+
+// GRT01：沿用旧 4096 个 64×48 节点对应的像素预算，缓存按整图占用回收。
+constexpr std::size_t kGraphicTexturePixelBudget = kTextureNodeCapacity * 64u * 48u;
+std::size_t gGraphicTexturePixels = 0;
+
+void ReleaseGraphicNodeSurface(TextureNode& node) noexcept
+{
+    if (node.surface != nullptr) {
+        gGraphicTexturePixels -= static_cast<std::size_t>(node.surface->width) * node.surface->height;
+        gTextureSurfaceOwner.Release(node.surface);
+        node.surface = nullptr;
+    }
+}
+
 
 // 原 28B 栈键只拓宽首项地址；未参与比较的原 +0A/+0B 不作为新键。
 struct SurfaceTransformKey {
@@ -263,6 +295,31 @@ SDL_Surface* GetTextureSdlSurface(TextureSurface* const surface) noexcept
     return surface == nullptr ? nullptr : surface->blitSurface.get();
 }
 
+void MarkTextureSurfaceModified(TextureSurface* const surface) noexcept
+{
+    surface->gpuDirty = true;
+}
+
+SDL_Texture* GetTextureGpuTexture(TextureSurface* const surface, SDL_Renderer* const renderer) noexcept
+{
+    if (surface->gpuDirty || surface->gpuRenderer != renderer) {
+        // SDL 在上传时处理源色键；保持未变图像的 GPU 缓存，字形／调色板更新才重新上传。
+        surface->gpuTexture.reset(SDL_CreateTextureFromSurface(renderer, surface->blitSurface.get()));
+        surface->gpuRenderer = renderer;
+        if (surface->gpuTexture == nullptr
+            || !SDL_SetTextureScaleMode(surface->gpuTexture.get(), SDL_SCALEMODE_NEAREST)) {
+            return nullptr;
+        }
+        surface->gpuDirty = false;
+    }
+    return surface->gpuTexture.get();
+}
+
+void ReleaseRendererGpuTextures(SDL_Renderer* const renderer) noexcept
+{
+    gTextureSurfaceOwner.ReleaseGpuTextures(renderer);
+}
+
 TextureSurfaceBinding::~TextureSurfaceBinding()
 {
     ReleaseTextureSurface(surface_);
@@ -353,7 +410,7 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
     std::memcpy(&height, &resource::gCurrentGraphicHeight, sizeof(height));
     heightBase[static_cast<std::size_t>(imageNo)].height = height;
     TakeGraphicDxCache_5222D0(imageNo, nullptr);
-    return 1;
+    return gGraphicDxCache103CFA4[imageNo].head != nullptr ? 1 : 0;
 }
 
 std::int16_t ReadGraphicDxWidth(const std::int32_t imageNo) noexcept
@@ -388,102 +445,65 @@ std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept
 // 原函数：0x005222D0。
 void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*/)
 {
-    std::int32_t scan = gTextureScanIndex;
-    const std::int32_t scanStart = scan;
     const auto width = static_cast<std::int32_t>(resource::gCurrentGraphicWidth);
     const auto height = static_cast<std::int32_t>(resource::gCurrentGraphicHeight);
-    const std::int32_t columns = width / 64 + (width % 64 != 0 ? 1 : 0);
-    const std::int32_t rows = height / 48 + (height % 48 != 0 ? 1 : 0);
-    const std::int32_t required = columns * rows;
-    const std::uint32_t alignmentWidth = resource::gCurrentGraphicWidth;
-    if ((alignmentWidth & 3u) != 0) {
-        resource::gCurrentGraphicWidth =
-            alignmentWidth + ((0u - alignmentWidth) & 3u);
+    const std::size_t pixels = static_cast<std::size_t>(width) * height;
+    DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
+    if (pixels > kGraphicTexturePixelBudget) {
+        m_log("[render] graphic %d exceeds texture cache capacity: %dx%d\n", imageNo, width, height);
+        return;
     }
-
-    TextureNode* const oldHead = gGraphicDxCache103CFA4[imageNo].head;
-    if (oldHead != nullptr) {
-        TextureNode* old = oldHead;
-        do {
-            old->imageNo = -1;
-            old = old->next;
-        } while (old != nullptr);
-        gGraphicDxCache103CFA4[imageNo].head = nullptr;
-        scan = gTextureScanIndex;
-    }
-
-    TextureNode* previous = nullptr;
-    std::int32_t blockX = 0;
-    std::int32_t remainingHeight = height;
-    std::int32_t taken = 0;
-    for (;;) {
-        const std::uint32_t reuseThreshold = platform::gFrameCount - 2u;
-        const TextureNode& candidate = gTextureNodes[static_cast<std::size_t>(scan)];
-        if (candidate.reuseState < reuseThreshold) {
-            const std::int32_t previousImageNo = candidate.imageNo;
-            if (previousImageNo != -1) {
-                DxGraphicEntry& evicted = gGraphicDxCache103CFA4[previousImageNo];
-                TextureNode* old = evicted.head;
-                evicted.head = nullptr;
-                while (old != nullptr) {
-                    old->imageNo = -1;
-                    old = old->next;
-                }
-                scan = gTextureScanIndex;
-            }
-            DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
-            TextureNode* const selected = &gTextureNodes[static_cast<std::size_t>(scan)];
-            if (entry.head == nullptr) {
-                entry.head = selected;
-            } else {
-                previous->next = selected;
-            }
-            scan = gTextureScanIndex;
-            TextureNode& node = gTextureNodes[static_cast<std::size_t>(scan)];
-            node.paletteChoice = -1;
-            node.paletteVersion = -1;
-            node.paletteIndex = 0;
-            node.imageNo = imageNo;
-            node.blockX = static_cast<std::int16_t>(blockX);
-            node.blockY = static_cast<std::int16_t>(height - remainingHeight);
-            ++taken;
-            if (taken >= required) {
-                ++scan;
-                gTextureScanIndex = scan;
-                node.next = nullptr;
-                if (scan >= gTextureNodeCount) {
-                    gTextureScanIndex = 0;
-                }
-                if (width > 0 && (alignmentWidth & 3u) != 0) {
-                    resource::gCurrentGraphicWidth = alignmentWidth;
-                }
-                return;
-            }
-            previous = &node;
-            if (blockX < width - 64) {
-                blockX += 64;
-            } else {
-                blockX = 0;
-                remainingHeight -= 48;
-            }
+    const auto evict = [](TextureNode& node) {
+        if (node.imageNo != -1) {
+            DxGraphicEntry& previous = gGraphicDxCache103CFA4[node.imageNo];
+            if (previous.head == &node) { previous.head = nullptr; }
         }
-        const std::int32_t nodeCount = gTextureNodeCount;
-        ++scan;
-        gTextureScanIndex = scan;
-        if (scan >= nodeCount) {
-            scan = 0;
-            gTextureScanIndex = 0;
-        }
-        if (scan == scanStart) {
-            // 原 58D348 消息及 52253F 路径；不足时不清除部分链或补写尾 next。
-            const std::wstring message = L"图形表面不足。" + std::to_wstring(scan) + L'\n';
-            ::OutputDebugStringW(message.c_str());
-            if (width > 0 && (alignmentWidth & 3u) != 0) {
-                resource::gCurrentGraphicWidth = alignmentWidth;
-            }
-            return;
+        ReleaseGraphicNodeSurface(node);
+        node.imageNo = -1;
+        node.next = nullptr;
+    };
+    if (entry.head != nullptr) { evict(*entry.head); }
+    TextureNode* selected = nullptr;
+    const std::uint32_t reuseThreshold = platform::gFrameCount - 2u;
+    for (std::int32_t checked = 0; checked < gTextureNodeCount; ++checked) {
+        TextureNode& node = gTextureNodes[static_cast<std::size_t>(gTextureScanIndex)];
+        gTextureScanIndex = (gTextureScanIndex + 1) % gTextureNodeCount;
+        if (node.imageNo == -1 || node.reuseState < reuseThreshold) {
+            evict(node);
+            selected = &node;
+            break;
         }
     }
+    if (selected == nullptr) {
+        m_log("[render] graphic %d has no reusable texture cache entry\n", imageNo);
+        return;
+    }
+    for (std::int32_t checked = 0;
+         gGraphicTexturePixels + pixels > kGraphicTexturePixelBudget && checked < gTextureNodeCount;
+         ++checked) {
+        TextureNode& node = gTextureNodes[static_cast<std::size_t>(gTextureScanIndex)];
+        gTextureScanIndex = (gTextureScanIndex + 1) % gTextureNodeCount;
+        if (&node != selected && (node.imageNo == -1 || node.reuseState < reuseThreshold)) { evict(node); }
+    }
+    if (gGraphicTexturePixels + pixels > kGraphicTexturePixelBudget) {
+        m_log("[render] graphic %d cannot fit while recent textures are in use\n", imageNo);
+        return;
+    }
+    selected->surface = gTextureSurfaceOwner.Create(width, height, 0);
+    if (selected->surface == nullptr) {
+        m_log("[render] graphic %d surface allocation failed: %dx%d\n", imageNo, width, height);
+        return;
+    }
+    gGraphicTexturePixels += pixels;
+    selected->imageNo = imageNo;
+    selected->reuseState = platform::gFrameCount;
+    selected->blockX = 0;
+    selected->blockY = 0;
+    selected->paletteChoice = -1;
+    selected->paletteVersion = -1;
+    selected->paletteIndex = 0;
+    selected->next = nullptr;
+    entry.head = selected;
 }
 
 // 原函数：0x00520B10。
@@ -547,23 +567,9 @@ std::int32_t LoadGraphicTexture_520B10(
         resource::gGraphicDataBuffer = graphic->imageNo;
     }
 
-    const std::int32_t blockX = texture->blockX;
-    std::int32_t width = gTextureSizeW;
-    const std::int32_t graphicWidth = std::bit_cast<std::int16_t>(entry.width);
-    if (blockX + width > graphicWidth) {
-        width = graphicWidth - blockX;
-    }
-    const std::int32_t textureHeight = gTextureSizeH;
-    const std::int32_t blockY = texture->blockY;
-    const std::int32_t graphicHeight = std::bit_cast<std::int16_t>(entry.height);
-    std::int32_t height = textureHeight;
-    if (blockY + height > graphicHeight) {
-        height = graphicHeight - blockY;
-    }
-    const std::int32_t textureWidth = gTextureSizeW;
-    if (width < textureWidth || height < textureHeight) {
-        FillTextureBlack_451310(texture->surface);
-    }
+    // GRT01：每图只有一个实际尺寸表面，不上传小块或边缘 padding。
+    const std::int32_t width = std::bit_cast<std::int16_t>(entry.width);
+    const std::int32_t height = std::bit_cast<std::int16_t>(entry.height);
 
     std::int16_t paletteIndex;
     paletteIndex = graphic->descriptor.paletteIndex;
@@ -652,36 +658,8 @@ std::int32_t BuildSurfaceCache_5231A0()
         return 0;
     }
 
-    bool fallback = false;
-    std::int32_t completed = 0;
-    for (; completed < static_cast<std::int32_t>(kTextureNodeCapacity); ++completed) {
-        TextureNode& node = gTextureNodes[static_cast<std::size_t>(completed)];
-        if (!fallback) {
-            std::int16_t height;
-            std::memcpy(&height, &gTextureSizeH, sizeof(height));
-            std::int16_t width;
-            std::memcpy(&width, &gTextureSizeW, sizeof(width));
-            node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x4000);
-            if (node.surface != nullptr) {
-                ++gTexturePreferredCount;
-                continue;
-            }
-            fallback = true;
-        }
-
-        std::int16_t height;
-        std::memcpy(&height, &gTextureSizeH, sizeof(height));
-        std::int16_t width;
-        std::memcpy(&width, &gTextureSizeW, sizeof(width));
-        node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
-        if (node.surface == nullptr) {
-            platform::ShowWideMessage(L"建立绘图页失败" /* 原58D374「建立繪圖頁失敗」；正文14B，字面量隐式追加唯一NUL。 */, kSurfaceFailureCaption, 0x10);
-            return 0;
-        }
-        ++gTextureFallbackCount;
-    }
-
-    gTextureNodeCount = completed;
+    // GRT01：只初始化索引槽；真实尺寸的整图表面在首次加载时分配。
+    gTextureNodeCount = static_cast<std::int32_t>(kTextureNodeCapacity);
     ResetTextureNodes_523310();
     static_cast<void>(InvalidateGraphicRefs_523350());
     return 1;
@@ -690,6 +668,7 @@ std::int32_t BuildSurfaceCache_5231A0()
 // 原函数：0x00451310。
 void FillTextureBlack_451310(TextureSurface* const surface) noexcept
 {
+    MarkTextureSurfaceModified(surface);
     const std::size_t pixelCount =
         static_cast<std::size_t>(surface->width) * static_cast<std::size_t>(surface->height);
     std::fill_n(surface->pixels.get(), pixelCount, 0u);
@@ -709,27 +688,14 @@ std::int32_t BlitTextureToBack(
     if (((input->flags | back->flags) & SDL_SURFACE_LOCKED) != 0) {
         return surfaceBusy;
     }
-    const SDL_Rect sourceRect {
-        source[0], source[1], source[2] - source[0], source[3] - source[1]
-    };
-    const SDL_Rect destinationRect {
-        destination[0], destination[1],
-        destination[2] - destination[0], destination[3] - destination[1]
-    };
-    SDL_BlendMode previousBlend = SDL_BLENDMODE_NONE;
-    if (alphaBlend && (!SDL_GetSurfaceBlendMode(input, &previousBlend)
-        || !SDL_SetSurfaceBlendMode(input, SDL_BLENDMODE_BLEND))) {
-        return failure;
-    }
-    // 上层已按原分支裁剪；不在 native 边界重新改变矩形。
-    const bool copied = sourceRect.w == destinationRect.w && sourceRect.h == destinationRect.h
-        ? SDL_BlitSurfaceUnchecked(input, &sourceRect, back, &destinationRect)
-        : SDL_BlitSurfaceUncheckedScaled(
-            input, &sourceRect, back, &destinationRect, SDL_SCALEMODE_NEAREST);
-    if (alphaBlend && !SDL_SetSurfaceBlendMode(input, previousBlend)) {
-        return failure;
-    }
-    return copied ? 0 : failure;
+    const bool blend = alphaBlend || SDL_SurfaceHasColorKey(input);
+    return DrawGpuTexture(surface,
+        {static_cast<float>(source[0]), static_cast<float>(source[1]),
+         static_cast<float>(source[2]), static_cast<float>(source[3])},
+        {static_cast<float>(destination[0]), static_cast<float>(destination[1]),
+         static_cast<float>(destination[2]), static_cast<float>(destination[3])}, 0xFFFFFFFFu,
+        blend ? LegacyTextureBlend::SourceAlpha : LegacyTextureBlend::One,
+        blend ? LegacyTextureBlend::InverseSourceAlpha : LegacyTextureBlend::Zero) ? 0 : failure;
 }
 
 // 原函数：0x00450400。
@@ -739,6 +705,7 @@ void LoadTextureFromBuffer32_450400(
     const std::uint8_t* const source, const std::int32_t sourceWidth,
     const std::uint8_t* const palette) noexcept
 {
+    MarkTextureSurfaceModified(surface);
     if (resource::IsPngGraphicData(source)) {
         const auto readBe = [](const std::uint8_t* bytes) {
             return (static_cast<std::uint32_t>(bytes[0]) << 24)
@@ -807,8 +774,7 @@ void ReleaseTextureNodeSurfaces_44C408() noexcept
     for (;;) {
         TextureSurface* const surface = node->surface;
         if (surface != nullptr) {
-            gTextureSurfaceOwner.Release(surface);
-            node->surface = nullptr;
+            ReleaseGraphicNodeSurface(*node);
         }
         const std::int32_t currentCount = gTextureNodeCount;
         ++index;

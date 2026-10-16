@@ -33,10 +33,10 @@ bool BuildCpuSurfaceBuffers() noexcept;
 void DestroyCpuCacheSurfaces() noexcept;
 void DestroyCpuBackSurface() noexcept;
 
-// 非拥有视图只在 Back 生命周期内有效；未创建时返回空视图。
+// CPU 镜像的非拥有视图；GPU 绘制后像素消费者须先显式同步，未创建时返回空。
 std::span<const std::uint32_t> ReadCpuBackPixels() noexcept;
 
-// 原 4512C0：已创建的 Back 按当次完整 W32 背景色填充；无 Back 返回非零。
+// 原 4512C0／GRT01：GPU Back 按当次背景色清屏；失败返回非零。
 std::int32_t ClearSurface_4512C0() noexcept;
 
 // 原 452840：一次锁定同一 Back，按 world 活动链绘制 kind 1/2/3/4 后解锁。

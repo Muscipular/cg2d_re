@@ -18,9 +18,6 @@ namespace cg::render {
 
 struct LegacyTextureDevice {
     SDL_Surface* back; // 借用唯一 Back，设备必须先于 Back 销毁。
-    std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> row {
-        nullptr, SDL_DestroySurface
-    };
     std::array<TextureSurfaceBinding, 8> textures;
     LegacyTextureBlend sourceBlend {LegacyTextureBlend::One};
     LegacyTextureBlend destinationBlend {LegacyTextureBlend::Zero};
@@ -29,101 +26,25 @@ struct LegacyTextureDevice {
 
 namespace {
 
-constexpr double kTextureBias = 0.05F;
 constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 
-// POINT 后做 WRAP；先取 texel，避免微小负 UV 的小数部分舍入成 1。
-std::int32_t SampleWrappedCoordinate(const double uv, const std::int32_t extent)
-{
-    const auto texel = static_cast<std::int64_t>(std::floor(uv * extent));
-    const auto wrapped = texel % extent;
-    return static_cast<std::int32_t>(wrapped < 0 ? wrapped + extent : wrapped);
-}
-
+// GRT01：矩形只提交一次 GPU 绘制，CPU 不再逐像素计算 UV 或逐行混合。
 std::int32_t DrawTextureRectangle(
     LegacyTextureDevice& device, const std::array<LegacyTextureVertex, 4>& vertices)
 {
-    SDL_Surface* const input = GetTextureSdlSurface(device.textures[0].Get());
-    SDL_Surface* const back = device.back;
-    SDL_Surface* const row = device.row.get();
-    if (((back->flags | (input == nullptr ? 0u : input->flags)) & SDL_SURFACE_LOCKED) != 0) {
+    TextureSurface* const surface = device.textures[0].Get();
+    SDL_Surface* const input = GetTextureSdlSurface(surface);
+    if (((device.back->flags | (input == nullptr ? 0u : input->flags)) & SDL_SURFACE_LOCKED) != 0) {
         return kSurfaceBusy;
     }
-    if (!device.sceneActive) {
-        return kNativeFailure;
-    }
-
-    SDL_BlendMode blendMode;
-    if (device.sourceBlend == LegacyTextureBlend::One
-        && device.destinationBlend == LegacyTextureBlend::Zero) {
-        blendMode = SDL_BLENDMODE_NONE;
-    } else if (device.sourceBlend == LegacyTextureBlend::SourceAlpha
-        && device.destinationBlend == LegacyTextureBlend::InverseSourceAlpha) {
-        blendMode = SDL_BLENDMODE_BLEND;
-    } else if (device.sourceBlend == LegacyTextureBlend::One
-        && device.destinationBlend == LegacyTextureBlend::One) {
-        blendMode = SDL_BLENDMODE_ADD_PREMULTIPLIED;
-    } else {
-        return kNativeFailure;
-    }
-
-    const bool colorKeyEnabled = input != nullptr && SDL_SurfaceHasColorKey(input);
-    std::uint32_t colorKey = 0;
-    if (colorKeyEnabled && !SDL_GetSurfaceColorKey(input, &colorKey)) {
-        return kNativeFailure;
-    }
-    const std::uint32_t color = vertices[0].color;
-    if (!SDL_SetSurfaceColorKey(row, colorKeyEnabled, colorKey)
-        || !SDL_SetSurfaceColorMod(row,
-            static_cast<std::uint8_t>(color >> 16),
-            static_cast<std::uint8_t>(color >> 8),
-            static_cast<std::uint8_t>(color))
-        || !SDL_SetSurfaceAlphaMod(row, static_cast<std::uint8_t>(color >> 24))
-        || !SDL_SetSurfaceBlendMode(row, blendMode)) {
-        return kNativeFailure;
-    }
-
-    const auto left = std::max(0, static_cast<std::int32_t>(
-        std::ceil(std::min(vertices[0].x, vertices[1].x))));
-    const auto right = std::min(GetCpuSurfaceWidth(), static_cast<std::int32_t>(
-        std::ceil(std::max(vertices[0].x, vertices[1].x))));
-    const auto top = std::max(0, static_cast<std::int32_t>(
-        std::ceil(std::min(vertices[0].y, vertices[3].y))));
-    const auto bottom = std::min(GetCpuSurfaceHeight(), static_cast<std::int32_t>(
-        std::ceil(std::max(vertices[0].y, vertices[3].y))));
-    if (left >= right || top >= bottom) {
-        return 0;
-    }
-
-    const double width = static_cast<double>(vertices[1].x) - vertices[0].x;
-    const double height = static_cast<double>(vertices[3].y) - vertices[0].y;
-    const double deltaU = static_cast<double>(vertices[1].u) - vertices[0].u;
-    const double deltaV = static_cast<double>(vertices[3].v) - vertices[0].v;
-    const SDL_Rect sourceRect {0, 0, right - left, 1};
-    auto* const pixels = static_cast<std::uint32_t*>(row->pixels);
-    for (std::int32_t y = top; y < bottom; ++y) {
-        if (input != nullptr) {
-            const double v = vertices[0].v
-                + deltaV * ((static_cast<double>(y) - vertices[0].y) / height);
-            const std::int32_t sourceY = SampleWrappedCoordinate(v, input->h);
-            const auto* const sourceRow = reinterpret_cast<const std::uint32_t*>(
-                static_cast<const std::uint8_t*>(input->pixels) + sourceY * input->pitch);
-            for (std::int32_t x = left; x < right; ++x) {
-                const double u = vertices[0].u
-                    + deltaU * ((static_cast<double>(x) - vertices[0].x) / width);
-                pixels[x - left] = sourceRow[SampleWrappedCoordinate(u, input->w)];
-            }
-        } else {
-            // 无纹理时禁用纹理阶段，SDL 调制白色后得到完整 diffuse 色。
-            std::fill_n(pixels, sourceRect.w, 0xFFFFFFFFu);
-        }
-        const SDL_Rect destinationRect {left, y, sourceRect.w, 1};
-        if (!SDL_BlitSurfaceUnchecked(row, &sourceRect, back, &destinationRect)) {
-            return kNativeFailure;
-        }
-    }
-    return 0;
+    if (!device.sceneActive) { return kNativeFailure; }
+    const float width = input == nullptr ? 1.0f : static_cast<float>(input->w);
+    const float height = input == nullptr ? 1.0f : static_cast<float>(input->h);
+    return DrawGpuTexture(surface,
+        {vertices[0].u * width, vertices[0].v * height, vertices[1].u * width, vertices[3].v * height},
+        {vertices[0].x, vertices[0].y, vertices[1].x, vertices[3].y},
+        vertices[0].color, device.sourceBlend, device.destinationBlend) ? 0 : kNativeFailure;
 }
 
 // 原 __ftol 在 PC53 下先转 S64，caller 取低 W32；沿用既有局部承接。
@@ -181,11 +102,6 @@ LegacyTextureDevice* CreateLegacyTextureDevice(
         return nullptr;
     }
     device->back = back;
-    device->row.reset(SDL_CreateSurface(GetCpuSurfaceWidth(), 1, SDL_PIXELFORMAT_ARGB8888));
-    if (device->row == nullptr) {
-        delete device;
-        return nullptr;
-    }
     return device;
 }
 
@@ -218,12 +134,12 @@ std::int32_t EndLegacyTextureScene(LegacyTextureDevice* const device) noexcept
 const SDL_PixelFormatDetails* GetLegacyTextureDeviceFormat(
     LegacyTextureDevice* const device) noexcept
 {
-    return device == nullptr ? nullptr : SDL_GetPixelFormatDetails(device->row->format);
+    return device == nullptr ? nullptr : SDL_GetPixelFormatDetails(SDL_PIXELFORMAT_ARGB8888);
 }
 
 bool EnableLegacyTextureColorKey(LegacyTextureDevice* const device) noexcept
 {
-    return device != nullptr && SDL_SetSurfaceColorKey(device->row.get(), true, 0);
+    return device != nullptr; // ARGB 纹理的透明度在上传时承接。
 }
 
 bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* const device) noexcept
@@ -232,10 +148,7 @@ bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* const device) noexcept
         return false;
     }
     const SDL_Rect viewport {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
-    return SDL_SetSurfaceColorMod(device->row.get(), 255, 255, 255)
-        && SDL_SetSurfaceAlphaMod(device->row.get(), 255)
-        && SDL_SetSurfaceBlendMode(device->row.get(), SDL_BLENDMODE_NONE)
-        && SDL_SetSurfaceClipRect(device->back, &viewport);
+    return SDL_SetSurfaceClipRect(device->back, &viewport);
 }
 
 std::int32_t BindLegacyTexture(
@@ -311,7 +224,7 @@ std::uint32_t FillRect_44C9A0(
 // 原函数：0x0044D520。
 std::int32_t RenderTextureToSurface_44D520(
     const std::int32_t x, const std::int32_t y, TextureRectangle rectangle,
-    TextureSurface* surface, const std::int32_t imageNo, const std::int16_t paletteIndex,
+    TextureSurface* surface, const std::int32_t /*imageNo*/, const std::int16_t /*paletteIndex*/,
     const std::uint8_t mixFlags, const std::uint32_t color)
 {
     auto& left = rectangle[0];
@@ -370,287 +283,67 @@ std::int32_t RenderTextureToSurface_44D520(
         }
     }
 
-    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().textureDrawingEnabled != 0) {
-        const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
-        const double u0 =
-            ((flipX ? right - 1 : left) + kTextureBias) / textureWidth;
-        const double u1 = static_cast<double>(flipX ? left - 1 : right) / textureWidth;
-        const double textureHeight = GetLegacyTextureState().height;
-        const auto v0 = static_cast<float>(
-            ((flipY ? bottom - 1 : top) + kTextureBias) / textureHeight);
-        const double v1 = (flipY ? top - 1 : bottom) / textureHeight;
-        const TextureRectangle destination {
-            destinationX, destinationY,
-            destinationX + (right - left), destinationY + (bottom - top)
-        };
-        return SubmitTexturedRectangle(surface, destination,
-            static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),
-            mixFlags, color);
-    }
-    if ((mixFlags & GraphicMixFlag_Additive) != 0) {
-        return 0;
-    }
     const TextureRectangle destination {
         destinationX, destinationY,
-        destinationX - left + right, destinationY - top + bottom
+        destinationX + (right - left), destinationY + (bottom - top)
     };
-    if (flipX || flipY) {
-        const auto& key = world::gCurrentSceneType == 10 ? destination : rectangle;
-        surface = TransformTextureSurface_44CD80(
-            surface, imageNo, paletteIndex,
-            static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),
-            rectangle.data(), key.data());
-    }
-    return BlitTextureToBack(surface, rectangle, destination, true);
+    return RenderImageTexture(surface, rectangle, destination, mixFlags, color);
 }
 
 // 原函数：0x0044DA90。
 std::int32_t RenderTexture_44DA90(
     const std::int16_t x, const std::int16_t y, const TextureRectangle* rectangle,
     const float scaleX, const float scaleY, TextureSurface* surface,
-    const std::int32_t imageNo, const std::int16_t paletteIndex,
+    const std::int32_t /*imageNo*/, const std::int16_t /*paletteIndex*/,
     const std::uint8_t mixFlags, const std::uint32_t color)
 {
-    float top = static_cast<float>(static_cast<double>((*rectangle)[1]) * scaleY);
-    float left = static_cast<float>(static_cast<double>((*rectangle)[0]) * scaleX);
-    float right = static_cast<float>(static_cast<double>((*rectangle)[2]) * scaleX);
-    float bottom = static_cast<float>(static_cast<double>((*rectangle)[3]) * scaleY);
-    const auto originalX = static_cast<float>(x);
-    float destinationX = originalX;
-    const auto originalY = static_cast<float>(y);
-    float destinationY = originalY;
-    const std::int32_t width = GetRendererLogicalWidth();
-    if (x >= width) {
-        return 0;
-    }
-    if (!(static_cast<double>(right) - left + originalX > 0.0)) {
-        return 0;
-    }
-    const std::int32_t height = GetRendererLogicalHeight();
-    if (y >= height
-        || !(static_cast<double>(bottom) - top + originalY > 0.0)) {
-        return 0;
-    }
-
-    const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
-    if (flipX) {
-        if (destinationX < 0.0f) {
-            right = static_cast<float>(static_cast<double>(destinationX) + right);
-            destinationX = 0.0f;
-        }
-        const double extent = static_cast<double>(right) - left + destinationX;
-        if (extent > width) {
-            left = static_cast<float>((extent - width) + left);
-        }
-    } else {
-        if (destinationX < 0.0f) {
-            left = static_cast<float>(static_cast<double>(left) - originalX);
-            destinationX = 0.0f;
-        }
-        const double extent = static_cast<double>(right) - left + destinationX;
-        if (extent > width) {
-            right = static_cast<float>(right - (extent - width));
-        }
-    }
-    const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
-    if (flipY) {
-        if (destinationY < 0.0f) {
-            bottom = static_cast<float>(static_cast<double>(destinationY) + bottom);
-            destinationY = 0.0f;
-        }
-        const double extent = static_cast<double>(bottom) - top + destinationY;
-        if (extent > height) {
-            // 原 44DC61 的 fsubr；这里确为减去超出量，不改成横向的加法。
-            top = static_cast<float>(top - (extent - height));
-        }
-    } else {
-        if (destinationY < 0.0f) {
-            top = static_cast<float>(static_cast<double>(top) - destinationY);
-            destinationY = 0.0f;
-        }
-        const double extent = static_cast<double>(bottom) - top + destinationY;
-        if (extent > height) {
-            bottom = static_cast<float>(bottom - (extent - height));
-        }
-    }
-
-    const std::int32_t sourceBottom = TruncateTextureCoordinate(static_cast<double>(bottom) / scaleY);
-    const std::int32_t sourceRight = TruncateTextureCoordinate(static_cast<double>(right) / scaleX);
-    const std::int32_t sourceTop = TruncateTextureCoordinate(static_cast<double>(top) / scaleY);
-    const std::int32_t sourceLeft = TruncateTextureCoordinate(static_cast<double>(left) / scaleX);
-    const TextureRectangle source {sourceLeft, sourceTop, sourceRight, sourceBottom};
-    double expandedRight = right;
-    if (GetRendererLogicalWidth() > static_cast<double>(destinationX) + right - left) {
-        expandedRight += 1.0;
-    }
-    double expandedBottom = bottom;
-    if (GetRendererLogicalHeight() > static_cast<double>(destinationY) + bottom - top) {
-        expandedBottom += 1.0;
-    }
-    const std::int32_t destinationBottom =
-        TruncateTextureCoordinate(static_cast<double>(destinationY) + expandedBottom - top);
-    const std::int32_t destinationRight =
-        TruncateTextureCoordinate(static_cast<double>(destinationX) + expandedRight - left);
-    const std::int32_t destinationTop = TruncateTextureCoordinate(destinationY);
-    const std::int32_t destinationLeft = TruncateTextureCoordinate(destinationX);
+    // GRT01：保持完整源矩形，让 GPU 裁剪目标；不再将屏幕裁剪反算成整数源 UV。
+    // 整图不需要旧小块防接缝的 +1 扩张或 0.05 texel 偏移。
+    const float left = static_cast<float>(static_cast<double>((*rectangle)[0]) * scaleX);
+    const float top = static_cast<float>(static_cast<double>((*rectangle)[1]) * scaleY);
+    const float right = static_cast<float>(static_cast<double>((*rectangle)[2]) * scaleX);
+    const float bottom = static_cast<float>(static_cast<double>((*rectangle)[3]) * scaleY);
     const TextureRectangle destination {
-        destinationLeft, destinationTop, destinationRight, destinationBottom
+        x, y, TruncateTextureCoordinate(static_cast<double>(x) + right - left),
+        TruncateTextureCoordinate(static_cast<double>(y) + bottom - top)
     };
-
-    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().textureDrawingEnabled != 0) {
-        const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
-        const double u0 =
-            ((flipX ? sourceRight : sourceLeft) + kTextureBias) / textureWidth;
-        const double u1 = static_cast<double>(flipX ? sourceLeft : sourceRight) / textureWidth;
-        const double textureHeight = GetLegacyTextureState().height;
-        const auto v0 = static_cast<float>(
-            ((flipY ? sourceBottom : sourceTop) + kTextureBias) / textureHeight);
-        const double v1 = (flipY ? sourceTop : sourceBottom) / textureHeight;
-        return SubmitTexturedRectangle(surface, destination,
-            static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),
-            mixFlags, color);
-    }
-    if ((mixFlags & GraphicMixFlag_Additive) != 0) {
-        return 0;
-    }
-    if (flipX || flipY) {
-        const auto& key = world::gCurrentSceneType == 10 ? destination : source;
-        surface = TransformTextureSurface_44CD80(
-            surface, imageNo, paletteIndex,
-            static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),
-            source.data(), key.data());
-    }
-    return BlitTextureToBack(surface, source, destination, true);
+    return RenderImageTexture(surface, *rectangle, destination, mixFlags, color);
 }
 
+// GRT01：整图、字形图集与 PNG 共用源矩形提交；缩放／翻转／混合均由 GPU 执行。
 std::int32_t RenderImageTexture(
     TextureSurface* const surface, const TextureRectangle& source,
     const TextureRectangle& destination, const std::uint8_t mixFlags, const std::uint32_t color)
 {
     SDL_Surface* const input = GetTextureSdlSurface(surface);
-    if (input == nullptr) {
-        return kNativeFailure;
-    }
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (input == nullptr || back == nullptr) { return kNativeFailure; }
+    if (((input->flags | back->flags) & SDL_SURFACE_LOCKED) != 0) { return kSurfaceBusy; }
     const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
     const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
-    // 模式1也沿同一CPU行混合器绘制完整图像；此临时设备不发布到renderer状态。
-    std::unique_ptr<LegacyTextureDevice, decltype(&DestroyLegacyTextureDevice)> fallback {
-        nullptr, DestroyLegacyTextureDevice
-    };
-    if (GetRendererTextureDevice() == nullptr) {
-        SDL_Surface* const back = GetCpuBackSdlSurface();
-        fallback.reset(CreateLegacyTextureDevice(
-            back == nullptr ? nullptr : SDL_GetPixelFormatDetails(back->format), back));
-        if (fallback == nullptr) {
-            return kNativeFailure;
-        }
-        const std::int32_t result = BeginLegacyTextureScene(fallback.get());
-        if (result != 0) {
-            return result;
-        }
-    }
-    return SubmitTexturedRectangle(surface, destination,
-        static_cast<float>(flipX ? source[2] : source[0]) / input->w,
-        static_cast<float>(flipY ? source[3] : source[1]) / input->h,
-        static_cast<float>(flipX ? source[0] : source[2]) / input->w,
-        static_cast<float>(flipY ? source[1] : source[3]) / input->h,
-        mixFlags, color, fallback.get());
+    const bool additive = (mixFlags & GraphicMixFlag_Additive) != 0;
+    return DrawGpuTexture(surface,
+        {static_cast<float>(flipX ? source[2] : source[0]),
+         static_cast<float>(flipY ? source[3] : source[1]),
+         static_cast<float>(flipX ? source[0] : source[2]),
+         static_cast<float>(flipY ? source[1] : source[3])},
+        {static_cast<float>(destination[0]), static_cast<float>(destination[1]),
+         static_cast<float>(destination[2]), static_cast<float>(destination[3])}, color,
+        additive ? LegacyTextureBlend::One : LegacyTextureBlend::SourceAlpha,
+        additive ? LegacyTextureBlend::One : LegacyTextureBlend::InverseSourceAlpha) ? 0 : kNativeFailure;
 }
 
-// R08：整数像素中心，上／左边包含、下／右边排除；三角形内使用同一ARGB颜色。
+// R08／GRT01：纯色三角形直接提交 GPU，保留调用方裁剪与顶点顺序。
 std::int32_t RenderColorTriangles(
     const std::span<const ColorVertex> vertices, const TextureRectangle& clipRectangle)
 {
-    LegacyTextureDevice* device = GetRendererTextureDevice();
-    std::unique_ptr<LegacyTextureDevice, decltype(&DestroyLegacyTextureDevice)> fallback {
-        nullptr, DestroyLegacyTextureDevice
-    };
-    if (device == nullptr) {
-        SDL_Surface* const back = GetCpuBackSdlSurface();
-        fallback.reset(CreateLegacyTextureDevice(
-            back == nullptr ? nullptr : SDL_GetPixelFormatDetails(back->format), back));
-        device = fallback.get();
-        if (device == nullptr) {
-            return kNativeFailure;
-        }
-        const std::int32_t result = BeginLegacyTextureScene(device);
-        if (result != 0) {
-            return result;
-        }
-    }
-    SDL_Surface* const back = device->back;
-    SDL_Surface* const row = device->row.get();
-    if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
-        return kSurfaceBusy;
-    }
-    if (!device->sceneActive) {
-        return kNativeFailure;
-    }
-    const std::int32_t clipLeft = std::max(0, clipRectangle[0]);
-    const std::int32_t clipTop = std::max(0, clipRectangle[1]);
-    const std::int32_t clipRight = std::min(back->w, clipRectangle[2]);
-    const std::int32_t clipBottom = std::min(back->h, clipRectangle[3]);
-    if (clipRight <= clipLeft || clipBottom <= clipTop) {
-        return 0;
-    }
-    if (!SDL_SetSurfaceColorKey(row, false, 0)
-        || !SDL_SetSurfaceColorMod(row, 255, 255, 255)
-        || !SDL_SetSurfaceAlphaMod(row, 255)) {
-        return kNativeFailure;
-    }
-    auto* const pixels = static_cast<std::uint32_t*>(row->pixels);
-    for (std::size_t offset = 0; offset + 2 < vertices.size(); offset += 3) {
-        ColorVertex a = vertices[offset];
-        ColorVertex b = vertices[offset + 1];
-        ColorVertex c = vertices[offset + 2];
-        const std::uint32_t color = a.color;
-        if ((color >> 24) == 0) {
-            continue;
-        }
-        if (b.y < a.y) {
-            std::swap(a, b);
-        }
-        if (c.y < a.y) {
-            std::swap(a, c);
-        }
-        if (c.y < b.y) {
-            std::swap(b, c);
-        }
-        const double area = (static_cast<double>(b.x) - a.x) * (static_cast<double>(c.y) - a.y)
-            - (static_cast<double>(b.y) - a.y) * (static_cast<double>(c.x) - a.x);
-        if (area == 0.0) {
-            continue;
-        }
-        if (!SDL_SetSurfaceBlendMode(row,
-                (color >> 24) == 255 ? SDL_BLENDMODE_NONE : SDL_BLENDMODE_BLEND)) {
-            return kNativeFailure;
-        }
-        const auto top = std::max(clipTop, static_cast<std::int32_t>(std::ceil(a.y)));
-        const auto bottom = std::min(clipBottom, static_cast<std::int32_t>(std::ceil(c.y)));
-        for (std::int32_t y = top; y < bottom; ++y) {
-            const ColorVertex& edgeStart = y < b.y ? a : b;
-            const ColorVertex& edgeEnd = y < b.y ? b : c;
-            const double longX = a.x + (static_cast<double>(y) - a.y)
-                * (static_cast<double>(c.x) - a.x) / (static_cast<double>(c.y) - a.y);
-            const double shortX = edgeStart.x + (static_cast<double>(y) - edgeStart.y)
-                * (static_cast<double>(edgeEnd.x) - edgeStart.x)
-                / (static_cast<double>(edgeEnd.y) - edgeStart.y);
-            const auto left = std::max(clipLeft, static_cast<std::int32_t>(
-                std::ceil(std::min(longX, shortX))));
-            const auto right = std::min(clipRight, static_cast<std::int32_t>(
-                std::ceil(std::max(longX, shortX))));
-            if (right <= left) {
-                continue;
-            }
-            const SDL_Rect source {0, 0, right - left, 1};
-            const SDL_Rect destination {left, y, right - left, 1};
-            std::fill_n(pixels, source.w, color);
-            if (!SDL_BlitSurfaceUnchecked(row, &source, back, &destination)) {
-                return kNativeFailure;
-            }
-        }
-    }
-    return 0;
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (back == nullptr) { return kNativeFailure; }
+    if ((back->flags & SDL_SURFACE_LOCKED) != 0) { return kSurfaceBusy; }
+    const TextureRectangle clip {std::max(0, clipRectangle[0]), std::max(0, clipRectangle[1]),
+        std::min(back->w, clipRectangle[2]), std::min(back->h, clipRectangle[3])};
+    if (clip[2] <= clip[0] || clip[3] <= clip[1] || vertices.size() < 3) { return 0; }
+    return DrawGpuTriangles(vertices, clip) ? 0 : kNativeFailure;
 }
 
 std::int32_t RenderColorRectangle(

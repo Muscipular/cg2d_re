@@ -3281,3 +3281,11 @@ ALM02已完成：gPassword／DA38DC对应第2文本，gAccount／DA3A5C对应第
 按用户要求执行build.bat Debug，首轮配置／编译成功，链接报两条LNK2001及LNK1120，缺失cg::world::detail::gChatMinimumIntervalMs。已核定义位于外层匿名命名空间，而声明、SpDt回调及聊天消费均引用detail共享变量；按 [BWF04](../doc/cg2d_build_acceptance_spec.md) 将唯一定义移入已有detail，并在就近注释写明两处消费者，默认200毫秒及其余业务保持。
 
 第二轮build.bat Debug配置、编译／链接成功，退出0，缺失符号错误消除；增量只重编SceneState.cpp，无新增诊断，首轮既有未初始化及API弃用警告保持。限定差异、UTF-8无BOM／LF及Git差异核对通过，精确提交源码与两份Markdown。未更新函数表、JSON台账或构建脚本，未运行测试／客户端、部署、保存构建日志或计算摘要；既有AGENTS.md修改与Python缓存排除。
+
+## 331. 整图 GPU 渲染（2026-10-17）
+
+根据用户对当前客户端的CPU采样要求，分析60秒、61,307个运行样本，确认队列绘制占85.73%，其中CPU矩形绘制自身42.52%、floor调用11.09%、逐行SDL blit及子调用30.38%。随后按用户“直接整块渲染交给gpu缩放”“改完再提交”的指令实施 [GRT01](../doc/cg2d_gpu_whole_texture_spec.md)，停止继续处理火焰图展示。
+
+普通graphic改为每图一个实际尺寸缓存，按旧节点池对应的像素预算及使用帧回收；取消64×48切块和全屏背景拼图。整图、字体图集、PNG及纯色几何提交SDL GPU Back，由GPU缩放、翻转、裁剪和混合；删除SampleWrappedCoordinate及CPU逐行矩形绘制。字体、图像、调色板和AutoMap写入接入脏标记，未变化纹理持续复用；renderer销毁前统一释放关联GPU纹理。
+
+最终呈现直接读取GPU Back，CPU镜像仅在实际修改后上传；Temp复制及既有CPU地图效果／GDI文字消费者在读写边界同步，普通贴图、文字图集和窗口边框不回读整屏。六份修改CPP的MSVC语法检查通过，源码差异、接口、UTF-8无BOM／LF核对通过。按用户后续编译要求执行build.bat Debug，配置、编译和链接成功，退出0，生成Debug客户端；本次修改文件无新增诊断，其他模块已有的未初始化及API弃用警告保持。未运行修改后的客户端或宣称性能降幅，不更新函数表和JSON台账，用户既有改动与采样展示产物不夹带提交。

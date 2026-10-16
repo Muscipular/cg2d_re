@@ -74,6 +74,20 @@ std::uint64_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
 std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
 std::uint64_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
 
+// GRT01：Temp／表面复制直接进入 GPU Back，保留无色键、无混合语义。
+bool CopyTextureToGpuBack(TextureSurface* surface, const SDL_Rect& source, const SDL_Rect& destination) noexcept
+{
+    SDL_Surface* const input = GetTextureSdlSurface(surface);
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (((input->flags | back->flags) & SDL_SURFACE_LOCKED) != 0) { return false; }
+    return DrawGpuTexture(surface,
+        {static_cast<float>(source.x), static_cast<float>(source.y),
+         static_cast<float>(source.x + source.w), static_cast<float>(source.y + source.h)},
+        {static_cast<float>(destination.x), static_cast<float>(destination.y),
+         static_cast<float>(destination.x + destination.w), static_cast<float>(destination.y + destination.h)},
+        0xFFFFFFFFu, LegacyTextureBlend::One, LegacyTextureBlend::Zero);
+}
+
 // 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
 bool BlitWithoutSourceColorKey(
     SDL_Surface* source, const SDL_Rect& sourceRect,
@@ -161,6 +175,7 @@ std::int32_t DrawAutoMap32(
     writeCursor(center + 1);
     writeCursor(center - pitch);
     SDL_UnlockSurface(surface);
+    MarkTextureSurfaceModified(gCpuAutoMapSurface);
 
     std::int32_t destinationX = x + 17;
     std::int32_t destinationY = 117 - width + y;
@@ -256,6 +271,8 @@ std::int32_t DrawMapEffects32_452840()
     if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
         return surfaceBusy;
     }
+    if (world::detail::gActiveMapEffectHead == nullptr) { return 0; }
+    if (!SynchronizeBackToCpu()) { return failure; }
     if (!SDL_LockSurface(back)) {
         return failure;
     }
@@ -411,6 +428,7 @@ std::int32_t DrawMapEffects32_452840()
         record = record->next;
     }
     SDL_UnlockSurface(back);
+    MarkCpuBackModified();
     return 0;
 }
 
@@ -532,6 +550,7 @@ HDC AcquireCpuBackTextDc() noexcept
     if (back == nullptr) {
         return nullptr;
     }
+    if (!SynchronizeBackToCpu()) { return nullptr; }
     SDL_Surface* const surface = back->blitSurface.get();
     if ((surface->flags & SDL_SURFACE_LOCKED) != 0 || !SDL_LockSurface(surface)) {
         return nullptr;
@@ -572,6 +591,7 @@ void ReleaseCpuBackTextDc(const HDC dc) noexcept
 {
     if (gCpuBackSurface != nullptr && dc != nullptr && gCpuBackSurface->textDc == dc) {
         gCpuBackSurface->ReleaseTextDc();
+        MarkCpuBackModified();
     }
 }
 
@@ -581,9 +601,7 @@ std::int32_t ClearSurface_4512C0() noexcept
     if (gCpuBackSurface == nullptr) {
         return -1;
     }
-    const std::uint32_t color = gBackgroundColor;
-    std::fill_n(gCpuBackSurface->pixels, GetCpuSurfacePixelCount(), color);
-    return 0;
+    return ClearGpuBack(gBackgroundColor) ? 0 : -1;
 }
 
 // 原函数：0x00451350。
@@ -620,59 +638,49 @@ void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t m
         return;
     }
 
-    const auto pitch = static_cast<std::int32_t>(GetCpuSurfacePitchPixels());
-    std::uint32_t* const first =
-        gCpuBackSurface->pixels + rect->top * pitch + rect->left + 1;
+    // GRT01：这些分支只写纯色，不读取 Back，直接提交矩形避免整屏回读。
+    std::uint32_t color;
     switch (mode) {
-    case 0: {
-        std::uint32_t color;
-        if (colorIndex < 256) {
-            color = gPaletteAutoMap[colorIndex];
-        } else {
+    case 0:
+        if (colorIndex >= 256) {
             const std::uint8_t* const rgb = kOutlineExtraColors[colorIndex - 256];
             color = (static_cast<std::uint32_t>(rgb[0]) << 16)
                 | (static_cast<std::uint32_t>(rgb[1]) << 8) | rgb[2];
+            break;
         }
-        const std::int32_t lastRow = pitch * (height - 1);
-        for (std::int32_t x = 0; x < width - 2; ++x) {
-            first[x] = color;
-            first[pitch + x] = color;
-            first[lastRow - pitch + x] = color;
-            first[lastRow + x] = color;
-        }
-        first[2 * pitch + 1] = color;
-        first[2 * pitch - 4 + width] = color;
-        first[lastRow - 2 * pitch + 1] = color;
-        first[width + lastRow - (2 * pitch + 4)] = color;
-        std::uint32_t* side = first + pitch - 1;
-        for (std::int32_t y = 0; y < height - 2; ++y) {
-            side[0] = color;
-            side[1] = color;
-            side[width - 1] = color;
-            side[width - 2] = color;
-            side += pitch;
-        }
+        [[fallthrough]];
+    case 1:
+    case 2:
+        color = gPaletteAutoMap[colorIndex];
         break;
+    default:
+        return;
     }
-    case 1: {
-        const std::uint32_t color = gPaletteAutoMap[colorIndex];
-        std::fill_n(first, width - 2, color);
-        std::uint32_t* row = first + pitch - 1;
-        for (std::int32_t y = 0; y < height - 2; ++y) {
-            std::fill_n(row, width, color);
-            row += pitch;
-        }
-        std::fill_n(row + 1, width - 2, color);
+    const auto fill = [color](const int x, const int y, const int w, const int h) {
+        static_cast<void>(DrawGpuTexture(nullptr, {},
+            {static_cast<float>(x), static_cast<float>(y), static_cast<float>(x + w), static_cast<float>(y + h)},
+            color | 0xFF000000u, LegacyTextureBlend::One, LegacyTextureBlend::Zero));
+    };
+    switch (mode) {
+    case 0:
+        fill(rect->left + 1, rect->top, width - 2, 2);
+        fill(rect->left + 1, rect->bottom - 2, width - 2, 2);
+        fill(rect->left + 2, rect->top + 2, 1, 1);
+        fill(rect->right - 3, rect->top + 2, 1, 1);
+        fill(rect->left + 2, rect->bottom - 3, 1, 1);
+        fill(rect->right - 3, rect->bottom - 3, 1, 1);
+        fill(rect->left, rect->top + 1, 2, height - 2);
+        fill(rect->right - 2, rect->top + 1, 2, height - 2);
         break;
-    }
-    case 2: {
-        const std::uint32_t color = gPaletteAutoMap[colorIndex];
-        // 原 32 位单行分支仍以 left+1 起笔，不按常规半开矩形修正到 left。
-        if (width > 0) {
-            std::fill_n(first, width, color);
-        }
+    case 1:
+        fill(rect->left + 1, rect->top, width - 2, 1);
+        fill(rect->left, rect->top + 1, width, height - 2);
+        fill(rect->left + 1, rect->bottom - 1, width - 2, 1);
         break;
-    }
+    case 2:
+        // 原单行分支仍从 left+1 起笔，写 width 个像素。
+        if (width > 0) { fill(rect->left + 1, rect->top, width, 1); }
+        break;
     }
 }
 
@@ -689,7 +697,10 @@ bool CopyBackToTemp() noexcept
         return false;
     }
     const SDL_Rect rectangle {0, 0, source->w, source->h};
-    return BlitWithoutSourceColorKey(source, rectangle, destination, rectangle);
+    if (!SynchronizeBackToCpu()) { return false; }
+    const bool copied = BlitWithoutSourceColorKey(source, rectangle, destination, rectangle);
+    if (copied) { MarkTextureSurfaceModified(gCpuTempSurface); }
+    return copied;
 }
 
 bool BlitSurfaceRectangleToBack(
@@ -723,8 +734,7 @@ bool BlitSurfaceRectangleToBack(
     const SDL_Rect destinationRect {
         destinationX, destinationY, sourceRect.w, sourceRect.h
     };
-    return BlitWithoutSourceColorKey(
-        sourceSurface, sourceRect, destination, destinationRect);
+    return CopyTextureToGpuBack(source, sourceRect, destinationRect);
 }
 
 // 原函数：0x004535B0。
@@ -774,8 +784,7 @@ std::int32_t BlitSurfaceToBack_4535B0(
     const SDL_Rect destinationRect {
         destinationX, destinationY, sourceRect.w, sourceRect.h
     };
-    return BlitWithoutSourceColorKey(
-        sourceSurface, sourceRect, gCpuBackSurface->blitSurface.get(), destinationRect) ? 0 : -1;
+    return CopyTextureToGpuBack(source, sourceRect, destinationRect) ? 0 : -1;
 }
 
 bool BlitTempToBack(
@@ -819,9 +828,7 @@ bool BlitTempRectangleToBack(
     }
     const SDL_Rect sourceRect {source[0], source[1], source[2] - source[0], source[3] - source[1]};
     const SDL_Rect destinationRect {destinationX, destinationY, sourceRect.w, sourceRect.h};
-    return BlitWithoutSourceColorKey(
-        GetTextureSdlSurface(gCpuTempSurface), sourceRect,
-        gCpuBackSurface->blitSurface.get(), destinationRect);
+    return CopyTextureToGpuBack(gCpuTempSurface, sourceRect, destinationRect);
 }
 
 } // namespace cg::render

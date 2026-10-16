@@ -1,12 +1,17 @@
 #pragma once
 
 #include <cstdint>
+#include <array>
 #include <memory>
 #include <span>
 
 namespace cg::render {
 
-// SDL3 的 32 位最终帧提交边界，不对应原客户端函数或图形合成算法。
+struct TextureSurface;
+struct ColorVertex;
+enum class LegacyTextureBlend : std::uint32_t;
+
+// GRT01：SDL3 GPU Back、整图绘制与最终帧提交边界。
 // 全部操作及析构仅限主线程；外部窗口必须存活至 Destroy 成功或本对象析构。
 // 首次初始化 SDL VIDEO 的线程须由调用者保证为主线程，且为外部窗口所属线程。
 // 持有资源时在错误线程析构会终止进程，调用者须在主线程完成销毁。
@@ -30,11 +35,24 @@ public:
     // 全屏模式选择失败沿原 SetDisplayMode 忽略返回的合同保留当前选择。
     [[nodiscard]] bool SetFullscreen(bool fullscreen) noexcept;
 
-    // 上传完整、自上而下的 0x00RRGGBB 帧，并以 nearest 覆盖当前输出区域。
+    // 呈现 GPU Back；纯 CPU 调用或 CPU 标脏时先上传 0x00RRGGBB 镜像。
+    // 已有 GPU 绘制不会被未更新的 CPU 镜像覆盖，最终输出使用 nearest。
     // pitchBytes 须为正、为 4 的倍数且至少 width * 4；允许行间 padding。
     // pixels 须覆盖至最后一行的最后一个像素，不要求末行尾部 padding。
     // 调用期间源数据须有效且不被并发修改，本类不保留 pixels 的引用。
     [[nodiscard]] bool Present(std::span<const std::uint32_t> pixels, int pitchBytes) noexcept;
+
+    // GRT01：源／目标为 left/top/right/bottom；反向源边界表达翻转。
+    [[nodiscard]] bool DrawTexture(
+        TextureSurface* surface, const std::array<float, 4>& source,
+        const std::array<float, 4>& destination, std::uint32_t color,
+        LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend) noexcept;
+    [[nodiscard]] bool DrawTriangles(
+        std::span<const ColorVertex> vertices, const std::array<std::int32_t, 4>& clip) noexcept;
+    [[nodiscard]] bool ClearFrame(std::uint32_t color) noexcept;
+    // 仅实际 CPU 像素消费者使用；常规绘制不回读 Back。
+    [[nodiscard]] bool ReadFrame(std::span<std::uint32_t> pixels, int pitchBytes) noexcept;
+    void MarkCpuFrameModified() noexcept;
 
     // front原生失效检测；未创建返回false，已发布实例的失败锁存至Destroy。
     // 仅查询输出与设备事件/提交失败，不泵消息、不呈现或清除全局lost。
@@ -58,6 +76,7 @@ private:
     // 返回 false 并保存阶段及原因；诊断路径不分配内存。
     bool Fail(const char* operation, const char* detail) noexcept;
     bool FailSdl(const char* operation) noexcept;
+    bool PrepareGpuFrame() noexcept;
 };
 
 // 原 628FC8：所有绘制消费者共享的完整 W32 帧槽，Flip 每次翻转。
@@ -69,7 +88,7 @@ extern std::uint32_t gFrameParity628FC8;
 [[nodiscard]] bool DestroyRendererPresenter() noexcept;
 [[nodiscard]] const char* RendererPresenterLastError() noexcept;
 
-// 原 44C560：将统一 CPU Back 提交到 SDL，失败置 lost，随后无条件翻转帧槽。
+// 原 44C560／GRT01：呈现 GPU Back，失败置 lost，随后无条件翻转帧槽。
 void Flip_44C560();
 
 // 原 453E80：原序写入已排好行的 BGR24 BMP；失败保留部分文件，返回 0/1。

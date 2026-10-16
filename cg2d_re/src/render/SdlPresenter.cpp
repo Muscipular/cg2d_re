@@ -1,5 +1,6 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/text/Encoding.hpp"
+#include "cg/core/m_log.hpp"
 #include <ctime>
 #include <string>
 #include "cg/platform/LegacyWindow.hpp"
@@ -31,6 +32,9 @@
 #include <limits>
 #include <new>
 #include <utility>
+#include <algorithm>
+#include <cmath>
+#include <vector>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cerrno> // 原CRT接口：0x01085FE0、0x0053C654；原参数／返回合同由直接调用承接。
 #include <direct.h>
@@ -67,6 +71,10 @@ struct SdlPresenter::Impl {
     SDL_Window* window {};
     SDL_Renderer* renderer {};
     SDL_Texture* texture {};
+    SDL_Texture* backTarget {}; // GRT01：整帧合成的持久 GPU Back。
+    bool cpuModified = true;
+    bool gpuModified = false;
+    bool gpuDrawing = false;
     // 最终帧的固定尺寸，与外部窗口实际输出尺寸相互独立。
     int width {};
     int height {};
@@ -94,7 +102,11 @@ struct SdlPresenter::Impl {
         if (texture != nullptr) {
             SDL_DestroyTexture(texture);
         }
+        if (backTarget != nullptr) {
+            SDL_DestroyTexture(backTarget);
+        }
         if (renderer != nullptr) {
+            ReleaseRendererGpuTextures(renderer);
             SDL_DestroyRenderer(renderer);
         }
         if (window != nullptr) {
@@ -217,6 +229,13 @@ bool SdlPresenter::Create(
     if (!SDL_SetTextureScaleMode(pending->texture, SDL_SCALEMODE_NEAREST)) {
         return FailSdl("SDL_SetTextureScaleMode(NEAREST)");
     }
+    pending->backTarget = SDL_CreateTexture(
+        pending->renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, width, height);
+    if (pending->backTarget == nullptr
+        || !SDL_SetTextureBlendMode(pending->backTarget, SDL_BLENDMODE_NONE)
+        || !SDL_SetTextureScaleMode(pending->backTarget, SDL_SCALEMODE_NEAREST)) {
+        return FailSdl("Create GPU Back");
+    }
     if (!SDL_SetRenderDrawColor(pending->renderer, 0, 0, 0, 255)) {
         return FailSdl("SDL_SetRenderDrawColor");
     }
@@ -287,15 +306,25 @@ bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes
         return Fail("Present", "pixels 未覆盖到最后一行的最后一个有效像素。");
     }
 
-    if (!SDL_UpdateTexture(impl_->texture, nullptr, pixels.data(), pitchBytes)) {
-        impl_->resourcesLost.store(true, std::memory_order_relaxed);
-        return FailSdl("SDL_UpdateTexture");
+    if (impl_->cpuModified || !impl_->gpuDrawing) {
+        if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)
+            || !SDL_UpdateTexture(impl_->texture, nullptr, pixels.data(), pitchBytes)
+            || !SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
+            impl_->resourcesLost.store(true, std::memory_order_relaxed);
+            return FailSdl("Upload CPU Back");
+        }
+        impl_->cpuModified = false;
+        impl_->gpuModified = false;
+    }
+    if (!SDL_SetRenderTarget(impl_->renderer, nullptr)
+        || !SDL_SetRenderDrawColor(impl_->renderer, 0, 0, 0, 255)) {
+        return FailSdl("Select window target");
     }
     if (!SDL_RenderClear(impl_->renderer)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_RenderClear");
     }
-    if (!SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
+    if (!SDL_RenderTexture(impl_->renderer, impl_->backTarget, nullptr, nullptr)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_RenderTexture");
     }
@@ -309,6 +338,168 @@ bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes
     lastError_[0] = '\0';
     return true;
 }
+
+bool SdlPresenter::PrepareGpuFrame() noexcept
+{
+    if (impl_ == nullptr || impl_->resourcesLost.load(std::memory_order_relaxed)) {
+        return Fail("GPU Back", "呈现资源尚未创建或已经失效。");
+    }
+    if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)) {
+        return FailSdl("SDL_SetRenderTarget(Back)");
+    }
+    if (impl_->cpuModified) {
+        if (!SDL_UpdateTexture(impl_->texture, nullptr, ReadCpuBackPixels().data(),
+                static_cast<int>(GetCpuSurfacePitchBytes()))
+            || !SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
+            return FailSdl("Upload modified CPU Back");
+        }
+        impl_->cpuModified = false;
+        impl_->gpuModified = false;
+    }
+    impl_->gpuDrawing = true;
+    return true;
+}
+
+bool SdlPresenter::DrawTexture(
+    TextureSurface* const surface, const std::array<float, 4>& source,
+    const std::array<float, 4>& destination, const std::uint32_t color,
+    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend) noexcept
+{
+    if (!PrepareGpuFrame()) { return false; }
+    SDL_BlendMode blend;
+    if (sourceBlend == LegacyTextureBlend::One && destinationBlend == LegacyTextureBlend::Zero) {
+        blend = SDL_BLENDMODE_NONE;
+    } else if (sourceBlend == LegacyTextureBlend::One && destinationBlend == LegacyTextureBlend::One) {
+        blend = SDL_BLENDMODE_ADD_PREMULTIPLIED;
+    } else {
+        blend = SDL_BLENDMODE_BLEND;
+    }
+    const SDL_FRect output {std::min(destination[0], destination[2]),
+        std::min(destination[1], destination[3]), std::abs(destination[2] - destination[0]),
+        std::abs(destination[3] - destination[1])};
+    const auto red = static_cast<std::uint8_t>(color >> 16);
+    const auto green = static_cast<std::uint8_t>(color >> 8);
+    const auto blue = static_cast<std::uint8_t>(color);
+    const auto alpha = static_cast<std::uint8_t>(color >> 24);
+    bool drawn;
+    if (surface == nullptr) {
+        drawn = SDL_SetRenderDrawBlendMode(impl_->renderer, blend)
+            && SDL_SetRenderDrawColor(impl_->renderer, red, green, blue, alpha)
+            && SDL_RenderFillRect(impl_->renderer, &output);
+    } else {
+        SDL_Texture* const texture = GetTextureGpuTexture(surface, impl_->renderer);
+        if (texture == nullptr) { return FailSdl("Upload image texture"); }
+        const SDL_FRect input {std::min(source[0], source[2]), std::min(source[1], source[3]),
+            std::abs(source[2] - source[0]), std::abs(source[3] - source[1])};
+        const bool flipX = (source[2] < source[0]) != (destination[2] < destination[0]);
+        const bool flipY = (source[3] < source[1]) != (destination[3] < destination[1]);
+        const auto flip = static_cast<SDL_FlipMode>(
+            (flipX ? SDL_FLIP_HORIZONTAL : 0) | (flipY ? SDL_FLIP_VERTICAL : 0));
+        drawn = SDL_SetTextureColorMod(texture, red, green, blue)
+            && SDL_SetTextureAlphaMod(texture, alpha)
+            && SDL_SetTextureBlendMode(texture, blend)
+            && SDL_RenderTextureRotated(impl_->renderer, texture, &input, &output, 0.0, nullptr, flip);
+    }
+    if (!drawn) { return FailSdl("Draw GPU rectangle"); }
+    impl_->gpuModified = true;
+    return true;
+}
+
+bool SdlPresenter::DrawTriangles(
+    const std::span<const ColorVertex> vertices, const std::array<std::int32_t, 4>& clip) noexcept
+{
+    if (!PrepareGpuFrame()) { return false; }
+    std::vector<SDL_Vertex> native;
+    const std::size_t count = vertices.size() / 3 * 3;
+    native.reserve(count);
+    for (std::size_t index = 0; index < count; ++index) {
+        const auto& vertex = vertices[index];
+        const auto color = vertices[index / 3 * 3].color;
+        native.push_back({{vertex.x + 0.5f, vertex.y + 0.5f},
+            {static_cast<std::uint8_t>(color >> 16) / 255.0f,
+             static_cast<std::uint8_t>(color >> 8) / 255.0f,
+             static_cast<std::uint8_t>(color) / 255.0f,
+             static_cast<std::uint8_t>(color >> 24) / 255.0f}, {0, 0}});
+    }
+    SDL_Rect previous;
+    const bool hadClip = SDL_RenderClipEnabled(impl_->renderer);
+    if (!SDL_GetRenderClipRect(impl_->renderer, &previous)) { return FailSdl("Read GPU clip"); }
+    const SDL_Rect rectangle {clip[0], clip[1], clip[2] - clip[0], clip[3] - clip[1]};
+    const bool drawn = SDL_SetRenderClipRect(impl_->renderer, &rectangle)
+        && SDL_SetRenderDrawBlendMode(impl_->renderer, SDL_BLENDMODE_BLEND)
+        && SDL_RenderGeometry(impl_->renderer, nullptr, native.data(), static_cast<int>(native.size()), nullptr, 0);
+    const bool restored = SDL_SetRenderClipRect(impl_->renderer, hadClip ? &previous : nullptr);
+    if (!drawn || !restored) { return FailSdl("Draw GPU triangles"); }
+    impl_->gpuModified = true;
+    return true;
+}
+
+bool SdlPresenter::ClearFrame(const std::uint32_t color) noexcept
+{
+    if (impl_ == nullptr) { return Fail("Clear GPU Back", "呈现器尚未创建。"); }
+    if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)
+        || !SDL_SetRenderDrawColor(impl_->renderer, static_cast<std::uint8_t>(color >> 16),
+            static_cast<std::uint8_t>(color >> 8), static_cast<std::uint8_t>(color), 255)
+        || !SDL_RenderClear(impl_->renderer)) {
+        return FailSdl("Clear GPU Back");
+    }
+    impl_->gpuDrawing = true;
+    impl_->cpuModified = false;
+    impl_->gpuModified = true;
+    return true;
+}
+
+bool SdlPresenter::ReadFrame(std::span<std::uint32_t> pixels, const int pitchBytes) noexcept
+{
+    if (impl_ == nullptr) { return Fail("Read GPU Back", "呈现器尚未创建。"); }
+    if (!impl_->gpuModified) { return true; }
+    if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)) { return FailSdl("Read GPU target"); }
+    std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> captured {
+        SDL_RenderReadPixels(impl_->renderer, nullptr), SDL_DestroySurface
+    };
+    if (captured == nullptr || !SDL_ConvertPixels(impl_->width, impl_->height,
+            captured->format, captured->pixels, captured->pitch,
+            SDL_PIXELFORMAT_XRGB8888, pixels.data(), pitchBytes)) {
+        return FailSdl("Read GPU Back pixels");
+    }
+    impl_->gpuModified = false;
+    return true;
+}
+
+void SdlPresenter::MarkCpuFrameModified() noexcept
+{
+    if (impl_ != nullptr) {
+        impl_->cpuModified = true;
+        impl_->gpuModified = false;
+    }
+}
+
+bool DrawGpuTexture(TextureSurface* const surface, const std::array<float, 4>& source,
+    const std::array<float, 4>& destination, const std::uint32_t color,
+    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend) noexcept
+{
+    const bool drawn = gRendererPresenter.DrawTexture(surface, source, destination, color, sourceBlend, destinationBlend);
+    if (!drawn) { m_log_i("[render] %s\n", gRendererPresenter.LastError()); }
+    return drawn;
+}
+
+bool DrawGpuTriangles(const std::span<const ColorVertex> vertices, const TextureRectangle& clip) noexcept
+{
+    const bool drawn = gRendererPresenter.DrawTriangles(vertices, clip);
+    if (!drawn) { m_log_i("[render] %s\n", gRendererPresenter.LastError()); }
+    return drawn;
+}
+
+bool ClearGpuBack(const std::uint32_t color) noexcept { return gRendererPresenter.ClearFrame(color); }
+
+bool SynchronizeBackToCpu() noexcept
+{
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    return back != nullptr && gRendererPresenter.ReadFrame(
+        {static_cast<std::uint32_t*>(back->pixels), GetCpuSurfacePixelCount()}, back->pitch);
+}
+
+void MarkCpuBackModified() noexcept { gRendererPresenter.MarkCpuFrameModified(); }
 
 bool SdlPresenter::IsLost() noexcept
 {

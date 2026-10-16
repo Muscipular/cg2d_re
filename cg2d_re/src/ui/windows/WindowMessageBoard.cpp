@@ -1,5 +1,8 @@
 #include "../WindowRuntimeInternal.hpp"
 
+#include <cstring>
+#include <ctime>
+
 namespace cg::ui {
 namespace detail {
 
@@ -307,20 +310,14 @@ static void WindowMessageBoard_RefreshRecords()
         graphic->imageNo = record.value00;
         auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
         name->text = cg::text::FromGbkWide(record.texts08[0].data());
-        std::int32_t time = record.value04;
+        __time32_t time = record.value04;
         if (time > 0) {
-            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
-            const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
-            std::int32_t minute;
-            std::memcpy(&minute, bytes + 4, sizeof(minute));
-            std::int32_t hour;
-            std::memcpy(&hour, bytes + 8, sizeof(hour));
-            std::int32_t day;
-            std::memcpy(&day, bytes + 12, sizeof(day));
-            std::int32_t month;
-            std::memcpy(&month, bytes + 16, sizeof(month));
-            std::int32_t year;
-            std::memcpy(&year, bytes + 20, sizeof(year));
+            const std::tm* const calendar = ::_localtime32(&time);
+            const std::int32_t minute = calendar->tm_min;
+            const std::int32_t hour = calendar->tm_hour;
+            const std::int32_t day = calendar->tm_mday;
+            const std::int32_t month = calendar->tm_mon;
+            const std::int32_t year = calendar->tm_year;
             cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
             auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
             date->text = buffer;

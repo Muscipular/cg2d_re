@@ -3,7 +3,6 @@
 #include "cg/text/Encoding.hpp"
 
 #include "cg/resource/ResourcePaths.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 

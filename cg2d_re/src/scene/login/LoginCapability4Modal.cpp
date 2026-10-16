@@ -6,7 +6,6 @@
 #include <cwchar>
 
 #include "LoginMessageDependencies.hpp"
-#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstddef>

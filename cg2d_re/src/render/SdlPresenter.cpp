@@ -1,8 +1,8 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/text/Encoding.hpp"
+#include <ctime>
 #include <string>
 #include "cg/platform/LegacyWindow.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
@@ -447,15 +447,15 @@ void TakeScreenshot_453760()
         && errno != 17) {
         return;
     }
-    std::int32_t time;
-    static_cast<void>(platform::ReadLegacyTime32_53BA26(&time));
-    const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+    __time32_t time;
+    time = ::_time32(nullptr);
+    const std::tm* const calendar = ::_localtime32(&time);
     char path[256];
     std::int32_t sequence = 0;
     for (; sequence < 1000; ++sequence) {
-        const std::int32_t month = calendar->month0based;
-        const std::int32_t day = calendar->day;
-        const std::int32_t year = calendar->yearMinus1900;
+        const std::int32_t month = calendar->tm_mon;
+        const std::int32_t day = calendar->tm_mday;
+        const std::int32_t year = calendar->tm_year;
         std::sprintf(path, "screenshot\\CG%02d%02d%02d_%03d.bmp" /* 原常量参考：0x00556714。 */, year % 100, month + 1, day, sequence);
         std::FILE* const probe = std::fopen(path, "r" /* 原常量参考：0x00554908。 */);
         if (probe == nullptr) {

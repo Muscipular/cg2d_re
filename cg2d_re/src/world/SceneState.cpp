@@ -22,7 +22,6 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -41,9 +40,12 @@
 #include "../platform/MapEffectMath.hpp"
 #include "WorldUpdateDependencies.hpp"
 
+#include <ctime>
 #include <algorithm>
 #include <bit>
 #include <cstddef>
+#include <cstdint>
+#include <direct.h>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053C680、0x0053C8B3、0x0053CFDC；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053C654、0x0053BFC0、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
@@ -375,8 +377,6 @@ constexpr wchar_t gText55BAE0[] = L"登出中";
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
-#include <cstdint>
-#include <direct.h>
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
@@ -6227,7 +6227,7 @@ std::int32_t __cdecl Sub_50C870(
     static_cast<void>(Sub_519EB0(playerValue));
     gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
     gValue73ED68 = std::bit_cast<std::uint32_t>(
-        platform::ReadLegacyTime32_53BA26(nullptr));
+        ::_time32(nullptr));
     static_cast<void>(UpdateGameTime(&gCgTime));
     const std::int32_t category = GetCate_458EC0(&gCgTime);
     gValue73ED48 = category;

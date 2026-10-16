@@ -179,3 +179,21 @@ COR12验收：迁移和别名清理完成，6处补齐cstdio，旧别名／路�
 - 验收：六接口及调用无源码残留；反向展开对照9处调用，核分配域／参数／顺序、文本终止和其余正文保持；当前函数表无这些包装提供者，3680行内容与状态不变。仅做静态检查，不构建、测试、运行或计算摘要，不更新历史证据或JSON台账，保留既有Python缓存。
 
 COR13验收：6个声明／定义已删除，9处调用全部展开；5份源码／头文件与限定替换结果逐字一致，原分配／清零、owner读写、解锁／释放和调试消息保持。旧符号零残留，新增Win32包含与本地包含有效，3680行函数表逐字不变；UTF-8无BOM／LF及Git差异静态检查通过。未构建、测试、运行或计算摘要，不更新JSON台账；精确提交本次7份文件，既有Python缓存排除。
+
+## COR14：时间类型与接口直接使用CRT（2026-10-16）
+
+按用户要求移除LegacyTime中的自定义类型与转发，沿既有规格裁决授权执行。当前本机UCRT的__time32_t为32位long，std::int32_t不是同一指针类型；不强转两者指针，也不改用x64默认64位time_t。
+
+- 11处取时改为::_time32，9处本地日历转换改为::_localtime32。取时仍用nullptr参数，原8个输出槽直接接收返回值，保留失败返回的发布。仅用于CRT交互的局部时间变量及网络time62B394／日志timeCB1DF0两个内存槽改为__time32_t，保留32位大小和对齐断言；协议、文件和游戏时间计算仍维持既有S32／W32，时间戳到随机种子的取样及调用序保持。
+- LegacyTm53B8C6改用std::tm，旧seconds／minutes／hours／day／month0based／yearMinus1900／weekDay／yearDay0based／dst对应tm_sec／tm_min／tm_hour／tm_mday／tm_mon／tm_year／tm_wday／tm_yday／tm_isdst。当前七段日历字节偏移／memcpy读取按各自原取样顺序改为成员访问，不依赖标准对象布局。
+- 网络及日志窗口继续借用共享可变std::tm*，日志窗口的旧日期推进算法、直接修改月／年及之后重读共享指针的顺序保持，不改成每个调用独立快照。存储改由CRT线程缓冲持有，删除项目thread_local副本与九字段复制；同线程其他CRT日历调用覆盖及失败时缓冲内容沿CRT合同，不额外模拟旧私有副本隔离。本线当前没有其他直接gmtime／mktime消费者，未据此声称第三方库内部行为等价。
+- 唯一文件创建时间调用内联为::_fstat32(::_fileno(file), &status)，成功才读取status.st_ctime；仍读创建时间而非修改时间，保原首文件失败判断、缺失后续文件行为和fclose顺序。ConvertLocalTime_541160没有声明或消费者，随旧文件移除；原541160的宿主_mktime32身份仅保留在本规格／函数表，不新增业务调用。
+- 删除LegacyTime.cpp／hpp及CMake条目，清理全部包含；各使用处直接包含ctime、sys/stat.h或实际需要的标准头。头中仅作历史CRT导入说明的记录迁到本节，函数表定位同步，3680行身份／名称／状态保持，不生成JSON台账。
+- 编译暴露SceneState数组初始化内误放cstdint／direct.h：原LegacyTime的间接包含曾令它们被头文件保护跳过。本次将两个头移到文件顶部，保留三个_mkdir消费者，数组数据保持。
+- 验收：旧类型／符号／include零残留；检查全部参数、字段映射、共享指针、返回、格式串、日期取样和文件关闭路径；执行build.bat Debug配置／编译／链接。只做静态核对与编译，不新增／运行测试，不运行客户端或算法样例，不计算摘要。
+
+宿主承接记录：原53B8C6→::_localtime32与std::tm；53BA26→::_time32；53CCD0→::_fstat32；541160→::_mktime32（无当前消费者）。旧头的53BDEF／53BE17／53CF50／54AB30／54518B／53C5BE／53DA45／53C649／53C3AC／53C0A9／54ABDD／53D26E／53BFC0／5450F0／53F9E0／544DB0／544DC0／53C790／53BEC0／53C2F0／53BE40／53C654／53DD2F及errno／_doserrno继续沿已批准的MSVC CRT直接承接，现有真实调用不变，无消费者不补调用。
+
+接口依据：[时间戳与32位接口](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/time-time32-time64)、[本地日历与线程共享对象](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/localtime-localtime32-localtime64)、[文件状态与创建时间](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/fstat-fstat32-fstat64-fstati64-fstat32i64-fstat64i32)。
+
+COR14验收：4个旧函数、私有日历类型和两文件删除完成；11次取时／9次转换／1次文件状态查询直接使用CRT，38次字段读取按原位置映射，32位大小／对齐断言编译通过。首次构建发现日志辅助调用遗漏和既有数组内错位包含，均已修复；第二次build.bat Debug配置、编译及客户端链接成功，退出码0。55行时间提供者／承接说明更新，3680行身份、名称和状态保持；旧符号与路径无源码残留。其他已提交的网络整理保持，本轮不夹带。仍有既有未初始化变量和旧API告警，未运行客户端／测试或计算摘要，不声称CRT共享缓冲的内部行为与旧私有副本逐项等价，不更新JSON台账。

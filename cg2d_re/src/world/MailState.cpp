@@ -11,12 +11,12 @@
 #include "cg/world/GuildState.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <ctime>
 #include <algorithm>
 #include <array>
 #include <bit>
@@ -680,21 +680,15 @@ void Sub_4C9490()
 // 原函数：0x00534520。
 std::int32_t Sub_534520(char* const destination)
 {
-    std::int32_t timeValue;
-    platform::ReadLegacyTime32_53BA26(&timeValue);
-    const platform::LegacyTm53B8C6* const localTime =
-        platform::LocalTime_53B8C6(&timeValue);
-    const auto* const timeBytes = reinterpret_cast<const std::byte*>(localTime);
-    const auto readField = [timeBytes](const std::size_t offset) {
-        std::int32_t value;
-        std::memcpy(&value, timeBytes + offset, sizeof(value));
-        return value;
-    };
-    const std::int32_t minutes = readField(0x04);
-    const std::int32_t hours = readField(0x08);
-    const std::int32_t day = readField(0x0C);
-    const std::int32_t month = readField(0x10);
-    const std::int32_t year = readField(0x14);
+    __time32_t timeValue;
+    timeValue = ::_time32(nullptr);
+    const std::tm* const localTime =
+        ::_localtime32(&timeValue);
+    const std::int32_t minutes = localTime->tm_min;
+    const std::int32_t hours = localTime->tm_hour;
+    const std::int32_t day = localTime->tm_mday;
+    const std::int32_t month = localTime->tm_mon;
+    const std::int32_t year = localTime->tm_year;
     char timestamp[256];
     std::sprintf(
         timestamp, "%4d/%2d/%2d %02d:%02d", year + 1900, month + 1, day, hours, minutes);

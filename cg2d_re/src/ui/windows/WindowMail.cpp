@@ -1,5 +1,9 @@
 #include "../WindowRuntimeInternal.hpp"
 
+#include <cstring>
+#include <cstdio>
+#include <ctime>
+
 namespace cg::ui {
 namespace detail {
 
@@ -280,20 +284,14 @@ void WindowMail_SortIndices(
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
 void WindowMail_FormatTimestamp(char* const destination)
 {
-    std::int32_t time;
-    platform::ReadLegacyTime32_53BA26(&time);
-    const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
-    const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
-    std::int32_t minute;
-    std::memcpy(&minute, bytes + 4, sizeof(minute));
-    std::int32_t hour;
-    std::memcpy(&hour, bytes + 8, sizeof(hour));
-    std::int32_t day;
-    std::memcpy(&day, bytes + 12, sizeof(day));
-    std::int32_t month;
-    std::memcpy(&month, bytes + 16, sizeof(month));
-    std::int32_t year;
-    std::memcpy(&year, bytes + 20, sizeof(year));
+    __time32_t time;
+    time = ::_time32(nullptr);
+    const std::tm* const calendar = ::_localtime32(&time);
+    const std::int32_t minute = calendar->tm_min;
+    const std::int32_t hour = calendar->tm_hour;
+    const std::int32_t day = calendar->tm_mday;
+    const std::int32_t month = calendar->tm_mon;
+    const std::int32_t year = calendar->tm_year;
     std::sprintf(destination, "%4d/%2d/%2d %02d:%02d",
         year + 1900, month + 1, day, hour, minute);
 }

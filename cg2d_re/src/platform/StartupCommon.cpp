@@ -1,7 +1,6 @@
 #include "StartupNative.hpp"
 
 #include "cg/platform/Startup.hpp"
-#include "cg/platform/LegacyTime.hpp"
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <direct.h> // 原CRT接口：0x0053DD2F、0x0053C654；原参数／返回合同由直接调用承接。

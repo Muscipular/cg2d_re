@@ -7,7 +7,6 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyWindow.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 
@@ -15,6 +14,7 @@
 #include "../platform/WindowProcedureState.hpp"
 #include "WorldUpdateDependencies.hpp"
 
+#include <ctime>
 #include <array>
 #include <bit>
 #include <cstddef>
@@ -130,27 +130,19 @@ void __cdecl Sub_449DA0()
     gValue626C18 = 0;
     gValue626BFC = 0;
 
-    std::int32_t timeValue = 0;
+    __time32_t timeValue = 0;
     std::FILE* const existingStream = gLogStream626C1C;
     if (existingStream != nullptr) {
         return;
     }
 
     ::_mkdir(kLogDirectory_554658);
-    platform::ReadLegacyTime32_53BA26(&timeValue);
-    const platform::LegacyTm53B8C6* const legacyTime =
-        platform::LocalTime_53B8C6(&timeValue);
-    const auto* const timeBytes =
-        reinterpret_cast<const unsigned char*>(legacyTime);
-    const auto readTimeField = [timeBytes](const std::size_t offset) {
-        std::int32_t value;
-        std::memcpy(&value, timeBytes + offset, sizeof(value));
-        return value;
-    };
-
-    const std::int32_t fileMonth = readTimeField(0x10);
-    const std::int32_t fileDay = readTimeField(0x0C);
-    const std::int32_t fileYear = readTimeField(0x14);
+    timeValue = ::_time32(nullptr);
+    const std::tm* const legacyTime =
+        ::_localtime32(&timeValue);
+    const std::int32_t fileMonth = legacyTime->tm_mon;
+    const std::int32_t fileDay = legacyTime->tm_mday;
+    const std::int32_t fileYear = legacyTime->tm_year;
     std::sprintf(
         gLogFileName554648,
         "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
@@ -171,9 +163,9 @@ void __cdecl Sub_449DA0()
         gLogStream626C1C = appendStream;
         std::fprintf(appendStream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
 
-        const std::int32_t titleMonth = readTimeField(0x10);
-        const std::int32_t titleDay = readTimeField(0x0C);
-        const std::int32_t titleYear = readTimeField(0x14);
+        const std::int32_t titleMonth = legacyTime->tm_mon;
+        const std::int32_t titleDay = legacyTime->tm_mday;
+        const std::int32_t titleYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
             cg::text::ToGbk(LR"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
@@ -192,12 +184,12 @@ void __cdecl Sub_449DA0()
     if (gate != nullptr) {
         std::fprintf(gate, "\n  ------------------------------------------------------------\n" /* 原常量参考：0x00554848。 */);
 
-        const std::int32_t sessionSecond = readTimeField(0x00);
-        const std::int32_t sessionMinute = readTimeField(0x04);
-        const std::int32_t sessionHour = readTimeField(0x08);
-        const std::int32_t sessionDay = readTimeField(0x0C);
-        const std::int32_t sessionMonth = readTimeField(0x10);
-        const std::int32_t sessionYear = readTimeField(0x14);
+        const std::int32_t sessionSecond = legacyTime->tm_sec;
+        const std::int32_t sessionMinute = legacyTime->tm_min;
+        const std::int32_t sessionHour = legacyTime->tm_hour;
+        const std::int32_t sessionDay = legacyTime->tm_mday;
+        const std::int32_t sessionMonth = legacyTime->tm_mon;
+        const std::int32_t sessionYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
             cg::text::ToGbk(LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
@@ -263,19 +255,14 @@ void Sub_44B050(
     }
 
     if (gate != nullptr) {
-        std::int32_t timeValue = color;
-        platform::ReadLegacyTime32_53BA26(&timeValue);
-        const platform::LegacyTm53B8C6* const legacyTime =
-            platform::LocalTime_53B8C6(&timeValue);
+        __time32_t timeValue = color;
+        timeValue = ::_time32(nullptr);
+        const std::tm* const legacyTime =
+            ::_localtime32(&timeValue);
         index = gWriteIndex626C08;
-        const auto* const timeBytes =
-            reinterpret_cast<const unsigned char*>(legacyTime);
-        std::int32_t second;
-        std::int32_t minute;
-        std::int32_t hour;
-        std::memcpy(&second, timeBytes, sizeof(second));
-        std::memcpy(&minute, timeBytes + 4, sizeof(minute));
-        std::memcpy(&hour, timeBytes + 8, sizeof(hour));
+        const std::int32_t second = legacyTime->tm_sec;
+        const std::int32_t minute = legacyTime->tm_min;
+        const std::int32_t hour = legacyTime->tm_hour;
 
         std::fprintf(
             gLogStream626C1C,

@@ -8,7 +8,6 @@
 
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/TextPendingQueue.hpp"

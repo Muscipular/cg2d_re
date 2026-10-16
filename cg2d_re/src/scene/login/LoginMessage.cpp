@@ -6,7 +6,6 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginMessageDependencies.hpp"
-#include "cg/platform/LegacyTime.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
 

@@ -1,6 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/CommandOptions.hpp"
-#include "cg/platform/LegacyTime.hpp"
 
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/resource/ResourceNames.hpp"

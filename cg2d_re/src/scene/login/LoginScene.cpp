@@ -11,7 +11,6 @@
 #include "cg/render/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"

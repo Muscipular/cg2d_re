@@ -5,9 +5,10 @@
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/resource/ResourceNames.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <bit>
 #include <cstring>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
@@ -31,10 +32,10 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
             }
             continue;
         }
-        std::int32_t value;
-        const std::int32_t result = platform::ReadLegacyFileCreationTime32(file, &value);
-        if (result >= 0) {
-            times[index] = value;
+        struct _stat32 status;
+        const std::int32_t result = ::_fstat32(::_fileno(file), &status);
+        if (result == 0) {
+            times[index] = static_cast<std::int32_t>(status.st_ctime);
         }
         std::fclose(file);
         if (result < 0 && index == 0) {

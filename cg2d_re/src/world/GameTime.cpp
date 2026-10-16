@@ -1,7 +1,7 @@
 #include "cg/world/GameTime.hpp"
 
-#include "cg/platform/LegacyTime.hpp"
 
+#include <ctime>
 #include <bit>
 
 namespace cg::world {
@@ -15,7 +15,7 @@ std::uint32_t gValue73ED68 = 0; // 原全局：0x0073ED68。
 // GTP01：原 [0x458DE0,0x458EBB)；六 W32 按 year/month/day/hours/minutes/sTick 发布，返 phase 商。
 int UpdateGameTime(GameTime* output)
 {
-    const std::uint32_t now = static_cast<std::uint32_t>(platform::ReadLegacyTime32_53BA26(nullptr));
+    const std::uint32_t now = static_cast<std::uint32_t>(::_time32(nullptr));
     const std::uint32_t base = gValue559508;
     const std::uint32_t sample = gValue73ED68;
     std::uint32_t offset = gValue73ED4C;

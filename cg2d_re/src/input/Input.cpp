@@ -8,7 +8,6 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyWindow.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 

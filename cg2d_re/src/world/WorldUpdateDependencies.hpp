@@ -2,7 +2,6 @@
 
 #include "../scene/login/LoginRequestDependencies.hpp"
 
-#include "cg/platform/LegacyTime.hpp"
 
 #include "../scene/login/LoginSavedState.hpp"
 

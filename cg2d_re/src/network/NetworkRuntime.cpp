@@ -25,10 +25,10 @@
 #include "cg/render/Palette.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <ctime>
 #include <winsock2.h>
 
 #include <algorithm>
@@ -44,6 +44,10 @@
 #include <type_traits>
 #include <utility>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
+
+// COR14：CRT时间槽仍为原32位有符号时间，禁止默认time_t拓宽布局。
+static_assert(sizeof(__time32_t) == sizeof(std::int32_t));
+static_assert(alignof(__time32_t) == alignof(std::int32_t));
 
 namespace cg::network {
 namespace detail {
@@ -89,8 +93,8 @@ std::int32_t DefaultNetworkCallback(
 // 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
     std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
-    std::int32_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
-    platform::LegacyTm53B8C6* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用旧时间层的共享九槽对象。
+    __time32_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
+    std::tm* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
     std::uint8_t* buffer58B5F0; // 原全局：0x0058B5F0。
@@ -853,10 +857,9 @@ void HandleResponse_508800(
     }
 
     gNetworkRuntimeState.protocolModeDA3B22 = 1;
-    static_cast<void>(platform::ReadLegacyTime32_53BA26(
-        &gNetworkRuntimeState.time62B394));
+    gNetworkRuntimeState.time62B394 = ::_time32(nullptr);
     gNetworkRuntimeState.localTime62B380 =
-        platform::LocalTime_53B8C6(&gNetworkRuntimeState.time62B394);
+        ::_localtime32(&gNetworkRuntimeState.time62B394);
 
     const char* const separator = const_cast<char*>(std::strstr(text, "|"));
     character_select::detail::gText9A4EAC.clear();
@@ -2087,7 +2090,7 @@ std::int32_t Sub_510B80(
             ++index;
         } while (index < std::strlen(buffer));
         if (spaces > 0) {
-            const std::int32_t seconds = platform::ReadLegacyTime32_53BA26(nullptr);
+            const std::int32_t seconds = static_cast<std::int32_t>(::_time32(nullptr));
             static_cast<void>(
                 platform::SeedRandom_53B4BF(std::bit_cast<std::uint32_t>(seconds)));
             selected = platform::Rand16() % spaces;

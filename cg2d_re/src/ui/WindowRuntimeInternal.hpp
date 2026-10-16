@@ -29,7 +29,6 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
@@ -40,6 +39,7 @@
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <ctime>
 #include <algorithm>
 #include <bit>
 #include <cstddef>
@@ -55,6 +55,10 @@
 #include <sys/stat.h>
 #include <type_traits>
 #include <cstdint>
+
+// COR14：CRT时间槽仍为原32位有符号时间，禁止默认time_t拓宽布局。
+static_assert(sizeof(__time32_t) == sizeof(std::int32_t));
+static_assert(alignof(__time32_t) == alignof(std::int32_t));
 
 namespace cg::ui {
 namespace detail {
@@ -206,8 +210,8 @@ struct LoginWindowRuntimeSlots {
     std::int32_t blacklistDeleteModeD67BC4; // 原全局：0x00D67BC4。 只由65删除按钮切换，初始化不重置。
     std::int32_t valueCB0604; // 原全局：0x00CB0604。
     std::uint32_t valueD67618; // 原全局：0x00D67618。
-    platform::LegacyTm53B8C6* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用platform同一可变localtime对象。
-    std::int32_t timeCB1DF0; // 原全局：0x00CB1DF0。
+    std::tm* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用CRT同线程共享可变std::tm对象。
+    __time32_t timeCB1DF0; // 原全局：0x00CB1DF0。
     std::int32_t valueD67BB0; // 原全局：0x00D67BB0。
     std::int32_t logViewerMaximumD67BB4; // 原全局：0x00D67BB4。 原计数上限，含EOF空读取，不减可见行数。
     std::FILE* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。

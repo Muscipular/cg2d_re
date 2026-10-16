@@ -1,6 +1,5 @@
 #include "cg/platform/MainLoop.hpp"
 #include <string_view>
-#include "cg/platform/LegacyTime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 
 #include <bit>

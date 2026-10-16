@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
 
+#include <cstring>
+#include <ctime>
 #include <cstdio>
 
 namespace cg::ui {
@@ -87,23 +89,19 @@ WindowPrototype gWindowPrototypeAdventureLog {0, 4, 15, 97, 465, 321, 0x80000080
 // 原函数：0x004CBD30。
 void WindowAdventureLog_InitializeDate()
 {
-    platform::LegacyTm53B8C6* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
+    std::tm* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
     gLoginWindowRuntime.valueD67BB0 = 0;
     if (previous != nullptr) {
         return;
     }
-    platform::ReadLegacyTime32_53BA26(&gLoginWindowRuntime.timeCB1DF0);
-    platform::LegacyTm53B8C6* const current =
-        platform::LocalTime_53B8C6(&gLoginWindowRuntime.timeCB1DF0);
+    gLoginWindowRuntime.timeCB1DF0 = ::_time32(nullptr);
+    std::tm* const current =
+        ::_localtime32(&gLoginWindowRuntime.timeCB1DF0);
     gLoginWindowRuntime.calendarTimeD67BAC = current;
-    const auto* const bytes = reinterpret_cast<const std::byte*>(current);
-    std::int32_t day;
-    std::memcpy(&day, bytes + 0x0C, sizeof(day));
+    const std::int32_t day = current->tm_mday;
     gLoginWindowRuntime.dayD67BC0 = day;
-    std::int32_t month;
-    std::memcpy(&month, bytes + 0x10, sizeof(month));
-    std::int32_t year;
-    std::memcpy(&year, bytes + 0x14, sizeof(year));
+    const std::int32_t month = current->tm_mon;
+    const std::int32_t year = current->tm_year;
     std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
         year % 100, month + 1, day);
 }
@@ -116,9 +114,9 @@ static void WindowAdventureLog_Load()
         static_cast<void>(std::fclose(previous));
     }
     const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
-    platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
-    const std::int32_t month = calendar->month0based;
-    const std::int32_t year = calendar->yearMinus1900;
+    std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+    const std::int32_t month = calendar->tm_mon;
+    const std::int32_t year = calendar->tm_year;
     std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
         year % 100, month + 1, day);
     char path[256];
@@ -250,45 +248,45 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
                 gLoginWindowRuntime.logViewerFileD67BB8 = nullptr;
             }
             if (index == 6) {
-                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
                 const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
-                const std::int32_t month = calendar->month0based;
-                if (month == 1 && (calendar->day == 29 || day == 29)) {
-                    calendar->month0based = month + 1;
+                const std::int32_t month = calendar->tm_mon;
+                if (month == 1 && (calendar->tm_mday == 29 || day == 29)) {
+                    calendar->tm_mon = month + 1;
                     gLoginWindowRuntime.dayD67BC0 = 1;
                 } else if ((month == 3 || month == 5 || month == 8 || month == 10)
-                    && (calendar->day == 30 || day == 30)) {
-                    calendar->month0based = month + 1;
+                    && (calendar->tm_mday == 30 || day == 30)) {
+                    calendar->tm_mon = month + 1;
                     gLoginWindowRuntime.dayD67BC0 = 1;
-                } else if (calendar->day == 31 || day == 31) {
+                } else if (calendar->tm_mday == 31 || day == 31) {
                     gLoginWindowRuntime.dayD67BC0 = 1;
-                    const std::int32_t currentMonth = calendar->month0based;
+                    const std::int32_t currentMonth = calendar->tm_mon;
                     if (currentMonth == 11) {
-                        ++calendar->yearMinus1900;
-                        gLoginWindowRuntime.calendarTimeD67BAC->month0based = 0;
+                        ++calendar->tm_year;
+                        gLoginWindowRuntime.calendarTimeD67BAC->tm_mon = 0;
                     } else {
-                        calendar->month0based = currentMonth + 1;
+                        calendar->tm_mon = currentMonth + 1;
                     }
                 } else {
                     gLoginWindowRuntime.dayD67BC0 = day + 1;
                 }
             } else if (gLoginWindowRuntime.dayD67BC0 == 1) {
-                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
-                const std::int32_t month = calendar->month0based;
+                std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                const std::int32_t month = calendar->tm_mon;
                 if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) {
                     gLoginWindowRuntime.dayD67BC0 = 31;
-                    --calendar->month0based;
+                    --calendar->tm_mon;
                 } else if (month == 2) {
                     gLoginWindowRuntime.dayD67BC0 = 29;
-                    --calendar->month0based;
+                    --calendar->tm_mon;
                 } else if (month == 0) {
                     gLoginWindowRuntime.dayD67BC0 = 31;
-                    --calendar->yearMinus1900;
-                    gLoginWindowRuntime.calendarTimeD67BAC->month0based = 12;
-                    --gLoginWindowRuntime.calendarTimeD67BAC->month0based;
+                    --calendar->tm_year;
+                    gLoginWindowRuntime.calendarTimeD67BAC->tm_mon = 12;
+                    --gLoginWindowRuntime.calendarTimeD67BAC->tm_mon;
                 } else {
                     gLoginWindowRuntime.dayD67BC0 = 30;
-                    --calendar->month0based;
+                    --calendar->tm_mon;
                 }
             } else {
                 --gLoginWindowRuntime.dayD67BC0;

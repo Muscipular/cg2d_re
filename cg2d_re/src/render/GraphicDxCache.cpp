@@ -771,7 +771,10 @@ void LoadTextureFromBuffer32_450400(
         return;
     }
 
-    const bool opaqueZero = (resource::gGraphicInfo[resource::gGraphicDataBuffer].flag & 8u) != 0;
+    // GRT03：Info.flag 合并 Flag1／Flag2，按 GetGraphicFlag1 取十进制低两位属性。
+    // 例如河岸地块的 301 不能直接 & 8，否则透明索引 0 会被误写为不透明黑色。
+    const std::uint16_t graphicFlags = resource::gGraphicInfo[resource::gGraphicDataBuffer].flag % 100u;
+    const bool opaqueZero = (graphicFlags & 8u) != 0;
     const std::uint8_t* row = source + y * sourceWidth + x;
     std::uint32_t* target = surface->pixels.get();
     for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {

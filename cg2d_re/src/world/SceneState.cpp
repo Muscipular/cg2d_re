@@ -270,7 +270,6 @@ SkillRuntimeSlots gSkillRuntimeSlots {};
 
 std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
 std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
-std::uint32_t gChatMinimumIntervalMs = 200; // G06：SpDt更新的重复发言阈值。
 std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
 std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
@@ -3931,6 +3930,7 @@ std::int32_t gBattleCountdownActive5ABCB8 = 0; // 原全局：0x005ABCB8。
 std::uint64_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
 std::uint32_t gBattleCommandWaitMs = 300000; // G01：BtWt更新，下次命令计时生效。
 bool gBattleShowEnemyHpBars = false; // G02：BtWt血条及敌方悬停数值开关。
+std::uint32_t gChatMinimumIntervalMs = 200; // G06：SpDt与Sub_50C940共享；唯一定义位于cg::world::detail。
 std::int32_t gBattleCountdownSecond5ABB80 = 0; // 原全局：0x005ABB80。
 std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
 std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。

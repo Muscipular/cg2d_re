@@ -28,6 +28,8 @@
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <lz4.h>
+
 #include <ctime>
 #include <winsock2.h>
 
@@ -44,6 +46,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <vector>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 // CTM01：本地CRT时间槽显式__time64_t；协议与存档字段仍按各自原格式承接。
@@ -66,6 +69,11 @@ void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::in
 
 namespace {
 
+// N02：参考块输出、整帧输出与解压正文累积容量。
+constexpr std::int32_t kLz4BlockSize = 0x4000;
+constexpr std::size_t kLz4FrameDecodedCapacity = 0x8100;
+constexpr std::size_t kDecodedQueueCapacity = 0x80000;
+constexpr std::uint8_t kLz4FrameMarker = 0xEF;
 constexpr std::size_t kWorkspaceSlotCount = 18;
 constexpr std::size_t kReceiveQueueOffset = 0xC004;
 constexpr std::size_t kQueueCapacity = 0x4000;
@@ -90,6 +98,16 @@ std::int32_t DefaultNetworkCallback(
 {
     return 0;
 }
+
+// N02：网络对象拥有半帧、连续块输出和待分行正文，不借用recv局部缓冲。
+struct CompressedReceiveState {
+    std::vector<std::uint8_t> frame; // size为头部声明的总帧长，包含四字节头。
+    std::size_t frameBytes = 0; // 已填充的帧字节数。
+    // 多一个块仅供“先解压再判逻辑容量”，不得发布超过0x8100的整帧输出。
+    std::array<char, kLz4FrameDecodedCapacity + kLz4BlockSize> frameOutput;
+    std::array<char, kDecodedQueueCapacity> lines;
+    std::size_t lineBytes = 0; // 含完整LF行及尚未收齐的尾行。
+};
 
 // 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
@@ -127,6 +145,7 @@ struct NetworkRuntimeState {
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     std::list<std::pair<std::string, ProtocolSendHandler>> sendHandlers;
+    CompressedReceiveState compressedReceive; // N02：会话数据随初始化／关闭重置。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -180,32 +199,132 @@ std::int32_t QueuePlaintextProtocolBytes(
     return 0;
 }
 
-// 对齐服务端GetOneLine_fix；半行保留，多行由NetworkLoop依序消费。
-std::int32_t ReceivePlaintextProtocolLine(
+// N02：一帧内连续解压，之前的输出保持原地址，供后续LZ4块引用。
+static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
+{
+    LZ4_streamDecode_t stream {};
+    static_cast<void>(LZ4_setStreamDecode(&stream, nullptr, 0));
+    std::size_t offset = 4;
+    std::size_t used = 0;
+    while (offset < state.frame.size()) {
+        if (offset + 2 > state.frame.size()) {
+            return -1;
+        }
+        const std::int32_t compressedSize =
+            (static_cast<std::int32_t>(state.frame[offset]) << 8) | state.frame[offset + 1];
+        offset += 2;
+        if (compressedSize == 0) {
+            break;
+        }
+        if (compressedSize > LZ4_COMPRESSBOUND(kLz4BlockSize)
+            || offset + compressedSize > state.frame.size()) {
+            return -1;
+        }
+        const std::int32_t decodedSize = LZ4_decompress_safe_continue(
+            &stream, reinterpret_cast<const char*>(state.frame.data() + offset),
+            state.frameOutput.data() + used, compressedSize, kLz4BlockSize);
+        offset += compressedSize;
+        if (decodedSize <= 0) {
+            break;
+        }
+        if (static_cast<std::size_t>(decodedSize) > kLz4FrameDecodedCapacity - used) {
+            return -1;
+        }
+        used += decodedSize;
+    }
+    return static_cast<std::int32_t>(used);
+}
+
+// 参考buffEx容量语义：不足时清旧正文，当前输入保留待下次重试。
+static bool AppendDecodedProtocolBytes(const void* const data, const std::size_t size)
+{
+    CompressedReceiveState& state = gNetworkRuntimeState.compressedReceive;
+    if (size >= state.lines.size() - state.lineBytes) {
+        state.lineBytes = 0;
+        state.lines[0] = '\0';
+        return false;
+    }
+    std::memcpy(state.lines.data() + state.lineBytes, data, size);
+    state.lineBytes += size;
+    state.lines[state.lineBytes] = '\0';
+    return true;
+}
+
+// N02：普通LF行与0xEF帧共用累积正文；先交完整行，半帧／半行保留到后续recv。
+static std::int32_t ReceiveProtocolLine(
     void* const destination,
     const std::int32_t capacity)
 {
     if (login::gRequestPollingEnabled == 0) {
         return -100;
     }
-
+    CompressedReceiveState& state = gNetworkRuntimeState.compressedReceive;
     std::uint8_t* const receive =
         gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
-    const auto* const newline = static_cast<const std::uint8_t*>(std::memchr(
-        receive, '\n', static_cast<std::size_t>(gNetworkRuntimeState.receiveLengthD69790)));
-    if (newline == nullptr) {
-        return -1;
-    }
-    const std::int32_t lineLength = static_cast<std::int32_t>(newline - receive) + 1;
-    if (capacity <= lineLength) {
-        ::OutputDebugStringA("\nBuffer Too Small\n");
-        return -1;
-    }
+    for (;;) {
+        const auto* const newline = static_cast<const char*>(
+            std::memchr(state.lines.data(), '\n', state.lineBytes));
+        if (newline != nullptr) {
+            const std::size_t lineLength = static_cast<std::size_t>(newline - state.lines.data()) + 1;
+            if (capacity <= static_cast<std::int32_t>(lineLength)) {
+                ::OutputDebugStringA("\nBuffer Too Small\n");
+                return -1;
+            }
+            std::memcpy(destination, state.lines.data(), lineLength);
+            static_cast<char*>(destination)[lineLength] = '\0';
+            state.lineBytes -= lineLength;
+            std::memmove(state.lines.data(), state.lines.data() + lineLength, state.lineBytes);
+            state.lines[state.lineBytes] = '\0';
+            return 0;
+        }
 
-    std::memcpy(destination, receive, static_cast<std::size_t>(lineLength));
-    static_cast<char*>(destination)[lineLength] = '\0';
-    static_cast<void>(ConsumeReceiveQueue_508230(lineLength));
-    return 0;
+        const auto available = static_cast<std::size_t>(gNetworkRuntimeState.receiveLengthD69790);
+        if (!state.frame.empty()) {
+            const std::size_t count = std::min(available, state.frame.size() - state.frameBytes);
+            std::memcpy(state.frame.data() + state.frameBytes, receive, count);
+            state.frameBytes += count;
+            static_cast<void>(ConsumeReceiveQueue_508230(static_cast<std::int32_t>(count)));
+            if (state.frameBytes < state.frame.size()) {
+                return -1;
+            }
+            const std::int32_t decodedSize = DecodeCompressedProtocolFrame(state);
+            if (decodedSize < 0
+                || !AppendDecodedProtocolBytes(state.frameOutput.data(),
+                    static_cast<std::size_t>(decodedSize))) {
+                return -1;
+            }
+            state.frame.clear();
+            state.frameBytes = 0;
+            continue;
+        }
+        if (available == 0) {
+            return -1;
+        }
+        if (receive[0] == kLz4FrameMarker) {
+            if (available < 4) {
+                return -1;
+            }
+            const std::uint32_t frameLength =
+                (static_cast<std::uint32_t>(receive[1]) << 16)
+                | (static_cast<std::uint32_t>(receive[2]) << 8)
+                | receive[3];
+            if (frameLength < 4) {
+                return -1;
+            }
+            state.frame.resize(frameLength);
+            state.frameBytes = 0;
+            continue;
+        }
+
+        const auto* const plainNewline = static_cast<const std::uint8_t*>(
+            std::memchr(receive, '\n', available));
+        const std::size_t count = plainNewline == nullptr ? available
+            : static_cast<std::size_t>(plainNewline - receive) + 1;
+        if (!AppendDecodedProtocolBytes(receive, count)) {
+            return -1;
+        }
+        static_cast<void>(ConsumeReceiveQueue_508230(static_cast<std::int32_t>(count)));
+    }
 }
 
 } // namespace
@@ -4162,6 +4281,9 @@ std::int32_t InitializeNetworkRuntime_508140()
     std::memcpy(gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
         &emptyLength, sizeof(emptyLength));
     gNetworkRuntimeState.receiveLengthD69790 = 0;
+    gNetworkRuntimeState.compressedReceive.frame.clear();
+    gNetworkRuntimeState.compressedReceive.frameBytes = 0;
+    gNetworkRuntimeState.compressedReceive.lineBytes = 0;
     gNetworkRuntimeState.frameModuloD9F3C8 = 0;
     gNetworkRuntimeState.flagsD9F2C0 = 0;
     gNetworkRuntimeState.errorD9F2CC = 0;
@@ -4255,8 +4377,8 @@ std::uint8_t NetworkLoop_507DF0()
         gNetworkRuntimeState.queueBytes.data() + kDispatchOffset;
     const volatile std::uint32_t* const length =
         &gNetworkRuntimeState.bufferLength;
-    while (gNetworkRuntimeState.receiveLengthD69790 > 0) {
-        if (ReceivePlaintextProtocolLine(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
+    for (;;) {
+        if (ReceiveProtocolLine(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
             break;
         }
         const bool diagnoseLogin = login::gConnectionStep >= 71
@@ -4356,7 +4478,7 @@ std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
     if (login::gRequestPollingEnabled == 0) {
         return -100;
     }
-    if (size >= static_cast<std::int32_t>(kQueueCapacity)) {
+    if (size > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
     }
 
@@ -4427,6 +4549,9 @@ void ShutdownNetworkRuntime_5081A0()
 
     gNetworkRuntimeState.valueD9F2D0 = 0;
     gNetworkRuntimeState.active = 0;
+    std::vector<std::uint8_t>().swap(gNetworkRuntimeState.compressedReceive.frame);
+    gNetworkRuntimeState.compressedReceive.frameBytes = 0;
+    gNetworkRuntimeState.compressedReceive.lineBytes = 0;
     login::gRequestPollingEnabled = 0;
     world::gValueD9F2CA = 0;
     static_cast<void>(::closesocket(

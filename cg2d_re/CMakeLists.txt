@@ -6,7 +6,7 @@ if(NOT WIN32 OR NOT CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     message(FATAL_ERROR "cg2d_re 仅支持 Windows/MSVC/x64 配置。")
 endif()
 
-enable_language(RC)
+enable_language(C RC)
 
 set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
     CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
@@ -27,6 +27,11 @@ block()
     add_subdirectory(3rd/yaml-cpp EXCLUDE_FROM_ALL)
 endblock()
 target_compile_options(yaml-cpp PRIVATE /GR- /utf-8)
+
+# NHM01：只使用仓库已带的LZ4块库，不启用第三方工具或测试。
+add_library(cg2d_re_lz4 STATIC 3rd/lz4/lib/lz4.c)
+target_include_directories(cg2d_re_lz4 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/3rd/lz4/lib")
+target_compile_options(cg2d_re_lz4 PRIVATE /utf-8)
 
 add_library(cg2d_re_core STATIC
     src/text/Encoding.cpp
@@ -244,7 +249,7 @@ target_compile_options(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

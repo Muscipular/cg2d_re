@@ -6,6 +6,8 @@
 
 > 2026-10-09当前实施以[本机服务端明文合同](#local-server-plaintext-contract)为准。旧“仅去算法、保留密文帧外壳和命令变换”的实现不能与当前服务端互通，下列旧W16合同仅保留为原端历史基线。
 
+> 2026-10-16：按用户选定的N01–N03，当前网络增量按 [NHM01](cg2d_network_hook_business_migration_spec.md) 实施。原命令／字段／LF及不做加解密的合同保持；N01收发回调、N02压缩接收与N03登录前导的分步状态及运行边界见该SPEC。
+
 > 2026-10-16源码清理：[NKF01](cg2d_network_plaintext_frame_spec.md)已删除旧W16收发帧及短状态；本次按用户要求执行[NKC01](cg2d_network_plaintext_frame_spec.md#retired-command-transform-removal)，一并删除无当前调用的4038A0／403A70命令混淆函数。下文旧正文保留约定按历史时点理解，当前LF收发、原命令／字段、Base62和文本转义保持。
 
 <a id="local-server-plaintext-contract"></a>

@@ -866,9 +866,9 @@
 | 794 | 0x004585F0 | `sub_4585F0` | 有正文 | `src/platform/ClientInitialization.cpp:145 — FadeOutLoading_4585F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 795 | 0x004587D0 | `sub_4587D0` | 有正文 | `src/platform/MainLoop.cpp:147 — EnumerateWindows_4587D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 796 | 0x00458840 | `sub_458840` | 有正文 | `src/platform/MainLoop.cpp:92 — EnumerateWindowsCallback_458840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 797 | 0x004589A0 | `sub_4589A0` | 有承接 | `src/network/NetworkRuntime.cpp:190 — platform::gWindowReportValue > 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
-| 798 | 0x004589B0 | `sub_4589B0` | 有承接 | `src/network/NetworkRuntime.cpp:193 — platform::gWindowReportValue = 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
-| 799 | 0x004589C0 | `sub_4589C0` | 有承接 | `src/network/NetworkRuntime.cpp:192 — std::bit_cast<std::int64_t>(platform::gWindowReportDeadline) < 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
+| 797 | 0x004589A0 | `sub_4589A0` | 有承接 | `src/network/NetworkRuntime.cpp:191 — platform::gWindowReportValue > 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
+| 798 | 0x004589B0 | `sub_4589B0` | 有承接 | `src/network/NetworkRuntime.cpp:194 — platform::gWindowReportValue = 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
+| 799 | 0x004589C0 | `sub_4589C0` | 有承接 | `src/network/NetworkRuntime.cpp:193 — std::bit_cast<std::int64_t>(platform::gWindowReportDeadline) < 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
 | 800 | 0x004589D0 | `sub_4589D0` | 有正文 | `src/platform/MainLoopSupport.cpp:699 — ReadSystemSeconds_4589D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 801 | 0x00458A10 | `sub_458A10` | 有正文 | `src/platform/MainLoopSupport.cpp:712 — CheckSystemSeconds_458A10` | 实际非占位正文已定位；完整业务／接线／运行未验；CTM01保完整64位系统秒差，仅静态 |
 | 802 | 0x00458A40 | `sub_458A40` | 有正文 | `src/platform/MainLoop.cpp:168 — ShowModeChange_458A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2543,17 +2543,17 @@
 | 2471 | 0x00507140 | `sub_507140` | 有正文 | `src/platform/MouseDispatch.cpp:208 — Sub_507140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:352 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2473 | 0x00507D90 | `GetServerAddressInfo` | 有正文 | `src/scene/login/LoginScene.cpp:338 — GetServerAddressInfo_507D90` | 实际非占位正文已定位；完整业务／接线／运行未验；SAP01成功查询后接taomoli映射及非调试DNS／提示／退出，原失败合同保持；仅静态，运行未验 |
-| 2474 | 0x00507DF0 | `NetworkLoop` | 有正文 | `src/network/NetworkRuntime.cpp:4174 — NetworkLoop_507DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2475 | 0x00508140 | `sub_508140` | 有正文 | `src/network/NetworkRuntime.cpp:4149 — InitializeNetworkRuntime_508140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2476 | 0x005081A0 | `sub_5081A0` | 有正文 | `src/network/NetworkRuntime.cpp:4422 — ShutdownNetworkRuntime_5081A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2477 | 0x005081E0 | `sub_5081E0` | 有正文 | `src/network/NetworkRuntime.cpp:4330 — AppendReceiveQueue_5081E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2478 | 0x00508230 | `sub_508230` | 有正文 | `src/network/NetworkRuntime.cpp:4354 — ConsumeReceiveQueue_508230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2479 | 0x00508280 | `sub_508280` | 有正文 | `src/network/NetworkRuntime.cpp:4373 — ConsumeSendQueue_508280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2480 | 0x005082D0 | `sub_5082D0` | 有正文 | `src/network/NetworkRuntime.cpp:380 — Sub_5082D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2481 | 0x00508310 | `sub_508310` | 有正文 | `src/network/NetworkRuntime.cpp:390 — Sub_508310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2474 | 0x00507DF0 | `NetworkLoop` | 有正文 | `src/network/NetworkRuntime.cpp:4296 — NetworkLoop_507DF0` | 实际非占位正文已定位；完整业务／接线／运行未验；N02合并普通LF与0xEF帧正文分发，原始区为空时继续消费已解压行，仅静态 |
+| 2475 | 0x00508140 | `sub_508140` | 有正文 | `src/network/NetworkRuntime.cpp:4268 — InitializeNetworkRuntime_508140` | 实际非占位正文已定位；完整业务／接线／运行未验；N02重置会话半帧／半行，回调注册保持 |
+| 2476 | 0x005081A0 | `sub_5081A0` | 有正文 | `src/network/NetworkRuntime.cpp:4544 — ShutdownNetworkRuntime_5081A0` | 实际非占位正文已定位；完整业务／接线／运行未验；N02关闭清正文数量并释放压缩帧拥有者 |
+| 2477 | 0x005081E0 | `sub_5081E0` | 有正文 | `src/network/NetworkRuntime.cpp:4452 — AppendReceiveQueue_5081E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2478 | 0x00508230 | `sub_508230` | 有正文 | `src/network/NetworkRuntime.cpp:4476 — ConsumeReceiveQueue_508230` | 实际非占位正文已定位；完整业务／接线／运行未验；N02允许消费已合法接收的完整0x4000区 |
+| 2479 | 0x00508280 | `sub_508280` | 有正文 | `src/network/NetworkRuntime.cpp:4495 — ConsumeSendQueue_508280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2480 | 0x005082D0 | `sub_5082D0` | 有正文 | `src/network/NetworkRuntime.cpp:499 — Sub_5082D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2481 | 0x00508310 | `sub_508310` | 有正文 | `src/network/NetworkRuntime.cpp:509 — Sub_508310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2482 | 0x00508350 | `sub_508350` | 有正文 | `src/LoginConnection.cpp:9 — ResetServerConnectionState_508350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2483 | 0x00508360 | `sub_508360` | 有正文 | `src/scene/login/LoginState.cpp:86 — Sub_508360` | 实际非占位正文已定位；完整业务／接线／运行未验；ALM01：登录变量语义改名，账号临时副本沿既有64字节容量，请求字段序保持；仅静态，实际请求运行未验 |
-| 2484 | 0x00508800 | `sub_508800` | 有正文 | `src/network/NetworkRuntime.cpp:711 — HandleResponse_508800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2484 | 0x00508800 | `sub_508800` | 有正文 | `src/network/NetworkRuntime.cpp:830 — HandleResponse_508800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2485 | 0x00508910 | `sub_508910` | 有正文 | `src/scene/login/CharacterListRequest.cpp:116 — StartCharacterListRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2486 | 0x00508950 | `sub_508950` | 有正文 | `src/scene/login/CharacterListRequest.cpp:131 — PollCharacterListRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2487 | 0x005089B0 | `sub_5089B0` | 有正文 | `src/scene/login/CharacterListRequest.cpp:156 — HandleCharacterListResponse_5089B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2602,26 +2602,26 @@
 | 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:2397 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:2451 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2532 | 0x0050CE10 | `sub_50CE10` | 有正文 | `src/world/SceneState.cpp:2315 — Sub_50CE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2533 | 0x0050CF20 | `sub_50CF20` | 有正文 | `src/network/NetworkRuntime.cpp:419 — Sub_50CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2534 | 0x0050CF60 | `sub_50CF60` | 有正文 | `src/network/NetworkRuntime.cpp:410 — Sub_50CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2533 | 0x0050CF20 | `sub_50CF20` | 有正文 | `src/network/NetworkRuntime.cpp:538 — Sub_50CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2534 | 0x0050CF60 | `sub_50CF60` | 有正文 | `src/network/NetworkRuntime.cpp:529 — Sub_50CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2535 | 0x0050CF70 | `sub_50CF70` | 有正文 | `src/world/SceneState.cpp:2287 — Sub_50CF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2536 | 0x0050CF90 | `sub_50CF90` | 有正文 | `src/world/SceneState.cpp:5492 — Sub_50CF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2537 | 0x0050D000 | `sub_50D000` | 有正文 | `src/world/SceneState.cpp:2556 — Sub_50D000` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2538 | 0x0050D080 | `sub_50D080` | 有正文 | `src/world/SceneState.cpp:5217 — Sub_50D080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2539 | 0x0050D120 | `sub_50D120` | 有正文 | `src/world/SceneState.cpp:5260 — Sub_50D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2540 | 0x0050D3B0 | `sub_50D3B0` | 有正文 | `src/network/NetworkRuntime.cpp:434 — Sub_50D3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2540 | 0x0050D3B0 | `sub_50D3B0` | 有正文 | `src/network/NetworkRuntime.cpp:553 — Sub_50D3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2541 | 0x0050D3C0 | `sub_50D3C0` | 有正文 | `src/world/SceneState.cpp:5338 — Sub_50D3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2542 | 0x0050D500 | `sub_50D500` | 有正文 | `src/world/SceneState.cpp:5397 — Sub_50D500` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2543 | 0x0050D700 | `sub_50D700` | 有正文 | `src/network/NetworkRuntime.cpp:472 — Sub_50D700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2543 | 0x0050D700 | `sub_50D700` | 有正文 | `src/network/NetworkRuntime.cpp:591 — Sub_50D700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2544 | 0x0050D740 | `sub_50D740` | 有正文 | `src/world/MailState.cpp:291 — Sub_50D740` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2545 | 0x0050D8C0 | `sub_50D8C0` | 有正文 | `src/world/MailState.cpp:330 — Sub_50D8C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2546 | 0x0050D9E0 | `sub_50D9E0` | 有正文 | `src/world/MailState.cpp:358 — Sub_50D9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2547 | 0x0050DC70 | `sub_50DC70` | 有正文 | `src/world/MailState.cpp:624 — Sub_50DC70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2548 | 0x0050DD80 | `sub_50DD80` | 有正文 | `src/network/NetworkRuntime.cpp:492 — Sub_50DD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2548 | 0x0050DD80 | `sub_50DD80` | 有正文 | `src/network/NetworkRuntime.cpp:611 — Sub_50DD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1273 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2338 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:2372 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2552 | 0x0050E310 | `sub_50E310` | 有正文 | `src/network/NetworkRuntime.cpp:444 — Sub_50E310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2552 | 0x0050E310 | `sub_50E310` | 有正文 | `src/network/NetworkRuntime.cpp:563 — Sub_50E310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2553 | 0x0050E340 | `sub_50E340` | 有正文 | `src/ui/windows/WindowSkill.cpp:2552 — WindowSkill_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2554 | 0x0050E360 | `sub_50E360` | 有正文 | `src/ui/windows/WindowSkill.cpp:2561 — WindowSkill_ReceiveAttributeTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2555 | 0x0050E380 | `sub_50E380` | 有正文 | `src/ui/windows/WindowItemUse.cpp:353 — WindowItemUse_ReceiveTextTargetReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2637,19 +2637,19 @@
 | 2565 | 0x0050E570 | `sub_50E570` | 有正文 | `src/ui/windows/WindowTrade.cpp:3092 — WindowTrade_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2566 | 0x0050E5B0 | `sub_50E5B0` | 有正文 | `src/world/SceneState.cpp:849 — Sub_50E5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:856 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2568 | 0x0050E630 | `sub_50E630` | 有正文 | `src/network/NetworkRuntime.cpp:460 — Sub_50E630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2568 | 0x0050E630 | `sub_50E630` | 有正文 | `src/network/NetworkRuntime.cpp:579 — Sub_50E630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:2363 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/network/NetworkRuntime.cpp:58 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2571 | 0x0050E6C0 | `sub_50E6C0` | 有正文 | `src/network/NetworkRuntime.cpp:400 — Sub_50E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:590 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/network/NetworkRuntime.cpp:61 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2571 | 0x0050E6C0 | `sub_50E6C0` | 有正文 | `src/network/NetworkRuntime.cpp:519 — Sub_50E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:709 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2573 | 0x0050E770 | `sub_50E770` | 有正文 | `src/CharacterSelectScene.cpp:197 — Sub_50E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2574 | 0x0050E780 | `sub_50E780` | 有正文 | `src/network/NetworkRuntime.cpp:606 — Sub_50E780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2574 | 0x0050E780 | `sub_50E780` | 有正文 | `src/network/NetworkRuntime.cpp:725 — Sub_50E780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2575 | 0x0050E7B0 | `sub_50E7B0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪配置移除；NetworkRuntime保留tq解析` | 用户要求取消重复点击追踪；解码后忽略，不计原配置功能实现 |
 | 2576 | 0x0050E7D0 | `sub_50E7D0` | 有正文 | `src/ui/windows/WindowStall.cpp:2729 — WindowStall_ReceiveOpenReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2577 | 0x0050E7E0 | `sub_50E7E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2735 — WindowStall_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2578 | 0x0050E7F0 | `sub_50E7F0` | 有正文 | `src/ui/windows/WindowStall.cpp:2741 — WindowStall_ReceiveBrowseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2579 | 0x0050E820 | `sub_50E820` | 有正文 | `src/ui/windows/WindowStall.cpp:2750 — WindowStall_ReceivePurchaseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2580 | 0x0050E830 | `sub_50E830` | 有正文 | `src/network/NetworkRuntime.cpp:620 — Sub_50E830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2580 | 0x0050E830 | `sub_50E830` | 有正文 | `src/network/NetworkRuntime.cpp:739 — Sub_50E830` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2581 | 0x0050E850 | `sub_50E850` | 有正文 | `src/world/GuildState.cpp:137 — Sub_50E850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2582 | 0x0050EB40 | `sub_50EB40` | 有正文 | `src/world/GuildState.cpp:207 — Sub_50EB40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2583 | 0x0050EC50 | `sub_50EC50` | 有正文 | `src/world/GuildState.cpp:365 — UpdateOrderedRecordBatch_50EC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2657,8 +2657,8 @@
 | 2585 | 0x0050EF20 | `sub_50EF20` | 有正文 | `src/world/GuildState.cpp:273 — ResetOrderedRecord_50EF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2586 | 0x0050EF50 | `sub_50EF50` | 有正文 | `src/world/GuildState.cpp:261 — CountRecordsValue08EqualOne_50EF50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2587 | 0x0050EF70 | `sub_50EF70` | 有正文 | `src/world/GuildState.cpp:291 — ParseOrderedRecord_50EF70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2588 | 0x0050F130 | `sub_50F130` | 有正文 | `src/network/NetworkRuntime.cpp:632 — Sub_50F130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2589 | 0x0050F190 | `sub_50F190` | 有正文 | `src/network/NetworkRuntime.cpp:652 — Sub_50F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2588 | 0x0050F130 | `sub_50F130` | 有正文 | `src/network/NetworkRuntime.cpp:751 — Sub_50F130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2589 | 0x0050F190 | `sub_50F190` | 有正文 | `src/network/NetworkRuntime.cpp:771 — Sub_50F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2590 | 0x0050F280 | `sub_50F280` | 有正文 | `src/world/GuildState.cpp:241 — Sub_50F280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2591 | 0x0050F2A0 | `sub_50F2A0` | 有正文 | `src/world/MailState.cpp:999 — Sub_50F2A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2592 | 0x0050F3A0 | `sub_50F3A0` | 有正文 | `src/world/MailState.cpp:1031 — Sub_50F3A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2675,110 +2675,110 @@
 | 2603 | 0x00510120 | `sub_510120` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 2604 | 0x00510140 | `sub_510140` | 有正文 | `src/scene/login/LoginRequest.cpp:78 — ReadRequestOutcomeFlag` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2605 | 0x00510150 | `sub_510150` | 有正文 | `src/world/SceneState.cpp:3377 — Sub_510150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2606 | 0x00510460 | `sub_510460` | 有正文 | `src/network/NetworkRuntime.cpp:674 — Sub_510460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2607 | 0x00510490 | `sub_510490` | 有正文 | `src/network/NetworkRuntime.cpp:686 — Sub_510490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2608 | 0x00510570 | `sub_510570` | 有正文 | `src/network/NetworkRuntime.cpp:1582 — Sub_510570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2609 | 0x00510630 | `sub_510630` | 有正文 | `src/network/NetworkRuntime.cpp:1794 — Sub_510630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2610 | 0x00510710 | `sub_510710` | 有正文 | `src/network/NetworkRuntime.cpp:1851 — Sub_510710` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2611 | 0x00510810 | `sub_510810` | 有正文 | `src/network/NetworkRuntime.cpp:1994 — Sub_510810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2612 | 0x00510880 | `sub_510880` | 有正文 | `src/network/NetworkRuntime.cpp:2164 — Sub_510880` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2613 | 0x005108F0 | `sub_5108F0` | 有正文 | `src/network/NetworkRuntime.cpp:3831 — Sub_5108F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2614 | 0x00510940 | `sub_510940` | 有正文 | `src/network/NetworkRuntime.cpp:2194 — Sub_510940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2615 | 0x005109B0 | `SendBattlePacket` | 有正文 | `src/network/NetworkRuntime.cpp:3730 — SendBattlePacket_5109B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2616 | 0x00510A00 | `sub_510A00` | 有正文 | `src/network/NetworkRuntime.cpp:3634 — Sub_510A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2617 | 0x00510AC0 | `sub_510AC0` | 有正文 | `src/network/NetworkRuntime.cpp:1917 — Sub_510AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2618 | 0x00510B80 | `sub_510B80` | 有正文 | `src/network/NetworkRuntime.cpp:1938 — Sub_510B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2619 | 0x00510CE0 | `sub_510CE0` | 有正文 | `src/network/NetworkRuntime.cpp:3594 — Sub_510CE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2620 | 0x00510DA0 | `sub_510DA0` | 有正文 | `src/network/NetworkRuntime.cpp:3746 — Sub_510DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2621 | 0x00510E30 | `sub_510E30` | 有正文 | `src/network/NetworkRuntime.cpp:3429 — Sub_510E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2622 | 0x00510EC0 | `SendItemMove` | 有正文 | `src/network/NetworkRuntime.cpp:3779 — Sub_510EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2623 | 0x00510F50 | `sub_510F50` | 有正文 | `src/network/NetworkRuntime.cpp:3812 — Sub_510F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2624 | 0x00510FA0 | `sub_510FA0` | 有正文 | `src/network/NetworkRuntime.cpp:2305 — Sub_510FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2625 | 0x00511030 | `sub_511030` | 有正文 | `src/network/NetworkRuntime.cpp:2024 — Sub_511030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2626 | 0x005110B0 | `sub_5110B0` | 有正文 | `src/network/NetworkRuntime.cpp:2370 — Sub_5110B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2627 | 0x00511190 | `sub_511190` | 有正文 | `src/network/NetworkRuntime.cpp:2057 — Sub_511190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2628 | 0x005111E0 | `sub_5111E0` | 有正文 | `src/network/NetworkRuntime.cpp:2224 — Sub_5111E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2629 | 0x00511250 | `sub_511250` | 有正文 | `src/network/NetworkRuntime.cpp:2073 — Sub_511250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2630 | 0x005112C0 | `sub_5112C0` | 有正文 | `src/network/NetworkRuntime.cpp:2095 — Sub_5112C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2631 | 0x00511350 | `sub_511350` | 有正文 | `src/network/NetworkRuntime.cpp:2134 — Sub_511350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2632 | 0x005113C0 | `sub_5113C0` | 有正文 | `src/network/NetworkRuntime.cpp:2254 — Sub_5113C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2633 | 0x00511430 | `sub_511430` | 有正文 | `src/network/NetworkRuntime.cpp:2284 — Sub_511430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2634 | 0x00511480 | `sub_511480` | 有正文 | `src/network/NetworkRuntime.cpp:2331 — Sub_511480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2635 | 0x00511510 | `sub_511510` | 有正文 | `src/network/NetworkRuntime.cpp:2406 — Sub_511510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2636 | 0x005115F0 | `sub_5115F0` | 有正文 | `src/network/NetworkRuntime.cpp:2463 — Sub_5115F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2637 | 0x00511640 | `sub_511640` | 有正文 | `src/network/NetworkRuntime.cpp:2484 — Sub_511640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2638 | 0x00511760 | `sub_511760` | 有正文 | `src/network/NetworkRuntime.cpp:2559 — Sub_511760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2639 | 0x005117D0 | `sub_5117D0` | 有正文 | `src/network/NetworkRuntime.cpp:2589 — Sub_5117D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2640 | 0x00511840 | `sub_511840` | 有正文 | `src/network/NetworkRuntime.cpp:2619 — Sub_511840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2641 | 0x005118B0 | `sub_5118B0` | 有正文 | `src/network/NetworkRuntime.cpp:2649 — Sub_5118B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2642 | 0x00511900 | `sub_511900` | 有正文 | `src/network/NetworkRuntime.cpp:2671 — Sub_511900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2643 | 0x00511A00 | `sub_511A00` | 有正文 | `src/network/NetworkRuntime.cpp:2737 — Sub_511A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2644 | 0x00511A50 | `sub_511A50` | 有正文 | `src/network/NetworkRuntime.cpp:2758 — Sub_511A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2645 | 0x00511AE0 | `sub_511AE0` | 有正文 | `src/network/NetworkRuntime.cpp:2797 — Sub_511AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2646 | 0x00511BC0 | `sub_511BC0` | 有正文 | `src/network/NetworkRuntime.cpp:2854 — Sub_511BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2647 | 0x00511C30 | `sub_511C30` | 有正文 | `src/network/NetworkRuntime.cpp:2884 — Sub_511C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2648 | 0x00511C80 | `sub_511C80` | 有正文 | `src/network/NetworkRuntime.cpp:2905 — Sub_511C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2649 | 0x00511CD0 | `sub_511CD0` | 有正文 | `src/network/NetworkRuntime.cpp:1431 — Sub_511CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2650 | 0x00511D10 | `sub_511D10` | 有正文 | `src/network/NetworkRuntime.cpp:2926 — Sub_511D10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2651 | 0x00511D60 | `sub_511D60` | 有正文 | `src/network/NetworkRuntime.cpp:2947 — Sub_511D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2652 | 0x00511DD0 | `sub_511DD0` | 有正文 | `src/network/NetworkRuntime.cpp:2977 — Sub_511DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2653 | 0x00511E60 | `sub_511E60` | 有正文 | `src/network/NetworkRuntime.cpp:3016 — Sub_511E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2654 | 0x00511EF0 | `sub_511EF0` | 有正文 | `src/network/NetworkRuntime.cpp:3055 — Sub_511EF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2655 | 0x00511FB0 | `sub_511FB0` | 有正文 | `src/network/NetworkRuntime.cpp:1447 — Sub_511FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2656 | 0x00511FF0 | `sub_511FF0` | 有正文 | `src/network/NetworkRuntime.cpp:3103 — Sub_511FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2657 | 0x00512040 | `sub_512040` | 有正文 | `src/network/NetworkRuntime.cpp:3119 — Sub_512040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2658 | 0x005120D0 | `sub_5120D0` | 有正文 | `src/network/NetworkRuntime.cpp:3158 — Sub_5120D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2659 | 0x00512160 | `sub_512160` | 有正文 | `src/network/NetworkRuntime.cpp:3197 — Sub_512160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2660 | 0x00512190 | `sub_512190` | 有正文 | `src/network/NetworkRuntime.cpp:3207 — Sub_512190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2661 | 0x005121E0 | `sub_5121E0` | 有正文 | `src/network/NetworkRuntime.cpp:3228 — Sub_5121E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2662 | 0x00512230 | `sub_512230` | 有正文 | `src/network/NetworkRuntime.cpp:1463 — Sub_512230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2663 | 0x00512270 | `sub_512270` | 有正文 | `src/network/NetworkRuntime.cpp:3264 — Sub_512270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2664 | 0x005122C0 | `sub_5122C0` | 有正文 | `src/network/NetworkRuntime.cpp:3285 — Sub_5122C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2665 | 0x00512310 | `sub_512310` | 有正文 | `src/network/NetworkRuntime.cpp:3306 — Sub_512310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2666 | 0x00512360 | `sub_512360` | 有正文 | `src/network/NetworkRuntime.cpp:3327 — Sub_512360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2667 | 0x005123B0 | `sub_5123B0` | 有正文 | `src/network/NetworkRuntime.cpp:3348 — Sub_5123B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2668 | 0x00512400 | `sub_512400` | 有正文 | `src/network/NetworkRuntime.cpp:3369 — Sub_512400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2669 | 0x00512470 | `sub_512470` | 有正文 | `src/network/NetworkRuntime.cpp:3399 — Sub_512470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2670 | 0x005124E0 | `sub_5124E0` | 有正文 | `src/network/NetworkRuntime.cpp:3457 — Sub_5124E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2671 | 0x00512570 | `sub_512570` | 有正文 | `src/network/NetworkRuntime.cpp:1479 — Sub_512570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2672 | 0x005125B0 | `sub_5125B0` | 有正文 | `src/network/NetworkRuntime.cpp:3496 — Sub_5125B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2673 | 0x00512620 | `sub_512620` | 有正文 | `src/network/NetworkRuntime.cpp:3527 — Sub_512620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2674 | 0x00512720 | `sub_512720` | 有正文 | `src/network/NetworkRuntime.cpp:3847 — Sub_512720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2675 | 0x005127B0 | `sub_5127B0` | 有正文 | `src/network/NetworkRuntime.cpp:3249 — Sub_5127B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2676 | 0x00512800 | `sub_512800` | 有正文 | `src/network/NetworkRuntime.cpp:1688 — Sub_512800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2677 | 0x005128C0 | `sub_5128C0` | 有正文 | `src/network/NetworkRuntime.cpp:1739 — Sub_5128C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2678 | 0x00512AB0 | `sub_512AB0` | 有正文 | `src/network/NetworkRuntime.cpp:1669 — Sub_512AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2679 | 0x00512B00 | `sub_512B00` | 有正文 | `src/network/NetworkRuntime.cpp:1630 — Sub_512B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2680 | 0x00512B90 | `sub_512B90` | 有正文 | `src/network/NetworkRuntime.cpp:1383 — Sub_512B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2681 | 0x00512BD0 | `sub_512BD0` | 有正文 | `src/network/NetworkRuntime.cpp:1399 — Sub_512BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2682 | 0x00512C10 | `sub_512C10` | 有正文 | `src/network/NetworkRuntime.cpp:1364 — Sub_512C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2683 | 0x00512C60 | `sub_512C60` | 有正文 | `src/network/NetworkRuntime.cpp:1415 — Sub_512C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2684 | 0x00512CA0 | `sub_512CA0` | 有正文 | `src/network/NetworkRuntime.cpp:1346 — Report_512CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2685 | 0x00512CF0 | `sub_512CF0` | 有正文 | `src/network/NetworkRuntime.cpp:1495 — Sub_512CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2686 | 0x00512D30 | `sub_512D30` | 有正文 | `src/network/NetworkRuntime.cpp:1531 — Sub_512D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2687 | 0x00512DA0 | `sub_512DA0` | 有正文 | `src/network/NetworkRuntime.cpp:1561 — Sub_512DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2688 | 0x00512DF0 | `sub_512DF0` | 有正文 | `src/network/NetworkRuntime.cpp:1511 — Sub_512DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2689 | 0x00512E40 | `network_dispatch` | 有正文 | `src/network/NetworkRuntime.cpp:3975 — NetworkDispatch_512E40` | 实际非占位正文已定位；完整业务／接线／运行未验；N01完整头匹配后调用首个接收扩展，随后保原108条回复分发，仅静态 |
-| 2690 | 0x00516B60 | `sub_516B60` | 有正文 | `src/network/NetworkRuntime.cpp:4115 — AllocateNetworkWorkspace_516B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2691 | 0x00516C90 | `sub_516C90` | 有正文 | `src/network/NetworkRuntime.cpp:3674 — Sub_516C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2692 | 0x00516D70 | `sub_516D70` | 有正文 | `src/network/NetworkRuntime.cpp:3721 — SendIuEPacket_516D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2693 | 0x00516DA0 | `sub_516DA0` | 有正文 | `src/network/NetworkRuntime.cpp:765 — AllocateProtocolBuffers_516DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2694 | 0x00517040 | `sub_517040` | 有正文 | `src/network/NetworkRuntime.cpp:918 — Sub_517040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2695 | 0x00517080 | `sub_517080` | 有正文 | `src/network/NetworkRuntime.cpp:899 — CopyProtocolBytes_517080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2696 | 0x005170D0 | `sub_5170D0` | 有正文 | `src/network/NetworkRuntime.cpp:952 — AppendProtocolText_5170D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2697 | 0x00517120 | `sub_517120` | 有正文 | `src/network/NetworkRuntime.cpp:990 — FormatProtocolIntegerToken_517120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2698 | 0x00517160 | `sub_517160` | 有正文 | `src/network/NetworkRuntime.cpp:1012 — FormatProtocolTextToken_517160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2699 | 0x00517190 | `sub_517190` | 有正文 | `src/network/NetworkRuntime.cpp:1023 — ParseProtocolInteger_517190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2700 | 0x005171B0 | `sub_5171B0` | 有正文 | `src/network/NetworkRuntime.cpp:1294 — Sub_5171B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2701 | 0x005171F0 | `sub_5171F0` | 有正文 | `src/network/NetworkRuntime.cpp:1201 — EscapeProtocolText_5171F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2702 | 0x005172D0 | `sub_5172D0` | 有正文 | `src/network/NetworkRuntime.cpp:1224 — UnescapeProtocolText_5172D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2703 | 0x005173B0 | `receivedBufferSplit` | 有正文 | `src/network/NetworkRuntime.cpp:226 — SplitReceivedBuffer_5173B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2704 | 0x00517480 | `sub_517480` | 有正文 | `src/network/NetworkRuntime.cpp:1310 — SendProtocolBuffer_517480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2705 | 0x00517510 | `sub_517510` | 有正文 | `src/network/NetworkRuntime.cpp:753 — BuildProtocolCommand_517510` | 当前本机服务端明文头采用原命令／空格；旧命令变换／密文状态尾按获批明文合同退休，完整发送未验 |
-| 2706 | 0x00517670 | `sub_517670` | 有正文 | `src/network/NetworkRuntime.cpp:934 — FormatProtocolInteger_517670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2707 | 0x00517690 | `sub_517690` | 有正文 | `src/network/NetworkRuntime.cpp:942 — CopyProtocolBytesAndReturn_517690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2708 | 0x005176B0 | `sub_5176B0` | 有正文 | `src/network/NetworkRuntime.cpp:269 — Sub_5176B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2709 | 0x00517730 | `sub_517730` | 有正文 | `src/network/NetworkRuntime.cpp:313 — Sub_517730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2606 | 0x00510460 | `sub_510460` | 有正文 | `src/network/NetworkRuntime.cpp:793 — Sub_510460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2607 | 0x00510490 | `sub_510490` | 有正文 | `src/network/NetworkRuntime.cpp:805 — Sub_510490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2608 | 0x00510570 | `sub_510570` | 有正文 | `src/network/NetworkRuntime.cpp:1701 — Sub_510570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2609 | 0x00510630 | `sub_510630` | 有正文 | `src/network/NetworkRuntime.cpp:1913 — Sub_510630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2610 | 0x00510710 | `sub_510710` | 有正文 | `src/network/NetworkRuntime.cpp:1970 — Sub_510710` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2611 | 0x00510810 | `sub_510810` | 有正文 | `src/network/NetworkRuntime.cpp:2113 — Sub_510810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2612 | 0x00510880 | `sub_510880` | 有正文 | `src/network/NetworkRuntime.cpp:2283 — Sub_510880` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2613 | 0x005108F0 | `sub_5108F0` | 有正文 | `src/network/NetworkRuntime.cpp:3950 — Sub_5108F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2614 | 0x00510940 | `sub_510940` | 有正文 | `src/network/NetworkRuntime.cpp:2313 — Sub_510940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2615 | 0x005109B0 | `SendBattlePacket` | 有正文 | `src/network/NetworkRuntime.cpp:3849 — SendBattlePacket_5109B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2616 | 0x00510A00 | `sub_510A00` | 有正文 | `src/network/NetworkRuntime.cpp:3753 — Sub_510A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2617 | 0x00510AC0 | `sub_510AC0` | 有正文 | `src/network/NetworkRuntime.cpp:2036 — Sub_510AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2618 | 0x00510B80 | `sub_510B80` | 有正文 | `src/network/NetworkRuntime.cpp:2057 — Sub_510B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2619 | 0x00510CE0 | `sub_510CE0` | 有正文 | `src/network/NetworkRuntime.cpp:3713 — Sub_510CE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2620 | 0x00510DA0 | `sub_510DA0` | 有正文 | `src/network/NetworkRuntime.cpp:3865 — Sub_510DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2621 | 0x00510E30 | `sub_510E30` | 有正文 | `src/network/NetworkRuntime.cpp:3548 — Sub_510E30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2622 | 0x00510EC0 | `SendItemMove` | 有正文 | `src/network/NetworkRuntime.cpp:3898 — Sub_510EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2623 | 0x00510F50 | `sub_510F50` | 有正文 | `src/network/NetworkRuntime.cpp:3931 — Sub_510F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2624 | 0x00510FA0 | `sub_510FA0` | 有正文 | `src/network/NetworkRuntime.cpp:2424 — Sub_510FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2625 | 0x00511030 | `sub_511030` | 有正文 | `src/network/NetworkRuntime.cpp:2143 — Sub_511030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2626 | 0x005110B0 | `sub_5110B0` | 有正文 | `src/network/NetworkRuntime.cpp:2489 — Sub_5110B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2627 | 0x00511190 | `sub_511190` | 有正文 | `src/network/NetworkRuntime.cpp:2176 — Sub_511190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2628 | 0x005111E0 | `sub_5111E0` | 有正文 | `src/network/NetworkRuntime.cpp:2343 — Sub_5111E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2629 | 0x00511250 | `sub_511250` | 有正文 | `src/network/NetworkRuntime.cpp:2192 — Sub_511250` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2630 | 0x005112C0 | `sub_5112C0` | 有正文 | `src/network/NetworkRuntime.cpp:2214 — Sub_5112C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2631 | 0x00511350 | `sub_511350` | 有正文 | `src/network/NetworkRuntime.cpp:2253 — Sub_511350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2632 | 0x005113C0 | `sub_5113C0` | 有正文 | `src/network/NetworkRuntime.cpp:2373 — Sub_5113C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2633 | 0x00511430 | `sub_511430` | 有正文 | `src/network/NetworkRuntime.cpp:2403 — Sub_511430` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2634 | 0x00511480 | `sub_511480` | 有正文 | `src/network/NetworkRuntime.cpp:2450 — Sub_511480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2635 | 0x00511510 | `sub_511510` | 有正文 | `src/network/NetworkRuntime.cpp:2525 — Sub_511510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2636 | 0x005115F0 | `sub_5115F0` | 有正文 | `src/network/NetworkRuntime.cpp:2582 — Sub_5115F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2637 | 0x00511640 | `sub_511640` | 有正文 | `src/network/NetworkRuntime.cpp:2603 — Sub_511640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2638 | 0x00511760 | `sub_511760` | 有正文 | `src/network/NetworkRuntime.cpp:2678 — Sub_511760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2639 | 0x005117D0 | `sub_5117D0` | 有正文 | `src/network/NetworkRuntime.cpp:2708 — Sub_5117D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2640 | 0x00511840 | `sub_511840` | 有正文 | `src/network/NetworkRuntime.cpp:2738 — Sub_511840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2641 | 0x005118B0 | `sub_5118B0` | 有正文 | `src/network/NetworkRuntime.cpp:2768 — Sub_5118B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2642 | 0x00511900 | `sub_511900` | 有正文 | `src/network/NetworkRuntime.cpp:2790 — Sub_511900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2643 | 0x00511A00 | `sub_511A00` | 有正文 | `src/network/NetworkRuntime.cpp:2856 — Sub_511A00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2644 | 0x00511A50 | `sub_511A50` | 有正文 | `src/network/NetworkRuntime.cpp:2877 — Sub_511A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2645 | 0x00511AE0 | `sub_511AE0` | 有正文 | `src/network/NetworkRuntime.cpp:2916 — Sub_511AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2646 | 0x00511BC0 | `sub_511BC0` | 有正文 | `src/network/NetworkRuntime.cpp:2973 — Sub_511BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2647 | 0x00511C30 | `sub_511C30` | 有正文 | `src/network/NetworkRuntime.cpp:3003 — Sub_511C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2648 | 0x00511C80 | `sub_511C80` | 有正文 | `src/network/NetworkRuntime.cpp:3024 — Sub_511C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2649 | 0x00511CD0 | `sub_511CD0` | 有正文 | `src/network/NetworkRuntime.cpp:1550 — Sub_511CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2650 | 0x00511D10 | `sub_511D10` | 有正文 | `src/network/NetworkRuntime.cpp:3045 — Sub_511D10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2651 | 0x00511D60 | `sub_511D60` | 有正文 | `src/network/NetworkRuntime.cpp:3066 — Sub_511D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2652 | 0x00511DD0 | `sub_511DD0` | 有正文 | `src/network/NetworkRuntime.cpp:3096 — Sub_511DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2653 | 0x00511E60 | `sub_511E60` | 有正文 | `src/network/NetworkRuntime.cpp:3135 — Sub_511E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2654 | 0x00511EF0 | `sub_511EF0` | 有正文 | `src/network/NetworkRuntime.cpp:3174 — Sub_511EF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2655 | 0x00511FB0 | `sub_511FB0` | 有正文 | `src/network/NetworkRuntime.cpp:1566 — Sub_511FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2656 | 0x00511FF0 | `sub_511FF0` | 有正文 | `src/network/NetworkRuntime.cpp:3222 — Sub_511FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2657 | 0x00512040 | `sub_512040` | 有正文 | `src/network/NetworkRuntime.cpp:3238 — Sub_512040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2658 | 0x005120D0 | `sub_5120D0` | 有正文 | `src/network/NetworkRuntime.cpp:3277 — Sub_5120D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2659 | 0x00512160 | `sub_512160` | 有正文 | `src/network/NetworkRuntime.cpp:3316 — Sub_512160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2660 | 0x00512190 | `sub_512190` | 有正文 | `src/network/NetworkRuntime.cpp:3326 — Sub_512190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2661 | 0x005121E0 | `sub_5121E0` | 有正文 | `src/network/NetworkRuntime.cpp:3347 — Sub_5121E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2662 | 0x00512230 | `sub_512230` | 有正文 | `src/network/NetworkRuntime.cpp:1582 — Sub_512230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2663 | 0x00512270 | `sub_512270` | 有正文 | `src/network/NetworkRuntime.cpp:3383 — Sub_512270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2664 | 0x005122C0 | `sub_5122C0` | 有正文 | `src/network/NetworkRuntime.cpp:3404 — Sub_5122C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2665 | 0x00512310 | `sub_512310` | 有正文 | `src/network/NetworkRuntime.cpp:3425 — Sub_512310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2666 | 0x00512360 | `sub_512360` | 有正文 | `src/network/NetworkRuntime.cpp:3446 — Sub_512360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2667 | 0x005123B0 | `sub_5123B0` | 有正文 | `src/network/NetworkRuntime.cpp:3467 — Sub_5123B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2668 | 0x00512400 | `sub_512400` | 有正文 | `src/network/NetworkRuntime.cpp:3488 — Sub_512400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2669 | 0x00512470 | `sub_512470` | 有正文 | `src/network/NetworkRuntime.cpp:3518 — Sub_512470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2670 | 0x005124E0 | `sub_5124E0` | 有正文 | `src/network/NetworkRuntime.cpp:3576 — Sub_5124E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2671 | 0x00512570 | `sub_512570` | 有正文 | `src/network/NetworkRuntime.cpp:1598 — Sub_512570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2672 | 0x005125B0 | `sub_5125B0` | 有正文 | `src/network/NetworkRuntime.cpp:3615 — Sub_5125B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2673 | 0x00512620 | `sub_512620` | 有正文 | `src/network/NetworkRuntime.cpp:3646 — Sub_512620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2674 | 0x00512720 | `sub_512720` | 有正文 | `src/network/NetworkRuntime.cpp:3966 — Sub_512720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2675 | 0x005127B0 | `sub_5127B0` | 有正文 | `src/network/NetworkRuntime.cpp:3368 — Sub_5127B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2676 | 0x00512800 | `sub_512800` | 有正文 | `src/network/NetworkRuntime.cpp:1807 — Sub_512800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2677 | 0x005128C0 | `sub_5128C0` | 有正文 | `src/network/NetworkRuntime.cpp:1858 — Sub_5128C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2678 | 0x00512AB0 | `sub_512AB0` | 有正文 | `src/network/NetworkRuntime.cpp:1788 — Sub_512AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2679 | 0x00512B00 | `sub_512B00` | 有正文 | `src/network/NetworkRuntime.cpp:1749 — Sub_512B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2680 | 0x00512B90 | `sub_512B90` | 有正文 | `src/network/NetworkRuntime.cpp:1502 — Sub_512B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2681 | 0x00512BD0 | `sub_512BD0` | 有正文 | `src/network/NetworkRuntime.cpp:1518 — Sub_512BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2682 | 0x00512C10 | `sub_512C10` | 有正文 | `src/network/NetworkRuntime.cpp:1483 — Sub_512C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2683 | 0x00512C60 | `sub_512C60` | 有正文 | `src/network/NetworkRuntime.cpp:1534 — Sub_512C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2684 | 0x00512CA0 | `sub_512CA0` | 有正文 | `src/network/NetworkRuntime.cpp:1465 — Report_512CA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2685 | 0x00512CF0 | `sub_512CF0` | 有正文 | `src/network/NetworkRuntime.cpp:1614 — Sub_512CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2686 | 0x00512D30 | `sub_512D30` | 有正文 | `src/network/NetworkRuntime.cpp:1650 — Sub_512D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2687 | 0x00512DA0 | `sub_512DA0` | 有正文 | `src/network/NetworkRuntime.cpp:1680 — Sub_512DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2688 | 0x00512DF0 | `sub_512DF0` | 有正文 | `src/network/NetworkRuntime.cpp:1630 — Sub_512DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2689 | 0x00512E40 | `network_dispatch` | 有正文 | `src/network/NetworkRuntime.cpp:4094 — NetworkDispatch_512E40` | 实际非占位正文已定位；完整业务／接线／运行未验；N01完整头匹配后调用首个接收扩展，随后保原108条回复分发，仅静态 |
+| 2690 | 0x00516B60 | `sub_516B60` | 有正文 | `src/network/NetworkRuntime.cpp:4234 — AllocateNetworkWorkspace_516B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2691 | 0x00516C90 | `sub_516C90` | 有正文 | `src/network/NetworkRuntime.cpp:3793 — Sub_516C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2692 | 0x00516D70 | `sub_516D70` | 有正文 | `src/network/NetworkRuntime.cpp:3840 — SendIuEPacket_516D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2693 | 0x00516DA0 | `sub_516DA0` | 有正文 | `src/network/NetworkRuntime.cpp:884 — AllocateProtocolBuffers_516DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2694 | 0x00517040 | `sub_517040` | 有正文 | `src/network/NetworkRuntime.cpp:1037 — Sub_517040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2695 | 0x00517080 | `sub_517080` | 有正文 | `src/network/NetworkRuntime.cpp:1018 — CopyProtocolBytes_517080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2696 | 0x005170D0 | `sub_5170D0` | 有正文 | `src/network/NetworkRuntime.cpp:1071 — AppendProtocolText_5170D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2697 | 0x00517120 | `sub_517120` | 有正文 | `src/network/NetworkRuntime.cpp:1109 — FormatProtocolIntegerToken_517120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2698 | 0x00517160 | `sub_517160` | 有正文 | `src/network/NetworkRuntime.cpp:1131 — FormatProtocolTextToken_517160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2699 | 0x00517190 | `sub_517190` | 有正文 | `src/network/NetworkRuntime.cpp:1142 — ParseProtocolInteger_517190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2700 | 0x005171B0 | `sub_5171B0` | 有正文 | `src/network/NetworkRuntime.cpp:1413 — Sub_5171B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2701 | 0x005171F0 | `sub_5171F0` | 有正文 | `src/network/NetworkRuntime.cpp:1320 — EscapeProtocolText_5171F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2702 | 0x005172D0 | `sub_5172D0` | 有正文 | `src/network/NetworkRuntime.cpp:1343 — UnescapeProtocolText_5172D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2703 | 0x005173B0 | `receivedBufferSplit` | 有正文 | `src/network/NetworkRuntime.cpp:345 — SplitReceivedBuffer_5173B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2704 | 0x00517480 | `sub_517480` | 有正文 | `src/network/NetworkRuntime.cpp:1429 — SendProtocolBuffer_517480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2705 | 0x00517510 | `sub_517510` | 有正文 | `src/network/NetworkRuntime.cpp:872 — BuildProtocolCommand_517510` | 当前本机服务端明文头采用原命令／空格；旧命令变换／密文状态尾按获批明文合同退休，完整发送未验 |
+| 2706 | 0x00517670 | `sub_517670` | 有正文 | `src/network/NetworkRuntime.cpp:1053 — FormatProtocolInteger_517670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2707 | 0x00517690 | `sub_517690` | 有正文 | `src/network/NetworkRuntime.cpp:1061 — CopyProtocolBytesAndReturn_517690` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2708 | 0x005176B0 | `sub_5176B0` | 有正文 | `src/network/NetworkRuntime.cpp:388 — Sub_5176B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2709 | 0x00517730 | `sub_517730` | 有正文 | `src/network/NetworkRuntime.cpp:432 — Sub_517730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2710 | 0x00517880 | `Yobi::FrameMove` | 有正文 | `src/Yobi/animation.cpp:172 — Sub_517880` | BLM01取消动画编号绑定记录容量，保留静态图分流／真实索引／动作加载；仅静态，编译／运行未验 |
 | 2711 | 0x00517DA0 | `Yobi::PlayFrame` | 有正文 | `src/Yobi/animation.cpp:286 — PlayFrame_517DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2712 | 0x005182B0 | `sub_5182B0` | 有正文 | `src/Yobi/animation.cpp:124 — Sub_5182B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3006,13 +3006,13 @@
 | 2934 | 0x0052CD40 | `sub_52CD40` | 有正文 | `src/audio/LegacyAudio.cpp:584 — Sub_52CD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2935 | 0x0052CD60 | `sub_52CD60` | 有正文 | `src/audio/LegacyAudio.cpp:952 — Sub_52CD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2936 | 0x0052CDE0 | `sub_52CDE0` | 有正文 | `src/audio/LegacyAudio.cpp:616 — Sub_52CDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2937 | 0x0052CEA0 | `sub_52CEA0` | 有正文 | `src/network/NetworkRuntime.cpp:1032 — FindNextDelimitedField_52CEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2938 | 0x0052CED0 | `sub_52CED0` | 有正文 | `src/network/NetworkRuntime.cpp:1100 — ExtractDelimitedField_52CED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2939 | 0x0052CF30 | `sub_52CF30` | 有正文 | `src/network/NetworkRuntime.cpp:1059 — CopyDelimitedField_52CF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2940 | 0x0052CFA0 | `sub_52CFA0` | 有正文 | `src/network/NetworkRuntime.cpp:1120 — ParseDelimitedInteger_52CFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2941 | 0x0052CFF0 | `sub_52CFF0` | 有正文 | `src/network/NetworkRuntime.cpp:1135 — ParseDelimitedIntegerStatus_52CFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2942 | 0x0052D050 | `base62Decode` | 有正文 | `src/network/NetworkRuntime.cpp:1152 — Base62Decode_52D050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2943 | 0x0052D0D0 | `sub_52D0D0` | 有正文 | `src/network/NetworkRuntime.cpp:1186 — ParseDelimitedBase62_52D0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2937 | 0x0052CEA0 | `sub_52CEA0` | 有正文 | `src/network/NetworkRuntime.cpp:1151 — FindNextDelimitedField_52CEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2938 | 0x0052CED0 | `sub_52CED0` | 有正文 | `src/network/NetworkRuntime.cpp:1219 — ExtractDelimitedField_52CED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2939 | 0x0052CF30 | `sub_52CF30` | 有正文 | `src/network/NetworkRuntime.cpp:1178 — CopyDelimitedField_52CF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2940 | 0x0052CFA0 | `sub_52CFA0` | 有正文 | `src/network/NetworkRuntime.cpp:1239 — ParseDelimitedInteger_52CFA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2941 | 0x0052CFF0 | `sub_52CFF0` | 有正文 | `src/network/NetworkRuntime.cpp:1254 — ParseDelimitedIntegerStatus_52CFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2942 | 0x0052D050 | `base62Decode` | 有正文 | `src/network/NetworkRuntime.cpp:1271 — Base62Decode_52D050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2943 | 0x0052D0D0 | `sub_52D0D0` | 有正文 | `src/network/NetworkRuntime.cpp:1305 — ParseDelimitedBase62_52D0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2944 | 0x0052D120 | `sub_52D120` | 有正文 | `src/input/Input.cpp:648 — DecodeEscapeLetter_52D120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2945 | 0x0052D150 | `Unescape` | 有正文 | `src/input/Input.cpp:663 — UnescapeLegacyText_52D150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2946 | 0x0052D1B0 | `sub_52D1B0` | 有正文 | `src/input/Input.cpp:585 — EscapeText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3091,14 +3091,14 @@
 | 3019 | 0x005349AA | `ImmGetDescriptionA` | 有承接 | `src/world/RenderInput.cpp:195 — ImmGetDescriptionW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/imeImpl.cpp:29 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:472 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
-| 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:108 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4237 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3024 | 0x00534A3C | `recv` | 有承接 | `src/network/NetworkRuntime.cpp:4219 — recv` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3025 | 0x00534A42 | `__WSAFDIsSet` | 有承接 | `src/network/NetworkRuntime.cpp:4215 — FD_ISSET` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3026 | 0x00534A48 | `select` | 有承接 | `src/network/NetworkRuntime.cpp:876 — select` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3027 | 0x00534A4E | `WSAStartup` | 有承接 | `src/network/NetworkRuntime.cpp:4152 — WSAStartup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3028 | 0x00534A54 | `WSACleanup` | 有承接 | `src/network/NetworkRuntime.cpp:4434 — WSACleanup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3029 | 0x00534A5A | `WSAGetLastError` | 有承接 | `src/network/NetworkRuntime.cpp:752 — WSAGetLastError` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:126 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4359 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3024 | 0x00534A3C | `recv` | 有承接 | `src/network/NetworkRuntime.cpp:4341 — recv` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3025 | 0x00534A42 | `__WSAFDIsSet` | 有承接 | `src/network/NetworkRuntime.cpp:4337 — FD_ISSET` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3026 | 0x00534A48 | `select` | 有承接 | `src/network/NetworkRuntime.cpp:995 — select` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3027 | 0x00534A4E | `WSAStartup` | 有承接 | `src/network/NetworkRuntime.cpp:4271 — WSAStartup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3028 | 0x00534A54 | `WSACleanup` | 有承接 | `src/network/NetworkRuntime.cpp:4559 — WSACleanup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3029 | 0x00534A5A | `WSAGetLastError` | 有承接 | `src/network/NetworkRuntime.cpp:871 — WSAGetLastError` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3030 | 0x00534A60 | `connect` | 有承接 | `src/scene/login/LoginState.cpp:150 — connect` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3031 | 0x00534A66 | `gethostbyname` | 有承接 | `src/scene/login/LoginState.cpp:135 — gethostbyname` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3032 | 0x00534A6C | `inet_addr` | 有承接 | `src/scene/login/LoginState.cpp:133 — inet_addr` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3302,7 +3302,7 @@
 | 3230 | 0x0053D3BD | `__filelength` | 有承接 | `src/ui/WindowRuntime.cpp:2746 — ::_filelength（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3231 | 0x0053D435 | `__open` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3232 | 0x0053D44C | `__sopen` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3233 | 0x0053D710 | `_memcpy` | 有承接 | `src/network/NetworkRuntime.cpp:4354 — ConsumeReceiveQueue_508230；src/network/NetworkRuntime.cpp:4344 — ConsumeSendQueue_508280` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3233 | 0x0053D710 | `_memcpy` | 有承接 | `src/network/NetworkRuntime.cpp:4476 — ConsumeReceiveQueue_508230；src/network/NetworkRuntime.cpp:4344 — ConsumeSendQueue_508280` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3234 | 0x0053DA45 | `_strtol` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR14：std::strtol` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
 | 3235 | 0x0053DA5C | `_strtoxl` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR14：MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3236 | 0x0053DC64 | `_tolower` | 有承接 | `src/platform/ClientEntry.cpp:305 — WinMain；doc/cg2d_code_organization_review_spec.md — COR14：MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

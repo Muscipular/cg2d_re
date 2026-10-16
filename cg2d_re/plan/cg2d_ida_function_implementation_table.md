@@ -1,5 +1,7 @@
 # IDA 函数全量实现表
 
+> 2026-10-16 COR09：模块MD5核心改由Windows CNG提供，402B70／402BC0／402C50／402D30四行由有正文转为有承接，402BA0仍有承接；三个父入口保留有正文。原3680身份／名称保持。本次编译／链接通过，未运行摘要比对，详见[COR09 SPEC](../doc/cg2d_code_organization_review_spec.md)。
+
 > 2026-10-16 [COR07](../doc/cg2d_code_organization_review_spec.md)：同步50文件的目录迁移路径；原行号为历史定位，不代表本轮重新定位。3680行函数身份、名称与状态保持，仅静态整理，不更新JSON台账。
 
 > 2026-10-15 [UWO02](../doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015)：七个单窗口函数、三记录类型／54布局断言、十七状态和两常量归位；3680原身份／名称／状态与共享门禁保持，只作静态核对。
@@ -41,8 +43,8 @@
 
 | 状态 | 实际入口数 |
 |---|---:|
-| 有正文 | 2538 |
-| 有承接 | 688 |
+| 有正文 | 2480 |
+| 有承接 | 746 |
 | 空方法 | 9 |
 | 部分实现 | 0 |
 | 未实现 | 0 |
@@ -108,13 +110,13 @@
 | 48 | 0x00402020 | `sub_402020` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 49 | 0x004021A0 | `sub_4021A0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 50 | 0x00402B30 | `sub_402B30` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 51 | 0x00402B70 | `sub_402B70` | 有正文 | `src/platform/LegacyModuleDigest.cpp:69 — Initialize` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 52 | 0x00402BA0 | `sub_402BA0` | 有承接 | `src/platform/LegacyModuleDigest.cpp:191 — StoreLittleEndian32(context.state[index], digest.data() + index * 4)` | 原四 W32 的小端输出在当前 Finalize 的四次循环中承接，共用实际 StoreLittleEndian32；不以单次四字节 helper 冒充原整根正文；完整摘要链／运行未验 |
-| 53 | 0x00402BC0 | `sub_402BC0` | 有正文 | `src/platform/LegacyModuleDigest.cpp:173 — Finalize` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 54 | 0x00402C50 | `sub_402C50` | 有正文 | `src/platform/LegacyModuleDigest.cpp:129 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 55 | 0x00402D30 | `sub_402D30` | 有正文 | `src/platform/LegacyModuleDigest.cpp:84 — Transform` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 56 | 0x00403660 | `sub_403660` | 有正文 | `src/platform/LegacyModuleDigest.cpp:196 — ComputeFileDigest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 57 | 0x00403750 | `sub_403750` | 有正文 | `src/platform/LegacyModuleDigest.cpp:237 — EncodeLowerHex` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 51 | 0x00402B70 | `sub_402B70` | 有承接 | `src/platform/LegacyModuleDigest.cpp:45 — BCryptCreateHash` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
+| 52 | 0x00402BA0 | `sub_402BA0` | 有承接 | `src/platform/LegacyModuleDigest.cpp:86 — BCryptFinishHash（16字节标准MD5输出）` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
+| 53 | 0x00402BC0 | `sub_402BC0` | 有承接 | `src/platform/LegacyModuleDigest.cpp:86 — BCryptFinishHash（填充／长度编码／最终化）` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
+| 54 | 0x00402C50 | `sub_402C50` | 有承接 | `src/platform/LegacyModuleDigest.cpp:77 — BCryptHashData` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
+| 55 | 0x00402D30 | `sub_402D30` | 有承接 | `src/platform/LegacyModuleDigest.cpp:77 — BCryptHashData的系统MD5变换` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
+| 56 | 0x00403660 | `sub_403660` | 有正文 | `src/platform/LegacyModuleDigest.cpp:37 — ComputeFileDigest` | COR09：保留文件读取／小写文本／模块接口正文，MD5计算交Windows CNG；本次编译／链接通过，未运行摘要链 |
+| 57 | 0x00403750 | `sub_403750` | 有正文 | `src/platform/LegacyModuleDigest.cpp:93 — EncodeLowerHex` | COR09：保留文件读取／小写文本／模块接口正文，MD5计算交Windows CNG；本次编译／链接通过，未运行摘要链 |
 | 58 | 0x004037D0 | `sub_4037D0` | 有正文 | `src/network/NetworkRuntime.cpp:1113 — ResetProtocolState_4037D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 59 | 0x004038A0 | `sub_4038A0` | 有正文 | `src/network/NetworkRuntime.cpp:426 — Sub_4038A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 60 | 0x00403A70 | `sub_403A70` | 有正文 | `src/network/NetworkRuntime.cpp:509 — Sub_403A70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2897,7 +2899,7 @@
 | 2837 | 0x00520160 | `sub_520160` | 有正文 | `src/scene/login/LoginSavedState.cpp:997 — Sub_520160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2838 | 0x005201B0 | `sub_5201B0` | 有正文 | `src/scene/login/LoginSavedState.cpp:791 — RestoreCurrentSavedState_5201B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2839 | 0x00520200 | `sub_520200` | 有正文 | `src/scene/login/LoginSavedState.cpp:1024 — Sub_520200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2840 | 0x005202E0 | `sub_5202E0` | 有正文 | `src/platform/LegacyModuleDigest.cpp:252 — ComputeExecutableDigest_5202E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2840 | 0x005202E0 | `sub_5202E0` | 有正文 | `src/platform/LegacyModuleDigest.cpp:108 — ComputeExecutableDigest_5202E0` | COR09：保留文件读取／小写文本／模块接口正文，MD5计算交Windows CNG；本次编译／链接通过，未运行摘要链 |
 | 2841 | 0x005203B0 | `sub_5203B0` | 有正文 | `src/LoginInput.cpp:163 — WriteInputValueFF494F_5203B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2842 | 0x005203E0 | `sub_5203E0` | 有正文 | `src/LoginInput.cpp:171 — ReadInputValueFF494F_5203E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2843 | 0x00520410 | `sub_520410` | 有正文 | `src/LoginInput.cpp:182 — WriteInputValueFF4982_520410` | 实际非占位正文已定位；完整业务／接线／运行未验 |

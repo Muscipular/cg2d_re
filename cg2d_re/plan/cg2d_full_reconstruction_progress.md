@@ -2949,3 +2949,9 @@ NS06代码整理完成：输入光标归 input、黑名单归 world 子域，渲
 已核两个CPP及全线调用：六个内存转发没有消费者，malloc／free仅三个文件使用，U64除法只有一个调用。按COR08删除冗余边界，保留参数宽度、失败／释放时机和已批准MSVC分配域；执行前已明确SPEC，不记录JSON台账，编辑后继续按用户要求用build.bat验证。
 
 COR08完成：移除9个冗余函数及4个文件，6处分配、11处释放直接调用std::malloc／std::free；唯一U64除法直接落在ReadSystemSeconds_4589D0。保留全部原实参、数值宽度、失败／释放路径；规范化静态对照确认除include、函数限定名及指定除法写法外业务正文一致。旧符号／旧include／旧构建条目无源码残留，包含路径有效，3680行函数身份与状态保持；仅现有Markdown表225处定位同步，无JSON改动。build.bat Debug配置、编译及客户端链接成功，退出码0；仍有未初始化变量／旧API告警，未运行测试或客户端，未计算摘要。精确提交本轮变动，既有Python缓存保留并排除。
+
+## 295. 模块 MD5 系统实现替换（2026-10-16）
+
+确认LegacyModuleDigest为MD5，唯一业务调用为登录场景。按COR09使用Windows CNG流式摘要替换手写算法，保32KiB读序、16B摘要、33B小写文本及外部接口；系统库链接不属于第三方依赖。执行前已记录规格和API失败收尾边界；只编译，不运行客户端／测试或计算摘要。
+
+COR09完成：用BCryptOpenAlgorithmProvider／BCryptCreateHash／BCryptHashData／BCryptFinishHash替换手写MD5，局部不可复制拥有者负责hash→algorithm清理，CMake只增加系统bcrypt库。源码净减144行；ReadFile段与EncodeLowerHex／ComputeExecutableDigest正文逐字对照一致，新增API失败路径关闭文件并释放句柄。函数表8行定位更新，4项核心状态转为有承接，3680身份／名称及其余状态保持。build.bat Debug配置、编译和客户端链接成功，退出码0；未实际计算／比对摘要、运行客户端或测试，不宣称性能增益。Git差异检查通过，无JSON改动，精确提交本轮6文件，既有Python缓存排除。

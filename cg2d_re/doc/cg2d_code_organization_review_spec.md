@@ -112,3 +112,18 @@ COR01～COR07均已实施并逐步提交，具体记录见[进度第292节](../p
 宿主承接映射：原53FCFB→MSVC _msize；53BFF8→std::calloc；53FA5B→std::realloc；541620→std::memmove（保留支持重叠）；5419D0→std::memset；54B160→std::memcmp；53CB10→原调用点U64除法。六个无消费者入口的旧窄接口随无用函数一起退休，不宣称所有size_t调用等于原U32接口。
 
 COR08验收：上述删除与调用替换完成；静态正文对照、剩余引用及包含路径检查通过，build.bat Debug配置／编译／链接成功，退出码0。当前编译仍有未初始化变量和旧API告警；本次未运行客户端或测试，不宣称性能提升。详见唯一进度第294节。
+
+## COR09：模块 MD5 改用 Windows CNG（2026-10-16）
+
+用户要求确认并优化LegacyModuleDigest.cpp。当前代码的四个初始W32、64轮常量、位移和64B分组／小端长度填充均为MD5；公开头也明确标记模块MD5。唯一业务调用位于LoginScene，输出沿原32个小写十六进制字符加NUL，不改摘要类型或协议。
+
+- 以Windows系统CNG的BCRYPT_MD5_ALGORITHM替换手写Initialize／Transform／Update／Finalize及大小端辅助函数。显式打开算法提供者，避免依赖Windows10才支持的算法伪句柄；哈希对象采用Windows7起支持的系统分配与释放。Windows/MSVC平台边界内增加系统bcrypt链接，不下载或引入第三方库。
+- 每次计算使用独立算法与哈希句柄；局部不可复制RAII对象按hash→algorithm顺序释放，避免共享可变上下文、缓存摘要或引入并发同步。未做基准，不承诺系统实现一定比原实现更快；确定收益为移除私有算法维护，并由系统提供分块处理实现。
+- 继续32KiB顺序ReadFile；CreateFileA路径／共享标志、原GetFileSize低W32计数、同一bytesRead槽及do-while保持，不借此修改文件失败／大文件行为。仅新增CNG操作失败的必要收尾，文件与摘要句柄均释放并沿现有false→空输出／nullptr通道返回。
+- 原EncodeLowerHex和ComputeExecutableDigest_5202E0正文保持；内部16B摘要和输出33B保持。系统MD5最终化负责填充／长度编码／输出顺序，不再二次大小端转换。
+- 同步原5个算法入口的函数表状态为“有承接”，明确CNG提供者；原3个文件／文本／模块父入口保留“有正文”。不把宿主承接记成原机器内部实现，也不保留无调用的手写备份。
+- 延续本会话build.bat Debug编译验证；不新增／运行测试，不运行客户端、不实际计算或比对文件摘要、不记录JSON台账。摘要正确性以算法识别及官方MD5合同作静态依据，不冒称运行对比或性能验收。
+
+接口依据：[BCryptCreateHash](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptcreatehash)、[BCryptHashData](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcrypthashdata)、[BCryptFinishHash](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptfinishhash)。已核当前本机Windows SDK的bcrypt.h声明。
+
+COR09验收：替换完成，源码净减144行；文件读取段、十六进制编码和模块公开函数正文静态对照一致，系统句柄逐条失败路径均有释放，CNG链接与MSVC x64 Debug编译通过。原3680入口身份／名称保持，只有上述四项状态由有正文转有承接；其余状态不变。未计算文件摘要、运行客户端／测试或测量性能，不记录JSON台账。

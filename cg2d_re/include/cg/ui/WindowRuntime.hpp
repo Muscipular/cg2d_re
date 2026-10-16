@@ -95,6 +95,10 @@ void InitializeWindowLayout(std::int32_t requestedWidth, std::int32_t requestedH
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;
 
+// G07：INVCF发布背包／银行页数及0基背包页；新增按钮在下次开窗时创建。
+void WindowRuntime_SetInventoryPages(
+    std::int32_t bagPageCount, std::int32_t bankPageCount, std::int32_t bagCurrentPage);
+
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
 WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。

@@ -1237,7 +1237,7 @@ std::int32_t Sub_4452A0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t excluded42, std::uint16_t excluded120);
 // 原函数：0x00455A90。
-std::int32_t Sub_455A90(); // 单读地图号，正序匹配原14项观战名单。
+std::int32_t Sub_455A90(); // G05：所有地图允许通过观战地图门禁。
 // 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
 // 原函数：0x00470050。
 void Sub_470050(); // 对战请求。
@@ -1490,7 +1490,7 @@ void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先�
 // 原函数：0x00504B10。
 std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。
-std::int32_t Sub_504B60(); // SHP01：五S16配对首个受伤宠物原编号，无则-1，不检查used。
+std::int32_t Sub_504B60(); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
 std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
@@ -1621,6 +1621,9 @@ extern std::int32_t gBattleSkillActionCount5ABBF4; // 原全局：0x005ABBF4。
 extern std::int32_t gBattlePetActionCount5ABBBC; // 原全局：0x005ABBBC。
 extern std::int32_t gBattleCountdownActive5ABCB8; // 原全局：0x005ABCB8。 43C4E0置1，4982C0到期清零。
 extern std::uint64_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
+extern std::uint32_t gBattleCommandWaitMs; // G01：BtWt命令等待毫秒，默认五分钟。
+extern bool gBattleShowEnemyHpBars; // G02：战斗追加血条及原第一处悬停信息门禁共享。
+extern std::uint32_t gChatMinimumIntervalMs; // G06：SpDt重复发言间隔，默认200毫秒。
 extern std::int32_t gBattleCountdownSecond5ABB80; // 原全局：0x005ABB80。 低于十秒时的独立提示秒数。
 extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 原全局：0x005ABBFC。 4965D0每次解码后重取，非553F90。
 extern std::int32_t gBattleCommandX553F78; // 原全局：0x00553F78。 映像490，43C4E0覆盖493。

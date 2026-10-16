@@ -145,6 +145,10 @@ struct WindowInstance {
 
 namespace detail {
 
+// G07：创建窗口时预留页按钮；载荷沿原type1分配／释放，原控件地址不变。
+std::int32_t WindowInventory_GetPageElementCount(std::int32_t windowId);
+bool WindowInventory_CreatePageElements(WindowInstance* window, std::int32_t originalCount);
+
 // 各窗口持有的输入上下文；输入模块仅提供类型和操作。
 extern input::InputContext gInputContext626AA0;
 extern input::InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。

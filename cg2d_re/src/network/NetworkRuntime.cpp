@@ -146,6 +146,7 @@ struct NetworkRuntimeState {
     std::array<char, 0x104> addressTextDA33D8; // 原全局：0x00DA33D8。 原lSZ回复缓存，非空时按strstr判断变化。
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
+    bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
     std::list<std::pair<std::string, ProtocolSendHandler>> sendHandlers;
     CompressedReceiveState compressedReceive; // N02：会话数据随初始化／关闭重置。
 };
@@ -4283,6 +4284,25 @@ std::int32_t AllocateNetworkWorkspace_516B60(
 // 原函数：0x00508140。
 std::int32_t InitializeNetworkRuntime_508140()
 {
+    if (!gNetworkRuntimeState.gameplayHandlersRegistered) {
+        RegisterProtocolReceive("BtWt", [](const char*, char** const arguments) {
+            const std::int32_t wait = ParseProtocolInteger_517190(arguments[1]);
+            world::detail::gBattleCommandWaitMs = std::bit_cast<std::uint32_t>(wait);
+            world::detail::gBattleShowEnemyHpBars = ParseProtocolInteger_517190(arguments[2]) != 0;
+            m_log_i("Set battleCommandWait = %d\n", wait);
+        });
+        RegisterProtocolReceive("SpDt", [](const char*, char** const arguments) {
+            world::detail::gChatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
+                ParseProtocolInteger_517190(arguments[1]));
+        });
+        RegisterProtocolReceive("INVCF", [](const char*, char** const arguments) {
+            const std::int32_t bagPages = ParseProtocolInteger_517190(arguments[1]);
+            const std::int32_t bankPages = ParseProtocolInteger_517190(arguments[2]);
+            const std::int32_t bagPage = ParseProtocolInteger_517190(arguments[3]);
+            ui::WindowRuntime_SetInventoryPages(bagPages, bankPages, bagPage);
+        });
+        gNetworkRuntimeState.gameplayHandlersRegistered = true;
+    }
     WSADATA data;
     if (::WSAStartup(MAKEWORD(1, 1), &data) != 0) {
         return 0;

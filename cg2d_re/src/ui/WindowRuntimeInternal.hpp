@@ -209,7 +209,11 @@ struct LoginWindowRuntimeSlots {
     std::int32_t valueD2E444; // 原全局：0x00D2E444。
     std::int32_t blacklistDeleteModeD67BC4; // 原全局：0x00D67BC4。 只由65删除按钮切换，初始化不重置。
     std::int32_t valueCB0604; // 原全局：0x00CB0604。
-    std::uint32_t valueD67618; // 原全局：0x00D67618。
+    std::uint32_t valueD67618; // 原全局：0x00D67618。 两组金额缓存选择，不再与扩展银行页号复用。
+    std::int32_t bagPageCount = 1; // G07：INVCF背包页数，共享于14/27/11/41。
+    std::int32_t bankPageCount = 1; // G07：INVCF银行页数。
+    std::int32_t bagCurrentPage = 0; // G07：0基背包页，INVCF或页按钮更新。
+    std::int32_t bankCurrentPage = 0; // G07：0基银行页，rh发送时加1，不索引金额缓存。
     std::tm* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用CRT同线程共享可变std::tm对象。
     __time64_t timeCB1DF0; // 原全局：0x00CB1DF0。
     std::int32_t valueD67BB0; // 原全局：0x00D67BB0。

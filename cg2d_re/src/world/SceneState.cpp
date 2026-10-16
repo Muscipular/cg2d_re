@@ -232,13 +232,6 @@ constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     37619,
 };
 
-// 原556C48；455A90按原顺序查找，不将尾部连续地图号改作区间。
-constexpr std::array<std::int32_t, 14> kWatchBattleMapFloors556C48 {
-    1401, 33221, 43131, 59553, 59972, 59973, 59974,
-    59975, 59976, 59977, 59978, 59979, 59980, 59981,
-};
-static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
-
 constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
     11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
@@ -277,6 +270,7 @@ SkillRuntimeSlots gSkillRuntimeSlots {};
 
 std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
 std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
+std::uint32_t gChatMinimumIntervalMs = 200; // G06：SpDt更新的重复发言阈值。
 std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
 std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
@@ -2421,7 +2415,7 @@ std::int32_t Sub_50C940(
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint64_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
-        if (tick - previous < 1000u) {
+        if (tick - previous < gChatMinimumIntervalMs) {
             Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gValue554644;
             if (result != 0) {
@@ -3664,7 +3658,7 @@ void Sub_43C4E0()
 {
     gBattleCountdownActive5ABCB8 = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gBattleCommandDeadline5ABBF8 = tick + 30000u;
+    gBattleCommandDeadline5ABBF8 = tick + gBattleCommandWaitMs;
     gBattleCountdownSecond5ABB80 = 0;
     gBattleCommandState5ABC3C = 0;
     gBattleSkillActionCount5ABBF4 = 0;
@@ -3935,6 +3929,8 @@ std::int32_t gBattleSkillActionCount5ABBF4 = 0; // 原全局：0x005ABBF4。
 std::int32_t gBattlePetActionCount5ABBBC = 0; // 原全局：0x005ABBBC。
 std::int32_t gBattleCountdownActive5ABCB8 = 0; // 原全局：0x005ABCB8。
 std::uint64_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
+std::uint32_t gBattleCommandWaitMs = 300000; // G01：BtWt更新，下次命令计时生效。
+bool gBattleShowEnemyHpBars = false; // G02：BtWt血条及敌方悬停数值开关。
 std::int32_t gBattleCountdownSecond5ABB80 = 0; // 原全局：0x005ABB80。
 std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
 std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
@@ -6669,6 +6665,16 @@ void DrawBattleScene_43CBB0()
     if (platform::gValue73ECC0 == 2) {
         return;
     }
+    // G02：参考43D07B前置业务；保留Sub_4990A0内部的存活与可见门禁。
+    if (gBattleShowEnemyHpBars) {
+        for (std::int32_t enemy = 10; enemy < 20; ++enemy) {
+            cg::yobi::YobiAction* const actor = gBattleEntries59E980[enemy];
+            if (actor != nullptr && cg::yobi::detail::ReadYobiBatchType(actor) == 0
+                && (cg::yobi::detail::GetYobiActionFlagsLowByte(actor) & 2u) == 0) {
+                cg::yobi::detail::Sub_4990A0(enemy);
+            }
+        }
+    }
     const std::int32_t position = gBattleCurrentPosition5ABCA4;
     std::int32_t index = position < 10 || position >= 20 ? 0 : 10;
     const std::int32_t end = position < 10 ? 10 : 20;
@@ -7839,13 +7845,16 @@ std::int32_t Sub_504B10()
     return 6;
 }
 
-// SHP01：原五S16配对首个受伤宠物编号，未命中-1，不检查used。
+// G04：五S16配对顺序，used且伤势大于0才返回原宠物编号，未命中-1。
 // 原函数：0x00504B60。
 std::int32_t Sub_504B60()
 {
     for (std::int32_t position = 0; position < 5; ++position) {
+        if (gPetPairsDE0B08[position].used == 0) {
+            continue;
+        }
         const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeRecords[index].values70[25] != 0) {
+        if (gPetRuntimeRecords[index].values70[25] > 0) {
             return index;
         }
     }
@@ -8181,13 +8190,7 @@ std::uint8_t Sub_46F680()
 // 原函数：0x00455A90。
 std::int32_t Sub_455A90()
 {
-    const std::int32_t floor = gMapFloor;
-    for (const std::int32_t allowed : kWatchBattleMapFloors556C48) {
-        if (floor == allowed) {
-            return 1;
-        }
-    }
-    return 0;
+    return 1; // G05：取消地图观战白名单，调用方其余条件保持。
 }
 
 // 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。

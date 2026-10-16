@@ -8,6 +8,23 @@ namespace detail {
 
 namespace {
 
+// G08：仅参考实际安装的mode 0增减路径使用，其他数量窗口保留原上限。
+constexpr std::int32_t kShopPurchaseQuantityLimit = 9999;
+
+std::int32_t CalculateRepeatedShopQuantity(
+    const std::int32_t candidate, const std::int32_t state, const bool increase)
+{
+    static std::array<std::uint64_t, 2> pressedTicks {}; // 加减各自计时，沿既有64位tick。
+    auto& pressedTick = pressedTicks[increase ? 1 : 0];
+    const std::uint64_t now = platform::ReadTickCount64();
+    if ((state & 2) != 0) {
+        pressedTick = now;
+    }
+    return now > pressedTick + 1000u
+        ? std::min<std::int32_t>(candidate * (increase ? 120 : 80) / 100, kShopPurchaseQuantityLimit)
+        : candidate;
+}
+
 // 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
 struct WindowShopItem {
     char used; // 原成员偏移：+0x00；按原字节判非零。
@@ -2467,7 +2484,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             std::int32_t selected;
             std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected > 0) {
-                record->selected = selected - 1;
+                record->selected = CalculateRepeatedShopQuantity(selected - 1, state, false);
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2579,7 +2596,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             if (record->used != 0) {
                 std::int32_t selected;
                 std::memcpy(&selected, &record->selected, sizeof(selected));
-                permitted = selected < 20;
+                permitted = selected < kShopPurchaseQuantityLimit;
             }
             break;
         }
@@ -2760,8 +2777,8 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             }
             std::int32_t selected;
             std::memcpy(&selected, &record->selected, sizeof(selected));
-            if (selected < 20) {
-                record->selected = selected + 1;
+            if (selected < kShopPurchaseQuantityLimit) {
+                record->selected = CalculateRepeatedShopQuantity(selected + 1, state, true);
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));

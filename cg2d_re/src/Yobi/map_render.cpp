@@ -919,7 +919,9 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     action = graphic->reference.action;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     if (position < 10) {
-        if (payload != nullptr && payload->battlePosition18 < 10) {
+        // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
+        if (payload != nullptr
+            && (world::detail::gBattleShowEnemyHpBars || payload->battlePosition18 < 10)) {
             if ((payload->flagsFDC & 0x2000u) != 0) {
                 companion = 4;
             }

@@ -2463,6 +2463,10 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
     payload->flagsFDC = flags;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     AdvanceBattleCastState_439340(action);
+    // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
+    auto* const currentPayload = action->payload.battleActor;
+    currentPayload->value13DC = currentPayload->debuffType13D0;
+    currentPayload->value13D8 = 0;
 }
 
 // 原函数：0x00410FC0。

@@ -4,7 +4,172 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+void WindowRuntime_SetInventoryPages(
+    const std::int32_t bagPageCount, const std::int32_t bankPageCount,
+    const std::int32_t bagCurrentPage)
+{
+    detail::gLoginWindowRuntime.bagPageCount = bagPageCount;
+    detail::gLoginWindowRuntime.bankPageCount = bankPageCount;
+    detail::gLoginWindowRuntime.bagCurrentPage = bagCurrentPage;
+}
+
 namespace detail {
+
+namespace {
+
+// G07：九页的普通／选中／悬停图，与参考invExt.cpp共用资源编号。
+constexpr std::array<std::array<std::int32_t, 3>, 9> kInventoryPageImages {{
+    {243173, 243174, 243175}, {243176, 243177, 243178}, {243179, 243180, 243181},
+    {243182, 243183, 243184}, {243185, 243186, 243187}, {243188, 243189, 243190},
+    {243191, 243192, 243193}, {243194, 243195, 243196}, {243197, 243198, 243199},
+}};
+
+// 同组页按钮立即刷新选中态；存储顺序及原窗口控件索引保持。
+void RefreshInventoryPageSelection(
+    WindowInstance* const window, const WindowElementCallback callback,
+    const std::int32_t selectedPage)
+{
+    for (std::int32_t index = 0; index < window->elementCount; ++index) {
+        WindowElement& element = window->elements[index];
+        if (element.mouseCallback == callback) {
+            auto* const graphic = static_cast<WindowGraphicData*>(element.data);
+            const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
+            graphic->imageNo = kInventoryPageImages[page][page == selectedPage ? 1 : 0];
+        }
+    }
+}
+
+// 背包、战斗背包、合成与银行右侧共用页号；银行内只切页，其余入口支持拖物跨页。
+std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    WindowElement& element = window->elements[index];
+    auto* const graphic = static_cast<WindowGraphicData*>(element.data);
+    const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
+    auto& currentPage = gLoginWindowRuntime.bagCurrentPage;
+    if ((state & 1) != 0) {
+        cg::text::FormatTo(gHoverTextD68AE8,
+            window->id == WindowId_Bank ? L"切换到第{}页" : L"切换背包{}", page + 1);
+    }
+    if (window->id != WindowId_Bank && WindowDrag_ReadSourceIndex() >= 0 && page != currentPage) {
+        if ((state & 0x20) != 0) {
+            cg::text::FormatTo(gHoverTextD68AE8, L"移动到背包{}", page + 1);
+            const std::int32_t left = window->x + element.x;
+            const std::int32_t top = window->y + element.y;
+            render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + element.width),
+                static_cast<std::uint16_t>(top + element.height),
+                0xDF, static_cast<std::uint8_t>(render::gValueD69768), 0);
+        }
+        if ((state & 0x40) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            const auto* const source = network::FormatProtocolInteger_517670(WindowDrag_ReadSourceIndex());
+            char packet[64];
+            std::snprintf(packet, sizeof(packet), "SWITMP %s %d -1",
+                reinterpret_cast<const char*>(source), page);
+            // SendProtocolBuffer负责追加唯一LF，数组保留结尾空间。
+            static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+            WindowDrag_Reset();
+        }
+    }
+    if ((state & 2) != 0 && page != currentPage) {
+        currentPage = page;
+        RefreshInventoryPageSelection(window, &WindowInventory_SwitchBagPage, page);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        char packet[64];
+        std::snprintf(packet, sizeof(packet), "SWITM %d", page);
+        static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+    }
+    graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & 1) != 0 ? 2 : 0];
+    return 0;
+}
+
+// 银行左侧页按钮；点击当前页也沿参考重新请求银行数据。
+std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
+    auto& currentPage = gLoginWindowRuntime.bankCurrentPage;
+    if ((state & 1) != 0) {
+        cg::text::FormatTo(gHoverTextD68AE8, L"切换到第{}页", page + 1);
+    }
+    if ((state & 2) != 0) {
+        currentPage = page;
+        RefreshInventoryPageSelection(window, &WindowInventory_SwitchBankPage, page);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        char packet[64];
+        std::snprintf(packet, sizeof(packet), "rh %d", page + 1);
+        static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+    }
+    graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & 1) != 0 ? 2 : 0];
+    return 0;
+}
+
+} // namespace
+
+std::int32_t WindowInventory_GetPageElementCount(const std::int32_t windowId)
+{
+    switch (windowId) {
+    case WindowId_Inventory:
+    case WindowId_BattleItems:
+    case WindowId_Craft:
+        return gLoginWindowRuntime.bagPageCount > 1 ? gLoginWindowRuntime.bagPageCount : 0;
+    case WindowId_Bank: {
+        const std::int32_t count = gLoginWindowRuntime.bankPageCount + gLoginWindowRuntime.bagPageCount;
+        return count > 1 ? count : 0;
+    }
+    default:
+        return 0;
+    }
+}
+
+bool WindowInventory_CreatePageElements(WindowInstance* const window, const std::int32_t originalCount)
+{
+    for (std::int32_t index = originalCount; index < window->elementCount; ++index) {
+        const std::int32_t offset = index - originalCount;
+        const bool bank = window->id == WindowId_Bank;
+        const bool bankPage = bank && offset < gLoginWindowRuntime.bankPageCount;
+        const std::int32_t page = bank && !bankPage ? offset - gLoginWindowRuntime.bankPageCount : offset;
+        WindowElement& element = window->elements[index];
+        element.type = WindowElementType_Graphic;
+        element.visible = 1;
+        element.mouseCallback = bankPage ? &WindowInventory_SwitchBankPage : &WindowInventory_SwitchBagPage;
+        auto* const graphic = static_cast<WindowGraphicData*>(std::calloc(1, sizeof(WindowGraphicData)));
+        element.data = graphic;
+        if (graphic == nullptr) {
+            return false; // 沿WindowRuntime_Open原分配失败回收路径。
+        }
+        graphic->imageNo = kInventoryPageImages[page][0];
+        graphic->color = 0xFFFFFFFFu;
+        if (bank) {
+            element.x = 26 + 29 * page + (bankPage ? 0 : 29 * 9);
+            element.y = 307;
+            element.width = 24;
+            element.height = 19;
+        } else if (window->id == WindowId_Craft) {
+            element.x = 195 + 32 * (page % 3);
+            element.y = 27 + 22 * (page / 3);
+            element.width = 30;
+            element.height = 26;
+            graphic->offsetX = -5;
+            graphic->offsetY = -3;
+            graphic->width = 30;
+            graphic->height = 24;
+        } else {
+            element.x = 24 + 50 * page;
+            element.y = 248;
+            element.width = 47;
+            element.height = 30;
+            graphic->offsetX = -12;
+            graphic->offsetY = -6;
+            graphic->width = 50;
+            graphic->height = 30;
+        }
+    }
+    return true;
+}
 
 // 回调与内部函数前置声明。
 

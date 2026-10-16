@@ -896,7 +896,7 @@ void UpdateBattleAction140_410730(YobiAction* action); // BFL01：入口技能�
 // 原函数：0x00410E90。
 void UpdateBattleAction141_410E90(YobiAction* action); // 13D8/13DC与技能选择减益图，重读FDC决定播放。
 // 原函数：0x00410F70。
-void UpdateBattleAction142_410F70(YobiAction* action); // BFL01：无空门禁标死1054，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
+void UpdateBattleAction142_410F70(YobiAction* action); // BFL01原播放/推进后，G03同步减益类型并清变化标记。
 // 原函数：0x00410FC0。
 void UpdateBattleAction143_410FC0(YobiAction* action); // 两型状态图号/13E0索引，调用后条件播放并推进。
 // 原函数：0x00411240。

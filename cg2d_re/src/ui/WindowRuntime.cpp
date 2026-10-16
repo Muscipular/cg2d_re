@@ -3452,6 +3452,7 @@ static void WindowRuntime_InitializeLogin()
     static_cast<void>(WindowBlacklist_ResetState());
     WindowAdventureLog_InitializeDate();
     gLoginWindowRuntime.valueD67618 = 0;
+    gLoginWindowRuntime.bankCurrentPage = 0; // G07：与原银行入口同一生命周期，金额组仍独立。
 }
 
 // 原函数：0x00477490。
@@ -4306,9 +4307,19 @@ std::int32_t WindowRuntime_Update()
             const std::int32_t focused = WindowDrag_Update();
             std::int32_t updateResult = invoke([&] { return gCurrentWindow->update(carried); });
             window = gCurrentWindow;
+            // G07：页按钮先接收放下事件，避免原背包背景先重置拖动会话。
+            const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
+            const bool hasPageElements = window->elementCount > originalCount;
+            for (std::int32_t pageIndex = originalCount; pageIndex < window->elementCount; ++pageIndex) {
+                gCurrentElementIndex57C12C = pageIndex;
+                if (window->elements[pageIndex].visible == 1) {
+                    static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(pageIndex); return 0; }));
+                    window = gCurrentWindow;
+                }
+            }
             std::int32_t elementIndex = 0;
             gCurrentElementIndex57C12C = 0;
-            while (elementIndex < window->elementCount) {
+            while (elementIndex < (hasPageElements ? originalCount : window->elementCount)) {
                 if (window->elements[elementIndex].visible == 1) {
                     static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementIndex); return 0; }));
                     window = gCurrentWindow;
@@ -4415,16 +4426,17 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     window->draw = prototype->draw;
     window->release = prototype->release;
     const std::int32_t count = prototype->elementCount;
-    window->elementCount = count;
-    if (count != 0) {
+    const std::int32_t pageCount = WindowInventory_GetPageElementCount(id);
+    window->elementCount = count + pageCount;
+    if (window->elementCount != 0) {
         window->elements = static_cast<WindowElement*>(
-            std::calloc(static_cast<std::size_t>(count), sizeof(WindowElement)));
+            std::calloc(static_cast<std::size_t>(window->elementCount), sizeof(WindowElement)));
         if (window->elements == nullptr) {
             WindowRuntime_Free(window);
             return nullptr;
         }
         WindowElementPrototype* source = prototype->elements;
-        for (std::int32_t index = 0; index < window->elementCount; ++index, ++source) {
+        for (std::int32_t index = 0; index < count; ++index, ++source) {
             WindowElement* const element = &window->elements[index];
             element->type = source->type;
             element->state = 0;
@@ -4512,6 +4524,10 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
             element->mouseCallback = callback != nullptr ? callback : &WindowElement_NoOp;
         }
     }
+    if (!WindowInventory_CreatePageElements(window, count)) {
+        WindowRuntime_Free(window);
+        return nullptr;
+    }
     WindowDragPrototype* drag = gWindowDragPrototypes57C24C[id];
     const std::int32_t dragCount = drag->count;
     if (dragCount > 0) {
@@ -4536,8 +4552,25 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     WindowInstance* const previous = gCurrentWindow;
     gWindowStates[id].flags = flags | 0x80u;
     gCurrentWindow = window;
+    window->elementCount = count;
     static_cast<void>(window->update(-1));
     gWindowStates[id].window = window;
+    window->elementCount = count + pageCount;
+    switch (id) {
+    case WindowId_Inventory:
+    case WindowId_BattleItems:
+    case WindowId_Craft:
+        window->height += 30;
+        static_cast<void>(window->update(-1));
+        break;
+    case WindowId_Bank:
+        for (std::int32_t index = 3; index <= 6; ++index) {
+            window->elements[index].visible = 0;
+        }
+        break;
+    default:
+        break;
+    }
     gCurrentWindow = previous;
     return window;
 }
@@ -4845,7 +4878,16 @@ void WindowRuntime_DrawCurrent()
     using namespace detail;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* window = gCurrentWindow;
-    for (std::int32_t index = 0; index < window->elementCount; ++index) {
+    // G07：只调整绘制访问顺序，原控件和借用指针不随排序移动。
+    const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
+    const std::int32_t pageCount = window->elementCount - originalCount;
+    const std::int32_t prefixCount = window->id == WindowId_Bank ? 2 : 0;
+    for (std::int32_t drawIndex = 0; drawIndex < window->elementCount; ++drawIndex) {
+        std::int32_t index = drawIndex;
+        if (pageCount > 0 && drawIndex >= prefixCount) {
+            index = drawIndex < prefixCount + pageCount
+                ? originalCount + drawIndex - prefixCount : drawIndex - pageCount;
+        }
         WindowElement* const element = &window->elements[index];
         if (element->visible == 1) {
             const std::int32_t elementX = element->x;

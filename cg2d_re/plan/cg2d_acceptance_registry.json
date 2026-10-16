@@ -1,5 +1,22 @@
 {
   "schema_version": 1,
+  "clipboard_timing_ctm01": {
+    "spec": "doc/cg2d_clipboard_timing_migration_spec.md",
+    "date": "2026-10-16",
+    "scope": "A07、A11业务迁移及本地time64／tick64升级，不引入hook",
+    "clipboard_state": "implemented_and_wired_static_only",
+    "time64_state": "in_progress",
+    "diagnostics_state": "in_progress",
+    "clipboard_entrypoints": [
+      "Ctrl+V",
+      "Shift+Insert",
+      "WM_PASTE"
+    ],
+    "clipboard_provider": "CF_UNICODETEXT优先，CF_TEXT按CP_ACP转换，复制后关闭再AppendText",
+    "build_verified": false,
+    "runtime_verified": false,
+    "all_full_acceptance_gates_unchanged": true
+  },
   "bin_loader_blm01": {
     "spec": "doc/cg2d_bin_loader_migration_spec.md",
     "date": "2026-10-16",
@@ -3012,7 +3029,8 @@
         "doc/cg2d_storage_external_item_panels_spec.md",
         "doc/cg2d_storage_preview_dispatch_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -3213,7 +3231,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3246,7 +3265,8 @@
         "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。",
         "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
         "CAC20仅本批数据/ABI尾部与私有单叶宿主职责；完整父/所有callee、生产与未知alias/正常owner寿命、SDK生成ABI及运行继续未闭；输入元数据不证明当前使用，八字节用途仍待，成员枚举保持false。",
-        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。"
+        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
+        "CTM01/A07三条粘贴入口已接WindowProcedure，Unicode／ANSI边界及剪贴板关闭仅静态核对；真实粘贴、输入限制、界面／退出运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,

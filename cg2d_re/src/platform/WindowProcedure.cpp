@@ -19,6 +19,7 @@
 
 #include <bit>
 #include <cstdlib>
+#include <string>
 
 namespace cg::platform {
 
@@ -70,6 +71,45 @@ int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
 }
 
 namespace {
+
+// CTM01/A07：复制后释放剪贴板，再交给既有输入上下文按完整Unicode字符插入。
+void PasteClipboard(HWND window)
+{
+    if (::OpenClipboard(window) == FALSE) {
+        return;
+    }
+    std::wstring contents;
+    {
+        struct ClipboardScope {
+            HANDLE data = nullptr;
+            bool locked = false;
+            ~ClipboardScope()
+            {
+                if (locked) {
+                    static_cast<void>(::GlobalUnlock(data));
+                }
+                static_cast<void>(::CloseClipboard());
+            }
+        } clipboard;
+        const UINT format = ::IsClipboardFormatAvailable(CF_UNICODETEXT)
+            ? CF_UNICODETEXT : CF_TEXT;
+        clipboard.data = ::GetClipboardData(format);
+        if (clipboard.data == nullptr) {
+            return;
+        }
+        const void* const data = ::GlobalLock(clipboard.data);
+        if (data == nullptr) {
+            return;
+        }
+        clipboard.locked = true;
+        if (format == CF_UNICODETEXT) {
+            contents = static_cast<const wchar_t*>(data);
+        } else {
+            contents = text::FromLegacyDisplayWide(static_cast<const char*>(data));
+        }
+    }
+    input::AppendText(contents);
+}
 
 inline constexpr UINT kResizeWindowFlags = 0x26u;
 struct MouseCoordinates {
@@ -247,6 +287,11 @@ LRESULT CALLBACK WindowProcedure(
     }
 
     case WM_KEYDOWN:
+        if ((wParam32 == 'V' && (::GetKeyState(VK_CONTROL) & 0x8000) != 0)
+            || (wParam32 == VK_INSERT && (::GetKeyState(VK_SHIFT) & 0x8000) != 0)) {
+            PasteClipboard(window);
+            return 0;
+        }
         RebuildRendererIfGraphicDirty();
         if (gWindowActiveState == 2) {
             UpdateKeyDownState(wParam32);
@@ -256,6 +301,10 @@ LRESULT CALLBACK WindowProcedure(
     case WM_KEYUP:
         RebuildRendererIfGraphicDirty();
         UpdateKeyUpState(wParam32);
+        return 0;
+
+    case WM_PASTE:
+        PasteClipboard(window);
         return 0;
 
     case WM_SYSKEYDOWN:

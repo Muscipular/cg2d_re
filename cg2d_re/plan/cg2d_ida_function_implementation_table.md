@@ -1,5 +1,7 @@
 # IDA 函数全量实现表
 
+> 2026-10-16 [CTM01](../doc/cg2d_clipboard_timing_migration_spec.md)：A07粘贴已接现有WindowProcedure及AppendText，同步该文件提供者定位；A11／64位时间继续推进，3680身份、名称及状态保持，仅静态，未编译或运行。
+
 > 2026-10-16 [BLM01](../doc/cg2d_bin_loader_migration_spec.md)：迁移binLoader业务到现有函数，配置／32组来源／容量／覆盖／坐标共享／地图颜色与64位定位已接；原3680身份、名称及状态保持，同步涉及的源码提供者定位，仅静态，未编译或运行。
 
 > 2026-10-16 [NKC01](../doc/cg2d_network_plaintext_frame_spec.md#retired-command-transform-removal)：按用户要求删除无当前调用的旧命令混淆／逆变换4038A0／403A70，两入口由有正文改为已排除；当前LF明文链与协议字段工具保持，3680身份／名称及其余状态保持。仅静态核对，未构建或运行。
@@ -884,10 +886,10 @@
 | 814 | 0x004590E0 | `World::RenderInput` | 有正文 | `src/world/RenderInput.cpp:173 — RenderInput_4590E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 815 | 0x00459580 | `sub_459580` | 有正文 | `src/platform/imeImpl.cpp:128 — Sub_459580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 816 | 0x004596D0 | `sub_4596D0` | 有正文 | `src/input/InputKeyDispatch.cpp:11 — ProcessKeyInput_4596D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 817 | 0x00459760 | `sub_459760` | 有正文 | `src/platform/WindowProcedure.cpp:43 — ClearKeyFlags_459760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 818 | 0x00459780 | `resetKeyState` | 有正文 | `src/platform/WindowProcedure.cpp:52 — ResetKeyState_459780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 819 | 0x004597A0 | `sub_4597A0` | 有正文 | `src/platform/WindowProcedure.cpp:67 — ReadKeyFlag4_4597A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 820 | 0x004597B0 | `sub_4597B0` | 有正文 | `src/platform/WindowProcedure.cpp:61 — ReadKeyPressFlag_4597B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 817 | 0x00459760 | `sub_459760` | 有正文 | `src/platform/WindowProcedure.cpp:44 — ClearKeyFlags_459760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 818 | 0x00459780 | `resetKeyState` | 有正文 | `src/platform/WindowProcedure.cpp:53 — ResetKeyState_459780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 819 | 0x004597A0 | `sub_4597A0` | 有正文 | `src/platform/WindowProcedure.cpp:68 — ReadKeyFlag4_4597A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 820 | 0x004597B0 | `sub_4597B0` | 有正文 | `src/platform/WindowProcedure.cpp:62 — ReadKeyPressFlag_4597B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 821 | 0x004597C0 | `sub_4597C0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 822 | 0x004597E0 | `sub_4597E0` | 有正文 | `src/resource/GraphicInfo.cpp:39 — InitializeGraphicMapNumbers_4597E0` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
 | 823 | 0x004597F0 | `sub_4597F0` | 有承接 | `src/resource/GraphicInfo.cpp:39 — InitializeGraphicMapNumbers_4597E0` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
@@ -1009,7 +1011,7 @@
 | 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:20 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/render/RendererRebuild.cpp:20 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:76 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:126 — WindowProcedure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:166 — WindowProcedure` | CTM01/A07直接接Ctrl+V、Shift+Insert与WM_PASTE，复制后释放剪贴板并交既有UTF-16输入；仅静态，编译／运行未验 |
 | 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 944 | 0x00467BA0 | `unknown_libname_17` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 945 | 0x00467BD0 | `sub_467BD0` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
@@ -3088,7 +3090,7 @@
 | 3018 | 0x005349A4 | `ImmSetOpenStatus` | 有承接 | `src/platform/imeImpl.cpp:106 — ImmSetOpenStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3019 | 0x005349AA | `ImmGetDescriptionA` | 有承接 | `src/world/RenderInput.cpp:195 — ImmGetDescriptionW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/imeImpl.cpp:29 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
-| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:424 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
+| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:471 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:107 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4615 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3024 | 0x00534A3C | `recv` | 有承接 | `src/network/NetworkRuntime.cpp:4597 — recv` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |

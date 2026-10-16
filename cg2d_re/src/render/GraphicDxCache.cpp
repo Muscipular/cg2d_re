@@ -91,11 +91,11 @@ public:
         surface->height = height;
         surface->colorKey = colorKey;
         surface->blitSurface.reset(SDL_CreateSurfaceFrom(
-            width, height, SDL_PIXELFORMAT_XRGB8888, surface->pixels.get(),
+            width, height, SDL_PIXELFORMAT_ARGB8888, surface->pixels.get(),
             static_cast<int>(width) * static_cast<int>(sizeof(std::uint32_t))));
         if (surface->blitSurface == nullptr
             || !SDL_SetSurfaceBlendMode(surface->blitSurface.get(), SDL_BLENDMODE_NONE)
-            || !SDL_SetSurfaceColorKey(surface->blitSurface.get(), true, surface->colorKey)) {
+            || !SDL_SetSurfaceColorKey(surface->blitSurface.get(), false, surface->colorKey)) {
             delete surface;
             return nullptr;
         }
@@ -396,7 +396,6 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     const std::int32_t rows = height / 48 + (height % 48 != 0 ? 1 : 0);
     const std::int32_t required = columns * rows;
     const std::uint32_t alignmentWidth = resource::gCurrentGraphicWidth;
-    const bool png = resource::IsPngGraphicData(resource::gGraphicDataPtr);
     if ((alignmentWidth & 3u) != 0) {
         resource::gCurrentGraphicWidth =
             alignmentWidth + ((0u - alignmentWidth) & 3u);
@@ -455,7 +454,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
                 if (scan >= gTextureNodeCount) {
                     gTextureScanIndex = 0;
                 }
-                if (png) {
+                if (width > 0 && (alignmentWidth & 3u) != 0) {
                     resource::gCurrentGraphicWidth = alignmentWidth;
                 }
                 return;
@@ -479,7 +478,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
             // 原 58D348 消息及 52253F 路径；不足时不清除部分链或补写尾 next。
             const std::wstring message = L"图形表面不足。" + std::to_wstring(scan) + L'\n';
             ::OutputDebugStringW(message.c_str());
-            if (png) {
+            if (width > 0 && (alignmentWidth & 3u) != 0) {
                 resource::gCurrentGraphicWidth = alignmentWidth;
             }
             return;
@@ -698,7 +697,7 @@ void FillTextureBlack_451310(TextureSurface* const surface) noexcept
 
 std::int32_t BlitTextureToBack(
     TextureSurface* const surface, const TextureRectangle& source,
-    const TextureRectangle& destination)
+    const TextureRectangle& destination, const bool alphaBlend)
 {
     constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
     constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
@@ -717,11 +716,19 @@ std::int32_t BlitTextureToBack(
         destination[0], destination[1],
         destination[2] - destination[0], destination[3] - destination[1]
     };
+    SDL_BlendMode previousBlend = SDL_BLENDMODE_NONE;
+    if (alphaBlend && (!SDL_GetSurfaceBlendMode(input, &previousBlend)
+        || !SDL_SetSurfaceBlendMode(input, SDL_BLENDMODE_BLEND))) {
+        return failure;
+    }
     // 上层已按原分支裁剪；不在 native 边界重新改变矩形。
     const bool copied = sourceRect.w == destinationRect.w && sourceRect.h == destinationRect.h
         ? SDL_BlitSurfaceUnchecked(input, &sourceRect, back, &destinationRect)
         : SDL_BlitSurfaceUncheckedScaled(
             input, &sourceRect, back, &destinationRect, SDL_SCALEMODE_NEAREST);
+    if (alphaBlend && !SDL_SetSurfaceBlendMode(input, previousBlend)) {
+        return failure;
+    }
     return copied ? 0 : failure;
 }
 
@@ -767,6 +774,7 @@ void LoadTextureFromBuffer32_450400(
         return;
     }
 
+    const bool opaqueZero = (resource::gGraphicInfo[resource::gGraphicDataBuffer].flag & 8u) != 0;
     const std::uint8_t* row = source + y * sourceWidth + x;
     std::uint32_t* target = surface->pixels.get();
     for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
@@ -777,6 +785,8 @@ void LoadTextureFromBuffer32_450400(
             } else {
                 target[column] = gPaletteAutoMap[index];
             }
+            target[column] = (target[column] & 0x00FFFFFFu)
+                | ((opaqueZero || index != 0) ? 0xFF000000u : 0u);
         }
         if (rowIndex + 1 < height) {
             row -= sourceWidth;

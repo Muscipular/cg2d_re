@@ -68,7 +68,7 @@ std::int32_t DrawTextureRectangle(
         return kNativeFailure;
     }
 
-    const bool colorKeyEnabled = input != nullptr && GetLegacyTextureState().colorKeyEnabled != 0;
+    const bool colorKeyEnabled = input != nullptr && SDL_SurfaceHasColorKey(input);
     std::uint32_t colorKey = 0;
     if (colorKeyEnabled && !SDL_GetSurfaceColorKey(input, &colorKey)) {
         return kNativeFailure;
@@ -116,7 +116,7 @@ std::int32_t DrawTextureRectangle(
             }
         } else {
             // 无纹理时禁用纹理阶段，SDL 调制白色后得到完整 diffuse 色。
-            std::fill_n(pixels, sourceRect.w, 0x00FFFFFFu);
+            std::fill_n(pixels, sourceRect.w, 0xFFFFFFFFu);
         }
         const SDL_Rect destinationRect {left, y, sourceRect.w, 1};
         if (!SDL_BlitSurfaceUnchecked(row, &sourceRect, back, &destinationRect)) {
@@ -136,7 +136,8 @@ std::int32_t TruncateTextureCoordinate(const double value)
 std::int32_t SubmitTexturedRectangle(
     TextureSurface* surface, const TextureRectangle& destination,
     const float u0, const float v0, const float u1, const float v1,
-    const std::uint8_t mixFlags, const std::uint32_t color)
+    const std::uint8_t mixFlags, const std::uint32_t color,
+    LegacyTextureDevice* const imageDevice = nullptr)
 {
     const auto left = static_cast<float>(destination[0]);
     const auto top = static_cast<float>(destination[1]);
@@ -151,12 +152,18 @@ std::int32_t SubmitTexturedRectangle(
     LegacyTextureBlend sourceBlend = LegacyTextureBlend::One;
     LegacyTextureBlend destinationBlend = LegacyTextureBlend::One;
     if ((mixFlags & GraphicMixFlag_Additive) == 0) {
-        if ((color & 0xFF000000u) == 0xFF000000u) {
+        if (surface == nullptr && (color & 0xFF000000u) == 0xFF000000u) {
             destinationBlend = LegacyTextureBlend::Zero;
         } else {
             sourceBlend = LegacyTextureBlend::SourceAlpha;
             destinationBlend = LegacyTextureBlend::InverseSourceAlpha;
         }
+    }
+    if (imageDevice != nullptr) {
+        imageDevice->sourceBlend = sourceBlend;
+        imageDevice->destinationBlend = destinationBlend;
+        static_cast<void>(BindLegacyTexture(imageDevice, gLegacyTextureStage, surface));
+        return DrawTextureRectangle(*imageDevice, vertices);
     }
     return SubmitLegacyTextureFan(surface, vertices, sourceBlend, destinationBlend);
 }
@@ -174,7 +181,7 @@ LegacyTextureDevice* CreateLegacyTextureDevice(
         return nullptr;
     }
     device->back = back;
-    device->row.reset(SDL_CreateSurface(GetCpuSurfaceWidth(), 1, format->format));
+    device->row.reset(SDL_CreateSurface(GetCpuSurfaceWidth(), 1, SDL_PIXELFORMAT_ARGB8888));
     if (device->row == nullptr) {
         delete device;
         return nullptr;
@@ -293,7 +300,7 @@ std::uint32_t FillRect_44C9A0(
     if (bottom > height) {
         bottom = static_cast<std::int16_t>(height);
     }
-    if (HasLegacy3DDevice_44B610() == 0 || GetLegacyTextureState().colorKeyEnabled == 0) {
+    if (HasLegacy3DDevice_44B610() == 0 || GetLegacyTextureState().textureDrawingEnabled == 0) {
         return 0;
     }
     const TextureRectangle destination {left, top, right, bottom};
@@ -363,7 +370,7 @@ std::int32_t RenderTextureToSurface_44D520(
         }
     }
 
-    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {
+    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().textureDrawingEnabled != 0) {
         const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
         const double u0 =
             ((flipX ? right - 1 : left) + kTextureBias) / textureWidth;
@@ -394,7 +401,7 @@ std::int32_t RenderTextureToSurface_44D520(
             static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),
             rectangle.data(), key.data());
     }
-    return BlitTextureToBack(surface, rectangle, destination);
+    return BlitTextureToBack(surface, rectangle, destination, true);
 }
 
 // 原函数：0x0044DA90。
@@ -490,7 +497,7 @@ std::int32_t RenderTexture_44DA90(
         destinationLeft, destinationTop, destinationRight, destinationBottom
     };
 
-    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {
+    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().textureDrawingEnabled != 0) {
         const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);
         const double u0 =
             ((flipX ? sourceRight : sourceLeft) + kTextureBias) / textureWidth;
@@ -513,7 +520,7 @@ std::int32_t RenderTexture_44DA90(
             static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),
             source.data(), key.data());
     }
-    return BlitTextureToBack(surface, source, destination);
+    return BlitTextureToBack(surface, source, destination, true);
 }
 
 std::int32_t RenderImageTexture(
@@ -526,12 +533,28 @@ std::int32_t RenderImageTexture(
     }
     const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
     const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
+    // 模式1也沿同一CPU行混合器绘制完整图像；此临时设备不发布到renderer状态。
+    std::unique_ptr<LegacyTextureDevice, decltype(&DestroyLegacyTextureDevice)> fallback {
+        nullptr, DestroyLegacyTextureDevice
+    };
+    if (GetRendererTextureDevice() == nullptr) {
+        SDL_Surface* const back = GetCpuBackSdlSurface();
+        fallback.reset(CreateLegacyTextureDevice(
+            back == nullptr ? nullptr : SDL_GetPixelFormatDetails(back->format), back));
+        if (fallback == nullptr) {
+            return kNativeFailure;
+        }
+        const std::int32_t result = BeginLegacyTextureScene(fallback.get());
+        if (result != 0) {
+            return result;
+        }
+    }
     return SubmitTexturedRectangle(surface, destination,
         static_cast<float>(flipX ? source[2] : source[0]) / input->w,
         static_cast<float>(flipY ? source[3] : source[1]) / input->h,
         static_cast<float>(flipX ? source[0] : source[2]) / input->w,
         static_cast<float>(flipY ? source[1] : source[3]) / input->h,
-        mixFlags, color);
+        mixFlags, color, fallback.get());
 }
 
 } // namespace cg::render

@@ -23,7 +23,7 @@ std::int32_t RenderImageTexture(
 struct LegacyTextureState {
     std::int16_t width;            // +B8：纹理采样分母，不是请求块宽。
     std::int16_t height;           // +BA。
-    std::int32_t colorKeyEnabled;  // +BC。
+    std::int32_t textureDrawingEnabled;  // +BC：R05保留设备绘制门禁，ARGB不再依赖RGB色键。
     std::uint32_t textureCaps;     // +B4：bit1 幂次方、bit5 正方形限制。
     std::uint32_t pixelBitCount;   // +68：native 格式查询结果。
 };
@@ -90,7 +90,7 @@ bool BlitTempRectangleToBack(
 // 源色键写入唯一 Back，不做颜色调制；目标尺寸不同则执行原 Blt 缩放。
 std::int32_t BlitTextureToBack(
     TextureSurface* surface, const TextureRectangle& source,
-    const TextureRectangle& destination);
+    const TextureRectangle& destination, bool alphaBlend = false);
 
 // 原 44C9A0：两次接口检查、S16 裁剪及空纹理四顶点；透传完整返回位型。
 std::uint32_t FillRect_44C9A0(

@@ -112,7 +112,7 @@ std::int8_t DowngradeRenderer()
 {
     ReleaseRendererTextureDevice();
     ReleaseRendererTextureInterface();
-    gRenderer->textureState.colorKeyEnabled = 0;
+    gRenderer->textureState.textureDrawingEnabled = 0;
     WriteRendererModeFile(true);
     platform::ShowWideMessage(kMode1Message, kConfirmCaption, 0x10);
     platform::gSupportedRenderMode = 1;
@@ -282,13 +282,8 @@ std::int8_t RendererInit_44B630()
     if (deviceFormat == nullptr) {
         return DowngradeRenderer();
     }
-    gRenderer->textureState.colorKeyEnabled = 0;
-    if (deviceFormat->format == SDL_PIXELFORMAT_XRGB8888) {
-        if (!EnableLegacyTextureColorKey(GetRendererTextureDevice())) {
-            return DowngradeRenderer();
-        }
-        gRenderer->textureState.colorKeyEnabled = 1;
-    }
+    gRenderer->textureState.textureDrawingEnabled =
+        deviceFormat->format == SDL_PIXELFORMAT_ARGB8888 ? 1 : 0;
     if (!ConfigureLegacyTexturePipeline(GetRendererTextureDevice())) {
         return DowngradeRenderer();
     }

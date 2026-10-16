@@ -71,13 +71,11 @@ cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABC
 std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
-    std::array<float, 481> speedFF0FA8 {}; // 原全局：0x00FF0FA8。
-    std::array<float, 481> xFF172C {}; // 原全局：0x00FF172C。
-    std::array<float, 481> yFF1EB0 {}; // 原全局：0x00FF1EB0。
+    std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
+    std::vector<float> xFF172C = std::vector<float>(481, 0.0f); // 原全局：0x00FF172C。
+    std::vector<float> yFF1EB0 = std::vector<float>(481, 0.0f); // 原全局：0x00FF1EB0。
 };
-static_assert(offsetof(TransitionLines, xFF172C) == 0xFF172C - 0xFF0FA8);
-static_assert(offsetof(TransitionLines, yFF1EB0) == 0xFF1EB0 - 0xFF0FA8);
-static_assert(sizeof(TransitionLines) == 0xFF2634 - 0xFF0FA8);
+// R02：私有行存储随已发布高度增长，原地址只标识数据身份，不约束现代容器布局。
 TransitionLines gTransitionLines {};
 float gTransitionXFF48E8 = 0.0f; // 原全局：0x00FF48E8。
 float gTransitionAlternateXFF48EC = 0.0f; // 原全局：0x00FF48EC。
@@ -3864,6 +3862,14 @@ std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原
 // R03：唯一阵位表按尺寸增量更新，重复初始化不累加中心偏移。
 void CenterBattleLayoutToWindow()
 {
+    if (platform::gWindowHeight > 480) {
+        const std::size_t extent = static_cast<std::size_t>(platform::gWindowHeight) + 1;
+        if (extent > gTransitionLines.speedFF0FA8.size()) {
+            gTransitionLines.speedFF0FA8.resize(extent);
+            gTransitionLines.xFF172C.resize(extent);
+            gTransitionLines.yFF1EB0.resize(extent);
+        }
+    }
     static std::int32_t previousX = 0;
     static std::int32_t previousY = 0;
     const std::int32_t offsetX = platform::gWindowWidth > 0 ? (platform::gWindowWidth - 640) / 2 : 0;

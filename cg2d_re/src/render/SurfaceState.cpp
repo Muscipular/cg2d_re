@@ -447,7 +447,16 @@ bool CreateCpuAutoMapSurface() noexcept
 {
     gCpuAutoMapSurface = CreatePlainTextureSurface_44C8B0(
         static_cast<std::int16_t>(GetCpuSurfaceWidth()), static_cast<std::int16_t>(GetCpuSurfaceHeight()), 0, 0x800);
-    return gCpuAutoMapSurface != nullptr;
+    if (gCpuAutoMapSurface == nullptr) {
+        return false;
+    }
+    // AutoMap继续使用原独立色键；资源纹理的ARGB策略不改变此复制路径。
+    if (!SDL_SetSurfaceColorKey(GetTextureSdlSurface(gCpuAutoMapSurface), true, 0)) {
+        ReleaseTextureSurface(gCpuAutoMapSurface);
+        gCpuAutoMapSurface = nullptr;
+        return false;
+    }
+    return true;
 }
 
 bool CreateCpuTempSurface() noexcept

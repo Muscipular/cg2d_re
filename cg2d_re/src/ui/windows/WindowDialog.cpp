@@ -933,7 +933,7 @@ static void WindowDialog_Route(
     case 1:
     case 2:
     case 35:
-        static_cast<void>(WindowDialog_OpenText(96, 108, 448, 240, 245300, value, request, target, text));
+        static_cast<void>(WindowDialog_OpenText(86, 98, 468, 260, 245300, value, request, target, text));
         return;
     case 10:
     case 11:
@@ -1130,7 +1130,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
         ++output;
     }
     for (std::int32_t row = 0; row < lines; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gDialogLinesCB1398[row].text, text, row, columns));
+        static_cast<void>(input::ExtractDialogTextLine(gDialogLinesCB1398[row].text, text, row, columns));
     }
     if (world::detail::gValue581800 == 35) {
         return WindowDialog_Open(

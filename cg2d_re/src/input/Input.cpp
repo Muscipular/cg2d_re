@@ -890,6 +890,50 @@ std::int32_t ExtractGbkTextLine(
     return ExtractTextLine(destination, text::FromGbkWide(source), requestedLine, width);
 }
 
+std::int32_t ExtractDialogTextLine(
+    std::wstring& destination, const char* source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    if (requestedLine < 0 || width <= 0) { return 0; }
+    const std::wstring contents = text::FromGbkWide(source);
+    std::wstring selected;
+    std::int32_t line = 0;
+    std::int32_t column = 0;
+    for (std::size_t offset = 0; offset < contents.size() && line <= requestedLine;) {
+        const wchar_t current = contents[offset];
+        if (current == L'\r' || current == L'\n' || current == 1) {
+            if (line == requestedLine) { break; }
+            line = current == 1 ? 8 * (line / 8) + 8 : line + 1;
+            column = 0;
+            ++offset;
+            continue;
+        }
+        bool escapedDollar = false;
+        if (current == L'$' && offset + 1 < contents.size()) {
+            const wchar_t code = contents[offset + 1];
+            if (text::InlineColorIndex(code) >= 0) {
+                if (line == requestedLine) { selected.append(contents, offset, 2); }
+                offset += 2;
+                continue;
+            }
+            escapedDollar = code == L'$';
+        }
+        const std::size_t next = escapedDollar ? offset + 2 : text::Next(contents, offset);
+        const std::int32_t columns = current < 0x80 ? 1 : 2;
+        // 满行后遇到下一可见字符才自动换行，保留随后的显式换行／分页含义。
+        if (column != 0 && column + columns > width) {
+            ++line;
+            column = 0;
+            continue;
+        }
+        if (line == requestedLine) { selected.append(contents, offset, next - offset); }
+        column += columns;
+        offset = next;
+    }
+    destination = std::move(selected);
+    return 1;
+}
+
 
 // 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(

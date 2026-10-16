@@ -182,6 +182,9 @@ char* UnescapeLegacyTextAndNotify_52D2F0(char* text); // UTE01：反转义/原�
 std::int32_t ExtractGbkTextLine(std::wstring& destination, const char* source, std::int32_t line, std::int32_t width);
 std::int32_t ExtractTextLine(std::wstring& destination, std::wstring_view source, std::int32_t line, std::int32_t width);
 
+// R07：仅对话正文使用；颜色标记零列、美元转义一列，CR／LF独立换行、0x01按八行分页。
+std::int32_t ExtractDialogTextLine(std::wstring& destination, const char* source, std::int32_t line, std::int32_t width);
+
 // 原503AB0：GBK协议／资源输入边界，转换后按旧逻辑列预算提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
 std::int32_t ExtractLegacyLine_503AB0(
     char* destination, std::int32_t capacity, const char* source,

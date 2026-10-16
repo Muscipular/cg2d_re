@@ -38,6 +38,7 @@
 #include <cstdint>
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
+#include <list>
 #include <string>
 #include <system_error>
 #include <tuple>
@@ -123,6 +124,9 @@ struct NetworkRuntimeState {
     std::uint32_t frameModuloD9F3C8; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
     std::array<char, 0x104> addressTextDA33D8; // 原全局：0x00DA33D8。 原lSZ回复缓存，非空时按strstr判断变化。
+    // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
+    std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
+    std::list<std::pair<std::string, ProtocolSendHandler>> sendHandlers;
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -144,6 +148,15 @@ std::int32_t QueuePlaintextProtocolBytes(
 {
     if (login::gRequestPollingEnabled == 0) {
         return -100;
+    }
+
+    const std::string_view packet(static_cast<const char*>(data), size);
+    for (auto& [header, handler] : gNetworkRuntimeState.sendHandlers) {
+        if (packet.starts_with(header)) {
+            handler(header.c_str(), packet.data() + header.size(),
+                static_cast<std::int32_t>(packet.size() - header.size()));
+            break;
+        }
     }
 
     std::int32_t sendLength;
@@ -196,6 +209,16 @@ std::int32_t ReceivePlaintextProtocolLine(
 }
 
 } // namespace
+
+void RegisterProtocolReceive(const char* const header, ProtocolReceiveHandler handler)
+{
+    gNetworkRuntimeState.receiveHandlers.emplace_back(header, std::move(handler));
+}
+
+void RegisterProtocolSend(const char* const header, ProtocolSendHandler handler)
+{
+    gNetworkRuntimeState.sendHandlers.emplace_back(header, std::move(handler));
+}
 
 namespace detail {
 
@@ -3964,6 +3987,12 @@ std::int32_t NetworkDispatch_512E40(
     Sub_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
         gNetworkRuntimeState.pointerTable58B614);
     // 服务端明文头直接是原命令（如whV），不再执行原密文命令逆变换。
+    for (auto& [header, handler] : gNetworkRuntimeState.receiveHandlers) {
+        if (header == head) {
+            handler(head, gNetworkRuntimeState.pointerTable58B614);
+            break;
+        }
+    }
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;

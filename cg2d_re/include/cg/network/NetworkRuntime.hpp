@@ -1,9 +1,21 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <string_view>
 
 namespace cg::network {
+
+// N01：接收参数第0项为头、末项为null；正文借用到回调结束。
+using ProtocolReceiveHandler = std::function<void(const char* header, char** arguments)>;
+// 发送正文位于注册前缀之后，长度包含原LF；不拥有传入字节。
+using ProtocolSendHandler = std::function<void(
+    const char* header, const char* data, std::int32_t length)>;
+
+// 按注册顺序执行首个匹配项；接收匹配完整头，发送匹配前缀。
+// 注册复制消息头并持有回调，重连保留；同网络线程调用。
+void RegisterProtocolReceive(const char* header, ProtocolReceiveHandler handler);
+void RegisterProtocolSend(const char* header, ProtocolSendHandler handler);
 
 using NetworkCallback = std::int32_t (*)(
     std::uintptr_t socket,

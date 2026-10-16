@@ -32,6 +32,9 @@ std::int32_t InitializeFont_456190(std::int32_t family);
 // 原函数：0x00456530。
 std::int32_t ReleaseFont_456530();
 
+// R06：字体或渲染器重建／释放时清除字形图集及栅格化资源。
+void ResetFontGlyphCache() noexcept;
+
 // sub_45D990@0x45D990 的直接目标。
 // 原函数：0x0044B2A0。
 std::int32_t TextMeasure(std::wstring_view text, std::int32_t fontType);
@@ -42,7 +45,7 @@ class Font final {
 public:
     Font() = delete;
 
-    // 原0x0044B2E0：maxUnits为UTF-16码元预算；不截断代理对。
+    // 原0x0044B2E0：maxUnits为UTF-16码元预算；R06与字形缓存使用同一步进，不截断代理对。
     [[nodiscard]] static std::int32_t measure(std::wstring_view text, std::int32_t fontType, std::int32_t maxUnits);
     [[nodiscard]] static std::vector<std::wstring> split(std::wstring_view text, std::int32_t fontType, std::int32_t width);
 

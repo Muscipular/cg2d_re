@@ -45,9 +45,15 @@ extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords; // 原全局：
 // 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。
 extern std::int32_t gHoveredTextPendingIndex;
 
-// 原 456D70：按链头模式顺序/按色分组绘制原字节文本，headToken 为一基令牌。
-// 使用 Font 的同一 GDI 字体及唯一 CPU Back；不改队列、文本或布局。
+// 原 456D70：R06按文本链顺序绘制缓存字形及阴影，headToken为一基令牌。
+// 使用Font的同一字体度量与唯一CPU Back，不改变队列令牌和文本所有权。
 void RenderTextToSurface_456D70(std::uint32_t headToken);
+
+// R06：仅显式调用方解析美元颜色标记和转义，分段沿原DrawText队列提交。
+void DrawColoredText(
+    std::int16_t x, std::int16_t y, std::uint8_t renderMode,
+    std::int8_t fontType, std::int8_t color, std::wstring_view text,
+    std::int8_t value7, std::int8_t marker);
 
 // 原 sub_45D7A0@[0x45D7A0,0x45D7CF)。
 // 左键按下时返回 values 中首个等于当前悬停文本索引的元素下标，否则返回 -1。

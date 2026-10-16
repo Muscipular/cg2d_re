@@ -5,6 +5,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/Font.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -199,6 +200,44 @@ std::int32_t DrawText_456780(
     gGraphicCache4Queue[queueIndex] = resultBits + 1U;
     platform::gPendingGraphicCount2 = resultBits + 1U;
     return result;
+}
+
+void DrawColoredText(
+    const std::int16_t x, const std::int16_t y, const std::uint8_t renderMode,
+    const std::int8_t fontType, const std::int8_t color, const std::wstring_view text,
+    const std::int8_t value7, const std::int8_t marker)
+{
+    std::int32_t currentX = x;
+    std::int8_t currentColor = color;
+    std::wstring segment;
+    const auto submitSegment = [&] {
+        if (segment.empty()) { return; }
+        static_cast<void>(DrawText_456780(static_cast<std::int16_t>(currentX), y,
+            renderMode, fontType, currentColor, segment, value7, marker));
+        currentX += TextMeasure(segment, fontType);
+        segment.clear();
+    };
+    for (std::size_t offset = 0; offset < text.size();) {
+        if (text[offset] == L'$' && offset + 1 < text.size()) {
+            const wchar_t code = text[offset + 1];
+            if (code == L'$') {
+                segment.push_back(L'$');
+                offset += 2;
+                continue;
+            }
+            const std::int32_t colorIndex = cg::text::InlineColorIndex(code);
+            if (colorIndex >= 0) {
+                submitSegment();
+                currentColor = static_cast<std::int8_t>(colorIndex);
+                offset += 2;
+                continue;
+            }
+        }
+        const std::size_t next = cg::text::Next(text, offset);
+        segment.append(text.substr(offset, next - offset));
+        offset = next;
+    }
+    submitSegment();
 }
 
 } // namespace cg::render

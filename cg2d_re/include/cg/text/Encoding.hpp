@@ -34,4 +34,7 @@ void StoreGbk(char* destination, std::size_t capacity, std::wstring_view utf16);
 [[nodiscard]] std::size_t Prefix(std::wstring_view utf16, std::size_t unitBudget) noexcept;
 [[nodiscard]] std::size_t Count(std::wstring_view utf16) noexcept;
 
+// R06／R07：美元颜色标记的后一字符，0–9／a–z／A–Z对应0–61，否则返回-1。
+[[nodiscard]] std::int32_t InlineColorIndex(wchar_t code) noexcept;
+
 } // namespace cg::text

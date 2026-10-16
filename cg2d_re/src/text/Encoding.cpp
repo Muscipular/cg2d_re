@@ -120,4 +120,12 @@ std::size_t Count(const std::wstring_view utf16) noexcept
     return count;
 }
 
+std::int32_t InlineColorIndex(const wchar_t code) noexcept
+{
+    if (code >= L'0' && code <= L'9') { return code - L'0'; }
+    if (code >= L'a' && code <= L'z') { return code - L'a' + 10; }
+    if (code >= L'A' && code <= L'Z') { return code - L'A' + 36; }
+    return -1;
+}
+
 } // namespace cg::text

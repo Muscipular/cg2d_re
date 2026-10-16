@@ -703,9 +703,9 @@
 | 631 | 0x0044B190 | `sub_44B190` | 有正文 | `src/input/Input.cpp:344 — ClassifyLastAnsiUnit_44B190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 632 | 0x0044B1D0 | `sub_44B1D0` | 有正文 | `src/input/Input.cpp:409 — ClassifyTextBoundary_44B1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 633 | 0x0044B250 | `sub_44B250` | 有承接 | `src/input/Input.cpp:448 — (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u` | 首字节高位决定 1／2 字节步长；实际输入消费者内联；完整业务／运行未验 |
-| 634 | 0x0044B260 | `sub_44B260` | 有正文 | `src/render/Font.cpp:274 — MeasureDefaultText_44B260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 635 | 0x0044B2A0 | `TextMeasure` | 有正文 | `src/render/Font.cpp:278 — TextMeasure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 636 | 0x0044B2E0 | `Font::measure` | 有正文 | `src/render/Font.cpp:227 — Font::measure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 634 | 0x0044B260 | `sub_44B260` | 有正文 | `src/render/Font.cpp:398 — MeasureDefaultText_44B260` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 635 | 0x0044B2A0 | `TextMeasure` | 有正文 | `src/render/Font.cpp:402 — TextMeasure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 636 | 0x0044B2E0 | `Font::measure` | 有正文 | `src/render/Font.cpp:364 — Font::measure` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；R06度量与缓存字形共用单／双格步进，保UTF-16完整字符；仅静态 |
 | 637 | 0x0044B330 | `Input::SetContext` | 有正文 | `src/input/Input.cpp:872 — SetContext_44B330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 638 | 0x0044B340 | `sub_44B340` | 有正文 | `src/input/Input.cpp:848 — ProcessPresetHotkeys_44B340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 639 | 0x0044B440 | `sub_44B440` | 有正文 | `src/input/Input.cpp:371 — ClassifyLegacyBoundary_44B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -714,8 +714,8 @@
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:480 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/scene/login/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1243 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
-| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:131 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:195 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:132 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:196 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:540 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:384 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:600 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -842,15 +842,15 @@
 | 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:225 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5239 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 772 | 0x00456050 | `sub_456050` | 有正文 | `src/resource/ResourcePaths.cpp:192 — BuildResourcePaths` | BLM01直接解析cgmsv.yml，六类字符串路径绑定32槽；失败结束启动，仅静态，编译／运行未验 |
-| 773 | 0x00456190 | `sub_456190` | 有正文 | `src/render/Font.cpp:95 — InitializeFont_456190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 774 | 0x00456530 | `sub_456530` | 有正文 | `src/render/Font.cpp:159 — ReleaseFont_456530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 775 | 0x00456560 | `Renderer::DrawText3` | 有正文 | `src/render/TextPendingQueue.cpp:81 — DrawText3_456560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 776 | 0x00456670 | `Renderer::DrawText2` | 有正文 | `src/render/TextPendingQueue.cpp:93 — DrawText2_456670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 777 | 0x00456780 | `Renderer::DrawText` | 有正文 | `src/render/TextPendingQueue.cpp:149 — DrawText_456780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 773 | 0x00456190 | `sub_456190` | 有正文 | `src/render/Font.cpp:248 — InitializeFont_456190` | 实际非占位正文已定位；完整业务／接线／运行未验；R06重建字体前清字形图集，原字体创建与派生度量正文保持；仅静态 |
+| 774 | 0x00456530 | `sub_456530` | 有正文 | `src/render/Font.cpp:313 — ReleaseFont_456530` | 实际非占位正文已定位；完整业务／接线／运行未验；R06释放字体前清字形图集，原句柄返回合同保持；仅静态 |
+| 775 | 0x00456560 | `Renderer::DrawText3` | 有正文 | `src/render/TextPendingQueue.cpp:82 — DrawText3_456560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 776 | 0x00456670 | `Renderer::DrawText2` | 有正文 | `src/render/TextPendingQueue.cpp:94 — DrawText2_456670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 777 | 0x00456780 | `Renderer::DrawText` | 有正文 | `src/render/TextPendingQueue.cpp:150 — DrawText_456780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 778 | 0x004568A0 | `Renderer::DrawInputText` | 有正文 | `src/render/InputText.cpp:56 — DrawInputText_4568A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 779 | 0x00456D30 | `Renderer::CacheReset` | 有正文 | `src/render/GraphicCacheState.cpp:17 — ResetGraphicCache_456D30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 780 | 0x00456D50 | `sub_456D50` | 有正文 | `src/render/GraphicCacheState.cpp:10 — ClearTextQueueTail_456D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 781 | 0x00456D70 | `Renderer::RenderTextToSurface` | 有正文 | `src/render/Font.cpp:169 — RenderTextToSurface_456D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 781 | 0x00456D70 | `Renderer::RenderTextToSurface` | 有正文 | `src/render/Font.cpp:324 — RenderTextToSurface_456D70` | 实际非占位正文已定位；完整业务／接线／运行未验；R06按文本链及每条纹理批次绘制512图集字形、128色与半透明阴影，沿R05混合；仅静态 |
 | 782 | 0x00456FD0 | `sub_456FD0` | 有承接 | `src/platform/RuntimeInitialization.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 783 | 0x00456FE0 | `unknown_libname_15` | 有承接 | `src/platform/RuntimeInitialization.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 784 | 0x00457000 | `unknown_libname_16` | 有承接 | `src/platform/RuntimeInitialization.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
@@ -949,7 +949,7 @@
 | 877 | 0x0045CE10 | `sub_45CE10` | 有正文 | `src/LoginMessage.cpp:76 — UpdateLoginMessage` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 878 | 0x0045D720 | `sub_45D720` | 有正文 | `src/input/Input.cpp:314 — Sub_45D720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 879 | 0x0045D760 | `sub_45D760` | 有正文 | `src/input/Input.cpp:330 — Sub_45D760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 880 | 0x0045D7A0 | `sub_45D7A0` | 有正文 | `src/render/TextPendingQueue.cpp:27 — FindClickedTextIndex_45D7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 880 | 0x0045D7A0 | `sub_45D7A0` | 有正文 | `src/render/TextPendingQueue.cpp:28 — FindClickedTextIndex_45D7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 881 | 0x0045D7D0 | `sub_45D7D0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:22 — ResetAuthenticationFailure_45D7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 882 | 0x0045D7E0 | `sub_45D7E0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:28 — UpdateAuthenticationFailure_45D7E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 883 | 0x0045D980 | `sub_45D980` | 有正文 | `src/scene/login/LoginState.cpp:272 — ResetValues_45D980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1594,7 +1594,7 @@
 | 1522 | 0x0049C5E0 | `sub_49C5E0` | 有正文 | `src/Yobi/window.cpp:34477 — Sub_49C5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1523 | 0x0049C600 | `Window::CreateWithAnime` | 有正文 | `src/ui/windows/WindowDialog.cpp:260 — WindowDialog_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1524 | 0x0049C710 | `sub_49C710` | 有正文 | `src/ui/windows/WindowDialog.cpp:319 — WindowDialog_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:414 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:414 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验；R06仅对话正文提交解释美元颜色标记与转义，原窗口交互正文保持；仅静态 |
 | 1526 | 0x0049CDF0 | `sub_49CDF0` | 有正文 | `src/ui/windows/WindowDialog.cpp:540 — WindowDialog_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1527 | 0x0049CE70 | `sub_49CE70` | 有正文 | `src/ui/windows/WindowDialog.cpp:556 — WindowDialog_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1528 | 0x0049CF70 | `sub_49CF70` | 有正文 | `src/ui/windows/WindowDialog.cpp:601 — WindowDialog_HandleTextSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2935,10 +2935,10 @@
 | 2863 | 0x00520970 | `Renderer::DrawGraphic3` | 有正文 | `src/render/DrawGraphic.cpp:35 — DrawGraphic3_520970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2864 | 0x00520AD0 | `Renderer::FillDirtyArea` | 有正文 | `src/render/GraphicPendingQueue.cpp:289 — FillDirtyArea_520AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2865 | 0x00520B10 | `Graphic::LoadTexture` | 有正文 | `src/render/GraphicDxCache.cpp:490 — LoadGraphicTexture_520B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:446 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01复用批次15完整图缓存，名称推广为全屏背景；绘制／Alpha／调色板正文保持，仅静态 |
+| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:446 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01复用批次15完整图缓存，名称推广为全屏背景；绘制／Alpha／调色板正文保持，仅静态；R06文字改为纹理消费，批次4保持在已有Begin／End内；其他批次正文保持，仅静态 |
 | 2867 | 0x00521870 | `sub_521870` | 有正文 | `src/render/GraphicPendingQueue.cpp:318 — Sub_521870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2868 | 0x005219C0 | `sub_5219C0` | 有正文 | `src/render/GraphicPendingQueue.cpp:52 — CalculateRippleScreenDelta` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2869 | 0x00521A30 | `Renderer::QueueText` | 有正文 | `src/render/TextPendingQueue.cpp:50 — QueueText_521A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2869 | 0x00521A30 | `Renderer::QueueText` | 有正文 | `src/render/TextPendingQueue.cpp:51 — QueueText_521A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2870 | 0x00521AA0 | `sub_521AA0` | 有正文 | `src/render/GraphicPendingQueue.cpp:232 — QueueMap_521AA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2871 | 0x00521B10 | `Renderer::DrawGraphic` | 有正文 | `src/render/DrawGraphic.cpp:244 — DrawGraphic` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2872 | 0x00521C80 | `sub_521C80` | 有正文 | `src/render/DrawGraphic.cpp:138 — Sub_521C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |

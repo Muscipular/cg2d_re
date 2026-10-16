@@ -471,13 +471,7 @@ void DrawAllQueued_520DD0()
                 FillDirtyArea_520AD0(graphic);
                 break;
             case 4:
-                if (HasLegacy3DDevice_44B610() != 0) {
-                    static_cast<void>(EndLegacyTextureScene(GetRendererTextureDevice()));
-                }
                 RenderTextToSurface_456D70(graphic->reference.textToken);
-                if (HasLegacy3DDevice_44B610() != 0) {
-                    static_cast<void>(BeginLegacyTextureScene(GetRendererTextureDevice()));
-                }
                 break;
             case 5: {
                 const std::int32_t y = graphic->y;

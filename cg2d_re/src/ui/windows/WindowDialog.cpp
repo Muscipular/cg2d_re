@@ -460,7 +460,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     for (std::int32_t row = 0; row < gMessageDialog.lineCount; ++row) {
         const std::wstring& text = gMessageDialog.lines[row].text;
         if (!text.empty()) {
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawColoredText(
                 static_cast<std::int16_t>(window->x + 24),
                 static_cast<std::int16_t>(window->y + row * gMessageDialog.lineHeight + 20),
                 3, 0, 0, text, 0, static_cast<std::int8_t>(cg::render::gValueD69768)));

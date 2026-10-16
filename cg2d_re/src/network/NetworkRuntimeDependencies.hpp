@@ -76,19 +76,6 @@ void Sub_510460(
 // 原510490：无全局门禁，生产world唯一F7C950前缀，固定消费27字段。
 void Sub_510490(std::uintptr_t unusedSocket, const char* text); // IER01：唯一属性回复记录生产，void副作用接口保持；原返回在分发父覆盖，全ABI/运行待。
 
-// 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
-// 第二、四参数未读取；返回末轮方向，零轮返回 0。
-char Sub_4038A0(
-    char* text,
-    std::int32_t,
-    const char* key3,
-    std::int32_t,
-    const char* key5);
-
-// 原403A70：命令反向变换，唯一caller弃返回；第二、第四参数仍不读取。
-void Sub_403A70(
-    char* text, std::int32_t unused2, const char* key3,
-    std::int32_t unused4, const char* key5);
 // 原5173B0：观察回调/收包日志后两遍原位分词，借用既有char*参数表。
 void SplitReceivedBuffer_5173B0(char* buffer);
 

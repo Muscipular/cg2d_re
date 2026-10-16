@@ -4,10 +4,13 @@
     "spec": "doc/cg2d_clipboard_timing_migration_spec.md",
     "date": "2026-10-16",
     "scope": "A07、A11业务迁移及本地time64／tick64升级，不引入hook",
-    "clipboard_state": "implemented_and_wired_static_only",
-    "time64_state": "implemented_and_wired_static_only",
-    "diagnostics_state": "implemented_and_wired_static_only",
-    "diagnostics_enabled_by": ["Debug构建", "--debug"],
+    "clipboard_state": "implemented_and_wired_debug_build_verified",
+    "time64_state": "implemented_and_wired_debug_build_verified",
+    "diagnostics_state": "implemented_and_wired_debug_build_verified",
+    "diagnostics_enabled_by": [
+      "Debug构建",
+      "--debug"
+    ],
     "fps_provider": "MainLoop实际提交帧，三个逐秒桶平均，64位帧间隔",
     "title_provider": "每秒SetWindowTextW，现有基础标题与GBK玩家名",
     "minidump_provider": "复用ClientEntry既有异常／Debug断言转储，正文与注册／释放保持",
@@ -21,9 +24,12 @@
       "WM_PASTE"
     ],
     "clipboard_provider": "CF_UNICODETEXT优先，CF_TEXT按CP_ACP转换，复制后关闭再AppendText",
-    "build_verified": false,
+    "build_verified": true,
     "runtime_verified": false,
-    "all_full_acceptance_gates_unchanged": true
+    "all_full_acceptance_gates_unchanged": true,
+    "build_configuration": "Debug",
+    "build_exit_code": 0,
+    "build_validation": "2026-10-16 build.bat Debug配置／编译／链接通过，C2065及本轮C4244已消除，运行未验"
   },
   "bin_loader_blm01": {
     "spec": "doc/cg2d_bin_loader_migration_spec.md",

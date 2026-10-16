@@ -485,7 +485,7 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
     }
     if (gSkillSendModeC8A970 != 0) {
         const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-        duration = gCraftDeadlineCF3B04 * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
+        duration = static_cast<std::uint32_t>(gCraftDeadlineCF3B04) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
         gCraftDeadlineCF3B04 = duration;
     }
     static_cast<void>(network::Sub_512DA0(

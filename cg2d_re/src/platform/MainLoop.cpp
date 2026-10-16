@@ -6,6 +6,7 @@
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"

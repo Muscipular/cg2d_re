@@ -13,8 +13,11 @@ struct YobiAction;
 
 namespace cg::render {
 
+struct PngImageBatch; // R04：render私有帧批次；队列只借用。
+
 // R03/R04 扩展批次沿参考编号；仍进入同一层序队列。
 enum GraphicBatchType : std::uint8_t {
+    GraphicBatch_PngImage = 14,
     GraphicBatch_BattleBackground = 15,
 };
 
@@ -56,6 +59,7 @@ static_assert(offsetof(GraphicDescriptor16, paletteIndex) == 0x0E);
 // 原 +0C 混用字段；按生产/消费合同访问，action 为非拥有引用，文本仍用 W32 token。
 union GraphicQueueReference {
     cg::yobi::YobiAction* action;
+    PngImageBatch* pngImage; // R04：纹理由帧批次保留，非SDK对象。
     std::uint32_t textToken;
 };
 

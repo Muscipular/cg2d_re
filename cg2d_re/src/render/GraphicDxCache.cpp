@@ -1,6 +1,8 @@
 #include "GraphicDxCacheState.hpp"
 #include "cg/text/Encoding.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "PngImageInternal.hpp"
+#include "cg/resource/GraphicDecode.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
@@ -33,6 +35,7 @@
 #include <memory>
 #include <new>
 #include <tuple>
+#include <vector>
 
 namespace cg::render {
 
@@ -393,6 +396,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     const std::int32_t rows = height / 48 + (height % 48 != 0 ? 1 : 0);
     const std::int32_t required = columns * rows;
     const std::uint32_t alignmentWidth = resource::gCurrentGraphicWidth;
+    const bool png = resource::IsPngGraphicData(resource::gGraphicDataPtr);
     if ((alignmentWidth & 3u) != 0) {
         resource::gCurrentGraphicWidth =
             alignmentWidth + ((0u - alignmentWidth) & 3u);
@@ -451,6 +455,9 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
                 if (scan >= gTextureNodeCount) {
                     gTextureScanIndex = 0;
                 }
+                if (png) {
+                    resource::gCurrentGraphicWidth = alignmentWidth;
+                }
                 return;
             }
             previous = &node;
@@ -472,6 +479,9 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
             // 原 58D348 消息及 52253F 路径；不足时不清除部分链或补写尾 next。
             const std::wstring message = L"图形表面不足。" + std::to_wstring(scan) + L'\n';
             ::OutputDebugStringW(message.c_str());
+            if (png) {
+                resource::gCurrentGraphicWidth = alignmentWidth;
+            }
             return;
         }
     }
@@ -722,6 +732,37 @@ void LoadTextureFromBuffer32_450400(
     const std::uint8_t* const source, const std::int32_t sourceWidth,
     const std::uint8_t* const palette) noexcept
 {
+    if (resource::IsPngGraphicData(source)) {
+        const auto readBe = [](const std::uint8_t* bytes) {
+            return (static_cast<std::uint32_t>(bytes[0]) << 24)
+                | (static_cast<std::uint32_t>(bytes[1]) << 16)
+                | (static_cast<std::uint32_t>(bytes[2]) << 8)
+                | static_cast<std::uint32_t>(bytes[3]);
+        };
+        std::int32_t pngWidth = 0;
+        std::int32_t pngHeight = 0;
+        if (std::memcmp(source + 12, "IHDR", 4) == 0) {
+            pngWidth = static_cast<std::int32_t>(readBe(source + 16));
+            pngHeight = static_cast<std::int32_t>(readBe(source + 20));
+        }
+        const std::int32_t sourceY = pngHeight - y - 1;
+        const std::int32_t copyWidth = std::min(width, pngWidth - x);
+        const std::int32_t copyHeight = std::min(height, pngHeight - sourceY);
+        if (copyWidth <= 0 || copyHeight <= 0) {
+            return;
+        }
+        std::vector<std::uint32_t> pixels(
+            static_cast<std::size_t>(copyWidth) * static_cast<std::size_t>(copyHeight));
+        const std::size_t length = resource::gGraphicInfo[resource::gGraphicDataBuffer].length;
+        static_cast<void>(ReadPngRectangle({source, length}, x, sourceY, copyWidth, copyHeight, pixels));
+        // 参考不以解码返回值改变上传标记；失败区域仍为清零像素。
+        FillTextureBlack_451310(surface);
+        for (std::int32_t row = 0; row < copyHeight; ++row) {
+            std::memcpy(surface->pixels.get() + row * surface->width, pixels.data() + row * copyWidth,
+                static_cast<std::size_t>(copyWidth) * sizeof(std::uint32_t));
+        }
+        return;
+    }
     if (height <= 0) {
         return;
     }

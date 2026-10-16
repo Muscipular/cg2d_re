@@ -568,7 +568,7 @@ int ReadGraphicDataByIndex(
 
     const bool hasPaletteLength = paletteLength != nullptr;
     *destination = gGraphicDecodeBuffer;
-    std::uint32_t length;
+    std::uint32_t length = static_cast<std::uint32_t>(index); // R04：PNG分支借用图号。
     std::uint32_t ignoredPaletteLength;
     if (!hasPaletteLength) {
         paletteLength = &ignoredPaletteLength;

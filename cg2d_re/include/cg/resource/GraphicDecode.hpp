@@ -4,11 +4,16 @@
 
 namespace cg::resource {
 
+// R04：调用者提供至少八个源字节；只比较 PNG 固定签名。
+bool IsPngGraphicData(const std::uint8_t* source) noexcept;
+
 // 对应原 Graphic::readGraphicData@0x52D5C0；证据见 doc/cg2d_graphic_decode.md。
+// R04 PNG 扩展：lengthOut 入参为真实图号，取 Info 宽高／长度并原样转交载荷；
+// paletteLengthOut 写零；非 PNG 仍按下述原 RD 合同处理。
 // 仅暴露已还原的核心函数，不声明原类或目标描述符的完整布局。
 //
 // destination 指向存活且正确对齐的原生 uint8_t* 槽，只读取槽中的目标地址。
-// 目标地址为空时不读取 source；否则依次检查 source[0]、source[1] 是否为 RD。
+// 目标地址为空时不读取 source；否则先识别 PNG，非 PNG 依次检查 source[0]、source[1] 是否为 RD。
 // 上述失败返回 nullptr，不写目标数据和四个数值输出；成功返回最初的目标地址。
 //
 // 调用者保证各路径实际访问的源字节、目标字节和四个 uint32_t 输出对象有效；

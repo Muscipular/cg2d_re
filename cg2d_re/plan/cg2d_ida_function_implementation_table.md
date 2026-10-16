@@ -714,23 +714,23 @@
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:480 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/scene/login/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1243 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
-| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:130 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:194 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:538 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:383 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:598 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 650 | 0x0044C6D0 | `Renderer::MakeSurface` | 有正文 | `src/render/GraphicDxCache.cpp:191 — CreateTextureSurface_44C6D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 651 | 0x0044C8B0 | `Renderer::CreateSurrface` | 有正文 | `src/render/GraphicDxCache.cpp:230 — CreatePlainTextureSurface_44C8B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:131 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:195 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:540 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:384 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:600 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 650 | 0x0044C6D0 | `Renderer::MakeSurface` | 有正文 | `src/render/GraphicDxCache.cpp:200 — CreateTextureSurface_44C6D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 651 | 0x0044C8B0 | `Renderer::CreateSurrface` | 有正文 | `src/render/GraphicDxCache.cpp:239 — CreatePlainTextureSurface_44C8B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 652 | 0x0044C9A0 | `Renderer::FillRect` | 有正文 | `src/render/LegacyTextureDrawing.cpp:271 — FillRect_44C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 653 | 0x0044CC20 | `sub_44CC20` | 有正文 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 654 | 0x0044CC30 | `sub_44CC30` | 有承接 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 655 | 0x0044CC60 | `sub_44CC60` | 有承接 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 656 | 0x0044CD30 | `sub_44CD30` | 有正文 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 657 | 0x0044CD40 | `sub_44CD40` | 有承接 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 658 | 0x0044CD70 | `unknown_libname_9` | 有承接 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
-| 659 | 0x0044CD80 | `sub_44CD80` | 有正文 | `src/render/GraphicDxCache.cpp:767 — TransformTextureSurface_44CD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 660 | 0x0044D3F0 | `sub_44D3F0` | 有承接 | `src/render/GraphicDxCache.cpp:138 — struct SurfaceTransformKeyLess` | 实际 operator() 比较器；关联原入口；完整业务／运行未验 |
-| 661 | 0x0044D490 | `sub_44D490` | 有正文 | `src/render/GraphicDxCache.cpp:828 — ClearSurfaceTransformCache_44D490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 653 | 0x0044CC20 | `sub_44CC20` | 有正文 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 654 | 0x0044CC30 | `sub_44CC30` | 有承接 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 655 | 0x0044CC60 | `sub_44CC60` | 有承接 | `src/render/GraphicDxCache.cpp:173 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 656 | 0x0044CD30 | `sub_44CD30` | 有正文 | `src/render/GraphicDxCache.cpp:182 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 657 | 0x0044CD40 | `sub_44CD40` | 有承接 | `src/render/GraphicDxCache.cpp:182 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 658 | 0x0044CD70 | `unknown_libname_9` | 有承接 | `src/render/GraphicDxCache.cpp:182 — InitializeSurfaceTransformCache62A630_44CD30` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
+| 659 | 0x0044CD80 | `sub_44CD80` | 有正文 | `src/render/GraphicDxCache.cpp:813 — TransformTextureSurface_44CD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 660 | 0x0044D3F0 | `sub_44D3F0` | 有承接 | `src/render/GraphicDxCache.cpp:141 — struct SurfaceTransformKeyLess` | 实际 operator() 比较器；关联原入口；完整业务／运行未验 |
+| 661 | 0x0044D490 | `sub_44D490` | 有正文 | `src/render/GraphicDxCache.cpp:874 — ClearSurfaceTransformCache_44D490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 662 | 0x0044D520 | `Renderer::RenderTextureToSurface` | 有正文 | `src/render/LegacyTextureDrawing.cpp:305 — RenderTextureToSurface_44D520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 663 | 0x0044DA90 | `Renderer::RenderTexture` | 有正文 | `src/render/LegacyTextureDrawing.cpp:401 — RenderTexture_44DA90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 664 | 0x0044E0C0 | `sub_44E0C0` | 有正文 | `src/render/GraphicPaletteCache.cpp:55 — InitializeGraphicPaletteCache_44E0C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -746,9 +746,9 @@
 | 674 | 0x0044F920 | `sub_44F920` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 675 | 0x0044FC20 | `sub_44FC20` | 有正文 | `src/render/SurfaceState.cpp:421 — DrawColorAutoMap32_44FC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 676 | 0x0044FEB0 | `sub_44FEB0` | 有正文 | `src/render/SurfaceState.cpp:439 — DrawColorAutoMap_44FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 677 | 0x0044FF40 | `sub_44FF40` | 有承接 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 32 位空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
-| 678 | 0x00450190 | `sub_450190` | 有承接 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 32 位非空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
-| 679 | 0x00450400 | `Texture::LoadFromBuffer` | 有正文 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 677 | 0x0044FF40 | `sub_44FF40` | 有承接 | `src/render/GraphicDxCache.cpp:729 — LoadTextureFromBuffer32_450400` | 32 位空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
+| 678 | 0x00450190 | `sub_450190` | 有承接 | `src/render/GraphicDxCache.cpp:729 — LoadTextureFromBuffer32_450400` | 32 位非空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
+| 679 | 0x00450400 | `Texture::LoadFromBuffer` | 有正文 | `src/render/GraphicDxCache.cpp:729 — LoadTextureFromBuffer32_450400` | 实际非占位正文已定位；完整业务／接线／运行未验；RHM01/R04 PNG区域WIC上传，保源坐标方向／清面与旧上传返回；仅静态，运行未验 |
 | 680 | 0x00450470 | `Renderer::InitPalette` | 有正文 | `src/render/Palette.cpp:181 — InitPalette32` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 681 | 0x00450A80 | `sub_450A80` | 有正文 | `src/render/Palette.cpp:276 — ReadPalette` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 682 | 0x00450B70 | `sub_450B70` | 有正文 | `src/render/Palette.cpp:307 — SelectPalette` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -757,7 +757,7 @@
 | 685 | 0x00451220 | `sub_451220` | 有正文 | `src/render/Palette.cpp:498 — RebuildPalette32` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 686 | 0x00451270 | `sub_451270` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 687 | 0x004512C0 | `Renderer::ClearSurface` | 有正文 | `src/render/SurfaceState.cpp:551 — ClearSurface_4512C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 688 | 0x00451310 | `Texture::FillBlack` | 有正文 | `src/render/GraphicDxCache.cpp:677 — FillTextureBlack_451310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 688 | 0x00451310 | `Texture::FillBlack` | 有正文 | `src/render/GraphicDxCache.cpp:692 — FillTextureBlack_451310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 689 | 0x00451350 | `sub_451350` | 有正文 | `src/render/SurfaceState.cpp:562 — Sub_451350` | 32 位实际正文；低色深分支已具名排除；完整调色板／渲染运行未验 |
 | 690 | 0x00451D80 | `sub_451D80` | 有正文 | `src/resource/GraphicRead.cpp:582 — GetGraphicAutoMapColor_451D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 691 | 0x00451E90 | `sub_451E90` | 有正文 | `src/render/Palette.cpp:18 — FindNearestPaletteColor_451E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -767,8 +767,8 @@
 | 695 | 0x00452CF0 | `sub_452CF0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 696 | 0x00453580 | `sub_453580` | 有正文 | `src/render/SurfaceState.cpp:402 — DrawMapEffects_453580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 697 | 0x004535B0 | `sub_4535B0` | 有正文 | `src/render/SurfaceState.cpp:703 — BlitSurfaceToBack_4535B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:557 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:441 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:559 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:443 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 700 | 0x00453DE0 | `sub_453DE0` | 有正文 | `src/render/Palette.cpp:168 — CountMaskBits_453DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
@@ -776,21 +776,21 @@
 | 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:393 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 710 | 0x00454420 | `sub_454420` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 711 | 0x004544F0 | `sub_4544F0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 712 | 0x00454730 | `sub_454730` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 713 | 0x00454780 | `sub_454780` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 714 | 0x004547C0 | `sub_4547C0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 715 | 0x00454820 | `sub_454820` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 716 | 0x00454880 | `sub_454880` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 717 | 0x004548A0 | `sub_4548A0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 718 | 0x00454B10 | `sub_454B10` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 719 | 0x00454B30 | `sub_454B30` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 720 | 0x00454B90 | `sub_454B90` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 721 | 0x00454BE0 | `sub_454BE0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:395 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 710 | 0x00454420 | `sub_454420` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 711 | 0x004544F0 | `sub_4544F0` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 712 | 0x00454730 | `sub_454730` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 713 | 0x00454780 | `sub_454780` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 714 | 0x004547C0 | `sub_4547C0` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 715 | 0x00454820 | `sub_454820` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 716 | 0x00454880 | `sub_454880` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 717 | 0x004548A0 | `sub_4548A0` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 718 | 0x00454B10 | `sub_454B10` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 719 | 0x00454B30 | `sub_454B30` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 720 | 0x00454B90 | `sub_454B90` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
+| 721 | 0x00454BE0 | `sub_454BE0` | 有承接 | `src/render/GraphicDxCache.cpp:156 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/RuntimeInitialization.cpp:148 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/audio/LegacyAudio.cpp:1170 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/audio/LegacyAudio.cpp:1159 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2481,7 +2481,7 @@
 | 2409 | 0x00503C50 | `sub_503C50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2410 | 0x00503C60 | `sub_503C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2411 | 0x00503C70 | `sub_503C70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:525 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:527 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2413 | 0x00503CB0 | `sub_503CB0` | 有正文 | `src/ui/WindowRuntime.cpp:2616 — WindowRuntime_CycleNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2414 | 0x00503CD0 | `sub_503CD0` | 有正文 | `src/ui/WindowRuntime.cpp:2628 — WindowRuntime_IncrementNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/input/Input.cpp:878 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2934,8 +2934,8 @@
 | 2862 | 0x00520930 | `sub_520930` | 有正文 | `src/render/GraphicPendingQueue.cpp:217 — Sub_520930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2863 | 0x00520970 | `Renderer::DrawGraphic3` | 有正文 | `src/render/DrawGraphic.cpp:35 — DrawGraphic3_520970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2864 | 0x00520AD0 | `Renderer::FillDirtyArea` | 有正文 | `src/render/GraphicPendingQueue.cpp:289 — FillDirtyArea_520AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2865 | 0x00520B10 | `Graphic::LoadTexture` | 有正文 | `src/render/GraphicDxCache.cpp:475 — LoadGraphicTexture_520B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:447 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2865 | 0x00520B10 | `Graphic::LoadTexture` | 有正文 | `src/render/GraphicDxCache.cpp:491 — LoadGraphicTexture_520B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:446 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2867 | 0x00521870 | `sub_521870` | 有正文 | `src/render/GraphicPendingQueue.cpp:318 — Sub_521870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2868 | 0x005219C0 | `sub_5219C0` | 有正文 | `src/render/GraphicPendingQueue.cpp:52 — CalculateRippleScreenDelta` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2869 | 0x00521A30 | `Renderer::QueueText` | 有正文 | `src/render/TextPendingQueue.cpp:50 — QueueText_521A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2947,8 +2947,8 @@
 | 2875 | 0x00522180 | `Renderer::DrawGraphic_Hover` | 有正文 | `src/render/DrawGraphicHover.cpp:9 — DrawGraphicHover` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2876 | 0x00522210 | `sub_522210` | 有正文 | `src/render/GraphicPendingQueue.cpp:262 — Sub_522210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2877 | 0x005222A0 | `sub_5222A0` | 有正文 | `src/render/GraphicPendingQueue.cpp:33 — CompareGraphicCache3_5222A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2878 | 0x005222D0 | `Renderer::TakeGraphicDxCache` | 有正文 | `src/render/GraphicDxCache.cpp:380 — TakeGraphicDxCache_5222D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2879 | 0x00522570 | `Graphic::LoadGraphic` | 有正文 | `src/render/GraphicDxCache.cpp:314 — LoadGraphic_522570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2878 | 0x005222D0 | `Renderer::TakeGraphicDxCache` | 有正文 | `src/render/GraphicDxCache.cpp:389 — TakeGraphicDxCache_5222D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2879 | 0x00522570 | `Graphic::LoadGraphic` | 有正文 | `src/render/GraphicDxCache.cpp:323 — LoadGraphic_522570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2880 | 0x00522620 | `sub_522620` | 有正文 | `src/resource/GraphicRead.cpp:338 — InitializeIndependentPaletteQueue_522620` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
 | 2881 | 0x00522630 | `sub_522630` | 有承接 | `src/resource/GraphicRead.cpp:338 — InitializeIndependentPaletteQueue_522620` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
 | 2882 | 0x00522660 | `sub_522660` | 有承接 | `src/resource/GraphicRead.cpp:338 — InitializeIndependentPaletteQueue_522620` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
@@ -2959,9 +2959,9 @@
 | 2887 | 0x00522C50 | `sub_522C50` | 有正文 | `src/resource/GraphicRead.cpp:497 — ReleaseIndependentPalettes_522C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2888 | 0x00522CB0 | `sub_522CB0` | 有正文 | `src/resource/GraphicRead.cpp:261 — LoadIndependentPalette32_522CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2889 | 0x00523140 | `Graphic::LoadPatelet` | 有正文 | `src/resource/GraphicRead.cpp:509 — RefreshIndependentPalette32_523140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2890 | 0x005231A0 | `Renderer::BuildSurfaceCache` | 有正文 | `src/render/GraphicDxCache.cpp:625 — BuildSurfaceCache_5231A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2891 | 0x00523310 | `sub_523310` | 有正文 | `src/render/GraphicDxCache.cpp:270 — ResetTextureNodes_523310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2892 | 0x00523350 | `sub_523350` | 有正文 | `src/render/GraphicDxCache.cpp:286 — InvalidateGraphicRefs_523350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2890 | 0x005231A0 | `Renderer::BuildSurfaceCache` | 有正文 | `src/render/GraphicDxCache.cpp:640 — BuildSurfaceCache_5231A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2891 | 0x00523310 | `sub_523310` | 有正文 | `src/render/GraphicDxCache.cpp:279 — ResetTextureNodes_523310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2892 | 0x00523350 | `sub_523350` | 有正文 | `src/render/GraphicDxCache.cpp:295 — InvalidateGraphicRefs_523350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2893 | 0x00523390 | `sub_523390` | 有承接 | `src/resource/GraphicRead.cpp:154 — struct PaletteDbfState` | PaletteDbfState::records 的实际 std::map 构析、clear、try_emplace 与迭代器操作；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 2894 | 0x00523450 | `sub_523450` | 有承接 | `src/resource/GraphicRead.cpp:154 — struct PaletteDbfState` | PaletteDbfState::records 的实际 std::map 构析、clear、try_emplace 与迭代器操作；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 2895 | 0x005234B0 | `nullsub_2` | 空方法 | `src/resource/GraphicRead.cpp:173 — decodedBlocks.clear();` | 原RET 8非释放叶，指针载荷不归该叶释放，实际vector宿主构析定位保留；按用户决定标为空方法，不再核对此入口 |
@@ -3021,7 +3021,7 @@
 | 2949 | 0x0052D310 | `sub_52D310` | 有正文 | `src/scene/login/LoginSavedState.cpp:89 — EncodeLegacyBytes_52D310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2950 | 0x0052D460 | `sub_52D460` | 有正文 | `src/scene/login/LoginSavedState.cpp:171 — DecodeLegacyBytes_52D460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2951 | 0x0052D570 | `sub_52D570` | 有正文 | `src/input/Input.cpp:814 — RemoveLegacyBytes_52D570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2952 | 0x0052D5C0 | `Graphic::readGraphicData` | 有正文 | `src/resource/GraphicDecode.cpp:6 — ReadGraphicData` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2952 | 0x0052D5C0 | `Graphic::readGraphicData` | 有正文 | `src/resource/GraphicDecode.cpp:16 — ReadGraphicData` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；RHM01/R04 PNG签名／Info宽高与长度／载荷转交，RD正文保持；仅静态，运行未验 |
 | 2953 | 0x0052D790 | `sub_52D790` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2954 | 0x0052D7B0 | `sub_52D7B0` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md — 当前工程废弃，源码已移除` | LWR01：无当前消费者；用户授权废弃，不证明原端不可达，不计实现／验收 |
 | 2955 | 0x0052DC60 | `sub_52DC60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
@@ -3081,7 +3081,7 @@
 | 3009 | 0x005347F0 | `sub_5347F0` | 有正文 | `src/world/MailState.cpp:1335 — Sub_5347F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3010 | 0x005348A0 | `sub_5348A0` | 有正文 | `src/world/MailState.cpp:1254 — Sub_5348A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3011 | 0x00534910 | `sub_534910` | 有正文 | `src/world/MailState.cpp:1271 — Sub_534910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:361 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
+| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:362 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
 | 3013 | 0x00534986 | `ImmGetConversionStatus` | 有承接 | `src/platform/imeImpl.cpp:64 — ImmGetConversionStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3014 | 0x0053498C | `ImmAssociateContext` | 有承接 | `src/platform/imeImpl.cpp:80 — ImmAssociateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3015 | 0x00534992 | `ImmCreateContext` | 有承接 | `src/platform/imeImpl.cpp:55 — ImmCreateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3212,7 +3212,7 @@
 | 3140 | 0x0053AEB0 | `sub_53AEB0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3141 | 0x0053AEE0 | `sub_53AEE0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3142 | 0x0053AF40 | `sub_53AF40` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 3143 | 0x0053AF90 | `sub_53AF90` | 有正文 | `src/resource/GraphicRead.cpp:349 — DecompressDbf_53AF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 3143 | 0x0053AF90 | `sub_53AF90` | 有正文 | `src/resource/GraphicRead.cpp:354 — DecompressDbf_53AF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3144 | 0x0053B1D0 | `_fclose` | 有承接 | `src/world/Blacklist.cpp:63 — std::fclose（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3145 | 0x0053B226 | `_fgets` | 有承接 | `src/world/Blacklist.cpp:90 — std::fgets（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3146 | 0x0053B27D | `_rewind` | 有承接 | `src/world/Blacklist.cpp:87 — std::rewind（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3364,7 +3364,7 @@
 | 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:117 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:118 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3296 | 0x00540AB2 | `sub_540AB2` | 有承接 | `CMakeLists.txt:161 — 宿主VCRuntime` | 原八处引用均在C++ handler／展开链；读58FB74=540A5C、SEH保护后交终止；当前VCRuntime／实际std::terminate承接，不把标准流构造当本叶直接实现 |
 | 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/world/ChatHistory.cpp:142 — ::_localtime64；doc/cg2d_code_organization_review_spec.md — COR14：无消费者_mktime32映射` | COR14直接使用::_localtime64承接当前时区／夏令时链；旧反向转换无消费者，宿主_mktime32仅保留规格映射；库内策略与完整运行未验 |
 | 3298 | 0x00540B1D | `__tzset` | 有承接 | `src/world/ChatHistory.cpp:142 — ::_localtime64；doc/cg2d_code_organization_review_spec.md — COR14：无消费者_mktime32映射` | COR14直接使用::_localtime64承接当前时区／夏令时链；旧反向转换无消费者，宿主_mktime32仅保留规格映射；库内策略与完整运行未验 |

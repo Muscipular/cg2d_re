@@ -43,6 +43,7 @@ add_library(cg2d_re_core STATIC
     src/render/Font.cpp
     src/render/GraphicCacheState.cpp
     src/render/GraphicDxCache.cpp
+    src/render/PngImage.cpp
     src/render/GraphicPaletteCache.cpp
     src/render/RendererResources.cpp
     src/render/SurfaceState.cpp
@@ -59,7 +60,7 @@ set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 # 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 gdi32)
+target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 gdi32 windowscodecs shlwapi ole32)
 
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC

@@ -1,6 +1,16 @@
 #include "cg/resource/GraphicDecode.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+
+#include <bit>
+#include <cstring>
 
 namespace cg::resource {
+
+bool IsPngGraphicData(const std::uint8_t* const source) noexcept
+{
+    constexpr std::uint8_t signature[] {0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
+    return std::memcmp(source, signature, sizeof(signature)) == 0;
+}
 
 // 原函数：0x0052D5C0。
 std::uint8_t* ReadGraphicData(
@@ -32,6 +42,16 @@ std::uint8_t* ReadGraphicData(
     std::uint8_t* const target = *destination;
     if (target == nullptr) {
         return nullptr;
+    }
+    if (IsPngGraphicData(source)) {
+        const auto index = std::bit_cast<std::int32_t>(*lengthOut);
+        const auto& info = gGraphicInfo[index];
+        *paletteLengthOut = 0;
+        *widthOut = static_cast<std::uint32_t>(info.w);
+        *heightOut = static_cast<std::uint32_t>(info.h);
+        *lengthOut = info.length;
+        std::memcpy(target, source, info.length);
+        return target;
     }
     if (source[0] != 0x52 || source[1] != 0x44) {
         return nullptr;

@@ -2,6 +2,7 @@
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "PngImageInternal.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -373,6 +374,7 @@ bool AllocateRendererResources() noexcept
 
 void ReleaseRendererResources() noexcept
 {
+    ReleasePngImageResources();
     delete gRenderer;
     gRenderer = nullptr;
 }

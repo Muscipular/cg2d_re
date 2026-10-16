@@ -2,6 +2,7 @@
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "PngImageInternal.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
@@ -525,6 +526,9 @@ void DrawAllQueued_520DD0()
                 break;
             case 12:
                 DrawFixedScaleSprite(graphic, 0.75f);
+                break;
+            case GraphicBatch_PngImage:
+                DrawPngImageBatch(*graphic->reference.pngImage);
                 break;
             case GraphicBatch_BattleBackground:
                 DrawBattleBackground(graphic);

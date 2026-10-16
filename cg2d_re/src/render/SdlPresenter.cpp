@@ -9,6 +9,7 @@
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "PngImageInternal.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include <SDL3/SDL.h>
@@ -387,6 +388,7 @@ void Flip_44C560()
         platform::gRendererLost = 1;
     }
     gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;
+    CleanupPngImageCache();
 }
 
 // 原函数：0x00453E80。

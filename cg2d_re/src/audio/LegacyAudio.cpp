@@ -22,7 +22,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
-#include <cstring>
+#include <format>
 #include <string>
 
 #define WIN32_LEAN_AND_MEAN
@@ -34,18 +34,15 @@ namespace cg::audio {
 namespace {
 
 // 原 104DFD0 起的 BGM 播放记录；52B990 读取每项 +0x40。
+// 路径由原生UTF-16字符串拥有；原偏移仅供追溯，不沿用旧字节布局。
 struct LegacyAudioRecord final {
-    char path[0x40];
+    std::wstring path;
     std::int32_t value40; // 原成员偏移：+0x40。
     std::uint8_t value44; // 原成员偏移：+0x44。
     std::uint8_t opaque45[3]; // 原成员偏移：+0x45。
     std::int32_t value48; // 原成员偏移：+0x48。
 };
 
-static_assert(offsetof(LegacyAudioRecord, value40) == 0x40);
-static_assert(offsetof(LegacyAudioRecord, value44) == 0x44);
-static_assert(offsetof(LegacyAudioRecord, value48) == 0x48);
-static_assert(sizeof(LegacyAudioRecord) == 0x4C);
 
 constexpr std::uint32_t kRecordCount = 128;
 
@@ -64,24 +61,20 @@ constexpr int kFixedMusicResourceId = 1001;
 std::array<std::int32_t, 128> gFixedMusicVolume62B0C8 {}; // 原全局：0x0062B0C8。
 std::uint8_t gValue62B2DC = 0xFF; // 原全局：0x0062B2DC。 原加载W8=FFH，4553B0在实际播放前清0；不当作SDL通知。
 
-static_assert(sizeof(gRecords) == 0x2600);
 
 } // namespace
 
 
 // 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
+// 配置路径读入后即转为UTF-16，数值字段仍保持原宽度。
 struct BgmConfigRecord final {
-    char path[0x40];
+    std::wstring path;
     std::int32_t value40; // 原成员偏移：+0x40。
     std::uint8_t value44; // 原成员偏移：+0x44。
     std::uint8_t opaque45[3]; // 原成员偏移：+0x45。
     std::int32_t value48; // 原成员偏移：+0x48。
 };
 
-static_assert(offsetof(BgmConfigRecord, value40) == 0x40);
-static_assert(offsetof(BgmConfigRecord, value44) == 0x44);
-static_assert(offsetof(BgmConfigRecord, value48) == 0x48);
-static_assert(sizeof(BgmConfigRecord) == 0x4C);
 
 // 原 [0x104C9B8,0x104D0C0)：音效请求表，独立于空间坐标记录。
 struct SoundRequestRecord final {
@@ -121,7 +114,8 @@ static_assert(offsetof(SoundChannelState, currentSeNo) == 0x04);
 static_assert(offsetof(SoundChannelState, value30) == 0x30);
 static_assert(sizeof(SoundChannelState) == 0x3C);
 
-// 原 [0x103E7B0,0x104A330)：+04/+1C 尚未定性，保留 W32 原位。
+// 原 [0x103E7B0,0x104A330)：+04/+1C 尚未定性，保留 W32 数值字段。
+// 路径采用std::wstring；原成员偏移为历史定位，不承诺整项字节布局。
 struct SoundEffectDefinition final {
     std::int32_t sampleIndex;
     std::uint32_t unknown04; // 原成员偏移：+0x04。
@@ -131,20 +125,16 @@ struct SoundEffectDefinition final {
     std::int32_t cooldown; // 原成员偏移：+0x14。
     std::int32_t baseFrequency;
     std::uint32_t unknown1C; // 原成员偏移：+0x1C。
-    char path[0x40]; // 原成员偏移：+0x20。
+    std::wstring path; // 原成员偏移：+0x20。
 };
 
-static_assert(offsetof(SoundEffectDefinition, volume) == 0x0C);
-static_assert(offsetof(SoundEffectDefinition, cooldown) == 0x14);
-static_assert(offsetof(SoundEffectDefinition, path) == 0x20);
-static_assert(sizeof(SoundEffectDefinition) == 0x60);
 
 namespace {
 
 // 524230 的内联 0x46 字节栈项；最后一个未写填充字节不参与加载。
 struct SeInitEntry final {
     std::int16_t id;
-    const char* path;
+    const wchar_t* path;
     std::uint8_t volume;
     std::uint8_t pitch;
     std::uint8_t loop;
@@ -188,9 +178,9 @@ std::int32_t ReadPcmWaveHeader_52B710(
 }
 
 // 音效与BGM共用原头读取；仅探测文件，样本解码/缓冲与播放继续由SDL持有。
-bool ReadPcmWaveDataLength(const char* const path, std::uint32_t& dataLength)
+bool ReadPcmWaveDataLength(const wchar_t* const path, std::uint32_t& dataLength)
 {
-    const HMMIO input = ::mmioOpenA(const_cast<char*>(path), nullptr, MMIO_ALLOCBUF);
+    const HMMIO input = ::mmioOpenW(const_cast<wchar_t*>(path), nullptr, MMIO_ALLOCBUF);
     if (input == nullptr) {
         return false;
     }
@@ -200,6 +190,7 @@ bool ReadPcmWaveDataLength(const char* const path, std::uint32_t& dataLength)
     return result != 0;
 }
 
+// 仅在旧目录参数及配置路径读入边界，沿既有CP_ACP解释转换为UTF-16。
 std::wstring AudioPathToWide(const char* const path)
 {
     const int wideLength =
@@ -258,9 +249,7 @@ std::uint32_t gBgmLoopStart103CFB8 = 0; // 原全局：0x0103CFB8。
 std::uint32_t gBgmLoopEnd103DEA4 = 0; // 原全局：0x0103DEA4。
 platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
-static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
 static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
-static_assert(sizeof(gSoundEffects103E7B0) == 0xBB80);
 static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
 static_assert(sizeof(gPanVal103CFBC) == 0x200);
 static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
@@ -374,13 +363,10 @@ std::int32_t Sub_524230()
         SoundEffectDefinition& effect =
             gSoundEffects103E7B0[static_cast<std::size_t>(entry.id)];
         effect.sampleIndex = gSampleCount104DFCC;
-        char openPath[256] {};
-        static_cast<void>(std::sprintf(
-            openPath, "%s\\%s", static_cast<const char*>(resource::gBinPath),
-            static_cast<const char*>(entry.path)));
-        static_cast<void>(std::sprintf(
-            effect.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
-            static_cast<const char*>(entry.path)));
+        const std::wstring openPath = std::format(
+            L"{}\\{}", AudioPathToWide(resource::gBinPath), entry.path);
+        effect.path = std::format(
+            L"{}\\{}", AudioPathToWide(resource::gBinPath), entry.path);
         // 原52B262先检查音量，再发布；音高失败仍保留此前样本/路径/音量。
         const std::int32_t volume = static_cast<std::int8_t>(entry.volume);
         if (volume < 0) {
@@ -397,7 +383,7 @@ std::int32_t Sub_524230()
         effect.pitchIndex = pitch;
         effect.loop = loop;
 
-        std::FILE* const file = std::fopen(openPath, "rb");
+        std::FILE* const file = ::_wfopen(openPath.c_str(), L"rb");
         if (file == nullptr) {
             continue;
         }
@@ -416,12 +402,11 @@ std::int32_t Sub_524230()
             effect.baseFrequency = 49;
         }
 
-        const std::wstring widePath = AudioPathToWide(openPath);
         std::uint32_t dataLength;
-        if (widePath.empty() || !ReadPcmWaveDataLength(openPath, dataLength)
+        if (openPath.empty() || !ReadPcmWaveDataLength(openPath.c_str(), dataLength)
             || !gSdlAudioBackend.LoadWav(
                 static_cast<std::size_t>(gSampleCount104DFCC),
-                widePath.c_str())) {
+                openPath.c_str())) {
             gSdlAudioBackend.Close();
             return 0;
         }
@@ -439,9 +424,8 @@ std::int32_t Sub_524230()
     for (std::size_t index = 0; index < gRecords.size(); ++index) {
         const BgmConfigRecord& config = gBgmConfigRecords104A3B8[index];
         LegacyAudioRecord& record = gRecords[index];
-        static_cast<void>(std::sprintf(
-            record.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
-            static_cast<const char*>(config.path)));
+        record.path = std::format(
+            L"{}\\{}", AudioPathToWide(resource::gBinPath), config.path);
         // 原52B53D先持有三个值，再按40/44/48发布到同源BGM运行表。
         const std::int32_t value40 = config.value40;
         const std::uint8_t value44 = config.value44;
@@ -484,7 +468,7 @@ std::int32_t InitializeAudio_5241A0()
 // 原函数：0x00524060。
 std::int32_t LoadBgmConfig_524060()
 {
-    std::FILE* const file = std::fopen("bin\\bgm\\bgm.cf", "r");
+    std::FILE* const file = ::_wfopen(L"bin\\bgm\\bgm.cf", L"r");
     if (file == nullptr) {
         return 0;
     }
@@ -512,10 +496,7 @@ std::int32_t LoadBgmConfig_524060()
         const std::int32_t selectedRecordIndex = recordIndex;
         BgmConfigRecord& record =
             gBgmConfigRecords104A3B8[static_cast<std::size_t>(selectedRecordIndex)];
-        const std::size_t bytes = std::strlen(path) + 1;
-        const std::size_t wordBytes = bytes & ~std::size_t{3};
-        std::memcpy(record.path, path, wordBytes);
-        std::memcpy(record.path + wordBytes, path + wordBytes, bytes & 3u);
+        record.path = AudioPathToWide(path);
         record.value40 = value40;
         record.value44 = static_cast<std::uint8_t>(value44);
         record.value48 = value48;
@@ -1038,13 +1019,13 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     const LegacyAudioRecord& record =
         gRecords[static_cast<std::size_t>(bgmId)];
     std::uint32_t dataLength = 0;
-    if (!audio::ReadPcmWaveDataLength(record.path, dataLength)) {
+    if (!audio::ReadPcmWaveDataLength(record.path.c_str(), dataLength)) {
         return 0;
     }
-    const std::wstring path = audio::AudioPathToWide(record.path);
+    const std::wstring path = record.path;
     if (record.value44 == 2) {
         gBgmMode1050820 = 1;
-        std::FILE* const file = std::fopen(record.path, "rb");
+        std::FILE* const file = ::_wfopen(record.path.c_str(), L"rb");
         if (file == nullptr) {
             return 0;
         }
@@ -1209,13 +1190,13 @@ std::int32_t Sub_458AE0()
 {
     platform::SdlAudioBackend probe;
     if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {
-        ::OutputDebugStringA("SDL audio device is unavailable\n"); return 0;
+        ::OutputDebugStringW(L"SDL audio device is unavailable\n"); return 0;
     }
-    HMODULE input = ::LoadLibraryA("DINPUT.DLL");
-    if (input == nullptr) { ::OutputDebugStringA("Couldn't LoadLibrary DInput\r\n"); return 0x200; }
+    HMODULE input = ::LoadLibraryW(L"DINPUT.DLL");
+    if (input == nullptr) { ::OutputDebugStringW(L"Couldn't LoadLibrary DInput\r\n"); return 0x200; }
     const bool available = ::GetProcAddress(input, "DirectInputCreateA") != nullptr;
     ::FreeLibrary(input);
-    if (!available) { ::OutputDebugStringA("Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
+    if (!available) { ::OutputDebugStringW(L"Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
     return 0x600;
 }
 

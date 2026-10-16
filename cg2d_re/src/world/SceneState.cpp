@@ -4555,6 +4555,18 @@ static_assert(sizeof(AutoMapWindowSize) == 8);
 static_assert(sizeof(gAutoMapColorWindow9CF6EC) == 46656);
 static_assert(sizeof(gAutoMapIndexWindow9DAD7C) == 11664);
 
+// R09：解码后的新图号沿BLM01同表别名取色，不另建newMapRes。
+std::uint8_t GetAutoMapColorIndex(const std::int32_t mapNo)
+{
+    if (mapNo >= 220000 && mapNo <= 265535) {
+        return resource::gAutoMapColors927F48[mapNo - 200000];
+    }
+    if (mapNo <= 0 || mapNo >= static_cast<std::int32_t>(resource::AutoMapColorCapacity)) {
+        return 0;
+    }
+    return resource::gAutoMapColors927F48[mapNo];
+}
+
 } // namespace
 
 // 原函数：0x0046C840。
@@ -4644,11 +4656,19 @@ std::int32_t Sub_46C840(
             for (std::int32_t row = 0; row < height; ++row) {
                 for (std::int32_t column = 0; column < width; ++column) {
                     if ((flags[column] & 0x4000u) != 0) {
-                        const AutRecordAF10D8& color = gAutDataAF10D8[autRow + column];
-                        const std::uint32_t blue = color.value02;
-                        const std::uint32_t green = color.value01;
-                        const std::uint32_t red = color.value00;
-                        output[column] = red | (green << 8) | (blue << 16);
+                        const std::int32_t mapNo = Sub_46CF00(tile[row * width + column]);
+                        const std::uint8_t colorIndex = mapNo >= 220000 && mapNo <= 265535
+                            ? GetAutoMapColorIndex(mapNo) : 0;
+                        const std::uint32_t paletteColor = render::GetAutoMapPaletteRgb(colorIndex);
+                        if (paletteColor != 0) {
+                            output[column] = paletteColor;
+                        } else {
+                            const AutRecordAF10D8& color = gAutDataAF10D8[autRow + column];
+                            const std::uint32_t blue = color.value02;
+                            const std::uint32_t green = color.value01;
+                            const std::uint32_t red = color.value00;
+                            output[column] = (red << 16) | (green << 8) | blue;
+                        }
                     }
                 }
                 output += width;
@@ -4659,7 +4679,6 @@ std::int32_t Sub_46C840(
         return 1;
     }
 
-    const std::uint8_t* const colors = resource::gAutoMapColors927F48;
     std::int16_t nextIndex = gAutoMapWindowIndex55DA90;
     std::int32_t currentIndex = nextIndex;
     const std::int32_t tileHeight = gAutoMapWindowSizes55DA94[currentIndex].height;
@@ -4669,7 +4688,8 @@ std::int32_t Sub_46C840(
         for (std::int32_t row = 0; row < tileHeight; ++row) {
             for (std::int32_t column = 0; column < width; ++column) {
                 if ((hit[cell + column] & 0x4000u) != 0) {
-                    gAutoMapIndexWindow9DAD7C[cell + column] = colors[tile[cell + column]];
+                    gAutoMapIndexWindow9DAD7C[cell + column] =
+                        GetAutoMapColorIndex(Sub_46CF00(tile[cell + column]));
                 }
             }
             cell += width;
@@ -4685,8 +4705,8 @@ std::int32_t Sub_46C840(
         while (column < width) {
             const std::int32_t cell = row * width + column;
             if ((hit[cell] & 0x4000u) != 0) {
-                const std::uint16_t mapNo = object[cell];
-                const std::uint8_t color = colors[mapNo];
+                const std::int32_t mapNo = Sub_46CF00(object[cell]);
+                const std::uint8_t color = GetAutoMapColorIndex(mapNo);
                 if (color != 0) {
                     std::int32_t graphicIndex;
                     resource::GetGraphicMapNoIndex(mapNo, &graphicIndex);

@@ -30,6 +30,9 @@ extern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。
 extern PaletteEntry gPaletteBackup[256]; // 原 0x629F2C，首次文件读取后的副本。
 extern std::uint32_t gPaletteAutoMap[256]; // 原 0x628BC0，0x00RRGGBB 查色表。
 
+// R09：小地图索引取RGB；缺色回退当前Palette，零索引不取色，纯黑以1避开色键。
+std::uint32_t GetAutoMapPaletteRgb(std::uint8_t index) noexcept;
+
 // 原 5562E8/5562EC/5562F0 依次为蓝、绿、红通道指针；x64 仅扩大实际指针。
 struct ColorChannelMaps {
     std::uint8_t* blue; // 原全局：0x005562E8。

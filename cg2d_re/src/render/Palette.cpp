@@ -505,4 +505,18 @@ int RebuildPalette32() noexcept
     return 0x400;
 }
 
+std::uint32_t GetAutoMapPaletteRgb(const std::uint8_t index) noexcept
+{
+    if (index == 0) {
+        return 0;
+    }
+    std::uint32_t color = gPaletteAutoMap[index] & 0x00FFFFFFu;
+    if (color == 0) {
+        const PaletteEntry& entry = gPalette[index];
+        color = (static_cast<std::uint32_t>(entry.red) << 16)
+            | (static_cast<std::uint32_t>(entry.green) << 8) | entry.blue;
+    }
+    return color == 0 ? 1u : color;
+}
+
 } // namespace cg::render

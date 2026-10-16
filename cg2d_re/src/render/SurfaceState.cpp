@@ -123,19 +123,26 @@ std::int32_t DrawAutoMap32(
     }
 
     const std::int32_t pitch = surface->pitch >> 2;
-    auto* const origin = static_cast<std::uint32_t*>(surface->pixels) + pitch * (width + 1) + 1;
-    std::uint32_t* row = origin;
-    for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
-        std::uint32_t* point = row;
+    auto* const pixels = static_cast<std::uint32_t*>(surface->pixels);
+    // R09：投影可以超出作业面；只写实际可见像素，保四点顺序及255 Alpha。
+    const auto writePixel = [surface, pitch, pixels](
+        const std::int32_t px, const std::int32_t py, const std::uint32_t color) {
+        if (px >= 0 && px < surface->w && py >= 0 && py < surface->h) {
+            pixels[py * pitch + px] = (color & 0x00FFFFFFu) | 0xFF000000u;
+        }
+    };
+    for (std::int32_t row = 0; row < height; ++row) {
+        const std::int32_t baseX = 1 + row * 2;
+        const std::int32_t baseY = width + 1 + row;
         for (std::int32_t column = 0; column < width; ++column) {
             const std::uint32_t color = readColor(source[column]);
-            point[-1] = color;
-            point[0] = color;
-            point[1] = color;
-            point[-pitch] = color;
-            point += 2 - pitch;
+            const std::int32_t px = baseX + column * 2;
+            const std::int32_t py = baseY - column;
+            writePixel(px - 1, py, color);
+            writePixel(px, py, color);
+            writePixel(px + 1, py, color);
+            writePixel(px, py - 1, color);
         }
-        row += pitch + 2;
         source += width;
     }
 
@@ -144,12 +151,15 @@ std::int32_t DrawAutoMap32(
         tick = platform::ReadTickCount64();
         blink = static_cast<std::uint16_t>((static_cast<std::uint8_t>(blink) - 1) & 1);
     }
-    std::uint32_t* const center =
-        origin + height * (pitch + 2) / 2 - width * (pitch - 2) / 2;
-    center[-1] = centerColor;
-    center[0] = centerColor;
-    center[1] = centerColor;
-    center[-pitch] = centerColor;
+    const std::int32_t center = pitch * (width + 1) + 1
+        + height * (pitch + 2) / 2 - width * (pitch - 2) / 2;
+    const auto writeCursor = [pitch, centerColor, &writePixel](const std::int32_t index) {
+        writePixel(index % pitch, index / pitch, centerColor);
+    };
+    writeCursor(center - 1);
+    writeCursor(center);
+    writeCursor(center + 1);
+    writeCursor(center - pitch);
     SDL_UnlockSurface(surface);
 
     std::int32_t destinationX = x + 17;
@@ -167,6 +177,12 @@ std::int32_t DrawAutoMap32(
     }
     if (destinationY + rectangle[3] - rectangle[1] > GetCpuSurfaceHeight()) {
         rectangle[3] = rectangle[1] - destinationY + GetCpuSurfaceHeight();
+    }
+    // 小尺寸窗口的作业面同样已被裁剪，复制只消费实际存在的源像素。
+    rectangle[2] = std::min(rectangle[2], surface->w);
+    rectangle[3] = std::min(rectangle[3], surface->h);
+    if (rectangle[2] <= rectangle[0] || rectangle[3] <= rectangle[1]) {
+        return 0;
     }
     const TextureRectangle destination {
         destinationX, destinationY,
@@ -412,7 +428,7 @@ std::int32_t DrawIndexedAutoMap32_44F330(
     return DrawAutoMap32(x, y, source, width, height,
         gIndexedAutoMapBlink62B07C, gIndexedAutoMapTick62B080,
         [](const std::uint8_t index) {
-            const std::uint32_t color = index == 0 ? 0 : gPaletteAutoMap[index];
+            const std::uint32_t color = GetAutoMapPaletteRgb(index);
             return color == 0 ? 1u : color;
         });
 }
@@ -424,7 +440,10 @@ std::int32_t DrawColorAutoMap32_44FC20(
 {
     return DrawAutoMap32(x, y, source, width, height,
         gColorAutoMapBlink62B094, gColorAutoMapTick62B098,
-        [](const std::uint32_t color) { return color == 0 ? 1u : color; });
+        [](const std::uint32_t color) {
+            const std::uint32_t rgb = color & 0x00FFFFFFu;
+            return rgb == 0 ? 1u : rgb;
+        });
 }
 
 // 原函数：0x0044F5C0。

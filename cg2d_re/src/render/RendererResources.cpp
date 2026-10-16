@@ -65,9 +65,7 @@ std::int32_t gRendererBlueOffset = 0; // 原全局：0x0062971C。
 namespace {
 
 constexpr wchar_t kConfirmCaption[] = L"确认";
-constexpr wchar_t kMode1Message[] =
-    LR"(先前设定的画面成像模式无法启动。
-将以画面成像模式1启动。)";
+constexpr wchar_t kMode1Message[] = L"先前设定的画面成像模式无法启动。\n将以画面成像模式1启动。";
 bool CreateRendererTextureInterface() noexcept
 {
     SDL_Surface* const back = GetCpuBackSdlSurface();

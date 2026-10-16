@@ -84,7 +84,7 @@ std::int32_t Sub_44A090()
 
     std::FILE* const writeStream = std::fopen(path, "wb");
     if (writeStream != nullptr) {
-        static_cast<std::uint32_t>(std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream));
+        std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream);
         std::fclose(writeStream);
     }
     gCursor62683C = 63;
@@ -168,8 +168,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t titleYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(LR"(        >>  魔 力 宝 贝 冒 险 者 日 志 [ %02d/%02d/%02d ]  <<
-)" /* 原常量参考：0x0055488C。 */).c_str(),
+            cg::text::ToGbk(L"        >>  魔 力 宝 贝 冒 险 者 日 志 [ %02d/%02d/%02d ]  <<\n" /* 原常量参考：0x0055488C。 */).c_str(),
             titleYear % 100, titleMonth + 1, titleDay);
         std::fprintf(gLogStream626C1C, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
         gate = gLogStream626C1C;
@@ -192,8 +191,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 纪录
-)" /* 原常量参考：0x00554820。 */).c_str(),
+            cg::text::ToGbk(L" ■ %02d/%02d/%02d %02d:%02d:%02d 纪录\n" /* 原常量参考：0x00554820。 */).c_str(),
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
         std::fprintf(gLogStream626C1C, "  -------------------------------------------------------------\n" /* 原常量参考：0x005547DC。 */);

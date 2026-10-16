@@ -101,3 +101,20 @@ U10/V03/R01/R02、任务10/60、叶0/182及完整门禁/R保持；
 全部父/消费者/owner/未知alias/重进、SDK ABI/链接/失败互通和运行未闭。
 
 **NLC01交付检查**：11项严格UTF-8无BOM/LF、746个本地Markdown链接、48项限定证据/决议引用及Git差异格式通过；一CPP两体/一头限定重放、17原共享长度取值、九分配/清零/后置检查/失败释放、五新/两旧语义及登记簿限定重放、measure生成与独立-Check通过。任务10/60、叶0/182及完整门禁不提升；运行未验。
+
+## NBN01：协议缓冲区语义命名（2026-10-16）
+
+按用户要求，仅重命名NetworkRuntimeState的八个私有缓冲指针及其全部引用，并补充用途注释；原地址保留用于追溯。
+
+| 原字段 | 新字段 | 当前源码已确认用途 |
+|---|---|---|
+| buffer58B5F0 | sendMessageBuffer | 拼接发送命令及字段，发送时追加LF与NUL |
+| buffer58B5F4 | reservedProtocolBuffer | 仅有分配、清零、空指针检查和释放，暂无业务读写 |
+| buffer58B5F8 | textTokenBuffer | 文本字段转义、反转义共用的临时缓冲区 |
+| buffer58B5FC | integerTokenBuffer | 整数字段格式化后追加空格的临时缓冲区 |
+| tripleBuffer58B604 | reservedTripleBuffer0 | 仅有生命周期操作，容量为bufferLength的三倍 |
+| tripleBuffer58B608 | reservedTripleBuffer1 | 同上，独立分配 |
+| tripleBuffer58B60C | reservedTripleBuffer2 | 同上，独立分配 |
+| tripleBuffer58B610 | reservedTripleBuffer3 | 同上，独立分配 |
+
+不推断五个保留缓冲区的原业务语义；本次不删除、合并或数组化，不改变容量、分配与释放顺序、共享取值时机、失败分支或协议字节。静态验收限定为标识符替换及八条字段注释，源码其余内容逐字保持，旧名在src/include中无残留；不构建、测试或运行。

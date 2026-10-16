@@ -92,14 +92,6 @@ void Sub_403A70(
 // 原5173B0：观察回调/收包日志后两遍原位分词，借用既有char*参数表。
 void SplitReceivedBuffer_5173B0(char* buffer);
 
-// 原403E50完整明文帧发送父；保留原首标记/状态尾/队列，仅旁路401960。
-std::int32_t Sub_403E50(
-    std::uintptr_t socket,
-    const void* data,
-    std::uint32_t size);
-
-// 原403C50完整明文取包父；原W16整包/容量/CRLF/NUL/队列/状态保持，仅旁路401AB0。
-std::int32_t Sub_403C50(void* destination, std::int32_t capacity);
 // 原函数：0x00512E40。
 std::int32_t NetworkDispatch_512E40(
     std::uintptr_t socket, const void* received);

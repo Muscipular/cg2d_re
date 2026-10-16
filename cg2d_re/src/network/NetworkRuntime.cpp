@@ -88,8 +88,6 @@ std::int32_t DefaultNetworkCallback(
 
 // 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
-    // 原 [0x593FC4,0x593FD0) 连续协议短状态。
-    std::array<std::uint8_t, 12> protocolState593FC4; // 原全局：0x00593FC4。
     std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
     std::int32_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
     platform::LegacyTm53B8C6* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用旧时间层的共享九槽对象。
@@ -124,26 +122,6 @@ struct NetworkRuntimeState {
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
-
-std::uint16_t ReadProtocolStateW16(const std::size_t offset)
-{
-    std::uint16_t value;
-    std::memcpy(
-        &value,
-        gNetworkRuntimeState.protocolState593FC4.data() + offset,
-        sizeof(value));
-    return value;
-}
-
-void WriteProtocolStateW16(
-    const std::size_t offset,
-    const std::uint16_t value)
-{
-    std::memcpy(
-        gNetworkRuntimeState.protocolState593FC4.data() + offset,
-        &value,
-        sizeof(value));
-}
 
 struct ProtocolOutputAccess {
     char* data() const noexcept
@@ -216,151 +194,6 @@ std::int32_t ReceivePlaintextProtocolLine(
 } // namespace
 
 namespace detail {
-
-// 原[403C50,403E4D)旧W16帧取包，仅保留历史对照；当前明文收发不调用，NKS01已移除接收密钥状态。
-std::int32_t Sub_403C50(
-    void* const destination,
-    const std::int32_t capacity)
-{
-    std::array<std::uint8_t, 0x4004> plaintext;
-    if (login::gRequestPollingEnabled == 0) {
-        return -100;
-    }
-
-    std::uint8_t* const receive =
-        gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
-    if (std::strcmp(
-            reinterpret_cast<const char*>(receive), "JPCGEXCEPTION01") == 0) {
-        std::memset(receive, 0, kQueueCapacity);
-        login::gValue593FC0 = 1;
-        return -1;
-    }
-
-    std::uint16_t plaintextLength;
-    std::memcpy(&plaintextLength, receive, sizeof(plaintextLength));
-    const std::uint32_t frameLength =
-        static_cast<std::uint32_t>(plaintextLength) + 2U;
-    // 403CF8/403CFE是cmp/jb；整包等待不按S32比较。
-    if (static_cast<std::uint32_t>(gNetworkRuntimeState.receiveLengthD69790)
-        < frameLength) {
-        return -1;
-    }
-
-    // 保持原0x4004B独立输出，508230移动队列后仍以原明文生产状态。
-    std::memcpy(plaintext.data(), receive + 2, plaintextLength);
-    if (capacity <= static_cast<std::int32_t>(plaintextLength)) {
-        ::OutputDebugStringA("\nBuffer Too Small\n");
-        return -1;
-    }
-
-    auto* const output = static_cast<std::uint8_t*>(destination);
-    std::memcpy(output, plaintext.data(), plaintextLength);
-    if (*(output + static_cast<std::int32_t>(plaintextLength) - 1) == 13
-        && gNetworkRuntimeState.valueD9F2D0 == 0) {
-        *(output + static_cast<std::int32_t>(plaintextLength) - 1) = 10;
-        gNetworkRuntimeState.valueD9F2D0 = 1;
-    }
-    output[plaintextLength] = 0;
-    static_cast<void>(ConsumeReceiveQueue_508230(
-        static_cast<std::int32_t>(frameLength)));
-
-    const std::int32_t remainingLength =
-        gNetworkRuntimeState.receiveLengthD69790;
-    receive[remainingLength] = 0;
-    return 0;
-}
-
-// 原[403E50,40405A)：原首标记/状态尾/帧与发送窗口；socket未读取。
-// 历史帧合同见doc/cg2d_network_plaintext_frame_spec.md；当前明文收发不调用，NKS01已移除发送密钥状态。
-std::int32_t Sub_403E50(
-    const std::uintptr_t,
-    const void* const data,
-    const std::uint32_t size)
-{
-    std::array<std::uint8_t, 0x4004> plaintext;
-    std::array<std::uint8_t, 0x4002> frame;
-    if (login::gRequestPollingEnabled == 0) {
-        return -100;
-    }
-
-    std::int32_t sendLength;
-    std::memcpy(
-        &sendLength,
-        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
-        sizeof(sendLength));
-    const std::int32_t checkedLength =
-        sendLength + static_cast<std::int32_t>(size) + 1;
-    if (checkedLength > static_cast<std::int32_t>(kQueueCapacity)) {
-        return -1;
-    }
-
-    if (gNetworkRuntimeState.valueD9F2D0 == 1) {
-        plaintext[0] = 0x13;
-        gNetworkRuntimeState.valueD9F2D0 = 0;
-    } else if (platform::gWindowReportValue > 0
-        && login::ReadRequestOutcomeFlag() == 1
-        && std::bit_cast<std::int32_t>(platform::gWindowReportDeadline) < 0) {
-        plaintext[0] = 0xFC;
-        platform::gWindowReportValue = 0;
-    } else {
-        plaintext[0] = static_cast<std::uint8_t>(
-            platform::RandomRange_46FAF0(20, 250));
-    }
-
-    std::memcpy(plaintext.data() + 1, data, size);
-    const std::uint16_t oldTailLength = ReadProtocolStateW16(10);
-    std::memcpy(
-        plaintext.data() + size + 1U,
-        gNetworkRuntimeState.protocolState593FC4.data() + 4,
-        oldTailLength);
-    WriteProtocolStateW16(4, 0);
-    gNetworkRuntimeState.protocolState593FC4[6] = 0;
-    static_cast<void>(std::sprintf(
-        reinterpret_cast<char*>(
-            gNetworkRuntimeState.protocolState593FC4.data() + 4),
-        "%s",
-        reinterpret_cast<const char*>(
-            gNetworkRuntimeState.protocolState593FC4.data())));
-
-    // 403F61/403F6D：格式后重读尾长，原算法首参是完整W32表达式。
-    const std::uint32_t plaintextLength =
-        static_cast<std::uint32_t>(ReadProtocolStateW16(10)) + size + 1U;
-    const std::uint16_t transmittedLength =
-        static_cast<std::uint16_t>(plaintextLength);
-    std::memcpy(frame.data(), &transmittedLength, sizeof(transmittedLength));
-    const std::uint32_t bodyWordBytes = transmittedLength & ~3U;
-    std::memcpy(frame.data() + 2, plaintext.data(), bodyWordBytes);
-    std::memcpy(
-        &sendLength,
-        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
-        sizeof(sendLength));
-    std::memcpy(
-        frame.data() + 2U + bodyWordBytes,
-        plaintext.data() + bodyWordBytes,
-        transmittedLength & 3U);
-    const std::uint32_t frameLength =
-        static_cast<std::uint32_t>(transmittedLength) + 2U;
-    std::memcpy(
-        gNetworkRuntimeState.queueBytes.data() + sendLength,
-        frame.data(),
-        frameLength & ~3U);
-    const std::int32_t nextLength =
-        sendLength + static_cast<std::int32_t>(frameLength);
-    std::memcpy(
-        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
-        &nextLength,
-        sizeof(nextLength));
-    // 403FCE/403FD9/403FDE：DWORD前缀入队后发布长度，再写尾byte。
-    const std::uint32_t frameWordBytes = frameLength & ~3U;
-    std::memcpy(
-        gNetworkRuntimeState.queueBytes.data() + sendLength + frameWordBytes,
-        frame.data() + frameWordBytes,
-        frameLength & 3U);
-
-    const std::uint16_t currentTailLength = ReadProtocolStateW16(8);
-    WriteProtocolStateW16(10, currentTailLength);
-    return 0;
-}
 
 // 原函数：0x004038A0。
 char Sub_4038A0(
@@ -1048,19 +881,6 @@ std::int32_t BuildProtocolCommand_517510(
 }
 
 } // namespace
-
-// 原函数：0x004037D0。
-std::int32_t ResetProtocolState_4037D0()
-{
-    // NKS01：仅保留协议短状态重置，旧收发密钥已移除。
-    WriteProtocolStateW16(8, 0);
-    WriteProtocolStateW16(10, 0);
-    WriteProtocolStateW16(0, 0);
-    WriteProtocolStateW16(4, 0);
-    gNetworkRuntimeState.protocolState593FC4[2] = 0;
-    gNetworkRuntimeState.protocolState593FC4[6] = 0;
-    return 0;
-}
 
 // 原函数：0x00516DA0。
 std::int32_t AllocateProtocolBuffers_516DA0(
@@ -4727,7 +4547,6 @@ void ShutdownNetworkRuntime_5081A0()
     static_cast<void>(::closesocket(
         static_cast<SOCKET>(platform::gConnectionSocket)));
     static_cast<void>(::WSACleanup());
-    static_cast<void>(ResetProtocolState_4037D0());
 
     std::free(gNetworkRuntimeState.buffer58B5F0);
     std::free(gNetworkRuntimeState.buffer58B5F4);

@@ -145,7 +145,6 @@ std::int32_t Sub_508360()
                 sizeof(address.sin_addr.s_addr));
         }
 
-        static_cast<void>(network::ResetProtocolState_4037D0());
         network::WriteValueD9F2D0(0);
 
         if (::connect(

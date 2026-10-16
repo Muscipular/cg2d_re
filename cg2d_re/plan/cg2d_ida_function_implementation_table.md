@@ -1,5 +1,7 @@
 # IDA 函数全量实现表
 
+> 2026-10-16 [NKF01](../doc/cg2d_network_plaintext_frame_spec.md)：按用户要求删除无当前调用的旧W16收发帧及其独占短状态，4037D0／403C50／403E50三入口由有正文改为已排除；当前LF明文提供者与接线保持，3680身份／名称保持。仅静态核对，未构建或运行。
+
 > 2026-10-16 [COR10](../doc/cg2d_code_organization_review_spec.md)：按用户要求移除重复点击追踪及上报，9个独占入口由有正文转为已排除；普通鼠标按下入口仍有正文，tq配置按原格式解码后忽略。原3680身份／名称保持，服务器兼容性未运行验证。
 
 > 2026-10-16 COR09：模块MD5核心改由Windows CNG提供，402B70／402BC0／402C50／402D30四行由有正文转为有承接，402BA0仍有承接；三个父入口保留有正文。原3680身份／名称保持。本次编译／链接通过，未运行摘要比对，详见[COR09 SPEC](../doc/cg2d_code_organization_review_spec.md)。
@@ -45,13 +47,13 @@
 
 | 状态 | 实际入口数 |
 |---|---:|
-| 有正文 | 2471 |
+| 有正文 | 2468 |
 | 有承接 | 746 |
 | 空方法 | 9 |
 | 部分实现 | 0 |
 | 未实现 | 0 |
 | 待确认 | 0 |
-| 已排除 | 453 |
+| 已排除 | 456 |
 | 不适用 | 1 |
 
 2026-10-12 进度核对：3680行入口与当前IDA地址集合、名称此前经15页逐项核对零差异；3964处源码引用及9处CMake引用可读。当时2911个正文提供者可定位到定义；本次九个nullsub仅归类为空方法，其中3个已有CPP定义和4个已有承接定位保留，其余2908个有正文及644个有承接不变。序号、身份、名称、提供者均不变，未重新查询IDA；UTF-8无BOM/LF。这不提升全部逻辑、完整接线或运行验收，未实现0不能推为功能缺口归零。
@@ -119,11 +121,11 @@
 | 55 | 0x00402D30 | `sub_402D30` | 有承接 | `src/platform/LegacyModuleDigest.cpp:77 — BCryptHashData的系统MD5变换` | COR09：原手写MD5核心由Windows CNG提供；本次编译／链接通过，未执行摘要比对或性能测试 |
 | 56 | 0x00403660 | `sub_403660` | 有正文 | `src/platform/LegacyModuleDigest.cpp:37 — ComputeFileDigest` | COR09：保留文件读取／小写文本／模块接口正文，MD5计算交Windows CNG；本次编译／链接通过，未运行摘要链 |
 | 57 | 0x00403750 | `sub_403750` | 有正文 | `src/platform/LegacyModuleDigest.cpp:93 — EncodeLowerHex` | COR09：保留文件读取／小写文本／模块接口正文，MD5计算交Windows CNG；本次编译／链接通过，未运行摘要链 |
-| 58 | 0x004037D0 | `sub_4037D0` | 有正文 | `src/network/NetworkRuntime.cpp:1053 — ResetProtocolState_4037D0` | NKS01按用户要求移除八个旧收发密钥的比较／初始化，仅保留协议短状态重置及原调用点／返回；完整业务／运行未验 |
+| 58 | 0x004037D0 | `sub_4037D0` | 已排除 | `doc/cg2d_network_plaintext_frame_spec.md — NKF01：旧协议状态重置已退休` | 用户授权删除旧帧独占短状态、重置入口及登录／退出调用；当前LF明文链和valueD9F2D0独立重置保持；非原端不可达或运行验收证明 |
 | 59 | 0x004038A0 | `sub_4038A0` | 有正文 | `src/network/NetworkRuntime.cpp:426 — Sub_4038A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 60 | 0x00403A70 | `sub_403A70` | 有正文 | `src/network/NetworkRuntime.cpp:509 — Sub_403A70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 61 | 0x00403C50 | `sub_403C50` | 有正文 | `src/network/NetworkRuntime.cpp:221 — Sub_403C50` | NKS01移除旧接收密钥前缀写入，保留接收消费后的队列尾NUL及其余旧W16处理；当前CPP无调用，活动LF接收仍由ReceivePlaintextProtocolLine承接，窗口报告采样／清零仍在QueuePlaintextProtocolBytes |
-| 62 | 0x00403E50 | `sub_403E50` | 有正文 | `src/network/NetworkRuntime.cpp:275 — Sub_403E50` | NKS01移除旧发送密钥前缀写入及其长度取样，其余旧W16处理保持；当前CPP无调用，活动明文链仍由ReceivePlaintextProtocolLine／QueuePlaintextProtocolBytes承接；不计原帧整根或网络运行验收 |
+| 61 | 0x00403C50 | `sub_403C50` | 已排除 | `doc/cg2d_network_plaintext_frame_spec.md — NKF01：旧W16收帧入口已退休` | 用户授权删除无当前调用的旧帧函数及声明；活动LF接收仍由ReceivePlaintextProtocolLine承接，当前队列／派发保持；非原端不可达或完整网络验收证明 |
+| 62 | 0x00403E50 | `sub_403E50` | 已排除 | `doc/cg2d_network_plaintext_frame_spec.md — NKF01：旧W16发帧入口已退休` | 用户授权删除无当前调用的旧帧函数及声明；活动发送仍由QueuePlaintextProtocolBytes承接，窗口报告采样／清零及回调接线保持；非原端不可达或完整网络验收证明 |
 | 63 | 0x00404060 | `sub_404060` | 有正文 | `src/input/Input.cpp:504 — IsRejectedInputText_404060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 64 | 0x00404120 | `sub_404120` | 有承接 | `src/platform/RuntimeInitialization.cpp:39 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 65 | 0x00404130 | `unknown_libname_3` | 有承接 | `src/platform/RuntimeInitialization.cpp:39 — cg::platform::gProtectionChecksum1` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
@@ -3247,7 +3249,7 @@
 | 3183 | 0x0053BC0F | `sub_53BC0F` | 有承接 | `src/input/Input.cpp:1184 — std::fprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有11处调用及原合同保持；完整业务／运行未验 |
 | 3184 | 0x0053BC41 | `_fseek` | 有承接 | `src/resource/GraphicInfo.cpp:99 — std::fseek（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3185 | 0x0053BCCD | `_fread` | 有承接 | `src/resource/GraphicInfo.cpp:154 — std::fread（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3186 | 0x0053BDC0 | `__alloca_probe` | 有承接 | `src/network/NetworkRuntime.cpp:221 — Sub_403C50；src/network/NetworkRuntime.cpp:275 — Sub_403E50` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3186 | 0x0053BDC0 | `__alloca_probe` | 有承接 | `doc/cg2d_crt_host_migration_spec.md — MC01：MSVC编译器栈探测支撑；doc/cg2d_network_plaintext_frame_spec.md — NKF01：旧帧源码定位退休` | MSVC宿主承接状态保持，移除已退休旧帧的源码定位；不伪造新调用或原机器ABI承接，不计当前编译产物／运行已验 |
 | 3187 | 0x0053BDEF | `_isspace` | 有承接 | `src/input/Input.cpp:548 — std::isspace` | UWF01邮件分词直接使用wcstok，当前窄strtok已无消费者；原纯转发包装退休；完整业务／运行未验 |
 | 3188 | 0x0053BE17 | `_iscntrl` | 有承接 | `src/input/Input.cpp:551 — std::iscntrl` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3189 | 0x0053BE40 | `_strstr` | 有承接 | `src/CharacterSelectScene.cpp:919 — std::strstr` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |

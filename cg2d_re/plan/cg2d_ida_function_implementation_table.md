@@ -712,7 +712,7 @@
 | 640 | 0x0044B4A0 | `sub_44B4A0` | 有正文 | `src/input/Input.cpp:383 — FindLegacyByte_44B4A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 641 | 0x0044B570 | `sub_44B570` | 有正文 | `src/input/Input.cpp:364 — ClassifyChatSplit_44B570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:480 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/scene/login/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1243 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
 | 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:133 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:197 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -952,8 +952,8 @@
 | 880 | 0x0045D7A0 | `sub_45D7A0` | 有正文 | `src/render/TextPendingQueue.cpp:27 — FindClickedTextIndex_45D7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 881 | 0x0045D7D0 | `sub_45D7D0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:22 — ResetAuthenticationFailure_45D7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 882 | 0x0045D7E0 | `sub_45D7E0` | 有正文 | `src/CharacterAuthenticationFailure.cpp:28 — UpdateAuthenticationFailure_45D7E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 883 | 0x0045D980 | `sub_45D980` | 有正文 | `src/LoginState.cpp:273 — ResetValues_45D980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 884 | 0x0045D990 | `sub_45D990` | 有正文 | `src/LoginState.cpp:281 — UpdateServerConnection` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 883 | 0x0045D980 | `sub_45D980` | 有正文 | `src/scene/login/LoginState.cpp:272 — ResetValues_45D980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 884 | 0x0045D990 | `sub_45D990` | 有正文 | `src/scene/login/LoginState.cpp:280 — UpdateServerConnection` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 885 | 0x0045DBF0 | `sub_45DBF0` | 有正文 | `src/CharacterDeletionProgress.cpp:30 — ResetCharacterDeletionProgress_45DBF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 886 | 0x0045DC00 | `sub_45DC00` | 有正文 | `src/CharacterDeletionProgress.cpp:36 — UpdateCharacterDeletionProgress_45DC00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 887 | 0x0045DD50 | `sub_45DD50` | 有正文 | `src/CharacterListProgress.cpp:33 — ResetCharacterListProgress_45DD50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -966,9 +966,9 @@
 | 894 | 0x0045E770 | `sub_45E770` | 有正文 | `src/input/Input.cpp:575 — Sub_45E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 895 | 0x0045E7B0 | `sub_45E7B0` | 有正文 | `src/CharacterSelectScene.cpp:205 — Sub_45E7B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 896 | 0x0045E7D0 | `sub_45E7D0` | 有正文 | `src/CharacterSelectScene.cpp:214 — Sub_45E7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 897 | 0x0045E960 | `sub_45E960` | 有正文 | `src/LoginState.cpp:382 — ProcessState_45E960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 898 | 0x0045EA50 | `sub_45EA50` | 有正文 | `src/LoginState.cpp:422 — ResetLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 899 | 0x0045EA60 | `sub_45EA60` | 有正文 | `src/LoginState.cpp:428 — UpdateLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 897 | 0x0045E960 | `sub_45E960` | 有正文 | `src/scene/login/LoginState.cpp:381 — ProcessState_45E960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 898 | 0x0045EA50 | `sub_45EA50` | 有正文 | `src/scene/login/LoginState.cpp:421 — ResetLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 899 | 0x0045EA60 | `sub_45EA60` | 有正文 | `src/scene/login/LoginState.cpp:427 — UpdateLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:10822 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:10901 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:10907 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -980,10 +980,10 @@
 | 908 | 0x0045F190 | `sub_45F190` | 有正文 | `src/LoginCapability3Scene.cpp:198 — Sub_45F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 909 | 0x0045F970 | `sub_45F970` | 有正文 | `src/LoginInput.cpp:451 — InitializeCapabilityInput_45F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 910 | 0x0045FA70 | `sub_45FA70` | 有正文 | `src/LoginCapability3InputController.cpp:60 — ProcessCapability3Input_45FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 911 | 0x0045FEA0 | `LoginScene::Process` | 有正文 | `src/LoginScene.cpp:349 — ProcessScene_45FEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 911 | 0x0045FEA0 | `LoginScene::Process` | 有正文 | `src/scene/login/LoginScene.cpp:357 — ProcessScene_45FEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 912 | 0x00460D00 | `sub_460D00` | 有正文 | `src/CharacterSelectPreview.cpp:479 — ProcessCharacterPreview_460D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 913 | 0x00460FF0 | `sub_460FF0` | 有正文 | `src/CharacterSelectScene.cpp:1438 — ProcessScene_460FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 914 | 0x00461B30 | `sub_461B30` | 有正文 | `src/CharacterSelectSlot.cpp:85 — ProcessCharacterSlot_461B30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 914 | 0x00461B30 | `sub_461B30` | 有正文 | `src/scene/character_select/CharacterSelectSlot.cpp:54 — ProcessCharacterSlot_461B30` | 实际非占位正文已定位；完整业务／接线／运行未验；ALM01：状态11的已占用目标槽消费一次标记并返回原动作1；仅静态，自动入场运行未验 |
 | 915 | 0x00462090 | `sub_462090` | 有正文 | `src/CharacterSelectModal.cpp:12 — ProcessCharacterModal_462090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 916 | 0x00462330 | `sub_462330` | 有正文 | `src/CharacterVersionUpgrade.cpp:151 — ProcessScene_462330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 917 | 0x004626A0 | `sub_4626A0` | 有正文 | `src/CharacterSelectScene.cpp:269 — ProcessCreationScene_4626A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1007,7 +1007,7 @@
 | 935 | 0x00465A20 | `sub_465A20` | 有正文 | `src/platform/StartupCommon.cpp:20 — CaptureDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 936 | 0x00465A30 | `sub_465A30` | 有正文 | `src/platform/WindowLifecycle.cpp:12 — SetWindowedDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 937 | 0x00465A80 | `ReadSetupIni` | 有正文 | `src/platform/SetupIni.cpp:16 — ReadSetupIni` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:55 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:157 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；ALM01：原IP解析后读取四个启动参数，直接发布语义登录变量和场景2／2；仅静态，自动登录运行未验 |
 | 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:20 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/render/RendererRebuild.cpp:28 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:76 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -2541,8 +2541,8 @@
 | 2469 | 0x00506E00 | `World::CursorUpdate` | 有正文 | `src/platform/LegacyCursor.cpp:189 — UpdateCursor_506E00` | 实际非占位正文已定位；完整业务／接线／运行未验；CTM01长按时间／重复锚64位，脉冲位保持，仅静态 |
 | 2470 | 0x00507090 | `sub_507090` | 有正文 | `src/render/GraphicPendingQueue.cpp:132 — DrawMatchingGraphicHover_507090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2471 | 0x00507140 | `sub_507140` | 有正文 | `src/platform/MouseDispatch.cpp:208 — Sub_507140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:248 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2473 | 0x00507D90 | `GetServerAddressInfo` | 有正文 | `src/LoginScene.cpp:329 — GetServerAddressInfo_507D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:352 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2473 | 0x00507D90 | `GetServerAddressInfo` | 有正文 | `src/scene/login/LoginScene.cpp:337 — GetServerAddressInfo_507D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2474 | 0x00507DF0 | `NetworkLoop` | 有正文 | `src/network/NetworkRuntime.cpp:4145 — NetworkLoop_507DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2475 | 0x00508140 | `sub_508140` | 有正文 | `src/network/NetworkRuntime.cpp:4120 — InitializeNetworkRuntime_508140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2476 | 0x005081A0 | `sub_5081A0` | 有正文 | `src/network/NetworkRuntime.cpp:4393 — ShutdownNetworkRuntime_5081A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2552,7 +2552,7 @@
 | 2480 | 0x005082D0 | `sub_5082D0` | 有正文 | `src/network/NetworkRuntime.cpp:357 — Sub_5082D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2481 | 0x00508310 | `sub_508310` | 有正文 | `src/network/NetworkRuntime.cpp:367 — Sub_508310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2482 | 0x00508350 | `sub_508350` | 有正文 | `src/LoginConnection.cpp:9 — ResetServerConnectionState_508350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2483 | 0x00508360 | `sub_508360` | 有正文 | `src/LoginState.cpp:86 — Sub_508360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2483 | 0x00508360 | `sub_508360` | 有正文 | `src/scene/login/LoginState.cpp:86 — Sub_508360` | 实际非占位正文已定位；完整业务／接线／运行未验；ALM01：登录变量语义改名，账号临时副本沿既有64字节容量，请求字段序保持；仅静态，实际请求运行未验 |
 | 2484 | 0x00508800 | `sub_508800` | 有正文 | `src/network/NetworkRuntime.cpp:688 — HandleResponse_508800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2485 | 0x00508910 | `sub_508910` | 有正文 | `src/scene/login/CharacterListRequest.cpp:116 — StartCharacterListRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2486 | 0x00508950 | `sub_508950` | 有正文 | `src/scene/login/CharacterListRequest.cpp:131 — PollCharacterListRequest` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -3099,13 +3099,13 @@
 | 3027 | 0x00534A4E | `WSAStartup` | 有承接 | `src/network/NetworkRuntime.cpp:4530 — WSAStartup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3028 | 0x00534A54 | `WSACleanup` | 有承接 | `src/network/NetworkRuntime.cpp:4812 — WSACleanup` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3029 | 0x00534A5A | `WSAGetLastError` | 有承接 | `src/network/NetworkRuntime.cpp:729 — WSAGetLastError` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3030 | 0x00534A60 | `connect` | 有承接 | `src/LoginState.cpp:106 — connect` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3031 | 0x00534A66 | `gethostbyname` | 有承接 | `src/LoginState.cpp:135 — gethostbyname` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3032 | 0x00534A6C | `inet_addr` | 有承接 | `src/LoginState.cpp:133 — inet_addr` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3033 | 0x00534A72 | `htons` | 有承接 | `src/LoginState.cpp:132 — htons` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3034 | 0x00534A78 | `setsockopt` | 有承接 | `src/LoginState.cpp:120 — setsockopt` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3035 | 0x00534A7E | `ioctlsocket` | 有承接 | `src/LoginState.cpp:116 — ioctlsocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3036 | 0x00534A84 | `socket` | 有承接 | `src/LoginState.cpp:106 — socket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3030 | 0x00534A60 | `connect` | 有承接 | `src/scene/login/LoginState.cpp:150 — connect` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3031 | 0x00534A66 | `gethostbyname` | 有承接 | `src/scene/login/LoginState.cpp:135 — gethostbyname` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3032 | 0x00534A6C | `inet_addr` | 有承接 | `src/scene/login/LoginState.cpp:133 — inet_addr` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3033 | 0x00534A72 | `htons` | 有承接 | `src/scene/login/LoginState.cpp:132 — htons` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3034 | 0x00534A78 | `setsockopt` | 有承接 | `src/scene/login/LoginState.cpp:120 — setsockopt` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3035 | 0x00534A7E | `ioctlsocket` | 有承接 | `src/scene/login/LoginState.cpp:116 — ioctlsocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3036 | 0x00534A84 | `socket` | 有承接 | `src/scene/login/LoginState.cpp:106 — socket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3037 | 0x00534A8A | `Module32Next` | 有承接 | `src/platform/MainLoopSupport.cpp:176 — Module32Next` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3038 | 0x00534A90 | `Module32First` | 有承接 | `src/platform/MainLoopSupport.cpp:152 — Module32First` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3039 | 0x00534A96 | `CreateToolhelp32Snapshot` | 有承接 | `src/platform/MainLoopSupport.cpp:145 — CreateToolhelp32Snapshot` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3274,7 +3274,7 @@
 | 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 3204 | 0x0053C5BE | `_atol` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR14：std::atol` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；无项目消费者，仅真实CRT导入；完整业务／运行未验 |
-| 3205 | 0x0053C649 | `_atoi` | 有承接 | `src/LoginScene.cpp:342 — std::atoi` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3205 | 0x0053C649 | `_atoi` | 有承接 | `src/scene/login/LoginScene.cpp:350 — std::atoi` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3206 | 0x0053C654 | `__mkdir` | 有承接 | `src/input/Input.cpp:1093 — ::_mkdir` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3207 | 0x0053C680 | `_fwrite` | 有承接 | `src/input/Input.cpp:1041 — std::fwrite（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3208 | 0x0053C790 | `_strncat` | 有承接 | `src/input/Input.cpp:260 — AppendText（UTF-16 STL正文插入）` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |

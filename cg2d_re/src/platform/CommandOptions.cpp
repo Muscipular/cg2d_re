@@ -5,12 +5,15 @@
 #include "cg/resource/ResourceNames.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/world/SceneState.hpp"
 #include "StartupNative.hpp"
 
 #include <bit>
 #include <cstddef>
+#include <cstdlib>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0；原参数／返回合同由直接调用承接。
+#include <string>
 
 namespace cg::platform {
 
@@ -50,7 +53,107 @@ std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStor
 static_assert(sizeof(int) == 4);
 static_assert(std::endian::native == std::endian::little);
 
-// 原 ParseCmdOpt@0x465F00；证据、原有输入限制及未决存储见 doc/cg2d_command_options.md。
+namespace {
+
+// ALM01：启动参数生产一次选人标记；凭据仍由 login 的既有变量持有。
+bool gAutoLoginPending = false;
+std::int32_t gAutoLoginCharacterSlot = -1;
+
+// A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
+bool ParseCommandArgumentValue(
+    const char* commandLine, const char* key, std::string& outValue)
+{
+    if (commandLine == nullptr || key == nullptr) {
+        return false;
+    }
+
+    const char* p = std::strstr(commandLine, key);
+    if (p == nullptr) {
+        return false;
+    }
+    p += std::strlen(key);
+
+    while (*p == ' ' || *p == '\t') {
+        ++p;
+    }
+    if (*p == '\0') {
+        return false;
+    }
+
+    const char* start = p;
+    const char* end = nullptr;
+    if (*p == '"') {
+        start = p + 1;
+        end = std::strchr(start, '"');
+        if (end == nullptr) {
+            end = start + std::strlen(start);
+        }
+    } else {
+        end = start;
+        while (*end != '\0' && *end != ' ' && *end != '\t') {
+            ++end;
+        }
+    }
+
+    if (end <= start) {
+        return false;
+    }
+    outValue.assign(start, static_cast<std::size_t>(end - start));
+    return !outValue.empty();
+}
+
+// A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
+void ApplyAutoLoginCommandLine(const char* commandLine)
+{
+    std::string account;
+    std::string password;
+    std::string serverText;
+    std::string characterSlotText;
+    std::int32_t serverIndex = -1;
+
+    if (ParseCommandArgumentValue(commandLine, "/uu:", account)
+        && ParseCommandArgumentValue(commandLine, "/pw:", password)
+        && ParseCommandArgumentValue(commandLine, "/sv:", serverText)
+        && ParseCommandArgumentValue(commandLine, "/cv:", characterSlotText)) {
+        char* endPtr = nullptr;
+        long value = std::strtol(serverText.c_str(), &endPtr, 10);
+        serverIndex = (endPtr != nullptr && *endPtr == '\0')
+            ? static_cast<std::int32_t>(value) : -1;
+        endPtr = nullptr;
+        value = std::strtol(characterSlotText.c_str(), &endPtr, 10);
+        gAutoLoginCharacterSlot = (endPtr != nullptr && *endPtr == '\0')
+            ? static_cast<std::int32_t>(value) : -1;
+        if (gAutoLoginCharacterSlot > 1) {
+            gAutoLoginCharacterSlot = -1;
+        }
+    }
+
+    if (serverIndex >= 0 && !account.empty() && !password.empty()
+        && account.size() < sizeof(login::gAccount)
+        && password.size() < sizeof(login::gPassword)) {
+        world::gCurrentSceneState = 2;
+        world::gCurrentSceneType = 2;
+        std::strcpy(login::gPassword, password.c_str());
+        std::strcpy(login::gAccount, account.c_str());
+        login::gSelectedServerIndex = std::bit_cast<std::int16_t>(
+            static_cast<std::uint16_t>(serverIndex));
+        gAutoLoginPending = true;
+    }
+}
+
+} // namespace
+
+bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
+{
+    if (gAutoLoginPending && gAutoLoginCharacterSlot >= 0
+        && slot == static_cast<std::uint32_t>(gAutoLoginCharacterSlot)) {
+        gAutoLoginPending = false;
+        return true;
+    }
+    return false;
+}
+
+// 原 ParseCmdOpt@0x465F00；原参数见 doc/cg2d_command_options.md，A08扩展见ALM01 SPEC。
 int ParseCommandOptions()
 {
     char savedata[128] {};
@@ -240,7 +343,9 @@ int ParseCommandOptions()
         gRendererFlags |= 0x10;
     }
     gValueFF0D40 = 1;
-    return ParseIpOptions_507C80(gCommandLine);
+    const int result = ParseIpOptions_507C80(gCommandLine);
+    ApplyAutoLoginCommandLine(::GetCommandLineA());
+    return result;
 }
 
 // 原函数：0x00507C80。

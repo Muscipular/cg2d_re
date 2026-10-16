@@ -42,6 +42,9 @@ extern std::uint8_t& gRendererMode;       // 原 0x62A640，与 MainLoop.hpp 的
 // 会清理并解析 IP: 表及修改相关计数；返回 0 或越界退出时的 sscanf 返回值。
 extern int ParseIpOptions_507C80(const char* commandLine);
 
+// A08：选人入口在状态11且角色存在时调用；仅目标槽成功消费一次标记。
+bool ConsumeAutoLoginCharacterSlot(std::uint32_t slot) noexcept;
+
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 
 } // namespace cg::platform

@@ -6,6 +6,8 @@
 #include "CharacterSelectState.hpp"
 
 #include "cg/scene/login/LoginRequest.hpp"
+#include "cg/platform/CommandOptions.hpp"
+#include "cg/world/SceneState.hpp"
 
 
 #include <array>
@@ -196,6 +198,12 @@ std::int32_t ProcessCharacterSlot_461B30(
         0,
         -1);
     cg::render::Sub_45F090(baseX, 51, 4, 245061, 0, -1);
+    // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
+    if (world::gCurrentSceneState == 11 && record.name[0] != '\0'
+        && platform::ConsumeAutoLoginCharacterSlot(slot)) {
+        login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+        result = 1;
+    }
     return result;
 }
 

@@ -96,7 +96,7 @@ std::int32_t Sub_508360()
         char serverAddress[128];
         std::uint16_t port;
         if (GetServerAddressInfo_507D90(
-                static_cast<std::int32_t>(gValue58AD94),
+                static_cast<std::int32_t>(gSelectedServerIndex),
                 serverAddress,
                 &port) < 0) {
             static_cast<void>((gRequestMessage = L"伺服器的名称不正确。"));
@@ -206,17 +206,17 @@ std::int32_t Sub_508360()
             network::WriteProtocolModeDA3B22(0);
 
             char adapterScratch[16];
-            char accountCopy[44];
+            char accountCopy[sizeof(gAccount)]; // A08：承接最多63字节账号及NUL。
             char adapterId[44];
             static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
-            std::strcpy(accountCopy, gValueDA38DC);
+            std::strcpy(accountCopy, gAccount);
             std::strcpy(adapterId, adapterScratch);
-            std::strcpy(gValueDA38DC, accountCopy);
+            std::strcpy(gAccount, accountCopy);
             const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
-                cg::text::FromGbkWide(gValueDA3A1C),
+                cg::text::FromGbkWide(gExecutableDigest),
                 cg::text::FromGbkWide(accountCopy),
-                cg::text::FromGbkWide(gValueDA3A5C),
+                cg::text::FromGbkWide(gPassword),
                 cg::text::FromGbkWide(adapterId));
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;

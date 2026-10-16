@@ -103,13 +103,13 @@ std::int32_t Sub_449FA0(const std::int32_t index)
         return 0;
     }
 
-    std::fseek(stream, static_cast<std::int32_t>(index * 0x121), 0);
+    ::_fseeki64(stream, static_cast<std::int64_t>(static_cast<std::uint32_t>(index * 0x121)), SEEK_SET);
     if (static_cast<std::uint32_t>(std::fwrite(gChatHistory621FF8.records[index], 0x121, 1, stream)) < 1) {
         std::fclose(stream);
         return 0;
     }
 
-    std::fseek(stream, 0x4840, 0);
+    ::_fseeki64(stream, 0x4840, SEEK_SET);
     const std::uint32_t written = static_cast<std::uint32_t>(std::fwrite(&index, static_cast<std::uint32_t>(sizeof(index)), 1, stream));
     std::fclose(stream);
     return written >= 1 ? 1 : 0;

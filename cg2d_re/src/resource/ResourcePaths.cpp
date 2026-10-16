@@ -4,21 +4,41 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/render/Palette.hpp"
-#include "cg/resource/ResourceNames.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/platform/LegacyWindow.hpp"
+#include "cg/text/Encoding.hpp"
+
+#include <yaml-cpp/yaml.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <bit>
+#include <array>
+#include <stdexcept>
+#include <string>
 #include <cstring>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
 
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
-std::uint8_t gAutoMapColors927F48[500000] {}; // 原全局：0x00927F48。
+std::uint8_t gAutoMapColors927F48[AutoMapColorCapacity] {}; // 原全局：0x00927F48。
+std::size_t gBinLoaderGroupCount = 0;
+std::int32_t gBinLoaderGraphicCapacity = 2500000;
+std::int32_t gBinLoaderAnimeCapacity = 30500;
 
 namespace {
+
+// BLM01：六类路径的唯一拥有者，不再受旧256字节拼接槽限制。
+struct BinSet {
+    std::string graphic;
+    std::string graphicInfo;
+    std::string anime;
+    std::string animeInfo;
+    std::string coordinate;
+    std::string coordinateInfo;
+};
+std::array<BinSet, BinLoaderMaxGroups> gBinSets;
 
 // 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
 bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
@@ -122,11 +142,8 @@ void Sub_45A190()
     }
     const GraphicInfo* records = gGraphicInfo;
     for (std::int32_t index = 0; index < count; ++index) {
-        const std::int16_t fileIndex = records[index].fileIndex;
         const std::int32_t mapNo = records[index].mapNo;
-        if (fileIndex != 0 && fileIndex != 1 && fileIndex != 6 && fileIndex != 8) {
-            gAutoMapColors927F48[mapNo] = 0;
-        } else if (mapNo == 0) {
+        if (mapNo <= 0) {
             gAutoMapColors927F48[0] = 0;
         } else if (mapNo >= 1000 && mapNo <= 19999) {
             gAutoMapColors927F48[mapNo] = static_cast<std::uint8_t>(
@@ -164,59 +181,67 @@ CursorPathStorage gCursorPathStorage { // 原全局：0x0055CE88。
 };
 char (&gBinPath)[128] = gCursorPathStorage.binPath; // 原全局：0x0055CF04。
 
-char gGraphicPathStorage[9][256] {}; // 原全局：0x0062DA98。
-char gGraphicInfoPathStorage[9][256] {}; // 原全局：0x0062D174。
-char gAnimePathStorage[9][256] {}; // 原全局：0x0062B5E4。
-char gAnimeInfoPathStorage[9][256] {}; // 原全局：0x0062C808。
-char gCoordinatePathStorage[9][256] {}; // 原全局：0x0062E398。
-char gCoordinateInfoPathStorage[9][256] {}; // 原全局：0x0062BF08。
-
-char* gGraphicPaths[9] {}; // 原全局：0x0062D108。
-char* gGraphicInfoPaths[9] {}; // 原全局：0x0062DA74。
-char* gAnimePaths[9] {}; // 原全局：0x0062BEE4。
-char* gAnimeInfoPaths[9] {}; // 原全局：0x0062D150。
-char* gCoordinatePaths[9] {}; // 原全局：0x0062B5C0。
-char* gCoordinateInfoPaths[9] {}; // 原全局：0x0062D12C。
+char* gGraphicPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D108。
+char* gGraphicInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062DA74。
+char* gAnimePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062BEE4。
+char* gAnimeInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D150。
+char* gCoordinatePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062B5C0。
+char* gCoordinateInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D12C。
 
 // 原函数：0x00456050。
 int BuildResourcePaths()
 {
-    for (int slot = 0; slot < 9; ++slot) {
-        gGraphicPaths[slot] = gGraphicPathStorage[slot];
-        gGraphicInfoPaths[slot] = gGraphicInfoPathStorage[slot];
-        gAnimePaths[slot] = gAnimePathStorage[slot];
-        gAnimeInfoPaths[slot] = gAnimeInfoPathStorage[slot];
-        gCoordinatePaths[slot] = gCoordinatePathStorage[slot];
-        gCoordinateInfoPaths[slot] = gCoordinateInfoPathStorage[slot];
+    try {
+        const YAML::Node config = YAML::LoadFile("cgmsv.yml");
+        const YAML::Node sets = config["BinLoader"];
+        if (!sets.IsSequence() || sets.size() == 0 || sets.size() > BinLoaderMaxGroups) {
+            throw std::runtime_error("BinLoader requires 1-32 resource groups.");
+        }
+        const std::int32_t graphicCapacity = config["MAX_GRAPHIC"].as<std::int32_t>(2500000);
+        const std::int32_t animeCapacity = config["MAX_ANIME"].as<std::int32_t>(30500);
+        if (graphicCapacity <= 0 || animeCapacity <= 0) {
+            throw std::runtime_error("MAX_GRAPHIC and MAX_ANIME must be positive.");
+        }
+        for (std::size_t slot = 0; slot < BinLoaderMaxGroups; ++slot) {
+            BinSet& set = gBinSets[slot];
+            set = {};
+            if (slot < sets.size()) {
+                const YAML::Node entry = sets[slot];
+                set.graphic = entry["Graphic"].as<std::string>("");
+                set.graphicInfo = entry["GraphicInfo"].as<std::string>("");
+                set.anime = entry["Anime"].as<std::string>("");
+                set.animeInfo = entry["AnimeInfo"].as<std::string>("");
+                set.coordinate = entry["Coordinate"].as<std::string>("");
+                set.coordinateInfo = entry["CoordinateInfo"].as<std::string>("");
+            }
+        }
+        for (std::size_t slot = 0; slot < BinLoaderMaxGroups; ++slot) {
+            BinSet& set = gBinSets[slot];
+            gGraphicPaths[slot] = set.graphic.data();
+            gGraphicInfoPaths[slot] = set.graphicInfo.data();
+            gAnimePaths[slot] = set.anime.data();
+            gAnimeInfoPaths[slot] = set.animeInfo.data();
+            gCoordinatePaths[slot] = set.coordinate.data();
+            gCoordinateInfoPaths[slot] = set.coordinateInfo.data();
+        }
+        gBinLoaderGraphicCapacity = graphicCapacity;
+        gBinLoaderAnimeCapacity = animeCapacity;
+        gBinLoaderGroupCount = sets.size();
+    } catch (const std::exception& error) {
+        platform::ShowWideMessage(
+            L"cgmsv.yml 加载失败：" + text::FromLegacyDisplayWide(error.what()), L"资源配置", 0);
+        return -1;
     }
-
-    int result = 0;
-    for (int slot = 0; slot < 9; ++slot) {
-        std::sprintf(gGraphicPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::GraphicNames][slot]);
-        std::sprintf(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::GraphicInfoNames][slot]);
-        std::sprintf(gAnimePaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::AnimeNames][slot]);
-        std::sprintf(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::AnimeInfoNames][slot]);
-        std::sprintf(gCoordinatePaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::CoordinateNames][slot]);
-        result = std::sprintf(
-            gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot]);
-    }
-    return result;
+    return 0;
 }
 
 // 原函数：0x0045A130。
 std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
 {
-    char fileName[128];
-    std::sprintf(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
-
-    const std::int32_t loaded =
-        detail::Sub_45A420(fileName, graphicInfoPaths);
-    if (loaded != 0) {
-        return loaded;
-    }
-
+    // BLM01：旧缓存不记录配置组列表和后组覆盖关系，启动时直接重建共享色表。
+    static_cast<void>(graphicInfoPaths);
     detail::Sub_45A190();
-    return detail::Sub_45A290(fileName, graphicInfoPaths);
+    return 1;
 }
 
 } // namespace cg::resource

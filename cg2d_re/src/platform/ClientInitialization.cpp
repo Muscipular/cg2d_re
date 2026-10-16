@@ -216,6 +216,12 @@ int InitializeClient_4576B0()
     case 7:
         ShowWideMessage(L"程式版本不正确，请购买资料片或下载离线更新档。", kConfirmCaption, kErrorMessageFlags);
         return 0;
+    default:
+        if (graphicResult != 0) {
+            ShowWideMessage(L"图形资源初始化失败。", kConfirmCaption, kErrorMessageFlags);
+            return 0;
+        }
+        break;
     }
 
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());

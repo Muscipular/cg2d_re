@@ -1,5 +1,27 @@
 {
   "schema_version": 1,
+  "bin_loader_blm01": {
+    "spec": "doc/cg2d_bin_loader_migration_spec.md",
+    "date": "2026-10-16",
+    "scope": "仅业务逻辑迁移，不引入hook、扫描、注入或地址补丁",
+    "source_reference": "twcg_hook/src/hooks/binLoader.cpp",
+    "source_state": "implemented_and_wired_static_only",
+    "configuration_file": "cgmsv.yml",
+    "max_groups": 32,
+    "default_graphic_capacity": 2500000,
+    "default_anime_capacity": 30500,
+    "auto_map_color_capacity": 800000,
+    "coordinate_source_policy": "后组成功文件成为全部配置组共享来源，替换／退出只关闭一次",
+    "seek_provider": "MSVC _fseeki64 / _ftelli64",
+    "seek_set_offset": "原无符号32位位型零扩展到64位，磁盘字段仍32位",
+    "cache_policy": "启动重建地图颜色，不读写旧auto.dat",
+    "dependency_policy": "复用已有本地yaml-cpp，不下载、复制或修改第三方源码，不夹带既有暂存",
+    "function_table_identity_name_state_unchanged": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "execution_policy_unchanged": true,
+    "all_full_acceptance_gates_unchanged": true
+  },
   "epoch": "2026-10-04.1",
   "catalog_revision": 2,
   "scope": "已知合同导入的追踪目录，不代表全功能枚举闭合。路径相对cg2d_re。域不计叶功能。",
@@ -701,7 +723,8 @@
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1374,7 +1397,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
-        "doc/cg2d_borrow_cleanup_spec.md"
+        "doc/cg2d_borrow_cleanup_spec.md",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -4095,7 +4119,8 @@
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
         "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009",
         "doc/cg2d_graphic_allocation_release_spec.md",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -4185,7 +4210,8 @@
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
-        "doc/cg2d_borrow_cleanup_spec.md"
+        "doc/cg2d_borrow_cleanup_spec.md",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4207,7 +4233,8 @@
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
         "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
         "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。",
-        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "BLM01依用户要求迁移binLoader业务，覆盖旧固定九组／20500容量及EOF读取合同；32组配置、共享坐标FILE、地图色表和64位定位已接，仅静态，未编译／运行，全部适用运行门禁保持未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4255,7 +4282,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "doc/cg2d_yobi_frame_playback_sampling_spec.md",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:000574E0",
@@ -4295,7 +4323,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_bin_loader_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4303,7 +4332,8 @@
         "ATP01五具名指针/三分配/P4独立子项和两清理读取已落码，原布局/发布/正常控制/释放顺序保持；两清理与两生产四身份局部纳管，P4前缀/帧/缓冲生产和完整初始化加载播放退出/alias/所有owner寿命/实际分配失败/ABI/SDK/画面运行未验，异常不保护或模拟",
         "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。",
         "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。",
-        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "BLM01动画配对／主表采用配置容量，完整记录按后组覆盖、32槽来源及共享坐标FILE已接，FrameMove取消编号绑定容量；仅静态，编译／真实加载／播放／退出运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,

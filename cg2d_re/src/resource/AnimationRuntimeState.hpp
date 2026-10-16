@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/resource/ResourcePaths.hpp"
+
 
 #include <cstdio>
 #include <array>
@@ -83,12 +85,12 @@ struct CacheSlot {
 };
 static_assert(sizeof(CacheSlot) == 0x10);
 
-extern std::array<std::uint32_t, 9> gFileCloseFlags9A29D0; // 原全局：0x009A29D0。
+extern std::array<std::uint32_t, BinLoaderMaxGroups> gFileCloseFlags9A29D0; // 原全局：0x009A29D0。
 extern std::array<MainSlot, 256> gMainSlots9A29F8; // 原全局：0x009A29F8。
 extern MainSlot gLeftSentinel9A3A00; // 原全局：0x009A3A00。
 extern MainSlot gRightSentinel9A3A10; // 原全局：0x009A3A10。
-extern std::array<std::FILE*, 9> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
-extern std::array<std::FILE*, 9> gCoordinateFiles9A2988; // 原全局：0x009A2988。
+extern std::array<std::FILE*, BinLoaderMaxGroups> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
+extern std::array<std::FILE*, BinLoaderMaxGroups> gCoordinateFiles9A2988; // 原全局：0x009A2988。
 extern std::array<CacheSlot, 256> gCacheSlots9A3A48; // 原全局：0x009A3A48。
 extern std::uint32_t gActiveCount9A4A68; // 原全局：0x009A4A68。
 extern std::uint32_t gActiveBytes9A4A6C; // 原全局：0x009A4A6C。
@@ -113,8 +115,8 @@ detail::MainSlot* Sub_45B530(); // ACL01：清理非零后取齐数量/字节，
 // 原 45C150：仅在有文件/action、无已加载坐标且 count 非零时加载；保留计数门禁。
 std::int32_t CoordInit_45C150(std::int32_t index);
 
-// 原 45BF60：先发布数据文件，再读 Info 版本/索引；失败不回收已打开文件。
-// 由 CoordLoadInit 向同一 gCoordinateFiles9A2988 槽传址，路径顺序为数据、Info。
+// 原45BF60；BLM01读取版本／完整Info后交付FILE，失败不留下临时文件。
+// CoordLoadInit取得成功FILE后替换所有组的共享来源，路径顺序为数据、Info。
 std::int32_t CoordLoad_45BF60(
     std::FILE** outputFile, const char* dataPath, const char* infoPath);
 

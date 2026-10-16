@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/resource/ResourcePaths.hpp"
+
 
 #include <cstdio>
 #include <cstddef>
@@ -18,8 +20,8 @@ void InitializeIndependentPaletteQueue_522620();
 // 原函数：0x00522690。
 void InitializePaletteDbfState_522690();
 
-// 原 0x927EF4 的九个 Graphic 文件槽，统一由资源初始化/关闭链接原FILE核心。
-extern std::FILE* gGraphicFiles[9];
+// 原0x927EF4；BLM01扩为32槽，由初始化拥有、读取借用、退出关闭。
+extern std::FILE* gGraphicFiles[BinLoaderMaxGroups];
 
 // 新端选定读取承载范围为原 0x833CB0..0x927EF0，解压承载范围为 0x73F138..0x833378。
 // 两段彼此独立，不证明原数组声明或跨界行为；读盘复用前者，实际解码写入才修改后者。

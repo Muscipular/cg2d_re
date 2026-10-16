@@ -387,7 +387,7 @@ std::int32_t Sub_524230()
         if (file == nullptr) {
             continue;
         }
-        static_cast<void>(std::fseek(file, 24, SEEK_SET));
+        static_cast<void>(::_fseeki64(file, 24, SEEK_SET));
         std::uint32_t frequency = 0;
         for (int shift = 0; shift < 32; shift += 8) {
             frequency |= static_cast<std::uint32_t>(
@@ -1029,13 +1029,13 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         if (file == nullptr) {
             return 0;
         }
-        static_cast<void>(std::fseek(file, 32, SEEK_CUR));
+        static_cast<void>(::_fseeki64(file, 32, SEEK_CUR));
         const std::uint32_t blockAlign =
             static_cast<std::uint32_t>(std::fgetc(file))
             | static_cast<std::uint32_t>(std::fgetc(file)) << 8;
         const long loopOffset = static_cast<long>(
             dataLength + 14u + (dataLength & 1u) + 48u);
-        static_cast<void>(std::fseek(file, loopOffset, SEEK_CUR));
+        static_cast<void>(::_fseeki64(file, static_cast<std::int64_t>(loopOffset), SEEK_CUR));
         std::uint32_t startFrame = 0;
         std::uint32_t endFrame = 0;
         for (int shift = 0; shift < 32; shift += 8) {

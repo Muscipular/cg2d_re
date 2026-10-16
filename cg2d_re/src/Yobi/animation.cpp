@@ -234,9 +234,7 @@ std::int32_t Sub_517880(
         action->frameY = 0;
         return 0;
     }
-    if (imageNo > resource::animation::gMaxAnimateCount9A4A4C + 100000) {
-        return 1;
-    }
+    // BLM01：动画编号由实际索引表判定，不与动画记录容量绑定。
     const std::int32_t animeIndex =
         resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
     if (animeIndex < 0) {

@@ -27,7 +27,7 @@
 
 namespace cg::resource {
 
-std::FILE* gGraphicFiles[9] {}; // 原全局：0x00927EF4。
+std::FILE* gGraphicFiles[BinLoaderMaxGroups] {}; // 原全局：0x00927EF4。
 std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {}; // 原全局：0x00833CB0。
 std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {}; // 原全局：0x0073F138。
 std::uint8_t* gGraphicDataPtr = nullptr; // 原全局：0x01020EC0。
@@ -559,7 +559,7 @@ int ReadGraphicDataByIndex(
     }
 
     // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
-    std::fseek(file, static_cast<std::int32_t>(info.offset), 0);
+    ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(info.offset)), SEEK_SET);
     std::FILE* const readFile = gGraphicFiles[fileIndex];
     const std::uint32_t sourceLength = info.length;
     if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, static_cast<std::uint32_t>(sourceLength), 1, readFile)) != 1) {

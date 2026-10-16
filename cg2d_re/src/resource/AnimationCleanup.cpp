@@ -143,7 +143,25 @@ std::int32_t Sub_45B740()
     return result;
 }
 
-// ACL01：原45BEF0完整15条；九FILE一次取样/同值关闭后清槽，再scan主表，返回真实末值。
+// BLM01：共享坐标FILE只关闭一次；先清同值别名，再关闭该文件。
+void CloseCoordinateFiles()
+{
+    for (std::FILE*& file : detail::gCoordinateFiles9A2988) {
+        std::FILE* const current = file;
+        if (current == nullptr) {
+            continue;
+        }
+        for (std::FILE*& alias : detail::gCoordinateFiles9A2988) {
+            if (alias == current) {
+                alias = nullptr;
+            }
+        }
+        std::fclose(current);
+    }
+}
+
+// 原函数：0x0045BEF0。
+// BLM01：关闭32动画槽和共享坐标文件，再按原活动槽清理并返回真实末值。
 std::int32_t AnimeUnload_45BEF0()
 {
     for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
@@ -153,10 +171,11 @@ std::int32_t AnimeUnload_45BEF0()
             file = nullptr;
         }
     }
+    CloseCoordinateFiles();
     return Sub_45B630();
 }
 
-// ACL01：原45BF20完整16条；九标志关闭后scanP4，MC01-B已批清FILE owner差异保持。
+// ACL01：原45BF20；BLM01标志槽扩为32，MC01-B已批清FILE owner差异保持。
 std::int32_t Sub_45BF20()
 {
     for (std::size_t slot = 0; slot < detail::gFileCloseFlags9A29D0.size(); ++slot) {

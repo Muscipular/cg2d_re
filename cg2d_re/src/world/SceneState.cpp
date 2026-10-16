@@ -4100,7 +4100,7 @@ std::int32_t __cdecl Sub_468570(
         return Sub_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
     }
 
-    std::fseek(file, 0, 0);
+    ::_fseeki64(file, 0, SEEK_SET);
     char label[4];
     label[0] = static_cast<char>(std::fgetc(file));
     label[1] = static_cast<char>(std::fgetc(file));
@@ -4209,7 +4209,7 @@ std::int32_t __cdecl Sub_4688A0(
                 const std::int32_t fileRow =
                     20 + plane * planeBytes
                     + 2 * (sourceStart + row * fileWidth);
-                std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
+                ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(fileRow)), SEEK_SET);
                 static_cast<std::uint32_t>(std::fwrite(
                     planes[plane] + destinationStart + row * destinationWidth,
                     static_cast<std::uint32_t>(rowBytes), 1, file));
@@ -4234,7 +4234,7 @@ std::int32_t __cdecl Sub_4688A0(
             const std::int32_t fileRow =
                 20 + 2 * planeBytes
                 + 2 * (sourceStart + row * fileWidth);
-            std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
+            ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(fileRow)), SEEK_SET);
             static_cast<std::uint32_t>(std::fwrite(inputRow, static_cast<std::uint32_t>(rowBytes), 1, file));
         }
     }
@@ -4476,7 +4476,7 @@ std::int32_t __cdecl Sub_468C40(
                 const std::int32_t fileRow =
                     20 + plane * planeBytes
                     + 2 * ((sourceY + row) * fileWidth + sourceX);
-                std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
+                ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(fileRow)), SEEK_SET);
                 const std::int32_t destinationRow =
                     destinationStart + row * destinationWidth;
                 static_cast<std::uint32_t>(std::fread(
@@ -4547,7 +4547,7 @@ std::int32_t Sub_46C840(
     std::array<std::uint16_t, kAutoMapWindowCells> tile {};
     std::array<std::uint16_t, kAutoMapWindowCells> object {};
     std::array<std::uint16_t, kAutoMapWindowCells> hit {};
-    std::fseek(file, 12, 0);
+    ::_fseeki64(file, 12, SEEK_SET);
     // 原头读取不检查返回，未写字节不套用其他地图函数的补零特例。
     std::int32_t fileWidth;
     std::int32_t fileHeight;
@@ -4591,7 +4591,8 @@ std::int32_t Sub_46C840(
         if (copyHeight > 0) {
             std::uint16_t* target = planes[plane] + destinationStart;
             for (std::int32_t row = 0; row < copyHeight; ++row) {
-                std::fseek(file, static_cast<std::int32_t>(planeOffset + 2 * sourceCell), 0);
+                ::_fseeki64(file,
+                    static_cast<std::int64_t>(static_cast<std::uint32_t>(planeOffset + 2 * sourceCell)), SEEK_SET);
                 static_cast<std::uint32_t>(std::fread(target,
                     static_cast<std::uint32_t>(2 * copyWidth), 1, file));
                 sourceCell += fileWidth;

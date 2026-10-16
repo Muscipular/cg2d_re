@@ -162,7 +162,7 @@ static void WindowAdventureLog_Refresh()
     const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
     gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition(&window->elements[1], maximum);
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
-        static_cast<void>(std::fseek(gLoginWindowRuntime.logViewerFileD67BB8, 0, 0));
+        static_cast<void>(::_fseeki64(gLoginWindowRuntime.logViewerFileD67BB8, 0, SEEK_SET));
         while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
             const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
             rows.insert(rows.end(), lines.begin(), lines.end());

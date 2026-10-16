@@ -75,22 +75,25 @@ std::int32_t __cdecl BinarySearch_45B390(
 // 原函数：0x0045B400。
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
-// 原 [45BB20,45BEE1)：九槽 Info 去重、数据文件发布与主表排序；0 成功，2/3/5 失败。
-// 参数顺序为数据路径、Info 路径；保留必需槽 0/8 的不同清理路径。
+// 原[45BB20,45BEE1)；BLM01按配置组去重／覆盖与排序，空／缺文件组跳过。
+// 数据、Info路径顺序保持；0成功、3容量／分配失败、5动作数量异常。
 std::int32_t AnimeInit_45BB20(
     char* const* dataPaths, char* const* infoPaths);
 
-// 原 [45C040,45C146)：清九文件槽，加载首个路径并向大小写相同的后续槽共享文件/回写路径。
+// 原[45C040,45C146)；BLM01每个成功坐标文件替换全部配置组的共享来源。
 void CoordLoadInit_45C040(char* const* dataPaths, char* const* infoPaths);
+
+// BLM01：关闭唯一共享坐标FILE并清空全部别名，供来源替换和退出共同调用。
+void CloseCoordinateFiles();
 
 // 原 [45B760,45BB1F)：复用或领取主索引槽，读 action/帧，再加载坐标并发布计数。
 // index 须对应已初始化主表；不增加索引/文件判空，失败按原路径保留或清理已发布前缀。
 std::int32_t AnimeLoadAction_45B760(std::int32_t index);
 
-// 原退出链：先关九个动画文件并清主表活动槽，再按标志处理文件及 P4 活动槽。
+// 原退出链；BLM01动画文件扩为32槽，同时关闭坐标共享FILE，再清理活动槽。
 // 原函数：0x0045BEF0。
-std::int32_t AnimeUnload_45BEF0(); // ACL01：九FILE关闭清槽后256主槽清理，真实末返回。
+std::int32_t AnimeUnload_45BEF0(); // 32槽文件关闭后256主槽清理，真实末返回。
 // 原函数：0x0045BF20。
-std::int32_t Sub_45BF20(); // ACL01：九flag关闭后256P4槽清理，已批FILE引用清空保。
+std::int32_t Sub_45BF20(); // 32槽flag关闭后256P4槽清理，已批FILE引用清空保。
 
 } // namespace cg::resource::animation

@@ -338,7 +338,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     CreateSaveDirectories();
     cg::login::detail::InitializeSavedState_533300();
     ParseCommandOptions();
-    cg::resource::BuildResourcePaths();
+    if (cg::resource::BuildResourcePaths() != 0) {
+        return 0;
+    }
     InitializeWindow();
     MainLoop();
     return 0;

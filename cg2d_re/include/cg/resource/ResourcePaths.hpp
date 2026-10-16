@@ -28,30 +28,28 @@ extern CursorPathStorage gCursorPathStorage; // 原全局：0x0055CE88。
 // 原 0x55CF04 的 128 字节可写字符槽；数组引用保留与上述连续存储的别名。
 extern char (&gBinPath)[128];
 
-// 原 sub_456050 建立的六组九槽路径；各字符槽仍为 256 字节。
-extern char gGraphicPathStorage[9][256]; // 原全局：0x0062DA98。
-extern char gGraphicInfoPathStorage[9][256]; // 原全局：0x0062D174。
-extern char gAnimePathStorage[9][256]; // 原全局：0x0062B5E4。
-extern char gAnimeInfoPathStorage[9][256]; // 原全局：0x0062C808。
-extern char gCoordinatePathStorage[9][256]; // 原全局：0x0062E398。
-extern char gCoordinateInfoPathStorage[9][256]; // 原全局：0x0062BF08。
+// BLM01：配置组数与所有文件／基址槽统一；磁盘字段不随容量扩宽。
+inline constexpr std::size_t BinLoaderMaxGroups = 32;
+inline constexpr std::size_t AutoMapColorCapacity = 800000;
+extern std::size_t gBinLoaderGroupCount;
+extern std::int32_t gBinLoaderGraphicCapacity;
+extern std::int32_t gBinLoaderAnimeCapacity;
 
-// 对应原路径指针表；仅指针宽度适配为 x64，不扩大字符槽。
-extern char* gGraphicPaths[9]; // 原全局：0x0062D108。
-extern char* gGraphicInfoPaths[9]; // 原全局：0x0062DA74。
-extern char* gAnimePaths[9]; // 原全局：0x0062BEE4。
-extern char* gAnimeInfoPaths[9]; // 原全局：0x0062D150。
-extern char* gCoordinatePaths[9]; // 原全局：0x0062B5C0。
-extern char* gCoordinateInfoPaths[9]; // 原全局：0x0062D12C。
+// 字符串由ResourcePaths拥有，配置解析完成后绑定，加载期间不再移动字符串。
+extern char* gGraphicPaths[BinLoaderMaxGroups]; // 原全局：0x0062D108。
+extern char* gGraphicInfoPaths[BinLoaderMaxGroups]; // 原全局：0x0062DA74。
+extern char* gAnimePaths[BinLoaderMaxGroups]; // 原全局：0x0062BEE4。
+extern char* gAnimeInfoPaths[BinLoaderMaxGroups]; // 原全局：0x0062D150。
+extern char* gCoordinatePaths[BinLoaderMaxGroups]; // 原全局：0x0062B5C0。
+extern char* gCoordinateInfoPaths[BinLoaderMaxGroups]; // 原全局：0x0062D12C。
 
-// 原 0x456050：先绑定所有指针，再逐槽拼接六类路径；返回最后一次 sprintf 结果。
-// 调用前须已完成原参数改名及星号别名展开，且拼接结果含 NUL 不超过 256 字节。
+// 原 0x456050；BLM01改读工作目录cgmsv.yml，成功0，配置失败提示后返回-1。
 int BuildResourcePaths();
 
-// 原 sub_45A130@[0x45A130,0x45A184)：尝试读取自动地图颜色缓存，失败时重建并写回。
+// 原 sub_45A130@[0x45A130,0x45A184)；BLM01直接重建，旧缓存不能验证配置组覆盖。
 std::int32_t LoadAutoMapColor_45A130(char* const* graphicInfoPaths);
 
-// 原 oldMapRes@927F48；资源加载与地图窗共用唯一500000B颜色表。
-extern std::uint8_t gAutoMapColors927F48[500000]; // 原全局：0x00927F48。
+// 原oldMapRes@927F48；BLM01扩展，newMapRes高下标仍借同表的mapNo-200000位置。
+extern std::uint8_t gAutoMapColors927F48[AutoMapColorCapacity]; // 原全局：0x00927F48。
 
 } // namespace cg::resource

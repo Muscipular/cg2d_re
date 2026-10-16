@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/resource/ResourcePaths.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -87,12 +89,11 @@ extern std::int32_t gMaxGraphicCount;
 extern GraphicInfo* gGraphicInfo;
 // 原 VA 0x9A2974：MapNo 到图形序号的索引表；未初始化阶段为 nullptr。
 extern std::int32_t* gGraphicMapNoIndex;
-// 原 73F100：九个文件槽的全局图号基址，供 AnimeLoadAction/CoordInit 共同读取。
-extern std::int32_t gGraphicStartIndices[9];
+// 原73F100；BLM01扩为32槽，供AnimeLoadAction/CoordInit共同读取组图号基址。
+extern std::int32_t gGraphicStartIndices[BinLoaderMaxGroups];
 
-// 原 [459960,45A12C)：先开九个数据文件，再预扫/重开 Info，写主表与 mapNo 索引。
-// 主表须由 GraphicAlloc 分配；失败保留原已发布状态，返回 1/2/7、3、-1 或 0。
-// 两组参数分别为数据、Info 的九个窄字节路径，不在此重建或转码。
+// 原[459960,45A12C)；BLM01按配置组读完整40B记录、后组覆盖MapNo，空／缺文件组跳过。
+// 主表须由GraphicAlloc按配置容量分配；0成功、3容量不足、-1分配失败。
 std::int32_t GraphicInit_459960(
     const char* const* graphicPaths, const char* const* graphicInfoPaths);
 

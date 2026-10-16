@@ -12,6 +12,22 @@ set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
     CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
 find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)
 
+# BLM01：复用本机已有解析库，仅编译库，不启用第三方工具、测试或安装。
+set(YAML_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_FORMAT_SOURCE OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_INSTALL OFF CACHE BOOL "" FORCE)
+# 旧库声明的3.4策略版本由父工程兼容承接，不修改第三方源码。
+block()
+    if(NOT DEFINED CMAKE_POLICY_VERSION_MINIMUM)
+        set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+    endif()
+    add_subdirectory(3rd/yaml-cpp EXCLUDE_FROM_ALL)
+endblock()
+target_compile_options(yaml-cpp PRIVATE /GR- /utf-8)
+
 add_library(cg2d_re_core STATIC
     src/text/Encoding.cpp
     src/resource/ResourceNames.cpp
@@ -43,7 +59,7 @@ set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 # 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32)
+target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 gdi32)
 
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC

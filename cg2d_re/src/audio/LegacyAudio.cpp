@@ -493,8 +493,9 @@ std::int32_t LoadBgmConfig_524060()
     std::int32_t recordIndex = 0;
     std::int32_t mappingIndex = 0;
     std::int32_t value40 = 0;
-    // 原var_B5 W8与紧邻var_B4 S32；53CADC的两个%d目标各写4B。
-    std::array<std::uint8_t, 5> values44And48 {};
+    // 末两列独立读取；缺失字段沿用旧值，第五列写入时再收窄为U8。
+    int value44 = 0;
+    int value48 = 0;
     char line[80] {};
     char path[80] {};
 
@@ -504,20 +505,9 @@ std::int32_t LoadBgmConfig_524060()
             continue;
         }
 
-        // 用有类型的目标承接%d，再按原次序写回重叠的两个4B槽。
-        int scanned44;
-        int scanned48;
-        std::memcpy(&scanned44, values44And48.data(), sizeof(scanned44));
-        std::memcpy(&scanned48, values44And48.data() + 1, sizeof(scanned48));
-        const int scannedCount = std::sscanf(
+        std::sscanf(
             line, "%d %d %s %d %d %d",
-            &recordIndex, &mappingIndex, path, &value40, &scanned44, &scanned48);
-        if (scannedCount >= 5) {
-            std::memcpy(values44And48.data(), &scanned44, sizeof(scanned44));
-        }
-        if (scannedCount >= 6) {
-            std::memcpy(values44And48.data() + 1, &scanned48, sizeof(scanned48));
-        }
+            &recordIndex, &mappingIndex, path, &value40, &value44, &value48);
 
         const std::int32_t selectedRecordIndex = recordIndex;
         BgmConfigRecord& record =
@@ -525,12 +515,9 @@ std::int32_t LoadBgmConfig_524060()
         const std::size_t bytes = std::strlen(path) + 1;
         const std::size_t wordBytes = bytes & ~std::size_t{3};
         std::memcpy(record.path, path, wordBytes);
-        const std::uint8_t value44 = values44And48[0];
         std::memcpy(record.path + wordBytes, path + wordBytes, bytes & 3u);
         record.value40 = value40;
-        std::int32_t value48;
-        std::memcpy(&value48, values44And48.data() + 1, sizeof(value48));
-        record.value44 = value44;
+        record.value44 = static_cast<std::uint8_t>(value44);
         record.value48 = value48;
         gBgmMapping103DFAC[static_cast<std::size_t>(mappingIndex)] =
             selectedRecordIndex;

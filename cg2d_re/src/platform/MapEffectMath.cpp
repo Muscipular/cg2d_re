@@ -25,7 +25,7 @@ private:
 };
 
 // COR15：常量直接写十进制；F后缀保持原F32提升为double的语义。
-constexpr double kRadians54DD18 = 0.0174532925194; // 原常量参考：0x0054DD18。
+constexpr double kRadians54DD18 = 0.017453292519444445; // 原常量参考：0x0054DD18。
 constexpr float kSpeedScale54E228 = 0.001F; // 原常量参考：0x0054E228。
 constexpr float kFallback54E230 = 0.0001F; // 原常量参考：0x0054E230。
 constexpr float kSpawnScale54E22C = 720.0F; // 原常量参考：0x0054E22C。
@@ -36,13 +36,13 @@ constexpr float kActorRate54DD40 = 1.2F; // 原常量参考：0x0054DD40。
 constexpr float kSpiralY54DD10 = 0.6F; // 原常量参考：0x0054DD10。
 constexpr float kProjectionInverse54E218 = 1.3333334F; // 原常量参考：0x0054E218。
 constexpr std::array<double, 8> kObserverAngles {
-    2.35619449013,
+    2.356194490125,
     1.57079632675,
     0.785398163375,
     0.0,
-    5.49778714363,
+    5.4977871436250005,
     4.71238898025,
-    3.92699081688,
+    3.926990816875,
     3.1415926535
 };
 

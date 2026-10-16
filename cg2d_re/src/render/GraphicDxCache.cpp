@@ -7,13 +7,20 @@
 #include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 
 #include <SDL3/SDL_surface.h>
 
@@ -464,7 +471,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
         if (scan == scanStart) {
             // 原 58D348 消息及 52253F 路径；不足时不清除部分链或补写尾 next。
             const std::wstring message = L"圖形表面不足。" + std::to_wstring(scan) + L'\n';
-            platform::WriteLegacyDebugString(message);
+            ::OutputDebugStringW(message.c_str());
             return;
         }
     }

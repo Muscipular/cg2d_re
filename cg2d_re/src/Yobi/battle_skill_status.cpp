@@ -4,7 +4,14 @@
 #include "battle_message.hpp"
 #include "battle_skill.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
-#include "cg/platform/Startup.hpp"
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 
 #include <array>
 #include <bit>
@@ -264,7 +271,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             if (skill == 2013) {
                 std::array<char, 64> output;
                 std::sprintf(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
-                platform::WriteLegacyDebugString(output.data());
+                ::OutputDebugStringA(output.data());
                 if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                     continue;
                 }

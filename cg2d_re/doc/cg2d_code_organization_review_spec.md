@@ -167,3 +167,15 @@ COR11验收：三包装删除，10处PostMessageW、2处SetWindowTextW和1处She
 退休头中的宿主承接映射保留：53B2F1→std::fopen；53B2D1→::_fsopen；53C8B3→std::fgetc；53B226→std::fgets；53BCCD→std::fread；53C680→std::fwrite；53CFDC→std::fputc；53B356→std::fputs；53CB78→std::ftell；53BC41→std::fseek；53B27D→std::rewind；54ACF1→std::setvbuf；54463F→std::ungetc；54B239→::_ftelli64；54B3C0→::_fseeki64；54ACB7→std::fgetpos；54ACD9→std::fsetpos；54AD92→std::fputwc；54AF70→std::fgetwc；54AE87→std::ungetwc；53BB02→std::fflush；53B1D0→std::fclose；53BB99／53BBA2→::_flushall；5446AD→::_fcloseall。无当前CPP消费者的服务仍仅为已批准的MSVC宿主承接，不计新增业务接线或运行验收。
 
 COR12验收：迁移和别名清理完成，6处补齐cstdio，旧别名／路径无源码残留；MAC正文及类型替换外的业务正文静态核对一致，259条直接本地包含边有效。41行函数表提供者更新，3680行身份／名称／状态保持。build.bat Debug配置、编译和客户端链接成功，退出码0；仍有既有未初始化变量及旧API告警。未运行客户端／测试／算法样例，未计算摘要、未更新JSON台账。
+
+## COR13：启动公共浅包装移除（2026-10-16）
+
+按用户要求移除StartupCommon中的目录、全局内存与调试输出包装，共6个声明／定义、3个消费者CPP中的9处调用；只消除包装层，不改变原有API族或资源生命周期。
+
+- ReadLegacyCurrentDirectory唯一调用直接改GetCurrentDirectoryA，保留256B容量、窄字节目录和原忽略返回行为。
+- 两处AllocateLockedZeroedGlobalMemory展开为GlobalLock(GlobalAlloc(GPTR, bytes))，保持原sizeof乘法、清零、失败路径与owner发布时间，不改为CRT分配或增加保护。两处解锁和两处释放分别直接GlobalUnlock(GlobalHandle(pointer))与GlobalFree(GlobalHandle(pointer))；保留各次owner取样、解锁后重读、清空时机和弃置返回。
+- 窄字符调试直接OutputDebugStringA(output.data())，保留原格式化字节；宽字符唯一调用已拥有存活且NUL终止的std::wstring，直接OutputDebugStringW(message.c_str())，移除view包装内的重复复制，不以view.data()替代终止文本。
+- 删除Startup.hpp对应声明与StartupCommon.cpp对应定义，保留其余启动接口；Win32调用仅进入三个CPP，按既有WIN32_LEAN_AND_MEAN／NOMINMAX约定显式包含Windows.h，公开头不引入SDK类型。仅删除不再需要的包含，不新增包装或外部依赖。
+- 验收：六接口及调用无源码残留；反向展开对照9处调用，核分配域／参数／顺序、文本终止和其余正文保持；当前函数表无这些包装提供者，3680行内容与状态不变。仅做静态检查，不构建、测试、运行或计算摘要，不更新历史证据或JSON台账，保留既有Python缓存。
+
+COR13验收：6个声明／定义已删除，9处调用全部展开；5份源码／头文件与限定替换结果逐字一致，原分配／清零、owner读写、解锁／释放和调试消息保持。旧符号零残留，新增Win32包含与本地包含有效，3680行函数表逐字不变；UTF-8无BOM／LF及Git差异静态检查通过。未构建、测试、运行或计算摘要，不更新JSON台账；精确提交本次7份文件，既有Python缓存排除。

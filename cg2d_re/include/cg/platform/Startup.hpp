@@ -54,18 +54,6 @@ std::uint32_t CaptureDesktopColor();      // 原 0x465A20。
 int SetWindowedDesktopColor();            // 原 0x465A30。
 // 原函数：0x00532E70。
 int CreateSaveDirectories();              // 原 0x532E70；实际运行会改变 CWD/创建目录。
-// 原 GetCurrentDirectoryA 边界：保持窄字节、容量及完整 W32 返回，不改变工作目录。
-std::uint32_t ReadLegacyCurrentDirectory(std::uint32_t capacity, char* destination);
-// 原 GlobalAlloc(GPTR) -> GlobalLock；仅返回借给资源 owner 的原生指针，不增加失败分支。
-void* AllocateLockedZeroedGlobalMemory(std::size_t bytes);
-// 原 GlobalHandle -> GlobalUnlock；调用侧保留owner取样点，返回值弃置。
-void UnlockGlobalMemory(void* memory);
-// 原 GlobalHandle -> GlobalFree；调用侧在解锁后重读owner，返回值弃置。
-void FreeGlobalMemory(void* memory);
-// 原 OutputDebugStringA 窄字节边界；保留兼容字节，不猜测编码或改写消息。
-void WriteLegacyDebugString(const char* message);
-// Unicode诊断直接交Win32 W边界；原窄字节入口保留。
-void WriteLegacyDebugString(std::wstring_view message);
 // 原函数：0x004669F0。
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 // 原函数：0x00466D50。

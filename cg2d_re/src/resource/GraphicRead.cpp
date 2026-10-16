@@ -6,6 +6,14 @@
 #include "cg/render/Palette.hpp"
 #include "cg/platform/Startup.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
 #include <array>
 #include <bit>
 #include <cstdlib>
@@ -188,7 +196,7 @@ void LoadIndependentPaletteIndex_522900()
 {
     char directory[256] {};
     char fileName[256] {};
-    platform::ReadLegacyCurrentDirectory(256, directory);
+    ::GetCurrentDirectoryA(256, directory);
     if (directory[255] != '\\') {
         std::strcat(directory, "\\");
     }
@@ -454,16 +462,16 @@ std::int32_t InitializeIndependentPalettes_522B30()
     gIndependentPaletteCount = queueCount;
 
     auto* const allocatedIndex = static_cast<IndependentPaletteIndex*>(
-        platform::AllocateLockedZeroedGlobalMemory(
-            sizeof(IndependentPaletteIndex) * queueCount));
+        ::GlobalLock(::GlobalAlloc(
+            GPTR, sizeof(IndependentPaletteIndex) * queueCount)));
     const std::int32_t clearCount = gIndependentPaletteCount;
     gIndependentPaletteIndex = allocatedIndex;
     std::memset(allocatedIndex, 0, sizeof(IndependentPaletteIndex) * clearCount);
 
     const std::int32_t recordCount = gIndependentPaletteCount;
     auto* const allocatedRecords = static_cast<IndependentPaletteRecord*>(
-        platform::AllocateLockedZeroedGlobalMemory(
-            sizeof(IndependentPaletteRecord) * recordCount));
+        ::GlobalLock(::GlobalAlloc(
+            GPTR, sizeof(IndependentPaletteRecord) * recordCount)));
     const std::int32_t initialCount = gIndependentPaletteCount;
     gIndependentPaletteRecords = allocatedRecords;
 
@@ -488,12 +496,12 @@ std::int32_t InitializeIndependentPalettes_522B30()
 // 原函数：0x00522C50。
 void ReleaseIndependentPalettes_522C50()
 {
-    platform::UnlockGlobalMemory(gIndependentPaletteRecords);
-    platform::FreeGlobalMemory(gIndependentPaletteRecords);
+    ::GlobalUnlock(::GlobalHandle(gIndependentPaletteRecords));
+    ::GlobalFree(::GlobalHandle(gIndependentPaletteRecords));
     IndependentPaletteIndex* const index = gIndependentPaletteIndex;
     gIndependentPaletteRecords = nullptr;
-    platform::UnlockGlobalMemory(index);
-    platform::FreeGlobalMemory(gIndependentPaletteIndex);
+    ::GlobalUnlock(::GlobalHandle(index));
+    ::GlobalFree(::GlobalHandle(gIndependentPaletteIndex));
     gIndependentPaletteIndex = nullptr;
 }
 

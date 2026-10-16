@@ -7380,7 +7380,7 @@ std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
     const float offset = 112.5F;
     float angle = static_cast<float>(direction + offset);
     Sub_46F8F0(&angle);
-    const float multiplier = 0.022222223F;
+    constexpr float multiplier = 1.0F / 45.0F;
     return static_cast<std::int64_t>(
         static_cast<double>(angle) * multiplier);
 }

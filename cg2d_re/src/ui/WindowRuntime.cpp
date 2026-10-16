@@ -3670,8 +3670,9 @@ std::int32_t WindowScroll_ApplyWheel(
     const std::int32_t oldY = previous->y;
     static_cast<void>(WindowScroll_SetPosition(element, maximum, position));
     std::int32_t remainder = oldY - previous->y;
+    constexpr float kWheelStepScale = 1.0F / 120.0F; // 滚轮输入到滚动步数的比例。
     const double product = static_cast<double>(wheel)
-        * 0.008333334F;
+        * kWheelStepScale;
     const float roundedProduct = static_cast<float>(product);
     const auto whole = static_cast<std::int32_t>(product);
     position += whole;

@@ -700,7 +700,7 @@ void Sub_4483A0(YobiAction* const action)
                 action->value54 = 15.0F;
             }
         } else {
-            const double amplitude = static_cast<double>(action->value54) - 0.15000001F;
+            const double amplitude = static_cast<double>(action->value54) - 0.15F;
             action->value54 = static_cast<float>(amplitude);
             if (amplitude < 1.0F) {
                 action->value54 = 1.0F;

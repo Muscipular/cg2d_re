@@ -50,6 +50,9 @@ static_assert(sizeof(BattleTransitionEffectPayload) == sizeof(YobiAction*) + 8);
 
 namespace {
 
+// 角度到16方向图号的比例；编译期按double计算，保持原常量精度。
+constexpr double kBattleDirectionFrameScale = 2.0 / 45.0;
+
 // 原立即数坐标表；顺序发射器Y的两项44/-44不同于随机上升粒子的33/-33。
 constexpr std::array<std::int32_t, 16> kBattleRadialXOffsets {
     48, 44, 34, 18, 0, -18, -34, -44, -48, -44, -34, -18, 0, 18, 34, 44,
@@ -1300,7 +1303,7 @@ YobiAction* NewBattleBlastWave_419180(
     action->field270 = 0;
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);
     action->imageNo = static_cast<std::int32_t>((action->angle50 + 11.25)
-        * 0.044444444444444446);
+        * kBattleDirectionFrameScale);
     if (action->imageNo < 0) {
         action->imageNo += 16;
     }
@@ -1373,7 +1376,7 @@ YobiAction* NewBattleRangeHit_419390(
     MoveBattleByAngle_405EA0(action);
     const double adjustedAngle = action->angle50 + 11.25;
     action->value54 = 10.0F;
-    action->imageNo = static_cast<std::int32_t>(adjustedAngle * 0.044444444444444446);
+    action->imageNo = static_cast<std::int32_t>(adjustedAngle * kBattleDirectionFrameScale);
     if (action->imageNo < 0) {
         action->imageNo += 16;
     }

@@ -88,17 +88,6 @@ std::int32_t DefaultNetworkCallback(
 
 // 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
-    // 原 0x593FB0、0x593FB4、0x593FB8、0x593FBC、
-    // 0x593FA0、0x593FA4、0x593FA8、0x593FAC，均为 W32。
-    std::uint32_t protocolWord0; // 原全局：0x00593FB0。
-    std::uint32_t protocolWord1; // 原全局：0x00593FB4。
-    std::uint32_t protocolWord2; // 原全局：0x00593FB8。
-    std::uint32_t protocolWord3; // 原全局：0x00593FBC。
-    std::uint32_t protocolWord4; // 原全局：0x00593FA0。
-    std::uint32_t protocolWord5; // 原全局：0x00593FA4。
-    std::uint32_t protocolWord6; // 原全局：0x00593FA8。
-    std::uint32_t protocolWord7; // 原全局：0x00593FAC。
-
     // 原 [0x593FC4,0x593FD0) 连续协议短状态。
     std::array<std::uint8_t, 12> protocolState593FC4; // 原全局：0x00593FC4。
     std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
@@ -228,7 +217,7 @@ std::int32_t ReceivePlaintextProtocolLine(
 
 namespace detail {
 
-// 原[403C50,403E4D)旧W16帧取包，仅保留历史对照；当前明文收发不调用此函数。
+// 原[403C50,403E4D)旧W16帧取包，仅保留历史对照；当前明文收发不调用，NKS01已移除接收密钥状态。
 std::int32_t Sub_403C50(
     void* const destination,
     const std::int32_t capacity)
@@ -275,45 +264,14 @@ std::int32_t Sub_403C50(
     static_cast<void>(ConsumeReceiveQueue_508230(
         static_cast<std::int32_t>(frameLength)));
 
-    if (plaintextLength <= 16U) {
-        // 非拥有槽指针仅表达原连续W32前缀，不跨单一C++成员复制。
-        const std::array<std::uint32_t*, 4> words {
-            &gNetworkRuntimeState.protocolWord0,
-            &gNetworkRuntimeState.protocolWord1,
-            &gNetworkRuntimeState.protocolWord2,
-            &gNetworkRuntimeState.protocolWord3
-        };
-        const std::uint32_t wholeWords = plaintextLength / 4U;
-        for (std::uint32_t index = 0; index < wholeWords; ++index) {
-            std::memcpy(words[index], plaintext.data() + index * 4U, 4);
-        }
-        const std::int32_t remainingLength =
-            gNetworkRuntimeState.receiveLengthD69790;
-        for (std::uint32_t index = wholeWords * 4U;
-             index < plaintextLength; ++index) {
-            reinterpret_cast<std::uint8_t*>(words[index / 4U])[index % 4U] =
-                plaintext[index];
-        }
-        receive[remainingLength] = 0;
-    } else {
-        // 403DB5..403DD8：原大包四槽与队列尾NUL的实际写序。
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord2, plaintext.data() + 8, 4);
-        const std::int32_t remainingLength =
-            gNetworkRuntimeState.receiveLengthD69790;
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord0, plaintext.data(), 4);
-        receive[remainingLength] = 0;
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord1, plaintext.data() + 4, 4);
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord3, plaintext.data() + 12, 4);
-    }
+    const std::int32_t remainingLength =
+        gNetworkRuntimeState.receiveLengthD69790;
+    receive[remainingLength] = 0;
     return 0;
 }
 
 // 原[403E50,40405A)：原首标记/状态尾/帧与发送窗口；socket未读取。
-// 历史帧合同见doc/cg2d_network_plaintext_frame_spec.md；当前明文收发不调用此函数。
+// 历史帧合同见doc/cg2d_network_plaintext_frame_spec.md；当前明文收发不调用，NKS01已移除发送密钥状态。
 std::int32_t Sub_403E50(
     const std::uintptr_t,
     const void* const data,
@@ -399,35 +357,6 @@ std::int32_t Sub_403E50(
         frame.data() + frameWordBytes,
         frameLength & 3U);
 
-    // 403FE3/403FEA独立后读，状态长度不以W16帧头或旧尾快照代替。
-    const std::uint32_t stateLength =
-        static_cast<std::uint32_t>(ReadProtocolStateW16(10)) + size + 1U;
-    if (stateLength <= 16U) {
-        const std::array<std::uint32_t*, 4> words {
-            &gNetworkRuntimeState.protocolWord4,
-            &gNetworkRuntimeState.protocolWord5,
-            &gNetworkRuntimeState.protocolWord6,
-            &gNetworkRuntimeState.protocolWord7
-        };
-        const std::uint32_t wholeWords = stateLength / 4U;
-        for (std::uint32_t index = 0; index < wholeWords; ++index) {
-            std::memcpy(words[index], plaintext.data() + index * 4U, 4);
-        }
-        for (std::uint32_t index = wholeWords * 4U;
-             index < stateLength; ++index) {
-            reinterpret_cast<std::uint8_t*>(words[index / 4U])[index % 4U] =
-                plaintext[index];
-        }
-    } else {
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord4, plaintext.data(), 4);
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord5, plaintext.data() + 4, 4);
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord6, plaintext.data() + 8, 4);
-        std::memcpy(
-            &gNetworkRuntimeState.protocolWord7, plaintext.data() + 12, 4);
-    }
     const std::uint16_t currentTailLength = ReadProtocolStateW16(8);
     WriteProtocolStateW16(10, currentTailLength);
     return 0;
@@ -1123,31 +1052,7 @@ std::int32_t BuildProtocolCommand_517510(
 // 原函数：0x004037D0。
 std::int32_t ResetProtocolState_4037D0()
 {
-    if (gNetworkRuntimeState.protocolWord0 != 0x1B768BA7U) {
-        gNetworkRuntimeState.protocolWord0 = 0x1B768BA7U;
-    }
-    if (gNetworkRuntimeState.protocolWord1 != 0x25957EF9U) {
-        gNetworkRuntimeState.protocolWord1 = 0x25957EF9U;
-    }
-    if (gNetworkRuntimeState.protocolWord2 != 0x0FB1BFB8U) {
-        gNetworkRuntimeState.protocolWord2 = 0x0FB1BFB8U;
-    }
-    if (gNetworkRuntimeState.protocolWord3 != 0x3039EA46U) {
-        gNetworkRuntimeState.protocolWord3 = 0x3039EA46U;
-    }
-    if (gNetworkRuntimeState.protocolWord4 != 0x135D42BAU) {
-        gNetworkRuntimeState.protocolWord4 = 0x135D42BAU;
-    }
-    if (gNetworkRuntimeState.protocolWord5 != 0x3947BF98U) {
-        gNetworkRuntimeState.protocolWord5 = 0x3947BF98U;
-    }
-    if (gNetworkRuntimeState.protocolWord6 != 0x0F1A0485U) {
-        gNetworkRuntimeState.protocolWord6 = 0x0F1A0485U;
-    }
-    if (gNetworkRuntimeState.protocolWord7 != 0x259F4C5EU) {
-        gNetworkRuntimeState.protocolWord7 = 0x259F4C5EU;
-    }
-
+    // NKS01：仅保留协议短状态重置，旧收发密钥已移除。
     WriteProtocolStateW16(8, 0);
     WriteProtocolStateW16(10, 0);
     WriteProtocolStateW16(0, 0);

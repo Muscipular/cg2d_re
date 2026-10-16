@@ -12,9 +12,12 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
+#include <array>
 #include <bit>
 #include <cstdint>
 #include <cstring> // 原CRT接口：0x0053BFC0；原参数／返回合同由直接调用承接。
@@ -49,6 +52,40 @@ SystemTimeWords gLastSystemTime {};
 std::uint32_t gPeriodicReportSeconds = 0; // 原全局：0x0073ED18。
 
 namespace {
+
+// CTM01/A11：参考UIExt::DrawFps，按实际提交帧统计三秒桶，沿现有文本队列绘制。
+void UpdateFrameDiagnostics()
+{
+    static std::uint64_t previousTick = ReadTickCount64();
+    const std::uint64_t now = ReadTickCount64();
+    const std::uint64_t interval = now - previousTick;
+    static float fps = 0;
+    static std::size_t frameIndex = 0;
+    static std::array<std::uint32_t, 3> frameCounts {};
+    ++frameCounts[frameIndex];
+    if (previousTick / 1000u != now / 1000u) {
+        fps = static_cast<float>(frameCounts[0] + frameCounts[1] + frameCounts[2])
+            / static_cast<float>(frameCounts.size());
+        frameIndex = (frameIndex + 1) % frameCounts.size();
+        frameCounts[frameIndex] = 0;
+        std::wstring title(gWindowClassName);
+        const char* const playerName = world::detail::GetPlayerDisplayText(1);
+        if (playerName[0] != '\0') {
+            title += L" - [";
+            title += text::FromGbkWide(playerName);
+            title += L"]";
+        }
+        static_cast<void>(::SetWindowTextW(reinterpret_cast<HWND>(gLegacyWindow), title.c_str()));
+    }
+    previousTick = now;
+    if (IsClientDiagnosticsEnabled()) {
+        std::wstring message;
+        text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);
+        static_cast<void>(render::DrawText2_456670(200, 3, 3, 1, 5, message, 0));
+        text::FormatTo(message, L"M: {} S: {}", world::gCurrentSceneType, world::gCurrentSceneState);
+        static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
+    }
+}
 
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
 BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
@@ -249,6 +286,7 @@ int MainLoop()
         } else if (clearMode == 3) {
             Sub_423640();
         }
+        UpdateFrameDiagnostics();
         render::DrawAllQueued_520DD0();
         world::CopyWorldProjectionState_468FF0();
         render::Flip_44C560();

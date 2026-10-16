@@ -16,6 +16,44 @@
 
 namespace {
 
+bool gClientDiagnosticsEnabled = false; // CTM01/A11：仅WinMain寿命内启用。
+
+// 借用已连接的控制台；只释放本次AllocConsole成功创建的实例。
+class ClientDiagnosticsConsole final {
+public:
+    explicit ClientDiagnosticsConsole(const char* const commandLine) noexcept
+    {
+        gClientDiagnosticsEnabled = std::strstr(commandLine, "--debug") != nullptr
+            || std::strstr(::GetCommandLineA(), "--debug") != nullptr;
+#ifdef _DEBUG
+        gClientDiagnosticsEnabled = true;
+#endif
+        if (!gClientDiagnosticsEnabled) {
+            return;
+        }
+        owned_ = ::AllocConsole() != FALSE;
+        if (!owned_ && ::GetConsoleWindow() == nullptr) {
+            return;
+        }
+        std::FILE* stream = nullptr;
+        static_cast<void>(::freopen_s(&stream, "CONOUT$", "w", stdout));
+        static_cast<void>(::freopen_s(&stream, "CONOUT$", "w", stderr));
+    }
+
+    ~ClientDiagnosticsConsole()
+    {
+        if (owned_) {
+            static_cast<void>(std::fflush(stdout));
+            static_cast<void>(std::fflush(stderr));
+            static_cast<void>(::FreeConsole());
+        }
+        gClientDiagnosticsEnabled = false;
+    }
+
+private:
+    bool owned_ = false;
+};
+
 // 客户端活动期申请 1ms 定时器精度；仅释放本次成功获得的请求。
 class ClientTimerResolution final {
 public:
@@ -254,6 +292,11 @@ private:
 
 namespace cg::platform {
 
+bool IsClientDiagnosticsEnabled() noexcept
+{
+    return gClientDiagnosticsEnabled;
+}
+
 WNDCLASSW gWindowClass {}; // 原全局：0x009A6ED0。
 
 } // namespace cg::platform
@@ -340,6 +383,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     CreateSaveDirectories();
     cg::login::detail::InitializeSavedState_533300();
     ParseCommandOptions();
+    const ClientDiagnosticsConsole diagnosticsConsole(gCommandLine);
     if (cg::resource::BuildResourcePaths() != 0) {
         return 0;
     }

@@ -1,5 +1,6 @@
 #include "cg/render/SurfaceState.hpp"
 
+#include "cg/platform/MainLoop.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/render/RendererResources.hpp"
 

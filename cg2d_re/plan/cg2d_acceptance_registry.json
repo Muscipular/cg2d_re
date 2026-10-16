@@ -6,7 +6,12 @@
     "scope": "A07、A11业务迁移及本地time64／tick64升级，不引入hook",
     "clipboard_state": "implemented_and_wired_static_only",
     "time64_state": "implemented_and_wired_static_only",
-    "diagnostics_state": "in_progress",
+    "diagnostics_state": "implemented_and_wired_static_only",
+    "diagnostics_enabled_by": ["Debug构建", "--debug"],
+    "fps_provider": "MainLoop实际提交帧，三个逐秒桶平均，64位帧间隔",
+    "title_provider": "每秒SetWindowTextW，现有基础标题与GBK玩家名",
+    "minidump_provider": "复用ClientEntry既有异常／Debug断言转储，正文与注册／释放保持",
+    "console_ownership": "仅FreeConsole本次AllocConsole成功创建的实例",
     "tick_provider": "WinMain基线／GetTickCount64启动相对毫秒，完整64位本地存储／差值",
     "calendar_provider": "MSVC __time64_t / _time64 / _localtime64 / _fstat64",
     "external_time_formats": "原协议／存档W32格式保持，随机种子与非计时返回显式降宽",
@@ -393,7 +398,8 @@
         "MC01-C3旧退出/信号/消息与钩子/console/filter层退休；三实际终止MSVC入口与四数组正文保真，删纯CRT回调/唯一登记，不改任何真实业务登记/资源清理或顺序。_Exit保255并不输出旧R600x诊断，库内差异获批；旧multibyte前置已由C5退休及全部业务/owner/SDK/启动退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
-        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持",
+        "CTM01/A11已接Debug／--debug控制台、主循环FPS／帧间隔／场景两行及每秒标题，复用原异常／断言转储；静态限定差异已核，真实显示／控制台／转储及完整退出运行未验，门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2137,7 +2143,8 @@
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
         "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
         "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
-        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持",
+        "CTM01/A11已接Debug／--debug控制台、主循环FPS／帧间隔／场景两行及每秒标题，复用原异常／断言转储；静态限定差异已核，真实显示／控制台／转储及完整退出运行未验，门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3554,7 +3561,8 @@
         "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
         "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
         "BTJ01既有1073/Sub_442F70仅原聊天窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父元数据1220条及唯一4417E0@441D9B保，非完整root复验、不代其余1086条。YobiRuntime.cpp一原业务体六唯一片段：过期旧text地址先取再清本地flags且复用同地址NULL/free；未过期原气泡/flags短路才取drawableText并复用同谓词指针测首行，fullS32 font当场读；底部metricFont现场样本复用给第二测宽，第二text新取+41；两绘制依原text→真实低W8 color/font→真实低W16 actionX取样，第二Y先算再X/第一X先取再Y，负width/2向零及最终真实S16保持；首Draw后九宫格X另现场读全W32，不误缩为W16。原unsigned deadline<=tick、零length仍覆盖stateIndex别名/非零含负数绘制、首测宽→图高→现场Y→font指标/两行maxwidth/第二Draw后重新font指标扣Y/四callee次序、九宫格原图/大小/颜色/参数、fallback原Y→X/后续名称及所有其它正文保。1073十原名称格式点/生产消费与AAS01全部字段和两LOOP/MAP成员/原adapted整处置保后追加；无新F/语义/处置/R7/排除，TEXT27→28及两局部I-S。字段owner/布局不变、不扩普通S32或造异常/保护/钳制/拒绝/补零/限长/helper；完整父/callee/全部正常文本分配绘制过期寿命、SDK-ABI/画面/明文互通/运行未验",
-        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持",
+        "CTM01/A11已接Debug／--debug控制台、主循环FPS／帧间隔／场景两行及每秒标题，复用原异常／断言转储；静态限定差异已核，真实显示／控制台／转储及完整退出运行未验，门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4705,7 +4713,8 @@
         "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
         "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
         "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。",
-        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持",
+        "CTM01/A11已接Debug／--debug控制台、主循环FPS／帧间隔／场景两行及每秒标题，复用原异常／断言转储；静态限定差异已核，真实显示／控制台／转储及完整退出运行未验，门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,

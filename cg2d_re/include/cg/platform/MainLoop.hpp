@@ -41,6 +41,8 @@ extern std::uint32_t gPeriodicReportSeconds; // 原 0x73ED18，阈值比较按 s
 
 // CTM01：Win32 GetTickCount64减启动基线，完整64位毫秒；所有业务共用该时间域。
 std::uint64_t ReadTickCount64() noexcept;
+// CTM01/A11：WinMain按Debug／--debug设置，主循环据此提交诊断文本。
+bool IsClientDiagnosticsEnabled() noexcept;
 // 原函数：0x00457010。
 void RequestRender_457010() noexcept; // 原457010：只将共享强制呈现标志写1。
 

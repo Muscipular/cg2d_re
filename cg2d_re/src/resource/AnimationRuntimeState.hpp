@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cg/platform/LegacyStdio.hpp"
 
+#include <cstdio>
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -87,8 +87,8 @@ extern std::array<std::uint32_t, 9> gFileCloseFlags9A29D0; // 原全局：0x009A
 extern std::array<MainSlot, 256> gMainSlots9A29F8; // 原全局：0x009A29F8。
 extern MainSlot gLeftSentinel9A3A00; // 原全局：0x009A3A00。
 extern MainSlot gRightSentinel9A3A10; // 原全局：0x009A3A10。
-extern std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
-extern std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988; // 原全局：0x009A2988。
+extern std::array<std::FILE*, 9> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
+extern std::array<std::FILE*, 9> gCoordinateFiles9A2988; // 原全局：0x009A2988。
 extern std::array<CacheSlot, 256> gCacheSlots9A3A48; // 原全局：0x009A3A48。
 extern std::uint32_t gActiveCount9A4A68; // 原全局：0x009A4A68。
 extern std::uint32_t gActiveBytes9A4A6C; // 原全局：0x009A4A6C。
@@ -116,6 +116,6 @@ std::int32_t CoordInit_45C150(std::int32_t index);
 // 原 45BF60：先发布数据文件，再读 Info 版本/索引；失败不回收已打开文件。
 // 由 CoordLoadInit 向同一 gCoordinateFiles9A2988 槽传址，路径顺序为数据、Info。
 std::int32_t CoordLoad_45BF60(
-    platform::LegacyFile** outputFile, const char* dataPath, const char* infoPath);
+    std::FILE** outputFile, const char* dataPath, const char* infoPath);
 
 } // namespace cg::resource::animation

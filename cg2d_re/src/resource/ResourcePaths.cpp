@@ -1,6 +1,5 @@
 #include "cg/resource/ResourcePaths.hpp"
 
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
@@ -25,7 +24,7 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
 {
     constexpr std::int32_t kSlots[] {0, 1, 6};
     for (std::int32_t index = 0; index < 3; ++index) {
-        platform::LegacyFile* const file = std::fopen(paths[kSlots[index]], "rb");
+        std::FILE* const file = std::fopen(paths[kSlots[index]], "rb");
         if (file == nullptr) {
             if (index == 0) {
                 return false;
@@ -59,7 +58,7 @@ std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    platform::LegacyFile* const file = std::fopen(fileName, "rb");
+    std::FILE* const file = std::fopen(fileName, "rb");
     if (file == nullptr) {
         return 0;
     }
@@ -92,7 +91,7 @@ std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    platform::LegacyFile* const file = std::fopen(fileName, "wb");
+    std::FILE* const file = std::fopen(fileName, "wb");
     if (file == nullptr) {
         return 0;
     }

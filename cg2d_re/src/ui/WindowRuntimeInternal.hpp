@@ -10,7 +10,6 @@
 #include "../scene/login/LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/StartupNative.hpp" // ERROR_INSUFFICIENT_BUFFER的Win32声明。
-#include "../platform/LegacyStdio.hpp"
 #include "../platform/imeImpl.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
@@ -211,7 +210,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t timeCB1DF0; // 原全局：0x00CB1DF0。
     std::int32_t valueD67BB0; // 原全局：0x00D67BB0。
     std::int32_t logViewerMaximumD67BB4; // 原全局：0x00D67BB4。 原计数上限，含EOF空读取，不减可见行数。
-    platform::LegacyFile* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。
+    std::FILE* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。
     std::int32_t logViewerErrorD67BBC; // 原全局：0x00D67BBC。
     std::int32_t dayD67BC0; // 原全局：0x00D67BC0。
 };

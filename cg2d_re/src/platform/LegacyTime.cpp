@@ -1,5 +1,6 @@
 #include "cg/platform/LegacyTime.hpp"
 
+#include <cstdio>
 #include <ctime>
 #include <sys/stat.h>
 
@@ -58,7 +59,7 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue)
 }
 
 std::int32_t ReadLegacyFileCreationTime32(
-    LegacyFile* const file, std::int32_t* const output)
+    std::FILE* const file, std::int32_t* const output)
 {
     struct _stat32 status;
     const std::int32_t result = ::_fstat32(::_fileno(file), &status);

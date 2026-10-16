@@ -12,7 +12,6 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include "../input/InputKeyDispatchDependencies.hpp"
-#include "../platform/LegacyStdio.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "WorldUpdateDependencies.hpp"
 
@@ -37,7 +36,7 @@ namespace cg::world::detail {
 Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
 volatile std::int32_t gWriteIndex626C08 = 0; // 原全局：0x00626C08。
 char gLogPath62699C[260] {}; // 原全局：0x0062699C。
-platform::LegacyFile* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
+std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
 volatile std::int32_t gCountC9A944 = 0; // 原全局：0x00C9A944。
 volatile std::uint32_t gValue626C10 = 0; // 原全局：0x00626C10。
 input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
@@ -75,7 +74,7 @@ std::int32_t Sub_44A090()
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const readStream = std::fopen(path, "rb");
+    std::FILE* const readStream = std::fopen(path, "rb");
     if (readStream != nullptr) {
         const std::uint32_t count =
             static_cast<std::uint32_t>(std::fread(&gChatHistory621FF8, 0x4844, 1, readStream));
@@ -83,7 +82,7 @@ std::int32_t Sub_44A090()
         return count >= 1 ? 1 : 0;
     }
 
-    platform::LegacyFile* const writeStream = std::fopen(path, "wb");
+    std::FILE* const writeStream = std::fopen(path, "wb");
     if (writeStream != nullptr) {
         static_cast<std::uint32_t>(std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream));
         std::fclose(writeStream);
@@ -99,7 +98,7 @@ std::int32_t Sub_449FA0(const std::int32_t index)
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const stream = std::fopen(path, "r+b");
+    std::FILE* const stream = std::fopen(path, "r+b");
     if (stream == nullptr) {
         return 0;
     }
@@ -132,7 +131,7 @@ void __cdecl Sub_449DA0()
     gValue626BFC = 0;
 
     std::int32_t timeValue = 0;
-    platform::LegacyFile* const existingStream = gLogStream626C1C;
+    std::FILE* const existingStream = gLogStream626C1C;
     if (existingStream != nullptr) {
         return;
     }
@@ -162,12 +161,12 @@ void __cdecl Sub_449DA0()
         kLogDirectory_554658,
         gLogFileName554648);
 
-    platform::LegacyFile* const readStream =
+    std::FILE* const readStream =
         std::fopen(gLogPath62699C, "r" /* 原常量参考：0x00554908。 */);
     gLogStream626C1C = readStream;
-    platform::LegacyFile* gate;
+    std::FILE* gate;
     if (readStream == nullptr) {
-        platform::LegacyFile* const appendStream =
+        std::FILE* const appendStream =
             std::fopen(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
         std::fprintf(appendStream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
@@ -184,7 +183,7 @@ void __cdecl Sub_449DA0()
         gate = gLogStream626C1C;
     } else {
         std::fclose(readStream);
-        platform::LegacyFile* const appendStream =
+        std::FILE* const appendStream =
             std::fopen(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
         gate = appendStream;
@@ -257,7 +256,7 @@ void Sub_44B050(
         std::memcpy(destination + offset, &copied, sizeof(copied));
     }
 
-    const platform::LegacyFile* const gate = gLogStream626C1C;
+    const std::FILE* const gate = gLogStream626C1C;
     for (std::size_t offset = wordCount * sizeof(std::uint32_t);
          offset < length; ++offset) {
         destination[offset] = text[offset];
@@ -283,7 +282,7 @@ void Sub_44B050(
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, gRecords5FB7F8[index].text);
         std::fclose(gLogStream626C1C);
-        platform::LegacyFile* const newStream = std::fopen(gLogPath62699C, "a");
+        std::FILE* const newStream = std::fopen(gLogPath62699C, "a");
         index = gWriteIndex626C08;
         gLogStream626C1C = newStream;
     }

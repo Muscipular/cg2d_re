@@ -3,7 +3,6 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
-#include "../platform/LegacyStdio.hpp"
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
@@ -589,7 +588,7 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
         observer(0U, buffer);
     }
     if (gNetworkRuntimeState.receiveLogPathDA3F9C.c_str()[0] != '\0') {
-        platform::LegacyFile* const file = std::fopen(
+        std::FILE* const file = std::fopen(
             gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), "a+");
         if (file != nullptr) {
             static_cast<void>(std::fprintf(file, "%s\n", buffer));
@@ -1710,7 +1709,7 @@ std::int32_t SendProtocolBuffer_517480(
 {
     // UTL02：5171F0已将各文本token编码为GBK；日志、观察者和回调共用原协议字节。
     if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
-        platform::LegacyFile* const file = std::fopen(
+        std::FILE* const file = std::fopen(
             gNetworkRuntimeState.sendLogPathDA3B58,
             "a+");
         if (file != nullptr) {

@@ -1,7 +1,6 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
-#include "LegacyStdio.hpp"
 
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -283,7 +282,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         std::memset(fileName, 0, sizeof(fileName));
         std::int32_t total = 0;
         std::sprintf(fileName, "%s", ".\\data\\argument.ini");
-        LegacyFile* file = std::fopen(fileName, "r");
+        std::FILE* file = std::fopen(fileName, "r");
         if (file != nullptr) {
             do {
                 std::memset(line, 0, 1025);

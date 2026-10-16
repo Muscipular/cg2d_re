@@ -5,7 +5,6 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginInputDependencies.hpp"
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -1263,7 +1262,7 @@ std::int32_t Sub_5348A0()
     char path[1024];
     std::sprintf(
         path, "bin\\%s", "category.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "wb+");
     if (stream == nullptr) {
         return 0;
@@ -1280,7 +1279,7 @@ std::int32_t Sub_534910()
     char path[1024];
     std::sprintf(
         path, "bin\\%s", "category.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "rb+");
     if (stream == nullptr) {
         return 0;
@@ -1327,7 +1326,7 @@ std::int32_t Sub_534770()
     char path[1024];
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "wb+");
     if (stream == nullptr) {
         return 0;
@@ -1344,7 +1343,7 @@ std::int32_t Sub_5347F0()
     char path[1024];
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "rb+");
     if (stream == nullptr) {
         return 0;
@@ -1365,7 +1364,7 @@ std::int32_t Sub_518CB0()
     char path[128];
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    platform::LegacyFile* stream =
+    std::FILE* stream =
         std::fopen(path, "rb");
     if (stream == nullptr) {
         return Sub_519300();
@@ -1392,7 +1391,7 @@ std::int32_t Sub_519300()
     char path[128];
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "wb");
     if (stream == nullptr) {
         return 0;
@@ -1409,7 +1408,7 @@ std::int32_t Sub_519550()
     char path[128];
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "wb");
     if (stream == nullptr) {
         return 0;

@@ -2,7 +2,6 @@
 #include "cg/resource/AnimationRuntime.hpp"
 
 #include "AnimationRuntimeState.hpp"
-#include "../platform/LegacyStdio.hpp"
 
 #include <cstdlib>
 #include <cstring>
@@ -147,8 +146,8 @@ std::int32_t Sub_45B740()
 // ACL01：原45BEF0完整15条；九FILE一次取样/同值关闭后清槽，再scan主表，返回真实末值。
 std::int32_t AnimeUnload_45BEF0()
 {
-    for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
-        platform::LegacyFile* const current = file;
+    for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
+        std::FILE* const current = file;
         if (current != nullptr) {
             std::fclose(current);
             file = nullptr;

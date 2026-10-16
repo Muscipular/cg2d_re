@@ -2,7 +2,6 @@
 #include "cg/text/Encoding.hpp"
 #include <system_error>
 #include "cg/input/Input.hpp"
-#include "../platform/LegacyStdio.hpp"
 
 #include <bit>
 #include <cstring>
@@ -49,7 +48,7 @@ std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
         return 0;
     }
 
-    platform::LegacyFile* const file = std::fopen(gPath.data(), "w");
+    std::FILE* const file = std::fopen(gPath.data(), "w");
     for (const Record& record : gRecords) {
         if (record[0] == 0) {
             break;
@@ -81,7 +80,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
     std::memset(gRecords.data(), 0, sizeof(gRecords));
     std::sprintf(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
 
-    platform::LegacyFile* const file = std::fopen(gPath.data(), "rb+");
+    std::FILE* const file = std::fopen(gPath.data(), "rb+");
     if (file != nullptr) {
         std::rewind(file);
         if (std::feof(file) == 0) {

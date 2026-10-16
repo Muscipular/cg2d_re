@@ -1,7 +1,6 @@
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
 #include "MainLoopDependencies.hpp"
-#include "LegacyStdio.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -483,7 +482,7 @@ int ReleaseProtection_4042B0()
 // 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0()
 {
-    platform::LegacyFile* const file = std::fopen("systemlog.txt", "w");
+    std::FILE* const file = std::fopen("systemlog.txt", "w");
     if (file == nullptr) {
         return 0;
     }

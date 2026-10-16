@@ -38,7 +38,6 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "../platform/LegacyStdio.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "WorldUpdateDependencies.hpp"
 
@@ -653,7 +652,7 @@ void Sub_5186A0()
     char path[128];
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "wb");
     if (stream == nullptr) {
         std::free(encoded);
@@ -687,7 +686,7 @@ void Sub_518780()
     char path[128];
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen(path, "rb");
     if (stream == nullptr) {
         Sub_5186A0();
@@ -4085,7 +4084,7 @@ std::int32_t __cdecl Sub_468570(
 
     char path[256];
     Sub_468520(path, a2, a1, a3);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         ::_mkdir(kMapPathPrefix);
@@ -4136,7 +4135,7 @@ std::int32_t __cdecl Sub_4687B0(
     const std::int32_t height,
     const std::int32_t width)
 {
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, "wb");
     if (file == nullptr) {
         return -1;
@@ -4171,7 +4170,7 @@ std::int32_t __cdecl Sub_4688A0(
 {
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, "rb+");
     if (file == nullptr) {
         return -1;
@@ -4437,7 +4436,7 @@ std::int32_t __cdecl Sub_468C40(
 {
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         ::PostQuitMessage(0);
@@ -4539,7 +4538,7 @@ std::int32_t Sub_46C840(
     std::memset(gAutoMapColorWindow9CF6EC, 0, sizeof(gAutoMapColorWindow9CF6EC));
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         return 0;
@@ -4746,7 +4745,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
     char path[256];
     std::sprintf(
         path, "bin\\PUK2\\cutdat\\%d.cut" /* 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。 */ /* 原常量参考：0x0055DE50。 */, selected);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(L"cut地圖檔開啟失敗。" /* 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。 */ /* 原常量参考：0x0055DE3C。 */, kCutCaption5536B8, 0x10);
@@ -4783,7 +4782,7 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
     char path[256];
     std::sprintf(
         path, "bin\\PUK2\\cutdat\\%d.aut" /* 原 0x55DE7C/0x55DE68；.aut 相对路径与打开失败的第一正文。 */ /* 原常量参考：0x0055DE7C。 */, selected);
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(L"aut地圖檔開啟失敗。" /* 原常量参考：0x0055DE68。 */, kCutCaption5536B8, 0x10);

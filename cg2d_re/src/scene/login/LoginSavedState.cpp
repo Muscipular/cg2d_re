@@ -3,7 +3,6 @@
 #include "../character_select/CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
-#include "../../platform/LegacyStdio.hpp"
 #include "../../ui/WindowRuntimeState.hpp"
 
 #include "cg/input/Input.hpp"
@@ -252,7 +251,7 @@ namespace {
         gSavedState.paths[physicalSlot].text,
         "save.dat");
 
-    cg::platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, "rb+");
     if (file == nullptr) {
         return 0;
@@ -377,7 +376,7 @@ namespace {
         &encodedBytes,
         0xA20);
 
-    cg::platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(fileName, "wb+");
     if (file == nullptr) {
         return 0;
@@ -505,7 +504,7 @@ namespace {
             "%s\\%s",
             gSavedState.paths[index].text,
             "save.dat");
-        cg::platform::LegacyFile* const file =
+        std::FILE* const file =
             std::fopen(path, "rb+");
         if (file != nullptr) {
             std::fclose(file);
@@ -513,7 +512,7 @@ namespace {
         }
     }
 
-    cg::platform::LegacyFile* const legacyFile =
+    std::FILE* const legacyFile =
         std::fopen("data\\save.dat", "rb+");
     if (legacyFile != nullptr) {
         std::fclose(legacyFile);
@@ -659,7 +658,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
         gSavedState.paths[physicalSlot].text,
         "save.dat");
 
-    cg::platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(path, "wb+");
     std::int32_t result = file != nullptr ? 1 : 0;
     const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
@@ -1263,7 +1262,7 @@ void Sub_533730()
             gSavedState.paths[physicalSlot].text,
             "save.dat");
 
-        cg::platform::LegacyFile* const file =
+        std::FILE* const file =
             std::fopen(path, "wb+");
         if (file == nullptr) {
             return;

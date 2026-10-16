@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
 
+#include <cstdio>
+
 namespace cg::ui {
 namespace detail {
 
@@ -109,7 +111,7 @@ void WindowAdventureLog_InitializeDate()
 // 原函数：0x004CC540。
 static void WindowAdventureLog_Load()
 {
-    platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
+    std::FILE* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
     if (previous != nullptr) {
         static_cast<void>(std::fclose(previous));
     }
@@ -122,7 +124,7 @@ static void WindowAdventureLog_Load()
     char path[256];
     std::sprintf(path, "%s\\%s" /* 原常量参考：0x00553514。 */,
         "Log" /* 原常量参考：0x00554658。 */, world::detail::gLogFileName554648);
-    platform::LegacyFile* current = std::fopen(path, "rt" /* 原常量参考：0x00553510。 */);
+    std::FILE* current = std::fopen(path, "rt" /* 原常量参考：0x00553510。 */);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
@@ -241,7 +243,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
         }
         if ((state & 0x400) != 0) {
-            platform::LegacyFile* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
+            std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
             if (stream != nullptr) {
                 static_cast<void>(std::fclose(stream));
                 // MC01-B：随后重载会处理该槽，已关闭FILE不得再交fclose。

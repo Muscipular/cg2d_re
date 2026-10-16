@@ -2968,6 +2968,12 @@ COR10完成：删除LegacyMouseTracker的CPP／HPP及构建项，移除5处包�
 
 COR11完成：删除3个包装接口，8个CPP中的13处调用直接使用PostMessageW／SetWindowTextW／ShellExecuteA，保留原参数、异步投递和返回使用；两个标题调用直接借用存活wstring的c_str，省去重复副本。ShowWideMessage和窗口唯一存储保持，Shell32系统依赖由core归入实际调用的startup目标。11个源码／构建文件差异核对通过，函数表3680行及状态逐字不变；build.bat Debug配置、编译和客户端链接成功，退出码0。保留既有未初始化变量及旧网络API告警；未运行客户端／测试或测量性能，未计算摘要、未记录JSON台账；提交排除既有SetupIni相关改动和Python缓存。
 
+## 298. 平台工具归位与FILE别名移除（2026-10-16）
+
+已按COR12明确迁移方案：GetMacAddress_534EF0原样迁到platformTool.cpp及配套头，25文件的79处LegacyFile直接改std::FILE，移除两个LegacyStdio.hpp和23处包含，历史CRT提供者移入规格说明。当前工作区仅有既有Python缓存，用户此前MAC命名等修改已提交；本次保留这些正文，编辑后按会话授权用build.bat Debug验证。
+
+COR12完成：MAC工具CPP／HPP迁移并同步唯一登录调用与构建项，函数正文除include路径外逐字保持；79处文件类型直接使用std::FILE并保留所有指针修饰，两个Stdio头及23处包含删除，6处补充cstdio。28个替换文件差异、2个迁移文件、旧路径清理和259条本地包含边检查通过；函数表41处定位更新，3680行身份／名称／状态保持。build.bat Debug配置、编译及客户端链接成功，退出码0；保留既有未初始化变量和旧API告警，未运行客户端／测试／算法样例、未计算摘要、未写JSON台账。精确提交本轮改动，既有Python缓存保留并排除。
+
 ## 299. IME 实现文件合并（2026-10-16）
 
 按用户要求将ImeLifecycle与ImeComposition的四份源／头文件合并为src/platform/imeImpl.cpp和imeImpl.hpp；保留全部函数接口、正文与原地址注释，仅去重包含并同步7处消费者包含和CMake源文件条目。当前函数表仅更新本次迁移定位，身份与实现状态保持；完成后进行静态对照，不构建、测试或运行，保留并排除工作区既有改动。

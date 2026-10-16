@@ -10,7 +10,6 @@
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
-#include "../platform/LegacyStdio.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -458,7 +457,7 @@ void TakeScreenshot_453760()
         const std::int32_t day = calendar->day;
         const std::int32_t year = calendar->yearMinus1900;
         std::sprintf(path, "screenshot\\CG%02d%02d%02d_%03d.bmp" /* 原常量参考：0x00556714。 */, year % 100, month + 1, day, sequence);
-        platform::LegacyFile* const probe = std::fopen(path, "r" /* 原常量参考：0x00554908。 */);
+        std::FILE* const probe = std::fopen(path, "r" /* 原常量参考：0x00554908。 */);
         if (probe == nullptr) {
             break;
         }

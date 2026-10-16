@@ -1,4 +1,4 @@
-#include "cg/platform/LegacyNetworkAdapter.hpp"
+#include "cg/platform/platformTool.hpp"
 #include <cstdlib>
 
 #include <winsock2.h>

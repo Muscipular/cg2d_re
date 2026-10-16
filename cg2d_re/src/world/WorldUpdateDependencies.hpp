@@ -8,7 +8,6 @@
 
 #include <string_view>
 
-#include "cg/platform/LegacyStdio.hpp"
 
 #include "MailState.hpp"
 #include "PetTechniqueRecord.hpp"
@@ -125,7 +124,7 @@ static_assert(sizeof(Record5FB7F8) == 0x134);
 extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
 extern volatile std::int32_t gWriteIndex626C08; // 原全局：0x00626C08。
 extern char gLogPath62699C[260]; // 原全局：0x0062699C。
-extern platform::LegacyFile* volatile gLogStream626C1C; // 原全局：0x00626C1C。
+extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
 extern volatile std::int32_t gCountC9A944; // 原全局：0x00C9A944。
 extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
 extern input::InputContext gInputContext626840; // 原全局：0x00626840。

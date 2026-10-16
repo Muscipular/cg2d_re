@@ -1,6 +1,5 @@
 #include "cg/resource/GraphicInfo.hpp"
 
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -28,7 +27,7 @@ namespace {
 // 原 9A2068/83339C；与 ResourcePaths 的 256B 路径槽不同，缓存步长仍是 255B。
 char gGraphicCachedPaths[9][255] {}; // 原全局：0x009A2068。
 char gGraphicInfoCachedPaths[9][255] {}; // 原全局：0x0083339C。
-platform::LegacyFile* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
+std::FILE* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
 std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10。
 
 // 原 9A2960/73F128：去重值集合与首见记录引用，生命周期按两相邻CRT项配对。
@@ -60,13 +59,13 @@ void InitializeGraphicFirstRecords_459850()
 std::int32_t GraphicInit_459960(
     const char* const* graphicPaths, const char* const* graphicInfoPaths)
 {
-    for (platform::LegacyFile*& file : gGraphicFiles) {
+    for (std::FILE*& file : gGraphicFiles) {
         file = nullptr;
     }
 
     // 原 459B5B 的共用错误出口只关闭数据文件，不释放旧 mapNo 索引或主表。
     const auto failAndCloseData = [](const std::int32_t slot) {
-        for (platform::LegacyFile*& file : gGraphicFiles) {
+        for (std::FILE*& file : gGraphicFiles) {
             if (file != nullptr) {
                 std::fclose(file);
                 file = nullptr;

@@ -3,7 +3,6 @@
 #include <string>
 
 #include "AnimationRuntimeState.hpp"
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -20,8 +19,8 @@ std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {}; // 原全局：0x009A29D0
 std::array<MainSlot, 256> gMainSlots9A29F8 {}; // 原全局：0x009A29F8。
 MainSlot gLeftSentinel9A3A00 {}; // 原全局：0x009A3A00。
 MainSlot gRightSentinel9A3A10 {}; // 原全局：0x009A3A10。
-std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20 {}; // 原全局：0x009A3A20。
-std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988 {}; // 原全局：0x009A2988。
+std::array<std::FILE*, 9> gAnimateFiles9A3A20 {}; // 原全局：0x009A3A20。
+std::array<std::FILE*, 9> gCoordinateFiles9A2988 {}; // 原全局：0x009A2988。
 std::array<CacheSlot, 256> gCacheSlots9A3A48 {}; // 原全局：0x009A3A48。
 std::uint32_t gActiveCount9A4A68 = 0; // 原全局：0x009A4A68。
 std::uint32_t gActiveBytes9A4A6C = 0; // 原全局：0x009A4A6C。
@@ -103,7 +102,7 @@ std::int32_t AnimeInit_45BB20(
         if (detail::gCleanupAllocation9A4A54 != nullptr) {
             std::free(detail::gCleanupAllocation9A4A54);
         }
-        for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
+        for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
             if (file != nullptr) {
                 std::fclose(file);
                 file = nullptr;
@@ -113,7 +112,7 @@ std::int32_t AnimeInit_45BB20(
     };
 
     for (std::int32_t slot = 0; slot < 9; ++slot) {
-        platform::LegacyFile* const file = std::fopen(localInfoPaths[slot], "rb");
+        std::FILE* const file = std::fopen(localInfoPaths[slot], "rb");
         if (file == nullptr) {
             if (slot == 0 || slot == 8) {
                 return 2;
@@ -249,7 +248,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     if (slot == nullptr) {
         return 0;
     }
-    platform::LegacyFile*& file = detail::gAnimateFiles9A3A20[fileIndex];
+    std::FILE*& file = detail::gAnimateFiles9A3A20[fileIndex];
     std::fseek(file,
         static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset), 0);
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
@@ -344,7 +343,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
 std::int32_t CoordInit_45C150(const std::int32_t index)
 {
     const auto fileIndex = static_cast<std::uint16_t>(gAnimateRecords9A4A58[index].fileIndex);
-    platform::LegacyFile*& file = detail::gCoordinateFiles9A2988[fileIndex];
+    std::FILE*& file = detail::gCoordinateFiles9A2988[fileIndex];
     if (file == nullptr || gAnimateRecords9A4A58[index].actionList == nullptr
         || gAnimateRecords9A4A58[index].coordinates != nullptr
         || gAnimateRecords9A4A58[index].coordinateCount == 0) {
@@ -400,13 +399,13 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
 
 // 原函数：0x0045BF60。
 std::int32_t CoordLoad_45BF60(
-    platform::LegacyFile** const outputFile, const char* const dataPath, const char* const infoPath)
+    std::FILE** const outputFile, const char* const dataPath, const char* const infoPath)
 {
     *outputFile = std::fopen(dataPath, "rb");
     if (*outputFile == nullptr) {
         return 0;
     }
-    platform::LegacyFile* const infoFile = std::fopen(infoPath, "rb");
+    std::FILE* const infoFile = std::fopen(infoPath, "rb");
     if (infoFile == nullptr) {
         return 0;
     }

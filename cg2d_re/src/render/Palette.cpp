@@ -1,6 +1,5 @@
 #include "cg/render/Palette.hpp"
 
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -211,7 +210,7 @@ int InitPalette32()
         char path[512];
         std::sprintf(
             path, "%s\\%s", resource::gBinPath, gPaletteFiles[0].path);
-        platform::LegacyFile* file =
+        std::FILE* file =
             std::fopen(path, "rb");
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
@@ -272,7 +271,7 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
     char path[256];
     std::sprintf(
         path, "%s\\%s", resource::gBinPath, gPaletteFiles[index].path);
-    platform::LegacyFile* file =
+    std::FILE* file =
         std::fopen(path, "rb");
     if (file == nullptr) {
         platform::ShowWideMessage(L"無法打開色盤檔案。", L"Error", 0x10);
@@ -337,7 +336,7 @@ int UpdatePalette_450BB0()
         char path[512];
         std::sprintf(
             path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
-        platform::LegacyFile* file =
+        std::FILE* file =
             std::fopen(path, "rb");
         if (file == nullptr) {
             return 0; // 失败不更新已加载索引；下一帧继续尝试打开。

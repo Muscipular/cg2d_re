@@ -1,6 +1,5 @@
 #include "cg/resource/GraphicRead.hpp"
 
-#include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicDecode.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -20,7 +19,7 @@
 
 namespace cg::resource {
 
-platform::LegacyFile* gGraphicFiles[9] {}; // 原全局：0x00927EF4。
+std::FILE* gGraphicFiles[9] {}; // 原全局：0x00927EF4。
 std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {}; // 原全局：0x00833CB0。
 std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {}; // 原全局：0x0073F138。
 std::uint8_t* gGraphicDataPtr = nullptr; // 原全局：0x01020EC0。
@@ -195,7 +194,7 @@ void LoadIndependentPaletteIndex_522900()
     }
     std::sprintf(
         fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
-    platform::LegacyFile* const file =
+    std::FILE* const file =
         std::fopen(fileName, "rb");
     if (file == nullptr) {
         return;
@@ -546,14 +545,14 @@ int ReadGraphicDataByIndex(
     const GraphicInfo* const record = &gGraphicInfo[index];
     std::memcpy(&info, record, sizeof(info));
     const std::int16_t fileIndex = record->fileIndex;
-    platform::LegacyFile* const file = gGraphicFiles[fileIndex];
+    std::FILE* const file = gGraphicFiles[fileIndex];
     if (file == nullptr) {
         return 0;
     }
 
     // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
     std::fseek(file, static_cast<std::int32_t>(info.offset), 0);
-    platform::LegacyFile* const readFile = gGraphicFiles[fileIndex];
+    std::FILE* const readFile = gGraphicFiles[fileIndex];
     const std::uint32_t sourceLength = info.length;
     if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, static_cast<std::uint32_t>(sourceLength), 1, readFile)) != 1) {
         return 0;
@@ -629,7 +628,7 @@ void CloseGraphicFiles()
         std::free(gGraphicMapNoIndex);
         gGraphicMapNoIndex = nullptr;
     }
-    for (platform::LegacyFile*& file : gGraphicFiles) {
+    for (std::FILE*& file : gGraphicFiles) {
         if (file != nullptr) {
             std::fclose(file);
             file = nullptr;

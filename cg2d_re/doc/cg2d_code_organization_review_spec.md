@@ -153,3 +153,17 @@ COR10验收：模块及全部调用删除完成；8个保留源码／构建文�
 - 验收：旧三符号无源码残留；核13个调用的参数、返回使用、时序及保留正文，仅标题移除冗余分配；函数表没有这三项独立提供者，3680行及状态保持。执行build.bat Debug验证编译／链接，不新增或运行测试、不运行客户端、不计算摘要、不写JSON台账。现有其他工作区修改完整保留，提交只取本轮差异。
 
 COR11验收：三包装删除，10处PostMessageW、2处SetWindowTextW和1处ShellExecuteA接线完成；对8个消费者反向替换后与原正文逐字一致，ShowWideMessage及窗口存储保持，Shell32依赖已随调用迁移。旧符号无残留，函数表逐字不变；build.bat Debug配置、编译及客户端链接成功，退出码0。仍有既有未初始化变量及旧网络API告警；未运行客户端／测试或测量性能，未计算摘要、未更新JSON台账。
+
+## COR12：平台工具归位与FILE别名移除（2026-10-16）
+
+按用户本次要求迁移GetMacAddress_534EF0、直接使用std::FILE并删除两份LegacyStdio.hpp。此前工作区中的MAC函数命名等修改已由用户提交，本次以当前已提交正文为基线，不改适配器算法。
+
+- 本线尚无platformTool.cpp；将LegacyNetworkAdapter.cpp／hpp迁为src/platform/platformTool.cpp与include/cg/platform/platformTool.hpp，保留cg::platform及GetMacAddress_534EF0名。正文除所属include路径外逐字保持，登录场景同步包含路径，CMake在原位置替换源码路径；不留旧转发头，不附带修改分配／释放或MAC选择行为。
+- 将25个文件中的79处LegacyFile类型直接改为std::FILE，包括数组、指针引用、二级指针、const与volatile声明；保留全部限定、存储、文件模式、读取顺序、错误返回及关闭时机，不改句柄所有权或结构布局。
+- 删除公共LegacyStdio.hpp中的别名和仅作历史说明的注释，删除src/platform/LegacyStdio.hpp转引空壳；移除23处直接包含。使用std::FILE的文件显式包含cstdio，不依赖已删除头的间接包含；宽字符使用所需cwchar已有明确包含。
+- 历史CRT提供者由本节与现有Markdown函数表承载，不为未使用服务新建代码包装。函数表15行旧Stdio定位改到本节，26行适配器提供者同步新路径／实际符号，3680行身份、名称、状态保持；旧进度／SPEC保持历史，不写JSON台账。
+- 验收：旧别名、旧包含及旧构建路径无源码残留；新头／CPP与调用唯一对应；逐字核对MAC正文，规范化类型与include后核文件业务正文，检查文件指针修饰、包含路径、编码和函数表状态。执行build.bat Debug验证配置／编译／链接，不新增／运行测试，不运行客户端或算法样例，不计算摘要。
+
+退休头中的宿主承接映射保留：53B2F1→std::fopen；53B2D1→::_fsopen；53C8B3→std::fgetc；53B226→std::fgets；53BCCD→std::fread；53C680→std::fwrite；53CFDC→std::fputc；53B356→std::fputs；53CB78→std::ftell；53BC41→std::fseek；53B27D→std::rewind；54ACF1→std::setvbuf；54463F→std::ungetc；54B239→::_ftelli64；54B3C0→::_fseeki64；54ACB7→std::fgetpos；54ACD9→std::fsetpos；54AD92→std::fputwc；54AF70→std::fgetwc；54AE87→std::ungetwc；53BB02→std::fflush；53B1D0→std::fclose；53BB99／53BBA2→::_flushall；5446AD→::_fcloseall。无当前CPP消费者的服务仍仅为已批准的MSVC宿主承接，不计新增业务接线或运行验收。
+
+COR12验收：迁移和别名清理完成，6处补齐cstdio，旧别名／路径无源码残留；MAC正文及类型替换外的业务正文静态核对一致，259条直接本地包含边有效。41行函数表提供者更新，3680行身份／名称／状态保持。build.bat Debug配置、编译和客户端链接成功，退出码0；仍有既有未初始化变量及旧API告警。未运行客户端／测试／算法样例，未计算摘要、未更新JSON台账。

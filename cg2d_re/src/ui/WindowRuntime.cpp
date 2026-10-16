@@ -4,6 +4,8 @@
 #include "WindowRuntimeInternal.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
+#include <cstdio>
+
 namespace cg::ui {
 namespace detail {
 
@@ -2736,7 +2738,7 @@ static std::int32_t WindowRuntime_ApplySettings()
 static std::int32_t WindowRuntime_LoadSettings()
 {
     static_cast<void>(WindowRuntime_ResetSettings());
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen("data\\WinSaveDate", "rb+");
     if (stream == nullptr) {
         static_cast<void>(WindowRuntime_ResetSettings());
@@ -2815,7 +2817,7 @@ static std::uint32_t WindowRuntime_CaptureSettings()
 // 原函数：0x004C9130。
 std::int32_t WindowRuntime_SaveSettings()
 {
-    platform::LegacyFile* const stream =
+    std::FILE* const stream =
         std::fopen("data\\WinSaveDate", "wb+");
     if (stream != nullptr) {
         static_cast<void>(WindowRuntime_CaptureSettings());

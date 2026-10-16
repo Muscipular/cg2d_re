@@ -3106,7 +3106,7 @@
 | 3042 | 0x00534AA8 | `DirectSoundCreate` | 有承接 | `src/platform/SdlAudioBackend.cpp:285 — SdlAudioBackend::Open` | 原 DirectSoundCreate 为 import 跳板；当前 Sub_524230 实际调用 SDL 后端 Open；不造旧 SDK 包装，完整上层／运行未验 |
 | 3043 | 0x00534AB0 | `sub_534AB0` | 已排除 | `src/platform/LegacyExternalKeyboard.cpp:171 — Sub_534AB0` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3044 | 0x00534B80 | `DialogFunc` | 已排除 | `src/platform/LegacyExternalKeyboard.cpp:45 — DialogFunc_534B80` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
-| 3045 | 0x00534EF0 | `sub_534EF0` | 有正文 | `src/platform/LegacyNetworkAdapter.cpp:16 — Sub_534EF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 3045 | 0x00534EF0 | `sub_534EF0` | 有正文 | `src/platform/platformTool.cpp:15 — GetMacAddress_534EF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3046 | 0x00535090 | `sub_535090` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 3047 | 0x00535290 | `sub_535290` | 已排除 | `src/platform/LegacyExternalKeyboardObject.cpp:19 — DeleteExternalKeyboardVirtual_535290` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3048 | 0x00535310 | `sub_535310` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
@@ -3208,7 +3208,7 @@
 | 3144 | 0x0053B1D0 | `_fclose` | 有承接 | `src/world/Blacklist.cpp:63 — std::fclose（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3145 | 0x0053B226 | `_fgets` | 有承接 | `src/world/Blacklist.cpp:90 — std::fgets（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3146 | 0x0053B27D | `_rewind` | 有承接 | `src/world/Blacklist.cpp:87 — std::rewind（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3147 | 0x0053B2D1 | `__fsopen` | 有承接 | `include/cg/platform/LegacyStdio.hpp:15 — ::_fsopen（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3147 | 0x0053B2D1 | `__fsopen` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_fsopen（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3148 | 0x0053B2F1 | `_fopen` | 有承接 | `src/world/Blacklist.cpp:53 — std::fopen（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3149 | 0x0053B304 | `_sprintf` | 有承接 | `src/scene/login/CharacterListRequest.cpp:160 — std::sprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有800处调用及原合同保持；完整业务／运行未验 |
 | 3150 | 0x0053B356 | `_fputs` | 有承接 | `src/world/Blacklist.cpp:59 — std::fputs（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3221,7 +3221,7 @@
 | 3157 | 0x0053B498 | `__ftol` | 有承接 | `src/render/Palette.cpp:138 — TruncatedLowByte；src/render/LegacyTextureDrawing.cpp:132 — TruncateTextureCoordinate` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:599 — SeedRandom_53B4BF` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
 | 3159 | 0x0053B4C9 | `rand` | 有正文 | `src/platform/MainLoopSupport.cpp:606 — NextRandom_53B4C9` | LCG01标准线性同余引擎承接，原序列／共享状态保持；完整业务／接线／运行未验 |
-| 3160 | 0x0053B4E7 | `delete` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free` | 当前 IDA 的原 delete 叶调用 free；本线实际通用释放使用 std::free，与已批准 malloc 分配族成组承接；完整 owner／运行未验 |
+| 3160 | 0x0053B4E7 | `delete` | 有承接 | `src/platform/platformTool.cpp:34 — std::free` | 当前 IDA 的原 delete 叶调用 free；本线实际通用释放使用 std::free，与已批准 malloc 分配族成组承接；完整 owner／运行未验 |
 | 3161 | 0x0053B4F2 | `?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3162 | 0x0053B526 | `sub_53B526` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3163 | 0x0053B52D | `sub_53B52D` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3242,8 +3242,8 @@
 | 3178 | 0x0053BA26 | `_time` | 有承接 | `src/platform/LegacyTime.cpp:13 — ReadLegacyTime32_53BA26` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3179 | 0x0053BB02 | `_fflush` | 有承接 | `src/input/Input.cpp:1163 — std::fflush（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3180 | 0x0053BB3D | `__flush` | 有承接 | `src/input/Input.cpp:1163 — std::fflush（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3181 | 0x0053BB99 | `sub_53BB99` | 有承接 | `include/cg/platform/LegacyStdio.hpp:36 — ::_flushall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3182 | 0x0053BBA2 | `_flsall` | 有承接 | `include/cg/platform/LegacyStdio.hpp:36 — ::_flushall（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3181 | 0x0053BB99 | `sub_53BB99` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_flushall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3182 | 0x0053BBA2 | `_flsall` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_flushall（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3183 | 0x0053BC0F | `sub_53BC0F` | 有承接 | `src/input/Input.cpp:1184 — std::fprintf` | DCF01直接MSVC／标准库承接，原包装退休；现有11处调用及原合同保持；完整业务／运行未验 |
 | 3184 | 0x0053BC41 | `_fseek` | 有承接 | `src/resource/GraphicInfo.cpp:99 — std::fseek（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3185 | 0x0053BCCD | `_fread` | 有承接 | `src/resource/GraphicInfo.cpp:154 — std::fread（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3254,14 +3254,14 @@
 | 3190 | 0x0053BEC0 | `_strncpy` | 有承接 | `src/platform/MainLoopSupport.cpp:430 — std::strncpy` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3191 | 0x0053BFC0 | `_strncmp` | 有承接 | `src/world/WorldActorDrawing.cpp:35355 — std::strncmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3192 | 0x0053BFF8 | `cAlloc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原包装已按COR08退休，服务由MSVC／标准库提供；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3193 | 0x0053C0A9 | `free` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3193 | 0x0053C0A9 | `free` | 有承接 | `src/platform/platformTool.cpp:34 — std::free` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3194 | 0x0053C112 | `_qsort` | 有承接 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420；src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3195 | 0x0053C266 | `_shortsort` | 有承接 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420；src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3196 | 0x0053C2B4 | `_swap` | 有承接 | `src/world/MapDrawCache.cpp:173 — SortMapPrimary_46C420；src/world/MapDrawCache.cpp:149 — CompareMapPrimary_46C440` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3197 | 0x0053C2F0 | `_strchr` | 有承接 | `src/LoginCapability4Modal.cpp:90 — std::wcschr` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3198 | 0x0053C3AC | `_malloc` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
-| 3199 | 0x0053C3BE | `__nh_malloc` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3200 | 0x0053C3EA | `sub_53C3EA` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原仅__nh_malloc调用并转旧两池／HeapAlloc；实际std::malloc整体承接分配及已批库内策略，不复刻模式，业务／owner／运行未验 |
+| 3198 | 0x0053C3AC | `_malloc` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
+| 3199 | 0x0053C3BE | `__nh_malloc` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3200 | 0x0053C3EA | `sub_53C3EA` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原仅__nh_malloc调用并转旧两池／HeapAlloc；实际std::malloc整体承接分配及已批库内策略，不复刻模式，业务／owner／运行未验 |
 | 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
@@ -3276,7 +3276,7 @@
 | 3212 | 0x0053C90B | `__exit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3213 | 0x0053C91C | `_doexit` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3214 | 0x0053C9B5 | `__initterm` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3215 | 0x0053C9CF | `??2@YAPAXI@Z` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3215 | 0x0053C9CF | `??2@YAPAXI@Z` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3216 | 0x0053C9DD | `_mbstowcs` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3217 | 0x0053CADC | `_sscanf` | 有承接 | `src/platform/StartupCommon.cpp:16 — std::sscanf` | DCF01直接MSVC／标准库承接，原包装退休；现有21处调用及原合同保持；完整业务／运行未验 |
 | 3218 | 0x0053CB10 | `__aulldiv` | 有承接 | `src/platform/MainLoopSupport.cpp:711 — U64整数除法（COR08直接运算）` | 原包装已按COR08退休，服务由MSVC／标准库提供；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3370,24 +3370,24 @@
 | 3306 | 0x00541620 | `_memcpy_0` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原包装已按COR08退休，服务由MSVC／标准库提供；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3307 | 0x00541955 | `__isctype` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3308 | 0x005419D0 | `_memset` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原包装已按COR08退休，服务由MSVC／标准库提供；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3309 | 0x00541A28 | `__callnewh` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3310 | 0x00541A43 | `sub_541A43` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅堆选择器541A70使用的模块MZ／PE两字节读取；旧选择机制随MSVC启动／堆策略承接，不新增模块头API，非原机制等价／运行通过 |
-| 3311 | 0x00541A70 | `sub_541A70` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅541BB8调用的OS／环境／模块堆选择；当前MSVC启动与实际标准分配库整体承接，不复刻旧环境选择器，业务／启动／运行未验 |
-| 3312 | 0x00541BB8 | `sub_541BB8` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅旧start调用的HeapCreate／池初始化／失败HeapDestroy；当前MSVC宿主启动及实际标准分配族承接，不造旧heap或失败28分支，启动／SDK／运行未验 |
-| 3313 | 0x00541C15 | `___sbh_heap_init` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3314 | 0x00541C5D | `___sbh_find_block` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3315 | 0x00541C88 | `sub_541C88` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原只在旧free／realloc内消费的私有回收／元数据辅助；实际std::free／std::realloc整体承接，不宣原虚存策略等价，完整owner／失败／运行未验 |
-| 3316 | 0x00541FB1 | `___sbh_alloc_block` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3317 | 0x005422BA | `___sbh_alloc_new_region` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3318 | 0x0054236B | `___sbh_alloc_new_group` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3319 | 0x00542466 | `___sbh_resize_block` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3320 | 0x0054275C | `sub_54275C` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原启动及542A54消费的私有区域／页初始化与失败回收；实际标准分配族／宿主启动整体承接，不复刻旧页／块布局，全部owner／运行未验 |
-| 3321 | 0x005428A0 | `sub_5428A0` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅5428F6转入的私有虚存／HeapFree释放链；实际标准释放／扩容库整体承接，不宣当前库保留旧划分，owner／正常寿命／运行未验 |
-| 3322 | 0x005428F6 | `sub_5428F6` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅542A0F转入并调用5428A0的私有decommit／释放辅助；实际std::free／std::realloc整体承接，不模拟旧元数据，owner／失败／运行未验 |
-| 3323 | 0x005429B8 | `sub_5429B8` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅旧free／realloc／msize消费的块定位辅助；相应实际MSVC公共服务整体承接，不推定旧物理容量／对齐或原体等价，owner／运行未验 |
-| 3324 | 0x00542A0F | `sub_542A0F` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅旧free／realloc消费并转5428F6的回收辅助；实际标准服务整体承接，不新建池状态或包装，完整owner／失败／运行未验 |
-| 3325 | 0x00542A54 | `sub_542A54` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原旧calloc／分配／realloc消费并转542C5C／54275C的私有分配链；实际标准分配族整体承接，库内策略沿MC01-C4，完整owner／运行未验 |
-| 3326 | 0x00542C5C | `sub_542C5C` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅542A54内两处调用的私有分配辅助；实际标准分配族整体承接，不伪称同名新叶或旧算法等价，owner／SDK／运行未验 |
+| 3309 | 0x00541A28 | `__callnewh` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3310 | 0x00541A43 | `sub_541A43` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅堆选择器541A70使用的模块MZ／PE两字节读取；旧选择机制随MSVC启动／堆策略承接，不新增模块头API，非原机制等价／运行通过 |
+| 3311 | 0x00541A70 | `sub_541A70` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅541BB8调用的OS／环境／模块堆选择；当前MSVC启动与实际标准分配库整体承接，不复刻旧环境选择器，业务／启动／运行未验 |
+| 3312 | 0x00541BB8 | `sub_541BB8` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；CMakeLists.txt:161 — 宿主Windows CRT进入WinMain` | 原仅旧start调用的HeapCreate／池初始化／失败HeapDestroy；当前MSVC宿主启动及实际标准分配族承接，不造旧heap或失败28分支，启动／SDK／运行未验 |
+| 3313 | 0x00541C15 | `___sbh_heap_init` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3314 | 0x00541C5D | `___sbh_find_block` | 有承接 | `src/platform/platformTool.cpp:34 — std::free` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3315 | 0x00541C88 | `sub_541C88` | 有承接 | `src/platform/platformTool.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原只在旧free／realloc内消费的私有回收／元数据辅助；实际std::free／std::realloc整体承接，不宣原虚存策略等价，完整owner／失败／运行未验 |
+| 3316 | 0x00541FB1 | `___sbh_alloc_block` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3317 | 0x005422BA | `___sbh_alloc_new_region` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3318 | 0x0054236B | `___sbh_alloc_new_group` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3319 | 0x00542466 | `___sbh_resize_block` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3320 | 0x0054275C | `sub_54275C` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原启动及542A54消费的私有区域／页初始化与失败回收；实际标准分配族／宿主启动整体承接，不复刻旧页／块布局，全部owner／运行未验 |
+| 3321 | 0x005428A0 | `sub_5428A0` | 有承接 | `src/platform/platformTool.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅5428F6转入的私有虚存／HeapFree释放链；实际标准释放／扩容库整体承接，不宣当前库保留旧划分，owner／正常寿命／运行未验 |
+| 3322 | 0x005428F6 | `sub_5428F6` | 有承接 | `src/platform/platformTool.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅542A0F转入并调用5428A0的私有decommit／释放辅助；实际std::free／std::realloc整体承接，不模拟旧元数据，owner／失败／运行未验 |
+| 3323 | 0x005429B8 | `sub_5429B8` | 有承接 | `src/platform/platformTool.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅旧free／realloc／msize消费的块定位辅助；相应实际MSVC公共服务整体承接，不推定旧物理容量／对齐或原体等价，owner／运行未验 |
+| 3324 | 0x00542A0F | `sub_542A0F` | 有承接 | `src/platform/platformTool.cpp:34 — std::free；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅旧free／realloc消费并转5428F6的回收辅助；实际标准服务整体承接，不新建池状态或包装，完整owner／失败／运行未验 |
+| 3325 | 0x00542A54 | `sub_542A54` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原旧calloc／分配／realloc消费并转542C5C／54275C的私有分配链；实际标准分配族整体承接，库内策略沿MC01-C4，完整owner／运行未验 |
+| 3326 | 0x00542C5C | `sub_542C5C` | 有承接 | `src/platform/platformTool.cpp:29 — std::malloc；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅542A54内两处调用的私有分配辅助；实际标准分配族整体承接，不伪称同名新叶或旧算法等价，owner／SDK／运行未验 |
 | 3327 | 0x00542D80 | `sub_542D80` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原仅旧realloc消费的私有扩容辅助；实际std::realloc整体承接，不复刻旧元数据／同名接口，完整块内容／失败／owner／运行未验 |
 | 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3431,8 +3431,8 @@
 | 3367 | 0x005443FF | `sub_5443FF` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；CMakeLists.txt:161 — 宿主CRT启动／终止诊断` | 原五处引用来自旧致命错误／消息banner／abort，按错误码输出CRT弹窗或标准错误；当前MSVC库内诊断整体承接，旧R600x／钩子／缓存沿MC01-C3退休 |
 | 3368 | 0x00544552 | `_mbtowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3369 | 0x00544620 | `__allshl` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3370 | 0x0054463F | `_ungetc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:26 — std::ungetc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3371 | 0x005446AD | `__fcloseall` | 有承接 | `include/cg/platform/LegacyStdio.hpp:37 — ::_fcloseall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3370 | 0x0054463F | `_ungetc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::ungetc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3371 | 0x005446AD | `__fcloseall` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_fcloseall（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3372 | 0x00544705 | `__isatty` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3373 | 0x0054472B | `_wctomb` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3374 | 0x005447A0 | `__aullrem` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3592,7 +3592,7 @@
 | 3528 | 0x00549025 | `?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3529 | 0x00549055 | `?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3530 | 0x0054908A | `?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3531 | 0x00549147 | `?_Ungetc@std@@YA_NABDPAU_iobuf@@I@Z` | 有承接 | `include/cg/platform/LegacyStdio.hpp:26 — std::ungetc（标准库提供；无CPP消费者）；src/render/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3531 | 0x00549147 | `?_Ungetc@std@@YA_NABDPAU_iobuf@@I@Z` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::ungetc（标准库提供；无CPP消费者）；src/render/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3532 | 0x00549194 | `unknown_libname_76` | 有承接 | `src/platform/RuntimeInitialization.cpp:156 — RegisterLegacyEmptyExitPair；src/platform/RuntimeInitialization.cpp:324 — LegacyPairedEmptyExitStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3533 | 0x005491BE | `sub_5491BE` | 有承接 | `src/platform/RuntimeInitialization.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3534 | 0x005491D6 | `sub_5491D6` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:87 — std::cin` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3714,7 +3714,7 @@
 | 3650 | 0x0054A9AB | `sub_54A9AB` | 有承接 | `src/platform/RuntimeInitialization.cpp:141 — RegisterLegacyPrimaryEmptyExit` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3651 | 0x0054A9C3 | `__Mbrtowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3652 | 0x0054AAD5 | `_btowc` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain；include/cg/platform/LegacyTime.hpp:6 — MSVC CRT标准库／当前线程状态直接导入` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3653 | 0x0054AB16 | `GetAdaptersAddresses` | 有承接 | `src/platform/LegacyNetworkAdapter.cpp:20 — GetAdaptersAddresses；src/platform/LegacyNetworkAdapter.cpp:16 — Sub_534EF0` | 原 GetAdaptersAddresses import 跳板；当前实际 Windows IP Helper API 调用存在，保留原适配器消费边界；完整网络／运行未验 |
+| 3653 | 0x0054AB16 | `GetAdaptersAddresses` | 有承接 | `src/platform/platformTool.cpp:20 — GetAdaptersAddresses；src/platform/platformTool.cpp:15 — GetMacAddress_534EF0` | 原 GetAdaptersAddresses import 跳板；当前实际 Windows IP Helper API 调用存在，保留原适配器消费边界；完整网络／运行未验 |
 | 3654 | 0x0054AB1C | `RtlUnwind` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3655 | 0x0054AB30 | `__strnicmp` | 有承接 | `src/platform/MainLoopSupport.cpp:205 — ::_strnicmp` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
 | 3656 | 0x0054ABDD | `__itoa` | 有承接 | `src/world/RenderInput.cpp:132 — std::to_wstring` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
@@ -3722,12 +3722,12 @@
 | 3658 | 0x0054AC66 | `??1type_info@@UAE@XZ` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3659 | 0x0054AC7B | `??_Gtype_info@@UAEPAXI@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3660 | 0x0054AC98 | `__EH_prolog` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3661 | 0x0054ACB7 | `_fgetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:29 — std::fgetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3662 | 0x0054ACD9 | `_fsetpos` | 有承接 | `include/cg/platform/LegacyStdio.hpp:30 — std::fsetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3663 | 0x0054ACF1 | `_setvbuf` | 有承接 | `include/cg/platform/LegacyStdio.hpp:25 — std::setvbuf（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3664 | 0x0054AD92 | `_fputwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:31 — std::fputwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3665 | 0x0054AE87 | `_ungetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:33 — std::ungetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3666 | 0x0054AF70 | `_fgetwc` | 有承接 | `include/cg/platform/LegacyStdio.hpp:32 — std::fgetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3661 | 0x0054ACB7 | `_fgetpos` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::fgetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3662 | 0x0054ACD9 | `_fsetpos` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::fsetpos（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3663 | 0x0054ACF1 | `_setvbuf` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::setvbuf（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3664 | 0x0054AD92 | `_fputwc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::fputwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3665 | 0x0054AE87 | `_ungetwc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::ungetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3666 | 0x0054AF70 | `_fgetwc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::fgetwc（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3667 | 0x0054B05D | `sub_54B05D` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3668 | 0x0054B079 | `??0exception@@QAE@ABQBD@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3669 | 0x0054B0B6 | `??0exception@@QAE@ABV0@@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:85 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:106 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3737,8 +3737,8 @@
 | 3673 | 0x0054B160 | `_memcmp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原包装已按COR08退休，服务由MSVC／标准库提供；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3674 | 0x0054B1AC | `retnull_0` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供；doc/cg2d_code_organization_review_spec.md — COR08：无消费者内存转发已退休，由MSVC CRT提供` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3675 | 0x0054B20C | `___termcon` | 有承接 | `src/platform/ClientEntry.cpp:263 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3676 | 0x0054B239 | `__ftelli64` | 有承接 | `include/cg/platform/LegacyStdio.hpp:27 — ::_ftelli64（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3677 | 0x0054B3C0 | `__fseeki64` | 有承接 | `include/cg/platform/LegacyStdio.hpp:28 — ::_fseeki64（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3678 | 0x0054B450 | `__flswbuf` | 有承接 | `include/cg/platform/LegacyStdio.hpp:31 — std::fputwc（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3676 | 0x0054B239 | `__ftelli64` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_ftelli64（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3677 | 0x0054B3C0 | `__fseeki64` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：::_fseeki64（标准库提供；无CPP消费者）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3678 | 0x0054B450 | `__flswbuf` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR12：std::fputwc（标准库提供；无CPP消费者）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3679 | 0x0054B574 | `__filwbuf` | 有承接 | `src/render/Palette.cpp:229 — std::fgetc（直接CRT调用）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3680 | 0x0054B658 | `__lseeki64` | 有承接 | `src/ui/WindowRuntime.cpp:2742 — ::_open（MSVC描述符服务）` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

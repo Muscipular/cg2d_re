@@ -7,7 +7,6 @@
 
 #include "cg/scene/login/LoginState.hpp"
 
-#include "../../platform/LegacyStdio.hpp"
 
 #include "LoginStateDependencies.hpp"
 #include "../../world/MailState.hpp"
@@ -19,7 +18,7 @@
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
-#include "cg/platform/LegacyNetworkAdapter.hpp"
+#include "cg/platform/platformTool.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -74,7 +73,7 @@ namespace detail {
 // 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
 std::uint32_t Sub_44B5C0(const char* text)
 {
-    platform::LegacyFile* const file = std::fopen("systemlog.txt", "a");
+    std::FILE* const file = std::fopen("systemlog.txt", "a");
     if (file == nullptr) {
         return 0;
     }

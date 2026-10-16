@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cg/platform/LegacyStdio.hpp"
 
+#include <cstdio>
 #include <cstdint>
 #include <cerrno>
 #include <cstdlib>
@@ -35,6 +35,6 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output);
 
 // auto.dat时间：同一MSVC FILE经_fileno/_fstat32，成功才发布S32创建时间。
-std::int32_t ReadLegacyFileCreationTime32(LegacyFile* file, std::int32_t* output);
+std::int32_t ReadLegacyFileCreationTime32(std::FILE* file, std::int32_t* output);
 
 } // namespace cg::platform

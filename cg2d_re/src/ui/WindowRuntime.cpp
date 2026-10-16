@@ -3671,7 +3671,7 @@ std::int32_t WindowScroll_ApplyWheel(
     static_cast<void>(WindowScroll_SetPosition(element, maximum, position));
     std::int32_t remainder = oldY - previous->y;
     const double product = static_cast<double>(wheel)
-        * std::bit_cast<float>(std::uint32_t{0x3C088889});
+        * 0.008333334F;
     const float roundedProduct = static_cast<float>(product);
     const auto whole = static_cast<std::int32_t>(product);
     position += whole;

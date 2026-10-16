@@ -277,9 +277,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
     }
     gProtectionCheckCounter = 0;
 
-    constexpr std::uint64_t kFrameThresholdBits = 0x4030AAAAAAAAAAABull;
-    constexpr double kFrameThreshold =
-        std::bit_cast<double>(kFrameThresholdBits);
+    constexpr double kFrameThreshold = 1000.0 / 60.0;
     if (network::ReadNetworkRuntimeActive() == 1
         && (gFrameThreshold != kFrameThreshold
             || gFrameIncrement < gFrameThreshold)) {

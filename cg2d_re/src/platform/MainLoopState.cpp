@@ -1,8 +1,6 @@
 #include "cg/platform/MainLoop.hpp"
 #include "MainLoopDependencies.hpp"
 
-#include <bit>
-
 namespace cg::platform {
 
 std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
@@ -14,8 +12,8 @@ std::int32_t gForceRender = 0; // 原全局：0x0073ECE4。
 std::int32_t gValue73ECC0 = 0; // 原全局：0x0073ECC0。
 
 double gLastRenderDt = 0; // 原全局：0x0073ECC8。
-double gFrameThreshold = std::bit_cast<double>(std::uint64_t {0x4030AAAAAAAAAAAB}); // 原全局：0x005590E8。
-double gFrameIncrement = std::bit_cast<double>(std::uint64_t {0x4030AAAAAAAAAAAB}); // 原全局：0x005590F0。
+double gFrameThreshold = 1000.0 / 60.0; // 原全局：0x005590E8。
+double gFrameIncrement = 1000.0 / 60.0; // 原全局：0x005590F0。
 std::uint32_t gCatchUpCount = 1; // 原全局：0x005590F8。
 std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。

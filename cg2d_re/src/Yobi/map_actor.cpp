@@ -618,7 +618,7 @@ void Sub_4422F0(
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
     const double rate = speed;
-    const float percent = std::bit_cast<float>(0x3C23D70Au);
+    const float percent = 0.01F;
     action->field27C = std::bit_cast<std::uint32_t>(
         static_cast<float>(rate * direction.x * 4.0F * percent));
     action->field280 = std::bit_cast<std::uint32_t>(
@@ -804,7 +804,7 @@ void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payl
     const std::int32_t offsetX = Sub_5182B0(action, 0);
     const std::int32_t x = action->x;
     const double sortY = static_cast<double>(action->worldY)
-        + std::bit_cast<float>(std::uint32_t{0x3A83126F});
+        + 0.001F;
     const std::int32_t drawX = offsetX + x + horizontal;
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::int32_t graphicIndex = action->graphicIndex;
@@ -881,7 +881,7 @@ void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const p
     const std::int32_t offsetX = Sub_5182B0(action, 0);
     const std::int32_t x = action->x;
     const double sortY = static_cast<double>(action->worldY)
-        + std::bit_cast<float>(std::uint32_t{0x3A83126F});
+        + 0.001F;
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::int32_t drawX = offsetX + x + horizontal;
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
@@ -934,7 +934,7 @@ void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const pay
         const std::int32_t progress = 360 - counter;
         screenY += static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(progress)
-            * std::bit_cast<float>(std::uint32_t{0xBFB33333})));
+            * -1.4F));
         if (payload->counter48 == 0) {
             action->field58 = action->direction;
         }

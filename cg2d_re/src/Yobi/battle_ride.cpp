@@ -864,7 +864,7 @@ void UpdateBattleAction230_4160A0(YobiAction* const action)
 // 原函数：0x00416150。
 std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
 {
-    const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3EE66666u);
+    const double speed = static_cast<double>(action->value54) - 0.45F;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 9;
     action->value54 = static_cast<float>(speed);

@@ -344,7 +344,7 @@ std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
     const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
-    const double step = std::bit_cast<float>(0x3CA3D70Au);
+    const double step = 0.02F;
     const double scaleX = action->scaleX - step;
     action->flags = flags;
     action->scaleX = static_cast<float>(scaleX);
@@ -376,7 +376,7 @@ std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
     action->flags |= hasDevice ? 0x100000u : 0x8000u;
     Sub_406260(action);
-    const double step = std::bit_cast<float>(0x3CA3D70Au);
+    const double step = 0.02F;
     const double scaleX = action->scaleX + step;
     action->scaleX = static_cast<float>(scaleX);
     action->scaleY = static_cast<float>(action->scaleY + step);
@@ -770,12 +770,12 @@ void UpdateBattleAction82_40CCE0(YobiAction* const action)
 // 原函数：0x0040CD10。
 std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 {
-    const double step = std::bit_cast<float>(0x3BA3D70Au);
+    const double step = 0.005F;
     const double scaleX = action->scaleX + step;
     action->characterAction = 9;
     action->scaleX = static_cast<float>(scaleX);
     action->scaleY = static_cast<float>(action->scaleY + step);
-    if (scaleX >= std::bit_cast<float>(0x3FA66666u)) {
+    if (scaleX >= 1.3F) {
         AdvanceBattleCastState_439340(action);
         auto* const currentPayload = action->payload.battleActor;
         currentPayload->flagsFDC |= 0x1000u;
@@ -787,7 +787,7 @@ std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 // 原函数：0x0040CD70。
 void UpdateBattleAction84_40CD70(YobiAction* const action)
 {
-    const double step = std::bit_cast<float>(0x3C23D70Au);
+    const double step = 0.01F;
     const double scaleX = action->scaleX - step;
     auto* const payload = action->payload.battleActor;
     action->scaleX = static_cast<float>(scaleX);
@@ -809,7 +809,7 @@ void UpdateBattleAction84_40CD70(YobiAction* const action)
 void UpdateBattleAction85_40CDE0(YobiAction* const action)
 {
     using world::detail::gBattleNamedEffects5ABCE0;
-    const double step = std::bit_cast<float>(0x3C23D70Au);
+    const double step = 0.01F;
     const double scaleX = action->scaleX + step;
     const std::int32_t previousDirection = action->direction;
     auto* const payload = action->payload.battleActor;
@@ -1954,7 +1954,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                 }
             }
             YobiAction* const effect = NewBattleRandomEffect_419FC0(action, namedImage, 0);
-            const double step = std::bit_cast<float>(0x3DCCCCCDu);
+            const double step = 0.1F;
             effect->scaleX = static_cast<float>(
                 static_cast<double>(payload->castSkillLevel1044 / 10) + effect->scaleX + step);
             effect->scaleY = static_cast<float>(
@@ -2610,8 +2610,8 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
         while (PlayFrame_517DA0(action, 1) == 0) {
         }
     }
-    const double step = std::bit_cast<float>(0x3C23D70Au);
-    const double tenth = std::bit_cast<float>(0x3DCCCCCDu);
+    const double step = 0.01F;
+    const double tenth = 0.1F;
     if (payload->value1024 == 0) {
         YobiAction* const effect = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 22, 0, 1);
         const std::int32_t soundX = action->x;
@@ -2647,7 +2647,7 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
                     } else {
                         action->battleTurnStepB4 =
                             (action->payload.battleActor->flagsFDC & 0x1000u) != 0
-                            ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+                            ? 1.3F : 1.0F;
                         static_cast<void>(audio::PlaySe_52C450(213, action->x));
                     }
                 } else {
@@ -2678,7 +2678,7 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
                     } else {
                         action->battleTurnStepB4 =
                             (action->payload.battleActor->flagsFDC & 0x1000u) != 0
-                            ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+                            ? 1.3F : 1.0F;
                     }
                 } else {
                     const std::int32_t maximum = static_cast<std::int32_t>(
@@ -2861,7 +2861,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     const std::int32_t horizontalDistance = std::abs(copyPayload->moveTargetXFE8 - screenX);
     const float cosineAngle = copy->angle50;
     const float xStep = static_cast<float>(static_cast<double>(horizontalDistance)
-        * std::bit_cast<float>(std::uint32_t{0x3C888889}));
+        * 0.016666668F);
     const double cosine = world::detail::Sub_46F950(cosineAngle);
     const std::int32_t screenY = copy->y;
     copy->value54 = static_cast<float>(std::abs(cosine) * xStep);
@@ -2993,7 +2993,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
         if (previous >= 2) {
             payload->valueFF0 = 0;
         }
-        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        const double speed = static_cast<double>(action->value54) - 0.3F;
         action->value54 = static_cast<float>(speed);
         if (!(speed >= 0.0)) {
             action->value54 = 0.0F;

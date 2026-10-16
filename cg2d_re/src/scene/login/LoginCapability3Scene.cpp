@@ -32,9 +32,7 @@
 namespace {
 
 constexpr std::int32_t kWhiteColor = 0x00FFFFFF;
-constexpr std::uint64_t kFrameGateIncrementBits = 0x4030AAAAAAAAAAABULL;
-constexpr double kFrameGateIncrement =
-    std::bit_cast<double>(kFrameGateIncrementBits);
+constexpr double kFrameGateIncrement = 1000.0 / 60.0;
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
 std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。

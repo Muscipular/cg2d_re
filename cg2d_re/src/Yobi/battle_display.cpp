@@ -254,7 +254,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     case 1: {
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
-        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3F333333u);
+        const double speed = static_cast<double>(action->value54) - 0.7F;
         action->value54 = static_cast<float>(speed);
         // 原FST后比较未舍入值，FCOMP的无序也走阶段推进分支。
         if (!(speed > 0.0)) {
@@ -327,9 +327,9 @@ void UpdateBattleNumber_41F110(YobiAction* const action)
             action->field58 = oldDelay - 1;
         } else {
             const double speed = static_cast<double>(action->numberVelocityB8)
-                + std::bit_cast<float>(0x3F4CCCCDu);
+                + 0.8F;
             const std::uint32_t flags = action->flags & ~2u;
-            const bool reachedPeak = speed >= std::bit_cast<float>(0x40E66666u);
+            const bool reachedPeak = speed >= 7.2F;
             action->numberVelocityB8 = static_cast<float>(speed);
             action->flags = flags;
             if (reachedPeak) {
@@ -491,8 +491,8 @@ void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
     const std::int32_t initialPhase = action->phase;
     if (initialPhase == 0) {
         const double speed = static_cast<double>(std::bit_cast<float>(action->value4CBits))
-            + std::bit_cast<float>(0x3F4CCCCDu);
-        const bool reachedPeak = speed >= std::bit_cast<float>(0x40E66666u);
+            + 0.8F;
+        const bool reachedPeak = speed >= 7.2F;
         action->value4CBits = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
         if (reachedPeak) {
             action->phase = 1;

@@ -24,26 +24,26 @@ private:
     unsigned int previous_;
 };
 
-// 原常量位样本；F32提升为double时不重建十进制近似值。
-constexpr double kRadians54DD18 = std::bit_cast<double>(std::uint64_t{0x3F91DF46A2506B91}); // 原常量参考：0x0054DD18。
-constexpr float kSpeedScale54E228 = std::bit_cast<float>(std::uint32_t{0x3A83126F}); // 原常量参考：0x0054E228。
-constexpr float kFallback54E230 = std::bit_cast<float>(std::uint32_t{0x38D1B717}); // 原常量参考：0x0054E230。
-constexpr float kSpawnScale54E22C = std::bit_cast<float>(std::uint32_t{0x44340000}); // 原常量参考：0x0054E22C。
-constexpr float kPercentScale54D4E4 = std::bit_cast<float>(std::uint32_t{0x3C23D70A}); // 原常量参考：0x0054D4E4。
-constexpr float kArcScale54DD34 = std::bit_cast<float>(std::uint32_t{0x3D088889}); // 原常量参考：0x0054DD34。
-constexpr float kActorRate54DD3C = std::bit_cast<float>(std::uint32_t{0x3FCCCCCD}); // 原常量参考：0x0054DD3C。
-constexpr float kActorRate54DD40 = std::bit_cast<float>(std::uint32_t{0x3F99999A}); // 原常量参考：0x0054DD40。
-constexpr float kSpiralY54DD10 = std::bit_cast<float>(std::uint32_t{0x3F19999A}); // 原常量参考：0x0054DD10。
-constexpr float kProjectionInverse54E218 = std::bit_cast<float>(std::uint32_t{0x3FAAAAAB}); // 原常量参考：0x0054E218。
+// COR15：常量直接写十进制；F后缀保持原F32提升为double的语义。
+constexpr double kRadians54DD18 = 0.0174532925194; // 原常量参考：0x0054DD18。
+constexpr float kSpeedScale54E228 = 0.001F; // 原常量参考：0x0054E228。
+constexpr float kFallback54E230 = 0.0001F; // 原常量参考：0x0054E230。
+constexpr float kSpawnScale54E22C = 720.0F; // 原常量参考：0x0054E22C。
+constexpr float kPercentScale54D4E4 = 0.01F; // 原常量参考：0x0054D4E4。
+constexpr float kArcScale54DD34 = 0.033333335F; // 原常量参考：0x0054DD34。
+constexpr float kActorRate54DD3C = 1.6F; // 原常量参考：0x0054DD3C。
+constexpr float kActorRate54DD40 = 1.2F; // 原常量参考：0x0054DD40。
+constexpr float kSpiralY54DD10 = 0.6F; // 原常量参考：0x0054DD10。
+constexpr float kProjectionInverse54E218 = 1.3333334F; // 原常量参考：0x0054E218。
 constexpr std::array<double, 8> kObserverAngles {
-    std::bit_cast<double>(std::uint64_t{0x4002D97C7F30D173}),
-    std::bit_cast<double>(std::uint64_t{0x3FF921FB54411744}),
-    std::bit_cast<double>(std::uint64_t{0x3FE921FB54411744}),
+    2.35619449013,
+    1.57079632675,
+    0.785398163375,
     0.0,
-    std::bit_cast<double>(std::uint64_t{0x4015FDBBE9B8F45C}),
-    std::bit_cast<double>(std::uint64_t{0x4012D97C7F30D173}),
-    std::bit_cast<double>(std::uint64_t{0x400F6A7A29515D15}),
-    std::bit_cast<double>(std::uint64_t{0x400921FB54411744})
+    5.49778714363,
+    4.71238898025,
+    3.92699081688,
+    3.1415926535
 };
 
 // ACP01：宿主向零I64转换；旧控制字/T80不是当前数值实现。

@@ -2,7 +2,6 @@
 
 #include <SDL3/SDL.h>
 #include <atomic>
-#include <bit>
 #include <new>
 #include <utility>
 
@@ -85,7 +84,7 @@ struct LegacyWavesReverb::Impl {
                 if (op == Operation::configure) {
                     const DSFXWavesReverb parameters {
                         0.0f, static_cast<float>(self.mix - 16),
-                        static_cast<float>(self.decay * 100), std::bit_cast<float>(0x3A83126Fu)
+                        static_cast<float>(self.decay * 100), 0.001F
                     };
                     status = effect->SetAllParameters(&parameters);
                     if (SUCCEEDED(status)) { configuredParameters = parameters; configured = true; }

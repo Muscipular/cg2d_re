@@ -29,7 +29,7 @@ struct LegacyTextureDevice {
 
 namespace {
 
-constexpr double kTextureBias = std::bit_cast<float>(0x3D4CCCCDu);
+constexpr double kTextureBias = 0.05F;
 constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 

@@ -859,7 +859,7 @@ void MovePlayerOneStep_46B1B0(
     auto* const payload = player == nullptr
         ? nullptr : player->payload.mapActor;
     const float rate = static_cast<float>(
-        static_cast<double>(speed) * std::bit_cast<float>(0x3C23D70Au));
+        static_cast<double>(speed) * 0.01F);
     if (payload != nullptr && payload->action2C != nullptr) {
         const std::int32_t previousY =
             player->mapY1F0.value();

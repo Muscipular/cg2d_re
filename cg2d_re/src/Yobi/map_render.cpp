@@ -543,7 +543,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         slot->worldX = static_cast<float>(static_cast<double>(worldX) + action->worldX);
         const std::int32_t worldY = Sub_5182B0(slot, 1);
         slot->worldY = static_cast<float>(
-            static_cast<double>(worldY) + action->worldY + std::bit_cast<float>(0x3DCCCCCDu));
+            static_cast<double>(worldY) + action->worldY + 0.1F);
     };
     const auto drawStatus = [&](YobiAction*& slot) {
         Sub_517880(slot, 100, 0, 0);

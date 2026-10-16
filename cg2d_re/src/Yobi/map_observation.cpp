@@ -637,7 +637,7 @@ void Sub_43F520(YobiAction* const action)
             action->counter1DC = 3;
             y += static_cast<std::int32_t>(static_cast<std::int64_t>(
                 static_cast<double>(frame)
-                * std::bit_cast<float>(0xBFB33333u)));
+                * -1.4F));
             const std::int32_t initialDirection = action->field58;
             const std::int32_t direction = initialDirection - ((frame + 8) % 120) / 15;
             action->direction = direction;

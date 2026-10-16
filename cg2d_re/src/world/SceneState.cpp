@@ -7377,10 +7377,10 @@ double Sub_46FB80(
 std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
 {
     const double direction = Sub_46F970(first, second);
-    const float offset = std::bit_cast<float>(0x42E10000U);
+    const float offset = 112.5F;
     float angle = static_cast<float>(direction + offset);
     Sub_46F8F0(&angle);
-    const float multiplier = std::bit_cast<float>(0x3CB60B61U);
+    const float multiplier = 0.022222223F;
     return static_cast<std::int64_t>(
         static_cast<double>(angle) * multiplier);
 }
@@ -8669,7 +8669,7 @@ void Sub_46A410(
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
     if (detail::gPlayerRuntimeSlots.action != nullptr) {
         const double rate = speed;
-        const float percent = std::bit_cast<float>(0x3C23D70Au);
+        const float percent = 0.01F;
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.unroundedX * 4.0F * percent));
         gValue9EE900 = std::bit_cast<std::uint32_t>(
@@ -9553,8 +9553,8 @@ std::int32_t Sub_51D790(
     }
     const float acceleration = std::bit_cast<float>(payloadBits);
     const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);
-    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);
+    constexpr float defaultX = 0.4F;
+    constexpr float defaultY = 0.3F;
     // 原FCOMP的C3选择默认值；零及unordered均走默认。
     const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
     auto& speeds = gTransitionLines.speedFF0FA8;
@@ -9845,14 +9845,14 @@ std::int32_t Sub_51E0D0(
     const float acceleration = std::bit_cast<float>(payloadBits);
     const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
     const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    constexpr float initialSpeedY = std::bit_cast<float>(0x418B3333U);
-    constexpr float initialSpeedX = std::bit_cast<float>(0x41B66666U);
-    constexpr float initialY = std::bit_cast<float>(0x44004CCDU);
-    constexpr float initialNegativeY = std::bit_cast<float>(0xC4004CCDU);
-    constexpr float initialX = std::bit_cast<float>(0x44254000U);
-    constexpr float initialNegativeX = std::bit_cast<float>(0xC4254000U);
-    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);
-    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);
+    constexpr float initialSpeedY = 17.4F;
+    constexpr float initialSpeedX = 22.8F;
+    constexpr float initialY = 513.2F;
+    constexpr float initialNegativeY = -513.2F;
+    constexpr float initialX = 661.0F;
+    constexpr float initialNegativeX = -661.0F;
+    constexpr float defaultX = 0.4F;
+    constexpr float defaultY = 0.3F;
     auto& speeds = gTransitionLines.speedFF0FA8;
     auto& offsetsX = gTransitionLines.xFF172C;
     auto& offsetsY = gTransitionLines.yFF1EB0;

@@ -1381,7 +1381,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
         if (GetBattleDistance_406300(action,
                 gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 60) {
             const float step = static_cast<float>(static_cast<double>(action->effectAcceleration48)
-                + std::bit_cast<float>(std::uint32_t{0x3E99999A}));
+                + 0.3F);
             action->effectAcceleration48 = step;
             TurnBattleToward_406190(action,
                 gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, step);
@@ -1635,7 +1635,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         const float difference = static_cast<float>(GetBattleAngleDifference_406060(action, action->battleOpponent10));
         if (-action->effectAcceleration48 > difference
             || !(static_cast<double>(action->effectAcceleration48)
-                * std::bit_cast<float>(std::uint32_t{0x3E4CCCCD}) >= difference)) {
+                * 0.2F >= difference)) {
             action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - action->effectAcceleration48);
         } else {
             action->angle50 = static_cast<float>(static_cast<double>(difference) + action->angle50);
@@ -1645,14 +1645,14 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         const float difference = static_cast<float>(rawDifference);
         const double step = rawDifference > action->effectAcceleration48
                 || static_cast<double>(action->effectAcceleration48)
-                    * std::bit_cast<float>(std::uint32_t{0xBE4CCCCD}) > difference
+                    * -0.2F > difference
             ? action->effectAcceleration48 : difference;
         action->angle50 = static_cast<float>(step + action->angle50);
     }
     NormalizeBattleAngle_405E60(action);
     if (GetBattleDistance_406300(action, action->battleOpponent10) < 100) {
         action->effectAcceleration48 = static_cast<float>(static_cast<double>(action->effectAcceleration48)
-            + std::bit_cast<float>(std::uint32_t{0x3E99999A}));
+            + 0.3F);
     }
     if (GetBattleDistance_406300(action, action->battleOpponent10) < 60) {
         YobiAction* const parent = action->battleOpponent10;
@@ -3052,7 +3052,7 @@ void UpdateBattleAction246_4185C0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const std::int32_t value = payload->effects1C[payload->effectRunningC9C].position3;
-    action->value54 = static_cast<float>(static_cast<double>(value) * std::bit_cast<float>(0x3C23D70Au));
+    action->value54 = static_cast<float>(static_cast<double>(value) * 0.01F);
     static_cast<void>(AdvanceBattleEffect_439470(action));
     AdvanceBattleCastState_439340(action);
 }

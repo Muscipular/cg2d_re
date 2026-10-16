@@ -203,7 +203,7 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
 // 原函数：0x0041A270。
 void UpdateBattleScalingEffect_41A270(YobiAction* const action)
 {
-    constexpr double step = std::bit_cast<float>(0x3CA3D70Au);
+    constexpr double step = 0.02F;
     if (action->phase == 0) {
         const double scaleX = action->scaleX + step;
         action->scaleX = static_cast<float>(scaleX);
@@ -268,7 +268,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             particle->offset40 = static_cast<float>(particleX);
             particle->offset44 = static_cast<float>(action->y + yOffset);
             const std::int32_t parentY = action->y;
-            particle->effectAcceleration48 = std::bit_cast<float>(0x3E4CCCCDu);
+            particle->effectAcceleration48 = 0.2F;
             particle->battleAttachmentParent10 = action;
             particle->phase = parentY + yOffset - 100;
             action->field270 = 0;
@@ -377,7 +377,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
             particle->offset44 = static_cast<float>(action->y + yOffset);
             const std::int32_t endOffset = kBattleEmitterYOffsets[action->nameX % 16];
             const std::int32_t parentY = action->y;
-            particle->effectAcceleration48 = std::bit_cast<float>(0x3DCCCCCDu);
+            particle->effectAcceleration48 = 0.1F;
             particle->battleAttachmentParent10 = action;
             particle->phase = endOffset + parentY - 100;
             action->field270 = 0;
@@ -423,7 +423,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     action->offset40 = static_cast<float>(parent->x + xOffset);
     action->offset44 = static_cast<float>(parent->y + yOffset);
     const std::int32_t parentY = parent->y;
-    action->effectAcceleration48 = std::bit_cast<float>(0x3E4CCCCDu);
+    action->effectAcceleration48 = 0.2F;
     action->battleAttachmentParent10 = parent;
     action->field270 = 0;
     action->phase = yOffset + parentY - 100;
@@ -2374,7 +2374,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
         }
         const std::int32_t initialY = action->deltaY;
         if (initialY != 0) {
-            constexpr double growth = std::bit_cast<float>(0x3D23D70Au);
+            constexpr double growth = 0.04F;
             const float scaleX = static_cast<float>(action->scaleX + growth);
             action->scaleX = scaleX;
             const double scaleY = action->scaleY + growth;
@@ -2455,8 +2455,8 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     action->field270 = 0;
     if (mode == 1) {
         action->deltaY = -50;
-        action->scaleX = std::bit_cast<float>(0x3E99999Au);
-        action->scaleY = std::bit_cast<float>(0x3E99999Au);
+        action->scaleX = 0.3F;
+        action->scaleY = 0.3F;
     } else {
         action->deltaY = 0;
     }
@@ -2655,7 +2655,7 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     } else {
         payload->flagsFDC &= ~0x200u;
     }
-    const float scale = (flags & 0x1000u) != 0 ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+    const float scale = (flags & 0x1000u) != 0 ? 1.3F : 1.0F;
     const bool hasAttachedEffect = (flags & 0x400u) != 0;
     parent->scaleX = scale;
     parent->scaleY = scale;

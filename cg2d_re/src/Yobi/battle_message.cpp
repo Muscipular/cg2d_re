@@ -3447,7 +3447,7 @@ void ParseBattleC_438550()
         } else {
             payload->flagsFDC &= ~0x200u;
         }
-        const float scale = std::bit_cast<float>((inputFlags & 0x1000u) != 0 ? 0x3FA66666u : 0x3F800000u);
+        const float scale = (inputFlags & 0x1000u) != 0 ? 1.3F : 1.0F;
         actor->scaleX = scale;
         actor->scaleY = scale;
         if ((inputFlags & 0x400u) != 0) {

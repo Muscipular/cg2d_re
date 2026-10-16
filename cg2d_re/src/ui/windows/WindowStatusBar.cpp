@@ -51,7 +51,7 @@ static std::wstring gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
 
 static std::wstring gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
 
-static constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556}); // 原常量参考：0x0054F638。
+static constexpr double kStatusTimeScale54F638 = 0.166666666667; // 原常量参考：0x0054F638。
 
 static WindowGraphicData gWindowGraphic55EF00 {0x3B92B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF00。
 

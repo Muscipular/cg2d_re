@@ -106,7 +106,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
         if (previous >= 2) {
             payload->valueFF0 = 0;
         }
-        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        const double speed = static_cast<double>(action->value54) - 0.3F;
         action->value54 = static_cast<float>(speed);
         if (!(speed >= 0.0)) {
             action->value54 = 0.0F;
@@ -172,7 +172,7 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
         if (previous >= 2) {
             payload->valueFF0 = 0;
         }
-        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        const double speed = static_cast<double>(action->value54) - 0.3F;
         action->value54 = static_cast<float>(speed);
         if (!(speed >= 0.0)) {
             action->value54 = 0.0F;
@@ -743,7 +743,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         if (previous >= 2) {
             payload->valueFF0 = 0;
         }
-        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        const double speed = static_cast<double>(action->value54) - 0.3F;
         action->value54 = static_cast<float>(speed);
         if (!(speed >= 0.0)) {
             action->value54 = 0.0F;

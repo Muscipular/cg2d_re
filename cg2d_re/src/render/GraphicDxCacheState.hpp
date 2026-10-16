@@ -34,6 +34,8 @@ void ReleaseTextureSurface(TextureSurface* surface) noexcept;
 SDL_Surface* GetTextureSdlSurface(TextureSurface* surface) noexcept;
 // GRT01：CPU 内容变化才重传；GPU 纹理归同一表面所有，renderer 销毁前统一释放。
 void MarkTextureSurfaceModified(TextureSurface* surface) noexcept;
+// 已修改的半开区域；多次写入合并，首次 GPU 上传仍覆盖整张表面。
+void MarkTextureSurfaceModified(TextureSurface* surface, const std::array<std::int32_t, 4>& rectangle) noexcept;
 SDL_Texture* GetTextureGpuTexture(TextureSurface* surface, SDL_Renderer* renderer) noexcept;
 void ReleaseRendererGpuTextures(SDL_Renderer* renderer) noexcept;
 

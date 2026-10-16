@@ -44,7 +44,7 @@ std::int32_t DrawMapEffects32_452840();
 // 原 453580 的已批准 32 位分支；8/16/24 位分派不进入本线实现。
 std::int32_t DrawMapEffects_453580();
 
-// 原 44F330/44FC20：索引/W32 地图窗投影到同一 AutoMap，再色键复制至 Back。
+// 原 44F330/44FC20：地图窗投影到同一 AutoMap；零色色键写入 Alpha 后混合至 Back。
 std::int32_t DrawIndexedAutoMap32_44F330(
     std::int32_t x, std::int32_t y, const std::uint8_t* source,
     std::int32_t width, std::int32_t height);

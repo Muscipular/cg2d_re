@@ -216,7 +216,7 @@ public:
             std::memcpy(destination, input, static_cast<std::size_t>(size.cx) * sizeof(std::uint32_t));
         }
         SDL_UnlockSurface(output);
-        MarkTextureSurfaceModified(atlas->surface.Get());
+        MarkTextureSurfaceModified(atlas->surface.Get(), {x, y, x + size.cx, y + size.cy});
         if (bitmap.UnlockBits(&pixels) != Gdiplus::Ok) { return nullptr; }
 
         atlas->x = x + size.cx + 2;

@@ -56,6 +56,7 @@ struct TextureSurface {
     };
     SDL_Renderer* gpuRenderer {}; // 非拥有；销毁 renderer 前清除关联纹理。
     bool gpuDirty = true;
+    std::array<std::int32_t, 4> dirtyRectangle {};
     TextureSurface* nextOwned {};
     TextureSurface* previousOwned {};
 };
@@ -96,6 +97,7 @@ public:
         }
         surface->width = width;
         surface->height = height;
+        surface->dirtyRectangle = {0, 0, width, height};
         surface->colorKey = colorKey;
         surface->blitSurface.reset(SDL_CreateSurfaceFrom(
             width, height, SDL_PIXELFORMAT_ARGB8888, surface->pixels.get(),
@@ -298,16 +300,44 @@ SDL_Surface* GetTextureSdlSurface(TextureSurface* const surface) noexcept
 void MarkTextureSurfaceModified(TextureSurface* const surface) noexcept
 {
     surface->gpuDirty = true;
+    surface->dirtyRectangle = {0, 0, surface->width, surface->height};
+}
+
+void MarkTextureSurfaceModified(
+    TextureSurface* const surface, const std::array<std::int32_t, 4>& rectangle) noexcept
+{
+    auto& dirty = surface->dirtyRectangle;
+    if (surface->gpuDirty) {
+        dirty = {std::min(dirty[0], rectangle[0]), std::min(dirty[1], rectangle[1]),
+            std::max(dirty[2], rectangle[2]), std::max(dirty[3], rectangle[3])};
+    } else {
+        dirty = rectangle;
+    }
+    surface->gpuDirty = true;
 }
 
 SDL_Texture* GetTextureGpuTexture(TextureSurface* const surface, SDL_Renderer* const renderer) noexcept
 {
-    if (surface->gpuDirty || surface->gpuRenderer != renderer) {
-        // SDL 在上传时处理源色键；保持未变图像的 GPU 缓存，字形／调色板更新才重新上传。
-        surface->gpuTexture.reset(SDL_CreateTextureFromSurface(renderer, surface->blitSurface.get()));
+    if (surface->gpuTexture == nullptr || surface->gpuRenderer != renderer) {
+        // GRT02：只在首次使用／设备重建时创建；所有生产者已经写出 ARGB8888。
+        surface->gpuTexture.reset(SDL_CreateTexture(
+            renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, surface->width, surface->height));
         surface->gpuRenderer = renderer;
         if (surface->gpuTexture == nullptr
             || !SDL_SetTextureScaleMode(surface->gpuTexture.get(), SDL_SCALEMODE_NEAREST)) {
+            surface->gpuTexture.reset();
+            return nullptr;
+        }
+        MarkTextureSurfaceModified(surface);
+    }
+    if (surface->gpuDirty) {
+        const auto& dirty = surface->dirtyRectangle;
+        const SDL_Rect rectangle {dirty[0], dirty[1], dirty[2] - dirty[0], dirty[3] - dirty[1]};
+        const SDL_Surface* const input = surface->blitSurface.get();
+        const auto* const pixels = static_cast<const std::uint8_t*>(input->pixels)
+            + static_cast<std::size_t>(rectangle.y) * input->pitch
+            + static_cast<std::size_t>(rectangle.x) * sizeof(std::uint32_t);
+        if (!SDL_UpdateTexture(surface->gpuTexture.get(), &rectangle, pixels, input->pitch)) {
             return nullptr;
         }
         surface->gpuDirty = false;

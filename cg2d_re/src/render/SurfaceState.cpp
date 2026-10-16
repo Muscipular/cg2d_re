@@ -138,11 +138,12 @@ std::int32_t DrawAutoMap32(
 
     const std::int32_t pitch = surface->pitch >> 2;
     auto* const pixels = static_cast<std::uint32_t*>(surface->pixels);
-    // R09：投影可以超出作业面；只写实际可见像素，保四点顺序及255 Alpha。
+    // R09／GRT02：保留投影与四点顺序，旧黑色色键在生产端直接编码为零 Alpha。
     const auto writePixel = [surface, pitch, pixels](
         const std::int32_t px, const std::int32_t py, const std::uint32_t color) {
         if (px >= 0 && px < surface->w && py >= 0 && py < surface->h) {
-            pixels[py * pitch + px] = (color & 0x00FFFFFFu) | 0xFF000000u;
+            const std::uint32_t rgb = color & 0x00FFFFFFu;
+            pixels[py * pitch + px] = rgb == 0 ? 0u : rgb | 0xFF000000u;
         }
     };
     for (std::int32_t row = 0; row < height; ++row) {
@@ -175,7 +176,8 @@ std::int32_t DrawAutoMap32(
     writeCursor(center + 1);
     writeCursor(center - pitch);
     SDL_UnlockSurface(surface);
-    MarkTextureSurfaceModified(gCpuAutoMapSurface);
+    MarkTextureSurfaceModified(gCpuAutoMapSurface,
+        {0, 0, std::min(fillRect.w, surface->w), std::min(fillRect.h, surface->h)});
 
     std::int32_t destinationX = x + 17;
     std::int32_t destinationY = 117 - width + y;
@@ -204,7 +206,7 @@ std::int32_t DrawAutoMap32(
         destinationX + rectangle[2] - rectangle[0],
         destinationY + rectangle[3] - rectangle[1]
     };
-    return BlitTextureToBack(gCpuAutoMapSurface, rectangle, destination);
+    return BlitTextureToBack(gCpuAutoMapSurface, rectangle, destination, true);
 }
 
 } // namespace
@@ -487,12 +489,7 @@ bool CreateCpuAutoMapSurface() noexcept
     if (gCpuAutoMapSurface == nullptr) {
         return false;
     }
-    // AutoMap继续使用原独立色键；资源纹理的ARGB策略不改变此复制路径。
-    if (!SDL_SetSurfaceColorKey(GetTextureSdlSurface(gCpuAutoMapSurface), true, 0)) {
-        ReleaseTextureSurface(gCpuAutoMapSurface);
-        gCpuAutoMapSurface = nullptr;
-        return false;
-    }
+    // GRT02：DrawAutoMap32 已将零色色键编码为 Alpha，上传无需再转换整图。
     return true;
 }
 

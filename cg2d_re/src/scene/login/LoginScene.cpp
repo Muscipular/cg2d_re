@@ -323,9 +323,9 @@ std::int32_t gValueD69794 = 0; // 原全局：0x00D69794。
 std::array<LoginServerRecord, 800> gValueD69798 {}; // 原全局：0x00D69798。
 std::array<std::int32_t, 60> gValueD9F2D4 {}; // 原全局：0x00D9F2D4。
 std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。
-char gAccount[64] {}; // 原全局：0x00DA38DC。
+char gPassword[64] {}; // 原全局：0x00DA38DC。
 char gExecutableDigest[64] {}; // 原全局：0x00DA3A1C。
-char gPassword[64] {}; // 原全局：0x00DA3A5C。
+char gAccount[64] {}; // 原全局：0x00DA3A5C。
 std::int16_t gValueDA3B24 = 0; // 原全局：0x00DA3B24。
 
 static_assert(sizeof(gValueD69798) == 800 * 0xC1);
@@ -431,8 +431,8 @@ std::int32_t ProcessScene_45FEA0()
                             gSelectedServerGroup = slot;
                             detail::PlaySe(53, 320, 240);
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
-                            ReadInputValueFF494F_5203E0(gAccount);
-                            ReadInputValueFF4982_520440(gPassword);
+                            ReadInputValueFF494F_5203E0(gPassword);
+                            ReadInputValueFF4982_520440(gAccount);
                             IncrementSceneState();
                             break;
                         }

@@ -206,17 +206,17 @@ std::int32_t Sub_508360()
             network::WriteProtocolModeDA3B22(0);
 
             char adapterScratch[16];
-            char accountCopy[sizeof(gAccount)]; // A08：承接最多63字节账号及NUL。
+            char passwordCopy[sizeof(gPassword)]; // ALM02：密码副本沿既有64字节请求变量容量。
             char adapterId[44];
             static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
-            std::strcpy(accountCopy, gAccount);
+            std::strcpy(passwordCopy, gPassword);
             std::strcpy(adapterId, adapterScratch);
-            std::strcpy(gAccount, accountCopy);
+            std::strcpy(gPassword, passwordCopy);
             const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
                 cg::text::FromGbkWide(gExecutableDigest),
-                cg::text::FromGbkWide(accountCopy),
-                cg::text::FromGbkWide(gPassword),
+                cg::text::FromGbkWide(passwordCopy),
+                cg::text::FromGbkWide(gAccount),
                 cg::text::FromGbkWide(adapterId));
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;

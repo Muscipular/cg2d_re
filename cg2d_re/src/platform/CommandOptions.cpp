@@ -2,6 +2,8 @@
 #include "cg/platform/CommandOptions.hpp"
 
 #include "cg/scene/login/LoginScene.hpp"
+#include "cg/scene/login/LoginInput.hpp"
+#include "../scene/login/LoginSavedState.hpp"
 #include "cg/resource/ResourceNames.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -129,8 +131,9 @@ void ApplyAutoLoginCommandLine(const char* commandLine)
     }
 
     if (serverIndex >= 0 && !account.empty() && !password.empty()
-        && account.size() < sizeof(login::gAccount)
-        && password.size() < sizeof(login::gPassword)) {
+        && account.size() < login::LoginInputValueCapacity
+        && password.size() < login::LoginInputValueCapacity) {
+        login::detail::CacheAutoLoginInputValues(account.c_str(), password.c_str());
         world::gCurrentSceneState = 2;
         world::gCurrentSceneType = 2;
         std::strcpy(login::gPassword, password.c_str());

@@ -75,6 +75,10 @@ std::int32_t Sub_533860(const std::int32_t physicalSlot);
 
 void RestoreCapability4CurrentSavedRecord();
 
+// ALM02：参数已按50字节验证；同步当前记录和选中账号槽，仅写内存，供返回登录界面使用。
+void CacheAutoLoginInputValues(const char* account, const char* password);
+
+// 当前记录的密码／账号缓存；分别对应FF494F／FF4982。
 char* GetCurrentSavedInputValueFF494F();
 
 char* GetCurrentSavedInputValueFF4982();

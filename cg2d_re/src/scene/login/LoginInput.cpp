@@ -40,7 +40,7 @@ input::InputContext* gInputContextFocusTable[3] { // 原全局：0x00559FFC。
 
 namespace {
 
-inline constexpr std::size_t kStoredInputValueSize = 51;
+inline constexpr std::size_t kStoredInputValueSize = LoginInputValueCapacity;
 
 struct Capability4SavedSlotGeometry final {
     std::int32_t x;

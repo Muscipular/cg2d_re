@@ -206,12 +206,12 @@ std::int32_t Sub_510940(
 std::int32_t Sub_5111E0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // vcAz
 
-// NLD01／原512800：摘要、账号、口令、适配器四文本原序发送JFVf，末发送S32透传。
+// NLD01／原512800：摘要、口令、账号、适配器四文本原序发送JFVf，末发送S32透传。
 std::int32_t Sub_512800(
     std::uintptr_t socket,
     std::wstring_view executableDigest,
-    std::wstring_view account,
     std::wstring_view password,
+    std::wstring_view account,
     std::wstring_view adapterId);
 
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。

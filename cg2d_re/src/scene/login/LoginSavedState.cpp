@@ -8,6 +8,7 @@
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
+#include "cg/scene/login/LoginInput.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
@@ -85,6 +86,10 @@ SavedStateStorage gSavedState {}; // 原全局：0x01058698。
 
 // 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
 SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
+
+// ALM02：只标记自动参数已写入的物理账号槽，凭据仍由上述两个既有记录持有。
+std::int32_t gAutoLoginCachedPhysicalSlot = -1;
+static_assert(LoginInputValueCapacity == 0x33);
 
 } // namespace
 
@@ -680,6 +685,9 @@ std::int32_t PersistCurrentSavedRecord_520200()
 [[maybe_unused]] std::int32_t DeleteSavedFiles_533860(
     const std::int32_t physicalSlot)
 {
+    if (gAutoLoginCachedPhysicalSlot == physicalSlot) {
+        gAutoLoginCachedPhysicalSlot = -1;
+    }
     char path[0x400];
 
     std::sprintf(
@@ -813,6 +821,14 @@ std::int32_t RestoreCurrentSavedState_5201B0()
 // 原函数：0x00533300。
 std::int32_t InitializeSavedState_533300()
 {
+    // 返回入口会重读磁盘；仅保留自动登录槽的两个内存字段，不将密码写入存档。
+    const std::int32_t cachedPhysicalSlot = gAutoLoginCachedPhysicalSlot;
+    char cachedCredentials[2 * LoginInputValueCapacity];
+    if (cachedPhysicalSlot != -1) {
+        std::memcpy(cachedCredentials,
+            gSavedState.records[cachedPhysicalSlot].parts[0].text + 0x33,
+            sizeof(cachedCredentials));
+    }
     (void)ResetSavedState_533360();
     const std::int32_t location = ProbeSavedStateLocation_5333D0();
     if (location == 0) {
@@ -825,6 +841,11 @@ std::int32_t InitializeSavedState_533300()
         (void)RebuildSavedSlotMap_533470();
     }
 
+    if (cachedPhysicalSlot != -1) {
+        std::memcpy(
+            gSavedState.records[cachedPhysicalSlot].parts[0].text + 0x33,
+            cachedCredentials, sizeof(cachedCredentials));
+    }
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[0];
     std::memcpy(
@@ -1067,6 +1088,16 @@ void RestoreCapability4CurrentSavedRecord()
     (void)RestoreSavedScalarSettings_5205E0(currentBytes);
     (void)RestoreSavedInputContexts_520690(currentBytes);
     (void)RestoreSavedByteState_520700(currentBytes);
+}
+
+void CacheAutoLoginInputValues(const char* const account, const char* const password)
+{
+    const std::int32_t selected = gSavedState.selected;
+    Sub_5335B0(password, selected);
+    Sub_533640(account, selected);
+    std::strcpy(GetCurrentSavedInputValueFF494F(), password);
+    std::strcpy(GetCurrentSavedInputValueFF4982(), account);
+    gAutoLoginCachedPhysicalSlot = gSavedState.logicalToPhysical[selected];
 }
 
 char* GetCurrentSavedInputValueFF494F()

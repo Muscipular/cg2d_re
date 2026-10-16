@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -12,6 +13,7 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 #include "NetworkDispatchDependencies.hpp"
+#include "ProtocolReceiveDictionary.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"
 #include "cg/scene/login/CharacterDeletionRequest.hpp"
@@ -212,7 +214,8 @@ std::int32_t QueuePlaintextProtocolBytes(
 static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
 {
     LZ4_streamDecode_t stream {};
-    static_cast<void>(LZ4_setStreamDecode(&stream, nullptr, 0));
+    static_cast<void>(LZ4_setStreamDecode(&stream, detail::kProtocolReceiveDictionary,
+        static_cast<std::int32_t>(sizeof(detail::kProtocolReceiveDictionary) - 1)));
     std::size_t offset = 4;
     std::size_t used = 0;
     while (offset < state.frame.size()) {
@@ -234,6 +237,10 @@ static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
             state.frameOutput.data() + used, compressedSize, kLz4BlockSize);
         offset += compressedSize;
         if (decodedSize <= 0) {
+            if (decodedSize < 0) {
+                m_log_i("LZ4 DECODE ERROR=%d FRAME=%zu BLOCK=%d OFFSET=%zu\n",
+                    decodedSize, state.frame.size(), compressedSize, offset - compressedSize);
+            }
             break;
         }
         if (static_cast<std::size_t>(decodedSize) > kLz4FrameDecodedCapacity - used) {

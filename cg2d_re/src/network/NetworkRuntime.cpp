@@ -178,9 +178,15 @@ std::int32_t QueuePlaintextProtocolBytes(
         }
     }
 
+    // N03：成功入队的JFVf替换待发队列，六字节前导不递归触发发送回调。
+    constexpr std::string_view loginPrelude = "XCNY \n";
+    const bool startsLogin = packet.starts_with("JFVf");
     std::int32_t sendLength;
     std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
     std::memcpy(&sendLength, send + kSendLengthOffset, sizeof(sendLength));
+    if (startsLogin) {
+        sendLength = static_cast<std::int32_t>(loginPrelude.size());
+    }
     const std::int32_t nextLength = sendLength + static_cast<std::int32_t>(size);
     if (nextLength > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
@@ -194,6 +200,9 @@ std::int32_t QueuePlaintextProtocolBytes(
         platform::gWindowReportValue = 0;
     }
 
+    if (startsLogin) {
+        std::memcpy(send, loginPrelude.data(), loginPrelude.size());
+    }
     std::memcpy(send + sendLength, data, size);
     std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
     return 0;
@@ -4497,7 +4506,7 @@ std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
     if (login::gRequestPollingEnabled == 0) {
         return -100;
     }
-    if (size >= static_cast<std::int32_t>(kQueueCapacity)) {
+    if (size > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
     }
 

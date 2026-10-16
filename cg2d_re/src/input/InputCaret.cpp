@@ -1,5 +1,5 @@
 #include "../ui/WindowRuntimeState.hpp"
-#include "../platform/ImeLifecycle.hpp"
+#include "../platform/imeImpl.hpp"
 #include "../platform/WindowProcedureState.hpp"
 
 #include "cg/input/Input.hpp"

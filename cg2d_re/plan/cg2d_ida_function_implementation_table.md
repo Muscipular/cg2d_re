@@ -870,13 +870,13 @@
 | 806 | 0x00458EC0 | `Time::GetCate` | 有正文 | `src/world/GameTime.cpp:43 — GetCate_458EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 807 | 0x00458F00 | `sub_458F00` | 有正文 | `src/world/SceneState.cpp:6338 — Sub_458F00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 808 | 0x00458F40 | `sub_458F40` | 有正文 | `src/world/SceneState.cpp:6311 — Sub_458F40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 809 | 0x00458FD0 | `sub_458FD0` | 有正文 | `src/platform/ImeLifecycle.cpp:18 — InitializeIme_458FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 810 | 0x00459040 | `sub_459040` | 有正文 | `src/platform/ImeLifecycle.cpp:46 — ShutdownIme_459040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 811 | 0x00459090 | `sub_459090` | 有正文 | `src/platform/ImeLifecycle.cpp:62 — IsImeKeyboardLayout_459090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 812 | 0x004590A0 | `sub_4590A0` | 有正文 | `src/platform/ImeLifecycle.cpp:71 — ResetImeOpenStatus_4590A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 813 | 0x004590D0 | `sub_4590D0` | 有承接 | `src/platform/ImeLifecycle.cpp:92 — QueryWindowImeDescription_4734F0` | BCL02移除纯描述访问包装；原布局／IME与键表采样后直接返回同一gImeDescription视图，独立函数由原消费点承接；只静态，完整生产消费／运行未验 |
+| 809 | 0x00458FD0 | `sub_458FD0` | 有正文 | `src/platform/imeImpl.cpp:45 — InitializeIme_458FD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 810 | 0x00459040 | `sub_459040` | 有正文 | `src/platform/imeImpl.cpp:73 — ShutdownIme_459040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 811 | 0x00459090 | `sub_459090` | 有正文 | `src/platform/imeImpl.cpp:89 — IsImeKeyboardLayout_459090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 812 | 0x004590A0 | `sub_4590A0` | 有正文 | `src/platform/imeImpl.cpp:98 — ResetImeOpenStatus_4590A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 813 | 0x004590D0 | `sub_4590D0` | 有承接 | `src/platform/imeImpl.cpp:119 — QueryWindowImeDescription_4734F0` | BCL02移除纯描述访问包装；原布局／IME与键表采样后直接返回同一gImeDescription视图，独立函数由原消费点承接；只静态，完整生产消费／运行未验 |
 | 814 | 0x004590E0 | `World::RenderInput` | 有正文 | `src/world/RenderInput.cpp:173 — RenderInput_4590E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 815 | 0x00459580 | `sub_459580` | 有正文 | `src/platform/ImeComposition.cpp:42 — Sub_459580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 815 | 0x00459580 | `sub_459580` | 有正文 | `src/platform/imeImpl.cpp:128 — Sub_459580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 816 | 0x004596D0 | `sub_4596D0` | 有正文 | `src/input/InputKeyDispatch.cpp:11 — ProcessKeyInput_4596D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 817 | 0x00459760 | `sub_459760` | 有正文 | `src/platform/WindowProcedure.cpp:43 — ClearKeyFlags_459760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 818 | 0x00459780 | `resetKeyState` | 有正文 | `src/platform/WindowProcedure.cpp:52 — ResetKeyState_459780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3074,14 +3074,14 @@
 | 3010 | 0x005348A0 | `sub_5348A0` | 有正文 | `src/world/MailState.cpp:1249 — Sub_5348A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3011 | 0x00534910 | `sub_534910` | 有正文 | `src/world/MailState.cpp:1266 — Sub_534910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:364 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
-| 3013 | 0x00534986 | `ImmGetConversionStatus` | 有承接 | `src/platform/ImeLifecycle.cpp:37 — ImmGetConversionStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3014 | 0x0053498C | `ImmAssociateContext` | 有承接 | `src/platform/ImeLifecycle.cpp:53 — ImmAssociateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3015 | 0x00534992 | `ImmCreateContext` | 有承接 | `src/platform/ImeLifecycle.cpp:28 — ImmCreateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3016 | 0x00534998 | `ImmReleaseContext` | 有承接 | `src/platform/ImeLifecycle.cpp:50 — ImmReleaseContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3017 | 0x0053499E | `ImmIsIME` | 有承接 | `src/platform/ImeLifecycle.cpp:65 — ImmIsIME` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3018 | 0x005349A4 | `ImmSetOpenStatus` | 有承接 | `src/platform/ImeLifecycle.cpp:79 — ImmSetOpenStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3013 | 0x00534986 | `ImmGetConversionStatus` | 有承接 | `src/platform/imeImpl.cpp:64 — ImmGetConversionStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3014 | 0x0053498C | `ImmAssociateContext` | 有承接 | `src/platform/imeImpl.cpp:80 — ImmAssociateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3015 | 0x00534992 | `ImmCreateContext` | 有承接 | `src/platform/imeImpl.cpp:55 — ImmCreateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3016 | 0x00534998 | `ImmReleaseContext` | 有承接 | `src/platform/imeImpl.cpp:77 — ImmReleaseContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3017 | 0x0053499E | `ImmIsIME` | 有承接 | `src/platform/imeImpl.cpp:92 — ImmIsIME` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
+| 3018 | 0x005349A4 | `ImmSetOpenStatus` | 有承接 | `src/platform/imeImpl.cpp:106 — ImmSetOpenStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3019 | 0x005349AA | `ImmGetDescriptionA` | 有承接 | `src/world/RenderInput.cpp:195 — ImmGetDescriptionW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
-| 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/ImeComposition.cpp:26 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
+| 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/imeImpl.cpp:29 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:424 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:107 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4615 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |

@@ -1,5 +1,5 @@
 #include "ClientShutdown.hpp"
-#include "ImeLifecycle.hpp"
+#include "imeImpl.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 

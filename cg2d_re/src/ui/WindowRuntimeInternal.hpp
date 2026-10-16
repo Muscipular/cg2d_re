@@ -11,7 +11,7 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/StartupNative.hpp" // ERROR_INSUFFICIENT_BUFFER的Win32声明。
 #include "../platform/LegacyStdio.hpp"
-#include "../platform/ImeLifecycle.hpp"
+#include "../platform/imeImpl.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"

@@ -2967,3 +2967,9 @@ COR10完成：删除LegacyMouseTracker的CPP／HPP及构建项，移除5处包�
 已核LegacyWindow的4个函数及调用。按COR11删除PostMessage／ShellExecute转发和已知wstring标题的重复复制，8个消费者CPP直接调用对应Win32 API；保留ShowWideMessage的view终止与父窗口责任。先记规格后执行，普通窗口功能与参数／返回保持；编辑后执行build.bat Debug，其他既有修改及暂存状态保留。
 
 COR11完成：删除3个包装接口，8个CPP中的13处调用直接使用PostMessageW／SetWindowTextW／ShellExecuteA，保留原参数、异步投递和返回使用；两个标题调用直接借用存活wstring的c_str，省去重复副本。ShowWideMessage和窗口唯一存储保持，Shell32系统依赖由core归入实际调用的startup目标。11个源码／构建文件差异核对通过，函数表3680行及状态逐字不变；build.bat Debug配置、编译和客户端链接成功，退出码0。保留既有未初始化变量及旧网络API告警；未运行客户端／测试或测量性能，未计算摘要、未记录JSON台账；提交排除既有SetupIni相关改动和Python缓存。
+
+## 299. IME 实现文件合并（2026-10-16）
+
+按用户要求将ImeLifecycle与ImeComposition的四份源／头文件合并为src/platform/imeImpl.cpp和imeImpl.hpp；保留全部函数接口、正文与原地址注释，仅去重包含并同步7处消费者包含和CMake源文件条目。当前函数表仅更新本次迁移定位，身份与实现状态保持；完成后进行静态对照，不构建、测试或运行，保留并排除工作区既有改动。
+
+合并完成：7个函数正文、6个公开声明、原注释及包含集合逐字对照通过，7处消费者除头文件名外正文保持；CMake仅将两个源文件条目收敛为一个，4份旧文件已移除。函数表13处定位按实际行号更新，3680行身份与状态保持；旧文件的源码／构建引用无残留，UTF-8无BOM／LF与Git差异静态检查通过。未构建、测试或运行，不更新历史证据或JSON台账；仅精确暂存提交本次差异，既有平台工具／FILE迁移和缓存改动保留并排除。

@@ -22,4 +22,7 @@ void ShutdownIme_459040();
 // HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
 [[nodiscard]] std::wstring_view QueryWindowImeDescription_4734F0() noexcept;
 
+// 原 sub_459580@[0x459580,0x4596C8)：处理 WM_IME_COMPOSITION 标志。
+char Sub_459580(std::int16_t flags);
+
 } // namespace cg::platform

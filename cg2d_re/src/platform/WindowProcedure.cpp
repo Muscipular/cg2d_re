@@ -1,7 +1,7 @@
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "ImeComposition.hpp"
+#include "imeImpl.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/render/SdlPresenter.hpp"
 #include "WindowProcedureState.hpp"

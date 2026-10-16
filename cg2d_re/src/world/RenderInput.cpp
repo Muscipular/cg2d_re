@@ -2,7 +2,7 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "../platform/ImeLifecycle.hpp"
+#include "../platform/imeImpl.hpp"
 #include "../platform/StartupNative.hpp"
 #include "../platform/WindowProcedureState.hpp"
 

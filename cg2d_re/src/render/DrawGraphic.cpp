@@ -305,12 +305,16 @@ std::int32_t DrawGraphic(
 std::int32_t DrawBattleBackgroundScaled(
     const std::uint8_t layer, const std::int32_t imageNo, const GraphicDescriptor16* const descriptor)
 {
-    const std::int32_t index = DrawGraphic(320, 240, layer, imageNo, 0, descriptor);
-    if (index < 0) {
-        return index;
+    return StretchGraphicToScreen(DrawGraphic(320, 240, layer, imageNo, 0, descriptor));
+}
+
+std::int32_t StretchGraphicToScreen(const std::int32_t pendingIndex)
+{
+    if (pendingIndex < 0) {
+        return pendingIndex;
     }
-    gLegacyPendingStorage.records[index].batchType = GraphicBatch_BattleBackground;
-    return index;
+    gLegacyPendingStorage.records[pendingIndex].batchType = GraphicBatch_FullscreenBackground;
+    return pendingIndex;
 }
 
 } // namespace cg::render

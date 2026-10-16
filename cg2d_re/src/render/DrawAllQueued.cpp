@@ -30,8 +30,8 @@ namespace {
 
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 
-// R03：独立持有完整源图；节点池复用不影响已经组装的战斗背景。
-struct BattleBackgroundCache {
+// R03／LUR01：独立持有完整源图；节点池复用不影响已经组装的全屏背景。
+struct FullscreenBackgroundCache {
     TextureSurfaceBinding surface;
     std::int32_t imageNo = -1;
     std::int32_t paletteChoice = -1;
@@ -40,9 +40,9 @@ struct BattleBackgroundCache {
     std::uint8_t mixFlags = 0;
 };
 
-void DrawBattleBackground(GraphicCacheItem32* const graphic)
+void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
 {
-    static BattleBackgroundCache cache;
+    static FullscreenBackgroundCache cache;
     if (graphic->imageNo < 0 || gGraphicDxCache103CFA4 == nullptr) {
         return;
     }
@@ -530,8 +530,8 @@ void DrawAllQueued_520DD0()
             case GraphicBatch_PngImage:
                 DrawPngImageBatch(*graphic->reference.pngImage);
                 break;
-            case GraphicBatch_BattleBackground:
-                DrawBattleBackground(graphic);
+            case GraphicBatch_FullscreenBackground:
+                DrawFullscreenBackground(graphic);
                 break;
             default:
                 break;

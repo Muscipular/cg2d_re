@@ -6,6 +6,25 @@
 
 namespace cg::ui {
 
+// LUR01：仅由登录／服务器选择入口持有，退出时平移该场景新增的绘制记录。
+class LegacyUiLayoutScope {
+public:
+    LegacyUiLayoutScope();
+    ~LegacyUiLayoutScope();
+    LegacyUiLayoutScope(const LegacyUiLayoutScope&) = delete;
+    LegacyUiLayoutScope& operator=(const LegacyUiLayoutScope&) = delete;
+
+    // 命中矩形使用与绘制相同的偏移；作用域外返回零。
+    static std::int32_t GetOffsetX() noexcept { return offsetX_; }
+    static std::int32_t GetOffsetY() noexcept { return offsetY_; }
+
+private:
+    std::uint16_t graphicStart_; // 本场景首条图形记录。
+    std::uint32_t textStart_; // 本场景首条独立文本记录。
+    inline static std::int32_t offsetX_ = 0;
+    inline static std::int32_t offsetY_ = 0;
+};
+
 // 原四W32命中矩形；由角色创建命中与七W32控件记录共用。
 struct UiControlBounds {
     std::int32_t left; // 原矩形成员偏移：+0x00。

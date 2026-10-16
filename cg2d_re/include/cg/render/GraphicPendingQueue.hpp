@@ -18,7 +18,7 @@ struct PngImageBatch; // R04：render私有帧批次；队列只借用。
 // R03/R04 扩展批次沿参考编号；仍进入同一层序队列。
 enum GraphicBatchType : std::uint8_t {
     GraphicBatch_PngImage = 14,
-    GraphicBatch_BattleBackground = 15,
+    GraphicBatch_FullscreenBackground = 15, // R03／LUR01 共用完整源图铺满窗口。
 };
 
 // GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。
@@ -196,6 +196,9 @@ std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
 // R03：借原 DrawGraphic 生产战斗背景记录，并标为独立缩放批次。
 std::int32_t DrawBattleBackgroundScaled(
     std::uint8_t layer, std::int32_t imageNo, const GraphicDescriptor16* descriptor = nullptr);
+
+// 将成功入队的背景改为全屏批次；保留原索引／失败值、层序与描述符。
+std::int32_t StretchGraphicToScreen(std::int32_t pendingIndex);
 
 // 原函数：0x00521B10。
 std::int32_t DrawGraphic(

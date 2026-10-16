@@ -5,6 +5,7 @@
 
 #include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
+#include "../../ui/UiControlRecord.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
@@ -562,13 +563,15 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
         return visibleCount;
     }
 
+    const std::int32_t offsetX = ui::LegacyUiLayoutScope::GetOffsetX();
+    const std::int32_t offsetY = ui::LegacyUiLayoutScope::GetOffsetY();
     do {
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
-        if ((geometry.x < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < geometry.x + geometry.width)
-            && (geometry.y < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < geometry.y + geometry.height)) {
+        if ((geometry.x + offsetX < platform::gLegacyMouseState.mouseX)
+            && (platform::gLegacyMouseState.mouseX < geometry.x + offsetX + geometry.width)
+            && (geometry.y + offsetY < platform::gLegacyMouseState.mouseY)
+            && (platform::gLegacyMouseState.mouseY < geometry.y + offsetY + geometry.height)) {
             const std::uint8_t click =
                 static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
             hoveredSlot = slotIndex;

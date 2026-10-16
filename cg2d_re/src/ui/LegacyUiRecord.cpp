@@ -4,12 +4,62 @@
 #include "../scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 
 #include <bit>
 #include <cstdint>
 
 namespace cg::ui {
+
+LegacyUiLayoutScope::LegacyUiLayoutScope()
+    : graphicStart_(platform::gPendingGraphicCount),
+      textStart_(platform::gPendingGraphicCount2)
+{
+    offsetX_ = (platform::gWindowWidth - 640) / 2;
+    offsetY_ = (platform::gWindowHeight - 480) / 2;
+}
+
+LegacyUiLayoutScope::~LegacyUiLayoutScope()
+{
+    // 边框／实色矩形每个 W32 装有两个 W16 坐标，分别平移，不能跨半字进位。
+    const auto shiftCoordinatePair = [](const std::int32_t value, const std::int32_t offset) {
+        const std::uint32_t bits = std::bit_cast<std::uint32_t>(value);
+        const auto low = static_cast<std::uint16_t>((bits & 0xFFFFU) + static_cast<std::uint32_t>(offset));
+        const auto high = static_cast<std::uint16_t>((bits >> 16U) + static_cast<std::uint32_t>(offset));
+        return std::bit_cast<std::int32_t>((static_cast<std::uint32_t>(high) << 16U) | low);
+    };
+    for (std::uint16_t index = graphicStart_; index < platform::gPendingGraphicCount; ++index) {
+        auto& record = render::gLegacyPendingStorage.records[index];
+        switch (record.batchType) {
+        case 0:
+        case 1:
+        case 10:
+        case 11:
+        case 12:
+            record.x += offsetX_;
+            record.y += offsetY_;
+            break;
+        case 2:
+        case 3:
+            record.x = shiftCoordinatePair(record.x, offsetX_);
+            record.y = shiftCoordinatePair(record.y, offsetY_);
+            break;
+        default:
+            // 文本位置在独立队列；全屏背景直接覆盖窗口，不参与控件平移。
+            break;
+        }
+    }
+    for (std::uint32_t index = textStart_; index < platform::gPendingGraphicCount2; ++index) {
+        auto& record = render::gTextPendingRecords[index];
+        record.x = static_cast<std::int16_t>(record.x + offsetX_);
+        record.y = static_cast<std::int16_t>(record.y + offsetY_);
+    }
+    offsetX_ = 0;
+    offsetY_ = 0;
+}
 
 // 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
 std::int32_t QueryUiControlInputState_45F100(

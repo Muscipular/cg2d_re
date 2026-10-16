@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
+#include "UiControlRecord.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 
@@ -19,16 +20,16 @@ std::int32_t HitTestMouseRect_5049A0(
     const std::int32_t bottom,
     const std::int32_t layer)
 {
-    if (!(platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))) {
+    if (!(platform::gLegacyMouseState.mouseX < right + LegacyUiLayoutScope::GetOffsetX())) {
         return 0;
     }
-    if (!(static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)) {
+    if (!(left + LegacyUiLayoutScope::GetOffsetX() <= platform::gLegacyMouseState.mouseX)) {
         return 0;
     }
-    if (!(platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom))) {
+    if (!(platform::gLegacyMouseState.mouseY < bottom + LegacyUiLayoutScope::GetOffsetY())) {
         return 0;
     }
-    if (!(static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)) {
+    if (!(top + LegacyUiLayoutScope::GetOffsetY() <= platform::gLegacyMouseState.mouseY)) {
         return 0;
     }
 

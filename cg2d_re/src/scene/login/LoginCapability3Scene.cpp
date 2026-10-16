@@ -87,35 +87,35 @@ std::int32_t DrawCapability3CommonTail()
 
     const std::int32_t secondAlpha = gAlpha9A5E70;
     if (secondAlpha != 0) {
-        static_cast<void>(cg::render::Sub_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
             0,
             0,
             206,
             245157,
             0,
-            ComposeWhiteAlpha(secondAlpha)));
+            ComposeWhiteAlpha(secondAlpha))));
     }
 
     const std::int32_t thirdAlpha = gAlpha9A4CA0;
     if (thirdAlpha != 0) {
-        static_cast<void>(cg::render::Sub_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
             0,
             0,
             206,
             245156,
             0,
-            ComposeWhiteAlpha(thirdAlpha)));
+            ComposeWhiteAlpha(thirdAlpha))));
     }
 
     const std::int32_t fourthAlpha = gAlpha9A4D08;
     if (fourthAlpha != 0) {
-        return cg::render::Sub_45F090(
+        return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
             0,
             0,
             3,
             245151,
             0,
-            ComposeWhiteAlpha(fourthAlpha));
+            ComposeWhiteAlpha(fourthAlpha)));
     }
     return fourthAlpha;
 }

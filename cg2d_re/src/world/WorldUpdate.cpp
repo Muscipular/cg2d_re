@@ -9,6 +9,7 @@
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/imeImpl.hpp"
+#include "../ui/UiControlRecord.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -43,6 +44,7 @@ void Update()
     gValueC82204 = 0;
     switch (sceneType) {
     case 1: {
+        const ui::LegacyUiLayoutScope layout;
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         const std::int32_t capability = render::gPaletteCapability;
@@ -69,12 +71,14 @@ void Update()
         cg::input::detail::Sub_44A410();
         return;
     }
-    case 2:
+    case 2: {
+        const ui::LegacyUiLayoutScope layout;
         platform::gValue73ECC0 = 0;
         login::ProcessScene_45FEA0();
         cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
+    }
     case 3:
         platform::gValue73ECC0 = 0;
         character_select::ProcessScene_460FF0();

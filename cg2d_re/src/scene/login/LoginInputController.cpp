@@ -7,6 +7,7 @@
 #include "LoginMessageDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
 #include "../../platform/WindowProcedureState.hpp"
+#include "../../ui/UiControlRecord.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
@@ -145,24 +146,26 @@ std::int32_t ProcessCapability4Input_464E30()
     }
 
     if (platform::gMonitorKeyboard == 0) {
-        if ((static_cast<std::int32_t>(gInputContext9A5678X)
+        const std::int32_t offsetX = ui::LegacyUiLayoutScope::GetOffsetX();
+        const std::int32_t offsetY = ui::LegacyUiLayoutScope::GetOffsetY();
+        if ((static_cast<std::int32_t>(gInputContext9A5678X) + offsetX
                 < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5678X) + 372)
-            && (static_cast<std::int32_t>(gInputContext9A5678Y)
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5678X) + offsetX + 372)
+            && (static_cast<std::int32_t>(gInputContext9A5678Y) + offsetY
                 < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5678Y) + 26)
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5678Y) + offsetY + 26)
             && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
             gValue9A6E20 = 1;
         }
-        if ((static_cast<std::int32_t>(gInputContext9A5960X)
+        if ((static_cast<std::int32_t>(gInputContext9A5960X) + offsetX
                 < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5960X) + 372)
-            && (static_cast<std::int32_t>(gInputContext9A5960Y)
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(gInputContext9A5960X) + offsetX + 372)
+            && (static_cast<std::int32_t>(gInputContext9A5960Y) + offsetY
                 < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5960Y) + 26)
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5960Y) + offsetY + 26)
             && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
                     & 1U)
                 != 0) {
@@ -367,13 +370,13 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
                 < static_cast<std::int32_t>(kBackgroundImages.size())
         ? static_cast<std::size_t>(rawBackgroundIndex)
         : std::size_t{0};
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
         320,
         240,
         3,
         kBackgroundImages[backgroundIndex],
         0,
-        nullptr));
+        nullptr)));
     static_cast<void>(cg::render::DrawText3_456560(
         540, 424, 0, 0, kVersion, 0));
     return result;

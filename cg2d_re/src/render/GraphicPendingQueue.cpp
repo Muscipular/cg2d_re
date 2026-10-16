@@ -321,8 +321,8 @@ std::int32_t Sub_521870()
     std::array<std::int32_t, 4> sourceRectangle;
     sourceRectangle[0] = 0;
     sourceRectangle[1] = 0;
-    sourceRectangle[2] = kCpuSurfaceWidth;
-    sourceRectangle[3] = kCpuSurfaceHeight;
+    sourceRectangle[2] = GetCpuSurfaceWidth();
+    sourceRectangle[3] = GetCpuSurfaceHeight();
 
     const std::int32_t gate = world::ReadRippleGateOnce();
     if (gate != 0) {
@@ -356,7 +356,7 @@ std::int32_t Sub_521870()
     const std::int32_t integerPhase =
         static_cast<std::int32_t>(gFloat1020EF0);
     std::int32_t strip = 0;
-    sourceRectangle[2] = kCpuSurfaceWidth;
+    sourceRectangle[2] = GetCpuSurfaceWidth();
     gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);
     sourceRectangle[0] = 0;
     std::int32_t destinationY = 0;
@@ -382,7 +382,7 @@ std::int32_t Sub_521870()
             0, destinationY, sourceRectangle, temp));
         destinationY += 8;
         ++strip;
-    } while (destinationY < kCpuSurfaceHeight);
+    } while (destinationY < GetCpuSurfaceHeight());
 
     const std::uint32_t strengthBits = gRippleStrengthBits;
     const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);

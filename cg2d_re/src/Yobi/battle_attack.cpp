@@ -1,4 +1,5 @@
 #include "battle_attack.hpp"
+#include "cg/platform/Startup.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
 #include "battle_impact.hpp"
@@ -1832,7 +1833,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 1;
-            } else if (action->offset40 > 640.0 - halfWidth && payload->valueFD0 != 2) {
+            } else if (action->offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
                 const double delta = action->angle50 - 270.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
@@ -1844,7 +1845,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 3;
-            } else if (action->offset44 > 480.0F && payload->valueFD0 != 4) {
+            } else if (action->offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
                 const double angle = action->angle50;
                 action->angle50 = static_cast<float>(angle - (angle + angle));
                 ++payload->valueFF0;
@@ -2393,7 +2394,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 1;
-        } else if (action->offset40 > 640.0 - halfWidth && payload->valueFD0 != 2) {
+        } else if (action->offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
             const double delta = action->angle50 - 270.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
@@ -2405,7 +2406,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 3;
-        } else if (action->offset44 > 480.0F && payload->valueFD0 != 4) {
+        } else if (action->offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
             const double angle = action->angle50;
             const double doubledAngle = angle + angle;
             const double currentAngle = action->angle50;

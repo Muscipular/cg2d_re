@@ -1,6 +1,7 @@
 #include "cg/render/SurfaceState.hpp"
 
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/render/RendererResources.hpp"
 
@@ -157,15 +158,15 @@ std::int32_t DrawAutoMap32(
         rectangle[0] -= destinationX;
         destinationX = 0;
     }
-    if (destinationX + rectangle[2] - rectangle[0] > kCpuSurfaceWidth) {
-        rectangle[2] = rectangle[0] - destinationX + kCpuSurfaceWidth;
+    if (destinationX + rectangle[2] - rectangle[0] > GetCpuSurfaceWidth()) {
+        rectangle[2] = rectangle[0] - destinationX + GetCpuSurfaceWidth();
     }
     if (destinationY < 0) {
         rectangle[1] -= destinationY;
         destinationY = 0;
     }
-    if (destinationY + rectangle[3] - rectangle[1] > kCpuSurfaceHeight) {
-        rectangle[3] = rectangle[1] - destinationY + kCpuSurfaceHeight;
+    if (destinationY + rectangle[3] - rectangle[1] > GetCpuSurfaceHeight()) {
+        rectangle[3] = rectangle[1] - destinationY + GetCpuSurfaceHeight();
     }
     const TextureRectangle destination {
         destinationX, destinationY,
@@ -180,14 +181,29 @@ std::int32_t DrawAutoMap32(
 std::uint32_t gBackgroundColor = 0; // 原全局：0x0062B0A8。
 std::uint32_t gValueFF48E4 = 0; // 原全局：0x00FF48E4。
 
+std::int32_t GetCpuSurfaceWidth() noexcept { return platform::gWindowWidth; }
+std::int32_t GetCpuSurfaceHeight() noexcept { return platform::gWindowHeight; }
+std::size_t GetCpuSurfacePitchPixels() noexcept
+{
+    return static_cast<std::size_t>(GetCpuSurfaceWidth());
+}
+std::size_t GetCpuSurfacePitchBytes() noexcept
+{
+    return GetCpuSurfacePitchPixels() * sizeof(std::uint32_t);
+}
+std::size_t GetCpuSurfacePixelCount() noexcept
+{
+    return GetCpuSurfacePitchPixels() * static_cast<std::size_t>(GetCpuSurfaceHeight());
+}
+
 bool CreateCpuBackSurface() noexcept
 {
     gCpuBackSurface.reset(new (std::nothrow) CpuBackStorage {});
     if (gCpuBackSurface == nullptr) {
         return false;
     }
-    constexpr std::size_t storageBytes =
-        (kCpuSurfacePixelCount + 1) * sizeof(std::uint32_t);
+    const std::size_t storageBytes =
+        (GetCpuSurfacePixelCount() + 1) * sizeof(std::uint32_t);
     gCpuBackSurface->mapping = ::CreateFileMappingW(
         INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0,
         static_cast<DWORD>(storageBytes), nullptr);
@@ -201,10 +217,10 @@ bool CreateCpuBackSurface() noexcept
         gCpuBackSurface.reset();
         return false;
     }
-    std::uninitialized_value_construct_n(gCpuBackSurface->pixels, kCpuSurfacePixelCount + 1);
+    std::uninitialized_value_construct_n(gCpuBackSurface->pixels, GetCpuSurfacePixelCount() + 1);
     gCpuBackSurface->blitSurface.reset(SDL_CreateSurfaceFrom(
-        kCpuSurfaceWidth, kCpuSurfaceHeight, SDL_PIXELFORMAT_XRGB8888,
-        gCpuBackSurface->pixels, static_cast<int>(kCpuSurfacePitchBytes)));
+        GetCpuSurfaceWidth(), GetCpuSurfaceHeight(), SDL_PIXELFORMAT_XRGB8888,
+        gCpuBackSurface->pixels, static_cast<int>(GetCpuSurfacePitchBytes())));
     if (gCpuBackSurface->blitSurface == nullptr) {
         gCpuBackSurface.reset();
         return false;
@@ -356,9 +372,9 @@ std::int32_t DrawMapEffects32_452840()
                             if (width > 0) {
                                 do {
                                     const std::int32_t localX = record->value20 + column;
-                                    if (localX >= 0 && localX < kCpuSurfaceWidth) {
+                                    if (localX >= 0 && localX < GetCpuSurfaceWidth()) {
                                         const std::int32_t localY = record->value24 + row;
-                                        if (localY >= 0 && localY < kCpuSurfaceHeight) {
+                                        if (localY >= 0 && localY < GetCpuSurfaceHeight()) {
                                             // 原目标基址已带记录原点；门禁只检查局部坐标。
                                             point[localY * pitch + localX] = color;
                                         }
@@ -430,21 +446,21 @@ std::int32_t DrawColorAutoMap_44FEB0(
 bool CreateCpuAutoMapSurface() noexcept
 {
     gCpuAutoMapSurface = CreatePlainTextureSurface_44C8B0(
-        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x800);
+        static_cast<std::int16_t>(GetCpuSurfaceWidth()), static_cast<std::int16_t>(GetCpuSurfaceHeight()), 0, 0x800);
     return gCpuAutoMapSurface != nullptr;
 }
 
 bool CreateCpuTempSurface() noexcept
 {
     gCpuTempSurface = CreatePlainTextureSurface_44C8B0(
-        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x4000);
+        static_cast<std::int16_t>(GetCpuSurfaceWidth()), static_cast<std::int16_t>(GetCpuSurfaceHeight()), 0, 0x4000);
     return gCpuTempSurface != nullptr;
 }
 
 bool CreateCpuTempSurfaceFallback() noexcept
 {
     gCpuTempSurface = CreateTextureSurface_44C6D0(
-        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x800);
+        static_cast<std::int16_t>(GetCpuSurfaceWidth()), static_cast<std::int16_t>(GetCpuSurfaceHeight()), 0, 0x800);
     return gCpuTempSurface != nullptr;
 }
 
@@ -474,7 +490,7 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept
     if (gCpuBackSurface == nullptr) {
         return {};
     }
-    return {gCpuBackSurface->pixels, kCpuSurfacePixelCount};
+    return {gCpuBackSurface->pixels, GetCpuSurfacePixelCount()};
 }
 
 SDL_Surface* GetCpuBackSdlSurface() noexcept
@@ -495,8 +511,8 @@ HDC AcquireCpuBackTextDc() noexcept
     if (back->textBitmap == nullptr) {
         BITMAPINFO description {};
         description.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-        description.bmiHeader.biWidth = kCpuSurfaceWidth;
-        description.bmiHeader.biHeight = -kCpuSurfaceHeight;
+        description.bmiHeader.biWidth = GetCpuSurfaceWidth();
+        description.bmiHeader.biHeight = -GetCpuSurfaceHeight();
         description.bmiHeader.biPlanes = 1;
         description.bmiHeader.biBitCount = 32;
         description.bmiHeader.biCompression = BI_RGB;
@@ -538,7 +554,7 @@ std::int32_t ClearSurface_4512C0() noexcept
         return -1;
     }
     const std::uint32_t color = gBackgroundColor;
-    std::fill_n(gCpuBackSurface->pixels, kCpuSurfacePixelCount, color);
+    std::fill_n(gCpuBackSurface->pixels, GetCpuSurfacePixelCount(), color);
     return 0;
 }
 
@@ -576,7 +592,7 @@ void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t m
         return;
     }
 
-    const auto pitch = static_cast<std::int32_t>(kCpuSurfacePitchPixels);
+    const auto pitch = static_cast<std::int32_t>(GetCpuSurfacePitchPixels());
     std::uint32_t* const first =
         gCpuBackSurface->pixels + rect->top * pitch + rect->left + 1;
     switch (mode) {
@@ -748,8 +764,8 @@ bool BlitTempToBack(
         || destinationY < 0
         || sourceLeft < 0
         || sourceTop < 0
-        || sourceRight > kCpuSurfaceWidth
-        || sourceBottom > kCpuSurfaceHeight
+        || sourceRight > GetCpuSurfaceWidth()
+        || sourceBottom > GetCpuSurfaceHeight()
         || sourceLeft >= sourceRight
         || sourceTop >= sourceBottom) {
         return false;
@@ -757,8 +773,8 @@ bool BlitTempToBack(
 
     const std::int32_t copyWidth = sourceRight - sourceLeft;
     const std::int32_t copyHeight = sourceBottom - sourceTop;
-    if (destinationX > kCpuSurfaceWidth - copyWidth
-        || destinationY > kCpuSurfaceHeight - copyHeight) {
+    if (destinationX > GetCpuSurfaceWidth() - copyWidth
+        || destinationY > GetCpuSurfaceHeight() - copyHeight) {
         return false;
     }
 

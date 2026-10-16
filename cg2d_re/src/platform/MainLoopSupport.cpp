@@ -654,8 +654,8 @@ void Sub_423640()
     std::int32_t destinationY = offsetY;
     std::int32_t sourceLeft = 0;
     std::int32_t sourceTop = 0;
-    std::int32_t sourceRight = render::kCpuSurfaceWidth;
-    std::int32_t sourceBottom = render::kCpuSurfaceHeight;
+    std::int32_t sourceRight = render::GetCpuSurfaceWidth();
+    std::int32_t sourceBottom = render::GetCpuSurfaceHeight();
 
     if (destinationX < 0) {
         sourceLeft = -destinationX;
@@ -665,20 +665,20 @@ void Sub_423640()
         sourceTop = -destinationY;
         destinationY = 0;
     }
-    if (destinationX >= render::kCpuSurfaceWidth
-        || destinationY >= render::kCpuSurfaceHeight
+    if (destinationX >= render::GetCpuSurfaceWidth()
+        || destinationY >= render::GetCpuSurfaceHeight()
         || sourceLeft >= sourceRight
         || sourceTop >= sourceBottom) {
         return;
     }
 
     const std::int32_t availableWidth =
-        render::kCpuSurfaceWidth - destinationX;
+        render::GetCpuSurfaceWidth() - destinationX;
     if (sourceRight - sourceLeft > availableWidth) {
         sourceRight = sourceLeft + availableWidth;
     }
     const std::int32_t availableHeight =
-        render::kCpuSurfaceHeight - destinationY;
+        render::GetCpuSurfaceHeight() - destinationY;
     if (sourceBottom - sourceTop > availableHeight) {
         sourceBottom = sourceTop + availableHeight;
     }

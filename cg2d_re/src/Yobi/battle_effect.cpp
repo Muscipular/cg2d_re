@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/platform/Startup.hpp"
 #include "battle_effect.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
@@ -984,8 +985,8 @@ std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
     }
     const std::int32_t row = type * 16;
     std::int32_t result;
-    for (std::int32_t x = 0; x < 640; x += 64) {
-        for (std::int32_t y = 0; y < 480; y += 48) {
+    for (std::int32_t x = 0; x < platform::gWindowWidth; x += 64) {
+        for (std::int32_t y = 0; y < platform::gWindowHeight; y += 48) {
             const std::int32_t image = kBattleTiledEffectImages553A74[row + gBattleTiledEffectPhase59F9EC];
             result = cg::render::DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr);
         }

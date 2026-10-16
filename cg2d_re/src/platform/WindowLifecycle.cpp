@@ -1,10 +1,13 @@
 #include "cg/platform/Startup.hpp"
+#include "cg/core/m_log.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <cstring>
 
 namespace cg::platform {
 
@@ -19,6 +22,24 @@ int SetWindowedDesktopColor()
 // 原 WndInit@0x4669F0；保留创建、已有窗口及窗口模式的各分支。
 int InitializeWindow()
 {
+    // R02：首次 WndInit 前解析原进程参数；重建窗口复用已经发布的布局。
+    static bool layoutInitialized = false;
+    if (!layoutInitialized) {
+        const char* const commandLine = GetCommandLineA();
+        int width = 0;
+        int height = 0;
+        const char* option = std::strstr(commandLine, "/width:");
+        if (option != nullptr && std::sscanf(option, "/width:%d", &width) == 1) {
+            gWindowWidth = width;
+        }
+        option = std::strstr(commandLine, "/height:");
+        if (option != nullptr && std::sscanf(option, "/height:%d", &height) == 1) {
+            gWindowHeight = height;
+        }
+        ui::InitializeWindowLayout(width, height);
+        m_log_i("%d %d\n", width, height);
+        layoutInitialized = true;
+    }
     DWORD style;
     RECT rect;
     if (gWindowMode) {
@@ -28,11 +49,11 @@ int InitializeWindow()
         if (gWindowMode) {
             SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
         } else {
-            SetRect(&rect, 0, 0, 640, 480);
+            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
         }
     } else {
         style = 0x90000000;
-        SetRect(&rect, 0, 0, 640, 480);
+        SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
     }
     AdjustWindowRectEx(&rect, style, FALSE, 0);
 

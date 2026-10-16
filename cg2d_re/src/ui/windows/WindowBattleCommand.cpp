@@ -142,8 +142,9 @@ WindowPrototype gWindowPrototypeBattleCommand {2, 5, 341, 0, 299, 69, 0x80010101
 
 // 原函数：0x004966B0。
 static void WindowBattleCommand_Open(
-    const std::int32_t mode, const std::int16_t x, const std::int16_t y)
+    const std::int32_t mode, std::int16_t x, std::int16_t y)
 {
+    AdaptWindowPosition(x, y, 299, 69);
     gWindowStates[WindowId_BattleCommand].actionFlags1C =
         (gWindowStates[WindowId_BattleCommand].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
     WindowInstance* const window = gWindowStates[WindowId_BattleCommand].window;
@@ -1161,9 +1162,9 @@ static void WindowBattleCommand_DrawTargetHint()
         return;
     }
     const std::int32_t y = world::detail::gBattleCommandState5ABC3C == 4 ? 88 : 91;
-    static_cast<void>(cg::render::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
+    static_cast<void>(cg::render::DrawGraphic(platform::gWindowWidth - 138, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(
-        383, static_cast<std::int16_t>(y + 12), 2, 0, 0,
+        static_cast<std::int16_t>(platform::gWindowWidth - 257), static_cast<std::int16_t>(y + 12), 2, 0, 0,
         L"请选择目标", 0));
     gHoverTextD68AE8 = L"按滑鼠右键可取消。";
 }
@@ -1681,13 +1682,14 @@ static void WindowBattleCommand_DrawTimer()
             const std::int32_t digit =
                 std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
             static_cast<void>(cg::render::DrawGraphic(
-                304 + index * 32, 240, 209, imageBase + digit - '0', 0, nullptr));
+                (platform::gWindowWidth - 64) / 2 + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
         }
     }
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
         cg::text::FormatTo(buffer, L"第 {} 回合", turn);
-        static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer, 0));
+        static_cast<void>(render::DrawText3_456560(static_cast<std::int16_t>((platform::gWindowWidth - 64) / 2),
+            static_cast<std::int16_t>(platform::gWindowHeight / 2 - 60), 0, 4, buffer, 0));
     }
 }
 

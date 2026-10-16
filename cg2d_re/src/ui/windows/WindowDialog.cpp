@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -257,7 +258,7 @@ void WindowDialog_AddImage(
 
 // 原函数：0x0049C600。
 cg::yobi::YobiAction* WindowDialog_Open(
-    const std::int32_t x, const std::int32_t y,
+    std::int32_t x, std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::int32_t imageNo, const std::int32_t buttons, WindowDialogTextLine* const lines,
     const std::int32_t lineCount, const std::int32_t lineHeight,
@@ -267,6 +268,20 @@ cg::yobi::YobiAction* WindowDialog_Open(
     const WindowDialogReplyCallback reply, const WindowDialogFrameCallback frame,
     const std::uint32_t flags, const std::uint32_t mode)
 {
+    m_log_i("%d %d %d %d => ", x, y, width, height);
+    auto positionedX = static_cast<std::int16_t>(x);
+    auto positionedY = static_cast<std::int16_t>(y);
+    if (positionedX == 32 && positionedY == 12 && width == 576 && height == 432
+        && platform::gWindowWidth != 0 && platform::gWindowHeight != 0
+        && (platform::gWindowWidth != 640 || platform::gWindowHeight != 480)) {
+        positionedX = static_cast<std::int16_t>((platform::gWindowWidth - width) / 2);
+        positionedY = static_cast<std::int16_t>((platform::gWindowHeight - height) / 2);
+    } else {
+        AdaptWindowPosition(positionedX, positionedY, width, height);
+    }
+    x = positionedX;
+    y = positionedY;
+    m_log_i("%d %d %d %d\n", x, y, width, height);
     gMessageDialog.width = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
     gMessageDialog.lines = lines;
     gMessageDialog.firstSelectableLine = firstSelectableLine;

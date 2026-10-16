@@ -147,15 +147,16 @@ MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
 {
     const std::int32_t x = static_cast<std::uint16_t>(packedCoordinates);
     const std::int32_t y = static_cast<std::uint16_t>(packedCoordinates >> 16);
-    if (gCurrentClientWidth == 640u && gCurrentClientHeight == 480u) {
+    if (gCurrentClientWidth == static_cast<std::uint32_t>(gWindowWidth)
+        && gCurrentClientHeight == static_cast<std::uint32_t>(gWindowHeight)) {
         return MouseCoordinates {x, y};
     }
 
-    // 原非 640×480 路径先换算 Y、后换算 X，分别读取当前客户区尺寸。
+    // R02：尺寸不同时先换算 Y、后换算 X，分别读取当前客户区尺寸。
     const std::int32_t mappedY = static_cast<std::int32_t>(
-        (static_cast<std::uint32_t>(y) * 480u) / gCurrentClientHeight);
+        (static_cast<std::uint32_t>(y) * static_cast<std::uint32_t>(gWindowHeight)) / gCurrentClientHeight);
     const std::int32_t mappedX = static_cast<std::int32_t>(
-        (static_cast<std::uint32_t>(x) * 640u) / gCurrentClientWidth);
+        (static_cast<std::uint32_t>(x) * static_cast<std::uint32_t>(gWindowWidth)) / gCurrentClientWidth);
     return MouseCoordinates {mappedX, mappedY};
 }
 
@@ -246,7 +247,7 @@ LRESULT CALLBACK WindowProcedure(
         if (gWindowMode != 0) {
             SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
         } else {
-            SetRect(&rect, 0, 0, 640, 480);
+            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
         }
         AdjustWindowRectEx(&rect, static_cast<DWORD>(style), FALSE, 0);
         SetWindowPos(

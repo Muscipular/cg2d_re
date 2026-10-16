@@ -13,27 +13,18 @@ struct TextureSurface;
 extern std::uint32_t gBackgroundColor;
 extern std::uint32_t gValueFF48E4; // 原 0xFF48E4；51D750 写入的完整 W32 随机状态。
 
-// Renderer::Init@0x44B75A/0x44B76A 固定写入的逻辑尺寸。
-inline constexpr std::int32_t kCpuSurfaceWidth = 640;
-inline constexpr std::int32_t kCpuSurfaceHeight = 480;
-inline constexpr std::size_t kCpuSurfacePitchPixels = 640;
-inline constexpr std::size_t kCpuSurfacePitchBytes = 2560;
-inline constexpr std::size_t kCpuSurfacePixelCount =
-    kCpuSurfacePitchPixels * static_cast<std::size_t>(kCpuSurfaceHeight);
-static_assert(
-    kCpuSurfacePitchPixels == static_cast<std::size_t>(kCpuSurfaceWidth));
-static_assert(
-    kCpuSurfacePitchBytes
-    == kCpuSurfacePitchPixels * sizeof(std::uint32_t));
-
-// 32 位 0x00RRGGBB、自上而下、行主序；固定 pitch 为 640 像素/2560 字节。
-using CpuSurfacePixels = std::array<std::uint32_t, kCpuSurfacePixelCount>;
+// RHM01/R02：查询既有启动尺寸；CPU Back、缓存、输入和呈现共用同一逻辑画布。
+std::int32_t GetCpuSurfaceWidth() noexcept;
+std::int32_t GetCpuSurfaceHeight() noexcept;
+std::size_t GetCpuSurfacePitchPixels() noexcept;
+std::size_t GetCpuSurfacePitchBytes() noexcept;
+std::size_t GetCpuSurfacePixelCount() noexcept;
 
 // 原 renderer 初始化与缓存构建的底层资源阶段；不代替父函数的其他副作用。
 bool CreateCpuBackSurface() noexcept;
 bool CreateCpuAutoMapSurface() noexcept;
 bool CreateCpuTempSurface() noexcept;
-// 原 523228 的独立回退：使用 MakeSurface，实际尺寸可能大于 640x480。
+// 原 523228 的独立回退：使用 MakeSurface，实际尺寸可能大于请求的逻辑宽高。
 bool CreateCpuTempSurfaceFallback() noexcept;
 bool BuildCpuSurfaceBuffers() noexcept;
 
@@ -92,7 +83,7 @@ std::int32_t BlitSurfaceToBack_4535B0(
     std::array<std::int32_t, 4>& rectangle, TextureSurface* source) noexcept;
 
 // 将 Temp 的半开源矩形同步复制到 Back，不混合、不缩放、不使用色键。
-// 调用方必须先裁剪到逻辑 640x480 边界；内部采用 Temp 的实际行距。
+// 调用方必须先裁剪到当前逻辑画布边界；内部采用 Temp 的实际行距。
 // 非法或空请求不复制并返回 false。
 bool BlitTempToBack(
     std::int32_t destinationX,

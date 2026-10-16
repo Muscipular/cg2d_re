@@ -86,11 +86,11 @@ std::int32_t DrawTextureRectangle(
 
     const auto left = std::max(0, static_cast<std::int32_t>(
         std::ceil(std::min(vertices[0].x, vertices[1].x))));
-    const auto right = std::min(kCpuSurfaceWidth, static_cast<std::int32_t>(
+    const auto right = std::min(GetCpuSurfaceWidth(), static_cast<std::int32_t>(
         std::ceil(std::max(vertices[0].x, vertices[1].x))));
     const auto top = std::max(0, static_cast<std::int32_t>(
         std::ceil(std::min(vertices[0].y, vertices[3].y))));
-    const auto bottom = std::min(kCpuSurfaceHeight, static_cast<std::int32_t>(
+    const auto bottom = std::min(GetCpuSurfaceHeight(), static_cast<std::int32_t>(
         std::ceil(std::max(vertices[0].y, vertices[3].y))));
     if (left >= right || top >= bottom) {
         return 0;
@@ -174,7 +174,7 @@ LegacyTextureDevice* CreateLegacyTextureDevice(
         return nullptr;
     }
     device->back = back;
-    device->row.reset(SDL_CreateSurface(kCpuSurfaceWidth, 1, format->format));
+    device->row.reset(SDL_CreateSurface(GetCpuSurfaceWidth(), 1, format->format));
     if (device->row == nullptr) {
         delete device;
         return nullptr;
@@ -224,7 +224,7 @@ bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* const device) noexcept
     if (device == nullptr) {
         return false;
     }
-    const SDL_Rect viewport {0, 0, kCpuSurfaceWidth, kCpuSurfaceHeight};
+    const SDL_Rect viewport {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
     return SDL_SetSurfaceColorMod(device->row.get(), 255, 255, 255)
         && SDL_SetSurfaceAlphaMod(device->row.get(), 255)
         && SDL_SetSurfaceBlendMode(device->row.get(), SDL_BLENDMODE_NONE)

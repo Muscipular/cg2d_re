@@ -1,4 +1,5 @@
 #include "MapEffectMath.hpp"
+#include "cg/platform/Startup.hpp"
 
 #include <array>
 #include <bit>
@@ -115,7 +116,7 @@ extern "C" void Cg2dMapObserverProjection(
     const MapMathControlScope control;
     const double progress = frame * 100.0 / *duration;
     result->progress = static_cast<float>(progress);
-    const double radius = progress * 480.0 * kPercentScale54D4E4 - 240.0;
+    const double radius = progress * static_cast<float>(gWindowHeight) * kPercentScale54D4E4 - 240.0;
     const double angle = kObserverAngles[direction];
     result->x = TruncateMapIntermediate(std::cos(angle) * radius);
     result->y = TruncateMapIntermediate(-(std::sin(angle) * radius));
@@ -229,8 +230,8 @@ extern "C" float* Cg2dProjectWorldToScreenX87(
 {
     const double horizontal = (static_cast<double>(x) - std::bit_cast<float>(static_cast<std::uint32_t>(*referenceX))) * 0.015625;
     const double vertical = (static_cast<double>(y) - std::bit_cast<float>(static_cast<std::uint32_t>(*referenceY))) * 0.015625;
-    *outX = static_cast<float>((vertical + horizontal) * 32.0 + 320.0);
-    *outY = static_cast<float>((vertical - horizontal) * 24.0 + 240.0);
+    *outX = static_cast<float>((vertical + horizontal) * 32.0 + gWindowWidth / 2);
+    *outY = static_cast<float>((vertical - horizontal) * 24.0 + gWindowHeight / 2);
     return outX;
 }
 
@@ -240,8 +241,8 @@ extern "C" float* Cg2dProjectScreenToWorldX87(
     const volatile std::uint32_t* const referenceX,
     const volatile std::uint32_t* const referenceY) noexcept
 {
-    const double horizontal = x - 320.0;
-    const double vertical = (y - 240.0) * detail::kProjectionInverse54E218;
+    const double horizontal = x - gWindowWidth / 2;
+    const double vertical = (y - gWindowHeight / 2) * detail::kProjectionInverse54E218;
     *outX = static_cast<float>(horizontal - vertical + std::bit_cast<float>(static_cast<std::uint32_t>(*referenceX)));
     *outY = static_cast<float>(vertical + horizontal + std::bit_cast<float>(static_cast<std::uint32_t>(*referenceY)));
     return outX;

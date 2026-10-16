@@ -385,16 +385,16 @@ void DrawAllQueued_520DD0()
                     const auto offsetX = std::bit_cast<std::int32_t>(world::detail::gValueC3500C);
                     std::int32_t destinationX = 0;
                     std::int32_t destinationY = 0;
-                    TextureRectangle rectangle {0, 0, kCpuSurfaceWidth, kCpuSurfaceHeight};
+                    TextureRectangle rectangle {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
                     if (offsetX > 0) {
-                        rectangle[2] = kCpuSurfaceWidth - offsetX;
+                        rectangle[2] = GetCpuSurfaceWidth() - offsetX;
                         destinationX = offsetX;
                     } else if (offsetX < 0) {
                         rectangle[0] = -offsetX;
                     }
                     const auto offsetY = std::bit_cast<std::int32_t>(world::detail::gValueC75010);
                     if (offsetY > 0) {
-                        rectangle[3] = kCpuSurfaceHeight - offsetY;
+                        rectangle[3] = GetCpuSurfaceHeight() - offsetY;
                         destinationY = offsetY;
                     } else if (offsetY < 0) {
                         rectangle[1] = -offsetY;

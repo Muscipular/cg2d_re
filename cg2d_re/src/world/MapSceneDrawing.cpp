@@ -5,6 +5,7 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
@@ -24,7 +25,7 @@ void DrawCutTile(
     const std::uint16_t tile, const std::int32_t screenX, const std::int32_t screenY,
     render::GraphicDescriptor16& descriptor)
 {
-    if (tile <= 999 || screenX < -64 || screenX >= 672 || screenY < -48 || screenY >= 504) {
+    if (tile <= 999 || screenX < -64 || screenX >= platform::gWindowWidth + 32 || screenY < -48 || screenY >= platform::gWindowHeight + 24) {
         return;
     }
     const CutRecord9FB954& cut = gCutData9FB948.records[tile - 1000];
@@ -128,7 +129,7 @@ void DrawNormalMapCell(
 {
     const std::int32_t tile = Sub_46CF00(gMapTileArray[index]);
     if (tile > 999) {
-        if (screenX >= -32 && screenX < 672 && screenY >= -24 && screenY < 504) {
+        if (screenX >= -32 && screenX < platform::gWindowWidth + 32 && screenY >= -24 && screenY < platform::gWindowHeight + 24) {
             const std::uint8_t layer =
                 (tile >= 5000 && tile <= 5009) || (tile >= 7664 && tile <= 7679) ? 1 : 5;
             static_cast<void>(cg::render::DrawGraphic(screenX, screenY, layer, tile, 0, nullptr));
@@ -157,8 +158,8 @@ void DrawNormalMapCell(
         // 原全 W32 局部相加后只消费低 S16；不读取/补造未初始化的高半字。
         const auto clipX = static_cast<std::int16_t>(screenX + offsetX);
         const auto clipY = static_cast<std::int16_t>(screenY + offsetY);
-        if (clipX < 640 && width + clipX - 1 >= 0
-            && clipY < 480 && height + clipY - 1 >= 0) {
+        if (clipX < platform::gWindowWidth && width + clipX - 1 >= 0
+            && clipY < platform::gWindowHeight && height + clipY - 1 >= 0) {
             const std::int32_t mapY = gMapYStart + row;
             const double scaledY = mapY * 64.0;
             const std::int32_t mapX = gMapXStart + diagonal + row;

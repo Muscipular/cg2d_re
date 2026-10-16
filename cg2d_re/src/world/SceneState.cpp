@@ -1173,8 +1173,8 @@ void Sub_46E4E0()
             record->y = y;
             ApplyMapEffectDirection(*record);
             const std::int32_t finalX = record->x;
-            if (finalX >= 640
-                || record->y >= 480) {
+            if (finalX >= platform::gWindowWidth
+                || record->y >= platform::gWindowHeight) {
                 MapEffectRecord* const next = record->next;
                 Sub_46E390(record);
                 --gMapCharaSceneSlots.valueC8A742;
@@ -3639,7 +3639,7 @@ void Sub_43C4E0()
     gBattlePetActionCount5ABBBC = 0;
     cg::yobi::detail::Sub_43C040();
     cg::yobi::detail::Sub_43BFF0();
-    gBattleCommandX553F78 = 493;
+    gBattleCommandX553F78 = platform::gWindowWidth - 147;
     gBattleCommandY553F7C = -106;
     gBattleCommandValue553F80 = 17;
     gBattleSkillUsed5ABC68 = 0;
@@ -6728,8 +6728,8 @@ std::int32_t __cdecl Sub_469030()
                 scanColumn + scanRow * gMapSpanX;
             result = Sub_46CF00(
                 gMapTileArray[static_cast<std::size_t>(index)]);
-            if (result > 999 && drawX >= -32 && drawX < 672 &&
-                drawY >= -24 && drawY < 504) {
+            if (result > 999 && drawX >= -32 && drawX < platform::gWindowWidth + 32 &&
+                drawY >= -24 && drawY < platform::gWindowHeight + 24) {
                 result = cg::render::DrawGraphic(
                     drawX, drawY, 5, result, 0, nullptr);
             }
@@ -8035,7 +8035,7 @@ std::uint8_t Sub_46F680()
     gValueC8A7A8 = 0;
     gValueC8A7AC = 0;
 
-    if ((platform::gLegacyMouseState.mouseY < 456)
+    if ((platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24)
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
@@ -8052,7 +8052,7 @@ std::uint8_t Sub_46F680()
         static_cast<void>(
             cg::render::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
-    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < 456);
+    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24);
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
@@ -9569,7 +9569,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultY));
-        if (!(position > -480.0)) {
+        if (!(position > -static_cast<float>(platform::gWindowHeight))) {
             completed = 1;
         }
         break;
@@ -9587,7 +9587,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultY));
-        if (position >= 480.0) {
+        if (position >= static_cast<float>(platform::gWindowHeight)) {
             completed = 1;
         }
         break;
@@ -9599,7 +9599,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultX));
-        if (!(position > -640.0)) {
+        if (!(position > -static_cast<float>(platform::gWindowWidth))) {
             completed = 1;
         }
         break;
@@ -9617,7 +9617,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultX));
-        if (position >= 640.0) {
+        if (position >= static_cast<float>(platform::gWindowWidth)) {
             completed = 1;
         }
         break;
@@ -9663,10 +9663,10 @@ std::int32_t Sub_51D790(
         if (gTransitionActiveLinesFF48FC > 241.0f) {
             gTransitionActiveLinesFF48FC = 241.0f;
         }
-        if (!(offsetsX[241] >= -640.0f)) {
+        if (!(offsetsX[241] >= -static_cast<float>(platform::gWindowWidth))) {
             completed = 1;
         }
-        if (offsetsX[241] > 640.0f) {
+        if (offsetsX[241] > static_cast<float>(platform::gWindowWidth)) {
             completed = 1;
         }
         break;
@@ -9708,10 +9708,10 @@ std::int32_t Sub_51D790(
             if (gTransitionActiveLinesFF48FC > 241.0f) {
                 gTransitionActiveLinesFF48FC = 241.0f;
             }
-            if (!(offsetsY[241] >= -640.0f)) {
+            if (!(offsetsY[241] >= -static_cast<float>(platform::gWindowWidth))) {
                 completed = 1;
             }
-            if (offsetsY[241] > 640.0f) {
+            if (offsetsY[241] > static_cast<float>(platform::gWindowWidth)) {
                 completed = 1;
             }
         } else {
@@ -9731,7 +9731,7 @@ std::int32_t Sub_51D790(
             }
             gTransitionActiveLinesFF48FC = static_cast<float>(
                 active + (step != 0 ? step : 16.0));
-            if (gTransitionActiveLinesFF48FC > 480.0f) {
+            if (gTransitionActiveLinesFF48FC > static_cast<float>(platform::gWindowHeight)) {
                 gTransitionActiveLinesFF48FC = 480.0f;
             }
             if (offsetsY[479] > 600.0f) {
@@ -9974,10 +9974,10 @@ std::int32_t Sub_51E0D0(
                 if (active > 240) {
                     active = 240;
                 }
-                if (!(offsetsX[241] >= -640.0f)) {
+                if (!(offsetsX[241] >= -static_cast<float>(platform::gWindowWidth))) {
                     break;
                 }
-                if (offsetsX[241] > 640.0f) {
+                if (offsetsX[241] > static_cast<float>(platform::gWindowWidth)) {
                     break;
                 }
             }
@@ -10071,10 +10071,10 @@ std::int32_t Sub_51E0D0(
                 if (active < 241) {
                     active += step != 0 ? step : 4;
                 }
-                if (!(offsetsY[241] >= -640.0f)) {
+                if (!(offsetsY[241] >= -static_cast<float>(platform::gWindowWidth))) {
                     break;
                 }
-                if (offsetsY[241] > 640.0f) {
+                if (offsetsY[241] > static_cast<float>(platform::gWindowWidth)) {
                     break;
                 }
             }
@@ -10678,7 +10678,7 @@ std::int32_t ProcessScanlineTransition(
     const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
     const std::uint32_t trigger = gValue58B6D0;
-    std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
+    std::array<std::int32_t, 4> rectangle {0, 0, platform::gWindowWidth, 0};
     bool initialize;
     if (trigger == 1) {
         gValue58B6D0 = 0;
@@ -10688,7 +10688,7 @@ std::int32_t ProcessScanlineTransition(
     }
     if (initialize) {
         gImageTransitionInitializedFF4910 = 1;
-        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
+        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : platform::gWindowHeight;
     }
 
     static_cast<void>(render::ClearSurface_4512C0());
@@ -10698,14 +10698,14 @@ std::int32_t ProcessScanlineTransition(
         std::int32_t numerator = 0;
         do {
             const std::int32_t sampledRow = numerator / scale;
-            rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
+            rectangle[1] = origin == ScanlineOrigin::Bottom ? platform::gWindowHeight - sampledRow : sampledRow;
             rectangle[3] = rectangle[1] + 1;
             render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
+            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? platform::gWindowHeight - row : row;
             static_cast<void>(render::BlitSurfaceRectangleToBack(0, destinationY, rectangle, source));
             scale = gImageTransitionScaleFF0D78;
             ++row;
-            numerator += 480;
+            numerator += platform::gWindowHeight;
         } while (row < scale);
     }
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
@@ -10714,7 +10714,7 @@ std::int32_t ProcessScanlineTransition(
     }
     const std::int32_t next = direction < 0 ? scale - step : scale + step;
     gImageTransitionScaleFF0D78 = next;
-    if (direction < 0 ? next >= 0 : next <= 480) {
+    if (direction < 0 ? next >= 0 : next <= platform::gWindowHeight) {
         return 0;
     }
 

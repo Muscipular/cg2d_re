@@ -2981,14 +2981,14 @@ static void WindowRuntime_RestorePositions()
         }
         window = state.window;
         const std::int32_t width = prototype->width;
-        if (window->x + width > 640) {
-            const std::int32_t x = platform::RandomRange_46FAF0(620 - width, 640 - width);
+        if (window->x + width > platform::gWindowWidth) {
+            const std::int32_t x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
             state.window->x = x;
         }
         window = state.window;
         const std::int32_t height = prototype->height;
-        if (window->y + height > 480) {
-            const std::int32_t y = platform::RandomRange_46FAF0(460 - height, 480 - height);
+        if (window->y + height > platform::gWindowHeight) {
+            const std::int32_t y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
             state.window->y = y;
         }
     }
@@ -4562,11 +4562,11 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
         if (gWindowStates[id].y < 0) {
             gWindowStates[id].y = platform::RandomRange_46FAF0(10, 20);
         }
-        if (gWindowStates[id].x + width > 640) {
-            gWindowStates[id].x = platform::RandomRange_46FAF0(620 - width, 640 - width);
+        if (gWindowStates[id].x + width > platform::gWindowWidth) {
+            gWindowStates[id].x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
         }
-        if (gWindowStates[id].y + height > 480) {
-            gWindowStates[id].y = platform::RandomRange_46FAF0(460 - height, 480 - height);
+        if (gWindowStates[id].y + height > platform::gWindowHeight) {
+            gWindowStates[id].y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
         }
     }
     WindowInstance* const window = gWindowStates[id].window;

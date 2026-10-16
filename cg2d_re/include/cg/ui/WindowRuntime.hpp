@@ -84,6 +84,14 @@ enum WindowId : std::int32_t {
 };
 static_assert(sizeof(WindowId) == sizeof(std::int32_t));
 
+// R02：同轴位置适配保留居中／贴边判断；默认坐标仍以 640×480 为基准。
+std::int32_t AdaptWindowAxisPosition(
+    std::int32_t position, std::int32_t size, std::int32_t baseSize, std::int32_t targetSize);
+void AdaptWindowPosition(
+    std::int16_t& x, std::int16_t& y, std::int32_t width, std::int32_t height);
+// 首次窗口初始化按原双参数非零门禁调整原型及保存坐标。
+void InitializeWindowLayout(std::int32_t requestedWidth, std::int32_t requestedHeight);
+
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;
 

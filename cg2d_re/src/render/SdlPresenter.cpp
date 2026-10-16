@@ -42,7 +42,6 @@ namespace cg::render {
 
 static_assert(sizeof(std::uintptr_t) == 8, "SdlPresenter 要求 64 位原生窗口引用。");
 static_assert(sizeof(std::uint32_t) == 4, "SdlPresenter 要求每像素 4 字节。");
-static_assert(kCpuSurfacePitchBytes <= static_cast<std::size_t>((std::numeric_limits<int>::max)()));
 
 namespace {
 
@@ -362,7 +361,7 @@ bool SdlPresenter::FailSdl(const char* operation) noexcept
 bool CreateRendererPresenter() noexcept
 {
     return gRendererPresenter.Create(
-        platform::gLegacyWindow, kCpuSurfaceWidth, kCpuSurfaceHeight, "direct3d11");
+        platform::gLegacyWindow, GetCpuSurfaceWidth(), GetCpuSurfaceHeight(), "direct3d11");
 }
 
 bool SetRendererPresenterFullscreen(const bool fullscreen) noexcept
@@ -384,7 +383,7 @@ const char* RendererPresenterLastError() noexcept
 void Flip_44C560()
 {
     if (!gRendererPresenter.Present(
-            ReadCpuBackPixels(), static_cast<int>(kCpuSurfacePitchBytes))) {
+            ReadCpuBackPixels(), static_cast<int>(GetCpuSurfacePitchBytes()))) {
         platform::gRendererLost = 1;
     }
     gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;

@@ -144,7 +144,7 @@
 | 72 | 0x004041D0 | `unknown_libname_8` | 有承接 | `src/platform/RuntimeInitialization.cpp:45 — cg::platform::gProtectionProcessState` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 73 | 0x004041E0 | `sub_4041E0` | 有正文 | `src/platform/MainLoopSupport.cpp:237 — InitializeProtection_4041E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 74 | 0x004042B0 | `sub_4042B0` | 有正文 | `src/platform/MainLoopSupport.cpp:470 — ReleaseProtection_4042B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 75 | 0x004042D0 | `sub_4042D0` | 有正文 | `src/platform/MainLoopSupport.cpp:141 — CheckProcessModules_4042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 75 | 0x004042D0 | `sub_4042D0` | 有正文 | `src/platform/MainLoopSupport.cpp:126 — CheckProcessModules_4042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 76 | 0x004043B0 | `sub_4043B0` | 有正文 | `src/platform/MainLoopSupport.cpp:270 — CheckProtection_4043B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 77 | 0x00404600 | `sub_404600` | 有正文 | `src/platform/MainLoopSupport.cpp:385 — ParseProtectionTables_404600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 78 | 0x00404880 | `sub_404880` | 有正文 | `src/platform/MainLoopSupport.cpp:169 — CheckDebugger_404880` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -177,7 +177,7 @@
 | 105 | 0x00406360 | `sub_406360` | 有正文 | `src/Yobi/battle_base.cpp:23082 — CountBattleActiveEntries_406360` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 106 | 0x00406390 | `sub_406390` | 有正文 | `src/Yobi/battle_base.cpp:31637 — ApplyBattleEffectFlags_406390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 107 | 0x004065A0 | `sub_4065A0` | 有正文 | `src/Yobi/battle_base.cpp:23094 — SeedBattleRandom_4065A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 108 | 0x004065E0 | `sub_4065E0` | 有正文 | `src/Yobi/battle_attack.cpp:24775 — ProbeBattleAttackEvent_4065E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 108 | 0x004065E0 | `sub_4065E0` | 有正文 | `src/Yobi/battle_attack.cpp:580 — ProbeBattleAttackEvent_4065E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 109 | 0x00406630 | `sub_406630` | 有正文 | `src/Yobi/battle_actor.cpp:29233 — UpdateBattleAction236_406630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 110 | 0x00406650 | `sub_406650` | 有正文 | `src/Yobi/battle_actor.cpp:23831 — UpdateBattleAction0_406650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 111 | 0x00406720 | `sub_406720` | 有正文 | `src/Yobi/battle_actor.cpp:23870 — UpdateBattleAction1_406720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -185,27 +185,27 @@
 | 113 | 0x004067F0 | `sub_4067F0` | 有正文 | `src/Yobi/battle_actor.cpp:24081 — UpdateBattleAction11_4067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 114 | 0x00406930 | `sub_406930` | 有正文 | `src/Yobi/battle_actor.cpp:24138 — UpdateBattleAction12_406930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 115 | 0x00406A80 | `sub_406A80` | 有正文 | `src/Yobi/battle_actor.cpp:24182 — UpdateBattleAction13_406A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 116 | 0x00406BA0 | `sub_406BA0` | 有正文 | `src/Yobi/battle_attack.cpp:25915 — UpdateBattleAction25_406BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 116 | 0x00406BA0 | `sub_406BA0` | 有正文 | `src/Yobi/battle_attack.cpp:1720 — UpdateBattleAction25_406BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 117 | 0x00406C30 | `sub_406C30` | 有正文 | `src/Yobi/battle_actor.cpp:23910 — UpdateBattleAction3_406C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 118 | 0x00406CD0 | `sub_406CD0` | 有正文 | `src/Yobi/battle_actor.cpp:23969 — UpdateBattleAction6_406CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 119 | 0x00406D70 | `sub_406D70` | 有正文 | `src/Yobi/battle_actor.cpp:23930 — UpdateBattleAction4_406D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 120 | 0x00406E10 | `Battle::Boomerange::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:24796 — UpdateBattleAction15_406E10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 121 | 0x004070E0 | `Battle::SpiracleShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:24961 — UpdateBattleAction70_4070E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 122 | 0x004071C0 | `Battle::BlastWave::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:24985 — UpdateBattleAction249_4071C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 123 | 0x004072E0 | `sub_4072E0` | 有正文 | `src/Yobi/battle_attack.cpp:25022 — UpdateBattleAction16_4072E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 124 | 0x00408170 | `Battle::BowShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:24880 — UpdateBattleAction18_408170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 125 | 0x004082F0 | `Battle::RandomShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:24922 — UpdateBattleAction19_4082F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 126 | 0x00408410 | `sub_408410` | 有正文 | `src/Yobi/battle_attack.cpp:25447 — UpdateBattleAction20_408410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 127 | 0x00408750 | `sub_408750` | 有正文 | `src/Yobi/battle_attack.cpp:25549 — UpdateBattleAction21_408750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 128 | 0x004087C0 | `sub_4087C0` | 有正文 | `src/Yobi/battle_attack.cpp:25567 — UpdateBattleAction22_4087C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 129 | 0x004090F0 | `sub_4090F0` | 有正文 | `src/Yobi/battle_attack.cpp:25820 — UpdateBattleAction23_4090F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 130 | 0x00409380 | `sub_409380` | 有正文 | `src/Yobi/battle_attack.cpp:25902 — UpdateBattleAction24_409380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 131 | 0x004093B0 | `sub_4093B0` | 有正文 | `src/Yobi/battle_attack.cpp:25436 — UpdateBattleAction17_4093B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 120 | 0x00406E10 | `Battle::Boomerange::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:601 — UpdateBattleAction15_406E10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 121 | 0x004070E0 | `Battle::SpiracleShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:766 — UpdateBattleAction70_4070E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 122 | 0x004071C0 | `Battle::BlastWave::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:790 — UpdateBattleAction249_4071C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 123 | 0x004072E0 | `sub_4072E0` | 有正文 | `src/Yobi/battle_attack.cpp:827 — UpdateBattleAction16_4072E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 124 | 0x00408170 | `Battle::BowShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:685 — UpdateBattleAction18_408170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 125 | 0x004082F0 | `Battle::RandomShot::runEffect` | 有正文 | `src/Yobi/battle_attack.cpp:727 — UpdateBattleAction19_4082F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 126 | 0x00408410 | `sub_408410` | 有正文 | `src/Yobi/battle_attack.cpp:1252 — UpdateBattleAction20_408410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 127 | 0x00408750 | `sub_408750` | 有正文 | `src/Yobi/battle_attack.cpp:1354 — UpdateBattleAction21_408750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 128 | 0x004087C0 | `sub_4087C0` | 有正文 | `src/Yobi/battle_attack.cpp:1372 — UpdateBattleAction22_4087C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 129 | 0x004090F0 | `sub_4090F0` | 有正文 | `src/Yobi/battle_attack.cpp:1625 — UpdateBattleAction23_4090F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 130 | 0x00409380 | `sub_409380` | 有正文 | `src/Yobi/battle_attack.cpp:1707 — UpdateBattleAction24_409380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 131 | 0x004093B0 | `sub_4093B0` | 有正文 | `src/Yobi/battle_attack.cpp:1241 — UpdateBattleAction17_4093B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 132 | 0x00409410 | `sub_409410` | 有正文 | `src/Yobi/battle_actor.cpp:23991 — UpdateBattleAction7_409410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 133 | 0x004094A0 | `sub_4094A0` | 有正文 | `src/Yobi/battle_actor.cpp:24014 — UpdateBattleAction8_4094A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 134 | 0x00409510 | `sub_409510` | 有正文 | `src/Yobi/battle_actor.cpp:24032 — UpdateBattleAction9_409510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 135 | 0x00409610 | `sub_409610` | 有正文 | `src/Yobi/battle_actor.cpp:24065 — UpdateBattleAction10_409610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 136 | 0x00409680 | `sub_409680` | 有正文 | `src/Yobi/battle_attack.cpp:24225 — UpdateBattleAction14_409680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 136 | 0x00409680 | `sub_409680` | 有正文 | `src/Yobi/battle_attack.cpp:30 — UpdateBattleAction14_409680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 137 | 0x0040A9E0 | `sub_40A9E0` | 有正文 | `src/Yobi/battle_status.cpp:25947 — UpdateBattleAction26_40A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 138 | 0x0040AA70 | `sub_40AA70` | 有正文 | `src/Yobi/battle_status.cpp:25967 — UpdateBattleAction27_40AA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 139 | 0x0040ACF0 | `sub_40ACF0` | 有正文 | `src/Yobi/battle_status.cpp:26053 — UpdateBattleAction28_40ACF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -217,17 +217,17 @@
 | 145 | 0x0040B200 | `sub_40B200` | 有正文 | `src/Yobi/battle_cast.cpp:26563 — UpdateBattleAction46_40B200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 146 | 0x0040B3C0 | `sub_40B3C0` | 有正文 | `src/Yobi/battle_cast.cpp:26703 — UpdateBattleAction50_40B3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 147 | 0x0040B3F0 | `sub_40B3F0` | 有正文 | `src/Yobi/battle_cast.cpp:26641 — UpdateBattleAction47_40B3F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 148 | 0x0040B410 | `sub_40B410` | 有正文 | `src/Yobi/battle_attack.cpp:26206 — UpdateBattleAction32_40B410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 149 | 0x0040B450 | `sub_40B450` | 有正文 | `src/Yobi/battle_attack.cpp:26217 — UpdateBattleAction33_40B450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 148 | 0x0040B410 | `sub_40B410` | 有正文 | `src/Yobi/battle_attack.cpp:1752 — UpdateBattleAction32_40B410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 149 | 0x0040B450 | `sub_40B450` | 有正文 | `src/Yobi/battle_attack.cpp:1763 — UpdateBattleAction33_40B450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 150 | 0x0040B490 | `sub_40B490` | 有正文 | `src/Yobi/battle_cast.cpp:26650 — UpdateBattleAction48_40B490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 151 | 0x0040B5B0 | `sub_40B5B0` | 有正文 | `src/Yobi/battle_cast.cpp:26692 — UpdateBattleAction49_40B5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 152 | 0x0040B5E0 | `sub_40B5E0` | 有正文 | `src/Yobi/battle_attack.cpp:26228 — UpdateBattleAction34_40B5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 153 | 0x0040B930 | `sub_40B930` | 有正文 | `src/Yobi/battle_attack.cpp:26320 — UpdateBattleAction35_40B930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 154 | 0x0040BAD0 | `sub_40BAD0` | 有正文 | `src/Yobi/battle_attack.cpp:26378 — UpdateBattleAction36_40BAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 155 | 0x0040BB20 | `sub_40BB20` | 有正文 | `src/Yobi/battle_attack.cpp:26394 — UpdateBattleAction37_40BB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 156 | 0x0040BB70 | `sub_40BB70` | 有正文 | `src/Yobi/battle_attack.cpp:26410 — UpdateBattleAction38_40BB70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 157 | 0x0040BBC0 | `sub_40BBC0` | 有正文 | `src/Yobi/battle_attack.cpp:26426 — UpdateBattleAction39_40BBC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 158 | 0x0040BD40 | `sub_40BD40` | 有正文 | `src/Yobi/battle_attack.cpp:26478 — UpdateBattleAction40_40BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 152 | 0x0040B5E0 | `sub_40B5E0` | 有正文 | `src/Yobi/battle_attack.cpp:1774 — UpdateBattleAction34_40B5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 153 | 0x0040B930 | `sub_40B930` | 有正文 | `src/Yobi/battle_attack.cpp:1866 — UpdateBattleAction35_40B930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 154 | 0x0040BAD0 | `sub_40BAD0` | 有正文 | `src/Yobi/battle_attack.cpp:1924 — UpdateBattleAction36_40BAD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 155 | 0x0040BB20 | `sub_40BB20` | 有正文 | `src/Yobi/battle_attack.cpp:1940 — UpdateBattleAction37_40BB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 156 | 0x0040BB70 | `sub_40BB70` | 有正文 | `src/Yobi/battle_attack.cpp:1956 — UpdateBattleAction38_40BB70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 157 | 0x0040BBC0 | `sub_40BBC0` | 有正文 | `src/Yobi/battle_attack.cpp:1972 — UpdateBattleAction39_40BBC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 158 | 0x0040BD40 | `sub_40BD40` | 有正文 | `src/Yobi/battle_attack.cpp:2024 — UpdateBattleAction40_40BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 159 | 0x0040BD60 | `sub_40BD60` | 有正文 | `src/Yobi/battle_cast.cpp:26503 — UpdateBattleAction41_40BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 160 | 0x0040BDB0 | `sub_40BDB0` | 有正文 | `src/Yobi/battle_cast.cpp:26517 — UpdateBattleAction42_40BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 161 | 0x0040BDF0 | `sub_40BDF0` | 有正文 | `src/Yobi/battle_cast.cpp:26542 — UpdateBattleAction44_40BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -361,65 +361,65 @@
 | 289 | 0x00416020 | `sub_416020` | 有正文 | `src/Yobi/battle_ride.cpp:31197 — UpdateBattleAction229_416020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 290 | 0x004160A0 | `sub_4160A0` | 有正文 | `src/Yobi/battle_ride.cpp:31213 — UpdateBattleAction230_4160A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 291 | 0x00416150 | `sub_416150` | 有正文 | `src/Yobi/battle_ride.cpp:31235 — UpdateBattleAction231_416150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 292 | 0x00416220 | `sub_416220` | 有正文 | `src/Yobi/battle_attack.cpp:31266 — UpdateBattleAction232_416220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 293 | 0x00416860 | `sub_416860` | 有正文 | `src/Yobi/battle_attack.cpp:31434 — UpdateBattleAction233_416860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 294 | 0x00416AB0 | `sub_416AB0` | 有正文 | `src/Yobi/battle_attack.cpp:31513 — UpdateBattleAction234_416AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 292 | 0x00416220 | `sub_416220` | 有正文 | `src/Yobi/battle_attack.cpp:2096 — UpdateBattleAction232_416220` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 293 | 0x00416860 | `sub_416860` | 有正文 | `src/Yobi/battle_attack.cpp:2264 — UpdateBattleAction233_416860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 294 | 0x00416AB0 | `sub_416AB0` | 有正文 | `src/Yobi/battle_attack.cpp:2343 — UpdateBattleAction234_416AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 295 | 0x00416DB0 | `sub_416DB0` | 有正文 | `src/Yobi/battle_base.cpp:31681 — ApplyBattleCastEffects_416DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 296 | 0x00416DD0 | `sub_416DD0` | 有正文 | `src/Yobi/battle_attack.cpp:32494 — UpdateBattleAction237_416DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 297 | 0x00417410 | `sub_417410` | 有正文 | `src/Yobi/battle_attack.cpp:32672 — UpdateBattleActions238_239_417410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 298 | 0x00417AC0 | `sub_417AC0` | 有正文 | `src/Yobi/battle_attack.cpp:32870 — UpdateBattleAction240_417AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 299 | 0x00417B80 | `sub_417B80` | 有正文 | `src/Yobi/battle_attack.cpp:30318 — UpdateBattleAction241_417B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 300 | 0x00417CC0 | `sub_417CC0` | 有正文 | `src/Yobi/battle_attack.cpp:30359 — UpdateBattleAction242_417CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 301 | 0x00417D80 | `sub_417D80` | 有正文 | `src/Yobi/battle_attack.cpp:32898 — UpdateBattleAction243_417D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 302 | 0x00418550 | `sub_418550` | 有正文 | `src/Yobi/battle_attack.cpp:33097 — UpdateBattleAction244_418550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 303 | 0x00418580 | `sub_418580` | 有正文 | `src/Yobi/battle_attack.cpp:33107 — UpdateBattleAction245_418580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 304 | 0x004185C0 | `sub_4185C0` | 有正文 | `src/Yobi/battle_attack.cpp:33119 — UpdateBattleAction246_4185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 305 | 0x004185F0 | `sub_4185F0` | 有正文 | `src/Yobi/battle_attack.cpp:33129 — UpdateBattleAction247_4185F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 306 | 0x00418620 | `sub_418620` | 有正文 | `src/Yobi/battle_attack.cpp:33139 — UpdateBattleAction248_418620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 307 | 0x004186B0 | `sub_4186B0` | 有正文 | `src/Yobi/battle_attack.cpp:33194 — UpdateBattleAction255_4186B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 308 | 0x00418B50 | `sub_418B50` | 有正文 | `src/Yobi/battle_attack.cpp:33352 — UpdateBattleAction256_418B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 309 | 0x00418B70 | `Battle::SpiracleShot::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:9415 — NewBattleSpiracleShot_418B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 310 | 0x00418D80 | `YobiBattleEntry::ProjectionUpdate` | 有正文 | `src/Yobi/battle_effect.cpp:9347 — UpdateBattleProjection_418D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 311 | 0x00418DF0 | `YobiBattleEntry::newProjection` | 有正文 | `src/Yobi/battle_effect.cpp:9368 — NewBattleProjection_418DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 312 | 0x00418F10 | `sub_418F10` | 有正文 | `src/Yobi/battle_effect.cpp:9256 — UpdateBattleArcProjection_418F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 313 | 0x00418FF0 | `sub_418FF0` | 有正文 | `src/Yobi/battle_effect.cpp:9296 — NewBattleArcProjection_418FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 314 | 0x00419180 | `Battle::BlastWave::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:9486 — NewBattleBlastWave_419180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 315 | 0x00419390 | `Battle::RangeHit::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:9557 — NewBattleRangeHit_419390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 316 | 0x004195F0 | `Battle::Boomerange::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:9724 — NewBattleBoomerang_4195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 317 | 0x00419BE0 | `sub_419BE0` | 有正文 | `src/Yobi/battle_effect.cpp:10609 — UpdateBattleTransitionEffect_419BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 318 | 0x00419C10 | `sub_419C10` | 有正文 | `src/Yobi/battle_effect.cpp:10619 — NewBattleTransitionEffect_419C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 319 | 0x00419CB0 | `sub_419CB0` | 有正文 | `src/Yobi/battle_effect.cpp:10648 — UpdateBattleOffsetFollowEffect_419CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 320 | 0x00419CF0 | `sub_419CF0` | 有正文 | `src/Yobi/battle_effect.cpp:10665 — NewBattleOffsetFollowEffect_419CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 321 | 0x00419DA0 | `sub_419DA0` | 有正文 | `src/Yobi/battle_effect.cpp:9634 — NewBattleArcShot_419DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 322 | 0x00419FA0 | `sub_419FA0` | 有正文 | `src/Yobi/battle_effect.cpp:10047 — UpdateBattleOneShotEffect_419FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 323 | 0x00419FC0 | `sub_419FC0` | 有正文 | `src/Yobi/battle_effect.cpp:10055 — NewBattleRandomEffect_419FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 324 | 0x0041A0D0 | `sub_41A0D0` | 有正文 | `src/Yobi/battle_effect.cpp:10088 — NewBattleScreenEffect_41A0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 325 | 0x0041A160 | `sub_41A160` | 有正文 | `src/Yobi/battle_effect.cpp:6869 — UpdateBattleCompletingEffect_41A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 326 | 0x0041A1C0 | `sub_41A1C0` | 有正文 | `src/Yobi/battle_effect.cpp:6888 — UpdateBattleParentEffect_41A1C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 327 | 0x0041A200 | `sub_41A200` | 有正文 | `src/Yobi/battle_effect.cpp:6902 — UpdateBattleRisingEffect_41A200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 328 | 0x0041A270 | `sub_41A270` | 有正文 | `src/Yobi/battle_effect.cpp:6926 — UpdateBattleScalingEffect_41A270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 329 | 0x0041A310 | `sub_41A310` | 有正文 | `src/Yobi/battle_effect.cpp:6956 — UpdateBattleRandomEmitter_41A310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 330 | 0x0041A530 | `sub_41A530` | 有正文 | `src/Yobi/battle_effect.cpp:7012 — UpdateBattleFallingEffect_41A530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 331 | 0x0041A590 | `sub_41A590` | 有正文 | `src/Yobi/battle_effect.cpp:7027 — UpdateBattleReverseEmitter_41A590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 332 | 0x0041A7D0 | `sub_41A7D0` | 有正文 | `src/Yobi/battle_effect.cpp:7080 — UpdateBattleIndexedEmitter_41A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 296 | 0x00416DD0 | `sub_416DD0` | 有正文 | `src/Yobi/battle_attack.cpp:2427 — UpdateBattleAction237_416DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 297 | 0x00417410 | `sub_417410` | 有正文 | `src/Yobi/battle_attack.cpp:2605 — UpdateBattleActions238_239_417410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 298 | 0x00417AC0 | `sub_417AC0` | 有正文 | `src/Yobi/battle_attack.cpp:2803 — UpdateBattleAction240_417AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 299 | 0x00417B80 | `sub_417B80` | 有正文 | `src/Yobi/battle_attack.cpp:2031 — UpdateBattleAction241_417B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 300 | 0x00417CC0 | `sub_417CC0` | 有正文 | `src/Yobi/battle_attack.cpp:2072 — UpdateBattleAction242_417CC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 301 | 0x00417D80 | `sub_417D80` | 有正文 | `src/Yobi/battle_attack.cpp:2831 — UpdateBattleAction243_417D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 302 | 0x00418550 | `sub_418550` | 有正文 | `src/Yobi/battle_attack.cpp:3030 — UpdateBattleAction244_418550` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 303 | 0x00418580 | `sub_418580` | 有正文 | `src/Yobi/battle_attack.cpp:3040 — UpdateBattleAction245_418580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 304 | 0x004185C0 | `sub_4185C0` | 有正文 | `src/Yobi/battle_attack.cpp:3052 — UpdateBattleAction246_4185C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 305 | 0x004185F0 | `sub_4185F0` | 有正文 | `src/Yobi/battle_attack.cpp:3062 — UpdateBattleAction247_4185F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 306 | 0x00418620 | `sub_418620` | 有正文 | `src/Yobi/battle_attack.cpp:3072 — UpdateBattleAction248_418620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 307 | 0x004186B0 | `sub_4186B0` | 有正文 | `src/Yobi/battle_attack.cpp:3093 — UpdateBattleAction255_4186B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 308 | 0x00418B50 | `sub_418B50` | 有正文 | `src/Yobi/battle_attack.cpp:3251 — UpdateBattleAction256_418B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 309 | 0x00418B70 | `Battle::SpiracleShot::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:1214 — NewBattleSpiracleShot_418B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 310 | 0x00418D80 | `YobiBattleEntry::ProjectionUpdate` | 有正文 | `src/Yobi/battle_effect.cpp:1146 — UpdateBattleProjection_418D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 311 | 0x00418DF0 | `YobiBattleEntry::newProjection` | 有正文 | `src/Yobi/battle_effect.cpp:1167 — NewBattleProjection_418DF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 312 | 0x00418F10 | `sub_418F10` | 有正文 | `src/Yobi/battle_effect.cpp:1055 — UpdateBattleArcProjection_418F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 313 | 0x00418FF0 | `sub_418FF0` | 有正文 | `src/Yobi/battle_effect.cpp:1095 — NewBattleArcProjection_418FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 314 | 0x00419180 | `Battle::BlastWave::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:1285 — NewBattleBlastWave_419180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 315 | 0x00419390 | `Battle::RangeHit::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:1356 — NewBattleRangeHit_419390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 316 | 0x004195F0 | `Battle::Boomerange::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:1523 — NewBattleBoomerang_4195F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 317 | 0x00419BE0 | `sub_419BE0` | 有正文 | `src/Yobi/battle_effect.cpp:2132 — UpdateBattleTransitionEffect_419BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 318 | 0x00419C10 | `sub_419C10` | 有正文 | `src/Yobi/battle_effect.cpp:2142 — NewBattleTransitionEffect_419C10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 319 | 0x00419CB0 | `sub_419CB0` | 有正文 | `src/Yobi/battle_effect.cpp:2171 — UpdateBattleOffsetFollowEffect_419CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 320 | 0x00419CF0 | `sub_419CF0` | 有正文 | `src/Yobi/battle_effect.cpp:2188 — NewBattleOffsetFollowEffect_419CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 321 | 0x00419DA0 | `sub_419DA0` | 有正文 | `src/Yobi/battle_effect.cpp:1433 — NewBattleArcShot_419DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 322 | 0x00419FA0 | `sub_419FA0` | 有正文 | `src/Yobi/battle_effect.cpp:1846 — UpdateBattleOneShotEffect_419FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 323 | 0x00419FC0 | `sub_419FC0` | 有正文 | `src/Yobi/battle_effect.cpp:1854 — NewBattleRandomEffect_419FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 324 | 0x0041A0D0 | `sub_41A0D0` | 有正文 | `src/Yobi/battle_effect.cpp:1887 — NewBattleScreenEffect_41A0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 325 | 0x0041A160 | `sub_41A160` | 有正文 | `src/Yobi/battle_effect.cpp:151 — UpdateBattleCompletingEffect_41A160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 326 | 0x0041A1C0 | `sub_41A1C0` | 有正文 | `src/Yobi/battle_effect.cpp:170 — UpdateBattleParentEffect_41A1C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 327 | 0x0041A200 | `sub_41A200` | 有正文 | `src/Yobi/battle_effect.cpp:184 — UpdateBattleRisingEffect_41A200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 328 | 0x0041A270 | `sub_41A270` | 有正文 | `src/Yobi/battle_effect.cpp:208 — UpdateBattleScalingEffect_41A270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 329 | 0x0041A310 | `sub_41A310` | 有正文 | `src/Yobi/battle_effect.cpp:238 — UpdateBattleRandomEmitter_41A310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 330 | 0x0041A530 | `sub_41A530` | 有正文 | `src/Yobi/battle_effect.cpp:294 — UpdateBattleFallingEffect_41A530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 331 | 0x0041A590 | `sub_41A590` | 有正文 | `src/Yobi/battle_effect.cpp:309 — UpdateBattleReverseEmitter_41A590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 332 | 0x0041A7D0 | `sub_41A7D0` | 有正文 | `src/Yobi/battle_effect.cpp:362 — UpdateBattleIndexedEmitter_41A7D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 333 | 0x0041A9E0 | `sub_41A9E0` | 有正文 | `src/Yobi/battle_impact.cpp:7156 — UpdateBattleImpactEffect_41A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 334 | 0x0041AF00 | `sub_41AF00` | 有正文 | `src/Yobi/battle_impact.cpp:7322 — UpdateBattleImpactSoundEffect_41AF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 335 | 0x0041B440 | `sub_41B440` | 有正文 | `src/Yobi/battle_impact.cpp:7489 — UpdateBattleFrameEventEffect_41B440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 336 | 0x0041BB00 | `sub_41BB00` | 有正文 | `src/Yobi/battle_impact.cpp:7694 — UpdateBattleMovingImpactEffect_41BB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 337 | 0x0041C3B0 | `sub_41C3B0` | 有正文 | `src/Yobi/battle_impact.cpp:7944 — UpdateBattleHomingImpactEffect_41C3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 338 | 0x0041CD00 | `sub_41CD00` | 有正文 | `src/Yobi/battle_effect.cpp:8375 — NewBattleEffect_41CD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 339 | 0x0041E4D0 | `sub_41E4D0` | 有正文 | `src/Yobi/battle_effect.cpp:9911 — UpdateBattleScatterEffect_41E4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 340 | 0x0041E510 | `sub_41E510` | 有正文 | `src/Yobi/battle_effect.cpp:9925 — NewBattleScatterEffect_41E510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 341 | 0x0041E5C0 | `sub_41E5C0` | 有正文 | `src/Yobi/battle_effect.cpp:1853 — UpdateBattleAfterimage_41E5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 342 | 0x0041E5F0 | `sub_41E5F0` | 有正文 | `src/Yobi/battle_effect.cpp:1865 — NewBattleAfterimage_41E5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 343 | 0x0041E640 | `sub_41E640` | 有正文 | `src/Yobi/battle_effect.cpp:9950 — UpdateBattlePositionEffect_41E640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 344 | 0x0041E680 | `sub_41E680` | 有正文 | `src/Yobi/battle_effect.cpp:9962 — NewBattlePositionEffect_41E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 345 | 0x0041E720 | `sub_41E720` | 有正文 | `src/Yobi/battle_effect.cpp:9989 — NewBattleCoordinateEffect_41E720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 346 | 0x0041E7C0 | `sub_41E7C0` | 有正文 | `src/Yobi/battle_effect.cpp:10015 — NewBattleTrailEffect_41E7C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 347 | 0x0041E890 | `sub_41E890` | 有正文 | `src/Yobi/battle_effect.cpp:8908 — DrawBattleTiledEffect_41E890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 348 | 0x0041E920 | `sub_41E920` | 有正文 | `src/Yobi/battle_effect.cpp:8935 — UpdateBattleTiledEffect_41E920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 349 | 0x0041E9D0 | `sub_41E9D0` | 有正文 | `src/Yobi/battle_effect.cpp:8968 — NewBattleTiledEffect_41E9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 350 | 0x0041EAB0 | `sub_41EAB0` | 有正文 | `src/Yobi/battle_effect.cpp:1833 — CloneBattleAction_41EAB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 338 | 0x0041CD00 | `sub_41CD00` | 有正文 | `src/Yobi/battle_effect.cpp:438 — NewBattleEffect_41CD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 339 | 0x0041E4D0 | `sub_41E4D0` | 有正文 | `src/Yobi/battle_effect.cpp:1710 — UpdateBattleScatterEffect_41E4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 340 | 0x0041E510 | `sub_41E510` | 有正文 | `src/Yobi/battle_effect.cpp:1724 — NewBattleScatterEffect_41E510` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 341 | 0x0041E5C0 | `sub_41E5C0` | 有正文 | `src/Yobi/battle_effect.cpp:126 — UpdateBattleAfterimage_41E5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 342 | 0x0041E5F0 | `sub_41E5F0` | 有正文 | `src/Yobi/battle_effect.cpp:138 — NewBattleAfterimage_41E5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 343 | 0x0041E640 | `sub_41E640` | 有正文 | `src/Yobi/battle_effect.cpp:1749 — UpdateBattlePositionEffect_41E640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 344 | 0x0041E680 | `sub_41E680` | 有正文 | `src/Yobi/battle_effect.cpp:1761 — NewBattlePositionEffect_41E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 345 | 0x0041E720 | `sub_41E720` | 有正文 | `src/Yobi/battle_effect.cpp:1788 — NewBattleCoordinateEffect_41E720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 346 | 0x0041E7C0 | `sub_41E7C0` | 有正文 | `src/Yobi/battle_effect.cpp:1814 — NewBattleTrailEffect_41E7C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 347 | 0x0041E890 | `sub_41E890` | 有正文 | `src/Yobi/battle_effect.cpp:971 — DrawBattleTiledEffect_41E890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 348 | 0x0041E920 | `sub_41E920` | 有正文 | `src/Yobi/battle_effect.cpp:998 — UpdateBattleTiledEffect_41E920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 349 | 0x0041E9D0 | `sub_41E9D0` | 有正文 | `src/Yobi/battle_effect.cpp:1031 — NewBattleTiledEffect_41E9D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 350 | 0x0041EAB0 | `sub_41EAB0` | 有正文 | `src/Yobi/battle_effect.cpp:105 — CloneBattleAction_41EAB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 351 | 0x0041EB10 | `sub_41EB10` | 有正文 | `src/Yobi/base.cpp:1720 — YobiAction::operator=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 352 | 0x0041F110 | `sub_41F110` | 有正文 | `src/Yobi/battle_display.cpp:10113 — UpdateBattleNumber_41F110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 353 | 0x0041F1A0 | `sub_41F1A0` | 有正文 | `src/Yobi/battle_display.cpp:10146 — NewBattleNumber_41F1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -427,31 +427,31 @@
 | 355 | 0x0041F4C0 | `CreateSubYobi` | 有正文 | `src/Yobi/battle_display.cpp:10308 — NewBattleFloatingIcon_41F4C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 356 | 0x0041F570 | `sub_41F570` | 有正文 | `src/Yobi/battle_impact.cpp:10447 — UpdateBattleHitEffect_41F570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 357 | 0x0041F5B0 | `Battle::Boomerange::newHitEffect` | 有正文 | `src/Yobi/battle_impact.cpp:10464 — NewBattleHitEffect_41F5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 358 | 0x0041F660 | `BattleYobi::Debuff::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:10497 — NewBattleDebuffEffect_41F660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 359 | 0x0041F800 | `BattleYobi::Debuff::UpdateEffect` | 有正文 | `src/Yobi/battle_effect.cpp:10550 — UpdateBattleDebuffEffect_41F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 360 | 0x0041F860 | `sub_41F860` | 有正文 | `src/Yobi/battle_effect.cpp:10571 — NewBattleReverseEffect_41F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 361 | 0x0041F950 | `sub_41F950` | 有正文 | `src/Yobi/battle_effect.cpp:10698 — UpdateBattleCenteredEffect_41F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 362 | 0x0041FA00 | `sub_41FA00` | 有正文 | `src/Yobi/battle_effect.cpp:10722 — NewBattleCenteredEffect_41FA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 363 | 0x0041FB20 | `sub_41FB20` | 有正文 | `src/Yobi/battle_effect.cpp:10762 — UpdateBattleAttachedEffect_41FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 364 | 0x0041FBE0 | `sub_41FBE0` | 有正文 | `src/Yobi/battle_effect.cpp:10801 — NewBattleAttachedEffect_41FBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 365 | 0x0041FCD0 | `sub_41FCD0` | 有正文 | `src/Yobi/battle_effect.cpp:10833 — UpdateBattleStatusEffect_41FCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 366 | 0x0041FE00 | `sub_41FE00` | 有正文 | `src/Yobi/battle_effect.cpp:10894 — NewBattleStatusEffect_41FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 367 | 0x0041FF90 | `sub_41FF90` | 有正文 | `src/Yobi/battle_effect.cpp:10949 — UpdateBattleFieldEffect_41FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 368 | 0x0041FFE0 | `sub_41FFE0` | 有正文 | `src/Yobi/battle_effect.cpp:10967 — NewBattleFieldEffect_41FFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 358 | 0x0041F660 | `BattleYobi::Debuff::newEffect` | 有正文 | `src/Yobi/battle_effect.cpp:2020 — NewBattleDebuffEffect_41F660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 359 | 0x0041F800 | `BattleYobi::Debuff::UpdateEffect` | 有正文 | `src/Yobi/battle_effect.cpp:2073 — UpdateBattleDebuffEffect_41F800` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 360 | 0x0041F860 | `sub_41F860` | 有正文 | `src/Yobi/battle_effect.cpp:2094 — NewBattleReverseEffect_41F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 361 | 0x0041F950 | `sub_41F950` | 有正文 | `src/Yobi/battle_effect.cpp:2221 — UpdateBattleCenteredEffect_41F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 362 | 0x0041FA00 | `sub_41FA00` | 有正文 | `src/Yobi/battle_effect.cpp:2245 — NewBattleCenteredEffect_41FA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 363 | 0x0041FB20 | `sub_41FB20` | 有正文 | `src/Yobi/battle_effect.cpp:2285 — UpdateBattleAttachedEffect_41FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 364 | 0x0041FBE0 | `sub_41FBE0` | 有正文 | `src/Yobi/battle_effect.cpp:2324 — NewBattleAttachedEffect_41FBE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 365 | 0x0041FCD0 | `sub_41FCD0` | 有正文 | `src/Yobi/battle_effect.cpp:2356 — UpdateBattleStatusEffect_41FCD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 366 | 0x0041FE00 | `sub_41FE00` | 有正文 | `src/Yobi/battle_effect.cpp:2417 — NewBattleStatusEffect_41FE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 367 | 0x0041FF90 | `sub_41FF90` | 有正文 | `src/Yobi/battle_effect.cpp:2472 — UpdateBattleFieldEffect_41FF90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 368 | 0x0041FFE0 | `sub_41FFE0` | 有正文 | `src/Yobi/battle_effect.cpp:2490 — NewBattleFieldEffect_41FFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 369 | 0x00420100 | `sub_420100` | 有正文 | `src/Yobi/battle_display.cpp:6711 — NewBattleSequence_420100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 370 | 0x00420300 | `sub_420300` | 有正文 | `src/Yobi/battle_display.cpp:6785 — UpdateBattleSequence_420300` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 371 | 0x00420590 | `sub_420590` | 有正文 | `src/Yobi/battle_display.cpp:6768 — MoveBattleSequence_420590` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 372 | 0x004205F0 | `sub_4205F0` | 有正文 | `src/Yobi/battle_effect.cpp:9691 — NewBattleCastCopy_4205F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 372 | 0x004205F0 | `sub_4205F0` | 有正文 | `src/Yobi/battle_effect.cpp:1490 — NewBattleCastCopy_4205F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 373 | 0x004206C0 | `sub_4206C0` | 有正文 | `src/Yobi/battle_display.cpp:10214 — NewBattleTimeNumber_4206C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 374 | 0x004208F0 | `sub_4208F0` | 有正文 | `src/Yobi/battle_effect.cpp:10340 — NewBattleRebirthEffects_4208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 375 | 0x004209C0 | `sub_4209C0` | 有正文 | `src/Yobi/battle_effect.cpp:10367 — NewBattleAttributeEffects_4209C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 376 | 0x00420D50 | `sub_420D50` | 有正文 | `src/Yobi/battle_effect.cpp:7122 — NewBattleRisingEffect_420D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 374 | 0x004208F0 | `sub_4208F0` | 有正文 | `src/Yobi/battle_effect.cpp:1913 — NewBattleRebirthEffects_4208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 375 | 0x004209C0 | `sub_4209C0` | 有正文 | `src/Yobi/battle_effect.cpp:1940 — NewBattleAttributeEffects_4209C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 376 | 0x00420D50 | `sub_420D50` | 有正文 | `src/Yobi/battle_effect.cpp:404 — NewBattleRisingEffect_420D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 377 | 0x00420F10 | `sub_420F10` | 有正文 | `src/Yobi/battle_attachment.cpp:29817 — SyncBattleAttachmentAlpha_420F10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 378 | 0x00421480 | `sub_421480` | 有正文 | `src/Yobi/battle_effect.cpp:11014 — UpdateBattleBackgroundFade_421480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 379 | 0x00421570 | `sub_421570` | 有正文 | `src/Yobi/battle_effect.cpp:11072 — NewBattleBackgroundFade_421570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 380 | 0x00421610 | `sub_421610` | 有正文 | `src/Yobi/battle_effect.cpp:11196 — NewBattleScreenEffect_421610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 381 | 0x004216B0 | `sub_4216B0` | 有正文 | `src/Yobi/battle_effect.cpp:11224 — UpdateBattleScreenEmitter_4216B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 382 | 0x00421700 | `sub_421700` | 有正文 | `src/Yobi/battle_effect.cpp:11239 — NewBattleScreenEmitter_421700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 378 | 0x00421480 | `sub_421480` | 有正文 | `src/Yobi/battle_effect.cpp:2537 — UpdateBattleBackgroundFade_421480` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 379 | 0x00421570 | `sub_421570` | 有正文 | `src/Yobi/battle_effect.cpp:2595 — NewBattleBackgroundFade_421570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 380 | 0x00421610 | `sub_421610` | 有正文 | `src/Yobi/battle_effect.cpp:2719 — NewBattleScreenEffect_421610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 381 | 0x004216B0 | `sub_4216B0` | 有正文 | `src/Yobi/battle_effect.cpp:2747 — UpdateBattleScreenEmitter_4216B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 382 | 0x00421700 | `sub_421700` | 有正文 | `src/Yobi/battle_effect.cpp:2762 — NewBattleScreenEmitter_421700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 383 | 0x00421750 | `sub_421750` | 有正文 | `src/Yobi/battle_display.cpp:6617 — UpdateBattleText_421750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 384 | 0x004217F0 | `sub_4217F0` | 有正文 | `src/Yobi/battle_display.cpp:6646 — NewBattleText_4217F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 385 | 0x004219D0 | `sub_4219D0` | 有正文 | `src/Yobi/battle_impact.cpp:8204 — UpdateBattleCarryingEffect_4219D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -459,7 +459,7 @@
 | 387 | 0x00421FB0 | `sub_421FB0` | 有正文 | `src/Yobi/battle_attachment.cpp:11268 — SyncBattleRider_421FB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 388 | 0x004221F0 | `sub_4221F0` | 有正文 | `src/Yobi/battle_attachment.cpp:11542 — NewBattleRider_4221F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 389 | 0x004222B0 | `YobiChara::SetRider` | 有正文 | `src/Yobi/battle_attachment.cpp:11641 — SetBattleRider_4222B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 390 | 0x00422370 | `sub_422370` | 有正文 | `src/Yobi/battle_effect.cpp:11105 — RestoreBattleStateEffects_422370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 390 | 0x00422370 | `sub_422370` | 有正文 | `src/Yobi/battle_effect.cpp:2628 — RestoreBattleStateEffects_422370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 391 | 0x004225D0 | `sub_4225D0` | 有正文 | `src/Yobi/battle_attachment.cpp:11353 — SyncBattleGear_4225D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 392 | 0x00422780 | `sub_422780` | 有正文 | `src/Yobi/battle_attachment.cpp:11434 — SyncBattleAuxGear_422780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 393 | 0x00422A30 | `sub_422A30` | 有正文 | `src/Yobi/battle_attachment.cpp:11573 — NewBattleGear_422A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -535,8 +535,8 @@
 | 463 | 0x0043C060 | `BattleScene::FlushEntry` | 有正文 | `src/Yobi/battle_scene.cpp:33641 — FlushBattleEntries_43C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 464 | 0x0043C0A0 | `sub_43C0A0` | 有正文 | `src/Yobi/battle_scene.cpp:22714 — DrawBattleEntryHover_43C0A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 465 | 0x0043C120 | `BattleScene::GetSelectedEntry` | 有正文 | `src/Yobi/battle_scene.cpp:22738 — GetSelectedBattleEntry_43C120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 466 | 0x0043C3E0 | `sub_43C3E0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1148 — WindowBattleCommand_DrawTargetHint` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 467 | 0x0043C490 | `sub_43C490` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1172 — WindowBattleCommand_ResetTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 466 | 0x0043C3E0 | `sub_43C3E0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1149 — WindowBattleCommand_DrawTargetHint` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 467 | 0x0043C490 | `sub_43C490` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1173 — WindowBattleCommand_ResetTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:3619 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:3631 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 470 | 0x0043C560 | `BattleScene::CheckCommand` | 有正文 | `src/Yobi/battle_scene.cpp:33533 — CheckBattleCommand_43C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -546,7 +546,7 @@
 | 474 | 0x0043C9A0 | `sub_43C9A0` | 有正文 | `src/Yobi/battle_scene.cpp:33457 — Sub_43C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 475 | 0x0043CA50 | `sub_43CA50` | 有正文 | `src/Yobi/battle_scene.cpp:33491 — Sub_43CA50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 476 | 0x0043CA80 | `sub_43CA80` | 有正文 | `src/Yobi/battle_scene.cpp:33505 — Sub_43CA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 477 | 0x0043CB10 | `sub_43CB10` | 有正文 | `src/world/MapSceneDrawing.cpp:336 — Sub_43CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 477 | 0x0043CB10 | `sub_43CB10` | 有正文 | `src/world/MapSceneDrawing.cpp:337 — Sub_43CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:6242 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 480 | 0x0043D770 | `sub_43D770` | 有承接 | `src/platform/RuntimeInitialization.cpp:54 — cg::world::detail::gWorldObjects` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
@@ -714,14 +714,14 @@
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:480 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/scene/login/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1243 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
-| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:133 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:197 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:539 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:384 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:599 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:130 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:194 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:538 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:383 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:598 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 650 | 0x0044C6D0 | `Renderer::MakeSurface` | 有正文 | `src/render/GraphicDxCache.cpp:191 — CreateTextureSurface_44C6D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 651 | 0x0044C8B0 | `Renderer::CreateSurrface` | 有正文 | `src/render/GraphicDxCache.cpp:230 — CreatePlainTextureSurface_44C8B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 652 | 0x0044C9A0 | `Renderer::FillRect` | 有正文 | `src/render/LegacyTextureDrawing.cpp:273 — FillRect_44C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 652 | 0x0044C9A0 | `Renderer::FillRect` | 有正文 | `src/render/LegacyTextureDrawing.cpp:271 — FillRect_44C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 653 | 0x0044CC20 | `sub_44CC20` | 有正文 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
 | 654 | 0x0044CC30 | `sub_44CC30` | 有承接 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
 | 655 | 0x0044CC60 | `sub_44CC60` | 有承接 | `src/render/GraphicDxCache.cpp:164 — InitializeSurfaceTransformCache629300_44CC20` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
@@ -731,8 +731,8 @@
 | 659 | 0x0044CD80 | `sub_44CD80` | 有正文 | `src/render/GraphicDxCache.cpp:767 — TransformTextureSurface_44CD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 660 | 0x0044D3F0 | `sub_44D3F0` | 有承接 | `src/render/GraphicDxCache.cpp:138 — struct SurfaceTransformKeyLess` | 实际 operator() 比较器；关联原入口；完整业务／运行未验 |
 | 661 | 0x0044D490 | `sub_44D490` | 有正文 | `src/render/GraphicDxCache.cpp:828 — ClearSurfaceTransformCache_44D490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 662 | 0x0044D520 | `Renderer::RenderTextureToSurface` | 有正文 | `src/render/LegacyTextureDrawing.cpp:307 — RenderTextureToSurface_44D520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 663 | 0x0044DA90 | `Renderer::RenderTexture` | 有正文 | `src/render/LegacyTextureDrawing.cpp:403 — RenderTexture_44DA90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 662 | 0x0044D520 | `Renderer::RenderTextureToSurface` | 有正文 | `src/render/LegacyTextureDrawing.cpp:305 — RenderTextureToSurface_44D520` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 663 | 0x0044DA90 | `Renderer::RenderTexture` | 有正文 | `src/render/LegacyTextureDrawing.cpp:401 — RenderTexture_44DA90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 664 | 0x0044E0C0 | `sub_44E0C0` | 有正文 | `src/render/GraphicPaletteCache.cpp:55 — InitializeGraphicPaletteCache_44E0C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 665 | 0x0044E110 | `sub_44E110` | 有正文 | `src/render/GraphicPaletteCache.cpp:71 — ReleaseGraphicPaletteCache_44E110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 666 | 0x0044E150 | `TakeIndexCacheFromPool` | 有正文 | `src/render/GraphicPaletteCache.cpp:78 — TakeIndexCacheFromPool_44E150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -740,12 +740,12 @@
 | 668 | 0x0044E290 | `Renderer::LoadDXPalette` | 有正文 | `src/render/GraphicPaletteCache.cpp:117 — LoadGraphicPalette32_44E290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 669 | 0x0044ED70 | `sub_44ED70` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 670 | 0x0044F000 | `sub_44F000` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 671 | 0x0044F330 | `sub_44F330` | 有正文 | `src/render/SurfaceState.cpp:392 — DrawIndexedAutoMap32_44F330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 672 | 0x0044F5C0 | `sub_44F5C0` | 有正文 | `src/render/SurfaceState.cpp:415 — DrawIndexedAutoMap_44F5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 671 | 0x0044F330 | `sub_44F330` | 有正文 | `src/render/SurfaceState.cpp:408 — DrawIndexedAutoMap32_44F330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 672 | 0x0044F5C0 | `sub_44F5C0` | 有正文 | `src/render/SurfaceState.cpp:431 — DrawIndexedAutoMap_44F5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 673 | 0x0044F650 | `sub_44F650` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 674 | 0x0044F920 | `sub_44F920` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 675 | 0x0044FC20 | `sub_44FC20` | 有正文 | `src/render/SurfaceState.cpp:405 — DrawColorAutoMap32_44FC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 676 | 0x0044FEB0 | `sub_44FEB0` | 有正文 | `src/render/SurfaceState.cpp:423 — DrawColorAutoMap_44FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 675 | 0x0044FC20 | `sub_44FC20` | 有正文 | `src/render/SurfaceState.cpp:421 — DrawColorAutoMap32_44FC20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 676 | 0x0044FEB0 | `sub_44FEB0` | 有正文 | `src/render/SurfaceState.cpp:439 — DrawColorAutoMap_44FEB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 677 | 0x0044FF40 | `sub_44FF40` | 有承接 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 32 位空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
 | 678 | 0x00450190 | `sub_450190` | 有承接 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 32 位非空 palette 分支由 CPU 载荷承接；低色深分支已排除；完整业务／运行未验 |
 | 679 | 0x00450400 | `Texture::LoadFromBuffer` | 有正文 | `src/render/GraphicDxCache.cpp:714 — LoadTextureFromBuffer32_450400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -756,19 +756,19 @@
 | 684 | 0x00451190 | `sub_451190` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 685 | 0x00451220 | `sub_451220` | 有正文 | `src/render/Palette.cpp:498 — RebuildPalette32` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 686 | 0x00451270 | `sub_451270` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 687 | 0x004512C0 | `Renderer::ClearSurface` | 有正文 | `src/render/SurfaceState.cpp:535 — ClearSurface_4512C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 687 | 0x004512C0 | `Renderer::ClearSurface` | 有正文 | `src/render/SurfaceState.cpp:551 — ClearSurface_4512C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 688 | 0x00451310 | `Texture::FillBlack` | 有正文 | `src/render/GraphicDxCache.cpp:677 — FillTextureBlack_451310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 689 | 0x00451350 | `sub_451350` | 有正文 | `src/render/SurfaceState.cpp:546 — Sub_451350` | 32 位实际正文；低色深分支已具名排除；完整调色板／渲染运行未验 |
+| 689 | 0x00451350 | `sub_451350` | 有正文 | `src/render/SurfaceState.cpp:562 — Sub_451350` | 32 位实际正文；低色深分支已具名排除；完整调色板／渲染运行未验 |
 | 690 | 0x00451D80 | `sub_451D80` | 有正文 | `src/resource/GraphicRead.cpp:582 — GetGraphicAutoMapColor_451D80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 691 | 0x00451E90 | `sub_451E90` | 有正文 | `src/render/Palette.cpp:18 — FindNearestPaletteColor_451E90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 692 | 0x00451FA0 | `sub_451FA0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 693 | 0x004522F0 | `sub_4522F0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 694 | 0x00452840 | `sub_452840` | 有正文 | `src/render/SurfaceState.cpp:216 — DrawMapEffects32_452840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 694 | 0x00452840 | `sub_452840` | 有正文 | `src/render/SurfaceState.cpp:232 — DrawMapEffects32_452840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 695 | 0x00452CF0 | `sub_452CF0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
-| 696 | 0x00453580 | `sub_453580` | 有正文 | `src/render/SurfaceState.cpp:386 — DrawMapEffects_453580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 697 | 0x004535B0 | `sub_4535B0` | 有正文 | `src/render/SurfaceState.cpp:687 — BlitSurfaceToBack_4535B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:558 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:442 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 696 | 0x00453580 | `sub_453580` | 有正文 | `src/render/SurfaceState.cpp:402 — DrawMapEffects_453580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 697 | 0x004535B0 | `sub_4535B0` | 有正文 | `src/render/SurfaceState.cpp:703 — BlitSurfaceToBack_4535B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:557 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:441 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 700 | 0x00453DE0 | `sub_453DE0` | 有正文 | `src/render/Palette.cpp:168 — CountMaskBits_453DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
@@ -776,7 +776,7 @@
 | 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:394 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:393 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 710 | 0x00454420 | `sub_454420` | 有承接 | `src/render/GraphicDxCache.cpp:153 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
@@ -1005,13 +1005,13 @@
 | 933 | 0x00465790 | `_WinMain@16` | 有正文 | `src/platform/ClientEntry.cpp:305 — WinMain` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；CTM01/A11控制台借用／拥有寿命已接，既有转储复用，仅静态 |
 | 934 | 0x004659F0 | `sub_4659F0` | 有正文 | `src/platform/StartupCommon.cpp:14 — ParseClientVersion` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 935 | 0x00465A20 | `sub_465A20` | 有正文 | `src/platform/StartupCommon.cpp:20 — CaptureDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 936 | 0x00465A30 | `sub_465A30` | 有正文 | `src/platform/WindowLifecycle.cpp:12 — SetWindowedDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 936 | 0x00465A30 | `sub_465A30` | 有正文 | `src/platform/WindowLifecycle.cpp:15 — SetWindowedDesktopColor` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 937 | 0x00465A80 | `ReadSetupIni` | 有正文 | `src/platform/SetupIni.cpp:16 — ReadSetupIni` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:157 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；ALM01：原IP解析后读取四个启动参数，直接发布语义登录变量和场景2／2；仅静态，自动登录运行未验 |
-| 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:20 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:23 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；RHM01/R02 首次解析宽高，接窗口原型、动态CPU画布及输入／呈现尺寸；仅静态，运行未验 |
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/render/RendererRebuild.cpp:28 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:76 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:166 — WindowProcedure` | CTM01/A07直接接Ctrl+V、Shift+Insert与WM_PASTE，复制后释放剪贴板并交既有UTF-16输入；仅静态，编译／运行未验 |
+| 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:97 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:167 — WindowProcedure` | CTM01/A07直接接Ctrl+V、Shift+Insert与WM_PASTE，复制后释放剪贴板并交既有UTF-16输入；仅静态，编译／运行未验 |
 | 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 944 | 0x00467BA0 | `unknown_libname_17` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 945 | 0x00467BD0 | `sub_467BD0` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
@@ -1066,11 +1066,11 @@
 | 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:7226 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:7244 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:545 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 997 | 0x00469020 | `sub_469020` | 有正文 | `src/world/MapSceneDrawing.cpp:329 — Sub_469020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 997 | 0x00469020 | `sub_469020` | 有正文 | `src/world/MapSceneDrawing.cpp:330 — Sub_469020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:6678 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 999 | 0x004691D0 | `sub_4691D0` | 有正文 | `src/world/SceneState.cpp:5112 — Sub_4691D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1000 | 0x00469240 | `sub_469240` | 有正文 | `src/world/SceneState.cpp:5052 — Sub_469240` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5202 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1001 | 0x00469290 | `sub_469290` | 有正文 | `src/world/SceneState.cpp:5066 — Sub_469290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:6752 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5032 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:4246 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1123,7 +1123,7 @@
 | 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:4838 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:7265 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:7277 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1054 | 0x0046CF60 | `sub_46CF60` | 有正文 | `src/world/MapSceneDrawing.cpp:197 — Sub_46CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1054 | 0x0046CF60 | `sub_46CF60` | 有正文 | `src/world/MapSceneDrawing.cpp:198 — Sub_46CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:6848 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:6921 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1057 | 0x0046DB00 | `sub_46DB00` | 有正文 | `src/world/SceneState.cpp:4743 — Sub_46DB00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1531,33 +1531,33 @@
 | 1459 | 0x00495F70 | `sub_495F70` | 有正文 | `src/ui/windows/WindowEmote.cpp:133 — WindowEmote_Select` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1460 | 0x00495FC0 | `sub_495FC0` | 有正文 | `src/ui/windows/WindowEmote.cpp:145 — WindowEmote_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1461 | 0x00495FE0 | `sub_495FE0` | 有正文 | `src/ui/windows/WindowEmote.cpp:152 — WindowEmote_ButtonEmote` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1462 | 0x00496570 | `sub_496570` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1695 — WindowBattleCommand_SnapshotPetVitals` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1463 | 0x004965D0 | `sub_4965D0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1710 — WindowBattleCommand_SyncActorVitals` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1462 | 0x00496570 | `sub_496570` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1697 — WindowBattleCommand_SnapshotPetVitals` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1463 | 0x004965D0 | `sub_4965D0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1712 — WindowBattleCommand_SyncActorVitals` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1464 | 0x004966B0 | `BattleScene::SetCommandType` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:144 — WindowBattleCommand_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1465 | 0x00496AE0 | `BattleScene::closeAllWin` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:377 — WindowBattleCommand_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1466 | 0x00496B90 | `sub_496B90` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:243 — WindowBattleCommand_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1467 | 0x00496D50 | `sub_496D50` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:314 — WindowBattleCommand_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1468 | 0x00496F10 | `BattleScene::CloseAllSubWindow` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:419 — WindowBattleCommand_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1469 | 0x00496FB0 | `sub_496FB0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:773 — WindowBattleCommand_CanSelectSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1470 | 0x00497000 | `sub_497000` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:876 — WindowBattleCommand_OpenSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1471 | 0x004970B0 | `sub_4970B0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:790 — WindowBattleCommand_CanSelectItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1472 | 0x00497100 | `sub_497100` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:807 — WindowBattleCommand_OpenItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1473 | 0x004971C0 | `sub_4971C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:834 — WindowBattleCommand_CanSelectPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1474 | 0x00497210 | `sub_497210` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:851 — WindowBattleCommand_OpenPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1475 | 0x004972B0 | `sub_4972B0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:452 — WindowBattleCommand_ButtonAttack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1476 | 0x004973C0 | `sub_4973C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:490 — WindowBattleCommand_ButtonDefend` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1477 | 0x004974C0 | `sub_4974C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:903 — WindowBattleCommand_SelectSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1478 | 0x004975A0 | `sub_4975A0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:935 — WindowBattleCommand_ButtonSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1479 | 0x00497770 | `sub_497770` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:527 — WindowBattleCommand_ButtonItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1480 | 0x00497900 | `sub_497900` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:581 — WindowBattleCommand_ButtonPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1481 | 0x00497A60 | `sub_497A60` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:634 — WindowBattleCommand_ButtonFormation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1482 | 0x00497B80 | `sub_497B80` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:675 — WindowBattleCommand_ButtonEscape` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1483 | 0x00497C80 | `sub_497C80` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:713 — WindowBattleCommand_ButtonRebirth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1484 | 0x00497E30 | `sub_497E30` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:999 — WindowBattleCommand_SelectPetSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1485 | 0x00497FF0 | `sub_497FF0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1051 — WindowBattleCommand_SelectRidingSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1486 | 0x00498160 | `sub_498160` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1100 — WindowBattleCommand_ButtonPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1487 | 0x004982C0 | `BattleScene::DrawCountDown` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1617 — WindowBattleCommand_DrawTimer` | 实际非占位正文已定位；完整业务／接线／运行未验；CTM01截止／剩余差64位，倒计时数值规则保持，仅静态 |
-| 1488 | 0x00498520 | `sub_498520` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1180 — WindowBattleCommand_Dispatch` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1465 | 0x00496AE0 | `BattleScene::closeAllWin` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:378 — WindowBattleCommand_Close` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1466 | 0x00496B90 | `sub_496B90` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:244 — WindowBattleCommand_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1467 | 0x00496D50 | `sub_496D50` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:315 — WindowBattleCommand_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1468 | 0x00496F10 | `BattleScene::CloseAllSubWindow` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:420 — WindowBattleCommand_ResetSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1469 | 0x00496FB0 | `sub_496FB0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:774 — WindowBattleCommand_CanSelectSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1470 | 0x00497000 | `sub_497000` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:877 — WindowBattleCommand_OpenSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1471 | 0x004970B0 | `sub_4970B0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:791 — WindowBattleCommand_CanSelectItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1472 | 0x00497100 | `sub_497100` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:808 — WindowBattleCommand_OpenItems` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1473 | 0x004971C0 | `sub_4971C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:835 — WindowBattleCommand_CanSelectPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1474 | 0x00497210 | `sub_497210` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:852 — WindowBattleCommand_OpenPets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1475 | 0x004972B0 | `sub_4972B0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:453 — WindowBattleCommand_ButtonAttack` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1476 | 0x004973C0 | `sub_4973C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:491 — WindowBattleCommand_ButtonDefend` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1477 | 0x004974C0 | `sub_4974C0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:904 — WindowBattleCommand_SelectSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1478 | 0x004975A0 | `sub_4975A0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:936 — WindowBattleCommand_ButtonSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1479 | 0x00497770 | `sub_497770` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:528 — WindowBattleCommand_ButtonItem` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1480 | 0x00497900 | `sub_497900` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:582 — WindowBattleCommand_ButtonPet` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1481 | 0x00497A60 | `sub_497A60` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:635 — WindowBattleCommand_ButtonFormation` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1482 | 0x00497B80 | `sub_497B80` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:676 — WindowBattleCommand_ButtonEscape` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1483 | 0x00497C80 | `sub_497C80` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:714 — WindowBattleCommand_ButtonRebirth` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1484 | 0x00497E30 | `sub_497E30` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1000 — WindowBattleCommand_SelectPetSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1485 | 0x00497FF0 | `sub_497FF0` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1052 — WindowBattleCommand_SelectRidingSkill` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1486 | 0x00498160 | `sub_498160` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1101 — WindowBattleCommand_ButtonPetSkills` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1487 | 0x004982C0 | `BattleScene::DrawCountDown` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1618 — WindowBattleCommand_DrawTimer` | 实际非占位正文已定位；完整业务／接线／运行未验；CTM01截止／剩余差64位，倒计时数值规则保持，仅静态 |
+| 1488 | 0x00498520 | `sub_498520` | 有正文 | `src/ui/windows/WindowBattleCommand.cpp:1181 — WindowBattleCommand_Dispatch` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1489 | 0x004990A0 | `sub_4990A0` | 有正文 | `src/Yobi/battle_scene.cpp:22675 — Sub_4990A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1490 | 0x004990F0 | `sub_4990F0` | 有正文 | `src/ui/windows/WindowSpectator.cpp:26 — WindowSpectator_ButtonEnd` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1491 | 0x004991C0 | `sub_4991C0` | 有正文 | `src/ui/windows/WindowBattleResult.cpp:170 — WindowBattleResult_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1588,23 +1588,23 @@
 | 1516 | 0x0049BD40 | `sub_49BD40` | 有正文 | `src/ui/windows/WindowBattleStateNotice.cpp:39 — WindowBattleStateNotice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1517 | 0x0049BDB0 | `sub_49BDB0` | 有正文 | `src/ui/WindowRuntime.cpp:3549 — WindowRuntime_DrawCompactFrame` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1518 | 0x0049BE00 | `sub_49BE00` | 有正文 | `src/Yobi/window.cpp:1558 — DrawNineGrid_49BE00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1519 | 0x0049C4D0 | `sub_49C4D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:211 — WindowDialog_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1520 | 0x0049C510 | `sub_49C510` | 有正文 | `src/ui/windows/WindowDialog.cpp:226 — WindowDialog_AddImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1519 | 0x0049C4D0 | `sub_49C4D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:212 — WindowDialog_Reset` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1520 | 0x0049C510 | `sub_49C510` | 有正文 | `src/ui/windows/WindowDialog.cpp:227 — WindowDialog_AddImage` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1521 | 0x0049C5C0 | `sub_49C5C0` | 有正文 | `src/Yobi/window.cpp:34471 — Sub_49C5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1522 | 0x0049C5E0 | `sub_49C5E0` | 有正文 | `src/Yobi/window.cpp:34477 — Sub_49C5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1523 | 0x0049C600 | `Window::CreateWithAnime` | 有正文 | `src/ui/windows/WindowDialog.cpp:259 — WindowDialog_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1524 | 0x0049C710 | `sub_49C710` | 有正文 | `src/ui/windows/WindowDialog.cpp:304 — WindowDialog_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:399 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1526 | 0x0049CDF0 | `sub_49CDF0` | 有正文 | `src/ui/windows/WindowDialog.cpp:525 — WindowDialog_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1527 | 0x0049CE70 | `sub_49CE70` | 有正文 | `src/ui/windows/WindowDialog.cpp:541 — WindowDialog_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1528 | 0x0049CF70 | `sub_49CF70` | 有正文 | `src/ui/windows/WindowDialog.cpp:586 — WindowDialog_HandleTextSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1529 | 0x0049D2E0 | `World::OpenDialog` | 有正文 | `src/ui/windows/WindowDialog.cpp:822 — WindowDialog_Route` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1523 | 0x0049C600 | `Window::CreateWithAnime` | 有正文 | `src/ui/windows/WindowDialog.cpp:260 — WindowDialog_Open` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1524 | 0x0049C710 | `sub_49C710` | 有正文 | `src/ui/windows/WindowDialog.cpp:319 — WindowDialog_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1525 | 0x0049CAD0 | `sub_49CAD0` | 有正文 | `src/ui/windows/WindowDialog.cpp:414 — WindowDialog_Draw` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1526 | 0x0049CDF0 | `sub_49CDF0` | 有正文 | `src/ui/windows/WindowDialog.cpp:540 — WindowDialog_Release` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1527 | 0x0049CE70 | `sub_49CE70` | 有正文 | `src/ui/windows/WindowDialog.cpp:556 — WindowDialog_HandleButtons` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1528 | 0x0049CF70 | `sub_49CF70` | 有正文 | `src/ui/windows/WindowDialog.cpp:601 — WindowDialog_HandleTextSelection` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1529 | 0x0049D2E0 | `World::OpenDialog` | 有正文 | `src/ui/windows/WindowDialog.cpp:837 — WindowDialog_Route` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1530 | 0x0049D8F0 | `sub_49D8F0` | 有正文 | `src/ui/windows/WindowProfile.cpp:170 — WindowProfile_RouteReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1531 | 0x0049DA30 | `sub_49DA30` | 有正文 | `src/ui/windows/WindowDialog.cpp:701 — WindowDialog_Reply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1532 | 0x0049DDB0 | `sub_49DDB0` | 有正文 | `src/ui/windows/WindowDialog.cpp:759 — WindowDialog_ParseGraphicTag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1533 | 0x0049DF30 | `sub_49DF30` | 有正文 | `src/ui/windows/WindowDialog.cpp:1055 — WindowDialog_OpenText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1534 | 0x0049E1D0 | `sub_49E1D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:1134 — WindowDialog_DrawHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1535 | 0x0049E400 | `sub_49E400` | 有正文 | `src/ui/windows/WindowDialog.cpp:1190 — WindowDialog_OpenHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1531 | 0x0049DA30 | `sub_49DA30` | 有正文 | `src/ui/windows/WindowDialog.cpp:716 — WindowDialog_Reply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1532 | 0x0049DDB0 | `sub_49DDB0` | 有正文 | `src/ui/windows/WindowDialog.cpp:774 — WindowDialog_ParseGraphicTag` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1533 | 0x0049DF30 | `sub_49DF30` | 有正文 | `src/ui/windows/WindowDialog.cpp:1070 — WindowDialog_OpenText` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1534 | 0x0049E1D0 | `sub_49E1D0` | 有正文 | `src/ui/windows/WindowDialog.cpp:1149 — WindowDialog_DrawHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1535 | 0x0049E400 | `sub_49E400` | 有正文 | `src/ui/windows/WindowDialog.cpp:1205 — WindowDialog_OpenHealing` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1536 | 0x0049E750 | `sub_49E750` | 有正文 | `src/ui/windows/WindowTimerNotice.cpp:27 — WindowTimerNotice_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1537 | 0x0049E800 | `sub_49E800` | 有正文 | `src/ui/windows/WindowTradeTarget.cpp:104 — WindowTradeTarget_ReceiveTargets` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1538 | 0x0049E8F0 | `sub_49E8F0` | 有正文 | `src/ui/windows/WindowTradeTarget.cpp:146 — WindowTradeTarget_Update` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2481,7 +2481,7 @@
 | 2409 | 0x00503C50 | `sub_503C50` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2410 | 0x00503C60 | `sub_503C60` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
 | 2411 | 0x00503C70 | `sub_503C70` | 已排除 | `doc/cg2d_legacy_window_retirement_spec.md#legacy-window-cleanup-lwr02 — 当前工程废弃，源码已移除` | LWR02：无集合外消费者，或仅初始化无读者的旧数据；用户授权清理，不证明原端不可达，不计实现／验收 |
-| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:526 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:525 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2413 | 0x00503CB0 | `sub_503CB0` | 有正文 | `src/ui/WindowRuntime.cpp:2616 — WindowRuntime_CycleNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2414 | 0x00503CD0 | `sub_503CD0` | 有正文 | `src/ui/WindowRuntime.cpp:2628 — WindowRuntime_IncrementNameMode` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/input/Input.cpp:878 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2539,7 +2539,7 @@
 | 2467 | 0x00506DD0 | `sub_506DD0` | 有正文 | `src/platform/LegacyCursor.cpp:183 — ResetLegacyMouseTail_506DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2468 | 0x00506DE0 | `sub_506DE0` | 有正文 | `src/platform/LegacyCursor.cpp:164 — RequestCursorState_506DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2469 | 0x00506E00 | `World::CursorUpdate` | 有正文 | `src/platform/LegacyCursor.cpp:189 — UpdateCursor_506E00` | 实际非占位正文已定位；完整业务／接线／运行未验；CTM01长按时间／重复锚64位，脉冲位保持，仅静态 |
-| 2470 | 0x00507090 | `sub_507090` | 有正文 | `src/render/GraphicPendingQueue.cpp:132 — DrawMatchingGraphicHover_507090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2470 | 0x00507090 | `sub_507090` | 有正文 | `src/render/GraphicPendingQueue.cpp:135 — DrawMatchingGraphicHover_507090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2471 | 0x00507140 | `sub_507140` | 有正文 | `src/platform/MouseDispatch.cpp:208 — Sub_507140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2472 | 0x00507C80 | `sub_507C80` | 有正文 | `src/platform/CommandOptions.cpp:352 — ParseIpOptions_507C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2473 | 0x00507D90 | `GetServerAddressInfo` | 有正文 | `src/scene/login/LoginScene.cpp:338 — GetServerAddressInfo_507D90` | 实际非占位正文已定位；完整业务／接线／运行未验；SAP01成功查询后接taomoli映射及非调试DNS／提示／退出，原失败合同保持；仅静态，运行未验 |
@@ -2618,7 +2618,7 @@
 | 2546 | 0x0050D9E0 | `sub_50D9E0` | 有正文 | `src/world/MailState.cpp:358 — Sub_50D9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2547 | 0x0050DC70 | `sub_50DC70` | 有正文 | `src/world/MailState.cpp:624 — Sub_50DC70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2548 | 0x0050DD80 | `sub_50DD80` | 有正文 | `src/network/NetworkRuntime.cpp:469 — Sub_50DD80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1258 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2549 | 0x0050E110 | `sub_50E110` | 有正文 | `src/ui/windows/WindowDialog.cpp:1273 — WindowDialog_ReceiveReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2550 | 0x0050E1A0 | `sub_50E1A0` | 有正文 | `src/world/SceneState.cpp:2306 — Sub_50E1A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2551 | 0x0050E210 | `sub_50E210` | 有正文 | `src/world/SceneState.cpp:2340 — Sub_50E210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2552 | 0x0050E310 | `sub_50E310` | 有正文 | `src/network/NetworkRuntime.cpp:421 — Sub_50E310` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2928,25 +2928,25 @@
 | 2856 | 0x00520730 | `sub_520730` | 有正文 | `src/scene/login/LoginSavedState.cpp:775 — RestoreCurrentSavedValue_520730` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2857 | 0x00520750 | `sub_520750` | 有正文 | `src/scene/login/LoginSavedState.cpp:873 — Sub_520750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2858 | 0x00520770 | `sub_520770` | 有正文 | `src/scene/login/LoginSavedState.cpp:884 — Sub_520770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2859 | 0x00520790 | `Renderer::SortTexture` | 有正文 | `src/render/GraphicPendingQueue.cpp:395 — SortTextures_520790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2860 | 0x005208F0 | `sub_5208F0` | 有正文 | `src/render/GraphicPendingQueue.cpp:198 — BackupValues_5208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2861 | 0x00520910 | `sub_520910` | 有正文 | `src/render/GraphicPendingQueue.cpp:208 — Sub_520910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2862 | 0x00520930 | `sub_520930` | 有正文 | `src/render/GraphicPendingQueue.cpp:214 — Sub_520930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2859 | 0x00520790 | `Renderer::SortTexture` | 有正文 | `src/render/GraphicPendingQueue.cpp:398 — SortTextures_520790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2860 | 0x005208F0 | `sub_5208F0` | 有正文 | `src/render/GraphicPendingQueue.cpp:201 — BackupValues_5208F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2861 | 0x00520910 | `sub_520910` | 有正文 | `src/render/GraphicPendingQueue.cpp:211 — Sub_520910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2862 | 0x00520930 | `sub_520930` | 有正文 | `src/render/GraphicPendingQueue.cpp:217 — Sub_520930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2863 | 0x00520970 | `Renderer::DrawGraphic3` | 有正文 | `src/render/DrawGraphic.cpp:50 — DrawGraphic3_520970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2864 | 0x00520AD0 | `Renderer::FillDirtyArea` | 有正文 | `src/render/GraphicPendingQueue.cpp:286 — FillDirtyArea_520AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2864 | 0x00520AD0 | `Renderer::FillDirtyArea` | 有正文 | `src/render/GraphicPendingQueue.cpp:289 — FillDirtyArea_520AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2865 | 0x00520B10 | `Graphic::LoadTexture` | 有正文 | `src/render/GraphicDxCache.cpp:475 — LoadGraphicTexture_520B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:346 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2867 | 0x00521870 | `sub_521870` | 有正文 | `src/render/GraphicPendingQueue.cpp:315 — Sub_521870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2868 | 0x005219C0 | `sub_5219C0` | 有正文 | `src/render/GraphicPendingQueue.cpp:49 — CalculateRippleScreenDelta` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:341 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2867 | 0x00521870 | `sub_521870` | 有正文 | `src/render/GraphicPendingQueue.cpp:318 — Sub_521870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2868 | 0x005219C0 | `sub_5219C0` | 有正文 | `src/render/GraphicPendingQueue.cpp:52 — CalculateRippleScreenDelta` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2869 | 0x00521A30 | `Renderer::QueueText` | 有正文 | `src/render/TextPendingQueue.cpp:50 — QueueText_521A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2870 | 0x00521AA0 | `sub_521AA0` | 有正文 | `src/render/GraphicPendingQueue.cpp:229 — QueueMap_521AA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2870 | 0x00521AA0 | `sub_521AA0` | 有正文 | `src/render/GraphicPendingQueue.cpp:232 — QueueMap_521AA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2871 | 0x00521B10 | `Renderer::DrawGraphic` | 有正文 | `src/render/DrawGraphic.cpp:275 — DrawGraphic` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2872 | 0x00521C80 | `sub_521C80` | 有正文 | `src/render/DrawGraphic.cpp:166 — Sub_521C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2873 | 0x00521DD0 | `Renderer::DrawGraphic2` | 有正文 | `src/render/DrawGraphic.cpp:218 — DrawGraphic2_521DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2874 | 0x00521F20 | `World::RenderChara` | 有正文 | `src/world/WorldActorDrawing.cpp:544 — RenderChara_521F20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2875 | 0x00522180 | `Renderer::DrawGraphic_Hover` | 有正文 | `src/render/DrawGraphicHover.cpp:9 — DrawGraphicHover` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2876 | 0x00522210 | `sub_522210` | 有正文 | `src/render/GraphicPendingQueue.cpp:259 — Sub_522210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2877 | 0x005222A0 | `sub_5222A0` | 有正文 | `src/render/GraphicPendingQueue.cpp:30 — CompareGraphicCache3_5222A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2876 | 0x00522210 | `sub_522210` | 有正文 | `src/render/GraphicPendingQueue.cpp:262 — Sub_522210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2877 | 0x005222A0 | `sub_5222A0` | 有正文 | `src/render/GraphicPendingQueue.cpp:33 — CompareGraphicCache3_5222A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2878 | 0x005222D0 | `Renderer::TakeGraphicDxCache` | 有正文 | `src/render/GraphicDxCache.cpp:380 — TakeGraphicDxCache_5222D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2879 | 0x00522570 | `Graphic::LoadGraphic` | 有正文 | `src/render/GraphicDxCache.cpp:314 — LoadGraphic_522570` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2880 | 0x00522620 | `sub_522620` | 有正文 | `src/resource/GraphicRead.cpp:338 — InitializeIndependentPaletteQueue_522620` | BCL01原启动点创建同一私有类型静态对象，退出由MSVC原生析构承接；纯访问／手写构析及登记包装退休，原对象、顺序及RNG保持；仅静态，完整异常／编译／运行未验 |
@@ -3081,7 +3081,7 @@
 | 3009 | 0x005347F0 | `sub_5347F0` | 有正文 | `src/world/MailState.cpp:1335 — Sub_5347F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3010 | 0x005348A0 | `sub_5348A0` | 有正文 | `src/world/MailState.cpp:1254 — Sub_5348A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3011 | 0x00534910 | `sub_534910` | 有正文 | `src/world/MailState.cpp:1271 — Sub_534910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:362 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
+| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:361 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
 | 3013 | 0x00534986 | `ImmGetConversionStatus` | 有承接 | `src/platform/imeImpl.cpp:64 — ImmGetConversionStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3014 | 0x0053498C | `ImmAssociateContext` | 有承接 | `src/platform/imeImpl.cpp:80 — ImmAssociateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3015 | 0x00534992 | `ImmCreateContext` | 有承接 | `src/platform/imeImpl.cpp:55 — ImmCreateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3090,7 +3090,7 @@
 | 3018 | 0x005349A4 | `ImmSetOpenStatus` | 有承接 | `src/platform/imeImpl.cpp:106 — ImmSetOpenStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3019 | 0x005349AA | `ImmGetDescriptionA` | 有承接 | `src/world/RenderInput.cpp:195 — ImmGetDescriptionW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3020 | 0x005349B0 | `ImmGetCompositionStringA` | 有承接 | `src/platform/imeImpl.cpp:29 — ImmGetCompositionStringW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
-| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:471 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
+| 3021 | 0x005349B6 | `ImmGetCandidateListA` | 有承接 | `src/platform/WindowProcedure.cpp:472 — ImmGetCandidateListW` | 原入口为对应 Windows／Winsock import 跳板；原A入口由UTL02对应W调用承接，当前真实SDK调用存在，完整调用方／运行未验 |
 | 3022 | 0x00534A30 | `send` | 有承接 | `src/network/NetworkRuntime.cpp:107 — send` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3023 | 0x00534A36 | `closesocket` | 有承接 | `src/network/NetworkRuntime.cpp:4615 — closesocket` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3024 | 0x00534A3C | `recv` | 有承接 | `src/network/NetworkRuntime.cpp:4597 — recv` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
@@ -3292,9 +3292,9 @@
 | 3220 | 0x0053CCD0 | `__fstat` | 有承接 | `src/resource/ResourcePaths.cpp:56 — ::_fstat32(::_fileno(file), &status)` | COR14在原调用点直接查询创建时间，成功才发布st_ctime；完整运行未验 |
 | 3221 | 0x0053CF50 | `__strcmpi` | 有承接 | `doc/cg2d_code_organization_review_spec.md — DCS01：::_stricmp（MSVC提供；BLM01坐标共享不再按路径比较）` | 原纯转发包装由MSVC承接；BLM01更换坐标来源规则，原入口身份保留，完整业务／运行未验 |
 | 3222 | 0x0053CFDC | `_fputc` | 有承接 | `src/world/SceneState.cpp:4279 — std::fputc（直接CRT调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3223 | 0x0053D000 | `__CIpow` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3223 | 0x0053D000 | `__CIpow` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3224 | 0x0053D019 | `_pow` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3225 | 0x0053D022 | `sub_53D022` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3225 | 0x0053D022 | `sub_53D022` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3226 | 0x0053D1F5 | `sub_53D1F5` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3227 | 0x0053D21D | `__snprintf` | 有承接 | `include/cg/text/Encoding.hpp:20 — FormatTo` | UWF01最后7处私有显示缓冲改动态宽格式化，原有界窄调用已无消费者；GBK存档／协议容量保持；完整业务／运行未验 |
 | 3228 | 0x0053D26E | `_strtok` | 有承接 | `src/ui/windows/WindowConfirmation.cpp:209 — std::wcstok` | DCS01直接MSVC／标准库提供者，原纯转发包装退休；原字节域继续直接CRT，界面调用沿UTL02宽字符适配；完整业务／运行未验 |
@@ -3364,7 +3364,7 @@
 | 3292 | 0x00540980 | `unknown_libname_50` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/RuntimeInitialization.cpp:86 — NarrowStandardStreamsStaticInitializer；src/platform/RuntimeInitialization.cpp:107 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:120 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
+| 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/render/SdlPresenter.cpp:117 — std::terminate（exception导入；旧包装无调用）` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3296 | 0x00540AB2 | `sub_540AB2` | 有承接 | `CMakeLists.txt:161 — 宿主VCRuntime` | 原八处引用均在C++ handler／展开链；读58FB74=540A5C、SEH保护后交终止；当前VCRuntime／实际std::terminate承接，不把标准流构造当本叶直接实现 |
 | 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/world/ChatHistory.cpp:142 — ::_localtime64；doc/cg2d_code_organization_review_spec.md — COR14：无消费者_mktime32映射` | COR14直接使用::_localtime64承接当前时区／夏令时链；旧反向转换无消费者，宿主_mktime32仅保留规格映射；库内策略与完整运行未验 |
 | 3298 | 0x00540B1D | `__tzset` | 有承接 | `src/world/ChatHistory.cpp:142 — ::_localtime64；doc/cg2d_code_organization_review_spec.md — COR14：无消费者_mktime32映射` | COR14直接使用::_localtime64承接当前时区／夏令时链；旧反向转换无消费者，宿主_mktime32仅保留规格映射；库内策略与完整运行未验 |
@@ -3411,9 +3411,9 @@
 | 3339 | 0x00543185 | `_usepowhlp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3340 | 0x00543390 | `__startTwoArgErrorHandling` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3341 | 0x005433A7 | `__startOneArgErrorHandling` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3342 | 0x005433F0 | `__twoToTOS` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3343 | 0x00543405 | `__load_CW` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3344 | 0x00543435 | `__fload_withFB` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3342 | 0x005433F0 | `__twoToTOS` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3343 | 0x00543405 | `__load_CW` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3344 | 0x00543435 | `__fload_withFB` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor；src/platform/MapEffectMath.hpp:35 — Cg2dMapEffectDivisor` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3345 | 0x00543489 | `special_exp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3346 | 0x005434C5 | `__check_overflow_exit` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3347 | 0x005434D9 | `__check_range_exit` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3518,7 +3518,7 @@
 | 3446 | 0x005473E8 | `__raise_exc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3447 | 0x0054769B | `__handle_exc` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3448 | 0x005478B2 | `__set_errno` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR14：MSVC CRT标准库／当前线程状态直接导入；doc/cg2d_code_organization_review_spec.md — COR14：LegacyErrno_1085FE0` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3449 | 0x005478D8 | `sub_5478D8` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor的std::pow；CMakeLists.txt:161 — 宿主默认数学错误服务` | 原唯一5461A4在87except传错误记录，零返回后更新errno；当前实际标准数学服务及宿主默认_matherr承接，不保旧记录／硬件状态或新增零返回包装 |
+| 3449 | 0x005478D8 | `sub_5478D8` | 有承接 | `src/platform/MapEffectMath.cpp:89 — Cg2dMapEffectDivisor的std::pow；CMakeLists.txt:161 — 宿主默认数学错误服务` | 原唯一5461A4在87except传错误记录，零返回后更新errno；当前实际标准数学服务及宿主默认_matherr承接，不保旧记录／硬件状态或新增零返回包装 |
 | 3450 | 0x005478DB | `__statfp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3451 | 0x005478E9 | `__clrfp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3452 | 0x005478F8 | `__ctrlfp` | 有承接 | `doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除；doc/cg2d_code_organization_review_spec.md — COR08：MSVC CRT格式／扫描服务，旧转引头已删除` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

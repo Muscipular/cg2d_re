@@ -205,8 +205,8 @@ std::int8_t RendererInit_44B630()
         platform::ShowWideMessage(L"GlobalAllocPtr Error ( DIRECT_DRAW )", kConfirmCaption, 0x10);
         return 1;
     }
-    gRenderer->logicalWidth = kCpuSurfaceWidth;
-    gRenderer->logicalHeight = kCpuSurfaceHeight;
+    gRenderer->logicalWidth = GetCpuSurfaceWidth();
+    gRenderer->logicalHeight = GetCpuSurfaceHeight();
     gTextureSizeW = 64;
     gTextureSizeH = 48;
     if (!CreateRendererPresenter()) {

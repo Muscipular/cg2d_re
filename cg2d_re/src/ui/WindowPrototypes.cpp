@@ -3,8 +3,59 @@
 #include <string>
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/input/Input.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 
 namespace cg::ui {
+
+std::int32_t AdaptWindowAxisPosition(
+    const std::int32_t position, const std::int32_t size,
+    const std::int32_t baseSize, const std::int32_t targetSize)
+{
+    if (targetSize == 0 || targetSize == baseSize) {
+        return position;
+    }
+    if (position == (targetSize - size) / 2 || position + size == targetSize) {
+        return position;
+    }
+    if (position == (baseSize - size) / 2) {
+        return (targetSize - size) / 2;
+    }
+    if (position + size >= baseSize) {
+        return position + targetSize - baseSize;
+    }
+    return static_cast<std::int32_t>(position * (targetSize / static_cast<double>(baseSize)));
+}
+
+void AdaptWindowPosition(
+    std::int16_t& x, std::int16_t& y, const std::int32_t width, const std::int32_t height)
+{
+    x = static_cast<std::int16_t>(AdaptWindowAxisPosition(x, width, 640, platform::gWindowWidth));
+    y = static_cast<std::int16_t>(AdaptWindowAxisPosition(y, height, 480, platform::gWindowHeight));
+}
+
+void InitializeWindowLayout(const std::int32_t requestedWidth, const std::int32_t requestedHeight)
+{
+    if (requestedWidth && requestedHeight) {
+        for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
+            auto& prototype = *detail::gWindowPrototypes57C130[index];
+            auto& state = detail::gWindowStates[index];
+            if (prototype.defaultX > 0) {
+                prototype.defaultX = AdaptWindowAxisPosition(prototype.defaultX, prototype.width, 640, requestedWidth);
+            }
+            if (prototype.defaultY > 0) {
+                prototype.defaultY = AdaptWindowAxisPosition(prototype.defaultY, prototype.height, 480, requestedHeight);
+            }
+            if (state.x > 0) {
+                state.x = AdaptWindowAxisPosition(state.x, prototype.width, 640, requestedWidth);
+            }
+            if (state.y > 0) {
+                state.y = AdaptWindowAxisPosition(state.y, prototype.height, 480, requestedHeight);
+            }
+        }
+    }
+}
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。

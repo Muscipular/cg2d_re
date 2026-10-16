@@ -302,4 +302,15 @@ std::int32_t DrawGraphic(
     return result;
 }
 
+std::int32_t DrawBattleBackgroundScaled(
+    const std::uint8_t layer, const std::int32_t imageNo, const GraphicDescriptor16* const descriptor)
+{
+    const std::int32_t index = DrawGraphic(320, 240, layer, imageNo, 0, descriptor);
+    if (index < 0) {
+        return index;
+    }
+    gLegacyPendingStorage.records[index].batchType = GraphicBatch_BattleBackground;
+    return index;
+}
+
 } // namespace cg::render

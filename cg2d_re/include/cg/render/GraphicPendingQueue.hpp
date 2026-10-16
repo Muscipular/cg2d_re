@@ -13,6 +13,11 @@ struct YobiAction;
 
 namespace cg::render {
 
+// R03/R04 扩展批次沿参考编号；仍进入同一层序队列。
+enum GraphicBatchType : std::uint8_t {
+    GraphicBatch_BattleBackground = 15,
+};
+
 // GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。
 enum GraphicMixFlag : std::uint8_t {
     GraphicMixFlag_None = 0,
@@ -170,7 +175,7 @@ std::int32_t Sub_521870();
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
 void SortTextures_520790();
 
-// 原 520DD0：完整 0..12 批次消费，不清队列计数；末尾老化调色板并清特殊标志。
+// 原 520DD0：原 0..12 及已迁入扩展批次消费，不清队列计数；末尾老化调色板并清特殊标志。
 void DrawAllQueued_520DD0();
 
 // 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，
@@ -183,6 +188,10 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
 
 // 原 Graphic::LoadPatelet@523140：借用 +22 的 S16 独立调色板索引，保留 0/1/2 返回。
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
+
+// R03：借原 DrawGraphic 生产战斗背景记录，并标为独立缩放批次。
+std::int32_t DrawBattleBackgroundScaled(
+    std::uint8_t layer, std::int32_t imageNo, const GraphicDescriptor16* descriptor = nullptr);
 
 // 原函数：0x00521B10。
 std::int32_t DrawGraphic(

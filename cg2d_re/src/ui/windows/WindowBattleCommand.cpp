@@ -1688,7 +1688,13 @@ static void WindowBattleCommand_DrawTimer()
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
         cg::text::FormatTo(buffer, L"第 {} 回合", turn);
-        static_cast<void>(render::DrawText3_456560(static_cast<std::int16_t>((platform::gWindowWidth - 64) / 2),
+        const std::int32_t screenWidth = platform::gWindowWidth > 0 ? platform::gWindowWidth : 640;
+        std::int32_t textWidth = render::TextMeasure(buffer, 0);
+        if (textWidth <= 0) {
+            textWidth = render::gFontMetrics[0].sWidth
+                * static_cast<std::int32_t>(text::ToGbk(buffer).size());
+        }
+        static_cast<void>(render::DrawText3_456560(static_cast<std::int16_t>((screenWidth - textWidth) / 2),
             static_cast<std::int16_t>(platform::gWindowHeight / 2 - 60), 0, 4, buffer, 0));
     }
 }

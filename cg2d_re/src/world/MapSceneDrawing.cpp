@@ -342,7 +342,7 @@ void Sub_43CB10()
     static_cast<void>(Sub_46BD40());
     Sub_46CF60(0);
     const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
-    static_cast<void>(cg::render::DrawGraphic(320, 240, 200, imageNo, 0, nullptr));
+    static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;

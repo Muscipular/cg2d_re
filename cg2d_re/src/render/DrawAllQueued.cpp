@@ -16,7 +16,10 @@
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
+#include <algorithm>
 #include <cmath>
+#include <cstring>
+#include <SDL3/SDL_surface.h>
 
 namespace cg::render {
 
@@ -25,6 +28,109 @@ std::int32_t gLastUnrefreshedPaletteFrameVersion = -1;
 namespace {
 
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+
+// R03：独立持有完整源图；节点池复用不影响已经组装的战斗背景。
+struct BattleBackgroundCache {
+    TextureSurfaceBinding surface;
+    std::int32_t imageNo = -1;
+    std::int32_t paletteChoice = -1;
+    std::int32_t paletteVersion = -1;
+    std::int16_t paletteIndex = -1;
+    std::uint8_t mixFlags = 0;
+};
+
+void DrawBattleBackground(GraphicCacheItem32* const graphic)
+{
+    static BattleBackgroundCache cache;
+    if (graphic->imageNo < 0 || gGraphicDxCache103CFA4 == nullptr) {
+        return;
+    }
+    static_cast<void>(LoadGraphicIndependentPalette_523140(graphic));
+    if (LoadGraphic_522570(graphic->imageNo) == 0) {
+        return;
+    }
+    const auto& entry = gGraphicDxCache103CFA4[graphic->imageNo];
+    const std::int32_t width = std::bit_cast<std::int16_t>(entry.width);
+    const std::int32_t height = std::bit_cast<std::int16_t>(entry.height);
+    if (width <= 0 || height <= 0 || entry.head == nullptr) {
+        return;
+    }
+    const bool original = (graphic->descriptor.mixFlags & GraphicMixFlag_OriginalPalette) != 0;
+    const std::int32_t paletteChoice = original ? 0 : gActivePalette;
+    const std::int32_t paletteVersion = original ? 0 : gPaletteFrameVersion;
+    SDL_Surface* full = GetTextureSdlSurface(cache.surface.Get());
+    const bool refresh = full == nullptr || full->w != width || full->h != height
+        || cache.imageNo != graphic->imageNo
+        || cache.paletteChoice != (entry.flag ? paletteChoice : 0)
+        || cache.paletteVersion != (entry.flag ? paletteVersion : 0)
+        || cache.paletteIndex != graphic->descriptor.paletteIndex
+        || cache.mixFlags != graphic->descriptor.mixFlags;
+    if (refresh) {
+        if (full == nullptr || full->w != width || full->h != height) {
+            TextureSurface* const surface = CreatePlainTextureSurface_44C8B0(
+                static_cast<std::int16_t>(width), static_cast<std::int16_t>(height), 0, 0x4000);
+            if (surface == nullptr) {
+                return;
+            }
+            cache.surface.Bind(surface);
+            ReleaseTextureSurface(surface);
+            full = GetTextureSdlSurface(cache.surface.Get());
+        }
+        bool copied = true;
+        for (TextureNode* node = entry.head; node != nullptr; node = node->next) {
+            if (node->surface == nullptr || LoadGraphicTexture_520B10(graphic, node) == 0) {
+                copied = false;
+                continue;
+            }
+            const std::int32_t copyWidth = std::min(gTextureSizeW, width - node->blockX);
+            const std::int32_t copyHeight = std::min(gTextureSizeH, height - node->blockY);
+            if (copyWidth <= 0 || copyHeight <= 0) {
+                continue;
+            }
+            SDL_Surface* const source = GetTextureSdlSurface(node->surface);
+            if (((source->flags | full->flags) & SDL_SURFACE_LOCKED) != 0) {
+                copied = false;
+                continue;
+            }
+            for (std::int32_t row = 0; row < copyHeight; ++row) {
+                const auto* input = static_cast<const std::uint8_t*>(source->pixels) + row * source->pitch;
+                auto* output = static_cast<std::uint8_t*>(full->pixels)
+                    + (node->blockY + row) * full->pitch + node->blockX * sizeof(std::uint32_t);
+                std::memcpy(output, input, static_cast<std::size_t>(copyWidth) * sizeof(std::uint32_t));
+            }
+        }
+        if (!copied) {
+            return;
+        }
+        cache.imageNo = graphic->imageNo;
+        cache.paletteChoice = entry.flag ? paletteChoice : 0;
+        cache.paletteVersion = entry.flag ? paletteVersion : 0;
+        cache.paletteIndex = graphic->descriptor.paletteIndex;
+        cache.mixFlags = graphic->descriptor.mixFlags;
+    }
+    const std::int32_t drawWidth = GetCpuSurfaceWidth() > 0 ? GetCpuSurfaceWidth() : 640;
+    const std::int32_t drawHeight = GetCpuSurfaceHeight() > 0 ? GetCpuSurfaceHeight() : 480;
+    if (drawWidth > 0x7FFF || drawHeight > 0x7FFF) {
+        return;
+    }
+    TextureRectangle source {0, 0, width, height};
+    if (graphic->descriptor.clipMode == 1) {
+        source[0] = std::max(0, static_cast<std::int32_t>(graphic->descriptor.sourceX));
+        source[1] = std::max(0, static_cast<std::int32_t>(graphic->descriptor.sourceY));
+        source[2] = std::min(width, graphic->descriptor.sourceX + graphic->descriptor.sourceWidth);
+        source[3] = std::min(height, graphic->descriptor.sourceY + graphic->descriptor.sourceHeight);
+    }
+    if (source[2] <= source[0] || source[3] <= source[1]) {
+        return;
+    }
+    if (RenderTexture_44DA90(0, 0, &source,
+            static_cast<float>(drawWidth) / (source[2] - source[0]),
+            static_cast<float>(drawHeight) / (source[3] - source[1]),
+            cache.surface.Get(), graphic->imageNo, graphic->descriptor.paletteIndex,
+            graphic->descriptor.mixFlags, graphic->descriptor.color) == kSurfaceBusy) {
+        gGraphicDirty = 1;
+    }
+}
 
 // 原三条纹理路径相同的 left/right/top/bottom 读写顺序；不冻结节点偏移或共享尺寸。
 TextureRectangle MakeNodeRectangle(
@@ -421,6 +527,9 @@ void DrawAllQueued_520DD0()
                 break;
             case 12:
                 DrawFixedScaleSprite(graphic, 0.75f);
+                break;
+            case GraphicBatch_BattleBackground:
+                DrawBattleBackground(graphic);
                 break;
             default:
                 break;

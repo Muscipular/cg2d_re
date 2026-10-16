@@ -3851,7 +3851,7 @@ constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // �
 const std::array<std::int32_t, 22> gBattlePointIndices5536FC { // 原全局：0x005536FC。
     2, 1, 3, 0, 4, 7, 6, 8, 5, 9, 12, 11, 13, 10, 14, 17, 16, 18, 15, 19, 20, 21
 };
-const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原全局：0x00553758。
+std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原全局：0x00553758。
     {910, 590, 610, 290}, {845, 625, 545, 325}, {780, 660, 480, 360},
     {715, 695, 415, 395}, {650, 730, 350, 430}, {845, 540, 545, 240},
     {781, 576, 481, 276}, {718, 613, 418, 313}, {654, 649, 354, 349},
@@ -3861,6 +3861,28 @@ const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ 
     {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
     {-131, -121, 218, 228},
 }};
+// R03：唯一阵位表按尺寸增量更新，重复初始化不累加中心偏移。
+void CenterBattleLayoutToWindow()
+{
+    static std::int32_t previousX = 0;
+    static std::int32_t previousY = 0;
+    const std::int32_t offsetX = platform::gWindowWidth > 0 ? (platform::gWindowWidth - 640) / 2 : 0;
+    const std::int32_t offsetY = platform::gWindowHeight > 0 ? (platform::gWindowHeight - 480) / 2 : 0;
+    const std::int32_t deltaX = offsetX - previousX;
+    const std::int32_t deltaY = offsetY - previousY;
+    if (deltaX == 0 && deltaY == 0) {
+        return;
+    }
+    for (auto& point : gBattleGraphicPoints553758) {
+        point[0] += deltaX;
+        point[1] += deltaY;
+        point[2] += deltaX;
+        point[3] += deltaY;
+    }
+    previousX = offsetX;
+    previousY = offsetY;
+}
+
 std::int32_t gBattleCurrentPosition5ABCA4 = 0; // 原全局：0x005ABCA4。
 std::uint32_t gBattlePosition5ABCA8 = 0; // 原全局：0x005ABCA8。
 std::int32_t gBattlePlayerActionState5ABC74 = 0; // 原全局：0x005ABC74。

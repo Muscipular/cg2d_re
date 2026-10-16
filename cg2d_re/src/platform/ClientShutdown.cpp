@@ -9,7 +9,6 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
-#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"
@@ -54,7 +53,6 @@ int ShutdownClient_457A40()
     ShutdownIme_459040();
     cg::yobi::detail::Sub_404D60();
     cg::network::ShutdownNetworkRuntime_5081A0();
-    ResetLegacyMouseTrackerDefaults_5066D0();
 
     ReleaseMutex(reinterpret_cast<HANDLE>(gStartupMutex));
 

@@ -63,7 +63,8 @@ std::int32_t ResetLegacyMouseState_506870();
 void ResetLegacyMousePosition_506890(std::int32_t x, std::int32_t y);
 
 // 原 MouseEvent::UpdateLDown@[0x506900,0x5069DD)。
-std::int32_t UpdateLegacyMouseLeftDown_506900(
+// 更新普通鼠标状态；重复点击计数／上报按COR10移除。
+void UpdateLegacyMouseLeftDown_506900(
     std::int32_t x,
     std::int32_t y);
 
@@ -78,7 +79,8 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
     std::int32_t y);
 
 // 原 MouseEvent::UpdateRDown@[0x506B50,0x506C32)。
-std::int32_t UpdateLegacyMouseRightDown_506B50(
+// 更新普通鼠标状态；重复点击计数／上报按COR10移除。
+void UpdateLegacyMouseRightDown_506B50(
     std::int32_t x,
     std::int32_t y);
 

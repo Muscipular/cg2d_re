@@ -71,7 +71,6 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyAudioMath.cpp
     src/platform/RuntimeInitialization.cpp
     src/platform/LegacyMouse.cpp
-    src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
     src/platform/MapEffectMath.cpp

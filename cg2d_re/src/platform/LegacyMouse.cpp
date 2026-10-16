@@ -1,10 +1,8 @@
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/platform/Startup.hpp"
 
-#include "MainLoopDependencies.hpp"
+#include <cstring>
 
 namespace cg::platform {
 
@@ -35,7 +33,7 @@ void ResetLegacyMousePosition_506890(const std::int32_t x, const std::int32_t y)
 }
 
 // 原函数：0x00506900。
-std::int32_t UpdateLegacyMouseLeftDown_506900(
+void UpdateLegacyMouseLeftDown_506900(
     const std::int32_t x,
     const std::int32_t y)
 {
@@ -53,13 +51,6 @@ std::int32_t UpdateLegacyMouseLeftDown_506900(
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.leftDownTick = tick;
     gLegacyMouseState.leftElapsed = 0;
-
-    const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 0);
-    if (result < gLegacyMouseTrackerThreshold) {
-        return result;
-    }
-    static_cast<void>(Report_512CA0(gConnectionSocket, 1));
-    return ResetLegacyMouseTracker_506580();
 }
 
 // 原函数：0x005069E0。
@@ -106,7 +97,7 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
 }
 
 // 原函数：0x00506B50。
-std::int32_t UpdateLegacyMouseRightDown_506B50(
+void UpdateLegacyMouseRightDown_506B50(
     const std::int32_t x,
     const std::int32_t y)
 {
@@ -124,13 +115,6 @@ std::int32_t UpdateLegacyMouseRightDown_506B50(
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.rightDownTick = tick;
     gLegacyMouseState.rightElapsed = 0;
-
-    const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 1);
-    if (result < gLegacyMouseTrackerThreshold) {
-        return result;
-    }
-    static_cast<void>(Report_512CA0(gConnectionSocket, 1));
-    return ResetLegacyMouseTracker_506580();
 }
 
 // 原函数：0x00506C40。

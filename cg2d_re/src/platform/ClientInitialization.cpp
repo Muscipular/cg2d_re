@@ -16,7 +16,6 @@
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -177,7 +176,6 @@ std::int32_t FadeOutLoading_4585F0()
 int InitializeClient_4576B0()
 {
     static_cast<void>(ResetSystemLog_44B5A0());
-    static_cast<void>(ResetLegacyMouseTracker_506580());
     const std::int8_t rendererResult = render::RendererInit_44B630();
     bool reportRendererFailure = rendererResult == 1;
     if (rendererResult == 2) {

@@ -345,8 +345,7 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        static_cast<void>(
-            UpdateLegacyMouseLeftDown_506900(coordinates.x, coordinates.y));
+        UpdateLegacyMouseLeftDown_506900(coordinates.x, coordinates.y);
         return 0;
     }
 
@@ -372,8 +371,7 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        static_cast<void>(
-            UpdateLegacyMouseRightDown_506B50(coordinates.x, coordinates.y));
+        UpdateLegacyMouseRightDown_506B50(coordinates.x, coordinates.y);
         return 0;
     }
 

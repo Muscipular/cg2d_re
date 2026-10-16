@@ -1,5 +1,7 @@
 # IDA 函数全量实现表
 
+> 2026-10-16 [COR10](../doc/cg2d_code_organization_review_spec.md)：按用户要求移除重复点击追踪及上报，9个独占入口由有正文转为已排除；普通鼠标按下入口仍有正文，tq配置按原格式解码后忽略。原3680身份／名称保持，服务器兼容性未运行验证。
+
 > 2026-10-16 COR09：模块MD5核心改由Windows CNG提供，402B70／402BC0／402C50／402D30四行由有正文转为有承接，402BA0仍有承接；三个父入口保留有正文。原3680身份／名称保持。本次编译／链接通过，未运行摘要比对，详见[COR09 SPEC](../doc/cg2d_code_organization_review_spec.md)。
 
 > 2026-10-16 [COR07](../doc/cg2d_code_organization_review_spec.md)：同步50文件的目录迁移路径；原行号为历史定位，不代表本轮重新定位。3680行函数身份、名称与状态保持，仅静态整理，不更新JSON台账。
@@ -43,13 +45,13 @@
 
 | 状态 | 实际入口数 |
 |---|---:|
-| 有正文 | 2480 |
+| 有正文 | 2471 |
 | 有承接 | 746 |
 | 空方法 | 9 |
 | 部分实现 | 0 |
 | 未实现 | 0 |
 | 待确认 | 0 |
-| 已排除 | 444 |
+| 已排除 | 453 |
 | 不适用 | 1 |
 
 2026-10-12 进度核对：3680行入口与当前IDA地址集合、名称此前经15页逐项核对零差异；3964处源码引用及9处CMake引用可读。当时2911个正文提供者可定位到定义；本次九个nullsub仅归类为空方法，其中3个已有CPP定义和4个已有承接定位保留，其余2908个有正文及644个有承接不变。序号、身份、名称、提供者均不变，未重新查询IDA；UTF-8无BOM/LF。这不提升全部逻辑、完整接线或运行验收，未实现0不能推为功能缺口归零。
@@ -2509,20 +2511,20 @@
 | 2447 | 0x00506340 | `sub_506340` | 有承接 | `src/platform/RuntimeInitialization.cpp:290 — cg::platform::gLegacyMouseState` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 2448 | 0x00506350 | `unknown_libname_47` | 有承接 | `src/platform/RuntimeInitialization.cpp:290 — cg::platform::gLegacyMouseState` | LCI18同一中央位置直接定义真实复合对象；构造／逆序析构及完成前缀清理由C++／MSVC承接，Borrow／optional与纯启动包装退休，原RNG／字段／读写序保持；仅静态，完整异常／编译／运行未验 |
 | 2449 | 0x00506530 | `sub_506530` | 有承接 | `include/cg/platform/LegacyMouse.hpp:17 — LegacyMouseState成员自动失败前缀清理／逆序析构` | 原完成前缀清理由原生聚合构造异常规则及成员析构承接；同一存储，原地址保留；原SEH／二次异常／完整owner与运行未验 |
-| 2450 | 0x00506580 | `sub_506580` | 有正文 | `src/platform/LegacyMouseTracker.cpp:165 — ResetLegacyMouseTracker_506580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2451 | 0x005066D0 | `sub_5066D0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:236 — ResetLegacyMouseTrackerDefaults_5066D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2452 | 0x005066F0 | `sub_5066F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:43 — InsertAfter_5066F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2453 | 0x00506720 | `sub_506720` | 有正文 | `src/platform/LegacyMouseTracker.cpp:62 — Detach_506720` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2454 | 0x00506760 | `sub_506760` | 有正文 | `src/platform/LegacyMouseTracker.cpp:86 — TakeFreeHead_506760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2455 | 0x00506780 | `sub_506780` | 有正文 | `src/platform/LegacyMouseTracker.cpp:97 — EvictActiveTail_506780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2456 | 0x005067A0 | `sub_5067A0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:108 — AllocateAndActivate_5067A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2457 | 0x005067F0 | `sub_5067F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:255 — TrackLegacyMouseDown_5067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2450 | 0x00506580 | `sub_506580` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪池重建移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2451 | 0x005066D0 | `sub_5066D0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪器默认重置移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2452 | 0x005066F0 | `sub_5066F0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪节点插入移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2453 | 0x00506720 | `sub_506720` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪节点摘除移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2454 | 0x00506760 | `sub_506760` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：空闲节点取得移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2455 | 0x00506780 | `sub_506780` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：活动节点淘汰移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2456 | 0x005067A0 | `sub_5067A0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪节点分配移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
+| 2457 | 0x005067F0 | `sub_5067F0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：重复点击计数移除` | 用户要求取消重复点击追踪；不计功能实现通过 |
 | 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:356 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:374 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:382 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:36 — UpdateLegacyMouseLeftDown_506900` | COR10保留普通状态更新，移除追踪／上报并改void；运行未验 |
 | 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:410 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:431 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:453 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:100 — UpdateLegacyMouseRightDown_506B50` | COR10保留普通状态更新，移除追踪／上报并改void；运行未验 |
 | 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:481 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:502 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:524 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2634,7 +2636,7 @@
 | 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:937 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2573 | 0x0050E770 | `sub_50E770` | 有正文 | `src/CharacterSelectScene.cpp:197 — Sub_50E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2574 | 0x0050E780 | `sub_50E780` | 有正文 | `src/network/NetworkRuntime.cpp:953 — Sub_50E780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2575 | 0x0050E7B0 | `sub_50E7B0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:244 — ConfigureLegacyMouseTracker_50E7B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2575 | 0x0050E7B0 | `sub_50E7B0` | 已排除 | `doc/cg2d_code_organization_review_spec.md — COR10：追踪配置移除；NetworkRuntime保留tq解析` | 用户要求取消重复点击追踪；解码后忽略，不计原配置功能实现 |
 | 2576 | 0x0050E7D0 | `sub_50E7D0` | 有正文 | `src/ui/windows/WindowStall.cpp:2729 — WindowStall_ReceiveOpenReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2577 | 0x0050E7E0 | `sub_50E7E0` | 有正文 | `src/ui/windows/WindowStall.cpp:2735 — WindowStall_ReceiveCloseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2578 | 0x0050E7F0 | `sub_50E7F0` | 有正文 | `src/ui/windows/WindowStall.cpp:2741 — WindowStall_ReceiveBrowseReply` | 实际非占位正文已定位；完整业务／接线／运行未验 |

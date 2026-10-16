@@ -27,7 +27,6 @@
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/LegacyTime.hpp"
-#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -4489,7 +4488,8 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<Sub_50E6E0, T>(head, "lSZ", socket)) return 0;
     if (TryDispatchReply<character_select::detail::Sub_50E770, I>(head, "PfM", socket)) return 0;
     if (TryDispatchReply<Sub_50E780, I>(head, "ed", socket)) return 0;
-    if (TryDispatchReply<platform::ConfigureLegacyMouseTracker_50E7B0, I, I>(head, "tq", socket)) return 0;
+    // COR10：追踪器已移除，旧tq配置仍按两个整数解码后忽略。
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "tq", socket)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceiveOpenReply, I>(head, "Tmrx", socket)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceiveCloseReply, I>(head, "KXhH", socket)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceiveBrowseReply, I, I, T, T, T, T>(head, "ft", socket, 0x68U)) return 0;

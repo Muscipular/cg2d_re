@@ -127,3 +127,16 @@ COR08验收：上述删除与调用替换完成；静态正文对照、剩余引
 接口依据：[BCryptCreateHash](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptcreatehash)、[BCryptHashData](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcrypthashdata)、[BCryptFinishHash](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptfinishhash)。已核当前本机Windows SDK的bcrypt.h声明。
 
 COR09验收：替换完成，源码净减144行；文件读取段、十六进制编码和模块公开函数正文静态对照一致，系统句柄逐条失败路径均有释放，CNG链接与MSVC x64 Debug编译通过。原3680入口身份／名称保持，只有上述四项状态由有正文转有承接；其余状态不变。未计算文件摘要、运行客户端／测试或测量性能，不记录JSON台账。
+
+## COR10：移除重复点击追踪模块（2026-10-16）
+
+用户在确认LegacyMouseTracker的用途后要求移除，沿此前SPEC合理性裁决授权执行。这是取消重复点击统计和上报的功能变更，覆盖旧鼠标输入／追踪器SPEC对该链的保留要求；普通鼠标输入仍保留。服务器是否依赖此上报尚未验证，不宣称联机行为等价。
+
+- 删除LegacyMouseTracker.cpp／hpp、CMake条目及全部包含；退休固定／动态节点池、链管理、阈值／容量全局及无消费者的固定池字节观察接口。
+- LegacyMouse的左右键按下函数保留按键位、坐标、tick和elapsed的全部更新及顺序；仅移除Track调用、阈值分支、Report(socket, 1)与重置。两个函数仅由WindowProcedure调用且返回值被丢弃，统一改为void，窗口处直接调用，不制造固定成功返回。其他按键、移动、滚轮和坐标映射保持。
+- 移除客户端初始化与退出中的追踪器调用。清理LegacyMouse仅为该上报引入的登录／网络依赖，显式包含cstring供现有memset使用。
+- tq仍在原位置按两个整数解码，复用既有IgnoreReplyArguments忽略配置，保留消息匹配、解码和分发返回；不新增协议或无效配置存储。Report_512CA0及其余上报消费者保持。
+- 原506580／5066D0／5066F0／506720／506760／506780／5067A0／5067F0／50E7B0九项在现有Markdown函数表改记“已排除”，保留3680行身份／名称；两个鼠标按下入口仍为“有正文”并注明本次差异。旧文档保留历史，不生成／更新JSON台账。
+- 验收：源码和构建列表无追踪器残留；静态逐字对照普通鼠标状态更新、其余事件函数及共用Report正文；检查tq解码类型与位置、函数表身份和状态变化；执行build.bat Debug完成编译／链接。不新增／运行测试，不启动客户端、不计算摘要。
+
+COR10验收：模块及全部调用删除完成；8个保留源码／构建文件逐字对照确认只有上述改动，普通鼠标状态更新与其他事件、Report正文保持。源码及CMake无追踪器残留，3680行身份／名称保持，只有指定9行由有正文转已排除。build.bat Debug配置、编译及客户端链接成功，退出码0；仍有既有C4701／C4703未初始化变量告警。未运行客户端／测试或验证服务器兼容性，未计算摘要、未更新JSON台账。

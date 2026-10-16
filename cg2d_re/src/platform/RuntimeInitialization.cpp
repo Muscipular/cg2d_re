@@ -10,7 +10,6 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/render/GraphicDxCache.hpp"
-#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"

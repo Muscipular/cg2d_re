@@ -99,7 +99,7 @@ std::int32_t Sub_508360()
                 static_cast<std::int32_t>(gValue58AD94),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>((gRequestMessage = L"伺服器的名稱不正確。"));
+            static_cast<void>((gRequestMessage = L"伺服器的名称不正确。"));
             return -2;
         }
 
@@ -107,7 +107,7 @@ std::int32_t Sub_508360()
         platform::gConnectionSocket =
             static_cast<std::uintptr_t>(connectionSocket);
         if (connectionSocket == INVALID_SOCKET) {
-            static_cast<void>((gRequestMessage = L"網路通訊協定（TCP）錯誤。"));
+            static_cast<void>((gRequestMessage = L"网路通讯协定（TCP）错误。"));
             return -3;
         }
 
@@ -134,7 +134,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(cg::text::FormatTo(gRequestMessage, L"無法取得伺服器的 IP 位址。({})", cg::text::FromGbkWide(serverAddress)));
+                static_cast<void>(cg::text::FormatTo(gRequestMessage, L"无法取得伺服器的 IP 位址。({})", cg::text::FromGbkWide(serverAddress)));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -4;
@@ -159,7 +159,7 @@ std::int32_t Sub_508360()
                 static_cast<void>(Sub_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                static_cast<void>((gRequestMessage = L"無法開始處理與伺服器的連接。"));
+                static_cast<void>((gRequestMessage = L"无法开始处理与伺服器的连接。"));
                 return -5;
             }
         }
@@ -195,7 +195,7 @@ std::int32_t Sub_508360()
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
-            static_cast<void>((gRequestMessage = L"無法連上伺服器。 "));
+            static_cast<void>((gRequestMessage = L"无法连上伺服器。 "));
             static_cast<void>(::closesocket(
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             return -6;
@@ -229,7 +229,7 @@ std::int32_t Sub_508360()
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
-                static_cast<void>((gRequestMessage = L"無法登入。"));
+                static_cast<void>((gRequestMessage = L"无法登入。"));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -7;
@@ -254,7 +254,7 @@ std::int32_t Sub_508360()
 
     const std::uint32_t now = platform::ReadTickCount32();
     if (now - gRequestStartTick > 600000U) {
-        static_cast<void>((gRequestMessage = L"與伺服器的連接逾時。"));
+        static_cast<void>((gRequestMessage = L"与伺服器的连接逾时。"));
         return -1;
     }
     return 0;
@@ -283,7 +283,7 @@ std::int32_t UpdateServerConnection()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        gServerConnectingText = L"伺服器連接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
+        gServerConnectingText = L"伺服器连接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
 
         std::int32_t columnCount =
             (cg::render::TextMeasure(gServerConnectingText, 0) + 111) / 64;
@@ -393,10 +393,10 @@ std::int32_t ProcessState_45E960()
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = L"處理登入逾時。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
+            gValue9A5348 = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
         } else if (result == -2) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = L"登入處理失敗，或斷線後，數分鐘內無法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
+            gValue9A5348 = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
         }
     }
 

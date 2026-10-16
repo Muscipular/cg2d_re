@@ -1139,7 +1139,7 @@ static std::int32_t WindowDialog_DrawHealing(
     const std::int32_t visibleLines = cg::yobi::detail::Sub_49C5E0(
         static_cast<std::int16_t>(window->height), 1, 16);
     if (button != 0) {
-        gHoverTextD68AE8 = L"不治療了。";
+        gHoverTextD68AE8 = L"不治疗了。";
     }
     std::wstring buffer;
     for (std::int32_t index = 0; index < 7; ++index) {
@@ -1157,7 +1157,7 @@ static std::int32_t WindowDialog_DrawHealing(
             }
         }
     }
-    cg::text::FormatTo(buffer, L"               所持金 {:7} 金幣", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"               所持金 {:7} 金币", world::detail::gPlayerRuntimeSlots.valueFC);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),
@@ -1174,12 +1174,12 @@ static std::int32_t WindowDialog_DrawHealing(
         const wchar_t* text;
         if (row == 8) {
             text = gHealingDialogHealthD2DC00 != 0
-                ? L"請求治療所有受傷的人物。"
-                : L"沒有受傷的人物。";
+                ? L"请求治疗所有受伤的人物。"
+                : L"没有受伤的人物。";
         } else {
             text = gHealingDialogRecordsD672F0[row - first].health != 0
-                ? L"請求治療此人物的傷勢。"
-                : L"此人物沒有受傷。";
+                ? L"请求治疗此人物的伤势。"
+                : L"此人物没有受伤。";
         }
         gHoverTextD68AE8 = text;
     }
@@ -1224,7 +1224,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     }
     gHealingDialogRecordsD672F0[6].level = 1;
     gHealingDialogRecordsD672F0[6].cost = totalCost;
-    buffer = L"         請選擇治療對象";
+    buffer = L"         请选择治疗对象";
     gDialogLinesCB1398[0].text = buffer;
     buffer = L"   Health   LV        Name             Gold";
     gDialogLinesCB1398[1].text = buffer;
@@ -1237,7 +1237,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
             gDialogLinesCB1398[index + 2].text.clear();
         }
     }
-    buffer = L"           完整治療";
+    buffer = L"           完整治疗";
     gDialogLinesCB1398[8].text = buffer;
     buffer = L""; // 原String1@D68A7C虚拟零空格式，不借用593850。
     gDialogLinesCB1398[9].text = buffer;

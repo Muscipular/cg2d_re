@@ -272,7 +272,7 @@ static WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B30。
 
 static WindowTextPrototype gWindowText561B48 { // 原全局：0x00561B48。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"無職", // 原常量参考：0x005860A4。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"无职", // 原常量参考：0x005860A4。
 };
 
 static WindowTextPrototype gWindowText561B50 { // 原全局：0x00561B50。
@@ -280,11 +280,11 @@ static WindowTextPrototype gWindowText561B50 { // 原全局：0x00561B50。
 };
 
 static WindowTextPrototype gWindowText561B58 { // 原全局：0x00561B58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"经验值", // 原常量参考：0x005861E0。
 };
 
 static WindowTextPrototype gWindowText561B60 { // 原全局：0x00561B60。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00586228。
 };
 
 static WindowTextPrototype gWindowText561B68 { // 原全局：0x00561B68。
@@ -781,7 +781,7 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
         consumed = 1;
     }
     if ((events & 1u) != 0) {
-        gHoverTextD68AE8 = L"打開這個技能的技能視窗。" /* 原常量参考：0x005864C8。 */;
+        gHoverTextD68AE8 = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
     }
     if ((events & 0x21u) != 0) {
         visualState = 2;
@@ -1114,7 +1114,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
         } else {
             if (world::detail::gSkillsF1BAFC[skillIndex].skillId == 72
                 && world::detail::Sub_518C60() == 0) {
-                world::detail::Sub_44B050(L"由於持有物品滿了，無法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
+                world::detail::Sub_44B050(L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -1126,7 +1126,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
-            gHoverTextD68AE8 = L"打開這個技能的技能視窗。" /* 原常量参考：0x005864C8。 */;
+            gHoverTextD68AE8 = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
         }
     }
     if (clicked) {
@@ -1190,11 +1190,11 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
-        const wchar_t* hint = L"由於能力不足，無法使用此技能。" /* 原常量参考：0x00586588。 */;
+        const wchar_t* hint = L"由于能力不足，无法使用此技能。" /* 原常量参考：0x00586588。 */;
         if (record->techniques3C[technique].value8C != 0) {
             const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
             hint = cg::yobi::detail::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
-                ? L"由於魔力不足，無法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
+                ? L"由于魔力不足，无法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
         }
         gHoverTextD68AE8 = hint;
     }
@@ -1379,7 +1379,7 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
     if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
-        gHoverTextD68AE8 = L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
+        gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & 2u) != 0) {
         visualState = 1;
@@ -1439,7 +1439,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
     if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
-        gHoverTextD68AE8 = L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
+        gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & 2u) != 0) {
         visualState = 1;
@@ -1592,9 +1592,9 @@ static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::
     if (hovered) {
         const std::int32_t mode = gSkillWindowModeD672AC;
         if (mode == 1 || mode == 4) {
-            gHoverTextD68AE8 = L"切換回技能一覽視窗。" /* 原常量参考：0x00586488。 */;
+            gHoverTextD68AE8 = L"切换回技能一览视窗。" /* 原常量参考：0x00586488。 */;
         } else if (mode == 2) {
-            gHoverTextD68AE8 = L"切換回技能等級視窗。" /* 原常量参考：0x00586470。 */;
+            gHoverTextD68AE8 = L"切换回技能等级视窗。" /* 原常量参考：0x00586470。 */;
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {
@@ -1742,7 +1742,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
     }
     const bool hovered = (state & 1) != 0;
     if (hovered) {
-        gHoverTextD68AE8 = L"略過此回合。" /* 原常量参考：0x005865A8。 */;
+        gHoverTextD68AE8 = L"略过此回合。" /* 原常量参考：0x005865A8。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -2194,7 +2194,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
     if ((state & 1) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = recipe;
-        gHoverTextD68AE8 = L"製作此配方內容的物品。" /* 原常量参考：0x00586530。 */;
+        gHoverTextD68AE8 = L"制作此配方内容的物品。" /* 原常量参考：0x00586530。 */;
     }
     if (clicked) {
         visualState = 1;
@@ -2224,7 +2224,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */ : L"無法使用此一等級的技能。" /* 原常量参考：0x005864FC。 */;
+        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
             if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
@@ -2266,7 +2266,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         return;
                     }
                     if (world::detail::Sub_518C60() <= 0) {
-                        world::detail::Sub_44B050(L"物品欄已滿" /* 原常量参考：0x005864E4。 */, 4, 3);
+                        world::detail::Sub_44B050(L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;
                     }
@@ -2540,7 +2540,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets());
     } else if (gSkillTargetKindCF4A10 == 0) {
-        world::detail::Sub_44B050(L"沒有可變裝的角色！", 4, 3);
+        world::detail::Sub_44B050(L"没有可变装的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
 }

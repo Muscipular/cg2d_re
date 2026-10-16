@@ -797,7 +797,7 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
         static_cast<WindowTextData*>(window->elements[row + 25].data)->text = gNpcDialogLinesCC24D4[row + 10].text;
     }
     window->elements[33].visible = 1;
-    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[33].data)->text, L"所需的技能欄位數量：{:2}欄", gWindow54ValueCC2E68);
+    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[33].data)->text, L"所需的技能栏位数量：{:2}栏", gWindow54ValueCC2E68);
     window->elements[6].visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -861,14 +861,14 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
         window->elements[index].visible = displayed > 10 ? 1 : 0;
     }
     window->elements[24].visible = 0;
-    static_cast<WindowTextData*>(window->elements[25].data)->text = L"請選擇";
-    static_cast<WindowTextData*>(window->elements[26].data)->text = L"想遺忘的技能";
+    static_cast<WindowTextData*>(window->elements[25].data)->text = L"请选择";
+    static_cast<WindowTextData*>(window->elements[26].data)->text = L"想遗忘的技能";
     static_cast<WindowTextData*>(window->elements[27].data)->text = L"";
     static_cast<WindowTextData*>(window->elements[28].data)->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
     static_cast<WindowTextData*>(window->elements[29].data)->text = L"";
-    static_cast<WindowTextData*>(window->elements[30].data)->text = L"　一旦遺忘技能後";
-    static_cast<WindowTextData*>(window->elements[31].data)->text = L"　就不能再恢復原狀了。";
-    static_cast<WindowTextData*>(window->elements[32].data)->text = L"　請特別注意。";
+    static_cast<WindowTextData*>(window->elements[30].data)->text = L"　一旦遗忘技能后";
+    static_cast<WindowTextData*>(window->elements[31].data)->text = L"　就不能再恢复原状了。";
+    static_cast<WindowTextData*>(window->elements[32].data)->text = L"　请特别注意。";
     for (std::int32_t index = 25; index <= 32; ++index) {
         window->elements[index].visible = 1;
     }
@@ -1328,7 +1328,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"學習此技能。";
+        gHoverTextD68AE8 = L"学习此技能。";
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -1371,12 +1371,12 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         case 1:
         case 2:
         case 12:
-            gHoverTextD68AE8 = L"還是算了。";
+            gHoverTextD68AE8 = L"还是算了。";
             break;
         case 3:
         case 4:
         case 13:
-            gHoverTextD68AE8 = L"回前一頁視窗";
+            gHoverTextD68AE8 = L"回前一页视窗";
             break;
         default:
             break;
@@ -1855,7 +1855,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
     }
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"遺忘此技能。";
+        gHoverTextD68AE8 = L"遗忘此技能。";
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -1923,7 +1923,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
         gWindow54MessageC9FCE0 = -3;
     }
     if (hover) {
-        gHoverTextD68AE8 = L"讓寵物學習此技能。";
+        gHoverTextD68AE8 = L"让宠物学习此技能。";
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -1962,7 +1962,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
     if (hover) {
-        gHoverTextD68AE8 = L"把要學習的技能放在這一欄。";
+        gHoverTextD68AE8 = L"把要学习的技能放在这一栏。";
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -2004,7 +2004,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
             gWindow54MessageC9FCE0 = selected;
         }
         gWindow54HoverD2DAD8 = selected;
-        gHoverTextD68AE8 = L"把此技能讓寵物學習。";
+        gHoverTextD68AE8 = L"把此技能让宠物学习。";
     }
     if ((state & 2) == 0) {
         return 0;
@@ -2110,22 +2110,22 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     }
     static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
-    constexpr wchar_t learnSuffix5882E8[] = L"來學習。";
+    constexpr wchar_t learnSuffix5882E8[] = L"来学习。";
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"學習『{}』" /* 原常量参考：0x00588344。 */, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"学习『{}』" /* 原常量参考：0x00588344。 */, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
     std::int32_t width = cg::render::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
-    cg::text::FormatTo(buffer, L"讓『{}』" /* 原常量参考：0x00588338。 */, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"让『{}』" /* 原常量参考：0x00588338。 */, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
-    width = cg::render::TextMeasure(L"讓『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
+    width = cg::render::TextMeasure(L"让『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
         cg::text::FormatTo(buffer, L"使用『{}』的位置" /* 原常量参考：0x0058830C。 */, cg::text::FromGbkWide(slot.name.data()).c_str());
     } else {
-        buffer = L"使用『空欄位』的位置" /* 原常量参考：0x005882F4。 */;
+        buffer = L"使用『空栏位』的位置" /* 原常量参考：0x005882F4。 */;
     }
     width = cg::render::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
@@ -2133,11 +2133,11 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     width = cg::render::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    cg::text::FormatTo(buffer, L"所持金　 {:7}金幣" /* 原常量参考：0x005882D4。 */, world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, world::detail::gPlayerRuntimeSlots.valueFC);
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
-    cg::text::FormatTo(buffer, L"購入金額 {:7}金幣" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    cg::text::FormatTo(buffer, L"购入金额 {:7}金币" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));
-    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, L"這樣可以嗎？" /* 原常量参考：0x005882B0。 */, 0, 0));
+    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, L"这样可以吗？" /* 原常量参考：0x005882B0。 */, 0, 0));
     cg::yobi::detail::DrawNineGrid_49BE00(
         245300, 160, 110, 320, 240, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);

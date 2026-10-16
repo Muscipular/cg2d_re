@@ -420,7 +420,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 4:
         if ((state & 1) != 0) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC3;
-            gHoverTextD68AE8 = L"點擊滑鼠左鍵增加文字顯示行數，點擊滑鼠右鍵減少文字訊息顯示行數。";
+            gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
             consumed = 1;
         } else {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC4;
@@ -440,7 +440,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         if ((state & 1) != 0) {
             const std::int32_t image = platform::gValue554640 * 3 + 0x3BDB1;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
-            gHoverTextD68AE8 = L"切換發話的範圍。";
+            gHoverTextD68AE8 = L"切换发话的范围。";
             consumed = 1;
         } else {
             WindowInstance* const window = gCurrentWindow;
@@ -473,7 +473,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         const bool hovered = (state & 1) != 0;
         auto* const graphic = static_cast<WindowGraphicData*>(hoverWindow->elements[6].data);
         if (hovered) {
-            gHoverTextD68AE8 = L"改變聊天時的文字大小。";
+            gHoverTextD68AE8 = L"改变聊天时的文字大小。";
             consumed = 1;
             switch (platform::gValue73ECBC) {
             case 0: graphic->imageNo = 0x3BDD5; break;
@@ -511,7 +511,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         WindowElement* const hoverElements = hoverWindow->elements;
         if (hovered) {
             static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDA9;
-            gHoverTextD68AE8 = L"點擊滑鼠左鍵增加文字顯示字數，點擊滑鼠右鍵減少文字訊息顯示字數。";
+            gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示字数，点击滑鼠右键减少文字讯息显示字数。";
             consumed = 1;
         } else {
             static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDAA;
@@ -530,7 +530,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     }
     case 7: {
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = L"變更文字的顏色。";
+            gHoverTextD68AE8 = L"变更文字的颜色。";
             consumed = 1;
         }
         std::int32_t color;

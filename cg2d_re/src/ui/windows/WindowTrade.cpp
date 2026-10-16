@@ -399,12 +399,12 @@ static std::uint8_t gTradeTooltipPageCB10D4 = 0; // 原全局：0x00CB10D4。
 
 // 原全局：0x005805FC。 原字节提示的借用指针表。
 static const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
-    L"指定金額。",
-    L"指定提領金額。",
-    L"指定金額數量。",
-    L"減少一個位數。",
-    L"指定全部金額。",
-    L"把指定金額歸零。",
+    L"指定金额。",
+    L"指定提领金额。",
+    L"指定金额数量。",
+    L"减少一个位数。",
+    L"指定全部金额。",
+    L"把指定金额归零。",
 }};
 
 static WindowGraphicData gWindowGraphic572940 {0x3BA88, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572940。
@@ -1197,9 +1197,9 @@ static void WindowTrade_HandleOwnInventory(
         if (hovered >= 0 && gTradePhaseCAFEC4 == 0
             && world::detail::gPlayerRuntimeSlots.items[hovered].used != 0) {
             if ((world::detail::gPlayerRuntimeSlots.items[hovered].flags & 1u) == 0) {
-                gHoverTextD68AE8 = L"此物品無法交易。";
+                gHoverTextD68AE8 = L"此物品无法交易。";
             } else if (gTradeItemMarksD2D61C[hovered] == 0) {
-                gHoverTextD68AE8 = L"用滑鼠拖放方式，登錄此筆物品交易。";
+                gHoverTextD68AE8 = L"用滑鼠拖放方式，登录此笔物品交易。";
             }
         }
     }
@@ -1372,7 +1372,7 @@ static void WindowTrade_HandleOwnPets(
     if (hovered >= 0) {
         petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hovered].index);
         if (petIndex >= 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放方式，登錄此筆寵物交易。";
+            gHoverTextD68AE8 = L"用滑鼠拖放方式，登录此笔宠物交易。";
             if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
                 && (WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)) {
                 if (world::detail::gPetRuntimeRecords[petIndex].used != 0
@@ -1673,7 +1673,7 @@ static void WindowTrade_HandleSelectedItem(
     }
     const std::uint8_t phase = gTradePhaseCAFEC4;
     if (phase == 0 && hovered >= 0) {
-        gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此筆物品交易。";
+        gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此笔物品交易。";
     }
     if (gTradeValueD2EA20 == 1) {
         if (gTradeHoverSlotC8AA78 != hovered) {
@@ -1852,7 +1852,7 @@ static void WindowTrade_HandleSelectedPet(
     }
     const std::uint8_t phase = gTradePhaseCAFEC4;
     if (phase == 0 && hovered >= 0) {
-        gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此筆寵物交易。";
+        gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此笔宠物交易。";
     }
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)
@@ -2000,7 +2000,7 @@ static void WindowTrade_HandleRemoteItem(
                     std::uint16_t used;
                     std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
                     if (used != 0) {
-                        gHoverTextD68AE8 = L"以此物品向對方提出交易。";
+                        gHoverTextD68AE8 = L"以此物品向对方提出交易。";
                     }
                     break;
                 }
@@ -2102,7 +2102,7 @@ static void WindowTrade_HandleRemoteItem(
                         std::uint16_t used;
                         std::memcpy(&used, &gTradePetsC9C108[slot], sizeof(used));
                         if (used != 0) {
-                            gHoverTextD68AE8 = L"以此寵物向對方提出交易。";
+                            gHoverTextD68AE8 = L"以此宠物向对方提出交易。";
                             gTradePreviewCC2E64 = slot + 500;
                         }
                     }
@@ -2545,7 +2545,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"向對方公開交易內容。";
+        gHoverTextD68AE8 = L"向对方公开交易内容。";
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {
@@ -2608,7 +2608,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"還是算了。";
+        gHoverTextD68AE8 = L"还是算了。";
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {
@@ -2638,7 +2638,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"確定交易。";
+        gHoverTextD68AE8 = L"确定交易。";
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {

@@ -212,7 +212,7 @@ std::int32_t InitLoading_457B10()
             login::ResetLoginMessage();
             break;
         case 25:
-            if (login::UpdateLoginMessage(L"沒有按照正常程序安裝") == 1) {
+            if (login::UpdateLoginMessage(L"没有按照正常程序安装") == 1) {
                 return 0;
             }
             break;

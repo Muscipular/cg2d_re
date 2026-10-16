@@ -55,7 +55,7 @@ static WindowTextPrototype gWindowText56B9B0 { // 原全局：0x0056B9B0。
 static WindowGraphicData gWindowGraphic56C2A0 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C2A0。
 
 static WindowTextPrototype gWindowText56C2B8 { // 原全局：0x0056C2B8。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"結果", // 原常量参考：0x00585F88。
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"结果", // 原常量参考：0x00585F88。
 };
 
 static WindowTextPrototype gWindowText56C2C0 { // 原全局：0x0056C2C0。

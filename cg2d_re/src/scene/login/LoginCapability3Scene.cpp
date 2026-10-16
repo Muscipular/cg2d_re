@@ -143,7 +143,7 @@ std::int32_t ProcessCapability3InputAndDraw()
             0));
     } else if (result < 0) {
         cg::world::gCurrentSceneState = 8;
-        gMessage9A50E8 = L"請設定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
+        gMessage9A50E8 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         cg::login::gInputContext9A5960.clearText();
         static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(cg::login::gInputContext9A5960).c_str()));
     }

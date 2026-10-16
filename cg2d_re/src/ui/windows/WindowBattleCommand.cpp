@@ -107,7 +107,7 @@ static WindowGraphicData gWindowGraphic56B688 {0x3B9DA, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic56B6A0 {0x3B9CE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B6A0。
 
 static WindowTextPrototype gWindowText56B6F8 { // 原全局：0x0056B6F8。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00586230。
 };
 
 static WindowTextPrototype gWindowText56B700 { // 原全局：0x0056B700。
@@ -350,7 +350,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
             const auto windowY = static_cast<std::int16_t>(textWindow->y);
             const auto textX = static_cast<std::int16_t>(windowX + 17);
             const auto textY = static_cast<std::int16_t>(windowY + 89);
-            std::wstring name = L"請選擇對象";
+            std::wstring name = L"请选择对象";
             if (selected >= 0) {
                 const cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[selected];
                 const char* title = cg::yobi::detail::GetYobiTitle(action);
@@ -461,7 +461,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, c
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"普通物理攻擊。";
+        gHoverTextD68AE8 = L"普通物理攻击。";
     }
     if ((state & 2) != 0) {
         WindowBattleCommand_ResetSelection();
@@ -499,7 +499,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, c
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"普通物理防禦。";
+        gHoverTextD68AE8 = L"普通物理防御。";
     }
     if ((state & 2) != 0) {
         WindowBattleCommand_ResetSelection();
@@ -594,7 +594,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, cons
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"召喚寵物或封印寵物。";
+        gHoverTextD68AE8 = L"召唤宠物或封印宠物。";
     }
     if (world::detail::gBattleSelectionModes5ABC7C[4] == 0) {
         if ((state & 2) != 0) {
@@ -647,7 +647,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更隊形。";
+        gHoverTextD68AE8 = L"变更队形。";
     }
     if ((state & 2) != 0) {
         WindowBattleCommand_ResetSelection();
@@ -684,7 +684,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, c
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"逃離此場戰鬥。";
+        gHoverTextD68AE8 = L"逃离此场战斗。";
     }
     if ((state & 2) != 0) {
         WindowBattleCommand_ResetSelection();
@@ -1108,11 +1108,11 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index
     WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     const std::int32_t hover = entryState & 1;
     if (hover != 0 && window != nullptr) {
-        gHoverTextD68AE8 = L"關閉技能視窗。";
+        gHoverTextD68AE8 = L"关闭技能视窗。";
     }
     cg::yobi::YobiAction* const pendingAction = gBattlePetSkillWindowActionCC423C;
     if (hover != 0 && window == nullptr && pendingAction == nullptr) {
-        gHoverTextD68AE8 = L"開啟技能視窗。";
+        gHoverTextD68AE8 = L"开启技能视窗。";
     }
     if (pendingAction == nullptr
         && ((entryState & 2) != 0
@@ -1164,8 +1164,8 @@ static void WindowBattleCommand_DrawTargetHint()
     static_cast<void>(cg::render::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(
         383, static_cast<std::int16_t>(y + 12), 2, 0, 0,
-        L"請選擇目標", 0));
-    gHoverTextD68AE8 = L"按滑鼠右鍵可取消。";
+        L"请选择目标", 0));
+    gHoverTextD68AE8 = L"按滑鼠右键可取消。";
 }
 
 // 原函数：0x0043C490。
@@ -1496,7 +1496,7 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
-                gHoverTextD68AE8 = L"打開技能視窗。";
+                gHoverTextD68AE8 = L"打开技能视窗。";
                 if ((clicks & 1u) != 0) {
                     gBattlePetCommandPhase553F88 = 1;
                 }
@@ -1510,7 +1510,7 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
-                gHoverTextD68AE8 = L"關閉技能視窗。";
+                gHoverTextD68AE8 = L"关闭技能视窗。";
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & 1u) != 0) {
@@ -1544,7 +1544,7 @@ void WindowBattleCommand_Dispatch()
             bool clickedReturn = false;
             if (graphicIndex == hover) {
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
-                gHoverTextD68AE8 = L"返回技能視窗。";
+                gHoverTextD68AE8 = L"返回技能视窗。";
                 if ((clicks & 1u) != 0) {
                     cg::yobi::detail::FlushBattleEntries_43C060();
                     gBattlePetCommandPhase553F88 = 1;

@@ -39,7 +39,7 @@ static WindowTextPrototype gWindowText565990 { // 原全局：0x00565990。
 };
 
 static WindowTextPrototype gWindowText5659A0 { // 原全局：0x005659A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"進行攻擊", // 原常量参考：0x00585FF4。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"进行攻击", // 原常量参考：0x00585FF4。
 };
 
 static WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。

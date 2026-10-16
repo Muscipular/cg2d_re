@@ -28,15 +28,15 @@ static WindowTextPrototype gWindowText57A028 { // 原全局：0x0057A028。
 };
 
 static WindowTextPrototype gWindowText57A030 { // 原全局：0x0057A030。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00585D44。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00585D44。
 };
 
 static WindowTextPrototype gWindowText57A038 { // 原全局：0x0057A038。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x00585D38。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"称号", // 原常量参考：0x00585D38。
 };
 
 static WindowTextPrototype gWindowText57A040 { // 原全局：0x0057A040。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x00585D28。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"职业", // 原常量参考：0x00585D28。
 };
 
 static WindowTextPrototype gWindowText57A048 { // 原全局：0x0057A048。
@@ -48,11 +48,11 @@ static WindowTextPrototype gWindowText57A058 { // 原全局：0x0057A058。
 };
 
 static WindowTextPrototype gWindowText57A060 { // 原全局：0x0057A060。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"購買", // 原常量参考：0x00585D08。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"购买", // 原常量参考：0x00585D08。
 };
 
 static WindowTextPrototype gWindowText57A068 { // 原全局：0x0057A068。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介紹", // 原常量参考：0x00585D00。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介绍", // 原常量参考：0x00585D00。
 };
 
 static WindowElementPrototype gWindowElements57A070[21] { // 原全局：0x0057A070。

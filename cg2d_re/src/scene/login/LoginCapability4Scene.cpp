@@ -214,7 +214,7 @@ std::int32_t Sub_464840()
     }
 
     case 6:
-        gValue9A4A78 = L"請設定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
+        gValue9A4A78 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }
@@ -229,7 +229,7 @@ std::int32_t Sub_464840()
     }
 
     case 8: {
-        gValue9A4A78 = L"確定要刪除這帳號記錄嗎？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
+        gValue9A4A78 = L"确定要删除这帐号记录吗？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
         const std::int32_t result =
             login::detail::UpdateCapability4Modal_464450(gValue9A4A78);
         if (result == 1) {
@@ -254,7 +254,7 @@ std::int32_t Sub_464840()
     }
 
     case 10:
-        gValue9A4A78 = L"帳號記錄已成功刪除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
+        gValue9A4A78 = L"帐号记录已成功删除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }

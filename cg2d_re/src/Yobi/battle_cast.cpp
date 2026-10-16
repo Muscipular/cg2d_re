@@ -1457,15 +1457,15 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
                     std::memcpy(arguments.data() + 4, &target->maxHp, sizeof(platform::LegacyCryptInt));
                     const char* const name = target->nameC4.data();
                     std::memcpy(arguments.data(), &target->readiness, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, L"{} 的生命為 {} / {}" /* 原常量参考：0x005539E8。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的生命为 {} / {}" /* 原常量参考：0x005539E8。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                     std::memcpy(arguments.data() + 4, &target->barMaximum1C0, sizeof(platform::LegacyCryptInt));
                     std::memcpy(arguments.data(), &target->barValue1B0, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, L"{} 的魔力為 {} / {}" /* 原常量参考：0x005539D4。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的魔力为 {} / {}" /* 原常量参考：0x005539D4。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                 }
             } else {
-                cg::text::FormatTo(message, L"無法調查出 {} 的情報" /* 原常量参考：0x005539BC。 */, cg::text::FromGbkWide(target->nameC4.data()).c_str());
+                cg::text::FormatTo(message, L"无法调查出 {} 的情报" /* 原常量参考：0x005539BC。 */, cg::text::FromGbkWide(target->nameC4.data()).c_str());
                 world::detail::Sub_44B050(message, 4, 3);
             }
             static_cast<void>(AdvanceBattleEffect_439470(action));

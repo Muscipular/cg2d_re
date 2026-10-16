@@ -134,9 +134,9 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         switch (gProfileCategory1085DA0) {
-        case 0: gHoverTextD68AE8 = L"設定販賣的目錄" /* 原常量参考：0x005884F4。 */; break;
-        case 1: gHoverTextD68AE8 = L"設定購買的目錄" /* 原常量参考：0x00588504。 */; break;
-        case 2: gHoverTextD68AE8 = L"設定描述的目錄" /* 原常量参考：0x00588514。 */; break;
+        case 0: gHoverTextD68AE8 = L"设定贩卖的目录" /* 原常量参考：0x005884F4。 */; break;
+        case 1: gHoverTextD68AE8 = L"设定购买的目录" /* 原常量参考：0x00588504。 */; break;
+        case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;

@@ -56,19 +56,19 @@ static WindowGraphicData gWindowGraphic578C78 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic578C90 {0x3C120, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C90。
 
 static WindowTextPrototype gWindowText578CA8 { // 原全局：0x00578CA8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"類別", // 原常量参考：0x00585D70。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"类别", // 原常量参考：0x00585D70。
 };
 
 static WindowTextPrototype gWindowText578CB0 { // 原全局：0x00578CB0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"訊息", // 原常量参考：0x00585D64。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"讯息", // 原常量参考：0x00585D64。
 };
 
 static WindowTextPrototype gWindowText578CB8 { // 原全局：0x00578CB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00585D5C。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00585D5C。
 };
 
 static WindowTextPrototype gWindowText578CC0 { // 原全局：0x00578CC0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"介紹內容", // 原常量参考：0x00585D54。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"介绍内容", // 原常量参考：0x00585D54。
 };
 
 static WindowElementPrototype gWindowElements578CC8[71] { // 原全局：0x00578CC8。
@@ -229,7 +229,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請輸入關鍵字";
+        gHoverTextD68AE8 = L"请输入关键字";
         consumed = 1;
     }
     if ((state & 2) != 0) {
@@ -258,9 +258,9 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
     constexpr std::array<std::int32_t, 3> hoverImages {246047, 243032, 243035};
     constexpr std::array<std::int32_t, 3> commands {1, 16, 32};
     constexpr const wchar_t* hints[] {
-        L"使用關鍵字檢索",
-        L"上一頁",
-        L"下一頁",
+        L"使用关键字检索",
+        L"上一页",
+        L"下一页",
     };
     const std::int32_t position = index - 3;
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -296,7 +296,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"瀏覽此名玩家的資料表";
+        gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246059;
     } else {

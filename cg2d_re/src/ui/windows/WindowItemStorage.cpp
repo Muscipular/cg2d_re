@@ -168,7 +168,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         }
     }
     if ((events & 1u) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到飼料箱。";
+        gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到饲料箱。";
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
         && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {

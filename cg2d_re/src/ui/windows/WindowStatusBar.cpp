@@ -432,12 +432,12 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
     const std::uint8_t options = world::detail::ReadPlayerOptions194LowByte();
     constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
     const wchar_t* const hints[6][2] {
-        {L"現在不能跟別人對戰。" /* 原常量参考：0x00556E14。 */, L"現在可以跟別人對戰。" /* 原常量参考：0x00556E2C。 */},
-        {L"現在進行普通的聊天。" /* 原常量参考：0x00556E44。 */, L"現在進行小隊的聊天。" /* 原常量参考：0x00556E5C。 */},
-        {L"現在禁止別人與自己組隊。" /* 原常量参考：0x00556E74。 */, L"現在允許別人與自己組隊。" /* 原常量参考：0x00556E90。 */},
-        {L"現在禁止別人與自己交換名片。" /* 原常量参考：0x00556EAC。 */, L"現在允許別人與自己交換名片。" /* 原常量参考：0x00556ECC。 */},
-        {L"現在禁止別人與自己交易。" /* 原常量参考：0x00556EEC。 */, L"現在允許別人與自己交易。" /* 原常量参考：0x00556F08。 */},
-        {L"現在禁止別人邀請自己參加家族。" /* 原常量参考：0x005862D4。 */, L"現在允許別人邀請自己參加家族。" /* 原常量参考：0x005862F4。 */},
+        {L"现在不能跟别人对战。" /* 原常量参考：0x00556E14。 */, L"现在可以跟别人对战。" /* 原常量参考：0x00556E2C。 */},
+        {L"现在进行普通的聊天。" /* 原常量参考：0x00556E44。 */, L"现在进行小队的聊天。" /* 原常量参考：0x00556E5C。 */},
+        {L"现在禁止别人与自己组队。" /* 原常量参考：0x00556E74。 */, L"现在允许别人与自己组队。" /* 原常量参考：0x00556E90。 */},
+        {L"现在禁止别人与自己交换名片。" /* 原常量参考：0x00556EAC。 */, L"现在允许别人与自己交换名片。" /* 原常量参考：0x00556ECC。 */},
+        {L"现在禁止别人与自己交易。" /* 原常量参考：0x00556EEC。 */, L"现在允许别人与自己交易。" /* 原常量参考：0x00556F08。 */},
+        {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
     };
     std::int32_t (*const toggleCallbacks[6])() {
         &world::detail::Sub_472F40, &world::detail::Sub_472F70, &world::detail::Sub_472FA0,
@@ -502,13 +502,13 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                     const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    cg::text::FormatTo(buffer, L"現在{}擁有{}點的能力點數。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
+                    cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
                 } else {
                     const std::int32_t points = world::detail::gValueD2F788;
-                    cg::text::FormatTo(buffer, L"現在有增加點數{}點。" /* 原常量参考：0x00556D50。 */, points);
+                    cg::text::FormatTo(buffer, L"现在有增加点数{}点。" /* 原常量参考：0x00556D50。 */, points);
                 }
             } else {
-                buffer = L"現在沒有任何的增加點數。" /* 原常量参考：0x00556D34。 */;
+                buffer = L"现在没有任何的增加点数。" /* 原常量参考：0x00556D34。 */;
             }
             gHoverTextD68AE8 = buffer;
         }
@@ -551,7 +551,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
         const bool hover = (state & 1) != 0;
         if (hover) {
-            gHoverTextD68AE8 = hasMail != 0 ? L"現在有新郵件。" /* 原常量参考：0x00556D24。 */ : L"現在沒有郵件。" /* 原常量参考：0x00556D14。 */;
+            gHoverTextD68AE8 = hasMail != 0 ? L"现在有新邮件。" /* 原常量参考：0x00556D24。 */ : L"现在没有邮件。" /* 原常量参考：0x00556D14。 */;
             if (hasMail == 0) {
                 return 0;
             }
@@ -586,28 +586,28 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         const std::int32_t petIndex = target - 10;
         if (hover) {
             if (injury != 0) {
-                const wchar_t* const text = injury <= 25 ? L"現在受了一點小傷。" /* 原常量参考：0x00556E00。 */
-                    : injury <= 50 ? L"現在受了輕傷。" /* 原常量参考：0x00556DF0。 */
-                    : injury <= 75 ? L"現在受到重傷。" /* 原常量参考：0x00556DE0。 */ : L"現在正面臨死亡邊緣。" /* 原常量参考：0x00556DC8。 */;
+                const wchar_t* const text = injury <= 25 ? L"现在受了一点小伤。" /* 原常量参考：0x00556E00。 */
+                    : injury <= 50 ? L"现在受了轻伤。" /* 原常量参考：0x00556DF0。 */
+                    : injury <= 75 ? L"现在受到重伤。" /* 原常量参考：0x00556DE0。 */ : L"现在正面临死亡边缘。" /* 原常量参考：0x00556DC8。 */;
                 gHoverTextD68AE8 = text;
             } else if (target == -1) {
-                gHoverTextD68AE8 = L"現在十分健康。" /* 原常量参考：0x00556D68。 */;
+                gHoverTextD68AE8 = L"现在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
                 const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
                 const wchar_t* format;
                 if (petInjury <= 25) {
-                    format = L"現在{}受到擦傷。" /* 原常量参考：0x00556DB4。 */;
+                    format = L"现在{}受到擦伤。" /* 原常量参考：0x00556DB4。 */;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 } else if (petInjury <= 50) {
-                    format = L"現在{}受到輕傷。" /* 原常量参考：0x00556DA0。 */;
+                    format = L"现在{}受到轻伤。" /* 原常量参考：0x00556DA0。 */;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 } else {
                     const char nameFirst = pet.name6BD[0];
                     const bool critical = petInjury > 75;
                     name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                    format = critical ? L"現在{}瀕臨死亡。" /* 原常量参考：0x00556D78。 */ : L"現在{}受了重傷。" /* 原常量参考：0x00556D8C。 */;
+                    format = critical ? L"现在{}濒临死亡。" /* 原常量参考：0x00556D78。 */ : L"现在{}受了重伤。" /* 原常量参考：0x00556D8C。 */;
                 }
                 cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
                 gHoverTextD68AE8 = buffer;

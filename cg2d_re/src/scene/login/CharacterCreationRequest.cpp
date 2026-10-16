@@ -63,7 +63,7 @@ std::int32_t PollCharacterCreationRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"新建角色逾時。" /* 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。 */);
+    static_cast<void>(gRequestMessage = L"新建角色逾时。" /* 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。 */);
     return -1;
 }
 

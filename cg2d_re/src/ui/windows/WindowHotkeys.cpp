@@ -70,133 +70,133 @@ static WindowInputPrototype gHotkeyInputPrototype57DF48 { // 原全局：0x0057D
 static constexpr std::array<std::int8_t, 8> kHotkeyCounts56AEC4 {14, 27, 16, 24, 14, 27, 16, 24}; // 原常量参考：0x0056AEC4。
 
 static constexpr const wchar_t* kHotkeyText56933C[14] { // 原常量参考：0x0056933C。
-    L"開啟/關閉人物狀態視窗　　　　Ctrl + W",
-    L"開啟/關閉人物技能視窗　　　　Ctrl + E",
-    L"開啟/關閉物品視窗　　　　　　Ctrl + R",
-    L"開啟/關閉寵物狀態視窗　　　　Ctrl + A",
-    L"開啟/關閉名片視窗　　　　　　Ctrl + S",
-    L"開啟/關閉寵物圖鑑視窗　　　　Ctrl + D",
-    L"開啟/關閉系統功能視窗　　　　ESC",
-    L"開啟/關閉情緒動作視窗　　　　Ctrl + F",
-    L"開啟/關閉小地圖視窗　　　　　Ctrl + Q",
-    L"開啟/關閉熱鍵一覽視窗　　　　Ctrl + Y",
-    L"開啟/關閉黑名單列表視窗　　　End",
-    L"開啟/關閉冒險者日誌視窗　　　F9",
-    L"把移至畫面範圍外的視窗移回來 Ctrl + F12",
-    L"關閉所有開啟中的視窗　　　 　SHIFT + F12",
+    L"开启/关闭人物状态视窗　　　　Ctrl + W",
+    L"开启/关闭人物技能视窗　　　　Ctrl + E",
+    L"开启/关闭物品视窗　　　　　　Ctrl + R",
+    L"开启/关闭宠物状态视窗　　　　Ctrl + A",
+    L"开启/关闭名片视窗　　　　　　Ctrl + S",
+    L"开启/关闭宠物图鉴视窗　　　　Ctrl + D",
+    L"开启/关闭系统功能视窗　　　　ESC",
+    L"开启/关闭情绪动作视窗　　　　Ctrl + F",
+    L"开启/关闭小地图视窗　　　　　Ctrl + Q",
+    L"开启/关闭热键一览视窗　　　　Ctrl + Y",
+    L"开启/关闭黑名单列表视窗　　　End",
+    L"开启/关闭冒险者日志视窗　　　F9",
+    L"把移至画面范围外的视窗移回来 Ctrl + F12",
+    L"关闭所有开启中的视窗　　　 　SHIFT + F12",
 };
 
 static constexpr const wchar_t* kHotkeyText569608[27] { // 原常量参考：0x00569608。
-    L"允許/拒絕對戰　　　　　　　　Ctrl + P",
-    L"允許/拒絕組隊交談　　　　　　Ctrl + ;",
-    L"允許/拒絕組隊　　　　　　　　Ctrl + .",
-    L"允許/拒絕交換名片　　　　　　Ctrl + L",
-    L"允許/拒絕交易　　　　　　　　Ctrl + ,",
-    L"允許/拒絕被邀請入家族　　　　Ctrl + N",
-    L"提出對戰要求　　　　　　　　 Ctrl + K",
-    L"觀戰　　　　　　　　　　　　 Ctrl + V",
-    L"加入冒險隊伍　　　　　　　　 Ctrl + /",
-    L"提出交換名片的要求　　　　　 Ctrl + [",
+    L"允许/拒绝对战　　　　　　　　Ctrl + P",
+    L"允许/拒绝组队交谈　　　　　　Ctrl + ;",
+    L"允许/拒绝组队　　　　　　　　Ctrl + .",
+    L"允许/拒绝交换名片　　　　　　Ctrl + L",
+    L"允许/拒绝交易　　　　　　　　Ctrl + ,",
+    L"允许/拒绝被邀请入家族　　　　Ctrl + N",
+    L"提出对战要求　　　　　　　　 Ctrl + K",
+    L"观战　　　　　　　　　　　　 Ctrl + V",
+    L"加入冒险队伍　　　　　　　　 Ctrl + /",
+    L"提出交换名片的要求　　　　　 Ctrl + [",
     L"提出交易的要求　　　　　　　 Ctrl + ]",
-    L"邀請對方加入家族　　　　　　 Ctrl + M",
+    L"邀请对方加入家族　　　　　　 Ctrl + M",
     L"更改文字大小　　　　　　　　 Ctrl + O",
-    L"交談視窗顯示行數增加↑　　　 Ctrl + ↑",
-    L"交談視窗顯示行數減少↓　　　 Ctrl + ↓",
-    L"交談視窗顯示字數增加←　　　 Ctrl + ←",
-    L"交談視窗顯示字數減少→　　　 Ctrl + →",
-    L"擴大交談範圍　　　　　　　　 SHIFT + →",
-    L"縮小交談範圍　　　　　　　　 SHIFT + ←",
-    L"消除交談顯示文字　　　　　　 HOME",
-    L"開啟/關閉交談視窗　　　　　　SHIFT + HOME",
-    L"切換聊天顯示模式　　　 　　　Ctrl + HOME",
-    L"將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
-    L"將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
-    L"遊戲畫面擷取　　　　　　　　 F12",
-    L"切換人物頭上顯示名稱　　　　 F11",
-    L"開啟/關閉人物狀態顯示　　　　Ctrl + F11",
+    L"交谈视窗显示行数增加↑　　　 Ctrl + ↑",
+    L"交谈视窗显示行数减少↓　　　 Ctrl + ↓",
+    L"交谈视窗显示字数增加←　　　 Ctrl + ←",
+    L"交谈视窗显示字数减少→　　　 Ctrl + →",
+    L"扩大交谈范围　　　　　　　　 SHIFT + →",
+    L"缩小交谈范围　　　　　　　　 SHIFT + ←",
+    L"消除交谈显示文字　　　　　　 HOME",
+    L"开启/关闭交谈视窗　　　　　　SHIFT + HOME",
+    L"切换聊天显示模式　　　 　　　Ctrl + HOME",
+    L"将滑鼠圈选的人加入黑名单中　 Ctrl+Insert",
+    L"将滑鼠圈选的人从黑名单中移除 Ctrl+Delete",
+    L"游戏画面撷取　　　　　　　　 F12",
+    L"切换人物头上显示名称　　　　 F11",
+    L"开启/关闭人物状态显示　　　　Ctrl + F11",
 };
 
 static constexpr const wchar_t* kHotkeyText569B6C[16] { // 原常量参考：0x00569B6C。
     L"坐下　　　　　　　　　　　　 Ctrl + 1",
-    L"揮手 　　　　　　　　　　　　Ctrl + 2",
-    L"點頭 　　　　　　　　　　　　Ctrl + 3",
-    L"高興 　　　　　　　　　　　　Ctrl + 4",
-    L"憤怒 　　　　　　　　　　　　Ctrl + 5",
-    L"悲傷 　　　　　　　　　　　　Ctrl + 6",
-    L"投擲 　　　　　　　　　　　　Ctrl + 7",
+    L"挥手 　　　　　　　　　　　　Ctrl + 2",
+    L"点头 　　　　　　　　　　　　Ctrl + 3",
+    L"高兴 　　　　　　　　　　　　Ctrl + 4",
+    L"愤怒 　　　　　　　　　　　　Ctrl + 5",
+    L"悲伤 　　　　　　　　　　　　Ctrl + 6",
+    L"投掷 　　　　　　　　　　　　Ctrl + 7",
     L"站立 　　　　　　　　　　　　Ctrl + 8",
     L"走路 　　　　　　　　　　　　Ctrl + 9",
     L"倒下 　　　　　　　　　　　　Ctrl + 0",
     L"跑步 　　　　　　　　　　　　Ctrl + T",
-    L"攻擊 　　　　　　　　　　　　Ctrl + -",
-    L"防禦 　　　　　　　　　　　　Ctrl + H",
-    L"受傷 　　　　　　　　　　　　Ctrl + G",
+    L"攻击 　　　　　　　　　　　　Ctrl + -",
+    L"防御 　　　　　　　　　　　　Ctrl + H",
+    L"受伤 　　　　　　　　　　　　Ctrl + G",
     L"魔法 　　　　　　　　　　　　Ctrl + B",
     LR"(猜拳 　　　　　　　　　　　　Ctrl + \)",
 };
 
 static constexpr const wchar_t* kHotkeyText569E9C[14] { // 原常量参考：0x00569E9C。
-    L"開啟/關閉人物狀態視窗　　　　Ctrl + Q",
-    L"開啟/關閉人物技能視窗　　　　Ctrl + W",
-    L"開啟/關閉物品視窗　　　　　　Ctrl + E",
-    L"開啟/關閉寵物狀態視窗　　　　Ctrl + R",
-    L"開啟/關閉名片視窗　　　　　　Ctrl + T",
-    L"開啟/關閉寵物圖鑑視窗　　　　Ctrl + Y",
-    L"開啟/關閉系統功能視窗　　　　ESC",
-    L"開啟/關閉情緒動作視窗　　　　Ctrl + A",
-    L"開啟/關閉小地圖視窗　　　　　Ctrl + S",
-    L"開啟/關閉熱鍵一覽視窗　　　　Ctrl + D",
-    L"開啟/關閉黑名單列表視窗　　　End",
-    L"開啟/關閉冒險者日誌視窗　　　F9",
-    L"把移至畫面範圍外的視窗移回來 Ctrl + F12",
-    L"關閉所有開啟中的視窗　　　　 SHIFT + F12",
+    L"开启/关闭人物状态视窗　　　　Ctrl + Q",
+    L"开启/关闭人物技能视窗　　　　Ctrl + W",
+    L"开启/关闭物品视窗　　　　　　Ctrl + E",
+    L"开启/关闭宠物状态视窗　　　　Ctrl + R",
+    L"开启/关闭名片视窗　　　　　　Ctrl + T",
+    L"开启/关闭宠物图鉴视窗　　　　Ctrl + Y",
+    L"开启/关闭系统功能视窗　　　　ESC",
+    L"开启/关闭情绪动作视窗　　　　Ctrl + A",
+    L"开启/关闭小地图视窗　　　　　Ctrl + S",
+    L"开启/关闭热键一览视窗　　　　Ctrl + D",
+    L"开启/关闭黑名单列表视窗　　　End",
+    L"开启/关闭冒险者日志视窗　　　F9",
+    L"把移至画面范围外的视窗移回来 Ctrl + F12",
+    L"关闭所有开启中的视窗　　　　 SHIFT + F12",
 };
 
 static constexpr const wchar_t* kHotkeyText56A168[27] { // 原常量参考：0x0056A168。
-    L"允許/拒絕對戰　　　　　　　　Ctrl + U",
-    L"允許/拒絕組隊交談　　　　　　Ctrl + I",
-    L"允許/拒絕組隊　　　　　　　　Ctrl + O",
-    L"允許/拒絕交換名片　　　　　　Ctrl + P",
-    L"允許/拒絕交易　　　　　　　　Ctrl + F",
-    L"允許/拒絕被邀請入家族　　　　Ctrl + [",
-    L"提出對戰要求　　　　　　　　 Ctrl + J",
-    L"觀戰　　　　　　　　　　　　 Ctrl + K",
-    L"加入冒險隊伍　　　　　　　　 Ctrl + L",
-    L"提出交換名片的要求　　　　　 Ctrl + ;",
+    L"允许/拒绝对战　　　　　　　　Ctrl + U",
+    L"允许/拒绝组队交谈　　　　　　Ctrl + I",
+    L"允许/拒绝组队　　　　　　　　Ctrl + O",
+    L"允许/拒绝交换名片　　　　　　Ctrl + P",
+    L"允许/拒绝交易　　　　　　　　Ctrl + F",
+    L"允许/拒绝被邀请入家族　　　　Ctrl + [",
+    L"提出对战要求　　　　　　　　 Ctrl + J",
+    L"观战　　　　　　　　　　　　 Ctrl + K",
+    L"加入冒险队伍　　　　　　　　 Ctrl + L",
+    L"提出交换名片的要求　　　　　 Ctrl + ;",
     LR"(提出交易的要求　　　　　　　 Ctrl + ")",
-    L"邀請對方加入家族　　　　　　 Ctrl + ]",
+    L"邀请对方加入家族　　　　　　 Ctrl + ]",
     L"更改文字大小　　　　　　　　 Ctrl + Z",
-    L"交談視窗顯示行數增加↑　　　 Ctrl + ↑",
-    L"交談視窗顯示行數減少↓　　　 Ctrl + ↓",
-    L"交談視窗顯示字數增加←　　　 Ctrl + ←",
-    L"交談視窗顯示字數減少→　　　 Ctrl + →",
-    L"擴大交談範圍　　　　　　　　 SHIFT + →",
-    L"縮小交談範圍　　　　　　　　 SHIFT + ←",
-    L"消除交談顯示文字　　　　　　 HOME",
-    L"開啟/關閉交談視窗　　　　　　SHIFT + HOME",
-    L"切換聊天顯示模式　　　 　　　Ctrl + HOME",
-    L"將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
-    L"將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
-    L"遊戲畫面擷取　　　　　　　　 F12",
-    L"切換人物頭上顯示名稱　　　　 F11",
-    L"開啟/關閉人物狀態顯示　　　　Ctrl + F11",
+    L"交谈视窗显示行数增加↑　　　 Ctrl + ↑",
+    L"交谈视窗显示行数减少↓　　　 Ctrl + ↓",
+    L"交谈视窗显示字数增加←　　　 Ctrl + ←",
+    L"交谈视窗显示字数减少→　　　 Ctrl + →",
+    L"扩大交谈范围　　　　　　　　 SHIFT + →",
+    L"缩小交谈范围　　　　　　　　 SHIFT + ←",
+    L"消除交谈显示文字　　　　　　 HOME",
+    L"开启/关闭交谈视窗　　　　　　SHIFT + HOME",
+    L"切换聊天显示模式　　　 　　　Ctrl + HOME",
+    L"将滑鼠圈选的人加入黑名单中　 Ctrl+Insert",
+    L"将滑鼠圈选的人从黑名单中移除 Ctrl+Delete",
+    L"游戏画面撷取　　　　　　　　 F12",
+    L"切换人物头上显示名称　　　　 F11",
+    L"开启/关闭人物状态显示　　　　Ctrl + F11",
 };
 
 static constexpr const wchar_t* kHotkeyText56A6CC[16] { // 原常量参考：0x0056A6CC。
     L"坐下　　　　　　　　　　　　 Ctrl + 1",
-    L"揮手　　　　　　　　　　　　 Ctrl + 2",
-    L"點頭　　　　　　　　　　　　 Ctrl + 3",
-    L"高興　　　　　　　　　　　　 Ctrl + 4",
-    L"憤怒　　　　　　　　　　　　 Ctrl + 5",
-    L"悲傷　　　　　　　　　　　　 Ctrl + 6",
-    L"投擲　　　　　　　　　　　　 Ctrl + 7",
+    L"挥手　　　　　　　　　　　　 Ctrl + 2",
+    L"点头　　　　　　　　　　　　 Ctrl + 3",
+    L"高兴　　　　　　　　　　　　 Ctrl + 4",
+    L"愤怒　　　　　　　　　　　　 Ctrl + 5",
+    L"悲伤　　　　　　　　　　　　 Ctrl + 6",
+    L"投掷　　　　　　　　　　　　 Ctrl + 7",
     L"站立　　　　　　　　　　　　 Ctrl + 8",
     L"走路　　　　　　　　　　　　 Ctrl + 9",
     L"倒下　　　　　　　　　　　　 Ctrl + B",
     L"跑步　　　　　　　　　　　　 Ctrl + N",
-    L"攻擊　　　　　　　　　　　　 Ctrl + M",
-    L"防禦　　　　　　　　　　　　 Ctrl + ,",
-    L"受傷　　　　　　　　　　　　 Ctrl + .",
+    L"攻击　　　　　　　　　　　　 Ctrl + M",
+    L"防御　　　　　　　　　　　　 Ctrl + ,",
+    L"受伤　　　　　　　　　　　　 Ctrl + .",
     L"魔法　　　　　　　　　　　　 Ctrl + /",
     LR"(猜拳　　　　　　　　　　　　 Ctrl + \)",
 };
@@ -575,7 +575,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"顯示遊戲功能視窗相關熱鍵。" /* 原常量参考：0x00586FA4。 */;
+        gHoverTextD68AE8 = L"显示游戏功能视窗相关热键。" /* 原常量参考：0x00586FA4。 */;
     }
     if ((state & 2) != 0) {
         if (windowState->value10 != 0) {
@@ -616,7 +616,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"顯示畫面左上角狀態顯示相關熱鍵。" /* 原常量参考：0x00586FC0。 */;
+        gHoverTextD68AE8 = L"显示画面左上角状态显示相关热键。" /* 原常量参考：0x00586FC0。 */;
     }
     if ((state & 2) != 0) {
         if (windowState->value10 != 1) {
@@ -657,7 +657,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"顯示畫面右上角情緒動作相關熱鍵。" /* 原常量参考：0x00586FE4。 */;
+        gHoverTextD68AE8 = L"显示画面右上角情绪动作相关热键。" /* 原常量参考：0x00586FE4。 */;
     }
     if ((state & 2) != 0) {
         if (windowState->value10 != 2) {
@@ -698,7 +698,7 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"登錄常用句。" /* 原常量参考：0x00587008。 */;
+        gHoverTextD68AE8 = L"登录常用句。" /* 原常量参考：0x00587008。 */;
     }
     if ((state & 2) != 0) {
         if (windowState->value10 != 3) {

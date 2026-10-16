@@ -174,7 +174,7 @@ static std::int32_t WindowShop_Draw(std::int32_t value);
 static std::array<WindowShopItem, 20> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
 static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
 
-static constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊現在無法裝備"; // 原常量参考：0x00586BF4。
+static constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊现在无法装备"; // 原常量参考：0x00586BF4。
 
 // 原全局：0x00CF4B58。 出售回复中实际读取的商品数。
 static std::int32_t gShopReplyItemCountCF4B58 = 0; // 原全局：0x00CF4B58。
@@ -249,39 +249,39 @@ static std::wstring gConfirmationLineCB1210 {}; // 原全局：0x00CB1210。
 
 // 4B9F40六模式原字节文案，保留格式与定宽空格。
 static constexpr std::array<const wchar_t*, 6> kShopConfirmHoverHints {
-    L"買進指定的物品。",
-    L"賣掉指定的物品。",
-    L"交換指定的物品。",
-    L"交換指定的物品。",
-    L"鑑定指定的物品。",
+    L"买进指定的物品。",
+    L"卖掉指定的物品。",
+    L"交换指定的物品。",
+    L"交换指定的物品。",
+    L"鉴定指定的物品。",
     L"修理指定的物品。",
 };
 
 static constexpr std::array<const wchar_t*, 6> kShopConfirmHeadings {
-    L"持有金額           金幣    購買金額           金幣",
-    L"持有金額           金幣    賣出金額           金幣",
-    L"{:<24}    個  交換數      個",
-    L"手持數          個    給予個數           個",
-    L"持有金額           金幣    鑑定金額           金幣",
-    L"持有金額           金幣    修理金額           金幣",
+    L"持有金额           金币    购买金额           金币",
+    L"持有金额           金币    卖出金额           金币",
+    L"{:<24}    个  交换数      个",
+    L"手持数          个    给予个数           个",
+    L"持有金额           金币    鉴定金额           金币",
+    L"持有金额           金币    修理金额           金币",
 };
 
 static constexpr std::array<const wchar_t*, 6> kShopConfirmQuestions {
-    L"確認要購買這些物品？",
-    L"賣掉這些物品。可以嗎？",
-    L"交換這些物品。可以嗎？",
-    L"給予這些物品。可以嗎？",
-    L"鑑定這些物品。可以嗎？",
-    L"修理這些物品。可以嗎？",
+    L"确认要购买这些物品？",
+    L"卖掉这些物品。可以吗？",
+    L"交换这些物品。可以吗？",
+    L"给予这些物品。可以吗？",
+    L"鉴定这些物品。可以吗？",
+    L"修理这些物品。可以吗？",
 };
 
 static constexpr std::array<const wchar_t*, 6> kShopConfirmAcceptHints {
-    L"買進物品。",
-    L"賣掉。",
-    L"進行交換。",
-    L"進行交換。",
-    L"進行鑑定。",
-    L"進行修理。",
+    L"买进物品。",
+    L"卖掉。",
+    L"进行交换。",
+    L"进行交换。",
+    L"进行鉴定。",
+    L"进行修理。",
 };
 
 static WindowGraphicData gWindowGraphic573AF0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573AF0。
@@ -335,7 +335,7 @@ static WindowTextPrototype gWindowText573D00 { // 原全局：0x00573D00。
 };
 
 static WindowTextPrototype gWindowText573D08 { // 原全局：0x00573D08。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前无法装备", // 原常量参考：0x00585DD8。
 };
 
 static std::int32_t gWindowAnimationImage573D10 = 100000; // 原全局：0x00573D10。
@@ -661,8 +661,8 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
         std::wstring& line = gNpcDialogLinesCC24D4[row + 1].text;
         static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
     }
-    gNpcDialogLinesCC24D4[5].text = L"　無法再持有";
-    gNpcDialogLinesCC24D4[6].text = L"　更高的金額了";
+    gNpcDialogLinesCC24D4[5].text = L"　无法再持有";
+    gNpcDialogLinesCC24D4[6].text = L"　更高的金额了";
     gNpcDialogLinesCC24D4[7].text = L"";
     gShopReplyItemCountCF4B58 = 0;
     gNpcDialogLinesCC24D4[8].text = L"";
@@ -860,11 +860,11 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
     gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
-    gNpcDialogLinesCC24D4[1].text = L"歡迎光臨。";
+    gNpcDialogLinesCC24D4[1].text = L"欢迎光临。";
     gNpcDialogLinesCC24D4[2].text = prompt;
     gNpcDialogLinesCC24D4[3].text = L"";
     gNpcDialogLinesCC24D4[4].text = L"";
-    gNpcDialogLinesCC24D4[5].text = L"你身上的錢不夠！";
+    gNpcDialogLinesCC24D4[5].text = L"你身上的钱不够！";
     gNpcDialogLinesCC24D4[6].text = L"";
     gNpcDialogLinesCC24D4[7].text = L"";
     gShopReplyItemCountCF4B58 = 0;
@@ -941,14 +941,14 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
 cg::yobi::YobiAction* WindowShop_OpenIdentify(const char* const text)
 {
     return WindowShop_CreateService(
-        text, 4, L"你想鑑定什麼物品呢？");
+        text, 4, L"你想鉴定什么物品呢？");
 }
 
 // 原函数：0x004B7EE0。
 cg::yobi::YobiAction* WindowShop_OpenRepair(const char* const text)
 {
     return WindowShop_CreateService(
-        text, 5, L"你想修理什麼物品呢？");
+        text, 5, L"你想修理什么物品呢？");
 }
 
 // 原函数：0x004B8310。
@@ -1128,7 +1128,7 @@ static void WindowShop_RefreshSellRows()
         } else {
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 6;
             gCurrentWindow->elements[row + 27].visible = 1;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊無法販賣";
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊无法贩卖";
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
                 std::byte{6};
         }
@@ -1254,7 +1254,7 @@ static void WindowShop_RefreshExchangeRows()
         } else {
             static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 7;
             gCurrentWindow->elements[row + 27].visible = 1;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊你的數量不夠加工";
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊你的数量不够加工";
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
                 std::byte{4};
         }
@@ -1931,7 +1931,7 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
     const bool hover = (state & 1) != 0;
     if (hover) {
         if (!available) {
-            gHoverTextD68AE8 = L"沒有可登錄的物品";
+            gHoverTextD68AE8 = L"没有可登录的物品";
         } else {
             switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
             case 0:
@@ -1940,13 +1940,13 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
                 gHoverTextD68AE8 = L"";
                 break;
             case 1:
-                gHoverTextD68AE8 = L"登錄所有可賣的物品";
+                gHoverTextD68AE8 = L"登录所有可卖的物品";
                 break;
             case 4:
-                gHoverTextD68AE8 = L"登錄所有可鑑定的物品";
+                gHoverTextD68AE8 = L"登录所有可鉴定的物品";
                 break;
             case 5:
-                gHoverTextD68AE8 = L"登錄所有可修理的物品";
+                gHoverTextD68AE8 = L"登录所有可修理的物品";
                 break;
             default:
                 break;
@@ -2030,13 +2030,13 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
         const wchar_t* hint;
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 1:
-            hint = L"把要賣的物品拖放到這裡。";
+            hint = L"把要卖的物品拖放到这里。";
             break;
         case 4:
-            hint = L"把要鑑定的物品拖放到這裡。";
+            hint = L"把要鉴定的物品拖放到这里。";
             break;
         case 5:
-            hint = L"把要修理的物品拖放到這裡。";
+            hint = L"把要修理的物品拖放到这里。";
             break;
         default:
             return 0;
@@ -2444,13 +2444,13 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
         case 4:
         case 5:
             hint = permitted != 0
-                ? L"減少物品的數量。"
-                : L"無法再減少物品的數量了。";
+                ? L"减少物品的数量。"
+                : L"无法再减少物品的数量了。";
             break;
         case 3:
             hint = permitted != 0
-                ? L"減少給予這些物品的數量。"
-                : L"無法再減少了。";
+                ? L"减少给予这些物品的数量。"
+                : L"无法再减少了。";
             break;
         default:
             break;
@@ -2735,13 +2735,13 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
         case 4:
         case 5:
             hint = permitted != 0
-                ? L"增加物品的數量。"
-                : L"無法再增加物品的數量了。";
+                ? L"增加物品的数量。"
+                : L"无法再增加物品的数量了。";
             break;
         case 3:
             hint = permitted != 0
-                ? L"增加給予這些物品的數量。"
-                : L"無法再增加了。";
+                ? L"增加给予这些物品的数量。"
+                : L"无法再增加了。";
             break;
         default:
             break;
@@ -3168,13 +3168,13 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
         const wchar_t* hint = nullptr;
         switch (mode) {
         case 1:
-            hint = L"以滑鼠拖放方式選擇要賣的物品。";
+            hint = L"以滑鼠拖放方式选择要卖的物品。";
             break;
         case 4:
-            hint = L"以滑鼠拖放方式選擇要鑑定的物品。";
+            hint = L"以滑鼠拖放方式选择要鉴定的物品。";
             break;
         case 5:
-            hint = L"以滑鼠拖放方式選擇要修理的物品。";
+            hint = L"以滑鼠拖放方式选择要修理的物品。";
             break;
         default:
             break;

@@ -209,7 +209,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BA0A;
-            gHoverTextD68AE8 = L"使用寵物郵件。" /* 原常量参考：0x0058774C。 */;
+            gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3BA08;
@@ -367,7 +367,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
         const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
-            text->text = L"群組郵件" /* 原常量参考：0x00587780。 */;
+            text->text = L"群组邮件" /* 原常量参考：0x00587780。 */;
             gCurrentWindow->elements[2].visible = 0;
         }
     } else {

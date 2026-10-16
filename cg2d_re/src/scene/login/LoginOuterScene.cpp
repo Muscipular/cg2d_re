@@ -143,7 +143,7 @@ void ProcessOuterScene_45C2D0()
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;
-        gValue9A4BA0 = L"不正確的帳號和密碼。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
+        gValue9A4BA0 = L"不正确的帐号和密码。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
     }
 }
 

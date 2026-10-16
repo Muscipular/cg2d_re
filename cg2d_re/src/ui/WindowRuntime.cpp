@@ -358,21 +358,21 @@ const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{ // 
     {243209, 243210, 243211},
 }};
 
-static constexpr wchar_t kTribeUnopened585C50[] = L"未開放"; // 原常量参考：0x00585C50。
+static constexpr wchar_t kTribeUnopened585C50[] = L"未开放"; // 原常量参考：0x00585C50。
 
 const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057CB54。
     L"人形系",
-    L"龍系",
+    L"龙系",
     L"不死系",
-    L"飛行系",
-    L"昆蟲系",
+    L"飞行系",
+    L"昆虫系",
     L"植物系",
-    L"野獸系",
+    L"野兽系",
     L"特殊系",
-    L"金屬系",
+    L"金属系",
     L"邪魔系",
     L"神族",
-    L"精靈族",
+    L"精灵族",
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
 }};
@@ -1465,7 +1465,7 @@ std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int3
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = L"關閉這個視窗。";
+        gHoverTextD68AE8 = L"关闭这个视窗。";
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {
@@ -1984,7 +1984,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     const std::int32_t maximumWeight = pet->values6D8[2];
     const std::int32_t weight = pet->values6D8[1];
     auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
-    cg::text::FormatTo(weightData->text, L"負重:{:3}/{:3}", weight, maximumWeight);
+    cg::text::FormatTo(weightData->text, L"负重:{:3}/{:3}", weight, maximumWeight);
     const std::wstring& weightText = weightData->text;
     const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->style.font);
     const std::int32_t weightWidth = cg::render::TextMeasure(weightText, weightFont);
@@ -2171,17 +2171,17 @@ bool WindowItemSelector_HandleTab(
         const std::int32_t page = state->value60;
         if (page == 0) {
             gHoverTextD68AE8 = tab == 0
-                ? L"開啟裝備視窗。"
-                : L"開啟寵物裝備。";
+                ? L"开启装备视窗。"
+                : L"开启宠物装备。";
         } else if (page > 1 && page <= 3) {
             if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
                 gHoverTextD68AE8 = tab == 0
-                    ? L"關閉裝備視窗。"
-                    : L"關閉寵物裝備。";
+                    ? L"关闭装备视窗。"
+                    : L"关闭宠物装备。";
             } else {
                 gHoverTextD68AE8 = tab == 0
-                    ? L"切換到身上裝備。"
-                    : L"切換寵物裝備。";
+                    ? L"切换到身上装备。"
+                    : L"切换宠物装备。";
             }
         }
     }
@@ -2400,26 +2400,26 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         {11, L"生命", 0, 4},
         {12, L"魔力", 1, 4},
         {13, L"魔力", 0, 4},
-        {0, L"攻擊", 1, 1},
-        {1, L"攻擊", 0, 1},
-        {2, L"防禦", 1, 1},
-        {3, L"防禦", 0, 1},
+        {0, L"攻击", 1, 1},
+        {1, L"攻击", 0, 1},
+        {2, L"防御", 1, 1},
+        {3, L"防御", 0, 1},
         {4, L"敏捷", 1, 1},
         {5, L"敏捷", 0, 1},
         {6, L"精神", 1, 1},
         {7, L"精神", 0, 1},
-        {8, L"回復", 1, 1},
-        {9, L"回復", 0, 1},
+        {8, L"回复", 1, 1},
+        {9, L"回复", 0, 1},
         {14, L"抗毒", 0, 2},
         {15, L"抗睡眠", 0, 2},
         {16, L"抗石化", 0, 2},
         {17, L"抗酒醉", 0, 2},
-        {18, L"抗混亂", 0, 2},
-        {19, L"抗遺忘", 0, 2},
-        {20, L"必殺", 0, 8},
-        {21, L"反擊", 0, 8},
+        {18, L"抗混乱", 0, 2},
+        {19, L"抗遗忘", 0, 2},
+        {20, L"必杀", 0, 8},
+        {21, L"反击", 0, 8},
         {22, L"命中", 0, 8},
-        {23, L"迴避", 0, 8},
+        {23, L"回避", 0, 8},
     };
     const WindowElement* const element = selector->elements00[1];
     const render::GraphicDescriptor16* const descriptor = &selector->descriptors3B8[0];
@@ -2481,7 +2481,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
             cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text04.data()), TextCoordinateOrder::Title);
     }
     if (world::detail::gReplyRecordF7C950.value48 == 1) {
-        drawText(64, 28, 0, L"(有特殊稱號)",
+        drawText(64, 28, 0, L"(有特殊称号)",
             TextCoordinateOrder::WindowBeforeElements);
     }
     std::int32_t lines = 0;
@@ -2509,7 +2509,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         ++lines;
     }
     if (world::detail::gReplyRecordF7C950.hasText24 != 0) {
-        cg::text::FormatTo(buffer, LR"(能減少使用"{}"的魔)", cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text25.data()).c_str());
+        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text25.data()).c_str());
         drawText(28, 188, 0, buffer, TextCoordinateOrder::WindowBeforeElements);
         drawText(28, 204, 0, L"力消耗",
             TextCoordinateOrder::WindowBeforeElements);

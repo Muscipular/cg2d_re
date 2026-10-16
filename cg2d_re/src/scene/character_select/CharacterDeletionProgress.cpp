@@ -14,7 +14,7 @@ namespace {
 
 // 原 0x55ABE8：正文 10 字节，含隐式 NUL 共 11 字节。
 constexpr wchar_t kCharacterDeletionProgressText[] =
-    L"角色刪除中";
+    L"角色删除中";
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
 

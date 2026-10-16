@@ -234,8 +234,8 @@ YobiAction* NewYobiAction_404AE0(
     auto* const action = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     if (action == nullptr) {
-        platform::ShowWideMessage(L"GetAction Erorr!!", L"確認", 0);
-        platform::ShowWideMessage(L"記憶體容量不足！pAct", L"GetAction Erorr", 0);
+        platform::ShowWideMessage(L"GetAction Erorr!!", L"确认", 0);
+        platform::ShowWideMessage(L"记忆体容量不足！pAct", L"GetAction Erorr", 0);
         return nullptr;
     }
 
@@ -265,7 +265,7 @@ YobiAction* NewYobiAction_404AE0(
         if (missingPayload) {
             std::destroy_at(action);
             std::free(action);
-            platform::ShowWideMessage(L"記憶體容量不足！yobi", L"GetYobi Erorr", 0);
+            platform::ShowWideMessage(L"记忆体容量不足！yobi", L"GetYobi Erorr", 0);
             return nullptr;
         }
     }

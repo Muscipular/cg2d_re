@@ -73,7 +73,7 @@ static WindowTextPrototype gWindowText56D0A0 { // 原全局：0x0056D0A0。
 };
 
 static WindowTextPrototype gWindowText56D0A8 { // 原全局：0x0056D0A8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"请选择对象。", // 原常量参考：0x00585F54。
 };
 
 static WindowElementPrototype gWindowElements56D0B0[19] { // 原全局：0x0056D0B0。
@@ -320,7 +320,7 @@ static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, cons
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"關閉此視窗";
+        gHoverTextD68AE8 = L"关闭此视窗";
     }
     if ((state & 2) != 0) {
         if (gTextChoiceEnabledCA0008 != 0) {
@@ -355,7 +355,7 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
     }
     if ((state & 1) != 0) {
         WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
-        gHoverTextD68AE8 = L"選擇此人物。";
+        gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {
         if (gTextChoiceEnabledCA0008 != 0) {

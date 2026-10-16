@@ -70,7 +70,7 @@ static WindowTextPrototype gWindowTexts56CD80[5] { // 原全局：0x0056CD80。
 };
 
 static WindowTextPrototype gWindowText56CDA8 { // 原全局：0x0056CDA8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"请选择对象。", // 原常量参考：0x00585F54。
 };
 
 static WindowElementPrototype gWindowElements56CDB0[19] { // 原全局：0x0056CDB0。

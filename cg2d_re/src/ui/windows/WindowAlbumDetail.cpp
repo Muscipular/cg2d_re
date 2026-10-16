@@ -38,7 +38,7 @@ static WindowGraphicData gWindowGraphic567A88 {0x3B55F, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic567AA0 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567AA0。
 
 static WindowTextPrototype gWindowText567AB8 { // 原全局：0x00567AB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"宠物名称", // 原常量参考：0x00586048。
 };
 
 static WindowTextPrototype gWindowText567AC0 { // 原全局：0x00567AC0。
@@ -50,7 +50,7 @@ static WindowTextPrototype gWindowText567AC8 { // 原全局：0x00567AC8。
 };
 
 static WindowTextPrototype gWindowText567AD0 { // 原全局：0x00567AD0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"种类", // 原常量参考：0x00586018。
 };
 
 static WindowTextPrototype gWindowText567AD8 { // 原全局：0x00567AD8。
@@ -325,22 +325,22 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
     case 9:
         delta = -10;
         idle = 0x3B55C;
-        hint = L"快速切換至後10頁視窗。" /* 原常量参考：0x00586DC8。 */;
+        hint = L"快速切换至后10页视窗。" /* 原常量参考：0x00586DC8。 */;
         break;
     case 10:
         delta = -1;
         idle = 0x3BE5D;
-        hint = L"切換至後一頁視窗。" /* 原常量参考：0x00586DB4。 */;
+        hint = L"切换至后一页视窗。" /* 原常量参考：0x00586DB4。 */;
         break;
     case 11:
         delta = 1;
         idle = 0x3BE5A;
-        hint = L"切換至前一頁視窗。" /* 原常量参考：0x00586DA0。 */;
+        hint = L"切换至前一页视窗。" /* 原常量参考：0x00586DA0。 */;
         break;
     case 12:
         delta = 10;
         idle = 0x3B55F;
-        hint = L"快速切換至前10頁視窗。" /* 原常量参考：0x00586D88。 */;
+        hint = L"快速切换至前10页视窗。" /* 原常量参考：0x00586D88。 */;
         break;
     case 80:
         if ((state & 0x400) != 0) {

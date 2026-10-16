@@ -28,8 +28,8 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         const bool visible = world::detail::SelectedProfileValue04() != 0;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = visible
-                ? L"不公開玩家簡介"
-                : L"公開玩家簡介";
+                ? L"不公开玩家简介"
+                : L"公开玩家简介";
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -46,9 +46,9 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
     case 21: {
         constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};
         constexpr const wchar_t* hints[] {
-            L"切換成玩家狀態視窗。",
-            L"切換成玩家明細視窗。",
-            L"切換成玩家稱號視窗。",
+            L"切换成玩家状态视窗。",
+            L"切换成玩家明细视窗。",
+            L"切换成玩家称号视窗。",
         };
         const std::int32_t position = index - 19;
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -83,7 +83,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 243035;
-            gHoverTextD68AE8 = L"開啟目錄視窗";
+            gHoverTextD68AE8 = L"开启目录视窗";
             consumed = 1;
         } else {
             graphic->imageNo = 243033;
@@ -108,7 +108,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 244420;
-            gHoverTextD68AE8 = L"決定玩家簡介";
+            gHoverTextD68AE8 = L"决定玩家简介";
             consumed = 1;
         } else {
             graphic->imageNo = 244418;

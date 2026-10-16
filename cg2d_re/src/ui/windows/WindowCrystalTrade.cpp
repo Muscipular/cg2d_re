@@ -12,7 +12,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        gHoverTextD68AE8 = L"還是算了。" /* 原常量参考：0x00585AD0。 */;
+        gHoverTextD68AE8 = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
     }
     if ((state & 2) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;

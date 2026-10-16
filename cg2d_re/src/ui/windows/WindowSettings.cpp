@@ -404,7 +404,7 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
     graphic->imageNo = 0x3B8C1;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8C3;
-        gHoverTextD68AE8 = L"設定滑鼠與鍵盤的操作方式。" /* 原常量参考：0x00586DF8。 */;
+        gHoverTextD68AE8 = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
     }
     if ((state & 2) != 0) {
         const std::int32_t visible = gCurrentWindow->elements[28].visible;
@@ -449,7 +449,7 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
     graphic->imageNo = 0x3B8C4;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8C6;
-        gHoverTextD68AE8 = L"設定音樂音效。" /* 原常量参考：0x00586E14。 */;
+        gHoverTextD68AE8 = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
     }
     if ((state & 2) != 0) {
         const std::int32_t visible = gCurrentWindow->elements[29].visible;
@@ -495,7 +495,7 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
     graphic->imageNo = 0x3B8C7;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8C9;
-        gHoverTextD68AE8 = L"掃描線同期設定" /* 原常量参考：0x00586E24。 */;
+        gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
     if ((state & 2) != 0) {
         const std::int32_t visible = gCurrentWindow->elements[30].visible;
@@ -556,7 +556,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const
     graphic->imageNo = 0x3B8CA;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8CC;
-        gHoverTextD68AE8 = L"開啟熱鍵一覽表。" /* 原常量参考：0x00586E34。 */;
+        gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
     }
     if ((state & 2) != 0) {
         WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
@@ -581,7 +581,7 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"登出並回到城內登入點。" /* 原常量参考：0x00586E48。 */;
+        gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
         window = gCurrentWindow;
     }
     if ((state & 2) != 0) {
@@ -612,7 +612,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8D6;
-        gHoverTextD68AE8 = L"登出後回到伺服器選擇畫面。" /* 原常量参考：0x00586E60。 */;
+        gHoverTextD68AE8 = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
         window = gCurrentWindow;
     }
     if ((state & 2) != 0) {
@@ -643,7 +643,7 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更物品堆疊視窗的開啟方式。" /* 原常量参考：0x00586E7C。 */;
+        gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -672,7 +672,7 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更滑鼠游標種類。" /* 原常量参考：0x00586E9C。 */;
+        gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -704,7 +704,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更快速鍵的型態。" /* 原常量参考：0x00586EB0。 */;
+        gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -731,7 +731,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume <= 0
-            ? L"無法再降低背景音樂的音量。" /* 原常量参考：0x00586EC4。 */ : L"降低背景音樂的音量。" /* 原常量参考：0x00586EE0。 */;
+            ? L"无法再降低背景音乐的音量。" /* 原常量参考：0x00586EC4。 */ : L"降低背景音乐的音量。" /* 原常量参考：0x00586EE0。 */;
         gHoverTextD68AE8 = hint;
     }
     if ((state & 0x400) != 0) {
@@ -768,7 +768,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume >= 15
-            ? L"無法再提高背景音樂的音量。" /* 原常量参考：0x00586EF8。 */ : L"提高背景音樂的音量。" /* 原常量参考：0x00586F14。 */;
+            ? L"无法再提高背景音乐的音量。" /* 原常量参考：0x00586EF8。 */ : L"提高背景音乐的音量。" /* 原常量参考：0x00586F14。 */;
         gHoverTextD68AE8 = hint;
     }
     if ((state & 0x400) != 0) {
@@ -805,7 +805,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume <= 0
-            ? L"無法再降低效果音量。" /* 原常量参考：0x00586F2C。 */ : L"降低效果音量。" /* 原常量参考：0x00586F44。 */;
+            ? L"无法再降低效果音量。" /* 原常量参考：0x00586F2C。 */ : L"降低效果音量。" /* 原常量参考：0x00586F44。 */;
         gHoverTextD68AE8 = hint;
     }
     if ((state & 0x400) != 0) {
@@ -842,7 +842,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume >= 15
-            ? L"無法再提高效果音量。" /* 原常量参考：0x00586F54。 */ : L"提高效果音量。" /* 原常量参考：0x00586F6C。 */;
+            ? L"无法再提高效果音量。" /* 原常量参考：0x00586F54。 */ : L"提高效果音量。" /* 原常量参考：0x00586F6C。 */;
         gHoverTextD68AE8 = hint;
     }
     if ((state & 0x400) != 0) {
@@ -878,7 +878,7 @@ static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, cons
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更音響輸出類型。" /* 原常量参考：0x00586F7C。 */;
+        gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -908,7 +908,7 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"變更音響輸出類型。" /* 原常量参考：0x00586F7C。 */;
+        gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -938,7 +938,7 @@ static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"掃描線同期設定" /* 原常量参考：0x00586E24。 */;
+        gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
@@ -966,7 +966,7 @@ static std::int32_t WindowSettings_DrawRenderModeButton(const std::int32_t index
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"目前的描繪功能。" /* 原常量参考：0x00586F90。 */;
+        gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
     }
     graphic->imageNo = 0x3B5A0 + 3 * index;
     return 0;

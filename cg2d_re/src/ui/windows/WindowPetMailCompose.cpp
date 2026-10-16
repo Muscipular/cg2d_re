@@ -221,7 +221,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = idle + 2;
-            gHoverTextD68AE8 = index == 2 ? L"寄送一般郵件。" /* 原常量参考：0x005877A4。 */ : L"換另一隻寵物寄送郵件。" /* 原常量参考：0x0058778C。 */;
+            gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
             consumed = 1;
         } else {
             graphic->imageNo = idle;

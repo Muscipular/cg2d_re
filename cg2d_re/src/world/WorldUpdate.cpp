@@ -278,12 +278,12 @@ std::int32_t Sub_455C90()
     std::wstring errorText;
     const bool connectionError = login::gValue593FC0 != 0;
     if (connectionError) {
-        cg::text::FormatTo(errorText, L"伺服器連線中斷({})", network::ReadNetworkErrorD9F2CC());
+        cg::text::FormatTo(errorText, L"伺服器连线中断({})", network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
-        thirdText = L"請嘗試其他的伺服器。";
+        thirdText = L"请尝试其他的伺服器。";
     } else {
-        secondText = L"與伺服器的連線被切斷了。";
-        thirdText = L"回到伺服器選擇畫面。";
+        secondText = L"与伺服器的连线被切断了。";
+        thirdText = L"回到伺服器选择画面。";
     }
 
     width = cg::render::TextMeasure(secondText, 0);

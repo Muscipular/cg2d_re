@@ -87,9 +87,9 @@ static WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu};
 
 static WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F50。
 
-static WindowTextPrototype gWindowText576F68 {{}, L"請選擇臉部、眼睛及嘴巴。"}; // 原全局：0x00576F68。 // 原常量参考：0x00585D98。
+static WindowTextPrototype gWindowText576F68 {{}, L"请选择脸部、眼睛及嘴巴。"}; // 原全局：0x00576F68。 // 原常量参考：0x00585D98。
 
-static WindowTextPrototype gWindowText576F70 {{}, L"臉部"}; // 原全局：0x00576F70。 // 原常量参考：0x00585D90。
+static WindowTextPrototype gWindowText576F70 {{}, L"脸部"}; // 原全局：0x00576F70。 // 原常量参考：0x00585D90。
 
 static WindowTextPrototype gWindowText576F78 {{}, L"眼睛"}; // 原全局：0x00576F78。 // 原常量参考：0x00585D88。
 

@@ -168,7 +168,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t titleYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(LR"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
+            cg::text::ToGbk(LR"(        >>  魔 力 宝 贝 冒 险 者 日 志 [ %02d/%02d/%02d ]  <<
 )" /* 原常量参考：0x0055488C。 */).c_str(),
             titleYear % 100, titleMonth + 1, titleDay);
         std::fprintf(gLogStream626C1C, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
@@ -192,7 +192,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionYear = legacyTime->tm_year;
         std::fprintf(
             gLogStream626C1C,
-            cg::text::ToGbk(LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
+            cg::text::ToGbk(LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 纪录
 )" /* 原常量参考：0x00554820。 */).c_str(),
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);

@@ -25,13 +25,13 @@ namespace {
 
 // 原 0x55AC58/0x55C8F0/0x55C900/0x55C8E0，供两条版本场景复用原字节。
 constexpr wchar_t kUpgradeProgressText[] =
-    L"版本升級中···";
+    L"版本升级中···";
 constexpr wchar_t kUpgradeSucceededText[] =
-    L"版本已經升級。";
+    L"版本已经升级。";
 constexpr wchar_t kUpgradeFailedText[] =
-    L"版本升級失敗。";
+    L"版本升级失败。";
 constexpr wchar_t kCannotUpgradeText[] =
-    L"無法更新版本。";
+    L"无法更新版本。";
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
 cg::yobi::YobiAction* gVersionUpgradeAction = nullptr;
 // 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。

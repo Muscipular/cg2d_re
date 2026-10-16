@@ -10,9 +10,9 @@ static std::int32_t WindowBattleStateNotice_Update(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowTextPrototype gWindowText56C9A8 {{}, L"偷襲"}; // 原全局：0x0056C9A8。 // 原常量参考：0x00585F70。
+static WindowTextPrototype gWindowText56C9A8 {{}, L"偷袭"}; // 原全局：0x0056C9A8。 // 原常量参考：0x00585F70。
 
-static WindowTextPrototype gWindowText56C9B0 {{}, L"被偷襲"}; // 原全局：0x0056C9B0。 // 原常量参考：0x00585F68。
+static WindowTextPrototype gWindowText56C9B0 {{}, L"被偷袭"}; // 原全局：0x0056C9B0。 // 原常量参考：0x00585F68。
 
 static WindowElementPrototype gWindowElements56C9B8[2] { // 原全局：0x0056C9B8。
     {WindowElementType_Text, 78, 40, 0, 0, 1, {.text = &gWindowText56C9A8}, &WindowElement_NoOp},

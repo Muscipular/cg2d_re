@@ -148,7 +148,7 @@ std::int32_t PollCharacterListRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"取得角色列表逾時。" /* 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。 */);
+    static_cast<void>(gRequestMessage = L"取得角色列表逾时。" /* 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。 */);
     return -1;
 }
 

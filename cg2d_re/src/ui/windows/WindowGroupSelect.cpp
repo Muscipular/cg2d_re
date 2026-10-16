@@ -89,39 +89,39 @@ static WindowGraphicData gWindowGraphic572F28 {0x3BA1E, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic572F40 {0x3BA21, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F40。
 
 static WindowTextPrototype gWindowText572F70 { // 原全局：0x00572F70。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"人員",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"人员",
 };
 
 // 原全局：0x00572F58。 49三类副标题，元素原型与刷新同源。
 static WindowTextPrototype gWindowText572F58 { // 原全局：0x00572F58。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"持有名片＆上線的人員",
+    L"持有名片＆上线的人员",
 };
 
 static WindowTextPrototype gWindowText572F60 { // 原全局：0x00572F60。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"同家族內上線的人員",
+    L"同家族内上线的人员",
 };
 
 static WindowTextPrototype gWindowText572F68 { // 原全局：0x00572F68。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"同家族全部的人員",
+    L"同家族全部的人员",
 };
 
 // 原全局：0x00572F78。 49三类标题。
 static WindowTextPrototype gWindowText572F78 { // 原全局：0x00572F78。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"交換過名片的人",
+    L"交换过名片的人",
 };
 
 static WindowTextPrototype gWindowText572F80 { // 原全局：0x00572F80。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"家族成員",
+    L"家族成员",
 };
 
 static WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"家族稱號",
+    L"家族称号",
 };
 
 static WindowElementPrototype gWindowElements572F90[37] { // 原全局：0x00572F90。
@@ -348,7 +348,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
-        gHoverTextD68AE8 = L"切換集團郵件。";
+        gHoverTextD68AE8 = L"切换集团邮件。";
         result = 1;
     } else {
         graphic->imageNo = idle;
@@ -390,7 +390,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
         graphic->imageNo = 0x3BA20;
         const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (mode == 0 || mode == 1 || mode == 2) {
-            gHoverTextD68AE8 = L"準備寄送郵件給此集團。";
+            gHoverTextD68AE8 = L"准备寄送邮件给此集团。";
         }
         result = 1;
     } else {
@@ -437,8 +437,8 @@ static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const 
     std::int32_t result = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = selected == 1
-            ? L"對方的郵件寄過來了。"
-            : L"準備寄送郵件給對方。";
+            ? L"对方的邮件寄过来了。"
+            : L"准备寄送邮件给对方。";
         result = 1;
     }
     if ((state & 2) != 0) {

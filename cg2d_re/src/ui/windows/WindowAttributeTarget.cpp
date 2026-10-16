@@ -57,12 +57,12 @@ static WindowTextPrototype gWindowText56D3D0 { // 原全局：0x0056D3D0。
 };
 
 static WindowTextPrototype gWindowText56D3D8 { // 原全局：0x0056D3D8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"请选择对象。", // 原常量参考：0x00585F54。
 };
 
 static WindowTextPrototype gWindowText56D3E0 { // 原全局：0x0056D3E0。
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    L"健康程度  等級 名稱             體力            魔力",
+    L"健康程度  等级 名称             体力            魔力",
 };
 
 static WindowElementPrototype gWindowElements56D3E8[34] { // 原全局：0x0056D3E8。
@@ -179,7 +179,7 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"關閉此視窗";
+        gHoverTextD68AE8 = L"关闭此视窗";
     }
     if ((state & 2) != 0) {
         if (gStatusChoiceEnabledC9A970 != 0) {
@@ -210,7 +210,7 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, c
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"回到前一頁視窗。";
+        gHoverTextD68AE8 = L"回到前一页视窗。";
     }
     if ((state & 2) != 0) {
         if (gStatusChoiceEnabledC9A970 != 0) {
@@ -244,7 +244,7 @@ static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, co
     }
     if ((state & 1) != 0) {
         WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
-        gHoverTextD68AE8 = L"選擇此人物。";
+        gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {
         if (gStatusChoiceEnabledC9A970 != 0) {

@@ -34,7 +34,7 @@ std::int32_t PlaySe(
 namespace {
 
 // 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
-constexpr wchar_t kConfirmText[] = L"確定";
+constexpr wchar_t kConfirmText[] = L"确定";
 
 constexpr std::int32_t kScreenWidth = 640;
 constexpr std::int32_t kScreenHeight = 480;

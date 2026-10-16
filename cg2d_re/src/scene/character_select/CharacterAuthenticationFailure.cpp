@@ -97,7 +97,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         static_cast<std::int16_t>(textY),
         2,
         6,
-        L"登入認證失敗。" /* 原 0x55C5E8：正文 14 字节，含唯一 NUL 共 15 字节；来源编码名称不猜。 */,
+        L"登入认证失败。" /* 原 0x55C5E8：正文 14 字节，含唯一 NUL 共 15 字节；来源编码名称不猜。 */,
         0);
     const std::int32_t graphicWidth = gAuthenticationFailureWidth;
     const std::int32_t graphicYOrigin = gAuthenticationFailureY;

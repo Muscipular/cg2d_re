@@ -74,23 +74,23 @@ static WindowGraphicData gWindowGraphic5614E0 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic5614F8 {0x3C113, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614F8。
 
 static WindowTextPrototype gWindowText561510 { // 原全局：0x00561510。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00586230。
 };
 
 static WindowTextPrototype gWindowText561518 { // 原全局：0x00561518。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00586228。
 };
 
 static WindowTextPrototype gWindowText561520 { // 原全局：0x00561520。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"称号", // 原常量参考：0x005860D0。
 };
 
 static WindowTextPrototype gWindowText561528 { // 原全局：0x00561528。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"职业", // 原常量参考：0x0058621C。
 };
 
 static WindowTextPrototype gWindowText561530 { // 原全局：0x00561530。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"公會", // 原常量参考：0x005860C8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"公会", // 原常量参考：0x005860C8。
 };
 
 static WindowTextPrototype gWindowText561540 { // 原全局：0x00561540。
@@ -315,7 +315,7 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請輸入描述";
+        gHoverTextD68AE8 = L"请输入描述";
     }
     if ((state & 2) == 0) {
         return 0;

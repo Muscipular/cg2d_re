@@ -79,15 +79,15 @@ static WindowGraphicData gWindowGraphic560F08 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic560F20 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F20。
 
 static WindowTextPrototype gWindowText560F38 { // 原全局：0x00560F38。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00586230。
 };
 
 static WindowTextPrototype gWindowText560F40 { // 原全局：0x00560F40。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00586228。
 };
 
 static WindowTextPrototype gWindowText560F48 { // 原全局：0x00560F48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"称号", // 原常量参考：0x005860D0。
 };
 
 static std::uint32_t gWindowMouseFlagsD676F0 = 0; // 原全局：0x00D676F0。
@@ -143,7 +143,7 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"設定自己的稱號。" /* 原常量参考：0x005863C4。 */;
+        gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
     }
     if ((state & 2) == 0) {
         return 0;
@@ -170,7 +170,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B59E;
-        gHoverTextD68AE8 = L"設定此稱號。" /* 原常量参考：0x005863D8。 */;
+        gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
         consumed = 1;
     } else {
         graphic->imageNo = 0x3B59D;
@@ -217,8 +217,8 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
         if ((state & 1) != 0) {
             setImage(hover);
-            gHoverTextD68AE8 = index == 17 ? L"切換成玩家狀態視窗。" /* 原常量参考：0x005858D8。 */
-                            : index == 18 ? L"切換成玩家明細視窗。" /* 原常量参考：0x005858C0。 */ : L"切換成玩家簡介視窗" /* 原常量参考：0x0058637C。 */;
+            gHoverTextD68AE8 = index == 17 ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
+                            : index == 18 ? L"切换成玩家明细视窗。" /* 原常量参考：0x005858C0。 */ : L"切换成玩家简介视窗" /* 原常量参考：0x0058637C。 */;
             consumed = 1;
         } else {
             setImage(idle);
@@ -240,7 +240,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
     case 21: {
         if ((state & 1) != 0) {
             setImage(0x3BAC4);
-            gHoverTextD68AE8 = L"設定此稱號。" /* 原常量参考：0x005863D8。 */;
+            gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             setImage(0x3BAC2);
@@ -260,7 +260,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
     case 22:
         if ((state & 1) != 0) {
             setImage(0x3B576);
-            gHoverTextD68AE8 = L"取消所選擇的稱號。" /* 原常量参考：0x005863FC。 */;
+            gHoverTextD68AE8 = L"取消所选择的称号。" /* 原常量参考：0x005863FC。 */;
             consumed = 1;
         } else {
             setImage(0x3B574);
@@ -276,7 +276,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
     case 23: {
         if (gTitleModeCF4E50 == 1) {
             setImage(0x3B578);
-            gHoverTextD68AE8 = L"刪除所選擇的稱號。" /* 原常量参考：0x005863E8。 */;
+            gHoverTextD68AE8 = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
         }
         const std::int32_t mode = gTitleModeCF4E50;
         if ((state & 1) != 0) {

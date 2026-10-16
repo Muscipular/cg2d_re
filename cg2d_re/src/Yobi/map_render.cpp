@@ -814,8 +814,8 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 {
     constexpr wchar_t kFull58AD04[] =
-        L"等級 {:<3} {:<16}  生命 {:4}/{:<4}  魔力 {:4}/{:<4}";
-    constexpr wchar_t kLevel58AD5C[] = L"等級 {:<3} {:<16}";
+        L"等级 {:<3} {:<16}  生命 {:4}/{:<4}  魔力 {:4}/{:<4}";
+    constexpr wchar_t kLevel58AD5C[] = L"等级 {:<3} {:<16}";
     using namespace ui::detail;
     using namespace world::detail;
 
@@ -848,7 +848,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         } else if ((flags & 0x100u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(gHoverTextD68AE8, L"等級 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
+            cg::text::FormatTo(gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
             const char* const title = graphic->reference.action->text144.data();
             if (std::strlen(title) != 0) {
                 gHoverTitleD68BF4 = std::format(L"{:<16}", cg::text::FromGbkWide(title));
@@ -857,7 +857,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
-                    Sub_44B050(L"你的黑名單已滿，無法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
+                    Sub_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
                 const char* const name = graphic->reference.action->nameC4.data();
@@ -867,9 +867,9 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 std::wstring message;
                 if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
                     const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, added != 0 ? L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, added != 0 ? L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    cg::text::FormatTo(message, L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
@@ -880,9 +880,9 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 std::wstring message;
                 if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
                     const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, removed != 0 ? L"已將{}從黑名單中移除" /* 原常量参考：0x005532EC。 */ : L"從黑名單移除{}失敗" /* 原常量参考：0x005532D8。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, removed != 0 ? L"已将{}从黑名单中移除" /* 原常量参考：0x005532EC。 */ : L"从黑名单移除{}失败" /* 原常量参考：0x005532D8。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    cg::text::FormatTo(message, L"{}不在黑名單中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             }

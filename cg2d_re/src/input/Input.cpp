@@ -1073,13 +1073,13 @@ void Sub_44AB60()
         const std::wstring playerName = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
-            message = L"您…如此厭惡自己的聲音嗎？" /* 原常量参考：0x00554938。 */;
+            message = L"您…如此厌恶自己的声音吗？" /* 原常量参考：0x00554938。 */;
         } else if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            message = std::format(L"{}已在黑名單中" /* 原常量参考：0x00554928。 */, text);
+            message = std::format(L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, text);
         } else {
             message = cg::world::blacklist::AddBlacklistRecord_401270(text) != 0
-                ? std::format(L"已將{}加入黑名單" /* 原常量参考：0x005532C4。 */, text)
-                : std::format(L"{}加入黑名單失敗" /* 原常量参考：0x005532B0。 */, text);
+                ? std::format(L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */, text)
+                : std::format(L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, text);
         }
         cg::ui::detail::gInputContextC8B1B8.clearText();
         cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;

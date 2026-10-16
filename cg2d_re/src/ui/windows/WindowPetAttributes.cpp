@@ -361,7 +361,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
     case 13:
         if ((state & 1) != 0) {
             setImage(0x3B53D);
-            gHoverTextD68AE8 = L"分配點數至目前的能力數值。" /* 原常量参考：0x005863A4。 */;
+            gHoverTextD68AE8 = L"分配点数至目前的能力数值。" /* 原常量参考：0x005863A4。 */;
             consumed = 1;
         } else {
             setImage(0x3B53B);

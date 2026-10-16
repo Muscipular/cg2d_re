@@ -37,31 +37,31 @@ static std::int32_t WindowMail_CancelDelete(std::int32_t unusedIndex, std::int32
 
 static constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量参考：0x0056E9BC。
     {
-        L"卡蓮",
+        L"卡莲",
         L"金牛座",
-        L"雙子座",
-        L"雙子",
-        L"獅子座",
-        L"處女座",
+        L"双子座",
+        L"双子",
+        L"狮子座",
+        L"处女座",
         L"天秤座",
         L"歌姬",
-        L"櫻之舞",
+        L"樱之舞",
         L"摩羯座",
         L"水瓶座",
         L"歌姬",
         L"香港",
-        L"測試",
-        L"測試",
-        L"卡蓮",
+        L"测试",
+        L"测试",
+        L"卡莲",
         L"金牛座",
         L"露比",
         L"香港",
-        L"獅子座",
-        L"處女座",
+        L"狮子座",
+        L"处女座",
         L"露比",
         L"心美",
-        L"香港飛馬座",
-        L"香港獵戶座",
+        L"香港飞马座",
+        L"香港猎户座",
     },
     {
         L"I", L"II", L"III", L"IV", L"V", L"VI", L"VII", L"VIII", L"IX", L"X",
@@ -71,31 +71,31 @@ static constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量
 
 static constexpr MailStatusTextTable kMailGuildStatusText56F0AC { // 原常量参考：0x0056F0AC。
     {
-        L"卡蓮",
+        L"卡莲",
         L"金牛座",
-        L"雙子座",
+        L"双子座",
         L"香港",
-        L"獅子座",
-        L"處女座",
+        L"狮子座",
+        L"处女座",
         L"天秤座",
         L"歌姬",
-        L"櫻之舞",
+        L"樱之舞",
         L"摩羯座",
         L"水瓶座",
-        L"雙魚座",
+        L"双鱼座",
         L"香港",
-        L"測試",
-        L"測試",
-        L"卡蓮",
+        L"测试",
+        L"测试",
+        L"卡莲",
         L"金牛座",
         L"露比",
         L"香港",
-        L"獅子座",
-        L"處女座",
+        L"狮子座",
+        L"处女座",
         L"露比",
         L"心美",
-        L"香港飛馬座",
-        L"香港獵戶座",
+        L"香港飞马座",
+        L"香港猎户座",
     },
     {
         L"I", L"II", L"III", L"IV", L"V", L"VI", L"VII", L"VIII", L"IX", L"X",
@@ -170,7 +170,7 @@ MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactR
 void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t status)
 {
     if (status == 0) {
-        data->text = L"離線" /* 原常量参考：0x0058743C。 */;
+        data->text = L"离线" /* 原常量参考：0x0058743C。 */;
         const std::int32_t currentStatus = cg::world::detail::ReadGuildStatus10514AC();
         data->style.color = static_cast<std::byte>(
             gLoginWindowRuntime.mailGuildColorsD6784C[currentStatus]);
@@ -191,7 +191,7 @@ void WindowMail_WriteContactStatus(
         return;
     }
     if (status == 0) {
-        data->text = L"離線" /* 原常量参考：0x0058743C。 */;
+        data->text = L"离线" /* 原常量参考：0x0058743C。 */;
         const std::int16_t currentStatus = record.ReadStatus();
         data->style.color = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
     } else {

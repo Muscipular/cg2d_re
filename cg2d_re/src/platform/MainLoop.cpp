@@ -25,7 +25,7 @@ void ShowModeChange_458A40()
     gPendingGraphicCount2 = 0;
     render::ResetGraphicCache_456D30();
     static_cast<void>(render::DrawText2_456670(
-        250, 223, 3, 0, 0, L"正在改變描繪模式。", 0));
+        250, 223, 3, 0, 0, L"正在改变描绘模式。", 0));
     cg::yobi::detail::DrawNineGrid_49BE00(
         245310, 196, 180, 256, 96, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),

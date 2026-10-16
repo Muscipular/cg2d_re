@@ -319,10 +319,10 @@ static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
 constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
 
-constexpr wchar_t kCutCaption5536B8[] = L"確認"; // 原常量参考：0x005536B8。
+constexpr wchar_t kCutCaption5536B8[] = L"确认"; // 原常量参考：0x005536B8。
 constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
-    L"要檢視FAQ嗎？";
-constexpr wchar_t kCutCaption55DE30[] = L"檔案錯誤"; // 原常量参考：0x0055DE30。
+    L"要检视FAQ吗？";
+constexpr wchar_t kCutCaption55DE30[] = L"档案错误"; // 原常量参考：0x0055DE30。
 
 // 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
 constexpr char kMapPathPrefix[] = "map";
@@ -2080,7 +2080,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
             const std::int32_t count = std::atoi(field);
-            const std::wstring moneyLabel = std::format(L"{} 金幣", count);
+            const std::wstring moneyLabel = std::format(L"{} 金币", count);
             std::int32_t imageNo;
             if (count < 50) {
                 imageNo = 0x6B08;
@@ -2390,7 +2390,7 @@ std::int32_t Sub_50C940(
         const std::uint32_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < 1000u) {
-            Sub_44B050(L"重複發言，禁言三分鐘" /* 原常量参考：0x0058B000。 */, 4, 3);
+            Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gValue554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
@@ -4748,7 +4748,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
     std::FILE* const file =
         std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
-        platform::ShowWideMessage(L"cut地圖檔開啟失敗。" /* 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。 */ /* 原常量参考：0x0055DE3C。 */, kCutCaption5536B8, 0x10);
+        platform::ShowWideMessage(L"cut地图档开启失败。" /* 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。 */ /* 原常量参考：0x0055DE3C。 */, kCutCaption5536B8, 0x10);
         const std::int32_t response =
             platform::ShowWideMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
         if (response != 1) {
@@ -4785,7 +4785,7 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
     std::FILE* const file =
         std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
-        platform::ShowWideMessage(L"aut地圖檔開啟失敗。" /* 原常量参考：0x0055DE68。 */, kCutCaption5536B8, 0x10);
+        platform::ShowWideMessage(L"aut地图档开启失败。" /* 原常量参考：0x0055DE68。 */, kCutCaption5536B8, 0x10);
         const std::int32_t response =
             platform::ShowWideMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
         if (response != 1) {
@@ -6378,7 +6378,7 @@ void DrawBattleScene_43CBB0()
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            ui::detail::gHoverTextD68AE8 = L"等待戰鬥開始。" /* 原常量参考：0x005541CC。 */;
+            ui::detail::gHoverTextD68AE8 = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
         }
         const std::int32_t readIndex = gBattleCReadIndex5AAA44;
         if (readIndex != gBattleCWriteIndex5AAA6C) {
@@ -6422,7 +6422,7 @@ void DrawBattleScene_43CBB0()
             gCurrentSceneState = 3;
         }
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            ui::detail::gHoverTextD68AE8 = L"等待回合結束。" /* 原常量参考：0x005541BC。 */;
+            ui::detail::gHoverTextD68AE8 = L"等待回合结束。" /* 原常量参考：0x005541BC。 */;
         }
         break;
     }
@@ -6491,7 +6491,7 @@ void DrawBattleScene_43CBB0()
             gBattleMScanOffset5A8A3C = 2;
             gCurrentSceneState = 6;
         } else if (cg::yobi::detail::Sub_43CA50() >= 2) {
-            ui::detail::gHoverTextD68AE8 = L"等待其他玩家的輸入指令。" /* 原常量参考：0x005541A0。 */;
+            ui::detail::gHoverTextD68AE8 = L"等待其他玩家的输入指令。" /* 原常量参考：0x005541A0。 */;
         }
         break;
     }
@@ -6621,7 +6621,7 @@ void DrawBattleScene_43CBB0()
         const std::int32_t y = cg::yobi::detail::GetYobiActionField34(action);
         const std::int32_t x = cg::yobi::detail::GetYobiActionField30(action);
         if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
-            ui::detail::gHoverTextD68AE8 = L"結束觀戰。" /* 原常量参考：0x00554194。 */;
+            ui::detail::gHoverTextD68AE8 = L"结束观战。" /* 原常量参考：0x00554194。 */;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
                 &platform::gLegacyMouseState.edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;
@@ -6637,7 +6637,7 @@ void DrawBattleScene_43CBB0()
         const std::int32_t drawX = cg::yobi::detail::GetYobiActionField30(drawAction);
         static_cast<void>(render::DrawText2_456670(
             static_cast<std::int16_t>(drawX + 23), static_cast<std::int16_t>(drawY + 40),
-            2, 2, 0, L"觀戰結束" /* 原常量参考：0x00554184。 */, 0));
+            2, 2, 0, L"观战结束" /* 原常量参考：0x00554184。 */, 0));
     }
 }
 
@@ -8266,7 +8266,7 @@ void Sub_4704A0()
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
     if (gValueFF0D36 != 1 && first != 1 && second != 1) {
-        Sub_44B050(L"沒有可交易的對象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
+        Sub_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -8303,7 +8303,7 @@ void Sub_470670()
     }
     const std::int32_t rank = cg::world::detail::ReadGuildTextIndex10514B0();
     if ((cg::world::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        Sub_44B050(LR"(您沒有家族唷，所以不能邀請對方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
+        Sub_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -10851,19 +10851,19 @@ std::int32_t Sub_45EBB0()
         } else if (result == 2) {
             gCurrentSceneState = 200;
             login::detail::gReplyCodeDA3B2E = 0;
-            gLogoutText9A5B08 = LR"(相當抱歉，為了維持良好的遊戲環境
-目前伺服器暫時進行停機維護。
-維護完畢後將重新開機，請稍做等候。)" /* 原常量参考：0x0055CA28。 */;
+            gLogoutText9A5B08 = LR"(相当抱歉，为了维持良好的游戏环境
+目前伺服器暂时进行停机维护。
+维护完毕后将重新开机，请稍做等候。)" /* 原常量参考：0x0055CA28。 */;
             resetMaintenance = true;
         } else if (result == -1) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            gLogoutText9A5B08 = L"處理登出逾時。" /* 原常量参考：0x0055CA18。 */;
+            gLogoutText9A5B08 = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
             resetFailure = true;
         } else if (result == -2) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            gLogoutText9A5B08 = L"登出處理失敗。" /* 原常量参考：0x0055CA08。 */;
+            gLogoutText9A5B08 = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
             resetFailure = true;
         }
     }

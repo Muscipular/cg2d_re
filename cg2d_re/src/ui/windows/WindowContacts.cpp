@@ -739,9 +739,9 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
         if (index <= 2) {
-            gHoverTextD68AE8 = gValueD67B38 != 0 ? L"切換為詳細顯示。" /* 原常量参考：0x00587444。 */ : L"切換為預覽顯示。" /* 原常量参考：0x00587458。 */;
+            gHoverTextD68AE8 = gValueD67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
         } else if (index <= 4) {
-            gHoverTextD68AE8 = L"切換名片的排序方式。" /* 原常量参考：0x0058746C。 */;
+            gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
         }
     } else {
         graphic->imageNo = 0x3B556 + imageOffset;
@@ -790,7 +790,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, con
     graphic->imageNo = 0x3B541;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B543;
-        gHoverTextD68AE8 = L"對一群人寄送郵件。" /* 原常量参考：0x0058749C。 */;
+        gHoverTextD68AE8 = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -828,8 +828,8 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
-        const wchar_t* const hint = category == 0 ? L"切換至名片視窗。" /* 原常量参考：0x005874B0。 */
-            : (category == 1 ? L"切換至家族名簿視窗。" /* 原常量参考：0x005874C4。 */ : L"切換到迷你郵件群組。" /* 原常量参考：0x005874DC。 */);
+        const wchar_t* const hint = category == 0 ? L"切换至名片视窗。" /* 原常量参考：0x005874B0。 */
+            : (category == 1 ? L"切换至家族名簿视窗。" /* 原常量参考：0x005874C4。 */ : L"切换到迷你邮件群组。" /* 原常量参考：0x005874DC。 */);
         gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
@@ -862,7 +862,7 @@ static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, 
     graphic->imageNo = 0x3B9E5;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B9E7;
-        gHoverTextD68AE8 = L"開啟家族詳細資料視窗。" /* 原常量参考：0x00587544。 */;
+        gHoverTextD68AE8 = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -933,7 +933,7 @@ static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, co
     graphic->imageNo = 0x3B556 + imageOffset;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
-        gHoverTextD68AE8 = L"變更此家族成員的稱號。" /* 原常量参考：0x00587484。 */;
+        gHoverTextD68AE8 = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
@@ -975,13 +975,13 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
         graphic->imageNo = 0x3B549;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = L"察看此名片之主人的郵件紀錄" /* 原常量参考：0x005874F4。 */;
+            gHoverTextD68AE8 = L"察看此名片之主人的邮件纪录" /* 原常量参考：0x005874F4。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"察看此家族成員的郵件紀錄" /* 原常量参考：0x00587510。 */;
+            gHoverTextD68AE8 = L"察看此家族成员的邮件纪录" /* 原常量参考：0x00587510。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"瀏覽此迷你郵件的歷程。" /* 原常量参考：0x0058752C。 */;
+            gHoverTextD68AE8 = L"浏览此迷你邮件的历程。" /* 原常量参考：0x0058752C。 */;
             break;
         }
     }
@@ -1156,13 +1156,13 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
     if (hover) {
         switch (category) {
         case 0:
-            gHoverTextD68AE8 = L"寄送郵件給此名片的主人。" /* 原常量参考：0x005876B0。 */;
+            gHoverTextD68AE8 = L"寄送邮件给此名片的主人。" /* 原常量参考：0x005876B0。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"對此家族成員寄送郵件。" /* 原常量参考：0x005876CC。 */;
+            gHoverTextD68AE8 = L"对此家族成员寄送邮件。" /* 原常量参考：0x005876CC。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"傳送迷你郵件。" /* 原常量参考：0x005876E4。 */;
+            gHoverTextD68AE8 = L"传送迷你邮件。" /* 原常量参考：0x005876E4。 */;
             break;
         }
     }
@@ -1186,13 +1186,13 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
         graphic->imageNo = 0x3B54C;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = L"刪除此名片。" /* 原常量参考：0x0058755C。 */;
+            gHoverTextD68AE8 = L"删除此名片。" /* 原常量参考：0x0058755C。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"對此家族成員進行除名。" /* 原常量参考：0x0058756C。 */;
+            gHoverTextD68AE8 = L"对此家族成员进行除名。" /* 原常量参考：0x0058756C。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"刪除此迷你郵件的名片。" /* 原常量参考：0x00587584。 */;
+            gHoverTextD68AE8 = L"删除此迷你邮件的名片。" /* 原常量参考：0x00587584。 */;
             break;
         }
     }
@@ -1220,14 +1220,14 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int3
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteContact);
     gWindow47Runtime.textCC426C = std::format(L"" LR"(
-)" L"     確定將" LR"(
+)" L"     确定将" LR"(
 )" L"　" LR"(
 )" L"　{}" LR"(
 )" L"　" LR"(
-)" L"　從名片裡刪除嗎？" LR"(
+)" L"　从名片里删除吗？" LR"(
 )" L" " LR"(
-)" L" (確定刪除時，請按住" LR"(
-)" L"  CTRL鍵再選擇「是」)" /* 原常量参考：0x0058759C。 */, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
+)" L" (确定删除时，请按住" LR"(
+)" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1236,14 +1236,14 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteGuildMember);
     gWindow47Runtime.textCC426C = std::format(LR"(
-     確定將
+     确定将
 　
 　{}
 　
-從家族會員名單中刪除嗎？
+从家族会员名单中删除吗？
 
- (確定刪除時，請按住
-  CTRL鍵再選擇「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(cg::world::detail::gOrderedRecords1051B14[index].text18).c_str());
+ (确定删除时，请按住
+  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(cg::world::detail::gOrderedRecords1051B14[index].text18).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1252,14 +1252,14 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteMiniMailContact);
     gWindow47Runtime.textCC426C = std::format(LR"(
-     確定將
+     确定将
 　
 　{}
 　
-從迷你郵件中刪除嗎？
+从迷你邮件中删除吗？
 
- (確定刪除時，請按住
-  CTRL鍵再選擇「是」))" /* 原常量参考：0x00587654。 */, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
+ (确定删除时，请按住
+  CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 

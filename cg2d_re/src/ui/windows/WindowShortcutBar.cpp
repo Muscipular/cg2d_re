@@ -117,7 +117,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
     std::int32_t consumed = hover ? 1 : 0;
     if (index == 8) {
         if (hover) {
-            gHoverTextD68AE8 = L"進行擺攤" /* 原常量参考：0x005862A0。 */;
+            gHoverTextD68AE8 = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
             graphic->imageNo = 0x18224;
         } else {
             graphic->imageNo = 0x18225;
@@ -158,8 +158,8 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
     }
     if (index < 5) {
         const wchar_t* const hints[5] {
-            L"要求進行對戰。" /* 原常量参考：0x00556C80。 */, L"要求進行觀戰。" /* 原常量参考：0x00556C90。 */, L"要求加入冒險隊伍。" /* 原常量参考：0x00556CA0。 */,
-            L"要求交換名片。" /* 原常量参考：0x00556CB4。 */, L"要求進行交易。" /* 原常量参考：0x00556CD8。 */,
+            L"要求进行对战。" /* 原常量参考：0x00556C80。 */, L"要求进行观战。" /* 原常量参考：0x00556C90。 */, L"要求加入冒险队伍。" /* 原常量参考：0x00556CA0。 */,
+            L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
         };
         void (*const requests[5])() {
             &world::detail::Sub_470050, &world::detail::Sub_470150,
@@ -184,7 +184,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             return consumed;
         }
         if (hover) {
-            gHoverTextD68AE8 = L"邀請對方加入自己的家族。" /* 原常量参考：0x00586284。 */;
+            gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
         }
         if ((state & 2) != 0) {
             world::detail::Sub_470670();
@@ -194,12 +194,12 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
     }
     if (index == 6) {
         if (hover) {
-            gHoverTextD68AE8 = L"打開情緒動作視窗。" /* 原常量参考：0x00556CE8。 */;
+            gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
         }
         return WindowStatusBar_ButtonEmote(6, state);
     }
     if (hover) {
-        gHoverTextD68AE8 = L"打開小地圖視窗。" /* 原常量参考：0x0058625C。 */;
+        gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
     }
     return WindowStatusBar_ButtonMiniMap(7, state);
 }

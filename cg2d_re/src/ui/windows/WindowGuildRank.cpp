@@ -51,9 +51,9 @@ static WindowGraphicData gWindowGraphic56F820 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}
 
 static WindowGraphicData gWindowGraphic56F838 {0x3BAA3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F838。
 
-static WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號"}; // 原全局：0x0056F850。 // 原常量参考：0x00585ED8。
+static WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族称号"}; // 原全局：0x0056F850。 // 原常量参考：0x00585ED8。
 
-static WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"成員名稱"}; // 原全局：0x0056F858。 // 原常量参考：0x00585ECC。
+static WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"成员名称"}; // 原全局：0x0056F858。 // 原常量参考：0x00585ECC。
 
 static std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
 
@@ -125,7 +125,7 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"選擇此稱號。" /* 原常量参考：0x005876F4。 */;
+        gHoverTextD68AE8 = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
         consumed = 1;
     }
     const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
@@ -170,7 +170,7 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
-        gHoverTextD68AE8 = L"設定已選擇的稱號。" /* 原常量参考：0x00587704。 */;
+        gHoverTextD68AE8 = L"设定已选择的称号。" /* 原常量参考：0x00587704。 */;
         consumed = 1;
     } else {
         graphic->imageNo = 0x3B56E;

@@ -53,7 +53,7 @@ std::int32_t PollCharacterDeletionRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"刪除角色逾時。" /* 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。 */);
+    static_cast<void>(gRequestMessage = L"删除角色逾时。" /* 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。 */);
     return -1;
 }
 

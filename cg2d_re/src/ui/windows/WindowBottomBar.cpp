@@ -47,7 +47,7 @@ static WindowGraphicData gWindowGraphic55F598 {0x3B95D, 0, 0, 0, 0, 0xFFFFFFFFu}
 
 static WindowTextPrototype gWindowText55F5B0 { // 原全局：0x0055F5B0。
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    L"相關資訊",
+    L"相关资讯",
 };
 
 static WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
@@ -305,7 +305,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
                 static_cast<void>(network::SendIuEPacket_516D70(platform::gConnectionSocket));
                 gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
             } else {
-                world::detail::Sub_44B050(L"請等待30秒後再操作", 4, 3);
+                world::detail::Sub_44B050(L"请等待30秒后再操作", 4, 3);
             }
             return 1;
         }

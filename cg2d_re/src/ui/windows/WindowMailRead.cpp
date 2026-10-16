@@ -54,11 +54,11 @@ static WindowGraphicData gWindowGraphic56FD20 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}
 
 static WindowGraphicData gWindowGraphic56FD38 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056FD38。
 
-static WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"內容"}; // 原全局：0x0056FD50。 // 原常量参考：0x00585EC4。
+static WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"内容"}; // 原全局：0x0056FD50。 // 原常量参考：0x00585EC4。
 
-static WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"頁數"}; // 原全局：0x0056FD58。 // 原常量参考：0x00585EBC。
+static WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"页数"}; // 原全局：0x0056FD58。 // 原常量参考：0x00585EBC。
 
-static WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱"}; // 原全局：0x0056FD60。 // 原常量参考：0x00586230。
+static WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称"}; // 原全局：0x0056FD60。 // 原常量参考：0x00586230。
 
 static WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00/00 00:00"}; // 原全局：0x0056FD68。 // 原常量参考：0x00585EB0。
 
@@ -119,7 +119,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"上一封郵件" /* 原常量参考：0x00587718。 */;
+        gHoverTextD68AE8 = L"上一封邮件" /* 原常量参考：0x00587718。 */;
         graphic->imageNo = 0x3B558;
     }
     if ((state & 2) != 0) {
@@ -146,7 +146,7 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"下一封郵件" /* 原常量参考：0x00587724。 */;
+        gHoverTextD68AE8 = L"下一封邮件" /* 原常量参考：0x00587724。 */;
         graphic->imageNo = 0x3B55B;
     }
     if ((state & 2) != 0) {

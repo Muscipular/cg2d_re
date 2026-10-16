@@ -317,10 +317,10 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     window->elements[12].visible = 1;
     if (gWindow12ResultD2D820 != 0) {
         static_cast<WindowTextData*>(window->elements[4].data)->text = gWindow12NameD2DA94;
-        static_cast<WindowTextData*>(window->elements[5].data)->text = L"　發現了。" /* 原常量参考：0x005869D4。 */;
+        static_cast<WindowTextData*>(window->elements[5].data)->text = L"　发现了。" /* 原常量参考：0x005869D4。 */;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        static_cast<WindowTextData*>(window->elements[4].data)->text = L"什麼都沒發現。" /* 原常量参考：0x005869C4。 */;
+        static_cast<WindowTextData*>(window->elements[4].data)->text = L"什么都没发现。" /* 原常量参考：0x005869C4。 */;
         static_cast<WindowTextData*>(window->elements[5].data)->text = L"";
         static_cast<void>(audio::PlaySe_52C450(58, 320));
         gWindow12ValueCF3FF0 = -1;
@@ -389,7 +389,7 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
     if (result == 0) {
         gWindow12ExperienceD2DFCC = 0;
         // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
-        gWindow12DetailsCC190C += LR"(沒看到任何東西。)" /* 原常量参考：0x005897DC。 */;
+        gWindow12DetailsCC190C += LR"(没看到任何东西。)" /* 原常量参考：0x005897DC。 */;
         gWindow12LevelUpC9C0FC = 0;
         gWindow12EnduranceCB0358 = 0;
         // 原两段拼接并为完整UTF-16正文追加。
@@ -576,7 +576,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
             } else if (world::detail::Sub_518C60() <= 0) {
-                world::detail::Sub_44B050(L"物品欄沒有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
+                world::detail::Sub_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
@@ -678,7 +678,7 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"重新再開。" /* 原常量参考：0x005869F4。 */;
+        gHoverTextD68AE8 = L"重新再开。" /* 原常量参考：0x005869F4。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -705,7 +705,7 @@ static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std
     WindowInstance* window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暫時中斷。" /* 原常量参考：0x00586A00。 */;
+        gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
         window = gCurrentWindow;
     }
     std::int32_t consumed = 0;

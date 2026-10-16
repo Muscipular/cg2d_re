@@ -114,7 +114,7 @@ std::int32_t GraphicInit_459960(
         const std::wstring message = std::format(L"MAX_GRAPHICS={},Need={}",
             gMaxGraphicCount, gGraphicRequiredCount);
         platform::ShowWideMessage(
-            message, L"sprmgr: MAX_GRAPHICS 不夠。", 0);
+            message, L"sprmgr: MAX_GRAPHICS 不够。", 0);
         return failAndCloseData(9);
     }
 

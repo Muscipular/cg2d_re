@@ -317,12 +317,12 @@ static WindowTextPrototype gWindowText57B420 { // 原全局：0x0057B420。
 
 static WindowTextPrototype gWindowText57B428 { // 原全局：0x0057B428。
     {std::byte{0x8C}, std::byte{4}, std::byte{0}, std::byte{0}},
-    L"請輸入店名八個字",
+    L"请输入店名八个字",
 };
 
 static WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
-    L"請輸入店舖描述",
+    L"请输入店铺描述",
 };
 
 static WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
@@ -752,7 +752,7 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
-            world::detail::Sub_44B050(L"請卸下寵物身上的裝備後再操作。", 4, 3);
+            world::detail::Sub_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
             return;
         }
     }
@@ -954,9 +954,9 @@ static std::int32_t WindowStall_SubmitListings()
 {
     std::wstring buffer;
     char name[33] {};
-    cg::text::StoreGbk(name, sizeof(name), L"無名店舖");
+    cg::text::StoreGbk(name, sizeof(name), L"无名店铺");
     char description[113] {};
-    cg::text::StoreGbk(description, sizeof(description), L"老闆沒什麼可介紹的");
+    cg::text::StoreGbk(description, sizeof(description), L"老板没什么可介绍的");
     std::wstring offers;
     char escaped[276];
     std::int32_t count = gStallItemCountD67BCC;
@@ -1028,7 +1028,7 @@ static std::int32_t WindowStall_SubmitListings()
     if (!gStallDescriptionInput581360.input.context->empty()) {
         std::strcpy(login::detail::GetCurrentSavedStallDescriptionFF4D28(), description);
     }
-    gStallMessageC8A978 = L"擺攤請求中";
+    gStallMessageC8A978 = L"摆摊请求中";
     WindowInstance* const window = gCurrentWindow;
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
@@ -2141,7 +2141,7 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請輸入描述" /* 原常量参考：0x00586450。 */;
+        gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
@@ -2168,7 +2168,7 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請輸入描述" /* 原常量参考：0x00586450。 */;
+        gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
@@ -2310,13 +2310,13 @@ static void WindowStall_OpenBrowse(
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:
-            world::detail::Sub_44B050(L"沒有可以瀏覽的攤位", 4, 0);
+            world::detail::Sub_44B050(L"没有可以浏览的摊位", 4, 0);
             break;
         case 2:
-            world::detail::Sub_44B050(L"瀏覽的攤位已經收攤", 4, 0);
+            world::detail::Sub_44B050(L"浏览的摊位已经收摊", 4, 0);
             break;
         case 3:
-            world::detail::Sub_44B050(L"瀏覽的攤位正在忙，請稍後再試", 4, 0);
+            world::detail::Sub_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
             break;
         }
         WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
@@ -2530,7 +2530,7 @@ static std::int32_t WindowStall_RequestPurchase()
     const std::uintptr_t socket = platform::gConnectionSocket;
     gStallPendingD67C31 = 1;
     static_cast<void>(network::Sub_5121E0(socket, value));
-    constexpr wchar_t message[] = L"購買請求中";
+    constexpr wchar_t message[] = L"购买请求中";
     const auto length = static_cast<std::int32_t>(std::size(message));
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
@@ -2547,7 +2547,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
     const bool hovered = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hovered) {
-        gHoverTextD68AE8 = L"關閉這個視窗。";
+        gHoverTextD68AE8 = L"关闭这个视窗。";
     }
     if ((state & 2) != 0 && gValueD67BE0 == 0 && gStallPendingD67C31 == 0) {
         window->state |= 0x8000u;
@@ -2580,16 +2580,16 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         const wchar_t* message;
         switch (result) {
         case 1:
-            message = L"已經有人在此擺攤";
+            message = L"已经有人在此摆摊";
             break;
         case 3:
-            message = L"兩次擺攤時間間隔過短";
+            message = L"两次摆摊时间间隔过短";
             break;
         case 4:
-            message = L"這個子星最大攤位數已滿";
+            message = L"这个子星最大摊位数已满";
             break;
         default:
-            message = L"擺攤失敗";
+            message = L"摆摊失败";
             break;
         }
         gStallMessageC8A978 = message;
@@ -2605,7 +2605,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         return;
     }
     char name[33];
-    cg::text::StoreGbk(name, sizeof(name), L"無名店舖");
+    cg::text::StoreGbk(name, sizeof(name), L"无名店铺");
     world::detail::SetPlayerActionFlags(0x1000u);
     std::memset(name + 9, 0, 24);
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
@@ -2623,7 +2623,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
 static void WindowStall_ReceiveCloseResult(const std::int32_t result)
 {
     if (result != 0) {
-        gStallMessageC8A978 = L"收攤失敗";
+        gStallMessageC8A978 = L"收摊失败";
     }
     world::detail::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
@@ -2696,21 +2696,21 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
         return;
     }
     constexpr const wchar_t* messages[] {
-        L"沒有找到老闆",
-        L"老闆的攤位已經變更",
-        L"您的物品空間已滿",
-        L"您的寵物空間已滿",
-        L"您的錢不夠",
-        L"要買的東西已經售出",
-        L"老闆的錢包已滿",
-        L"交易失敗代碼8",
-        L"交易失敗代碼9",
-        L"交易失敗代碼10",
-        L"交易失敗代碼11",
-        L"交易失敗代碼12",
+        L"没有找到老板",
+        L"老板的摊位已经变更",
+        L"您的物品空间已满",
+        L"您的宠物空间已满",
+        L"您的钱不够",
+        L"要买的东西已经售出",
+        L"老板的钱包已满",
+        L"交易失败代码8",
+        L"交易失败代码9",
+        L"交易失败代码10",
+        L"交易失败代码11",
+        L"交易失败代码12",
     };
     const wchar_t* const message = result >= 1 && result <= 12
-        ? messages[result - 1] : L"購買失敗";
+        ? messages[result - 1] : L"购买失败";
     gStallMessageC8A978 = message;
     WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
     gStallMessageModeD67C34 = 1;

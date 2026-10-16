@@ -214,7 +214,7 @@ int InitPalette32()
             std::fopen(path, "rb");
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
-            platform::ShowWideMessage(L"調色盤檔案開啟失敗", L"Error Code = 13", 0x10);
+            platform::ShowWideMessage(L"调色盘档案开启失败", L"Error Code = 13", 0x10);
             return 0;
         }
         for (int i = 16; i < 240; ++i) {
@@ -235,7 +235,7 @@ int InitPalette32()
     gPalette[168].red = 0;
 
     if (!CreateRendererPaletteBinding(gPalette)) {
-        platform::ShowWideMessage(L"建立調色盤失敗", L"Error Code = 15", 0x10);
+        platform::ShowWideMessage(L"建立调色盘失败", L"Error Code = 15", 0x10);
         return 0;
     }
 
@@ -274,7 +274,7 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
     std::FILE* file =
         std::fopen(path, "rb");
     if (file == nullptr) {
-        platform::ShowWideMessage(L"無法打開色盤檔案。", L"Error", 0x10);
+        platform::ShowWideMessage(L"无法打开色盘档案。", L"Error", 0x10);
         return 0;
     }
     for (int i = 16; i < 240; ++i) {

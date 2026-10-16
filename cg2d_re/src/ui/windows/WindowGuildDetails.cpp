@@ -135,8 +135,8 @@ static std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{ // 原全局：
 }};
 
 static const wchar_t* const kGuildPermissionHints[] {
-    L"變更此家族稱號所屬的加入權限。" /* 原常量参考：0x00587AA8。 */, L"變更此家族稱號所屬的除名權限。" /* 原常量参考：0x00587A88。 */,
-    L"變更此家族稱號所屬的家族獸餵養權限。" /* 原常量参考：0x00587A60。 */, L"變更此家族稱號所屬的家族倉庫使用權限。" /* 原常量参考：0x00587A38。 */, L"變更此家族稱號所屬的留言板刪除權限。" /* 原常量参考：0x00587A10。 */,
+    L"变更此家族称号所属的加入权限。" /* 原常量参考：0x00587AA8。 */, L"变更此家族称号所属的除名权限。" /* 原常量参考：0x00587A88。 */,
+    L"变更此家族称号所属的家族兽喂养权限。" /* 原常量参考：0x00587A60。 */, L"变更此家族称号所属的家族仓库使用权限。" /* 原常量参考：0x00587A38。 */, L"变更此家族称号所属的留言板删除权限。" /* 原常量参考：0x00587A10。 */,
 };
 
 static WindowGraphicData gWindowGraphic571DF0 {0x3B9FD, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571DF0。
@@ -518,9 +518,9 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
         switch (index) {
-        case 64: gHoverTextD68AE8 = L"變更家族名稱。" /* 原常量参考：0x00587AC8。 */; break;
-        case 65: gHoverTextD68AE8 = L"變更家族會館名稱。" /* 原常量参考：0x00587AD8。 */; break;
-        case 72: gHoverTextD68AE8 = L"變更已設定的家族稱號。" /* 原常量参考：0x00587AEC。 */; break;
+        case 64: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
+        case 65: gHoverTextD68AE8 = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
+        case 72: gHoverTextD68AE8 = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
         }
     }
     if ((state & 2) != 0) {
@@ -557,7 +557,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
     }
     switch (index) {
     case 0:
-        world::detail::Sub_44B050(L"家族名稱不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
+        world::detail::Sub_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
         break;
     case 1: {
         gGuildInputs57F040[1].text = cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data());
@@ -646,7 +646,7 @@ static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, con
     graphic->imageNo = 0x3B538;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B53A;
-        gHoverTextD68AE8 = L"關閉此視窗" /* 原常量参考：0x005868EC。 */;
+        gHoverTextD68AE8 = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
     }
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B539;

@@ -39,12 +39,12 @@ static WindowInputPrototype gNumberInputPrototype57DA70 { // 原全局：0x0057D
 static std::wstring gNumberWindowTextCC4D1C {}; // 原全局：0x00CC4D1C。
 
 static const std::array<const wchar_t*, 6> gNumberWindowHints57DC9C {{ // 原全局：0x0057DC9C。
-    L"指定金額。",
-    L"將指定物金額放地上。",
-    L"請指定金額。",
-    L"減少一位數。",
-    L"指定全額。",
-    L"將指定金額歸零。",
+    L"指定金额。",
+    L"将指定物金额放地上。",
+    L"请指定金额。",
+    L"减少一位数。",
+    L"指定全额。",
+    L"将指定金额归零。",
 }};
 
 static WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563080。
@@ -177,7 +177,7 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"增加顯示數量。";
+        gHoverTextD68AE8 = L"增加显示数量。";
     }
     if ((state & 2) != 0) {
         const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
@@ -206,7 +206,7 @@ static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, cons
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"減少顯示數量。";
+        gHoverTextD68AE8 = L"减少显示数量。";
     }
     if ((state & 2) != 0) {
         const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[2].state);

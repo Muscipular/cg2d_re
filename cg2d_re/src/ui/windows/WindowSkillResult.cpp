@@ -157,37 +157,37 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     switch (kind) {
         case 0:
         case 1: {
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
             const wchar_t* text = nullptr;
             if (kind == 0) {
-                text = gWindow13ResultD66E2C != 0 ? L"　變裝成功了！" /* 原常量参考：0x00586AF0。 */ : L"　變裝失敗了！" /* 原常量参考：0x00586AE0。 */;
+                text = gWindow13ResultD66E2C != 0 ? L"　变装成功了！" /* 原常量参考：0x00586AF0。 */ : L"　变装失败了！" /* 原常量参考：0x00586AE0。 */;
             } else {
-                text = gWindow13ResultD66E2C != 0 ? L"　變身成功了！" /* 原常量参考：0x00586AD0。 */ : L"　變身失敗了！" /* 原常量参考：0x00586AC0。 */;
+                text = gWindow13ResultD66E2C != 0 ? L"　变身成功了！" /* 原常量参考：0x00586AD0。 */ : L"　变身失败了！" /* 原常量参考：0x00586AC0。 */;
             }
             static_cast<WindowTextData*>(window->elements[5].data)->text = text;
             break;
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"　生命值恢復了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? L"　不需進行治療！" /* 原常量参考：0x00586A80。 */ : L"　治療失敗了！" /* 原常量参考：0x00586A70。 */;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? L"傷勢全部恢復了！" /* 原常量参考：0x00586A5C。 */ : L"傷勢稍微恢復了。" /* 原常量参考：0x00586A48。 */;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
             } else if (gWindow13ValueD2DBF0 == 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = L"　不需進行治療！" /* 原常量参考：0x00586A80。 */;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療失敗了" /* 原常量参考：0x00586A34。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
                 const std::int32_t value = gWindow13ValueD2DBF0;
-                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　傷勢惡化而掉魂了。" /* 原常量参考：0x00586A1C。 */
-                    : value == 2 ? L"　傷勢惡化了。" /* 原常量参考：0x00586A0C。 */ : L"";
+                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
+                    : value == 2 ? L"　伤势恶化了。" /* 原常量参考：0x00586A0C。 */ : L"";
             }
             break;
         default:
@@ -286,7 +286,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"繼續執行。" /* 原常量参考：0x005868E0。 */;
+        gHoverTextD68AE8 = L"继续执行。" /* 原常量参考：0x005868E0。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -346,39 +346,39 @@ cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(const std::int32_t result,
     std::int32_t lines = 0;
     switch (kind) {
         case 0:
-            gWindow13TitleCC18EC = L"使用『變裝』技能" /* 原常量参考：0x00589A80。 */;
-            gWindow13SummaryCC18CC = result != 0 ? L"使用『變裝』技能，成功了！" /* 原常量参考：0x00589A64。 */ : L"使用『變裝』技能，失敗了！" /* 原常量参考：0x00589A48。 */;
+            gWindow13TitleCC18EC = L"使用『变装』技能" /* 原常量参考：0x00589A80。 */;
+            gWindow13SummaryCC18CC = result != 0 ? L"使用『变装』技能，成功了！" /* 原常量参考：0x00589A64。 */ : L"使用『变装』技能，失败了！" /* 原常量参考：0x00589A48。 */;
             lines = 1;
             break;
         case 1:
-            gWindow13TitleCC18EC = L"使用『變身』技能" /* 原常量参考：0x00589A34。 */;
-            gWindow13SummaryCC18CC = result != 0 ? L"使用『變身』技能，成功了！" /* 原常量参考：0x00589A18。 */ : L"使用『變身』技能，失敗了！" /* 原常量参考：0x005899FC。 */;
+            gWindow13TitleCC18EC = L"使用『变身』技能" /* 原常量参考：0x00589A34。 */;
+            gWindow13SummaryCC18CC = result != 0 ? L"使用『变身』技能，成功了！" /* 原常量参考：0x00589A18。 */ : L"使用『变身』技能，失败了！" /* 原常量参考：0x005899FC。 */;
             lines = 1;
             break;
         case 2:
             gWindow13TitleCC18EC = L"使用『急救』技能" /* 原常量参考：0x005899E8。 */;
             if (result != 0) {
                 gWindow13SummaryCC18CC = L"使用『急救』技能，成功了！" /* 原常量参考：0x005899B8。 */;
-                gWindow13DetailsCB0FDC += std::format(L"回復了{}點生命力。" /* 原常量参考：0x005899D4。 */, value);
+                gWindow13DetailsCB0FDC += std::format(L"回复了{}点生命力。" /* 原常量参考：0x005899D4。 */, value);
                 lines = 1;
             } else {
-                gWindow13SummaryCC18CC = value == 0 ? L"無法實施『急救』技能！" /* 原常量参考：0x005899A0。 */ : L"使用『急救』技能，失敗了！" /* 原常量参考：0x00589984。 */;
+                gWindow13SummaryCC18CC = value == 0 ? L"无法实施『急救』技能！" /* 原常量参考：0x005899A0。 */ : L"使用『急救』技能，失败了！" /* 原常量参考：0x00589984。 */;
             }
             break;
         case 3:
             if (result != 0) {
-                gWindow13TitleCC18EC = L"使用『治療』技能" /* 原常量参考：0x00589970。 */;
-                gWindow13SummaryCC18CC = L"使用『治療』技能，成功了！" /* 原常量参考：0x00589954。 */;
-                gWindow13DetailsCB0FDC += value == 4 ? L"回復了健康狀態。" /* 原常量参考：0x00589940。 */ : L"回復了少許健康狀態。" /* 原常量参考：0x00589928。 */;
+                gWindow13TitleCC18EC = L"使用『治疗』技能" /* 原常量参考：0x00589970。 */;
+                gWindow13SummaryCC18CC = L"使用『治疗』技能，成功了！" /* 原常量参考：0x00589954。 */;
+                gWindow13DetailsCB0FDC += value == 4 ? L"回复了健康状态。" /* 原常量参考：0x00589940。 */ : L"回复了少许健康状态。" /* 原常量参考：0x00589928。 */;
                 lines = 1;
             } else {
-                gWindow13TitleCC18EC = L"使用『治療』技能，" /* 原常量参考：0x00589914。 */;
+                gWindow13TitleCC18EC = L"使用『治疗』技能，" /* 原常量参考：0x00589914。 */;
                 if (value == 0) {
-                    gWindow13SummaryCC18CC = L"使用『治療』技能，無法實施！" /* 原常量参考：0x005898F4。 */;
+                    gWindow13SummaryCC18CC = L"使用『治疗』技能，无法实施！" /* 原常量参考：0x005898F4。 */;
                 } else {
-                    gWindow13SummaryCC18CC = L"使用『治療』技能，失敗了！" /* 原常量参考：0x005898D8。 */;
+                    gWindow13SummaryCC18CC = L"使用『治疗』技能，失败了！" /* 原常量参考：0x005898D8。 */;
                     if (value == 3 || value == 2) {
-                        gWindow13DetailsCB0FDC += value == 3 ? L"傷勢過度惡化，靈魂掉了一格。" /* 原常量参考：0x005898B8。 */ : L"傷勢惡化了。" /* 原常量参考：0x005898A8。 */;
+                        gWindow13DetailsCB0FDC += value == 3 ? L"伤势过度恶化，灵魂掉了一格。" /* 原常量参考：0x005898B8。 */ : L"伤势恶化了。" /* 原常量参考：0x005898A8。 */;
                     }
                     lines = 1;
                 }

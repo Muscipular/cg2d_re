@@ -228,7 +228,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 0
-            ? L"刪除此筆黑名單。" /* 原常量参考：0x00588654。 */ : L"拒絕接收此人的發話。" /* 原常量参考：0x00588668。 */;
+            ? L"删除此笔黑名单。" /* 原常量参考：0x00588654。 */ : L"拒绝接收此人的发话。" /* 原常量参考：0x00588668。 */;
         gHoverTextD68AE8 = hint;
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FCC;
         consumed = 1;
@@ -247,10 +247,10 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
             std::strcpy(name, record);
             if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
                 const wchar_t* const format = cg::world::blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(name)) != 0
-                    ? L"已從黑名單列表中移除{}" /* 原常量参考：0x0058863C。 */ : L"無法將{}從黑名單列表中移除" /* 原常量参考：0x00588620。 */;
+                    ? L"已从黑名单列表中移除{}" /* 原常量参考：0x0058863C。 */ : L"无法将{}从黑名单列表中移除" /* 原常量参考：0x00588620。 */;
                 cg::text::FormatTo(message, format, cg::text::FromGbkWide(name).c_str());
             } else {
-                cg::text::FormatTo(message, L"{}不在黑名單列表中" /* 原常量参考：0x0058860C。 */, cg::text::FromGbkWide(name).c_str());
+                cg::text::FormatTo(message, L"{}不在黑名单列表中" /* 原常量参考：0x0058860C。 */, cg::text::FromGbkWide(name).c_str());
             }
             world::detail::Sub_44B050(message, 4, 3);
         }
@@ -260,7 +260,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     if (std::strlen(currentRecord) != 0) {
         cg::ui::detail::gInputContextC8B1B8.reset();
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
-        world::detail::Sub_44B050(L"此欄位已有名單" /* 原常量参考：0x005885FC。 */, 4, 3);
+        world::detail::Sub_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
     }
     WindowInstance* const window = gCurrentWindow;
@@ -318,7 +318,7 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
             base + ((state & 1) != 0 ? 2 : 0);
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = index == 5 ? L"顯示前十筆的黑名單。" /* 原常量参考：0x005886CC。 */ : L"顯示後十筆的黑名單。" /* 原常量参考：0x005886B4。 */;
+            gHoverTextD68AE8 = index == 5 ? L"显示前十笔的黑名单。" /* 原常量参考：0x005886CC。 */ : L"显示后十笔的黑名单。" /* 原常量参考：0x005886B4。 */;
         }
         if ((state & 0x400) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (index == 5 ? -10 : 10);
@@ -341,13 +341,13 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
     case 7:
         if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC7;
-            gHoverTextD68AE8 = L"刪除所選擇的黑名單。" /* 原常量参考：0x0058869C。 */;
+            gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
         }
         if ((state & 1) != 0) {
             if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC8;
             }
-            gHoverTextD68AE8 = L"刪除所選擇的黑名單。" /* 原常量参考：0x0058869C。 */;
+            gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
             consumed = 1;
         } else if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC6;
@@ -362,7 +362,7 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
             (state & 1) != 0 ? 0x8FCB : 0x8FC9;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = L"可一次刪除所有的黑名單。" /* 原常量参考：0x00588680。 */;
+            gHoverTextD68AE8 = L"可一次删除所有的黑名单。" /* 原常量参考：0x00588680。 */;
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -404,11 +404,11 @@ static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear()
     gWindow47Runtime.actionsCC4254[1] = &WindowBlacklist_CancelClear;
     gWindow47Runtime.textCC426C = L"" LR"(
 )" L"  " LR"(
-)" L"    確定刪除" LR"(
-)" L"   所有的黑名單嗎？" LR"(
+)" L"    确定删除" LR"(
+)" L"   所有的黑名单吗？" LR"(
 )" L" " LR"(
-)" L" (確定刪除時，請按住" LR"(
-)" L" CTRL鍵再選擇「是」)" /* 原常量参考：0x005886E4。 */;
+)" L" (确定删除时，请按住" LR"(
+)" L" CTRL键再选择「是」)" /* 原常量参考：0x005886E4。 */;
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -416,7 +416,7 @@ static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear()
 static std::int32_t WindowBlacklist_Clear(const std::int32_t, const std::int32_t)
 {
     const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470() != 0
-        ? L"已刪除所有的黑名單。" /* 原常量参考：0x00588754。 */ : L"黑名單並沒有內容可刪除。" /* 原常量参考：0x00588738。 */;
+        ? L"已删除所有的黑名单。" /* 原常量参考：0x00588754。 */ : L"黑名单并没有内容可删除。" /* 原常量参考：0x00588738。 */;
     world::detail::Sub_44B050(message, 4, 3);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;

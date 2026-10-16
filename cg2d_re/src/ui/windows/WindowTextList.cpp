@@ -114,19 +114,19 @@ static WindowGraphicData gWindowGraphic571968 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic571980 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571980。
 
 static WindowTextPrototype gWindowText571998 { // 原全局：0x00571998。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族獸", // 原常量参考：0x00585E88。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族兽", // 原常量参考：0x00585E88。
 };
 
 static WindowTextPrototype gWindowTexts5719A0[9] { // 原全局：0x005719A0。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"状态"}, // 原常量参考：0x00585E80。
 };
 
 static std::uint32_t gWindowMouseFlagsD67898 = 0; // 原全局：0x00D67898。
@@ -502,7 +502,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
     std::int32_t consumed = 0;
     if (elements[4].visible != 0) {
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = L"變更家族獸名稱。";
+            gHoverTextD68AE8 = L"变更家族兽名称。";
         }
         if ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
             const std::wstring proposedTitle = input::ContextText(cg::ui::detail::gInputContextCC49C0);
@@ -545,7 +545,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"用滑鼠拖放物品至此視窗做為飼料。";
+        gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
     }
     if ((state & 2) != 0) {
         std::array<char, 156> buffer;
@@ -631,7 +631,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
                 occupancy[source] = static_cast<unsigned char>(next + 1);
             } else {
                 WindowInstance* const modalWindow = gCurrentWindow;
-                gWindowModalTextC8AF88 = L"你沒有餵食寵物的權限。";
+                gWindowModalTextC8AF88 = L"你没有喂食宠物的权限。";
                 modalWindow->elements[0].visible = 1;
                 gCurrentWindow->state |= 2u;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -683,7 +683,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
 static std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0 && gHoverTextD68AE8.empty()) {
-        gHoverTextD68AE8 = L"從物品視窗以滑鼠拖放方式選擇要餵的飼料。";
+        gHoverTextD68AE8 = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";
     }
     return 0;
 }

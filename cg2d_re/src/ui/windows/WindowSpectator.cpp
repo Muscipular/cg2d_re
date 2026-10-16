@@ -11,7 +11,7 @@ static std::int32_t WindowSpectator_ButtonEnd(std::int32_t index, std::int32_t s
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowTextPrototype gWindowText56B8D0 {{}, L"觀戰結束"}; // 原全局：0x0056B8D0。 // 原常量参考：0x00554184。
+static WindowTextPrototype gWindowText56B8D0 {{}, L"观战结束"}; // 原全局：0x0056B8D0。 // 原常量参考：0x00554184。
 
 static WindowElementPrototype gWindowElements56B8D8[2] { // 原全局：0x0056B8D8。
     {WindowElementType_Text, 32, 46, 0, 0, 1, {.text = &gWindowText56B8D0}, &WindowElement_NoOp},
@@ -41,7 +41,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
             static_cast<std::uint16_t>(windowY + y - 2),
             static_cast<std::uint16_t>(width + windowX + x + 2),
             static_cast<std::uint16_t>(height + windowY + y + 2), 223, image, 0);
-        gHoverTextD68AE8 = L"結束觀戰。";
+        gHoverTextD68AE8 = L"结束观战。";
     }
     if ((state & 2) == 0) {
         return 0;

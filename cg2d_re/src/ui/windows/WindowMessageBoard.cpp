@@ -66,11 +66,11 @@ static WindowTextPrototype gWindowText5735B0 { // 原全局：0x005735B0。
 };
 
 static WindowTextPrototype gWindowText5735B8 { // 原全局：0x005735B8。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"名稱",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"名称",
 };
 
 static WindowTextPrototype gWindowText5735C0 { // 原全局：0x005735C0。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"留言時間",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"留言时间",
 };
 
 static WindowElementPrototype gWindowElements5735C8[36] { // 原全局：0x005735C8。
@@ -163,7 +163,7 @@ static void WindowMessageBoard_Release()
 static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
-        gHoverTextD68AE8 = L"寫下訊息。" /* 原常量参考：0x00587C84。 */;
+        gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
     if ((state & 2) == 0) {
         return 0;
@@ -192,7 +192,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         if ((state & 1) != 0) {
             graphic->imageNo = index == 0 ? 243002 : 244547;
             const wchar_t* const hint = index == 0
-                ? L"關閉這個視窗。"
+                ? L"关闭这个视窗。"
                 : kShopHints57E6C4[2];
             gHoverTextD68AE8 = hint;
             consumed = 1;
@@ -211,7 +211,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 36818;
-            gHoverTextD68AE8 = L"刪除此訊息。";
+            gHoverTextD68AE8 = L"删除此讯息。";
             consumed = 1;
         } else {
             graphic->imageNo = 36816;
@@ -236,7 +236,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[30].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 244544;
-            gHoverTextD68AE8 = L"寫下訊息。" /* 原常量参考：0x00587C84。 */;
+            gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 244542;
@@ -269,8 +269,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         if ((state & 1) != 0) {
             graphic->imageNo = baseImage + 2;
             const wchar_t* const hint = index == 32
-                ? L"切換至下一頁視窗。"
-                : L"回到上一頁視窗。";
+                ? L"切换至下一页视窗。"
+                : L"回到上一页视窗。";
             gHoverTextD68AE8 = hint;
             consumed = 1;
         } else {

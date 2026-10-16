@@ -32,7 +32,7 @@ static WindowGraphicData gWindowGraphic577770 {0x3BB3D, 0, 0, 0, 0, 0x8FFFFFFFu}
 static WindowGraphicData gWindowGraphic577788 {0x3C11A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577788。
 
 static WindowTextPrototype gWindowText5777A0 { // 原全局：0x005777A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"類別",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"类别",
 };
 
 static WindowElementPrototype gWindowElements5777A8[162] { // 原全局：0x005777A8。
@@ -272,7 +272,7 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"在此目錄中搜尋";
+        gHoverTextD68AE8 = L"在此目录中搜寻";
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246042;
         consumed = 1;
     } else {

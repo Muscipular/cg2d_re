@@ -36,7 +36,7 @@ void RebuildRenderer_466B80()
         reportRendererFailure = RendererInit_44B630() != 0;
     }
     if (reportRendererFailure) {
-        platform::ShowWideMessage(L"DirectDraw初期化失敗。", L"確認", 0x10);
+        platform::ShowWideMessage(L"DirectDraw初期化失败。", L"确认", 0x10);
         ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
     }
 

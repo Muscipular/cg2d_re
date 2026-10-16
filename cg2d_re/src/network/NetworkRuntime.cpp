@@ -404,7 +404,7 @@ void Sub_50CF20(
         return;
     }
 
-    world::detail::Sub_44B050(L"失敗了！", 4, 3);
+    world::detail::Sub_44B050(L"失败了！", 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
@@ -572,9 +572,9 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
             return;
         }
         std::wstring message;
-        cg::text::FormatTo(message, L"IP 位址由[{}]變成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
+        cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
         world::detail::Sub_44B050(message, 4, 3);
-        world::detail::Sub_44B050(L"網路有可能是被再連接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
+        world::detail::Sub_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -641,7 +641,7 @@ void Sub_50F190(
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
         (cg::world::detail::gOrderedRecords1051B14.data() + index)->text18;
-    cg::text::FormatTo(message, kind == -1 ? L"您收到來自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到來自家族成員 {} 的寵物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
+    cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(cg::world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::detail::Sub_44B050(message, 4, 3);

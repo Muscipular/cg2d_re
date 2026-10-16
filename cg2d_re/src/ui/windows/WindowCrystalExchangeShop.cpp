@@ -182,11 +182,11 @@ static WindowTextPrototype gWindowText576500 { // 原全局：0x00576500。
 };
 
 static WindowTextPrototype gWindowText576508 { // 原全局：0x00576508。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前无法装备", // 原常量参考：0x00585DD8。
 };
 
 static WindowTextPrototype gWindowText576510 { // 原全局：0x00576510。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩餘 %2d 個", // 原常量参考：0x00585DCC。
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩余 %2d 个", // 原常量参考：0x00585DCC。
 };
 
 static std::int32_t gWindowAnimationImage576518 = 100000; // 原全局：0x00576518。
@@ -379,7 +379,7 @@ static void WindowCrystalExchangeShop_RefreshRemaining()
             const std::int32_t index = gWindow70ScrollCC4B68 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow70ItemsD30428[index].remainingC50;
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 31].data)->text, L"剩餘 {:2} 個", remaining);
+            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 31].data)->text, L"剩余 {:2} 个", remaining);
         }
     }
 }
@@ -410,9 +410,9 @@ static void WindowCrystalExchangeShop_RefreshRows()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({}{})", cg::text::FromGbkWide(item->name.data()).c_str(), L"堆疊數", stack));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({}{})", cg::text::FromGbkWide(item->name.data()).c_str(), L"堆叠数", stack));
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(item->name.data()).c_str(), L"不可堆疊"));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(item->name.data()).c_str(), L"不可堆叠"));
             }
             const std::uint32_t flags =
                 gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row].flags;
@@ -644,7 +644,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        gHoverTextD68AE8 = L"買進指定的物品。" /* 原常量参考：0x00587FA8。 */;
+        gHoverTextD68AE8 = L"买进指定的物品。" /* 原常量参考：0x00587FA8。 */;
     }
     if (gWindow70SlotsCF4E44 <= 0) {
         if ((state & 2) != 0) {
@@ -696,10 +696,10 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
                 right.x = 454;
                 right.y = 343;
                 right.value = total;
-                (gWindow70ConfirmHeadingCF4A40 = L"持有交易品               花費交易品            " /* 原常量参考：0x005883D4。 */);
-                (gWindow70ConfirmQuestionCF4ABC = L"確認要交換這些物品？" /* 原常量参考：0x005883BC。 */);
-                gWindow70ConfirmAcceptD2DD6C = L"買進物品。" /* 原常量参考：0x00587F00。 */;
-                gWindow70ConfirmCancelCC48BC = L"還是算了。" /* 原常量参考：0x00585AD0。 */;
+                (gWindow70ConfirmHeadingCF4A40 = L"持有交易品               花费交易品            " /* 原常量参考：0x005883D4。 */);
+                (gWindow70ConfirmQuestionCF4ABC = L"确认要交换这些物品？" /* 原常量参考：0x005883BC。 */);
+                gWindow70ConfirmAcceptD2DD6C = L"买进物品。" /* 原常量参考：0x00587F00。 */;
+                gWindow70ConfirmCancelCC48BC = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
                 gCurrentWindow->elements[0].visible = 1;
                 gCurrentWindow->state |= 2u;
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -849,8 +849,8 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
     std::int32_t consumed = 0;
     if (hover) {
         const wchar_t* const hint = item->selectedCount > 0
-            ? L"減少物品的數量。"
-            : L"無法再減少物品的數量了。";
+            ? L"减少物品的数量。"
+            : L"无法再减少物品的数量了。";
         gHoverTextD68AE8 = hint;
     }
     if ((state & 0x400) != 0) {
@@ -887,11 +887,11 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t 
         const std::int32_t count = item->selectedCount;
         const wchar_t* hint;
         if (count < limit) {
-            hint = L"增加物品的數量。";
+            hint = L"增加物品的数量。";
         } else if (limit == 0) {
-            hint = L"已無商品交換!";
+            hint = L"已无商品交换!";
         } else {
-            hint = L"無法再增加物品的數量了。";
+            hint = L"无法再增加物品的数量了。";
         }
         gHoverTextD68AE8 = hint;
     }

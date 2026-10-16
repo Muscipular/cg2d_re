@@ -40,7 +40,7 @@ static WindowTextPrototype gWindowText565968 { // 原全局：0x00565968。
 };
 
 static WindowTextPrototype gWindowText565970 { // 原全局：0x00565970。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"种类", // 原常量参考：0x00586018。
 };
 
 static WindowTextPrototype gWindowText565978 { // 原全局：0x00565978。
@@ -562,13 +562,13 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
     const wchar_t* hint;
     switch (index) {
     case 2:
-        target = 16; idle = 0x3BAF4; hover = 0x3BAF6; hint = L"切換至此寵物的能力視窗。" /* 原常量参考：0x00585958。 */;
+        target = 16; idle = 0x3BAF4; hover = 0x3BAF6; hint = L"切换至此宠物的能力视窗。" /* 原常量参考：0x00585958。 */;
         break;
     case 3:
-        target = 17; idle = 0x3B583; hover = 0x3B585; hint = L"切換至此寵物的詳細視窗。" /* 原常量参考：0x0058593C。 */;
+        target = 17; idle = 0x3B583; hover = 0x3B585; hint = L"切换至此宠物的详细视窗。" /* 原常量参考：0x0058593C。 */;
         break;
     case 4:
-        target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = L"切換至此寵物的技能視窗。" /* 原常量参考：0x00585920。 */;
+        target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = L"切换至此宠物的技能视窗。" /* 原常量参考：0x00585920。 */;
         break;
     default:
         return 0;

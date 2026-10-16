@@ -46,7 +46,7 @@ static WindowGraphicData gWindowGraphic566FF0 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic567008 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567008。
 
 static WindowTextPrototype gWindowText567020 { // 原全局：0x00567020。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"宠物名称", // 原常量参考：0x00586048。
 };
 
 static std::uint32_t gWindowMouseFlagsD677C0 = 0; // 原全局：0x00D677C0。
@@ -210,7 +210,7 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"開啟此魔物的圖鑑視窗。";
+        gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;
         consumed = 1;
     } else {

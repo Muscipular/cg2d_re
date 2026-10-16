@@ -137,7 +137,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         y + 48,
         90,
         18,
-        L"  確  定 " /* 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。 */,
+        L"  确  定 " /* 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。 */,
     };
     detail::CharacterModalUiRecord cancelRecord {
         x + 28,
@@ -217,7 +217,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = L"所選擇的人物一經刪除" /* 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。 */;
+    textBuffer = L"所选择的人物一经删除" /* 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
     cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -229,7 +229,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = L"將無法恢復" /* 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。 */;
+    textBuffer = L"将无法恢复" /* 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
     cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -241,7 +241,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    textBuffer = L"確定要刪除嗎？" /* 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。 */;
+    textBuffer = L"确定要删除吗？" /* 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
     cg::render::DrawText_456780(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),

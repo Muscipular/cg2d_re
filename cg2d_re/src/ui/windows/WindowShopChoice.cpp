@@ -76,7 +76,7 @@ static std::array<const wchar_t*, 3> gShopHintsD2F738 {}; // 原全局：0x00D2F
 static std::array<std::int8_t, 3> gShopCommandsD64E10 {}; // 原全局：0x00D64E10。
 
 static constexpr std::array<const wchar_t*, 3> kShopChoices57E6B8 { // 原常量参考：0x0057E6B8。
-    L"買", L"賣", L"不用了",
+    L"买", L"卖", L"不用了",
 };
 
 static std::int32_t gChoiceImageCB0AE4 = 0; // 原全局：0x00CB0AE4。
@@ -102,15 +102,15 @@ static std::array<const wchar_t*, 2> gChoiceHintsCA0AAC {}; // 原全局：0x00C
 static std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {}; // 原全局：0x00CF47D8。
 
 static constexpr std::array<const wchar_t*, 3> kSkillChoices57E6F0 { // 原常量参考：0x0057E6F0。
-    L"想學習技能",
-    L"想遺忘技能",
+    L"想学习技能",
+    L"想遗忘技能",
     kShopChoices57E6B8[2],
 };
 
 static constexpr std::array<const wchar_t*, 3> kSkillHints57E6FC { // 原常量参考：0x0057E6FC。
-    L"向這位技能師範學習技能。",
-    L"遺忘自己學習到的技能。",
-    L"不學習技能。",
+    L"向这位技能师范学习技能。",
+    L"遗忘自己学习到的技能。",
+    L"不学习技能。",
 };
 
 static constexpr std::array<const wchar_t*, 3> kExchangeChoices57E708 { // 原常量参考：0x0057E708。
@@ -118,12 +118,12 @@ static constexpr std::array<const wchar_t*, 3> kExchangeChoices57E708 { // 原�
 };
 
 static constexpr std::array<const wchar_t*, 3> kExchangeHints57E714 { // 原常量参考：0x0057E714。
-    L"交換這家店的物品。",
+    L"交换这家店的物品。",
     kShopHints57E6C4[2], nullptr,
 };
 
 static constexpr std::array<const wchar_t*, 2> kGiveReceiveLabels57E720 { // 原常量参考：0x0057E720。
-    L"給予物品", L"接受物品",
+    L"给予物品", L"接受物品",
 };
 
 static std::array<const wchar_t*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]}; // 原全局：0x0057E728。

@@ -416,10 +416,10 @@ updateSelector:
 static std::int32_t WindowInventory_Draw(const std::int32_t)
 {
     static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
-        L"選好想蓋印的物品，", L"單點滑鼠左鍵，", L"可蓋下印記。", L"單點滑鼠右鍵即結束。",
+        L"选好想盖印的物品，", L"单点滑鼠左键，", L"可盖下印记。", L"单点滑鼠右键即结束。",
     };
     static constexpr std::wstring_view selectionText586B5C[] { // 原常量参考：0x00586B5C。
-        L"選好想掩埋的物品，", L"單點滑鼠左鍵可掩埋物品。", L"單點滑鼠右鍵即結束。", L"",
+        L"选好想掩埋的物品，", L"单点滑鼠左键可掩埋物品。", L"单点滑鼠右键即结束。", L"",
     };
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
@@ -461,7 +461,7 @@ static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const 
     graphic->imageNo = 243000;
     if ((state & 1) != 0) {
         graphic->imageNo = 243002;
-        gHoverTextD68AE8 = L"關閉這個視窗。";
+        gHoverTextD68AE8 = L"关闭这个视窗。";
     }
     if ((state & 2) == 0) {
         return 0;
@@ -492,7 +492,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"想放錢在地面時使用此按鍵。";
+        gHoverTextD68AE8 = L"想放钱在地面时使用此按键。";
     }
     if ((state & 2) != 0) {
         if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
@@ -737,22 +737,22 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
 std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
     static constexpr const wchar_t* playerHints[] {
-        L"裝備頭部防具的位置。",
-        L"裝備身體防具的位置。",
-        L"裝備武器跟盾的位置。",
-        L"裝備武器跟盾的位置。",
-        L"裝備腳部防具的位置。",
-        L"裝備裝飾品的位置。",
-        L"裝備裝飾品的位置。",
-        L"裝備水晶的位置。",
+        L"装备头部防具的位置。",
+        L"装备身体防具的位置。",
+        L"装备武器跟盾的位置。",
+        L"装备武器跟盾的位置。",
+        L"装备脚部防具的位置。",
+        L"装备装饰品的位置。",
+        L"装备装饰品的位置。",
+        L"装备水晶的位置。",
     };
     static constexpr const wchar_t* petHints[] {
-        L"裝備晶石的位置。",
-        L"裝備防具的位置。",
-        L"裝備項圈的位置。",
-        L"裝備飾品的位置。",
-        L"裝備飾品的位置。",
-        L"裝備飾品的位置。",
+        L"装备晶石的位置。",
+        L"装备防具的位置。",
+        L"装备项圈的位置。",
+        L"装备饰品的位置。",
+        L"装备饰品的位置。",
+        L"装备饰品的位置。",
     };
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};

@@ -107,21 +107,21 @@ static std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：
 static std::array<std::wstring, 2> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
 
 static const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
-    L"指定金額。",
-    L"指定存入金額。",
-    L"請指定金額。",
-    L"減少一個位數。",
-    L"指定全部金額。",
-    L"把指定金額歸零。",
+    L"指定金额。",
+    L"指定存入金额。",
+    L"请指定金额。",
+    L"减少一个位数。",
+    L"指定全部金额。",
+    L"把指定金额归零。",
 }};
 
 static const std::array<const wchar_t*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
-    L"指定金額。",
-    L"指定提領金額。",
-    L"指定金額數量。",
-    L"減少一個位數。",
-    L"指定全部金額。",
-    L"把指定金額歸零。",
+    L"指定金额。",
+    L"指定提领金额。",
+    L"指定金额数量。",
+    L"减少一个位数。",
+    L"指定全部金额。",
+    L"把指定金额归零。",
 }};
 
 static WindowGraphicData gWindowGraphic571018 {244390, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571018。
@@ -474,7 +474,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const s
         gCurrentWindow->elements[4].visible = 1;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請選擇銀行分頁";
+        gHoverTextD68AE8 = L"请选择银行分页";
     }
     if ((state & 2) != 0) {
         gLoginWindowRuntime.valueD67618 = 0;
@@ -498,7 +498,7 @@ static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const 
         gCurrentWindow->elements[4].visible = 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"請選擇銀行分頁";
+        gHoverTextD68AE8 = L"请选择银行分页";
     }
     if ((state & 2) != 0) {
         gLoginWindowRuntime.valueD67618 = 1;
@@ -562,7 +562,7 @@ static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int3
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"存放寵物。";
+        gHoverTextD68AE8 = L"存放宠物。";
     }
     if ((state & 2) != 0) {
         const auto* const panel = static_cast<WindowGraphicData*>(window->elements[34].data);
@@ -595,7 +595,7 @@ static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::i
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"存放金錢。";
+        gHoverTextD68AE8 = L"存放金钱。";
     }
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(window->elements[30].visible != 0 ? 55 : 51, 320));
@@ -629,7 +629,7 @@ static std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"提領金錢。";
+        gHoverTextD68AE8 = L"提领金钱。";
     }
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(window->elements[31].visible != 0 ? 55 : 51, 320));
@@ -716,9 +716,9 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     if ((events & 1u) != 0 && hovered >= 0
         && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
         if ((world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
-            gHoverTextD68AE8 = L"此物品無法存放。";
+            gHoverTextD68AE8 = L"此物品无法存放。";
         } else {
-            gHoverTextD68AE8 = L"用滑鼠拖放來存放物品。";
+            gHoverTextD68AE8 = L"用滑鼠拖放来存放物品。";
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
@@ -902,7 +902,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放來提領物品。";
+            gHoverTextD68AE8 = L"用滑鼠拖放来提领物品。";
         }
     }
     if (gBankExternalHover57EDD0 != hovered) {
@@ -1167,7 +1167,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex);
             } else {
-                world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
@@ -1177,7 +1177,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
         const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
         if (amount >= level) {
-            gHoverTextD68AE8 = L"用滑鼠拖放來存放寵物。";
+            gHoverTextD68AE8 = L"用滑鼠拖放来存放宠物。";
         }
     }
     const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
@@ -1210,7 +1210,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
                 if (allowed) {
                     WindowItem_RequestPetTransfer(41, index, petIndex, target + 100);
                 } else {
-                    world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                    world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
                 }
             }
         }
@@ -1280,7 +1280,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex + 100);
             } else {
-                world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
@@ -1290,7 +1290,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         std::uint16_t used;
         std::memcpy(&used, &gPetStorageD64E18[petIndex], sizeof(used));
         if (used != 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放來提領寵物。";
+            gHoverTextD68AE8 = L"用滑鼠拖放来提领宠物。";
         }
     }
     const auto* const record = &gPetStorageD64E18[petIndex];
@@ -1552,7 +1552,7 @@ std::int32_t WindowBank_ButtonCloseIcon(const std::int32_t index, const std::int
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"關閉這個視窗。";
+        gHoverTextD68AE8 = L"关闭这个视窗。";
     }
     if ((state & 2) != 0) {
         window->state |= 0x8000u;
@@ -1574,7 +1574,7 @@ std::int32_t WindowBank_ButtonClose(const std::int32_t index, const std::int32_t
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"關閉此視窗";
+        gHoverTextD68AE8 = L"关闭此视窗";
     }
     if ((state & 2) != 0) {
         window->state |= 0x8000u;

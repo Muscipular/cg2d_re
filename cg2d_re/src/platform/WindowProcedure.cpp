@@ -320,8 +320,8 @@ LRESULT CALLBACK WindowProcedure(
         if (wParam32 == SC_CLOSE && gWindowMode == 1
             && MessageBoxW(
                 window,
-                L"可以結束魔力寶貝嗎？",
-                L"確認",
+                L"可以结束魔力宝贝吗？",
+                L"确认",
                 MB_OKCANCEL) == IDCANCEL) {
             const std::uint32_t tick = ReadTickCount32();
             gLastRenderDt = tick;

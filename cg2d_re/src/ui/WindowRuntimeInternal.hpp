@@ -81,23 +81,23 @@ inline constexpr std::int16_t kCraftPreviewOffsetX57D7D0 = 30; // 原常量参�
 
 inline constexpr std::int16_t kCraftPreviewOffsetY57D7D2 = -45; // 原常量参考：0x0057D7D2。
 
-inline constexpr wchar_t kCraftLevelUp58661C[] = L"等級提升！"; // 原常量参考：0x0058661C。
+inline constexpr wchar_t kCraftLevelUp58661C[] = L"等级提升！"; // 原常量参考：0x0058661C。
 
-inline constexpr wchar_t kCraftExperience58660C[] = L"技能經驗值 +{}"; // 原常量参考：0x0058660C。
+inline constexpr wchar_t kCraftExperience58660C[] = L"技能经验值 +{}"; // 原常量参考：0x0058660C。
 
 inline constexpr wchar_t kCraftEndurance586600[] = L"　耐力 +{}"; // 原常量参考：0x00586600。
 
-inline constexpr wchar_t kCraftDexterity5865F4[] = L"　靈巧 +{}"; // 原常量参考：0x005865F4。
+inline constexpr wchar_t kCraftDexterity5865F4[] = L"　灵巧 +{}"; // 原常量参考：0x005865F4。
 
 inline constexpr wchar_t kCraftIntelligence5865E8[] = L"　智力 +{}"; // 原常量参考：0x005865E8。
 
-inline constexpr wchar_t kCraftExperience589820[] = L"技能經驗值 {:+}"; // 原常量参考：0x00589820。
+inline constexpr wchar_t kCraftExperience589820[] = L"技能经验值 {:+}"; // 原常量参考：0x00589820。
 
-inline constexpr wchar_t kCraftLevelUp589814[] = L"等級上升！\n"; // 原常量参考：0x00589814。
+inline constexpr wchar_t kCraftLevelUp589814[] = L"等级上升！\n"; // 原常量参考：0x00589814。
 
 inline constexpr wchar_t kCraftEndurance589808[] = L"耐力 {:+}"; // 原常量参考：0x00589808。
 
-inline constexpr wchar_t kCraftDexterity5897FC[] = L"靈巧 {:+}"; // 原常量参考：0x005897FC。
+inline constexpr wchar_t kCraftDexterity5897FC[] = L"灵巧 {:+}"; // 原常量参考：0x005897FC。
 
 inline constexpr wchar_t kCraftIntelligence5897F0[] = L"智力 {:+}"; // 原常量参考：0x005897F0。
 
@@ -113,7 +113,7 @@ inline constexpr wchar_t kWindow12Unknown554590[] = L"???"; // 原常量参考�
 
 inline constexpr wchar_t kWindow12NoFp5864F0[] = L"魔力不足。"; // 原常量参考：0x005864F0。
 
-inline constexpr wchar_t kWindow13Text5868EC[] = L"關閉此視窗"; // 原常量参考：0x005868EC。
+inline constexpr wchar_t kWindow13Text5868EC[] = L"关闭此视窗"; // 原常量参考：0x005868EC。
 
 // 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
 struct MiniMailComposeState {
@@ -123,7 +123,7 @@ struct MiniMailComposeState {
 };
 
 inline constexpr wchar_t kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
-    L"使用迷你郵件發信需要花費魔幣{}G";
+    L"使用迷你邮件发信需要花费魔币{}G";
 
 struct WindowListRecordD3FAD4 {
     std::int32_t value00; // 原成员偏移：+0x00。
@@ -231,15 +231,15 @@ struct Window47RuntimeSlots {
 };
 
 inline constexpr std::array<const wchar_t*, 3> kShopHints57E6C4 { // 原常量参考：0x0057E6C4。
-    L"在這家店買物品。",
-    L"在這家店賣物品。",
-    L"還是算了。",
+    L"在这家店买物品。",
+    L"在这家店卖物品。",
+    L"还是算了。",
 };
 
 
 inline constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221, 243222, 243223, 243224}; // 原全局：0x0057E6A4。
 
-inline constexpr wchar_t kSettingsClose55331C[] = L"關閉這個視窗。"; // 原常量参考：0x0055331C。
+inline constexpr wchar_t kSettingsClose55331C[] = L"关闭这个视窗。"; // 原常量参考：0x0055331C。
 
 // 只借各原字段；公会记录的+8前缀不强转为另一种C++记录。
 struct MailContactView {
@@ -260,21 +260,21 @@ struct MailContactView {
 };
 
 inline constexpr wchar_t kReplyMailHint587730[] = // 原常量参考：0x00587730。
-    L"對已選擇的對象寄送郵件。";
+    L"对已选择的对象寄送邮件。";
 
 inline constexpr wchar_t kSkillEnableRebirth5864A0[] = // 原常量参考：0x005864A0。
-    L"進行「精靈變身」。";
+    L"进行「精灵变身」。";
 
 inline constexpr wchar_t kSkillDisableRebirth5864B4[] = // 原常量参考：0x005864B4。
-    L"解除「精靈變身」。";
+    L"解除「精灵变身」。";
 
-inline constexpr wchar_t kStatusGuildUnavailable586270[] = L"無法使用家族功能。"; // 原常量参考：0x00586270。
+inline constexpr wchar_t kStatusGuildUnavailable586270[] = L"无法使用家族功能。"; // 原常量参考：0x00586270。
 
-inline constexpr wchar_t kPetPlaceHint586C14[] = L"將此寵物放在地上。"; // 原常量参考：0x00586C14。
+inline constexpr wchar_t kPetPlaceHint586C14[] = L"将此宠物放在地上。"; // 原常量参考：0x00586C14。
 
-inline constexpr wchar_t kPetSelectHint586D2C[] = L"切換頁數。"; // 原常量参考：0x00586D2C。
+inline constexpr wchar_t kPetSelectHint586D2C[] = L"切换页数。"; // 原常量参考：0x00586D2C。
 
-inline constexpr wchar_t kPetRenameHint586D38[] = L"變更寵物名字。"; // 原常量参考：0x00586D38。
+inline constexpr wchar_t kPetRenameHint586D38[] = L"变更宠物名字。"; // 原常量参考：0x00586D38。
 
 extern std::uint16_t gShopPriceTailD67420; // 原D673EC+0x34：第五行价格末两位的非文本别名。
 

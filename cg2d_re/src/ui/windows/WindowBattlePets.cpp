@@ -63,7 +63,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"讓這隻寵物歸還。";
+        gHoverTextD68AE8 = L"让这只宠物归还。";
     }
     if ((state & 2) != 0) {
         if (world::detail::Sub_43C4B0() != -1) {
@@ -198,8 +198,8 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
                 flags = pet.flags6AA;
                 if (flags != 2) {
                     const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
-                        ? L"召喚寵物。"
-                        : L"這隻寵物昏倒了。";
+                        ? L"召唤宠物。"
+                        : L"这只宠物昏倒了。";
                     gHoverTextD68AE8 = hint;
                 }
             }

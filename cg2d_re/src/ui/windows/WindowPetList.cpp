@@ -36,7 +36,7 @@ static WindowGraphicData gWindowGraphic5634A8 {0x3B58C, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic5634C0 {0x3B58F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005634C0。
 
 static WindowTextPrototype gWindowText5634D8 { // 原全局：0x005634D8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"宠物名称", // 原常量参考：0x00586048。
 };
 
 static WindowTextPrototype gWindowText5634E0 { // 原全局：0x005634E0。
@@ -52,7 +52,7 @@ static WindowTextPrototype gWindowText5634F0 { // 原全局：0x005634F0。
 };
 
 static WindowTextPrototype gWindowText5634F8 { // 原全局：0x005634F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"种族", // 原常量参考：0x005861E8。
 };
 
 static std::uint32_t gWindowMouseFlagsD677A0 = 0; // 原全局：0x00D677A0。
@@ -396,7 +396,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
             WindowDrag_Reset();
         }
         if ((events & 1u) != 0) {
-            gHoverTextD68AE8 = L"打開此寵物的能力視窗。" /* 原常量参考：0x00586D0C。 */;
+            gHoverTextD68AE8 = L"打开此宠物的能力视窗。" /* 原常量参考：0x00586D0C。 */;
             consumed = 1;
         }
         if ((events & 2u) != 0) {
@@ -450,7 +450,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         if ((state & 1) != 0) {
             setImage(0x3B588);
             const std::int32_t follow = world::detail::gPetRuntimeRecords[petIndex(row)].follow6D4;
-            gHoverTextD68AE8 = follow != 0 ? L"無法將此寵物帶在身後散步。" /* 原常量参考：0x00586CF0。 */ : L"將此寵物帶在身後散步。" /* 原常量参考：0x00586CD8。 */;
+            gHoverTextD68AE8 = follow != 0 ? L"无法将此宠物带在身后散步。" /* 原常量参考：0x00586CF0。 */ : L"将此宠物带在身后散步。" /* 原常量参考：0x00586CD8。 */;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -472,7 +472,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
             return consumed;
         }
         if (world::detail::gPetRuntimeRecords[selected].values70[10] < 60) {
-            world::detail::Sub_44B050(L"寵物忠誠度需達到60以上才可以帶它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
+            world::detail::Sub_44B050(L"宠物忠诚度需达到60以上才可以带它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }
@@ -487,7 +487,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         const std::int32_t row = index - 231;
         if ((state & 1) != 0) {
             setImage(0x3B58B);
-            gHoverTextD68AE8 = states[petIndex(row)] == 1 ? L"這隻寵物正處於待命狀態。" /* 原常量参考：0x00586C94。 */ : L"使這隻寵物處於待命狀態。" /* 原常量参考：0x00586C78。 */;
+            gHoverTextD68AE8 = states[petIndex(row)] == 1 ? L"这只宠物正处于待命状态。" /* 原常量参考：0x00586C94。 */ : L"使这只宠物处于待命状态。" /* 原常量参考：0x00586C78。 */;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -531,7 +531,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         const std::int32_t row = index - 236;
         if ((state & 1) != 0) {
             setImage(0x3B58E);
-            gHoverTextD68AE8 = states[petIndex(row)] == 2 ? L"這隻寵物正處於戰鬥狀態。" /* 原常量参考：0x00586C5C。 */ : L"使這隻寵物處於戰鬥狀態。" /* 原常量参考：0x00586C40。 */;
+            gHoverTextD68AE8 = states[petIndex(row)] == 2 ? L"这只宠物正处于战斗状态。" /* 原常量参考：0x00586C5C。 */ : L"使这只宠物处于战斗状态。" /* 原常量参考：0x00586C40。 */;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -561,7 +561,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         const std::int32_t row = index - 241;
         if ((state & 1) != 0) {
             setImage(0x3B591);
-            gHoverTextD68AE8 = states[petIndex(row)] == 3 ? L"無法將此寵物放在地上。" /* 原常量参考：0x00586C28。 */ : kPetPlaceHint586C14;
+            gHoverTextD68AE8 = states[petIndex(row)] == 3 ? L"无法将此宠物放在地上。" /* 原常量参考：0x00586C28。 */ : kPetPlaceHint586C14;
             consumed = 1;
         }
         if ((state & 2) == 0) {

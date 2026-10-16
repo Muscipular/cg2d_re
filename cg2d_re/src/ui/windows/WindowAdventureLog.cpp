@@ -177,7 +177,7 @@ static void WindowAdventureLog_Refresh()
         return;
     }
     auto* const first = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
-    first->text = L"無法開啟冒險者日誌" /* 原常量参考：0x0055358C。 */;
+    first->text = L"无法开启冒险者日志" /* 原常量参考：0x0055358C。 */;
     for (std::int32_t line = 12; line < 25; ++line) {
         WindowInstance* const current = gCurrentWindow;
         const char* const text = "";
@@ -205,7 +205,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
     case 3: {
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = index == 2 ? L"往上查看內容。" /* 原常量参考：0x005885EC。 */ : L"往下查看內容。" /* 原常量参考：0x005885DC。 */;
+            gHoverTextD68AE8 = index == 2 ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -234,7 +234,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
     case 7: {
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = index == 6 ? L"查看後一天的內容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的內容。" /* 原常量参考：0x005885B4。 */;
+            gHoverTextD68AE8 = index == 6 ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {

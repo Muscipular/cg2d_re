@@ -36,19 +36,19 @@ static WindowGraphicData gWindowGraphic560728 {0x3BAB1, 0, 0, 0, 0, 0x80FFFFFFu}
 static WindowGraphicData gWindowGraphic560740 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560740。
 
 static WindowTextPrototype gWindowText560758 { // 原全局：0x00560758。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00586230。
 };
 
 static WindowTextPrototype gWindowText560760 { // 原全局：0x00560760。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00586228。
 };
 
 static WindowTextPrototype gWindowText560768 { // 原全局：0x00560768。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"新增點數", // 原常量参考：0x005861A8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"新增点数", // 原常量参考：0x005861A8。
 };
 
 static WindowTextPrototype gWindowText560770 { // 原全局：0x00560770。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"體力", // 原常量参考：0x005861A0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"体力", // 原常量参考：0x005861A0。
 };
 
 static WindowTextPrototype gWindowText560778 { // 原全局：0x00560778。
@@ -56,7 +56,7 @@ static WindowTextPrototype gWindowText560778 { // 原全局：0x00560778。
 };
 
 static WindowTextPrototype gWindowText560780 { // 原全局：0x00560780。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"強度", // 原常量参考：0x00586190。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"强度", // 原常量参考：0x00586190。
 };
 
 static WindowTextPrototype gWindowText560788 { // 原全局：0x00560788。
@@ -68,11 +68,11 @@ static WindowTextPrototype gWindowText560790 { // 原全局：0x00560790。
 };
 
 static WindowTextPrototype gWindowText560798 { // 原全局：0x00560798。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"攻擊", // 原常量参考：0x00586178。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"攻击", // 原常量参考：0x00586178。
 };
 
 static WindowTextPrototype gWindowText5607A0 { // 原全局：0x005607A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"防禦", // 原常量参考：0x00586170。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"防御", // 原常量参考：0x00586170。
 };
 
 static WindowTextPrototype gWindowText5607A8 { // 原全局：0x005607A8。
@@ -84,7 +84,7 @@ static WindowTextPrototype gWindowText5607B0 { // 原全局：0x005607B0。
 };
 
 static WindowTextPrototype gWindowText5607B8 { // 原全局：0x005607B8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"回復", // 原常量参考：0x00586158。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"回复", // 原常量参考：0x00586158。
 };
 
 static WindowTextPrototype gWindowText5607C0 { // 原全局：0x005607C0。
@@ -108,19 +108,19 @@ static WindowTextPrototype gWindowText5607E0 { // 原全局：0x005607E0。
 };
 
 static WindowTextPrototype gWindowText5607E8 { // 原全局：0x005607E8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗混亂", // 原常量参考：0x00586128。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗混乱", // 原常量参考：0x00586128。
 };
 
 static WindowTextPrototype gWindowText5607F0 { // 原全局：0x005607F0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗遺忘", // 原常量参考：0x00586120。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"抗遗忘", // 原常量参考：0x00586120。
 };
 
 static WindowTextPrototype gWindowText5607F8 { // 原全局：0x005607F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"必殺率", // 原常量参考：0x00586118。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"必杀率", // 原常量参考：0x00586118。
 };
 
 static WindowTextPrototype gWindowText560800 { // 原全局：0x00560800。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"反擊率", // 原常量参考：0x00586110。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"反击率", // 原常量参考：0x00586110。
 };
 
 static WindowTextPrototype gWindowText560808 { // 原全局：0x00560808。
@@ -128,7 +128,7 @@ static WindowTextPrototype gWindowText560808 { // 原全局：0x00560808。
 };
 
 static WindowTextPrototype gWindowText560810 { // 原全局：0x00560810。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"閃躲率", // 原常量参考：0x00586100。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"闪躲率", // 原常量参考：0x00586100。
 };
 
 static WindowTextPrototype gWindowText560818 { // 原全局：0x00560818。
@@ -136,7 +136,7 @@ static WindowTextPrototype gWindowText560818 { // 原全局：0x00560818。
 };
 
 static WindowTextPrototype gWindowText560820 { // 原全局：0x00560820。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"靈巧", // 原常量参考：0x005860F0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"灵巧", // 原常量参考：0x005860F0。
 };
 
 static WindowTextPrototype gWindowText560828 { // 原全局：0x00560828。
@@ -224,7 +224,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         std::int32_t consumed = 0;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B53D;
-            gHoverTextD68AE8 = L"分配點數至目前的能力數值。";
+            gHoverTextD68AE8 = L"分配点数至目前的能力数值。";
             consumed = 1;
         } else {
             graphic->imageNo = 0x3B53B;
@@ -248,13 +248,13 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         idleImage = 0x3BAB5;
         hoverImage = 0x3BAB7;
         targetWindow = 7;
-        hint = L"切換成玩家狀態視窗。";
+        hint = L"切换成玩家状态视窗。";
         break;
     case 37:
         idleImage = 0x3BAB8;
         hoverImage = 0x3BABA;
         targetWindow = 9;
-        hint = L"切換成玩家稱號視窗。";
+        hint = L"切换成玩家称号视窗。";
         break;
     case 38:
         if (character_select::state::gPukVersion < 8u) {
@@ -265,7 +265,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         idleImage = 0x3C111;
         hoverImage = 0x3C112;
         targetWindow = 58;
-        hint = L"切換成玩家簡介視窗";
+        hint = L"切换成玩家简介视窗";
         break;
     default:
         return 0;

@@ -62,11 +62,11 @@ static WindowGraphicData gWindowGraphic55FCC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}
 static WindowGraphicData gWindowGraphic55FCD8 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCD8。
 
 static WindowTextPrototype gWindowText55FCF0 { // 原全局：0x0055FCF0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名称", // 原常量参考：0x00586230。
 };
 
 static WindowTextPrototype gWindowText55FCF8 { // 原全局：0x0055FCF8。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等级", // 原常量参考：0x00586228。
 };
 
 static WindowTextPrototype gWindowText55FD00 { // 原全局：0x0055FD00。
@@ -74,7 +74,7 @@ static WindowTextPrototype gWindowText55FD00 { // 原全局：0x0055FD00。
 };
 
 static WindowTextPrototype gWindowText55FD08 { // 原全局：0x0055FD08。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"职业", // 原常量参考：0x0058621C。
 };
 
 static WindowTextPrototype gWindowText55FD10 { // 原全局：0x0055FD10。
@@ -82,27 +82,27 @@ static WindowTextPrototype gWindowText55FD10 { // 原全局：0x0055FD10。
 };
 
 static WindowTextPrototype gWindowText55FD18 { // 原全局：0x0055FD18。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號", // 原常量参考：0x00586208。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族称号", // 原常量参考：0x00586208。
 };
 
 static WindowTextPrototype gWindowText55FD20 { // 原全局：0x0055FD20。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"特殊稱號", // 原常量参考：0x005861FC。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"特殊称号", // 原常量参考：0x005861FC。
 };
 
 static WindowTextPrototype gWindowText55FD28 { // 原全局：0x0055FD28。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自定稱號", // 原常量参考：0x005861F0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自定称号", // 原常量参考：0x005861F0。
 };
 
 static WindowTextPrototype gWindowText55FD30 { // 原全局：0x0055FD30。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"种族", // 原常量参考：0x005861E8。
 };
 
 static WindowTextPrototype gWindowText55FD38 { // 原全局：0x0055FD38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"经验值", // 原常量参考：0x005861E0。
 };
 
 static WindowTextPrototype gWindowText55FD40 { // 原全局：0x0055FD40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"下一級經驗值", // 原常量参考：0x005861D0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"下一级经验值", // 原常量参考：0x005861D0。
 };
 
 static WindowTextPrototype gWindowText55FD48 { // 原全局：0x0055FD48。
@@ -114,7 +114,7 @@ static WindowTextPrototype gWindowText55FD50 { // 原全局：0x0055FD50。
 };
 
 static WindowTextPrototype gWindowText55FD58 { // 原全局：0x0055FD58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"對戰勝利值", // 原常量参考：0x005861B4。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"对战胜利值", // 原常量参考：0x005861B4。
 };
 
 static WindowElementPrototype gWindowElements55FD60[73] { // 原全局：0x0055FD60。
@@ -248,13 +248,13 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         idleImage = 0x3B583;
         hoverImage = 0x3B585;
         targetWindow = 8;
-        hint = L"切換成玩家明細視窗。";
+        hint = L"切换成玩家明细视窗。";
         break;
     case 20:
         idleImage = 0x3BAB8;
         hoverImage = 0x3BABA;
         targetWindow = 9;
-        hint = L"切換成玩家稱號視窗。";
+        hint = L"切换成玩家称号视窗。";
         break;
     case 21:
         if (character_select::state::gPukVersion < 8u) {
@@ -265,17 +265,17 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         idleImage = 0x3C111;
         hoverImage = 0x3C112;
         targetWindow = 58;
-        hint = L"切換成玩家簡介視窗";
+        hint = L"切换成玩家简介视窗";
         break;
     case 23:
         idleImage = 0x3BAC0;
         hoverImage = 0x3BAC1;
-        hint = L"把戰鬥時的位置變更為前排。";
+        hint = L"把战斗时的位置变更为前排。";
         break;
     case 24:
         idleImage = 0x3BABD;
         hoverImage = 0x3BABE;
-        hint = L"把戰鬥時的位置變更為後排。";
+        hint = L"把战斗时的位置变更为后排。";
         break;
     default:
         return 0;

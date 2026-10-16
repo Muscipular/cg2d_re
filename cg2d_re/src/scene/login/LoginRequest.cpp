@@ -125,7 +125,7 @@ std::int32_t PollLoginRequest()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"處理登入逾時。" /* 0x55C9F8 原文：處理登入逾時。 */);
+    static_cast<void>(gRequestMessage = L"处理登入逾时。" /* 0x55C9F8 原文：處理登入逾時。 */);
     return -1;
 }
 
@@ -199,7 +199,7 @@ std::int32_t Sub_508C90()
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"處理登出逾時。" /* 0x55CA18 原文：處理登出逾時。 */);
+    static_cast<void>(gRequestMessage = L"处理登出逾时。" /* 0x55CA18 原文：處理登出逾時。 */);
     return -1;
 }
 

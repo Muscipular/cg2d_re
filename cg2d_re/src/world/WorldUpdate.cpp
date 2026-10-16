@@ -79,12 +79,14 @@ void Update()
         detail::RenderChara_521F20();
         return;
     }
-    case 3:
+    case 3: {
+        const ui::LegacyUiLayoutScope layout;
         platform::gValue73ECC0 = 0;
         character_select::ProcessScene_460FF0();
         cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
+    }
     case 4:
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();

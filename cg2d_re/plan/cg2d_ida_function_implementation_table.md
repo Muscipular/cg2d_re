@@ -839,7 +839,7 @@
 | 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:9532 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5233 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:605 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:223 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:225 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 771 | 0x00455FC0 | `sub_455FC0` | 有正文 | `src/world/SceneState.cpp:5239 — Sub_455FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 772 | 0x00456050 | `sub_456050` | 有正文 | `src/resource/ResourcePaths.cpp:192 — BuildResourcePaths` | BLM01直接解析cgmsv.yml，六类字符串路径绑定32槽；失败结束启动，仅静态，编译／运行未验 |
 | 773 | 0x00456190 | `sub_456190` | 有正文 | `src/render/Font.cpp:95 — InitializeFont_456190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -982,7 +982,7 @@
 | 910 | 0x0045FA70 | `sub_45FA70` | 有正文 | `src/LoginCapability3InputController.cpp:60 — ProcessCapability3Input_45FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 911 | 0x0045FEA0 | `LoginScene::Process` | 有正文 | `src/scene/login/LoginScene.cpp:359 — ProcessScene_45FEA0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01服务器底图铺满，前景框／列表／按钮／文字由入口统一居中；仅静态 |
 | 912 | 0x00460D00 | `sub_460D00` | 有正文 | `src/CharacterSelectPreview.cpp:479 — ProcessCharacterPreview_460D00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 913 | 0x00460FF0 | `sub_460FF0` | 有正文 | `src/CharacterSelectScene.cpp:1438 — ProcessScene_460FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 913 | 0x00460FF0 | `sub_460FF0` | 有正文 | `src/scene/character_select/CharacterSelectScene.cpp:1375 — ProcessScene_460FF0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01角色选择两处245060背景铺满，槽位面板／预览／文字／模态由入口居中；自动选人／删除／请求正文保持，仅静态 |
 | 914 | 0x00461B30 | `sub_461B30` | 有正文 | `src/scene/character_select/CharacterSelectSlot.cpp:54 — ProcessCharacterSlot_461B30` | 实际非占位正文已定位；完整业务／接线／运行未验；ALM01：状态11的已占用目标槽消费一次标记并返回原动作1；仅静态，自动入场运行未验 |
 | 915 | 0x00462090 | `sub_462090` | 有正文 | `src/CharacterSelectModal.cpp:12 — ProcessCharacterModal_462090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 916 | 0x00462330 | `sub_462330` | 有正文 | `src/CharacterVersionUpgrade.cpp:151 — ProcessScene_462330` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2888,7 +2888,7 @@
 | 2816 | 0x0051BFF0 | `sub_51BFF0` | 有正文 | `src/CharacterSelectPreview.cpp:240 — Sub_51BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:9177 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:490 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:33 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；LUR01仅登录／服务器选择入口建立居中布局作用域，包含Yobi、输入与光标提交；其他分发保持，仅静态 |
+| 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:33 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；LUR01仅登录／服务器／角色选择入口建立居中布局作用域，包含Yobi、输入与光标提交；其他分发保持，仅静态 |
 | 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:553 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2821 | 0x0051C790 | `sub_51C790` | 有正文 | `src/world/SceneState.cpp:561 — SetCurrentSceneTypeAndState` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2822 | 0x0051C7B0 | `sub_51C7B0` | 有正文 | `src/world/SceneState.cpp:569 — SetPendingSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -2905,7 +2905,7 @@
 | 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:10839 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验；R09保原480计算行／步长／场景发布，统一在S32直接复制前换算实际尺寸，避免两次缩放 |
 | 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:10845 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验；R09保原底向采样／480计算行及状态推进，统一在S32直接复制前换算实际尺寸，原失败边界保持 |
 | 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:10851 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验；R09保原240半幅采样／独立比例，源边与中心目标换算实际尺寸，原S32直接复制及返回保持 |
-| 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:349 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验；R09沿既有完整36项分发，七组目标统一适配复制坐标；selector／参数／返回正文保持 |
+| 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:351 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验；R09沿既有完整36项分发，七组目标统一适配复制坐标；selector／参数／返回正文保持 |
 | 2837 | 0x00520160 | `sub_520160` | 有正文 | `src/scene/login/LoginSavedState.cpp:997 — Sub_520160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2838 | 0x005201B0 | `sub_5201B0` | 有正文 | `src/scene/login/LoginSavedState.cpp:791 — RestoreCurrentSavedState_5201B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2839 | 0x00520200 | `sub_520200` | 有正文 | `src/scene/login/LoginSavedState.cpp:1024 — Sub_520200` | 实际非占位正文已定位；完整业务／接线／运行未验 |

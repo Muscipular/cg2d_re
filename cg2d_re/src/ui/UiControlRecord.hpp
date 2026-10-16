@@ -6,7 +6,7 @@
 
 namespace cg::ui {
 
-// LUR01：仅由登录／服务器选择入口持有，退出时平移该场景新增的绘制记录。
+// LUR01：仅由登录／服务器／角色选择入口持有，退出时平移该场景新增的绘制记录。
 class LegacyUiLayoutScope {
 public:
     LegacyUiLayoutScope();

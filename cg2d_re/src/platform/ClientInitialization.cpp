@@ -3,7 +3,6 @@
 #include "ImeLifecycle.hpp"
 #include "ClientShutdown.hpp"
 #include "StartupNative.hpp"
-#include "LegacyFormat.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../render/GraphicDxCacheState.hpp"

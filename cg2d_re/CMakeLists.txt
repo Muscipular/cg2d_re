@@ -65,8 +65,6 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyCryptInt.cpp
     src/platform/LegacyModuleDigest.cpp
-    src/platform/LegacyMemory.cpp
-    src/platform/LegacyFormat.cpp
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp
     src/platform/LegacyWavesReverb.cpp

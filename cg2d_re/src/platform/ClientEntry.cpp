@@ -1,7 +1,6 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
-#include "LegacyFormat.hpp"
 #include "LegacyStdio.hpp"
 
 #include "cg/resource/ResourcePaths.hpp"

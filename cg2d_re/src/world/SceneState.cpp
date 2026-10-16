@@ -22,7 +22,6 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
-#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -39,7 +38,6 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "WorldUpdateDependencies.hpp"
@@ -651,14 +649,14 @@ const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::
 void Sub_5186A0()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(0x78018));
+        std::malloc(0x78018));
     char path[128];
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
     platform::LegacyFile* const stream =
         std::fopen(path, "wb");
     if (stream == nullptr) {
-        platform::FreeLegacyByteBuffer(encoded);
+        std::free(encoded);
         return;
     }
     std::array<std::uint8_t, 0x3C00C> snapshot;
@@ -672,20 +670,20 @@ void Sub_5186A0()
     // 原51873D在写后重新读取编码长度，再以U32比较。
     const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);
     if (written < expectedCount) {
-        platform::FreeLegacyByteBuffer(encoded);
+        std::free(encoded);
         return;
     }
     static_cast<void>(std::fclose(stream));
-    platform::FreeLegacyByteBuffer(encoded);
+    std::free(encoded);
 }
 
 // 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
 void Sub_518780()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(0x78018));
+        std::malloc(0x78018));
     auto* const decoded = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(0x78018));
+        std::malloc(0x78018));
     char path[128];
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
@@ -699,8 +697,8 @@ void Sub_518780()
         // 原5187EA/5187F0读取flags低U8并测试20H错误位。
         if (std::ferror(stream) != 0) {
             static_cast<void>(std::fclose(stream));
-            platform::FreeLegacyByteBuffer(encoded);
-            platform::FreeLegacyByteBuffer(decoded);
+            std::free(encoded);
+            std::free(decoded);
             return;
         }
         static_cast<void>(std::fclose(stream));
@@ -713,8 +711,8 @@ void Sub_518780()
             Sub_5186A0();
         }
     }
-    platform::FreeLegacyByteBuffer(encoded);
-    platform::FreeLegacyByteBuffer(decoded);
+    std::free(encoded);
+    std::free(decoded);
 }
 
 // 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。

@@ -7,7 +7,6 @@
 
 #include "cg/scene/login/LoginState.hpp"
 
-#include "../../platform/LegacyFormat.hpp"
 #include "../../platform/LegacyStdio.hpp"
 
 #include "LoginStateDependencies.hpp"

@@ -3,7 +3,6 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"

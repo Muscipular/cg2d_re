@@ -9,7 +9,6 @@
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "cg/scene/character_select/CharacterSelectScene.hpp"

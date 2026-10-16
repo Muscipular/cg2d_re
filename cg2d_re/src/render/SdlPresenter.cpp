@@ -10,7 +10,6 @@
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include <SDL3/SDL.h>

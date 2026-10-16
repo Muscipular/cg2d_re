@@ -3,7 +3,6 @@
 #include <string>
 
 #include "AnimationRuntimeState.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicAlloc.hpp"

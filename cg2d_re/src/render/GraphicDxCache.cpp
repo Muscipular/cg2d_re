@@ -1,6 +1,5 @@
 #include "GraphicDxCacheState.hpp"
 #include "cg/text/Encoding.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "LegacyTextureDrawing.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"

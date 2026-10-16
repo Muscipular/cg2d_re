@@ -8,7 +8,6 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "../../platform/LegacyFormat.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。

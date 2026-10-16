@@ -5,7 +5,6 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginInputDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "cg/input/Input.hpp"

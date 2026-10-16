@@ -7,7 +7,6 @@
 
 #include "cg/scene/login/LoginRequest.hpp"
 
-#include "../../platform/LegacyFormat.hpp"
 
 #include <array>
 #include <cstddef>

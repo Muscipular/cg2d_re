@@ -1,7 +1,6 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
-#include "LegacyFormat.hpp"
 
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 

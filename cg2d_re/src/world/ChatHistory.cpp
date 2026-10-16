@@ -12,7 +12,6 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include "../input/InputKeyDispatchDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "WorldUpdateDependencies.hpp"

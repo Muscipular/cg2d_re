@@ -6,7 +6,6 @@
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "../../platform/LegacyFormat.hpp"
 
 #include <cstddef>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。

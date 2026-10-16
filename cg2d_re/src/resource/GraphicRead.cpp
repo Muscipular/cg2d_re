@@ -1,12 +1,10 @@
 #include "cg/resource/GraphicRead.hpp"
 
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicDecode.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
-#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <array>
@@ -167,7 +165,7 @@ struct PaletteDbfState {
         // 成员逆序释放集合容量，再销毁已空树/表头，不重复释放载荷。
         std::uint32_t blockIndex = 0;
         while (decodedBlocks.data() != nullptr && blockIndex < decodedBlocks.size()) {
-            platform::FreeLegacyByteBuffer(decodedBlocks[blockIndex]);
+            std::free(decodedBlocks[blockIndex]);
             ++blockIndex;
         }
         decodedBlocks.clear();
@@ -212,15 +210,15 @@ void LoadIndependentPaletteIndex_522900()
     }
 
     auto* compressed = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(gPaletteDbfState->header.compressedLength));
+        std::malloc(gPaletteDbfState->header.compressedLength));
     auto* decoded = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(gPaletteDbfState->header.decodedLength));
+        std::malloc(gPaletteDbfState->header.decodedLength));
     static_cast<std::uint32_t>(std::fread(
         compressed, 1, static_cast<std::uint32_t>(gPaletteDbfState->header.compressedLength), file));
     static_cast<void>(DecompressDbf_53AF90(
         compressed, static_cast<std::int32_t>(gPaletteDbfState->header.compressedLength),
         decoded, &gPaletteDbfState->header.decodedLength));
-    platform::FreeLegacyByteBuffer(compressed);
+    std::free(compressed);
     gPaletteDbfState->decodedBlocks.push_back(decoded);
     gPaletteDbfState->payload = decoded + 8;
 

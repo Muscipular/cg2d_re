@@ -1,7 +1,6 @@
 #include "cg/render/RendererResources.hpp"
 
 #include "GraphicDxCacheState.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"

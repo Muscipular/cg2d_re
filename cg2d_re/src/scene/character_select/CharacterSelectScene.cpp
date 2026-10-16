@@ -12,7 +12,6 @@
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
-#include "../../platform/LegacyFormat.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"

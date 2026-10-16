@@ -1,6 +1,5 @@
 #include "StartupNative.hpp"
 #include <string>
-#include "LegacyFormat.hpp"
 
 #include "cg/platform/Startup.hpp"
 #include "cg/platform/LegacyTime.hpp"

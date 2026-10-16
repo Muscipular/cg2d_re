@@ -5,7 +5,6 @@
 #include "cg/input/Input.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
-#include "../../platform/LegacyFormat.hpp"
 
 #include <bit>
 #include <cstddef>

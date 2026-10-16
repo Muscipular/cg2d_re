@@ -4,7 +4,6 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
-#include "../../platform/LegacyFormat.hpp"
 
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/scene/login/LoginMessage.hpp"

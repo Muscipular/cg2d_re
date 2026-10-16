@@ -97,3 +97,18 @@
 COR01～COR07均已实施并逐步提交，具体记录见[进度第292节](../plan/cg2d_full_reconstruction_progress.md)。目录迁移后1287条包含边有效，198条构建源码顺序保持，3680行函数身份／名称／状态保持。代码正文、字段布局算术、限定名／实参、存储范围、编码及差异已做静态核对；COR06曾带回两处旧服务器访问，跨步骤检查已修正。
 
 未编译、测试、运行或计算摘要；所有新增static_assert尚未编译。不生成／更新JSON台账。上述保留项仍保留，不以本轮整理声称未知字段已还原、Yobi历史namespace耦合已消除或客户端行为已通过运行验收。
+
+## COR08：剩余内存与除法转发退休（2026-10-16）
+
+用户指出 LegacyMemory.cpp／LegacyFormat.cpp，继续按既有授权评估并精简。当前源码已完整提供实现依据，不新增原端事实。
+
+- LegacyMemory中的_msize、calloc、realloc、memmove、memset、memcmp六个转发只有声明与定义，无源码消费者，删除这些冗余接口。
+- AllocateLegacyByteBuffer／FreeLegacyByteBuffer的真实消费者仅位于GraphicRead、SceneState、LegacyNetworkAdapter；改为直接std::malloc／std::free。参数现有U32类型或原显式U32转换保留，常量请求不变；无新乘法、对齐或窄化。不改变空指针处理、失败分支、释放顺序和分配域；原成功适配器路径没有释放，本次不补释放或改RAII。
+- DivideLegacyUnsigned64_53CB10只有ReadSystemSeconds_4589D0一个调用，改为原U64高低字组合表达式除以10000000u；保留组合括号与整除，不改浮点或除法舍入。
+- 删除上述两个CPP及对应两个HPP、CMake条目；消费者补所属标准头或真实LegacyFile头，不留兼容转发头。
+- 原函数地址与CRT承接说明留在本SPEC／现有函数表；无消费者函数不以伪造调用维持源码占位。函数表身份和状态不变，定位改为真实调用或本节的宿主承接说明，不更新JSON台账。
+- 验收：旧符号与旧include/CMake路径零残留；逐点核对分配数量、U32到size_t的现有转换、释放位置及U64运算；执行build.bat Debug验证编译／链接。不新增测试、不运行客户端、不计算摘要。收益为删除维护负担，不宣称未经测量的速度提升。
+
+宿主承接映射：原53FCFB→MSVC _msize；53BFF8→std::calloc；53FA5B→std::realloc；541620→std::memmove（保留支持重叠）；5419D0→std::memset；54B160→std::memcmp；53CB10→原调用点U64除法。六个无消费者入口的旧窄接口随无用函数一起退休，不宣称所有size_t调用等于原U32接口。
+
+COR08验收：上述删除与调用替换完成；静态正文对照、剩余引用及包含路径检查通过，build.bat Debug配置／编译／链接成功，退出码0。当前编译仍有未初始化变量和旧API告警；本次未运行客户端或测试，不宣称性能提升。详见唯一进度第294节。

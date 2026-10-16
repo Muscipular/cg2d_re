@@ -1,6 +1,5 @@
 #include "cg/platform/LegacyNetworkAdapter.hpp"
-#include "cg/platform/LegacyMemory.hpp"
-#include "LegacyFormat.hpp"
+#include <cstdlib>
 
 #include <winsock2.h>
 #include <iphlpapi.h>
@@ -27,12 +26,12 @@ std::int32_t Sub_534EF0(char* const output)
         return -1;
     }
 
-    void* const allocation = AllocateLegacyByteBuffer(static_cast<std::uint32_t>(size));
+    void* const allocation = std::malloc(static_cast<std::uint32_t>(size));
     auto* const adapters = static_cast<IP_ADAPTER_ADDRESSES*>(allocation);
     const ULONG secondResult =
         ::GetAdaptersAddresses(AF_INET, 0, nullptr, adapters, &size);
     if (secondResult != NO_ERROR) {
-        FreeLegacyByteBuffer(allocation);
+        std::free(allocation);
         return -1;
     }
 
@@ -50,7 +49,7 @@ std::int32_t Sub_534EF0(char* const output)
         selected = selected->Next;
     }
     if (selected == nullptr) {
-        FreeLegacyByteBuffer(allocation);
+        std::free(allocation);
         return -1;
     }
 

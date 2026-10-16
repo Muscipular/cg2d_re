@@ -1,6 +1,5 @@
 #include "cg/render/Palette.hpp"
 
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/ResourcePaths.hpp"

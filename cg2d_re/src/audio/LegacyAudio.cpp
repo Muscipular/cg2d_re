@@ -4,7 +4,6 @@
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../network/NetworkDispatchDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyAudioMath.hpp"
 
 #include "cg/scene/login/LoginRequest.hpp"

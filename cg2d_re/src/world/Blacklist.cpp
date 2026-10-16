@@ -2,7 +2,6 @@
 #include "cg/text/Encoding.hpp"
 #include <system_error>
 #include "cg/input/Input.hpp"
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include <bit>

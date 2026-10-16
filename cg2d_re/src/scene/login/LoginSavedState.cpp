@@ -3,7 +3,6 @@
 #include "../character_select/CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
-#include "../../platform/LegacyFormat.hpp"
 #include "../../platform/LegacyStdio.hpp"
 #include "../../ui/WindowRuntimeState.hpp"
 

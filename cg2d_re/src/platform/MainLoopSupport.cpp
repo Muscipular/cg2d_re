@@ -2,7 +2,6 @@
 #include "cg/text/Encoding.hpp"
 #include "MainLoopDependencies.hpp"
 #include "LegacyStdio.hpp"
-#include "LegacyFormat.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -708,8 +707,8 @@ std::uint64_t ReadSystemSeconds_4589D0()
     SystemTimeToFileTime(&systemTime, &fileTime);
     const std::uint32_t high = fileTime.dwHighDateTime;
     const std::uint32_t low = fileTime.dwLowDateTime;
-    return DivideLegacyUnsigned64_53CB10(
-        (static_cast<std::uint64_t>(high) << 32) | low, 10000000u);
+    // 原53CB10：保持U64整除，直接由MSVC生成对应运算。
+    return ((static_cast<std::uint64_t>(high) << 32) | low) / 10000000u;
 }
 
 // 原函数：0x00458A10。

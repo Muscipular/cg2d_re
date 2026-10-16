@@ -1,6 +1,5 @@
 #include "cg/resource/ResourcePaths.hpp"
 
-#include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"

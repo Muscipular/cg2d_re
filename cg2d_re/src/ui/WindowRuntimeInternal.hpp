@@ -29,7 +29,6 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
-#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"

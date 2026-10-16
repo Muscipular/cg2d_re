@@ -7,7 +7,6 @@
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "StartupNative.hpp"
-#include "LegacyFormat.hpp"
 
 #include <bit>
 #include <cstddef>

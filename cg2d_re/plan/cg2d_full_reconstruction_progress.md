@@ -3125,3 +3125,9 @@ ALM01 已实施：ParseCommandOptions 保留原 IP 解析返回，再读取 /uu:
 SAP01 已实施：platformTool.hpp／cpp 以地址缓冲和 W16 端口接口集中处理 taomoli＋0–9 映射，其余地址沿系统 AF_INET／SOCK_STREAM 解析 <地址>.<端口>.cg.qoq.im。复用 A11 的 Debug／--debug 判定跳过普通地址检查；非零解析直接标准进程退出，解析失败／0.0.0.0 显示参考全文提示，“是”继续、其他结果退出。GetServerAddressInfo_507D90 仅在原成功写出后调用，既有 -1／0 合同、连接地址、字段及两种登录入口保持；同步检查取代源临时栈地址中转和脱离线程，x86 随机跳转等机制按 SPEC 具名退休。
 
 限定差异静态核对通过：既有适配器业务、服务器查询及登录正文除新增直接声明头、调用和说明外逐字保持；提示正文与参考一致，WSAStartup／WSACleanup、addrinfo 分配／释放及各退出条件已核。29 条提供者定位／说明同步，3680 条函数身份、名称和状态保持；本次 UTF-8 无 BOM／LF，采用原生 apply_patch，Git 差异检查通过。精确提交本次源码及 Markdown；不写 JSON 台账，既有 Python 缓存排除。未构建、测试、运行、实际查询 DNS 或计算摘要，真实映射／DNS／提示／退出／调试分支仍未运行验收，废弃脚本及旧看板／快照未使用。
+
+## 318. 日志宏与 R02–R05 顺序迁移（2026-10-16）
+
+按用户要求先落盘 [RHM01 SPEC](../doc/cg2d_render_hook_business_migration_spec.md)，随后依次迁入 m_log*、分辨率、战斗适配、PNG 与 ARGB 透明业务。六个日志宏已迁入 include/cg/core/m_log.hpp，保留参考编译开关、printf／wprintf 返回及禁用时不求值实参；仅用标准 CRT，不迁颜色函数、扫描业务和参考多余结尾指令。
+
+本小步检查宏分组与六项条件、UTF-8 无 BOM／LF 及 Git 差异；仅静态，不构建、测试、运行或计算摘要，不写 JSON 台账、不使用废弃脚本。精确提交日志头及两份 Markdown 后，继续 R02；既有 Python 缓存保留并排除。

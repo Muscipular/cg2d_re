@@ -714,8 +714,8 @@
 | 642 | 0x0044B5A0 | `sub_44B5A0` | 有正文 | `src/platform/MainLoopSupport.cpp:480 — ResetSystemLog_44B5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 643 | 0x0044B5C0 | `sub_44B5C0` | 有正文 | `src/scene/login/LoginState.cpp:74 — Sub_44B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/windows/WindowStall.cpp:1243 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 WindowSettings_RefreshDisplayPanel 直接读状态；完整业务／运行未验 |
-| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:132 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:196 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:133 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:197 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:540 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:384 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:600 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2935,7 +2935,7 @@
 | 2863 | 0x00520970 | `Renderer::DrawGraphic3` | 有正文 | `src/render/DrawGraphic.cpp:35 — DrawGraphic3_520970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2864 | 0x00520AD0 | `Renderer::FillDirtyArea` | 有正文 | `src/render/GraphicPendingQueue.cpp:289 — FillDirtyArea_520AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2865 | 0x00520B10 | `Graphic::LoadTexture` | 有正文 | `src/render/GraphicDxCache.cpp:490 — LoadGraphicTexture_520B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:446 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01复用批次15完整图缓存，名称推广为全屏背景；绘制／Alpha／调色板正文保持，仅静态；R06文字改为纹理消费，批次4保持在已有Begin／End内；其他批次正文保持，仅静态 |
+| 2866 | 0x00520DD0 | `Renderer::DrawAllQueued` | 有正文 | `src/render/DrawAllQueued.cpp:447 — DrawAllQueued_520DD0` | 实际非占位正文已定位；完整业务／接线／运行未验；LUR01复用批次15完整图缓存，名称推广为全屏背景；绘制／Alpha／调色板正文保持，仅静态；R06文字改为纹理消费，批次4保持在已有Begin／End内；其他批次正文保持，仅静态；R08新增13号ARGB矩形与16号Canvas消费，14／15及原0–12分发保持 |
 | 2867 | 0x00521870 | `sub_521870` | 有正文 | `src/render/GraphicPendingQueue.cpp:318 — Sub_521870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2868 | 0x005219C0 | `sub_5219C0` | 有正文 | `src/render/GraphicPendingQueue.cpp:52 — CalculateRippleScreenDelta` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2869 | 0x00521A30 | `Renderer::QueueText` | 有正文 | `src/render/TextPendingQueue.cpp:51 — QueueText_521A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |

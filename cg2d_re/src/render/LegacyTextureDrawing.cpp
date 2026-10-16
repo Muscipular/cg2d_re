@@ -557,4 +557,117 @@ std::int32_t RenderImageTexture(
         mixFlags, color, fallback.get());
 }
 
+// R08：整数像素中心，上／左边包含、下／右边排除；三角形内使用同一ARGB颜色。
+std::int32_t RenderColorTriangles(
+    const std::span<const ColorVertex> vertices, const TextureRectangle& clipRectangle)
+{
+    LegacyTextureDevice* device = GetRendererTextureDevice();
+    std::unique_ptr<LegacyTextureDevice, decltype(&DestroyLegacyTextureDevice)> fallback {
+        nullptr, DestroyLegacyTextureDevice
+    };
+    if (device == nullptr) {
+        SDL_Surface* const back = GetCpuBackSdlSurface();
+        fallback.reset(CreateLegacyTextureDevice(
+            back == nullptr ? nullptr : SDL_GetPixelFormatDetails(back->format), back));
+        device = fallback.get();
+        if (device == nullptr) {
+            return kNativeFailure;
+        }
+        const std::int32_t result = BeginLegacyTextureScene(device);
+        if (result != 0) {
+            return result;
+        }
+    }
+    SDL_Surface* const back = device->back;
+    SDL_Surface* const row = device->row.get();
+    if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
+        return kSurfaceBusy;
+    }
+    if (!device->sceneActive) {
+        return kNativeFailure;
+    }
+    const std::int32_t clipLeft = std::max(0, clipRectangle[0]);
+    const std::int32_t clipTop = std::max(0, clipRectangle[1]);
+    const std::int32_t clipRight = std::min(back->w, clipRectangle[2]);
+    const std::int32_t clipBottom = std::min(back->h, clipRectangle[3]);
+    if (clipRight <= clipLeft || clipBottom <= clipTop) {
+        return 0;
+    }
+    if (!SDL_SetSurfaceColorKey(row, false, 0)
+        || !SDL_SetSurfaceColorMod(row, 255, 255, 255)
+        || !SDL_SetSurfaceAlphaMod(row, 255)) {
+        return kNativeFailure;
+    }
+    auto* const pixels = static_cast<std::uint32_t*>(row->pixels);
+    for (std::size_t offset = 0; offset + 2 < vertices.size(); offset += 3) {
+        ColorVertex a = vertices[offset];
+        ColorVertex b = vertices[offset + 1];
+        ColorVertex c = vertices[offset + 2];
+        const std::uint32_t color = a.color;
+        if ((color >> 24) == 0) {
+            continue;
+        }
+        if (b.y < a.y) {
+            std::swap(a, b);
+        }
+        if (c.y < a.y) {
+            std::swap(a, c);
+        }
+        if (c.y < b.y) {
+            std::swap(b, c);
+        }
+        const double area = (static_cast<double>(b.x) - a.x) * (static_cast<double>(c.y) - a.y)
+            - (static_cast<double>(b.y) - a.y) * (static_cast<double>(c.x) - a.x);
+        if (area == 0.0) {
+            continue;
+        }
+        if (!SDL_SetSurfaceBlendMode(row,
+                (color >> 24) == 255 ? SDL_BLENDMODE_NONE : SDL_BLENDMODE_BLEND)) {
+            return kNativeFailure;
+        }
+        const auto top = std::max(clipTop, static_cast<std::int32_t>(std::ceil(a.y)));
+        const auto bottom = std::min(clipBottom, static_cast<std::int32_t>(std::ceil(c.y)));
+        for (std::int32_t y = top; y < bottom; ++y) {
+            const ColorVertex& edgeStart = y < b.y ? a : b;
+            const ColorVertex& edgeEnd = y < b.y ? b : c;
+            const double longX = a.x + (static_cast<double>(y) - a.y)
+                * (static_cast<double>(c.x) - a.x) / (static_cast<double>(c.y) - a.y);
+            const double shortX = edgeStart.x + (static_cast<double>(y) - edgeStart.y)
+                * (static_cast<double>(edgeEnd.x) - edgeStart.x)
+                / (static_cast<double>(edgeEnd.y) - edgeStart.y);
+            const auto left = std::max(clipLeft, static_cast<std::int32_t>(
+                std::ceil(std::min(longX, shortX))));
+            const auto right = std::min(clipRight, static_cast<std::int32_t>(
+                std::ceil(std::max(longX, shortX))));
+            if (right <= left) {
+                continue;
+            }
+            const SDL_Rect source {0, 0, right - left, 1};
+            const SDL_Rect destination {left, y, right - left, 1};
+            std::fill_n(pixels, source.w, color);
+            if (!SDL_BlitSurfaceUnchecked(row, &source, back, &destination)) {
+                return kNativeFailure;
+            }
+        }
+    }
+    return 0;
+}
+
+std::int32_t RenderColorRectangle(
+    const TextureRectangle& rectangle, const std::uint32_t color)
+{
+    if (rectangle[2] <= rectangle[0] || rectangle[3] <= rectangle[1]) {
+        return 0;
+    }
+    const auto left = static_cast<float>(rectangle[0]);
+    const auto top = static_cast<float>(rectangle[1]);
+    const auto right = static_cast<float>(rectangle[2]);
+    const auto bottom = static_cast<float>(rectangle[3]);
+    const std::array<ColorVertex, 6> vertices {{
+        {left, top, color}, {right, top, color}, {right, bottom, color},
+        {left, top, color}, {right, bottom, color}, {left, bottom, color}
+    }};
+    return RenderColorTriangles(vertices, rectangle);
+}
+
 } // namespace cg::render

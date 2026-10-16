@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include "CanvasInternal.hpp"
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "PngImageInternal.hpp"
@@ -521,11 +522,26 @@ void DrawAllQueued_520DD0()
             case 12:
                 DrawFixedScaleSprite(graphic, 0.75f);
                 break;
+            case GraphicBatch_Rectangle: {
+                const auto xBits = std::bit_cast<std::uint32_t>(graphic->x);
+                const auto yBits = std::bit_cast<std::uint32_t>(graphic->y);
+                const TextureRectangle rectangle {
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(xBits)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(yBits)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(xBits >> 16)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(yBits >> 16))
+                };
+                static_cast<void>(RenderColorRectangle(rectangle, graphic->descriptor.color));
+                break;
+            }
             case GraphicBatch_PngImage:
                 DrawPngImageBatch(*graphic->reference.pngImage);
                 break;
             case GraphicBatch_FullscreenBackground:
                 DrawFullscreenBackground(graphic);
+                break;
+            case GraphicBatch_Canvas:
+                DrawCanvasBatch(*graphic->reference.canvas);
                 break;
             default:
                 break;

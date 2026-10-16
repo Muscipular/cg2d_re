@@ -1,5 +1,6 @@
 #include "cg/render/RendererResources.hpp"
 
+#include "CanvasInternal.hpp"
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "PngImageInternal.hpp"
@@ -371,6 +372,7 @@ bool AllocateRendererResources() noexcept
 void ReleaseRendererResources() noexcept
 {
     ReleasePngImageResources();
+    ReleaseCanvasBatches();
     ResetFontGlyphCache();
     delete gRenderer;
     gRenderer = nullptr;

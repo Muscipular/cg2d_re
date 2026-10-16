@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <span>
 
 struct SDL_Surface;
 struct SDL_PixelFormatDetails;
@@ -18,6 +19,18 @@ using TextureRectangle = std::array<std::int32_t, 4>;
 std::int32_t RenderImageTexture(
     TextureSurface* surface, const TextureRectangle& source,
     const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color);
+
+// R08：纯色三角形的render私有顶点，同一三角形三点颜色相同。
+struct ColorVertex {
+    float x;
+    float y;
+    std::uint32_t color; // 0xAARRGGBB。
+};
+
+// 裁剪到实际Back；共用现有ARGB行面，不改变纹理绑定和混合字段。
+std::int32_t RenderColorTriangles(
+    std::span<const ColorVertex> vertices, const TextureRectangle& clipRectangle);
+std::int32_t RenderColorRectangle(const TextureRectangle& rectangle, std::uint32_t color);
 
 // 原 renderer 的共享值；查询须借用 RendererResources 的唯一存储。
 struct LegacyTextureState {

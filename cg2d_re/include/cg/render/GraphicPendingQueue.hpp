@@ -14,11 +14,14 @@ struct YobiAction;
 namespace cg::render {
 
 struct PngImageBatch; // R04：render私有帧批次；队列只借用。
+struct CanvasBatchData; // R08：render拥有的形状快照；队列只借用。
 
-// R03/R04 扩展批次沿参考编号；仍进入同一层序队列。
+// R03/R04/R08 扩展批次沿参考编号；仍进入同一层序队列。
 enum GraphicBatchType : std::uint8_t {
+    GraphicBatch_Rectangle = 13,
     GraphicBatch_PngImage = 14,
     GraphicBatch_FullscreenBackground = 15, // R03／LUR01 共用完整源图铺满窗口。
+    GraphicBatch_Canvas = 16,
 };
 
 // GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。
@@ -60,6 +63,7 @@ static_assert(offsetof(GraphicDescriptor16, paletteIndex) == 0x0E);
 union GraphicQueueReference {
     cg::yobi::YobiAction* action;
     PngImageBatch* pngImage; // R04：纹理由帧批次保留，非SDK对象。
+    CanvasBatchData* canvas; // R08：原生形状快照，无底层SDK对象。
     std::uint32_t textToken;
 };
 
@@ -192,6 +196,11 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
 
 // 原 Graphic::LoadPatelet@523140：借用 +22 的 S16 独立调色板索引，保留 0/1/2 返回。
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
+
+// R08：纯ARGB矩形进入同一层序队列；成功返回索引，失败透传原队列返回。
+std::int32_t DrawRectangle(
+    std::int16_t x, std::int16_t y, std::int16_t width, std::int16_t height,
+    std::uint8_t layer, std::uint32_t color);
 
 // R03：借原 DrawGraphic 生产战斗背景记录，并标为独立缩放批次。
 std::int32_t DrawBattleBackgroundScaled(

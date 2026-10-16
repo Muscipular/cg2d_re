@@ -317,4 +317,29 @@ std::int32_t StretchGraphicToScreen(const std::int32_t pendingIndex)
     return pendingIndex;
 }
 
+// R08：参考 RendererDrawRect；颜色是0xAARRGGBB，四边仍按S16写入原矩形槽。
+std::int32_t DrawRectangle(
+    const std::int16_t x, const std::int16_t y,
+    const std::int16_t width, const std::int16_t height,
+    const std::uint8_t layer, const std::uint32_t color)
+{
+    const std::int32_t index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
+    if (index < 0) {
+        return index;
+    }
+    auto& record = gLegacyPendingStorage.records[index];
+    const auto right = static_cast<std::uint16_t>(x + width);
+    const auto bottom = static_cast<std::uint16_t>(y + height);
+    record.x = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(static_cast<std::uint16_t>(x))
+        | (static_cast<std::uint32_t>(right) << 16));
+    record.y = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(static_cast<std::uint16_t>(y))
+        | (static_cast<std::uint32_t>(bottom) << 16));
+    record.descriptor.color = color;
+    record.descriptor.mixFlags = GraphicMixFlag_None;
+    record.batchType = GraphicBatch_Rectangle;
+    return index;
+}
+
 } // namespace cg::render

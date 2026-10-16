@@ -44,6 +44,7 @@ add_library(cg2d_re_core STATIC
     src/render/GraphicCacheState.cpp
     src/render/GraphicDxCache.cpp
     src/render/PngImage.cpp
+    src/render/Canvas.cpp
     src/render/GraphicPaletteCache.cpp
     src/render/RendererResources.cpp
     src/render/SurfaceState.cpp

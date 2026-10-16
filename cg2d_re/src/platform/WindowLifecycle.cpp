@@ -30,11 +30,17 @@ int InitializeWindow()
         int width = 0;
         int height = 0;
         const char* option = std::strstr(commandLine, "/width:");
-        if (option != nullptr && std::sscanf(option, "/width:%d", &width) == 1) {
+        if (option == nullptr) {
+            option = std::strstr(commandLine, "/w:");
+        }
+        if (option != nullptr && std::sscanf(std::strchr(option, ':') + 1, "%d", &width) == 1) {
             gWindowWidth = width;
         }
         option = std::strstr(commandLine, "/height:");
-        if (option != nullptr && std::sscanf(option, "/height:%d", &height) == 1) {
+        if (option == nullptr) {
+            option = std::strstr(commandLine, "/h:");
+        }
+        if (option != nullptr && std::sscanf(std::strchr(option, ':') + 1, "%d", &height) == 1) {
             gWindowHeight = height;
         }
         ui::InitializeWindowLayout(width, height);

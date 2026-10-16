@@ -1010,7 +1010,7 @@
 | 938 | 0x00465F00 | `ParseCmdOpt` | 有正文 | `src/platform/CommandOptions.cpp:157 — ParseCommandOptions` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；ALM01：原IP解析后读取四个启动参数，直接发布语义登录变量和场景2／2；仅静态，自动登录运行未验 |
 | 939 | 0x004669F0 | `WndInit` | 有正文 | `src/platform/WindowLifecycle.cpp:24 — InitializeWindow` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验；RHM01/R02 首次解析宽高，接窗口原型、动态CPU画布及输入／呈现尺寸；仅静态，运行未验 |
 | 940 | 0x00466B80 | `Renderer::Rebuild` | 有正文 | `src/render/RendererRebuild.cpp:28 — RebuildRenderer_466B80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:99 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 941 | 0x00466D50 | `sub_466D50` | 有正文 | `src/platform/WindowLifecycle.cpp:105 — PumpWindowMessages` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 942 | 0x00466DC0 | `WIN_PROC` | 有正文 | `src/platform/WindowProcedure.cpp:167 — WindowProcedure` | CTM01/A07直接接Ctrl+V、Shift+Insert与WM_PASTE，复制后释放剪贴板并交既有UTF-16输入；仅静态，编译／运行未验 |
 | 943 | 0x00467B90 | `sub_467B90` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 944 | 0x00467BA0 | `unknown_libname_17` | 有承接 | `src/platform/RuntimeInitialization.cpp:220 — cg::world::detail::gPlayerX／gPlayerY` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |

@@ -168,8 +168,8 @@ std::int32_t Sub_464840()
             world::gCurrentSceneState = 4;
         } else if (result == 2) {
             static_cast<void>(login::detail::PlaySe(54, 320, 240));
-            static_cast<void>(platform::PostLegacyWindowMessage(
-                platform::gLegacyWindow,
+            static_cast<void>(::PostMessageW(
+                reinterpret_cast<HWND>(platform::gLegacyWindow),
                 0x10,
                 0,
                 0));

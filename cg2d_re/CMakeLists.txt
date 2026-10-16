@@ -43,7 +43,7 @@ set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 # 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 user32 shell32 gdi32)
+target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32)
 
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC
@@ -231,7 +231,7 @@ target_compile_options(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

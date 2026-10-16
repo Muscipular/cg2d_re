@@ -4755,7 +4755,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
         if (response != 1) {
             return response;
         }
-        return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
+        return ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
     }
 
     static_cast<std::uint32_t>(std::fread(&gCutData9FB948, 12, 1, file));
@@ -4792,7 +4792,7 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
         if (response != 1) {
             return response;
         }
-        return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
+        return ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
     }
 
     static_cast<std::uint32_t>(std::fread(gAutDataAF10D8, 1, 477603, file));

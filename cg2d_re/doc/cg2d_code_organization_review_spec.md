@@ -140,3 +140,16 @@ COR09验收：替换完成，源码净减144行；文件读取段、十六进制
 - 验收：源码和构建列表无追踪器残留；静态逐字对照普通鼠标状态更新、其余事件函数及共用Report正文；检查tq解码类型与位置、函数表身份和状态变化；执行build.bat Debug完成编译／链接。不新增／运行测试，不启动客户端、不计算摘要。
 
 COR10验收：模块及全部调用删除完成；8个保留源码／构建文件逐字对照确认只有上述改动，普通鼠标状态更新与其他事件、Report正文保持。源码及CMake无追踪器残留，3680行身份／名称保持，只有指定9行由有正文转已排除。build.bat Debug配置、编译及客户端链接成功，退出码0；仍有既有C4701／C4703未初始化变量告警。未运行客户端／测试或验证服务器兼容性，未计算摘要、未更新JSON台账。
+
+## COR11：窗口浅包装精简（2026-10-16）
+
+用户要求评估并移除LegacyWindow中的浅包装，按既有SPEC裁决授权执行。只处理当前四个接口中三项可由调用点直接表达的边界，不取消窗口功能或扩大到其他模块的包装整理。
+
+- 删除PostLegacyWindowMessage及10个调用中的转发，改用PostMessageW；各调用原窗口、消息、WPARAM／LPARAM数值与异步语义保持。两处SceneState返回仍返回Win32 BOOL对应的32位有符号结果，不改PostQuitMessage／同步SendMessage或直接退出。
+- 删除ExecuteLegacyShell及唯一调用的转发，登录场景直接ShellExecuteA，保留窗口、空operation、原URL、空parameters／directory、showCommand=1和原忽略返回行为，不改变A系字符串编码。
+- 删除SetLegacyWindowText及两个调用的转发；调用点均为仍存活的std::wstring，直接以buffer.c_str()交SetWindowTextW，省去wstring_view到wstring的再次复制。保留文本生成、窗口取样与调用顺序；不以view.data()代替NUL结尾。
+- 本次按用户去包装方向，将必要HWND转换与Windows SDK调用限定在8个消费者CPP内，公开业务接口不引入Win32类型；需要处显式包含Windows.h与宏防护，不创建新的等价包装。Shell32依赖由core移至实际调用所属startup目标，不新增外部依赖。
+- 保留gLegacyWindow及ShowWideMessage：后者继续为任意wstring_view创建NUL结尾副本，保留父窗口、UTF-16、标志与返回；不把有字符串所有权责任的适配等同于纯转发。LegacyWindow.cpp／hpp继续承载这两项，不额外迁移或改名。
+- 验收：旧三符号无源码残留；核13个调用的参数、返回使用、时序及保留正文，仅标题移除冗余分配；函数表没有这三项独立提供者，3680行及状态保持。执行build.bat Debug验证编译／链接，不新增或运行测试、不运行客户端、不计算摘要、不写JSON台账。现有其他工作区修改完整保留，提交只取本轮差异。
+
+COR11验收：三包装删除，10处PostMessageW、2处SetWindowTextW和1处ShellExecuteA接线完成；对8个消费者反向替换后与原正文逐字一致，ShowWideMessage及窗口存储保持，Shell32依赖已随调用迁移。旧符号无残留，函数表逐字不变；build.bat Debug配置、编译及客户端链接成功，退出码0。仍有既有未初始化变量及旧网络API告警；未运行客户端／测试或测量性能，未计算摘要、未更新JSON台账。

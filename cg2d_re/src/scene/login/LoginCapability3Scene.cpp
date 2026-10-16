@@ -17,6 +17,14 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
 #include <bit>
 #include <cstdint>
 #include <cstring>
@@ -130,8 +138,8 @@ std::int32_t ProcessCapability3InputAndDraw()
         cg::world::gCurrentSceneState = 10;
     } else if (result == 2) {
         static_cast<void>(cg::login::detail::PlaySe(54, 320, 240));
-        static_cast<void>(cg::platform::PostLegacyWindowMessage(
-            cg::platform::gLegacyWindow,
+        static_cast<void>(::PostMessageW(
+            reinterpret_cast<HWND>(cg::platform::gLegacyWindow),
             0x10,
             0,
             0));

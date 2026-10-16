@@ -14,6 +14,14 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
 #include <cstdint>
 #include <cstring>
 
@@ -87,8 +95,8 @@ void ProcessModeScene_45C5A0()
 
     if (result == 2) {
         static_cast<void>(detail::PlaySe(54, 320, 240));
-        static_cast<void>(platform::PostLegacyWindowMessage(
-            platform::gLegacyWindow, 0x10, 0, 0));
+        static_cast<void>(::PostMessageW(
+            reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 100;
         gLoginModeMessage = L"請輸入ＩＤ和ＰＡＳＳＷＯＲＤ" /* 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。 */;

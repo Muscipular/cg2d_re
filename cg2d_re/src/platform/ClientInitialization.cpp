@@ -184,7 +184,7 @@ int InitializeClient_4576B0()
     }
     if (reportRendererFailure) {
         ShowWideMessage(L"DirectDraw初期化失敗。", kConfirmCaption, kErrorMessageFlags);
-        PostLegacyWindowMessage(gLegacyWindow, 0x10, 0, 0);
+        ::PostMessageW(reinterpret_cast<HWND>(gLegacyWindow), 0x10, 0, 0);
     }
 
     // 原失败提示/PostMessage 之后仍继续，不在此插入返回或清理。

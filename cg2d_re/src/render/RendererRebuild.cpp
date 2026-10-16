@@ -14,6 +14,14 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
 namespace cg::render {
 
 // 原 [466B80,466D41)：失败投递后仍继续；分支与资源顺序见 cg2d_sdl_presenter.md。
@@ -29,12 +37,12 @@ void RebuildRenderer_466B80()
     }
     if (reportRendererFailure) {
         platform::ShowWideMessage(L"DirectDraw初期化失敗。", L"確認", 0x10);
-        platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
+        ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
     }
 
     static_cast<void>(BuildSurfaceCache_5231A0());
     if (InitPalette32() == 0) {
-        platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x104, 0x0D, 0);
+        ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x104, 0x0D, 0);
     }
     const std::int32_t sceneType = world::gCurrentSceneType;
     if (sceneType == 10) {

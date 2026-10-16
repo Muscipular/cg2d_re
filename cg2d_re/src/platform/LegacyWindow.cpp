@@ -3,7 +3,6 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
-#include <shellapi.h>
 
 #include <string>
 
@@ -16,42 +15,6 @@ int ShowWideMessage(const std::wstring_view text, const std::wstring_view captio
     const std::wstring ownedText(text);
     const std::wstring ownedCaption(caption);
     return MessageBoxW(reinterpret_cast<HWND>(gLegacyWindow), ownedText.c_str(), ownedCaption.c_str(), flags);
-}
-
-std::int32_t SetLegacyWindowText(const std::uintptr_t window, const std::wstring_view text)
-{
-    const std::wstring wideText(text);
-    return static_cast<std::int32_t>(::SetWindowTextW(reinterpret_cast<HWND>(window), wideText.c_str()));
-}
-
-std::int32_t PostLegacyWindowMessage(
-    const std::uintptr_t window,
-    const std::uint32_t message,
-    const std::uintptr_t wParam,
-    const std::intptr_t lParam)
-{
-    return static_cast<std::int32_t>(::PostMessageW(
-        reinterpret_cast<HWND>(window),
-        static_cast<UINT>(message),
-        static_cast<WPARAM>(wParam),
-        static_cast<LPARAM>(lParam)));
-}
-
-std::intptr_t ExecuteLegacyShell(
-    const std::uintptr_t window,
-    const char* const operation,
-    const char* const file,
-    const char* const parameters,
-    const char* const directory,
-    const std::int32_t showCommand)
-{
-    return reinterpret_cast<std::intptr_t>(::ShellExecuteA(
-        reinterpret_cast<HWND>(window),
-        operation,
-        file,
-        parameters,
-        directory,
-        static_cast<int>(showCommand)));
 }
 
 } // namespace cg::platform

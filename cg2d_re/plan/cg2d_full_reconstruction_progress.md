@@ -2961,3 +2961,9 @@ COR09完成：用BCryptOpenAlgorithmProvider／BCryptCreateHash／BCryptHashData
 按用户移除要求及既有SPEC裁决授权，先记录COR10：取消追踪池、配置和重复点击上报；普通鼠标状态更新保留，tq沿原两整数解析后忽略，其他上报不动。当前调用核对表明两按下函数返回值均无消费者，改为void；9个追踪器入口转已排除。服务器对此上报的依赖未验证，不宣称联机等价；待代码与静态检查完成后执行build.bat Debug。
 
 COR10完成：删除LegacyMouseTracker的CPP／HPP及构建项，移除5处包含、初始化／退出调用和左右键重复点击上报；普通鼠标状态更新原序保持，两按下入口改void且同步唯一窗口调用。tq复用既有忽略参数回调，仍解码两个整数；共用Report及其他上报保持。8个保留源码／构建文件与批准差异逐字核对通过，3680行函数身份／名称保持，9个追踪入口改已排除，统计为2471有正文／746有承接／453已排除／9空方法／1不适用。build.bat Debug配置、编译和客户端链接通过，退出码0；仍有既有未初始化变量告警。未运行测试／客户端或验证服务器兼容性，未计算摘要、未更新JSON台账；既有Python缓存保留并排除。
+
+## 297. 窗口浅包装精简（2026-10-16）
+
+已核LegacyWindow的4个函数及调用。按COR11删除PostMessage／ShellExecute转发和已知wstring标题的重复复制，8个消费者CPP直接调用对应Win32 API；保留ShowWideMessage的view终止与父窗口责任。先记规格后执行，普通窗口功能与参数／返回保持；编辑后执行build.bat Debug，其他既有修改及暂存状态保留。
+
+COR11完成：删除3个包装接口，8个CPP中的13处调用直接使用PostMessageW／SetWindowTextW／ShellExecuteA，保留原参数、异步投递和返回使用；两个标题调用直接借用存活wstring的c_str，省去重复副本。ShowWideMessage和窗口唯一存储保持，Shell32系统依赖由core归入实际调用的startup目标。11个源码／构建文件差异核对通过，函数表3680行及状态逐字不变；build.bat Debug配置、编译和客户端链接成功，退出码0。保留既有未初始化变量及旧网络API告警；未运行客户端／测试或测量性能，未计算摘要、未记录JSON台账；提交排除既有SetupIni相关改动和Python缓存。

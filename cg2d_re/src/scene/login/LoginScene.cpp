@@ -16,6 +16,15 @@
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+#include <shellapi.h>
+
 #include <array>
 #include <bit>
 #include <cstddef>
@@ -232,7 +241,7 @@ void IncrementSceneState()
 void SetBaseWindowTitle(std::wstring& buffer)
 {
     buffer = std::format(L"{} {}", kWindowName, kVersion);
-    cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
+    ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 
 const wchar_t* CategoryTitle(std::int32_t categoryIndex)
@@ -267,7 +276,7 @@ void SetServerWindowTitle(
             kVersion,
             category);
     }
-    cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
+    ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 
 void CopyAccountHelpLines()
@@ -365,8 +374,8 @@ std::int32_t ProcessScene_45FEA0()
         interactiveTail = 1;
         if ((cg::ui::QueryUiControlInputState_45F100(&gCloseUi) & 1) != 0) {
             detail::PlaySe(54, 320, 240);
-            platform::PostLegacyWindowMessage(
-                platform::gLegacyWindow, 0x10, 0, 0);
+            ::PostMessageW(
+                reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
         } else if ((cg::ui::QueryUiControlInputState_45F100(&gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(1);
             static_cast<void>(render::SelectPalette(20, 1));
@@ -594,8 +603,8 @@ std::int32_t ProcessScene_45FEA0()
 
     if (world::gCurrentSceneState == 101 && UpdateLoginMessage(gLoginSceneMessage) != 0) {
         if (gOpenUrlAfterMessage != 0) {
-            platform::ExecuteLegacyShell(
-                platform::gLegacyWindow,
+            ::ShellExecuteA(
+                reinterpret_cast<HWND>(platform::gLegacyWindow),
                 nullptr,
                 "http://www.softstar.com.tw/Game/Index.aspx",
                 nullptr,

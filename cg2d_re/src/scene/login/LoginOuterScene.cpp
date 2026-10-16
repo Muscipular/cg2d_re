@@ -15,6 +15,14 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
 #include <bit>
 #include <cstdint>
 #include <cstring>
@@ -131,8 +139,8 @@ void ProcessOuterScene_45C2D0()
         world::gCurrentSceneState = 10;
     } else if (result == 2) {
         static_cast<void>(detail::PlaySe(54, 320, 240));
-        static_cast<void>(platform::PostLegacyWindowMessage(
-            platform::gLegacyWindow, 0x10, 0, 0));
+        static_cast<void>(::PostMessageW(
+            reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;
         gValue9A4BA0 = L"不正確的帳號和密碼。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;

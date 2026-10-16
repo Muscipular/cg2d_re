@@ -14,6 +14,11 @@ struct LegacyTextureDevice;
 // 原 RECT 的四项 S32，顺序为 left/top/right/bottom；缓存使用同一数值顺序。
 using TextureRectangle = std::array<std::int32_t, 4>;
 
+// R03/R04：完整图像使用自身实际纹理尺寸计算UV，不借用节点池的64×48尺寸。
+std::int32_t RenderImageTexture(
+    TextureSurface* surface, const TextureRectangle& source,
+    const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color);
+
 // 原 renderer 的共享值；查询须借用 RendererResources 的唯一存储。
 struct LegacyTextureState {
     std::int16_t width;            // +B8：纹理采样分母，不是请求块宽。

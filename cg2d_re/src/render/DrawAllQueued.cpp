@@ -123,10 +123,8 @@ void DrawBattleBackground(GraphicCacheItem32* const graphic)
     if (source[2] <= source[0] || source[3] <= source[1]) {
         return;
     }
-    if (RenderTexture_44DA90(0, 0, &source,
-            static_cast<float>(drawWidth) / (source[2] - source[0]),
-            static_cast<float>(drawHeight) / (source[3] - source[1]),
-            cache.surface.Get(), graphic->imageNo, graphic->descriptor.paletteIndex,
+    const TextureRectangle destination {0, 0, drawWidth, drawHeight};
+    if (RenderImageTexture(cache.surface.Get(), source, destination,
             graphic->descriptor.mixFlags, graphic->descriptor.color) == kSurfaceBusy) {
         gGraphicDirty = 1;
     }

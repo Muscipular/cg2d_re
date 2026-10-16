@@ -516,4 +516,22 @@ std::int32_t RenderTexture_44DA90(
     return BlitTextureToBack(surface, source, destination);
 }
 
+std::int32_t RenderImageTexture(
+    TextureSurface* const surface, const TextureRectangle& source,
+    const TextureRectangle& destination, const std::uint8_t mixFlags, const std::uint32_t color)
+{
+    SDL_Surface* const input = GetTextureSdlSurface(surface);
+    if (input == nullptr) {
+        return kNativeFailure;
+    }
+    const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
+    const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
+    return SubmitTexturedRectangle(surface, destination,
+        static_cast<float>(flipX ? source[2] : source[0]) / input->w,
+        static_cast<float>(flipY ? source[3] : source[1]) / input->h,
+        static_cast<float>(flipX ? source[0] : source[2]) / input->w,
+        static_cast<float>(flipY ? source[1] : source[3]) / input->h,
+        mixFlags, color);
+}
+
 } // namespace cg::render

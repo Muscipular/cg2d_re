@@ -29,6 +29,7 @@
 #include <format>
 #include <string>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <random>
 
 namespace cg::platform {
 namespace initialization_detail {
@@ -218,7 +219,7 @@ int InitializeClient_4576B0()
     }
 
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
-    SeedRandom_53B4BF(ReadTickCount32());
+    SeedRandom_53B4BF(std::random_device()() ^ ReadTickCount32());
     static_cast<void>(world::InitializeRotationTable_46FB20());
     static_cast<void>(ResetLegacyMouseState_506870());
     static_cast<void>(cg::yobi::detail::Sub_404A40());

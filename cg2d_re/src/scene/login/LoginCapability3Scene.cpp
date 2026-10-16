@@ -54,7 +54,7 @@ std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
 bool Sub_45EF80()
 {
     const double deadline = cg::platform::gLastRenderDt + kFrameGateIncrement;
-    const std::uint32_t tick = cg::platform::ReadTickCount32();
+    const std::uint64_t tick = cg::platform::ReadTickCount64();
     return tick > deadline;
 }
 

@@ -178,7 +178,7 @@ static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。
 
 static std::int32_t gCraftRecipeIdD2E440 = 0; // 原全局：0x00D2E440。 主更新重定位配方使用的原id快照。
 
-static std::uint32_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 制作等待阶段的同源U32截止值。
+static std::uint64_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 CTM01制作等待阶段的同源64位截止值。
 
 static std::int32_t gCraftResultCC46D8 = 0; // 原全局：0x00CC46D8。
 
@@ -490,13 +490,13 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
     }
     static_cast<void>(network::Sub_512DA0(
         platform::gConnectionSocket, static_cast<std::int32_t>(duration / 1000u)));
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;
     window->elements[6].visible = 0;
     window->elements[7].visible = 0;
     window->elements[8].visible = 0;
     gCraftDisplayImageCB2204 = -1;
-    gSkillPreviewTickCF46C8 = platform::ReadTickCount32();
+    gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
@@ -940,7 +940,7 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
         static_cast<WindowTextData*>(window->elements[index].data)->text.clear();
     }
     WindowCraft_PrepareMaterialElements(window);
-    gSkillPreviewTickCF46C8 = platform::ReadTickCount32();
+    gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = gSkillSendModeC8A970 != 0
@@ -2810,7 +2810,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     const std::wstring& requestText = buffer;
     std::wstring temporary;
     const auto expired = [] {
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         return gCraftDeadlineCF3B04 <= tick;
     };
     // 三种参数合同在读取共享状态时才选取，不能把请求值预先截为同一宽度。
@@ -3525,26 +3525,28 @@ WindowAnimationData* WindowCraft_ReceiveItemWorkResult(const std::int32_t result
 // 原函数：0x0047D2E0。
 WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     WindowInstance*, const std::int32_t anchor,
-    const std::int32_t first, const std::int32_t second, const std::uint32_t deadline)
+    const std::int32_t first, const std::int32_t second, const std::uint64_t deadline)
 {
-    const std::uint32_t tick = platform::ReadTickCount32();
-    const std::uint32_t start = gSkillPreviewTickCF46C8;
-    const std::int32_t interval = std::bit_cast<std::int32_t>(deadline - start) / 11;
-    const std::int32_t phase = interval == 0 ? 0 : std::bit_cast<std::int32_t>(tick - start) / interval;
-    if (static_cast<std::uint32_t>(phase) <= 10) {
+    const std::uint64_t tick = platform::ReadTickCount64();
+    const std::uint64_t start = gSkillPreviewTickCF46C8;
+    const std::int64_t interval = std::bit_cast<std::int64_t>(deadline - start) / 11;
+    const std::int64_t phase = interval == 0 ? 0 : std::bit_cast<std::int64_t>(tick - start) / interval;
+    if (static_cast<std::uint64_t>(phase) <= 10) {
         if ((phase & 1) == 0) {
-            const std::int32_t index = phase / 2;
+            const std::int32_t index = static_cast<std::int32_t>(phase / 2);
             const std::int32_t next = index + 1 >= 6 ? 0 : index + 1;
-            const std::int32_t elapsed = std::bit_cast<std::int32_t>(tick - gSkillPreviewTickCF46C8);
-            const std::int32_t remainder = elapsed % interval;
+            const std::int64_t elapsed = std::bit_cast<std::int64_t>(tick - gSkillPreviewTickCF46C8);
+            const std::int64_t remainder = elapsed % interval;
             const auto& from = kSkillPreviewPoints57D7D0[index];
             const auto& to = kSkillPreviewPoints57D7D0[next];
-            const std::int32_t y = (to[1] - from[1]) * remainder / interval + from[1];
-            const std::int32_t x = (to[0] - from[0]) * remainder / interval + from[0];
+            const std::int32_t y = static_cast<std::int32_t>(
+                (to[1] - from[1]) * remainder / interval + from[1]);
+            const std::int32_t x = static_cast<std::int32_t>(
+                (to[0] - from[0]) * remainder / interval + from[0]);
             static_cast<void>(WindowCraft_SetPreviewPositions(gCurrentWindow, anchor, first, second, x, y));
             return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 1, to[2]);
         }
-        std::int32_t index = phase / 2 + 1;
+        std::int32_t index = static_cast<std::int32_t>(phase / 2 + 1);
         if (index > 7) {
             index = 0;
         }

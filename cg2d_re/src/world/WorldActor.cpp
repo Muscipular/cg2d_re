@@ -739,7 +739,7 @@ void Sub_46B4B0(const std::int32_t direction)
         || action->direction == direction) {
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gValueC8223C + 500u >= now) {
         return;
     }
@@ -751,7 +751,7 @@ void Sub_46B4B0(const std::int32_t direction)
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
     static_cast<void>(Sub_50C8D0(x, y, text));
-    gValueC8223C = platform::ReadTickCount32();
+    gValueC8223C = platform::ReadTickCount64();
 }
 
 // 原函数：0x0046A190。

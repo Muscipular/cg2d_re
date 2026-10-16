@@ -48,7 +48,7 @@ void UpdateLegacyMouseLeftDown_506900(
 
     gLegacyMouseState.buttonCoordinates[1] = static_cast<std::int32_t>(y);
 
-    const std::uint32_t tick = ReadTickCount32();
+    const std::uint64_t tick = ReadTickCount64();
     gLegacyMouseState.leftDownTick = tick;
     gLegacyMouseState.leftElapsed = 0;
 }
@@ -90,10 +90,10 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
 
     gLegacyMouseState.buttonCoordinates[1] = static_cast<std::int32_t>(y);
 
-    const std::uint32_t tick = ReadTickCount32();
+    const std::uint64_t tick = ReadTickCount64();
     gLegacyMouseState.leftDownTick = tick;
     gLegacyMouseState.leftElapsed = 0;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00506B50。
@@ -112,7 +112,7 @@ void UpdateLegacyMouseRightDown_506B50(
 
     gLegacyMouseState.buttonCoordinates[5] = static_cast<std::int32_t>(y);
 
-    const std::uint32_t tick = ReadTickCount32();
+    const std::uint64_t tick = ReadTickCount64();
     gLegacyMouseState.rightDownTick = tick;
     gLegacyMouseState.rightElapsed = 0;
 }
@@ -154,10 +154,10 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
 
     gLegacyMouseState.buttonCoordinates[5] = static_cast<std::int32_t>(y);
 
-    const std::uint32_t tick = ReadTickCount32();
+    const std::uint64_t tick = ReadTickCount64();
     gLegacyMouseState.rightDownTick = tick;
     gLegacyMouseState.rightElapsed = 0;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00506DB0。

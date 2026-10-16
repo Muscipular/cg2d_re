@@ -62,7 +62,7 @@ void RebuildRenderer_466B80()
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(ResetGraphicCache_456D30());
-        platform::gLastRenderDt = platform::ReadTickCount32();
+        platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
     } else if (sceneType == 9) {
         static_cast<void>(world::detail::Sub_51D640());
     }
@@ -75,7 +75,7 @@ void RebuildRenderer_466B80()
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
     platform::gLegacyMouseState.heldButtons = 0;
     platform::gLegacyMouseState.edgeButtons = 0;
-    platform::gLastRenderDt = platform::ReadTickCount32();
+    platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
 }
 
 } // namespace cg::render

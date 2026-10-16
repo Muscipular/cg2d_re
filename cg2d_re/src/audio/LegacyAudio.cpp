@@ -1071,7 +1071,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     static_cast<void>(audio::gSdlAudioBackend.PlayBgm(record.value44 != 0));
     gRecordIndex = static_cast<std::int32_t>(bgmId);
     platform::gLastRenderDt =
-        platform::ReadTickCount32();
+        static_cast<double>(platform::ReadTickCount64());
     gBgmActive1050808 = 1;
     return 1;
 }

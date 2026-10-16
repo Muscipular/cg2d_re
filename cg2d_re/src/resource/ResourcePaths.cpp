@@ -52,8 +52,8 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
             }
             continue;
         }
-        struct _stat32 status;
-        const std::int32_t result = ::_fstat32(::_fileno(file), &status);
+        struct _stat64 status;
+        const std::int32_t result = ::_fstat64(::_fileno(file), &status);
         if (result == 0) {
             times[index] = static_cast<std::int32_t>(status.st_ctime);
         }

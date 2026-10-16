@@ -130,16 +130,16 @@ void __cdecl Sub_449DA0()
     gValue626C18 = 0;
     gValue626BFC = 0;
 
-    __time32_t timeValue = 0;
+    __time64_t timeValue = 0;
     std::FILE* const existingStream = gLogStream626C1C;
     if (existingStream != nullptr) {
         return;
     }
 
     ::_mkdir(kLogDirectory_554658);
-    timeValue = ::_time32(nullptr);
+    timeValue = ::_time64(nullptr);
     const std::tm* const legacyTime =
-        ::_localtime32(&timeValue);
+        ::_localtime64(&timeValue);
     const std::int32_t fileMonth = legacyTime->tm_mon;
     const std::int32_t fileDay = legacyTime->tm_mday;
     const std::int32_t fileYear = legacyTime->tm_year;
@@ -253,10 +253,10 @@ void Sub_44B050(
     }
 
     if (gate != nullptr) {
-        __time32_t timeValue = color;
-        timeValue = ::_time32(nullptr);
+        __time64_t timeValue = color;
+        timeValue = ::_time64(nullptr);
         const std::tm* const legacyTime =
-            ::_localtime32(&timeValue);
+            ::_localtime64(&timeValue);
         index = gWriteIndex626C08;
         const std::int32_t second = legacyTime->tm_sec;
         const std::int32_t minute = legacyTime->tm_min;

@@ -56,9 +56,9 @@
 #include <type_traits>
 #include <cstdint>
 
-// COR14：CRT时间槽仍为原32位有符号时间，禁止默认time_t拓宽布局。
-static_assert(sizeof(__time32_t) == sizeof(std::int32_t));
-static_assert(alignof(__time32_t) == alignof(std::int32_t));
+// CTM01：本地CRT时间槽显式__time64_t，原地址注释仅保历史身份。
+static_assert(sizeof(__time64_t) == sizeof(std::int64_t));
+static_assert(alignof(__time64_t) == alignof(std::int64_t));
 
 namespace cg::ui {
 namespace detail {
@@ -211,7 +211,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t valueCB0604; // 原全局：0x00CB0604。
     std::uint32_t valueD67618; // 原全局：0x00D67618。
     std::tm* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用CRT同线程共享可变std::tm对象。
-    __time32_t timeCB1DF0; // 原全局：0x00CB1DF0。
+    __time64_t timeCB1DF0; // 原全局：0x00CB1DF0。
     std::int32_t valueD67BB0; // 原全局：0x00D67BB0。
     std::int32_t logViewerMaximumD67BB4; // 原全局：0x00D67BB4。 原计数上限，含EOF空读取，不减可见行数。
     std::FILE* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。
@@ -295,7 +295,7 @@ extern std::int32_t gCraftRequestValueD30400; // 原全局：0x00D30400。 制�
 
 extern std::uint8_t gSkillRequestByteD64E13; // 原全局：0x00D64E13。 其他加工发送按S8读取。
 
-extern std::uint32_t gSkillPreviewTickCF46C8; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
+extern std::uint64_t gSkillPreviewTickCF46C8; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
 
 extern std::uint8_t gWindow12SkillIndexCA0470; // 原全局：0x00CA0470。 原低U8发布，索引消费按S8。
 

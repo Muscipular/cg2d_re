@@ -64,13 +64,13 @@ static std::uint8_t gWindow12ModeCC3E80 = 0; // 原全局：0x00CC3E80。
 
 static std::uint8_t gWindow12FlagCC4D27 = 0; // 原全局：0x00CC4D27。
 
-static std::uint32_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
+static std::uint64_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
 
 static std::uint8_t gWindow12SkillLevelCB0608 = 0; // 原全局：0x00CB0608。
 
 static std::uint8_t gWindow12KindD046CC = 0; // 原全局：0x00D046CC。
 
-static std::uint32_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
+static std::uint64_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
 
 static std::int32_t gWindow12PetImageCB10CC = 0; // 原全局：0x00CB10CC。
 
@@ -273,7 +273,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 0;
     gWindow12ValueCF3FF0 = -1;
     gWindow12FlagCC4D27 = 0;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     std::uint32_t duration = gSkillExtraDelayCF46C4 + 4500u;
     gWindow12TickD45D4C = tick;
     const std::uint8_t rebirthMode = gValue5F9754;
@@ -286,7 +286,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     if (gSkillSendModeC8A970 != 0) {
         duration = duration * kSkillCrystalRates57D7B4[gWindow12CrystalLevelCC3E90] / 100u;
     }
-    const std::uint32_t deadline = duration + tick;
+    const std::uint64_t deadline = duration + tick;
     gSkillPreviewTickCF46C8 = tick;
     gWindow12DeadlineCB0F7C = deadline;
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -361,7 +361,7 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
             static_cast<WindowAnimationData*>(window->elements[2].data)->action, defaultAction);
     }
     gWindow12FlagCC4D27 = 0;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gWindow12TickD45D4C = tick;
     gSkillPreviewTickCF46C8 = tick;
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -493,7 +493,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                     static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04 = 0;
                     ++gWindow12FlagCC4D27;
                 } else if (gWindow12FlagCC4D27 == 1) {
-                    const std::uint32_t tick = platform::ReadTickCount32();
+                    const std::uint64_t tick = platform::ReadTickCount64();
                     if (gWindow12TickD45D4C + 2000u < tick) {
                         cg::yobi::detail::SetYobiActionField2B0(
                             static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
@@ -541,7 +541,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             default:
                 break;
         }
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         if (gWindow12DeadlineCB0F7C < tick) {
             const std::uint8_t sendMode = gValue5F9754;
             gSkillExtraDelayCF46C4 = 0;
@@ -564,7 +564,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             static_cast<void>(WindowGather_Cancel(gCurrentWindow));
         }
     } else if (mode == 3) {
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         if (gWindow12TickD45D4C + 2000u < tick) {
             const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
@@ -585,7 +585,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             }
         }
     } else if (mode == 4) {
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         if (gWindow12TickD45D4C + 2000u < tick) {
             static_cast<void>(WindowGather_Cancel(gCurrentWindow));
         }

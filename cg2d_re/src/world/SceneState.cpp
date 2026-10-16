@@ -213,7 +213,7 @@ constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量�
 constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
     11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-std::uint32_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
+std::uint64_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
 
 struct DirectionDelta {
     std::int16_t x;
@@ -243,8 +243,8 @@ static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == 0x47908);
 static_assert(sizeof(SkillRuntimeSlots) == 0x4790C);
 SkillRuntimeSlots gSkillRuntimeSlots {};
 
-std::uint32_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
-std::uint32_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
+std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
+std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
 std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
 std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
@@ -840,11 +840,11 @@ namespace {
 std::array<MapEffectRecord, 500> gMapEffectRecords {};
 MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
 std::uint8_t gMapEffectStartedC8A728 = 0; // 原全局：0x00C8A728。
-std::uint32_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
+std::uint64_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
 std::uint8_t gMapEffectStartedC82240 = 0; // 原全局：0x00C82240。
-std::uint32_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
+std::uint64_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
 std::uint8_t gMapEffectStartedC8224C = 0; // 原全局：0x00C8224C。
-std::uint32_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
+std::uint64_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
 std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
 std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
@@ -1052,7 +1052,7 @@ void CreateMapEffectKind1()
     if (record == nullptr) {
         return;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     ++gMapCharaSceneSlots.valueC8A742;
     gMapEffectTickC8A734 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
@@ -1087,7 +1087,7 @@ void CreateMapEffectKind2()
     if (record == nullptr) {
         return;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     ++gMapCharaSceneSlots.valueC8A748;
     gMapEffectTickC82250 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
@@ -1110,7 +1110,7 @@ void CreateMapEffectKind4()
         record->value08 = static_cast<std::int32_t>(0xFFFFFFFFu);
         record->value0C = direction + 2;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     ++gMapCharaSceneSlots.valueC8A750;
     gMapEffectTickC8A730 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
@@ -1133,7 +1133,7 @@ void Sub_46E4E0()
     const std::uint8_t started = gMapEffectStartedC8224C;
     if ((started & 1u) == 0) {
         gMapEffectStartedC8224C = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC8A734 = platform::ReadTickCount32();
+        gMapEffectTickC8A734 = platform::ReadTickCount64();
     }
 
     const std::uint32_t selected = gCurrentSceneType == 10
@@ -1149,11 +1149,11 @@ void Sub_46E4E0()
                 CreateMapEffectKind1();
             }
         } else {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - selected * 25u));
-            const std::uint32_t deadline = gMapEffectTickC8A734
-                + static_cast<std::uint32_t>(static_cast<std::int32_t>(interval));
+            const std::uint64_t deadline = gMapEffectTickC8A734
+                + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind1();
             }
@@ -1193,7 +1193,7 @@ void Sub_46E6C0()
     const std::uint8_t started = gMapEffectStartedC82240;
     if ((started & 1u) == 0) {
         gMapEffectStartedC82240 = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC82250 = platform::ReadTickCount32();
+        gMapEffectTickC82250 = platform::ReadTickCount64();
     }
 
     const std::uint16_t selected = static_cast<std::uint16_t>(
@@ -1209,11 +1209,11 @@ void Sub_46E6C0()
                 CreateMapEffectKind2();
             }
         } else {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - 25u * selected));
-            const std::uint32_t deadline = gMapEffectTickC82250
-                + static_cast<std::uint32_t>(static_cast<std::int32_t>(interval));
+            const std::uint64_t deadline = gMapEffectTickC82250
+                + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind2();
             }
@@ -1380,7 +1380,7 @@ void Sub_46ED50()
     const std::uint8_t started = gMapEffectStartedC8A728;
     if ((started & 1u) == 0) {
         gMapEffectStartedC8A728 = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC8A730 = platform::ReadTickCount32();
+        gMapEffectTickC8A730 = platform::ReadTickCount64();
     }
 
     const std::uint32_t selected = gCurrentSceneType == 10
@@ -1396,11 +1396,11 @@ void Sub_46ED50()
                 CreateMapEffectKind4();
             }
         } else {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - 25u * selected));
-            const std::uint32_t deadline = gMapEffectTickC8A730
-                + static_cast<std::uint32_t>(static_cast<std::int32_t>(interval));
+            const std::uint64_t deadline = gMapEffectTickC8A730
+                + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind4();
             }
@@ -2273,10 +2273,10 @@ std::uint32_t Sub_50C7A0(
     const std::int32_t firstScale = duration * 5;
     detail::gPlayerRuntimeSlots.timerMode10 = mode;
     detail::gPlayerRuntimeSlots.timerRemaining0C = firstScale * 5 * 5 * 8;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     detail::gPlayerRuntimeSlots.timerTick14 = tick;
     input::gValue626C14 = 0;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x0050CE10。
@@ -2372,7 +2372,7 @@ std::int32_t Sub_50C940(
         || (gate == 0 && gValueFF0D36 != 0
             && (ReadPlayerOptions194LowByte() & 8u) != 0);
     if (restricted) {
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         if (tick - gChatCurrentTickDA3B40 > 180000u) {
             gChatDisabledDA3B4C = 0;
         } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
@@ -2386,8 +2386,8 @@ std::int32_t Sub_50C940(
         }
     } else {
         gChatPreviousTickDA3B3C = gChatCurrentTickDA3B40;
-        const std::uint32_t tick = platform::ReadTickCount32();
-        const std::uint32_t previous = gChatPreviousTickDA3B3C;
+        const std::uint64_t tick = platform::ReadTickCount64();
+        const std::uint64_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < 1000u) {
             Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
@@ -3631,7 +3631,7 @@ std::int32_t Sub_43C4B0()
 void Sub_43C4E0()
 {
     gBattleCountdownActive5ABCB8 = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gBattleCommandDeadline5ABBF8 = tick + 30000u;
     gBattleCountdownSecond5ABB80 = 0;
     gBattleCommandState5ABC3C = 0;
@@ -3790,7 +3790,7 @@ std::uint16_t gValue62B3B0 = 0; // 原全局：0x0062B3B0。
 std::uint16_t gValue556C34 = 1; // 原全局：0x00556C34。
 std::uint16_t gValue62B5AA = 0; // 原全局：0x0062B5AA。
 std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
-std::uint32_t gValue62B5B0 = 0; // 原全局：0x0062B5B0。
+std::uint64_t gValue62B5B0 = 0; // 原全局：0x0062B5B0。
 std::uint32_t gValue62B308 = 0; // 原全局：0x0062B308。
 std::uint32_t gValue62B398 = 0; // 原全局：0x0062B398。
 std::uint32_t gValue62B358 = 0; // 原全局：0x0062B358。
@@ -3872,7 +3872,7 @@ std::uint8_t gBattleRebirthDisabled5ABC40 = 0; // 原全局：0x005ABC40。
 std::int32_t gBattleSkillActionCount5ABBF4 = 0; // 原全局：0x005ABBF4。
 std::int32_t gBattlePetActionCount5ABBBC = 0; // 原全局：0x005ABBBC。
 std::int32_t gBattleCountdownActive5ABCB8 = 0; // 原全局：0x005ABCB8。
-std::uint32_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
+std::uint64_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
 std::int32_t gBattleCountdownSecond5ABB80 = 0; // 原全局：0x005ABB80。
 std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
 std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
@@ -3924,7 +3924,7 @@ std::uint16_t gValueFF0D32 = 0; // 原全局：0x00FF0D32。
 std::uint16_t gValueF7CA04 = 0; // 原全局：0x00F7CA04。
 std::uint16_t gValueFF03D8 = 0; // 原全局：0x00FF03D8。
 std::uint16_t gValueFF0D36 = 0; // 原全局：0x00FF0D36。
-std::uint32_t gValueFF0D38 = 0; // 原全局：0x00FF0D38。
+std::uint64_t gValueFF0D38 = 0; // 原全局：0x00FF0D38。
 
 // 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
 std::uint32_t gValue9A6204 = 0;
@@ -4011,28 +4011,28 @@ std::uint32_t gValue9EE8B8 = 0; // 原全局：0x009EE8B8。
 std::uint16_t gValue9EE8A4 = 0; // 原全局：0x009EE8A4。
 std::int32_t gValue9A7F7C = 0; // 原全局：0x009A7F7C。
 std::int32_t gValue9A7F80 = 0; // 原全局：0x009A7F80。
-std::uint32_t gValueAF10C8 = 0; // 原全局：0x00AF10C8。
+std::uint64_t gValueAF10C8 = 0; // 原全局：0x00AF10C8。
 std::uint16_t gValueC8A79C = 0; // 原全局：0x00C8A79C。
 std::uint16_t gValue9A86D8 = 0; // 原全局：0x009A86D8。
 std::uint16_t gValue9FB92E = 0; // 原全局：0x009FB92E。
 std::uint16_t gValueB65A7C = 0; // 原全局：0x00B65A7C。
 std::uint16_t gValueC82220 = 0; // 原全局：0x00C82220。
-std::uint32_t gValueC82238 = 0; // 原全局：0x00C82238。
-std::uint32_t gValueC8223C = 0; // 原全局：0x00C8223C。 原转向发送的独立GetTickCount位槽。
+std::uint64_t gValueC82238 = 0; // 原全局：0x00C82238。
+std::uint64_t gValueC8223C = 0; // 原全局：0x00C8223C。 原转向发送的独立GetTickCount位槽。
 std::uint32_t gValueC8A774 = 0; // 原全局：0x00C8A774。
-std::uint32_t gValueC8A778 = 0; // 原全局：0x00C8A778。
+std::uint64_t gValueC8A778 = 0; // 原全局：0x00C8A778。
 std::uint32_t gValueC8A77C = 0; // 原全局：0x00C8A77C。
 std::uint32_t gValueC8A780 = 0; // 原全局：0x00C8A780。
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
 std::int32_t gValueC8A78C = 0; // 原全局：0x00C8A78C。
 std::int32_t gValueC8A790 = 0; // 原全局：0x00C8A790。
-std::uint32_t gValueC8A794 = 0; // 原全局：0x00C8A794。
+std::uint64_t gValueC8A794 = 0; // 原全局：0x00C8A794。
 std::uint32_t gValueC8A7A0 = 0; // 原全局：0x00C8A7A0。
 std::uint32_t gValueC8A7A4 = 0; // 原全局：0x00C8A7A4。
 std::uint32_t gValueC8A7A8 = 0; // 原全局：0x00C8A7A8。
 std::uint32_t gValueC8A7AC = 0; // 原全局：0x00C8A7AC。
-std::uint32_t gValue55DDAC = 0xFFFFFFFFu; // 原全局：0x0055DDAC。
+std::uint64_t gValue55DDAC = UINT64_MAX; // 原全局：0x0055DDAC。
 std::uint32_t gValueC82208 = 0; // 原全局：0x00C82208。
 std::uint32_t gValueC8220C = 0; // 原全局：0x00C8220C。
 std::uint32_t gValueC82210 = 0; // 原全局：0x00C82210。
@@ -4421,9 +4421,9 @@ std::uint32_t Sub_46AF30()
     gValue9EE8A4 = static_cast<std::uint16_t>(direction);
     gValue9A7F7C = gPlayerX.value();
     gValue9A7F80 = gPlayerY.value();
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gValueAF10C8 = tick;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原 [0x468C40,0x468F25)：成功打开才清三平面，逐行短读保留已清零后缀。
@@ -5156,7 +5156,7 @@ void Sub_455C60()
 // 原函数：0x00455FC0。
 void Sub_455FC0()
 {
-    const std::uint32_t value = gValue62B5B0;
+    const std::uint64_t value = gValue62B5B0;
     gValue62B398 = 0;
     if (value == 0) {
         cg::yobi::YobiAction* const action = gWindow39Action62B5B8;
@@ -5713,9 +5713,9 @@ void DrawNormalScene_51C7D0()
         } else {
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
         }
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         platform::gValue73ECC0 = 2;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51FDE0(15, 8, 0x40000000u));
         gCurrentSceneState = 103;
@@ -5726,14 +5726,14 @@ void DrawNormalScene_51C7D0()
         platform::gValue73ECC0 = 2;
         if (Sub_51FDE0(15, 8, 0x40000000u) == 1) {
             gValueFF0D50 = 1;
-            gValue62B5B0 = platform::ReadTickCount32();
+            gValue62B5B0 = platform::ReadTickCount64();
             gCurrentSceneState = 20;
         }
         return;
     case 200:
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51D750());
-        platform::gLastRenderDt = platform::ReadTickCount32();
+        platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
         ui::WindowRuntime_ProcessScene();
         gCurrentSceneState = 201;
         [[fallthrough]];
@@ -5802,10 +5802,10 @@ void DrawNormalScene_51C7D0()
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         Sub_51D6F0();
         [[fallthrough]];
     }
@@ -5816,7 +5816,7 @@ void DrawNormalScene_51C7D0()
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
             ui::WindowRuntime_ProcessScene();
-            gValue62B5B0 = platform::ReadTickCount32();
+            gValue62B5B0 = platform::ReadTickCount64();
             const std::uint32_t changeBgm = gValueFF0D58;
             gCurrentSceneState = 20;
             gValueD67E78 = 0;
@@ -5847,10 +5847,10 @@ void DrawNormalScene_51C7D0()
         render::gRenderQueueMode103CF10 = 1;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         Sub_51D6F0();
         const std::int32_t bgm = cg::yobi::detail::Sub_440FE0();
         audio::gBgmTarget1050818 = bgm;
@@ -5878,7 +5878,7 @@ void DrawNormalScene_51C7D0()
         cg::core::NullSub_509080();
         gValueFF0D74 = 0;
         ui::WindowRuntime_ProcessScene();
-        gValue62B5B0 = platform::ReadTickCount32();
+        gValue62B5B0 = platform::ReadTickCount64();
         Sub_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
@@ -5896,10 +5896,10 @@ void DrawNormalScene_51C7D0()
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
         render::gRenderQueueMode103CF10 = 1;
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(render::ResetGraphicCache_456D30());
         Sub_46BD40();
         static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
@@ -5996,9 +5996,9 @@ void DrawNormalScene_51C7D0()
             platform::gPendingGraphicCount = 0;
             platform::gPendingGraphicCount2 = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
-            const std::uint32_t tick = platform::ReadTickCount32();
+            const std::uint64_t tick = platform::ReadTickCount64();
             const std::uint32_t gate = gValueD67E78;
-            platform::gLastRenderDt = tick;
+            platform::gLastRenderDt = static_cast<double>(tick);
             const std::int32_t selector = gate == 1 ? 15 : 13;
             platform::gValue73ECC0 = 2;
             static_cast<void>(Sub_51FDE0(selector, 8, 0x40000000u));
@@ -6138,9 +6138,9 @@ std::uint32_t Sub_51D640()
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
-    const std::uint32_t tick = platform::ReadTickCount32();
-    platform::gLastRenderDt = tick;
-    return tick;
+    const std::uint64_t tick = platform::ReadTickCount64();
+    platform::gLastRenderDt = static_cast<double>(tick);
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
@@ -6182,14 +6182,14 @@ void __cdecl Sub_458F40()
     } else if (scene != 10) {
         return;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     if (detail::gPlayerRuntimeSlots.timerMode10 != 0) {
-        const std::uint32_t previousTick = detail::gPlayerRuntimeSlots.timerTick14;
+        const std::uint64_t previousTick = detail::gPlayerRuntimeSlots.timerTick14;
         const std::int32_t remaining = detail::gPlayerRuntimeSlots.timerRemaining0C;
-        const std::int32_t delta =
-            std::bit_cast<std::int32_t>(previousTick - tick);
-        const std::int32_t updated = remaining + delta;
-        detail::gPlayerRuntimeSlots.timerRemaining0C = updated;
+        const std::int64_t delta =
+            std::bit_cast<std::int64_t>(previousTick - tick);
+        const std::int64_t updated = remaining + delta;
+        detail::gPlayerRuntimeSlots.timerRemaining0C = static_cast<std::int32_t>(updated);
         if (updated < 0) {
             detail::gPlayerRuntimeSlots.timerRemaining0C = 0;
             detail::gPlayerRuntimeSlots.timerMode10 = 0;
@@ -6227,8 +6227,8 @@ std::int32_t __cdecl Sub_50C870(
 {
     static_cast<void>(Sub_519EB0(playerValue));
     gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
-    gValue73ED68 = std::bit_cast<std::uint32_t>(
-        ::_time32(nullptr));
+    gValue73ED68 = static_cast<std::uint64_t>(
+        ::_time64(nullptr));
     static_cast<void>(UpdateGameTime(&gCgTime));
     const std::int32_t category = GetCate_458EC0(&gCgTime);
     gValue73ED48 = category;
@@ -6333,9 +6333,9 @@ void DrawBattleScene_43CBB0()
         if (floor >= 1457 && floor <= 1480) {
             static_cast<void>(cg::audio::LoadAndPlayBGM(16));
         }
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         platform::gValue73ECC0 = 2;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
@@ -6347,9 +6347,9 @@ void DrawBattleScene_43CBB0()
         if (Sub_51FDE0(13, 8, 0x40000000U) == 1) {
             Sub_43CB10();
             platform::gValue73ECC0 = 3;
-            const std::uint32_t tick = platform::ReadTickCount32();
+            const std::uint64_t tick = platform::ReadTickCount64();
             platform::gValue73ECC0 = 3;
-            platform::gLastRenderDt = tick;
+            platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
             static_cast<void>(ui::WindowRuntime_Render());
@@ -8068,15 +8068,15 @@ std::uint8_t Sub_46F680()
     if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
         gValueC8A7A0 = 1;
         gValueC8A778 = 0;
-        gValueC8A794 = platform::ReadTickCount32();
+        gValueC8A794 = platform::ReadTickCount64();
     }
     if ((*reinterpret_cast<const unsigned char*>(
             &platform::gLegacyMouseState.heldButtons) & 1u) != 0
         && gValueC8A774 == 0) {
-        const std::uint32_t baseline = gValueC8A794;
+        const std::uint64_t baseline = gValueC8A794;
         gValueC8A7A4 = 1;
         if (baseline != 0) {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             gValueC8A778 = now - gValueC8A794;
         }
     } else {
@@ -8131,12 +8131,12 @@ void Sub_470050()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = gPlayerY.value();
         const std::int32_t x = gPlayerX.value();
         static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -8166,12 +8166,12 @@ void Sub_470150()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = gPlayerY.value();
         const std::int32_t x = gPlayerX.value();
         static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -8202,7 +8202,7 @@ void Sub_470270()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         if (joinTeam && (ReadPlayerFlags18A() & 0x100u) != 0) {
             return;
@@ -8211,7 +8211,7 @@ void Sub_470270()
         const std::int32_t y = gPlayerY.value();
         const std::int32_t x = gPlayerX.value();
         static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -8236,12 +8236,12 @@ void Sub_4703C0()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = gPlayerY.value();
         const std::int32_t x = gPlayerX.value();
         static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -8273,10 +8273,10 @@ void Sub_4704A0()
     }
     if (gValue9A86D8 == 0 && gValue9FB92E == 0
         && (gValueC821D8 == 0)) {
-        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint64_t now = platform::ReadTickCount64();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
             static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
-            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
         }
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -8308,12 +8308,12 @@ void Sub_470670()
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = gPlayerY.value();
         const std::int32_t x = gPlayerX.value();
         static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -8333,7 +8333,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     if (comparisonValue != 0 || index < 0) {
         return static_cast<std::uintptr_t>(comparisonResult);
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gEmoteRequestTickD67D20 + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
@@ -8362,7 +8362,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     Sub_51A060(localAction);
-    const std::uint32_t completedAt = platform::ReadTickCount32();
+    const std::uint64_t completedAt = platform::ReadTickCount64();
     gEmoteRequestTickD67D20 = completedAt;
     return static_cast<std::uintptr_t>(completedAt);
 }
@@ -8414,16 +8414,16 @@ std::uint32_t Sub_51B3E0()
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gValueFF0D38 + 500u >= now) {
-        return now;
+        return static_cast<std::uint32_t>(now);
     }
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
     static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
-    const std::uint32_t sentAt = platform::ReadTickCount32();
+    const std::uint64_t sentAt = platform::ReadTickCount64();
     gValueFF0D38 = sentAt;
-    return sentAt;
+    return static_cast<std::uint32_t>(sentAt);
 }
 
 // 原函数：0x0046B370。
@@ -8454,7 +8454,7 @@ void Sub_46B370()
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gValueC82238 + 500u >= now) {
         return;
     }
@@ -8466,7 +8466,7 @@ void Sub_46B370()
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
     static_cast<void>(Sub_50C8D0(x, y, text));
-    gValueC82238 = platform::ReadTickCount32();
+    gValueC82238 = platform::ReadTickCount64();
 }
 
 // 原函数：0x00469C90。
@@ -8511,9 +8511,9 @@ std::uint8_t Sub_469C90()
             if ((click & 1u) != 0) {
                 gValueC8A79C = 0;
             } else {
-                const std::uint32_t now = platform::ReadTickCount32();
+                const std::uint64_t now = platform::ReadTickCount64();
                 if (gValue55DDAC + 250u <= now) {
-                    const std::uint32_t sampledTick = platform::ReadTickCount32();
+                    const std::uint64_t sampledTick = platform::ReadTickCount64();
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     gValue55DDAC = sampledTick;
                     gMoveTargetX9A7F88 = static_cast<std::int32_t>(targetX);
@@ -8535,10 +8535,10 @@ std::uint8_t Sub_469C90()
                 }
             }
         } else if (gValueC8A7A0 != 0) {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             if (gValue55DDAC + 250u <= now) {
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
-                gValue55DDAC = platform::ReadTickCount32();
+                gValue55DDAC = platform::ReadTickCount64();
                 gMoveTargetX9A7F88 = static_cast<std::int32_t>(gPlayerMoveTargetX);
                 gMoveTargetY9A7F98 = static_cast<std::int32_t>(gPlayerMoveTargetY);
                 gValueC821FC = 1;
@@ -9526,11 +9526,11 @@ std::int32_t Sub_45EEE0()
         Sub_51D750();
         platform::gValue73ECC0 = 2;
         cg::audio::Sub_52B990();
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
         gValue58B6D0 = 1;
         gLogoutTransition9A6E94 = next;
-        platform::gLastRenderDt = tick;
+        platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
         cg::yobi::detail::Sub_43F230();
     }

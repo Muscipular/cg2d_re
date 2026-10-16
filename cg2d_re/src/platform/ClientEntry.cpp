@@ -4,6 +4,7 @@
 
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <dbghelp.h>
@@ -261,6 +262,7 @@ WNDCLASSW gWindowClass {}; // 原全局：0x009A6ED0。
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)
 {
     using namespace cg::platform;
+    static_cast<void>(ReadTickCount64()); // CTM01：在入口建立统一启动计时基线。
 
     const ClientTimerResolution timerResolution;
     const ClientMinidumpReport minidumpReport;

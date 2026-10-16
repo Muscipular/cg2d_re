@@ -68,9 +68,9 @@ TextureSurface* gCpuAutoMapSurface {};
 
 // 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
 std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
-std::uint32_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
+std::uint64_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
 std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
-std::uint32_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
+std::uint64_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
 
 // 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
 bool BlitWithoutSourceColorKey(
@@ -100,7 +100,7 @@ template <typename Pixel, typename ReadColor>
 std::int32_t DrawAutoMap32(
     const std::int32_t x, const std::int32_t y, const Pixel* source,
     const std::int32_t width, const std::int32_t height,
-    std::uint16_t& blink, std::uint32_t& tick, const ReadColor readColor)
+    std::uint16_t& blink, std::uint64_t& tick, const ReadColor readColor)
 {
     constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
     constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
@@ -138,8 +138,8 @@ std::int32_t DrawAutoMap32(
     }
 
     const std::uint32_t centerColor = blink != 0 ? 0xFFFFFFu : 1u;
-    if (tick + 1000u <= ::GetTickCount()) {
-        tick = ::GetTickCount();
+    if (tick + 1000u <= platform::ReadTickCount64()) {
+        tick = platform::ReadTickCount64();
         blink = static_cast<std::uint16_t>((static_cast<std::uint8_t>(blink) - 1) & 1);
     }
     std::uint32_t* const center =

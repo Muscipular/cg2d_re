@@ -91,7 +91,7 @@ std::int32_t Sub_508360()
 
     std::int32_t step = gConnectionStep;
     if (step == 0) {
-        gRequestStartTick = platform::ReadTickCount32();
+        gRequestStartTick = platform::ReadTickCount64();
 
         char serverAddress[128];
         std::uint16_t port;
@@ -252,7 +252,7 @@ std::int32_t Sub_508360()
         return 1;
     }
 
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (now - gRequestStartTick > 600000U) {
         static_cast<void>((gRequestMessage = L"与伺服器的连接逾时。"));
         return -1;

@@ -1617,8 +1617,8 @@ void WindowBattleCommand_Dispatch()
 static void WindowBattleCommand_DrawTimer()
 {
     using namespace world::detail;
-    const std::uint32_t tick = platform::ReadTickCount32();
-    std::int32_t remaining = std::bit_cast<std::int32_t>(gBattleCommandDeadline5ABBF8 - tick);
+    const std::uint64_t tick = platform::ReadTickCount64();
+    std::int64_t remaining = std::bit_cast<std::int64_t>(gBattleCommandDeadline5ABBF8 - tick);
     if (gBattleCountdownActive5ABCB8 == 0) {
         return;
     }
@@ -1668,7 +1668,7 @@ static void WindowBattleCommand_DrawTimer()
     std::int32_t imageBase = 0x5690;
     if (remaining < 10000) {
         imageBase = 0x569A;
-        const std::int32_t seconds = remaining / 1000;
+        const std::int32_t seconds = static_cast<std::int32_t>(remaining / 1000);
         if (seconds != gBattleCountdownSecond5ABB80) {
             static_cast<void>(audio::PlaySe_52C450(202, 320));
             gBattleCountdownSecond5ABB80 = seconds;

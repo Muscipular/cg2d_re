@@ -44,7 +44,7 @@ std::uint32_t gWindowReportFlags = 0; // 原全局：0x0073ECF0。
 std::int32_t gWindowReportAttempts = 0; // 原全局：0x0073ECF8。
 std::int32_t gWindowReportValue = 0; // 原全局：0x0073ECF4。
 double gWindowEnumerationDeadline = 0; // 原全局：0x0073ED00。
-std::uint32_t gWindowReportDeadline = 0; // 原全局：0x0073ED08。
+std::uint64_t gWindowReportDeadline = 0; // 原全局：0x0073ED08。
 SystemTimeWords gLastSystemTime {};
 std::uint32_t gPeriodicReportSeconds = 0; // 原全局：0x0073ED18。
 
@@ -157,7 +157,7 @@ int MainLoop()
     }
     InitializeProtection_4041E0("kernel32.dll");
     ResetProtection_4048D0();
-    const auto getTickCount = &GetTickCount;
+    const auto getTickCount = &ReadTickCount64;
 
     for (;;) {
         if (gRendererMode != gSupportedRenderMode) {
@@ -205,7 +205,7 @@ int MainLoop()
             if (windowActiveState == 0) {
                 auto tick = getTickCount();
                 // 原 x87 非“大于”包含 unordered，不能改成 <=。
-                while (!(tick > gLastRenderDt)) {
+                while (!(static_cast<double>(tick) > gLastRenderDt)) {
                     Sleep(1);
                     if (gPendingPaletteReload == 1) {
                         auto* palette = render::GetRendererPalette(render::gRenderer);
@@ -224,7 +224,7 @@ int MainLoop()
             }
             const double threshold = gFrameThreshold + gLastRenderDt;
             const auto tick = getTickCount();
-            if (tick > threshold) {
+            if (static_cast<double>(tick) > threshold) {
                 const std::uint32_t catchUpCount = gCatchUpCount;
                 if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
                     const double deadline = gFrameIncrement + gLastRenderDt;
@@ -235,7 +235,7 @@ int MainLoop()
             }
         }
 
-        if (CheckProtection_4043B0("GetTickCount") != 0 && login::ReadRequestOutcomeFlag() == 1) {
+        if (CheckProtection_4043B0("GetTickCount64") != 0 && login::ReadRequestOutcomeFlag() == 1) {
             Report_512CA0(gConnectionSocket, 4);
         }
         const std::int32_t report = CheckWindows_4048E0();
@@ -254,7 +254,7 @@ int MainLoop()
         render::Flip_44C560();
 
         auto tick = getTickCount();
-        while (!(tick > gLastRenderDt)) {
+        while (!(static_cast<double>(tick) > gLastRenderDt)) {
             Sleep(1);
             tick = getTickCount();
         }
@@ -277,16 +277,16 @@ int MainLoop()
             gWindowReportRequested = 0;
             gWindowReportAttempts = 0;
             gWindowReportDeadline = getTickCount();
-            const std::uint32_t nextTick = getTickCount();
+            const std::uint64_t nextTick = getTickCount();
             gWindowReportDeadline += 60000u * (nextTick % 10u + 10u);
         }
         if (gWindowReportValue > 0 && login::ReadRequestOutcomeFlag() == 1) {
-            const std::uint32_t reportTick = getTickCount();
-            const std::uint32_t reportDeadline = gWindowReportDeadline;
+            const std::uint64_t reportTick = getTickCount();
+            const std::uint64_t reportDeadline = gWindowReportDeadline;
             if (reportTick > reportDeadline
-                && std::bit_cast<std::int32_t>(reportDeadline) > 0) {
+                && std::bit_cast<std::int64_t>(reportDeadline) > 0) {
                 Report_512CA0(gConnectionSocket, gWindowReportValue);
-                gWindowReportDeadline = 0xFFFFFFFFu;
+                gWindowReportDeadline = UINT64_MAX;
             }
         }
 
@@ -298,7 +298,7 @@ int MainLoop()
         }
         std::int32_t seconds;
         if (initializeSystemTime) {
-            SeedRandom_53B4BF(getTickCount());
+            SeedRandom_53B4BF(static_cast<std::uint32_t>(getTickCount()));
             const std::uint64_t systemTime = ReadSystemSeconds_4589D0();
             gLastSystemTime.low = static_cast<std::uint32_t>(systemTime);
             gLastSystemTime.high = static_cast<std::uint32_t>(systemTime >> 32);

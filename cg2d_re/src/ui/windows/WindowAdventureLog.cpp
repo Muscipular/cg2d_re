@@ -94,9 +94,9 @@ void WindowAdventureLog_InitializeDate()
     if (previous != nullptr) {
         return;
     }
-    gLoginWindowRuntime.timeCB1DF0 = ::_time32(nullptr);
+    gLoginWindowRuntime.timeCB1DF0 = ::_time64(nullptr);
     std::tm* const current =
-        ::_localtime32(&gLoginWindowRuntime.timeCB1DF0);
+        ::_localtime64(&gLoginWindowRuntime.timeCB1DF0);
     gLoginWindowRuntime.calendarTimeD67BAC = current;
     const std::int32_t day = current->tm_mday;
     gLoginWindowRuntime.dayD67BC0 = day;

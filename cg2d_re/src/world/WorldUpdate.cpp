@@ -150,8 +150,8 @@ void Update()
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;
             cg::audio::Sub_52B990();
-            const std::uint32_t tick = platform::ReadTickCount32();
-            platform::gLastRenderDt = tick;
+            const std::uint64_t tick = platform::ReadTickCount64();
+            platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;
         } else if (sceneState == 1
             && detail::Sub_51FDE0(2, 0, 0x3F19999Au) == 1) {

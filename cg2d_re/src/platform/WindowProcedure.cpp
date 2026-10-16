@@ -192,8 +192,8 @@ LRESULT CALLBACK WindowProcedure(
                 gWindowActiveState = 1;
             }
         }
-        const std::uint32_t tick = ReadTickCount32();
-        gLastRenderDt = tick;
+        const std::uint64_t tick = ReadTickCount64();
+        gLastRenderDt = static_cast<double>(tick);
         return 0;
     }
 
@@ -202,8 +202,8 @@ LRESULT CALLBACK WindowProcedure(
         if (wParam32 == SIZE_MINIMIZED) {
             gWindowActiveState = 0;
         }
-        const std::uint32_t tick = ReadTickCount32();
-        gLastRenderDt = tick;
+        const std::uint64_t tick = ReadTickCount64();
+        gLastRenderDt = static_cast<double>(tick);
 
         gCurrentClientWidth = static_cast<std::uint16_t>(lParam32);
         gCurrentClientHeight = static_cast<std::uint16_t>(lParam32 >> 16);
@@ -316,9 +316,9 @@ LRESULT CALLBACK WindowProcedure(
             gWindowMode = gWindowMode != 1;
             render::RebuildRenderer_466B80();
             static_cast<void>(InitializeWindow());
-            const std::uint32_t tick = ReadTickCount32();
+            const std::uint64_t tick = ReadTickCount64();
             gWindowResizePhase = 0;
-            gLastRenderDt = tick;
+            gLastRenderDt = static_cast<double>(tick);
             return 0;
         }
         if (wParam32 == VK_F10) {
@@ -372,8 +372,8 @@ LRESULT CALLBACK WindowProcedure(
                 L"可以结束魔力宝贝吗？",
                 L"确认",
                 MB_OKCANCEL) == IDCANCEL) {
-            const std::uint32_t tick = ReadTickCount32();
-            gLastRenderDt = tick;
+            const std::uint64_t tick = ReadTickCount64();
+            gLastRenderDt = static_cast<double>(tick);
             return 0;
         }
         return DefWindowProcW(window, message, wParam, lParam);

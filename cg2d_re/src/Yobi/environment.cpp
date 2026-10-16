@@ -32,7 +32,7 @@ namespace {
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
 std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
 
-std::uint32_t gStartTick5F973C = 0; // 原全局：0x005F973C。
+std::uint64_t gStartTick5F973C = 0; // 原全局：0x005F973C。
 
 std::uint8_t gEffectCounter5F9755 = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
 
@@ -310,8 +310,8 @@ void Sub_448810(
 {
     if (mode == 0) {
         gDuration5AC4B8 = duration;
-        const std::uint32_t tick = platform::ReadTickCount32();
-        gStartTick5F973C = tick - static_cast<std::uint32_t>(floor) * 1000u;
+        const std::uint64_t tick = platform::ReadTickCount64();
+        gStartTick5F973C = tick - static_cast<std::uint64_t>(static_cast<std::int64_t>(floor) * 1000);
         return;
     }
     if (world::gCurrentSceneType != 9) {
@@ -607,13 +607,13 @@ void Sub_4483A0(YobiAction* const action)
         return;
     }
     YobiAction* const associated = Sub_448370(Sub_448BF0);
-    const std::uint32_t tick = platform::ReadTickCount32();
-    const auto elapsed = std::bit_cast<std::int32_t>(tick - gStartTick5F973C);
+    const std::uint64_t tick = platform::ReadTickCount64();
+    const auto elapsed = std::bit_cast<std::int64_t>(tick - gStartTick5F973C);
     std::int32_t duration = gDuration5AC4B8;
     const std::int32_t total = duration * 1000;
     std::int32_t progress = 0;
     if (total != 0) {
-        progress = elapsed * 130 / total;
+        progress = static_cast<std::int32_t>(elapsed * 130 / total);
     }
     if (elapsed > total || elapsed < 0) {
         world::detail::gMapEffectOffsetXBits = 0;

@@ -30,8 +30,8 @@ std::int32_t InitLoading_457B10()
     std::int32_t image = 0;
     bool keepRunning = true;
     render::gPaletteCapability = resource::ProbePaletteCapability_45C970();
-    std::uint32_t phaseTick = ReadTickCount32();
-    gLastRenderDt = phaseTick;
+    std::uint64_t phaseTick = ReadTickCount64();
+    gLastRenderDt = static_cast<double>(phaseTick);
     auto& descriptor = gLoadingDescriptor;
     auto* const colorBytes = reinterpret_cast<unsigned char*>(&descriptor.color);
     for (;;) {
@@ -68,12 +68,12 @@ std::int32_t InitLoading_457B10()
             break;
         case 2:
             if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 3;
             }
             break;
         case 3: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
                 phase = 4;
@@ -97,12 +97,12 @@ std::int32_t InitLoading_457B10()
             break;
         case 6:
             if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 7;
             }
             break;
         case 7: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
                 phase = 8;
@@ -121,12 +121,12 @@ std::int32_t InitLoading_457B10()
             break;
         case 10:
             if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 11;
             }
             break;
         case 11: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
                 phase = 12;
@@ -147,12 +147,12 @@ std::int32_t InitLoading_457B10()
             break;
         case 14:
             if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 15;
             }
             break;
         case 15: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
                 phase = 16;
@@ -171,12 +171,12 @@ std::int32_t InitLoading_457B10()
             break;
         case 18:
             if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 19;
             }
             break;
         case 19: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 static_cast<void>(render::SelectPalette(19, 60));
                 phase = 20;
@@ -241,16 +241,16 @@ std::int32_t InitLoading_457B10()
                     colorBytes[2] = 0xFF;
                     colorBytes[1] = 0xFF;
                     colorBytes[0] = 0xFF;
-                    phaseTick = ReadTickCount32();
+                    phaseTick = ReadTickCount64();
                     phase = 28;
                 }
             } else if (render::gPaletteChanging == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 28;
             }
             break;
         case 28: {
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 if (render::HasLegacy3DDevice_44B610() == 0) {
                     static_cast<void>(render::SelectPalette(19, 30));
@@ -294,14 +294,14 @@ std::int32_t InitLoading_457B10()
             const std::int32_t changing = render::gPaletteChanging;
             gLegacyMouseState.drawingSuppression = 1;
             if (changing == 0) {
-                phaseTick = ReadTickCount32();
+                phaseTick = ReadTickCount64();
                 phase = 32;
             }
             break;
         }
         case 32: {
             gLegacyMouseState.drawingSuppression = 1;
-            const std::uint32_t now = ReadTickCount32();
+            const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
                 phase = 33;
@@ -330,9 +330,9 @@ std::int32_t InitLoading_457B10()
         static_cast<void>(render::UpdatePalette_450BB0());
         ClearKeyFlags_459760();
         const double threshold = gFrameThreshold + gLastRenderDt;
-        const std::uint32_t tick = ReadTickCount32();
+        const std::uint64_t tick = ReadTickCount64();
         bool skipDrawing = false;
-        if (tick > threshold) {
+        if (static_cast<double>(tick) > threshold) {
             const std::uint32_t catchUpCount = gCatchUpCount;
             if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
                 const double deadline = gFrameIncrement + gLastRenderDt;
@@ -357,10 +357,10 @@ std::int32_t InitLoading_457B10()
                 gPendingPaletteReload = 0;
             }
             render::Flip_44C560();
-            std::uint32_t waitTick = ReadTickCount32();
-            while (!(waitTick > gLastRenderDt)) {
+            std::uint64_t waitTick = ReadTickCount64();
+            while (!(static_cast<double>(waitTick) > gLastRenderDt)) {
                 Sleep(1);
-                waitTick = ReadTickCount32();
+                waitTick = ReadTickCount64();
             }
             const double deadline = gFrameIncrement + gLastRenderDt;
             const std::uint32_t frame = gFrameCount;

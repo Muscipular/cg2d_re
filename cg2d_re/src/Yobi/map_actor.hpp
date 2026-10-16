@@ -19,7 +19,7 @@ struct MapActorPayload {
     YobiAction* action08; // 原成员偏移：+0x08。
     YobiAction* action0C; // 原成员偏移：+0x0C。
     YobiAction* action10; // 原成员偏移：+0x10。
-    std::uint32_t chatDeadline14; // 原成员偏移：+0x14。
+    std::uint64_t chatDeadline14; // 原成员偏移：+0x14。
     std::int32_t value18; // 原+18，445D20发布协议数值value50。
     std::array<std::wstring, 2>* text1C; // 原+0x1C；UTL02拥有两行动态UTF-16正文，载荷仍为指针。
     std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
@@ -50,35 +50,8 @@ static_assert(offsetof(MapActorPayload, action10) == 0x20);
 
 static_assert(offsetof(MapActorPayload, chatDeadline14) == 0x28);
 
-static_assert(offsetof(MapActorPayload, value18) == 0x2C);
-
-static_assert(offsetof(MapActorPayload, text1C) == 0x30);
-
-static_assert(offsetof(MapActorPayload, color20) == 0x38);
-
-static_assert(offsetof(MapActorPayload, textLength24) == 0x3C);
-
-static_assert(offsetof(MapActorPayload, font28) == 0x40);
-
-static_assert(offsetof(MapActorPayload, action2C) == 0x48);
-
-static_assert(offsetof(MapActorPayload, action30) == 0x50);
-
-static_assert(offsetof(MapActorPayload, action34) == 0x58);
-
-static_assert(offsetof(MapActorPayload, action38) == 0x60);
-
-static_assert(offsetof(MapActorPayload, kind3C) == 0x68);
-
-static_assert(offsetof(MapActorPayload, kind40) == 0x6C);
-
-static_assert(offsetof(MapActorPayload, action44) == 0x70);
-
-static_assert(offsetof(MapActorPayload, counter48) == 0x78);
-
-static_assert(offsetof(MapActorPayload, action4C) == 0x80);
-
-static_assert(sizeof(MapActorPayload) == 0x88);
+// CTM01：载荷按sizeof分配，64位时间槽之后采用本地布局。
+static_assert(sizeof(MapActorPayload::chatDeadline14) == 8);
 
 } // namespace detail
 

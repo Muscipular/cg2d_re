@@ -122,9 +122,9 @@ std::uint32_t StartCharacterListRequest()
     gCharacterListReplyCode = 0;
     static_cast<void>(network::Sub_512B90(socket));
     gRequestStatus = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508950。
@@ -142,8 +142,8 @@ std::int32_t PollCharacterListRequest()
         return -2;
     }
 
-    const std::uint32_t now = platform::ReadTickCount32();
-    const std::uint32_t elapsed = now - gRequestStartTick;
+    const std::uint64_t now = platform::ReadTickCount64();
+    const std::uint64_t elapsed = now - gRequestStartTick;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }

@@ -26,7 +26,7 @@ std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。
 
 std::uint16_t gRequestReplyCode = 0; // 原全局：0x00DA3B2C。
 std::int32_t gRequestStatus = 0; // 原全局：0x00DA3B34。
-std::uint32_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
+std::uint64_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
 std::uint8_t gRequestPollingEnabled = 0; // 原全局：0x00D9F2C9。
 std::int32_t gRequestOutcomeFlag = 0; // 原全局：0x00DA3B30。
 std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
@@ -97,9 +97,9 @@ std::uint32_t StartLoginRequest()
         field50,
         field18);
     gRequestStatus = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508B50。
@@ -119,8 +119,8 @@ std::int32_t PollLoginRequest()
         return -2;
     }
 
-    const std::uint32_t now = platform::ReadTickCount32();
-    const std::uint32_t elapsed = now - gRequestStartTick;
+    const std::uint64_t now = platform::ReadTickCount64();
+    const std::uint64_t elapsed = now - gRequestStartTick;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
@@ -155,8 +155,8 @@ void HandleLoginResponse_508BC0(
 
     gRequestReplyCode = 1;
     gRequestOutcomeFlag = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
-    static_cast<void>(network::Sub_512DF0(socket, tick));
+    const std::uint64_t tick = platform::ReadTickCount64();
+    static_cast<void>(network::Sub_512DF0(socket, static_cast<std::uint32_t>(tick)));
 }
 
 } // namespace cg::login
@@ -175,9 +175,9 @@ std::uint32_t Sub_508C40()
     network::WriteValueD9F2D0(0);
     gRequestOutcomeFlag = 0;
     gRequestStatus = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
@@ -192,9 +192,9 @@ std::int32_t Sub_508C90()
         return replyCode == 2 ? 2 : -2;
     }
 
-    const std::uint32_t now = platform::ReadTickCount32();
-    const std::uint32_t start = gRequestStartTick;
-    const std::uint32_t elapsed = now - start;
+    const std::uint64_t now = platform::ReadTickCount64();
+    const std::uint64_t start = gRequestStartTick;
+    const std::uint64_t elapsed = now - start;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }

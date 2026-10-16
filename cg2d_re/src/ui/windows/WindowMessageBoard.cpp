@@ -310,9 +310,9 @@ static void WindowMessageBoard_RefreshRecords()
         graphic->imageNo = record.value00;
         auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
         name->text = cg::text::FromGbkWide(record.texts08[0].data());
-        __time32_t time = record.value04;
+        __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
-            const std::tm* const calendar = ::_localtime32(&time);
+            const std::tm* const calendar = ::_localtime64(&time);
             const std::int32_t minute = calendar->tm_min;
             const std::int32_t hour = calendar->tm_hour;
             const std::int32_t day = calendar->tm_mday;

@@ -23,7 +23,7 @@ std::int32_t gHoverTitleValueD69748 = 0; // 原全局：0x00D69748。
 // 原全局：0x00D2EA70。 473840的case0写U8(state)&1，4731E0严格判1。
 static std::int32_t gWindow6HoverD2EA70 = 0; // 原全局：0x00D2EA70。
 
-static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原全局：0x00D67AF0。 原W64；473840只用低W32差作30秒门禁。
+static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原全局：0x00D67AF0。 CTM01保持完整64位秒差作30秒门禁。
 
 static WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4C0。
 
@@ -298,9 +298,9 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             consumed = 1;
         }
         if ((state & 2) != 0) {
-            const auto now = static_cast<std::uint32_t>(platform::ReadSystemSeconds_4589D0());
-            const auto previous = static_cast<std::uint32_t>(gWindow6RequestTimeD67AF0);
-            const std::int32_t elapsed = std::bit_cast<std::int32_t>(now - previous);
+            const std::uint64_t now = platform::ReadSystemSeconds_4589D0();
+            const std::uint64_t previous = gWindow6RequestTimeD67AF0;
+            const std::int64_t elapsed = std::bit_cast<std::int64_t>(now - previous);
             if (elapsed >= 30) {
                 static_cast<void>(network::SendIuEPacket_516D70(platform::gConnectionSocket));
                 gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();

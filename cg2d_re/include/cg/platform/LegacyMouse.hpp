@@ -21,10 +21,10 @@ struct LegacyMouseState {
     std::uint32_t heldButtons; // 原成员偏移：+0xA0。
     std::uint32_t edgeButtons; // 原成员偏移：+0xA4。
     std::uint32_t pulseButtons; // 原成员偏移：+0xA8。
-    std::uint32_t leftDownTick; // 原成员偏移：+0xAC。
-    std::uint32_t leftElapsed; // 原成员偏移：+0xB0。
-    std::uint32_t rightDownTick; // 原成员偏移：+0xB4。
-    std::uint32_t rightElapsed; // 原成员偏移：+0xB8。
+    std::uint64_t leftDownTick; // 原成员偏移：+0xAC。
+    std::uint64_t leftElapsed; // 原成员偏移：+0xB0。
+    std::uint64_t rightDownTick; // 原成员偏移：+0xB4。
+    std::uint64_t rightElapsed; // 原成员偏移：+0xB8。
     std::uint32_t valueD68DB4; // 原全局：0x00D68DB4。
     std::int32_t valueD68DB8; // 原全局：0x00D68DB8。
     std::uint32_t drawingSuppression; // 原成员偏移：+0xC4。
@@ -33,7 +33,6 @@ struct LegacyMouseState {
 
 static_assert(std::is_standard_layout_v<LegacyMouseState>);
 static_assert(!std::is_trivially_destructible_v<LegacyMouseState>);
-static_assert(sizeof(LegacyMouseState) == 0xCC);
 static_assert(offsetof(LegacyMouseState, mouseX) == 0x00);
 static_assert(offsetof(LegacyMouseState, mouseY) == 0x10);
 static_assert(offsetof(LegacyMouseState, buttonCoordinates) == 0x20);
@@ -41,20 +40,17 @@ static_assert(sizeof(LegacyMouseState::buttonCoordinates) == 0x80);
 static_assert(offsetof(LegacyMouseState, heldButtons) == 0xA0);
 static_assert(offsetof(LegacyMouseState, edgeButtons) == 0xA4);
 static_assert(offsetof(LegacyMouseState, pulseButtons) == 0xA8);
-static_assert(offsetof(LegacyMouseState, leftDownTick) == 0xAC);
-static_assert(offsetof(LegacyMouseState, leftElapsed) == 0xB0);
-static_assert(offsetof(LegacyMouseState, rightDownTick) == 0xB4);
-static_assert(offsetof(LegacyMouseState, rightElapsed) == 0xB8);
-static_assert(offsetof(LegacyMouseState, valueD68DB4) == 0xBC);
-static_assert(offsetof(LegacyMouseState, valueD68DB8) == 0xC0);
-static_assert(offsetof(LegacyMouseState, drawingSuppression) == 0xC4);
-static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
+// CTM01：时间槽改为64位，后续本地字段不再约束为旧端字节偏移。
+static_assert(sizeof(LegacyMouseState::leftDownTick) == 8);
+static_assert(sizeof(LegacyMouseState::leftElapsed) == 8);
+static_assert(sizeof(LegacyMouseState::rightDownTick) == 8);
+static_assert(sizeof(LegacyMouseState::rightElapsed) == 8);
 
 extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8；中央有序构造。
 
 // 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
-extern std::uint32_t gValueD68BF0; // 原全局：0x00D68BF0。
-extern std::uint32_t gValueD68DC8; // 原全局：0x00D68DC8。
+extern std::uint64_t gValueD68BF0; // 原全局：0x00D68BF0。
+extern std::uint64_t gValueD68DC8; // 原全局：0x00D68DC8。
 
 // 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。
 std::int32_t ResetLegacyMouseState_506870();

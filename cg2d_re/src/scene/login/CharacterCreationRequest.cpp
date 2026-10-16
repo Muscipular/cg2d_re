@@ -42,9 +42,9 @@ std::uint32_t StartCharacterCreationRequest()
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
     gRequestStatus = 1;
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
-    return tick;
+    return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508E90。
@@ -56,9 +56,9 @@ std::int32_t PollCharacterCreationRequest()
         return replyCode == 1 ? 1 : -2;
     }
 
-    const std::uint32_t now = platform::ReadTickCount32();
-    const std::uint32_t start = gRequestStartTick;
-    const std::uint32_t elapsed = now - start;
+    const std::uint64_t now = platform::ReadTickCount64();
+    const std::uint64_t start = gRequestStartTick;
+    const std::uint64_t elapsed = now - start;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }

@@ -24,8 +24,8 @@
 
 namespace cg::platform {
 
-std::uint32_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
-std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
+std::uint64_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
+std::uint64_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
 namespace {
 

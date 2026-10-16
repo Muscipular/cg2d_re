@@ -2644,7 +2644,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
     if ((state & 2) != 0) {
         const std::int32_t phase = gTradeValueD2E2B0;
         if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
-            const std::uint32_t tick = platform::ReadTickCount32();
+            const std::uint64_t tick = platform::ReadTickCount64();
             if (gWindowActionTick62B5AC + 500u < tick) {
                 if (phase == 1) {
                     static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 1));
@@ -2659,7 +2659,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
                         gTradeValueCC4224 = 1;
                     }
                 }
-                gWindowActionTick62B5AC = platform::ReadTickCount32();
+                gWindowActionTick62B5AC = platform::ReadTickCount64();
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
             }
         } else {

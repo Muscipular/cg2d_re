@@ -130,7 +130,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             return consumed;
         }
         if (world::gCurrentSceneType != 10) {
-            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint64_t now = platform::ReadTickCount64();
             if (gWindowActionTick62B5AC + 500u < now) {
                 WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
                 if (window == nullptr) {
@@ -141,7 +141,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
-                gWindowActionTick62B5AC = platform::ReadTickCount32();
+                gWindowActionTick62B5AC = platform::ReadTickCount64();
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }

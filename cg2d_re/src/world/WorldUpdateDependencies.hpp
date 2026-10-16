@@ -208,22 +208,22 @@ extern std::uint16_t gValue9A86D8; // 原全局：0x009A86D8。
 extern std::uint16_t gValue9FB92E; // 原全局：0x009FB92E。
 extern std::uint16_t gValueB65A7C; // 原全局：0x00B65A7C。
 extern std::uint16_t gValueC82220; // 原全局：0x00C82220。
-extern std::uint32_t gValueC82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
-extern std::uint32_t gValueC8223C; // 原全局：0x00C8223C。 原转向发送时间U32，非地址。
+extern std::uint64_t gValueC82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
+extern std::uint64_t gValueC8223C; // 原全局：0x00C8223C。 CTM01转向发送的本地64位毫秒。
 extern std::uint32_t gValueC8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
-extern std::uint32_t gValueC8A778; // 原全局：0x00C8A778。
+extern std::uint64_t gValueC8A778; // 原全局：0x00C8A778。
 extern std::uint32_t gValueC8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
 extern std::uint32_t gValueC8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
 extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
 extern std::int32_t gValueC8A78C; // 原全局：0x00C8A78C。 原鼠标世界像素X。
 extern std::int32_t gValueC8A790; // 原全局：0x00C8A790。 原鼠标世界像素Y。
-extern std::uint32_t gValueC8A794; // 原全局：0x00C8A794。
+extern std::uint64_t gValueC8A794; // 原全局：0x00C8A794。
 extern std::uint32_t gValueC8A7A0; // 原全局：0x00C8A7A0。 原46F680目标格左键单次事件。
 extern std::uint32_t gValueC8A7A4; // 原全局：0x00C8A7A4。 原目标格左键持续事件。
 extern std::uint32_t gValueC8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
 extern std::uint32_t gValueC8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
-extern std::uint32_t gValue55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
+extern std::uint64_t gValue55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
 extern std::uint32_t gValueC82208; // 原全局：0x00C82208。 原地图请求 W32；50CF90、509090、509100 等共享。
 extern std::uint32_t gValueC8220C; // 原全局：0x00C8220C。
 extern std::uint32_t gValueC82210; // 原全局：0x00C82210。
@@ -306,7 +306,7 @@ extern std::uint16_t gValue62B3B0; // 原全局：0x0062B3B0。
 extern std::uint16_t gValue556C34; // 原全局：0x00556C34。
 extern std::uint16_t gValue62B5AA; // 原全局：0x0062B5AA。
 extern std::uint16_t gValue62B5A8; // 原全局：0x0062B5A8。
-extern std::uint32_t gValue62B5B0; // 原全局：0x0062B5B0。
+extern std::uint64_t gValue62B5B0; // 原全局：0x0062B5B0。
 extern std::uint32_t gValue62B308; // 原全局：0x0062B308。
 extern std::uint32_t gValue62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
 extern std::uint32_t gValue62B358; // 原全局：0x0062B358。
@@ -595,7 +595,7 @@ struct PlayerRuntimeSlots {
     std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
     std::int32_t timerRemaining0C; // 原成员偏移：+0x0C。 原FDA70C；458F40按帧扣减的S32。
     std::int32_t timerMode10; // 原成员偏移：+0x10。 原FDA710；保留完整模式，非零才扣减。
-    std::uint32_t timerTick14; // 原成员偏移：+0x14。 原FDA714；50C7A0与458F40同源。
+    std::uint64_t timerTick14; // 原成员偏移：+0x14。 原FDA714；50C7A0与458F40同源。
     platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
     platform::LegacyCryptInt maxHp; // 原 FDA728。
     platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
@@ -1447,7 +1447,7 @@ extern std::uint16_t gValueFF0D32; // 原全局：0x00FF0D32。
 extern std::uint16_t gValueF7CA04; // 原全局：0x00F7CA04。
 extern std::uint16_t gValueFF03D8; // 原全局：0x00FF03D8。
 extern std::uint16_t gValueFF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
-extern std::uint32_t gValueFF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
+extern std::uint64_t gValueFF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。
 std::uint32_t Sub_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 // 原函数：0x00469C90。
@@ -1618,7 +1618,7 @@ extern std::uint8_t gBattleRebirthDisabled5ABC40; // 原全局：0x005ABC40。 4
 extern std::int32_t gBattleSkillActionCount5ABBF4; // 原全局：0x005ABBF4。
 extern std::int32_t gBattlePetActionCount5ABBBC; // 原全局：0x005ABBBC。
 extern std::int32_t gBattleCountdownActive5ABCB8; // 原全局：0x005ABCB8。 43C4E0置1，4982C0到期清零。
-extern std::uint32_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
+extern std::uint64_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
 extern std::int32_t gBattleCountdownSecond5ABB80; // 原全局：0x005ABB80。 低于十秒时的独立提示秒数。
 extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 原全局：0x005ABBFC。 4965D0每次解码后重取，非553F90。
 extern std::int32_t gBattleCommandX553F78; // 原全局：0x00553F78。 映像490，43C4E0覆盖493。

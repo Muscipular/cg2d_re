@@ -260,7 +260,7 @@ cg::yobi::YobiAction* WindowGather_Open(std::int32_t skill, std::int32_t level);
 // 原函数：0x0047D2E0。
 WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     WindowInstance* unusedWindow, std::int32_t anchor,
-    std::int32_t first, std::int32_t second, std::uint32_t deadline); // 双预览六点插值，实际借当前窗口。
+    std::int32_t first, std::int32_t second, std::uint64_t deadline); // 双预览六点插值，实际借当前窗口。
 // 原函数：0x004ED6B0。
 WindowAnimationData* WindowGather_ReceiveResult(std::int32_t result, const char* text); // JgO第四分支，失败不解析正文。
 // 原函数：0x0047D280。
@@ -685,7 +685,7 @@ extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标�
 extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
 extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
 extern std::int32_t gSelectedItem57EE0C; // 原全局：0x0057EE0C。 原装载初值-1，窗口51只做单向迁移。
-extern std::uint32_t gWindowActionTick62B5AC; // 原全局：0x0062B5AC。 跨UI动作共用，不是交易私有计时槽。
+extern std::uint64_t gWindowActionTick62B5AC; // 原全局：0x0062B5AC。 跨UI动作共用，不是交易私有计时槽。
 extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
 extern std::int32_t gTooltipSourceD303FC; // 原全局：0x00D303FC。 原提示源分类/编号缓存，非地址。
 extern std::uint16_t gTooltipXCF46C0; // 原全局：0x00CF46C0。 同源低W16坐标，绘制按S16解释。

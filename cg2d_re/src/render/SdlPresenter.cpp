@@ -52,7 +52,7 @@ SdlPresenter gRendererPresenter;
 std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
 std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
 std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
-std::uint32_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
+std::uint64_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
 } // namespace
 
@@ -447,9 +447,9 @@ void TakeScreenshot_453760()
         && errno != 17) {
         return;
     }
-    __time32_t time;
-    time = ::_time32(nullptr);
-    const std::tm* const calendar = ::_localtime32(&time);
+    __time64_t time;
+    time = ::_time64(nullptr);
+    const std::tm* const calendar = ::_localtime64(&time);
     char path[256];
     std::int32_t sequence = 0;
     for (; sequence < 1000; ++sequence) {
@@ -525,14 +525,14 @@ void TakeScreenshot_453760()
 // 原函数：0x00503C80。
 std::uint32_t TakeScreenshotThrottled_503C80()
 {
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gScreenshotTickD68A78 + 500u > now) {
-        return now;
+        return static_cast<std::uint32_t>(now);
     }
     TakeScreenshot_453760();
-    const std::uint32_t completed = platform::ReadTickCount32();
+    const std::uint64_t completed = platform::ReadTickCount64();
     gScreenshotTickD68A78 = completed;
-    return completed;
+    return static_cast<std::uint32_t>(completed);
 }
 
 // 原函数：0x0044C3C0。

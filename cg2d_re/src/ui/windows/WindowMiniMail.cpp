@@ -173,9 +173,9 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
-        __time32_t time;
-        time = ::_time32(nullptr);
-        const std::tm* const calendar = ::_localtime32(&time);
+        __time64_t time;
+        time = ::_time64(nullptr);
+        const std::tm* const calendar = ::_localtime64(&time);
         const std::int32_t minute = calendar->tm_min;
         const std::int32_t hour = calendar->tm_hour;
         const std::int32_t day = calendar->tm_mday;

@@ -324,7 +324,7 @@ static std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
 // 原全局：0x00D2DBF8。 4886E0发布，4885A0读取的目标槽号。
 static std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
 
-std::uint32_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
+std::uint64_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
 
 std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
 
@@ -445,7 +445,7 @@ std::int32_t gCraftRequestValueD30400 = 0; // 原全局：0x00D30400。 制造�
 
 std::uint8_t gSkillRequestByteD64E13 = 0; // 原全局：0x00D64E13。 其他加工发送按S8读取。
 
-std::uint32_t gSkillPreviewTickCF46C8 = 0; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
+std::uint64_t gSkillPreviewTickCF46C8 = 0; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
 
 std::uint8_t gWindow12SkillIndexCA0470 = 0; // 原全局：0x00CA0470。 原低U8发布，索引消费按S8。
 

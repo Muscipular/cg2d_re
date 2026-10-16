@@ -37,7 +37,7 @@ struct MapTransitionPayload {
     std::int32_t mapX08; // 原成员偏移：+0x08。
     std::int32_t mapY0C; // 原成员偏移：+0x0C。
     std::int32_t counter10; // 原成员偏移：+0x10。
-    std::uint32_t tick14; // 原成员偏移：+0x14。
+    std::uint64_t tick14; // 原成员偏移：+0x14。
     MapTransitionSlots18 slots18; // 原成员偏移：+0x18。
     float value20; // 原成员偏移：+0x20。
     std::int32_t value24; // 原成员偏移：+0x24。
@@ -74,41 +74,8 @@ static_assert(offsetof(MapTransitionPayload, mapY0C) == 0x0C);
 
 static_assert(offsetof(MapTransitionPayload, counter10) == 0x10);
 
-static_assert(offsetof(MapTransitionPayload, tick14) == 0x14);
-
-static_assert(offsetof(MapTransitionPayload, slots18) == 0x18);
-
-static_assert(offsetof(MapTransitionPayload, value20) == 0x28);
-
-static_assert(offsetof(MapTransitionPayload, value24) == 0x2C);
-
-static_assert(offsetof(MapTransitionPayload, objectIndex28) == 0x30);
-
-static_assert(offsetof(MapTransitionPayload, visible2C) == 0x34);
-
-static_assert(offsetof(MapTransitionPayload, frame30) == 0x38);
-
-static_assert(offsetof(MapTransitionPayload, step34) == 0x3C);
-
-static_assert(offsetof(MapTransitionPayload, countdown38) == 0x40);
-
-static_assert(offsetof(MapTransitionPayload, height3C) == 0x44);
-
-static_assert(offsetof(MapTransitionPayload, velocity40) == 0x48);
-
-static_assert(offsetof(MapTransitionPayload, trailGraphic44) == 0x4C);
-
-static_assert(offsetof(MapTransitionPayload, trailX6C) == 0x74);
-
-static_assert(offsetof(MapTransitionPayload, trailY94) == 0x9C);
-
-static_assert(offsetof(MapTransitionPayload, trailWorldXBitsBC) == 0xC4);
-
-static_assert(offsetof(MapTransitionPayload, trailWorldYBitsE4) == 0xEC);
-
-static_assert(offsetof(MapTransitionPayload, flags10C) == 0x114);
-
-static_assert(sizeof(MapTransitionPayload) == 0x118);
+// CTM01：载荷按sizeof分配，64位时间槽之后采用本地布局。
+static_assert(sizeof(MapTransitionPayload::tick14) == 8);
 
 namespace {
 
@@ -194,7 +161,7 @@ YobiAction* Sub_448040(
     payload->mapX08 = mapX;
     payload->mapY0C = mapY;
     payload->counter10 = 0;
-    payload->tick14 = platform::ReadTickCount32();
+    payload->tick14 = platform::ReadTickCount64();
     if (mode == 0 || mode == 1) {
         payload->slots18.attachments.action18 = nullptr;
         payload->slots18.attachments.action1C = nullptr;
@@ -652,7 +619,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
         MarkDeath(action);
         return 0;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 8000u < tick && TransitionMovementIdle(action)) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
@@ -661,7 +628,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
     if ((payload->flags10C & 1u) == 0
         && payload->slots18.attachments.action18 == nullptr) {
         YobiAction** const slot = &payload->slots18.attachments.action18;
-        const std::uint32_t firstTick = platform::ReadTickCount32();
+        const std::uint64_t firstTick = platform::ReadTickCount64();
         if (payload->tick14 + 7200u < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
@@ -675,7 +642,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
     if ((payload->flags10C & 2u) == 0
         && payload->slots18.attachments.action1C == nullptr) {
         YobiAction** const slot = &payload->slots18.attachments.action1C;
-        const std::uint32_t secondTick = platform::ReadTickCount32();
+        const std::uint64_t secondTick = platform::ReadTickCount64();
         if (payload->tick14 + 7500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
@@ -710,7 +677,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.attachments.action18 == nullptr) {
-        const std::uint32_t firstTick = platform::ReadTickCount32();
+        const std::uint64_t firstTick = platform::ReadTickCount64();
         if (payload->tick14 < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
@@ -722,7 +689,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
         }
     }
     if (payload->slots18.attachments.action1C == nullptr) {
-        const std::uint32_t secondTick = platform::ReadTickCount32();
+        const std::uint64_t secondTick = platform::ReadTickCount64();
         if (payload->tick14 + 500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
@@ -733,7 +700,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 1200u < tick) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
@@ -756,8 +723,8 @@ std::int32_t Sub_447070(YobiAction* const action)
         return 0;
     }
     if (payload->slots18.values.state18 != 0) {
-        const std::uint32_t now = platform::ReadTickCount32();
-        const std::uint32_t deadline = payload->tick14 + 1000u;
+        const std::uint64_t now = platform::ReadTickCount64();
+        const std::uint64_t deadline = payload->tick14 + 1000u;
         if (deadline < now) {
             const double angle = payload->value20 + 6.0;
             payload->value24 += 4;
@@ -809,7 +776,7 @@ std::int32_t Sub_447610(YobiAction* const action)
         MarkDeath(action);
         return 0;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
@@ -835,7 +802,7 @@ std::int32_t Sub_447820(YobiAction* const action)
         payload->countdown38 = 1;
         payload->frame30 = frame ^ 1u;
     }
-    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
         world::detail::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);

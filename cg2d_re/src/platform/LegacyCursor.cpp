@@ -62,9 +62,9 @@ std::int16_t ReadCursorOffsetY(const std::uint32_t state)
 }
 
 void UpdatePulse(
-    const std::uint32_t elapsed,
+    const std::uint64_t elapsed,
     const std::uint32_t bit,
-    std::uint32_t& anchor)
+    std::uint64_t& anchor)
 {
     if (elapsed <= 500) {
         const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
@@ -73,7 +73,7 @@ void UpdatePulse(
         return;
     }
 
-    const std::uint32_t currentAnchor = anchor;
+    const std::uint64_t currentAnchor = anchor;
     if (currentAnchor == 0) {
         const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = elapsed;
@@ -81,7 +81,7 @@ void UpdatePulse(
         return;
     }
 
-    const std::uint32_t repeatElapsed = elapsed - currentAnchor;
+    const std::uint64_t repeatElapsed = elapsed - currentAnchor;
     if (bit == 0x02u) {
         // 原右侧 506EE5：先保存 pulse，再判断重复间隔并发布锚点。
         const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
@@ -188,21 +188,21 @@ void ResetLegacyMouseTail_506DD0()
 // 原函数：0x00506E00。
 void UpdateCursor_506E00()
 {
-    const std::uint32_t leftDownTick = gLegacyMouseState.leftDownTick;
+    const std::uint64_t leftDownTick = gLegacyMouseState.leftDownTick;
     gLegacyMouseState.edgeButtons = 0;
 
-    std::uint32_t leftElapsed;
+    std::uint64_t leftElapsed;
     if (leftDownTick != 0) {
-        const std::uint32_t now = ReadTickCount32();
+        const std::uint64_t now = ReadTickCount64();
         leftElapsed = now - gLegacyMouseState.leftDownTick;
         gLegacyMouseState.leftElapsed = leftElapsed;
     } else {
         leftElapsed = gLegacyMouseState.leftElapsed;
     }
 
-    std::uint32_t rightElapsed;
+    std::uint64_t rightElapsed;
     if (gLegacyMouseState.rightDownTick != 0) {
-        const std::uint32_t now = ReadTickCount32();
+        const std::uint64_t now = ReadTickCount64();
         rightElapsed = now - gLegacyMouseState.rightDownTick;
         // 原 506E43 在发布 rightElapsed 前重新保存左侧样本。
         leftElapsed = gLegacyMouseState.leftElapsed;

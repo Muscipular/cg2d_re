@@ -680,10 +680,10 @@ void Sub_4C9490()
 // 原函数：0x00534520。
 std::int32_t Sub_534520(char* const destination)
 {
-    __time32_t timeValue;
-    timeValue = ::_time32(nullptr);
+    __time64_t timeValue;
+    timeValue = ::_time64(nullptr);
     const std::tm* const localTime =
-        ::_localtime32(&timeValue);
+        ::_localtime64(&timeValue);
     const std::int32_t minutes = localTime->tm_min;
     const std::int32_t hours = localTime->tm_hour;
     const std::int32_t day = localTime->tm_mday;

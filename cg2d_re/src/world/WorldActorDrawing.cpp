@@ -114,8 +114,8 @@ void Sub_442DC0(
     auto* const flagBytes = reinterpret_cast<unsigned char*>(
         &gWorldObjects[payload->index].flags42);
     flagBytes[1] |= 0x20u;
-    const std::uint32_t tick = platform::ReadTickCount32();
-    payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
+    const std::uint64_t tick = platform::ReadTickCount64();
+    payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
     Sub_43D860(action);
     auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
@@ -136,8 +136,8 @@ void Sub_51A6A0(
     }
     MarkPlayerChatActive();
     auto* const payload = action->payload.mapActor;
-    const std::uint32_t tick = platform::ReadTickCount32();
-    payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
+    const std::uint64_t tick = platform::ReadTickCount64();
+    payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
     auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
         delete previousText;

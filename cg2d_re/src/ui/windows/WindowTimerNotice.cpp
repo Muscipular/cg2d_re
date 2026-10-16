@@ -34,7 +34,7 @@ static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = (window->width - textWidth) >> 1;
     } else {
-        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint64_t tick = platform::ReadTickCount64();
         if (world::detail::gValue62B5B0 + 2000u <= tick) {
             gCurrentWindow->state |= 0x8000u;
             world::detail::gValue62B5B0 = 0;

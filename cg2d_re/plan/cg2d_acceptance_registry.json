@@ -5,8 +5,11 @@
     "date": "2026-10-16",
     "scope": "A07、A11业务迁移及本地time64／tick64升级，不引入hook",
     "clipboard_state": "implemented_and_wired_static_only",
-    "time64_state": "in_progress",
+    "time64_state": "implemented_and_wired_static_only",
     "diagnostics_state": "in_progress",
+    "tick_provider": "WinMain基线／GetTickCount64启动相对毫秒，完整64位本地存储／差值",
+    "calendar_provider": "MSVC __time64_t / _time64 / _localtime64 / _fstat64",
+    "external_time_formats": "原协议／存档W32格式保持，随机种子与非计时返回显式降宽",
     "clipboard_entrypoints": [
       "Ctrl+V",
       "Shift+Insert",
@@ -181,7 +184,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -368,7 +372,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
-        "doc/cg2d_borrow_cleanup_spec.md"
+        "doc/cg2d_borrow_cleanup_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -387,7 +392,8 @@
         "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。",
         "MC01-C3旧退出/信号/消息与钩子/console/filter层退休；三实际终止MSVC入口与四数组正文保真，删纯CRT回调/唯一登记，不改任何真实业务登记/资源清理或顺序。_Exit保255并不输出旧R600x诊断，库内差异获批；旧multibyte前置已由C5退休及全部业务/owner/SDK/启动退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
-        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。"
+        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -741,7 +747,8 @@
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_bin_loader_migration_spec.md"
+        "doc/cg2d_bin_loader_migration_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1415,7 +1422,8 @@
         "doc/cg2d_cryptint_direct_globals_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
         "doc/cg2d_borrow_cleanup_spec.md",
-        "doc/cg2d_bin_loader_migration_spec.md"
+        "doc/cg2d_bin_loader_migration_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1429,7 +1437,8 @@
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
         "MC01-C6无消费549147多BYTE回退已退休；实际单BYTE服务/业务保持。十原qsort调用仍保旧算法，其中七组/八调用的非一致业务比较关系与直接MSVC有冲突，两具体方案已给用户选择；未批准/未实施排序替换。实际owner/SDK/运行及全CRT/整体门禁仍未验。",
-        "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。"
+        "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1789,7 +1798,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -2053,7 +2063,8 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2125,7 +2136,8 @@
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
         "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
-        "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+        "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2267,7 +2279,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
-        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -2329,7 +2342,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
-        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014"
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2345,7 +2359,8 @@
         "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
         "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
         "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
-        "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。"
+        "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2395,7 +2410,8 @@
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
-        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -2461,7 +2477,8 @@
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2485,7 +2502,8 @@
         "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
         "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
         "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
-        "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
+        "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2595,7 +2613,8 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:000038A0",
@@ -2766,7 +2785,8 @@
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "CAB27三回调入口宽度已修：未读socket只拓宽uintptr_t，Puk S32入口只消费低W8。原51条135B/唯一直接入向、源差集与当前Debug有据，三宽度警告0/其它97警告；IP2/完整网络/正常寿命/机器ABI未验，成员72枚举false。",
@@ -2800,7 +2820,8 @@
         "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
         "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
         "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。",
-        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。"
+        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3266,7 +3287,8 @@
         "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
         "CAC20仅本批数据/ABI尾部与私有单叶宿主职责；完整父/所有callee、生产与未知alias/正常owner寿命、SDK生成ABI及运行继续未闭；输入元数据不证明当前使用，八字节用途仍待，成员枚举保持false。",
         "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
-        "CTM01/A07三条粘贴入口已接WindowProcedure，Unicode／ANSI边界及剪贴板关闭仅静态核对；真实粘贴、输入限制、界面／退出运行未验"
+        "CTM01/A07三条粘贴入口已接WindowProcedure，Unicode／ANSI边界及剪贴板关闭仅静态核对；真实粘贴、输入限制、界面／退出运行未验",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3434,7 +3456,8 @@
         "doc/cg2d_map_object_production_sampling_spec.md",
         "doc/cg2d_world_object_record_producers_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -3507,7 +3530,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
         "doc/cg2d_target_choice_gbk_crash_20261015.md",
-        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3529,7 +3553,8 @@
         "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待",
         "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
         "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
-        "BTJ01既有1073/Sub_442F70仅原聊天窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父元数据1220条及唯一4417E0@441D9B保，非完整root复验、不代其余1086条。YobiRuntime.cpp一原业务体六唯一片段：过期旧text地址先取再清本地flags且复用同地址NULL/free；未过期原气泡/flags短路才取drawableText并复用同谓词指针测首行，fullS32 font当场读；底部metricFont现场样本复用给第二测宽，第二text新取+41；两绘制依原text→真实低W8 color/font→真实低W16 actionX取样，第二Y先算再X/第一X先取再Y，负width/2向零及最终真实S16保持；首Draw后九宫格X另现场读全W32，不误缩为W16。原unsigned deadline<=tick、零length仍覆盖stateIndex别名/非零含负数绘制、首测宽→图高→现场Y→font指标/两行maxwidth/第二Draw后重新font指标扣Y/四callee次序、九宫格原图/大小/颜色/参数、fallback原Y→X/后续名称及所有其它正文保。1073十原名称格式点/生产消费与AAS01全部字段和两LOOP/MAP成员/原adapted整处置保后追加；无新F/语义/处置/R7/排除，TEXT27→28及两局部I-S。字段owner/布局不变、不扩普通S32或造异常/保护/钳制/拒绝/补零/限长/helper；完整父/callee/全部正常文本分配绘制过期寿命、SDK-ABI/画面/明文互通/运行未验"
+        "BTJ01既有1073/Sub_442F70仅原聊天窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父元数据1220条及唯一4417E0@441D9B保，非完整root复验、不代其余1086条。YobiRuntime.cpp一原业务体六唯一片段：过期旧text地址先取再清本地flags且复用同地址NULL/free；未过期原气泡/flags短路才取drawableText并复用同谓词指针测首行，fullS32 font当场读；底部metricFont现场样本复用给第二测宽，第二text新取+41；两绘制依原text→真实低W8 color/font→真实低W16 actionX取样，第二Y先算再X/第一X先取再Y，负width/2向零及最终真实S16保持；首Draw后九宫格X另现场读全W32，不误缩为W16。原unsigned deadline<=tick、零length仍覆盖stateIndex别名/非零含负数绘制、首测宽→图高→现场Y→font指标/两行maxwidth/第二Draw后重新font指标扣Y/四callee次序、九宫格原图/大小/颜色/参数、fallback原Y→X/后续名称及所有其它正文保。1073十原名称格式点/生产消费与AAS01全部字段和两LOOP/MAP成员/原adapted整处置保后追加；无新F/语义/处置/R7/排除，TEXT27→28及两局部I-S。字段owner/布局不变、不扩普通S32或造异常/保护/钳制/拒绝/补零/限长/helper；完整父/callee/全部正常文本分配绘制过期寿命、SDK-ABI/画面/明文互通/运行未验",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3671,7 +3696,8 @@
         "doc/cg2d_palette_capability_selection_spec.md",
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
-        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -3938,7 +3964,8 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3997,7 +4024,8 @@
         "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
         "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。",
         "CAC09仅原46E3E0在0x44记录字节视图一私有桥实修及原指针版保留；完整44/115B与五调用邻窗/末地址可追。三局部I/W/S及一adapted处置不提升完整成员枚举/门禁，不代五父完整生产消费、所有alias/正常owner寿命、机器ABI/画面与运行。",
-        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。"
+        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4446,7 +4474,8 @@
         "doc/cg2d_tooltip_description_render_spec.md",
         "doc/cg2d_map_reply_palette_spec.md",
         "doc/cg2d_palette_capability_selection_spec.md",
-        "doc/cg2d_graphic_allocation_release_spec.md"
+        "doc/cg2d_graphic_allocation_release_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -4630,7 +4659,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "doc/cg2d_sdl_presenter.md#present-driver-fps-fix-20261013",
-        "doc/cg2d_borrow_cleanup_spec.md"
+        "doc/cg2d_borrow_cleanup_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -4674,7 +4704,8 @@
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
         "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
         "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
-        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
+        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4789,7 +4820,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-baseline-20261009",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-baseline",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0006FC60",
@@ -4858,14 +4890,16 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
-        "doc/cg2d_borrow_cleanup_spec.md"
+        "doc/cg2d_borrow_cleanup_spec.md",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。",
         "CAC10只478330三切页坐标片段实修及完整499/1704B、十四448B原型/现两数组绑定；58有效case与64原默认索引分别保持。具名已知成员不是闭枚举或完整B/I/W/S/R；全部窗口/外层与callee、正常owner-alias寿命、机器ABI/画面/明文运行及R8继续。",
         "CAC18仅26新父数据/现源码关联与三段无F回调/八原型来源；35父完整原本体未重捕获/重验，完整成员/所有callee、字段生产/外层分派、正常owner寿命/SDK/机器ABI与运行仍未闭。",
-        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。"
+        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -5499,7 +5533,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline",
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
-        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -5685,7 +5720,8 @@
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -5744,7 +5780,8 @@
         "BNR01技能19族单根26定义27处实修，914条3505B/67call-三表121B及反弹/半额反馈有界纳管；完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
         "BNS01技能267 单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改；576条2144B/45call有界纳管，完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
         "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待",
-        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。"
+        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -6050,7 +6087,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-status-consumption",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-frame-result"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-frame-result",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -6632,7 +6670,8 @@
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-decision",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-decision",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-decision",
-        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-decision"
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-decision",
+        "doc/cg2d_clipboard_timing_migration_spec.md"
       ],
       "blockers": [
         "CAB30两个既有宠物技能绘制入口仅明确既有U8图层消费，原equivalent处置/原成员保持；正常成本/取样/图号/音效及所有其它正文不变，原完整门禁与寿命/ABI/运行不由本步外推。",
@@ -6758,7 +6797,8 @@
         "DPCS01两个既有投射创建器父Y/payload与投影取样四组修正，SpiracleShot两高度借同一表、BlastWave图号先于目标查询；原身份/成员/分母不增，限定I/S，不代完整资源/全部父-callee/SDK/最终DX及对象owner回收或运行。",
         "BPEX01阶段17完整30条89B/唯一case17正常退场合同纳管，源码不改仅两注释，限定S/零新I；调度标死/释放阶段说明为条件性，不代全部标死来源/门禁变更/重生重入/清场退出与资源、父投影最终owner/SDK画面运行，枚举false。",
         "BAEL01追加效果链三完整根/六头引用及当前私有节点生产-值查找-清理纳管，仅清理free current持样一段实修，限定I仅一F/S三F；正常场景7/9差异保，全资格/15父与数据/原间接alias、SDK失败/重进退出/最终owner与运行仍未验，枚举false。",
-        "BEMS01既有退出扫描816号扩完整CHT/BST/固定payload-fresh场景和正常计时源，正文保仅两注释、限定S零I；无新语义/函数，完整M数据/父-callee/场景借用owner/SDK和声音画面运行仍待，成员false。"
+        "BEMS01既有退出扫描816号扩完整CHT/BST/固定payload-fresh场景和正常计时源，正文保仅两注释、限定S零I；无新语义/函数，完整M数据/父-callee/场景借用owner/SDK和声音画面运行仍待，成员false。",
+        "CTM01本地日历／毫秒计时已升64位并接统一启动时间域，协议／存档格式与RNG消费保持；仅静态核对，长时运行／2038后日期、真实业务和完整退出未验，完整门禁保持"
       ],
       "gates": {},
       "member_inventory_closed": false,

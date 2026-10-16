@@ -27,7 +27,7 @@ extern std::uint32_t gWindowReportFlags;     // 原 0x73ECF0，回调累计低�
 extern std::int32_t gWindowReportAttempts;  // 原 0x73ECF8，signed32 比较。
 extern std::int32_t gWindowReportValue;     // 原 0x73ECF4，报告值具体枚举未定。
 extern double gWindowEnumerationDeadline;   // 原 0x73ED00，独立于延迟上报 tick 的 binary64 截止。
-extern std::uint32_t gWindowReportDeadline; // 原 0x73ED08，32 位 tick 与 0xFFFFFFFF 哨兵。
+extern std::uint64_t gWindowReportDeadline; // 原0x73ED08；CTM01为64位相对tick，UINT64_MAX表示无期限。
 
 // 原 0x73ED10 的 64 位整秒基线；保留原两次 DWORD 存储，而不是原生原子计时值。
 struct SystemTimeWords {
@@ -39,8 +39,8 @@ static_assert(offsetof(SystemTimeWords, high) == 4);
 extern SystemTimeWords gLastSystemTime;
 extern std::uint32_t gPeriodicReportSeconds; // 原 0x73ED18，阈值比较按 signed32。
 
-// Win32 GetTickCount 的最小平台边界；保留原 32 位回绕值，不向 world 公开 Win32 类型。
-std::uint32_t ReadTickCount32() noexcept;
+// CTM01：Win32 GetTickCount64减启动基线，完整64位毫秒；所有业务共用该时间域。
+std::uint64_t ReadTickCount64() noexcept;
 // 原函数：0x00457010。
 void RequestRender_457010() noexcept; // 原457010：只将共享强制呈现标志写1。
 

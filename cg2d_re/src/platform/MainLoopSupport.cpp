@@ -35,8 +35,8 @@ LegacyRandomEngine& SharedRandomEngine()
 }
 
 // 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
-volatile std::uint32_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
-volatile std::uint32_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
+volatile std::uint64_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
+volatile std::uint64_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
 
 // 原 W32 0x59E544、0x593FD0；供未来 0x4043B0/0x4048E0 在本文件共享。
 volatile std::uint32_t gValue59E544 = 0; // 原全局：0x0059E544。
@@ -502,9 +502,10 @@ int ResetProtection_4048D0()
     return 0;
 }
 
-std::uint32_t ReadTickCount32() noexcept
+std::uint64_t ReadTickCount64() noexcept
 {
-    return static_cast<std::uint32_t>(GetTickCount());
+    static const std::uint64_t start = ::GetTickCount64();
+    return ::GetTickCount64() - start;
 }
 
 // 原函数：0x00457010。
@@ -532,8 +533,8 @@ std::int32_t CheckWindows_4048E0()
         return 0;
     }
 
-    const std::uint32_t tick = ReadTickCount32();
-    static_cast<void>(SeedRandom_53B4BF(tick));
+    const std::uint64_t tick = ReadTickCount64();
+    static_cast<void>(SeedRandom_53B4BF(static_cast<std::uint32_t>(tick)));
     const std::int32_t randomizedCounter =
         static_cast<std::int32_t>(Rand16()) % 300;
     gValue593FD0 = std::bit_cast<std::uint32_t>(randomizedCounter);
@@ -549,7 +550,7 @@ std::int32_t CheckWindows_4048E0()
     return result;
 }
 
-// 原 KeepAlive@[0x457AB0,0x457B03)：保留零基线哨兵及 signed32 差值门槛。
+// 原KeepAlive@[0x457AB0,0x457B03)；CTM01基线／差值64位，零哨兵与60000ms门槛保持。
 void KeepAlive_457AB0()
 {
     if (network::ReadNetworkRuntimeActive() == 0) {
@@ -557,17 +558,17 @@ void KeepAlive_457AB0()
     }
 
     if (gKeepAliveBaselineTick == 0) {
-        const std::uint32_t tick = ReadTickCount32();
+        const std::uint64_t tick = ReadTickCount64();
         gKeepAliveRecentTick = tick;
         gKeepAliveBaselineTick = tick;
         return;
     }
 
-    const std::uint32_t tick = ReadTickCount32();
-    const std::uint32_t baselineTick = gKeepAliveBaselineTick;
-    const std::uint32_t elapsedBits = tick - baselineTick;
+    const std::uint64_t tick = ReadTickCount64();
+    const std::uint64_t baselineTick = gKeepAliveBaselineTick;
+    const std::uint64_t elapsedBits = tick - baselineTick;
     gKeepAliveRecentTick = tick;
-    if (std::bit_cast<std::int32_t>(elapsedBits) < 60000) {
+    if (std::bit_cast<std::int64_t>(elapsedBits) < 60000) {
         return;
     }
 
@@ -710,9 +711,11 @@ std::uint64_t ReadSystemSeconds_4589D0()
 // 原函数：0x00458A10。
 int CheckSystemSeconds_458A10(std::int32_t seconds)
 {
-    const std::uint32_t now = static_cast<std::uint32_t>(ReadSystemSeconds_4589D0());
-    const std::uint32_t elapsed = now - gLastSystemTime.low;
-    return std::bit_cast<std::int32_t>(elapsed) >= seconds && seconds > 0 ? 1 : 0;
+    const std::uint64_t now = ReadSystemSeconds_4589D0();
+    const std::uint64_t previous =
+        (static_cast<std::uint64_t>(gLastSystemTime.high) << 32) | gLastSystemTime.low;
+    const std::uint64_t elapsed = now - previous;
+    return std::bit_cast<std::int64_t>(elapsed) >= seconds && seconds > 0 ? 1 : 0;
 }
 
 } // namespace cg::platform

@@ -45,9 +45,9 @@
 #include <utility>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
-// COR14：CRT时间槽仍为原32位有符号时间，禁止默认time_t拓宽布局。
-static_assert(sizeof(__time32_t) == sizeof(std::int32_t));
-static_assert(alignof(__time32_t) == alignof(std::int32_t));
+// CTM01：本地CRT时间槽显式__time64_t；协议与存档字段仍按各自原格式承接。
+static_assert(sizeof(__time64_t) == sizeof(std::int64_t));
+static_assert(alignof(__time64_t) == alignof(std::int64_t));
 
 namespace cg::network {
 namespace detail {
@@ -93,7 +93,7 @@ std::int32_t DefaultNetworkCallback(
 // 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
     std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
-    __time32_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
+    __time64_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
     std::tm* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
@@ -117,7 +117,7 @@ struct NetworkRuntimeState {
     std::array<std::uint8_t, kQueueStorageSize> queueBytes; // 原全局：0x00D8F2B8。
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
     std::uint8_t flagsD9F2C0; // 原全局：0x00D9F2C0。
-    std::uint32_t lastTickD9F2C4; // 原全局：0x00D9F2C4。
+    std::uint64_t lastTickD9F2C4; // 原全局：0x00D9F2C4。
     std::int32_t errorD9F2CC; // 原全局：0x00D9F2CC。
     std::uint32_t receiveResetD9F3C4; // 原全局：0x00D9F3C4。
     std::uint32_t frameModuloD9F3C8; // 原全局：0x00D9F3C8。
@@ -158,7 +158,7 @@ std::int32_t QueuePlaintextProtocolBytes(
         gNetworkRuntimeState.valueD9F2D0 = 0;
     } else if (platform::gWindowReportValue > 0
         && login::ReadRequestOutcomeFlag() == 1
-        && std::bit_cast<std::int32_t>(platform::gWindowReportDeadline) < 0) {
+        && std::bit_cast<std::int64_t>(platform::gWindowReportDeadline) < 0) {
         platform::gWindowReportValue = 0;
     }
 
@@ -710,9 +710,9 @@ void HandleResponse_508800(
     }
 
     gNetworkRuntimeState.protocolModeDA3B22 = 1;
-    gNetworkRuntimeState.time62B394 = ::_time32(nullptr);
+    gNetworkRuntimeState.time62B394 = ::_time64(nullptr);
     gNetworkRuntimeState.localTime62B380 =
-        ::_localtime32(&gNetworkRuntimeState.time62B394);
+        ::_localtime64(&gNetworkRuntimeState.time62B394);
 
     const char* const separator = const_cast<char*>(std::strstr(text, "|"));
     character_select::detail::gText9A4EAC.clear();
@@ -1943,9 +1943,9 @@ std::int32_t Sub_510B80(
             ++index;
         } while (index < std::strlen(buffer));
         if (spaces > 0) {
-            const std::int32_t seconds = static_cast<std::int32_t>(::_time32(nullptr));
+            const __time64_t seconds = ::_time64(nullptr);
             static_cast<void>(
-                platform::SeedRandom_53B4BF(std::bit_cast<std::uint32_t>(seconds)));
+                platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seconds)));
             selected = platform::Rand16() % spaces;
             if (selected == 0) {
                 selected = 1;
@@ -4147,7 +4147,7 @@ std::uint8_t NetworkLoop_507DF0()
     const std::uint8_t flags = gNetworkRuntimeState.flagsD9F2C0;
     if ((flags & 1U) == 0) {
         gNetworkRuntimeState.flagsD9F2C0 = static_cast<std::uint8_t>(flags | 1U);
-        gNetworkRuntimeState.lastTickD9F2C4 = ::GetTickCount();
+        gNetworkRuntimeState.lastTickD9F2C4 = platform::ReadTickCount64();
     }
     if (gNetworkRuntimeState.active == 0) {
         return 0;
@@ -4265,7 +4265,7 @@ std::uint8_t NetworkLoop_507DF0()
             sendLength,
             0);
         if (sent > 0) {
-            gNetworkRuntimeState.lastTickD9F2C4 = ::GetTickCount();
+            gNetworkRuntimeState.lastTickD9F2C4 = platform::ReadTickCount64();
         }
         if (sent == -1) {
             const std::int32_t error = detail::Sub_508310();
@@ -4288,7 +4288,7 @@ std::uint8_t NetworkLoop_507DF0()
         }
     }
 
-    const std::uint32_t now = ::GetTickCount();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
         && gNetworkRuntimeState.active == 1) {
         return static_cast<std::uint8_t>(

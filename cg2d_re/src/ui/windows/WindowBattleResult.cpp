@@ -24,7 +24,7 @@ static std::int32_t WindowDpResult_Update(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::uint32_t gBattleResultCloseTickCB0F78 = 0; // 原全局：0x00CB0F78。 原窗口30/31共用到期tick，不按窗口复制。
+static std::uint64_t gBattleResultCloseTickCB0F78 = 0; // 原全局：0x00CB0F78。 原窗口30/31共用到期tick，不按窗口复制。
 
 static WindowGraphicData gWindowGraphic56B918 {0x3BA7E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B918。
 
@@ -273,9 +273,9 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             static_cast<WindowTextData*>(window->elements[row + 45].data)->text = cg::text::FromGbkWide(text);
             gCurrentWindow->elements[row + 17].visible = 0;
         }
-        gBattleResultCloseTickCB0F78 = platform::ReadTickCount32() + 5000u;
+        gBattleResultCloseTickCB0F78 = platform::ReadTickCount64() + 5000u;
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gBattleResultCloseTickCB0F78 < now) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -319,7 +319,7 @@ static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std
 static std::int32_t WindowDpResult_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint64_t now = platform::ReadTickCount64();
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
         const std::int32_t delta = world::detail::gValueFF0D04;
@@ -328,7 +328,7 @@ static std::int32_t WindowDpResult_Update(const std::int32_t value)
         const std::int32_t total = world::detail::gValueFF0D08;
         cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[3].data)->text, L"Total{:9}", total);
     }
-    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint64_t now = platform::ReadTickCount64();
     if (gBattleResultCloseTickCB0F78 < now) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));

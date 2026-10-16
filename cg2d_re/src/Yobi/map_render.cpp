@@ -426,7 +426,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     }
 
     if ((flags & 0x2000u) != 0) {
-        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint64_t now = platform::ReadTickCount64();
         const std::array<std::wstring, 2>* drawableText = nullptr;
         if (payload->chatDeadline14 <= now) {
             auto* const expiredText = payload->text1C;

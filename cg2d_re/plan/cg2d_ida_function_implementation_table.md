@@ -851,7 +851,7 @@
 | 783 | 0x00456FE0 | `unknown_libname_15` | 有承接 | `src/platform/RuntimeInitialization.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 784 | 0x00457000 | `unknown_libname_16` | 有承接 | `src/platform/RuntimeInitialization.cpp:184 — cg::world::detail::gSceneTransitionValue` | LCI17同一中央位置直接定义LegacyCryptInt；默认构造及逆序析构由MSVC承接，原RNG／读写序保持，optional与启动包装退休；仅静态，编译／运行未验 |
 | 785 | 0x00457010 | `sub_457010` | 有正文 | `src/platform/MainLoopSupport.cpp:528 — RequestRender_457010` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 786 | 0x00457020 | `MainLoop` | 有正文 | `src/platform/MainLoop.cpp:45 — MainLoop` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 786 | 0x00457020 | `MainLoop` | 有正文 | `src/platform/MainLoop.cpp:153 — MainLoop` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 787 | 0x004574E0 | `GraphicAlloc` | 有正文 | `src/resource/GraphicAlloc.cpp:21 — GraphicAlloc_4574E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 788 | 0x00457670 | `sub_457670` | 有正文 | `src/resource/GraphicAlloc.cpp:98 — Sub_457670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 789 | 0x004576B0 | `sub_4576B0` | 有正文 | `src/platform/ClientInitialization.cpp:179 — InitializeClient_4576B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -860,14 +860,14 @@
 | 792 | 0x00457B10 | `InitLoading` | 有正文 | `src/platform/LoadingScreen.cpp:28 — InitLoading_457B10` | 实际非占位正文已定位；2026-10-13 按用户要求初始阶段改为 21，自动走既有跳过清理；完整业务／接线／运行未验 |
 | 793 | 0x00458390 | `sub_458390` | 有正文 | `src/platform/ClientInitialization.cpp:101 — FadeInLoading_458390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 794 | 0x004585F0 | `sub_4585F0` | 有正文 | `src/platform/ClientInitialization.cpp:147 — FadeOutLoading_4585F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 795 | 0x004587D0 | `sub_4587D0` | 有正文 | `src/platform/MainLoopWindowEnumeration.cpp:74 — EnumerateWindows_4587D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 796 | 0x00458840 | `sub_458840` | 有正文 | `src/platform/MainLoopWindowEnumeration.cpp:19 — EnumerateWindowsCallback_458840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 795 | 0x004587D0 | `sub_4587D0` | 有正文 | `src/platform/MainLoop.cpp:109 — EnumerateWindows_4587D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 796 | 0x00458840 | `sub_458840` | 有正文 | `src/platform/MainLoop.cpp:54 — EnumerateWindowsCallback_458840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 797 | 0x004589A0 | `sub_4589A0` | 有承接 | `src/network/NetworkRuntime.cpp:177 — platform::gWindowReportValue > 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
 | 798 | 0x004589B0 | `sub_4589B0` | 有承接 | `src/network/NetworkRuntime.cpp:180 — platform::gWindowReportValue = 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
 | 799 | 0x004589C0 | `sub_4589C0` | 有承接 | `src/network/NetworkRuntime.cpp:179 — std::bit_cast<std::int32_t>(platform::gWindowReportDeadline) < 0` | 活动QueuePlaintextProtocolBytes内联承接；轮询／容量门禁通过后按首标记优先、报告值S32>0／登录状态1／截止W32按S32<0采样并清零；原命令字段LF保持，完整业务／运行未验 |
 | 800 | 0x004589D0 | `sub_4589D0` | 有正文 | `src/platform/MainLoopSupport.cpp:717 — ReadSystemSeconds_4589D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 801 | 0x00458A10 | `sub_458A10` | 有正文 | `src/platform/MainLoopSupport.cpp:730 — CheckSystemSeconds_458A10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 802 | 0x00458A40 | `sub_458A40` | 有正文 | `src/platform/MainLoop.cpp:22 — ShowModeChange_458A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 802 | 0x00458A40 | `sub_458A40` | 有正文 | `src/platform/MainLoop.cpp:130 — ShowModeChange_458A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 803 | 0x00458AE0 | `sub_458AE0` | 有正文 | `src/audio/LegacyAudio.cpp:1215 — Sub_458AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 804 | 0x00458DC0 | `sub_458DC0` | 有正文 | `src/platform/MainLoopSupport.cpp:537 — CheckLegacyDxCapability_458DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 805 | 0x00458DE0 | `World::UpdateNRTime` | 有正文 | `src/world/GameTime.cpp:16 — UpdateGameTime` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |

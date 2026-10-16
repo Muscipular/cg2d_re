@@ -12,6 +12,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/platformTool.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -332,7 +333,7 @@ static_assert(sizeof(gValueD9F2D4) == 60 * sizeof(std::int32_t));
 
 namespace detail {
 
-// NLD01：负索引／>=800返回-1；地址含NUL复制、atoi低W16端口，成功0，不读available。
+// NLD01：负索引／>=800返回-1；复制地址／atoi低W16端口，不读available；成功后应用A10策略。
 // 原函数：0x00507D90。
 std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
@@ -348,6 +349,7 @@ std::int32_t GetServerAddressInfo_507D90(
     std::strcpy(serverAddress, record.address.data());
     *port = static_cast<std::uint16_t>(
         std::atoi(record.portText.data()));
+    platform::ApplyServerAddressPolicy(serverAddress, *port);
     return 0;
 }
 

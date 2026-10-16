@@ -1,13 +1,18 @@
 #include "cg/platform/platformTool.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include <cstdlib>
 
 #include <winsock2.h>
+#include <ws2tcpip.h>
+#include <Windows.h>
 #include <iphlpapi.h>
 #include <ipifcons.h>
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 #include <new>
+#include <format>
+#include <string>
 
 namespace cg::platform {
 
@@ -77,6 +82,81 @@ std::int32_t GetMacAddress_534EF0(char* const output)
         std::memcpy(output, wirelessText, std::strlen(wirelessText) + 1);
     }
     return 0;
+}
+
+namespace {
+
+// A10：沿参考ResolveDNS查询系统IPv4地址，临时Winsock引用和结果链均在本次调用内释放。
+std::string ResolveServerPolicyAddress(const std::string& hostname)
+{
+    WSADATA wsaData;
+    if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+        return "";
+    }
+
+    addrinfo hints {};
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+
+    addrinfo* result = nullptr;
+    if (::getaddrinfo(hostname.c_str(), nullptr, &hints, &result) != 0) {
+        static_cast<void>(::WSACleanup());
+        return "";
+    }
+
+    std::string address;
+    char addressText[INET6_ADDRSTRLEN];
+    for (const addrinfo* entry = result; entry != nullptr; entry = entry->ai_next) {
+        if (entry->ai_family == AF_INET) {
+            const auto* ipv4 = reinterpret_cast<const sockaddr_in*>(entry->ai_addr);
+            if (::inet_ntop(AF_INET, &ipv4->sin_addr, addressText, sizeof(addressText)) != nullptr) {
+                address = addressText;
+                break;
+            }
+        } else if (entry->ai_family == AF_INET6) {
+            const auto* ipv6 = reinterpret_cast<const sockaddr_in6*>(entry->ai_addr);
+            if (::inet_ntop(AF_INET6, &ipv6->sin6_addr, addressText, sizeof(addressText)) != nullptr) {
+                address = addressText;
+                break;
+            }
+        }
+    }
+
+    ::freeaddrinfo(result);
+    static_cast<void>(::WSACleanup());
+    return address;
+}
+
+} // namespace
+
+// A10/SAP01：成功查询后同步执行；保留映射、提示及退出条件，x86终止机制改用标准进程退出。
+void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
+{
+    if (std::strcmp(serverAddress, "taomoli") == 0 && port <= 9) {
+        std::strcpy(serverAddress, "218.78.128.210");
+        port = static_cast<std::uint16_t>(9030 + port);
+        return;
+    }
+    if (IsClientDiagnosticsEnabled()) {
+        return;
+    }
+
+    const std::string address = ResolveServerPolicyAddress(
+        std::format("{}.{}.cg.qoq.im", serverAddress, port));
+    if (!address.empty() && address != "0.0.0.0") {
+        std::exit(std::rand());
+    }
+
+    const int result = ::MessageBoxW(
+        nullptr,
+        L"本程序仅供学习研究使用，严禁用于任何商业用途。"
+        L"本程序所涉及的所有版权均归官方所有，未经官方正式授权，任何单位或个人不得将本程序用于商业盈利活动。"
+        L"若您因误信非官方渠道信息，为使用本程序支付了相关费用，请您及时与收费方沟通并申请退款，由此产生的一切纠纷与本程序提供方无关。",
+        L"提示",
+        MB_YESNO | MB_ICONWARNING);
+    if (result != IDYES) {
+        std::exit(std::rand());
+    }
 }
 
 } // namespace cg::platform

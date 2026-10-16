@@ -8,7 +8,7 @@
 
 namespace cg::login::detail {
 
-// NLD01／原507D90：508360直接查询唯一服务器表，失败-1不写输出，成功复制地址／写U16端口。
+// NLD01／原507D90：失败-1不写输出；成功复制地址／写U16端口后应用A10映射或DNS／提示策略。
 std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
     char* serverAddress,

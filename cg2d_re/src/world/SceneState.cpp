@@ -145,6 +145,40 @@ std::int32_t TruncateTransitionCoordinate(const double value)
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
 
+// R09：转场沿640x480计算，仅在复制时换算到同尺寸的Temp／Back。
+// Clipped保原S16裁剪入口；Direct保原S32直接复制及资源失败边界。
+enum class TransitionCopyMode {
+    Clipped,
+    Direct,
+};
+
+void DrawTransitionRectangle(
+    const std::int32_t x, const std::int32_t y,
+    const std::array<std::int32_t, 4>& rectangle, render::TextureSurface* const source,
+    const TransitionCopyMode copyMode = TransitionCopyMode::Clipped)
+{
+    const std::int32_t width = render::GetCpuSurfaceWidth();
+    const std::int32_t height = render::GetCpuSurfaceHeight();
+    const auto scaleX = [width](const std::int32_t coordinate) {
+        return static_cast<std::int32_t>(static_cast<std::int64_t>(coordinate) * width / 640);
+    };
+    const auto scaleY = [height](const std::int32_t coordinate) {
+        return static_cast<std::int32_t>(static_cast<std::int64_t>(coordinate) * height / 480);
+    };
+    std::array<std::int32_t, 4> actualRectangle {
+        scaleX(rectangle[0]), scaleY(rectangle[1]),
+        scaleX(rectangle[2]), scaleY(rectangle[3])
+    };
+    if (copyMode == TransitionCopyMode::Clipped) {
+        static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<std::int16_t>(scaleX(x)), static_cast<std::int16_t>(scaleY(y)),
+            actualRectangle, source));
+    } else {
+        static_cast<void>(render::BlitSurfaceRectangleToBack(
+            scaleX(x), scaleY(y), actualRectangle, source));
+    }
+}
+
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
@@ -9617,7 +9651,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultY));
-        if (!(position > -static_cast<float>(platform::gWindowHeight))) {
+        if (!(position > -480.0f)) {
             completed = 1;
         }
         break;
@@ -9635,7 +9669,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultY));
-        if (position >= static_cast<float>(platform::gWindowHeight)) {
+        if (position >= 480.0f) {
             completed = 1;
         }
         break;
@@ -9647,7 +9681,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultX));
-        if (!(position > -static_cast<float>(platform::gWindowWidth))) {
+        if (!(position > -640.0f)) {
             completed = 1;
         }
         break;
@@ -9665,7 +9699,7 @@ std::int32_t Sub_51D790(
         gTransitionVelocityFF48F8 = static_cast<float>(
             static_cast<double>(gTransitionVelocityFF48F8)
             + (customAcceleration ? acceleration : defaultX));
-        if (position >= static_cast<float>(platform::gWindowWidth)) {
+        if (position >= 640.0f) {
             completed = 1;
         }
         break;
@@ -9711,10 +9745,10 @@ std::int32_t Sub_51D790(
         if (gTransitionActiveLinesFF48FC > 241.0f) {
             gTransitionActiveLinesFF48FC = 241.0f;
         }
-        if (!(offsetsX[241] >= -static_cast<float>(platform::gWindowWidth))) {
+        if (!(offsetsX[241] >= -640.0f)) {
             completed = 1;
         }
-        if (offsetsX[241] > static_cast<float>(platform::gWindowWidth)) {
+        if (offsetsX[241] > 640.0f) {
             completed = 1;
         }
         break;
@@ -9756,10 +9790,10 @@ std::int32_t Sub_51D790(
             if (gTransitionActiveLinesFF48FC > 241.0f) {
                 gTransitionActiveLinesFF48FC = 241.0f;
             }
-            if (!(offsetsY[241] >= -static_cast<float>(platform::gWindowWidth))) {
+            if (!(offsetsY[241] >= -640.0f)) {
                 completed = 1;
             }
-            if (offsetsY[241] > static_cast<float>(platform::gWindowWidth)) {
+            if (offsetsY[241] > 640.0f) {
                 completed = 1;
             }
         } else {
@@ -9779,7 +9813,7 @@ std::int32_t Sub_51D790(
             }
             gTransitionActiveLinesFF48FC = static_cast<float>(
                 active + (step != 0 ? step : 16.0));
-            if (gTransitionActiveLinesFF48FC > static_cast<float>(platform::gWindowHeight)) {
+            if (gTransitionActiveLinesFF48FC > 480.0f) {
                 gTransitionActiveLinesFF48FC = 480.0f;
             }
             if (offsetsY[479] > 600.0f) {
@@ -9803,7 +9837,7 @@ std::int32_t Sub_51D790(
             rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
         }
         break;
@@ -9816,7 +9850,7 @@ std::int32_t Sub_51D790(
             render::TextureSurface* const source = render::gCpuTempSurface;
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 0, static_cast<std::int16_t>(row + y), rectangle, source));
         }
         break;
@@ -9829,7 +9863,7 @@ std::int32_t Sub_51D790(
             rectangle[0] = 0;
             rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(position);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
         }
         break;
@@ -9843,7 +9877,7 @@ std::int32_t Sub_51D790(
             rectangle[0] = 0;
             rectangle[2] = 640;
             const std::int32_t y = TruncateTransitionCoordinate(position);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 0, static_cast<std::int16_t>(y), rectangle, source));
         }
         break;
@@ -9851,7 +9885,7 @@ std::int32_t Sub_51D790(
         render::TextureSurface* const source = render::gCpuTempSurface;
         const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);
         const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);
-        static_cast<void>(render::BlitSurfaceToBack_4535B0(
+        static_cast<void>(DrawTransitionRectangle(
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
         break;
     }
@@ -10022,10 +10056,10 @@ std::int32_t Sub_51E0D0(
                 if (active > 240) {
                     active = 240;
                 }
-                if (!(offsetsX[241] >= -static_cast<float>(platform::gWindowWidth))) {
+                if (!(offsetsX[241] >= -640.0f)) {
                     break;
                 }
-                if (offsetsX[241] > static_cast<float>(platform::gWindowWidth)) {
+                if (offsetsX[241] > 640.0f) {
                     break;
                 }
             }
@@ -10119,10 +10153,10 @@ std::int32_t Sub_51E0D0(
                 if (active < 241) {
                     active += step != 0 ? step : 4;
                 }
-                if (!(offsetsY[241] >= -static_cast<float>(platform::gWindowWidth))) {
+                if (!(offsetsY[241] >= -640.0f)) {
                     break;
                 }
-                if (offsetsY[241] > static_cast<float>(platform::gWindowWidth)) {
+                if (offsetsY[241] > 640.0f) {
                     break;
                 }
             }
@@ -10249,7 +10283,7 @@ std::int32_t Sub_51E0D0(
             rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
         }
         break;
@@ -10262,7 +10296,7 @@ std::int32_t Sub_51E0D0(
             render::TextureSurface* const source = render::gCpuTempSurface;
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 0, static_cast<std::int16_t>(row + y), rectangle, source));
         }
         break;
@@ -10275,7 +10309,7 @@ std::int32_t Sub_51E0D0(
             rectangle[0] = 0;
             rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(position);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
         }
         break;
@@ -10289,7 +10323,7 @@ std::int32_t Sub_51E0D0(
             rectangle[0] = 0;
             rectangle[2] = 640;
             const std::int32_t y = TruncateTransitionCoordinate(position);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<void>(DrawTransitionRectangle(
                 0, static_cast<std::int16_t>(y), rectangle, source));
         }
         break;
@@ -10297,7 +10331,7 @@ std::int32_t Sub_51E0D0(
         render::TextureSurface* const source = render::gCpuTempSurface;
         const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);
         const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);
-        static_cast<void>(render::BlitSurfaceToBack_4535B0(
+        static_cast<void>(DrawTransitionRectangle(
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
         break;
     }
@@ -10457,7 +10491,7 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
         render::TextureSurface* const source = render::gCpuTempSurface;
         const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
         const auto x = static_cast<std::int16_t>(gQuadrantTransitionXFF275C[index]);
-        static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangles[index], source));
+        static_cast<void>(DrawTransitionRectangle(x, y, rectangles[index], source));
     }
     if (gQuadrantTransitionPhase58B6D8 != 1) {
         return 0;
@@ -10618,7 +10652,7 @@ std::int32_t Sub_51EF80(
             render::TextureSurface* const source = render::gCpuTempSurface;
             rectangle[3] = sourceY + 60;
             const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangle, source));
+            static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
         }
     }
     for (std::int32_t index = 0; index < 64; ++index) {
@@ -10632,7 +10666,7 @@ std::int32_t Sub_51EF80(
             rectangle[2] = sourceX + 80;
             const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
             const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
-            static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangle, source));
+            static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
         }
     }
     if (gTileTransitionPhase58B6DC != 1) {
@@ -10690,7 +10724,8 @@ std::int32_t Sub_51F610(const std::int32_t value)
             const std::int32_t y = yProduct / 64 + 232;
             const std::int32_t xProduct = gGridTransitionOffsetsFF28C0[index].x * scale;
             const std::int32_t x = xProduct / 64 + 310;
-            static_cast<void>(render::BlitSurfaceRectangleToBack(x, y, rectangle, source));
+            static_cast<void>(DrawTransitionRectangle(
+                x, y, rectangle, source, TransitionCopyMode::Direct));
             --index;
         }
     }
@@ -10726,7 +10761,7 @@ std::int32_t ProcessScanlineTransition(
     const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
     const std::uint32_t trigger = gValue58B6D0;
-    std::array<std::int32_t, 4> rectangle {0, 0, platform::gWindowWidth, 0};
+    std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
     bool initialize;
     if (trigger == 1) {
         gValue58B6D0 = 0;
@@ -10736,7 +10771,7 @@ std::int32_t ProcessScanlineTransition(
     }
     if (initialize) {
         gImageTransitionInitializedFF4910 = 1;
-        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : platform::gWindowHeight;
+        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
     }
 
     static_cast<void>(render::ClearSurface_4512C0());
@@ -10746,14 +10781,15 @@ std::int32_t ProcessScanlineTransition(
         std::int32_t numerator = 0;
         do {
             const std::int32_t sampledRow = numerator / scale;
-            rectangle[1] = origin == ScanlineOrigin::Bottom ? platform::gWindowHeight - sampledRow : sampledRow;
+            rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
             rectangle[3] = rectangle[1] + 1;
             render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? platform::gWindowHeight - row : row;
-            static_cast<void>(render::BlitSurfaceRectangleToBack(0, destinationY, rectangle, source));
+            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
+            static_cast<void>(DrawTransitionRectangle(
+                0, destinationY, rectangle, source, TransitionCopyMode::Direct));
             scale = gImageTransitionScaleFF0D78;
             ++row;
-            numerator += platform::gWindowHeight;
+            numerator += 480;
         } while (row < scale);
     }
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
@@ -10762,7 +10798,7 @@ std::int32_t ProcessScanlineTransition(
     }
     const std::int32_t next = direction < 0 ? scale - step : scale + step;
     gImageTransitionScaleFF0D78 = next;
-    if (direction < 0 ? next >= 0 : next <= platform::gWindowHeight) {
+    if (direction < 0 ? next >= 0 : next <= 480) {
         return 0;
     }
 
@@ -10841,16 +10877,16 @@ std::int32_t Sub_51FC90(const std::int32_t mode, const std::int32_t value)
             upperRectangle[3] = upperRectangle[1] + 1;
             render::TextureSurface* const upperSource = render::gCpuTempSurface;
             const std::int32_t upperY = 240 - row;
-            static_cast<void>(render::BlitSurfaceRectangleToBack(
-                0, upperY, upperRectangle, upperSource));
+            static_cast<void>(DrawTransitionRectangle(
+                0, upperY, upperRectangle, upperSource, TransitionCopyMode::Direct));
 
             const std::int32_t lowerSample = numerator / gHalfTransitionScaleFF0F7C;
             render::TextureSurface* const lowerSource = render::gCpuTempSurface;
             const std::int32_t lowerY = row + 240;
             lowerRectangle[1] = lowerSample + 240;
             lowerRectangle[3] = lowerRectangle[1] + 1;
-            static_cast<void>(render::BlitSurfaceRectangleToBack(
-                0, lowerY, lowerRectangle, lowerSource));
+            static_cast<void>(DrawTransitionRectangle(
+                0, lowerY, lowerRectangle, lowerSource, TransitionCopyMode::Direct));
             scale = gHalfTransitionScaleFF0F7C;
             ++row;
             numerator += 240;

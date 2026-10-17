@@ -44,8 +44,6 @@ constexpr int kNearRetargetMaxSteps = 12;
 constexpr int kMoveSegmentSteps = 2;
 constexpr int kReplanMoveDistance = 5;
 
-static auto& cg::world::gPlayerX = world::gPlayerX;
-static auto& cg::world::gPlayerY = world::gPlayerY;
 static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
 static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
 static auto& gMoveRequest = world::gValueC821FC;
@@ -54,8 +52,6 @@ static auto& gMoveQueueCount = world::gValueC82202;
 static auto& gMoveLock = world::gValueC82220;
 static auto& gTileEventLock = world::gValue9A86D8;
 static auto& gTargetEventLock = world::gValue9FB92E;
-static auto& cg::world::gMapXStart = world::gMapXStart;
-static auto& cg::world::gMapYStart = world::gMapYStart;
 static auto& gMapWidth = world::gMapSpanX;
 static auto& gMapHeight = world::gMapSpanY;
 static auto& gMoveBlockMap = world::gMapWalkabilityArray;

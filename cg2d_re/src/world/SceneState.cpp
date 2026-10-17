@@ -40,6 +40,17 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
 
+#include "cg/audio/LegacyAudio.hpp"
+#include "AlbumState.hpp"
+#include "BattleState.hpp"
+#include "ChatHistory.hpp"
+#include "MailState.hpp"
+#include "PetTechniqueRecord.hpp"
+#include "PlayerState.hpp"
+#include "WorldMapState.hpp"
+#include "WorldObjectState.hpp"
+#include "WorldUpdateDependencies.hpp"
+
 #include <ctime>
 #include <algorithm>
 #include <bit>
@@ -398,16 +409,6 @@ static constexpr wchar_t gText55BAE0[] = L"登出中";
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 static std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
-#include "cg/audio/LegacyAudio.hpp"
-#include "AlbumState.hpp"
-#include "BattleState.hpp"
-#include "ChatHistory.hpp"
-#include "MailState.hpp"
-#include "PetTechniqueRecord.hpp"
-#include "PlayerState.hpp"
-#include "WorldMapState.hpp"
-#include "WorldObjectState.hpp"
-#include "WorldUpdateDependencies.hpp"
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
@@ -632,26 +633,6 @@ static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
 static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
 static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
 static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
-
-void PlayerRuntimeSlots::ClearRaw() noexcept
-{
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
-    const platform::LegacyCryptInt::RawPayload zero{};
-    hp.RestoreRaw(zero);
-    maxHp.RestoreRaw(zero);
-    fp.RestoreRaw(zero);
-    maxFp.RestoreRaw(zero);
-    value58.RestoreRaw(zero);
-    value68.RestoreRaw(zero);
-    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
-    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
-    for (auto& item : items) { item = {}; }
-    action = nullptr;
-    text15BB8.fill(0);
-    value15BCC = 0;
-    values15BD0.fill(0);
-}
 
 } // namespace detail
 
@@ -1911,21 +1892,6 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     ui::detail::WindowItemDrag_RemapHover(first, second);
 }
 
-// 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
-void PetRuntimeRecord::ClearRaw() noexcept
-{
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(PetRuntimeRecord, values0C));
-    for (platform::LegacyCryptInt& value : values0C) {
-        value.RestoreRaw(platform::LegacyCryptInt::RawPayload{});
-    }
-    constexpr std::size_t tail = offsetof(PetRuntimeRecord, lvFlag6C);
-    std::memset(bytes + tail, 0, offsetof(PetRuntimeRecord, items6E4) - tail);
-    for (auto& item : items6E4) { item = {}; }
-    updated510C = 0;
-    bytes510D.fill(std::byte{0});
-}
-
 } // namespace detail
 
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
@@ -2431,10 +2397,10 @@ std::uint16_t gValueC821D0 = 0; // 原全局：0x00C821D0。
 std::uint16_t gValue9EE910 = 0; // 原全局：0x009EE910。
 
 } // namespace detail
-std::array<std::uint16_t, detail::kMapBufferCells> gMapTileArray {};
-std::array<std::uint16_t, detail::kMapBufferCells> gMapObjArray {};
-std::array<std::uint16_t, detail::kMapBufferCells> gMapHitArray {};
-std::array<std::uint16_t, detail::kMapBufferCells> gMapWalkabilityArray {}; // 原全局：0x009DEF68。
+std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {}; // 原全局：0x009DEF68。
 
 namespace detail {
 std::uint16_t gLastDetectedCode = 0; // 原全局：0x009DAD4A。
@@ -8197,6 +8163,44 @@ std::int32_t Sub_45ED90()
 }
 
 } // namespace detail
+
+
+
+void PlayerRuntimeSlots::ClearRaw() noexcept
+{
+    auto* const bytes = reinterpret_cast<std::byte*>(this);
+    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
+    const platform::LegacyCryptInt::RawPayload zero{};
+    hp.RestoreRaw(zero);
+    maxHp.RestoreRaw(zero);
+    fp.RestoreRaw(zero);
+    maxFp.RestoreRaw(zero);
+    value58.RestoreRaw(zero);
+    value68.RestoreRaw(zero);
+    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
+    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
+    for (auto& item : items) { item = {}; }
+    action = nullptr;
+    text15BB8.fill(0);
+    value15BCC = 0;
+    values15BD0.fill(0);
+}
+
+
+// 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
+void PetRuntimeRecord::ClearRaw() noexcept
+{
+    auto* const bytes = reinterpret_cast<std::byte*>(this);
+    std::memset(bytes, 0, offsetof(PetRuntimeRecord, values0C));
+    for (platform::LegacyCryptInt& value : values0C) {
+        value.RestoreRaw(platform::LegacyCryptInt::RawPayload{});
+    }
+    constexpr std::size_t tail = offsetof(PetRuntimeRecord, lvFlag6C);
+    std::memset(bytes + tail, 0, offsetof(PetRuntimeRecord, items6E4) - tail);
+    for (auto& item : items6E4) { item = {}; }
+    updated510C = 0;
+    bytes510D.fill(std::byte{0});
+}
 
 } // namespace cg::world
 

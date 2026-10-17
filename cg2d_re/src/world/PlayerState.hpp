@@ -174,7 +174,7 @@ struct PlayerRuntimeSlots {
     PlayerRuntimeSlots() = default;
     // 原0x00518410：成员自动逆序析构。
     ~PlayerRuntimeSlots() = default;
-    void detail::ClearRaw() noexcept; // 原主数据整块清零，不消费六次构造RNG。
+    void ClearRaw() noexcept; // 原主数据整块清零，不消费六次构造RNG。
     std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
     std::int32_t level; // 原 FDA704。
     std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
@@ -249,7 +249,7 @@ struct PetRuntimeRecord {
     ~PetRuntimeRecord() = default;
     PetRuntimeRecord(const PetRuntimeRecord&) = default;
     PetRuntimeRecord& operator=(const PetRuntimeRecord&) = default;
-    void detail::ClearRaw() noexcept; // 原零字节回复／场景清理，不构造整数或消费RNG。
+    void ClearRaw() noexcept; // 原零字节回复／场景清理，不构造整数或消费RNG。
     std::uint16_t used; // 原+0占用。
     std::uint16_t value02; // 原成员偏移：+0x02。 主回复掩码200001。
     std::uint16_t value04; // 原成员偏移：+0x04。 主回复掩码5。

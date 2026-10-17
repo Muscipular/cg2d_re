@@ -73,10 +73,12 @@ extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景�
 extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
 extern std::uint32_t& gBattleSceneEffectC8A768; // 原全局：0x00C8A768。 413070按两W16写入，别名既有场景效果owner。
 extern std::uint32_t& gBattleSceneEffectC8A76C; // 原全局：0x00C8A76C。 同源W32，不能拆成独立高/低槽。
-extern std::array<std::uint16_t, detail::kMapBufferCells> gMapTileArray;
-extern std::array<std::uint16_t, detail::kMapBufferCells> gMapObjArray;
-extern std::array<std::uint16_t, detail::kMapBufferCells> gMapHitArray;
-extern std::array<std::uint16_t, detail::kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
+// 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
+inline constexpr std::size_t kMapBufferCells = 2601;
+extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
 extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
 // 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
@@ -290,8 +292,6 @@ extern std::uint16_t gValue55D9FC; // 原全局：0x0055D9FC。
 extern std::uint16_t gValueC821D0; // 原全局：0x00C821D0。
 extern std::uint16_t gValue9EE910; // 原全局：0x009EE910。
 
-// 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
-inline constexpr std::size_t kMapBufferCells = 2601;
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 // 原函数：0x00468570。
 std::int32_t __cdecl Sub_468570(

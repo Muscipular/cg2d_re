@@ -274,7 +274,7 @@ static std::uint32_t WindowMailRead_Refresh()
         mailSlot = cg::world::detail::Sub_5195F0(mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
-    const auto readCurrentMessage = [category, mailSlot]() -> MailMessageView {
+    const auto readCurrentMessage = [category, mailSlot]() -> cg::world::detail::MailMessageView {
         if (category == 0) {
             const std::int16_t selected = login::gSelectedCharacterIndex;
             const std::int32_t contact = cg::world::detail::gValueCF4FC0;

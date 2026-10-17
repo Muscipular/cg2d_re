@@ -1,4 +1,5 @@
 #include "base.hpp"
+#include "battle_skill_effect.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
@@ -158,7 +159,7 @@ YobiAction* gYobiActionEnd = nullptr; // 原全局：0x0059E568。
 namespace {
 
 // 原函数：0x00404D10。
-void DeleteYobiAction_404D10(YobiAction* const action)
+void DeleteYobiActionStorage(YobiAction* const action)
 {
     // 按有效成员转回分配地址，不能借raw读取其它活动指针成员。
     void* payload = nullptr;
@@ -183,6 +184,12 @@ void DeleteYobiAction_404D10(YobiAction* const action)
     }
     std::destroy_at(action);
     std::free(action);
+}
+
+void DeleteYobiAction_404D10(YobiAction* const action)
+{
+    // E10：先移除运行节点的观察指针，原生释放后再退休节点和回调引用。
+    FreeLuaSkillEffectAction(action, DeleteYobiActionStorage);
 }
 
 bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
@@ -350,6 +357,7 @@ std::int32_t YobiUpdateAll_404C50()
 // 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
+    if (HandleLuaSkillEffectDeath(action)) return action;
     if (action != nullptr) {
         action->deathFlag = 1;
     }

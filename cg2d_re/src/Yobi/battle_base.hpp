@@ -22,6 +22,16 @@ struct BattleRideCarrierPayload {
 
 static_assert(sizeof(BattleRideCarrierPayload) == 2 * sizeof(YobiAction*) + 16);
 
+// E01：SKL 归一化前的技能标识与 E10 节点绑定，随战斗载荷复制／清理。
+struct BattleSkillMeta {
+    std::int32_t techId; // 未归一化的报文技术编号，YAML图号匹配键。
+    std::int32_t skillId; // 未归一化的报文技能编号，与techId组成Lua注册键。
+    std::int32_t runtimeGeneration; // E10运行代次，非地址。
+    std::int32_t runtimeNodeId; // E10运行表节点编号，非拥有引用。
+    std::int32_t flags; // 位0标识Lua技能绑定，沿参考保存。
+    std::int32_t reserved; // 参考保留字段，初始化为零并随载荷复制。
+};
+
 // 战斗专用原生载荷；保留四段用途未定字节，后缀仅标原位置；完整字段/生产仍待证。
 struct BattleActorPayload {
     std::int32_t x00; // 原成员偏移：+0x00。 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
@@ -98,6 +108,7 @@ struct BattleActorPayload {
     std::int32_t value13DC; // 原成员偏移：+0x13DC。 427470状态/技能链生产141/143状态图号选择值。
     std::int32_t value13E0; // 原成员偏移：+0x13E0。 427470技能链生产索引；143的13DC==7按S32查54D4C0。
     std::int32_t image13E4; // 原成员偏移：+0x13E4。 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
+    BattleSkillMeta skillMeta; // E01：本机具名扩展，分配及完整克隆统一按 sizeof(BattleActorPayload)。
 };
 
 static_assert(sizeof(BattleEntryEffectRecord) == 16);

@@ -1,5 +1,6 @@
 #include "cg/script/LuaRuntime.hpp"
 #include "LuaUI.hpp"
+#include "../Yobi/battle_skill_effect.hpp"
 #include "cg/core/m_log.hpp"
 #include <luajit.h>
 
@@ -36,6 +37,7 @@ bool InitializeLua()
     uiState = CreateState();
     battleState = CreateState();
     if (!uiState || !battleState) { ShutdownLua(); return false; }
+    yobi::detail::InitializeBattleEffects();
     RegisterLuaUI(uiState);
     RegisterLuaUI(battleState);
     InitializeAutoBattle();
@@ -46,6 +48,7 @@ bool InitializeLua()
 void ShutdownLua()
 {
     shuttingDown = true;
+    yobi::detail::ShutdownBattleEffects();
     stopCopilot();
     ShutdownAutoBattle();
     ShutdownLuaUI();

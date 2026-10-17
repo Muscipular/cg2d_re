@@ -5,6 +5,7 @@
 #include "battle_skill_attack.hpp"
 #include "battle_skill_status.hpp"
 #include "battle_skill_special.hpp"
+#include "battle_skill_effect.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/render/RendererResources.hpp"
 
@@ -274,6 +275,8 @@ namespace {
     gBattleMTechnique5A4A38 = initialTechnique;
     fpUsed = TakeBattleMInteger_438F70(scene);
     gBattleMSkill5AAA78 = TakeBattleMInteger_438F70(scene);
+    // E01／42AD06、42AD1A：在原技能／等级归一化前保留报文双 ID。
+    CaptureBattleSkillMeta(initialTechnique, gBattleMSkill5AAA78);
     gBattleMSkillLevel5A4A2C = TakeBattleMInteger_438F70(scene);
     std::int32_t requestedLevel = TakeBattleMInteger_438F70(scene);
     if (gBattleMTechnique5A4A38 >= 205000) {

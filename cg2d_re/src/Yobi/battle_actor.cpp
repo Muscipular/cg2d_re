@@ -1,6 +1,7 @@
 #include "battle_actor.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
+#include "battle_skill_effect.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/world/SceneState.hpp"
@@ -108,6 +109,11 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
 
 // 原函数：0x00404DB0。
 void UpdateBattleActor_404DB0(YobiAction* const action)
+{
+    UpdateLuaSkillEffect(action); // E10：原生257槽正文由接管器按原时序调用。
+}
+
+void UpdateNativeBattleActor(YobiAction* const action)
 {
     const std::int32_t scene = world::gCurrentSceneState;
     const bool isSceneSeven = scene == 7;

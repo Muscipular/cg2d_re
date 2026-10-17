@@ -3,6 +3,7 @@
 #include "battle_base.hpp"
 #include "battle_scene.hpp"
 #include "battle_skill.hpp"
+#include "battle_skill_effect.hpp"
 #include "battle_status.hpp"
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
@@ -2932,9 +2933,15 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
         return;
     }
     switch (scene->phase) {
-    case 0:
-        ProcessBattleMSkillHeader(scene, payload, flags9C, valueA0);
+    case 0: {
+        // E10／42A768：完成走437ABA出口，处理中仍走437A29公共回存。
+        const auto result = ProcessLuaSkillPacket(scene);
+        if (result == LuaSkillPacketResult::Finished) return;
+        if (result == LuaSkillPacketResult::Native) {
+            ProcessBattleMSkillHeader(scene, payload, flags9C, valueA0);
+        }
         break;
+    }
     case 1:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Escape);
         break;

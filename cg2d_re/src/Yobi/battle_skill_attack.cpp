@@ -1300,6 +1300,8 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
     auto* const casterPayload = caster->payload.battleActor;
     const std::int32_t casterSkill = gBattleMSkill5AAA78;
     casterPayload->castSkill103C = casterSkill;
+    // E09／435BB5：第二等级使用当前技能等级，1044仍保存技术等级索引。
+    gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->castLevel1040 = gBattleMSkillLevel5A4A2C;
     const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
     YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
     const std::int32_t casterLevel = gBattleMSkillLevelIndex5A3A18;

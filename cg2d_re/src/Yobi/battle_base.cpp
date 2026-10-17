@@ -1,4 +1,5 @@
 #include "battle_base.hpp"
+#include "battle_skill_effect.hpp"
 #include "base.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -544,6 +545,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->queuedTargets1084[1] = -1;
     payload->castSkill103C = -1;
     payload->castSkillLevel1044 = -1;
+    payload->skillMeta = {}; // E01／4391B6：每次重新初始化动作清除上次技能。
     if ((flags & 2u) == 0
         && (*reinterpret_cast<const unsigned char*>(&world::detail::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
         Sub_406260(gBattleAllEntries59E980[index]);
@@ -607,6 +609,11 @@ void AppendBattleCastAt_4392F0(
 
 // 原函数：0x00439340。
 void AdvanceBattleCastState_439340(YobiAction* const action)
+{
+    AdvanceLuaSkillEffect(action); // E10：未受接管的对象直接执行原推进。
+}
+
+void AdvanceNativeBattleCastState(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -789,6 +796,7 @@ void MoveBattleCastState_439380(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
+    BindBattleSkillMeta(action); // E01／E10：绑定完成后再发布当前动作。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     action->phase = payload->castListCA4[payload->castPlayIndexFC4];
 }

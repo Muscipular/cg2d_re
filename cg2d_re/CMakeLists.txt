@@ -151,6 +151,8 @@ add_library(cg2d_re_startup STATIC
     src/Yobi/battle_scene.cpp
     src/Yobi/battle_message.cpp
     src/Yobi/battle_skill.cpp
+    src/Yobi/battle_skill_effect.cpp
+    src/Yobi/battle_lua_skill.cpp
     src/Yobi/battle_skill_attack.cpp
     src/Yobi/battle_skill_status.cpp
     src/Yobi/battle_skill_special.cpp

@@ -3,6 +3,7 @@
 #include "battle_effect.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
+#include "battle_skill_effect.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -117,7 +118,7 @@ YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
     action->prev = previous;
     action->payload.battleActor = payload;
     action->payloadKind = YobiPayloadKind::BattleActor;
-    // 原0x13E8B载荷按成员浅复制，含四段用途未定字节；不回绑其中的T*。
+    // 原载荷及E01技能元数据按成员浅复制，含用途未定字节；不回绑其中的T*。
     *payload = *sourcePayload;
     return action;
 }
@@ -326,7 +327,9 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             particle->displayPriority = 0xCC;
             particle->flags = flags | 0x40000u;
             particle->framePlayingRate = 100;
-            particle->imageNo = 110060;
+            // E06／41A6FA：控制器关联受术角色，粒子数量与运动沿原流程。
+            particle->imageNo = ResolveSkillEffectImage(
+                action->battleAttachmentParent10, SkillEffectKind::Revive, 110060);
             particle->rebirthValue1 = 4;
             particle->rebirthValue2 = 4;
             const std::int32_t index = 15 - (i % 16);
@@ -372,7 +375,9 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
             particle->displayPriority = 0xCC;
             particle->flags = flags | 0x40000u;
             particle->framePlayingRate = 100;
-            particle->imageNo = 110011;
+            // E06／41A913：控制器本身没有战斗元数据。
+            particle->imageNo = ResolveSkillEffectImage(
+                action->battleAttachmentParent10, SkillEffectKind::StatusRecover, 110011);
             particle->rebirthValue1 = 4;
             particle->rebirthValue2 = 4;
             const std::int32_t xOffset = kBattleRadialXOffsets[action->nameX % 16];
@@ -573,7 +578,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->flags = initialFlags | 0x40000u;
             action->framePlayingRate = 100;
-            action->imageNo = type == 34 ? sourcePayload->image1028
+            // E07／41DB2C：只替换施法图，音效及定位继续读取原 image1028。
+            action->imageNo = type == 34 ? ResolveSkillCastingImage(source, sourcePayload->image1028)
                 : source->payload.battleActor->image13E4;
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
@@ -657,6 +663,7 @@ YobiAction* NewBattleEffect_41CD00(
                 action->value54 = static_cast<float>(speed);
                 payload->castSkill103C = sourcePayload->castSkill103C;
                 payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+                payload->skillMeta = sourcePayload->skillMeta; // E01／41DD50。
                 action->offset40 = 320.0F;
                 action->offset44 = 260.0F;
                 TurnBattleToward_406190(action, gBattleAllEntries59E980[
@@ -696,6 +703,7 @@ YobiAction* NewBattleEffect_41CD00(
                 action->rebirthValue2 = 4;
                 payload->castSkill103C = sourcePayload->castSkill103C;
                 payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+                payload->skillMeta = sourcePayload->skillMeta; // E01／41E114。
                 action->offset40 = fixedTarget->offset40;
                 action->offset44 = fixedTarget->offset44;
                 action->field270 = 0;
@@ -948,6 +956,12 @@ YobiAction* NewBattleEffect_41CD00(
         action->battleAttachmentParent10 = source;
         source->payload.battleActor->value1024 = 1;
     }
+    // E05／41E368：附加层已按原图生成，再替换受术动画。
+    if (type == 0x10) {
+        action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Heal, action->imageNo);
+    } else if (type == 0x0D) {
+        action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Recovery, action->imageNo);
+    }
     const float x = action->offset40;
     action->direction = 0;
     const std::int32_t projectedX = static_cast<std::int32_t>(x);
@@ -962,6 +976,10 @@ YobiAction* NewBattleEffect_41CD00(
                 payload->battlePosition18 = currentSource->battlePosition18;
             }
         }
+    }
+    // E04：原创建／定位完成后替换通用魔法图号。
+    if (type == 0x23) {
+        action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Magic, action->imageNo);
     }
     return action;
 }
@@ -1212,9 +1230,10 @@ void NewBattleProjection_418DF0(
 
 // 原函数：0x00418B70。
 YobiAction* NewBattleSpiracleShot_418B70(
-    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
+    YobiAction* const parent, const BattleEntryEffectRecord* const effect, std::int32_t imageNo)
 {
     using world::detail::gBattleAllEntries59E980;
+    imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::SpiracleShot, imageNo); // E02。
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
@@ -1271,6 +1290,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->castSkillLevel1044 = parent->payload.battleActor->castSkillLevel1044;
+    payload->skillMeta = parent->payload.battleActor->skillMeta; // E01／418D24。
     MoveBattleByAngle_405EA0(action);
     MoveBattleByAngle_405EA0(action);
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -1283,9 +1303,10 @@ YobiAction* NewBattleSpiracleShot_418B70(
 
 // 原函数：0x00419180。
 YobiAction* NewBattleBlastWave_419180(
-    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
+    YobiAction* const parent, const BattleEntryEffectRecord* const effect, std::int32_t imageNo)
 {
     using world::detail::gBattleAllEntries59E980;
+    imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::BlastWave, imageNo); // E03。
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
@@ -1342,6 +1363,7 @@ YobiAction* NewBattleBlastWave_419180(
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->castSkillLevel1044 = parent->payload.battleActor->castSkillLevel1044;
+    payload->skillMeta = parent->payload.battleActor->skillMeta; // E01／419333。
     MoveBattleByAngle_405EA0(action);
     MoveBattleByAngle_405EA0(action);
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -1354,9 +1376,12 @@ YobiAction* NewBattleBlastWave_419180(
 
 // 原函数：0x00419390。
 YobiAction* NewBattleRangeHit_419390(
-    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
+    YobiAction* const parent, const BattleEntryEffectRecord* const effect, std::int32_t imageNo)
 {
     using world::detail::gBattleAllEntries59E980;
+    // E08：只识别原弓箭／小刀图号，不影响其他弹道。
+    if (imageNo == 22050) imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Bow, imageNo);
+    else if (imageNo == 22090) imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Knife, imageNo);
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
@@ -1402,6 +1427,7 @@ YobiAction* NewBattleRangeHit_419390(
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->castSkillLevel1044 = parent->payload.battleActor->castSkillLevel1044;
+    payload->skillMeta = parent->payload.battleActor->skillMeta; // E01／41951F。
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
     const std::int32_t targetPosition = effect->position;
     const std::int32_t projectileImage = action->imageNo;
@@ -1475,6 +1501,7 @@ YobiAction* NewBattleArcShot_419DA0(
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->castSkillLevel1044 = parent->payload.battleActor->castSkillLevel1044;
+    payload->skillMeta = parent->payload.battleActor->skillMeta; // E01／419F44。
     MoveBattleByAngle_405EA0(action);
     MoveBattleByAngle_405EA0(action);
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -1510,6 +1537,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
+    payload->skillMeta = parent->payload.battleActor->skillMeta; // E01／420678。
     static_cast<void>(PlayFrame_517DA0(action, 0));
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const float y = action->offset44;
@@ -1546,6 +1574,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     action->x = initialX;
     action->y = static_cast<std::int32_t>(initialY);
     action->imageNo = parentPayload->castSkill103C == 2022 ? 111141 : 103000;
+    action->imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Boomerang, action->imageNo); // E08／419692。
     action->direction = 0;
     action->field270 = 0;
     payload->battlePosition18 = parentPayload->battlePosition18;
@@ -1702,6 +1731,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     payload->castSkill103C = parentPayload->castSkill103C;
     payload->attackModeFF4 = parentPayload->attackModeFF4;
     payload->castSkillLevel1044 = parentPayload->castSkillLevel1044;
+    payload->skillMeta = parentPayload->skillMeta; // E01／419BB2。
     return action;
 }
 

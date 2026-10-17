@@ -1291,6 +1291,7 @@ void InitBattleTargetEffect_422E50(
     }
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    payload->skillMeta = sourcePayload->skillMeta; // E01／422FB8。
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
     action->offset40 = target->offset40;
     action->offset44 = target->offset44;
@@ -1334,6 +1335,7 @@ void InitBattleOffsetEffect_423040(
     action->imageNo = imageOffset + sourcePayload->image102C;
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    payload->skillMeta = sourcePayload->skillMeta; // E01／423152。
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
     const std::int32_t positionIndex = sourcePayload->effectRunningC9C;
     const double x = target->offset40;
@@ -1387,6 +1389,7 @@ void InitBattleCenterEffect_4231D0(
     action->value54 = static_cast<float>(speed);
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    payload->skillMeta = sourcePayload->skillMeta; // E01／4232E9。
     action->offset40 = 320.0F;
     action->offset44 = 260.0F;
     YobiAction* const target = gBattleAllEntries59E980[

@@ -50,7 +50,7 @@ static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
     }
     if (source[2] <= source[0] || source[3] <= source[1]) { return; }
     if (graphic->batchType == GraphicBatch_FullscreenBackgroundTrimmed) {
-        // LUR01：选角背景含透明尾列；只裁外围透明区，不改纹理及内部透明像素。
+        // LUR01：选角／选服背景含透明尾列；只裁外围透明区，不改纹理及内部透明像素。
         const SDL_Surface* const surface = GetTextureSdlSurface(node->surface);
         const auto* const pixels = static_cast<const std::uint32_t*>(surface->pixels);
         const std::int32_t stride = surface->pitch / static_cast<std::int32_t>(sizeof(std::uint32_t));

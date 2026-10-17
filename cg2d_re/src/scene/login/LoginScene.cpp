@@ -665,7 +665,7 @@ std::int32_t ProcessScene_45FEA0()
 
     static_cast<void>(render::HasLegacy3DDevice_44B610());
     cg::render::Sub_45F090(49, 67, 3, 0x3BEA3, 0, -1);
-    cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 0x3BEA2, 0, -1));
+    cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 0x3BEA2, 0, -1), true);
     return cg::render::DrawText3_456560(540, 424, 0, 0, kVersion, 0);
 }
 

@@ -5,14 +5,19 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <Windows.h>
+#include <bcrypt.h>
 #include <iphlpapi.h>
 #include <ipifcons.h>
 
+#include <algorithm>
+#include <array>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 #include <new>
 #include <format>
+#include <limits>
 #include <string>
+#include <string_view>
 
 namespace cg::platform {
 
@@ -82,6 +87,51 @@ std::int32_t GetMacAddress_534EF0(char* const output)
         std::memcpy(output, wirelessText, std::strlen(wirelessText) + 1);
     }
     return 0;
+}
+
+// 本端新增：供ApplyServerAddressPolicy使用，原始字节SHA-256转64位小写十六进制；CNG失败返回空串。
+static std::string sha256ToString(std::string_view input)
+{
+    BCRYPT_ALG_HANDLE algorithm = nullptr;
+    if (!BCRYPT_SUCCESS(::BCryptOpenAlgorithmProvider(
+            &algorithm, BCRYPT_SHA256_ALGORITHM, nullptr, 0))) {
+        return {};
+    }
+
+    BCRYPT_HASH_HANDLE hash = nullptr;
+    std::array<unsigned char, 32> digest {};
+    NTSTATUS status = ::BCryptCreateHash(
+        algorithm, &hash, nullptr, 0, nullptr, 0, 0);
+    if (BCRYPT_SUCCESS(status)) {
+        while (!input.empty()) {
+            const ULONG length = static_cast<ULONG>(std::min<std::size_t>(
+                input.size(), std::numeric_limits<ULONG>::max()));
+            // BCryptHashData的输入参数没有const限定，但接口合同保证不修改输入。
+            status = ::BCryptHashData(
+                hash, reinterpret_cast<PUCHAR>(const_cast<char*>(input.data())), length, 0);
+            if (!BCRYPT_SUCCESS(status)) {
+                break;
+            }
+            input.remove_prefix(length);
+        }
+        if (BCRYPT_SUCCESS(status)) {
+            status = ::BCryptFinishHash(
+                hash, digest.data(), static_cast<ULONG>(digest.size()), 0);
+        }
+        static_cast<void>(::BCryptDestroyHash(hash));
+    }
+    static_cast<void>(::BCryptCloseAlgorithmProvider(algorithm, 0));
+    if (!BCRYPT_SUCCESS(status)) {
+        return {};
+    }
+
+    constexpr char digits[] = "0123456789abcdef";
+    std::string result(digest.size() * 2, '0');
+    for (std::size_t index = 0; index < digest.size(); ++index) {
+        result[index * 2] = digits[digest[index] >> 4];
+        result[index * 2 + 1] = digits[digest[index] & 0x0F];
+    }
+    return result;
 }
 
 // A10：沿参考ResolveDNS查询系统IPv4地址，临时Winsock引用和结果链均在本次调用内释放。

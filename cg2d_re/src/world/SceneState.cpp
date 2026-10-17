@@ -8116,15 +8116,16 @@ std::int32_t Sub_45ED90()
         const std::int32_t columns =
             static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
         gValue9A5674 = 2;
-        const std::int32_t columnDelta = 10 - columns;
         gValue9A594C = columns;
-        const std::int32_t initialXWidth = columnDelta * 64;
-        gValue9A61F8 = 192;
         const std::int32_t actionWidth = columns * 64;
-        const std::int32_t left = initialXWidth / 2;
+        const std::int32_t actionHeight = gValue9A5674 * 48;
+        // 原45ED90按640×480居中；场景7无布局偏移，背景与文字共用当前画布中心。
+        const std::int32_t left = (platform::gWindowWidth - actionWidth) / 2;
+        const std::int32_t top = (platform::gWindowHeight - actionHeight) / 2;
+        gValue9A61F8 = top;
         gValue9A5AC0 = left;
         gAction9A6E98 = cg::yobi::CreateModalAction_5044E0(
-            left, 192, actionWidth, 96, 4, 1);
+            left, top, actionWidth, actionHeight, 4, 1);
     }
 
     const std::uint32_t phase = gValue9A6204;

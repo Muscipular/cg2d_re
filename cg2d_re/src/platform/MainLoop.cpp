@@ -65,6 +65,7 @@ static void UpdateFrameDiagnostics()
         static_cast<void>(::SetWindowTextW(reinterpret_cast<HWND>(gLegacyWindow), title.c_str()));
     }
     previousTick = now;
+#ifdef _DEBUG
     if (IsClientDiagnosticsEnabled()) {
         std::wstring message;
         text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);
@@ -72,6 +73,7 @@ static void UpdateFrameDiagnostics()
         text::FormatTo(message, L"M: {} S: {}", world::gCurrentSceneType, world::gCurrentSceneState);
         static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
     }
+#endif
 }
 
 // 原函数：0x00458A40。

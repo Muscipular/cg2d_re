@@ -82,10 +82,8 @@ static_assert(offsetof(MapTransitionPayload, counter10) == 0x10);
 // CTM01：载荷按sizeof分配，64位时间槽之后采用本地布局。
 static_assert(sizeof(MapTransitionPayload::tick14) == 8);
 
-namespace {
-
 // 原446970；唯一caller弃EAX，只在偶数时写回S16。
-void Sub_446970(std::int16_t* const value)
+static void Sub_446970(std::int16_t* const value)
 {
     const std::int16_t current = *value;
     if (current % 2 == 0) {
@@ -94,7 +92,7 @@ void Sub_446970(std::int16_t* const value)
 }
 
 // 原446990：负值局部归一化后写一次，正值超界时逐次写回S16槽。
-void Sub_446990(std::int16_t* const value)
+static void Sub_446990(std::int16_t* const value)
 {
     std::int16_t current = *value;
     if (current < 0) {
@@ -108,8 +106,6 @@ void Sub_446990(std::int16_t* const value)
         *value = static_cast<std::int16_t>(*value - 8);
     }
 }
-
-} // namespace
 
 // 原函数：0x00447E60。
 void Sub_447E60(YobiAction* action);
@@ -220,10 +216,8 @@ std::int32_t Sub_4474E0(YobiAction* const action)
     return 0;
 }
 
-namespace {
-
 // 原4469C0：按原递增换向顺序选一格，避开上次格及469810判定的阻挡格。
-void Sub_4469C0(YobiAction* const action)
+static void Sub_4469C0(YobiAction* const action)
 {
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
@@ -276,7 +270,7 @@ void Sub_4469C0(YobiAction* const action)
 }
 
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
-void Sub_446B50(YobiAction* const action)
+static void Sub_446B50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
@@ -300,7 +294,7 @@ void Sub_446B50(YobiAction* const action)
 }
 
 // 两次差值都保留读计数/RNG副作用；第二次结果按首次符号取负，不可换成abs。
-std::int32_t TransitionDistance(
+static std::int32_t TransitionDistance(
     platform::LegacyCryptInt* const lhs, platform::LegacyCryptInt* const rhs)
 {
     const std::int32_t sign = ((*lhs) - (*rhs));
@@ -309,7 +303,7 @@ std::int32_t TransitionDistance(
 }
 
 // 原446C10：玩家快照稳定且距离超过一格时，按各轴符号追加目标格。
-void Sub_446C10(YobiAction* const action)
+static void Sub_446C10(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     std::int32_t stepX = 0;
@@ -346,8 +340,6 @@ void Sub_446C10(YobiAction* const action)
     payload->mapY0C = action->mapY1F0.value();
 }
 
-} // namespace
-
 // 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
 bool TransitionMovementIdle(const YobiAction* const action)
 {
@@ -359,10 +351,8 @@ bool TransitionMovementIdle(const YobiAction* const action)
     return !(movementY < 0.0F || movementY > 0.0F);
 }
 
-namespace {
-
 // 仅复用447610/447820的移动后绘制尾；stepChange分别为-1/+1。
-void DrawMovingTransition(
+static void DrawMovingTransition(
     YobiAction* const action, MapTransitionPayload* const payload,
     const std::int32_t stepChange)
 {
@@ -403,7 +393,7 @@ void DrawMovingTransition(
 }
 
 // 原模式2/3共享三点绘制；X/Y舍入点不同，三轮均推进动画并归一化局部角度。
-void DrawTransitionOrbit(
+static void DrawTransitionOrbit(
     YobiAction* const action, MapTransitionPayload* const payload,
     float angle, const bool allowMapAtZero)
 {
@@ -457,7 +447,7 @@ void DrawTransitionOrbit(
 }
 
 // 原447A20/447C40仅两处Y偏移轴参数不同；保留相同的五列交错搬移和发布次序。
-std::int32_t UpdateTransitionTrail(
+static std::int32_t UpdateTransitionTrail(
     YobiAction* const action, const std::uint8_t yOffsetAxis)
 {
     auto* const payload = action->payload.mapTransition;
@@ -544,8 +534,6 @@ std::int32_t UpdateTransitionTrail(
     }
     return 0;
 }
-
-} // namespace
 
 // 原函数：0x00446D80。
 std::int32_t Sub_446D80(YobiAction* const action)
@@ -844,8 +832,6 @@ void Sub_447E60(YobiAction* const action)
 }
 
 } // namespace detail
-
-
 
 // LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
 // 原函数：0x00448040。

@@ -8,9 +8,6 @@ namespace detail {
 
 input::InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
 
-
-namespace {
-
 struct GuildRankDraft {
     std::int32_t flags;
     std::array<char, 41> text; // 原成员偏移：+0x04。
@@ -25,8 +22,6 @@ struct GuildWindowDraft {
     std::array<std::byte, 7> bytes62D; // 原成员偏移：+0x62D。
     std::array<char, 41> secondText634; // 原成员偏移：+0x634。
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

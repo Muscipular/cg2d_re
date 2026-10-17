@@ -35,12 +35,9 @@
 #include <string>
 #include <string_view>
 
-
 namespace cg::world::detail {
 
-namespace {
-
-void AllocateActorChatText(
+static void AllocateActorChatText(
     cg::yobi::detail::MapActorPayload* const payload, const char* const name,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
@@ -69,8 +66,6 @@ void AllocateActorChatText(
     (*allocation)[0] = contents.substr(0, split);
     (*allocation)[1] = contents.substr(split);
 }
-
-} // namespace
 
 // 原函数：0x00442DC0。
 void Sub_442DC0(
@@ -693,7 +688,6 @@ void Sub_43D860(cg::yobi::YobiAction* const action)
     }
 }
 
-
 // 原函数：0x0043DB00。
 std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
 {
@@ -705,7 +699,6 @@ std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
     *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
     return &flags;
 }
-
 
 // 原函数：0x0043DB30。
 std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* const action)

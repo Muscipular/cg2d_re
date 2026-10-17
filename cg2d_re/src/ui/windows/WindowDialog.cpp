@@ -18,9 +18,6 @@ namespace detail {
 
 input::InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
 
-
-namespace {
-
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
     std::int32_t width;
@@ -72,8 +69,6 @@ struct HealingDialogRecord {
     std::array<char, 17> name; // 原成员偏移：+0x0C。
     std::array<std::byte, 3> reserved1D; // 原成员偏移：+0x1D。
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

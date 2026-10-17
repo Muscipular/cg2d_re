@@ -93,10 +93,8 @@ void AppendBattleSkillTail_424500(
     }
 }
 
-namespace {
-
 // 原427470/SKL的非零子状态；由ProcessBattleMSkillHeader调用，不单独注册消息回调。
-[[maybe_unused]] void ProcessBattleMSkillWaitingState(
+[[maybe_unused]] static void ProcessBattleMSkillWaitingState(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
     const std::int32_t skill = gBattleMSkill5AAA78;
@@ -270,7 +268,7 @@ namespace {
 }
 
 // 原42ACFD..42AE37；返回ECX技能，FP输出承接caller局部ESI，不接具体技能生产。
-[[maybe_unused]] std::int32_t ReadBattleMSkillHeader(
+[[maybe_unused]] static std::int32_t ReadBattleMSkillHeader(
     YobiAction* const scene, std::int32_t& fpUsed)
 {
     const std::int32_t initialTechnique = TakeBattleMInteger_438F70(scene);
@@ -325,8 +323,6 @@ namespace {
     gBattleMSkillLevel5A4A2C = technique + 1;
     return skill;
 }
-
-} // namespace
 
 void ProcessBattleMSkillHeader(
     YobiAction* const scene, BattleScenePayload* const payload,

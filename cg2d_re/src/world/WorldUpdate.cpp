@@ -218,16 +218,12 @@ namespace detail {
 
 std::wstring gDisconnectText9A4D10; // 原全局：0x009A4D10。
 
-namespace {
-
-cg::yobi::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
-std::int32_t gDisconnectState62B3A8 = 0; // 原全局：0x0062B3A8。
-std::int32_t gDisconnectWidth62B32C = 0; // 原全局：0x0062B32C。
-std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
-std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
-std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
-
-} // namespace
+static cg::yobi::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
+static std::int32_t gDisconnectState62B3A8 = 0; // 原全局：0x0062B3A8。
+static std::int32_t gDisconnectWidth62B32C = 0; // 原全局：0x0062B32C。
+static std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
+static std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
+static std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
 // 原函数：0x00455C90。
 std::int32_t Sub_455C90()

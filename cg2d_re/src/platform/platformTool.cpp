@@ -84,10 +84,8 @@ std::int32_t GetMacAddress_534EF0(char* const output)
     return 0;
 }
 
-namespace {
-
 // A10：沿参考ResolveDNS查询系统IPv4地址，临时Winsock引用和结果链均在本次调用内释放。
-std::string ResolveServerPolicyAddress(const std::string& hostname)
+static std::string ResolveServerPolicyAddress(const std::string& hostname)
 {
     WSADATA wsaData;
     if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -126,8 +124,6 @@ std::string ResolveServerPolicyAddress(const std::string& hostname)
     static_cast<void>(::WSACleanup());
     return address;
 }
-
-} // namespace
 
 // A10/SAP01：成功查询后同步执行；保留映射、提示及退出条件，x86终止机制改用标准进程退出。
 void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)

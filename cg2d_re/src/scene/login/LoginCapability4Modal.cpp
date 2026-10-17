@@ -14,28 +14,28 @@
 #include <vector>
 #include <cstring> // 原CRT接口：0x0053C2F0；原参数／返回合同由直接调用承接。
 
-namespace {
+namespace cg::login::detail {
 
-constexpr std::int32_t kScreenWidth = 640;
-constexpr std::int32_t kScreenHeight = 480;
+static constexpr std::int32_t kScreenWidth = 640;
+static constexpr std::int32_t kScreenHeight = 480;
 
 // 原 dword_9A57E4@0x9A57E4，PE 虚拟零填充。
-std::int32_t gCapability4ModalInitialized = 0;
+static std::int32_t gCapability4ModalInitialized = 0;
 // 原 dword_55C580@0x55C580，文件初值与每次初始化值均为 -2。
-std::int32_t gCapability4ModalSentinel = -2;
+static std::int32_t gCapability4ModalSentinel = -2;
 // 原 0x9A4EA8/0x9A5448/0x9A4B78/0x9A4E7C，PE 虚拟零填充。
-std::int32_t gCapability4ModalWidth = 0; // 原全局：0x009A4EA8。
-std::int32_t gCapability4ModalHeight = 0; // 原全局：0x009A5448。
-std::int32_t gCapability4ModalX = 0; // 原全局：0x009A4B78。
-std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
+static std::int32_t gCapability4ModalWidth = 0; // 原全局：0x009A4EA8。
+static std::int32_t gCapability4ModalHeight = 0; // 原全局：0x009A5448。
+static std::int32_t gCapability4ModalX = 0; // 原全局：0x009A4B78。
+static std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
 // 原 dword_9A6EBC@0x9A6EBC；原生指针宽度观察者，不放入 W32。
-cg::yobi::YobiAction* gCapability4ModalAction = nullptr;
+static cg::yobi::YobiAction* gCapability4ModalAction = nullptr;
 
-constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
+static constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
 };
 
-std::int32_t AddW32(
+static std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right)
 {
@@ -44,7 +44,7 @@ std::int32_t AddW32(
         + std::bit_cast<std::uint32_t>(right));
 }
 
-std::int32_t SubtractW32(
+static std::int32_t SubtractW32(
     const std::int32_t left,
     const std::int32_t right)
 {
@@ -53,7 +53,7 @@ std::int32_t SubtractW32(
         - std::bit_cast<std::uint32_t>(right));
 }
 
-std::int32_t MultiplyW32(
+static std::int32_t MultiplyW32(
     const std::int32_t left,
     const std::int32_t right)
 {
@@ -61,10 +61,6 @@ std::int32_t MultiplyW32(
         std::bit_cast<std::uint32_t>(left)
         * std::bit_cast<std::uint32_t>(right));
 }
-
-} // namespace
-
-namespace cg::login::detail {
 
 // 原函数：0x00464440。
 void ResetCapability4Modal_464440()

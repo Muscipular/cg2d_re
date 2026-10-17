@@ -20,22 +20,18 @@
 
 namespace cg::login {
 
-namespace {
-
 // 原 sub_45FA70 栈上按钮记录，固定 7×W32。
 using Capability3InputButton32 = cg::ui::UiControlRecord;
 
-constexpr Capability3InputButton32 kPrimaryButton {
+static constexpr Capability3InputButton32 kPrimaryButton {
     {240, 438, 64, 16}, 243048, 243050, 243049,
 };
-constexpr Capability3InputButton32 kSecondaryButton {
+static constexpr Capability3InputButton32 kSecondaryButton {
     {332, 438, 64, 16}, 245153, 245155, 245154,
 };
 // 原 dword_9A6EA0 与 dword_9A6E9C；仅 sub_45FA70 引用。
-std::int32_t gFocus9A6EA0 = 0; // 原全局：0x009A6EA0。
-std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
-
-} // namespace
+static std::int32_t gFocus9A6EA0 = 0; // 原全局：0x009A6EA0。
+static std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
 
 // 原函数：0x0045FA70。
 std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)

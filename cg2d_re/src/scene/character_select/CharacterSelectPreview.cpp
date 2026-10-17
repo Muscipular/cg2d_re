@@ -10,31 +10,30 @@
 #include <cstdint>
 
 namespace cg::character_select {
-namespace {
 
-constexpr std::size_t kPreviewGraphicCount = 14;
+static constexpr std::size_t kPreviewGraphicCount = 14;
 
-constexpr std::array<std::int32_t, kPreviewGraphicCount> kState0Graphics {{
+static constexpr std::array<std::int32_t, kPreviewGraphicCount> kState0Graphics {{
     100002, 100027, 100052, 100077, 100102, 100127, 100152,
     100252, 100277, 100302, 100327, 100352, 100377, 100402,
 }};
 
-constexpr std::array<std::int32_t, kPreviewGraphicCount> kState1Graphics {{
+static constexpr std::array<std::int32_t, kPreviewGraphicCount> kState1Graphics {{
     105002, 105027, 105052, 105077, 105102, 105127, 105152,
     105252, 105277, 105302, 105327, 105352, 105377, 105402,
 }};
 
-constexpr std::array<std::int32_t, kPreviewGraphicCount> kState2Graphics {{
+static constexpr std::array<std::int32_t, kPreviewGraphicCount> kState2Graphics {{
     106002, 106027, 106052, 106077, 106102, 106127, 106152,
     106252, 106277, 106302, 106327, 106352, 106377, 106402,
 }};
 
-constexpr std::array<std::int32_t, kPreviewGraphicCount> kState3Graphics {{
+static constexpr std::array<std::int32_t, kPreviewGraphicCount> kState3Graphics {{
     105502, 105527, 104402, 104432, 104462, 104492, 120102,
     100900, 100900, 100900, 120126, 100900, 100900, 100900,
 }};
 
-const std::array<std::int32_t, kPreviewGraphicCount>& SelectGraphicTable(
+static const std::array<std::int32_t, kPreviewGraphicCount>& SelectGraphicTable(
     std::int32_t previewState)
 {
     switch (previewState) {
@@ -50,7 +49,7 @@ const std::array<std::int32_t, kPreviewGraphicCount>& SelectGraphicTable(
     }
 }
 
-std::int32_t SelectGraphicIndex(std::int32_t converted)
+static std::int32_t SelectGraphicIndex(std::int32_t converted)
 {
     if (converted >= 270000 && converted <= 270200) {
         const std::int32_t quotient = (converted - 270000) / 100;
@@ -70,8 +69,6 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
     }
     return (converted - 240000) / 100;
 }
-
-} // namespace
 
 namespace detail {
 

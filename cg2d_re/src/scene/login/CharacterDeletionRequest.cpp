@@ -8,13 +8,9 @@
 #include <cstddef>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
-namespace {
-
-constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-
-} // namespace
-
 namespace cg::login {
+
+static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 
 std::uint16_t gCharacterDeletionReplyCode = 0; // 原全局：0x00DA3B28。
 

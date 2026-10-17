@@ -11,25 +11,21 @@
 #include <cstring>
 
 namespace cg::character_select {
-namespace {
 
-constexpr std::int32_t kLegacyGlyphWidth = 8;
-constexpr std::int32_t kColumnWidth = 64;
-constexpr std::int32_t kRowHeight = 48;
-constexpr std::int32_t kTextHeight = 16;
+static constexpr std::int32_t kLegacyGlyphWidth = 8;
+static constexpr std::int32_t kColumnWidth = 64;
+static constexpr std::int32_t kRowHeight = 48;
+static constexpr std::int32_t kTextHeight = 16;
 
 // 原阶段 0x9A6E5C、对象 0x9A6E60 及文本/布局状态的全部引用都只在
 // sub_45DD50/sub_45DD60 内。
-std::uint16_t gCharacterListProgressStage = 0;
-cg::yobi::YobiAction* gCharacterListProgressAction = nullptr;
-std::wstring gCharacterListProgressText {};
-std::int32_t gCharacterListProgressColumns = 0;
-std::int32_t gCharacterListProgressRows = 0;
-std::int32_t gCharacterListProgressX = 0;
-std::int32_t gCharacterListProgressY = 0;
-
-
-} // namespace
+static std::uint16_t gCharacterListProgressStage = 0;
+static cg::yobi::YobiAction* gCharacterListProgressAction = nullptr;
+static std::wstring gCharacterListProgressText {};
+static std::int32_t gCharacterListProgressColumns = 0;
+static std::int32_t gCharacterListProgressRows = 0;
+static std::int32_t gCharacterListProgressX = 0;
+static std::int32_t gCharacterListProgressY = 0;
 
 // 原函数：0x0045DD50。
 void ResetCharacterListProgress_45DD50()

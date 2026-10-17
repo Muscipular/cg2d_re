@@ -11,12 +11,10 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 // G08：仅参考实际安装的mode 0增减路径使用，其他数量窗口保留原上限。
-constexpr std::int32_t kShopPurchaseQuantityLimit = 9999;
+static constexpr std::int32_t kShopPurchaseQuantityLimit = 9999;
 
-std::int32_t CalculateRepeatedShopQuantity(
+static std::int32_t CalculateRepeatedShopQuantity(
     const std::int32_t candidate, const std::int32_t state, const bool increase)
 {
     static std::array<std::uint64_t, 2> pressedTicks {}; // 加减各自计时，沿既有64位tick。
@@ -67,8 +65,6 @@ static_assert(offsetof(WindowShopItem, allowed) == 0xC3C);
 static_assert(offsetof(WindowShopItem, reservedC3D) == 0xC3D);
 static_assert(offsetof(WindowShopItem, flags) == 0xC40);
 static_assert(offsetof(WindowShopItem, memo) == 0xC44);
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

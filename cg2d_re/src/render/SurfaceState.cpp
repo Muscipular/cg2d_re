@@ -20,7 +20,6 @@
 namespace cg::render {
 
 TextureSurface* gCpuTempSurface {}; // 原Temp面的非拥有指针；创建／释放仍归本模块。
-namespace {
 
 struct CpuBackStorage {
     // CPU 视图与 GDI DIB 共用此映射；逻辑容量仍为可见帧加一个额外像素。
@@ -63,19 +62,19 @@ struct CpuBackStorage {
 };
 
 // 原 556300..556302，仅描边模式为 256 号色读取；后续地址为独立字符串。
-constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
+static constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
 
-std::unique_ptr<CpuBackStorage> gCpuBackSurface;
-TextureSurface* gCpuAutoMapSurface {};
+static std::unique_ptr<CpuBackStorage> gCpuBackSurface;
+static TextureSurface* gCpuAutoMapSurface {};
 
 // 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
-std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
-std::uint64_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
-std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
-std::uint64_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
+static std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
+static std::uint64_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
+static std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
+static std::uint64_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
 
 // GRT01：Temp／表面复制直接进入 GPU Back，保留无色键、无混合语义。
-bool CopyTextureToGpuBack(TextureSurface* surface, const SDL_Rect& source, const SDL_Rect& destination) noexcept
+static bool CopyTextureToGpuBack(TextureSurface* surface, const SDL_Rect& source, const SDL_Rect& destination) noexcept
 {
     SDL_Surface* const input = GetTextureSdlSurface(surface);
     SDL_Surface* const back = GetCpuBackSdlSurface();
@@ -89,7 +88,7 @@ bool CopyTextureToGpuBack(TextureSurface* surface, const SDL_Rect& source, const
 }
 
 // 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
-bool BlitWithoutSourceColorKey(
+static bool BlitWithoutSourceColorKey(
     SDL_Surface* source, const SDL_Rect& sourceRect,
     SDL_Surface* destination, const SDL_Rect& destinationRect) noexcept
 {
@@ -113,7 +112,7 @@ bool BlitWithoutSourceColorKey(
 
 // 原 44F330/44FC20 的公共投影顺序；取色类型及两组闪烁槽由各入口提供。
 template <typename Pixel, typename ReadColor>
-std::int32_t DrawAutoMap32(
+static std::int32_t DrawAutoMap32(
     const std::int32_t x, const std::int32_t y, const Pixel* source,
     const std::int32_t width, const std::int32_t height,
     std::uint16_t& blink, std::uint64_t& tick, const ReadColor readColor)
@@ -208,8 +207,6 @@ std::int32_t DrawAutoMap32(
     };
     return BlitTextureToBack(gCpuAutoMapSurface, rectangle, destination, true);
 }
-
-} // namespace
 
 std::uint32_t gBackgroundColor = 0; // 原全局：0x0062B0A8。
 std::uint32_t gValueFF48E4 = 0; // 原全局：0x00FF48E4。

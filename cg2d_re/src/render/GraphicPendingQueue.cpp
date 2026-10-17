@@ -19,18 +19,14 @@
 
 namespace cg::render {
 
-
 // 原D69768零填充W32槽；唯一生产在下方完整507140，既有消费者仍共用此符号。
 std::uint32_t gValueD69768 = 0;
-
 
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
 
-namespace {
-
 // 原比较器 0x5222A0：layer 按 unsigned8 升序，cacheIndex 按 signed16 降序。
-int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
+static int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
 {
     const auto& first = *static_cast<const GraphicCache3*>(left);
     const auto& second = *static_cast<const GraphicCache3*>(right);
@@ -49,7 +45,7 @@ int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
 
 // 原波纹坐标差 helper；读取顺序和每个 F32 落点均属于调用语义。
 // 原函数：0x005219C0。
-void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
+static void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 {
     const std::uint32_t previousYBits = gRipplePreviousWorldYBits;
     const std::uint32_t previousXBits = gRipplePreviousWorldXBits;
@@ -85,7 +81,7 @@ void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 }
 
 // 原 SortTextures_520790 的单个保留槽；未列出的记录字段保持原值。
-std::uint16_t AppendReservedGraphic(
+static std::uint16_t AppendReservedGraphic(
     const std::uint16_t indexBits,
     const std::uint8_t layer,
     const std::uint8_t batchType)
@@ -108,8 +104,6 @@ std::uint16_t AppendReservedGraphic(
     platform::gPendingGraphicCount = nextCountBits;
     return nextCountBits;
 }
-
-} // namespace
 
 LegacyPendingStorage gLegacyPendingStorage {}; // 原全局：0x00FF4E30。
 std::int32_t gHoveredGraphicPendingIndex = 0; // 原全局：0x00D6976C。
@@ -421,7 +415,6 @@ void SortTextures_520790()
         sizeof(GraphicCache3),
         CompareGraphicCache3_5222A0);
 }
-
 
 void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::int32_t index,

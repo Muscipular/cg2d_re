@@ -42,10 +42,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 原[554204,5542A4)的40项S32初值；4417A0按每25个图号一组读取。
-std::array<std::int32_t, 40> gActorHeightOffsets554204 { // 原全局：0x00554204。
+static std::array<std::int32_t, 40> gActorHeightOffsets554204 { // 原全局：0x00554204。
     -78, -88, -88, -81, -88, -90, -99, -88, -88, -88,
     -79, -86, -88, -85, -88, -88, -96, -78, -88, -86,
     -88, -88, -81, -88, -90, -99, -79, -85, -88, -88,
@@ -55,16 +53,16 @@ std::array<std::int32_t, 40> gActorHeightOffsets554204 { // 原全局：0x005542
 static_assert(sizeof(gActorHeightOffsets554204) == 0xA0);
 
 // 原5542F4/554338，分别为17项状态图号表和聊天泡开关。
-std::array<std::int32_t, 17> gActorStatusImages5542F4 { // 原全局：0x005542F4。
+static std::array<std::int32_t, 17> gActorStatusImages5542F4 { // 原全局：0x005542F4。
     0, 0x192BC, 0x1AF41, 0x1AF42, 0x1AF43, 0x1AF44,
     0x1AF45, 0x1AF46, 0x1AF47, 0x1AF48, 0x1AF49, 0x1AF4A,
     0x1AF4B, 0x1AF4C, 0x1AF4D, 0x1AF4E, 0x19708,
 };
 
-std::uint32_t gChatBubbles554338 = 1; // 原全局：0x00554338。
+static std::uint32_t gChatBubbles554338 = 1; // 原全局：0x00554338。
 
 // 原4441A0：一次动画完成时清可选父槽再标死，未完成则走地图入队。
-void Sub_4441A0(YobiAction* const action)
+static void Sub_4441A0(YobiAction* const action)
 {
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -97,8 +95,6 @@ void Sub_4441A0(YobiAction* const action)
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));
 }
-
-} // namespace
 
 // 原444260：无payload附件，仅借用可选的父引用槽，不改变通用释放逻辑。
 YobiAction* Sub_444260(
@@ -768,8 +764,6 @@ std::int32_t ShowHpBar_43DB60(
 
 } // namespace detail
 
-
-
 // 原函数：0x00441130。
 YobiAction* NewYobiGearPet_441130(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
@@ -806,7 +800,6 @@ YobiAction* NewYobiGearPet_441130(
     return action;
 }
 
-
 // 原函数：0x004410F0。
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 {
@@ -822,7 +815,6 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
     action->flags = 0x34;
     return action;
 }
-
 
 // 原函数：0x00507140。
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)

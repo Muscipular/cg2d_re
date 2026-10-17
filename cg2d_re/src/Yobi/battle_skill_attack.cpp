@@ -16,20 +16,16 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
-std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 原全局：0x005AAA70。 426FC0/424620的独立转向输出，非13项快照或5A4A28。
+static std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 原全局：0x005AAA70。 426FC0/424620的独立转向输出，非13项快照或5A4A28。
 
 // 426FC0的两组五项原表；由404D90保留S32索引门禁。
-constexpr std::array<std::int32_t, 5> kBattleSkillImages54D710 { // 原常量参考：0x0054D710。
+static constexpr std::array<std::int32_t, 5> kBattleSkillImages54D710 { // 原常量参考：0x0054D710。
     0x1B293, 0x1B294, 0x1B295, 0x1B296, 0x1B297,
 };
 
-constexpr std::array<std::int32_t, 5> kBattleSkillImages54D724 { // 原常量参考：0x0054D724。
+static constexpr std::array<std::int32_t, 5> kBattleSkillImages54D724 { // 原常量参考：0x0054D724。
     0x1B29D, 0x1B29E, 0x1B29F, 0x1B2A0, 0x1B2A1,
 };
-
-} // namespace
 
 // 原[424620,426F9C)：完整九参攻击目标生产；D01仅次级图号入口置0一次。
 // 共享尾/字段与分支见doc/cg2d_battle_attack_targets_spec.md，保留原条件与追加次序。
@@ -1270,13 +1266,9 @@ void TakeBattleMSkillTargets_426FC0(
     }
 }
 
-namespace {
-
-constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常量参考：0x0054D5F4。
+static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常量参考：0x0054D5F4。
     111067, 111068, 111069, 111070, 111071, 111072,
 };
-
-} // namespace
 
 // 原435B63..43695E及42B26D..42B282；caller先分流mode0和72/113/2017至完整424620攻击生产。
 [[maybe_unused]] void ProcessBattleMSkillAttackNonzeroMode(

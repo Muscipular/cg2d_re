@@ -1,6 +1,5 @@
 #include "cg/resource/GraphicRead.hpp"
 
-
 #include "cg/resource/GraphicDecode.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
@@ -36,15 +35,13 @@ std::uint32_t gCurrentGraphicWidth = 0; // 原全局：0x01020ED4。
 std::uint32_t gCurrentGraphicPaletteSize = 0; // 原全局：0x01020ED8。
 std::int32_t gGraphicDataBuffer = 0; // 原全局：0x01020EE0。
 
-namespace {
-
 // 原 [58B7E8,58D348)：1752 项 W32；60 段初值逐项核原表一致，展开后仍可写。
 struct HiddenPaletteSegment {
     std::int32_t first;
     std::int32_t last;
     std::int32_t mapNo;
 };
-constexpr HiddenPaletteSegment kHiddenPaletteSegments[] {
+static constexpr HiddenPaletteSegment kHiddenPaletteSegments[] {
     {0, 0, 0},
     {1, 74, 110300},
     {75, 90, 110380},
@@ -106,7 +103,7 @@ constexpr HiddenPaletteSegment kHiddenPaletteSegments[] {
     {1734, 1747, 104685},
     {1748, 1751, 104700},
 };
-std::array<std::int32_t, 1752> gHiddenPaletteBaseQueue = [] {
+static std::array<std::int32_t, 1752> gHiddenPaletteBaseQueue = [] {
     std::array<std::int32_t, 1752> result {};
     for (const auto& segment : kHiddenPaletteSegments) {
         for (std::int32_t index = segment.first; index <= segment.last; ++index) {
@@ -153,7 +150,7 @@ static_assert(offsetof(PaletteDbfHeader, decodedLength) == 4);
 static_assert(offsetof(PaletteDbfHeader, compressedLength) == 8);
 
 // 原 58D360 的可写 W32 比较字；共享头读取后才取样，不并入文件头。
-std::uint32_t gPaletteDbfMagic58D360 = 0x00464244u;
+static std::uint32_t gPaletteDbfMagic58D360 = 0x00464244u;
 
 // 原 103CF58 有序唯一键表与 103CF68 载荷集合；522C50 不销毁它们。
 struct PaletteDbfState {
@@ -183,16 +180,16 @@ struct PaletteDbfState {
 using IndependentPaletteQueue = std::vector<std::int32_t>;
 
 // 原103CF88队列与103CF30 DBF为独立owner；实际对象在各原启动入口创建，指针只供访问。
-IndependentPaletteQueue* gIndependentPaletteQueue = nullptr; // 原全局：0x103CF88；仅指向原入口的唯一静态对象。
-PaletteDbfState* gPaletteDbfState = nullptr; // 原全局：0x103CF30；仅指向原入口的唯一静态对象。
+static IndependentPaletteQueue* gIndependentPaletteQueue = nullptr; // 原全局：0x103CF88；仅指向原入口的唯一静态对象。
+static PaletteDbfState* gPaletteDbfState = nullptr; // 原全局：0x103CF30；仅指向原入口的唯一静态对象。
 
-std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
-IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
-IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
-std::uint32_t gIndependentPaletteLoadCount = 0; // 原 103CF08，仅 loaded 为零的读取分支递增。
+static std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
+static IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
+static IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
+static std::uint32_t gIndependentPaletteLoadCount = 0; // 原 103CF08，仅 loaded 为零的读取分支递增。
 
 // 原 522900；唯一 caller 弃返回，保留文件、共享头、跨次索引和入队副作用。
-void LoadIndependentPaletteIndex_522900()
+static void LoadIndependentPaletteIndex_522900()
 {
     char directory[256] {};
     char fileName[256] {};
@@ -258,7 +255,7 @@ void LoadIndependentPaletteIndex_522900()
 }
 
 // 原 522CB0 的 32 位分支；loaded 只读，不自行置位或增加空记录恢复。
-void LoadIndependentPalette32_522CB0(const std::int32_t index)
+static void LoadIndependentPalette32_522CB0(const std::int32_t index)
 {
     if (index < 0 || index >= gIndependentPaletteCount) {
         return;
@@ -331,8 +328,6 @@ void LoadIndependentPalette32_522CB0(const std::int32_t index)
     const std::int16_t paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);
     versionIndex[index].record->paletteVersion = paletteVersion;
 }
-
-} // namespace
 
 // 原函数：0x00522620。
 void InitializeIndependentPaletteQueue_522620()

@@ -11,7 +11,6 @@
 #include <cstring>
 
 namespace cg::platform {
-namespace {
 
 // COR09：拥有本次MD5的CNG句柄，必须先销毁hash，再关闭算法提供者。
 struct Md5Context final {
@@ -34,7 +33,7 @@ struct Md5Context final {
 };
 
 // 原函数：0x00403660。
-bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
+static bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
 {
     Md5Context context {};
     // 原402B70／402D30：MD5初始化与轮变换由系统提供，非HMAC。
@@ -90,7 +89,7 @@ bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
 }
 
 // 原函数：0x00403750。
-std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
+static std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
 {
     constexpr char kDigits[] = "0123456789abcdef";
     std::array<char, 33> text {};
@@ -101,8 +100,6 @@ std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
     text[32] = '\0';
     return text;
 }
-
-} // namespace
 
 // 原函数：0x005202E0。
 char* ComputeExecutableDigest_5202E0(char* output)

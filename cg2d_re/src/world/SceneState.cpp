@@ -55,20 +55,19 @@
 #include <vector>
 
 namespace cg::world {
-namespace {
 
 // 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
-std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
-std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
-std::uint32_t gValue62B348 = 0; // 原全局：0x0062B348。
-std::int32_t gValueFF0D44 = 0; // 原全局：0x00FF0D44。 原普通场景与结果窗口分派共用的写入槽。
-std::int32_t gValueFF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
-std::int32_t gValueFF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
-std::int32_t gValueFF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
-std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
-std::wstring gLogoutText9A5B08; // 原全局：0x009A5B08。 动态UTF-16消息，排他尾9A5C10独立。
-cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
-std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
+static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
+static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
+static std::uint32_t gValue62B348 = 0; // 原全局：0x0062B348。
+static std::int32_t gValueFF0D44 = 0; // 原全局：0x00FF0D44。 原普通场景与结果窗口分派共用的写入槽。
+static std::int32_t gValueFF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
+static std::int32_t gValueFF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
+static std::int32_t gValueFF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
+static std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
+static std::wstring gLogoutText9A5B08; // 原全局：0x009A5B08。 动态UTF-16消息，排他尾9A5C10独立。
+static cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
+static std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
     std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
@@ -76,52 +75,52 @@ struct TransitionLines {
     std::vector<float> yFF1EB0 = std::vector<float>(481, 0.0f); // 原全局：0x00FF1EB0。
 };
 // R02：私有行存储随已发布高度增长，原地址只标识数据身份，不约束现代容器布局。
-TransitionLines gTransitionLines {};
-float gTransitionXFF48E8 = 0.0f; // 原全局：0x00FF48E8。
-float gTransitionAlternateXFF48EC = 0.0f; // 原全局：0x00FF48EC。
-float gTransitionYFF48F0 = 0.0f; // 原全局：0x00FF48F0。
-float gTransitionAlternateYFF48F4 = 0.0f; // 原全局：0x00FF48F4。
-float gTransitionVelocityFF48F8 = 0.0f; // 原全局：0x00FF48F8。
-float gTransitionActiveLinesFF48FC = 0.0f; // 原全局：0x00FF48FC。
-std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原全局：0x0058B6D4。 原加载区初值FFFFFFFF。
-std::int32_t gReverseTransitionActiveLinesFF276C = 0; // 原全局：0x00FF276C。
-float gReverseTransitionVelocityFF47C4 = 0.0f; // 原全局：0x00FF47C4。
-float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
-float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
-float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
-float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
-std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原全局：0x0058B6D8。 原加载区初值FFFFFFFF。
-std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {}; // 原全局：0x00FF275C。
-std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {}; // 原全局：0x00FF47D0。
+static TransitionLines gTransitionLines {};
+static float gTransitionXFF48E8 = 0.0f; // 原全局：0x00FF48E8。
+static float gTransitionAlternateXFF48EC = 0.0f; // 原全局：0x00FF48EC。
+static float gTransitionYFF48F0 = 0.0f; // 原全局：0x00FF48F0。
+static float gTransitionAlternateYFF48F4 = 0.0f; // 原全局：0x00FF48F4。
+static float gTransitionVelocityFF48F8 = 0.0f; // 原全局：0x00FF48F8。
+static float gTransitionActiveLinesFF48FC = 0.0f; // 原全局：0x00FF48FC。
+static std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原全局：0x0058B6D4。 原加载区初值FFFFFFFF。
+static std::int32_t gReverseTransitionActiveLinesFF276C = 0; // 原全局：0x00FF276C。
+static float gReverseTransitionVelocityFF47C4 = 0.0f; // 原全局：0x00FF47C4。
+static float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
+static float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
+static float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
+static float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
+static std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原全局：0x0058B6D8。 原加载区初值FFFFFFFF。
+static std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {}; // 原全局：0x00FF275C。
+static std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {}; // 原全局：0x00FF47D0。
 static_assert(sizeof(gQuadrantTransitionXFF275C) == 16);
 static_assert(sizeof(gQuadrantTransitionYFF47D0) == 16);
 // 原51EF80的64画块同源状态；阶段加载初值-1，其余为未加载区零初值。
 // 状态1/2的含义随显隐/下落模式变化，源坐标与运动坐标不可合并。
-std::int32_t gTileTransitionPhase58B6DC = -1; // 原全局：0x0058B6DC。
-std::int32_t gTileTransitionCompletedFF46C0 = 0; // 原全局：0x00FF46C0。
-std::int32_t gTileTransitionStartedFF28BC = 0; // 原全局：0x00FF28BC。
-std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {}; // 原全局：0x00FF27B8。
-std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {}; // 原全局：0x00FF46C4。
-std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {}; // 原全局：0x00FF47E4。
-std::array<std::int32_t, 64> gTileTransitionYFF0D7C {}; // 原全局：0x00FF0D7C。
-std::array<std::int32_t, 64> gTileTransitionXFF265C {}; // 原全局：0x00FF265C。
-std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {}; // 原全局：0x00FF0E7C。
+static std::int32_t gTileTransitionPhase58B6DC = -1; // 原全局：0x0058B6DC。
+static std::int32_t gTileTransitionCompletedFF46C0 = 0; // 原全局：0x00FF46C0。
+static std::int32_t gTileTransitionStartedFF28BC = 0; // 原全局：0x00FF28BC。
+static std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {}; // 原全局：0x00FF27B8。
+static std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {}; // 原全局：0x00FF46C4。
+static std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {}; // 原全局：0x00FF47E4。
+static std::array<std::int32_t, 64> gTileTransitionYFF0D7C {}; // 原全局：0x00FF0D7C。
+static std::array<std::int32_t, 64> gTileTransitionXFF265C {}; // 原全局：0x00FF265C。
+static std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {}; // 原全局：0x00FF0E7C。
 
 // 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
-std::uint32_t gImageTransitionInitializedFF4910 = 0; // 原全局：0x00FF4910。
-std::int32_t gImageTransitionScaleFF0D78 = 0; // 原全局：0x00FF0D78。
-std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原全局：0x00FF0F7C。 原51FC90独立比例，不属于源X数组。
+static std::uint32_t gImageTransitionInitializedFF4910 = 0; // 原全局：0x00FF4910。
+static std::int32_t gImageTransitionScaleFF0D78 = 0; // 原全局：0x00FF0D78。
+static std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原全局：0x00FF0F7C。 原51FC90独立比例，不属于源X数组。
 struct GridTransitionOffset {
     std::int32_t x;
     std::int32_t y;
 };
 static_assert(sizeof(GridTransitionOffset) == 8);
 static_assert(offsetof(GridTransitionOffset, y) == 4);
-std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {}; // 原全局：0x00FF28C0。
+static std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {}; // 原全局：0x00FF28C0。
 static_assert(sizeof(gGridTransitionOffsetsFF28C0) == 0xFF46C0 - 0xFF28C0);
 
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
-void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScreen)
+static void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScreen)
 {
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t first = row * 8;
@@ -140,7 +139,7 @@ void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScre
 }
 
 // 原__ftol先截断为S64，再消费低S32；4535B0另取低S16坐标。
-std::int32_t TruncateTransitionCoordinate(const double value)
+static std::int32_t TruncateTransitionCoordinate(const double value)
 {
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
@@ -152,7 +151,7 @@ enum class TransitionCopyMode {
     Direct,
 };
 
-void DrawTransitionRectangle(
+static void DrawTransitionRectangle(
     const std::int32_t x, const std::int32_t y,
     const std::array<std::int32_t, 4>& rectangle, render::TextureSurface* const source,
     const TransitionCopyMode copyMode = TransitionCopyMode::Clipped)
@@ -182,7 +181,7 @@ void DrawTransitionRectangle(
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
-std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
+static std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
 static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
 
 // 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久对象；见场景证据 §58。
@@ -198,24 +197,21 @@ static_assert(offsetof(AlbumStorage, versions) == 4);
 static_assert(offsetof(AlbumStorage, records) == 0x0C);
 static_assert(sizeof(AlbumStorage) == 0x3C00C);
 static_assert(alignof(AlbumStorage) == 4);
-AlbumStorage gAlbumStorage {};
+static AlbumStorage gAlbumStorage {};
 
 // 借用唯一相册记录；index从0开始，selected保持原S16符号扩展。
-AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
+static AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
 {
     const std::ptrdiff_t record = index + static_cast<std::ptrdiff_t>(selected) * 960;
     return gAlbumStorage.records.data() + record;
 }
 
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
-cg::yobi::YobiAction* gWindow39Action62B5B8 = nullptr;
-
-using BattleResultRecord;
-using BattleSkillResultRecord;
+static cg::yobi::YobiAction* gWindow39Action62B5B8 = nullptr;
 
 // 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
 
-constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
+static constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     59000,
     59001,
     59100,
@@ -225,20 +221,20 @@ constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
 };
 
 // 原 0x5541F4；Sub_4493C0 按原顺序匹配的四项地图楼层表。
-constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
+static constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     59000,
     59001,
     37623,
     37619,
 };
 
-constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
+static constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
     11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
+static constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
     11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-std::uint64_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
+static std::uint64_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
 
 struct DirectionDelta {
     std::int16_t x;
@@ -246,7 +242,7 @@ struct DirectionDelta {
 };
 
 // 原 .data [0x55D9DC,0x55D9FC)：八组可写的方向 W16 分量。
-std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9DC。
+static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9DC。
     {0, -1}, {1, -1}, {1, 0}, {1, 1},
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
@@ -266,12 +262,12 @@ static_assert(offsetof(SkillRuntimeSlots, skills) == 0x1C);
 static_assert(offsetof(SkillRuntimeSlots, pairs) == 0x47890);
 static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == 0x47908);
 static_assert(sizeof(SkillRuntimeSlots) == 0x4790C);
-SkillRuntimeSlots gSkillRuntimeSlots {};
+static SkillRuntimeSlots gSkillRuntimeSlots {};
 
-std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
-std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
-std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
-std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
+static std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
+static std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
+static std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
+static std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
     std::uint16_t flags;
@@ -295,9 +291,9 @@ static_assert(offsetof(PetMapCharaSlot, value14) == 0x14);
 static_assert(offsetof(PetMapCharaSlot, name18) == 0x18);
 static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
 static_assert(sizeof(PetMapCharaSlot) == 0x38);
-std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
+static std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
 // 原 [9FB938,9FB942)：两次W32与末次W16清理、后续S16读取共用同一10B。
-alignas(std::uint32_t) std::array<std::uint16_t, 5> gPetFollowOrder {};
+static alignas(std::uint32_t) std::array<std::uint16_t, 5> gPetFollowOrder {};
 static_assert(sizeof(gPetFollowOrder) == 10);
 
 // 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
@@ -328,10 +324,10 @@ struct MapCharaSceneSlots {
     std::int16_t value55DEA2 {-1}; // 原全局：0x0055DEA2。
 };
 
-MapCharaSceneSlots gMapCharaSceneSlots {};
+static MapCharaSceneSlots gMapCharaSceneSlots {};
 
 // 原 .data [55DEB0,55DF10)：前/后三项分别供 46F1D0 的 kind 6/7 绘图。
-std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全局：0x0055DEB0。
+static std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全局：0x0055DEB0。
     {0, -240, 320, 290, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
     {-320, 64, 320, 270, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
     {0, 64, 320, 370, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
@@ -342,23 +338,23 @@ std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全�
 
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
-constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
+static constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
 
-constexpr wchar_t kCutCaption5536B8[] = L"确认"; // 原常量参考：0x005536B8。
-constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
+static constexpr wchar_t kCutCaption5536B8[] = L"确认"; // 原常量参考：0x005536B8。
+static constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
     L"要检视FAQ吗？";
-constexpr wchar_t kCutCaption55DE30[] = L"档案错误"; // 原常量参考：0x0055DE30。
+static constexpr wchar_t kCutCaption55DE30[] = L"档案错误"; // 原常量参考：0x0055DE30。
 
 // 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
-constexpr char kMapPathPrefix[] = "map";
-constexpr char kMapReadMode[] = "rb";
-constexpr char kUnknownText554590[] = "???"; // 原常量参考：0x00554590。
+static constexpr char kMapPathPrefix[] = "map";
+static constexpr char kMapReadMode[] = "rb";
+static constexpr char kUnknownText554590[] = "???"; // 原常量参考：0x00554590。
 
 // 原 [9DAD30,9DAD4A)；地图回复的 24 字节正文和 NUL，首字节另有世界重置写者。
-std::array<std::uint8_t, 26> gText9DAD30 {}; // 原全局：0x009DAD30。
+static std::array<std::uint8_t, 26> gText9DAD30 {}; // 原全局：0x009DAD30。
 
 // 原 55DAAC/55DBAC；两表各 256 项，原始内容分别为逐位反转与 0x1021 多项式表。
-constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC { // 原常量参考：0x0055DAAC。
+static constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC { // 原常量参考：0x0055DAAC。
     0x00u, 0x80u, 0x40u, 0xC0u, 0x20u, 0xA0u, 0x60u, 0xE0u, 0x10u, 0x90u, 0x50u, 0xD0u, 0x30u, 0xB0u, 0x70u, 0xF0u,
     0x08u, 0x88u, 0x48u, 0xC8u, 0x28u, 0xA8u, 0x68u, 0xE8u, 0x18u, 0x98u, 0x58u, 0xD8u, 0x38u, 0xB8u, 0x78u, 0xF8u,
     0x04u, 0x84u, 0x44u, 0xC4u, 0x24u, 0xA4u, 0x64u, 0xE4u, 0x14u, 0x94u, 0x54u, 0xD4u, 0x34u, 0xB4u, 0x74u, 0xF4u,
@@ -377,7 +373,7 @@ constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC { // 原常量参�
     0x0Fu, 0x8Fu, 0x4Fu, 0xCFu, 0x2Fu, 0xAFu, 0x6Fu, 0xEFu, 0x1Fu, 0x9Fu, 0x5Fu, 0xDFu, 0x3Fu, 0xBFu, 0x7Fu, 0xFFu
 };
 
-constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考：0x0055DBAC。
+static constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考：0x0055DBAC。
     0x0000u, 0x1021u, 0x2042u, 0x3063u, 0x4084u, 0x50A5u, 0x60C6u, 0x70E7u, 0x8108u, 0x9129u, 0xA14Au, 0xB16Bu, 0xC18Cu, 0xD1ADu, 0xE1CEu, 0xF1EFu,
     0x1231u, 0x0210u, 0x3273u, 0x2252u, 0x52B5u, 0x4294u, 0x72F7u, 0x62D6u, 0x9339u, 0x8318u, 0xB37Bu, 0xA35Au, 0xD3BDu, 0xC39Cu, 0xF3FFu, 0xE3DEu,
     0x2462u, 0x3443u, 0x0420u, 0x1401u, 0x64E6u, 0x74C7u, 0x44A4u, 0x5485u, 0xA56Au, 0xB54Bu, 0x8528u, 0x9509u, 0xE5EEu, 0xF5CFu, 0xC5ACu, 0xD58Du,
@@ -397,10 +393,10 @@ constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考
 };
 
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
-constexpr wchar_t gText55BAE0[] = L"登出中";
+static constexpr wchar_t gText55BAE0[] = L"登出中";
 
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
-std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
+static std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
 #include "cg/audio/LegacyAudio.hpp"
 #include "AlbumState.hpp"
@@ -415,7 +411,7 @@ std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
-std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x0055EA50。
+static std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x0055EA50。
     0x0000000000000000ULL, 0x3FECA543F1C75819ULL, 0x3FFCA379B77C02B0ULL, 0x4005785F06F69446ULL,
     0x400C9C55000C953AULL, 0x4011DE5EEDCC20D5ULL, 0x40156C5D63886595ULL, 0x4018F7B84DB9C737ULL,
     0x401C800431BDE82DULL, 0x4020026BD6E8AF81ULL, 0x4021C2E5BC87DB2BULL, 0x4023813DD97F62B7ULL,
@@ -441,8 +437,6 @@ static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 static_assert(sizeof(gAngleTableBits55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
-
-} // namespace
 
 std::int32_t& gCurrentSceneType = platform::gValueFF0D40; // 原全局：0x00FF0D40。
 std::int32_t gPendingSceneState = 0; // 原全局：0x00FF0D60。
@@ -628,8 +622,6 @@ std::uint32_t InitializeAlbum_518C20()
     return 4;
 }
 
-
-
 std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
 std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
 std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
@@ -806,20 +798,18 @@ MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
 
 namespace detail {
 
-namespace {
+static std::array<MapEffectRecord, 500> gMapEffectRecords {};
+static MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
+static std::uint8_t gMapEffectStartedC8A728 = 0; // 原全局：0x00C8A728。
+static std::uint64_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
+static std::uint8_t gMapEffectStartedC82240 = 0; // 原全局：0x00C82240。
+static std::uint64_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
+static std::uint8_t gMapEffectStartedC8224C = 0; // 原全局：0x00C8224C。
+static std::uint64_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
+static std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
+static std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
-std::array<MapEffectRecord, 500> gMapEffectRecords {};
-MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
-std::uint8_t gMapEffectStartedC8A728 = 0; // 原全局：0x00C8A728。
-std::uint64_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
-std::uint8_t gMapEffectStartedC82240 = 0; // 原全局：0x00C82240。
-std::uint64_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
-std::uint8_t gMapEffectStartedC8224C = 0; // 原全局：0x00C8224C。
-std::uint64_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
-std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
-std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
-
-void ClearMapEffectAction(cg::yobi::YobiAction* const action)
+static void ClearMapEffectAction(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -835,8 +825,6 @@ void ClearMapEffectAction(cg::yobi::YobiAction* const action)
         record = record->next;
     }
 }
-
-} // namespace
 
 // 原函数：0x0046E2A0。
 MapEffectRecord* Sub_46E2A0()
@@ -960,9 +948,7 @@ std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* const x, std::int32_t* const y)
     }
 }
 
-namespace {
-
-void ApplyMapEffectDirection(MapEffectRecord& record)
+static void ApplyMapEffectDirection(MapEffectRecord& record)
 {
     // 原46E3E0单读方向；按触达轴读/算/写，见CAC09。
     const std::int16_t direction =
@@ -1001,7 +987,7 @@ void ApplyMapEffectDirection(MapEffectRecord& record)
     }
 }
 
-MapEffectRecord* CreateMapEffectKind1AtZero()
+static MapEffectRecord* CreateMapEffectKind1AtZero()
 {
     MapEffectRecord* const record = Sub_46E340();
     if (record == nullptr) {
@@ -1017,7 +1003,7 @@ MapEffectRecord* CreateMapEffectKind1AtZero()
     return record;
 }
 
-void CreateMapEffectKind1()
+static void CreateMapEffectKind1()
 {
     MapEffectRecord* const record = CreateMapEffectKind1AtZero();
     if (record == nullptr) {
@@ -1030,7 +1016,7 @@ void CreateMapEffectKind1()
 }
 
 // 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
-MapEffectRecord* CreateMapEffectKind2AtZero()
+static MapEffectRecord* CreateMapEffectKind2AtZero()
 {
     MapEffectRecord* const record = Sub_46E340();
     if (record == nullptr) {
@@ -1052,7 +1038,7 @@ MapEffectRecord* CreateMapEffectKind2AtZero()
     return record;
 }
 
-void CreateMapEffectKind2()
+static void CreateMapEffectKind2()
 {
     MapEffectRecord* const record = CreateMapEffectKind2AtZero();
     if (record == nullptr) {
@@ -1064,7 +1050,7 @@ void CreateMapEffectKind2()
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
-void CreateMapEffectKind4()
+static void CreateMapEffectKind4()
 {
     MapEffectRecord* const record = Sub_46E340();
     if (record == nullptr) {
@@ -1086,8 +1072,6 @@ void CreateMapEffectKind4()
     gMapEffectTickC8A730 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
-
-} // namespace
 
 // 原函数：0x0046E4E0。
 void Sub_46E4E0()
@@ -1725,10 +1709,8 @@ std::int32_t Sub_440FF0()
     return result;
 }
 
-namespace {
-
 // 原六个入口共享473060发送尾；选项修改后重新读取，不按发送结果回滚。
-std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
+static std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
     // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
     const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.options194);
@@ -1743,8 +1725,6 @@ std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
     return network::Sub_511A00(socket, value);
 }
-
-} // namespace
 
 void MarkPlayerChatActive() noexcept
 {
@@ -1842,10 +1822,8 @@ void Sub_518600(
 
  // 原全局：0x00FDA8A4。
 
-namespace {
-
 // 两物品回复仅非空名称的字段尾相同，外层停止、清理及UI同步各自保留。
-void ApplyPlayerItemFields(
+static void ApplyPlayerItemFields(
     const std::int32_t index, const std::int32_t nameField,
     const char* const payload, const char* const name,
     char* const memo, char* const description)
@@ -1884,8 +1862,6 @@ void ApplyPlayerItemFields(
         record.memo = cg::text::FromGbkWide(memo);
     }
 }
-
-} // namespace
 
 // 原函数：0x005196B0。
 void Sub_5196B0(const std::int32_t index, const char* const text)
@@ -2203,8 +2179,6 @@ std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原
     {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
     {-131, -121, 218, 228},
 }};
-
-
 
 std::int32_t gBattleCurrentPosition5ABCA4 = 0; // 原全局：0x005ABCA4。
 
@@ -2916,26 +2890,24 @@ static_assert(sizeof(gValuesC35010) == 0x40000);
 
 std::uint32_t gValue55DA88 = 1; // 原全局：0x0055DA88。
 
-namespace {
-
 // 原 55DA90/55DA94：保留可写索引及三组 S32 尺寸，不冻结为当前 54x54。
-std::int16_t gAutoMapWindowIndex55DA90 = 1; // 原全局：0x0055DA90。
+static std::int16_t gAutoMapWindowIndex55DA90 = 1; // 原全局：0x0055DA90。
 struct AutoMapWindowSize {
     std::int32_t width;
     std::int32_t height;
 };
-AutoMapWindowSize gAutoMapWindowSizes55DA94[3] {{107, 107}, {54, 54}, {27, 27}}; // 原全局：0x0055DA94。
+static AutoMapWindowSize gAutoMapWindowSizes55DA94[3] {{107, 107}, {54, 54}, {27, 27}}; // 原全局：0x0055DA94。
 
 // 原 46C840 的清零字节数；与 51x51 世界地图缓存独立。
-constexpr std::size_t kAutoMapWindowCells = 11664;
-std::uint32_t gAutoMapColorWindow9CF6EC[kAutoMapWindowCells] {}; // 原全局：0x009CF6EC。
-std::uint8_t gAutoMapIndexWindow9DAD7C[kAutoMapWindowCells] {}; // 原全局：0x009DAD7C。
+static constexpr std::size_t kAutoMapWindowCells = 11664;
+static std::uint32_t gAutoMapColorWindow9CF6EC[kAutoMapWindowCells] {}; // 原全局：0x009CF6EC。
+static std::uint8_t gAutoMapIndexWindow9DAD7C[kAutoMapWindowCells] {}; // 原全局：0x009DAD7C。
 static_assert(sizeof(AutoMapWindowSize) == 8);
 static_assert(sizeof(gAutoMapColorWindow9CF6EC) == 46656);
 static_assert(sizeof(gAutoMapIndexWindow9DAD7C) == 11664);
 
 // R09：解码后的新图号沿BLM01同表别名取色，不另建newMapRes。
-std::uint8_t GetAutoMapColorIndex(const std::int32_t mapNo)
+static std::uint8_t GetAutoMapColorIndex(const std::int32_t mapNo)
 {
     if (mapNo >= 220000 && mapNo <= 265535) {
         return resource::gAutoMapColors927F48[mapNo - 200000];
@@ -2945,8 +2917,6 @@ std::uint8_t GetAutoMapColorIndex(const std::int32_t mapNo)
     }
     return resource::gAutoMapColors927F48[mapNo];
 }
-
-} // namespace
 
 // 原函数：0x0046C840。
 std::int32_t Sub_46C840(
@@ -7935,15 +7905,13 @@ std::int32_t Sub_51F610(const std::int32_t value)
     return 1;
 }
 
-namespace {
-
 enum class ScanlineOrigin {
     Top,
     Bottom,
 };
 
 // 原51F860/51FA70的相同入口/推进尾；两者只改变逐行采样及目标方向。
-std::int32_t ProcessScanlineTransition(
+static std::int32_t ProcessScanlineTransition(
     const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
     const std::uint32_t trigger = gValue58B6D0;
@@ -8018,8 +7986,6 @@ std::int32_t ProcessScanlineTransition(
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }
-
-} // namespace
 
 // 原函数：0x0051F860。
 std::int32_t Sub_51F860(const std::int32_t direction, const std::int32_t value)
@@ -8242,14 +8208,12 @@ const AlbumRecord* GetSelectedAlbumRecords()
     return AlbumRecordAt(0, selected);
 }
 
-
 const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
 {
     AlbumRecord* const record = AlbumRecordAt(index, selected);
     record->fresh = 0;
     return record->name.data();
 }
-
 
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
 void Sub_5186A0()
@@ -8283,7 +8247,6 @@ void Sub_5186A0()
     std::free(encoded);
 }
 
-
 // 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
 void Sub_518BE0()
 {
@@ -8293,14 +8256,12 @@ void Sub_518BE0()
     Sub_5186A0();
 }
 
-
 // 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
 void Sub_50E5B0(
     const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
 {
     detail::Sub_518A40(version, payload);
 }
-
 
 // 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
 void Sub_50E5D0(
@@ -8315,7 +8276,6 @@ void Sub_50E5D0(
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
 }
 
-
 // 原函数：0x0046E480。
 void Sub_46E480()
 {
@@ -8324,7 +8284,6 @@ void Sub_46E480()
         gMapCharaSceneSlots.valueC8A73C = 0;
     }
 }
-
 
 // 原函数：0x00476680。
 void Sub_476680()
@@ -8375,7 +8334,6 @@ void Sub_476680()
         gValue626BFC = 0;
     }
 }
-
 
 // 原函数：0x0050A3E0。
 void Sub_50A3E0(
@@ -8480,7 +8438,6 @@ void Sub_50A3E0(
         }
     }
 }
-
 
 // 原函数：0x0050B380。
 void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
@@ -8673,7 +8630,6 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
     }
 }
 
-
 // 原函数：0x0050BCD0。
 void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
 {
@@ -8733,19 +8689,16 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
     }
 }
 
-
 // 原函数：0x00472F40。
 std::int32_t Sub_472F40()
 {
     return detail::TogglePlayerOptionAndSend(0x04);
 }
 
-
 std::uint8_t ReadPlayerOptions194LowByte() noexcept
 {
     return *reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.options194);
 }
-
 
 // 原函数：0x00472F70。
 std::int32_t Sub_472F70()
@@ -8753,13 +8706,11 @@ std::int32_t Sub_472F70()
     return detail::TogglePlayerOptionAndSend(0x08);
 }
 
-
 // 原函数：0x00472FA0。
 std::int32_t Sub_472FA0()
 {
     return detail::TogglePlayerOptionAndSend(0x01);
 }
-
 
 // 原函数：0x00472FD0。
 std::int32_t Sub_472FD0()
@@ -8767,20 +8718,17 @@ std::int32_t Sub_472FD0()
     return detail::TogglePlayerOptionAndSend(0x10);
 }
 
-
 // 原函数：0x00473000。
 std::int32_t Sub_473000()
 {
     return detail::TogglePlayerOptionAndSend(0x20);
 }
 
-
 // 原函数：0x00473030。
 std::int32_t Sub_473030()
 {
     return detail::TogglePlayerOptionAndSend(0x40);
 }
-
 
 // 原函数：0x0050BFA0。
 std::uint32_t Sub_50BFA0(
@@ -8795,7 +8743,6 @@ std::uint32_t Sub_50BFA0(
     return options;
 }
 
-
 // 原函数：0x0050BFC0。
 std::uint16_t Sub_50BFC0(
     const std::uintptr_t /*socket*/, const std::int32_t value)
@@ -8805,7 +8752,6 @@ std::uint16_t Sub_50BFC0(
     return low;
 }
 
-
 // 原函数：0x0050CF70。
 std::int32_t Sub_50CF70(
     const std::uintptr_t /*socket*/, const std::int32_t index,
@@ -8814,7 +8760,6 @@ std::int32_t Sub_50CF70(
     gPetRuntimeRecords[index].lvFlag6C = value;
     return index;
 }
-
 
 // PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
 std::uint32_t Sub_50C7A0(
@@ -8834,7 +8779,6 @@ std::uint32_t Sub_50C7A0(
     input::gValue626C14 = 0;
     return static_cast<std::uint32_t>(tick);
 }
-
 
 // 原函数：0x0050CE10。
 std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
@@ -8858,7 +8802,6 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     }
     return soundEnabled;
 }
-
 
 // 原函数：0x0050E1A0。
 void Sub_50E1A0(
@@ -8885,7 +8828,6 @@ void Sub_50E1A0(
     detail::Sub_46E0D0(mask, value);
 }
 
-
 // 原函数：0x0050E650。
 void Sub_50E650(
     const std::uintptr_t /*socket*/, const std::int32_t mode,
@@ -8894,7 +8836,6 @@ void Sub_50E650(
 {
     cg::yobi::Sub_449700(mode, duration, floor, mapX, mapY);
 }
-
 
 // 原函数：0x0050E210。
 std::int32_t Sub_50E210(
@@ -8919,7 +8860,6 @@ std::int32_t Sub_50E210(
     }
     return audio::PlaySe_52C450(sound, 320);
 }
-
 
 // CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
 // 原函数：0x0050C940。
@@ -8973,7 +8913,6 @@ std::int32_t Sub_50C940(
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
-
 
 // 原函数：0x0050CAE0。
 void Sub_50CAE0(
@@ -9080,7 +9019,6 @@ void Sub_50CAE0(
     }
 }
 
-
 // 原函数：0x0050D000。
 void Sub_50D000(
     const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
@@ -9105,7 +9043,6 @@ void Sub_50D000(
     }
     detail::gValueFF0D32 = 0;
 }
-
 
 // MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
 std::int32_t Sub_509650(
@@ -9199,7 +9136,6 @@ std::int32_t Sub_509650(
     return 0;
 }
 
-
 // MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
 void Sub_509BA0(const std::uintptr_t, const char* const payload)
 {
@@ -9270,7 +9206,6 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
     }
 }
 
-
 // 原函数：0x00509E30。
 void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
 {
@@ -9284,7 +9219,6 @@ void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text
         gSkillRuntimeSlots.jobName.data(), std::strlen(text) < 24 ? text : kUnknownText554590);
 }
 
-
 std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
 {
     const auto* const storage = reinterpret_cast<const std::byte*>(&gSkillRuntimeSlots);
@@ -9296,7 +9230,6 @@ std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
     std::memcpy(&used, storage + offset, sizeof(used));
     return used;
 }
-
 
 // 原函数：0x00505040。
 std::int32_t Sub_505040(const std::int32_t slot)
@@ -9315,7 +9248,6 @@ std::int32_t Sub_505040(const std::int32_t slot)
     return detail::Sub_504F10(item->itemId, 0) != 0 ? 1 : 0;
 }
 
-
 // 原函数：0x005050B0。
 std::int32_t Sub_5050B0(const std::int32_t slot)
 {
@@ -9332,7 +9264,6 @@ std::int32_t Sub_5050B0(const std::int32_t slot)
     return detail::Sub_504F10(item->itemId, 1) != 0 ? 1 : 0;
 }
 
-
 // 原函数：0x00505110。
 std::int32_t Sub_505110(const std::int32_t slot)
 {
@@ -9346,7 +9277,6 @@ std::int32_t Sub_505110(const std::int32_t slot)
     }
     return (item->flags & 0x1000u) != 0 ? 1 : 0;
 }
-
 
 // 原函数：0x00509EB0。
 void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
@@ -9415,7 +9345,6 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
     gValueDA3B20 = 0;
 }
 
-
 // 原函数：0x0050A120。
 void Sub_50A120(
     const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
@@ -9463,7 +9392,6 @@ void Sub_50A120(
     }
 }
 
-
 // 原函数：0x0050C580。
 void Sub_50C580(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
@@ -9504,7 +9432,6 @@ void Sub_50C580(
     }
 }
 
-
 // 原函数：0x0050BF20。
 void Sub_50BF20(const std::uintptr_t, const char* const payload)
 {
@@ -9527,7 +9454,6 @@ void Sub_50BF20(const std::uintptr_t, const char* const payload)
         objectIndex = network::ParseDelimitedBase62_52D0D0(payload, ',', field);
     }
 }
-
 
 // 原函数：0x0050BFD0。
 void Sub_50BFD0(const std::uintptr_t, const char* const payload)
@@ -9554,7 +9480,6 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
         }
     }
 }
-
 
 // 原函数：0x0050C260。
 void Sub_50C260(const std::uintptr_t, const char* const payload)
@@ -9588,7 +9513,6 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
     }
 }
 
-
 // 原函数：0x0051B5F0。
 std::int32_t Sub_51B5F0(const std::int32_t itemId)
 {
@@ -9605,7 +9529,6 @@ std::int32_t Sub_51B5F0(const std::int32_t itemId)
     return count;
 }
 
-
 // 原函数：0x0050C900。
 void Sub_50C900(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
@@ -9619,7 +9542,6 @@ void Sub_50C900(
     ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
     ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
 }
-
 
 // 原函数：0x0051B630。
 void Sub_51B630(
@@ -9663,7 +9585,6 @@ void Sub_51B630(
     *second = temporary;
 }
 
-
 // 原函数：0x0052E180。
 std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId)
 {
@@ -9682,7 +9603,6 @@ std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId
     return 0;
 }
 
-
 // 原函数：0x0052E1D0。
 std::int32_t Sub_52E1D0(const std::int32_t index)
 {
@@ -9697,7 +9617,6 @@ std::int32_t Sub_52E1D0(const std::int32_t index)
     }
     return Sub_52E180(index, 0x22C7) != 0 ? 1 : 0;
 }
-
 
 // 原函数：0x00510150。
 void Sub_510150(
@@ -9761,7 +9680,6 @@ void Sub_510150(
         index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
     }
 }
-
 
 // 原函数：0x0050A6B0。
 void Sub_50A6B0(
@@ -9862,7 +9780,6 @@ void Sub_50A6B0(
     record.updated510C = 1;
 }
 
-
 // 原函数：0x0050AC20。
 void Sub_50AC20(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
@@ -9903,7 +9820,6 @@ void Sub_50AC20(
     detail::Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
     detail::Sub_492250();
 }
-
 
 // 原函数：0x0050B0D0。
 void Sub_50B0D0(
@@ -9964,7 +9880,6 @@ void Sub_50B0D0(
     Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), 10);
 }
 
-
 // 原函数：0x005185C0。
 void Sub_5185C0(
     const detail::PetTechniqueRecord* const source, SkillPairRecord* const destination,
@@ -9977,7 +9892,6 @@ void Sub_5185C0(
     }
 }
 
-
 // 原函数：0x0043C4B0。
 std::int32_t Sub_43C4B0()
 {
@@ -9989,7 +9903,6 @@ std::int32_t Sub_43C4B0()
     }
     return -1;
 }
-
 
 // 原函数：0x0050A300。
 void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
@@ -10019,7 +9932,6 @@ void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
         reinterpret_cast<const std::uint8_t*>(detail::gTitlesFF0508.data()), 64);
     detail::Sub_5198D0(gSortedTitlesDE03F8.data(), 64);
 }
-
 
 // 原函数：0x00519840。
 std::int32_t Sub_519840(const std::int32_t id)
@@ -10065,7 +9977,6 @@ void CenterBattleLayoutToWindow()
     previousY = offsetY;
 }
 
-
 // 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
 std::int32_t __cdecl Sub_468520(
     char* const buffer,
@@ -10080,7 +9991,6 @@ std::int32_t __cdecl Sub_468520(
     return std::sprintf(
         buffer, "%s\\%d\\%d\\%d.dat", kMapPathPrefix, mapId, value9E0434, floor);
 }
-
 
 // 原函数：0x0046C760。
 std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
@@ -10108,7 +10018,6 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
     return render::DrawIndexedAutoMap_44F5C0(x, y, detail::gAutoMapIndexWindow9DAD7C, width, height);
 }
 
-
 // 原 [0x4681B0,0x4681F6)：先读 Y/X 快照并恢复窗口，随后顺序清六槽。
 std::int32_t __cdecl Sub_4681B0()
 {
@@ -10126,7 +10035,6 @@ std::int32_t __cdecl Sub_4681B0()
     detail::gValueC82224 = 0;
     return 0;
 }
-
 
 // 原 [0x469810,0x469864)：边界外返回 1，边界内比较第四平面的完整 WORD。
 std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
@@ -10148,7 +10056,6 @@ std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
     return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
 }
 
-
 // 原函数：0x005093C0。
 void Sub_5093C0(
     const std::uintptr_t, const std::int32_t x, const std::int32_t y,
@@ -10159,7 +10066,6 @@ void Sub_5093C0(
     Sub_519EE0();
     static_cast<void>(detail::Sub_51A040(direction));
 }
-
 
 // 原函数：0x0050D080。
 void Sub_50D080(
@@ -10176,7 +10082,6 @@ void Sub_50D080(
     gValueC821E8.mask = mask;
     gValueC821E8.readCount = readCount;
 }
-
 
 // 原函数：0x0050D120。
 void Sub_50D120(
@@ -10256,7 +10161,6 @@ void Sub_50D120(
     detail::gValueF7CA04 = 0;
 }
 
-
 // 原函数：0x0050D3C0。
 void Sub_50D3C0(const std::uintptr_t, const char* const text)
 {
@@ -10316,7 +10220,6 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
     }
 }
 
-
 // 原函数：0x0050D500。
 void Sub_50D500(const std::uintptr_t, const char* const payload)
 {
@@ -10372,7 +10275,6 @@ void Sub_50D500(const std::uintptr_t, const char* const payload)
     }
 }
 
-
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
 void __cdecl Sub_50CF90(
     const std::uintptr_t, const std::int32_t sequence,
@@ -10396,7 +10298,6 @@ void __cdecl Sub_50CF90(
     }
 }
 
-
 // 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
 void __cdecl Sub_509090(
     const std::uintptr_t, const std::int32_t first,
@@ -10419,7 +10320,6 @@ void __cdecl Sub_509090(
         detail::gValue9A4B94 &= 0xFEu;
     }
 }
-
 
 // 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
 std::int32_t __cdecl Sub_509100(
@@ -10527,7 +10427,6 @@ std::int32_t __cdecl Sub_509100(
     return 0;
 }
 
-
 // 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
 std::int32_t __cdecl Sub_5093F0(
     const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
@@ -10576,7 +10475,6 @@ std::int32_t __cdecl Sub_5093F0(
     return a11 > 0 ? a13 : a11;
 }
 
-
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 // PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
 std::int32_t __cdecl Sub_509550(
@@ -10614,7 +10512,6 @@ std::int32_t __cdecl Sub_509550(
     return 1;
 }
 
-
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
 std::uint32_t Sub_51D640()
 {
@@ -10640,7 +10537,6 @@ std::uint32_t Sub_51D640()
     return static_cast<std::uint32_t>(tick);
 }
 
-
 // GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
 std::int32_t __cdecl Sub_50C870(
     const std::uintptr_t, const std::int32_t playerValue,
@@ -10660,7 +10556,6 @@ std::int32_t __cdecl Sub_50C870(
     return adjustment;
 }
 
-
 // 原 [0x46CF00, 0x46CF1A)；上界外返回入口位模式，上界内读唯一共享表。
 std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
 {
@@ -10672,7 +10567,6 @@ std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
     }
     return detail::gValuesC35010[static_cast<std::size_t>(value)];
 }
-
 
 // WDG01：原 [0x46F8F0,0x46F92B)；上/下界比较后各重新取 F32，再加减、写回并重来。
 void __cdecl Sub_46F8F0(float* const value)
@@ -10695,7 +10589,6 @@ void __cdecl Sub_46F8F0(float* const value)
     }
 }
 
-
 // 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，原表 F64 位型返回。
 double __cdecl Sub_46F930(float angle)
 {
@@ -10705,14 +10598,12 @@ double __cdecl Sub_46F930(float angle)
         gAngleTableBits55DF10[static_cast<std::size_t>(index)]);
 }
 
-
 // 原 [0x46F950,0x46F967)：先将 +90 的结果写为 F32，再透传表读取结果。
 double __cdecl Sub_46F950(const float angle)
 {
     const float shifted = angle + 90.0F;
     return Sub_46F930(shifted);
 }
-
 
 // 原 [0x46F970,0x46FACF)：原表插值及八路象限修正，F32 写槽独立保留。
 double __cdecl Sub_46F970(const float first, const float second)
@@ -10755,7 +10646,6 @@ double __cdecl Sub_46F970(const float first, const float second)
     }
 }
 
-
 // 原函数：0x0046FB80。
 double Sub_46FB80(
     const float x, const float y, const float targetX, const float targetY)
@@ -10766,7 +10656,6 @@ double Sub_46FB80(
     const double squaredX = differenceX * differenceX;
     return squaredY + squaredX;
 }
-
 
 // WDG01：原 [0x46CDF0,0x46CE25)；查表加原偏移落 F32、原地归一后重取，乘原常量转 S64。
 std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
@@ -10780,7 +10669,6 @@ std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
         static_cast<double>(angle) * multiplier);
 }
 
-
 // 原[440B50,440B6C)：只采一次场景值，以U32比较250..252。
 std::int32_t Sub_440B50()
 {
@@ -10788,13 +10676,11 @@ std::int32_t Sub_440B50()
     return scene >= 250u && scene <= 252u ? 1 : 0;
 }
 
-
 // 原 [0x4410E0,0x4410E6)：无状态固定返回叶。
 std::int32_t Sub_4410E0()
 {
     return 0x11;
 }
-
 
 std::uint32_t ReadPlayerFlags18A() noexcept
 {
@@ -10805,7 +10691,6 @@ std::uint32_t ReadPlayerFlags18A() noexcept
     return flags;
 }
 
-
 // 原函数：0x00405B40。
 std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
 {
@@ -10814,7 +10699,6 @@ std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
     }
     return position - 5;
 }
-
 
 // BEI01：原九条，唯一玩家item区8..27逐used W16统计；现正确正文保持，十九调用点的完整外父/owner与运行待。
 // 原函数：0x00518C60。
@@ -10829,12 +10713,10 @@ std::int32_t Sub_518C60()
     return count;
 }
 
-
 const char* GetPlayerJobName() noexcept
 {
     return gSkillRuntimeSlots.jobName.data();
 }
-
 
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 {
@@ -10845,7 +10727,6 @@ void ConsumeBattlePlayerTimer(const std::int32_t seconds)
         gPlayerRuntimeSlots.timerRemaining0C = 0;
     }
 }
-
 
 // SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
 // 原函数：0x00504B10。
@@ -10863,7 +10744,6 @@ std::int32_t Sub_504B10()
     return 6;
 }
 
-
 // G04：五S16配对顺序，used且伤势大于0才返回原宠物编号，未命中-1。
 // 原函数：0x00504B60。
 std::int32_t Sub_504B60()
@@ -10880,36 +10760,30 @@ std::int32_t Sub_504B60()
     return -1;
 }
 
-
 std::int16_t ReadPlayerTribe() noexcept
 {
     return std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value00);
 }
-
 
 std::uint8_t ReadPlayerActionFlagsByte() noexcept
 {
     return reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2];
 }
 
-
 std::uint16_t ReadPlayerActionFlags() noexcept
 {
     return static_cast<std::uint16_t>(gPlayerRuntimeSlots.flags18C >> 16);
 }
-
 
 void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
 {
     gPlayerRuntimeSlots.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
 }
 
-
 void SetPlayerActionFlags(const std::uint16_t mask) noexcept
 {
     gPlayerRuntimeSlots.flags18C |= static_cast<std::uint32_t>(mask) << 16;
 }
-
 
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
@@ -10921,7 +10795,6 @@ void CopyPlayerBarValues(
     *maxFp = gPlayerRuntimeSlots.maxFp;
 }
 
-
 const char* GetTitleText(const std::int32_t index) noexcept
 {
     // 未装备或无效索引返回空文本；修正原FF0510+index*1Ch越界读。
@@ -10930,7 +10803,6 @@ const char* GetTitleText(const std::int32_t index) noexcept
     }
     return detail::gTitlesFF0508[index].text.data();
 }
-
 
 const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
 {
@@ -10945,36 +10817,30 @@ const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
     }
 }
 
-
 std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
 {
     return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
 }
-
 
 std::int16_t ReadDirectionDeltaY(const std::int16_t direction) noexcept
 {
     return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
 }
 
-
 cg::yobi::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
 {
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
 }
-
 
 std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
 {
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
 }
 
-
 std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
 {
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].flags;
 }
-
 
 // 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
 // 原函数：0x00470050。
@@ -11008,7 +10874,6 @@ void Sub_470050()
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
-
 
 // 原函数：0x00470150。
 void Sub_470150()
@@ -11044,7 +10909,6 @@ void Sub_470150()
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
-
 
 // 原函数：0x00470270。
 void Sub_470270()
@@ -11086,7 +10950,6 @@ void Sub_470270()
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
-
 // 原函数：0x004703C0。
 void Sub_4703C0()
 {
@@ -11116,7 +10979,6 @@ void Sub_4703C0()
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
-
 
 // 原函数：0x004704A0。
 void Sub_4704A0()
@@ -11154,7 +11016,6 @@ void Sub_4704A0()
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
-
 // 原函数：0x00470670。
 void Sub_470670()
 {
@@ -11191,20 +11052,17 @@ void Sub_470670()
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
-
 // 原函数：0x004FA8E0。
 void Sub_4FA8E0(const std::int32_t index)
 {
     static_cast<void>(detail::RequestEmoteWithResult_4FA8E0(index));
 }
 
-
 // 原函数：0x00519EC0。
 std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
 {
     return detail::Sub_468330(x, y);
 }
-
 
 // 原函数：0x0051C0D0。
 std::int32_t Sub_51C0D0(const std::int32_t imageNo)
@@ -11252,13 +11110,11 @@ std::int32_t Sub_51C0D0(const std::int32_t imageNo)
     return imageNo;
 }
 
-
 // 原函数：0x0051BEE0。
 void Sub_51BEE0()
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x80u;
 }
-
 
 // 原函数：0x0051BEC0。
 std::int32_t Sub_51BEC0()
@@ -11268,7 +11124,6 @@ std::int32_t Sub_51BEC0()
     const std::int32_t value = gPlayerRuntimeSlots.value190;
     return (flags & 2u) != 0 ? value : 0;
 }
-
 
 // 原函数：0x0051BE50。
 std::int8_t Sub_51BE50(const std::int32_t requested)
@@ -11299,7 +11154,6 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     gPlayerRuntimeSlots.value190 = value;
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
 }
-
 
 // 原 [0x46BD40,0x46BD57)：按指令顺序清四个独立 W32 槽，返回完整 EAX32 零。
 std::int32_t Sub_46BD40()

@@ -55,14 +55,12 @@ std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStor
 static_assert(sizeof(int) == 4);
 static_assert(std::endian::native == std::endian::little);
 
-namespace {
-
 // ALM01：启动参数生产一次选人标记；凭据仍由 login 的既有变量持有。
-bool gAutoLoginPending = false;
-std::int32_t gAutoLoginCharacterSlot = -1;
+static bool gAutoLoginPending = false;
+static std::int32_t gAutoLoginCharacterSlot = -1;
 
 // A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
-bool ParseCommandArgumentValue(
+static bool ParseCommandArgumentValue(
     const char* commandLine, const char* key, std::string& outValue)
 {
     if (commandLine == nullptr || key == nullptr) {
@@ -105,7 +103,7 @@ bool ParseCommandArgumentValue(
 }
 
 // A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
-void ApplyAutoLoginCommandLine(const char* commandLine)
+static void ApplyAutoLoginCommandLine(const char* commandLine)
 {
     std::string account;
     std::string password;
@@ -143,8 +141,6 @@ void ApplyAutoLoginCommandLine(const char* commandLine)
         gAutoLoginPending = true;
     }
 }
-
-} // namespace
 
 bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
 {

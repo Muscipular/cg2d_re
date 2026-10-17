@@ -18,12 +18,10 @@
 #include <cstdint>
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 
-
 namespace cg::platform {
-namespace {
 
-std::uint32_t gHoverColorIndexD6978C = 0; // 原全局：0x00D6978C。
-constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考：0x0058ACC8。
+static std::uint32_t gHoverColorIndexD6978C = 0; // 原全局：0x00D6978C。
+static constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考：0x0058ACC8。
     0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA,
     0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA,
     0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA,
@@ -33,7 +31,7 @@ constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考�
 };
 
 // 原5071C6..507242：宽度留给命中后的绘框，四边各自读取CryptInt。
-bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& width)
+static bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& width)
 {
     width = cg::render::TextMeasure(text.text.c_str(), text.fontType);
     if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
@@ -52,7 +50,7 @@ bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& width)
 }
 
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
-bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
+static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
 {
     if (graphic.reference.action == nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
@@ -131,7 +129,7 @@ bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
 }
 
 // 原5075A3..5076B4；只由value4==2路径进入，不在这里重取排序层。
-void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, const std::uint8_t layer)
+static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, const std::uint8_t layer)
 {
     std::int32_t x;
     std::int32_t y;
@@ -192,8 +190,6 @@ void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, const std
         static_cast<std::uint16_t>(x + width + 2), static_cast<std::uint16_t>(y + height + 2),
         frameLayer, hover, 0);
 }
-
-} // namespace
 
 // 原函数：0x00507140。
 void Sub_507140()

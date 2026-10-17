@@ -19,18 +19,17 @@
 #include <system_error>
 
 namespace cg::render {
-namespace {
 
 // 原0x005590E0：字体仍统一宋体；UTL01使用UTF-16字体名与CreateFontW。
-constexpr wchar_t kFaceName5590E0[] = L"宋体";
-std::array<const wchar_t*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
+static constexpr wchar_t kFaceName5590E0[] = L"宋体";
+static std::array<const wchar_t*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
     kFaceName5590E0, kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
 };
 
 // 原 gFontList 每项 +00 是 GDI 句柄；与 0x14 字节度量分开承载。
-std::array<HFONT, kFontTypeCount> gFontHandles558F68 {}; // 原全局：0x00558F68。
+static std::array<HFONT, kFontTypeCount> gFontHandles558F68 {}; // 原全局：0x00558F68。
 // R06：参考128项色表按D3DCOLOR_XRGB的实际宏位序承接，不按颜色名称交换通道。
-constexpr std::array<std::uint32_t, 128> kTextColors {{
+static constexpr std::array<std::uint32_t, 128> kTextColors {{
     0xFFFFFFFFU, 0xFF00FFFFU, 0xFFFF00FFU, 0xFF0000FFU, 0xFFFFFF00U, 0xFF00FF00U, 0xFFFF0000U, 0xFFA0A0A4U,
     0xFFA6CAF0U, 0xFFC0DCC0U, 0xFF000000U, 0xFFCDCDCDU, 0xFF665425U, 0xFF800000U, 0xFF808000U, 0xFF800080U,
     0xFFC0C0C0U, 0xFF00005FU, 0xFF0000AFU, 0xFF005F5FU, 0xFF005FAFU, 0xFF005FFFU, 0xFF00875FU, 0xFF0087AFU,
@@ -48,15 +47,15 @@ constexpr std::array<std::uint32_t, 128> kTextColors {{
     0xFFFF87FFU, 0xFFFFAF5FU, 0xFFFFAFAFU, 0xFFFFAFFFU, 0xFFFFD75FU, 0xFFFFD7AFU, 0xFFFFD7FFU, 0xFFFFFF5FU,
     0xFFFFFFAFU, 0xFF121212U, 0xFF262626U, 0xFF3A3A3AU, 0xFF626262U, 0xFF767676U, 0xFF8A8A8AU, 0xFF000000U,
 }};
-std::array<std::int32_t, 8> gDerived558F30 {}; // 原全局：0x00558F30。
-std::array<std::int32_t, 8> gDerived5545AC {}; // 原全局：0x005545AC。
+static std::array<std::int32_t, 8> gDerived558F30 {}; // 原全局：0x00558F30。
+static std::array<std::int32_t, 8> gDerived5545AC {}; // 原全局：0x005545AC。
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。
-std::array<std::int32_t, 9> gDerived554618 {{0x39}}; // 原全局：0x00554618。
+static std::array<std::int32_t, 9> gDerived554618 {{0x39}}; // 原全局：0x00554618。
 
 static_assert(sizeof(gDerived558F30) == 0x20);
 static_assert(sizeof(gDerived5545AC) == 0x20);
 
-HFONT CreateLegacyFont(
+static HFONT CreateLegacyFont(
     const std::int32_t height,
     const std::int32_t width,
     const std::int32_t weight,
@@ -68,12 +67,10 @@ HFONT CreateLegacyFont(
         DEFAULT_QUALITY, 0x11, face);
 }
 
-const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
+static const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
 {
     return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
 }
-
-} // namespace
 
 std::array<FontMetrics, kFontTypeCount> gFontMetrics {{ // 原全局：0x00558F68。
     {9, 17, 17, 17, 0, 0, 0, 0},
@@ -393,7 +390,6 @@ std::vector<std::wstring> Font::split(const std::wstring_view text, const std::i
     if (!contents.empty() && (contents.back() == '\r' || contents.back() == '\n')) { lines.emplace_back(); }
     return lines;
 }
-
 
 // 原0x0044B260／0x0044B2A0：动态UTF-16正文直接度量。
 std::int32_t MeasureDefaultText_44B260(const std::wstring_view text)

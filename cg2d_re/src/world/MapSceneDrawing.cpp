@@ -18,13 +18,12 @@
 #include <optional>
 
 namespace cg::world::detail {
-namespace {
 
 // 原已加载 55DA8C=10000，只有 46CF60 读取/递增/清零。
-std::uint32_t gValue55DA8C = 10000;
+static std::uint32_t gValue55DA8C = 10000;
 
 // 原 46D179：tile 与静态 obj 的描述符写序不同，不统一重建描述符。
-void DrawCutTile(
+static void DrawCutTile(
     const std::uint16_t tile, const std::int32_t screenX, const std::int32_t screenY,
     render::GraphicDescriptor16& descriptor)
 {
@@ -55,7 +54,7 @@ void DrawCutTile(
 }
 
 // 原 46D207：原始 obj 索引 .cut；注册标志与发布地址的两次索引分别计算。
-void DrawCutObject(
+static void DrawCutObject(
     const std::uint16_t object, const std::int32_t column, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY,
     render::GraphicDescriptor16& descriptor)
@@ -126,7 +125,7 @@ void DrawCutObject(
 }
 
 // 原普通模式逐格先 tile 后 obj；音效标记是否消费由原参数决定。
-void DrawNormalMapCell(
+static void DrawNormalMapCell(
     const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
 {
@@ -194,8 +193,6 @@ void DrawNormalMapCell(
         }
     }
 }
-
-} // namespace
 
 // 原函数：0x00469020。
 void Sub_469020()

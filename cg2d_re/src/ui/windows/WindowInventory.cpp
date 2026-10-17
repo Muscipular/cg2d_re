@@ -20,17 +20,15 @@ void WindowRuntime_SetInventoryPages(
 
 namespace detail {
 
-namespace {
-
 // G07：九页的普通／选中／悬停图，与参考invExt.cpp共用资源编号。
-constexpr std::array<std::array<std::int32_t, 3>, 9> kInventoryPageImages {{
+static constexpr std::array<std::array<std::int32_t, 3>, 9> kInventoryPageImages {{
     {243173, 243174, 243175}, {243176, 243177, 243178}, {243179, 243180, 243181},
     {243182, 243183, 243184}, {243185, 243186, 243187}, {243188, 243189, 243190},
     {243191, 243192, 243193}, {243194, 243195, 243196}, {243197, 243198, 243199},
 }};
 
 // 同组页按钮立即刷新选中态；存储顺序及原窗口控件索引保持。
-void RefreshInventoryPageSelection(
+static void RefreshInventoryPageSelection(
     WindowInstance* const window, const WindowElementCallback callback,
     const std::int32_t selectedPage)
 {
@@ -45,7 +43,7 @@ void RefreshInventoryPageSelection(
 }
 
 // 背包、战斗背包、合成与银行右侧共用页号；银行内只切页，其余入口支持拖物跨页。
-std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     WindowElement& element = window->elements[index];
@@ -90,7 +88,7 @@ std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, const std::
 }
 
 // 银行左侧页按钮；点击当前页也沿参考重新请求银行数据。
-std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -110,8 +108,6 @@ std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std:
     graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & 1) != 0 ? 2 : 0];
     return 0;
 }
-
-} // namespace
 
 std::int32_t WindowInventory_GetPageElementCount(const std::int32_t windowId)
 {

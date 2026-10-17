@@ -45,19 +45,17 @@ static_assert(offsetof(MapCharaPayload, next) == 0x48);
 
 static_assert(sizeof(MapCharaPayload) == 0x50);
 
-namespace {
+static constexpr std::size_t kYobiRegistryRowCount = 399;
 
-constexpr std::size_t kYobiRegistryRowCount = 399;
+static constexpr std::size_t kYobiRegistryColumnCount = 399;
 
-constexpr std::size_t kYobiRegistryColumnCount = 399;
-
-constexpr std::size_t kYobiRegistryEntryCount =
+static constexpr std::size_t kYobiRegistryEntryCount =
     kYobiRegistryRowCount * kYobiRegistryColumnCount;
 
 // 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
-std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
+static std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
 
-std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
+static std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
 
 static_assert(
     std::tuple_size_v<decltype(gYobiRegistryFlags)>
@@ -67,17 +65,17 @@ static_assert(
     std::tuple_size_v<decltype(gYobiRegistryActions)>
     == std::size_t{399} * std::size_t{399});
 
-YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
+static YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
 
-std::array<std::int32_t, 5> gMapValues5F9720 {}; // 原全局：0x005F9720。
+static std::array<std::int32_t, 5> gMapValues5F9720 {}; // 原全局：0x005F9720。
 
-std::array<std::int32_t, 5> gMapImages5AC4A0 {}; // 原全局：0x005AC4A0。
+static std::array<std::int32_t, 5> gMapImages5AC4A0 {}; // 原全局：0x005AC4A0。
 
-std::int32_t gMapImage5F9734 = 0; // 原全局：0x005F9734。
+static std::int32_t gMapImage5F9734 = 0; // 原全局：0x005F9734。
 
-std::int32_t gMapDirection5F9740 = 0; // 原全局：0x005F9740。
+static std::int32_t gMapDirection5F9740 = 0; // 原全局：0x005F9740。
 
-std::int32_t gMapDuration5F9744 = 0; // 原全局：0x005F9744。
+static std::int32_t gMapDuration5F9744 = 0; // 原全局：0x005F9744。
 
 struct MapPartyOffset {
     std::int32_t x;
@@ -85,7 +83,7 @@ struct MapPartyOffset {
 };
 
 // 原只读 [54D950,54DD10)：group/slot/direction 扁平索引；保留相邻项。
-constexpr std::array<MapPartyOffset, 120> kMapPartyOffsets54D950 {{ // 原常量参考：0x0054D950。
+static constexpr std::array<MapPartyOffset, 120> kMapPartyOffsets54D950 {{ // 原常量参考：0x0054D950。
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
@@ -108,8 +106,6 @@ static_assert(sizeof(MapPartyOffset) == 8);
 static_assert(offsetof(MapPartyOffset, y) == 4);
 
 static_assert(sizeof(kMapPartyOffsets54D950) == 0x3C0);
-
-} // namespace
 
 YobiAction* NewMapCharaAction()
 {
@@ -973,8 +969,6 @@ YobiAction* Sub_440B70()
 
 } // namespace detail
 
-
-
 // 原函数：0x0046DD40。
 void Sub_46DD40()
 {
@@ -993,30 +987,25 @@ void Sub_46DD40()
     }
 }
 
-
 std::uint8_t& MapYobiRegistryFlagAt(const std::int32_t index) noexcept
 {
     return detail::gYobiRegistryFlags.data()[index];
 }
-
 
 YobiAction*& MapYobiRegistryActionAt(const std::int32_t index) noexcept
 {
     return detail::gYobiRegistryActions.data()[index];
 }
 
-
 void SetYobiMapOffsetX(YobiAction* const action, const std::int32_t value) noexcept
 {
     action->mapOffsetX = value;
 }
 
-
 void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexcept
 {
     action->mapOffsetY = value;
 }
-
 
 // 原函数：0x00440920。
 std::int32_t Sub_440920(
@@ -1079,7 +1068,6 @@ std::int32_t Sub_440920(
     return 1;
 }
 
-
 // 原函数：0x0046DE50。
 YobiAction* Sub_46DE50(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
@@ -1116,7 +1104,6 @@ YobiAction* Sub_46DE50(
     return action;
 }
 
-
 // 原函数：0x0046DD90。
 void Sub_46DD90(YobiAction* const action)
 {
@@ -1144,7 +1131,6 @@ void Sub_46DD90(YobiAction* const action)
         static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
 }
 
-
 // 原函数：0x0043F1F0。
 YobiAction* Sub_43F1F0(const std::uint32_t value)
 {
@@ -1163,13 +1149,11 @@ YobiAction* Sub_43F1F0(const std::uint32_t value)
     return nullptr;
 }
 
-
 // 原函数：0x0043F220。
 void Sub_43F220()
 {
     detail::gMapCharaHead = nullptr;
 }
-
 
 // 原函数：0x0043F230。
 void* Sub_43F230()
@@ -1192,7 +1176,6 @@ void* Sub_43F230()
     // 空链时原 EAX 未定义；新端返回空值，不作为原端等价结果验收。
     return last;
 }
-
 
 // 原函数：0x00440F50。
 void* Sub_440F50()
@@ -1225,12 +1208,10 @@ void* Sub_440F50()
     return payload->partyActions.data();
 }
 
-
 std::int32_t ReadMapObservationDirection() noexcept
 {
     return detail::gMapDirection5F9740;
 }
-
 
 // 原函数：0x00440FE0。
 std::int32_t Sub_440FE0()

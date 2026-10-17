@@ -17,11 +17,7 @@ class InputContext;
 
 namespace cg::world {
 struct OrderedRecord1051B14;
-}
 
-
-
-namespace cg::world {
 struct PlayerItemRecord;
 
 } // namespace cg::world
@@ -188,7 +184,6 @@ extern input::InputContext gInputContextCA0018; // 原全局：0x00CA0018。
 extern input::InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
 extern input::InputContext gInputContextCA02E0;
 extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
-
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text); // text借用原GBK名称，取消／关闭时可为nullptr。

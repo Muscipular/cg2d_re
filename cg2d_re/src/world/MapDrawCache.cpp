@@ -14,7 +14,6 @@
 #include <utility>
 
 namespace cg::world::detail {
-namespace {
 
 // 原 52B 记录的前 44B 不含地址；只有两条挂件链拓宽，均不拥有节点。
 struct MapDrawRecord {
@@ -49,17 +48,17 @@ static_assert(offsetof(MapDrawRecord, after) == 0x38);
 static_assert(sizeof(MapDrawRecord) == 0x40);
 static_assert(alignof(MapDrawRecord) == 8);
 
-constexpr std::int32_t kSourceCapacity = 1024;
-constexpr std::int32_t kMergedCapacity = 3072;
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawPrimary9EE918 {}; // 原全局：0x009EE918。
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawAttachments9E0438 {}; // 原全局：0x009E0438。
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawObjectsC751D0 {}; // 原全局：0x00C751D0。
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {}; // 原全局：0x00C28008。
-std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {}; // 原全局：0x009A86E8。
-std::int32_t gMapDrawMergedCount9EE914 = 0; // 原全局：0x009EE914。
+static constexpr std::int32_t kSourceCapacity = 1024;
+static constexpr std::int32_t kMergedCapacity = 3072;
+static std::array<MapDrawRecord, kSourceCapacity> gMapDrawPrimary9EE918 {}; // 原全局：0x009EE918。
+static std::array<MapDrawRecord, kSourceCapacity> gMapDrawAttachments9E0438 {}; // 原全局：0x009E0438。
+static std::array<MapDrawRecord, kSourceCapacity> gMapDrawObjectsC751D0 {}; // 原全局：0x00C751D0。
+static std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {}; // 原全局：0x00C28008。
+static std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {}; // 原全局：0x009A86E8。
+static std::int32_t gMapDrawMergedCount9EE914 = 0; // 原全局：0x009EE914。
 
 // 各生产者共用完整描述符及空参默认值，不清记录的其他字段。
-void WriteMapDrawDescriptor(
+static void WriteMapDrawDescriptor(
     render::GraphicDescriptor16& destination, const render::GraphicDescriptor16* const source)
 {
     if (source != nullptr) {
@@ -70,7 +69,7 @@ void WriteMapDrawDescriptor(
 }
 
 // 原46C4D0六段复制：前44B逐W32读写，再按原序复制两条非拥有链接。
-void CopyMapDrawRecord(MapDrawRecord* const destination, const MapDrawRecord* const source)
+static void CopyMapDrawRecord(MapDrawRecord* const destination, const MapDrawRecord* const source)
 {
     auto* const destinationBytes = reinterpret_cast<std::byte*>(destination);
     const auto* const sourceBytes = reinterpret_cast<const std::byte*>(source);
@@ -86,7 +85,7 @@ void CopyMapDrawRecord(MapDrawRecord* const destination, const MapDrawRecord* co
 }
 
 // 原 46C300：两项深度落 F32；图形查询之后按原 x87 门禁及 S16 屏幕阈值比较。
-std::int32_t CompareMapObject_46C300(
+static std::int32_t CompareMapObject_46C300(
     const MapDrawRecord* const primary, const MapDrawRecord* const object)
 {
     const float primaryDepth = static_cast<float>(
@@ -135,7 +134,7 @@ std::int32_t CompareMapObject_46C300(
 
 // MC01-C8：原F64深度主键；同深度统一批次优先，再按sourceIndex，同键返回0。
 // 原函数：0x0046C440。
-std::int32_t CompareMapPrimary_46C440(
+static std::int32_t CompareMapPrimary_46C440(
     const MapDrawRecord* const first, const MapDrawRecord* const second)
 {
     const double firstDepth = static_cast<double>(std::bit_cast<float>(first->worldXBits))
@@ -159,7 +158,7 @@ std::int32_t CompareMapPrimary_46C440(
 
 // MC01-C8：原数组/数量接std::sort，比较交换和等价项排列采用标准库。
 // 原函数：0x0046C420。
-void SortMapPrimary_46C420()
+static void SortMapPrimary_46C420()
 {
     const std::uint32_t count = gValue9FB934;
     if (count < 2) {
@@ -172,7 +171,7 @@ void SortMapPrimary_46C420()
 }
 
 // 原 46C4D0：计数在各复制段的发布时点不同，不合并成统一 append。
-void MergeMapDrawCache_46C4D0()
+static void MergeMapDrawCache_46C4D0()
 {
     std::int32_t objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
     std::int32_t merged = 0;
@@ -314,7 +313,7 @@ void MergeMapDrawCache_46C4D0()
 }
 
 // 原 46C1C0 的三处提交；分流始终读取主项 clip，挂件不能覆盖此选择。
-void QueueMapDrawRecord(
+static void QueueMapDrawRecord(
     const MapDrawRecord* const record, const MapDrawRecord* const primary, const bool attachment)
 {
     const bool clipped = primary->descriptor.clipMode == 1;
@@ -330,8 +329,6 @@ void QueueMapDrawRecord(
             x, y, 10, imageNo, 0, batch, &record->descriptor));
     }
 }
-
-} // namespace
 
 // 原函数：0x0046BE50。
 void Sub_46BE50(
@@ -426,7 +423,6 @@ std::int32_t Sub_46BD60(
     return count;
 }
 
-
 // 原函数：0x0046DFF0。
 void Sub_46DFF0(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
@@ -462,7 +458,6 @@ void Sub_46DFF0(
         detail::gValue9FB928 = static_cast<std::uint32_t>(count + 1);
     }
 }
-
 
 // 原函数：0x0046C060。
 void DrawGearNormal_46C060(

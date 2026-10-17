@@ -20,8 +20,6 @@
 #include <cstring>
 #include <cstdlib> // 原CRT接口：0x0054ABDD；原参数／返回合同由直接调用承接。
 
-
-
 namespace cg::world {
 
 std::int32_t gValueD460C8 = 0; // 原全局：0x00D460C8。
@@ -33,13 +31,11 @@ namespace cg::world::detail {
 std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
 std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。
 
-namespace {
-
-inline constexpr std::array<std::uint8_t, 12> kLowercaseDescription {{
+static inline constexpr std::array<std::uint8_t, 12> kLowercaseDescription {{
     0xAD, 0x5E, 0xBC, 0xC6, 0x2F, 0xA2,
     0xE9, 0xA2, 0xEA, 0xA2, 0xEB, 0x00,
 }};
-inline constexpr std::array<std::uint8_t, 12> kUppercaseDescription {{
+static inline constexpr std::array<std::uint8_t, 12> kUppercaseDescription {{
     0xAD, 0x5E, 0xBC, 0xC6, 0x2F, 0xA2,
     0xCF, 0xA2, 0xD0, 0xA2, 0xD1, 0x00,
 }};
@@ -51,12 +47,12 @@ static_assert(offsetof(CANDIDATELIST, dwPageStart) == 0x10);
 static_assert(offsetof(CANDIDATELIST, dwPageSize) == 0x14);
 static_assert(offsetof(CANDIDATELIST, dwOffset) == 0x18);
 
-const CANDIDATELIST* CurrentCandidateList() noexcept
+static const CANDIDATELIST* CurrentCandidateList() noexcept
 {
     return static_cast<const CANDIDATELIST*>(platform::gImeCandidateList);
 }
 
-std::uint32_t ReadCandidateOffset(
+static std::uint32_t ReadCandidateOffset(
     const CANDIDATELIST* const candidateList,
     const std::uint32_t candidateIndex) noexcept
 {
@@ -69,7 +65,7 @@ std::uint32_t ReadCandidateOffset(
     return offset;
 }
 
-std::wstring CandidateText(
+static std::wstring CandidateText(
     const CANDIDATELIST* const candidateList,
     const std::uint32_t pageIndex)
 {
@@ -78,8 +74,7 @@ std::wstring CandidateText(
     return std::wstring(reinterpret_cast<const wchar_t*>(bytes));
 }
 
-
-void DrawCandidateEntry(
+static void DrawCandidateEntry(
     const std::uint32_t pageIndex,
     const std::int32_t targetStart,
     std::int32_t& units)
@@ -105,7 +100,7 @@ void DrawCandidateEntry(
         selected ? std::uint8_t{0xD9} : std::uint8_t{0xD8}, selected ? 0U : 252U, 1);
 }
 
-void DrawCandidates(
+static void DrawCandidates(
     const std::int32_t targetStart,
     const CANDIDATELIST* candidateList)
 {
@@ -125,8 +120,6 @@ void DrawCandidates(
         pageIndex += 1U;
     } while (pageIndex < pageSize);
 }
-
-} // namespace
 
 // 原 World::RenderInput@[0x4590E0,0x45957E)。
 void RenderInput_4590E0()

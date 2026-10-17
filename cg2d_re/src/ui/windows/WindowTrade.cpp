@@ -14,9 +14,6 @@ namespace detail {
 
 input::InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
 
-
-namespace {
-
 // 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
 struct WindowTradeItem {
     std::uint16_t used; // 原成员偏移：+0x00。
@@ -100,8 +97,6 @@ using WindowTradePanelCallback = void (*)(
     std::uint8_t numericResult, std::uint32_t* valueSlot,
     std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
     std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

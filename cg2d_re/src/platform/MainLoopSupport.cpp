@@ -21,44 +21,41 @@
 
 namespace cg::platform {
 
-
-namespace {
-
 using LegacyRandomEngine =
     std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>;
 
 // 原0x0058F870：唯一共享W32状态，初始种子1；首次使用初始化不推进序列。
-LegacyRandomEngine& SharedRandomEngine()
+static LegacyRandomEngine& SharedRandomEngine()
 {
     static LegacyRandomEngine engine{1};
     return engine;
 }
 
 // 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
-volatile std::uint64_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
-volatile std::uint64_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
+static volatile std::uint64_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
+static volatile std::uint64_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
 
 // 原 W32 0x59E544、0x593FD0；供未来 0x4043B0/0x4048E0 在本文件共享。
-volatile std::uint32_t gValue59E544 = 0; // 原全局：0x0059E544。
-volatile std::uint32_t gValue593FD0 = 0; // 原全局：0x00593FD0。
+static volatile std::uint32_t gValue59E544 = 0; // 原全局：0x0059E544。
+static volatile std::uint32_t gValue593FD0 = 0; // 原全局：0x00593FD0。
 
 // 原 W32 0x59E564；0x4043B0 独立使用，不能与其他防护计数槽复用。
-volatile std::uint32_t gProtectionCheckCounter = 0;
+static volatile std::uint32_t gProtectionCheckCounter = 0;
 
 // 原 W32 0x59E558；0x4041E0 仅更新低 W8。
-std::uint32_t gProtectionPlatformState = 0;
+static std::uint32_t gProtectionPlatformState = 0;
 
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
-volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
+static volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
 
 // 原 R32 0x59E55C；使用原生句柄宽度，供未来 0x4041E0/0x4043B0 在本文件共享。
-HMODULE gProtectionModule = nullptr;
+static HMODULE gProtectionModule = nullptr;
 
 using IsDebuggerPresentFunction = BOOL (WINAPI*)();
-IsDebuggerPresentFunction gIsDebuggerPresent = nullptr;
+static IsDebuggerPresentFunction gIsDebuggerPresent = nullptr;
 
-std::uint8_t gProtectionBuffer1[0x5000]{};
-std::uint8_t gProtectionBuffer2[0x5000]{};
+static std::uint8_t gProtectionBuffer1[0x5000]{};
+static std::uint8_t gProtectionBuffer2[0x5000]{};
 
 struct ProtectionAuxiliaryRecord {
     char text[0x20];
@@ -70,9 +67,9 @@ static_assert(offsetof(ProtectionAuxiliaryRecord, number) == 0x20);
 static_assert(offsetof(ProtectionAuxiliaryRecord, flagA) == 0x24);
 static_assert(offsetof(ProtectionAuxiliaryRecord, flagB) == 0x26);
 
-ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
-std::uint32_t gProtectionAuxiliaryRecordCount = 0;
-OSVERSIONINFOA gProtectionVersionInfo{};
+static ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
+static std::uint32_t gProtectionAuxiliaryRecordCount = 0;
+static OSVERSIONINFOA gProtectionVersionInfo{};
 
 static_assert(sizeof(gProtectionProcessState) == 16);
 static_assert(sizeof(gProtectionChecksum1) == 16);
@@ -82,7 +79,7 @@ static_assert(sizeof(gProtectionBuffer2) == 0x5000);
 static_assert(sizeof(ProtectionAuxiliaryRecord) == 0x28);
 static_assert(sizeof(gProtectionVersionInfo) == 0x94);
 
-std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
+static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
     const std::uint32_t lowerBits = std::uint32_t{0} - amplitudeBits;
     const std::uint32_t upperBits = amplitudeBits;
@@ -100,7 +97,7 @@ std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
     return std::bit_cast<std::uint32_t>(remainder) + lowerBits;
 }
 
-void UpdateProtectionChecksum(
+static void UpdateProtectionChecksum(
     LegacyCryptInt* checksum,
     const std::uint8_t* table)
 {
@@ -123,7 +120,7 @@ void UpdateProtectionChecksum(
 }
 
 // 原 0x4042D0：按快照模块所属 PID 选择对应的模块名表。
-[[maybe_unused]] char CheckProcessModules_4042D0(const DWORD processId)
+[[maybe_unused]] static char CheckProcessModules_4042D0(const DWORD processId)
 {
     MODULEENTRY32 moduleEntry{};
     const HANDLE snapshot =
@@ -166,7 +163,7 @@ void UpdateProtectionChecksum(
 }
 
 // 原 0x404880：初始化失败后不重试，缓存使用本机函数指针宽度。
-std::int32_t CheckDebugger_404880()
+static std::int32_t CheckDebugger_404880()
 {
     auto* const platformStateBytes =
         reinterpret_cast<std::uint8_t*>(&gProtectionPlatformState);
@@ -187,7 +184,7 @@ std::int32_t CheckDebugger_404880()
 }
 
 // 原函数：0x00404940。
-BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
+static BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 {
     wchar_t wideTitle[128] {};
     static_cast<void>(GetWindowTextW(
@@ -230,8 +227,6 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
     return TRUE;
 }
-
-} // namespace
 
 // 原函数：0x004041E0。
 void InitializeProtection_4041E0(const char* moduleName)
@@ -513,7 +508,6 @@ void RequestRender_457010() noexcept
 {
     gForceRender = 1;
 }
-
 
 // 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。
 std::int32_t CheckLegacyDxCapability_458DC0()

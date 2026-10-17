@@ -31,13 +31,11 @@ std::int32_t PlaySe(
 
 } // namespace detail
 
-namespace {
-
 // 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
-constexpr wchar_t kConfirmText[] = L"确定";
+static constexpr wchar_t kConfirmText[] = L"确定";
 
-constexpr std::int32_t kScreenWidth = 640;
-constexpr std::int32_t kScreenHeight = 480;
+static constexpr std::int32_t kScreenWidth = 640;
+static constexpr std::int32_t kScreenHeight = 480;
 
 struct MessageLayout {
     std::int32_t width;
@@ -47,24 +45,21 @@ struct MessageLayout {
 };
 
 // 原 0x9A6E2C、0x55A04C、0x9A50A8/0x9A5658/0x9A5660/0x9A5ABC、0x9A6E30。
-std::uint16_t gMessageState = 0;
-std::int32_t gMessageResult = -2;
-MessageLayout gMessageLayout {};
-cg::yobi::YobiAction* gMessageAction = nullptr;
+static std::uint16_t gMessageState = 0;
+static std::int32_t gMessageResult = -2;
+static MessageLayout gMessageLayout {};
+static cg::yobi::YobiAction* gMessageAction = nullptr;
 
-constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
+static constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
 };
 
-std::int32_t RoundMessageWidth(std::int32_t textWidth)
+static std::int32_t RoundMessageWidth(std::int32_t textWidth)
 {
     return ((textWidth + 95) / 64) * 64;
 }
 
-} // namespace
-
 std::array<std::wstring, 12> gValue9A620C {}; // 原全局：0x009A620C。
-
 
 // 原函数：0x0045CE00。
 void ResetLoginMessage()
@@ -305,6 +300,5 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
 }
 
 // 原0x0045CE10：消息调用已统一UTF-16正文。
-
 
 } // namespace cg::login

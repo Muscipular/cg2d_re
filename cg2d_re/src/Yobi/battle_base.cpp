@@ -24,10 +24,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 4390E0/4391E0仅共享此写序；各自队列尾、技能及朝向处理保持独立。
-void ResetBattleCastEffects(BattleActorPayload* const payload)
+static void ResetBattleCastEffects(BattleActorPayload* const payload)
 {
     payload->valueFD4 = 0;
     payload->effectFlagsFE4 = 0;
@@ -57,11 +55,9 @@ struct BattleAppendEffectNode {
 
 static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr; // 原全局：0x005ABA8C。
 
-std::int32_t gDrawYobiCount59E578 = 0; // 原全局：0x0059E578。
+static std::int32_t gDrawYobiCount59E578 = 0; // 原全局：0x0059E578。
 
-std::array<YobiAction*, 257> gDrawYobiList59E57C {}; // 原全局：0x0059E57C。 原257地址槽，非拥有T*；不清排序范围外尾部。
-
-} // namespace
+static std::array<YobiAction*, 257> gDrawYobiList59E57C {}; // 原全局：0x0059E57C。 原257地址槽，非拥有T*；不清排序范围外尾部。
 
 // 原函数：0x00404D90。
 std::int32_t SelectIntValue_404D90(
@@ -189,10 +185,8 @@ std::int32_t FindBattleAppendEffectTechnique_43BEA0(
     return -1;
 }
 
-namespace {
-
 // 原函数：0x00405BD0。
-std::int32_t CompareBattleDrawActions_405BD0(
+static std::int32_t CompareBattleDrawActions_405BD0(
     YobiAction* const* const left, YobiAction* const* const right)
 {
     YobiAction* const first = *left;
@@ -216,8 +210,6 @@ std::int32_t CompareBattleDrawActions_405BD0(
     const auto secondOrder = std::bit_cast<std::int16_t>(second->field270);
     return (firstOrder > secondOrder) - (firstOrder < secondOrder);
 }
-
-} // namespace
 
 // 原函数：0x00405CB0。
 void Sub_405CB0(YobiAction* const action)
@@ -818,8 +810,6 @@ std::int32_t CheckBattleTurnReady_4394A0(
 
 } // namespace detail
 
-
-
 // 原函数：0x0043BED0。
 void ClearBattleAppendEffects_43BED0()
 {
@@ -832,7 +822,6 @@ void ClearBattleAppendEffects_43BED0()
     }
     detail::gBattleAppendEffects5ABA8C = nullptr;
 }
-
 
 // 原函数：0x00405C30。
 std::int32_t SortBattleActions_405C30()
@@ -866,13 +855,11 @@ std::int32_t SortBattleActions_405C30()
     return index;
 }
 
-
 YobiAction* const* FindBattleRebirthSlot(const YobiAction* const action) noexcept
 {
     const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     return payload != nullptr ? &payload->rebirthEffect106C : nullptr;
 }
-
 
 YobiAction* const* FindBattleRiderSlot(const YobiAction* const action) noexcept
 {

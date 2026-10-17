@@ -8,18 +8,15 @@
 #include <cstdint>
 
 namespace cg::character_select {
-namespace {
 
 // 下列原存储的全部引用都只在 sub_45D7D0/sub_45D7E0 内。
-std::uint16_t gAuthenticationFailureStage = 0; // 原 0x9A6E34，R/W16。
-cg::yobi::YobiAction* gAuthenticationFailureAction = nullptr; // 原 0x9A6E38。
-std::int32_t gAuthenticationFailureUnknown = -2; // 原 0x55A050，R/W32。
-std::int32_t gAuthenticationFailureWidth = 0;  // 原 0x9A50CC，R/W32。
-std::int32_t gAuthenticationFailureHeight = 0; // 原 0x9A5E6C，R/W32。
-std::int32_t gAuthenticationFailureX = 0;      // 原 0x9A5654，R/W32。
-std::int32_t gAuthenticationFailureY = 0;      // 原 0x9A57DC，R/W32。
-
-} // namespace
+static std::uint16_t gAuthenticationFailureStage = 0; // 原 0x9A6E34，R/W16。
+static cg::yobi::YobiAction* gAuthenticationFailureAction = nullptr; // 原 0x9A6E38。
+static std::int32_t gAuthenticationFailureUnknown = -2; // 原 0x55A050，R/W32。
+static std::int32_t gAuthenticationFailureWidth = 0;  // 原 0x9A50CC，R/W32。
+static std::int32_t gAuthenticationFailureHeight = 0; // 原 0x9A5E6C，R/W32。
+static std::int32_t gAuthenticationFailureX = 0;      // 原 0x9A5654，R/W32。
+static std::int32_t gAuthenticationFailureY = 0;      // 原 0x9A57DC，R/W32。
 
 // 原函数：0x0045D7D0。
 void ResetAuthenticationFailure_45D7D0()

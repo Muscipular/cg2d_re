@@ -30,9 +30,7 @@
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
-
 namespace cg::input {
-
 
 InputContext::InputContext() noexcept
     : x(ownFields_.x),
@@ -109,10 +107,7 @@ std::int32_t gValue626C14 = 0; // 原全局：0x00626C14。
 std::int32_t gValue626C20 = 0; // 原全局：0x00626C20。
 std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
 
-
-namespace {
-
-constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
+static constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
 
@@ -135,8 +130,6 @@ public:
     std::size_t caret;
     std::size_t visible;
 };
-
-} // namespace
 
 std::wstring ContextText(const InputContext& context)
 {
@@ -355,10 +348,8 @@ char* FindLegacyByte_44B4A0(char* const text, const char* const target)
     return nullptr;
 }
 
-namespace {
-
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。
-std::int32_t ClassifyTextBoundary_44B1D0(
+static std::int32_t ClassifyTextBoundary_44B1D0(
     const std::wstring_view source,
     const std::int32_t count)
 {
@@ -366,8 +357,6 @@ std::int32_t ClassifyTextBoundary_44B1D0(
     const std::size_t end = text::Prefix(contents, static_cast<std::size_t>(count));
     return static_cast<std::int32_t>(end - text::Previous(contents, end));
 }
-
-} // namespace
 
 namespace detail {
 
@@ -632,7 +621,6 @@ char* EscapeGbkText(const char* const source, char* const destination, const std
     return destination;
 }
 
-
 // 原 [0x52D2D0,0x52D2F0)：输入上下文的动态UTF-16适配，空叶及转义顺序由EscapeTextAndNotify保持。
 std::wstring EscapeInputText_52D2D0(
     const InputContext* const context,
@@ -641,11 +629,9 @@ std::wstring EscapeInputText_52D2D0(
     return EscapeTextAndNotify(ContextText(*context), gbkCapacity);
 }
 
-namespace {
-
 // 原 [0x52D120,0x52D144)：未命中表的转义字母原样返回。
 // UTE01：原四对BYTE映射/S32计数，未知字母低BYTE原返。
-char DecodeEscapeLetter_52D120(const char letter)
+static char DecodeEscapeLetter_52D120(const char letter)
 {
     for (std::int32_t pair = 0; pair < 4; ++pair) {
         if (static_cast<std::uint8_t>(letter)
@@ -655,8 +641,6 @@ char DecodeEscapeLetter_52D120(const char letter)
     }
     return letter;
 }
-
-} // namespace
 
 // 原 [0x52D150,0x52D1A6)：以入口长度为界，原位压缩旧字节转义。
 // UTE01：原首BYTE持有/后继先读后递增/共尾写，保持固定字节长度与原末NUL。
@@ -832,7 +816,6 @@ std::int32_t IsCurrentContext_503E40(const InputContext* const context)
     return gCurrentInputData == context ? 1 : 0;
 }
 
-
 // 原0x00503AB0显示分行：动态UTF-16正文，完整代理对及原逻辑列预算。
 std::int32_t ExtractTextLine(
     std::wstring& destination, const std::wstring_view source,
@@ -934,7 +917,6 @@ std::int32_t ExtractDialogTextLine(
     return 1;
 }
 
-
 // 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(
     InputContext* const context,
@@ -971,7 +953,6 @@ void InitializeContext_449CF0(
         SetContext_44B330(savedContext);
     }
 }
-
 
 // HBN01：原历史选择/独立游标与现场context清写、字节滚动尾，正确正文保持。
 // 原函数：0x0044A1B0。
@@ -1032,7 +1013,6 @@ void BrowseChatHistory_44A1B0()
     offset = text::Prefix(contents, offset);
     SetVisibleUtf16Offset(*gCurrentInputData, offset);
 }
-
 
 namespace detail {
 

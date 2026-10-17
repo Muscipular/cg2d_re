@@ -21,23 +21,19 @@ namespace detail {
 const wchar_t gVersionPayload9A5C10[1] {}; // 原全局：0x009A5C10。
 } // namespace detail
 
-namespace {
-
 // 原 0x55AC58/0x55C8F0/0x55C900/0x55C8E0，供两条版本场景复用原字节。
-constexpr wchar_t kUpgradeProgressText[] =
+static constexpr wchar_t kUpgradeProgressText[] =
     L"版本升级中···";
-constexpr wchar_t kUpgradeSucceededText[] =
+static constexpr wchar_t kUpgradeSucceededText[] =
     L"版本已经升级。";
-constexpr wchar_t kUpgradeFailedText[] =
+static constexpr wchar_t kUpgradeFailedText[] =
     L"版本升级失败。";
-constexpr wchar_t kCannotUpgradeText[] =
+static constexpr wchar_t kCannotUpgradeText[] =
     L"无法更新版本。";
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
-cg::yobi::YobiAction* gVersionUpgradeAction = nullptr;
+static cg::yobi::YobiAction* gVersionUpgradeAction = nullptr;
 // 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
-cg::yobi::YobiAction* gLegacyVersionUpgradeAction = nullptr;
-
-} // namespace
+static cg::yobi::YobiAction* gLegacyVersionUpgradeAction = nullptr;
 
 // 原函数：0x0045E3D0。
 std::int32_t ProcessLegacyVersionScene_45E3D0()

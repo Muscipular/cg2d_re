@@ -21,22 +21,20 @@
 // E10：迁自 EffectHooks/luaSkillEffect.cpp，脚本合同见 EFM01；所有对象均借用原生 Yobi 链。
 namespace cg::yobi::detail {
 
-namespace {
-
-constexpr int kBattleEntryCount = 20;
-constexpr int kMaxQueueItems = 199;
-constexpr int kMaxPacketFields = 0x1000 / 2;
-constexpr int kMaxActionState = 256;
-constexpr int kEndActionState = 236;
-constexpr int kPacketBufferSize = 0x1000;
-constexpr int kLuaSkillMetaFlag = 1;
-constexpr size_t kMaxOperationsPerBatch = 80;
-constexpr size_t kMaxSortedYobiActions = 247;
-constexpr int kSortedYobiFlag = 0x20000;
-constexpr uint32_t kSpecialBattleEntryMask = 0x00300000;
-constexpr const char* kPacketReaderMetaTable = "BattleSkill.PacketReader";
-constexpr const char* kLuaSkillScript = "lua/battleSkillEffect.lua";
-constexpr const char* kBattlePacketHeaders[] = {
+static constexpr int kBattleEntryCount = 20;
+static constexpr int kMaxQueueItems = 199;
+static constexpr int kMaxPacketFields = 0x1000 / 2;
+static constexpr int kMaxActionState = 256;
+static constexpr int kEndActionState = 236;
+static constexpr int kPacketBufferSize = 0x1000;
+static constexpr int kLuaSkillMetaFlag = 1;
+static constexpr size_t kMaxOperationsPerBatch = 80;
+static constexpr size_t kMaxSortedYobiActions = 247;
+static constexpr int kSortedYobiFlag = 0x20000;
+static constexpr uint32_t kSpecialBattleEntryMask = 0x00300000;
+static constexpr const char* kPacketReaderMetaTable = "BattleSkill.PacketReader";
+static constexpr const char* kLuaSkillScript = "lua/battleSkillEffect.lua";
+static constexpr const char* kBattlePacketHeaders[] = {
     "SKL|", "ESC|", "CLR|", "SUP|", "POS|", "MON|", "EQU|", "ITM|", "CMB|",
     "PSN|", "ANR|", "PUE|", "ACT|", "CFP|", "CHT|", "PNO|", "PLV|", "CBC|",
     "PDN|", "REB|", "BST|", "GMN|", "RID|", "DSK|", "END|",
@@ -270,7 +268,6 @@ struct StagedDebuff {
     DebuffState desiredState;
 };
 
-
 // 本线22槽的非拥有观察指针；脚本普通角色仍只允许0–19。
 static YobiAction** const battleEntries = world::gBattleAllEntries59E980.data();
 static lua_State* gSkillEffectL = nullptr;
@@ -283,7 +280,6 @@ static std::vector<StagedVisual> gStagedVisuals;
 static std::vector<StagedDebuff> gStagedDebuffs;
 static std::vector<YobiAction*> gDeathMarkedActions;
 static uint32_t gRuntimeGeneration = 0;
-
 
 static void LuaVisualUpdate(YobiAction* action);
 
@@ -2893,8 +2889,6 @@ static bool InitializeLuaSkillState() {
     lua_settop(gSkillEffectL, 0);
     return true;
 }
-
-} // namespace
 
 bool LuaSkillEffectBindMoveState(YobiAction* action, BattleSkillMeta& meta) {
     if (!gLuaSkillRuntime.active || !action) {

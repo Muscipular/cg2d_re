@@ -11,8 +11,6 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 // 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。
 struct Window54PetOption {
     std::uint16_t used;
@@ -59,8 +57,6 @@ struct Window54SkillRecord {
     std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x25。
     std::byte byte5F; // 原成员偏移：+0x5F。
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

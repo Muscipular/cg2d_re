@@ -30,7 +30,6 @@
 #include <mmsystem.h>
 
 namespace cg::audio {
-namespace {
 
 // 原 104DFD0 起的 BGM 播放记录；52B990 读取每项 +0x40。
 // 路径由原生UTF-16字符串拥有；原偏移仅供追溯，不沿用旧字节布局。
@@ -42,27 +41,22 @@ struct LegacyAudioRecord final {
     std::int32_t value48; // 原成员偏移：+0x48。
 };
 
+static constexpr std::uint32_t kRecordCount = 128;
 
-constexpr std::uint32_t kRecordCount = 128;
-
-std::int32_t gRecordIndex = -1;
-std::array<LegacyAudioRecord, kRecordCount> gRecords {};
-std::int32_t gFlag = 0;
-std::int32_t gQuotient = 0;
-std::uint32_t gBgmActive1050808 = 0; // 原全局：0x01050808。 原播放状态 W32；52BE60 置位，52B940 清理。
-std::uint32_t gBgmMode1050820 = 0; // 原全局：0x01050820。 原 BGM 流式模式 W32；52B8E0 消费。
-std::atomic<std::uint8_t> gBgmStopNotice105081C {0}; // 原全局：0x0105081C。
+static std::int32_t gRecordIndex = -1;
+static std::array<LegacyAudioRecord, kRecordCount> gRecords {};
+static std::int32_t gFlag = 0;
+static std::int32_t gQuotient = 0;
+static std::uint32_t gBgmActive1050808 = 0; // 原全局：0x01050808。 原播放状态 W32；52BE60 置位，52B940 清理。
+static std::uint32_t gBgmMode1050820 = 0; // 原全局：0x01050820。 原 BGM 流式模式 W32；52B8E0 消费。
+static std::atomic<std::uint8_t> gBgmStopNotice105081C {0}; // 原全局：0x0105081C。
 
 // 内置预转换音乐的RCDATA标识，与platform/FixedMusic.rc.in一致。
-constexpr int kFixedMusicResourceId = 1001;
+static constexpr int kFixedMusicResourceId = 1001;
 
 // 原454C30为固定音乐生成的独立128槽，不能借普通WAV BGM的另一音量表。
-std::array<std::int32_t, 128> gFixedMusicVolume62B0C8 {}; // 原全局：0x0062B0C8。
-std::uint8_t gValue62B2DC = 0xFF; // 原全局：0x0062B2DC。 原加载W8=FFH，4553B0在实际播放前清0；不当作SDL通知。
-
-
-} // namespace
-
+static std::array<std::int32_t, 128> gFixedMusicVolume62B0C8 {}; // 原全局：0x0062B0C8。
+static std::uint8_t gValue62B2DC = 0xFF; // 原全局：0x0062B2DC。 原加载W8=FFH，4553B0在实际播放前清0；不当作SDL通知。
 
 // 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
 // 配置路径读入后即转为UTF-16，数值字段仍保持原宽度。
@@ -73,7 +67,6 @@ struct BgmConfigRecord final {
     std::uint8_t opaque45[3]; // 原成员偏移：+0x45。
     std::int32_t value48; // 原成员偏移：+0x48。
 };
-
 
 // 原 [0x104C9B8,0x104D0C0)：音效请求表，独立于空间坐标记录。
 struct SoundRequestRecord final {
@@ -127,9 +120,6 @@ struct SoundEffectDefinition final {
     std::wstring path; // 原成员偏移：+0x20。
 };
 
-
-namespace {
-
 // 524230 的内联 0x46 字节栈项；最后一个未写填充字节不参与加载。
 struct SeInitEntry final {
     std::int16_t id;
@@ -139,12 +129,12 @@ struct SeInitEntry final {
     std::uint8_t loop;
 };
 
-constexpr std::array<SeInitEntry, 270> kSeInit524230 {{
+static constexpr std::array<SeInitEntry, 270> kSeInit524230 {{
 #include "LegacySeDefinitions.inc"
 }};
 
 // 原52B710：同一RIFF父块内定位fmt/data，完整18B格式读取后才发布W32数据长度。
-std::int32_t ReadPcmWaveHeader_52B710(
+static std::int32_t ReadPcmWaveHeader_52B710(
     const HMMIO input, WAVEFORMATEX* const format, std::uint32_t* const dataLength)
 {
     static_assert(sizeof(MMCKINFO) == 20);
@@ -177,7 +167,7 @@ std::int32_t ReadPcmWaveHeader_52B710(
 }
 
 // 音效与BGM共用原头读取；仅探测文件，样本解码/缓冲与播放继续由SDL持有。
-bool ReadPcmWaveDataLength(const wchar_t* const path, std::uint32_t& dataLength)
+static bool ReadPcmWaveDataLength(const wchar_t* const path, std::uint32_t& dataLength)
 {
     const HMMIO input = ::mmioOpenW(const_cast<wchar_t*>(path), nullptr, MMIO_ALLOCBUF);
     if (input == nullptr) {
@@ -190,7 +180,7 @@ bool ReadPcmWaveDataLength(const wchar_t* const path, std::uint32_t& dataLength)
 }
 
 // 仅在旧目录参数及配置路径读入边界，沿既有CP_ACP解释转换为UTF-16。
-std::wstring AudioPathToWide(const char* const path)
+static std::wstring AudioPathToWide(const char* const path)
 {
     const int wideLength =
         ::MultiByteToWideChar(CP_ACP, 0, path, -1, nullptr, 0);
@@ -206,21 +196,21 @@ std::wstring AudioPathToWide(const char* const path)
     return wide;
 }
 
-std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {}; // 原全局：0x0103D1C0。
+static std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {}; // 原全局：0x0103D1C0。
 static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
 
-std::array<std::int32_t, 512> gBgmMapping103DFAC {}; // 原全局：0x0103DFAC。
-std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {}; // 原全局：0x0104A3B8。
-std::array<SoundRequestRecord, 50> gSoundRequests104C9B8 {}; // 原全局：0x0104C9B8。
-std::array<SoundEffectDefinition, 500> gSoundEffects103E7B0 {}; // 原全局：0x0103E7B0。
-std::array<SoundChannelState, 64> gSoundChannels104D0C8 {}; // 原全局：0x0104D0C8。
-std::array<std::byte, 0x80> gAudioBytes103DDFC {}; // 原全局：0x0103DDFC。
-std::array<std::byte, 0x80> gAudioBytes103DD7C {}; // 原全局：0x0103DD7C。
-std::array<std::byte, 0x80> gAudioBytes104A334 {}; // 原全局：0x0104A334。
-std::array<std::int32_t, 128> gPanVal103CFBC {}; // 原全局：0x0103CFBC。
-std::array<std::int32_t, 128> gSoundVolValue10505D0 {}; // 原全局：0x010505D0。
+static std::array<std::int32_t, 512> gBgmMapping103DFAC {}; // 原全局：0x0103DFAC。
+static std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {}; // 原全局：0x0104A3B8。
+static std::array<SoundRequestRecord, 50> gSoundRequests104C9B8 {}; // 原全局：0x0104C9B8。
+static std::array<SoundEffectDefinition, 500> gSoundEffects103E7B0 {}; // 原全局：0x0103E7B0。
+static std::array<SoundChannelState, 64> gSoundChannels104D0C8 {}; // 原全局：0x0104D0C8。
+static std::array<std::byte, 0x80> gAudioBytes103DDFC {}; // 原全局：0x0103DDFC。
+static std::array<std::byte, 0x80> gAudioBytes103DD7C {}; // 原全局：0x0103DD7C。
+static std::array<std::byte, 0x80> gAudioBytes104A334 {}; // 原全局：0x0104A334。
+static std::array<std::int32_t, 128> gPanVal103CFBC {}; // 原全局：0x0103CFBC。
+static std::array<std::int32_t, 128> gSoundVolValue10505D0 {}; // 原全局：0x010505D0。
 // 原 [58D3D4,58D4F8)：52C450/52C680 以 baseFrequency+pitchIndex 读取。
-std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{ // 原全局：0x0058D3D4。
+static std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{ // 原全局：0x0058D3D4。
     1460, 2756, 2920, 3093, 3277, 3472, 3679, 3866,
     4129, 4375, 4635, 4910, 5202, 5512, 5840, 6187,
     6555, 6945, 7358, 7732, 8259, 8750, 9270, 9821,
@@ -233,20 +223,20 @@ std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{ // 原全局：0x0058D3
     166495,
 }};
 // 原 [58D468,58D4F8)：52BE60 用 BGM 编号选出的有符号 W8 读取频率。
-std::array<std::uint32_t, 36> gBgmFrequencies58D468 {{ // 原全局：0x0058D468。
+static std::array<std::uint32_t, 36> gBgmFrequencies58D468 {{ // 原全局：0x0058D468。
     22050, 23360, 24750, 26221, 27780, 29432, 30929, 33037,
     35002, 37082, 39287, 41623, 44100, 46721, 49500, 52443,
     55561, 58865, 61859, 66074, 70004, 74165, 78575, 83247,
     88200, 93442, 99001, 104887, 111123, 117731, 123718, 132149,
     140008, 148331, 157150, 166495,
 }};
-std::int32_t gNextSeChannel105082C = 0; // 原全局：0x0105082C。
-std::int32_t gLastSeNo58D4FC = -1; // 原全局：0x0058D4FC。
-std::int32_t gSampleCount104DFCC = 0; // 原全局：0x0104DFCC。
-std::atomic<std::uint32_t> gBgmReady105083C {0}; // 原全局：0x0105083C。
-std::uint32_t gBgmLoopStart103CFB8 = 0; // 原全局：0x0103CFB8。
-std::uint32_t gBgmLoopEnd103DEA4 = 0; // 原全局：0x0103DEA4。
-platform::SdlAudioBackend gSdlAudioBackend;
+static std::int32_t gNextSeChannel105082C = 0; // 原全局：0x0105082C。
+static std::int32_t gLastSeNo58D4FC = -1; // 原全局：0x0058D4FC。
+static std::int32_t gSampleCount104DFCC = 0; // 原全局：0x0104DFCC。
+static std::atomic<std::uint32_t> gBgmReady105083C {0}; // 原全局：0x0105083C。
+static std::uint32_t gBgmLoopStart103CFB8 = 0; // 原全局：0x0103CFB8。
+static std::uint32_t gBgmLoopEnd103DEA4 = 0; // 原全局：0x0103DEA4。
+static platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
 static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
@@ -256,7 +246,7 @@ static_assert(sizeof(gPitchFrequencies58D3D4) == 73 * sizeof(std::uint32_t));
 static_assert(sizeof(gBgmFrequencies58D468) == 0x90);
 
 // 原52C160的SDL创建适配：首段按完整PCM预填；smpl终点由52BE60在ready后发布。
-std::int32_t LoadStreamingBgm_52C160(
+static std::int32_t LoadStreamingBgm_52C160(
     const wchar_t* const path, const std::uint32_t startFrame)
 {
     if (!gSdlAudioBackend.LoadBgmWav(path, startFrame, 0)) {
@@ -276,8 +266,6 @@ std::int32_t LoadStreamingBgm_52C160(
     }
     return 1;
 }
-
-} // namespace
 
 std::uint32_t gValue103DE80 = 0; // 原全局：0x0103DE80。
 std::uint32_t gValue10507D4 = 0; // 原全局：0x010507D4。
@@ -1002,7 +990,6 @@ std::uint32_t Sub_52B990() noexcept
     return productBits >> 31;
 }
 
-
 // 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
 std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
 {
@@ -1083,7 +1070,6 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     gBgmActive1050808 = 1;
     return 1;
 }
-
 
 // 原52C3D0：先失败标志/当前号/enable，再原0..15钳制；实际缓冲不存在透传level。
 std::int32_t Sub_52C3D0()
@@ -1172,7 +1158,6 @@ std::int32_t Sub_454EE0()
     if (audio::gValue10507D4 != 0) { audio::gSdlAudioBackend.Close(); }
     return 0;
 }
-
 
 // 原函数：0x00454C30。
 std::int32_t InitializeMusic_454C30(std::uintptr_t)

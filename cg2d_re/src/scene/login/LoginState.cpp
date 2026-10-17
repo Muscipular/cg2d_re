@@ -7,7 +7,6 @@
 
 #include "cg/scene/login/LoginState.hpp"
 
-
 #include "LoginStateDependencies.hpp"
 #include "../../world/MailState.hpp"
 
@@ -25,10 +24,10 @@
 #include <cstring>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
-namespace {
+namespace cg::login {
 
 // 原 0x55BAD8「登入中」正文 6 字节；字符串字面量隐式追加唯一 NUL。
-constexpr wchar_t kLoginProgressText[] = L"登入中";
+static constexpr wchar_t kLoginProgressText[] = L"登入中";
 // 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
 struct LoginProgressLayout {
     std::int32_t rowCount;
@@ -37,7 +36,7 @@ struct LoginProgressLayout {
     std::int32_t x;
 };
 
-LoginProgressLayout gLoginProgressLayout {};
+static LoginProgressLayout gLoginProgressLayout {};
 
 // 原 0x9A4E8C、0x9A60E0、0x9A60E4、0x9A4CC0 只由 sub_45D990 读写。
 struct ServerConnectionLayout {
@@ -47,26 +46,17 @@ struct ServerConnectionLayout {
     std::int32_t y;
 };
 
-ServerConnectionLayout gServerConnectionLayout {};
+static ServerConnectionLayout gServerConnectionLayout {};
 
 // 原登录进度布局计算见doc/cg2d_login_progress_layout_sampling_spec.md。
 
-
-} // namespace
-
-namespace cg::login {
-
-namespace {
-
 // 原 0x9A6E8C/0x9A6E90 的全部引用都只在 sub_45EA50/sub_45EA60 内。
-std::uint16_t gLoginProgressPhase = 0;
-cg::yobi::YobiAction* gLoginProgressAction = nullptr;
+static std::uint16_t gLoginProgressPhase = 0;
+static cg::yobi::YobiAction* gLoginProgressAction = nullptr;
 
 // 原 0x9A5D6C/0x9A6E40 的全部引用都只在 sub_45D990 内。
-std::wstring gServerConnectingText {};
-cg::yobi::YobiAction* gServerConnectionAction = nullptr;
-
-} // namespace
+static std::wstring gServerConnectingText {};
+static cg::yobi::YobiAction* gServerConnectionAction = nullptr;
 
 namespace detail {
 
@@ -266,7 +256,6 @@ std::uint16_t gValue9A6E3C = 0; // 原全局：0x009A6E3C。
 std::uint16_t gValue9A6E3E = 0; // 原全局：0x009A6E3E。
 std::int32_t gValue55A054 = -1; // 原全局：0x0055A054。
 std::wstring gValue9A5348 {}; // 原全局：0x009A5348。
-
 
 // 原函数：0x0045D980。
 std::int32_t ResetValues_45D980()

@@ -1,6 +1,5 @@
 #include "cg/resource/ResourcePaths.hpp"
 
-
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/render/Palette.hpp"
@@ -27,8 +26,6 @@ std::size_t gBinLoaderGroupCount = 0;
 std::int32_t gBinLoaderGraphicCapacity = 2500000;
 std::int32_t gBinLoaderAnimeCapacity = 30500;
 
-namespace {
-
 // BLM01：六类路径的唯一拥有者，不再受旧256字节拼接槽限制。
 struct BinSet {
     std::string graphic;
@@ -38,10 +35,10 @@ struct BinSet {
     std::string coordinate;
     std::string coordinateInfo;
 };
-std::array<BinSet, BinLoaderMaxGroups> gBinSets;
+static std::array<BinSet, BinLoaderMaxGroups> gBinSets;
 
 // 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
-bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
+static bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
 {
     constexpr std::int32_t kSlots[] {0, 1, 6};
     for (std::int32_t index = 0; index < 3; ++index) {
@@ -65,7 +62,6 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
     return true;
 }
 
-} // namespace
 } // namespace cg::resource
 
 namespace cg::resource::detail {

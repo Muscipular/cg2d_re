@@ -15,10 +15,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 原两播放入口的同源翻转段；只有真实图形加载非零后才按需读取各个 DX 尺寸。
-void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraphicIndex)
+static void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraphicIndex)
 {
     if (render::LoadGraphic_522570(loadGraphicIndex) == 0) {
         return;
@@ -41,7 +39,7 @@ void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraph
 }
 
 // 原 517A8C..517C85 / 518098..518291 的相同阶段；不合并两入口的图号或速率门禁。
-void ApplyYobiAnimeFrame(
+static void ApplyYobiAnimeFrame(
     YobiAction* const action,
     const std::int32_t animeIndex,
     const resource::animation::detail::ActionEntry* const selected,
@@ -117,8 +115,6 @@ void ApplyYobiAnimeFrame(
     action->frameIndex = frameIndex + 1u;
     action->frameRemain = remaining;
 }
-
-} // namespace
 
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
 // 原函数：0x00518300。
@@ -259,8 +255,6 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
 
 } // namespace detail
 
-
-
 // YGOS01：完整5182B0正常查询；S16输出先取、当前S32偏移后取，低BYTE轴无效仍先查询。
 std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
 {
@@ -280,7 +274,6 @@ std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
     }
     return 0;
 }
-
 
 // 原函数：0x00517880。
 std::int32_t Sub_517880(

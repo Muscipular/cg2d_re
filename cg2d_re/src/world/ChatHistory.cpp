@@ -29,9 +29,6 @@
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
-
-
-
 namespace cg::world {
 
 Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
@@ -73,7 +70,6 @@ char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
 
 namespace cg::world::detail {
 
-
 ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
 std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
 
@@ -85,15 +81,10 @@ static_assert(sizeof(gChatHistory621FF8.records) == 0x4840);
 static_assert(offsetof(ChatHistory621FF8, tail626838) == 0x4840);
 static_assert(sizeof(ChatHistory621FF8) == 0x4844);
 
-namespace {
-
-constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658。
-constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
-constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
-constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
-
-
-} // namespace
+static constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658。
+static constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
+static constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
+static constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
 
 // 原 [0x44A090,0x44A15B)：保留短读已写入的字节及 rb 失败后创建文件的顺序。
 std::int32_t Sub_44A090()
@@ -242,7 +233,6 @@ std::int32_t Sub_449FA0(const std::int32_t index)
     std::fclose(stream);
     return written >= 1 ? 1 : 0;
 }
-
 
 // 原 sub_44B050@[0x44B050,0x44B170)。
 void Sub_44B050(

@@ -61,10 +61,8 @@ struct TextureSurface {
     TextureSurface* previousOwned {};
 };
 
-namespace {
-
 // 原5536B8「確認」；正文4B，字面量隐式追加唯一NUL。
-constexpr wchar_t kSurfaceFailureCaption[] =
+static constexpr wchar_t kSurfaceFailureCaption[] =
     L"确认";
 
 class TextureSurfaceOwner final {
@@ -147,13 +145,13 @@ private:
     TextureSurface* head_ {};
 };
 
-TextureSurfaceOwner gTextureSurfaceOwner;
+static TextureSurfaceOwner gTextureSurfaceOwner;
 
 // GRT01：沿用旧 4096 个 64×48 节点对应的像素预算，缓存按整图占用回收。
-constexpr std::size_t kGraphicTexturePixelBudget = kTextureNodeCapacity * 64u * 48u;
-std::size_t gGraphicTexturePixels = 0;
+static constexpr std::size_t kGraphicTexturePixelBudget = kTextureNodeCapacity * 64u * 48u;
+static std::size_t gGraphicTexturePixels = 0;
 
-void ReleaseGraphicNodeSurface(TextureNode& node) noexcept
+static void ReleaseGraphicNodeSurface(TextureNode& node) noexcept
 {
     if (node.surface != nullptr) {
         gGraphicTexturePixels -= static_cast<std::size_t>(node.surface->width) * node.surface->height;
@@ -161,7 +159,6 @@ void ReleaseGraphicNodeSurface(TextureNode& node) noexcept
         node.surface = nullptr;
     }
 }
-
 
 // 原 28B 栈键只拓宽首项地址；未参与比较的原 +0A/+0B 不作为新键。
 struct SurfaceTransformKey {
@@ -198,10 +195,8 @@ using SurfaceTransformCache =
 
 // 唯一活动路径是下方两个原相邻槽；实际静态对象自动构析，指针只供访问。
 // std::map 只拥有私有节点，surface 键和值均沿原业务清理借用。
-SurfaceTransformCache* gSurfaceTransforms629300 = nullptr; // 原全局：0x629300；仅指向原入口的唯一静态对象。
-SurfaceTransformCache* gSurfaceTransforms62A630 = nullptr; // 原全局：0x62A630；仅指向原入口的唯一静态对象。
-
-} // namespace
+static SurfaceTransformCache* gSurfaceTransforms629300 = nullptr; // 原全局：0x629300；仅指向原入口的唯一静态对象。
+static SurfaceTransformCache* gSurfaceTransforms62A630 = nullptr; // 原全局：0x62A630；仅指向原入口的唯一静态对象。
 
 // 原函数：0x0044CC20。
 void InitializeSurfaceTransformCache629300_44CC20()

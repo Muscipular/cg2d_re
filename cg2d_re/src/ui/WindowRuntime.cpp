@@ -17,8 +17,6 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 // 原第二原型的内联矩形以借用T*表达；不复制共享表或原矩形数据。
 struct WindowDragPrototype {
     std::int32_t count;
@@ -47,8 +45,6 @@ struct ShortcutEmoteBinding {
     std::int32_t action;
     std::int32_t selected;
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 
@@ -272,11 +268,9 @@ std::int32_t gChatHeightUnitsC9A938 = 0; // 原全局：0x00C9A938。
 
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
-
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
-
 
 std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
 
@@ -300,11 +294,9 @@ std::wstring gConfirmationAcceptHintCC3FCC {}; // 原全局：0x00CC3FCC。
 
 std::wstring gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
 
-
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
-
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 

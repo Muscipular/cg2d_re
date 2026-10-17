@@ -14,11 +14,10 @@
 #include <system_error>
 
 namespace cg::text {
-namespace {
 
-constexpr UINT kGbkCodePage = 936;
+static constexpr UINT kGbkCodePage = 936;
 
-int Win32Length(const std::size_t length)
+static int Win32Length(const std::size_t length)
 {
     if (length > static_cast<std::size_t>((std::numeric_limits<int>::max)())) {
         throw std::length_error("文字长度超过Win32编码接口范围");
@@ -26,7 +25,7 @@ int Win32Length(const std::size_t length)
     return static_cast<int>(length);
 }
 
-std::wstring Decode(const std::string_view bytes, const UINT codePage, const DWORD flags = MB_ERR_INVALID_CHARS)
+static std::wstring Decode(const std::string_view bytes, const UINT codePage, const DWORD flags = MB_ERR_INVALID_CHARS)
 {
     if (bytes.empty()) {
         return {};
@@ -43,7 +42,7 @@ std::wstring Decode(const std::string_view bytes, const UINT codePage, const DWO
     return result;
 }
 
-std::string Encode(const std::wstring_view text, const UINT codePage)
+static std::string Encode(const std::wstring_view text, const UINT codePage)
 {
     if (text.empty()) {
         return {};
@@ -64,8 +63,6 @@ std::string Encode(const std::wstring_view text, const UINT codePage)
     }
     return result;
 }
-
-} // namespace
 
 std::wstring FromGbkWide(const std::string_view gbk) { return Decode(gbk, kGbkCodePage, 0); }
 std::wstring FromLegacyDisplayWide(const std::string_view bytes) { return Decode(bytes, CP_ACP, 0); }

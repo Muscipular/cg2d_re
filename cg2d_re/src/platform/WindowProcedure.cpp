@@ -71,10 +71,8 @@ int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
     return static_cast<int>(gKeyStates[key] & 4u);
 }
 
-namespace {
-
 // CTM01/A07：复制后释放剪贴板，再交给既有输入上下文按完整Unicode字符插入。
-void PasteClipboard(HWND window)
+static void PasteClipboard(HWND window)
 {
     if (::OpenClipboard(window) == FALSE) {
         return;
@@ -112,13 +110,13 @@ void PasteClipboard(HWND window)
     input::AppendText(contents);
 }
 
-inline constexpr UINT kResizeWindowFlags = 0x26u;
+static inline constexpr UINT kResizeWindowFlags = 0x26u;
 struct MouseCoordinates {
     std::int32_t x;
     std::int32_t y;
 };
 
-void RebuildRendererIfGraphicDirty()
+static void RebuildRendererIfGraphicDirty()
 {
     if (render::gGraphicDirty == 1) {
         render::gGraphicDirty = 0;
@@ -126,7 +124,7 @@ void RebuildRendererIfGraphicDirty()
     }
 }
 
-void UpdateKeyDownState(const std::uint32_t key)
+static void UpdateKeyDownState(const std::uint32_t key)
 {
     const std::uint8_t pressed = static_cast<std::uint8_t>(
         gKeyStates[key] | 2u);
@@ -138,13 +136,13 @@ void UpdateKeyDownState(const std::uint32_t key)
         gKeyStates[key] | 0x10u);
 }
 
-void UpdateKeyUpState(const std::uint32_t key)
+static void UpdateKeyUpState(const std::uint32_t key)
 {
     gKeyStates[key] = static_cast<std::uint8_t>(
         (gKeyStates[key] & 0xF5u) | 1u);
 }
 
-MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
+static MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
 {
     const std::int32_t x = static_cast<std::uint16_t>(packedCoordinates);
     const std::int32_t y = static_cast<std::uint16_t>(packedCoordinates >> 16);
@@ -160,8 +158,6 @@ MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
         (static_cast<std::uint32_t>(x) * static_cast<std::uint32_t>(gWindowWidth)) / gCurrentClientWidth);
     return MouseCoordinates {mappedX, mappedY};
 }
-
-} // namespace
 
 // 原 WIN_PROC@[0x466DC0,0x467904)。消息载荷先截取原 x86 低 32 位，
 // 默认分支仍把本机原生参数原样交还 DefWindowProcW。

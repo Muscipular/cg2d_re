@@ -8,15 +8,11 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 // 原580870..580900：解析后的姓名与两行正文，GBK字节容量仅约束输入边界。
 struct Window56TextStorage {
     std::wstring name;
     std::array<std::wstring, 2> messages;
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

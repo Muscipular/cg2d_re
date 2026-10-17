@@ -57,38 +57,32 @@ struct BattleTransitionEffectPayload {
 
 static_assert(sizeof(BattleTransitionEffectPayload) == sizeof(YobiAction*) + 8);
 
-namespace {
-
 // 角度到16方向图号的比例；编译期按double计算，保持原常量精度。
-constexpr double kBattleDirectionFrameScale = 2.0 / 45.0;
+static constexpr double kBattleDirectionFrameScale = 2.0 / 45.0;
 
 // 原立即数坐标表；顺序发射器Y的两项44/-44不同于随机上升粒子的33/-33。
-constexpr std::array<std::int32_t, 16> kBattleRadialXOffsets {
+static constexpr std::array<std::int32_t, 16> kBattleRadialXOffsets {
     48, 44, 34, 18, 0, -18, -34, -44, -48, -44, -34, -18, 0, 18, 34, 44,
 };
 
-constexpr std::array<std::int32_t, 16> kBattleRisingYOffsets {
+static constexpr std::array<std::int32_t, 16> kBattleRisingYOffsets {
     0, 14, 26, 44, 47, 33, 26, 14, 0, -14, -26, -44, -47, -33, -26, -14,
 };
 
-constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
+static constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
     0, 14, 26, 44, 47, 44, 26, 14, 0, -14, -26, -44, -47, -44, -26, -14,
 };
 
 // 原553A38的12项S32等级映射；59F9E8只有工厂type34/43发布，不拥有或释放对象。
-constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0}; // 原常量参考：0x00553A38。
-
-} // namespace
+static constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0}; // 原常量参考：0x00553A38。
 
 // BCVI01：现1025个S32位置槽的映像覆盖区为零；114按效果索引存位置编号。
 std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {}; // 原全局：0x0059E9D8。
 
-namespace {
-
-YobiAction* gBattleFactoryEffect59F9E8 = nullptr; // 原全局：0x0059F9E8。
+static YobiAction* gBattleFactoryEffect59F9E8 = nullptr; // 原全局：0x0059F9E8。
 
 // 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
-constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
+static constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
     28881, 28881, 28882, 28882, 28883, 28883, 28884, 28884,
     28885, 28885, 28886, 28886, 28887, 28887, 28888, 28888,
     28889, 28889, 28890, 28890, 28891, 28891, 28892, 28892,
@@ -103,11 +97,9 @@ constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
     28915, 28915, 28915, 28915, 28916, 28916, 28916, 28916,
 };
 
-std::int32_t gBattleTiledEffectPhase59F9EC = 0; // 原全局：0x0059F9EC。
+static std::int32_t gBattleTiledEffectPhase59F9EC = 0; // 原全局：0x0059F9EC。
 
-std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9F0。
-
-} // namespace
+static std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9F0。
 
 // 原函数：0x0041EAB0。
 YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)

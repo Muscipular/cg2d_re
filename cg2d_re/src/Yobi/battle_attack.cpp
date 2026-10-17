@@ -24,12 +24,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 408BD4以54D438加1..5档索引；此表从首个有效S32图号54D43C开始。
-constexpr std::array<std::int32_t, 5> kBattleBoomerangHitImages54D43C {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
-
-} // namespace
+static constexpr std::array<std::int32_t, 5> kBattleBoomerangHitImages54D43C {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
 
 // B14H01：完整帧命中/四类HP-FP及六复制、十二BYTE和音效取样见doc/cg2d_battle_frame_hit_spec.md。
 // 原函数：0x00409680。

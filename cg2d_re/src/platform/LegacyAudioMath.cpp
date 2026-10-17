@@ -5,16 +5,13 @@
 #include <emmintrin.h>
 
 namespace cg::platform {
-namespace {
 
 // 原FISTP I64后只消费低W32；宿主向零转换也定义无效值的整数返回。
-std::int32_t TruncateSoundIntermediate(const double value) noexcept
+static std::int32_t TruncateSoundIntermediate(const double value) noexcept
 {
     const std::int64_t integer = _mm_cvttsd_si64(_mm_set_sd(value));
     return std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(integer));
 }
-
-} // namespace
 
 // 原52BA38..52BBC8；只借128项表，保持正向→反向→端点→音量的覆盖序。
 extern "C" void Cg2dInitializeSoundTablesX87(

@@ -65,11 +65,9 @@ std::int32_t gRendererRedOffset = 0; // 原全局：0x00629314。
 std::int32_t gRendererGreenOffset = 0; // 原全局：0x00629718。
 std::int32_t gRendererBlueOffset = 0; // 原全局：0x0062971C。
 
-namespace {
-
-constexpr wchar_t kConfirmCaption[] = L"确认";
-constexpr wchar_t kMode1Message[] = L"先前设定的画面成像模式无法启动。\n将以画面成像模式1启动。";
-bool CreateRendererTextureInterface() noexcept
+static constexpr wchar_t kConfirmCaption[] = L"确认";
+static constexpr wchar_t kMode1Message[] = L"先前设定的画面成像模式无法启动。\n将以画面成像模式1启动。";
+static bool CreateRendererTextureInterface() noexcept
 {
     SDL_Surface* const back = GetCpuBackSdlSurface();
     if (back == nullptr) {
@@ -89,7 +87,7 @@ bool CreateRendererTextureInterface() noexcept
 }
 
 // 原两处 CreateFile/WriteFile；正常分支须在成功打开之后读取支持模式。
-void WriteRendererModeFile(const bool fallback)
+static void WriteRendererModeFile(const bool fallback)
 {
     char buffer[11] {};
     if (fallback) {
@@ -110,7 +108,7 @@ void WriteRendererModeFile(const bool fallback)
 }
 
 // 原 44BD6C 公共降级；不是早期 AL=1，也不释放 Back 或 presenter。
-std::int8_t DowngradeRenderer()
+static std::int8_t DowngradeRenderer()
 {
     ReleaseRendererTextureDevice();
     ReleaseRendererTextureInterface();
@@ -121,8 +119,6 @@ std::int8_t DowngradeRenderer()
     platform::gRendererMode = 1;
     return 0;
 }
-
-} // namespace
 
 const LegacyTextureState& GetLegacyTextureState()
 {

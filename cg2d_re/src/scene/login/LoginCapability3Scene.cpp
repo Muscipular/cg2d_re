@@ -30,21 +30,20 @@
 #include <cstdint>
 #include <cstring>
 
-namespace {
+namespace cg::world {
 
-constexpr std::int32_t kWhiteColor = 0x00FFFFFF;
-constexpr double kFrameGateIncrement = 1000.0 / 60.0;
+static constexpr std::int32_t kWhiteColor = 0x00FFFFFF;
+static constexpr double kFrameGateIncrement = 1000.0 / 60.0;
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
-std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
-std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。
-std::int32_t gAlpha9A4CA0 = 0; // 原全局：0x009A4CA0。
-std::int32_t gAlpha9A5E70 = 0; // 原全局：0x009A5E70。
-cg::yobi::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
-cg::yobi::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
-std::wstring gMessage9A50E8 {}; // 原全局：0x009A50E8。
+static std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
+static std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。
+static std::int32_t gAlpha9A4CA0 = 0; // 原全局：0x009A4CA0。
+static std::int32_t gAlpha9A5E70 = 0; // 原全局：0x009A5E70。
+static cg::yobi::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
+static cg::yobi::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
+static std::wstring gMessage9A50E8 {}; // 原全局：0x009A50E8。
 
-
-std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
+static std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
 {
     const std::uint32_t bits =
         (std::bit_cast<std::uint32_t>(alpha) << 24U) | 0x00FFFFFFU;
@@ -52,14 +51,14 @@ std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
 }
 
 // 原函数：0x0045EF80。
-bool Sub_45EF80()
+static bool Sub_45EF80()
 {
     const double deadline = cg::platform::gLastRenderDt + kFrameGateIncrement;
     const std::uint64_t tick = cg::platform::ReadTickCount64();
     return tick > deadline;
 }
 
-void DrawFiveCapability3Images()
+static void DrawFiveCapability3Images()
 {
     static_cast<void>(
         cg::render::Sub_45F090(638, 478, 3, 245152, 0, -1));
@@ -73,7 +72,7 @@ void DrawFiveCapability3Images()
         cg::render::Sub_45F090(638, 478, 3, 245151, 0, -1));
 }
 
-std::int32_t DrawCapability3CommonTail()
+static std::int32_t DrawCapability3CommonTail()
 {
     const std::uint32_t firstAlpha = cg::login::gValue9A6200;
     if (firstAlpha != 0U) {
@@ -121,7 +120,7 @@ std::int32_t DrawCapability3CommonTail()
     return fourthAlpha;
 }
 
-std::int32_t ProcessCapability3InputAndDraw()
+static std::int32_t ProcessCapability3InputAndDraw()
 {
     const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
     if (result == 1) {
@@ -151,7 +150,7 @@ std::int32_t ProcessCapability3InputAndDraw()
     return DrawCapability3CommonTail();
 }
 
-std::int32_t ProcessCapability3CommonDispatch(
+static std::int32_t ProcessCapability3CommonDispatch(
     const std::int32_t sampledState)
 {
     if (std::bit_cast<std::uint32_t>(sampledState) < 4U) {
@@ -172,17 +171,11 @@ std::int32_t ProcessCapability3CommonDispatch(
     return DrawCapability3CommonTail();
 }
 
-std::int32_t DispatchCapability3FromCurrentState()
+static std::int32_t DispatchCapability3FromCurrentState()
 {
     const std::int32_t sampledState = cg::world::gCurrentSceneState;
     return ProcessCapability3CommonDispatch(sampledState);
 }
-
-} // namespace
-
-
-
-namespace cg::world {
 
 // 原函数：0x0045F190。
 std::int32_t Sub_45F190()

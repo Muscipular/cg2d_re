@@ -20,10 +20,9 @@
 #include <vector>
 
 namespace cg::platform {
-namespace {
 
 // W接口的字符串长度始终是字节；属性仍为BYTE，光标值单独映射。
-std::optional<std::wstring> ReadImeString(const DWORD kind)
+static std::optional<std::wstring> ReadImeString(const DWORD kind)
 {
     const HIMC context = reinterpret_cast<HIMC>(gImeContext);
     const LONG bytes = ::ImmGetCompositionStringW(context, kind, nullptr, 0);
@@ -38,8 +37,6 @@ std::optional<std::wstring> ReadImeString(const DWORD kind)
     result.resize(static_cast<std::size_t>(copied) / sizeof(wchar_t));
     return result;
 }
-
-} // namespace
 
 // 原 sub_458FD0@[0x458FD0,0x459032)。调用顺序与旧端一致。
 int InitializeIme_458FD0()

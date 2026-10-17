@@ -11,13 +11,13 @@
 #include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
-namespace {
+namespace cg::login {
 
-constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-constexpr char kInvalidCharacterName[] = "???";
-constexpr std::size_t kOuterTokenCapacity = 1024;
+static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
+static constexpr char kInvalidCharacterName[] = "???";
+static constexpr std::size_t kOuterTokenCapacity = 1024;
 
-std::int32_t CompareUnsignedBytes(const char* left, const char* right)
+static std::int32_t CompareUnsignedBytes(const char* left, const char* right)
 {
     for (;;) {
         const auto leftByte = static_cast<unsigned char>(*left);
@@ -34,7 +34,7 @@ std::int32_t CompareUnsignedBytes(const char* left, const char* right)
 }
 
 // 原 sub_51B1B0@[0x51B1B0,0x51B3A2)；唯一调用者为 sub_5089B0。
-std::int32_t WriteCharacterRecord_51B1B0(
+static std::int32_t WriteCharacterRecord_51B1B0(
     const char* legacyName,
     char* mutableLegacyDetail)
 {
@@ -105,10 +105,6 @@ std::int32_t WriteCharacterRecord_51B1B0(
         record.jobText.data()));
     return 0;
 }
-
-} // namespace
-
-namespace cg::login {
 
 std::uint16_t gCharacterListReplyCode = 0; // 原全局：0x00DA3B26。
 

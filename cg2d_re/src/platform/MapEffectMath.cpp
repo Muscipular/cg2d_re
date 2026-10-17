@@ -8,7 +8,6 @@
 #include <float.h>
 
 namespace cg::platform::detail {
-namespace {
 
 // 原11个效果叶使用临时027F控制并在写回后恢复；CPP保相同宿主掩码/舍入职责。
 class MapMathControlScope final {
@@ -26,17 +25,17 @@ private:
 };
 
 // COR15/COR16：常量用十进制或等值分数；F后缀保持原F32提升为double的语义。
-constexpr double kRadians54DD18 = 0.017453292519444445; // 原常量参考：0x0054DD18。
-constexpr float kSpeedScale54E228 = 0.001F; // 原常量参考：0x0054E228。
-constexpr float kFallback54E230 = 0.0001F; // 原常量参考：0x0054E230。
-constexpr float kSpawnScale54E22C = 720.0F; // 原常量参考：0x0054E22C。
-constexpr float kPercentScale54D4E4 = 0.01F; // 原常量参考：0x0054D4E4。
-constexpr float kArcScale54DD34 = 1.0F / 30.0F; // 原常量参考：0x0054DD34。
-constexpr float kActorRate54DD3C = 1.6F; // 原常量参考：0x0054DD3C。
-constexpr float kActorRate54DD40 = 1.2F; // 原常量参考：0x0054DD40。
-constexpr float kSpiralY54DD10 = 0.6F; // 原常量参考：0x0054DD10。
-constexpr float kProjectionInverse54E218 = 4.0F / 3.0F; // 原常量参考：0x0054E218。
-constexpr std::array<double, 8> kObserverAngles {
+static constexpr double kRadians54DD18 = 0.017453292519444445; // 原常量参考：0x0054DD18。
+static constexpr float kSpeedScale54E228 = 0.001F; // 原常量参考：0x0054E228。
+static constexpr float kFallback54E230 = 0.0001F; // 原常量参考：0x0054E230。
+static constexpr float kSpawnScale54E22C = 720.0F; // 原常量参考：0x0054E22C。
+static constexpr float kPercentScale54D4E4 = 0.01F; // 原常量参考：0x0054D4E4。
+static constexpr float kArcScale54DD34 = 1.0F / 30.0F; // 原常量参考：0x0054DD34。
+static constexpr float kActorRate54DD3C = 1.6F; // 原常量参考：0x0054DD3C。
+static constexpr float kActorRate54DD40 = 1.2F; // 原常量参考：0x0054DD40。
+static constexpr float kSpiralY54DD10 = 0.6F; // 原常量参考：0x0054DD10。
+static constexpr float kProjectionInverse54E218 = 4.0F / 3.0F; // 原常量参考：0x0054E218。
+static constexpr std::array<double, 8> kObserverAngles {
     2.356194490125,
     1.57079632675,
     0.785398163375,
@@ -48,12 +47,10 @@ constexpr std::array<double, 8> kObserverAngles {
 };
 
 // ACP01：宿主向零I64转换；旧控制字/T80不是当前数值实现。
-std::int64_t TruncateMapIntermediate(const double value) noexcept
+static std::int64_t TruncateMapIntermediate(const double value) noexcept
 {
     return _mm_cvttsd_si64(_mm_set_sd(value));
 }
-
-} // namespace
 
 extern "C" void Cg2dMapEffectDirection(
     const std::int32_t angle, const float* const speed,

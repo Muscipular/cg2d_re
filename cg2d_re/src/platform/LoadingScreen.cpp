@@ -17,11 +17,9 @@
 #include <bit>
 
 namespace cg::platform::initialization_detail {
-namespace {
 
 // 原 [73ED28,73ED38)，跨次调用保留；只有 phase 0 执行原初始化写入。
-render::GraphicDescriptor16 gLoadingDescriptor{};
-} // namespace
+static render::GraphicDescriptor16 gLoadingDescriptor{};
 
 // 原 InitLoading@[457B10,4582FE)，完整阶段及公共帧尾见 cg2d_loading_screen.md。
 std::int32_t InitLoading_457B10()

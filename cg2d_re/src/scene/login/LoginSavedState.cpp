@@ -25,7 +25,6 @@
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::login::detail {
-namespace {
 
 struct SavedPath final {
     char text[0x100]; // 原成员偏移：+0x00。
@@ -82,17 +81,14 @@ static_assert(offsetof(SavedStateStorage, logicalToPhysical) == 0x3CD4);
 static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
-SavedStateStorage gSavedState {}; // 原全局：0x01058698。
+static SavedStateStorage gSavedState {}; // 原全局：0x01058698。
 
 // 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
-SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
+static SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 
 // ALM02：只标记自动参数已写入的物理账号槽，凭据仍由上述两个既有记录持有。
-std::int32_t gAutoLoginCachedPhysicalSlot = -1;
+static std::int32_t gAutoLoginCachedPhysicalSlot = -1;
 static_assert(LoginInputValueCapacity == 0x33);
-
-} // namespace
-
 
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
 void EncodeLegacyBytes_52D310(
@@ -238,11 +234,8 @@ std::int32_t DecodeLegacyBytes_52D460(
     return lastDecodedBytes;
 }
 
-
-namespace {
-
 // 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
-[[maybe_unused]] std::int32_t LoadSavedPhysicalRecord_532ED0(
+[[maybe_unused]] static std::int32_t LoadSavedPhysicalRecord_532ED0(
     const std::int32_t physicalSlot)
 {
     cg::platform::gValueFF4E28 = 0;
@@ -287,7 +280,7 @@ namespace {
 }
 
 // 原 sub_532FC0@[0x532FC0,0x53319A)：写出一份默认保存记录。
-[[maybe_unused]] std::int32_t WriteDefaultSavedFile_532FC0(
+[[maybe_unused]] static std::int32_t WriteDefaultSavedFile_532FC0(
     const char* const fileName)
 {
     SavedPhysicalRecord raw;
@@ -401,7 +394,7 @@ namespace {
 }
 
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。
-[[maybe_unused]] char* InitializeSavedPhysicalRecord_5331A0(
+[[maybe_unused]] static char* InitializeSavedPhysicalRecord_5331A0(
     const std::int32_t physicalSlot)
 {
     SavedPhysicalRecord& record = gSavedState.records[physicalSlot];
@@ -477,7 +470,7 @@ namespace {
 }
 
 // 原 sub_533360@[0x533360,0x5333CF)：复位保存状态。
-[[maybe_unused]] std::int32_t ResetSavedState_533360()
+[[maybe_unused]] static std::int32_t ResetSavedState_533360()
 {
     gSavedState.newPhysical = -1;
     gSavedState.visibleCount = 0;
@@ -500,7 +493,7 @@ namespace {
 }
 
 // 原 sub_5333D0@[0x5333D0,0x533461)：探测当前与旧版保存位置。
-[[maybe_unused]] std::int32_t ProbeSavedStateLocation_5333D0()
+[[maybe_unused]] static std::int32_t ProbeSavedStateLocation_5333D0()
 {
     char path[0x400];
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -527,7 +520,7 @@ namespace {
 }
 
 // 原 sub_5338F0@[0x5338F0,0x53390C)：查找首个未占用物理槽。
-[[maybe_unused]] std::int32_t
+[[maybe_unused]] static std::int32_t
 FindFreeSavedPhysicalSlot_5338F0() noexcept
 {
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -539,7 +532,7 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_533470@[0x533470,0x533528)：重建逻辑槽到物理槽映射。
-[[maybe_unused]] std::int32_t RebuildSavedSlotMap_533470()
+[[maybe_unused]] static std::int32_t RebuildSavedSlotMap_533470()
 {
     for (std::int32_t physicalSlot = 0;
          physicalSlot < 10;
@@ -589,7 +582,7 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_533530@[0x533530,0x533563)：迁移三份旧保存文件。
-[[maybe_unused]] std::int32_t MigrateLegacySavedFiles_533530()
+[[maybe_unused]] static std::int32_t MigrateLegacySavedFiles_533530()
 {
     (void)::CopyFileA(
         "data\\save.dat",
@@ -606,7 +599,7 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_5336D0@[0x5336D0,0x5336F5)：载入当前选中物理记录。
-[[maybe_unused]] std::int32_t LoadSelectedPhysicalRecord_5336D0()
+[[maybe_unused]] static std::int32_t LoadSelectedPhysicalRecord_5336D0()
 {
     const std::int32_t selected = gSavedState.selected;
     const std::uint32_t resultBits =
@@ -619,7 +612,7 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_533700@[0x533700,0x533725)：把当前记录写回选中物理记录。
-[[maybe_unused]] std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
+[[maybe_unused]] static std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
 {
     const std::int32_t selected = gSavedState.selected;
     const std::uint32_t resultBits =
@@ -632,7 +625,7 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_520200@[0x520200,0x5202DE)：持久化当前保存记录。
-std::int32_t PersistCurrentSavedRecord_520200()
+static std::int32_t PersistCurrentSavedRecord_520200()
 {
     SavedPhysicalRecord localRecord;
     char path[0x400];
@@ -682,7 +675,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
 }
 
 // 原 sub_533860@[0x533860,0x5338E1)：删除一组物理槽保存文件。
-[[maybe_unused]] std::int32_t DeleteSavedFiles_533860(
+[[maybe_unused]] static std::int32_t DeleteSavedFiles_533860(
     const std::int32_t physicalSlot)
 {
     if (gAutoLoginCachedPhysicalSlot == physicalSlot) {
@@ -713,13 +706,13 @@ std::int32_t PersistCurrentSavedRecord_520200()
 }
 
 // 存档无参调用适配；原4A4210不读取参数，共用窗口侧真实实现。
-std::int32_t ReturnOne_4A4210() noexcept
+static std::int32_t ReturnOne_4A4210() noexcept
 {
     return cg::ui::detail::WindowRuntime_ReturnOne(0);
 }
 
 // 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。
-[[maybe_unused]] std::int32_t RestoreAudioSettings_5204C0(
+[[maybe_unused]] static std::int32_t RestoreAudioSettings_5204C0(
     const std::uint8_t* const currentBytes)
 {
     cg::platform::gUseStereo =
@@ -738,7 +731,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 }
 
 // 原 sub_5205E0@[0x5205E0,0x52063B)：从记录恢复六项标量设置。
-[[maybe_unused]] std::uint8_t* RestoreSavedScalarSettings_5205E0(
+[[maybe_unused]] static std::uint8_t* RestoreSavedScalarSettings_5205E0(
     std::uint8_t* const source)
 {
     cg::platform::gValueD67AE4 =
@@ -757,7 +750,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 }
 
 // 原 sub_520690@[0x520690,0x5206EE)：恢复 24 项保存输入文本。
-[[maybe_unused]] std::int32_t RestoreSavedInputContexts_520690(
+[[maybe_unused]] static std::int32_t RestoreSavedInputContexts_520690(
     const std::uint8_t* const source)
 {
     const std::uint8_t* sourceText = source + 0xB2;
@@ -777,7 +770,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 }
 
 // 原 sub_520700@[0x520700,0x520712)：从记录恢复单字节状态。
-[[maybe_unused]] std::uint32_t RestoreSavedByteState_520700(
+[[maybe_unused]] static std::uint32_t RestoreSavedByteState_520700(
     const std::uint8_t* const source)
 {
     const std::uint32_t value =
@@ -787,7 +780,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 }
 
 // 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
-[[maybe_unused]] std::uint8_t RestoreCurrentSavedValue_520730()
+[[maybe_unused]] static std::uint8_t RestoreCurrentSavedValue_520730()
 {
     const auto* const currentBytes =
         reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
@@ -797,9 +790,6 @@ std::int32_t ReturnOne_4A4210() noexcept
     }
     return value;
 }
-
-} // namespace
-
 
 // 原函数：0x005201B0。
 std::int32_t RestoreCurrentSavedState_5201B0()
@@ -854,7 +844,6 @@ std::int32_t InitializeSavedState_533300()
         sizeof(gCurrentSavedRecord));
     return 1;
 }
-
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
 std::int32_t Sub_520510(const std::int32_t selected)

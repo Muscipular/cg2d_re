@@ -24,13 +24,11 @@ struct LegacyTextureDevice {
     bool sceneActive = false; // 由 Begin/End 修改，四顶点绘制实际消费。
 };
 
-namespace {
-
-constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
-constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+static constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
+static constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 
 // GRT01：矩形只提交一次 GPU 绘制，CPU 不再逐像素计算 UV 或逐行混合。
-std::int32_t DrawTextureRectangle(
+static std::int32_t DrawTextureRectangle(
     LegacyTextureDevice& device, const std::array<LegacyTextureVertex, 4>& vertices)
 {
     TextureSurface* const surface = device.textures[0].Get();
@@ -48,13 +46,13 @@ std::int32_t DrawTextureRectangle(
 }
 
 // 原 __ftol 在 PC53 下先转 S64，caller 取低 W32；沿用既有局部承接。
-std::int32_t TruncateTextureCoordinate(const double value)
+static std::int32_t TruncateTextureCoordinate(const double value)
 {
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
 
 // 三个入口相同的四顶点、混合选择及 native 提交段；FillRect 绑定空纹理。
-std::int32_t SubmitTexturedRectangle(
+static std::int32_t SubmitTexturedRectangle(
     TextureSurface* surface, const TextureRectangle& destination,
     const float u0, const float v0, const float u1, const float v1,
     const std::uint8_t mixFlags, const std::uint32_t color,
@@ -88,8 +86,6 @@ std::int32_t SubmitTexturedRectangle(
     }
     return SubmitLegacyTextureFan(surface, vertices, sourceBlend, destinationBlend);
 }
-
-} // namespace
 
 LegacyTextureDevice* CreateLegacyTextureDevice(
     const SDL_PixelFormatDetails* const format, SDL_Surface* const back) noexcept

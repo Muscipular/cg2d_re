@@ -42,16 +42,14 @@ std::int32_t InitLoading_457B10();
 
 } // namespace initialization_detail
 
-namespace {
-
-constexpr wchar_t kConfirmCaption[] = L"确认";
-constexpr std::uint32_t kErrorMessageFlags = 0x10;
+static constexpr wchar_t kConfirmCaption[] = L"确认";
+static constexpr std::uint32_t kErrorMessageFlags = 0x10;
 
 // 原 73ECE8；两段淡变共用的图号，PE 零填充初值。
-std::int32_t gLoadingGraphicImageNo = 0;
+static std::int32_t gLoadingGraphicImageNo = 0;
 
 // 原 458489–458598 / 458695–4587A0 的相同公共段；不代替普通 MainLoop。
-void AdvanceLoadingFadeFrame()
+static void AdvanceLoadingFadeFrame()
 {
     render::SortTextures_520790();
     static_cast<void>(render::UpdatePalette_450BB0());
@@ -91,8 +89,6 @@ void AdvanceLoadingFadeFrame()
     gFrameCount = frame + 1u;
     gLastRenderDt = deadline;
 }
-
-} // namespace
 
 namespace initialization_detail {
 

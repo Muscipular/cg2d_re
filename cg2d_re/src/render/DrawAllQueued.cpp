@@ -27,12 +27,10 @@ namespace cg::render {
 
 std::int32_t gLastUnrefreshedPaletteFrameVersion = -1;
 
-namespace {
-
-constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+static constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
 
 // R03／LUR01／GRT01：直接提交整图缓存，不再先切块再拼接全屏背景。
-void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
+static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
 {
     if (graphic->imageNo < 0 || gGraphicDxCache103CFA4 == nullptr) { return; }
     static_cast<void>(LoadGraphicIndependentPalette_523140(graphic));
@@ -59,7 +57,7 @@ void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
 }
 
 // 原三条纹理路径相同的 left/right/top/bottom 读写顺序；不冻结节点偏移或共享尺寸。
-TextureRectangle MakeNodeRectangle(
+static TextureRectangle MakeNodeRectangle(
     const TextureNode* const node, const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height)
 {
@@ -88,7 +86,7 @@ TextureRectangle MakeNodeRectangle(
 }
 
 // 原 5211E7 普通纹理链；上传失败仍继续，next 只在当前节点处理后读取。
-void DrawIntegerNodes(
+static void DrawIntegerNodes(
     GraphicCacheItem32* const graphic, const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -143,7 +141,7 @@ void DrawIntegerNodes(
 }
 
 // 原 520FC0/521522 共用的缩放链；固定比例不读取 action，动态比例按原位置逐轴取值。
-void DrawScaledNodes(
+static void DrawScaledNodes(
     GraphicCacheItem32* const graphic, const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -225,7 +223,7 @@ void DrawScaledNodes(
 }
 
 // 原 520E54 的全图/裁剪入口；早退不清调色板 dirtyCount。
-void DrawSprite(GraphicCacheItem32* const graphic)
+static void DrawSprite(GraphicCacheItem32* const graphic)
 {
     const std::int32_t imageNo = graphic->imageNo;
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount) {
@@ -323,7 +321,7 @@ void DrawSprite(GraphicCacheItem32* const graphic)
 }
 
 // 原 52143C：固定三比例，不以构造虚拟 action 复用对象入口。
-void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
+static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
 {
     const std::int32_t imageNo = graphic->imageNo;
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount) {
@@ -366,8 +364,6 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
         palette->dirtyCount = 0;
     }
 }
-
-} // namespace
 
 // 原函数：0x00520DD0。
 void DrawAllQueued_520DD0()

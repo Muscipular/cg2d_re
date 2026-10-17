@@ -10,12 +10,11 @@
 #include <cstdint>
 
 namespace cg::input {
-namespace {
 
 // 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
-inline constexpr wchar_t kCaretText[] = L"|";
+static inline constexpr wchar_t kCaretText[] = L"|";
 
-void DrawBasicCaret()
+static void DrawBasicCaret()
 {
     input::InputContext* const context = input::gCurrentInputData;
     const std::int32_t color = context->field140;
@@ -38,7 +37,7 @@ void DrawBasicCaret()
         0));
 }
 
-void DrawImeCaret()
+static void DrawImeCaret()
 {
     input::InputContext* const preMeasureContext =
         input::gCurrentInputData;
@@ -75,7 +74,7 @@ void DrawImeCaret()
         0));
 }
 
-void AdvanceCaretPhase()
+static void AdvanceCaretPhase()
 {
     const std::int32_t nextPhase = input::gValue626C0C + 1;
     const bool resetPhase = nextPhase >= 40;
@@ -84,8 +83,6 @@ void AdvanceCaretPhase()
         input::gValue626C0C = 0;
     }
 }
-
-} // namespace
 
 // 原 sub_44A410@[0x44A410,0x44A535)。
 void Sub_44A410()

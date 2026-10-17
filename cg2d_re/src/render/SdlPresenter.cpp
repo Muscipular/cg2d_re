@@ -48,26 +48,22 @@ namespace cg::render {
 static_assert(sizeof(std::uintptr_t) == 8, "SdlPresenter 要求 64 位原生窗口引用。");
 static_assert(sizeof(std::uint32_t) == 4, "SdlPresenter 要求每像素 4 字节。");
 
-namespace {
-
-SdlPresenter gRendererPresenter;
+static SdlPresenter gRendererPresenter;
 
 // 原截图专用槽，仅在 453760/503C80 发布，不复用渲染源掩码或其他计时器。
-std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
-std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
-std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
-std::uint64_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
+static std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
+static std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
+static std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
+static std::uint64_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
 // 初始化资源前及窗口模式同步后先提交不透明黑底，不等待loading循环的首帧。
-bool PresentInitialBlackFrame(SDL_Renderer* const renderer) noexcept
+static bool PresentInitialBlackFrame(SDL_Renderer* const renderer) noexcept
 {
     return SDL_SetRenderTarget(renderer, nullptr)
         && SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255)
         && SDL_RenderClear(renderer)
         && SDL_RenderPresent(renderer);
 }
-
-} // namespace
 
 std::uint32_t gFrameParity628FC8 = 0; // 原全局：0x00628FC8。
 

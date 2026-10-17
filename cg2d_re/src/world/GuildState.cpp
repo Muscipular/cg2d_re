@@ -19,8 +19,6 @@ std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {}; // 原全局：
 static std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
 std::int32_t gOrderedRecordCount1051510 = 0; // 原全局：0x01051510。
 
-namespace {
-
 // 原10514A8的五S32和两条原字节文本；重置保留+0C/+10及文本尾部。
 struct GuildHeader10514A8 {
     std::int32_t key00; // 原成员偏移：+0x00。
@@ -49,14 +47,14 @@ static_assert(sizeof(GuildHeader10514A8) == 0x68);
 static_assert(offsetof(GuildTextRecord1051514, text04) == 4);
 static_assert(offsetof(GuildTextRecord1051514, bytes2D) == 0x2D);
 static_assert(sizeof(GuildTextRecord1051514) == 0x30);
-GuildHeader10514A8 gGuildHeader10514A8 {}; // 原全局：0x010514A8。
-std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {}; // 原全局：0x01051514。
-std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
+static GuildHeader10514A8 gGuildHeader10514A8 {}; // 原全局：0x010514A8。
+static std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {}; // 原全局：0x01051514。
+static std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
 static_assert(sizeof(gGuildTextRecords1051514) == 0x600);
 static_assert(sizeof(gGuildTexts1057BF4) == 0x7B);
 
 // 532D80和532DF0的同序窄写；两条路径的邮件副作用由各自caller处理。
-void ResetGuildRuntimeFields()
+static void ResetGuildRuntimeFields()
 {
     gGuildHeader10514A8.key00 = -1;
     gGuildHeader10514A8.value08 = -1;
@@ -78,8 +76,6 @@ void ResetGuildRuntimeFields()
     }
     gOrderedRecordCount1051510 = 0;
 }
-
-} // namespace
 
 std::int32_t ReadGuildValue10514B4() noexcept
 {

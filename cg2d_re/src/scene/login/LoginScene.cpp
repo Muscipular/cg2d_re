@@ -34,31 +34,30 @@
 #include <format>
 #include <cstring>
 
-namespace {
+namespace cg::login {
 
 // 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
-constexpr wchar_t kWindowName[] = L"魔力宝贝";
-constexpr wchar_t kVersion[] = L"7.1.00";
+static constexpr wchar_t kWindowName[] = L"魔力宝贝";
+static constexpr wchar_t kVersion[] = L"7.1.00";
 // 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kCannotConnect[] =
+static constexpr wchar_t kCannotConnect[] =
     L"无法连上伺服器。 ";
 // 原 0x55C6E4「此帳號已在線上」正文 14 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAlreadyOnline[] =
+static constexpr wchar_t kAlreadyOnline[] =
     L"此帐号已在线上";
 // 原 0x55C6A4「目前停權中」正文 10 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kSuspended[] =
+static constexpr wchar_t kSuspended[] =
     L"目前停权中";
-constexpr wchar_t kMultiline[] = L"Multiline";
+static constexpr wchar_t kMultiline[] = L"Multiline";
 // 原 0x55C71C「--->請速回 SOFTSTAR 網站」正文 24 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp4[] =
+static constexpr wchar_t kAccountHelp4[] =
     L"--->请速回 SOFTSTAR 网站";
 // 原 0x55C700「--->註冊新帳號並移轉舊帳號」正文 26 字节；字符串字面量隐式追加 NUL。
-constexpr wchar_t kAccountHelp5[] =
+static constexpr wchar_t kAccountHelp5[] =
     L"--->注册新帐号并移转旧帐号";
 
-
 // 原559958起25个64B槽的正文；当前静态中文采用UTF-16，索引仍由CategoryTitle承接。
-constexpr std::array<const wchar_t*, 25> kCategoryTitles {
+static constexpr std::array<const wchar_t*, 25> kCategoryTitles {
     L"卡莲", // 0x559958 卡蓮
     L"金牛座", // 0x559998 金牛座
     L"双子座", // 0x5599D8 雙子座
@@ -88,13 +87,13 @@ constexpr std::array<const wchar_t*, 25> kCategoryTitles {
 
 // 原 25 项标题表之后，group 25..39 会按 64 字节步长继续读取相邻映像。
 // 这些是各实际地址首个 NUL 前的精确 ASCII 字节，不是正式标题表成员。
-constexpr std::array<const wchar_t*, 15> kAdjacentCategoryTitlePrefixes {
+static constexpr std::array<const wchar_t*, 15> kAdjacentCategoryTitlePrefixes {
     L"I", L"", L"Z", L"\x07V",
     L"d", L"d", L"d", L"d", L"d",
     L"x", L"x", L"x", L"x", L"x", L"x",
 };
 
-constexpr std::array<const wchar_t*, 20> kServerLabels {
+static constexpr std::array<const wchar_t*, 20> kServerLabels {
     L"I", L"II", L"III", L"IV", L"V", L"VI", L"VII", L"VIII", L"IX", L"X",
     L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20",
 };
@@ -102,20 +101,20 @@ constexpr std::array<const wchar_t*, 20> kServerLabels {
 // 与角色选择及登录输入按钮共用同一七W32布局。
 using LoginUiRecord = cg::ui::UiControlRecord;
 
-LoginUiRecord gSwitchSceneUi {
+static LoginUiRecord gSwitchSceneUi {
     {540, 360, 64, 16}, 245045, 245047, 245046,
 };
-LoginUiRecord gCloseUi {
+static LoginUiRecord gCloseUi {
     {540, 392, 64, 16}, 245153, 245155, 245154,
 };
-LoginUiRecord gPreviousPageUi {
+static LoginUiRecord gPreviousPageUi {
     {130, 310, 16, 16}, 243030, 243032, 243031,
 };
-LoginUiRecord gNextPageUi {
+static LoginUiRecord gNextPageUi {
     {254, 310, 16, 16}, 243033, 243035, 243034,
 };
 
-std::array<LoginUiRecord, 20> gServerUi {{
+static std::array<LoginUiRecord, 20> gServerUi {{
     {{109, 108, 98, 34}, 30151, 30161, 30161},
     {{109, 140, 98, 34}, 30152, 30162, 30162},
     {{109, 172, 98, 34}, 30153, 30163, 30163},
@@ -141,7 +140,7 @@ std::array<LoginUiRecord, 20> gServerUi {{
 // 原 [0x55C038,0x55C6C8) 是一次 60 * 0x1C 的扫描视图，不是同质记录数组。
 // 前 25 项后，扫描会穿过 4 字节填充、0x55C2F8 控件及相邻表/旧编码文本。
 // 因而保留整段单一只读原始映像，仅在扫描边界按原偏移转为值记录。
-const std::array<std::uint32_t, 420> gCategoryScanImage {
+static const std::array<std::uint32_t, 420> gCategoryScanImage {
     0x000000D1u, 0x0000006Cu, 0x00000062u, 0x00000022u, 0x00018206u, 0x00018207u, 0x00018207u,
     0x000000D1u, 0x000000ECu, 0x00000062u, 0x00000022u, 0x000075C7u, 0x000075C8u, 0x000075C8u,
     0x000000D1u, 0x000000ACu, 0x00000062u, 0x00000022u, 0x000075F9u, 0x000075FAu, 0x000075FAu,
@@ -202,14 +201,13 @@ const std::array<std::uint32_t, 420> gCategoryScanImage {
 
 static_assert(sizeof(gCategoryScanImage) == 0x690);
 
-std::int32_t gSelectedServerGroup = 0; // 原 0x9A5B04，映像零填充。
-std::int32_t gServerPage = 0;          // 原 0x9A6EA4，映像零填充。
-std::wstring gLoginSceneMessage {};       // 原 0x9A60F0，映像零填充。
-std::int32_t gOpenUrlAfterMessage = 0; // 原 0x9A6EA8，映像零填充。
-
+static std::int32_t gSelectedServerGroup = 0; // 原 0x9A5B04，映像零填充。
+static std::int32_t gServerPage = 0;          // 原 0x9A6EA4，映像零填充。
+static std::wstring gLoginSceneMessage {};       // 原 0x9A60F0，映像零填充。
+static std::int32_t gOpenUrlAfterMessage = 0; // 原 0x9A6EA8，映像零填充。
 
 // 该映像只读且不全是控件；转换不外借异型指针或引入持久副本。
-cg::ui::UiControlRecord CategoryScanRecord(std::int32_t index)
+static cg::ui::UiControlRecord CategoryScanRecord(std::int32_t index)
 {
     cg::ui::UiControlRecord controlRecord;
     std::memcpy(&controlRecord,
@@ -218,7 +216,7 @@ cg::ui::UiControlRecord CategoryScanRecord(std::int32_t index)
     return controlRecord;
 }
 
-cg::ui::UiControlRecord SelectedCategoryControl()
+static cg::ui::UiControlRecord SelectedCategoryControl()
 {
     cg::ui::UiControlRecord controlRecord;
     std::memcpy(&controlRecord,
@@ -227,24 +225,23 @@ cg::ui::UiControlRecord SelectedCategoryControl()
     return controlRecord;
 }
 
-void CopyText(std::wstring& destination, std::wstring_view source)
+static void CopyText(std::wstring& destination, std::wstring_view source)
 {
     destination = source;
 }
 
-
-void IncrementSceneState()
+static void IncrementSceneState()
 {
     ++cg::world::gCurrentSceneState;
 }
 
-void SetBaseWindowTitle(std::wstring& buffer)
+static void SetBaseWindowTitle(std::wstring& buffer)
 {
     buffer = std::format(L"{} {}", kWindowName, kVersion);
     ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 
-const wchar_t* CategoryTitle(std::int32_t categoryIndex)
+static const wchar_t* CategoryTitle(std::int32_t categoryIndex)
 {
     if (categoryIndex < static_cast<std::int32_t>(kCategoryTitles.size())) {
         return kCategoryTitles[static_cast<std::size_t>(categoryIndex)];
@@ -254,7 +251,7 @@ const wchar_t* CategoryTitle(std::int32_t categoryIndex)
         - kCategoryTitles.size()];
 }
 
-void SetServerWindowTitle(
+static void SetServerWindowTitle(
     std::wstring& buffer,
     std::int32_t serverIndex,
     std::int32_t page,
@@ -279,7 +276,7 @@ void SetServerWindowTitle(
     ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 
-void CopyAccountHelpLines()
+static void CopyAccountHelpLines()
 {
     CopyText(cg::login::gValue9A620C[6], L"您可能遇到以下 3 种情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
     CopyText(cg::login::gValue9A620C[7], L"1.密码错误，请查明后重新输入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
@@ -287,7 +284,7 @@ void CopyAccountHelpLines()
     CopyText(cg::login::gValue9A620C[9], L"3.新会员系统中查无此帐号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
 }
 
-void DrawCategoryControls()
+static void DrawCategoryControls()
 {
     for (std::int32_t index = 0; index < 60; ++index) {
         if (cg::login::gValueD9F2D4[static_cast<std::size_t>(index)] > 0) {
@@ -304,7 +301,7 @@ void DrawCategoryControls()
     }
 }
 
-bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32_t slot)
+static bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32_t slot)
 {
     // LNW01：原0x00460B1D／0x00460BD7的负分类旁读退休；未选分类没有服务器项。
     // 原0x00D68B87／0x00D68C48是固定GBK区字节，不能索引动态UTF-16正文。
@@ -314,10 +311,6 @@ bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32
     const std::int32_t index = category * 20 + page * 10 + slot;
     return cg::login::gValueD69798[static_cast<std::size_t>(index)].available != 0;
 }
-
-} // namespace
-
-namespace cg::login {
 
 std::int32_t gValueD69794 = 0; // 原全局：0x00D69794。
 std::array<LoginServerRecord, 800> gValueD69798 {}; // 原全局：0x00D69798。

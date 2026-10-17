@@ -20,10 +20,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 三种拆分动作的固定载荷清理段；不含骑乘/1060，也不重取对象表。
-void ClearBattleRideAttachments(BattleActorPayload* const payload)
+static void ClearBattleRideAttachments(BattleActorPayload* const payload)
 {
     YobiAction* const reverseEffect = payload->effect105C;
     if (reverseEffect != nullptr) {
@@ -63,7 +61,7 @@ void ClearBattleRideAttachments(BattleActorPayload* const payload)
 }
 
 // 原恢复首位置的装备替换段；每次调用后重取表内对象及载荷。
-void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPayload* const carrier)
+static void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPayload* const carrier)
 {
     auto* payload = (*slot)->payload.battleActor;
     YobiAction* const gear = payload->gear13B4;
@@ -89,8 +87,6 @@ void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPaylo
         (*slot)->payload.battleActor->auxiliaryGear13B8[1] = nullptr;
     }
 }
-
-} // namespace
 
 // 原函数：0x00414050。
 void UpdateBattleAction224_414050(YobiAction* const action)

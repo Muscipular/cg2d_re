@@ -42,8 +42,6 @@ std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490�
 static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
-namespace {
-
 // 三类收信共用的140H消息；文件、回复与窗口借用同一存储。
 struct MailMessage {
     std::byte unread; // +00：未读标记，窗口可清零。
@@ -73,8 +71,8 @@ static_assert(sizeof(GuildMailEntry) == 0xC88);
 static_assert(alignof(GuildMailEntry) == 4);
 
 // 连续消息数组保留原跨联系人步进；UI只经既有视图借用。
-alignas(std::uint32_t) std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
-std::array<GuildMailEntry, 2 * 200> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
+static alignas(std::uint32_t) std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
+static std::array<GuildMailEntry, 2 * 200> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
 
 struct alignas(std::uint32_t) MiniMailRuntimeSlots {
     std::array<MiniMailContactRecord, 20> contacts;
@@ -96,8 +94,8 @@ static_assert(offsetof(MiniMailContactRecord, bytes53) == 0x53);
 static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
 static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
-MiniMailRuntimeSlots gMiniMailRuntime {};
-std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
+static MiniMailRuntimeSlots gMiniMailRuntime {};
+static std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
 
 static_assert(offsetof(ProfileEntry, value00) == 0);
 static_assert(offsetof(ProfileEntry, value04) == 4);
@@ -118,9 +116,9 @@ static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
 static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
 // 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
-std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
+static std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
 static_assert(sizeof(gProfiles1074938) == 0x1050);
-constexpr wchar_t kProfileDefault58F614[] = L"未设定"; // 原常量参考：0x0058F614。
+static constexpr wchar_t kProfileDefault58F614[] = L"未设定"; // 原常量参考：0x0058F614。
 static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
 static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
 static_assert(offsetof(ProfileSearchRecord, used) == 0);
@@ -162,27 +160,27 @@ static_assert(offsetof(CategoryRuntimeSlots, count0C) == 0x0C);
 static_assert(offsetof(CategoryRuntimeSlots, value10) == 0x10);
 static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
 static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
-CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
+static CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
-constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
+static constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
     L"提示！您收到来自 {} 的迷你邮件～";
 
-constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
-constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
-constexpr std::ptrdiff_t kGuildMailGroupBytes = 0x9CA40;
-constexpr std::ptrdiff_t kGuildMailEntryBytes = 0xC88;
-constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
+static constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
+static constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
+static constexpr std::ptrdiff_t kGuildMailGroupBytes = 0x9CA40;
+static constexpr std::ptrdiff_t kGuildMailEntryBytes = 0xC88;
+static constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
 
 static_assert(sizeof(gMailStorageF7CA08) == 2 * 60 * 10 * 0x140);
 static_assert(sizeof(gGuildMailStorageDE0B30) == 2 * 200 * 0xC88);
 
-MailMessageView MakeMailMessageView(MailMessage& message)
+static MailMessageView MakeMailMessageView(MailMessage& message)
 {
     return {&message.unread, &message.kind, message.name.data(), message.text.data()};
 }
 
 // 原函数：0x004EC030。
-std::int32_t CompareContactIndices_4EC030(
+static std::int32_t CompareContactIndices_4EC030(
     const std::int32_t* const left, const std::int32_t* const right)
 {
     const ContactRuntimeRecord& other = gContactsF19FB0[*right];
@@ -210,8 +208,6 @@ std::int32_t CompareContactIndices_4EC030(
     }
     return (current.value04 > other.value04) - (current.value04 < other.value04);
 }
-
-} // namespace
 
 const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index)
 {

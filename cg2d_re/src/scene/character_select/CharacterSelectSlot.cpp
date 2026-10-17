@@ -9,26 +9,24 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/world/SceneState.hpp"
 
-
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::character_select {
-namespace {
 
-constexpr std::size_t kUiCount = 7;
-constexpr std::int32_t kSlotWidth = 315;
-constexpr std::int32_t kSlotLeft = 10;
-constexpr std::int32_t kSlotTop = 51;
+static constexpr std::size_t kUiCount = 7;
+static constexpr std::int32_t kSlotWidth = 315;
+static constexpr std::int32_t kSlotLeft = 10;
+static constexpr std::int32_t kSlotTop = 51;
 
 struct SlotCoordinate {
     std::int32_t x;
     std::int32_t y;
 };
 
-constexpr std::array<detail::CharacterSelectUiRecord, kUiCount> kUiTemplates {{
+static constexpr std::array<detail::CharacterSelectUiRecord, kUiCount> kUiTemplates {{
     {{119, 270, 64, 16}, 245069, 245071, 245070},
     {{82, 270, 64, 16}, 245075, 245077, 245076},
     {{156, 270, 64, 16}, 245072, 245074, 245073},
@@ -38,7 +36,7 @@ constexpr std::array<detail::CharacterSelectUiRecord, kUiCount> kUiTemplates {{
     {{240, 154, 12, 16}, 245063, 245065, 245064},
 }};
 
-constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
+static constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
     {62, 48},
     {104, 88},
     {180, 109},
@@ -47,8 +45,6 @@ constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
     {153, 241},
     {53, 27},
 }};
-
-} // namespace
 
 // 原函数：0x00461B30。
 std::int32_t ProcessCharacterSlot_461B30(

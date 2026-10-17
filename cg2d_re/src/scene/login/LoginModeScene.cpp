@@ -27,13 +27,8 @@
 
 namespace cg::login {
 
-namespace {
-
 // 原 0x9A5FE0：本函数私有的 256 字节消息缓冲，映像初值为零。
-std::wstring gLoginModeMessage {};
-
-
-} // namespace
+static std::wstring gLoginModeMessage {};
 
 // 原函数：0x0045C5A0。
 void ProcessModeScene_45C5A0()

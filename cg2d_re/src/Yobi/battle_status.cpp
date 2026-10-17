@@ -20,22 +20,18 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 4113A0栈上立即数表；有效类型为1..4，按type-1索引，不伪造未写的第0行。
-constexpr std::array<std::int32_t, 4> kRebirthEnterSounds4116DE {425, 427, 429, 431};
+static constexpr std::array<std::int32_t, 4> kRebirthEnterSounds4116DE {425, 427, 429, 431};
 
-constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthEnterImages411708 {{
+static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthEnterImages411708 {{
     {110420, 110421}, {110432, 110433}, {110444, 110445}, {110456, 110457},
 }};
 
-constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthExitImages4118BF {{
+static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthExitImages4118BF {{
     {110423, 110424}, {110435, 110436}, {110447, 110448}, {110459, 110460},
 }};
 
-constexpr std::array<std::int32_t, 4> kRebirthExitSounds411901 {426, 428, 430, 432};
-
-} // namespace
+static constexpr std::array<std::int32_t, 4> kRebirthExitSounds411901 {426, 428, 430, 432};
 
 // BHRC01：完整FE4后低WORD门禁；角度持样加180/发布/单次减360，移动后播放。
 // 原函数：0x0040A9E0。
@@ -313,10 +309,8 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
     }
 }
 
-namespace {
-
 // 4107C0/410B00排除七处不同收尾后245条规范化指令相同；仅复用数值段。
-void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
+static void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & 0x60u) == 0) {
@@ -380,8 +374,6 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         break;
     }
 }
-
-} // namespace
 
 // 原函数：0x004107C0。
 void UpdateBattleAction159_4107C0(YobiAction* const action)

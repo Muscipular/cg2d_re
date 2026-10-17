@@ -95,15 +95,11 @@ static_assert(offsetof(YobiUIData, trailingZero0) == 0x22);
 
 static_assert(offsetof(YobiUIData, trailingZero1) == 0x23);
 
-namespace {
+static constexpr std::uint8_t kModalPriority = 3;
 
-constexpr std::uint8_t kModalPriority = 3;
+static constexpr std::uint8_t kModalDisplayPriority = 0xD4;
 
-constexpr std::uint8_t kModalDisplayPriority = 0xD4;
-
-constexpr std::uint8_t kModalLayer = 0xD4;
-
-} // namespace
+static constexpr std::uint8_t kModalLayer = 0xD4;
 
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
@@ -115,9 +111,7 @@ render::GraphicDescriptor16 ToGraphicDescriptor(
     };
 }
 
-namespace {
-
-void QueueNineGridPiece(
+static void QueueNineGridPiece(
     const std::int32_t baseImageNo,
     const std::int32_t imageOffset,
     const std::int32_t x,
@@ -137,7 +131,7 @@ void QueueNineGridPiece(
         &descriptor);
 }
 
-NineGridDescriptorFields MakeNineGridDescriptor(
+static NineGridDescriptorFields MakeNineGridDescriptor(
     const std::int32_t sourceX,
     const std::int32_t sourceY,
     const std::int32_t width,
@@ -157,7 +151,7 @@ NineGridDescriptorFields MakeNineGridDescriptor(
 }
 
 // 原函数：0x0049BE00。
-void DrawNineGridImpl_49BE00(
+static void DrawNineGridImpl_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x16,
     const std::int16_t y16,
@@ -413,13 +407,13 @@ void DrawNineGridImpl_49BE00(
     }
 }
 
-void AssignReady(YobiAction* const action)
+static void AssignReady(YobiAction* const action)
 {
     (action->readiness = 1);
 }
 
 // 原函数：0x005046D0。
-void UpdateModalAction_5046D0(YobiAction* const action)
+static void UpdateModalAction_5046D0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowUi;
 
@@ -516,8 +510,6 @@ void UpdateModalAction_5046D0(YobiAction* const action)
 
     AssignReady(action);
 }
-
-} // namespace
 
 // 原函数：0x004758D0。
 void Sub_4758D0(YobiAction* const action)
@@ -654,8 +646,6 @@ void Sub_4ACDF0(YobiAction* const action)
 
 } // namespace detail
 
-
-
 // 原函数：0x0049BE00。
 void DrawNineGrid_49BE00(
     const std::int32_t baseImageNo,
@@ -673,7 +663,6 @@ void DrawNineGrid_49BE00(
         baseImageNo, x, y, width, height, layer,
         borderColor, centerColor, tileWidth, tileHeight);
 }
-
 
 // 原函数：0x00475950。
 YobiAction* Sub_475950(
@@ -729,7 +718,6 @@ YobiAction* Sub_475950(
     }
     return action;
 }
-
 
 // QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
 YobiAction* Sub_48AC60(
@@ -798,7 +786,6 @@ YobiAction* Sub_48AC60(
     return action;
 }
 
-
 // SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
 YobiAction* Sub_4ABEF0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
@@ -855,7 +842,6 @@ YobiAction* Sub_4ABEF0(
     }
     return action;
 }
-
 
 // SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。
 YobiAction* Sub_4ACE80(
@@ -915,13 +901,11 @@ YobiAction* Sub_4ACE80(
     return action;
 }
 
-
 // 原 [0x49C5C0,0x49C5DB)：S16 宽度先减 48，再按有符号商加 2。
 std::int32_t Sub_49C5C0(const std::int16_t width)
 {
     return (static_cast<std::int32_t>(width) - 48) / 9 + 2;
 }
-
 
 // 原 [0x49C5E0,0x49C5FD)：非零标志扣 24，再扣 32 并用 idiv 求商。
 std::int32_t Sub_49C5E0(
@@ -933,7 +917,6 @@ std::int32_t Sub_49C5E0(
             - (marginFlag != 0 ? 24 : 0) - 32)
         / divisor;
 }
-
 
 // 原函数：0x005044E0。
 YobiAction* CreateModalAction_5044E0(

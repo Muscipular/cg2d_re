@@ -29,16 +29,12 @@
 
 namespace cg::login {
 
-namespace {
-
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。
-cg::yobi::YobiAction* gValue9A6E24 = nullptr;
+static cg::yobi::YobiAction* gValue9A6E24 = nullptr;
 
 // 原 0x9A4BA0 只有本函数的消息读取与固定文本写入，原容量未获证。
 // 新端只为同一文本的原字节及末尾 NUL 建立最窄唯一缓冲，不据此推定原总容量。
-std::wstring gValue9A4BA0 {};
-
-} // namespace
+static std::wstring gValue9A4BA0 {};
 
 // 原函数：0x0045C2D0。
 void ProcessOuterScene_45C2D0()

@@ -13,14 +13,10 @@
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
-namespace {
-
-constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-constexpr char kSuccessfulResult[] = "successful";
-
-} // namespace
-
 namespace cg::login {
+
+static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
+static constexpr char kSuccessfulResult[] = "successful";
 
 CharacterRecordArray gCharacterRecords {}; // 原全局：0x00FF03E0。
 std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。

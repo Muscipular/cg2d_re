@@ -6,8 +6,6 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 // 原CB10D8的52B值记录；实际六行存储由本文件私有持有。
 struct ItemUseStatusRecord {
     std::array<char, 20> name;
@@ -33,8 +31,6 @@ struct ItemUseTargetRecord {
     std::array<char, 17> name; // 原成员偏移：+0x02。
     std::byte byte13; // 原成员偏移：+0x13。
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

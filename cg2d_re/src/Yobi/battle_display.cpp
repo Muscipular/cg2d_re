@@ -39,10 +39,8 @@ static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) 
 
 std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 
-namespace {
-
 // 原54D4E8起十行：数字基图、加号、减号、冒号；41F1A0按style取行。
-constexpr std::array<std::array<std::int32_t, 4>, 10> kBattleNumberGraphics54D4E8 {{
+static constexpr std::array<std::array<std::int32_t, 4>, 10> kBattleNumberGraphics54D4E8 {{
     {0x3B7F4, 0x3B858, 0x3B859, 0x3B85A},
     {0x3B7FE, 0x3B862, 0x3B863, 0x3B864},
     {0x3B808, 0x3B86C, 0x3B86D, 0x3B86E},
@@ -55,15 +53,13 @@ constexpr std::array<std::array<std::int32_t, 4>, 10> kBattleNumberGraphics54D4E
     {0x3B84E, 0x3B8B2, 0x3B8B3, 0x3B8B4}}};
 
 // 420100只消费这两段40B，不冻结相邻未消费的原表布局。
-constexpr std::array<std::int32_t, 10> kBattleSequenceOffsets553BF4 { // 原常量参考：0x00553BF4。
+static constexpr std::array<std::int32_t, 10> kBattleSequenceOffsets553BF4 { // 原常量参考：0x00553BF4。
     0, 34, 54, 66, 88, 108, 131, 152, 171, 0,
 };
 
-constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C { // 原常量参考：0x00553C1C。
+static constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C { // 原常量参考：0x00553C1C。
     0, 8, 7, 6, 5, 4, 3, 2, 1, 9,
 };
-
-} // namespace
 
 // 原函数：0x00421750。
 void UpdateBattleText_421750(YobiAction* const action)

@@ -22,34 +22,27 @@
 #include <cstdint>
 #include <cstring>
 
-namespace {
+namespace cg::world {
 
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
-std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
-std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
-std::int32_t gValue9A4B7C = 0; // 原全局：0x009A4B7C。
-std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
-std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
+static std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
+static std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
+static std::int32_t gValue9A4B7C = 0; // 原全局：0x009A4B7C。
+static std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
+static std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
 
-
-std::int32_t DrawCapability4Base()
+static std::int32_t DrawCapability4Base()
 {
     return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 99657, 0, -1));
 }
 
-std::int32_t ProcessCapability4CommonTail()
+static std::int32_t ProcessCapability4CommonTail()
 {
     static_cast<void>(DrawCapability4Base());
     static_cast<void>(
         cg::render::Sub_45F090(69, 350, 206, 246680, 0, -1));
     return cg::login::ProcessCapability4SavedSlotSelector_465430();
 }
-
-} // namespace
-
-
-
-namespace cg::world {
 
 // 原函数：0x00464840。
 std::int32_t Sub_464840()

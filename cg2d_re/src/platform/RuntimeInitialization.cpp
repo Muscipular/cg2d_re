@@ -30,14 +30,10 @@ namespace cg::platform {
 std::uint64_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
 std::uint64_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
-namespace {
-
 // 原CRT553004..553010：两值直接构造后接三个防护值，保持五次RNG序。
 // 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
-LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
-LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
-
-} // namespace
+static LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
+static LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
 
 // 原0x00404120／0x00404130／0x00404150：原中央位置直接构造，MSVC承接逆序析构。
 LegacyCryptInt gProtectionChecksum1{}; // 原全局：0x00594070。
@@ -60,7 +56,6 @@ std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects{}; // 原全�
 } // namespace cg::world::detail
 
 namespace cg::platform {
-namespace {
 
 // AIS01原553018/55301C：世界表后、宿主窄宽流配置前，同一TU有序初始化。
 struct SurfaceTransformCacheStartup final {
@@ -73,11 +68,11 @@ struct SurfaceTransformCacheStartup final {
 };
 
 static_assert(std::is_trivially_destructible_v<SurfaceTransformCacheStartup>);
-SurfaceTransformCacheStartup gSurfaceTransformCacheStartup;
+static SurfaceTransformCacheStartup gSurfaceTransformCacheStartup;
 
 // 原5495EE不创建sentry；直接同步缓冲，避免现代flush额外刷新tie。
 template <typename Character>
-void FlushLegacyStandardStream(std::basic_ostream<Character>& stream)
+static void FlushLegacyStandardStream(std::basic_ostream<Character>& stream)
 {
     if (!stream.fail() && stream.rdbuf()->pubsync() == -1) {
         stream.setstate(std::ios_base::badbit);
@@ -104,7 +99,7 @@ struct NarrowStandardStreamsStaticInitializer {
     }
 };
 
-const NarrowStandardStreamsStaticInitializer gNarrowStandardStreamsStaticInitializer;
+static const NarrowStandardStreamsStaticInitializer gNarrowStandardStreamsStaticInitializer;
 
 struct WideStandardStreamsStaticInitializer {
     WideStandardStreamsStaticInitializer()
@@ -125,30 +120,30 @@ struct WideStandardStreamsStaticInitializer {
     }
 };
 
-const WideStandardStreamsStaticInitializer gWideStandardStreamsStaticInitializer;
+static const WideStandardStreamsStaticInitializer gWideStandardStreamsStaticInitializer;
 
 // 原五个CRT入口共用的W8标记；保留其他位，不为各包装另建状态。
-std::uint8_t gLegacyPrimaryExitGuard1086760 = 0; // 原全局：0x01086760。
-std::uint8_t gLegacySecondaryExitGuard1087AFC = 0; // 原全局：0x01087AFC。
+static std::uint8_t gLegacyPrimaryExitGuard1086760 = 0; // 原全局：0x01086760。
+static std::uint8_t gLegacySecondaryExitGuard1087AFC = 0; // 原全局：0x01087AFC。
 
 // 原536960、54843B各只有RET；这两个回调确实不执行清理业务。
-void EmptyLegacyExit_536960()
+static void EmptyLegacyExit_536960()
 {
 }
 
 // 原函数：0x0054843B。
-void EmptyLegacyExit_54843B()
+static void EmptyLegacyExit_54843B()
 {
 }
 
 // 原5491BE/549F4A/54A662/54A9AB：各次均真实登记并返回结果。
-std::int32_t RegisterLegacyPrimaryEmptyExit()
+static std::int32_t RegisterLegacyPrimaryEmptyExit()
 {
     return std::atexit(EmptyLegacyExit_536960);
 }
 
 // 原函数：0x00454C00。
-std::int32_t InitializeLegacyEmptyExit_454C00()
+static std::int32_t InitializeLegacyEmptyExit_454C00()
 {
     if ((gLegacyPrimaryExitGuard1086760 & 1u) == 0) {
         gLegacyPrimaryExitGuard1086760 |= 1u;
@@ -157,7 +152,7 @@ std::int32_t InitializeLegacyEmptyExit_454C00()
 }
 
 // 原549194/549F20/54A638/54A981：第一次登记失败也继续第二次，不回滚标记。
-std::int32_t RegisterLegacyEmptyExitPair()
+static std::int32_t RegisterLegacyEmptyExitPair()
 {
     if ((gLegacyPrimaryExitGuard1086760 & 1u) == 0) {
         gLegacyPrimaryExitGuard1086760 |= 1u;
@@ -177,12 +172,9 @@ struct LegacyPrimaryEmptyExitStaticInitializer {
     }
 };
 
-const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticInitializer;
+static const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticInitializer;
 
-} // namespace
 } // namespace cg::platform
-
-
 
 namespace cg::world {
 
@@ -191,10 +183,7 @@ platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
 
 } // namespace cg::world
 
-
-
 namespace cg::platform {
-namespace {
 
 // AIS01原553058/55305C：场景值后、动画共享值前；各项仍即时登记。
 struct GraphicInfoContainersStartup final {
@@ -207,7 +196,7 @@ struct GraphicInfoContainersStartup final {
 };
 
 static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
-GraphicInfoContainersStartup gGraphicInfoContainersStartup;
+static GraphicInfoContainersStartup gGraphicInfoContainersStartup;
 
 // 原CRT553060；前两Graphic容器已由AIS01原序调用，不重复构造。
 struct AnimationSharedValueStaticInitializer {
@@ -217,12 +206,9 @@ struct AnimationSharedValueStaticInitializer {
     }
 };
 
-const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
+static const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
 
-} // namespace
 } // namespace cg::platform
-
-
 
 namespace cg::world {
 
@@ -269,10 +255,7 @@ platform::LegacyCryptInt gRippleGate{}; // 原全局：0x009A7FA8。
 
 } // namespace cg::world
 
-
-
 namespace cg::platform {
-namespace {
 
 // 原CRT 553098紧接553094 Ripple；不增加RNG调用或析构步骤。
 struct WindowNumberSpacingStaticInitializer {
@@ -282,28 +265,24 @@ struct WindowNumberSpacingStaticInitializer {
     }
 };
 
-const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInitializer;
+static const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInitializer;
 
 // 原55309C/5530A0相邻，两对象各十CryptInt；各自构造／析构。
 // 原函数：0x004883F0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::ui::FirstItemSelectorStartup gFirstItemSelectorStartup;
+static const cg::ui::FirstItemSelectorStartup gFirstItemSelectorStartup;
 
 // 原函数：0x004998F0；同一中央位置构造，MSVC按完成逆序析构。
-const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
+static const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
 
 // 原CRT 5530A4；浏览宠物拥有者接管构析，不与玩家宠物共享。
 // 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。
-const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
-
-} // namespace
+static const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
 
 // 原CRT5530F8，原0x00506340／0x00506350／0x00506370：同一中央位置直接定义。
 // 原0x00506460／0x00506530／0x00506380：X→Y→八坐标构造，退出成员逆序。
 LegacyMouseState gLegacyMouseState{}; // 原全局：0x00D68CF8。
 
 } // namespace cg::platform
-
-
 
 namespace cg::world {
 
@@ -317,10 +296,7 @@ std::array<PetRuntimeRecord, 5> gPetRuntimeRecords{}; // 原全局：0x00F633F8�
 
 } // namespace cg::world
 
-
-
 namespace cg::platform {
-namespace {
 
 // AIS01原553104/553108：主/宠物后，旧键盘排除项前，不混入待接标准流。
 struct IndependentPaletteContainersStartup final {
@@ -333,7 +309,7 @@ struct IndependentPaletteContainersStartup final {
 };
 
 static_assert(std::is_trivially_destructible_v<IndependentPaletteContainersStartup>);
-IndependentPaletteContainersStartup gIndependentPaletteContainersStartup;
+static IndependentPaletteContainersStartup gIndependentPaletteContainersStartup;
 
 // 原后段CRT553130/553158/553160/553164；各自保留两次登记，按原相对顺序执行。
 struct LegacyPairedEmptyExitStaticInitializer {
@@ -343,13 +319,13 @@ struct LegacyPairedEmptyExitStaticInitializer {
     }
 };
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130; // 原全局：0x00553130。
+static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130; // 原全局：0x00553130。
 
 // SLN01原553134：独立完整SDK Init对象持有窄流生命周期。
 // 自动析构由SDK承接；不另登记旧5491F6或改Legacy计数/登记表。
-std::ios_base::Init gSdkNarrowLateInit553134;
+static std::ios_base::Init gSdkNarrowLateInit553134;
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158; // 原全局：0x00553158。
+static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158; // 原全局：0x00553158。
 
 // SCL01原55315C：晚段经典对象职责由宿主完整locale持有并清理。
 // 不另登记旧54A3FA，也不将SDK对象写入Legacy三槽。
@@ -361,11 +337,9 @@ struct SdkClassicLocaleStaticInitializer final {
 };
 static_assert(std::is_trivially_destructible_v<SdkClassicLocaleStaticInitializer>);
 
-const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C; // 原全局：0x0055315C。
+static const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C; // 原全局：0x0055315C。
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160; // 原全局：0x00553160。
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164; // 原全局：0x00553164。
-
-} // namespace
+static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160; // 原全局：0x00553160。
+static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164; // 原全局：0x00553164。
 
 } // namespace cg::platform

@@ -5,7 +5,6 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
-
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
@@ -65,7 +64,6 @@ static_assert(alignof(__time64_t) == alignof(std::int64_t));
 namespace cg::network {
 namespace detail {
 
-
 // 原50E680只取socket后的type/repeats；第三已解析字段不被原本体读取。
 void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::int32_t)
 {
@@ -73,23 +71,20 @@ void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::in
     else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
 }
 
-
 } // namespace detail
 
-namespace {
-
 // N02：参考块输出、整帧输出与解压正文累积容量。
-constexpr std::int32_t kLz4BlockSize = 0x4000;
-constexpr std::size_t kLz4FrameDecodedCapacity = 0x8100;
-constexpr std::size_t kDecodedQueueCapacity = 0x80000;
-constexpr std::uint8_t kLz4FrameMarker = 0xEF;
-constexpr std::size_t kWorkspaceSlotCount = 18;
-constexpr std::size_t kReceiveQueueOffset = 0xC004;
-constexpr std::size_t kQueueCapacity = 0x4000;
-constexpr std::size_t kSendLengthOffset = kReceiveQueueOffset + kQueueCapacity;
-constexpr std::size_t kQueueStorageSize = kSendLengthOffset + sizeof(std::int32_t);
-constexpr std::size_t kDispatchOffset = 0x4000;
-constexpr std::size_t kDispatchSize = 0x8000;
+static constexpr std::int32_t kLz4BlockSize = 0x4000;
+static constexpr std::size_t kLz4FrameDecodedCapacity = 0x8100;
+static constexpr std::size_t kDecodedQueueCapacity = 0x80000;
+static constexpr std::uint8_t kLz4FrameMarker = 0xEF;
+static constexpr std::size_t kWorkspaceSlotCount = 18;
+static constexpr std::size_t kReceiveQueueOffset = 0xC004;
+static constexpr std::size_t kQueueCapacity = 0x4000;
+static constexpr std::size_t kSendLengthOffset = kReceiveQueueOffset + kQueueCapacity;
+static constexpr std::size_t kQueueStorageSize = kSendLengthOffset + sizeof(std::int32_t);
+static constexpr std::size_t kDispatchOffset = 0x4000;
+static constexpr std::size_t kDispatchSize = 0x8000;
 static_assert(kReceiveQueueOffset == 0xD9B2BC - 0xD8F2B8);
 static_assert(kSendLengthOffset == 0xD9F2BC - 0xD8F2B8);
 static_assert(kQueueStorageSize == 0x10008);
@@ -100,7 +95,7 @@ using SendProtocolObserver = void (*)(
     std::uint32_t direction,
     char* buffer);
 
-std::int32_t DefaultNetworkCallback(
+static std::int32_t DefaultNetworkCallback(
     std::uintptr_t,
     const void*,
     std::uint32_t)
@@ -158,7 +153,7 @@ struct NetworkRuntimeState {
     CompressedReceiveState compressedReceive; // N02：会话数据随初始化／关闭重置。
 };
 
-NetworkRuntimeState gNetworkRuntimeState {};
+static NetworkRuntimeState gNetworkRuntimeState {};
 
 struct ProtocolOutputAccess {
     char* data() const noexcept
@@ -170,7 +165,7 @@ struct ProtocolOutputAccess {
 
 // 现有cgmsv明文合同：原命令/字段和LF原样入唯一发送队列，不包密文帧。
 // 关联原入口：0x004589A0／0x004589B0／0x004589C0，内联承接窗口报告采样与清零。
-std::int32_t QueuePlaintextProtocolBytes(
+static std::int32_t QueuePlaintextProtocolBytes(
     const std::uintptr_t,
     const void* const data,
     const std::uint32_t size)
@@ -353,8 +348,6 @@ static std::int32_t ReceiveProtocolLine(
         static_cast<void>(ConsumeReceiveQueue_508230(static_cast<std::int32_t>(count)));
     }
 }
-
-} // namespace
 
 std::int32_t SendLuaPacket(const char* data, const std::uint32_t length)
 {
@@ -856,10 +849,8 @@ void Sub_510490(const std::uintptr_t, const char* const text)
 
 } // namespace detail
 
-namespace {
-
 // 原函数：0x00508800。
-void HandleResponse_508800(
+static void HandleResponse_508800(
     const std::uintptr_t,
     const std::int32_t value,
     const char* const text)
@@ -901,7 +892,7 @@ void HandleResponse_508800(
 }
 
 // 原函数：0x00517510。
-std::int32_t BuildProtocolCommand_517510(
+static std::int32_t BuildProtocolCommand_517510(
     char* const buffer,
     const char* const command)
 {
@@ -909,8 +900,6 @@ std::int32_t BuildProtocolCommand_517510(
     static_cast<void>(std::sprintf(buffer, "%s ", command));
     return 0;
 }
-
-} // namespace
 
 // 原函数：0x00516DA0。
 std::int32_t AllocateProtocolBuffers_516DA0(
@@ -4033,11 +4022,9 @@ std::int32_t Sub_512720(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer));
 }
 
-namespace {
-
 // 512E40每项独立读取参数表；文本先反转义再复制到同编号工作区。
 template <typename Value>
-Value DecodeDispatchArgument(
+static Value DecodeDispatchArgument(
     const std::size_t index, const bool workspaceBeforeCapacity)
 {
     static_assert(std::is_same_v<Value, std::int32_t> || std::is_same_v<Value, char*>);
@@ -4062,7 +4049,7 @@ Value DecodeDispatchArgument(
 }
 
 template <typename... Values, std::size_t... Indices>
-std::tuple<Values...> DecodeDispatchArguments(
+static std::tuple<Values...> DecodeDispatchArguments(
     std::index_sequence<Indices...>, const std::uint32_t workspaceBeforeCapacityMask)
 {
     // bit N对应原第N参数读序；见doc/cg2d_dispatch_account_field_read_spec.md。
@@ -4075,7 +4062,7 @@ std::tuple<Values...> DecodeDispatchArguments(
 }
 
 template <auto Callback, typename... Values>
-bool TryDispatchReply(
+static bool TryDispatchReply(
     const char* const head, const char* const command, const std::uintptr_t socket,
     const std::uint32_t workspaceBeforeCapacityMask = 0U)
 {
@@ -4113,12 +4100,10 @@ bool TryDispatchReply(
 // 原509080不读取参数；六个调用形态仍先完成各自的全部解码。
 template <typename... Values>
 // 原函数：0x00509080。
-void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
+static void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
 {
     cg::core::NullSub_509080();
 }
-
-} // namespace
 
 namespace detail {
 

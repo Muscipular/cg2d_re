@@ -33,10 +33,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 原57E174的57条三S32记录及全零哨兵；动作85只消费前两列。
-constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57E174 {{
+static constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57E174 {{
     {40779, 104201, 99510},
     {40780, 104202, 99511},
     {40781, 104203, 99512},
@@ -100,9 +98,7 @@ constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57
 static_assert(sizeof(kBattleNamedEffectImages57E174) == 696);
 
 // 原54D4C0起物理16B；末零不用于索引回退，逻辑有效项数不据此扩充。
-constexpr std::array<std::int32_t, 4> kBattleStatusImages54D4C0 {103018, 103022, 103020, 0};
-
-} // namespace
+static constexpr std::array<std::int32_t, 4> kBattleStatusImages54D4C0 {103018, 103022, 103020, 0};
 
 // BWT01：固定一次目标索引/point，先Y后X，两原22项S32只读表保持。
 // 原函数：0x0040BD60。
@@ -3475,10 +3471,8 @@ void UpdateBattleAction218_413550(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
-namespace {
-
 // 413750/413980相同的恢复阶段；true仅表示本帧完成，两个动作的完成尾仍各自执行。
-bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const payload)
+static bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const payload)
 {
     if (payload->effect1060 == nullptr) {
         YobiAction* const copy = CloneBattleAction_41EAB0(action);
@@ -3535,8 +3529,6 @@ bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const 
     }
     return true;
 }
-
-} // namespace
 
 // 原函数：0x00413750。
 void UpdateBattleAction219_413750(YobiAction* const action)

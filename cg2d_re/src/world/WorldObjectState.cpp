@@ -17,8 +17,6 @@ std::int32_t gWorldObjectFreeCursor = 0; // 原全局：0x005AC49C。
 std::int32_t gWorldObjectUsedCount = 0; // 原全局：0x005AC4B4。
 std::int32_t gWorldObjectUpperBound = 0; // 原全局：0x005F9738。
 
-namespace {
-
 // 原[5ABFE0,5AC490)三列数值缓存，与后方World对象表独立。
 struct MapActorDrawKey {
     std::int32_t graphicIndex;
@@ -26,12 +24,10 @@ struct MapActorDrawKey {
     std::int32_t mapY;
 };
 
-std::array<MapActorDrawKey, 100> gMapActorDrawKeys {};
-std::int32_t gMapActorDrawKeyCount = 0; // 原5AC494。
+static std::array<MapActorDrawKey, 100> gMapActorDrawKeys {};
+static std::int32_t gMapActorDrawKeyCount = 0; // 原5AC494。
 static_assert(sizeof(MapActorDrawKey) == 12);
 static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
-
-} // namespace
 
 // WBR01：只清占用槽action/value34，无释放/标死；两个父的三个调用点先YobiClearUp。
 // 原函数：0x00446610。
@@ -215,7 +211,6 @@ std::int32_t Sub_446900(
     return 0;
 }
 
-
 // WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
 // 原函数：0x004462B0。
 cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
@@ -223,7 +218,6 @@ cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
     const std::int32_t index = detail::Sub_444FA0(objectIndex);
     return index < 0 ? nullptr : detail::gWorldObjects[index].action;
 }
-
 
 // WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
 // 原函数：0x00445A60。
@@ -284,7 +278,6 @@ std::int32_t Sub_445A60(
     record.flags114 = detail::Sub_4461E0(type);
     return 1;
 }
-
 
 // WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
 // 原函数：0x004462E0。

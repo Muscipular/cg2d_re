@@ -25,10 +25,8 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
 // 原2006/2010/2011/2012/2013/2015/2014/2027有效档1..5；各行原地址见共享战斗明细。
-constexpr std::array<std::array<std::int32_t, 5>, 8> kBattleMStatusBandImages {{
+static constexpr std::array<std::array<std::int32_t, 5>, 8> kBattleMStatusBandImages {{
     {111063, 111064, 111065, 111066, 111067},
     {111078, 111079, 111080, 111081, 111082},
     {111088, 111089, 111090, 111091, 111092},
@@ -40,7 +38,7 @@ constexpr std::array<std::array<std::int32_t, 5>, 8> kBattleMStatusBandImages {{
 }};
 
 // 原54D738..54D864，按真实等级直接索引，重复图号不取消列。
-constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738 {{ // 原常量参考：0x0054D738。
+static constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738 {{ // 原常量参考：0x0054D738。
     {111167, 111167, 111167, 111167, 111167},
     {111168, 111168, 111168, 111168, 111168},
     {111169, 111169, 111169, 111169, 111169},
@@ -59,7 +57,7 @@ constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738
 }};
 
 // 原54D864..54D93C，前三行2050..2052，后十五行3002..3016。
-constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864 {{ // 原常量参考：0x0054D864。
+static constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864 {{ // 原常量参考：0x0054D864。
     {111153, 111154, 111155},
     {111156, 111157, 111158},
     {111159, 111160, 111161},
@@ -82,8 +80,6 @@ constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864
 
 static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D738)
     + sizeof(kBattleMStatusImages54D864) == 676);
-
-} // namespace
 
 // 原432ECE..4340FE通用状态生产；不同成功门禁、替换动作和动态技能路径分别保留。
 [[maybe_unused]] void ProcessBattleMSkill32Family(
@@ -376,12 +372,8 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
     ++payload->packetSubState58;
 }
 
-namespace {
-
 // 原5A4A30仅本生产段六处读写；入口覆盖，不属于场景13项恢复/回存。
-std::int32_t gBattleMHalfValue5A4A30 = 0;
-
-} // namespace
+static std::int32_t gBattleMHalfValue5A4A30 = 0;
 
 // 原43412E/434130..434EDF；常规入口传entryValue=0，3037保留原EDI=1。
 [[maybe_unused]] void ProcessBattleMSkill19Family(

@@ -24,41 +24,37 @@
 
 namespace cg::login {
 
-namespace {
-
-constexpr LoginSceneControl32 kLowFirstControl {
+static constexpr LoginSceneControl32 kLowFirstControl {
     338, 390, 288, 364, 100, 52, 0, 22003,
 };
-constexpr LoginSceneControl32 kLowSecondControl {
+static constexpr LoginSceneControl32 kLowSecondControl {
     506, 390, 456, 364, 100, 52, 0, 22004,
 };
-constexpr LoginSceneControl32 kHighFirstControl {
+static constexpr LoginSceneControl32 kHighFirstControl {
     320, 240, 71, 376, 90, 50, 0, 22238,
 };
-constexpr LoginSceneControl32 kHighSecondControl {
+static constexpr LoginSceneControl32 kHighSecondControl {
     320, 240, 195, 376, 90, 50, 0, 22239,
 };
 
-constexpr std::array<std::int32_t, 4> kBackgroundImages {
+static constexpr std::array<std::int32_t, 4> kBackgroundImages {
     22002, 22212, 22311, 22311,
 };
-constexpr wchar_t kVersion[] = L"7.1.00";
+static constexpr wchar_t kVersion[] = L"7.1.00";
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
 using Capability4InputButton32 = cg::ui::UiControlRecord;
 
-constexpr Capability4InputButton32 kCapability4LoginButton {
+static constexpr Capability4InputButton32 kCapability4LoginButton {
     {240, 421, 64, 16}, 243048, 243050, 243049,
 };
-constexpr Capability4InputButton32 kCapability4ExitButton {
+static constexpr Capability4InputButton32 kCapability4ExitButton {
     {332, 421, 64, 16}, 245153, 245155, 245154,
 };
 
 // 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
-std::int32_t gFocus55A048 = 1; // 原全局：0x0055A048。
-std::int32_t gPending9A6E28 = 0; // 原全局：0x009A6E28。
-
-} // namespace
+static std::int32_t gFocus55A048 = 1; // 原全局：0x0055A048。
+static std::int32_t gPending9A6E28 = 0; // 原全局：0x009A6E28。
 
 // 原函数：0x00464E30。
 std::int32_t ProcessCapability4Input_464E30()

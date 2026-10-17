@@ -141,28 +141,20 @@ YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
     return *this;
 }
 
-
-
 std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
 
 std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
 
 namespace detail {
 
-namespace {
-
-constexpr std::uint32_t kFourPhaseFlag = 0x00040000U;
-
-} // namespace
+static constexpr std::uint32_t kFourPhaseFlag = 0x00040000U;
 
 YobiAction* gYobiActionStart = nullptr; // 原全局：0x0059E56C。
 
 YobiAction* gYobiActionEnd = nullptr; // 原全局：0x0059E568。
 
-namespace {
-
 // 原函数：0x00404D10。
-void DeleteYobiActionStorage(YobiAction* const action)
+static void DeleteYobiActionStorage(YobiAction* const action)
 {
     // 按有效成员转回分配地址，不能借raw读取其它活动指针成员。
     void* payload = nullptr;
@@ -189,24 +181,20 @@ void DeleteYobiActionStorage(YobiAction* const action)
     std::free(action);
 }
 
-void DeleteYobiAction_404D10(YobiAction* const action)
+static void DeleteYobiAction_404D10(YobiAction* const action)
 {
     // E10：先移除运行节点的观察指针，原生释放后再退休节点和回调引用。
     FreeLuaSkillEffectAction(action, DeleteYobiActionStorage);
 }
 
-bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
+static bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 {
     return (action->flags & kFourPhaseFlag) != 0
         && gYobiUpdateGateMode == 1
         && gYobiUpdatePhaseCounter != 0;
 }
 
-} // namespace
-
 } // namespace detail
-
-
 
 // 原函数：0x00404A40。
 YobiAction* Sub_404A40()
@@ -238,7 +226,6 @@ YobiAction* Sub_404A40()
     detail::gYobiActionEnd->graphicIndex = -1;
     return result;
 }
-
 
 // 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
@@ -323,7 +310,6 @@ YobiAction* NewYobiAction_404AE0(
     return action;
 }
 
-
 // 原函数：0x00404C50。
 std::int32_t YobiUpdateAll_404C50()
 {
@@ -363,7 +349,6 @@ std::int32_t YobiUpdateAll_404C50()
     return result;
 }
 
-
 // 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
@@ -374,12 +359,10 @@ YobiAction* MarkDeath(YobiAction* const action)
     return action;
 }
 
-
 void MarkDeathUnchecked(YobiAction* const action)
 {
     action->deathFlag = 1;
 }
-
 
 // 原函数：0x00404D30。
 void YobiClearUp_404D30()
@@ -392,7 +375,6 @@ void YobiClearUp_404D30()
     }
 }
 
-
 // 原函数：0x00404D60。
 void Sub_404D60()
 {
@@ -404,14 +386,12 @@ void Sub_404D60()
     std::free(detail::gYobiActionEnd);
 }
 
-
 bool IsYobiActionReady(
     YobiAction* const action,
     const std::int32_t threshold)
 {
     return (action->readiness >= threshold);
 }
-
 
 bool IsYobiActionStateEqual(
     YobiAction* const action,
@@ -420,7 +400,6 @@ bool IsYobiActionStateEqual(
     return (action->readiness == expected);
 }
 
-
 bool IsYobiActionStateLessOrEqual(
     YobiAction* const action,
     const std::int32_t maximum)
@@ -428,12 +407,10 @@ bool IsYobiActionStateLessOrEqual(
     return (action->readiness <= maximum);
 }
 
-
 bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
 {
     return (action->barValue1B0 < cost);
 }
-
 
 // 原401F80：cost在左、action FP为右值；右对象只读一次，保留计数/RNG消费。
 bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const action)
@@ -441,78 +418,65 @@ bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const ac
     return (cost > action->barValue1B0);
 }
 
-
 bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
 {
     return (action->barValue1B0 >= cost);
 }
-
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 {
     return action->barValue1B0.value();
 }
 
-
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
     return action->barMaximum1C0.value();
 }
-
 
 std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
 {
     return action->readiness.value();
 }
 
-
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
 {
     return action->maxHp.value();
 }
-
 
 float GetYobiActionScaleX(const YobiAction* const action) noexcept
 {
     return action->scaleX;
 }
 
-
 std::int32_t GetYobiActionField2DC(const YobiAction* const action) noexcept
 {
     return std::bit_cast<std::int32_t>(action->completedLoops);
 }
-
 
 float GetYobiActionScaleY(const YobiAction* const action) noexcept
 {
     return action->scaleY;
 }
 
-
 std::int32_t ReadYobiGraphicOffsetX(const YobiAction* const action) noexcept
 {
     return action->graphicOffsetX;
 }
-
 
 std::int32_t ReadYobiGraphicOffsetY(const YobiAction* const action) noexcept
 {
     return action->graphicOffsetY;
 }
 
-
 std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 {
     return action->flags;
 }
 
-
 void ClearYobiActionCallback(YobiAction* const action)
 {
     action->callback = nullptr;
 }
-
 
 const render::GraphicDescriptor16* GetYobiActionDrawMode(
     const YobiAction* const action) noexcept
@@ -520,54 +484,45 @@ const render::GraphicDescriptor16* GetYobiActionDrawMode(
     return &action->drawMode;
 }
 
-
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;
 }
-
 
 void AddYobiActionDrawFlags(YobiAction* const action, const std::uint8_t flags) noexcept
 {
     action->drawMode.mixFlags |= flags;
 }
 
-
 std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
 {
     return action->field2E4;
 }
-
 
 const char* GetYobiName(const YobiAction* const action) noexcept
 {
     return action->nameC4.data();
 }
 
-
 const char* GetYobiTitle(const YobiAction* const action) noexcept
 {
     return action->titleE1.data();
 }
-
 
 std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* const action) noexcept
 {
     return reinterpret_cast<const std::uint8_t*>(&action->flags)[0];
 }
 
-
 std::int32_t GetYobiActionCacheIndex(const YobiAction* const action) noexcept
 {
     return action->cacheIndex;
 }
 
-
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;
 }
-
 
 void SetYobiActionField2A8(
     YobiAction* const action,
@@ -576,7 +531,6 @@ void SetYobiActionField2A8(
     action->imageNo = value;
 }
 
-
 void SetYobiActionField2B0(
     YobiAction* const action,
     const std::int32_t value)
@@ -584,12 +538,10 @@ void SetYobiActionField2B0(
     action->characterAction = value;
 }
 
-
 std::int32_t GetYobiActionField2B0(const YobiAction* const action) noexcept
 {
     return action->characterAction;
 }
-
 
 void SetYobiActionField15(
     YobiAction* const action,
@@ -598,18 +550,15 @@ void SetYobiActionField15(
     action->displayPriority = value;
 }
 
-
 std::uint8_t GetYobiActionField15(const YobiAction* const action) noexcept
 {
     return action->displayPriority;
 }
 
-
 std::int32_t GetYobiActionField30(YobiAction* const action)
 {
     return action->x;
 }
-
 
 void SetYobiActionField30(
     YobiAction* const action,
@@ -618,12 +567,10 @@ void SetYobiActionField30(
     action->x = value;
 }
 
-
 std::int32_t GetYobiActionField34(YobiAction* const action)
 {
     return action->y;
 }
-
 
 void SetYobiActionField34(
     YobiAction* const action,
@@ -632,7 +579,6 @@ void SetYobiActionField34(
     action->y = value;
 }
 
-
 void SetYobiActionField2B8(
     YobiAction* const action,
     const std::int32_t value)
@@ -640,18 +586,15 @@ void SetYobiActionField2B8(
     action->direction = value;
 }
 
-
 std::int32_t GetYobiActionField2B8(const YobiAction* const action) noexcept
 {
     return action->direction;
 }
 
-
 std::uint8_t ReadYobiBatchType(const YobiAction* const action) noexcept
 {
     return action->batchType;
 }
-
 
 void SetYobiActionField308(
     YobiAction* const action,
@@ -660,18 +603,15 @@ void SetYobiActionField308(
     action->batchType = value;
 }
 
-
 void SetYobiActionField309(YobiAction* const action, const std::uint8_t value)
 {
     action->rebirthValue1 = value;
 }
 
-
 void SetYobiActionField310(YobiAction* const action, const std::uint8_t value)
 {
     action->rebirthValue2 = value;
 }
-
 
 void SetYobiActionField30C(
     YobiAction* const action,
@@ -680,13 +620,11 @@ void SetYobiActionField30C(
     action->color2 = value;
 }
 
-
 std::uint8_t GetYobiActionField30F(YobiAction* const action)
 {
     const std::uint32_t bits = std::bit_cast<std::uint32_t>(action->color2);
     return static_cast<std::uint8_t>(bits >> 24U);
 }
-
 
 void SetYobiActionField30F(
     YobiAction* const action,

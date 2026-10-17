@@ -9,9 +9,7 @@
 
 namespace cg::world::blacklist {
 
-namespace {
-
-bool EqualPairedBytes(
+static bool EqualPairedBytes(
     const volatile std::uint8_t* left,
     const volatile std::uint8_t* right)
 {
@@ -39,7 +37,7 @@ bool EqualPairedBytes(
 }
 
 // 原函数：0x004011A0。
-std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
+static std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
     PathBuffer localPath {};
     std::sprintf(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
@@ -61,8 +59,6 @@ std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
     std::fclose(file);
     return std::int8_t {1};
 }
-
-} // namespace
 
 RecordTable gRecords {}; // 原全局：0x00592FA8。
 PathBuffer gPath {}; // 原全局：0x0059364C。

@@ -10,23 +10,20 @@
 #include <cstring>
 
 namespace cg::character_select {
-namespace {
 
 // 原 0x55ABE8：正文 10 字节，含隐式 NUL 共 11 字节。
-constexpr wchar_t kCharacterDeletionProgressText[] =
+static constexpr wchar_t kCharacterDeletionProgressText[] =
     L"角色删除中";
-constexpr std::int32_t kColumnWidth = 64;
-constexpr std::int32_t kRowHeight = 48;
+static constexpr std::int32_t kColumnWidth = 64;
+static constexpr std::int32_t kRowHeight = 48;
 
 // 下列原存储的全部引用都只在 sub_45DBF0/sub_45DC00 内。
-std::uint16_t gCharacterDeletionProgressStage = 0; // 原 0x9A6E54，R/W16。
-cg::yobi::YobiAction* gCharacterDeletionProgressAction = nullptr; // 原 0x9A6E58。
-std::int32_t gCharacterDeletionProgressX = 0;       // 原 0x9A4EA4，R/W32。
-std::int32_t gCharacterDeletionProgressY = 0;       // 原 0x9A5FDC，R/W32。
-std::int32_t gCharacterDeletionProgressColumns = 0; // 原 0x9A50DC，R/W32。
-std::int32_t gCharacterDeletionProgressRows = 0;    // 原 0x9A5950，R/W32。
-
-} // namespace
+static std::uint16_t gCharacterDeletionProgressStage = 0; // 原 0x9A6E54，R/W16。
+static cg::yobi::YobiAction* gCharacterDeletionProgressAction = nullptr; // 原 0x9A6E58。
+static std::int32_t gCharacterDeletionProgressX = 0;       // 原 0x9A4EA4，R/W32。
+static std::int32_t gCharacterDeletionProgressY = 0;       // 原 0x9A5FDC，R/W32。
+static std::int32_t gCharacterDeletionProgressColumns = 0; // 原 0x9A50DC，R/W32。
+static std::int32_t gCharacterDeletionProgressRows = 0;    // 原 0x9A5950，R/W32。
 
 // 原函数：0x0045DBF0。
 void ResetCharacterDeletionProgress_45DBF0()

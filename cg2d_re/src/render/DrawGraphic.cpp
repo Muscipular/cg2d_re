@@ -6,10 +6,9 @@
 #include <cstdint>
 
 namespace cg::render {
-namespace {
 
 // 两入口共用完整描述符复制及空参默认值，同对象赋值有效。
-void CopyGraphicDescriptor(
+static void CopyGraphicDescriptor(
     GraphicDescriptor16& output, const GraphicDescriptor16* const descriptor)
 {
     if (descriptor != nullptr) {
@@ -19,7 +18,7 @@ void CopyGraphicDescriptor(
     }
 }
 
-std::int16_t SubtractSigned16Wrapping(
+static std::int16_t SubtractSigned16Wrapping(
     const std::int16_t value,
     const std::int16_t offset)
 {
@@ -28,8 +27,6 @@ std::int16_t SubtractSigned16Wrapping(
         - std::bit_cast<std::uint16_t>(offset));
     return std::bit_cast<std::int16_t>(result);
 }
-
-} // namespace
 
 // 原函数：0x00520970。
 std::int32_t DrawGraphic3_520970(

@@ -1,6 +1,5 @@
 #include "cg/render/Palette.hpp"
 
-
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
@@ -121,20 +120,18 @@ std::int32_t gPaletteToneTargetIndex = 0; // 原全局：0x00628BBC。
 std::int32_t gPaletteFrameVersion = 0; // 原全局：0x00628FDC。
 std::int32_t gPaletteVersionThrottle = 0; // 原全局：0x00629310。
 
-namespace {
-
-std::uint8_t redMap[256] {};   // 原 0x628FFC，gBGR_Data.r。
-std::uint8_t greenMap[256] {}; // 原 0x6290FC，gBGR_Data.g。
-std::uint8_t blueMap[256] {};  // 原 0x629200，gBGR_Data.b。
+static std::uint8_t redMap[256] {};   // 原 0x628FFC，gBGR_Data.r。
+static std::uint8_t greenMap[256] {}; // 原 0x6290FC，gBGR_Data.g。
+static std::uint8_t blueMap[256] {};  // 原 0x629200，gBGR_Data.b。
 
 // 原 __ftol@0x53B498 向零截断为 int64，再只写 AL；不可用 uint8 浮点直转。
-std::uint8_t TruncatedLowByte(double value) noexcept
+static std::uint8_t TruncatedLowByte(double value) noexcept
 {
     return static_cast<std::uint8_t>(static_cast<std::int64_t>(value));
 }
 
 // 原 0x451084..0x45117E：按红、绿、蓝指针顺序分别建立 256 字节表。
-int RebuildToneMap(
+static int RebuildToneMap(
     std::uint8_t* ColorChannelMaps::* map, std::uint8_t PaletteTone::* component) noexcept
 {
     if ((gPaletteTonePointer->*component) == 0x80) {
@@ -154,8 +151,6 @@ int RebuildToneMap(
     }
     return result;
 }
-
-} // namespace
 
 // 原函数：0x00453DE0。
 int CountMaskBits_453DE0(std::uint32_t mask) noexcept

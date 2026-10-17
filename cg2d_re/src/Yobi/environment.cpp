@@ -17,8 +17,6 @@
 
 namespace cg::yobi {
 
-
-
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
 
 volatile std::uint32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
@@ -31,14 +29,12 @@ volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
 
 namespace detail {
 
-namespace {
-
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
-std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
+static std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
 
-std::uint64_t gStartTick5F973C = 0; // 原全局：0x005F973C。
+static std::uint64_t gStartTick5F973C = 0; // 原全局：0x005F973C。
 
-std::uint8_t gEffectCounter5F9755 = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
+static std::uint8_t gEffectCounter5F9755 = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
 
 struct SceneEffectFrame {
     std::int32_t duration; // -1终止、-2跳转，其他值为帧时长。
@@ -47,57 +43,55 @@ struct SceneEffectFrame {
 
 static_assert(sizeof(SceneEffectFrame) == 8);
 
-constexpr SceneEffectFrame kFrames55433C[] { // 原常量参考：0x0055433C。
+static constexpr SceneEffectFrame kFrames55433C[] { // 原常量参考：0x0055433C。
     {24, 0x38C54}, {24, 0x38C55}, {24, 0x38C56}, {24, 0x38C57},
     {24, 0x38C58}, {24, 0x38C59}, {24, 0x38C5A}, {24, 0x38C5B},
     {24, 0x38C5C}, {24, 0x38C5D}, {24, 0x38C5E}, {24, 0x38C5F},
     {24, 0x38C60}, {24, 0x38C61}, {24, 0x38C62}, {24, 0x38C63}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames5543C4[] { // 原常量参考：0x005543C4。
+static constexpr SceneEffectFrame kFrames5543C4[] { // 原常量参考：0x005543C4。
     {16, 0x38C54}, {16, 0x38C55}, {16, 0x38C56}, {16, 0x38C57},
     {16, 0x38C58}, {16, 0x38C59}, {16, 0x38C5A}, {16, 0x38C5B},
     {16, 0x38C5C}, {16, 0x38C5D}, {16, 0x38C5E}, {16, 0x38C5F},
     {16, 0x38C60}, {16, 0x38C61}, {16, 0x38C62}, {16, 0x38C63}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames554454[] { // 原常量参考：0x00554454。
+static constexpr SceneEffectFrame kFrames554454[] { // 原常量参考：0x00554454。
     {8, 0x38C3C}, {8, 0x38C3D}, {8, 0x38C3E}, {8, 0x38C3F},
     {4, 0x38C40}, {4, 0x38C41}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames55448C[] { // 原常量参考：0x0055448C。
+static constexpr SceneEffectFrame kFrames55448C[] { // 原常量参考：0x0055448C。
     {8, 0x38C48}, {8, 0x38C49}, {8, 0x38C4A}, {8, 0x38C4B},
     {4, 0x38C4C}, {4, 0x38C4D}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames5544C4[] { // 原常量参考：0x005544C4。
+static constexpr SceneEffectFrame kFrames5544C4[] { // 原常量参考：0x005544C4。
     {8, 0x38C42}, {8, 0x38C43}, {8, 0x38C44}, {8, 0x38C45},
     {4, 0x38C46}, {4, 0x38C47}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames5544FC[] { // 原常量参考：0x005544FC。
+static constexpr SceneEffectFrame kFrames5544FC[] { // 原常量参考：0x005544FC。
     {8, 0x38C4E}, {8, 0x38C4F}, {8, 0x38C50}, {8, 0x38C51},
     {4, 0x38C52}, {4, 0x38C53}, {-2, 0},
 };
 
-constexpr SceneEffectFrame kFrames554534[] { // 原常量参考：0x00554534。
+static constexpr SceneEffectFrame kFrames554534[] { // 原常量参考：0x00554534。
     {240, 227336}, {8, 227335}, {30, 227334}, {8, 227335}, {-2, 0},
 };
 
-constexpr const SceneEffectFrame* kFrameGroup55444C[] { // 原常量参考：0x0055444C。
+static constexpr const SceneEffectFrame* kFrameGroup55444C[] { // 原常量参考：0x0055444C。
     kFrames55433C, kFrames5543C4,
 };
 
-constexpr const SceneEffectFrame* kFrameGroup55455C[] { // 原常量参考：0x0055455C。
+static constexpr const SceneEffectFrame* kFrameGroup55455C[] { // 原常量参考：0x0055455C。
     kFrames554454, kFrames55448C, kFrames5544C4, kFrames5544FC, kFrames554534,
 };
 
-constexpr const SceneEffectFrame* const* kFrameGroups554570[] { // 原常量参考：0x00554570。
+static constexpr const SceneEffectFrame* const* kFrameGroups554570[] { // 原常量参考：0x00554570。
     kFrameGroup55444C, kFrameGroup55455C,
 };
-
-} // namespace
 
 // 原函数：0x00448370。
 YobiAction* Sub_448370(void (*callback)(YobiAction*))
@@ -168,9 +162,7 @@ std::uint32_t Sub_4496C0(YobiAction* const action)
     return product < 0 ? 1u : 0u;
 }
 
-namespace {
-
-void PlaySceneEffectSounds()
+static void PlaySceneEffectSounds()
 {
     static_cast<void>(audio::PlaySe_52C450(0x1BC, 320));
     static_cast<void>(audio::PlaySe_52C450(0x1BB, 320));
@@ -178,7 +170,7 @@ void PlaySceneEffectSounds()
 }
 
 // 三路生产的相同图形/新对象写序；调用方先发布各自callback。
-void InitializeSceneEffectGraphic(
+static void InitializeSceneEffectGraphic(
     YobiAction* const action, const std::int32_t mapNo, const bool created)
 {
     std::int32_t graphicIndex;
@@ -198,8 +190,6 @@ void InitializeSceneEffectGraphic(
         action->field58 = 0;
     }
 }
-
-} // namespace
 
 // 原[448A50,448BEF)：正类型对象回调，保持FST后仍使用寄存器值的边界。
 void Sub_448A50(YobiAction* const action)
@@ -761,8 +751,6 @@ void Sub_449400(YobiAction* const action)
 
 } // namespace detail
 
-
-
 // 原函数：0x00449700。
 void Sub_449700(
     const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
@@ -823,7 +811,6 @@ void Sub_449700(
     }
     static_cast<void>(detail::Sub_449BC0());
 }
-
 
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void Sub_449160()

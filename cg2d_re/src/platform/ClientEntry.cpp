@@ -14,9 +14,9 @@
 #include <cwchar>
 #include <string>
 
-namespace {
+namespace cg::platform {
 
-bool gClientDiagnosticsEnabled = false; // CTM01/A11：仅WinMain寿命内启用。
+static bool gClientDiagnosticsEnabled = false; // CTM01/A11：仅WinMain寿命内启用。
 
 // 借用已连接的控制台；只释放本次AllocConsole成功创建的实例。
 class ClientDiagnosticsConsole final {
@@ -73,11 +73,11 @@ private:
     bool requested_; // timeBeginPeriod 成功后由析构函数配对释放。
 };
 
-constexpr std::size_t kMinidumpPathCapacity = 32768;
-wchar_t gMinidumpDirectory[kMinidumpPathCapacity] {};
-volatile LONG gMinidumpWriting = 0;
-volatile LONG gMinidumpSequence = 0;
-LPTOP_LEVEL_EXCEPTION_FILTER gPreviousExceptionFilter = nullptr;
+static constexpr std::size_t kMinidumpPathCapacity = 32768;
+static wchar_t gMinidumpDirectory[kMinidumpPathCapacity] {};
+static volatile LONG gMinidumpWriting = 0;
+static volatile LONG gMinidumpSequence = 0;
+static LPTOP_LEVEL_EXCEPTION_FILTER gPreviousExceptionFilter = nullptr;
 
 // 请求在调用线程等待期间保持有效；异常现场属于原异常线程，不属于写入线程。
 struct MinidumpRequest {
@@ -86,7 +86,7 @@ struct MinidumpRequest {
     const wchar_t* reason;
 };
 
-DWORD WINAPI WriteClientMinidumpFile(void* const parameter)
+static DWORD WINAPI WriteClientMinidumpFile(void* const parameter)
 {
     const auto& request = *static_cast<const MinidumpRequest*>(parameter);
     if (gMinidumpDirectory[0] == L'\0') {
@@ -134,7 +134,7 @@ DWORD WINAPI WriteClientMinidumpFile(void* const parameter)
 }
 
 // DbgHelp不支持并发调用；用独立线程写入，保留当前断言/异常线程的栈。
-void WriteClientMinidump(const wchar_t* const reason, EXCEPTION_POINTERS* const exception)
+static void WriteClientMinidump(const wchar_t* const reason, EXCEPTION_POINTERS* const exception)
 {
     const DWORD previousError = GetLastError();
     if (InterlockedCompareExchange(&gMinidumpWriting, 1, 0) != 0) {
@@ -152,7 +152,7 @@ void WriteClientMinidump(const wchar_t* const reason, EXCEPTION_POINTERS* const 
     SetLastError(previousError);
 }
 
-LONG WINAPI RecordUnhandledClientException(EXCEPTION_POINTERS* const exception)
+static LONG WINAPI RecordUnhandledClientException(EXCEPTION_POINTERS* const exception)
 {
     WriteClientMinidump(L"crash", exception);
     return gPreviousExceptionFilter != nullptr
@@ -184,7 +184,7 @@ public:
 
 // 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。
 // module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。
-HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
+static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 {
     // RT_GROUP_ICON=14；资源ID与查询统一使用W接口，避免受UNICODE宏影响。
     if (FindResourceW(instance, MAKEINTRESOURCEW(0x67), MAKEINTRESOURCEW(14)) != nullptr) {
@@ -217,15 +217,15 @@ HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
     return resourceModule != nullptr ? resourceModule : instance;
 }
 
-} // namespace
+} // namespace cg::platform
 
 #ifdef _DEBUG
 #include <crtdbg.h>
 
-namespace {
+namespace cg::platform {
 
 // Debug断言记录地址并写minidump；不用业务容器/旧格式器。
-int __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)
+static int __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)
 {
     if (reportType != _CRT_ASSERT) {
         return 0;
@@ -287,7 +287,7 @@ private:
     bool installed_;
 };
 
-} // namespace
+} // namespace cg::platform
 #endif
 
 namespace cg::platform {

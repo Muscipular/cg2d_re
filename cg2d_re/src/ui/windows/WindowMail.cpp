@@ -13,9 +13,6 @@ input::InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
 
 input::InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
 
-
-namespace {
-
 struct MailStatusTextTable {
     const wchar_t* prefixes[25];
     const wchar_t* suffixes[20];
@@ -25,8 +22,6 @@ struct MailStatusTextTable {
         return suffixes[status - 1]; // 原0x638 + status*8：有效在线状态从1开始。
     }
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

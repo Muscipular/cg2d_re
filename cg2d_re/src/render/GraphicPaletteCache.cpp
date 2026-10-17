@@ -8,12 +8,11 @@
 #include <utility>
 
 namespace cg::render {
-namespace {
 
-std::unique_ptr<PaletteCacheItem[]> gOwnedGraphicPaletteCache;
+static std::unique_ptr<PaletteCacheItem[]> gOwnedGraphicPaletteCache;
 
 // 原 44E290 的 W32 色项：同步借用 RGB/BGR 源，先写颜色，纯黑再写 1。
-void WriteColor32(
+static void WriteColor32(
     PaletteCacheItem& item, const std::size_t index,
     const std::uint8_t* const source, const bool sourceIsBgr,
     const bool applyTone) noexcept
@@ -45,8 +44,6 @@ void WriteColor32(
         std::memcpy(target, &nonzeroBlack, sizeof(nonzeroBlack));
     }
 }
-
-} // namespace
 
 PaletteCacheItem* gGraphicDataCacheList = nullptr; // 原全局：0x0062B068。
 std::array<PaletteCacheItem, kGraphicPaletteStaticCount> gGraphicDataCacheStatic {};

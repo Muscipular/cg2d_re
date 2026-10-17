@@ -18,10 +18,9 @@
 #include <cstdint>
 
 namespace cg::platform {
-namespace {
 
-inline constexpr std::int32_t kSystemCursorImage = 0x000055F0;
-inline constexpr std::uint8_t kCursorLayer = 0xE7;
+static inline constexpr std::int32_t kSystemCursorImage = 0x000055F0;
+static inline constexpr std::uint8_t kCursorLayer = 0xE7;
 
 struct CursorState0Record {
     std::uint32_t imageBits;
@@ -30,12 +29,12 @@ struct CursorState0Record {
 static_assert(sizeof(CursorState0Record) == 8);
 
 // 原 [0x55CE80,0x55CE88)：状态 0 的唯一可写记录。
-CursorState0Record gCursorState0 {0x0003BE98u, 0};
+static CursorState0Record gCursorState0 {0x0003BE98u, 0};
 
 // 原 dword_D68BE8：只在 World::CursorUpdate 内比较并更新。
-std::uint32_t gValueD68BE8 = 0;
+static std::uint32_t gValueD68BE8 = 0;
 
-std::int32_t ReadCursorImage(const std::uint32_t state)
+static std::int32_t ReadCursorImage(const std::uint32_t state)
 {
     if (state == 0) {
         return std::bit_cast<std::int32_t>(gCursorState0.imageBits);
@@ -44,7 +43,7 @@ std::int32_t ReadCursorImage(const std::uint32_t state)
         resource::gCursorPathStorage.cursor[state - 1].value04);
 }
 
-std::int16_t ReadCursorOffsetX(const std::uint32_t state)
+static std::int16_t ReadCursorOffsetX(const std::uint32_t state)
 {
     const std::uint32_t packed = state == 0
         ? gCursorState0.packedOffsets
@@ -52,7 +51,7 @@ std::int16_t ReadCursorOffsetX(const std::uint32_t state)
     return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(packed));
 }
 
-std::int16_t ReadCursorOffsetY(const std::uint32_t state)
+static std::int16_t ReadCursorOffsetY(const std::uint32_t state)
 {
     const std::uint32_t packed = state == 0
         ? gCursorState0.packedOffsets
@@ -61,7 +60,7 @@ std::int16_t ReadCursorOffsetY(const std::uint32_t state)
         static_cast<std::uint16_t>(packed >> 16));
 }
 
-void UpdatePulse(
+static void UpdatePulse(
     const std::uint64_t elapsed,
     const std::uint32_t bit,
     std::uint64_t& anchor)
@@ -104,7 +103,7 @@ void UpdatePulse(
     gLegacyMouseState.pulseButtons &= ~bit;
 }
 
-cg::render::GraphicDescriptor16 MakeCursorDescriptor()
+static cg::render::GraphicDescriptor16 MakeCursorDescriptor()
 {
     cg::render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
@@ -112,7 +111,7 @@ cg::render::GraphicDescriptor16 MakeCursorDescriptor()
     return descriptor;
 }
 
-void DrawTableCursor()
+static void DrawTableCursor()
 {
     const cg::render::GraphicDescriptor16 descriptor =
         MakeCursorDescriptor();
@@ -130,7 +129,7 @@ void DrawTableCursor()
         x, y, kCursorLayer, image, 0, &descriptor);
 }
 
-void UpdateNativeCursor()
+static void UpdateNativeCursor()
 {
     const std::uint32_t currentState = gValueD68DC4;
     if (currentState != gValueD68BE8) {
@@ -157,8 +156,6 @@ void UpdateNativeCursor()
             x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);
     }
 }
-
-} // namespace
 
 // 原函数：0x00506DE0。
 std::int32_t RequestCursorState_506DE0(

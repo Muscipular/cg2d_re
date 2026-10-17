@@ -34,7 +34,6 @@ struct PixelImage {
     std::int32_t width = 0;
     std::int32_t height = 0;
 };
-namespace {
 
 // 本机 SDK COM 接口仅在解码边界内持有，所有失败分支按逆序释放。
 struct ReleaseCom {
@@ -88,14 +87,14 @@ struct PngRuntime {
     std::uint64_t lastClean = 0;
 };
 
-PngRuntime& GetPngRuntime()
+static PngRuntime& GetPngRuntime()
 {
     // 首次业务调用后构造；析构先于启动前创建的 TextureSurfaceOwner。
     static PngRuntime runtime;
     return runtime;
 }
 
-std::uint32_t ReadPngUint32Be(const std::uint8_t* bytes) noexcept
+static std::uint32_t ReadPngUint32Be(const std::uint8_t* bytes) noexcept
 {
     return (static_cast<std::uint32_t>(bytes[0]) << 24)
         | (static_cast<std::uint32_t>(bytes[1]) << 16)
@@ -103,7 +102,7 @@ std::uint32_t ReadPngUint32Be(const std::uint8_t* bytes) noexcept
         | static_cast<std::uint32_t>(bytes[3]);
 }
 
-bool ReadPngImageSize(
+static bool ReadPngImageSize(
     const std::vector<std::uint8_t>& data, std::int32_t& width, std::int32_t& height)
 {
     if (data.size() < 24 || !resource::IsPngGraphicData(data.data())
@@ -120,7 +119,7 @@ bool ReadPngImageSize(
     return true;
 }
 
-bool ClipPngDestination(
+static bool ClipPngDestination(
     TextureRectangle& destination, TextureRectangle& source, const PngRectangle* clip)
 {
     if (clip == nullptr) {
@@ -144,8 +143,6 @@ bool ClipPngDestination(
     source[3] -= (previous[3] - destination[3]) * sourceHeight / height;
     return source[2] > source[0] && source[3] > source[1];
 }
-
-} // namespace
 
 PixelImage* CreatePixelImage(const std::int32_t width, const std::int32_t height)
 {

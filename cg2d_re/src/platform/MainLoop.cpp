@@ -53,10 +53,8 @@ std::uint64_t gWindowReportDeadline = 0; // 原全局：0x0073ED08。
 SystemTimeWords gLastSystemTime {};
 std::uint32_t gPeriodicReportSeconds = 0; // 原全局：0x0073ED18。
 
-namespace {
-
 // CTM01/A11：参考UIExt::DrawFps，按实际提交帧统计三秒桶，沿现有文本队列绘制。
-void UpdateFrameDiagnostics()
+static void UpdateFrameDiagnostics()
 {
     static std::uint64_t previousTick = ReadTickCount64();
     const std::uint64_t now = ReadTickCount64();
@@ -90,7 +88,7 @@ void UpdateFrameDiagnostics()
 }
 
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
-BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
+static BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
 {
     wchar_t wideTitle[128] {};
     static_cast<void>(network::ReadProtocolByte593850());
@@ -141,8 +139,6 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         return TRUE;
     }
 }
-
-} // namespace
 
 // 原 [0x4587D0,0x458839)：未触发枚举时的 -1 和独立 binary64 截止均保留。
 int EnumerateWindows_4587D0()

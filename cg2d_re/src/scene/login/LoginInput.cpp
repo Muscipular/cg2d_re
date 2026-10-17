@@ -38,9 +38,7 @@ input::InputContext* gInputContextFocusTable[3] { // 原全局：0x00559FFC。
     &gInputContext9A5960,
 };
 
-namespace {
-
-inline constexpr std::size_t kStoredInputValueSize = LoginInputValueCapacity;
+static inline constexpr std::size_t kStoredInputValueSize = LoginInputValueCapacity;
 
 struct Capability4SavedSlotGeometry final {
     std::int32_t x;
@@ -56,7 +54,7 @@ static_assert(offsetof(Capability4SavedSlotGeometry, height) == 0x0C);
 static_assert(sizeof(Capability4SavedSlotGeometry) == 0x10);
 
 // 原 unk_55C4E0：能力 4 的十个持久槽命中/绘制几何。
-inline constexpr Capability4SavedSlotGeometry
+static inline constexpr Capability4SavedSlotGeometry
     kCapability4SavedSlotGeometry[10] {
         {80, 335, 44, 20},
         {124, 335, 44, 20},
@@ -70,7 +68,7 @@ inline constexpr Capability4SavedSlotGeometry
         {476, 335, 44, 20},
     };
 
-void DrawCapability4SavedSlotGraphic(
+static void DrawCapability4SavedSlotGraphic(
     const std::int32_t slotIndex,
     const std::int32_t offsetX,
     const std::int32_t offsetY,
@@ -88,7 +86,7 @@ void DrawCapability4SavedSlotGraphic(
         -1));
 }
 
-const wchar_t* WriteStoredInputValue(
+static const wchar_t* WriteStoredInputValue(
     const wchar_t* const source,
     char* const storedValue)
 {
@@ -100,7 +98,7 @@ const wchar_t* WriteStoredInputValue(
     return source + std::wcslen(source);
 }
 
-char* ReadStoredInputValue(
+static char* ReadStoredInputValue(
     char* const output,
     const char* const storedValue)
 {
@@ -113,8 +111,6 @@ char* ReadStoredInputValue(
     }
     return output;
 }
-
-} // namespace
 
 // 原0x005203B0/0x00520410：两项完整编码后再按原顺序发布，失败不改存档。
 bool SaveInputValues(const std::wstring_view first, const std::wstring_view second)

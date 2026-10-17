@@ -1,6 +1,5 @@
 #include "cg/resource/GraphicInfo.hpp"
 
-
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/text/Encoding.hpp"
@@ -24,16 +23,12 @@ GraphicInfo* gGraphicInfo = nullptr; // 原全局：0x009A2970。
 std::int32_t* gGraphicMapNoIndex = nullptr; // 原全局：0x009A2974。
 std::int32_t gGraphicStartIndices[BinLoaderMaxGroups] {}; // 原全局：0x0073F100。
 
-namespace {
-
 // 原 9A2960/73F128：去重值集合与首见记录引用，生命周期按两相邻CRT项配对。
 using GraphicMapNumbers = std::vector<std::int32_t>;
 using GraphicFirstRecords = std::map<std::int32_t, GraphicInfo*>;
 
-GraphicMapNumbers* gGraphicMapNumbers = nullptr; // 原全局：0x9A2960；仅指向原入口的唯一静态对象。
-GraphicFirstRecords* gGraphicFirstRecords = nullptr; // 原全局：0x73F128；仅指向原入口的唯一静态对象。
-
-} // namespace
+static GraphicMapNumbers* gGraphicMapNumbers = nullptr; // 原全局：0x9A2960；仅指向原入口的唯一静态对象。
+static GraphicFirstRecords* gGraphicFirstRecords = nullptr; // 原全局：0x73F128；仅指向原入口的唯一静态对象。
 
 // 原函数：0x004597E0。
 void InitializeGraphicMapNumbers_4597E0()

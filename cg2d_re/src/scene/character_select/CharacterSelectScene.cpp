@@ -39,10 +39,9 @@
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::character_select::detail {
-namespace {
 
 // 54E0BC起十二条创建页矩形/图号；状态-1仍可读取前一项height。
-constexpr std::array<CharacterSelectUiRecord, 12> kCreationUi54E0BC {{
+static constexpr std::array<CharacterSelectUiRecord, 12> kCreationUi54E0BC {{
     {{407, 130, 9, 13}, 245066, 245067, 245068},
     {{438, 130, 9, 13}, 245063, 245064, 245065},
     {{407, 148, 9, 13}, 245066, 245067, 245068},
@@ -58,7 +57,7 @@ constexpr std::array<CharacterSelectUiRecord, 12> kCreationUi54E0BC {{
 }};
 
 // 54DDE8为同表第14项，不另建状态或重复表。
-constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{ // 原常量参考：0x0054DDB0。
+static constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{ // 原常量参考：0x0054DDB0。
     100002, 100027, 100052, 100077, 100102, 100127, 100152,
     100252, 100277, 100302, 100327, 100352, 100377, 100402,
     105002, 105027, 105052, 105077, 105102, 105127, 105152,
@@ -73,7 +72,7 @@ constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{ // 原常量参�
     100900, 100900, 100900, 120126, 100900, 100900, 100900,
 }};
 
-constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{ // 原常量参考：0x0055C354。
+static constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{ // 原常量参考：0x0055C354。
     240000, 240100, 240200, 240300, 240400, 240500, 240600,
     240700, 240800, 240900, 241000, 241100, 241200, 241300,
     241400, 241500, 241600, 241700, 241800, 241900, 242000,
@@ -82,52 +81,52 @@ constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{ // 原常量参
     205700, 205800, 205900, 270100, 206100, 206200, 206300,
 }};
 
-constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectDraw54DF00 {{ // 原常量参考：0x0054DF00。
+static constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectDraw54DF00 {{ // 原常量参考：0x0054DF00。
     {{111, 169}}, {{111, 243}}, {{111, 317}}, {{179, 133}}, {{179, 207}},
     {{179, 281}}, {{179, 355}}, {{315, 169}}, {{315, 243}}, {{315, 317}},
     {{247, 133}}, {{247, 207}}, {{247, 281}}, {{247, 355}},
 }};
-constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {{ // 原常量参考：0x0054DF70。
+static constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {{ // 原常量参考：0x0054DF70。
     {{79, 133}}, {{79, 207}}, {{79, 281}}, {{147, 97}}, {{147, 171}},
     {{147, 245}}, {{147, 319}}, {{283, 133}}, {{283, 207}}, {{283, 281}},
     {{215, 97}}, {{215, 171}}, {{215, 245}}, {{215, 319}},
 }};
-constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}}; // 原常量参考：0x0054DFE0。
-constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{ // 原常量参考：0x0054DFE8。
+static constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}}; // 原常量参考：0x0054DFE0。
+static constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{ // 原常量参考：0x0054DFE8。
     {{256, 400, 65, 17}, 243048, 243049, 243050},
     {{105, 400, 66, 17}, 245045, 245046, 245047},
 }};
 // 原54E020起是两个矩形、两组三图号及三版本标签，不是七元UI记录。
-constexpr std::array<cg::ui::UiControlBounds, 2> kCreationVersionHit54E020 {{
+static constexpr std::array<cg::ui::UiControlBounds, 2> kCreationVersionHit54E020 {{
     {222, 420, 18, 18}, {186, 420, 18, 18},
 }};
-constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{ // 原常量参考：0x0054E040。
+static constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{ // 原常量参考：0x0054E040。
     {{243033, 243034, 243035}}, {{243030, 243031, 243032}},
 }};
-constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{ // 原常量参考：0x0054E058。
+static constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{ // 原常量参考：0x0054E058。
     245481, 245482, 245483,
 }};
-constexpr std::array<cg::ui::UiControlBounds, 2> kCreationPreviewHit54E064 {{ // 原常量参考：0x0054E064。
+static constexpr std::array<cg::ui::UiControlBounds, 2> kCreationPreviewHit54E064 {{ // 原常量参考：0x0054E064。
     {455, 138, 125, 125}, {455, 291, 125, 125},
 }};
-constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{ // 原常量参考：0x0054E084。
+static constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{ // 原常量参考：0x0054E084。
     {{458, 268, 18, 18}, 243030, 243031, 243032},
     {{559, 268, 18, 18}, 243033, 243034, 243035},
 }};
-constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{ // 原常量参考：0x0055C3FC。
+static constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{ // 原常量参考：0x0055C3FC。
     202800, 202900, 203000, 203100, 203200, 203300, 203400,
     203500, 203600, 203700, 203800, 203900, 204000, 204100,
     200000, 200200, 200800, 201000, 201200, 201400, 201600,
     200400, 200600, 201800, 202000, 202200, 202400, 202600,
 }};
-constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参考：0x0055C46C。
+static constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参考：0x0055C46C。
     30000, 34000, 38000, 46000, 42000, 50000, 54000,
     70000, 74000, 78000, 82000, 86000, 90000, 94000,
     33100, 33100, 33100, 33100, 33100, 33100, 33100,
     33101, 33101, 33101, 33101, 33101, 33101, 33101,
 }};
 
-constexpr std::array<const wchar_t*, 6> kCreationErrors {{
+static constexpr std::array<const wchar_t*, 6> kCreationErrors {{
     L"没有输入姓名！", // 55C9A0。
     L"角色名称重复", // 55C918。
     L"请把持有点数分给能力！", // 55C968。
@@ -136,13 +135,13 @@ constexpr std::array<const wchar_t*, 6> kCreationErrors {{
     L"人物名称不可含有非法字元！", // 55CE14。
 }};
 
-std::uint8_t CreationMouseByte(const std::uint32_t& value)
+static std::uint8_t CreationMouseByte(const std::uint32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
 }
 
 // 两处模式0/1映射均在外调后重取变体/样式/颜色，不能提前快照。
-std::int32_t MapCreationGraphic(const std::int32_t base, const std::int32_t mode)
+static std::int32_t MapCreationGraphic(const std::int32_t base, const std::int32_t mode)
 {
     std::int32_t graphic = Sub_51BF00(base);
     if (mode == 0) {
@@ -174,7 +173,7 @@ struct CreationSnapshot {
     input::InputContext input9A4F38; // 来源全局：0x009A4F38。
 };
 
-CreationSnapshot gCreationSnapshot {};
+static CreationSnapshot gCreationSnapshot {};
 
 // 原五个离散S32和9A6E88观察槽，仅45E7B0/45E7D0使用。
 struct CreationRequestProgress {
@@ -186,14 +185,12 @@ struct CreationRequestProgress {
     cg::yobi::YobiAction* action; // 9A6E88，非拥有，完成时标死后清槽。
 };
 
-CreationRequestProgress gCreationRequestProgress {};
-std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
-std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
+static CreationRequestProgress gCreationRequestProgress {};
+static std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
+static std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
 }
-
-} // namespace
 
 // 原函数：0x0050E770。
 std::uint8_t Sub_50E770(std::uintptr_t, const std::int32_t pukVersion)
@@ -1258,22 +1255,21 @@ static_assert(sizeof(gDeleteCharacterName) == 132);
 } // namespace cg::character_select::state
 
 namespace cg::character_select {
-namespace {
 
-constexpr std::size_t kLegacyNameCapacity = 20;
+static constexpr std::size_t kLegacyNameCapacity = 20;
 
-detail::CharacterSelectUiRecord gReturnUi {
+static detail::CharacterSelectUiRecord gReturnUi {
     {534, 438, 64, 16}, 245045, 245047, 245046,
 };
-detail::CharacterSelectUiRecord gUpdateUi {
+static detail::CharacterSelectUiRecord gUpdateUi {
     {296, 433, 49, 17}, 244542, 244544, 244543,
 };
 
 // 原 0x9A6EAC 与 0x9A6EB0 只被本控制器直接持有。
-std::int32_t gUpdateAvailable = 0;
-cg::yobi::YobiAction* gDeleteConfirmationAction = nullptr;
+static std::int32_t gUpdateAvailable = 0;
+static cg::yobi::YobiAction* gDeleteConfirmationAction = nullptr;
 
-void CopyRecordName(char* destination, const login::CharacterRecord& record)
+static void CopyRecordName(char* destination, const login::CharacterRecord& record)
 {
     char name[kLegacyNameCapacity];
     // 与原strcpy相同，调用前提是姓名适合20字节临时区且有NUL终止。
@@ -1282,7 +1278,7 @@ void CopyRecordName(char* destination, const login::CharacterRecord& record)
     std::strcpy(destination, name);
 }
 
-void ClearPreviewActions()
+static void ClearPreviewActions()
 {
     if (state::gPreviewActions[0] != nullptr) {
         state::gPreviewActions[0] = nullptr;
@@ -1292,7 +1288,7 @@ void ClearPreviewActions()
     }
 }
 
-void UpdateCharacterGraphic(
+static void UpdateCharacterGraphic(
     login::CharacterRecord& record,
     std::int32_t action)
 {
@@ -1371,8 +1367,6 @@ void UpdateCharacterGraphic(
         record.graphicNo = detail::Sub_51BAC0(record.graphicNo);
     }
 }
-
-} // namespace
 
 // 原函数：0x00460FF0。
 std::int32_t ProcessScene_460FF0()

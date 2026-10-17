@@ -20,11 +20,7 @@ namespace cg::yobi {
 
 namespace detail {
 
-namespace {
-
-std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
-
-} // namespace
+static std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
 
 // 原42B282..42B600，SKL技能4的完整状态0生产；公共字段已由父入口读取。
 [[maybe_unused]] void ProcessBattleMSkill4(
@@ -435,10 +431,8 @@ std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SK
     ++payload->packetSubState58;
 }
 
-namespace {
-
 // 原82/97两段目标循环的161条指令一致，共用42CB2F..42CB5E收尾。
-void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
@@ -525,8 +519,6 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     ParseBattleMRide_4239D0(scene);
     ++payload->packetSubState58;
 }
-
-} // namespace
 
 // 原42C241..42C50C，技能82按对侧两位置中点移动，再进入目标循环。
 [[maybe_unused]] void ProcessBattleMSkill82(
@@ -731,10 +723,8 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     ++payload->packetSubState58;
 }
 
-namespace {
-
 // 原42CF66..42D0D0；成功后由完整父分派重读5A4A34，空施法者不进入模式生产。
-[[maybe_unused]] bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
+[[maybe_unused]] static bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
 {
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     gBattleMValue5A4A34 = TakeBattleMInteger_438F70(scene);
@@ -771,7 +761,7 @@ namespace {
 }
 
 // 原42D696/42EAEF..42EB32，模式目标退出后仍追加哨兵、执行RID并递增固定载荷。
-void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* const payload)
+static void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* const payload)
 {
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -780,7 +770,7 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 }
 
 // 原42D142..42D285，技能98模式6只消费目标位置列表。
-[[maybe_unused]] void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
+[[maybe_unused]] static void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -818,7 +808,7 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 }
 
 // 原42D28E..42D68D，技能98模式7交换目标与配对槽，固定原槽和当前目标分别保留。
-[[maybe_unused]] void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
+[[maybe_unused]] static void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -961,7 +951,7 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 }
 
 // 原42D6BC..42D7D1，技能98模式8的宠物标记和恢复队列读取次序。
-[[maybe_unused]] void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
+[[maybe_unused]] static void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t parsedTargetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -999,7 +989,7 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 }
 
 // 原42DCDC与42EB0A尾：操作对象收哨兵/74，但推进的是主施法者。
-void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleScenePayload* const payload)
+static void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleScenePayload* const payload)
 {
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMSelectedPosition5ABA98], -1, 0, 0);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMSelectedPosition5ABA98], 74);
@@ -1009,7 +999,7 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 }
 
 // 原42D7DA..42DD12，SKL98模式12的操作对象准备与附图/受击目标循环。
-[[maybe_unused]] void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayload* const payload)
+[[maybe_unused]] static void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
@@ -1157,7 +1147,7 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 }
 
 // 原42DD1B..42E015，SKL98模式13的中央移动与直接数值反馈，不消费附图。
-[[maybe_unused]] void ProcessBattleMSkill98Mode13(YobiAction* const scene, BattleScenePayload* const payload)
+[[maybe_unused]] static void ProcessBattleMSkill98Mode13(YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t selected = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const bool selectedUnavailable = selected == 255;
@@ -1247,7 +1237,7 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 }
 
 // 原42E01E..42E1E4，SKL98模式14成对读取；第二位置255不撤销第一项。
-void ProcessBattleMSkill98Mode14(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode14(YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t kind = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
@@ -1301,7 +1291,7 @@ void ProcessBattleMSkill98Mode14(YobiAction* const scene, BattleScenePayload* co
 }
 
 // 原42E1ED/42E444起的15/16两模式；固定数值类型分别为6/3，其他消费和反馈相同。
-void ProcessBattleMSkill98DamageTargets(
+static void ProcessBattleMSkill98DamageTargets(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t numberType)
 {
     std::int32_t firstImage = 0;
@@ -1381,7 +1371,7 @@ void ProcessBattleMSkill98DamageTargets(
 }
 
 // 原42E6A7..42E80D，模式17无附图时只清首图号，保留其余跨目标输出。
-void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
@@ -1437,7 +1427,7 @@ void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayload* co
 }
 
 // 原42E80D..42EB32，进入目标族后仍逐目标重读模式，不固定为首次分派值。
-void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t parsedTargetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1513,8 +1503,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
     }
     CompleteBattleMSkill98Targets(scene, payload);
 }
-
-} // namespace
 
 // SKL技能98的状态0内部分派；由ProcessBattleMSkillHeader调用，427470总入口统一回存。
 [[maybe_unused]] void ProcessBattleMSkill98(
@@ -3017,12 +3005,8 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
     ++payload->packetSubState58;
 }
 
-namespace {
-
 // 原54D6FC..54D710，2028按等级有符号除3选择前四项，第五项用于等级>=12。
-constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111148, 111149, 111150, 111151}; // 原常量参考：0x0054D6FC。
-
-} // namespace
+static constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111148, 111149, 111150, 111151}; // 原常量参考：0x0054D6FC。
 
 // 原43227D..43282A及42BD50..42BEAC；累计反弹参与者，保留149调用后的双位置重读。
 [[maybe_unused]] void ProcessBattleMSkill2028(
@@ -3198,12 +3182,8 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111
     payload->packetSubState58 = 2;
 }
 
-namespace {
-
 // 原54D680按有效档1..5索引；只保存54D684开始的五个实际图号。
-constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111127, 111128, 111129, 111130}; // 原常量参考：0x0054D684。
-
-} // namespace
+static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111127, 111128, 111129, 111130}; // 原常量参考：0x0054D684。
 
 // 原432867..432ECE，99..104/2019/3001共享状态生产；固定状态载荷跨144调用保留。
 [[maybe_unused]] void ProcessBattleMSkill99Family(

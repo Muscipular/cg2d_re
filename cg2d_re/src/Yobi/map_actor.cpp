@@ -31,10 +31,8 @@ namespace detail {
 // 原函数：0x004417E0。
 void Sub_4417E0(YobiAction* action);
 
-namespace {
-
 // 原43E535/43EA41等到格转向分支；每个CryptInt比较只读取一次。
-void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t index)
+static void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t index)
 {
     if (!TransitionMovementIdle(action)) {
         return;
@@ -51,7 +49,7 @@ void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t 
 }
 
 // 原43E115首次骑乘及43E790/43E8C3结束分类，不使用43EFC0的另一套动作映射。
-void RestoreMountedCharacterAction(YobiAction* const action)
+static void RestoreMountedCharacterAction(YobiAction* const action)
 {
     const std::int32_t imageNo = action->imageNo;
     if ((imageNo >= 0x1BD50 && imageNo <= 0x1BDF9)
@@ -72,7 +70,7 @@ void RestoreMountedCharacterAction(YobiAction* const action)
 }
 
 // 原43ECCF/43ED51：先采玩家指针，非当前玩家时才重读payload索引。
-void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const payload)
+static void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const payload)
 {
     YobiAction* const player = world::gPlayerRuntimeSlots.action;
     if (player != nullptr && player == action) {
@@ -94,7 +92,7 @@ enum class ActorAttachmentReadOrder {
 };
 
 // 两次偏移查询使用各自当次槽；描述符始终借用初次取样的子对象。
-void DrawActorPhaseAttachment(
+static void DrawActorPhaseAttachment(
     YobiAction* const action, YobiAction** const slot,
     const std::int32_t primaryIndex, const std::int32_t before,
     const ActorAttachmentReadOrder readOrder)
@@ -133,7 +131,7 @@ void DrawActorPhaseAttachment(
 }
 
 // 原两个阶段的action08创建/播放；分配后的首写原本不判空，不增加失败门禁。
-void DrawActorPhaseEffect(
+static void DrawActorPhaseEffect(
     YobiAction* const action, MapActorPayload* const payload,
     const std::int32_t primaryIndex, const std::int32_t imageNo,
     const ActorAttachmentReadOrder readOrder)
@@ -155,7 +153,7 @@ void DrawActorPhaseEffect(
 }
 
 // 原43E591–43EA01：阶段1的上升、骑乘动作恢复及效果附件清理。
-void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payload)
+static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payload)
 {
     YobiAction* const ride = payload->action44;
     if (ride == nullptr) {
@@ -215,7 +213,7 @@ void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payl
 }
 
 // 原43EAA2–43EDA2：阶段2的下降、骑乘附件退出及原图号恢复。
-void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const payload)
+static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const payload)
 {
     YobiAction* const ride = payload->action44;
     if (ride == nullptr) {
@@ -295,7 +293,7 @@ void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const p
 }
 
 // 原43EDA2–43EF98：阶段3局部螺旋坐标与两次动画调用，不改世界坐标。
-void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const payload)
+static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const payload)
 {
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -352,8 +350,6 @@ void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const pay
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor));
     ++payload->counter48;
 }
-
-} // namespace
 
 // 原函数：0x0043DD00。
 std::int32_t Sub_43DD00(
@@ -833,8 +829,6 @@ void Sub_4424B0(YobiAction* const action)
 
 } // namespace detail
 
-
-
 // 原函数：0x00441DB0。
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -880,24 +874,20 @@ YobiAction* Sub_441DB0(
     return action;
 }
 
-
 void SetYobiPlayerFlag(YobiAction* const action) noexcept
 {
     action->flags |= 0x80u;
 }
-
 
 void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexcept
 {
     action->walkSpeed = speed;
 }
 
-
 YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
 {
     return static_cast<const detail::MapActorPayload*>(action->payload.mapActor)->action44;
 }
-
 
 void BeginMapActorPhase2(YobiAction* const action)
 {
@@ -906,12 +896,10 @@ void BeginMapActorPhase2(YobiAction* const action)
     payload->counter48 = 0;
 }
 
-
 std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
 {
     return static_cast<std::uint16_t>(action->direction);
 }
-
 
 YobiAction* PublishPlayerActionIdentity(
     const char* const name, const char* const titles,
@@ -962,20 +950,17 @@ YobiAction* PublishPlayerActionIdentity(
     return action;
 }
 
-
 void CopyYobiPlayerHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
     action->readiness = *source;
 }
 
-
 void CopyYobiPlayerMaxHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
     action->maxHp = *source;
 }
-
 
 void CopyInitialPlayerActionIdentity(
     const char* const name, const char* const title, const std::int32_t* const level,
@@ -1000,7 +985,6 @@ void CopyInitialPlayerActionIdentity(
     action->maxHp = *maxHp;
 }
 
-
 void UpdateMapActorMode(
     YobiAction*& slot, const std::int32_t mode, const std::int32_t imageNo)
 {
@@ -1013,7 +997,6 @@ void UpdateMapActorMode(
     current->field2E4 = explicitMode ? mode : 0;
     slot->imageNo2E8 = explicitMode ? imageNo : 0;
 }
-
 
 void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const text)
 {
@@ -1028,7 +1011,6 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
     }
 }
 
-
 void ReadMapActorTarget(
     YobiAction* const action, YobiAction*& slot,
     std::int32_t* const x, std::int32_t* const y)
@@ -1037,7 +1019,6 @@ void ReadMapActorTarget(
     *y = slot->mapY210.value();
 }
 
-
 void ReadMapActorTarget(
     YobiAction*& slot, std::int32_t* const x, std::int32_t* const y)
 {
@@ -1045,12 +1026,10 @@ void ReadMapActorTarget(
     ReadMapActorTarget(action, slot, x, y);
 }
 
-
 void ClearMapActorPathCount(YobiAction* const action) noexcept
 {
     action->field270 = 0;
 }
-
 
 bool IsMapActorIdleAtTarget(YobiAction* const action)
 {
@@ -1066,7 +1045,6 @@ bool IsMapActorIdleAtTarget(YobiAction* const action)
     const float worldY = action->worldY;
     return !(y < worldY || y > worldY);
 }
-
 
 bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
 {
@@ -1095,7 +1073,6 @@ bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
     }
     return distanceY < 2;
 }
-
 
 void ApplyPlayerAppearanceReply(
     const std::int32_t imageNo, const std::int32_t gearImage,
@@ -1178,7 +1155,6 @@ void ApplyPlayerAppearanceReply(
     payload->kind3C = kind;
 }
 
-
 void ApplyPlayerRideReply(
     const std::int32_t imageNo, const std::int32_t steps,
     std::int32_t* const remainingSteps)
@@ -1225,7 +1201,6 @@ void ApplyPlayerRideReply(
     *remainingSteps = 0;
 }
 
-
 void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
 {
     YobiAction* const action = world::gPlayerRuntimeSlots.action;
@@ -1235,7 +1210,6 @@ void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
     world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     payload->counter48 = 0;
 }
-
 
 void ResetMapFollowerFromPath(
     YobiAction* const leader, const std::int32_t position, YobiAction*& slot,
@@ -1280,7 +1254,6 @@ void ResetMapFollowerFromPath(
     }
 }
 
-
 // 原函数：0x00442AB0。
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
@@ -1305,7 +1278,6 @@ void Sub_442AB0(
     action->worldY = static_cast<float>(targetY * 64.0);
 }
 
-
 // 原函数：0x00441F60。
 void Sub_441F60(
     YobiAction* const action, const std::int32_t targetX,
@@ -1328,7 +1300,6 @@ void Sub_441F60(
     action->pathY248[ySlot] = targetY;
     action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
 }
-
 
 // 原函数：0x00441FC0。
 void Sub_441FC0(
@@ -1395,7 +1366,6 @@ void Sub_441FC0(
     }
 }
 
-
 // 原函数：0x00442110。
 double Sub_442110(
     YobiAction* const action, const std::int32_t targetX,
@@ -1433,7 +1403,6 @@ double Sub_442110(
     return velocity.rate;
 }
 
-
 // 原函数：0x004422F0。
 void Sub_4422F0(
     YobiAction* const action, const std::int32_t targetX,
@@ -1467,7 +1436,6 @@ void Sub_4422F0(
     }
 }
 
-
 // 原函数：0x00442460。
 void Sub_442460(YobiAction* const action)
 {
@@ -1485,7 +1453,6 @@ void Sub_442460(YobiAction* const action)
         action->pathY248[slot] = action->pathY248[slot + 1];
     }
 }
-
 
 // 原函数：0x0043EFC0。
 void Sub_43EFC0(
@@ -1547,7 +1514,6 @@ void Sub_43EFC0(
     }
 }
 
-
 // 原函数：0x00442730。
 void Sub_442730(YobiAction* const action)
 {
@@ -1600,7 +1566,6 @@ void Sub_442730(YobiAction* const action)
         action->worldY * 0.015625));
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
-
 
 // 原函数：0x004428F0。
 void Sub_4428F0(YobiAction* const action)
@@ -1658,7 +1623,6 @@ void Sub_4428F0(YobiAction* const action)
         action->worldY * 0.015625));
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
-
 
 // WLR01：玩家519D50、单项删除4462E0与整表4464D0共用八槽/text清理；正确正文保持。
 void ClearMapActorAttachments(YobiAction* const action)

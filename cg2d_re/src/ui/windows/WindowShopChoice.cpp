@@ -8,8 +8,6 @@
 namespace cg::ui {
 namespace detail {
 
-namespace {
-
 using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
 
 // 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
@@ -25,8 +23,6 @@ struct ChoiceDialogRuntimeSlots {
     WindowChoiceCallback callback;
     std::uint8_t closeEnabled;
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

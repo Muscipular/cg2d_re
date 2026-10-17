@@ -10,7 +10,6 @@
 #include "../../world/PlayerState.hpp"
 #include "../../world/WorldObjectState.hpp"
 
-
 namespace cg::ui {
 namespace detail {
 
@@ -21,9 +20,6 @@ input::InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
 input::InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
 
 input::InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
-
-
-namespace {
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
@@ -44,15 +40,13 @@ struct StallBrowseData {
 };
 
 // 指向原启动入口创建的唯一私有对象；不持有或复制宠物数据。
-StallBrowseData* gStallBrowseData = nullptr;
+static StallBrowseData* gStallBrowseData = nullptr;
 
 // 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
 struct StallOffer {
     std::int32_t slot;
     std::int32_t value;
 };
-
-} // namespace
 
 // 回调与内部函数前置声明。
 

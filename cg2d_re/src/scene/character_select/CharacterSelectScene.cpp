@@ -1450,373 +1450,326 @@ static void UpdateCharacterGraphic(
 }
 
 // 原函数：0x00460FF0。
+#pragma optimize("", off)
 std::int32_t ProcessScene_460FF0()
 {
     VM_HARD_START
-    std::int32_t interactive = 1;
+    std::int32_t sceneResult;
+    // 单次执行块使普通提前退出先经过VM结束标记，不改变后续帧的状态流转。
+    do {
+        std::int32_t interactive = 1;
 
-    const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
-    if (mainState <= 22u) {
-        switch (mainState) {
-        case 0:
-            world::gCurrentSceneState = 1;
-            state::gPukVersion = 0;
-            ResetCharacterListProgress_45DD50();
-            gUpdateAvailable = 0;
-            render::SelectPalette(0, 0);
-            break;
-        case 1: {
-            const std::int32_t result = UpdateCharacterListProgress_45DD60();
-            if (result == 1) {
-                world::gCurrentSceneState = 9;
-            } else if (result == -3) {
-                world::gCurrentSceneState = 2;
-                cg::network::ShutdownNetworkRuntime_5081A0();
-            } else if (result == -4) {
-                world::gCurrentSceneState = 7;
-                cg::network::ShutdownNetworkRuntime_5081A0();
-            } else if (result < 0) {
-                world::gCurrentSceneState = 4;
-                cg::network::ShutdownNetworkRuntime_5081A0();
-            }
-            break;
-        }
-        case 2:
-            login::ResetLoginMessage();
-            world::gCurrentSceneState = 6;
-            break;
-        case 3:
-            break;
-        case 4:
-            login::ResetLoginMessage();
-            world::gCurrentSceneState = 5;
-            break;
-        case 5:
-            if (login::UpdateLoginMessage(L"角色资料读取失败。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
-                world::SetCurrentSceneType(2);
-            }
-            break;
-        case 6:
-            if (login::UpdateLoginMessage(L"目前伺服器正在停机维护中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
-                world::SetCurrentSceneType(2);
-            }
-            break;
-        case 7:
-            ResetAuthenticationFailure_45D7D0();
-            world::gCurrentSceneState = 8;
-            break;
-        case 8:
-            if (UpdateAuthenticationFailure_45D7E0() != 0) {
-                world::SetCurrentSceneType(2);
-            }
-            break;
-        case 9: {
-            const std::int32_t capability = resource::ProbePaletteCapability_45C970();
-            const std::uint8_t pukVersion = state::gPukVersion;
-            render::gPaletteCapability = capability;
-            if (pukVersion == 1u) {
-                world::gCurrentSceneState = 10;
-                break;
-            }
-            if ((capability < 2 && pukVersion >= 5u)
-                || (capability < 1 && pukVersion >= 3u)
-                || (capability < 3 && pukVersion >= 7u)
-                || (capability < 4 && pukVersion >= 8u)) {
-                world::gCurrentSceneState = 19;
-                break;
-            }
-
-            if (capability == 1) {
-                if (pukVersion == 0u || pukVersion == 2u) {
-                    gUpdateAvailable = 1;
-                }
-            } else if (capability >= 2
-                && (pukVersion == 0u || pukVersion == 2u)) {
-                gUpdateAvailable = 1;
-            } else if (capability >= 3
-                && pukVersion >= 5u
-                && pukVersion <= 6u) {
-                gUpdateAvailable = 1;
-            } else if (capability == 4 && pukVersion == 7u) {
-                gUpdateAvailable = 1;
-            }
-            world::gCurrentSceneState = 10;
-            break;
-        }
-        case 10:
-            world::gCurrentSceneState = 11;
-            ProcessCharacterPreview_460D00(0);
-            ProcessCharacterPreview_460D00(1);
-            break;
-        case 11:
-            interactive = 0;
-            break;
-        case 12: {
-            const std::int32_t result =
-                ProcessCharacterDeletionWarning_45E0C0(320, 240);
-            if (result == 1) {
-                world::gCurrentSceneState = 13;
-                gDeleteConfirmationAction =
-                    cg::yobi::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
-            } else if (result == 2) {
-                world::gCurrentSceneState = 10;
-            }
-            break;
-        }
-        case 13: {
-            const std::int32_t result =
-                ProcessDefaultConfirmationDialog_45E090(
-                    320,
-                    240,
-                    L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
-                    0);
-            if (cg::yobi::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
-                cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
-                cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
+        const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
+        if (mainState <= 22u) {
+            if (mainState == 0u) {
+                world::gCurrentSceneState = 1;
+                state::gPukVersion = 0;
+                ResetCharacterListProgress_45DD50();
+                gUpdateAvailable = 0;
+                render::SelectPalette(0, 0);
+            } else if (mainState == 1u) {
+                const std::int32_t result = UpdateCharacterListProgress_45DD60();
                 if (result == 1) {
-                    if ((platform::gKeyStates[17] & 2u) != 0) {
-                        world::gCurrentSceneState = 14;
-                        login::detail::PlaySe(284, 320, 240);
+                    world::gCurrentSceneState = 9;
+                } else if (result == -3) {
+                    world::gCurrentSceneState = 2;
+                    cg::network::ShutdownNetworkRuntime_5081A0();
+                } else if (result == -4) {
+                    world::gCurrentSceneState = 7;
+                    cg::network::ShutdownNetworkRuntime_5081A0();
+                } else if (result < 0) {
+                    world::gCurrentSceneState = 4;
+                    cg::network::ShutdownNetworkRuntime_5081A0();
+                }
+            } else if (mainState == 2u) {
+                login::ResetLoginMessage();
+                world::gCurrentSceneState = 6;
+            } else if (mainState == 3u) {
+                // 原状态3不执行操作。
+            } else if (mainState == 4u) {
+                login::ResetLoginMessage();
+                world::gCurrentSceneState = 5;
+            } else if (mainState == 5u) {
+                if (login::UpdateLoginMessage(L"角色资料读取失败。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
+                    world::SetCurrentSceneType(2);
+                }
+            } else if (mainState == 6u) {
+                if (login::UpdateLoginMessage(L"目前伺服器正在停机维护中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
+                    world::SetCurrentSceneType(2);
+                }
+            } else if (mainState == 7u) {
+                ResetAuthenticationFailure_45D7D0();
+                world::gCurrentSceneState = 8;
+            } else if (mainState == 8u) {
+                if (UpdateAuthenticationFailure_45D7E0() != 0) {
+                    world::SetCurrentSceneType(2);
+                }
+            } else if (mainState == 9u) {
+                const std::int32_t capability = resource::ProbePaletteCapability_45C970();
+                const std::uint8_t pukVersion = state::gPukVersion;
+                render::gPaletteCapability = capability;
+                if (pukVersion == 1u) {
+                    world::gCurrentSceneState = 10;
+                } else if ((capability < 2 && pukVersion >= 5u)
+                    || (capability < 1 && pukVersion >= 3u)
+                    || (capability < 3 && pukVersion >= 7u)
+                    || (capability < 4 && pukVersion >= 8u)) {
+                    world::gCurrentSceneState = 19;
+                } else {
+                    if (capability == 1) {
+                        if (pukVersion == 0u || pukVersion == 2u) {
+                            gUpdateAvailable = 1;
+                        }
+                    } else if (capability >= 2
+                        && (pukVersion == 0u || pukVersion == 2u)) {
+                        gUpdateAvailable = 1;
+                    } else if (capability >= 3
+                        && pukVersion >= 5u
+                        && pukVersion <= 6u) {
+                        gUpdateAvailable = 1;
+                    } else if (capability == 4 && pukVersion == 7u) {
+                        gUpdateAvailable = 1;
+                    }
+                    world::gCurrentSceneState = 10;
+                }
+            } else if (mainState == 10u) {
+                world::gCurrentSceneState = 11;
+                ProcessCharacterPreview_460D00(0);
+                ProcessCharacterPreview_460D00(1);
+            } else if (mainState == 11u) {
+                interactive = 0;
+            } else if (mainState == 12u) {
+                const std::int32_t result =
+                    ProcessCharacterDeletionWarning_45E0C0(320, 240);
+                if (result == 1) {
+                    world::gCurrentSceneState = 13;
+                    gDeleteConfirmationAction =
+                        cg::yobi::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
+                } else if (result == 2) {
+                    world::gCurrentSceneState = 10;
+                }
+            } else if (mainState == 13u) {
+                const std::int32_t result =
+                    ProcessDefaultConfirmationDialog_45E090(
+                        320,
+                        240,
+                        L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
+                        0);
+                if (cg::yobi::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
+                    cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
+                    cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
+                    if (result == 1) {
+                        if ((platform::gKeyStates[17] & 2u) != 0) {
+                            world::gCurrentSceneState = 14;
+                            login::detail::PlaySe(284, 320, 240);
+                            if (gDeleteConfirmationAction != nullptr) {
+                                cg::yobi::MarkDeath(gDeleteConfirmationAction);
+                                gDeleteConfirmationAction = nullptr;
+                            }
+                            ResetCharacterDeletionProgress_45DBF0();
+                            world::gCurrentSceneState = 14;
+                        }
+                    } else if (result == 2) {
+                        world::gCurrentSceneState = 10;
                         if (gDeleteConfirmationAction != nullptr) {
                             cg::yobi::MarkDeath(gDeleteConfirmationAction);
                             gDeleteConfirmationAction = nullptr;
                         }
-                        ResetCharacterDeletionProgress_45DBF0();
-                        world::gCurrentSceneState = 14;
                     }
+                }
+            } else if (mainState == 14u) {
+                const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
+                if (result == 1) {
+                    cg::login::Sub_51B3B0(static_cast<std::uint32_t>(
+                        static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
+                    const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
+                    static_cast<void>(unusedSelected);
+                    cg::core::NullSub_509080();
+                    cg::login::detail::Sub_520200();
+                    if (state::gPendingCharacterCount > 0) {
+                        --state::gPendingCharacterCount;
+                    }
+                    world::gCurrentSceneState = 10;
+                } else if (result == -2) {
+                    world::gCurrentSceneState = 15;
+                }
+            } else if (mainState == 15u) {
+                login::ResetLoginMessage();
+                world::gCurrentSceneState = 16;
+            } else if (mainState == 16u) {
+                if (login::UpdateLoginMessage(L"无法删除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
+                    world::gCurrentSceneState = 0;
+                }
+            } else if (mainState == 17u) {
+                login::ResetLoginMessage();
+                world::gCurrentSceneState = 18;
+            } else if (mainState == 18u) {
+                const std::int32_t result =
+                    ProcessConfirmationDialog_45DEE0(
+                        320,
+                        240,
+                        L"要进行更新吗？" /* 原 0x55CD28: 更新确认提示。 */,
+                        0,
+                        384,
+                        96);
+                if (result == 1) {
+                    world::SetCurrentSceneType(13);
                 } else if (result == 2) {
                     world::gCurrentSceneState = 10;
-                    if (gDeleteConfirmationAction != nullptr) {
-                        cg::yobi::MarkDeath(gDeleteConfirmationAction);
-                        gDeleteConfirmationAction = nullptr;
-                    }
+                }
+            } else if (mainState == 19u) {
+                login::ResetLoginMessage();
+                world::gCurrentSceneState = 20;
+            } else if (mainState == 20u) {
+                if (login::UpdateLoginMessage(L"这个帐号仅适用于资料片版本，请将用户端的版本更新至资料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
+                    world::SetCurrentSceneType(2);
+                }
+            } else if (mainState == 21u) {
+                if (ProcessCharacterModal_462090(320, 240) == 1) {
+                    world::gCurrentSceneState = 10;
                 }
             }
-            break;
-        }
-        case 14: {
-            const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
-            if (result == 1) {
-                cg::login::Sub_51B3B0(static_cast<std::uint32_t>(
-                    static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
-                const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
-                static_cast<void>(unusedSelected);
-                cg::core::NullSub_509080();
-                cg::login::detail::Sub_520200();
-                if (state::gPendingCharacterCount > 0) {
-                    --state::gPendingCharacterCount;
+#ifndef _DEBUG
+            else if (mainState == kUsageNoticeState) {
+                const std::int32_t choice = ProcessUsageNotice();
+                if (choice == 1) {
+                    EnterSelectedCharacter();
+                } else if (choice == 2) {
+                    // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
+                    std::_Exit(cg::platform::Rand16());
                 }
-                world::gCurrentSceneState = 10;
-            } else if (result == -2) {
-                world::gCurrentSceneState = 15;
             }
-            break;
-        }
-        case 15:
-            login::ResetLoginMessage();
-            world::gCurrentSceneState = 16;
-            break;
-        case 16:
-            if (login::UpdateLoginMessage(L"无法删除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
-                world::gCurrentSceneState = 0;
-            }
-            break;
-        case 17:
-            login::ResetLoginMessage();
-            world::gCurrentSceneState = 18;
-            break;
-        case 18: {
-            const std::int32_t result =
-                ProcessConfirmationDialog_45DEE0(
-                    320,
-                    240,
-                    L"要进行更新吗？" /* 原 0x55CD28: 更新确认提示。 */,
-                    0,
-                    384,
-                    96);
-            if (result == 1) {
-                world::SetCurrentSceneType(13);
-            } else if (result == 2) {
-                world::gCurrentSceneState = 10;
-            }
-            break;
-        }
-        case 19:
-            login::ResetLoginMessage();
-            world::gCurrentSceneState = 20;
-            break;
-        case 20:
-            if (login::UpdateLoginMessage(L"这个帐号仅适用于资料片版本，请将用户端的版本更新至资料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
-                world::SetCurrentSceneType(2);
-            }
-            break;
-        case 21:
-            if (ProcessCharacterModal_462090(320, 240) == 1) {
-                world::gCurrentSceneState = 10;
-            }
-            break;
-#ifndef _DEBUG
-        case kUsageNoticeState: {
-            const std::int32_t choice = ProcessUsageNotice();
-            if (choice == 1) {
-                EnterSelectedCharacter();
-            } else if (choice == 2) {
-                // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
-                std::_Exit(cg::platform::Rand16());
-            }
-            break;
-        }
 #endif
-        default:
+        }
+
+        const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
+        if (secondaryState <= 20u
+            && (secondaryState <= 9u || secondaryState >= 19u)) {
+            sceneResult = cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
             break;
         }
-    }
 
-    const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
-    if (secondaryState <= 20u
-        && (secondaryState <= 9u || secondaryState >= 19u)) {
-        return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
-    }
-
-    for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
-        login::CharacterRecord& record =
-            login::gCharacterRecords[static_cast<std::size_t>(slot)];
-        const std::int32_t action =
-            ProcessCharacterSlot_461B30(slot, interactive);
+        for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
+            login::CharacterRecord& record =
+                login::gCharacterRecords[static_cast<std::size_t>(slot)];
+            const std::int32_t action =
+                ProcessCharacterSlot_461B30(slot, interactive);
 #ifndef _DEBUG
-        if (world::gCurrentSceneState == kUsageNoticeState) {
-            continue; // 原空槽按钮仍可能返回创建动作；模态等待时只绘制、不派发。
-        }
-#endif
-        const std::uint32_t actionIndex = static_cast<std::uint32_t>(action);
-        if (actionIndex > 6u) {
-            continue;
-        }
-
-        switch (actionIndex) {
-        case 0:
-            login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            world::Sub_518BE0();
-            cg::world::detail::Sub_519290();
-            cg::world::detail::Sub_5194C0();
-            cg::world::detail::Sub_519300();
-            cg::world::detail::Sub_519550();
-            world::SetCurrentSceneType(4);
-            login::detail::PlaySe(53, 320, 240);
-            cg::yobi::YobiClearUp_404D30();
-            ClearPreviewActions();
-            break;
-        case 1: {
-            login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-#ifndef _DEBUG
-            // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
-            const char* const serverAddress = login::gValueD69798[
-                static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
-            if (std::strcmp(serverAddress, "taomoli") == 0) {
-                EnterSelectedCharacter();
-            } else {
-                world::gCurrentSceneState = kUsageNoticeState;
-                interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
+            if (world::gCurrentSceneState == kUsageNoticeState) {
+                continue; // 原空槽按钮仍可能返回创建动作；模态等待时只绘制、不派发。
             }
+#endif
+            const std::uint32_t actionIndex = static_cast<std::uint32_t>(action);
+            if (actionIndex > 6u) {
+                continue;
+            }
+
+            if (actionIndex == 0u) {
+                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+                world::Sub_518BE0();
+                cg::world::detail::Sub_519290();
+                cg::world::detail::Sub_5194C0();
+                cg::world::detail::Sub_519300();
+                cg::world::detail::Sub_519550();
+                world::SetCurrentSceneType(4);
+                login::detail::PlaySe(53, 320, 240);
+                cg::yobi::YobiClearUp_404D30();
+                ClearPreviewActions();
+            } else if (actionIndex == 1u) {
+                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+#ifndef _DEBUG
+                // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
+                const char* const serverAddress = login::gValueD69798[
+                    static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
+                if (std::strcmp(serverAddress, "taomoli") == 0) {
+                    EnterSelectedCharacter();
+                } else {
+                    world::gCurrentSceneState = kUsageNoticeState;
+                    interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
+                }
 #else
-            EnterSelectedCharacter();
+                EnterSelectedCharacter();
 #endif
-            break;
-        }
-        case 2: {
-            login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            if (record.deleteFlag != 0) {
-                char name[kLegacyNameCapacity];
-                std::strcpy(name, record.name.data());
-                cg::core::NullSub_509080();
-                world::gCurrentSceneState = 12;
-                std::strcpy(state::gDeleteCharacterName, name);
-            } else {
-                world::gCurrentSceneState = 21;
+            } else if (actionIndex == 2u) {
+                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+                if (record.deleteFlag != 0) {
+                    char name[kLegacyNameCapacity];
+                    std::strcpy(name, record.name.data());
+                    cg::core::NullSub_509080();
+                    world::gCurrentSceneState = 12;
+                    std::strcpy(state::gDeleteCharacterName, name);
+                } else {
+                    world::gCurrentSceneState = 21;
+                }
+                login::detail::PlaySe(55, 320, 240);
+            } else if (actionIndex == 3u || actionIndex == 4u) {
+                UpdateCharacterGraphic(record, static_cast<std::int32_t>(actionIndex));
+                login::detail::PlaySe(51, 320, 240);
+            } else if (actionIndex == 5u || actionIndex == 6u) {
+                const std::int32_t value = record.previewState;
+                if (value == 0) {
+                    record.previewState = 1;
+                } else if (value == 1) {
+                    record.previewState = 0;
+                }
+                state::gPreviewToggleState =
+                    record.previewState;
+                ProcessCharacterPreview_460D00(slot);
+                login::detail::PlaySe(51, 320, 240);
             }
-            login::detail::PlaySe(55, 320, 240);
-            break;
         }
-        case 3:
-        case 4:
-            UpdateCharacterGraphic(record, static_cast<std::int32_t>(actionIndex));
-            login::detail::PlaySe(51, 320, 240);
-            break;
-        case 5:
-        case 6: {
-            const std::int32_t value = record.previewState;
-            if (value == 0) {
-                record.previewState = 1;
-            } else if (value == 1) {
-                record.previewState = 0;
-            }
-            state::gPreviewToggleState =
-                record.previewState;
-            ProcessCharacterPreview_460D00(slot);
-            login::detail::PlaySe(51, 320, 240);
-            break;
-        }
-        default:
-            break;
-        }
-    }
 
-    std::int32_t uiStyle = interactive;
-    if (gUpdateAvailable != 0) {
+        std::int32_t uiStyle = interactive;
+        if (gUpdateAvailable != 0) {
+            if (uiStyle == 0
+                && world::gCurrentSceneState == 11
+                && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
+                world::SetCurrentSceneType(13);
+                uiStyle = 1;
+            }
+            cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
+            cg::render::Sub_45F090(252, 392, 4, 245078, 0, -1);
+        }
+
         if (uiStyle == 0
             && world::gCurrentSceneState == 11
-            && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
-            world::SetCurrentSceneType(13);
-            uiStyle = 1;
+            && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
+            cg::yobi::YobiClearUp_404D30();
+            ClearPreviewActions();
+            cg::network::ShutdownNetworkRuntime_5081A0();
+            world::SetCurrentSceneType(2);
+            login::detail::PlaySe(54, 320, 240);
         }
-        cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
-        cg::render::Sub_45F090(252, 392, 4, 245078, 0, -1);
-    }
-
-    if (uiStyle == 0
-        && world::gCurrentSceneState == 11
-        && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
-        cg::yobi::YobiClearUp_404D30();
-        ClearPreviewActions();
-        cg::network::ShutdownNetworkRuntime_5081A0();
-        world::SetCurrentSceneType(2);
-        login::detail::PlaySe(54, 320, 240);
-    }
-    cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
-    cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
+        cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
+        cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG
-    if (world::gCurrentSceneState == kUsageNoticeState) {
-        return 0; // 等待时不执行页尾升级发送／状态复位。
-    }
+        if (world::gCurrentSceneState == kUsageNoticeState) {
+            sceneResult = 0;
+            break; // 等待时不执行页尾升级发送／状态复位，但仍经过VM_HARD_END。
+        }
 #endif
 
-    std::int32_t result = gUpdateAvailable;
-    if (result != 0) {
-        const std::uint8_t pukVersion = state::gPukVersion;
-        result = static_cast<std::int32_t>(pukVersion);
-        switch (pukVersion) {
-        case 0:
-        case 2:
-            result = detail::Sub_512D30(
-                platform::gConnectionSocket, 2, state::kVersion20);
-            break;
-        case 5:
-        case 6:
-            result = detail::Sub_512D30(
-                platform::gConnectionSocket, 4, state::kVersion30);
-            break;
-        case 7:
-            result = detail::Sub_512D30(
-                platform::gConnectionSocket, 5, detail::gVersionPayload9A5C10);
-            break;
-        default:
-            break;
+        sceneResult = gUpdateAvailable;
+        if (sceneResult != 0) {
+            const std::uint8_t pukVersion = state::gPukVersion;
+            sceneResult = static_cast<std::int32_t>(pukVersion);
+            if (pukVersion == 0u || pukVersion == 2u) {
+                sceneResult = detail::Sub_512D30(
+                    platform::gConnectionSocket, 2, state::kVersion20);
+            } else if (pukVersion == 5u || pukVersion == 6u) {
+                sceneResult = detail::Sub_512D30(
+                    platform::gConnectionSocket, 4, state::kVersion30);
+            } else if (pukVersion == 7u) {
+                sceneResult = detail::Sub_512D30(
+                    platform::gConnectionSocket, 5, detail::gVersionPayload9A5C10);
+            }
+            world::gCurrentSceneState = 0;
         }
-        world::gCurrentSceneState = 0;
-    }
+    } while (false);
     VM_HARD_END
-    return result;
+    return sceneResult;
 }
+#pragma optimize("", on)
 
 } // namespace cg::character_select

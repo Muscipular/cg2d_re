@@ -1865,8 +1865,10 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
 // 原函数：0x004C6790。
 static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
 {
-    static constexpr std::int32_t images54F564[] {98133, 98133, 98135, 98134};
-    static constexpr std::int32_t images54F574[] {98137, 98137, 98139, 98138};
+    // 原常量参考：0x0054F564。
+    static constexpr std::int32_t kPreviewToggleImages[] {98133, 98133, 98135, 98134};
+    // 原常量参考：0x0054F574。
+    static constexpr std::int32_t kEquipmentToggleImages[] {98137, 98137, 98139, 98138};
     const std::int32_t page = state->value60;
     if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
@@ -1916,7 +1918,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         const std::int32_t firstIndex = state->imageIndex3F0;
         const WindowElement* const firstElement = state->elements00[1];
         const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
-        const std::int32_t firstImage = images54F564[firstIndex];
+        const std::int32_t firstImage = kPreviewToggleImages[firstIndex];
         const WindowInstance* const firstWindow = gCurrentWindow;
         const std::int32_t firstWindowY = firstWindow->y;
         const std::int32_t firstWindowX = firstWindow->x;
@@ -1928,7 +1930,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
             firstX, firstY, 223, firstImage, 0, descriptor));
         const std::int32_t secondIndex = state->imageIndex3F4;
         const WindowElement* const secondElement = state->elements00[1];
-        const std::int32_t secondImage = images54F574[secondIndex];
+        const std::int32_t secondImage = kEquipmentToggleImages[secondIndex];
         const WindowInstance* const secondWindow = gCurrentWindow;
         const std::int32_t secondElementY = secondElement->y;
         const std::int32_t secondWindowY = secondWindow->y;
@@ -2159,7 +2161,8 @@ static bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, con
 bool WindowItemSelector_HandleTab(
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
-    static constexpr std::int32_t images54F5F4[] {
+    // 原常量参考：0x0054F5F4。
+    static constexpr std::int32_t kEquipmentTabImages[] {
         244294, 244294, 244295, 244296, 98148, 98131, 98148, 98132,
         98142, 98140, 98142, 98141, 98145, 98143, 98145, 98144,
     };
@@ -2214,7 +2217,7 @@ bool WindowItemSelector_HandleTab(
     const std::int32_t page = state->value60;
     if ((page == 2 || page == 3) && std::bit_cast<std::int8_t>(*state->mode68) == tab) {
         const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
-        const std::int32_t image = images54F5F4[tab * 4 + (hovered ? 3 : 1)];
+        const std::int32_t image = kEquipmentTabImages[tab * 4 + (hovered ? 3 : 1)];
         static_cast<void>(cg::render::DrawGraphic(x, y, 223, image, 0, descriptor));
     }
     std::int32_t imageIndex;
@@ -2227,7 +2230,7 @@ bool WindowItemSelector_HandleTab(
     } else {
         imageIndex = 0;
     }
-    graphic->imageNo = images54F5F4[tab * 4 + imageIndex];
+    graphic->imageNo = kEquipmentTabImages[tab * 4 + imageIndex];
     return consumed;
 }
 

@@ -9938,7 +9938,7 @@ void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
 }
 
 // 原函数：0x00519840。
-std::int32_t Sub_519840(const std::int32_t id)
+std::int32_t FindTitleIndexById(const std::int32_t id)
 {
     if (id < 0) {
         return -1;
@@ -9962,12 +9962,12 @@ void CenterBattleLayoutToWindow()
             gTransitionLines.yFF1EB0.resize(extent);
         }
     }
-    static std::int32_t previousX = 0;
-    static std::int32_t previousY = 0;
+    static std::int32_t appliedOffsetX = 0;
+    static std::int32_t appliedOffsetY = 0;
     const std::int32_t offsetX = platform::gWindowWidth > 0 ? (platform::gWindowWidth - 640) / 2 : 0;
     const std::int32_t offsetY = platform::gWindowHeight > 0 ? (platform::gWindowHeight - 480) / 2 : 0;
-    const std::int32_t deltaX = offsetX - previousX;
-    const std::int32_t deltaY = offsetY - previousY;
+    const std::int32_t deltaX = offsetX - appliedOffsetX;
+    const std::int32_t deltaY = offsetY - appliedOffsetY;
     if (deltaX == 0 && deltaY == 0) {
         return;
     }
@@ -9977,8 +9977,8 @@ void CenterBattleLayoutToWindow()
         point[2] += deltaX;
         point[3] += deltaY;
     }
-    previousX = offsetX;
-    previousY = offsetY;
+    appliedOffsetX = offsetX;
+    appliedOffsetY = offsetY;
 }
 
 // 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。

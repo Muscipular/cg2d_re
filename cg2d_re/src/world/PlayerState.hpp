@@ -376,7 +376,7 @@ extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F
 // 原函数：0x0050A300。
 void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
-std::int32_t Sub_519840(std::int32_t id); // 原表首匹配索引，未找到返回-1。
+std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
 extern std::int32_t gValueFDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 // 原函数：0x0050BFA0。
 std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。

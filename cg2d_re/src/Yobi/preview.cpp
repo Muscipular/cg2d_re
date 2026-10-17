@@ -113,10 +113,10 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
 
 
 // 原函数：0x0045E6E0。
-std::int32_t Sub_45E6E0(YobiAction* const action)
+std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* const action)
 {
     // 原55B2C0，每项依次为动作、持续次数、基图号偏移。
-    static constexpr std::array<std::array<std::int32_t, 3>, 16> sequence {{
+    static constexpr std::array<std::array<std::int32_t, 3>, 16> kPreviewAnimationSequence {{
         {{1, 2, 0}}, {{3, 2, 0}}, {{5, 1, -2}}, {{5, 1, -1}},
         {{5, 1, 0}}, {{5, 1, 1}}, {{5, 1, 2}}, {{5, 1, 3}},
         {{6, 1, 0}}, {{7, 1, 0}}, {{8, 1, 0}}, {{9, 1, 0}},
@@ -129,7 +129,7 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
     const std::int32_t counter = action->field1D0 + 1;
     action->field1D0 = counter;
     std::int32_t result = action->phase;
-    if (counter >= sequence[result][1]) {
+    if (counter >= kPreviewAnimationSequence[result][1]) {
         const std::int32_t next = result + 1;
         action->field1D0 = 0;
         action->phase = next;
@@ -139,11 +139,11 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
         const std::int32_t base = action->readiness.value();
         const std::int32_t current = action->phase;
         action->imageNo = base;
-        const std::int32_t offset = sequence[current][2];
+        const std::int32_t offset = kPreviewAnimationSequence[current][2];
         if (offset != 0) {
             action->imageNo = base + offset;
         }
-        result = sequence[current][0];
+        result = kPreviewAnimationSequence[current][0];
         action->characterAction = result;
     }
     action->lastCharacterAction = -1;

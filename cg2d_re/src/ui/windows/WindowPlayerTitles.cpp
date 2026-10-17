@@ -184,7 +184,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
         const std::int32_t id = world::gSortedTitlesDE03F8[gTitlePageCF4E54 + index - 26].id;
         // 删除模式直接查原表，只有普通选择先拒绝负id。
         if (mode == 1 || id >= 0) {
-            const std::int32_t originalIndex = world::Sub_519840(id);
+            const std::int32_t originalIndex = world::FindTitleIndexById(id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
                     static_cast<void>(network::Sub_512310(platform::gConnectionSocket, originalIndex));

@@ -647,10 +647,10 @@ std::int32_t Sub_462930()
         }
         cg::yobi::SetYobiActionField2A8(state::gCreateActions[0], motion);
         if (cg::yobi::Sub_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
-            cg::yobi::Sub_45E6E0(state::gCreateActions[0]);
+            cg::yobi::AdvanceCharacterPreviewAnimation(state::gCreateActions[0]);
             cg::yobi::YobiAction* const currentSecond = state::gCreateActions[1];
             if (currentSecond != nullptr) {
-                cg::yobi::Sub_45E6E0(currentSecond);
+                cg::yobi::AdvanceCharacterPreviewAnimation(currentSecond);
             }
         }
     }

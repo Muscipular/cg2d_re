@@ -1,4 +1,3 @@
-#include "environment.hpp"
 #include "base.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -92,8 +91,9 @@ static constexpr const SceneEffectFrame* const* kFrameGroups554570[] { // 原常
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
-// 原函数：0x00448370。
-YobiAction* Sub_448370(void (*callback)(YobiAction*))
+// 原 sub_448370@[0x448370,0x44839C)；查找首个 callback 匹配且 deathFlag 为零的普通节点。
+// 调用前提为已初始化的有效链；允许空 callback，返回非拥有指针，未命中返回空。
+static YobiAction* FindLiveActionByCallback(void (*callback)(YobiAction*))
 {
     // 原 0x448370/0x448379/0x448380：先读首槽、缓存尾槽，再读 start->next。
     YobiAction* const start = gYobiActionStart;
@@ -311,13 +311,13 @@ static void Sub_448810(
         return;
     }
     if (mode == 4) {
-        YobiAction* const previous = Sub_448370(Sub_448A50);
+        YobiAction* const previous = FindLiveActionByCallback(Sub_448A50);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
         }
     }
-    YobiAction* action = Sub_448370(Sub_448A50);
+    YobiAction* action = FindLiveActionByCallback(Sub_448A50);
     const bool created = action == nullptr;
     if (created) {
         action = NewYobiAction_404AE0(3, 0);
@@ -368,7 +368,7 @@ static void Sub_448D90(
         return;
     }
     if (mode == 4) {
-        YobiAction* const previous = Sub_448370(Sub_448BF0);
+        YobiAction* const previous = FindLiveActionByCallback(Sub_448BF0);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
@@ -382,7 +382,7 @@ static void Sub_448D90(
     case 202: image = 1002065; break;
     default: return;
     }
-    YobiAction* action = Sub_448370(Sub_448BF0);
+    YobiAction* action = FindLiveActionByCallback(Sub_448BF0);
     const bool created = action == nullptr;
     if (created) {
         action = NewYobiAction_404AE0(3, 0);
@@ -494,7 +494,7 @@ static void Sub_449A00(YobiAction* const action)
 // 原[449C10,449C8B)：每轮重查普通路父节点，播放后复制父屏幕坐标。
 static void Sub_449C10(YobiAction* const action)
 {
-    YobiAction* const parent = Sub_448370(Sub_449A00);
+    YobiAction* const parent = FindLiveActionByCallback(Sub_449A00);
     if (parent == nullptr || world::IsMapFloorAllowed_448240() == 0) {
         MarkDeath(action);
         return;
@@ -508,11 +508,11 @@ static void Sub_449C10(YobiAction* const action)
 // 原[449BC0,449C0A)：按callback去重附属节点，不拥有父引用。
 static YobiAction* Sub_449BC0()
 {
-    YobiAction* action = Sub_448370(Sub_449C10);
+    YobiAction* action = FindLiveActionByCallback(Sub_449C10);
     if (action != nullptr) {
         return action;
     }
-    YobiAction* const parent = Sub_448370(Sub_449A00);
+    YobiAction* const parent = FindLiveActionByCallback(Sub_449A00);
     if (parent == nullptr) {
         return nullptr;
     }
@@ -538,7 +538,7 @@ static void Sub_4483A0(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    YobiAction* const associated = Sub_448370(Sub_448BF0);
+    YobiAction* const associated = FindLiveActionByCallback(Sub_448BF0);
     const std::uint64_t tick = platform::ReadTickCount64();
     const auto elapsed = std::bit_cast<std::int64_t>(tick - gStartTick5F973C);
     std::int32_t duration = gDuration5AC4B8;
@@ -657,7 +657,7 @@ static void Sub_448290()
     if (floor != 59529 && floor != 38251) {
         return;
     }
-    if (Sub_448370(Sub_4483A0) != nullptr) {
+    if (FindLiveActionByCallback(Sub_4483A0) != nullptr) {
         return;
     }
     YobiAction* const action = NewYobiAction_404AE0(3, 0);
@@ -767,13 +767,13 @@ void Sub_449700(
         return;
     }
     if (mode == 4) {
-        YobiAction* const previous = detail::Sub_448370(detail::Sub_449A00);
+        YobiAction* const previous = detail::FindLiveActionByCallback(detail::Sub_449A00);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
         }
     }
-    YobiAction* action = detail::Sub_448370(detail::Sub_449A00);
+    YobiAction* action = detail::FindLiveActionByCallback(detail::Sub_449A00);
     const bool created = action == nullptr;
     if (created) {
         action = NewYobiAction_404AE0(3, 0);

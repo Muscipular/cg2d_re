@@ -67,11 +67,6 @@ static constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
 static std::unique_ptr<CpuBackStorage> gCpuBackSurface;
 static TextureSurface* gCpuAutoMapSurface {};
 
-// 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
-static std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
-static std::uint64_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
-static std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
-static std::uint64_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
 
 // GRT01：Temp／表面复制直接进入 GPU Back，保留无色键、无混合语义。
 static bool CopyTextureToGpuBack(TextureSurface* surface, const SDL_Rect& source, const SDL_Rect& destination) noexcept
@@ -442,8 +437,11 @@ std::int32_t DrawIndexedAutoMap32_44F330(
     const std::int32_t x, const std::int32_t y, const std::uint8_t* const source,
     const std::int32_t width, const std::int32_t height)
 {
+    // 本入口独立保存闪烁状态；renderer重建不重置。
+    static std::uint16_t blinkPhase = 0; // 原全局：0x0062B07C。
+    static std::uint64_t lastBlinkTick = 0; // 原全局：0x0062B080。
     return DrawAutoMap32(x, y, source, width, height,
-        gIndexedAutoMapBlink62B07C, gIndexedAutoMapTick62B080,
+        blinkPhase, lastBlinkTick,
         [](const std::uint8_t index) {
             const std::uint32_t color = GetAutoMapPaletteRgb(index);
             return color == 0 ? 1u : color;
@@ -455,8 +453,11 @@ std::int32_t DrawColorAutoMap32_44FC20(
     const std::int32_t x, const std::int32_t y, const std::uint32_t* const source,
     const std::int32_t width, const std::int32_t height)
 {
+    // 本入口独立保存闪烁状态；renderer重建不重置。
+    static std::uint16_t blinkPhase = 0; // 原全局：0x0062B094。
+    static std::uint64_t lastBlinkTick = 0; // 原全局：0x0062B098。
     return DrawAutoMap32(x, y, source, width, height,
-        gColorAutoMapBlink62B094, gColorAutoMapTick62B098,
+        blinkPhase, lastBlinkTick,
         [](const std::uint32_t color) {
             const std::uint32_t rgb = color & 0x00FFFFFFu;
             return rgb == 0 ? 1u : rgb;

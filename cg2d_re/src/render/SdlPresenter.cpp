@@ -54,7 +54,6 @@ static SdlPresenter gRendererPresenter;
 static std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
 static std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
 static std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
-static std::uint64_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
 // 初始化资源前及窗口模式同步后先提交不透明黑底，不等待loading循环的首帧。
 static bool PresentInitialBlackFrame(SDL_Renderer* const renderer) noexcept
@@ -731,13 +730,14 @@ void TakeScreenshot_453760()
 // 原函数：0x00503C80。
 std::uint32_t TakeScreenshotThrottled_503C80()
 {
+    static std::uint64_t lastScreenshotTick = 0; // 原全局：0x00D68A78。
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gScreenshotTickD68A78 + 500u > now) {
+    if (lastScreenshotTick + 500u > now) {
         return static_cast<std::uint32_t>(now);
     }
     TakeScreenshot_453760();
     const std::uint64_t completed = platform::ReadTickCount64();
-    gScreenshotTickD68A78 = completed;
+    lastScreenshotTick = completed;
     return static_cast<std::uint32_t>(completed);
 }
 

@@ -98,7 +98,6 @@ static constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectI
 static_assert(sizeof(kBattleNamedEffectImages57E174) == 696);
 
 // 原54D4C0起物理16B；末零不用于索引回退，逻辑有效项数不据此扩充。
-static constexpr std::array<std::int32_t, 4> kBattleStatusImages54D4C0 {103018, 103022, 103020, 0};
 
 // BWT01：固定一次目标索引/point，先Y后X，两原22项S32只读表保持。
 // 原函数：0x0040BD60。
@@ -2477,6 +2476,8 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
 // 原函数：0x00410FC0。
 void UpdateBattleAction143_410FC0(YobiAction* const action)
 {
+    // 原常量参考：0x0054D4C0。
+    static constexpr std::array<std::int32_t, 4> kBattleStatusImages {103018, 103022, 103020, 0};
     auto* const payload = action->payload.battleActor;
     const std::int32_t use = payload->value13D8;
     bool create = true;
@@ -2495,7 +2496,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
         case 0: imageNo = 111100; break;
         case 4: case 30: case 31: case 32: imageNo = 111099; break;
         case 5: case 16: case 17: case 18: imageNo = 111098; break;
-        case 7: imageNo = kBattleStatusImages54D4C0[payload->value13E0]; break;
+        case 7: imageNo = kBattleStatusImages[payload->value13E0]; break;
         case 9: imageNo = 111152; break;
         case 11: imageNo = 98254; break;
         case 12: imageNo = 98252; break;

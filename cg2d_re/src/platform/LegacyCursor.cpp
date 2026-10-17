@@ -31,8 +31,6 @@ static_assert(sizeof(CursorState0Record) == 8);
 // 原 [0x55CE80,0x55CE88)：状态 0 的唯一可写记录。
 static CursorState0Record gCursorState0 {0x0003BE98u, 0};
 
-// 原 dword_D68BE8：只在 World::CursorUpdate 内比较并更新。
-static std::uint32_t gValueD68BE8 = 0;
 
 static std::int32_t ReadCursorImage(const std::uint32_t state)
 {
@@ -131,8 +129,10 @@ static void DrawTableCursor()
 
 static void UpdateNativeCursor()
 {
+    // 原全局：0x00D68BE8；本函数保存上一次光标状态。
+    static std::uint32_t previousCursorState = 0;
     const std::uint32_t currentState = gValueD68DC4;
-    if (currentState != gValueD68BE8) {
+    if (currentState != previousCursorState) {
         // 原端未检查 API 结果且会继续读取未初始化局部；新端只将局部清零以避免 UB。
         POINT point {};
         RECT clientRect {};
@@ -147,7 +147,7 @@ static void UpdateNativeCursor()
         }
     }
 
-    gValueD68BE8 = gValueD68DC4;
+    previousCursorState = gValueD68DC4;
 
     if (gLegacyMouseState.drawingSuppression == 0) {
         const std::int32_t y = (gLegacyMouseState.mouseY + 16);

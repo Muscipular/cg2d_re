@@ -34,7 +34,6 @@ static std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
 
 static std::uint64_t gStartTick5F973C = 0; // 原全局：0x005F973C。
 
-static std::uint8_t gEffectCounter5F9755 = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
 
 struct SceneEffectFrame {
     std::int32_t duration; // -1终止、-2跳转，其他值为帧时长。
@@ -815,6 +814,7 @@ void Sub_449700(
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void Sub_449160()
 {
+    static std::uint8_t effectSpawnCounter = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
     if (world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
@@ -823,8 +823,8 @@ void Sub_449160()
     if (world::Sub_4493C0() == 0) {
         return;
     }
-    const auto counter = static_cast<std::uint8_t>(detail::gEffectCounter5F9755 + 1);
-    detail::gEffectCounter5F9755 = counter;
+    const auto counter = static_cast<std::uint8_t>(effectSpawnCounter + 1);
+    effectSpawnCounter = counter;
     if ((counter & 0x3Fu) != 0) {
         return;
     }

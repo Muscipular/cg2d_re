@@ -249,8 +249,8 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 // 原函数：0x00499C30。
 std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
-    static constexpr std::int32_t kBombType = 51;
-    static constexpr std::int32_t kMedicineType = 43;
+    constexpr std::int32_t kBombType = 51;
+    constexpr std::int32_t kMedicineType = 43;
     static constexpr std::int32_t levelLimits[] {
         9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149,
     };

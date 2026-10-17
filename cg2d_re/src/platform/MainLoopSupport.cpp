@@ -39,8 +39,6 @@ static volatile std::uint64_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED2
 static volatile std::uint32_t gValue59E544 = 0; // 原全局：0x0059E544。
 static volatile std::uint32_t gValue593FD0 = 0; // 原全局：0x00593FD0。
 
-// 原 W32 0x59E564；0x4043B0 独立使用，不能与其他防护计数槽复用。
-static volatile std::uint32_t gProtectionCheckCounter = 0;
 
 // 原 W32 0x59E558；0x4041E0 仅更新低 W8。
 static std::uint32_t gProtectionPlatformState = 0;
@@ -264,13 +262,15 @@ void InitializeProtection_4041E0(const char* moduleName)
 // 原函数：0x004043B0。
 std::uint8_t CheckProtection_4043B0(const char* functionName)
 {
+    // 原 W32 0x59E564；本函数独占的防护计数，不与其他槽复用。
+    static volatile std::uint32_t checkCounter = 0;
     const std::uint32_t nextCounter =
-        gProtectionCheckCounter + std::uint32_t{1};
-    gProtectionCheckCounter = nextCounter;
+        checkCounter + std::uint32_t{1};
+    checkCounter = nextCounter;
     if (nextCounter < std::uint32_t{1380}) {
         return 0;
     }
-    gProtectionCheckCounter = 0;
+    checkCounter = 0;
 
     constexpr double kFrameThreshold = 1000.0 / 60.0;
     if (network::ReadNetworkRuntimeActive() == 1

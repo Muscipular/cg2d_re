@@ -228,11 +228,7 @@ static std::int32_t WindowInventory_Draw(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 原全局：0x0057DA2C。 普通背包悬停槽，初值-2，仅488FB0读写。
-static std::int32_t gInventoryHover57DA2C = -2; // 原全局：0x0057DA2C。
 
-// 原全局：0x0057DA68。 装备页独立悬停槽，初值-2，仅489760读写。
-static std::int32_t gEquipmentHover57DA68 = -2; // 原全局：0x0057DA68。
 
 // 原全局：0x00CB086C。 488E60格式化，type7载荷借用。
 static std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
@@ -704,6 +700,7 @@ static std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const 
 // 原函数：0x00488FB0。
 std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::int32_t state)
 {
+    static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA2C。
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -769,10 +766,10 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     if ((events & 2u) != 0) {
         gCurrentWindow->state |= 0x2000u;
     }
-    if (gInventoryHover57DA2C != hovered) {
+    if (previousHoveredSlot != hovered) {
         gWindowStates[WindowId_Inventory].value14 = 0;
     }
-    gInventoryHover57DA2C = hovered;
+    previousHoveredSlot = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
@@ -901,6 +898,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
 // 原函数：0x00489760。
 std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
+    static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA68。
     static constexpr const wchar_t* playerHints[] {
         L"装备头部防具的位置。",
         L"装备身体防具的位置。",
@@ -1003,11 +1001,11 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
             return consumed;
         }
     }
-    if (gEquipmentHover57DA68 != hovered) {
+    if (previousHoveredSlot != hovered) {
         gWindowStates[WindowId_Inventory].value14 = 0;
     }
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
-    gEquipmentHover57DA68 = hovered;
+    previousHoveredSlot = hovered;
     if (selectedItem < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {

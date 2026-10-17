@@ -25,7 +25,6 @@ namespace cg::yobi {
 namespace detail {
 
 // 408BD4以54D438加1..5档索引；此表从首个有效S32图号54D43C开始。
-static constexpr std::array<std::int32_t, 5> kBattleBoomerangHitImages54D43C {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
 
 // B14H01：完整帧命中/四类HP-FP及六复制、十二BYTE和音效取样见doc/cg2d_battle_frame_hit_spec.md。
 // 原函数：0x00409680。
@@ -1373,6 +1372,7 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 // 原函数：0x004087C0。
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 {
+    static constexpr std::array<std::int32_t, 5> kBoomerangHitImages {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
     using world::gBattleAllEntries59E980;
     const std::int32_t initialFrameEvent = action->frameEvent;
     auto* const payload = action->payload.battleActor;
@@ -1464,7 +1464,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     break;
                 }
                 case 2022:
-                    image = kBattleBoomerangHitImages54D43C[GetBattleValueBand_43BF00(payload->castSkillLevel1044 + 1) - 1];
+                    image = kBoomerangHitImages[GetBattleValueBand_43BF00(payload->castSkillLevel1044 + 1) - 1];
                     break;
                 default:
                     if ((skill >= 75 && skill <= 80) || (skill >= 2096 && skill <= 2101)) {

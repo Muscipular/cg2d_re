@@ -20,12 +20,7 @@ namespace cg::yobi {
 
 namespace detail {
 
-// 4113A0栈上立即数表；有效类型为1..4，按type-1索引，不伪造未写的第0行。
-static constexpr std::array<std::int32_t, 4> kRebirthEnterSounds4116DE {425, 427, 429, 431};
 
-static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthEnterImages411708 {{
-    {110420, 110421}, {110432, 110433}, {110444, 110445}, {110456, 110457},
-}};
 
 static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthExitImages4118BF {{
     {110423, 110424}, {110435, 110436}, {110447, 110448}, {110459, 110460},
@@ -407,6 +402,12 @@ void UpdateBattleAction162_410E30(YobiAction* const action)
 // 原函数：0x004113A0。
 void UpdateBattleAction163_4113A0(YobiAction* const action)
 {
+    // 原0x004116DE立即数表；进入阶段音效，保留原项序。
+    static constexpr std::array<std::int32_t, 4> kRebirthEnterSounds {425, 427, 429, 431};
+    // 原0x00411708立即数表；有效类型1..4，不补第0行。
+    static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthEnterImages {{
+        {110420, 110421}, {110432, 110433}, {110444, 110445}, {110456, 110457},
+    }};
     auto* const payload = action->payload.battleActor;
     const std::int32_t initialEffect = payload->effectRunningC9C;
     if ((payload->effects1C[initialEffect].flags & 0x80000u) != 0) {
@@ -415,7 +416,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             const std::int32_t direction = action->direction;
             const bool side = direction < 6 && static_cast<std::uint32_t>(direction) > 2u;
             const std::int32_t soundX = action->x;
-            const std::int32_t sound = kRebirthEnterSounds4116DE[payload->effects1C[initialEffect].position];
+            const std::int32_t sound = kRebirthEnterSounds[payload->effects1C[initialEffect].position];
             static_cast<void>(audio::PlaySe_52C450(sound, soundX));
             SetYobiActionField308(action, 8);
             SetYobiActionField30F(action, 255);
@@ -425,7 +426,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             const std::int32_t effectIndex = payload->effectRunningC9C;
             payload->valueFD4 = 1;
             YobiAction* const effect = NewBattleTransitionEffect_419C10(action,
-                kRebirthEnterImages411708[payload->effects1C[effectIndex].position][side]);
+                kRebirthEnterImages[payload->effects1C[effectIndex].position][side]);
             payload->rebirthEffect106C = effect;
             if (effect != nullptr) {
                 SetYobiActionField309(effect, 4);

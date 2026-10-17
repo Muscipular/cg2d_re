@@ -67,7 +67,6 @@ static_assert(offsetof(ProtectionAuxiliaryRecord, flagB) == 0x26);
 
 static ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
 static std::uint32_t gProtectionAuxiliaryRecordCount = 0;
-static OSVERSIONINFOA gProtectionVersionInfo{};
 
 static_assert(sizeof(gProtectionProcessState) == 16);
 static_assert(sizeof(gProtectionChecksum1) == 16);
@@ -75,7 +74,6 @@ static_assert(sizeof(gProtectionChecksum2) == 16);
 static_assert(sizeof(gProtectionBuffer1) == 0x5000);
 static_assert(sizeof(gProtectionBuffer2) == 0x5000);
 static_assert(sizeof(ProtectionAuxiliaryRecord) == 0x28);
-static_assert(sizeof(gProtectionVersionInfo) == 0x94);
 
 static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
@@ -235,20 +233,22 @@ void InitializeProtection_4041E0(const char* moduleName)
 
     std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
     std::memset(gProtectionBuffer2, 0, sizeof(gProtectionBuffer2));
-    std::memset(
-        &gProtectionVersionInfo,
-        0,
-        sizeof(gProtectionVersionInfo));
-    gProtectionVersionInfo.dwOSVersionInfoSize = 0x94;
-    // 原4041E0依赖此API的版本兼容行为；只在本调用保留已弃用接口。
-#pragma warning(suppress : 4996)
-    static_cast<void>(GetVersionExA(&gProtectionVersionInfo));
+    // 原0x004041E0使用GetVersionExA；本端改用RtlGetVersion读取同样的三个判断字段。
+    // 版本结构仅此处消费，采用局部W结构；不再保留原0x94字节的A结构缓存。
+    OSVERSIONINFOW versionInfo{};
+    versionInfo.dwOSVersionInfoSize = sizeof(versionInfo);
+    using RtlGetVersionFunction = LONG (WINAPI*)(OSVERSIONINFOW*);
+    const HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
+    const auto getVersion = ntdll != nullptr
+        ? std::bit_cast<RtlGetVersionFunction>(GetProcAddress(ntdll, "RtlGetVersion"))
+        : nullptr;
+    const bool hasVersion = getVersion != nullptr && getVersion(&versionInfo) >= 0;
 
-    const DWORD platformId = gProtectionVersionInfo.dwPlatformId;
-    const DWORD majorVersion = gProtectionVersionInfo.dwMajorVersion;
-    const DWORD minorVersion = gProtectionVersionInfo.dwMinorVersion;
+    const DWORD platformId = hasVersion ? versionInfo.dwPlatformId : 0;
+    const DWORD majorVersion = hasVersion ? versionInfo.dwMajorVersion : 0;
+    const DWORD minorVersion = hasVersion ? versionInfo.dwMinorVersion : 0;
     const std::uint32_t isLegacyWindows =
-        platformId == DWORD{1}
+        platformId == VER_PLATFORM_WIN32_WINDOWS
         && majorVersion <= DWORD{4}
         && (majorVersion != DWORD{4} || minorVersion == DWORD{0})
         ? std::uint32_t{1}

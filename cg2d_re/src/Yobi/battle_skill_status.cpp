@@ -4,12 +4,6 @@
 #include "battle_message.hpp"
 #include "battle_skill.hpp"
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
 #include "battle_scene.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "../world/BattleState.hpp"

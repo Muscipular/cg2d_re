@@ -6,12 +6,6 @@
 #include "cg/render/RendererResources.hpp"
 #include "cg/resource/GraphicDecode.hpp"
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
 #include <Windows.h>
 #include <wincodec.h>
 #include <shlwapi.h>

@@ -1,5 +1,5 @@
 #include "cg/script/LuaRuntime.hpp"
-#include "LuaInternal.hpp"
+#include "LuaUI.hpp"
 #include "cg/core/m_log.hpp"
 #include <luajit.h>
 
@@ -7,9 +7,11 @@ namespace cg::script {
 
 static lua_State* uiState = nullptr;
 static lua_State* battleState = nullptr;
+static bool shuttingDown = false;
 
 lua_State* GetLuaState() { return uiState; }
 lua_State* GetBattleLuaState() { return battleState; }
+bool IsLuaShuttingDown() { return shuttingDown; }
 
 static lua_State* CreateState()
 {
@@ -29,15 +31,24 @@ static lua_State* CreateState()
 bool InitializeLua()
 {
     if (uiState && battleState) { return true; }
+    shuttingDown = false;
     LUAJIT_VERSION_SYM();
     uiState = CreateState();
     battleState = CreateState();
     if (!uiState || !battleState) { ShutdownLua(); return false; }
+    RegisterLuaUI(uiState);
+    RegisterLuaUI(battleState);
+    InitializeAutoBattle();
+    LoadLuaUIEntry();
     return true;
 }
 
 void ShutdownLua()
 {
+    shuttingDown = true;
+    stopCopilot();
+    ShutdownAutoBattle();
+    ShutdownLuaUI();
     if (battleState) { lua_close(battleState); battleState = nullptr; }
     if (uiState) { lua_close(uiState); uiState = nullptr; }
 }

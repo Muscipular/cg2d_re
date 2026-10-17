@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/text/Encoding.hpp"
@@ -172,7 +173,10 @@ std::int32_t QueuePlaintextProtocolBytes(
         return -100;
     }
 
-    const std::string_view packet(static_cast<const char*>(data), size);
+    // L04：回调可重入发送；持有字节快照，避免共享格式化缓冲被覆盖。
+    const std::string packet(static_cast<const char*>(data), size);
+    script::RecordAutoBattleAction(packet);
+    script::LuaSendPacket(packet);
     for (auto& [header, handler] : gNetworkRuntimeState.sendHandlers) {
         if (packet.starts_with(header)) {
             handler(header.c_str(), packet.data() + header.size(),
@@ -206,7 +210,7 @@ std::int32_t QueuePlaintextProtocolBytes(
     if (startsLogin) {
         std::memcpy(send, loginPrelude.data(), loginPrelude.size());
     }
-    std::memcpy(send + sendLength, data, size);
+    std::memcpy(send + sendLength, packet.data(), size);
     std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
     return 0;
 }
@@ -345,6 +349,11 @@ static std::int32_t ReceiveProtocolLine(
 }
 
 } // namespace
+
+std::int32_t SendLuaPacket(const char* data, const std::uint32_t length)
+{
+    return QueuePlaintextProtocolBytes(0, data, length);
+}
 
 void RegisterProtocolReceive(const char* const header, ProtocolReceiveHandler handler)
 {
@@ -4116,8 +4125,17 @@ std::int32_t NetworkDispatch_512E40(
     CopyProtocolBytes_517080(
         gNetworkRuntimeState.sendMessageBuffer,
         static_cast<const std::uint8_t*>(received), capacity);
+    const auto receivedSize = std::strlen(
+        reinterpret_cast<const char*>(gNetworkRuntimeState.sendMessageBuffer)) + 1;
     SplitReceivedBuffer_5173B0(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer));
+    const std::vector<std::uint8_t> receivedPacket(gNetworkRuntimeState.sendMessageBuffer,
+        gNetworkRuntimeState.sendMessageBuffer + receivedSize);
+    std::vector<char*> receivedArguments;
+    for (auto** argument = gNetworkRuntimeState.pointerTable58B614; *argument; ++argument) {
+        receivedArguments.push_back(*argument);
+    }
+    receivedArguments.push_back(nullptr);
     std::uint32_t headerValue;
     char head[1024];
     Sub_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
@@ -4129,6 +4147,16 @@ std::int32_t NetworkDispatch_512E40(
             break;
         }
     }
+
+    // Lua回调可能发送报文并覆写共享缓冲；恢复已分词快照，避免重复调用收包观察器。
+    const auto restoreArguments = [&] {
+        std::memcpy(gNetworkRuntimeState.sendMessageBuffer, receivedPacket.data(), receivedSize);
+        std::copy(receivedArguments.begin(), receivedArguments.end(),
+            gNetworkRuntimeState.pointerTable58B614);
+    };
+    restoreArguments();
+    script::LuaReceivePacket(head, gNetworkRuntimeState.pointerTable58B614);
+    restoreArguments();
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;

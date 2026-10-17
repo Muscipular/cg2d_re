@@ -508,6 +508,15 @@ std::int32_t LoadBgmConfig_524060()
     return 1;
 }
 
+std::int32_t LoadMappedBgm(const std::int32_t index)
+{
+    if (index < 0 || index >= static_cast<std::int32_t>(gBgmMapping103DFAC.size())) {
+        return -1;
+    }
+    const auto target = gBgmMapping103DFAC[static_cast<std::size_t>(index)];
+    return target >= 0 && target < 128 ? LoadAndPlayBGM(target) : -1;
+}
+
 // 原函数：0x0052C9C0。
 std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
 {

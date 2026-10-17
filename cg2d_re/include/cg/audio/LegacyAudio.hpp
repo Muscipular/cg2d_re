@@ -23,6 +23,8 @@ static_assert(sizeof(SpatialAudioRecord) == 0x14);
 
 // 原52BE60：普通BGM加载与播放；音频模块持有实际播放状态。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
+// L04：按现有512项BGM映射播放，不修改场景的切曲请求状态。
+std::int32_t LoadMappedBgm(std::int32_t index);
 // 原454C30、454EE0：固定音乐初始化与关闭，由平台生命周期调用。
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 std::int32_t Sub_454EE0();

@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
 
@@ -227,6 +228,7 @@ int MainLoop()
         NetworkLoop_507DF0();
         Sub_52CD30(gValue58D3C0);
         world::Update();
+        script::UpdateLuaScene();
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();
             render::SortTextures_520790();

@@ -86,6 +86,21 @@ target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 
 add_library(cg2d_re_startup STATIC
     src/script/LuaRuntime.cpp
     src/script/LuaData.cpp
+    src/script/LuaUI.cpp
+    src/script/LuaWindowRuntime.cpp
+    src/script/LuaIO.cpp
+    src/script/LuaConstants.cpp
+    src/script/AutoBattle.cpp
+    src/script/Copilot.cpp
+    src/script/controls/UIControl.cpp
+    src/script/controls/ImageControl.cpp
+    src/script/controls/AnimeControl.cpp
+    src/script/controls/TextControl.cpp
+    src/script/controls/PngImageControl.cpp
+    src/script/controls/TextInputControl.cpp
+    src/script/controls/ScrollViewControl.cpp
+    src/script/controls/MapExControl.cpp
+    src/script/controls/CanvasControl.cpp
     src/platform/ClientInitialization.cpp
     src/platform/LoadingScreen.cpp
     src/render/RendererRebuild.cpp
@@ -266,7 +281,7 @@ target_compile_options(cg2d_re_startup PRIVATE
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
 target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
-target_link_libraries(cg2d_re_startup PRIVATE cg2d_re_luajit_runtime)
+target_link_libraries(cg2d_re_startup PRIVATE cg2d_re_luajit_runtime yaml-cpp::yaml-cpp)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

@@ -449,6 +449,25 @@ static void WindowBattleCommand_ResetSelection()
     }
 }
 
+// L05：Lua动作已发送后，沿既有战斗窗口和选择状态收尾顺序提交该回合。
+void WindowBattleCommand_FinishAutoAction()
+{
+    using namespace world::detail;
+    gWindowStates[WindowId_BattleCommand].userState.value = 0;
+    gBattleCountdownActive5ABCB8 = 0;
+    cg::yobi::detail::FlushBattleEntries_43C060();
+    WindowBattleCommand_Close();
+    world::gCurrentSceneState = 5;
+    if (gBattleCommandAction5ABC00) cg::yobi::detail::MarkDeath(gBattleCommandAction5ABC00);
+    gBattleCommandAction5ABC00 = nullptr;
+    gBattlePetActionCount5ABBBC = 2;
+    gBattleSkillActionCount5ABBF4 = 2;
+    gBattleCommandState5ABC3C = 5;
+    gBattleSnapshotPetIndex5ABBFC = -1;
+    WindowBattleCommand_ResetSelection();
+    if (auto* window = gWindowStates[WindowId_BattleCommand].window) window->state |= 0x8000u;
+}
+
 // 原函数：0x004972B0。
 static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const std::int32_t state)
 {

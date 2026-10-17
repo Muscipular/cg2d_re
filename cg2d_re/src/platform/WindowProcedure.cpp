@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "imeImpl.hpp"
@@ -449,6 +450,7 @@ LRESULT CALLBACK WindowProcedure(
         if (gWindowActiveState == 2) {
             const std::int16_t wheel = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(wParam32 >> 16));
+            script::AddLuaMouseWheel(wheel);
             static_cast<void>(AddLegacyMouseWheelDelta_506DB0(
                 -static_cast<std::int32_t>(wheel)));
         }

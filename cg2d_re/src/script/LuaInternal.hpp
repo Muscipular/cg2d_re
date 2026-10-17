@@ -14,12 +14,15 @@ namespace cg::script {
 
 lua_State* GetLuaState();
 lua_State* GetBattleLuaState();
+bool IsLuaShuttingDown();
 void RegisterLuaData(lua_State* state);
 void PushPlayer(lua_State* state);
 void PushBattleEntry(lua_State* state, int slot);
 
 // C++文本/分配异常在C API边界转换；离开catch后再触发Lua错误跳转。
 template<lua_CFunction Function> int SafeLuaCall(lua_State* L) {
+    // lua_close中的脚本终结器不能重新创建已释放的窗口/事件或访问旧句柄。
+    if (IsLuaShuttingDown()) return 0;
     try { return Function(L); }
     catch (const std::exception& error) { lua_pushstring(L, error.what()); }
     return lua_error(L);

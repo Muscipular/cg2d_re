@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -2390,6 +2391,10 @@ std::int32_t Sub_50E210(
 std::int32_t Sub_50C940(
     const input::InputContext* const context, const std::int32_t color)
 {
+    const auto chatText = text::ToGbk(input::ContextText(*context));
+    if (script::LuaProcessWinMgrChatMessage(chatText.c_str()) == 1) {
+        return 0;
+    }
     const std::int32_t sendColor = color == 4 ? 5 : color;
     const std::int32_t gate = gChatGateDA3B54;
     const std::uint8_t disabled = gChatDisabledDA3B4C;

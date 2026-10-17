@@ -16,6 +16,8 @@ using ProtocolSendHandler = std::function<void(
 // 注册复制消息头并持有回调，重连保留；同网络线程调用。
 void RegisterProtocolReceive(const char* header, ProtocolReceiveHandler handler);
 void RegisterProtocolSend(const char* header, ProtocolSendHandler handler);
+// L04：Lua发送沿用唯一明文队列和已有发送观察回调。
+std::int32_t SendLuaPacket(const char* data, std::uint32_t length);
 
 using NetworkCallback = std::int32_t (*)(
     std::uintptr_t socket,

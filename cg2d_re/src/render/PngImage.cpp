@@ -29,6 +29,11 @@
 #include <vector>
 
 namespace cg::render {
+struct PixelImage {
+    TextureSurfaceBinding surface;
+    std::int32_t width = 0;
+    std::int32_t height = 0;
+};
 namespace {
 
 // 本机 SDK COM 接口仅在解码边界内持有，所有失败分支按逆序释放。
@@ -141,6 +146,62 @@ bool ClipPngDestination(
 }
 
 } // namespace
+
+PixelImage* CreatePixelImage(const std::int32_t width, const std::int32_t height)
+{
+    if (width <= 0 || height <= 0 || width > 0x7FFF || height > 0x7FFF) return nullptr;
+    auto image = std::make_unique<PixelImage>();
+    TextureSurface* const surface = CreatePlainTextureSurface_44C8B0(
+        static_cast<std::int16_t>(width), static_cast<std::int16_t>(height), 0, 0x4000);
+    if (!surface) return nullptr;
+    image->surface.Bind(surface);
+    ReleaseTextureSurface(surface);
+    image->width = width;
+    image->height = height;
+    return image.release();
+}
+
+bool UpdatePixelImage(PixelImage* const image, const std::uint32_t* const pixels,
+    const std::int32_t width, const std::int32_t height)
+{
+    if (!image || !pixels || width != image->width || height != image->height) return false;
+    SDL_Surface* const output = GetTextureSdlSurface(image->surface.Get());
+    if (!output) return false;
+    for (int row = 0; row < height; ++row) {
+        std::memcpy(static_cast<std::uint8_t*>(output->pixels) + row * output->pitch,
+            pixels + row * width, static_cast<std::size_t>(width) * sizeof(*pixels));
+    }
+    MarkTextureSurfaceModified(image->surface.Get());
+    return true;
+}
+
+void ReleasePixelImage(PixelImage* const image) { delete image; }
+
+std::int32_t DrawPixelImage(PixelImage* const image,
+    const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
+    const std::uint32_t color, const std::uint8_t layer, const PngRectangle* const clipRectangle)
+{
+    if (!image || !image->surface.Get() || width <= 0 || height <= 0) return -1;
+    PngRuntime& runtime = GetPngRuntime();
+    if (runtime.frame != platform::gFrameCount) {
+        for (auto& batch : runtime.batches) batch.surface.Bind(nullptr);
+        runtime.frame = platform::gFrameCount;
+    }
+    TextureRectangle source {0, 0, image->width, image->height};
+    TextureRectangle destination {x, y, x + width, y + height};
+    if (!ClipPngDestination(destination, source, clipRectangle)) return -1;
+    const auto index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
+    if (index < 0) return index;
+    auto& batch = runtime.batches[index];
+    batch.surface.Bind(image->surface.Get());
+    batch.source = source;
+    batch.destination = destination;
+    batch.color = color;
+    auto& record = gLegacyPendingStorage.records[index];
+    record.reference.pngImage = &batch;
+    record.batchType = GraphicBatch_PngImage;
+    return index;
+}
 
 std::size_t ReadPngRectangle(
     const std::span<const std::uint8_t> data, const std::int32_t x, const std::int32_t y,

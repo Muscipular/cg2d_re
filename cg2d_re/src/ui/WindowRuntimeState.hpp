@@ -145,6 +145,10 @@ struct WindowInstance {
 
 namespace detail {
 
+// L05：扩展自动战斗面板复用原生元素鼠标分派；当前窗口由统一调度设置。
+void WindowRuntime_UpdateExtendedElements();
+void WindowBattleCommand_FinishAutoAction();
+
 // G07：创建窗口时预留页按钮；载荷沿原type1分配／释放，原控件地址不变。
 std::int32_t WindowInventory_GetPageElementCount(std::int32_t windowId);
 bool WindowInventory_CreatePageElements(WindowInstance* window, std::int32_t originalCount);

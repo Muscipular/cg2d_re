@@ -2,6 +2,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "WindowRuntimeInternal.hpp"
+#include "../script/LuaUI.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include <cstdio>
@@ -4122,6 +4123,17 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
     }
 }
 
+void WindowRuntime_UpdateExtendedElements()
+{
+    for (std::int32_t index = 0; index < gCurrentWindow->elementCount; ++index) {
+        gCurrentElementIndex57C12C = index;
+        if (gCurrentWindow->elements[index].visible == 1) {
+            WindowRuntime_DispatchElementMouse(index);
+        }
+    }
+    gCurrentElementIndex57C12C = -1;
+}
+
 // WSB01：原载荷字节借用及上下界/差值三个现场取样阶段见滚动回调SPEC。
 // 原函数：0x004741A0。
 std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const std::int32_t state)
@@ -4294,39 +4306,53 @@ std::int32_t WindowRuntime_Update()
     world::detail::gValueC8A780 = 0;
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
+    script::PrepareLuaWindowFrame();
     const std::int32_t count = WindowRuntime_CompactAndReorder();
-    const bool hasWindows = count > 0;
+    const auto scheduledWindows = script::MergeLuaWindowOrder(count);
+    const bool hasWindows = !scheduledWindows.empty();
     gWindowUpdateCountCC4844 = count;
     if (hasWindows) {
         std::int32_t index = 0;
         for (;;) {
-            WindowInstance* window = gWindows[index];
+            const auto& scheduled = scheduledWindows[index];
+            WindowInstance* window = scheduled.window;
+            const auto& extension = scheduled.extension;
+            if ((!extension && gWindowStates[scheduled.id].window != window)
+                || (window->state & 0x8000u) != 0) {
+                if (++index >= static_cast<std::int32_t>(scheduledWindows.size())) break;
+                continue;
+            }
             gCurrentWindow = window;
-            gCurrentWindowState = &gWindowStates[window->id];
+            gCurrentWindowState = extension ? &extension->state : &gWindowStates[window->id];
             gCurrentWindowIdD67A1C = window->id;
             const std::int32_t focused = WindowDrag_Update();
-            std::int32_t updateResult = invoke([&] { return gCurrentWindow->update(carried); });
-            window = gCurrentWindow;
-            // G07：页按钮先接收放下事件，避免原背包背景先重置拖动会话。
-            const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
-            const bool hasPageElements = window->elementCount > originalCount;
-            for (std::int32_t pageIndex = originalCount; pageIndex < window->elementCount; ++pageIndex) {
-                gCurrentElementIndex57C12C = pageIndex;
-                if (window->elements[pageIndex].visible == 1) {
-                    static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(pageIndex); return 0; }));
-                    window = gCurrentWindow;
+            std::int32_t updateResult;
+            if (extension) {
+                updateResult = invoke([&] { return extension->update(carried, focused); });
+            } else {
+                updateResult = invoke([&] { return gCurrentWindow->update(carried); });
+                window = gCurrentWindow;
+                // G07：页按钮先接收放下事件，避免原背包背景先重置拖动会话。
+                const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
+                const bool hasPageElements = window->elementCount > originalCount;
+                for (std::int32_t pageIndex = originalCount; pageIndex < window->elementCount; ++pageIndex) {
+                    gCurrentElementIndex57C12C = pageIndex;
+                    if (window->elements[pageIndex].visible == 1) {
+                        static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(pageIndex); return 0; }));
+                        window = gCurrentWindow;
+                    }
                 }
-            }
-            std::int32_t elementIndex = 0;
-            gCurrentElementIndex57C12C = 0;
-            while (elementIndex < (hasPageElements ? originalCount : window->elementCount)) {
-                if (window->elements[elementIndex].visible == 1) {
-                    static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementIndex); return 0; }));
-                    window = gCurrentWindow;
-                    elementIndex = gCurrentElementIndex57C12C;
+                std::int32_t elementIndex = 0;
+                gCurrentElementIndex57C12C = 0;
+                while (elementIndex < (hasPageElements ? originalCount : window->elementCount)) {
+                    if (window->elements[elementIndex].visible == 1) {
+                        static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementIndex); return 0; }));
+                        window = gCurrentWindow;
+                        elementIndex = gCurrentElementIndex57C12C;
+                    }
+                    ++elementIndex;
+                    gCurrentElementIndex57C12C = elementIndex;
                 }
-                ++elementIndex;
-                gCurrentElementIndex57C12C = elementIndex;
             }
             const bool hasFocus = focused != 0;
             gCurrentElementIndex57C12C = -1;
@@ -4346,8 +4372,8 @@ std::int32_t WindowRuntime_Update()
                 }
                 updateResult = 0;
             }
-            carried = invoke([&] { return window->draw(updateResult); });
-            const std::int32_t currentCount = gWindowUpdateCountCC4844;
+            carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(updateResult); });
+            const std::int32_t currentCount = static_cast<std::int32_t>(scheduledWindows.size());
             ++index;
             if (index >= currentCount) {
                 break;
@@ -4365,6 +4391,7 @@ std::int32_t WindowRuntime_Update()
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
     if (!encodingFailed) { reportedFailure = false; reportedContext = nullptr; reportedText.clear(); }
+    script::FinishLuaWindowFrame();
     return 1;
 
 }
@@ -4682,6 +4709,7 @@ void WindowDrag_Cancel()
 void WindowRuntime_Free(WindowInstance* const window)
 {
     using namespace detail;
+    script::NativeLuaWindowClosed(window->id);
     window->release();
     gCurrentWindowState = &gWindowStates[window->id];
     gCurrentWindowState->x = window->x;
@@ -4879,7 +4907,8 @@ void WindowRuntime_DrawCurrent()
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* window = gCurrentWindow;
     // G07：只调整绘制访问顺序，原控件和借用指针不随排序移动。
-    const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
+    const std::int32_t originalCount = window->id >= 0 && window->id < kWindowCount
+        ? gWindowPrototypes57C130[window->id]->elementCount : window->elementCount;
     const std::int32_t pageCount = window->elementCount - originalCount;
     const std::int32_t prefixCount = window->id == WindowId_Bank ? 2 : 0;
     for (std::int32_t drawIndex = 0; drawIndex < window->elementCount; ++drawIndex) {
@@ -5054,3 +5083,14 @@ void WindowRuntime_ApplyObservationInputGate()
 }
 
 } // namespace cg::ui
+
+namespace cg::script {
+int ReadMousePhase() { return ui::detail::gMousePhase57C128; }
+void ConsumeLuaDrop()
+{
+    using namespace ui::detail;
+    if (gMousePhase57C128 != 4) return;
+    if (gDragCallback57C118) gDragCallback57C118(4, 0, gDragSourceIndex57C114);
+    static_cast<void>(WindowDrag_ResetMouse());
+}
+} // namespace cg::script

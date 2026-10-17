@@ -40,6 +40,8 @@
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
+#include "../../platform/MainLoopDependencies.hpp"
+
 namespace cg::character_select::detail {
 
 // 54E0BC起十二条创建页矩形/图号；状态-1仍可读取前一项height。
@@ -1653,7 +1655,7 @@ std::int32_t ProcessScene_460FF0()
                 EnterSelectedCharacter();
             } else if (choice == 2) {
                 // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
-                std::_Exit(std::rand());
+                std::_Exit(cg::platform::Rand16());
             }
             break;
         }

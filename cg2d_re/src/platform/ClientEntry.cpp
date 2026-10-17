@@ -25,7 +25,7 @@ public:
     {
         gClientDiagnosticsEnabled = std::strstr(commandLine, "--debug") != nullptr
             || std::strstr(::GetCommandLineA(), "--debug") != nullptr;
-#ifdef _DEBUG
+#ifdef MY_DEBUG
         gClientDiagnosticsEnabled = true;
 #endif
         if (!gClientDiagnosticsEnabled) {
@@ -219,7 +219,7 @@ static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 
 } // namespace cg::platform
 
-#ifdef _DEBUG
+#ifdef MY_DEBUG
 #include <crtdbg.h>
 
 namespace cg::platform {
@@ -309,7 +309,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 
     const ClientTimerResolution timerResolution;
     const ClientMinidumpReport minidumpReport;
-#ifdef _DEBUG
+#ifdef MY_DEBUG
     const DebugAssertionReport assertionReport;
 #endif
 

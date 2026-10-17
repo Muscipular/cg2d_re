@@ -570,7 +570,7 @@ void Sub_4758D0(YobiAction* const action)
 
 // 原函数：0x00475950。
 YobiAction* Sub_475950(
-    const std::int32_t x, const std::int32_t y,
+    std::int32_t x, std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
     YobiAction** const completionSlot)
@@ -584,6 +584,7 @@ YobiAction* Sub_475950(
         static_cast<void>(ui::WindowRuntime_Open(id));
         return nullptr;
     }
+    static_cast<void>(ui::CenterPopupWindowPosition(id, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->callback = &Sub_4758D0;
     action->displayPriority = 0xDF;
@@ -689,6 +690,7 @@ YobiAction* Sub_48AC60(
         x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
     }
+    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->callback = Sub_48ABC0;
     action->flags |= 6u;
@@ -779,6 +781,7 @@ YobiAction* Sub_4ABEF0(
         x = ui::detail::gWindowStates[cg::ui::WindowId_Bank].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_Bank].y;
     }
+    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
     action->callback = Sub_4ABE60;
@@ -868,6 +871,7 @@ YobiAction* Sub_4ACE80(
         x = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].y;
     }
+    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_ItemStorage, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
     action->callback = Sub_4ACDF0;

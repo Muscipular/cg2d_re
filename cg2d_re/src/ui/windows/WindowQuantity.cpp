@@ -86,6 +86,9 @@ WindowInstance* WindowQuantity_Open(
     } else {
         gWindowStates[WindowId_Quantity].window = WindowRuntime_Open(WindowId_Quantity);
     }
+    WindowInstance* const positionedWindow = gWindowStates[WindowId_Quantity].window;
+    static_cast<void>(CenterPopupWindowPosition(WindowId_Quantity,
+        positionedWindow->width, positionedWindow->height, positionedWindow->x, positionedWindow->y));
     static_cast<WindowGraphicData*>(gWindowStates[WindowId_Quantity].window->elements[6].data)->imageNo = imageNo;
     WindowInstance* const stateWindow = gWindowStates[WindowId_Quantity].window;
     gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);

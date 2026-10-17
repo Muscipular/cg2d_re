@@ -2704,8 +2704,10 @@ static std::int32_t WindowRuntime_RepairSettingsTail()
 static std::int32_t WindowRuntime_ApplySettings()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
-        gWindowStates[index].x = gWindowSavedDataD40B30.records[index].x;
-        gWindowStates[index].y = gWindowSavedDataD40B30.records[index].y;
+        // R02：旧分辨率的保存坐标不覆盖当前布局；下方非坐标设置仍按原流程恢复。
+        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        gWindowStates[index].x = prototype->defaultX;
+        gWindowStates[index].y = prototype->defaultY;
     }
     static_cast<void>(WindowRuntime_RepairSettingsTail());
     const auto firstByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value08);
@@ -2960,6 +2962,11 @@ static void WindowRuntime_RestorePositions()
         window = state.window;
         window->y = prototype->defaultY;
         if (!isPrimaryOffsetWindow && index != 11 && index != 12 && index != 14 && index != 27) {
+            if (index == WindowId_Chat) {
+                window->x = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
+            }
+            static_cast<void>(CenterPopupWindowPosition(static_cast<std::int32_t>(index),
+                window->width, window->height, window->x, window->y));
             continue;
         }
 
@@ -2992,6 +2999,10 @@ static void WindowRuntime_RestorePositions()
             const std::int32_t y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
             state.window->y = y;
         }
+        // 保留上方定位过程的随机数消费，最终按实例实际尺寸居中。
+        window = state.window;
+        static_cast<void>(CenterPopupWindowPosition(static_cast<std::int32_t>(index),
+            window->width, window->height, window->x, window->y));
     }
 }
 
@@ -4428,6 +4439,8 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         WindowInstance* const existing = gWindows[index];
         if (existing != nullptr && existing->id == id) {
             gWindows[index]->state |= 0x2000u;
+            static_cast<void>(CenterPopupWindowPosition(id,
+                existing->width, existing->height, existing->x, existing->y));
             return gWindows[index];
         }
     }
@@ -4575,6 +4588,11 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     window->state |= 0x2000u;
     window->x = gWindowStates[id].x;
     window->y = gWindowStates[id].y;
+    // 分页区在下方发布；初始化控件前即使用最终高度确定弹窗位置。
+    const std::int32_t layoutHeight = window->height
+        + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
+    static_cast<void>(CenterPopupWindowPosition(id,
+        window->width, layoutHeight, window->x, window->y));
     const std::uint32_t flags = gWindowStates[id].flags;
     WindowInstance* const previous = gCurrentWindow;
     gWindowStates[id].flags = flags | 0x80u;
@@ -4598,6 +4616,9 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     default:
         break;
     }
+    // 对话初始化会发布实际尺寸；直接创建与展开完成统一使用最终几何。
+    static_cast<void>(CenterPopupWindowPosition(id,
+        window->width, window->height, window->x, window->y));
     gCurrentWindow = previous;
     return window;
 }
@@ -4641,7 +4662,10 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
         x = gWindowStates[id].x;
         y = gWindowStates[id].y;
     }
-    return cg::yobi::detail::Sub_475950(x, y, width, height, id, flags, mode, completionSlot);
+    // 展开矩形计入实际分页区；位置由Sub_475950与创建入口共用的规则确定。
+    const std::int32_t openingHeight = height
+        + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
+    return cg::yobi::detail::Sub_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
 }
 
 // 原函数：0x00477160。

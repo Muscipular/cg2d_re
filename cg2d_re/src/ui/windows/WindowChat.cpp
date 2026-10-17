@@ -383,6 +383,8 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
+        // R02：宽度设置可来自旧存档；按实际宽度保留原右侧9像素余量。
+        window->x = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));

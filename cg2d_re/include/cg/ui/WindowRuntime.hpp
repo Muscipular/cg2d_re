@@ -89,8 +89,11 @@ std::int32_t AdaptWindowAxisPosition(
     std::int32_t position, std::int32_t size, std::int32_t baseSize, std::int32_t targetSize);
 void AdaptWindowPosition(
     std::int16_t& x, std::int16_t& y, std::int32_t width, std::int32_t height);
-// 首次窗口初始化按原双参数非零门禁调整原型及保存坐标。
-void InitializeWindowLayout(std::int32_t requestedWidth, std::int32_t requestedHeight);
+// R02：业务弹窗按实际尺寸居中，返回true；常驻栏返回false并保留传入位置。
+bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t height,
+    std::int32_t& x, std::int32_t& y);
+// 首次窗口初始化按已发布客户区尺寸调整原型和当前坐标，支持只指定一个轴。
+void InitializeWindowLayout();
 
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;

@@ -34,25 +34,61 @@ void AdaptWindowPosition(
     y = static_cast<std::int16_t>(AdaptWindowAxisPosition(y, height, 480, platform::gWindowHeight));
 }
 
-void InitializeWindowLayout(const std::int32_t requestedWidth, const std::int32_t requestedHeight)
+bool CenterPopupWindowPosition(const std::int32_t id,
+    const std::int32_t width, const std::int32_t height,
+    std::int32_t& x, std::int32_t& y)
 {
-    if (requestedWidth && requestedHeight) {
-        for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
-            auto& prototype = *detail::gWindowPrototypes57C130[index];
-            auto& state = detail::gWindowStates[index];
-            if (prototype.defaultX > 0) {
-                prototype.defaultX = AdaptWindowAxisPosition(prototype.defaultX, prototype.width, 640, requestedWidth);
-            }
-            if (prototype.defaultY > 0) {
-                prototype.defaultY = AdaptWindowAxisPosition(prototype.defaultY, prototype.height, 480, requestedHeight);
-            }
-            if (state.x > 0) {
-                state.x = AdaptWindowAxisPosition(state.x, prototype.width, 640, requestedWidth);
-            }
-            if (state.y > 0) {
-                state.y = AdaptWindowAxisPosition(state.y, prototype.height, 480, requestedHeight);
+    switch (id) {
+    case WindowId_None:
+    case WindowId_StatusBar:
+    case WindowId_CompactStatusBar:
+    case WindowId_CollapsedStatusBar:
+    case WindowId_ShortcutBar:
+    case WindowId_CollapsedShortcutBar:
+    case WindowId_BottomBar:
+    case WindowId_BattleCommand:
+    case WindowId_Spectator:
+    case WindowId_MiniMap:
+    case WindowId_Emote:
+    case WindowId_Chat:
+    case WindowId_CompactChat:
+        return false;
+    default:
+        x = (platform::gWindowWidth - width) / 2;
+        y = (platform::gWindowHeight - height) / 2;
+        return true;
+    }
+}
+
+void InitializeWindowLayout()
+{
+    for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
+        auto& prototype = *detail::gWindowPrototypes57C130[index];
+        if (!CenterPopupWindowPosition(static_cast<std::int32_t>(index),
+                prototype.width, prototype.height, prototype.defaultX, prototype.defaultY)) {
+            // 常驻栏按原贴边方向平移，保留尺寸和距边距离，不按坐标比例放大。
+            switch (index) {
+            case WindowId_ShortcutBar:
+            case WindowId_CollapsedShortcutBar:
+            case WindowId_BattleCommand:
+            case WindowId_Spectator:
+            case WindowId_MiniMap:
+            case WindowId_Emote:
+                prototype.defaultX += platform::gWindowWidth - 640;
+                break;
+            case WindowId_Chat:
+                prototype.defaultX += platform::gWindowWidth - 640;
+                [[fallthrough]];
+            case WindowId_BottomBar:
+            case WindowId_CompactChat:
+                prototype.defaultY += platform::gWindowHeight - 480;
+                break;
+            default:
+                break;
             }
         }
+        detail::gWindowStates[index].x = prototype.defaultX;
+        detail::gWindowStates[index].y = prototype.defaultY;
     }
 }
 

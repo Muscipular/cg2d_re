@@ -269,18 +269,9 @@ cg::yobi::YobiAction* WindowDialog_Open(
     const std::uint32_t flags, const std::uint32_t mode)
 {
     m_log_i("%d %d %d %d => ", x, y, width, height);
-    auto positionedX = static_cast<std::int16_t>(x);
-    auto positionedY = static_cast<std::int16_t>(y);
-    if (positionedX == 32 && positionedY == 12 && width == 576 && height == 432
-        && platform::gWindowWidth != 0 && platform::gWindowHeight != 0
-        && (platform::gWindowWidth != 640 || platform::gWindowHeight != 480)) {
-        positionedX = static_cast<std::int16_t>((platform::gWindowWidth - width) / 2);
-        positionedY = static_cast<std::int16_t>((platform::gWindowHeight - height) / 2);
-    } else {
-        AdaptWindowPosition(positionedX, positionedY, width, height);
-    }
-    x = positionedX;
-    y = positionedY;
+    static_cast<void>(CenterPopupWindowPosition(WindowId_DialogCreate, width, height, x, y));
+    x = static_cast<std::int16_t>(x);
+    y = static_cast<std::int16_t>(y);
     m_log_i("%d %d %d %d\n", x, y, width, height);
     gMessageDialog.width = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
     gMessageDialog.lines = lines;
@@ -331,6 +322,8 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
         initialWindow->width = width;
         const std::int32_t margin = buttons != 0 ? 24 : 0;
         gCurrentWindow->height = gMessageDialog.height;
+        static_cast<void>(CenterPopupWindowPosition(gCurrentWindow->id,
+            gCurrentWindow->width, gCurrentWindow->height, gCurrentWindow->x, gCurrentWindow->y));
         const std::uint32_t mask = static_cast<std::uint32_t>(gMessageDialog.buttons);
         std::int32_t buttonCount = 0;
         for (std::uint32_t bit = 1; bit < 64; bit <<= 1) {

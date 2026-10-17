@@ -1695,14 +1695,15 @@ static void WindowBattleCommand_DrawTimer()
         }
     }
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:2}", remaining / 1000);
-    for (std::int32_t index = 0; index < 2; ++index) {
-        if (buffer[index] != ' ') {
-            const std::int32_t digit =
-                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
-            static_cast<void>(cg::render::DrawGraphic(
-                (platform::gWindowWidth - 64) / 2 + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
-        }
+    cg::text::FormatTo(buffer, L"{}", remaining / 1000);
+    // G01：完整绘制秒数，沿参考 calcOffset 按实际位数居中。
+    const std::int32_t digitCount = static_cast<std::int32_t>(buffer.size());
+    const std::int32_t firstDigitX = (platform::gWindowWidth - digitCount * 32 + 32) / 2;
+    for (std::int32_t index = 0; index < digitCount; ++index) {
+        const std::int32_t digit =
+            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
+        static_cast<void>(cg::render::DrawGraphic(
+            firstDigitX + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
     }
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);

@@ -140,8 +140,8 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
 // 原函数：0x004E4860。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
     const char* const ownName = world::GetPlayerDisplayText(1);
@@ -197,8 +197,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
@@ -255,8 +255,8 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
 // 原函数：0x004E4020。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
@@ -268,14 +268,14 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
         const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         gItemUseStatusRecordsCB10D8[0].level = level;
         gItemUseStatusRecordsCB10D8[0].injury = injury;
-        const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
+        const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = hp;
-        const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = maxHp;
-        const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
+        const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
         const std::int32_t own = gItemUseStatusCountCC4D44;
         gItemUseStatusRecordsCB10D8[own].fp = fp;
-        const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
         gItemUseStatusRecordsCB10D8[own].maxFp = maxFp;
         std::int32_t count = gItemUseStatusCountCC4D44 + 1;
         gItemUseStatusRecordsCB10D8[own].kind = 0;
@@ -292,14 +292,14 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
             const std::int32_t petInjury = pet.values70[25];
             gItemUseStatusRecordsCB10D8[count].level = pet.value08;
             gItemUseStatusRecordsCB10D8[count].injury = petInjury;
-            const std::int32_t petHp = pet.values0C[0].value();
+            const std::int32_t petHp = static_cast<std::int32_t>(pet.values0C[0]);
             gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = petHp;
-            const std::int32_t petMaxHp = pet.values0C[1].value();
+            const std::int32_t petMaxHp = static_cast<std::int32_t>(pet.values0C[1]);
             gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = petMaxHp;
-            const std::int32_t petFp = pet.values0C[2].value();
+            const std::int32_t petFp = static_cast<std::int32_t>(pet.values0C[2]);
             const std::int32_t output = gItemUseStatusCountCC4D44;
             gItemUseStatusRecordsCB10D8[output].fp = petFp;
-            const std::int32_t petMaxFp = pet.values0C[3].value();
+            const std::int32_t petMaxFp = static_cast<std::int32_t>(pet.values0C[3]);
             gItemUseStatusRecordsCB10D8[output].maxFp = petMaxFp;
             count = gItemUseStatusCountCC4D44 + 1;
             gItemUseStatusRecordsCB10D8[output].kind = 4;

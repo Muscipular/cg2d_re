@@ -76,7 +76,7 @@ inline auto& gCurrentInputData = input::gCurrentInputData;
 inline auto* const gDefaultInputData = &ui::detail::gInputContext626AA0;
 
 inline bool MouseIsInRect(int x, int y, int w, int h) {
-    const int mx = gMouseX.value(), my = gMouseY.value();
+    const int mx = static_cast<std::int32_t>(gMouseX), my = static_cast<std::int32_t>(gMouseY);
     return mx >= x && mx < x + w && my >= y && my < y + h;
 }
 inline void InputSetContext(InputContext* context) { input::SetContext_44B330(context); }

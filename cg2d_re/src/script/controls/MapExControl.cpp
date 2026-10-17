@@ -271,8 +271,8 @@ void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGro
         return;
     }
 
-    int playerX = world::gPlayerX.value();
-    int playerY = world::gPlayerY.value();
+    int playerX = static_cast<std::int32_t>(world::gPlayerX);
+    int playerY = static_cast<std::int32_t>(world::gPlayerY);
     int startX = world::gMapXStart;
     int startY = world::gMapYStart;
     bool same = visibleMap.loaded

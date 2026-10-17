@@ -347,8 +347,8 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::gPlayerY.value();
-                const std::int32_t x = world::gPlayerX.value();
+                const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+                const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -448,9 +448,9 @@ static void WindowPetSkills_HandleDrag(const std::int32_t mode, const std::int32
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(11, source, x, y, WindowPetSkills_HandleDrag));
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));

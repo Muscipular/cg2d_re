@@ -565,9 +565,9 @@ static void Sub_48ABC0(YobiAction* const action)
     if (complete) {
         const ui::WindowValueCallback callback = action->numberWindowCallback2C;
         const std::int32_t initialValue =
-            action->mapY1F0.value();
+            static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t value14 =
-            action->mapX1E0.value();
+            static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t imageNo = action->graphicIndex;
         const std::int32_t sourceElement = action->nameY;
         const std::int32_t maximum = action->field1D0;
@@ -601,9 +601,9 @@ static void Sub_4ABE60(YobiAction* const action)
     payload->halfHeight = previousHeight + deltaY;
     if (complete) {
         const std::int32_t userState =
-            action->mapY1F0.value();
+            static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t value14 =
-            action->mapX1E0.value();
+            static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
         static_cast<void>(MarkDeath(action));
@@ -634,9 +634,9 @@ static void Sub_4ACDF0(YobiAction* const action)
     if (complete) {
         const std::int32_t phase = action->phase;
         const std::int32_t userState =
-            action->mapY1F0.value();
+            static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t value14 =
-            action->mapX1E0.value();
+            static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
         static_cast<void>(MarkDeath(action));

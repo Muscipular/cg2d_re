@@ -469,9 +469,9 @@ static std::int32_t WindowItem_DrawShopTooltip(
     std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
@@ -534,9 +534,9 @@ static void WindowShop_HandleSaleDrag(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(9, sourceIndex, x, y, &WindowShop_HandleSaleDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -547,9 +547,9 @@ static void WindowShop_HandleSaleDrag(
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopItemsCF4FE0[item].imageNo, sizeof(imageNo));
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -1608,9 +1608,9 @@ static void WindowShop_Submit(const std::int32_t selection)
     const std::int32_t target = world::gDialogTargetD2DE6C;
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
@@ -1902,9 +1902,9 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::gPlayerY.value();
+            static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
-            world::gPlayerX.value();
+            static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;

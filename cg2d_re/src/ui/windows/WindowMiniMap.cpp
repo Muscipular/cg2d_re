@@ -105,7 +105,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
         return 0;
     }
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     cg::text::FormatTo(data->text, L"{:3}", x);
     return 0;
 }
@@ -119,7 +119,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const
         return 0;
     }
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     cg::text::FormatTo(data->text, L"{:3}", y);
     return 0;
 }

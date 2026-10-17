@@ -2487,7 +2487,7 @@ static void ProcessBattleMGmnHeader(
     const std::int32_t mode = TakeBattleMInteger_438F70(scene);
     if (mode == 0) {
         YobiAction** const slot = &cg::world::gBattleAllEntries59E980[position];
-        const std::int32_t palette = ((*slot)->mapX1E0).value();
+        const std::int32_t palette = static_cast<std::int32_t>(((*slot)->mapX1E0));
         AppendBattleEffectList_4393A0(*slot, palette, 0, 40);
         AppendBattleCast_4392A0(scene, *slot, 174);
         AppendBattleCast_4392A0(scene, *slot, 176);

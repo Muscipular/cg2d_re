@@ -425,22 +425,22 @@ bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cos
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 {
-    return action->barValue1B0.value();
+    return static_cast<std::int32_t>(action->barValue1B0);
 }
 
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
-    return action->barMaximum1C0.value();
+    return static_cast<std::int32_t>(action->barMaximum1C0);
 }
 
 std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
 {
-    return action->readiness.value();
+    return static_cast<std::int32_t>(action->readiness);
 }
 
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
 {
-    return action->maxHp.value();
+    return static_cast<std::int32_t>(action->maxHp);
 }
 
 float GetYobiActionScaleX(const YobiAction* const action) noexcept

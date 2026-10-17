@@ -741,8 +741,8 @@ static std::int32_t WindowDialog_Reply(
         }
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, button,
                 reply) < 0) { return 0; }
         world::gValue581800 = -1;
@@ -754,8 +754,8 @@ static std::int32_t WindowDialog_Reply(
         reply = input::EscapeText(std::to_wstring(row + 1));
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0,
                 reply) < 0) { return 0; }
         world::gValue581800 = -1;
@@ -862,9 +862,9 @@ static void WindowDialog_Route(
             world::gDialogRequestCC21E0 = request;
             world::gDialogTargetD2DE6C = target;
             const std::int32_t y =
-                world::gPlayerY.value();
+                static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
-                world::gPlayerX.value();
+                static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(WindowProfile_SaveOrigin(x, y));
             static_cast<void>(WindowMessageBoard_ReceiveRecords(value, text));
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MessageBoard, 1, 0, nullptr));
@@ -918,9 +918,9 @@ static void WindowDialog_Route(
     world::gDialogRequestCC21E0 = request;
     world::gDialogTargetD2DE6C = target;
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     switch (type) {
     case 0:

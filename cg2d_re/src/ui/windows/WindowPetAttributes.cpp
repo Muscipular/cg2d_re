@@ -146,12 +146,12 @@ static std::uint32_t WindowPetAttributes_Refresh()
         gCurrentWindow->elements[5].visible = changed ? 1 : 0;
 
         writeNumber(15, selectedPet().value08);
-        const std::int32_t maxHp = selectedPet().values0C[1].value();
-        const std::int32_t hp = selectedPet().values0C[0].value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(selectedPet().values0C[1]);
+        const std::int32_t hp = static_cast<std::int32_t>(selectedPet().values0C[0]);
         buffer = std::format(L"{:>4}/{:>4}", hp, maxHp);
         copyTextAfterScan(16, buffer);
-        const std::int32_t maxFp = selectedPet().values0C[3].value();
-        const std::int32_t fp = selectedPet().values0C[2].value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(selectedPet().values0C[3]);
+        const std::int32_t fp = static_cast<std::int32_t>(selectedPet().values0C[2]);
         buffer = std::format(L"{:>4}/{:>4}", fp, maxFp);
         copyTextAfterScan(17, buffer);
         writeNumber(19, selectedPet().lvFlag6C);
@@ -297,8 +297,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::gPlayerY.value();
-                const std::int32_t x = world::gPlayerX.value();
+                const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+                const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));

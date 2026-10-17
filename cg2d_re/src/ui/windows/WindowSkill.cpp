@@ -571,8 +571,8 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets()
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gSkillSelectedTargetCC4B1C;
     const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
@@ -585,14 +585,14 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
             gSkillStatusLevelsCC31C0[0] = world::gPlayerRuntimeSlots.level;
             std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
             gSkillStatusInjuriesD67600[0] = world::gPlayerRuntimeSlots.valueF4;
-            const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
+            const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
-            const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
+            const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
             gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
-            const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
+            const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
             const std::int32_t output = gSkillStatusCountC8AA94;
             gSkillStatusFpCC2348[output] = fp;
-            const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
+            const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
             count = gSkillStatusCountC8AA94 + 1;
             gSkillStatusMaxFpD2EA80[output] = maxFp;
             gSkillStatusKindsCA0A78[output] = 0;
@@ -613,14 +613,14 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
             gSkillStatusInjuriesD67600[count] = pet.values70[25];
             std::memcpy(destination + prefix, name + prefix, size - prefix);
             gSkillStatusLevelsCC31C0[count] = pet.value08;
-            const std::int32_t hp = pet.values0C[0].value();
+            const std::int32_t hp = static_cast<std::int32_t>(pet.values0C[0]);
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
-            const std::int32_t maxHp = pet.values0C[1].value();
+            const std::int32_t maxHp = static_cast<std::int32_t>(pet.values0C[1]);
             gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
-            const std::int32_t fp = pet.values0C[2].value();
+            const std::int32_t fp = static_cast<std::int32_t>(pet.values0C[2]);
             const std::int32_t output = gSkillStatusCountC8AA94;
             gSkillStatusFpCC2348[output] = fp;
-            const std::int32_t maxFp = pet.values0C[3].value();
+            const std::int32_t maxFp = static_cast<std::int32_t>(pet.values0C[3]);
             count = gSkillStatusCountC8AA94 + 1;
             gSkillStatusMaxFpD2EA80[output] = maxFp;
             gSkillStatusTargetsCF3FD0[output] = target++;
@@ -724,9 +724,9 @@ static void WindowSkill_HandleDrag(
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(4, sourceIndex, x, y, WindowSkill_HandleDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
@@ -1683,8 +1683,8 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
@@ -2484,8 +2484,8 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
 // 原函数：0x004F0200。
 static void WindowSkill_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;

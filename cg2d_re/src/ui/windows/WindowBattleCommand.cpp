@@ -1727,10 +1727,10 @@ void WindowBattleCommand_SnapshotPetVitals()
     }
     for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
         auto& pet = world::gPetRuntimeRecords[index];
-        gBattlePetVitalsCF4B78[index].hp = pet.values0C[0].value();
-        gBattlePetVitalsCF4B78[index].maxHp = pet.values0C[1].value();
-        gBattlePetVitalsCF4B78[index].fp = pet.values0C[2].value();
-        gBattlePetVitalsCF4B78[index].maxFp = pet.values0C[3].value();
+        gBattlePetVitalsCF4B78[index].hp = static_cast<std::int32_t>(pet.values0C[0]);
+        gBattlePetVitalsCF4B78[index].maxHp = static_cast<std::int32_t>(pet.values0C[1]);
+        gBattlePetVitalsCF4B78[index].fp = static_cast<std::int32_t>(pet.values0C[2]);
+        gBattlePetVitalsCF4B78[index].maxFp = static_cast<std::int32_t>(pet.values0C[3]);
     }
 }
 

@@ -78,7 +78,7 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
         const cg::yobi::YobiAction* const xAction = graphic.reference.action;
         const std::int32_t x = graphic.x;
         const std::int32_t centerX = x - cg::yobi::ReadYobiGraphicOffsetX(xAction);
-        if (cg::platform::gLegacyMouseState.mouseX.value() > centerX + 16) {
+        if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) > centerX + 16) {
             return false;
         }
         if (!(static_cast<std::int32_t>(centerX - 16) <= gLegacyMouseState.mouseX)) {
@@ -104,11 +104,11 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
     const std::int32_t x = graphic.x;
     const std::int32_t center = x - cg::yobi::ReadYobiGraphicOffsetX(xAction);
     const double centerX = center;
-    if (cg::platform::gLegacyMouseState.mouseX.value() > centerX + 24.0) {
+    if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) > centerX + 24.0) {
         return false;
     }
     const double lowerX = centerX - 24.0;
-    if (cg::platform::gLegacyMouseState.mouseX.value() < lowerX) {
+    if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) < lowerX) {
         return false;
     }
     const std::int32_t upperImage = graphic.imageNo;

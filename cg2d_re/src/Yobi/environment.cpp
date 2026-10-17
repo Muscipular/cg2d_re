@@ -194,7 +194,7 @@ static void InitializeSceneEffectGraphic(
 static void Sub_448A50(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.value() != floor) {
+    if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
     }
@@ -247,7 +247,7 @@ static void Sub_448A50(YobiAction* const action)
 static void Sub_448BF0(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.value() != floor) {
+    if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
     }
@@ -446,7 +446,7 @@ static void Sub_449A00(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.value() != floor
+    if (static_cast<std::int32_t>(action->mapY1F0) != floor
         || world::gPlayerRuntimeSlots.action == nullptr) {
         MarkDeath(action);
         return;
@@ -461,9 +461,9 @@ static void Sub_449A00(YobiAction* const action)
                 static_cast<std::int64_t>(action->worldY));
             if ((action->mapY210 <= static_cast<std::int32_t>(targetY))) {
                 action->worldX = static_cast<float>(
-                    action->mapX200.value());
+                    static_cast<std::int32_t>(action->mapX200));
                 action->worldY = static_cast<float>(
-                    action->mapY210.value());
+                    static_cast<std::int32_t>(action->mapY210));
                 ++action->characterAction;
             }
         }
@@ -533,7 +533,7 @@ static void Sub_4483A0(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (floor != 59529
-        && action->mapY1F0.value() != floor
+        && static_cast<std::int32_t>(action->mapY1F0) != floor
         && world::gMapFloor != 38251) {
         MarkDeath(action);
         return;
@@ -701,7 +701,7 @@ static void Sub_449400(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.value() != floor) {
+    if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
     }

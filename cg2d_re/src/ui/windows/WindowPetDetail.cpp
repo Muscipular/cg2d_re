@@ -248,20 +248,20 @@ static std::uint32_t WindowPetDetail_Refresh()
         gCurrentWindow->elements[5].visible = changed ? 1 : 0;
 
         if ((selectedPet().values0C[5] == -1)) {
-            const std::int32_t experience = selectedPet().values0C[4].value();
+            const std::int32_t experience = static_cast<std::int32_t>(selectedPet().values0C[4]);
             buffer = std::format(L"{:>8}/       -", experience);
         } else {
-            const std::int32_t nextExperience = selectedPet().values0C[5].value();
-            const std::int32_t experience = selectedPet().values0C[4].value();
+            const std::int32_t nextExperience = static_cast<std::int32_t>(selectedPet().values0C[5]);
+            const std::int32_t experience = static_cast<std::int32_t>(selectedPet().values0C[4]);
             buffer = std::format(L"{:>8}/{:>8}", experience, nextExperience);
         }
         copyTextAfterScan(11, buffer);
-        const std::int32_t maxHp = selectedPet().values0C[1].value();
-        const std::int32_t hp = selectedPet().values0C[0].value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(selectedPet().values0C[1]);
+        const std::int32_t hp = static_cast<std::int32_t>(selectedPet().values0C[0]);
         buffer = std::format(L"{:>5}/{:>5}", hp, maxHp);
         copyTextAfterScan(12, buffer);
-        const std::int32_t maxFp = selectedPet().values0C[3].value();
-        const std::int32_t fp = selectedPet().values0C[2].value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(selectedPet().values0C[3]);
+        const std::int32_t fp = static_cast<std::int32_t>(selectedPet().values0C[2]);
         buffer = std::format(L"{:>5}/{:>5}", fp, maxFp);
         copyTextAfterScan(13, buffer);
 
@@ -453,8 +453,8 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::gPlayerY.value();
-                const std::int32_t x = world::gPlayerX.value();
+                const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+                const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));

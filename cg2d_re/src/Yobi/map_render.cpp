@@ -385,8 +385,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (createFirst) {
         const std::int32_t kind = action->field2E4;
         action->refresh2EC = 0;
-        const std::int32_t mapY = action->mapY1F0.value();
-        const std::int32_t mapX = action->mapX1E0.value();
+        const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
+        const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
         payload->action04 = Sub_444000(imageNo, mapX, mapY, 0, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
@@ -593,8 +593,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             statusImage = 0x1824F;
         }
         if (payload->action4C == nullptr) {
-            const std::int32_t mapY = action->mapY1F0.value();
-            const std::int32_t mapX = action->mapX1E0.value();
+            const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
+            const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = Sub_444000(statusImage, mapX, mapY, 0, 0, 10);
             payload->action4C = child;
             child->rebirthValue1 = 4;
@@ -616,8 +616,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if ((state & 4u) != 0) {
         if (payload->action4C == nullptr) {
             if (payload->action0C == nullptr) {
-                const std::int32_t mapY = action->mapY1F0.value();
-                const std::int32_t mapX = action->mapX1E0.value();
+                const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
+                const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
                 payload->action0C = Sub_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
@@ -643,8 +643,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     if ((state & 1u) != 0 && statusMask == 0) {
         if (payload->action10 == nullptr) {
-            const std::int32_t mapY = action->mapY1F0.value();
-            const std::int32_t mapX = action->mapX1E0.value();
+            const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
+            const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = Sub_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
             payload->action10 = child;
             child->rebirthValue1 = 4;
@@ -731,11 +731,11 @@ std::int32_t ShowHpBar_43DB60(
     fields.sourceY = -1;
     fields.height = 2;
     render::GraphicDescriptor16 descriptor = ToGraphicDescriptor(fields);
-    if (action->maxHp.value() != 0) {
+    if (static_cast<std::int32_t>(action->maxHp) != 0) {
         const std::int32_t numerator =
-            action->readiness.value() * 32;
+            static_cast<std::int32_t>(action->readiness) * 32;
         const std::int32_t maximum =
-            action->maxHp.value();
+            static_cast<std::int32_t>(action->maxHp);
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY - 2;
         const std::int32_t x = action->x + offsetX - 12;
@@ -743,11 +743,11 @@ std::int32_t ShowHpBar_43DB60(
         static_cast<void>(render::DrawGraphic3_520970(
             x, y, 0xCF, 0x3BDF0, 0, 1, 0, &descriptor));
     }
-    if (action->barMaximum1C0.value() != 0) {
+    if (static_cast<std::int32_t>(action->barMaximum1C0) != 0) {
         const std::int32_t numerator =
-            action->barValue1B0.value() * 32;
+            static_cast<std::int32_t>(action->barValue1B0) * 32;
         const std::int32_t maximum =
-            action->barMaximum1C0.value();
+            static_cast<std::int32_t>(action->barMaximum1C0);
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY + 1;
         const std::int32_t x = action->x + offsetX - 12;
@@ -839,10 +839,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         if ((flags & 0x80u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            const std::int32_t maxFp = cg::world::gPlayerRuntimeSlots.maxFp.value();
-            const std::int32_t fp = cg::world::gPlayerRuntimeSlots.fp.value();
-            const std::int32_t maxHp = cg::world::gPlayerRuntimeSlots.maxHp.value();
-            const std::int32_t hp = cg::world::gPlayerRuntimeSlots.hp.value();
+            const std::int32_t maxFp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxFp);
+            const std::int32_t fp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.fp);
+            const std::int32_t maxHp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxHp);
+            const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
@@ -963,10 +963,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 
     // 原507AEA/507B8F固定首对象供名称/等级，后续三个CryptInt仍逐次重取对象。
     YobiAction* const fixed = graphic->reference.action;
-    const std::int32_t maxFp = fixed->barMaximum1C0.value();
-    const std::int32_t fp = graphic->reference.action->barValue1B0.value();
-    const std::int32_t maxHp = graphic->reference.action->maxHp.value();
-    const std::int32_t hp = graphic->reference.action->readiness.value();
+    const std::int32_t maxFp = static_cast<std::int32_t>(fixed->barMaximum1C0);
+    const std::int32_t fp = static_cast<std::int32_t>(graphic->reference.action->barValue1B0);
+    const std::int32_t maxHp = static_cast<std::int32_t>(graphic->reference.action->maxHp);
+    const std::int32_t hp = static_cast<std::int32_t>(graphic->reference.action->readiness);
     cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
 }
 

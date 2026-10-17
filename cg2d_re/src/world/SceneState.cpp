@@ -493,7 +493,7 @@ bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
 
 std::int32_t ReadRippleGateOnce()
 {
-    return cg::world::gRippleGate.value();
+    return static_cast<std::int32_t>(cg::world::gRippleGate);
 }
 
 // 原函数：0x00448240。
@@ -2759,8 +2759,8 @@ std::uint32_t Sub_46AF30()
 
     gValue9EE8B8 = 1;
     gValue9EE8A4 = static_cast<std::uint16_t>(direction);
-    gValue9A7F7C = gPlayerX.value();
-    gValue9A7F80 = gPlayerY.value();
+    gValue9A7F7C = static_cast<std::int32_t>(gPlayerX);
+    gValue9A7F80 = static_cast<std::int32_t>(gPlayerY);
     const std::uint64_t tick = platform::ReadTickCount64();
     gValueAF10C8 = tick;
     return static_cast<std::uint32_t>(tick);
@@ -3168,14 +3168,14 @@ std::uint16_t __cdecl Sub_468200()
 // 原 [0x46CEC0,0x46CED6)：Y 的读取先于 X 的带参读取。
 std::int32_t __cdecl Sub_46CEC0()
 {
-    const std::int32_t y = gPlayerY.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     return (gPlayerX + static_cast<std::int32_t>(y));
 }
 
 // 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
 std::int32_t __cdecl Sub_46CEE0()
 {
-    const std::int32_t y = gPlayerY.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t result =
         (gPlayerX + static_cast<std::int32_t>(y));
     gValueAF10C0 = std::bit_cast<std::uint32_t>(result);
@@ -3193,11 +3193,11 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
-        gPlayerX.value();
+        static_cast<std::int32_t>(gPlayerX);
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
-        gPlayerY.value();
+        static_cast<std::int32_t>(gPlayerY);
     const std::uint8_t snapshotXCount = gPlayerX.readCount;
     const std::uint32_t snapshotXEncoded = gPlayerX.encoded;
     const double scaledY = currentY * 64.0;
@@ -4761,8 +4761,8 @@ std::int32_t __cdecl Sub_46A9E0()
 // PDH01：原 [0x46AA00,0x46AB56)；X/Y 字段取样后先 Y 更新，两整数差再落 F32，保早退 Y/pending 序。
 std::int32_t __cdecl Sub_46AA00()
 {
-    std::int32_t x = gPlayerX.value();
-    std::int32_t y = gPlayerY.value();
+    std::int32_t x = static_cast<std::int32_t>(gPlayerX);
+    std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
         return y;
     }
@@ -4895,8 +4895,8 @@ std::uint16_t Sub_46AC10()
         }
     }
     gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     return static_cast<std::uint16_t>(
         Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
@@ -4928,8 +4928,8 @@ void* __cdecl Sub_46ADA0()
     gValueC82220 = 1;
     gValue9DAD54 = sequenceLow;
 
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gValueC8221C;
@@ -4998,8 +4998,8 @@ std::int32_t __cdecl Sub_46AC90()
 
     gValueC82220 = 1;
     gValueB65A7C = 0;
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     return network::Sub_510810(platform::gConnectionSocket, x, y);
 }
 
@@ -5014,8 +5014,8 @@ std::int32_t __cdecl Sub_46AEA0()
     gValueC82220 = 1;
     gValue9FB92C = sequenceLow;
 
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uint32_t sequence = gValueC8221C;
     static_cast<void>(network::Sub_510630(
         platform::gConnectionSocket,
@@ -5153,11 +5153,11 @@ std::int32_t __cdecl Sub_46B5C0(
 std::int32_t Sub_46B6F0()
 {
     const std::int32_t targetX =
-        gMoveTargetX9A7F88.value();
+        static_cast<std::int32_t>(gMoveTargetX9A7F88);
     const std::int32_t targetY =
-        gMoveTargetY9A7F98.value();
-    std::int32_t x = gPlayerX.value();
-    std::int32_t y = gPlayerY.value();
+        static_cast<std::int32_t>(gMoveTargetY9A7F98);
+    std::int32_t x = static_cast<std::int32_t>(gPlayerX);
+    std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::array<std::int32_t, 3> offsets {0, 1, -1};
     std::int32_t accumulatedX = 0;
     std::int32_t accumulatedY = 0;
@@ -5537,9 +5537,9 @@ void Sub_46A940()
 std::uint8_t Sub_46F680()
 {
     const float mouseY = static_cast<float>(
-        platform::gLegacyMouseState.mouseY.value());
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
     const float mouseX = static_cast<float>(
-        platform::gLegacyMouseState.mouseX.value());
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -5641,7 +5641,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         return reinterpret_cast<std::uintptr_t>(initialAction);
     }
     // 原401D00仅改AL，保留读取值高24位；只能读取一次，避免额外计数/RNG。
-    const std::int32_t comparisonValue = gValueC821D8.value();
+    const std::int32_t comparisonValue = static_cast<std::int32_t>(gValueC821D8);
     const std::uint32_t comparisonResult = (std::bit_cast<std::uint32_t>(comparisonValue) & 0xFFFFFF00u)
         | static_cast<std::uint32_t>(comparisonValue == 0);
     if (comparisonValue != 0 || index < 0) {
@@ -5670,8 +5670,8 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         selected = 1;
     }
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(network::Sub_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
@@ -5726,8 +5726,8 @@ std::uint32_t Sub_51B3E0()
     if (gValueFF0D38 + 500u >= now) {
         return static_cast<std::uint32_t>(now);
     }
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint64_t sentAt = platform::ReadTickCount64();
     gValueFF0D38 = sentAt;
@@ -5771,8 +5771,8 @@ void Sub_46B370()
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount64();
 }
@@ -5874,11 +5874,11 @@ std::uint16_t Sub_469FC0()
         if (pending != 0) {
             return static_cast<std::uint16_t>(pending);
         }
-        const double targetX = gPlayerSnapshotX.value() * 64.0;
+        const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
-            const double targetY = gPlayerSnapshotY.value() * 64.0;
+            const double targetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -5931,9 +5931,9 @@ std::uint16_t Sub_469FC0()
                         (gPlayerX + static_cast<std::int32_t>(deltaX));
                     MovePlayerOneStep_46B1B0(nextX, nextY, speed);
                     const std::int32_t y =
-                        gPlayerY.value();
+                        static_cast<std::int32_t>(gPlayerY);
                     const std::int32_t x =
-                        gPlayerX.value();
+                        static_cast<std::int32_t>(gPlayerX);
                     Sub_46A5A0(x, y);
                 }
             }
@@ -6020,8 +6020,8 @@ void Sub_46A700()
         return;
     }
 
-    const float targetX = static_cast<float>(gPlayerSnapshotX.value() * 64.0);
-    const double scaledTargetY = gPlayerSnapshotY.value() * 64.0;
+    const float targetX = static_cast<float>(static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0);
+    const double scaledTargetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -6070,9 +6070,9 @@ void Sub_46A700()
                 if (action != nullptr) {
                     cg::yobi::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
-                        gPlayerSnapshotY.value();
+                        static_cast<std::int32_t>(gPlayerSnapshotY);
                     const std::int32_t snapshotX =
-                        gPlayerSnapshotX.value();
+                        static_cast<std::int32_t>(gPlayerSnapshotX);
                     static_cast<void>(network::Sub_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
@@ -6094,8 +6094,8 @@ void Sub_46A700()
 void Sub_519A80()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     Sub_519CD0(gPlayerRuntimeSlots.imageNo, x, y, direction);
     const auto flags = static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
@@ -8913,8 +8913,8 @@ std::int32_t Sub_50C940(
     const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
@@ -9041,8 +9041,8 @@ void Sub_50D000(
         static_cast<void>(detail::Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(gPlayerRuntimeSlots.direction));
-        const std::int32_t y = gPlayerSnapshotY.value();
-        const std::int32_t x = gPlayerSnapshotX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
         static_cast<void>(
             network::Sub_512720(platform::gConnectionSocket, x, y, direction));
     }
@@ -10002,8 +10002,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
 {
     if (gValue9DAD68 == 1) {
         detail::gValue55DA88 = 1;
-        const std::int32_t playerY = gPlayerY.value();
-        const std::int32_t playerX = gPlayerX.value();
+        const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(detail::Sub_46C840(gMapFloor, playerX, playerY));
         const std::int32_t index = detail::gAutoMapWindowIndex55DA90;
         detail::gValue55DA88 = 0;
@@ -10012,8 +10012,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
         return render::DrawColorAutoMap_44FEB0(x, y, detail::gAutoMapColorWindow9CF6EC, width, height);
     }
     if (detail::gValue55DA88 != 0) {
-        const std::int32_t playerY = gPlayerY.value();
-        const std::int32_t playerX = gPlayerX.value();
+        const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(detail::Sub_46C840(gMapFloor, playerX, playerY));
         detail::gValue55DA88 = 0;
     }
@@ -10027,9 +10027,9 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
 std::int32_t __cdecl Sub_4681B0()
 {
     const std::int32_t y =
-        gPlayerSnapshotY.value();
+        static_cast<std::int32_t>(gPlayerSnapshotY);
     const std::int32_t x =
-        gPlayerSnapshotX.value();
+        static_cast<std::int32_t>(gPlayerSnapshotX);
     static_cast<void>(detail::Sub_468330(x, y));
     static_cast<void>(detail::Sub_468200());
     gValueC82200 = 0;
@@ -10872,8 +10872,8 @@ void Sub_470050()
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
@@ -10907,8 +10907,8 @@ void Sub_470150()
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
@@ -10947,8 +10947,8 @@ void Sub_470270()
             return;
         }
         const std::int32_t mode = joinTeam ? 1 : 0;
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
@@ -10977,8 +10977,8 @@ void Sub_4703C0()
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
@@ -11049,8 +11049,8 @@ void Sub_470670()
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
@@ -11143,8 +11143,8 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const std::int32_t y = gPlayerSnapshotY.value();
-    const std::int32_t x = gPlayerSnapshotX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。

@@ -226,9 +226,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::gPlayerY.value();
+            static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
-            world::gPlayerX.value();
+            static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
@@ -252,9 +252,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             const std::int32_t target = world::gDialogTargetD2DE6C;
             const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::gPlayerY.value();
+                static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
-                world::gPlayerX.value();
+                static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
@@ -283,9 +283,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             const std::int32_t request = world::gDialogRequestCC21E0;
             escaped.clear();
             const std::int32_t y =
-                world::gPlayerY.value();
+                static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
-                world::gPlayerX.value();
+                static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(WindowMessageBoard_Close());

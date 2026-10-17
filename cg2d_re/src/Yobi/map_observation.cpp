@@ -1046,9 +1046,9 @@ std::int32_t Sub_440920(
         const std::int32_t value170 = values[1];
         const std::int32_t direction = source->direction;
         const std::int32_t sourceY =
-            source->mapY1F0.value();
+            static_cast<std::int32_t>(source->mapY1F0);
         const std::int32_t sourceX =
-            source->mapX1E0.value();
+            static_cast<std::int32_t>(source->mapX1E0);
         YobiAction* const observer = detail::Sub_43F330(
             source->imageNo, sourceX, sourceY, direction, value170);
         detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);

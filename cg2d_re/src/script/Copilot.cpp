@@ -1403,7 +1403,7 @@ static bool buildNearRetargetPath(Point start, Point target, std::vector<Point>&
 
 static void requestMove(Point target)
 {
-    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
+    Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
     gAutoTargetX = target.x;
     gAutoTargetY = target.y;
     gExpectedAutoTarget = target;
@@ -1533,7 +1533,7 @@ void autoCopilot(int x, int y)
     copilot_detail::syncVisibleCache();
 
     copilot_detail::Point target{x, y};
-    copilot_detail::Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
+    copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
     // m_log_i("[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_i("[copilot] already arrived target=%d,%d\n", target.x, target.y);
@@ -1629,13 +1629,13 @@ void startCopilot(int x, int y)
     copilot_detail::gLastCellLogMs = 0;
     copilot_detail::gHasLastRequestedWaypoint = false;
     copilot_detail::clearCopilotRoute();
-    m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value(), world::gCurrentSceneType, world::gCurrentSceneState);
+    m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), world::gCurrentSceneType, world::gCurrentSceneState);
 }
 
 void stopCopilot()
 {
     if (copilot_detail::gCopilotEnabled) {
-        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
+        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
     }
     copilot_detail::gCopilotEnabled = false;
     copilot_detail::resetPlanCache();
@@ -1669,7 +1669,7 @@ void CopilotProc()
     }
     if (copilot_detail::gMapId != copilot_detail::gCopilotMapId || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
         m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", copilot_detail::gCopilotMapId,
-            copilot_detail::gCopilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
+            copilot_detail::gCopilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
         stopCopilot();
         return;
     }
@@ -1677,7 +1677,7 @@ void CopilotProc()
         return;
     }
 
-    copilot_detail::Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
+    copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
     if (player.x == copilot_detail::gCopilotTarget.x && player.y == copilot_detail::gCopilotTarget.y) {
         m_log_i("[copilot] arrived target=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
         stopCopilot();
@@ -1687,7 +1687,7 @@ void CopilotProc()
         copilot_detail::resetMoveProgress();
     }
     if (copilot_detail::gHasExpectedAutoTarget) {
-        copilot_detail::Point clientTarget{copilot_detail::gAutoTargetX.value(), copilot_detail::gAutoTargetY.value()};
+        copilot_detail::Point clientTarget{static_cast<std::int32_t>(copilot_detail::gAutoTargetX), static_cast<std::int32_t>(copilot_detail::gAutoTargetY)};
         if (!copilot_detail::samePoint(clientTarget, copilot_detail::gExpectedAutoTarget)) {
             m_log_i("[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", copilot_detail::gExpectedAutoTarget.x,
                 copilot_detail::gExpectedAutoTarget.y, clientTarget.x, clientTarget.y, player.x, player.y);

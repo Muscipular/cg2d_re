@@ -265,8 +265,8 @@ static void Sub_4469C0(YobiAction* const action)
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = candidateX;
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = candidateY;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.value();
-    payload->mapY0C = action->mapY1F0.value();
+    payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
+    payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
 
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
@@ -289,8 +289,8 @@ static void Sub_446B50(YobiAction* const action)
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.value();
-    payload->mapY0C = action->mapY1F0.value();
+    payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
+    payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
 
 // 两次差值都保留读计数/RNG副作用；第二次结果按首次符号取负，不可换成abs。
@@ -336,8 +336,8 @@ static void Sub_446C10(YobiAction* const action)
         (action->mapY1F0 + static_cast<std::int32_t>(stepY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.value();
-    payload->mapY0C = action->mapY1F0.value();
+    payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
+    payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
 
 // 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
@@ -558,9 +558,9 @@ static std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7200u < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.value();
+                static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
-                action->mapX1E0.value();
+                static_cast<std::int32_t>(action->mapX1E0);
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 1u;
         }
@@ -572,9 +572,9 @@ static std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.value();
+                static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
-                action->mapX1E0.value();
+                static_cast<std::int32_t>(action->mapX1E0);
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 2u;
         }
@@ -607,9 +607,9 @@ static std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.value();
+                static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
-                action->mapX1E0.value();
+                static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action18 =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
@@ -619,9 +619,9 @@ static std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 + 500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.value();
+                static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
-                action->mapX1E0.value();
+                static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action1C =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }

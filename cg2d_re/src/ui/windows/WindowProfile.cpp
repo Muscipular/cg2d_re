@@ -138,12 +138,12 @@ std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y
 // 原函数：0x004D3040。
 std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
 {
-    const double playerX = world::gPlayerX.value() * 64.0;
+    const double playerX = static_cast<std::int32_t>(world::gPlayerX) * 64.0;
     if (playerX != std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits))) {
         return 0;
     }
-    const double playerY = world::gPlayerY.value() * 64.0;
+    const double playerY = static_cast<std::int32_t>(world::gPlayerY) * 64.0;
     if (playerY != std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
         return 0;
@@ -192,8 +192,8 @@ static void WindowProfile_RouteReply(
     gDialogValueCF4E5C = value;
     world::gDialogRequestCC21E0 = request;
     world::gDialogTargetD2DE6C = target;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     switch (type) {
     case 38:

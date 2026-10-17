@@ -45,7 +45,7 @@ static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
     int aLine = a % 10 / 5;
     int dSide = d / 10;
     int dLine = d % 10 / 5;
-    if (cg::world::gBattleEntries59E980[d]->readiness.value() <= 0) {
+    if (static_cast<std::int32_t>(cg::world::gBattleEntries59E980[d]->readiness) <= 0) {
         if (!(flags & B_TARGET_IN_DEAD)) {
             return false;
         }
@@ -553,7 +553,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     int update(int stage, int) override {
         if (window.id == WIN_AUTOBATTLE && clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
             window.x += gMouseX - lastX; window.y += gMouseY - lastY;
-            lastX = static_cast<short>(gMouseX.value()); lastY = static_cast<short>(gMouseY.value());
+            lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY));
         }
         ui::detail::WindowRuntime_UpdateExtendedElements();
         return stage;
@@ -628,7 +628,7 @@ static void MakeAutoBattle() {
         return (mouse & 2) ? 1 : 0;
     });
     panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](int, int mouse) {
-        if (mouse & 2) { clicked = true; lastX = static_cast<short>(gMouseX.value()); lastY = static_cast<short>(gMouseY.value()); }
+        if (mouse & 2) { clicked = true; lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
         else if (clicked && !(mouse & 8)) clicked = false;
         return (mouse & 2) ? 1 : 0;
     });

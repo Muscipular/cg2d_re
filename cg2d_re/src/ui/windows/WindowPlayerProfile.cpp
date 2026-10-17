@@ -374,18 +374,18 @@ static void WindowPlayerProfile_Refresh()
     auto* const tribeData = static_cast<WindowTextData*>(tribeElements[8].data);
     tribeData->text = tribe;
 
-    cg::text::FormatTo(buffer, L"{:9}", world::gPlayerRuntimeSlots.value58.value());
+    cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value58));
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     experienceData->text = buffer;
 
-    const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
-    const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
+    const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
+    const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
     hpData->text = buffer;
 
-    const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
-    const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
+    const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
+    const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     fpData->text = buffer;
@@ -394,7 +394,7 @@ static void WindowPlayerProfile_Refresh()
     if ((world::gPlayerRuntimeSlots.value68 == -1)) {
         nextExperience = L"        -";
     } else {
-        cg::text::FormatTo(buffer, L"{:9}", world::gPlayerRuntimeSlots.value68.value());
+        cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value68));
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);

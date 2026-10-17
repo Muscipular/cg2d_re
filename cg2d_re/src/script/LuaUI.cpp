@@ -48,11 +48,11 @@ static void LuaClearDragMoveOwner(const LuaWindow* window) {
 
 
 static int ResolveLuaMapX(int mapX) {
-    return mapX >= 0 ? mapX : world::gPlayerX.value();
+    return mapX >= 0 ? mapX : static_cast<std::int32_t>(world::gPlayerX);
 }
 
 static int ResolveLuaMapY(int mapY) {
-    return mapY >= 0 ? mapY : world::gPlayerY.value();
+    return mapY >= 0 ? mapY : static_cast<std::int32_t>(world::gPlayerY);
 }
 
 static int ResolveLuaMapId(int mapId) {

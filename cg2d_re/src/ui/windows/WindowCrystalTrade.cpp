@@ -20,9 +20,9 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::gPlayerY.value();
+            static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
-            world::gPlayerX.value();
+            static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;

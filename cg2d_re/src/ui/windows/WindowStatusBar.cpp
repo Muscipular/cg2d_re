@@ -174,12 +174,12 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
         const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
-        const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
-        const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
+        const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
-        const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
+        const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     }
 }

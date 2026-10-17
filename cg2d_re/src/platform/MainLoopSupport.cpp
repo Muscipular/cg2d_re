@@ -132,7 +132,7 @@ static char CheckProcessModules_4042D0(const DWORD processId)
     BOOL hasModule = Module32First(snapshot, &moduleEntry);
     while (hasModule != FALSE) {
         const DWORD currentProcessId = static_cast<DWORD>(
-            gProtectionProcessState.value());
+            static_cast<std::int32_t>(gProtectionProcessState));
         const std::uint8_t* moduleNameTable =
             moduleEntry.th32ProcessID == currentProcessId
             ? gProtectionBuffer2
@@ -338,7 +338,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (gProtectionChecksum1.value() != checksum) {
+    if (static_cast<std::int32_t>(gProtectionChecksum1) != checksum) {
         return 1;
     }
 
@@ -359,7 +359,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (gProtectionChecksum2.value() != checksum) {
+    if (static_cast<std::int32_t>(gProtectionChecksum2) != checksum) {
         return 1;
     }
 

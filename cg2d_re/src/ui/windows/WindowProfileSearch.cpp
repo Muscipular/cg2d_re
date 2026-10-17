@@ -285,8 +285,8 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
     const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
     const std::int32_t target = world::gDialogTargetD2DE6C;
     const std::int32_t request = world::gDialogRequestCC21E0;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, commands[position], packet));
     return 1;
@@ -311,8 +311,8 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;

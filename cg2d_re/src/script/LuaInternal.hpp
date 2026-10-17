@@ -35,7 +35,7 @@ inline void Push(lua_State* L, const char* value) { lua_pushstring(L, value); }
 inline void Push(lua_State* L, std::wstring_view value) { Push(L, text::ToGbk(value)); }
 inline void Push(lua_State* L, const std::wstring& value) { Push(L, std::wstring_view(value)); }
 inline void Push(lua_State* L, bool value) { lua_pushboolean(L, value); }
-inline void Push(lua_State* L, platform::LegacyCryptInt& value) { lua_pushinteger(L, value.value()); }
+inline void Push(lua_State* L, platform::LegacyCryptInt& value) { lua_pushinteger(L, static_cast<std::int32_t>(value)); }
 template<std::integral T> void Push(lua_State* L, T value) { lua_pushinteger(L, static_cast<lua_Integer>(value)); }
 template<std::floating_point T> void Push(lua_State* L, T value) { lua_pushnumber(L, value); }
 template<std::size_t N> void Push(lua_State* L, const std::array<char, N>& value) { lua_pushstring(L, value.data()); }

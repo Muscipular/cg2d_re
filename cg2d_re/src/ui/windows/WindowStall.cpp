@@ -1208,7 +1208,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         static_cast<void>(render::DrawText_456780(
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
-    cg::text::FormatTo(buffer, L"{:4}", pet->values0C[1].value());
+    cg::text::FormatTo(buffer, L"{:4}", static_cast<std::int32_t>(pet->values0C[1]));
     drawText(227, 58);
     cg::text::FormatTo(buffer, L"{:3}", pet->value08);
     drawText(53, 75);
@@ -1219,7 +1219,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         buffer.clear();
     }
     drawText(120, 75);
-    cg::text::FormatTo(buffer, L"{:4}", pet->values0C[3].value());
+    cg::text::FormatTo(buffer, L"{:4}", static_cast<std::int32_t>(pet->values0C[3]));
     drawText(227, 75);
     cg::text::FormatTo(buffer, L"{:3}", pet->values70[0]);
     drawText(117, 93);
@@ -1382,12 +1382,12 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     drawText(298, 132);
     cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
-    const std::int32_t hp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
+    const std::int32_t maxHp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1]);
+    const std::int32_t hp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
-    const std::int32_t fp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
+    const std::int32_t maxFp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3]);
+    const std::int32_t fp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
@@ -1949,7 +1949,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         };
         cg::text::FormatTo(details, L"{}", cg::text::FromGbkWide(pet->name6AC.data()).c_str());
         drawPetText(75, 61);
-        cg::text::FormatTo(details, L"{:4}", pet->values0C[1].value());
+        cg::text::FormatTo(details, L"{:4}", static_cast<std::int32_t>(pet->values0C[1]));
         drawPetText(225, 61);
         cg::text::FormatTo(details, L"{:3}", pet->value08);
         drawPetText(51, 78);
@@ -1960,7 +1960,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
             details.clear();
         }
         drawPetText(118, 78);
-        cg::text::FormatTo(details, L"{:4}", pet->values0C[3].value());
+        cg::text::FormatTo(details, L"{:4}", static_cast<std::int32_t>(pet->values0C[3]));
         drawPetText(225, 78);
         cg::text::FormatTo(details, L"{:3}", pet->values70[0]);
         drawPetText(115, 96);

@@ -633,9 +633,9 @@ static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
     const std::int32_t target = world::gDialogTargetD2DE6C;
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 1, escaped));
     gCurrentWindow->state |= 0x8000u;
@@ -1179,9 +1179,9 @@ static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));

@@ -136,7 +136,7 @@ std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* const action)
         if (static_cast<std::uint32_t>(next) >= 16) {
             action->phase = 0;
         }
-        const std::int32_t base = action->readiness.value();
+        const std::int32_t base = static_cast<std::int32_t>(action->readiness);
         const std::int32_t current = action->phase;
         action->imageNo = base;
         const std::int32_t offset = kPreviewAnimationSequence[current][2];

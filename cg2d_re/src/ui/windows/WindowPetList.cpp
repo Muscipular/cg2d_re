@@ -714,12 +714,12 @@ static void WindowPetList_Refresh()
             colorState == 3 ? std::byte{7} : std::byte{0};
         cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[petIndex()].value08);
         copyNumber(textBase + 1);
-        const std::int32_t maxHp = world::gPetRuntimeRecords[petIndex()].values0C[1].value();
-        const std::int32_t hp = world::gPetRuntimeRecords[petIndex()].values0C[0].value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[1]);
+        const std::int32_t hp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[0]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         copyNumber(textBase + 2);
-        const std::int32_t maxFp = world::gPetRuntimeRecords[petIndex()].values0C[3].value();
-        const std::int32_t fp = world::gPetRuntimeRecords[petIndex()].values0C[2].value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[3]);
+        const std::int32_t fp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[2]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         copyNumber(textBase + 3);
 

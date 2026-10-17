@@ -128,9 +128,9 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     return WindowRuntime_CreateAnimation(WindowId_TradeTarget, 1, 0, nullptr);
 }

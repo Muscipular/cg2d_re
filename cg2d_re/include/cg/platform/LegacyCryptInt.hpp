@@ -67,10 +67,6 @@ public:
     friend bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
 
-
-    // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
-    std::int32_t value();
-
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
@@ -78,6 +74,10 @@ public:
     // 原+0x0D～+0x0F：由编译器尾部padding承接。
 
 private:
+    // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
+    // 供转换与运算符内部单次解码；外部读取经operator std::int32_t()。
+    std::int32_t value();
+
     // 明文转原W32位模式，供encoded异或与mask位模式转换使用。
     static std::uint32_t ToBits(std::int32_t value);
     // 解码后的W32位模式恢复为有符号明文。

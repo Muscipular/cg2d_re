@@ -214,9 +214,9 @@ void Sub_444410(
             std::int32_t image = character_select::ResolveCharacterImageForVersion(option3);
             if (payload->action34 == nullptr) {
                 const std::int32_t petY =
-                    action->mapY1F0.value();
+                    static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t petX =
-                    action->mapX1E0.value();
+                    static_cast<std::int32_t>(action->mapX1E0);
                 payload->action34 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
             }
             cg::yobi::YobiAction* const firstPet = payload->action34;
@@ -228,9 +228,9 @@ void Sub_444410(
                 ++image;
                 if (previousSecondPet == nullptr) {
                     const std::int32_t petY =
-                        action->mapY1F0.value();
+                        static_cast<std::int32_t>(action->mapY1F0);
                     const std::int32_t petX =
-                        action->mapX1E0.value();
+                        static_cast<std::int32_t>(action->mapX1E0);
                     payload->action38 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
                 }
                 cg::yobi::YobiAction* const secondPet = payload->action38;
@@ -321,9 +321,9 @@ void Sub_446640()
         }
         const std::int32_t direction = record.direction;
         const std::int32_t mapY =
-            record.coordinate1C.value();
+            static_cast<std::int32_t>(record.coordinate1C);
         const std::int32_t mapX =
-            record.coordinate0C.value();
+            static_cast<std::int32_t>(record.coordinate0C);
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         cg::yobi::YobiAction* action =
             cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -676,8 +676,8 @@ void Sub_46B4B0(const std::int32_t direction)
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC8223C = platform::ReadTickCount64();
 }
@@ -694,13 +694,13 @@ std::uint32_t Sub_46A190()
         cg::yobi::YobiAction* const action = ReadPetMapAction(index);
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
-            const double targetX = gPlayerSnapshotX.value() * 64.0;
+            const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
-            const double targetY = gPlayerSnapshotY.value() * 64.0;
+            const double targetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -708,12 +708,12 @@ std::uint32_t Sub_46A190()
                 continue;
             }
         } else {
-            const double targetX = action->mapX200.value() * 64.0;
+            const double targetX = static_cast<std::int32_t>(action->mapX200) * 64.0;
             const float worldX = action->worldX;
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
-            const double targetY = action->mapY210.value() * 64.0;
+            const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
                 || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -753,9 +753,9 @@ std::uint32_t Sub_46A190()
         }
         cg::yobi::YobiAction* const next = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            action->mapY1F0.value();
+            static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =
-            action->mapX1E0.value();
+            static_cast<std::int32_t>(action->mapX1E0);
         cg::yobi::Sub_441F60(next, x, y);
     }
 
@@ -790,9 +790,9 @@ void MovePlayerOneStep_46B1B0(
         static_cast<double>(speed) * 0.01F);
     if (payload != nullptr && payload->action2C != nullptr) {
         const std::int32_t previousY =
-            player->mapY1F0.value();
+            static_cast<std::int32_t>(player->mapY1F0);
         const std::int32_t previousX =
-            cg::world::gPlayerRuntimeSlots.action->mapX1E0.value();
+            static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.action->mapX1E0);
         static_cast<void>(cg::yobi::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
@@ -840,12 +840,12 @@ void Sub_46A5F0()
             break;
         }
         cg::yobi::YobiAction* const action = ReadPetMapAction(index);
-        const double targetX = action->mapX200.value() * 64.0;
+        const double targetX = static_cast<std::int32_t>(action->mapX200) * 64.0;
         const float worldX = action->worldX;
         if (targetX < worldX || targetX > worldX) {
             continue;
         }
-        const double targetY = action->mapY210.value() * 64.0;
+        const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
             || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -868,9 +868,9 @@ void Sub_46A5F0()
         }
         cg::yobi::YobiAction* const nextAction = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            action->mapY1F0.value();
+            static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =
-            action->mapX1E0.value();
+            static_cast<std::int32_t>(action->mapX1E0);
         cg::yobi::Sub_441F60(nextAction, x, y);
     }
 }
@@ -959,9 +959,9 @@ void Sub_4467D0(const std::int32_t objectIndex)
     }
     const std::int32_t direction = record.direction;
     const std::int32_t mapY =
-        record.coordinate1C.value();
+        static_cast<std::int32_t>(record.coordinate1C);
     const std::int32_t mapX =
-        record.coordinate0C.value();
+        static_cast<std::int32_t>(record.coordinate0C);
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     cg::yobi::YobiAction* action =
         cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -990,8 +990,8 @@ void Sub_519EE0()
     if (cg::world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::int32_t blocked = Sub_469810(x, y);
     cg::yobi::YobiAction* action = cg::world::gPlayerRuntimeSlots.action;
     if (blocked != 0) {

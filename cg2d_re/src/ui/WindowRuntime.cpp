@@ -965,8 +965,8 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply);
 }
@@ -1033,8 +1033,8 @@ void WindowItem_RequestPetTransfer(
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
 }
@@ -1077,12 +1077,12 @@ static std::int32_t WindowPet_DrawTooltip(
         if (tribe >= 0 && tribe < 20) {
             drawText(gTribeNames57CB54[tribe], 118, 21);
         }
-        const std::int32_t maxHp = pet.values0C[1].value();
-        const std::int32_t hp = pet.values0C[0].value();
+        const std::int32_t maxHp = static_cast<std::int32_t>(pet.values0C[1]);
+        const std::int32_t hp = static_cast<std::int32_t>(pet.values0C[0]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         drawText(buffer, 37, 19);
-        const std::int32_t maxFp = pet.values0C[3].value();
-        const std::int32_t fp = pet.values0C[2].value();
+        const std::int32_t maxFp = static_cast<std::int32_t>(pet.values0C[3]);
+        const std::int32_t fp = static_cast<std::int32_t>(pet.values0C[2]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         drawText(buffer, 37, 32);
         if (WindowPet_HasSkill25600(index) == 1) {
@@ -1152,18 +1152,18 @@ static void WindowPetDrag_Handle(
         if ((clicked & 2u) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseX.value()));
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseY.value()));
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
     } else {
         if ((clicked & 1u) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseX.value()));
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseY.value()));
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -1191,15 +1191,15 @@ static void WindowPetDrag_Handle(
             return;
         }
         const std::int32_t y =
-            platform::gLegacyMouseState.mouseY.value();
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
         const std::int32_t x =
-            platform::gLegacyMouseState.mouseX.value();
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
         static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && WindowItem_ClassifyPetSlot(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowPet_DrawTooltip(x, y, sourceIndex, 5, 230, color));
     }
 }
@@ -1228,9 +1228,9 @@ static void WindowItemDrag_Handle(
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
-                world::gPlayerY.value();
+                static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
-                world::gPlayerX.value();
+                static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::Sub_510CE0(
                 platform::gConnectionSocket, x, y, group, sourceIndex));
         }
@@ -1263,9 +1263,9 @@ static void WindowItemDrag_Handle(
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value()));
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(2, sourceIndex, x, y, WindowItemDrag_Handle));
     }
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
@@ -1295,9 +1295,9 @@ static void WindowItemDrag_Handle(
         return;
     }
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
@@ -2525,9 +2525,9 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
 {
     if (gTooltipSourceD303FC != index) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
@@ -2568,9 +2568,9 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
     const std::int32_t key = index + 100;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
@@ -2596,9 +2596,9 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
 {
     if (gTooltipSourceD303FC != 400) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
@@ -3602,8 +3602,8 @@ void WindowRuntime_DecrementOperationCount()
     if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
@@ -3906,9 +3906,9 @@ static std::int32_t WindowDrag_Update()
                     std::int32_t* const y = &window->y;
                     const std::int32_t deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->dragMouseY20));
                     *y += deltaY;
-                    const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.value();
+                    const std::int32_t mouseX = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
                     gCurrentWindow->dragMouseX1C = mouseX;
-                    const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.value();
+                    const std::int32_t mouseY = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
                     gCurrentWindow->dragMouseY20 = mouseY;
                 } else {
                     window->state = state & ~std::uint32_t{0x800};
@@ -3930,9 +3930,9 @@ static std::int32_t WindowDrag_Update()
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
                         if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
-                            const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.value();
+                            const std::int32_t mouseX = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
                             gCurrentWindow->dragMouseX1C = mouseX;
-                            const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.value();
+                            const std::int32_t mouseY = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
                             gCurrentWindow->dragMouseY20 = mouseY;
                             gCurrentWindow->state |= 0x800u;
                             result |= 2;
@@ -4414,8 +4414,8 @@ std::int32_t WindowRuntime_Render()
 {
     using namespace detail;
     if (gValue5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
-        const std::int32_t y = world::gPlayerY.value();
-        const std::int32_t x = world::gPlayerX.value();
+        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
@@ -4827,9 +4827,9 @@ std::int32_t WindowRuntime_CloseAll()
         return 0;
     }
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;

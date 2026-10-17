@@ -786,8 +786,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     gCraftRecipeIndexD2D638 = recipe;
     gSelectionModeD2D650 = 0;
     gCraftRecipeIdD2E440 = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -807,8 +807,8 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const s
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -831,8 +831,8 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     if (kind == 1) {
         gSelectionModeD2D650 = 15;
     }
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -851,8 +851,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -872,8 +872,8 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
-    const std::int32_t y = world::gPlayerY.value();
-    const std::int32_t x = world::gPlayerX.value();
+    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
+    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -1509,9 +1509,9 @@ static void WindowCraft_HandleMaterialDrag(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.value());
+            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(10, sourceIndex, x, y, WindowCraft_HandleMaterialDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -1521,9 +1521,9 @@ static void WindowCraft_HandleMaterialDrag(
     const std::int32_t imageNo =
         sourceIndex < 6 ? gSelectionImagesCF3FF4[sourceIndex] : gSelectedImageCC3ED8;
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.value();
+        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 

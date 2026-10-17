@@ -319,7 +319,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
 
     detail::Sub_46C2F0();
     static_cast<void>(detail::Sub_46C1C0());
-    const std::int32_t playerX = gPlayerX.value();
+    const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));
     if (cutMode) {
@@ -338,7 +338,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         gValue9EE8D0.readCount = readCount;
     }
     temporary.reset();
-    const std::int32_t playerY = gPlayerY.value();
+    const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
     temporary.emplace(static_cast<std::int32_t>(playerY));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;

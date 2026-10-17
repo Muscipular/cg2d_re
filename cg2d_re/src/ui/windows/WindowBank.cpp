@@ -270,8 +270,8 @@ void WindowBank_DrawOwnPetTooltip(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
     }
-    drawNumber(pet.values0C[1].value(), L"{:4}", 210, 5);
-    drawNumber(pet.values0C[3].value(), L"{:4}", 210, 22);
+    drawNumber(static_cast<std::int32_t>(pet.values0C[1]), L"{:4}", 210, 5);
+    drawNumber(static_cast<std::int32_t>(pet.values0C[3]), L"{:4}", 210, 22);
     drawNumber(pet.values70[0], L"{:3}", 95, 40);
     drawNumber(pet.values70[1], L"{:3}", 155, 40);
     drawNumber(pet.values70[2], L"{:3}", 215, 40);
@@ -354,9 +354,9 @@ static void WindowBank_Release()
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y =
-        world::gPlayerY.value();
+        static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
-        world::gPlayerX.value();
+        static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
@@ -1322,9 +1322,9 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
                     std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
                 const std::int32_t y =
-                    world::gPlayerY.value();
+                    static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
-                    world::gPlayerX.value();
+                    static_cast<std::int32_t>(world::gPlayerX);
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             }
@@ -1457,9 +1457,9 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
             const std::int32_t y =
-                world::gPlayerY.value();
+                static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
-                world::gPlayerX.value();
+                static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             window = gCurrentWindow;

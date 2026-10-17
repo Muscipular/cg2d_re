@@ -316,7 +316,7 @@ add_executable(cg2d_re_client WIN32
     "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc"
 )
 
-set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF)
+set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF OUTPUT_NAME cg2d_re)
 target_compile_options(cg2d_re_client PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)

@@ -49,7 +49,7 @@ echo [2/2] 构建 %CG_BUILD_CONFIG% 客户端...
 set "CG_BUILD_EXIT_CODE=%errorlevel%"
 if not "%CG_BUILD_EXIT_CODE%"=="0" goto :build_failed
 
-echo 构建成功："%~dp0build\windows-msvc-x64\%CG_BUILD_CONFIG%\cg2d_re_client.exe"
+echo 构建成功："%~dp0build\windows-msvc-x64\%CG_BUILD_CONFIG%\cg2d_re.exe"
 goto :finish
 
 :directory_failed

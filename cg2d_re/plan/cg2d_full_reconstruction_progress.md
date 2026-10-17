@@ -3491,3 +3491,9 @@ NS07～NS11源码调整及Debug配置／编译／链接验收完成，实机行�
 首次执行build.bat Debug发现SceneState缺少gSelectedCharacterIndex直接声明；原声明经已移除的角色选择内部头传入。补入cg/scene/login/LoginRequest.hpp后再次执行，Debug配置、编译及客户端链接成功，退出0。最后一轮增量构建5条警告，首轮119条；没有把增量条数视作全量清警结果。
 
 49份变动源码／头的UTF-8、LF及namespace检查通过，已删environment.hpp无引用，静态寿命与正文保序核对结果保持。精确提交直接依赖修正及SPEC／进度，SS01～SS05具名范围完成；未具名detail候选继续保留后续边界，不宣称全项目接口清零。构建包含用户当前未提交协议字典改动，该文件及AGENTS.md、采样目录、Python缓存未夹带提交。未运行客户端、测试、部署、保存构建日志或计算文件摘要。
+
+## 359. TAOMOLI 配置选项与全局 Windows 编译宏（2026-10-17）
+
+按用户要求修改本子项目CMakeLists.txt：新增TAOMOLI布尔选项，默认OFF；ON时定义同名编译宏，OFF时不定义，匹配现有ifdef分支。顶层在任何目标及子目录之前统一定义NOMINMAX、WIN32_LEAN_AND_MEAN，覆盖本目录源码目标与后续子目录。
+
+10份源码中的20处无保护局部定义补ifndef，已有保护定义保持；历史MidiToWav仅补宏保护，不恢复构建或功能。静态核对开关分支、定义范围及仅宏保护差异通过，Git差异检查通过后精确提交。配置时可传-DTAOMOLI=ON或OFF，已有build.bat沿用CMake缓存选项。本次未重新配置、编译、测试或运行，不沿用上一步构建结果作为本次验证；用户协议字典等改动保留并排除。

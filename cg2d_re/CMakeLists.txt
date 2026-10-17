@@ -8,6 +8,14 @@ endif()
 
 enable_language(C RC)
 
+option(TAOMOLI "启用 TAOMOLI 编译分支" OFF)
+
+# 统一 Windows 头文件行为，覆盖本目录目标及后续子目录。
+add_compile_definitions(NOMINMAX WIN32_LEAN_AND_MEAN)
+if(TAOMOLI)
+    add_compile_definitions(TAOMOLI)
+endif()
+
 set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
     CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
 find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)

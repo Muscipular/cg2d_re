@@ -217,6 +217,7 @@ static std::int32_t QueuePlaintextProtocolBytes(
 }
 #ifdef TAOMOLI
 // 输入须为有效的标准Base64字节，length不含尾NUL；原地解码并返回实际二进制长度。
+__declspec(noinline)
 static std::size_t DecodeBase64InPlace(char* const target, const std::size_t length)
 {
     VM_HARD_START

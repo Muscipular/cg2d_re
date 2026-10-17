@@ -182,8 +182,8 @@ public:
     }
 };
 
-// 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。
-// module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。
+// 保留原0x67资源查询规则供十一CUR选择实例；原EXE只映射为数据，不作为代码装载。
+// module及LoadCursor共享句柄归进程寿命，SetCursor借用期间不卸载，见CAC11。
 static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 {
     // RT_GROUP_ICON=14；资源ID与查询统一使用W接口，避免受UNICODE宏影响。
@@ -354,7 +354,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gWindowClass.cbWndExtra = 0;
         gWindowClass.hInstance = instance;
         const HINSTANCE resourceInstance = ResolveWindowResourceInstance(instance);
-        gWindowClass.hIcon = LoadIconW(resourceInstance, MAKEINTRESOURCEW(0x67));
+        // app.ico以独立资源ID1内嵌于客户端，光标继续使用原资源实例。
+        gWindowClass.hIcon = LoadIconW(instance, MAKEINTRESOURCEW(1));
 
         // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。
         const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);

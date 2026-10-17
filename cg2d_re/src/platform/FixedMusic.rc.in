@@ -1,3 +1,5 @@
 #pragma code_page(65001)
+// 应用图标使用独立ID，保留原0x67图标查询对应的光标资源回退。
+1 ICON "@CMAKE_CURRENT_SOURCE_DIR@/app.ico"
 1001 RCDATA "@CMAKE_CURRENT_SOURCE_DIR@/src/audio/fixed_0.wav"
 1002 RCDATA "@CMAKE_CURRENT_SOURCE_DIR@/src/audio/fixed_1.wav"

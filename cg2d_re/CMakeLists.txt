@@ -310,7 +310,7 @@ target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3-static user32 gdi32)
 # BRS01/D03：由宿主 Windows CRT 进入唯一真实 WinMain，不设置私有 /ENTRY。
 configure_file(src/platform/FixedMusic.rc.in "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc" @ONLY)
 set_source_files_properties("${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc" PROPERTIES
-    OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_0.wav;${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_1.wav")
+    OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/app.ico;${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_0.wav;${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_1.wav")
 add_executable(cg2d_re_client WIN32
     src/platform/ClientEntry.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc"

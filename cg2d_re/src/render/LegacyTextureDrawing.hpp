@@ -16,9 +16,11 @@ struct LegacyTextureDevice;
 using TextureRectangle = std::array<std::int32_t, 4>;
 
 // R03/R04／GRT01：整图源矩形直接交给 GPU 缩放、翻转与混合。
+// 采样逐次提交，默认最近邻；仅缩放战斗蒙版显式开启线性采样。
 std::int32_t RenderImageTexture(
     TextureSurface* surface, const TextureRectangle& source,
-    const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color);
+    const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color,
+    bool linearSampling = false);
 
 // R08：纯色三角形的render私有顶点，同一三角形三点颜色相同。
 struct ColorVertex {
@@ -64,7 +66,8 @@ enum class LegacyTextureBlend : std::uint32_t {
 bool DrawGpuTexture(
     TextureSurface* surface, const std::array<float, 4>& source,
     const std::array<float, 4>& destination, std::uint32_t color,
-    LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend) noexcept;
+    LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend,
+    bool linearSampling = false) noexcept;
 bool DrawGpuTriangles(std::span<const ColorVertex> vertices, const TextureRectangle& clip) noexcept;
 bool ClearGpuBack(std::uint32_t color) noexcept;
 bool SynchronizeBackToCpu() noexcept;

@@ -23,6 +23,7 @@ enum GraphicBatchType : std::uint8_t {
     GraphicBatch_FullscreenBackground = 15, // R03／LUR01 共用完整源图铺满窗口。
     GraphicBatch_Canvas = 16,
     GraphicBatch_FullscreenBackgroundTrimmed = 17, // 仅按有效 Alpha 范围铺满，去除外围透明行列。
+    GraphicBatch_BattleBackground = 18, // 战斗蒙版铺满画布，实际缩放时使用线性采样。
 };
 
 // GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。

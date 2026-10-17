@@ -47,8 +47,8 @@ void RebuildRenderer_466B80()
         static_cast<void>(ResetGraphicCache_456D30());
         static_cast<void>(world::Sub_46BD40());
         world::Sub_46CF60(0);
-        static_cast<void>(cg::render::DrawGraphic(
-            320, 240, 200, world::gBattleBackgroundImage59F9F8, 0, nullptr));
+        static_cast<void>(cg::render::DrawBattleBackgroundScaled(
+            200, world::gBattleBackgroundImage59F9F8));
         SortTextures_520790();
         static_cast<void>(ClearSurface_4512C0());
         gRenderQueueMode103CF10 = 0;

@@ -74,8 +74,10 @@ static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
         if (source[1] == source[3]) { return; }
     }
     const TextureRectangle destination {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
+    const bool linearSampling = graphic->batchType == GraphicBatch_BattleBackground
+        && (source[2] - source[0] != destination[2] || source[3] - source[1] != destination[3]);
     if (RenderImageTexture(node->surface, source, destination,
-            graphic->descriptor.mixFlags, graphic->descriptor.color) == kSurfaceBusy) {
+            graphic->descriptor.mixFlags, graphic->descriptor.color, linearSampling) == kSurfaceBusy) {
         gGraphicDirty = 1;
     }
 }
@@ -485,6 +487,7 @@ void DrawAllQueued_520DD0()
                 break;
             case GraphicBatch_FullscreenBackground:
             case GraphicBatch_FullscreenBackgroundTrimmed:
+            case GraphicBatch_BattleBackground:
                 DrawFullscreenBackground(graphic);
                 break;
             case GraphicBatch_Canvas:

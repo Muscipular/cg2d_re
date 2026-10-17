@@ -50,6 +50,7 @@ struct TextureSurface {
     };
     SDL_Renderer* gpuRenderer {}; // 非拥有；销毁 renderer 前清除关联纹理。
     bool gpuDirty = true;
+    bool gpuPremultipliedAlpha = false; // 当前GPU像素表示；CPU始终保留普通ARGB。
     std::array<std::int32_t, 4> dirtyRectangle {};
     TextureSurface* nextOwned {};
     TextureSurface* previousOwned {};
@@ -305,7 +306,8 @@ void MarkTextureSurfaceModified(
     surface->gpuDirty = true;
 }
 
-SDL_Texture* GetTextureGpuTexture(TextureSurface* const surface, SDL_Renderer* const renderer) noexcept
+SDL_Texture* GetTextureGpuTexture(
+    TextureSurface* const surface, SDL_Renderer* const renderer, const bool premultiplyAlpha) noexcept
 {
     if (surface->gpuTexture == nullptr || surface->gpuRenderer != renderer) {
         // GRT02：只在首次使用／设备重建时创建；所有生产者已经写出 ARGB8888。
@@ -319,6 +321,9 @@ SDL_Texture* GetTextureGpuTexture(TextureSurface* const surface, SDL_Renderer* c
         }
         MarkTextureSurfaceModified(surface);
     }
+    if (surface->gpuPremultipliedAlpha != premultiplyAlpha) {
+        MarkTextureSurfaceModified(surface);
+    }
     if (surface->gpuDirty) {
         const auto& dirty = surface->dirtyRectangle;
         const SDL_Rect rectangle {dirty[0], dirty[1], dirty[2] - dirty[0], dirty[3] - dirty[1]};
@@ -326,9 +331,28 @@ SDL_Texture* GetTextureGpuTexture(TextureSurface* const surface, SDL_Renderer* c
         const auto* const pixels = static_cast<const std::uint8_t*>(input->pixels)
             + static_cast<std::size_t>(rectangle.y) * input->pitch
             + static_cast<std::size_t>(rectangle.x) * sizeof(std::uint32_t);
-        if (!SDL_UpdateTexture(surface->gpuTexture.get(), &rectangle, pixels, input->pitch)) {
+        const void* uploadPixels = pixels;
+        int uploadPitch = input->pitch;
+        std::unique_ptr<std::uint32_t[]> premultipliedPixels;
+        if (premultiplyAlpha) {
+            premultipliedPixels.reset(new (std::nothrow) std::uint32_t[
+                static_cast<std::size_t>(rectangle.w) * rectangle.h]);
+            if (premultipliedPixels == nullptr) {
+                SDL_OutOfMemory();
+                return nullptr;
+            }
+            uploadPitch = rectangle.w * static_cast<int>(sizeof(std::uint32_t));
+            if (!SDL_PremultiplyAlpha(rectangle.w, rectangle.h, SDL_PIXELFORMAT_ARGB8888,
+                    pixels, input->pitch, SDL_PIXELFORMAT_ARGB8888,
+                    premultipliedPixels.get(), uploadPitch, false)) {
+                return nullptr;
+            }
+            uploadPixels = premultipliedPixels.get();
+        }
+        if (!SDL_UpdateTexture(surface->gpuTexture.get(), &rectangle, uploadPixels, uploadPitch)) {
             return nullptr;
         }
+        surface->gpuPremultipliedAlpha = premultiplyAlpha;
         surface->gpuDirty = false;
     }
     return surface->gpuTexture.get();

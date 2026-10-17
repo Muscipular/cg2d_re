@@ -36,7 +36,9 @@ SDL_Surface* GetTextureSdlSurface(TextureSurface* surface) noexcept;
 void MarkTextureSurfaceModified(TextureSurface* surface) noexcept;
 // 已修改的半开区域；多次写入合并，首次 GPU 上传仍覆盖整张表面。
 void MarkTextureSurfaceModified(TextureSurface* surface, const std::array<std::int32_t, 4>& rectangle) noexcept;
-SDL_Texture* GetTextureGpuTexture(TextureSurface* surface, SDL_Renderer* renderer) noexcept;
+// 预乘仅用于线性Alpha过滤；模式切换重传GPU像素，不改CPU原图。
+SDL_Texture* GetTextureGpuTexture(
+    TextureSurface* surface, SDL_Renderer* renderer, bool premultiplyAlpha = false) noexcept;
 void ReleaseRendererGpuTextures(SDL_Renderer* renderer) noexcept;
 
 // 设备绑定的一份独立持有；缓存中的原生 T* 仍不拥有资源。

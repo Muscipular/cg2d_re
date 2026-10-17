@@ -370,7 +370,8 @@ bool SdlPresenter::PrepareGpuFrame() noexcept
 bool SdlPresenter::DrawTexture(
     TextureSurface* const surface, const std::array<float, 4>& source,
     const std::array<float, 4>& destination, const std::uint32_t color,
-    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend) noexcept
+    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend,
+    const bool linearSampling) noexcept
 {
     if (!PrepareGpuFrame()) { return false; }
     SDL_BlendMode blend;
@@ -380,6 +381,10 @@ bool SdlPresenter::DrawTexture(
         blend = SDL_BLENDMODE_ADD_PREMULTIPLIED;
     } else {
         blend = SDL_BLENDMODE_BLEND;
+    }
+    const bool premultiplyAlpha = linearSampling && surface != nullptr && blend == SDL_BLENDMODE_BLEND;
+    if (premultiplyAlpha) {
+        blend = SDL_BLENDMODE_BLEND_PREMULTIPLIED;
     }
     const SDL_FRect output {std::min(destination[0], destination[2]),
         std::min(destination[1], destination[3]), std::abs(destination[2] - destination[0]),
@@ -394,7 +399,7 @@ bool SdlPresenter::DrawTexture(
             && SDL_SetRenderDrawColor(impl_->renderer, red, green, blue, alpha)
             && SDL_RenderFillRect(impl_->renderer, &output);
     } else {
-        SDL_Texture* const texture = GetTextureGpuTexture(surface, impl_->renderer);
+        SDL_Texture* const texture = GetTextureGpuTexture(surface, impl_->renderer, premultiplyAlpha);
         if (texture == nullptr) { return FailSdl("Upload image texture"); }
         const SDL_FRect input {std::min(source[0], source[2]), std::min(source[1], source[3]),
             std::abs(source[2] - source[0]), std::abs(source[3] - source[1])};
@@ -402,7 +407,14 @@ bool SdlPresenter::DrawTexture(
         const bool flipY = (source[3] < source[1]) != (destination[3] < destination[1]);
         const auto flip = static_cast<SDL_FlipMode>(
             (flipX ? SDL_FLIP_HORIZONTAL : 0) | (flipY ? SDL_FLIP_VERTICAL : 0));
-        drawn = SDL_SetTextureColorMod(texture, red, green, blue)
+        // 预乘混合不再由硬件将RGB乘Alpha，全局透明度也须同步调制RGB。
+        const auto colorAlpha = premultiplyAlpha ? static_cast<unsigned int>(alpha) : 255u;
+        const auto modRed = static_cast<std::uint8_t>((red * colorAlpha + 127u) / 255u);
+        const auto modGreen = static_cast<std::uint8_t>((green * colorAlpha + 127u) / 255u);
+        const auto modBlue = static_cast<std::uint8_t>((blue * colorAlpha + 127u) / 255u);
+        // 共享纹理可能随后用于普通绘制，每次提交均明确采样模式。
+        drawn = SDL_SetTextureScaleMode(texture, linearSampling ? SDL_SCALEMODE_LINEAR : SDL_SCALEMODE_NEAREST)
+            && SDL_SetTextureColorMod(texture, modRed, modGreen, modBlue)
             && SDL_SetTextureAlphaMod(texture, alpha)
             && SDL_SetTextureBlendMode(texture, blend)
             && SDL_RenderTextureRotated(impl_->renderer, texture, &input, &output, 0.0, nullptr, flip);
@@ -483,9 +495,11 @@ void SdlPresenter::MarkCpuFrameModified() noexcept
 
 bool DrawGpuTexture(TextureSurface* const surface, const std::array<float, 4>& source,
     const std::array<float, 4>& destination, const std::uint32_t color,
-    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend) noexcept
+    const LegacyTextureBlend sourceBlend, const LegacyTextureBlend destinationBlend,
+    const bool linearSampling) noexcept
 {
-    const bool drawn = gRendererPresenter.DrawTexture(surface, source, destination, color, sourceBlend, destinationBlend);
+    const bool drawn = gRendererPresenter.DrawTexture(
+        surface, source, destination, color, sourceBlend, destinationBlend, linearSampling);
     if (!drawn) { m_log_i("[render] %s\n", gRendererPresenter.LastError()); }
     return drawn;
 }

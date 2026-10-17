@@ -46,7 +46,7 @@ public:
     [[nodiscard]] bool DrawTexture(
         TextureSurface* surface, const std::array<float, 4>& source,
         const std::array<float, 4>& destination, std::uint32_t color,
-        LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend) noexcept;
+        LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend, bool linearSampling) noexcept;
     [[nodiscard]] bool DrawTriangles(
         std::span<const ColorVertex> vertices, const std::array<std::int32_t, 4>& clip) noexcept;
     [[nodiscard]] bool ClearFrame(std::uint32_t color) noexcept;

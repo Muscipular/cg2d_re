@@ -341,5 +341,7 @@ set_target_properties(cg2d_re_midi_to_wav PROPERTIES MSVC_RUNTIME_LIBRARY MultiT
 # 业务开关覆盖全部自有目标，不传播至SDL、yaml-cpp和LZ4，避免切换时重编依赖。
 foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render
     cg2d_re_client cg2d_re_midi_to_wav)
-    target_compile_definitions(${cg2d_re_target} PRIVATE "$<$<BOOL:${TAOMOLI}>:TAOMOLI>")
+    target_compile_definitions(${cg2d_re_target} PRIVATE
+        "$<$<BOOL:${TAOMOLI}>:TAOMOLI>"
+        "$<$<CONFIG:Debug>:MY_DEBUG>")
 endforeach()

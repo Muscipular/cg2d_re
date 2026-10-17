@@ -302,7 +302,11 @@ std::int32_t DrawGraphic(
 std::int32_t DrawBattleBackgroundScaled(
     const std::uint8_t layer, const std::int32_t imageNo, const GraphicDescriptor16* const descriptor)
 {
-    return StretchGraphicToScreen(DrawGraphic(320, 240, layer, imageNo, 0, descriptor));
+    const std::int32_t pendingIndex = DrawGraphic(320, 240, layer, imageNo, 0, descriptor);
+    if (pendingIndex >= 0) {
+        gLegacyPendingStorage.records[pendingIndex].batchType = GraphicBatch_BattleBackground;
+    }
+    return pendingIndex;
 }
 
 std::int32_t StretchGraphicToScreen(

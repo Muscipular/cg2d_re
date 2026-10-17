@@ -309,7 +309,8 @@ std::int32_t RenderTexture_44DA90(
 // GRT01：整图、字形图集与 PNG 共用源矩形提交；缩放／翻转／混合均由 GPU 执行。
 std::int32_t RenderImageTexture(
     TextureSurface* const surface, const TextureRectangle& source,
-    const TextureRectangle& destination, const std::uint8_t mixFlags, const std::uint32_t color)
+    const TextureRectangle& destination, const std::uint8_t mixFlags, const std::uint32_t color,
+    const bool linearSampling)
 {
     SDL_Surface* const input = GetTextureSdlSurface(surface);
     SDL_Surface* const back = GetCpuBackSdlSurface();
@@ -326,7 +327,8 @@ std::int32_t RenderImageTexture(
         {static_cast<float>(destination[0]), static_cast<float>(destination[1]),
          static_cast<float>(destination[2]), static_cast<float>(destination[3])}, color,
         additive ? LegacyTextureBlend::One : LegacyTextureBlend::SourceAlpha,
-        additive ? LegacyTextureBlend::One : LegacyTextureBlend::InverseSourceAlpha) ? 0 : kNativeFailure;
+        additive ? LegacyTextureBlend::One : LegacyTextureBlend::InverseSourceAlpha,
+        linearSampling) ? 0 : kNativeFailure;
 }
 
 // R08／GRT01：纯色三角形直接提交 GPU，保留调用方裁剪与顶点顺序。

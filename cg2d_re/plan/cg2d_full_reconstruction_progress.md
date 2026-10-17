@@ -3355,3 +3355,11 @@ L01–L08代码迁移及接线完成，构建／链接／运行仍未验收。�
 预编译库使用LIBCMT，客户端及参与链接的startup、core、render、LZ4、yaml-cpp共六个源码目标显式设置MSVC_RUNTIME_LIBRARY=MultiThreaded；Debug也用/MT，保留原调试信息、优化与运行时检查配置。属性仅覆盖这六个目标，不改父工程或历史离线工具，不用忽略默认库来压制CRT冲突。
 
 已核本地CMake属性说明、yaml-cpp目标配置及Lua头文件普通外部声明分支；源码／构建入口无旧DLL包装引用。差异与UTF-8无BOM／LF核对后精确提交本步配置、导出表删除及两份Markdown。仅静态检查，未配置、构建、测试、检查客户端产物或启停进程，不计算摘要；保留并排除用户既有AGENTS.md修改、采样目录及Python缓存，不更新函数表或JSON台账。
+
+## 340. Lua 迁移编译修复与静态链接确认（2026-10-17）
+
+按用户指定build.bat执行现有MSVC x64 Debug构建。首轮配置成功，LuaHost.hpp仅间接获得InputContext前置声明，缺少输入类型、当前上下文及SetContext的完整声明，导致多个Lua文件编译失败。按[LUM01](../doc/cg2d_lua_l01_l08_migration_spec.md)仅直接包含既有cg/input/Input.hpp，不改输入业务或构建脚本。
+
+第二轮build.bat Debug配置、编译和客户端链接成功，退出0，相关连锁错误全部消除；仍有57条增量编译警告，不通过补默认值或屏蔽诊断消除。生成EXE的DLL依赖列表无LuaJIT或MSVC/UCRT动态运行库，保留SDL3及原系统依赖，LuaJIT直接静态链接已获本次构建证据。
+
+限定源码差异、UTF-8无BOM／LF和Git差异检查后精确提交一行头文件修复及两份Markdown。未运行测试／客户端、停止现有进程、部署、保存构建日志文件或计算摘要；不更新函数表或JSON台账，用户既有AGENTS.md修改、采样目录及Python缓存保留并排除。

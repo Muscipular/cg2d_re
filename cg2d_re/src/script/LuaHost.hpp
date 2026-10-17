@@ -5,6 +5,7 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../Yobi/base.hpp"
 #include "cg/core/m_log.hpp"
+#include "cg/input/Input.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"

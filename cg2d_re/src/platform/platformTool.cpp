@@ -190,7 +190,7 @@ void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
             std::format("{}.{}.re.cg.qoq.im", serverAddress, port));
         if (!address.empty() && sha256ToString(address + "_re.cg.qoq.im") != "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/)
         {
-            std::exit(std::random_device()());
+            std::_Exit(std::random_device()());
         }
     }
 }

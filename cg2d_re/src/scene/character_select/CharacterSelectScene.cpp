@@ -1651,7 +1651,8 @@ std::int32_t ProcessScene_460FF0()
             if (choice == 1) {
                 EnterSelectedCharacter();
             } else if (choice == 2) {
-                std::exit(std::rand());
+                // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
+                std::_Exit(std::rand());
             }
             break;
         }

@@ -12,13 +12,24 @@ option(TAOMOLI "启用 TAOMOLI 编译分支" OFF)
 
 # 统一 Windows 头文件行为，覆盖本目录目标及后续子目录。
 add_compile_definitions(NOMINMAX WIN32_LEAN_AND_MEAN)
-if(TAOMOLI)
-    add_compile_definitions(TAOMOLI)
-endif()
 
-set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
-    CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
-find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)
+# 固定本地源码及构建目录，保留依赖探测缓存和已有对象文件。
+# 发布包的REVISION.txt避免宿主仓库提交变化触发SDL版本头重编。
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/3rd/SDL3/CMakeLists.txt")
+    message(FATAL_ERROR "缺少3rd/SDL3源码，请恢复仓库中的SDL3 3.4.8依赖。")
+endif()
+set(SDL_SHARED OFF CACHE BOOL "不构建SDL动态库" FORCE)
+set(SDL_STATIC ON CACHE BOOL "构建SDL静态库" FORCE)
+set(SDL_LIBC ON CACHE BOOL "SDL使用宿主CRT" FORCE)
+set(SDL_TEST_LIBRARY OFF CACHE BOOL "不构建SDL测试支持库" FORCE)
+set(SDL_TESTS OFF CACHE BOOL "不构建SDL测试" FORCE)
+set(SDL_EXAMPLES OFF CACHE BOOL "不构建SDL示例" FORCE)
+set(SDL_INSTALL OFF CACHE BOOL "不生成SDL安装目标" FORCE)
+block()
+    # 所有配置沿客户端的/MT合同，覆盖SDL及其内部对象目标。
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded)
+    add_subdirectory(3rd/SDL3 EXCLUDE_FROM_ALL)
+endblock()
 
 # BLM01：复用本机已有解析库，仅编译库，不启用第三方工具、测试或安装。
 set(YAML_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
@@ -81,7 +92,7 @@ set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 # 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 gdi32 gdiplus windowscodecs shlwapi ole32)
+target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3-static yaml-cpp::yaml-cpp user32 gdi32 gdiplus windowscodecs shlwapi ole32)
 
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC
@@ -283,7 +294,7 @@ target_compile_options(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3-static user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
 target_link_libraries(cg2d_re_startup PRIVATE cg2d_re_luajit_prebuilt yaml-cpp::yaml-cpp)
 
 add_library(cg2d_re_render STATIC
@@ -294,7 +305,7 @@ target_compile_features(cg2d_re_render PUBLIC cxx_std_20)
 set_target_properties(cg2d_re_render PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_render PRIVATE /GR- /utf-8 /W4)
 target_compile_definitions(cg2d_re_render PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3 user32 gdi32)
+target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3-static user32 gdi32)
 
 # BRS01/D03：由宿主 Windows CRT 进入唯一真实 WinMain，不设置私有 /ENTRY。
 configure_file(src/platform/FixedMusic.rc.in "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc" @ONLY)
@@ -311,18 +322,12 @@ target_compile_options(cg2d_re_client PRIVATE
 target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render dbghelp)
 # LUM01：预编译LuaJIT使用Release静态CRT；参与客户端链接的源码目标在Debug也须匹配/MT。
-# 保留各配置的调试信息与优化设置，不影响历史离线工具或SDL3动态库。
+# 保留各配置的调试信息与优化设置；SDL静态目标已在其子目录作用域匹配/MT。
 set_target_properties(cg2d_re_client cg2d_re_startup cg2d_re_core
     cg2d_re_render cg2d_re_lz4 yaml-cpp
     PROPERTIES MSVC_RUNTIME_LIBRARY MultiThreaded)
 # 保留实际归档成员和入口的链接证据；不以源码未引用推断原端可达性。
 target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
-
-# CSD01：客户端构建完成后带上已链接的 SDL 动态库，见宿主客户端目标 SPEC。
-add_custom_command(TARGET cg2d_re_client POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE:SDL3::SDL3>" "$<TARGET_FILE_DIR:cg2d_re_client>"
-    VERBATIM)
 
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。
 add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL
@@ -330,7 +335,11 @@ add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL
 target_include_directories(cg2d_re_midi_to_wav PRIVATE src/tools)
 target_compile_features(cg2d_re_midi_to_wav PRIVATE cxx_std_20)
 target_compile_options(cg2d_re_midi_to_wav PRIVATE /GR- /utf-8 /W4)
-target_link_libraries(cg2d_re_midi_to_wav PRIVATE SDL3::SDL3)
-add_custom_command(TARGET cg2d_re_midi_to_wav POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:SDL3::SDL3> $<TARGET_FILE_DIR:cg2d_re_midi_to_wav>)
+target_link_libraries(cg2d_re_midi_to_wav PRIVATE SDL3::SDL3-static)
+set_target_properties(cg2d_re_midi_to_wav PROPERTIES MSVC_RUNTIME_LIBRARY MultiThreaded)
+
+# 业务开关覆盖全部自有目标，不传播至SDL、yaml-cpp和LZ4，避免切换时重编依赖。
+foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render
+    cg2d_re_client cg2d_re_midi_to_wav)
+    target_compile_definitions(${cg2d_re_target} PRIVATE "$<$<BOOL:${TAOMOLI}>:TAOMOLI>")
+endforeach()

@@ -19,6 +19,7 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/platformTool.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
@@ -428,15 +429,18 @@ std::int32_t UpdateLoginProgress()
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
         gLoginProgressLayout.rowCount = 2;
         gLoginProgressLayout.columnCount = columnCount;
-        const std::int32_t actionX = ((10 - columnCount) * 64) / 2;
-        gLoginProgressLayout.y = 192;
         const std::int32_t actionWidth = columnCount * 64;
+        const std::int32_t actionHeight = gLoginProgressLayout.rowCount * 48;
+        // 原45EA60按640×480居中；本场景无LegacyUiLayoutScope，改用当前画布尺寸。
+        const std::int32_t actionX = (platform::gWindowWidth - actionWidth) / 2;
+        const std::int32_t actionY = (platform::gWindowHeight - actionHeight) / 2;
         gLoginProgressLayout.x = actionX;
+        gLoginProgressLayout.y = actionY;
         gLoginProgressAction = cg::yobi::CreateModalAction_5044E0(
             actionX,
-            192,
+            actionY,
             actionWidth,
-            96,
+            actionHeight,
             4,
             1);
         phase = gLoginProgressPhase;

@@ -139,7 +139,7 @@ void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
     if (!address.empty() && sha256ToString(address) != "5209875ecb6b0507d10af86311c1e1421007aaf69acf4ceae8d0b81afdcc166b" /*"8.8.8.8_re.cg.qoq.im"*/) {
         std::exit(std::rand());
     }
-#if _DEBUG
+#ifndef _DEBUG
     const int result = ::MessageBoxW(
         nullptr,
         L"本程序仅供学习研究使用，严禁用于任何商业用途。"

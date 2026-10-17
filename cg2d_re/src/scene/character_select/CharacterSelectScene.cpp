@@ -18,6 +18,7 @@
 #include "cg/input/Input.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
+#include "cg/scene/login/LoginScene.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -1699,8 +1700,15 @@ std::int32_t ProcessScene_460FF0()
         case 1: {
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
 #ifndef _DEBUG
-            world::gCurrentSceneState = kUsageNoticeState;
-            interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
+            // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
+            const char* const serverAddress = login::gValueD69798[
+                static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
+            if (std::strcmp(serverAddress, "taomoli") == 0) {
+                EnterSelectedCharacter();
+            } else {
+                world::gCurrentSceneState = kUsageNoticeState;
+                interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
+            }
 #else
             EnterSelectedCharacter();
 #endif

@@ -18,6 +18,7 @@
 #include "cg/world/Blacklist.hpp"
 #include "cg/world/GuildState.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"

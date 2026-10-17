@@ -129,11 +129,17 @@ int Rand16()
     return static_cast<int>((seed >> 16) & 0x7FFFu);
 }
 
-// 原 0x46FAF0：上界为 -1 时不消费随机数；否则先取随机数，再计算有符号区间。
+// 原 0x46FAF0：保留上界-1哨兵；RRU01将合法闭区间改为标准均匀分布。
+// 倒置区间保留原Rand16取模算法；合法区间的随机值及引擎消费次数允许变化。
 std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 {
     if (upper == -1) {
         return 0;
+    }
+
+    if (lower <= upper) {
+        std::uniform_int_distribution<std::int32_t> distribution(lower, upper);
+        return distribution(SharedRandomEngine());
     }
 
     const std::int32_t random = Rand16();

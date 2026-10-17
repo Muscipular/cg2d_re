@@ -247,8 +247,8 @@ void Sub_4462E0(const std::int32_t objectIndex)
     auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     cg::yobi::YobiAction* const action = record.action;
     if (action != nullptr) {
-        cg::yobi::detail::ClearMapActorAttachments(action);
-        cg::yobi::detail::MarkDeath(record.action);
+        cg::yobi::ClearMapActorAttachments(action);
+        cg::yobi::MarkDeath(record.action);
         record.action = nullptr;
     }
     const std::int32_t used = gWorldObjectUsedCount;
@@ -303,8 +303,8 @@ void __cdecl Sub_4464D0()
         }
         cg::yobi::YobiAction* const action = record.action;
         if (action != nullptr) {
-            cg::yobi::detail::ClearMapActorAttachments(action);
-            cg::yobi::detail::MarkDeath(record.action);
+            cg::yobi::ClearMapActorAttachments(action);
+            cg::yobi::MarkDeath(record.action);
             record.action = nullptr;
         }
         record.used = 0;

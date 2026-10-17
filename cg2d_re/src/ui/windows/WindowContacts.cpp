@@ -335,8 +335,8 @@ static std::int32_t WindowContacts_Refresh()
                     const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
                     const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
                     const std::int32_t memberIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
-                    const std::int32_t rank = cg::world::detail::gOrderedRecords1051B14[memberIndex].value00;
-                    const std::uint8_t flags = cg::world::detail::ReadGuildRankFlagsByte1051514(rank);
+                    const std::int32_t rank = cg::world::gOrderedRecords1051B14[memberIndex].value00;
+                    const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(rank);
                     gCurrentWindow->elements[21 + row * 2].visible = 0;
                     gCurrentWindow->elements[22 + row * 2].visible = (flags & 0x80) == 0 ? 1 : 0;
                 }
@@ -350,12 +350,12 @@ static std::int32_t WindowContacts_Refresh()
                 const std::int32_t allowed = WindowGuildDetails_CanEdit(2);
                 gCurrentWindow->elements[index].visible = allowed != 0 ? 1 : 0;
             }
-            if (cg::world::detail::ReadGuildStatus10514AC() == -1) {
+            if (cg::world::ReadGuildStatus10514AC() == -1) {
                 gCurrentWindow->elements[20].visible = 0;
             } else {
                 gCurrentWindow->elements[20].visible = 1;
                 WindowInstance* const window = gCurrentWindow;
-                const std::int32_t status = cg::world::detail::ReadGuildStatus10514AC();
+                const std::int32_t status = cg::world::ReadGuildStatus10514AC();
                 auto* const data = static_cast<WindowTextData*>(window->elements[20].data);
                 WindowMail_WriteGuildStatus(data, status);
             }
@@ -380,7 +380,7 @@ static std::int32_t WindowContacts_Refresh()
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E0;
                 break;
             case 1:
-                record = WindowMail_MakeContactView(cg::world::detail::gOrderedRecords1051B14[recordIndex]);
+                record = WindowMail_MakeContactView(cg::world::gOrderedRecords1051B14[recordIndex]);
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E8;
                 break;
             case 2:
@@ -423,11 +423,11 @@ static std::int32_t WindowContacts_Refresh()
                 break;
             }
             case 1: {
-                const auto* const member = &cg::world::detail::gOrderedRecords1051B14[recordIndex];
+                const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
                 privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 const std::int32_t rank = member->value00;
                 const char* const text = rank == -1
-                    ? "" : cg::world::detail::GetGuildRankText(rank);
+                    ? "" : cg::world::GetGuildRankText(rank);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
                 data->text = cg::text::FromGbkWide(text);
                 break;
@@ -449,8 +449,8 @@ static std::int32_t WindowContacts_Refresh()
                 if (WindowGuildDetails_CanEdit(2) != 0) {
                     gCurrentWindow->elements[29 + row * 8].visible = privileged == 0 ? 1 : 0;
                 } else {
-                    const std::int32_t ownKey = cg::world::detail::ReadGuildOwnKey10514B8();
-                    const std::int32_t memberKey = cg::world::detail::gOrderedRecords1051B14[recordIndex].value0C;
+                    const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
+                    const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
                     gCurrentWindow->elements[29 + row * 8].visible = memberKey == ownKey ? 1 : 0;
                 }
                 if (world::detail::Sub_5190F0(recordIndex) != 0) {
@@ -470,7 +470,7 @@ static std::int32_t WindowContacts_Refresh()
     if (gLoginWindowRuntime.valuesD67B40[6] == 1) {
         gCurrentWindow->elements[20].visible = 1;
         WindowInstance* const window = gCurrentWindow;
-        const std::int32_t status = cg::world::detail::ReadGuildStatus10514AC();
+        const std::int32_t status = cg::world::ReadGuildStatus10514AC();
         auto* const data = static_cast<WindowTextData*>(window->elements[20].data);
         WindowMail_WriteGuildStatus(data, status);
     } else {
@@ -491,14 +491,14 @@ static std::int32_t WindowContacts_Refresh()
             gCurrentWindow->elements[56 + row * 5].visible = 1;
             break;
         case 1: {
-            const auto* const member = &cg::world::detail::gOrderedRecords1051B14[recordIndex];
+            const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
             record = WindowMail_MakeContactView(*member);
             if (WindowGuildDetails_CanEdit(2) != 0) {
                 const std::int32_t privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 gCurrentWindow->elements[56 + row * 5].visible = privileged == 0 ? 1 : 0;
             } else {
                 const std::int32_t memberKey = member->value0C;
-                const std::int32_t ownKey = cg::world::detail::ReadGuildOwnKey10514B8();
+                const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
                 gCurrentWindow->elements[56 + row * 5].visible = memberKey == ownKey ? 1 : 0;
             }
             break;
@@ -671,7 +671,7 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
         if (category == 0) {
             maximum = mode == 0 ? 57 : 51;
         } else if (category == 1) {
-            const std::int32_t count = cg::world::detail::gOrderedRecordCount1051510;
+            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
             maximum = count < 100 ? (mode == 0 ? 97 : 91) : count - (mode == 0 ? 3 : 9);
         } else {
             maximum = mode == 0 ? 17 : 11;
@@ -709,7 +709,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
         }
         case 1: {
             const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
-            const auto& record = cg::world::detail::gOrderedRecords1051B14[recordIndex];
+            const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
             if (record.value08 == 0) {
                 return 1;
             }
@@ -902,7 +902,7 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
         count = 60;
         break;
     case 1:
-        count = cg::world::detail::gOrderedRecordCount1051510;
+        count = cg::world::gOrderedRecordCount1051510;
         if (count < 100) {
             count = 100;
         }
@@ -955,14 +955,14 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
     const std::int32_t row = (index - 21) / 2;
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
     const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
-    const std::int32_t key = cg::world::detail::gOrderedRecords1051B14[recordIndex].value0C;
-    const std::int32_t memberIndex = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(key);
+    const std::int32_t key = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
+    const std::int32_t memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
     const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
     gLoginWindowRuntime.mailMemberIndexCB1D18 = memberIndex;
     const std::int32_t currentPosition = gLoginWindowRuntime.valuesD67B40[currentCategory];
     const std::int32_t currentIndex = gLoginWindowRuntime.mailIndicesC9FCE4[currentPosition + row];
-    gLoginWindowRuntime.mailMemberKeyD45F88 = cg::world::detail::gOrderedRecords1051B14[currentIndex].value0C;
-    gLoginWindowRuntime.mailRankCF4A14 = cg::world::detail::gOrderedRecords1051B14[memberIndex].value00 - 1;
+    gLoginWindowRuntime.mailMemberKeyD45F88 = cg::world::gOrderedRecords1051B14[currentIndex].value0C;
+    gLoginWindowRuntime.mailRankCF4A14 = cg::world::gOrderedRecords1051B14[memberIndex].value00 - 1;
     static_cast<void>(WindowRuntime_Open(WindowId_GuildRank));
 }
 
@@ -1040,12 +1040,12 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         if (position < 0) {
             return 0;
         }
-        if (position > cg::world::detail::gOrderedRecordCount1051510 - 1) {
+        if (position > cg::world::gOrderedRecordCount1051510 - 1) {
             return 0;
         }
         if ((state & 1) != 0) {
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
-            const auto& record = cg::world::detail::gOrderedRecords1051B14[recordIndex];
+            const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
             if (record.value08 != 0) {
                 recordImage = &record.value14;
             }
@@ -1103,7 +1103,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
     }
     case 1: {
         const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
-        const auto& record = cg::world::detail::gOrderedRecords1051B14[recordIndex];
+        const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
         if (record.value08 == 0) {
             return 1;
         }
@@ -1243,7 +1243,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::
 从家族会员名单中删除吗？
 
  (确定删除时，请按住
-  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(cg::world::detail::gOrderedRecords1051B14[index].text18).c_str());
+  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[index].text18).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1283,7 +1283,7 @@ static void WindowContacts_ClampScroll()
             }
             break;
         case 1: {
-            const std::int32_t count = cg::world::detail::gOrderedRecordCount1051510;
+            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
             maximum = count < 100 ? 97 : count - 3;
             if (gLoginWindowRuntime.valuesD67B40[1] > maximum) {
                 gLoginWindowRuntime.valuesD67B40[1] = maximum;
@@ -1311,7 +1311,7 @@ static void WindowContacts_ClampScroll()
             }
             break;
         case 1: {
-            const std::int32_t count = cg::world::detail::gOrderedRecordCount1051510;
+            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
             maximum = count < 100 ? 91 : count - 9;
             if (gLoginWindowRuntime.valuesD67B40[4] > maximum) {
                 gLoginWindowRuntime.valuesD67B40[4] = maximum;
@@ -1363,8 +1363,8 @@ static std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left
             rightUsed = world::detail::gContactsF19FB0[*right].used != 0;
             leftUsed = world::detail::gContactsF19FB0[*left].used != 0;
         } else if (category == 1) {
-            rightUsed = cg::world::detail::gOrderedRecords1051B14[*right].value08 != 0;
-            leftUsed = cg::world::detail::gOrderedRecords1051B14[*left].value08 != 0;
+            rightUsed = cg::world::gOrderedRecords1051B14[*right].value08 != 0;
+            leftUsed = cg::world::gOrderedRecords1051B14[*left].value08 != 0;
         } else {
             rightUsed = world::detail::ReadMiniMailContact1075A90(*right).used != 0;
             leftUsed = world::detail::ReadMiniMailContact1075A90(*left).used != 0;
@@ -1407,8 +1407,8 @@ static std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left
         }
     } else {
         const std::int32_t leftIndex = *left;
-        const auto* const other = &cg::world::detail::gOrderedRecords1051B14[rightIndex];
-        const auto* const current = &cg::world::detail::gOrderedRecords1051B14[leftIndex];
+        const auto* const other = &cg::world::gOrderedRecords1051B14[rightIndex];
+        const auto* const current = &cg::world::gOrderedRecords1051B14[leftIndex];
         switch (mode) {
         case 0:
             return WindowContacts_CompareGuildName(current, other);
@@ -1441,8 +1441,8 @@ std::int32_t WindowContacts_CompareContactName(
 
 // 原函数：0x004A3070。
 std::int32_t WindowContacts_CompareGuildName(
-    const cg::world::detail::OrderedRecord1051B14* const left,
-    const cg::world::detail::OrderedRecord1051B14* const right)
+    const cg::world::OrderedRecord1051B14* const left,
+    const cg::world::OrderedRecord1051B14* const right)
 {
     const int order = std::strcmp(left->text18, right->text18);
     if (order != 0) {
@@ -1455,8 +1455,8 @@ std::int32_t WindowContacts_CompareGuildName(
 
 // 原函数：0x004A30D0。
 std::int32_t WindowContacts_CompareGuildValue(
-    const cg::world::detail::OrderedRecord1051B14* const left,
-    const cg::world::detail::OrderedRecord1051B14* const right)
+    const cg::world::OrderedRecord1051B14* const left,
+    const cg::world::OrderedRecord1051B14* const right)
 {
     const std::int32_t leftValue = left->value00;
     const std::int32_t rightValue = right->value00;
@@ -1501,8 +1501,8 @@ std::int32_t WindowContacts_CompareContactValue(
 
 // 原函数：0x004A3190。
 std::int32_t WindowContacts_CompareGuildStatus(
-    const cg::world::detail::OrderedRecord1051B14* const left,
-    const cg::world::detail::OrderedRecord1051B14* const right)
+    const cg::world::OrderedRecord1051B14* const left,
+    const cg::world::OrderedRecord1051B14* const right)
 {
     const std::int32_t leftValue = left->value10;
     const std::int32_t rightValue = right->value10;
@@ -1560,8 +1560,8 @@ static std::int32_t WindowContacts_CompareMiniMailNumber(
 
 // 原函数：0x004A3260。
 std::int32_t WindowContacts_CompareGuildNumber(
-    const cg::world::detail::OrderedRecord1051B14* const left,
-    const cg::world::detail::OrderedRecord1051B14* const right)
+    const cg::world::OrderedRecord1051B14* const left,
+    const cg::world::OrderedRecord1051B14* const right)
 {
     const std::int16_t leftShort = left->value0A;
     const std::int32_t leftValue = leftShort == 0 ? 0x7FFFFFFF : leftShort;
@@ -1586,7 +1586,7 @@ static std::int32_t WindowContacts_DragScroll(const std::int32_t)
         count = 60;
         break;
     case 1:
-        count = cg::world::detail::gOrderedRecordCount1051510;
+        count = cg::world::gOrderedRecordCount1051510;
         if (count < 100) {
             count = 100;
         }

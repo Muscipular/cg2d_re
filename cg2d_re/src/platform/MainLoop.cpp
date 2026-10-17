@@ -173,7 +173,7 @@ void ShowModeChange_458A40()
     render::ResetGraphicCache_456D30();
     static_cast<void>(render::DrawText2_456670(
         250, 223, 3, 0, 0, L"正在改变描绘模式。", 0));
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         245310, 196, 180, 256, 96, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),
         74, 54);
@@ -236,7 +236,7 @@ int MainLoop()
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {
-            cg::yobi::detail::Sub_449160();
+            cg::yobi::Sub_449160();
         }
         ClearKeyFlags_459760();
 

@@ -43,7 +43,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         gAuthenticationFailureHeight = 144;
         gAuthenticationFailureX = 64;
         gAuthenticationFailureY = 168;
-        gAuthenticationFailureAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gAuthenticationFailureAction = cg::yobi::CreateModalAction_5044E0(
             64,
             168,
             512,
@@ -75,7 +75,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
             login::detail::PlaySe(51, 320, 240);
             cg::yobi::YobiAction* const action = gAuthenticationFailureAction;
             if (action != nullptr) {
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gAuthenticationFailureAction = nullptr;
             }
             return result;
@@ -84,7 +84,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
 
     cg::yobi::YobiAction* const action = gAuthenticationFailureAction;
     if (action == nullptr
-        || !cg::yobi::detail::IsYobiActionReady(action, 1)) {
+        || !cg::yobi::IsYobiActionReady(action, 1)) {
         return result;
     }
 

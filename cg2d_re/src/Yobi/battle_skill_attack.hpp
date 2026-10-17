@@ -28,6 +28,19 @@ void ProcessBattleMSkillAttackTargets(
     const std::int32_t skill, const std::int32_t skillLevel, const std::int32_t skillLevelIndex,
     const std::int32_t fpUsed, const bool fixedState);
 
+// 原426FC0：四个输出保持独立指针；255终止与空对象收尾路径不同。
+void TakeBattleMSkillTargets_426FC0(
+    YobiAction* scene, std::int32_t skill, std::int32_t level,
+    std::int32_t technique, std::int32_t fpUsed, std::int32_t attackMode,
+    std::int32_t* sourcePosition, std::int32_t* initialPosition,
+    std::int32_t* targetPosition, std::int32_t* redirectedPosition);
+// 原424620完整九参攻击生产；D01次级图号仅入口0一次，保留跨轮复用。
+void TakeBattleMSkillAttackTargets_424620(
+    YobiAction* scene, std::int32_t skill, std::int32_t level,
+    std::int32_t levelIndex, std::int32_t fpUsed,
+    std::int32_t* sourcePosition, std::int32_t* initialPosition,
+    std::int32_t* targetPosition, std::int32_t* redirectedPosition);
+
 } // namespace detail
 
 } // namespace cg::yobi

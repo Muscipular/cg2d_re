@@ -82,7 +82,7 @@ void Sub_444410(
         action->field270 = 0;
         [[fallthrough]];
     case 31:
-        cg::yobi::detail::Sub_43EFC0(action, 0, 1);
+        cg::yobi::Sub_43EFC0(action, 0, 1);
         action->direction = direction;
         return;
     case 50: {
@@ -118,42 +118,42 @@ void Sub_444410(
         const std::uint16_t flags = gWorldObjects[index].flags42;
         if ((flags & 0x300u) == 0x300u) {
             if (action->field270 < 10) {
-                cg::yobi::detail::Sub_441FC0(action, x, y);
+                cg::yobi::Sub_441FC0(action, x, y);
             } else {
                 ResetMapFollowersFromPath(action);
-                cg::yobi::detail::Sub_441F60(action, x, y);
+                cg::yobi::Sub_441F60(action, x, y);
                 gWorldObjects[index].value34 = -1;
             }
         } else {
-            cg::yobi::detail::Sub_441F60(action, x, y);
+            cg::yobi::Sub_441F60(action, x, y);
         }
         if (characterAction == 1) {
             action->walkSpeed = option1;
         }
-        cg::yobi::detail::Sub_43EFC0(action, 1, 0);
+        cg::yobi::Sub_43EFC0(action, 1, 0);
         return;
     }
     case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
     case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17:
     case 18: case 19:
-        cg::yobi::detail::Sub_43EFC0(action, characterAction, 1);
+        cg::yobi::Sub_43EFC0(action, characterAction, 1);
         if (characterAction == 18 || characterAction == 19) {
             action->lastCharacterAction = -1;
         }
         action->direction = direction;
         return;
     case 30:
-        cg::yobi::detail::Sub_43EFC0(action, 1, 1);
+        cg::yobi::Sub_43EFC0(action, 1, 1);
         action->direction = direction;
         return;
     case 40:
         if (option1 >= 0) {
             Sub_442D60(action, option1);
-            cg::yobi::detail::Sub_43EFC0(action, 0, 1);
+            cg::yobi::Sub_43EFC0(action, 0, 1);
         } else {
             Sub_442D90(action);
         }
-        cg::yobi::detail::Sub_442AB0(action, x, y);
+        cg::yobi::Sub_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 41:
@@ -170,7 +170,7 @@ void Sub_444410(
         } else {
             Sub_442CD0(action);
         }
-        cg::yobi::detail::Sub_442AB0(action, x, y);
+        cg::yobi::Sub_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 44:
@@ -179,7 +179,7 @@ void Sub_444410(
         } else {
             Sub_442D30(action);
         }
-        cg::yobi::detail::Sub_442AB0(action, x, y);
+        cg::yobi::Sub_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 45:
@@ -215,9 +215,9 @@ void Sub_444410(
         action->direction = direction;
         return;
     case 51:
-        cg::yobi::detail::Sub_442AB0(action, x, y);
+        cg::yobi::Sub_442AB0(action, x, y);
         action->field270 = 0;
-        cg::yobi::detail::Sub_43EFC0(action, 0, 1);
+        cg::yobi::Sub_43EFC0(action, 0, 1);
         action->direction = direction;
         gWorldObjects[index].value34 = -1;
         return;
@@ -228,7 +228,7 @@ void Sub_444410(
         if (option2 > 0) {
             if (payload->action30 == nullptr) {
                 const std::int32_t image = character_select::detail::Sub_51B740(option2);
-                payload->action30 = cg::yobi::detail::NewYobiGear_4410F0(image);
+                payload->action30 = cg::yobi::NewYobiGear_4410F0(image);
             }
             if (payload->action30 != nullptr) {
                 const std::int32_t image = character_select::detail::Sub_51B740(option2);
@@ -237,7 +237,7 @@ void Sub_444410(
         } else {
             cg::yobi::YobiAction* const gear = payload->action30;
             if (gear != nullptr) {
-                cg::yobi::detail::MarkDeath(gear);
+                cg::yobi::MarkDeath(gear);
                 payload->action30 = nullptr;
             }
         }
@@ -248,7 +248,7 @@ void Sub_444410(
                     action->mapY1F0.value();
                 const std::int32_t petX =
                     action->mapX1E0.value();
-                payload->action34 = cg::yobi::detail::NewYobiGearPet_441130(image, petX, petY);
+                payload->action34 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
             }
             cg::yobi::YobiAction* const firstPet = payload->action34;
             if (firstPet != nullptr) {
@@ -262,7 +262,7 @@ void Sub_444410(
                         action->mapY1F0.value();
                     const std::int32_t petX =
                         action->mapX1E0.value();
-                    payload->action38 = cg::yobi::detail::NewYobiGearPet_441130(image, petX, petY);
+                    payload->action38 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
                 }
                 cg::yobi::YobiAction* const secondPet = payload->action38;
                 if (secondPet != nullptr) {
@@ -272,12 +272,12 @@ void Sub_444410(
         } else {
             cg::yobi::YobiAction* const firstPet = payload->action34;
             if (firstPet != nullptr) {
-                cg::yobi::detail::MarkDeath(firstPet);
+                cg::yobi::MarkDeath(firstPet);
                 payload->action34 = nullptr;
             }
             cg::yobi::YobiAction* const secondPet = payload->action38;
             if (secondPet != nullptr) {
-                cg::yobi::detail::MarkDeath(secondPet);
+                cg::yobi::MarkDeath(secondPet);
                 payload->action38 = nullptr;
             }
         }
@@ -295,7 +295,7 @@ void Sub_444410(
     case 70:
         if (option1 >= 0) {
             if (payload->action44 == nullptr) {
-                cg::yobi::YobiAction* const ride = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+                cg::yobi::YobiAction* const ride = cg::yobi::NewYobiAction_404AE0(2, 0);
                 payload->action44 = ride;
                 ride->callback = nullptr;
                 payload->action44->characterAction = 0;
@@ -363,7 +363,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
         record.coordinate0C.value();
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     cg::yobi::YobiAction* action =
-        cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
     record.action = action;
     if (action == nullptr) {
         return;
@@ -398,7 +398,7 @@ void Sub_446640()
             record.coordinate0C.value();
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         cg::yobi::YobiAction* action =
-            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
         record.action = action;
         if (action == nullptr) {
             continue;
@@ -452,7 +452,7 @@ void Sub_445350(
             selectedDirection = 0;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, selectedDirection);
+            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, selectedDirection);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -812,9 +812,9 @@ std::uint32_t Sub_46A190()
         if (isPlayer) {
             Sub_46A410(nextX, nextY, speed);
         } else {
-            cg::yobi::detail::Sub_4422F0(action, nextX, nextY, speed);
+            cg::yobi::Sub_4422F0(action, nextX, nextY, speed);
         }
-        cg::yobi::detail::Sub_442460(action);
+        cg::yobi::Sub_442460(action);
         // 两路末项前视均在消费前丢弃，不扩展原五槽顺序表。
         if (position + 1 >= 5) {
             continue;
@@ -828,7 +828,7 @@ std::uint32_t Sub_46A190()
             action->mapY1F0.value();
         const std::int32_t x =
             action->mapX1E0.value();
-        cg::yobi::detail::Sub_441F60(next, x, y);
+        cg::yobi::Sub_441F60(next, x, y);
     }
 
     for (std::size_t position = 0; position < 5; ++position) {
@@ -840,7 +840,7 @@ std::uint32_t Sub_46A190()
         if (ReadPetMapObjectIndex(index) == playerIndex) {
             Sub_46A700();
         } else {
-            cg::yobi::detail::Sub_4428F0(ReadPetMapAction(index));
+            cg::yobi::Sub_4428F0(ReadPetMapAction(index));
         }
     }
     static_cast<void>(Sub_468200());
@@ -865,7 +865,7 @@ void MovePlayerOneStep_46B1B0(
             player->mapY1F0.value();
         const std::int32_t previousX =
             cg::world::detail::gPlayerRuntimeSlots.action->mapX1E0.value();
-        static_cast<void>(cg::yobi::detail::Sub_442110(
+        static_cast<void>(cg::yobi::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
 
@@ -928,8 +928,8 @@ void Sub_46A5F0()
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t nextX = action->pathX220[0];
         static_cast<void>(
-            cg::yobi::detail::Sub_442110(action, nextX, nextY, speed, 0.0F));
-        cg::yobi::detail::Sub_442460(action);
+            cg::yobi::Sub_442110(action, nextX, nextY, speed, 0.0F));
+        cg::yobi::Sub_442460(action);
         // 原末位置的9FB942前视值无论正负都被丢弃；不虚构第六槽。
         if (position + 1 >= 5) {
             continue;
@@ -943,7 +943,7 @@ void Sub_46A5F0()
             action->mapY1F0.value();
         const std::int32_t x =
             action->mapX1E0.value();
-        cg::yobi::detail::Sub_441F60(nextAction, x, y);
+        cg::yobi::Sub_441F60(nextAction, x, y);
     }
 }
 

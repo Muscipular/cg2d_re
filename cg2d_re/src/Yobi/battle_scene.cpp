@@ -11,6 +11,9 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "animation.hpp"
+#include "map_render.hpp"
+
 #include <algorithm>
 #include <array>
 #include <bit>
@@ -195,22 +198,6 @@ YobiAction* NewBattleScene_4383B0()
     return scene;
 }
 
-// 原函数：0x004383F0。
-void InitializeBattleScene_4383F0()
-{
-    using namespace world::detail;
-    gBattleSceneAction5ABA94 = NewBattleScene_4383B0();
-    gBattleEventActions5ABA9C.fill(nullptr);
-    gBattleAllEntries59E980.fill(nullptr);
-    gBattleActiveEventMask5AAA74 = 0;
-    gBattlePendingGroupCount5ABB24 = 0;
-    gValue5ABB20 = 0;
-    gYobiScreenOffsetRising = 0;
-    gYobiScreenOffsetAmplitude = 0;
-    gYobiUpdateGateMode = 0;
-    ui::detail::WindowBattleCommand_SnapshotPetVitals();
-}
-
 // 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* const action)
 {
@@ -270,45 +257,6 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
     }
 }
 
-// 原函数：0x004990A0。
-void Sub_4990A0(const std::int32_t index)
-{
-    YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
-    if (initialAction->callback != nullptr
-        && !(initialAction->readiness <= 0)) {
-        YobiAction* const action = world::detail::gBattleEntries59E980[index];
-        if ((action->flags & 0x2000u) == 0) {
-            static_cast<void>(ShowHpBar_43DB60(action, -10, 3, -1));
-        }
-    }
-}
-
-// 原函数：0x0043BFF0。
-void Sub_43BFF0()
-{
-    using namespace world::detail;
-    if (world::gCurrentSceneType != 10
-        || gBattleTurnSnapshot5ABC08 != gBattleTurn5ABB74) {
-        return;
-    }
-    for (std::size_t index = 0; index < gBattleEntries59E980.size(); ++index) {
-        YobiAction* const action = gBattleEntries59E980[index];
-        if (action != nullptr && ((std::bit_cast<std::int32_t>(gBattleEndBits5ABBC0) >> index) & 1) != 0) {
-            action->flags |= 0x40u;
-        }
-    }
-}
-
-// 原函数：0x0043C040。
-void Sub_43C040()
-{
-    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
-        if (action != nullptr) {
-            action->flags &= ~0x40u;
-        }
-    }
-}
-
 // 原函数：0x0043C0A0。
 void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 {
@@ -332,6 +280,69 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
         static_cast<std::uint16_t>(y + offsetY + height + 2),
         206, hoverImage, 0);
 }
+
+} // namespace detail
+
+
+
+// 原函数：0x004383F0。
+void InitializeBattleScene_4383F0()
+{
+    using namespace world::detail;
+    gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
+    gBattleEventActions5ABA9C.fill(nullptr);
+    gBattleAllEntries59E980.fill(nullptr);
+    gBattleActiveEventMask5AAA74 = 0;
+    detail::gBattlePendingGroupCount5ABB24 = 0;
+    gValue5ABB20 = 0;
+    gYobiScreenOffsetRising = 0;
+    gYobiScreenOffsetAmplitude = 0;
+    gYobiUpdateGateMode = 0;
+    ui::detail::WindowBattleCommand_SnapshotPetVitals();
+}
+
+
+// 原函数：0x004990A0。
+void Sub_4990A0(const std::int32_t index)
+{
+    YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
+    if (initialAction->callback != nullptr
+        && !(initialAction->readiness <= 0)) {
+        YobiAction* const action = world::detail::gBattleEntries59E980[index];
+        if ((action->flags & 0x2000u) == 0) {
+            static_cast<void>(detail::ShowHpBar_43DB60(action, -10, 3, -1));
+        }
+    }
+}
+
+
+// 原函数：0x0043BFF0。
+void Sub_43BFF0()
+{
+    using namespace world::detail;
+    if (world::gCurrentSceneType != 10
+        || gBattleTurnSnapshot5ABC08 != gBattleTurn5ABB74) {
+        return;
+    }
+    for (std::size_t index = 0; index < gBattleEntries59E980.size(); ++index) {
+        YobiAction* const action = gBattleEntries59E980[index];
+        if (action != nullptr && ((std::bit_cast<std::int32_t>(gBattleEndBits5ABBC0) >> index) & 1) != 0) {
+            action->flags |= 0x40u;
+        }
+    }
+}
+
+
+// 原函数：0x0043C040。
+void Sub_43C040()
+{
+    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr) {
+            action->flags &= ~0x40u;
+        }
+    }
+}
+
 
 // 原函数：0x0043C120。
 std::int32_t GetSelectedBattleEntry_43C120()
@@ -365,12 +376,12 @@ std::int32_t GetSelectedBattleEntry_43C120()
                 }
             }
             // 四行完整覆盖0..19；原排配对0/1、2/3，先纵向再右邻、左邻。
-            DrawBattleEntryHover_43C0A0(rows[row ^ 1][column]);
+            detail::DrawBattleEntryHover_43C0A0(rows[row ^ 1][column]);
             if (column + 1 <= 4) {
-                DrawBattleEntryHover_43C0A0(rows[row][column + 1]);
+                detail::DrawBattleEntryHover_43C0A0(rows[row][column + 1]);
             }
             if (column - 1 >= 0) {
-                DrawBattleEntryHover_43C0A0(rows[row][column - 1]);
+                detail::DrawBattleEntryHover_43C0A0(rows[row][column - 1]);
             }
             return position + 20;
         }
@@ -378,7 +389,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
             const std::int32_t first = position < 10 ? 0 : 10;
             for (std::int32_t index = first; index < first + 10; ++index) {
                 if (index != position) {
-                    DrawBattleEntryHover_43C0A0(index);
+                    detail::DrawBattleEntryHover_43C0A0(index);
                 }
             }
             return position < 10 ? 40 : 41;
@@ -386,7 +397,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
         if ((target & 0x200u) != 0) {
             for (std::int32_t index = 0; index < 20; ++index) {
                 if (index != position) {
-                    DrawBattleEntryHover_43C0A0(index);
+                    detail::DrawBattleEntryHover_43C0A0(index);
                 }
             }
             return 42;
@@ -395,6 +406,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
     return -1;
 }
 
+
 // 原函数：0x0043C910。
 std::int32_t Sub_43C910()
 {
@@ -402,13 +414,14 @@ std::int32_t Sub_43C910()
     for (YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 1u) == 0) {
+                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 1u) == 0) {
             action->phase = 2;
             pending = true;
         }
     }
     return pending ? 0 : 1;
 }
+
 
 // 原函数：0x0043C9A0。
 void Sub_43C9A0()
@@ -418,7 +431,7 @@ void Sub_43C9A0()
         for (std::int32_t index = first; index < end; ++index) {
             YobiAction* const action = gBattleEntries59E980[index];
             if (action != nullptr) {
-                const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
+                const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
                 const double yEnd = payload->y0C;
                 const double yStart = payload->y04;
                 const float y = static_cast<float>(yEnd - yStart);
@@ -427,8 +440,8 @@ void Sub_43C9A0()
                 const float x = static_cast<float>(xEnd - xStart);
                 const float angle = static_cast<float>(Sub_46F970(x, y));
                 gBattleEntries59E980[index]->angle50 = angle;
-                Sub_405CB0(gBattleEntries59E980[index]);
-                static_cast<void>(PlayFrame_517DA0(gBattleEntries59E980[index], 1));
+                detail::Sub_405CB0(gBattleEntries59E980[index]);
+                static_cast<void>(detail::PlayFrame_517DA0(gBattleEntries59E980[index], 1));
             }
         }
     };
@@ -444,6 +457,7 @@ void Sub_43C9A0()
     }
 }
 
+
 // 原函数：0x0043CA50。
 std::int32_t Sub_43CA50()
 {
@@ -451,12 +465,13 @@ std::int32_t Sub_43CA50()
     for (const YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0) {
+                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0) {
             ++count;
         }
     }
     return count;
 }
+
 
 // 原函数：0x0043CA80。
 void Sub_43CA80()
@@ -485,6 +500,7 @@ void Sub_43CA80()
             0, 1, color, cg::text::FromGbkWide(name).c_str(), 0));
     }
 }
+
 
 // 原函数：0x0043C560。
 std::int32_t CheckBattleCommand_43C560(
@@ -523,7 +539,7 @@ std::int32_t CheckBattleCommand_43C560(
                 && ((flags & 0x10u) != 0
                     || ((flags & 0x800u) != 0
                         && (*reinterpret_cast<const std::uint8_t*>(
-                            &static_cast<const BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0))
+                            &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0))
                 && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
                 gBattleEntries59E980[slot]->flags |= 8u;
@@ -594,6 +610,7 @@ std::int32_t CheckBattleCommand_43C560(
     return 1;
 }
 
+
 // 原函数：0x0043C060。
 void FlushBattleEntries_43C060()
 {
@@ -607,7 +624,5 @@ void FlushBattleEntries_43C060()
         }
     }
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

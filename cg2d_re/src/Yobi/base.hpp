@@ -16,6 +16,10 @@ using YobiCallback = void (*)(YobiAction* action);
 
 namespace detail {
 
+// 原41EAB0：克隆战斗对象及原生载荷，保留新节点链表位置，内部T*仍为借用引用。
+YobiAction* CloneBattleAction_41EAB0(YobiAction* source);
+
+
 struct BattleActorPayload;
 struct BattleScenePayload;
 struct BattleRideCarrierPayload;

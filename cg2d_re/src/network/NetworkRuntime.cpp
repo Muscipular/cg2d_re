@@ -670,7 +670,7 @@ void Sub_50DD80(
         default:
             return;
         }
-        static_cast<void>(cg::yobi::detail::Sub_448040(
+        static_cast<void>(cg::yobi::Sub_448040(
             convertedImageNo, mapX, mapY, direction, actionMode, value02, -1));
         return;
     }
@@ -726,7 +726,7 @@ void Sub_50DD80(
     default:
         return;
     }
-    static_cast<void>(cg::yobi::detail::Sub_448040(
+    static_cast<void>(cg::yobi::Sub_448040(
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
 }
@@ -780,15 +780,15 @@ std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
     if (gate != 0) {
         return std::bit_cast<std::int32_t>(gate);
     }
-    const std::int32_t index = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(key);
-    auto* const record = cg::world::detail::gOrderedRecords1051B14.data() + index;
+    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
+    auto* const record = cg::world::gOrderedRecords1051B14.data() + index;
     record->value00 = -1;
     record->value08 = 0;
     record->text18[0] = '\0';
     record->text18[0x11] = '\0';
     record->value0C = -1;
-    cg::world::detail::gOrderedRecordCount1051510 =
-        cg::world::detail::CountRecordsValue08EqualOne_50EF50();
+    cg::world::gOrderedRecordCount1051510 =
+        cg::world::CountRecordsValue08EqualOne_50EF50();
     return world::detail::Sub_5194F0(key);
 }
 
@@ -805,10 +805,10 @@ void Sub_50F190(
     static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));
     const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    const std::int32_t index = cg::world::detail::FindActiveOrderedRecordIndex_5195C0(key);
+    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
-        (cg::world::detail::gOrderedRecords1051B14.data() + index)->text18;
+        (cg::world::gOrderedRecords1051B14.data() + index)->text18;
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(cg::world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
@@ -4186,13 +4186,13 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D9E0, I, T>(head, "vI", socket, 0x4U)) return 0;
     if (TryDispatchReply<Sub_50E830>(head, "GC", socket)) return 0;
-    if (TryDispatchReply<cg::world::detail::Sub_50E850, T>(head, "aDn", socket)) return 0;
-    if (TryDispatchReply<cg::world::detail::Sub_50EB40, T>(head, "znv", socket)) return 0;
-    if (TryDispatchReply<cg::world::detail::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
-    if (TryDispatchReply<cg::world::detail::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket, 0x4U)) return 0;
+    if (TryDispatchReply<cg::world::Sub_50E850, T>(head, "aDn", socket)) return 0;
+    if (TryDispatchReply<cg::world::Sub_50EB40, T>(head, "znv", socket)) return 0;
+    if (TryDispatchReply<cg::world::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
+    if (TryDispatchReply<cg::world::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket, 0x4U)) return 0;
     if (TryDispatchReply<Sub_50F130, I>(head, "oRut", socket)) return 0;
     if (TryDispatchReply<Sub_50F190, I, T, I>(head, "Rll", socket, 0x4U)) return 0;
-    if (TryDispatchReply<cg::world::detail::Sub_50F280, I>(head, "frQp", socket)) return 0;
+    if (TryDispatchReply<cg::world::Sub_50F280, I>(head, "frQp", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F3A0, T>(head, "HNP", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F2A0, T>(head, "eZT", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F8E0, T>(head, "IUn", socket)) return 0;

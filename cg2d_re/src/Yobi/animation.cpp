@@ -120,26 +120,6 @@ void ApplyYobiAnimeFrame(
 
 } // namespace
 
-// YGOS01：完整5182B0正常查询；S16输出先取、当前S32偏移后取，低BYTE轴无效仍先查询。
-std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
-{
-    std::int16_t x;
-    std::int16_t y;
-    resource::GetGraphicXY(
-        static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
-    if (axis == 0) {
-        const std::int32_t offsetX = x;
-        const std::int32_t graphicOffsetX = action->graphicOffsetX;
-        return graphicOffsetX - offsetX;
-    }
-    if (axis == 1) {
-        const std::int32_t offsetY = y;
-        const std::int32_t graphicOffsetY = action->graphicOffsetY;
-        return graphicOffsetY - offsetY;
-    }
-    return 0;
-}
-
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
 // 原函数：0x00518300。
 std::int32_t Sub_518300(
@@ -165,120 +145,6 @@ std::int32_t Sub_518300(
             static_cast<double>(y) * scale));
         return action->graphicOffsetY - offset;
     }
-    return 0;
-}
-
-// 原函数：0x00517880。
-std::int32_t Sub_517880(
-    YobiAction* const action,
-    const std::int32_t rate,
-    const std::int32_t stopAtEnd,
-    const std::uint32_t flipStatic)
-{
-    if (action == nullptr || action->hidden == 1) {
-        return 0;
-    }
-    const std::int32_t characterAction = action->characterAction;
-    action->playRevert = stopAtEnd;
-    std::int32_t imageNo;
-    if (action->lastCharacterAction != characterAction
-        || action->direction != action->lastDirection
-        || (imageNo = action->imageNo) != action->lastImageNo) {
-        imageNo = action->imageNo;
-        action->lastCharacterAction = characterAction;
-        const std::int32_t direction = action->direction;
-        action->lastImageNo = imageNo;
-        action->lastDirection = direction;
-        action->frameRemain = 0;
-        action->frameIndex = 0;
-        action->completedLoops = 0;
-    }
-    if (action->frameRemain != 0) {
-        --action->frameRemain;
-        return 0;
-    }
-    if (imageNo <= 999) {
-        action->graphicIndex = 0;
-        return 0;
-    }
-    if (imageNo < 100000 || imageNo >= 200000) {
-        std::int32_t graphicIndex;
-        resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
-        std::int16_t offsetX;
-        std::int16_t offsetY;
-        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
-        const std::int32_t staticOffsetY = offsetY;
-        const std::int32_t staticOffsetX = offsetX;
-        const std::int32_t staticGraphicIndex = graphicIndex;
-        action->graphicOffsetY = staticOffsetY;
-        const std::uint8_t flipStaticByte = static_cast<std::uint8_t>(flipStatic);
-        action->graphicIndex = staticGraphicIndex;
-        action->graphicOffsetX = staticOffsetX;
-        action->frameRemain = 0x7FFFFFFF;
-        const std::int16_t paletteIndex = 0;
-        action->drawMode.paletteIndex = paletteIndex;
-        action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
-        const std::uint32_t color = 0xFFFFFFFFu;
-        action->drawMode.color = color;
-        if (flipStaticByte != 0) {
-            const std::int32_t direction = action->direction;
-            action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
-            if (direction >= 2 && direction < 5) {
-                action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
-            }
-            if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {
-                ApplyYobiGraphicFlip(action, staticGraphicIndex);
-            }
-        }
-        action->frameX = 0;
-        action->frameY = 0;
-        return 0;
-    }
-    // BLM01：动画编号由实际索引表判定，不与动画记录容量绑定。
-    const std::int32_t animeIndex =
-        resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
-    if (animeIndex < 0) {
-        return 1;
-    }
-    if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
-        return -1;
-    }
-    const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
-        resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
-    const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
-    if (count == 0) {
-        return 1;
-    }
-    std::int32_t selectedIndex = 0;
-    const std::int32_t direction = action->direction;
-    for (; selectedIndex < count; ++selectedIndex) {
-        if (direction == static_cast<std::uint16_t>(list[selectedIndex].direction)
-            && static_cast<std::uint16_t>(list[selectedIndex].action) == action->characterAction) {
-            break;
-        }
-    }
-    if (selectedIndex >= count) {
-        return 1;
-    }
-    const auto* const selected = &list[selectedIndex];
-    const std::uint32_t product = selected->duration * static_cast<std::uint32_t>(rate);
-    const auto* const frames =
-        static_cast<resource::animation::detail::FrameEntry*>(selected->frames);
-    action->frameRemain = static_cast<std::int32_t>(product / 100u);
-    if (action->frameRemain < 1) {
-        action->frameRemain = 1;
-    }
-    if (action->frameIndex >= selected->frameCount) {
-        if (stopAtEnd == 1) {
-            action->frameRemain = 255;
-            action->completedLoops = 1;
-            return 1;
-        }
-        const std::uint32_t completedLoops = action->completedLoops;
-        action->frameIndex = 0;
-        action->completedLoops = completedLoops + 1u;
-    }
-    ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
     return 0;
 }
 
@@ -392,5 +258,142 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
 }
 
 } // namespace detail
+
+
+
+// YGOS01：完整5182B0正常查询；S16输出先取、当前S32偏移后取，低BYTE轴无效仍先查询。
+std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
+{
+    std::int16_t x;
+    std::int16_t y;
+    resource::GetGraphicXY(
+        static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
+    if (axis == 0) {
+        const std::int32_t offsetX = x;
+        const std::int32_t graphicOffsetX = action->graphicOffsetX;
+        return graphicOffsetX - offsetX;
+    }
+    if (axis == 1) {
+        const std::int32_t offsetY = y;
+        const std::int32_t graphicOffsetY = action->graphicOffsetY;
+        return graphicOffsetY - offsetY;
+    }
+    return 0;
+}
+
+
+// 原函数：0x00517880。
+std::int32_t Sub_517880(
+    YobiAction* const action,
+    const std::int32_t rate,
+    const std::int32_t stopAtEnd,
+    const std::uint32_t flipStatic)
+{
+    if (action == nullptr || action->hidden == 1) {
+        return 0;
+    }
+    const std::int32_t characterAction = action->characterAction;
+    action->playRevert = stopAtEnd;
+    std::int32_t imageNo;
+    if (action->lastCharacterAction != characterAction
+        || action->direction != action->lastDirection
+        || (imageNo = action->imageNo) != action->lastImageNo) {
+        imageNo = action->imageNo;
+        action->lastCharacterAction = characterAction;
+        const std::int32_t direction = action->direction;
+        action->lastImageNo = imageNo;
+        action->lastDirection = direction;
+        action->frameRemain = 0;
+        action->frameIndex = 0;
+        action->completedLoops = 0;
+    }
+    if (action->frameRemain != 0) {
+        --action->frameRemain;
+        return 0;
+    }
+    if (imageNo <= 999) {
+        action->graphicIndex = 0;
+        return 0;
+    }
+    if (imageNo < 100000 || imageNo >= 200000) {
+        std::int32_t graphicIndex;
+        resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
+        std::int16_t offsetX;
+        std::int16_t offsetY;
+        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        const std::int32_t staticOffsetY = offsetY;
+        const std::int32_t staticOffsetX = offsetX;
+        const std::int32_t staticGraphicIndex = graphicIndex;
+        action->graphicOffsetY = staticOffsetY;
+        const std::uint8_t flipStaticByte = static_cast<std::uint8_t>(flipStatic);
+        action->graphicIndex = staticGraphicIndex;
+        action->graphicOffsetX = staticOffsetX;
+        action->frameRemain = 0x7FFFFFFF;
+        const std::int16_t paletteIndex = 0;
+        action->drawMode.paletteIndex = paletteIndex;
+        action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
+        const std::uint32_t color = 0xFFFFFFFFu;
+        action->drawMode.color = color;
+        if (flipStaticByte != 0) {
+            const std::int32_t direction = action->direction;
+            action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
+            if (direction >= 2 && direction < 5) {
+                action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
+            }
+            if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {
+                detail::ApplyYobiGraphicFlip(action, staticGraphicIndex);
+            }
+        }
+        action->frameX = 0;
+        action->frameY = 0;
+        return 0;
+    }
+    // BLM01：动画编号由实际索引表判定，不与动画记录容量绑定。
+    const std::int32_t animeIndex =
+        resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
+    if (animeIndex < 0) {
+        return 1;
+    }
+    if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
+        return -1;
+    }
+    const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
+        resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
+    const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
+    if (count == 0) {
+        return 1;
+    }
+    std::int32_t selectedIndex = 0;
+    const std::int32_t direction = action->direction;
+    for (; selectedIndex < count; ++selectedIndex) {
+        if (direction == static_cast<std::uint16_t>(list[selectedIndex].direction)
+            && static_cast<std::uint16_t>(list[selectedIndex].action) == action->characterAction) {
+            break;
+        }
+    }
+    if (selectedIndex >= count) {
+        return 1;
+    }
+    const auto* const selected = &list[selectedIndex];
+    const std::uint32_t product = selected->duration * static_cast<std::uint32_t>(rate);
+    const auto* const frames =
+        static_cast<resource::animation::detail::FrameEntry*>(selected->frames);
+    action->frameRemain = static_cast<std::int32_t>(product / 100u);
+    if (action->frameRemain < 1) {
+        action->frameRemain = 1;
+    }
+    if (action->frameIndex >= selected->frameCount) {
+        if (stopAtEnd == 1) {
+            action->frameRemain = 255;
+            action->completedLoops = 1;
+            return 1;
+        }
+        const std::uint32_t completedLoops = action->completedLoops;
+        action->frameIndex = 0;
+        action->completedLoops = completedLoops + 1u;
+    }
+    detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
+    return 0;
+}
 
 } // namespace cg::yobi

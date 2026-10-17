@@ -142,9 +142,13 @@ YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
 
 namespace detail {
 
+} // namespace detail
+
 std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
 
 std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
+
+namespace detail {
 
 namespace {
 
@@ -201,36 +205,41 @@ bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 
 } // namespace
 
+} // namespace detail
+
+
+
 // 原函数：0x00404A40。
 YobiAction* Sub_404A40()
 {
-    gYobiActionStart = static_cast<YobiAction*>(
+    detail::gYobiActionStart = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     YobiAction* const allocatedEnd = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
-    YobiAction* const initialStart = gYobiActionStart;
-    gYobiActionEnd = allocatedEnd;
+    YobiAction* const initialStart = detail::gYobiActionStart;
+    detail::gYobiActionEnd = allocatedEnd;
     std::construct_at(initialStart, YobiAction::RawFields{});
     std::construct_at(allocatedEnd, YobiAction::RawFields{});
 
     initialStart->prev = nullptr;
-    YobiAction* const forwardStart = gYobiActionStart;
-    YobiAction* const forwardEnd = gYobiActionEnd;
+    YobiAction* const forwardStart = detail::gYobiActionStart;
+    YobiAction* const forwardEnd = detail::gYobiActionEnd;
     forwardStart->next = forwardEnd;
-    gYobiActionStart->callback = nullptr;
-    gYobiActionStart->priority = 0;
-    gYobiActionStart->graphicIndex = -1;
+    detail::gYobiActionStart->callback = nullptr;
+    detail::gYobiActionStart->priority = 0;
+    detail::gYobiActionStart->graphicIndex = -1;
 
-    YobiAction* const backwardEnd = gYobiActionEnd;
-    YobiAction* const backwardStart = gYobiActionStart;
+    YobiAction* const backwardEnd = detail::gYobiActionEnd;
+    YobiAction* const backwardStart = detail::gYobiActionStart;
     backwardEnd->prev = backwardStart;
-    gYobiActionEnd->next = nullptr;
-    gYobiActionEnd->callback = nullptr;
-    YobiAction* const result = gYobiActionEnd;
+    detail::gYobiActionEnd->next = nullptr;
+    detail::gYobiActionEnd->callback = nullptr;
+    YobiAction* const result = detail::gYobiActionEnd;
     result->priority = 0xFF;
-    gYobiActionEnd->graphicIndex = -1;
+    detail::gYobiActionEnd->graphicIndex = -1;
     return result;
 }
+
 
 // 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
@@ -256,18 +265,18 @@ YobiAction* NewYobiAction_404AE0(
             action->payloadKind = YobiPayloadKind::Raw;
             [[fallthrough]];
         case YobiPayloadKind::Raw: action->payload.raw = payload; break;
-        case YobiPayloadKind::BattleActor: action->payload.battleActor = static_cast<BattleActorPayload*>(payload); break;
-        case YobiPayloadKind::BattleScene: action->payload.battleScene = static_cast<BattleScenePayload*>(payload); break;
-        case YobiPayloadKind::BattleRideCarrier: action->payload.battleRideCarrier = static_cast<BattleRideCarrierPayload*>(payload); break;
-        case YobiPayloadKind::BattleRingEmitter: action->payload.battleRingEmitter = static_cast<BattleRingEmitterPayload*>(payload); break;
-        case YobiPayloadKind::BattleFollowOffset: action->payload.battleFollowOffset = static_cast<BattleFollowOffsetPayload*>(payload); break;
-        case YobiPayloadKind::BattleTransitionEffect: action->payload.battleTransitionEffect = static_cast<BattleTransitionEffectPayload*>(payload); break;
-        case YobiPayloadKind::BattleText: action->payload.battleText = static_cast<BattleTextPayload*>(payload); break;
-        case YobiPayloadKind::MapActor: action->payload.mapActor = static_cast<MapActorPayload*>(payload); break;
-        case YobiPayloadKind::MapChara: action->payload.mapChara = static_cast<MapCharaPayload*>(payload); break;
-        case YobiPayloadKind::MapTransition: action->payload.mapTransition = static_cast<MapTransitionPayload*>(payload); break;
-        case YobiPayloadKind::WindowOpening: action->payload.windowOpening = static_cast<WindowOpeningPayload*>(payload); break;
-        case YobiPayloadKind::WindowUi: action->payload.windowUi = static_cast<YobiUIData*>(payload); break;
+        case YobiPayloadKind::BattleActor: action->payload.battleActor = static_cast<detail::BattleActorPayload*>(payload); break;
+        case YobiPayloadKind::BattleScene: action->payload.battleScene = static_cast<detail::BattleScenePayload*>(payload); break;
+        case YobiPayloadKind::BattleRideCarrier: action->payload.battleRideCarrier = static_cast<detail::BattleRideCarrierPayload*>(payload); break;
+        case YobiPayloadKind::BattleRingEmitter: action->payload.battleRingEmitter = static_cast<detail::BattleRingEmitterPayload*>(payload); break;
+        case YobiPayloadKind::BattleFollowOffset: action->payload.battleFollowOffset = static_cast<detail::BattleFollowOffsetPayload*>(payload); break;
+        case YobiPayloadKind::BattleTransitionEffect: action->payload.battleTransitionEffect = static_cast<detail::BattleTransitionEffectPayload*>(payload); break;
+        case YobiPayloadKind::BattleText: action->payload.battleText = static_cast<detail::BattleTextPayload*>(payload); break;
+        case YobiPayloadKind::MapActor: action->payload.mapActor = static_cast<detail::MapActorPayload*>(payload); break;
+        case YobiPayloadKind::MapChara: action->payload.mapChara = static_cast<detail::MapCharaPayload*>(payload); break;
+        case YobiPayloadKind::MapTransition: action->payload.mapTransition = static_cast<detail::MapTransitionPayload*>(payload); break;
+        case YobiPayloadKind::WindowOpening: action->payload.windowOpening = static_cast<detail::WindowOpeningPayload*>(payload); break;
+        case YobiPayloadKind::WindowUi: action->payload.windowUi = static_cast<detail::YobiUIData*>(payload); break;
         }
         if (missingPayload) {
             std::destroy_at(action);
@@ -293,8 +302,8 @@ YobiAction* NewYobiAction_404AE0(
     action->rebirthValue2 = 0;
     action->walkSpeed = 100;
 
-    YobiAction* const start = gYobiActionStart;
-    YobiAction* const end = gYobiActionEnd;
+    YobiAction* const start = detail::gYobiActionStart;
+    YobiAction* const end = detail::gYobiActionEnd;
     YobiAction* insertionPoint = start->next;
     YobiAction* const stop = end->next;
     if (insertionPoint != stop) {
@@ -315,13 +324,14 @@ YobiAction* NewYobiAction_404AE0(
     return action;
 }
 
+
 // 原函数：0x00404C50。
 std::int32_t YobiUpdateAll_404C50()
 {
-    YobiAction* current = gYobiActionStart->next;
-    while (current != gYobiActionEnd) {
+    YobiAction* current = detail::gYobiActionStart->next;
+    while (current != detail::gYobiActionEnd) {
         if (current->deathFlag != 0) {
-            if (ShouldDeferForFourPhaseGate(current)) {
+            if (detail::ShouldDeferForFourPhaseGate(current)) {
                 current = current->next;
                 continue;
             }
@@ -333,13 +343,13 @@ std::int32_t YobiUpdateAll_404C50()
             YobiAction* const currentPrevious = current->prev;
             currentNext->prev = currentPrevious;
             YobiAction* const next = current->next;
-            DeleteYobiAction_404D10(current);
+            detail::DeleteYobiAction_404D10(current);
             current = next;
             continue;
         }
 
         const YobiCallback callback = current->callback;
-        if (callback != nullptr && !ShouldDeferForFourPhaseGate(current)) {
+        if (callback != nullptr && !detail::ShouldDeferForFourPhaseGate(current)) {
             callback(current);
         }
         current = current->next;
@@ -354,42 +364,47 @@ std::int32_t YobiUpdateAll_404C50()
     return result;
 }
 
+
 // 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
-    if (HandleLuaSkillEffectDeath(action)) return action;
+    if (detail::HandleLuaSkillEffectDeath(action)) return action;
     if (action != nullptr) {
         action->deathFlag = 1;
     }
     return action;
 }
 
+
 void MarkDeathUnchecked(YobiAction* const action)
 {
     action->deathFlag = 1;
 }
 
+
 // 原函数：0x00404D30。
 void YobiClearUp_404D30()
 {
-    YobiAction* current = gYobiActionStart->next;
+    YobiAction* current = detail::gYobiActionStart->next;
     Sub_46DD40();
-    while (current != gYobiActionEnd) {
+    while (current != detail::gYobiActionEnd) {
         current->deathFlag = 1;
         current = current->next;
     }
 }
+
 
 // 原函数：0x00404D60。
 void Sub_404D60()
 {
     YobiClearUp_404D30();
     YobiUpdateAll_404C50();
-    std::destroy_at(gYobiActionStart);
-    std::free(gYobiActionStart);
-    std::destroy_at(gYobiActionEnd);
-    std::free(gYobiActionEnd);
+    std::destroy_at(detail::gYobiActionStart);
+    std::free(detail::gYobiActionStart);
+    std::destroy_at(detail::gYobiActionEnd);
+    std::free(detail::gYobiActionEnd);
 }
+
 
 bool IsYobiActionReady(
     YobiAction* const action,
@@ -398,12 +413,14 @@ bool IsYobiActionReady(
     return (action->readiness >= threshold);
 }
 
+
 bool IsYobiActionStateEqual(
     YobiAction* const action,
     const std::int32_t expected)
 {
     return (action->readiness == expected);
 }
+
 
 bool IsYobiActionStateLessOrEqual(
     YobiAction* const action,
@@ -412,10 +429,12 @@ bool IsYobiActionStateLessOrEqual(
     return (action->readiness <= maximum);
 }
 
+
 bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
 {
     return (action->barValue1B0 < cost);
 }
+
 
 // 原401F80：cost在左、action FP为右值；右对象只读一次，保留计数/RNG消费。
 bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const action)
@@ -423,65 +442,78 @@ bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const ac
     return (cost > action->barValue1B0);
 }
 
+
 bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
 {
     return (action->barValue1B0 >= cost);
 }
+
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 {
     return action->barValue1B0.value();
 }
 
+
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
     return action->barMaximum1C0.value();
 }
+
 
 std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
 {
     return action->readiness.value();
 }
 
+
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
 {
     return action->maxHp.value();
 }
+
 
 float GetYobiActionScaleX(const YobiAction* const action) noexcept
 {
     return action->scaleX;
 }
 
+
 std::int32_t GetYobiActionField2DC(const YobiAction* const action) noexcept
 {
     return std::bit_cast<std::int32_t>(action->completedLoops);
 }
+
 
 float GetYobiActionScaleY(const YobiAction* const action) noexcept
 {
     return action->scaleY;
 }
 
+
 std::int32_t ReadYobiGraphicOffsetX(const YobiAction* const action) noexcept
 {
     return action->graphicOffsetX;
 }
+
 
 std::int32_t ReadYobiGraphicOffsetY(const YobiAction* const action) noexcept
 {
     return action->graphicOffsetY;
 }
 
+
 std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 {
     return action->flags;
 }
 
+
 void ClearYobiActionCallback(YobiAction* const action)
 {
     action->callback = nullptr;
 }
+
 
 const render::GraphicDescriptor16* GetYobiActionDrawMode(
     const YobiAction* const action) noexcept
@@ -489,45 +521,54 @@ const render::GraphicDescriptor16* GetYobiActionDrawMode(
     return &action->drawMode;
 }
 
+
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;
 }
+
 
 void AddYobiActionDrawFlags(YobiAction* const action, const std::uint8_t flags) noexcept
 {
     action->drawMode.mixFlags |= flags;
 }
 
+
 std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
 {
     return action->field2E4;
 }
+
 
 const char* GetYobiName(const YobiAction* const action) noexcept
 {
     return action->nameC4.data();
 }
 
+
 const char* GetYobiTitle(const YobiAction* const action) noexcept
 {
     return action->titleE1.data();
 }
+
 
 std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* const action) noexcept
 {
     return reinterpret_cast<const std::uint8_t*>(&action->flags)[0];
 }
 
+
 std::int32_t GetYobiActionCacheIndex(const YobiAction* const action) noexcept
 {
     return action->cacheIndex;
 }
 
+
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;
 }
+
 
 void SetYobiActionField2A8(
     YobiAction* const action,
@@ -536,6 +577,7 @@ void SetYobiActionField2A8(
     action->imageNo = value;
 }
 
+
 void SetYobiActionField2B0(
     YobiAction* const action,
     const std::int32_t value)
@@ -543,10 +585,12 @@ void SetYobiActionField2B0(
     action->characterAction = value;
 }
 
+
 std::int32_t GetYobiActionField2B0(const YobiAction* const action) noexcept
 {
     return action->characterAction;
 }
+
 
 void SetYobiActionField15(
     YobiAction* const action,
@@ -555,15 +599,18 @@ void SetYobiActionField15(
     action->displayPriority = value;
 }
 
+
 std::uint8_t GetYobiActionField15(const YobiAction* const action) noexcept
 {
     return action->displayPriority;
 }
 
+
 std::int32_t GetYobiActionField30(YobiAction* const action)
 {
     return action->x;
 }
+
 
 void SetYobiActionField30(
     YobiAction* const action,
@@ -572,10 +619,12 @@ void SetYobiActionField30(
     action->x = value;
 }
 
+
 std::int32_t GetYobiActionField34(YobiAction* const action)
 {
     return action->y;
 }
+
 
 void SetYobiActionField34(
     YobiAction* const action,
@@ -584,6 +633,7 @@ void SetYobiActionField34(
     action->y = value;
 }
 
+
 void SetYobiActionField2B8(
     YobiAction* const action,
     const std::int32_t value)
@@ -591,15 +641,18 @@ void SetYobiActionField2B8(
     action->direction = value;
 }
 
+
 std::int32_t GetYobiActionField2B8(const YobiAction* const action) noexcept
 {
     return action->direction;
 }
 
+
 std::uint8_t ReadYobiBatchType(const YobiAction* const action) noexcept
 {
     return action->batchType;
 }
+
 
 void SetYobiActionField308(
     YobiAction* const action,
@@ -608,15 +661,18 @@ void SetYobiActionField308(
     action->batchType = value;
 }
 
+
 void SetYobiActionField309(YobiAction* const action, const std::uint8_t value)
 {
     action->rebirthValue1 = value;
 }
 
+
 void SetYobiActionField310(YobiAction* const action, const std::uint8_t value)
 {
     action->rebirthValue2 = value;
 }
+
 
 void SetYobiActionField30C(
     YobiAction* const action,
@@ -625,11 +681,13 @@ void SetYobiActionField30C(
     action->color2 = value;
 }
 
+
 std::uint8_t GetYobiActionField30F(YobiAction* const action)
 {
     const std::uint32_t bits = std::bit_cast<std::uint32_t>(action->color2);
     return static_cast<std::uint8_t>(bits >> 24U);
 }
+
 
 void SetYobiActionField30F(
     YobiAction* const action,
@@ -641,7 +699,5 @@ void SetYobiActionField30F(
         (bits & 0x00FFFFFFU) | (std::uint32_t{value} << 24U);
     action->color2 = std::bit_cast<std::int32_t>(updated);
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

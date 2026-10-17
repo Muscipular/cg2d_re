@@ -3,6 +3,8 @@
 #include "battle_base.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
+#include "animation.hpp"
+
 #include <array>
 #include <cstdint>
 

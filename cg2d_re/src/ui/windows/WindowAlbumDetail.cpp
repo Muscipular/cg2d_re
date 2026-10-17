@@ -219,10 +219,10 @@ static void WindowAlbumDetail_Refresh()
         const std::int32_t image = selectedRecord()->imageNo;
         const std::int32_t mapped = character_select::detail::Sub_51B740(image);
         auto* const imageData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
-        cg::yobi::detail::SetYobiActionField2A8(imageData->action, mapped);
+        cg::yobi::SetYobiActionField2A8(imageData->action, mapped);
         auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
         const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
-        cg::yobi::detail::SetYobiActionField2B8(directionData->action, direction);
+        cg::yobi::SetYobiActionField2B8(directionData->action, direction);
 
         buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
         copyAfterScan(3, buffer);

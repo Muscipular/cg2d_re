@@ -13,6 +13,11 @@
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "animation.hpp"
+#include "battle_actor.hpp"
+#include "battle_display.hpp"
+#include "battle_impact.hpp"
+
 #include <array>
 #include <bit>
 #include <cstddef>

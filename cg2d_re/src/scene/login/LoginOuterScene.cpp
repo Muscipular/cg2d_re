@@ -50,13 +50,13 @@ void ProcessOuterScene_45C2D0()
     if (initialState <= 10u) {
         switch (initialState) {
         case 0:
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             gValue9A6E24 = nullptr;
             world::gCurrentSceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr)));
-            static_cast<void>(cg::yobi::detail::MarkDeath(gValue9A6E24));
+            static_cast<void>(cg::yobi::MarkDeath(gValue9A6E24));
             InitializeInputContexts_45C7C0();
             world::gCurrentSceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
@@ -96,7 +96,7 @@ void ProcessOuterScene_45C2D0()
                 320, 240, 3, 22311, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 static_cast<void>(world::SetCurrentSceneType(2));
-                cg::yobi::detail::YobiClearUp_404D30();
+                cg::yobi::YobiClearUp_404D30();
                 return;
             }
             break;

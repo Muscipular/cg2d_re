@@ -35,7 +35,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
     cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::CreateModalAction_5044E0(
             left,
             top,
             width,
@@ -48,7 +48,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         }
     }
 
-    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(
+    if (cg::yobi::IsYobiActionStateLessOrEqual(
             modalAction,
             0)) {
         return 0;
@@ -81,7 +81,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
             login::detail::PlaySe(79, 320, 240);
             cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
             if (clickedAction != nullptr) {
-                cg::yobi::detail::MarkDeath(clickedAction);
+                cg::yobi::MarkDeath(clickedAction);
                 state::gCharacterModalAction = nullptr;
             }
         }
@@ -152,7 +152,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,
@@ -165,7 +165,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         }
     }
 
-    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(
+    if (cg::yobi::IsYobiActionStateLessOrEqual(
             modalAction,
             0)) {
         return 0;
@@ -181,7 +181,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         login::detail::PlaySe(79, 320, 240);
         cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
         if (clickedAction != nullptr) {
-            cg::yobi::detail::MarkDeath(clickedAction);
+            cg::yobi::MarkDeath(clickedAction);
             state::gCharacterModalAction = nullptr;
         }
     }

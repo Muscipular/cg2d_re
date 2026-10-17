@@ -106,44 +106,6 @@ static_assert(sizeof(kMapPartyOffsets54D950) == 0x3C0);
 
 } // namespace
 
-// 原函数：0x0046DD40。
-void Sub_46DD40()
-{
-    for (std::size_t row = 0; row < kYobiRegistryRowCount; ++row) {
-        const std::size_t rowOffset = row * kYobiRegistryColumnCount;
-        for (std::size_t column = 0;
-             column < kYobiRegistryColumnCount;
-             ++column) {
-            const std::size_t index = rowOffset + column;
-            if (gYobiRegistryFlags[index] == std::uint8_t{1}) {
-                gYobiRegistryFlags[index] = std::uint8_t{0};
-                YobiAction* const action = gYobiRegistryActions[index];
-                MarkDeath(action);
-            }
-        }
-    }
-}
-
-std::uint8_t& MapYobiRegistryFlagAt(const std::int32_t index) noexcept
-{
-    return gYobiRegistryFlags.data()[index];
-}
-
-YobiAction*& MapYobiRegistryActionAt(const std::int32_t index) noexcept
-{
-    return gYobiRegistryActions.data()[index];
-}
-
-void SetYobiMapOffsetX(YobiAction* const action, const std::int32_t value) noexcept
-{
-    action->mapOffsetX = value;
-}
-
-void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexcept
-{
-    action->mapOffsetY = value;
-}
-
 YobiAction* NewMapCharaAction()
 {
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload), YobiPayloadKind::MapChara);
@@ -805,130 +767,6 @@ void Sub_440070(YobiAction* const action)
     ++payload->frame;
 }
 
-// 原函数：0x00440920。
-std::int32_t Sub_440920(
-    const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
-    [[maybe_unused]] const std::int32_t unusedDirection,
-    const std::int32_t characterAction, const char* const row)
-{
-    if (characterAction < 81 || characterAction > 82) {
-        return 0;
-    }
-    YobiAction* const target =
-        static_cast<std::uint32_t>(objectIndex) == world::detail::gPlayerRuntimeSlots.objectIndex
-        ? world::detail::gPlayerRuntimeSlots.action
-        : world::detail::FindObjectYobi_4462B0(objectIndex);
-    if (target == nullptr) {
-        return 1;
-    }
-    std::array<std::int32_t, 7> values;
-    for (std::int32_t index = 0; index < 7; ++index) {
-        values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
-    }
-    if (characterAction == 82) {
-        const std::int32_t imageNo = character_select::detail::Sub_51B740(values[0]);
-        YobiAction* const observer = Sub_43FEB0(imageNo, x, y, values[1]);
-        Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
-        for (std::size_t index = 2; index < values.size(); ++index) {
-            const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
-                world::detail::Sub_51BEE0();
-            } else {
-                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
-            }
-        }
-        return 1;
-    }
-    YobiAction* const source = world::detail::FindObjectYobi_4462B0(values[0]);
-    if (source != nullptr) {
-        const std::int32_t value170 = values[1];
-        const std::int32_t direction = source->direction;
-        const std::int32_t sourceY =
-            source->mapY1F0.value();
-        const std::int32_t sourceX =
-            source->mapX1E0.value();
-        YobiAction* const observer = Sub_43F330(
-            source->imageNo, sourceX, sourceY, direction, value170);
-        Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
-        for (std::size_t index = 2; index < values.size(); ++index) {
-            const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
-                ui::WindowRuntime_CloseByCategory(3);
-                world::detail::gValue581800 = -1;
-                world::detail::Sub_51BEE0();
-                ui::WindowRuntime_ApplyObservationInputGate();
-            } else {
-                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
-            }
-        }
-        source->imageNo = 0;
-    }
-    return 1;
-}
-
-// 原函数：0x0046DE50。
-YobiAction* Sub_46DE50(
-    const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
-{
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
-    if (action == nullptr) {
-        return nullptr;
-    }
-    action->callback = nullptr;
-    action->imageNo = imageNo;
-    action->characterAction = 0;
-    action->direction = 0;
-    action->displayPriority = 10;
-    action->flags = 0x30;
-    action->mapX200 = static_cast<std::int32_t>(mapX);
-    action->mapY210 = static_cast<std::int32_t>(mapY);
-    action->field270 = 0;
-    action->mapX1E0 = static_cast<std::int32_t>(mapX);
-    action->mapY1F0 = static_cast<std::int32_t>(mapY);
-    const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
-    const auto worldX = static_cast<float>(scaledX);
-    action->worldX = worldX;
-    const auto worldY = static_cast<float>(mapY * 64.0);
-    action->worldY = worldY;
-    float screenX;
-    float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
-    action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(screenX + 0.5));
-    action->y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(screenY + 0.5));
-    return action;
-}
-
-// 原函数：0x0046DD90。
-void Sub_46DD90(YobiAction* const action)
-{
-    const float sceneY = action->worldY;
-    const float sceneX = action->worldX;
-    float screenX;
-    float screenY;
-    world::ProjectWorldToScreen_46CE30(sceneX, sceneY, &screenX, &screenY);
-    const auto x = static_cast<std::int64_t>(screenX + 0.5);
-    const double y = screenY + 0.5;
-    action->x = static_cast<std::int32_t>(x);
-    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
-    const auto worldX = static_cast<float>(
-        (action->mapX1E0 * 64));
-    const auto worldY = static_cast<float>(
-        (action->mapY1F0 * 64));
-    static_cast<void>(Sub_517880(action, 100, 0, 0));
-    const std::int32_t offsetY = action->mapOffsetY;
-    const std::int32_t offsetX = action->mapOffsetX;
-    const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t drawX = offsetX + action->x;
-    const std::int32_t imageNo = action->graphicIndex;
-    world::detail::Sub_46DFF0(
-        imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
-        static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
-}
-
 // 原函数：0x0043F180。
 YobiAction* Sub_43F180(YobiAction* const action)
 {
@@ -969,52 +807,6 @@ void* Sub_43F1B0(YobiAction* const action)
         current = next;
     }
     return nullptr;
-}
-
-// 原函数：0x0043F1F0。
-YobiAction* Sub_43F1F0(const std::uint32_t value)
-{
-    YobiAction* current = gMapCharaHead;
-    while (current != nullptr) {
-        const auto* const payload =
-            static_cast<const MapCharaPayload*>(current->payload.mapChara);
-        YobiAction* const next = payload->next;
-        for (const std::uint32_t entry : payload->values) {
-            if (entry == value) {
-                return current;
-            }
-        }
-        current = next;
-    }
-    return nullptr;
-}
-
-// 原函数：0x0043F220。
-void Sub_43F220()
-{
-    gMapCharaHead = nullptr;
-}
-
-// 原函数：0x0043F230。
-void* Sub_43F230()
-{
-    YobiAction* current = gMapCharaHead;
-    YobiAction* last = nullptr;
-    while (current != nullptr) {
-        const auto* const payload =
-            static_cast<const MapCharaPayload*>(current->payload.mapChara);
-        YobiAction* const next = payload->next;
-        for (YobiAction* const child : payload->partyActions) {
-            if (child != nullptr) {
-                MarkDeath(child);
-            }
-        }
-        last = MarkDeath(current);
-        current = next;
-    }
-    gMapCharaHead = nullptr;
-    // 空链时原 EAX 未定义；新端返回空值，不作为原端等价结果验收。
-    return last;
 }
 
 // 原函数：0x0043FD90。
@@ -1174,6 +966,229 @@ YobiAction* Sub_440B70()
     return action;
 }
 
+} // namespace detail
+
+
+
+// 原函数：0x0046DD40。
+void Sub_46DD40()
+{
+    for (std::size_t row = 0; row < detail::kYobiRegistryRowCount; ++row) {
+        const std::size_t rowOffset = row * detail::kYobiRegistryColumnCount;
+        for (std::size_t column = 0;
+             column < detail::kYobiRegistryColumnCount;
+             ++column) {
+            const std::size_t index = rowOffset + column;
+            if (detail::gYobiRegistryFlags[index] == std::uint8_t{1}) {
+                detail::gYobiRegistryFlags[index] = std::uint8_t{0};
+                YobiAction* const action = detail::gYobiRegistryActions[index];
+                MarkDeath(action);
+            }
+        }
+    }
+}
+
+
+std::uint8_t& MapYobiRegistryFlagAt(const std::int32_t index) noexcept
+{
+    return detail::gYobiRegistryFlags.data()[index];
+}
+
+
+YobiAction*& MapYobiRegistryActionAt(const std::int32_t index) noexcept
+{
+    return detail::gYobiRegistryActions.data()[index];
+}
+
+
+void SetYobiMapOffsetX(YobiAction* const action, const std::int32_t value) noexcept
+{
+    action->mapOffsetX = value;
+}
+
+
+void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexcept
+{
+    action->mapOffsetY = value;
+}
+
+
+// 原函数：0x00440920。
+std::int32_t Sub_440920(
+    const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
+    [[maybe_unused]] const std::int32_t unusedDirection,
+    const std::int32_t characterAction, const char* const row)
+{
+    if (characterAction < 81 || characterAction > 82) {
+        return 0;
+    }
+    YobiAction* const target =
+        static_cast<std::uint32_t>(objectIndex) == world::detail::gPlayerRuntimeSlots.objectIndex
+        ? world::detail::gPlayerRuntimeSlots.action
+        : world::detail::FindObjectYobi_4462B0(objectIndex);
+    if (target == nullptr) {
+        return 1;
+    }
+    std::array<std::int32_t, 7> values;
+    for (std::int32_t index = 0; index < 7; ++index) {
+        values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
+    }
+    if (characterAction == 82) {
+        const std::int32_t imageNo = character_select::detail::Sub_51B740(values[0]);
+        YobiAction* const observer = detail::Sub_43FEB0(imageNo, x, y, values[1]);
+        detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        for (std::size_t index = 2; index < values.size(); ++index) {
+            const std::int32_t member = values[index];
+            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
+                world::detail::Sub_51BEE0();
+            } else {
+                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
+            }
+        }
+        return 1;
+    }
+    YobiAction* const source = world::detail::FindObjectYobi_4462B0(values[0]);
+    if (source != nullptr) {
+        const std::int32_t value170 = values[1];
+        const std::int32_t direction = source->direction;
+        const std::int32_t sourceY =
+            source->mapY1F0.value();
+        const std::int32_t sourceX =
+            source->mapX1E0.value();
+        YobiAction* const observer = detail::Sub_43F330(
+            source->imageNo, sourceX, sourceY, direction, value170);
+        detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        for (std::size_t index = 2; index < values.size(); ++index) {
+            const std::int32_t member = values[index];
+            if (static_cast<std::uint32_t>(member) == world::detail::gPlayerRuntimeSlots.objectIndex) {
+                ui::WindowRuntime_CloseByCategory(3);
+                world::detail::gValue581800 = -1;
+                world::detail::Sub_51BEE0();
+                ui::WindowRuntime_ApplyObservationInputGate();
+            } else {
+                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
+            }
+        }
+        source->imageNo = 0;
+    }
+    return 1;
+}
+
+
+// 原函数：0x0046DE50。
+YobiAction* Sub_46DE50(
+    const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = nullptr;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->direction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x30;
+    action->mapX200 = static_cast<std::int32_t>(mapX);
+    action->mapY210 = static_cast<std::int32_t>(mapY);
+    action->field270 = 0;
+    action->mapX1E0 = static_cast<std::int32_t>(mapX);
+    action->mapY1F0 = static_cast<std::int32_t>(mapY);
+    const double scaledX = mapX * 64.0;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(mapY * 64.0);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(screenX + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(screenY + 0.5));
+    return action;
+}
+
+
+// 原函数：0x0046DD90。
+void Sub_46DD90(YobiAction* const action)
+{
+    const float sceneY = action->worldY;
+    const float sceneX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(sceneX, sceneY, &screenX, &screenY);
+    const auto x = static_cast<std::int64_t>(screenX + 0.5);
+    const double y = screenY + 0.5;
+    action->x = static_cast<std::int32_t>(x);
+    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
+    const auto worldX = static_cast<float>(
+        (action->mapX1E0 * 64));
+    const auto worldY = static_cast<float>(
+        (action->mapY1F0 * 64));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const std::int32_t offsetY = action->mapOffsetY;
+    const std::int32_t offsetX = action->mapOffsetX;
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t drawX = offsetX + action->x;
+    const std::int32_t imageNo = action->graphicIndex;
+    world::detail::Sub_46DFF0(
+        imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
+        static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
+}
+
+
+// 原函数：0x0043F1F0。
+YobiAction* Sub_43F1F0(const std::uint32_t value)
+{
+    YobiAction* current = detail::gMapCharaHead;
+    while (current != nullptr) {
+        const auto* const payload =
+            static_cast<const detail::MapCharaPayload*>(current->payload.mapChara);
+        YobiAction* const next = payload->next;
+        for (const std::uint32_t entry : payload->values) {
+            if (entry == value) {
+                return current;
+            }
+        }
+        current = next;
+    }
+    return nullptr;
+}
+
+
+// 原函数：0x0043F220。
+void Sub_43F220()
+{
+    detail::gMapCharaHead = nullptr;
+}
+
+
+// 原函数：0x0043F230。
+void* Sub_43F230()
+{
+    YobiAction* current = detail::gMapCharaHead;
+    YobiAction* last = nullptr;
+    while (current != nullptr) {
+        const auto* const payload =
+            static_cast<const detail::MapCharaPayload*>(current->payload.mapChara);
+        YobiAction* const next = payload->next;
+        for (YobiAction* const child : payload->partyActions) {
+            if (child != nullptr) {
+                MarkDeath(child);
+            }
+        }
+        last = MarkDeath(current);
+        current = next;
+    }
+    detail::gMapCharaHead = nullptr;
+    // 空链时原 EAX 未定义；新端返回空值，不作为原端等价结果验收。
+    return last;
+}
+
+
 // 原函数：0x00440F50。
 void* Sub_440F50()
 {
@@ -1185,39 +1200,39 @@ void* Sub_440F50()
 
     const std::int32_t imageNo = action->imageNo;
     auto* const payload = action->payload.mapChara;
-    gMapImage5F9734 = imageNo;
-    gMapDirection5F9740 = action->field58;
-    gMapDuration5F9744 =
+    detail::gMapImage5F9734 = imageNo;
+    detail::gMapDirection5F9740 = action->field58;
+    detail::gMapDuration5F9744 =
         (action->readiness * 60);
     for (std::size_t index = 0; index < payload->values.size(); ++index) {
-        gMapValues5F9720[index] = 0;
-        gMapImages5AC4A0[index] = 0;
+        detail::gMapValues5F9720[index] = 0;
+        detail::gMapImages5AC4A0[index] = 0;
         const std::int32_t value =
             std::bit_cast<std::int32_t>(payload->values[index]);
         if (value > 0) {
-            gMapValues5F9720[index] = value;
+            detail::gMapValues5F9720[index] = value;
             YobiAction* const child = payload->partyActions[index];
             if (child != nullptr) {
-                gMapImages5AC4A0[index] = child->imageNo;
+                detail::gMapImages5AC4A0[index] = child->imageNo;
             }
         }
     }
     return payload->partyActions.data();
 }
 
+
 std::int32_t ReadMapObservationDirection() noexcept
 {
-    return gMapDirection5F9740;
+    return detail::gMapDirection5F9740;
 }
+
 
 // 原函数：0x00440FE0。
 std::int32_t Sub_440FE0()
 {
-    static_cast<void>(Sub_440B70());
+    static_cast<void>(detail::Sub_440B70());
     static_cast<void>(cg::audio::Sub_52B990());
     return 0x25;
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

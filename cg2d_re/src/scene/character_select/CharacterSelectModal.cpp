@@ -29,7 +29,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,
@@ -42,7 +42,7 @@ std::int32_t ProcessCharacterModal_462090(
         }
     }
 
-    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(modalAction, 0)) {
+    if (cg::yobi::IsYobiActionStateLessOrEqual(modalAction, 0)) {
         return 0;
     }
 
@@ -52,7 +52,7 @@ std::int32_t ProcessCharacterModal_462090(
         cg::yobi::YobiAction* const actionToDestroy =
             state::gCharacterModalAction;
         if (actionToDestroy != nullptr) {
-            cg::yobi::detail::MarkDeath(actionToDestroy);
+            cg::yobi::MarkDeath(actionToDestroy);
             state::gCharacterModalAction = nullptr;
         }
     }

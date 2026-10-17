@@ -2248,18 +2248,18 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
             31, 5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        cg::yobi::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
+        cg::yobi::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2365,18 +2365,18 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
             5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        cg::yobi::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
+        cg::yobi::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2484,17 +2484,17 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
             5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        cg::yobi::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
+        cg::yobi::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {

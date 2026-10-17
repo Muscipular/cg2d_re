@@ -8,6 +8,10 @@
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/RendererResources.hpp"
 
+#include "animation.hpp"
+#include "battle_display.hpp"
+#include "battle_effect.hpp"
+
 #include <bit>
 #include <cstdint>
 #include <optional>

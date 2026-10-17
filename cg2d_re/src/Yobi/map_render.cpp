@@ -20,6 +20,8 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "animation.hpp"
+
 #include <array>
 #include <new>
 #include <bit>
@@ -758,6 +760,10 @@ std::int32_t ShowHpBar_43DB60(
     return cg::render::DrawGraphic(x, y, 0xCF, 0x3BDEE, 0, &descriptor);
 }
 
+} // namespace detail
+
+
+
 // 原函数：0x00441130。
 YobiAction* NewYobiGearPet_441130(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
@@ -794,6 +800,7 @@ YobiAction* NewYobiGearPet_441130(
     return action;
 }
 
+
 // 原函数：0x004410F0。
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 {
@@ -809,6 +816,7 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
     action->flags = 0x34;
     return action;
 }
+
 
 // 原函数：0x00507140。
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
@@ -917,7 +925,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 
     const std::int32_t position = gBattleCurrentPosition5ABCA4;
     action = graphic->reference.action;
-    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
+    const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     if (position < 10) {
         // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
         if (payload != nullptr
@@ -965,7 +973,5 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     const std::int32_t hp = graphic->reference.action->readiness.value();
     cg::text::FormatTo(gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

@@ -287,7 +287,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 std::int32_t target;
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
-                    target = cg::world::detail::gOrderedRecords1051B14[member].value0C;
+                    target = cg::world::gOrderedRecords1051B14[member].value0C;
                     text = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                 } else {
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
@@ -337,7 +337,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
         const char* const name = category == 0 ? world::detail::gContactsF19FB0[target].name10.data()
-            : cg::world::detail::gOrderedRecords1051B14[target].text18;
+            : cg::world::gOrderedRecords1051B14[target].text18;
         text->text = cg::text::FromGbkWide(name);
     }
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;

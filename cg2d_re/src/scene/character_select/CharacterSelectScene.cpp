@@ -228,7 +228,7 @@ std::int32_t Sub_45E7D0()
         gCreationRequestProgress.rows = 2;
         gCreationRequestProgress.x = x;
         gCreationRequestProgress.y = 192;
-        gCreationRequestProgress.action = cg::yobi::detail::CreateModalAction_5044E0(
+        gCreationRequestProgress.action = cg::yobi::CreateModalAction_5044E0(
             x, 192, width, 96, 4, 1);
     }
     if (gCreationRequestProgress.phase == 1) {
@@ -241,14 +241,14 @@ std::int32_t Sub_45E7D0()
             const std::int32_t result = status == 1 ? 1 : 2;
             cg::yobi::YobiAction* const action = gCreationRequestProgress.action;
             if (action != nullptr) {
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gCreationRequestProgress.action = nullptr;
             }
             return result;
         }
     }
     cg::yobi::YobiAction* const action = gCreationRequestProgress.action;
-    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCreationRequestProgress.rows;
         const std::int32_t unscaledY = 48 * rows - 16;
         const std::int32_t top = gCreationRequestProgress.y;
@@ -387,7 +387,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
 // 原函数：0x00462870。
 void Sub_462870()
 {
-    cg::yobi::detail::YobiClearUp_404D30();
+    cg::yobi::YobiClearUp_404D30();
     ++world::gCurrentSceneState;
 }
 
@@ -405,21 +405,21 @@ void Sub_462880(const std::uint8_t resetSelection)
     }
 
     cg::yobi::YobiAction* const firstAction =
-        cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        cg::yobi::NewYobiAction_404AE0(2, 0);
     state::gCreateActions[0] = firstAction;
     if (firstAction != nullptr) {
-        cg::yobi::detail::SetYobiActionField30(firstAction, 517);
-        cg::yobi::detail::SetYobiActionField34(state::gCreateActions[0], 243);
-        cg::yobi::detail::SetYobiActionField2B8(state::gCreateActions[0], 5);
+        cg::yobi::SetYobiActionField30(firstAction, 517);
+        cg::yobi::SetYobiActionField34(state::gCreateActions[0], 243);
+        cg::yobi::SetYobiActionField2B8(state::gCreateActions[0], 5);
     }
 
     cg::yobi::YobiAction* const secondAction =
-        cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        cg::yobi::NewYobiAction_404AE0(2, 0);
     state::gCreateActions[1] = secondAction;
     if (secondAction != nullptr) {
-        cg::yobi::detail::SetYobiActionField30(secondAction, 517);
-        cg::yobi::detail::SetYobiActionField34(state::gCreateActions[1], 396);
-        cg::yobi::detail::SetYobiActionField2B8(state::gCreateActions[1], 5);
+        cg::yobi::SetYobiActionField30(secondAction, 517);
+        cg::yobi::SetYobiActionField34(state::gCreateActions[1], 396);
+        cg::yobi::SetYobiActionField2B8(state::gCreateActions[1], 5);
     }
     input::SetContext_44B330(nullptr);
 }
@@ -532,21 +532,21 @@ std::int32_t Sub_462930()
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
             first = state::gCreateActions[0];
             if (first != nullptr) {
-                cg::yobi::detail::SetYobiActionField2B8(
-                    first, cg::yobi::detail::GetYobiActionField2B8(first) - 1);
+                cg::yobi::SetYobiActionField2B8(
+                    first, cg::yobi::GetYobiActionField2B8(first) - 1);
                 first = state::gCreateActions[0];
-                if (cg::yobi::detail::GetYobiActionField2B8(first) < 0) {
-                    cg::yobi::detail::SetYobiActionField2B8(first, 7);
+                if (cg::yobi::GetYobiActionField2B8(first) < 0) {
+                    cg::yobi::SetYobiActionField2B8(first, 7);
                     first = state::gCreateActions[0];
                 }
             }
             second = state::gCreateActions[1];
             if (second != nullptr) {
-                cg::yobi::detail::SetYobiActionField2B8(
-                    second, cg::yobi::detail::GetYobiActionField2B8(second) - 1);
+                cg::yobi::SetYobiActionField2B8(
+                    second, cg::yobi::GetYobiActionField2B8(second) - 1);
                 second = state::gCreateActions[1];
-                if (cg::yobi::detail::GetYobiActionField2B8(second) < 0) {
-                    cg::yobi::detail::SetYobiActionField2B8(second, 7);
+                if (cg::yobi::GetYobiActionField2B8(second) < 0) {
+                    cg::yobi::SetYobiActionField2B8(second, 7);
                     second = state::gCreateActions[1];
                 }
                 first = state::gCreateActions[0];
@@ -557,20 +557,20 @@ std::int32_t Sub_462930()
         }
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 2) != 0) {
             if (first != nullptr) {
-                cg::yobi::detail::SetYobiActionField2B8(
-                    first, cg::yobi::detail::GetYobiActionField2B8(first) + 1);
+                cg::yobi::SetYobiActionField2B8(
+                    first, cg::yobi::GetYobiActionField2B8(first) + 1);
                 cg::yobi::YobiAction* const current = state::gCreateActions[0];
-                if (cg::yobi::detail::GetYobiActionField2B8(current) > 7) {
-                    cg::yobi::detail::SetYobiActionField2B8(current, 0);
+                if (cg::yobi::GetYobiActionField2B8(current) > 7) {
+                    cg::yobi::SetYobiActionField2B8(current, 0);
                 }
                 second = state::gCreateActions[1];
             }
             if (second != nullptr) {
-                cg::yobi::detail::SetYobiActionField2B8(
-                    second, cg::yobi::detail::GetYobiActionField2B8(second) + 1);
+                cg::yobi::SetYobiActionField2B8(
+                    second, cg::yobi::GetYobiActionField2B8(second) + 1);
                 second = state::gCreateActions[1];
-                if (cg::yobi::detail::GetYobiActionField2B8(second) > 7) {
-                    cg::yobi::detail::SetYobiActionField2B8(second, 0);
+                if (cg::yobi::GetYobiActionField2B8(second) > 7) {
+                    cg::yobi::SetYobiActionField2B8(second, 0);
                 }
             }
         }
@@ -613,21 +613,21 @@ std::int32_t Sub_462930()
 
     cg::yobi::YobiAction* const second = state::gCreateActions[1];
     if (second != nullptr) {
-        cg::yobi::detail::SetYobiActionField15(second, 2);
+        cg::yobi::SetYobiActionField15(second, 2);
         const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
         const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
         const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
         const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
-        cg::yobi::detail::SetYobiActionField2A8(state::gCreateActions[1], motion);
-        cg::yobi::detail::Sub_517880(state::gCreateActions[1], 100, 1, 0);
+        cg::yobi::SetYobiActionField2A8(state::gCreateActions[1], motion);
+        cg::yobi::Sub_517880(state::gCreateActions[1], 100, 1, 0);
         if (state::gPukVersion >= 5 && state::gValue9A57E0 == 0) {
-            const std::int32_t graphic = cg::yobi::detail::GetYobiActionField20(state::gCreateActions[1]);
+            const std::int32_t graphic = cg::yobi::GetYobiActionField20(state::gCreateActions[1]);
             render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
         }
     }
     cg::yobi::YobiAction* const first = state::gCreateActions[0];
     if (first != nullptr) {
-        cg::yobi::detail::SetYobiActionField15(first, 2);
+        cg::yobi::SetYobiActionField15(first, 2);
         const std::uint8_t puk = state::gPukVersion;
         const std::int32_t version = static_cast<std::int8_t>(state::gValue9A57E0);
         const std::int32_t character = static_cast<std::int8_t>(state::gValue9A4CFC);
@@ -645,12 +645,12 @@ std::int32_t Sub_462930()
             const std::int32_t variant = static_cast<std::int8_t>(state::gValue9A5B00);
             motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
         }
-        cg::yobi::detail::SetYobiActionField2A8(state::gCreateActions[0], motion);
-        if (cg::yobi::detail::Sub_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
-            cg::yobi::detail::Sub_45E6E0(state::gCreateActions[0]);
+        cg::yobi::SetYobiActionField2A8(state::gCreateActions[0], motion);
+        if (cg::yobi::Sub_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
+            cg::yobi::Sub_45E6E0(state::gCreateActions[0]);
             cg::yobi::YobiAction* const currentSecond = state::gCreateActions[1];
             if (currentSecond != nullptr) {
-                cg::yobi::detail::Sub_45E6E0(currentSecond);
+                cg::yobi::Sub_45E6E0(currentSecond);
             }
         }
     }
@@ -664,11 +664,11 @@ std::uint32_t Sub_463100()
 {
     cg::yobi::YobiAction* const first = state::gCreateActions[0];
     if (first != nullptr) {
-        cg::yobi::detail::MarkDeath(first);
+        cg::yobi::MarkDeath(first);
     }
     cg::yobi::YobiAction* const second = state::gCreateActions[1];
     if (second != nullptr) {
-        cg::yobi::detail::MarkDeath(second);
+        cg::yobi::MarkDeath(second);
     }
     state::gValue9A5E78 = 0;
     state::gValue9A5FA4 = 0;
@@ -1478,7 +1478,7 @@ std::int32_t ProcessScene_460FF0()
             if (result == 1) {
                 world::gCurrentSceneState = 13;
                 gDeleteConfirmationAction =
-                    cg::yobi::detail::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
+                    cg::yobi::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
             } else if (result == 2) {
                 world::gCurrentSceneState = 10;
             }
@@ -1491,7 +1491,7 @@ std::int32_t ProcessScene_460FF0()
                     240,
                     L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
                     0);
-            if (cg::yobi::detail::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
+            if (cg::yobi::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
                 cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
                 cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                 if (result == 1) {
@@ -1499,7 +1499,7 @@ std::int32_t ProcessScene_460FF0()
                         world::gCurrentSceneState = 14;
                         login::detail::PlaySe(284, 320, 240);
                         if (gDeleteConfirmationAction != nullptr) {
-                            cg::yobi::detail::MarkDeath(gDeleteConfirmationAction);
+                            cg::yobi::MarkDeath(gDeleteConfirmationAction);
                             gDeleteConfirmationAction = nullptr;
                         }
                         ResetCharacterDeletionProgress_45DBF0();
@@ -1508,7 +1508,7 @@ std::int32_t ProcessScene_460FF0()
                 } else if (result == 2) {
                     world::gCurrentSceneState = 10;
                     if (gDeleteConfirmationAction != nullptr) {
-                        cg::yobi::detail::MarkDeath(gDeleteConfirmationAction);
+                        cg::yobi::MarkDeath(gDeleteConfirmationAction);
                         gDeleteConfirmationAction = nullptr;
                     }
                 }
@@ -1607,7 +1607,7 @@ std::int32_t ProcessScene_460FF0()
             cg::world::detail::Sub_519550();
             world::SetCurrentSceneType(4);
             login::detail::PlaySe(53, 320, 240);
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             ClearPreviewActions();
             break;
         case 1: {
@@ -1621,7 +1621,7 @@ std::int32_t ProcessScene_460FF0()
             login::detail::PlaySe(59, 320, 240);
             state::gCharacterEntryState = 0;
             cg::audio::Sub_52B990();
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             ClearPreviewActions();
             break;
         }
@@ -1678,7 +1678,7 @@ std::int32_t ProcessScene_460FF0()
     if (uiStyle == 0
         && world::gCurrentSceneState == 11
         && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
-        cg::yobi::detail::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30();
         ClearPreviewActions();
         cg::network::ShutdownNetworkRuntime_5081A0();
         world::SetCurrentSceneType(2);

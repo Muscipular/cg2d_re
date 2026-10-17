@@ -196,9 +196,7 @@ char RemoveLegacyBytes_52D570(std::wstring& text, std::wstring_view excluded);
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
 void ProcessKeyInput_4596D0();
 
-namespace detail {
 // 原44A410：输入光标及IME光标绘制。
 void Sub_44A410();
-} // namespace detail
 
 } // namespace cg::input

@@ -339,14 +339,14 @@ static void WindowPlayerProfile_Refresh()
     jobData->text = cg::text::FromGbkWide(job);
 
     WindowInstance* const guildWindow = gCurrentWindow;
-    const std::int32_t guildIndex = cg::world::detail::ReadGuildTextIndex10514B0();
+    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     if (guildIndex != -1) {
-        const char* const guild = cg::world::detail::GetGuildName();
+        const char* const guild = cg::world::GetGuildName();
         guildData->text = cg::text::FromGbkWide(guild);
-        const std::int32_t rankIndex = cg::world::detail::ReadGuildTextIndex10514B0();
+        const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
-        const char* const rank = cg::world::detail::GetGuildRankText(rankIndex);
+        const char* const rank = cg::world::GetGuildRankText(rankIndex);
         rankData->text = cg::text::FromGbkWide(rank);
     } else {
         const char* const guild = "";

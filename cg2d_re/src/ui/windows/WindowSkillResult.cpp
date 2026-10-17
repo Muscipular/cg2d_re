@@ -211,7 +211,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
         increments.append(std::format(kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC));
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[2].data)->action,
         gWindow13ResultD66E2C != 0 ? 5 : 10);
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -227,9 +227,9 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
     }
     const std::int32_t imageNo =
         WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo), 0);
-    cg::yobi::detail::SetYobiActionField2A8(
+    cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
-    cg::yobi::detail::SetYobiActionField2B8(
+    cg::yobi::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
     if (gSkillSendModeC8A970 != 0) {
         static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 1, 3, gSkillPetImageCB0A18));
@@ -244,26 +244,26 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
     cg::yobi::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
-    const std::int32_t actionId = cg::yobi::detail::GetYobiActionField2B0(action);
-    const std::int32_t imageNo = cg::yobi::detail::GetYobiActionField2A8(action);
+    const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
+    const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
     if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
         const bool succeeded = actionId == 18 || actionId == 5;
         const std::int32_t defaultAction = succeeded ? 5 : 10;
-        cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
+        cg::yobi::SetYobiActionField2B0(action, defaultAction);
         for (const auto& range : kCraftAlternateActionImages) {
             if (imageNo >= range[0] && imageNo <= range[1]) {
-                cg::yobi::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
             }
         }
         if (imageNo == 0x18A26) {
-            cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
+            cg::yobi::SetYobiActionField2B0(action, defaultAction);
         }
     }
     if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        cg::yobi::detail::SetYobiActionField309(action, 4);
-        cg::yobi::detail::SetYobiActionField310(action, 4);
+        cg::yobi::SetYobiActionField309(action, 4);
+        cg::yobi::SetYobiActionField310(action, 4);
     } else {
-        cg::yobi::detail::SetYobiActionField309(action, 0);
+        cg::yobi::SetYobiActionField309(action, 0);
     }
     WindowRuntime_DrawCurrent();
     return 1;

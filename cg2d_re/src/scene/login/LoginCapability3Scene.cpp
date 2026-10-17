@@ -192,7 +192,7 @@ std::int32_t Sub_45F190()
 
     switch (state) {
     case 0:
-        cg::yobi::detail::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30();
         gPhaseValue9A5550 = 0;
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
@@ -236,46 +236,46 @@ std::int32_t Sub_45F190()
         gPhaseValue9A5550 = 0;
         gAlpha9A4D08 = 255;
 
-        gLeftAction9A50C0 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        gLeftAction9A50C0 = cg::yobi::NewYobiAction_404AE0(2, 0);
         if (gLeftAction9A50C0 != nullptr) {
-            cg::yobi::detail::SetYobiActionField2A8(
+            cg::yobi::SetYobiActionField2A8(
                 gLeftAction9A50C0,
                 245150);
-            cg::yobi::detail::SetYobiActionField2B0(gLeftAction9A50C0, 0);
-            cg::yobi::detail::SetYobiActionField15(gLeftAction9A50C0, 10);
-            cg::yobi::detail::SetYobiActionField30(gLeftAction9A50C0, 451);
-            cg::yobi::detail::SetYobiActionField34(gLeftAction9A50C0, 193);
-            cg::yobi::detail::SetYobiActionField2B8(gLeftAction9A50C0, 0);
-            cg::yobi::detail::SetYobiActionField308(gLeftAction9A50C0, 8);
-            cg::yobi::detail::SetYobiActionField30C(
+            cg::yobi::SetYobiActionField2B0(gLeftAction9A50C0, 0);
+            cg::yobi::SetYobiActionField15(gLeftAction9A50C0, 10);
+            cg::yobi::SetYobiActionField30(gLeftAction9A50C0, 451);
+            cg::yobi::SetYobiActionField34(gLeftAction9A50C0, 193);
+            cg::yobi::SetYobiActionField2B8(gLeftAction9A50C0, 0);
+            cg::yobi::SetYobiActionField308(gLeftAction9A50C0, 8);
+            cg::yobi::SetYobiActionField30C(
                 gLeftAction9A50C0,
                 kWhiteColor);
-            static_cast<void>(cg::yobi::detail::Sub_517880(
+            static_cast<void>(cg::yobi::Sub_517880(
                 gLeftAction9A50C0,
                 100,
                 0,
                 0));
         }
 
-        gRightAction9A50C4 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+        gRightAction9A50C4 = cg::yobi::NewYobiAction_404AE0(2, 0);
         if (gRightAction9A50C4 == nullptr) {
             world::gCurrentSceneState = 6;
             return ProcessCapability3InputAndDraw();
         }
 
-        cg::yobi::detail::SetYobiActionField2A8(
+        cg::yobi::SetYobiActionField2A8(
             gRightAction9A50C4,
             245150);
-        cg::yobi::detail::SetYobiActionField2B0(gRightAction9A50C4, 0);
-        cg::yobi::detail::SetYobiActionField15(gRightAction9A50C4, 10);
-        cg::yobi::detail::SetYobiActionField30(gRightAction9A50C4, 189);
-        cg::yobi::detail::SetYobiActionField34(gRightAction9A50C4, 287);
-        cg::yobi::detail::SetYobiActionField2B8(gRightAction9A50C4, 0);
-        cg::yobi::detail::SetYobiActionField308(gRightAction9A50C4, 8);
-        cg::yobi::detail::SetYobiActionField30C(
+        cg::yobi::SetYobiActionField2B0(gRightAction9A50C4, 0);
+        cg::yobi::SetYobiActionField15(gRightAction9A50C4, 10);
+        cg::yobi::SetYobiActionField30(gRightAction9A50C4, 189);
+        cg::yobi::SetYobiActionField34(gRightAction9A50C4, 287);
+        cg::yobi::SetYobiActionField2B8(gRightAction9A50C4, 0);
+        cg::yobi::SetYobiActionField308(gRightAction9A50C4, 8);
+        cg::yobi::SetYobiActionField30C(
             gRightAction9A50C4,
             kWhiteColor);
-        static_cast<void>(cg::yobi::detail::Sub_517880(
+        static_cast<void>(cg::yobi::Sub_517880(
             gRightAction9A50C4,
             100,
             0,
@@ -286,51 +286,51 @@ std::int32_t Sub_45F190()
 
     case 3: {
         cg::yobi::YobiAction* const leftForX = gLeftAction9A50C0;
-        cg::yobi::detail::SetYobiActionField30(
+        cg::yobi::SetYobiActionField30(
             leftForX,
-            cg::yobi::detail::GetYobiActionField30(leftForX) - 3);
+            cg::yobi::GetYobiActionField30(leftForX) - 3);
 
         cg::yobi::YobiAction* const leftForY = gLeftAction9A50C0;
-        cg::yobi::detail::SetYobiActionField34(
+        cg::yobi::SetYobiActionField34(
             leftForY,
-            cg::yobi::detail::GetYobiActionField34(leftForY) + 1);
+            cg::yobi::GetYobiActionField34(leftForY) + 1);
 
         cg::yobi::YobiAction* const rightForX = gRightAction9A50C4;
-        cg::yobi::detail::SetYobiActionField30(
+        cg::yobi::SetYobiActionField30(
             rightForX,
-            cg::yobi::detail::GetYobiActionField30(rightForX) + 3);
+            cg::yobi::GetYobiActionField30(rightForX) + 3);
 
         cg::yobi::YobiAction* const rightForY = gRightAction9A50C4;
-        cg::yobi::detail::SetYobiActionField34(
+        cg::yobi::SetYobiActionField34(
             rightForY,
-            cg::yobi::detail::GetYobiActionField34(rightForY) - 1);
+            cg::yobi::GetYobiActionField34(rightForY) - 1);
 
         cg::yobi::YobiAction* const rightForDelta = gRightAction9A50C4;
-        const std::int32_t delta = 287 - cg::yobi::detail::GetYobiActionField34(rightForDelta);
+        const std::int32_t delta = 287 - cg::yobi::GetYobiActionField34(rightForDelta);
         gPhaseValue9A5550 = delta;
         if (delta >= 0) {
             const std::int32_t alpha = (delta << 7U) / 47;
-            cg::yobi::detail::SetYobiActionField30F(
+            cg::yobi::SetYobiActionField30F(
                 gLeftAction9A50C0,
                 static_cast<std::uint8_t>(alpha));
             cg::yobi::YobiAction* const leftForAlphaCopy = gLeftAction9A50C0;
             cg::yobi::YobiAction* const rightForAlphaCopy = gRightAction9A50C4;
             const std::uint8_t copiedAlpha =
-                cg::yobi::detail::GetYobiActionField30F(leftForAlphaCopy);
-            cg::yobi::detail::SetYobiActionField30F(
+                cg::yobi::GetYobiActionField30F(leftForAlphaCopy);
+            cg::yobi::SetYobiActionField30F(
                 rightForAlphaCopy,
                 copiedAlpha);
         }
 
         cg::yobi::YobiAction* const leftForCompare = gLeftAction9A50C0;
-        if (cg::yobi::detail::GetYobiActionField30(leftForCompare) > 320) {
+        if (cg::yobi::GetYobiActionField30(leftForCompare) > 320) {
             return DispatchCapability3FromCurrentState();
         }
 
-        cg::yobi::detail::SetYobiActionField30(leftForCompare, 320);
-        cg::yobi::detail::SetYobiActionField34(gLeftAction9A50C0, 240);
-        cg::yobi::detail::SetYobiActionField30F(gLeftAction9A50C0, 0);
-        cg::yobi::detail::MarkDeath(gRightAction9A50C4);
+        cg::yobi::SetYobiActionField30(leftForCompare, 320);
+        cg::yobi::SetYobiActionField34(gLeftAction9A50C0, 240);
+        cg::yobi::SetYobiActionField30F(gLeftAction9A50C0, 0);
+        cg::yobi::MarkDeath(gRightAction9A50C4);
         gRightAction9A50C4 = nullptr;
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
@@ -347,7 +347,7 @@ std::int32_t Sub_45F190()
             if (gPhaseValue9A5550 == 0) {
                 cg::yobi::YobiAction* const action = gLeftAction9A50C0;
                 if (action != nullptr) {
-                    cg::yobi::detail::SetYobiActionField30F(action, 0xFF);
+                    cg::yobi::SetYobiActionField30F(action, 0xFF);
                     gAlpha9A4D08 = 255;
                 }
             }
@@ -360,7 +360,7 @@ std::int32_t Sub_45F190()
                 cg::yobi::YobiAction* const action = gLeftAction9A50C0;
                 gAlpha9A4CA0 = 255;
                 gPhaseValue9A5550 = 60;
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gLeftAction9A50C0 = nullptr;
                 render::gBackgroundColor = 0;
                 gAlpha9A4D08 = 0;
@@ -384,9 +384,9 @@ std::int32_t Sub_45F190()
         gAlpha9A4CA0 = 0;
         gAlpha9A5E70 = 255;
         render::gBackgroundColor = 0;
-        cg::yobi::detail::MarkDeath(leftAction);
+        cg::yobi::MarkDeath(leftAction);
         cg::yobi::YobiAction* const rightAction = gRightAction9A50C4;
-        cg::yobi::detail::MarkDeath(rightAction);
+        cg::yobi::MarkDeath(rightAction);
         gRightAction9A50C4 = nullptr;
         gLeftAction9A50C0 = nullptr;
         login::InitializeCapabilityInput_45F970();
@@ -424,7 +424,7 @@ std::int32_t Sub_45F190()
 
     case 10:
         static_cast<void>(world::SetCurrentSceneType(2));
-        cg::yobi::detail::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30();
         render::gBackgroundColor = 0;
         return DispatchCapability3FromCurrentState();
     }

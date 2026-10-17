@@ -519,24 +519,6 @@ void UpdateModalAction_5046D0(YobiAction* const action)
 
 } // namespace
 
-// 原函数：0x0049BE00。
-void DrawNineGrid_49BE00(
-    const std::int32_t baseImageNo,
-    const std::int16_t x,
-    const std::int16_t y,
-    const std::int16_t width,
-    const std::int16_t height,
-    const std::uint8_t layer,
-    const std::int32_t borderColor,
-    const std::int32_t centerColor,
-    const std::int16_t tileWidth,
-    const std::int16_t tileHeight)
-{
-    DrawNineGridImpl_49BE00(
-        baseImageNo, x, y, width, height, layer,
-        borderColor, centerColor, tileWidth, tileHeight);
-}
-
 // 原函数：0x004758D0。
 void Sub_4758D0(YobiAction* const action)
 {
@@ -566,61 +548,6 @@ void Sub_4758D0(YobiAction* const action)
         }
     }
     ++payload->counter;
-}
-
-// 原函数：0x00475950。
-YobiAction* Sub_475950(
-    std::int32_t x, std::int32_t y,
-    const std::int32_t width, const std::int32_t height,
-    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
-    YobiAction** const completionSlot)
-{
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
-    if (action == nullptr) {
-        if (completionSlot != nullptr) {
-            *completionSlot = nullptr;
-        }
-        static_cast<void>(ui::WindowRuntime_Open(id));
-        return nullptr;
-    }
-    static_cast<void>(ui::CenterPopupWindowPosition(id, width, height, x, y));
-    auto* const payload = action->payload.windowOpening;
-    action->callback = &Sub_4758D0;
-    action->displayPriority = 0xDF;
-    action->flags |= 6u;
-    payload->value1C = 0;
-    payload->flag20 = 0;
-    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
-        payload->flag20 = 1;
-    }
-    const std::int32_t lowX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    const std::int32_t lowY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    const std::int32_t lowHeight =
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(height));
-    const std::int32_t lowWidth =
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
-    action->x = lowX;
-    action->y = lowY;
-    payload->height = lowHeight;
-    payload->id = static_cast<std::uint16_t>(id);
-    payload->counter = 0;
-    payload->width = lowWidth;
-    action->windowCompletionSlot1D0 = completionSlot;
-    const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
-        payload->centerX = lowWidth / 2 + lowX;
-        payload->centerY = lowHeight / 2 + lowY;
-        action->deltaX = 0;
-        action->deltaY = (payload->centerY - lowY) / 10;
-        payload->halfWidth = payload->centerX - lowX;
-    } else if (lowMode == 1) {
-        payload->centerX = lowWidth / 2 + lowX;
-        payload->centerY = lowHeight / 2 + lowY;
-        action->deltaX = (payload->centerX - lowX) / 10;
-        action->deltaY = (payload->centerY - lowY) / 10;
-    }
-    return action;
 }
 
 // QIP01：原48ABC0完整59条；描边后更新半宽/半高，S16计数>=10发布/标死，再无条件W16自增。
@@ -660,73 +587,6 @@ void Sub_48ABC0(YobiAction* const action)
     ++payload->counter;
 }
 
-// QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
-YobiAction* Sub_48AC60(
-    const std::int32_t sourceWindow, const std::int32_t sourceElement,
-    const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
-    const std::int32_t initialValue, const ui::WindowValueCallback callback,
-    const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)
-{
-    ui::detail::gWindowStates[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
-    if (ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window != nullptr) {
-        ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-    }
-    if (action == nullptr) {
-        static_cast<void>(ui::detail::WindowQuantity_Open(
-            sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
-        return nullptr;
-    }
-    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Quantity];
-    const auto windowFlags = reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[cg::ui::WindowId_Quantity].flags)[0];
-    std::int32_t x = prototype->defaultX;
-    std::int32_t y = prototype->defaultY;
-    const std::int32_t width = prototype->width;
-    const std::int32_t height = prototype->height;
-    if ((windowFlags & 1u) != 0) {
-        x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
-        y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
-    }
-    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
-    auto* const payload = action->payload.windowOpening;
-    action->callback = Sub_48ABC0;
-    action->flags |= 6u;
-    action->graphicIndex = imageNo;
-    action->displayPriority = 0xDF;
-    payload->flag20 = 0;
-    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
-        payload->flag20 = 1;
-    }
-    action->x = x;
-    action->y = y;
-    payload->width = width;
-    payload->height = height;
-    action->numberWindowCallback2C = callback;
-    action->field1D0 = maximum;
-    action->mapX1E0 = static_cast<std::int32_t>(value14);
-    action->mapY1F0 = static_cast<std::int32_t>(initialValue);
-    action->nameX = sourceWindow;
-    action->nameY = sourceElement;
-    payload->counter = 0;
-    const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
-        payload->centerX = width / 2 + x;
-        payload->centerY = height / 2 + y;
-        action->deltaX = 0;
-        action->deltaY = (payload->centerY - y) / 10;
-        payload->halfWidth = payload->centerX - x;
-    } else if (lowMode == 1) {
-        payload->centerX = width / 2 + x;
-        payload->centerY = height / 2 + y;
-        action->deltaX = (payload->centerX - x) / 10;
-        action->deltaY = (payload->centerY - y) / 10;
-    }
-    return action;
-}
-
 // SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。
 void Sub_4ABE60(YobiAction* const action)
 {
@@ -757,63 +617,6 @@ void Sub_4ABE60(YobiAction* const action)
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
-}
-
-// SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
-YobiAction* Sub_4ABEF0(
-    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
-    const std::uint32_t flags, const std::uint32_t mode)
-{
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
-    if (action == nullptr) {
-        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
-        return nullptr;
-    }
-    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
-    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[cg::ui::WindowId_Bank].flags) & 1u) != 0;
-    std::int32_t y = prototype->defaultY;
-    const std::int32_t width = prototype->width;
-    std::int32_t x = prototype->defaultX;
-    const std::int32_t height = prototype->height;
-    if (savedPosition) {
-        x = ui::detail::gWindowStates[cg::ui::WindowId_Bank].x;
-        y = ui::detail::gWindowStates[cg::ui::WindowId_Bank].y;
-    }
-    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
-    auto* const payload = action->payload.windowOpening;
-    action->flags |= 6u;
-    action->callback = Sub_4ABE60;
-    action->displayPriority = 0xDF;
-    payload->value1C = 0;
-    payload->flag20 = 0;
-    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
-        payload->flag20 = 1;
-    }
-    action->x = x;
-    action->y = y;
-    payload->width = width;
-    payload->height = height;
-    payload->id = static_cast<std::uint16_t>(kind);
-    action->mapX1E0 = static_cast<std::int32_t>(value14);
-    action->mapY1F0 = static_cast<std::int32_t>(userState);
-    payload->counter = 0;
-    const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
-        payload->centerX = width / 2 + x;
-        payload->centerY = height / 2 + y;
-        action->deltaX = 0;
-        action->deltaY = (payload->centerY - y) / 10;
-        payload->halfWidth = payload->centerX - x;
-    } else if (lowMode == 1) {
-        const std::int32_t centerX = width / 2 + x;
-        payload->centerX = centerX;
-        payload->centerY = height / 2 + y;
-        action->deltaX = (centerX - x) / 10;
-        action->deltaY = (payload->centerY - y) / 10;
-    }
-    return action;
 }
 
 // SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。
@@ -849,13 +652,218 @@ void Sub_4ACDF0(YobiAction* const action)
     ++payload->counter;
 }
 
+} // namespace detail
+
+
+
+// 原函数：0x0049BE00。
+void DrawNineGrid_49BE00(
+    const std::int32_t baseImageNo,
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int16_t width,
+    const std::int16_t height,
+    const std::uint8_t layer,
+    const std::int32_t borderColor,
+    const std::int32_t centerColor,
+    const std::int16_t tileWidth,
+    const std::int16_t tileHeight)
+{
+    detail::DrawNineGridImpl_49BE00(
+        baseImageNo, x, y, width, height, layer,
+        borderColor, centerColor, tileWidth, tileHeight);
+}
+
+
+// 原函数：0x00475950。
+YobiAction* Sub_475950(
+    std::int32_t x, std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
+    YobiAction** const completionSlot)
+{
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    if (action == nullptr) {
+        if (completionSlot != nullptr) {
+            *completionSlot = nullptr;
+        }
+        static_cast<void>(ui::WindowRuntime_Open(id));
+        return nullptr;
+    }
+    static_cast<void>(ui::CenterPopupWindowPosition(id, width, height, x, y));
+    auto* const payload = action->payload.windowOpening;
+    action->callback = &detail::Sub_4758D0;
+    action->displayPriority = 0xDF;
+    action->flags |= 6u;
+    payload->value1C = 0;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    const std::int32_t lowX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    const std::int32_t lowY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    const std::int32_t lowHeight =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(height));
+    const std::int32_t lowWidth =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
+    action->x = lowX;
+    action->y = lowY;
+    payload->height = lowHeight;
+    payload->id = static_cast<std::uint16_t>(id);
+    payload->counter = 0;
+    payload->width = lowWidth;
+    action->windowCompletionSlot1D0 = completionSlot;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = lowWidth / 2 + lowX;
+        payload->centerY = lowHeight / 2 + lowY;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - lowY) / 10;
+        payload->halfWidth = payload->centerX - lowX;
+    } else if (lowMode == 1) {
+        payload->centerX = lowWidth / 2 + lowX;
+        payload->centerY = lowHeight / 2 + lowY;
+        action->deltaX = (payload->centerX - lowX) / 10;
+        action->deltaY = (payload->centerY - lowY) / 10;
+    }
+    return action;
+}
+
+
+// QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
+YobiAction* Sub_48AC60(
+    const std::int32_t sourceWindow, const std::int32_t sourceElement,
+    const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
+    const std::int32_t initialValue, const ui::WindowValueCallback callback,
+    const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)
+{
+    ui::detail::gWindowStates[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    if (ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window != nullptr) {
+        ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (action == nullptr) {
+        static_cast<void>(ui::detail::WindowQuantity_Open(
+            sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
+        return nullptr;
+    }
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Quantity];
+    const auto windowFlags = reinterpret_cast<const unsigned char*>(
+        &ui::detail::gWindowStates[cg::ui::WindowId_Quantity].flags)[0];
+    std::int32_t x = prototype->defaultX;
+    std::int32_t y = prototype->defaultY;
+    const std::int32_t width = prototype->width;
+    const std::int32_t height = prototype->height;
+    if ((windowFlags & 1u) != 0) {
+        x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
+        y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
+    }
+    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
+    auto* const payload = action->payload.windowOpening;
+    action->callback = detail::Sub_48ABC0;
+    action->flags |= 6u;
+    action->graphicIndex = imageNo;
+    action->displayPriority = 0xDF;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    action->x = x;
+    action->y = y;
+    payload->width = width;
+    payload->height = height;
+    action->numberWindowCallback2C = callback;
+    action->field1D0 = maximum;
+    action->mapX1E0 = static_cast<std::int32_t>(value14);
+    action->mapY1F0 = static_cast<std::int32_t>(initialValue);
+    action->nameX = sourceWindow;
+    action->nameY = sourceElement;
+    payload->counter = 0;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - y) / 10;
+        payload->halfWidth = payload->centerX - x;
+    } else if (lowMode == 1) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = (payload->centerX - x) / 10;
+        action->deltaY = (payload->centerY - y) / 10;
+    }
+    return action;
+}
+
+
+// SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
+YobiAction* Sub_4ABEF0(
+    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
+    const std::uint32_t flags, const std::uint32_t mode)
+{
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    if (action == nullptr) {
+        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
+        return nullptr;
+    }
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
+    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
+        &ui::detail::gWindowStates[cg::ui::WindowId_Bank].flags) & 1u) != 0;
+    std::int32_t y = prototype->defaultY;
+    const std::int32_t width = prototype->width;
+    std::int32_t x = prototype->defaultX;
+    const std::int32_t height = prototype->height;
+    if (savedPosition) {
+        x = ui::detail::gWindowStates[cg::ui::WindowId_Bank].x;
+        y = ui::detail::gWindowStates[cg::ui::WindowId_Bank].y;
+    }
+    static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
+    auto* const payload = action->payload.windowOpening;
+    action->flags |= 6u;
+    action->callback = detail::Sub_4ABE60;
+    action->displayPriority = 0xDF;
+    payload->value1C = 0;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    action->x = x;
+    action->y = y;
+    payload->width = width;
+    payload->height = height;
+    payload->id = static_cast<std::uint16_t>(kind);
+    action->mapX1E0 = static_cast<std::int32_t>(value14);
+    action->mapY1F0 = static_cast<std::int32_t>(userState);
+    payload->counter = 0;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - y) / 10;
+        payload->halfWidth = payload->centerX - x;
+    } else if (lowMode == 1) {
+        const std::int32_t centerX = width / 2 + x;
+        payload->centerX = centerX;
+        payload->centerY = height / 2 + y;
+        action->deltaX = (centerX - x) / 10;
+        action->deltaY = (payload->centerY - y) / 10;
+    }
+    return action;
+}
+
+
 // SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。
 YobiAction* Sub_4ACE80(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
         return nullptr;
@@ -874,7 +882,7 @@ YobiAction* Sub_4ACE80(
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_ItemStorage, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
-    action->callback = Sub_4ACDF0;
+    action->callback = detail::Sub_4ACDF0;
     action->displayPriority = 0xDF;
     payload->value1C = 0;
     payload->flag20 = 0;
@@ -907,11 +915,13 @@ YobiAction* Sub_4ACE80(
     return action;
 }
 
+
 // 原 [0x49C5C0,0x49C5DB)：S16 宽度先减 48，再按有符号商加 2。
 std::int32_t Sub_49C5C0(const std::int16_t width)
 {
     return (static_cast<std::int32_t>(width) - 48) / 9 + 2;
 }
+
 
 // 原 [0x49C5E0,0x49C5FD)：非零标志扣 24，再扣 32 并用 idiv 求商。
 std::int32_t Sub_49C5E0(
@@ -924,6 +934,7 @@ std::int32_t Sub_49C5E0(
         / divisor;
 }
 
+
 // 原函数：0x005044E0。
 YobiAction* CreateModalAction_5044E0(
     const std::int32_t x,
@@ -934,16 +945,16 @@ YobiAction* CreateModalAction_5044E0(
     const std::int32_t param6)
 {
     YobiAction* const action = NewYobiAction_404AE0(
-        kModalPriority,
-        static_cast<std::uint32_t>(sizeof(YobiUIData)), YobiPayloadKind::WindowUi);
+        detail::kModalPriority,
+        static_cast<std::uint32_t>(sizeof(detail::YobiUIData)), YobiPayloadKind::WindowUi);
     if (action == nullptr) {
         return nullptr;
     }
 
     auto* const payload = action->payload.windowUi;
     action->flags |= 6U;
-    action->callback = UpdateModalAction_5046D0;
-    action->displayPriority = kModalDisplayPriority;
+    action->callback = detail::UpdateModalAction_5046D0;
+    action->displayPriority = detail::kModalDisplayPriority;
 
     if (winId < 0) {
         payload->tileStyle = 0;
@@ -1006,7 +1017,5 @@ YobiAction* CreateModalAction_5044E0(
     }
     return action;
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

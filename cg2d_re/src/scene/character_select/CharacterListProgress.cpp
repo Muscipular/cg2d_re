@@ -58,7 +58,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         const std::int32_t x = centeredWidth / 2;
         gCharacterListProgressX = x;
         gCharacterListProgressY = 192;
-        gCharacterListProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gCharacterListProgressAction = cg::yobi::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -76,7 +76,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         if (result != 0) {
             cg::yobi::YobiAction* const action = gCharacterListProgressAction;
             if (action != nullptr) {
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gCharacterListProgressAction = nullptr;
             }
             return result;
@@ -84,7 +84,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     }
 
     cg::yobi::YobiAction* const action = gCharacterListProgressAction;
-    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCharacterListProgressRows;
         const std::int32_t verticalHeight = rows * kRowHeight - kTextHeight;
         const std::int32_t y = gCharacterListProgressY;

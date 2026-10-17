@@ -6,6 +6,14 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "animation.hpp"
+#include "battle_attachment.hpp"
+#include "battle_attack.hpp"
+#include "battle_cast.hpp"
+#include "battle_effect.hpp"
+#include "battle_ride.hpp"
+#include "battle_status.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -37,35 +45,6 @@ std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
         }
     }
     return 0;
-}
-
-// 原[4238F0,42395B)：11个直接caller均不消费原混合返回值。
-void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
-{
-    using namespace world::detail;
-    auto* const payload = action->payload.battleActor;
-    const std::uint32_t state = payload->stateFE0;
-    const std::int32_t position = payload->battlePosition18;
-    const std::uint32_t cleared = state & ~std::uint32_t{1};
-    payload->stateFE0 = cleared;
-    const std::int32_t playerPosition = gBattleCurrentPosition5ABCA4;
-    if (position == playerPosition) {
-        payload->stateFE0 = cleared | 1u;
-        return;
-    }
-    if (position != GetBattlePetPosition_405B40(playerPosition)) {
-        if (gBattleCurrentPosition5ABCA4 < 10) {
-            if (position < 10) {
-                return;
-            }
-        } else if (position >= 10) {
-            return;
-        }
-        if (MatchBattleAlbum_423800(action) == 0) {
-            return;
-        }
-    }
-    payload->stateFE0 = payload->stateFE0 | 1u;
 }
 
 // 原函数：0x00438290。
@@ -1237,5 +1216,36 @@ void UpdateBattleAction236_406630(YobiAction* const action)
 }
 
 } // namespace detail
+
+
+
+// 原[4238F0,42395B)：11个直接caller均不消费原混合返回值。
+void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
+{
+    using namespace world::detail;
+    auto* const payload = action->payload.battleActor;
+    const std::uint32_t state = payload->stateFE0;
+    const std::int32_t position = payload->battlePosition18;
+    const std::uint32_t cleared = state & ~std::uint32_t{1};
+    payload->stateFE0 = cleared;
+    const std::int32_t playerPosition = gBattleCurrentPosition5ABCA4;
+    if (position == playerPosition) {
+        payload->stateFE0 = cleared | 1u;
+        return;
+    }
+    if (position != GetBattlePetPosition_405B40(playerPosition)) {
+        if (gBattleCurrentPosition5ABCA4 < 10) {
+            if (position < 10) {
+                return;
+            }
+        } else if (position >= 10) {
+            return;
+        }
+        if (detail::MatchBattleAlbum_423800(action) == 0) {
+            return;
+        }
+    }
+    payload->stateFE0 = payload->stateFE0 | 1u;
+}
 
 } // namespace cg::yobi

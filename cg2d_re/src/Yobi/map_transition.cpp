@@ -6,6 +6,8 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "map_actor.hpp"
+
 #include <algorithm>
 #include <array>
 #include <bit>
@@ -108,73 +110,6 @@ void Sub_446990(std::int16_t* const value)
 
 // 原函数：0x00447E60。
 void Sub_447E60(YobiAction* action);
-
-// LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
-// 原函数：0x00448040。
-YobiAction* Sub_448040(
-    const std::int32_t imageNo, const std::int32_t mapX,
-    const std::int32_t mapY, const std::int32_t direction,
-    const std::int16_t mode, const std::int16_t value02,
-    const std::int32_t objectIndex)
-{
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapTransitionPayload), YobiPayloadKind::MapTransition);
-    if (action == nullptr) {
-        return nullptr;
-    }
-    action->direction = direction;
-    action->callback = Sub_447E60;
-    action->imageNo = imageNo;
-    action->characterAction = 0;
-    action->displayPriority = 10;
-    action->flags = 0x200034u;
-    const auto assignCoordinate = [](
-        platform::LegacyCryptInt& target, const std::int32_t value) {
-        target = static_cast<std::int32_t>(value);
-    };
-    assignCoordinate(action->mapX200, mapX);
-    assignCoordinate(action->mapY210, mapY);
-    action->field270 = 0;
-    assignCoordinate(action->mapX1E0, mapX);
-    assignCoordinate(action->mapY1F0, mapY);
-
-    const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
-    const auto worldX = static_cast<float>(scaledX);
-    action->worldX = worldX;
-    const auto worldY = static_cast<float>(mapY * 64.0);
-    action->worldY = worldY;
-    float screenX;
-    float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
-    action->x = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(screenX + 0.5));
-    const auto y = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(screenY + 0.5));
-    auto* const payload = action->payload.mapTransition;
-    action->y = y;
-    payload->mode = mode;
-    payload->value02 = value02;
-    Sub_446970(&payload->value02);
-    payload->value04 = payload->value02;
-    payload->value06 = 0;
-    payload->mapX08 = mapX;
-    payload->mapY0C = mapY;
-    payload->counter10 = 0;
-    payload->tick14 = platform::ReadTickCount64();
-    if (mode == 0 || mode == 1) {
-        payload->slots18.attachments.action18 = nullptr;
-        payload->slots18.attachments.action1C = nullptr;
-    } else {
-        payload->slots18.values.state18 = 0;
-        payload->slots18.values.state1C = 0;
-    }
-    payload->value20 = 0.0F;
-    payload->value24 = 0;
-    payload->flags10C = 0;
-    payload->objectIndex28 = objectIndex;
-    return action;
-}
 
 // 原函数：0x004473B0。
 std::int32_t Sub_4473B0(YobiAction* const action)
@@ -906,5 +841,74 @@ void Sub_447E60(YobiAction* const action)
 }
 
 } // namespace detail
+
+
+
+// LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
+// 原函数：0x00448040。
+YobiAction* Sub_448040(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction,
+    const std::int16_t mode, const std::int16_t value02,
+    const std::int32_t objectIndex)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(detail::MapTransitionPayload), YobiPayloadKind::MapTransition);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->direction = direction;
+    action->callback = detail::Sub_447E60;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x200034u;
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        target = static_cast<std::int32_t>(value);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
+    action->field270 = 0;
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
+
+    const double scaledX = mapX * 64.0;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(mapY * 64.0);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(screenX + 0.5));
+    const auto y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(screenY + 0.5));
+    auto* const payload = action->payload.mapTransition;
+    action->y = y;
+    payload->mode = mode;
+    payload->value02 = value02;
+    detail::Sub_446970(&payload->value02);
+    payload->value04 = payload->value02;
+    payload->value06 = 0;
+    payload->mapX08 = mapX;
+    payload->mapY0C = mapY;
+    payload->counter10 = 0;
+    payload->tick14 = platform::ReadTickCount64();
+    if (mode == 0 || mode == 1) {
+        payload->slots18.attachments.action18 = nullptr;
+        payload->slots18.attachments.action1C = nullptr;
+    } else {
+        payload->slots18.values.state18 = 0;
+        payload->slots18.values.state1C = 0;
+    }
+    payload->value20 = 0.0F;
+    payload->value24 = 0;
+    payload->flags10C = 0;
+    payload->objectIndex28 = objectIndex;
+    return action;
+}
 
 } // namespace cg::yobi

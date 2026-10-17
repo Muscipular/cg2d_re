@@ -70,7 +70,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         if (columns < 2) {
             columns = 2;
         }
-        gLegacyVersionUpgradeAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gLegacyVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -83,7 +83,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
     case 4: {
         cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr
-            && cg::yobi::detail::IsYobiActionStateEqual(
+            && cg::yobi::IsYobiActionStateEqual(
                 action,
                 1)) {
             const std::int32_t width =
@@ -103,7 +103,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
     case 100: {
         cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr) {
-            cg::yobi::detail::MarkDeath(action);
+            cg::yobi::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
         login::ResetLoginMessage();
@@ -117,7 +117,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
     case 200: {
         cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr) {
-            cg::yobi::detail::MarkDeath(action);
+            cg::yobi::MarkDeath(action);
         }
         login::ResetLoginMessage();
         world::gCurrentSceneState = 201;
@@ -194,7 +194,7 @@ std::int32_t ProcessScene_462330()
         if (columns < 2) {
             columns = 2;
         }
-        gVersionUpgradeAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -207,7 +207,7 @@ std::int32_t ProcessScene_462330()
     case 4: {
         cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr
-            && cg::yobi::detail::IsYobiActionStateEqual(
+            && cg::yobi::IsYobiActionStateEqual(
                 action,
                 1)) {
             const std::int32_t width =
@@ -227,7 +227,7 @@ std::int32_t ProcessScene_462330()
     case 100: {
         cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr) {
-            cg::yobi::detail::MarkDeath(action);
+            cg::yobi::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
         login::ResetLoginMessage();
@@ -235,7 +235,7 @@ std::int32_t ProcessScene_462330()
     }
     case 101:
         if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             if (state::gPreviewActions[0] != nullptr) {
                 state::gPreviewActions[0] = nullptr;
             }
@@ -248,7 +248,7 @@ std::int32_t ProcessScene_462330()
     case 200: {
         cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr) {
-            cg::yobi::detail::MarkDeath(action);
+            cg::yobi::MarkDeath(action);
         }
         login::ResetLoginMessage();
         world::gCurrentSceneState = 201;

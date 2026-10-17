@@ -9,6 +9,11 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/RendererResources.hpp"
 
+#include "animation.hpp"
+#include "battle_attachment.hpp"
+#include "battle_impact.hpp"
+#include "battle_status.hpp"
+
 #include <algorithm>
 #include <array>
 #include <bit>

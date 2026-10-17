@@ -158,7 +158,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
             && world::detail::ReadPetMapObjectIndex(slot) != ownIndex) {
             cg::yobi::YobiAction* const action = world::detail::ReadPetMapAction(slot);
             if (action != nullptr) {
-                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), cg::yobi::detail::GetYobiName(action));
+                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), cg::yobi::GetYobiName(action));
             }
             const std::int32_t index = count++;
             gItemUseTargetCountCC40CC = count;

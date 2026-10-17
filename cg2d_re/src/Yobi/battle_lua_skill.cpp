@@ -4,6 +4,12 @@
 #include "../script/LuaInternal.hpp"
 #include "cg/core/m_log.hpp"
 
+#include "animation.hpp"
+#include "battle_actor.hpp"
+#include "battle_base.hpp"
+#include "battle_effect.hpp"
+#include "battle_scene.hpp"
+
 #include <bit>
 #include <cmath>
 #include <cstddef>

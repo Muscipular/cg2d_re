@@ -114,7 +114,7 @@ static std::int32_t WindowGuildRank_Draw(const std::int32_t)
     const std::int16_t width = static_cast<std::int16_t>(window->width);
     const std::int16_t y = static_cast<std::int16_t>(window->y);
     const std::int16_t x = static_cast<std::int16_t>(window->x);
-    cg::yobi::detail::DrawNineGrid_49BE00(0x3BE3E, x, y, width, height, 223, -1,
+    cg::yobi::DrawNineGrid_49BE00(0x3BE3E, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
@@ -226,12 +226,12 @@ static std::uint32_t WindowGuildRank_Refresh()
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
-        const char* const rank = cg::world::detail::GetGuildRankText(scroll + row + 1);
+        const char* const rank = cg::world::GetGuildRankText(scroll + row + 1);
         data->text = cg::text::FromGbkWide(rank);
     }
     const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
-    const char* const name = cg::world::detail::gOrderedRecords1051B14[member].text18;
+    const char* const name = cg::world::gOrderedRecords1051B14[member].text18;
     const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(name) + 1);
     data->text = cg::text::FromGbkWide(name);
     return length;

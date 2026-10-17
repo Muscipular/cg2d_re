@@ -298,7 +298,7 @@ std::int32_t UpdateServerConnection()
         gServerConnectionLayout.rowCount = 2;
         gServerConnectionLayout.x = x;
         gServerConnectionLayout.y = 192;
-        gServerConnectionAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gServerConnectionAction = cg::yobi::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -347,14 +347,14 @@ std::int32_t UpdateServerConnection()
 
     if (result != 0) {
         if (gServerConnectionAction != nullptr) {
-            cg::yobi::detail::MarkDeath(gServerConnectionAction);
+            cg::yobi::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
         cg::world::blacklist::LoadBlacklistFile(gValue55A054);
     }
 
     cg::yobi::YobiAction* const action = gServerConnectionAction;
-    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
         const std::int32_t textWidth = cg::render::TextMeasure(gServerConnectingText, 0);
         const std::int32_t rowCount = gServerConnectionLayout.rowCount;
         const std::int32_t verticalHeight = rowCount * 48 - 16;
@@ -382,7 +382,7 @@ std::int32_t ProcessState_45E960()
 {
     if (world::gCurrentSceneState == 0) {
         ResetLoginProgress();
-        cg::world::detail::Sub_532D80();
+        cg::world::Sub_532D80();
         ++world::gCurrentSceneState;
     }
 
@@ -441,7 +441,7 @@ std::int32_t UpdateLoginProgress()
         gLoginProgressLayout.y = 192;
         const std::int32_t actionWidth = columnCount * 64;
         gLoginProgressLayout.x = actionX;
-        gLoginProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gLoginProgressAction = cg::yobi::CreateModalAction_5044E0(
             actionX,
             192,
             actionWidth,
@@ -459,7 +459,7 @@ std::int32_t UpdateLoginProgress()
         if (result != 0) {
             cg::yobi::YobiAction* const action = gLoginProgressAction;
             if (action != nullptr) {
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gLoginProgressAction = nullptr;
             }
             return result;
@@ -467,7 +467,7 @@ std::int32_t UpdateLoginProgress()
     }
 
     cg::yobi::YobiAction* const action = gLoginProgressAction;
-    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
         const std::int32_t rowCount = gLoginProgressLayout.rowCount;
         const std::int32_t y = gLoginProgressLayout.y;
         const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;

@@ -11,6 +11,10 @@ namespace cg::yobi {
 
 namespace detail {
 
+} // namespace detail
+
+
+
 // WPL01：借初始action及现有action/图号槽保持原交错读取，见doc/cg2d_window_payload_creation_spec.md。
 void ConfigureWindowElementAction(
     YobiAction* const initialAction, YobiAction*& slot,
@@ -23,6 +27,7 @@ void ConfigureWindowElementAction(
     imageAction->imageNo = *imageNo;
     slot->displayPriority = 0xDF;
 }
+
 
 // WDP01：原颜色通道按选中BYTE读取；其它父全合同待，见doc/cg2d_window_element_draw_pipeline_spec.md。
 // PSP01：预览显式先替换后旧字节；其余调用沿原先旧后替换，两分支取样后同式发布，无新增字段默认值。
@@ -63,6 +68,7 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
     return &action->drawMode;
 }
 
+
 void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
 {
     const std::int32_t mapped = character_select::detail::Sub_51B740(imageNo);
@@ -72,6 +78,7 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
     slot->callback = nullptr;
     slot->direction = 5;
 }
+
 
 // SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。
 // SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
@@ -88,6 +95,7 @@ YobiAction* ConstructWindowSelectorPreview(const std::int32_t index, std::uint32
     return &action;
 }
 
+
 // SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
 void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)
 {
@@ -103,6 +111,7 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
     action->imageNo = imageNo;
     action->direction = 5;
 }
+
 
 // 原函数：0x0045E6E0。
 std::int32_t Sub_45E6E0(YobiAction* const action)
@@ -141,7 +150,5 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
     action->lastCharacterAction = -1;
     return result;
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

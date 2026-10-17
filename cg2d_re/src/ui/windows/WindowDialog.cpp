@@ -241,9 +241,9 @@ void WindowDialog_AddImage(
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
         WindowElement* const element = window->elements + count + 8;
-        cg::yobi::detail::SetYobiActionField2A8(
+        cg::yobi::SetYobiActionField2A8(
             static_cast<WindowAnimationData*>(element->data)->action, imageNo);
-        cg::yobi::detail::SetYobiActionField2B8(
+        cg::yobi::SetYobiActionField2B8(
             static_cast<WindowAnimationData*>(element->data)->action,
             std::bit_cast<std::int8_t>(direction));
         element->visible = 0;
@@ -291,7 +291,7 @@ cg::yobi::YobiAction* WindowDialog_Open(
     gMessageDialog.buttons = buttons;
     gMessageDialog.lineHeight = lineHeight;
     gMessageDialog.frame = frame;
-    const std::int32_t maximumLines = cg::yobi::detail::Sub_49C5E0(height16, buttons, lineHeight);
+    const std::int32_t maximumLines = cg::yobi::Sub_49C5E0(height16, buttons, lineHeight);
     if (gMessageDialog.lineCount > maximumLines) {
         gMessageDialog.lineCount = maximumLines;
     }
@@ -303,7 +303,7 @@ cg::yobi::YobiAction* WindowDialog_Open(
     if (second != nullptr) {
         second->state |= 0x8000u;
     }
-    return cg::yobi::detail::Sub_475950(x, y, width, height, 37, flags, mode, nullptr);
+    return cg::yobi::Sub_475950(x, y, width, height, 37, flags, mode, nullptr);
 }
 
 // 原函数：0x0049C710。
@@ -373,15 +373,15 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
         gMessageDialog.closeCallbackPending = 1;
         for (std::int32_t index = 8; index < 18; ++index) {
             const auto& image = gMessageDialogImagesCC4B70[index - 8];
-            cg::yobi::detail::SetYobiActionField2A8(
+            cg::yobi::SetYobiActionField2A8(
                 static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action,
                 image.imageNo);
-            cg::yobi::detail::SetYobiActionField2B8(
+            cg::yobi::SetYobiActionField2B8(
                 static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action,
                 std::bit_cast<std::int8_t>(image.direction));
-            cg::yobi::detail::SetYobiActionField310(
+            cg::yobi::SetYobiActionField310(
                 static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action, 4);
-            cg::yobi::detail::SetYobiActionField309(
+            cg::yobi::SetYobiActionField309(
                 static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action, 4);
             gCurrentWindow->elements[index].x = image.x;
             gCurrentWindow->elements[index].y = image.y;
@@ -520,7 +520,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     }
     WindowRuntime_DrawCurrent();
     window = gCurrentWindow;
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         gMessageDialog.imageNo, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
@@ -875,7 +875,7 @@ static void WindowDialog_Route(
                 if (gWindowStates[WindowId_Bank].window != nullptr) {
                     break;
                 }
-                created = cg::yobi::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+                created = cg::yobi::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
                 if (created != nullptr) {
                     break;
                 }
@@ -889,7 +889,7 @@ static void WindowDialog_Route(
                 if (gWindowStates[WindowId_ItemStorage].window != nullptr) {
                     break;
                 }
-                created = cg::yobi::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
+                created = cg::yobi::Sub_4ACE80(0, request, target, 0, 1, 0);
                 if (created != nullptr) {
                     break;
                 }
@@ -966,7 +966,7 @@ static void WindowDialog_Route(
     case 23:
     case 33:
         if (WindowBank_ReceiveStorageData(text) != 0 && gWindowStates[WindowId_Bank].window == nullptr) {
-            created = cg::yobi::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+            created = cg::yobi::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
         }
         if (created == nullptr && gWindowStates[WindowId_Bank].window == nullptr) {
             world::detail::gValue581800 = -1;
@@ -1002,7 +1002,7 @@ static void WindowDialog_Route(
         return;
     case 34:
         if (WindowBank_ReceiveStorageData(text) != 0 && gWindowStates[WindowId_ItemStorage].window == nullptr) {
-            created = cg::yobi::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
+            created = cg::yobi::Sub_4ACE80(0, request, target, 0, 1, 0);
         }
         if (created == nullptr && gWindowStates[WindowId_ItemStorage].window == nullptr) {
             world::detail::gValue581800 = -1;
@@ -1090,8 +1090,8 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
         gDialogReply.firstLine = network::ParseDelimitedInteger_52CFA0(text, '\n', 1);
         text = const_cast<char*>(std::strchr(text, '\n')) + 1;
     }
-    const std::int32_t columns = cg::yobi::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
-    const std::int32_t lines = cg::yobi::detail::Sub_49C5E0(
+    const std::int32_t columns = cg::yobi::Sub_49C5C0(static_cast<std::int16_t>(width));
+    const std::int32_t lines = cg::yobi::Sub_49C5E0(
         static_cast<std::int16_t>(height - inputHeight), buttons, lineHeight);
     char* marker = input::FindLegacyByte_44B4A0(text, "@");
     while (marker != nullptr) {
@@ -1143,8 +1143,8 @@ static std::int32_t WindowDialog_DrawHealing(
     WindowInstance* const window, const std::int32_t button,
     std::int32_t row, const std::int32_t)
 {
-    static_cast<void>(cg::yobi::detail::Sub_49C5C0(static_cast<std::int16_t>(window->width)));
-    const std::int32_t visibleLines = cg::yobi::detail::Sub_49C5E0(
+    static_cast<void>(cg::yobi::Sub_49C5C0(static_cast<std::int16_t>(window->width)));
+    const std::int32_t visibleLines = cg::yobi::Sub_49C5E0(
         static_cast<std::int16_t>(window->height), 1, 16);
     if (button != 0) {
         gHoverTextD68AE8 = L"不治疗了。";
@@ -1251,7 +1251,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     gDialogLinesCB1398[9].text = buffer;
     gDialogLinesCB1398[10].text = L"";
     gDialogReply.firstLine = 2;
-    const std::int32_t columns = cg::yobi::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
+    const std::int32_t columns = cg::yobi::Sub_49C5C0(static_cast<std::int16_t>(width));
     const std::int32_t first = gDialogReply.firstLine;
     return WindowDialog_Open(
         x, y, width, height, imageNo, 2, gDialogLinesCB1398.data(), first + 9,

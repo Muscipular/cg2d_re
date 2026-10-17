@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace cg::world::detail {
+namespace cg::world {
 
 // 原 [1051B14,1057BF4)：解析、计数及排序共用的 200 条 0x7C 字节运行记录。
 struct OrderedRecord1051B14 final {
@@ -27,7 +27,6 @@ static_assert(offsetof(OrderedRecord1051B14, text18) == 0x18);
 static_assert(sizeof(OrderedRecord1051B14) == 0x7C);
 
 extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14; // 原全局：0x01051B14。
-extern std::uint32_t gOrderMode1057C78; // 原全局：0x01057C78。 52F910 写入，52FB60 每次比较时读取。
 extern std::int32_t gOrderedRecordCount1051510; // 原全局：0x01051510。 50EEB0 写计数，532D80 清零。
 
 // 公会资料与同源文本表；socket未用，不复制成员/邮件/窗口owner。
@@ -52,11 +51,6 @@ const char* GetGuildRankText(std::int32_t index) noexcept; // 原30h步长文本
 
 // GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;
-// 原 50EF20：仅重置已证字段与四个文本首字节，其他字节保留。
-OrderedRecord1051B14* ResetOrderedRecord_50EF20(
-    OrderedRecord1051B14* record) noexcept;
-// 原 50EF70：按 | 字段解析、反转义并写入指定记录，返回 0/1。
-std::int32_t ParseOrderedRecord_50EF70(std::int32_t index, const char* text);
 // 原 50EEB0：首参为未读 socket，次参为未读 W32；EAX 可为门禁值、计数或满表末地址。
 std::uintptr_t UpdateOrderedRecords_50EEB0(
     std::uintptr_t ignoredSocket, std::uint32_t ignored1, const char* text);
@@ -67,4 +61,4 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
 // GML01：原5195C0，200项/+8 W16==1/+C key首匹配，S32计数/返回，无则-1。
 std::int32_t FindActiveOrderedRecordIndex_5195C0(std::int32_t key) noexcept;
 
-} // namespace cg::world::detail
+} // namespace cg::world

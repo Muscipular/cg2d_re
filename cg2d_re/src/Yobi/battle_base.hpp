@@ -10,6 +10,14 @@
 namespace cg::yobi {
 
 namespace detail {
+// 原1C起的16B数值记录；按动作解释字段，见BMSA06控制/附加记录合同，不含对象指针。
+struct BattleEntryEffectRecord {
+    std::int32_t position; // 原记录+00；命中目标、245特效类型或-1队列哨兵。
+    std::uint32_t flags; // 原记录+04，保持完整W32标志。
+    std::int32_t position3; // 原记录+08；数值/附加图号，245用作寿命输入。
+    std::int32_t position4; // 原记录+0C；图号/附加值，三字段4393A0不写此字段。
+};
+
 
 // 4239D0/427470骑乘拆分原18h载荷；指针原生拓宽，末8B仅保留原分配范围，不解释业务。
 struct BattleRideCarrierPayload {
@@ -151,6 +159,93 @@ struct BattleScenePayload {
 static_assert(offsetof(BattleScenePayload, entryMaskA8) == 0xA8);
 
 static_assert(offsetof(BattleScenePayload, fieldEffectB0) == 0xB0);
+
+// 原函数：0x004237E0。
+std::int32_t GetBattlePosition_4237E0(std::int32_t position); // 50/51转20/21，其余原值。
+// 原函数：0x0043B7F0。
+void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
+// 原函数：0x0043B830。
+std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。
+// 原函数：0x0043BF00。
+std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // B22H01：原1..15按五个S32阈值计档1..5，范围外-1。
+// 原函数：0x00404D90。
+std::int32_t SelectIntValue_404D90(const std::int32_t* values, std::int32_t count, std::int32_t index);
+// 原函数：0x004393A0。
+void AppendBattleEffectList_4393A0(
+    YobiAction* action, std::int32_t position, std::uint32_t flags, std::int32_t position3);
+// 原函数：0x00439400。
+void AppendBattleEffect_439400(YobiAction* action, BattleEntryEffectRecord effect);
+// 原函数：0x0043BC10。
+void AppendBattleAuxEffects_43BC10(
+    YobiAction* action, std::int32_t position, std::uint32_t flags,
+    std::int32_t value3, std::int32_t value4, std::int32_t value5);
+// 原439470：先推进C9C，返回新项position是否为-1；空对象返回0。
+std::int32_t AdvanceBattleEffect_439470(YobiAction* action);
+// 原43BC90：三次推进、四输出原序写入并分别重读游标，返回末次推进结果。
+std::int32_t TakeBattleAuxEffects_43BC90(
+    YobiAction* action, std::int32_t* position, std::int32_t* value3,
+    std::int32_t* value4, std::int32_t* value5);
+// 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
+void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
+// 原函数：0x00416DB0。
+void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
+
+// 原函数：0x0043BD00。
+std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原54项技能准入集合，返回0/1；不查询链，见追加效果链SPEC。
+// 原函数：0x0043BE00。
+void AddBattleAppendEffect_43BE00(
+    std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。
+// 原函数：0x0043BEA0。
+std::int32_t FindBattleAppendEffectTechnique_43BEA0(
+    std::int32_t skill, std::int32_t position); // 按位置/技能查首节点，未命中-1。
+// 原函数：0x00405CB0。
+void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
+// 原函数：0x00405E60。
+void NormalizeBattleAngle_405E60(YobiAction* action); // BSTL01：上限首样/第二角度持样/负值重取，一次加减360。
+// 原函数：0x00405EA0。
+void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
+// 原函数：0x00405ED0。
+std::int8_t GetBattleRelativeDirection_405ED0(
+    float sourceX, float sourceY, float targetX, float targetY,
+    float tolerance); // 第二组坐标作基准，原负基准两次相减及三闭区间保持独立。
+// 原函数：0x00406060。
+double GetBattleAngleDifference_406060(YobiAction* source, YobiAction* target); // 空引用返回0，未舍入角差只校正一圈。
+// 原函数：0x004060D0。
+void TurnBattleTowardPosition_4060D0(
+    YobiAction* action, float x, float y, std::int32_t updateDirection,
+    float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。
+// 原函数：0x00406190。
+void TurnBattleToward_406190(
+    YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
+// 原函数：0x004062A0。
+std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, float y); // BRCP01：先X后Y求差，平方和存F32/正常S32返回。
+// 原函数：0x00406300。
+std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
+// 原函数：0x00406360。
+std::int32_t CountBattleActiveEntries_406360(); // BHRC01：22槽含20/21，FF8完整S32严格==1，无新payload保护。
+// 原函数：0x004065A0。
+std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
+// 原函数：0x00406260。
+void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
+// 原函数：0x004390E0。
+void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
+// 原函数：0x004391E0。
+void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。
+// 原函数：0x004392A0。
+void AppendBattleCast_4392A0(YobiAction* caster, YobiAction* actor, std::int32_t state);
+// 原函数：0x004392F0。
+void AppendBattleCastAt_4392F0(
+    YobiAction* caster, YobiAction* actor, std::int32_t state, std::int32_t index);
+// 原函数：0x00439340。
+void AdvanceBattleCastState_439340(YobiAction* action); // 先推进FC4，到200或-1哨兵写phase236。
+// 原函数：0x0040CAC0。
+void AdvanceBattleLinkedCast_40CAC0(YobiAction* action); // 动作73：当前效果目标先推进，再推进自身。
+// 原函数：0x0040CAF0。
+void AdvanceBattleEffectAndCast_40CAF0(YobiAction* action); // 动作74：推进效果后总是推进动作。
+// 原函数：0x00439380。
+void MoveBattleCastState_439380(YobiAction* action); // 播放索引对应项写phase，不推进索引。
+// 原函数：0x004394A0。
+std::int32_t CheckBattleTurnReady_4394A0(YobiAction* parent, std::int32_t enable); // 22槽就绪及超时恢复。
 
 } // namespace detail
 

@@ -8,6 +8,8 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
+#include "animation.hpp"
+
 #include <array>
 #include <bit>
 #include <cstddef>

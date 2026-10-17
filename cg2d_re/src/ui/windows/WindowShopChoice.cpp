@@ -223,9 +223,9 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = ((window->width - measured) >> 1) + 6;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
-        cg::yobi::detail::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
+        cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
         animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
-        cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::SetYobiActionField2B8(animation->action, 5);
         const std::uint8_t count = gChoiceDialog.choiceCount;
         gCurrentWindow->elements[2].height =
             count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
@@ -261,7 +261,7 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
                 3, 12, 0, text, 0, 0));
     }
     WindowInstance* const window = gCurrentWindow;
-    cg::yobi::detail::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
+    cg::yobi::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);

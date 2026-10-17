@@ -6,6 +6,9 @@
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
+#include "battle_actor.hpp"
+#include "battle_scene.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cstddef>

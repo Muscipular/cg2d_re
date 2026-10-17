@@ -4,6 +4,9 @@
 #include "battle_message.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
+#include "battle_scene.hpp"
+#include "battle_skill.hpp"
+
 #include <array>
 #include <bit>
 #include <cstdint>

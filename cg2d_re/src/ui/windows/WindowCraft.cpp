@@ -454,13 +454,13 @@ std::int32_t WindowCraft_ReadItemSelection()
 static void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
 {
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
     std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
         const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            cg::yobi::detail::SetYobiActionField2B0(
+            cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, 16);
             if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
                 imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
@@ -468,7 +468,7 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
         }
     }
     if (specialImageFallback && imageNo == 0x18A26) {
-        cg::yobi::detail::SetYobiActionField2B0(
+        cg::yobi::SetYobiActionField2B0(
             static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
     }
 }
@@ -567,7 +567,7 @@ static void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 0);
     window->elements[6].visible = 0;
     window->elements[7].visible = 0;
@@ -1309,7 +1309,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 0);
     window->elements[6].visible = 0;
     window->elements[7].visible = 0;
@@ -2361,7 +2361,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
     static_cast<void>(render::DrawText_456780(
         145, 205, 4, 0, 0, second, 0,
         static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         0x3BE34, 115, 155, 410, 150, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -2602,7 +2602,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 0);
     window->elements[6].visible = 0;
     window->elements[7].visible = 0;
@@ -2964,9 +2964,9 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     }
     const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
-    cg::yobi::detail::SetYobiActionField2A8(
+    cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);
-    cg::yobi::detail::SetYobiActionField2B8(
+    cg::yobi::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
         WindowInstance* const window = gCurrentWindow;
@@ -3009,30 +3009,30 @@ static std::int32_t WindowCraft_Draw(const std::int32_t)
     cg::yobi::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action;
     const std::uint8_t mode = gSelectionModeD2D650;
-    const std::int32_t imageNo = cg::yobi::detail::GetYobiActionField2A8(action);
+    const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
     if (mode == 2 || mode == 5) {
-        const std::int32_t actionId = cg::yobi::detail::GetYobiActionField2B0(action);
+        const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
         if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
             const bool succeeded = actionId == 18 || actionId == 5;
             const std::int32_t defaultAction = succeeded ? 5 : 10;
-            cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
+            cg::yobi::SetYobiActionField2B0(action, defaultAction);
             for (const auto& range : kCraftAlternateActionImages) {
                 if (imageNo >= range[0] && imageNo <= range[1]) {
-                    cg::yobi::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                    cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
                 }
             }
             if (imageNo == 0x18A26) {
-                cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
+                cg::yobi::SetYobiActionField2B0(action, defaultAction);
             }
         }
     }
     if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        cg::yobi::detail::SetYobiActionField309(
+        cg::yobi::SetYobiActionField309(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
-        cg::yobi::detail::SetYobiActionField310(
+        cg::yobi::SetYobiActionField310(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
     } else {
-        cg::yobi::detail::SetYobiActionField309(
+        cg::yobi::SetYobiActionField309(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 0);
     }
     const std::int32_t hovered = gMaterialHoveredItemD67424;
@@ -3069,7 +3069,7 @@ std::int32_t WindowCraft_SetPreviewPositions(
     elements[second].y = elements[anchor].y + dy;
     elements = window->elements;
     auto* const data = static_cast<WindowAnimationData*>(elements[first].data);
-    if (cg::yobi::detail::GetYobiActionField2A8(data->action) > 0) {
+    if (cg::yobi::GetYobiActionField2A8(data->action) > 0) {
         elements[dy > 0 ? first : second].visible = 1;
     }
     return first * 36;
@@ -3084,13 +3084,13 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     cg::yobi::YobiAction* action = data->action;
     const std::uint32_t value = flag == 0 ? 1u : 0u;
     data->value04 = value;
-    cg::yobi::detail::SetYobiActionField2B0(action, actionId);
-    cg::yobi::detail::SetYobiActionField2B8(action, direction);
+    cg::yobi::SetYobiActionField2B0(action, actionId);
+    cg::yobi::SetYobiActionField2B8(action, direction);
     data = static_cast<WindowAnimationData*>(window->elements[second].data);
     action = data->action;
     data->value04 = value;
-    cg::yobi::detail::SetYobiActionField2B0(action, actionId);
-    cg::yobi::detail::SetYobiActionField2B8(action, direction);
+    cg::yobi::SetYobiActionField2B0(action, actionId);
+    cg::yobi::SetYobiActionField2B8(action, direction);
     return data;
 }
 
@@ -3204,18 +3204,18 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     const bool succeeded = gCraftResultCC46D8 != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
     std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            cg::yobi::detail::SetYobiActionField2B0(
+            cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
             imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
-        cg::yobi::detail::SetYobiActionField2B0(
+        cg::yobi::SetYobiActionField2B0(
             static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
     }
     window->elements[6].visible = 0;
@@ -3431,18 +3431,18 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     const bool succeeded = gItemWorkResultCB05FC != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
-    cg::yobi::detail::SetYobiActionField2B0(
+    cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
     std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            cg::yobi::detail::SetYobiActionField2B0(
+            cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
             imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
-        cg::yobi::detail::SetYobiActionField2B0(
+        cg::yobi::SetYobiActionField2B0(
             static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
     }
     window->elements[6].visible = 0;
@@ -3564,9 +3564,9 @@ std::int32_t WindowCraft_SetPreviewImages(
     WindowInstance* const window, const std::int32_t first,
     const std::int32_t second, const std::int32_t imageNo)
 {
-    cg::yobi::detail::SetYobiActionField2A8(
+    cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(window->elements[first].data)->action, imageNo);
-    cg::yobi::detail::SetYobiActionField2A8(
+    cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(window->elements[second].data)->action, imageNo);
     if (imageNo <= 0) {
         window->elements[first].visible = 0;

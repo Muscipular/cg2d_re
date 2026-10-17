@@ -548,9 +548,9 @@ static std::int32_t WindowCrystalShop_Update(const std::int32_t value)
         title->text = gNpcDialogLinesCC24D4[0].text;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
         const std::int32_t imageNo = gWindow69ImageCB01F0;
-        cg::yobi::detail::SetYobiActionField2A8(animation->action, imageNo);
+        cg::yobi::SetYobiActionField2A8(animation->action, imageNo);
         animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
-        cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::SetYobiActionField2B8(animation->action, 5);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -1169,7 +1169,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(const std::int32_t inde
             WindowNumber_Draw(x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         245300, 0, 35, 640, 383, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

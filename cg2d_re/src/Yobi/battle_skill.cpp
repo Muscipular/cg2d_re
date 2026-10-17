@@ -9,6 +9,8 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/render/RendererResources.hpp"
 
+#include "battle_scene.hpp"
+
 #include <cstdint>
 
 namespace cg::yobi {

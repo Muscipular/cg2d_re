@@ -67,26 +67,26 @@ void DrawCutObject(
         const std::int32_t startY = gMapYStart;
         const std::int32_t mapX = startX + column;
         const std::int32_t index = 399 * mapX + startY + row;
-        if (cg::yobi::detail::MapYobiRegistryFlagAt(index) != 0) {
-            cg::yobi::YobiAction* const action = cg::yobi::detail::MapYobiRegistryActionAt(index);
-            cg::yobi::detail::Sub_46DD90(action);
+        if (cg::yobi::MapYobiRegistryFlagAt(index) != 0) {
+            cg::yobi::YobiAction* const action = cg::yobi::MapYobiRegistryActionAt(index);
+            cg::yobi::Sub_46DD90(action);
             return;
         }
         const std::int32_t mapY = startY + row;
-        cg::yobi::detail::MapYobiRegistryFlagAt(index) = 1;
+        cg::yobi::MapYobiRegistryFlagAt(index) = 1;
         const std::int32_t imageNo = cut.value00;
-        cg::yobi::YobiAction* const action = cg::yobi::detail::Sub_46DE50(imageNo, mapX, mapY);
+        cg::yobi::YobiAction* const action = cg::yobi::Sub_46DE50(imageNo, mapX, mapY);
         const std::int32_t publishX = gMapXStart + column;
         const std::int32_t publishY = gMapYStart;
         const std::int32_t offsetX = cut.value0E;
-        cg::yobi::detail::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
-        cg::yobi::detail::SetYobiMapOffsetX(action, offsetX);
+        cg::yobi::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
+        cg::yobi::SetYobiMapOffsetX(action, offsetX);
         const std::int32_t offsetIndexX = gMapXStart + column;
         const std::int32_t offsetY = cut.value10;
         const std::int32_t offsetIndexY = gMapYStart;
         cg::yobi::YobiAction* const offsetAction =
-            cg::yobi::detail::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
-        cg::yobi::detail::SetYobiMapOffsetY(offsetAction, offsetY);
+            cg::yobi::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
+        cg::yobi::SetYobiMapOffsetY(offsetAction, offsetY);
         return;
     }
     if (animationFlag != 0) {

@@ -230,7 +230,7 @@ int InitializeClient_4576B0()
     SeedRandom_53B4BF(std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
     static_cast<void>(world::InitializeRotationTable_46FB20());
     static_cast<void>(ResetLegacyMouseState_506870());
-    static_cast<void>(cg::yobi::detail::Sub_404A40());
+    static_cast<void>(cg::yobi::Sub_404A40());
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
     if (cg::login::detail::RestoreCurrentSavedState_5201B0() == 0) {

@@ -6,6 +6,11 @@
 #include "cg/render/Palette.hpp"
 #include "cg/render/RendererResources.hpp"
 
+#include "animation.hpp"
+#include "battle_attachment.hpp"
+#include "battle_display.hpp"
+#include "battle_effect.hpp"
+
 #include <array>
 #include <bit>
 #include <cstdint>

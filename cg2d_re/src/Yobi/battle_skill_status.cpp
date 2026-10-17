@@ -11,6 +11,8 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+#include "battle_scene.hpp"
+
 #include <Windows.h>
 
 #include <array>

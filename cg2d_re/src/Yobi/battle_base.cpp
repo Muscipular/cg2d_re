@@ -6,6 +6,9 @@
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 
+#include "battle_attachment.hpp"
+#include "battle_display.hpp"
+
 #include <algorithm>
 #include <array>
 #include <bit>
@@ -184,19 +187,6 @@ std::int32_t FindBattleAppendEffectTechnique_43BEA0(
     return -1;
 }
 
-// 原函数：0x0043BED0。
-void ClearBattleAppendEffects_43BED0()
-{
-    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
-    while (node != nullptr) {
-        BattleAppendEffectNode* const current = node;
-        gBattleAppendEffects5ABA8C = current;
-        node = current->next;
-        std::free(current);
-    }
-    gBattleAppendEffects5ABA8C = nullptr;
-}
-
 namespace {
 
 // 原函数：0x00405BD0。
@@ -226,38 +216,6 @@ std::int32_t CompareBattleDrawActions_405BD0(
 }
 
 } // namespace
-
-// 原函数：0x00405C30。
-std::int32_t SortBattleActions_405C30()
-{
-    YobiAction* const start = gYobiActionStart;
-    YobiAction* const end = gYobiActionEnd;
-    std::uint32_t count = 0;
-    YobiAction* current = start->next;
-    gDrawYobiCount59E578 = 0;
-    while (current != end) {
-        if ((current->flags & 0x20000u) != 0) {
-            gDrawYobiList59E57C[count] = current;
-            ++count;
-            gDrawYobiCount59E578 = static_cast<std::int32_t>(count);
-        }
-        current = current->next;
-    }
-    std::sort(gDrawYobiList59E57C.begin(), gDrawYobiList59E57C.begin() + count,
-        [](YobiAction* const left, YobiAction* const right) {
-            return CompareBattleDrawActions_405BD0(&left, &right) < 0;
-        });
-    std::int32_t index = 0;
-    if (gDrawYobiCount59E578 > 0) {
-        do {
-            YobiAction* const action = gDrawYobiList59E57C[index];
-            const auto priority = static_cast<std::uint8_t>(index + 9);
-            ++index;
-            action->displayPriority = priority;
-        } while (index < gDrawYobiCount59E578);
-    }
-    return index;
-}
 
 // 原函数：0x00405CB0。
 void Sub_405CB0(YobiAction* const action)
@@ -857,18 +815,68 @@ std::int32_t CheckBattleTurnReady_4394A0(
     return 1;
 }
 
+} // namespace detail
+
+
+
+// 原函数：0x0043BED0。
+void ClearBattleAppendEffects_43BED0()
+{
+    detail::BattleAppendEffectNode* node = detail::gBattleAppendEffects5ABA8C;
+    while (node != nullptr) {
+        detail::BattleAppendEffectNode* const current = node;
+        detail::gBattleAppendEffects5ABA8C = current;
+        node = current->next;
+        std::free(current);
+    }
+    detail::gBattleAppendEffects5ABA8C = nullptr;
+}
+
+
+// 原函数：0x00405C30。
+std::int32_t SortBattleActions_405C30()
+{
+    YobiAction* const start = detail::gYobiActionStart;
+    YobiAction* const end = detail::gYobiActionEnd;
+    std::uint32_t count = 0;
+    YobiAction* current = start->next;
+    detail::gDrawYobiCount59E578 = 0;
+    while (current != end) {
+        if ((current->flags & 0x20000u) != 0) {
+            detail::gDrawYobiList59E57C[count] = current;
+            ++count;
+            detail::gDrawYobiCount59E578 = static_cast<std::int32_t>(count);
+        }
+        current = current->next;
+    }
+    std::sort(detail::gDrawYobiList59E57C.begin(), detail::gDrawYobiList59E57C.begin() + count,
+        [](YobiAction* const left, YobiAction* const right) {
+            return detail::CompareBattleDrawActions_405BD0(&left, &right) < 0;
+        });
+    std::int32_t index = 0;
+    if (detail::gDrawYobiCount59E578 > 0) {
+        do {
+            YobiAction* const action = detail::gDrawYobiList59E57C[index];
+            const auto priority = static_cast<std::uint8_t>(index + 9);
+            ++index;
+            action->displayPriority = priority;
+        } while (index < detail::gDrawYobiCount59E578);
+    }
+    return index;
+}
+
+
 YobiAction* const* FindBattleRebirthSlot(const YobiAction* const action) noexcept
 {
-    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
+    const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     return payload != nullptr ? &payload->rebirthEffect106C : nullptr;
 }
 
+
 YobiAction* const* FindBattleRiderSlot(const YobiAction* const action) noexcept
 {
-    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
+    const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     return payload != nullptr ? &payload->rider13C8 : nullptr;
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

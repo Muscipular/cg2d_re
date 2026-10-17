@@ -4,6 +4,11 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 
+#include "animation.hpp"
+#include "battle_actor.hpp"
+#include "battle_attachment.hpp"
+#include "battle_effect.hpp"
+
 #include <bit>
 #include <cstddef>
 #include <cstdint>

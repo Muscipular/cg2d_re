@@ -219,10 +219,10 @@ static void WindowOwnProfile_Refresh()
     jobData->text = cg::text::FromGbkWide(job);
 
     WindowInstance* const guildWindow = gCurrentWindow;
-    const std::int32_t guildIndex = cg::world::detail::ReadGuildTextIndex10514B0();
+    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     const char* const guild = guildIndex == -1
-        ? "" : cg::world::detail::GetGuildName();
+        ? "" : cg::world::GetGuildName();
     guildData->text = cg::text::FromGbkWide(guild);
 
     for (std::int32_t index = 0; index < 3; ++index) {

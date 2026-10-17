@@ -13,10 +13,10 @@
 #include <cstdlib>
 #include <cstring>
 
-namespace cg::world::detail {
+namespace cg::world {
 
 std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {}; // 原全局：0x01051B14。
-std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
+static std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
 std::int32_t gOrderedRecordCount1051510 = 0; // 原全局：0x01051510。
 
 namespace {
@@ -270,7 +270,7 @@ std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
 }
 
 // 原函数：0x0050EF20。
-OrderedRecord1051B14* ResetOrderedRecord_50EF20(
+static OrderedRecord1051B14* ResetOrderedRecord_50EF20(
     OrderedRecord1051B14* const record) noexcept
 {
     record->value04 = 0;
@@ -288,7 +288,7 @@ OrderedRecord1051B14* ResetOrderedRecord_50EF20(
 }
 
 // 原函数：0x0050EF70。
-std::int32_t ParseOrderedRecord_50EF70(
+static std::int32_t ParseOrderedRecord_50EF70(
     const std::int32_t index, const char* const text)
 {
     const std::int32_t key =
@@ -435,4 +435,4 @@ std::int32_t FindActiveOrderedRecordIndex_5195C0(
     return -1;
 }
 
-} // namespace cg::world::detail
+} // namespace cg::world

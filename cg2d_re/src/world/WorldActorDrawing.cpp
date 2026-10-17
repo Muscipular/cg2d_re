@@ -436,7 +436,7 @@ void Sub_445D20(
             return;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -497,7 +497,7 @@ void Sub_445F40(
             return;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {

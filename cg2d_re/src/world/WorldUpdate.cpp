@@ -65,17 +65,17 @@ void Update()
         default:
             break;
         }
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::detail::Sub_44A410();
+        cg::input::Sub_44A410();
         return;
     }
     case 2: {
         const ui::LegacyUiLayoutScope layout;
         platform::gValue73ECC0 = 0;
         login::ProcessScene_45FEA0();
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     }
@@ -83,7 +83,7 @@ void Update()
         const ui::LegacyUiLayoutScope layout;
         platform::gValue73ECC0 = 0;
         character_select::ProcessScene_460FF0();
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     }
@@ -91,10 +91,10 @@ void Update()
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         character_select::detail::ProcessCreationScene_4626A0(1);
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::detail::Sub_44A410();
+        cg::input::Sub_44A410();
         return;
     case 5:
         platform::gValue73ECC0 = 0;
@@ -121,7 +121,7 @@ void Update()
         cg::core::NullSub_509080();
         detail::Sub_518780();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::detail::Sub_43F220();
+        cg::yobi::Sub_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
@@ -134,7 +134,7 @@ void Update()
         goto sceneSixTail;
     case 7:
         detail::Sub_45EBB0();
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         return;
     case 8:
         return;
@@ -149,9 +149,9 @@ void Update()
         if (sceneState == 0) {
             detail::Sub_519D50();
             detail::Sub_446470();
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
-            cg::yobi::detail::Sub_43F220();
+            cg::yobi::Sub_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;
@@ -177,7 +177,7 @@ void Update()
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
-        cg::yobi::detail::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30();
         gValueD9F2CA = 0;
         return;
     }
@@ -191,10 +191,10 @@ void Update()
         } else {
             character_select::ProcessScene_462330();
         }
-        cg::yobi::detail::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::detail::Sub_44A410();
+        cg::input::Sub_44A410();
         return;
     default:
         return;
@@ -202,7 +202,7 @@ void Update()
 
 // 原函数：0x00404C50。
 sceneSixTail:
-    cg::yobi::detail::YobiUpdateAll_404C50();
+    cg::yobi::YobiUpdateAll_404C50();
     detail::RenderChara_521F20();
 }
 
@@ -236,13 +236,13 @@ std::int32_t Sub_455C90()
         gDisconnectHeight62B304 = 144;
         gDisconnectX62B390 = 130;
         gDisconnectY62B2EC = 156;
-        action = cg::yobi::detail::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
+        action = cg::yobi::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
         gDisconnectAction62B5B4 = action;
         if (action == nullptr) {
             return 0;
         }
     }
-    if (!cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (!cg::yobi::IsYobiActionReady(action, 1)) {
         return 0;
     }
 
@@ -261,7 +261,7 @@ std::int32_t Sub_455C90()
         left, top, right, bottom, -1) != 0;
     if (hovered
         && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons) & 1U) != 0) {
-        cg::yobi::detail::MarkDeath(gDisconnectAction62B5B4);
+        cg::yobi::MarkDeath(gDisconnectAction62B5B4);
         gDisconnectAction62B5B4 = nullptr;
         clicked = 1;
     }

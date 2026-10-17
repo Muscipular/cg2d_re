@@ -120,7 +120,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         gCapability4ModalHeight = modalHeight;
         gCapability4ModalX = modalX;
         gCapability4ModalY = modalY;
-        gCapability4ModalAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gCapability4ModalAction = cg::yobi::CreateModalAction_5044E0(
             modalX,
             modalY,
             roundedWidth,
@@ -187,14 +187,14 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         PlaySe(79, 320, 240);
         cg::yobi::YobiAction* const action = gCapability4ModalAction;
         if (action != nullptr) {
-            cg::yobi::detail::MarkDeath(action);
+            cg::yobi::MarkDeath(action);
             gCapability4ModalAction = nullptr;
         }
         return result;
     }
 
     cg::yobi::YobiAction* const action = gCapability4ModalAction;
-    if (action == nullptr || !cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action == nullptr || !cg::yobi::IsYobiActionReady(action, 1)) {
         return 0;
     }
 

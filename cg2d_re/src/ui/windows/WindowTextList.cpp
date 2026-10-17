@@ -292,7 +292,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->elements[3].visible = 1;
         gCurrentWindow->elements[4].visible = 0;
     }
-    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
         gCurrentWindow->elements[22].visible = 0;
         if (gSelectedItem57EE0C >= 0) {
             gCurrentWindow->elements[22].visible = 1;
@@ -300,12 +300,12 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
     }
     gCurrentWindow->elements[2].visible = 0;
     gCurrentWindow->elements[21].visible = 0;
-    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 0x80u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 0x80u) != 0) {
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[21].visible = 1;
     }
     gCurrentWindow->elements[22].visible = 0;
-    if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
         if (gSelectedItem57EE0C < 0) {
             return 1;
         }
@@ -359,7 +359,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     }
     static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
     static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, gWindowModalTextC8AF88, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -620,7 +620,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
-            if ((static_cast<std::uint8_t>(cg::world::detail::ReadGuildValue10514B4()) & 4u) != 0
+            if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0
                 || world::detail::gPlayerRuntimeSlots.items[source].itemType == 53) {
                 const unsigned char previous = occupancy[gSelectedItem57EE0C];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {

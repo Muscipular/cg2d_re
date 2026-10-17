@@ -459,7 +459,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
     cg::yobi::YobiAction* const actionToDestroy =
         state::gPreviewActions[slotIndex];
     if (actionToDestroy != nullptr) {
-        cg::yobi::detail::MarkDeath(actionToDestroy);
+        cg::yobi::MarkDeath(actionToDestroy);
         state::gPreviewActions[slotIndex] = nullptr;
     }
 
@@ -500,7 +500,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
     const std::array<std::int32_t, kPreviewGraphicCount>& graphics =
         SelectGraphicTable(previewState);
 
-    cg::yobi::YobiAction* const action = cg::yobi::detail::NewYobiAction_404AE0(
+    cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(
         std::uint8_t{2},
         std::uint32_t{0});
     state::gPreviewActions[slotIndex] = action;
@@ -512,11 +512,11 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
     const std::int32_t normalizedGraphic =
         record.graphicNo;
     if (normalizedGraphic == 33100) {
-        cg::yobi::detail::SetYobiActionField2A8(action, 100900);
+        cg::yobi::SetYobiActionField2A8(action, 100900);
     } else if (normalizedGraphic == 33101) {
-        cg::yobi::detail::SetYobiActionField2A8(action, 100901);
+        cg::yobi::SetYobiActionField2A8(action, 100901);
     } else {
-        cg::yobi::detail::SetYobiActionField2A8(
+        cg::yobi::SetYobiActionField2A8(
             action,
             graphics[static_cast<std::size_t>(graphicIndex)]);
         const std::int32_t remainder = converted % 100;
@@ -524,22 +524,22 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
             state::gPreviewActions[slotIndex];
         const std::int32_t variant = remainder / 25;
         const std::int32_t baseGraphic =
-            cg::yobi::detail::GetYobiActionField2A8(actionForVariant);
-        cg::yobi::detail::SetYobiActionField2A8(
+            cg::yobi::GetYobiActionField2A8(actionForVariant);
+        cg::yobi::SetYobiActionField2A8(
             actionForVariant,
             baseGraphic + 6 * variant);
     }
 
-    cg::yobi::detail::SetYobiActionField2B0(state::gPreviewActions[slotIndex], 0);
-    cg::yobi::detail::SetYobiActionField15(state::gPreviewActions[slotIndex], 10);
+    cg::yobi::SetYobiActionField2B0(state::gPreviewActions[slotIndex], 0);
+    cg::yobi::SetYobiActionField15(state::gPreviewActions[slotIndex], 10);
     const std::int32_t x = 315 * static_cast<std::int32_t>(slot) + 163;
-    cg::yobi::detail::SetYobiActionField30(state::gPreviewActions[slotIndex], x);
-    cg::yobi::detail::SetYobiActionField34(state::gPreviewActions[slotIndex], 292);
-    cg::yobi::detail::SetYobiActionField2B8(state::gPreviewActions[slotIndex], 5);
+    cg::yobi::SetYobiActionField30(state::gPreviewActions[slotIndex], x);
+    cg::yobi::SetYobiActionField34(state::gPreviewActions[slotIndex], 292);
+    cg::yobi::SetYobiActionField2B8(state::gPreviewActions[slotIndex], 5);
 
     cg::yobi::YobiAction* const actionForFrameMove =
         state::gPreviewActions[slotIndex];
-    cg::yobi::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
+    cg::yobi::Sub_517880(actionForFrameMove, 100, 0, 0);
 }
 
 } // namespace cg::character_select

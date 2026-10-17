@@ -54,7 +54,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         const std::int32_t width = columns * kColumnWidth;
         const std::int32_t x = centeredWidth / 2;
         gCharacterDeletionProgressX = x;
-        gCharacterDeletionProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
+        gCharacterDeletionProgressAction = cg::yobi::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -72,7 +72,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         if (result != 0) {
             cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
             if (action != nullptr) {
-                cg::yobi::detail::MarkDeath(action);
+                cg::yobi::MarkDeath(action);
                 gCharacterDeletionProgressAction = nullptr;
             }
             return result;
@@ -80,7 +80,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     }
 
     cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
-    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
+    if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCharacterDeletionProgressRows;
         const std::int32_t y = gCharacterDeletionProgressY;
         const std::int32_t verticalHeight = rows * kRowHeight - 16;

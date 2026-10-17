@@ -58,7 +58,7 @@ std::int32_t InitLoading_457B10()
             colorBytes[3] = 0xFF;
             static_cast<void>(render::SelectPalette(19, 1));
             phase = 1;
-            cg::yobi::detail::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30();
             break;
         }
         case 1:
@@ -318,7 +318,7 @@ std::int32_t InitLoading_457B10()
         }
         }
 
-        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         if (image != 0) {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, image, 0,

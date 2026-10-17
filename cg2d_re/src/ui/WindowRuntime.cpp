@@ -1007,7 +1007,7 @@ void WindowItem_RequestTransfer(
     } else {
         gItemMoveTargetD2DBF8 = target;
         gItemMoveSourceCF46B0 = source;
-        static_cast<void>(cg::yobi::detail::Sub_48AC60(
+        static_cast<void>(cg::yobi::Sub_48AC60(
             sourceWindow, sourceElement, 244309, count, count, 0,
             [](const std::int32_t amount) { static_cast<void>(WindowItem_RequestTransferQuantity(amount)); },
             1, 0, 0));
@@ -1592,7 +1592,7 @@ std::int32_t WindowItem_DrawTooltip(
 WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* const state, const std::int32_t previewIndex)
 {
     std::uint32_t flags;
-    cg::yobi::YobiAction* const preview = cg::yobi::detail::ConstructWindowSelectorPreview(previewIndex, flags);
+    cg::yobi::YobiAction* const preview = cg::yobi::ConstructWindowSelectorPreview(previewIndex, flags);
     state->preview = preview;
     state->initialized3E8 = 0;
     state->value64 = 0;
@@ -1603,7 +1603,7 @@ WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorS
     state->value3ED = 1;
     state->imageIndex3F0 = 0;
     state->imageIndex3F4 = 0;
-    cg::yobi::detail::FinishWindowSelectorPreview(preview, flags);
+    cg::yobi::FinishWindowSelectorPreview(preview, flags);
     state->hoverIndex3B0 = -1;
     state->hoverIndex3F8 = -1;
     state->bytes3B4.fill(std::byte{0});
@@ -2093,18 +2093,18 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
     }
     cg::yobi::YobiAction* const preview = state->preview;
     const std::int32_t imageNo = world::detail::gPetRuntimeRecords[selected].imageNo6A0;
-    cg::yobi::detail::SetYobiActionField2A8(preview, imageNo);
-    const std::int32_t result = cg::yobi::detail::Sub_517880(preview, 100, 0, 0);
-    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(preview);
+    cg::yobi::SetYobiActionField2A8(preview, imageNo);
+    const std::int32_t result = cg::yobi::Sub_517880(preview, 100, 0, 0);
+    const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(preview);
     if (graphicIndex == 0) {
         return result;
     }
     const render::GraphicDescriptor16* const descriptor =
-        cg::yobi::detail::ApplyWindowAnimationDrawMode(preview, true);
-    const std::uint8_t layer = cg::yobi::detail::GetYobiActionField15(preview);
-    const std::int32_t offsetY = cg::yobi::detail::Sub_5182B0(preview, 1);
+        cg::yobi::ApplyWindowAnimationDrawMode(preview, true);
+    const std::uint8_t layer = cg::yobi::GetYobiActionField15(preview);
+    const std::int32_t offsetY = cg::yobi::Sub_5182B0(preview, 1);
     const std::int32_t y = offsetY + gCurrentWindow->y + 163;
-    const std::int32_t offsetX = cg::yobi::detail::Sub_5182B0(preview, 0);
+    const std::int32_t offsetX = cg::yobi::Sub_5182B0(preview, 0);
     const std::int32_t elementX = state->elements00[1]->x;
     const std::int32_t x = elementX + offsetX + gCurrentWindow->x + 101;
     return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
@@ -2292,16 +2292,16 @@ bool WindowItemSelector_RotatePreview(WindowItemSelectorState* const state, cons
     bool consumed = false;
     if ((events & 0x402) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        const std::int32_t direction = cg::yobi::detail::GetYobiActionField2B8(state->preview);
-        cg::yobi::detail::SetYobiActionField2B8(state->preview, (direction + 1) % 8);
+        const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview);
+        cg::yobi::SetYobiActionField2B8(state->preview, (direction + 1) % 8);
         consumed = true;
     }
     if ((events & 0x804) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        const std::int32_t direction = cg::yobi::detail::GetYobiActionField2B8(state->preview) - 1;
-        cg::yobi::detail::SetYobiActionField2B8(state->preview, direction);
+        const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview) - 1;
+        cg::yobi::SetYobiActionField2B8(state->preview, direction);
         if (direction < 0) {
-            cg::yobi::detail::SetYobiActionField2B8(state->preview, direction + 8);
+            cg::yobi::SetYobiActionField2B8(state->preview, direction + 8);
         }
         consumed = true;
     }
@@ -3567,7 +3567,7 @@ std::int32_t WindowRuntime_DrawCompactFrame(const std::int32_t)
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
     const auto x = static_cast<std::int16_t>(window->x);
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         0x3BE3E, x, y, width, height, 0xDF, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     render::ClearTextQueueTail_456D50(3);
@@ -3620,7 +3620,7 @@ std::int32_t WindowRuntime_DrawLargeFrame(const std::int32_t)
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
     const auto x = static_cast<std::int16_t>(window->x);
-    cg::yobi::detail::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(
         245300, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -4505,9 +4505,9 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                 auto* const data = static_cast<WindowAnimationData*>(
                     std::calloc(1, sizeof(WindowAnimationData)));
                 if (data != nullptr) {
-                    cg::yobi::YobiAction* const action = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
+                    cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(2, 0);
                     data->action = action;
-                    cg::yobi::detail::ConfigureWindowElementAction(
+                    cg::yobi::ConfigureWindowElementAction(
                         action, data->action, source->source.animationImageNo);
                     data->value04 = 0;
                 }
@@ -4665,7 +4665,7 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     // 展开矩形计入实际分页区；位置由Sub_475950与创建入口共用的规则确定。
     const std::int32_t openingHeight = height
         + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
-    return cg::yobi::detail::Sub_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
+    return cg::yobi::Sub_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
 }
 
 // 原函数：0x00477160。
@@ -4765,7 +4765,7 @@ void WindowRuntime_Free(WindowInstance* const window)
         case WindowElementType_Animation: {
             const auto* const data = static_cast<const WindowAnimationData*>(element->data);
             if (data != nullptr) {
-                cg::yobi::detail::MarkDeathUnchecked(data->action);
+                cg::yobi::MarkDeathUnchecked(data->action);
                 std::free(window->elements[index].data);
                 window->elements[index].data = nullptr;
             }
@@ -5019,18 +5019,18 @@ void WindowRuntime_DrawCurrent()
                 const auto* const data = static_cast<const WindowAnimationData*>(element->data);
                 const std::uint32_t stop = data->value04;
                 cg::yobi::YobiAction* const action = data->action;
-                static_cast<void>(cg::yobi::detail::Sub_517880(action, 100, stop != 0, 0));
-                const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
+                static_cast<void>(cg::yobi::Sub_517880(action, 100, stop != 0, 0));
+                const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
                 if (graphicIndex == 0) {
                     break;
                 }
                 const render::GraphicDescriptor16* const mode =
-                    cg::yobi::detail::ApplyWindowAnimationDrawMode(action);
-                const std::int32_t offsetY = cg::yobi::detail::Sub_5182B0(action, 1);
+                    cg::yobi::ApplyWindowAnimationDrawMode(action);
+                const std::int32_t offsetY = cg::yobi::Sub_5182B0(action, 1);
                 WindowInstance* const verticalWindow = gCurrentWindow;
                 const std::int32_t animationElementY = element->y;
                 const std::int32_t drawY = offsetY + verticalWindow->y + animationElementY;
-                const std::int32_t offsetX = cg::yobi::detail::Sub_5182B0(action, 0);
+                const std::int32_t offsetX = cg::yobi::Sub_5182B0(action, 0);
                 WindowInstance* const horizontalWindow = gCurrentWindow;
                 const std::int32_t animationElementX = element->x;
                 const std::int32_t drawX = offsetX + horizontalWindow->x + animationElementX;

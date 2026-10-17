@@ -157,16 +157,16 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
         }
     }
     if (battlePlayer != nullptr) {
-        const std::int32_t maxHp = cg::yobi::detail::ReadYobiActionMaxHpOnce(battlePlayer);
+        const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t hp = cg::yobi::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
+        const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
-            cg::yobi::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
+            cg::yobi::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t fp = cg::yobi::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
+        const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();

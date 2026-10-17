@@ -15,6 +15,13 @@
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include "animation.hpp"
+#include "battle_actor.hpp"
+#include "battle_attachment.hpp"
+#include "battle_display.hpp"
+#include "battle_effect.hpp"
+#include "battle_impact.hpp"
+
 #include <array>
 #include <bit>
 #include <cstddef>
@@ -3311,76 +3318,80 @@ void TakeBattleCString_4384C0(char* const destination, const std::int32_t capaci
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+} // namespace detail
+
+
+
 // 原函数：0x00438550。
 void ParseBattleC_438550()
 {
     using namespace world::detail;
     std::uint32_t present = 0;
     gBattleCOffset5ABA80 = 2;
-    const auto fieldFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
+    const auto fieldFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
     gBattleFieldFlags5ABB58 = fieldFlags;
     if ((fieldFlags & 0x20u) != 0) {
         return;
     }
     if ((fieldFlags & 1u) != 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(110092));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110092));
     } else if ((fieldFlags & 2u) != 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(110089));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110089));
     } else if ((fieldFlags & 4u) != 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(110090));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110090));
     } else if ((fieldFlags & 8u) != 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(110091));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110091));
     } else if ((fieldFlags & 0x10u) != 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(110155));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110155));
     } else {
         static_cast<void>(MarkDeath(gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0));
         gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = nullptr;
     }
 
     while (gBattleCText5A3A20[gBattleCOffset5ABA80] != '\0') {
-        std::int32_t position = TakeBattleCInteger_438450();
+        std::int32_t position = detail::TakeBattleCInteger_438450();
         if (position < 0 || position >= 22) {
             position = 0;
         }
         present |= 1u << position;
         YobiAction** const slot = &gBattleAllEntries59E980[position];
         if (*slot == nullptr) {
-            *slot = NewBattleActor_438290(position);
-            ResetBattleCastList_4391E0(position);
+            *slot = detail::NewBattleActor_438290(position);
+            detail::ResetBattleCastList_4391E0(position);
         }
         YobiAction* const actor = *slot;
         auto* const payload = actor->payload.battleActor;
-        TakeBattleCString_4384C0(actor->nameC4.data(), 29);
+        detail::TakeBattleCString_4384C0(actor->nameC4.data(), 29);
         // 4384C0内部已反转义；原438673仍独立再次执行。
         input::UnescapeLegacyText_52D150(actor->nameC4.data());
-        actor->imageNo = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
-        payload->baseImage13AC = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
-        actor->field1D0 = TakeBattleCInteger_438450();
+        actor->imageNo = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+        payload->baseImage13AC = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+        actor->field1D0 = detail::TakeBattleCInteger_438450();
         {
-            const std::int32_t value = TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450();
             actor->readiness = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450();
             actor->maxHp = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450();
             actor->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450();
             actor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
-        const auto inputFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
-        const std::int32_t ridingImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
-        static_cast<void>(SetBattleRider_4222B0(actor, actor->imageNo, ridingImage));
+        const auto inputFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
+        const std::int32_t ridingImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+        static_cast<void>(detail::SetBattleRider_4222B0(actor, actor->imageNo, ridingImage));
         for (std::int32_t index = 0; index < 2; ++index) {
-            const std::int32_t gearImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
-            const std::int32_t auxiliaryImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
-            const std::int32_t auxiliaryType = TakeBattleCInteger_438450();
-            SetBattleGear_422C20(actor, gearImage, index);
-            SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);
+            const std::int32_t gearImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+            const std::int32_t auxiliaryImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+            const std::int32_t auxiliaryType = detail::TakeBattleCInteger_438450();
+            detail::SetBattleGear_422C20(actor, gearImage, index);
+            detail::SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);
         }
         const std::int32_t imageNo = actor->imageNo;
         actor->rebirthValue1 = 0;
@@ -3398,13 +3409,13 @@ void ParseBattleC_438550()
             if ((flags & 2u) == 0) {
                 actor->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][2]);
                 actor->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][3]);
-                Sub_406260(actor);
+                detail::Sub_406260(actor);
                 if ((inputFlags & 2u) != 0) {
-                    Sub_406260(actor);
+                    detail::Sub_406260(actor);
                     actor->characterAction = 10;
-                    while (PlayFrame_517DA0(actor, 1) != 1) {
+                    while (detail::PlayFrame_517DA0(actor, 1) != 1) {
                     }
-                    static_cast<void>(NewBattleCenteredEffect_41FA00(actor, 110169));
+                    static_cast<void>(detail::NewBattleCenteredEffect_41FA00(actor, 110169));
                 }
             }
         }
@@ -3425,32 +3436,32 @@ void ParseBattleC_438550()
         flags = (inputFlags & 8u) != 0 ? flags | 8u : flags & ~8u;
         payload->flagsFDC = flags;
         if ((inputFlags & 0x10u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110075));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110075));
         } else {
             payload->flagsFDC &= ~0x10u;
         }
         if ((inputFlags & 0x20u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110076));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110076));
         } else {
             payload->flagsFDC &= ~0x20u;
         }
         if ((inputFlags & 0x40u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110077));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110077));
         } else {
             payload->flagsFDC &= ~0x40u;
         }
         if ((inputFlags & 0x80u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110078));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110078));
         } else {
             payload->flagsFDC &= ~0x80u;
         }
         if ((inputFlags & 0x100u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110079));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110079));
         } else {
             payload->flagsFDC &= ~0x100u;
         }
         if ((inputFlags & 0x200u) != 0) {
-            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110080));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110080));
         } else {
             payload->flagsFDC &= ~0x200u;
         }
@@ -3458,7 +3469,7 @@ void ParseBattleC_438550()
         actor->scaleX = scale;
         actor->scaleY = scale;
         if ((inputFlags & 0x400u) != 0) {
-            static_cast<void>(NewBattleAttachedEffect_41FBE0(actor, 1));
+            static_cast<void>(detail::NewBattleAttachedEffect_41FBE0(actor, 1));
         } else {
             static_cast<void>(MarkDeath(actor->payload.battleActor->attachedEffect1058));
             actor->payload.battleActor->attachedEffect1058 = nullptr;
@@ -3466,7 +3477,7 @@ void ParseBattleC_438550()
         const std::uint32_t reverseFlags = payload->flagsFDC;
         if ((inputFlags & 0x800u) != 0) {
             payload->flagsFDC = reverseFlags | 0x800u;
-            static_cast<void>(NewBattleReverseEffect_41F860(actor, 110152));
+            static_cast<void>(detail::NewBattleReverseEffect_41F860(actor, 110152));
         } else {
             YobiAction* const effect = payload->effect105C;
             payload->flagsFDC = reverseFlags & ~0x800u;
@@ -3478,32 +3489,32 @@ void ParseBattleC_438550()
         }
         // 三对状态位沿原清除掩码，不能按输入位对称化。
         if ((inputFlags & 0x4000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103018, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103018, 0));
         } else {
             payload->flagsFDC &= ~0x4000u;
         }
         if ((inputFlags & 0x8000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103019, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103019, 0));
         } else {
             payload->flagsFDC &= ~0x4000u;
         }
         if ((inputFlags & 0x10000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103020, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103020, 0));
         } else {
             payload->flagsFDC &= ~0x10000u;
         }
         if ((inputFlags & 0x20000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103021, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103021, 0));
         } else {
             payload->flagsFDC &= ~0x10000u;
         }
         if ((inputFlags & 0x40000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103022, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103022, 0));
         } else {
             payload->flagsFDC &= ~0x40000u;
         }
         if ((inputFlags & 0x80000u) != 0) {
-            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103023, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103023, 0));
         } else {
             payload->flagsFDC &= ~0x40000u;
         }
@@ -3524,36 +3535,36 @@ void ParseBattleC_438550()
                 const std::int8_t type = payload->rebirthEffectType1080;
                 if (type >= 1 && type <= 4) {
                     {
-                        const std::int32_t image = kRebirthPersistentImages4113EB[type - 1][0];
+                        const std::int32_t image = detail::kRebirthPersistentImages4113EB[type - 1][0];
                         if (image != 0) {
-                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, 2, image);
+                            YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, 2, image);
                             payload->rebirthEffect106C = effect;
                             effect->rebirthValue1 = 4;
                             payload->rebirthEffect106C->rebirthValue2 = 4;
                         }
                     }
                     {
-                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][1];
+                        const std::int32_t image = detail::kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][1];
                         if (image != 0) {
-                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, 1, image);
+                            YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, 1, image);
                             payload->rebirthAuxiliaryEffects1074[0] = effect;
                             effect->rebirthValue1 = 4;
                             payload->rebirthAuxiliaryEffects1074[0]->rebirthValue2 = 4;
                         }
                     }
                     {
-                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][2];
+                        const std::int32_t image = detail::kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][2];
                         if (image != 0) {
-                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, -1, image);
+                            YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, -1, image);
                             payload->rebirthAuxiliaryEffects1074[1] = effect;
                             effect->rebirthValue1 = 4;
                             payload->rebirthAuxiliaryEffects1074[1]->rebirthValue2 = 4;
                         }
                     }
                     {
-                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][3];
+                        const std::int32_t image = detail::kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][3];
                         if (image != 0) {
-                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, -2, image);
+                            YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, -2, image);
                             payload->rebirthAuxiliaryEffects1074[2] = effect;
                             effect->rebirthValue1 = 4;
                             payload->rebirthAuxiliaryEffects1074[2]->rebirthValue2 = 4;
@@ -3596,7 +3607,7 @@ void ParseBattleC_438550()
             actor->fields288[3] = 1;
         }
         UpdateBattleAlbumFlag_4238F0(actor);
-        static_cast<void>(PlayFrame_517DA0(actor, 0));
+        static_cast<void>(detail::PlayFrame_517DA0(actor, 0));
     }
 
     for (std::int32_t index = 0; index < 22; ++index) {
@@ -3628,6 +3639,7 @@ void ParseBattleC_438550()
     }
 }
 
+
 // BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。
 // 原函数：0x0043BAA0。
 std::int32_t Sub_43BAA0()
@@ -3637,12 +3649,12 @@ std::int32_t Sub_43BAA0()
     std::array<char, 4> header;
     std::array<char, 256> message;
     for (;;) {
-        if (GetBattleMHeader_439070(header.data()) == 1) {
+        if (detail::GetBattleMHeader_439070(header.data()) == 1) {
             return 1;
         }
         std::int32_t kind = 0;
-        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
+        while (kind < static_cast<std::int32_t>(detail::kBattleMHeaders553E94.size())
+            && const_cast<char*>(std::strstr(header.data(), detail::kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind != 14 && kind != 20) {
@@ -3650,26 +3662,24 @@ std::int32_t Sub_43BAA0()
         }
         payload->packetOffset64 = gBattleMScanOffset5A8A3C;
         if (kind == 14) { // CHT
-            static_cast<void>(GetBattlePosition_4237E0(TakeBattleMInteger_438F70(gBattleSceneAction5ABA94)));
-            const std::int32_t color = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
-            const std::int32_t font = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
-            payload->messageValueA4 = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
-            TakeBattleMString_438FE0(gBattleSceneAction5ABA94, message.data(), 256);
+            static_cast<void>(detail::GetBattlePosition_4237E0(detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94)));
+            const std::int32_t color = detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            const std::int32_t font = detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            payload->messageValueA4 = detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            detail::TakeBattleMString_438FE0(gBattleSceneAction5ABA94, message.data(), 256);
             if (platform::gValue554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             Sub_44B050(cg::text::FromGbkWide(message.data()), color, font);
         } else { // BST
-            const std::int32_t position = GetBattlePosition_4237E0(
-                TakeBattleMInteger_438F70(gBattleSceneAction5ABA94));
-            const std::int32_t seconds = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            const std::int32_t position = detail::GetBattlePosition_4237E0(
+                detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94));
+            const std::int32_t seconds = detail::TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
             if (position == gBattleCurrentPosition5ABCA4) {
                 ConsumeBattlePlayerTimer(seconds);
             }
         }
     }
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

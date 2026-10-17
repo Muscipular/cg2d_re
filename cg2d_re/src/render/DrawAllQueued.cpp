@@ -171,14 +171,14 @@ void DrawScaledNodes(
         std::int32_t offsetX;
         if ((mixFlags & GraphicMixFlag_FlipX) != 0) {
             if (useActionScale) {
-                scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
+                scaleX = cg::yobi::GetYobiActionScaleX(action);
             }
             const std::int32_t fullWidth = ReadGraphicDxWidth(imageNo);
             offsetX = fullWidth - node->blockX - rectangle[2] + x;
         } else {
             const std::int32_t currentBlockX = node->blockX;
             if (useActionScale) {
-                scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
+                scaleX = cg::yobi::GetYobiActionScaleX(action);
             }
             offsetX = currentBlockX - x + rectangle[0];
         }
@@ -189,14 +189,14 @@ void DrawScaledNodes(
         std::int32_t offsetY;
         if ((mixFlags & GraphicMixFlag_FlipY) != 0) {
             if (useActionScale) {
-                scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
+                scaleY = cg::yobi::GetYobiActionScaleY(action);
             }
             const std::int32_t fullHeight = ReadGraphicDxHeight(imageNo);
             offsetY = fullHeight - node->blockY - rectangle[3] + y;
         } else {
             const std::int32_t currentBlockY = node->blockY;
             if (useActionScale) {
-                scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
+                scaleY = cg::yobi::GetYobiActionScaleY(action);
             }
             offsetY = currentBlockY - y + rectangle[1];
         }
@@ -299,11 +299,11 @@ void DrawSprite(GraphicCacheItem32* const graphic)
     bool integerPath = true;
     const cg::yobi::YobiAction* const action = graphic->reference.action;
     if (action != nullptr) {
-        const float scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
+        const float scaleX = cg::yobi::GetYobiActionScaleX(action);
         // 原只测 x87 C3；unordered 与相等同支，X 未命中时不得读取 Y。
         integerPath = scaleX == 1.0f || std::isnan(scaleX);
         if (integerPath) {
-            const float scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
+            const float scaleY = cg::yobi::GetYobiActionScaleY(action);
             integerPath = scaleY == 1.0f || std::isnan(scaleY);
         }
     }

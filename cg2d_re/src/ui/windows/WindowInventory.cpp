@@ -606,13 +606,13 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     }
     const std::int32_t mappedImage =
         character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
-    cg::yobi::detail::SetYobiActionField2A8(
+    cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
-    cg::yobi::detail::SetYobiActionField2B8(
+    cg::yobi::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 5);
     const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {
-        cg::yobi::detail::AddYobiActionDrawFlags(
+        cg::yobi::AddYobiActionDrawFlags(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 4);
     }
     WindowRuntime_DrawCurrent();
@@ -665,7 +665,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
-            static_cast<void>(cg::yobi::detail::Sub_48AC60(
+            static_cast<void>(cg::yobi::Sub_48AC60(
                 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
         }
         consumed = 1;

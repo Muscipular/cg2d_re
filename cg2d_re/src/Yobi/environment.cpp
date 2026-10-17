@@ -17,6 +17,8 @@ namespace cg::yobi {
 
 namespace detail {
 
+} // namespace detail
+
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
 
 volatile std::uint32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
@@ -26,6 +28,8 @@ volatile std::uint32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
 volatile std::uint32_t gYobiScreenOffsetAmplitude = 0; // 原 0x59FA04。
 
 volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
+
+namespace detail {
 
 namespace {
 
@@ -531,67 +535,6 @@ YobiAction* Sub_449BC0()
     return action;
 }
 
-// 原函数：0x00449700。
-void Sub_449700(
-    const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
-    const std::int32_t mapX, const std::int32_t mapY)
-{
-    if (mode >= 100) {
-        Sub_448810(mode % 100, duration, floor, mapX, mapY);
-        return;
-    }
-    if (mode < 0) {
-        Sub_448D90(mode, duration, floor, mapX, mapY);
-        return;
-    }
-    if (mode == 0) {
-        return;
-    }
-    if (mode == 4) {
-        YobiAction* const previous = Sub_448370(Sub_449A00);
-        if (previous != nullptr) {
-            MarkDeath(previous);
-            return;
-        }
-    }
-    YobiAction* action = Sub_448370(Sub_449A00);
-    const bool created = action == nullptr;
-    if (created) {
-        action = NewYobiAction_404AE0(3, 0);
-        if (action == nullptr) {
-            return;
-        }
-    }
-    action->callback = Sub_449A00;
-    InitializeSceneEffectGraphic(action, 230058, created);
-    action->characterAction = mode;
-    action->displayPriority = 3;
-    action->mapX1E0 = std::int32_t{0};
-    action->mapY1F0 = static_cast<std::int32_t>(floor);
-    switch (mode) {
-    case 1: {
-        action->mapX200 = static_cast<std::int32_t>(mapX * 64);
-        action->mapY210 = static_cast<std::int32_t>(mapY * 64);
-        action->worldX = static_cast<float>((mapX + 10) * 64.0);
-        action->worldY = static_cast<float>((mapY - 10) * 64.0);
-        break;
-    }
-    case 3: {
-        action->mapX200 = static_cast<std::int32_t>((mapX - 10) * 64);
-        action->mapY210 = static_cast<std::int32_t>((mapY - 10) * 64);
-        [[fallthrough]];
-    }
-    case 2:
-        action->worldX = static_cast<float>(mapX * 64.0);
-        action->worldY = static_cast<float>(mapY * 64.0);
-        break;
-    default:
-        MarkDeath(action);
-        return;
-    }
-    static_cast<void>(Sub_449BC0());
-}
-
 // 原[4483A0,448810)：计时偏移与100块背景入队，关联对象缺失不补零。
 void Sub_4483A0(YobiAction* const action)
 {
@@ -816,19 +759,85 @@ void Sub_449400(YobiAction* const action)
     }
 }
 
+} // namespace detail
+
+
+
+// 原函数：0x00449700。
+void Sub_449700(
+    const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
+    const std::int32_t mapX, const std::int32_t mapY)
+{
+    if (mode >= 100) {
+        detail::Sub_448810(mode % 100, duration, floor, mapX, mapY);
+        return;
+    }
+    if (mode < 0) {
+        detail::Sub_448D90(mode, duration, floor, mapX, mapY);
+        return;
+    }
+    if (mode == 0) {
+        return;
+    }
+    if (mode == 4) {
+        YobiAction* const previous = detail::Sub_448370(detail::Sub_449A00);
+        if (previous != nullptr) {
+            MarkDeath(previous);
+            return;
+        }
+    }
+    YobiAction* action = detail::Sub_448370(detail::Sub_449A00);
+    const bool created = action == nullptr;
+    if (created) {
+        action = NewYobiAction_404AE0(3, 0);
+        if (action == nullptr) {
+            return;
+        }
+    }
+    action->callback = detail::Sub_449A00;
+    detail::InitializeSceneEffectGraphic(action, 230058, created);
+    action->characterAction = mode;
+    action->displayPriority = 3;
+    action->mapX1E0 = std::int32_t{0};
+    action->mapY1F0 = static_cast<std::int32_t>(floor);
+    switch (mode) {
+    case 1: {
+        action->mapX200 = static_cast<std::int32_t>(mapX * 64);
+        action->mapY210 = static_cast<std::int32_t>(mapY * 64);
+        action->worldX = static_cast<float>((mapX + 10) * 64.0);
+        action->worldY = static_cast<float>((mapY - 10) * 64.0);
+        break;
+    }
+    case 3: {
+        action->mapX200 = static_cast<std::int32_t>((mapX - 10) * 64);
+        action->mapY210 = static_cast<std::int32_t>((mapY - 10) * 64);
+        [[fallthrough]];
+    }
+    case 2:
+        action->worldX = static_cast<float>(mapX * 64.0);
+        action->worldY = static_cast<float>(mapY * 64.0);
+        break;
+    default:
+        MarkDeath(action);
+        return;
+    }
+    static_cast<void>(detail::Sub_449BC0());
+}
+
+
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void Sub_449160()
 {
     if (world::detail::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
-    Sub_448290();
+    detail::Sub_448290();
     render::Sub_520910();
     if (world::Sub_4493C0() == 0) {
         return;
     }
-    const auto counter = static_cast<std::uint8_t>(gEffectCounter5F9755 + 1);
-    gEffectCounter5F9755 = counter;
+    const auto counter = static_cast<std::uint8_t>(detail::gEffectCounter5F9755 + 1);
+    detail::gEffectCounter5F9755 = counter;
     if ((counter & 0x3Fu) != 0) {
         return;
     }
@@ -836,7 +845,7 @@ void Sub_449160()
     if (action == nullptr) {
         return;
     }
-    action->callback = Sub_449400;
+    action->callback = detail::Sub_449400;
     action->displayPriority = 30;
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     const auto timeCategory = static_cast<std::uint8_t>(world::detail::gValue73ED48);
@@ -876,7 +885,5 @@ void Sub_449160()
         break;
     }
 }
-
-} // namespace detail
 
 } // namespace cg::yobi

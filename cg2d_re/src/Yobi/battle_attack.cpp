@@ -9,6 +9,10 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 
+#include "animation.hpp"
+#include "battle_display.hpp"
+#include "battle_effect.hpp"
+
 #include <array>
 #include <bit>
 #include <cstdint>

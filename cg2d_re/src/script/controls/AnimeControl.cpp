@@ -15,7 +15,7 @@ UIAnimeControl::~UIAnimeControl() {
 
 void UIAnimeControl::resetAction() {
     releaseAction();
-    action = yobi::detail::NewYobiAction_404AE0(ANIME_ACTION_PRIO, 0);
+    action = yobi::NewYobiAction_404AE0(ANIME_ACTION_PRIO, 0);
     if (!action) {
         return;
     }
@@ -55,7 +55,7 @@ bool UIAnimeControl::render(short ox, short oy) {
 
     action->characterAction = data.action;
     action->direction = data.dir;
-    yobi::detail::Sub_517880(action, 100, data.revertPlay != 0, 0);
+    yobi::Sub_517880(action, 100, data.revertPlay != 0, 0);
     int graphicNo = action->graphicIndex;
     if (!graphicNo) {
         return true;

@@ -870,7 +870,7 @@ static void WindowSkill_HandleTechniqueRow(
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
         cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
-        if (cg::yobi::detail::IsYobiActionFpLessThan(action, cost)) {
+        if (cg::yobi::IsYobiActionFpLessThan(action, cost)) {
             nameColor = 6;
         }
     }
@@ -1170,7 +1170,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
     bool allowed = record->techniques3C[technique].value8C != 0;
     if (allowed) {
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-        allowed = cg::yobi::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost);
+        allowed = cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost);
     }
     const bool clicked = (state & 2) != 0;
     if (clicked) {
@@ -1193,14 +1193,14 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
         const wchar_t* hint = L"由于能力不足，无法使用此技能。" /* 原常量参考：0x00586588。 */;
         if (record->techniques3C[technique].value8C != 0) {
             const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-            hint = cg::yobi::detail::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
+            hint = cg::yobi::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
                 ? L"由于魔力不足，无法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
         }
         gHoverTextD68AE8 = hint;
     }
     if (clicked && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value8C != 0) {
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-        if (cg::yobi::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)) {
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)) {
             visualState = 1;
         }
     }
@@ -1286,7 +1286,7 @@ static void WindowSkill_DrawPetSkillRow(
         world::detail::gBattleCurrentPosition5ABCA4);
     cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
     const std::int32_t cost = record->fp;
-    std::int8_t nameColor = cg::yobi::detail::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
+    std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
     const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
@@ -1323,7 +1323,7 @@ static void WindowSkill_DrawRidingSkillRow(
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     const std::int32_t cost = record->fp;
     cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
-    std::int8_t nameColor = cg::yobi::detail::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
+    std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
     const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
@@ -1360,7 +1360,7 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
         const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = world::detail::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
-        if (cg::yobi::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
                 const std::int32_t pet = world::detail::Sub_43C4B0();
@@ -1419,7 +1419,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
     if ((world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = record->fp;
-        if (cg::yobi::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
             if (callback != nullptr) {
@@ -1496,7 +1496,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
                 world::detail::gBattleCurrentPosition5ABCA4);
             cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
             const std::int32_t cost = record->fp;
-            static_cast<void>(cg::yobi::detail::IsCostGreaterThanYobiActionFp(cost, action));
+            static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
         count = pet->value6A4;
         ++index;
@@ -1531,7 +1531,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     const WindowElement* const elements = window->elements;
     cg::yobi::YobiAction* const displayAction = world::detail::gBattleEntries59E980[position];
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
-    const char* const name = cg::yobi::detail::GetYobiName(displayAction);
+    const char* const name = cg::yobi::GetYobiName(displayAction);
     textData->text = cg::text::FromGbkWide(name);
     const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
@@ -1543,7 +1543,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
             const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
             cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[currentPosition];
             const std::int32_t cost = record->fp;
-            static_cast<void>(cg::yobi::detail::IsCostGreaterThanYobiActionFp(cost, action));
+            static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
         count = pet->value6A4;
         ++index;
@@ -1727,7 +1727,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
         if (record->name[0] != '\0') {
             const std::int32_t cost = record->fp;
             cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
-            if (cg::yobi::detail::IsCostGreaterThanYobiActionFp(cost, action)
+            if (cg::yobi::IsCostGreaterThanYobiActionFp(cost, action)
                 || (world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
                 ++unavailable;
             }
@@ -1967,13 +1967,13 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             maximumPosition = world::detail::GetBattlePetPosition_405B40(maximumPosition);
         }
         const std::int32_t maximum =
-            cg::yobi::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maximumPosition]);
+            cg::yobi::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maximumPosition]);
         std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
         if (mode == 5) {
             currentPosition = world::detail::GetBattlePetPosition_405B40(currentPosition);
         }
         const std::int32_t current =
-            cg::yobi::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
+            cg::yobi::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
         cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text, L"{:4}/{:4}", current, maximum);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
@@ -2344,7 +2344,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         fail();
                         return;
                     }
-                    if (cg::yobi::detail::ReadMapActorAttachment44(world::detail::gPlayerRuntimeSlots.action) == nullptr
+                    if (cg::yobi::ReadMapActorAttachment44(world::detail::gPlayerRuntimeSlots.action) == nullptr
                         && insufficientFp()) {
                         world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                         fail();
@@ -2508,7 +2508,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         }
         cg::yobi::YobiAction* const action = world::detail::ReadPetMapAction(slot);
         if (action != nullptr) {
-            std::strcpy(gSkillTargetNamesCB0550[count].data(), cg::yobi::detail::GetYobiName(action));
+            std::strcpy(gSkillTargetNamesCB0550[count].data(), cg::yobi::GetYobiName(action));
         }
         gSkillTargetKindsD2F75C[count] = 1;
         gSkillTargetCountCA0004 = ++count;

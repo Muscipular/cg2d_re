@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace cg::input::detail {
+namespace cg::input {
 namespace {
 
 // 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
@@ -121,4 +121,4 @@ void Sub_44A410()
     AdvanceCaretPhase();
 }
 
-} // namespace cg::input::detail
+} // namespace cg::input

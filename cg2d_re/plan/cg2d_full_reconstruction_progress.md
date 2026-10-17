@@ -3347,3 +3347,11 @@ L01七类实时数据绑定及全局Player访问已落源码，字段逐项对�
 本步静态核对Lua API／预编译库导出、原生声明与字段、输入编码、网络回调重入和资源释放；运行目录19份UI脚本所用WinMgr／Bridge／File／Graphic入口均有注册。收发事件不占用N01首匹配槽，接收端恢复已分词快照，原生分派参数不受Lua发送覆盖。局部目标／动作槽适配及不迁入参考弹框退出分支的取舍已在LUM01具名记录。
 
 L01–L08代码迁移及接线完成，构建／链接／运行仍未验收。本轮未构建、测试、启停客户端或计算摘要，不更新函数表、JSON台账及废弃脚本。只提交本步业务和两份Markdown；用户既有AGENTS.md修改、采样产物及Python缓存保留并排除。
+
+## 339. LuaJIT 改为直接静态链接（2026-10-17）
+
+按用户 `staticlink luajit` 更新[LUM01](../doc/cg2d_lua_l01_l08_migration_spec.md)，startup直接链接既有x64预编译LuaJIT静态目标，头文件目录随该目标传递；删除LuaJIT DLL目标、149项导出表、LUA_BUILD_AS_DLL、WHOLEARCHIVE及DLL复制步骤。客户端仍沿原配置携带SDL3动态库，L01–L08业务与预编译库不改。
+
+预编译库使用LIBCMT，客户端及参与链接的startup、core、render、LZ4、yaml-cpp共六个源码目标显式设置MSVC_RUNTIME_LIBRARY=MultiThreaded；Debug也用/MT，保留原调试信息、优化与运行时检查配置。属性仅覆盖这六个目标，不改父工程或历史离线工具，不用忽略默认库来压制CRT冲突。
+
+已核本地CMake属性说明、yaml-cpp目标配置及Lua头文件普通外部声明分支；源码／构建入口无旧DLL包装引用。差异与UTF-8无BOM／LF核对后精确提交本步配置、导出表删除及两份Markdown。仅静态检查，未配置、构建、测试、检查客户端产物或启停进程，不计算摘要；保留并排除用户既有AGENTS.md修改、采样目录及Python缓存，不更新函数表或JSON台账。

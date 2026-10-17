@@ -2,6 +2,7 @@
 #include "MainLoopDependencies.hpp"
 #include "imeImpl.hpp"
 #include "ClientShutdown.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "StartupNative.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -280,7 +281,7 @@ int InitializeClient_4576B0()
     render::gRenderQueueMode103CF10 = 1;
     login::detail::Sub_44B5C0("initGame OK");
     static_cast<void>(ui::detail::WindowRuntime_Initialize());
-    return 1;
+    return script::InitializeLua() ? 1 : 0;
 }
 
 } // namespace cg::platform

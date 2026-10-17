@@ -1,4 +1,5 @@
 #include "ClientShutdown.hpp"
+#include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
@@ -38,6 +39,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 // 原函数：0x00457A40。
 int ShutdownClient_457A40()
 {
+    script::ShutdownLua();
     shutdown_detail::Sub_4705F0();
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();

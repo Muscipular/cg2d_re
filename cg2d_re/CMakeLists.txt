@@ -33,6 +33,20 @@ add_library(cg2d_re_lz4 STATIC 3rd/lz4/lib/lz4.c)
 target_include_directories(cg2d_re_lz4 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/3rd/lz4/lib")
 target_compile_options(cg2d_re_lz4 PRIVATE /utf-8)
 
+# LUM01：仅链接用户提供的x64预编译库；将其静态CRT留在独立DLL内。
+add_library(cg2d_re_luajit_prebuilt STATIC IMPORTED)
+set_target_properties(cg2d_re_luajit_prebuilt PROPERTIES
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/3rd/luajit/lua51.lib")
+add_library(cg2d_re_luajit_runtime SHARED src/script/LuaJitExports.def)
+set_target_properties(cg2d_re_luajit_runtime PROPERTIES
+    LINKER_LANGUAGE C OUTPUT_NAME cg2d_luajit)
+target_link_libraries(cg2d_re_luajit_runtime PRIVATE cg2d_re_luajit_prebuilt)
+target_link_options(cg2d_re_luajit_runtime PRIVATE
+    "/WHOLEARCHIVE:$<TARGET_FILE:cg2d_re_luajit_prebuilt>")
+target_include_directories(cg2d_re_luajit_runtime INTERFACE
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/luajit")
+target_compile_definitions(cg2d_re_luajit_runtime INTERFACE LUA_BUILD_AS_DLL)
+
 add_library(cg2d_re_core STATIC
     src/text/Encoding.cpp
     src/resource/ResourceNames.cpp
@@ -70,6 +84,8 @@ target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 yaml-cpp::yaml-cpp user32 
 
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC
+    src/script/LuaRuntime.cpp
+    src/script/LuaData.cpp
     src/platform/ClientInitialization.cpp
     src/platform/LoadingScreen.cpp
     src/render/RendererRebuild.cpp
@@ -250,6 +266,7 @@ target_compile_options(cg2d_re_startup PRIVATE
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
 target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3 user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
+target_link_libraries(cg2d_re_startup PRIVATE cg2d_re_luajit_runtime)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp
@@ -282,6 +299,8 @@ target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_clien
 add_custom_command(TARGET cg2d_re_client POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE:SDL3::SDL3>" "$<TARGET_FILE_DIR:cg2d_re_client>"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:cg2d_re_luajit_runtime>" "$<TARGET_FILE_DIR:cg2d_re_client>"
     VERBATIM)
 
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。

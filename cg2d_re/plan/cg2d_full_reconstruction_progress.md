@@ -3331,3 +3331,9 @@ build.bat Debug配置、编译／链接成功，退出0，无新增诊断；源�
 按用户指定的cgmsv_server/3rd/luajit/lua51.lib替换本线同名库。只读COFF核实全部成员为8664／x64，依赖LIBCMT与OLDNAMES；配套头文件与本线的LuaJIT版本、版本号和版本符号声明一致。目标库9,916,302字节，复制后与源库逐字节一致，未计算摘要。同步 [LUM01 SPEC](../doc/cg2d_lua_l01_l08_migration_spec.md)，解除x86架构阻塞；L01–L08业务及CRT链接接入仍待实施。
 
 本步仅替换库、更新两份Markdown并精确提交，未改头文件／CMake，未构建、测试或启停客户端。保留并排除用户既有AGENTS.md修改、采样目录及Python缓存，不更新函数表或JSON台账。
+
+## 337. L01 数据绑定与 LuaJIT 接入（2026-10-17）
+
+用户要求完成L01–L08，开始按 [LUM01](../doc/cg2d_lua_l01_l08_migration_spec.md) 实施。已接预编译x64静态库，使用149个实际C API导出声明链接独立LuaJIT DLL，静态CRT隔离在DLL内，客户端现有CRT配置保持；不编译LuaJIT源码。已写UI／自动战斗双状态、五组标准库和初始化／退出调用。
+
+L01七类实时数据绑定及全局Player访问已落源码，字段逐项对应本线owner，宽文本通过既有GBK边界转换；空槽、技能排序索引、战斗标志沿参考，userdata保存稳定槽号而非可释放对象地址。C++异常在Lua入口边界转换，未知字段返回nil。L02–L08继续实施，脚本入口暂未加载；本步仅静态核对，不构建、测试或运行客户端。

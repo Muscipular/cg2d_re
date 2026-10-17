@@ -118,7 +118,7 @@ static void UpdateProtectionChecksum(
 }
 
 // 原 0x4042D0：按快照模块所属 PID 选择对应的模块名表。
-[[maybe_unused]] static char CheckProcessModules_4042D0(const DWORD processId)
+static char CheckProcessModules_4042D0(const DWORD processId)
 {
     MODULEENTRY32 moduleEntry{};
     const HANDLE snapshot =

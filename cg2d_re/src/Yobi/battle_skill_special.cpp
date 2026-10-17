@@ -724,7 +724,7 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
 }
 
 // 原42CF66..42D0D0；成功后由完整父分派重读5A4A34，空施法者不进入模式生产。
-[[maybe_unused]] static bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
+static bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
 {
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     gBattleMValue5A4A34 = TakeBattleMInteger_438F70(scene);
@@ -770,7 +770,7 @@ static void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePa
 }
 
 // 原42D142..42D285，技能98模式6只消费目标位置列表。
-[[maybe_unused]] static void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -808,7 +808,7 @@ static void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePa
 }
 
 // 原42D28E..42D68D，技能98模式7交换目标与配对槽，固定原槽和当前目标分别保留。
-[[maybe_unused]] static void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -951,7 +951,7 @@ static void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePa
 }
 
 // 原42D6BC..42D7D1，技能98模式8的宠物标记和恢复队列读取次序。
-[[maybe_unused]] static void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
 {
     for (;;) {
         const std::int32_t parsedTargetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -999,7 +999,7 @@ static void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, Battl
 }
 
 // 原42D7DA..42DD12，SKL98模式12的操作对象准备与附图/受击目标循环。
-[[maybe_unused]] static void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
@@ -1147,7 +1147,7 @@ static void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, Battl
 }
 
 // 原42DD1B..42E015，SKL98模式13的中央移动与直接数值反馈，不消费附图。
-[[maybe_unused]] static void ProcessBattleMSkill98Mode13(YobiAction* const scene, BattleScenePayload* const payload)
+static void ProcessBattleMSkill98Mode13(YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t selected = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const bool selectedUnavailable = selected == 255;

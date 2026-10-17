@@ -101,7 +101,7 @@ enum {
     CHK_MAX,
 };
 
-struct {
+static struct {
     short x, y;
     short w, h;
     const wchar_t* msg;
@@ -173,15 +173,15 @@ struct AutoBattleContext {
 };
 static AutoBattleContext gAutoBattleContext{};
 
-void MakeAutoBattle();
+static void MakeAutoBattle();
 
-int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
+static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
 
-int getSkillId(int index) {
+static int getSkillId(int index) {
     return index >= 0 && index < 15 ? cg::world::gSkillsF1BAFC[index].skillId : -1;
 }
 
-int getSkillIndex(int id) {
+static int getSkillIndex(int id) {
     for (int j = 0; j < 15; ++j) {
         if (cg::world::gSkillPairsF63370[j].used && cg::world::gSkillPairsF63370[j].index < 15 && cg::world::gSkillsF1BAFC[cg::world::gSkillPairsF63370[j].index].skillId == id) {
             return cg::world::gSkillPairsF63370[j].index;
@@ -190,7 +190,7 @@ int getSkillIndex(int id) {
     return -1;
 }
 
-int getCurrentPet() {
+static int getCurrentPet() {
     for (int i = 0; i < 5; ++i) {
         if (cg::world::gPetRuntimeRecords[i].flags6AA & 2) {
             return i;
@@ -199,7 +199,7 @@ int getCurrentPet() {
     return -1;
 }
 
-int getPetTechIndex(int techId) {
+static int getPetTechIndex(int techId) {
     int pet = getCurrentPet();
     if (pet < 0) {
         return -1;
@@ -213,7 +213,7 @@ int getPetTechIndex(int techId) {
     return -1;
 }
 
-int getPetTechId(int techIndex) {
+static int getPetTechId(int techIndex) {
     int pet = getCurrentPet();
     if (pet < 0) {
         return -1;
@@ -223,14 +223,14 @@ int getPetTechId(int techIndex) {
     return -1;
 }
 
-int getItemId(int itemIndex) {
+static int getItemId(int itemIndex) {
     if (itemIndex >= 0 && itemIndex < 28 && cg::world::gPlayerRuntimeSlots.items[itemIndex].used) {
         return cg::world::gPlayerRuntimeSlots.items[itemIndex].itemId;
     }
     return -1;
 }
 
-int getItemIndex(int itemId) {
+static int getItemIndex(int itemId) {
     for (int i = 8; i < 28; ++i) {
         if (cg::world::gPlayerRuntimeSlots.items[i].used && cg::world::gPlayerRuntimeSlots.items[i].itemId == itemId) {
             return i;
@@ -239,7 +239,7 @@ int getItemIndex(int itemId) {
     return -1;
 }
 
-int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
+static int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
     if (attacker < 0 || attacker >= 20) return -1;
     if (defer >= SIDE_ALL) {
         defer = (1 - attacker / 10) * 10;
@@ -503,7 +503,7 @@ static void DoAutoBattle() {
         else enableAutoBattle = false;
     }
 }
-int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
+static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
     std::vector<int> list;
     int min = 10, max = 19;
     if (flags & B_TARGET_IN_FRIEND && !(flags & B_TARGET_IN_ENEMY)) {
@@ -565,7 +565,7 @@ static ui::WindowGraphicData& CurrentGraphic(int index) {
     return *static_cast<ui::WindowGraphicData*>(gCurrentWindow->elements[index].data);
 }
 
-void MakeAutoBattleSimple() {
+static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
@@ -589,7 +589,7 @@ void MakeAutoBattleSimple() {
     WindowExOpen(base);
 }
 
-void MakeAutoBattle() {
+static void MakeAutoBattle() {
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE, 50, 240, 185, CHK_MAX + 3);
     for (int ix = 0; ix < CHK_MAX; ++ix) {
         const auto& check = checkboxList[ix];

@@ -114,10 +114,10 @@ YobiAction* NewMapCharaAction()
 
 // 两种观察节点的真实回调，声明供以下生产入口绑定。
 // 原函数：0x0043F520。
-void Sub_43F520(YobiAction* action);
+static void Sub_43F520(YobiAction* action);
 
 // 原函数：0x00440070。
-void Sub_440070(YobiAction* action);
+static void Sub_440070(YobiAction* action);
 
 // 原函数：0x0043F330。
 YobiAction* Sub_43F330(
@@ -224,7 +224,7 @@ void Sub_4408C0(
 }
 
 // 原函数：0x0043F290。
-YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
+static YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
@@ -256,7 +256,7 @@ YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 }
 
 // 原函数：0x0043FE00。
-YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
+static YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
@@ -290,7 +290,7 @@ YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 }
 
 // 43F910/440440共用的原三类动作；不等同于实体骑乘复原的0/11分类。
-void SetObservationChildAction(
+static void SetObservationChildAction(
     YobiAction* const action, const std::int32_t imageNo)
 {
     if ((imageNo >= 0x1BD50 && imageNo <= 0x1BDF9)
@@ -309,13 +309,13 @@ void SetObservationChildAction(
     }
 }
 
-void SetObservationChildAction(YobiAction* const action)
+static void SetObservationChildAction(YobiAction* const action)
 {
     SetObservationChildAction(action, action->imageNo);
 }
 
 // 原函数：0x0043F910。
-void Sub_43F910(YobiAction* const action)
+static void Sub_43F910(YobiAction* const action)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     YobiAction* const parent = action->observationParent10;
@@ -399,7 +399,7 @@ void Sub_43F910(YobiAction* const action)
 }
 
 // 原函数：0x00440440。
-void Sub_440440(YobiAction* const action)
+static void Sub_440440(YobiAction* const action)
 {
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
@@ -525,7 +525,7 @@ void Sub_440440(YobiAction* const action)
 }
 
 // 43F520/440070共有的五槽降序交换与挂接；不改写孩子坐标。
-void DrawObservationChildren(
+static void DrawObservationChildren(
     YobiAction* const parent, MapCharaPayload* const payload,
     std::array<std::int8_t, 5>& order)
 {
@@ -570,7 +570,7 @@ void DrawObservationChildren(
 }
 
 // 原函数：0x0043F520。
-void Sub_43F520(YobiAction* const action)
+static void Sub_43F520(YobiAction* const action)
 {
     const float worldY = action->worldY;
     auto* const payload = action->payload.mapChara;
@@ -679,7 +679,7 @@ void Sub_43F520(YobiAction* const action)
 }
 
 // 原函数：0x00440070。
-void Sub_440070(YobiAction* const action)
+static void Sub_440070(YobiAction* const action)
 {
     const float worldY = action->worldY;
     auto* const payload = action->payload.mapChara;
@@ -830,7 +830,7 @@ std::int32_t* Sub_43FD90(
 }
 
 // 原 440C50；唯一 callback 写者为 440B70，见 Yobi 观察回调 SPEC。
-void Sub_440C50(YobiAction* const action)
+static void Sub_440C50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapChara;
     const std::int32_t initialFrame = payload->frame;

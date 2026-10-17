@@ -108,10 +108,10 @@ static void Sub_446990(std::int16_t* const value)
 }
 
 // 原函数：0x00447E60。
-void Sub_447E60(YobiAction* action);
+static void Sub_447E60(YobiAction* action);
 
 // 原函数：0x004473B0。
-std::int32_t Sub_4473B0(YobiAction* const action)
+static std::int32_t Sub_4473B0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -164,7 +164,7 @@ std::int32_t Sub_4473B0(YobiAction* const action)
 }
 
 // 原函数：0x004474E0。
-std::int32_t Sub_4474E0(YobiAction* const action)
+static std::int32_t Sub_4474E0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -536,7 +536,7 @@ static std::int32_t UpdateTransitionTrail(
 }
 
 // 原函数：0x00446D80。
-std::int32_t Sub_446D80(YobiAction* const action)
+static std::int32_t Sub_446D80(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
@@ -599,7 +599,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
 }
 
 // 原函数：0x00446FA0。
-std::int32_t Sub_446FA0(YobiAction* const action)
+static std::int32_t Sub_446FA0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.attachments.action18 == nullptr) {
@@ -635,7 +635,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
 }
 
 // 原函数：0x00447070。
-std::int32_t Sub_447070(YobiAction* const action)
+static std::int32_t Sub_447070(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -662,7 +662,7 @@ std::int32_t Sub_447070(YobiAction* const action)
 }
 
 // 原函数：0x00447230。
-std::int32_t Sub_447230(YobiAction* const action)
+static std::int32_t Sub_447230(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -685,7 +685,7 @@ std::int32_t Sub_447230(YobiAction* const action)
 }
 
 // 原函数：0x00447610。
-std::int32_t Sub_447610(YobiAction* const action)
+static std::int32_t Sub_447610(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -717,7 +717,7 @@ std::int32_t Sub_447610(YobiAction* const action)
 }
 
 // 原函数：0x00447820。
-std::int32_t Sub_447820(YobiAction* const action)
+static std::int32_t Sub_447820(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -745,19 +745,19 @@ std::int32_t Sub_447820(YobiAction* const action)
 }
 
 // 原函数：0x00447A20。
-std::int32_t Sub_447A20(YobiAction* const action)
+static std::int32_t Sub_447A20(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 1);
 }
 
 // 原函数：0x00447C40。
-std::int32_t Sub_447C40(YobiAction* const action)
+static std::int32_t Sub_447C40(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 0);
 }
 
 // 原函数：0x00447E60。
-void Sub_447E60(YobiAction* const action)
+static void Sub_447E60(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     std::int32_t result = 1;

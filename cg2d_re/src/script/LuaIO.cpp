@@ -12,14 +12,14 @@ namespace cg::script {
 namespace lua_io_detail {
 constexpr int kMaxYamlDepth = 64;
 
-int LuaAbsIndex(lua_State* L, int index) {
+static int LuaAbsIndex(lua_State* L, int index) {
     if (index > 0 || index <= LUA_REGISTRYINDEX) {
         return index;
     }
     return lua_gettop(L) + index + 1;
 }
 
-bool IsValidLuaFileName(const char* name, size_t len) {
+static bool IsValidLuaFileName(const char* name, size_t len) {
     if (!name || len == 0) {
         return false;
     }
@@ -36,7 +36,7 @@ bool IsValidLuaFileName(const char* name, size_t len) {
     return true;
 }
 
-bool BuildLuaFilePath(lua_State* L, int index, std::filesystem::path& path) {
+static bool BuildLuaFilePath(lua_State* L, int index, std::filesystem::path& path) {
     size_t len = 0;
     const char* name = luaL_checklstring(L, index, &len);
     if (!IsValidLuaFileName(name, len)) {
@@ -51,18 +51,18 @@ bool BuildLuaFilePath(lua_State* L, int index, std::filesystem::path& path) {
     return true;
 }
 
-bool EnsureLuaDataDir(const std::filesystem::path& path) {
+static bool EnsureLuaDataDir(const std::filesystem::path& path) {
     std::error_code ec;
     std::filesystem::create_directories(path.parent_path(), ec);
     return !ec;
 }
 
-void PushReadFail(lua_State* L) {
+static void PushReadFail(lua_State* L) {
     lua_pushboolean(L, 0);
     lua_pushnil(L);
 }
 
-bool ReadFileData(const std::filesystem::path& path, std::string& data) {
+static bool ReadFileData(const std::filesystem::path& path, std::string& data) {
     std::ifstream file(path, std::ios::binary);
     if (!file) {
         return false;
@@ -71,7 +71,7 @@ bool ReadFileData(const std::filesystem::path& path, std::string& data) {
     return !file.bad();
 }
 
-bool WriteFileData(const std::filesystem::path& path, const char* data, size_t len) {
+static bool WriteFileData(const std::filesystem::path& path, const char* data, size_t len) {
     if (!EnsureLuaDataDir(path)) {
         return false;
     }
@@ -87,15 +87,15 @@ bool WriteFileData(const std::filesystem::path& path, const char* data, size_t l
     return !file.fail();
 }
 
-bool IsTrueText(const std::string& text) {
+static bool IsTrueText(const std::string& text) {
     return text == "true" || text == "True" || text == "TRUE";
 }
 
-bool IsFalseText(const std::string& text) {
+static bool IsFalseText(const std::string& text) {
     return text == "false" || text == "False" || text == "FALSE";
 }
 
-bool TryParseNumber(const std::string& text, double& value) {
+static bool TryParseNumber(const std::string& text, double& value) {
     if (text.empty()) {
         return false;
     }
@@ -105,7 +105,7 @@ bool TryParseNumber(const std::string& text, double& value) {
     return end && end != text.c_str() && *end == '\0' && errno != ERANGE && std::isfinite(value);
 }
 
-bool PushYamlNode(lua_State* L, const YAML::Node& node, int depth) {
+static bool PushYamlNode(lua_State* L, const YAML::Node& node, int depth) {
     if (depth > kMaxYamlDepth) {
         return false;
     }
@@ -158,11 +158,11 @@ bool PushYamlNode(lua_State* L, const YAML::Node& node, int depth) {
     return false;
 }
 
-bool IsIntegerNumber(double value) {
+static bool IsIntegerNumber(double value) {
     return std::isfinite(value) && std::floor(value) == value && value >= static_cast<double>(std::numeric_limits<int>::min()) && value <= static_cast<double>(std::numeric_limits<int>::max());
 }
 
-bool ReadIntegerKey(lua_State* L, int index, int& key) {
+static bool ReadIntegerKey(lua_State* L, int index, int& key) {
     if (lua_type(L, index) != LUA_TNUMBER) {
         return false;
     }
@@ -180,7 +180,7 @@ struct LuaTableShape {
     int maxIndex = 0;
 };
 
-bool ScanLuaTable(lua_State* L, int index, LuaTableShape& shape) {
+static bool ScanLuaTable(lua_State* L, int index, LuaTableShape& shape) {
     lua_pushnil(L);
     while (lua_next(L, index) != 0) {
         ++shape.count;
@@ -202,7 +202,7 @@ bool ScanLuaTable(lua_State* L, int index, LuaTableShape& shape) {
     return true;
 }
 
-bool HasTableInStack(const std::vector<const void*>& stack, const void* ptr) {
+static bool HasTableInStack(const std::vector<const void*>& stack, const void* ptr) {
     for (auto item: stack) {
         if (item == ptr) {
             return true;
@@ -211,7 +211,7 @@ bool HasTableInStack(const std::vector<const void*>& stack, const void* ptr) {
     return false;
 }
 
-bool LuaValueToYaml(lua_State* L, int index, YAML::Node& node, std::vector<const void*>& stack, int depth) {
+static bool LuaValueToYaml(lua_State* L, int index, YAML::Node& node, std::vector<const void*>& stack, int depth) {
     if (depth > kMaxYamlDepth) {
         return false;
     }
@@ -302,7 +302,7 @@ bool LuaValueToYaml(lua_State* L, int index, YAML::Node& node, std::vector<const
     return true;
 }
 
-int __cdecl Lua_File_read(lua_State* L) {
+static int __cdecl Lua_File_read(lua_State* L) {
     std::filesystem::path path;
     if (!BuildLuaFilePath(L, 1, path)) {
         PushReadFail(L);
@@ -320,7 +320,7 @@ int __cdecl Lua_File_read(lua_State* L) {
     return 2;
 }
 
-int __cdecl Lua_File_write(lua_State* L) {
+static int __cdecl Lua_File_write(lua_State* L) {
     std::filesystem::path path;
     if (!BuildLuaFilePath(L, 1, path)) {
         lua_pushboolean(L, 0);
@@ -333,7 +333,7 @@ int __cdecl Lua_File_write(lua_State* L) {
     return 1;
 }
 
-int __cdecl Lua_File_readYml(lua_State* L) {
+static int __cdecl Lua_File_readYml(lua_State* L) {
     std::filesystem::path path;
     if (!BuildLuaFilePath(L, 1, path)) {
         PushReadFail(L);
@@ -377,7 +377,7 @@ int __cdecl Lua_File_readYml(lua_State* L) {
     }
 }
 
-int __cdecl Lua_File_writeYml(lua_State* L) {
+static int __cdecl Lua_File_writeYml(lua_State* L) {
     std::filesystem::path path;
     if (!BuildLuaFilePath(L, 1, path)) {
         lua_pushboolean(L, 0);

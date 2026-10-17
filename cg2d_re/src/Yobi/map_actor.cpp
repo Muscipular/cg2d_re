@@ -29,7 +29,7 @@ namespace detail {
 
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
 // 原函数：0x004417E0。
-void Sub_4417E0(YobiAction* action);
+static void Sub_4417E0(YobiAction* action);
 
 // 原43E535/43EA41等到格转向分支；每个CryptInt比较只读取一次。
 static void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t index)
@@ -560,7 +560,7 @@ std::int32_t Sub_43E490(YobiAction* const action)
 }
 
 // 原函数：0x004417E0。
-void Sub_4417E0(YobiAction* const action)
+static void Sub_4417E0(YobiAction* const action)
 {
     auto* payload = action->payload.mapActor;
     std::int32_t index = payload->index;

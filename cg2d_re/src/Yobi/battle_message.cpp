@@ -1152,7 +1152,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 427750..42780B；两局部量在98之后、A4之前读取，不发布为另一组全局。
-[[maybe_unused]] static void RestoreBattleMExecutionState(
+static void RestoreBattleMExecutionState(
     const BattleScenePayload* const payload, std::uint32_t& flags9C, std::int32_t& valueA0)
 {
     gBattleMCasterPosition5AAA64 = payload->casterPosition6C;
@@ -1173,7 +1173,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 437A29..437ABA；即使消息已推进或对象已标死，活动路径仍回存13项，不写9C/A0。
-[[maybe_unused]] static void SaveBattleMExecutionState(BattleScenePayload* const payload)
+static void SaveBattleMExecutionState(BattleScenePayload* const payload)
 {
     payload->casterPosition6C = gBattleMCasterPosition5AAA64;
     payload->value70 = gBattleMValue5ABA7C;
@@ -1191,7 +1191,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 427500..427732失活位路径；由427470入口的PrepareBattleMExecution调用，不单独绑定回调。
-[[maybe_unused]] static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayload* const payload)
+static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::array<char, 256> initialMessage;
     std::array<char, 256> queuedMessage;
@@ -1249,7 +1249,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 4274DF..427500/427732..42780B；false时父入口直接返回，不执行活动路径的公共回存。
-[[maybe_unused]] static bool PrepareBattleMExecution(
+static bool PrepareBattleMExecution(
     YobiAction* const scene, BattleScenePayload* const payload,
     std::uint32_t& flags9C, std::int32_t& valueA0)
 {
@@ -1273,7 +1273,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 427470的六类完整消息段；入口载荷固定，返回后仍须由总入口执行437A29回存。
-[[maybe_unused]] static void ProcessBattleMTransitionHeader(
+static void ProcessBattleMTransitionHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMTransitionHeader kind)
 {
     const std::int32_t subState = payload->packetSubState58;
@@ -1428,7 +1428,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 六类活动数据消息；由427470总入口分派，父入口负责恢复及回存，不单独绑定回调。
-[[maybe_unused]] static void ProcessBattleMDataHeader(
+static void ProcessBattleMDataHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMDataHeader kind)
 {
     switch (kind) {
@@ -1565,7 +1565,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 六类装备/状态消息；固定载荷与当前槽分别取样，已由427470调用并回存，完整战斗另验。
-[[maybe_unused]] static void ProcessBattleMStatusHeader(
+static void ProcessBattleMStatusHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMStatusHeader kind)
 {
     const std::int32_t subState = payload->packetSubState58;
@@ -1774,7 +1774,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的POS=4；固定旧槽地址，保留非对称附件重绑及空槽后的子状态递增。
-[[maybe_unused]] static void ProcessBattleMPositionHeader(
+static void ProcessBattleMPositionHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
@@ -1950,7 +1950,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的MON=5；子状态2沿恢复目标重试，成功解析期间固定目标对象及载荷。
-[[maybe_unused]] static void ProcessBattleMMonsterHeader(
+static void ProcessBattleMMonsterHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
@@ -2096,7 +2096,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的ITM=7；三模式保留不同的目标结束路径，返回后仍由总入口回存。
-[[maybe_unused]] static void ProcessBattleMItemHeader(
+static void ProcessBattleMItemHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
@@ -2225,7 +2225,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的CMB=8；总入口phase8调用，原局部图号跨本次循环保留，处理四个子状态。
-[[maybe_unused]] static void ProcessBattleMComboHeader(
+static void ProcessBattleMComboHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     switch (payload->packetSubState58) {
@@ -2460,7 +2460,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的GMN=21；模式0仅退场，非零模式保留固定新对象与当前槽的区别。
-[[maybe_unused]] static void ProcessBattleMGmnHeader(
+static void ProcessBattleMGmnHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
@@ -2666,7 +2666,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 }
 
 // 原427470的RID=22；独立于4239D0预读路径，固定旧载荷并保留两名新角色各自坐标。
-[[maybe_unused]] static void ProcessBattleMRideHeader(
+static void ProcessBattleMRideHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;

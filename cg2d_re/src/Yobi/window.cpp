@@ -512,7 +512,7 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
 }
 
 // 原函数：0x004758D0。
-void Sub_4758D0(YobiAction* const action)
+static void Sub_4758D0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -543,7 +543,7 @@ void Sub_4758D0(YobiAction* const action)
 }
 
 // QIP01：原48ABC0完整59条；描边后更新半宽/半高，S16计数>=10发布/标死，再无条件W16自增。
-void Sub_48ABC0(YobiAction* const action)
+static void Sub_48ABC0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -580,7 +580,7 @@ void Sub_48ABC0(YobiAction* const action)
 }
 
 // SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。
-void Sub_4ABE60(YobiAction* const action)
+static void Sub_4ABE60(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -612,7 +612,7 @@ void Sub_4ABE60(YobiAction* const action)
 }
 
 // SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。
-void Sub_4ACDF0(YobiAction* const action)
+static void Sub_4ACDF0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;

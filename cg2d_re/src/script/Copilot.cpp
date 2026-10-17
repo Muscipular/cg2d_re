@@ -22,6 +22,10 @@ struct Point {
     int y;
 };
 
+// 八方向邻居按原顺序遍历；五条寻路路径共享固定偏移。
+constexpr int kNeighborOffsetsX[] = {0, 1, 1, 1, 0, -1, -1, -1};
+constexpr int kNeighborOffsetsY[] = {-1, -1, 0, 1, 1, 1, 0, -1};
+
 constexpr int kMapBufferLimit = 2601;
 constexpr int kMaxOptimisticDistance = 160;
 constexpr int kSearchPadding = 24;
@@ -59,10 +63,10 @@ static auto& gMapId = world::gValue9A86DC;
 static auto& gMapGroup = world::gValue9E0434;
 static auto& gMapFloor = world::gMapFloor;
 
-std::unordered_map<uint64_t, unsigned char> gKnownMap;
-int gLastMapId = -1;
-int gLastMapFloor = -1;
-int gLastMapGroup = -1;
+static std::unordered_map<uint64_t, unsigned char> gKnownMap;
+static int gLastMapId = -1;
+static int gLastMapFloor = -1;
+static int gLastMapGroup = -1;
 
 struct DiskMapCache {
     int mapId = -1;
@@ -79,56 +83,56 @@ struct DiskMapCache {
     std::vector<unsigned short> hitData;
 };
 
-DiskMapCache gDiskMap;
-bool gCopilotEnabled = false;
-Point gCopilotTarget{};
-int gCopilotMapId = -1;
-int gCopilotMapFloor = -1;
-uint64_t gLastCopilotTickMs = 0;
-uint64_t gLastBusyLogMs = 0;
-uint64_t gLastSceneSkipLogMs = 0;
-uint64_t gLastCellLogKey = 0;
-uint64_t gLastCellLogMs = 0;
-uint64_t gLastNoPathDetailLogMs = 0;
-Point gLastObservedPlayer{};
-bool gHasLastObservedPlayer = false;
-std::array<Point, kRecentAvoidCount> gRecentPlayers{};
-int gRecentPlayerCount = 0;
-std::unordered_map<uint64_t, uint64_t> gDynamicBlocked;
-Point gLastRequestedWaypoint{};
-bool gHasLastRequestedWaypoint = false;
-Point gExpectedAutoTarget{};
-bool gHasExpectedAutoTarget = false;
-Point gLastRequestPlayer{};
-int gLastRequestDistance = 0;
-bool gHasPendingMoveCheck = false;
-bool gMoveCheckSawBusy = false;
-Point gLastPlanPlayer{};
-Point gCachedWaypoint{};
-Point gCachedTarget{};
-int gCachedMapId = -1;
-int gCachedMapFloor = -1;
-int gCachedMapGroup = -1;
-bool gHasCachedWaypoint = false;
-std::vector<Point> gAutoCopilotRoute;
+static DiskMapCache gDiskMap;
+static bool gCopilotEnabled = false;
+static Point gCopilotTarget{};
+static int gCopilotMapId = -1;
+static int gCopilotMapFloor = -1;
+static uint64_t gLastCopilotTickMs = 0;
+static uint64_t gLastBusyLogMs = 0;
+static uint64_t gLastSceneSkipLogMs = 0;
+static uint64_t gLastCellLogKey = 0;
+static uint64_t gLastCellLogMs = 0;
+static uint64_t gLastNoPathDetailLogMs = 0;
+static Point gLastObservedPlayer{};
+static bool gHasLastObservedPlayer = false;
+static std::array<Point, kRecentAvoidCount> gRecentPlayers{};
+static int gRecentPlayerCount = 0;
+static std::unordered_map<uint64_t, uint64_t> gDynamicBlocked;
+static Point gLastRequestedWaypoint{};
+static bool gHasLastRequestedWaypoint = false;
+static Point gExpectedAutoTarget{};
+static bool gHasExpectedAutoTarget = false;
+static Point gLastRequestPlayer{};
+static int gLastRequestDistance = 0;
+static bool gHasPendingMoveCheck = false;
+static bool gMoveCheckSawBusy = false;
+static Point gLastPlanPlayer{};
+static Point gCachedWaypoint{};
+static Point gCachedTarget{};
+static int gCachedMapId = -1;
+static int gCachedMapFloor = -1;
+static int gCachedMapGroup = -1;
+static bool gHasCachedWaypoint = false;
+static std::vector<Point> gAutoCopilotRoute;
 
-uint64_t nowMs()
+static uint64_t nowMs()
 {
     return static_cast<uint64_t>(
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
 }
 
-void clearRecentPlayers();
-void resetPlanCache();
-void resetMoveProgress();
-void clearCopilotRoute();
+static void clearRecentPlayers();
+static void resetPlanCache();
+static void resetMoveProgress();
+static void clearCopilotRoute();
 
-bool isCopilotSceneReady()
+static bool isCopilotSceneReady()
 {
     return world::gCurrentSceneType == SCENE_NORMAL && world::gCurrentSceneState == 3;
 }
 
-bool skipSceneNotReady(const char* where)
+static bool skipSceneNotReady(const char* where)
 {
     if (isCopilotSceneReady()) {
         return false;
@@ -149,12 +153,12 @@ bool skipSceneNotReady(const char* where)
     return true;
 }
 
-size_t diskIndex(int width, int x, int y)
+static size_t diskIndex(int width, int x, int y)
 {
     return static_cast<size_t>(x) + static_cast<size_t>(y) * width;
 }
 
-void setDiskState(std::vector<unsigned char>& state, int width, int height, int x, int y, unsigned char value)
+static void setDiskState(std::vector<unsigned char>& state, int width, int height, int x, int y, unsigned char value)
 {
     if (x < 0 || y < 0 || x >= width || y >= height) {
         return;
@@ -168,7 +172,7 @@ void setDiskState(std::vector<unsigned char>& state, int width, int height, int 
     }
 }
 
-void applySingleCellRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
+static void applySingleCellRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
     int imageId = world::Sub_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
@@ -205,7 +209,7 @@ void applySingleCellRule(std::vector<unsigned char>& state, int width, int heigh
     }
 }
 
-void applyFootprintRule(std::vector<unsigned char>& state, int width, int height, int x, int y, unsigned short flag, std::int32_t seqNo)
+static void applyFootprintRule(std::vector<unsigned char>& state, int width, int height, int x, int y, unsigned short flag, std::int32_t seqNo)
 {
     unsigned short sxRaw = 0;
     unsigned short syRaw = 0;
@@ -225,7 +229,7 @@ void applyFootprintRule(std::vector<unsigned char>& state, int width, int height
     }
 }
 
-void applyObjectRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
+static void applyObjectRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
     int imageId = world::Sub_46CF00(raw);
     if (imageId > 999) {
@@ -242,7 +246,7 @@ void applyObjectRule(std::vector<unsigned char>& state, int width, int height, u
     applySingleCellRule(state, width, height, raw, x, y);
 }
 
-std::vector<unsigned char> synthesizeDiskCells(
+static std::vector<unsigned char> synthesizeDiskCells(
     int width, int height, const std::vector<unsigned short>& tileData, const std::vector<unsigned short>& objData, const std::vector<unsigned short>& hitData)
 {
     size_t cellCount = tileData.size();
@@ -267,28 +271,28 @@ std::vector<unsigned char> synthesizeDiskCells(
     return cells;
 }
 
-bool isBusy()
+static bool isBusy()
 {
     return gPathCount > 0 || gMoveQueueCount > 0 || gMoveLock != 0 || gTileEventLock != 0 || gTargetEventLock != 0;
 }
 
-bool isValidMap()
+static bool isValidMap()
 {
     return gMapWidth > 0 && gMapHeight > 0 && gMapWidth * gMapHeight <= kMapBufferLimit;
 }
 
-bool isSaneTarget(Point start, Point target)
+static bool isSaneTarget(Point start, Point target)
 {
     return std::llabs(static_cast<long long>(target.x) - start.x) <= kMaxCoordinateDistance
         && std::llabs(static_cast<long long>(target.y) - start.y) <= kMaxCoordinateDistance;
 }
 
-uint64_t makeKey(int x, int y)
+static uint64_t makeKey(int x, int y)
 {
     return (static_cast<uint64_t>(static_cast<uint32_t>(x)) << 32) | static_cast<uint32_t>(y);
 }
 
-Point keyToPoint(uint64_t key)
+static Point keyToPoint(uint64_t key)
 {
     return {
         static_cast<int>(static_cast<int32_t>(static_cast<uint32_t>(key >> 32))),
@@ -296,44 +300,44 @@ Point keyToPoint(uint64_t key)
     };
 }
 
-bool samePoint(Point a, Point b)
+static bool samePoint(Point a, Point b)
 {
     return a.x == b.x && a.y == b.y;
 }
 
-int pointDistance(Point a, Point b)
+static int pointDistance(Point a, Point b)
 {
     return std::max(std::abs(a.x - b.x), std::abs(a.y - b.y));
 }
 
-void resetPlanCache()
+static void resetPlanCache()
 {
     gHasCachedWaypoint = false;
 }
 
-void resetMoveProgress()
+static void resetMoveProgress()
 {
     gHasPendingMoveCheck = false;
     gMoveCheckSawBusy = false;
     gHasExpectedAutoTarget = false;
 }
 
-void clearCopilotRoute()
+static void clearCopilotRoute()
 {
     gAutoCopilotRoute.clear();
 }
 
-void cacheCopilotRoute(const std::vector<Point>& path)
+static void cacheCopilotRoute(const std::vector<Point>& path)
 {
     gAutoCopilotRoute = path;
 }
 
-void clearRecentPlayers()
+static void clearRecentPlayers()
 {
     gRecentPlayerCount = 0;
 }
 
-void rememberRecentPlayer(Point p)
+static void rememberRecentPlayer(Point p)
 {
     if (gRecentPlayerCount > 0 && samePoint(gRecentPlayers[0], p)) {
         return;
@@ -348,7 +352,7 @@ void rememberRecentPlayer(Point p)
     }
 }
 
-bool isRecentPlayer(Point p)
+static bool isRecentPlayer(Point p)
 {
     for (int i = 0; i < gRecentPlayerCount; ++i) {
         if (samePoint(gRecentPlayers[i], p)) {
@@ -358,7 +362,7 @@ bool isRecentPlayer(Point p)
     return false;
 }
 
-bool isDynamicBlocked(Point p)
+static bool isDynamicBlocked(Point p)
 {
     uint64_t key = makeKey(p.x, p.y);
     auto it = gDynamicBlocked.find(key);
@@ -373,14 +377,14 @@ bool isDynamicBlocked(Point p)
     }
     return true;
 }
-bool putDynamicBlocked(Point p)
+static bool putDynamicBlocked(Point p)
 {
     bool existed = isDynamicBlocked(p);
     gDynamicBlocked[makeKey(p.x, p.y)] = nowMs() + kDynamicBlockMs;
     return !existed;
 }
 
-void markDynamicBlocked(Point p, const char* reason)
+static void markDynamicBlocked(Point p, const char* reason)
 {
     bool added = putDynamicBlocked(p);
     if (added) {
@@ -389,7 +393,7 @@ void markDynamicBlocked(Point p, const char* reason)
 }
 
 
-void syncVisibleCache()
+static void syncVisibleCache()
 {
     if (!isValidMap()) {
         return;
@@ -416,7 +420,7 @@ void syncVisibleCache()
     }
 }
 
-std::string makeMapFileName()
+static std::string makeMapFileName()
 {
     char fileName[260] = {};
     if (gMapId) {
@@ -427,7 +431,7 @@ std::string makeMapFileName()
     return fileName;
 }
 
-bool loadDiskMap()
+static bool loadDiskMap()
 {
     uint64_t now = nowMs();
     bool sameMap = gDiskMap.mapId == gMapId && gDiskMap.floor == gMapFloor && gDiskMap.group == gMapGroup;
@@ -505,7 +509,7 @@ bool loadDiskMap()
     return true;
 }
 
-unsigned char diskCell(Point p)
+static unsigned char diskCell(Point p)
 {
     if (!loadDiskMap()) {
         return kKnownWalkable;
@@ -516,12 +520,12 @@ unsigned char diskCell(Point p)
     return gDiskMap.cells[p.x + p.y * gDiskMap.width];
 }
 
-bool inDiskBounds(Point p)
+static bool inDiskBounds(Point p)
 {
     return gDiskMap.loaded && p.x >= 0 && p.y >= 0 && p.x < gDiskMap.width && p.y < gDiskMap.height;
 }
 
-unsigned char cachedKnownOrDiskCell(Point p)
+static unsigned char cachedKnownOrDiskCell(Point p)
 {
     if (isDynamicBlocked(p)) {
         return kKnownBlocked;
@@ -544,7 +548,7 @@ struct CellGraphicInfo {
     unsigned short sy = 0;
 };
 
-CellGraphicInfo readCellGraphicInfo(unsigned short raw)
+static CellGraphicInfo readCellGraphicInfo(unsigned short raw)
 {
     CellGraphicInfo info;
     info.imageId = world::Sub_46CF00(raw);
@@ -558,7 +562,7 @@ CellGraphicInfo readCellGraphicInfo(unsigned short raw)
     return info;
 }
 
-unsigned char rawBlockState(unsigned short raw)
+static unsigned char rawBlockState(unsigned short raw)
 {
     int imageId = world::Sub_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
@@ -591,14 +595,14 @@ unsigned char rawBlockState(unsigned short raw)
     }
 }
 
-bool footprintCovers(Point origin, CellGraphicInfo info, Point p)
+static bool footprintCovers(Point origin, CellGraphicInfo info, Point p)
 {
     short sx = static_cast<short>(info.sx);
     short sy = static_cast<short>(info.sy);
     return sx > 0 && sy > 0 && p.x >= origin.x && p.x < origin.x + sx && p.y <= origin.y && p.y > origin.y - sy;
 }
 
-void logFootprintSources(Point p, const char* label)
+static void logFootprintSources(Point p, const char* label)
 {
     if (!gDiskMap.loaded || !inDiskBounds(p)) {
         return;
@@ -629,8 +633,8 @@ void logFootprintSources(Point p, const char* label)
     }
 }
 
-void logDiskCellDetail(Point p, const char* label);
-int markObjectFootprintBlocked(Point origin, unsigned short raw, CellGraphicInfo info, Point cover, const char* reason)
+static void logDiskCellDetail(Point p, const char* label);
+static int markObjectFootprintBlocked(Point origin, unsigned short raw, CellGraphicInfo info, Point cover, const char* reason)
 {
     short sx = static_cast<short>(info.sx);
     short sy = static_cast<short>(info.sy);
@@ -659,7 +663,7 @@ int markObjectFootprintBlocked(Point origin, unsigned short raw, CellGraphicInfo
     return marked;
 }
 
-int markCoveringObjectBlocks(Point p, const char* reason)
+static int markCoveringObjectBlocks(Point p, const char* reason)
 {
     if (!gDiskMap.loaded || !inDiskBounds(p)) {
         return 0;
@@ -690,7 +694,7 @@ int markCoveringObjectBlocks(Point p, const char* reason)
     return marked;
 }
 
-void markDynamicBlockedByMapSource(Point p, const char* reason)
+static void markDynamicBlockedByMapSource(Point p, const char* reason)
 {
     // logDiskCellDetail(p, reason);
     if (!loadDiskMap() || !inDiskBounds(p)) {
@@ -733,7 +737,7 @@ void markDynamicBlockedByMapSource(Point p, const char* reason)
     markDynamicBlocked(p, reason);
 }
 
-void logDiskCellDetail(Point p, const char* label)
+static void logDiskCellDetail(Point p, const char* label)
 {
     uint64_t now = nowMs();
     uint64_t key = makeKey(p.x, p.y);
@@ -770,25 +774,25 @@ void logDiskCellDetail(Point p, const char* label)
     // logFootprintSources(p, label);
 }
 
-bool toLocal(Point p, int& lx, int& ly)
+static bool toLocal(Point p, int& lx, int& ly)
 {
     lx = p.x - cg::world::gMapXStart;
     ly = p.y - cg::world::gMapYStart;
     return lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight;
 }
 
-bool canWalkLocal(int lx, int ly)
+static bool canWalkLocal(int lx, int ly)
 {
     return isValidMap() && lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight
         && gMoveBlockMap[lx + ly * gMapWidth] != 1;
 }
 
-bool canWalkLocalPoint(int lx, int ly)
+static bool canWalkLocalPoint(int lx, int ly)
 {
     return canWalkLocal(lx, ly) && !isDynamicBlocked({cg::world::gMapXStart + lx, cg::world::gMapYStart + ly});
 }
 
-bool canWalkGlobal(Point p)
+static bool canWalkGlobal(Point p)
 {
     if (!isValidMap()) {
         return false;
@@ -798,7 +802,7 @@ bool canWalkGlobal(Point p)
     return !isDynamicBlocked(p) && toLocal(p, lx, ly) && canWalkLocal(lx, ly);
 }
 
-bool canReachLocal(Point start, Point target)
+static bool canReachLocal(Point start, Point target)
 {
     if (samePoint(start, target)) {
         return true;
@@ -821,8 +825,6 @@ bool canReachLocal(Point start, Point target)
     visited[startIndex] = 1;
     queue.push_back(startIndex);
 
-    static constexpr int dx[] = {0, 1, 1, 1, 0, -1, -1, -1};
-    static constexpr int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
     size_t head = 0;
     while (head < queue.size()) {
         int index = queue[head++];
@@ -832,12 +834,12 @@ bool canReachLocal(Point start, Point target)
         int cx = index % gMapWidth;
         int cy = index / gMapWidth;
         for (int i = 0; i < 8; ++i) {
-            int nx = cx + dx[i];
-            int ny = cy + dy[i];
+            int nx = cx + kNeighborOffsetsX[i];
+            int ny = cy + kNeighborOffsetsY[i];
             if (!canWalkLocalPoint(nx, ny)) {
                 continue;
             }
-            if (dx[i] != 0 && dy[i] != 0 && (!canWalkLocalPoint(cx + dx[i], cy) || !canWalkLocalPoint(cx, cy + dy[i]))) {
+            if (kNeighborOffsetsX[i] != 0 && kNeighborOffsetsY[i] != 0 && (!canWalkLocalPoint(cx + kNeighborOffsetsX[i], cy) || !canWalkLocalPoint(cx, cy + kNeighborOffsetsY[i]))) {
                 continue;
             }
 
@@ -852,7 +854,7 @@ bool canReachLocal(Point start, Point target)
     return false;
 }
 
-bool isForwardWaypoint(Point player, Point waypoint)
+static bool isForwardWaypoint(Point player, Point waypoint)
 {
     if (!canWalkGlobal(waypoint)) {
         return false;
@@ -865,7 +867,7 @@ bool isForwardWaypoint(Point player, Point waypoint)
     return true;
 }
 
-bool isBidirectionalWaypoint(Point player, Point waypoint)
+static bool isBidirectionalWaypoint(Point player, Point waypoint)
 {
     if (!isForwardWaypoint(player, waypoint)) {
         return false;
@@ -878,7 +880,7 @@ bool isBidirectionalWaypoint(Point player, Point waypoint)
     return true;
 }
 
-void logNoPathDetail(Point player, Point target)
+static void logNoPathDetail(Point player, Point target)
 {
     uint64_t now = nowMs();
     if (gLastNoPathDetailLogMs != 0 && now - gLastNoPathDetailLogMs < kNoPathDetailLogMs) {
@@ -902,7 +904,7 @@ void logNoPathDetail(Point player, Point target)
     // logDiskCellDetail(player, "no-path-player");
     // logDiskCellDetail(target, "no-path-target");
 }
-unsigned char knownCell(Point p)
+static unsigned char knownCell(Point p)
 {
     if (isDynamicBlocked(p)) {
         return kKnownBlocked;
@@ -914,18 +916,18 @@ unsigned char knownCell(Point p)
     return it->second;
 }
 
-bool optimisticWalkable(Point p)
+static bool optimisticWalkable(Point p)
 {
     return knownCell(p) != kKnownBlocked;
 }
 
-int optimisticMoveCost(Point p, bool diagonal)
+static int optimisticMoveCost(Point p, bool diagonal)
 {
     int cost = diagonal ? 14 : 10;
     return knownCell(p) == kKnownWalkable ? cost : cost + 30;
 }
 
-long long distanceScore(int lx, int ly, Point target)
+static long long distanceScore(int lx, int ly, Point target)
 {
     long long x = static_cast<long long>(cg::world::gMapXStart) + lx;
     long long y = static_cast<long long>(cg::world::gMapYStart) + ly;
@@ -934,7 +936,7 @@ long long distanceScore(int lx, int ly, Point target)
     return dx * dx + dy * dy;
 }
 
-bool isBetterFallback(int index, int bestIndex, int step, int bestStep, Point target)
+static bool isBetterFallback(int index, int bestIndex, int step, int bestStep, Point target)
 {
     int x = index % gMapWidth;
     int y = index / gMapWidth;
@@ -945,7 +947,7 @@ bool isBetterFallback(int index, int bestIndex, int step, int bestStep, Point ta
     return score < bestScore || (score == bestScore && step < bestStep);
 }
 
-Point clampTarget(Point start, Point target)
+static Point clampTarget(Point start, Point target)
 {
     long long dx = static_cast<long long>(target.x) - start.x;
     long long dy = static_cast<long long>(target.y) - start.y;
@@ -959,7 +961,7 @@ Point clampTarget(Point start, Point target)
     };
 }
 
-int heuristic(Point a, Point b)
+static int heuristic(Point a, Point b)
 {
     long long dx = std::llabs(static_cast<long long>(a.x) - b.x);
     long long dy = std::llabs(static_cast<long long>(a.y) - b.y);
@@ -969,7 +971,7 @@ int heuristic(Point a, Point b)
     return value > std::numeric_limits<int>::max() ? std::numeric_limits<int>::max() : static_cast<int>(value);
 }
 
-bool buildTimedFullPath(Point start, Point target, uint64_t timeLimitMs, std::vector<Point>& path)
+static bool buildTimedFullPath(Point start, Point target, uint64_t timeLimitMs, std::vector<Point>& path)
 {
     path.clear();
 
@@ -1011,8 +1013,6 @@ bool buildTimedFullPath(Point start, Point target, uint64_t timeLimitMs, std::ve
     open.push({startKey, heuristic(start, target)});
 
     int expanded = 0;
-    static constexpr int dx[] = {0, 1, 1, 1, 0, -1, -1, -1};
-    static constexpr int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
     while (!open.empty()) {
         if ((++expanded % kTimedSearchCheckInterval) == 0 && nowMs() >= deadline) {
@@ -1045,12 +1045,12 @@ bool buildTimedFullPath(Point start, Point target, uint64_t timeLimitMs, std::ve
 
         Point current = keyToPoint(currentKey);
         for (int i = 0; i < 8; ++i) {
-            Point next{current.x + dx[i], current.y + dy[i]};
+            Point next{current.x + kNeighborOffsetsX[i], current.y + kNeighborOffsetsY[i]};
             if (!walkable(next)) {
                 continue;
             }
-            bool diagonal = dx[i] != 0 && dy[i] != 0;
-            if (diagonal && (!walkable({current.x + dx[i], current.y}) || !walkable({current.x, current.y + dy[i]}))) {
+            bool diagonal = kNeighborOffsetsX[i] != 0 && kNeighborOffsetsY[i] != 0;
+            if (diagonal && (!walkable({current.x + kNeighborOffsetsX[i], current.y}) || !walkable({current.x, current.y + kNeighborOffsetsY[i]}))) {
                 continue;
             }
 
@@ -1073,7 +1073,7 @@ bool buildTimedFullPath(Point start, Point target, uint64_t timeLimitMs, std::ve
     return false;
 }
 
-bool buildOptimisticPath(Point start, Point target, std::vector<Point>& path)
+static bool buildOptimisticPath(Point start, Point target, std::vector<Point>& path)
 {
     path.clear();
 
@@ -1128,8 +1128,6 @@ bool buildOptimisticPath(Point start, Point target, std::vector<Point>& path)
     int fallbackIndex = -1;
     int fallbackScore = std::numeric_limits<int>::max();
     bool fallbackIsRecent = false;
-    static constexpr int dx[] = {0, 1, 1, 1, 0, -1, -1, -1};
-    static constexpr int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
     while (!open.empty()) {
         int index = open.top().index;
@@ -1160,14 +1158,14 @@ bool buildOptimisticPath(Point start, Point target, std::vector<Point>& path)
         }
 
         for (int i = 0; i < 8; ++i) {
-            Point next{current.x + dx[i], current.y + dy[i]};
+            Point next{current.x + kNeighborOffsetsX[i], current.y + kNeighborOffsetsY[i]};
             if (!inSearch(next) || !optimisticWalkable(next)) {
                 continue;
             }
-            bool diagonal = dx[i] != 0 && dy[i] != 0;
+            bool diagonal = kNeighborOffsetsX[i] != 0 && kNeighborOffsetsY[i] != 0;
             if (diagonal) {
-                Point sideX{current.x + dx[i], current.y};
-                Point sideY{current.x, current.y + dy[i]};
+                Point sideX{current.x + kNeighborOffsetsX[i], current.y};
+                Point sideY{current.x, current.y + kNeighborOffsetsY[i]};
                 if (!optimisticWalkable(sideX) || !optimisticWalkable(sideY)) {
                     continue;
                 }
@@ -1207,7 +1205,7 @@ bool buildOptimisticPath(Point start, Point target, std::vector<Point>& path)
     return !path.empty();
 }
 
-bool buildPath(Point start, Point target, std::vector<Point>& path)
+static bool buildPath(Point start, Point target, std::vector<Point>& path)
 {
     path.clear();
     if (!isValidMap()) {
@@ -1244,8 +1242,6 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
     bool fallbackIsRecent = false;
     size_t head = 0;
 
-    static constexpr int dx[] = {0, 1, 1, 1, 0, -1, -1, -1};
-    static constexpr int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
     while (head < queue.size()) {
         int index = queue[head++];
@@ -1276,12 +1272,12 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
         }
 
         for (int i = 0; i < 8; ++i) {
-            int nx = cx + dx[i];
-            int ny = cy + dy[i];
+            int nx = cx + kNeighborOffsetsX[i];
+            int ny = cy + kNeighborOffsetsY[i];
             if (!canWalkLocalPoint(nx, ny)) {
                 continue;
             }
-            if (dx[i] != 0 && dy[i] != 0 && (!canWalkLocalPoint(cx + dx[i], cy) || !canWalkLocalPoint(cx, cy + dy[i]))) {
+            if (kNeighborOffsetsX[i] != 0 && kNeighborOffsetsY[i] != 0 && (!canWalkLocalPoint(cx + kNeighborOffsetsX[i], cy) || !canWalkLocalPoint(cx, cy + kNeighborOffsetsY[i]))) {
                 continue;
             }
 
@@ -1320,7 +1316,7 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
     return !path.empty();
 }
 
-bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
+static bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
 {
     path.clear();
     if (!isValidMap()) {
@@ -1349,8 +1345,6 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
     int bestStep = 0;
     size_t head = 0;
 
-    static constexpr int dx[] = {0, 1, 1, 1, 0, -1, -1, -1};
-    static constexpr int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
     while (head < queue.size()) {
         int index = queue[head++];
@@ -1371,12 +1365,12 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
         }
 
         for (int i = 0; i < 8; ++i) {
-            int nx = cx + dx[i];
-            int ny = cy + dy[i];
+            int nx = cx + kNeighborOffsetsX[i];
+            int ny = cy + kNeighborOffsetsY[i];
             if (!canWalkLocalPoint(nx, ny)) {
                 continue;
             }
-            if (dx[i] != 0 && dy[i] != 0 && (!canWalkLocalPoint(cx + dx[i], cy) || !canWalkLocalPoint(cx, cy + dy[i]))) {
+            if (kNeighborOffsetsX[i] != 0 && kNeighborOffsetsY[i] != 0 && (!canWalkLocalPoint(cx + kNeighborOffsetsX[i], cy) || !canWalkLocalPoint(cx, cy + kNeighborOffsetsY[i]))) {
                 continue;
             }
 
@@ -1407,7 +1401,7 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
     return !path.empty();
 }
 
-void requestMove(Point target)
+static void requestMove(Point target)
 {
     Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
     gAutoTargetX = target.x;
@@ -1425,7 +1419,7 @@ void requestMove(Point target)
     gMoveRequest = 1;
 }
 
-void cacheWaypoint(Point player, Point target, Point waypoint)
+static void cacheWaypoint(Point player, Point target, Point waypoint)
 {
     gLastPlanPlayer = player;
     gCachedTarget = target;
@@ -1436,7 +1430,7 @@ void cacheWaypoint(Point player, Point target, Point waypoint)
     gHasCachedWaypoint = true;
 }
 
-bool tryUseCachedWaypoint(Point player, Point target)
+static bool tryUseCachedWaypoint(Point player, Point target)
 {
     if (!gHasCachedWaypoint || !samePoint(target, gCachedTarget) || gCachedMapId != gMapId || gCachedMapFloor != gMapFloor
         || gCachedMapGroup != gMapGroup) {
@@ -1459,7 +1453,7 @@ bool tryUseCachedWaypoint(Point player, Point target)
     return true;
 }
 
-bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Point& waypoint, bool allowRecentFallback = false)
+static bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Point& waypoint, bool allowRecentFallback = false)
 {
     if (path.empty()) {
         return false;

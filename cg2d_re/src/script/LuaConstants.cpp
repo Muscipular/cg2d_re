@@ -34,7 +34,7 @@ constexpr LuaVkConst kNamedVkConsts[] = {
     {0xDD, "OEM_6"}, {0xDE, "OEM_7"}, {0xDF, "OEM_8"}, {0xE2, "OEM_102"},
 };
 
-void AddVkConst(lua_State* L, int code, const char* name) {
+static void AddVkConst(lua_State* L, int code, const char* name) {
     lua_pushinteger(L, code);
     lua_pushstring(L, name);
     lua_settable(L, -3);
@@ -42,7 +42,7 @@ void AddVkConst(lua_State* L, int code, const char* name) {
     lua_setfield(L, -2, name);
 }
 
-void RegVkConst(lua_State* L) {
+static void RegVkConst(lua_State* L) {
     lua_getfield(L, -1, "VK");
     if (!lua_istable(L, -1)) {
         lua_pop(L, 1);
@@ -74,7 +74,7 @@ void RegVkConst(lua_State* L) {
     lua_setfield(L, -2, "VK");
 }
 
-int LuaScreenIndex(lua_State* L) {
+static int LuaScreenIndex(lua_State* L) {
     const char* key = lua_tostring(L, 2);
     if (!key) {
         lua_pushnil(L);
@@ -92,7 +92,7 @@ int LuaScreenIndex(lua_State* L) {
     return 1;
 }
 
-void RegScreenConst(lua_State* L) {
+static void RegScreenConst(lua_State* L) {
     lua_newtable(L);
     lua_newtable(L);
     lua_pushcfunction(L, SafeLuaCall<LuaScreenIndex>);
@@ -101,7 +101,7 @@ void RegScreenConst(lua_State* L) {
     lua_setfield(L, -2, "Screen");
 }
 
-int LuaMouseIndex(lua_State* L) {
+static int LuaMouseIndex(lua_State* L) {
     const char* key = lua_tostring(L, 2);
     if (!key) {
         lua_pushnil(L);
@@ -119,7 +119,7 @@ int LuaMouseIndex(lua_State* L) {
     return 1;
 }
 
-void RegMouseConst(lua_State* L) {
+static void RegMouseConst(lua_State* L) {
     lua_newtable(L);
     lua_newtable(L);
     lua_pushcfunction(L, SafeLuaCall<LuaMouseIndex>);
@@ -128,7 +128,7 @@ void RegMouseConst(lua_State* L) {
     lua_setfield(L, -2, "Mouse");
 }
 
-int LuaConstIndex(lua_State* L) {
+static int LuaConstIndex(lua_State* L) {
     const char* key = lua_tostring(L, 2);
     if (!key) {
         lua_pushnil(L);
@@ -142,7 +142,7 @@ int LuaConstIndex(lua_State* L) {
     return 1;
 }
 
-int LuaConstNewIndex(lua_State* L) {
+static int LuaConstNewIndex(lua_State* L) {
     const char* key = lua_tostring(L, 2);
     if (key && strcmp(key, "GameTick") == 0) {
         return luaL_error(L, "CONST.GameTick is readonly");
@@ -151,7 +151,7 @@ int LuaConstNewIndex(lua_State* L) {
     return 0;
 }
 
-void RegConstMeta(lua_State* L) {
+static void RegConstMeta(lua_State* L) {
     lua_newtable(L);
     lua_pushcfunction(L, SafeLuaCall<LuaConstIndex>);
     lua_setfield(L, -2, "__index");

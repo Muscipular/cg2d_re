@@ -28,8 +28,8 @@ std::int32_t gValueD460C8 = 0; // 原全局：0x00D460C8。
 
 namespace cg::world::detail {
 // 原.data两说明坐标；本体按Y→X独立读取，保持S16和已加载初值。
-std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
-std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。
+static std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
+static std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。
 
 static inline constexpr std::array<std::uint8_t, 12> kLowercaseDescription {{
     0xAD, 0x5E, 0xBC, 0xC6, 0x2F, 0xA2,

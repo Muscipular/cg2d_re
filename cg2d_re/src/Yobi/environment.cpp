@@ -109,7 +109,7 @@ YobiAction* Sub_448370(void (*callback)(YobiAction*))
 }
 
 // 原[449570,44966B)：两组帧表共用播放器，复用action动画字段。
-std::int32_t Sub_449570(YobiAction* const action, const std::int32_t group)
+static std::int32_t Sub_449570(YobiAction* const action, const std::int32_t group)
 {
     const std::int32_t image = action->imageNo;
     if (action->lastImageNo != image) {
@@ -149,7 +149,7 @@ std::int32_t Sub_449570(YobiAction* const action, const std::int32_t group)
 }
 
 // 原[4496C0,4496FE)：共享波纹对屏幕Y的补偿，返回除法修正位。
-std::uint32_t Sub_4496C0(YobiAction* const action)
+static std::uint32_t Sub_4496C0(YobiAction* const action)
 {
     const std::uint32_t phase = render::gRippleIntegerPhaseBits;
     const std::int32_t y = action->y;
@@ -191,7 +191,7 @@ static void InitializeSceneEffectGraphic(
 }
 
 // 原[448A50,448BEF)：正类型对象回调，保持FST后仍使用寄存器值的边界。
-void Sub_448A50(YobiAction* const action)
+static void Sub_448A50(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
     if (action->mapY1F0.value() != floor) {
@@ -244,7 +244,7 @@ void Sub_448A50(YobiAction* const action)
 }
 
 // 原[448BF0,448D8F)：负类型对象回调，偏移推进方向与448A50相反。
-void Sub_448BF0(YobiAction* const action)
+static void Sub_448BF0(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
     if (action->mapY1F0.value() != floor) {
@@ -297,7 +297,7 @@ void Sub_448BF0(YobiAction* const action)
 }
 
 // 原[448810,448A4F)：mode0写计时槽，此时floor实参表示已过秒数。
-void Sub_448810(
+static void Sub_448810(
     const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -358,7 +358,7 @@ void Sub_448810(
 }
 
 // 原[448D90,44905A)：四种负类型图形生产，先按mode4查重再筛类型。
-void Sub_448D90(
+static void Sub_448D90(
     const std::int32_t value, const std::int32_t /*unused*/,
     const std::int32_t floor, const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -439,7 +439,7 @@ void Sub_448D90(
 }
 
 // 原[449A00,449BBD)：普通路移动/投影，首帧只置CryptInt标记。
-void Sub_449A00(YobiAction* const action)
+static void Sub_449A00(YobiAction* const action)
 {
     if (world::IsMapFloorAllowed_448240() == 0) {
         MarkDeath(action);
@@ -492,7 +492,7 @@ void Sub_449A00(YobiAction* const action)
 }
 
 // 原[449C10,449C8B)：每轮重查普通路父节点，播放后复制父屏幕坐标。
-void Sub_449C10(YobiAction* const action)
+static void Sub_449C10(YobiAction* const action)
 {
     YobiAction* const parent = Sub_448370(Sub_449A00);
     if (parent == nullptr || world::IsMapFloorAllowed_448240() == 0) {
@@ -506,7 +506,7 @@ void Sub_449C10(YobiAction* const action)
 }
 
 // 原[449BC0,449C0A)：按callback去重附属节点，不拥有父引用。
-YobiAction* Sub_449BC0()
+static YobiAction* Sub_449BC0()
 {
     YobiAction* action = Sub_448370(Sub_449C10);
     if (action != nullptr) {
@@ -525,7 +525,7 @@ YobiAction* Sub_449BC0()
 }
 
 // 原[4483A0,448810)：计时偏移与100块背景入队，关联对象缺失不补零。
-void Sub_4483A0(YobiAction* const action)
+static void Sub_4483A0(YobiAction* const action)
 {
     if (world::gCurrentSceneType != 9) {
         MarkDeath(action);
@@ -648,7 +648,7 @@ void Sub_4483A0(YobiAction* const action)
 }
 
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
-void Sub_448290()
+static void Sub_448290()
 {
     if (world::gCurrentSceneType != 9 || world::gPlayerRuntimeSlots.action == nullptr) {
         return;
@@ -681,7 +681,7 @@ void Sub_448290()
 }
 
 // 原[449670,4496B7)：先归一化角度，两次查表后各自重读幅值。
-void Sub_449670(YobiAction* const action)
+static void Sub_449670(YobiAction* const action)
 {
     float angle = static_cast<float>(270.0 - action->angle50);
     world::Sub_46F8F0(&angle);
@@ -694,7 +694,7 @@ void Sub_449670(YobiAction* const action)
 }
 
 // 原[449400,449552)：漂移对象的移动、帧表、投影及四方向退出。
-void Sub_449400(YobiAction* const action)
+static void Sub_449400(YobiAction* const action)
 {
     if (world::IsMapFloorAllowed_448240() == 0) {
         MarkDeath(action);

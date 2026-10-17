@@ -93,7 +93,7 @@ static void AdvanceLoadingFadeFrame()
 namespace initialization_detail {
 
 // 原函数：0x00458390。
-std::int32_t FadeInLoading_458390()
+static std::int32_t FadeInLoading_458390()
 {
     const std::int32_t capability = resource::ProbePaletteCapability_45C970();
     render::gPaletteCapability = capability;
@@ -140,7 +140,7 @@ std::int32_t FadeInLoading_458390()
 }
 
 // 原函数：0x004585F0。
-std::int32_t FadeOutLoading_4585F0()
+static std::int32_t FadeOutLoading_4585F0()
 {
     gLastRenderDt = static_cast<double>(ReadTickCount64());
     bool firstFrame = true;

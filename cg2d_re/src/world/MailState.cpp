@@ -214,26 +214,34 @@ const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index
     return gMiniMailRuntime.contacts[index];
 }
 
+} // namespace cg::world::detail
+
+namespace cg::world {
+
 MailMessageView GetMailMessageF7CA08(
     const std::int16_t selected, const std::int32_t contact, const std::int32_t page)
 {
-    return MakeMailMessageView(gMailStorageF7CA08[
+    return detail::MakeMailMessageView(detail::gMailStorageF7CA08[
         selected * 60 * 10 + static_cast<std::ptrdiff_t>(contact) * 10 + page]);
 }
 
 MailMessageView GetGuildMailMessageDE0B30(
     const std::int16_t selected, const std::int32_t slot, const std::int32_t page)
 {
-    return MakeMailMessageView(gGuildMailStorageDE0B30[
+    return detail::MakeMailMessageView(detail::gGuildMailStorageDE0B30[
         selected * 200 + static_cast<std::ptrdiff_t>(slot)].messages[page]);
 }
 
 MailMessageView GetMiniMailMessage10763A0(
     const std::int32_t contact, const std::int32_t page)
 {
-    return MakeMailMessageView(gMiniMailRuntime.messages[
+    return detail::MakeMailMessageView(detail::gMiniMailRuntime.messages[
         static_cast<std::ptrdiff_t>(contact) * 10 + page]);
 }
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 
 const ProfileRuntimeRecord& ReadSelectedProfile1074938()
 {

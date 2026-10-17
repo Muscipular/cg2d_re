@@ -14,8 +14,6 @@ enum class SkillEffectKind {
 BattleSkillMeta* GetBattleSkillMeta(YobiAction* action);
 void CaptureBattleSkillMeta(std::int32_t techId, std::int32_t skillId);
 void BindBattleSkillMeta(YobiAction* action);
-void InitializeBattleEffects();
-void ShutdownBattleEffects();
 std::int32_t ResolveSkillEffectImage(
     YobiAction* source, SkillEffectKind kind, std::int32_t originalImage);
 std::int32_t ResolveSkillCastingImage(YobiAction* source, std::int32_t originalImage);

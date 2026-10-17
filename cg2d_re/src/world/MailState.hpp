@@ -5,6 +5,21 @@
 #include <cstdint>
 #include <type_traits>
 
+namespace cg::world {
+
+// 窗口40借用同源140H消息成员；仅未读位可写，其余保持只读。
+struct MailMessageView {
+    std::byte* unread00; // 所指原成员偏移：+0x00。
+    const std::byte* kind01; // 所指原成员偏移：+0x01。
+    const char* text02; // 所指原成员偏移：+0x02。
+    const char* text14; // 所指原成员偏移：+0x14。
+};
+
+MailMessageView GetMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
+MailMessageView GetGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
+MailMessageView GetMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
+} // namespace cg::world
+
 namespace cg::world::detail {
 
 // 原三项108H资料及828H资料记录；只共享布局，持久/当前/查看/回复区各有唯一存储。
@@ -112,17 +127,6 @@ struct MiniMailContactRecord {
 };
 
 const MiniMailContactRecord& ReadMiniMailContact1075A90(std::int32_t index); // 窗口21借用，存储仍归MailState。
-// 窗口40借用同源140H消息成员；仅未读位可写，其余保持只读。
-struct MailMessageView {
-    std::byte* unread00; // 所指原成员偏移：+0x00。
-    const std::byte* kind01; // 所指原成员偏移：+0x01。
-    const char* text02; // 所指原成员偏移：+0x02。
-    const char* text14; // 所指原成员偏移：+0x14。
-};
-
-MailMessageView GetMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
-MailMessageView GetGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
-MailMessageView GetMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
 extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 原全局：0x00FDA608。 数值索引，不是地址。
 extern std::uint16_t gValue62B354; // 原全局：0x0062B354。 518DA0写未读类别0/1/2/3。
 extern std::uint32_t gValueCB1384; // 原全局：0x00CB1384。 同源邮件页号，518C80清零。

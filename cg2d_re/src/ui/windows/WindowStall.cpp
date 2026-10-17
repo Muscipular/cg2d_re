@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -2406,7 +2407,7 @@ static void WindowStall_OpenBrowse(
         ++field; // 原每条相对字段4不解析。
         pet.used = 1;
         const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        pet.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
+        pet.imageNo6A0 = character_select::ResolveCharacterImageForVersion(imageNo);
         pet.value04 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
         for (std::int32_t value = 0; value < 6; ++value) {

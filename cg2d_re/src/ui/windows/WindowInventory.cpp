@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -601,7 +602,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
             x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
-        character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
+        character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
     cg::yobi::SetYobiActionField2B8(

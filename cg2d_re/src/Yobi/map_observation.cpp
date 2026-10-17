@@ -1,6 +1,6 @@
 #include "map_observation.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -1028,7 +1028,7 @@ std::int32_t Sub_440920(
         values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
     }
     if (characterAction == 82) {
-        const std::int32_t imageNo = character_select::detail::Sub_51B740(values[0]);
+        const std::int32_t imageNo = character_select::ResolveCharacterImageForVersion(values[0]);
         YobiAction* const observer = detail::Sub_43FEB0(imageNo, x, y, values[1]);
         detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {

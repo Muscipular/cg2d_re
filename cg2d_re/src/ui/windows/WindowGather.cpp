@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -451,7 +452,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         static_cast<void>(WindowGather_InitializeAction(gCurrentWindow));
         return 1;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
     const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);

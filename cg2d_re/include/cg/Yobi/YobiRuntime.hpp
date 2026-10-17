@@ -13,6 +13,10 @@ struct GraphicCacheItem32;
 
 namespace cg::yobi {
 
+// 脚本运行时启动／关闭战斗特效配置与独立Lua技能状态。
+void InitializeBattleEffects();
+void ShutdownBattleEffects();
+
 // 原 x86 YobiAction 的原生 x64 承载；具体布局只由 Yobi runtime 持有。
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
 struct YobiAction;

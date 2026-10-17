@@ -1,9 +1,9 @@
 #include "battle_skill_special.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
 #include "battle_message.hpp"
 #include "battle_skill.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 
 #include "battle_actor.hpp"
 #include "battle_scene.hpp"
@@ -664,7 +664,7 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] = created;
         auto* const actorPayload = created->payload.battleActor;
         TakeBattleMString_438FE0(scene, created->nameC4.data(), 29);
-        created->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        created->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         created->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             created->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -2366,11 +2366,11 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             break;
         }
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
-        const std::int32_t firstImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
-        const std::int32_t secondImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        const std::int32_t firstImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
+        const std::int32_t secondImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         std::array<std::int32_t, 2> images;
         for (std::int32_t& image : images) {
-            image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         }
         const std::int32_t firstValue = TakeBattleMInteger_438F70(scene);
         const std::int32_t secondValue = TakeBattleMInteger_438F70(scene);
@@ -2605,9 +2605,9 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             secondPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             selfFlags = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             TakeBattleMString_438FE0(scene, first->nameC4.data(), 29);
-            first->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            first->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             for (std::int32_t& image : firstImages) {
-                image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+                image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             }
             first->field1D0 = TakeBattleMInteger_438F70(scene);
             {
@@ -2669,7 +2669,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             riderY->offset44 = sourceY->offset44;
 
             TakeBattleMString_438FE0(scene, second->nameC4.data(), 29);
-            second->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            second->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             second->field1D0 = TakeBattleMInteger_438F70(scene);
             {
                 second->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));

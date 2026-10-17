@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -647,7 +648,7 @@ void Sub_50DD80(
         return;
     }
     const std::int32_t convertedImageNo =
-        character_select::detail::Sub_51B740(imageNo);
+        character_select::ResolveCharacterImageForVersion(imageNo);
     if (withRecord == 0) {
         std::int16_t actionMode;
         std::int16_t value02 = 0;
@@ -688,7 +689,7 @@ void Sub_50DD80(
     const std::int32_t recordDirection = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 6, 2047, field);
     const std::int32_t recordImageNo =
-        character_select::detail::Sub_51B740(std::atoi(field));
+        character_select::ResolveCharacterImageForVersion(std::atoi(field));
     ExtractDelimitedField_52CED0(payload, '|', 7, 2047, field);
     const std::int32_t level = std::atoi(field);
     const std::int32_t value40 = ParseDelimitedInteger_52CFA0(payload, '|', 8);

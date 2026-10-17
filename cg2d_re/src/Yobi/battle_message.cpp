@@ -1,11 +1,11 @@
 #include "battle_message.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
 #include "battle_scene.hpp"
 #include "battle_skill.hpp"
 #include "battle_skill_effect.hpp"
 #include "battle_status.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -522,11 +522,11 @@ void TakeBattleMAuxGraphics_43BF30(
             static_cast<void>(TakeBattleMPreviewInteger_439600());
         }
     } else if (mode == 0) {
-        *firstImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
-        *secondImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        *firstImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
+        *secondImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         for (std::int32_t index = 0; index < 2; ++index) {
-            firstImages[index] = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
-            secondImages[index] = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+            firstImages[index] = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
+            secondImages[index] = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
             values[index] = TakeBattleMInteger_438F70(action);
         }
     }
@@ -1503,7 +1503,7 @@ static void ProcessBattleMDataHeader(
             FinishBattleEvent_43B6C0(scene);
             return;
         }
-        const std::int32_t image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        const std::int32_t image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->imageNo = image;
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
@@ -1588,10 +1588,10 @@ static void ProcessBattleMStatusHeader(
             FinishBattleEvent_43B6C0(scene);
             return;
         }
-        const std::int32_t image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        const std::int32_t image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->image1014 = image;
-        const std::int32_t baseImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        const std::int32_t baseImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->baseImage13AC = baseImage;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 68);
@@ -1733,7 +1733,7 @@ static void ProcessBattleMStatusHeader(
         }
         AppendBattleCast_4392A0(scene, actor, 40);
         gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
-        const std::int32_t image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        const std::int32_t image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
             gBattleMTargetPosition5AAA40 = TakeBattleMInteger_438F70(scene);
         }
@@ -2036,7 +2036,7 @@ static void ProcessBattleMMonsterHeader(
         auto* const defenderPayload = defender->payload.battleActor;
         TakeBattleMString_438FE0(scene, defender->nameC4.data(), 29);
         static_cast<void>(input::UnescapeLegacyText_52D150(defender->nameC4.data()));
-        defender->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        defender->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         defender->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             defender->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -2532,7 +2532,7 @@ static void ProcessBattleMGmnHeader(
     *slot = created;
     auto* const actorPayload = created->payload.battleActor;
     TakeBattleMString_438FE0(scene, created->nameC4.data(), 29);
-    created->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+    created->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
     created->field1D0 = TakeBattleMInteger_438F70(scene);
     {
         created->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -2699,8 +2699,8 @@ static void ProcessBattleMRideHeader(
             YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
             auto* const carrier = carrierAction->payload.battleRideCarrier;
             TakeBattleMString_438FE0(scene, carrierAction->nameC4.data(), 29);
-            carrierAction->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
-            carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            carrierAction->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
+            carrier->gearImage0C = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             carrierAction->field1D0 = TakeBattleMInteger_438F70(scene);
             {
                 carrierAction->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -2762,8 +2762,8 @@ static void ProcessBattleMRideHeader(
         YobiAction* const first = NewBattleActor_438290(firstPosition);
         auto* const firstPayload = first->payload.battleActor;
         TakeBattleMString_438FE0(scene, first->nameC4.data(), 29);
-        first->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
-        carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        first->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
+        carrier->gearImage0C = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         first->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             first->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -2829,7 +2829,7 @@ static void ProcessBattleMRideHeader(
         YobiAction* const second = NewBattleActor_438290(secondPosition);
         auto* const secondPayload = second->payload.battleActor;
         TakeBattleMString_438FE0(scene, second->nameC4.data(), 29);
-        second->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        second->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         second->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             second->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
@@ -3050,8 +3050,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         YobiAction* const firstActor = NewBattleActor_438290(first);
         auto* const firstPayload = firstActor->payload.battleActor;
         TakeBattleMString_438FE0(action, firstActor->nameC4.data(), 29);
-        firstActor->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
-        const std::int32_t gearImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        firstActor->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
+        const std::int32_t gearImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         firstActor->field1D0 = TakeBattleMInteger_438F70(action);
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
@@ -3121,7 +3121,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         YobiAction* const secondActor = NewBattleActor_438290(second);
         auto* const secondPayload = secondActor->payload.battleActor;
         TakeBattleMString_438FE0(action, secondActor->nameC4.data(), 29);
-        secondActor->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        secondActor->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         secondActor->field1D0 = TakeBattleMInteger_438F70(action);
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
@@ -3324,8 +3324,8 @@ void ParseBattleC_438550()
         detail::TakeBattleCString_4384C0(actor->nameC4.data(), 29);
         // 4384C0内部已反转义；原438673仍独立再次执行。
         input::UnescapeLegacyText_52D150(actor->nameC4.data());
-        actor->imageNo = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
-        payload->baseImage13AC = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+        actor->imageNo = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
+        payload->baseImage13AC = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
         actor->field1D0 = detail::TakeBattleCInteger_438450();
         {
             const std::int32_t value = detail::TakeBattleCInteger_438450();
@@ -3344,11 +3344,11 @@ void ParseBattleC_438550()
             actor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
         const auto inputFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
-        const std::int32_t ridingImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+        const std::int32_t ridingImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
         static_cast<void>(detail::SetBattleRider_4222B0(actor, actor->imageNo, ridingImage));
         for (std::int32_t index = 0; index < 2; ++index) {
-            const std::int32_t gearImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
-            const std::int32_t auxiliaryImage = character_select::detail::Sub_51B740(detail::TakeBattleCInteger_438450());
+            const std::int32_t gearImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
+            const std::int32_t auxiliaryImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
             const std::int32_t auxiliaryType = detail::TakeBattleCInteger_438450();
             detail::SetBattleGear_422C20(actor, gearImage, index);
             detail::SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);

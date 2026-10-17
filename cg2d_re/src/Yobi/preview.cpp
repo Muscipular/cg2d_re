@@ -1,6 +1,6 @@
 #include "preview.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "../world/PlayerState.hpp"
 
@@ -70,7 +70,7 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
 
 void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
 {
-    const std::int32_t mapped = character_select::detail::Sub_51B740(imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(imageNo);
     slot->imageNo = mapped;
     slot->displayPriority = 10;
     slot->flags |= 2u;

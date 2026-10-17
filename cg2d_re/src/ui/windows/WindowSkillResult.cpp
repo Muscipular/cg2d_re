@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../../world/PlayerState.hpp"
@@ -228,7 +229,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
         static_cast<void>(WindowSkillResult_RefreshResult(gCurrentWindow));
     }
     const std::int32_t imageNo =
-        WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo), 0);
+        WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo), 0);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
     cg::yobi::SetYobiActionField2B8(

@@ -53,11 +53,15 @@ void BindBattleSkillMeta(YobiAction* const action)
     }
 }
 
+} // namespace cg::yobi::detail
+
+namespace cg::yobi {
+
 void InitializeBattleEffects()
 {
-    skillContext = {};
-    skillContextActive = false;
-    for (auto& entries : effectImages) entries.clear();
+    detail::skillContext = {};
+    detail::skillContextActive = false;
+    for (auto& entries : detail::effectImages) entries.clear();
     try {
         const YAML::Node root = YAML::LoadFile("effectHook.yml");
         constexpr std::array<const char*, 10> names{
@@ -80,23 +84,27 @@ void InitializeBattleEffects()
                 if (index >= 3 && index <= 6 && effect["castingAnime"]) {
                     casting = effect["castingAnime"].as<std::int32_t>();
                 }
-                effectImages[index].push_back({skillId, techId, imageNo, casting});
+                detail::effectImages[index].push_back({skillId, techId, imageNo, casting});
             }
         }
     } catch (const YAML::Exception& error) {
         static_cast<void>(error); // m_log 关闭时仍保留同一异常处理路径。
         m_log_i("effectHook.yml load failed: %s\n", error.what());
     }
-    InitializeLuaSkillEffects();
+    detail::InitializeLuaSkillEffects();
 }
 
 void ShutdownBattleEffects()
 {
-    ShutdownLuaSkillEffects();
-    skillContext = {};
-    skillContextActive = false;
-    for (auto& entries : effectImages) entries.clear();
+    detail::ShutdownLuaSkillEffects();
+    detail::skillContext = {};
+    detail::skillContextActive = false;
+    for (auto& entries : detail::effectImages) entries.clear();
 }
+
+} // namespace cg::yobi
+
+namespace cg::yobi::detail {
 
 std::int32_t ResolveSkillEffectImage(
     YobiAction* const source, const SkillEffectKind kind, const std::int32_t originalImage)

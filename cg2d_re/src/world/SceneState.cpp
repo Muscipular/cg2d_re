@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -7,7 +8,6 @@
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/character_select/CharacterSelectState.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../scene/login/LoginInputDependencies.hpp"
@@ -8503,7 +8503,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             cg::yobi::YobiAction* object;
             if (static_cast<std::uint32_t>(objectIndex) == gPlayerRuntimeSlots.objectIndex) {
                 const std::int32_t mappedImage =
-                    character_select::detail::Sub_51B740(imageNo);
+                    character_select::ResolveCharacterImageForVersion(imageNo);
                 if (gPlayerRuntimeSlots.direction < 0) {
                     gPlayerRuntimeSlots.direction = direction;
                 }
@@ -8546,7 +8546,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
                 }
             } else {
                 const std::int32_t mappedImage =
-                    character_select::detail::Sub_51B740(imageNo);
+                    character_select::ResolveCharacterImageForVersion(imageNo);
                 detail::Sub_445350(
                     objectIndex, mappedImage, x, y, direction, name, titles,
                     extraText, level, value40, flag1, flag2, type);
@@ -9703,7 +9703,7 @@ void Sub_50A6B0(
         if ((flags & 0x3u) != 0) {
             const std::int32_t imageNo =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            record.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
+            record.imageNo6A0 = character_select::ResolveCharacterImageForVersion(imageNo);
             ++field;
         }
         if ((flags & 0x5u) != 0) {

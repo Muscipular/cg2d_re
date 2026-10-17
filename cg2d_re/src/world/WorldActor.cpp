@@ -1,8 +1,8 @@
 #include "../Yobi/map_actor.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../Yobi/base.hpp"
 #include "../Yobi/map_transition.hpp"
 #include "../Yobi/map_render.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "WorldObjectState.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "cg/input/Input.hpp"
@@ -191,16 +191,16 @@ void Sub_444410(
         gWorldObjects[index].value34 = -1;
         return;
     case 60: {
-        action->imageNo = character_select::detail::Sub_51B740(option1);
-        const std::int32_t recordImage = character_select::detail::Sub_51B740(option1);
+        action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
+        const std::int32_t recordImage = character_select::ResolveCharacterImageForVersion(option1);
         gWorldObjects[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
         if (option2 > 0) {
             if (payload->action30 == nullptr) {
-                const std::int32_t image = character_select::detail::Sub_51B740(option2);
+                const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
                 payload->action30 = cg::yobi::NewYobiGear_4410F0(image);
             }
             if (payload->action30 != nullptr) {
-                const std::int32_t image = character_select::detail::Sub_51B740(option2);
+                const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
                 payload->action30->imageNo = image;
             }
         } else {
@@ -211,7 +211,7 @@ void Sub_444410(
             }
         }
         if (option3 > 0) {
-            std::int32_t image = character_select::detail::Sub_51B740(option3);
+            std::int32_t image = character_select::ResolveCharacterImageForVersion(option3);
             if (payload->action34 == nullptr) {
                 const std::int32_t petY =
                     action->mapY1F0.value();
@@ -272,7 +272,7 @@ void Sub_444410(
                 payload->action44->flags = 0x34u;
                 payload->action44->flags |= 0x200u;
             }
-            const std::int32_t image = character_select::detail::Sub_51B740(option1);
+            const std::int32_t image = character_select::ResolveCharacterImageForVersion(option1);
             payload->action44->imageNo = image;
             const std::int32_t original =
                 std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
@@ -295,7 +295,7 @@ void Sub_444410(
         return;
     case 80:
         action->phase = 3;
-        action->imageNo = character_select::detail::Sub_51B740(option1);
+        action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
         payload->counter48 = 0;
         return;
     case 200:

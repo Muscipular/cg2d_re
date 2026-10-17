@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -2966,7 +2967,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         gCurrentWindow->elements[25].visible = 0;
         gCurrentWindow->elements[8].visible = 0;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);

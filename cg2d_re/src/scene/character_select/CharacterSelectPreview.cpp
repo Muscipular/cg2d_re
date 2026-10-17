@@ -262,15 +262,17 @@ std::int32_t Sub_51BC50(const std::int32_t imageNo)
     }
 }
 
+} // namespace detail
+
 // LDT01：版本低8值先取；FF回用Puk版本，再分类/按0、3、6、7门槛选择原图或回退。
 // 原函数：0x0051B740。
-std::int32_t Sub_51B740(const std::int32_t imageNo)
+std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
         version = state::gPukVersion;
     }
-    const std::int32_t category = Sub_51B7D0(imageNo);
+    const std::int32_t category = detail::Sub_51B7D0(imageNo);
     std::int32_t allowedCategory;
     if (version >= 8) {
         allowedCategory = 7;
@@ -293,11 +295,13 @@ std::int32_t Sub_51B740(const std::int32_t imageNo)
     case 5:
     case 6:
     case 7:
-        return Sub_51B910(imageNo);
+        return detail::Sub_51B910(imageNo);
     default:
         return imageNo;
     }
 }
+
+namespace detail {
 
 // 原函数：0x0051B7D0。
 std::int32_t Sub_51B7D0(const std::int32_t imageNo)

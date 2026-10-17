@@ -1,8 +1,8 @@
 #include "map_actor.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
 #include "map_transition.hpp"
 #include "map_render.hpp"
-#include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../world/WorldObjectState.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "cg/input/Input.hpp"
@@ -361,7 +361,7 @@ std::int32_t Sub_43DD00(
     network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
     ++field;
     const auto flags = static_cast<std::uint8_t>(
-        character_select::detail::Sub_51B740(std::atoi(buffer)));
+        character_select::ResolveCharacterImageForVersion(std::atoi(buffer)));
     if (payload != nullptr) {
         if (payload->action30 != nullptr) {
             MarkDeath(payload->action30);
@@ -383,12 +383,12 @@ std::int32_t Sub_43DD00(
         std::int32_t index = 0;
         while (std::strcmp(buffer, "EF") != 0) {
             const std::int32_t kind =
-                character_select::detail::Sub_51B740(std::atoi(buffer));
+                character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
             if (kind == 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                    character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
                 if (payload != nullptr) {
                     payload->action30 = NewYobiGear_4410F0(imageNo);
                 }
@@ -396,7 +396,7 @@ std::int32_t Sub_43DD00(
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                    character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
@@ -430,7 +430,7 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(std::atoi(buffer));
+            character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
                 YobiAction* const player = world::gPlayerRuntimeSlots.action;
@@ -468,7 +468,7 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(std::atoi(buffer));
+            character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t packedDirection = std::atoi(buffer);
@@ -1084,11 +1084,11 @@ void ApplyPlayerAppearanceReply(
     if (payload == nullptr) {
         return;
     }
-    *playerImageNo = character_select::detail::Sub_51B740(imageNo);
-    const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
+    *playerImageNo = character_select::ResolveCharacterImageForVersion(imageNo);
+    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
     world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     if (gearImage != 0) {
-        const std::int32_t mappedGear = character_select::detail::Sub_51B740(gearImage);
+        const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(gearImage);
         bool hasGear = payload->action30 != nullptr;
         if (!hasGear) {
             YobiAction* const gear = NewYobiGear_4410F0(mappedGear);
@@ -1097,7 +1097,7 @@ void ApplyPlayerAppearanceReply(
         }
         if (hasGear) {
             const std::int32_t converted =
-                character_select::detail::Sub_51B740(mappedGear);
+                character_select::ResolveCharacterImageForVersion(mappedGear);
             payload->action30->imageNo = converted;
         }
     } else {
@@ -1109,7 +1109,7 @@ void ApplyPlayerAppearanceReply(
     }
 
     if (petImage != 0) {
-        std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
+        std::int32_t mappedPet = character_select::ResolveCharacterImageForVersion(petImage);
         bool hasPet = payload->action34 != nullptr;
         if (!hasPet) {
             const std::int32_t y = world::gPlayerRuntimeSlots.action->mapY1F0.value();
@@ -1120,7 +1120,7 @@ void ApplyPlayerAppearanceReply(
         }
         if (hasPet) {
             const std::int32_t converted =
-                character_select::detail::Sub_51B740(mappedPet);
+                character_select::ResolveCharacterImageForVersion(mappedPet);
             payload->action34->imageNo = converted;
         }
         if (kind == 6) {
@@ -1136,7 +1136,7 @@ void ApplyPlayerAppearanceReply(
             }
             if (hasSecondPet) {
                 const std::int32_t converted =
-                    character_select::detail::Sub_51B740(mappedPet);
+                    character_select::ResolveCharacterImageForVersion(mappedPet);
                 payload->action38->imageNo = converted;
             }
         }
@@ -1171,7 +1171,7 @@ void ApplyPlayerRideReply(
             payload->action44->flags = 0x34u;
             payload->action44->flags |= 0x200u;
         }
-        const std::int32_t mappedRide = character_select::detail::Sub_51B740(imageNo);
+        const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
         payload->action44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
             world::Sub_51C0D0(world::gPlayerRuntimeSlots.imageNo);
@@ -1206,7 +1206,7 @@ void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
     YobiAction* const action = world::gPlayerRuntimeSlots.action;
     auto* const payload = action->payload.mapActor;
     action->phase = 3;
-    const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
+    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
     world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     payload->counter48 = 0;
 }

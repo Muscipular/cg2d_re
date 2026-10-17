@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../../world/AlbumState.hpp"
 
 namespace cg::ui {
@@ -218,7 +219,7 @@ static void WindowAlbumDetail_Refresh()
         copyBeforeScan(2, cg::text::FromGbkWide(name));
 
         const std::int32_t image = selectedRecord()->imageNo;
-        const std::int32_t mapped = character_select::detail::Sub_51B740(image);
+        const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(image);
         auto* const imageData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
         cg::yobi::SetYobiActionField2A8(imageData->action, mapped);
         auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);

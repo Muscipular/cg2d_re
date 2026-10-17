@@ -58,6 +58,15 @@ std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
 std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
 std::uint64_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
+// 初始化资源前及窗口模式同步后先提交不透明黑底，不等待loading循环的首帧。
+bool PresentInitialBlackFrame(SDL_Renderer* const renderer) noexcept
+{
+    return SDL_SetRenderTarget(renderer, nullptr)
+        && SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255)
+        && SDL_RenderClear(renderer)
+        && SDL_RenderPresent(renderer);
+}
+
 } // namespace
 
 std::uint32_t gFrameParity628FC8 = 0; // 原全局：0x00628FC8。
@@ -214,6 +223,9 @@ bool SdlPresenter::Create(
     if (pending->renderer == nullptr) {
         return FailSdl("SDL_CreateRenderer");
     }
+    if (!PresentInitialBlackFrame(pending->renderer)) {
+        return FailSdl("Present initial black frame");
+    }
     pending->texture = SDL_CreateTexture(
         pending->renderer,
         SDL_PIXELFORMAT_XRGB8888,
@@ -236,8 +248,11 @@ bool SdlPresenter::Create(
         || !SDL_SetTextureScaleMode(pending->backTarget, SDL_SCALEMODE_NEAREST)) {
         return FailSdl("Create GPU Back");
     }
-    if (!SDL_SetRenderDrawColor(pending->renderer, 0, 0, 0, 255)) {
-        return FailSdl("SDL_SetRenderDrawColor");
+    if (!SDL_SetRenderTarget(pending->renderer, pending->backTarget)
+        || !SDL_SetRenderDrawColor(pending->renderer, 0, 0, 0, 255)
+        || !SDL_RenderClear(pending->renderer)
+        || !SDL_SetRenderTarget(pending->renderer, nullptr)) {
+        return FailSdl("Initialize opaque GPU Back");
     }
     if (!SDL_AddEventWatch(Impl::ObserveRenderEvent, pending.get())) {
         return FailSdl("SDL_AddEventWatch");
@@ -271,6 +286,9 @@ bool SdlPresenter::SetFullscreen(const bool fullscreen) noexcept
     }
     if (!SDL_SyncWindow(impl_->window)) {
         return FailSdl("SDL_SyncWindow");
+    }
+    if (!PresentInitialBlackFrame(impl_->renderer)) {
+        return FailSdl("Present black frame after window mode change");
     }
     lastError_[0] = '\0';
     return true;

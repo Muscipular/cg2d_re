@@ -120,20 +120,21 @@ std::int32_t FadeInLoading_458390()
         }
         if (firstFrame) {
             static_cast<void>(render::SelectPalette(palette, 30));
-            static_cast<void>(cg::render::DrawGraphic(
-                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            // LUR01：loading整图随客户区缩放，保留原图号、层序和调色板淡变。
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             firstFrame = false;
         } else {
-            static_cast<void>(cg::render::DrawGraphic(
-                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
             }
         }
         AdvanceLoadingFadeFrame();
         if (!keepRunning) {
-            static_cast<void>(cg::render::DrawGraphic(
-                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             static_cast<void>(render::ClearSurface_4512C0());
             render::DrawAllQueued_520DD0();
             render::Flip_44C560();
@@ -154,13 +155,13 @@ std::int32_t FadeOutLoading_4585F0()
             return 0;
         }
         if (firstFrame) {
-            static_cast<void>(cg::render::DrawGraphic(
-                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             static_cast<void>(render::SelectPalette(19, 30));
             firstFrame = false;
         } else {
-            static_cast<void>(cg::render::DrawGraphic(
-                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
             }

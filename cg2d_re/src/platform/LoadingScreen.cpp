@@ -320,9 +320,9 @@ std::int32_t InitLoading_457B10()
 
         static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         if (image != 0) {
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, image, 0,
-                phase >= 26 && phase <= 29 ? &gLoadingDescriptor : nullptr));
+                phase >= 26 && phase <= 29 ? &gLoadingDescriptor : nullptr)));
         }
         UpdateCursor_506E00();
         render::SortTextures_520790();

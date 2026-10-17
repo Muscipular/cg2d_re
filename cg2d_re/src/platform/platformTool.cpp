@@ -176,7 +176,7 @@ static std::string ResolveServerPolicyAddress(const std::string& hostname)
     return address;
 }
 
-// A10/SAP01：成功查询后同步执行；保留映射、提示及退出条件，x86终止机制改用标准进程退出。
+// A10/SAP01：保留地址映射与校验退出；CUN01将使用提示移至人物选择页。
 void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
 {
     if (std::strcmp(serverAddress, "taomoli") == 0 && port <= 9)
@@ -192,19 +192,6 @@ void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
         {
             std::exit(std::random_device()());
         }
-#ifndef _DEBUG
-        const int result = ::MessageBoxW(
-            nullptr,
-            L"本程序仅供学习研究使用，严禁用于任何商业用途。"
-            L"本程序所涉及的所有版权均归官方所有，未经官方正式授权，任何单位或个人不得将本程序用于商业盈利活动。"
-            L"若您因误信非官方渠道信息，为使用本程序支付了相关费用，请您及时与收费方沟通并申请退款，由此产生的一切纠纷与本程序提供方无关。",
-            L"提示",
-            MB_YESNO | MB_ICONWARNING);
-        if (result != IDYES)
-        {
-            std::exit(std::rand());
-        }
-#endif
     }
 }
 

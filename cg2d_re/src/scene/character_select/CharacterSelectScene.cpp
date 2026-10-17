@@ -35,6 +35,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
@@ -1288,6 +1289,77 @@ static void ClearPreviewActions()
     }
 }
 
+// CUN01：原460FF0角色进入分支，供Debug直入及非Debug确认后共用，调用顺序保持。
+static void EnterSelectedCharacter()
+{
+    const login::CharacterRecord& record =
+        login::gCharacterRecords[static_cast<std::size_t>(login::gSelectedCharacterIndex)];
+    CopyRecordName(state::gSelectedCharacterName, record);
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const login::CharacterRecord* const selectedRecord =
+        login::gCharacterRecords.data() + selected;
+    state::gSelectedGraphicNo = selectedRecord->graphicNo;
+    world::SetCurrentSceneType(5);
+    login::detail::PlaySe(59, 320, 240);
+    state::gCharacterEntryState = 0;
+    cg::audio::Sub_52B990();
+    cg::yobi::YobiClearUp_404D30();
+    ClearPreviewActions();
+}
+
+#ifndef _DEBUG
+// CUN01：本端人物页扩展状态；等待明确选择，不复用原0..21业务状态。
+static constexpr std::int32_t kUsageNoticeState = 22;
+
+// CUN01：沿现有游戏模态动作与文字按钮，返回0等待、1同意、2退出。
+static std::int32_t ProcessUsageNotice()
+{
+    constexpr std::array<std::wstring_view, 8> lines {{
+        L"本程序仅供学习研究使用，严禁用于任何商业用途。",
+        L"本程序所涉及的所有版权均归官方所有，",
+        L"未经官方正式授权，任何单位或个人不得",
+        L"将本程序用于商业盈利活动。",
+        L"若您因误信非官方渠道信息，",
+        L"为使用本程序支付了相关费用，",
+        L"请您及时与收费方沟通并申请退款，",
+        L"由此产生的一切纠纷与本程序提供方无关。",
+    }};
+    constexpr std::array<detail::CharacterModalUiRecord, 2> buttons {{
+        {264, 368, 240, 366, 64, 24, L"是"},
+        {360, 368, 336, 366, 64, 24, L"否"},
+    }};
+
+    auto*& action = state::gCharacterModalAction;
+    if (action == nullptr) {
+        action = cg::yobi::CreateModalAction_5044E0(32, 72, 576, 336, 4, 1);
+        return 0; // 创建当帧不消费人物选择的点击；失败时下一帧重试。
+    }
+    if (!cg::yobi::IsYobiActionReady(action, 1)) {
+        return 0;
+    }
+
+    for (std::size_t index = 0; index < buttons.size(); ++index) {
+        if ((detail::Sub_503990(&buttons[index]) & 1) != 0) {
+            login::detail::PlaySe(79, 320, 240);
+            cg::yobi::MarkDeath(action);
+            action = nullptr;
+            return static_cast<std::int32_t>(index) + 1;
+        }
+    }
+
+    cg::render::DrawText_456780(304, 96, 2, 0, 4, L"提示", 0, 0);
+    for (std::size_t index = 0; index < lines.size(); ++index) {
+        cg::render::DrawText_456780(
+            56, static_cast<std::int16_t>(128 + index * 24),
+            2, 0, 0, lines[index], 0, 0);
+    }
+    for (const auto& button : buttons) {
+        detail::Sub_503A20(&button, 2, 4, 1, cg::render::gValueD69768, 214);
+    }
+    return 0;
+}
+#endif
+
 static void UpdateCharacterGraphic(
     login::CharacterRecord& record,
     std::int32_t action)
@@ -1374,7 +1446,7 @@ std::int32_t ProcessScene_460FF0()
     std::int32_t interactive = 1;
 
     const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
-    if (mainState <= 21u) {
+    if (mainState <= 22u) {
         switch (mainState) {
         case 0:
             world::gCurrentSceneState = 1;
@@ -1573,6 +1645,17 @@ std::int32_t ProcessScene_460FF0()
                 world::gCurrentSceneState = 10;
             }
             break;
+#ifndef _DEBUG
+        case kUsageNoticeState: {
+            const std::int32_t choice = ProcessUsageNotice();
+            if (choice == 1) {
+                EnterSelectedCharacter();
+            } else if (choice == 2) {
+                std::exit(std::rand());
+            }
+            break;
+        }
+#endif
         default:
             break;
         }
@@ -1589,6 +1672,11 @@ std::int32_t ProcessScene_460FF0()
             login::gCharacterRecords[static_cast<std::size_t>(slot)];
         const std::int32_t action =
             ProcessCharacterSlot_461B30(slot, interactive);
+#ifndef _DEBUG
+        if (world::gCurrentSceneState == kUsageNoticeState) {
+            continue; // 原空槽按钮仍可能返回创建动作；模态等待时只绘制、不派发。
+        }
+#endif
         const std::uint32_t actionIndex = static_cast<std::uint32_t>(action);
         if (actionIndex > 6u) {
             continue;
@@ -1609,17 +1697,12 @@ std::int32_t ProcessScene_460FF0()
             break;
         case 1: {
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            CopyRecordName(state::gSelectedCharacterName, record);
-            const std::int16_t selected = login::gSelectedCharacterIndex;
-            const login::CharacterRecord* const selectedRecord =
-                login::gCharacterRecords.data() + selected;
-            state::gSelectedGraphicNo = selectedRecord->graphicNo;
-            world::SetCurrentSceneType(5);
-            login::detail::PlaySe(59, 320, 240);
-            state::gCharacterEntryState = 0;
-            cg::audio::Sub_52B990();
-            cg::yobi::YobiClearUp_404D30();
-            ClearPreviewActions();
+#ifndef _DEBUG
+            world::gCurrentSceneState = kUsageNoticeState;
+            interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
+#else
+            EnterSelectedCharacter();
+#endif
             break;
         }
         case 2: {
@@ -1683,6 +1766,12 @@ std::int32_t ProcessScene_460FF0()
     }
     cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
     cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1));
+
+#ifndef _DEBUG
+    if (world::gCurrentSceneState == kUsageNoticeState) {
+        return 0; // 等待时不执行页尾升级发送／状态复位。
+    }
+#endif
 
     std::int32_t result = gUpdateAvailable;
     if (result != 0) {

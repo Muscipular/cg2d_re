@@ -32,7 +32,6 @@ std::int32_t gBattlePendingGroupCount5ABB24 = 0; // 原全局：0x005ABB24。 43
 // 原函数：0x0043B360。
 void DispatchBattleEvents_43B360(YobiAction* const scene)
 {
-    using namespace world::detail;
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
     const std::int32_t sceneType = world::gCurrentSceneType;
@@ -157,7 +156,6 @@ YobiAction* NewBattleEvent_43B610(
     const std::int32_t kind, const std::int32_t slot,
     const std::uint32_t participants, const std::int32_t group)
 {
-    using namespace world::detail;
     YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
@@ -203,7 +201,6 @@ YobiAction* NewBattleScene_4383B0()
 // 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* const action)
 {
-    using namespace world::detail;
     auto* const payload = action->payload.battleScene;
     const std::int32_t remaining = payload->remainingMessages5C - 1;
     payload->remainingMessages5C = remaining;
@@ -290,7 +287,6 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0()
 {
-    using namespace world::detail;
     cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
     cg::world::gBattleEventActions5ABA9C.fill(nullptr);
     cg::world::gBattleAllEntries59E980.fill(nullptr);
@@ -321,7 +317,6 @@ void Sub_4990A0(const std::int32_t index)
 // 原函数：0x0043BFF0。
 void Sub_43BFF0()
 {
-    using namespace world::detail;
     if (world::gCurrentSceneType != 10
         || cg::world::gBattleTurnSnapshot5ABC08 != cg::world::gBattleTurn5ABB74) {
         return;
@@ -428,7 +423,6 @@ std::int32_t Sub_43C910()
 // 原函数：0x0043C9A0。
 void Sub_43C9A0()
 {
-    using namespace world::detail;
     const auto turnEntries = [](const std::int32_t first, const std::int32_t end) {
         for (std::int32_t index = first; index < end; ++index) {
             YobiAction* const action = cg::world::gBattleEntries59E980[index];
@@ -478,7 +472,6 @@ std::int32_t Sub_43CA50()
 // 原函数：0x0043CA80。
 void Sub_43CA80()
 {
-    using namespace world::detail;
     std::int8_t color = 0;
     if (platform::gValue5F974C == 0) {
         return;
@@ -508,7 +501,6 @@ void Sub_43CA80()
 std::int32_t CheckBattleCommand_43C560(
     const std::int32_t position, const std::uint32_t flags)
 {
-    using namespace world::detail;
     cg::world::gBattleTargetFlags5ABC44 = flags;
     const std::int32_t pet = cg::world::GetBattlePetPosition_405B40(position);
     if ((flags & 1u) == 0) {

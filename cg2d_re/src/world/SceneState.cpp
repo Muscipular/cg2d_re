@@ -4104,7 +4104,6 @@ std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0()
 {
-    using namespace login::detail;
     std::int32_t state = gCurrentSceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U

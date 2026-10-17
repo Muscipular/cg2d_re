@@ -39,7 +39,6 @@ void TakeBattleMSkillAttackTargets_424620(
     std::int32_t* const sourcePosition, std::int32_t* const initialPosition,
     std::int32_t* const targetPosition, std::int32_t* const redirectedPosition)
 {
-    using namespace world::detail;
     constexpr std::array<std::int32_t, 5> kAttackImages54D6D0 {
         0x1B210, 0x1B211, 0x1B212, 0x1B213, 0x1B214
     };
@@ -1155,7 +1154,6 @@ void TakeBattleMSkillTargets_426FC0(
     std::int32_t* const sourcePosition, std::int32_t* const initialPosition,
     std::int32_t* const targetPosition, std::int32_t* const redirectedPosition)
 {
-    using namespace world::detail;
     const std::int32_t source = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     *initialPosition = source;
     *sourcePosition = source;
@@ -1285,7 +1283,6 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
     YobiAction* const scene, BattleScenePayload* const payload,
     const std::int32_t fpUsed, const std::int32_t mode)
 {
-    using namespace world::detail;
     if (mode < 0 || mode > 4) {
         ParseBattleMRide_4239D0(scene);
         ++payload->packetSubState58;
@@ -1646,7 +1643,6 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
 [[maybe_unused]] void ProcessBattleMSkill3101(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t attackMode = TakeBattleMInteger_438F70(scene);
     const std::int32_t levelIndex = gBattleMSkillLevelIndex5A3A18;
     const std::int32_t level = gBattleMSkillLevel5A4A2C;
@@ -1662,7 +1658,6 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常�
 [[maybe_unused]] void ProcessBattleMSkill73NonzeroMode(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t mode)
 {
-    using namespace world::detail;
     if (mode < 0 || mode > 4) {
         ParseBattleMRide_4239D0(scene);
         ++payload->packetSubState58;

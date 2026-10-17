@@ -30,7 +30,6 @@ std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SK
 [[maybe_unused]] void ProcessBattleMSkill4(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -149,7 +148,6 @@ std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SK
 [[maybe_unused]] void ProcessBattleMSkill61Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     payload->value00 = 0;
     payload->entryCount04 = 0;
@@ -356,7 +354,6 @@ std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SK
 [[maybe_unused]] void ProcessBattleMSkill50Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     YobiAction* const caster = cg::world::gBattleAllEntries59E980[position];
@@ -401,7 +398,6 @@ std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SK
 [[maybe_unused]] void ProcessBattleMSkill12(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const std::int32_t amount = TakeBattleMInteger_438F70(scene);
@@ -444,7 +440,6 @@ namespace {
 // 原82/97两段目标循环的161条指令一致，共用42CB2F..42CB5E收尾。
 void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -537,7 +532,6 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 [[maybe_unused]] void ProcessBattleMSkill82(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -599,7 +593,6 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 [[maybe_unused]] void ProcessBattleMSkill97(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -646,7 +639,6 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 [[maybe_unused]] void ProcessBattleMSkill93(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -744,7 +736,6 @@ namespace {
 // 原42CF66..42D0D0；成功后由完整父分派重读5A4A34，空施法者不进入模式生产。
 [[maybe_unused]] bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     gBattleMValue5A4A34 = TakeBattleMInteger_438F70(scene);
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -782,7 +773,6 @@ namespace {
 // 原42D696/42EAEF..42EB32，模式目标退出后仍追加哨兵、执行RID并递增固定载荷。
 void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
@@ -792,7 +782,6 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 // 原42D142..42D285，技能98模式6只消费目标位置列表。
 [[maybe_unused]] void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const bool targetUnavailable = targetPosition == 255;
@@ -831,7 +820,6 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 // 原42D28E..42D68D，技能98模式7交换目标与配对槽，固定原槽和当前目标分别保留。
 [[maybe_unused]] void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     for (;;) {
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const bool targetUnavailable = targetPosition == 255;
@@ -975,7 +963,6 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 // 原42D6BC..42D7D1，技能98模式8的宠物标记和恢复队列读取次序。
 [[maybe_unused]] void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     for (;;) {
         const std::int32_t parsedTargetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const bool targetUnavailable = parsedTargetPosition == 255;
@@ -1014,7 +1001,6 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 // 原42DCDC与42EB0A尾：操作对象收哨兵/74，但推进的是主施法者。
 void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMSelectedPosition5ABA98], -1, 0, 0);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMSelectedPosition5ABA98], 74);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -1025,7 +1011,6 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 // 原42D7DA..42DD12，SKL98模式12的操作对象准备与附图/受击目标循环。
 [[maybe_unused]] void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -1174,7 +1159,6 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 // 原42DD1B..42E015，SKL98模式13的中央移动与直接数值反馈，不消费附图。
 [[maybe_unused]] void ProcessBattleMSkill98Mode13(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t selected = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const bool selectedUnavailable = selected == 255;
     gBattleMSelectedPosition5ABA98 = selected;
@@ -1265,7 +1249,6 @@ void CompleteBattleMSkill98SelectedTargets(YobiAction* const scene, BattleSceneP
 // 原42E01E..42E1E4，SKL98模式14成对读取；第二位置255不撤销第一项。
 void ProcessBattleMSkill98Mode14(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t kind = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
     for (;;) {
@@ -1321,7 +1304,6 @@ void ProcessBattleMSkill98Mode14(YobiAction* const scene, BattleScenePayload* co
 void ProcessBattleMSkill98DamageTargets(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t numberType)
 {
-    using namespace world::detail;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -1401,7 +1383,6 @@ void ProcessBattleMSkill98DamageTargets(
 // 原42E6A7..42E80D，模式17无附图时只清首图号，保留其余跨目标输出。
 void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -1458,7 +1439,6 @@ void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayload* co
 // 原42E80D..42EB32，进入目标族后仍逐目标重读模式，不固定为首次分派值。
 void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     for (;;) {
         const std::int32_t parsedTargetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const bool targetUnavailable = parsedTargetPosition == 255;
@@ -1587,7 +1567,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill107(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -1635,7 +1614,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill108(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -1733,7 +1711,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill109(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -1829,7 +1806,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill112(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -1918,7 +1894,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill114(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -1998,7 +1973,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill117(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -2064,7 +2038,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill263(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
     YobiAction* const caster = cg::world::gBattleAllEntries59E980[parsedCasterPosition];
@@ -2101,7 +2074,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill400(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
     YobiAction* const caster = cg::world::gBattleAllEntries59E980[parsedCasterPosition];
@@ -2209,7 +2181,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill401(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
     YobiAction* const caster = cg::world::gBattleAllEntries59E980[parsedCasterPosition];
@@ -2287,7 +2258,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill402(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedSide = TakeBattleMInteger_438F70(scene);
@@ -2348,7 +2318,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill405(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
     YobiAction* const caster = cg::world::gBattleAllEntries59E980[parsedCasterPosition];
@@ -2466,7 +2435,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill404Family(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -2903,7 +2871,6 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
 [[maybe_unused]] void ProcessBattleMSkill106Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t attackMode = TakeBattleMInteger_438F70(scene);
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -3061,7 +3028,6 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111
 [[maybe_unused]] void ProcessBattleMSkill2028(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     payload->value00 = 0;
     payload->entryCount04 = 0;
@@ -3243,7 +3209,6 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111
 [[maybe_unused]] void ProcessBattleMSkill99Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -3410,7 +3375,6 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111
 [[maybe_unused]] void ProcessBattleMSkill2005Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     const std::int32_t attackMode = TakeBattleMInteger_438F70(scene);
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;

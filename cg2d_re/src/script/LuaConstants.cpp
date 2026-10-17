@@ -160,7 +160,6 @@ void RegConstMeta(lua_State* L) {
     lua_setmetatable(L, -2);
 }
 } // namespace lua_const_detail
-using namespace lua_const_detail;
 
 void RegUIConst(lua_State* L) {
 
@@ -246,10 +245,10 @@ void RegUIConst(lua_State* L) {
     lua_setfield(L, -2, "DOWN_MESSAGE");
     lua_setfield(L, -2, "KeyStateFlag");
 
-    RegScreenConst(L);
-    RegMouseConst(L);
-    RegVkConst(L);
-    RegConstMeta(L);
+    lua_const_detail::RegScreenConst(L);
+    lua_const_detail::RegMouseConst(L);
+    lua_const_detail::RegVkConst(L);
+    lua_const_detail::RegConstMeta(L);
     lua_setglobal(L, "CONST");
 
 }

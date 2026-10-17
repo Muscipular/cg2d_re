@@ -401,17 +401,16 @@ int __cdecl Lua_File_writeYml(lua_State* L) {
     }
 }
 } // namespace lua_io_detail
-using namespace lua_io_detail;
 
 void RegLuaIO(lua_State* L) {
     lua_newtable(L);
-    lua_pushcfunction(L, SafeLuaCall<Lua_File_read>);
+    lua_pushcfunction(L, SafeLuaCall<lua_io_detail::Lua_File_read>);
     lua_setfield(L, -2, "read");
-    lua_pushcfunction(L, SafeLuaCall<Lua_File_write>);
+    lua_pushcfunction(L, SafeLuaCall<lua_io_detail::Lua_File_write>);
     lua_setfield(L, -2, "write");
-    lua_pushcfunction(L, SafeLuaCall<Lua_File_readYml>);
+    lua_pushcfunction(L, SafeLuaCall<lua_io_detail::Lua_File_readYml>);
     lua_setfield(L, -2, "readYml");
-    lua_pushcfunction(L, SafeLuaCall<Lua_File_writeYml>);
+    lua_pushcfunction(L, SafeLuaCall<lua_io_detail::Lua_File_writeYml>);
     lua_setfield(L, -2, "writeYml");
     lua_setglobal(L, "File");
 }

@@ -6,7 +6,6 @@
 #include "../world/WorldMapState.hpp"
 
 namespace cg::script {
-using namespace world::detail;
 
 // L01：固定业务槽引用，每次取字段重读owner；不保留已释放战斗对象地址。
 enum class DataKind { Player, Item, Pet, Skill, Technique, PetTechnique, Battle };

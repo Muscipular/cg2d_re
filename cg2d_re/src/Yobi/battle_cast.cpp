@@ -3712,7 +3712,6 @@ std::int32_t UpdateBattleAction222_413E90(YobiAction* const action)
 // 原函数：0x00413FE0。
 void UpdateBattleAction223_413FE0(YobiAction* const action)
 {
-    using namespace world::detail;
     const std::int32_t playerPosition = cg::world::gBattleCurrentPosition5ABCA4;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     static_cast<void>(cg::world::GetBattlePetPosition_405B40(playerPosition));

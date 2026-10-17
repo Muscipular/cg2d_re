@@ -765,7 +765,6 @@ void MoveBattleCastState_439380(YobiAction* const action)
 std::int32_t CheckBattleTurnReady_4394A0(
     YobiAction* const parent, const std::int32_t enable)
 {
-    using namespace world::detail;
     auto* const payload = parent->payload.battleScene;
     for (std::size_t index = 0; index < cg::world::gBattleAllEntries59E980.size(); ++index) {
         YobiAction* const actor = cg::world::gBattleAllEntries59E980[index];

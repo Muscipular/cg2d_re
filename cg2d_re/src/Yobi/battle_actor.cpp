@@ -52,7 +52,6 @@ std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
 // 原函数：0x00438290。
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {
-    using namespace world::detail;
     const auto priority = static_cast<std::uint8_t>(static_cast<std::uint8_t>(position) * 10 + 2);
     YobiAction* const action = NewYobiAction_404AE0(priority, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
@@ -1224,7 +1223,6 @@ void UpdateBattleAction236_406630(YobiAction* const action)
 // 原[4238F0,42395B)：11个直接caller均不消费原混合返回值。
 void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
 {
-    using namespace world::detail;
     auto* const payload = action->payload.battleActor;
     const std::uint32_t state = payload->stateFE0;
     const std::int32_t position = payload->battlePosition18;

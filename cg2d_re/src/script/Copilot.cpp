@@ -1534,140 +1534,139 @@ bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Point& wa
 
 } // namespace copilot_detail
 
-using namespace copilot_detail;
 
 void autoCopilot(int x, int y)
 {
-    if (skipSceneNotReady("autoCopilot")) {
+    if (copilot_detail::skipSceneNotReady("autoCopilot")) {
         return;
     }
-    syncVisibleCache();
+    copilot_detail::syncVisibleCache();
 
-    Point target{x, y};
-    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
+    copilot_detail::Point target{x, y};
+    copilot_detail::Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
     // m_log_i("[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_i("[copilot] already arrived target=%d,%d\n", target.x, target.y);
-        clearCopilotRoute();
+        copilot_detail::clearCopilotRoute();
         return;
     }
-    if (!isValidMap()) {
+    if (!copilot_detail::isValidMap()) {
         // m_log_i("[copilot] skip invalid visible map width=%d height=%d cells=%d limit=%d\n", gMapWidth, gMapHeight, gMapWidth * gMapHeight, kMapBufferLimit);
-        clearCopilotRoute();
+        copilot_detail::clearCopilotRoute();
         return;
     }
-    if (!isSaneTarget(player, target)) {
+    if (!copilot_detail::isSaneTarget(player, target)) {
         // m_log_i("[copilot] skip insane target player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
-        clearCopilotRoute();
+        copilot_detail::clearCopilotRoute();
         return;
     }
-    if (isBusy()) {
+    if (copilot_detail::isBusy()) {
         // m_log_i("[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
         return;
     }
-    if (loadDiskMap() && (!inDiskBounds(player) || !inDiskBounds(target))) {
-        clearCopilotRoute();
+    if (copilot_detail::loadDiskMap() && (!copilot_detail::inDiskBounds(player) || !copilot_detail::inDiskBounds(target))) {
+        copilot_detail::clearCopilotRoute();
         return;
     }
-    if (tryUseCachedWaypoint(player, target)) {
+    if (copilot_detail::tryUseCachedWaypoint(player, target)) {
         return;
     }
 
-    std::vector<Point> path;
-    Point waypoint{};
+    std::vector<copilot_detail::Point> path;
+    copilot_detail::Point waypoint{};
 
-    bool fullPath = buildTimedFullPath(player, target, kFullSearchTimeLimitMs, path);
+    bool fullPath = copilot_detail::buildTimedFullPath(player, target, copilot_detail::kFullSearchTimeLimitMs, path);
     // m_log_i("[copilot] fullPath ok=%d steps=%u\n", fullPath ? 1 : 0, static_cast<unsigned int>(path.size()));
-    if (fullPath && pickVisibleWaypoint(path, player, waypoint)) {
+    if (fullPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use fullPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
-        cacheCopilotRoute(path);
-        cacheWaypoint(player, target, waypoint);
-        requestMove(waypoint);
+        copilot_detail::cacheCopilotRoute(path);
+        copilot_detail::cacheWaypoint(player, target, waypoint);
+        copilot_detail::requestMove(waypoint);
         return;
     }
 
-    bool optimisticPath = buildOptimisticPath(player, target, path);
+    bool optimisticPath = copilot_detail::buildOptimisticPath(player, target, path);
     // m_log_i("[copilot] optimisticPath ok=%d steps=%u\n", optimisticPath ? 1 : 0, static_cast<unsigned int>(path.size()));
-    if (optimisticPath && pickVisibleWaypoint(path, player, waypoint)) {
+    if (optimisticPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use optimisticPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
-        cacheCopilotRoute(path);
-        cacheWaypoint(player, target, waypoint);
-        requestMove(waypoint);
+        copilot_detail::cacheCopilotRoute(path);
+        copilot_detail::cacheWaypoint(player, target, waypoint);
+        copilot_detail::requestMove(waypoint);
         return;
     }
 
-    bool localPath = buildPath(player, target, path);
+    bool localPath = copilot_detail::buildPath(player, target, path);
     // m_log_i("[copilot] localPath ok=%d steps=%u\n", localPath ? 1 : 0, static_cast<unsigned int>(path.size()));
-    if (localPath && pickVisibleWaypoint(path, player, waypoint)) {
+    if (localPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use localPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
-        cacheCopilotRoute(path);
-        cacheWaypoint(player, target, waypoint);
-        requestMove(waypoint);
+        copilot_detail::cacheCopilotRoute(path);
+        copilot_detail::cacheWaypoint(player, target, waypoint);
+        copilot_detail::requestMove(waypoint);
         return;
     }
 
-    bool nearPath = buildNearRetargetPath(player, target, path);
+    bool nearPath = copilot_detail::buildNearRetargetPath(player, target, path);
     // m_log_i("[copilot] nearPath ok=%d steps=%u\n", nearPath ? 1 : 0, static_cast<unsigned int>(path.size()));
-    if (nearPath && pickVisibleWaypoint(path, player, waypoint, true)) {
+    if (nearPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint, true)) {
         // m_log_i("[copilot] use nearPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
-        cacheCopilotRoute(path);
-        cacheWaypoint(player, target, waypoint);
-        requestMove(waypoint);
+        copilot_detail::cacheCopilotRoute(path);
+        copilot_detail::cacheWaypoint(player, target, waypoint);
+        copilot_detail::requestMove(waypoint);
         return;
     }
 
     // m_log_i("[copilot] no path player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
     // logNoPathDetail(player, target);
-    clearCopilotRoute();
+    copilot_detail::clearCopilotRoute();
 }
 
 void startCopilot(int x, int y)
 {
-    gCopilotTarget = {x, y};
-    gCopilotMapId = gMapId;
-    gCopilotMapFloor = gMapFloor;
-    gCopilotEnabled = true;
-    gLastCopilotTickMs = 0;
-    gLastBusyLogMs = 0;
-    gHasLastObservedPlayer = false;
-    clearRecentPlayers();
-    resetPlanCache();
-    resetMoveProgress();
-    gDynamicBlocked.clear();
-    gLastNoPathDetailLogMs = 0;
-    gLastSceneSkipLogMs = 0;
-    gLastCellLogKey = 0;
-    gLastCellLogMs = 0;
-    gHasLastRequestedWaypoint = false;
-    clearCopilotRoute();
+    copilot_detail::gCopilotTarget = {x, y};
+    copilot_detail::gCopilotMapId = copilot_detail::gMapId;
+    copilot_detail::gCopilotMapFloor = copilot_detail::gMapFloor;
+    copilot_detail::gCopilotEnabled = true;
+    copilot_detail::gLastCopilotTickMs = 0;
+    copilot_detail::gLastBusyLogMs = 0;
+    copilot_detail::gHasLastObservedPlayer = false;
+    copilot_detail::clearRecentPlayers();
+    copilot_detail::resetPlanCache();
+    copilot_detail::resetMoveProgress();
+    copilot_detail::gDynamicBlocked.clear();
+    copilot_detail::gLastNoPathDetailLogMs = 0;
+    copilot_detail::gLastSceneSkipLogMs = 0;
+    copilot_detail::gLastCellLogKey = 0;
+    copilot_detail::gLastCellLogMs = 0;
+    copilot_detail::gHasLastRequestedWaypoint = false;
+    copilot_detail::clearCopilotRoute();
     m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value(), world::gCurrentSceneType, world::gCurrentSceneState);
 }
 
 void stopCopilot()
 {
-    if (gCopilotEnabled) {
-        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", gCopilotTarget.x, gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
+    if (copilot_detail::gCopilotEnabled) {
+        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
     }
-    gCopilotEnabled = false;
-    resetPlanCache();
-    resetMoveProgress();
-    clearCopilotRoute();
+    copilot_detail::gCopilotEnabled = false;
+    copilot_detail::resetPlanCache();
+    copilot_detail::resetMoveProgress();
+    copilot_detail::clearCopilotRoute();
 }
 
 int getAutoCopliotState()
 {
-    return gCopilotEnabled ? 1 : 0;
+    return copilot_detail::gCopilotEnabled ? 1 : 0;
 }
 
 std::vector<std::pair<int, int> > getAutoCopliotRoute()
 {
     std::vector<std::pair<int, int> > route;
-    if (!gCopilotEnabled || !isCopilotSceneReady() || gMapId != gCopilotMapId || gMapFloor != gCopilotMapFloor) {
+    if (!copilot_detail::gCopilotEnabled || !copilot_detail::isCopilotSceneReady() || copilot_detail::gMapId != copilot_detail::gCopilotMapId || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
         return route;
     }
 
-    route.reserve(gAutoCopilotRoute.size());
-    for (const auto& point: gAutoCopilotRoute) {
+    route.reserve(copilot_detail::gAutoCopilotRoute.size());
+    for (const auto& point: copilot_detail::gAutoCopilotRoute) {
         route.emplace_back(point.x, point.y);
     }
     return route;
@@ -1675,86 +1674,86 @@ std::vector<std::pair<int, int> > getAutoCopliotRoute()
 
 void CopilotProc()
 {
-    if (!gCopilotEnabled) {
+    if (!copilot_detail::gCopilotEnabled) {
         return;
     }
-    if (gMapId != gCopilotMapId || gMapFloor != gCopilotMapFloor) {
-        m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", gCopilotMapId,
-            gCopilotMapFloor, gMapId, gMapFloor, gCopilotTarget.x, gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
+    if (copilot_detail::gMapId != copilot_detail::gCopilotMapId || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
+        m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", copilot_detail::gCopilotMapId,
+            copilot_detail::gCopilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
         stopCopilot();
         return;
     }
-    if (skipSceneNotReady("proc")) {
+    if (copilot_detail::skipSceneNotReady("proc")) {
         return;
     }
 
-    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
-    if (player.x == gCopilotTarget.x && player.y == gCopilotTarget.y) {
-        m_log_i("[copilot] arrived target=%d,%d\n", gCopilotTarget.x, gCopilotTarget.y);
+    copilot_detail::Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
+    if (player.x == copilot_detail::gCopilotTarget.x && player.y == copilot_detail::gCopilotTarget.y) {
+        m_log_i("[copilot] arrived target=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
         stopCopilot();
         return;
     }
-    if (gHasExpectedAutoTarget && samePoint(player, gExpectedAutoTarget)) {
-        resetMoveProgress();
+    if (copilot_detail::gHasExpectedAutoTarget && copilot_detail::samePoint(player, copilot_detail::gExpectedAutoTarget)) {
+        copilot_detail::resetMoveProgress();
     }
-    if (gHasExpectedAutoTarget) {
-        Point clientTarget{gAutoTargetX.value(), gAutoTargetY.value()};
-        if (!samePoint(clientTarget, gExpectedAutoTarget)) {
-            m_log_i("[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", gExpectedAutoTarget.x,
-                gExpectedAutoTarget.y, clientTarget.x, clientTarget.y, player.x, player.y);
+    if (copilot_detail::gHasExpectedAutoTarget) {
+        copilot_detail::Point clientTarget{copilot_detail::gAutoTargetX.value(), copilot_detail::gAutoTargetY.value()};
+        if (!copilot_detail::samePoint(clientTarget, copilot_detail::gExpectedAutoTarget)) {
+            m_log_i("[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", copilot_detail::gExpectedAutoTarget.x,
+                copilot_detail::gExpectedAutoTarget.y, clientTarget.x, clientTarget.y, player.x, player.y);
             stopCopilot();
             return;
         }
     }
-    uint64_t now = nowMs();
-    if (isBusy()) {
-        if (gHasPendingMoveCheck) {
-            gMoveCheckSawBusy = true;
+    uint64_t now = copilot_detail::nowMs();
+    if (copilot_detail::isBusy()) {
+        if (copilot_detail::gHasPendingMoveCheck) {
+            copilot_detail::gMoveCheckSawBusy = true;
         }
-        if (gLastBusyLogMs == 0 || now - gLastBusyLogMs >= 1000) {
-            gLastBusyLogMs = now;
-            m_log_i("[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
+        if (copilot_detail::gLastBusyLogMs == 0 || now - copilot_detail::gLastBusyLogMs >= 1000) {
+            copilot_detail::gLastBusyLogMs = now;
+            m_log_i("[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", copilot_detail::gPathCount, copilot_detail::gMoveQueueCount, copilot_detail::gMoveLock, copilot_detail::gTileEventLock, copilot_detail::gTargetEventLock);
         }
         return;
     }
 
 
-    if (gLastCopilotTickMs != 0 && now - gLastCopilotTickMs < kCopilotTickMs) {
+    if (copilot_detail::gLastCopilotTickMs != 0 && now - copilot_detail::gLastCopilotTickMs < copilot_detail::kCopilotTickMs) {
         return;
     }
 
-    if (!gHasLastObservedPlayer) {
-        gLastObservedPlayer = player;
-        gHasLastObservedPlayer = true;
-    } else if (player.x != gLastObservedPlayer.x || player.y != gLastObservedPlayer.y) {
-        rememberRecentPlayer(gLastObservedPlayer);
-        gLastObservedPlayer = player;
+    if (!copilot_detail::gHasLastObservedPlayer) {
+        copilot_detail::gLastObservedPlayer = player;
+        copilot_detail::gHasLastObservedPlayer = true;
+    } else if (player.x != copilot_detail::gLastObservedPlayer.x || player.y != copilot_detail::gLastObservedPlayer.y) {
+        copilot_detail::rememberRecentPlayer(copilot_detail::gLastObservedPlayer);
+        copilot_detail::gLastObservedPlayer = player;
     }
 
-    int requestDist = gHasPendingMoveCheck ? pointDistance(player, gLastRequestedWaypoint) : 0;
-    int requestProgress = gHasPendingMoveCheck ? gLastRequestDistance - requestDist : 0;
-    int movedFromRequest = gHasPendingMoveCheck ? pointDistance(player, gLastRequestPlayer) : 0;
-    if (gHasPendingMoveCheck) {
+    int requestDist = copilot_detail::gHasPendingMoveCheck ? copilot_detail::pointDistance(player, copilot_detail::gLastRequestedWaypoint) : 0;
+    int requestProgress = copilot_detail::gHasPendingMoveCheck ? copilot_detail::gLastRequestDistance - requestDist : 0;
+    int movedFromRequest = copilot_detail::gHasPendingMoveCheck ? copilot_detail::pointDistance(player, copilot_detail::gLastRequestPlayer) : 0;
+    if (copilot_detail::gHasPendingMoveCheck) {
         if (requestDist == 0) {
-            resetMoveProgress();
-        } else if (gMoveCheckSawBusy || movedFromRequest > 0) {
+            copilot_detail::resetMoveProgress();
+        } else if (copilot_detail::gMoveCheckSawBusy || movedFromRequest > 0) {
             if (requestProgress <= 0 && movedFromRequest == 0) {
-                markDynamicBlockedByMapSource(gLastRequestedWaypoint, "stuck");
-                gHasLastRequestedWaypoint = false;
-                resetPlanCache();
-                resetMoveProgress();
+                copilot_detail::markDynamicBlockedByMapSource(copilot_detail::gLastRequestedWaypoint, "stuck");
+                copilot_detail::gHasLastRequestedWaypoint = false;
+                copilot_detail::resetPlanCache();
+                copilot_detail::resetMoveProgress();
             } else if (movedFromRequest > 0 || requestProgress > 0) {
-                gLastRequestPlayer = player;
-                gLastRequestDistance = requestDist;
-                gMoveCheckSawBusy = false;
+                copilot_detail::gLastRequestPlayer = player;
+                copilot_detail::gLastRequestDistance = requestDist;
+                copilot_detail::gMoveCheckSawBusy = false;
             }
         }
     }
 
-    gLastCopilotTickMs = now;
+    copilot_detail::gLastCopilotTickMs = now;
     // m_log_i("[copilot] proc player=%d,%d target=%d,%d reqDist=%d reqProgress=%d scene=%d state=%d\n", player.x, player.y,
     //     gCopilotTarget.x, gCopilotTarget.y, requestDist, requestProgress, world::gCurrentSceneType, world::gCurrentSceneState);
-    autoCopilot(gCopilotTarget.x, gCopilotTarget.y);
+    autoCopilot(copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
 }
 
 } // namespace cg::script

@@ -11,7 +11,6 @@
 
 namespace cg::script {
 namespace autobattle_detail {
-using namespace world::detail;
 static constexpr std::uint32_t BP_FLAG_WEAPON_DIRECT = 0x80;
 
 using B_TARGET_FLAGS = std::uint16_t;
@@ -655,16 +654,15 @@ static int LuaCheckedTarget(lua_State* L) {
 
 } // namespace autobattle_detail
 
-using namespace autobattle_detail;
 
 void InitializeAutoBattle() {
     auto* L = GetBattleLuaState();
     const int top = lua_gettop(L);
-    lua_pushcfunction(L, SafeLuaCall<LuaCheckTarget>); lua_setglobal(L, "CheckTarget");
-    lua_pushcfunction(L, SafeLuaCall<LuaBattleTime>); lua_setglobal(L, "GetTime");
-    lua_pushcfunction(L, SafeLuaCall<LuaBattleLog>); lua_setglobal(L, "LogToFile");
-    lua_pushcfunction(L, SafeLuaCall<LuaRandomTarget>); lua_setglobal(L, "TakeRandomTarget");
-    lua_pushcfunction(L, SafeLuaCall<LuaCheckedTarget>); lua_setglobal(L, "CheckAndGetTarget");
+    lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaCheckTarget>); lua_setglobal(L, "CheckTarget");
+    lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaBattleTime>); lua_setglobal(L, "GetTime");
+    lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaBattleLog>); lua_setglobal(L, "LogToFile");
+    lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaRandomTarget>); lua_setglobal(L, "TakeRandomTarget");
+    lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaCheckedTarget>); lua_setglobal(L, "CheckAndGetTarget");
     lua_getglobal(L, "math"); lua_getfield(L, -1, "randomseed");
     Push(L, (platform::ReadTickCount64() * 5137) ^ static_cast<std::uint64_t>(_getpid()));
     if (lua_pcall(L, 1, 0, 0) != 0) m_log_i("[Lua] randomseed failed: %s\n", lua_tostring(L, -1));
@@ -675,14 +673,14 @@ void InitializeAutoBattle() {
 }
 
 void ShutdownAutoBattle() {
-    enableAutoBattle = requireAction = actionSetup = clicked = false;
-    autoBattleActionCount = 0; simpleMode = SIMPLE_MODE_FULL;
-    gAutoBattleContext = {};
+    autobattle_detail::enableAutoBattle = autobattle_detail::requireAction = autobattle_detail::actionSetup = autobattle_detail::clicked = false;
+    autobattle_detail::autoBattleActionCount = 0; autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
+    autobattle_detail::gAutoBattleContext = {};
 }
 
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(std::string_view packet) {
-    if (!GetBattleLuaState() || enableAutoBattle || !packet.starts_with("Rg ")) return;
+    if (!GetBattleLuaState() || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
     switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
@@ -703,23 +701,23 @@ void RecordAutoBattleAction(std::string_view packet) {
         if (offset >= body.size() || body[offset] != '|') break;
         ++offset;
     }
-    Action action{};
+    autobattle_detail::Action action{};
     action.target = -1;
     switch (body[0]) {
-    case 'S': action.type = B_ACTION_SKILL; action.skillId = getSkillId(values[0]); action.techId = values[1]; action.target = values[2]; break;
-    case 'W': action.type = B_ACTION_PET_SKILL; action.techId = getPetTechId(values[0]); action.target = values[1]; break;
-    case 'H': action.type = B_ACTION_ATTACK; action.target = values[0]; break;
-    case 'Q': case 'M': case 'R': action.type = B_ACTION_ATTACK; break;
-    case 'I': action.type = B_ACTION_ITEM; action.itemId = getItemId(values[0]); action.target = values[1]; break;
-    case 'P': action.type = B_ACTION_MOVE; break;
-    case 'N': case 'U': action.type = B_ACTION_NONE; break;
-    case 'G': action.type = B_ACTION_DEF; break;
-    case 'E': action.type = B_ACTION_ESCAPE; break;
+    case 'S': action.type = autobattle_detail::B_ACTION_SKILL; action.skillId = autobattle_detail::getSkillId(values[0]); action.techId = values[1]; action.target = values[2]; break;
+    case 'W': action.type = autobattle_detail::B_ACTION_PET_SKILL; action.techId = autobattle_detail::getPetTechId(values[0]); action.target = values[1]; break;
+    case 'H': action.type = autobattle_detail::B_ACTION_ATTACK; action.target = values[0]; break;
+    case 'Q': case 'M': case 'R': action.type = autobattle_detail::B_ACTION_ATTACK; break;
+    case 'I': action.type = autobattle_detail::B_ACTION_ITEM; action.itemId = autobattle_detail::getItemId(values[0]); action.target = values[1]; break;
+    case 'P': action.type = autobattle_detail::B_ACTION_MOVE; break;
+    case 'N': case 'U': action.type = autobattle_detail::B_ACTION_NONE; break;
+    case 'G': action.type = autobattle_detail::B_ACTION_DEF; break;
+    case 'E': action.type = autobattle_detail::B_ACTION_ESCAPE; break;
     default: return;
     }
-    gAutoBattleContext.actionNew[count] = action;
-    autoBattleActionCount = count + 1;
-    if (autoBattleActionCount == 2) requireAction = true;
+    autobattle_detail::gAutoBattleContext.actionNew[count] = action;
+    autobattle_detail::autoBattleActionCount = count + 1;
+    if (autobattle_detail::autoBattleActionCount == 2) autobattle_detail::requireAction = true;
 }
 
 void AutoBattleProc() {
@@ -728,26 +726,26 @@ void AutoBattleProc() {
     bool isOpen = winAutoBattle || winAutoBattleSimple;
     if (world::gCurrentSceneType == SCENE_BATTLE) {
         if (world::gCurrentSceneState == 1) {
-            simpleMode = SIMPLE_MODE_FULL;
+            autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
         }
-        if (requireAction) {
-            gAutoBattleContext.action[0] = gAutoBattleContext.actionNew[0];
-            gAutoBattleContext.action[1] = gAutoBattleContext.actionNew[1];
-            actionSetup = true;
-            requireAction = false;
+        if (autobattle_detail::requireAction) {
+            autobattle_detail::gAutoBattleContext.action[0] = autobattle_detail::gAutoBattleContext.actionNew[0];
+            autobattle_detail::gAutoBattleContext.action[1] = autobattle_detail::gAutoBattleContext.actionNew[1];
+            autobattle_detail::actionSetup = true;
+            autobattle_detail::requireAction = false;
         }
         if (!isOpen && world::gCurrentSceneState >= 3 && world::gCurrentSceneState < 7) {
-            if (simpleMode) {
-                MakeAutoBattleSimple();
+            if (autobattle_detail::simpleMode) {
+                autobattle_detail::MakeAutoBattleSimple();
             } else {
-                MakeAutoBattle();
+                autobattle_detail::MakeAutoBattle();
             }
         } else if (world::gCurrentSceneState >= 7) {
             CgWindowClose(WIN_AUTOBATTLE);
             CgWindowClose(WIN_AUTOBATTLE_SIMPLE);
         }
-        if (enableAutoBattle) {
-            DoAutoBattle();
+        if (autobattle_detail::enableAutoBattle) {
+            autobattle_detail::DoAutoBattle();
         }
     }
     if ((world::gPendingSceneType >= 0 && world::gPendingSceneType != SCENE_BATTLE) || world::gCurrentSceneType != SCENE_BATTLE) {

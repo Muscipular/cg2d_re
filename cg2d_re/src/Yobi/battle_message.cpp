@@ -161,7 +161,6 @@ BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t skill)
 // 原函数：0x00439070。
 std::int32_t GetBattleMHeader_439070(char* const destination)
 {
-    using namespace world::detail;
     std::int32_t offset = cg::world::gBattleMScanOffset5A8A3C;
     if (cg::world::gBattleMText5AAA7C[offset] == '\0' || cg::world::gBattleMText5AAA7C[offset + 1] == '\0') {
         return 1;
@@ -265,7 +264,6 @@ void TakeBattleMString_438FE0(YobiAction* const action, char* const destination,
 // 原函数：0x00439600。
 std::int32_t TakeBattleMPreviewInteger_439600()
 {
-    using namespace world::detail;
     std::int32_t offset = cg::world::gBattleMPreviewOffset5AAA60;
     std::uint32_t result = 0;
     bool hasDigit = false;
@@ -297,7 +295,6 @@ std::int32_t TakeBattleMPreviewInteger_439600()
 // 原函数：0x00439670。
 void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t capacity)
 {
-    using namespace world::detail;
     std::int32_t written = 0;
     for (;;) {
         const char byte = cg::world::gBattleMText5AAA7C[cg::world::gBattleMPreviewOffset5AAA60];
@@ -342,7 +339,6 @@ void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t
 // 原函数：0x00439700。
 std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
 {
-    using namespace world::detail;
     std::int32_t offset = cg::world::gBattleMPreviewOffset5AAA60;
     if (cg::world::gBattleMText5AAA7C[offset] == '\0' || cg::world::gBattleMText5AAA7C[offset + 1] == '\0') {
         return 1;
@@ -629,7 +625,6 @@ void ScanBattleMParticipants_439B30(
     const std::int32_t kind, std::uint8_t* const participants,
     std::int32_t* const source, std::int32_t* const flag)
 {
-    using namespace world::detail;
     std::int32_t position = -1;
     *flag = 0;
     // 原439B55..439B63：清零22槽参与计数。
@@ -1081,7 +1076,6 @@ std::int32_t CheckBattleMParticipants_43B290(
     std::int32_t* const source, const std::int32_t previousSource,
     std::uint32_t* const mask, std::int32_t* const flag)
 {
-    using namespace world::detail;
     cg::world::gBattleMPreviewOffset5AAA60 = cg::world::gBattleMScanOffset5A8A3C;
     std::array<char, 4> header;
     std::array<std::uint8_t, 22> participants;
@@ -1217,7 +1211,6 @@ namespace {
 // 427500..427732失活位路径；由427470入口的PrepareBattleMExecution调用，不单独绑定回调。
 [[maybe_unused]] void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     std::array<char, 256> initialMessage;
     std::array<char, 256> queuedMessage;
     std::array<char, 4> header;
@@ -1301,7 +1294,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMTransitionHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMTransitionHeader kind)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState == 1
@@ -1457,7 +1449,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMDataHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMDataHeader kind)
 {
-    using namespace world::detail;
     switch (kind) {
     case BattleMDataHeader::Action: {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1595,7 +1586,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMStatusHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMStatusHeader kind)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if ((kind == BattleMStatusHeader::QueuedValue || subState == 1)
@@ -1805,7 +1795,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMPositionHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
@@ -1982,7 +1971,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMMonsterHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
     const std::int32_t subState = payload->packetSubState58;
     if (subState == 1) {
@@ -2129,7 +2117,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMItemHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         const std::int32_t mode = gBattleMValue59FA10;
@@ -2259,7 +2246,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMComboHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     switch (payload->packetSubState58) {
     case 0:
         break;
@@ -2495,7 +2481,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMGmnHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState != 1) {
@@ -2702,7 +2687,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMRideHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
-    using namespace world::detail;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
@@ -3032,7 +3016,6 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
 // 原函数：0x004239D0。
 void ParseBattleMRide_4239D0(YobiAction* const action)
 {
-    using namespace world::detail;
     auto* const scene = action->payload.battleScene;
     std::array<char, 4> header;
     std::array<char, 32> previewName;
@@ -3249,7 +3232,6 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
 // 原函数：0x00438450。
 std::int32_t TakeBattleCInteger_438450()
 {
-    using namespace world::detail;
     std::int32_t offset = cg::world::gBattleCOffset5ABA80;
     std::uint32_t result = 0;
     bool hasDigit = false;
@@ -3281,7 +3263,6 @@ std::int32_t TakeBattleCInteger_438450()
 // 原函数：0x004384C0。
 void TakeBattleCString_4384C0(char* const destination, const std::int32_t capacity)
 {
-    using namespace world::detail;
     std::int32_t written = 0;
     for (;;) {
         const char byte = cg::world::gBattleCText5A3A20[cg::world::gBattleCOffset5ABA80];
@@ -3327,7 +3308,6 @@ void TakeBattleCString_4384C0(char* const destination, const std::int32_t capaci
 // 原函数：0x00438550。
 void ParseBattleC_438550()
 {
-    using namespace world::detail;
     std::uint32_t present = 0;
     cg::world::gBattleCOffset5ABA80 = 2;
     const auto fieldFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
@@ -3646,7 +3626,6 @@ void ParseBattleC_438550()
 // 原函数：0x0043BAA0。
 std::int32_t Sub_43BAA0()
 {
-    using namespace world::detail;
     auto* const payload = cg::world::gBattleSceneAction5ABA94->payload.battleScene;
     std::array<char, 4> header;
     std::array<char, 256> message;

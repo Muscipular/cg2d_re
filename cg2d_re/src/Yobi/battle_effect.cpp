@@ -1976,7 +1976,6 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
 // 原函数：0x004209C0。
 std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiAction* const target)
 {
-    using namespace world::detail;
     const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload.battleActor);
     if ((static_cast<std::uint8_t>(sourcePayload->stateFE0) & 1u) == 0) {
         return 0;

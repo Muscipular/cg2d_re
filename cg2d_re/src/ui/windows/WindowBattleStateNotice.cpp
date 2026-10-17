@@ -28,7 +28,6 @@ WindowPrototype gWindowPrototypeBattleStateNotice {2, 3, 224, 162, 192, 96, 0x80
 // 原函数：0x0043C950。
 void WindowBattleStateNotice_Open()
 {
-    using namespace world::detail;
     if ((cg::world::gBattlePlayerFlags5ABCAC & 3u) != 0
         && cg::world::gBattleEntryNoticeAction5ABFB8 == nullptr && gWindowStates[WindowId_BattleStateNotice].window == nullptr) {
         cg::world::gBattleEntryNoticeAction5ABFB8 = WindowRuntime_CreateAnimation(WindowId_BattleStateNotice, 1, 0, nullptr);

@@ -99,7 +99,6 @@ namespace {
 [[maybe_unused]] void ProcessBattleMSkillWaitingState(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
-    using namespace world::detail;
     const std::int32_t skill = gBattleMSkill5AAA78;
     const std::int32_t value88 = gBattleMValue5A4A34;
     if (subState == 2) {

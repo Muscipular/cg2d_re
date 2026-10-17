@@ -455,7 +455,6 @@ static void WindowBattleCommand_ResetSelection()
 // L05：Lua动作已发送后，沿既有战斗窗口和选择状态收尾顺序提交该回合。
 void WindowBattleCommand_FinishAutoAction()
 {
-    using namespace world::detail;
     gWindowStates[WindowId_BattleCommand].userState.value = 0;
     cg::world::gBattleCountdownActive5ABCB8 = 0;
     cg::yobi::FlushBattleEntries_43C060();
@@ -1202,7 +1201,6 @@ static void WindowBattleCommand_ResetTargets(std::int32_t* const values, const s
 // 原函数：0x00498520。
 void WindowBattleCommand_Dispatch()
 {
-    using namespace world::detail;
     std::wstring buffer;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
     for (const cg::yobi::YobiAction* const action : cg::world::gBattleEntries59E980) {
@@ -1639,7 +1637,6 @@ void WindowBattleCommand_Dispatch()
 // 原函数：0x004982C0。
 static void WindowBattleCommand_DrawTimer()
 {
-    using namespace world::detail;
     const std::uint64_t tick = platform::ReadTickCount64();
     std::int64_t remaining = std::bit_cast<std::int64_t>(cg::world::gBattleCommandDeadline5ABBF8 - tick);
     if (cg::world::gBattleCountdownActive5ABCB8 == 0) {
@@ -1740,7 +1737,6 @@ void WindowBattleCommand_SnapshotPetVitals()
 // 原函数：0x004965D0。
 void WindowBattleCommand_SyncActorVitals()
 {
-    using namespace world::detail;
     const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
     if (position >= 20 || cg::world::gBattleSnapshotPetIndex5ABBFC < 0) {
         return;

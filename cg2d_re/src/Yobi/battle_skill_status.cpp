@@ -89,7 +89,6 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
 [[maybe_unused]] void ProcessBattleMSkill32Family(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -390,7 +389,6 @@ std::int32_t gBattleMHalfValue5A4A30 = 0;
     const std::int32_t fpUsed, const std::int32_t entryValue,
     const std::uint32_t flags9C, const std::int32_t valueA0)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     std::int32_t halfApplied = entryValue;
     payload->value00 = entryValue;
@@ -781,7 +779,6 @@ std::int32_t gBattleMHalfValue5A4A30 = 0;
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed,
     const std::uint32_t flags9C, const std::int32_t valueA0)
 {
-    using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCaster = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCaster;

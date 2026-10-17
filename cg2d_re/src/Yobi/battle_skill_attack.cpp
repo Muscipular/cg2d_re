@@ -129,7 +129,7 @@ void TakeBattleMSkillAttackTargets_424620(
     std::int32_t nextTargetOrDeathFlag;
     std::int32_t roundCount;
     std::int32_t positionOrFlag;
-    std::int32_t skill81Value;
+    std::int32_t skill81Value = 0; // 仅skill==81读取；进入目标循环前已解析同一技能的值。
     std::int32_t mainFirstImages[2];
     std::int32_t secondaryFirstImages[2];
     std::int32_t secondaryValues[2];
@@ -1382,7 +1382,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     std::int32_t selfAmount = 0;
     std::int32_t selfFirstImage = 0;
     std::int32_t selfSecondImage;
-    std::int32_t redirectPosition;
+    std::int32_t redirectPosition = 0; // selfFlags的0x200分支先解析，尾部恢复同一标志后才读取。
     std::array<std::int32_t, 2> selfFirstImages {};
     std::array<std::int32_t, 2> selfSecondImages {};
     std::array<std::int32_t, 2> selfValues {};

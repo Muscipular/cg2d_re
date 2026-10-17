@@ -374,7 +374,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
         }
     } else {
         const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
-        const char* name;
+        const char* name = nullptr; // 下方只在三个已赋值的category分支读取。
         switch (category) {
         case 0:
             name = world::detail::gContactsF19FB0[gLoginWindowRuntime.prefixD2F0B8.value04].name10.data();

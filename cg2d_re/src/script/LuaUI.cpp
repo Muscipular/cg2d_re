@@ -254,7 +254,7 @@ static std::shared_ptr<LuaEventRegistration> LuaRefEvent(lua_State* L, int index
     return event;
 }
 
-static bool LuaUnregisterEvent(lua_State* L, LuaEventRegistration* event) {
+static bool LuaUnregisterEvent(lua_State* /*L*/, LuaEventRegistration* event) {
     if (!event || !event->active) {
         return false;
     }
@@ -945,7 +945,7 @@ static void LuaSetWindowVisible(LuaWindow* window, bool visible) {
     }
 }
 
-int LuaWindow::update(int st, int hasFocused) {
+int LuaWindow::update(int /*stage*/, int hasFocused) {
     if ((window.state & WIN_STATE_CLOSE) || !GetExtWindowById(window.id)) {
         LuaClearDragMoveOwner(this);
         dragMoving = false;
@@ -995,7 +995,7 @@ int LuaWindow::update(int st, int hasFocused) {
     return 1;
 }
 
-int LuaWindow::render(int st) {
+int LuaWindow::render(int /*stage*/) {
     if ((window.state & WIN_STATE_CLOSE) || !GetExtWindowById(window.id)) {
         return 1;
     }
@@ -1005,7 +1005,7 @@ int LuaWindow::render(int st) {
     }
     for (auto& it: std::ranges::reverse_view(controls)) {
         RendererBreakWindowTextBatch();
-        it->render(window.x, window.y);
+        it->render(static_cast<short>(window.x), static_cast<short>(window.y));
     }
     CallWindowCallback(owner, drawRef, "LuaWindow.draw", ref());
     LuaResetWindowTextBatch();
@@ -1412,57 +1412,57 @@ LuaFunctionEx(LuaControlRef, Set) {
         if (LuaHasField(L, 2, "shapes")) {
             static_cast<UICanvasControl*>(control)->SetShapes(LuaReadCanvasShapes(L, 2));
         }
-    } else if (auto data = control->imageData()) {
-        int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", data->imageNo));
-        data->imageNo = image;
+    } else if (auto imageData = control->imageData()) {
+        int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", imageData->imageNo));
+        imageData->imageNo = image;
         if (LuaHasField(L, 2, "imageHover")) {
-            data->imageHover = LuaGetIntField(L, 2, "imageHover", data->imageHover);
+            imageData->imageHover = LuaGetIntField(L, 2, "imageHover", imageData->imageHover);
         }
         if (LuaHasField(L, 2, "imagePress")) {
-            data->imagePress = LuaGetIntField(L, 2, "imagePress", data->imagePress);
+            imageData->imagePress = LuaGetIntField(L, 2, "imagePress", imageData->imagePress);
         }
         if (LuaHasField(L, 2, "color")) {
-            data->color = LuaGetColorField(L, 2, "color", data->color);
+            imageData->color = LuaGetColorField(L, 2, "color", imageData->color);
         }
-    } else if (auto data = control->animeData()) {
-        LuaReadNumberIntField(L, 2, "animeNo", data->animeNo);
-        LuaReadNumberIntField(L, 2, "action", data->action);
-        LuaReadNumberIntField(L, 2, "dir", data->dir);
+    } else if (auto animeData = control->animeData()) {
+        LuaReadNumberIntField(L, 2, "animeNo", animeData->animeNo);
+        LuaReadNumberIntField(L, 2, "action", animeData->action);
+        LuaReadNumberIntField(L, 2, "dir", animeData->dir);
         if (LuaHasField(L, 2, "revertPlay") || LuaHasField(L, 2, "revert")) {
-            data->revertPlay = LuaGetIntField(L, 2, "revertPlay", LuaGetIntField(L, 2, "revert", data->revertPlay));
+            animeData->revertPlay = LuaGetIntField(L, 2, "revertPlay", LuaGetIntField(L, 2, "revert", animeData->revertPlay));
         }
-    } else if (auto data = control->pngImageData()) {
-        LuaSetPngImageState(L, 2, "image", "imageRect", data->image);
-        LuaSetPngImageState(L, 2, "imageHover", "imageHoverRect", data->imageHover);
-        LuaSetPngImageState(L, 2, "imagePress", "imagePressRect", data->imagePress);
+    } else if (auto pngImageData = control->pngImageData()) {
+        LuaSetPngImageState(L, 2, "image", "imageRect", pngImageData->image);
+        LuaSetPngImageState(L, 2, "imageHover", "imageHoverRect", pngImageData->imageHover);
+        LuaSetPngImageState(L, 2, "imagePress", "imagePressRect", pngImageData->imagePress);
         if (LuaHasField(L, 2, "color")) {
-            data->color = LuaGetColorField(L, 2, "color", data->color);
+            pngImageData->color = LuaGetColorField(L, 2, "color", pngImageData->color);
         }
-    } else if (auto data = control->textData()) {
+    } else if (auto textData = control->textData()) {
         if (LuaHasField(L, 2, "text")) {
-            data->text = LuaGetStringField(L, 2, "text", data->text.c_str());
+            textData->text = LuaGetStringField(L, 2, "text", textData->text.c_str());
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
-            data->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", data->font)) & 0xff);
+            textData->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textData->font)) & 0xff);
         }
         if (LuaHasField(L, 2, "color")) {
-            data->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", data->color) & 0xff);
+            textData->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", textData->color) & 0xff);
         }
-    } else if (auto data = control->textInputData()) {
+    } else if (auto textInputData = control->textInputData()) {
         if (LuaHasField(L, 2, "maxLength")) {
-            data->maxLength = ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", data->maxLength));
-            control->setTextInputText(text::ToGbk(data->context.text).c_str());
+            textInputData->maxLength = ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", textInputData->maxLength));
+            control->setTextInputText(text::ToGbk(textInputData->context.text).c_str());
         }
         if (LuaHasField(L, 2, "text")) {
-            const auto currentText = text::ToGbk(data->context.text);
+            const auto currentText = text::ToGbk(textInputData->context.text);
             const auto value = LuaGetStringField(L, 2, "text", currentText.c_str());
             control->setTextInputText(value.c_str());
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
-            data->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", data->font)) & 0xff);
+            textInputData->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textInputData->font)) & 0xff);
         }
         if (LuaHasField(L, 2, "color")) {
-            data->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", data->color) & 0xff);
+            textInputData->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", textInputData->color) & 0xff);
         }
     }
     lua_pushboolean(L, true);
@@ -1603,7 +1603,9 @@ LuaFunctionEx(LuaWindowRef, DrawRect) {
         return 1;
     }
     // m_log_i("draw rect: %d %d %d %d layer: %d color %x\n", window->window.x + x, window->window.y + y, w, h, window->window.layer, color);
-    int index = RendererDrawRect(window->window.x + x, window->window.y + y, w, h, LAYER_UI, color);
+    int index = RendererDrawRect(static_cast<std::int16_t>(window->window.x + x),
+        static_cast<std::int16_t>(window->window.y + y),
+        static_cast<std::int16_t>(w), static_cast<std::int16_t>(h), LAYER_UI, color);
     lua_pushboolean(L, true);
     lua_pushinteger(L, index);
     return 2;
@@ -2165,7 +2167,7 @@ LuaFunction(WinMgr_findWindow) {
 }
 
 LuaFunction(WinMgr_close) {
-    int id = lua_tointeger(L, 1);
+    int id = static_cast<int>(lua_tointeger(L, 1));
     CgWindowClose(id);
     return 0;
 }
@@ -2178,6 +2180,7 @@ LuaFunction(WinMgr_autoCopilot) {
 }
 
 LuaFunction(WinMgr_stopCopilot) {
+    static_cast<void>(L);
     stopCopilot();
     return 0;
 }
@@ -2202,7 +2205,7 @@ LuaFunction(WinMgr_getAutoCopliotRoute) {
 }
 
 LuaFunction(WinMgr_focus) {
-    int id = lua_tointeger(L, 1);
+    int id = static_cast<int>(lua_tointeger(L, 1));
     if (id >= 0 && id < WIN_MAX) {
         if (gWindowState[id].window) {
             gWindowState[id].window->state |= WIN_STATE_FOCUS;

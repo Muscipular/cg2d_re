@@ -41,7 +41,7 @@ std::int32_t GetMacAddress_534EF0(char* const output)
     }
 
     const IP_ADAPTER_ADDRESSES* selected = adapters;
-    ULONG selectedType;
+    ULONG selectedType = 0; // 非空退出循环必经IfType赋值；遍历结束为空时提前返回。
     while (selected != nullptr) {
         if (selected->OperStatus == IfOperStatusUp) {
             // 原534F77每项只取一次类型，资格和格式分支共用此值。

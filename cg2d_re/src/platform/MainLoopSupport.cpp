@@ -240,6 +240,8 @@ void InitializeProtection_4041E0(const char* moduleName)
         0,
         sizeof(gProtectionVersionInfo));
     gProtectionVersionInfo.dwOSVersionInfoSize = 0x94;
+    // 原4041E0依赖此API的版本兼容行为；只在本调用保留已弃用接口。
+#pragma warning(suppress : 4996)
     static_cast<void>(GetVersionExA(&gProtectionVersionInfo));
 
     const DWORD platformId = gProtectionVersionInfo.dwPlatformId;

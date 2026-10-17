@@ -25,7 +25,7 @@ void UIAnimeControl::resetAction() {
     action->imageNo = data.animeNo;
     action->characterAction = data.action;
     action->direction = data.dir;
-    action->displayPriority = ANIME_DISP_PRIO;
+    action->displayPriority = static_cast<std::uint8_t>(ANIME_DISP_PRIO);
     actionAnimeNo = data.animeNo;
 }
 

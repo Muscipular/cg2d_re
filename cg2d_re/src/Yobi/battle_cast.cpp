@@ -1261,8 +1261,8 @@ std::int32_t UpdateBattleAction101_40D580(YobiAction* const action)
     TurnBattleTowardPosition_4060D0(action, position < 10 ? 356.0F : 278.0F,
         position < 10 ? 276.0F : 278.0F, 1, 0.0F);
     bool arrived = false;
-    float facingX;
-    float facingY;
+    float facingX = 0.0F; // arrived仅在两个坐标赋值后置true。
+    float facingY = 0.0F;
     if (payload->effects1C[payload->effectRunningC9C].position >= 10
         && GetBattleDistanceToPosition_4062A0(action, 278.0F, 278.0F) <= 8) {
         action->offset40 = 278.0F;
@@ -2422,7 +2422,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     bool create = true;
-    std::int32_t imageNo;
+    std::int32_t imageNo = 0; // 未选中图号时create必为false，初值不会用于创建。
     if (payload->value13D8 == 3) {
         const std::int32_t type = payload->value13DC;
         if (type == 19 || type == 20) {
@@ -2481,7 +2481,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     const std::int32_t use = payload->value13D8;
     bool create = true;
-    std::int32_t imageNo;
+    std::int32_t imageNo = 0; // 未选中图号时create必为false，初值不会用于创建。
     if (use == 1) {
         const std::int32_t type = payload->value13DC;
         if (type >= 1 && type <= 6) {

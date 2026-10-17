@@ -120,8 +120,12 @@ std::int32_t Sub_508360()
         sockaddr_in address;
         address.sin_family = AF_INET;
         address.sin_port = ::htons(port);
+        // 保留原IPv4缩写／数值解析及INADDR_NONE回退规则，不替换为解析语义不同的接口。
+#pragma warning(suppress : 4996)
         address.sin_addr.s_addr = ::inet_addr(serverAddress);
         if (address.sin_addr.s_addr == INADDR_NONE) {
+            // 保留原同步IPv4查询、首地址选择及失败处理；弃用告警仅限此调用。
+#pragma warning(suppress : 4996)
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
                 static_cast<void>(cg::text::FormatTo(gRequestMessage, L"无法取得伺服器的 IP 位址。({})", cg::text::FromGbkWide(serverAddress)));

@@ -3,14 +3,14 @@
 #include <cstdio>
 #include <cwchar>
 
-// RHM01：沿参考编译开关输出到当前 CRT stdout；禁用时不求值实参。
+// RHM01：沿参考编译开关输出到当前 CRT stdout；禁用时仅检查类型，不求值实参。
 #ifndef m_log
 #if defined(_DEBUG) || defined(MY_DEBUG) || (defined(MATCHER) ? defined(MATCHER_DEBUG) : defined(ENABLE_LOG))
 #define m_log(...) std::printf(__VA_ARGS__)
 #define m_logw(...) std::wprintf(__VA_ARGS__)
 #else
-#define m_log(...)
-#define m_logw(...)
+#define m_log(...) static_cast<void>(sizeof(std::printf(__VA_ARGS__)))
+#define m_logw(...) static_cast<void>(sizeof(std::wprintf(__VA_ARGS__)))
 #endif
 #endif
 
@@ -20,8 +20,8 @@
 #define m_log_i(...) std::printf(__VA_ARGS__)
 #define m_log_iw(...) std::wprintf(__VA_ARGS__)
 #else
-#define m_log_i(...)
-#define m_log_iw(...)
+#define m_log_i(...) static_cast<void>(sizeof(std::printf(__VA_ARGS__)))
+#define m_log_iw(...) static_cast<void>(sizeof(std::wprintf(__VA_ARGS__)))
 #endif
 #endif
 
@@ -31,7 +31,7 @@
 #define m_log_m(...) std::printf(__VA_ARGS__)
 #define m_log_mw(...) std::wprintf(__VA_ARGS__)
 #else
-#define m_log_m(...)
-#define m_log_mw(...)
+#define m_log_m(...) static_cast<void>(sizeof(std::printf(__VA_ARGS__)))
+#define m_log_mw(...) static_cast<void>(sizeof(std::wprintf(__VA_ARGS__)))
 #endif
 #endif

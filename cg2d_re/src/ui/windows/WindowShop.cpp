@@ -2587,7 +2587,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
     // 原模式2只在对应hover路径赋值；不补异常事件组合的栈残留默认值。
     std::int32_t message;
     std::int32_t increment;
-    std::int32_t detailSelected;
+    std::int32_t detailSelected = 0; // detailSelectedRead及其互补分支在使用前必定覆盖。
     bool detailSelectedRead = false;
     if (hover) {
         permitted = 0;

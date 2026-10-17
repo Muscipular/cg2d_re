@@ -158,10 +158,10 @@ int UIMapExControl::AddPoint(MapExPoint point) {
     return static_cast<int>(points.size());
 }
 
-int UIMapExControl::RemovePoints(int mapX, int mapY) {
+int UIMapExControl::RemovePoints(int pointX, int pointY) {
     size_t oldSize = points.size();
-    points.erase(std::remove_if(points.begin(), points.end(), [mapX, mapY](const MapExPoint& point) {
-        return point.mapX == mapX && point.mapY == mapY;
+    points.erase(std::remove_if(points.begin(), points.end(), [pointX, pointY](const MapExPoint& point) {
+        return point.mapX == pointX && point.mapY == pointY;
     }), points.end());
     return static_cast<int>(oldSize - points.size());
 }
@@ -344,7 +344,7 @@ bool UIMapExControl::PrepareMap() {
         mapBufferMode = mode;
     }
 
-    if (effectiveMapId == world::gValue9A86DC && effectiveGroup == world::gValue9E0434 && effectiveFloor == world::gMapFloor) {
+    if (static_cast<std::uint32_t>(effectiveMapId) == world::gValue9A86DC && effectiveGroup == world::gValue9E0434 && effectiveFloor == world::gMapFloor) {
         SyncVisibleMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor);
     } else {
         visibleMap = VisibleMapCache{};

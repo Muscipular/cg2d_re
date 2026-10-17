@@ -197,7 +197,7 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
     gCurrentWindow->elements[firstElement + 1].visible = 0;
     gCurrentWindow->elements[firstElement + 2].visible = 0;
     const std::int32_t mode = world::gPlayerRuntimeSlots.timerMode10;
-    WindowInstance* firstWindow;
+    WindowInstance* firstWindow = nullptr; // firstElement的互补分支在使用前必定覆盖。
     if (firstElement == 8) {
         firstWindow = gCurrentWindow;
     }

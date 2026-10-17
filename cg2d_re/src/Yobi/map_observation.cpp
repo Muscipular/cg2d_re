@@ -309,7 +309,7 @@ static void SetObservationChildAction(
     }
 }
 
-static void SetObservationChildAction(YobiAction* const action)
+[[maybe_unused]] static void SetObservationChildAction(YobiAction* const action)
 {
     SetObservationChildAction(action, action->imageNo);
 }

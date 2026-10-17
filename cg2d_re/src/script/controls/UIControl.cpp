@@ -241,15 +241,13 @@ UIControl::~UIControl() {
     callbacks.clear(callbacks.owner);
 }
 
-bool UIControl::render(short x, short y) {
-    (void) x;
-    (void) y;
+bool UIControl::render(short /*offsetX*/, short /*offsetY*/) {
     return true;
 }
 
-bool UIControl::render(short x, short y, const UIClipRect* clipRect) {
+bool UIControl::render(short offsetX, short offsetY, const UIClipRect* clipRect) {
     (void) clipRect;
-    return render(x, y);
+    return render(offsetX, offsetY);
 }
 
 bool UIControl::isHitable() const {
@@ -320,7 +318,7 @@ bool UIControl::process(int index, int hasFocused, int captured) {
     return process(index, hasFocused, captured, nullptr, static_cast<short>(gCurrentWindow->x), static_cast<short>(gCurrentWindow->y));
 }
 
-bool UIControl::process(int index, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
+bool UIControl::process(int /*index*/, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
     const int absX = this->x + ox;
     const int absY = this->y + oy;
     const int width = this->w;
@@ -387,7 +385,6 @@ bool UIControl::process(int index, int hasFocused, int captured, const UIClipRec
         }
 
         const bool isPress = (eventFlags & (MouseFlag_Dragging | MouseFlag_LDownEvent | MouseFlag_LHoldPhysical | MouseFlag_LRepeatDown)) != 0;
-        const bool isHover = (eventFlags & (MouseFlag_Hover | MouseFlag_DragFinish)) != 0;
         if (isPress) {
             this->mouseState = UIControl::MOUSE_PRESS;
         } else if (isMouseInRect) {

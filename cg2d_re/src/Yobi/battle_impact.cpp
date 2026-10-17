@@ -1010,9 +1010,10 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             MoveBattleByAngle_405EA0(action);
             const std::int32_t image = action->imageNo;
             bool emitTrail = false;
-            float trailY;
-            std::int32_t randomX;
-            std::int32_t trailImage;
+            // emitTrail仅在三项均赋值后置true；初值不会进入创建调用。
+            float trailY = 0.0F;
+            std::int32_t randomX = 0;
+            std::int32_t trailImage = 0;
             if (image == 111011) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
@@ -1181,9 +1182,10 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             }
             const std::int32_t image = action->imageNo;
             bool emitTrail = false;
-            float trailY;
-            std::int32_t randomX;
-            std::int32_t trailImage;
+            // emitTrail仅在三项均赋值后置true；初值不会进入创建调用。
+            float trailY = 0.0F;
+            std::int32_t randomX = 0;
+            std::int32_t trailImage = 0;
             if (image == 111011) {
                 if (action->nameX == 0) {
                     trailImage = 110007;

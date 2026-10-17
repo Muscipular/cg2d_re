@@ -110,8 +110,9 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             return consumed;
         }
 
-        std::int32_t savedX;
-        std::int32_t savedY;
+        // 到达末尾发布前，各存活窗口路径均覆盖坐标；无窗口路径提前返回。
+        std::int32_t savedX = 0;
+        std::int32_t savedY = 0;
         if (first != nullptr || second != nullptr) {
             if (first != nullptr) {
                 first->state |= 0x8000u;

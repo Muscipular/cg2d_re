@@ -132,7 +132,7 @@ static bool isCopilotSceneReady()
     return world::gCurrentSceneType == SCENE_NORMAL && world::gCurrentSceneState == 3;
 }
 
-static bool skipSceneNotReady(const char* where)
+static bool skipSceneNotReady([[maybe_unused]] const char* where)
 {
     if (isCopilotSceneReady()) {
         return false;
@@ -384,7 +384,7 @@ static bool putDynamicBlocked(Point p)
     return !existed;
 }
 
-static void markDynamicBlocked(Point p, const char* reason)
+static void markDynamicBlocked(Point p, [[maybe_unused]] const char* reason)
 {
     bool added = putDynamicBlocked(p);
     if (added) {
@@ -398,7 +398,7 @@ static void syncVisibleCache()
     if (!isValidMap()) {
         return;
     }
-    if (gLastMapId != gMapId || gLastMapFloor != gMapFloor || gLastMapGroup != gMapGroup) {
+    if (static_cast<std::uint32_t>(gLastMapId) != gMapId || gLastMapFloor != gMapFloor || gLastMapGroup != gMapGroup) {
         // m_log_i("[copilot] map changed map=%d group=%d floor=%d visible=%dx%d start=%d,%d\n", gMapId, gMapGroup, gMapFloor, gMapWidth, gMapHeight, gMapXStart, gMapYStart);
         gKnownMap.clear();
         gDiskMap = DiskMapCache{};
@@ -434,7 +434,7 @@ static std::string makeMapFileName()
 static bool loadDiskMap()
 {
     uint64_t now = nowMs();
-    bool sameMap = gDiskMap.mapId == gMapId && gDiskMap.floor == gMapFloor && gDiskMap.group == gMapGroup;
+    bool sameMap = static_cast<std::uint32_t>(gDiskMap.mapId) == gMapId && gDiskMap.floor == gMapFloor && gDiskMap.group == gMapGroup;
     if (sameMap && gDiskMap.loaded) {
         if (now - gDiskMap.lastLoadedMs < kDiskMapRefreshMs || now - gDiskMap.lastAttemptMs < kDiskMapRetryMs) {
             return true;
@@ -450,7 +450,7 @@ static bool loadDiskMap()
     next.group = gMapGroup;
     next.lastAttemptMs = now;
 
-    auto fail = [&](const char* reason) {
+    auto fail = [&]([[maybe_unused]] const char* reason) {
         // m_log_i("[copilot] loadDiskMap failed reason=%s map=%d group=%d floor=%d keepOld=%d\n", reason, gMapId, gMapGroup, gMapFloor, sameMap && gDiskMap.loaded ? 1 : 0);
         if (sameMap && gDiskMap.loaded) {
             gDiskMap.lastAttemptMs = now;
@@ -503,7 +503,7 @@ static bool loadDiskMap()
     next.hitData = std::move(hitData);
     next.loaded = true;
     next.lastLoadedMs = now;
-    size_t blockedCount = std::count(next.cells.begin(), next.cells.end(), static_cast<unsigned char>(kKnownBlocked));
+    [[maybe_unused]] size_t blockedCount = std::count(next.cells.begin(), next.cells.end(), static_cast<unsigned char>(kKnownBlocked));
     // m_log_i("[copilot] loadDiskMap ok map=%d group=%d floor=%d size=%dx%d blocked=%u\n", gMapId, gMapGroup, gMapFloor, next.width, next.height, static_cast<unsigned int>(blockedCount));
     gDiskMap = next;
     return true;
@@ -602,7 +602,7 @@ static bool footprintCovers(Point origin, CellGraphicInfo info, Point p)
     return sx > 0 && sy > 0 && p.x >= origin.x && p.x < origin.x + sx && p.y <= origin.y && p.y > origin.y - sy;
 }
 
-static void logFootprintSources(Point p, const char* label)
+[[maybe_unused]] static void logFootprintSources(Point p, [[maybe_unused]] const char* label)
 {
     if (!gDiskMap.loaded || !inDiskBounds(p)) {
         return;
@@ -633,8 +633,8 @@ static void logFootprintSources(Point p, const char* label)
     }
 }
 
-static void logDiskCellDetail(Point p, const char* label);
-static int markObjectFootprintBlocked(Point origin, unsigned short raw, CellGraphicInfo info, Point cover, const char* reason)
+[[maybe_unused]] static void logDiskCellDetail(Point p, [[maybe_unused]] const char* label);
+static int markObjectFootprintBlocked(Point origin, [[maybe_unused]] unsigned short raw, CellGraphicInfo info, [[maybe_unused]] Point cover, [[maybe_unused]] const char* reason)
 {
     short sx = static_cast<short>(info.sx);
     short sy = static_cast<short>(info.sy);
@@ -663,7 +663,7 @@ static int markObjectFootprintBlocked(Point origin, unsigned short raw, CellGrap
     return marked;
 }
 
-static int markCoveringObjectBlocks(Point p, const char* reason)
+static int markCoveringObjectBlocks(Point p, [[maybe_unused]] const char* reason)
 {
     if (!gDiskMap.loaded || !inDiskBounds(p)) {
         return 0;
@@ -694,7 +694,7 @@ static int markCoveringObjectBlocks(Point p, const char* reason)
     return marked;
 }
 
-static void markDynamicBlockedByMapSource(Point p, const char* reason)
+static void markDynamicBlockedByMapSource(Point p, [[maybe_unused]] const char* reason)
 {
     // logDiskCellDetail(p, reason);
     if (!loadDiskMap() || !inDiskBounds(p)) {
@@ -737,7 +737,7 @@ static void markDynamicBlockedByMapSource(Point p, const char* reason)
     markDynamicBlocked(p, reason);
 }
 
-static void logDiskCellDetail(Point p, const char* label)
+[[maybe_unused]] static void logDiskCellDetail(Point p, [[maybe_unused]] const char* label)
 {
     uint64_t now = nowMs();
     uint64_t key = makeKey(p.x, p.y);
@@ -880,7 +880,7 @@ static bool isBidirectionalWaypoint(Point player, Point waypoint)
     return true;
 }
 
-static void logNoPathDetail(Point player, Point target)
+[[maybe_unused]] static void logNoPathDetail(Point player, Point target)
 {
     uint64_t now = nowMs();
     if (gLastNoPathDetailLogMs != 0 && now - gLastNoPathDetailLogMs < kNoPathDetailLogMs) {
@@ -1095,7 +1095,6 @@ static bool buildOptimisticPath(Point start, Point target, std::vector<Point>& p
     int minY = static_cast<int>(minY64);
     int maxY = static_cast<int>(maxY64);
     int width = static_cast<int>(width64);
-    int height = static_cast<int>(height64);
     int nodeCount = static_cast<int>(nodeCount64);
 
     auto indexOf = [=](Point p) {
@@ -1432,7 +1431,7 @@ static void cacheWaypoint(Point player, Point target, Point waypoint)
 
 static bool tryUseCachedWaypoint(Point player, Point target)
 {
-    if (!gHasCachedWaypoint || !samePoint(target, gCachedTarget) || gCachedMapId != gMapId || gCachedMapFloor != gMapFloor
+    if (!gHasCachedWaypoint || !samePoint(target, gCachedTarget) || static_cast<std::uint32_t>(gCachedMapId) != gMapId || gCachedMapFloor != gMapFloor
         || gCachedMapGroup != gMapGroup) {
         return false;
     }
@@ -1651,7 +1650,7 @@ int getAutoCopliotState()
 std::vector<std::pair<int, int> > getAutoCopliotRoute()
 {
     std::vector<std::pair<int, int> > route;
-    if (!copilot_detail::gCopilotEnabled || !copilot_detail::isCopilotSceneReady() || copilot_detail::gMapId != copilot_detail::gCopilotMapId || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
+    if (!copilot_detail::gCopilotEnabled || !copilot_detail::isCopilotSceneReady() || copilot_detail::gMapId != static_cast<std::uint32_t>(copilot_detail::gCopilotMapId) || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
         return route;
     }
 
@@ -1667,7 +1666,7 @@ void CopilotProc()
     if (!copilot_detail::gCopilotEnabled) {
         return;
     }
-    if (copilot_detail::gMapId != copilot_detail::gCopilotMapId || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
+    if (copilot_detail::gMapId != static_cast<std::uint32_t>(copilot_detail::gCopilotMapId) || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
         m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", copilot_detail::gCopilotMapId,
             copilot_detail::gCopilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
         stopCopilot();

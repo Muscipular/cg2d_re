@@ -349,7 +349,7 @@ char* FindLegacyByte_44B4A0(char* const text, const char* const target)
 }
 
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。
-static std::int32_t ClassifyTextBoundary_44B1D0(
+[[maybe_unused]] static std::int32_t ClassifyTextBoundary_44B1D0(
     const std::wstring_view source,
     const std::int32_t count)
 {

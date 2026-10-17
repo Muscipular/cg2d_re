@@ -105,7 +105,7 @@ static void DrawActorPhaseAttachment(
     const render::GraphicDescriptor16* const descriptor = &child->drawMode;
     const std::int32_t offsetY = Sub_5182B0(child, 1);
     const std::int32_t parentY = action->y;
-    YobiAction* nextChild;
+    YobiAction* nextChild = nullptr; // 下方互补分支在读取前必定覆盖，不改变取样时点。
     if (readBeforeY) {
         nextChild = *slot;
     }
@@ -115,7 +115,7 @@ static void DrawActorPhaseAttachment(
     }
     const std::int32_t offsetX = Sub_5182B0(nextChild, 0);
     const std::int32_t parentX = action->x;
-    YobiAction* graphicChild;
+    YobiAction* graphicChild = nullptr; // 同上，保留X加法前后各路径的取样顺序。
     if (readBeforeX) {
         graphicChild = *slot;
     }

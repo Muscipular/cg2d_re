@@ -584,7 +584,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->rebirthValue2 = 4;
             if (type == 34) {
                 const std::int32_t image = sourcePayload->image1028;
-                std::int32_t sound;
+                std::int32_t sound = 0; // playSound为true的路径均覆盖此值。
                 bool playSound = true;
                 if ((image >= 110052 && image <= 110055) || image == 111001) {
                     sound = 259;
@@ -621,7 +621,7 @@ YobiAction* NewBattleEffect_41CD00(
         case 35: {
             const std::int32_t skill = sourcePayload->castSkill103C;
             const bool fixedTargetMode = skill == 31 || skill == 3037 || skill == 2013;
-            YobiAction* fixedTarget;
+            YobiAction* fixedTarget = nullptr; // 仅fixedTargetMode路径读取，且该路径先赋值。
             if (fixedTargetMode) {
                 fixedTarget = cg::world::gBattleAllEntries59E980[
                     sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
@@ -1654,7 +1654,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
         const bool firstOnRight = cg::world::gBattleAllEntries59E980[payload->effects1C[0].position]->offset40
             >= cg::world::gBattleAllEntries59E980[payload->effects1C[1].position]->offset40;
         if ((direction < 0 && firstOnRight) || (direction > 0 && !firstOnRight)) {
-            std::int32_t ratio;
+            std::int32_t ratio = 0; // adjust仅在ratio计算完成后置true。
             bool adjust = false;
             if (payload->y04 < action->y) {
                 if (payload->x00 > action->x) {
@@ -1683,7 +1683,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
                 }
             }
         } else {
-            std::int32_t ratio;
+            std::int32_t ratio = 0; // adjust仅在ratio计算完成后置true。
             bool adjust = false;
             if (payload->x00 < action->x) {
                 if (payload->y04 < action->y) {

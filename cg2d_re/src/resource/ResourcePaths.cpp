@@ -69,7 +69,7 @@ namespace cg::resource::detail {
 static_assert(std::endian::native == std::endian::little);
 
 // 原 45A420：每项读取后才比较，正文直接写共享表，短读保留已写前缀。
-static std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
@@ -102,7 +102,7 @@ static std::int32_t Sub_45A420(const char* const fileName, char* const* const gr
 }
 
 // 原 45A290：成功打开后忽略写入/关闭结果，不把原写回改为事务提交。
-static std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {

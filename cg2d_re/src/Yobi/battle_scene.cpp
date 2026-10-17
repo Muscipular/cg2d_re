@@ -86,7 +86,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
 
     YobiAction* previousEvent = nullptr;
     // 原var_8仅由工厂写入；previousEvent首次非空前必经一次成功创建。
-    YobiAction* lastCreated;
+    YobiAction* lastCreated = nullptr;
     std::int32_t groupBoundary;
     while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())) {
         const std::int32_t priorSource = previousSource;

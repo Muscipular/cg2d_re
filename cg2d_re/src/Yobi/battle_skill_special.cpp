@@ -2507,7 +2507,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         const std::int32_t pointIndex = cg::world::gBattlePointIndices5536FC[pointPosition];
         const bool sampleCasterBeforePoint = previewPosition < 5
             || (previewPosition >= 10 && previewPosition < 15);
-        std::int32_t effectCasterPosition;
+        std::int32_t effectCasterPosition = 0; // 互补取样分支均在使用前覆盖。
         if (sampleCasterBeforePoint) {
             effectCasterPosition = gBattleMCasterPosition5AAA64;
         }

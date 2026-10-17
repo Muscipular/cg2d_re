@@ -42,20 +42,37 @@ public:
     // 原标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
     operator std::int32_t();
     explicit operator std::uint32_t();
+    // 本端补充一元算术：单次读取，返回有符号明文，不写回。
+    std::int32_t operator+();
+    std::int32_t operator-();
     // 原函数：0x00401E20。
     LegacyCryptInt& operator+=(std::int32_t amount); // 原401E20，单读后SetNorVal。
     LegacyCryptInt& operator+=(std::uint32_t amount); // 无符号W32加后写回位模式。
     // 原函数：0x00401E40。
     LegacyCryptInt& operator-=(std::int32_t amount); // 原401E40，单读后SetNorVal。
     LegacyCryptInt& operator-=(std::uint32_t amount); // 无符号W32减后写回位模式。
+    // 本端补充复合算术：单读后SetNorVal；无符号运算写回W32位模式。
+    // 同类右操作数经整数转换先读取，随后进入成员函数读取左操作数。
+    LegacyCryptInt& operator*=(std::int32_t multiplier);
+    LegacyCryptInt& operator*=(std::uint32_t multiplier);
+    LegacyCryptInt& operator/=(std::int32_t divisor);
+    LegacyCryptInt& operator/=(std::uint32_t divisor);
+    LegacyCryptInt& operator%=(std::int32_t divisor);
+    LegacyCryptInt& operator%=(std::uint32_t divisor);
     LegacyCryptInt& operator++(); // 原0x00401DE0：返回本对象。
     std::int32_t operator++(int); // 单读递增，返回递增前明文。
+    // 本端补充递减：与递增相同，单读后SetNorVal。
+    LegacyCryptInt& operator--(); // 返回本对象。
+    std::int32_t operator--(int); // 返回递减前明文。
 
     // 同类双值运算先右后左各读一次，即使两引用指向同一对象。
     friend std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     // 原0x00401E70@[401E70,401E8B)：右→左读取后求差。
     friend std::int32_t operator-(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 本端补充除法／取余，沿上述右→左读取顺序及C++有符号整数语义。
+    friend std::int32_t operator/(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator%(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     // 原0x00401D20@[0x401D20,0x401D40)：右→左读取后比较。
     friend bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);

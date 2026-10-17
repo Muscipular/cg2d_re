@@ -121,6 +121,16 @@ LegacyCryptInt::operator std::uint32_t()
     return static_cast<std::uint32_t>(value());
 }
 
+std::int32_t LegacyCryptInt::operator+()
+{
+    return value();
+}
+
+std::int32_t LegacyCryptInt::operator-()
+{
+    return -value();
+}
+
 // 原函数：0x00401E20。
 LegacyCryptInt& LegacyCryptInt::operator+=(const std::int32_t amount)
 {
@@ -151,6 +161,48 @@ LegacyCryptInt& LegacyCryptInt::operator-=(const std::uint32_t amount)
     return *this;
 }
 
+LegacyCryptInt& LegacyCryptInt::operator*=(const std::int32_t multiplier)
+{
+    const std::int32_t result = value() * multiplier;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator*=(const std::uint32_t multiplier)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) * multiplier;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator/=(const std::int32_t divisor)
+{
+    const std::int32_t result = value() / divisor;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator/=(const std::uint32_t divisor)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) / divisor;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator%=(const std::int32_t divisor)
+{
+    const std::int32_t result = value() % divisor;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator%=(const std::uint32_t divisor)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) % divisor;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
 // 原函数：0x00401DE0；单读递增正文移入前置operator，当前调用不消费旧整数返回。
 LegacyCryptInt& LegacyCryptInt::operator++()
 {
@@ -163,6 +215,20 @@ std::int32_t LegacyCryptInt::operator++(int)
 {
     const std::int32_t previous = value();
     SetNorVal_401F50(previous + 1);
+    return previous;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator--()
+{
+    const std::int32_t result = value() - 1;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+std::int32_t LegacyCryptInt::operator--(int)
+{
+    const std::int32_t previous = value();
+    SetNorVal_401F50(previous - 1);
     return previous;
 }
 
@@ -183,6 +249,18 @@ std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
     const std::int32_t right = rhs.value();
     return lhs.value() * right;
+}
+
+std::int32_t operator/(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() / right;
+}
+
+std::int32_t operator%(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() % right;
 }
 
 // 原函数：0x00401D20；相等与不等使用同一右→左读取顺序。

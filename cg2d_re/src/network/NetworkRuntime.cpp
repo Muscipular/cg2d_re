@@ -215,6 +215,38 @@ static std::int32_t QueuePlaintextProtocolBytes(
         packet.data(), packet.ends_with('\n') ? "" : "\n");
     return 0;
 }
+#ifdef TAOMOLI
+// 输入须为有效的标准Base64字节，length不含尾NUL；原地解码并返回实际二进制长度。
+static std::size_t DecodeBase64InPlace(char* const target, const std::size_t length)
+{
+    VM_HARD_START
+    std::array<std::uint8_t, 256> decodeTable {};
+    constexpr char alphabet[] =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    for (std::uint8_t index = 0; index < 64; ++index) {
+        decodeTable[static_cast<unsigned char>(alphabet[index])] = index;
+    }
+    std::uint32_t bits = 0;
+    std::uint32_t bitCount = 0;
+    std::size_t decodedSize = 0;
+    for (std::size_t index = 0; index < length; ++index) {
+        const auto character = static_cast<unsigned char>(target[index]);
+        if (character == '=') {
+            break;
+        }
+        bits = (bits << 6) | decodeTable[character];
+        bitCount += 6;
+        if (bitCount >= 8) {
+            bitCount -= 8;
+            target[decodedSize++] =
+                static_cast<char>((bits >> bitCount) & 0xFFu);
+        }
+    }
+    VM_HARD_END
+    return decodedSize;
+}
+#endif
+
 static LZ4_streamDecode_t initDic()
 {
     VM_HARD_START
@@ -224,28 +256,8 @@ static LZ4_streamDecode_t initDic()
 #include "ProtocolReceiveDictionary.hpp"
     static char kProtocolReceiveDictionary[sizeof(kProtocolReceiveDictionary2)];
     memcpy(kProtocolReceiveDictionary, kProtocolReceiveDictionary2, sizeof(kProtocolReceiveDictionary2));
-    // 输入是内置的标准Base64常量；原地解码，写入位置始终落后于读取位置。
-    std::array<std::uint8_t, 256> decodeTable {};
-    constexpr char alphabet[] =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    for (std::uint8_t index = 0; index < 64; ++index) {
-        decodeTable[static_cast<unsigned char>(alphabet[index])] = index;
-    }
-    std::uint32_t bits = 0;
-    std::uint32_t bitCount = 0;
-    for (std::size_t index = 0; index < sizeof(kProtocolReceiveDictionary) - 1; ++index) {
-        const auto character = static_cast<unsigned char>(kProtocolReceiveDictionary[index]);
-        if (character == '=') {
-            break;
-        }
-        bits = (bits << 6) | decodeTable[character];
-        bitCount += 6;
-        if (bitCount >= 8) {
-            bitCount -= 8;
-            kProtocolReceiveDictionary[dictionarySize++] =
-                static_cast<char>((bits >> bitCount) & 0xFFu);
-        }
-    }
+    dictionarySize = DecodeBase64InPlace(
+        kProtocolReceiveDictionary, sizeof(kProtocolReceiveDictionary) - 1);
     dictionary = kProtocolReceiveDictionary;
 #endif
     LZ4_streamDecode_t initialStream{};

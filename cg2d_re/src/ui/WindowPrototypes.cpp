@@ -4,8 +4,45 @@
 #include "cg/input/Input.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
+#include <array>
+#include <cstdlib>
 
 namespace cg::ui {
+
+// R02：原640×480窗口矩形；在任何原型坐标被适配前一次性取样。
+struct WindowLayoutBounds {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+};
+
+static const auto& GetOriginalWindowBounds()
+{
+    static const auto bounds = [] {
+        std::array<WindowLayoutBounds, detail::kWindowCount> original {};
+        for (std::size_t index = 0; index < original.size(); ++index) {
+            const auto& prototype = *detail::gWindowPrototypes57C130[index];
+            original[index] = {prototype.defaultX, prototype.defaultY, prototype.width, prototype.height};
+            if (index == WindowId_Chat) {
+                // 聊天原型宽640是占位值；共享宽度尚未初始化，按原默认12单位取267。
+                original[index].width = 12 * 12 + 123;
+            }
+        }
+        return original;
+    }();
+    return bounds;
+}
+
+static bool IsWindowNearOriginalCenter(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height)
+{
+    const std::int32_t doubledOffsetX = 2 * x + width - 640;
+    const std::int32_t doubledOffsetY = 2 * y + height - 480;
+    return doubledOffsetX >= -100 && doubledOffsetX <= 100
+        && doubledOffsetY >= -100 && doubledOffsetY <= 100;
+}
 
 std::int32_t AdaptWindowAxisPosition(
     const std::int32_t position, const std::int32_t size,
@@ -14,78 +51,55 @@ std::int32_t AdaptWindowAxisPosition(
     if (targetSize == 0 || targetSize == baseSize) {
         return position;
     }
-    if (position == (targetSize - size) / 2 || position + size == targetSize) {
-        return position;
-    }
-    if (position == (baseSize - size) / 2) {
-        return (targetSize - size) / 2;
-    }
-    if (position + size >= baseSize) {
+    if (std::abs(position) > std::abs(baseSize - position - size)) {
         return position + targetSize - baseSize;
     }
-    return static_cast<std::int32_t>(position * (targetSize / static_cast<double>(baseSize)));
+    return position;
+}
+
+void AdaptWindowPosition(
+    std::int32_t& x, std::int32_t& y, const std::int32_t width, const std::int32_t height)
+{
+    if (IsWindowNearOriginalCenter(x, y, width, height)) {
+        x = (platform::gWindowWidth - width) / 2;
+        y = (platform::gWindowHeight - height) / 2;
+    } else {
+        x = AdaptWindowAxisPosition(x, width, 640, platform::gWindowWidth);
+        y = AdaptWindowAxisPosition(y, height, 480, platform::gWindowHeight);
+    }
 }
 
 void AdaptWindowPosition(
     std::int16_t& x, std::int16_t& y, const std::int32_t width, const std::int32_t height)
 {
-    x = static_cast<std::int16_t>(AdaptWindowAxisPosition(x, width, 640, platform::gWindowWidth));
-    y = static_cast<std::int16_t>(AdaptWindowAxisPosition(y, height, 480, platform::gWindowHeight));
+    std::int32_t positionX = x;
+    std::int32_t positionY = y;
+    AdaptWindowPosition(positionX, positionY, width, height);
+    x = static_cast<std::int16_t>(positionX);
+    y = static_cast<std::int16_t>(positionY);
 }
 
 bool CenterPopupWindowPosition(const std::int32_t id,
     const std::int32_t width, const std::int32_t height,
     std::int32_t& x, std::int32_t& y)
 {
-    switch (id) {
-    case WindowId_None:
-    case WindowId_StatusBar:
-    case WindowId_CompactStatusBar:
-    case WindowId_CollapsedStatusBar:
-    case WindowId_ShortcutBar:
-    case WindowId_CollapsedShortcutBar:
-    case WindowId_BottomBar:
-    case WindowId_BattleCommand:
-    case WindowId_Spectator:
-    case WindowId_MiniMap:
-    case WindowId_Emote:
-    case WindowId_Chat:
-    case WindowId_CompactChat:
+    const auto& original = GetOriginalWindowBounds()[id];
+    if (!IsWindowNearOriginalCenter(original.x, original.y, original.width, original.height)) {
         return false;
-    default:
-        x = (platform::gWindowWidth - width) / 2;
-        y = (platform::gWindowHeight - height) / 2;
-        return true;
     }
+    x = (platform::gWindowWidth - width) / 2;
+    y = (platform::gWindowHeight - height) / 2;
+    return true;
 }
 
 void InitializeWindowLayout()
 {
+    const auto& original = GetOriginalWindowBounds();
     for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
         auto& prototype = *detail::gWindowPrototypes57C130[index];
-        if (!CenterPopupWindowPosition(static_cast<std::int32_t>(index),
-                prototype.width, prototype.height, prototype.defaultX, prototype.defaultY)) {
-            // 常驻栏按原贴边方向平移，保留尺寸和距边距离，不按坐标比例放大。
-            switch (index) {
-            case WindowId_ShortcutBar:
-            case WindowId_CollapsedShortcutBar:
-            case WindowId_BattleCommand:
-            case WindowId_Spectator:
-            case WindowId_MiniMap:
-            case WindowId_Emote:
-                prototype.defaultX += platform::gWindowWidth - 640;
-                break;
-            case WindowId_Chat:
-                prototype.defaultX += platform::gWindowWidth - 640;
-                [[fallthrough]];
-            case WindowId_BottomBar:
-            case WindowId_CompactChat:
-                prototype.defaultY += platform::gWindowHeight - 480;
-                break;
-            default:
-                break;
-            }
-        }
+        prototype.defaultX = original[index].x;
+        prototype.defaultY = original[index].y;
+        AdaptWindowPosition(prototype.defaultX, prototype.defaultY, original[index].width, original[index].height);
         detail::gWindowStates[index].x = prototype.defaultX;
         detail::gWindowStates[index].y = prototype.defaultY;
     }

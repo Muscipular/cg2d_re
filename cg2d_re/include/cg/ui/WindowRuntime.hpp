@@ -84,12 +84,17 @@ enum WindowId : std::int32_t {
 };
 static_assert(sizeof(WindowId) == sizeof(std::int32_t));
 
-// R02：同轴位置适配保留居中／贴边判断；默认坐标仍以 640×480 为基准。
+// R02：仅接收原画布坐标；按最近边缘保留有符号边距，等距选左／上。
 std::int32_t AdaptWindowAxisPosition(
     std::int32_t position, std::int32_t size, std::int32_t baseSize, std::int32_t targetSize);
+// 原640×480矩形中心的两轴均在±50内才整体居中，否则两轴各自贴近最近边缘。
+// 只适配一次，不能传入已转换的当前画布坐标。
+void AdaptWindowPosition(
+    std::int32_t& x, std::int32_t& y, std::int32_t width, std::int32_t height);
 void AdaptWindowPosition(
     std::int16_t& x, std::int16_t& y, std::int32_t width, std::int32_t height);
-// R02：业务弹窗按实际尺寸居中，返回true；常驻栏返回false并保留传入位置。
+// 按初始化前的原型矩形决定是否居中；非中心窗口保留已适配位置，返回false。
+// 动态对话的零宽原型不参与居中，实际矩形在WindowDialog_Open中适配。
 bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t height,
     std::int32_t& x, std::int32_t& y);
 // 首次窗口初始化按已发布客户区尺寸调整原型和当前坐标，支持只指定一个轴。

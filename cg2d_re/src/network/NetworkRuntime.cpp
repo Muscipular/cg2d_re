@@ -205,6 +205,13 @@ static std::int32_t QueuePlaintextProtocolBytes(
     }
     std::memcpy(send + sendLength, packet.data(), size);
     std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
+    // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
+    if (startsLogin) {
+        m_log("[network][send queued][%zu] %.*s", loginPrelude.size(),
+            static_cast<int>(loginPrelude.size()), loginPrelude.data());
+    }
+    m_log("[network][send queued][%u] %.*s%s", size, static_cast<int>(size),
+        packet.data(), packet.ends_with('\n') ? "" : "\n");
     return 0;
 }
 
@@ -286,6 +293,9 @@ static std::int32_t ReceiveProtocolLine(
             }
             std::memcpy(destination, state.lines.data(), lineLength);
             static_cast<char*>(destination)[lineLength] = '\0';
+            // 普通行和解压后的行共用此处；在分词／回调改写缓冲前打印完整封包。
+            m_log("[network][recv][%zu] %.*s", lineLength,
+                static_cast<int>(lineLength), static_cast<const char*>(destination));
             state.lineBytes -= lineLength;
             std::memmove(state.lines.data(), state.lines.data() + lineLength, state.lineBytes);
             state.lines[state.lineBytes] = '\0';

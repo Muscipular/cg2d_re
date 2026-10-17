@@ -270,9 +270,12 @@ cg::yobi::YobiAction* WindowDialog_Open(
     const std::uint32_t flags, const std::uint32_t mode)
 {
     m_log_i("%d %d %d %d => ", x, y, width, height);
-    static_cast<void>(CenterPopupWindowPosition(WindowId_DialogCreate, width, height, x, y));
+    AdaptWindowPosition(x, y, width, height);
     x = static_cast<std::int16_t>(x);
     y = static_cast<std::int16_t>(y);
+    // 36／37共享动态原型；恢复位置应使用本次请求的适配结果，不再回到占位的0,0。
+    gWindowPrototypes57C130[WindowId_DialogCreate]->defaultX = x;
+    gWindowPrototypes57C130[WindowId_DialogCreate]->defaultY = y;
     m_log_i("%d %d %d %d\n", x, y, width, height);
     gMessageDialog.width = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
     gMessageDialog.lines = lines;
@@ -323,8 +326,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
         initialWindow->width = width;
         const std::int32_t margin = buttons != 0 ? 24 : 0;
         gCurrentWindow->height = gMessageDialog.height;
-        static_cast<void>(CenterPopupWindowPosition(gCurrentWindow->id,
-            gCurrentWindow->width, gCurrentWindow->height, gCurrentWindow->x, gCurrentWindow->y));
+        // WindowDialog_Open已按实际请求矩形定位，此处只发布尺寸，避免再次适配。
         const std::uint32_t mask = static_cast<std::uint32_t>(gMessageDialog.buttons);
         std::int32_t buttonCount = 0;
         for (std::uint32_t bit = 1; bit < 64; bit <<= 1) {

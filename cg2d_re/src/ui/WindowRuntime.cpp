@@ -3001,7 +3001,7 @@ static void WindowRuntime_RestorePositions()
             const std::int32_t y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
             state.window->y = y;
         }
-        // 保留上方定位过程的随机数消费，最终按实例实际尺寸居中。
+        // 保留上方随机数消费；仅原型中心符合±50规则的窗口按实例尺寸居中。
         window = state.window;
         static_cast<void>(CenterPopupWindowPosition(static_cast<std::int32_t>(index),
             window->width, window->height, window->x, window->y));
@@ -4618,7 +4618,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     default:
         break;
     }
-    // 对话初始化会发布实际尺寸；直接创建与展开完成统一使用最终几何。
+    // 初始化会发布实际尺寸；仅符合原型中心规则的窗口按最终几何居中。
     static_cast<void>(CenterPopupWindowPosition(id,
         window->width, window->height, window->x, window->y));
     gCurrentWindow = previous;

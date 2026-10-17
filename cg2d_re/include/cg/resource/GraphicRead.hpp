@@ -53,11 +53,18 @@ std::int32_t InitializeIndependentPalettes_522B30();
 // 原 522C50：先释放记录池、再释放索引池，分别清指针；保留队列、计数与 DBF 数据。
 void ReleaseIndependentPalettes_522C50();
 
+// 动画原索引为0或来源色表缺失时，尝试mapNo等于完整animeNo的图档内嵌色表。
+// 返回有效原索引或独立的运行时索引；未命中的非法原索引沿原绘制规则归0。
+// 运行时索引跨渲染器重建稳定，图档关闭时失效。
+std::int16_t ResolveAnimationPalette(std::int16_t paletteIndex, std::uint32_t animeNo);
+
 // 原 523140 的资源侧：非法索引清零返回 2，版本相同返回 0，否则经 522CB0 刷新返回 1。
+// 动画回退索引使用独立CPU记录，按同一活动调色板／帧版本刷新色调。
 // index 为绘制记录 +22 的 S16；只借用该值，不复制资源记录或调色板。
 std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index);
 
 // 原 520C81..520CA1：一次借同一记录的原色/色调 W32 表地址；记录空则两者为空。
+// 动画回退索引借其独立记录，两张色表生命周期延续到图档关闭。
 // 不检查索引范围；调用者取得地址后才读取绘制混合位，选择同一记录的色表。
 // 调用者已由 523140 处理绘制索引；池释放后这两个非拥有引用失效。
 void GetIndependentPaletteColors32(

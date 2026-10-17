@@ -9,6 +9,28 @@ endif()
 enable_language(C RC)
 
 option(TAOMOLI "启用 TAOMOLI 编译分支" OFF)
+option(TMD "在非Debug配置中启用Themida保护标记" OFF)
+
+# 用户提供的本地SDK；只向自有客户端目标传播，不影响第三方库构建缓存。
+add_library(cg2d_re_tmd INTERFACE)
+if(TMD)
+    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+        message(FATAL_ERROR "TMD接入仅支持当前客户端的x64架构。")
+    endif()
+    set(cg2d_re_tmd_directory "${CMAKE_CURRENT_SOURCE_DIR}/3rd/tmd")
+    if(NOT EXISTS "${cg2d_re_tmd_directory}/SecureEngineSDK64.lib")
+        message(FATAL_ERROR "启用TMD需要3rd/tmd/SecureEngineSDK64.lib。")
+    endif()
+    target_include_directories(cg2d_re_tmd SYSTEM INTERFACE
+        "$<$<NOT:$<CONFIG:Debug>>:${cg2d_re_tmd_directory}>")
+    target_compile_definitions(cg2d_re_tmd INTERFACE
+        "$<$<NOT:$<CONFIG:Debug>>:TMD>")
+    # 同时满足SDK头中的pragma comment(lib)及显式链接依赖。
+    target_link_directories(cg2d_re_tmd INTERFACE
+        "$<$<NOT:$<CONFIG:Debug>>:${cg2d_re_tmd_directory}>")
+    target_link_libraries(cg2d_re_tmd INTERFACE
+        "$<$<NOT:$<CONFIG:Debug>>:${cg2d_re_tmd_directory}/SecureEngineSDK64.lib>")
+endif()
 
 # 统一 Windows 头文件行为，覆盖本目录目标及后续子目录。
 add_compile_definitions(NOMINMAX WIN32_LEAN_AND_MEAN)
@@ -344,4 +366,8 @@ foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render
     target_compile_definitions(${cg2d_re_target} PRIVATE
         "$<$<BOOL:${TAOMOLI}>:TAOMOLI>"
         "$<$<CONFIG:Debug>:MY_DEBUG>")
+endforeach()
+
+foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render cg2d_re_client)
+    target_link_libraries(${cg2d_re_target} PRIVATE cg2d_re_tmd)
 endforeach()

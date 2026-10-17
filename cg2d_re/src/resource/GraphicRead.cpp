@@ -4,6 +4,7 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/core/m_log.hpp"
 
 #include <Windows.h>
 
@@ -12,9 +13,11 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <limits>
 #include <memory>
 #include <new>
 #include <type_traits>
+#include <utility>
 #include <vector>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
@@ -181,6 +184,129 @@ static std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释�
 static IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
 static IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
 static std::uint32_t gIndependentPaletteLoadCount = 0; // 原 103CF08，仅 loaded 为零的读取分支递增。
+
+// 动画回退只拥有CPU色表；索引从S16上界向下分配，不改变原静态／DBF索引。
+// 宿主对象在首次使用时构造，色表独立分配，容器增长不使借用地址失效。
+struct AnimationPaletteCache {
+    std::map<std::int16_t, bool> originalAvailability;
+    std::map<std::uint32_t, std::int16_t> animeIndices; // 0缓存同号图档无可用色表的结果。
+    std::vector<std::unique_ptr<IndependentPaletteRecord>> records;
+};
+
+static AnimationPaletteCache& GetAnimationPaletteCache()
+{
+    static AnimationPaletteCache cache;
+    return cache;
+}
+
+static IndependentPaletteRecord* FindAnimationPalette(const std::int16_t index)
+{
+    if (index <= 0 || index < gIndependentPaletteCount) {
+        return nullptr;
+    }
+    const auto offset = static_cast<std::size_t>(
+        std::numeric_limits<std::int16_t>::max() - index);
+    auto& records = GetAnimationPaletteCache().records;
+    return offset < records.size() ? records[offset].get() : nullptr;
+}
+
+// 成功才复制图档像素尾部的BGR；不带色表的RD／PNG不能作为候选。
+// 读取复用全局解码区，即便失败也使旧当前图号失效，避免渲染误用缓存。
+static bool ReadAnimationPaletteSource(
+    const std::uint32_t mapNo, IndependentPaletteRecord& palette)
+{
+    if (mapNo == 0 || gGraphicMapNoIndex == nullptr
+        || mapNo >= static_cast<std::uint32_t>(gBinLoaderGraphicCapacity)) {
+        return false;
+    }
+    const std::int32_t imageNo = gGraphicMapNoIndex[mapNo];
+    if (imageNo < 0 || imageNo >= gMaxGraphicCount
+        || (imageNo == 0 && gGraphicInfo[0].mapNo != static_cast<std::int32_t>(mapNo))) {
+        return false;
+    }
+    std::uint8_t* data;
+    std::uint32_t width;
+    std::uint32_t height;
+    std::uint32_t paletteLength;
+    gGraphicDataBuffer = -1;
+    if (ReadGraphicDataByIndex(imageNo, &data, &width, &height, &paletteLength) == 0
+        || paletteLength == 0 || paletteLength > sizeof(palette.sourceBgr)
+        || paletteLength % 3 != 0) {
+        return false;
+    }
+    std::memcpy(palette.sourceBgr, data + static_cast<std::size_t>(width) * height, paletteLength);
+    std::memset(palette.sourceBgr + paletteLength, 0, sizeof(palette.sourceBgr) - paletteLength);
+    palette.paletteChoice = -1;
+    palette.paletteVersion = -1;
+    return true;
+}
+
+// 与独立调色板32位路径保持相同的透明索引、纯黑替代及RGB色调映射。
+static void RefreshAnimationPaletteColors(IndependentPaletteRecord& palette)
+{
+    palette.originalColors[0] = 0;
+    palette.tonedColors[0] = 0;
+    for (std::size_t index = 1; index < 256; ++index) {
+        const std::uint8_t blue = palette.sourceBgr[index * 3];
+        const std::uint8_t green = palette.sourceBgr[index * 3 + 1];
+        const std::uint8_t red = palette.sourceBgr[index * 3 + 2];
+        const std::uint32_t original = (static_cast<std::uint32_t>(red) << 16)
+            | (static_cast<std::uint32_t>(green) << 8) | blue;
+        const std::uint32_t toned =
+            (static_cast<std::uint32_t>(render::gColorChannelMaps.red[red]) << 16)
+            | (static_cast<std::uint32_t>(render::gColorChannelMaps.green[green]) << 8)
+            | render::gColorChannelMaps.blue[blue];
+        palette.originalColors[index] = original == 0 ? 1 : original;
+        palette.tonedColors[index] = toned == 0 ? 1 : toned;
+    }
+    palette.paletteChoice = static_cast<std::int16_t>(render::gActivePalette);
+    palette.paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);
+}
+
+std::int16_t ResolveAnimationPalette(
+    const std::int16_t paletteIndex, const std::uint32_t animeNo)
+{
+    auto& cache = GetAnimationPaletteCache();
+    // 原非法索引最终也由523140归零；提前归零，避免误认成另一动画的运行时索引。
+    const std::int16_t unresolvedIndex =
+        paletteIndex > 0 && paletteIndex < gIndependentPaletteCount ? paletteIndex : 0;
+    if (paletteIndex > 0 && paletteIndex < gIndependentPaletteCount) {
+        auto available = cache.originalAvailability.find(paletteIndex);
+        if (available == cache.originalAvailability.end()) {
+            IndependentPaletteRecord source;
+            const bool found = ReadAnimationPaletteSource(
+                static_cast<std::uint32_t>((*gIndependentPaletteQueue)[paletteIndex]), source);
+            available = cache.originalAvailability.emplace(paletteIndex, found).first;
+        }
+        if (available->second) {
+            return paletteIndex;
+        }
+    }
+    const auto matched = cache.animeIndices.find(animeNo);
+    if (matched != cache.animeIndices.end()) {
+        return matched->second != 0 ? matched->second : unresolvedIndex;
+    }
+
+    IndependentPaletteRecord source;
+    if (!ReadAnimationPaletteSource(animeNo, source)) {
+        cache.animeIndices.emplace(animeNo, 0);
+        return unresolvedIndex;
+    }
+    const std::int32_t runtimeIndex = std::numeric_limits<std::int16_t>::max()
+        - static_cast<std::int32_t>(cache.records.size());
+    if (runtimeIndex <= 0 || runtimeIndex < gIndependentPaletteCount) {
+        m_log("[palette] animation palette index capacity exhausted, animeNo=%u\n", animeNo);
+        cache.animeIndices.emplace(animeNo, 0);
+        return unresolvedIndex;
+    }
+    // 发布前生成两张色表，索引消费者不会观察到未初始化颜色。
+    RefreshAnimationPaletteColors(source);
+    auto record = std::make_unique<IndependentPaletteRecord>(source);
+    const auto result = static_cast<std::int16_t>(runtimeIndex);
+    cache.records.push_back(std::move(record));
+    cache.animeIndices.emplace(animeNo, result);
+    return result;
+}
 
 // 原 522900；唯一 caller 弃返回，保留文件、共享头、跨次索引和入队副作用。
 static void LoadIndependentPaletteIndex_522900()
@@ -485,6 +611,13 @@ std::int32_t InitializeIndependentPalettes_522B30()
 // 原函数：0x00522C50。
 void ReleaseIndependentPalettes_522C50()
 {
+    // 活动动画及已排队绘制仍可能持有运行时索引，重建时保留映射和CPU源色表。
+    auto& animationCache = GetAnimationPaletteCache();
+    animationCache.originalAvailability.clear();
+    for (auto& record : animationCache.records) {
+        record->paletteChoice = -1;
+        record->paletteVersion = -1;
+    }
     ::GlobalUnlock(::GlobalHandle(gIndependentPaletteRecords));
     ::GlobalFree(::GlobalHandle(gIndependentPaletteRecords));
     IndependentPaletteIndex* const index = gIndependentPaletteIndex;
@@ -497,6 +630,14 @@ void ReleaseIndependentPalettes_522C50()
 // 原函数：0x00523140。
 std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)
 {
+    if (auto* const animationPalette = FindAnimationPalette(index)) {
+        if (animationPalette->paletteChoice == render::gActivePalette
+            && animationPalette->paletteVersion == render::gPaletteFrameVersion) {
+            return 0;
+        }
+        RefreshAnimationPaletteColors(*animationPalette);
+        return 1;
+    }
     if (index <= 0 || index >= gIndependentPaletteCount) {
         index = 0;
         return 2;
@@ -516,7 +657,10 @@ void GetIndependentPaletteColors32(
     const std::uint32_t*& originalColors,
     const std::uint32_t*& tonedColors)
 {
-    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;
+    const IndependentPaletteRecord* record = FindAnimationPalette(index);
+    if (record == nullptr) {
+        record = gIndependentPaletteIndex[index].record;
+    }
     if (record == nullptr) {
         originalColors = nullptr;
         tonedColors = nullptr;
@@ -621,6 +765,8 @@ std::int32_t GetGraphicAutoMapColor_451D80(
 // 原函数：0x0045A6C0。
 void CloseGraphicFiles()
 {
+    // 资源换代才撤销运行时索引；单纯重建渲染器不能重用这些编号。
+    GetAnimationPaletteCache() = {};
     if (gGraphicMapNoIndex != nullptr) {
         std::free(gGraphicMapNoIndex);
         gGraphicMapNoIndex = nullptr;

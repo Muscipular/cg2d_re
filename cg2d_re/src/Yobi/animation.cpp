@@ -3,6 +3,7 @@
 #include "../resource/AnimationRuntimeState.hpp"
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
+#include "cg/resource/GraphicRead.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/world/SceneState.hpp"
@@ -66,7 +67,10 @@ static void ApplyYobiAnimeFrame(
     const std::int32_t frameOffsetY = offsetFrame->y;
     const std::int32_t graphicOffsetY = offsetY;
     action->graphicOffsetY = frameOffsetY + graphicOffsetY;
-    action->drawMode.paletteIndex = selected->paletteIndex;
+    // 动画主表保存的是完整资源编号减100000；同号图档匹配使用完整编号。
+    action->drawMode.paletteIndex = resource::ResolveAnimationPalette(
+        selected->paletteIndex,
+        resource::animation::gAnimateRecords9A4A58[animeIndex].animeNo + 100000u);
     std::uint8_t revert;
     std::memcpy(&revert, &selected->revert, sizeof(revert));
     action->drawMode.mixFlags = revert;

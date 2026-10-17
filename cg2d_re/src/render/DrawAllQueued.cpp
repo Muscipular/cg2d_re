@@ -49,6 +49,30 @@ static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
         source[3] = std::min(height, graphic->descriptor.sourceY + graphic->descriptor.sourceHeight);
     }
     if (source[2] <= source[0] || source[3] <= source[1]) { return; }
+    if (graphic->batchType == GraphicBatch_FullscreenBackgroundTrimmed) {
+        // LUR01：选角背景含透明尾列；只裁外围透明区，不改纹理及内部透明像素。
+        const SDL_Surface* const surface = GetTextureSdlSurface(node->surface);
+        const auto* const pixels = static_cast<const std::uint32_t*>(surface->pixels);
+        const std::int32_t stride = surface->pitch / static_cast<std::int32_t>(sizeof(std::uint32_t));
+        const auto transparentColumn = [&](const std::int32_t x) {
+            for (std::int32_t y = source[1]; y < source[3]; ++y) {
+                if ((pixels[y * stride + x] & 0xFF000000u) != 0) { return false; }
+            }
+            return true;
+        };
+        const auto transparentRow = [&](const std::int32_t y) {
+            for (std::int32_t x = source[0]; x < source[2]; ++x) {
+                if ((pixels[y * stride + x] & 0xFF000000u) != 0) { return false; }
+            }
+            return true;
+        };
+        while (source[0] < source[2] && transparentColumn(source[0])) { ++source[0]; }
+        while (source[0] < source[2] && transparentColumn(source[2] - 1)) { --source[2]; }
+        if (source[0] == source[2]) { return; }
+        while (source[1] < source[3] && transparentRow(source[1])) { ++source[1]; }
+        while (source[1] < source[3] && transparentRow(source[3] - 1)) { --source[3]; }
+        if (source[1] == source[3]) { return; }
+    }
     const TextureRectangle destination {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
     if (RenderImageTexture(node->surface, source, destination,
             graphic->descriptor.mixFlags, graphic->descriptor.color) == kSurfaceBusy) {
@@ -460,6 +484,7 @@ void DrawAllQueued_520DD0()
                 DrawPngImageBatch(*graphic->reference.pngImage);
                 break;
             case GraphicBatch_FullscreenBackground:
+            case GraphicBatch_FullscreenBackgroundTrimmed:
                 DrawFullscreenBackground(graphic);
                 break;
             case GraphicBatch_Canvas:

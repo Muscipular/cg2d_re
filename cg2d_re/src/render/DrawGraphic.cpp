@@ -305,12 +305,14 @@ std::int32_t DrawBattleBackgroundScaled(
     return StretchGraphicToScreen(DrawGraphic(320, 240, layer, imageNo, 0, descriptor));
 }
 
-std::int32_t StretchGraphicToScreen(const std::int32_t pendingIndex)
+std::int32_t StretchGraphicToScreen(
+    const std::int32_t pendingIndex, const bool trimTransparentBorder)
 {
     if (pendingIndex < 0) {
         return pendingIndex;
     }
-    gLegacyPendingStorage.records[pendingIndex].batchType = GraphicBatch_FullscreenBackground;
+    gLegacyPendingStorage.records[pendingIndex].batchType = trimTransparentBorder
+        ? GraphicBatch_FullscreenBackgroundTrimmed : GraphicBatch_FullscreenBackground;
     return pendingIndex;
 }
 

@@ -22,6 +22,7 @@ enum GraphicBatchType : std::uint8_t {
     GraphicBatch_PngImage = 14,
     GraphicBatch_FullscreenBackground = 15, // R03／LUR01 共用完整源图铺满窗口。
     GraphicBatch_Canvas = 16,
+    GraphicBatch_FullscreenBackgroundTrimmed = 17, // 仅按有效 Alpha 范围铺满，去除外围透明行列。
 };
 
 // GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。
@@ -207,7 +208,8 @@ std::int32_t DrawBattleBackgroundScaled(
     std::uint8_t layer, std::int32_t imageNo, const GraphicDescriptor16* descriptor = nullptr);
 
 // 将成功入队的背景改为全屏批次；保留原索引／失败值、层序与描述符。
-std::int32_t StretchGraphicToScreen(std::int32_t pendingIndex);
+// trimTransparentBorder 仅在需要排除源图外围透明行列时启用，默认完整源图。
+std::int32_t StretchGraphicToScreen(std::int32_t pendingIndex, bool trimTransparentBorder = false);
 
 // 原函数：0x00521B10。
 std::int32_t DrawGraphic(

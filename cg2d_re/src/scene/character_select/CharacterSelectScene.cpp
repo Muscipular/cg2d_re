@@ -1666,7 +1666,7 @@ std::int32_t ProcessScene_460FF0()
     const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
     if (secondaryState <= 20u
         && (secondaryState <= 9u || secondaryState >= 19u)) {
-        return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1));
+        return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
     }
 
     for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
@@ -1774,7 +1774,7 @@ std::int32_t ProcessScene_460FF0()
         login::detail::PlaySe(54, 320, 240);
     }
     cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
-    cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1));
+    cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG
     if (world::gCurrentSceneState == kUsageNoticeState) {

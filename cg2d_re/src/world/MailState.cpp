@@ -2,7 +2,6 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
 #include "cg/text/Encoding.hpp"
-#include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginInputDependencies.hpp"
 
@@ -15,6 +14,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
+#include "ChatHistory.hpp"
 
 #include <ctime>
 #include <algorithm>

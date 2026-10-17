@@ -1,7 +1,8 @@
 #include "preview.hpp"
 #include "base.hpp"
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/PlayerState.hpp"
 
 #include <array>
 #include <cstdint>
@@ -9,9 +10,7 @@
 
 namespace cg::yobi {
 
-namespace detail {
 
-} // namespace detail
 
 
 
@@ -105,7 +104,7 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
     static_assert(0x3C + 3 * 0x94 + 0x19 + 83 == 0x264);
     std::int32_t imageNo;
     std::memcpy(&imageNo,
-        world::detail::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,
+        world::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,
         sizeof(imageNo));
     action->displayPriority = 0xDF;
     action->imageNo = imageNo;

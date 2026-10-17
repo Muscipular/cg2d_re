@@ -3,13 +3,13 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginRequestDependencies.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
@@ -240,7 +240,7 @@ std::int32_t Sub_508CF0(
     gReplyCodeDA3B2E = 2;
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
     // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
-    world::detail::gSceneTransitionValue = std::int32_t{0};
+    world::gSceneTransitionValue = std::int32_t{0};
     static_cast<void>(world::SetPendingSceneType(7));
     return audio::PlaySe_52C450(60, 320);
 }

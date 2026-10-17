@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/AlbumState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -179,7 +180,7 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
 static void WindowAlbumDetail_Refresh()
 {
     const auto selectedRecord = []() {
-        const world::detail::AlbumRecord* const records = world::detail::GetSelectedAlbumRecords();
+        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
         const std::int32_t index = gLoginWindowRuntime.valueCB2200;
         return records + index;
     };
@@ -213,7 +214,7 @@ static void WindowAlbumDetail_Refresh()
         }
         const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
         const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
-        const char* const name = world::detail::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
+        const char* const name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
         copyBeforeScan(2, cg::text::FromGbkWide(name));
 
         const std::int32_t image = selectedRecord()->imageNo;
@@ -228,7 +229,7 @@ static void WindowAlbumDetail_Refresh()
         copyAfterScan(3, buffer);
         buffer = std::format(L"{:2}", selectedRecord()->value30);
         copyAfterScan(4, buffer);
-        const world::detail::AlbumRecord* const tribeRecord = selectedRecord();
+        const world::AlbumRecord* const tribeRecord = selectedRecord();
         WindowInstance* const tribeWindow = gCurrentWindow;
         const auto tribe = std::bit_cast<std::int8_t>(tribeRecord->tribe);
         WindowElement* const tribeElements = tribeWindow->elements;
@@ -238,19 +239,19 @@ static void WindowAlbumDetail_Refresh()
         buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
-        const world::detail::AlbumRecord* const firstMarkRecord = selectedRecord();
+        const world::AlbumRecord* const firstMarkRecord = selectedRecord();
         WindowInstance* const firstMarkWindow = gCurrentWindow;
         const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord->mark1);
         auto* const firstMarkData = static_cast<WindowGraphicData*>(firstMarkWindow->elements[7].data);
         firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
         WindowInstance* const secondMarkWindow = gCurrentWindow;
-        const world::detail::AlbumRecord* const secondMarkRecord = selectedRecord();
+        const world::AlbumRecord* const secondMarkRecord = selectedRecord();
         const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord->mark2);
         auto* const secondMarkData = static_cast<WindowGraphicData*>(secondMarkWindow->elements[8].data);
         secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
-        const world::detail::AlbumRecord* const firstRatingRecords = world::detail::GetSelectedAlbumRecords();
+        const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords();
         WindowAlbumDetail_DrawRating(firstRatingRecords[firstRatingIndex].ratings[0], 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
             WindowAlbumDetail_DrawRating(selectedRecord()->ratings[rating], 53 + rating * 5);

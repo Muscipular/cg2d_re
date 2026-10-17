@@ -1,6 +1,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -234,7 +239,7 @@ void WindowBank_DrawOwnPetTooltip(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[index];
+    world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[index];
     if (pet.used == 0) {
         return;
     }
@@ -340,18 +345,18 @@ WindowInstance* WindowBank_Open(
 static void WindowBank_Release()
 {
     const std::uint32_t kind = gWindowStates[WindowId_Bank].value10;
-    if ((kind == 0 && world::detail::gValue581800 == 23)
-        || (kind == 1 && world::detail::gValue581800 == 33)) {
-        world::detail::gValue581800 = -1;
+    if ((kind == 0 && world::gValue581800 == 23)
+        || (kind == 1 && world::gValue581800 == 33)) {
+        world::gValue581800 = -1;
     }
     std::wstring buffer;
     buffer = input::EscapeTextAndNotify(L"C", 255);
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
@@ -385,11 +390,11 @@ static std::int32_t WindowBank_Update(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[WindowId_Bank].value10 == 0 && world::detail::gValue581800 != 23) {
+    if (gWindowStates[WindowId_Bank].value10 == 0 && world::gValue581800 != 23) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[WindowId_Bank].value10 == 1 && world::detail::gValue581800 != 33) {
+    if (gWindowStates[WindowId_Bank].value10 == 1 && world::gValue581800 != 33) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -714,16 +719,16 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         }
     }
     if ((events & 1u) != 0 && hovered >= 0
-        && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-        if ((world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if ((world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
             gHoverTextD68AE8 = L"此物品无法存放。";
         } else {
             gHoverTextD68AE8 = L"用滑鼠拖放来存放物品。";
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0
-        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
+        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gBankOwnHover57EDCC != hovered) {
@@ -741,7 +746,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
                     break;
                 }
             }
-            if (target >= 20 || world::detail::gPlayerRuntimeSlots.items[hovered + 8].used == 0) {
+            if (target >= 20 || world::gPlayerRuntimeSlots.items[hovered + 8].used == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 WindowItem_RequestTransfer(41, index, hovered + 8, target + 100);
@@ -750,16 +755,16 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
-                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
                 gWindowStates[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -791,7 +796,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gValueD69768, 0);
-        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind() == 2 && WindowDrag_ReadSourceIndex() >= 100) {
                 ++gStorageValueCC4218;
@@ -804,7 +809,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -867,7 +872,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             }
             if (source != position + 100
                 && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
+                    &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
                 WindowItem_RequestTransfer(41, index, source, position + 100);
             }
             break;
@@ -894,7 +899,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
+                    &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -913,7 +918,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t target = 0;
-            while (target < 20 && world::detail::gPlayerRuntimeSlots.items[target + 8].used != 0) {
+            while (target < 20 && world::gPlayerRuntimeSlots.items[target + 8].used != 0) {
                 ++target;
             }
             if (target >= 20) {
@@ -1107,7 +1112,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
 {
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
-        world::detail::gPetPairsDE0B08[index + scroll - 14].index);
+        world::gPetPairsDE0B08[index + scroll - 14].index);
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     // 原4AAEEC/4AB245各执行一次，三次索引查询和费用累计都不能复用前次结果。
@@ -1138,7 +1143,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
                             223, 254, 0);
                     }
                 }
-                const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
+                const std::int32_t level = world::gPlayerRuntimeSlots.level;
                 gStorageValueCC4218 += level;
             }
         }
@@ -1153,7 +1158,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         if (source != petIndex) {
             bool allowed = true;
             if (gWindowStates[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
-                const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+                const auto& pet = world::gPetRuntimeRecords[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
                 for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -1167,20 +1172,20 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex);
             } else {
-                world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                world::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
     }
     const bool hover = (events & 1u) != 0;
-    if (hover && world::detail::gPetRuntimeRecords[petIndex].used != 0) {
-        const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
-        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
+    if (hover && world::gPetRuntimeRecords[petIndex].used != 0) {
+        const std::int32_t level = world::gPlayerRuntimeSlots.level;
+        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
         if (amount >= level) {
             gHoverTextD68AE8 = L"用滑鼠拖放来存放宠物。";
         }
     }
-    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+    const auto& pet = world::gPetRuntimeRecords[petIndex];
     const std::uint16_t used = pet.used;
     if (used != 0 && (events & 0x21u) != 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
@@ -1210,7 +1215,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
                 if (allowed) {
                     WindowItem_RequestPetTransfer(41, index, petIndex, target + 100);
                 } else {
-                    world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                    world::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
                 }
             }
         }
@@ -1234,7 +1239,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
         const std::uint32_t imageNo = cg::render::gValueD69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (WindowDrag_ReadKind() == 3 && WindowDrag_ReadSourceIndex() >= 100) {
-            const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
+            const std::int32_t level = world::gPlayerRuntimeSlots.level;
             gStorageValueCC4218 += level;
         }
     }
@@ -1265,7 +1270,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         if (source != petIndex + 100) {
             bool allowed = true;
             if (gWindowStates[WindowId_Bank].value10 == 1 && source < 5) {
-                const auto& sourcePet = world::detail::gPetRuntimeRecords[source];
+                const auto& sourcePet = world::gPetRuntimeRecords[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
                 const bool hasWeight = weight > 0;
@@ -1280,7 +1285,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex + 100);
             } else {
-                world::detail::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
+                world::Sub_44B050(L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
@@ -1303,23 +1308,23 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
             std::int32_t position = 0;
             for (; position < 5; ++position) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
-                    world::detail::gPetPairsDE0B08[position].index);
-                if (world::detail::gPetRuntimeRecords[target].used == 0) {
+                    world::gPetPairsDE0B08[position].index);
+                if (world::gPetRuntimeRecords[target].used == 0) {
                     break;
                 }
             }
             if (position < 5) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
-                    world::detail::gPetPairsDE0B08[position].index);
+                    world::gPetPairsDE0B08[position].index);
                 cg::text::FormatTo(buffer, L"P|{}|{}", petIndex + 100, target);
                 const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
                 const std::int32_t userState =
                     std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
                 const std::int32_t y =
-                    world::detail::gPlayerY.value();
+                    world::gPlayerY.value();
                 const std::int32_t x =
-                    world::detail::gPlayerX.value();
+                    world::gPlayerX.value();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             }
@@ -1336,7 +1341,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100) {
             WindowInstance* const window = gCurrentWindow;
-            const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
+            const std::int32_t level = world::gPlayerRuntimeSlots.level;
             auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
             cg::text::FormatTo(text->text, L"{:10}", level);
         } else {
@@ -1395,7 +1400,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
             const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
             if (side == 0 || side == 1) {
                 if (kind == 0) {
-                    const std::int32_t limit = world::detail::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
+                    const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
                     std::int32_t amount;
                     std::memcpy(&amount,
                         &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
@@ -1408,7 +1413,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 }
             }
         }
-        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
         if (maximum > amount) {
             maximum = amount;
         }
@@ -1417,8 +1422,8 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
         result = WindowInput_HandleNumber(gCurrentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (index == 31) {
-        const std::int32_t limit = world::detail::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
-        maximum = limit - world::detail::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+        maximum = limit - world::gPlayerRuntimeSlots.valueFC;
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
@@ -1452,9 +1457,9 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             window = gCurrentWindow;
@@ -1483,7 +1488,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
-        if (world::detail::gPlayerRuntimeSlots.items[index].used != 0) {
+        if (world::gPlayerRuntimeSlots.items[index].used != 0) {
             ++count;
         }
     }
@@ -1494,7 +1499,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        if (world::detail::gPetRuntimeRecords[index].used != 0) {
+        if (world::gPetRuntimeRecords[index].used != 0) {
             ++count;
         }
     }
@@ -1503,7 +1508,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     y = window->y + 285;
     x = window->x + 442;
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
-    cg::text::FormatTo(buffer, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 527;

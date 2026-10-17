@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -162,9 +163,9 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
         };
         void (*const requests[5])() {
-            &world::detail::Sub_470050, &world::detail::Sub_470150,
-            &world::detail::Sub_470270, &world::detail::Sub_4703C0,
-            &world::detail::Sub_4704A0,
+            &world::Sub_470050, &world::Sub_470150,
+            &world::Sub_470270, &world::Sub_4703C0,
+            &world::Sub_4704A0,
         };
         if (hover) {
             gHoverTextD68AE8 = hints[index];
@@ -187,7 +188,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
         }
         if ((state & 2) != 0) {
-            world::detail::Sub_470670();
+            world::Sub_470670();
             return 1;
         }
         return consumed;

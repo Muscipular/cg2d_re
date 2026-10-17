@@ -1,6 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
 
@@ -16,6 +15,8 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -179,7 +180,9 @@ std::int32_t DispatchCapability3FromCurrentState()
 
 } // namespace
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 // 原函数：0x0045F190。
 std::int32_t Sub_45F190()
@@ -432,4 +435,4 @@ std::int32_t Sub_45F190()
     return DispatchCapability3FromCurrentState();
 }
 
-} // namespace cg::world::detail
+} // namespace cg::world

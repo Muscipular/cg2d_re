@@ -1,5 +1,6 @@
 #include "LuaUI.hpp"
 #include "cg/resource/GraphicInfo.hpp"
+#include "../world/WorldMapState.hpp"
 #include <algorithm>
 #include <array>
 #include <chrono>
@@ -43,23 +44,23 @@ constexpr int kNearRetargetMaxSteps = 12;
 constexpr int kMoveSegmentSteps = 2;
 constexpr int kReplanMoveDistance = 5;
 
-static auto& gPlayerX = world::detail::gPlayerX;
-static auto& gPlayerY = world::detail::gPlayerY;
-static auto& gAutoTargetX = world::detail::gMoveTargetX9A7F88;
-static auto& gAutoTargetY = world::detail::gMoveTargetY9A7F98;
-static auto& gMoveRequest = world::detail::gValueC821FC;
-static auto& gPathCount = world::detail::gValueC82200;
-static auto& gMoveQueueCount = world::detail::gValueC82202;
-static auto& gMoveLock = world::detail::gValueC82220;
-static auto& gTileEventLock = world::detail::gValue9A86D8;
-static auto& gTargetEventLock = world::detail::gValue9FB92E;
-static auto& gMapXStart = world::detail::gMapXStart;
-static auto& gMapYStart = world::detail::gMapYStart;
-static auto& gMapWidth = world::detail::gMapSpanX;
-static auto& gMapHeight = world::detail::gMapSpanY;
-static auto& gMoveBlockMap = world::detail::gMapWalkabilityArray;
-static auto& gMapId = world::detail::gValue9A86DC;
-static auto& gMapGroup = world::detail::gValue9E0434;
+static auto& cg::world::gPlayerX = world::gPlayerX;
+static auto& cg::world::gPlayerY = world::gPlayerY;
+static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
+static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
+static auto& gMoveRequest = world::gValueC821FC;
+static auto& gPathCount = world::gValueC82200;
+static auto& gMoveQueueCount = world::gValueC82202;
+static auto& gMoveLock = world::gValueC82220;
+static auto& gTileEventLock = world::gValue9A86D8;
+static auto& gTargetEventLock = world::gValue9FB92E;
+static auto& cg::world::gMapXStart = world::gMapXStart;
+static auto& cg::world::gMapYStart = world::gMapYStart;
+static auto& gMapWidth = world::gMapSpanX;
+static auto& gMapHeight = world::gMapSpanY;
+static auto& gMoveBlockMap = world::gMapWalkabilityArray;
+static auto& gMapId = world::gValue9A86DC;
+static auto& gMapGroup = world::gValue9E0434;
 static auto& gMapFloor = world::gMapFloor;
 
 std::unordered_map<uint64_t, unsigned char> gKnownMap;
@@ -173,7 +174,7 @@ void setDiskState(std::vector<unsigned char>& state, int width, int height, int 
 
 void applySingleCellRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::detail::Sub_46CF00(raw);
+    int imageId = world::Sub_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -230,7 +231,7 @@ void applyFootprintRule(std::vector<unsigned char>& state, int width, int height
 
 void applyObjectRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::detail::Sub_46CF00(raw);
+    int imageId = world::Sub_46CF00(raw);
     if (imageId > 999) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -412,8 +413,8 @@ void syncVisibleCache()
 
     for (int y = 0; y < gMapHeight; ++y) {
         for (int x = 0; x < gMapWidth; ++x) {
-            int globalX = gMapXStart + x;
-            int globalY = gMapYStart + y;
+            int globalX = cg::world::gMapXStart + x;
+            int globalY = cg::world::gMapYStart + y;
             gKnownMap[makeKey(globalX, globalY)] = gMoveBlockMap[x + y * gMapWidth] == 1 ? kKnownBlocked : kKnownWalkable;
         }
     }
@@ -550,7 +551,7 @@ struct CellGraphicInfo {
 CellGraphicInfo readCellGraphicInfo(unsigned short raw)
 {
     CellGraphicInfo info;
-    info.imageId = world::detail::Sub_46CF00(raw);
+    info.imageId = world::Sub_46CF00(raw);
     if (info.imageId > 999 || (info.imageId >= 60 && info.imageId <= 79)) {
         resource::GetGraphicMapNoIndex(info.imageId, &info.seqNo);
         resource::GetGraphicFlag1(info.seqNo, &info.flag);
@@ -563,7 +564,7 @@ CellGraphicInfo readCellGraphicInfo(unsigned short raw)
 
 unsigned char rawBlockState(unsigned short raw)
 {
-    int imageId = world::detail::Sub_46CF00(raw);
+    int imageId = world::Sub_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -775,8 +776,8 @@ void logDiskCellDetail(Point p, const char* label)
 
 bool toLocal(Point p, int& lx, int& ly)
 {
-    lx = p.x - gMapXStart;
-    ly = p.y - gMapYStart;
+    lx = p.x - cg::world::gMapXStart;
+    ly = p.y - cg::world::gMapYStart;
     return lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight;
 }
 
@@ -788,7 +789,7 @@ bool canWalkLocal(int lx, int ly)
 
 bool canWalkLocalPoint(int lx, int ly)
 {
-    return canWalkLocal(lx, ly) && !isDynamicBlocked({gMapXStart + lx, gMapYStart + ly});
+    return canWalkLocal(lx, ly) && !isDynamicBlocked({cg::world::gMapXStart + lx, cg::world::gMapYStart + ly});
 }
 
 bool canWalkGlobal(Point p)
@@ -890,10 +891,10 @@ void logNoPathDetail(Point player, Point target)
     gLastNoPathDetailLogMs = now;
     loadDiskMap();
 
-    int px = player.x - gMapXStart;
-    int py = player.y - gMapYStart;
-    int tx = target.x - gMapXStart;
-    int ty = target.y - gMapYStart;
+    int px = player.x - cg::world::gMapXStart;
+    int py = player.y - cg::world::gMapYStart;
+    int tx = target.x - cg::world::gMapXStart;
+    int ty = target.y - cg::world::gMapYStart;
     int playerVisible = isValidMap() && px >= 0 && py >= 0 && px < gMapWidth && py < gMapHeight ? gMoveBlockMap[px + py * gMapWidth] : -1;
     int targetVisible = isValidMap() && tx >= 0 && ty >= 0 && tx < gMapWidth && ty < gMapHeight ? gMoveBlockMap[tx + ty * gMapWidth] : -1;
     unsigned char playerKnown = cachedKnownOrDiskCell(player);
@@ -930,8 +931,8 @@ int optimisticMoveCost(Point p, bool diagonal)
 
 long long distanceScore(int lx, int ly, Point target)
 {
-    long long x = static_cast<long long>(gMapXStart) + lx;
-    long long y = static_cast<long long>(gMapYStart) + ly;
+    long long x = static_cast<long long>(cg::world::gMapXStart) + lx;
+    long long y = static_cast<long long>(cg::world::gMapYStart) + ly;
     long long dx = x - target.x;
     long long dy = y - target.y;
     return dx * dx + dy * dy;
@@ -1262,7 +1263,7 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
 
         if (index != startIndex) {
             long long fallbackCandidateScore = distanceScore(cx, cy, target);
-            bool currentIsRecent = isRecentPlayer({gMapXStart + cx, gMapYStart + cy});
+            bool currentIsRecent = isRecentPlayer({cg::world::gMapXStart + cx, cg::world::gMapYStart + cy});
             if (fallbackIndex == -1 || (fallbackIsRecent && !currentIsRecent)
                 || (fallbackIsRecent == currentIsRecent
                     && (fallbackCandidateScore < fallbackScore || (fallbackCandidateScore == fallbackScore && steps[index] < fallbackStep)))) {
@@ -1299,7 +1300,7 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
         }
     }
 
-    Point bestPoint{gMapXStart + bestIndex % gMapWidth, gMapYStart + bestIndex / gMapWidth};
+    Point bestPoint{cg::world::gMapXStart + bestIndex % gMapWidth, cg::world::gMapYStart + bestIndex / gMapWidth};
     if (isRecentPlayer(bestPoint) && !samePoint(bestPoint, target) && fallbackIndex != -1 && !fallbackIsRecent) {
         bestIndex = fallbackIndex;
     }
@@ -1313,7 +1314,7 @@ bool buildPath(Point start, Point target, std::vector<Point>& path)
 
     std::vector<Point> reversePath;
     for (int index = bestIndex; index != -1; index = parent[index]) {
-        reversePath.push_back({gMapXStart + index % gMapWidth, gMapYStart + index / gMapWidth});
+        reversePath.push_back({cg::world::gMapXStart + index % gMapWidth, cg::world::gMapYStart + index / gMapWidth});
     }
 
     path.reserve(reversePath.size() - 1);
@@ -1359,7 +1360,7 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
         int index = queue[head++];
         int cx = index % gMapWidth;
         int cy = index / gMapWidth;
-        Point current{gMapXStart + cx, gMapYStart + cy};
+        Point current{cg::world::gMapXStart + cx, cg::world::gMapYStart + cy};
 
         if (index != startIndex && (!isRecentPlayer(current) || samePoint(current, target))) {
             long long score = distanceScore(cx, cy, target);
@@ -1400,7 +1401,7 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
 
     std::vector<Point> reversePath;
     for (int index = bestIndex; index != -1; index = parent[index]) {
-        reversePath.push_back({gMapXStart + index % gMapWidth, gMapYStart + index / gMapWidth});
+        reversePath.push_back({cg::world::gMapXStart + index % gMapWidth, cg::world::gMapYStart + index / gMapWidth});
     }
 
     path.reserve(reversePath.size() - 1);
@@ -1412,7 +1413,7 @@ bool buildNearRetargetPath(Point start, Point target, std::vector<Point>& path)
 
 void requestMove(Point target)
 {
-    Point player{gPlayerX.value(), gPlayerY.value()};
+    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
     gAutoTargetX = target.x;
     gAutoTargetY = target.y;
     gExpectedAutoTarget = target;
@@ -1543,7 +1544,7 @@ void autoCopilot(int x, int y)
     syncVisibleCache();
 
     Point target{x, y};
-    Point player{gPlayerX.value(), gPlayerY.value()};
+    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
     // m_log_i("[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_i("[copilot] already arrived target=%d,%d\n", target.x, target.y);
@@ -1639,13 +1640,13 @@ void startCopilot(int x, int y)
     gLastCellLogMs = 0;
     gHasLastRequestedWaypoint = false;
     clearCopilotRoute();
-    m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, gPlayerX.value(), gPlayerY.value(), world::gCurrentSceneType, world::gCurrentSceneState);
+    m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value(), world::gCurrentSceneType, world::gCurrentSceneState);
 }
 
 void stopCopilot()
 {
     if (gCopilotEnabled) {
-        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", gCopilotTarget.x, gCopilotTarget.y, gPlayerX.value(), gPlayerY.value());
+        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", gCopilotTarget.x, gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
     }
     gCopilotEnabled = false;
     resetPlanCache();
@@ -1679,7 +1680,7 @@ void CopilotProc()
     }
     if (gMapId != gCopilotMapId || gMapFloor != gCopilotMapFloor) {
         m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", gCopilotMapId,
-            gCopilotMapFloor, gMapId, gMapFloor, gCopilotTarget.x, gCopilotTarget.y, gPlayerX.value(), gPlayerY.value());
+            gCopilotMapFloor, gMapId, gMapFloor, gCopilotTarget.x, gCopilotTarget.y, cg::world::gPlayerX.value(), cg::world::gPlayerY.value());
         stopCopilot();
         return;
     }
@@ -1687,7 +1688,7 @@ void CopilotProc()
         return;
     }
 
-    Point player{gPlayerX.value(), gPlayerY.value()};
+    Point player{cg::world::gPlayerX.value(), cg::world::gPlayerY.value()};
     if (player.x == gCopilotTarget.x && player.y == gCopilotTarget.y) {
         m_log_i("[copilot] arrived target=%d,%d\n", gCopilotTarget.x, gCopilotTarget.y);
         stopCopilot();

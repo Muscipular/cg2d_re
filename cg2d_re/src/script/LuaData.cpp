@@ -1,7 +1,9 @@
 #include "LuaInternal.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../Yobi/battle_base.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
 
 namespace cg::script {
 using namespace world::detail;
@@ -19,12 +21,12 @@ static void PushData(lua_State* L, DataKind kind, int index = 0, int subIndex = 
 void PushPlayer(lua_State* L) { PushData(L, DataKind::Player); }
 void PushBattleEntry(lua_State* L, int slot)
 {
-    if (slot < 0 || slot >= 20 || !gBattleEntries59E980[slot]) { lua_pushnil(L); return; }
+    if (slot < 0 || slot >= 20 || !cg::world::gBattleEntries59E980[slot]) { lua_pushnil(L); return; }
     PushData(L, DataKind::Battle, slot);
 }
 static int ReadItem(lua_State* L, int index, std::string_view key)
 {
-    const auto& p = gPlayerRuntimeSlots.items[index];
+    const auto& p = cg::world::gPlayerRuntimeSlots.items[index];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
     if (key == "memo") { Push(L, p.memo); return 1; }
@@ -45,7 +47,7 @@ static int ReadItem(lua_State* L, int index, std::string_view key)
 }
 static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
 {
-    auto& p = gPlayerRuntimeSlots;
+    auto& p = cg::world::gPlayerRuntimeSlots;
     if (key == "tribeType") { Push(L, p.value00); return 1; }
     if (key == "lv") { Push(L, p.level); return 1; }
     if (key == "rebirth") { Push(L, p.value08); return 1; }
@@ -90,11 +92,11 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "poolGoldLimit") { Push(L, p.values15BD0[1]); return 1; }
     if (key == "poolGoldLimit2") { Push(L, p.values15BD0[2]); return 1; }
     if (key == "isInjury") { Push(L, ((p.flags18C & 0x10000u) != 0)); return 1; }
-    if (key == "position") { Push(L, gBattleCurrentPosition5ABCA4); return 1; }
-    if (key == "surprisal") { Push(L, (gBattlePlayerFlags5ABCAC & 3u)); return 1; }
-    if (key == "mapX") { Push(L, gPlayerX); return 1; }
-    if (key == "mapY") { Push(L, gPlayerY); return 1; }
-    if (key == "mapId") { Push(L, gValue9A86DC); return 1; }
+    if (key == "position") { Push(L, cg::world::gBattleCurrentPosition5ABCA4); return 1; }
+    if (key == "surprisal") { Push(L, (cg::world::gBattlePlayerFlags5ABCAC & 3u)); return 1; }
+    if (key == "mapX") { Push(L, cg::world::gPlayerX); return 1; }
+    if (key == "mapY") { Push(L, cg::world::gPlayerY); return 1; }
+    if (key == "mapId") { Push(L, cg::world::gValue9A86DC); return 1; }
     if (key == "floor") { Push(L, static_cast<int>(world::gMapFloor)); return 1; }
     if (key == "vit") { Push(L, p.values78[0]); return 1; }
     if (key == "str") { Push(L, p.values78[1]); return 1; }
@@ -120,20 +122,20 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "counter") { Push(L, p.valuesD4[1]); return 1; }
     if (key == "hitrate") { Push(L, p.valuesD4[2]); return 1; }
     if (key == "avoid") { Push(L, p.valuesD4[3]); return 1; }
-    if (key == "disableAct1") { Push(L, ((gBattlePlayerFlags5ABCAC & 4u) != 0)); return 1; }
-    if (key == "disableAct2") { Push(L, ((gBattlePlayerFlags5ABCAC & 16u) != 0)); return 1; }
-    if (key == "disablePetAct1") { Push(L, ((gBattlePlayerFlags5ABCAC & 8u) != 0)); return 1; }
-    if (key == "disablePetAct2") { Push(L, ((gBattlePlayerFlags5ABCAC & 131072u) != 0)); return 1; }
-    if (key == "hasPet") { Push(L, ((gBattlePlayerFlags5ABCAC & 32u) != 0)); return 1; }
-    if (key == "weaponDirect") { Push(L, ((gBattlePlayerFlags5ABCAC & 128u) != 0)); return 1; }
-    if (key == "weaponBow") { Push(L, ((gBattlePlayerFlags5ABCAC & 256u) != 0)); return 1; }
-    if (key == "weaponBoomerang") { Push(L, ((gBattlePlayerFlags5ABCAC & 512u) != 0)); return 1; }
-    if (key == "weaponKnife") { Push(L, ((gBattlePlayerFlags5ABCAC & 1024u) != 0)); return 1; }
-    if (key == "petRide") { Push(L, ((gBattlePlayerFlags5ABCAC & 65536u) != 0)); return 1; }
+    if (key == "disableAct1") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 4u) != 0)); return 1; }
+    if (key == "disableAct2") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 16u) != 0)); return 1; }
+    if (key == "disablePetAct1") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 8u) != 0)); return 1; }
+    if (key == "disablePetAct2") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 131072u) != 0)); return 1; }
+    if (key == "hasPet") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 32u) != 0)); return 1; }
+    if (key == "weaponDirect") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 128u) != 0)); return 1; }
+    if (key == "weaponBow") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 256u) != 0)); return 1; }
+    if (key == "weaponBoomerang") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 512u) != 0)); return 1; }
+    if (key == "weaponKnife") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 1024u) != 0)); return 1; }
+    if (key == "petRide") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 65536u) != 0)); return 1; }
     if (key == "skillList") {
         lua_createtable(L, 15, 0);
         for (int i = 0; i < 15; ++i) {
-            const auto& pair = gSkillPairsF63370[i];
+            const auto& pair = cg::world::gSkillPairsF63370[i];
             if (pair.used) PushData(L, DataKind::Skill, pair.index); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }
@@ -142,7 +144,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "petList") {
         lua_createtable(L, 5, 0);
         for (int i = 0; i < 5; ++i) {
-            if (gPetRuntimeRecords[i].used) PushData(L, DataKind::Pet, i); else lua_pushnil(L);
+            if (cg::world::gPetRuntimeRecords[i].used) PushData(L, DataKind::Pet, i); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }
         return 1;
@@ -165,7 +167,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
 }
 static int ReadPet(lua_State* L, int index, std::string_view key)
 {
-    auto& p = gPetRuntimeRecords[index];
+    auto& p = cg::world::gPetRuntimeRecords[index];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "lv") { Push(L, p.value08); return 1; }
     if (key == "name") { Push(L, p.name6AC); return 1; }
@@ -195,7 +197,7 @@ static int ReadPet(lua_State* L, int index, std::string_view key)
 }
 static int ReadSkill(lua_State* L, int index, std::string_view key)
 {
-    const auto& p = gSkillsF1BAFC[index];
+    const auto& p = cg::world::gSkillsF1BAFC[index];
     if (key == "lv") { Push(L, p.level); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
     if (key == "exp") { Push(L, p.experience); return 1; }
@@ -208,8 +210,8 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
     if (key == "index") { Push(L, index); return 1; }
     if (key == "canUse") {
         bool used = false;
-        for (const auto& pair : gSkillPairsF63370) if (pair.used && pair.index == index) used = true;
-        Push(L, used && (gBattleSkillFlags5ABC04 & (1u << index)) != 0); return 1;
+        for (const auto& pair : cg::world::gSkillPairsF63370) if (pair.used && pair.index == index) used = true;
+        Push(L, used && (cg::world::gBattleSkillFlags5ABC04 & (1u << index)) != 0); return 1;
     }
     if (key == "techList") {
         lua_createtable(L, 15, 0);
@@ -223,7 +225,7 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
 }
 static int ReadTechnique(lua_State* L, int index, int sub, std::string_view key)
 {
-    const auto& p = gSkillsF1BAFC[index].techniques3C[sub];
+    const auto& p = cg::world::gSkillsF1BAFC[index].techniques3C[sub];
     if (key == "reqLv") { Push(L, p.value90); return 1; }
     if (key == "field") { Push(L, p.value80); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
@@ -236,7 +238,7 @@ static int ReadTechnique(lua_State* L, int index, int sub, std::string_view key)
 }
 static int ReadPetTechnique(lua_State* L, int index, int sub, std::string_view key)
 {
-    const auto& pet = gPetRuntimeRecords[index];
+    const auto& pet = cg::world::gPetRuntimeRecords[index];
     const auto& p = pet.techniquesD8[sub];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
@@ -246,13 +248,13 @@ static int ReadPetTechnique(lua_State* L, int index, int sub, std::string_view k
     if (key == "seqNo") { Push(L, p.sequence); return 1; }
     if (key == "field") { Push(L, p.field); return 1; }
     if (key == "target") { Push(L, p.target); return 1; }
-    if (key == "canUse") { Push(L, (pet.used && (gBattlePetSkillFlags5ABB78 & (1u << sub)) != 0)); return 1; }
+    if (key == "canUse") { Push(L, (pet.used && (cg::world::gBattlePetSkillFlags5ABB78 & (1u << sub)) != 0)); return 1; }
     if (key == "index") { Push(L, (pet.used ? sub : -1)); return 1; }
     lua_pushnil(L); return 1;
 }
 static int ReadBattle(lua_State* L, int index, std::string_view key)
 {
-    auto* p = gBattleEntries59E980[index];
+    auto* p = cg::world::gBattleEntries59E980[index];
     if (!p) { lua_pushnil(L); return 1; }
     if (key == "battlePos") { Push(L, p->value1D4); return 1; }
     if (key == "lv") { Push(L, p->field1D0); return 1; }

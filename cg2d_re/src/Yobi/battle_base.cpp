@@ -1,13 +1,15 @@
 #include "battle_base.hpp"
 #include "battle_skill_effect.hpp"
 #include "base.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 
 #include "battle_attachment.hpp"
 #include "battle_display.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/WorldMapState.hpp"
 
 #include <algorithm>
 #include <array>
@@ -91,7 +93,7 @@ std::int32_t GetBattleValueBand_43BF00(const std::int32_t value)
         return -1;
     }
     std::int32_t result = 0;
-    for (const std::int32_t threshold : world::detail::gBattleValueThresholds54D93C) {
+    for (const std::int32_t threshold : world::gBattleValueThresholds54D93C) {
         if (value < threshold) {
             break;
         }
@@ -268,11 +270,11 @@ void NormalizeBattleAngle_405E60(YobiAction* const action)
 // 原函数：0x00405EA0。
 void MoveBattleByAngle_405EA0(YobiAction* const action)
 {
-    const double xFactor = world::detail::Sub_46F950(action->angle50);
+    const double xFactor = world::Sub_46F950(action->angle50);
     const double xStep = xFactor * action->value54;
     const float yAngle = action->angle50;
     action->offset40 = static_cast<float>(xStep + action->offset40);
-    const double yFactor = world::detail::Sub_46F930(yAngle);
+    const double yFactor = world::Sub_46F930(yAngle);
     action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);
 }
 
@@ -281,12 +283,12 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     const float sourceX, const float sourceY, const float targetX, const float targetY,
     const float tolerance)
 {
-    using world::detail::gBattleGraphicPoints553758;
-    const std::int32_t referenceY = gBattleGraphicPoints553758[1][3] - gBattleGraphicPoints553758[0][3];
-    const std::int32_t referenceX = gBattleGraphicPoints553758[1][2] - gBattleGraphicPoints553758[0][2];
+    using world::gBattleGraphicPoints553758;
+    const std::int32_t referenceY = cg::world::gBattleGraphicPoints553758[1][3] - cg::world::gBattleGraphicPoints553758[0][3];
+    const std::int32_t referenceX = cg::world::gBattleGraphicPoints553758[1][2] - cg::world::gBattleGraphicPoints553758[0][2];
     const float referenceDeltaY = static_cast<float>(referenceY);
     const float referenceDeltaX = static_cast<float>(referenceX);
-    const double referenceAngle = world::detail::Sub_46F970(referenceDeltaX, referenceDeltaY);
+    const double referenceAngle = world::Sub_46F970(referenceDeltaX, referenceDeltaY);
     float reference = static_cast<float>(referenceAngle);
     if (referenceAngle > 180.0) {
         reference = static_cast<float>(reference - 360.0);
@@ -295,7 +297,7 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     }
     const float deltaY = static_cast<float>(static_cast<double>(targetY) - sourceY);
     const float deltaX = static_cast<float>(static_cast<double>(targetX) - sourceX);
-    double difference = world::detail::Sub_46F970(deltaX, deltaY);
+    double difference = world::Sub_46F970(deltaX, deltaY);
     if (!(reference >= 0.0F)) {
         difference -= reference + 360.0;
     }
@@ -327,7 +329,7 @@ double GetBattleAngleDifference_406060(YobiAction* const source, YobiAction* con
     }
     const float deltaY = static_cast<float>(static_cast<double>(target->offset44) - source->offset44);
     const float deltaX = static_cast<float>(static_cast<double>(target->offset40) - source->offset40);
-    const double targetAngle = world::detail::Sub_46F970(deltaX, deltaY);
+    const double targetAngle = world::Sub_46F970(deltaX, deltaY);
     const double difference = targetAngle - source->angle50;
     if (difference > 180.0) {
         return difference - 360.0;
@@ -346,9 +348,9 @@ void TurnBattleTowardPosition_4060D0(
     const float deltaY = static_cast<float>(static_cast<double>(y) - action->offset44);
     const float deltaX = static_cast<float>(static_cast<double>(x) - action->offset40);
     if (step == 0.0F || std::isnan(step)) {
-        action->angle50 = static_cast<float>(world::detail::Sub_46F970(deltaX, deltaY));
+        action->angle50 = static_cast<float>(world::Sub_46F970(deltaX, deltaY));
     } else {
-        double difference = world::detail::Sub_46F970(deltaX, deltaY) - action->angle50;
+        double difference = world::Sub_46F970(deltaX, deltaY) - action->angle50;
         if (difference > 180.0) {
             difference -= 360.0;
         } else if (!(difference > -180.0)) {
@@ -381,9 +383,9 @@ void TurnBattleToward_406190(
     const float y = static_cast<float>(static_cast<double>(target->offset44) - action->offset44);
     const float x = static_cast<float>(static_cast<double>(target->offset40) - action->offset40);
     if (step == 0.0F || std::isnan(step)) {
-        action->angle50 = static_cast<float>(world::detail::Sub_46F970(x, y));
+        action->angle50 = static_cast<float>(world::Sub_46F970(x, y));
     } else {
-        double difference = world::detail::Sub_46F970(x, y) - action->angle50;
+        double difference = world::Sub_46F970(x, y) - action->angle50;
         if (difference > 180.0) {
             difference -= 360.0;
         } else if (!(difference > -180.0)) {
@@ -441,7 +443,7 @@ std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const
 std::int32_t CountBattleActiveEntries_406360()
 {
     std::int32_t count = 0;
-    for (YobiAction* const action : world::detail::gBattleAllEntries59E980) {
+    for (YobiAction* const action : world::gBattleAllEntries59E980) {
         if (action != nullptr && action->payload.battleActor->aliveFF8 == 1) {
             ++count;
         }
@@ -453,12 +455,12 @@ std::int32_t CountBattleActiveEntries_406360()
 std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
 {
     std::int32_t count = 0;
-    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+    for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr) {
             ++count;
         }
     }
-    const auto length = static_cast<std::int32_t>(std::strlen(world::detail::gBattleMText5AAA7C.data()));
+    const auto length = static_cast<std::int32_t>(std::strlen(world::gBattleMText5AAA7C.data()));
     const std::int32_t seed = length * count * value;
     static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seed)));
     return seed;
@@ -473,15 +475,15 @@ void Sub_406260(YobiAction* const action)
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const float y = static_cast<float>(static_cast<double>(payload->y04) - payload->y0C);
     const float x = static_cast<float>(static_cast<double>(payload->x00) - payload->x08);
-    action->angle50 = static_cast<float>(world::detail::Sub_46F970(x, y));
+    action->angle50 = static_cast<float>(world::Sub_46F970(x, y));
     Sub_405CB0(action);
 }
 
 // 原函数：0x004390E0。
 void InitBattleCastList_4390E0(const std::int32_t index)
 {
-    using world::detail::gBattleAllEntries59E980;
-    YobiAction* const action = gBattleAllEntries59E980[index];
+    using world::gBattleAllEntries59E980;
+    YobiAction* const action = cg::world::gBattleAllEntries59E980[index];
     if (action == nullptr) {
         return;
     }
@@ -490,7 +492,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
         return;
     }
     action->value54 = 1.0F;
-    gBattleAllEntries59E980[index]->hidden = 0;
+    cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
     payload->castPlayIndexFC4 = 0;
     payload->castListCA4[0] = 0;
@@ -505,22 +507,22 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->castSkillLevel1044 = -1;
     payload->skillMeta = {}; // E01／4391B6：每次重新初始化动作清除上次技能。
     if ((flags & 2u) == 0
-        && (*reinterpret_cast<const unsigned char*>(&world::detail::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
-        Sub_406260(gBattleAllEntries59E980[index]);
+        && (*reinterpret_cast<const unsigned char*>(&world::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
+        Sub_406260(cg::world::gBattleAllEntries59E980[index]);
     }
 }
 
 // 原函数：0x004391E0。
 void ResetBattleCastList_4391E0(const std::int32_t index)
 {
-    using world::detail::gBattleAllEntries59E980;
-    YobiAction* const action = gBattleAllEntries59E980[index];
+    using world::gBattleAllEntries59E980;
+    YobiAction* const action = cg::world::gBattleAllEntries59E980[index];
     if (action == nullptr) {
         return;
     }
     auto* const payload = action->payload.battleActor;
     action->value54 = 1.0F;
-    gBattleAllEntries59E980[index]->hidden = 0;
+    cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
     payload->castListIndexFC8 = -1;
     payload->castListCA4[1] = -1;
@@ -682,17 +684,17 @@ std::int32_t TakeBattleAuxEffects_43BC90(
 // 原函数：0x00406390。
 void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction* const action)
 {
-    using world::detail::gBattleAllEntries59E980;
+    using world::gBattleAllEntries59E980;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const std::int32_t index = payload->effectRunningC9C;
     const std::uint32_t flags = payload->effects1C[index].flags;
     const std::int32_t position = payload->effects1C[index].position;
     const std::int32_t recipient = (flags & 0x2000u) != 0 ? sourcePosition : position;
     if ((flags & 0x200000u) != 0) {
-        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22329, 0, 0));
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22329, 0, 0));
     }
     if ((flags & 0x400000u) != 0) {
-        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22330, 0, 0));
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22330, 0, 0));
     }
     if ((flags & 0x800000u) != 0) {
         std::int32_t effectPosition;
@@ -703,23 +705,23 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
             action, &effectPosition, &imageNo, &ridingImageNo, &gearImageNo));
         const std::int32_t auxiliaryRecipient = (flags & 0x2000u) != 0 ? sourcePosition : effectPosition;
         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-            gBattleAllEntries59E980[auxiliaryRecipient], 22328, 0, 0));
-        static_cast<void>(audio::PlaySe_52C450(214, gBattleAllEntries59E980[auxiliaryRecipient]->x));
+            cg::world::gBattleAllEntries59E980[auxiliaryRecipient], 22328, 0, 0));
+        static_cast<void>(audio::PlaySe_52C450(214, cg::world::gBattleAllEntries59E980[auxiliaryRecipient]->x));
         const std::int32_t riderSecondImage = ridingImageNo;
         const std::int32_t riderFirstImage = imageNo;
-        YobiAction* const riderTarget = gBattleAllEntries59E980[auxiliaryRecipient];
+        YobiAction* const riderTarget = cg::world::gBattleAllEntries59E980[auxiliaryRecipient];
         static_cast<void>(SetBattleRider_4222B0(riderTarget, riderFirstImage, riderSecondImage));
         const std::int32_t gearImage = gearImageNo;
-        YobiAction* const gearTarget = gBattleAllEntries59E980[auxiliaryRecipient];
+        YobiAction* const gearTarget = cg::world::gBattleAllEntries59E980[auxiliaryRecipient];
         SetBattleGear_422BC0(gearTarget, gearImage);
     }
     // 附加读取已经推进游标，末两块仍消费入口快照，不刷新flags或position。
     if ((flags & 0x1000000u) != 0) {
-        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22330, 0, 0));
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22330, 0, 0));
     }
     if ((flags & 0x2000000u) != 0) {
-        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22328, 0, 0));
-        static_cast<void>(audio::PlaySe_52C450(214, gBattleAllEntries59E980[recipient]->x));
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22328, 0, 0));
+        static_cast<void>(audio::PlaySe_52C450(214, cg::world::gBattleAllEntries59E980[recipient]->x));
     }
 }
 
@@ -736,7 +738,7 @@ void AdvanceBattleLinkedCast_40CAC0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-    YobiAction* const target = world::detail::gBattleAllEntries59E980[position];
+    YobiAction* const target = world::gBattleAllEntries59E980[position];
     AdvanceBattleCastState_439340(target);
     AdvanceBattleCastState_439340(action);
 }
@@ -765,8 +767,8 @@ std::int32_t CheckBattleTurnReady_4394A0(
 {
     using namespace world::detail;
     auto* const payload = parent->payload.battleScene;
-    for (std::size_t index = 0; index < gBattleAllEntries59E980.size(); ++index) {
-        YobiAction* const actor = gBattleAllEntries59E980[index];
+    for (std::size_t index = 0; index < cg::world::gBattleAllEntries59E980.size(); ++index) {
+        YobiAction* const actor = cg::world::gBattleAllEntries59E980[index];
         if (actor == nullptr || (payload->entryMaskA8 & (1u << index)) == 0) {
             continue;
         }
@@ -781,13 +783,13 @@ std::int32_t CheckBattleTurnReady_4394A0(
             const std::int32_t count = payload->waitCountAC + 1;
             payload->waitCountAC = count;
             if (count > 1200) {
-                for (std::size_t slot = 0; slot < gBattleAllEntries59E980.size(); ++slot) {
-                    if (gBattleAllEntries59E980[slot] != nullptr
+                for (std::size_t slot = 0; slot < cg::world::gBattleAllEntries59E980.size(); ++slot) {
+                    if (cg::world::gBattleAllEntries59E980[slot] != nullptr
                         && (payload->entryMaskA8 & (1u << slot)) != 0) {
                         ResetBattleCastList_4391E0(static_cast<std::int32_t>(slot));
-                        AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[slot], 11);
-                        AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[slot], 40);
-                        MoveBattleCastState_439380(gBattleAllEntries59E980[slot]);
+                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], 11);
+                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], 40);
+                        MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[slot]);
                         payload->waitCountAC = 0;
                     }
                 }
@@ -795,7 +797,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
             return 0;
         }
         if (parentPhase != 24) {
-            const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
+            const auto& point = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[index]];
             const double expectedX = point[2];
             const double actualX = actor->offset40;
             bool displaced = expectedX < actualX || expectedX > actualX;
@@ -805,9 +807,9 @@ std::int32_t CheckBattleTurnReady_4394A0(
                 displaced = expectedY < actualY || expectedY > actualY;
             }
             if (displaced) {
-                AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 11);
-                AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 40);
-                MoveBattleCastState_439380(gBattleAllEntries59E980[index]);
+                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], 11);
+                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], 40);
+                MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[index]);
                 return 0;
             }
         }

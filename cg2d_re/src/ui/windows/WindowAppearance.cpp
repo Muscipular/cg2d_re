@@ -1,4 +1,8 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -159,7 +163,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         version = character_select::state::gPukVersion;
     }
     const std::int32_t converted = character_select::detail::Sub_51BFF0(
-        character_select::detail::Sub_51BB80(world::detail::gPlayerRuntimeSlots.value17C));
+        character_select::detail::Sub_51BB80(world::gPlayerRuntimeSlots.value17C));
     gWindow56MinimumCB0F80 = 0;
     if (converted >= 241400) {
         gWindow56MinimumCB0F80 = 1;
@@ -200,7 +204,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         }
     }
     static_cast<void>(character_select::detail::Sub_4C56E0(
-        world::detail::gPlayerRuntimeSlots.value17C, &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
+        world::gPlayerRuntimeSlots.value17C, &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
         &gWindow56QuarterCC3E88, &gWindow56FifthCB0F88, &gWindow56OnesCF4680));
     const std::int32_t ones = gWindow56OnesCF4680;
     const std::int32_t fifth = gWindow56FifthCB0F88;
@@ -211,7 +215,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         base, imageClass, quarter, fifth, ones);
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
     cg::yobi::YobiAction* const action = animation->action;
-    cg::yobi::SetYobiActionField2A8(action, world::detail::gPlayerRuntimeSlots.imageNo);
+    cg::yobi::SetYobiActionField2A8(action, world::gPlayerRuntimeSlots.imageNo);
     cg::yobi::SetYobiActionField2B0(animation->action, 0);
     cg::yobi::SetYobiActionField2B8(animation->action, 5);
     return 1;
@@ -221,7 +225,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
 static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
-    if (WindowProfile_CheckDistance(2, 2) != 0 || world::detail::gValue581800 != gWindow56DialogTypeCB1DE0) {
+    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gValue581800 != gWindow56DialogTypeCB1DE0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -238,8 +242,8 @@ static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 // 原函数：0x004C5C00。
 static void WindowAppearance_Release()
 {
-    if (world::detail::gValue581800 == gWindow56DialogTypeCB1DE0) {
-        world::detail::gValue581800 = -1;
+    if (world::gValue581800 == gWindow56DialogTypeCB1DE0) {
+        world::gValue581800 = -1;
         gWindow56DialogTypeCB1DE0 = -1;
     }
 }
@@ -259,12 +263,12 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
             base, imageClass, quarter, fifth, ones);
         std::array<char, 156> buffer;
         std::sprintf(buffer.data(), "%d", image);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromGbkWide(buffer.data())));
         gCurrentWindow->state |= 0x8000u;
@@ -392,7 +396,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
     static_cast<void>(unusedInputCount);
     if (button == 0) {
         if (row < 0) {
-            world::detail::gValue581800 = -1;
+            world::gValue581800 = -1;
         }
         return 1;
     }
@@ -403,12 +407,12 @@ static std::int32_t WindowAppearance_SendDialogReply(
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped));
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
@@ -420,7 +424,7 @@ cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     const char* const text)
 {
     WindowDialog_Reset();
-    gImageDialogTypeD2F7A0 = world::detail::gValue581800;
+    gImageDialogTypeD2F7A0 = world::gValue581800;
     gImageDialogRequestD2F7A4 = request;
     gImageDialogTargetD2F7A8 = target;
     gImageDialogImageD2F7AC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);

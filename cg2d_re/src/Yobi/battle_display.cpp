@@ -1,7 +1,6 @@
 #include "battle_display.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -9,6 +8,9 @@
 #include "cg/render/TextPendingQueue.hpp"
 
 #include "animation.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/WorldMapState.hpp"
 
 #include <array>
 #include <bit>
@@ -218,11 +220,11 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
 void MoveBattleSequence_420590(YobiAction* const action)
 {
     float angle = static_cast<float>(270.0 - action->angle50);
-    world::detail::Sub_46F8F0(&angle);
-    const double xFactor = world::detail::Sub_46F950(angle);
+    world::Sub_46F8F0(&angle);
+    const double xFactor = world::Sub_46F950(angle);
     const double xStep = xFactor * action->value54;
     action->offset40 = static_cast<float>(action->offset40 - xStep);
-    const double yFactor = world::detail::Sub_46F930(angle);
+    const double yFactor = world::Sub_46F930(angle);
     const double yStep = yFactor * action->value54;
     const double y = yStep + action->offset44;
     action->offset44 = static_cast<float>(y);
@@ -355,7 +357,7 @@ std::int32_t NewBattleNumber_41F1A0(
 {
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", value);
-    if (world::detail::gBattleModeFlag5ABFCC == 0) {
+    if (world::gBattleModeFlag5ABFCC == 0) {
         if ((flags & 0x40000000u) != 0) {
             buffer += L"+";
         }

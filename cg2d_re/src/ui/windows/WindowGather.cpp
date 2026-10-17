@@ -1,6 +1,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -126,7 +131,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
     gWindow12SkillIndexCA0470 = skillByte;
     gWindow12SkillLevelCB0608 = static_cast<std::uint8_t>(level);
     const std::int32_t skillId =
-        world::detail::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
+        world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
     gSkillSendModeC8A970 = 0;
     gWindow12ValueD66E28 = 0;
     switch (skillId) {
@@ -149,8 +154,8 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
         default:
             break;
     }
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     gSkillExtraDelayCF46C4 = 2000;
     WindowRuntime_IncrementOperationCount();
@@ -160,7 +165,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
     std::int32_t mode = 0;
-    switch (world::detail::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470)].skillId) {
+    switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470)].skillId) {
         case 225:
         case 251:
             mode = 5;
@@ -180,8 +185,8 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
         default:
             break;
     }
-    if (mode != 0 && world::detail::Sub_51BEC0() != mode) {
-        static_cast<void>(world::detail::Sub_51BE50(mode));
+    if (mode != 0 && world::Sub_51BEC0() != mode) {
+        static_cast<void>(world::Sub_51BE50(mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
         WindowInstance* const window = gWindowStates[id].window;
@@ -208,9 +213,9 @@ static void WindowGather_Release()
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
     gValueD67AFE = skillReferences;
     if (skillReferences == 0) {
-        const std::int32_t state = world::detail::Sub_51BEC0();
+        const std::int32_t state = world::Sub_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {
-            static_cast<void>(world::detail::Sub_51BE50(0));
+            static_cast<void>(world::Sub_51BE50(0));
         }
     }
 }
@@ -279,7 +284,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     const std::uint8_t rebirthMode = gValue5F9754;
     gWindow12DeadlineCB0F7C = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::detail::gPlayerRuntimeSlots.value08;
+        const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gWindow12DeadlineCB0F7C = duration;
     }
@@ -348,12 +353,12 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[2].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[2].data)->action, alternateAction);
-            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+            imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -446,7 +451,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         static_cast<void>(WindowGather_InitializeAction(gCurrentWindow));
         return 1;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
     const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);
@@ -471,12 +476,12 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         // 四条阶段路径共用原6/16选择；每次命中仍重取当前窗口和玩家图号。
         const auto setWorkingAction = [](cg::yobi::YobiAction* const initialAction) {
             cg::yobi::SetYobiActionField2B0(initialAction, 6);
-            std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+            std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
             for (const auto& range : kCraftAlternateActionImages) {
                 if (imageNo >= range[0] && imageNo <= range[1]) {
                     cg::yobi::SetYobiActionField2B0(
                         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 16);
-                    imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+                    imageNo = world::gPlayerRuntimeSlots.imageNo;
                 }
             }
             if (imageNo == 0x18A26) {
@@ -568,15 +573,15 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         if (gWindow12TickD45D4C + 2000u < tick) {
             const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
-            const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
-                * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-            if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
-                world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+            const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
+                * world::gSkillsF1BAFC[skill].fpReduce / 100;
+            if ((world::gPlayerRuntimeSlots.fp < cost)) {
+                world::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
-            } else if (world::detail::Sub_518C60() <= 0) {
-                world::detail::Sub_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
+            } else if (world::Sub_518C60() <= 0) {
+                world::Sub_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
@@ -667,13 +672,13 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
-    const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
-        * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    const bool enoughFp = !(world::detail::gPlayerRuntimeSlots.fp < cost);
+    const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
+        * world::gSkillsF1BAFC[skill].fpReduce / 100;
+    const bool enoughFp = !(world::gPlayerRuntimeSlots.fp < cost);
     if (!enoughFp && (state & 1) != 0) {
         gHoverTextD68AE8 = kWindow12NoFp5864F0;
     }
-    if (world::detail::Sub_518C60() <= 0 || !enoughFp) {
+    if (world::Sub_518C60() <= 0 || !enoughFp) {
         graphic->imageNo = 0x3B56C;
         return 0;
     }
@@ -682,8 +687,8 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(WindowProfile_SaveOrigin(x, y));
         static_cast<void>(WindowGather_InitializeAction(gCurrentWindow));
         static_cast<void>(audio::PlaySe_52C450(51, 320));

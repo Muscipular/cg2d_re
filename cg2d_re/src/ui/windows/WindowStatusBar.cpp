@@ -1,6 +1,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/MailState.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -151,30 +156,30 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 {
     cg::yobi::YobiAction* battlePlayer = nullptr;
     if (world::gCurrentSceneType == 10) {
-        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         if (position < 20) {
-            battlePlayer = world::detail::gBattleEntries59E980[position];
+            battlePlayer = world::gBattleEntries59E980[position];
         }
     }
     if (battlePlayer != nullptr) {
         const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(battlePlayer);
-        const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
+        const std::int32_t hpPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(world::gBattleEntries59E980[hpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t maxFpPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
-            cg::yobi::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
-        const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
+            cg::yobi::ReadYobiActionMaxFpOnce(world::gBattleEntries59E980[maxFpPosition]);
+        const std::int32_t fpPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
-        const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
-        const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
+        const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
+        const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
-        const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
+        const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
+        const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     }
 }
@@ -182,7 +187,7 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 // TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
 static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
-    const std::int32_t duration = world::detail::gPlayerRuntimeSlots.timerRemaining0C;
+    const std::int32_t duration = world::gPlayerRuntimeSlots.timerRemaining0C;
     const std::int32_t hours = duration / 3600000;
     const std::int32_t hoursTens = hours / 10;
     const std::int32_t hoursUnits = hours % 10;
@@ -191,7 +196,7 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
     gCurrentWindow->elements[firstElement].visible = 0;
     gCurrentWindow->elements[firstElement + 1].visible = 0;
     gCurrentWindow->elements[firstElement + 2].visible = 0;
-    const std::int32_t mode = world::detail::gPlayerRuntimeSlots.timerMode10;
+    const std::int32_t mode = world::gPlayerRuntimeSlots.timerMode10;
     WindowInstance* firstWindow;
     if (firstElement == 8) {
         firstWindow = gCurrentWindow;
@@ -309,11 +314,11 @@ static void WindowStatusBar_Refresh()
     timeGraphic->height = 9;
     WindowStatusBar_DrawTimer(8, &descriptor);
 
-    const std::int32_t points = world::detail::Sub_504B10();
-    const std::int32_t initialInjury = world::detail::gPlayerRuntimeSlots.valueF4;
+    const std::int32_t points = world::Sub_504B10();
+    const std::int32_t initialInjury = world::gPlayerRuntimeSlots.valueF4;
     gLoginWindowRuntime.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
-        const std::int32_t pet = world::detail::Sub_504B60();
+        const std::int32_t pet = world::Sub_504B60();
         gLoginWindowRuntime.statusHasInjuryD046C8 = 0;
         if (pet != -1) {
             gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
@@ -336,7 +341,7 @@ static void WindowStatusBar_Refresh()
     if (gLoginWindowRuntime.statusHasInjuryD046C8 != 0) {
         injuryBlink = gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
     }
-    const std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
+    const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
     const std::int32_t injuryImage = injury == 0 ? 0x3B941
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
@@ -429,7 +434,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         }
         return consumed;
     }
-    const std::uint8_t options = world::detail::ReadPlayerOptions194LowByte();
+    const std::uint8_t options = world::ReadPlayerOptions194LowByte();
     constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
     const wchar_t* const hints[6][2] {
         {L"现在不能跟别人对战。" /* 原常量参考：0x00556E14。 */, L"现在可以跟别人对战。" /* 原常量参考：0x00556E2C。 */},
@@ -440,8 +445,8 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
     };
     std::int32_t (*const toggleCallbacks[6])() {
-        &world::detail::Sub_472F40, &world::detail::Sub_472F70, &world::detail::Sub_472FA0,
-        &world::detail::Sub_472FD0, &world::detail::Sub_473000, &world::detail::Sub_473030,
+        &world::Sub_472F40, &world::Sub_472F70, &world::Sub_472FA0,
+        &world::Sub_472FD0, &world::Sub_473000, &world::Sub_473030,
     };
     const std::int32_t slot = index - 17;
     const bool enabled = (options & masks[slot]) != 0;
@@ -463,10 +468,10 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
 // 原函数：0x00473080。
 static std::int32_t WindowStatusBar_ReadInjuredPetIndex()
 {
-    if (world::detail::gPlayerRuntimeSlots.valueF4 != 0) {
+    if (world::gPlayerRuntimeSlots.valueF4 != 0) {
         return 0;
     }
-    const std::int32_t pet = world::detail::Sub_504B60();
+    const std::int32_t pet = world::Sub_504B60();
     return pet == -1 ? -1 : pet + 10;
 }
 
@@ -476,7 +481,7 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t candidate =
-            std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
         if (index == candidate) {
             return position;
         }
@@ -492,19 +497,19 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     std::wstring buffer;
     switch (index) {
     case 13: {
-        const std::int32_t candidate = world::detail::Sub_504B10();
+        const std::int32_t candidate = world::Sub_504B10();
         const bool hover = (state & 1) != 0;
         if (hover) {
             if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
-                        std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[candidate].index);
-                    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+                        std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[candidate].index);
+                    const auto& pet = world::gPetRuntimeRecords[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
                     cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
                 } else {
-                    const std::int32_t points = world::detail::gValueD2F788;
+                    const std::int32_t points = world::gValueD2F788;
                     cg::text::FormatTo(buffer, L"现在有增加点数{}点。" /* 原常量参考：0x00556D50。 */, points);
                 }
             } else {
@@ -581,7 +586,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     }
     case 11: {
         const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex();
-        std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
+        std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         const bool hover = (state & 1) != 0;
         const std::int32_t petIndex = target - 10;
         if (hover) {
@@ -593,7 +598,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             } else if (target == -1) {
                 gHoverTextD68AE8 = L"现在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
-                const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+                const auto& pet = world::gPetRuntimeRecords[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
                 const wchar_t* format;
@@ -611,7 +616,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                 }
                 cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
                 gHoverTextD68AE8 = buffer;
-                injury = world::detail::gPlayerRuntimeSlots.valueF4;
+                injury = world::gPlayerRuntimeSlots.valueF4;
                 static_cast<void>(0);
             }
         }

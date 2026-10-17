@@ -10,7 +10,6 @@
 #include "../scene/login/LoginRequestDependencies.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 #include "NetworkDispatchDependencies.hpp"
@@ -30,6 +29,13 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/AlbumState.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/ChatHistory.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
+#include "../world/WorldObjectState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <lz4.h>
 
@@ -556,7 +562,7 @@ std::int32_t Sub_50CF60(
     const std::uintptr_t,
     const std::int32_t value)
 {
-    world::detail::gValueD2F788 = value;
+    world::gValueD2F788 = value;
     return value;
 }
 
@@ -572,7 +578,7 @@ void Sub_50CF20(
         return;
     }
 
-    world::detail::Sub_44B050(L"失败了！", 4, 3);
+    world::Sub_44B050(L"失败了！", 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
@@ -581,7 +587,7 @@ std::uint16_t Sub_50D3B0(
     const std::int32_t value)
 {
     const std::uint16_t bits = static_cast<std::uint16_t>(value);
-    world::detail::gValueFF0D34 = bits;
+    world::gValueFF0D34 = bits;
     return bits;
 }
 
@@ -623,12 +629,12 @@ std::int32_t Sub_50D700(
         return std::bit_cast<std::int32_t>(gate);
     }
 
-    world::detail::gValueFF0C10 = 2;
-    world::detail::gValueFF0D04 =
+    world::gValueFF0C10 = 2;
+    world::gValueFF0D04 =
         ParseDelimitedBase62_52D0D0(payload, '|', 1);
     const std::int32_t second =
         ParseDelimitedBase62_52D0D0(payload, '|', 2);
-    world::detail::gValueFF0D08 = second;
+    world::gValueFF0D08 = second;
     return second;
 }
 
@@ -701,7 +707,7 @@ void Sub_50DD80(
     const std::int32_t flag1 = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
     const std::int32_t flag2 = std::atoi(field);
-    if (world::detail::Sub_445A60(
+    if (world::Sub_445A60(
             recordIndex, recordImageNo, recordX, recordY, recordDirection,
             name, titles, level, static_cast<std::uint16_t>(value40),
             flag1, flag2, type) == 0) {
@@ -741,8 +747,8 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         }
         std::wstring message;
         cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
-        world::detail::Sub_44B050(message, 4, 3);
-        world::detail::Sub_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
+        world::Sub_44B050(message, 4, 3);
+        world::Sub_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -812,7 +818,7 @@ void Sub_50F190(
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(cg::world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    world::detail::Sub_44B050(message, 4, 3);
+    world::Sub_44B050(message, 4, 3);
 }
 
 // 原函数：0x00510460。
@@ -823,14 +829,14 @@ void Sub_510460(
     if (world::gValue9A6E0C != 0) {
         return;
     }
-    world::detail::Sub_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
+    world::Sub_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
 }
 
 // IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。
 // 原函数：0x00510490。
 void Sub_510490(const std::uintptr_t, const char* const text)
 {
-    auto& record = world::detail::gReplyRecordF7C950;
+    auto& record = world::gReplyRecordF7C950;
     if (ExtractDelimitedField_52CED0(text, ',', 1, 31, record.text04.data()) != 0) {
         record.used = 0;
         return;
@@ -4161,24 +4167,24 @@ std::int32_t NetworkDispatch_512E40(
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;
     using T = char*;
-    if (TryDispatchReply<world::detail::Sub_5093C0, I, I, I>(head, "QBt", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509090, I, I, I, I, I, I, I, I, I>(head, "jmb", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509100, I, I, I, I, I, I, T>(head, "aBS", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50CF90, I, I>(head, "EZ", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50D120, I, I>(head, "dAgg", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50D500, T>(head, "Gn", socket)) return 0;
+    if (TryDispatchReply<world::Sub_5093C0, I, I, I>(head, "QBt", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509090, I, I, I, I, I, I, I, I, I>(head, "jmb", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509100, I, I, I, I, I, I, T>(head, "aBS", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50CF90, I, I>(head, "EZ", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50D120, I, I>(head, "dAgg", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50D500, T>(head, "Gn", socket)) return 0;
     if (TryDispatchReply<Sub_50D700, T>(head, "hB", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50D3C0, T>(head, "LYIm", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50BFD0, T>(head, "ELoy", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50C260, T>(head, "rU", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50C870, I, I, I, I>(head, "PudO", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50C900, I, I>(head, "vWpn", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50C580, I, T>(head, "xmgQ", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50C7A0, I, I>(head, "MTg", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50D3C0, T>(head, "LYIm", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50BFD0, T>(head, "ELoy", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50C260, T>(head, "rU", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50C870, I, I, I, I>(head, "PudO", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50C900, I, I>(head, "vWpn", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50C580, I, T>(head, "xmgQ", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50C7A0, I, I>(head, "MTg", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50DC70, I, T, I>(head, "Mhbt", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50E5B0, I, T>(head, "Ilz", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket, 0x30000U)) return 0;
+    if (TryDispatchReply<world::Sub_50E5B0, I, T>(head, "Ilz", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket, 0x30000U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket, 0x4U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo", socket)) return 0;
     if (TryDispatchReply<Sub_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket, 0x100U)) return 0;
@@ -4201,26 +4207,26 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50F7F0, I, T, I>(head, "ow", socket, 0x4U)) return 0;
     if (TryDispatchReply<ui::WindowProfile_ReceiveReply, I, I, I, I, T>(head, "DyAG", socket, 0x20U)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F9E0, T>(head, "KyN", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50CAE0, I, T, I, I>(head, "zdr", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50CE10, T>(head, "Zd", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509650, T>(head, "aPc", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509BA0, T>(head, "UU", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50A6B0, I, T>(head, "IsSy", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50AC20, I, T>(head, "AU", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50AEF0, T>(head, "TNT", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50B380, T>(head, "nsY", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50A3E0, I, T>(head, "JJQj", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50A300, T>(head, "Sc", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50BCD0, T>(head, "NI", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50BF20, T>(head, "uSB", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509E30, I, T>(head, "jv", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509EB0, T>(head, "cNE", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50A120, I, T>(head, "Rspn", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50B0D0, I, T>(head, "OBee", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50CAE0, I, T, I, I>(head, "zdr", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50CE10, T>(head, "Zd", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509650, T>(head, "aPc", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509BA0, T>(head, "UU", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50A6B0, I, T>(head, "IsSy", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50AC20, I, T>(head, "AU", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50AEF0, T>(head, "TNT", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50B380, T>(head, "nsY", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50A3E0, I, T>(head, "JJQj", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50A300, T>(head, "Sc", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50BCD0, T>(head, "NI", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50BF20, T>(head, "uSB", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509E30, I, T>(head, "jv", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_509EB0, T>(head, "cNE", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50A120, I, T>(head, "Rspn", socket, 0x4U)) return 0;
+    if (TryDispatchReply<world::Sub_50B0D0, I, T>(head, "OBee", socket, 0x4U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "Yo", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50BFA0, I>(head, "SkBD", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50BFA0, I>(head, "SkBD", socket)) return 0;
     if (TryDispatchReply<Sub_50D3B0, I>(head, "sZWu", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50D000, I, I>(head, "bNY", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50D000, I, I>(head, "bNY", socket)) return 0;
     if (TryDispatchReply<ui::WindowSkill_ReceiveTextTargetReply, T>(head, "ysVc", socket)) return 0;
     if (TryDispatchReply<ui::WindowSkill_ReceiveAttributeTargetReply, T>(head, "ND", socket)) return 0;
     if (TryDispatchReply<ui::WindowItemUse_ReceiveTextTargetReply, T>(head, "LY", socket)) return 0;
@@ -4237,18 +4243,18 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::WindowTrade_ReceiveCloseReply, I>(head, "We", socket)) return 0;
     if (TryDispatchReply<Sub_50CF20, I, I, I, I>(head, "BHe", socket)) return 0;
     if (TryDispatchReply<Sub_50CF60, I>(head, "kg", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50CF70, I, I>(head, "sA", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50BFC0, I>(head, "Ov", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50CF70, I, I>(head, "sA", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50BFC0, I>(head, "Ov", socket)) return 0;
     if (TryDispatchReply<ui::WindowDialog_ReceiveReply, I, I, I, I, T>(head, "BZ", socket, 0x20U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50E1A0, I, I, T>(head, "zzd", socket, 0x8U)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50E210, I>(head, "TFCu", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50E1A0, I, I, T>(head, "zzd", socket, 0x8U)) return 0;
+    if (TryDispatchReply<world::Sub_50E210, I>(head, "TFCu", socket)) return 0;
     if (TryDispatchReply<Sub_50E310, I>(head, "wiB", socket)) return 0;
     if (TryDispatchReply<Sub_50E630, I, I>(head, "bJg", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_50E650, I, I, I, I, I>(head, "PVfz", socket)) return 0;
+    if (TryDispatchReply<world::Sub_50E650, I, I, I, I, I>(head, "PVfz", socket)) return 0;
     if (TryDispatchReply<Sub_50E680, I, I, I>(head, "murD", socket)) return 0;
     if (TryDispatchReply<Sub_50E6C0, I, I, I>(head, "ftaN", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_509550, T>(head, "TeD", socket)) return 0;
-    if (TryDispatchReply<world::detail::Sub_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM", socket)) return 0;
+    if (TryDispatchReply<world::Sub_509550, T>(head, "TeD", socket)) return 0;
+    if (TryDispatchReply<world::Sub_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM", socket)) return 0;
     if (TryDispatchReply<HandleResponse_508800, I, T>(head, "whV", socket, 0x4U)) return 0;
     if (TryDispatchReply<login::HandleCharacterCreationResponse_508EE0, T, I, T>(head, "DZ", socket, 0x8U)) return 0;
     if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", socket, 0x4U)) return 0;
@@ -4267,7 +4273,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::WindowStall_ReceiveCloseReply, I>(head, "KXhH", socket)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceiveBrowseReply, I, I, T, T, T, T>(head, "ft", socket, 0x68U)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceivePurchaseReply, I>(head, "Yx", socket)) return 0;
-    static_cast<void>(TryDispatchReply<world::detail::Sub_510150, I, T>(head, "iKe", socket, 0x4U));
+    static_cast<void>(TryDispatchReply<world::Sub_510150, I, T>(head, "iKe", socket, 0x4U));
     static_cast<void>(TryDispatchReply<Sub_510460, I, I, I, I>(head, "kiG", socket));
     static_cast<void>(TryDispatchReply<Sub_510490, T>(head, "TgX", socket));
     return -1;
@@ -4315,12 +4321,12 @@ std::int32_t InitializeNetworkRuntime_508140()
     if (!gNetworkRuntimeState.gameplayHandlersRegistered) {
         RegisterProtocolReceive("BtWt", [](const char*, char** const arguments) {
             const std::int32_t wait = ParseProtocolInteger_517190(arguments[1]);
-            world::detail::gBattleCommandWaitMs = std::bit_cast<std::uint32_t>(wait);
-            world::detail::gBattleShowEnemyHpBars = ParseProtocolInteger_517190(arguments[2]) != 0;
+            world::gBattleCommandWaitMs = std::bit_cast<std::uint32_t>(wait);
+            world::gBattleShowEnemyHpBars = ParseProtocolInteger_517190(arguments[2]) != 0;
             m_log_i("Set battleCommandWait = %d\n", wait);
         });
         RegisterProtocolReceive("SpDt", [](const char*, char** const arguments) {
-            world::detail::gChatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
+            world::gChatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
                 ParseProtocolInteger_517190(arguments[1]));
         });
         RegisterProtocolReceive("INVCF", [](const char*, char** const arguments) {

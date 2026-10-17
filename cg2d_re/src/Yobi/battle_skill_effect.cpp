@@ -1,7 +1,8 @@
 #include "battle_skill_effect.hpp"
 #include "battle_message.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/core/m_log.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
 
 #include <array>
 #include <optional>
@@ -41,7 +42,7 @@ void BindBattleSkillMeta(YobiAction* const action)
     auto* const meta = GetBattleSkillMeta(action);
     if (!meta) return;
     for (std::size_t slot = 0; slot < 20; ++slot) {
-        if (world::detail::gBattleAllEntries59E980[slot] != action) continue;
+        if (world::gBattleAllEntries59E980[slot] != action) continue;
         BattleSkillMeta bound = skillContext;
         if (LuaSkillEffectBindMoveState(action, bound)) {
             *meta = bound;

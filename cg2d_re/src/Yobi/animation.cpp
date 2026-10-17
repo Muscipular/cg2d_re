@@ -1,12 +1,12 @@
 #include "animation.hpp"
 #include "base.hpp"
 #include "../resource/AnimationRuntimeState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 
 #include <cstdint>
 #include <cstring>

@@ -1,10 +1,10 @@
 #include "WorldObjectState.hpp"
 
-#include "WorldUpdateDependencies.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
+#include "PlayerState.hpp"
 
 #include <cstdlib>
 #include <cstring>
@@ -51,29 +51,6 @@ void Sub_4468F0()
     gMapActorDrawKeyCount = 0;
 }
 
-// 原函数：0x00446900。
-std::int32_t Sub_446900(
-    const std::int32_t graphicIndex, const std::int32_t mapX,
-    const std::int32_t mapY)
-{
-    const std::int32_t count = gMapActorDrawKeyCount;
-    for (std::int32_t index = 0; index < count; ++index) {
-        const auto& key = gMapActorDrawKeys[static_cast<std::size_t>(index)];
-        if (key.graphicIndex == graphicIndex && key.mapX == mapX && key.mapY == mapY) {
-            return 1;
-        }
-    }
-    if (count < 100) {
-        auto& key = gMapActorDrawKeys[static_cast<std::size_t>(count)];
-        const std::int32_t nextCount = count + 1;
-        key.graphicIndex = graphicIndex;
-        key.mapX = mapX;
-        key.mapY = mapY;
-        gMapActorDrawKeyCount = nextCount;
-    }
-    return 0;
-}
-
 // WOL01：完整两段查槽，start/end各持样一次，used W16非零/编号W32命中后发布查找游标。
 // 原函数：0x00444FA0。
 std::int32_t Sub_444FA0(const std::int32_t objectIndex)
@@ -95,14 +72,6 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
         }
     }
     return -1;
-}
-
-// WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
-// 原函数：0x004462B0。
-cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
-{
-    const std::int32_t index = Sub_444FA0(objectIndex);
-    return index < 0 ? nullptr : gWorldObjects[index].action;
 }
 
 // WOL01：只推进计数/高水位/空槽游标并返回旧槽，不写记录或标占用/分配资源。
@@ -172,105 +141,6 @@ std::uint32_t Sub_446210(const std::int32_t type)
     }
 }
 
-// WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
-// 原函数：0x00445A60。
-std::int32_t Sub_445A60(
-    const std::int32_t objectIndex, const std::int32_t imageNo,
-    const std::int32_t mapX, const std::int32_t mapY,
-    const std::int32_t direction, const char* const name,
-    const char* const titles, const std::int32_t level,
-    const std::uint16_t value40, const std::int32_t flag1,
-    const std::int32_t flag2, const std::int32_t type)
-{
-    if (Sub_444FA0(objectIndex) >= 0) {
-        return 0;
-    }
-    const std::int32_t index = Sub_446130();
-    if (index < 0) {
-        return 0;
-    }
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
-    record.action = nullptr;
-    record.used = 2;
-    record.category = static_cast<std::uint16_t>(Sub_446210(type));
-    record.objectIndex = objectIndex;
-    record.imageNo = static_cast<std::uint32_t>(imageNo);
-    record.value40 = value40;
-    record.level2C = level;
-    record.coordinate0C = static_cast<std::int32_t>(mapX);
-    record.coordinate1C = static_cast<std::int32_t>(mapY);
-    record.direction = direction;
-    // 原两处只写+42低W8；+43高字节与其他清理入口仍共享同一W16。
-    if (flag1 != 0) {
-        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x40u;
-    }
-    if (flag2 != 0) {
-        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x80u;
-    }
-    if (std::strlen(name) <= 16) {
-        std::memmove(record.name54.data(), name, std::strlen(name) + 1);
-    }
-    // 原var_100/var_200/var_300；ordinal1/2/3分别借100/300/200。
-    char text100[256];
-    char text200[256];
-    char text300[256];
-    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
-    if (std::strlen(text100) <= 16) {
-        std::memmove(record.title65.data(), text100, std::strlen(text100) + 1);
-    }
-    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text300);
-    input::UnescapeLegacyTextAndNotify_52D2F0(text300);
-    if (std::strlen(text300) <= 32) {
-        std::memmove(record.text76.data(), text300, std::strlen(text300) + 1);
-    }
-    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text200);
-    input::UnescapeLegacyTextAndNotify_52D2F0(text200);
-    if (std::strlen(text200) <= 32) {
-        std::memmove(record.text97.data(), text200, std::strlen(text200) + 1);
-    }
-    record.flags114 = Sub_4461E0(type);
-    return 1;
-}
-
-// WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
-// 原函数：0x004462E0。
-void Sub_4462E0(const std::int32_t objectIndex)
-{
-    if (cg::world::detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        static_cast<void>(Sub_519D50());
-        return;
-    }
-    const std::int32_t index = Sub_444FA0(objectIndex);
-    if (index < 0) {
-        return;
-    }
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
-    cg::yobi::YobiAction* const action = record.action;
-    if (action != nullptr) {
-        cg::yobi::ClearMapActorAttachments(action);
-        cg::yobi::MarkDeath(record.action);
-        record.action = nullptr;
-    }
-    const std::int32_t used = gWorldObjectUsedCount;
-    record.used = 0;
-    record.flags42 = 0;
-    record.flags120 = 0;
-    record.value34 = -1;
-    if (used > 0) {
-        gWorldObjectUsedCount = used - 1;
-    }
-    if (gWorldObjectFreeCursor > index) {
-        gWorldObjectFreeCursor = index;
-    }
-    for (std::int32_t end = gWorldObjectUpperBound; end > 0; --end) {
-        if (gWorldObjects[static_cast<std::size_t>(end - 1)].used != 0) {
-            gWorldObjectUpperBound = end;
-            return;
-        }
-    }
-    // 原44645A在全空时直接返回，保留旧上界。
-}
-
 // WLR01：无释放整表重置，只原七字段/名称首BYTE及四计数游标，不合并为有释放清理。
 // 原函数：0x00446470。
 void Sub_446470()
@@ -317,5 +187,142 @@ void __cdecl Sub_4464D0()
 }
 
 } // namespace detail
+
+} // namespace cg::world
+
+namespace cg::world {
+
+// 原函数：0x00446900。
+std::int32_t Sub_446900(
+    const std::int32_t graphicIndex, const std::int32_t mapX,
+    const std::int32_t mapY)
+{
+    const std::int32_t count = detail::gMapActorDrawKeyCount;
+    for (std::int32_t index = 0; index < count; ++index) {
+        const auto& key = detail::gMapActorDrawKeys[static_cast<std::size_t>(index)];
+        if (key.graphicIndex == graphicIndex && key.mapX == mapX && key.mapY == mapY) {
+            return 1;
+        }
+    }
+    if (count < 100) {
+        auto& key = detail::gMapActorDrawKeys[static_cast<std::size_t>(count)];
+        const std::int32_t nextCount = count + 1;
+        key.graphicIndex = graphicIndex;
+        key.mapX = mapX;
+        key.mapY = mapY;
+        detail::gMapActorDrawKeyCount = nextCount;
+    }
+    return 0;
+}
+
+
+// WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
+// 原函数：0x004462B0。
+cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
+{
+    const std::int32_t index = detail::Sub_444FA0(objectIndex);
+    return index < 0 ? nullptr : detail::gWorldObjects[index].action;
+}
+
+
+// WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
+// 原函数：0x00445A60。
+std::int32_t Sub_445A60(
+    const std::int32_t objectIndex, const std::int32_t imageNo,
+    const std::int32_t mapX, const std::int32_t mapY,
+    const std::int32_t direction, const char* const name,
+    const char* const titles, const std::int32_t level,
+    const std::uint16_t value40, const std::int32_t flag1,
+    const std::int32_t flag2, const std::int32_t type)
+{
+    if (detail::Sub_444FA0(objectIndex) >= 0) {
+        return 0;
+    }
+    const std::int32_t index = detail::Sub_446130();
+    if (index < 0) {
+        return 0;
+    }
+    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    record.action = nullptr;
+    record.used = 2;
+    record.category = static_cast<std::uint16_t>(detail::Sub_446210(type));
+    record.objectIndex = objectIndex;
+    record.imageNo = static_cast<std::uint32_t>(imageNo);
+    record.value40 = value40;
+    record.level2C = level;
+    record.coordinate0C = static_cast<std::int32_t>(mapX);
+    record.coordinate1C = static_cast<std::int32_t>(mapY);
+    record.direction = direction;
+    // 原两处只写+42低W8；+43高字节与其他清理入口仍共享同一W16。
+    if (flag1 != 0) {
+        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x40u;
+    }
+    if (flag2 != 0) {
+        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x80u;
+    }
+    if (std::strlen(name) <= 16) {
+        std::memmove(record.name54.data(), name, std::strlen(name) + 1);
+    }
+    // 原var_100/var_200/var_300；ordinal1/2/3分别借100/300/200。
+    char text100[256];
+    char text200[256];
+    char text300[256];
+    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
+    if (std::strlen(text100) <= 16) {
+        std::memmove(record.title65.data(), text100, std::strlen(text100) + 1);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text300);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text300);
+    if (std::strlen(text300) <= 32) {
+        std::memmove(record.text76.data(), text300, std::strlen(text300) + 1);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text200);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text200);
+    if (std::strlen(text200) <= 32) {
+        std::memmove(record.text97.data(), text200, std::strlen(text200) + 1);
+    }
+    record.flags114 = detail::Sub_4461E0(type);
+    return 1;
+}
+
+
+// WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
+// 原函数：0x004462E0。
+void Sub_4462E0(const std::int32_t objectIndex)
+{
+    if (cg::world::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+        static_cast<void>(detail::Sub_519D50());
+        return;
+    }
+    const std::int32_t index = detail::Sub_444FA0(objectIndex);
+    if (index < 0) {
+        return;
+    }
+    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    cg::yobi::YobiAction* const action = record.action;
+    if (action != nullptr) {
+        cg::yobi::ClearMapActorAttachments(action);
+        cg::yobi::MarkDeath(record.action);
+        record.action = nullptr;
+    }
+    const std::int32_t used = detail::gWorldObjectUsedCount;
+    record.used = 0;
+    record.flags42 = 0;
+    record.flags120 = 0;
+    record.value34 = -1;
+    if (used > 0) {
+        detail::gWorldObjectUsedCount = used - 1;
+    }
+    if (detail::gWorldObjectFreeCursor > index) {
+        detail::gWorldObjectFreeCursor = index;
+    }
+    for (std::int32_t end = detail::gWorldObjectUpperBound; end > 0; --end) {
+        if (detail::gWorldObjects[static_cast<std::size_t>(end - 1)].used != 0) {
+            detail::gWorldObjectUpperBound = end;
+            return;
+        }
+    }
+    // 原44645A在全空时直接返回，保留旧上界。
+}
 
 } // namespace cg::world

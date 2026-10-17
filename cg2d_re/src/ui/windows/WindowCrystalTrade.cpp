@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -15,12 +17,12 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
         gHoverTextD68AE8 = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
     }
     if ((state & 2) != 0) {
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;

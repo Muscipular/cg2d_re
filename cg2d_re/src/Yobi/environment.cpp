@@ -1,12 +1,14 @@
 #include "environment.hpp"
 #include "base.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
 
 #include <bit>
 #include <cmath>
@@ -15,9 +17,7 @@
 
 namespace cg::yobi {
 
-namespace detail {
 
-} // namespace detail
 
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
 
@@ -458,7 +458,7 @@ void Sub_449A00(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (action->mapY1F0.value() != floor
-        || world::detail::gPlayerRuntimeSlots.action == nullptr) {
+        || world::gPlayerRuntimeSlots.action == nullptr) {
         MarkDeath(action);
         return;
     }
@@ -559,21 +559,21 @@ void Sub_4483A0(YobiAction* const action)
         progress = static_cast<std::int32_t>(elapsed * 130 / total);
     }
     if (elapsed > total || elapsed < 0) {
-        world::detail::gMapEffectOffsetXBits = 0;
-        world::detail::gMapEffectOffsetYBits = 0;
+        world::gMapEffectOffsetXBits = 0;
+        world::gMapEffectOffsetYBits = 0;
     } else if (elapsed > 200 * (5 * duration - 75)) {
         if (elapsed < 200 * (5 * duration - 10) && elapsed % 40 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
         if (associated != nullptr) {
-            world::detail::gMapEffectOffsetXBits =
+            world::gMapEffectOffsetXBits =
                 std::bit_cast<std::uint32_t>(associated->value54);
-            world::detail::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->value54) * -0.14F));
         }
     } else if (elapsed > 200 * (5 * duration - 80)) {
-        world::detail::gMapEffectOffsetXBits = 0;
-        world::detail::gMapEffectOffsetYBits = 0;
+        world::gMapEffectOffsetXBits = 0;
+        world::gMapEffectOffsetYBits = 0;
     } else if (elapsed > 200 * (5 * duration - 85)) {
         if (elapsed % 40 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
@@ -585,7 +585,7 @@ void Sub_4483A0(YobiAction* const action)
         }
         platform::detail::Cg2dMapTimedOffset(
             (progress + 250) % 360, &action->value54,
-            &world::detail::gMapEffectOffsetXBits, &world::detail::gMapEffectOffsetYBits);
+            &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
     } else if (elapsed <= 14000) {
         if (elapsed >= 13000 && elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
@@ -594,9 +594,9 @@ void Sub_4483A0(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
         if (associated != nullptr) {
-            world::detail::gMapEffectOffsetXBits =
+            world::gMapEffectOffsetXBits =
                 std::bit_cast<std::uint32_t>(-associated->value54);
-            world::detail::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->value54) * 0.14F));
         }
     } else if (elapsed <= 15000) {
@@ -612,17 +612,17 @@ void Sub_4483A0(YobiAction* const action)
             if (amplitude < 0.0) {
                 associated->value54 = 0.0F;
             }
-            world::detail::gMapEffectOffsetXBits =
+            world::gMapEffectOffsetXBits =
                 std::bit_cast<std::uint32_t>(-associated->value54);
-            world::detail::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->value54) * 0.14F));
         }
     } else if (elapsed <= 16000) {
         if (elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
         }
-        world::detail::gMapEffectOffsetXBits = 0;
-        world::detail::gMapEffectOffsetYBits = 0;
+        world::gMapEffectOffsetXBits = 0;
+        world::gMapEffectOffsetYBits = 0;
     } else {
         if (elapsed <= 200 * (5 * duration - 150) && elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
@@ -635,7 +635,7 @@ void Sub_4483A0(YobiAction* const action)
         const bool increasing = elapsed <= 200 * (5 * duration - 125);
         platform::detail::Cg2dMapTimedOffset(
             (progress + 250) % 360, &action->value54,
-            &world::detail::gMapEffectOffsetXBits, &world::detail::gMapEffectOffsetYBits);
+            &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
         if (increasing) {
             const double amplitude = static_cast<double>(action->value54) + 0.1F;
             action->value54 = static_cast<float>(amplitude);
@@ -661,7 +661,7 @@ void Sub_4483A0(YobiAction* const action)
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
 void Sub_448290()
 {
-    if (world::gCurrentSceneType != 9 || world::detail::gPlayerRuntimeSlots.action == nullptr) {
+    if (world::gCurrentSceneType != 9 || world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const std::int32_t floor = world::gMapFloor;
@@ -695,11 +695,11 @@ void Sub_448290()
 void Sub_449670(YobiAction* const action)
 {
     float angle = static_cast<float>(270.0 - action->angle50);
-    world::detail::Sub_46F8F0(&angle);
-    const double xFactor = world::detail::Sub_46F950(angle);
+    world::Sub_46F8F0(&angle);
+    const double xFactor = world::Sub_46F950(angle);
     action->offset40 = static_cast<float>(
         action->offset40 - xFactor * action->value54);
-    const double yFactor = world::detail::Sub_46F930(angle);
+    const double yFactor = world::Sub_46F930(angle);
     action->offset44 = static_cast<float>(
         yFactor * action->value54 + action->offset44);
 }
@@ -828,7 +828,7 @@ void Sub_449700(
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void Sub_449160()
 {
-    if (world::detail::gPlayerRuntimeSlots.action == nullptr) {
+    if (world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     detail::Sub_448290();
@@ -848,7 +848,7 @@ void Sub_449160()
     action->callback = detail::Sub_449400;
     action->displayPriority = 30;
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
-    const auto timeCategory = static_cast<std::uint8_t>(world::detail::gValue73ED48);
+    const auto timeCategory = static_cast<std::uint8_t>(world::gValue73ED48);
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
     const std::int32_t speed = platform::RandomRange_46FAF0(0, 200);
@@ -858,30 +858,30 @@ void Sub_449160()
     case 0:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 213);
         action->worldX = static_cast<float>(
-            world::detail::gPlayerRuntimeSlots.action->worldX + 550.0);
+            world::gPlayerRuntimeSlots.action->worldX + 550.0);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
+            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
         break;
     case 1:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 33);
         action->worldX = static_cast<float>(
-            world::detail::gPlayerRuntimeSlots.action->worldX - 400.0 - 150.0F);
+            world::gPlayerRuntimeSlots.action->worldX - 400.0 - 150.0F);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldY);
+            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
         break;
     case 2:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 107);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
+            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            world::detail::gPlayerRuntimeSlots.action->worldY - 400.0 - 150.0F);
+            world::gPlayerRuntimeSlots.action->worldY - 400.0 - 150.0F);
         break;
     case 3:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 287);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::detail::gPlayerRuntimeSlots.action->worldX);
+            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
-            world::detail::gPlayerRuntimeSlots.action->worldY + 550.0);
+            world::gPlayerRuntimeSlots.action->worldY + 550.0);
         break;
     }
 }

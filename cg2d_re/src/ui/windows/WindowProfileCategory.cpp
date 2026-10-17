@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -244,7 +246,7 @@ static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 // 原函数：0x004CA300。
 static void WindowProfileCategory_Release()
 {
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(2));
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
@@ -287,10 +289,10 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
         std::array<std::wstring, 2> buffers;
         cg::text::FormatTo(buffers[0], L"{}|{}|", group, value);
         buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();

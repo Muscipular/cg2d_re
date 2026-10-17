@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../world/WorldUpdateDependencies.hpp"
 
 #include "../platform/MainLoopDependencies.hpp"
 

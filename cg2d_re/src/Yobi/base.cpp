@@ -1,7 +1,8 @@
 #include "base.hpp"
 #include "battle_skill_effect.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -140,9 +141,7 @@ YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
     return *this;
 }
 
-namespace detail {
 
-} // namespace detail
 
 std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
 

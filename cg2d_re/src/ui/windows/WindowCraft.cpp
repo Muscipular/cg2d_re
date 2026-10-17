@@ -2,7 +2,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -320,22 +324,22 @@ std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
 {
     const std::int8_t pairIndex = std::bit_cast<std::int8_t>(gSkillPairIndexD67AD8);
     const std::int16_t skillIndex = std::bit_cast<std::int16_t>(
-        world::detail::gSkillPairsF63370[pairIndex].index);
+        world::gSkillPairsF63370[pairIndex].index);
     const std::int32_t recipeIndex = gRecipeIndex5846BC;
     // 原4F4660按整条技能记录取址；配方为-1时材料从+820开始，保留跨字段读取。
-    const auto* const skill = reinterpret_cast<const std::byte*>(&world::detail::gSkillsF1BAFC[skillIndex]);
+    const auto* const skill = reinterpret_cast<const std::byte*>(&world::gSkillsF1BAFC[skillIndex]);
     const std::ptrdiff_t itemsOffset =
-        static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, recipes8E8))
+        static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, recipes8E8))
         + static_cast<std::ptrdiff_t>(recipeIndex)
-            * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillRecipeRecord))
-        + static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRecipeRecord, items6C));
+            * static_cast<std::ptrdiff_t>(sizeof(world::SkillRecipeRecord))
+        + static_cast<std::ptrdiff_t>(offsetof(world::SkillRecipeRecord, items6C));
     for (std::int32_t index = 0; index < 5; ++index) {
-        const auto* const item = skill + itemsOffset + index * sizeof(world::detail::SkillRecipeItem);
+        const auto* const item = skill + itemsOffset + index * sizeof(world::SkillRecipeItem);
         std::int32_t requiredItemId;
         std::memcpy(&requiredItemId, item, sizeof(requiredItemId));
         if (requiredItemId == itemId) {
             std::int32_t count;
-            std::memcpy(&count, item + offsetof(world::detail::SkillRecipeItem, count), sizeof(count));
+            std::memcpy(&count, item + offsetof(world::SkillRecipeItem, count), sizeof(count));
             return count;
         }
     }
@@ -410,15 +414,15 @@ void WindowCraft_ResetSelection(const std::int32_t first, const std::int32_t sec
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected == first) {
         gSelectedItemD460C0 = second;
-        const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[second].imageNo;
+        const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[second].imageNo;
         // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
-        const std::int32_t itemId = world::detail::gPlayerRuntimeSlots.items[second + 8].itemId;
+        const std::int32_t itemId = world::gPlayerRuntimeSlots.items[second + 8].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
     } else if (selected == second) {
         gSelectedItemD460C0 = first;
-        const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[first].imageNo;
-        const std::int32_t itemId = world::detail::gPlayerRuntimeSlots.items[first].itemId;
+        const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[first].imageNo;
+        const std::int32_t itemId = world::gPlayerRuntimeSlots.items[first].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
     }
@@ -456,14 +460,14 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
     cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
-    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
         const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
             cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, 16);
             if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
-                imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+                imageNo = world::gPlayerRuntimeSlots.imageNo;
             }
         }
     }
@@ -479,7 +483,7 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
     const std::uint8_t rebirthMode = gValue5F9754;
     gCraftDeadlineCF3B04 = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::detail::gPlayerRuntimeSlots.value08;
+        const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gCraftDeadlineCF3B04 = duration;
     }
@@ -515,8 +519,8 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
     case 217: case 218: case 2031: case 2032: state = 12; break;
     default: break;
     }
-    if (world::detail::Sub_51BEC0() != state) {
-        static_cast<void>(world::detail::Sub_51BE50(state));
+    if (world::Sub_51BEC0() != state) {
+        static_cast<void>(world::Sub_51BE50(state));
     }
 }
 
@@ -604,7 +608,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t skill = gCraftSkillIndexCC2368;
     const std::int32_t recipe = gCraftRecipeIndexD2D638;
-    const std::int32_t level = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
+    const std::int32_t level = world::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
     gSelectionModeD2D650 = 1;
@@ -618,14 +622,14 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     std::int32_t skill;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         skill = gCraftSkillIndexCC2368;
-        if (world::detail::gSkillsF1BAFC[skill].skillId != 220) {
+        if (world::gSkillsF1BAFC[skill].skillId != 220) {
             gSkillSendModeC8A970 = 1;
         }
     } else {
         skill = gCraftSkillIndexCC2368;
     }
     const std::int32_t active = gSkillSendModeC8A970;
-    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
     gValueD67B00 = active;
     const wchar_t* hint = nullptr;
     switch (skillId) {
@@ -652,7 +656,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     window->elements[21].visible = 1;
     window->elements[21].mouseCallback = WindowCraft_HandleItemTooltip;
     window->elements[23].visible = 1;
-    if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+    if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
         window->elements[23].visible = 0;
     }
     window->elements[25].visible = 0;
@@ -661,7 +665,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[selected].level;
+    const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
     gSelectionModeD2D650 = 4;
@@ -673,7 +677,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
 {
     gSkillSendModeC8A970 = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0
-        && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 2026) {
+        && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 2026) {
         gSkillSendModeC8A970 = 1;
     }
     gValueD67B00 = gSkillSendModeC8A970;
@@ -698,7 +702,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[selected].level;
+    const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
     gSelectionModeD2D650 = 13;
@@ -780,9 +784,9 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     gCraftRequestValueD30400 = request;
     gCraftRecipeIndexD2D638 = recipe;
     gSelectionModeD2D650 = 0;
-    gCraftRecipeIdD2E440 = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    gCraftRecipeIdD2E440 = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -790,7 +794,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
-    const std::int32_t skillId = world::detail::gSkillsF1BAFC[currentSkill].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[currentSkill].skillId;
     gValueD67AFE = skillReferences;
     WindowCraft_SelectState(skillId);
     return WindowCraft_Create();
@@ -802,8 +806,8 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const s
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -812,7 +816,7 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const s
     gValueD67AFE = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
     gValueD67AFD = references;
-    WindowCraft_SelectState(world::detail::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create();
 }
 
@@ -826,8 +830,8 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     if (kind == 1) {
         gSelectionModeD2D650 = 15;
     }
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -836,7 +840,7 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     gValueD67AFE = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
     gValueD67AFD = references;
-    WindowCraft_SelectState(world::detail::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create();
 }
 
@@ -846,8 +850,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -855,8 +859,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
-    if (world::detail::Sub_51BEC0() != 9) {
-        static_cast<void>(world::detail::Sub_51BE50(9));
+    if (world::Sub_51BEC0() != 9) {
+        static_cast<void>(world::Sub_51BE50(9));
     }
     return WindowCraft_Create();
 }
@@ -867,8 +871,8 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
@@ -876,7 +880,7 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
-    static_cast<void>(world::detail::Sub_51BE50(9));
+    static_cast<void>(world::Sub_51BE50(9));
     return WindowCraft_Create();
 }
 
@@ -974,7 +978,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     if (source < 8 || source >= 100) {
                         return;
                     }
-                    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
+                    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
                     if (item->hasDescription == 0) {
                         return;
                     }
@@ -983,16 +987,16 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                         count = 1;
                     }
                     std::int32_t skill = gCraftSkillIndexCC2368;
-                    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+                    const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                     if (skillId != 215 && skillId != 216) {
                         if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                             for (std::int32_t position = 0; position < 6; ++position) {
                                 const std::int32_t selected = gSelectedSlotsCA0A90[position];
                                 if (selected >= 0) {
                                     const std::int32_t currentId =
-                                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                     const std::int32_t type =
-                                        world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
+                                        world::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                     if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                         return;
                                     }
@@ -1017,7 +1021,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     }
                     const std::int32_t recipeIndex = gCraftRecipeIndexD2D638;
                     const auto* const materials =
-                        world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex].items6C.data();
+                        world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex].items6C.data();
                     std::int32_t material = 0;
                     for (; material < 5; ++material) {
                         const std::int32_t itemId = materials[material].itemId;
@@ -1051,14 +1055,14 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 }
                 if (mode == 6 || mode == 15) {
                     const std::int32_t accepted = mode == 6
-                        ? world::detail::Sub_505040(source) : world::detail::Sub_5050B0(source);
+                        ? world::Sub_505040(source) : world::Sub_5050B0(source);
                     if (accepted == 0) {
                         return;
                     }
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
                         static_cast<void>(WindowCraft_ReleaseMaterials(destination));
                     }
-                    const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[source].itemType;
+                    const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
@@ -1072,7 +1076,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     return;
                 }
                 if (mode == 9) {
-                    if (world::detail::Sub_505110(source) == 0) {
+                    if (world::Sub_505110(source) == 0) {
                         return;
                     }
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
@@ -1084,7 +1088,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     }
                     gMaterialOccupancyCC4894.materialValues[0] = 1;
                     gSelectedSlotsCA0A90[destination] = source - 8;
-                    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
+                    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
                     const std::int32_t itemId = item->itemId;
                     gSelectionImagesCF3FF4[destination] = item->imageNo;
                     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
@@ -1131,7 +1135,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
             if (slot < 0) {
                 continue;
             }
-            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[slot + 8];
             std::int32_t count = item->count;
             if (count == 0) {
                 count = 1;
@@ -1143,11 +1147,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 const std::int32_t recipe = gCraftRecipeIndexD2D638;
                 const std::int32_t itemId = item->itemId;
                 const auto* const requirement =
-                    &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
+                    &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
                 accepted = itemId == requirement->itemId && count >= requirement->count;
             } else {
                 const std::int32_t skillId =
-                    world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                 accepted = skillId != 215 && skillId != 216
                     && WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0;
             }
@@ -1164,13 +1168,13 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 continue;
             }
             const std::int32_t accepted = mode == 6
-                ? world::detail::Sub_505040(slot + 8) : world::detail::Sub_5050B0(slot + 8);
+                ? world::Sub_505040(slot + 8) : world::Sub_5050B0(slot + 8);
             if (accepted == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(position));
                 continue;
             }
             const std::int32_t selected = gSelectedSlotsCA0A90[position];
-            const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
+            const std::int32_t type = world::gPlayerRuntimeSlots.items[selected + 8].itemType;
             const bool special = mode == 6
                 ? type == 38 || type == 25 || type == 39 : type == 80;
             if (special) {
@@ -1188,7 +1192,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     } else if (mode == 9) {
         for (std::int32_t position = 0; position < 6; ++position) {
             const std::int32_t slot = gSelectedSlotsCA0A90[position];
-            if (slot >= 0 && world::detail::Sub_505110(slot + 8) == 0) {
+            if (slot >= 0 && world::Sub_505110(slot + 8) == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(position));
             }
         }
@@ -1279,7 +1283,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
         const std::int32_t skill = gCraftSkillIndexCC2368;
         gMaterialOccupancyCC4894.materialValues[material] = 1;
         const auto* const requirement =
-            &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
+            &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
         if (requirement->itemId < 0) {
             continue;
         }
@@ -1337,7 +1341,7 @@ static void WindowCraft_ReleaseMaterialSlot(
 {
     static_cast<void>(WindowCraft_ReleaseMaterials(destination));
     gSelectedSlotsCA0A90[destination] = source - 8;
-    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
+    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
     const std::int32_t itemId = item->itemId;
     gSelectionImagesCF3FF4[destination] = item->imageNo;
     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
@@ -1351,10 +1355,10 @@ static void WindowCraft_ReleaseMaterialSlot(
 static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, const std::int32_t extraLevel)
 {
     for (std::int32_t index = 0; index < 15; ++index) {
-        const world::detail::SkillPairRecord pair = world::detail::gSkillPairsF63370[index];
+        const world::SkillPairRecord pair = world::gSkillPairsF63370[index];
         const std::int16_t skillIndex = std::bit_cast<std::int16_t>(pair.index);
-        world::detail::SkillRuntimeRecord skill;
-        std::memcpy(&skill, &world::detail::gSkillsF1BAFC[skillIndex], sizeof(skill));
+        world::SkillRuntimeRecord skill;
+        std::memcpy(&skill, &world::gSkillsF1BAFC[skillIndex], sizeof(skill));
         if (skill.skillId != skillId || pair.used == 0) {
             continue;
         }
@@ -1387,7 +1391,7 @@ static std::int32_t WindowCraft_ReadFirstMaterialId()
         const std::int32_t material = gMaterialIndicesCA0458[index];
         if (material == 0 || material == 1 || material == 2) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
-            return world::detail::gPlayerRuntimeSlots.items[slot + 8].itemId;
+            return world::gPlayerRuntimeSlots.items[slot + 8].itemId;
         }
     }
     return -1;
@@ -1399,7 +1403,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
     std::int32_t flags = 0;
     std::int32_t material = 5;
     const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel();
-    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
+    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
     if (item->hasDescription == 0) {
         return;
     }
@@ -1466,7 +1470,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
         if ((flags & 4) != 0) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             const std::int32_t sourceLevel = item->level;
-            if (world::detail::gPlayerRuntimeSlots.items[slot + 8].level != sourceLevel) {
+            if (world::gPlayerRuntimeSlots.items[slot + 8].level != sourceLevel) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(index));
             }
         }
@@ -1550,7 +1554,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     const auto recipeCost = [] {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        const auto* const record = &world::detail::gSkillsF1BAFC[skill];
+        const auto* const record = &world::gSkillsF1BAFC[skill];
         return record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     };
     switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
@@ -1561,7 +1565,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 return 0;
             }
         }
-        enabled = !(world::detail::gPlayerRuntimeSlots.fp < recipeCost());
+        enabled = !(world::gPlayerRuntimeSlots.fp < recipeCost());
         break;
     case 3: {
         const std::int32_t selected = gSelectedItemD460C0;
@@ -1570,18 +1574,18 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text = L"";
             return 0;
         }
-        if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            enabled = !(world::detail::gPlayerRuntimeSlots.fp < 10);
+        if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            enabled = !(world::gPlayerRuntimeSlots.fp < 10);
         } else {
-            enabled = !(world::detail::gPlayerRuntimeSlots.fp <
-                world::detail::gPlayerRuntimeSlots.items[selected].level * 10);
-            const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
+            enabled = !(world::gPlayerRuntimeSlots.fp <
+                world::gPlayerRuntimeSlots.items[selected].level * 10);
+            const std::int32_t level = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
             cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
-        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
         if (skillId == 220) {
-            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
@@ -1589,42 +1593,42 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 enabled = false;
             }
         } else if (skillId == 219 || skillId == 2033) {
-            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             if (item->hasDescription != 0) {
                 enabled = false;
             } else {
                 const std::int32_t level =
-                    world::detail::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
                 if (item->level > level) {
                     enabled = false;
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             if (item->hasDescription == 0) {
                 enabled = false;
             } else if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                 const std::int32_t currentId =
-                    world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                 if (currentId == 217 || currentId == 2031) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
+                           world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
                 const std::int32_t currentId =
-                    world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
+                           world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                 const std::uint8_t crystal = gValue5F9754;
-                const std::int32_t level = world::detail::gSkillsF1BAFC[currentSkill].level;
+                const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = gSelectedItemD460C0;
-                if (world::detail::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
+                if (world::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
                 }
             }
@@ -1637,7 +1641,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             element->visible = 0;
             return 0;
         }
-        enabled = !(world::detail::gPlayerRuntimeSlots.fp < 100);
+        enabled = !(world::gPlayerRuntimeSlots.fp < 100);
         break;
     case 9:
         if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
@@ -1670,19 +1674,19 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         bool insufficient = false;
         switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
         case 0:
-            insufficient = (world::detail::gPlayerRuntimeSlots.fp < recipeCost());
+            insufficient = (world::gPlayerRuntimeSlots.fp < recipeCost());
             break;
         case 3:
-            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-                insufficient = (world::detail::gPlayerRuntimeSlots.fp < 10);
+            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                insufficient = (world::gPlayerRuntimeSlots.fp < 10);
             } else {
-                insufficient = (world::detail::gPlayerRuntimeSlots.fp <
-                world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
+                insufficient = (world::gPlayerRuntimeSlots.fp <
+                world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
             }
             break;
         case 6:
         case 15:
-            insufficient = (world::detail::gPlayerRuntimeSlots.fp < 100);
+            insufficient = (world::gPlayerRuntimeSlots.fp < 100);
             break;
         default:
             break;
@@ -1703,7 +1707,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         && ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-        } else if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
+        } else if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(gCurrentWindow));
             if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                 static_cast<void>(WindowChat_RestoreInput());
@@ -1722,7 +1726,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             };
             bool send = false;
             std::int32_t notice = -1;
-            const auto flags = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
+            const auto flags = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
                 if (input::Sub_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
@@ -1752,7 +1756,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
-                if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
                     buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
                 } else {
                     buffer.clear();
@@ -1852,7 +1856,7 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
     if ((state & 2) != 0) {
         if (gSelectionModeD2D650 == 2) {
             const std::int32_t skillId =
-                world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
             switch (skillId) {
             case 255:
                 static_cast<void>(WindowCraft_InitializeDecoration(window));
@@ -1969,21 +1973,21 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         gHoverTextD68AE8 = L"以滑鼠拖放＆点选方式，来选择物品。";
     }
     if ((events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gCraftBackpackHover57DA24 != hovered) {
         gMaterialHintPageCF4FD8 = 0;
     }
     gCraftBackpackHover57DA24 = hovered;
-    if (hovered >= 0 && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0
+    if (hovered >= 0 && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 11 || WindowDrag_ReadFocusWindowId() == 0) {
             const std::uint8_t mode = gSelectionModeD2D650;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
                 static_cast<void>(WindowDrag_ResetMouse());
                 const auto selectItem = [&] {
-                    auto* const item = &world::detail::gPlayerRuntimeSlots.items[hovered + 8];
+                    auto* const item = &world::gPlayerRuntimeSlots.items[hovered + 8];
                     const auto fail = [] {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     };
@@ -2027,16 +2031,16 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             count = 1;
                         }
                         std::int32_t skill = gCraftSkillIndexCC2368;
-                        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+                        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                         if (skillId != 215 && skillId != 216) {
                             if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                                 for (std::int32_t current = 0; current < 6; ++current) {
                                     const std::int32_t selected = gSelectedSlotsCA0A90[current];
                                     if (selected >= 0) {
                                         const std::int32_t currentId =
-                                            world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                            world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                         const std::int32_t type =
-                                            world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
+                                            world::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                         if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                             fail();
                                             return;
@@ -2049,7 +2053,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             skill = gCraftSkillIndexCC2368;
                         }
                         const std::int32_t recipeIndex = gCraftRecipeIndexD2D638;
-                        const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
+                        const auto* const recipe = &world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
                         for (std::int32_t material = 0; material < 5; ++material) {
                             const auto* const required = &recipe->items6C[material];
                             const std::int32_t itemId = required->itemId;
@@ -2072,7 +2076,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             static_cast<void>(WindowCraft_ReleaseMaterials(6));
                         }
                         const std::int32_t skill = gCraftSkillIndexCC2368;
-                        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+                        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                         if (skillId == 220) {
                             const std::uint16_t flags = item->flags;
                             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -2083,14 +2087,14 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             }
                         } else if (skillId == 219 || skillId == 2033) {
                             if (item->hasDescription != 0) {
-                                world::detail::Sub_44B050(L"不需鉴定的物品", 4, 3);
+                                world::Sub_44B050(L"不需鉴定的物品", 4, 3);
                                 fail();
                                 return;
                             }
                             const std::uint8_t crystal = gValue5F9754;
-                            const std::int32_t level = world::detail::gSkillsF1BAFC[skill].level;
+                            const std::int32_t level = world::gSkillsF1BAFC[skill].level;
                             if (item->level > level + (crystal != 0 ? 1 : 0)) {
-                                world::detail::Sub_44B050(L"不可鉴定的物品", 4, 3);
+                                world::Sub_44B050(L"不可鉴定的物品", 4, 3);
                                 fail();
                                 return;
                             }
@@ -2099,18 +2103,18 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             if (!rejected) {
                                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                                     const std::int32_t currentId =
-                                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                     rejected = currentId == 217 || currentId == 2031;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 1) {
                                     const std::int32_t currentId =
-                                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                     rejected = currentId == 218 || currentId == 2032;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 0) {
                                     rejected = true;
                                 } else {
                                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                                     const std::uint8_t crystal = gValue5F9754;
-                                    const std::int32_t level = world::detail::gSkillsF1BAFC[currentSkill].level;
+                                    const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                                     rejected = item->level > level + (crystal != 0 ? 1 : 0);
                                 }
                             }
@@ -2126,7 +2130,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
                         const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                         const unsigned char previous = hoverMarks[hovered + 8];
-                        const std::int32_t currentId = world::detail::gSkillsF1BAFC[currentSkill].skillId;
+                        const std::int32_t currentId = world::gSkillsF1BAFC[currentSkill].skillId;
                         hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
                         gItemMarksD67290[hovered + 8] = 1;
                         if (currentId == 220) {
@@ -2142,8 +2146,8 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                     case 15: {
                         const std::uint8_t currentMode = gSelectionModeD2D650;
                         const std::int32_t allowed = currentMode == 6
-                            ? world::detail::Sub_505040(hovered + 8)
-                            : world::detail::Sub_5050B0(hovered + 8);
+                            ? world::Sub_505040(hovered + 8)
+                            : world::Sub_5050B0(hovered + 8);
                         if (allowed == 0) {
                             return;
                         }
@@ -2162,7 +2166,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         return;
                     }
                     case 9: {
-                        if (world::detail::Sub_505110(hovered + 8) == 0) {
+                        if (world::Sub_505110(hovered + 8) == 0) {
                             return;
                         }
                         const std::int32_t slot = firstFreeSlot();
@@ -2194,16 +2198,16 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
-                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 gMaterialHintPageCF4FD8 = page;
                 if (page >= pages) {
                     gMaterialHintPageCF4FD8 = 0;
@@ -2233,7 +2237,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
-        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gMaterialHoveredItemD67424 = hovered + 8;
         }
     }
@@ -2242,7 +2246,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     descriptor.color = color;
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const item = &world::detail::gPlayerRuntimeSlots.items[position + 8];
+        const auto* const item = &world::gPlayerRuntimeSlots.items[position + 8];
         if (item->used == 0) {
             continue;
         }
@@ -2404,14 +2408,14 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 static_cast<void>(WindowCraft_ReleaseMaterials(6));
             }
             gSelectedItemD460C0 = source;
-            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[source];
             const std::int32_t itemId = item->itemId;
             gSelectedImageCC3ED8 = item->imageNo;
             gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
             const std::int32_t skill = gCraftSkillIndexCC2368;
             auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
             const unsigned char previous = hover[source];
-            const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+            const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
             hover[source] = static_cast<unsigned char>(previous + 1);
             gItemMarksD67290[source] = 1;
             if (skillId == 220) {
@@ -2427,8 +2431,8 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected >= 0) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
-        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-        const auto* const item = &world::detail::gPlayerRuntimeSlots.items[selected];
+        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+        const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
         if (skillId == 220) {
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -2439,13 +2443,13 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         } else if (skillId == 219 || skillId == 2033) {
             if (item->hasDescription != 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(6));
-                world::detail::Sub_44B050(L"不需鉴定的物品", 4, 3);
+                world::Sub_44B050(L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
-                    world::detail::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
                 if (item->level > level) {
                     static_cast<void>(WindowCraft_ReleaseMaterials(6));
-                    world::detail::Sub_44B050(L"不可鉴定的物品", 4, 3);
+                    world::Sub_44B050(L"不可鉴定的物品", 4, 3);
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
@@ -2454,22 +2458,22 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 // 原分类1/2分支直接结束校验，不落入末尾等级判断。
                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                     const std::int32_t currentId =
-                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (WindowCraft_ClassifyWork(
-                               world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
+                               world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
                     const std::int32_t currentId =
-                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (WindowCraft_ClassifyWork(
-                               world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
+                               world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                     const std::uint8_t crystal = gValue5F9754;
-                    const std::int32_t skillLevel = world::detail::gSkillsF1BAFC[currentSkill].level;
+                    const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = gSelectedItemD460C0;
-                    rejected = world::detail::gPlayerRuntimeSlots.items[slot].level
+                    rejected = world::gPlayerRuntimeSlots.items[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
                 }
             }
@@ -2559,7 +2563,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     gSelectedSlotsCA0A90.fill(-1);
     gSelectionCountsD66E0C.fill(0);
     gSelectionImagesCF3FF4.fill(-1);
-    const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const wchar_t* hint = nullptr;
     switch (skillId) {
     case 220:
@@ -2621,7 +2625,7 @@ static std::int32_t WindowCraft_HasRecipeCrystalLevel()
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t skill = gCraftSkillIndexCC2368;
     const std::int32_t recipe = gCraftRecipeIndexD2D638;
-    return world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
+    return world::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D4F0。
@@ -2632,7 +2636,7 @@ static std::int32_t WindowCraft_HasSelectedCrystalLevel()
     }
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t slot = gSelectedItemD460C0;
-    return world::detail::gPlayerRuntimeSlots.items[slot].level == crystalLevel ? 1 : 0;
+    return world::gPlayerRuntimeSlots.items[slot].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D530。
@@ -2643,11 +2647,11 @@ static std::int32_t WindowCraft_HasMaterialCrystalLevel()
         if (slot < 0) {
             continue;
         }
-        const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[slot + 8].itemType;
+        const std::int32_t type = world::gPlayerRuntimeSlots.items[slot + 8].itemType;
         if (type == 38 || type == 25 || type == 39 || type == 80) {
             const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
             const std::int32_t selected = gSelectedSlotsCA0A90[index];
-            return world::detail::gPlayerRuntimeSlots.items[selected + 8].level == crystalLevel ? 1 : 0;
+            return world::gPlayerRuntimeSlots.items[selected + 8].level == crystalLevel ? 1 : 0;
         }
     }
     return 0;
@@ -2660,7 +2664,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
     if (slot < 0) {
         return 0;
     }
-    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[slot + 8].level;
+    const std::int32_t level = world::gPlayerRuntimeSlots.items[slot + 8].level;
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     return level == crystalLevel ? 1 : 0;
 }
@@ -2702,7 +2706,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
         const std::int32_t expected = gCraftRecipeIdD2E440;
-        const auto* const record = &world::detail::gSkillsF1BAFC[skill];
+        const auto* const record = &world::gSkillsF1BAFC[skill];
         if (expected != record->recipes8E8[recipe].itemId) {
             const std::int32_t skillId = record->skillId;
             if (skillId != 255 && skillId != 606 && skillId != 2026 && skillId != 2025) {
@@ -2742,7 +2746,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         }
         bool engraving = false;
         if (gSelectionModeD2D650 == 3) {
-            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
                 engraving = true;
             } else if (WindowCraft_HasSelectedCrystalLevel() != 0) {
                 matchingCrystal = true;
@@ -2782,7 +2786,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             }
             break;
         case 5:
-            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
                 break;
             }
             [[fallthrough]];
@@ -2842,7 +2846,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     if (gSelectionModeD2D650 == 1 && expired()) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        cg::text::FormatTo(buffer, L"{}", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        cg::text::FormatTo(buffer, L"{}", world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
@@ -2862,7 +2866,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         gSelectionModeD2D650 = 2;
         hideControls = true;
     } else if (gSelectionModeD2D650 == 4 && expired()) {
-        if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+        if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
             buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
         } else {
             buffer.clear();
@@ -2883,7 +2887,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 if (slot < 0) {
                     continue;
                 }
-                const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[slot + 8].itemType;
+                const std::int32_t type = world::gPlayerRuntimeSlots.items[slot + 8].itemType;
                 if (type == 38 || type == 25 || type == 39 || type == 80) {
                     specialSlot = slot + 8;
                 } else {
@@ -2893,7 +2897,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             cg::text::FormatTo(buffer, L"{}|{}", ordinarySlot, specialSlot);
             cg::core::NullSub_509080();
             sendRequest(false, false);
-            const std::wstring& name = world::detail::gPlayerRuntimeSlots.items[ordinarySlot].name;
+            const std::wstring& name = world::gPlayerRuntimeSlots.items[ordinarySlot].name;
             const std::uint8_t currentMode = gSelectionModeD2D650;
             gCraftNameCF46D4 = name;
             if (currentMode == 7) {
@@ -2907,7 +2911,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             std::int32_t selected = -1;
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
-                if (slot >= 0 && world::detail::Sub_505110(slot + 8) != 0) {
+                if (slot >= 0 && world::Sub_505110(slot + 8) != 0) {
                     selected = gSelectedSlotsCA0A90[index] + 8;
                     break;
                 }
@@ -2916,7 +2920,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             cg::core::NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
-            gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected].name;
+            gCraftNameCF46D4 = world::gPlayerRuntimeSlots.items[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
             buffer.clear();
@@ -2928,7 +2932,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                     buffer += temporary;
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
-                        gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected + 8].name;
+                        gCraftNameCF46D4 = world::gPlayerRuntimeSlots.items[selected + 8].name;
                     }
                 }
             }
@@ -2941,7 +2945,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     if (!hideControls) {
         const std::uint8_t mode = gSelectionModeD2D650;
         if (mode == 3) {
-            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
                 static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"刻印的物品";
                 static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"　请选择。";
                 if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DE70) {
@@ -2962,7 +2966,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         gCurrentWindow->elements[25].visible = 0;
         gCurrentWindow->elements[8].visible = 0;
     }
-    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);
@@ -2996,9 +3000,9 @@ static void WindowCraft_Release()
     static_cast<void>(WindowCraft_ReleaseMaterials(6));
     --gValueD67AFE;
     if (gValueD67AFE == 0) {
-        const std::int32_t state = world::detail::Sub_51BEC0();
+        const std::int32_t state = world::Sub_51BEC0();
         if (state >= 9 && state <= 12) {
-            static_cast<void>(world::detail::Sub_51BE50(0));
+            static_cast<void>(world::Sub_51BE50(0));
         }
     }
 }
@@ -3150,10 +3154,10 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
     }
     const std::int32_t skillIndex = gCraftSkillIndexCC2368;
-    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skillIndex].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[skillIndex].skillId;
     const std::wstring name = skillId == 255 || skillId == 2026
         ? gCraftNameCF46D4
-        : cg::text::FromGbkWide(world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data());
+        : cg::text::FromGbkWide(world::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data());
     static_cast<WindowTextData*>(window->elements[9].data)->text = name;
     const std::int32_t result = gCraftResultCC46D8;
     auto* const resultText = static_cast<WindowTextData*>(window->elements[10].data);
@@ -3206,12 +3210,12 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
-            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+            imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -3357,12 +3361,12 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     const std::int32_t entryResult = gItemWorkResultCB05FC;
     const std::int32_t selected = gSelectedItemD460C0;
     gValueD67B00 = 0;
-    if (entryResult != 0 && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
+    if (entryResult != 0 && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
         static_cast<void>(WindowCraft_ReleaseMaterials(6));
     }
-    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[selected];
+    const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
     static_cast<WindowTextData*>(window->elements[9].data)->text = item->name;
-    const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const wchar_t* message = nullptr;
     switch (skillId) {
     case 217:
@@ -3421,7 +3425,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     window->elements[21].visible = 1;
     window->elements[21].mouseCallback = WindowCraft_HandleItemTooltip;
     window->elements[23].visible = 1;
-    if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+    if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
         window->elements[23].visible = 0;
     }
     window->elements[25].visible = 0;
@@ -3433,12 +3437,12 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     cg::yobi::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
-    std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             cg::yobi::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
-            imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+            imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {

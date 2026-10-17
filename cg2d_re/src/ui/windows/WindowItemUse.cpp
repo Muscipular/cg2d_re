@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -142,21 +144,21 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
 // 原函数：0x004E4860。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
-    const char* const ownName = world::detail::GetPlayerDisplayText(1);
+    const char* const ownName = world::GetPlayerDisplayText(1);
     const std::size_t ownNameSize = std::strlen(ownName) + 1;
-    const std::uint32_t ownIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
+    const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
     std::memcpy(gItemUseTargetsCB0EA8[0].name.data(), ownName, ownNameSize);
     std::int32_t count = 1;
     gItemUseTargetCountCC40CC = count;
     gItemUseTargetsCB0EA8[0].kind = 0;
     for (std::int16_t slot = 0; slot < 5; ++slot) {
-        if (world::detail::ReadPetMapFlags(slot) != 0
-            && world::detail::ReadPetMapObjectIndex(slot) != ownIndex) {
-            cg::yobi::YobiAction* const action = world::detail::ReadPetMapAction(slot);
+        if (world::ReadPetMapFlags(slot) != 0
+            && world::ReadPetMapObjectIndex(slot) != ownIndex) {
+            cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
             if (action != nullptr) {
                 std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), cg::yobi::GetYobiName(action));
             }
@@ -199,8 +201,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
@@ -257,27 +259,27 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
 // 原函数：0x004E4020。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
     if (gItemUseTargetsCB0EA8[selected].kind == 0) {
-        const char* const name = world::detail::GetPlayerDisplayText(1);
+        const char* const name = world::GetPlayerDisplayText(1);
         const std::size_t nameSize = std::strlen(name) + 1;
-        const std::int32_t level = world::detail::gPlayerRuntimeSlots.level;
+        const std::int32_t level = world::gPlayerRuntimeSlots.level;
         std::memcpy(gItemUseStatusRecordsCB10D8[0].name.data(), name, nameSize);
-        const std::int32_t injury = world::detail::gPlayerRuntimeSlots.valueF4;
+        const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         gItemUseStatusRecordsCB10D8[0].level = level;
         gItemUseStatusRecordsCB10D8[0].injury = injury;
-        const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
+        const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = hp;
-        const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
+        const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = maxHp;
-        const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
+        const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
         const std::int32_t own = gItemUseStatusCountCC4D44;
         gItemUseStatusRecordsCB10D8[own].fp = fp;
-        const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
+        const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
         gItemUseStatusRecordsCB10D8[own].maxFp = maxFp;
         std::int32_t count = gItemUseStatusCountCC4D44 + 1;
         gItemUseStatusRecordsCB10D8[own].kind = 0;
@@ -285,7 +287,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
         gItemUseStatusCountCC4D44 = count;
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::detail::gPetRuntimeRecords[slot];
+            auto& pet = world::gPetRuntimeRecords[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }

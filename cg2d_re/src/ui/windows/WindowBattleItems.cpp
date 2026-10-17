@@ -1,7 +1,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -130,14 +134,14 @@ static std::int32_t WindowBattleItems_RotatePreview(const std::int32_t, const st
 // 原函数：0x00499B00。
 static std::int32_t WindowBattleItems_RefreshMoney(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00499B20。
 static std::int32_t WindowBattleItems_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::detail::gPlayerRuntimeSlots.value15BCC);
+    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
@@ -156,12 +160,12 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
     std::int32_t remaining = ordinal;
     bool found = false;
     for (std::int32_t position = 0; position < 5; ++position) {
-        const auto& pair = world::detail::gPetPairsDE0B08[position];
+        const auto& pair = world::gPetPairsDE0B08[position];
         if (pair.used == 0) {
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::detail::gPetRuntimeRecords[pet].flags6AA;
+        const std::uint16_t flags = world::gPetRuntimeRecords[pet].flags6AA;
         if (flags == 2 || flags == 1) {
             --remaining;
             if (remaining < 0) {
@@ -216,9 +220,9 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
             gCurrentWindow->state |= 0x8000u;
         }
     }
-    const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     WindowInstance* const window = gCurrentWindow;
-    cg::yobi::YobiAction* const source = world::detail::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const source = world::gBattleEntries59E980[position];
     auto* const data = static_cast<WindowAnimationData*>(window->elements[4].data);
     const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(source);
     cg::yobi::SetYobiActionField2A8(data->action, imageNo);
@@ -229,7 +233,7 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     WindowElement* const elements = gCurrentWindow->elements;
     if (elements[4].visible != 0) {
         const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
-            world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4]);
+            world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
         if (currentImage >= 110350 && currentImage <= 110373) {
             cg::yobi::SetYobiActionField309(
                 static_cast<WindowAnimationData*>(elements[4].data)->action, 4);
@@ -261,7 +265,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     std::int32_t skillIndex = -1;
     std::int32_t usableLevel = -1;
     for (std::int32_t position = 0; position < 15; ++position) {
-        const auto& skill = world::detail::gSkillsF1BAFC[position];
+        const auto& skill = world::gSkillsF1BAFC[position];
         if (skill.skillId != 2002) {
             continue;
         }
@@ -274,7 +278,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         }
         break;
     }
-    const std::int32_t playerLevel = world::detail::gPlayerRuntimeSlots.level;
+    const std::int32_t playerLevel = world::gPlayerRuntimeSlots.level;
     std::int32_t levelLimit = 1;
     while (levelLimit < 15 && playerLevel > levelLimits[levelLimit - 1]) {
         ++levelLimit;
@@ -285,11 +289,11 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     // 原技能+24+94H*等级；等级0是experience，不能改作技术数组[-1]。
     const auto readBombCost = [skillIndex](const std::int32_t level) {
         const auto* const skill = reinterpret_cast<const std::byte*>(
-            &world::detail::gSkillsF1BAFC[skillIndex]);
+            &world::gSkillsF1BAFC[skillIndex]);
         const std::ptrdiff_t offset =
-            static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, experience))
+            static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, experience))
             + static_cast<std::ptrdiff_t>(level)
-                * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillTechniqueRecord));
+                * static_cast<std::ptrdiff_t>(sizeof(world::SkillTechniqueRecord));
         std::int32_t cost;
         std::memcpy(&cost, skill + offset, sizeof(cost));
         return cost;
@@ -302,7 +306,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto& items = world::detail::gPlayerRuntimeSlots.items;
+    auto& items = world::gPlayerRuntimeSlots.items;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
@@ -375,19 +379,19 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (items[3].used == 1 && items[3].itemType != 7) {
                 ++weapons;
             }
-            if (world::detail::Sub_518C60() < weapons) {
-                world::detail::Sub_44B050(noSpace, 4, 3);
+            if (world::Sub_518C60() < weapons) {
+                world::Sub_44B050(noSpace, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (weapons == 0) {
-                world::detail::Sub_44B050(L"没有装备武器！", 4, 3);
+                world::Sub_44B050(L"没有装备武器！", 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 gCurrentWindow->state |= 0x8000u;
-                world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                world::gBattleSelectionModes5ABC7C[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(network::SendBattlePacket_5109B0(
                     platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                world::detail::gBattlePlayerActionState5ABC74 = 1;
+                world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
         }
@@ -422,16 +426,16 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0) {
                 if (item.hasDescription != 0) {
                     if (type == kMedicineType) {
-                        if ((world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0) {
+                        if ((world::gBattlePlayerFlags5ABCAC & 0x40000u) == 0) {
                             hint = canUse;
                         }
                     } else if (type == kBombType) {
                         const std::int32_t level = item.level;
-                        world::detail::gBattleBombLevelD67B2C = level;
+                        world::gBattleBombLevelD67B2C = level;
                         const std::int32_t cost = readBombCost(level);
                         if (usableLevel >= level && items[2].used == 0 && items[3].used == 0
-                            && !(world::detail::gPlayerRuntimeSlots.fp < cost)
-                            && world::detail::gBattleModeFlag5ABFCC != 1) {
+                            && !(world::gPlayerRuntimeSlots.fp < cost)
+                            && world::gBattleModeFlag5ABFCC != 1) {
                             hint = canUse;
                         }
                     } else {
@@ -457,8 +461,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0 && item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
-                    || (world::detail::gPlayerRuntimeSlots.fp < cost)
-                    || world::detail::gBattleModeFlag5ABFCC == 1) {
+                    || (world::gPlayerRuntimeSlots.fp < cost)
+                    || world::gBattleModeFlag5ABFCC == 1) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     useItem = true;
@@ -471,29 +475,29 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         ++occupiedHands;
                     }
                     // 原49A510以未加8的hover索引读取battleUseFlag。
-                    if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
+                    if (occupiedHands == 2 && world::Sub_518C60() == 0
                         && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
-                        world::detail::Sub_44B050(noSpace, 4, 3);
+                        world::Sub_44B050(noSpace, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else if (item.hasDescription == 0) {
-                        world::detail::Sub_44B050(unidentified, 4, 3);
+                        world::Sub_44B050(unidentified, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         gCurrentWindow->state |= 0x8000u;
-                        world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                        world::gBattleSelectionModes5ABC7C[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(network::SendBattlePacket_5109B0(
                             platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                        world::detail::gBattlePlayerActionState5ABC74 = 1;
+                        world::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
                 } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.hasDescription == 0) {
-                    world::detail::Sub_44B050(unidentified, 4, 3);
+                    world::Sub_44B050(unidentified, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.itemType == kMedicineType
-                    && (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) != 0) {
+                    && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     useItem = true;
@@ -501,24 +505,24 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             }
             if (useItem) {
                 gCurrentWindow->state |= 0x8000u;
-                const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+                const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
                 const auto target = static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
                 if (cg::yobi::CheckBattleCommand_43C560(position, target) != 0) {
-                    world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
+                    world::gBattleSelectedItem5ABC48 = hovered + 8;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
-                    world::detail::gBattleItemTargetPending5ABCC4 = 1;
+                    world::gBattleItemTargetPending5ABCC4 = 1;
                     gBattleItemTargetFlagCC4D40 = 1;
                 } else {
-                    const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
-                    world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
+                    const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
+                    world::gBattleSelectedItem5ABC48 = hovered + 8;
                     std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     cg::yobi::FlushBattleEntries_43C060();
-                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -533,8 +537,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 canDrag = usableLevel >= item.level && items[2].used == 0 && items[3].used == 0
-                    && !(world::detail::gPlayerRuntimeSlots.fp < cost)
-                    && world::detail::gBattleModeFlag5ABFCC != 1;
+                    && !(world::gPlayerRuntimeSlots.fp < cost)
+                    && world::gBattleModeFlag5ABFCC != 1;
             } else {
                 canDrag = item.used != 0;
             }
@@ -543,7 +547,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 if (((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0
                         || (type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                     && (item.itemType != kMedicineType
-                        || (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
+                        || (world::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
                     static_cast<void>(WindowItemDrag_Start(hovered + 8, 0));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
@@ -637,8 +641,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             const std::int32_t level = item.level;
             const std::int32_t cost = readBombCost(level);
             if (usableLevel < level || items[2].used != 0 || items[3].used != 0
-                || (world::detail::gPlayerRuntimeSlots.fp < cost)
-                || world::detail::gBattleModeFlag5ABFCC == 1) {
+                || (world::gPlayerRuntimeSlots.fp < cost)
+                || world::gBattleModeFlag5ABFCC == 1) {
                 static_cast<void>(cg::render::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
@@ -651,7 +655,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             }
         }
         if (item.hasDescription == 0 || (item.itemType == kMedicineType
-                && (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
+                && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
             static_cast<void>(cg::render::DrawGraphic(
                 x + 105, y + 93, 223, 22738, 0, nullptr));
         }
@@ -693,7 +697,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    world::detail::PlayerItemRecord* items;
+    world::PlayerItemRecord* items;
     std::int32_t count;
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorD2F338, &items, &count)) {
         return 0;
@@ -703,7 +707,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
-        const std::int32_t slots = world::detail::gPetRuntimeRecords[pet].values6D8[0];
+        const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, -24);
@@ -748,28 +752,28 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     std::array<char, 768> buffer;
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source >= count && world::detail::gPlayerRuntimeSlots.items[source].used == 1) {
-            const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[source].itemType;
+        if (source >= count && world::gPlayerRuntimeSlots.items[source].used == 1) {
+            const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
-                std::int32_t occupiedHands = world::detail::gPlayerRuntimeSlots.items[2].used == 1;
-                if (world::detail::gPlayerRuntimeSlots.items[3].used == 1) {
+                std::int32_t occupiedHands = world::gPlayerRuntimeSlots.items[2].used == 1;
+                if (world::gPlayerRuntimeSlots.items[3].used == 1) {
                     ++occupiedHands;
                 }
-                if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
+                if (occupiedHands == 2 && world::Sub_518C60() == 0
                     && (*reinterpret_cast<const unsigned char*>(
-                        &world::detail::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
-                    world::detail::Sub_44B050(noSpace, 4, 3);
+                        &world::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
+                    world::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
-                } else if (world::detail::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
-                    world::detail::Sub_44B050(L"无法装备未鉴定物品！", 4, 3);
+                } else if (world::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
+                    world::Sub_44B050(L"无法装备未鉴定物品！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     gCurrentWindow->state |= 0x8000u;
-                    world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                    world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
             }
@@ -796,7 +800,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
         gCurrentWindow->state |= 0x2000u;
     }
     if ((events & 2u) != 0 && hovered == -1) {
-        if (world::detail::gReplyRecordF7C950.used != 0) {
+        if (world::gReplyRecordF7C950.used != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowInstance* const window = gCurrentWindow;
             gItemSelectorD2F338.value3FC = 1;
@@ -828,19 +832,19 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 if (items[3].used == 1 && items[3].itemType != 7) {
                     ++weapons;
                 }
-                if (world::detail::Sub_518C60() < weapons) {
-                    world::detail::Sub_44B050(noSpace, 4, 3);
+                if (world::Sub_518C60() < weapons) {
+                    world::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (weapons == 0) {
-                    world::detail::Sub_44B050(L"没有装备武器！", 4, 3);
+                    world::Sub_44B050(L"没有装备武器！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     gCurrentWindow->state |= 0x8000u;
-                    world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                    world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
             }

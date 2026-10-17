@@ -13,7 +13,7 @@
 
 #include "InputKeyDispatchDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
+#include "../world/PlayerState.hpp"
 
 #include <array>
 #include <bit>
@@ -1091,13 +1091,13 @@ void Sub_44AB60()
             history.tail626838 = static_cast<std::uint32_t>(oldIndex);
         } else {
             std::strcpy(history.records[nextIndex], stored.c_str());
-            static_cast<void>(world::detail::Sub_449FA0(
+            static_cast<void>(world::Sub_449FA0(
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
         }
         const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
         world::detail::gCursor62683C = -1;
-        static_cast<void>(world::detail::Sub_50C940(context, color));
+        static_cast<void>(world::Sub_50C940(context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;
         gCurrentInputData->clearText();
@@ -1114,7 +1114,7 @@ void Sub_44AB60()
     if (context == &cg::ui::detail::gInputContextC8B1B8) {
         std::wstring message;
         const std::wstring text = ContextText(cg::ui::detail::gInputContextC8B1B8);
-        const std::wstring playerName = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
+        const std::wstring playerName = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = L"您…如此厌恶自己的声音吗？" /* 原常量参考：0x00554938。 */;
@@ -1128,7 +1128,7 @@ void Sub_44AB60()
         cg::ui::detail::gInputContextC8B1B8.clearText();
         cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
         cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
-        world::detail::Sub_44B050(message, 4, 3);
+        world::Sub_44B050(message, 4, 3);
         SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
     gValue626C0C = 20;

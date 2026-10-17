@@ -1,5 +1,4 @@
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "WorldUpdateDependencies.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/imeImpl.hpp"
@@ -10,6 +9,7 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include <imm.h>
 
@@ -20,9 +20,15 @@
 #include <cstring>
 #include <cstdlib> // 原CRT接口：0x0054ABDD；原参数／返回合同由直接调用承接。
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 std::int32_t gValueD460C8 = 0; // 原全局：0x00D460C8。
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 // 原.data两说明坐标；本体按Y→X独立读取，保持S16和已加载初值。
 std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
 std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。

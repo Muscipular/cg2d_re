@@ -3,6 +3,13 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "WindowRuntimeInternal.hpp"
 #include "../script/LuaUI.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../world/AlbumState.hpp"
+#include "../world/ChatHistory.hpp"
+#include "../world/MailState.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include <cstdio>
@@ -855,8 +862,8 @@ void WindowItemDrag_RemapHover(const std::int32_t first, const std::int32_t seco
     } else if (selected == second) {
         gSelectedItemCB1DF4 = first;
     }
-    if (world::detail::gPlayerRuntimeSlots.items[first].imageNo == 0x67C9
-        || world::detail::gPlayerRuntimeSlots.items[second].imageNo == 0x67C9) {
+    if (world::gPlayerRuntimeSlots.items[first].imageNo == 0x67C9
+        || world::gPlayerRuntimeSlots.items[second].imageNo == 0x67C9) {
         const std::int32_t previous = gSelectedItemCB0A44;
         if (previous == first) {
             gSelectedItemCB0A44 = second;
@@ -920,7 +927,7 @@ std::int32_t WindowItem_ClassifyPetSlot(const std::int32_t slot)
 std::int32_t WindowItem_FindSortedPetIndex(const std::int32_t slot)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
-        if (std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index) == slot) {
+        if (std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index) == slot) {
             return position;
         }
     }
@@ -966,8 +973,8 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply);
 }
@@ -987,14 +994,14 @@ void WindowItem_RequestTransfer(
     }
     std::int32_t count;
     if (source < 100) {
-        count = world::detail::gPlayerRuntimeSlots.items[source].count;
+        count = world::gPlayerRuntimeSlots.items[source].count;
     } else {
         std::memcpy(
             &count, &gItemDetailStorageCC4D58[0].items[source - 100].count, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
-        used = std::bit_cast<std::int16_t>(world::detail::gPlayerRuntimeSlots.items[target].used);
+        used = std::bit_cast<std::int16_t>(world::gPlayerRuntimeSlots.items[target].used);
     } else {
         std::memcpy(
             &used, &gItemDetailStorageCC4D58[0].items[target - 100], sizeof(used));
@@ -1034,8 +1041,8 @@ void WindowItem_RequestPetTransfer(
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
 }
@@ -1043,7 +1050,7 @@ void WindowItem_RequestPetTransfer(
 // 原函数：0x004EA670。
 std::int32_t WindowPet_HasSkill25600(const std::int32_t index)
 {
-    return world::detail::Sub_52E180(index, 25600) != 0 ? 1 : 0;
+    return world::Sub_52E180(index, 25600) != 0 ? 1 : 0;
 }
 
 // 原函数：0x0048D540。
@@ -1056,7 +1063,7 @@ static std::int32_t WindowPet_DrawTooltip(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
-    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[index];
+    world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[index];
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -1137,7 +1144,7 @@ static void WindowPetDrag_Handle(
     }
     const std::int32_t kind = WindowItem_ClassifyPetSlot(sourceIndex);
     if (kind == 1) {
-        if (world::detail::gPetRuntimeRecords[sourceIndex].used == 0) {
+        if (world::gPetRuntimeRecords[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 2) {
@@ -1223,15 +1230,15 @@ static void WindowItemDrag_Handle(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 && gItemDragModeCC4C9C != 0
-            && (world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
-            && world::detail::Sub_440B50() == 0) {
+            && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+            && world::Sub_440B50() == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_510CE0(
                 platform::gConnectionSocket, x, y, group, sourceIndex));
         }
@@ -1239,18 +1246,18 @@ static void WindowItemDrag_Handle(
     }
     const std::int32_t kind = WindowItem_ClassifyItemSlot(sourceIndex);
     if (kind == 1) {
-        const world::detail::PlayerItemRecord* item;
+        const world::PlayerItemRecord* item;
         if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
-            item = &world::detail::gPetRuntimeRecords[
+            item = &world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
-            item = &world::detail::gPlayerRuntimeSlots.items[sourceIndex];
+            item = &world::gPlayerRuntimeSlots.items[sourceIndex];
         }
         if (item->used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 2) {
-        if (world::detail::gPlayerRuntimeSlots.items[sourceIndex].used == 0) {
+        if (world::gPlayerRuntimeSlots.items[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 3) {
@@ -1280,14 +1287,14 @@ static void WindowItemDrag_Handle(
         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
         drawDescriptor = &descriptor;
         if (mode > 0) {
-            imageNo = world::detail::gPetRuntimeRecords[
+            imageNo = world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
         } else {
-            imageNo = world::detail::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
+            imageNo = world::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
         }
     } else if (drawKind == 2) {
         drawDescriptor = &descriptor;
-        imageNo = world::detail::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
+        imageNo = world::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
@@ -1747,7 +1754,7 @@ static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
     state->elements00[16]->visible = 1;
     const std::int32_t itemSlots =
         state->value3ED != 0 && world::IsValidPetIndex_51C410(state->selectedPet70)
-        ? world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0] : 0;
+        ? world::gPetRuntimeRecords[state->selectedPet70].values6D8[0] : 0;
     for (std::int32_t position = itemSlots; position < 6; ++position) {
         state->elements00[9 + position]->visible = 1;
     }
@@ -1782,7 +1789,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(state, 0));
         }
     }
@@ -1805,7 +1812,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
             static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
-                     position < world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
+                     position < world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
                      ++position) {
                     state->elements00[9 + position]->visible = 1;
                 }
@@ -1872,7 +1879,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
     if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(state, 0));
         }
     }
@@ -1905,7 +1912,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
     case 3: {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
             *state->mode68 = 0;
         }
         if (*state->mode68 == 0) {
@@ -1967,7 +1974,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
         return;
     }
     const std::int32_t selected = state->selectedPet70;
-    auto* const pet = &world::detail::gPetRuntimeRecords[selected];
+    auto* const pet = &world::gPetRuntimeRecords[selected];
     if (selected == state->previousPet74 && pet->updated510C == 0) {
         return;
     }
@@ -2031,17 +2038,17 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
         223, cg::render::gValueD69768, 0);
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     std::int32_t slot;
-    world::detail::PlayerItemRecord* item;
+    world::PlayerItemRecord* item;
     if (mode == 0) {
         slot = state->hoverIndex3F8;
-        item = &world::detail::gPlayerRuntimeSlots.items[slot];
+        item = &world::gPlayerRuntimeSlots.items[slot];
     } else {
         if (mode < 0 || state->selectedPet70 < 0) {
             return;
         }
         slot = state->hoverIndex3F8;
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
-        item = &world::detail::gPetRuntimeRecords[pet].items6E4[slot];
+        item = &world::gPetRuntimeRecords[pet].items6E4[slot];
     }
     if (item->used != 0) {
         const auto* const occupancy =
@@ -2092,7 +2099,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
         return selected;
     }
     cg::yobi::YobiAction* const preview = state->preview;
-    const std::int32_t imageNo = world::detail::gPetRuntimeRecords[selected].imageNo6A0;
+    const std::int32_t imageNo = world::gPetRuntimeRecords[selected].imageNo6A0;
     cg::yobi::SetYobiActionField2A8(preview, imageNo);
     const std::int32_t result = cg::yobi::Sub_517880(preview, 100, 0, 0);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(preview);
@@ -2123,10 +2130,10 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
         if (matched >= ordinal) {
             break;
         }
-        const auto& pair = world::detail::gPetPairsDE0B08[position];
+        const auto& pair = world::gPetPairsDE0B08[position];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-            const std::uint16_t flags = world::detail::gPetRuntimeRecords[index].flags6AA;
+            const std::uint16_t flags = world::gPetRuntimeRecords[index].flags6AA;
             if (flags == 2 || flags == 1) {
                 ++matched;
             }
@@ -2134,7 +2141,7 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
     }
     --position;
     return position < 0 ? -1
-        : std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+        : std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
 }
 
 // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
@@ -2270,13 +2277,13 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
             }
             const std::int32_t selected = state->selectedPet70;
             std::int32_t position = 0;
-            std::int32_t itemSlots = world::detail::gPetRuntimeRecords[selected].values6D8[0];
+            std::int32_t itemSlots = world::gPetRuntimeRecords[selected].values6D8[0];
             while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
                 state->elements00[9 + position]->visible = visible;
                 const std::int32_t nextSelected = state->selectedPet70;
                 ++position;
-                itemSlots = world::detail::gPetRuntimeRecords[nextSelected].values6D8[0];
+                itemSlots = world::gPetRuntimeRecords[nextSelected].values6D8[0];
             }
         }
         consumed = true;
@@ -2356,18 +2363,18 @@ std::int32_t WindowItemSelector_ReadScreenY(
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
 bool WindowItemSelector_GetItemList_4C72C0(
-    const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,
+    const WindowItemSelectorState* const state, world::PlayerItemRecord** const items,
     std::int32_t* const count)
 {
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     if (mode == 0) {
-        *items = world::detail::gPlayerRuntimeSlots.items.data();
+        *items = world::gPlayerRuntimeSlots.items.data();
         *count = 8;
         return true;
     }
     if (mode > 0 && world::IsValidPetIndex_51C410(state->selectedPet70)) {
-        *items = world::detail::gPetRuntimeRecords[state->selectedPet70].items6E4.data();
-        *count = world::detail::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
+        *items = world::gPetRuntimeRecords[state->selectedPet70].items6E4.data();
+        *count = world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
         return true;
     }
     return false;
@@ -2378,7 +2385,7 @@ bool WindowItemSelector_GetItemList_4C72C0(
 bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const selector, const std::int32_t state)
 {
     if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0
-        || selector->value3FC == 0 || world::detail::gReplyRecordF7C950.used == 0) {
+        || selector->value3FC == 0 || world::gReplyRecordF7C950.used == 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         WindowElement* const element = selector->elements00[1];
         const WindowElementCallback callback = selector->callbacks50[2];
@@ -2476,12 +2483,12 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(textColor)), text, 0, 0));
     };
     const std::int32_t length =
-        static_cast<std::int32_t>(std::strlen(world::detail::gReplyRecordF7C950.text04.data()));
+        static_cast<std::int32_t>(std::strlen(world::gReplyRecordF7C950.text04.data()));
     if (length > 0) {
         drawText(100 - (12 * length) / 2 / 2, 9, 0,
-            cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text04.data()), TextCoordinateOrder::Title);
+            cg::text::FromGbkWide(world::gReplyRecordF7C950.text04.data()), TextCoordinateOrder::Title);
     }
-    if (world::detail::gReplyRecordF7C950.value48 == 1) {
+    if (world::gReplyRecordF7C950.value48 == 1) {
         drawText(64, 28, 0, L"(有特殊称号)",
             TextCoordinateOrder::WindowBeforeElements);
     }
@@ -2493,7 +2500,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         if (lines >= 14) {
             break;
         }
-        const std::int32_t value = world::detail::gReplyRecordF7C950.values4C[attribute.index];
+        const std::int32_t value = world::gReplyRecordF7C950.values4C[attribute.index];
         if (value == 0) {
             continue;
         }
@@ -2509,8 +2516,8 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         y += 16;
         ++lines;
     }
-    if (world::detail::gReplyRecordF7C950.hasText24 != 0) {
-        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text25.data()).c_str());
+    if (world::gReplyRecordF7C950.hasText24 != 0) {
+        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", cg::text::FromGbkWide(world::gReplyRecordF7C950.text25.data()).c_str());
         drawText(28, 188, 0, buffer, TextCoordinateOrder::WindowBeforeElements);
         drawText(28, 204, 0, L"力消耗",
             TextCoordinateOrder::WindowBeforeElements);
@@ -2536,13 +2543,13 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
     const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
     gTooltipSourceD303FC = index;
     const bool petEquipment = mode > 0 && index < 6;
-    const world::detail::PlayerItemRecord* record;
+    const world::PlayerItemRecord* record;
     if (petEquipment) {
         const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
         const std::int32_t itemIndex = gTooltipSourceD303FC;
-        record = &world::detail::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
+        record = &world::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {
-        record = &world::detail::gPlayerRuntimeSlots.items[index];
+        record = &world::gPlayerRuntimeSlots.items[index];
     }
     const std::uint16_t flags = record->flags;
     const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;
@@ -2726,7 +2733,7 @@ static std::int32_t WindowRuntime_ApplySettings()
     gValueCF4690 = valueCF4690;
     gChatHeightUnitsC9A938 = height;
     const std::int32_t valueCA0440 = gWindowSavedDataD40B30.records[4].value08;
-    world::detail::gActorBarsEnabled5AC490 = actorBars == 1 ? 1u : 0u;
+    world::gActorBarsEnabled5AC490 = actorBars == 1 ? 1u : 0u;
     const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
     gValueCA0440 = valueCA0440;
     const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
@@ -2802,7 +2809,7 @@ static std::uint32_t WindowRuntime_CaptureSettings()
     gWindowSavedDataD40B30.records[24].value08 = valueCF4AAC;
     const std::int32_t mode = gChatWindowModeD66E04;
     gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
-    const std::uint32_t actorBars = world::detail::gActorBarsEnabled5AC490;
+    const std::uint32_t actorBars = world::gActorBarsEnabled5AC490;
     gWindowSavedDataD40B30.records[35].value0C = height;
     const std::uint32_t marker33 = gWindowStates[WindowId_MiniMap].marker50;
     gWindowSavedDataD40B30.records[35].value10 = mode;
@@ -3019,7 +3026,7 @@ static void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
 
 static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
 {
-    world::detail::Sub_4FA8E0(action);
+    world::Sub_4FA8E0(action);
     static_cast<void>(WindowEmote_Select(selected));
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -3120,51 +3127,51 @@ static void WindowRuntime_ProcessShortcuts()
         }
         if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_472F40());
+            static_cast<void>(world::Sub_472F40());
         }
         if ((platform::gKeyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_472F70());
+            static_cast<void>(world::Sub_472F70());
         }
         if ((platform::gKeyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_472FA0());
+            static_cast<void>(world::Sub_472FA0());
         }
         if ((platform::gKeyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_472FD0());
+            static_cast<void>(world::Sub_472FD0());
         }
         if ((platform::gKeyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_473000());
+            static_cast<void>(world::Sub_473000());
         }
         if ((platform::gKeyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::detail::Sub_473030());
+            static_cast<void>(world::Sub_473030());
         }
 
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
         if (world::gCurrentSceneType != 10) {
             if ((platform::gKeyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
-                world::detail::Sub_470050();
+                world::Sub_470050();
             }
             if ((platform::gKeyStates[modeOne ? 0x4B : 0x56] & 4u) != 0) {
-                world::detail::Sub_470150();
+                world::Sub_470150();
             }
             if (!modeOne && (platform::gKeyStates[0x48] & 4u) != 0) {
                 WindowRuntime_PlayShortcutEmote(9, 13);
             }
             if ((platform::gKeyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
-                world::detail::Sub_470270();
+                world::Sub_470270();
             }
             if ((platform::gKeyStates[modeOne ? 0xBA : 0xDB] & 4u) != 0) {
-                world::detail::Sub_4703C0();
+                world::Sub_4703C0();
             }
             if ((platform::gKeyStates[modeOne ? 0xDE : 0xDD] & 4u) != 0) {
-                world::detail::Sub_4704A0();
+                world::Sub_4704A0();
             }
             if ((platform::gKeyStates[modeOne ? 0xDD : 0x4D] & 4u) != 0) {
-                world::detail::Sub_470670();
+                world::Sub_470670();
             }
             for (const ShortcutEmoteBinding& binding : kShortcutEmotes) {
                 const std::uint8_t key = modeOne ? binding.keyMode1 : binding.keyMode0;
@@ -3188,8 +3195,8 @@ static void WindowRuntime_ProcessShortcuts()
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x7A] & 4u) != 0) {
-            world::detail::gActorBarsEnabled5AC490 =
-                world::detail::gActorBarsEnabled5AC490 != 1 ? 1u : 0u;
+            world::gActorBarsEnabled5AC490 =
+                world::gActorBarsEnabled5AC490 != 1 ? 1u : 0u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
@@ -3223,7 +3230,7 @@ static void WindowRuntime_ProcessShortcuts()
             if (pastLastRange) {
                 platform::gValue554640 = 1;
             }
-            world::detail::gValue626BFC = 180;
+            world::gValue626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
@@ -3233,12 +3240,12 @@ static void WindowRuntime_ProcessShortcuts()
             if (belowFirstRange) {
                 platform::gValue554640 = 5;
             }
-            world::detail::gValue626BFC = 180;
+            world::gValue626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
             const std::int32_t previous = gChatScrollOffsetC9A940;
-            const std::int32_t count = world::detail::gCountC9A944;
+            const std::int32_t count = world::gCountC9A944;
             const std::int32_t scroll = previous + 1;
             const bool pastChatCount = scroll > count;
             gChatScrollOffsetC9A940 = scroll;
@@ -3600,8 +3607,8 @@ void WindowRuntime_DecrementOperationCount()
     if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
@@ -4264,10 +4271,10 @@ static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
 {
     std::int32_t count = 0;
     for (std::size_t position = 0; position < 10; ++position) {
-        const auto& pair = world::detail::gSkillPairsF63370[position];
+        const auto& pair = world::gSkillPairsF63370[position];
         if (pair.used != 0) {
             const std::int16_t index = std::bit_cast<std::int16_t>(pair.index);
-            const auto& skill = world::detail::gSkillsF1BAFC[index];
+            const auto& skill = world::gSkillsF1BAFC[index];
             std::int16_t requiredSlots;
             std::memcpy(&requiredSlots, skill.requiredSlots19.data(), sizeof(requiredSlots));
             count += requiredSlots;
@@ -4313,8 +4320,8 @@ std::int32_t WindowRuntime_Update()
         }
     };
     std::int32_t carried = 1;
-    world::detail::gValueC8A77C = 0;
-    world::detail::gValueC8A780 = 0;
+    world::gValueC8A77C = 0;
+    world::gValueC8A780 = 0;
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
     script::PrepareLuaWindowFrame();
@@ -4397,7 +4404,7 @@ std::int32_t WindowRuntime_Update()
     gCurrentWindowIdD67A1C = 0;
     if (phase == 1
         && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
-        world::detail::gValueC8A780 = 1;
+        world::gValueC8A780 = 1;
         *reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
@@ -4411,9 +4418,9 @@ std::int32_t WindowRuntime_Update()
 std::int32_t WindowRuntime_Render()
 {
     using namespace detail;
-    if (gValue5F9754 != 0 && world::detail::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+    if (gValue5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
@@ -4825,9 +4832,9 @@ std::int32_t WindowRuntime_CloseAll()
         return 0;
     }
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;
@@ -4849,7 +4856,7 @@ void WindowRuntime_ProcessScene()
         WindowRuntime_MarkExistingWindows();
         static_cast<void>(WindowRuntime_CloseAll());
         static_cast<void>(WindowRuntime_SaveSettings());
-        world::detail::Sub_5186A0();
+        world::Sub_5186A0();
         static_cast<void>(cg::world::detail::Sub_519300());
         static_cast<void>(cg::world::detail::Sub_519550());
         static_cast<void>(world::detail::Sub_534770());
@@ -5089,7 +5096,7 @@ void WindowRuntime_DrawCurrent()
         window = gCurrentWindow;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    world::detail::Sub_476680();
+    world::Sub_476680();
 }
 
 // 原代码位置：0x00440ADB。

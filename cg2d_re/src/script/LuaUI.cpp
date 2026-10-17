@@ -2,6 +2,8 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "../world/ChatHistory.hpp"
+#include "../world/WorldMapState.hpp"
 #include <filesystem>
 #include <ranges>
 #include <unordered_map>
@@ -46,15 +48,15 @@ static void LuaClearDragMoveOwner(const LuaWindow* window) {
 
 
 static int ResolveLuaMapX(int mapX) {
-    return mapX >= 0 ? mapX : world::detail::gPlayerX.value();
+    return mapX >= 0 ? mapX : world::gPlayerX.value();
 }
 
 static int ResolveLuaMapY(int mapY) {
-    return mapY >= 0 ? mapY : world::detail::gPlayerY.value();
+    return mapY >= 0 ? mapY : world::gPlayerY.value();
 }
 
 static int ResolveLuaMapId(int mapId) {
-    return mapId >= 0 ? mapId : world::detail::gValue9A86DC;
+    return mapId >= 0 ? mapId : world::gValue9A86DC;
 }
 
 static int ResolveLuaFloor(int floor) {
@@ -154,7 +156,7 @@ static void CliSendMsg(const char* msg, MsgOption option) {
     std::string value = option.sender && option.sender[0] ? std::string(option.sender) + ": " + msg : msg;
     std::size_t end = 0;
     while (end < value.size()) { const auto next = end + (static_cast<unsigned char>(value[end]) & 0x80 ? 2 : 1); if (next > 290 || next > value.size()) break; end = next; }
-    world::detail::Sub_44B050(text::FromGbkWide(std::string_view(value).substr(0, end)).c_str(), option.color, option.font);
+    world::Sub_44B050(text::FromGbkWide(std::string_view(value).substr(0, end)).c_str(), option.color, option.font);
 }
 
 int LuaPeekMouseWheelDelta() {

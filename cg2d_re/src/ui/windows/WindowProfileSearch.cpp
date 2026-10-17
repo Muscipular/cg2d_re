@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -219,7 +221,7 @@ static std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 // 原函数：0x004CAB60。
 static void WindowProfileSearch_Release()
 {
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
 }
@@ -281,10 +283,10 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
     const std::int32_t group = search.value00;
     const std::wstring combined = std::to_wstring(group) + L"|" + std::to_wstring(entry) + L"|" + keyword;
     const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, commands[position], packet));
     return 1;
@@ -307,10 +309,10 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
         const std::int32_t key = record.value104;
         const std::wstring combined = std::to_wstring(key) + L"|" + cg::text::FromGbkWide(record.text04.data());
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;

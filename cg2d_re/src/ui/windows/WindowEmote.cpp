@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -129,9 +131,9 @@ std::int32_t WindowEmote_Select(const std::int32_t index)
     WindowEmote_ClearSelection();
     gEmoteSelectionCF4FC4[index] = 1;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     return WindowProfile_SaveOrigin(x, y);
 }
 
@@ -162,7 +164,7 @@ static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std:
         gHoverTextD68AE8 = kEmoteHints5871B0[index];
     }
     if ((state & 2) != 0) {
-        world::detail::Sub_4FA8E0(kEmoteButtonActions[index]);
+        world::Sub_4FA8E0(kEmoteButtonActions[index]);
         static_cast<void>(WindowEmote_Select(index));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;

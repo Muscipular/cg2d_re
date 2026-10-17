@@ -2,7 +2,6 @@
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "GraphicDxCacheState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/platform/LegacyMouse.hpp"
@@ -13,6 +12,9 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/WorldMapState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -49,10 +51,10 @@ void RebuildRenderer_466B80()
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(ResetGraphicCache_456D30());
-        static_cast<void>(world::detail::Sub_46BD40());
-        world::detail::Sub_46CF60(0);
+        static_cast<void>(world::Sub_46BD40());
+        world::Sub_46CF60(0);
         static_cast<void>(cg::render::DrawGraphic(
-            320, 240, 200, world::detail::gBattleBackgroundImage59F9F8, 0, nullptr));
+            320, 240, 200, world::gBattleBackgroundImage59F9F8, 0, nullptr));
         SortTextures_520790();
         static_cast<void>(ClearSurface_4512C0());
         gRenderQueueMode103CF10 = 0;
@@ -64,7 +66,7 @@ void RebuildRenderer_466B80()
         static_cast<void>(ResetGraphicCache_456D30());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
     } else if (sceneType == 9) {
-        static_cast<void>(world::detail::Sub_51D640());
+        static_cast<void>(world::Sub_51D640());
     }
 
     auto* palette = GetRendererPalette(gRenderer);

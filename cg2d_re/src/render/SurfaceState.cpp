@@ -8,7 +8,7 @@
 #include "BackTextDrawing.hpp"
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
+#include "../world/WorldMapState.hpp"
 
 #include <SDL3/SDL_surface.h>
 
@@ -273,7 +273,7 @@ std::int32_t DrawMapEffects32_452840()
     if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
         return surfaceBusy;
     }
-    if (world::detail::gActiveMapEffectHead == nullptr) { return 0; }
+    if (world::gActiveMapEffectHead == nullptr) { return 0; }
     if (!SynchronizeBackToCpu()) { return failure; }
     if (!SDL_LockSurface(back)) {
         return failure;
@@ -281,7 +281,7 @@ std::int32_t DrawMapEffects32_452840()
 
     const std::int32_t pitch = back->pitch >> 2;
     auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
-    const world::detail::MapEffectRecord* record = world::detail::gActiveMapEffectHead;
+    const world::MapEffectRecord* record = world::gActiveMapEffectHead;
     while (record != nullptr) {
         const std::int32_t x = record->x;
         if (x >= 0 && x < 636) {

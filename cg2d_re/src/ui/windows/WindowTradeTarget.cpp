@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -127,9 +128,9 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     return WindowRuntime_CreateAnimation(WindowId_TradeTarget, 1, 0, nullptr);
 }

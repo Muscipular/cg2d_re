@@ -10,7 +10,6 @@
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/imeImpl.hpp"
 #include "../ui/UiControlRecord.hpp"
-#include "WorldUpdateDependencies.hpp"
 
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -23,6 +22,15 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "AlbumState.hpp"
+#include "BattleState.hpp"
+#include "ChatHistory.hpp"
+#include "MailState.hpp"
+#include "PlayerState.hpp"
+#include "WorldMapState.hpp"
+#include "WorldObjectState.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include <bit>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
@@ -57,10 +65,10 @@ void Update()
             login::ProcessOuterScene_45C2D0();
             break;
         case 3:
-            detail::Sub_45F190();
+            Sub_45F190();
             break;
         case 4:
-            detail::Sub_464840();
+            Sub_464840();
             break;
         default:
             break;
@@ -107,7 +115,7 @@ void Update()
         detail::Sub_4D3170();
         detail::Sub_455BD0();
         detail::Sub_46E2A0();
-        detail::Sub_46BD40();
+        Sub_46BD40();
         gValue5ABFC4 = 0;
         gValue9A6E0C = 0;
         detail::Sub_504A30();

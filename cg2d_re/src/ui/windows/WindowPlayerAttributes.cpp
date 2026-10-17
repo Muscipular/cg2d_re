@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -207,12 +209,12 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::array<std::int32_t, 6> values;
-    values[1] = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
-    values[2] = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
-    values[3] = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
-    values[4] = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
-    values[5] = world::detail::gValueD2F788;
-    values[0] = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
+    values[1] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
+    values[2] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
+    values[3] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
+    values[4] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
+    values[5] = world::gValueD2F788;
+    values[0] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
     std::int32_t total = 0;
     for (const std::int32_t value : values) {
         total += value;
@@ -299,7 +301,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
 static void WindowPlayerAttributes_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::detail::GetPlayerDisplayText(1);
+    const char* const name = world::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
@@ -309,45 +311,45 @@ static void WindowPlayerAttributes_Refresh()
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
         text->text = buffer;
     };
-    writeNumber(1, world::detail::gPlayerRuntimeSlots.level, L"{:3}");
-    writeNumber(2, world::detail::gValueD2F788, L"{:5}");
+    writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");
+    writeNumber(2, world::gValueD2F788, L"{:5}");
     for (std::int32_t index = 0; index < 5; ++index) {
-        writeNumber(index + 3, world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index + 3, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
     for (std::int32_t index = 8; index < 11; ++index) {
-        writeNumber(index, world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
-    writeNumber(11, world::detail::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(0)], L"{:5}");
+    writeNumber(11, world::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(0)], L"{:5}");
     for (std::int32_t index = 11; index < 14; ++index) {
-        writeNumber(index + 1, world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index + 1, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
-    writeNumber(15, world::detail::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(1)], L"{:5}");
+    writeNumber(15, world::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(1)], L"{:5}");
     for (std::int32_t index = 0; index < 6; ++index) {
-        writeNumber(index + 16, world::detail::gPlayerRuntimeSlots.valuesBC[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 16, world::gPlayerRuntimeSlots.valuesBC[static_cast<std::int32_t>(index)], L"{:4}");
     }
     for (std::int32_t index = 0; index < 4; ++index) {
-        writeNumber(index + 22, world::detail::gPlayerRuntimeSlots.valuesD4[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 22, world::gPlayerRuntimeSlots.valuesD4[static_cast<std::int32_t>(index)], L"{:4}");
     }
     for (std::int32_t index = 5; index < 8; ++index) {
-        writeNumber(index + 21, world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 21, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:4}");
     }
 
-    const std::int32_t remainingPoints = world::detail::gValueD2F788;
+    const std::int32_t remainingPoints = world::gValueD2F788;
     if (remainingPoints > 0) {
-        const std::int32_t quick = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
-        std::int32_t total = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
-        const std::int32_t toughness = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
+        const std::int32_t quick = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
+        std::int32_t total = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
+        const std::int32_t toughness = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
         total += quick;
-        const std::int32_t strength = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
+        const std::int32_t strength = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
         total += toughness;
         total += strength;
-        const std::int32_t vitality = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
+        const std::int32_t vitality = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
         total += vitality;
         total += remainingPoints;
         const std::int32_t limit = total / 2;
         gCurrentWindow->elements[29].visible = vitality < limit ? 1 : 0;
         for (std::int32_t index = 1; index < 5; ++index) {
-            const std::int32_t value = world::detail::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)];
+            const std::int32_t value = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)];
             gCurrentWindow->elements[29 + index].visible = value < limit ? 1 : 0;
         }
     } else {

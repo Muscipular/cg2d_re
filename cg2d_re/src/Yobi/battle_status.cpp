@@ -1,7 +1,6 @@
 #include "battle_status.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/render/RendererResources.hpp"
@@ -10,6 +9,8 @@
 #include "battle_attachment.hpp"
 #include "battle_display.hpp"
 #include "battle_effect.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
 
 #include <array>
 #include <bit>
@@ -782,10 +783,10 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
 // 原函数：0x00411CB0。
 void UpdateBattleAction166_411CB0(YobiAction* const action)
 {
-    const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
+    const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
     auto* const payload = action->payload.battleActor;
     if (payload->battlePosition18 == playerPosition) {
-        world::detail::ConsumeBattlePlayerTimer(payload->queuedTargets1084[payload->value13A4]);
+        world::ConsumeBattlePlayerTimer(payload->queuedTargets1084[payload->value13A4]);
     }
     const std::int32_t index = payload->value13A4;
     const std::int32_t y = action->y;
@@ -1007,7 +1008,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
         const std::int32_t index = payload->effectRunningC9C;
         if ((payload->effects1C[index].flags & 0x10000000u) != 0) {
             static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                world::detail::gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
+                world::gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
         } else {
             const std::int32_t displayType = payload->value1034;
             if (displayType >= 0) {
@@ -1076,7 +1077,7 @@ void UpdateBattleAction205_4127B0(YobiAction* const action)
 void UpdateBattleAction206_4127F0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
-    YobiAction* const target = world::detail::gBattleAllEntries59E980[
+    YobiAction* const target = world::gBattleAllEntries59E980[
         payload->effects1C[payload->effectRunningC9C].position];
     TurnBattleToward_406190(action, target, 1, 0.0F);
     AdvanceBattleCastState_439340(action);

@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -72,9 +73,9 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         }
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
-            const auto pet = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-            if (world::detail::gPetRuntimeRecords[pet].used != 0
-                && world::detail::Sub_52E1D0(pet) == 1) {
+            const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
+            if (world::gPetRuntimeRecords[pet].used != 0
+                && world::Sub_52E1D0(pet) == 1) {
                 ++gLoginWindowRuntime.choicesCC4CA0.value00;
             }
         }
@@ -98,11 +99,11 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        const auto pet = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-        if (world::detail::gPetRuntimeRecords[pet].used == 0) {
+        const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
+        if (world::gPetRuntimeRecords[pet].used == 0) {
             continue;
         }
-        const std::int32_t available = world::detail::Sub_52E1D0(pet);
+        const std::int32_t available = world::Sub_52E1D0(pet);
         if (available == 1) {
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = pet;
@@ -120,7 +121,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
     }
     const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
-    if (world::detail::gPetRuntimeRecords[pet].used == 0) {
+    if (world::gPetRuntimeRecords[pet].used == 0) {
         gCurrentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet());
@@ -142,7 +143,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     }
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source >= 8 && (static_cast<std::uint8_t>(world::detail::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
+        if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
             const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
             if (previous != -1) {
@@ -197,7 +198,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
 // 原函数：0x004A6D30。
 static std::int32_t WindowPetMailCompose_HasGiftPet(const std::int32_t index)
 {
-    return world::detail::gPetRuntimeRecords[index].flags6AA == 3 ? 1 : 0;
+    return world::gPetRuntimeRecords[index].flags6AA == 3 ? 1 : 0;
 }
 
 // 原函数：0x004A6D50。
@@ -206,7 +207,7 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
     if (WindowCraft_ReadItemSelection() == 0) {
         return 0;
     }
-    return world::detail::gPetRuntimeRecords[index].flags6AA == 2 ? 1 : 0;
+    return world::gPetRuntimeRecords[index].flags6AA == 2 ? 1 : 0;
 }
 
 // 原函数：0x004A6450。
@@ -342,7 +343,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     }
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
-    const auto& pet = world::detail::gPetRuntimeRecords[namePet];
+    const auto& pet = world::gPetRuntimeRecords[namePet];
     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     nameData->text = cg::text::FromGbkWide(name);
@@ -360,13 +361,13 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     gCurrentWindow->elements[4].visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t image = world::detail::gPlayerRuntimeSlots.items[imageSlot].imageNo;
+        const std::int32_t image = world::gPlayerRuntimeSlots.items[imageSlot].imageNo;
         const WindowInstance* const graphicWindow = gCurrentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t count = world::detail::gPlayerRuntimeSlots.items[countSlot].count;
+        const std::int32_t count = world::gPlayerRuntimeSlots.items[countSlot].count;
         if (count > 0) {
             std::wstring buffer;
             cg::text::FormatTo(buffer, L"{:3}", count);

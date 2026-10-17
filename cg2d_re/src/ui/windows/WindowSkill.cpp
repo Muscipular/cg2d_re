@@ -1,5 +1,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -355,10 +361,10 @@ void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::in
 // 原函数：0x00479820。
 static std::int32_t WindowSkill_FindSpecialSkill()
 {
-    for (const auto& pair : world::detail::gSkillPairsF63370) {
+    for (const auto& pair : world::gSkillPairsF63370) {
         if (pair.used != 0) {
             const auto index = std::bit_cast<std::int16_t>(pair.index);
-            if (world::detail::gSkillsF1BAFC[index].skillId == 1009) {
+            if (world::gSkillsF1BAFC[index].skillId == 1009) {
                 return 1;
             }
         }
@@ -369,7 +375,7 @@ static std::int32_t WindowSkill_FindSpecialSkill()
 // 原函数：0x00479860。
 std::int32_t WindowSkill_ReadCrystalLevel()
 {
-    const auto& item = world::detail::gPlayerRuntimeSlots.items[7];
+    const auto& item = world::gPlayerRuntimeSlots.items[7];
     if (item.used == 0) {
         return 0;
     }
@@ -386,7 +392,7 @@ std::int32_t WindowSkill_ReadCrystalLevel()
 // 原函数：0x00479920。
 static std::int32_t WindowSkill_ReadCrystalElement()
 {
-    const auto& item = world::detail::gPlayerRuntimeSlots.items[7];
+    const auto& item = world::gPlayerRuntimeSlots.items[7];
     if (item.used == 0) {
         return 0;
     }
@@ -403,14 +409,14 @@ static std::int32_t WindowSkill_ReadCrystalElement()
 // 原函数：0x004799D0。
 std::int32_t WindowSkill_ReadBattlePetImage()
 {
-    const std::int32_t index = world::detail::Sub_43C4B0();
-    return index < 0 ? 0 : world::detail::gPetRuntimeRecords[index].imageNo6A0;
+    const std::int32_t index = world::Sub_43C4B0();
+    return index < 0 ? 0 : world::gPetRuntimeRecords[index].imageNo6A0;
 }
 
 // 原函数：0x00479A00。
 static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 {
-    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+    const auto& pet = world::gPetRuntimeRecords[petIndex];
     const std::int32_t count = pet.value6A4;
     for (std::int32_t index = 0; index < count; ++index) {
         const auto slot = std::bit_cast<std::int16_t>(pet.techniquePairs650[index].index);
@@ -428,7 +434,7 @@ static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 // 原函数：0x00479A70。
 static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
-    const std::int32_t level = world::detail::gPetRuntimeRecords[petIndex].value08;
+    const std::int32_t level = world::gPetRuntimeRecords[petIndex].value08;
     const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
     if (level < range[0]) {
         return 0;
@@ -439,7 +445,7 @@ static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const
 // 原函数：0x00479AB0。
 std::int32_t WindowSkill_CheckPetFp()
 {
-    const std::int32_t index = world::detail::Sub_43C4B0();
+    const std::int32_t index = world::Sub_43C4B0();
     if (index < 0) {
         return 0;
     }
@@ -448,7 +454,7 @@ std::int32_t WindowSkill_CheckPetFp()
         return 0;
     }
     const std::int32_t required = kPetCrystalFp54F340[level - 1];
-    return (world::detail::gPetRuntimeRecords[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
+    return (world::gPetRuntimeRecords[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
 }
 
 // 原函数：0x00479B00。
@@ -461,12 +467,12 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
     if (level < 1) {
         return 0;
     }
-    const std::int32_t index = world::detail::Sub_43C4B0();
+    const std::int32_t index = world::Sub_43C4B0();
     if (index < 0 || WindowSkill_FindPetTechnique(index) == 0) {
         return 0;
     }
     const std::int32_t attribute = WindowSkill_ReadCrystalElement();
-    if (world::detail::gPetRuntimeRecords[index].values70[21 + attribute] < 50) {
+    if (world::gPetRuntimeRecords[index].values70[21 + attribute] < 50) {
         return 0;
     }
     return WindowSkill_CheckPetLevel(index, level) != 0 ? 1 : 0;
@@ -478,7 +484,7 @@ static std::int32_t WindowSkill_MatchesCrystalLevel()
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t skill = gUsingSkillIndexD2F32C;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
-    return world::detail::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
+    return world::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x004872E0。
@@ -490,8 +496,8 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
         const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
-        if (skillCount == 0 && world::detail::Sub_51BEC0() == 13) {
-            static_cast<void>(world::detail::Sub_51BE50(0));
+        if (skillCount == 0 && world::Sub_51BEC0() == 13) {
+            static_cast<void>(world::Sub_51BE50(0));
         }
         return 1;
     }
@@ -565,8 +571,8 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets()
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t selected = gSkillSelectedTargetCC4B1C;
     const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
@@ -574,19 +580,19 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
     if (kind == 0) {
         std::int32_t count = 0;
         if (gSkillTargetKindCF4A10 != 1) {
-            const char* const name = world::detail::GetPlayerDisplayText(1);
+            const char* const name = world::GetPlayerDisplayText(1);
             const std::size_t size = std::strlen(name) + 1;
-            gSkillStatusLevelsCC31C0[0] = world::detail::gPlayerRuntimeSlots.level;
+            gSkillStatusLevelsCC31C0[0] = world::gPlayerRuntimeSlots.level;
             std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
-            gSkillStatusInjuriesD67600[0] = world::detail::gPlayerRuntimeSlots.valueF4;
-            const std::int32_t hp = world::detail::gPlayerRuntimeSlots.hp.value();
+            gSkillStatusInjuriesD67600[0] = world::gPlayerRuntimeSlots.valueF4;
+            const std::int32_t hp = world::gPlayerRuntimeSlots.hp.value();
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
-            const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();
+            const std::int32_t maxHp = world::gPlayerRuntimeSlots.maxHp.value();
             gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
-            const std::int32_t fp = world::detail::gPlayerRuntimeSlots.fp.value();
+            const std::int32_t fp = world::gPlayerRuntimeSlots.fp.value();
             const std::int32_t output = gSkillStatusCountC8AA94;
             gSkillStatusFpCC2348[output] = fp;
-            const std::int32_t maxFp = world::detail::gPlayerRuntimeSlots.maxFp.value();
+            const std::int32_t maxFp = world::gPlayerRuntimeSlots.maxFp.value();
             count = gSkillStatusCountC8AA94 + 1;
             gSkillStatusMaxFpD2EA80[output] = maxFp;
             gSkillStatusKindsCA0A78[output] = 0;
@@ -595,7 +601,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
         }
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::detail::gPetRuntimeRecords[slot];
+            auto& pet = world::gPetRuntimeRecords[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
@@ -684,11 +690,11 @@ static void WindowSkill_DrawSkillRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    if (world::detail::gSkillPairsF63370[pairIndex].used == 0) {
+    if (world::gSkillPairsF63370[pairIndex].used == 0) {
         return;
     }
-    const auto skillIndex = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pairIndex].index);
-    const auto* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
+    const auto skillIndex = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+    const auto* const skill = &world::gSkillsF1BAFC[skillIndex];
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
@@ -745,7 +751,7 @@ static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
 static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gSkillWindowScrollD2D648 + index - 17;
-    if (world::detail::gSkillPairsF63370[pairIndex].used == 0) {
+    if (world::gSkillPairsF63370[pairIndex].used == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -757,13 +763,13 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
     }
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source != pairIndex && world::detail::gValueDA3B20 == 0) {
+        if (source != pairIndex && world::gValueDA3B20 == 0) {
             const std::int32_t targetSkill =
-                std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+                std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
             const std::int32_t sourceSkill =
-                std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[source].index);
+                std::bit_cast<std::int16_t>(world::gSkillPairsF63370[source].index);
             static_cast<void>(network::Sub_512470(platform::gConnectionSocket, sourceSkill, targetSkill));
-            world::detail::gValueDA3B20 = 1;
+            world::gValueDA3B20 = 1;
         }
         WindowDrag_Reset();
     }
@@ -803,7 +809,7 @@ static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::i
 {
     std::int32_t row = 0;
     while (row < 15
-        && std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[row].index) != skillIndex) {
+        && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
         ++row;
     }
     if (row >= 15) {
@@ -829,7 +835,7 @@ static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::i
     window->elements[3].visible = 1;
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 15; ++index) {
-        if (world::detail::gSkillPairsF63370[index].used != 0) {
+        if (world::gSkillPairsF63370[index].used != 0) {
             ++count;
         }
     }
@@ -859,7 +865,7 @@ static void WindowSkill_HandleTechniqueRow(
     if (battle) {
         technique -= 100;
     }
-    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     if (record->techniques3C[technique].name[0] == '\0') {
         return;
     }
@@ -868,8 +874,8 @@ static void WindowSkill_HandleTechniqueRow(
         nameColor = 7;
     } else if (battle) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-        cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+        cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
         if (cg::yobi::IsYobiActionFpLessThan(action, cost)) {
             nameColor = 6;
         }
@@ -878,16 +884,16 @@ static void WindowSkill_HandleTechniqueRow(
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const char* const name =
-        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
+        world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(name).c_str(), 0, 0));
     std::wstring buffer;
     const std::int32_t level =
-        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
+        world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
     cg::text::FormatTo(buffer, L"{:2}", level);
     WindowNumber_Draw(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
@@ -898,7 +904,7 @@ static void WindowSkill_HandleTechniqueRow(
             static_cast<std::int16_t>(x + 189), static_cast<std::int16_t>(y + 3),
             static_cast<std::uint8_t>(textLayer), 12, nameColor, kWindow12Unknown554590, 0, 0));
     }
-    const std::int32_t currentKind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
+    const std::int32_t currentKind = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
     static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
@@ -913,23 +919,23 @@ static void WindowSkill_HandleRecipeRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    if (world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe].itemId < 0) {
+    if (world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe].itemId < 0) {
         return;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const auto* const row = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe];
+    const auto* const row = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe];
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(row->name.data()).c_str(), 0, 0));
-    const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", cost);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
+    const std::int32_t kind = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
     static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
@@ -942,7 +948,7 @@ static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::
     gSkillWindowScrollD2D648 = 0;
     if (pairIndex >= 0) {
         gSkillWindowIndexD2EA60 = std::bit_cast<std::int16_t>(
-            world::detail::gSkillPairsF63370[pairIndex].index);
+            world::gSkillPairsF63370[pairIndex].index);
     }
     const std::int32_t oldMaximum = gSkillWindowMaximumCA000C;
     static_cast<void>(WindowScroll_SetPosition(&window->elements[11], oldMaximum, 0));
@@ -955,7 +961,7 @@ static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::
     window->elements[9].visible = 1;
     window->elements[6].visible = 0;
     const auto* const techniques =
-        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C.data();
+        world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C.data();
     std::int32_t count = 0;
     while (count < 15 && techniques[count].name[0] != '\0') {
         ++count;
@@ -993,7 +999,7 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
 {
     std::int32_t row = 0;
     while (row < 15
-        && std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[row].index) != skillIndex) {
+        && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
         ++row;
     }
     if (row >= 15) {
@@ -1018,9 +1024,9 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA24;
     std::int32_t end = 0;
     for (std::int32_t index = 0; index < 15; ++index) {
-        if (world::detail::gSkillPairsF63370[index].used != 0) {
-            const auto skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
-            const std::int32_t kind = world::detail::gSkillsF1BAFC[skill].canRebirth;
+        if (world::gSkillPairsF63370[index].used != 0) {
+            const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
+            const std::int32_t kind = world::gSkillsF1BAFC[skill].canRebirth;
             if (kind == 0 || kind == 5) {
                 gBattleSkillRowsD3FABC[end++] = static_cast<std::int8_t>(index);
             }
@@ -1033,7 +1039,7 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
     const std::int8_t countGate = gBattleSkillRowsD3FABC[end];
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 15; ++index) {
-        if (countGate >= 0 && world::detail::ReadSkillPairUsed(gBattleSkillRowsD3FABC[index]) != 0) {
+        if (countGate >= 0 && world::ReadSkillPairUsed(gBattleSkillRowsD3FABC[index]) != 0) {
             ++count;
         }
     }
@@ -1055,7 +1061,7 @@ static void WindowSkill_ShowBattleTechniques(
     if (directSkill != 0) {
         gSkillWindowIndexD2EA60 = index;
     } else if (index >= 0) {
-        gSkillWindowIndexD2EA60 = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
+        gSkillWindowIndexD2EA60 = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
     }
     const std::int32_t oldMaximum = gSkillWindowMaximumCA000C;
     static_cast<void>(WindowScroll_SetPosition(&window->elements[11], oldMaximum, 0));
@@ -1067,12 +1073,12 @@ static void WindowSkill_ShowBattleTechniques(
     window->elements[5].visible = 1;
     window->elements[9].visible = 1;
     std::int32_t selectedSkill = gSkillWindowIndexD2EA60;
-    if (world::detail::gSkillsF1BAFC[selectedSkill].canRebirth != 0) {
+    if (world::gSkillsF1BAFC[selectedSkill].canRebirth != 0) {
         window->elements[6].visible = 1;
         selectedSkill = gSkillWindowIndexD2EA60;
     }
     const auto* const techniques =
-        world::detail::gSkillsF1BAFC[selectedSkill].techniques3C.data();
+        world::gSkillsF1BAFC[selectedSkill].techniques3C.data();
     std::int32_t count = 0;
     while (count < 15 && techniques[count].name[0] != '\0') {
         ++count;
@@ -1096,7 +1102,7 @@ static void WindowSkill_ShowBattleTechniques(
 static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gBattleSkillRowsD3FABC[gSkillWindowScrollD2D648 + index - 17];
-    if (pairIndex < 0 || world::detail::gSkillPairsF63370[pairIndex].used == 0) {
+    if (pairIndex < 0 || world::gSkillPairsF63370[pairIndex].used == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -1104,25 +1110,25 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
     const bool clicked = (state & 2) != 0;
     if (clicked) {
         const std::int32_t skillIndex =
-            std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pairIndex].index);
-        const std::uint32_t flags = world::detail::gBattleSkillFlags5ABC04;
+            std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+        const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
         const std::uint32_t mask = 1u << (static_cast<std::uint32_t>(skillIndex) & 31u);
         if ((flags & mask) != 0) {
             WindowSkill_ShowBattleTechniques(gCurrentWindow, pairIndex, 0);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         } else {
-            if (world::detail::gSkillsF1BAFC[skillIndex].skillId == 72
-                && world::detail::Sub_518C60() == 0) {
-                world::detail::Sub_44B050(L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
+            if (world::gSkillsF1BAFC[skillIndex].skillId == 72
+                && world::Sub_518C60() == 0) {
+                world::Sub_44B050(L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    const std::uint32_t flags = world::detail::gBattleSkillFlags5ABC04;
+    const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
     if ((state & 1) != 0) {
         const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
-            &world::detail::gSkillPairsF63370[pairIndex].index);
+            &world::gSkillPairsF63370[pairIndex].index);
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
@@ -1135,7 +1141,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
     const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
-        &world::detail::gSkillPairsF63370[pairIndex].index);
+        &world::gSkillPairsF63370[pairIndex].index);
     const std::int32_t enabled = (flags & (1u << (skillIndex & 31u))) != 0 ? 1 : 0;
     // 原47C6DA..47C6E6依次读取元素Y/X、窗口Y/X低W16；共享坐标仍为W32。
     std::uint16_t elementY;
@@ -1158,7 +1164,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
 static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
-    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     if (record->techniques3C[technique].name[0] == '\0') {
         return 0;
     }
@@ -1169,8 +1175,8 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
     std::int8_t visualState = 0;
     bool allowed = record->techniques3C[technique].value8C != 0;
     if (allowed) {
-        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-        allowed = cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost);
+        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+        allowed = cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost);
     }
     const bool clicked = (state & 2) != 0;
     if (clicked) {
@@ -1187,20 +1193,20 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & 1u) != 0) {
-        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
         const wchar_t* hint = L"由于能力不足，无法使用此技能。" /* 原常量参考：0x00586588。 */;
         if (record->techniques3C[technique].value8C != 0) {
-            const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-            hint = cg::yobi::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
+            const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+            hint = cg::yobi::IsYobiActionFpLessThan(world::gBattleEntries59E980[position], cost)
                 ? L"由于魔力不足，无法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
         }
         gHoverTextD68AE8 = hint;
     }
-    if (clicked && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value8C != 0) {
-        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)) {
+    if (clicked && world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value8C != 0) {
+        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)) {
             visualState = 1;
         }
     }
@@ -1268,26 +1274,26 @@ static void WindowSkill_DrawPetSkillRow(
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
-    const std::int32_t petIndex = world::detail::Sub_43C4B0();
-    const std::int32_t pairPetIndex = world::detail::Sub_43C4B0();
+    const std::int32_t petIndex = world::Sub_43C4B0();
+    const std::int32_t pairPetIndex = world::Sub_43C4B0();
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
+        world::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
-        world::detail::gBattleCurrentPosition5ABCA4);
-    cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+    const std::int32_t position = world::GetBattlePetPosition_405B40(
+        world::gBattleCurrentPosition5ABCA4);
+    cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
     const std::int32_t cost = record->fp;
     std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
-    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
     }
@@ -1307,24 +1313,24 @@ static void WindowSkill_DrawRidingSkillRow(
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
-    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     render::GraphicDescriptor16 descriptor {};
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
+        world::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
     descriptor.color = color;
-    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     const std::int32_t cost = record->fp;
-    cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
     std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
-    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
     }
@@ -1342,30 +1348,30 @@ static void WindowSkill_DrawRidingSkillRow(
 static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = index - 17;
-    std::int32_t pairPet = world::detail::Sub_43C4B0();
+    std::int32_t pairPet = world::Sub_43C4B0();
     auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-    const std::int32_t namePet = world::detail::Sub_43C4B0();
-    if (world::detail::gPetRuntimeRecords[namePet].techniquesD8[technique].name[0] == '\0') {
+        world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
+    const std::int32_t namePet = world::Sub_43C4B0();
+    if (world::gPetRuntimeRecords[namePet].techniquesD8[technique].name[0] == '\0') {
         return 0;
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
-        pairPet = world::detail::Sub_43C4B0();
+        pairPet = world::Sub_43C4B0();
         technique = std::bit_cast<std::int16_t>(
-            world::detail::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-        const std::int32_t costPet = world::detail::Sub_43C4B0();
-        const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t cost = world::detail::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
-        const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+            world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
+        const std::int32_t costPet = world::Sub_43C4B0();
+        const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t cost = world::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
+        const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
-                const std::int32_t pet = world::detail::Sub_43C4B0();
+                const std::int32_t pet = world::Sub_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::detail::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
+                    world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
                 gPetSkillSelectionCallbackCC4D14(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -1406,26 +1412,26 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
 // 原函数：0x0047CFE0。
 static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::int32_t state)
 {
-    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
-    const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+        world::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
+    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return 0;
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    if ((world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
-        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    if ((world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
+        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = record->fp;
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
             if (callback != nullptr) {
-                const auto pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+                const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::detail::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
+                    world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
                 callback(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -1476,11 +1482,11 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    const std::int32_t petIndex = world::detail::Sub_43C4B0();
+    const std::int32_t petIndex = world::Sub_43C4B0();
     if (petIndex < 0) {
         return;
     }
-    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
     const char* name = pet->name6BD.data();
     if (name[0] == '\0') {
         name = pet->name6AC.data();
@@ -1492,9 +1498,9 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
-            const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
-                world::detail::gBattleCurrentPosition5ABCA4);
-            cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+            const std::int32_t position = world::GetBattlePetPosition_405B40(
+                world::gBattleCurrentPosition5ABCA4);
+            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
@@ -1523,25 +1529,25 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     if (petIndex < 0) {
         return;
     }
-    const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     const WindowElement* const elements = window->elements;
-    cg::yobi::YobiAction* const displayAction = world::detail::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const displayAction = world::gBattleEntries59E980[position];
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
     const char* const name = cg::yobi::GetYobiName(displayAction);
     textData->text = cg::text::FromGbkWide(name);
-    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
     std::int32_t count = pet->value6A4;
     while (index < count) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
-            const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
-            cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[currentPosition];
+            const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
+            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[currentPosition];
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
@@ -1655,13 +1661,13 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     WindowElement* const elements = initialWindow->elements;
-    const std::uint8_t actionFlags = world::detail::ReadPlayerActionFlagsByte();
+    const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte();
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     if ((actionFlags & 0x80u) != 0
-        || world::detail::Sub_440B50() != 0
-        || world::detail::gPlayerRuntimeSlots.value08 == 0
-        || world::detail::gPlayerRuntimeSlots.timerRemaining0C <= 0
-        || world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth == 0) {
+        || world::Sub_440B50() != 0
+        || world::gPlayerRuntimeSlots.value08 == 0
+        || world::gPlayerRuntimeSlots.timerRemaining0C <= 0
+        || world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth == 0) {
         gCurrentWindow->elements[index].visible = 0;
         return 0;
     }
@@ -1677,8 +1683,8 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
@@ -1708,15 +1714,15 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
     std::int32_t petIndex;
     std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
     if (mode == 5) {
-        petIndex = world::detail::Sub_43C4B0();
-        position = world::detail::GetBattlePetPosition_405B40(world::detail::gBattleCurrentPosition5ABCA4);
+        petIndex = world::Sub_43C4B0();
+        position = world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4);
     } else if (mode == 6) {
-        position = world::detail::gBattleCurrentPosition5ABCA4;
-        petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+        position = world::gBattleCurrentPosition5ABCA4;
+        petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     } else {
         petIndex = state;
     }
-    const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
     std::int32_t count = 0;
     std::int32_t unavailable = 0;
     std::int32_t row = 0;
@@ -1726,9 +1732,9 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
             const std::int32_t cost = record->fp;
-            cg::yobi::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
             if (cg::yobi::IsCostGreaterThanYobiActionFp(cost, action)
-                || (world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
+                || (world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
                 ++unavailable;
             }
             ++count;
@@ -1795,7 +1801,7 @@ static std::int32_t WindowSkill_Update(const std::int32_t value)
     const std::int32_t mode = gSkillWindowModeD672AC;
     gSkillWindowHoverD2F744 = -1;
     if ((mode == 1 || mode == 2 || mode == 4)
-        && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].name[0] == '\0') {
+        && world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].name[0] == '\0') {
         if (mode == 2) {
             WindowRuntime_DecrementGatherOperationCount();
             --gValueD67AFD;
@@ -1855,7 +1861,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         if (mode == 0) {
             std::int32_t count = 0;
             for (std::int32_t index = 0; index < 15; ++index) {
-                if (world::detail::gSkillPairsF63370[index].used != 0) {
+                if (world::gSkillPairsF63370[index].used != 0) {
                     ++count;
                 }
             }
@@ -1867,12 +1873,12 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::detail::GetPlayerJobName());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::GetPlayerJobName());
         std::int32_t usedSlots = 0;
         for (std::int32_t index = 0; index < 15; ++index) {
-            if (world::detail::gSkillPairsF63370[index].used != 0) {
-                const auto skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
-                const auto* const record = &world::detail::gSkillsF1BAFC[skill];
+            if (world::gSkillPairsF63370[index].used != 0) {
+                const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
+                const auto* const record = &world::gSkillsF1BAFC[skill];
                 if (mode == 3) {
                     const std::int32_t kind = record->canRebirth;
                     if (kind != 0 && kind != 5) {
@@ -1882,14 +1888,14 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 usedSlots += std::bit_cast<std::int8_t>(record->requiredSlots19[0]);
             }
         }
-        const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
+        const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", usedSlots, totalSlots);
         static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = buffer;
         break;
     }
     case 1:
     case 4: {
-        const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (mode == 1) {
             std::int32_t count = 0;
             while (count < 15 && record->techniques3C[count].name[0] != '\0') {
@@ -1904,7 +1910,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             }
         }
         static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(record->name.data());
-        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
             const std::int32_t experience = record->experience;
@@ -1913,7 +1919,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             cg::text::FormatTo(buffer, L"{:4}/ -- ", record->experience);
         }
         static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = buffer;
-        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", level, maximum);
@@ -1922,13 +1928,13 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             for (std::int32_t line = 0; line < 4; ++line) {
                 const std::int32_t hover = gSkillWindowHoverD2F744;
                 const std::int32_t skill = gSkillWindowIndexD2EA60;
-                drawDescription(world::detail::gSkillsF1BAFC[skill].techniques3C[hover].description.data(), line, 26);
+                drawDescription(world::gSkillsF1BAFC[skill].techniques3C[hover].description.data(), line, 26);
             }
         }
         break;
     }
     case 2: {
-        const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         std::int32_t count = 0;
         while (record->recipes8E8[count].itemId >= 0) {
             ++count;
@@ -1942,7 +1948,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         }
         const std::int32_t levelIndex = gSkillRecipeLevelC8B1B4;
         static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(record->techniques3C[levelIndex].name.data());
-        const std::int32_t level = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
+        const std::int32_t level = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
         cg::text::FormatTo(buffer, L"{:5}", level);
         static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
         for (std::int32_t line = 0; line < 2; ++line) {
@@ -1950,11 +1956,11 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             const std::int32_t hover = gSkillWindowHoverD2F744;
             // 原47ABC0无悬停门禁；hover=-1读取技能记录+7E5，保留跨字段别名。
             const std::ptrdiff_t descriptionOffset =
-                static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, recipes8E8))
+                static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, recipes8E8))
                 + static_cast<std::ptrdiff_t>(hover)
-                    * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillRecipeRecord))
-                + static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRecipeRecord, description));
-            const char* const description = reinterpret_cast<const char*>(&world::detail::gSkillsF1BAFC[skill])
+                    * static_cast<std::ptrdiff_t>(sizeof(world::SkillRecipeRecord))
+                + static_cast<std::ptrdiff_t>(offsetof(world::SkillRecipeRecord, description));
+            const char* const description = reinterpret_cast<const char*>(&world::gSkillsF1BAFC[skill])
                 + descriptionOffset;
             drawDescription(description, line, 28);
         }
@@ -1962,31 +1968,31 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
     }
     case 5:
     case 6: {
-        std::int32_t maximumPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
         if (mode == 5) {
-            maximumPosition = world::detail::GetBattlePetPosition_405B40(maximumPosition);
+            maximumPosition = world::GetBattlePetPosition_405B40(maximumPosition);
         }
         const std::int32_t maximum =
-            cg::yobi::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maximumPosition]);
-        std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
+            cg::yobi::ReadYobiActionMaxFpOnce(world::gBattleEntries59E980[maximumPosition]);
+        std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
         if (mode == 5) {
-            currentPosition = world::detail::GetBattlePetPosition_405B40(currentPosition);
+            currentPosition = world::GetBattlePetPosition_405B40(currentPosition);
         }
         const std::int32_t current =
-            cg::yobi::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
+            cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[currentPosition]);
         cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text, L"{:4}/{:4}", current, maximum);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
                 std::int32_t pet;
                 std::int32_t hover;
                 if (mode == 5) {
-                    pet = world::detail::Sub_43C4B0();
+                    pet = world::Sub_43C4B0();
                     hover = gSkillWindowHoverD2F744;
                 } else {
                     hover = gSkillWindowHoverD2F744;
-                    pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+                    pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 }
-                drawDescription(world::detail::gPetRuntimeRecords[pet].techniquesD8[hover].description.data(), line, 26);
+                drawDescription(world::gPetRuntimeRecords[pet].techniquesD8[hover].description.data(), line, 26);
             }
         }
         break;
@@ -2142,7 +2148,7 @@ static void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int
     window->elements[2].visible = 1;
     window->elements[4].visible = 1;
     window->elements[9].visible = 1;
-    const auto* const recipes = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8.data();
+    const auto* const recipes = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8.data();
     std::int32_t count = 0;
     while (recipes[count].itemId >= 0) {
         ++count;
@@ -2161,7 +2167,7 @@ static void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int
 static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
-    const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::uint8_t rebirthMode = gValue5F9754;
     if ((record->rebirthState4C48 != 0) != (rebirthMode != 0)
         || record->recipes8E8[recipe].itemId < 0) {
@@ -2170,11 +2176,11 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
     std::int8_t visualState = 0;
     const bool clicked = (state & 2) != 0;
     if (clicked) {
-        bool allowed = (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
-            && world::detail::Sub_440B50() == 0;
+        bool allowed = (world::ReadPlayerActionFlags() & 0x80u) == 0
+            && world::Sub_440B50() == 0;
         if (allowed) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
-            allowed = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
+            allowed = world::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
             if (allowed) {
                 bool create;
                 if (gWindowStates[WindowId_Craft].window != nullptr) {
@@ -2217,7 +2223,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
 static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
-    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     if (record->techniques3C[technique].name[0] == '\0') {
         return 0;
     }
@@ -2227,7 +2233,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
         gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-            if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
+            if ((world::gPlayerRuntimeSlots.fp < cost)) {
                 gHoverTextD68AE8 = kWindow12NoFp5864F0;
             }
         }
@@ -2235,21 +2241,21 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
         gSkillWindowHoverD2F744 = technique;
     }
     if ((state & 2) != 0) {
-        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (record->techniques3C[technique].value8C == 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             // 可用技术所有分支最终还播放SE51，包括动作门禁与部分FP失败。
             const auto activate = [&] {
                 const auto actionBlocked = [] {
-                    return (world::detail::ReadPlayerActionFlags() & 0x80u) != 0
-                        || world::detail::Sub_440B50() != 0;
+                    return (world::ReadPlayerActionFlags() & 0x80u) != 0
+                        || world::Sub_440B50() != 0;
                 };
                 const auto insufficientFp = [&] {
-                    const auto* const current = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+                    const auto* const current = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
                     const std::int32_t cost =
                         current->techniques3C[technique].value7C * current->fpReduce / 100;
-                    return (world::detail::gPlayerRuntimeSlots.fp < cost);
+                    return (world::gPlayerRuntimeSlots.fp < cost);
                 };
                 const auto fail = [] {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2261,12 +2267,12 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         return;
                     }
                     if (insufficientFp()) {
-                        world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                        world::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                         fail();
                         return;
                     }
-                    if (world::detail::Sub_518C60() <= 0) {
-                        world::detail::Sub_44B050(L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
+                    if (world::Sub_518C60() <= 0) {
+                        world::Sub_44B050(L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;
                     }
@@ -2330,7 +2336,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     const std::uint8_t previous = gValueD67AFD;
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
                     gValueD67AFD = static_cast<std::uint8_t>(previous + 1);
-                    const std::int32_t rebirth = world::detail::gSkillsF1BAFC[skill].rebirthState4C48;
+                    const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
                     const bool enabled = gValue5F9754 != 0;
                     if ((rebirth != 0) != enabled) {
                         static_cast<void>(network::Sub_510F50(
@@ -2344,9 +2350,9 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         fail();
                         return;
                     }
-                    if (cg::yobi::ReadMapActorAttachment44(world::detail::gPlayerRuntimeSlots.action) == nullptr
+                    if (cg::yobi::ReadMapActorAttachment44(world::gPlayerRuntimeSlots.action) == nullptr
                         && insufficientFp()) {
-                        world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                        world::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                         fail();
                         return;
                     }
@@ -2382,7 +2388,7 @@ void WindowSkill_SyncStates()
         return;
     }
     const std::int32_t index = gSkillWindowIndexD2EA60;
-    const std::int32_t rebirth = world::detail::gSkillsF1BAFC[index].rebirthState4C48;
+    const std::int32_t rebirth = world::gSkillsF1BAFC[index].rebirthState4C48;
     const bool enabled = gValue5F9754 != 0;
     if ((rebirth != 0) != enabled) {
         static_cast<void>(network::Sub_510F50(
@@ -2399,8 +2405,8 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
         const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
-        if (skillCount == 0 && world::detail::Sub_51BEC0() == 13) {
-            static_cast<void>(world::detail::Sub_51BE50(0));
+        if (skillCount == 0 && world::Sub_51BEC0() == 13) {
+            static_cast<void>(world::Sub_51BE50(0));
         }
         return 1;
     }
@@ -2452,13 +2458,13 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     }
     const std::int32_t skillIndex = gUsingSkillIndexD2F32C;
     ++gValueD67AFE;
-    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::detail::gSkillsF1BAFC[skillIndex].skillId);
+    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
-        if (world::detail::Sub_51BEC0() != 13) {
-            static_cast<void>(world::detail::Sub_51BE50(13));
+        if (world::Sub_51BEC0() != 13) {
+            static_cast<void>(world::Sub_51BE50(13));
         }
     } else {
-        static_cast<void>(world::detail::Sub_51BE50(0));
+        static_cast<void>(world::Sub_51BE50(0));
     }
     WindowRuntime_IncrementOperationCount();
     ++gValueD67AFD;
@@ -2478,10 +2484,10 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
 // 原函数：0x004F0200。
 static void WindowSkill_ReceiveTextTargets(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::detail::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
+    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;
     gSkillTargetCountCA0004 = 0;
     gSkillTargetPageC8A974 = 0;
@@ -2491,7 +2497,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     }
     std::int32_t count = 0;
     if (kind != 0) {
-        const char* const name = world::detail::GetPlayerDisplayText(1);
+        const char* const name = world::GetPlayerDisplayText(1);
         const std::size_t size = std::strlen(name) + 1;
         count = 1;
         gSkillTargetKindsD2F75C[0] = 0;
@@ -2499,14 +2505,14 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         std::memcpy(gSkillTargetNamesCB0550[0].data(), name, size);
     }
     for (std::int16_t slot = 0; slot < 5; ++slot) {
-        if (world::detail::ReadPetMapFlags(slot) == 0) {
+        if (world::ReadPetMapFlags(slot) == 0) {
             continue;
         }
-        const std::uint32_t ownIndex = world::detail::gPlayerRuntimeSlots.objectIndex;
-        if (world::detail::ReadPetMapObjectIndex(slot) == ownIndex) {
+        const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
+        if (world::ReadPetMapObjectIndex(slot) == ownIndex) {
             continue;
         }
-        cg::yobi::YobiAction* const action = world::detail::ReadPetMapAction(slot);
+        cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
         if (action != nullptr) {
             std::strcpy(gSkillTargetNamesCB0550[count].data(), cg::yobi::GetYobiName(action));
         }
@@ -2540,7 +2546,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets());
     } else if (gSkillTargetKindCF4A10 == 0) {
-        world::detail::Sub_44B050(L"没有可变装的角色！", 4, 3);
+        world::Sub_44B050(L"没有可变装的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
 }

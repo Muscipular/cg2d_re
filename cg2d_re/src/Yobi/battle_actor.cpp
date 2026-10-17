@@ -2,7 +2,6 @@
 #include "base.hpp"
 #include "battle_base.hpp"
 #include "battle_skill_effect.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -13,6 +12,9 @@
 #include "battle_effect.hpp"
 #include "battle_ride.hpp"
 #include "battle_status.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/AlbumState.hpp"
+#include "../world/BattleState.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -25,7 +27,7 @@ namespace detail {
 // 原[423800,4238EA)：固定角色记录，名称及四项属性均短路匹配。
 std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
 {
-    const world::detail::AlbumRecord* record = world::detail::GetSelectedAlbumRecords();
+    const world::AlbumRecord* record = world::GetSelectedAlbumRecords();
     for (std::int32_t index = 0; index < 960; ++index, ++record) {
         if (record->used == 0) {
             continue;
@@ -66,14 +68,14 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     action->value54 = 3.0F;
     action->direction = 1;
     action->displayPriority = 9;
-    const std::int32_t firstPointIndex = gBattlePointIndices5536FC[position];
+    const std::int32_t firstPointIndex = cg::world::gBattlePointIndices5536FC[position];
     auto* const payload = action->payload.battleActor;
-    action->offset40 = static_cast<float>(gBattleGraphicPoints553758[firstPointIndex][0]);
-    action->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1]);
-    payload->x00 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][2];
-    payload->y04 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][3];
-    payload->x08 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][0];
-    const std::int32_t y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1];
+    action->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[firstPointIndex][0]);
+    action->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1]);
+    payload->x00 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
+    payload->y04 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
+    payload->x08 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][0];
+    const std::int32_t y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1];
     payload->battlePosition18 = position;
     payload->y0C = y;
     action->phase = 0;
@@ -895,15 +897,15 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
 // 原函数：0x00406C30。
 std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
 {
-    using world::detail::gBattleAllEntries59E980;
+    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 1;
     action->value54 = 8.0F;
     action->framePlayingRate = 100;
     TurnBattleToward_406190(action,
-        gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
+        cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
     if (GetBattleDistance_406300(action,
-            gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
+            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
         AdvanceBattleCastState_439340(action);
     } else {
         MoveBattleByAngle_405EA0(action);
@@ -915,15 +917,15 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
 // 原函数：0x00406D70。
 std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
 {
-    using world::detail::gBattleAllEntries59E980;
+    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
     action->value54 = 8.0F;
     action->framePlayingRate = 100;
     TurnBattleToward_406190(action,
-        gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
+        cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
     if (GetBattleDistance_406300(action,
-            gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 8) {
+            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 8) {
         AdvanceBattleCastState_439340(action);
     } else {
         MoveBattleByAngle_405EA0(action);
@@ -985,7 +987,7 @@ void UpdateBattleAction7_409410(YobiAction* const action)
         const float x = static_cast<float>(payload->x00);
         TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
     } else {
-        TurnBattleToward_406190(action, world::detail::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
     }
     if (PlayFrame_517DA0(action, 1) == 1) {
         if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
@@ -1017,7 +1019,7 @@ void UpdateBattleAction8_4094A0(YobiAction* const action)
 // 原函数：0x00409510。
 std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
 {
-    using world::detail::gBattleAllEntries59E980;
+    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
     action->value54 = 8.0F;
@@ -1035,9 +1037,9 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
         }
     } else {
         TurnBattleToward_406190(action,
-            gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
+            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
         if (GetBattleDistance_406300(action,
-                gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
+                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
             AdvanceBattleCastState_439340(action);
             return PlayFrame_517DA0(action, 0);
         }
@@ -1056,7 +1058,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
     if (PlayFrame_517DA0(action, 1) == 1) {
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
         if (previous >= 0 && payload->castListCA4[previous] == 11 && (static_cast<std::uint8_t>(payload->flagsFDC) & 2u) == 0) {
-            Sub_406260(world::detail::gBattleAllEntries59E980[payload->battlePosition18]);
+            Sub_406260(world::gBattleAllEntries59E980[payload->battlePosition18]);
         }
         AdvanceBattleCastState_439340(action);
     }
@@ -1228,13 +1230,13 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
     const std::int32_t position = payload->battlePosition18;
     const std::uint32_t cleared = state & ~std::uint32_t{1};
     payload->stateFE0 = cleared;
-    const std::int32_t playerPosition = gBattleCurrentPosition5ABCA4;
+    const std::int32_t playerPosition = cg::world::gBattleCurrentPosition5ABCA4;
     if (position == playerPosition) {
         payload->stateFE0 = cleared | 1u;
         return;
     }
-    if (position != GetBattlePetPosition_405B40(playerPosition)) {
-        if (gBattleCurrentPosition5ABCA4 < 10) {
+    if (position != cg::world::GetBattlePetPosition_405B40(playerPosition)) {
+        if (cg::world::gBattleCurrentPosition5ABCA4 < 10) {
             if (position < 10) {
                 return;
             }

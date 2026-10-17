@@ -39,7 +39,6 @@
 #include "cg/world/GameTime.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/MapEffectMath.hpp"
-#include "WorldUpdateDependencies.hpp"
 
 #include <ctime>
 #include <algorithm>
@@ -190,7 +189,7 @@ static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
 struct AlbumStorage {
     std::array<char, 4> signature; // +00：CCA及NUL。
     std::array<std::int32_t, 2> versions; // +04：两角色的回复版本。
-    std::array<detail::AlbumRecord, 2 * 960> records; // +0C：两组连续记录。
+    std::array<AlbumRecord, 2 * 960> records; // +0C：两组连续记录。
 };
 static_assert(std::is_standard_layout_v<AlbumStorage>);
 static_assert(std::is_trivially_copyable_v<AlbumStorage>);
@@ -202,7 +201,7 @@ static_assert(alignof(AlbumStorage) == 4);
 AlbumStorage gAlbumStorage {};
 
 // 借用唯一相册记录；index从0开始，selected保持原S16符号扩展。
-detail::AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
+AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
 {
     const std::ptrdiff_t record = index + static_cast<std::ptrdiff_t>(selected) * 960;
     return gAlbumStorage.records.data() + record;
@@ -211,8 +210,8 @@ detail::AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t 
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
 cg::yobi::YobiAction* gWindow39Action62B5B8 = nullptr;
 
-using detail::BattleResultRecord;
-using detail::BattleSkillResultRecord;
+using BattleResultRecord;
+using BattleSkillResultRecord;
 
 // 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
 
@@ -255,8 +254,8 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9D
 // 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
 struct SkillRuntimeSlots {
     std::array<char, 0x1C> jobName;
-    std::array<detail::SkillRuntimeRecord, 15> skills;
-    std::array<detail::SkillPairRecord, 15> pairs;
+    std::array<SkillRuntimeRecord, 15> skills;
+    std::array<SkillPairRecord, 15> pairs;
     std::uint32_t valueF633E8; // 原全局：0x00F633E8。 509E30只写低U8，保留其余字节。
 };
 
@@ -403,6 +402,16 @@ constexpr wchar_t gText55BAE0[] = L"登出中";
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
+#include "cg/audio/LegacyAudio.hpp"
+#include "AlbumState.hpp"
+#include "BattleState.hpp"
+#include "ChatHistory.hpp"
+#include "MailState.hpp"
+#include "PetTechniqueRecord.hpp"
+#include "PlayerState.hpp"
+#include "WorldMapState.hpp"
+#include "WorldObjectState.hpp"
+#include "WorldUpdateDependencies.hpp"
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
@@ -460,7 +469,7 @@ const char* ReadText9DAD30() noexcept
 // 原函数：0x0051BEF0。
 void Sub_51BEF0() noexcept
 {
-    detail::gPlayerRuntimeSlots.flags18C &= 0xFF7FFFFFu;
+    gPlayerRuntimeSlots.flags18C &= 0xFF7FFFFFu;
 }
 
 std::uint32_t gWorldProjectionSourceA = 0; // 原全局：0x009EE908。
@@ -488,7 +497,7 @@ bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
 
 std::int32_t ReadRippleGateOnce()
 {
-    return cg::world::detail::gRippleGate.value();
+    return cg::world::gRippleGate.value();
 }
 
 // 原函数：0x00448240。
@@ -619,12 +628,14 @@ std::uint32_t InitializeAlbum_518C20()
     return 4;
 }
 
-namespace detail {
+
 
 std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
 std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
 std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
 std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
+
+namespace detail {
 static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
 static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
 static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
@@ -650,6 +661,8 @@ void PlayerRuntimeSlots::ClearRaw() noexcept
     values15BD0.fill(0);
 }
 
+} // namespace detail
+
  // 原全局：0x0073ECD0。
 
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758; // 原全局：0x00C8A758。
@@ -657,50 +670,7 @@ std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C; // 原�
 std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768; // 原全局：0x00C8A768。
 std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // 原全局：0x00C8A76C。
 
-const AlbumRecord* GetSelectedAlbumRecords()
-{
-    const std::int16_t selected = login::gSelectedCharacterIndex;
-    return AlbumRecordAt(0, selected);
-}
-
-const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
-{
-    AlbumRecord* const record = AlbumRecordAt(index, selected);
-    record->fresh = 0;
-    return record->name.data();
-}
-
-// 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
-void Sub_5186A0()
-{
-    auto* const encoded = static_cast<std::uint8_t*>(
-        std::malloc(0x78018));
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", platform::gDataPath, "album.dat");
-    std::FILE* const stream =
-        std::fopen(path, "wb");
-    if (stream == nullptr) {
-        std::free(encoded);
-        return;
-    }
-    std::array<std::uint8_t, 0x3C00C> snapshot;
-    std::memcpy(snapshot.data(), &gAlbumStorage, snapshot.size());
-    std::int32_t encodedBytes;
-    login::detail::EncodeLegacyBytes_52D310(
-        snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
-    const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
-    const std::uint32_t written =
-        static_cast<std::uint32_t>(std::fwrite(encoded, 1, static_cast<std::uint32_t>(count), stream));
-    // 原51873D在写后重新读取编码长度，再以U32比较。
-    const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);
-    if (written < expectedCount) {
-        std::free(encoded);
-        return;
-    }
-    static_cast<void>(std::fclose(stream));
-    std::free(encoded);
-}
+namespace detail {
 
 // 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
 void Sub_518780()
@@ -738,15 +708,6 @@ void Sub_518780()
     }
     std::free(encoded);
     std::free(decoded);
-}
-
-// 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
-void Sub_518BE0()
-{
-    const std::int16_t selected = login::gSelectedCharacterIndex;
-    gAlbumStorage.versions[selected] = 0;
-    std::memset(AlbumRecordAt(0, selected), 0, 0x1E000);
-    Sub_5186A0();
 }
 
 // 原[518870,518A36)：相册记录更新，分行调用后重读角色而不固定首记录地址。
@@ -839,27 +800,11 @@ void Sub_518A40(const std::int32_t version, const char* const payload)
     gAlbumStorage.versions[selected] = version;
 }
 
-// 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
-void Sub_50E5B0(
-    const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
-{
-    Sub_518A40(version, payload);
-}
-
-// 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
-void Sub_50E5D0(
-    const std::uintptr_t /*socket*/, const std::int32_t number, const std::int32_t imageNo,
-    const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
-    const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
-    const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
-    const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
-    const std::int32_t value30, char* const text, const char* const name)
-{
-    Sub_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
-        value18, value1C, value20, value24, value28, value2C, value30, text, name);
-}
+} // namespace detail
 
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
+
+namespace detail {
 
 namespace {
 
@@ -1143,15 +1088,6 @@ void CreateMapEffectKind4()
 }
 
 } // namespace
-
-// 原函数：0x0046E480。
-void Sub_46E480()
-{
-    if (gMapCharaSceneSlots.valueC8A73C != 0) {
-        static_cast<void>(render::DrawMapEffects_453580());
-        gMapCharaSceneSlots.valueC8A73C = 0;
-    }
-}
 
 // 原函数：0x0046E4E0。
 void Sub_46E4E0()
@@ -1789,424 +1725,20 @@ std::int32_t Sub_440FF0()
     return result;
 }
 
-// 原函数：0x00476680。
-void Sub_476680()
-{
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-    if (action == nullptr) {
-        return;
-    }
-
-    std::int32_t radius = platform::gValue554640;
-    std::int32_t x = cg::yobi::GetYobiActionField30(action) - radius * 64;
-    std::int32_t y = cg::yobi::GetYobiActionField34(action);
-    const auto countdown = std::bit_cast<std::int32_t>(gValue626BFC);
-    x -= 31;
-    y -= 23;
-    if (countdown > 0) {
-        std::int32_t sideCount = radius * 2 + 1;
-        if (sideCount > 0) {
-            std::int32_t rowX = x;
-            std::int32_t rowY = y;
-            std::int32_t row = 0;
-            do {
-                std::int32_t column = 0;
-                if (sideCount > 0) {
-                    do {
-                        static_cast<void>(render::Sub_521C80(x, y, 100, 3, 0, nullptr));
-                        radius = platform::gValue554640;
-                        ++column;
-                        x += 32;
-                        sideCount = radius * 2 + 1;
-                        y -= 24;
-                    } while (column < sideCount);
-                }
-                ++row;
-                sideCount = radius * 2 + 1;
-                x = rowX + 32;
-                y = rowY + 24;
-                rowX = x;
-                rowY = y;
-            } while (row < sideCount);
-        }
-    }
-
-    // 原尾部先发布递减值，再按符号位决定是否写零。
-    const std::uint32_t remaining = gValue626BFC - 1u;
-    gValue626BFC = remaining;
-    if (std::bit_cast<std::int32_t>(remaining) < 0) {
-        gValue626BFC = 0;
-    }
-}
-
-// 原函数：0x0050A3E0。
-void Sub_50A3E0(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    const std::uint32_t mask = static_cast<std::uint32_t>(
-        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(index)];
-    if (mask == 0) {
-        if (slot.flags != 0) {
-            const std::uint32_t objectIndex = slot.objectIndex;
-            if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
-                cg::yobi::YobiAction* const action =
-                    FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
-                if (action != nullptr) {
-                    Sub_442C70(action);
-                }
-            }
-        }
-        std::int32_t x = -1;
-        std::int32_t y = -1;
-        cg::yobi::YobiAction* const targetAction = slot.action;
-        if (targetAction != nullptr) {
-            cg::yobi::ReadMapActorTarget(targetAction, slot.action, &x, &y);
-        }
-        slot.flags = 0;
-        slot.action = nullptr;
-        std::int32_t count = 0;
-        std::int32_t next = -1;
-        for (std::int32_t i = 0; i < 5; ++i) {
-            if (gPetMapCharaSlots[static_cast<std::size_t>(i)].flags != 0) {
-                ++count;
-                if (next == -1 && i > index) {
-                    next = i;
-                }
-            }
-        }
-        if (count <= 1) {
-            gValueFF0D36 = 0;
-            static_cast<void>(Sub_51B080());
-            return;
-        }
-        if (next >= 0 && (x >= 0 || y >= 0)) {
-            Sub_46AFE0(next, x, y);
-        }
-        return;
-    }
-
-    gValueFF0D32 = 0;
-    gValueFF0D36 = 1;
-    slot.flags = 1;
-    std::int32_t field = 2;
-    if ((mask & 3u) != 0) {
-        slot.objectIndex = static_cast<std::uint32_t>(
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
-        ++field;
-    }
-    if ((mask & 5u) != 0) {
-        slot.level08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((mask & 9u) != 0) {
-        slot.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((mask & 0x11u) != 0) {
-        slot.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((mask & 0x21u) != 0) {
-        slot.value14 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((mask & 0x41u) != 0) {
-        char name[256];
-        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        std::strcpy(
-            slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
-    }
-    const std::uint32_t objectIndex = slot.objectIndex;
-    if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
-        cg::yobi::YobiAction* const action =
-            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
-        if (action != nullptr) {
-            slot.action = action;
-            Sub_442C40(action);
-            if (index == 0) {
-                Sub_442BD0(action);
-            }
-        } else {
-            slot.action = nullptr;
-        }
-    } else {
-        slot.action = detail::gPlayerRuntimeSlots.action;
-        Sub_51A5E0();
-        if (index == 0) {
-            Sub_51A5A0();
-        }
-    }
-}
-
-// 原函数：0x0050B380。
-void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    if (ReadRippleGateOnce() != 0) {
-        return;
-    }
-
-    char row[2048];
-    char field[2048];
-    char name[256];
-    char titles[256];
-    char extraText[256];
-    char label[1024];
-    for (std::int32_t rowIndex = 1;; ++rowIndex) {
-        const std::int32_t status = network::ExtractDelimitedField_52CED0(
-            payload, '\t', rowIndex, 2047, row);
-        if (std::strlen(row) == 0 && status == 1) {
-            return;
-        }
-        network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
-        if (std::strlen(field) != 0) {
-            const std::int32_t type =
-                network::ParseDelimitedInteger_52CFA0(row, '|', 1);
-            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t x = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t y = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 5, 2047, field);
-            const std::int32_t direction = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
-            const std::int32_t imageNo = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 7, 2047, field);
-            const std::int32_t level = std::atoi(field);
-            const std::int32_t value40 =
-                network::ParseDelimitedInteger_52CFA0(row, '|', 8);
-            network::ExtractDelimitedField_52CED0(row, '|', 9, 255, name);
-            input::UnescapeLegacyTextAndNotify_52D2F0(name);
-            network::ExtractDelimitedField_52CED0(row, '|', 10, 255, titles);
-            input::UnescapeLegacyText_52D150(titles);
-            network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
-            const std::int32_t flag1 = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 12, 2047, field);
-            const std::int32_t flag2 = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 13, 2047, field);
-            static_cast<void>(std::atoi(field));
-            network::ExtractDelimitedField_52CED0(row, '|', 14, 255, extraText);
-            input::UnescapeLegacyTextAndNotify_52D2F0(extraText);
-            network::ExtractDelimitedField_52CED0(row, '|', 15, 2047, field);
-            const std::int32_t mode = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
-            const std::int32_t attachmentImage = std::atoi(field);
-
-            cg::yobi::YobiAction* object;
-            if (static_cast<std::uint32_t>(objectIndex) == detail::gPlayerRuntimeSlots.objectIndex) {
-                const std::int32_t mappedImage =
-                    character_select::detail::Sub_51B740(imageNo);
-                if (detail::gPlayerRuntimeSlots.direction < 0) {
-                    detail::gPlayerRuntimeSlots.direction = direction;
-                }
-                if (detail::gPlayerRuntimeSlots.action == nullptr) {
-                    Sub_519CD0(mappedImage, x, y, direction);
-                    Sub_51A4B0();
-                } else {
-                    Sub_519E50(mappedImage, detail::gPlayerRuntimeSlots.direction);
-                }
-                object = detail::gPlayerRuntimeSlots.action;
-                cg::yobi::UpdateMapActorMode(
-                    detail::gPlayerRuntimeSlots.action, mode, attachmentImage);
-                if (mode == 2) {
-                    if ((detail::gPlayerRuntimeSlots.flags18A & 0x200u) == 0) {
-                        detail::gPlayerRuntimeSlots.flags18A |= 0x100u;
-                    }
-                } else if (static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.flags18C) == 0) {
-                    detail::gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
-                }
-                gValue9A4B94 &= 0xFDu;
-                static_cast<void>(Sub_468200());
-                Sub_51A090(name, titles, level, value40, flag1, flag2);
-                if ((detail::gPlayerRuntimeSlots.flags18A & 0x100u) != 0
-                    && gPetMapCharaSlots[0].flags != 0) {
-                    gPetMapCharaSlots[0].level08 = detail::gPlayerRuntimeSlots.level;
-                    std::strcpy(
-                        gPetMapCharaSlots[0].name18.data(), detail::gPlayerRuntimeSlots.name.data());
-                }
-                for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
-                    auto& slot = gPetMapCharaSlots[i];
-                    if (slot.flags != 0
-                        && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-                        slot.action = detail::gPlayerRuntimeSlots.action;
-                        Sub_51A5E0();
-                        if (i == 0) {
-                            Sub_51A5A0();
-                        }
-                        break;
-                    }
-                }
-            } else {
-                const std::int32_t mappedImage =
-                    character_select::detail::Sub_51B740(imageNo);
-                Sub_445350(
-                    objectIndex, mappedImage, x, y, direction, name, titles,
-                    extraText, level, value40, flag1, flag2, type);
-                object = FindObjectYobi_4462B0(objectIndex);
-                if (object != nullptr) {
-                    cg::yobi::UpdateMapActorMode(object, mode, attachmentImage);
-                    if (mode == 2) {
-                        Sub_449C90(object);
-                    } else {
-                        Sub_449CC0(object);
-                    }
-                    for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
-                        auto& slot = gPetMapCharaSlots[i];
-                        if (slot.flags != 0
-                            && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-                            slot.action = object;
-                            Sub_442C40(object);
-                            if (i == 0) {
-                                Sub_442BD0(object);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-            cg::yobi::ApplyMapActorReplyAttachments(object, row);
-            continue;
-        }
-
-        network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
-        if (std::strlen(field) != 0) {
-            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
-            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t imageNo = std::atoi(field);
-            const std::int32_t value48 =
-                network::ParseDelimitedInteger_52CFA0(row, '|', 5);
-            network::ExtractDelimitedField_52CED0(row, '|', 6, 1023, label);
-            input::UnescapeLegacyTextAndNotify_52D2F0(label);
-            const std::int32_t value50 =
-                network::ParseDelimitedInteger_52CFA0(row, '|', 7);
-            Sub_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
-            continue;
-        }
-
-        network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-        if (std::strlen(field) != 0) {
-            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
-            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = std::atoi(field);
-            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t count = std::atoi(field);
-            const std::wstring moneyLabel = std::format(L"{} 金币", count);
-            std::int32_t imageNo;
-            if (count < 50) {
-                imageNo = 0x6B08;
-            } else if (count < 100) {
-                imageNo = 0x6B09;
-            } else if (count < 1000) {
-                imageNo = 0x6B0A;
-            } else if (count < 5000) {
-                imageNo = 0x6B0B;
-            } else if (count < 10000) {
-                imageNo = 0x6B0C;
-            } else if (count < 50000) {
-                imageNo = 0x6B0D;
-            } else if (count < 100000) {
-                imageNo = 0x6B0E;
-            } else if (count < 500000) {
-                imageNo = 0x6B0F;
-            } else if (count < 1000000) {
-                imageNo = 0x6B10;
-            } else {
-                imageNo = 0x6B11;
-            }
-            Sub_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
-        }
-    }
-}
-
-// 原函数：0x0050BCD0。
-void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    if (ReadRippleGateOnce() != 0) {
-        return;
-    }
-    char row[2048];
-    char field[2048];
-    // 原0x1000字节局部区，比较门槛仍为0x1000项；不改容量或模拟邻栈。
-    std::array<std::int32_t, 1024> missing;
-    std::int32_t missingCount = 0;
-    std::int32_t* missingCursor = missing.data();
-    for (std::int32_t rowIndex = 1;; ++rowIndex) {
-        network::ExtractDelimitedField_52CED0(payload, ',', rowIndex, 2047, row);
-        if (std::strlen(row) == 0) {
-            return;
-        }
-        network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
-        const std::int32_t objectIndex = network::Base62Decode_52D050(field);
-        const std::int32_t x = network::ParseDelimitedInteger_52CFA0(row, '|', 2);
-        const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
-        const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
-        const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
-        if (cg::yobi::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
-            continue;
-        }
-        const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
-        const std::int32_t option2 = network::ParseDelimitedInteger_52CFA0(row, '|', 7);
-        const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
-        const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
-        if (detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-            cg::yobi::YobiAction* const player = detail::gPlayerRuntimeSlots.action;
-            if (player != nullptr && cg::yobi::GetYobiActionField2A8(player) != 0) {
-                Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
-            }
-            continue;
-        }
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
-        if (action != nullptr) {
-            Sub_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
-            continue;
-        }
-        std::int32_t index = 0;
-        for (; index < missingCount; ++index) {
-            if (missing[index] == objectIndex) {
-                break;
-            }
-        }
-        if (index == missingCount && static_cast<std::uint32_t>(missingCount) < 0x1000u) {
-            ++missingCount;
-            *missingCursor = objectIndex;
-            ++missingCursor;
-        }
-    }
-}
-
 namespace {
 
 // 原六个入口共享473060发送尾；选项修改后重新读取，不按发送结果回滚。
 std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
     // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
-    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.options194);
+    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.options194);
     if ((options & mask) != 0) {
-        detail::gPlayerRuntimeSlots.options194 &= static_cast<std::uint16_t>(~mask);
+        gPlayerRuntimeSlots.options194 &= static_cast<std::uint16_t>(~mask);
     } else {
-        detail::gPlayerRuntimeSlots.options194 |= mask;
+        gPlayerRuntimeSlots.options194 |= mask;
     }
     // 原473060取样后先读socket再保留低W16；原高W16被丢弃，不借新端下一字段冒充。
-    const std::uint32_t sampledOptions = detail::gPlayerRuntimeSlots.options194;
+    const std::uint32_t sampledOptions = gPlayerRuntimeSlots.options194;
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
     return network::Sub_511A00(socket, value);
@@ -2214,558 +1746,20 @@ std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 
 } // namespace
 
-// 原函数：0x00472F40。
-std::int32_t Sub_472F40()
-{
-    return TogglePlayerOptionAndSend(0x04);
-}
-
-std::uint8_t ReadPlayerOptions194LowByte() noexcept
-{
-    return *reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.options194);
-}
-
-// 原函数：0x00472F70。
-std::int32_t Sub_472F70()
-{
-    return TogglePlayerOptionAndSend(0x08);
-}
-
-// 原函数：0x00472FA0。
-std::int32_t Sub_472FA0()
-{
-    return TogglePlayerOptionAndSend(0x01);
-}
-
-// 原函数：0x00472FD0。
-std::int32_t Sub_472FD0()
-{
-    return TogglePlayerOptionAndSend(0x10);
-}
-
-// 原函数：0x00473000。
-std::int32_t Sub_473000()
-{
-    return TogglePlayerOptionAndSend(0x20);
-}
-
-// 原函数：0x00473030。
-std::int32_t Sub_473030()
-{
-    return TogglePlayerOptionAndSend(0x40);
-}
-
-// 原函数：0x0050BFA0。
-std::uint32_t Sub_50BFA0(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
-{
-    const std::uint32_t gate = gValue9A6E0C;
-    if (gate != 0) {
-        return gate;
-    }
-    const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
-    detail::gPlayerRuntimeSlots.options194 = static_cast<std::uint16_t>(options);
-    return options;
-}
-
-// 原函数：0x0050BFC0。
-std::uint16_t Sub_50BFC0(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
-{
-    const auto low = static_cast<std::uint16_t>(value);
-    detail::gPlayerRuntimeSlots.value1A0 = low;
-    return low;
-}
-
-// 原函数：0x0050CF70。
-std::int32_t Sub_50CF70(
-    const std::uintptr_t /*socket*/, const std::int32_t index,
-    const std::int32_t value)
-{
-    gPetRuntimeRecords[index].lvFlag6C = value;
-    return index;
-}
-
-// PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
-std::uint32_t Sub_50C7A0(
-    const std::uintptr_t /*socket*/, const std::int32_t seconds,
-    const std::int32_t mode)
-{
-    const std::uint32_t gate = gValue9A6E0C;
-    if (gate != 0) {
-        return gate;
-    }
-    const std::int32_t duration = seconds < 0 ? 0 : seconds;
-    const std::int32_t firstScale = duration * 5;
-    detail::gPlayerRuntimeSlots.timerMode10 = mode;
-    detail::gPlayerRuntimeSlots.timerRemaining0C = firstScale * 5 * 5 * 8;
-    const std::uint64_t tick = platform::ReadTickCount64();
-    detail::gPlayerRuntimeSlots.timerTick14 = tick;
-    input::gValue626C14 = 0;
-    return static_cast<std::uint32_t>(tick);
-}
-
-// 原函数：0x0050CE10。
-std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
-{
-    char source[2024];
-    char command[512];
-    std::strcpy(source, text);
-    input::UnescapeLegacyTextAndNotify_52D2F0(source);
-    if (std::strncmp(source, "@FIND_LV1", static_cast<std::uint32_t>(9)) == 0) {
-        std::int32_t sound = 0;
-        std::strncpy(command, source, static_cast<std::uint32_t>(sizeof(command)));
-        std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
-        const char* const message = const_cast<char*>(std::strstr(command, "@MSG:"));
-        std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
-        static_cast<void>(audio::PlaySe_52C450(sound, 320));
-    }
-    Sub_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
-    const std::int32_t soundEnabled = platform::gValue554644;
-    if (soundEnabled != 0) {
-        return audio::PlaySe_52C450(74, 320);
-    }
-    return soundEnabled;
-}
-
-// 原函数：0x0050E1A0。
-void Sub_50E1A0(
-    const std::uintptr_t /*socket*/, const std::int32_t mask,
-    const std::int32_t value, const char* const /*unusedText*/)
-{
-    if (mask == 0) {
-        const std::uint16_t zero = 0;
-        gMapCharaSceneSlots.valueC8A73E = 0;
-        std::memcpy(&gMapCharaSceneSlots.valueC8A744, &zero, sizeof(zero));
-        gMapCharaSceneSlots.valueC8A74E = 0;
-    } else {
-        const auto low = static_cast<std::uint16_t>(value);
-        if ((mask & 1) != 0) {
-            gMapCharaSceneSlots.valueC8A73E = low;
-        }
-        if ((mask & 2) != 0) {
-            std::memcpy(&gMapCharaSceneSlots.valueC8A744, &low, sizeof(low));
-        }
-        if ((mask & 4) != 0) {
-            gMapCharaSceneSlots.valueC8A74E = low;
-        }
-    }
-    Sub_46E0D0(mask, value);
-}
-
-// 原函数：0x0050E650。
-void Sub_50E650(
-    const std::uintptr_t /*socket*/, const std::int32_t mode,
-    const std::int32_t duration, const std::int32_t floor,
-    const std::int32_t mapX, const std::int32_t mapY)
-{
-    cg::yobi::Sub_449700(mode, duration, floor, mapX, mapY);
-}
-
-// 原函数：0x0050E210。
-std::int32_t Sub_50E210(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
-{
-    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
-    if (gate != 0) {
-        return gate;
-    }
-    std::int32_t sound;
-    switch (value) {
-    case 0: sound = 0x47; break;
-    case 1: sound = 0x48; break;
-    case 2:
-    case 4: sound = 0x44; break;
-    case 3: sound = 0x45; break;
-    case 5: sound = 0x41; break;
-    case 6: sound = 0x42; break;
-    case 7: sound = 0x43; break;
-    case 8: sound = 0x49; break;
-    default: return value;
-    }
-    return audio::PlaySe_52C450(sound, 320);
-}
-
-// CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
-// 原函数：0x0050C940。
-std::int32_t Sub_50C940(
-    const input::InputContext* const context, const std::int32_t color)
-{
-    const auto chatText = text::ToGbk(input::ContextText(*context));
-    if (script::LuaProcessWinMgrChatMessage(chatText.c_str()) == 1) {
-        return 0;
-    }
-    const std::int32_t sendColor = color == 4 ? 5 : color;
-    const std::int32_t gate = gChatGateDA3B54;
-    const std::uint8_t disabled = gChatDisabledDA3B4C;
-    const bool restricted = disabled != 0
-        || (gate == 0 && gValueFF0D36 != 0
-            && (ReadPlayerOptions194LowByte() & 8u) != 0);
-    if (restricted) {
-        const std::uint64_t tick = platform::ReadTickCount64();
-        if (tick - gChatCurrentTickDA3B40 > 180000u) {
-            gChatDisabledDA3B4C = 0;
-        } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
-                   || (ReadPlayerOptions194LowByte() & 8u) == 0) {
-            Sub_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
-            const std::int32_t sound = platform::gValue554644;
-            if (sound != 0) {
-                return audio::PlaySe_52C450(74, 320);
-            }
-            return sound;
-        }
-    } else {
-        gChatPreviousTickDA3B3C = gChatCurrentTickDA3B40;
-        const std::uint64_t tick = platform::ReadTickCount64();
-        const std::uint64_t previous = gChatPreviousTickDA3B3C;
-        gChatCurrentTickDA3B40 = tick;
-        if (tick - previous < gChatMinimumIntervalMs) {
-            Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
-            std::int32_t result = platform::gValue554644;
-            if (result != 0) {
-                result = audio::PlaySe_52C450(74, 320);
-            }
-            gChatDisabledDA3B4C = 1;
-            return result;
-        }
-    }
-    // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
-    const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
-    const std::int32_t mode = platform::gValue73ECBC;
-    const std::int32_t range = platform::gValue554640;
-    const std::int32_t y = gPlayerY.value();
-    const std::int32_t x = gPlayerX.value();
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
-}
-
 void MarkPlayerChatActive() noexcept
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 0x20u;
 }
 
-// 原函数：0x0050CAE0。
-void Sub_50CAE0(
-    const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
-    const char* const payload, const std::int32_t color, const std::int32_t font)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    char kind[2];
-    network::ExtractDelimitedField_52CED0(payload, '|', 1, 1, kind);
-    if (kind[0] != 'P') {
-        return;
-    }
-    char source[2024];
-    network::ExtractDelimitedField_52CED0(payload, '|', 2, 2023, source);
-    input::UnescapeLegacyTextAndNotify_52D2F0(source);
-    const auto length = static_cast<std::int32_t>(std::strlen(source));
-    char snapshot[2048];
-    if (length > 0) {
-        std::memcpy(snapshot, source, static_cast<std::size_t>(length));
-    }
-    std::int32_t drawColor = color;
-    std::int32_t drawFont = font;
-    if (input::gValue626C14 == 0) {
-        char name[64];
-        char stripped[32];
-        std::memset(name, 0, sizeof(name));
-        const std::size_t initialLength = std::strlen(source);
-        gChatGateDA3B54 = 0;
-        if (initialLength != 0) {
-            std::uint32_t cursor = 0;
-            for (;;) {
-                if (source[cursor] == ':' && source[cursor + 1] == ' ') {
-                    std::strncpy(name, source, static_cast<std::uint32_t>(cursor));
-                    name[cursor] = '\0';
-                    break;
-                }
-                ++cursor;
-                if (cursor >= std::strlen(source)) {
-                    break;
-                }
-            }
-        }
-        const auto stripPrefix = [&](const std::uint32_t prefixLength) {
-            std::uint32_t cursor = 0;
-            if (std::strlen(name) != prefixLength) {
-                do {
-                    stripped[cursor] = name[cursor + prefixLength];
-                    ++cursor;
-                } while (cursor < std::strlen(name) - prefixLength);
-            }
-            stripped[cursor] = '\0';
-            std::memset(name, 0, sizeof(name));
-            std::strcpy(name, stripped);
-        };
-        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
-            gChatGateDA3B54 = 1;
-            stripPrefix(5);
-        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
-            stripPrefix(4);
-        }
-        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
-            return;
-        }
-        if (color < 0) {
-            drawColor = 0;
-            drawFont = 1;
-        }
-        const char* const sharedText = "";
-        bool sameAsSharedText = false;
-        std::size_t comparisonIndex = 0;
-        for (;;) {
-            const auto sourceByte = static_cast<unsigned char>(source[comparisonIndex]);
-            const auto sharedByte =
-                static_cast<unsigned char>(sharedText[comparisonIndex]);
-            if (sourceByte != sharedByte) {
-                break;
-            }
-            if (sourceByte == 0) {
-                sameAsSharedText = true;
-                break;
-            }
-            ++comparisonIndex;
-        }
-        if (!sameAsSharedText) {
-            Sub_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
-        }
-    }
-    if (platform::gValue554644 != 0) {
-        static_cast<void>(audio::PlaySe_52C450(74, 320));
-    }
-    if (objectIndex < 0) {
-        return;
-    }
-    if (detail::gPlayerRuntimeSlots.action != nullptr
-        && detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
-    } else {
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
-        if (action != nullptr) {
-            Sub_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
-        }
-    }
-}
-
-// 原函数：0x0050D000。
-void Sub_50D000(
-    const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    if (first == 1) {
-        if (second == 1) {
-            Sub_51A5E0();
-        }
-    } else if (first == 0 && second == 1) {
-        Sub_51A5F0();
-        gValueFF0D36 = 0;
-        static_cast<void>(Sub_51B080());
-        const std::int32_t direction = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.direction));
-        const std::int32_t y = gPlayerSnapshotY.value();
-        const std::int32_t x = gPlayerSnapshotX.value();
-        static_cast<void>(
-            network::Sub_512720(platform::gConnectionSocket, x, y, direction));
-    }
-    gValueFF0D32 = 0;
-}
-
-// MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
-std::int32_t Sub_509650(
-    const std::uintptr_t /*socket*/, const char* const payload)
-{
-    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
-    if (gate != 0) {
-        return gate;
-    }
-    const auto flags = static_cast<std::uint32_t>(
-        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    std::int32_t field = 2;
-    const auto parseCrypt = [&](platform::LegacyCryptInt* const target,
-                                const std::uint32_t mask) {
-        if ((flags & mask) != 0) {
-            const std::int32_t parsed =
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            *target = static_cast<std::int32_t>(parsed);
-            ++field;
-        }
-    };
-    parseCrypt(&detail::gPlayerRuntimeSlots.hp, 0x3u);
-    parseCrypt(&detail::gPlayerRuntimeSlots.maxHp, 0x5u);
-    parseCrypt(&detail::gPlayerRuntimeSlots.fp, 0x9u);
-    parseCrypt(&detail::gPlayerRuntimeSlots.maxFp, 0x11u);
-
-    std::uint32_t bit = 0x20u;
-    for (std::int32_t index = 0; index < 8; ++index) {
-        if ((flags & (bit | 1u)) != 0) {
-            detail::gPlayerRuntimeSlots.values78[index] =
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            ++field;
-        }
-        bit <<= 1;
-    }
-    parseCrypt(&detail::gPlayerRuntimeSlots.value58, 0x2001u);
-    parseCrypt(&detail::gPlayerRuntimeSlots.value68, 0x4001u);
-
-    const std::array<std::int32_t*, 12> targets {{
-        &detail::gPlayerRuntimeSlots.level,
-        &detail::gPlayerRuntimeSlots.values78[8], &detail::gPlayerRuntimeSlots.values78[9],
-        &detail::gPlayerRuntimeSlots.values78[10], &detail::gPlayerRuntimeSlots.values78[11],
-        &detail::gPlayerRuntimeSlots.values78[12], &detail::gPlayerRuntimeSlots.values78[13],
-        &detail::gPlayerRuntimeSlots.valueB8,
-        &detail::gPlayerRuntimeSlots.valuesE4[0], &detail::gPlayerRuntimeSlots.valuesE4[1],
-        &detail::gPlayerRuntimeSlots.valuesE4[2], &detail::gPlayerRuntimeSlots.valuesE4[3],
-    }};
-    bit = 0x8000u;
-    for (std::int32_t* const target : targets) {
-        if ((flags & (bit | 1u)) != 0) {
-            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            ++field;
-        }
-        bit <<= 1;
-    }
-    const std::uint32_t tailGate = flags & 0x8000001u;
-    if (tailGate != 0) {
-        detail::gPlayerRuntimeSlots.valueFC =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((flags & 0x10000001u) != 0) {
-        detail::gPlayerRuntimeSlots.titleIndex100 =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        ++field;
-    }
-    if ((flags & 0x20000001u) != 0) {
-        char name[256];
-        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        if (std::strlen(name) <= 16) {
-            std::strcpy(detail::gPlayerRuntimeSlots.name.data(), name);
-        }
-        ++field;
-    }
-    if ((flags & 0x40000001u) != 0) {
-        char title[256];
-        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
-        input::UnescapeLegacyTextAndNotify_52D2F0(title);
-        if (std::strlen(title) <= 16) {
-            std::strcpy(detail::gPlayerRuntimeSlots.ownTitle.data(), title);
-        }
-        ++field;
-    }
-    if (tailGate != 0) {
-        const std::int32_t result =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        detail::gPlayerRuntimeSlots.value15BCC = result;
-        return result;
-    }
-    return 0;
-}
-
-// MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
-void Sub_509BA0(const std::uintptr_t, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    const auto flags = static_cast<std::uint32_t>(
-        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    std::int32_t field = 2;
-    const std::array<std::int32_t*, 12> firstTargets {{
-        &detail::gPlayerRuntimeSlots.valuesD4[0], &detail::gPlayerRuntimeSlots.valuesD4[1],
-        &detail::gPlayerRuntimeSlots.valuesD4[2], &detail::gPlayerRuntimeSlots.valuesD4[3],
-        &detail::gPlayerRuntimeSlots.valuesBC[0], &detail::gPlayerRuntimeSlots.valuesBC[1],
-        &detail::gPlayerRuntimeSlots.valuesBC[2], &detail::gPlayerRuntimeSlots.valuesBC[3],
-        &detail::gPlayerRuntimeSlots.valuesBC[4], &detail::gPlayerRuntimeSlots.valuesBC[5],
-        &detail::gPlayerRuntimeSlots.value104, &detail::gPlayerRuntimeSlots.valueF4,
-    }};
-    std::uint32_t bit = 2;
-    for (std::int32_t* const target : firstTargets) {
-        if ((flags & (bit | 1u)) != 0) {
-            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            ++field;
-        }
-        bit <<= 1;
-    }
-    if ((flags & 0x2001u) != 0) {
-        detail::gPlayerRuntimeSlots.value00 = static_cast<std::uint16_t>(
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
-        ++field;
-    }
-    const std::array<std::int32_t*, 4> middleTargets {{
-        &detail::gPlayerRuntimeSlots.valueF8, &detail::gPlayerRuntimeSlots.value08,
-        &detail::gPlayerRuntimeSlots.value17C, &detail::gPlayerRuntimeSlots.value16C,
-    }};
-    bit = 0x4000u;
-    for (std::int32_t* const target : middleTargets) {
-        if ((flags & (bit | 1u)) != 0) {
-            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            ++field;
-        }
-        bit <<= 1;
-    }
-    if ((flags & 0x40001u) != 0) {
-        std::int32_t speed = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        detail::gPlayerRuntimeSlots.walkSpeed = speed;
-        if (speed <= 0) {
-            speed = 100;
-            detail::gPlayerRuntimeSlots.walkSpeed = speed;
-        }
-        cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-        if (action != nullptr) {
-            cg::yobi::SetYobiWalkSpeed(action, speed);
-        }
-        ++field;
-    }
-    const std::array<std::int32_t*, 5> lastTargets {{
-        &detail::gPlayerRuntimeSlots.valuesB0[0], &detail::gPlayerRuntimeSlots.valuesB0[1],
-        &detail::gPlayerRuntimeSlots.values15BD0[0], &detail::gPlayerRuntimeSlots.values15BD0[1],
-        &detail::gPlayerRuntimeSlots.values15BD0[2],
-    }};
-    bit = 0x80000u;
-    for (std::int32_t* const target : lastTargets) {
-        if ((flags & (bit | 1u)) != 0) {
-            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            ++field;
-        }
-        bit <<= 1;
-    }
-}
-
-// 原函数：0x00509E30。
-void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    gSkillRuntimeSlots.valueF633E8 =
-        (gSkillRuntimeSlots.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
-    input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(
-        gSkillRuntimeSlots.jobName.data(), std::strlen(text) < 24 ? text : kUnknownText554590);
-}
+} // namespace detail
 
 // 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
 std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
 std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
 std::uint16_t gValueDA3B20 = 0; // 原全局：0x00DA3B20。
 
-std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
-{
-    const auto* const storage = reinterpret_cast<const std::byte*>(&gSkillRuntimeSlots);
-    const std::ptrdiff_t offset =
-        static_cast<std::ptrdiff_t>(offsetof(SkillRuntimeSlots, pairs))
-        + static_cast<std::ptrdiff_t>(pairIndex)
-            * static_cast<std::ptrdiff_t>(sizeof(SkillPairRecord));
-    std::uint16_t used;
-    std::memcpy(&used, storage + offset, sizeof(used));
-    return used;
-}
+namespace detail {
 
 // 原函数：0x00504F10。
 std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
@@ -2794,207 +1788,6 @@ std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
         }
     }
     return 0;
-}
-
-// 原函数：0x00505040。
-std::int32_t Sub_505040(const std::int32_t slot)
-{
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
-    if (item->hasDescription == 0) {
-        return 0;
-    }
-    const std::int32_t type = item->itemType;
-    if (type == 38 || type == 25 || type == 39) {
-        return 1;
-    }
-    if ((item->flags & 0x800u) == 0) {
-        return 0;
-    }
-    return Sub_504F10(item->itemId, 0) != 0 ? 1 : 0;
-}
-
-// 原函数：0x005050B0。
-std::int32_t Sub_5050B0(const std::int32_t slot)
-{
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
-    if (item->hasDescription == 0) {
-        return 0;
-    }
-    if (item->itemType == 80) {
-        return 1;
-    }
-    if ((item->flags & 0x800u) == 0) {
-        return 0;
-    }
-    return Sub_504F10(item->itemId, 1) != 0 ? 1 : 0;
-}
-
-// 原函数：0x00505110。
-std::int32_t Sub_505110(const std::int32_t slot)
-{
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
-    if (item->hasDescription == 0) {
-        return 0;
-    }
-    const std::int32_t type = item->itemType;
-    if (!((type >= 0 && type < 23) || (type >= 56 && type < 66))) {
-        return 0;
-    }
-    return (item->flags & 0x1000u) != 0 ? 1 : 0;
-}
-
-// 原函数：0x00509EB0。
-void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    char name[256];
-    std::int32_t field = 2;
-    for (;;) {
-        const std::int32_t index =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
-        const std::int32_t skillId =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        const std::int32_t level =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
-        const std::int32_t experience =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
-        const std::int32_t maxLevel =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
-        const std::int32_t nextExperience =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
-        const std::int32_t requiredSlots =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
-        const std::int32_t canRebirth =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7);
-        const std::int32_t fpReduce =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 8);
-        const std::int32_t sequence =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9);
-        if (index < 0) {
-            break;
-        }
-
-        SkillRuntimeRecord& record = gSkillsF1BAFC[index];
-        if (std::strlen(name) == 0 && level < 0 && experience < 0) {
-            record.name[0] = '\0';
-            record.level = 0;
-            record.experience = 0;
-            std::memset(record.techniques3C.data(), 0, sizeof(record.techniques3C));
-            Sub_519950(index);
-        } else {
-            std::strcpy(
-                record.name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
-            record.level = level;
-            record.experience = experience;
-            record.maxLevel = maxLevel;
-            record.nextExperience = nextExperience;
-            record.requiredSlots19[0] = static_cast<std::uint8_t>(requiredSlots);
-            record.canRebirth = canRebirth;
-            record.skillId = skillId;
-            record.fpReduce = fpReduce;
-            record.sequence = sequence;
-            if (canRebirth == 1) {
-                const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
-                const std::uintptr_t socket = platform::gConnectionSocket;
-                const std::int32_t value = index + (flag != 0 ? 100 : 0);
-                static_cast<void>(network::Sub_510F50(socket, value));
-            }
-        }
-        field += 11;
-    }
-    Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), 15);
-    gValueDA3B20 = 0;
-}
-
-// 原函数：0x0050A120。
-void Sub_50A120(
-    const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
-    std::memset(techniques.data(), 0, sizeof(techniques));
-    SkillTechniqueRecord* target = techniques.data();
-    char name[256];
-    char description[256];
-    std::int32_t field = 2;
-    for (;;) {
-        if (network::ExtractDelimitedField_52CED0(
-                payload, '|', field - 1, 255, name) == 1) {
-            return;
-        }
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, description);
-        input::UnescapeLegacyTextAndNotify_52D2F0(description);
-        const std::int32_t value7C =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
-        const std::int32_t value80 =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
-        const auto packed = static_cast<std::uint32_t>(
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3));
-        const std::int32_t value8C =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
-        if (std::strlen(name) == 0) {
-            continue;
-        }
-        target->used88 = 1;
-        std::strcpy(target->name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
-        std::strcpy(
-            target->description.data(),
-            std::strlen(description) <= 96 ? description : kUnknownText554590);
-        target->value7C = value7C;
-        target->value80 = value80;
-        target->value90 = static_cast<std::int32_t>((packed >> 12) & 0xFu);
-        target->value84 = static_cast<std::int32_t>(packed & 0xFFFu);
-        target->value8C = value8C;
-        field += 6;
-        ++target;
-    }
-}
-
-// 原函数：0x0050C580。
-void Sub_50C580(
-    const std::uintptr_t, const std::int32_t index, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
-    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag());
-    char name[256];
-    char description[256];
-    std::int32_t field = 1;
-    for (SkillRecipeRecord& recipe : record.recipes8E8) {
-        recipe.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        recipe.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        recipe.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        if (std::strlen(name) <= 28) {
-            std::strcpy(recipe.name.data(), name);
-        }
-        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, description);
-        input::UnescapeLegacyTextAndNotify_52D2F0(description);
-        if (std::strlen(description) <= 56) {
-            std::strcpy(recipe.description.data(), description);
-        }
-        recipe.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        recipe.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        for (SkillRecipeItem& item : recipe.items6C) {
-            item.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-            network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
-            input::UnescapeLegacyTextAndNotify_52D2F0(name);
-            if (std::strlen(name) <= 28) {
-                std::strcpy(item.name.data(), name);
-            }
-            item.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
-        }
-    }
 }
 
 // 原函数：0x00519950。
@@ -3094,29 +1887,6 @@ void ApplyPlayerItemFields(
 
 } // namespace
 
-// 原函数：0x0050BF20。
-void Sub_50BF20(const std::uintptr_t, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    std::int32_t field = 1;
-    std::int32_t objectIndex =
-        network::ParseDelimitedBase62_52D0D0(payload, ',', field);
-    while (objectIndex != -1) {
-        Sub_4462E0(objectIndex);
-        for (auto& slot : gPetMapCharaSlots) {
-            if (slot.flags != 0
-                && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-                slot.action = nullptr;
-                break;
-            }
-        }
-        ++field;
-        objectIndex = network::ParseDelimitedBase62_52D0D0(payload, ',', field);
-    }
-}
-
 // 原函数：0x005196B0。
 void Sub_5196B0(const std::int32_t index, const char* const text)
 {
@@ -3145,64 +1915,6 @@ void Sub_5196B0(const std::int32_t index, const char* const text)
     }
 }
 
-// 原函数：0x0050BFD0。
-void Sub_50BFD0(const std::uintptr_t, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    char name[256];
-    char memo[256];
-    char description[768];
-    for (std::int32_t index = 0; index < 28; ++index) {
-        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
-        const std::int32_t nameField = 2 + index * 13;
-        network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        if (std::strlen(name) == 0) {
-            gPlayerRuntimeSlots.items[index].used = 0;
-            gPlayerRuntimeSlots.items[index].name.clear();
-        } else {
-            ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
-        }
-        if (index >= 8) {
-            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
-        }
-    }
-}
-
-// 原函数：0x0050C260。
-void Sub_50C260(const std::uintptr_t, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    char name[256];
-    char memo[256];
-    char description[768];
-    std::int32_t field = 1;
-    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
-    std::int32_t status =
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
-    while (status != 1) {
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        if (std::strlen(name) == 0) {
-            gPlayerRuntimeSlots.items[index].used = 0;
-        } else {
-            ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
-        }
-        if (index >= 8) {
-            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
-            ui::detail::WindowTrade_CopyDisplayItems(1, index - 8);
-        }
-        field += 14;
-        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
-        status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
-    }
-}
-
 // 原函数：0x0051B530。
 void Sub_51B530(const std::int32_t first, const std::int32_t second)
 {
@@ -3223,78 +1935,6 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     ui::detail::WindowItemDrag_RemapHover(first, second);
 }
 
-// 原函数：0x0051B5F0。
-std::int32_t Sub_51B5F0(const std::int32_t itemId)
-{
-    std::int32_t count = 0;
-    if (itemId <= 0) {
-        return count;
-    }
-    for (const PlayerItemRecord* item = gPlayerRuntimeSlots.items.data() + 8;
-         item != gPlayerRuntimeSlots.items.data() + gPlayerRuntimeSlots.items.size(); ++item) {
-        if (item != nullptr && item->used != 0 && item->itemId == itemId) {
-            count += item->count;
-        }
-    }
-    return count;
-}
-
-// 原函数：0x0050C900。
-void Sub_50C900(
-    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    Sub_51B530(first, second);
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
-    ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
-    ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
-}
-
-// 原函数：0x0051B630。
-void Sub_51B630(
-    const std::int32_t firstGroup, const std::int32_t firstIndex,
-    const std::int32_t secondGroup, const std::int32_t secondIndex)
-{
-    if (firstIndex < 0 || secondIndex < 0) {
-        return;
-    }
-    PlayerItemRecord* firstBase = nullptr;
-    PlayerItemRecord* secondBase = nullptr;
-    if (firstGroup == 0) {
-        if (firstIndex >= 28) {
-            return;
-        }
-        firstBase = gPlayerRuntimeSlots.items.data();
-    } else if (firstGroup >= 1 && firstGroup <= 5) {
-        if (firstIndex >= 6) {
-            return;
-        }
-        firstBase = gPetRuntimeRecords[firstGroup - 1].items6E4.data();
-    }
-    if (secondGroup == 0) {
-        if (secondIndex >= 28) {
-            return;
-        }
-        secondBase = gPlayerRuntimeSlots.items.data();
-    } else if (secondGroup >= 1 && secondGroup <= 5) {
-        if (secondIndex >= 6) {
-            return;
-        }
-        secondBase = gPetRuntimeRecords[secondGroup - 1].items6E4.data();
-    }
-    if (firstBase == nullptr || secondBase == nullptr) {
-        return;
-    }
-    PlayerItemRecord* const first = firstBase + firstIndex;
-    PlayerItemRecord* const second = secondBase + secondIndex;
-    const PlayerItemRecord temporary = *first;
-    *first = *second;
-    *second = temporary;
-}
-
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
 void PetRuntimeRecord::ClearRaw() noexcept
 {
@@ -3310,45 +1950,20 @@ void PetRuntimeRecord::ClearRaw() noexcept
     bytes510D.fill(std::byte{0});
 }
 
+} // namespace detail
+
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
+
+namespace detail {
 std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
+
+} // namespace detail
 std::uint32_t gValueD67B28 = 0; // 原全局：0x00D67B28。
 
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
 ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
 
-// 原函数：0x0052E180。
-std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId)
-{
-    if (index < 0 || index >= 5) {
-        return 0;
-    }
-    const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
-    if (pet.used == 0) {
-        return 0;
-    }
-    for (const PetTechniqueRecord& technique : pet.techniquesD8) {
-        if (technique.used != 0 && technique.techniqueId == techniqueId) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// 原函数：0x0052E1D0。
-std::int32_t Sub_52E1D0(const std::int32_t index)
-{
-    if (Sub_52E180(index, 0x22C4) != 0) {
-        return 1;
-    }
-    if (Sub_52E180(index, 0x22C5) != 0) {
-        return 1;
-    }
-    if (Sub_52E180(index, 0x22C6) != 0) {
-        return 1;
-    }
-    return Sub_52E180(index, 0x22C7) != 0 ? 1 : 0;
-}
+namespace detail {
 
 // 原函数：0x00519770。
 void Sub_519770(
@@ -3369,292 +1984,6 @@ void Sub_519770(
         --last;
     }
     record.pages = last < 0 ? 0 : last / 8 + 1;
-}
-
-// 原函数：0x00510150。
-void Sub_510150(
-    const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
-{
-    if (gValue9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
-        return;
-    }
-    char name[256];
-    char memo[256];
-    char description[768];
-    std::int32_t field = 1;
-    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-    while (index < 6) {
-        if (network::ExtractDelimitedField_52CED0(
-                payload, '|', field + 1, 255, name) == 1) {
-            return;
-        }
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[index];
-        if (std::strlen(name) == 0) {
-            record.used = 0;
-            record.name.clear();
-        } else {
-            record.used = 1;
-            if (std::strlen(name) <= 28) {
-                record.name = cg::text::FromGbkWide(name);
-            }
-            const std::int32_t color =
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
-            record.color = color;
-            if (color < 0) {
-                record.color = 0;
-            }
-            network::ExtractDelimitedField_52CED0(
-                payload, '|', field + 3, 767, description);
-            input::UnescapeLegacyTextAndNotify_52D2F0(description);
-            Sub_519770(petIndex, index, description);
-            record.hasDescription = !record.description[0].empty() ? 1 : 0;
-            record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
-            record.canUseInField = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5));
-            record.battleUseFlag = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6));
-            record.target = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7));
-            // 原510362再次传field+4，不能按玩家物品协议改成field+8或复用图号。
-            record.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
-            record.flags = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9));
-            record.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 10);
-            record.itemType = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 11);
-            record.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 12);
-            network::ExtractDelimitedField_52CED0(payload, '|', field + 13, 255, memo);
-            input::UnescapeLegacyTextAndNotify_52D2F0(memo);
-            if (std::strlen(memo) <= 16) {
-                record.memo = cg::text::FromGbkWide(memo);
-            }
-        }
-        field += 14;
-        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-    }
-}
-
-// 原函数：0x0050A6B0。
-void Sub_50A6B0(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
-{
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
-        return;
-    }
-    const auto flags = static_cast<std::uint32_t>(
-        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
-    std::int32_t field = 2;
-    if (flags == 0) {
-        record.ClearRaw();
-    } else {
-        record.used = 1;
-        if ((flags & 0x3u) != 0) {
-            const std::int32_t imageNo =
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            record.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
-            ++field;
-        }
-        if ((flags & 0x5u) != 0) {
-            record.value04 = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
-            ++field;
-        }
-        std::uint32_t bit = 0x8u;
-        for (platform::LegacyCryptInt& value : record.values0C) {
-            if ((flags & (bit | 1u)) != 0) {
-                const std::int32_t parsed =
-                    network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-                value = static_cast<std::int32_t>(parsed);
-                ++field;
-            }
-            bit <<= 1;
-        }
-
-        // 掩码201..100001按原顺序映射，不将两条协议的数值列混用。
-        const std::array<std::int32_t*, 12> targets {{
-            &record.value08,
-            &record.values70[5], &record.values70[6], &record.values70[7],
-            &record.values70[8], &record.values70[9], &record.values70[10],
-            &record.values70[21], &record.values70[22],
-            &record.values70[23], &record.values70[24],
-            &record.value6A4,
-        }};
-        for (std::int32_t* const target : targets) {
-            if ((flags & (bit | 1u)) != 0) {
-                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-                ++field;
-            }
-            bit <<= 1;
-        }
-        if ((flags & 0x200001u) != 0) {
-            record.value02 = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
-            ++field;
-        }
-        if ((flags & 0x400001u) != 0) {
-            char name[256];
-            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
-            input::UnescapeLegacyTextAndNotify_52D2F0(name);
-            if (std::strlen(name) <= 16) {
-                std::strcpy(record.name6AC.data(), name);
-            }
-            ++field;
-        }
-        if ((flags & 0x800001u) != 0) {
-            char name[256];
-            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
-            input::UnescapeLegacyTextAndNotify_52D2F0(name);
-            if (std::strlen(name) <= 16) {
-                std::strcpy(record.name6BD.data(), name);
-            }
-            ++field;
-        }
-        if ((flags & 0x1000001u) != 0) {
-            const auto state = static_cast<std::uint16_t>(
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
-            if ((state & 0x10u) != 0) {
-                record.flags6AA = static_cast<std::uint16_t>(state & ~0x10u);
-                record.follow6D4 = 1;
-            } else {
-                record.flags6AA = state;
-                record.follow6D4 = 0;
-            }
-            ++field;
-        }
-        if ((flags & 0x2000001u) != 0) {
-            record.values70[25] =
-                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        }
-    }
-    Sub_519920();
-    Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    Sub_492250();
-    record.updated510C = 1;
-}
-
-// 原函数：0x0050AC20。
-void Sub_50AC20(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
-{
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
-        return;
-    }
-    const auto flags = static_cast<std::uint32_t>(
-        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
-    if (flags == 0) {
-        record.used = 0;
-        record.name6AC[0] = '\0';
-        record.name6BD[0] = '\0';
-    } else {
-        record.used = 1;
-        const std::array<std::int32_t*, 19> targets {{
-            &record.values70[0], &record.values70[1], &record.values70[2],
-            &record.values70[3], &record.values70[4],
-            &record.values70[17], &record.values70[18],
-            &record.values70[19], &record.values70[20],
-            &record.values70[11], &record.values70[12], &record.values70[13],
-            &record.values70[14], &record.values70[15], &record.values70[16],
-            &record.value6D0,
-            &record.values6D8[1], &record.values6D8[2], &record.values6D8[0],
-        }};
-        std::uint32_t bit = 2;
-        std::int32_t field = 2;
-        for (std::int32_t* const target : targets) {
-            if ((flags & (bit | 1u)) != 0) {
-                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-                ++field;
-            }
-            bit <<= 1;
-        }
-    }
-    Sub_519920();
-    Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    Sub_492250();
-}
-
-// 原函数：0x0050B0D0。
-void Sub_50B0D0(
-    const std::uintptr_t, const std::int32_t index, const char* const payload)
-{
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
-        return;
-    }
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
-    if (record.used == 0) {
-        return;
-    }
-    std::memset(record.techniquesD8.data(), 0, sizeof(record.techniquesD8));
-    char name[256];
-    char description[256];
-    std::int32_t field = 2;
-    for (;;) {
-        const std::int32_t techniqueIndex =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
-        if (techniqueIndex < 0) {
-            break;
-        }
-        const std::int32_t techniqueId =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 255, description);
-        input::UnescapeLegacyTextAndNotify_52D2F0(description);
-        const std::int32_t fp =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
-        const std::int32_t techniqueField =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
-        const std::int32_t target =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
-        const std::int32_t sequence =
-            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
-        PetTechniqueRecord& technique = record.techniquesD8[techniqueIndex];
-        if (std::strlen(name) == 0) {
-            technique.name[0] = '\0';
-            technique.description[0] = '\0';
-            technique.fp = 0;
-            technique.used = 0;
-            // 原50B230不推进字段；不把空名称改成跳过本条或结束解析。
-            continue;
-        }
-        technique.used = 1;
-        technique.techniqueId = techniqueId;
-        std::strcpy(technique.name.data(), std::strlen(name) <= 24 ? name : "???");
-        std::strcpy(
-            technique.description.data(),
-            std::strlen(description) <= 96 ? description : "???");
-        field += 8;
-        technique.fp = fp;
-        technique.field = static_cast<std::uint16_t>(techniqueField);
-        technique.target = static_cast<std::uint16_t>(target);
-        technique.sequence = sequence;
-    }
-    Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), 10);
-}
-
-// 原函数：0x005185C0。
-void Sub_5185C0(
-    const PetTechniqueRecord* const source, SkillPairRecord* const destination,
-    const std::int32_t count)
-{
-    for (std::int32_t index = 0; index < count; ++index) {
-        destination[index].used = source[index].used;
-        destination[index].index = static_cast<std::uint16_t>(index);
-        destination[index].sequence = source[index].sequence;
-    }
-}
-
-// 原函数：0x0043C4B0。
-std::int32_t Sub_43C4B0()
-{
-    for (std::int32_t index = 0; index < 5; ++index) {
-        const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
-        if (pet.used == 1 && pet.flags6AA == 2) {
-            return index;
-        }
-    }
-    return -1;
 }
 
 // 原函数：0x0043C4E0。
@@ -3714,50 +2043,11 @@ void Sub_492250()
 
 // 原两表均位于PE虚拟零区；5199A0后续只重置原表编号，不能清副本。
 std::array<TitleRecord, 64> gTitlesFF0508 {}; // 原全局：0x00FF0508。
+
+} // namespace detail
 std::array<TitleRecord, 64> gSortedTitlesDE03F8 {}; // 原全局：0x00DE03F8。
 
-// 原函数：0x0050A300。
-void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    char text[256];
-    std::int32_t field = 2;
-    for (TitleRecord& record : gTitlesFF0508) {
-        network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 255, text);
-        input::UnescapeLegacyTextAndNotify_52D2F0(text);
-        const std::int32_t id = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        if (id >= 0) {
-            record.id = id;
-            std::strcpy(record.text.data(), text);
-            record.value = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
-        } else {
-            record.id = -1;
-            record.text[0] = '\0';
-            record.value = -1;
-        }
-        field += 3;
-    }
-    Sub_5198A0(
-        reinterpret_cast<std::uint8_t*>(gSortedTitlesDE03F8.data()),
-        reinterpret_cast<const std::uint8_t*>(gTitlesFF0508.data()), 64);
-    Sub_5198D0(gSortedTitlesDE03F8.data(), 64);
-}
-
-// 原函数：0x00519840。
-std::int32_t Sub_519840(const std::int32_t id)
-{
-    if (id < 0) {
-        return -1;
-    }
-    for (std::int32_t index = 0; index < 64; ++index) {
-        if (gTitlesFF0508[index].id == id) {
-            return index;
-        }
-    }
-    return -1;
-}
+namespace detail {
 
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
 void Sub_5198A0(
@@ -3805,10 +2095,14 @@ std::int32_t Sub_5198F0(const void* const left, const void* const right)
     return (leftValue > rightValue) - (leftValue < rightValue);
 }
 
+} // namespace detail
+
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
 std::int32_t gDialogRequestCC21E0 = 0; // 原全局：0x00CC21E0。
 std::int32_t gDialogTargetD2DE6C = 0; // 原全局：0x00D2DE6C。
+
+namespace detail {
 
 // 原 455BD0 的 23 个独立 W16/W32 共享槽；仅两个 556C 槽的映像初值为 1。
 std::uint16_t gValue556C14 = 1; // 原全局：0x00556C14。
@@ -3820,7 +2114,11 @@ std::uint16_t gValue62B3B0 = 0; // 原全局：0x0062B3B0。
 std::uint16_t gValue556C34 = 1; // 原全局：0x00556C34。
 std::uint16_t gValue62B5AA = 0; // 原全局：0x0062B5AA。
 std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
+
+} // namespace detail
 std::uint64_t gValue62B5B0 = 0; // 原全局：0x0062B5B0。
+
+namespace detail {
 std::uint32_t gValue62B308 = 0; // 原全局：0x0062B308。
 std::uint32_t gValue62B398 = 0; // 原全局：0x0062B398。
 std::uint32_t gValue62B358 = 0; // 原全局：0x0062B358。
@@ -3842,6 +2140,8 @@ std::uint32_t gValue9FB928 = 0; // 原全局：0x009FB928。
 std::uint32_t gValue9A86C0 = 0; // 原全局：0x009A86C0。
 std::uint32_t gValue9A7F78 = 0; // 原全局：0x009A7F78。
 
+} // namespace detail
+
 // 原59F9F8；50D120生产，421480后续复用。
 std::int32_t gBattleBackgroundImage59F9F8 = 0;
 std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
@@ -3850,6 +2150,8 @@ std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
 std::uint32_t gValue5ABB1C = 0; // 原全局：0x005ABB1C。
 std::uint32_t gValue5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
 std::uint32_t gValue5ABB28 = 0; // 原全局：0x005ABB28。
+
+namespace detail {
 std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
 std::int32_t gBattleCWriteIndex5AAA6C = 0; // 原全局：0x005AAA6C。
 std::int32_t gBattleCReadIndex5AAA44 = 0; // 原全局：0x005AAA44。
@@ -3857,6 +2159,8 @@ std::int32_t gBattleMWriteIndex5A3A1C = 0; // 原全局：0x005A3A1C。
 std::int32_t gBattleMReadIndex5AAA68 = 0; // 原全局：0x005AAA68。
 std::array<char, 0x4000> gBattleCQueue5A4A3C {}; // 原全局：0x005A4A3C。
 std::array<char, 0x4000> gBattleMQueue59FA18 {}; // 原全局：0x0059FA18。
+
+} // namespace detail
 std::array<char, 0x1000> gBattleCText5A3A20 {}; // 原全局：0x005A3A20。
 std::int32_t gBattleCOffset5ABA80 = 0; // 原全局：0x005ABA80。
 std::uint32_t gBattleFieldFlags5ABB58 = 0; // 原全局：0x005ABB58。
@@ -3866,13 +2170,21 @@ std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
 std::uint32_t gBattleActiveEventMask5AAA74 = 0; // 原全局：0x005AAA74。
 std::array<cg::yobi::YobiAction*, 32> gBattleEventActions5ABA9C {}; // 原全局：0x005ABA9C。
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
+
+namespace detail {
 static_assert(sizeof(gBattleEventActions5ABA9C) == 32 * sizeof(cg::yobi::YobiAction*));
+
+} // namespace detail
 std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {}; // 原全局：0x005AAA48。
 std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
 std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
+
+namespace detail {
 static_assert(sizeof(BattleNamedEffectRecord) == 36);
 static_assert(offsetof(BattleNamedEffectRecord, value) == 32);
 static_assert(sizeof(gBattleNamedEffects5ABCE0) == 720);
+
+} // namespace detail
 cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
 std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
 constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
@@ -3891,38 +2203,15 @@ std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原
     {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
     {-131, -121, 218, 228},
 }};
-// R03：唯一阵位表按尺寸增量更新，重复初始化不累加中心偏移。
-void CenterBattleLayoutToWindow()
-{
-    if (platform::gWindowHeight > 480) {
-        const std::size_t extent = static_cast<std::size_t>(platform::gWindowHeight) + 1;
-        if (extent > gTransitionLines.speedFF0FA8.size()) {
-            gTransitionLines.speedFF0FA8.resize(extent);
-            gTransitionLines.xFF172C.resize(extent);
-            gTransitionLines.yFF1EB0.resize(extent);
-        }
-    }
-    static std::int32_t previousX = 0;
-    static std::int32_t previousY = 0;
-    const std::int32_t offsetX = platform::gWindowWidth > 0 ? (platform::gWindowWidth - 640) / 2 : 0;
-    const std::int32_t offsetY = platform::gWindowHeight > 0 ? (platform::gWindowHeight - 480) / 2 : 0;
-    const std::int32_t deltaX = offsetX - previousX;
-    const std::int32_t deltaY = offsetY - previousY;
-    if (deltaX == 0 && deltaY == 0) {
-        return;
-    }
-    for (auto& point : gBattleGraphicPoints553758) {
-        point[0] += deltaX;
-        point[1] += deltaY;
-        point[2] += deltaX;
-        point[3] += deltaY;
-    }
-    previousX = offsetX;
-    previousY = offsetY;
-}
+
+
 
 std::int32_t gBattleCurrentPosition5ABCA4 = 0; // 原全局：0x005ABCA4。
+
+namespace detail {
 std::uint32_t gBattlePosition5ABCA8 = 0; // 原全局：0x005ABCA8。
+
+} // namespace detail
 std::int32_t gBattlePlayerActionState5ABC74 = 0; // 原全局：0x005ABC74。
 std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {}; // 原全局：0x005ABC7C。
 std::int32_t gBattleSelectedSkill5ABB5C = 0; // 原全局：0x005ABB5C。
@@ -3956,11 +2245,17 @@ std::int32_t gBattleBombLevelD67B2C = 0; // 原全局：0x00D67B2C。
 std::uint32_t gBattlePlayerFlags5ABCAC = 0; // 原全局：0x005ABCAC。
 std::uint32_t gBattleSkillFlags5ABC04 = 0; // 原全局：0x005ABC04。
 std::uint32_t gBattlePetSkillFlags5ABB78 = 0; // 原全局：0x005ABB78。
+
+namespace detail {
 std::uint32_t gBattleRebirthLevel5ABB7C = 0; // 原全局：0x005ABB7C。
+
+} // namespace detail
 std::uint32_t gBattleRidePet5ABC38 = 0; // 原全局：0x005ABC38。
 std::uint32_t gBattleEndBits5ABBC0 = 0; // 原全局：0x005ABBC0。
 std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
 std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
+
+namespace detail {
 std::uint32_t gValue5ABCB0 = 0; // 原全局：0x005ABCB0。
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
@@ -3970,6 +2265,8 @@ static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
 static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 // 原5ABCD8；43CB10末尾重读图号后发布，DrawBattleScene用于重建判断。
 std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
+
+} // namespace detail
 
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
 std::int32_t gValueD2F788 = 0; // 原全局：0x00D2F788。
@@ -3981,6 +2278,8 @@ std::int32_t gValueFF0D08 = 0; // 原全局：0x00FF0D08。
 
 // 原 0xFF0D34：50D3B0 写入、5199A0 清零的独立 W16 槽。
 std::uint16_t gValueFF0D34 = 0;
+
+namespace detail {
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
 std::uint16_t gValueFF0D30 = 0; // 原全局：0x00FF0D30。
 std::uint16_t gValueFF0D32 = 0; // 原全局：0x00FF0D32。
@@ -3998,11 +2297,15 @@ std::int32_t gValue9A61F8 = 0; // 原全局：0x009A61F8。
 std::int32_t gValue9A5AC0 = 0; // 原全局：0x009A5AC0。
 cg::yobi::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
 
+} // namespace detail
+
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
 std::int32_t gValue5ABB70 = 0; // 原全局：0x005ABB70。
 std::int32_t gValue5ABB6C = 0; // 原全局：0x005ABB6C。
 std::int32_t gValue553F90 = -1; // 原全局：0x00553F90。
 std::int32_t gValue553F84 = -1; // 原全局：0x00553F84。
+
+namespace detail {
 
 // 原 0xC8222E；pending 消费与世界循环尾部共用的 W16 门禁。
 std::uint16_t gValueC8222E = 0;
@@ -4012,9 +2315,13 @@ std::uint32_t gValueC82230 = 0; // 原全局：0x00C82230。
 std::int16_t gValueC82234 = 0; // 原全局：0x00C82234。
 std::int16_t gValueC82236 = 0; // 原全局：0x00C82236。
 
+} // namespace detail
+
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 的独立 W32 槽。
 std::uint32_t gValueC3500C = 0; // 原全局：0x00C3500C。
 std::uint32_t gValueC75010 = 0; // 原全局：0x00C75010。
+
+namespace detail {
 std::uint32_t gValue9EE8A0 = 0; // 原全局：0x009EE8A0。
 std::uint32_t gValue9ED438 = 0; // 原全局：0x009ED438。
 std::uint32_t gValue9ED440 = 0; // 原全局：0x009ED440。
@@ -4024,14 +2331,22 @@ std::uint32_t gValueC35008 = 0; // 原全局：0x00C35008。
 std::uint32_t gValue9DAD2C = 0; // 原全局：0x009DAD2C。
 std::uint32_t gValue9FB930 = 0; // 原全局：0x009FB930。
 std::uint32_t gValueC821D4 = 0; // 原全局：0x00C821D4。
+
+} // namespace detail
 std::uint32_t gValue9A86DC = 0; // 原全局：0x009A86DC。
 
 std::int16_t gMapXStart = 0; // 原全局：0x009DEF64。
 std::int16_t gMapYStart = 0; // 原全局：0x009DEF60。
+
+namespace detail {
 std::int16_t gMapXEnd = 0; // 原全局：0x009DEF62。
 std::int16_t gMapYEnd = 0; // 原全局：0x009DEF5E。
+
+} // namespace detail
 std::int16_t gMapSpanX = 0; // 原全局：0x009A86E0。
 std::int16_t gMapSpanY = 0; // 原全局：0x009ED43C。
+
+namespace detail {
  // 原全局：0x009EE8A8。
  // 原全局：0x009EE8C0。
  // 原全局：0x009EE8D0。
@@ -4049,10 +2364,18 @@ std::uint32_t gValueAF10C0 = 0; // 原全局：0x00AF10C0。
 std::uint32_t gValue9EE8F8 = 0; // 原全局：0x009EE8F8。
 std::uint32_t gValue9EE8FC = 0; // 原全局：0x009EE8FC。
 std::uint32_t gValue9EE900 = 0; // 原全局：0x009EE900。
+
+} // namespace detail
 std::uint32_t gValue9DAD78 = 0; // 原全局：0x009DAD78。
+
+namespace detail {
 std::uint8_t gValue9A4B94 = 0; // 原全局：0x009A4B94。
+
+} // namespace detail
 std::uint16_t gValueC82200 = 0; // 原全局：0x00C82200。
 std::uint16_t gValueC82202 = 0; // 原全局：0x00C82202。
+
+namespace detail {
 std::array<std::int16_t, 2> gMapWindowEndY9A86C4 {}; // 原全局：0x009A86C4。
 std::array<std::int16_t, 2> gMapWindowStartY9A86C8 {}; // 原全局：0x009A86C8。
 std::array<std::int16_t, 2> gMapWindowEndX9A86CC {}; // 原全局：0x009A86CC。
@@ -4069,23 +2392,39 @@ static_assert(sizeof(gMapWindowStartY9A86C8) == 4);
 static_assert(sizeof(gMapWindowEndX9A86CC) == 4);
 static_assert(sizeof(gMapWindowStartX9A86D0) == 4);
 static_assert(sizeof(gPendingDirections9A86D4) == 4);
+
+} // namespace detail
 std::uint32_t gValueC821FC = 0; // 原全局：0x00C821FC。
+
+namespace detail {
 std::uint32_t gValue9EE8B8 = 0; // 原全局：0x009EE8B8。
 std::uint16_t gValue9EE8A4 = 0; // 原全局：0x009EE8A4。
 std::int32_t gValue9A7F7C = 0; // 原全局：0x009A7F7C。
 std::int32_t gValue9A7F80 = 0; // 原全局：0x009A7F80。
 std::uint64_t gValueAF10C8 = 0; // 原全局：0x00AF10C8。
 std::uint16_t gValueC8A79C = 0; // 原全局：0x00C8A79C。
+
+} // namespace detail
 std::uint16_t gValue9A86D8 = 0; // 原全局：0x009A86D8。
 std::uint16_t gValue9FB92E = 0; // 原全局：0x009FB92E。
+
+namespace detail {
 std::uint16_t gValueB65A7C = 0; // 原全局：0x00B65A7C。
+
+} // namespace detail
 std::uint16_t gValueC82220 = 0; // 原全局：0x00C82220。
+
+namespace detail {
 std::uint64_t gValueC82238 = 0; // 原全局：0x00C82238。
 std::uint64_t gValueC8223C = 0; // 原全局：0x00C8223C。 原转向发送的独立GetTickCount位槽。
 std::uint32_t gValueC8A774 = 0; // 原全局：0x00C8A774。
 std::uint64_t gValueC8A778 = 0; // 原全局：0x00C8A778。
+
+} // namespace detail
 std::uint32_t gValueC8A77C = 0; // 原全局：0x00C8A77C。
 std::uint32_t gValueC8A780 = 0; // 原全局：0x00C8A780。
+
+namespace detail {
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
 std::int32_t gValueC8A78C = 0; // 原全局：0x00C8A78C。
@@ -4103,7 +2442,11 @@ std::uint32_t gValueC82214 = 0; // 原全局：0x00C82214。
 std::uint32_t gValueC82218 = 0; // 原全局：0x00C82218。
 std::int32_t gValueFF0D4C = 0; // 原全局：0x00FF0D4C。
 std::int32_t gValue73ED44 = 0; // 原全局：0x0073ED44。
+
+} // namespace detail
 std::int32_t gValue73ED48 = 0; // 原全局：0x0073ED48。
+
+namespace detail {
 std::uint32_t gValueC82224 = 0; // 原全局：0x00C82224。
 std::uint32_t gValueC8221C = 0; // 原全局：0x00C8221C。
 std::uint16_t gValue9DAD54 = 0; // 原全局：0x009DAD54。
@@ -4112,27 +2455,20 @@ std::uint16_t gValue9FB92C = 0; // 原全局：0x009FB92C。
 std::uint16_t gValue55D9FC = 0xFFFFu; // 原全局：0x0055D9FC。
 std::uint16_t gValueC821D0 = 0; // 原全局：0x00C821D0。
 std::uint16_t gValue9EE910 = 0; // 原全局：0x009EE910。
-std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
-std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
-std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
-std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {}; // 原全局：0x009DEF68。
+
+} // namespace detail
+std::array<std::uint16_t, detail::kMapBufferCells> gMapTileArray {};
+std::array<std::uint16_t, detail::kMapBufferCells> gMapObjArray {};
+std::array<std::uint16_t, detail::kMapBufferCells> gMapHitArray {};
+std::array<std::uint16_t, detail::kMapBufferCells> gMapWalkabilityArray {}; // 原全局：0x009DEF68。
+
+namespace detail {
 std::uint16_t gLastDetectedCode = 0; // 原全局：0x009DAD4A。
+
+} // namespace detail
 std::int32_t gValue9E0434 = 0; // 原全局：0x009E0434。
 
-// 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
-std::int32_t __cdecl Sub_468520(
-    char* const buffer,
-    const std::int32_t mapId,
-    const std::int32_t value9E0434,
-    const std::int32_t floor)
-{
-    if (mapId == 0) {
-        return std::sprintf(
-            buffer, "%s\\%d\\%d.dat", kMapPathPrefix, 0, floor);
-    }
-    return std::sprintf(
-        buffer, "%s\\%d\\%d\\%d.dat", kMapPathPrefix, mapId, value9E0434, floor);
-}
+namespace detail {
 
 // 原 [0x468570,0x4687A3)：仅缺文件路径尝试建目录，旧头比较后可重写。
 std::int32_t __cdecl Sub_468570(
@@ -4554,7 +2890,11 @@ std::int32_t __cdecl Sub_468C40(
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。
 std::uint32_t gValue9DAD5C = 0; // 原全局：0x009DAD5C。
+
+} // namespace detail
 std::uint32_t gValue9DAD68 = 0; // 原全局：0x009DAD68。
+
+namespace detail {
 std::int32_t gValue9DAD58 = 0; // 原全局：0x009DAD58。
 std::int32_t gValue9DAD60 = 0; // 原全局：0x009DAD60。
 std::int32_t gValue9DAD64 = 0; // 原全局：0x009DAD64。
@@ -4562,8 +2902,12 @@ std::int32_t gValue9DAD64 = 0; // 原全局：0x009DAD64。
 // 原 [0x9FB948,0xAEFB94)；供 .cut 重置、加载及后续 46CF60 共享。
 CutData9FB948 gCutData9FB948 {}; // 原全局：0x009FB948。
 
+} // namespace detail
+
 // 原 [0xAF10D8,0xB65A7B)；.aut 单次读取的唯一共享表。
 AutRecordAF10D8 gAutDataAF10D8[159201] {}; // 原全局：0x00AF10D8。
+
+namespace detail {
 static_assert(sizeof(gAutDataAF10D8) == 477603);
 
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
@@ -4787,32 +3131,6 @@ std::int32_t Sub_46C840(
     return 1;
 }
 
-// 原函数：0x0046C760。
-std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
-{
-    if (gValue9DAD68 == 1) {
-        gValue55DA88 = 1;
-        const std::int32_t playerY = gPlayerY.value();
-        const std::int32_t playerX = gPlayerX.value();
-        static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
-        const std::int32_t index = gAutoMapWindowIndex55DA90;
-        gValue55DA88 = 0;
-        const std::int32_t height = gAutoMapWindowSizes55DA94[index].height;
-        const std::int32_t width = gAutoMapWindowSizes55DA94[index].width;
-        return render::DrawColorAutoMap_44FEB0(x, y, gAutoMapColorWindow9CF6EC, width, height);
-    }
-    if (gValue55DA88 != 0) {
-        const std::int32_t playerY = gPlayerY.value();
-        const std::int32_t playerX = gPlayerX.value();
-        static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
-        gValue55DA88 = 0;
-    }
-    const std::int32_t index = gAutoMapWindowIndex55DA90;
-    const std::int32_t height = gAutoMapWindowSizes55DA94[index].height;
-    const std::int32_t width = gAutoMapWindowSizes55DA94[index].width;
-    return render::DrawIndexedAutoMap_44F5C0(x, y, gAutoMapIndexWindow9DAD7C, width, height);
-}
-
 // 原 [0x46DC60,0x46DC85)；整块清零完成后才逐项写 +4 哨兵。
 void __cdecl Sub_46DC60()
 {
@@ -5023,7 +3341,7 @@ std::int32_t* Sub_467F30()
     gValueC821D8 = std::int32_t{0};
 
     // 原末次改用独立var_1C，保留第三临时对象。
-    cg::world::detail::gRippleGate = std::int32_t{0};
+    cg::world::gRippleGate = std::int32_t{0};
 
     gValue9A86D8 = 0;
     gValue9FB92E = 0;
@@ -5044,24 +3362,6 @@ std::int32_t* Sub_467F30()
     gValueC821D0 = 0;
     gValue9EE910 = 0;
     return Sub_46CF20();
-}
-
-// 原 [0x4681B0,0x4681F6)：先读 Y/X 快照并恢复窗口，随后顺序清六槽。
-std::int32_t __cdecl Sub_4681B0()
-{
-    const std::int32_t y =
-        gPlayerSnapshotY.value();
-    const std::int32_t x =
-        gPlayerSnapshotX.value();
-    static_cast<void>(Sub_468330(x, y));
-    static_cast<void>(Sub_468200());
-    gValueC82200 = 0;
-    gValueC82202 = 0;
-    gValueC821FC = 0;
-    gValueC8A778 = 0;
-    gValueC8A794 = 0;
-    gValueC82224 = 0;
-    return 0;
 }
 
 // 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。
@@ -5109,26 +3409,6 @@ std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)
     const std::int32_t left = gMapXStart;
     const std::int32_t index = span * localY - left + x;
     return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;
-}
-
-// 原 [0x469810,0x469864)：边界外返回 1，边界内比较第四平面的完整 WORD。
-std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
-{
-    const std::int32_t localX = x - gMapXStart;
-    const std::int32_t localY = y - gMapYStart;
-    if (localX < 0) {
-        return 1;
-    }
-    const std::int32_t width = gMapSpanX;
-    if (localX >= width || localY < 0) {
-        return 1;
-    }
-    const std::int32_t height = gMapSpanY;
-    if (localY >= height) {
-        return 1;
-    }
-    const std::int32_t index = localX + width * localY;
-    return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
 }
 
 // 原 [0x469240,0x469284)：按字节读取，两张原表查值并保留低 W16 状态。
@@ -5203,33 +3483,6 @@ void __cdecl Sub_4691D0()
     gValue9EE8E0 = std::int32_t{-1};
 }
 
-// 原函数：0x005093C0。
-void Sub_5093C0(
-    const std::uintptr_t, const std::int32_t x, const std::int32_t y,
-    const std::int32_t direction)
-{
-    static_cast<void>(Sub_468200());
-    static_cast<void>(Sub_519EC0(x, y));
-    Sub_519EE0();
-    static_cast<void>(Sub_51A040(direction));
-}
-
-// 原函数：0x0050D080。
-void Sub_50D080(
-    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
-{
-    gValue9FB918 = static_cast<std::int32_t>(first);
-
-    gValueAF0FE8 = static_cast<std::int32_t>(second);
-
-    const std::uint32_t encoded = gValue9FB918.encoded;
-    const std::uint32_t mask = gValue9FB918.mask;
-    const std::uint8_t readCount = gValue9FB918.readCount;
-    gValueC821E8.encoded = encoded;
-    gValueC821E8.mask = mask;
-    gValueC821E8.readCount = readCount;
-}
-
 // 原函数：0x00455C60。
 void Sub_455C60()
 {
@@ -5254,198 +3507,6 @@ void Sub_455FC0()
         gWindow39Action62B5B8 = ui::WindowRuntime_CreateAnimation(
             39, 0, 0, &gWindow39Action62B5B8);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
-    }
-}
-
-// 原函数：0x0050D120。
-void Sub_50D120(
-    const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    if (gValueD67E78 != 0) {
-        static_cast<void>(Sub_519D50());
-        Sub_4464D0();
-        static_cast<void>(Sub_4681B0());
-        Sub_51B0F0();
-        gValue62B5B0 = 0;
-        Sub_455FC0();
-        Sub_455C60();
-
-        const std::uint32_t mask = gValue9FB918.mask;
-        const std::uint32_t encoded = gValue9FB918.encoded;
-        const std::uint8_t readCount = gValue9FB918.readCount;
-        gValueC821E8.mask = mask;
-        gValueC821E8.encoded = encoded;
-        gValueC821E8.readCount = readCount;
-
-        gValueC821D8 = std::int32_t{0};
-
-        cg::world::detail::gRippleGate = std::int32_t{1};
-
-        gValue9FB92E = 0;
-        gValueFF03D8 = 0;
-        gValueF7CA04 = 0;
-        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
-        cg::yobi::YobiClearUp_404D30();
-        Sub_446610();
-
-        cg::world::detail::gRippleGate = std::int32_t{0};
-        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
-        return;
-    }
-    if (type > 0) {
-        const bool modeTwo = type == 2;
-        gValue5ABFC4 = 1;
-        gBattleType5ABFC8 = type;
-        if (modeTwo) {
-            gBattleModeFlag5ABFCC = 1;
-            gValueC821D0 = 0;
-            gValueB65A7C = 1;
-        } else {
-            const bool modeThree = type == 3;
-            gBattleModeFlag5ABFCC = 0;
-            if (modeThree) {
-                gValueC821D0 = 1;
-                gValueB65A7C = 0;
-            } else {
-                gValueC821D0 = 0;
-                gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
-            }
-        }
-        gValue5ABB1C = 0;
-        gBattleBackgroundImage59F9F8 = imageNo;
-        gValue5ABB28 = 0;
-        gBattleCWriteIndex5AAA6C = 0;
-        gBattleCReadIndex5AAA44 = 0;
-        gBattleMWriteIndex5A3A1C = 0;
-        gBattleMReadIndex5AAA68 = 0;
-        gBattleCText5A3A20[0] = '\0';
-        gBattleMText5AAA7C[0] = '\0';
-        for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
-            gBattleCQueue5A4A3C[offset] = '\0';
-            gBattleMQueue59FA18[offset] = '\0';
-        }
-        gBattleFirstTurnPending5ABC6C = 1;
-        return;
-    }
-    gValueC821D8 = std::int32_t{0};
-    gValueFF03D8 = 0;
-    gValueF7CA04 = 0;
-}
-
-// 原函数：0x0050D3C0。
-void Sub_50D3C0(const std::uintptr_t, const char* const text)
-{
-    const char kind = text[0];
-    if (kind == 'C') {
-        const std::int32_t index = gBattleCWriteIndex5AAA6C;
-        char* const destination = gBattleCQueue5A4A3C.data()
-            + static_cast<std::ptrdiff_t>(index) * 0x1000;
-        const std::size_t byteCount = std::strlen(text) + 1;
-        const std::size_t wordBytes = byteCount & ~std::size_t{3};
-        std::memcpy(destination, text, wordBytes);
-        const std::int32_t next = index + 1;
-        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
-        const bool wrap = next >= 4;
-        gBattleCWriteIndex5AAA6C = next;
-        if (wrap) {
-            gBattleCWriteIndex5AAA6C = 0;
-        }
-        return;
-    }
-    if (kind == 'P') {
-        static_cast<void>(std::sscanf(text + 2, "%X|%X|%X|%X|%X|%X",
-            &gBattlePosition5ABCA8, &gBattlePlayerFlags5ABCAC,
-            &gBattleSkillFlags5ABC04, &gBattlePetSkillFlags5ABB78,
-            &gBattleRebirthLevel5ABB7C, &gBattleRidePet5ABC38));
-        return;
-    }
-    if (kind == 'A') {
-        static_cast<void>(std::sscanf(text + 2, "%X|%X",
-            &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
-        if (gBattleFirstTurnPending5ABC6C == 1) {
-            const std::uint32_t turn = gBattleTurn5ABB74;
-            gBattleFirstTurnPending5ABC6C = 0;
-            gBattleTurnSnapshot5ABC08 = turn;
-        }
-        cg::yobi::Sub_43BFF0();
-        return;
-    }
-    if (text[1] == 'U') {
-        gValue5ABCB0 = 1;
-        return;
-    }
-    if (kind == 'M') {
-        const std::int32_t index = gBattleMWriteIndex5A3A1C;
-        char* const destination = gBattleMQueue59FA18.data()
-            + static_cast<std::ptrdiff_t>(index) * 0x1000;
-        const std::size_t byteCount = std::strlen(text) + 1;
-        const std::size_t wordBytes = byteCount & ~std::size_t{3};
-        std::memcpy(destination, text, wordBytes);
-        const std::int32_t next = index + 1;
-        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
-        const bool wrap = next >= 4;
-        gBattleMWriteIndex5A3A1C = next;
-        if (wrap) {
-            gBattleMWriteIndex5A3A1C = 0;
-        }
-    }
-}
-
-// 原函数：0x0050D500。
-void Sub_50D500(const std::uintptr_t, const char* const payload)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    gValueFF0C10 = 1;
-    char row[2048];
-    char entry[2048];
-    char name[2048];
-    std::int32_t field = 1;
-    for (BattleResultRecord& record : gBattleResultsFF0C14) {
-        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
-        ++field;
-        record.value00 = static_cast<std::uint16_t>(
-            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
-        record.value02 = static_cast<std::uint16_t>(
-            network::ParseDelimitedInteger_52CFA0(row, '|', 2));
-        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 3);
-    }
-
-    network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
-    ++field;
-    for (std::int32_t index = 0; index < 3; ++index) {
-        network::ExtractDelimitedField_52CED0(row, '|', index + 1, 2047, entry);
-        input::UnescapeLegacyText_52D150(entry);
-        gBattleResultGraphicsFF0D0C[index] =
-            network::ParseDelimitedInteger_52CFA0(entry, '|', 1);
-        network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);
-        input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        if (std::strlen(name) <= 28) {
-            std::strcpy(gBattleResultNamesFF0C34[index].data(), name);
-        } else {
-            gBattleResultNamesFF0C34[index][0] = '\0';
-        }
-    }
-
-    for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
-        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
-        ++field;
-        const auto bits = static_cast<std::uint16_t>(
-            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
-        const std::int16_t parsedValue = std::bit_cast<std::int16_t>(bits);
-        record.value00 = parsedValue;
-        if (parsedValue < 0) {
-            record.value00 = 0;
-        }
-        const std::int32_t parsedBase62 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);
-        record.value04 = parsedBase62;
-        if (parsedBase62 < 0) {
-            record.value04 = 0;
-        }
     }
 }
 
@@ -5487,243 +3548,6 @@ void Sub_504A50()
     } else {
         gValueFF0C10 = 0;
     }
-}
-
-// 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
-void __cdecl Sub_50CF90(
-    const std::uintptr_t, const std::int32_t sequence,
-    const std::int32_t status)
-{
-    if (gValue9A6E0C != 0) {
-        return;
-    }
-    if (std::bit_cast<std::int16_t>(gValue9DAD54) == sequence) {
-        gValue9A86D8 = 0;
-        if (status == 0) {
-            Sub_4691D0();
-            gValueC82208 = 0;
-            gValueC82210 = 0;
-        } else if (gValueC82214 == 0) {
-            gValueC82210 = 0;
-        }
-    } else if (std::bit_cast<std::int16_t>(gValue9FB92C) == sequence &&
-               status == 0) {
-        gValue9FB92E = 0;
-    }
-}
-
-// 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
-void __cdecl Sub_509090(
-    const std::uintptr_t, const std::int32_t first,
-    const std::int32_t floor, const std::int32_t xStart,
-    const std::int32_t yStart, const std::int32_t xEnd,
-    const std::int32_t yEnd, const std::int32_t expectedTile,
-    const std::int32_t expectedObj, const std::int32_t expectedHit)
-{
-    if (gValue9A6E0C != 0 ||
-        Sub_469290(
-            first, floor, xStart, yStart, xEnd, yEnd,
-            expectedTile, expectedObj, expectedHit) == 0) {
-        return;
-    }
-    if (gMapFloor == floor) {
-        gValueC82208 = 0;
-    }
-    if ((gValue9A4B94 & 1u) != 0) {
-        Sub_4691D0();
-        gValue9A4B94 &= 0xFEu;
-    }
-}
-
-// 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
-std::int32_t __cdecl Sub_509100(
-    const std::uintptr_t, const std::int32_t mapId,
-    const std::int32_t floor, const std::int32_t xStart,
-    const std::int32_t yStart, const std::int32_t xEnd,
-    const std::int32_t yEnd, const char* const payload)
-{
-    // 原入口只采一次 W32 门禁，非零时透传该样本。
-    const std::uint32_t gate = gValue9A6E0C;
-    if (gate != 0) {
-        return std::bit_cast<std::int32_t>(gate);
-    }
-
-    constexpr std::size_t frameBytes = 0x10594;
-    constexpr std::size_t tileOffset = 0x64;
-    constexpr std::size_t tileTextOffset = 0x1064;
-    constexpr std::size_t objOffset = 0x5774;
-    constexpr std::size_t objTextOffset = 0x6774;
-    constexpr std::size_t hitOffset = 0xAE84;
-    constexpr std::size_t hitTextOffset = 0xBE84;
-    static_assert(std::endian::native == std::endian::little);
-    // 原连续帧七段共用存储；仅保留既有整帧零初始化适配。
-    std::array<std::uint16_t, frameBytes / 2> frame {};
-    char* const bytes = reinterpret_cast<char*>(frame.data());
-    std::uint16_t* const tile = frame.data() + tileOffset / 2;
-    std::uint16_t* const obj = frame.data() + objOffset / 2;
-    std::uint16_t* const hit = frame.data() + hitOffset / 2;
-    char* const tileText = bytes + tileTextOffset;
-    char* const objText = bytes + objTextOffset;
-    char* const hitText = bytes + hitTextOffset;
-    char* const field = bytes;
-
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        payload, '|', 1, 0x470F, tileText));
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        payload, '|', 2, 0x470F, objText));
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        payload, '|', 3, 0x470F, hitText));
-
-    const std::int32_t firstStatus = network::ExtractDelimitedField_52CED0(
-        tileText, ',', 1, 99, field);
-    tile[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        objText, ',', 1, 99, field));
-    obj[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        hitText, ',', 1, 99, field));
-    hit[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
-
-    if (firstStatus != 1) {
-        std::size_t item = 1;
-        std::int32_t ordinal = 2;
-        std::int32_t status;
-        do {
-            status = network::ExtractDelimitedField_52CED0(
-                tileText, ',', ordinal, 99, field);
-            tile[item] = static_cast<std::uint16_t>(
-                network::Base62Decode_52D050(field));
-            static_cast<void>(network::ExtractDelimitedField_52CED0(
-                objText, ',', ordinal, 99, field));
-            obj[item] = static_cast<std::uint16_t>(
-                network::Base62Decode_52D050(field));
-            static_cast<void>(network::ExtractDelimitedField_52CED0(
-                hitText, ',', ordinal, 99, field));
-            hit[item] = static_cast<std::uint16_t>(
-                network::Base62Decode_52D050(field));
-            ++item;
-            ++ordinal;
-        } while (status != 1);
-    }
-
-    static_cast<void>(Sub_4688A0(
-        mapId, floor, xStart, yStart, xEnd, yEnd, tile, obj, hit));
-    if ((gValue9EE8B8 != 0 || gValueC82208 != 0)
-        && gMapFloor == floor) {
-        Sub_4691D0();
-        gValueC82208 = 0;
-    }
-    // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
-    const std::uint8_t replyFlags = gValue9A4B94;
-    const std::int32_t currentMapId = std::bit_cast<std::int32_t>(gValue9A86DC);
-    gValue9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
-
-    if (currentMapId == mapId
-        && gMapFloor == floor
-        && (gPlayerX - 10) <= xStart
-        && xEnd <= (gPlayerX + 10)
-        && (gPlayerY - 10) <= yStart
-        && yEnd <= (gPlayerY + 10)) {
-        gValue9EE910 = 1;
-    }
-
-    const std::uint32_t state = gValueC82214;
-    if (state != 1) {
-        return std::bit_cast<std::int32_t>(state);
-    }
-    const std::int32_t currentFloor = gMapFloor;
-    if (currentFloor != floor) {
-        return currentFloor;
-    }
-    gValueC82210 = 0;
-    gValueC82214 = 0;
-    gValueC82218 = 0;
-    return 0;
-}
-
-// 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
-std::int32_t __cdecl Sub_5093F0(
-    const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
-    const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
-    const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
-    const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
-    const std::int32_t a13)
-{
-    const std::uint8_t priorFlag = gValue9A4B94;
-    gValueC82208 = 1;
-    if (priorFlag == 0 && gCurrentSceneType == 9) {
-        if (gValueC8220C == 0) {
-            gCurrentSceneState = 200;
-            static_cast<void>(Sub_51D5B0());
-        }
-        static_cast<void>(Sub_519D50());
-        gValueC8220C = 0;
-    }
-
-    static_cast<void>(Sub_468570(
-        gValue9E0434, a2, a3, a4, a5, a8, a9));
-    Sub_4682E0(
-        static_cast<std::uint32_t>(a2), a3,
-        static_cast<std::uint32_t>(a4), static_cast<std::uint32_t>(a5),
-        static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
-        static_cast<std::uint32_t>(a10), a12);
-    static_cast<void>(Sub_468330(a6, a7));
-    Sub_4464D0();
-
-    const std::uint32_t mask = gValue9FB918.mask;
-    const std::uint32_t encoded = gValue9FB918.encoded;
-    const std::uint8_t readCount = gValue9FB918.readCount;
-    gValueC821E8.mask = mask;
-    gValue9EE8B8 = 0;
-    gValueC821E8.encoded = encoded;
-    gValueC821E8.readCount = readCount;
-
-    gValue9E03C0 = std::int32_t{0};
-    static_cast<void>(Sub_4681B0());
-
-    if (a11 > 0) {
-        gValueFF0D5C = static_cast<std::uint32_t>(a11);
-        gValueFF0D58 = 1;
-    }
-    gValue9EE8F8 = static_cast<std::uint32_t>(a13);
-    return a11 > 0 ? a13 : a11;
-}
-
-// 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
-// PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
-std::int32_t __cdecl Sub_509550(
-    const std::uintptr_t, char* const payload)
-{
-    std::array<char, 256> text;
-    std::array<char, 32> number;
-    input::UnescapeLegacyText_52D150(payload);
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        payload, '|', 1, 255, text.data()));
-    input::UnescapeLegacyTextAndNotify_52D2F0(text.data());
-
-    const char* const selected =
-        std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
-    const std::size_t selectedBytes = std::strlen(selected) + 1;
-    const std::size_t wordBytes = selectedBytes & ~std::size_t{3};
-    std::memcpy(gText9DAD30.data(), selected, wordBytes);
-    gValueFF0D4C = -2;
-    std::memcpy(gText9DAD30.data() + wordBytes, selected + wordBytes, selectedBytes & 3u);
-
-    static_cast<void>(network::ExtractDelimitedField_52CED0(
-        payload, '|', 2, 31, number.data()));
-    if (number[0] == '\0') {
-        gValueFF0D4C = -1;
-    } else {
-        const std::int32_t value = std::atoi(number.data());
-        gValueFF0D4C = value;
-        if (value < 0) {
-            gValueFF0D4C = -1;
-        }
-    }
-    if (gValueC82210 == 1) {
-        gValueC82218 = 1;
-    }
-    return 1;
 }
 
 // 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
@@ -6156,7 +3980,7 @@ void DrawNormalScene_51C7D0()
         gValueC821E8.encoded = encoded;
         gValueC821E8.readCount = readCount;
         gValueC821D8 = std::int32_t{0};
-        cg::world::detail::gRippleGate = std::int32_t{1};
+        cg::world::gRippleGate = std::int32_t{1};
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
@@ -6201,31 +4025,6 @@ inputTail:
     cg::input::Sub_44A410();
 }
 
-// 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
-std::uint32_t Sub_51D640()
-{
-    static_cast<void>(Sub_468F70());
-    platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
-    static_cast<void>(Sub_469030());
-    render::SortTextures_520790();
-    static_cast<void>(render::ClearSurface_4512C0());
-    const std::uint8_t previousC82204 = gValueC82204;
-    gValueC82204 = 0;
-    render::gRenderQueueMode103CF10 = 0;
-    render::DrawAllQueued_520DD0();
-    gValueC82204 = previousC82204;
-    static_cast<void>(render::CopyBackToTemp());
-    render::gRenderQueueMode103CF10 = 1;
-    platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
-    const std::uint64_t tick = platform::ReadTickCount64();
-    platform::gLastRenderDt = static_cast<double>(tick);
-    return static_cast<std::uint32_t>(tick);
-}
-
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
 std::uint32_t Sub_51D750()
 {
@@ -6259,26 +4058,26 @@ void __cdecl Sub_458F40()
 {
     const std::int32_t scene = gCurrentSceneType;
     if (scene == 9) {
-        if (detail::gPlayerRuntimeSlots.action == nullptr) {
+        if (gPlayerRuntimeSlots.action == nullptr) {
             return;
         }
     } else if (scene != 10) {
         return;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
-    if (detail::gPlayerRuntimeSlots.timerMode10 != 0) {
-        const std::uint64_t previousTick = detail::gPlayerRuntimeSlots.timerTick14;
-        const std::int32_t remaining = detail::gPlayerRuntimeSlots.timerRemaining0C;
+    if (gPlayerRuntimeSlots.timerMode10 != 0) {
+        const std::uint64_t previousTick = gPlayerRuntimeSlots.timerTick14;
+        const std::int32_t remaining = gPlayerRuntimeSlots.timerRemaining0C;
         const std::int64_t delta =
             std::bit_cast<std::int64_t>(previousTick - tick);
         const std::int64_t updated = remaining + delta;
-        detail::gPlayerRuntimeSlots.timerRemaining0C = static_cast<std::int32_t>(updated);
+        gPlayerRuntimeSlots.timerRemaining0C = static_cast<std::int32_t>(updated);
         if (updated < 0) {
-            detail::gPlayerRuntimeSlots.timerRemaining0C = 0;
-            detail::gPlayerRuntimeSlots.timerMode10 = 0;
+            gPlayerRuntimeSlots.timerRemaining0C = 0;
+            gPlayerRuntimeSlots.timerMode10 = 0;
         }
     }
-    detail::gPlayerRuntimeSlots.timerTick14 = tick;
+    gPlayerRuntimeSlots.timerTick14 = tick;
 }
 
 // GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
@@ -6298,27 +4097,8 @@ void __cdecl Sub_458F00()
 // GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
 std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
 {
-    detail::gPlayerRuntimeSlots.objectIndex = std::bit_cast<std::uint32_t>(value);
+    gPlayerRuntimeSlots.objectIndex = std::bit_cast<std::uint32_t>(value);
     return value;
-}
-
-// GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
-std::int32_t __cdecl Sub_50C870(
-    const std::uintptr_t, const std::int32_t playerValue,
-    const std::int32_t timeOffset, const std::int32_t pathValue,
-    const std::int32_t adjustment)
-{
-    static_cast<void>(Sub_519EB0(playerValue));
-    gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
-    gValue73ED68 = static_cast<std::uint64_t>(
-        ::_time64(nullptr));
-    static_cast<void>(UpdateGameTime(&gCgTime));
-    const std::int32_t category = GetCate_458EC0(&gCgTime);
-    gValue73ED48 = category;
-    static_cast<void>(render::SelectPalette(category, 0));
-    gValue9E0434 = pathValue;
-    gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
-    return adjustment;
 }
 
 // 原函数：0x0043CBB0。
@@ -6632,7 +4412,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         cg::yobi::YobiClearUp_404D30();
         Sub_446610();
-        cg::world::detail::gRippleGate = std::int32_t{0};
+        cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -6658,7 +4438,7 @@ void DrawBattleScene_43CBB0()
         clearBattleEffects();
         cg::yobi::YobiClearUp_404D30();
         Sub_446610();
-        cg::world::detail::gRippleGate = std::int32_t{0};
+        cg::world::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
         static_cast<void>(SetPendingSceneType(7));
         return;
@@ -6748,7 +4528,7 @@ void* __cdecl Sub_51D5B0()
         &low, sizeof(low));
 
     if (gate != 0
-        || cg::yobi::Sub_43F1F0(cg::world::detail::gPlayerRuntimeSlots.objectIndex)
+        || cg::yobi::Sub_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
         const std::uint32_t currentGate = gValueD67E78;
         gValueFF0D74 = 0;
@@ -7354,18 +5134,6 @@ std::int64_t __cdecl Sub_468F70()
     return projectedY;
 }
 
-// 原 [0x46CF00, 0x46CF1A)；上界外返回入口位模式，上界内读唯一共享表。
-std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
-{
-    if (static_cast<std::uint32_t>(value) >= 65536u) {
-        return value;
-    }
-    if (value < 0) {
-        return 0;
-    }
-    return gValuesC35010[static_cast<std::size_t>(value)];
-}
-
 // 原 [0x46CF20, 0x46CF57)；两段顺序填值，返回原生表一过尾指针。
 std::int32_t* __cdecl Sub_46CF20()
 {
@@ -7376,107 +5144,6 @@ std::int32_t* __cdecl Sub_46CF20()
         gValuesC35010[index] = index + 200000;
     }
     return gValuesC35010 + 65536;
-}
-
-// WDG01：原 [0x46F8F0,0x46F92B)；上/下界比较后各重新取 F32，再加减、写回并重来。
-void __cdecl Sub_46F8F0(float* const value)
-{
-    constexpr float kFullTurn = 360.0F;
-    for (;;) {
-        const float upperValue = *value;
-        if (upperValue >= 360.0) {
-            const float updateValue = *value;
-            *value = updateValue - kFullTurn;
-            continue;
-        }
-
-        const float lowerValue = *value;
-        if (lowerValue >= 0.0) {
-            return;
-        }
-        const float updateValue = *value;
-        *value = updateValue + kFullTurn;
-    }
-}
-
-// 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，原表 F64 位型返回。
-double __cdecl Sub_46F930(float angle)
-{
-    Sub_46F8F0(&angle);
-    const std::int32_t index = static_cast<std::int32_t>(angle);
-    return std::bit_cast<double>(
-        gAngleTableBits55DF10[static_cast<std::size_t>(index)]);
-}
-
-// 原 [0x46F950,0x46F967)：先将 +90 的结果写为 F32，再透传表读取结果。
-double __cdecl Sub_46F950(const float angle)
-{
-    const float shifted = angle + 90.0F;
-    return Sub_46F930(shifted);
-}
-
-// 原 [0x46F970,0x46FACF)：原表插值及八路象限修正，F32 写槽独立保留。
-double __cdecl Sub_46F970(const float first, const float second)
-{
-    if (first == 0.0F && second == 0.0F) {
-        return 0.0;
-    }
-
-    const bool firstNegative = first < 0.0F;
-    const bool secondNegative = second < 0.0F;
-    const double firstAbs = firstNegative ? -first : first;
-    const double secondAbs = secondNegative ? -second : second;
-    const bool swapAxes = firstAbs < secondAbs;
-    const std::int32_t selector =
-        (firstNegative ? 1 : 0) + (secondNegative ? 2 : 0) + (swapAxes ? 4 : 0);
-    const double scaled =
-        (swapAxes ? firstAbs / secondAbs : secondAbs / firstAbs) * 64.0;
-    const std::int32_t index = static_cast<std::int32_t>(scaled);
-    const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
-    const float fraction = static_cast<float>(scaled - index);
-    const double leftSample = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(index)]);
-    const double firstWeight = 1.0 - fraction;
-    const double left = leftSample * firstWeight;
-    const double rightSample = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)]);
-    const double right = rightSample * fraction;
-    const float angle = static_cast<float>(left + right);
-
-    switch (selector) {
-    case 0: return angle;
-    case 1: return 180.0 - angle;
-    case 2: return 360.0 - angle;
-    case 3: return angle + 180.0;
-    case 4: return 90.0 - angle;
-    case 5: return angle + 90.0;
-    case 6: return angle + 270.0;
-    case 7: return 270.0 - angle;
-    default: return 0.0;
-    }
-}
-
-// 原函数：0x0046FB80。
-double Sub_46FB80(
-    const float x, const float y, const float targetX, const float targetY)
-{
-    const double differenceX = static_cast<double>(targetX) - x;
-    const double differenceY = static_cast<double>(targetY) - y;
-    const double squaredY = differenceY * differenceY;
-    const double squaredX = differenceX * differenceX;
-    return squaredY + squaredX;
-}
-
-// WDG01：原 [0x46CDF0,0x46CE25)；查表加原偏移落 F32、原地归一后重取，乘原常量转 S64。
-std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
-{
-    const double direction = Sub_46F970(first, second);
-    const float offset = 112.5F;
-    float angle = static_cast<float>(direction + offset);
-    Sub_46F8F0(&angle);
-    constexpr float multiplier = 1.0F / 45.0F;
-    return static_cast<std::int64_t>(
-        static_cast<double>(angle) * multiplier);
 }
 
 // PDH01：原 [0x46B580,0x46B5B3)；先算 Y/X 两整数差，再依次落 F32，透传方向 S64。
@@ -7775,184 +5442,15 @@ void Sub_4D3170()
     gValue581800 = -1;
 }
 
-// 原[440B50,440B6C)：只采一次场景值，以U32比较250..252。
-std::int32_t Sub_440B50()
-{
-    const auto scene = static_cast<std::uint32_t>(gCurrentSceneState);
-    return scene >= 250u && scene <= 252u ? 1 : 0;
-}
-
-// 原 [0x4410E0,0x4410E6)：无状态固定返回叶。
-std::int32_t Sub_4410E0()
-{
-    return 0x11;
-}
-
-std::uint32_t ReadPlayerFlags18A() noexcept
-{
-    // 原FDA88A一次跨字段W32读取，flags18A与flags18C低W16相邻。
-    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots);
-    std::uint32_t flags;
-    std::memcpy(&flags, bytes + offsetof(PlayerRuntimeSlots, flags18A), sizeof(flags));
-    return flags;
-}
-
-// 原函数：0x00405B40。
-std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
-{
-    if ((position >= 0 && position < 5) || (position >= 10 && position < 15)) {
-        return position + 5;
-    }
-    return position - 5;
-}
-
-// BEI01：原九条，唯一玩家item区8..27逐used W16统计；现正确正文保持，十九调用点的完整外父/owner与运行待。
-// 原函数：0x00518C60。
-std::int32_t Sub_518C60()
-{
-    std::int32_t count = 0;
-    for (std::int32_t slot = 8; slot < 28; ++slot) {
-        if (gPlayerRuntimeSlots.items[slot].used == 0) {
-            ++count;
-        }
-    }
-    return count;
-}
-
-const char* GetPlayerJobName() noexcept
-{
-    return gSkillRuntimeSlots.jobName.data();
-}
-
-void ConsumeBattlePlayerTimer(const std::int32_t seconds)
-{
-    const std::int32_t remaining = detail::gPlayerRuntimeSlots.timerRemaining0C - 1000 * seconds;
-    const bool negative = remaining < 0;
-    detail::gPlayerRuntimeSlots.timerRemaining0C = remaining;
-    if (negative) {
-        detail::gPlayerRuntimeSlots.timerRemaining0C = 0;
-    }
-}
-
-// SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
-// 原函数：0x00504B10。
-std::int32_t Sub_504B10()
-{
-    if (gValueD2F788 > 0) {
-        return 5;
-    }
-    for (std::int32_t position = 0; position < 5; ++position) {
-        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeRecords[index].lvFlag6C != 0) {
-            return position;
-        }
-    }
-    return 6;
-}
-
-// G04：五S16配对顺序，used且伤势大于0才返回原宠物编号，未命中-1。
-// 原函数：0x00504B60。
-std::int32_t Sub_504B60()
-{
-    for (std::int32_t position = 0; position < 5; ++position) {
-        if (gPetPairsDE0B08[position].used == 0) {
-            continue;
-        }
-        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeRecords[index].values70[25] > 0) {
-            return index;
-        }
-    }
-    return -1;
-}
-
-std::int16_t ReadPlayerTribe() noexcept
-{
-    return std::bit_cast<std::int16_t>(detail::gPlayerRuntimeSlots.value00);
-}
-
-std::uint8_t ReadPlayerActionFlagsByte() noexcept
-{
-    return reinterpret_cast<const unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
-}
-
-std::uint16_t ReadPlayerActionFlags() noexcept
-{
-    return static_cast<std::uint16_t>(detail::gPlayerRuntimeSlots.flags18C >> 16);
-}
-
-void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
-{
-    detail::gPlayerRuntimeSlots.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
-}
-
-void SetPlayerActionFlags(const std::uint16_t mask) noexcept
-{
-    detail::gPlayerRuntimeSlots.flags18C |= static_cast<std::uint32_t>(mask) << 16;
-}
-
-void CopyPlayerBarValues(
-    platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
-    platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
-{
-    *hp = detail::gPlayerRuntimeSlots.hp;
-    *maxHp = detail::gPlayerRuntimeSlots.maxHp;
-    *fp = detail::gPlayerRuntimeSlots.fp;
-    *maxFp = detail::gPlayerRuntimeSlots.maxFp;
-}
-
-const char* GetTitleText(const std::int32_t index) noexcept
-{
-    // 未装备或无效索引返回空文本；修正原FF0510+index*1Ch越界读。
-    if (index < 0 || index >= static_cast<std::int32_t>(gTitlesFF0508.size())) {
-        return "";
-    }
-    return gTitlesFF0508[index].text.data();
-}
-
-const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
-{
-    switch (mode) {
-    case 1: return detail::gPlayerRuntimeSlots.name.data();
-    case 2: return detail::gPlayerRuntimeSlots.ownTitle.data();
-    case 3: return GetTitleText(detail::gPlayerRuntimeSlots.titleIndex100);
-    case 4: return detail::gPlayerRuntimeSlots.text12A.data();
-    case 5: return detail::gPlayerRuntimeSlots.text14B.data();
-    case 6: return detail::gPlayerRuntimeSlots.text15BB8.data();
-    default: return nullptr;
-    }
-}
+} // namespace detail
 
 std::uint32_t gActorBarsEnabled5AC490 = 0; // 原全局：0x005AC490。
 
-std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
-{
-    return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
-}
-
-std::int16_t ReadDirectionDeltaY(const std::int16_t direction) noexcept
-{
-    return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
-}
+namespace detail {
 
 std::int16_t ReadPetFollowIndex(const std::size_t position) noexcept
 {
     return std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
-}
-
-cg::yobi::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
-{
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
-}
-
-std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
-{
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
-}
-
-std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
-{
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].flags;
 }
 
 // 原函数：0x0046A990。
@@ -7977,9 +5475,9 @@ void ResetMapFollowersFromPath(cg::yobi::YobiAction* const leader)
     for (std::int32_t i = 1; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
-            const bool isPlayer = slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex;
+            const bool isPlayer = slot.objectIndex == gPlayerRuntimeSlots.objectIndex;
             cg::yobi::ResetMapFollowerFromPath(
-                leader, i, slot.action, isPlayer, &detail::gPlayerRuntimeSlots.direction);
+                leader, i, slot.action, isPlayer, &gPlayerRuntimeSlots.direction);
         }
     }
 }
@@ -8033,7 +5531,7 @@ cg::yobi::YobiAction* Sub_51B080()
 {
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
-            if (slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex) {
+            if (slot.objectIndex == gPlayerRuntimeSlots.objectIndex) {
                 cg::yobi::YobiAction* const action = slot.action;
                 if (action != nullptr) {
                     cg::yobi::ClearMapActorPathCount(action);
@@ -8198,220 +5696,10 @@ std::int32_t Sub_455A90()
     return 1; // G05：取消地图观战白名单，调用方其余条件保持。
 }
 
-// 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
-// 原函数：0x00470050。
-void Sub_470050()
-{
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-    if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-    const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
-    const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t target = Sub_4450D0(targetX, targetY, 8);
-    const std::uint16_t follow = gValueFF0D36;
-    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
-        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
-        static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
-// 原函数：0x00470150。
-void Sub_470150()
-{
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-    if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-    std::int32_t target = 0;
-    if (Sub_455A90() == 1) {
-        const std::int32_t targetY =
-            (gPlayerY + static_cast<std::int32_t>(deltaY));
-        const std::int32_t targetX =
-            (gPlayerX + static_cast<std::int32_t>(deltaX));
-        target = Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
-    }
-    const std::uint16_t follow = gValueFF0D36;
-    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
-        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
-        static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
-// 原函数：0x00470270。
-void Sub_470270()
-{
-    const bool joinTeam = gValueFF0D36 == 0;
-    if (joinTeam) {
-        const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-        if (direction < 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
-            return;
-        }
-        const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-        const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-        const std::int32_t targetY =
-            (gPlayerY + static_cast<std::int32_t>(deltaY));
-        const std::int32_t targetX =
-            (gPlayerX + static_cast<std::int32_t>(deltaX));
-        if (Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
-            return;
-        }
-    }
-    if (gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        if (joinTeam && (ReadPlayerFlags18A() & 0x100u) != 0) {
-            return;
-        }
-        const std::int32_t mode = joinTeam ? 1 : 0;
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
-        static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
-// 原函数：0x004703C0。
-void Sub_4703C0()
-{
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-    if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-    const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
-    const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (Sub_4450D0(targetX, targetY, 8) != 1
-        || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
-        static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
-// 原函数：0x004704A0。
-void Sub_4704A0()
-{
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-    if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-    const std::int32_t firstY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
-    const std::int32_t firstX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t first = Sub_4450D0(firstX, firstY, 8);
-    const std::int32_t secondY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
-    const std::int32_t secondX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
-    const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
-    if (gValueFF0D36 != 1 && first != 1 && second != 1) {
-        Sub_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    if (gValue9A86D8 == 0 && gValue9FB92E == 0
-        && (gValueC821D8 == 0)) {
-        const std::uint64_t now = platform::ReadTickCount64();
-        if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-            static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
-            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-        }
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
-// 原函数：0x00470670。
-void Sub_470670()
-{
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
-    if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
-    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
-    const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
-    const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (Sub_4450D0(targetX, targetY, 8) != 1
-        || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0();
-    if ((cg::world::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        Sub_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return;
-    }
-    const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.value();
-        const std::int32_t x = gPlayerX.value();
-        static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
-    }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
-}
-
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 {
-    cg::yobi::YobiAction* const initialAction = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const initialAction = gPlayerRuntimeSlots.action;
     if (initialAction == nullptr || gCurrentSceneType == 10
         || gValue9A86D8 != 0 || gValue9FB92E != 0) {
         return reinterpret_cast<std::uintptr_t>(initialAction);
@@ -8427,7 +5715,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     if (gEmoteRequestTickD67D20 + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     bool useLimitedActions = cg::yobi::ReadMapActorAttachment44(action) != nullptr;
     if (!useLimitedActions) {
         const std::int32_t image = cg::yobi::GetYobiActionField2A8(action);
@@ -8455,12 +5743,6 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     const std::uint64_t completedAt = platform::ReadTickCount64();
     gEmoteRequestTickD67D20 = completedAt;
     return static_cast<std::uintptr_t>(completedAt);
-}
-
-// 原函数：0x004FA8E0。
-void Sub_4FA8E0(const std::int32_t index)
-{
-    static_cast<void>(RequestEmoteWithResult_4FA8E0(index));
 }
 
 // NFI01：邻格fIM生产，保两轴双读/F32桥/两tick和先Y后X；现发送普通空格，父主体保持。
@@ -8519,7 +5801,7 @@ std::uint32_t Sub_51B3E0()
 // 原函数：0x0046B370。
 void Sub_46B370()
 {
-    if (detail::gPlayerRuntimeSlots.action == nullptr) {
+    if (gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const float movementX = std::bit_cast<float>(gValue9EE8FC);
@@ -8701,7 +5983,7 @@ std::uint16_t Sub_469FC0()
                     const std::int16_t direction =
                         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
                     Sub_46BCF0();
-                    const std::int32_t speed = detail::gPlayerRuntimeSlots.walkSpeed;
+                    const std::int32_t speed = gPlayerRuntimeSlots.walkSpeed;
                     const std::int16_t deltaY =
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
                     // 原401E00忽略实参高W16；复用单次读取的加法与S16扩展。
@@ -8758,7 +6040,7 @@ void Sub_46A410(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    if (detail::gPlayerRuntimeSlots.action != nullptr) {
+    if (gPlayerRuntimeSlots.action != nullptr) {
         const double rate = speed;
         const float percent = 0.01F;
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
@@ -8843,12 +6125,12 @@ void Sub_46A700()
             std::bit_cast<float>(currentYBits) * 0.015625));
         gPlayerY = static_cast<std::int32_t>(y);
 
-        const std::int32_t count = detail::gPlayerRuntimeSlots.value174;
+        const std::int32_t count = gPlayerRuntimeSlots.value174;
         if (count > 0) {
             const std::int32_t remaining = count - 1;
-            detail::gPlayerRuntimeSlots.value174 = remaining;
+            gPlayerRuntimeSlots.value174 = remaining;
             if (remaining <= 0) {
-                cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+                cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
                 if (action != nullptr) {
                     cg::yobi::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
@@ -8863,7 +6145,7 @@ void Sub_46A700()
     }
     Sub_51A060(1);
     static_cast<void>(Sub_51A640());
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         gMapCharaSceneSlots.value55DE98 =
             cg::yobi::ReadYobiDirectionLow16(action);
@@ -8875,11 +6157,11 @@ void Sub_46A700()
 // 原函数：0x00519A80。
 void Sub_519A80()
 {
-    const std::int32_t direction = detail::gPlayerRuntimeSlots.direction;
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
-    Sub_519CD0(detail::gPlayerRuntimeSlots.imageNo, x, y, direction);
-    const auto flags = static_cast<std::uint8_t>(detail::gPlayerRuntimeSlots.flags18A);
+    Sub_519CD0(gPlayerRuntimeSlots.imageNo, x, y, direction);
+    const auto flags = static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
 
@@ -8887,33 +6169,33 @@ void Sub_519A80()
     char titles[256];
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        detail::gPlayerRuntimeSlots.ownTitle.data(), escaped, 256);
+        gPlayerRuntimeSlots.ownTitle.data(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        detail::gPlayerRuntimeSlots.text12A.data(), escaped, 256);
+        gPlayerRuntimeSlots.text12A.data(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        detail::gPlayerRuntimeSlots.text14B.data(), escaped, 256);
+        gPlayerRuntimeSlots.text14B.data(), escaped, 256);
     std::strcat(titles, escaped);
     const std::int32_t value188 =
-        std::bit_cast<std::int16_t>(detail::gPlayerRuntimeSlots.value188);
-    const std::int32_t level = detail::gPlayerRuntimeSlots.level;
+        std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value188);
+    const std::int32_t level = gPlayerRuntimeSlots.level;
     Sub_51A090(
-        detail::gPlayerRuntimeSlots.name.data(), titles, level, value188, flag40, flag80);
+        gPlayerRuntimeSlots.name.data(), titles, level, value188, flag40, flag80);
 
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        cg::yobi::CopyYobiPlayerHp(action, &detail::gPlayerRuntimeSlots.hp);
+        cg::yobi::CopyYobiPlayerHp(action, &gPlayerRuntimeSlots.hp);
         cg::yobi::CopyYobiPlayerMaxHp(
-            detail::gPlayerRuntimeSlots.action, &detail::gPlayerRuntimeSlots.maxHp);
-        const std::uint32_t objectIndex = detail::gPlayerRuntimeSlots.objectIndex;
+            gPlayerRuntimeSlots.action, &gPlayerRuntimeSlots.maxHp);
+        const std::uint32_t objectIndex = gPlayerRuntimeSlots.objectIndex;
         for (auto& slot : gPetMapCharaSlots) {
             if (slot.flags != 0 && slot.objectIndex == objectIndex) {
-                slot.action = detail::gPlayerRuntimeSlots.action;
+                slot.action = gPlayerRuntimeSlots.action;
                 break;
             }
         }
@@ -8934,7 +6216,7 @@ cg::yobi::YobiAction* Sub_51A090(
     const auto nameLength = static_cast<std::int32_t>(std::strlen(name));
     if (nameLength <= 16) {
         // 519A80 的源就是本槽；原 rep movs 允许同源复制。
-        std::memmove(detail::gPlayerRuntimeSlots.name.data(), name, std::strlen(name) + 1);
+        std::memmove(gPlayerRuntimeSlots.name.data(), name, std::strlen(name) + 1);
     }
 
     char first[256];
@@ -8944,30 +6226,30 @@ cg::yobi::YobiAction* Sub_51A090(
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
-        std::strcpy(detail::gPlayerRuntimeSlots.ownTitle.data(), first);
+        std::strcpy(gPlayerRuntimeSlots.ownTitle.data(), first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
-        std::strcpy(detail::gPlayerRuntimeSlots.text12A.data(), second);
+        std::strcpy(gPlayerRuntimeSlots.text12A.data(), second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
-        std::strcpy(detail::gPlayerRuntimeSlots.text14B.data(), third);
+        std::strcpy(gPlayerRuntimeSlots.text14B.data(), third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
-        std::strcpy(detail::gPlayerRuntimeSlots.text15BB8.data(), fourth);
+        std::strcpy(gPlayerRuntimeSlots.text15BB8.data(), fourth);
     }
-    detail::gPlayerRuntimeSlots.level = level;
-    detail::gPlayerRuntimeSlots.value188 = static_cast<std::uint16_t>(value188);
+    gPlayerRuntimeSlots.level = level;
+    gPlayerRuntimeSlots.value188 = static_cast<std::uint16_t>(value188);
     if (flag40 != 0) {
-        detail::gPlayerRuntimeSlots.flags18A |= 0x40u;
+        gPlayerRuntimeSlots.flags18A |= 0x40u;
     }
     if (flag80 != 0) {
-        detail::gPlayerRuntimeSlots.flags18A |= 0x80u;
+        gPlayerRuntimeSlots.flags18A |= 0x80u;
     }
     return cg::yobi::PublishPlayerActionIdentity(
         name, titles, nameLength, level, value188);
@@ -8977,8 +6259,8 @@ cg::yobi::YobiAction* Sub_51A090(
 void Sub_51A4B0()
 {
     cg::yobi::CopyInitialPlayerActionIdentity(
-        detail::gPlayerRuntimeSlots.name.data(), detail::gPlayerRuntimeSlots.ownTitle.data(),
-        &detail::gPlayerRuntimeSlots.level, &detail::gPlayerRuntimeSlots.hp, &detail::gPlayerRuntimeSlots.maxHp);
+        gPlayerRuntimeSlots.name.data(), gPlayerRuntimeSlots.ownTitle.data(),
+        &gPlayerRuntimeSlots.level, &gPlayerRuntimeSlots.hp, &gPlayerRuntimeSlots.maxHp);
 }
 
 // 原函数：0x00519CD0。
@@ -8986,9 +6268,9 @@ void Sub_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
-    cg::yobi::YobiAction* const oldAction = detail::gPlayerRuntimeSlots.action;
-    detail::gPlayerRuntimeSlots.imageNo = imageNo;
-    detail::gPlayerRuntimeSlots.direction = direction;
+    cg::yobi::YobiAction* const oldAction = gPlayerRuntimeSlots.action;
+    gPlayerRuntimeSlots.imageNo = imageNo;
+    gPlayerRuntimeSlots.direction = direction;
     if (oldAction != nullptr) {
         Sub_519E50(imageNo, direction);
         static_cast<void>(Sub_519EC0(x, y));
@@ -8998,44 +6280,38 @@ void Sub_519CD0(
 
     cg::yobi::YobiAction* const action =
         cg::yobi::Sub_441DB0(imageNo, x, y, direction);
-    detail::gPlayerRuntimeSlots.action = action;
+    gPlayerRuntimeSlots.action = action;
     if (action != nullptr) {
         cg::yobi::SetYobiPlayerFlag(action);
-        cg::yobi::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
-        cg::yobi::SetYobiWalkSpeed(current, detail::gPlayerRuntimeSlots.walkSpeed);
+        cg::yobi::YobiAction* const current = gPlayerRuntimeSlots.action;
+        cg::yobi::SetYobiWalkSpeed(current, gPlayerRuntimeSlots.walkSpeed);
     }
 }
 
 // 原函数：0x00519E50。
 void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 {
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-    detail::gPlayerRuntimeSlots.imageNo = imageNo;
-    detail::gPlayerRuntimeSlots.direction = direction;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+    gPlayerRuntimeSlots.imageNo = imageNo;
+    gPlayerRuntimeSlots.direction = direction;
     if (action == nullptr) {
         return;
     }
     cg::yobi::SetYobiActionField2A8(action, imageNo);
-    cg::yobi::SetYobiActionField2B8(detail::gPlayerRuntimeSlots.action, direction);
-    cg::yobi::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::SetYobiActionField2B8(gPlayerRuntimeSlots.action, direction);
+    cg::yobi::YobiAction* const current = gPlayerRuntimeSlots.action;
     if (cg::yobi::ReadMapActorAttachment44(current) != nullptr) {
         const std::int32_t mapped =
             Sub_51C0D0(cg::yobi::GetYobiActionField2A8(current));
-        cg::yobi::SetYobiActionField2A8(detail::gPlayerRuntimeSlots.action, mapped);
+        cg::yobi::SetYobiActionField2A8(gPlayerRuntimeSlots.action, mapped);
     }
-}
-
-// 原函数：0x00519EC0。
-std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
-{
-    return Sub_468330(x, y);
 }
 
 // 原函数：0x0051A040。
 std::int32_t Sub_51A040(const std::int32_t direction)
 {
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-    detail::gPlayerRuntimeSlots.direction = direction;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+    gPlayerRuntimeSlots.direction = direction;
     if (action != nullptr) {
         cg::yobi::SetYobiActionField2B8(action, direction);
     }
@@ -9045,7 +6321,7 @@ std::int32_t Sub_51A040(const std::int32_t direction)
 // 原函数：0x0051A060。
 void Sub_51A060(const std::int32_t characterAction)
 {
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         cg::yobi::Sub_43EFC0(
             action, characterAction, characterAction == 1 ? 0 : 1);
@@ -9064,8 +6340,8 @@ void Sub_51A840(
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
-        cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-        detail::gPlayerRuntimeSlots.walkSpeed = speed;
+        cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+        gPlayerRuntimeSlots.walkSpeed = speed;
         cg::yobi::SetYobiWalkSpeed(action, speed);
         Sub_51A060(1);
         return;
@@ -9149,7 +6425,7 @@ void Sub_51A840(
         return;
     case 60:
         cg::yobi::ApplyPlayerAppearanceReply(
-            option1, option2, option3, option4, &detail::gPlayerRuntimeSlots.imageNo);
+            option1, option2, option3, option4, &gPlayerRuntimeSlots.imageNo);
         return;
     case 63:
         static_cast<void>(Sub_51BDD0(option1));
@@ -9160,16 +6436,16 @@ void Sub_51A840(
         static_cast<void>(Sub_51A040(direction));
         return;
     case 70:
-        cg::yobi::ApplyPlayerRideReply(option1, option2, &detail::gPlayerRuntimeSlots.value174);
+        cg::yobi::ApplyPlayerRideReply(option1, option2, &gPlayerRuntimeSlots.value174);
         return;
     case 80:
         cg::yobi::ApplyPlayerPhase3Reply(option1);
         return;
     case 200:
         if (option1 != 0) {
-            reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[3] |= 0x10u;
+            reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[3] |= 0x10u;
         } else {
-            auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
+            auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
             std::uint16_t actionFlags;
             std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
             actionFlags &= 0xEFFFu;
@@ -9181,60 +6457,14 @@ void Sub_51A840(
     }
 }
 
-// 原函数：0x0051C0D0。
-std::int32_t Sub_51C0D0(const std::int32_t imageNo)
-{
-    // 保留原区段顺序和两种除法，不扩展为通用图号规则。
-    struct ImageRange {
-        std::int32_t first;
-        std::int32_t last;
-        std::int32_t base;
-    };
-    constexpr ImageRange grouped[] {
-        {100000, 100173, 114000}, {100250, 100423, 114028},
-        {105000, 105173, 114056}, {105250, 105423, 114084},
-        {106000, 106173, 114112}, {106250, 106423, 114140},
-        {105500, 105548, 112000},
-    };
-    for (const auto& range : grouped) {
-        if (imageNo >= range.first && imageNo <= range.last) {
-            const std::int32_t offset = imageNo - range.first;
-            return offset % 25 / 6 + 4 * (offset / 25) + range.base;
-        }
-    }
-    constexpr ImageRange linear[] {
-        {104400, 104429, 112010}, {104430, 104459, 112015},
-        {104460, 104489, 112020}, {104490, 104519, 112025},
-        {120100, 120123, 120148}, {120124, 120147, 120152},
-    };
-    for (const auto& range : linear) {
-        if (imageNo >= range.first && imageNo <= range.last) {
-            return (imageNo - range.first) / 6 + range.base;
-        }
-    }
-    if (imageNo >= 120156 && imageNo <= 120159) {
-        return imageNo - 8;
-    }
-    if (imageNo >= 120160 && imageNo <= 120163) {
-        return imageNo - 8;
-    }
-    if (imageNo == 100900) {
-        return 114169;
-    }
-    if (imageNo == 100901) {
-        return 114168;
-    }
-    return imageNo;
-}
-
 // 原函数：0x00519D50。
 std::int8_t Sub_519D50()
 {
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         cg::yobi::ClearMapActorAttachments(action);
-        cg::yobi::MarkDeath(detail::gPlayerRuntimeSlots.action);
-        detail::gPlayerRuntimeSlots.action = nullptr;
+        cg::yobi::MarkDeath(gPlayerRuntimeSlots.action);
+        gPlayerRuntimeSlots.action = nullptr;
     }
     Sub_51A5B0();
     if (Sub_51BEC0() == 0) {
@@ -9246,58 +6476,58 @@ std::int8_t Sub_519D50()
 // 原函数：0x0051A5A0。
 void Sub_51A5A0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 1u;
-    *reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) = 1u;
+    *reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) = 1u;
 }
 
 // 原函数：0x0051A5E0。
 void Sub_51A5E0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 2u;
 }
 
 // 原函数：0x0051A5F0。
 void Sub_51A5F0()
 {
-    detail::gPlayerRuntimeSlots.flags18A &= 0xFDFFu;
+    gPlayerRuntimeSlots.flags18A &= 0xFDFFu;
 }
 
 // 原函数：0x0051A600。
 void Sub_51A600()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A)[1] |= 0x40u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A)[1] |= 0x40u;
 }
 
 // 原函数：0x0051A610。
 void Sub_51A610()
 {
-    detail::gPlayerRuntimeSlots.flags18A &= 0xBFFFu;
+    gPlayerRuntimeSlots.flags18A &= 0xBFFFu;
 }
 
 // 原函数：0x0051A620。
 void Sub_51A620()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18A)[1] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A)[1] |= 0x80u;
 }
 
 // 原函数：0x0051A630。
 void Sub_51A630()
 {
-    detail::gPlayerRuntimeSlots.flags18A &= 0x7FFFu;
+    gPlayerRuntimeSlots.flags18A &= 0x7FFFu;
 }
 
 // 原函数：0x0051BDB0。
 void Sub_51BDB0()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 1u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 1u;
 }
 
 // 原函数：0x0051BDC0。
 void Sub_51BDC0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFEu;
@@ -9307,19 +6537,19 @@ void Sub_51BDC0()
 // 原函数：0x0051BE10。
 void Sub_51BE10()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x24u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x24u;
 }
 
 // 原函数：0x0051BE20。
 void Sub_51BE20()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 8u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 8u;
 }
 
 // 原函数：0x0051BE30。
 void Sub_51BE30()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFF7u;
@@ -9329,22 +6559,16 @@ void Sub_51BE30()
 // 原函数：0x0051BE40。
 void Sub_51BE40()
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x50u;
-}
-
-// 原函数：0x0051BEE0。
-void Sub_51BEE0()
-{
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x50u;
 }
 
 // 原函数：0x0051A5B0。
 cg::yobi::YobiAction* Sub_51A5B0()
 {
-    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-    *reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) = 0;
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+    *reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) = 0;
     if (action == nullptr || cg::yobi::GetYobiActionField2E4(action) != 2) {
-        detail::gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
+        gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
     }
     return action;
 }
@@ -9352,63 +6576,28 @@ cg::yobi::YobiAction* Sub_51A5B0()
 // 原函数：0x0051BDD0。
 std::int32_t Sub_51BDD0(const std::int32_t value)
 {
-    reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C)[2] |= 2u;
-    detail::gPlayerRuntimeSlots.value190 = value;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 2u;
+    gPlayerRuntimeSlots.value190 = value;
     return value;
 }
 
 // 原函数：0x0051BDF0。
 void Sub_51BDF0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFDu;
     std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
-    detail::gPlayerRuntimeSlots.value190 = 0;
+    gPlayerRuntimeSlots.value190 = 0;
 }
 
-// 原函数：0x0051BEC0。
-std::int32_t Sub_51BEC0()
-{
-    const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
-    const std::int32_t value = detail::gPlayerRuntimeSlots.value190;
-    return (flags & 2u) != 0 ? value : 0;
-}
-
-// 原函数：0x0051BE50。
-std::int8_t Sub_51BE50(const std::int32_t requested)
-{
-    const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C)[2];
-    if ((flags & 2u) != 0 && detail::gPlayerRuntimeSlots.value190 == requested) {
-        return std::bit_cast<std::int8_t>(flags);
-    }
-
-    std::int32_t value = requested;
-    if (value < 0 || value >= Sub_4410E0()) {
-        value = 0;
-    }
-    const std::int32_t y = gPlayerSnapshotY.value();
-    const std::int32_t x = gPlayerSnapshotX.value();
-    const std::int32_t result =
-        network::Sub_511E60(platform::gConnectionSocket, x, y, value);
-    // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
-    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&detail::gPlayerRuntimeSlots.flags18C) + 2;
-    actionBytes[0] |= 2u;
-    if (value == 0) {
-        std::uint16_t actionFlags;
-        std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
-        actionFlags &= 0xFFFDu;
-        std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
-    }
-    detail::gPlayerRuntimeSlots.value190 = value;
-    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
-}
+} // namespace detail
 
 // 原FDA6F8位于六块清零范围之外；后续角色创建与此处复制共用。
 std::int32_t gValueFDA6F8 = 0;
+
+namespace detail {
 
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void Sub_5199A0()
@@ -9418,7 +6607,7 @@ void Sub_5199A0()
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
     // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
-    detail::gPlayerRuntimeSlots.ClearRaw();
+    gPlayerRuntimeSlots.ClearRaw();
     for (PetRuntimeRecord& record : gPetRuntimeRecords) {
         record.ClearRaw();
     }
@@ -9443,15 +6632,15 @@ void Sub_5199A0()
 
     const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t value = gValueFDA6F8;
-    detail::gPlayerRuntimeSlots.value17C = selectedGraphic;
-    detail::gPlayerRuntimeSlots.value104 = value;
+    gPlayerRuntimeSlots.value17C = selectedGraphic;
+    gPlayerRuntimeSlots.value104 = value;
     for (TitleRecord& title : gTitlesFF0508) {
         title.id = -1;
     }
     for (std::int32_t index = 0; index < 15; ++index) {
         Sub_519950(index);
     }
-    detail::gPlayerRuntimeSlots.direction = -1;
+    gPlayerRuntimeSlots.direction = -1;
 }
 
 // 原函数：0x00455AC0。
@@ -9562,16 +6751,6 @@ std::int32_t Sub_455BD0()
     gValue62B388 = 0;
     gValue62B3A0 = 0;
     gValue62B38C = 0;
-    return 0;
-}
-
-// 原 [0x46BD40,0x46BD57)：按指令顺序清四个独立 W32 槽，返回完整 EAX32 零。
-std::int32_t Sub_46BD40()
-{
-    gValue9FB934 = 0;
-    gValue9FB928 = 0;
-    gValue9A86C0 = 0;
-    gValue9A7F78 = 0;
     return 0;
 }
 
@@ -11053,5 +8232,3084 @@ std::int32_t Sub_45ED90()
 }
 
 } // namespace detail
+
+} // namespace cg::world
+
+namespace cg::world {
+
+const AlbumRecord* GetSelectedAlbumRecords()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    return AlbumRecordAt(0, selected);
+}
+
+
+const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
+{
+    AlbumRecord* const record = AlbumRecordAt(index, selected);
+    record->fresh = 0;
+    return record->name.data();
+}
+
+
+// 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
+void Sub_5186A0()
+{
+    auto* const encoded = static_cast<std::uint8_t*>(
+        std::malloc(0x78018));
+    char path[128];
+    std::sprintf(
+        path, "%s\\%s", platform::gDataPath, "album.dat");
+    std::FILE* const stream =
+        std::fopen(path, "wb");
+    if (stream == nullptr) {
+        std::free(encoded);
+        return;
+    }
+    std::array<std::uint8_t, 0x3C00C> snapshot;
+    std::memcpy(snapshot.data(), &gAlbumStorage, snapshot.size());
+    std::int32_t encodedBytes;
+    login::detail::EncodeLegacyBytes_52D310(
+        snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
+    const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
+    const std::uint32_t written =
+        static_cast<std::uint32_t>(std::fwrite(encoded, 1, static_cast<std::uint32_t>(count), stream));
+    // 原51873D在写后重新读取编码长度，再以U32比较。
+    const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);
+    if (written < expectedCount) {
+        std::free(encoded);
+        return;
+    }
+    static_cast<void>(std::fclose(stream));
+    std::free(encoded);
+}
+
+
+// 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
+void Sub_518BE0()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    gAlbumStorage.versions[selected] = 0;
+    std::memset(AlbumRecordAt(0, selected), 0, 0x1E000);
+    Sub_5186A0();
+}
+
+
+// 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
+void Sub_50E5B0(
+    const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
+{
+    detail::Sub_518A40(version, payload);
+}
+
+
+// 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
+void Sub_50E5D0(
+    const std::uintptr_t /*socket*/, const std::int32_t number, const std::int32_t imageNo,
+    const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
+    const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
+    const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
+    const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
+    const std::int32_t value30, char* const text, const char* const name)
+{
+    detail::Sub_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
+        value18, value1C, value20, value24, value28, value2C, value30, text, name);
+}
+
+
+// 原函数：0x0046E480。
+void Sub_46E480()
+{
+    if (gMapCharaSceneSlots.valueC8A73C != 0) {
+        static_cast<void>(render::DrawMapEffects_453580());
+        gMapCharaSceneSlots.valueC8A73C = 0;
+    }
+}
+
+
+// 原函数：0x00476680。
+void Sub_476680()
+{
+    cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+    if (action == nullptr) {
+        return;
+    }
+
+    std::int32_t radius = platform::gValue554640;
+    std::int32_t x = cg::yobi::GetYobiActionField30(action) - radius * 64;
+    std::int32_t y = cg::yobi::GetYobiActionField34(action);
+    const auto countdown = std::bit_cast<std::int32_t>(gValue626BFC);
+    x -= 31;
+    y -= 23;
+    if (countdown > 0) {
+        std::int32_t sideCount = radius * 2 + 1;
+        if (sideCount > 0) {
+            std::int32_t rowX = x;
+            std::int32_t rowY = y;
+            std::int32_t row = 0;
+            do {
+                std::int32_t column = 0;
+                if (sideCount > 0) {
+                    do {
+                        static_cast<void>(render::Sub_521C80(x, y, 100, 3, 0, nullptr));
+                        radius = platform::gValue554640;
+                        ++column;
+                        x += 32;
+                        sideCount = radius * 2 + 1;
+                        y -= 24;
+                    } while (column < sideCount);
+                }
+                ++row;
+                sideCount = radius * 2 + 1;
+                x = rowX + 32;
+                y = rowY + 24;
+                rowX = x;
+                rowY = y;
+            } while (row < sideCount);
+        }
+    }
+
+    // 原尾部先发布递减值，再按符号位决定是否写零。
+    const std::uint32_t remaining = gValue626BFC - 1u;
+    gValue626BFC = remaining;
+    if (std::bit_cast<std::int32_t>(remaining) < 0) {
+        gValue626BFC = 0;
+    }
+}
+
+
+// 原函数：0x0050A3E0。
+void Sub_50A3E0(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    const std::uint32_t mask = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(index)];
+    if (mask == 0) {
+        if (slot.flags != 0) {
+            const std::uint32_t objectIndex = slot.objectIndex;
+            if (objectIndex != gPlayerRuntimeSlots.objectIndex) {
+                cg::yobi::YobiAction* const action =
+                    FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+                if (action != nullptr) {
+                    detail::Sub_442C70(action);
+                }
+            }
+        }
+        std::int32_t x = -1;
+        std::int32_t y = -1;
+        cg::yobi::YobiAction* const targetAction = slot.action;
+        if (targetAction != nullptr) {
+            cg::yobi::ReadMapActorTarget(targetAction, slot.action, &x, &y);
+        }
+        slot.flags = 0;
+        slot.action = nullptr;
+        std::int32_t count = 0;
+        std::int32_t next = -1;
+        for (std::int32_t i = 0; i < 5; ++i) {
+            if (gPetMapCharaSlots[static_cast<std::size_t>(i)].flags != 0) {
+                ++count;
+                if (next == -1 && i > index) {
+                    next = i;
+                }
+            }
+        }
+        if (count <= 1) {
+            detail::gValueFF0D36 = 0;
+            static_cast<void>(detail::Sub_51B080());
+            return;
+        }
+        if (next >= 0 && (x >= 0 || y >= 0)) {
+            detail::Sub_46AFE0(next, x, y);
+        }
+        return;
+    }
+
+    detail::gValueFF0D32 = 0;
+    detail::gValueFF0D36 = 1;
+    slot.flags = 1;
+    std::int32_t field = 2;
+    if ((mask & 3u) != 0) {
+        slot.objectIndex = static_cast<std::uint32_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+        ++field;
+    }
+    if ((mask & 5u) != 0) {
+        slot.level08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 9u) != 0) {
+        slot.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x11u) != 0) {
+        slot.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x21u) != 0) {
+        slot.value14 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x41u) != 0) {
+        char name[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(
+            slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
+    }
+    const std::uint32_t objectIndex = slot.objectIndex;
+    if (objectIndex != gPlayerRuntimeSlots.objectIndex) {
+        cg::yobi::YobiAction* const action =
+            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+        if (action != nullptr) {
+            slot.action = action;
+            detail::Sub_442C40(action);
+            if (index == 0) {
+                detail::Sub_442BD0(action);
+            }
+        } else {
+            slot.action = nullptr;
+        }
+    } else {
+        slot.action = gPlayerRuntimeSlots.action;
+        detail::Sub_51A5E0();
+        if (index == 0) {
+            detail::Sub_51A5A0();
+        }
+    }
+}
+
+
+// 原函数：0x0050B380。
+void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (ReadRippleGateOnce() != 0) {
+        return;
+    }
+
+    char row[2048];
+    char field[2048];
+    char name[256];
+    char titles[256];
+    char extraText[256];
+    char label[1024];
+    for (std::int32_t rowIndex = 1;; ++rowIndex) {
+        const std::int32_t status = network::ExtractDelimitedField_52CED0(
+            payload, '\t', rowIndex, 2047, row);
+        if (std::strlen(row) == 0 && status == 1) {
+            return;
+        }
+        network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
+        if (std::strlen(field) != 0) {
+            const std::int32_t type =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 1);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 5, 2047, field);
+            const std::int32_t direction = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
+            const std::int32_t imageNo = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 7, 2047, field);
+            const std::int32_t level = std::atoi(field);
+            const std::int32_t value40 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 8);
+            network::ExtractDelimitedField_52CED0(row, '|', 9, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            network::ExtractDelimitedField_52CED0(row, '|', 10, 255, titles);
+            input::UnescapeLegacyText_52D150(titles);
+            network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
+            const std::int32_t flag1 = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 12, 2047, field);
+            const std::int32_t flag2 = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 13, 2047, field);
+            static_cast<void>(std::atoi(field));
+            network::ExtractDelimitedField_52CED0(row, '|', 14, 255, extraText);
+            input::UnescapeLegacyTextAndNotify_52D2F0(extraText);
+            network::ExtractDelimitedField_52CED0(row, '|', 15, 2047, field);
+            const std::int32_t mode = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
+            const std::int32_t attachmentImage = std::atoi(field);
+
+            cg::yobi::YobiAction* object;
+            if (static_cast<std::uint32_t>(objectIndex) == gPlayerRuntimeSlots.objectIndex) {
+                const std::int32_t mappedImage =
+                    character_select::detail::Sub_51B740(imageNo);
+                if (gPlayerRuntimeSlots.direction < 0) {
+                    gPlayerRuntimeSlots.direction = direction;
+                }
+                if (gPlayerRuntimeSlots.action == nullptr) {
+                    detail::Sub_519CD0(mappedImage, x, y, direction);
+                    detail::Sub_51A4B0();
+                } else {
+                    detail::Sub_519E50(mappedImage, gPlayerRuntimeSlots.direction);
+                }
+                object = gPlayerRuntimeSlots.action;
+                cg::yobi::UpdateMapActorMode(
+                    gPlayerRuntimeSlots.action, mode, attachmentImage);
+                if (mode == 2) {
+                    if ((gPlayerRuntimeSlots.flags18A & 0x200u) == 0) {
+                        gPlayerRuntimeSlots.flags18A |= 0x100u;
+                    }
+                } else if (static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18C) == 0) {
+                    gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
+                }
+                detail::gValue9A4B94 &= 0xFDu;
+                static_cast<void>(detail::Sub_468200());
+                detail::Sub_51A090(name, titles, level, value40, flag1, flag2);
+                if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0
+                    && gPetMapCharaSlots[0].flags != 0) {
+                    gPetMapCharaSlots[0].level08 = gPlayerRuntimeSlots.level;
+                    std::strcpy(
+                        gPetMapCharaSlots[0].name18.data(), gPlayerRuntimeSlots.name.data());
+                }
+                for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
+                    auto& slot = gPetMapCharaSlots[i];
+                    if (slot.flags != 0
+                        && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                        slot.action = gPlayerRuntimeSlots.action;
+                        detail::Sub_51A5E0();
+                        if (i == 0) {
+                            detail::Sub_51A5A0();
+                        }
+                        break;
+                    }
+                }
+            } else {
+                const std::int32_t mappedImage =
+                    character_select::detail::Sub_51B740(imageNo);
+                detail::Sub_445350(
+                    objectIndex, mappedImage, x, y, direction, name, titles,
+                    extraText, level, value40, flag1, flag2, type);
+                object = FindObjectYobi_4462B0(objectIndex);
+                if (object != nullptr) {
+                    cg::yobi::UpdateMapActorMode(object, mode, attachmentImage);
+                    if (mode == 2) {
+                        detail::Sub_449C90(object);
+                    } else {
+                        detail::Sub_449CC0(object);
+                    }
+                    for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
+                        auto& slot = gPetMapCharaSlots[i];
+                        if (slot.flags != 0
+                            && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                            slot.action = object;
+                            detail::Sub_442C40(object);
+                            if (i == 0) {
+                                detail::Sub_442BD0(object);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            cg::yobi::ApplyMapActorReplyAttachments(object, row);
+            continue;
+        }
+
+        network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
+        if (std::strlen(field) != 0) {
+            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t imageNo = std::atoi(field);
+            const std::int32_t value48 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 5);
+            network::ExtractDelimitedField_52CED0(row, '|', 6, 1023, label);
+            input::UnescapeLegacyTextAndNotify_52D2F0(label);
+            const std::int32_t value50 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 7);
+            detail::Sub_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
+            continue;
+        }
+
+        network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+        if (std::strlen(field) != 0) {
+            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t count = std::atoi(field);
+            const std::wstring moneyLabel = std::format(L"{} 金币", count);
+            std::int32_t imageNo;
+            if (count < 50) {
+                imageNo = 0x6B08;
+            } else if (count < 100) {
+                imageNo = 0x6B09;
+            } else if (count < 1000) {
+                imageNo = 0x6B0A;
+            } else if (count < 5000) {
+                imageNo = 0x6B0B;
+            } else if (count < 10000) {
+                imageNo = 0x6B0C;
+            } else if (count < 50000) {
+                imageNo = 0x6B0D;
+            } else if (count < 100000) {
+                imageNo = 0x6B0E;
+            } else if (count < 500000) {
+                imageNo = 0x6B0F;
+            } else if (count < 1000000) {
+                imageNo = 0x6B10;
+            } else {
+                imageNo = 0x6B11;
+            }
+            detail::Sub_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
+        }
+    }
+}
+
+
+// 原函数：0x0050BCD0。
+void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (ReadRippleGateOnce() != 0) {
+        return;
+    }
+    char row[2048];
+    char field[2048];
+    // 原0x1000字节局部区，比较门槛仍为0x1000项；不改容量或模拟邻栈。
+    std::array<std::int32_t, 1024> missing;
+    std::int32_t missingCount = 0;
+    std::int32_t* missingCursor = missing.data();
+    for (std::int32_t rowIndex = 1;; ++rowIndex) {
+        network::ExtractDelimitedField_52CED0(payload, ',', rowIndex, 2047, row);
+        if (std::strlen(row) == 0) {
+            return;
+        }
+        network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+        const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+        const std::int32_t x = network::ParseDelimitedInteger_52CFA0(row, '|', 2);
+        const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
+        const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
+        const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
+        if (cg::yobi::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
+            continue;
+        }
+        const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
+        const std::int32_t option2 = network::ParseDelimitedInteger_52CFA0(row, '|', 7);
+        const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
+        const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
+        if (gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+            cg::yobi::YobiAction* const player = gPlayerRuntimeSlots.action;
+            if (player != nullptr && cg::yobi::GetYobiActionField2A8(player) != 0) {
+                detail::Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
+            }
+            continue;
+        }
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action != nullptr) {
+            detail::Sub_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
+            continue;
+        }
+        std::int32_t index = 0;
+        for (; index < missingCount; ++index) {
+            if (missing[index] == objectIndex) {
+                break;
+            }
+        }
+        if (index == missingCount && static_cast<std::uint32_t>(missingCount) < 0x1000u) {
+            ++missingCount;
+            *missingCursor = objectIndex;
+            ++missingCursor;
+        }
+    }
+}
+
+
+// 原函数：0x00472F40。
+std::int32_t Sub_472F40()
+{
+    return detail::TogglePlayerOptionAndSend(0x04);
+}
+
+
+std::uint8_t ReadPlayerOptions194LowByte() noexcept
+{
+    return *reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.options194);
+}
+
+
+// 原函数：0x00472F70。
+std::int32_t Sub_472F70()
+{
+    return detail::TogglePlayerOptionAndSend(0x08);
+}
+
+
+// 原函数：0x00472FA0。
+std::int32_t Sub_472FA0()
+{
+    return detail::TogglePlayerOptionAndSend(0x01);
+}
+
+
+// 原函数：0x00472FD0。
+std::int32_t Sub_472FD0()
+{
+    return detail::TogglePlayerOptionAndSend(0x10);
+}
+
+
+// 原函数：0x00473000。
+std::int32_t Sub_473000()
+{
+    return detail::TogglePlayerOptionAndSend(0x20);
+}
+
+
+// 原函数：0x00473030。
+std::int32_t Sub_473030()
+{
+    return detail::TogglePlayerOptionAndSend(0x40);
+}
+
+
+// 原函数：0x0050BFA0。
+std::uint32_t Sub_50BFA0(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+    const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
+    gPlayerRuntimeSlots.options194 = static_cast<std::uint16_t>(options);
+    return options;
+}
+
+
+// 原函数：0x0050BFC0。
+std::uint16_t Sub_50BFC0(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const auto low = static_cast<std::uint16_t>(value);
+    gPlayerRuntimeSlots.value1A0 = low;
+    return low;
+}
+
+
+// 原函数：0x0050CF70。
+std::int32_t Sub_50CF70(
+    const std::uintptr_t /*socket*/, const std::int32_t index,
+    const std::int32_t value)
+{
+    gPetRuntimeRecords[index].lvFlag6C = value;
+    return index;
+}
+
+
+// PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
+std::uint32_t Sub_50C7A0(
+    const std::uintptr_t /*socket*/, const std::int32_t seconds,
+    const std::int32_t mode)
+{
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+    const std::int32_t duration = seconds < 0 ? 0 : seconds;
+    const std::int32_t firstScale = duration * 5;
+    gPlayerRuntimeSlots.timerMode10 = mode;
+    gPlayerRuntimeSlots.timerRemaining0C = firstScale * 5 * 5 * 8;
+    const std::uint64_t tick = platform::ReadTickCount64();
+    gPlayerRuntimeSlots.timerTick14 = tick;
+    input::gValue626C14 = 0;
+    return static_cast<std::uint32_t>(tick);
+}
+
+
+// 原函数：0x0050CE10。
+std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
+{
+    char source[2024];
+    char command[512];
+    std::strcpy(source, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(source);
+    if (std::strncmp(source, "@FIND_LV1", static_cast<std::uint32_t>(9)) == 0) {
+        std::int32_t sound = 0;
+        std::strncpy(command, source, static_cast<std::uint32_t>(sizeof(command)));
+        std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
+        const char* const message = const_cast<char*>(std::strstr(command, "@MSG:"));
+        std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
+        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    }
+    Sub_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
+    const std::int32_t soundEnabled = platform::gValue554644;
+    if (soundEnabled != 0) {
+        return audio::PlaySe_52C450(74, 320);
+    }
+    return soundEnabled;
+}
+
+
+// 原函数：0x0050E1A0。
+void Sub_50E1A0(
+    const std::uintptr_t /*socket*/, const std::int32_t mask,
+    const std::int32_t value, const char* const /*unusedText*/)
+{
+    if (mask == 0) {
+        const std::uint16_t zero = 0;
+        gMapCharaSceneSlots.valueC8A73E = 0;
+        std::memcpy(&gMapCharaSceneSlots.valueC8A744, &zero, sizeof(zero));
+        gMapCharaSceneSlots.valueC8A74E = 0;
+    } else {
+        const auto low = static_cast<std::uint16_t>(value);
+        if ((mask & 1) != 0) {
+            gMapCharaSceneSlots.valueC8A73E = low;
+        }
+        if ((mask & 2) != 0) {
+            std::memcpy(&gMapCharaSceneSlots.valueC8A744, &low, sizeof(low));
+        }
+        if ((mask & 4) != 0) {
+            gMapCharaSceneSlots.valueC8A74E = low;
+        }
+    }
+    detail::Sub_46E0D0(mask, value);
+}
+
+
+// 原函数：0x0050E650。
+void Sub_50E650(
+    const std::uintptr_t /*socket*/, const std::int32_t mode,
+    const std::int32_t duration, const std::int32_t floor,
+    const std::int32_t mapX, const std::int32_t mapY)
+{
+    cg::yobi::Sub_449700(mode, duration, floor, mapX, mapY);
+}
+
+
+// 原函数：0x0050E210。
+std::int32_t Sub_50E210(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    if (gate != 0) {
+        return gate;
+    }
+    std::int32_t sound;
+    switch (value) {
+    case 0: sound = 0x47; break;
+    case 1: sound = 0x48; break;
+    case 2:
+    case 4: sound = 0x44; break;
+    case 3: sound = 0x45; break;
+    case 5: sound = 0x41; break;
+    case 6: sound = 0x42; break;
+    case 7: sound = 0x43; break;
+    case 8: sound = 0x49; break;
+    default: return value;
+    }
+    return audio::PlaySe_52C450(sound, 320);
+}
+
+
+// CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
+// 原函数：0x0050C940。
+std::int32_t Sub_50C940(
+    const input::InputContext* const context, const std::int32_t color)
+{
+    const auto chatText = text::ToGbk(input::ContextText(*context));
+    if (script::LuaProcessWinMgrChatMessage(chatText.c_str()) == 1) {
+        return 0;
+    }
+    const std::int32_t sendColor = color == 4 ? 5 : color;
+    const std::int32_t gate = gChatGateDA3B54;
+    const std::uint8_t disabled = gChatDisabledDA3B4C;
+    const bool restricted = disabled != 0
+        || (gate == 0 && detail::gValueFF0D36 != 0
+            && (ReadPlayerOptions194LowByte() & 8u) != 0);
+    if (restricted) {
+        const std::uint64_t tick = platform::ReadTickCount64();
+        if (tick - gChatCurrentTickDA3B40 > 180000u) {
+            gChatDisabledDA3B4C = 0;
+        } else if (gChatGateDA3B54 != 0 || detail::gValueFF0D36 == 0
+                   || (ReadPlayerOptions194LowByte() & 8u) == 0) {
+            Sub_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
+            const std::int32_t sound = platform::gValue554644;
+            if (sound != 0) {
+                return audio::PlaySe_52C450(74, 320);
+            }
+            return sound;
+        }
+    } else {
+        gChatPreviousTickDA3B3C = gChatCurrentTickDA3B40;
+        const std::uint64_t tick = platform::ReadTickCount64();
+        const std::uint64_t previous = gChatPreviousTickDA3B3C;
+        gChatCurrentTickDA3B40 = tick;
+        if (tick - previous < gChatMinimumIntervalMs) {
+            Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
+            std::int32_t result = platform::gValue554644;
+            if (result != 0) {
+                result = audio::PlaySe_52C450(74, 320);
+            }
+            gChatDisabledDA3B4C = 1;
+            return result;
+        }
+    }
+    // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
+    const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
+    const std::int32_t mode = platform::gValue73ECBC;
+    const std::int32_t range = platform::gValue554640;
+    const std::int32_t y = gPlayerY.value();
+    const std::int32_t x = gPlayerX.value();
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
+}
+
+
+// 原函数：0x0050CAE0。
+void Sub_50CAE0(
+    const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
+    const char* const payload, const std::int32_t color, const std::int32_t font)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char kind[2];
+    network::ExtractDelimitedField_52CED0(payload, '|', 1, 1, kind);
+    if (kind[0] != 'P') {
+        return;
+    }
+    char source[2024];
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 2023, source);
+    input::UnescapeLegacyTextAndNotify_52D2F0(source);
+    const auto length = static_cast<std::int32_t>(std::strlen(source));
+    char snapshot[2048];
+    if (length > 0) {
+        std::memcpy(snapshot, source, static_cast<std::size_t>(length));
+    }
+    std::int32_t drawColor = color;
+    std::int32_t drawFont = font;
+    if (input::gValue626C14 == 0) {
+        char name[64];
+        char stripped[32];
+        std::memset(name, 0, sizeof(name));
+        const std::size_t initialLength = std::strlen(source);
+        gChatGateDA3B54 = 0;
+        if (initialLength != 0) {
+            std::uint32_t cursor = 0;
+            for (;;) {
+                if (source[cursor] == ':' && source[cursor + 1] == ' ') {
+                    std::strncpy(name, source, static_cast<std::uint32_t>(cursor));
+                    name[cursor] = '\0';
+                    break;
+                }
+                ++cursor;
+                if (cursor >= std::strlen(source)) {
+                    break;
+                }
+            }
+        }
+        const auto stripPrefix = [&](const std::uint32_t prefixLength) {
+            std::uint32_t cursor = 0;
+            if (std::strlen(name) != prefixLength) {
+                do {
+                    stripped[cursor] = name[cursor + prefixLength];
+                    ++cursor;
+                } while (cursor < std::strlen(name) - prefixLength);
+            }
+            stripped[cursor] = '\0';
+            std::memset(name, 0, sizeof(name));
+            std::strcpy(name, stripped);
+        };
+        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
+            gChatGateDA3B54 = 1;
+            stripPrefix(5);
+        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
+            stripPrefix(4);
+        }
+        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+            return;
+        }
+        if (color < 0) {
+            drawColor = 0;
+            drawFont = 1;
+        }
+        const char* const sharedText = "";
+        bool sameAsSharedText = false;
+        std::size_t comparisonIndex = 0;
+        for (;;) {
+            const auto sourceByte = static_cast<unsigned char>(source[comparisonIndex]);
+            const auto sharedByte =
+                static_cast<unsigned char>(sharedText[comparisonIndex]);
+            if (sourceByte != sharedByte) {
+                break;
+            }
+            if (sourceByte == 0) {
+                sameAsSharedText = true;
+                break;
+            }
+            ++comparisonIndex;
+        }
+        if (!sameAsSharedText) {
+            Sub_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
+        }
+    }
+    if (platform::gValue554644 != 0) {
+        static_cast<void>(audio::PlaySe_52C450(74, 320));
+    }
+    if (objectIndex < 0) {
+        return;
+    }
+    if (gPlayerRuntimeSlots.action != nullptr
+        && gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+        detail::Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
+    } else {
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action != nullptr) {
+            detail::Sub_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
+        }
+    }
+}
+
+
+// 原函数：0x0050D000。
+void Sub_50D000(
+    const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (first == 1) {
+        if (second == 1) {
+            detail::Sub_51A5E0();
+        }
+    } else if (first == 0 && second == 1) {
+        detail::Sub_51A5F0();
+        detail::gValueFF0D36 = 0;
+        static_cast<void>(detail::Sub_51B080());
+        const std::int32_t direction = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(gPlayerRuntimeSlots.direction));
+        const std::int32_t y = gPlayerSnapshotY.value();
+        const std::int32_t x = gPlayerSnapshotX.value();
+        static_cast<void>(
+            network::Sub_512720(platform::gConnectionSocket, x, y, direction));
+    }
+    detail::gValueFF0D32 = 0;
+}
+
+
+// MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
+std::int32_t Sub_509650(
+    const std::uintptr_t /*socket*/, const char* const payload)
+{
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    if (gate != 0) {
+        return gate;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    std::int32_t field = 2;
+    const auto parseCrypt = [&](platform::LegacyCryptInt* const target,
+                                const std::uint32_t mask) {
+        if ((flags & mask) != 0) {
+            const std::int32_t parsed =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            *target = static_cast<std::int32_t>(parsed);
+            ++field;
+        }
+    };
+    parseCrypt(&gPlayerRuntimeSlots.hp, 0x3u);
+    parseCrypt(&gPlayerRuntimeSlots.maxHp, 0x5u);
+    parseCrypt(&gPlayerRuntimeSlots.fp, 0x9u);
+    parseCrypt(&gPlayerRuntimeSlots.maxFp, 0x11u);
+
+    std::uint32_t bit = 0x20u;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        if ((flags & (bit | 1u)) != 0) {
+            gPlayerRuntimeSlots.values78[index] =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    parseCrypt(&gPlayerRuntimeSlots.value58, 0x2001u);
+    parseCrypt(&gPlayerRuntimeSlots.value68, 0x4001u);
+
+    const std::array<std::int32_t*, 12> targets {{
+        &gPlayerRuntimeSlots.level,
+        &gPlayerRuntimeSlots.values78[8], &gPlayerRuntimeSlots.values78[9],
+        &gPlayerRuntimeSlots.values78[10], &gPlayerRuntimeSlots.values78[11],
+        &gPlayerRuntimeSlots.values78[12], &gPlayerRuntimeSlots.values78[13],
+        &gPlayerRuntimeSlots.valueB8,
+        &gPlayerRuntimeSlots.valuesE4[0], &gPlayerRuntimeSlots.valuesE4[1],
+        &gPlayerRuntimeSlots.valuesE4[2], &gPlayerRuntimeSlots.valuesE4[3],
+    }};
+    bit = 0x8000u;
+    for (std::int32_t* const target : targets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    const std::uint32_t tailGate = flags & 0x8000001u;
+    if (tailGate != 0) {
+        gPlayerRuntimeSlots.valueFC =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((flags & 0x10000001u) != 0) {
+        gPlayerRuntimeSlots.titleIndex100 =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((flags & 0x20000001u) != 0) {
+        char name[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 16) {
+            std::strcpy(gPlayerRuntimeSlots.name.data(), name);
+        }
+        ++field;
+    }
+    if ((flags & 0x40000001u) != 0) {
+        char title[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
+        input::UnescapeLegacyTextAndNotify_52D2F0(title);
+        if (std::strlen(title) <= 16) {
+            std::strcpy(gPlayerRuntimeSlots.ownTitle.data(), title);
+        }
+        ++field;
+    }
+    if (tailGate != 0) {
+        const std::int32_t result =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        gPlayerRuntimeSlots.value15BCC = result;
+        return result;
+    }
+    return 0;
+}
+
+
+// MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
+void Sub_509BA0(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    std::int32_t field = 2;
+    const std::array<std::int32_t*, 12> firstTargets {{
+        &gPlayerRuntimeSlots.valuesD4[0], &gPlayerRuntimeSlots.valuesD4[1],
+        &gPlayerRuntimeSlots.valuesD4[2], &gPlayerRuntimeSlots.valuesD4[3],
+        &gPlayerRuntimeSlots.valuesBC[0], &gPlayerRuntimeSlots.valuesBC[1],
+        &gPlayerRuntimeSlots.valuesBC[2], &gPlayerRuntimeSlots.valuesBC[3],
+        &gPlayerRuntimeSlots.valuesBC[4], &gPlayerRuntimeSlots.valuesBC[5],
+        &gPlayerRuntimeSlots.value104, &gPlayerRuntimeSlots.valueF4,
+    }};
+    std::uint32_t bit = 2;
+    for (std::int32_t* const target : firstTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    if ((flags & 0x2001u) != 0) {
+        gPlayerRuntimeSlots.value00 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+        ++field;
+    }
+    const std::array<std::int32_t*, 4> middleTargets {{
+        &gPlayerRuntimeSlots.valueF8, &gPlayerRuntimeSlots.value08,
+        &gPlayerRuntimeSlots.value17C, &gPlayerRuntimeSlots.value16C,
+    }};
+    bit = 0x4000u;
+    for (std::int32_t* const target : middleTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    if ((flags & 0x40001u) != 0) {
+        std::int32_t speed = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        gPlayerRuntimeSlots.walkSpeed = speed;
+        if (speed <= 0) {
+            speed = 100;
+            gPlayerRuntimeSlots.walkSpeed = speed;
+        }
+        cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
+        if (action != nullptr) {
+            cg::yobi::SetYobiWalkSpeed(action, speed);
+        }
+        ++field;
+    }
+    const std::array<std::int32_t*, 5> lastTargets {{
+        &gPlayerRuntimeSlots.valuesB0[0], &gPlayerRuntimeSlots.valuesB0[1],
+        &gPlayerRuntimeSlots.values15BD0[0], &gPlayerRuntimeSlots.values15BD0[1],
+        &gPlayerRuntimeSlots.values15BD0[2],
+    }};
+    bit = 0x80000u;
+    for (std::int32_t* const target : lastTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+}
+
+
+// 原函数：0x00509E30。
+void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    gSkillRuntimeSlots.valueF633E8 =
+        (gSkillRuntimeSlots.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(
+        gSkillRuntimeSlots.jobName.data(), std::strlen(text) < 24 ? text : kUnknownText554590);
+}
+
+
+std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
+{
+    const auto* const storage = reinterpret_cast<const std::byte*>(&gSkillRuntimeSlots);
+    const std::ptrdiff_t offset =
+        static_cast<std::ptrdiff_t>(offsetof(SkillRuntimeSlots, pairs))
+        + static_cast<std::ptrdiff_t>(pairIndex)
+            * static_cast<std::ptrdiff_t>(sizeof(SkillPairRecord));
+    std::uint16_t used;
+    std::memcpy(&used, storage + offset, sizeof(used));
+    return used;
+}
+
+
+// 原函数：0x00505040。
+std::int32_t Sub_505040(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    const std::int32_t type = item->itemType;
+    if (type == 38 || type == 25 || type == 39) {
+        return 1;
+    }
+    if ((item->flags & 0x800u) == 0) {
+        return 0;
+    }
+    return detail::Sub_504F10(item->itemId, 0) != 0 ? 1 : 0;
+}
+
+
+// 原函数：0x005050B0。
+std::int32_t Sub_5050B0(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    if (item->itemType == 80) {
+        return 1;
+    }
+    if ((item->flags & 0x800u) == 0) {
+        return 0;
+    }
+    return detail::Sub_504F10(item->itemId, 1) != 0 ? 1 : 0;
+}
+
+
+// 原函数：0x00505110。
+std::int32_t Sub_505110(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    const std::int32_t type = item->itemType;
+    if (!((type >= 0 && type < 23) || (type >= 56 && type < 66))) {
+        return 0;
+    }
+    return (item->flags & 0x1000u) != 0 ? 1 : 0;
+}
+
+
+// 原函数：0x00509EB0。
+void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    std::int32_t field = 2;
+    for (;;) {
+        const std::int32_t index =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
+        const std::int32_t skillId =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        const std::int32_t level =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+        const std::int32_t experience =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
+        const std::int32_t maxLevel =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        const std::int32_t nextExperience =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
+        const std::int32_t requiredSlots =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
+        const std::int32_t canRebirth =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7);
+        const std::int32_t fpReduce =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 8);
+        const std::int32_t sequence =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9);
+        if (index < 0) {
+            break;
+        }
+
+        SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+        if (std::strlen(name) == 0 && level < 0 && experience < 0) {
+            record.name[0] = '\0';
+            record.level = 0;
+            record.experience = 0;
+            std::memset(record.techniques3C.data(), 0, sizeof(record.techniques3C));
+            detail::Sub_519950(index);
+        } else {
+            std::strcpy(
+                record.name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
+            record.level = level;
+            record.experience = experience;
+            record.maxLevel = maxLevel;
+            record.nextExperience = nextExperience;
+            record.requiredSlots19[0] = static_cast<std::uint8_t>(requiredSlots);
+            record.canRebirth = canRebirth;
+            record.skillId = skillId;
+            record.fpReduce = fpReduce;
+            record.sequence = sequence;
+            if (canRebirth == 1) {
+                const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                const std::int32_t value = index + (flag != 0 ? 100 : 0);
+                static_cast<void>(network::Sub_510F50(socket, value));
+            }
+        }
+        field += 11;
+    }
+    detail::Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), 15);
+    gValueDA3B20 = 0;
+}
+
+
+// 原函数：0x0050A120。
+void Sub_50A120(
+    const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
+    std::memset(techniques.data(), 0, sizeof(techniques));
+    SkillTechniqueRecord* target = techniques.data();
+    char name[256];
+    char description[256];
+    std::int32_t field = 2;
+    for (;;) {
+        if (network::ExtractDelimitedField_52CED0(
+                payload, '|', field - 1, 255, name) == 1) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        const std::int32_t value7C =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
+        const std::int32_t value80 =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+        const auto packed = static_cast<std::uint32_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3));
+        const std::int32_t value8C =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        if (std::strlen(name) == 0) {
+            continue;
+        }
+        target->used88 = 1;
+        std::strcpy(target->name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
+        std::strcpy(
+            target->description.data(),
+            std::strlen(description) <= 96 ? description : kUnknownText554590);
+        target->value7C = value7C;
+        target->value80 = value80;
+        target->value90 = static_cast<std::int32_t>((packed >> 12) & 0xFu);
+        target->value84 = static_cast<std::int32_t>(packed & 0xFFFu);
+        target->value8C = value8C;
+        field += 6;
+        ++target;
+    }
+}
+
+
+// 原函数：0x0050C580。
+void Sub_50C580(
+    const std::uintptr_t, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag());
+    char name[256];
+    char description[256];
+    std::int32_t field = 1;
+    for (SkillRecipeRecord& recipe : record.recipes8E8) {
+        recipe.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 28) {
+            std::strcpy(recipe.name.data(), name);
+        }
+        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        if (std::strlen(description) <= 56) {
+            std::strcpy(recipe.description.data(), description);
+        }
+        recipe.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        for (SkillRecipeItem& item : recipe.items6C) {
+            item.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+            network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 28) {
+                std::strcpy(item.name.data(), name);
+            }
+            item.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        }
+    }
+}
+
+
+// 原函数：0x0050BF20。
+void Sub_50BF20(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    std::int32_t field = 1;
+    std::int32_t objectIndex =
+        network::ParseDelimitedBase62_52D0D0(payload, ',', field);
+    while (objectIndex != -1) {
+        Sub_4462E0(objectIndex);
+        for (auto& slot : gPetMapCharaSlots) {
+            if (slot.flags != 0
+                && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                slot.action = nullptr;
+                break;
+            }
+        }
+        ++field;
+        objectIndex = network::ParseDelimitedBase62_52D0D0(payload, ',', field);
+    }
+}
+
+
+// 原函数：0x0050BFD0。
+void Sub_50BFD0(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    for (std::int32_t index = 0; index < 28; ++index) {
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+        const std::int32_t nameField = 2 + index * 13;
+        network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) == 0) {
+            gPlayerRuntimeSlots.items[index].used = 0;
+            gPlayerRuntimeSlots.items[index].name.clear();
+        } else {
+            detail::ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
+        }
+        if (index >= 8) {
+            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
+        }
+    }
+}
+
+
+// 原函数：0x0050C260。
+void Sub_50C260(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    std::int32_t field = 1;
+    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+    std::int32_t status =
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+    while (status != 1) {
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) == 0) {
+            gPlayerRuntimeSlots.items[index].used = 0;
+        } else {
+            detail::ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
+        }
+        if (index >= 8) {
+            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
+            ui::detail::WindowTrade_CopyDisplayItems(1, index - 8);
+        }
+        field += 14;
+        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+        status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+    }
+}
+
+
+// 原函数：0x0051B5F0。
+std::int32_t Sub_51B5F0(const std::int32_t itemId)
+{
+    std::int32_t count = 0;
+    if (itemId <= 0) {
+        return count;
+    }
+    for (const PlayerItemRecord* item = gPlayerRuntimeSlots.items.data() + 8;
+         item != gPlayerRuntimeSlots.items.data() + gPlayerRuntimeSlots.items.size(); ++item) {
+        if (item != nullptr && item->used != 0 && item->itemId == itemId) {
+            count += item->count;
+        }
+    }
+    return count;
+}
+
+
+// 原函数：0x0050C900。
+void Sub_50C900(
+    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    detail::Sub_51B530(first, second);
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
+    ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
+    ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
+}
+
+
+// 原函数：0x0051B630。
+void Sub_51B630(
+    const std::int32_t firstGroup, const std::int32_t firstIndex,
+    const std::int32_t secondGroup, const std::int32_t secondIndex)
+{
+    if (firstIndex < 0 || secondIndex < 0) {
+        return;
+    }
+    PlayerItemRecord* firstBase = nullptr;
+    PlayerItemRecord* secondBase = nullptr;
+    if (firstGroup == 0) {
+        if (firstIndex >= 28) {
+            return;
+        }
+        firstBase = gPlayerRuntimeSlots.items.data();
+    } else if (firstGroup >= 1 && firstGroup <= 5) {
+        if (firstIndex >= 6) {
+            return;
+        }
+        firstBase = gPetRuntimeRecords[firstGroup - 1].items6E4.data();
+    }
+    if (secondGroup == 0) {
+        if (secondIndex >= 28) {
+            return;
+        }
+        secondBase = gPlayerRuntimeSlots.items.data();
+    } else if (secondGroup >= 1 && secondGroup <= 5) {
+        if (secondIndex >= 6) {
+            return;
+        }
+        secondBase = gPetRuntimeRecords[secondGroup - 1].items6E4.data();
+    }
+    if (firstBase == nullptr || secondBase == nullptr) {
+        return;
+    }
+    PlayerItemRecord* const first = firstBase + firstIndex;
+    PlayerItemRecord* const second = secondBase + secondIndex;
+    const PlayerItemRecord temporary = *first;
+    *first = *second;
+    *second = temporary;
+}
+
+
+// 原函数：0x0052E180。
+std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId)
+{
+    if (index < 0 || index >= 5) {
+        return 0;
+    }
+    const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
+    if (pet.used == 0) {
+        return 0;
+    }
+    for (const detail::PetTechniqueRecord& technique : pet.techniquesD8) {
+        if (technique.used != 0 && technique.techniqueId == techniqueId) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+// 原函数：0x0052E1D0。
+std::int32_t Sub_52E1D0(const std::int32_t index)
+{
+    if (Sub_52E180(index, 0x22C4) != 0) {
+        return 1;
+    }
+    if (Sub_52E180(index, 0x22C5) != 0) {
+        return 1;
+    }
+    if (Sub_52E180(index, 0x22C6) != 0) {
+        return 1;
+    }
+    return Sub_52E180(index, 0x22C7) != 0 ? 1 : 0;
+}
+
+
+// 原函数：0x00510150。
+void Sub_510150(
+    const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    std::int32_t field = 1;
+    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    while (index < 6) {
+        if (network::ExtractDelimitedField_52CED0(
+                payload, '|', field + 1, 255, name) == 1) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[index];
+        if (std::strlen(name) == 0) {
+            record.used = 0;
+            record.name.clear();
+        } else {
+            record.used = 1;
+            if (std::strlen(name) <= 28) {
+                record.name = cg::text::FromGbkWide(name);
+            }
+            const std::int32_t color =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+            record.color = color;
+            if (color < 0) {
+                record.color = 0;
+            }
+            network::ExtractDelimitedField_52CED0(
+                payload, '|', field + 3, 767, description);
+            input::UnescapeLegacyTextAndNotify_52D2F0(description);
+            detail::Sub_519770(petIndex, index, description);
+            record.hasDescription = !record.description[0].empty() ? 1 : 0;
+            record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+            record.canUseInField = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5));
+            record.battleUseFlag = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6));
+            record.target = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7));
+            // 原510362再次传field+4，不能按玩家物品协议改成field+8或复用图号。
+            record.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+            record.flags = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9));
+            record.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 10);
+            record.itemType = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 11);
+            record.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 12);
+            network::ExtractDelimitedField_52CED0(payload, '|', field + 13, 255, memo);
+            input::UnescapeLegacyTextAndNotify_52D2F0(memo);
+            if (std::strlen(memo) <= 16) {
+                record.memo = cg::text::FromGbkWide(memo);
+            }
+        }
+        field += 14;
+        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    }
+}
+
+
+// 原函数：0x0050A6B0。
+void Sub_50A6B0(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    std::int32_t field = 2;
+    if (flags == 0) {
+        record.ClearRaw();
+    } else {
+        record.used = 1;
+        if ((flags & 0x3u) != 0) {
+            const std::int32_t imageNo =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            record.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
+            ++field;
+        }
+        if ((flags & 0x5u) != 0) {
+            record.value04 = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            ++field;
+        }
+        std::uint32_t bit = 0x8u;
+        for (platform::LegacyCryptInt& value : record.values0C) {
+            if ((flags & (bit | 1u)) != 0) {
+                const std::int32_t parsed =
+                    network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                value = static_cast<std::int32_t>(parsed);
+                ++field;
+            }
+            bit <<= 1;
+        }
+
+        // 掩码201..100001按原顺序映射，不将两条协议的数值列混用。
+        const std::array<std::int32_t*, 12> targets {{
+            &record.value08,
+            &record.values70[5], &record.values70[6], &record.values70[7],
+            &record.values70[8], &record.values70[9], &record.values70[10],
+            &record.values70[21], &record.values70[22],
+            &record.values70[23], &record.values70[24],
+            &record.value6A4,
+        }};
+        for (std::int32_t* const target : targets) {
+            if ((flags & (bit | 1u)) != 0) {
+                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                ++field;
+            }
+            bit <<= 1;
+        }
+        if ((flags & 0x200001u) != 0) {
+            record.value02 = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            ++field;
+        }
+        if ((flags & 0x400001u) != 0) {
+            char name[256];
+            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 16) {
+                std::strcpy(record.name6AC.data(), name);
+            }
+            ++field;
+        }
+        if ((flags & 0x800001u) != 0) {
+            char name[256];
+            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 16) {
+                std::strcpy(record.name6BD.data(), name);
+            }
+            ++field;
+        }
+        if ((flags & 0x1000001u) != 0) {
+            const auto state = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            if ((state & 0x10u) != 0) {
+                record.flags6AA = static_cast<std::uint16_t>(state & ~0x10u);
+                record.follow6D4 = 1;
+            } else {
+                record.flags6AA = state;
+                record.follow6D4 = 0;
+            }
+            ++field;
+        }
+        if ((flags & 0x2000001u) != 0) {
+            record.values70[25] =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        }
+    }
+    detail::Sub_519920();
+    detail::Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
+    detail::Sub_492250();
+    record.updated510C = 1;
+}
+
+
+// 原函数：0x0050AC20。
+void Sub_50AC20(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    if (flags == 0) {
+        record.used = 0;
+        record.name6AC[0] = '\0';
+        record.name6BD[0] = '\0';
+    } else {
+        record.used = 1;
+        const std::array<std::int32_t*, 19> targets {{
+            &record.values70[0], &record.values70[1], &record.values70[2],
+            &record.values70[3], &record.values70[4],
+            &record.values70[17], &record.values70[18],
+            &record.values70[19], &record.values70[20],
+            &record.values70[11], &record.values70[12], &record.values70[13],
+            &record.values70[14], &record.values70[15], &record.values70[16],
+            &record.value6D0,
+            &record.values6D8[1], &record.values6D8[2], &record.values6D8[0],
+        }};
+        std::uint32_t bit = 2;
+        std::int32_t field = 2;
+        for (std::int32_t* const target : targets) {
+            if ((flags & (bit | 1u)) != 0) {
+                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                ++field;
+            }
+            bit <<= 1;
+        }
+    }
+    detail::Sub_519920();
+    detail::Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
+    detail::Sub_492250();
+}
+
+
+// 原函数：0x0050B0D0。
+void Sub_50B0D0(
+    const std::uintptr_t, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    if (record.used == 0) {
+        return;
+    }
+    std::memset(record.techniquesD8.data(), 0, sizeof(record.techniquesD8));
+    char name[256];
+    char description[256];
+    std::int32_t field = 2;
+    for (;;) {
+        const std::int32_t techniqueIndex =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
+        if (techniqueIndex < 0) {
+            break;
+        }
+        const std::int32_t techniqueId =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        const std::int32_t fp =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
+        const std::int32_t techniqueField =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        const std::int32_t target =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
+        const std::int32_t sequence =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
+        detail::PetTechniqueRecord& technique = record.techniquesD8[techniqueIndex];
+        if (std::strlen(name) == 0) {
+            technique.name[0] = '\0';
+            technique.description[0] = '\0';
+            technique.fp = 0;
+            technique.used = 0;
+            // 原50B230不推进字段；不把空名称改成跳过本条或结束解析。
+            continue;
+        }
+        technique.used = 1;
+        technique.techniqueId = techniqueId;
+        std::strcpy(technique.name.data(), std::strlen(name) <= 24 ? name : "???");
+        std::strcpy(
+            technique.description.data(),
+            std::strlen(description) <= 96 ? description : "???");
+        field += 8;
+        technique.fp = fp;
+        technique.field = static_cast<std::uint16_t>(techniqueField);
+        technique.target = static_cast<std::uint16_t>(target);
+        technique.sequence = sequence;
+    }
+    Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), 10);
+}
+
+
+// 原函数：0x005185C0。
+void Sub_5185C0(
+    const detail::PetTechniqueRecord* const source, SkillPairRecord* const destination,
+    const std::int32_t count)
+{
+    for (std::int32_t index = 0; index < count; ++index) {
+        destination[index].used = source[index].used;
+        destination[index].index = static_cast<std::uint16_t>(index);
+        destination[index].sequence = source[index].sequence;
+    }
+}
+
+
+// 原函数：0x0043C4B0。
+std::int32_t Sub_43C4B0()
+{
+    for (std::int32_t index = 0; index < 5; ++index) {
+        const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
+        if (pet.used == 1 && pet.flags6AA == 2) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+
+// 原函数：0x0050A300。
+void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char text[256];
+    std::int32_t field = 2;
+    for (TitleRecord& record : detail::gTitlesFF0508) {
+        network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 255, text);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text);
+        const std::int32_t id = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        if (id >= 0) {
+            record.id = id;
+            std::strcpy(record.text.data(), text);
+            record.value = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
+        } else {
+            record.id = -1;
+            record.text[0] = '\0';
+            record.value = -1;
+        }
+        field += 3;
+    }
+    detail::Sub_5198A0(
+        reinterpret_cast<std::uint8_t*>(gSortedTitlesDE03F8.data()),
+        reinterpret_cast<const std::uint8_t*>(detail::gTitlesFF0508.data()), 64);
+    detail::Sub_5198D0(gSortedTitlesDE03F8.data(), 64);
+}
+
+
+// 原函数：0x00519840。
+std::int32_t Sub_519840(const std::int32_t id)
+{
+    if (id < 0) {
+        return -1;
+    }
+    for (std::int32_t index = 0; index < 64; ++index) {
+        if (detail::gTitlesFF0508[index].id == id) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+// R03：唯一阵位表按尺寸增量更新，重复初始化不累加中心偏移。
+void CenterBattleLayoutToWindow()
+{
+    if (platform::gWindowHeight > 480) {
+        const std::size_t extent = static_cast<std::size_t>(platform::gWindowHeight) + 1;
+        if (extent > gTransitionLines.speedFF0FA8.size()) {
+            gTransitionLines.speedFF0FA8.resize(extent);
+            gTransitionLines.xFF172C.resize(extent);
+            gTransitionLines.yFF1EB0.resize(extent);
+        }
+    }
+    static std::int32_t previousX = 0;
+    static std::int32_t previousY = 0;
+    const std::int32_t offsetX = platform::gWindowWidth > 0 ? (platform::gWindowWidth - 640) / 2 : 0;
+    const std::int32_t offsetY = platform::gWindowHeight > 0 ? (platform::gWindowHeight - 480) / 2 : 0;
+    const std::int32_t deltaX = offsetX - previousX;
+    const std::int32_t deltaY = offsetY - previousY;
+    if (deltaX == 0 && deltaY == 0) {
+        return;
+    }
+    for (auto& point : gBattleGraphicPoints553758) {
+        point[0] += deltaX;
+        point[1] += deltaY;
+        point[2] += deltaX;
+        point[3] += deltaY;
+    }
+    previousX = offsetX;
+    previousY = offsetY;
+}
+
+
+// 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
+std::int32_t __cdecl Sub_468520(
+    char* const buffer,
+    const std::int32_t mapId,
+    const std::int32_t value9E0434,
+    const std::int32_t floor)
+{
+    if (mapId == 0) {
+        return std::sprintf(
+            buffer, "%s\\%d\\%d.dat", kMapPathPrefix, 0, floor);
+    }
+    return std::sprintf(
+        buffer, "%s\\%d\\%d\\%d.dat", kMapPathPrefix, mapId, value9E0434, floor);
+}
+
+
+// 原函数：0x0046C760。
+std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
+{
+    if (gValue9DAD68 == 1) {
+        detail::gValue55DA88 = 1;
+        const std::int32_t playerY = gPlayerY.value();
+        const std::int32_t playerX = gPlayerX.value();
+        static_cast<void>(detail::Sub_46C840(gMapFloor, playerX, playerY));
+        const std::int32_t index = detail::gAutoMapWindowIndex55DA90;
+        detail::gValue55DA88 = 0;
+        const std::int32_t height = detail::gAutoMapWindowSizes55DA94[index].height;
+        const std::int32_t width = detail::gAutoMapWindowSizes55DA94[index].width;
+        return render::DrawColorAutoMap_44FEB0(x, y, detail::gAutoMapColorWindow9CF6EC, width, height);
+    }
+    if (detail::gValue55DA88 != 0) {
+        const std::int32_t playerY = gPlayerY.value();
+        const std::int32_t playerX = gPlayerX.value();
+        static_cast<void>(detail::Sub_46C840(gMapFloor, playerX, playerY));
+        detail::gValue55DA88 = 0;
+    }
+    const std::int32_t index = detail::gAutoMapWindowIndex55DA90;
+    const std::int32_t height = detail::gAutoMapWindowSizes55DA94[index].height;
+    const std::int32_t width = detail::gAutoMapWindowSizes55DA94[index].width;
+    return render::DrawIndexedAutoMap_44F5C0(x, y, detail::gAutoMapIndexWindow9DAD7C, width, height);
+}
+
+
+// 原 [0x4681B0,0x4681F6)：先读 Y/X 快照并恢复窗口，随后顺序清六槽。
+std::int32_t __cdecl Sub_4681B0()
+{
+    const std::int32_t y =
+        gPlayerSnapshotY.value();
+    const std::int32_t x =
+        gPlayerSnapshotX.value();
+    static_cast<void>(detail::Sub_468330(x, y));
+    static_cast<void>(detail::Sub_468200());
+    gValueC82200 = 0;
+    gValueC82202 = 0;
+    gValueC821FC = 0;
+    detail::gValueC8A778 = 0;
+    detail::gValueC8A794 = 0;
+    detail::gValueC82224 = 0;
+    return 0;
+}
+
+
+// 原 [0x469810,0x469864)：边界外返回 1，边界内比较第四平面的完整 WORD。
+std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t localX = x - gMapXStart;
+    const std::int32_t localY = y - gMapYStart;
+    if (localX < 0) {
+        return 1;
+    }
+    const std::int32_t width = gMapSpanX;
+    if (localX >= width || localY < 0) {
+        return 1;
+    }
+    const std::int32_t height = gMapSpanY;
+    if (localY >= height) {
+        return 1;
+    }
+    const std::int32_t index = localX + width * localY;
+    return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
+}
+
+
+// 原函数：0x005093C0。
+void Sub_5093C0(
+    const std::uintptr_t, const std::int32_t x, const std::int32_t y,
+    const std::int32_t direction)
+{
+    static_cast<void>(detail::Sub_468200());
+    static_cast<void>(Sub_519EC0(x, y));
+    Sub_519EE0();
+    static_cast<void>(detail::Sub_51A040(direction));
+}
+
+
+// 原函数：0x0050D080。
+void Sub_50D080(
+    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+{
+    gValue9FB918 = static_cast<std::int32_t>(first);
+
+    gValueAF0FE8 = static_cast<std::int32_t>(second);
+
+    const std::uint32_t encoded = gValue9FB918.encoded;
+    const std::uint32_t mask = gValue9FB918.mask;
+    const std::uint8_t readCount = gValue9FB918.readCount;
+    gValueC821E8.encoded = encoded;
+    gValueC821E8.mask = mask;
+    gValueC821E8.readCount = readCount;
+}
+
+
+// 原函数：0x0050D120。
+void Sub_50D120(
+    const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (gValueD67E78 != 0) {
+        static_cast<void>(detail::Sub_519D50());
+        detail::Sub_4464D0();
+        static_cast<void>(Sub_4681B0());
+        detail::Sub_51B0F0();
+        gValue62B5B0 = 0;
+        detail::Sub_455FC0();
+        detail::Sub_455C60();
+
+        const std::uint32_t mask = gValue9FB918.mask;
+        const std::uint32_t encoded = gValue9FB918.encoded;
+        const std::uint8_t readCount = gValue9FB918.readCount;
+        gValueC821E8.mask = mask;
+        gValueC821E8.encoded = encoded;
+        gValueC821E8.readCount = readCount;
+
+        gValueC821D8 = std::int32_t{0};
+
+        cg::world::gRippleGate = std::int32_t{1};
+
+        gValue9FB92E = 0;
+        detail::gValueFF03D8 = 0;
+        detail::gValueF7CA04 = 0;
+        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
+        cg::yobi::YobiClearUp_404D30();
+        detail::Sub_446610();
+
+        cg::world::gRippleGate = std::int32_t{0};
+        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
+        return;
+    }
+    if (type > 0) {
+        const bool modeTwo = type == 2;
+        gValue5ABFC4 = 1;
+        gBattleType5ABFC8 = type;
+        if (modeTwo) {
+            gBattleModeFlag5ABFCC = 1;
+            detail::gValueC821D0 = 0;
+            detail::gValueB65A7C = 1;
+        } else {
+            const bool modeThree = type == 3;
+            gBattleModeFlag5ABFCC = 0;
+            if (modeThree) {
+                detail::gValueC821D0 = 1;
+                detail::gValueB65A7C = 0;
+            } else {
+                detail::gValueC821D0 = 0;
+                detail::gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
+            }
+        }
+        gValue5ABB1C = 0;
+        gBattleBackgroundImage59F9F8 = imageNo;
+        gValue5ABB28 = 0;
+        detail::gBattleCWriteIndex5AAA6C = 0;
+        detail::gBattleCReadIndex5AAA44 = 0;
+        detail::gBattleMWriteIndex5A3A1C = 0;
+        detail::gBattleMReadIndex5AAA68 = 0;
+        gBattleCText5A3A20[0] = '\0';
+        gBattleMText5AAA7C[0] = '\0';
+        for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
+            detail::gBattleCQueue5A4A3C[offset] = '\0';
+            detail::gBattleMQueue59FA18[offset] = '\0';
+        }
+        detail::gBattleFirstTurnPending5ABC6C = 1;
+        return;
+    }
+    gValueC821D8 = std::int32_t{0};
+    detail::gValueFF03D8 = 0;
+    detail::gValueF7CA04 = 0;
+}
+
+
+// 原函数：0x0050D3C0。
+void Sub_50D3C0(const std::uintptr_t, const char* const text)
+{
+    const char kind = text[0];
+    if (kind == 'C') {
+        const std::int32_t index = detail::gBattleCWriteIndex5AAA6C;
+        char* const destination = detail::gBattleCQueue5A4A3C.data()
+            + static_cast<std::ptrdiff_t>(index) * 0x1000;
+        const std::size_t byteCount = std::strlen(text) + 1;
+        const std::size_t wordBytes = byteCount & ~std::size_t{3};
+        std::memcpy(destination, text, wordBytes);
+        const std::int32_t next = index + 1;
+        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
+        const bool wrap = next >= 4;
+        detail::gBattleCWriteIndex5AAA6C = next;
+        if (wrap) {
+            detail::gBattleCWriteIndex5AAA6C = 0;
+        }
+        return;
+    }
+    if (kind == 'P') {
+        static_cast<void>(std::sscanf(text + 2, "%X|%X|%X|%X|%X|%X",
+            &detail::gBattlePosition5ABCA8, &gBattlePlayerFlags5ABCAC,
+            &gBattleSkillFlags5ABC04, &gBattlePetSkillFlags5ABB78,
+            &detail::gBattleRebirthLevel5ABB7C, &gBattleRidePet5ABC38));
+        return;
+    }
+    if (kind == 'A') {
+        static_cast<void>(std::sscanf(text + 2, "%X|%X",
+            &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
+        if (detail::gBattleFirstTurnPending5ABC6C == 1) {
+            const std::uint32_t turn = gBattleTurn5ABB74;
+            detail::gBattleFirstTurnPending5ABC6C = 0;
+            gBattleTurnSnapshot5ABC08 = turn;
+        }
+        cg::yobi::Sub_43BFF0();
+        return;
+    }
+    if (text[1] == 'U') {
+        detail::gValue5ABCB0 = 1;
+        return;
+    }
+    if (kind == 'M') {
+        const std::int32_t index = detail::gBattleMWriteIndex5A3A1C;
+        char* const destination = detail::gBattleMQueue59FA18.data()
+            + static_cast<std::ptrdiff_t>(index) * 0x1000;
+        const std::size_t byteCount = std::strlen(text) + 1;
+        const std::size_t wordBytes = byteCount & ~std::size_t{3};
+        std::memcpy(destination, text, wordBytes);
+        const std::int32_t next = index + 1;
+        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
+        const bool wrap = next >= 4;
+        detail::gBattleMWriteIndex5A3A1C = next;
+        if (wrap) {
+            detail::gBattleMWriteIndex5A3A1C = 0;
+        }
+    }
+}
+
+
+// 原函数：0x0050D500。
+void Sub_50D500(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    gValueFF0C10 = 1;
+    char row[2048];
+    char entry[2048];
+    char name[2048];
+    std::int32_t field = 1;
+    for (BattleResultRecord& record : gBattleResultsFF0C14) {
+        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        ++field;
+        record.value00 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
+        record.value02 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 2));
+        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 3);
+    }
+
+    network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+    ++field;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        network::ExtractDelimitedField_52CED0(row, '|', index + 1, 2047, entry);
+        input::UnescapeLegacyText_52D150(entry);
+        gBattleResultGraphicsFF0D0C[index] =
+            network::ParseDelimitedInteger_52CFA0(entry, '|', 1);
+        network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 28) {
+            std::strcpy(gBattleResultNamesFF0C34[index].data(), name);
+        } else {
+            gBattleResultNamesFF0C34[index][0] = '\0';
+        }
+    }
+
+    for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
+        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        ++field;
+        const auto bits = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
+        const std::int16_t parsedValue = std::bit_cast<std::int16_t>(bits);
+        record.value00 = parsedValue;
+        if (parsedValue < 0) {
+            record.value00 = 0;
+        }
+        const std::int32_t parsedBase62 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);
+        record.value04 = parsedBase62;
+        if (parsedBase62 < 0) {
+            record.value04 = 0;
+        }
+    }
+}
+
+
+// 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
+void __cdecl Sub_50CF90(
+    const std::uintptr_t, const std::int32_t sequence,
+    const std::int32_t status)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (std::bit_cast<std::int16_t>(detail::gValue9DAD54) == sequence) {
+        gValue9A86D8 = 0;
+        if (status == 0) {
+            detail::Sub_4691D0();
+            detail::gValueC82208 = 0;
+            detail::gValueC82210 = 0;
+        } else if (detail::gValueC82214 == 0) {
+            detail::gValueC82210 = 0;
+        }
+    } else if (std::bit_cast<std::int16_t>(detail::gValue9FB92C) == sequence &&
+               status == 0) {
+        gValue9FB92E = 0;
+    }
+}
+
+
+// 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
+void __cdecl Sub_509090(
+    const std::uintptr_t, const std::int32_t first,
+    const std::int32_t floor, const std::int32_t xStart,
+    const std::int32_t yStart, const std::int32_t xEnd,
+    const std::int32_t yEnd, const std::int32_t expectedTile,
+    const std::int32_t expectedObj, const std::int32_t expectedHit)
+{
+    if (gValue9A6E0C != 0 ||
+        detail::Sub_469290(
+            first, floor, xStart, yStart, xEnd, yEnd,
+            expectedTile, expectedObj, expectedHit) == 0) {
+        return;
+    }
+    if (gMapFloor == floor) {
+        detail::gValueC82208 = 0;
+    }
+    if ((detail::gValue9A4B94 & 1u) != 0) {
+        detail::Sub_4691D0();
+        detail::gValue9A4B94 &= 0xFEu;
+    }
+}
+
+
+// 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
+std::int32_t __cdecl Sub_509100(
+    const std::uintptr_t, const std::int32_t mapId,
+    const std::int32_t floor, const std::int32_t xStart,
+    const std::int32_t yStart, const std::int32_t xEnd,
+    const std::int32_t yEnd, const char* const payload)
+{
+    // 原入口只采一次 W32 门禁，非零时透传该样本。
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return std::bit_cast<std::int32_t>(gate);
+    }
+
+    constexpr std::size_t frameBytes = 0x10594;
+    constexpr std::size_t tileOffset = 0x64;
+    constexpr std::size_t tileTextOffset = 0x1064;
+    constexpr std::size_t objOffset = 0x5774;
+    constexpr std::size_t objTextOffset = 0x6774;
+    constexpr std::size_t hitOffset = 0xAE84;
+    constexpr std::size_t hitTextOffset = 0xBE84;
+    static_assert(std::endian::native == std::endian::little);
+    // 原连续帧七段共用存储；仅保留既有整帧零初始化适配。
+    std::array<std::uint16_t, frameBytes / 2> frame {};
+    char* const bytes = reinterpret_cast<char*>(frame.data());
+    std::uint16_t* const tile = frame.data() + tileOffset / 2;
+    std::uint16_t* const obj = frame.data() + objOffset / 2;
+    std::uint16_t* const hit = frame.data() + hitOffset / 2;
+    char* const tileText = bytes + tileTextOffset;
+    char* const objText = bytes + objTextOffset;
+    char* const hitText = bytes + hitTextOffset;
+    char* const field = bytes;
+
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 1, 0x470F, tileText));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 2, 0x470F, objText));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 3, 0x470F, hitText));
+
+    const std::int32_t firstStatus = network::ExtractDelimitedField_52CED0(
+        tileText, ',', 1, 99, field);
+    tile[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        objText, ',', 1, 99, field));
+    obj[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        hitText, ',', 1, 99, field));
+    hit[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+
+    if (firstStatus != 1) {
+        std::size_t item = 1;
+        std::int32_t ordinal = 2;
+        std::int32_t status;
+        do {
+            status = network::ExtractDelimitedField_52CED0(
+                tileText, ',', ordinal, 99, field);
+            tile[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                objText, ',', ordinal, 99, field));
+            obj[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                hitText, ',', ordinal, 99, field));
+            hit[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            ++item;
+            ++ordinal;
+        } while (status != 1);
+    }
+
+    static_cast<void>(detail::Sub_4688A0(
+        mapId, floor, xStart, yStart, xEnd, yEnd, tile, obj, hit));
+    if ((detail::gValue9EE8B8 != 0 || detail::gValueC82208 != 0)
+        && gMapFloor == floor) {
+        detail::Sub_4691D0();
+        detail::gValueC82208 = 0;
+    }
+    // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
+    const std::uint8_t replyFlags = detail::gValue9A4B94;
+    const std::int32_t currentMapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+    detail::gValue9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
+
+    if (currentMapId == mapId
+        && gMapFloor == floor
+        && (gPlayerX - 10) <= xStart
+        && xEnd <= (gPlayerX + 10)
+        && (gPlayerY - 10) <= yStart
+        && yEnd <= (gPlayerY + 10)) {
+        detail::gValue9EE910 = 1;
+    }
+
+    const std::uint32_t state = detail::gValueC82214;
+    if (state != 1) {
+        return std::bit_cast<std::int32_t>(state);
+    }
+    const std::int32_t currentFloor = gMapFloor;
+    if (currentFloor != floor) {
+        return currentFloor;
+    }
+    detail::gValueC82210 = 0;
+    detail::gValueC82214 = 0;
+    detail::gValueC82218 = 0;
+    return 0;
+}
+
+
+// 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
+std::int32_t __cdecl Sub_5093F0(
+    const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
+    const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
+    const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
+    const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
+    const std::int32_t a13)
+{
+    const std::uint8_t priorFlag = detail::gValue9A4B94;
+    detail::gValueC82208 = 1;
+    if (priorFlag == 0 && gCurrentSceneType == 9) {
+        if (detail::gValueC8220C == 0) {
+            gCurrentSceneState = 200;
+            static_cast<void>(detail::Sub_51D5B0());
+        }
+        static_cast<void>(detail::Sub_519D50());
+        detail::gValueC8220C = 0;
+    }
+
+    static_cast<void>(detail::Sub_468570(
+        gValue9E0434, a2, a3, a4, a5, a8, a9));
+    detail::Sub_4682E0(
+        static_cast<std::uint32_t>(a2), a3,
+        static_cast<std::uint32_t>(a4), static_cast<std::uint32_t>(a5),
+        static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
+        static_cast<std::uint32_t>(a10), a12);
+    static_cast<void>(detail::Sub_468330(a6, a7));
+    detail::Sub_4464D0();
+
+    const std::uint32_t mask = gValue9FB918.mask;
+    const std::uint32_t encoded = gValue9FB918.encoded;
+    const std::uint8_t readCount = gValue9FB918.readCount;
+    gValueC821E8.mask = mask;
+    detail::gValue9EE8B8 = 0;
+    gValueC821E8.encoded = encoded;
+    gValueC821E8.readCount = readCount;
+
+    gValue9E03C0 = std::int32_t{0};
+    static_cast<void>(Sub_4681B0());
+
+    if (a11 > 0) {
+        gValueFF0D5C = static_cast<std::uint32_t>(a11);
+        gValueFF0D58 = 1;
+    }
+    detail::gValue9EE8F8 = static_cast<std::uint32_t>(a13);
+    return a11 > 0 ? a13 : a11;
+}
+
+
+// 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
+// PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
+std::int32_t __cdecl Sub_509550(
+    const std::uintptr_t, char* const payload)
+{
+    std::array<char, 256> text;
+    std::array<char, 32> number;
+    input::UnescapeLegacyText_52D150(payload);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 1, 255, text.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(text.data());
+
+    const char* const selected =
+        std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
+    const std::size_t selectedBytes = std::strlen(selected) + 1;
+    const std::size_t wordBytes = selectedBytes & ~std::size_t{3};
+    std::memcpy(gText9DAD30.data(), selected, wordBytes);
+    detail::gValueFF0D4C = -2;
+    std::memcpy(gText9DAD30.data() + wordBytes, selected + wordBytes, selectedBytes & 3u);
+
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 2, 31, number.data()));
+    if (number[0] == '\0') {
+        detail::gValueFF0D4C = -1;
+    } else {
+        const std::int32_t value = std::atoi(number.data());
+        detail::gValueFF0D4C = value;
+        if (value < 0) {
+            detail::gValueFF0D4C = -1;
+        }
+    }
+    if (detail::gValueC82210 == 1) {
+        detail::gValueC82218 = 1;
+    }
+    return 1;
+}
+
+
+// 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
+std::uint32_t Sub_51D640()
+{
+    static_cast<void>(detail::Sub_468F70());
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    static_cast<void>(detail::Sub_469030());
+    render::SortTextures_520790();
+    static_cast<void>(render::ClearSurface_4512C0());
+    const std::uint8_t previousC82204 = gValueC82204;
+    gValueC82204 = 0;
+    render::gRenderQueueMode103CF10 = 0;
+    render::DrawAllQueued_520DD0();
+    gValueC82204 = previousC82204;
+    static_cast<void>(render::CopyBackToTemp());
+    render::gRenderQueueMode103CF10 = 1;
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    const std::uint64_t tick = platform::ReadTickCount64();
+    platform::gLastRenderDt = static_cast<double>(tick);
+    return static_cast<std::uint32_t>(tick);
+}
+
+
+// GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
+std::int32_t __cdecl Sub_50C870(
+    const std::uintptr_t, const std::int32_t playerValue,
+    const std::int32_t timeOffset, const std::int32_t pathValue,
+    const std::int32_t adjustment)
+{
+    static_cast<void>(detail::Sub_519EB0(playerValue));
+    gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
+    gValue73ED68 = static_cast<std::uint64_t>(
+        ::_time64(nullptr));
+    static_cast<void>(UpdateGameTime(&gCgTime));
+    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    gValue73ED48 = category;
+    static_cast<void>(render::SelectPalette(category, 0));
+    gValue9E0434 = pathValue;
+    gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
+    return adjustment;
+}
+
+
+// 原 [0x46CF00, 0x46CF1A)；上界外返回入口位模式，上界内读唯一共享表。
+std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
+{
+    if (static_cast<std::uint32_t>(value) >= 65536u) {
+        return value;
+    }
+    if (value < 0) {
+        return 0;
+    }
+    return detail::gValuesC35010[static_cast<std::size_t>(value)];
+}
+
+
+// WDG01：原 [0x46F8F0,0x46F92B)；上/下界比较后各重新取 F32，再加减、写回并重来。
+void __cdecl Sub_46F8F0(float* const value)
+{
+    constexpr float kFullTurn = 360.0F;
+    for (;;) {
+        const float upperValue = *value;
+        if (upperValue >= 360.0) {
+            const float updateValue = *value;
+            *value = updateValue - kFullTurn;
+            continue;
+        }
+
+        const float lowerValue = *value;
+        if (lowerValue >= 0.0) {
+            return;
+        }
+        const float updateValue = *value;
+        *value = updateValue + kFullTurn;
+    }
+}
+
+
+// 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，原表 F64 位型返回。
+double __cdecl Sub_46F930(float angle)
+{
+    Sub_46F8F0(&angle);
+    const std::int32_t index = static_cast<std::int32_t>(angle);
+    return std::bit_cast<double>(
+        gAngleTableBits55DF10[static_cast<std::size_t>(index)]);
+}
+
+
+// 原 [0x46F950,0x46F967)：先将 +90 的结果写为 F32，再透传表读取结果。
+double __cdecl Sub_46F950(const float angle)
+{
+    const float shifted = angle + 90.0F;
+    return Sub_46F930(shifted);
+}
+
+
+// 原 [0x46F970,0x46FACF)：原表插值及八路象限修正，F32 写槽独立保留。
+double __cdecl Sub_46F970(const float first, const float second)
+{
+    if (first == 0.0F && second == 0.0F) {
+        return 0.0;
+    }
+
+    const bool firstNegative = first < 0.0F;
+    const bool secondNegative = second < 0.0F;
+    const double firstAbs = firstNegative ? -first : first;
+    const double secondAbs = secondNegative ? -second : second;
+    const bool swapAxes = firstAbs < secondAbs;
+    const std::int32_t selector =
+        (firstNegative ? 1 : 0) + (secondNegative ? 2 : 0) + (swapAxes ? 4 : 0);
+    const double scaled =
+        (swapAxes ? firstAbs / secondAbs : secondAbs / firstAbs) * 64.0;
+    const std::int32_t index = static_cast<std::int32_t>(scaled);
+    const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
+    const float fraction = static_cast<float>(scaled - index);
+    const double leftSample = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(index)]);
+    const double firstWeight = 1.0 - fraction;
+    const double left = leftSample * firstWeight;
+    const double rightSample = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)]);
+    const double right = rightSample * fraction;
+    const float angle = static_cast<float>(left + right);
+
+    switch (selector) {
+    case 0: return angle;
+    case 1: return 180.0 - angle;
+    case 2: return 360.0 - angle;
+    case 3: return angle + 180.0;
+    case 4: return 90.0 - angle;
+    case 5: return angle + 90.0;
+    case 6: return angle + 270.0;
+    case 7: return 270.0 - angle;
+    default: return 0.0;
+    }
+}
+
+
+// 原函数：0x0046FB80。
+double Sub_46FB80(
+    const float x, const float y, const float targetX, const float targetY)
+{
+    const double differenceX = static_cast<double>(targetX) - x;
+    const double differenceY = static_cast<double>(targetY) - y;
+    const double squaredY = differenceY * differenceY;
+    const double squaredX = differenceX * differenceX;
+    return squaredY + squaredX;
+}
+
+
+// WDG01：原 [0x46CDF0,0x46CE25)；查表加原偏移落 F32、原地归一后重取，乘原常量转 S64。
+std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
+{
+    const double direction = Sub_46F970(first, second);
+    const float offset = 112.5F;
+    float angle = static_cast<float>(direction + offset);
+    Sub_46F8F0(&angle);
+    constexpr float multiplier = 1.0F / 45.0F;
+    return static_cast<std::int64_t>(
+        static_cast<double>(angle) * multiplier);
+}
+
+
+// 原[440B50,440B6C)：只采一次场景值，以U32比较250..252。
+std::int32_t Sub_440B50()
+{
+    const auto scene = static_cast<std::uint32_t>(gCurrentSceneState);
+    return scene >= 250u && scene <= 252u ? 1 : 0;
+}
+
+
+// 原 [0x4410E0,0x4410E6)：无状态固定返回叶。
+std::int32_t Sub_4410E0()
+{
+    return 0x11;
+}
+
+
+std::uint32_t ReadPlayerFlags18A() noexcept
+{
+    // 原FDA88A一次跨字段W32读取，flags18A与flags18C低W16相邻。
+    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&gPlayerRuntimeSlots);
+    std::uint32_t flags;
+    std::memcpy(&flags, bytes + offsetof(PlayerRuntimeSlots, flags18A), sizeof(flags));
+    return flags;
+}
+
+
+// 原函数：0x00405B40。
+std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
+{
+    if ((position >= 0 && position < 5) || (position >= 10 && position < 15)) {
+        return position + 5;
+    }
+    return position - 5;
+}
+
+
+// BEI01：原九条，唯一玩家item区8..27逐used W16统计；现正确正文保持，十九调用点的完整外父/owner与运行待。
+// 原函数：0x00518C60。
+std::int32_t Sub_518C60()
+{
+    std::int32_t count = 0;
+    for (std::int32_t slot = 8; slot < 28; ++slot) {
+        if (gPlayerRuntimeSlots.items[slot].used == 0) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+
+const char* GetPlayerJobName() noexcept
+{
+    return gSkillRuntimeSlots.jobName.data();
+}
+
+
+void ConsumeBattlePlayerTimer(const std::int32_t seconds)
+{
+    const std::int32_t remaining = gPlayerRuntimeSlots.timerRemaining0C - 1000 * seconds;
+    const bool negative = remaining < 0;
+    gPlayerRuntimeSlots.timerRemaining0C = remaining;
+    if (negative) {
+        gPlayerRuntimeSlots.timerRemaining0C = 0;
+    }
+}
+
+
+// SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
+// 原函数：0x00504B10。
+std::int32_t Sub_504B10()
+{
+    if (gValueD2F788 > 0) {
+        return 5;
+    }
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
+        if (gPetRuntimeRecords[index].lvFlag6C != 0) {
+            return position;
+        }
+    }
+    return 6;
+}
+
+
+// G04：五S16配对顺序，used且伤势大于0才返回原宠物编号，未命中-1。
+// 原函数：0x00504B60。
+std::int32_t Sub_504B60()
+{
+    for (std::int32_t position = 0; position < 5; ++position) {
+        if (gPetPairsDE0B08[position].used == 0) {
+            continue;
+        }
+        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
+        if (gPetRuntimeRecords[index].values70[25] > 0) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+
+std::int16_t ReadPlayerTribe() noexcept
+{
+    return std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value00);
+}
+
+
+std::uint8_t ReadPlayerActionFlagsByte() noexcept
+{
+    return reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2];
+}
+
+
+std::uint16_t ReadPlayerActionFlags() noexcept
+{
+    return static_cast<std::uint16_t>(gPlayerRuntimeSlots.flags18C >> 16);
+}
+
+
+void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
+{
+    gPlayerRuntimeSlots.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
+}
+
+
+void SetPlayerActionFlags(const std::uint16_t mask) noexcept
+{
+    gPlayerRuntimeSlots.flags18C |= static_cast<std::uint32_t>(mask) << 16;
+}
+
+
+void CopyPlayerBarValues(
+    platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
+    platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
+{
+    *hp = gPlayerRuntimeSlots.hp;
+    *maxHp = gPlayerRuntimeSlots.maxHp;
+    *fp = gPlayerRuntimeSlots.fp;
+    *maxFp = gPlayerRuntimeSlots.maxFp;
+}
+
+
+const char* GetTitleText(const std::int32_t index) noexcept
+{
+    // 未装备或无效索引返回空文本；修正原FF0510+index*1Ch越界读。
+    if (index < 0 || index >= static_cast<std::int32_t>(detail::gTitlesFF0508.size())) {
+        return "";
+    }
+    return detail::gTitlesFF0508[index].text.data();
+}
+
+
+const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
+{
+    switch (mode) {
+    case 1: return gPlayerRuntimeSlots.name.data();
+    case 2: return gPlayerRuntimeSlots.ownTitle.data();
+    case 3: return GetTitleText(gPlayerRuntimeSlots.titleIndex100);
+    case 4: return gPlayerRuntimeSlots.text12A.data();
+    case 5: return gPlayerRuntimeSlots.text14B.data();
+    case 6: return gPlayerRuntimeSlots.text15BB8.data();
+    default: return nullptr;
+    }
+}
+
+
+std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
+{
+    return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
+}
+
+
+std::int16_t ReadDirectionDeltaY(const std::int16_t direction) noexcept
+{
+    return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
+}
+
+
+cg::yobi::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+}
+
+
+std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
+}
+
+
+std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].flags;
+}
+
+
+// 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
+// 原函数：0x00470050。
+void Sub_470050()
+{
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
+    const std::int32_t targetX =
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
+    const std::int32_t target = detail::Sub_4450D0(targetX, targetY, 8);
+    const std::uint16_t follow = detail::gValueFF0D36;
+    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
+        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !(gValueC821D8 == 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint64_t now = platform::ReadTickCount64();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = gPlayerY.value();
+        const std::int32_t x = gPlayerX.value();
+        static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x00470150。
+void Sub_470150()
+{
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    std::int32_t target = 0;
+    if (detail::Sub_455A90() == 1) {
+        const std::int32_t targetY =
+            (gPlayerY + static_cast<std::int32_t>(deltaY));
+        const std::int32_t targetX =
+            (gPlayerX + static_cast<std::int32_t>(deltaX));
+        target = detail::Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
+    }
+    const std::uint16_t follow = detail::gValueFF0D36;
+    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
+        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !(gValueC821D8 == 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint64_t now = platform::ReadTickCount64();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = gPlayerY.value();
+        const std::int32_t x = gPlayerX.value();
+        static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x00470270。
+void Sub_470270()
+{
+    const bool joinTeam = detail::gValueFF0D36 == 0;
+    if (joinTeam) {
+        const std::int32_t direction = gPlayerRuntimeSlots.direction;
+        if (direction < 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return;
+        }
+        const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+        const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+        const std::int32_t targetY =
+            (gPlayerY + static_cast<std::int32_t>(deltaY));
+        const std::int32_t targetX =
+            (gPlayerX + static_cast<std::int32_t>(deltaX));
+        if (detail::Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return;
+        }
+    }
+    if (gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !(gValueC821D8 == 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint64_t now = platform::ReadTickCount64();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        if (joinTeam && (ReadPlayerFlags18A() & 0x100u) != 0) {
+            return;
+        }
+        const std::int32_t mode = joinTeam ? 1 : 0;
+        const std::int32_t y = gPlayerY.value();
+        const std::int32_t x = gPlayerX.value();
+        static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x004703C0。
+void Sub_4703C0()
+{
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
+    const std::int32_t targetX =
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
+    if (detail::Sub_4450D0(targetX, targetY, 8) != 1
+        || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !(gValueC821D8 == 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint64_t now = platform::ReadTickCount64();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = gPlayerY.value();
+        const std::int32_t x = gPlayerX.value();
+        static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x004704A0。
+void Sub_4704A0()
+{
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t firstY =
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
+    const std::int32_t firstX =
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
+    const std::int32_t first = detail::Sub_4450D0(firstX, firstY, 8);
+    const std::int32_t secondY =
+        (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
+    const std::int32_t secondX =
+        (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
+    const std::int32_t second = detail::Sub_4450D0(secondX, secondY, 8);
+    if (detail::gValueFF0D36 != 1 && first != 1 && second != 1) {
+        Sub_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    if (gValue9A86D8 == 0 && gValue9FB92E == 0
+        && (gValueC821D8 == 0)) {
+        const std::uint64_t now = platform::ReadTickCount64();
+        if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+            static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
+            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        }
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x00470670。
+void Sub_470670()
+{
+    const std::int32_t direction = gPlayerRuntimeSlots.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
+    const std::int32_t targetX =
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
+    if (detail::Sub_4450D0(targetX, targetY, 8) != 1
+        || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !(gValueC821D8 == 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0();
+    if ((cg::world::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
+        Sub_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint64_t now = platform::ReadTickCount64();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = gPlayerY.value();
+        const std::int32_t x = gPlayerX.value();
+        static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+
+// 原函数：0x004FA8E0。
+void Sub_4FA8E0(const std::int32_t index)
+{
+    static_cast<void>(detail::RequestEmoteWithResult_4FA8E0(index));
+}
+
+
+// 原函数：0x00519EC0。
+std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
+{
+    return detail::Sub_468330(x, y);
+}
+
+
+// 原函数：0x0051C0D0。
+std::int32_t Sub_51C0D0(const std::int32_t imageNo)
+{
+    // 保留原区段顺序和两种除法，不扩展为通用图号规则。
+    struct ImageRange {
+        std::int32_t first;
+        std::int32_t last;
+        std::int32_t base;
+    };
+    constexpr ImageRange grouped[] {
+        {100000, 100173, 114000}, {100250, 100423, 114028},
+        {105000, 105173, 114056}, {105250, 105423, 114084},
+        {106000, 106173, 114112}, {106250, 106423, 114140},
+        {105500, 105548, 112000},
+    };
+    for (const auto& range : grouped) {
+        if (imageNo >= range.first && imageNo <= range.last) {
+            const std::int32_t offset = imageNo - range.first;
+            return offset % 25 / 6 + 4 * (offset / 25) + range.base;
+        }
+    }
+    constexpr ImageRange linear[] {
+        {104400, 104429, 112010}, {104430, 104459, 112015},
+        {104460, 104489, 112020}, {104490, 104519, 112025},
+        {120100, 120123, 120148}, {120124, 120147, 120152},
+    };
+    for (const auto& range : linear) {
+        if (imageNo >= range.first && imageNo <= range.last) {
+            return (imageNo - range.first) / 6 + range.base;
+        }
+    }
+    if (imageNo >= 120156 && imageNo <= 120159) {
+        return imageNo - 8;
+    }
+    if (imageNo >= 120160 && imageNo <= 120163) {
+        return imageNo - 8;
+    }
+    if (imageNo == 100900) {
+        return 114169;
+    }
+    if (imageNo == 100901) {
+        return 114168;
+    }
+    return imageNo;
+}
+
+
+// 原函数：0x0051BEE0。
+void Sub_51BEE0()
+{
+    reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x80u;
+}
+
+
+// 原函数：0x0051BEC0。
+std::int32_t Sub_51BEC0()
+{
+    const std::uint8_t flags =
+        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntimeSlots.flags18C)[2];
+    const std::int32_t value = gPlayerRuntimeSlots.value190;
+    return (flags & 2u) != 0 ? value : 0;
+}
+
+
+// 原函数：0x0051BE50。
+std::int8_t Sub_51BE50(const std::int32_t requested)
+{
+    const std::uint8_t flags =
+        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntimeSlots.flags18C)[2];
+    if ((flags & 2u) != 0 && gPlayerRuntimeSlots.value190 == requested) {
+        return std::bit_cast<std::int8_t>(flags);
+    }
+
+    std::int32_t value = requested;
+    if (value < 0 || value >= Sub_4410E0()) {
+        value = 0;
+    }
+    const std::int32_t y = gPlayerSnapshotY.value();
+    const std::int32_t x = gPlayerSnapshotX.value();
+    const std::int32_t result =
+        network::Sub_511E60(platform::gConnectionSocket, x, y, value);
+    // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
+    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntimeSlots.flags18C) + 2;
+    actionBytes[0] |= 2u;
+    if (value == 0) {
+        std::uint16_t actionFlags;
+        std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+        actionFlags &= 0xFFFDu;
+        std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
+    }
+    gPlayerRuntimeSlots.value190 = value;
+    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
+}
+
+
+// 原 [0x46BD40,0x46BD57)：按指令顺序清四个独立 W32 槽，返回完整 EAX32 零。
+std::int32_t Sub_46BD40()
+{
+    detail::gValue9FB934 = 0;
+    detail::gValue9FB928 = 0;
+    detail::gValue9A86C0 = 0;
+    detail::gValue9A7F78 = 0;
+    return 0;
+}
 
 } // namespace cg::world

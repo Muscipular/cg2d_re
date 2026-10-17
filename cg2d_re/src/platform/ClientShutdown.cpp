@@ -1,7 +1,6 @@
 #include "ClientShutdown.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 
 #include "cg/resource/GraphicRead.hpp"
@@ -14,6 +13,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"
 #include "cg/render/SdlPresenter.hpp"
+#include "../world/AlbumState.hpp"
 
 #include <cstdint>
 
@@ -29,7 +29,7 @@ namespace shutdown_detail {
 std::int32_t Sub_4705F0()
 {
     static_cast<void>(ui::detail::WindowRuntime_SaveSettings());
-    world::detail::Sub_5186A0();
+    world::Sub_5186A0();
     return ui::WindowRuntime_CloseAll();
 }
 } // namespace shutdown_detail

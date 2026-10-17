@@ -1,6 +1,10 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -301,8 +305,8 @@ WindowPrototype gWindowPrototypeCrystalExchangeShop {0, 4, 10, 30, 549, 366, 0x8
 static void WindowCrystalExchangeShop_Release()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
-    if (type == world::detail::gValue581800) {
-        world::detail::gValue581800 = -1;
+    if (type == world::gValue581800) {
+        world::gValue581800 = -1;
     }
 }
 
@@ -362,7 +366,7 @@ cg::yobi::YobiAction* WindowCrystalExchangeShop_Open(const char* const text)
         }
         gShopItemCountCB1E10 = currentCount + 1;
     }
-    const std::int32_t type = world::detail::gValue581800;
+    const std::int32_t type = world::gValue581800;
     gValueD2D608 = -1;
     gWindow70DialogTypeD45D6C = type;
     return WindowRuntime_CreateAnimation(WindowId_CrystalExchangeShop, 1, 0, nullptr);
@@ -451,7 +455,7 @@ static void WindowCrystalExchangeShop_RefreshAmount()
     }
     gWindow70TotalCB0F74 = total;
     cg::text::FormatTo(gWindow70TotalTextD2D804, L"{:10}", total);
-    const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+    const std::int32_t owned = world::Sub_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
     number->color = currentTotal <= owned ? 10 : 6;
@@ -546,7 +550,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
     }
     const std::int32_t type = gWindow70DialogTypeD45D6C;
-    if (type != world::detail::gValue581800) {
+    if (type != world::gValue581800) {
         gCurrentWindow->state |= 0x8000u;
     }
     gCurrentWindow->elements[9].visible = 1;
@@ -557,7 +561,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow70ScrollCC4B68 = WindowScroll_ReadPosition(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+    const std::int32_t owned = world::Sub_51B5F0(gWindow70ValueD6791C);
     cg::text::FormatTo(gWindow70BalanceTextCF3F14, L"{:10}", owned);
     if (gWindow70Message580864 >= 0) {
         gWindow70Message580864 = -1;
@@ -626,12 +630,12 @@ static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
         }
     }
     escaped = input::EscapeTextAndNotify(text, 255);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 1, escaped));
     gCurrentWindow->state |= 0x8000u;
@@ -651,12 +655,12 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t balance = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+        const std::int32_t balance = world::Sub_51B5F0(gWindow70ValueD6791C);
         if (balance < gWindow70TotalCB0F74) {
             gWindow70Message580864 = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t freeSlots = world::detail::Sub_518C60();
+            const std::int32_t freeSlots = world::Sub_518C60();
             if (gWindow70SlotsCF4E44 > freeSlots) {
                 gWindow70Message580864 = -3;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -690,7 +694,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
                 left.visible = 1;
                 left.x = 296;
                 left.y = 343;
-                left.value = world::detail::Sub_51B5F0(itemId);
+                left.value = world::Sub_51B5F0(itemId);
                 const std::int32_t total = gWindow70TotalCB0F74;
                 right.visible = 1;
                 right.x = 454;
@@ -996,7 +1000,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         gWindow70TooltipPageD67BA0 = 0;
         gWindow70InventoryHover58086C = hovered;
     }
-    const auto& items = world::detail::gPlayerRuntimeSlots.items;
+    const auto& items = world::gPlayerRuntimeSlots.items;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & 1u) != 0 && hovered >= 0 && (events & 4u) != 0) {
@@ -1034,7 +1038,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gValueD69768, 0);
-        const world::detail::PlayerItemRecord& item = items[hovered + 8];
+        const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             gWindow70Tooltip580860 = hovered + 8;
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
@@ -1048,7 +1052,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t slot = 0; slot < 20; ++slot) {
-        const world::detail::PlayerItemRecord& item = items[slot + 8];
+        const world::PlayerItemRecord& item = items[slot + 8];
         if (item.used == 0) {
             continue;
         }

@@ -1,6 +1,9 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -170,9 +173,9 @@ static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, co
 static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const auto& results = world::detail::gBattleResultsFF0C14;
+        const auto& results = world::gBattleResultsFF0C14;
         for (std::int32_t row = 0; row < 4; ++row) {
-            const world::detail::BattleResultRecord* const result = &results[row];
+            const world::BattleResultRecord* const result = &results[row];
             gCurrentWindow->elements[row + 5].visible = 0;
             gCurrentWindow->elements[row + 9].visible = 0;
             gCurrentWindow->elements[row + 13].visible = 0;
@@ -186,19 +189,19 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             const std::uint16_t target = result->value00;
             const char* name;
             if (target == 0xFFFEu) {
-                const std::int32_t health = WindowItem_HealthImageLevel(world::detail::gPlayerRuntimeSlots.valueF4);
+                const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
                 WindowInstance* const window = gCurrentWindow;
-                name = world::detail::GetPlayerDisplayText(1);
+                name = world::GetPlayerDisplayText(1);
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
-                const std::int32_t health = WindowItem_HealthImageLevel(world::detail::gPetRuntimeRecords[slot].values70[25]);
+                const std::int32_t health = WindowItem_HealthImageLevel(world::gPetRuntimeRecords[slot].values70[25]);
                 WindowInstance* const window = gCurrentWindow;
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
-                const auto& pet = world::detail::gPetRuntimeRecords[nameSlot];
+                const auto& pet = world::gPetRuntimeRecords[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::FromGbkWide(name);
@@ -207,8 +210,8 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             }
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
-                ? (world::detail::gPlayerRuntimeSlots.value68 == -1)
-                : (world::detail::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
+                ? (world::gPlayerRuntimeSlots.value68 == -1)
+                : (world::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text = L"  ---  ";
             } else {
@@ -217,27 +220,27 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, L"{:+7}", experience);
             }
         }
-        const auto& names = world::detail::gBattleResultNamesFF0C34;
+        const auto& names = world::gBattleResultNamesFF0C34;
         for (std::int32_t row = 0; row < 3; ++row) {
             WindowInstance* const window = gCurrentWindow;
             const char* const name = names[row].data();
             static_cast<WindowTextData*>(window->elements[row + 59].data)->text = cg::text::FromGbkWide(name);
         }
 
-        const auto& skillResults = world::detail::gBattleSkillResultsFF0C8C;
+        const auto& skillResults = world::gBattleSkillResultsFF0C8C;
         std::int32_t row = 0;
-        for (const auto& pair : world::detail::gSkillPairsF63370) {
+        for (const auto& pair : world::gSkillPairsF63370) {
             const std::uint16_t used = pair.used;
             const auto index = static_cast<std::int16_t>(pair.index);
             if (used == 0) {
                 continue;
             }
-            const auto* const skill = &world::detail::gSkillsF1BAFC[index];
+            const auto* const skill = &world::gSkillsF1BAFC[index];
             const std::int32_t category = skill->canRebirth;
             if (category != 0 && category != 5) {
                 continue;
             }
-            const world::detail::BattleSkillResultRecord* const result = &skillResults[index];
+            const world::BattleSkillResultRecord* const result = &skillResults[index];
             if (result->value00 == 0 && result->value04 == 0) {
                 continue;
             }
@@ -289,7 +292,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto& graphics = world::detail::gBattleResultGraphicsFF0D0C;
+    const auto& graphics = world::gBattleResultGraphicsFF0D0C;
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t image = graphics[row];
         if (image >= 0) {
@@ -322,10 +325,10 @@ static std::int32_t WindowDpResult_Update(const std::int32_t value)
         const std::uint64_t now = platform::ReadTickCount64();
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
-        const std::int32_t delta = world::detail::gValueFF0D04;
+        const std::int32_t delta = world::gValueFF0D04;
         cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[2].data)->text, L"DP   {:+9}", delta);
         window = gCurrentWindow;
-        const std::int32_t total = world::detail::gValueFF0D08;
+        const std::int32_t total = world::gValueFF0D08;
         cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[3].data)->text, L"Total{:9}", total);
     }
     const std::uint64_t now = platform::ReadTickCount64();

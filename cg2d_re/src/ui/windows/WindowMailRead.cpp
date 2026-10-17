@@ -1,7 +1,10 @@
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/MailState.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -398,9 +401,9 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         window = gCurrentWindow;
     } else if (category == 2) {
         window = gCurrentWindow;
-        image = cg::world::detail::gPlayerRuntimeSlots.value17C;
+        image = cg::world::gPlayerRuntimeSlots.value17C;
     } else {
-        image = cg::world::detail::gPlayerRuntimeSlots.value17C;
+        image = cg::world::gPlayerRuntimeSlots.value17C;
         window = gCurrentWindow;
     }
     const std::int32_t y = window->y;

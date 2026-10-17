@@ -1,5 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -144,8 +146,8 @@ static void WindowSkillResult_Release()
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
-    if (skillReferences == 0 && world::detail::Sub_51BEC0() == 13) {
-        static_cast<void>(world::detail::Sub_51BE50(0));
+    if (skillReferences == 0 && world::Sub_51BEC0() == 13) {
+        static_cast<void>(world::Sub_51BE50(0));
     }
     gWindowStates[WindowId_SkillResult].window->state |= 0x8000u;
 }
@@ -226,7 +228,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
         static_cast<void>(WindowSkillResult_RefreshResult(gCurrentWindow));
     }
     const std::int32_t imageNo =
-        WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo), 0);
+        WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo), 0);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
     cg::yobi::SetYobiActionField2B8(
@@ -276,9 +278,9 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     const std::int32_t skill = gUsingSkillIndexD2F32C;
-    const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
-        * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
+    const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
+        * world::gSkillsF1BAFC[skill].fpReduce / 100;
+    if ((world::gPlayerRuntimeSlots.fp < cost)) {
         graphic->imageNo = 0x3BA32;
         if ((state & 2) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));

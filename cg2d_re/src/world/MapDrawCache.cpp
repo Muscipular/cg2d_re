@@ -1,7 +1,8 @@
-#include "WorldUpdateDependencies.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "WorldMapState.hpp"
 
 #include <algorithm>
 #include <array>
@@ -332,31 +333,6 @@ void QueueMapDrawRecord(
 
 } // namespace
 
-// 原函数：0x0046BD60。
-std::int32_t Sub_46BD60(
-    const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
-    const std::int16_t x, const std::int16_t y, const std::int32_t mode,
-    const render::GraphicDescriptor16* const descriptor)
-{
-    const auto count = std::bit_cast<std::int32_t>(gValue9FB934);
-    if (count >= kSourceCapacity) {
-        return -1;
-    }
-    MapDrawRecord& record = gMapDrawPrimary9EE918[count];
-    record.imageNo = imageNo;
-    record.worldXBits = worldXBits;
-    record.worldYBits = worldYBits;
-    record.x = x;
-    record.y = y;
-    record.batchType = mode != 0 ? 1 : 0;
-    record.sourceIndex = count;
-    WriteMapDrawDescriptor(record.descriptor, descriptor);
-    record.before = nullptr;
-    record.after = nullptr;
-    gValue9FB934 = static_cast<std::uint32_t>(count + 1);
-    return count;
-}
-
 // 原函数：0x0046BE50。
 void Sub_46BE50(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
@@ -391,84 +367,6 @@ void Sub_46BE50(
     countSlot = static_cast<std::uint32_t>(count + 1);
 }
 
-// 原函数：0x0046DFF0。
-void Sub_46DFF0(
-    const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
-    const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
-{
-    const auto count = std::bit_cast<std::int32_t>(gValue9FB928);
-    if (count >= kSourceCapacity) {
-        return;
-    }
-    MapDrawRecord& record = gMapDrawObjectsC751D0[count];
-    record.imageNo = imageNo;
-    record.worldXBits = worldXBits;
-    record.worldYBits = worldYBits;
-    record.x = x;
-    record.y = y;
-    record.sourceIndex = count;
-    record.batchType = 0;
-    if (descriptor != nullptr) {
-        record.descriptor.sourceX = descriptor->sourceX;
-        record.descriptor.sourceY = descriptor->sourceY;
-        record.descriptor.sourceWidth = descriptor->sourceWidth;
-        record.descriptor.sourceHeight = descriptor->sourceHeight;
-        record.descriptor.color = descriptor->color;
-        const std::uint8_t clipMode = descriptor->clipMode;
-        const std::uint8_t mixFlags = descriptor->mixFlags;
-        const std::int16_t paletteIndex = descriptor->paletteIndex;
-        gValue9FB928 = static_cast<std::uint32_t>(count + 1);
-        record.descriptor.clipMode = clipMode;
-        record.descriptor.mixFlags = mixFlags;
-        record.descriptor.paletteIndex = paletteIndex;
-    } else {
-        WriteMapDrawDescriptor(record.descriptor, nullptr);
-        gValue9FB928 = static_cast<std::uint32_t>(count + 1);
-    }
-}
-
-// 原函数：0x0046C060。
-void DrawGearNormal_46C060(
-    const std::int32_t primaryIndex, const std::int32_t before,
-    const std::int32_t imageNo, const std::int16_t x, const std::int16_t y,
-    const render::GraphicDescriptor16* const descriptor, const std::uint8_t batchType)
-{
-    if (primaryIndex < 0) {
-        return;
-    }
-    const auto initialCount = std::bit_cast<std::int32_t>(gValue9A7F78);
-    if (initialCount >= kSourceCapacity) {
-        return;
-    }
-    MapDrawRecord* tail = gMapDrawPrimary9EE918.data() + primaryIndex;
-    if (before != 0) {
-        while (tail->before != nullptr) {
-            tail = tail->before;
-        }
-        tail->before = gMapDrawAttachments9E0438.data() + initialCount;
-    } else {
-        while (tail->after != nullptr) {
-            tail = tail->after;
-        }
-        tail->after = gMapDrawAttachments9E0438.data() + initialCount;
-    }
-    const auto count = std::bit_cast<std::int32_t>(gValue9A7F78);
-    MapDrawRecord& record = gMapDrawAttachments9E0438[count];
-    record.imageNo = imageNo;
-    const std::uint32_t worldXBits = gMapDrawPrimary9EE918[primaryIndex].worldXBits;
-    const std::uint32_t worldYBits = gMapDrawPrimary9EE918[primaryIndex].worldYBits;
-    record.worldXBits = worldXBits;
-    record.worldYBits = worldYBits;
-    record.x = x;
-    record.y = y;
-    record.batchType = batchType;
-    record.sourceIndex = primaryIndex;
-    WriteMapDrawDescriptor(record.descriptor, descriptor);
-    record.before = nullptr;
-    record.after = nullptr;
-    gValue9A7F78 = static_cast<std::uint32_t>(count + 1);
-}
-
 // 原函数：0x0046C2F0。
 void Sub_46C2F0()
 {
@@ -500,3 +398,112 @@ std::int32_t Sub_46C1C0()
 }
 
 } // namespace cg::world::detail
+
+namespace cg::world {
+
+// 原函数：0x0046BD60。
+std::int32_t Sub_46BD60(
+    const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
+    const std::int16_t x, const std::int16_t y, const std::int32_t mode,
+    const render::GraphicDescriptor16* const descriptor)
+{
+    const auto count = std::bit_cast<std::int32_t>(detail::gValue9FB934);
+    if (count >= detail::kSourceCapacity) {
+        return -1;
+    }
+    detail::MapDrawRecord& record = detail::gMapDrawPrimary9EE918[count];
+    record.imageNo = imageNo;
+    record.worldXBits = worldXBits;
+    record.worldYBits = worldYBits;
+    record.x = x;
+    record.y = y;
+    record.batchType = mode != 0 ? 1 : 0;
+    record.sourceIndex = count;
+    detail::WriteMapDrawDescriptor(record.descriptor, descriptor);
+    record.before = nullptr;
+    record.after = nullptr;
+    detail::gValue9FB934 = static_cast<std::uint32_t>(count + 1);
+    return count;
+}
+
+
+// 原函数：0x0046DFF0。
+void Sub_46DFF0(
+    const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
+    const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
+{
+    const auto count = std::bit_cast<std::int32_t>(detail::gValue9FB928);
+    if (count >= detail::kSourceCapacity) {
+        return;
+    }
+    detail::MapDrawRecord& record = detail::gMapDrawObjectsC751D0[count];
+    record.imageNo = imageNo;
+    record.worldXBits = worldXBits;
+    record.worldYBits = worldYBits;
+    record.x = x;
+    record.y = y;
+    record.sourceIndex = count;
+    record.batchType = 0;
+    if (descriptor != nullptr) {
+        record.descriptor.sourceX = descriptor->sourceX;
+        record.descriptor.sourceY = descriptor->sourceY;
+        record.descriptor.sourceWidth = descriptor->sourceWidth;
+        record.descriptor.sourceHeight = descriptor->sourceHeight;
+        record.descriptor.color = descriptor->color;
+        const std::uint8_t clipMode = descriptor->clipMode;
+        const std::uint8_t mixFlags = descriptor->mixFlags;
+        const std::int16_t paletteIndex = descriptor->paletteIndex;
+        detail::gValue9FB928 = static_cast<std::uint32_t>(count + 1);
+        record.descriptor.clipMode = clipMode;
+        record.descriptor.mixFlags = mixFlags;
+        record.descriptor.paletteIndex = paletteIndex;
+    } else {
+        detail::WriteMapDrawDescriptor(record.descriptor, nullptr);
+        detail::gValue9FB928 = static_cast<std::uint32_t>(count + 1);
+    }
+}
+
+
+// 原函数：0x0046C060。
+void DrawGearNormal_46C060(
+    const std::int32_t primaryIndex, const std::int32_t before,
+    const std::int32_t imageNo, const std::int16_t x, const std::int16_t y,
+    const render::GraphicDescriptor16* const descriptor, const std::uint8_t batchType)
+{
+    if (primaryIndex < 0) {
+        return;
+    }
+    const auto initialCount = std::bit_cast<std::int32_t>(detail::gValue9A7F78);
+    if (initialCount >= detail::kSourceCapacity) {
+        return;
+    }
+    detail::MapDrawRecord* tail = detail::gMapDrawPrimary9EE918.data() + primaryIndex;
+    if (before != 0) {
+        while (tail->before != nullptr) {
+            tail = tail->before;
+        }
+        tail->before = detail::gMapDrawAttachments9E0438.data() + initialCount;
+    } else {
+        while (tail->after != nullptr) {
+            tail = tail->after;
+        }
+        tail->after = detail::gMapDrawAttachments9E0438.data() + initialCount;
+    }
+    const auto count = std::bit_cast<std::int32_t>(detail::gValue9A7F78);
+    detail::MapDrawRecord& record = detail::gMapDrawAttachments9E0438[count];
+    record.imageNo = imageNo;
+    const std::uint32_t worldXBits = detail::gMapDrawPrimary9EE918[primaryIndex].worldXBits;
+    const std::uint32_t worldYBits = detail::gMapDrawPrimary9EE918[primaryIndex].worldYBits;
+    record.worldXBits = worldXBits;
+    record.worldYBits = worldYBits;
+    record.x = x;
+    record.y = y;
+    record.batchType = batchType;
+    record.sourceIndex = primaryIndex;
+    detail::WriteMapDrawDescriptor(record.descriptor, descriptor);
+    record.before = nullptr;
+    record.after = nullptr;
+    detail::gValue9A7F78 = static_cast<std::uint32_t>(count + 1);
+}
+
+} // namespace cg::world

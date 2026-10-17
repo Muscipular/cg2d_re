@@ -5,7 +5,6 @@
 #include "battle_base.hpp"
 #include "battle_message.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -13,6 +12,9 @@
 
 #include "animation.hpp"
 #include "map_render.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/WorldMapState.hpp"
 
 #include <algorithm>
 #include <array>
@@ -34,50 +36,50 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
     const std::int32_t sceneType = world::gCurrentSceneType;
-    const std::uint32_t exitRequested = gValue5ABB20;
+    const std::uint32_t exitRequested = cg::world::gValue5ABB20;
     if (!(sceneType == 10
             && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
         && exitRequested != 1) {
         return;
     }
-    const std::uint32_t activeEvents = gBattleActiveEventMask5AAA74;
+    const std::uint32_t activeEvents = cg::world::gBattleActiveEventMask5AAA74;
     if (activeEvents == 0) {
         gBattlePendingGroupCount5ABB24 = 0;
-    } else if (gValue5ABB1C != 0) {
+    } else if (cg::world::gValue5ABB1C != 0) {
         return;
     }
     const bool exiting = exitRequested == 1;
-    gValue5ABB1C = 1;
+    cg::world::gValue5ABB1C = 1;
     if (exiting) {
         world::gCurrentSceneState = 7;
         return;
     }
-    if (gValue5ABB28 == 1) {
+    if (cg::world::gValue5ABB28 == 1) {
         if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, 1) != 0) {
-            const std::uint32_t turn = gBattleTurnSnapshot5ABC08;
-            gValue5ABB28 = 0;
-            gValue5ABB1C = 0;
+            const std::uint32_t turn = cg::world::gBattleTurnSnapshot5ABC08;
+            cg::world::gValue5ABB28 = 0;
+            cg::world::gValue5ABB1C = 0;
             gBattlePendingGroupCount5ABB24 = 0;
-            gBattleTurnSnapshot5ABC08 = turn + 1U;
+            cg::world::gBattleTurnSnapshot5ABC08 = turn + 1U;
             world::gCurrentSceneState = 2;
         }
         return;
     }
 
     std::int32_t slot = 0;
-    while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())
-        && gBattleEventActions5ABA9C[slot] != nullptr) {
+    while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())
+        && cg::world::gBattleEventActions5ABA9C[slot] != nullptr) {
         ++slot;
     }
     // 原43B446..43B464：清零22槽共享参与计数。
-    gBattlePreviewParticipants5AAA48.fill(0);
-    for (YobiAction* const event : gBattleEventActions5ABA9C) {
+    cg::world::gBattlePreviewParticipants5AAA48.fill(0);
+    for (YobiAction* const event : cg::world::gBattleEventActions5ABA9C) {
         if (event != nullptr) {
             const auto* const payload = static_cast<const BattleScenePayload*>(event->payload.battleScene);
             for (std::int32_t position = 0;
-                 position < static_cast<std::int32_t>(gBattlePreviewParticipants5AAA48.size()); ++position) {
+                 position < static_cast<std::int32_t>(cg::world::gBattlePreviewParticipants5AAA48.size()); ++position) {
                 if ((payload->entryMaskA8 & (1U << position)) != 0) {
-                    ++gBattlePreviewParticipants5AAA48[position];
+                    ++cg::world::gBattlePreviewParticipants5AAA48[position];
                 }
             }
         }
@@ -87,7 +89,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     // 原var_8仅由工厂写入；previousEvent首次非空前必经一次成功创建。
     YobiAction* lastCreated;
     std::int32_t groupBoundary;
-    while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())) {
+    while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())) {
         const std::int32_t priorSource = previousSource;
         std::uint32_t participants = 0;
         if (CheckBattleMParticipants_43B290(
@@ -96,7 +98,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         }
         std::array<char, 4> header;
         if (GetBattleMHeader_439070(header.data()) == 1) {
-            gValue5ABB28 = 1;
+            cg::world::gValue5ABB28 = 1;
             return;
         }
         if (previousEvent != nullptr && priorSource == source) {
@@ -105,7 +107,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             const std::uint32_t eventMask = payload->entryMaskA8;
             payload->remainingMessages5C = messages + 1;
             payload->entryMaskA8 = eventMask | participants;
-            gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+            cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
         } else {
             std::int32_t kind = 0;
             while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
@@ -123,7 +125,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                     const std::uint32_t combinedMask = eventMask | participants;
                     YobiAction* const mergedEvent = lastCreated;
                     payload->entryMaskA8 = combinedMask;
-                    gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+                    cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
                     previousSource = source;
                     previousEvent = mergedEvent;
                 } else {
@@ -131,13 +133,13 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                         static_cast<std::int32_t>(kind), static_cast<std::int32_t>(slot),
                         participants, gBattlePendingGroupCount5ABB24);
                     if (lastCreated != nullptr) {
-                        gBattleActiveEventMask5AAA74 |= 1U << slot;
-                        while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())
-                            && gBattleEventActions5ABA9C[slot] != nullptr) {
+                        cg::world::gBattleActiveEventMask5AAA74 |= 1U << slot;
+                        while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())
+                            && cg::world::gBattleEventActions5ABA9C[slot] != nullptr) {
                             ++slot;
                         }
                         lastCreated->payload.battleScene->remainingMessages5C = 1;
-                        gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+                        cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
                         previousSource = source;
                         previousEvent = lastCreated;
                     }
@@ -168,7 +170,7 @@ YobiAction* NewBattleEvent_43B610(
     scene->phase = kind;
     payload->packetSubState58 = 0;
     payload->eventSlot60 = slot;
-    const std::int32_t offset = gBattleMScanOffset5A8A3C;
+    const std::int32_t offset = cg::world::gBattleMScanOffset5A8A3C;
     payload->entryMaskA8 = participants;
     payload->packetOffset64 = offset;
     for (std::int32_t position = 0; position < 22; ++position) {
@@ -176,7 +178,7 @@ YobiAction* NewBattleEvent_43B610(
             InitBattleCastList_4390E0(position);
         }
     }
-    gBattleEventActions5ABA9C[payload->eventSlot60] = scene;
+    cg::world::gBattleEventActions5ABA9C[payload->eventSlot60] = scene;
     payload->waitCountAC = 0;
     payload->groupBase68 = 22 * group;
     return scene;
@@ -209,7 +211,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         for (;;) {
             const std::int32_t offset = payload->packetOffset64;
             const auto value = std::bit_cast<std::int8_t>(
-                static_cast<std::uint8_t>(gBattleMText5AAA7C[offset]));
+                static_cast<std::uint8_t>(cg::world::gBattleMText5AAA7C[offset]));
             if (value == 0 || (value >= 'A' && value <= 'Z')) {
                 break;
             }
@@ -217,7 +219,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         }
         // 原43B6FD在NUL处也复制并推进，不复用带NUL早退的423960。
         std::array<char, 4> header;
-        std::strncpy(header.data(), gBattleMText5AAA7C.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
+        std::strncpy(header.data(), cg::world::gBattleMText5AAA7C.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
         const std::int32_t next = payload->packetOffset64 + 4;
         header[3] = '\0';
         payload->packetOffset64 = next;
@@ -238,13 +240,13 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        gValue5ABB1C = 0;
+        cg::world::gValue5ABB1C = 0;
         payload->waitCountAC = 0;
     } else {
         const std::uint32_t eventBit = 1u << payload->eventSlot60;
-        const std::uint32_t activeEvents = gBattleActiveEventMask5AAA74;
-        gBattleActiveEventMask5AAA74 = activeEvents & ~eventBit;
-        gBattleEventActions5ABA9C[payload->eventSlot60] = nullptr;
+        const std::uint32_t activeEvents = cg::world::gBattleActiveEventMask5AAA74;
+        cg::world::gBattleActiveEventMask5AAA74 = activeEvents & ~eventBit;
+        cg::world::gBattleEventActions5ABA9C[payload->eventSlot60] = nullptr;
         for (std::int32_t index = 0; index < 22; ++index) {
             const std::uint32_t eventMask = payload->entryMaskA8;
             const std::uint32_t bit = 1u << index;
@@ -252,7 +254,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        gValue5ABB1C = 0;
+        cg::world::gValue5ABB1C = 0;
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -260,7 +262,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
 // 原函数：0x0043C0A0。
 void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 {
-    YobiAction* const action = world::detail::gBattleEntries59E980[index];
+    YobiAction* const action = world::gBattleEntries59E980[index];
     if (action == nullptr || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
         return;
     }
@@ -289,12 +291,12 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 void InitializeBattleScene_4383F0()
 {
     using namespace world::detail;
-    gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
-    gBattleEventActions5ABA9C.fill(nullptr);
-    gBattleAllEntries59E980.fill(nullptr);
-    gBattleActiveEventMask5AAA74 = 0;
+    cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
+    cg::world::gBattleEventActions5ABA9C.fill(nullptr);
+    cg::world::gBattleAllEntries59E980.fill(nullptr);
+    cg::world::gBattleActiveEventMask5AAA74 = 0;
     detail::gBattlePendingGroupCount5ABB24 = 0;
-    gValue5ABB20 = 0;
+    cg::world::gValue5ABB20 = 0;
     gYobiScreenOffsetRising = 0;
     gYobiScreenOffsetAmplitude = 0;
     gYobiUpdateGateMode = 0;
@@ -305,10 +307,10 @@ void InitializeBattleScene_4383F0()
 // 原函数：0x004990A0。
 void Sub_4990A0(const std::int32_t index)
 {
-    YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
+    YobiAction* const initialAction = world::gBattleEntries59E980[index];
     if (initialAction->callback != nullptr
         && !(initialAction->readiness <= 0)) {
-        YobiAction* const action = world::detail::gBattleEntries59E980[index];
+        YobiAction* const action = world::gBattleEntries59E980[index];
         if ((action->flags & 0x2000u) == 0) {
             static_cast<void>(detail::ShowHpBar_43DB60(action, -10, 3, -1));
         }
@@ -321,12 +323,12 @@ void Sub_43BFF0()
 {
     using namespace world::detail;
     if (world::gCurrentSceneType != 10
-        || gBattleTurnSnapshot5ABC08 != gBattleTurn5ABB74) {
+        || cg::world::gBattleTurnSnapshot5ABC08 != cg::world::gBattleTurn5ABB74) {
         return;
     }
-    for (std::size_t index = 0; index < gBattleEntries59E980.size(); ++index) {
-        YobiAction* const action = gBattleEntries59E980[index];
-        if (action != nullptr && ((std::bit_cast<std::int32_t>(gBattleEndBits5ABBC0) >> index) & 1) != 0) {
+    for (std::size_t index = 0; index < cg::world::gBattleEntries59E980.size(); ++index) {
+        YobiAction* const action = cg::world::gBattleEntries59E980[index];
+        if (action != nullptr && ((std::bit_cast<std::int32_t>(cg::world::gBattleEndBits5ABBC0) >> index) & 1) != 0) {
             action->flags |= 0x40u;
         }
     }
@@ -336,7 +338,7 @@ void Sub_43BFF0()
 // 原函数：0x0043C040。
 void Sub_43C040()
 {
-    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+    for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr) {
             action->flags &= ~0x40u;
         }
@@ -347,7 +349,7 @@ void Sub_43C040()
 // 原函数：0x0043C120。
 std::int32_t GetSelectedBattleEntry_43C120()
 {
-    const std::uint32_t target = world::detail::gBattleTargetFlags5ABC44;
+    const std::uint32_t target = world::gBattleTargetFlags5ABC44;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
     static constexpr std::int32_t rows[4][5] {
         {14, 12, 10, 11, 13},
@@ -356,7 +358,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
         {4, 2, 0, 1, 3},
     };
     for (std::int32_t position = 0; position < 20; ++position) {
-        const YobiAction* const action = world::detail::gBattleEntries59E980[position];
+        const YobiAction* const action = world::gBattleEntries59E980[position];
         if (action == nullptr || action->cacheIndex != hitIndex
             || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
             continue;
@@ -411,7 +413,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
 std::int32_t Sub_43C910()
 {
     bool pending = false;
-    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+    for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
                 &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 1u) == 0) {
@@ -429,7 +431,7 @@ void Sub_43C9A0()
     using namespace world::detail;
     const auto turnEntries = [](const std::int32_t first, const std::int32_t end) {
         for (std::int32_t index = first; index < end; ++index) {
-            YobiAction* const action = gBattleEntries59E980[index];
+            YobiAction* const action = cg::world::gBattleEntries59E980[index];
             if (action != nullptr) {
                 const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
                 const double yEnd = payload->y0C;
@@ -438,20 +440,20 @@ void Sub_43C9A0()
                 const double xEnd = payload->x08;
                 const double xStart = payload->x00;
                 const float x = static_cast<float>(xEnd - xStart);
-                const float angle = static_cast<float>(Sub_46F970(x, y));
-                gBattleEntries59E980[index]->angle50 = angle;
-                detail::Sub_405CB0(gBattleEntries59E980[index]);
-                static_cast<void>(detail::PlayFrame_517DA0(gBattleEntries59E980[index], 1));
+                const float angle = static_cast<float>(cg::world::Sub_46F970(x, y));
+                cg::world::gBattleEntries59E980[index]->angle50 = angle;
+                detail::Sub_405CB0(cg::world::gBattleEntries59E980[index]);
+                static_cast<void>(detail::PlayFrame_517DA0(cg::world::gBattleEntries59E980[index], 1));
             }
         }
     };
     const std::uint8_t firstFlags =
-        *reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC);
+        *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
     if ((firstFlags & 1u) != 0) {
         turnEntries(10, 20);
     }
     const std::uint8_t secondFlags =
-        *reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC);
+        *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
     if ((secondFlags & 2u) != 0) {
         turnEntries(0, 10);
     }
@@ -462,7 +464,7 @@ void Sub_43C9A0()
 std::int32_t Sub_43CA50()
 {
     std::int32_t count = 0;
-    for (const YobiAction* const action : world::detail::gBattleEntries59E980) {
+    for (const YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
                 &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0) {
@@ -482,18 +484,18 @@ void Sub_43CA80()
         return;
     }
     for (std::int32_t index = 0; index < 20; ++index) {
-        if (gBattleEntries59E980[index] == nullptr) {
+        if (cg::world::gBattleEntries59E980[index] == nullptr) {
             continue;
         }
-        const std::int32_t position = gBattleCurrentPosition5ABCA4;
+        const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
         if (position < 20) {
-            color = index == position || index == GetBattlePetPosition_405B40(position) ? 4 : 0;
+            color = index == position || index == cg::world::GetBattlePetPosition_405B40(position) ? 4 : 0;
         }
-        const YobiAction* const action = gBattleEntries59E980[index];
+        const YobiAction* const action = cg::world::gBattleEntries59E980[index];
         const char* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
         const std::int32_t width = cg::render::TextMeasure(cg::text::FromGbkWide(name).c_str(), 1);
-        const std::int32_t x = gBattleEntries59E980[index]->x - width / 2;
+        const std::int32_t x = cg::world::gBattleEntries59E980[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
@@ -507,25 +509,25 @@ std::int32_t CheckBattleCommand_43C560(
     const std::int32_t position, const std::uint32_t flags)
 {
     using namespace world::detail;
-    gBattleTargetFlags5ABC44 = flags;
-    const std::int32_t pet = GetBattlePetPosition_405B40(position);
+    cg::world::gBattleTargetFlags5ABC44 = flags;
+    const std::int32_t pet = cg::world::GetBattlePetPosition_405B40(position);
     if ((flags & 1u) == 0) {
         return 0;
     }
     if ((flags & 4u) != 0) {
-        YobiAction* const action = gBattleEntries59E980[pet];
+        YobiAction* const action = cg::world::gBattleEntries59E980[pet];
         if (action != nullptr
             && (!(action->readiness <= 0)
                 || (flags & 2u) != 0)) {
-            gBattleEntries59E980[pet]->flags |= 8u;
+            cg::world::gBattleEntries59E980[pet]->flags |= 8u;
         }
     }
     if ((flags & 8u) != 0) {
-        YobiAction* const action = gBattleEntries59E980[position];
+        YobiAction* const action = cg::world::gBattleEntries59E980[position];
         if (action != nullptr
             && (!(action->readiness <= 0)
                 || (flags & 2u) != 0)) {
-            gBattleEntries59E980[position]->flags |= 8u;
+            cg::world::gBattleEntries59E980[position]->flags |= 8u;
         }
     }
     if ((flags & 0x810u) != 0) {
@@ -534,7 +536,7 @@ std::int32_t CheckBattleCommand_43C560(
             if (slot == position || slot == pet) {
                 continue;
             }
-            YobiAction* const action = gBattleEntries59E980[slot];
+            YobiAction* const action = cg::world::gBattleEntries59E980[slot];
             if (action != nullptr
                 && ((flags & 0x10u) != 0
                     || ((flags & 0x800u) != 0
@@ -542,18 +544,18 @@ std::int32_t CheckBattleCommand_43C560(
                             &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0))
                 && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
-                gBattleEntries59E980[slot]->flags |= 8u;
+                cg::world::gBattleEntries59E980[slot]->flags |= 8u;
             }
         }
     }
     if ((flags & 0x20u) != 0) {
         const std::int32_t first = position < 10 ? 10 : 0;
         for (std::int32_t slot = first; slot < first + 10; ++slot) {
-            YobiAction* const action = gBattleEntries59E980[slot];
+            YobiAction* const action = cg::world::gBattleEntries59E980[slot];
             if (action != nullptr
                 && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
-                gBattleEntries59E980[slot]->flags |= 8u;
+                cg::world::gBattleEntries59E980[slot]->flags |= 8u;
             }
         }
     }
@@ -564,8 +566,8 @@ std::int32_t CheckBattleCommand_43C560(
         {4, 2, 0, 1, 3},
     };
     if ((flags & 0x400u) == 0
-        || ((*reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC) & 0x80u) == 0
-            && position == gBattleCurrentPosition5ABCA4)) {
+        || ((*reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC) & 0x80u) == 0
+            && position == cg::world::gBattleCurrentPosition5ABCA4)) {
         return 1;
     }
     std::int32_t column = position;
@@ -581,11 +583,11 @@ std::int32_t CheckBattleCommand_43C560(
     if (row == 0) {
         const std::int32_t front = rows[1][column];
         for (std::int32_t c = 0; c < 5; ++c) {
-            const YobiAction* const ownFront = gBattleEntries59E980[front];
+            const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
             if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
-                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];
+                const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[2][c]];
                 if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
-                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];
+                    YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[3][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~8u;
                     }
@@ -595,11 +597,11 @@ std::int32_t CheckBattleCommand_43C560(
     } else if (row == 3) {
         const std::int32_t front = rows[2][column];
         for (std::int32_t c = 0; c < 5; ++c) {
-            const YobiAction* const ownFront = gBattleEntries59E980[front];
+            const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
             if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
-                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];
+                const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[1][c]];
                 if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
-                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];
+                    YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[0][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~8u;
                     }
@@ -614,7 +616,7 @@ std::int32_t CheckBattleCommand_43C560(
 // 原函数：0x0043C060。
 void FlushBattleEntries_43C060()
 {
-    auto& entries = world::detail::gBattleEntries59E980;
+    auto& entries = world::gBattleEntries59E980;
     for (std::size_t slot = 0; slot < entries.size(); ++slot) {
         YobiAction* const action = entries[slot];
         if (action != nullptr) {

@@ -1,4 +1,3 @@
-#include "WorldUpdateDependencies.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 
@@ -9,6 +8,10 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "BattleState.hpp"
+#include "WorldMapState.hpp"
 
 #include <bit>
 #include <cstring>
@@ -194,60 +197,93 @@ void DrawNormalMapCell(
 
 } // namespace
 
+// 原函数：0x00469020。
+void Sub_469020()
+{
+    Sub_46CF60(1);
+}
+
+// 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
+// 原函数：0x0043CB10。
+void Sub_43CB10()
+{
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    static_cast<void>(Sub_46BD40());
+    Sub_46CF60(0);
+    const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
+    static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
+    render::SortTextures_520790();
+    static_cast<void>(render::ClearSurface_4512C0());
+    render::gRenderQueueMode103CF10 = 0;
+    render::DrawAllQueued_520DD0();
+    static_cast<void>(render::CopyBackToTemp());
+    render::gRenderQueueMode103CF10 = 1;
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    gBattleBackgroundSnapshot5ABCD8 = gBattleBackgroundImage59F9F8;
+}
+
+} // namespace cg::world::detail
+
+namespace cg::world {
+
 // 原函数：0x0046CF60。
 void __cdecl Sub_46CF60(const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t mode = gValue9DAD68;
-    const std::uint32_t previousCount = gValue55DA8C;
+    const std::uint32_t previousCount = detail::gValue55DA8C;
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
-    gValue55DA8C = previousCount + 1u;
+    detail::gValue55DA8C = previousCount + 1u;
     if ((gPlayerX != gValue9EE8D0)
         || (gPlayerY != gValue9EE8E0)
-        || gValue9EE910 != 0) {
-        const std::int32_t loadYEnd = gMapYEnd;
-        const std::int32_t loadXEnd = gMapXEnd;
+        || detail::gValue9EE910 != 0) {
+        const std::int32_t loadYEnd = detail::gMapYEnd;
+        const std::int32_t loadXEnd = detail::gMapXEnd;
         const std::int32_t loadYStart = gMapYStart;
         const std::int32_t loadXStart = gMapXStart;
         const std::int32_t floor = gMapFloor;
         const auto mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
-        if (Sub_468C40(
+        if (detail::Sub_468C40(
                 mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
             return;
         }
-        const std::int32_t walkYEnd = gMapYEnd;
-        const std::int32_t walkXEnd = gMapXEnd;
+        const std::int32_t walkYEnd = detail::gMapYEnd;
+        const std::int32_t walkXEnd = detail::gMapXEnd;
         const std::int32_t walkYStart = gMapYStart;
         const std::int32_t walkXStart = gMapXStart;
         if (cutMode) {
-            static_cast<void>(Sub_46D9C0(
+            static_cast<void>(detail::Sub_46D9C0(
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         } else {
-            static_cast<void>(Sub_4693F0(
+            static_cast<void>(detail::Sub_4693F0(
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         }
-        if (gValue9EE8B8 != 0) {
-            const auto direction = std::bit_cast<std::int16_t>(gValue9EE8A4);
-            if (Sub_469870(direction) == 0) {
-                gValue9EE8B8 = 0;
-                gValue55DA88 = 1;
+        if (detail::gValue9EE8B8 != 0) {
+            const auto direction = std::bit_cast<std::int16_t>(detail::gValue9EE8A4);
+            if (detail::Sub_469870(direction) == 0) {
+                detail::gValue9EE8B8 = 0;
+                detail::gValue55DA88 = 1;
             }
         } else {
-            gValue55DA88 = 1;
+            detail::gValue55DA88 = 1;
         }
-        gValue55DA8C = 0;
-        gValue9EE910 = 0;
+        detail::gValue55DA8C = 0;
+        detail::gValue9EE910 = 0;
     }
 
-    static_cast<void>(Sub_468F70());
+    static_cast<void>(detail::Sub_468F70());
     const std::int32_t xStart = gMapXStart;
-    const std::int32_t yEnd = gMapYEnd;
+    const std::int32_t yEnd = detail::gMapYEnd;
     const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
     std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
     const std::int32_t rawY = 48 * (yEnd - xStart - 1);
@@ -266,10 +302,10 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
             }
             const std::int32_t index = gMapSpanX * row + column;
             if (cutMode) {
-                DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
-                DrawCutObject(gMapObjArray[index], column, row, drawX, drawY, descriptor);
+                detail::DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
+                detail::DrawCutObject(gMapObjArray[index], column, row, drawX, drawY, descriptor);
             } else {
-                DrawNormalMapCell(index, diagonal, row, drawX, drawY, markers);
+                detail::DrawNormalMapCell(index, diagonal, row, drawX, drawY, markers);
             }
             --row;
             drawX -= 64;
@@ -284,8 +320,8 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         drawY -= 24;
     }
 
-    Sub_46C2F0();
-    static_cast<void>(Sub_46C1C0());
+    detail::Sub_46C2F0();
+    static_cast<void>(detail::Sub_46C1C0());
     const std::int32_t playerX = gPlayerX.value();
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));
@@ -326,33 +362,4 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     audio::Sub_52CD60();
 }
 
-// 原函数：0x00469020。
-void Sub_469020()
-{
-    Sub_46CF60(1);
-}
-
-// 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
-// 原函数：0x0043CB10。
-void Sub_43CB10()
-{
-    platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
-    static_cast<void>(Sub_46BD40());
-    Sub_46CF60(0);
-    const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
-    static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
-    render::SortTextures_520790();
-    static_cast<void>(render::ClearSurface_4512C0());
-    render::gRenderQueueMode103CF10 = 0;
-    render::DrawAllQueued_520DD0();
-    static_cast<void>(render::CopyBackToTemp());
-    render::gRenderQueueMode103CF10 = 1;
-    platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
-    gBattleBackgroundSnapshot5ABCD8 = gBattleBackgroundImage59F9F8;
-}
-
-} // namespace cg::world::detail
+} // namespace cg::world

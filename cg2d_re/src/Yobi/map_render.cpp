@@ -5,7 +5,6 @@
 #include "map_actor.hpp"
 #include "battle_base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../world/WorldObjectState.hpp"
 #include "cg/world/Blacklist.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -21,6 +20,13 @@
 #include "cg/world/SceneState.hpp"
 
 #include "animation.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/ChatHistory.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <new>
@@ -86,7 +92,7 @@ void Sub_4441A0(YobiAction* const action)
     const std::int32_t drawX = offsetX + x;
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-    static_cast<void>(world::detail::Sub_46BD60(
+    static_cast<void>(world::Sub_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));
@@ -290,7 +296,7 @@ void DrawGear_441570(
             const std::int32_t childX = Sub_518300(child, 0, kind);
             const std::int32_t drawX = childX + action->x + offsetX;
             const std::int32_t graphicIndex = child->graphicIndex;
-            world::detail::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(
                 primaryIndex, before, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -302,7 +308,7 @@ void DrawGear_441570(
             const std::int32_t childX = Sub_5182B0(child, 0);
             const std::int32_t drawX = childX + action->x;
             const std::int32_t graphicIndex = child->graphicIndex;
-            world::detail::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(
                 primaryIndex, kind == 1 ? 0 : 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -331,18 +337,18 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     std::uint16_t state;
     std::int32_t value;
     bool drawBars = false;
-    YobiAction* const player = world::detail::gPlayerRuntimeSlots.action;
+    YobiAction* const player = world::gPlayerRuntimeSlots.action;
     if ((player != nullptr && player == action) || stateIndex == -1) {
-        flags = static_cast<std::uint16_t>(world::detail::ReadPlayerFlags18A());
-        state = world::detail::ReadPlayerActionFlags();
-        value = world::detail::gPlayerRuntimeSlots.value190;
+        flags = static_cast<std::uint16_t>(world::ReadPlayerFlags18A());
+        state = world::ReadPlayerActionFlags();
+        value = world::gPlayerRuntimeSlots.value190;
         if ((action->flags & 0x80000u) != 0) {
             flags &= 0x8400u;
             state = static_cast<std::uint16_t>(
                 ((state & 8u) != 0 ? 1u : 0u)
                 | ((state & 0x10u) != 0 ? 4u : 0u)
                 | ((state & 0x40u) != 0 ? 0x20u : 0u));
-            for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeRecords) {
+            for (const world::PetRuntimeRecord& pet : world::gPetRuntimeRecords) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
                     action->readiness = pet.values0C[0];
                     action->maxHp = pet.values0C[1];
@@ -353,7 +359,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 }
             }
         } else {
-            world::detail::CopyPlayerBarValues(
+            world::CopyPlayerBarValues(
                 &action->readiness, &action->maxHp, &action->barValue1B0, &action->barMaximum1C0);
             drawBars = true;
         }
@@ -371,7 +377,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         }
         drawBars = (originalFlags & 0x200u) != 0;
     }
-    if (world::detail::gActorBarsEnabled5AC490 == 0) {
+    if (world::gActorBarsEnabled5AC490 == 0) {
         drawBars = false;
     }
 
@@ -420,7 +426,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             YobiAction* const graphicChild = payload->action04;
             const std::int32_t drawX = offsetX + currentX;
             const std::int32_t graphicIndex = graphicChild->graphicIndex;
-            world::detail::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(
                 primaryIndex, 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), nullptr, 0);
@@ -499,10 +505,10 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (nameMode > 0) {
         const char* text = nullptr;
         std::int8_t color = 0;
-        if (action == world::detail::gPlayerRuntimeSlots.action) {
+        if (action == world::gPlayerRuntimeSlots.action) {
             if (nameMode <= 6) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
-                text = world::detail::GetPlayerDisplayText(nameMode);
+                text = world::GetPlayerDisplayText(nameMode);
                 color = colors[nameMode - 1];
             }
         } else {
@@ -555,14 +561,14 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         const render::GraphicDescriptor16* const descriptor = &child->drawMode;
         const std::int32_t x = child->x;
         const std::int32_t graphicIndex = child->graphicIndex;
-        world::detail::DrawGearNormal_46C060(
+        world::DrawGearNormal_46C060(
             primaryIndex, 1, graphicIndex,
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), descriptor, 0);
     };
     const auto clearActionState = [&](const std::uint16_t bits) {
-        YobiAction* const currentPlayer = world::detail::gPlayerRuntimeSlots.action;
+        YobiAction* const currentPlayer = world::gPlayerRuntimeSlots.action;
         if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
-            world::detail::ClearPlayerActionFlags(bits);
+            world::ClearPlayerActionFlags(bits);
         } else {
             world::detail::gWorldObjects[stateIndex].flags120 &=
                 static_cast<std::uint16_t>(~bits);
@@ -573,7 +579,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (statusMask != 0 || (state & 2u) != 0 || (state & 0x1000u) != 0) {
         std::int32_t statusImage = 0;
         if ((state & 2u) != 0) {
-            if (value < 0 || value >= world::detail::Sub_4410E0()) {
+            if (value < 0 || value >= world::Sub_4410E0()) {
                 value = 0;
             }
             statusImage = gActorStatusImages5542F4[value];
@@ -670,7 +676,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             const std::int32_t offsetX = Sub_5182B0(payload->action30, 0);
             const std::int32_t x = offsetX + action->x + frameX;
             const std::int32_t graphicIndex = payload->action30->graphicIndex;
-            world::detail::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(
                 primaryIndex, 1, graphicIndex, static_cast<std::int16_t>(x),
                 static_cast<std::int16_t>(y), descriptor, 0);
         }
@@ -843,10 +849,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         if ((flags & 0x80u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            const std::int32_t maxFp = cg::world::detail::gPlayerRuntimeSlots.maxFp.value();
-            const std::int32_t fp = cg::world::detail::gPlayerRuntimeSlots.fp.value();
-            const std::int32_t maxHp = cg::world::detail::gPlayerRuntimeSlots.maxHp.value();
-            const std::int32_t hp = cg::world::detail::gPlayerRuntimeSlots.hp.value();
+            const std::int32_t maxFp = cg::world::gPlayerRuntimeSlots.maxFp.value();
+            const std::int32_t fp = cg::world::gPlayerRuntimeSlots.fp.value();
+            const std::int32_t maxHp = cg::world::gPlayerRuntimeSlots.maxHp.value();
+            const std::int32_t hp = cg::world::gPlayerRuntimeSlots.hp.value();
             cg::text::FormatTo(gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
@@ -865,7 +871,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
-                    Sub_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
+                    cg::world::Sub_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
                 const char* const name = graphic->reference.action->nameC4.data();
@@ -879,7 +885,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
-                Sub_44B050(message, 4, 3);
+                cg::world::Sub_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
                 const char* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
@@ -892,7 +898,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
-                Sub_44B050(message, 4, 3);
+                cg::world::Sub_44B050(message, 4, 3);
             }
         } else if ((flags & 0x200u) != 0) {
             const char* name = action->titleE1.data();
@@ -923,13 +929,13 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         return;
     }
 
-    const std::int32_t position = gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
     action = graphic->reference.action;
     const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     if (position < 10) {
         // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
         if (payload != nullptr
-            && (world::detail::gBattleShowEnemyHpBars || payload->battlePosition18 < 10)) {
+            && (world::gBattleShowEnemyHpBars || payload->battlePosition18 < 10)) {
             if ((payload->flagsFDC & 0x2000u) != 0) {
                 companion = 4;
             }

@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #include <cstring>
 #include <cstdio>
@@ -165,10 +167,10 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     const std::wstring escapedText = input::EscapeText(text, 1024);
     const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
     const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);

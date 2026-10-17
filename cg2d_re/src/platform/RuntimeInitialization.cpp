@@ -4,7 +4,6 @@
 
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../world/WorldObjectState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -14,6 +13,10 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "../world/PlayerState.hpp"
+#include "../world/WorldMapState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <cstdlib>
@@ -179,12 +182,16 @@ const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticIniti
 } // namespace
 } // namespace cg::platform
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 // 原0x00456FD0／0x00456FE0／0x00457000：原中央位置直接构造，MSVC承接逆序析构。
 platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
 
-} // namespace cg::world::detail
+} // namespace cg::world
+
+
 
 namespace cg::platform {
 namespace {
@@ -215,7 +222,9 @@ const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializ
 } // namespace
 } // namespace cg::platform
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 // 原0x00467B90／0x00467BA0／0x00467BD0：原中央位置直接构造，MSVC承接逆序析构。
 platform::LegacyCryptInt gPlayerX{}; // 原全局：0x009EE8A8。
@@ -258,7 +267,9 @@ platform::LegacyCryptInt gValueC821D8{}; // 原全局：0x00C821D8。
 // 原0x00467EF0／0x00467F00／0x00467F20：原中央位置直接构造，MSVC承接逆序析构。
 platform::LegacyCryptInt gRippleGate{}; // 原全局：0x009A7FA8。
 
-} // namespace cg::world::detail
+} // namespace cg::world
+
+
 
 namespace cg::platform {
 namespace {
@@ -292,7 +303,9 @@ LegacyMouseState gLegacyMouseState{}; // 原全局：0x00D68CF8。
 
 } // namespace cg::platform
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 // 原CRT5530FC，原0x005183D0／0x005183E0／0x00518400：紧接鼠标，原生逆序析构。
 // 原0x005184A0／0x00518410：六CryptInt原声明序构造，普通字段保留零初值。
@@ -302,7 +315,9 @@ PlayerRuntimeSlots gPlayerRuntimeSlots{}; // 原全局：0x00FDA700。
 // 原0x004CD360／0x004CD2D0：五元素各六成员构造；退出元素及成员逆序。
 std::array<PetRuntimeRecord, 5> gPetRuntimeRecords{}; // 原全局：0x00F633F8。
 
-} // namespace cg::world::detail
+} // namespace cg::world
+
+
 
 namespace cg::platform {
 namespace {

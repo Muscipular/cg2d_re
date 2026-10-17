@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/ChatHistory.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -305,7 +306,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
                 static_cast<void>(network::SendIuEPacket_516D70(platform::gConnectionSocket));
                 gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
             } else {
-                world::detail::Sub_44B050(L"请等待30秒后再操作", 4, 3);
+                world::Sub_44B050(L"请等待30秒后再操作", 4, 3);
             }
             return 1;
         }

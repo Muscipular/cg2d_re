@@ -12,7 +12,6 @@
 
 #include "../input/InputKeyDispatchDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
-#include "WorldUpdateDependencies.hpp"
 
 #include <ctime>
 #include <array>
@@ -31,18 +30,48 @@
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
 volatile std::int32_t gWriteIndex626C08 = 0; // 原全局：0x00626C08。
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 char gLogPath62699C[260] {}; // 原全局：0x0062699C。
 std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
+
+} // namespace cg::world::detail
+
+namespace cg::world {
 volatile std::int32_t gCountC9A944 = 0; // 原全局：0x00C9A944。
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 volatile std::uint32_t gValue626C10 = 0; // 原全局：0x00626C10。
+
+} // namespace cg::world::detail
+
+namespace cg::world {
 input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 std::uint32_t gValue626C18 = 0; // 原全局：0x00626C18。
+
+} // namespace cg::world::detail
+
+namespace cg::world {
 std::uint32_t gValue626BFC = 0; // 原全局：0x00626BFC。
 char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 
 
 ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
@@ -89,30 +118,6 @@ std::int32_t Sub_44A090()
     }
     gCursor62683C = 63;
     return 0;
-}
-
-// 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
-std::int32_t Sub_449FA0(const std::int32_t index)
-{
-    char path[128];
-    std::sprintf(
-        path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
-
-    std::FILE* const stream = std::fopen(path, "r+b");
-    if (stream == nullptr) {
-        return 0;
-    }
-
-    ::_fseeki64(stream, static_cast<std::int64_t>(static_cast<std::uint32_t>(index * 0x121)), SEEK_SET);
-    if (static_cast<std::uint32_t>(std::fwrite(gChatHistory621FF8.records[index], 0x121, 1, stream)) < 1) {
-        std::fclose(stream);
-        return 0;
-    }
-
-    ::_fseeki64(stream, 0x4840, SEEK_SET);
-    const std::uint32_t written = static_cast<std::uint32_t>(std::fwrite(&index, static_cast<std::uint32_t>(sizeof(index)), 1, stream));
-    std::fclose(stream);
-    return written >= 1 ? 1 : 0;
 }
 
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
@@ -210,6 +215,35 @@ std::int32_t Sub_4A76E0()
     return increased;
 }
 
+} // namespace cg::world::detail
+
+namespace cg::world {
+
+// 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
+std::int32_t Sub_449FA0(const std::int32_t index)
+{
+    char path[128];
+    std::sprintf(
+        path, detail::kPathFormat_553514, platform::gDataPath, detail::kChatHistoryName554910);
+
+    std::FILE* const stream = std::fopen(path, "r+b");
+    if (stream == nullptr) {
+        return 0;
+    }
+
+    ::_fseeki64(stream, static_cast<std::int64_t>(static_cast<std::uint32_t>(index * 0x121)), SEEK_SET);
+    if (static_cast<std::uint32_t>(std::fwrite(detail::gChatHistory621FF8.records[index], 0x121, 1, stream)) < 1) {
+        std::fclose(stream);
+        return 0;
+    }
+
+    ::_fseeki64(stream, 0x4840, SEEK_SET);
+    const std::uint32_t written = static_cast<std::uint32_t>(std::fwrite(&index, static_cast<std::uint32_t>(sizeof(index)), 1, stream));
+    std::fclose(stream);
+    return written >= 1 ? 1 : 0;
+}
+
+
 // 原 sub_44B050@[0x44B050,0x44B170)。
 void Sub_44B050(
     const std::wstring_view message,
@@ -246,7 +280,7 @@ void Sub_44B050(
         std::memcpy(destination + offset, &copied, sizeof(copied));
     }
 
-    const std::FILE* const gate = gLogStream626C1C;
+    const std::FILE* const gate = detail::gLogStream626C1C;
     for (std::size_t offset = wordCount * sizeof(std::uint32_t);
          offset < length; ++offset) {
         destination[offset] = text[offset];
@@ -263,13 +297,13 @@ void Sub_44B050(
         const std::int32_t hour = legacyTime->tm_hour;
 
         std::fprintf(
-            gLogStream626C1C,
+            detail::gLogStream626C1C,
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, gRecords5FB7F8[index].text);
-        std::fclose(gLogStream626C1C);
-        std::FILE* const newStream = std::fopen(gLogPath62699C, "a");
+        std::fclose(detail::gLogStream626C1C);
+        std::FILE* const newStream = std::fopen(detail::gLogPath62699C, "a");
         index = gWriteIndex626C08;
-        gLogStream626C1C = newStream;
+        detail::gLogStream626C1C = newStream;
     }
 
     Record5FB7F8& record = gRecords5FB7F8[index];
@@ -281,8 +315,8 @@ void Sub_44B050(
     if (nextIndex >= 512) {
         gWriteIndex626C08 = 0;
     }
-    Sub_4A76E0();
-    gValue626C10 = 20;
+    detail::Sub_4A76E0();
+    detail::gValue626C10 = 20;
 }
 
-} // namespace cg::world::detail
+} // namespace cg::world

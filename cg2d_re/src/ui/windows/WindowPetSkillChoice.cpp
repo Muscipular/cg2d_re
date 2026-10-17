@@ -2,6 +2,10 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -463,8 +467,8 @@ WindowPrototype gWindowPrototypePetSkillChoice {0, 4, 10, 30, 549, 366, 0x800101
 static void WindowPetSkillChoice_Release()
 {
     if (gWindow54LifecycleD67434 != 2
-        && gWindow54DialogTypeCB2224 == world::detail::gValue581800) {
-        world::detail::gValue581800 = -1;
+        && gWindow54DialogTypeCB2224 == world::gValue581800) {
+        world::gValue581800 = -1;
     }
     gWindow54LifecycleD67434 = 0;
 }
@@ -473,7 +477,7 @@ static void WindowPetSkillChoice_Release()
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 {
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -507,7 +511,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
 {
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -551,7 +555,7 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     const char* const text, const std::uint8_t mode)
 {
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -623,7 +627,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
         return;
     }
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -669,7 +673,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
         return;
     }
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -719,7 +723,7 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
         return;
     }
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gValue581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -770,18 +774,18 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
     gWindow54ValueCB01E4 = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
-    for (const world::detail::SkillPairRecord& pair : world::detail::gSkillPairsF63370) {
+    for (const world::SkillPairRecord& pair : world::gSkillPairsF63370) {
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             usedSlots += std::bit_cast<std::int8_t>(
-                world::detail::gSkillsF1BAFC[index].requiredSlots19[0]);
+                world::gSkillsF1BAFC[index].requiredSlots19[0]);
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
+    const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"{:2}/{:2}", usedSlots, totalSlots);
-    std::int32_t freeSlots = world::detail::gPlayerRuntimeSlots.value16C - usedSlots;
+    std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -821,12 +825,12 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
     for (std::int32_t row = 0; row < 15; ++row) {
-        const world::detail::SkillPairRecord& pair = world::detail::gSkillPairsF63370[row];
+        const world::SkillPairRecord& pair = world::gSkillPairsF63370[row];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t skill = 0; skill < index; ++skill) {
-                if (world::detail::gSkillsF1BAFC[skill].name[0] == '\0') {
+                if (world::gSkillsF1BAFC[skill].name[0] == '\0') {
                     ++empty;
                 }
             }
@@ -840,18 +844,18 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     gWindow54ValueCB01E4 = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
-    for (const world::detail::SkillPairRecord& pair : world::detail::gSkillPairsF63370) {
+    for (const world::SkillPairRecord& pair : world::gSkillPairsF63370) {
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             usedSlots += std::bit_cast<std::int8_t>(
-                world::detail::gSkillsF1BAFC[index].requiredSlots19[0]);
+                world::gSkillsF1BAFC[index].requiredSlots19[0]);
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::detail::gPlayerRuntimeSlots.value16C;
+    const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"{:2}/{:2}", usedSlots, totalSlots);
-    std::int32_t freeSlots = world::detail::gPlayerRuntimeSlots.value16C - usedSlots;
+    std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -907,7 +911,7 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
-            std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
         window->elements[row + 69].visible = 1;
         window->elements[row + 69].mouseCallback = &WindowElement_NoOp;
         static_cast<WindowGraphicData*>(window->elements[row + 69].data)->imageNo = 243100;
@@ -920,7 +924,7 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
         window->elements[row + 59].visible = 1;
         static_cast<WindowTextData*>(window->elements[row + 34].data)->text.clear();
         static_cast<WindowTextData*>(window->elements[row + 44].data)->text.clear();
-        const world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[petIndex];
+        const world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[petIndex];
         const bool used = pet.used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
@@ -960,12 +964,12 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
     window->elements[6].visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
-        const world::detail::PetPairRecord& pair = world::detail::gPetPairsDE0B08[row];
+        const world::PetPairRecord& pair = world::gPetPairsDE0B08[row];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t pet = 0; pet < index; ++pet) {
-                if (world::detail::gPetRuntimeRecords[pet].used == 0) {
+                if (world::gPetRuntimeRecords[pet].used == 0) {
                     ++empty;
                 }
             }
@@ -1073,13 +1077,13 @@ static void WindowPetSkillChoice_RefreshLearnRows(
         gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
             window->elements[row + 69].visible = 1;
-            const world::detail::SkillPairRecord& pair = world::detail::gSkillPairsF63370[scroll + row];
+            const world::SkillPairRecord& pair = world::gSkillPairsF63370[scroll + row];
             if (pair.used != 0) {
                 const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
                 window->elements[row + 34].visible = 1;
                 window->elements[row + 49].visible = 1;
                 window->elements[row + 59].visible = 1;
-                const world::detail::SkillRuntimeRecord& skill = world::detail::gSkillsF1BAFC[index];
+                const world::SkillRuntimeRecord& skill = world::gSkillsF1BAFC[index];
                 static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(skill.name.data());
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
@@ -1151,7 +1155,7 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
             static_cast<WindowTextData*>(window->elements[row + 79].data)->text = cg::text::FromGbkWide(record.name.data());
             cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
             cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
-            const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
             const std::int32_t price = record.price;
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =
                 money >= price ? 0 : 6;
@@ -1225,11 +1229,11 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
     }
-    const std::int32_t dialogType = world::detail::gValue581800;
+    const std::int32_t dialogType = world::gValue581800;
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
-    cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     if (gWindow54MessageC9FCE0 >= 0) {
         gWindow54MessageC9FCE0 = -1;
     }
@@ -1335,12 +1339,12 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
         if (gWindow54ModeC8AF64 == 0) {
             std::wstring escaped;
             escaped = input::EscapeTextAndNotify(L"1", 15);
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1388,12 +1392,12 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         case 0: {
             std::wstring escaped;
             escaped = input::EscapeTextAndNotify(L"2", 15);
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1404,12 +1408,12 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
             std::wstring escaped;
             cg::text::FormatTo(text, L"{}", 99);
             escaped = input::EscapeTextAndNotify(text, 15);
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
@@ -1422,16 +1426,16 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         case 3:
         case 4:
         case 13: {
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::wstring text = L"";
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
-            world::detail::gValue581800 = -2;
+            world::gValue581800 = -2;
             break;
         }
         default:
@@ -1863,12 +1867,12 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
         std::wstring escaped;
         cg::text::FormatTo(text, L"{}", selected + 1);
         escaped = input::EscapeTextAndNotify(text, 15);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
         gCurrentWindow->state |= 0x8000u;
@@ -1932,15 +1936,15 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
         std::wstring escaped;
         cg::text::FormatTo(text, L"{}", selected);
         escaped = input::EscapeTextAndNotify(text, 15);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
-        world::detail::gValue581800 = -2;
+        world::gValue581800 = -2;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
@@ -2009,14 +2013,14 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     if ((state & 2) == 0) {
         return 0;
     }
-    const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
     if (money < record.price) {
         gWindow54MessageC9FCE0 = -2;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return 1;
     }
     std::int32_t petCount = 0;
-    for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeRecords) {
+    for (const world::PetRuntimeRecord& pet : world::gPetRuntimeRecords) {
         if (pet.used != 0) {
             ++petCount;
         }
@@ -2031,15 +2035,15 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     std::wstring escaped;
     cg::text::FormatTo(text, L"{}", selected);
     escaped = input::EscapeTextAndNotify(text, 15);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
-    world::detail::gValue581800 = -2;
+    world::gValue581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }
@@ -2081,12 +2085,12 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
             gCurrentWindow->elements[index].visible = 0;
             std::wstring requestText;
             cg::text::FormatTo(requestText, L"{}", gWindow54ReplacementC8B08C);
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText));
             gCurrentWindow->state &= ~2u;
@@ -2133,7 +2137,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     width = cg::render::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, world::gPlayerRuntimeSlots.valueFC);
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"购入金额 {:7}金币" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));

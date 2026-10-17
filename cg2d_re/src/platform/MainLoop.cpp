@@ -17,7 +17,7 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
+#include "../world/PlayerState.hpp"
 
 #include <array>
 #include <bit>
@@ -71,7 +71,7 @@ void UpdateFrameDiagnostics()
         frameIndex = (frameIndex + 1) % frameCounts.size();
         frameCounts[frameIndex] = 0;
         std::wstring title(gWindowClassName);
-        const char* const playerName = world::detail::GetPlayerDisplayText(1);
+        const char* const playerName = world::GetPlayerDisplayText(1);
         if (playerName[0] != '\0') {
             title += L" - [";
             title += text::FromGbkWide(playerName);

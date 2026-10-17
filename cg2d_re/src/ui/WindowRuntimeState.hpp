@@ -4,6 +4,7 @@
 #include "WindowStorageRecords.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "../world/PlayerState.hpp"
 
 #include <array>
 #include <cstddef>
@@ -18,8 +19,14 @@ namespace cg::world {
 struct OrderedRecord1051B14;
 }
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 struct PlayerItemRecord;
+
+} // namespace cg::world
+
+namespace cg::world::detail {
 struct ContactRuntimeRecord;
 struct MiniMailContactRecord;
 }
@@ -373,7 +380,7 @@ std::int32_t WindowItemSelector_ReadScreenY(
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
 bool WindowItemSelector_GetItemList_4C72C0(
-    const WindowItemSelectorState* state, world::detail::PlayerItemRecord** items,
+    const WindowItemSelectorState* state, world::PlayerItemRecord** items,
     std::int32_t* count); // 借用同源物品表；失败不写输出。
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 // 原函数：0x0048A6C0。

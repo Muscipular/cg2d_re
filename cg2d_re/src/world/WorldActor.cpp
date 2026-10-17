@@ -3,7 +3,6 @@
 #include "../Yobi/map_transition.hpp"
 #include "../Yobi/map_render.hpp"
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
-#include "WorldUpdateDependencies.hpp"
 #include "WorldObjectState.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "cg/input/Input.hpp"
@@ -11,6 +10,11 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "PlayerState.hpp"
+#include "WorldMapState.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <bit>
@@ -28,41 +32,6 @@ namespace cg::world::detail {
 std::int32_t Sub_5183B0(const std::int32_t imageNo)
 {
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
-}
-
-
-// 原函数：0x0050AEF0。
-void Sub_50AEF0(const std::uintptr_t, const char* const payload)
-{
-    char text[2048];
-    for (std::int32_t field = 3; field < 28; field += 5) {
-        network::ExtractDelimitedField_52CED0(payload, '|', field - 2, 2047, text);
-        if (std::strlen(text) == 0) {
-            return;
-        }
-        const std::int32_t objectIndex = network::Base62Decode_52D050(text);
-        network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 2047, text);
-        const std::int32_t hp = std::atoi(text);
-        network::ExtractDelimitedField_52CED0(payload, '|', field, 2047, text);
-        const std::int32_t maxHp = std::atoi(text);
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 2047, text);
-        const std::int32_t fp = std::atoi(text);
-        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
-        const std::int32_t maxFp = std::atoi(text);
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
-        if (action == nullptr) {
-            continue;
-        }
-
-        // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一同类operator=。
-        action->readiness = static_cast<std::int32_t>(hp);
-
-        action->maxHp = static_cast<std::int32_t>(maxHp);
-
-        action->barValue1B0 = static_cast<std::int32_t>(fp);
-
-        action->barMaximum1C0 = static_cast<std::int32_t>(maxFp);
-    }
 }
 
 // 原函数：0x00444410。
@@ -339,47 +308,6 @@ void Sub_444410(
     default:
         return;
     }
-}
-
-// WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
-// 原函数：0x004467D0。
-void Sub_4467D0(const std::int32_t objectIndex)
-{
-    if (objectIndex < 0) {
-        return;
-    }
-    const std::int32_t index = Sub_444FA0(objectIndex);
-    if (index < 0) {
-        return;
-    }
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
-    if (record.used == 0 || record.action != nullptr) {
-        return;
-    }
-    const std::int32_t direction = record.direction;
-    const std::int32_t mapY =
-        record.coordinate1C.value();
-    const std::int32_t mapX =
-        record.coordinate0C.value();
-    const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
-    cg::yobi::YobiAction* action =
-        cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
-    record.action = action;
-    if (action == nullptr) {
-        return;
-    }
-    record.used = 2;
-    record.action->payload.mapActor->index = index;
-    action = record.action;
-    const std::int32_t level = record.level2C;
-    action->field1D0 = level;
-    char* const name = record.action->nameC4.data();
-    std::memmove(name, record.name54.data(), std::strlen(record.name54.data()) + 1);
-    char* const title = record.action->titleE1.data();
-    std::memmove(title, record.title65.data(), std::strlen(record.title65.data()) + 1);
-    action = record.action;
-    const std::uint32_t flags = record.flags114;
-    action->flags |= flags;
 }
 
 // WBR01：批量补建空action；未知类别仍保创建，仅跳过名字/flags尾，原主体保持。
@@ -725,7 +653,7 @@ void Sub_46B4B0(const std::int32_t direction)
     if (direction < 0 || direction > 7) {
         return;
     }
-    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -762,7 +690,7 @@ std::uint32_t Sub_46A190()
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = cg::world::detail::gPlayerRuntimeSlots.objectIndex;
+        const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
         cg::yobi::YobiAction* const action = ReadPetMapAction(index);
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
@@ -836,7 +764,7 @@ std::uint32_t Sub_46A190()
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = cg::world::detail::gPlayerRuntimeSlots.objectIndex;
+        const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
         if (ReadPetMapObjectIndex(index) == playerIndex) {
             Sub_46A700();
         } else {
@@ -855,7 +783,7 @@ std::uint32_t Sub_46A190()
 void MovePlayerOneStep_46B1B0(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    cg::yobi::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
     auto* const payload = player == nullptr
         ? nullptr : player->payload.mapActor;
     const float rate = static_cast<float>(
@@ -864,7 +792,7 @@ void MovePlayerOneStep_46B1B0(
         const std::int32_t previousY =
             player->mapY1F0.value();
         const std::int32_t previousX =
-            cg::world::detail::gPlayerRuntimeSlots.action->mapX1E0.value();
+            cg::world::gPlayerRuntimeSlots.action->mapX1E0.value();
         static_cast<void>(cg::yobi::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
@@ -924,7 +852,7 @@ void Sub_46A5F0()
             continue;
         }
 
-        const std::int32_t speed = cg::world::detail::gPlayerRuntimeSlots.walkSpeed;
+        const std::int32_t speed = cg::world::gPlayerRuntimeSlots.walkSpeed;
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t nextX = action->pathX220[0];
         static_cast<void>(
@@ -950,7 +878,7 @@ void Sub_46A5F0()
 // 原函数：0x0051A640。
 cg::yobi::YobiAction* Sub_51A640()
 {
-    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         action->field272 = 1;
     }
@@ -960,7 +888,7 @@ cg::yobi::YobiAction* Sub_51A640()
 // 原函数：0x0051A660。
 cg::yobi::YobiAction* Sub_51A660()
 {
-    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         action->field272 = 0;
     }
@@ -970,20 +898,102 @@ cg::yobi::YobiAction* Sub_51A660()
 // 原函数：0x0051A680。
 std::int32_t Sub_51A680()
 {
-    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->field272);
 }
+
+} // namespace cg::world::detail
+
+namespace cg::world {
+
+
+// 原函数：0x0050AEF0。
+void Sub_50AEF0(const std::uintptr_t, const char* const payload)
+{
+    char text[2048];
+    for (std::int32_t field = 3; field < 28; field += 5) {
+        network::ExtractDelimitedField_52CED0(payload, '|', field - 2, 2047, text);
+        if (std::strlen(text) == 0) {
+            return;
+        }
+        const std::int32_t objectIndex = network::Base62Decode_52D050(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 2047, text);
+        const std::int32_t hp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 2047, text);
+        const std::int32_t maxHp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 2047, text);
+        const std::int32_t fp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
+        const std::int32_t maxFp = std::atoi(text);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action == nullptr) {
+            continue;
+        }
+
+        // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一同类operator=。
+        action->readiness = static_cast<std::int32_t>(hp);
+
+        action->maxHp = static_cast<std::int32_t>(maxHp);
+
+        action->barValue1B0 = static_cast<std::int32_t>(fp);
+
+        action->barMaximum1C0 = static_cast<std::int32_t>(maxFp);
+    }
+}
+
+
+// WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
+// 原函数：0x004467D0。
+void Sub_4467D0(const std::int32_t objectIndex)
+{
+    if (objectIndex < 0) {
+        return;
+    }
+    const std::int32_t index = detail::Sub_444FA0(objectIndex);
+    if (index < 0) {
+        return;
+    }
+    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    if (record.used == 0 || record.action != nullptr) {
+        return;
+    }
+    const std::int32_t direction = record.direction;
+    const std::int32_t mapY =
+        record.coordinate1C.value();
+    const std::int32_t mapX =
+        record.coordinate0C.value();
+    const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
+    cg::yobi::YobiAction* action =
+        cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
+    record.action = action;
+    if (action == nullptr) {
+        return;
+    }
+    record.used = 2;
+    record.action->payload.mapActor->index = index;
+    action = record.action;
+    const std::int32_t level = record.level2C;
+    action->field1D0 = level;
+    char* const name = record.action->nameC4.data();
+    std::memmove(name, record.name54.data(), std::strlen(record.name54.data()) + 1);
+    char* const title = record.action->titleE1.data();
+    std::memmove(title, record.title65.data(), std::strlen(record.title65.data()) + 1);
+    action = record.action;
+    const std::uint32_t flags = record.flags114;
+    action->flags |= flags;
+}
+
 
 // 原函数：0x00519EE0。
 void Sub_519EE0()
 {
-    if (cg::world::detail::gPlayerRuntimeSlots.action == nullptr) {
+    if (cg::world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
     const std::int32_t y = gPlayerY.value();
     const std::int32_t x = gPlayerX.value();
     const std::int32_t blocked = Sub_469810(x, y);
-    cg::yobi::YobiAction* action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* action = cg::world::gPlayerRuntimeSlots.action;
     if (blocked != 0) {
         gPlayerX = action->mapX1E0;
         gPlayerY = action->mapY1F0;
@@ -991,22 +1001,22 @@ void Sub_519EE0()
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     action->worldX = std::bit_cast<float>(worldXBits);
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
     action->mapX1E0 = gPlayerX;
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
     action->mapY1F0 = gPlayerY;
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
-    action->field27C = gValue9EE8FC;
-    const std::uint32_t movementY = gValue9EE900;
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
+    action->field27C = detail::gValue9EE8FC;
+    const std::uint32_t movementY = detail::gValue9EE900;
+    action = cg::world::gPlayerRuntimeSlots.action;
     action->field280 = movementY;
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
     action->mapX200 = gPlayerSnapshotX;
-    action = cg::world::detail::gPlayerRuntimeSlots.action;
+    action = cg::world::gPlayerRuntimeSlots.action;
     action->mapY210 = gPlayerSnapshotY;
 }
 
-} // namespace cg::world::detail
+} // namespace cg::world

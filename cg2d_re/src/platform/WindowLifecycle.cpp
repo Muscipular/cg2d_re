@@ -1,9 +1,9 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/ui/WindowRuntime.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "../world/BattleState.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -47,7 +47,7 @@ int InitializeWindow()
         m_log_i("%d %d\n", width, height);
         layoutInitialized = true;
     }
-    world::detail::CenterBattleLayoutToWindow();
+    world::CenterBattleLayoutToWindow();
     DWORD style;
     RECT rect;
     if (gWindowMode) {

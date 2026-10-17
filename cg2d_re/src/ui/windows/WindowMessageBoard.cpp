@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #include <cstring>
 #include <ctime>
@@ -154,8 +156,8 @@ static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 // 原函数：0x004B5B50。
 static void WindowMessageBoard_Release()
 {
-    if (world::detail::gValue581800 == 21) {
-        world::detail::gValue581800 = -1;
+    if (world::gValue581800 == 21) {
+        world::gValue581800 = -1;
     }
 }
 
@@ -221,12 +223,12 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         }
         cg::text::FormatTo(text, L"{}", (index - 5) / 7);
         escaped = input::EscapeTextAndNotify(text, 255);
-        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t target = world::gDialogTargetD2DE6C;
+        const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
@@ -247,12 +249,12 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         input::InputContext* const context = gWindow50InputPrototype580618.input.context;
         if (!context->empty()) {
             const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 256);
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
@@ -277,13 +279,13 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             graphic->imageNo = baseImage;
         }
         if ((state & 2) != 0) {
-            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
             escaped.clear();
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(WindowMessageBoard_Close());
@@ -342,7 +344,7 @@ static void WindowMessageBoard_RefreshRecords()
 static std::int32_t WindowMessageBoard_Close()
 {
     WindowInstance* const window = gCurrentWindow;
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
     window->state |= 0x8000u;
     return audio::PlaySe_52C450(57, 320);
 }

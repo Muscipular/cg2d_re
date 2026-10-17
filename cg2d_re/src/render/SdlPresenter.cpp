@@ -11,7 +11,7 @@
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "PngImageInternal.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
+#include "../world/ChatHistory.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -674,7 +674,7 @@ void TakeScreenshot_453760()
         static_cast<void>(std::fclose(probe));
     }
     if (sequence >= 1000) {
-        world::detail::Sub_44B050(L"今天已经不能存取更多的画面了。" /* 原常量参考：0x005566F4。 */, 4, 3);
+        world::Sub_44B050(L"今天已经不能存取更多的画面了。" /* 原常量参考：0x005566F4。 */, 4, 3);
         return;
     }
     if (GetLegacyTextureState().pixelBitCount == 32) {
@@ -728,7 +728,7 @@ void TakeScreenshot_453760()
             }
         }
     }
-    world::detail::Sub_44B050(message, 4, 3);
+    world::Sub_44B050(message, 4, 3);
     std::free(pixels);
 }
 

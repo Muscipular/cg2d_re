@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -136,12 +138,12 @@ std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y
 // 原函数：0x004D3040。
 std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
 {
-    const double playerX = world::detail::gPlayerX.value() * 64.0;
+    const double playerX = world::gPlayerX.value() * 64.0;
     if (playerX != std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits))) {
         return 0;
     }
-    const double playerY = world::detail::gPlayerY.value() * 64.0;
+    const double playerY = world::gPlayerY.value() * 64.0;
     if (playerY != std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
         return 0;
@@ -169,7 +171,7 @@ static void WindowProfile_RouteReply(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
-    if (world::detail::gValue581800 >= 0) {
+    if (world::gValue581800 >= 0) {
         switch (request) {
         case 326:
         case 327:
@@ -186,12 +188,12 @@ static void WindowProfile_RouteReply(
             break;
         }
     }
-    world::detail::gValue581800 = type;
+    world::gValue581800 = type;
     gDialogValueCF4E5C = value;
-    world::detail::gDialogRequestCC21E0 = request;
-    world::detail::gDialogTargetD2DE6C = target;
-    const std::int32_t y = world::detail::gPlayerY.value();
-    const std::int32_t x = world::detail::gPlayerX.value();
+    world::gDialogRequestCC21E0 = request;
+    world::gDialogTargetD2DE6C = target;
+    const std::int32_t y = world::gPlayerY.value();
+    const std::int32_t x = world::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     switch (type) {
     case 38:

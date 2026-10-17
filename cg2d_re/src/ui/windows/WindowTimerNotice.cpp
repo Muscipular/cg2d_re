@@ -1,5 +1,6 @@
 #include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -35,9 +36,9 @@ static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
         window->elements[0].x = (window->width - textWidth) >> 1;
     } else {
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (world::detail::gValue62B5B0 + 2000u <= tick) {
+        if (world::gValue62B5B0 + 2000u <= tick) {
             gCurrentWindow->state |= 0x8000u;
-            world::detail::gValue62B5B0 = 0;
+            world::gValue62B5B0 = 0;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }

@@ -4,7 +4,6 @@
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "MainLoopDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
@@ -12,6 +11,7 @@
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <bit>
@@ -243,7 +243,7 @@ void Sub_507140()
                     type == 2 ? 218 : 214, marker, type == 2 ? 0 : 1);
                 render::SortTextures_520790();
             }
-            const std::int32_t inputGate = world::detail::gValueD460C8;
+            const std::int32_t inputGate = world::gValueD460C8;
             render::gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
@@ -278,7 +278,7 @@ void Sub_507140()
                 render::DrawMatchingGraphicHover_507090(value4);
             }
             render::SortTextures_520790();
-            if (world::detail::gValueD460C8 == 0 && ui::detail::gValue58589C != 0) {
+            if (world::gValueD460C8 == 0 && ui::detail::gValue58589C != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(&graphic);
                 if (ui::detail::gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 1;

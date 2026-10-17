@@ -1,12 +1,15 @@
 #include "map_transition.hpp"
 #include "base.hpp"
 #include "map_render.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include "map_actor.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "../world/WorldMapState.hpp"
+#include "../world/WorldObjectState.hpp"
 
 #include <algorithm>
 #include <array>
@@ -125,7 +128,7 @@ std::int32_t Sub_4473B0(YobiAction* const action)
     }
     const std::int32_t step = payload->step34;
     if (step <= -20) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -178,7 +181,7 @@ std::int32_t Sub_4474E0(YobiAction* const action)
     }
     const std::int32_t step = payload->step34;
     if (step > 30) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -225,8 +228,8 @@ void Sub_4469C0(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
-        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gValue9EE8D0)
+        || (world::gPlayerY != world::gValue9EE8E0)) {
         return;
     }
     auto* const payload = action->payload.mapTransition;
@@ -235,12 +238,12 @@ void Sub_4469C0(YobiAction* const action)
     std::int32_t candidateX;
     std::int32_t candidateY;
     do {
-        const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(direction);
-        const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(direction);
+        const std::int16_t deltaX = world::ReadDirectionDeltaX(direction);
+        const std::int16_t deltaY = world::ReadDirectionDeltaY(direction);
         candidateX = (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
         candidateY = (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
         if ((candidateX != payload->mapX08 || candidateY != payload->mapY0C)
-            && world::detail::Sub_469810(candidateX, candidateY) == 0) {
+            && world::Sub_469810(candidateX, candidateY) == 0) {
             break;
         }
         direction = static_cast<std::int16_t>(direction + attempt * 2 + 2);
@@ -279,15 +282,15 @@ void Sub_446B50(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
-        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gValue9EE8D0)
+        || (world::gPlayerY != world::gValue9EE8E0)) {
         return;
     }
-    const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(payload->value02);
+    const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->value02);
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
-    const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(payload->value02);
+    const std::int16_t deltaY = world::ReadDirectionDeltaY(payload->value02);
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
@@ -314,22 +317,22 @@ void Sub_446C10(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
-        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gValue9EE8D0)
+        || (world::gPlayerY != world::gValue9EE8E0)) {
         return;
     }
-    if (TransitionDistance(&world::detail::gPlayerX, &action->mapX1E0) <= 1
-        && TransitionDistance(&world::detail::gPlayerY, &action->mapY1F0) <= 1) {
+    if (TransitionDistance(&world::gPlayerX, &action->mapX1E0) <= 1
+        && TransitionDistance(&world::gPlayerY, &action->mapY1F0) <= 1) {
         return;
     }
-    if ((world::detail::gPlayerX - action->mapX1E0) > 0) {
+    if ((world::gPlayerX - action->mapX1E0) > 0) {
         stepX = 1;
-    } else if ((world::detail::gPlayerX - action->mapX1E0) < 0) {
+    } else if ((world::gPlayerX - action->mapX1E0) < 0) {
         stepX = -1;
     }
-    if ((world::detail::gPlayerY - action->mapY1F0) > 0) {
+    if ((world::gPlayerY - action->mapY1F0) > 0) {
         stepY = 1;
-    } else if ((world::detail::gPlayerY - action->mapY1F0) < 0) {
+    } else if ((world::gPlayerY - action->mapY1F0) < 0) {
         stepY = -1;
     }
     const std::int32_t x =
@@ -405,10 +408,10 @@ void DrawTransitionOrbit(
     float angle, const bool allowMapAtZero)
 {
     for (std::int32_t point = 0; point < 3; ++point) {
-        const double xFactor = world::detail::Sub_46F950(angle);
+        const double xFactor = world::Sub_46F950(angle);
         const float offsetX = static_cast<float>(
             xFactor * payload->value24);
-        const double yFactor = world::detail::Sub_46F930(angle);
+        const double yFactor = world::Sub_46F930(angle);
         const double offsetY = yFactor * payload->value24;
         const float projectedY = static_cast<float>(
             offsetY + action->worldY);
@@ -433,7 +436,7 @@ void DrawTransitionOrbit(
             const std::int32_t drawX = xOffset + x;
             const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
             const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-            static_cast<void>(world::detail::Sub_46BD60(
+            static_cast<void>(world::Sub_46BD60(
                 graphicIndex, worldXBits, worldYBits,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -449,7 +452,7 @@ void DrawTransitionOrbit(
                 drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
         }
         angle = static_cast<float>(angle + 120.0);
-        world::detail::Sub_46F8F0(&angle);
+        world::Sub_46F8F0(&angle);
     }
 }
 
@@ -469,7 +472,7 @@ std::int32_t UpdateTransitionTrail(
     }
     const std::int32_t counter = payload->counter10;
     if (counter >= 40) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -548,15 +551,15 @@ std::int32_t UpdateTransitionTrail(
 std::int32_t Sub_446D80(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
-        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+    if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 8000u < tick && TransitionMovementIdle(action)) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -637,7 +640,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 1200u < tick) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
     }
     return 0;
@@ -653,7 +656,7 @@ std::int32_t Sub_447070(YobiAction* const action)
         payload->value24 = 0;
     }
     if (payload->value24 > 800) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -680,7 +683,7 @@ std::int32_t Sub_447230(YobiAction* const action)
         payload->value20 = 0.0F;
         payload->value24 = 800;
     } else if (payload->value24 <= 0) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 1;
     }
@@ -705,15 +708,15 @@ std::int32_t Sub_447610(YobiAction* const action)
         payload->countdown38 = 10;
         payload->frame30 = frame ^ 1u;
     }
-    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
-        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+    if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -739,13 +742,13 @@ std::int32_t Sub_447820(YobiAction* const action)
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::detail::Sub_4467D0(payload->objectIndex28);
+        world::Sub_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     if (TransitionMovementIdle(action)
-        && (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) > 1
-            || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) > 1)) {
+        && (TransitionDistance(&action->mapX1E0, &world::gPlayerX) > 1
+            || TransitionDistance(&action->mapY1F0, &world::gPlayerY) > 1)) {
         Sub_446C10(action);
     }
     Sub_4424B0(action);
@@ -834,7 +837,7 @@ void Sub_447E60(YobiAction* const action)
     const std::int32_t drawX = offsetX + x;
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
-    static_cast<void>(world::detail::Sub_46BD60(
+    static_cast<void>(world::Sub_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));

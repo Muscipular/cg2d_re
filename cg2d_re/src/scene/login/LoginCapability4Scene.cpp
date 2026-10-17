@@ -1,6 +1,5 @@
 #include "LoginSavedState.hpp"
 #include "../../platform/StartupNative.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
 
@@ -16,6 +15,8 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 #include <bit>
 #include <cstdint>
@@ -46,7 +47,9 @@ std::int32_t ProcessCapability4CommonTail()
 
 } // namespace
 
-namespace cg::world::detail {
+
+
+namespace cg::world {
 
 // 原函数：0x00464840。
 std::int32_t Sub_464840()
@@ -264,4 +267,4 @@ std::int32_t Sub_464840()
     return sampledState;
 }
 
-} // namespace cg::world::detail
+} // namespace cg::world

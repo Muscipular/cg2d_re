@@ -455,3 +455,5 @@ NS07 只调整拖动桥接的函数归属。WindowRuntime.cpp 已有 PrepareLuaW
 NS07：已删除 battle_display.cpp 空匿名块；拖动阶段读取与阶段4消费归 cg::ui，公开头声明及脚本控件调用同步，删除脚本域旧声明／定义。原三项拖动状态仍为 WindowRuntime.cpp 静态对象，回调参数、阶段判断及回调后重置保持；UI现有脚本窗口调度调用保留。仅静态核对，编译／链接待验收。
 
 NS08：Yobi公开头由1252行收敛至385行，142个跨模块使用的声明名归 cg::yobi；其余382个声明名（含两个载荷辅助类型）归现有功能头。克隆入口虽在 battle_effect.cpp 实现，但为 YobiAction 私有赋值操作的友元，其前置声明归 base.hpp，避免 base.hpp 反向包含战斗功能头。143个公开定义（含重载及七项状态）归属核对通过，136个函数正文除必要限定名外的词法序列保持；共享状态保留原定义相对位置。公会公开合同归 cg::world，三个仅本文件使用的声明移出公共头并在CPP使用static；输入光标入口归 cg::input。内部声明、前置声明、限定引用及直接包含同步，包含图无环，限定差异检查通过。用户已追加全部完成后运行build.bat，本步尚未构建。
+
+NS09：原WorldUpdateDependencies.hpp的794项声明／布局断言按实际职责分入WorldMapState、PlayerState、BattleState、AlbumState四份新头，以及既有ChatHistory、WorldObjectState；更新编排头收敛至191行，未转为聚合包含入口。保留MailState、PetTechniqueRecord等已有提供者，消费者按实际符号补直接依赖。293个跨模块使用或公开签名依赖的声明名归cg::world，纯内部声明保留detail；132个函数迁移时正文除必要限定名外的词法序列一致。RuntimeInitialization中19项状态只调整所属命名空间，定义、初值和交错位置保持；其他共享状态也未跨翻译单元搬移。声明／断言完整性、公开定义归属、包含目标及包含无环静态核对通过，移除迁移产生的空作用域；编译／链接留到全部完成后。

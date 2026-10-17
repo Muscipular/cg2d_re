@@ -13,7 +13,6 @@
 #include "../platform/imeImpl.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/world/Blacklist.hpp"
 #include "cg/input/Input.hpp"

@@ -1,5 +1,7 @@
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/PlayerState.hpp"
 #include <bit>
 #include <charconv>
 #include <ctime>
@@ -37,14 +39,14 @@ enum {
 static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
     if (a < 0 || d < 0 || a >= 20 || d >= 20)
         return false;
-    if (!gBattleEntries59E980[d]) {
+    if (!cg::world::gBattleEntries59E980[d]) {
         return false;
     }
     int aSide = a / 10;
     int aLine = a % 10 / 5;
     int dSide = d / 10;
     int dLine = d % 10 / 5;
-    if (gBattleEntries59E980[d]->readiness.value() <= 0) {
+    if (cg::world::gBattleEntries59E980[d]->readiness.value() <= 0) {
         if (!(flags & B_TARGET_IN_DEAD)) {
             return false;
         }
@@ -64,13 +66,13 @@ static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
         if (aSide != dSide && aLine == dLine && aLine == 0) {
             int aLinePos = a % 10 % 5;
             int aP = aSide * 10 + aLinePos + (aLine + 1) % 2 * 5;
-            bool aAlive = gBattleEntries59E980[aP] && gBattleEntries59E980[aP]->readiness > 0;
+            bool aAlive = cg::world::gBattleEntries59E980[aP] && cg::world::gBattleEntries59E980[aP]->readiness > 0;
             int dLinePos = d % 10 % 5;
             int dP = dSide * 10 + dLinePos + (dLine + 1) % 2 * 5;
-            bool dAlive = gBattleEntries59E980[dP] && gBattleEntries59E980[dP]->readiness > 0;
+            bool dAlive = cg::world::gBattleEntries59E980[dP] && cg::world::gBattleEntries59E980[dP]->readiness > 0;
             if (aAlive && dAlive) {
-                if (a == gBattleCurrentPosition5ABCA4) {
-                    if (gBattlePlayerFlags5ABCAC & BP_FLAG_WEAPON_DIRECT) {
+                if (a == cg::world::gBattleCurrentPosition5ABCA4) {
+                    if (cg::world::gBattlePlayerFlags5ABCAC & BP_FLAG_WEAPON_DIRECT) {
                         return false;
                     }
                 } else {
@@ -177,13 +179,13 @@ void MakeAutoBattle();
 int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
 
 int getSkillId(int index) {
-    return index >= 0 && index < 15 ? gSkillsF1BAFC[index].skillId : -1;
+    return index >= 0 && index < 15 ? cg::world::gSkillsF1BAFC[index].skillId : -1;
 }
 
 int getSkillIndex(int id) {
     for (int j = 0; j < 15; ++j) {
-        if (gSkillPairsF63370[j].used && gSkillPairsF63370[j].index < 15 && gSkillsF1BAFC[gSkillPairsF63370[j].index].skillId == id) {
-            return gSkillPairsF63370[j].index;
+        if (cg::world::gSkillPairsF63370[j].used && cg::world::gSkillPairsF63370[j].index < 15 && cg::world::gSkillsF1BAFC[cg::world::gSkillPairsF63370[j].index].skillId == id) {
+            return cg::world::gSkillPairsF63370[j].index;
         }
     }
     return -1;
@@ -191,7 +193,7 @@ int getSkillIndex(int id) {
 
 int getCurrentPet() {
     for (int i = 0; i < 5; ++i) {
-        if (gPetRuntimeRecords[i].flags6AA & 2) {
+        if (cg::world::gPetRuntimeRecords[i].flags6AA & 2) {
             return i;
         }
     }
@@ -204,8 +206,8 @@ int getPetTechIndex(int techId) {
         return -1;
     }
     for (int ix = 0; ix < 10; ++ix) {
-        auto& data = gPetRuntimeRecords[pet].techniquePairs650[ix];
-        if (data.used && data.index < 10 && gPetRuntimeRecords[pet].techniquesD8[data.index].techniqueId == techId) {
+        auto& data = cg::world::gPetRuntimeRecords[pet].techniquePairs650[ix];
+        if (data.used && data.index < 10 && cg::world::gPetRuntimeRecords[pet].techniquesD8[data.index].techniqueId == techId) {
             return data.index;
         }
     }
@@ -217,21 +219,21 @@ int getPetTechId(int techIndex) {
     if (pet < 0) {
         return -1;
     }
-    if (techIndex >= 0 && techIndex < 10 && gPetRuntimeRecords[pet].techniquesD8[techIndex].used)
-        return gPetRuntimeRecords[pet].techniquesD8[techIndex].techniqueId;
+    if (techIndex >= 0 && techIndex < 10 && cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].used)
+        return cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].techniqueId;
     return -1;
 }
 
 int getItemId(int itemIndex) {
-    if (itemIndex >= 0 && itemIndex < 28 && gPlayerRuntimeSlots.items[itemIndex].used) {
-        return gPlayerRuntimeSlots.items[itemIndex].itemId;
+    if (itemIndex >= 0 && itemIndex < 28 && cg::world::gPlayerRuntimeSlots.items[itemIndex].used) {
+        return cg::world::gPlayerRuntimeSlots.items[itemIndex].itemId;
     }
     return -1;
 }
 
 int getItemIndex(int itemId) {
     for (int i = 8; i < 28; ++i) {
-        if (gPlayerRuntimeSlots.items[i].used && gPlayerRuntimeSlots.items[i].itemId == itemId) {
+        if (cg::world::gPlayerRuntimeSlots.items[i].used && cg::world::gPlayerRuntimeSlots.items[i].itemId == itemId) {
             return i;
         }
     }
@@ -244,7 +246,7 @@ int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
         defer = (1 - attacker / 10) * 10;
         if (flg & B_TARGET_IN_ENEMY) {
             for (int j = 0; j < 10; ++j) {
-                if (gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || gBattleEntries59E980[defer + j]->readiness > 0)) {
+                if (cg::world::gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || cg::world::gBattleEntries59E980[defer + j]->readiness > 0)) {
                     defer += j;
                     break;
                 }
@@ -255,7 +257,7 @@ int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
     } else if (defer >= SIDE_0) {
         defer = 10 * (defer - SIDE_0);
         for (int j = 0; j < 10; ++j) {
-            if (gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || gBattleEntries59E980[defer + j]->readiness > 0)) {
+            if (cg::world::gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || cg::world::gBattleEntries59E980[defer + j]->readiness > 0)) {
                 defer = defer + j;
                 break;
             }
@@ -307,16 +309,16 @@ static int SendBattleAction(lua_State* L)
                 sendNone();
                 break;
             }
-            const auto& data = gSkillsF1BAFC[skIndex].techniques3C[param3];
+            const auto& data = cg::world::gSkillsF1BAFC[skIndex].techniques3C[param3];
             const auto targetFlags = static_cast<B_TARGET_FLAGS>(data.value84);
             if (!data.used88 || !data.value8C || !(data.value80 == 0 || data.value80 == 1)) {
                 sendNone();
                 break;
             }
             if (param4 < 0) {
-                param4 = takeRandomTarget(gBattleCurrentPosition5ABCA4, targetFlags);
+                param4 = takeRandomTarget(cg::world::gBattleCurrentPosition5ABCA4, targetFlags);
             }
-            auto target = checkAndGetTarget(gBattleCurrentPosition5ABCA4, param4, targetFlags);
+            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param4, targetFlags);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 sendNone();
                 break;
@@ -331,7 +333,7 @@ static int SendBattleAction(lua_State* L)
                 sendNone();
                 break;
             }
-            auto target = checkAndGetTarget(gBattleCurrentPosition5ABCA4, param3, gPlayerRuntimeSlots.items[itemIndex].target);
+            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param3, cg::world::gPlayerRuntimeSlots.items[itemIndex].target);
             if (target < 0) {
                 sendNone();
                 break;
@@ -341,7 +343,7 @@ static int SendBattleAction(lua_State* L)
             break;
         }
         case B_ACTION_ATTACK: {
-            int attacker = gBattleCurrentPosition5ABCA4;
+            int attacker = cg::world::gBattleCurrentPosition5ABCA4;
             auto flg = (B_TARGET_FLAGS) (B_TARGET_IN_ENEMY | B_TARGET_SORO | B_TARGET_CHECK_WEAPON);
             if (param2 < 0) {
                 m_log_i("B_ACTION_ATTACK takeRandomTarget %d target %d\n", attacker, param2);
@@ -387,7 +389,7 @@ static int SendBattleAction(lua_State* L)
             break;
         case B_ACTION_PET_SKILL: {
             auto techIndex = getPetTechIndex(param2);
-            auto petPos = (gBattleCurrentPosition5ABCA4 % 10 + 5) % 10 + gBattleCurrentPosition5ABCA4 / 10 * 10;
+            auto petPos = (cg::world::gBattleCurrentPosition5ABCA4 % 10 + 5) % 10 + cg::world::gBattleCurrentPosition5ABCA4 / 10 * 10;
             int petIndex = getCurrentPet();
             m_log_i("B_ACTION_ATTACK techIndex %d petIndex %d\n", techIndex, petIndex);
             m_log_i("B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
@@ -401,8 +403,8 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             m_log_i("B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
-            B_TARGET_FLAGS targetFlags = gPetRuntimeRecords[petIndex].techniquesD8[techIndex].target;
-            m_log_i("B_ACTION_ATTACK tech %d %d %s\n", gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
+            B_TARGET_FLAGS targetFlags = cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].target;
+            m_log_i("B_ACTION_ATTACK tech %d %d %s\n", cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
             auto target = checkAndGetTarget(petPos, param3, targetFlags);
             m_log_i("B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
@@ -429,15 +431,15 @@ static void PushAction(lua_State* L, const Action& action) {
 static void PushBattleInfo(lua_State* L) {
     autoBattleActionCount = 0;
     lua_newtable(L);
-    lua_pushinteger(L, gBattleTurn5ABB74);
+    lua_pushinteger(L, cg::world::gBattleTurn5ABB74);
     lua_setfield(L, -2, "battleTurn");
-    lua_pushinteger(L, gBattleType5ABFC8);
+    lua_pushinteger(L, cg::world::gBattleType5ABFC8);
     lua_setfield(L, -2, "battleType");
-    lua_pushinteger(L, gBattleFieldFlags5ABB58);
+    lua_pushinteger(L, cg::world::gBattleFieldFlags5ABB58);
     lua_setfield(L, -2, "battleField");
     int n = 0;
     for (int j = 0; j < 10; ++j) {
-        if (gBattleEntries59E980[j]) {
+        if (cg::world::gBattleEntries59E980[j]) {
             n++;
         }
     }
@@ -510,7 +512,7 @@ int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
         max = 9;
     }
     for (int i = min; i <= max; ++i) {
-        if (gBattleEntries59E980[i] && gBattleEntries59E980[i]->readiness > 0) {
+        if (cg::world::gBattleEntries59E980[i] && cg::world::gBattleEntries59E980[i]->readiness > 0) {
             list.push_back(i);
         }
     }
@@ -523,7 +525,7 @@ int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
         std::shuffle(list.begin(), list.end(), rnd);
     }
     for (auto id: list) {
-        m_log_i("enemy %d %s\n", id, gBattleEntries59E980[id]->nameC4.data());
+        m_log_i("enemy %d %s\n", id, cg::world::gBattleEntries59E980[id]->nameC4.data());
     }
     for (auto ix: list) {
         int t = checkAndGetTarget(attacker, ix, flags);
@@ -619,7 +621,7 @@ void MakeAutoBattle() {
     panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](int index, int mouse) {
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = enableAutoBattle ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
-            const int count = gBattleSkillActionCount5ABBF4 + gBattlePetActionCount5ABBBC;
+            const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
             if ((world::gCurrentSceneState == 4 && count == 0) || enableAutoBattle || world::gCurrentSceneState != 4)
                 enableAutoBattle = !enableAutoBattle;
         }
@@ -681,8 +683,8 @@ void ShutdownAutoBattle() {
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(std::string_view packet) {
     if (!GetBattleLuaState() || enableAutoBattle || !packet.starts_with("Rg ")) return;
-    switch (gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
-    const int count = gBattleSkillActionCount5ABBF4 + gBattlePetActionCount5ABBBC;
+    switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
+    const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
         m_log_i("[AutoBattle] action slot out of range: %d\n", count);
         return;

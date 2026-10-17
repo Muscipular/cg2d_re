@@ -12,7 +12,6 @@
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -27,6 +26,10 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/AlbumState.hpp"
+#include "../../world/MailState.hpp"
+#include "../../world/PlayerState.hpp"
 
 #include <array>
 #include <bit>
@@ -993,7 +996,7 @@ std::int32_t Sub_4631D0()
             state::gValueFF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
             state::gValueF633F4 = element2;
             state::gValueDE0B04 = element3;
-            world::detail::gValueFDA6F8 = 0;
+            world::gValueFDA6F8 = 0;
             cg::audio::Sub_52B990();
             Sub_4642C0();
         } else if (answer == 2) {
@@ -1600,7 +1603,7 @@ std::int32_t ProcessScene_460FF0()
         switch (actionIndex) {
         case 0:
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            world::detail::Sub_518BE0();
+            world::Sub_518BE0();
             cg::world::detail::Sub_519290();
             cg::world::detail::Sub_5194C0();
             cg::world::detail::Sub_519300();

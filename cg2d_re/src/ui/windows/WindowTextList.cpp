@@ -1,6 +1,9 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -253,13 +256,13 @@ static void WindowTextList_Release()
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, L"C"));
     }
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
 }
 
 // 原函数：0x004AD800。
@@ -278,7 +281,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gWindowCloseRequestCC4B28 = 1;
     }
     bool close = true;
-    if (world::detail::gValue581800 == 32) {
+    if (world::gValue581800 == 32) {
         close = WindowProfile_CheckDistance(1, 1) != 0;
     } else {
         gWindowCloseRequestCC4B28 = 0;
@@ -312,7 +315,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->elements[22].visible = 1;
     }
     if (gSelectedItem57EE0C >= 0
-        && world::detail::gPlayerRuntimeSlots.items[gSelectedItem57EE0C].itemType == 53) {
+        && world::gPlayerRuntimeSlots.items[gSelectedItem57EE0C].itemType == 53) {
         gCurrentWindow->elements[22].visible = 1;
     }
     return 1;
@@ -518,9 +521,9 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
             const std::int32_t y =
-                world::detail::gPlayerY.value();
+                world::gPlayerY.value();
             const std::int32_t x =
-                world::detail::gPlayerX.value();
+                world::gPlayerX.value();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, packet));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -553,9 +556,9 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            world::detail::gPlayerY.value();
+            world::gPlayerY.value();
         const std::int32_t x =
-            world::detail::gPlayerX.value();
+            world::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(buffer.data())));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -621,7 +624,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0
-                || world::detail::gPlayerRuntimeSlots.items[source].itemType == 53) {
+                || world::gPlayerRuntimeSlots.items[source].itemType == 53) {
                 const unsigned char previous = occupancy[gSelectedItem57EE0C];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {
                     occupancy[gSelectedItem57EE0C] = static_cast<unsigned char>(previous - 1);
@@ -664,7 +667,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         selected = gSelectedItem57EE0C;
     }
     if (selected >= 0) {
-        const auto& item = world::detail::gPlayerRuntimeSlots.items[selected];
+        const auto& item = world::gPlayerRuntimeSlots.items[selected];
         if (item.used != 0) {
             static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 223, item.imageNo, 0, &descriptor));

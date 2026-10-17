@@ -1,6 +1,10 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -386,7 +390,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    world::detail::PlayerItemRecord* items;
+    world::PlayerItemRecord* items;
     std::int32_t count;
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
@@ -398,7 +402,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
     std::int32_t currentCount = count;
     std::int32_t slot = 0;
     while (slot < currentCount) {
-        const world::detail::PlayerItemRecord* const item = items + slot;
+        const world::PlayerItemRecord* const item = items + slot;
         if (item->used != 0) {
             const std::int32_t x = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, slot, 0);
             const std::int32_t y = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, slot, 0);
@@ -468,12 +472,12 @@ static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::
     std::int32_t remaining = ordinal;
     bool found = false;
     for (std::int32_t position = 0; position < 5; ++position) {
-        const auto& pair = world::detail::gPetPairsDE0B08[position];
+        const auto& pair = world::gPetPairsDE0B08[position];
         if (pair.used == 0) {
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::detail::gPetRuntimeRecords[pet].flags6AA;
+        const std::uint16_t flags = world::gPetRuntimeRecords[pet].flags6AA;
         if (flags == 1 || flags == 2) {
             --remaining;
             if (remaining < 0) {
@@ -516,8 +520,8 @@ static void WindowInventory_Release()
         --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if (world::detail::gValue581800 == 29) {
-        world::detail::gValue581800 = -1;
+    if (world::gValue581800 == 29) {
+        world::gValue581800 = -1;
     }
     gItemSelectorCF3B10.initialized3E8 = 0;
 }
@@ -540,7 +544,7 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         selected = gSelectedItemCB0A44;
     }
     if (gItemSelectionModeCC40D4 == 1) {
-        if (world::detail::gPlayerRuntimeSlots.items[selected].imageNo == 26569) {
+        if (world::gPlayerRuntimeSlots.items[selected].imageNo == 26569) {
             goto updateSelector;
         }
         WindowInstance* const window = gCurrentWindow;
@@ -550,12 +554,12 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         const std::int32_t oldSelection = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
-        if (world::detail::gValue581800 == 29) {
-            world::detail::gValue581800 = -1;
+        if (world::gValue581800 == 29) {
+            world::gValue581800 = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if (gItemSelectionModeCC40D4 == 2 && world::detail::gValue581800 != 29) {
+    if (gItemSelectionModeCC40D4 == 2 && world::gValue581800 != 29) {
         gCurrentWindow->elements[4].mouseCallback = WindowInventory_HandleItems;
         gCurrentWindow->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t oldSelection = gSelectedItemCB0A44;
@@ -569,7 +573,7 @@ updateSelector:
     gWindowStates[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
         && gWindowStates[WindowId_Quantity].value20 == 14 && gWindowStates[WindowId_Quantity].value24 == 1) {
-        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
         gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
@@ -605,12 +609,12 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
             x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
-        character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
+        character_select::detail::Sub_51B740(world::gPlayerRuntimeSlots.imageNo);
     cg::yobi::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
     cg::yobi::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 5);
-    const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.imageNo;
+    const std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {
         cg::yobi::AddYobiActionDrawFlags(
             static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 4);
@@ -642,10 +646,10 @@ static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const 
 // 原函数：0x00488CF0。
 static void WindowInventory_DropMoney(const std::int32_t amount)
 {
-    if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
-        && world::detail::Sub_440B50() == 0) {
-        const std::int32_t y = world::detail::gPlayerY.value();
-        const std::int32_t x = world::detail::gPlayerX.value();
+    if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+        && world::Sub_440B50() == 0) {
+        const std::int32_t y = world::gPlayerY.value();
+        const std::int32_t x = world::gPlayerX.value();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
     }
 }
@@ -664,7 +668,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
             && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
             static_cast<void>(cg::yobi::Sub_48AC60(
                 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
         }
@@ -672,7 +676,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
     }
     if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
         && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
-        const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
         gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
@@ -690,14 +694,14 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
 // 原函数：0x00488E60。
 static std::int32_t WindowInventory_RefreshMoney(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00488E80。
 static std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::detail::gPlayerRuntimeSlots.value15BCC);
+    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
@@ -763,7 +767,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if ((events & 2u) != 0) {
@@ -776,7 +780,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
-            const auto& item = world::detail::gPlayerRuntimeSlots.items[hovered + 8];
+            const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
                 if (item.imageNo == 26569) {
                     WindowInstance* const window = gCurrentWindow;
@@ -789,16 +793,16 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                     static_cast<void>(WindowDrag_ResetMouse());
                     static_cast<void>(WindowDrag_Start(1, 0, nullptr));
                 } else {
-                    if ((world::detail::ReadPlayerActionFlags() & 0x80u) == 0
-                        && world::detail::Sub_440B50() == 0) {
+                    if ((world::ReadPlayerActionFlags() & 0x80u) == 0
+                        && world::Sub_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
                         gSelectedItemCB0A44 = hovered + 8;
                         const std::int32_t group = mode > 0
                             ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
                         const std::int32_t y =
-                            world::detail::gPlayerY.value();
+                            world::gPlayerY.value();
                         const std::int32_t x =
-                            world::detail::gPlayerX.value();
+                            world::gPlayerX.value();
                         static_cast<void>(network::Sub_510A00(
                             platform::gConnectionSocket, x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -813,16 +817,16 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
-                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
                 gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -855,7 +859,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gValueD69768, 0);
-        const auto& item = world::detail::gPlayerRuntimeSlots.items[hovered + 8];
+        const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
         if (item.used != 0) {
             gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
@@ -868,7 +872,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -927,7 +931,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    world::detail::PlayerItemRecord* items;
+    world::PlayerItemRecord* items;
     std::int32_t count;
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
@@ -995,7 +999,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     }
     if ((events & 2u) != 0) {
         gCurrentWindow->state |= 0x2000u;
-        if (hovered == -1 && world::detail::gReplyRecordF7C950.used != 0) {
+        if (hovered == -1 && world::gReplyRecordF7C950.used != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowInstance* const window = gCurrentWindow;
             gItemSelectorCF3B10.value3FC = 1;
@@ -1024,8 +1028,8 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                     static_cast<void>(WindowDrag_ResetMouse());
                     static_cast<void>(WindowDrag_Start(1, 0, nullptr));
                 } else {
-                    if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
-                        && world::detail::Sub_440B50() == 0) {
+                    if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+                        && world::Sub_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {
@@ -1034,9 +1038,9 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                                 platform::gConnectionSocket, group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
-                                world::detail::gPlayerY.value();
+                                world::gPlayerY.value();
                             const std::int32_t x =
-                                world::detail::gPlayerX.value();
+                                world::gPlayerX.value();
                             static_cast<void>(network::Sub_510A00(
                                 platform::gConnectionSocket, x, y, hovered, 0));
                         }
@@ -1149,7 +1153,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
             events |= 2u;
         }
     }
-    const auto isMode1Blocked = [](const world::detail::PlayerItemRecord& item) {
+    const auto isMode1Blocked = [](const world::PlayerItemRecord& item) {
         if (item.itemType == 47) {
             return true;
         }
@@ -1161,7 +1165,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
         if (mode == 1 || mode == 2) {
             for (std::int32_t position = 0; position < 20; ++position) {
-                const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
+                const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
                 if (item.used == 0 || occupancy[position + 8] != 0) {
                     continue;
                 }
@@ -1190,18 +1194,18 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         window->elements[4].mouseCallback = WindowInventory_HandleItems;
         gCurrentWindow->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
-        const std::int32_t dialog = world::detail::gValue581800;
+        const std::int32_t dialog = world::gValue581800;
         --occupancy[selected];
         gSelectedItemCB0A44 = -1;
         if (dialog == 29) {
-            world::detail::gValue581800 = -1;
+            world::gValue581800 = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse());
     };
     std::wstring buffer;
     std::wstring escaped;
     if (hovered >= 0 && (events & 2u) != 0) {
-        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
@@ -1210,12 +1214,12 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
             } else if (mode == 2) {
                 cg::text::FormatTo(buffer, L"{}", hovered + 8);
                 escaped = input::EscapeTextAndNotify(buffer, 15);
-                const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-                const std::int32_t request = world::detail::gDialogRequestCC21E0;
+                const std::int32_t target = world::gDialogTargetD2DE6C;
+                const std::int32_t request = world::gDialogRequestCC21E0;
                 const std::int32_t y =
-                    world::detail::gPlayerY.value();
+                    world::gPlayerY.value();
                 const std::int32_t x =
-                    world::detail::gPlayerX.value();
+                    world::gPlayerX.value();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, request, target, 0, escaped));
                 leaveSelection();
@@ -1226,7 +1230,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         leaveSelection();
     }
-    const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[gSelectedItemCB0A44].imageNo;
+    const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[gSelectedItemCB0A44].imageNo;
     const std::int32_t mouseY =
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t mouseX =
@@ -1249,7 +1253,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         return consumed;
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }

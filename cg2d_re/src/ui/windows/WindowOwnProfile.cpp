@@ -1,5 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "../../world/MailState.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -195,26 +196,26 @@ static void WindowOwnProfile_Refresh()
 {
     auto& current = world::detail::gCurrentProfile10738E8;
     WindowElement* const portraitElements = gCurrentWindow->elements;
-    const std::int32_t portrait = world::detail::gPlayerRuntimeSlots.value17C;
+    const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
     static_cast<WindowGraphicData*>(portraitElements[18].data)->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data)->imageNo =
         publicFlag != 0 ? 0 : 0x3C113;
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::detail::GetPlayerDisplayText(1);
+    const char* const name = world::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
     std::wstring number;
-    cg::text::FormatTo(number, L"{:3}", world::detail::gPlayerRuntimeSlots.level);
+    cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
-    const char* const title = world::detail::GetPlayerDisplayText(2);
+    const char* const title = world::GetPlayerDisplayText(2);
     auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
     titleData->text = cg::text::FromGbkWide(title);
     WindowElement* const jobElements = gCurrentWindow->elements;
-    const char* const job = world::detail::GetPlayerJobName();
+    const char* const job = world::GetPlayerJobName();
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
     jobData->text = cg::text::FromGbkWide(job);
 

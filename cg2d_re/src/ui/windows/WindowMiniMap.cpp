@@ -1,5 +1,7 @@
 #include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -61,7 +63,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
         data->text.clear();
         return 1;
     }
-    if (world::detail::Sub_440B50() == 0) {
+    if (world::Sub_440B50() == 0) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
         std::wstring& destination = data->text;
         if (destination[0] == '\0') {
@@ -80,7 +82,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 // 原函数：0x00495E10。
 static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
 {
-    if (world::detail::Sub_440B50() != 0) {
+    if (world::Sub_440B50() != 0) {
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
@@ -98,12 +100,12 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
 static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-    if (world::detail::Sub_440B50() != 0) {
+    if (world::Sub_440B50() != 0) {
         data->text.clear();
         return 0;
     }
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     cg::text::FormatTo(data->text, L"{:3}", x);
     return 0;
 }
@@ -112,12 +114,12 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
 static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-    if (world::detail::Sub_440B50() != 0) {
+    if (world::Sub_440B50() != 0) {
         data->text.clear();
         return 0;
     }
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     cg::text::FormatTo(data->text, L"{:3}", y);
     return 0;
 }

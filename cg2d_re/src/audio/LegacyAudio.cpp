@@ -12,7 +12,6 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 
 #include <algorithm>
 #include <array>

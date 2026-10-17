@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/ChatHistory.hpp"
 
 #include <cstring>
 #include <ctime>
@@ -44,7 +45,7 @@ static WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE98。
 
 static WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648),
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::gLogFileName554648),
 };
 
 static WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
@@ -102,7 +103,7 @@ void WindowAdventureLog_InitializeDate()
     gLoginWindowRuntime.dayD67BC0 = day;
     const std::int32_t month = current->tm_mon;
     const std::int32_t year = current->tm_year;
-    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
+    std::sprintf(world::gLogFileName554648, "chat_%02d%02d%02d.txt",
         year % 100, month + 1, day);
 }
 
@@ -117,11 +118,11 @@ static void WindowAdventureLog_Load()
     std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
     const std::int32_t month = calendar->tm_mon;
     const std::int32_t year = calendar->tm_year;
-    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
+    std::sprintf(world::gLogFileName554648, "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
         year % 100, month + 1, day);
     char path[256];
     std::sprintf(path, "%s\\%s" /* 原常量参考：0x00553514。 */,
-        "Log" /* 原常量参考：0x00554658。 */, world::detail::gLogFileName554648);
+        "Log" /* 原常量参考：0x00554658。 */, world::gLogFileName554648);
     std::FILE* current = std::fopen(path, "rt" /* 原常量参考：0x00553510。 */);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
@@ -293,7 +294,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             }
             WindowAdventureLog_Load();
             auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
-            title->text = cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648);
+            title->text = cg::text::FromLegacyDisplayWide(world::gLogFileName554648);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
             gLoginWindowRuntime.valueD67BB0 = 0;

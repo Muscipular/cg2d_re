@@ -2,6 +2,7 @@
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
+#include "../../world/WorldMapState.hpp"
 #include <cmath>
 #include <limits>
 #include <cstring>
@@ -63,7 +64,7 @@ static void MapExPlotDiamond(std::vector<uint32_t>& pixels, int width, int heigh
 }
 
 static int MapExDecodeMapNo(unsigned short raw) {
-    return world::detail::Sub_46CF00(raw);
+    return world::Sub_46CF00(raw);
 }
 
 static uint8_t MapExColorIndexFromMapNo(int mapNo) {
@@ -197,7 +198,7 @@ bool UIMapExControl::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup,
     next.floor = effectiveFloor;
 
     char fileName[260] = {};
-    world::detail::Sub_468520(fileName, effectiveMapId, effectiveGroup, effectiveFloor);
+    world::Sub_468520(fileName, effectiveMapId, effectiveGroup, effectiveFloor);
     next.fileName = fileName;
 
     FILE* file = fopen(fileName, "rb");
@@ -257,23 +258,23 @@ bool UIMapExControl::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup,
 }
 
 void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
-    short visibleW = world::detail::gMapSpanX;
-    short visibleH = world::detail::gMapSpanY;
+    short visibleW = world::gMapSpanX;
+    short visibleH = world::gMapSpanY;
     if (visibleW <= 0 || visibleH <= 0) {
         visibleMap = VisibleMapCache{};
         return;
     }
 
     long long cellCount64 = static_cast<long long>(visibleW) * visibleH;
-    if (cellCount64 <= 0 || cellCount64 > static_cast<long long>(world::detail::gMapTileArray.size())) {
+    if (cellCount64 <= 0 || cellCount64 > static_cast<long long>(world::gMapTileArray.size())) {
         visibleMap = VisibleMapCache{};
         return;
     }
 
-    int playerX = world::detail::gPlayerX.value();
-    int playerY = world::detail::gPlayerY.value();
-    int startX = world::detail::gMapXStart;
-    int startY = world::detail::gMapYStart;
+    int playerX = world::gPlayerX.value();
+    int playerY = world::gPlayerY.value();
+    int startX = world::gMapXStart;
+    int startY = world::gMapYStart;
     bool same = visibleMap.loaded
         && visibleMap.mapId == effectiveMapId
         && visibleMap.group == effectiveGroup
@@ -307,9 +308,9 @@ void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGro
     next.loaded = true;
 
     size_t cellCount = static_cast<size_t>(cellCount64);
-    next.tileData.assign(world::detail::gMapTileArray.data(), world::detail::gMapTileArray.data() + cellCount);
-    next.objData.assign(world::detail::gMapObjArray.data(), world::detail::gMapObjArray.data() + cellCount);
-    next.hitData.assign(world::detail::gMapHitArray.data(), world::detail::gMapHitArray.data() + cellCount);
+    next.tileData.assign(world::gMapTileArray.data(), world::gMapTileArray.data() + cellCount);
+    next.objData.assign(world::gMapObjArray.data(), world::gMapObjArray.data() + cellCount);
+    next.hitData.assign(world::gMapHitArray.data(), world::gMapHitArray.data() + cellCount);
     visibleMap = std::move(next);
 
     if (hadOld) {
@@ -319,8 +320,8 @@ void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGro
 }
 
 bool UIMapExControl::PrepareMap() {
-    int effectiveMapId = EffectiveMapExValue(mapId, world::detail::gValue9A86DC);
-    int effectiveGroup = world::detail::gValue9E0434;
+    int effectiveMapId = EffectiveMapExValue(mapId, world::gValue9A86DC);
+    int effectiveGroup = world::gValue9E0434;
     int effectiveFloor = EffectiveMapExValue(floor, world::gMapFloor);
     if (effectiveMapId != loadedMapId || effectiveGroup != loadedMapGroup || effectiveFloor != loadedFloor) {
         ResetMapCache(effectiveMapId, effectiveGroup, effectiveFloor);
@@ -333,7 +334,7 @@ bool UIMapExControl::PrepareMap() {
         return false;
     }
 
-    int mode = world::detail::gValue9DAD68 == 1 ? 1 : 0;
+    int mode = world::gValue9DAD68 == 1 ? 1 : 0;
     int nextBufferW = 2 * (mapWidth + mapHeight) + 2;
     int nextBufferH = mapWidth + mapHeight + 2;
     if (mapBufferW != nextBufferW || mapBufferH != nextBufferH || mapBufferMode != mode) {
@@ -343,7 +344,7 @@ bool UIMapExControl::PrepareMap() {
         mapBufferMode = mode;
     }
 
-    if (effectiveMapId == world::detail::gValue9A86DC && effectiveGroup == world::detail::gValue9E0434 && effectiveFloor == world::gMapFloor) {
+    if (effectiveMapId == world::gValue9A86DC && effectiveGroup == world::gValue9E0434 && effectiveFloor == world::gMapFloor) {
         SyncVisibleMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor);
     } else {
         visibleMap = VisibleMapCache{};
@@ -632,7 +633,7 @@ void UIMapExControl::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mod
             }
             if (argbMode && mapIndex >= 0 && mapIndex < MAP_EX_AUT_DATA_COUNT) {
                 if (!argb) {
-                    const world::detail::AutRecordAF10D8& unit = world::detail::gAutDataAF10D8[mapIndex];
+                    const world::AutRecordAF10D8& unit = world::gAutDataAF10D8[mapIndex];
                     uint32_t rgb = (static_cast<unsigned char>(unit.value00) << 16) | (static_cast<unsigned char>(unit.value01) << 8) | static_cast<unsigned char>(unit.value02);
                     if (rgb) {
                         argb = MapExRgbToArgb(rgb);

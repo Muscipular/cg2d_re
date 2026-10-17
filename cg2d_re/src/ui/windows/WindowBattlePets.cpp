@@ -1,5 +1,7 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/BattleState.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -51,7 +53,7 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
     gCurrentWindow->elements[1].visible = 0;
-    if (world::detail::Sub_43C4B0() != -1) {
+    if (world::Sub_43C4B0() != -1) {
         gCurrentWindow->elements[1].visible = 1;
     }
     return 1;
@@ -66,12 +68,12 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
         gHoverTextD68AE8 = L"让这只宠物归还。";
     }
     if ((state & 2) != 0) {
-        if (world::detail::Sub_43C4B0() != -1) {
+        if (world::Sub_43C4B0() != -1) {
             std::array<char, 768> buffer;
             std::sprintf(buffer.data(), "M|%X", 255u);
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
             gCurrentWindow->state |= 0x8000u;
-            world::detail::gBattlePlayerActionState5ABC74 = 1;
+            world::gBattlePlayerActionState5ABC74 = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         consumed = 1;
@@ -94,7 +96,7 @@ static void WindowBattlePets_Refresh(
 {
     std::int32_t battleImage = 0x3B58D;
     std::int32_t readyImage = 0x3B58A;
-    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+    const auto& pet = world::gPetRuntimeRecords[petIndex];
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -174,9 +176,9 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t selected = -1;
     std::int32_t visible = -1;
-    for (const auto& pair : world::detail::gPetPairsDE0B08) {
+    for (const auto& pair : world::gPetPairsDE0B08) {
         const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
-        const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+        const auto& pet = world::gPetRuntimeRecords[petIndex];
         if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
             ++visible;
         }
@@ -189,7 +191,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         return 0;
     }
     std::int32_t consumed = 0;
-    const auto& pet = world::detail::gPetRuntimeRecords[selected];
+    const auto& pet = world::gPetRuntimeRecords[selected];
     if (pet.used == 1) {
         std::uint16_t flags = pet.flags6AA;
         if (flags == 1 || flags == 2) {
@@ -212,7 +214,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     gCurrentWindow->state |= 0x8000u;
-                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
                 consumed = 1;

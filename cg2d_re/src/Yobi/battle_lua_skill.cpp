@@ -1,6 +1,5 @@
 #include "battle_skill_effect.hpp"
 #include "battle_message.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../script/LuaInternal.hpp"
 #include "cg/core/m_log.hpp"
 
@@ -9,6 +8,8 @@
 #include "battle_base.hpp"
 #include "battle_effect.hpp"
 #include "battle_scene.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
 
 #include <bit>
 #include <cmath>
@@ -271,7 +272,7 @@ struct StagedDebuff {
 
 
 // 本线22槽的非拥有观察指针；脚本普通角色仍只允许0–19。
-static YobiAction** const battleEntries = world::detail::gBattleAllEntries59E980.data();
+static YobiAction** const battleEntries = world::gBattleAllEntries59E980.data();
 static lua_State* gSkillEffectL = nullptr;
 static std::vector<SkillRegistration> gSkillRegistrations;
 static PacketView gPacketView;
@@ -287,7 +288,7 @@ static uint32_t gRuntimeGeneration = 0;
 static void LuaVisualUpdate(YobiAction* action);
 
 static char* PacketBuffer() {
-    return world::detail::gBattleMText5AAA7C.data();
+    return world::gBattleMText5AAA7C.data();
 }
 
 static void NormalizeSkillLevels(int techId, int skillLevel, int skillLevel2,

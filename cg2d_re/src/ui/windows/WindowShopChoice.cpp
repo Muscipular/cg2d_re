@@ -2,6 +2,8 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/WorldMapState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -177,12 +179,12 @@ static void WindowShopChoice_FillBody(
 static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
 {
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 
@@ -193,7 +195,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
     const wchar_t* const* const hints, const WindowChoiceCallback callback)
 {
-    gChoiceDialog.type = world::detail::gValue581800;
+    gChoiceDialog.type = world::gValue581800;
     gChoiceDialog.title = title;
     gChoiceDialog.lines.clear();
     for (std::uint8_t row = 0; row < lineCount; ++row) { gChoiceDialog.lines.push_back(*lines[row]); }
@@ -265,7 +267,7 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    if (world::detail::gValue581800 != gChoiceDialog.type) {
+    if (world::gValue581800 != gChoiceDialog.type) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -276,8 +278,8 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 // 原函数：0x0049FF70。
 static void WindowShopChoice_Release()
 {
-    if (gChoiceDialog.closeEnabled != 0 && world::detail::gValue581800 == gChoiceDialog.type) {
-        world::detail::gValue581800 = -1;
+    if (gChoiceDialog.closeEnabled != 0 && world::gValue581800 == gChoiceDialog.type) {
+        world::gValue581800 = -1;
     }
 }
 
@@ -323,12 +325,12 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
-    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
-    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t target = world::gDialogTargetD2DE6C;
+    const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.value();
+        world::gPlayerY.value();
     const std::int32_t x =
-        world::detail::gPlayerX.value();
+        world::gPlayerX.value();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }

@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -108,11 +110,11 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        const auto petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-        if (world::detail::gPetRuntimeRecords[petIndex].used == 0) {
+        const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
+        if (world::gPetRuntimeRecords[petIndex].used == 0) {
             continue;
         }
-        const std::int32_t available = world::detail::Sub_52E1D0(petIndex);
+        const std::int32_t available = world::Sub_52E1D0(petIndex);
         if (available == 1) {
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = petIndex;
@@ -131,8 +133,8 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         }
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
-    if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0
-        || world::detail::Sub_440B50() != 0) {
+    if ((world::ReadPlayerActionFlags() & 0x80u) != 0
+        || world::Sub_440B50() != 0) {
         for (auto& pair : gLoginWindowRuntime.choicesCC4CA0.pairs18) {
             pair[1] = 0;
         }

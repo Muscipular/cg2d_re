@@ -1,7 +1,6 @@
 #include "WindowPrototypeDependencies.hpp"
 #include "cg/text/Encoding.hpp"
 #include <string>
-#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"

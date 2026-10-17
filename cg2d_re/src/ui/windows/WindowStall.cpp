@@ -4,7 +4,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/ChatHistory.hpp"
+#include "../../world/PlayerState.hpp"
+#include "../../world/WorldObjectState.hpp"
 
 
 namespace cg::ui {
@@ -31,10 +35,10 @@ struct StallBrowseData {
     std::int32_t imageNo60; // 原成员偏移：+0x60。
     std::int32_t action64; // 原成员偏移：+0x64。
     std::int32_t direction68; // 原成员偏移：+0x68。
-    std::array<world::detail::PlayerItemRecord, 20> items;
+    std::array<world::PlayerItemRecord, 20> items;
     std::array<std::int32_t, 20> itemValuesD13E74; // 原全局：0x00D13E74。
     std::array<std::int32_t, 20> itemValuesD13EC4; // 原全局：0x00D13EC4。
-    std::array<world::detail::PetRuntimeRecord, 5> pets;
+    std::array<world::PetRuntimeRecord, 5> pets;
     std::array<std::int32_t, 5> petValuesD2D464; // 原全局：0x00D2D464。
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
@@ -62,7 +66,7 @@ static void WindowStall_ReceiveCloseResult(std::int32_t result); // 收摊结果
 static void WindowStall_ReceivePurchaseResult(std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
 
 // 原函数：0x004CF8A0。
-static void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
+static void WindowStall_BuildItemDescription(world::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
 
 // 原函数：0x004CECB0。
 static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
@@ -748,11 +752,11 @@ static WindowElement* WindowStall_EditItemPrice()
 // 原函数：0x004CFCA0。
 static void WindowStall_EditPetPrice(const std::int32_t petIndex)
 {
-    const auto& pet = world::detail::gPetRuntimeRecords[petIndex];
+    const auto& pet = world::gPetRuntimeRecords[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
-            world::detail::Sub_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
+            world::Sub_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
             return;
         }
     }
@@ -1187,8 +1191,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
     if (position >= gStallPetCountD67BD4) {
         return 0;
     }
-    world::detail::PetRuntimeRecord* const pet = own
-        ? &world::detail::gPetRuntimeRecords[gStallPetOffersCC3E98[position].slot]
+    world::PetRuntimeRecord* const pet = own
+        ? &world::gPetRuntimeRecords[gStallPetOffersCC3E98[position].slot]
         : &gStallBrowseData->pets[position];
     if (pet->used == 0) {
         return 0;
@@ -1333,7 +1337,7 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
 {
-    const std::int32_t segments = world::detail::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
+    const std::int32_t segments = world::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1365,7 +1369,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         return 0;
     }
     const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
-    const auto* const initialPet = &world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row];
+    const auto* const initialPet = &world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row];
     if (initialPet->used == 0) {
         if ((state & 2) != 0) {
             gStallPetSelection581128 = -1;
@@ -1381,18 +1385,18 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     };
     cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(initialPet->name6AC.data()).c_str());
     drawText(298, 132);
-    cg::text::FormatTo(buffer, L"{:3}", world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
+    cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
-    const std::int32_t hp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
+    const std::int32_t maxHp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
+    const std::int32_t hp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
-    const std::int32_t fp = world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
+    const std::int32_t maxFp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
+    const std::int32_t fp = world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value04);
+        world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
         cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
@@ -1492,10 +1496,10 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     if (position >= gStallItemCountD67BCC) {
         return 0;
     }
-    world::detail::PlayerItemRecord* item;
+    world::PlayerItemRecord* item;
     if (own) {
         const std::int32_t slot = gStallItemOffersD671D8[position].slot;
-        item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
+        item = &world::gPlayerRuntimeSlots.items[slot + 8];
         if (item->used == 0) {
             return 0;
         }
@@ -1631,7 +1635,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
     std::int32_t hovered = -1;
     std::wstring buffer;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
-        auto* const item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
+        auto* const item = &world::gPlayerRuntimeSlots.items[slot + 8];
         if (item->used == 0) {
             continue;
         }
@@ -2041,7 +2045,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 42, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
         gCurrentWindow->elements[7].visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
@@ -2130,7 +2134,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         }
         gStallHover581120 = -1;
     }
-    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::detail::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::gPlayerRuntimeSlots.valueFC);
     return 1;
 }
 
@@ -2194,21 +2198,21 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
     if (gStallOwn58111C != 0) {
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2A8(source);
             cg::yobi::SetYobiActionField2A8(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B0(source);
             cg::yobi::SetYobiActionField2B0(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B8(source);
             cg::yobi::SetYobiActionField2B8(target, value);
@@ -2223,7 +2227,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         for (std::int32_t index = itemCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallItemOffersD671D8.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::detail::gPlayerRuntimeSlots.items[slot + 8].used == 0) {
+            if (world::gPlayerRuntimeSlots.items[slot + 8].used == 0) {
                 --itemCount;
                 gStallItemUsedCC31AC[slot] = 0;
                 gStallItemCountD67BCC = itemCount;
@@ -2242,7 +2246,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         for (std::int32_t index = petCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::detail::gPetRuntimeRecords[slot].used == 0) {
+            if (world::gPetRuntimeRecords[slot].used == 0) {
                 --petCount;
                 gStallPetUsedCF400C[slot] = 0;
                 gStallPetCountD67BD4 = petCount;
@@ -2306,17 +2310,17 @@ static void WindowStall_OpenBrowse(
 {
     gStallItemCountD67BCC = 0;
     gStallPetCountD67BD4 = 0;
-    cg::yobi::YobiAction* const action = world::detail::FindObjectYobi_4462B0(target);
+    cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:
-            world::detail::Sub_44B050(L"没有可以浏览的摊位", 4, 0);
+            world::Sub_44B050(L"没有可以浏览的摊位", 4, 0);
             break;
         case 2:
-            world::detail::Sub_44B050(L"浏览的摊位已经收摊", 4, 0);
+            world::Sub_44B050(L"浏览的摊位已经收摊", 4, 0);
             break;
         case 3:
-            world::detail::Sub_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
+            world::Sub_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
             break;
         }
         WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
@@ -2332,7 +2336,7 @@ static void WindowStall_OpenBrowse(
     for (auto& item : browse.items) { item = {}; }
     browse.itemValuesD13E74.fill(0);
     browse.itemValuesD13EC4.fill(0);
-    for (world::detail::PetRuntimeRecord& pet : browse.pets) {
+    for (world::PetRuntimeRecord& pet : browse.pets) {
         pet.ClearRaw();
     }
     constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
@@ -2486,14 +2490,14 @@ static void WindowStall_OpenBrowse(
                 record.sequence = 0;
             }
         }
-        world::detail::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), 10);
+        world::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), 10);
     }
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     static_cast<void>(WindowRuntime_CreateAnimation(WindowId_StallBrowse, 1, 0, nullptr));
 }
 
 // 原函数：0x004CF8A0。
-static void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* const item, const char* const text)
+static void WindowStall_BuildItemDescription(world::PlayerItemRecord* const item, const char* const text)
 {
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
@@ -2594,7 +2598,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         }
         gStallMessageC8A978 = message;
         WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-        world::detail::ClearPlayerActionFlags(0x1000u);
+        world::ClearPlayerActionFlags(0x1000u);
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
         if (window != nullptr) {
@@ -2606,13 +2610,13 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
     }
     char name[33];
     cg::text::StoreGbk(name, sizeof(name), L"无名店铺");
-    world::detail::SetPlayerActionFlags(0x1000u);
+    world::SetPlayerActionFlags(0x1000u);
     std::memset(name + 9, 0, 24);
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-    std::strcpy(world::detail::gPlayerRuntimeSlots.text15BB8.data(), name);
+    std::strcpy(world::gPlayerRuntimeSlots.text15BB8.data(), name);
     if (window != nullptr) {
         window->elements[0].visible = 0;
     }
@@ -2625,7 +2629,7 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
     if (result != 0) {
         gStallMessageC8A978 = L"收摊失败";
     }
-    world::detail::ClearPlayerActionFlags(0x1000u);
+    world::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
     gValueD67BE0 = 0;
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;

@@ -5,7 +5,6 @@
 #include "../Yobi/map_actor.hpp"
 #include "../Yobi/battle_base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
-#include "WorldUpdateDependencies.hpp"
 #include "WorldObjectState.hpp"
 #include "cg/world/Blacklist.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -19,6 +18,12 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "ChatHistory.hpp"
+#include "PlayerState.hpp"
+#include "WorldMapState.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <new>
@@ -67,40 +72,6 @@ void AllocateActorChatText(
 
 } // namespace
 
-// 原函数：0x0043D860。
-void Sub_43D860(cg::yobi::YobiAction* const action)
-{
-    cg::yobi::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
-    if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
-        return;
-    }
-    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    if (gWorldObjects[payload->index].category != 1) {
-        return;
-    }
-    const auto playerX = static_cast<std::int64_t>(player->worldX);
-    const auto targetX = static_cast<std::int64_t>(action->worldX);
-    const auto playerY = static_cast<std::int64_t>(player->worldY);
-    const auto targetY = static_cast<std::int64_t>(action->worldY);
-    const auto dx = static_cast<std::int16_t>(
-        static_cast<std::uint16_t>(playerX) - static_cast<std::uint16_t>(targetX));
-    const auto dy = static_cast<std::int16_t>(
-        static_cast<std::uint16_t>(playerY) - static_cast<std::uint16_t>(targetY));
-    if (dx < 0) {
-        action->direction = dy < 0 ? 7 : (dy == 0 ? 6 : 5);
-    } else if (dx > 0) {
-        action->direction = dy < 0 ? 1 : (dy == 0 ? 2 : 3);
-    } else if (dy < 0) {
-        action->direction = 0;
-    } else if (dy > 0) {
-        action->direction = 4;
-    } else {
-        // 原43D956读取实参地址低字节；不是旧方向，不伪造x86地址。
-        action->direction = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(action)));
-    }
-}
-
 // 原函数：0x00442DC0。
 void Sub_442DC0(
     cg::yobi::YobiAction* const action, const std::int32_t duration,
@@ -130,7 +101,7 @@ void Sub_51A6A0(
     const std::int32_t duration, const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
-    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -143,7 +114,7 @@ void Sub_51A6A0(
         delete previousText;
         payload->text1C = nullptr;
     }
-    AllocateActorChatText(payload, cg::world::detail::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font, length);
+    AllocateActorChatText(payload, cg::world::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font, length);
 }
 
 // 原函数：0x00442C00。
@@ -328,30 +299,6 @@ std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* const action)
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x50u;
-    return &flags;
-}
-
-// 原函数：0x0043DB00。
-std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
-{
-    if (action == nullptr) {
-        return nullptr;
-    }
-    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
-    *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
-    return &flags;
-}
-
-// 原函数：0x0043DB30。
-std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* const action)
-{
-    if (action == nullptr) {
-        return nullptr;
-    }
-    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
-    flags &= 0xFF7Fu;
     return &flags;
 }
 
@@ -709,3 +656,67 @@ void RenderChara_521F20()
 }
 
 } // namespace cg::world::detail
+
+namespace cg::world {
+
+// 原函数：0x0043D860。
+void Sub_43D860(cg::yobi::YobiAction* const action)
+{
+    cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
+    if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
+        return;
+    }
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
+    if (detail::gWorldObjects[payload->index].category != 1) {
+        return;
+    }
+    const auto playerX = static_cast<std::int64_t>(player->worldX);
+    const auto targetX = static_cast<std::int64_t>(action->worldX);
+    const auto playerY = static_cast<std::int64_t>(player->worldY);
+    const auto targetY = static_cast<std::int64_t>(action->worldY);
+    const auto dx = static_cast<std::int16_t>(
+        static_cast<std::uint16_t>(playerX) - static_cast<std::uint16_t>(targetX));
+    const auto dy = static_cast<std::int16_t>(
+        static_cast<std::uint16_t>(playerY) - static_cast<std::uint16_t>(targetY));
+    if (dx < 0) {
+        action->direction = dy < 0 ? 7 : (dy == 0 ? 6 : 5);
+    } else if (dx > 0) {
+        action->direction = dy < 0 ? 1 : (dy == 0 ? 2 : 3);
+    } else if (dy < 0) {
+        action->direction = 0;
+    } else if (dy > 0) {
+        action->direction = 4;
+    } else {
+        // 原43D956读取实参地址低字节；不是旧方向，不伪造x86地址。
+        action->direction = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(action)));
+    }
+}
+
+
+// 原函数：0x0043DB00。
+std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
+    auto& flags = detail::gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
+    return &flags;
+}
+
+
+// 原函数：0x0043DB30。
+std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
+    auto& flags = detail::gWorldObjects[payload->index].flags120;
+    flags &= 0xFF7Fu;
+    return &flags;
+}
+
+} // namespace cg::world

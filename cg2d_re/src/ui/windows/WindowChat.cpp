@@ -1,5 +1,6 @@
 #include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../../world/ChatHistory.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -159,7 +160,7 @@ static std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
     if (index == 0) {
         return cg::ui::detail::gInputContexts5F9758[23].field158;
     }
-    return world::detail::gRecords5FB7F8[index - 1].fontType;
+    return world::gRecords5FB7F8[index - 1].fontType;
 }
 
 // 原函数：0x004A6D80。
@@ -167,7 +168,7 @@ std::int32_t WindowChat_ResetState()
 {
     platform::gValue554640 = 1;
     gChatScrollOffsetC9A940 = 0;
-    world::detail::gCountC9A944 = 0;
+    world::gCountC9A944 = 0;
     gChatWidthRequestC9A934 = 0;
     gChatHeightRequestC9A93C = 0;
     cg::ui::detail::gInputContext626AA0.field140 = 0;
@@ -179,7 +180,7 @@ std::int32_t WindowChat_ResetScrollRequests()
 {
     gChatScrollOffsetC9A940 = 0;
     gChatWidthRequestC9A934 = 0;
-    world::detail::gCountC9A944 = 0;
+    world::gCountC9A944 = 0;
     gChatHeightRequestC9A93C = 0;
     return 0;
 }
@@ -220,9 +221,9 @@ static void WindowChat_SyncScrollThumb()
     }
     const std::int32_t scroll = gChatScrollOffsetC9A940;
     WindowElement* const before = window->elements;
-    const std::int32_t count = world::detail::gCountC9A944;
+    const std::int32_t count = world::gCountC9A944;
     static_cast<void>(WindowScroll_SetPosition(&before[9], count, scroll));
-    const std::int32_t currentCount = world::detail::gCountC9A944;
+    const std::int32_t currentCount = world::gCountC9A944;
     WindowElement* const elements = window->elements;
     if (currentCount == 0) {
         elements[8].y = elements[14].y - 14;
@@ -230,7 +231,7 @@ static void WindowChat_SyncScrollThumb()
     }
     const double currentScroll = gChatScrollOffsetC9A940;
     const std::int32_t span = elements[10].height - 14;
-    const double ratio = currentScroll / world::detail::gCountC9A944;
+    const double ratio = currentScroll / world::gCountC9A944;
     const double pixels = ratio * span;
     // 原PC53除法/乘法及__ftol取低S32，不能改为整数先乘后除。
     const auto position = static_cast<std::int32_t>(static_cast<std::int64_t>(pixels));
@@ -456,7 +457,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
                 platform::gValue554640 = 1;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::detail::gValue626BFC = 180;
+            world::gValue626BFC = 180;
             consumed = 1;
         }
         if ((state & 4) != 0) {
@@ -466,7 +467,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
                 platform::gValue554640 = 5;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::detail::gValue626BFC = 180;
+            world::gValue626BFC = 180;
             consumed = 1;
         }
         break;
@@ -546,7 +547,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             color = cg::ui::detail::gInputContext626AA0.field140;
-            world::detail::gInputContext626840.field140 = color;
+            world::gInputContext626840.field140 = color;
             consumed = 1;
         } else {
             color = cg::ui::detail::gInputContext626AA0.field140;
@@ -560,7 +561,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
                 cg::ui::detail::gInputContext626AA0.field140 = 9;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::detail::gInputContext626840.field140 = cg::ui::detail::gInputContext626AA0.field140;
+            world::gInputContext626840.field140 = cg::ui::detail::gInputContext626AA0.field140;
             consumed = 1;
         }
         break;
@@ -573,7 +574,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         consumed = hovered ? 1 : 0;
         if ((state & 0x400) != 0) {
             const std::int32_t previousScroll = gChatScrollOffsetC9A940;
-            const std::int32_t count = world::detail::gCountC9A944;
+            const std::int32_t count = world::gCountC9A944;
             const std::int32_t scroll = previousScroll + 1;
             gChatScrollOffsetC9A940 = scroll;
             if (scroll > count) {
@@ -635,7 +636,7 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
                 gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
                 gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
                 gChatInputPrototype57E970.x = 8;
-                cg::ui::detail::gInputContext626AA0 = world::detail::gInputContext626840;
+                cg::ui::detail::gInputContext626AA0 = world::gInputContext626840;
                 gChatInputPrototype57E970.y = 5;
                 gChatInputPrototype57E970.renderMode = 3;
                 gChatInputPrototype57E970.fontType = 9;
@@ -702,9 +703,9 @@ static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::i
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     if ((state & 8) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::int32_t count = world::detail::gCountC9A944;
+        const std::int32_t count = world::gCountC9A944;
         const std::int32_t position = WindowScroll_ReadPosition(&window->elements[9], count);
-        gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - position;
+        gChatScrollOffsetC9A940 = world::gCountC9A944 - position;
     }
     return consumed;
 }
@@ -717,7 +718,7 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
         return 0;
     }
-    const std::int32_t count = world::detail::gCountC9A944;
+    const std::int32_t count = world::gCountC9A944;
     if (count == 0) {
         if (platform::gLegacyMouseState.tailReset != 0) {
             WindowElement* const elements = window->elements;
@@ -728,14 +729,14 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = count - gChatScrollOffsetC9A940;
     const std::int32_t next = WindowScroll_ApplyWheel(&window->elements[9], position, count, wheel);
-    gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - next;
+    gChatScrollOffsetC9A940 = world::gCountC9A944 - next;
     return 0;
 }
 
 // 原函数：0x004A7700。
 static std::int32_t WindowChat_ResetScroll()
 {
-    world::detail::gCountC9A944 = 0;
+    world::gCountC9A944 = 0;
     gChatScrollOffsetC9A940 = 0;
     return 0;
 }
@@ -743,7 +744,7 @@ static std::int32_t WindowChat_ResetScroll()
 // 原函数：0x0044B170。
 std::int32_t WindowChat_ClearHistory()
 {
-    for (auto& record : world::detail::gRecords5FB7F8) {
+    for (auto& record : world::gRecords5FB7F8) {
         record.text[0] = '\0';
     }
     return WindowChat_ResetScroll();
@@ -822,29 +823,29 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
         const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
         width = widthUnits * fontWidth;
     }
-    std::int32_t logIndex = world::detail::gWriteIndex626C08;
+    std::int32_t logIndex = world::gWriteIndex626C08;
     logIndex -= gChatScrollOffsetC9A940;
     --logIndex;
     if (logIndex < 0) {
         logIndex = 511;
     }
-    for (auto& record : world::detail::gRecords5FB7F8) {
+    for (auto& record : world::gRecords5FB7F8) {
         if (record.fontType > 14 || WindowChat_PreviousFont(logIndex) < 0) {
             record.fontType = 0;
         }
     }
     std::int32_t drawY = y - render::gFontMetrics[
-        world::detail::gRecords5FB7F8[logIndex].fontType].doubleHeight;
+        world::gRecords5FB7F8[logIndex].fontType].doubleHeight;
     std::int32_t processedRecords = 0;
     for (;;) {
-        auto& source = world::detail::gRecords5FB7F8[logIndex];
+        auto& source = world::gRecords5FB7F8[logIndex];
         if (source.text[0] == '\0') { return; }
         const std::wstring contents = cg::text::FromGbkWide(source.text);
         const auto rows = render::Font::split(contents, source.fontType, width);
         const std::int32_t lineCount = static_cast<std::int32_t>(rows.size());
 
         if (lineCount > 0) {
-            auto& record = world::detail::gRecords5FB7F8[logIndex];
+            auto& record = world::gRecords5FB7F8[logIndex];
             const wchar_t* row = rows.back().c_str();
             for (std::int32_t line = 0; line < lineCount; ++line) {
                 const std::int32_t font = record.fontType;
@@ -889,7 +890,7 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
         if (logIndex < 0) {
             logIndex = 511;
         }
-        if (processedRecords >= world::detail::gCountC9A944) {
+        if (processedRecords >= world::gCountC9A944) {
             return;
         }
     }
@@ -926,7 +927,7 @@ std::int32_t WindowChat_RestoreInput()
             gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
             gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
             gChatInputPrototype57E970.x = 8;
-            cg::ui::detail::gInputContext626AA0 = world::detail::gInputContext626840;
+            cg::ui::detail::gInputContext626AA0 = world::gInputContext626840;
             gChatInputPrototype57E970.y = 5;
             gChatInputPrototype57E970.renderMode = 3;
             gChatInputPrototype57E970.fontType = 9;

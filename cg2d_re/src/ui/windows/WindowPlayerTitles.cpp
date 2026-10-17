@@ -1,5 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
-#include "../../world/WorldUpdateDependencies.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -180,10 +181,10 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
     }
     const std::int32_t mode = gTitleModeCF4E50;
     if (mode == 0 || mode == 1) {
-        const std::int32_t id = world::detail::gSortedTitlesDE03F8[gTitlePageCF4E54 + index - 26].id;
+        const std::int32_t id = world::gSortedTitlesDE03F8[gTitlePageCF4E54 + index - 26].id;
         // 删除模式直接查原表，只有普通选择先拒绝负id。
         if (mode == 1 || id >= 0) {
-            const std::int32_t originalIndex = world::detail::Sub_519840(id);
+            const std::int32_t originalIndex = world::Sub_519840(id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
                     static_cast<void>(network::Sub_512310(platform::gConnectionSocket, originalIndex));
@@ -407,24 +408,24 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 static void WindowPlayerTitles_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const name = world::detail::GetPlayerDisplayText(1);
+    const char* const name = world::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:3}", world::detail::gPlayerRuntimeSlots.level);
+    cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     levelData->text = buffer;
 
-    const std::int32_t titleIndex = world::detail::gPlayerRuntimeSlots.titleIndex100;
+    const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const char* const title = world::detail::GetTitleText(titleIndex);
+    const char* const title = world::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);
 
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
         auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         draftData->text = gTitleDraftD45FC0;
-        const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(2))) == 0;
+        const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::GetPlayerDisplayText(2))) == 0;
         auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
@@ -436,11 +437,11 @@ static void WindowPlayerTitles_Refresh()
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 1));
     }
 
-    const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(2))) == 0;
+    const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::GetPlayerDisplayText(2))) == 0;
     gCurrentWindow->elements[21].visible = unchanged ? 0 : 1;
 
-    const world::detail::TitleRecord* record =
-        world::detail::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
+    const world::TitleRecord* record =
+        world::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
     for (std::int32_t index = 10; index < 16; ++index) {
         WindowInstance* const window = gCurrentWindow;
         const char* const text = record->text.data();
@@ -455,12 +456,12 @@ static void WindowPlayerTitles_Refresh()
 static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const char* const ownTitle = world::detail::GetPlayerDisplayText(2);
+        const char* const ownTitle = world::GetPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;
         gTitleDraftD45FC0 = cg::text::FromGbkWide(ownTitle);
 
         WindowElement* const elements = gCurrentWindow->elements;
-        const char* const displayTitle = world::detail::GetPlayerDisplayText(2);
+        const char* const displayTitle = world::GetPlayerDisplayText(2);
         auto* const data = static_cast<WindowTextData*>(elements[8].data);
         data->text = cg::text::FromGbkWide(displayTitle);
     }

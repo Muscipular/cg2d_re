@@ -1,4 +1,7 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/audio/LegacyAudio.hpp"
+#include "../../world/MailState.hpp"
+#include "../../world/PlayerState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
@@ -164,7 +167,7 @@ WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
 // 原函数：0x004CB530。
 static void WindowProfileView_Release()
 {
-    world::detail::gValue581800 = -1;
+    world::gValue581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
 }
 
@@ -185,7 +188,7 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244251;
     }
     if ((state & 2) != 0) {
-        const std::int32_t money = world::detail::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
         if (money >= world::detail::ReadCategoryValue105FA20()) {
             const auto& profile = world::detail::gViewedProfile105ECE0;
             gMiniMailCompose105F508.target = profile.value00;

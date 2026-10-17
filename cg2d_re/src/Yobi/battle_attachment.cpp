@@ -1,9 +1,11 @@
 #include "battle_attachment.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 
 #include "animation.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
+#include "../world/BattleState.hpp"
+#include "../world/PlayerState.hpp"
 
 #include <array>
 #include <cstdint>
@@ -16,7 +18,7 @@ namespace detail {
 void UpdateBattleAttachment_421F90(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
-    YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
+    YobiAction* const registered = world::gBattleAllEntries59E980[position];
     YobiAction* const parent = action->battleAttachmentParent10;
     if (registered != parent) {
         static_cast<void>(MarkDeath(action));
@@ -28,7 +30,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
-    YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
+    YobiAction* const registered = world::gBattleAllEntries59E980[position];
     const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (registered != parent) {
         static_cast<void>(MarkDeath(action));
@@ -113,7 +115,7 @@ void SyncBattleGear_4225D0(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
-    YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
+    YobiAction* const registered = world::gBattleAllEntries59E980[position];
     const bool hasRegisteredParent = registered == parent;
     const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (!hasRegisteredParent) {
@@ -206,7 +208,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     const std::int32_t parentDirection = parent->direction;
     const std::int32_t position = action->value1D4;
     action->direction = parentDirection;
-    if (world::detail::gBattleAllEntries59E980[position] != parent) {
+    if (world::gBattleAllEntries59E980[position] != parent) {
         static_cast<void>(MarkDeath(action));
         return;
     }
@@ -403,7 +405,7 @@ std::int32_t SetBattleRider_4222B0(
     auto* const payload = action->payload.battleActor;
     if (ridingImageNo > 0) {
         if (payload->rider13C8 == nullptr) {
-            const std::int32_t mapped = world::detail::Sub_51C0D0(imageNo);
+            const std::int32_t mapped = world::Sub_51C0D0(imageNo);
             YobiAction* const rider = NewBattleRider_4221F0(action, mapped);
             payload->rider13C8 = rider;
             rider->phase = 0;
@@ -411,7 +413,7 @@ std::int32_t SetBattleRider_4222B0(
             payload->rider13C8->characterAction = 0;
         }
         if (payload->rider13C8 != nullptr) {
-            const std::int32_t mapped = world::detail::Sub_51C0D0(imageNo);
+            const std::int32_t mapped = world::Sub_51C0D0(imageNo);
             payload->rider13C8->imageNo = mapped;
         }
         action->imageNo = ridingImageNo;

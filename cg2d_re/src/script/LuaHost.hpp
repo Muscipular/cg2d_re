@@ -2,7 +2,6 @@
 
 #include "LuaInternal.hpp"
 #include "../ui/WindowRuntimeState.hpp"
-#include "../world/WorldUpdateDependencies.hpp"
 #include "../Yobi/base.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/input/Input.hpp"
@@ -17,6 +16,7 @@
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include <algorithm>
 #include <memory>
 #include <map>

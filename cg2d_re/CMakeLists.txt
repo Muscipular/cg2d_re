@@ -81,7 +81,7 @@ set_target_properties(cg2d_re_luajit_prebuilt PROPERTIES
 target_include_directories(cg2d_re_luajit_prebuilt INTERFACE
     "${CMAKE_CURRENT_SOURCE_DIR}/3rd/luajit")
 
-add_library(cg2d_re_core STATIC
+set(cg2d_re_core_sources
     src/text/Encoding.cpp
     src/resource/ResourceNames.cpp
     src/resource/ResourcePaths.cpp
@@ -104,20 +104,8 @@ add_library(cg2d_re_core STATIC
     src/platform/LegacyWindow.cpp
 )
 
-target_include_directories(cg2d_re_core
-    PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-target_compile_features(cg2d_re_core PUBLIC cxx_std_20)
-set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
-target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
-# 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
-target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3-static yaml-cpp::yaml-cpp user32 gdi32 gdiplus windowscodecs shlwapi ole32)
-
 # 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
-add_library(cg2d_re_startup STATIC
+set(cg2d_re_startup_sources
     src/script/LuaRuntime.cpp
     src/script/LuaData.cpp
     src/script/LuaUI.cpp
@@ -311,45 +299,41 @@ add_library(cg2d_re_startup STATIC
     src/world/RenderInput.cpp
     src/world/WorldUpdate.cpp
 )
-set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)
-target_compile_options(cg2d_re_startup PRIVATE
-    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
-target_compile_definitions(cg2d_re_startup PRIVATE
-    "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE cg2d_re_lz4 SDL3::SDL3-static user32 shell32 gdi32 imm32 ws2_32 winmm iphlpapi ole32 bcrypt)
-target_link_libraries(cg2d_re_startup PRIVATE cg2d_re_luajit_prebuilt yaml-cpp::yaml-cpp)
-
-add_library(cg2d_re_render STATIC
-    src/render/SdlPresenter.cpp
-)
-target_include_directories(cg2d_re_render PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_compile_features(cg2d_re_render PUBLIC cxx_std_20)
-set_target_properties(cg2d_re_render PROPERTIES CXX_EXTENSIONS OFF)
-target_compile_options(cg2d_re_render PRIVATE /GR- /utf-8 /W4)
-target_compile_definitions(cg2d_re_render PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3-static user32 gdi32)
 
 # BRS01/D03：由宿主 Windows CRT 进入唯一真实 WinMain，不设置私有 /ENTRY。
 configure_file(src/platform/FixedMusic.rc.in "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc" @ONLY)
 set_source_files_properties("${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc" PROPERTIES
     OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/app.ico;${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_0.wav;${CMAKE_CURRENT_SOURCE_DIR}/src/audio/fixed_1.wav")
 add_executable(cg2d_re_client WIN32
+    ${cg2d_re_core_sources}
+    ${cg2d_re_startup_sources}
+    src/render/SdlPresenter.cpp
     src/platform/ClientEntry.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc"
 )
 
 set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF OUTPUT_NAME cg2d_re)
+target_include_directories(cg2d_re_client PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_compile_features(cg2d_re_client PRIVATE cxx_std_20)
 target_compile_options(cg2d_re_client PRIVATE
-    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
+    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4>")
+# 保持原startup及入口的浮点设置，不扩大到原core／render源码。
+set_source_files_properties(${cg2d_re_startup_sources} src/platform/ClientEntry.cpp
+    PROPERTIES COMPILE_OPTIONS /fp:strict)
+# 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render dbghelp)
+target_link_libraries(cg2d_re_client PRIVATE
+    cg2d_re_lz4 cg2d_re_luajit_prebuilt cg2d_re_tmd
+    SDL3::SDL3-static yaml-cpp::yaml-cpp
+    user32 shell32 gdi32 gdiplus windowscodecs shlwapi imm32
+    ws2_32 winmm iphlpapi ole32 bcrypt dbghelp)
 # LUM01：预编译LuaJIT使用Release静态CRT；参与客户端链接的源码目标在Debug也须匹配/MT。
 # 保留各配置的调试信息与优化设置；SDL静态目标已在其子目录作用域匹配/MT。
-set_target_properties(cg2d_re_client cg2d_re_startup cg2d_re_core
-    cg2d_re_render cg2d_re_lz4 yaml-cpp
+set_target_properties(cg2d_re_client cg2d_re_lz4 yaml-cpp
     PROPERTIES MSVC_RUNTIME_LIBRARY MultiThreaded)
-# 保留实际归档成员和入口的链接证据；不以源码未引用推断原端可达性。
-target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
+# 保留链接映射及EXE导出符号，仅停止生成额外的导入库／导出描述文件。
+target_link_options(cg2d_re_client PRIVATE /NOIMPLIB /NOEXP
+    "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
 
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。
 add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL
@@ -361,13 +345,8 @@ target_link_libraries(cg2d_re_midi_to_wav PRIVATE SDL3::SDL3-static)
 set_target_properties(cg2d_re_midi_to_wav PROPERTIES MSVC_RUNTIME_LIBRARY MultiThreaded)
 
 # 业务开关覆盖全部自有目标，不传播至SDL、yaml-cpp和LZ4，避免切换时重编依赖。
-foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render
-    cg2d_re_client cg2d_re_midi_to_wav)
+foreach(cg2d_re_target IN ITEMS cg2d_re_client cg2d_re_midi_to_wav)
     target_compile_definitions(${cg2d_re_target} PRIVATE
         "$<$<BOOL:${TAOMOLI}>:TAOMOLI>"
         "$<$<CONFIG:Debug>:MY_DEBUG>")
-endforeach()
-
-foreach(cg2d_re_target IN ITEMS cg2d_re_core cg2d_re_startup cg2d_re_render cg2d_re_client)
-    target_link_libraries(${cg2d_re_target} PRIVATE cg2d_re_tmd)
 endforeach()

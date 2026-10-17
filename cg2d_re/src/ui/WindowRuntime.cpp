@@ -4309,7 +4309,7 @@ std::int32_t WindowRuntime_Update()
                 reportedContext = context;
                 reportedText = contents;
                 reportedFailure = true;
-                platform::ShowWideMessage(L"文字无法按GBK保存，或已超出字段容量。", L"文字编码", 0x10U);
+                m_log_iw(L"文字无法按GBK保存，或已超出字段容量。");
             }
             return 0;
         }

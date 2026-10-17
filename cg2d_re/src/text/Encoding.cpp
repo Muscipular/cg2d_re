@@ -64,7 +64,10 @@ std::string ToGbk(const std::wstring_view utf16)
 {
     try { return Encode(utf16, kGbkCodePage); }
     catch (const std::system_error& error) {
+#ifdef MY_DEBUG
         throw GbkStorageError(error.code(), "文字无法编码为GBK");
+#endif
+        return "";
     }
 }
 
@@ -72,7 +75,10 @@ void StoreGbk(char* const destination, const std::size_t capacity, const std::ws
 {
     const std::string stored = ToGbk(utf16);
     if (stored.size() >= capacity) {
+#ifdef MY_DEBUG
         throw GbkStorageError(ERROR_INSUFFICIENT_BUFFER, std::system_category(), "文字超过GBK字段容量");
+#endif
+        return;
     }
     std::char_traits<char>::move(destination, stored.c_str(), stored.size() + 1);
 }

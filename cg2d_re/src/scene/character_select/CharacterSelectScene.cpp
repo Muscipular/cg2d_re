@@ -41,6 +41,7 @@
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 #include "../../platform/MainLoopDependencies.hpp"
+#include "cg/core/vm.h"
 
 namespace cg::character_select::detail {
 
@@ -1317,7 +1318,9 @@ static constexpr std::int32_t kUsageNoticeState = 22;
 // CUN01：沿现有游戏模态动作与文字按钮，返回0等待、1同意、2退出。
 static std::int32_t ProcessUsageNotice()
 {
-    constexpr std::array<std::wstring_view, 8> lines {{
+    std::int32_t iRet = 0;
+    VM_HARD_START
+    std::array<std::wstring_view, 8> lines {{
         L"本程序仅供学习研究使用，严禁用于任何商业用途。",
         L"本程序所涉及的所有版权均归官方所有，",
         L"未经官方正式授权，任何单位或个人不得",
@@ -1327,7 +1330,7 @@ static std::int32_t ProcessUsageNotice()
         L"请您及时与收费方沟通并申请退款，",
         L"由此产生的一切纠纷与本程序提供方无关。",
     }};
-    constexpr std::array<detail::CharacterModalUiRecord, 2> buttons {{
+    std::array<detail::CharacterModalUiRecord, 2> buttons {{
         {264, 368, 240, 366, 64, 24, L"是"},
         {360, 368, 336, 366, 64, 24, L"否"},
     }};
@@ -1335,10 +1338,10 @@ static std::int32_t ProcessUsageNotice()
     auto*& action = state::gCharacterModalAction;
     if (action == nullptr) {
         action = cg::yobi::CreateModalAction_5044E0(32, 72, 576, 336, 4, 1);
-        return 0; // 创建当帧不消费人物选择的点击；失败时下一帧重试。
+        goto RET; // 创建当帧不消费人物选择的点击；失败时下一帧重试。
     }
     if (!cg::yobi::IsYobiActionReady(action, 1)) {
-        return 0;
+        goto RET;
     }
 
     for (std::size_t index = 0; index < buttons.size(); ++index) {
@@ -1346,7 +1349,8 @@ static std::int32_t ProcessUsageNotice()
             login::detail::PlaySe(79, 320, 240);
             cg::yobi::MarkDeath(action);
             action = nullptr;
-            return static_cast<std::int32_t>(index) + 1;
+            iRet = static_cast<std::int32_t>(index) + 1;
+            goto RET;
         }
     }
 
@@ -1359,7 +1363,9 @@ static std::int32_t ProcessUsageNotice()
     for (const auto& button : buttons) {
         detail::Sub_503A20(&button, 2, 4, 1, cg::render::gValueD69768, 214);
     }
-    return 0;
+RET:
+    VM_HARD_END
+    return iRet;
 }
 #endif
 
@@ -1446,6 +1452,7 @@ static void UpdateCharacterGraphic(
 // 原函数：0x00460FF0。
 std::int32_t ProcessScene_460FF0()
 {
+    VM_HARD_START
     std::int32_t interactive = 1;
 
     const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
@@ -1808,6 +1815,7 @@ std::int32_t ProcessScene_460FF0()
         }
         world::gCurrentSceneState = 0;
     }
+    VM_HARD_END
     return result;
 }
 

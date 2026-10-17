@@ -22,6 +22,8 @@
 #include <Windows.h>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
+#include "cg/core/m_log.hpp"
+
 namespace cg::login::detail {
 
 struct SavedPath final {
@@ -1027,7 +1029,7 @@ try {
     return Sub_520200();
 }
 catch (const cg::text::GbkStorageError&) {
-    cg::platform::ShowWideMessage(L"快捷文字无法按GBK保存，或已超出存档容量。", L"文字编码", 0x10U);
+    m_log_iw(L"快捷文字无法按GBK保存，或已超出存档容量。");
     return -1;
 }
 

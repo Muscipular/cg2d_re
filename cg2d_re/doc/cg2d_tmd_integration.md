@@ -7,7 +7,7 @@
 - `3rd/tmd/`保留原SDK目录的10个文件，逐字节复制，不改厂商头文件；额外加入用户提供的x64库。原32位库及VMProtect文件仅随目录保存，当前客户端不链接它们。
 - `include/cg/core/vm.h`迁入原Themida宏封装，保留VM_START／END、VM_LIGHT、VM_HARD、VM_HARD2及原调试分支的空宏。取消头文件硬编码TMD，改由CMake控制；原文件未启用的VMProtect替代分支不接入。
 - CMake选项`TMD`默认OFF；使用`-DTMD=ON`启用非Debug配置的TMD编译宏、SDK包含目录及SecureEngineSDK64.lib链接依赖。Debug仍使用MY_DEBUG空宏，不包含SDK头、不链接SDK库。
-- `cg2d_re_tmd`为INTERFACE目标，只连接core、startup、render、client四个自有目标，不传播至SDL、yaml-cpp、LZ4或LuaJIT，也不重新构建这些依赖。
+- `cg2d_re_tmd`为INTERFACE目标；2026-10-18自有源码统一归入EXE后，只连接cg2d_re_client，不传播至SDL、yaml-cpp、LZ4或LuaJIT，也不重新构建这些依赖。
 
 需要标记的源码包含`cg/core/vm.h`，在业务区域直接成对使用相应START／END宏。此次仅迁入SDK和封装、接通构建配置，未自行选择或插入业务保护区域，未执行加壳。
 

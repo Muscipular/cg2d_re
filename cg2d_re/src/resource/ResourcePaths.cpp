@@ -18,6 +18,9 @@
 #include <cstring>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
+#include "cg/core/m_log.hpp"
+#include "cg/core/vm.h"
+
 namespace cg::resource {
 
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
@@ -188,6 +191,7 @@ char* gCoordinateInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D12C。
 int BuildResourcePaths()
 {
     try {
+        VM_HARD2_START
         const YAML::Node config = YAML::LoadFile("cgmsv.yml");
         const YAML::Node sets = config["BinLoader"];
         if (!sets.IsSequence() || sets.size() == 0 || sets.size() > BinLoaderMaxGroups) {
@@ -223,9 +227,9 @@ int BuildResourcePaths()
         gBinLoaderGraphicCapacity = graphicCapacity;
         gBinLoaderAnimeCapacity = animeCapacity;
         gBinLoaderGroupCount = sets.size();
+        VM_HARD2_END
     } catch (const std::exception& error) {
-        platform::ShowWideMessage(
-            L"cgmsv.yml 加载失败：" + text::FromLegacyDisplayWide(error.what()), L"资源配置", 0);
+        m_log_iw((L"cgmsv.yml 加载失败：" + text::FromLegacyDisplayWide(error.what())).c_str());
         return -1;
     }
     return 0;

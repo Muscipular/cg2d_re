@@ -30,6 +30,8 @@
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
+#include "cg/core/m_log.hpp"
+
 namespace cg::input {
 
 InputContext::InputContext() noexcept
@@ -234,7 +236,7 @@ void AppendText(const std::wstring_view utf16)
                 return;
             }
         } catch (const std::system_error&) {
-            platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字输入", 0x10U);
+            m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
             return;
         }
         const auto lines = SplitLines(*context);
@@ -1037,7 +1039,7 @@ void Sub_44AB60()
             static_cast<void>(EscapeText(ContextText(*context), 1022));
         }
         catch (const std::system_error&) {
-            platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字编码", 0x10U);
+            m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
             return;
         }
         auto& history = world::detail::gChatHistory621FF8;

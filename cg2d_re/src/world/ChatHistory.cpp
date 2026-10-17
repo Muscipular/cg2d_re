@@ -29,6 +29,8 @@
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
+#include "cg/core/m_log.hpp"
+
 namespace cg::world {
 
 Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
@@ -255,7 +257,7 @@ void Sub_44B050(
         }
     }
     catch (const std::system_error&) {
-        platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字编码", 0x10U);
+        m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
         return;
     }
     const char* const text = stored.c_str();

@@ -13,7 +13,6 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 #include "NetworkDispatchDependencies.hpp"
-#include "ProtocolReceiveDictionary.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"
 #include "cg/scene/login/CharacterDeletionRequest.hpp"
@@ -57,6 +56,8 @@
 #include <utility>
 #include <vector>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
+
+#include "cg/core/vm.h"
 
 // CTM01：本地CRT时间槽显式__time64_t；协议与存档字段仍按各自原格式承接。
 static_assert(sizeof(__time64_t) == sizeof(std::int64_t));
@@ -214,13 +215,53 @@ static std::int32_t QueuePlaintextProtocolBytes(
         packet.data(), packet.ends_with('\n') ? "" : "\n");
     return 0;
 }
+static LZ4_streamDecode_t initDic()
+{
+    VM_HARD_START
+    const char* dictionary = nullptr;
+    std::size_t dictionarySize = 0;
+#ifdef TAOMOLI
+#include "ProtocolReceiveDictionary.hpp"
+    static char kProtocolReceiveDictionary[sizeof(kProtocolReceiveDictionary2)];
+    memcpy(kProtocolReceiveDictionary, kProtocolReceiveDictionary2, sizeof(kProtocolReceiveDictionary2));
+    // 输入是内置的标准Base64常量；原地解码，写入位置始终落后于读取位置。
+    std::array<std::uint8_t, 256> decodeTable {};
+    constexpr char alphabet[] =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    for (std::uint8_t index = 0; index < 64; ++index) {
+        decodeTable[static_cast<unsigned char>(alphabet[index])] = index;
+    }
+    std::uint32_t bits = 0;
+    std::uint32_t bitCount = 0;
+    for (std::size_t index = 0; index < sizeof(kProtocolReceiveDictionary) - 1; ++index) {
+        const auto character = static_cast<unsigned char>(kProtocolReceiveDictionary[index]);
+        if (character == '=') {
+            break;
+        }
+        bits = (bits << 6) | decodeTable[character];
+        bitCount += 6;
+        if (bitCount >= 8) {
+            bitCount -= 8;
+            kProtocolReceiveDictionary[dictionarySize++] =
+                static_cast<char>((bits >> bitCount) & 0xFFu);
+        }
+    }
+    dictionary = kProtocolReceiveDictionary;
+#endif
+    LZ4_streamDecode_t initialStream{};
+    static_cast<void>(LZ4_setStreamDecode(
+        &initialStream, dictionary, static_cast<std::int32_t>(dictionarySize)));
+    VM_HARD_END
+    return initialStream;
+}
 
 // N02：一帧内连续解压，之前的输出保持原地址，供后续LZ4块引用。
 static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
 {
-    LZ4_streamDecode_t stream {};
-    static_cast<void>(LZ4_setStreamDecode(&stream, detail::kProtocolReceiveDictionary,
-        static_cast<std::int32_t>(sizeof(detail::kProtocolReceiveDictionary) - 1)));
+    // 固定字典只解码并绑定一次；服务端每帧重置压缩流，此处不能沿用上一帧历史。
+    static const LZ4_streamDecode_t dictionaryStream = initDic();
+    static_assert(std::is_trivially_copyable_v<LZ4_streamDecode_t>);
+    LZ4_streamDecode_t stream = dictionaryStream;
     std::size_t offset = 4;
     std::size_t used = 0;
     while (offset < state.frame.size()) {

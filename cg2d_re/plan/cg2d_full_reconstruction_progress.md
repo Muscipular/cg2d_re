@@ -3761,3 +3761,21 @@ CMake增加默认OFF的TMD选项及INTERFACE目标；开启时检查x64库存在
 ## 398. 按用户要求提交调色板回退及TMD接入（2026-10-17）
 
 用户明确要求“提交代码”，解除393及397的待提交限制。核对并提交动画同号图档调色板回退、TMD SDK及x64导入库、vm.h封装、CMake开关与对应说明和进度；既有profiling和__pycache__未跟踪目录排除。自有代码及文档差异检查通过，厂商SDK保留原字节与格式；未新增配置、编译、测试或运行，实际画面／SDK链接及保护效果不因提交而视为验收。
+
+## 399. core／render／startup源码统一归入EXE（2026-10-18）
+
+用户先要求合并core和client库，随后补充render、startup。本次取消三个自有STATIC目标，将原源码清单直接归入cg2d_re_client，保持cg2d_re.exe输出和原构建入口；汇合include、C++20、/MT、无RTTI、宏及链接依赖，原startup／入口的/fp:strict保留为源码属性，不扩大到core／render。第三方目标及缓存不改，同步[TMD说明](../doc/cg2d_tmd_integration.md)及[目标合并说明](../doc/cg2d_executable_target_spec.md)。
+
+按用户所指文件静态读取旧client.lib，确认177项短导入记录指向旧名client.exe，属于导入库而非另一份业务实现；本机link帮助支持/NOIMPLIB、/NOEXP，加入EXE链接选项以停止额外文件生成，保留导出符号，不删除旧构建目录文件。静态核对源码、依赖及编译选项并检查差异；未配置、编译、测试或运行，实际链接仍待构建验证。只修改CMake与相关文档，保留当前已有业务源码编辑；不暂存、不提交。
+
+## 400. 复用LZ4固定字典解码状态（2026-10-18）
+
+用户要求使用可复用stream字典，避免逐次以原始字节初始化。DecodeCompressedProtocolFrame改用函数内static const的dictionaryStream，仅首次调用LZ4_setStreamDecode；每帧复制初始状态供原连续块循环使用，并静态断言类型可平凡复制。字典仍引用既有静态存储，按当前编译分支选择并排除尾NUL。
+
+只读核对本地服务端每帧reset／attach固定字典，保持帧间独立，不能直接复用上一帧解码后的状态。本地LZ4_setStreamDecode仅设置指针及长度，不复制整份字典，因此本次优化限定为初始状态复用。模板无解压输出引用，失败帧及会话重置不污染后续帧；原块循环、输出容量、错误和分行行为保持。同步网络迁移SPEC，静态差异检查通过；未编译、测试或运行，不暂存、不提交，保留其他工作区改动。
+
+## 401. initDic直接展开Base64字典解码（2026-10-18）
+
+用户提供e__base64_decode占位，随后明确要求直接内联到initDic且不用lambda。按当前用户改动中的内置Base64字典，直接在initDic建立查表数组并逐字符原地解码，遇等号结束，实际输出字节数传给LZ4；不新增独立解码函数。字典数组改为函数内static以承接stream借用，initDic按值返回初始stream，避免返回局部引用；调用方static const确保仅初始化一次。保留VM_HARD标记、TAOMOLI字典文本及非TAOMOLI空字典行为。
+
+仅静态核对内置文本字符集、长度分组、尾部填充、读写位置、字典生命周期、实际长度及唯一初始化调用，差异检查通过；未编译、测试、运行解码样例或客户端，不暂存、不提交，其他用户编辑保持。

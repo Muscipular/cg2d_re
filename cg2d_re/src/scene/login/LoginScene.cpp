@@ -28,6 +28,8 @@
 #include <format>
 #include <cstring>
 
+#include "cg/core/vm.h"
+
 namespace cg::login {
 
 // 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
@@ -332,11 +334,13 @@ std::int32_t GetServerAddressInfo_507D90(
         return -1;
     }
 
+    VM_START
     const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
     std::strcpy(serverAddress, record.address.data());
     *port = static_cast<std::uint16_t>(
         std::atoi(record.portText.data()));
     platform::ApplyServerAddressPolicy(serverAddress, *port);
+    VM_END
     return 0;
 }
 

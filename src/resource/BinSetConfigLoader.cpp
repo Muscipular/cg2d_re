@@ -8,6 +8,8 @@
 #include <string>
 #include <utility>
 
+#include "../../cg2d_re/include/cg/core/vm.h"
+
 namespace cg::resource {
 namespace {
 
@@ -116,15 +118,18 @@ BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
     BinSetConfigLoadResult result;
 
     try {
+        VM_START
+        do
+        {
         const YAML::Node root = YAML::LoadFile(ymlPath.string());
         const YAML::Node binLoader = root["BinLoader"];
         if (!binLoader) {
             result.error = MakeConfigError(ymlPath, "缺少顶层 BinLoader 节点");
-            return result;
+            goto RET;
         }
         if (!binLoader.IsSequence()) {
             result.error = MakeConfigError(ymlPath, "顶层 BinLoader 必须是 sequence");
-            return result;
+            goto RET;
         }
 
         result.binSets.reserve(binLoader.size());
@@ -133,19 +138,19 @@ BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
             if (!item.IsMap()) {
                 result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 元素必须是 map");
                 result.binSets.clear();
-                return result;
+                goto RET;
             }
 
             const YAML::Node name = item["Name"];
             if (!name) {
                 result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 缺少 Name");
                 result.binSets.clear();
-                return result;
+                goto RET;
             }
             if (!IsStringField(name)) {
                 result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 字段 Name 必须是 string");
                 result.binSets.clear();
-                return result;
+                goto RET;
             }
 
             BinSetDesc desc;
@@ -163,22 +168,28 @@ BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
                     desc.coordinateInfoPath,
                     result.error)) {
                 result.binSets.clear();
-                return result;
+                goto RET;
             }
             result.binSets.push_back(std::move(desc));
         }
+    } while (false);
+    VM_END
     } catch (const YAML::BadFile&) {
+        VM_HARD2_START
         result.error = ResourceError {
             ResourceErrorCode::FileOpenFailed,
             ymlPath,
             0,
             "无法打开 yml 配置文件",
         };
+        VM_HARD2_END
     } catch (const YAML::Exception& ex) {
+        VM_HARD2_START
         result.error = MakeConfigError(ymlPath, ex.what());
         result.binSets.clear();
+        VM_HARD2_END
     }
-
+RET:
     return result;
 }
 

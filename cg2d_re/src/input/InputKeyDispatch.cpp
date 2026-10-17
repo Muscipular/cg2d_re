@@ -1,5 +1,6 @@
 #include "cg/core/LegacyNoOp.hpp"
 #include "InputKeyDispatchDependencies.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "cg/input/Input.hpp"
@@ -42,7 +43,7 @@ void ProcessKeyInput_4596D0()
         }
 
     } catch (const cg::text::GbkStorageError&) {
-        platform::ShowWideMessage(L"文字无法按GBK保存，或已超出字段容量。", L"文字编码", 0x10U);
+        m_log_iw(L"文字无法按GBK保存，或已超出字段容量。");
     }
 }
 

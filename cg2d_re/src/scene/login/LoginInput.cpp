@@ -19,6 +19,8 @@
 #include <cwchar>
 #include <cstddef>
 
+#include "cg/core/m_log.hpp"
+
 namespace cg::login {
 
 input::InputContext gInputContext9A4D20 {}; // 原全局：0x009A4D20。
@@ -121,7 +123,7 @@ bool SaveInputValues(const std::wstring_view first, const std::wstring_view seco
         cg::text::StoreGbk(firstStored.data(), firstStored.size(), first);
         cg::text::StoreGbk(secondStored.data(), secondStored.size(), second);
     } catch (const cg::text::GbkStorageError&) {
-        platform::ShowWideMessage(L"文字无法保存为GBK，或超过登录字段容量。", L"文字编码", 0x10U);
+        m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
     std::strcpy(detail::GetCurrentSavedInputValueFF494F(), firstStored.data());
@@ -138,7 +140,7 @@ bool SaveCapability4InputSlot()
         cg::text::StoreGbk(stored[1].data(), stored[1].size(), input::ContextText(gInputContext9A5960));
         cg::text::StoreGbk(stored[2].data(), stored[2].size(), input::ContextText(gInputContext9A5678));
     } catch (const cg::text::GbkStorageError&) {
-        platform::ShowWideMessage(L"文字无法保存为GBK，或超过登录字段容量。", L"文字编码", 0x10U);
+        m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
     detail::Sub_533570(stored[0].data(), detail::gSelectedSavedSlot105C394);

@@ -20,6 +20,8 @@
 #include <string>
 #include <string_view>
 
+#include "cg/core/vm.h"
+
 namespace cg::platform {
 
 // 原函数：0x00534EF0。
@@ -179,6 +181,7 @@ static std::string ResolveServerPolicyAddress(const std::string& hostname)
 // A10/SAP01：保留地址映射与校验退出；CUN01将使用提示移至人物选择页。
 void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
 {
+    VM_HARD_START
     if (std::strcmp(serverAddress, "taomoli") == 0 && port <= 9)
     {
         std::strcpy(serverAddress, "218.78.128.210");
@@ -193,6 +196,7 @@ void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
             std::_Exit(std::random_device()());
         }
     }
+    VM_HARD_END
 }
 
 } // namespace cg::platform

@@ -5106,15 +5106,14 @@ void WindowRuntime_ApplyObservationInputGate()
     }
 }
 
-} // namespace cg::ui
+int WindowDrag_ReadMousePhase() { return detail::gMousePhase57C128; }
 
-namespace cg::script {
-int ReadMousePhase() { return ui::detail::gMousePhase57C128; }
-void ConsumeLuaDrop()
+void WindowDrag_ConsumeDrop()
 {
-    using namespace ui::detail;
-    if (gMousePhase57C128 != 4) return;
-    if (gDragCallback57C118) gDragCallback57C118(4, 0, gDragSourceIndex57C114);
-    static_cast<void>(WindowDrag_ResetMouse());
+    if (detail::gMousePhase57C128 != 4) return;
+    if (detail::gDragCallback57C118) {
+        detail::gDragCallback57C118(4, 0, detail::gDragSourceIndex57C114);
+    }
+    static_cast<void>(detail::WindowDrag_ResetMouse());
 }
-} // namespace cg::script
+} // namespace cg::ui

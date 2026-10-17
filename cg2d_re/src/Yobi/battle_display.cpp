@@ -33,10 +33,6 @@ struct BattleTextPayload {
 
 static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) + 16);
 
-namespace {
-
-} // namespace
-
 std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 
 namespace {

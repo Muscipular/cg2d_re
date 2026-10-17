@@ -245,4 +245,9 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(std::uintptr_t unusedSocket); /
 // 原函数：0x0050E570。
 void WindowTrade_ReceiveCloseReply(std::uintptr_t unusedSocket, std::int32_t value); // 关闭只置标志，弃原混合返回。
 
+// 读取原生拖动阶段，供脚本控件判断当前鼠标操作。
+int WindowDrag_ReadMousePhase();
+// 消费阶段4的拖放回调，并按原顺序重置鼠标拖动状态。
+void WindowDrag_ConsumeDrop();
+
 } // namespace cg::ui

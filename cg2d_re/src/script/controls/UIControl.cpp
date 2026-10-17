@@ -357,7 +357,7 @@ bool UIControl::process(int index, int hasFocused, int captured, const UIClipRec
     if (hasFocused && captured) {
         mouseState = MOUSE_NONE;
     } else if (hasFocused) {
-        int currentMouseState = ReadMousePhase();
+        int currentMouseState = ui::WindowDrag_ReadMousePhase();
 
         const bool isDragOrPressState = currentMouseState == MCS_CALLBACK_A_ACTIVE || currentMouseState == MCS_CALLBACK_A_ENDING || currentMouseState == MCS_CALLBACK_B_ACTIVE || currentMouseState == MCS_CALLBACK_B_ENDING;
 
@@ -415,7 +415,7 @@ bool UIControl::process(int index, int hasFocused, int captured, const UIClipRec
         gMouseEventState = MES_CAPTURED;
         gWindowHasFocus = 1;
 
-        if (ReadMousePhase() == MCS_CALLBACK_B_ACTIVE) ConsumeLuaDrop();
+        if (ui::WindowDrag_ReadMousePhase() == MCS_CALLBACK_B_ACTIVE) ui::WindowDrag_ConsumeDrop();
     }
     return result;
 }

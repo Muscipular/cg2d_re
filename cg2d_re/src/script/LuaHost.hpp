@@ -75,9 +75,6 @@ inline auto& gWindowState = ui::detail::gWindowStates;
 inline auto& gCurrentInputData = input::gCurrentInputData;
 inline auto* const gDefaultInputData = &ui::detail::gInputContext626AA0;
 
-// 原生拖动私有状态只在WindowRuntime中读取/消费，不公开可写别名。
-int ReadMousePhase();
-void ConsumeLuaDrop();
 inline bool MouseIsInRect(int x, int y, int w, int h) {
     const int mx = gMouseX.value(), my = gMouseY.value();
     return mx >= x && mx < x + w && my >= y && my < y + h;

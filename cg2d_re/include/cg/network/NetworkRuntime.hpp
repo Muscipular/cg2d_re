@@ -109,11 +109,6 @@ std::int32_t SendProtocolBuffer_517480(
     std::uintptr_t socket,
     char* buffer);
 
-// 原 Report_512CA0@[0x512CA0,0x512CE8)：构造并发送 PGXE 上报协议行。
-std::int32_t Report_512CA0(
-    std::uintptr_t socket,
-    std::int32_t value);
-
 // 原 sub_512C10@[0x512C10,0x512C58)：构造 Or 文本命令并透传发送返回。
 std::int32_t Sub_512C10(std::uintptr_t socket, std::wstring_view text);
 
@@ -551,11 +546,7 @@ std::uint8_t ReadNetworkRuntimeActive() noexcept;
 // 原 0xD9F2CC：507DF0 写、455C90 条件读取的唯一错误码槽。
 std::int32_t ReadNetworkErrorD9F2CC() noexcept;
 
-// 原0x593850首字节；旧存储无写者且恒为NUL，当前返回0。
-std::uint8_t ReadProtocolByte593850() noexcept;
-
-// 原 0xD9F2D0/0xDA3B22 的字段级访问；不公开网络运行期完整状态。
-void WriteValueD9F2D0(std::uint32_t value) noexcept;
+// 原 0xDA3B22 的字段级访问；不公开网络运行期完整状态。
 std::uint16_t ReadProtocolModeDA3B22() noexcept;
 void WriteProtocolModeDA3B22(std::uint16_t value) noexcept;
 

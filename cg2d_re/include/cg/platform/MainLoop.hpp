@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstddef>
 #include <cstdint>
 
 namespace cg::platform {
@@ -22,23 +21,6 @@ extern std::uint32_t gFrameCount;   // 原 0x58B7E4，映像初值 3。
 extern std::int32_t gPendingPaletteReload; // 原 0x62A65C，仅等于 1 时消费。
 
 extern std::uintptr_t gConnectionSocket; // 原 0xD9B2B8，SOCKET 仅在本机边界拓宽。
-extern std::int32_t gWindowReportRequested; // 原 0x73ECEC，F10 写入。
-extern std::uint32_t gWindowReportFlags;     // 原 0x73ECF0，回调累计低位标记。
-extern std::int32_t gWindowReportAttempts;  // 原 0x73ECF8，signed32 比较。
-extern std::int32_t gWindowReportValue;     // 原 0x73ECF4，报告值具体枚举未定。
-extern double gWindowEnumerationDeadline;   // 原 0x73ED00，独立于延迟上报 tick 的 binary64 截止。
-extern std::uint64_t gWindowReportDeadline; // 原0x73ED08；CTM01为64位相对tick，UINT64_MAX表示无期限。
-
-// 原 0x73ED10 的 64 位整秒基线；保留原两次 DWORD 存储，而不是原生原子计时值。
-struct SystemTimeWords {
-    std::uint32_t low;
-    std::uint32_t high;
-};
-static_assert(sizeof(SystemTimeWords) == 8);
-static_assert(offsetof(SystemTimeWords, high) == 4);
-extern SystemTimeWords gLastSystemTime;
-extern std::uint32_t gPeriodicReportSeconds; // 原 0x73ED18，阈值比较按 signed32。
-
 // CTM01：Win32 GetTickCount64减启动基线，完整64位毫秒；所有业务共用该时间域。
 std::uint64_t ReadTickCount64() noexcept;
 // CTM01/A11：WinMain按Debug／--debug设置，主循环据此提交诊断文本。

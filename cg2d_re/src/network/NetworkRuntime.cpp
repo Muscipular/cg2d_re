@@ -136,7 +136,6 @@ struct NetworkRuntimeState {
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
-    std::uint32_t valueD9F2D0; // 原 0xD9F2D0，首标记优先状态；当前明文无置1生产者。
     // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes; // 原全局：0x00D8F2B8。
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
@@ -199,14 +198,6 @@ static std::int32_t QueuePlaintextProtocolBytes(
     const std::int32_t nextLength = sendLength + static_cast<std::int32_t>(size);
     if (nextLength > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
-    }
-
-    if (gNetworkRuntimeState.valueD9F2D0 == 1) {
-        gNetworkRuntimeState.valueD9F2D0 = 0;
-    } else if (platform::gWindowReportValue > 0
-        && login::ReadRequestOutcomeFlag() == 1
-        && std::bit_cast<std::int64_t>(platform::gWindowReportDeadline) < 0) {
-        platform::gWindowReportValue = 0;
     }
 
     if (startsLogin) {
@@ -885,7 +876,7 @@ static void HandleResponse_508800(
     if (separator != nullptr) {
         character_select::detail::gText9A4EAC = cg::text::FromGbkWide(
             std::string_view(text, static_cast<std::uint32_t>(separator - text)));
-        platform::ParseProtectionTables_404600(separator);
+        // 原0x00404600的防护规则解析已移除（PRM01），仅保留分隔符前的登录正文。
         return;
     }
 
@@ -1481,24 +1472,6 @@ std::int32_t SendProtocolBuffer_517480(
     }
 
     return gNetworkRuntimeState.callback(socket, buffer, length);
-}
-
-// 原函数：0x00512CA0。
-std::int32_t Report_512CA0(
-    const std::uintptr_t socket,
-    const std::int32_t value)
-{
-    const ProtocolOutputAccess output;
-    static_cast<void>(BuildProtocolCommand_517510(
-        output.data(), "PGXE"));
-    const std::uint32_t bufferLength =
-        gNetworkRuntimeState.bufferLength;
-    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
-    static_cast<void>(AppendProtocolText_5170D0(
-        output.data(),
-        reinterpret_cast<const char*>(token),
-        std::bit_cast<std::int32_t>(bufferLength)));
-    return SendProtocolBuffer_517480(socket, output.data());
 }
 
 // 原函数：0x00512C10。
@@ -4576,16 +4549,6 @@ std::int32_t ReadNetworkErrorD9F2CC() noexcept
     return gNetworkRuntimeState.errorD9F2CC;
 }
 
-std::uint8_t ReadProtocolByte593850() noexcept
-{
-    return 0;
-}
-
-void WriteValueD9F2D0(const std::uint32_t value) noexcept
-{
-    gNetworkRuntimeState.valueD9F2D0 = value;
-}
-
 std::uint16_t ReadProtocolModeDA3B22() noexcept
 {
     return gNetworkRuntimeState.protocolModeDA3B22;
@@ -4603,7 +4566,6 @@ void ShutdownNetworkRuntime_5081A0()
         return;
     }
 
-    gNetworkRuntimeState.valueD9F2D0 = 0;
     gNetworkRuntimeState.active = 0;
     std::vector<std::uint8_t>().swap(gNetworkRuntimeState.compressedReceive.frame);
     gNetworkRuntimeState.compressedReceive.frameBytes = 0;

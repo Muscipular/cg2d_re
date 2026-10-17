@@ -139,8 +139,6 @@ std::int32_t Sub_508360()
                 sizeof(address.sin_addr.s_addr));
         }
 
-        network::WriteValueD9F2D0(0);
-
         if (::connect(
                 static_cast<SOCKET>(platform::gConnectionSocket),
                 reinterpret_cast<sockaddr*>(&address),

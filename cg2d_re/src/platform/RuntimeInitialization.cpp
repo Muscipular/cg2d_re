@@ -30,19 +30,10 @@ namespace cg::platform {
 std::uint64_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
 std::uint64_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
-// 原CRT553004..553010：两值直接构造后接三个防护值，保持五次RNG序。
+// 原CRT553004..553010：保留以下两值的构造顺序；其后三个防护值按PRM01移除。
 // 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
 static LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
 static LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
-
-// 原0x00404120／0x00404130／0x00404150：原中央位置直接构造，MSVC承接逆序析构。
-LegacyCryptInt gProtectionChecksum1{}; // 原全局：0x00594070。
-
-// 原0x00404160／0x00404170／0x00404190：原中央位置直接构造，MSVC承接逆序析构。
-LegacyCryptInt gProtectionChecksum2{}; // 原全局：0x00594080。
-
-// 原0x004041A0／0x004041B0／0x004041D0：原中央位置直接构造，MSVC承接逆序析构。
-LegacyCryptInt gProtectionProcessState{}; // 原全局：0x0059E548。
 
 } // namespace cg::platform
 

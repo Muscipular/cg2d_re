@@ -25,7 +25,6 @@ std::uint16_t gRequestReplyCode = 0; // 原全局：0x00DA3B2C。
 std::int32_t gRequestStatus = 0; // 原全局：0x00DA3B34。
 std::uint64_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
 std::uint8_t gRequestPollingEnabled = 0; // 原全局：0x00D9F2C9。
-std::int32_t gRequestOutcomeFlag = 0; // 原全局：0x00DA3B30。
 std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
 
 static_assert(sizeof(gCharacterRecords) == 0x128);
@@ -71,12 +70,6 @@ std::int32_t CharacterNameExists_51B140(const char* const name)
     return 0;
 }
 
-// 原函数：0x00510140。
-std::int32_t ReadRequestOutcomeFlag()
-{
-    return gRequestOutcomeFlag;
-}
-
 // 原函数：0x00508AF0。
 std::uint32_t StartLoginRequest()
 {
@@ -112,7 +105,6 @@ std::int32_t PollLoginRequest()
     if (gRequestStatus == 2) {
         gRequestStatus = 0;
         if (gRequestReplyCode == 1) {
-            gRequestOutcomeFlag = 1;
             return 1;
         }
         return -2;
@@ -155,7 +147,6 @@ void HandleLoginResponse_508BC0(
     }
 
     gRequestReplyCode = 1;
-    gRequestOutcomeFlag = 1;
     m_log_i("CHAR LOGIN REPLY SUCCESSFUL\n");
     const std::uint64_t tick = platform::ReadTickCount64();
     static_cast<void>(network::Sub_512DF0(socket, static_cast<std::uint32_t>(tick)));
@@ -174,8 +165,6 @@ std::uint32_t Sub_508C40()
     const std::uintptr_t socket = platform::gConnectionSocket;
     gReplyCodeDA3B2E = 0;
     static_cast<void>(network::Sub_512BD0(socket));
-    network::WriteValueD9F2D0(0);
-    gRequestOutcomeFlag = 0;
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;

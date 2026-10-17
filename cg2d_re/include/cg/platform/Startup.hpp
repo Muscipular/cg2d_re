@@ -15,7 +15,6 @@ extern std::uint8_t gRequestedRenderMode; // 原 0x628FE0。
 extern std::uint8_t gValueFF4E28;
 
 extern std::uintptr_t gInstance;       // 原 0x9A6F38，HINSTANCE 的原生承载。
-extern std::uintptr_t gStartupMutex;   // 原 0x9A6F3C。
 extern std::uintptr_t gCursorHandles[11]; // 原 0x9A6EF8 起，11 个原生光标引用。
 extern std::int32_t gShowCommand;      // 原 0x9A6F28。
 extern wchar_t gWindowClassName[5];     // 原0x559384；直接供W窗口接口借用。

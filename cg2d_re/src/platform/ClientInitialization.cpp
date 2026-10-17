@@ -270,7 +270,6 @@ int InitializeClient_4576B0()
     const double initialFrameTime = static_cast<double>(ReadTickCount64());
     world::gPendingSceneType = -1;
     gLastRenderDt = initialFrameTime;
-    gWindowEnumerationDeadline = initialFrameTime + 3000.0;
     login::detail::Sub_44B5C0("fadeOutNowLoading Start");
     if (initialization_detail::FadeOutLoading_4585F0() == 0) {
         return 0;

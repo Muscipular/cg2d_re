@@ -10,7 +10,6 @@ std::uint8_t gRequestedRenderMode = 0; // 原全局：0x00628FE0。
 std::uint8_t gValueFF4E28 = 0; // 原全局：0x00FF4E28。
 
 std::uintptr_t gInstance = 0; // 原全局：0x009A6F38。
-std::uintptr_t gStartupMutex = 0; // 原全局：0x009A6F3C。
 std::uintptr_t gCursorHandles[11] {}; // 原全局：0x009A6EF8。
 std::int32_t gShowCommand = 0; // 原全局：0x009A6F28。
 wchar_t gWindowClassName[5] = L"魔力宝贝"; // 原全局：0x00559384。

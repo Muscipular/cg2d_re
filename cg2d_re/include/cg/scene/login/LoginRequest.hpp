@@ -81,11 +81,7 @@ extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。
 extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。
 extern std::uint64_t gRequestStartTick;        // 原 0xDA3B38；CTM01本地64位毫秒。
 extern std::uint8_t gRequestPollingEnabled;    // 原 0xD9F2C9，R/W8。
-extern std::int32_t gRequestOutcomeFlag;       // 原 0xDA3B30，R/W32。
 extern std::wstring gRequestMessage; // 原 0xDA34DC。
-
-// 原 sub_510140@[0x510140,0x510146)；读取共享请求结果标志并原样返回完整 32 位值。
-std::int32_t ReadRequestOutcomeFlag();
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。
 // 原函数不检查范围，本接口同样不为无效输入增加业务分支。

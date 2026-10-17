@@ -54,8 +54,6 @@ int ShutdownClient_457A40()
     cg::yobi::Sub_404D60();
     cg::network::ShutdownNetworkRuntime_5081A0();
 
-    ReleaseMutex(reinterpret_cast<HANDLE>(gStartupMutex));
-
     const INT element = COLOR_BACKGROUND;
     const COLORREF color = static_cast<COLORREF>(gDesktopColor);
     return SetSysColors(1, &element, &color);

@@ -21,6 +21,7 @@
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "AlbumState.hpp"
@@ -236,11 +237,14 @@ std::int32_t Sub_455C90()
     cg::yobi::YobiAction* action = gDisconnectAction62B5B4;
     if (action == nullptr) {
         gDisconnectState62B3A8 = -2;
-        gDisconnectWidth62B32C = 380;
+        // 模态背景按64×48瓦片取整，布局使用实际尺寸，统一背景、文字及命中位置。
+        gDisconnectWidth62B32C = 384;
         gDisconnectHeight62B304 = 144;
-        gDisconnectX62B390 = 130;
-        gDisconnectY62B2EC = 156;
-        action = cg::yobi::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
+        gDisconnectX62B390 = (platform::gWindowWidth - gDisconnectWidth62B32C) / 2;
+        gDisconnectY62B2EC = (platform::gWindowHeight - gDisconnectHeight62B304) / 2;
+        action = cg::yobi::CreateModalAction_5044E0(
+            gDisconnectX62B390, gDisconnectY62B2EC,
+            gDisconnectWidth62B32C, gDisconnectHeight62B304, 4, 1);
         gDisconnectAction62B5B4 = action;
         if (action == nullptr) {
             return 0;

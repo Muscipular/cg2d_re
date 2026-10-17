@@ -232,6 +232,81 @@ std::int32_t LegacyCryptInt::operator--(int)
     return previous;
 }
 
+std::int32_t LegacyCryptInt::operator~()
+{
+    return ~value();
+}
+
+LegacyCryptInt& LegacyCryptInt::operator&=(const std::int32_t bits)
+{
+    const std::int32_t result = value() & bits;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator&=(const std::uint32_t bits)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) & bits;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator|=(const std::int32_t bits)
+{
+    const std::int32_t result = value() | bits;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator|=(const std::uint32_t bits)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) | bits;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator^=(const std::int32_t bits)
+{
+    const std::int32_t result = value() ^ bits;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator^=(const std::uint32_t bits)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) ^ bits;
+    SetNorVal_401F50(std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator<<=(const std::int32_t shift)
+{
+    const std::int32_t result = value() << shift;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator<<=(const std::uint32_t shift)
+{
+    const std::int32_t result = value() << shift;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator>>=(const std::int32_t shift)
+{
+    const std::int32_t result = value() >> shift;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator>>=(const std::uint32_t shift)
+{
+    const std::int32_t result = value() >> shift;
+    SetNorVal_401F50(result);
+    return *this;
+}
+
 std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
     const std::int32_t right = rhs.value();
@@ -261,6 +336,36 @@ std::int32_t operator%(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
     const std::int32_t right = rhs.value();
     return lhs.value() % right;
+}
+
+std::int32_t operator&(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() & right;
+}
+
+std::int32_t operator|(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() | right;
+}
+
+std::int32_t operator^(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() ^ right;
+}
+
+std::int32_t operator<<(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() << right;
+}
+
+std::int32_t operator>>(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = rhs.value();
+    return lhs.value() >> right;
 }
 
 // 原函数：0x00401D20；相等与不等使用同一右→左读取顺序。

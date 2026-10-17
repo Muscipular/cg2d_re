@@ -65,6 +65,20 @@ public:
     LegacyCryptInt& operator--(); // 返回本对象。
     std::int32_t operator--(int); // 返回递减前明文。
 
+    // 本端补充位运算：取反单读；复合赋值单读后SetNorVal，保留W32位模式。
+    std::int32_t operator~();
+    LegacyCryptInt& operator&=(std::int32_t bits);
+    LegacyCryptInt& operator&=(std::uint32_t bits);
+    LegacyCryptInt& operator|=(std::int32_t bits);
+    LegacyCryptInt& operator|=(std::uint32_t bits);
+    LegacyCryptInt& operator^=(std::int32_t bits);
+    LegacyCryptInt& operator^=(std::uint32_t bits);
+    // 移位保持左操作数的有符号类型；次数有效范围沿C++规则，不截断或钳制。
+    LegacyCryptInt& operator<<=(std::int32_t shift);
+    LegacyCryptInt& operator<<=(std::uint32_t shift);
+    LegacyCryptInt& operator>>=(std::int32_t shift);
+    LegacyCryptInt& operator>>=(std::uint32_t shift);
+
     // 同类双值运算先右后左各读一次，即使两引用指向同一对象。
     friend std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     // 原0x00401E70@[401E70,401E8B)：右→左读取后求差。
@@ -73,6 +87,12 @@ public:
     // 本端补充除法／取余，沿上述右→左读取顺序及C++有符号整数语义。
     friend std::int32_t operator/(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend std::int32_t operator%(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 本端补充同类位运算，先右后左各读一次；标量混合运算沿公开整数转换。
+    friend std::int32_t operator&(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator|(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator^(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator<<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator>>(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     // 原0x00401D20@[0x401D20,0x401D40)：右→左读取后比较。
     friend bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);

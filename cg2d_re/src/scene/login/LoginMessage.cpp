@@ -59,7 +59,7 @@ static std::int32_t RoundMessageWidth(std::int32_t textWidth)
     return ((textWidth + 95) / 64) * 64;
 }
 
-std::array<std::wstring, 12> gValue9A620C {}; // 原全局：0x009A620C。
+std::array<std::wstring, 12> gLoginMsgLines_9A620C {}; // 原全局：0x009A620C。
 
 // 原函数：0x0045CE00。
 void ResetLoginMessage()
@@ -89,7 +89,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageState = 1;
             gMessageResult = -2;
             gMessageLayout.width =
-                RoundMessageWidth(cg::render::TextMeasure(gValue9A620C[8], 0));
+                RoundMessageWidth(cg::render::TextMeasure(gLoginMsgLines_9A620C[8], 0));
             gMessageLayout.height = 192;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 144;
@@ -117,7 +117,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t contentX = gMessageLayout.x
-            + (gMessageLayout.width - cg::render::TextMeasure(gValue9A620C[6], 0)) / 2;
+            + (gMessageLayout.width - cg::render::TextMeasure(gLoginMsgLines_9A620C[6], 0)) / 2;
         for (std::size_t index = 6; index < 12; ++index) {
             const std::int32_t y = gMessageLayout.y
                 + 30
@@ -128,7 +128,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
                 2,
                 0,
                 0,
-                gValue9A620C[index],
+                gLoginMsgLines_9A620C[index],
                 0,
                 0);
         }
@@ -155,7 +155,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageState = 1;
             gMessageResult = -2;
             gMessageLayout.width =
-                RoundMessageWidth(cg::render::TextMeasure(gValue9A620C[0], 0));
+                RoundMessageWidth(cg::render::TextMeasure(gLoginMsgLines_9A620C[0], 0));
             gMessageLayout.height = 336;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 72;
@@ -183,7 +183,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t contentX = gMessageLayout.x
-            + (gMessageLayout.width - cg::render::TextMeasure(gValue9A620C[0], 0)) / 2;
+            + (gMessageLayout.width - cg::render::TextMeasure(gLoginMsgLines_9A620C[0], 0)) / 2;
         for (std::size_t index = 0; index < 6; ++index) {
             const std::int32_t y = gMessageLayout.y
                 + 30
@@ -194,7 +194,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
                 2,
                 0,
                 4,
-                gValue9A620C[index],
+                gLoginMsgLines_9A620C[index],
                 0,
                 0);
         }
@@ -208,7 +208,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
                 2,
                 0,
                 0,
-                gValue9A620C[index],
+                gLoginMsgLines_9A620C[index],
                 0,
                 0);
         }

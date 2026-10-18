@@ -274,10 +274,10 @@ static void SetServerWindowTitle(
 
 static void CopyAccountHelpLines()
 {
-    CopyText(cg::login::gValue9A620C[6], L"您可能遇到以下 3 种情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
-    CopyText(cg::login::gValue9A620C[7], L"1.密码错误，请查明后重新输入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
-    CopyText(cg::login::gValue9A620C[8], L"2.已经在线" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
-    CopyText(cg::login::gValue9A620C[9], L"3.卡号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gLoginMsgLines_9A620C[3], L"您可能遇到以下情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gLoginMsgLines_9A620C[4], L"1.密码错误，请查明后重新输入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gLoginMsgLines_9A620C[5], L"2.角色已经在线或者卡号" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+    // CopyText(cg::login::gLoginMsgLines_9A620C[6], L"3.卡号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
 }
 
 static void DrawCategoryControls()
@@ -467,23 +467,23 @@ std::int32_t ProcessScene_45FEA0()
                 case 5:
                     CopyText(gLoginSceneMessage, kMultiline);
                     CopyAccountHelpLines();
-                    CopyText(gValue9A620C[10], kAccountHelp4);
+                    // CopyText(gLoginMsgLines_9A620C[10], kAccountHelp4);
                     gValueDA3B24 = 0;
-                    CopyText(gValue9A620C[11], kAccountHelp5);
+                    // CopyText(gLoginMsgLines_9A620C[11], kAccountHelp5);
                     break;
                 case 3:
                     CopyText(gLoginSceneMessage, kMultiline);
                     CopyText(gLoginSceneMessage, L"Multiline_New");
-                    CopyText(gValue9A620C[0], L"密码错误请重试" /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[1], L"" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[2], L"" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[3], L"" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gLoginMsgLines_9A620C[0], L"        密码错误请重试        " /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gLoginMsgLines_9A620C[1], L"" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    // CopyText(gValue9A620C[2], L"" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    // CopyText(gValue9A620C[3], L"" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
+                    // CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+                    // CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     CopyAccountHelpLines();
                     gValueDA3B24 = 0;
-                    CopyText(gValue9A620C[10], kAccountHelp4);
-                    CopyText(gValue9A620C[11], kAccountHelp5);
+                    // CopyText(gLoginMsgLines_9A620C[2], kAccountHelp4);
+                    // CopyText(gLoginMsgLines_9A620C[3], kAccountHelp5);
                     break;
                 case 4:
                     CopyText(gLoginSceneMessage, L"点数不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
@@ -541,12 +541,12 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 case 21:
                     CopyText(gLoginSceneMessage, kMultiline);
-                    CopyText(gValue9A620C[6], L"本台机器之机码已停用。" /* 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[7], L"请检查游戏点数。" /* 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[8], L"可能是点数不足导致登录之机码停用。" /* 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[9], L"储值后请稍待数分钟系统处理时间。" /* 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[10], L" ");
-                    CopyText(gValue9A620C[11], L" ");
+                    CopyText(gLoginMsgLines_9A620C[6], L"本台机器之机码已停用。" /* 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gLoginMsgLines_9A620C[7], L"请检查游戏点数。" /* 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gLoginMsgLines_9A620C[8], L"可能是点数不足导致登录之机码停用。" /* 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gLoginMsgLines_9A620C[9], L"储值后请稍待数分钟系统处理时间。" /* 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+                    // CopyText(gLoginMsgLines_9A620C[10], L" ");
+                    // CopyText(gLoginMsgLines_9A620C[11], L" ");
                     gValueDA3B24 = 0;
                     break;
                 case 22:

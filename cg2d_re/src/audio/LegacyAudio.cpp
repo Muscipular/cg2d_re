@@ -1,5 +1,6 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/core/m_log.hpp"
 
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../network/NetworkDispatchDependencies.hpp"
@@ -663,9 +664,14 @@ std::int32_t __cdecl Sub_52C9E0(
 
 // 原 [0x52C450,0x52C677)：直接播放，冷却非零不触碰通道。
 std::int32_t __cdecl PlaySe_52C450(
-    const std::int32_t seNo, const std::int32_t screenX)
+    const std::int32_t seNo, const std::int32_t screenX, const std::source_location& caller)
 {
     gLastSeNo58D4FC = seNo;
+    if (seNo == 57 || seNo == 73) {
+        m_log("[audio][se-request] id=%d scene=%d state=%d x=%d caller=%s:%u\n",
+            seNo, world::gCurrentSceneType, world::gCurrentSceneState, screenX,
+            caller.function_name(), caller.line());
+    }
     if (gValue10507D4 != 0 || platform::gEnableSound == 0
         || seNo < 0 || seNo > 500 || !gSdlAudioBackend.IsOpen()) {
         return -1;
@@ -677,6 +683,9 @@ std::int32_t __cdecl PlaySe_52C450(
         return -1;
     }
     if (effect.cooldown != 0) {
+        if (seNo == 57 || seNo == 73) {
+            m_log("[audio][se-cooldown] id=%d remaining=%d\n", seNo, effect.cooldown);
+        }
         return 0;
     }
 
@@ -731,8 +740,12 @@ std::int32_t __cdecl PlaySe_52C450(
         static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
             static_cast<std::size_t>(frequencyChannel), frequency));
     }
-    static_cast<void>(gSdlAudioBackend.PlayChannel(
-        static_cast<std::size_t>(gNextSeChannel105082C), false));
+    const bool started = gSdlAudioBackend.PlayChannel(
+        static_cast<std::size_t>(gNextSeChannel105082C), false);
+    if (seNo == 57 || seNo == 73) {
+        m_log("[audio][se-play] id=%d channel=%d started=%d caller=%s:%u\n",
+            seNo, gNextSeChannel105082C, started ? 1 : 0, caller.function_name(), caller.line());
+    }
 
     std::uint32_t next =
         static_cast<std::uint32_t>(gNextSeChannel105082C);

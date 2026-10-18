@@ -40,7 +40,7 @@ static constexpr LoginSceneControl32 kHighSecondControl {
 static constexpr std::array<std::int32_t, 4> kBackgroundImages {
     22002, 22212, 22311, 22311,
 };
-static constexpr wchar_t kVersion[] = L"7.1.00";
+extern wchar_t kVersion[];
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
 using Capability4InputButton32 = cg::ui::UiControlRecord;

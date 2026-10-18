@@ -34,7 +34,7 @@ namespace cg::login {
 
 // 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
 static constexpr wchar_t kWindowName[] = L"魔力宝贝";
-static constexpr wchar_t kVersion[] = L"7.1.00";
+wchar_t kVersion[] = L"1.0.0";
 // 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kCannotConnect[] =
     L"无法连上伺服器。 ";
@@ -47,10 +47,10 @@ static constexpr wchar_t kSuspended[] =
 static constexpr wchar_t kMultiline[] = L"Multiline";
 // 原 0x55C71C「--->請速回 SOFTSTAR 網站」正文 24 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kAccountHelp4[] =
-    L"--->请速回 SOFTSTAR 网站";
+    L"";
 // 原 0x55C700「--->註冊新帳號並移轉舊帳號」正文 26 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kAccountHelp5[] =
-    L"--->注册新帐号并移转旧帐号";
+    L"";
 
 // 原559958起25个64B槽的正文；当前静态中文采用UTF-16，索引仍由CategoryTitle承接。
 static constexpr std::array<const wchar_t*, 25> kCategoryTitles {
@@ -276,8 +276,8 @@ static void CopyAccountHelpLines()
 {
     CopyText(cg::login::gValue9A620C[6], L"您可能遇到以下 3 种情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
     CopyText(cg::login::gValue9A620C[7], L"1.密码错误，请查明后重新输入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
-    CopyText(cg::login::gValue9A620C[8], L"2.未储值，请至 SOFTSTAR 网站储值" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
-    CopyText(cg::login::gValue9A620C[9], L"3.新会员系统中查无此帐号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gValue9A620C[8], L"2.已经在线" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+    CopyText(cg::login::gValue9A620C[9], L"3.卡号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
 }
 
 static void DrawCategoryControls()
@@ -474,12 +474,12 @@ std::int32_t ProcessScene_45FEA0()
                 case 3:
                     CopyText(gLoginSceneMessage, kMultiline);
                     CopyText(gLoginSceneMessage, L"Multiline_New");
-                    CopyText(gValue9A620C[0], L"＝＝＝＝ 为了维护玩家帐号安全性 ＝＝＝＝" /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[1], L"大宇资讯已于２００５／０５／１３全面变更" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[2], L"所有玩家会员密码、以及魔力宝贝游戏密码，" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[3], L"请玩家至SOFTSTAR会员中心领取新的密码，" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[4], L"详情请参阅SOFTSTAR官方网站资讯：" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyText(gValue9A620C[5], L"　　　　http://www.softstar.com.tw" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[0], L"密码错误请重试" /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[1], L"" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[2], L"" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[3], L"" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     CopyAccountHelpLines();
                     gValueDA3B24 = 0;
                     CopyText(gValue9A620C[10], kAccountHelp4);
@@ -556,12 +556,7 @@ std::int32_t ProcessScene_45FEA0()
                 case 23:
                     gOpenUrlAfterMessage = 1;
                     gValueDA3B24 = 0;
-                    CopyText(gLoginSceneMessage, LR"(亲爱的玩家您好：
-由于您的游戏密码已经过期，
-请登入大宇会员系统更换游戏密码，
-请定期更换密码以确保帐号安全。
-点击确定，将前往SOFTSTAR网页。
-)" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
+                    CopyText(gLoginSceneMessage, L"游戏密码已经过期。\n" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
                     break;
                 default:
                     CopyText(gLoginSceneMessage, kCannotConnect);
@@ -594,13 +589,13 @@ std::int32_t ProcessScene_45FEA0()
 
     if (world::gCurrentSceneState == 101 && UpdateLoginMessage(gLoginSceneMessage) != 0) {
         if (gOpenUrlAfterMessage != 0) {
-            ::ShellExecuteA(
-                reinterpret_cast<HWND>(platform::gLegacyWindow),
-                nullptr,
-                "http://www.softstar.com.tw/Game/Index.aspx",
-                nullptr,
-                nullptr,
-                1);
+            // ::ShellExecuteA(
+            //     reinterpret_cast<HWND>(platform::gLegacyWindow),
+            //     nullptr,
+            //     "http://www.softstar.com.tw/Game/Index.aspx",
+            //     nullptr,
+            //     nullptr,
+            //     1);
             gOpenUrlAfterMessage = 0;
             world::SetPendingSceneType(1);
         }

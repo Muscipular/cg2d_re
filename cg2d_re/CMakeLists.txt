@@ -332,7 +332,7 @@ set_target_properties(cg2d_re_client cg2d_re_lz4 yaml-cpp
     PROPERTIES MSVC_RUNTIME_LIBRARY MultiThreaded)
 # 保留链接映射及EXE导出符号，仅停止生成额外的导入库／导出描述文件。
 target_link_options(cg2d_re_client PRIVATE /NOIMPLIB /NOEXP
-    "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
+    "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re.map")
 
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。
 add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL

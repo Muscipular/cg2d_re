@@ -2974,12 +2974,12 @@ static void WindowRuntime_RestorePositions()
 
         // 两次偏移固定各自调用前实例，越界修正则写回调用后重取的实例。
         window = state.window;
-        const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
-        window->x += offsetX;
-        window = state.window;
-        const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
-        window->y += offsetY;
-        window = state.window;
+        // const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
+        // window->x += offsetX;
+        // window = state.window;
+        // const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
+        // window->y += offsetY;
+        // window = state.window;
         if (window->x < 0) {
             const std::int32_t x = platform::RandomRange_46FAF0(10, 20);
             state.window->x = x;

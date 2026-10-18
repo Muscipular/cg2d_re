@@ -5,7 +5,6 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/audio/LegacyAudio.hpp"
-#include "cg/core/m_log.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -52,12 +51,6 @@ static void ApplyYobiAnimeFrame(
         if (flag >= 10000) {
             action->frameEvent = flag;
         } else if (world::gCurrentSceneType != 9 || (action->flags & 0x80200u) == 0) {
-            if (flag == 57 || flag == 73) {
-                m_log("[audio][se-anime] id=%u anime=%u action=%d direction=%d frame=%d flags=%08X\n",
-                    static_cast<unsigned>(flag), resource::animation::gAnimateRecords9A4A58[animeIndex].animeNo + 100000u,
-                    static_cast<int>(selected->action), static_cast<int>(selected->direction),
-                    static_cast<int>(action->frameIndex), static_cast<unsigned>(action->flags));
-            }
             static_cast<void>(audio::PlaySe_52C450(flag, action->x));
         }
     }

@@ -3,14 +3,11 @@
 
 #include <SDL3/SDL.h>
 
-#include "cg/core/m_log.hpp"
-
 #include <algorithm>
 #include <array>
 #include <cmath>
 #include <limits>
 #include <new>
-#include <string_view>
 #include <utility>
 
 namespace cg::platform {
@@ -23,7 +20,6 @@ struct SdlAudioBackend::Impl {
         SDL_AudioSpec mixSpec {};
         Uint8* pcmStereo {};
         std::size_t frames {};
-        bool traceWarpEffect {}; // 临时诊断cgsys06.wav，识别其他音效编号误用同一样本。
     };
 
     struct Channel {
@@ -228,10 +224,6 @@ struct SdlAudioBackend::Impl {
                     channel.drainingReverb = true;
                 } else {
                     channel.playing = false;
-                    if (sample.traceWarpEffect) {
-                        m_log("[audio][sample57-feed-end] channel=%p cursor=%zu frames=%zu\n",
-                            static_cast<void*>(&channel), channel.cursor, end);
-                    }
                     static_cast<void>(SDL_FlushAudioStream(stream));
                 }
             }
@@ -329,15 +321,7 @@ bool SdlAudioBackend::LoadWav(
         }
     }
 
-    const bool loaded = Impl::LoadSample(sample, path);
-    if (loaded) {
-        sample.traceWarpEffect = std::wstring_view{path}.ends_with(L"cgsys06.wav");
-        if (sample.traceWarpEffect) {
-            m_log("[audio][sample57-load] slot=%zu frames=%zu rate=%d\n",
-                slot, sample.frames, sample.mixSpec.freq);
-        }
-    }
-    return loaded;
+    return Impl::LoadSample(sample, path);
 }
 
 bool SdlAudioBackend::HasSample(const std::size_t slot) const noexcept
@@ -461,11 +445,6 @@ bool SdlAudioBackend::PlayChannel(
     }
     channel.loop = loop;
     channel.playing = true;
-    if (channel.sample->traceWarpEffect) {
-        m_log("[audio][sample57-start] channel=%p index=%zu cursor=%zu frames=%zu loop=%d repeats=%u\n",
-            static_cast<void*>(&channel), index, channel.cursor, channel.loopEnd,
-            loop ? 1 : 0, channel.remainingRepeats);
-    }
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return SDL_ResumeAudioDevice(impl_->device);
 }

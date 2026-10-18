@@ -78,7 +78,7 @@ static void UpdateFrameDiagnostics()
         UpdateWndTitle(fps, frameIndex, frameCounts);
     }
     previousTick = now;
-#ifdef _DEBUG
+#ifdef MY_DEBUG
     if (IsClientDiagnosticsEnabled()) {
         std::wstring message;
         text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);

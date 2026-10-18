@@ -39,6 +39,7 @@
 #include <cstdlib>
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <random>
 
 #include "../../platform/MainLoopDependencies.hpp"
 #include "cg/core/vm.h"
@@ -1314,25 +1315,28 @@ static void EnterSelectedCharacter()
 #ifndef _DEBUG
 // CUN01：本端人物页扩展状态；等待明确选择，不复用原0..21业务状态。
 static constexpr std::int32_t kUsageNoticeState = 22;
+thread_local cg::platform::LegacyCryptInt state1(1);
+thread_local cg::platform::LegacyCryptInt state2(std::random_device().operator()());
+
+#define MIXVL 0x1a57b94f
+#define MXTRUE 0x8ef61
 
 // CUN01：沿现有游戏模态动作与文字按钮，返回0等待、1同意、2退出。
 static std::int32_t ProcessUsageNotice()
 {
     std::int32_t iRet = 0;
-    VM_HARD_START
-    std::array<std::wstring_view, 8> lines {{
+    VM_DOLPHIN_WHITE_START
+    std::array<std::wstring_view, 6> lines {{
         L"本程序仅供学习研究使用，严禁用于任何商业用途。",
-        L"本程序所涉及的所有版权均归官方所有，",
-        L"未经官方正式授权，任何单位或个人不得",
-        L"将本程序用于商业盈利活动。",
-        L"若您因误信非官方渠道信息，",
-        L"为使用本程序支付了相关费用，",
+        L"本程序所涉及的所有版权均归官方所有，未经官方正式授权，",
+        L"任何单位或个人不得将本程序用于商业盈利活动。",
+        L"若您因误信非官方渠道信息，为使用本程序支付了相关费用，",
         L"请您及时与收费方沟通并申请退款，",
         L"由此产生的一切纠纷与本程序提供方无关。",
     }};
     std::array<detail::CharacterModalUiRecord, 2> buttons {{
-        {264, 368, 240, 366, 64, 24, L"是"},
-        {360, 368, 336, 366, 64, 24, L"否"},
+        {264, 368, 240, 366, 64, 24, L"同意"},
+        {360, 368, 336, 366, 64, 24, L"结束"},
     }};
 
     auto*& action = state::gCharacterModalAction;
@@ -1364,7 +1368,7 @@ static std::int32_t ProcessUsageNotice()
         detail::Sub_503A20(&button, 2, 4, 1, cg::render::gValueD69768, 214);
     }
 RET:
-    VM_HARD_END
+    VM_DOLPHIN_WHITE_END
     return iRet;
 }
 #endif
@@ -1453,7 +1457,7 @@ static void UpdateCharacterGraphic(
 #pragma optimize("", off)
 std::int32_t ProcessScene_460FF0()
 {
-    VM_HARD_START
+    VM_DOLPHIN_WHITE_START
     std::int32_t sceneResult;
     // 单次执行块使普通提前退出先经过VM结束标记，不改变后续帧的状态流转。
     do {
@@ -1763,7 +1767,7 @@ std::int32_t ProcessScene_460FF0()
             world::gCurrentSceneState = 0;
         }
     } while (false);
-    VM_HARD_END
+    VM_DOLPHIN_WHITE_END
     return sceneResult;
 }
 #pragma optimize("", on)

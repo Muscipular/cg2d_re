@@ -22,6 +22,8 @@
 #include <bit>
 #include <cstdint>
 
+#include "cg/core/vm.h"
+
 namespace cg::platform {
 
 std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
@@ -40,29 +42,40 @@ std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。
 
 std::uintptr_t gConnectionSocket = 0; // 原全局：0x00D9B2B8。
+
+__declspec(noinline)
+static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
+{
+    VM_LIGHT_START
+    fps = static_cast<float>(frameCounts[0] + frameCounts[1] + frameCounts[2])
+        / static_cast<float>(frameCounts.size());
+    frameIndex = (frameIndex + 1) % frameCounts.size();
+    frameCounts[frameIndex] = 0;
+    std::wstring title(L"CG2D RE");
+    const char* const playerName = world::GetPlayerDisplayText(1);
+    if (playerName[0] != '\0') {
+        title += L" - [";
+        title += text::FromGbkWide(playerName);
+        title += L"]";
+    }
+    title += L" 开启者,今天你揍了小吸兽了吗？";
+    static_cast<void>(::SetWindowTextW(reinterpret_cast<HWND>(gLegacyWindow), title.c_str()));
+    VM_LIGHT_END
+}
+
 // CTM01/A11：参考UIExt::DrawFps，按实际提交帧统计三秒桶，沿现有文本队列绘制。
 static void UpdateFrameDiagnostics()
 {
     static std::uint64_t previousTick = ReadTickCount64();
-    const std::uint64_t now = ReadTickCount64();
-    const std::uint64_t interval = now - previousTick;
     static float fps = 0;
     static std::size_t frameIndex = 0;
     static std::array<std::uint32_t, 3> frameCounts {};
+    VM_LIGHT_START
+    const std::uint64_t now = ReadTickCount64();
+    const std::uint64_t interval = now - previousTick;
     ++frameCounts[frameIndex];
     if (previousTick / 1000u != now / 1000u) {
-        fps = static_cast<float>(frameCounts[0] + frameCounts[1] + frameCounts[2])
-            / static_cast<float>(frameCounts.size());
-        frameIndex = (frameIndex + 1) % frameCounts.size();
-        frameCounts[frameIndex] = 0;
-        std::wstring title(gWindowClassName);
-        const char* const playerName = world::GetPlayerDisplayText(1);
-        if (playerName[0] != '\0') {
-            title += L" - [";
-            title += text::FromGbkWide(playerName);
-            title += L"]";
-        }
-        static_cast<void>(::SetWindowTextW(reinterpret_cast<HWND>(gLegacyWindow), title.c_str()));
+        UpdateWndTitle(fps, frameIndex, frameCounts);
     }
     previousTick = now;
 #ifdef _DEBUG
@@ -74,6 +87,7 @@ static void UpdateFrameDiagnostics()
         static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
     }
 #endif
+    VM_LIGHT_END
 }
 
 // 原函数：0x00458A40。

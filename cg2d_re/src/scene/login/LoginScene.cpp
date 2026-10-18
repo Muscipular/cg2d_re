@@ -262,13 +262,6 @@ static void SetServerWindowTitle(
         kVersion,
         category,
         server);
-    if (slot == 9) {
-        buffer = std::format(
-            L"{} {} [逆 {}]", // 原55CD18，特殊标题保留“逆”。
-            kWindowName,
-            kVersion,
-            category);
-    }
     ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 

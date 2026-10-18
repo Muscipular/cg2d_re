@@ -793,7 +793,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
 // 原函数：0x004B3BF0。
 std::int32_t WindowTrade_DrawOwnPetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index,
-    bool showEquipmentPage = false); // 完整己方宠物提示；银行开启第三页装备名称。
+    bool showEquipmentPage = false); // 完整己方宠物提示；银行／交易开启第三页装备名称。
 // 原函数：0x004E5620。
 cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 // 原函数：0x0049E800。

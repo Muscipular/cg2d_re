@@ -62,7 +62,7 @@ static_assert(alignof(__time64_t) == alignof(std::int64_t));
 namespace cg::ui {
 namespace detail {
 
-// 悬停宠物预览分页：银行含装备共3页，其他默认2页；identity仅比较借用记录身份。
+// 悬停宠物预览分页：银行／交易含装备共3页，其他默认2页；identity仅比较借用记录身份。
 std::int32_t WindowPetSkills_GetPreviewPage(const void* identity, std::int32_t pageCount = 2);
 
 

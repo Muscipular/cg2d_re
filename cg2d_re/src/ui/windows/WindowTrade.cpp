@@ -66,11 +66,12 @@ struct WindowTradePet {
     std::array<char, 17> name; // 原成员偏移：+0x5D8；显示名称。
     std::array<char, 17> speciesName; // 原成员偏移：+0x5E9；原始名称。
     std::array<std::byte, 2> reserved5FA; // 原成员偏移：+0x5FA。
+    std::array<std::array<char, 29>, 6> equipmentNames; // 交易装备名称；Yq字段21—26，空槽为空字符串。
 };
 
 static_assert(std::is_standard_layout_v<WindowTradePet>);
 static_assert(std::is_trivially_copyable_v<WindowTradePet>);
-static_assert(sizeof(WindowTradePet) == 0x5FC + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
+static_assert(sizeof(WindowTradePet) == 0x5FC + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10) + 176); // 六个29字节名称及尾部对齐。
 static_assert(offsetof(WindowTradePet, used) == 0x00);
 static_assert(offsetof(WindowTradePet, selection) == 0x02);
 static_assert(offsetof(WindowTradePet, tribe) == 0x04);
@@ -89,6 +90,7 @@ static_assert(offsetof(WindowTradePet, techniques) == 0x60);
 static_assert(offsetof(WindowTradePet, name) == 0x5D8 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 static_assert(offsetof(WindowTradePet, speciesName) == 0x5E9 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 static_assert(offsetof(WindowTradePet, reserved5FA) == 0x5FA + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
+static_assert(offsetof(WindowTradePet, equipmentNames) == 0x5FC + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 
 // 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
 using WindowTradePanelCallback = void (*)(
@@ -107,7 +109,7 @@ static std::int32_t WindowItem_DrawPetTooltip(std::int32_t side, std::int32_t in
 static std::int32_t WindowTrade_ResetRemoteItems(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
 
 // 原函数：0x004E52B0。
-static void WindowTrade_CopyOwnPet(std::int32_t side); // 同源玩家宠物属性及20项技能按存储索引复制。
+static void WindowTrade_CopyOwnPet(std::int32_t side); // 同源玩家宠物属性、20项技能及6个装备名称复制。
 
 // 原函数：0x004E5600。
 static void WindowTrade_SyncOwnItems(std::int32_t side); // 顺序同步20条交易物品。
@@ -294,7 +296,7 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* text); // 每条1
 static std::int32_t WindowTrade_ReceiveRemotePet(std::int32_t index, const char* text); // 单宠物属性与双名称。
 
 // 原函数：0x004E5CD0。
-static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const char* text); // 清空整表后接收最多20个技能名。
+static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const char* text); // 清空整表后接收20个技能名及6个装备名。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -929,7 +931,7 @@ static std::int32_t WindowTrade_Draw(const std::int32_t)
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
                 if (ownPet != 0) {
-                    static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index));
+                    static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index, true));
                 } else {
                     static_cast<void>(WindowTrade_DrawSelectedPetTooltip(x, 0, 0, index));
                 }
@@ -2198,7 +2200,7 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
-// 银行第三页复用技能行底图；名称已转换为UTF-16，不显示物品属性。
+// 银行／交易第三页复用技能行底图；名称已转换为UTF-16，不显示物品属性。
 static void WindowTrade_DrawPetEquipmentRow(
     const std::int32_t x, const std::int32_t y, const std::wstring_view name)
 {
@@ -2215,8 +2217,8 @@ static void WindowTrade_DrawPetEquipmentRow(
     static_cast<void>(render::DrawGraphic(x + 105, y + 8, 0xE6, 0x3B59C, 0, &descriptor));
 }
 
-// 银行两页技能及一页装备的页脚，绘制在十行列表下方。
-static void WindowTrade_DrawBankPetPageHint(
+// 银行／交易两页技能及一页装备的页脚，绘制在十行列表下方。
+static void WindowTrade_DrawPetPageHint(
     const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
     constexpr std::array<std::wstring_view, 3> hints {
@@ -2325,7 +2327,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
                 shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
         }
     }
-    WindowTrade_DrawBankPetPageHint(shortX, shortY, page);
+    WindowTrade_DrawPetPageHint(shortX, shortY, page);
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
@@ -2439,13 +2441,18 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(record);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(record, 3);
     for (std::int32_t row = 0; row < 10; ++row) {
-        static_cast<void>(WindowTrade_DrawSelectedPetSkillRow(
-            shortX + 10, shortY + 141 + row * 16, side, shortIndex, skillPage * 10 + row));
+        if (page == 2) {
+            const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
+                ? cg::text::FromGbkWide(record->equipmentNames[row].data()) : std::wstring{};
+            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+        } else {
+            static_cast<void>(WindowTrade_DrawSelectedPetSkillRow(
+                shortX + 10, shortY + 141 + row * 16, side, shortIndex, page * 10 + row));
+        }
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
-        skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
+    WindowTrade_DrawPetPageHint(shortX, shortY, page);
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
@@ -2571,7 +2578,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
         }
     }
     if (showEquipmentPage) {
-        WindowTrade_DrawBankPetPageHint(shortX, shortY, page);
+        WindowTrade_DrawPetPageHint(shortX, shortY, page);
     } else {
         static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
             page == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
@@ -2864,6 +2871,11 @@ static void WindowTrade_CopyOwnPet(const std::int32_t side)
                 &record->techniques[skill],
                 &source.techniquesD8[sourceIndex], sizeof(world::detail::PetTechniqueRecord));
         }
+        for (std::size_t slot = 0; slot < record->equipmentNames.size(); ++slot) {
+            const auto& item = source.items6E4[slot];
+            const std::string name = item.used != 0 ? cg::text::ToGbk(item.name) : std::string{};
+            std::strcpy(record->equipmentNames[slot].data(), name.size() <= 28 ? name.c_str() : "???");
+        }
     }
 }
 
@@ -2998,6 +3010,7 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
     }
     auto* skill = record->techniques.data();
     std::memset(skill, 0, sizeof(record->techniques));
+    std::memset(record->equipmentNames.data(), 0, sizeof(record->equipmentNames));
     char name[256];
     for (std::int32_t field = 1; field <= world::kPetTechniqueSlotCount; ++field) {
         const std::int32_t status =
@@ -3012,6 +3025,16 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
             std::strcpy(skill->name.data(), name);
         }
         ++skill;
+    }
+    // 已确认Yq扩展：固定20个技能名之后是六个装备名，空槽仍占一个字段。
+    for (std::size_t slot = 0; slot < record->equipmentNames.size(); ++slot) {
+        const std::int32_t status = network::ExtractDelimitedField_52CED0(text, '|',
+            world::kPetTechniqueSlotCount + 1 + static_cast<std::int32_t>(slot), 255, name);
+        if (status == 1) {
+            return status;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(record->equipmentNames[slot].data(), std::strlen(name) <= 28 ? name : "???");
     }
     return world::kPetTechniqueSlotCount;
 }

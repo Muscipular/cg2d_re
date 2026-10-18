@@ -87,8 +87,16 @@ bool CenterPopupWindowPosition(const std::int32_t id,
     if (!IsWindowNearOriginalCenter(original.x, original.y, original.width, original.height)) {
         return false;
     }
-    x = (platform::gWindowWidth - width) / 2;
-    y = (platform::gWindowHeight - height) / 2;
+    const std::int32_t adaptedX = (platform::gWindowWidth - width) / 2;
+    const std::int32_t adaptedY = (platform::gWindowHeight - height) / 2;
+    // 以适配后的位置比较当前位置；任一轴超出容差时保留整个窗口的位置。
+    const std::int64_t offsetX = static_cast<std::int64_t>(x) - adaptedX;
+    const std::int64_t offsetY = static_cast<std::int64_t>(y) - adaptedY;
+    if (offsetX < -10 || offsetX > 10 || offsetY < -10 || offsetY > 10) {
+        return false;
+    }
+    x = adaptedX;
+    y = adaptedY;
     return true;
 }
 

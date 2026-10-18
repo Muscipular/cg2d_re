@@ -93,7 +93,8 @@ void AdaptWindowPosition(
     std::int32_t& x, std::int32_t& y, std::int32_t width, std::int32_t height);
 void AdaptWindowPosition(
     std::int16_t& x, std::int16_t& y, std::int32_t width, std::int32_t height);
-// 按初始化前的原型矩形决定是否居中；非中心窗口保留已适配位置，返回false。
+// 按初始化前的原型矩形决定是否居中，且当前位置两轴距适配后位置均须在±10内。
+// 非中心窗口或任一轴超出容差时保留当前位置，返回false。
 // 动态对话的零宽原型不参与居中，实际矩形在WindowDialog_Open中适配。
 bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t height,
     std::int32_t& x, std::int32_t& y);

@@ -313,39 +313,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     const DebugAssertionReport assertionReport;
 #endif
 
-    char fileName[64];
-    char line[1028];
-    char fileCommandLine[4096];
-
     gShowCommand = showCommand;
     gInstance = reinterpret_cast<std::uintptr_t>(instance);
     gCommandLine = commandLine;
-
-    if (const_cast<char*>(std::strstr(commandLine, "CGstart")) != nullptr) {
-        std::memset(fileCommandLine, 0, sizeof(fileCommandLine));
-        std::memset(fileName, 0, sizeof(fileName));
-        std::int32_t total = 0;
-        std::sprintf(fileName, "%s", ".\\data\\argument.ini");
-        std::FILE* file = std::fopen(fileName, "r");
-        if (file != nullptr) {
-            do {
-                std::memset(line, 0, 1025);
-                std::fgets(line, 1024, file);
-                total += static_cast<std::int32_t>(std::strlen(line));
-                if (total >= 4096) {
-                    break;
-                }
-                std::strcat(fileCommandLine, line);
-            } while (std::feof(file) == 0);
-            std::fclose(file);
-        }
-        gCommandLine = fileCommandLine;
-    }
-
-    if (const_cast<char*>(std::strstr(gCommandLine, "updated")) == nullptr) {
-        ShowWideMessage(L"请由「线上游戏领航员」启动", L"确认", 0x10);
-        return 0;
-    }
 
     if (previousInstance == nullptr) {
         gWindowClass.style = 0x1008;

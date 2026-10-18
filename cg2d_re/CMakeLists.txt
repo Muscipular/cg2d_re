@@ -83,8 +83,7 @@ target_include_directories(cg2d_re_luajit_prebuilt INTERFACE
 
 set(cg2d_re_core_sources
     src/text/Encoding.cpp
-    src/resource/ResourceNames.cpp
-    src/resource/ResourcePaths.cpp
+        src/resource/ResourcePaths.cpp
     src/resource/GraphicDecode.cpp
     src/resource/GraphicInfo.cpp
     src/resource/AnimationRuntime.cpp

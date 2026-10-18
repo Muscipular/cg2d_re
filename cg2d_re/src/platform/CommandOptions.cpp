@@ -19,7 +19,7 @@
 
 namespace cg::platform {
 
-char gNewestText[128] = "/update/newestV2.txt"; // 原全局：0x0058ADA8。
+// char gNewestText[128] = "/update/newestV2.txt"; // 原全局：0x0058ADA8。
 char gMapPath[128] = "map"; // 原全局：0x0055DA00。
 std::int32_t gDeviceBitsPerPixel = 8; // 原全局：0x00554B70。
 std::uint16_t gScanlineSyncMode = 1; // 原全局：0x00554B74。
@@ -156,9 +156,9 @@ bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
 int ParseCommandOptions()
 {
     char savedata[128] {};
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "newest:"))) {
-        std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
-    }
+    // if (char* match = const_cast<char*>(std::strstr(gCommandLine, "newest:"))) {
+    //     std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
+    // }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "savedata:"))) {
         std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
     }
@@ -174,135 +174,6 @@ int ParseCommandOptions()
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
     std::sprintf(cg::render::gLegacyPendingStorage.prefix, "data\\0\\%s", "save.dat");
-
-    const char* const graphicKeys[9] = {
-        "graphicbin:", "graphicbinex:", "graphicbinv2:",
-        "graphicbinv3:", "graphicbin_puk2:", "graphicbin_puk3:",
-        "graphicbin_joy:", "graphicbin_joy_ex:", "graphicbin_joy_ch1:"
-    };
-    const char* const graphicOverrideKeys[9] = {
-        "graphicbin:", "graphicbinex:", "graphicbiv2x:",
-        "graphicbinv3:", "graphicbin_puk2:", "graphicbin_puk3:",
-        "graphicbin_joy:", "graphicbin_joy_ex:", "graphicbin_joy_ch1:"
-    };
-    const char* const graphicInfoKeys[9] = {
-        "graphicinfobin:", "graphicinfobinex:", "graphicinfobinv2:",
-        "graphicinfobinv3:", "graphicinfobin_puk2:", "graphicinfobin_puk3:",
-        "graphicinfobin_joy:", "graphicinfobin_joy_ex:", "graphicinfobin_joy_ch1:"
-    };
-    const char* const graphicFormats[9] = {
-        "graphic_%d.bin", "graphicex_%d.bin", "graphicv2_%d.bin",
-        "graphicv3_%d.bin", "PUK2\\graphic_puk2_%d.bin", "PUK3\\graphic_puk3_%d.bin",
-        "graphic_joy_%d.bin", "graphic_joy_ex_%d.bin", "graphic_joy_ch1_%d.bin"
-    };
-    const char* const graphicInfoFormats[9] = {
-        "graphicInfo_%d.bin", "graphicinfoex_%d.bin", "graphicinfov2_%d.bin",
-        "graphicinfov3_%d.bin", "PUK2\\graphicinfo_puk2_%d.bin", "PUK3\\graphicinfo_puk3_%d.bin",
-        "graphicinfo_joy_%d.bin", "graphicinfo_joy_ex_%d.bin", "graphicinfo_joy_ch1_%d.bin"
-    };
-    const char* const animeKeys[9] = {
-        "animebin:", "animebinex:", "animebinv2:",
-        "animebinv3:", "animebin_puk2:", "animebin_puk3:",
-        "animebin_joy:", "animebin_joy_ex:", "animebin_joy_ch1:"
-    };
-    const char* const animeInfoKeys[9] = {
-        "animeinfobin:", "animeinfobinex:", "animeinfobinv2:",
-        "animeinfobinv3:", "animeinfobin_puk2:", "animeinfobin_puk3:",
-        "animeinfobin_joy:", "animebin_joy_ex:", "animebin_joy_ch1:"
-    };
-    const char* const animeFormats[9] = {
-        "anime_%d.bin", "animeex_%d.bin", "animev2_%d.bin",
-        "animev3_%d.bin", "PUK2\\anime_puk2_%d.bin", "PUK3\\anime_puk3_%d.bin",
-        "anime_joy_%d.bin", "anime_joy_ex_%d.bin", "anime_joy_ch1_%d.bin"
-    };
-    const char* const animeInfoFormats[9] = {
-        "animeinfo_%d.bin", "animeinfoex_%d.bin", "animeinfov2_%d.bin",
-        "animeinfov3_%d.bin", "PUK2\\animeinfo_puk2_%d.bin", "PUK3\\animeinfo_puk3_%d.bin",
-        "animeinfo_joy_%d.bin", "animeinfo_joy_ex_%d.bin", "animeinfo_joy_ch1_%d.bin"
-    };
-    const char* const coordinateKeys[9] = {
-        "coordinatebin:", "coordinatebinex:", "coordinatebinv2:",
-        "coordinatebinv3:", "coordinatebin_puk2:", "coordinatebin_puk3:",
-        nullptr, nullptr, nullptr
-    };
-    const char* const coordinateInfoKeys[9] = {
-        "coordinateinfobin:", "coordinateinfobinex:", "coordinateinfobinv2:",
-        "coordinateinfobinv3:", "coordinateinfobin_puk2:", "coordinateinfobin_puk3:",
-        nullptr, nullptr, nullptr
-    };
-    const char* const coordinateFormats[9] = {
-        "coordinate_%d.bin", "coordinateex_%d.bin", "coordinatev2_%d.bin",
-        "coordinatev3_%d.bin", "PUK2\\coordinate_puk2_%d.bin", "PUK3\\coordinate_puk3_%d.bin",
-        nullptr, nullptr, nullptr
-    };
-    const char* const coordinateInfoFormats[9] = {
-        "coordinateinfo_%d.bin", "coordinateinfoex_%d.bin", "coordinateinfov2_%d.bin",
-        "coordinateinfov3_%d.bin", "PUK2\\coordinateinfo_puk2_%d.bin", "PUK3\\coordinateinfo_puk3_%d.bin",
-        nullptr, nullptr, nullptr
-    };
-
-    // 原 var_260 是跨表、跨轮复用的未初始化 int；原函数不检查 sscanf 返回值。
-    int value;
-    for (int slot = 0; slot < 9; ++slot) {
-        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicKeys[slot]))) {
-            std::sscanf(match + std::strlen(graphicKeys[slot]), "%d", &value);
-            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicNames][slot], graphicFormats[slot], value);
-        }
-        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicOverrideKeys[slot]))) {
-            std::sscanf(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
-            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicNames][slot], graphicFormats[slot], value);
-        }
-        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicInfoKeys[slot]))) {
-            std::sscanf(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
-            std::sprintf(cg::resource::gResourceNames[cg::resource::GraphicInfoNames][slot], graphicInfoFormats[slot], value);
-        }
-        if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeKeys[slot]))) {
-            std::sscanf(match + std::strlen(animeKeys[slot]), "%d", &value);
-            std::sprintf(cg::resource::gResourceNames[cg::resource::AnimeNames][slot], animeFormats[slot], value);
-        }
-        if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeInfoKeys[slot]))) {
-            std::sscanf(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
-            std::sprintf(cg::resource::gResourceNames[cg::resource::AnimeInfoNames][slot], animeInfoFormats[slot], value);
-        }
-    }
-
-    for (int slot = 0; slot < 9; ++slot) {
-        if (!const_cast<char*>(std::strchr(cg::resource::gResourceNames[cg::resource::CoordinateNames][slot], '*'))) {
-            if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateKeys[slot]))) {
-                std::sscanf(match + std::strlen(coordinateKeys[slot]), "%d", &value);
-                std::sprintf(cg::resource::gResourceNames[cg::resource::CoordinateNames][slot], coordinateFormats[slot], value);
-            }
-        }
-        if (!const_cast<char*>(std::strchr(cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot], '*'))) {
-            if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateInfoKeys[slot]))) {
-                std::sscanf(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
-                std::sprintf(cg::resource::gResourceNames[cg::resource::CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
-            }
-        }
-    }
-
-    // 原 0x466791-0x466841：单遍逐槽，先数据后 Info，不递归解析别名。
-    for (int slot = 0; slot < 9; ++slot) {
-        for (int table = cg::resource::CoordinateNames; table <= cg::resource::CoordinateInfoNames; ++table) {
-            char* destination = cg::resource::gResourceNames[table][slot];
-            if (const_cast<char*>(std::strchr(destination, '*'))) {
-                std::sscanf(destination, "*%d", &value);
-                const char* source = cg::resource::gResourceNames[table][value];
-                const std::size_t length = std::strlen(source) + 1;
-
-                // 对应先量长、再正向 rep movsd/movsb；临时字保留自引用时的原拷贝行为。
-                std::size_t offset = 0;
-                for (; offset + sizeof(std::uint32_t) <= length; offset += sizeof(std::uint32_t)) {
-                    std::uint32_t word;
-                    std::memcpy(&word, source + offset, sizeof(word));
-                    std::memcpy(destination + offset, &word, sizeof(word));
-                }
-                for (; offset < length; ++offset) {
-                    destination[offset] = source[offset];
-                }
-            }
-        }
-    }
 
     if (const_cast<char*>(std::strstr(gCommandLine, "windowmode"))) {
         gWindowMode = 1;

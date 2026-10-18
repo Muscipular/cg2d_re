@@ -1677,7 +1677,6 @@ std::int32_t ProcessScene_460FF0()
                 ClearPreviewActions();
             } else if (actionIndex == 1u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-#ifndef _DEBUG
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
                 const char* const serverAddress = login::gValueD69798[
                     static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
@@ -1687,9 +1686,6 @@ std::int32_t ProcessScene_460FF0()
                     world::gCurrentSceneState = kUsageNoticeState;
                     interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
                 }
-#else
-                EnterSelectedCharacter();
-#endif
             } else if (actionIndex == 2u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 if (record.deleteFlag != 0) {

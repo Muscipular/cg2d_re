@@ -10,7 +10,10 @@ namespace cg::platform {
 // 原函数：0x004659F0。
 int ParseClientVersion()
 {
-    return std::sscanf("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
+    gVersionMajor = 1;
+    gVersionMinor = 0;
+    gVersionPatch = 0;
+    return 0;
 }
 
 // 原函数：0x00465A20。

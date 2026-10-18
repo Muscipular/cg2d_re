@@ -220,9 +220,9 @@ static std::int32_t QueuePlaintextProtocolBytes(
 __declspec(noinline)
 static std::size_t DecodeBase64InPlace(char* const target, const std::size_t length)
 {
-    VM_HARD_START
+    VM_LIGHT_START
     std::array<std::uint8_t, 256> decodeTable {};
-    constexpr char alphabet[] =
+    char alphabet[] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     for (std::uint8_t index = 0; index < 64; ++index) {
         decodeTable[static_cast<unsigned char>(alphabet[index])] = index;
@@ -243,7 +243,7 @@ static std::size_t DecodeBase64InPlace(char* const target, const std::size_t len
                 static_cast<char>((bits >> bitCount) & 0xFFu);
         }
     }
-    VM_HARD_END
+    VM_LIGHT_END
     return decodedSize;
 }
 #endif
@@ -268,11 +268,12 @@ static LZ4_streamDecode_t initDic()
     return initialStream;
 }
 
+// 固定字典只解码并绑定一次；服务端每帧重置压缩流，此处不能沿用上一帧历史。
+static const LZ4_streamDecode_t dictionaryStream = initDic();
+
 // N02：一帧内连续解压，之前的输出保持原地址，供后续LZ4块引用。
 static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
 {
-    // 固定字典只解码并绑定一次；服务端每帧重置压缩流，此处不能沿用上一帧历史。
-    static const LZ4_streamDecode_t dictionaryStream = initDic();
     static_assert(std::is_trivially_copyable_v<LZ4_streamDecode_t>);
     LZ4_streamDecode_t stream = dictionaryStream;
     std::size_t offset = 4;

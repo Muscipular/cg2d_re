@@ -182,12 +182,14 @@ static std::string ResolveServerPolicyAddress(const std::string& hostname)
 void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
 {
     VM_HARD_START
+#ifdef TAOMOLI
     if (std::strcmp(serverAddress, "taomoli") == 0 && port <= 9)
     {
         std::strcpy(serverAddress, "218.78.128.210");
         port = static_cast<std::uint16_t>(9030 + port);
     }
     else
+#endif
     {
         const std::string address = ResolveServerPolicyAddress(
             std::format("{}.{}.re.cg.qoq.im", serverAddress, port));

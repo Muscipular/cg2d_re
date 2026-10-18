@@ -36,8 +36,8 @@ static std::array<std::wstring, 10> gPetTechniqueCostsD66C34 {}; // 原全局：
 static std::int32_t gPetTechniqueScroll = 0;
 static WindowGraphicData gPetTechniqueScrollThumb {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 复用技能窗口滑块图。
 static std::uint32_t gPetTechniqueScrollMouseFlags = 0; // MouseArea原型初始标记，运行态由窗口持有。
-constexpr std::int32_t kPetTechniqueScrollThumbElement = 48;
-constexpr std::int32_t kPetTechniqueScrollTrackElement = 49;
+constexpr std::int32_t kPetTechniqueScrollThumbElement = 47;
+constexpr std::int32_t kPetTechniqueScrollTrackElement = 48;
 
 static WindowGraphicData gWindowGraphic565698 {0x3BAEE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565698。
 
@@ -116,9 +116,10 @@ static WindowElementPrototype gWindowElements566810[53] { // 原全局：0x00566
     {WindowElementType_Graphic, 17, 160, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
     {WindowElementType_Graphic, 17, 176, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
     {WindowElementType_Graphic, 17, 192, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &WindowElement_NoOp},
+    // 同层图形按提交索引降序绘制；滑块必须先于覆盖其区域的0x3BAEE面板提交。
     {WindowElementType_Graphic, 225, 61, 0, 14, 0, {.graphic = &gPetTechniqueScrollThumb}, &WindowElement_NoOp},
     {WindowElementType_MouseArea, 225, 61, 11, 134, 0, {.mouseFlags = &gPetTechniqueScrollMouseFlags}, &WindowPetSkills_HandleScroll},
+    {WindowElementType_Graphic, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp},
     {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},

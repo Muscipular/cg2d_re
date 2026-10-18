@@ -5,7 +5,13 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::world::detail {
+namespace cg::world {
+
+// 宠物技能数据与索引表容量；技能索引为0—19，沿用32位战斗可用掩码。
+inline constexpr std::int32_t kPetTechniqueSlotCount = 20;
+static_assert(kPetTechniqueSlotCount <= 32);
+
+namespace detail {
 
 // 原宠物+D8的8C技能值记录，50B0D0生产，4E52B0按索引对复制到交易区。
 struct PetTechniqueRecord {
@@ -31,4 +37,5 @@ static_assert(offsetof(PetTechniqueRecord, fp) == 0x84);
 static_assert(offsetof(PetTechniqueRecord, sequence) == 0x88);
 static_assert(sizeof(PetTechniqueRecord) == 0x8C);
 
-} // namespace cg::world::detail
+} // namespace detail
+} // namespace cg::world

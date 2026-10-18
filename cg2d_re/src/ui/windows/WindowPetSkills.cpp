@@ -3,6 +3,7 @@
 #include "../../world/PlayerState.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
+#include <algorithm>
 
 namespace cg::ui {
 namespace detail {
@@ -28,6 +29,8 @@ static void WindowPetSkills_Release();
 
 // 原全局：0x00D66C34。 动态宽文本，控件借稳定owner。
 static std::array<std::wstring, 10> gPetTechniqueCostsD66C34 {}; // 原全局：0x00D66C34。
+// 普通宠物技能页保留10个可见行；描述及拖动索引均加上该滚动起点。
+static std::int32_t gPetTechniqueScroll = 0;
 
 static WindowGraphicData gWindowGraphic565698 {0x3BAEE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565698。
 
@@ -117,6 +120,23 @@ WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u,
 
 // 窗口函数实现。
 
+std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity)
+{
+    static const void* previousIdentity = nullptr; // 仅比较身份，不解引用或拥有记录。
+    static std::int32_t page = 0;
+    if (previousIdentity != identity) {
+        previousIdentity = identity;
+        page = 0;
+    }
+    if ((platform::gKeyStates[0x21] & 4u) != 0) { // PageUp。
+        page = 0;
+    }
+    if ((platform::gKeyStates[0x22] & 4u) != 0) { // PageDown。
+        page = 1;
+    }
+    return page;
+}
+
 // 原函数：0x00491AA0。
 static WindowElement* WindowPetSkills_Refresh()
 {
@@ -165,21 +185,20 @@ static WindowElement* WindowPetSkills_Refresh()
             gCurrentWindow->elements[13 + row].visible = 0;
             gCurrentWindow->elements[23 + row].visible = 0;
         }
-        std::int32_t shown = 0;
-        if (selectedPet().value6A4 > 0) {
-            do {
-                gCurrentWindow->elements[37 + shown].visible = 1;
-                ++shown;
-            } while (shown < selectedPet().value6A4);
+        const std::int32_t slotCount = std::clamp(selectedPet().value6A4, 0, world::kPetTechniqueSlotCount);
+        gPetTechniqueScroll = std::clamp(gPetTechniqueScroll, 0, std::max(0, slotCount - 10));
+        for (std::int32_t shown = 0; shown < std::min(10, slotCount - gPetTechniqueScroll); ++shown) {
+            gCurrentWindow->elements[37 + shown].visible = 1;
         }
         for (std::int32_t row = 0; row < 10; ++row) {
-            if (selectedPet().techniquesD8[row].used != 0) {
+            const std::int32_t techniqueIndex = gPetTechniqueScroll + row;
+            if (selectedPet().techniquesD8[techniqueIndex].used != 0) {
                 gCurrentWindow->elements[13 + row].visible = 1;
-                const char* const techniqueName = selectedPet().techniquesD8[row].name.data();
+                const char* const techniqueName = selectedPet().techniquesD8[techniqueIndex].name.data();
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[13 + row].data);
                 data->text = cg::text::FromGbkWide(techniqueName);
                 gCurrentWindow->elements[23 + row].visible = 1;
-                const std::int32_t fp = selectedPet().techniquesD8[row].fp;
+                const std::int32_t fp = selectedPet().techniquesD8[techniqueIndex].fp;
                 cg::text::FormatTo(buffer, L"{:3}", fp);
                 gPetTechniqueCostsD66C34[row] = buffer;
             }
@@ -244,12 +263,14 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
 static std::int32_t WindowPetSkills_Update(const std::int32_t value)
 {
     if (value == -1) {
+        gPetTechniqueScroll = 0;
         static_cast<void>(WindowPetDetail_SavePetSequences());
         WindowPetDetail_InitializeDraft();
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         return 1;
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
+        gPetTechniqueScroll = 0;
         WindowPetDetail_InitializeDraft();
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -425,8 +446,13 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             setImage(index == 9 ? 0x3B592 : 0x3B595);
         }
         if ((state & 0x400) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            const auto selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+            const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
+            const std::int32_t position = std::clamp(gPetTechniqueScroll + (index == 9 ? -1 : 1), 0, std::max(0, slotCount - 10));
+            static_cast<void>(audio::PlaySe_52C450(position != gPetTechniqueScroll ? 51 : 55, 320));
+            gPetTechniqueScroll = position;
             setImage(index == 9 ? 0x3B593 : 0x3B596);
+            return 1;
         }
         return 0;
     default:
@@ -486,7 +512,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
             const auto selected = std::bit_cast<std::int16_t>(
                 world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
             const auto& pet = world::gPetRuntimeRecords[selected];
-            const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
+            const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[gPetTechniqueScroll + index - 37].index);
             const char* const description = pet.techniquesD8[technique].description.data();
             if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
                 auto* const elements = gCurrentWindow->elements;
@@ -498,18 +524,18 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-        gLoginWindowRuntime.petTechniqueValueD2F784 = index - 37;
+        gLoginWindowRuntime.petTechniqueValueD2F784 = gPetTechniqueScroll + index - 37;
         gLoginWindowRuntime.petTechniqueD2D66C = source;
         const auto selected = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
         const auto& pet = world::gPetRuntimeRecords[selected];
-        const auto targetTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
+        const auto targetTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[gPetTechniqueScroll + index - 37].index);
         const auto sourceTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[source].index);
         const std::uintptr_t socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_5124E0(socket, selected, sourceTechnique, targetTechnique));
         WindowDrag_Reset();
     }
     if ((events & 4u) != 0 && hover && gCurrentWindow->elements[index - 24].visible != 0) {
-        static_cast<void>(WindowPetSkills_StartDrag(index - 37));
+        static_cast<void>(WindowPetSkills_StartDrag(gPetTechniqueScroll + index - 37));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
     return hover ? 1 : 0;

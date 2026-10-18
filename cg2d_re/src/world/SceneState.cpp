@@ -9854,6 +9854,10 @@ void Sub_50B0D0(
             network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
         const std::int32_t sequence =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
+        if (techniqueIndex >= kPetTechniqueSlotCount) {
+            field += 8;
+            continue;
+        }
         detail::PetTechniqueRecord& technique = record.techniquesD8[techniqueIndex];
         if (std::strlen(name) == 0) {
             technique.name[0] = '\0';
@@ -9875,7 +9879,7 @@ void Sub_50B0D0(
         technique.target = static_cast<std::uint16_t>(target);
         technique.sequence = sequence;
     }
-    Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), 10);
+    Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), kPetTechniqueSlotCount);
 }
 
 // 原函数：0x005185C0。

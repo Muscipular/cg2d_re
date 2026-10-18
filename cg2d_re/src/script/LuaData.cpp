@@ -184,8 +184,8 @@ static int ReadPet(lua_State* L, int index, std::string_view key)
     if (key == "seqNo") { Push(L, p.value6D0); return 1; }
     if (key == "tribe") { Push(L, p.value04); return 1; }
     if (key == "techList") {
-        lua_createtable(L, 10, 0);
-        for (int i = 0; i < 10; ++i) {
+        lua_createtable(L, cg::world::kPetTechniqueSlotCount, 0);
+        for (int i = 0; i < cg::world::kPetTechniqueSlotCount; ++i) {
             const auto& pair = p.techniquePairs650[i];
             if (pair.used) PushData(L, DataKind::PetTechnique, index, pair.index); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);

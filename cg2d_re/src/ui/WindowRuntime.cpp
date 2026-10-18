@@ -294,7 +294,7 @@ std::wstring gConfirmationAcceptHintCC3FCC {}; // 原全局：0x00CC3FCC。
 
 std::wstring gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
 
-static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
+static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原10技能时总大小0x1E00。
 
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 

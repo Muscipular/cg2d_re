@@ -1492,7 +1492,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     }
     static_cast<WindowTextData*>(window->elements[2].data)->text = cg::text::FromGbkWide(name);
     std::int32_t index = 0;
-    std::int32_t count = pet->value6A4;
+    std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
     while (index < count) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
@@ -1503,11 +1503,11 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
-        count = pet->value6A4;
+        count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
         ++index;
     }
     window->elements[8].visible = 1;
-    gSkillWindowMaximumCA000C = pet->value6A4 - 10;
+    gSkillWindowMaximumCA000C = std::max(0, std::min(pet->value6A4, world::kPetTechniqueSlotCount) - 10);
     window->elements[7].visible = 1;
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
     for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {
@@ -1540,7 +1540,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     textData->text = cg::text::FromGbkWide(name);
     const auto* const pet = &world::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
-    std::int32_t count = pet->value6A4;
+    std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
     while (index < count) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
@@ -1550,11 +1550,11 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
-        count = pet->value6A4;
+        count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
         ++index;
     }
     window->elements[8].visible = 1;
-    gSkillWindowMaximumCA000C = pet->value6A4 - 10;
+    gSkillWindowMaximumCA000C = std::max(0, std::min(pet->value6A4, world::kPetTechniqueSlotCount) - 10);
     window->elements[7].visible = 1;
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
     for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {

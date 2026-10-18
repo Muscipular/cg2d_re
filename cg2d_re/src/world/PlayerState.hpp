@@ -264,8 +264,8 @@ struct PetRuntimeRecord {
     std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
     std::int32_t lvFlag6C; // 原成员偏移：+0x6C。 原F63464；50CF70写入完整W32。
     std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
-    std::array<detail::PetTechniqueRecord, 10> techniquesD8; // 原成员偏移：+0xD8。
-    std::array<SkillPairRecord, 10> techniquePairs650; // 原成员偏移：+0x650。 5185C0只生成索引，不排序。
+    std::array<detail::PetTechniqueRecord, kPetTechniqueSlotCount> techniquesD8; // 原成员偏移：+0xD8。
+    std::array<SkillPairRecord, kPetTechniqueSlotCount> techniquePairs650; // 原成员偏移：+0x650。 5185C0只生成索引，不排序。
     std::int32_t imageNo6A0; // 原成员偏移：+0x6A0。
     std::int32_t value6A4; // 原成员偏移：+0x6A4。
     std::array<std::byte, 2> bytes6A8; // 原成员偏移：+0x6A8。
@@ -290,15 +290,16 @@ static_assert(offsetof(PetRuntimeRecord, values0C) == 0x0C);
 static_assert(offsetof(PetRuntimeRecord, lvFlag6C) == 0x6C);
 static_assert(offsetof(PetRuntimeRecord, values70) == 0x70);
 static_assert(offsetof(PetRuntimeRecord, techniquesD8) == 0xD8);
-static_assert(offsetof(PetRuntimeRecord, techniquePairs650) == 0x650);
-static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == 0x6A0);
-static_assert(offsetof(PetRuntimeRecord, value6A4) == 0x6A4);
-static_assert(offsetof(PetRuntimeRecord, flags6AA) == 0x6AA);
-static_assert(offsetof(PetRuntimeRecord, name6AC) == 0x6AC);
-static_assert(offsetof(PetRuntimeRecord, name6BD) == 0x6BD);
-static_assert(offsetof(PetRuntimeRecord, value6D0) == 0x6D0);
-static_assert(offsetof(PetRuntimeRecord, follow6D4) == 0x6D4);
-static_assert(offsetof(PetRuntimeRecord, values6D8) == 0x6D8);
+// 原0x650／0x6A0之后的成员随两张技能表扩容，旧偏移保留在成员注释中。
+static_assert(offsetof(PetRuntimeRecord, techniquePairs650) == 0xD8 + sizeof(detail::PetTechniqueRecord) * kPetTechniqueSlotCount);
+static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == offsetof(PetRuntimeRecord, techniquePairs650) + sizeof(SkillPairRecord) * kPetTechniqueSlotCount);
+static_assert(offsetof(PetRuntimeRecord, value6A4) == offsetof(PetRuntimeRecord, imageNo6A0) + 4);
+static_assert(offsetof(PetRuntimeRecord, flags6AA) == offsetof(PetRuntimeRecord, imageNo6A0) + 0xA);
+static_assert(offsetof(PetRuntimeRecord, name6AC) == offsetof(PetRuntimeRecord, imageNo6A0) + 0xC);
+static_assert(offsetof(PetRuntimeRecord, name6BD) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x1D);
+static_assert(offsetof(PetRuntimeRecord, value6D0) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x30);
+static_assert(offsetof(PetRuntimeRecord, follow6D4) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x34);
+static_assert(offsetof(PetRuntimeRecord, values6D8) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x38);
 
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {

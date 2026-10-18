@@ -213,7 +213,7 @@ static std::int32_t gWindow54PetChoiceC8AA90 = 0; // 原全局：0x00C8AA90。
 
 static std::int32_t gWindow54PetScrollCC31DC = 0; // 原全局：0x00CC31DC。
 
-static std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。 398H，其他窗口同源。
+static std::array<Window54TechniqueSlot, world::kPetTechniqueSlotCount> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。 398H，其他窗口同源。
 
 // 原全局：0x00C8B08C。 4C0BF0发布、4C0F20消费的技能槽索引。
 static std::int32_t gWindow54ReplacementC8B08C = 0; // 原全局：0x00C8B08C。
@@ -228,7 +228,7 @@ static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
 
 static_assert(sizeof(gWindow54PetOptionsD67448) == 0xC8);
 
-static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == 0x398);
+static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == sizeof(Window54TechniqueSlot) * world::kPetTechniqueSlotCount);
 
 static WindowGraphicData gWindowGraphic574668 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00574668。
 
@@ -1018,7 +1018,9 @@ static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const 
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    const std::int32_t capacity = gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots;
+    const std::int32_t capacity = std::min(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots, world::kPetTechniqueSlotCount);
+    gWindow54ValueCB01E4 = capacity;
+    gWindow54PetScrollCC31DC = std::clamp(gWindow54PetScrollCC31DC, 0, std::max(0, capacity - 10));
     std::int32_t used = 0;
     for (std::int32_t index = 0; index < capacity; ++index) {
         if (gWindow54TechniqueSlotsD66E38[index].used != 0) {
@@ -1027,8 +1029,9 @@ static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const 
     }
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"{:2}/{:2}", used, capacity);
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = 0;
+        window->elements[index].visible = capacity > 10 ? 1 : 0;
     }
+    static_cast<void>(WindowScroll_SetPosition(&window->elements[10], std::max(0, capacity - 10), gWindow54PetScrollCC31DC));
     for (std::int32_t index = 24; index <= 32; ++index) {
         window->elements[index].visible = 0;
     }
@@ -1163,7 +1166,8 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
 static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const window, const std::int32_t scroll)
 {
     std::int32_t row = 0;
-    if (gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll > 0) {
+    const std::int32_t visibleCount = std::min(10, std::min(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots, world::kPetTechniqueSlotCount) - scroll);
+    if (visibleCount > 0) {
         do {
             const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[scroll + row];
             window->elements[row + 69].visible = 1;
@@ -1179,7 +1183,7 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:3}", slot.value04);
             }
             ++row;
-        } while (row < gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll);
+        } while (row < visibleCount);
     }
     for (; row < 10; ++row) {
         window->elements[row + 69].visible = 0;

@@ -204,9 +204,9 @@ static int getPetTechIndex(int techId) {
     if (pet < 0) {
         return -1;
     }
-    for (int ix = 0; ix < 10; ++ix) {
+    for (int ix = 0; ix < cg::world::kPetTechniqueSlotCount; ++ix) {
         auto& data = cg::world::gPetRuntimeRecords[pet].techniquePairs650[ix];
-        if (data.used && data.index < 10 && cg::world::gPetRuntimeRecords[pet].techniquesD8[data.index].techniqueId == techId) {
+        if (data.used && data.index < cg::world::kPetTechniqueSlotCount && cg::world::gPetRuntimeRecords[pet].techniquesD8[data.index].techniqueId == techId) {
             return data.index;
         }
     }
@@ -218,7 +218,7 @@ static int getPetTechId(int techIndex) {
     if (pet < 0) {
         return -1;
     }
-    if (techIndex >= 0 && techIndex < 10 && cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].used)
+    if (techIndex >= 0 && techIndex < cg::world::kPetTechniqueSlotCount && cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].used)
         return cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].techniqueId;
     return -1;
 }

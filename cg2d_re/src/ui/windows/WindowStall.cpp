@@ -1168,9 +1168,12 @@ static std::int32_t WindowStall_DrawPetDetails(
                 shortX + 149, barY, 230, images[3], 0, 1, 0, &descriptor));
         }
     }
-    for (std::int32_t skill = 0; skill < 10; ++skill) {
-        static_cast<void>(WindowStall_DrawPetSkills(shortX + 10, shortY + 141 + skill * 16, shortIndex, skill));
+    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(&pet);
+    for (std::int32_t row = 0; row < 10; ++row) {
+        static_cast<void>(WindowStall_DrawPetSkills(shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
     }
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 166), static_cast<std::int16_t>(shortY + 287), 5, 12, 0,
+        skillPage == 0 ? L"1/2 PgDn" : L"2/2 PgUp", 0, 0));
     return render::DrawGraphic3_520970(shortX, shortY, 230, 244373, 0, 1, 0, &descriptor);
 }
 
@@ -2467,6 +2470,9 @@ static void WindowStall_OpenBrowse(
             const std::int32_t slot = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
             network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, techniqueName);
             input::UnescapeLegacyTextAndNotify_52D2F0(techniqueName);
+            if (slot < 0 || slot >= world::kPetTechniqueSlotCount) {
+                continue;
+            }
             auto& record = pet.techniquesD8[slot];
             if (std::strlen(techniqueName) == 0) {
                 record.name[0] = '\0';
@@ -2485,7 +2491,7 @@ static void WindowStall_OpenBrowse(
                 record.sequence = 0;
             }
         }
-        world::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), 10);
+        world::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), world::kPetTechniqueSlotCount);
     }
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     static_cast<void>(WindowRuntime_CreateAnimation(WindowId_StallBrowse, 1, 0, nullptr));

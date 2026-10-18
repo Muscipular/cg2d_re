@@ -1666,7 +1666,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         for (std::int32_t value = 0; value < 12; ++value) {
             *lastFields[value] = network::ParseDelimitedInteger_52CFA0(text, '|', field + 13 + value);
         }
-        for (std::int32_t skill = 0; skill < 10; ++skill) {
+        for (std::int32_t skill = 0; skill < world::kPetTechniqueSlotCount; ++skill) {
             network::ExtractDelimitedField_52CED0(text, '|', field + 25 + skill, 1023, buffer);
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
             std::strcpy(record->techniques[skill].name.data(), std::strlen(buffer) > 24 ? "???" : buffer);
@@ -1680,9 +1680,9 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         }
         std::memset(gPetStorageD64E18.data(), 0, sizeof(gPetStorageD64E18));
         for (std::int32_t index = 0; index < 5; ++index) {
-            readPet(&gPetStorageD64E18[index], 122 + index * 35);
+            readPet(&gPetStorageD64E18[index], 122 + index * (25 + world::kPetTechniqueSlotCount));
         }
-        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 297);
+        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 122 + 5 * (25 + world::kPetTechniqueSlotCount));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
         gItemDetailStorageCC4D58[side].amount = amount;
         return 1;
@@ -1710,9 +1710,9 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
             auto* const record = &gPetStorageD64E18[index];
-            std::memset(record, 0, 0x600);
+            std::memset(record, 0, sizeof(*record));
             readPet(record, field + 1);
-            field += 36;
+            field += 26 + world::kPetTechniqueSlotCount;
             index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         }
         return 0;

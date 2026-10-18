@@ -856,8 +856,10 @@ std::int32_t __cdecl Sub_52C680(
             gSoundChannels104D0C8[static_cast<std::size_t>(
                 playChannel)].value30 = 1;
         }
-        static_cast<void>(gSdlAudioBackend.PlayChannel(
-            static_cast<std::size_t>(playChannel), loop));
+        const bool started = gSdlAudioBackend.PlayChannel(
+            static_cast<std::size_t>(playChannel), loop);
+        m_log("[audio][se-queued-play] id=%d request=%d channel=%d sample=%d loop=%d started=%d\n",
+            request.seNo, requestIndex, playChannel, effect.sampleIndex, loop ? 1 : 0, started ? 1 : 0);
 
         std::uint32_t next =
             static_cast<std::uint32_t>(gNextSeChannel105082C);

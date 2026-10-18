@@ -315,7 +315,7 @@ set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF OUTPUT_NAME c
 target_include_directories(cg2d_re_client PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_compile_features(cg2d_re_client PRIVATE cxx_std_20)
 target_compile_options(cg2d_re_client PRIVATE
-    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4>")
+    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/arch:AVX2>")
 # 保持原startup及入口的浮点设置，不扩大到原core／render源码。
 set_source_files_properties(${cg2d_re_startup_sources} src/platform/ClientEntry.cpp
     PROPERTIES COMPILE_OPTIONS /fp:strict)

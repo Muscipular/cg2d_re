@@ -384,8 +384,14 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
-        // R02：宽度设置可来自旧存档；按实际宽度保留原右侧9像素余量。
-        window->x = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
+        // R02：仅当前位置仍在适配后的默认位置±10内时贴右，保留拖动后的位置。
+        const std::int32_t adaptedX = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
+        const std::int32_t adaptedY = gWindowPrototypes57C130[WindowId_Chat]->defaultY;
+        const std::int64_t offsetX = static_cast<std::int64_t>(window->x) - adaptedX;
+        const std::int64_t offsetY = static_cast<std::int64_t>(window->y) - adaptedY;
+        if (offsetX >= -10 && offsetX <= 10 && offsetY >= -10 && offsetY <= 10) {
+            window->x = adaptedX;
+        }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));

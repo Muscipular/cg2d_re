@@ -44,6 +44,7 @@ struct WindowStoragePet {
     std::array<std::byte, 2> reserved5F6; // 原成员偏移：+0x5F6。
     std::int32_t weight; // 原成员偏移：+0x5F8。
     std::int32_t maxWeight; // 原成员偏移：+0x5FC。
+    std::array<std::array<char, 29>, 6> equipmentNames; // 银行新增字段：六个装备槽的GBK物品名，空槽为空字符串。
 };
 
 // 原CC4D58每组+F550的旧面板宠物摘要；4E1B10／4E1EE0消费。
@@ -111,7 +112,7 @@ static_assert(offsetof(WindowStorageItem, flags) == 0xC40);
 
 static_assert(std::is_standard_layout_v<WindowStoragePet>);
 static_assert(std::is_trivially_copyable_v<WindowStoragePet>);
-static_assert(sizeof(WindowStoragePet) == 0x600 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
+static_assert(sizeof(WindowStoragePet) == 0x600 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10) + 176); // 六个29字节名称及尾部对齐。
 static_assert(offsetof(WindowStoragePet, used) == 0x00);
 static_assert(offsetof(WindowStoragePet, tribe) == 0x02);
 static_assert(offsetof(WindowStoragePet, imageNo) == 0x04);
@@ -131,6 +132,7 @@ static_assert(offsetof(WindowStoragePet, speciesName) == 0x5E5 + sizeof(world::d
 static_assert(offsetof(WindowStoragePet, reserved5F6) == 0x5F6 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 static_assert(offsetof(WindowStoragePet, weight) == 0x5F8 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 static_assert(offsetof(WindowStoragePet, maxWeight) == 0x5FC + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
+static_assert(offsetof(WindowStoragePet, equipmentNames) == 0x600 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 
 static_assert(std::is_standard_layout_v<WindowStoragePetSummary>);
 static_assert(std::is_trivially_copyable_v<WindowStoragePetSummary>);

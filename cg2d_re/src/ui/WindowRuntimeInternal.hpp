@@ -62,8 +62,8 @@ static_assert(alignof(__time64_t) == alignof(std::int64_t));
 namespace cg::ui {
 namespace detail {
 
-// 交易／寄存／摆摊共用的悬停宠物技能预览分页；identity仅用于区分不同类型的借用记录。
-std::int32_t WindowPetSkills_GetPreviewPage(const void* identity);
+// 悬停宠物预览分页：银行含装备共3页，其他默认2页；identity仅比较借用记录身份。
+std::int32_t WindowPetSkills_GetPreviewPage(const void* identity, std::int32_t pageCount = 2);
 
 
 // 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。

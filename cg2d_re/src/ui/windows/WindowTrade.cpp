@@ -2198,6 +2198,37 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
+// 银行第三页复用技能行底图；名称已转换为UTF-16，不显示物品属性。
+static void WindowTrade_DrawPetEquipmentRow(
+    const std::int32_t x, const std::int32_t y, const std::wstring_view name)
+{
+    render::GraphicDescriptor16 descriptor {};
+    descriptor.color = 0xFFFFFFFFu;
+    descriptor.mixFlags = render::GraphicMixFlag_OriginalPalette;
+    if (!name.empty()) {
+        static_cast<void>(render::ClearTextQueueTail_456D50(5));
+        static_cast<void>(render::DrawText_456780(0, 0, 5, 1, 0, L"", 0, 0));
+        static_cast<void>(render::DrawText_456780(
+            static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
+            5, 12, 0, name, 0, 0));
+    }
+    static_cast<void>(render::DrawGraphic(x + 105, y + 8, 0xE6, 0x3B59C, 0, &descriptor));
+}
+
+// 银行两页技能及一页装备的页脚，绘制在十行列表下方。
+static void WindowTrade_DrawBankPetPageHint(
+    const std::int32_t x, const std::int32_t y, const std::int32_t page)
+{
+    constexpr std::array<std::wstring_view, 3> hints {
+        L"技能1/3页 按PageDown键看下一页",
+        L"2/3页 PageUp上页 PageDown装备",
+        L"装备3/3页 按PageUp键看上一页",
+    };
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(x + 10), static_cast<std::int16_t>(y + 303),
+        5, 12, 0, hints[page], 0, 0));
+}
+
 // 原函数：0x004B4140。
 std::int32_t WindowTrade_DrawRemotePetTooltip(
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
@@ -2283,13 +2314,18 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(record);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(record, 3);
     for (std::int32_t row = 0; row < 10; ++row) {
-        static_cast<void>(WindowTrade_DrawRemotePetSkillRow(
-            shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
+        if (page == 2) {
+            const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
+                ? cg::text::FromGbkWide(record->equipmentNames[row].data()) : std::wstring{};
+            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+        } else {
+            static_cast<void>(WindowTrade_DrawRemotePetSkillRow(
+                shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
+        }
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
-        skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
+    WindowTrade_DrawBankPetPageHint(shortX, shortY, page);
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
@@ -2446,7 +2482,8 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
 
 // 原函数：0x004B3BF0。
 std::int32_t WindowTrade_DrawOwnPetTooltip(
-    const std::int32_t x, const std::int32_t y, const std::int32_t index)
+    const std::int32_t x, const std::int32_t y, const std::int32_t index,
+    const bool showEquipmentPage)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
@@ -2522,13 +2559,23 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(&pet);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(&pet, showEquipmentPage ? 3 : 2);
     for (std::int32_t row = 0; row < 10; ++row) {
-        static_cast<void>(WindowTrade_DrawOwnPetSkillRow(
-            shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
+        if (page == 2) {
+            const std::wstring_view name = row < static_cast<std::int32_t>(pet.items6E4.size())
+                && pet.items6E4[row].used != 0 ? std::wstring_view{pet.items6E4[row].name} : std::wstring_view{};
+            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+        } else {
+            static_cast<void>(WindowTrade_DrawOwnPetSkillRow(
+                shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
+        }
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
-        skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
+    if (showEquipmentPage) {
+        WindowTrade_DrawBankPetPageHint(shortX, shortY, page);
+    } else {
+        static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
+            page == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
+    }
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }

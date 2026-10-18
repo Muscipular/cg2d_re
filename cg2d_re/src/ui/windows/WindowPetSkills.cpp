@@ -120,19 +120,21 @@ WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u,
 
 // 窗口函数实现。
 
-std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity)
+std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity, const std::int32_t pageCount)
 {
     static const void* previousIdentity = nullptr; // 仅比较身份，不解引用或拥有记录。
+    static std::int32_t previousPageCount = 0;
     static std::int32_t page = 0;
-    if (previousIdentity != identity) {
+    if (previousIdentity != identity || previousPageCount != pageCount) {
         previousIdentity = identity;
+        previousPageCount = pageCount;
         page = 0;
     }
-    if ((platform::gKeyStates[0x21] & 4u) != 0) { // PageUp。
-        page = 0;
+    if ((platform::gKeyStates[0x21] & 4u) != 0 && page > 0) { // PageUp。
+        --page;
     }
-    if ((platform::gKeyStates[0x22] & 4u) != 0) { // PageDown。
-        page = 1;
+    if ((platform::gKeyStates[0x22] & 4u) != 0 && page + 1 < pageCount) { // PageDown。
+        ++page;
     }
     return page;
 }

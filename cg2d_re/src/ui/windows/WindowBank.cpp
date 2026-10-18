@@ -430,7 +430,7 @@ static std::int32_t WindowBank_Draw(const std::int32_t)
             const std::int32_t index =
                 std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].actionFlags1C);
             if (index < 100) {
-                static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index));
+                static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index, true));
             } else {
                 const std::uint8_t externalIndex = static_cast<std::uint8_t>(
                     static_cast<std::uint8_t>(index) - 100);
@@ -1671,7 +1671,15 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
             std::strcpy(record->techniques[skill].name.data(), std::strlen(buffer) > 24 ? "???" : buffer);
         }
+        for (std::size_t slot = 0; slot < record->equipmentNames.size(); ++slot) {
+            network::ExtractDelimitedField_52CED0(text, '|',
+                field + 25 + world::kPetTechniqueSlotCount + static_cast<std::int32_t>(slot), 1023, buffer);
+            input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+            std::strcpy(record->equipmentNames[slot].data(), std::strlen(buffer) > 28 ? "???" : buffer);
+        }
     };
+    // 已确认银行格式：25个基本字段、20个技能名、6个装备名。
+    constexpr std::int32_t petFieldCount = 25 + world::kPetTechniqueSlotCount + 6;
     switch (buffer[0]) {
     case 'A': {
         std::memset(gItemDetailStorageCC4D58[0].items.data(), 0, sizeof(gItemDetailStorageCC4D58[0].items));
@@ -1680,9 +1688,9 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         }
         std::memset(gPetStorageD64E18.data(), 0, sizeof(gPetStorageD64E18));
         for (std::int32_t index = 0; index < 5; ++index) {
-            readPet(&gPetStorageD64E18[index], 122 + index * (25 + world::kPetTechniqueSlotCount));
+            readPet(&gPetStorageD64E18[index], 122 + index * petFieldCount);
         }
-        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 122 + 5 * (25 + world::kPetTechniqueSlotCount));
+        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 122 + 5 * petFieldCount);
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
         gItemDetailStorageCC4D58[side].amount = amount;
         return 1;
@@ -1712,7 +1720,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             auto* const record = &gPetStorageD64E18[index];
             std::memset(record, 0, sizeof(*record));
             readPet(record, field + 1);
-            field += 26 + world::kPetTechniqueSlotCount;
+            field += 1 + petFieldCount;
             index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         }
         return 0;

@@ -1172,8 +1172,8 @@ static std::int32_t WindowStall_DrawPetDetails(
     for (std::int32_t row = 0; row < 10; ++row) {
         static_cast<void>(WindowStall_DrawPetSkills(shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 166), static_cast<std::int16_t>(shortY + 287), 5, 12, 0,
-        skillPage == 0 ? L"1/2 PgDn" : L"2/2 PgUp", 0, 0));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
+        skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
     return render::DrawGraphic3_520970(shortX, shortY, 230, 244373, 0, 1, 0, &descriptor);
 }
 

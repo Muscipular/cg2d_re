@@ -1335,8 +1335,8 @@ static std::int32_t ProcessUsageNotice()
         L"由此产生的一切纠纷与本程序提供方无关。",
     }};
     std::array<detail::CharacterModalUiRecord, 2> buttons {{
-        {264, 368, 240, 366, 64, 24, L"同意"},
-        {360, 368, 336, 366, 64, 24, L"结束"},
+        {264-12, 368, 240, 366, 64, 24, L"同意"},
+        {360-12, 368, 336, 366, 64, 24, L"结束"},
     }};
 
     auto*& action = state::gCharacterModalAction;

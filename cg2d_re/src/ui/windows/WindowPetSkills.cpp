@@ -16,6 +16,9 @@ static std::int32_t WindowPetSkills_HandleButtons(std::int32_t index, std::int32
 // 原函数：0x0048F6C0。
 static std::int32_t WindowPetSkills_HandleSkillRow(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。
 
+// 新增宠物技能滑块：复用垂直滚动处理，将位置同步到十行技能列表。
+static std::int32_t WindowPetSkills_HandleScroll(std::int32_t index, std::int32_t state);
+
 // 原函数：0x0048DBB0。
 static std::int32_t WindowPetSkills_Update(std::int32_t value);
 
@@ -31,6 +34,10 @@ static void WindowPetSkills_Release();
 static std::array<std::wstring, 10> gPetTechniqueCostsD66C34 {}; // 原全局：0x00D66C34。
 // 普通宠物技能页保留10个可见行；描述及拖动索引均加上该滚动起点。
 static std::int32_t gPetTechniqueScroll = 0;
+static WindowGraphicData gPetTechniqueScrollThumb {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 复用技能窗口滑块图。
+static std::uint32_t gPetTechniqueScrollMouseFlags = 0; // MouseArea原型初始标记，运行态由窗口持有。
+constexpr std::int32_t kPetTechniqueScrollThumbElement = 48;
+constexpr std::int32_t kPetTechniqueScrollTrackElement = 49;
 
 static WindowGraphicData gWindowGraphic565698 {0x3BAEE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565698。
 
@@ -61,7 +68,7 @@ static WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
     {&gPetTechniqueCostsD66C34[9], 0, 0, 0, 0},
 };
 
-static WindowElementPrototype gWindowElements566810[51] { // 原全局：0x00566810。
+static WindowElementPrototype gWindowElements566810[53] { // 原全局：0x00566810；原51项，新增滑块及拖动区域。
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
     {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage},
@@ -110,13 +117,15 @@ static WindowElementPrototype gWindowElements566810[51] { // 原全局：0x00566
     {WindowElementType_Graphic, 17, 176, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
     {WindowElementType_Graphic, 17, 192, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
     {WindowElementType_Graphic, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 61, 0, 14, 0, {.graphic = &gPetTechniqueScrollThumb}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 225, 61, 11, 134, 0, {.mouseFlags = &gPetTechniqueScrollMouseFlags}, &WindowPetSkills_HandleScroll},
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp},
     {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
 };
 
 // 原型：窗口18；原全局：0x0054E5D0。
-WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 51, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
+WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 53, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
 
 // 窗口函数实现。
 
@@ -188,7 +197,18 @@ static WindowElement* WindowPetSkills_Refresh()
             gCurrentWindow->elements[23 + row].visible = 0;
         }
         const std::int32_t slotCount = std::clamp(selectedPet().value6A4, 0, world::kPetTechniqueSlotCount);
-        gPetTechniqueScroll = std::clamp(gPetTechniqueScroll, 0, std::max(0, slotCount - 10));
+        const std::int32_t maximum = std::max(0, slotCount - 10);
+        gPetTechniqueScroll = std::clamp(gPetTechniqueScroll, 0, maximum);
+        gCurrentWindow->elements[kPetTechniqueScrollThumbElement].visible = maximum > 0 ? 1 : 0;
+        WindowElement& track = gCurrentWindow->elements[kPetTechniqueScrollTrackElement];
+        track.visible = maximum > 0 ? 1 : 0;
+        auto* const mouse = static_cast<WindowMouseData*>(track.data);
+        if (maximum == 0) {
+            mouse->flags = 0;
+        }
+        if ((mouse->flags & 2u) == 0) {
+            static_cast<void>(WindowScroll_SetPosition(&track, maximum, gPetTechniqueScroll));
+        }
         for (std::int32_t shown = 0; shown < std::min(10, slotCount - gPetTechniqueScroll); ++shown) {
             gCurrentWindow->elements[37 + shown].visible = 1;
         }
@@ -207,6 +227,8 @@ static WindowElement* WindowPetSkills_Refresh()
         }
     } else {
         gCurrentWindow->elements[11].visible = 0;
+        gCurrentWindow->elements[kPetTechniqueScrollThumbElement].visible = 0;
+        gCurrentWindow->elements[kPetTechniqueScrollTrackElement].visible = 0;
         for (std::int32_t row = 0; row < 10; ++row) {
             gCurrentWindow->elements[37 + row].visible = 0;
             gCurrentWindow->elements[13 + row].visible = 0;
@@ -222,6 +244,21 @@ static WindowElement* WindowPetSkills_Refresh()
     result[35].visible = 0;
     gCurrentWindow->elements[36].visible = 0;
     return result;
+}
+
+static std::int32_t WindowPetSkills_HandleScroll(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
+    WindowElement& track = gCurrentWindow->elements[index];
+    const auto* const mouse = static_cast<const WindowMouseData*>(track.data);
+    if ((mouse->flags & 1u) != 0) {
+        const auto selected = std::bit_cast<std::int16_t>(
+            world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
+        gPetTechniqueScroll = WindowScroll_ReadPosition(&track, std::max(0, slotCount - 10));
+        static_cast<void>(WindowPetSkills_Refresh());
+    }
+    return consumed;
 }
 
 // 原函数：0x004920F0。
@@ -273,6 +310,7 @@ static std::int32_t WindowPetSkills_Update(const std::int32_t value)
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
         gPetTechniqueScroll = 0;
+        static_cast<WindowMouseData*>(gCurrentWindow->elements[kPetTechniqueScrollTrackElement].data)->flags = 0;
         WindowPetDetail_InitializeDraft();
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;

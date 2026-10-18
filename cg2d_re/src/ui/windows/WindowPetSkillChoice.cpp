@@ -219,7 +219,7 @@ static std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; /
 static std::int32_t gWindow54ReplacementC8B08C = 0; // 原全局：0x00C8B08C。
 
 // 原全局：0x00CC4D04。 技能索引对扣除前序空名后的协议映射。
-static std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {}; // 原全局：0x00CC4D04。
+static std::array<std::int8_t, world::kSkillSlotCount> gWindow54SkillMapCC4D04 {}; // 原全局：0x00CC4D04。
 
 // 原全局：0x00C9A9A4。 止于C9A9B0窗口状态表之前。
 static std::wstring gWindow54MoneyTextC9A9A4 {}; // 原全局：0x00C9A9A4。
@@ -820,7 +820,7 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244384;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    for (std::int32_t row = 0; row < 15; ++row) {
+    for (std::int32_t row = 0; row < world::kSkillSlotCount; ++row) {
         const world::SkillPairRecord& pair = world::gSkillPairsF63370[row];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);

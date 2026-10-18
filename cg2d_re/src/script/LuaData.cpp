@@ -132,8 +132,8 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "weaponKnife") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 1024u) != 0)); return 1; }
     if (key == "petRide") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 65536u) != 0)); return 1; }
     if (key == "skillList") {
-        lua_createtable(L, 15, 0);
-        for (int i = 0; i < 15; ++i) {
+        lua_createtable(L, cg::world::kSkillSlotCount, 0);
+        for (int i = 0; i < cg::world::kSkillSlotCount; ++i) {
             const auto& pair = cg::world::gSkillPairsF63370[i];
             if (pair.used) PushData(L, DataKind::Skill, pair.index); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
@@ -213,8 +213,8 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
         Push(L, used && (cg::world::gBattleSkillFlags5ABC04 & (1u << index)) != 0); return 1;
     }
     if (key == "techList") {
-        lua_createtable(L, 15, 0);
-        for (int i = 0; i < 15; ++i) {
+        lua_createtable(L, cg::world::kTechniqueSlotCount, 0);
+        for (int i = 0; i < cg::world::kTechniqueSlotCount; ++i) {
             if (p.techniques3C[i].used88) PushData(L, DataKind::Technique, index, i); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }

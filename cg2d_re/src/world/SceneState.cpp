@@ -262,8 +262,8 @@ static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x
 // 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
 struct SkillRuntimeSlots {
     std::array<char, 0x1C> jobName;
-    std::array<SkillRuntimeRecord, 15> skills;
-    std::array<SkillPairRecord, 15> pairs;
+    std::array<SkillRuntimeRecord, kSkillSlotCount> skills;
+    std::array<SkillPairRecord, kSkillSlotCount> pairs;
     std::uint32_t valueF633E8; // 原全局：0x00F633E8。 509E30只写低U8，保留其余字节。
 };
 
@@ -271,9 +271,10 @@ static_assert(std::is_standard_layout_v<SkillRuntimeSlots>);
 static_assert(std::is_trivially_copyable_v<SkillRuntimeSlots>);
 static_assert(offsetof(SkillRuntimeSlots, jobName) == 0);
 static_assert(offsetof(SkillRuntimeSlots, skills) == 0x1C);
-static_assert(offsetof(SkillRuntimeSlots, pairs) == 0x47890);
-static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == 0x47908);
-static_assert(sizeof(SkillRuntimeSlots) == 0x4790C);
+// 原偏移0x47890／0x47908、总大小0x4790C；现按扩容后的成员连续布局核对。
+static_assert(offsetof(SkillRuntimeSlots, pairs) == 0x1C + sizeof(SkillRuntimeRecord) * kSkillSlotCount);
+static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == offsetof(SkillRuntimeSlots, pairs) + sizeof(SkillPairRecord) * kSkillSlotCount);
+static_assert(sizeof(SkillRuntimeSlots) == offsetof(SkillRuntimeSlots, valueF633E8) + sizeof(std::uint32_t));
 static SkillRuntimeSlots gSkillRuntimeSlots {};
 
 static std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
@@ -625,13 +626,13 @@ std::uint32_t InitializeAlbum_518C20()
 }
 
 std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
-std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
+std::array<BattleSkillResultRecord, kSkillSlotCount> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
 std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
 std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
 
 namespace detail {
 static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
-static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
+static_assert(sizeof(gBattleSkillResultsFF0C8C) == sizeof(BattleSkillResultRecord) * kSkillSlotCount); // 原15条共0x78字节。
 static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
 static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
 
@@ -1717,8 +1718,8 @@ void MarkPlayerChatActive() noexcept
 } // namespace detail
 
 // 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
-std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
-std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
+std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
+std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
 std::uint16_t gValueDA3B20 = 0; // 原全局：0x00DA3B20。
 
 namespace detail {
@@ -1726,25 +1727,17 @@ namespace detail {
 // 原函数：0x00504F10。
 std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
 {
-    const char* const storage = reinterpret_cast<const char*>(&gSkillRuntimeSlots);
-    // 原包含末次F633A0读取，别名为pairs[6]前四字节，不是第16条技能。
-    for (std::int32_t index = 0; index <= 15; ++index) {
-        const char* const record =
-            storage + offsetof(SkillRuntimeSlots, skills) + index * sizeof(SkillRuntimeRecord);
-        std::int32_t skillId;
-        std::memcpy(&skillId, record + offsetof(SkillRuntimeRecord, skillId), sizeof(skillId));
+    // 原额外F633A0读取别名为pairs[6]；按用户确认，仅搜索实际技能槽。
+    for (const SkillRuntimeRecord& record : gSkillsF1BAFC) {
+        const std::int32_t skillId = record.skillId;
         const bool matches = mode == 1
             ? skillId >= 601 && skillId <= 605
             : (skillId >= 200 && skillId <= 214) || skillId == 2004 || skillId == 3103;
         if (!matches) {
             continue;
         }
-        for (std::int32_t recipe = 0; recipe < 56; ++recipe) {
-            std::int32_t candidate;
-            std::memcpy(&candidate, record + offsetof(SkillRuntimeRecord, recipes8E8)
-                + recipe * sizeof(SkillRecipeRecord) + offsetof(SkillRecipeRecord, value10),
-                sizeof(candidate));
-            if (candidate == value) {
+        for (const SkillRecipeRecord& recipe : record.recipes8E8) {
+            if (recipe.value10 == value) {
                 return 1;
             }
         }
@@ -6538,7 +6531,6 @@ namespace detail {
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void Sub_5199A0()
 {
-    static_assert(sizeof(gSkillRuntimeSlots) == 0x4790C);
     static_assert(sizeof(gContactsF19FB0) == 0x1B30);
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
@@ -6573,7 +6565,7 @@ void Sub_5199A0()
     for (TitleRecord& title : gTitlesFF0508) {
         title.id = -1;
     }
-    for (std::int32_t index = 0; index < 15; ++index) {
+    for (std::int32_t index = 0; index < kSkillSlotCount; ++index) {
         Sub_519950(index);
     }
     gPlayerRuntimeSlots.direction = -1;
@@ -9227,14 +9219,7 @@ void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text
 
 std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
 {
-    const auto* const storage = reinterpret_cast<const std::byte*>(&gSkillRuntimeSlots);
-    const std::ptrdiff_t offset =
-        static_cast<std::ptrdiff_t>(offsetof(SkillRuntimeSlots, pairs))
-        + static_cast<std::ptrdiff_t>(pairIndex)
-            * static_cast<std::ptrdiff_t>(sizeof(SkillPairRecord));
-    std::uint16_t used;
-    std::memcpy(&used, storage + offset, sizeof(used));
-    return used;
+    return pairIndex >= 0 && pairIndex < kSkillSlotCount ? gSkillPairsF63370[pairIndex].used : 0;
 }
 
 // 原函数：0x00505040。
@@ -9319,6 +9304,10 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
             break;
         }
 
+        if (index >= kSkillSlotCount) {
+            field += 11;
+            continue;
+        }
         SkillRuntimeRecord& record = gSkillsF1BAFC[index];
         if (std::strlen(name) == 0 && level < 0 && experience < 0) {
             record.name[0] = '\0';
@@ -9347,7 +9336,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
         }
         field += 11;
     }
-    detail::Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), 15);
+    detail::Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), kSkillSlotCount);
     gValueDA3B20 = 0;
 }
 
@@ -9358,13 +9347,16 @@ void Sub_50A120(
     if (gValue9A6E0C != 0) {
         return;
     }
+    if (skillIndex < 0 || skillIndex >= kSkillSlotCount) {
+        return;
+    }
     auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
     std::memset(techniques.data(), 0, sizeof(techniques));
     SkillTechniqueRecord* target = techniques.data();
     char name[256];
     char description[256];
     std::int32_t field = 2;
-    for (;;) {
+    for (; target != techniques.data() + techniques.size();) {
         if (network::ExtractDelimitedField_52CED0(
                 payload, '|', field - 1, 255, name) == 1) {
             return;
@@ -9402,7 +9394,7 @@ void Sub_50A120(
 void Sub_50C580(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gValue9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
         return;
     }
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];

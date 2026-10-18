@@ -264,13 +264,13 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         L"无法使用此物品。";
     std::int32_t skillIndex = -1;
     std::int32_t usableLevel = -1;
-    for (std::int32_t position = 0; position < 15; ++position) {
+    for (std::int32_t position = 0; position < world::kSkillSlotCount; ++position) {
         const auto& skill = world::gSkillsF1BAFC[position];
         if (skill.skillId != 2002) {
             continue;
         }
         skillIndex = position;
-        for (std::int32_t technique = 0; technique < 15; ++technique) {
+        for (std::int32_t technique = 0; technique < world::kTechniqueSlotCount; ++technique) {
             if (skill.techniques3C[technique].value8C <= 0) {
                 break;
             }

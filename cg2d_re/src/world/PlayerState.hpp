@@ -13,6 +13,11 @@
 
 namespace cg::world {
 
+// 角色技能及每项技能的技术栏位容量；协议索引仍从0开始。
+inline constexpr std::int32_t kSkillSlotCount = 30;
+inline constexpr std::int32_t kTechniqueSlotCount = 30;
+static_assert(kSkillSlotCount <= 32); // 现有战斗P封包以32位掩码表示技能可用状态。
+
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
 std::int32_t Sub_509650(std::uintptr_t socket, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
 // 原函数：0x00509BA0。
@@ -82,7 +87,7 @@ struct SkillRuntimeRecord {
     std::int32_t skillId; // 原成员偏移：+0x30。
     std::int32_t fpReduce; // 原成员偏移：+0x34。
     std::int32_t sequence; // 原成员偏移：+0x38。
-    std::array<SkillTechniqueRecord, 15> techniques3C; // 原成员偏移：+0x3C。
+    std::array<SkillTechniqueRecord, kTechniqueSlotCount> techniques3C; // 原成员偏移：+0x3C；现扩为30栏。
     std::array<SkillRecipeRecord, 56> recipes8E8; // 原成员偏移：+0x8E8。
     std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
 };
@@ -119,17 +124,18 @@ static_assert(offsetof(SkillRuntimeRecord, skillId) == 0x30);
 static_assert(offsetof(SkillRuntimeRecord, fpReduce) == 0x34);
 static_assert(offsetof(SkillRuntimeRecord, sequence) == 0x38);
 static_assert(offsetof(SkillRuntimeRecord, techniques3C) == 0x3C);
-static_assert(offsetof(SkillRuntimeRecord, recipes8E8) == 0x8E8);
-static_assert(offsetof(SkillRuntimeRecord, rebirthState4C48) == 0x4C48);
-static_assert(sizeof(SkillRuntimeRecord) == 0x4C4C);
+// 原偏移及大小为0x8E8／0x4C48／0x4C4C；扩容后按实际数组长度核对。
+static_assert(offsetof(SkillRuntimeRecord, recipes8E8) == 0x3C + sizeof(SkillTechniqueRecord) * kTechniqueSlotCount);
+static_assert(offsetof(SkillRuntimeRecord, rebirthState4C48) == offsetof(SkillRuntimeRecord, recipes8E8) + sizeof(SkillRecipeRecord) * 56);
+static_assert(sizeof(SkillRuntimeRecord) == offsetof(SkillRuntimeRecord, rebirthState4C48) + sizeof(std::int32_t));
 static_assert(offsetof(SkillPairRecord, used) == 0);
 static_assert(offsetof(SkillPairRecord, index) == 2);
 static_assert(offsetof(SkillPairRecord, sequence) == 4);
 static_assert(sizeof(SkillPairRecord) == 8);
 
-extern std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC; // 原全局：0x00F1BAFC。 同一第四清零块成员别名。
-extern std::array<SkillPairRecord, 15>& gSkillPairsF63370; // 原全局：0x00F63370。
-// 原479FBE按S8索引读取U16；-1别名为末条技能记录+4C44。
+extern std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC; // 原全局：0x00F1BAFC。 同一第四清零块成员别名。
+extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原全局：0x00F63370。
+// 原479FBE按S8索引读取U16；按用户确认，-1现表示未选中，不再读取原末条技能+4C44。
 std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
 extern std::uint16_t gValueDA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
 // 原函数：0x00505040。

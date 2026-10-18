@@ -327,10 +327,10 @@ std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
     const std::int16_t skillIndex = std::bit_cast<std::int16_t>(
         world::gSkillPairsF63370[pairIndex].index);
     const std::int32_t recipeIndex = gRecipeIndex5846BC;
-    // 原4F4660按整条技能记录取址；配方为-1时材料从+820开始，保留跨字段读取。
+    // 原4F4660按整条技能记录取址；配方-1仍从原+820读取，不能随技术扩容移到新增槽。
     const auto* const skill = reinterpret_cast<const std::byte*>(&world::gSkillsF1BAFC[skillIndex]);
     const std::ptrdiff_t itemsOffset =
-        static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, recipes8E8))
+        static_cast<std::ptrdiff_t>(recipeIndex == -1 ? 0x8E8 : offsetof(world::SkillRuntimeRecord, recipes8E8))
         + static_cast<std::ptrdiff_t>(recipeIndex)
             * static_cast<std::ptrdiff_t>(sizeof(world::SkillRecipeRecord))
         + static_cast<std::ptrdiff_t>(offsetof(world::SkillRecipeRecord, items6C));
@@ -1355,7 +1355,7 @@ static void WindowCraft_ReleaseMaterialSlot(
 // 原函数：0x004880D0。
 static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, const std::int32_t extraLevel)
 {
-    for (std::int32_t index = 0; index < 15; ++index) {
+    for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
         const world::SkillPairRecord pair = world::gSkillPairsF63370[index];
         const std::int16_t skillIndex = std::bit_cast<std::int16_t>(pair.index);
         world::SkillRuntimeRecord skill;

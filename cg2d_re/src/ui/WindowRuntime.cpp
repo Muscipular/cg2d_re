@@ -4265,7 +4265,7 @@ std::uint8_t WindowInput_ActivateElement(
 static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
 {
     std::int32_t count = 0;
-    for (std::size_t position = 0; position < 10; ++position) {
+    for (std::size_t position = 0; position < world::kSkillSlotCount; ++position) {
         const auto& pair = world::gSkillPairsF63370[position];
         if (pair.used != 0) {
             const std::int16_t index = std::bit_cast<std::int16_t>(pair.index);
@@ -4275,7 +4275,7 @@ static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
             count += requiredSlots;
         }
     }
-    cg::text::FormatTo(destination, L"{:2}/10", count);
+    cg::text::FormatTo(destination, L"{:2}/{}", count, world::gPlayerRuntimeSlots.value16C);
 }
 
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。

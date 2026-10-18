@@ -178,12 +178,12 @@ static void MakeAutoBattle();
 static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
 
 static int getSkillId(int index) {
-    return index >= 0 && index < 15 ? cg::world::gSkillsF1BAFC[index].skillId : -1;
+    return index >= 0 && index < cg::world::kSkillSlotCount ? cg::world::gSkillsF1BAFC[index].skillId : -1;
 }
 
 static int getSkillIndex(int id) {
-    for (int j = 0; j < 15; ++j) {
-        if (cg::world::gSkillPairsF63370[j].used && cg::world::gSkillPairsF63370[j].index < 15 && cg::world::gSkillsF1BAFC[cg::world::gSkillPairsF63370[j].index].skillId == id) {
+    for (int j = 0; j < cg::world::kSkillSlotCount; ++j) {
+        if (cg::world::gSkillPairsF63370[j].used && cg::world::gSkillPairsF63370[j].index < cg::world::kSkillSlotCount && cg::world::gSkillsF1BAFC[cg::world::gSkillPairsF63370[j].index].skillId == id) {
             return cg::world::gSkillPairsF63370[j].index;
         }
     }
@@ -304,7 +304,7 @@ static int SendBattleAction(lua_State* L)
                 sendNone();
                 break;
             }
-            if (param3 < 0 || param3 >= 15) {
+            if (param3 < 0 || param3 >= cg::world::kTechniqueSlotCount) {
                 sendNone();
                 break;
             }

@@ -179,8 +179,8 @@ static std::int32_t gSkillRecipeLevelC8B1B4 = 0; // 原全局：0x00C8B1B4。
 
 static std::int32_t gSkillWindowMaximumCA000C = 0; // 原全局：0x00CA000C。
 
-// 前15项为配对行号，末字节D3FACB单独参与479FA9计数门槛，见战斗列表SPEC。
-static std::array<std::int8_t, 16> gBattleSkillRowsD3FABC {}; // 原全局：0x00D3FABC。
+// 原前15项为配对行号、末字节D3FACB参与479FA9门槛；现扩为30行，仅统计有效槽。
+static std::array<std::int8_t, world::kSkillSlotCount> gBattleSkillRowsD3FABC {}; // 原全局：0x00D3FABC。
 
 static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr; // 原全局：0x00CC4230。
 
@@ -808,11 +808,11 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
 static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
-    while (row < 15
+    while (row < world::kSkillSlotCount
         && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
         ++row;
     }
-    if (row >= 15) {
+    if (row >= world::kSkillSlotCount) {
         row = 0;
     }
     std::int32_t position = row - 9;
@@ -834,7 +834,7 @@ static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::i
     window->elements[1].visible = 1;
     window->elements[3].visible = 1;
     std::int32_t count = 0;
-    for (std::int32_t index = 0; index < 15; ++index) {
+    for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
         if (world::gSkillPairsF63370[index].used != 0) {
             ++count;
         }
@@ -963,7 +963,7 @@ static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::
     const auto* const techniques =
         world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C.data();
     std::int32_t count = 0;
-    while (count < 15 && techniques[count].name[0] != '\0') {
+    while (count < world::kTechniqueSlotCount && techniques[count].name[0] != '\0') {
         ++count;
     }
     gSkillWindowMaximumCA000C = count - 10;
@@ -998,11 +998,11 @@ static void WindowSkill_Release()
 static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
-    while (row < 15
+    while (row < world::kSkillSlotCount
         && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
         ++row;
     }
-    if (row >= 15) {
+    if (row >= world::kSkillSlotCount) {
         row = 0;
     }
     gSkillWindowModeD672AC = 3;
@@ -1023,7 +1023,7 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
     }
     static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA24;
     std::int32_t end = 0;
-    for (std::int32_t index = 0; index < 15; ++index) {
+    for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
         if (world::gSkillPairsF63370[index].used != 0) {
             const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
             const std::int32_t kind = world::gSkillsF1BAFC[skill].canRebirth;
@@ -1032,14 +1032,13 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
             }
         }
     }
-    while (end < 15) {
+    while (end < world::kSkillSlotCount) {
         gBattleSkillRowsD3FABC[end++] = -1;
     }
-    // 原479FA9固定读取末尾字节；479FBE允许配对-1别名读取末条技能记录的U16。
-    const std::int8_t countGate = gBattleSkillRowsD3FABC[end];
+    // 原479FA9／479FBE读取末尾及-1别名；按用户确认，仅统计有效槽，-1表示未选中。
     std::int32_t count = 0;
-    for (std::int32_t index = 0; index < 15; ++index) {
-        if (countGate >= 0 && world::ReadSkillPairUsed(gBattleSkillRowsD3FABC[index]) != 0) {
+    for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
+        if (world::ReadSkillPairUsed(gBattleSkillRowsD3FABC[index]) != 0) {
             ++count;
         }
     }
@@ -1080,7 +1079,7 @@ static void WindowSkill_ShowBattleTechniques(
     const auto* const techniques =
         world::gSkillsF1BAFC[selectedSkill].techniques3C.data();
     std::int32_t count = 0;
-    while (count < 15 && techniques[count].name[0] != '\0') {
+    while (count < world::kTechniqueSlotCount && techniques[count].name[0] != '\0') {
         ++count;
     }
     gSkillWindowMaximumCA000C = count - 10;
@@ -1860,7 +1859,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
     case 3: {
         if (mode == 0) {
             std::int32_t count = 0;
-            for (std::int32_t index = 0; index < 15; ++index) {
+            for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
                 if (world::gSkillPairsF63370[index].used != 0) {
                     ++count;
                 }
@@ -1875,7 +1874,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         }
         static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::GetPlayerJobName());
         std::int32_t usedSlots = 0;
-        for (std::int32_t index = 0; index < 15; ++index) {
+        for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
             if (world::gSkillPairsF63370[index].used != 0) {
                 const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
                 const auto* const record = &world::gSkillsF1BAFC[skill];
@@ -1898,7 +1897,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (mode == 1) {
             std::int32_t count = 0;
-            while (count < 15 && record->techniques3C[count].name[0] != '\0') {
+            while (count < world::kTechniqueSlotCount && record->techniques3C[count].name[0] != '\0') {
                 ++count;
             }
             gSkillWindowMaximumCA000C = count - 10;

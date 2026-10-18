@@ -3404,12 +3404,17 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
 static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
+    // 原覆盖层矩形(0,35,640,383)接近原画布中心；独立适配，不使用商店窗口位置。
+    std::int32_t panelX = 0;
+    std::int32_t panelY = 35;
+    AdaptWindowPosition(panelX, panelY, 640, 383);
+    const std::int32_t offsetY = panelY - 35;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(100, 381, 166, 398, -1) != 0;
-    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(510, 381, 576, 398, -1) != 0;
+    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(panelX + 100, offsetY + 381, panelX + 166, offsetY + 398, -1) != 0;
+    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(panelX + 510, offsetY + 381, panelX + 576, offsetY + 398, -1) != 0;
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
@@ -3443,13 +3448,13 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }
-    static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(panelX + 100, offsetY + 381, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(panelX + 510, offsetY + 381, 226, cancelImage, 0, 1, 0, &descriptor));
     std::wstring buffer;
     for (std::int32_t column = 0; column < 4; ++column) {
-        const std::int32_t x = 18 + column * 152;
+        const std::int32_t x = panelX + 18 + column * 152;
         for (std::int32_t row = 0; row < 5; ++row) {
-            const std::int32_t y = 47 + row * 65;
+            const std::int32_t y = offsetY + 47 + row * 65;
             const WindowConfirmationItem& item = gConfirmationItemsCB1E40[column * 5 + row];
             if (item.visible != 0) {
                 static_cast<void>(cg::render::DrawGraphic(
@@ -3474,18 +3479,18 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 377), 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 393), 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);
-            const std::int32_t y = amount.y;
-            const std::int32_t x = amount.x;
+            const std::int32_t y = offsetY + amount.y;
+            const std::int32_t x = panelX + amount.x;
             WindowNumber_Draw(x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
     cg::yobi::DrawNineGrid_49BE00(
-        245300, 0, 35, 640, 383, 226, -1,
+        245300, panelX, panelY, 640, 383, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;

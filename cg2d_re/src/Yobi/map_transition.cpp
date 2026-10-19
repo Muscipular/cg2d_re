@@ -83,7 +83,7 @@ static_assert(offsetof(MapTransitionPayload, counter10) == 0x10);
 static_assert(sizeof(MapTransitionPayload::tick14) == 8);
 
 // 原446970；唯一caller弃EAX，只在偶数时写回S16。
-static void Sub_446970(std::int16_t* const value)
+static void SelectOddTransitionDirection_446970(std::int16_t* const value)
 {
     const std::int16_t current = *value;
     if (current % 2 == 0) {
@@ -92,7 +92,7 @@ static void Sub_446970(std::int16_t* const value)
 }
 
 // 原446990：负值局部归一化后写一次，正值超界时逐次写回S16槽。
-static void Sub_446990(std::int16_t* const value)
+static void NormalizeTransitionDirection_446990(std::int16_t* const value)
 {
     std::int16_t current = *value;
     if (current < 0) {
@@ -108,10 +108,10 @@ static void Sub_446990(std::int16_t* const value)
 }
 
 // 原函数：0x00447E60。
-static void Sub_447E60(YobiAction* action);
+static void UpdateMapTransitionAction_447E60(YobiAction* action);
 
 // 原函数：0x004473B0。
-static std::int32_t Sub_4473B0(YobiAction* const action)
+static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -164,7 +164,7 @@ static std::int32_t Sub_4473B0(YobiAction* const action)
 }
 
 // 原函数：0x004474E0。
-static std::int32_t Sub_4474E0(YobiAction* const action)
+static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -217,7 +217,7 @@ static std::int32_t Sub_4474E0(YobiAction* const action)
 }
 
 // 原4469C0：按原递增换向顺序选一格，避开上次格及469810判定的阻挡格。
-static void Sub_4469C0(YobiAction* const action)
+static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
 {
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
@@ -241,20 +241,20 @@ static void Sub_4469C0(YobiAction* const action)
             break;
         }
         direction = static_cast<std::int16_t>(direction + attempt * 2 + 2);
-        Sub_446990(&direction);
+        NormalizeTransitionDirection_446990(&direction);
         ++attempt;
     } while (attempt < 4);
     if (attempt >= 4) {
         payload->mapX08 = -1;
         payload->mapY0C = -1;
         payload->value02 = static_cast<std::int16_t>(payload->value02 - 2);
-        Sub_446990(&payload->value02);
+        NormalizeTransitionDirection_446990(&payload->value02);
         return;
     }
     if (std::bit_cast<std::int16_t>(payload->value06) >= 2) {
         payload->value06 = 0;
         payload->value02 = static_cast<std::int16_t>(payload->value02 - 6);
-        Sub_446990(&payload->value02);
+        NormalizeTransitionDirection_446990(&payload->value02);
     }
     if (direction != payload->value04) {
         ++payload->value06;
@@ -270,7 +270,7 @@ static void Sub_4469C0(YobiAction* const action)
 }
 
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
-static void Sub_446B50(YobiAction* const action)
+static void AppendStraightTransitionStep_446B50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
@@ -303,7 +303,7 @@ static std::int32_t TransitionDistance(
 }
 
 // 原446C10：玩家快照稳定且距离超过一格时，按各轴符号追加目标格。
-static void Sub_446C10(YobiAction* const action)
+static void AppendTransitionStepTowardPlayer_446C10(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     std::int32_t stepX = 0;
@@ -536,7 +536,7 @@ static std::int32_t UpdateTransitionTrail(
 }
 
 // 原函数：0x00446D80。
-static std::int32_t Sub_446D80(YobiAction* const action)
+static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
@@ -580,7 +580,7 @@ static std::int32_t Sub_446D80(YobiAction* const action)
         }
     }
     if (TransitionMovementIdle(action)) {
-        Sub_4469C0(action);
+        ChooseWanderingTransitionStep_4469C0(action);
     }
     UpdateMapActorPathMovement_4424B0(action);
     YobiAction* const first = payload->slots18.attachments.action18;
@@ -599,7 +599,7 @@ static std::int32_t Sub_446D80(YobiAction* const action)
 }
 
 // 原函数：0x00446FA0。
-static std::int32_t Sub_446FA0(YobiAction* const action)
+static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.attachments.action18 == nullptr) {
@@ -635,7 +635,7 @@ static std::int32_t Sub_446FA0(YobiAction* const action)
 }
 
 // 原函数：0x00447070。
-static std::int32_t Sub_447070(YobiAction* const action)
+static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -662,7 +662,7 @@ static std::int32_t Sub_447070(YobiAction* const action)
 }
 
 // 原函数：0x00447230。
-static std::int32_t Sub_447230(YobiAction* const action)
+static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -685,7 +685,7 @@ static std::int32_t Sub_447230(YobiAction* const action)
 }
 
 // 原函数：0x00447610。
-static std::int32_t Sub_447610(YobiAction* const action)
+static std::int32_t UpdateStraightBlinkTransition_447610(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -709,7 +709,7 @@ static std::int32_t Sub_447610(YobiAction* const action)
         return 0;
     }
     if (TransitionMovementIdle(action)) {
-        Sub_446B50(action);
+        AppendStraightTransitionStep_446B50(action);
     }
     UpdateMapActorPathMovement_4424B0(action);
     DrawMovingTransition(action, payload, -1);
@@ -717,7 +717,7 @@ static std::int32_t Sub_447610(YobiAction* const action)
 }
 
 // 原函数：0x00447820。
-static std::int32_t Sub_447820(YobiAction* const action)
+static std::int32_t UpdateApproachingBlinkTransition_447820(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
@@ -737,7 +737,7 @@ static std::int32_t Sub_447820(YobiAction* const action)
     if (TransitionMovementIdle(action)
         && (TransitionDistance(&action->mapX1E0, &world::gPlayerX) > 1
             || TransitionDistance(&action->mapY1F0, &world::gPlayerY) > 1)) {
-        Sub_446C10(action);
+        AppendTransitionStepTowardPlayer_446C10(action);
     }
     UpdateMapActorPathMovement_4424B0(action);
     DrawMovingTransition(action, payload, 1);
@@ -745,52 +745,52 @@ static std::int32_t Sub_447820(YobiAction* const action)
 }
 
 // 原函数：0x00447A20。
-static std::int32_t Sub_447A20(YobiAction* const action)
+static std::int32_t UpdateVerticalTrailTransition_447A20(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 1);
 }
 
 // 原函数：0x00447C40。
-static std::int32_t Sub_447C40(YobiAction* const action)
+static std::int32_t UpdateCrossAxisTrailTransition_447C40(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 0);
 }
 
 // 原函数：0x00447E60。
-static void Sub_447E60(YobiAction* const action)
+static void UpdateMapTransitionAction_447E60(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
     std::int32_t result = 1;
     switch (payload->mode) {
     case 0:
-        result = Sub_446D80(action);
+        result = UpdateWanderingMapTransition_446D80(action);
         break;
     case 1:
-        result = Sub_446FA0(action);
+        result = UpdatePairedEffectMapTransition_446FA0(action);
         break;
     case 2:
-        result = Sub_447070(action);
+        result = UpdateExpandingOrbitTransition_447070(action);
         break;
     case 3:
-        result = Sub_447230(action);
+        result = UpdateContractingOrbitTransition_447230(action);
         break;
     case 4:
-        result = Sub_4473B0(action);
+        result = UpdateAcceleratingBlinkTransition_4473B0(action);
         break;
     case 5:
-        result = Sub_4474E0(action);
+        result = UpdateDeceleratingBlinkTransition_4474E0(action);
         break;
     case 6:
-        result = Sub_447610(action);
+        result = UpdateStraightBlinkTransition_447610(action);
         break;
     case 7:
-        result = Sub_447820(action);
+        result = UpdateApproachingBlinkTransition_447820(action);
         break;
     case 8:
-        result = Sub_447A20(action);
+        result = UpdateVerticalTrailTransition_447A20(action);
         break;
     case 9:
-        result = Sub_447C40(action);
+        result = UpdateCrossAxisTrailTransition_447C40(action);
         break;
     default:
         break;
@@ -835,7 +835,7 @@ static void Sub_447E60(YobiAction* const action)
 
 // LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
 // 原函数：0x00448040。
-YobiAction* Sub_448040(
+YobiAction* CreateMapTransitionAction_448040(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
     const std::int16_t mode, const std::int16_t value02,
@@ -846,7 +846,7 @@ YobiAction* Sub_448040(
         return nullptr;
     }
     action->direction = direction;
-    action->callback = detail::Sub_447E60;
+    action->callback = detail::UpdateMapTransitionAction_447E60;
     action->imageNo = imageNo;
     action->characterAction = 0;
     action->displayPriority = 10;
@@ -879,7 +879,7 @@ YobiAction* Sub_448040(
     action->y = y;
     payload->mode = mode;
     payload->value02 = value02;
-    detail::Sub_446970(&payload->value02);
+    detail::SelectOddTransitionDirection_446970(&payload->value02);
     payload->value04 = payload->value02;
     payload->value06 = 0;
     payload->mapX08 = mapX;

@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：348／636。已重命名：336。保留／未决：12。待分析：288。
+已分析：365／636。已重命名：353。保留／未决：12。待分析：271。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -114,23 +114,23 @@
 | `Sub_4467D0` | src/world/WorldActor.cpp:947 | 已重命名：`RecreateWorldObjectAction_4467D0` | 按对象编号仅为占用且动作空的槽重建动作，恢复等级、姓名、称号和显示标志。 |
 | `Sub_4468F0` | src/world/WorldObjectState.cpp:45 | 已重命名：`ResetMapActorDrawKeys_4468F0` | 将地图角色图号与坐标去重表数量归零。 |
 | `Sub_446900` | src/world/WorldObjectState.cpp:192 | 已重命名：`RegisterMapActorDrawKey_446900` | 按图形索引与地图坐标检测本帧重复，重复返回1，否则100容量内追加并返回0。 |
-| `Sub_446970` | src/Yobi/map_transition.cpp:86 | 待分析 | — |
-| `Sub_446990` | src/Yobi/map_transition.cpp:95 | 待分析 | — |
-| `Sub_4469C0` | src/Yobi/map_transition.cpp:220 | 待分析 | — |
-| `Sub_446B50` | src/Yobi/map_transition.cpp:273 | 待分析 | — |
-| `Sub_446C10` | src/Yobi/map_transition.cpp:306 | 待分析 | — |
-| `Sub_446D80` | src/Yobi/map_transition.cpp:539 | 待分析 | — |
-| `Sub_446FA0` | src/Yobi/map_transition.cpp:602 | 待分析 | — |
-| `Sub_447070` | src/Yobi/map_transition.cpp:638 | 待分析 | — |
-| `Sub_447230` | src/Yobi/map_transition.cpp:665 | 待分析 | — |
-| `Sub_4473B0` | src/Yobi/map_transition.cpp:114 | 待分析 | — |
-| `Sub_4474E0` | src/Yobi/map_transition.cpp:167 | 待分析 | — |
-| `Sub_447610` | src/Yobi/map_transition.cpp:688 | 待分析 | — |
-| `Sub_447820` | src/Yobi/map_transition.cpp:720 | 待分析 | — |
-| `Sub_447A20` | src/Yobi/map_transition.cpp:748 | 待分析 | — |
-| `Sub_447C40` | src/Yobi/map_transition.cpp:754 | 待分析 | — |
-| `Sub_447E60` | src/Yobi/map_transition.cpp:760 | 待分析 | — |
-| `Sub_448040` | src/Yobi/map_transition.cpp:838 | 待分析 | — |
+| `Sub_446970` | src/Yobi/map_transition.cpp:86 | 已重命名：`SelectOddTransitionDirection_446970` | 过渡初始化将偶数八方向加一，使行走候选采用奇数方向，奇数不变。 |
+| `Sub_446990` | src/Yobi/map_transition.cpp:95 | 已重命名：`NormalizeTransitionDirection_446990` | 将有符号16位方向归入0至7，负数局部循环后一次写回，正数逐次减8。 |
+| `Sub_4469C0` | src/Yobi/map_transition.cpp:220 | 已重命名：`ChooseWanderingTransitionStep_4469C0` | 路径空且玩家快照稳定时按方向轮换选不阻挡且非上一格的目标，记录转向次数并追加一步。 |
+| `Sub_446B50` | src/Yobi/map_transition.cpp:273 | 已重命名：`AppendStraightTransitionStep_446B50` | 路径空且玩家快照稳定时沿载荷方向追加一个格坐标，记录原位置。 |
+| `Sub_446C10` | src/Yobi/map_transition.cpp:306 | 已重命名：`AppendTransitionStepTowardPlayer_446C10` | 路径空且玩家稳定、距离超过一格时按两轴符号追加朝向玩家的一步。 |
+| `Sub_446D80` | src/Yobi/map_transition.cpp:539 | 已重命名：`UpdateWanderingMapTransition_446D80` | 超过13格或8秒且静止则恢复原对象；7.2／7.5秒创建一次性附属特效，闲置时选游走路径并随主动作移动附属。 |
+| `Sub_446FA0` | src/Yobi/map_transition.cpp:602 | 已重命名：`UpdatePairedEffectMapTransition_446FA0` | 按起始与500毫秒两时点创建0x18902特效，1200毫秒后恢复世界对象并结束。 |
+| `Sub_447070` | src/Yobi/map_transition.cpp:638 | 已重命名：`UpdateExpandingOrbitTransition_447070` | 初始化半径0，一秒后角度每次加6、半径加4，绘制三点外扩轨迹，超过800后恢复对象。 |
+| `Sub_447230` | src/Yobi/map_transition.cpp:665 | 已重命名：`UpdateContractingOrbitTransition_447230` | 初始化半径800，每次半径减4、角度加6并绘制三点收拢轨迹，半径归零后恢复对象。 |
+| `Sub_4473B0` | src/Yobi/map_transition.cpp:114 | 已重命名：`UpdateAcceleratingBlinkTransition_4473B0` | 可见状态随计数翻转，步值20递减至-20逐渐加快闪烁，完成恢复世界对象动作并销毁过渡。 |
+| `Sub_4474E0` | src/Yobi/map_transition.cpp:167 | 已重命名：`UpdateDeceleratingBlinkTransition_4474E0` | 步值-10递增至30，逐渐延长闪烁间隔，完成恢复世界对象动作并销毁。 |
+| `Sub_447610` | src/Yobi/map_transition.cpp:688 | 已重命名：`UpdateStraightBlinkTransition_447610` | 沿固定方向行走并加快闪烁，超过13格或6秒且静止后恢复对象。 |
+| `Sub_447820` | src/Yobi/map_transition.cpp:720 | 已重命名：`UpdateApproachingBlinkTransition_447820` | 离玩家超过一格时追加靠近路径并减慢闪烁，6秒后静止时恢复对象。 |
+| `Sub_447A20` | src/Yobi/map_transition.cpp:748 | 已重命名：`UpdateVerticalTrailTransition_447A20` | 调用公共抛物线残影逻辑，屏幕Y使用图形Y轴偏移；40计数结束并恢复对象。 |
+| `Sub_447C40` | src/Yobi/map_transition.cpp:754 | 已重命名：`UpdateCrossAxisTrailTransition_447C40` | 同一残影逻辑但屏幕Y取图形X轴偏移，保原两处轴差异，不改成普通Y偏移。 |
+| `Sub_447E60` | src/Yobi/map_transition.cpp:760 | 已重命名：`UpdateMapTransitionAction_447E60` | 按载荷mode0至9分发过渡模式，需要公共绘制时投影、推进帧并入主地图缓存。 |
+| `Sub_448040` | src/Yobi/map_transition.cpp:838 | 已重命名：`CreateMapTransitionAction_448040` | 分配专用过渡载荷，初始化图号／方向／坐标／计时／对象编号，按模式初始化附件或状态区并绑定分发回调。 |
 | `Sub_448290` | src/Yobi/environment.cpp:651 | 已重命名：`EnsureTimedMapBackgroundEffect_448290` | 仅地图场景、有效玩家和59529／38251楼层创建唯一计时背景动作，设置64×48裁剪块。 |
 | `Sub_4483A0` | src/Yobi/environment.cpp:528 | 已重命名：`UpdateTimedMapBackgroundEffect_4483A0` | 按已过时间和持续秒数分阶段更新地图摇动偏移、音效及幅值，最终铺100块背景图形；保关联对象缺失路径。 |
 | `Sub_448810` | src/Yobi/environment.cpp:300 | 已重命名：`ConfigureRightEntrySceneEffect_448810` | mode0保存环境持续秒数及开始时刻，其他模式在地图场景创建／更新／移除14647图号的右侧进入对象。 |

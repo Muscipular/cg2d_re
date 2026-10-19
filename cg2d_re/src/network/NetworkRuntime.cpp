@@ -726,7 +726,7 @@ void HandleMapActorTransitionReply_50DD80(
         default:
             return;
         }
-        static_cast<void>(cg::yobi::Sub_448040(
+        static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(
             convertedImageNo, mapX, mapY, direction, actionMode, value02, -1));
         return;
     }
@@ -782,7 +782,7 @@ void HandleMapActorTransitionReply_50DD80(
     default:
         return;
     }
-    static_cast<void>(cg::yobi::Sub_448040(
+    static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
 }

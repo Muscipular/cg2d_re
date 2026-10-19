@@ -529,11 +529,11 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
         // 负尺寸转为 size_t 后也会进入既有容量拒绝分支，需区分资源尺寸错误。
         if (width < 0 || height < 0) {
             const auto& info = resource::gGraphicInfo[imageNo];
-            m_log("[render] graphic %d has invalid resource dimensions: %dx%d (mapNo=%d, fileIndex=%d, offset=%u, length=%u)\n",
+            m_logw(L"[render] graphic %d has invalid resource dimensions: %dx%d (mapNo=%d, fileIndex=%d, offset=%u, length=%u)\n",
                 imageNo, width, height, info.mapNo, static_cast<int>(info.fileIndex),
                 static_cast<unsigned int>(info.offset), static_cast<unsigned int>(info.length));
         } else {
-            m_log("[render] graphic %d exceeds texture cache capacity: %dx%d\n", imageNo, width, height);
+            m_logw(L"[render] graphic %d exceeds texture cache capacity: %dx%d\n", imageNo, width, height);
         }
         return;
     }
@@ -559,7 +559,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
         }
     }
     if (selected == nullptr) {
-        m_log("[render] graphic %d has no reusable texture cache entry\n", imageNo);
+        m_logw(L"[render] graphic %d has no reusable texture cache entry\n", imageNo);
         return;
     }
     for (std::int32_t checked = 0;
@@ -570,12 +570,12 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
         if (&node != selected && (node.imageNo == -1 || node.reuseState < reuseThreshold)) { evict(node); }
     }
     if (gGraphicTexturePixels + pixels > kGraphicTexturePixelBudget) {
-        m_log("[render] graphic %d cannot fit while recent textures are in use\n", imageNo);
+        m_logw(L"[render] graphic %d cannot fit while recent textures are in use\n", imageNo);
         return;
     }
     selected->surface = gTextureSurfaceOwner.Create(width, height, 0);
     if (selected->surface == nullptr) {
-        m_log("[render] graphic %d surface allocation failed: %dx%d\n", imageNo, width, height);
+        m_logw(L"[render] graphic %d surface allocation failed: %dx%d\n", imageNo, width, height);
         return;
     }
     gGraphicTexturePixels += pixels;

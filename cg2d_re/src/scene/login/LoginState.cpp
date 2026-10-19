@@ -2,6 +2,7 @@
 #include "cg/render/Font.hpp"
 #include <winsock2.h>
 #include <string>
+#include <format>
 #include "cg/text/Encoding.hpp"
 #include <ws2tcpip.h>
 
@@ -62,14 +63,14 @@ static cg::yobi::YobiAction* gServerConnectionAction = nullptr;
 namespace detail {
 
 // 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
-std::uint32_t AppendSystemLog_44B5C0(const char* text)
+std::uint32_t AppendSystemLog_44B5C0(std::wstring_view text)
 {
-    std::FILE* const file = std::fopen("systemlog.txt", "a");
+    std::FILE* const file = _wfopen(L"systemlog.txt", L"a");
     if (file == nullptr) {
         return 0;
     }
 
-    static_cast<void>(std::fprintf(file, "%s\n", text));
+    static_cast<void>(std::fprintf(file, "%s\n", cg::text::ToGbk(text).c_str()));
     return static_cast<std::uint32_t>(std::fclose(file));
 }
 
@@ -147,9 +148,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
                 0x10) == SOCKET_ERROR) {
             const int error = ::WSAGetLastError();
             if (error != 10035) {
-                char logMessage[sizeof("CONNECT ERROR=-2147483648")];
-                static_cast<void>(std::sprintf(
-                    logMessage, "CONNECT ERROR=%d", error));
+                const auto logMessage = std::format(L"CONNECT ERROR={}", error);
                 static_cast<void>(AppendSystemLog_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
@@ -185,7 +184,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
                 static_cast<SOCKET>(platform::gConnectionSocket), &writeSet) != 0) {
             gConnectionStep = 71;
             gRequestPollingEnabled = 1;
-            static_cast<void>(AppendSystemLog_44B5C0("CONNECT OK"));
+            static_cast<void>(AppendSystemLog_44B5C0(L"CONNECT OK"));
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
@@ -199,25 +198,23 @@ std::int32_t AdvanceServerLoginConnection_508360()
         if (step == 71) {
             network::WriteProtocolModeDA3B22(0);
 
-            char adapterScratch[16];
+            std::wstring adapterScratch;
             std::wstring passwordCopy;
-            char adapterId[44];
+            std::wstring adapterId;
             static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
             passwordCopy = gPassword;
-            std::strcpy(adapterId, adapterScratch);
+            adapterId = adapterScratch;
             gPassword = passwordCopy;
             const std::int32_t queued = network::SendAccountLoginRequest_512800(
                 platform::gConnectionSocket,
                 gExecutableDigest,
                 passwordCopy,
                 gAccount,
-                cg::text::FromGbkWide(adapterId));
+                adapterId);
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
             gRequestStatus = 1;
-            char diagnostic[64];
-            static_cast<void>(std::sprintf(
-                diagnostic, "LOGIN QUEUE RESULT=%d", queued));
+            const auto diagnostic = std::format(L"LOGIN QUEUE RESULT={}", queued);
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {

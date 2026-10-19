@@ -8812,8 +8812,7 @@ std::int32_t HandleNotificationSoundReply_50E210(
 std::int32_t SendPlayerChatInput_50C940(
     const input::InputContext* const context, const std::int32_t color)
 {
-    const auto chatText = text::ToGbk(input::ContextText(*context));
-    if (script::LuaProcessWinMgrChatMessage(chatText.c_str()) == 1) {
+    if (script::LuaProcessWinMgrChatMessage(input::ContextText(*context)) == 1) {
         return 0;
     }
     const std::int32_t sendColor = color == 4 ? 5 : color;

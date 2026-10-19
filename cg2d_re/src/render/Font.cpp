@@ -237,12 +237,12 @@ static void LoadFontConfiguration()
             } catch (const std::exception& error) {
                 if (id != 0) { gFonts.erase(id); }
                 static_cast<void>(error);
-                m_log_i("font.yml 字体%d加载失败，使用0号字体：%s\n", id, error.what());
+                m_log_iw(L"font.yml 字体%d加载失败，使用0号字体：%hs\n", id, error.what());
             }
         }
     } catch (const std::exception& error) {
         static_cast<void>(error);
-        m_log_i("font.yml读取失败，使用0号默认字体：%s\n", error.what());
+        m_log_iw(L"font.yml读取失败，使用0号默认字体：%hs\n", error.what());
     }
 }
 

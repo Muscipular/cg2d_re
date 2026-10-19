@@ -48,6 +48,7 @@
 #include <cstdint>
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
+#include <format>
 #include <list>
 #include <string>
 #include <system_error>
@@ -208,10 +209,10 @@ static std::int32_t QueuePlaintextProtocolBytes(
     std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
     // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
     if (startsLogin) {
-        m_log("[network][send queued][%zu] %.*s", loginPrelude.size(),
+        m_logw(L"[network][send queued][%zu] %.*s", loginPrelude.size(),
             static_cast<int>(loginPrelude.size()), loginPrelude.data());
     }
-    m_log("[network][send queued][%u] %.*s%s", size, static_cast<int>(size),
+    m_logw(L"[network][send queued][%u] %.*s%hs", size, static_cast<int>(size),
         packet.data(), packet.ends_with('\n') ? "" : "\n");
     return 0;
 }
@@ -298,7 +299,7 @@ static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
         offset += compressedSize;
         if (decodedSize <= 0) {
             if (decodedSize < 0) {
-                m_log_i("LZ4 DECODE ERROR=%d FRAME=%zu BLOCK=%d OFFSET=%zu\n",
+                m_log_iw(L"LZ4 DECODE ERROR=%d FRAME=%zu BLOCK=%d OFFSET=%zu\n",
                     decodedSize, state.frame.size(), compressedSize, offset - compressedSize);
             }
             break;
@@ -306,7 +307,7 @@ static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
         if (static_cast<std::size_t>(decodedSize) > kLz4FrameDecodedCapacity - used) {
             return -1;
         }
-        m_log("[network][recv][lz4] compressed=%d decoded=%d bytes\n",
+        m_logw(L"[network][recv][lz4] compressed=%d decoded=%d bytes\n",
             compressedSize, decodedSize);
         used += decodedSize;
     }
@@ -351,7 +352,7 @@ static std::int32_t ReceiveProtocolLine(
             std::memcpy(destination, state.lines.data(), lineLength);
             static_cast<char*>(destination)[lineLength] = '\0';
             // 普通行和解压后的行共用此处；在分词／回调改写缓冲前打印完整封包。
-            m_log("[network][recv][%zu] %.*s", lineLength,
+            m_logw(L"[network][recv][%zu] %.*s", lineLength,
                 static_cast<int>(lineLength), static_cast<const char*>(destination));
             state.lineBytes -= lineLength;
             std::memmove(state.lines.data(), state.lines.data() + lineLength, state.lineBytes);
@@ -583,8 +584,7 @@ std::uint8_t* EncodeProtocolBase62_517730(
 std::int32_t ReadAndLogReceiveError_5082D0()
 {
     const std::int32_t error = ::WSAGetLastError();
-    char message[256];
-    std::sprintf(message, "RECV ERROR=%d", error);
+    const auto message = std::format(L"RECV ERROR={}", error);
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
@@ -593,8 +593,7 @@ std::int32_t ReadAndLogReceiveError_5082D0()
 std::int32_t ReadAndLogSendError_508310()
 {
     const std::int32_t error = ::WSAGetLastError();
-    char message[256];
-    std::sprintf(message, "SNED ERROR=%d", error);
+    const auto message = std::format(L"SNED ERROR={}", error);
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
@@ -924,16 +923,14 @@ static void HandleResponse_508800(
     const char* const text)
 {
     if (login::gRequestStatus != 1) {
-        static_cast<void>(login::detail::AppendSystemLog_44B5C0("LOGIN REPLY IGNORED"));
+        static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"LOGIN REPLY IGNORED"));
         return;
     }
 
     login::gRequestStatus = 2;
     login::gLoginReplyErrorCode_DA3B24 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
-    char diagnostic[64];
-    static_cast<void>(std::sprintf(
-        diagnostic, "LOGIN REPLY RESULT=%d", value));
+    const auto diagnostic = std::format(L"LOGIN REPLY RESULT={}", value);
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
     if (value != 0) {
         if (std::strcmp(text, "busy") == 0) {
@@ -4358,7 +4355,7 @@ std::int32_t InitializeNetworkRuntime_508140()
             const std::int32_t wait = ParseProtocolInteger_517190(arguments[1]);
             world::gBattleCommandWaitMs = std::bit_cast<std::uint32_t>(wait);
             world::gBattleShowEnemyHpBars = ParseProtocolInteger_517190(arguments[2]) != 0;
-            m_log_i("Set battleCommandWait = %d\n", wait);
+            m_log_iw(L"Set battleCommandWait = %d\n", wait);
         });
         RegisterProtocolReceive("SpDt", [](const char*, char** const arguments) {
             world::gChatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
@@ -4453,9 +4450,7 @@ std::uint8_t NetworkLoop_507DF0()
             const std::int32_t queued = AppendReceiveQueue_5081E0(
                 received, static_cast<std::uint32_t>(receivedLength));
             if (login::gConnectionStep >= 71 && login::gConnectionStep <= 80) {
-                char diagnostic[64];
-                static_cast<void>(std::sprintf(
-                    diagnostic, "LOGIN RECEIVED BYTES=%d QUEUE=%d", receivedLength, queued));
+                const auto diagnostic = std::format(L"LOGIN RECEIVED BYTES={} QUEUE={}", receivedLength, queued);
                 static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
             }
         }
@@ -4465,7 +4460,7 @@ std::uint8_t NetworkLoop_507DF0()
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             world::gNetworkDisconnectState_D9F2CA = 1;
             gNetworkRuntimeState.errorD9F2CC = 0;
-            static_cast<void>(login::detail::AppendSystemLog_44B5C0("NETWORK PEER CLOSED"));
+            static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"NETWORK PEER CLOSED"));
         }
         else if (receivedLength == -1) {
             const std::int32_t error = detail::ReadAndLogReceiveError_5082D0();
@@ -4502,9 +4497,7 @@ std::uint8_t NetworkLoop_507DF0()
         std::memset(gNetworkRuntimeState.reservedTripleBuffer3, 0, 3U * *length);
         std::fill_n(gNetworkRuntimeState.pointerTable58B614, *length, nullptr);
         if (diagnoseLogin) {
-            char diagnostic[64];
-            static_cast<void>(std::sprintf(
-                diagnostic, "LOGIN DISPATCH RESULT=%d", dispatchResult));
+            const auto diagnostic = std::format(L"LOGIN DISPATCH RESULT={}", dispatchResult);
             static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
         }
     }
@@ -4536,9 +4529,7 @@ std::uint8_t NetworkLoop_507DF0()
             static_cast<void>(ConsumeSendQueue_508280(sent));
             if (sent > 0 && login::gConnectionStep >= 71
                 && login::gConnectionStep <= 80) {
-                char diagnostic[64];
-                static_cast<void>(std::sprintf(
-                    diagnostic, "LOGIN SENT BYTES=%d", sent));
+                const auto diagnostic = std::format(L"LOGIN SENT BYTES={}", sent);
                 static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
             }
         }

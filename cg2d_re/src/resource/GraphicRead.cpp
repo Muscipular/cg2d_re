@@ -296,7 +296,7 @@ std::int16_t ResolveAnimationPalette(
     const std::int32_t runtimeIndex = std::numeric_limits<std::int16_t>::max()
         - static_cast<std::int32_t>(cache.records.size());
     if (runtimeIndex <= 0 || runtimeIndex < gIndependentPaletteCount) {
-        m_log("[palette] animation palette index capacity exhausted, animeNo=%u\n", animeNo);
+        m_logw(L"[palette] animation palette index capacity exhausted, animeNo=%u\n", animeNo);
         cache.animeIndices.emplace(animeNo, 0);
         return unresolvedIndex;
     }

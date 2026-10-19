@@ -142,7 +142,7 @@ static bool skipSceneNotReady([[maybe_unused]] const char* where)
     uint64_t now = nowMs();
     if (gLastSceneSkipLogMs == 0 || now - gLastSceneSkipLogMs >= kSceneSkipLogMs) {
         gLastSceneSkipLogMs = now;
-        // m_log_i("[copilot] skip scene where=%s scene=%d state=%d needScene=%d needState=3\n", where, world::gCurrentSceneType, world::gCurrentSceneState, SCENE_NORMAL);
+        // m_log_iw(L"[copilot] skip scene where=%hs scene=%d state=%d needScene=%d needState=3\n", where, world::gCurrentSceneType, world::gCurrentSceneState, SCENE_NORMAL);
     }
     gHasLastObservedPlayer = false;
     clearRecentPlayers();
@@ -389,7 +389,7 @@ static void markDynamicBlocked(Point p, [[maybe_unused]] const char* reason)
 {
     bool added = putDynamicBlocked(p);
     if (added) {
-        // m_log_i("[copilot] dynamic block %d,%d reason=%s ttl=%u\n", p.x, p.y, reason, static_cast<unsigned int>(kDynamicBlockMs));
+        // m_log_iw(L"[copilot] dynamic block %d,%d reason=%hs ttl=%u\n", p.x, p.y, reason, static_cast<unsigned int>(kDynamicBlockMs));
     }
 }
 
@@ -400,7 +400,7 @@ static void syncVisibleCache()
         return;
     }
     if (static_cast<std::uint32_t>(gLastMapId) != gMapId || gLastMapFloor != gMapFloor || gLastMapGroup != gMapGroup) {
-        // m_log_i("[copilot] map changed map=%d group=%d floor=%d visible=%dx%d start=%d,%d\n", gMapId, gMapGroup, gMapFloor, gMapWidth, gMapHeight, gMapXStart, gMapYStart);
+        // m_log_iw(L"[copilot] map changed map=%d group=%d floor=%d visible=%dx%d start=%d,%d\n", gMapId, gMapGroup, gMapFloor, gMapWidth, gMapHeight, gMapXStart, gMapYStart);
         gKnownMap.clear();
         gDiskMap = DiskMapCache{};
         gDynamicBlocked.clear();
@@ -447,7 +447,7 @@ static bool loadDiskMap()
     next.lastAttemptMs = now;
 
     auto fail = [&]([[maybe_unused]] const char* reason) {
-        // m_log_i("[copilot] loadDiskMap failed reason=%s map=%d group=%d floor=%d keepOld=%d\n", reason, gMapId, gMapGroup, gMapFloor, sameMap && gDiskMap.loaded ? 1 : 0);
+        // m_log_iw(L"[copilot] loadDiskMap failed reason=%hs map=%d group=%d floor=%d keepOld=%d\n", reason, gMapId, gMapGroup, gMapFloor, sameMap && gDiskMap.loaded ? 1 : 0);
         if (sameMap && gDiskMap.loaded) {
             gDiskMap.lastAttemptMs = now;
             return true;
@@ -500,7 +500,7 @@ static bool loadDiskMap()
     next.loaded = true;
     next.lastLoadedMs = now;
     [[maybe_unused]] size_t blockedCount = std::count(next.cells.begin(), next.cells.end(), static_cast<unsigned char>(kKnownBlocked));
-    // m_log_i("[copilot] loadDiskMap ok map=%d group=%d floor=%d size=%dx%d blocked=%u\n", gMapId, gMapGroup, gMapFloor, next.width, next.height, static_cast<unsigned int>(blockedCount));
+    // m_log_iw(L"[copilot] loadDiskMap ok map=%d group=%d floor=%d size=%dx%d blocked=%u\n", gMapId, gMapGroup, gMapFloor, next.width, next.height, static_cast<unsigned int>(blockedCount));
     gDiskMap = next;
     return true;
 }
@@ -623,7 +623,7 @@ static bool footprintCovers(Point origin, CellGraphicInfo info, Point p)
             if (objInfo.imageId <= 999 || !footprintCovers({x, y}, objInfo, p)) {
                 continue;
             }
-            // m_log_i("[copilot] cell %s cover p=%d,%d byObj=%d,%d raw=%04X img=%d flag=%u sx=%u sy=%u blockValue=%u\n", label, p.x, p.y, x, y, objRaw, objInfo.imageId, objInfo.flag, objInfo.sx, objInfo.sy, objInfo.flag == 0 ? 1 : objInfo.flag == 2 ? 2 : 0);
+            // m_log_iw(L"[copilot] cell %hs cover p=%d,%d byObj=%d,%d raw=%04X img=%d flag=%u sx=%u sy=%u blockValue=%u\n", label, p.x, p.y, x, y, objRaw, objInfo.imageId, objInfo.flag, objInfo.sx, objInfo.sy, objInfo.flag == 0 ? 1 : objInfo.flag == 2 ? 2 : 0);
             ++logged;
         }
     }
@@ -654,7 +654,7 @@ static int markObjectFootprintBlocked(Point origin, [[maybe_unused]] unsigned sh
     }
 
     if (marked > 0) {
-        // m_log_i("[copilot] dynamic obj block origin=%d,%d raw=%04X img=%d flag=%u sx=%u sy=%u cover=%d,%d cells=%d new=%d reason=%s ttl=%u\n", origin.x, origin.y, raw, info.imageId, info.flag, info.sx, info.sy, cover.x, cover.y, marked, added, reason, static_cast<unsigned int>(kDynamicBlockMs));
+        // m_log_iw(L"[copilot] dynamic obj block origin=%d,%d raw=%04X img=%d flag=%u sx=%u sy=%u cover=%d,%d cells=%d new=%d reason=%hs ttl=%u\n", origin.x, origin.y, raw, info.imageId, info.flag, info.sx, info.sy, cover.x, cover.y, marked, added, reason, static_cast<unsigned int>(kDynamicBlockMs));
     }
     return marked;
 }
@@ -744,13 +744,13 @@ static void markDynamicBlockedByMapSource(Point p, [[maybe_unused]] const char* 
     gLastCellLogMs = now;
 
     if (!loadDiskMap() || !inDiskBounds(p)) {
-        // m_log_i("[copilot] cell %s p=%d,%d disk=unavailable loaded=%d size=%dx%d\n", label, p.x, p.y, gDiskMap.loaded ? 1 : 0, gDiskMap.width, gDiskMap.height);
+        // m_log_iw(L"[copilot] cell %hs p=%d,%d disk=unavailable loaded=%d size=%dx%d\n", label, p.x, p.y, gDiskMap.loaded ? 1 : 0, gDiskMap.width, gDiskMap.height);
         return;
     }
 
     size_t index = diskIndex(gDiskMap.width, p.x, p.y);
     if (index >= gDiskMap.cells.size() || index >= gDiskMap.tileData.size() || index >= gDiskMap.objData.size() || index >= gDiskMap.hitData.size()) {
-        // m_log_i("[copilot] cell %s p=%d,%d disk=bad-cache index=%u cells=%u tile=%u obj=%u hit=%u\n", label, p.x, p.y, static_cast<unsigned int>(index), static_cast<unsigned int>(gDiskMap.cells.size()), static_cast<unsigned int>(gDiskMap.tileData.size()), static_cast<unsigned int>(gDiskMap.objData.size()), static_cast<unsigned int>(gDiskMap.hitData.size()));
+        // m_log_iw(L"[copilot] cell %hs p=%d,%d disk=bad-cache index=%u cells=%u tile=%u obj=%u hit=%u\n", label, p.x, p.y, static_cast<unsigned int>(index), static_cast<unsigned int>(gDiskMap.cells.size()), static_cast<unsigned int>(gDiskMap.tileData.size()), static_cast<unsigned int>(gDiskMap.objData.size()), static_cast<unsigned int>(gDiskMap.hitData.size()));
         return;
     }
     // unsigned short tileRaw = gDiskMap.tileData[index];
@@ -857,7 +857,7 @@ static bool isForwardWaypoint(Point player, Point waypoint)
     }
     bool forward = canReachLocal(player, waypoint);
     if (!forward) {
-        // m_log_i("[copilot] reject waypoint=%d,%d forward=0 backward=0\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] reject waypoint=%d,%d forward=0 backward=0\n", waypoint.x, waypoint.y);
         return false;
     }
     return true;
@@ -870,7 +870,7 @@ static bool isBidirectionalWaypoint(Point player, Point waypoint)
     }
     bool backward = canReachLocal(waypoint, player);
     if (!backward) {
-        // m_log_i("[copilot] defer waypoint=%d,%d forward=1 backward=0\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] defer waypoint=%d,%d forward=1 backward=0\n", waypoint.x, waypoint.y);
         return false;
     }
     return true;
@@ -893,7 +893,7 @@ static bool isBidirectionalWaypoint(Point player, Point waypoint)
     int targetVisible = isValidMap() && tx >= 0 && ty >= 0 && tx < gMapWidth && ty < gMapHeight ? gMoveBlockMap[tx + ty * gMapWidth] : -1;
     unsigned char playerKnown = cachedKnownOrDiskCell(player);
     unsigned char targetKnown = cachedKnownOrDiskCell(target);
-    m_log_i("[copilot] no path detail playerWalkable=%d playerKnown=%u playerVisible=%d playerDyn=%d targetKnown=%u targetVisible=%d targetDyn=%d diskLoaded=%d diskSize=%dx%d dyn=%u known=%u\n",
+    m_log_iw(L"[copilot] no path detail playerWalkable=%d playerKnown=%u playerVisible=%d playerDyn=%d targetKnown=%u targetVisible=%d targetDyn=%d diskLoaded=%d diskSize=%dx%d dyn=%u known=%u\n",
         canWalkGlobal(player) ? 1 : 0, playerKnown, playerVisible, isDynamicBlocked(player) ? 1 : 0, targetKnown, targetVisible,
         isDynamicBlocked(target) ? 1 : 0, gDiskMap.loaded ? 1 : 0, gDiskMap.width, gDiskMap.height,
         static_cast<unsigned int>(gDynamicBlocked.size()), static_cast<unsigned int>(gKnownMap.size()));
@@ -1403,7 +1403,7 @@ static void requestMove(Point target)
     gAutoTargetY = target.y;
     gExpectedAutoTarget = target;
     gHasExpectedAutoTarget = true;
-    // m_log_i("[copilot] requestMove waypoint=%d,%d player=%d,%d\n", target.x, target.y, player.x, player.y);
+    // m_log_iw(L"[copilot] requestMove waypoint=%d,%d player=%d,%d\n", target.x, target.y, player.x, player.y);
     // logDiskCellDetail(target, "request");
     gLastRequestedWaypoint = target;
     gHasLastRequestedWaypoint = true;
@@ -1437,12 +1437,12 @@ static bool tryUseCachedWaypoint(Point player, Point target)
         return false;
     }
     if (!isForwardWaypoint(player, gCachedWaypoint)) {
-        // m_log_i("[copilot] drop cached waypoint=%d,%d player=%d,%d\n", gCachedWaypoint.x, gCachedWaypoint.y, player.x, player.y);
+        // m_log_iw(L"[copilot] drop cached waypoint=%d,%d player=%d,%d\n", gCachedWaypoint.x, gCachedWaypoint.y, player.x, player.y);
         resetPlanCache();
         return false;
     }
 
-    // m_log_i("[copilot] reuse waypoint=%d,%d player=%d,%d moved=%d\n", gCachedWaypoint.x, gCachedWaypoint.y, player.x, player.y,
+    // m_log_iw(L"[copilot] reuse waypoint=%d,%d player=%d,%d moved=%d\n", gCachedWaypoint.x, gCachedWaypoint.y, player.x, player.y,
     //     pointDistance(player, gLastPlanPlayer));
     requestMove(gCachedWaypoint);
     return true;
@@ -1463,7 +1463,7 @@ static bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Po
     for (int i = lastIndex; i >= 0; --i) {
         Point next = path[i];
         if (pointDistance(player, next) > kMoveSegmentSteps) {
-            // m_log_i("[copilot] reject waypoint=%d,%d player=%d,%d reason=too-far\n", next.x, next.y, player.x, player.y);
+            // m_log_iw(L"[copilot] reject waypoint=%d,%d player=%d,%d reason=too-far\n", next.x, next.y, player.x, player.y);
             continue;
         }
         bool recent = avoidRecent(next);
@@ -1492,25 +1492,25 @@ static bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Po
     }
     if (oneWayIndex != -1) {
         waypoint = path[oneWayIndex];
-        // m_log_i("[copilot] use one-way waypoint=%d,%d index=%d\n", waypoint.x, waypoint.y, oneWayIndex);
+        // m_log_iw(L"[copilot] use one-way waypoint=%d,%d index=%d\n", waypoint.x, waypoint.y, oneWayIndex);
         return true;
     }
     if (recentIndex != -1) {
         if (!allowRecentFallback) {
-            // m_log_i("[copilot] skip recent waypoint=%d,%d recent=%d\n", path[recentIndex].x, path[recentIndex].y, gRecentPlayerCount);
+            // m_log_iw(L"[copilot] skip recent waypoint=%d,%d recent=%d\n", path[recentIndex].x, path[recentIndex].y, gRecentPlayerCount);
             return false;
         }
         waypoint = path[recentIndex];
-        // m_log_i("[copilot] use recent waypoint=%d,%d index=%d recent=%d\n", waypoint.x, waypoint.y, recentIndex, gRecentPlayerCount);
+        // m_log_iw(L"[copilot] use recent waypoint=%d,%d index=%d recent=%d\n", waypoint.x, waypoint.y, recentIndex, gRecentPlayerCount);
         return true;
     }
     if (oneWayRecentIndex != -1) {
         if (!allowRecentFallback) {
-            // m_log_i("[copilot] skip recent waypoint=%d,%d recent=%d\n", path[oneWayRecentIndex].x, path[oneWayRecentIndex].y, gRecentPlayerCount);
+            // m_log_iw(L"[copilot] skip recent waypoint=%d,%d recent=%d\n", path[oneWayRecentIndex].x, path[oneWayRecentIndex].y, gRecentPlayerCount);
             return false;
         }
         waypoint = path[oneWayRecentIndex];
-        // m_log_i("[copilot] use one-way recent waypoint=%d,%d index=%d recent=%d\n", waypoint.x, waypoint.y, oneWayRecentIndex,
+        // m_log_iw(L"[copilot] use one-way recent waypoint=%d,%d index=%d recent=%d\n", waypoint.x, waypoint.y, oneWayRecentIndex,
             // gRecentPlayerCount);
         return true;
     }
@@ -1530,24 +1530,24 @@ static void PlanCopilot(int x, int y, bool routeOnly)
 
     copilot_detail::Point target{x, y};
     copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
-    // m_log_i("[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
+    // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
     if (player.x == target.x && player.y == target.y) {
-        // m_log_i("[copilot] already arrived target=%d,%d\n", target.x, target.y);
+        // m_log_iw(L"[copilot] already arrived target=%d,%d\n", target.x, target.y);
         copilot_detail::clearCopilotRoute();
         return;
     }
     if (!copilot_detail::isValidMap()) {
-        // m_log_i("[copilot] skip invalid visible map width=%d height=%d cells=%d limit=%d\n", gMapWidth, gMapHeight, gMapWidth * gMapHeight, kMapBufferLimit);
+        // m_log_iw(L"[copilot] skip invalid visible map width=%d height=%d cells=%d limit=%d\n", gMapWidth, gMapHeight, gMapWidth * gMapHeight, kMapBufferLimit);
         copilot_detail::clearCopilotRoute();
         return;
     }
     if (!copilot_detail::isSaneTarget(player, target)) {
-        // m_log_i("[copilot] skip insane target player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
+        // m_log_iw(L"[copilot] skip insane target player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
         copilot_detail::clearCopilotRoute();
         return;
     }
     if (!routeOnly && copilot_detail::isBusy()) {
-        // m_log_i("[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
+        // m_log_iw(L"[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
         return;
     }
     if (copilot_detail::loadDiskMap() && (!copilot_detail::inDiskBounds(player) || !copilot_detail::inDiskBounds(target))) {
@@ -1562,9 +1562,9 @@ static void PlanCopilot(int x, int y, bool routeOnly)
     copilot_detail::Point waypoint{};
 
     bool fullPath = copilot_detail::buildTimedFullPath(player, target, copilot_detail::kFullSearchTimeLimitMs, path);
-    // m_log_i("[copilot] fullPath ok=%d steps=%u\n", fullPath ? 1 : 0, static_cast<unsigned int>(path.size()));
+    // m_log_iw(L"[copilot] fullPath ok=%d steps=%u\n", fullPath ? 1 : 0, static_cast<unsigned int>(path.size()));
     if (fullPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
-        // m_log_i("[copilot] use fullPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] use fullPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
@@ -1573,9 +1573,9 @@ static void PlanCopilot(int x, int y, bool routeOnly)
     }
 
     bool optimisticPath = copilot_detail::buildOptimisticPath(player, target, path);
-    // m_log_i("[copilot] optimisticPath ok=%d steps=%u\n", optimisticPath ? 1 : 0, static_cast<unsigned int>(path.size()));
+    // m_log_iw(L"[copilot] optimisticPath ok=%d steps=%u\n", optimisticPath ? 1 : 0, static_cast<unsigned int>(path.size()));
     if (optimisticPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
-        // m_log_i("[copilot] use optimisticPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] use optimisticPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
@@ -1584,9 +1584,9 @@ static void PlanCopilot(int x, int y, bool routeOnly)
     }
 
     bool localPath = copilot_detail::buildPath(player, target, path);
-    // m_log_i("[copilot] localPath ok=%d steps=%u\n", localPath ? 1 : 0, static_cast<unsigned int>(path.size()));
+    // m_log_iw(L"[copilot] localPath ok=%d steps=%u\n", localPath ? 1 : 0, static_cast<unsigned int>(path.size()));
     if (localPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
-        // m_log_i("[copilot] use localPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] use localPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
@@ -1595,9 +1595,9 @@ static void PlanCopilot(int x, int y, bool routeOnly)
     }
 
     bool nearPath = copilot_detail::buildNearRetargetPath(player, target, path);
-    // m_log_i("[copilot] nearPath ok=%d steps=%u\n", nearPath ? 1 : 0, static_cast<unsigned int>(path.size()));
+    // m_log_iw(L"[copilot] nearPath ok=%d steps=%u\n", nearPath ? 1 : 0, static_cast<unsigned int>(path.size()));
     if (nearPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint, true)) {
-        // m_log_i("[copilot] use nearPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
+        // m_log_iw(L"[copilot] use nearPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
@@ -1605,7 +1605,7 @@ static void PlanCopilot(int x, int y, bool routeOnly)
         return;
     }
 
-    // m_log_i("[copilot] no path player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
+    // m_log_iw(L"[copilot] no path player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
     // logNoPathDetail(player, target);
     copilot_detail::clearCopilotRoute();
 }
@@ -1634,14 +1634,14 @@ void startCopilot(int x, int y)
     copilot_detail::gLastCellLogMs = 0;
     copilot_detail::gHasLastRequestedWaypoint = false;
     copilot_detail::clearCopilotRoute();
-    m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), world::gCurrentSceneType, world::gCurrentSceneState);
+    m_log_iw(L"[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), world::gCurrentSceneType, world::gCurrentSceneState);
     PlanCopilot(x, y, true);
 }
 
 void stopCopilot()
 {
     if (copilot_detail::gCopilotEnabled) {
-        m_log_i("[copilot] stop target=%d,%d player=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
+        m_log_iw(L"[copilot] stop target=%d,%d player=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
     }
     copilot_detail::gCopilotEnabled = false;
     copilot_detail::resetPlanCache();
@@ -1674,7 +1674,7 @@ void CopilotProc()
         return;
     }
     if (copilot_detail::gMapId != static_cast<std::uint32_t>(copilot_detail::gCopilotMapId) || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
-        m_log_i("[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", copilot_detail::gCopilotMapId,
+        m_log_iw(L"[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", copilot_detail::gCopilotMapId,
             copilot_detail::gCopilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
         stopCopilot();
         return;
@@ -1685,7 +1685,7 @@ void CopilotProc()
 
     copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
     if (player.x == copilot_detail::gCopilotTarget.x && player.y == copilot_detail::gCopilotTarget.y) {
-        m_log_i("[copilot] arrived target=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
+        m_log_iw(L"[copilot] arrived target=%d,%d\n", copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
         stopCopilot();
         return;
     }
@@ -1695,7 +1695,7 @@ void CopilotProc()
     if (copilot_detail::gHasExpectedAutoTarget) {
         copilot_detail::Point clientTarget{static_cast<std::int32_t>(copilot_detail::gAutoTargetX), static_cast<std::int32_t>(copilot_detail::gAutoTargetY)};
         if (!copilot_detail::samePoint(clientTarget, copilot_detail::gExpectedAutoTarget)) {
-            m_log_i("[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", copilot_detail::gExpectedAutoTarget.x,
+            m_log_iw(L"[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", copilot_detail::gExpectedAutoTarget.x,
                 copilot_detail::gExpectedAutoTarget.y, clientTarget.x, clientTarget.y, player.x, player.y);
             stopCopilot();
             return;
@@ -1708,7 +1708,7 @@ void CopilotProc()
         }
         if (copilot_detail::gLastBusyLogMs == 0 || now - copilot_detail::gLastBusyLogMs >= 1000) {
             copilot_detail::gLastBusyLogMs = now;
-            m_log_i("[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", copilot_detail::gPathCount, copilot_detail::gMoveQueueCount, copilot_detail::gMoveLock, copilot_detail::gTileEventLock, copilot_detail::gTargetEventLock);
+            m_log_iw(L"[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", copilot_detail::gPathCount, copilot_detail::gMoveQueueCount, copilot_detail::gMoveLock, copilot_detail::gTileEventLock, copilot_detail::gTargetEventLock);
         }
         return;
     }
@@ -1747,7 +1747,7 @@ void CopilotProc()
     }
 
     copilot_detail::gLastCopilotTickMs = now;
-    // m_log_i("[copilot] proc player=%d,%d target=%d,%d reqDist=%d reqProgress=%d scene=%d state=%d\n", player.x, player.y,
+    // m_log_iw(L"[copilot] proc player=%d,%d target=%d,%d reqDist=%d reqProgress=%d scene=%d state=%d\n", player.x, player.y,
     //     gCopilotTarget.x, gCopilotTarget.y, requestDist, requestProgress, world::gCurrentSceneType, world::gCurrentSceneState);
     autoCopilot(copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
 }

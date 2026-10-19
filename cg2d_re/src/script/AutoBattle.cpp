@@ -290,7 +290,7 @@ static int SendBattleAction(lua_State* L)
     int param2 = static_cast<int>(luaL_optinteger(L, 2, -1));
     int param3 = static_cast<int>(luaL_optinteger(L, 3, -1));
     int param4 = static_cast<int>(luaL_optinteger(L, 4, -1));
-    m_log_i("send command %d %d %d %d\n", param1, param2, param3, param4);
+    m_log_iw(L"send command %d %d %d %d\n", param1, param2, param3, param4);
     char buff[256] = {};
     int n = 0;
     auto sendNone = [&]() {
@@ -345,12 +345,12 @@ static int SendBattleAction(lua_State* L)
             int attacker = cg::world::gBattleCurrentPosition5ABCA4;
             auto flg = (B_TARGET_FLAGS) (B_TARGET_IN_ENEMY | B_TARGET_SORO | B_TARGET_CHECK_WEAPON);
             if (param2 < 0) {
-                m_log_i("B_ACTION_ATTACK takeRandomTarget %d target %d\n", attacker, param2);
+                m_log_iw(L"B_ACTION_ATTACK takeRandomTarget %d target %d\n", attacker, param2);
                 param2 = takeRandomTarget(attacker, flg);
             }
-            m_log_i("B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
+            m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
             auto target = checkAndGetTarget(attacker, param2, flg);
-            m_log_i("B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
+            m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
             if (target < 0) {
                 sendNone();
                 break;
@@ -390,8 +390,8 @@ static int SendBattleAction(lua_State* L)
             auto techIndex = getPetTechIndex(param2);
             auto petPos = (cg::world::gBattleCurrentPosition5ABCA4 % 10 + 5) % 10 + cg::world::gBattleCurrentPosition5ABCA4 / 10 * 10;
             int petIndex = getCurrentPet();
-            m_log_i("B_ACTION_ATTACK techIndex %d petIndex %d\n", techIndex, petIndex);
-            m_log_i("B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
+            m_log_iw(L"B_ACTION_ATTACK techIndex %d petIndex %d\n", techIndex, petIndex);
+            m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
             if (petIndex < 0) {
                 sendNone();
                 break;
@@ -401,11 +401,11 @@ static int SendBattleAction(lua_State* L)
                 network::SendLuaPacket(buff, n);
                 break;
             }
-            m_log_i("B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
+            m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
             B_TARGET_FLAGS targetFlags = cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].target;
             m_log_iw(L"B_ACTION_ATTACK tech %d %d %ls\n", cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
             auto target = checkAndGetTarget(petPos, param3, targetFlags);
-            m_log_i("B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
+            m_log_iw(L"B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
                 network::SendLuaPacket(buff, n);
@@ -491,7 +491,7 @@ static bool EmitAutoBattle() {
     if (lua_isfunction(L, -1)) {
         PushBattleInfo(L); PushPlayer(L);
         if (lua_pcall(L, 2, 1, 0) == 0) accepted = lua_isnumber(L, -1) && lua_tointeger(L, -1) != 0;
-        else m_log_i("[Lua] AutoBattleEvent failed: %s\n", lua_tostring(L, -1));
+        else m_log_iw(L"[Lua] AutoBattleEvent failed: %hs\n", lua_tostring(L, -1));
     }
     lua_settop(L, top);
     return accepted;
@@ -528,7 +528,7 @@ static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
     }
     for (auto ix: list) {
         int t = checkAndGetTarget(attacker, ix, flags);
-        m_log_i("enemy %d checkAndGetTarget %d(%x) => %d\n", ix, attacker, flags, t);
+        m_log_iw(L"enemy %d checkAndGetTarget %d(%x) => %d\n", ix, attacker, flags, t);
         if (t >= 0) {
             return t;
         }
@@ -644,7 +644,7 @@ static int LuaCheckTarget(lua_State* L) {
     Push(L, CheckTarget(attacker, defender, static_cast<B_TARGET_FLAGS>(flags))); return 1;
 }
 static int LuaBattleTime(lua_State* L) { Push(L, _time64(nullptr)); return 1; }
-static int LuaBattleLog(lua_State* L) { m_log_i("[AutoBattle] %s\n", luaL_checkstring(L, 1)); return 0; }
+static int LuaBattleLog(lua_State* L) { m_log_iw(L"[AutoBattle] %hs\n", luaL_checkstring(L, 1)); return 0; }
 static int LuaRandomTarget(lua_State* L) {
     Push(L, takeRandomTarget(static_cast<int>(lua_tointeger(L, 1)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 2)))); return 1;
 }
@@ -665,10 +665,10 @@ void InitializeAutoBattle() {
     lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaCheckedTarget>); lua_setglobal(L, "CheckAndGetTarget");
     lua_getglobal(L, "math"); lua_getfield(L, -1, "randomseed");
     Push(L, (platform::ReadTickCount64() * 5137) ^ static_cast<std::uint64_t>(_getpid()));
-    if (lua_pcall(L, 1, 0, 0) != 0) m_log_i("[Lua] randomseed failed: %s\n", lua_tostring(L, -1));
+    if (lua_pcall(L, 1, 0, 0) != 0) m_log_iw(L"[Lua] randomseed failed: %hs\n", lua_tostring(L, -1));
     lua_settop(L, top);
     if (luaL_dofile(L, "lua/autobattle_base.lua") != 0)
-        m_log_i("[Lua] autobattle_base failed: %s\n", lua_tostring(L, -1));
+        m_log_iw(L"[Lua] autobattle_base failed: %hs\n", lua_tostring(L, -1));
     lua_settop(L, top);
 }
 
@@ -684,7 +684,7 @@ void RecordAutoBattleAction(std::string_view packet) {
     switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
-        m_log_i("[AutoBattle] action slot out of range: %d\n", count);
+        m_log_iw(L"[AutoBattle] action slot out of range: %d\n", count);
         return;
     }
     const auto body = packet.substr(3);

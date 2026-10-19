@@ -52,7 +52,7 @@ static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 // 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0()
 {
-    std::FILE* const file = std::fopen("systemlog.txt", "w");
+    std::FILE* const file = _wfopen(L"systemlog.txt", L"w");
     if (file == nullptr) {
         return 0;
     }

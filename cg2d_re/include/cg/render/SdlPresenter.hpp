@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #include <cstdint>
 #include <array>
@@ -64,18 +65,18 @@ public:
 
     // 对象持有的最近错误；Create/Present 成功后清空，销毁后仍可读取。
     // 指针有效至本对象析构，后续操作可改写内容；过长诊断截断至缓冲区容量。
-    [[nodiscard]] const char* LastError() const noexcept;
+    [[nodiscard]] const wchar_t* LastError() const noexcept;
 
 private:
     struct Impl;
 
     // 仅实现文件持有 SDL 资源；诊断独立保存，避免失败清理覆盖错误。
     std::unique_ptr<Impl> impl_;
-    char lastError_[1024] {};
+    std::wstring lastError_;
 
     // 返回 false 并保存阶段及原因；诊断路径不分配内存。
-    bool Fail(const char* operation, const char* detail) noexcept;
-    bool FailSdl(const char* operation) noexcept;
+    bool Fail(const wchar_t* operation, std::wstring_view detail) noexcept;
+    bool FailSdl(const wchar_t* operation) noexcept;
     bool PrepareGpuFrame() noexcept;
 };
 
@@ -86,7 +87,7 @@ extern std::uint32_t gFrameParity628FC8;
 [[nodiscard]] bool CreateRendererPresenter() noexcept;
 [[nodiscard]] bool SetRendererPresenterFullscreen(bool fullscreen) noexcept;
 [[nodiscard]] bool DestroyRendererPresenter() noexcept;
-[[nodiscard]] const char* RendererPresenterLastError() noexcept;
+[[nodiscard]] const wchar_t* RendererPresenterLastError() noexcept;
 
 // 原 44C560／GRT01：呈现 GPU Back，失败置 lost，随后无条件翻转帧槽。
 void Flip_44C560();

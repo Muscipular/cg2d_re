@@ -266,14 +266,14 @@ cg::yobi::YobiAction* WindowDialog_Open(
     const WindowDialogReplyCallback reply, const WindowDialogFrameCallback frame,
     const std::uint32_t flags, const std::uint32_t mode)
 {
-    m_log_i("%d %d %d %d => ", x, y, width, height);
+    m_log_iw(L"%d %d %d %d => ", x, y, width, height);
     AdaptWindowPosition(x, y, width, height);
     x = static_cast<std::int16_t>(x);
     y = static_cast<std::int16_t>(y);
     // 36／37共享动态原型；恢复位置应使用本次请求的适配结果，不再回到占位的0,0。
     gWindowPrototypes57C130[WindowId_DialogCreate]->defaultX = x;
     gWindowPrototypes57C130[WindowId_DialogCreate]->defaultY = y;
-    m_log_i("%d %d %d %d\n", x, y, width, height);
+    m_log_iw(L"%d %d %d %d\n", x, y, width, height);
     gMessageDialog.width = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
     gMessageDialog.lines = lines;
     gMessageDialog.firstSelectableLine = firstSelectableLine;

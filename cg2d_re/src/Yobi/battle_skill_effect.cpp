@@ -89,7 +89,7 @@ void InitializeBattleEffects()
         }
     } catch (const YAML::Exception& error) {
         static_cast<void>(error); // m_log 关闭时仍保留同一异常处理路径。
-        m_log_i("effectHook.yml load failed: %s\n", error.what());
+        m_log_iw(L"effectHook.yml load failed: %hs\n", error.what());
     }
     detail::InitializeLuaSkillEffects();
 }
@@ -120,7 +120,7 @@ std::int32_t ResolveSkillEffectImage(
     case SkillEffectKind::Revive: if (tech < 6800 || tech > 6899) return originalImage; break;
     default: break;
     }
-    m_log_i("[SkillEffect] kind=%d image=%d skillId=%d techId=%d\n",
+    m_log_iw(L"[SkillEffect] kind=%d image=%d skillId=%d techId=%d\n",
         static_cast<int>(kind), originalImage, meta->skillId, tech);
     for (const auto& effect : effectImages[static_cast<std::size_t>(kind)]) {
         if (effect.techId == tech) return effect.imageNo;
@@ -135,7 +135,7 @@ std::int32_t ResolveSkillCastingImage(YobiAction* const source, const std::int32
     const auto kind = meta->techId <= 6399 ? SkillEffectKind::Heal
         : meta->techId <= 6699 ? SkillEffectKind::Recovery
         : meta->techId <= 6799 ? SkillEffectKind::StatusRecover : SkillEffectKind::Revive;
-    m_log_i("[SkillEffect] casting image=%d skillId=%d techId=%d\n",
+    m_log_iw(L"[SkillEffect] casting image=%d skillId=%d techId=%d\n",
         originalImage, meta->skillId, meta->techId);
     for (const auto& effect : effectImages[static_cast<std::size_t>(kind)]) {
         if (effect.techId == meta->techId) return effect.castingAnime.value_or(originalImage);

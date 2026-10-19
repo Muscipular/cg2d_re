@@ -64,7 +64,7 @@ static int ResolveLuaFloor(int floor) {
 }
 
 struct MsgOption {
-    const char* sender;
+    std::wstring sender;
     int color;
     int font;
 };
@@ -151,12 +151,19 @@ static void LuaReadVkList(lua_State* L, int index, std::vector<int>& vkList);
 
 static bool WinMgrKeyPressed(const WinMgrKeyPressOption& option);
 
-static void CliSendMsg(const char* msg, MsgOption option) {
-    if (!msg || !msg[0]) return;
-    std::string value = option.sender && option.sender[0] ? std::string(option.sender) + ": " + msg : msg;
+static void CliSendMsg(std::wstring_view msg, const MsgOption& option) {
+    if (msg.empty()) return;
+    const std::wstring value = option.sender.empty()
+        ? std::wstring(msg) : option.sender + L": " + std::wstring(msg);
+    // Lua消息沿原290个GBK字节上限，临时编码仅用于兼容容量。
+    const auto encoded = text::ToGbk(value);
     std::size_t end = 0;
-    while (end < value.size()) { const auto next = end + (static_cast<unsigned char>(value[end]) & 0x80 ? 2 : 1); if (next > 290 || next > value.size()) break; end = next; }
-    world::AppendChatMessage_44B050(text::FromGbkWide(std::string_view(value).substr(0, end)).c_str(), option.color, option.font);
+    while (end < encoded.size()) {
+        const auto next = end + (static_cast<unsigned char>(encoded[end]) & 0x80 ? 2 : 1);
+        if (next > 290 || next > encoded.size()) break;
+        end = next;
+    }
+    world::AppendChatMessage_44B050(text::FromGbkWide(std::string_view(encoded).substr(0, end)).c_str(), option.color, option.font);
 }
 
 int LuaPeekMouseWheelDelta() {
@@ -353,7 +360,7 @@ static void LuaBridgeCallEvent(const std::shared_ptr<LuaBridgeEventRegistration>
             LuaBridgePushValue(L, value);
         }
         if (lua_pcall(L, static_cast<int>(values.size() + 1), 0, 0) != 0) {
-            m_log_i("[LUA] call lua Bridge.On error: %s\n", lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua Bridge.On error: %hs\n", lua_tostring(L, -1));
         }
     }
     lua_settop(L, top);
@@ -904,7 +911,7 @@ static int CallWindowCallback(lua_State* L, int callbackRef, const char* name, L
     if (lua_isfunction(L, -1)) {
         PushWindowRef(L, windowRef);
         if (lua_pcall(L, 1, 1, 0) != 0) {
-            m_log_i("[LUA] call lua %s error: %s\n", name, lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua %hs error: %hs\n", name, lua_tostring(L, -1));
         } else if (!lua_isnil(L, -1)) {
             result = lua_toboolean(L, -1) ? 1 : 0;
         }
@@ -1610,7 +1617,7 @@ LuaFunctionEx(LuaWindowRef, DrawRect) {
         lua_pushboolean(L, false);
         return 1;
     }
-    // m_log_i("draw rect: %d %d %d %d layer: %d color %x\n", window->window.x + x, window->window.y + y, w, h, window->window.layer, color);
+    // m_log_iw(L"draw rect: %d %d %d %d layer: %d color %x\n", window->window.x + x, window->window.y + y, w, h, window->window.layer, color);
     int index = RendererDrawRect(static_cast<std::int16_t>(window->window.x + x),
         static_cast<std::int16_t>(window->window.y + y),
         static_cast<std::int16_t>(w), static_cast<std::int16_t>(h), LAYER_UI, color);
@@ -2250,7 +2257,7 @@ static void LuaCallPacketRecvEvent(const std::shared_ptr<LuaEventRegistration>& 
             }
         }
         if (lua_pcall(L, 2, 0, 0) != 0) {
-            m_log_i("[LUA] call lua WinMgr.OnPacketRecv error: %s\n", lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua WinMgr.OnPacketRecv error: %hs\n", lua_tostring(L, -1));
         }
     }
     lua_settop(L, top);
@@ -2269,7 +2276,7 @@ static void LuaCallPacketSendEvent(const std::shared_ptr<LuaEventRegistration>& 
         lua_pushlstring(L, data ? data : "", dataLen);
         lua_pushinteger(L, len);
         if (lua_pcall(L, 3, 0, 0) != 0) {
-            m_log_i("[LUA] call lua WinMgr.OnPacketSend error: %s\n", lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua WinMgr.OnPacketSend error: %hs\n", lua_tostring(L, -1));
         }
     }
     lua_settop(L, top);
@@ -2295,7 +2302,7 @@ void LuaProcessWinMgrSceneStateChanged(int sceneType, int sceneState) {
             lua_pushinteger(L, sceneType);
             lua_pushinteger(L, sceneState);
             if (lua_pcall(L, 2, 0, 0) != 0) {
-                m_log_i("[LUA] call lua WinMgr.OnSceneStateChanged error: %s\n", lua_tostring(L, -1));
+                m_log_iw(L"[LUA] call lua WinMgr.OnSceneStateChanged error: %hs\n", lua_tostring(L, -1));
             }
         }
         lua_settop(L, top);
@@ -2322,7 +2329,7 @@ void LuaProcessWinMgrWindowFocusChanged(int focusWinId, int blurWinId) {
             lua_pushinteger(L, focusWinId);
             lua_pushinteger(L, blurWinId);
             if (lua_pcall(L, 2, 0, 0) != 0) {
-                m_log_i("[LUA] call lua WinMgr.OnWindowFocusChanged error: %s\n", lua_tostring(L, -1));
+                m_log_iw(L"[LUA] call lua WinMgr.OnWindowFocusChanged error: %hs\n", lua_tostring(L, -1));
             }
         }
         lua_settop(L, top);
@@ -2348,14 +2355,14 @@ void LuaProcessWinMgrWindowClose(int winId) {
         if (lua_isfunction(L, -1)) {
             lua_pushinteger(L, winId);
             if (lua_pcall(L, 1, 0, 0) != 0) {
-                m_log_i("[LUA] call lua WinMgr.OnWindowClose error: %s\n", lua_tostring(L, -1));
+                m_log_iw(L"[LUA] call lua WinMgr.OnWindowClose error: %hs\n", lua_tostring(L, -1));
             }
         }
         lua_settop(L, top);
     }
 }
 
-int LuaProcessWinMgrChatMessage(const char* text) {
+int LuaProcessWinMgrChatMessage(std::wstring_view message) {
     auto& options = WinMgrEventOptions(WinMgrEventType::ChatMessage);
     if (options.empty()) {
         return 0;
@@ -2373,9 +2380,9 @@ int LuaProcessWinMgrChatMessage(const char* text) {
         int handled = 0;
         lua_rawgeti(L, LUA_REGISTRYINDEX, event->callbackRef);
         if (lua_isfunction(L, -1)) {
-            lua_pushstring(L, text ? text : "");
+            lua_pushstring(L, text::ToGbk(message).c_str());
             if (lua_pcall(L, 1, 1, 0) != 0) {
-                m_log_i("[LUA] call lua WinMgr.OnChatMessage error: %s\n", lua_tostring(L, -1));
+                m_log_iw(L"[LUA] call lua WinMgr.OnChatMessage error: %hs\n", lua_tostring(L, -1));
             } else if (!lua_isnil(L, -1)) {
                 handled = static_cast<int>(lua_tointeger(L, -1));
             }
@@ -2494,7 +2501,7 @@ void LuaProcessWinMgrKeyPress() {
         int top = lua_gettop(L);
         lua_rawgeti(L, LUA_REGISTRYINDEX, event->callbackRef);
         if (lua_isfunction(L, -1) && lua_pcall(L, 0, 0, 0) != 0) {
-            m_log_i("[LUA] call lua WinMgr.OnKeyPress error: %s\n", lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua WinMgr.OnKeyPress error: %hs\n", lua_tostring(L, -1));
         }
         lua_settop(L, top);
     }
@@ -2592,9 +2599,9 @@ LuaFunction(WinMgr_playFixedBGM) {
 }
 
 LuaFunction(WinMgr_cliSendMsg) {
-    const char* msg = luaL_checkstring(L, 1);
+    const auto msg = text::FromGbkWide(luaL_checkstring(L, 1));
     MsgOption option{
-        luaL_optstring(L, 4, nullptr),
+        text::FromGbkWide(luaL_optstring(L, 4, "")),
         static_cast<int>(luaL_optinteger(L, 2, 0)),
         static_cast<int>(luaL_optinteger(L, 3, 0))
     };
@@ -2702,9 +2709,9 @@ void RegWinMgr(lua_State* L) {
 void LoadLuaUIEntry()
 {
     auto* L = GetLuaState();
-    if (!std::filesystem::exists("luaUI/init.lua")) { m_log_i("[Lua] luaUI/init.lua not found\n"); return; }
+    if (!std::filesystem::exists(L"luaUI/init.lua")) { m_log_iw(L"[Lua] luaUI/init.lua not found\n"); return; }
     const int top = lua_gettop(L);
-    if (luaL_dofile(L, "luaUI/init.lua") != 0) m_log_i("[Lua] UI init failed: %s\n", lua_tostring(L, -1));
+    if (luaL_dofile(L, "luaUI/init.lua") != 0) m_log_iw(L"[Lua] UI init failed: %hs\n", lua_tostring(L, -1));
     lua_settop(L, top);
 }
 void RegisterLuaUI(lua_State* L)

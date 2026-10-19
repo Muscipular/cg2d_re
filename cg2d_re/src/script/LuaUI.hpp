@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 #include "LuaHost.hpp"
 #include "controls/UIControl.hpp"
 #include "controls/ImageControl.hpp"
@@ -74,7 +75,7 @@ void ShutdownLuaUI();
 void LuaBridgeSetAutoBattleState(lua_State* L);
 void LuaProcessWinMgrKeyPress();
 void LuaProcessWinMgrSceneStateChanged(int type, int state);
-int LuaProcessWinMgrChatMessage(const char* text);
+int LuaProcessWinMgrChatMessage(std::wstring_view text);
 void LuaProcessWinMgrWindowFocusChanged(int focus, int blur);
 void LuaProcessWinMgrWindowClose(int winId);
 int LuaPeekMouseWheelDelta();

@@ -42,7 +42,7 @@ int InitializeWindow()
             gWindowHeight = height;
         }
         ui::InitializeWindowLayout();
-        m_log_i("%d %d\n", width, height);
+        m_log_iw(L"%d %d\n", width, height);
         layoutInitialized = true;
     }
     world::CenterBattleLayoutToWindow();

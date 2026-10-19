@@ -13,6 +13,7 @@
 #include "../world/WorldMapState.hpp"
 
 #include <array>
+#include <format>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
@@ -416,13 +417,12 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const std::int32_t x, const std::int32_t y, const std::int32_t seconds)
 {
     const std::int32_t magnitude = seconds < 0 ? -seconds : seconds;
-    const char* const prefix = seconds < 0 ? "-" : "";
-    char buffer[256];
-    std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
-    const std::int32_t halfWidth = cg::render::MeasureDefaultText_44B260(cg::text::FromGbkWide(buffer)) / 2;
-    const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
+    const wchar_t* const prefix = seconds < 0 ? L"-" : L"";
+    const auto buffer = std::format(L"{}{}:{:02}", prefix, magnitude / 60, magnitude % 60);
+    const std::int32_t halfWidth = cg::render::MeasureDefaultText_44B260(buffer) / 2;
+    const std::int32_t length = static_cast<std::int32_t>(buffer.size());
     for (std::int32_t index = 0; index < length; ++index) {
-        const std::int8_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
+        const wchar_t character = buffer[index];
         std::int32_t mapNo = 0;
         if (character >= '0' && character <= '9') {
             mapNo = kBattleNumberGraphics54D4E8[0][0] + character - '0';

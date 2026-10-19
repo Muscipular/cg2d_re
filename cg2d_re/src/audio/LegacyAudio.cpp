@@ -435,17 +435,17 @@ std::int32_t InitializeAudio_5241A0()
         return 0;
     }
 
-    static_cast<void>(login::detail::AppendSystemLog_44B5C0("\tinitDSound() Start"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"\tinitDSound() Start"));
     const std::int32_t result = InitializeAudioDeviceAndSamples_524230();
     if (result == 0) {
         gAudioDisabled_10507D4 = 1;
         return result;
     }
 
-    static_cast<void>(login::detail::AppendSystemLog_44B5C0("\tmusic_init() Start"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"\tmusic_init() Start"));
     static_cast<void>(InitializeSoundRuntimeState_52B9E0());
     gAudioDisabled_10507D4 = 0;
-    static_cast<void>(login::detail::AppendSystemLog_44B5C0("t_music_init OK"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"t_music_init OK"));
     return 1;
 }
 

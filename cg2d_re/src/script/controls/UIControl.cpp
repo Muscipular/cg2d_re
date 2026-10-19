@@ -148,7 +148,7 @@ static int CallControlCallback(lua_State* L, int callbackRef, const char* name, 
         PushControlRef(L, controlRef);
         lua_pushinteger(L, eventFlags);
         if (lua_pcall(L, 2, 1, 0) != 0) {
-            m_log_i("[LUA] call lua %s error: %s\n", name, lua_tostring(L, -1));
+            m_log_iw(L"[LUA] call lua %hs error: %hs\n", name, lua_tostring(L, -1));
         } else if (!lua_isnil(L, -1)) {
             result = lua_toboolean(L, -1) ? 1 : 0;
         }

@@ -1,5 +1,6 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/text/Encoding.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/core/m_log.hpp"
 #include <ctime>
 #include <string>
@@ -133,87 +134,87 @@ bool SdlPresenter::Create(
     std::uintptr_t nativeWindow, int width, int height, const char* driver) noexcept
 {
     if (impl_ != nullptr) {
-        return Fail("Create", "实例已创建，须先调用 Destroy。");
+        return Fail(L"Create", L"实例已创建，须先调用 Destroy。");
     }
     if (nativeWindow == 0) {
-        return Fail("Create", "外部原生窗口引用不能为零。");
+        return Fail(L"Create", L"外部原生窗口引用不能为零。");
     }
     if (GetWindowThreadProcessId(
             reinterpret_cast<HWND>(nativeWindow), nullptr)
         != GetCurrentThreadId()) {
-        return Fail("Create", "外部窗口无效或不属于当前线程。");
+        return Fail(L"Create", L"外部窗口无效或不属于当前线程。");
     }
     if (!SDL_IsMainThread()) {
-        return Fail("Create", "必须在 SDL 主线程调用。");
+        return Fail(L"Create", L"必须在 SDL 主线程调用。");
     }
     if (width <= 0 || height <= 0) {
-        return Fail("Create", "帧宽度和高度必须为正。");
+        return Fail(L"Create", L"帧宽度和高度必须为正。");
     }
     constexpr int bytesPerPixel = sizeof(std::uint32_t);
     if (width > (std::numeric_limits<int>::max)() / bytesPerPixel) {
-        return Fail("Create", "帧行字节数超出 SDL 的 int pitch 范围。");
+        return Fail(L"Create", L"帧行字节数超出 SDL 的 int pitch 范围。");
     }
     if (driver != nullptr && driver[0] == '\0') {
-        return Fail("Create", "driver 不能为空字符串；自动选择须显式传 nullptr。");
+        return Fail(L"Create", L"driver 不能为空字符串；自动选择须显式传 nullptr。");
     }
 
     // 完整创建后才发布 impl_；任一返回路径均由临时实例按逆序清理。
     std::unique_ptr<Impl> pending(new (std::nothrow) Impl);
     if (pending == nullptr) {
-        return Fail("Create", "分配呈现器状态失败。");
+        return Fail(L"Create", L"分配呈现器状态失败。");
     }
     pending->width = width;
     pending->height = height;
     if (!SDL_InitSubSystem(SDL_INIT_VIDEO)) {
-        return FailSdl("SDL_InitSubSystem(VIDEO)");
+        return FailSdl(L"SDL_InitSubSystem(VIDEO)");
     }
     pending->videoInitialized = true;
 
     // 拒绝 dummy/offscreen 等后端，避免其忽略原生窗口属性而新建窗口。
     const char* videoDriver = SDL_GetCurrentVideoDriver();
     if (videoDriver == nullptr) {
-        return Fail("SDL_GetCurrentVideoDriver", "VIDEO 初始化成功后仍没有活动的视频后端。");
+        return Fail(L"SDL_GetCurrentVideoDriver", L"VIDEO 初始化成功后仍没有活动的视频后端。");
     }
     if (std::strcmp(videoDriver, "windows") != 0) {
-        return Fail("Create", "当前 SDL VIDEO 后端不支持此 Win32 外部窗口包装。");
+        return Fail(L"Create", L"当前 SDL VIDEO 后端不支持此 Win32 外部窗口包装。");
     }
 
     pending->windowProperties = SDL_CreateProperties();
     if (pending->windowProperties == 0) {
-        return FailSdl("SDL_CreateProperties");
+        return FailSdl(L"SDL_CreateProperties");
     }
     if (!SDL_SetPointerProperty(
             pending->windowProperties,
             SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER,
             reinterpret_cast<void*>(nativeWindow))) {
-        return FailSdl("SDL_SetPointerProperty(WIN32_HWND)");
+        return FailSdl(L"SDL_SetPointerProperty(WIN32_HWND)");
     }
     // SDL 3.4.8 的 DX11 透明缓冲使用 DISCARD，避开本机 flip 前台约 30 FPS。
     // XRGB8888、NONE 混合及 Alpha=255 清屏仍保证最终画面不透明，见呈现 SPEC。
     if (driver != nullptr && std::strcmp(driver, "direct3d11") == 0
         && !SDL_SetBooleanProperty(pending->windowProperties,
             SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN, true)) {
-        return FailSdl("SDL_SetBooleanProperty(TRANSPARENT)");
+        return FailSdl(L"SDL_SetBooleanProperty(TRANSPARENT)");
     }
     pending->window = SDL_CreateWindowWithProperties(pending->windowProperties);
     if (pending->window == nullptr) {
-        return FailSdl("SDL_CreateWindowWithProperties");
+        return FailSdl(L"SDL_CreateWindowWithProperties");
     }
     SDL_DestroyProperties(std::exchange(pending->windowProperties, 0));
     if ((SDL_GetWindowFlags(pending->window) & SDL_WINDOW_EXTERNAL) == 0) {
-        return Fail("Create", "SDL 未将窗口标记为外部窗口。");
+        return Fail(L"Create", L"SDL 未将窗口标记为外部窗口。");
     }
     pending->windowId = SDL_GetWindowID(pending->window);
     if (pending->windowId == 0) {
-        return FailSdl("SDL_GetWindowID");
+        return FailSdl(L"SDL_GetWindowID");
     }
 
     pending->renderer = SDL_CreateRenderer(pending->window, driver);
     if (pending->renderer == nullptr) {
-        return FailSdl("SDL_CreateRenderer");
+        return FailSdl(L"SDL_CreateRenderer");
     }
     if (!PresentInitialBlackFrame(pending->renderer)) {
-        return FailSdl("Present initial black frame");
+        return FailSdl(L"Present initial black frame");
     }
     pending->texture = SDL_CreateTexture(
         pending->renderer,
@@ -222,44 +223,44 @@ bool SdlPresenter::Create(
         width,
         height);
     if (pending->texture == nullptr) {
-        return FailSdl("SDL_CreateTexture(XRGB8888, STREAMING)");
+        return FailSdl(L"SDL_CreateTexture(XRGB8888, STREAMING)");
     }
     if (!SDL_SetTextureBlendMode(pending->texture, SDL_BLENDMODE_NONE)) {
-        return FailSdl("SDL_SetTextureBlendMode(NONE)");
+        return FailSdl(L"SDL_SetTextureBlendMode(NONE)");
     }
     if (!SDL_SetTextureScaleMode(pending->texture, SDL_SCALEMODE_NEAREST)) {
-        return FailSdl("SDL_SetTextureScaleMode(NEAREST)");
+        return FailSdl(L"SDL_SetTextureScaleMode(NEAREST)");
     }
     pending->backTarget = SDL_CreateTexture(
         pending->renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, width, height);
     if (pending->backTarget == nullptr
         || !SDL_SetTextureBlendMode(pending->backTarget, SDL_BLENDMODE_NONE)
         || !SDL_SetTextureScaleMode(pending->backTarget, SDL_SCALEMODE_NEAREST)) {
-        return FailSdl("Create GPU Back");
+        return FailSdl(L"Create GPU Back");
     }
     if (!SDL_SetRenderTarget(pending->renderer, pending->backTarget)
         || !SDL_SetRenderDrawColor(pending->renderer, 0, 0, 0, 255)
         || !SDL_RenderClear(pending->renderer)
         || !SDL_SetRenderTarget(pending->renderer, nullptr)) {
-        return FailSdl("Initialize opaque GPU Back");
+        return FailSdl(L"Initialize opaque GPU Back");
     }
     if (!SDL_AddEventWatch(Impl::ObserveRenderEvent, pending.get())) {
-        return FailSdl("SDL_AddEventWatch");
+        return FailSdl(L"SDL_AddEventWatch");
     }
     pending->watchingEvents = true;
 
     impl_ = std::move(pending);
-    lastError_[0] = '\0';
+    lastError_.clear();
     return true;
 }
 
 bool SdlPresenter::SetFullscreen(const bool fullscreen) noexcept
 {
     if (!SDL_IsMainThread()) {
-        return Fail("SetFullscreen", "必须在 SDL 主线程调用。");
+        return Fail(L"SetFullscreen", L"必须在 SDL 主线程调用。");
     }
     if (impl_ == nullptr) {
-        return Fail("SetFullscreen", "实例尚未创建或已销毁。");
+        return Fail(L"SetFullscreen", L"实例尚未创建或已销毁。");
     }
     if (fullscreen) {
         SDL_DisplayMode mode {};
@@ -271,46 +272,46 @@ bool SdlPresenter::SetFullscreen(const bool fullscreen) noexcept
         }
     }
     if (!SDL_SetWindowFullscreen(impl_->window, fullscreen)) {
-        return FailSdl("SDL_SetWindowFullscreen");
+        return FailSdl(L"SDL_SetWindowFullscreen");
     }
     if (!SDL_SyncWindow(impl_->window)) {
-        return FailSdl("SDL_SyncWindow");
+        return FailSdl(L"SDL_SyncWindow");
     }
     if (!PresentInitialBlackFrame(impl_->renderer)) {
-        return FailSdl("Present black frame after window mode change");
+        return FailSdl(L"Present black frame after window mode change");
     }
-    lastError_[0] = '\0';
+    lastError_.clear();
     return true;
 }
 
 bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes) noexcept
 {
     if (!SDL_IsMainThread()) {
-        return Fail("Present", "必须在 SDL 主线程调用。");
+        return Fail(L"Present", L"必须在 SDL 主线程调用。");
     }
     if (impl_ == nullptr) {
-        return Fail("Present", "实例尚未创建或已销毁。");
+        return Fail(L"Present", L"实例尚未创建或已销毁。");
     }
     if (impl_->resourcesLost.load(std::memory_order_relaxed)) {
-        return Fail("Present", "呈现资源已失效，须销毁后重新创建。");
+        return Fail(L"Present", L"呈现资源已失效，须销毁后重新创建。");
     }
     constexpr int bytesPerPixel = sizeof(std::uint32_t);
     if (pitchBytes <= 0 || pitchBytes % bytesPerPixel != 0) {
-        return Fail("Present", "pitchBytes 必须为正且为 4 的倍数。");
+        return Fail(L"Present", L"pitchBytes 必须为正且为 4 的倍数。");
     }
     const auto pitchPixels = static_cast<std::size_t>(pitchBytes / bytesPerPixel);
     const auto rowPixels = static_cast<std::size_t>(impl_->width);
     if (pitchPixels < rowPixels) {
-        return Fail("Present", "pitchBytes 小于一行有效像素的字节数。");
+        return Fail(L"Present", L"pitchBytes 小于一行有效像素的字节数。");
     }
     if (pixels.data() == nullptr || pixels.size() < rowPixels) {
-        return Fail("Present", "pixels 不足以覆盖第一行有效像素。");
+        return Fail(L"Present", L"pixels 不足以覆盖第一行有效像素。");
     }
     // 等价于 (height - 1) * pitchPixels + rowPixels <= pixels.size()，
     // 先减后除以避免乘加溢出，并允许省略最后一行的尾部 padding。
     const auto precedingRows = static_cast<std::size_t>(impl_->height - 1);
     if (precedingRows > (pixels.size() - rowPixels) / pitchPixels) {
-        return Fail("Present", "pixels 未覆盖到最后一行的最后一个有效像素。");
+        return Fail(L"Present", L"pixels 未覆盖到最后一行的最后一个有效像素。");
     }
 
     if (impl_->cpuModified || !impl_->gpuDrawing) {
@@ -318,47 +319,47 @@ bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes
             || !SDL_UpdateTexture(impl_->texture, nullptr, pixels.data(), pitchBytes)
             || !SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
             impl_->resourcesLost.store(true, std::memory_order_relaxed);
-            return FailSdl("Upload CPU Back");
+            return FailSdl(L"Upload CPU Back");
         }
         impl_->cpuModified = false;
         impl_->gpuModified = false;
     }
     if (!SDL_SetRenderTarget(impl_->renderer, nullptr)
         || !SDL_SetRenderDrawColor(impl_->renderer, 0, 0, 0, 255)) {
-        return FailSdl("Select window target");
+        return FailSdl(L"Select window target");
     }
     if (!SDL_RenderClear(impl_->renderer)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
-        return FailSdl("SDL_RenderClear");
+        return FailSdl(L"SDL_RenderClear");
     }
     if (!SDL_RenderTexture(impl_->renderer, impl_->backTarget, nullptr, nullptr)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
-        return FailSdl("SDL_RenderTexture");
+        return FailSdl(L"SDL_RenderTexture");
     }
     if (!SDL_RenderPresent(impl_->renderer)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
-        return FailSdl("SDL_RenderPresent");
+        return FailSdl(L"SDL_RenderPresent");
     }
     if (impl_->resourcesLost.load(std::memory_order_relaxed)) {
-        return Fail("Present", "提交期间呈现设备已重置或丢失，须重新创建。");
+        return Fail(L"Present", L"提交期间呈现设备已重置或丢失，须重新创建。");
     }
-    lastError_[0] = '\0';
+    lastError_.clear();
     return true;
 }
 
 bool SdlPresenter::PrepareGpuFrame() noexcept
 {
     if (impl_ == nullptr || impl_->resourcesLost.load(std::memory_order_relaxed)) {
-        return Fail("GPU Back", "呈现资源尚未创建或已经失效。");
+        return Fail(L"GPU Back", L"呈现资源尚未创建或已经失效。");
     }
     if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)) {
-        return FailSdl("SDL_SetRenderTarget(Back)");
+        return FailSdl(L"SDL_SetRenderTarget(Back)");
     }
     if (impl_->cpuModified) {
         if (!SDL_UpdateTexture(impl_->texture, nullptr, ReadCpuBackPixels().data(),
                 static_cast<int>(GetCpuSurfacePitchBytes()))
             || !SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
-            return FailSdl("Upload modified CPU Back");
+            return FailSdl(L"Upload modified CPU Back");
         }
         impl_->cpuModified = false;
         impl_->gpuModified = false;
@@ -400,7 +401,7 @@ bool SdlPresenter::DrawTexture(
             && SDL_RenderFillRect(impl_->renderer, &output);
     } else {
         SDL_Texture* const texture = GetTextureGpuTexture(surface, impl_->renderer, premultiplyAlpha);
-        if (texture == nullptr) { return FailSdl("Upload image texture"); }
+        if (texture == nullptr) { return FailSdl(L"Upload image texture"); }
         const SDL_FRect input {std::min(source[0], source[2]), std::min(source[1], source[3]),
             std::abs(source[2] - source[0]), std::abs(source[3] - source[1])};
         const bool flipX = (source[2] < source[0]) != (destination[2] < destination[0]);
@@ -419,7 +420,7 @@ bool SdlPresenter::DrawTexture(
             && SDL_SetTextureBlendMode(texture, blend)
             && SDL_RenderTextureRotated(impl_->renderer, texture, &input, &output, 0.0, nullptr, flip);
     }
-    if (!drawn) { return FailSdl("Draw GPU rectangle"); }
+    if (!drawn) { return FailSdl(L"Draw GPU rectangle"); }
     impl_->gpuModified = true;
     return true;
 }
@@ -442,25 +443,25 @@ bool SdlPresenter::DrawTriangles(
     }
     SDL_Rect previous;
     const bool hadClip = SDL_RenderClipEnabled(impl_->renderer);
-    if (!SDL_GetRenderClipRect(impl_->renderer, &previous)) { return FailSdl("Read GPU clip"); }
+    if (!SDL_GetRenderClipRect(impl_->renderer, &previous)) { return FailSdl(L"Read GPU clip"); }
     const SDL_Rect rectangle {clip[0], clip[1], clip[2] - clip[0], clip[3] - clip[1]};
     const bool drawn = SDL_SetRenderClipRect(impl_->renderer, &rectangle)
         && SDL_SetRenderDrawBlendMode(impl_->renderer, SDL_BLENDMODE_BLEND)
         && SDL_RenderGeometry(impl_->renderer, nullptr, native.data(), static_cast<int>(native.size()), nullptr, 0);
     const bool restored = SDL_SetRenderClipRect(impl_->renderer, hadClip ? &previous : nullptr);
-    if (!drawn || !restored) { return FailSdl("Draw GPU triangles"); }
+    if (!drawn || !restored) { return FailSdl(L"Draw GPU triangles"); }
     impl_->gpuModified = true;
     return true;
 }
 
 bool SdlPresenter::ClearFrame(const std::uint32_t color) noexcept
 {
-    if (impl_ == nullptr) { return Fail("Clear GPU Back", "呈现器尚未创建。"); }
+    if (impl_ == nullptr) { return Fail(L"Clear GPU Back", L"呈现器尚未创建。"); }
     if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)
         || !SDL_SetRenderDrawColor(impl_->renderer, static_cast<std::uint8_t>(color >> 16),
             static_cast<std::uint8_t>(color >> 8), static_cast<std::uint8_t>(color), 255)
         || !SDL_RenderClear(impl_->renderer)) {
-        return FailSdl("Clear GPU Back");
+        return FailSdl(L"Clear GPU Back");
     }
     impl_->gpuDrawing = true;
     impl_->cpuModified = false;
@@ -470,16 +471,16 @@ bool SdlPresenter::ClearFrame(const std::uint32_t color) noexcept
 
 bool SdlPresenter::ReadFrame(std::span<std::uint32_t> pixels, const int pitchBytes) noexcept
 {
-    if (impl_ == nullptr) { return Fail("Read GPU Back", "呈现器尚未创建。"); }
+    if (impl_ == nullptr) { return Fail(L"Read GPU Back", L"呈现器尚未创建。"); }
     if (!impl_->gpuModified) { return true; }
-    if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)) { return FailSdl("Read GPU target"); }
+    if (!SDL_SetRenderTarget(impl_->renderer, impl_->backTarget)) { return FailSdl(L"Read GPU target"); }
     std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> captured {
         SDL_RenderReadPixels(impl_->renderer, nullptr), SDL_DestroySurface
     };
     if (captured == nullptr || !SDL_ConvertPixels(impl_->width, impl_->height,
             captured->format, captured->pixels, captured->pitch,
             SDL_PIXELFORMAT_XRGB8888, pixels.data(), pitchBytes)) {
-        return FailSdl("Read GPU Back pixels");
+        return FailSdl(L"Read GPU Back pixels");
     }
     impl_->gpuModified = false;
     return true;
@@ -500,14 +501,14 @@ bool DrawGpuTexture(TextureSurface* const surface, const std::array<float, 4>& s
 {
     const bool drawn = gRendererPresenter.DrawTexture(
         surface, source, destination, color, sourceBlend, destinationBlend, linearSampling);
-    if (!drawn) { m_log_i("[render] %s\n", gRendererPresenter.LastError()); }
+    if (!drawn) { m_log_iw(L"[render] %ls\n", gRendererPresenter.LastError()); }
     return drawn;
 }
 
 bool DrawGpuTriangles(const std::span<const ColorVertex> vertices, const TextureRectangle& clip) noexcept
 {
     const bool drawn = gRendererPresenter.DrawTriangles(vertices, clip);
-    if (!drawn) { m_log_i("[render] %s\n", gRendererPresenter.LastError()); }
+    if (!drawn) { m_log_iw(L"[render] %ls\n", gRendererPresenter.LastError()); }
     return drawn;
 }
 
@@ -534,7 +535,7 @@ bool SdlPresenter::IsLost() noexcept
     int height;
     if (!SDL_GetRenderOutputSize(impl_->renderer, &width, &height)) {
         impl_->resourcesLost.store(true, std::memory_order_relaxed);
-        static_cast<void>(FailSdl("SDL_GetRenderOutputSize"));
+        static_cast<void>(FailSdl(L"SDL_GetRenderOutputSize"));
     }
     return impl_->resourcesLost.load(std::memory_order_relaxed);
 }
@@ -545,30 +546,29 @@ bool SdlPresenter::Destroy() noexcept
         return true;
     }
     if (!SDL_IsMainThread()) {
-        return Fail("Destroy", "必须在 SDL 主线程释放活跃资源。");
+        return Fail(L"Destroy", L"必须在 SDL 主线程释放活跃资源。");
     }
     impl_.reset();
     return true;
 }
 
-const char* SdlPresenter::LastError() const noexcept
+const wchar_t* SdlPresenter::LastError() const noexcept
 {
-    return lastError_;
+    return lastError_.c_str();
 }
 
-bool SdlPresenter::Fail(const char* operation, const char* detail) noexcept
+bool SdlPresenter::Fail(const wchar_t* operation, std::wstring_view detail) noexcept
 {
-    // 分段复制保持 UTF-8 字符边界，长 SDL 错误可截断，但保留失败阶段。
-    std::size_t used = SDL_utf8strlcpy(lastError_, operation, sizeof(lastError_));
-    used += SDL_utf8strlcpy(lastError_ + used, ": ", sizeof(lastError_) - used);
-    SDL_utf8strlcpy(lastError_ + used, detail, sizeof(lastError_) - used);
+    lastError_ = operation;
+    lastError_ += L": ";
+    lastError_ += detail;
     return false;
 }
 
-bool SdlPresenter::FailSdl(const char* operation) noexcept
+bool SdlPresenter::FailSdl(const wchar_t* operation) noexcept
 {
     const char* detail = SDL_GetError();
-    return Fail(operation, detail[0] != '\0' ? detail : "SDL 未提供详细错误。");
+    return Fail(operation, detail[0] != '\0' ? cg::text::FromUtf8Wide(detail) : L"SDL 未提供详细错误。");
 }
 
 bool CreateRendererPresenter() noexcept
@@ -587,7 +587,7 @@ bool DestroyRendererPresenter() noexcept
     return gRendererPresenter.Destroy();
 }
 
-const char* RendererPresenterLastError() noexcept
+const wchar_t* RendererPresenterLastError() noexcept
 {
     return gRendererPresenter.LastError();
 }

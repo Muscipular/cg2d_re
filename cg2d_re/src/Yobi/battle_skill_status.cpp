@@ -11,6 +11,7 @@
 #include <Windows.h>
 
 #include <array>
+#include <format>
 #include <bit>
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
@@ -261,9 +262,8 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             }
         } else if (skill == 2006 || (skill >= 2010 && skill <= 2015) || skill == 2027) {
             if (skill == 2013) {
-                std::array<char, 64> output;
-                std::sprintf(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
-                ::OutputDebugStringA(output.data());
+                const auto output = std::format(L"performIndex = {}", gBattleMSkillLevelIndex5A3A18);
+                ::OutputDebugStringW(output.c_str());
                 if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                     continue;
                 }

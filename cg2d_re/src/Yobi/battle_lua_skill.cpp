@@ -633,11 +633,11 @@ static void TerminateInvalidSkillPacket(YobiAction* scene) {
     BattleScenePayload& sceneData = *scene->payload.battleScene;
     int nextHeaderOffset = FindNextBattlePacketHeader(gPacketView.failureOffset);
     if (nextHeaderOffset >= 0) {
-        m_log_i("[LuaSkill] resync invalid SKL packet: failureOffset=%d nextOffset=%d\n",
+        m_log_iw(L"[LuaSkill] resync invalid SKL packet: failureOffset=%d nextOffset=%d\n",
               gPacketView.failureOffset, nextHeaderOffset);
         sceneData.packetOffset64 = nextHeaderOffset;
     } else {
-        m_log_i("[LuaSkill] discard invalid BattleScene packet group: failureOffset=%d\n",
+        m_log_iw(L"[LuaSkill] discard invalid BattleScene packet group: failureOffset=%d\n",
               gPacketView.failureOffset);
         sceneData.remainingMessages5C = 1;
     }
@@ -1194,7 +1194,7 @@ static bool RunParseCallback(const SkillRegistration& registration, int skillId,
     gPacketView.active = false;
     if (status != 0) {
         [[maybe_unused]] const char* error = lua_tostring(gSkillEffectL, -1);
-        m_log_i("[LuaSkill] parse failed: skillId=%d techId=%d error=%s\n", skillId, techId,
+        m_log_iw(L"[LuaSkill] parse failed: skillId=%d techId=%d error=%hs\n", skillId, techId,
               error ? error : "unknown");
         lua_settop(gSkillEffectL, top);
         ResetPendingBatch(true);
@@ -1366,7 +1366,7 @@ static bool RunLuaCallback(int callbackRef, uint32_t nodeId, bool allowNextActio
     gLuaSkillRuntime.inCallback = false;
     if (status != 0) {
         [[maybe_unused]] const char* error = lua_tostring(gSkillEffectL, -1);
-        m_log_i("[LuaSkill] %s failed: skillId=%d techId=%d nodeId=%u error=%s\n",
+        m_log_iw(L"[LuaSkill] %hs failed: skillId=%d techId=%d nodeId=%u error=%hs\n",
               callbackName, gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId,
               error ? error : "unknown");
         lua_settop(gSkillEffectL, top);
@@ -1398,7 +1398,7 @@ static bool RunVisualUpdateCallback(uint32_t nodeId) {
     gLuaSkillRuntime.inCallback = false;
     if (status != 0) {
         [[maybe_unused]] const char* error = lua_tostring(gSkillEffectL, -1);
-        m_log_i("[LuaSkill] visual update failed: skillId=%d techId=%d nodeId=%u error=%s\n",
+        m_log_iw(L"[LuaSkill] visual update failed: skillId=%d techId=%d nodeId=%u error=%hs\n",
               gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId,
               error ? error : "unknown");
         lua_settop(gSkillEffectL, top);
@@ -1578,7 +1578,7 @@ static bool CommitRootPlan(YobiAction* scene, int skillId, int techId, int skill
                            int normalizedSkillLevel2, int casterPos) {
     if (!ValidateRootPlan() || casterPos < 0 || casterPos >= kBattleEntryCount ||
         !battleEntries[casterPos] || !battleEntries[casterPos]->payload.battleActor) {
-        m_log_i("[LuaSkill] root plan validation failed: skillId=%d techId=%d casterPos=%d\n",
+        m_log_iw(L"[LuaSkill] root plan validation failed: skillId=%d techId=%d casterPos=%d\n",
               skillId, techId, casterPos);
         return false;
     }
@@ -1628,7 +1628,7 @@ static bool CommitRootPlan(YobiAction* scene, int skillId, int techId, int skill
     for (uint32_t nodeId : gLuaSkillRuntime.rootNodeIds) {
         RuntimeNode* node = FindNodeById(nodeId);
         if (!node || node->pendingBind) {
-            m_log_i("[LuaSkill] root MoveState bind failed: skillId=%d techId=%d nodeId=%u\n",
+            m_log_iw(L"[LuaSkill] root MoveState bind failed: skillId=%d techId=%d nodeId=%u\n",
                   skillId, techId, nodeId);
             return false;
         }
@@ -2149,26 +2149,26 @@ static void CommitStagedVisuals(uint32_t parentNodeId) {
 
 static bool CommitCallbackBatch(uint32_t nodeId) {
     if (!ValidateCallbackBatch(nodeId)) {
-        m_log_i("[LuaSkill] callback batch validation failed: skillId=%d techId=%d nodeId=%u\n",
+        m_log_iw(L"[LuaSkill] callback batch validation failed: skillId=%d techId=%d nodeId=%u\n",
               gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId);
         ResetPendingBatch(true);
         return false;
     }
     if (!StageChildren()) {
-        m_log_i("[LuaSkill] child staging failed: skillId=%d techId=%d nodeId=%u\n",
+        m_log_iw(L"[LuaSkill] child staging failed: skillId=%d techId=%d nodeId=%u\n",
               gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId);
         ResetPendingBatch(true);
         return false;
     }
     if (!StageVisuals()) {
-        m_log_i("[LuaSkill] visual staging failed: skillId=%d techId=%d nodeId=%u\n",
+        m_log_iw(L"[LuaSkill] visual staging failed: skillId=%d techId=%d nodeId=%u\n",
               gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId);
         RollbackStagedChildren();
         ResetPendingBatch(true);
         return false;
     }
     if (!StageDebuffOperations()) {
-        m_log_i("[LuaSkill] debuff staging failed: skillId=%d techId=%d nodeId=%u\n",
+        m_log_iw(L"[LuaSkill] debuff staging failed: skillId=%d techId=%d nodeId=%u\n",
               gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId);
         RollbackStagedChildren();
         RollbackStagedVisuals();
@@ -2300,7 +2300,7 @@ static void AbortRuntime([[maybe_unused]] uint32_t nodeId, [[maybe_unused]] cons
     if (!gLuaSkillRuntime.active || gLuaSkillRuntime.aborting) {
         return;
     }
-    m_log_i("[LuaSkill] abort: skillId=%d techId=%d nodeId=%u stage=%s\n",
+    m_log_iw(L"[LuaSkill] abort: skillId=%d techId=%d nodeId=%u stage=%hs\n",
           gLuaSkillRuntime.rawSkillId, gLuaSkillRuntime.rawTechId, nodeId,
           stage ? stage : "unknown");
     gLuaSkillRuntime.aborting = true;
@@ -2786,7 +2786,7 @@ static LuaSkillPacketResult HandleLuaSkillPacket(YobiAction* scene) {
         return LuaSkillPacketResult::Native;
     }
     if (!BuildPacketView(startOffset, registration->intCount)) {
-        m_log_i("[LuaSkill] terminate invalid SKL packet: skillId=%d techId=%d intCount=%d\n",
+        m_log_iw(L"[LuaSkill] terminate invalid SKL packet: skillId=%d techId=%d intCount=%d\n",
               skillId, techId, registration->intCount);
         ResetPendingBatch(true);
         TerminateInvalidSkillPacket(scene);
@@ -2803,7 +2803,7 @@ static LuaSkillPacketResult HandleLuaSkillPacket(YobiAction* scene) {
         verifiedTechId != techId || verifiedSkillId != skillId || casterPos < 0 ||
         casterPos >= kBattleEntryCount || !battleEntries || !battleEntries[casterPos] ||
         !battleEntries[casterPos]->payload.battleActor) {
-        m_log_i("[LuaSkill] invalid SKL common fields: skillId=%d techId=%d\n", skillId,
+        m_log_iw(L"[LuaSkill] invalid SKL common fields: skillId=%d techId=%d\n", skillId,
               techId);
         gPacketView.active = false;
         ResetPendingBatch(true);
@@ -2846,7 +2846,7 @@ static bool InitializeLuaSkillState() {
     }
     gSkillEffectL = luaL_newstate();
     if (!gSkillEffectL) {
-        m_log_i("[LuaSkill] luaL_newstate failed\n");
+        m_log_iw(L"[LuaSkill] luaL_newstate failed\n");
         return false;
     }
     luaopen_base(gSkillEffectL);
@@ -2879,7 +2879,7 @@ static bool InitializeLuaSkillState() {
     if (luaL_loadfile(gSkillEffectL, kLuaSkillScript) != 0 ||
         lua_pcall(gSkillEffectL, 0, 0, 0) != 0) {
         [[maybe_unused]] const char* error = lua_tostring(gSkillEffectL, -1);
-        m_log_i("[LuaSkill] load failed: file=%s error=%s\n", kLuaSkillScript,
+        m_log_iw(L"[LuaSkill] load failed: file=%hs error=%hs\n", kLuaSkillScript,
               error ? error : "unknown");
         gSkillRegistrations.clear();
         lua_close(gSkillEffectL);

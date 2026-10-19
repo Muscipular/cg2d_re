@@ -72,7 +72,7 @@ std::uint32_t StartLoginRequest()
         field4C,
         field50,
         field18);
-    m_log_i("CHAR LOGIN QUEUE RESULT=%d POLLING=%u\n", queued,
+    m_log_iw(L"CHAR LOGIN QUEUE RESULT=%d POLLING=%u\n", queued,
         static_cast<unsigned int>(gRequestPollingEnabled));
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -113,7 +113,7 @@ void HandleLoginResponse_508BC0(
     const char*)
 {
     if (gRequestStatus != 1) {
-        m_log_i("CHAR LOGIN REPLY IGNORED\n");
+        m_log_iw(L"CHAR LOGIN REPLY IGNORED\n");
         return;
     }
 
@@ -123,7 +123,7 @@ void HandleLoginResponse_508BC0(
         const auto received = static_cast<unsigned char>(result[index]);
         const auto expected = static_cast<unsigned char>(kSuccessfulResult[index]);
         if (received != expected) {
-            m_log_i("CHAR LOGIN REPLY FAILED\n");
+            m_log_iw(L"CHAR LOGIN REPLY FAILED\n");
             return;
         }
         if (received == 0) {
@@ -133,7 +133,7 @@ void HandleLoginResponse_508BC0(
     }
 
     gRequestReplyCode = 1;
-    m_log_i("CHAR LOGIN REPLY SUCCESSFUL\n");
+    m_log_iw(L"CHAR LOGIN REPLY SUCCESSFUL\n");
     const std::uint64_t tick = platform::ReadTickCount64();
     static_cast<void>(network::SendLoginTimestamp_512DF0(socket, static_cast<std::uint32_t>(tick)));
 }

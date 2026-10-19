@@ -17,7 +17,7 @@ bool IsLuaShuttingDown() { return shuttingDown; }
 static lua_State* CreateState()
 {
     lua_State* const L = luaL_newstate();
-    if (!L) { m_log_i("[Lua] cannot create state\n"); return nullptr; }
+    if (!L) { m_log_iw(L"[Lua] cannot create state\n"); return nullptr; }
     // 参考仅开放这五组库；不额外开放os/io/ffi或修改脚本权限。
     luaopen_base(L);
     luaopen_bit(L);

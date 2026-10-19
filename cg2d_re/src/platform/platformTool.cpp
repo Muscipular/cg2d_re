@@ -26,16 +26,13 @@
 namespace cg::platform {
 
 // 原函数：0x00534EF0。
-std::int32_t GetMacAddress_534EF0(char* const output)
+std::int32_t GetMacAddress_534EF0(std::wstring& output)
 {
     ULONG size = 0;
     const ULONG firstResult =
         ::GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, &size);
-    char ethernetText[16];
-    char wirelessText[16];
-    // 原两槽相距16B，各清前13B，不补尾三字节。
-    std::memset(ethernetText, 0, 13);
-    std::memset(wirelessText, 0, 13);
+    wchar_t ethernetText[16]{};
+    wchar_t wirelessText[16]{};
     if (firstResult != ERROR_BUFFER_OVERFLOW) {
         return -1;
     }
@@ -67,7 +64,7 @@ std::int32_t GetMacAddress_534EF0(char* const output)
         return -1;
     }
 
-    char* const text = selectedType == IF_TYPE_ETHERNET_CSMACD
+    wchar_t* const text = selectedType == IF_TYPE_ETHERNET_CSMACD
         ? ethernetText : wirelessText;
     // 原两支路均按5→0取六U8；只读volatile视图保留取样序，格式仍按0→5。
     const volatile BYTE* const address = selected->PhysicalAddress;
@@ -77,18 +74,18 @@ std::int32_t GetMacAddress_534EF0(char* const output)
     const std::uint32_t byte2 = address[2];
     const std::uint32_t byte1 = address[1];
     const std::uint32_t byte0 = address[0];
-    std::sprintf(
-        text,
-        "%02x%02x%02x%02x%02x%02x",
+    std::swprintf(
+        text, 16,
+        L"%02x%02x%02x%02x%02x%02x",
         byte0, byte1, byte2, byte3, byte4, byte5);
 
     // 原端两条写出路径均未释放成功获取的适配器缓冲。
-    if (std::strlen(ethernetText) == 12) {
-        std::memcpy(output, ethernetText, std::strlen(ethernetText) + 1);
+    if (std::wcslen(ethernetText) == 12) {
+        output = ethernetText;
         return 0;
     }
-    if (std::strlen(wirelessText) == 12) {
-        std::memcpy(output, wirelessText, std::strlen(wirelessText) + 1);
+    if (std::wcslen(wirelessText) == 12) {
+        output = wirelessText;
     }
     return 0;
 }

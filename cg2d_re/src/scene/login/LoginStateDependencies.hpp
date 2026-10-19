@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 
 #include "cg/world/GuildState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -14,7 +15,7 @@ std::int32_t GetServerAddressInfo_507D90(
     std::wstring& serverAddress,
     std::uint16_t* port);
 // 原函数：0x0044B5C0。
-std::uint32_t AppendSystemLog_44B5C0(const char* text);
+std::uint32_t AppendSystemLog_44B5C0(std::wstring_view text);
 // 原函数：0x00508360。
 std::int32_t AdvanceServerLoginConnection_508360();
 

@@ -2071,9 +2071,9 @@ std::uint32_t gValue62B3A0 = 0; // 原全局：0x0062B3A0。
 std::uint32_t gValue62B38C = 0; // 原全局：0x0062B38C。
 
 // 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
-std::uint32_t gValue9FB934 = 0; // 原全局：0x009FB934。
-std::uint32_t gValue9FB928 = 0; // 原全局：0x009FB928。
-std::uint32_t gValue9A86C0 = 0; // 原全局：0x009A86C0。
+std::uint32_t gPrimaryMapGraphicCount_9FB934 = 0; // 原全局：0x009FB934。
+std::uint32_t gMapObjectGraphicCount_9FB928 = 0; // 原全局：0x009FB928。
+std::uint32_t gSpecialMapGraphicCount_9A86C0 = 0; // 原全局：0x009A86C0。
 std::uint32_t gValue9A7F78 = 0; // 原全局：0x009A7F78。
 
 } // namespace detail
@@ -3525,7 +3525,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         audio::ResetBgmPlayback_52B940();
-        Sub_469020();
+        DrawMapSceneWithMarkers_469020();
         static_cast<void>(ui::WindowRuntime_Render());
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
@@ -3613,7 +3613,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_4691D0();
-        Sub_469020();
+        DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
@@ -3727,7 +3727,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_4691D0();
-        Sub_469020();
+        DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
         render::gRenderQueueMode103CF10 = 0;
@@ -3741,7 +3741,7 @@ void DrawNormalScene_51C7D0()
         Sub_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
-        Sub_469020();
+        DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
         const std::uint32_t changeBgm = gValueFF0D58;
@@ -3787,7 +3787,7 @@ void DrawNormalScene_51C7D0()
             audio::ResetBgmPlayback_52B940();
             static_cast<void>(Sub_468200());
             Sub_4691D0();
-            Sub_469020();
+            DrawMapSceneWithMarkers_469020();
             if (audio::gBgmRequest1050810 == 0) {
                 if (gValueFF0D58 != 0) {
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
@@ -3885,7 +3885,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_46E4A0();
-        Sub_469020();
+        DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
@@ -4038,7 +4038,7 @@ void DrawBattleScene_43CBB0()
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U
         && gBattleBackgroundImage59F9F8 != gBattleBackgroundSnapshot5ABCD8) {
-        Sub_43CB10();
+        CaptureBattleBackgroundSnapshot_43CB10();
         state = gCurrentSceneState;
     }
     // 原退出门禁逐项读W16，保持短路，不读取整个W32后截断。
@@ -4077,7 +4077,7 @@ void DrawBattleScene_43CBB0()
         gBattleCommandAction5ABC00 = nullptr;
         gValueFF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
-        Sub_43CB10();
+        CaptureBattleBackgroundSnapshot_43CB10();
         platform::gValue73ECC0 = 2;
         input::BrowseChatHistory_44A1B0();
         if (gValue9DAD68 == 1) {
@@ -4137,7 +4137,7 @@ void DrawBattleScene_43CBB0()
     }
     case 1:
         if (Sub_51FDE0(13, 8, 0x40000000U) == 1) {
-            Sub_43CB10();
+            CaptureBattleBackgroundSnapshot_43CB10();
             platform::gValue73ECC0 = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gValue73ECC0 = 3;
@@ -6685,7 +6685,7 @@ std::int32_t Sub_455BD0()
 // 原 [0x504A30,0x504A43)：先加载记录，弃返回，再清两槽并返回完整零。
 std::int32_t Sub_504A30()
 {
-    Sub_44A090();
+    LoadChatInputHistory_44A090();
     gValueD2F788 = 0;
     gValueFF0C10 = 0;
     return 0;
@@ -8793,7 +8793,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
         std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
-    Sub_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
+    AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
     const std::int32_t soundEnabled = platform::gValue554644;
     if (soundEnabled != 0) {
         return audio::PlaySe_52C450(74, 320);
@@ -8880,7 +8880,7 @@ std::int32_t Sub_50C940(
             gChatDisabledDA3B4C = 0;
         } else if (gChatGateDA3B54 != 0 || detail::gValueFF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
-            Sub_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
+            AppendChatMessage_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
             const std::int32_t sound = platform::gValue554644;
             if (sound != 0) {
                 return audio::PlaySe_52C450(74, 320);
@@ -8893,7 +8893,7 @@ std::int32_t Sub_50C940(
         const std::uint64_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < gChatMinimumIntervalMs) {
-            Sub_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
+            AppendChatMessage_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gValue554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
@@ -8997,7 +8997,7 @@ void Sub_50CAE0(
             ++comparisonIndex;
         }
         if (!sameAsSharedText) {
-            Sub_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
+            AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
         }
     }
     if (platform::gValue554644 != 0) {
@@ -11003,7 +11003,7 @@ void Sub_4704A0()
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = detail::Sub_4450D0(secondX, secondY, 8);
     if (detail::gValueFF0D36 != 1 && first != 1 && second != 1) {
-        Sub_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
+        AppendChatMessage_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -11040,7 +11040,7 @@ void Sub_470670()
     }
     const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0();
     if ((cg::world::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        Sub_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
+        AppendChatMessage_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -11160,9 +11160,9 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
 // 原 [0x46BD40,0x46BD57)：按指令顺序清四个独立 W32 槽，返回完整 EAX32 零。
 std::int32_t Sub_46BD40()
 {
-    detail::gValue9FB934 = 0;
-    detail::gValue9FB928 = 0;
-    detail::gValue9A86C0 = 0;
+    detail::gPrimaryMapGraphicCount_9FB934 = 0;
+    detail::gMapObjectGraphicCount_9FB928 = 0;
+    detail::gSpecialMapGraphicCount_9A86C0 = 0;
     detail::gValue9A7F78 = 0;
     return 0;
 }

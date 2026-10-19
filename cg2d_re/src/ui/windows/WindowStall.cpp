@@ -751,7 +751,7 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
-            world::Sub_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
+            world::AppendChatMessage_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
             return;
         }
     }
@@ -2312,13 +2312,13 @@ static void WindowStall_OpenBrowse(
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:
-            world::Sub_44B050(L"没有可以浏览的摊位", 4, 0);
+            world::AppendChatMessage_44B050(L"没有可以浏览的摊位", 4, 0);
             break;
         case 2:
-            world::Sub_44B050(L"浏览的摊位已经收摊", 4, 0);
+            world::AppendChatMessage_44B050(L"浏览的摊位已经收摊", 4, 0);
             break;
         case 3:
-            world::Sub_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
+            world::AppendChatMessage_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
             break;
         }
         WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;

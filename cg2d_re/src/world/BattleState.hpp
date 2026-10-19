@@ -128,7 +128,7 @@ extern std::uint32_t gBattleTurnSnapshot5ABC08; // 原全局：0x005ABC08。
 
 namespace detail {
 // 原函数：0x0043CB10。
-void Sub_43CB10();
+void CaptureBattleBackgroundSnapshot_43CB10();
 // 原函数：0x004ED670。
 std::int32_t Sub_4ED670(); // 四角色/宠物与十五技能结果字段恰1检查，完整扫描不提前返回。
 // 原函数：0x00504A50。

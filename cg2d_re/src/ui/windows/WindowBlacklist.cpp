@@ -253,7 +253,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
             } else {
                 cg::text::FormatTo(message, L"{}不在黑名单列表中" /* 原常量参考：0x0058860C。 */, cg::text::FromGbkWide(name).c_str());
             }
-            world::Sub_44B050(message, 4, 3);
+            world::AppendChatMessage_44B050(message, 4, 3);
         }
     }
     const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
@@ -261,7 +261,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     if (std::strlen(currentRecord) != 0) {
         cg::ui::detail::gInputContextC8B1B8.reset();
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
-        world::Sub_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
+        world::AppendChatMessage_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
     }
     WindowInstance* const window = gCurrentWindow;
@@ -418,7 +418,7 @@ static std::int32_t WindowBlacklist_Clear(const std::int32_t, const std::int32_t
 {
     const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470() != 0
         ? L"已删除所有的黑名单。" /* 原常量参考：0x00588754。 */ : L"黑名单并没有内容可删除。" /* 原常量参考：0x00588738。 */;
-    world::Sub_44B050(message, 4, 3);
+    world::AppendChatMessage_44B050(message, 4, 3);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
 }

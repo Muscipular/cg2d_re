@@ -160,7 +160,7 @@ static std::int32_t CompareMapPrimary_46C440(
 // 原函数：0x0046C420。
 static void SortMapPrimary_46C420()
 {
-    const std::uint32_t count = gValue9FB934;
+    const std::uint32_t count = gPrimaryMapGraphicCount_9FB934;
     if (count < 2) {
         return;
     }
@@ -173,13 +173,13 @@ static void SortMapPrimary_46C420()
 // 原 46C4D0：计数在各复制段的发布时点不同，不合并成统一 append。
 static void MergeMapDrawCache_46C4D0()
 {
-    std::int32_t objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
+    std::int32_t objectLimit = std::bit_cast<std::int32_t>(gMapObjectGraphicCount_9FB928);
     std::int32_t merged = 0;
     std::int32_t objectIndex = 0;
     std::int32_t primaryIndex = 0;
     gMapDrawMergedCount9EE914 = 0;
     while (objectIndex < objectLimit) {
-        if (primaryIndex < std::bit_cast<std::int32_t>(gValue9FB934)) {
+        if (primaryIndex < std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934)) {
             const MapDrawRecord* const object = gMapDrawObjectsC751D0.data() + objectIndex;
             bool objectFirst = false;
             for (;;) {
@@ -188,7 +188,7 @@ static void MergeMapDrawCache_46C4D0()
                     objectFirst = true;
                     break;
                 }
-                if (primaryIndex < std::bit_cast<std::int32_t>(gValue9FB934)) {
+                if (primaryIndex < std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934)) {
                     for (;;) {
                         const std::int32_t mapNo = resource::GetGraphicMapNo(primary->imageNo);
                         merged = gMapDrawMergedCount9EE914;
@@ -207,7 +207,7 @@ static void MergeMapDrawCache_46C4D0()
                         if (currentY != nextY && !std::isunordered(currentY, nextY)) {
                             break;
                         }
-                        const std::int32_t limit = std::bit_cast<std::int32_t>(gValue9FB934);
+                        const std::int32_t limit = std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934);
                         ++primaryIndex;
                         ++primary;
                         if (primaryIndex >= limit) {
@@ -217,7 +217,7 @@ static void MergeMapDrawCache_46C4D0()
                 } else {
                     merged = gMapDrawMergedCount9EE914;
                 }
-                const std::int32_t limit = std::bit_cast<std::int32_t>(gValue9FB934);
+                const std::int32_t limit = std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934);
                 ++primaryIndex;
                 if (primaryIndex >= limit) {
                     break;
@@ -226,7 +226,7 @@ static void MergeMapDrawCache_46C4D0()
             if (objectFirst) {
                 merged = gMapDrawMergedCount9EE914;
                 MapDrawRecord* const destination = gMapDrawMerged9A86E8.data() + merged;
-                objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
+                objectLimit = std::bit_cast<std::int32_t>(gMapObjectGraphicCount_9FB928);
                 ++merged;
                 ++objectIndex;
                 gMapDrawMergedCount9EE914 = merged;
@@ -246,7 +246,7 @@ static void MergeMapDrawCache_46C4D0()
                             gMapDrawMerged9A86E8.data() + merged;
                         ++merged;
                         ++objectIndex;
-                        objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
+                        objectLimit = std::bit_cast<std::int32_t>(gMapObjectGraphicCount_9FB928);
                         CopyMapDrawRecord(nextDestination, nextObject);
                         gMapDrawMergedCount9EE914 = merged;
                         ++nextObject;
@@ -257,8 +257,8 @@ static void MergeMapDrawCache_46C4D0()
                 }
             }
         }
-        if (primaryIndex >= std::bit_cast<std::int32_t>(gValue9FB934)) {
-            objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
+        if (primaryIndex >= std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934)) {
+            objectLimit = std::bit_cast<std::int32_t>(gMapObjectGraphicCount_9FB928);
             if (objectIndex < objectLimit) {
                 const std::int32_t remaining = objectLimit - objectIndex;
                 MapDrawRecord* const destination = gMapDrawMerged9A86E8.data() + merged;
@@ -271,10 +271,10 @@ static void MergeMapDrawCache_46C4D0()
                 gMapDrawMergedCount9EE914 = merged;
             }
         }
-        objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
+        objectLimit = std::bit_cast<std::int32_t>(gMapObjectGraphicCount_9FB928);
         ++objectIndex;
     }
-    if (primaryIndex < std::bit_cast<std::int32_t>(gValue9FB934)) {
+    if (primaryIndex < std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934)) {
         const MapDrawRecord* primary = gMapDrawPrimary9EE918.data() + primaryIndex;
         for (;;) {
             const std::int32_t mapNo = resource::GetGraphicMapNo(primary->imageNo);
@@ -284,7 +284,7 @@ static void MergeMapDrawCache_46C4D0()
                 gMapDrawMergedCount9EE914 = ++merged;
                 CopyMapDrawRecord(destination, primary);
             }
-            const std::int32_t limit = std::bit_cast<std::int32_t>(gValue9FB934);
+            const std::int32_t limit = std::bit_cast<std::int32_t>(gPrimaryMapGraphicCount_9FB934);
             ++primaryIndex;
             ++primary;
             if (primaryIndex >= limit) {
@@ -297,7 +297,7 @@ static void MergeMapDrawCache_46C4D0()
         const MapDrawRecord* source = gMapDrawSpecialC28008.data();
         MapDrawRecord* destination = gMapDrawMerged9A86E8.data() + merged;
         do {
-            if (specialIndex >= std::bit_cast<std::int32_t>(gValue9A86C0)) {
+            if (specialIndex >= std::bit_cast<std::int32_t>(gSpecialMapGraphicCount_9A86C0)) {
                 break;
             }
             MapDrawRecord* const currentDestination = destination;
@@ -331,13 +331,13 @@ static void QueueMapDrawRecord(
 }
 
 // 原函数：0x0046BE50。
-void Sub_46BE50(
+void CacheMapGraphicByResourceType_46BE50(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
 {
     const std::int32_t mapNo = resource::GetGraphicMapNo(imageNo);
     if (mapNo == 1) {
-        static_cast<void>(Sub_46BD60(imageNo, worldXBits, worldYBits, x, y, 0, nullptr));
+        static_cast<void>(CachePrimaryMapGraphic_46BD60(imageNo, worldXBits, worldYBits, x, y, 0, nullptr));
         return;
     }
     if (mapNo <= 999) {
@@ -345,7 +345,7 @@ void Sub_46BE50(
     }
     std::uint16_t flag;
     static_cast<void>(resource::GetGraphicFlag2(std::bit_cast<std::uint32_t>(imageNo), &flag));
-    std::uint32_t& countSlot = flag == 3 ? gValue9A86C0 : gValue9FB928;
+    std::uint32_t& countSlot = flag == 3 ? gSpecialMapGraphicCount_9A86C0 : gMapObjectGraphicCount_9FB928;
     const auto count = std::bit_cast<std::int32_t>(countSlot);
     if (count >= kSourceCapacity) {
         return;
@@ -365,14 +365,14 @@ void Sub_46BE50(
 }
 
 // 原函数：0x0046C2F0。
-void Sub_46C2F0()
+void SortAndMergeMapDrawCache_46C2F0()
 {
     SortMapPrimary_46C420();
     MergeMapDrawCache_46C4D0();
 }
 
 // 原函数：0x0046C1C0。
-std::int32_t Sub_46C1C0()
+std::int32_t QueueMergedMapDrawCache_46C1C0()
 {
     std::int32_t count = gMapDrawMergedCount9EE914;
     std::int32_t index = 0;
@@ -399,12 +399,12 @@ std::int32_t Sub_46C1C0()
 namespace cg::world {
 
 // 原函数：0x0046BD60。
-std::int32_t Sub_46BD60(
+std::int32_t CachePrimaryMapGraphic_46BD60(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const std::int32_t mode,
     const render::GraphicDescriptor16* const descriptor)
 {
-    const auto count = std::bit_cast<std::int32_t>(detail::gValue9FB934);
+    const auto count = std::bit_cast<std::int32_t>(detail::gPrimaryMapGraphicCount_9FB934);
     if (count >= detail::kSourceCapacity) {
         return -1;
     }
@@ -419,16 +419,16 @@ std::int32_t Sub_46BD60(
     detail::WriteMapDrawDescriptor(record.descriptor, descriptor);
     record.before = nullptr;
     record.after = nullptr;
-    detail::gValue9FB934 = static_cast<std::uint32_t>(count + 1);
+    detail::gPrimaryMapGraphicCount_9FB934 = static_cast<std::uint32_t>(count + 1);
     return count;
 }
 
 // 原函数：0x0046DFF0。
-void Sub_46DFF0(
+void CacheMapObjectGraphic_46DFF0(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
 {
-    const auto count = std::bit_cast<std::int32_t>(detail::gValue9FB928);
+    const auto count = std::bit_cast<std::int32_t>(detail::gMapObjectGraphicCount_9FB928);
     if (count >= detail::kSourceCapacity) {
         return;
     }
@@ -449,13 +449,13 @@ void Sub_46DFF0(
         const std::uint8_t clipMode = descriptor->clipMode;
         const std::uint8_t mixFlags = descriptor->mixFlags;
         const std::int16_t paletteIndex = descriptor->paletteIndex;
-        detail::gValue9FB928 = static_cast<std::uint32_t>(count + 1);
+        detail::gMapObjectGraphicCount_9FB928 = static_cast<std::uint32_t>(count + 1);
         record.descriptor.clipMode = clipMode;
         record.descriptor.mixFlags = mixFlags;
         record.descriptor.paletteIndex = paletteIndex;
     } else {
         detail::WriteMapDrawDescriptor(record.descriptor, nullptr);
-        detail::gValue9FB928 = static_cast<std::uint32_t>(count + 1);
+        detail::gMapObjectGraphicCount_9FB928 = static_cast<std::uint32_t>(count + 1);
     }
 }
 

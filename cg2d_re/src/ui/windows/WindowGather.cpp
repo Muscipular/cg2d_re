@@ -577,12 +577,12 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
                 * world::gSkillsF1BAFC[skill].fpReduce / 100;
             if ((world::gPlayerRuntimeSlots.fp < cost)) {
-                world::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                world::AppendChatMessage_44B050(kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
             } else if (world::Sub_518C60() <= 0) {
-                world::Sub_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
+                world::AppendChatMessage_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));

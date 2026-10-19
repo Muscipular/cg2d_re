@@ -34,7 +34,7 @@
 namespace cg::world {
 
 Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
-volatile std::int32_t gWriteIndex626C08 = 0; // 原全局：0x00626C08。
+volatile std::int32_t gChatWriteIndex_626C08 = 0; // 原全局：0x00626C08。
 
 } // namespace cg::world
 
@@ -45,7 +45,7 @@ std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
 } // namespace cg::world::detail
 
 namespace cg::world {
-volatile std::int32_t gCountC9A944 = 0; // 原全局：0x00C9A944。
+volatile std::int32_t gChatRecordCount_C9A944 = 0; // 原全局：0x00C9A944。
 
 } // namespace cg::world
 
@@ -89,7 +89,7 @@ static constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x0055490
 static constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
 
 // 原 [0x44A090,0x44A15B)：保留短读已写入的字节及 rb 失败后创建文件的顺序。
-std::int32_t Sub_44A090()
+std::int32_t LoadChatInputHistory_44A090()
 {
     gCursor62683C = -1;
     char path[128];
@@ -114,7 +114,7 @@ std::int32_t Sub_44A090()
 }
 
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
-void __cdecl Sub_449DA0()
+void __cdecl InitializeChatInputAndLog_449DA0()
 {
     std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
     cg::ui::detail::gInputContext626AA0.reset();
@@ -198,12 +198,12 @@ void __cdecl Sub_449DA0()
 }
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
-std::int32_t Sub_4A76E0()
+std::int32_t IncrementChatRecordCount_4A76E0()
 {
-    const std::int32_t increased = gCountC9A944 + 1;
-    gCountC9A944 = increased;
+    const std::int32_t increased = gChatRecordCount_C9A944 + 1;
+    gChatRecordCount_C9A944 = increased;
     if (increased > 512) {
-        gCountC9A944 = 512;
+        gChatRecordCount_C9A944 = 512;
     }
     return increased;
 }
@@ -213,7 +213,7 @@ std::int32_t Sub_4A76E0()
 namespace cg::world {
 
 // 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
-std::int32_t Sub_449FA0(const std::int32_t index)
+std::int32_t SaveChatInputHistoryEntry_449FA0(const std::int32_t index)
 {
     char path[128];
     std::sprintf(
@@ -237,7 +237,7 @@ std::int32_t Sub_449FA0(const std::int32_t index)
 }
 
 // 原 sub_44B050@[0x44B050,0x44B170)。
-void Sub_44B050(
+void AppendChatMessage_44B050(
     const std::wstring_view message,
     const std::int32_t color,
     const std::int32_t fontType)
@@ -261,7 +261,7 @@ void Sub_44B050(
         return;
     }
     const char* const text = stored.c_str();
-    std::int32_t index = gWriteIndex626C08;
+    std::int32_t index = gChatWriteIndex_626C08;
     char* const destination = gRecords5FB7F8[index].text;
     const std::size_t length = std::strlen(text) + 1;
     const std::size_t wordCount = length / sizeof(std::uint32_t);
@@ -283,7 +283,7 @@ void Sub_44B050(
         timeValue = ::_time64(nullptr);
         const std::tm* const legacyTime =
             ::_localtime64(&timeValue);
-        index = gWriteIndex626C08;
+        index = gChatWriteIndex_626C08;
         const std::int32_t second = legacyTime->tm_sec;
         const std::int32_t minute = legacyTime->tm_min;
         const std::int32_t hour = legacyTime->tm_hour;
@@ -294,7 +294,7 @@ void Sub_44B050(
             hour, minute, second, gRecords5FB7F8[index].text);
         std::fclose(detail::gLogStream626C1C);
         std::FILE* const newStream = std::fopen(detail::gLogPath62699C, "a");
-        index = gWriteIndex626C08;
+        index = gChatWriteIndex_626C08;
         detail::gLogStream626C1C = newStream;
     }
 
@@ -303,11 +303,11 @@ void Sub_44B050(
     record.fontType = fontType;
     record.state = 0;
     const std::int32_t nextIndex = index + 1;
-    gWriteIndex626C08 = nextIndex;
+    gChatWriteIndex_626C08 = nextIndex;
     if (nextIndex >= 512) {
-        gWriteIndex626C08 = 0;
+        gChatWriteIndex_626C08 = 0;
     }
-    detail::Sub_4A76E0();
+    detail::IncrementChatRecordCount_4A76E0();
     detail::gValue626C10 = 20;
 }
 

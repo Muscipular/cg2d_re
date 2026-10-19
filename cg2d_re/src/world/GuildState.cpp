@@ -130,7 +130,7 @@ const char* GetGuildRankText(const std::int32_t index) noexcept
 }
 
 // 原函数：0x0050E850。
-void Sub_50E850(const std::uintptr_t, const char* const text)
+void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {
         return;
@@ -200,7 +200,7 @@ void Sub_50E850(const std::uintptr_t, const char* const text)
 }
 
 // 原函数：0x0050EB40。
-void Sub_50EB40(const std::uintptr_t, const char* const text)
+void HandleGuildRankDefinitionsReply_50EB40(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {
         return;
@@ -234,7 +234,7 @@ void Sub_50EB40(const std::uintptr_t, const char* const text)
 }
 
 // 原函数：0x0050F280。
-void Sub_50F280(const std::uintptr_t, const std::int32_t key)
+void HandleGuildRemovalReply_50F280(const std::uintptr_t, const std::int32_t key)
 {
     if (gGuildHeader10514A8.key00 != key) {
         return;
@@ -246,7 +246,7 @@ void Sub_50F280(const std::uintptr_t, const std::int32_t key)
 }
 
 // 原函数：0x00532D80。
-std::int32_t Sub_532D80()
+std::int32_t ResetGuildStateAndCloseDetails_532D80()
 {
     ResetGuildRuntimeFields();
     return ui::WindowGuildDetails_RequestClose();

@@ -636,7 +636,7 @@ static void Sub_43F520(YobiAction* const action)
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
     const std::int32_t graphicIndex = action->graphicIndex;
-    action->value1D4 = world::Sub_46BD60(
+    action->value1D4 = world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
@@ -743,7 +743,7 @@ static void Sub_440070(YobiAction* const action)
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
-    action->value1D4 = world::Sub_46BD60(
+    action->value1D4 = world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
@@ -1126,7 +1126,7 @@ void Sub_46DD90(YobiAction* const action)
     const std::int32_t drawY = offsetY + action->y;
     const std::int32_t drawX = offsetX + action->x;
     const std::int32_t imageNo = action->graphicIndex;
-    world::Sub_46DFF0(
+    world::CacheMapObjectGraphic_46DFF0(
         imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
         static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
 }

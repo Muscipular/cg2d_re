@@ -628,7 +628,7 @@ void HandleFailureNoticeReply_50CF20(
         return;
     }
 
-    world::Sub_44B050(L"失败了！", 4, 3);
+    world::AppendChatMessage_44B050(L"失败了！", 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
@@ -797,8 +797,8 @@ void HandleServerAddressChangeReply_50E6E0(const std::uintptr_t, const char* con
         }
         std::wstring message;
         cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
-        world::Sub_44B050(message, 4, 3);
-        world::Sub_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
+        world::AppendChatMessage_44B050(message, 4, 3);
+        world::AppendChatMessage_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -868,7 +868,7 @@ void HandleGuildMailReply_50F190(
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    world::Sub_44B050(message, 4, 3);
+    world::AppendChatMessage_44B050(message, 4, 3);
 }
 
 // 原函数：0x00510460。
@@ -4216,13 +4216,13 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::HandleContactExtendedTextReply_50D8C0, T>(head, "PhdQ", socket)) return 0;
     if (TryDispatchReply<world::detail::HandleContactUpdateReply_50D9E0, I, T>(head, "vI", socket, 0x4U)) return 0;
     if (TryDispatchReply<HandleGuildMailResetReply_50E830>(head, "GC", socket)) return 0;
-    if (TryDispatchReply<cg::world::Sub_50E850, T>(head, "aDn", socket)) return 0;
-    if (TryDispatchReply<cg::world::Sub_50EB40, T>(head, "znv", socket)) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildInfoReply_50E850, T>(head, "aDn", socket)) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildRankDefinitionsReply_50EB40, T>(head, "znv", socket)) return 0;
     if (TryDispatchReply<cg::world::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
     if (TryDispatchReply<cg::world::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket, 0x4U)) return 0;
     if (TryDispatchReply<HandleGuildMemberRemovalReply_50F130, I>(head, "oRut", socket)) return 0;
     if (TryDispatchReply<HandleGuildMailReply_50F190, I, T, I>(head, "Rll", socket, 0x4U)) return 0;
-    if (TryDispatchReply<cg::world::Sub_50F280, I>(head, "frQp", socket)) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildRemovalReply_50F280, I>(head, "frQp", socket)) return 0;
     if (TryDispatchReply<world::detail::HandleProfileCategoryVersionsReply_50F3A0, T>(head, "HNP", socket)) return 0;
     if (TryDispatchReply<world::detail::HandlePrimaryProfileCategoriesReply_50F2A0, T>(head, "eZT", socket)) return 0;
     if (TryDispatchReply<world::detail::HandleSecondaryProfileCategoriesReply_50F8E0, T>(head, "IUn", socket)) return 0;

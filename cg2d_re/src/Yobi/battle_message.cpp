@@ -1205,7 +1205,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         if (platform::gValue554644 != 0) {
             static_cast<void>(audio::PlaySe_52C450(74, 320));
         }
-        cg::world::Sub_44B050(cg::text::FromGbkWide(initialMessage.data()), color, font);
+        cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(initialMessage.data()), color, font);
     }
     if (scene->phase == 20 && payload->packetSubState58 == 0) {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1236,7 +1236,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             if (platform::gValue554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::Sub_44B050(cg::text::FromGbkWide(queuedMessage.data()), color, font);
+            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(queuedMessage.data()), color, font);
         } else if (kind == 20) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
@@ -1470,7 +1470,7 @@ static void ProcessBattleMDataHeader(
             if (platform::gValue554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::Sub_44B050(cg::text::FromGbkWide(message.data()), color, font);
+            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
             const std::int32_t position = gBattleMCasterPosition5AAA64;
             if (position < 20) {
                 YobiAction* const actor = cg::world::gBattleAllEntries59E980[position];
@@ -3628,7 +3628,7 @@ std::int32_t Sub_43BAA0()
             if (platform::gValue554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::Sub_44B050(cg::text::FromGbkWide(message.data()), color, font);
+            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
         } else { // BST
             const std::int32_t position = detail::GetBattlePosition_4237E0(
                 detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94));

@@ -16,12 +16,12 @@ struct GraphicDescriptor16;
 namespace cg::world {
 
 // 原 46BD60/46BE50/46DFF0：世界坐标为 F32 原位型，描述符同步借用。
-std::int32_t Sub_46BD60(
+std::int32_t CachePrimaryMapGraphic_46BD60(
     std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
     std::int16_t x, std::int16_t y, std::int32_t mode,
     const render::GraphicDescriptor16* descriptor);
 // 原函数：0x0046DFF0。
-void Sub_46DFF0(
+void CacheMapObjectGraphic_46DFF0(
     std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
     std::int16_t x, std::int16_t y, const render::GraphicDescriptor16* descriptor);
 // 原 46C060：挂接主项的前绘/后绘链；batch 保留低 W8，不布尔化。
@@ -133,7 +133,7 @@ std::int32_t __cdecl Sub_509550(
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
 std::int32_t Sub_46C760(std::int32_t x, std::int32_t y);
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
-void __cdecl Sub_46CF60(std::int32_t value);
+void __cdecl DrawMapScene_46CF60(std::int32_t value);
 // 原函数：0x0046CF00。
 std::int32_t __cdecl Sub_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
 // 原函数：0x0046F8F0。
@@ -214,18 +214,18 @@ double Sub_46FB80(float x, float y, float targetX, float targetY);
 namespace detail {
 
 // 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
-extern std::uint32_t gValue9FB934; // 原全局：0x009FB934。
-extern std::uint32_t gValue9FB928; // 原全局：0x009FB928。
-extern std::uint32_t gValue9A86C0; // 原全局：0x009A86C0。
+extern std::uint32_t gPrimaryMapGraphicCount_9FB934; // 原全局：0x009FB934。
+extern std::uint32_t gMapObjectGraphicCount_9FB928; // 原全局：0x009FB928。
+extern std::uint32_t gSpecialMapGraphicCount_9A86C0; // 原全局：0x009A86C0。
 extern std::uint32_t gValue9A7F78; // 原全局：0x009A7F78。
 // 原函数：0x0046BE50。
-void Sub_46BE50(
+void CacheMapGraphicByResourceType_46BE50(
     std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
     std::int16_t x, std::int16_t y, const render::GraphicDescriptor16* descriptor);
 // 原 46C2F0：排序→合并，caller 不消费混合 EAX；46C1C0 返回末次合并计数。
-void Sub_46C2F0();
+void SortAndMergeMapDrawCache_46C2F0();
 // 原函数：0x0046C1C0。
-std::int32_t Sub_46C1C0();
+std::int32_t QueueMergedMapDrawCache_46C1C0();
 
 // 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
 extern std::uint16_t gValueC8222E;
@@ -448,7 +448,7 @@ extern std::uint32_t gValue55DA88; // 原全局：0x0055DA88。 原地图窗口�
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
 std::int32_t Sub_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。
-void Sub_469020();
+void DrawMapSceneWithMarkers_469020();
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,

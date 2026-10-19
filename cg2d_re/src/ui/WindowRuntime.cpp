@@ -3240,7 +3240,7 @@ static void WindowRuntime_ProcessShortcuts()
         }
         if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
             const std::int32_t previous = gChatScrollOffsetC9A940;
-            const std::int32_t count = world::gCountC9A944;
+            const std::int32_t count = world::gChatRecordCount_C9A944;
             const std::int32_t scroll = previous + 1;
             const bool pastChatCount = scroll > count;
             gChatScrollOffsetC9A940 = scroll;

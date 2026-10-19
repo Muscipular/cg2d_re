@@ -553,7 +553,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
     }
     switch (index) {
     case 0:
-        world::Sub_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
+        world::AppendChatMessage_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
         break;
     case 1: {
         gGuildInputs57F040[1].text = cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data());

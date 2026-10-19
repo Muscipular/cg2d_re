@@ -648,7 +648,7 @@ void HandleContactMailReply_50DC70(
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    Sub_44B050(message, 4, 3);
+    AppendChatMessage_44B050(message, 4, 3);
 }
 
 // 原函数：0x00534370。
@@ -771,7 +771,7 @@ void HandleMiniMailReply_50F7F0(
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    Sub_44B050(message, 4, 3);
+    AppendChatMessage_44B050(message, 4, 3);
 }
 
 // 原函数：0x0050F9E0。
@@ -825,7 +825,7 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
     PrependMiniMailMessage_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(record.name10.data()).c_str());
-    Sub_44B050(message, 4, 3);
+    AppendChatMessage_44B050(message, 4, 3);
 }
 
 // 原函数：0x00518C80。

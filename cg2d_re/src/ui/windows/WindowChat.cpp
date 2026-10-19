@@ -168,7 +168,7 @@ std::int32_t WindowChat_ResetState()
 {
     platform::gValue554640 = 1;
     gChatScrollOffsetC9A940 = 0;
-    world::gCountC9A944 = 0;
+    world::gChatRecordCount_C9A944 = 0;
     gChatWidthRequestC9A934 = 0;
     gChatHeightRequestC9A93C = 0;
     cg::ui::detail::gInputContext626AA0.field140 = 0;
@@ -180,7 +180,7 @@ std::int32_t WindowChat_ResetScrollRequests()
 {
     gChatScrollOffsetC9A940 = 0;
     gChatWidthRequestC9A934 = 0;
-    world::gCountC9A944 = 0;
+    world::gChatRecordCount_C9A944 = 0;
     gChatHeightRequestC9A93C = 0;
     return 0;
 }
@@ -221,9 +221,9 @@ static void WindowChat_SyncScrollThumb()
     }
     const std::int32_t scroll = gChatScrollOffsetC9A940;
     WindowElement* const before = window->elements;
-    const std::int32_t count = world::gCountC9A944;
+    const std::int32_t count = world::gChatRecordCount_C9A944;
     static_cast<void>(WindowScroll_SetPosition(&before[9], count, scroll));
-    const std::int32_t currentCount = world::gCountC9A944;
+    const std::int32_t currentCount = world::gChatRecordCount_C9A944;
     WindowElement* const elements = window->elements;
     if (currentCount == 0) {
         elements[8].y = elements[14].y - 14;
@@ -231,7 +231,7 @@ static void WindowChat_SyncScrollThumb()
     }
     const double currentScroll = gChatScrollOffsetC9A940;
     const std::int32_t span = elements[10].height - 14;
-    const double ratio = currentScroll / world::gCountC9A944;
+    const double ratio = currentScroll / world::gChatRecordCount_C9A944;
     const double pixels = ratio * span;
     // 原PC53除法/乘法及__ftol取低S32，不能改为整数先乘后除。
     const auto position = static_cast<std::int32_t>(static_cast<std::int64_t>(pixels));
@@ -580,7 +580,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         consumed = hovered ? 1 : 0;
         if ((state & 0x400) != 0) {
             const std::int32_t previousScroll = gChatScrollOffsetC9A940;
-            const std::int32_t count = world::gCountC9A944;
+            const std::int32_t count = world::gChatRecordCount_C9A944;
             const std::int32_t scroll = previousScroll + 1;
             gChatScrollOffsetC9A940 = scroll;
             if (scroll > count) {
@@ -709,9 +709,9 @@ static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::i
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     if ((state & 8) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::int32_t count = world::gCountC9A944;
+        const std::int32_t count = world::gChatRecordCount_C9A944;
         const std::int32_t position = WindowScroll_ReadPosition(&window->elements[9], count);
-        gChatScrollOffsetC9A940 = world::gCountC9A944 - position;
+        gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - position;
     }
     return consumed;
 }
@@ -724,7 +724,7 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
         return 0;
     }
-    const std::int32_t count = world::gCountC9A944;
+    const std::int32_t count = world::gChatRecordCount_C9A944;
     if (count == 0) {
         if (platform::gLegacyMouseState.tailReset != 0) {
             WindowElement* const elements = window->elements;
@@ -735,14 +735,14 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = count - gChatScrollOffsetC9A940;
     const std::int32_t next = WindowScroll_ApplyWheel(&window->elements[9], position, count, wheel);
-    gChatScrollOffsetC9A940 = world::gCountC9A944 - next;
+    gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - next;
     return 0;
 }
 
 // 原函数：0x004A7700。
 static std::int32_t WindowChat_ResetScroll()
 {
-    world::gCountC9A944 = 0;
+    world::gChatRecordCount_C9A944 = 0;
     gChatScrollOffsetC9A940 = 0;
     return 0;
 }
@@ -829,7 +829,7 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
         const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
         width = widthUnits * fontWidth;
     }
-    std::int32_t logIndex = world::gWriteIndex626C08;
+    std::int32_t logIndex = world::gChatWriteIndex_626C08;
     logIndex -= gChatScrollOffsetC9A940;
     --logIndex;
     if (logIndex < 0) {
@@ -896,7 +896,7 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
         if (logIndex < 0) {
             logIndex = 511;
         }
-        if (processedRecords >= world::gCountC9A944) {
+        if (processedRecords >= world::gChatRecordCount_C9A944) {
             return;
         }
     }

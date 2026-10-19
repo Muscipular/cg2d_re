@@ -119,7 +119,7 @@ static void DrawCutObject(
     const std::uint16_t palette = 0;
     descriptor.paletteIndex = palette;
     const auto worldX = static_cast<float>(mapX * 64.0);
-    Sub_46BE50(
+    CacheMapGraphicByResourceType_46BE50(
         imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
         drawX, drawY, &descriptor);
 }
@@ -167,7 +167,7 @@ static void DrawNormalMapCell(
             const std::int32_t mapX = gMapXStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
             const auto worldX = static_cast<float>(mapX * 64.0);
-            Sub_46BE50(
+            CacheMapGraphicByResourceType_46BE50(
                 imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), nullptr);
         }
@@ -180,7 +180,7 @@ static void DrawNormalMapCell(
             const std::int32_t mapX = gMapXStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
             const auto worldX = static_cast<float>(mapX * 64.0);
-            static_cast<void>(Sub_46BD60(
+            static_cast<void>(CachePrimaryMapGraphic_46BD60(
                 imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), 0, nullptr));
         } else if (object >= 250 && object <= 299) {
@@ -195,20 +195,20 @@ static void DrawNormalMapCell(
 }
 
 // 原函数：0x00469020。
-void Sub_469020()
+void DrawMapSceneWithMarkers_469020()
 {
-    Sub_46CF60(1);
+    DrawMapScene_46CF60(1);
 }
 
 // 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
 // 原函数：0x0043CB10。
-void Sub_43CB10()
+void CaptureBattleBackgroundSnapshot_43CB10()
 {
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(Sub_46BD40());
-    Sub_46CF60(0);
+    DrawMapScene_46CF60(0);
     const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
@@ -228,7 +228,7 @@ void Sub_43CB10()
 namespace cg::world {
 
 // 原函数：0x0046CF60。
-void __cdecl Sub_46CF60(const std::int32_t markers)
+void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t mode = gValue9DAD68;
@@ -317,8 +317,8 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         drawY -= 24;
     }
 
-    detail::Sub_46C2F0();
-    static_cast<void>(detail::Sub_46C1C0());
+    detail::SortAndMergeMapDrawCache_46C2F0();
+    static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0());
     const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));

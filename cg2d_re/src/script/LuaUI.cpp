@@ -156,7 +156,7 @@ static void CliSendMsg(const char* msg, MsgOption option) {
     std::string value = option.sender && option.sender[0] ? std::string(option.sender) + ": " + msg : msg;
     std::size_t end = 0;
     while (end < value.size()) { const auto next = end + (static_cast<unsigned char>(value[end]) & 0x80 ? 2 : 1); if (next > 290 || next > value.size()) break; end = next; }
-    world::Sub_44B050(text::FromGbkWide(std::string_view(value).substr(0, end)).c_str(), option.color, option.font);
+    world::AppendChatMessage_44B050(text::FromGbkWide(std::string_view(value).substr(0, end)).c_str(), option.color, option.font);
 }
 
 int LuaPeekMouseWheelDelta() {

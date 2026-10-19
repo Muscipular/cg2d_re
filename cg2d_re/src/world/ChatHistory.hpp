@@ -44,8 +44,8 @@ static_assert(offsetof(Record5FB7F8, fontType) == 0x130);
 static_assert(sizeof(Record5FB7F8) == 0x134);
 
 extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
-extern volatile std::int32_t gWriteIndex626C08; // 原全局：0x00626C08。
-extern volatile std::int32_t gCountC9A944; // 原全局：0x00C9A944。
+extern volatile std::int32_t gChatWriteIndex_626C08; // 原全局：0x00626C08。
+extern volatile std::int32_t gChatRecordCount_C9A944; // 原全局：0x00C9A944。
 extern input::InputContext gInputContext626840; // 原全局：0x00626840。
 extern std::uint32_t gValue626BFC; // 原全局：0x00626BFC。
 extern char gLogFileName554648[16]; // 原全局：0x00554648。
@@ -55,7 +55,7 @@ extern std::int32_t gValueD2F788; // 原全局：0x00D2F788。
 extern std::uint16_t gValueFF0C10; // 原全局：0x00FF0C10。
 
 // 原函数：0x0044B050。
-void Sub_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
+void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
 // 原函数：0x0050C940。
 std::int32_t Sub_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
@@ -71,7 +71,7 @@ void Sub_50CAE0(
 // 原函数：0x0043D860。
 void Sub_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
 // 原函数：0x00449FA0。
-std::int32_t Sub_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
+std::int32_t SaveChatInputHistoryEntry_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
 extern std::uint32_t gChatMinimumIntervalMs; // G06：SpDt重复发言间隔，默认200毫秒。
 
 namespace detail {
@@ -80,9 +80,9 @@ extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
 extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
 extern std::uint32_t gValue626C18; // 原全局：0x00626C18。
 // 原函数：0x004A76E0。
-std::int32_t Sub_4A76E0();
+std::int32_t IncrementChatRecordCount_4A76E0();
 // 原函数：0x00449DA0。
-void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
+void __cdecl InitializeChatInputAndLog_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
 // 原函数：0x00442DC0。
 void Sub_442DC0(
@@ -93,7 +93,7 @@ void Sub_51A6A0(
     std::int32_t duration, const char* text, std::int32_t color,
     std::int32_t font, std::int32_t length); // 同源玩家头顶文本生产。
 // 原函数：0x0044A090。
-std::int32_t Sub_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
+std::int32_t LoadChatInputHistory_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
 
 } // namespace detail
 

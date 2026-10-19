@@ -426,7 +426,7 @@ static void DrawTransitionOrbit(
             const std::int32_t drawX = xOffset + x;
             const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
             const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-            static_cast<void>(world::Sub_46BD60(
+            static_cast<void>(world::CachePrimaryMapGraphic_46BD60(
                 graphicIndex, worldXBits, worldYBits,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -825,7 +825,7 @@ static void Sub_447E60(YobiAction* const action)
     const std::int32_t drawX = offsetX + x;
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
-    static_cast<void>(world::Sub_46BD60(
+    static_cast<void>(world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));

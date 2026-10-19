@@ -1073,7 +1073,7 @@ void HandleInputEnterKey_44AB60()
             history.tail626838 = static_cast<std::uint32_t>(oldIndex);
         } else {
             std::strcpy(history.records[nextIndex], stored.c_str());
-            static_cast<void>(world::Sub_449FA0(
+            static_cast<void>(world::SaveChatInputHistoryEntry_449FA0(
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
         }
@@ -1110,7 +1110,7 @@ void HandleInputEnterKey_44AB60()
         cg::ui::detail::gInputContextC8B1B8.clearText();
         cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
         cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
-        world::Sub_44B050(message, 4, 3);
+        world::AppendChatMessage_44B050(message, 4, 3);
         SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
     gInputCaretBlinkPhase_626C0C = 20;

@@ -31,13 +31,13 @@ extern std::int32_t gOrderedRecordCount1051510; // 原全局：0x01051510。 50E
 
 // 公会资料与同源文本表；socket未用，不复制成员/邮件/窗口owner。
 // 原函数：0x0050E850。
-void Sub_50E850(std::uintptr_t unusedSocket, const char* text); // 完整掩码字段消费，超长保留旧值。
+void HandleGuildInfoReply_50E850(std::uintptr_t unusedSocket, const char* text); // 完整掩码字段消费，超长保留旧值。
 // 原函数：0x0050EB40。
-void Sub_50EB40(std::uintptr_t unusedSocket, const char* text); // 三字段批量更新，-1只清两字段。
+void HandleGuildRankDefinitionsReply_50EB40(std::uintptr_t unusedSocket, const char* text); // 三字段批量更新，-1只清两字段。
 // 原函数：0x0050F280。
-void Sub_50F280(std::uintptr_t unusedSocket, std::int32_t key); // 编号相等才重置、清邮件/保存并请求关窗。
+void HandleGuildRemovalReply_50F280(std::uintptr_t unusedSocket, std::int32_t key); // 编号相等才重置、清邮件/保存并请求关窗。
 // 原函数：0x00532D80。
-std::int32_t Sub_532D80(); // 登录窄重置，不清邮件；返回窗口48关闭请求的音效结果。
+std::int32_t ResetGuildStateAndCloseDetails_532D80(); // 登录窄重置，不清邮件；返回窗口48关闭请求的音效结果。
 std::int32_t ReadGuildValue10514B4() noexcept; // 窗口51权限读取，共用回复写入的value0C。
 std::int32_t ReadGuildTextIndex10514B0() noexcept; // 窗口7分支与索引各自读取value08。
 std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21权限，借同源职级记录value00。

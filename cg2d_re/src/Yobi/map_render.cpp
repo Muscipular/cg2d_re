@@ -90,7 +90,7 @@ static void Sub_4441A0(YobiAction* const action)
     const std::int32_t drawX = offsetX + x;
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-    static_cast<void>(world::Sub_46BD60(
+    static_cast<void>(world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));
@@ -861,7 +861,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
-                    cg::world::Sub_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
+                    cg::world::AppendChatMessage_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
                 const char* const name = graphic->reference.action->nameC4.data();
@@ -875,7 +875,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
-                cg::world::Sub_44B050(message, 4, 3);
+                cg::world::AppendChatMessage_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
                 const char* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
@@ -888,7 +888,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
                 }
-                cg::world::Sub_44B050(message, 4, 3);
+                cg::world::AppendChatMessage_44B050(message, 4, 3);
             }
         } else if ((flags & 0x200u) != 0) {
             const char* name = action->titleE1.data();

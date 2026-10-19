@@ -186,7 +186,7 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::int32_t graphicIndex = action->graphicIndex;
     const auto worldYBits = std::bit_cast<std::uint32_t>(static_cast<float>(sortY));
-    const std::int32_t primaryIndex = world::Sub_46BD60(
+    const std::int32_t primaryIndex = world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
@@ -263,7 +263,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     const std::int32_t drawX = offsetX + x + horizontal;
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const auto worldYBits = std::bit_cast<std::uint32_t>(static_cast<float>(sortY));
-    const std::int32_t primaryIndex = world::Sub_46BD60(
+    const std::int32_t primaryIndex = world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
@@ -344,7 +344,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
     const std::int32_t drawX = offsetX + screenX;
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
     const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-    static_cast<void>(world::Sub_46BD60(
+    static_cast<void>(world::CachePrimaryMapGraphic_46BD60(
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor));
@@ -673,7 +673,7 @@ static void Sub_4417E0(YobiAction* const action)
         const std::int32_t drawX = offsetX + frameX + x;
         const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
         const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-        primaryIndex = world::Sub_46BD60(
+        primaryIndex = world::CachePrimaryMapGraphic_46BD60(
             graphicIndex, worldXBits, worldYBits,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
@@ -718,7 +718,7 @@ static void Sub_4417E0(YobiAction* const action)
             const std::int32_t drawX = offsetX + x;
             const std::int32_t graphicIndex = action->graphicIndex;
             const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
-            primaryIndex = world::Sub_46BD60(
+            primaryIndex = world::CachePrimaryMapGraphic_46BD60(
                 graphicIndex, worldXBits, worldYBits,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor);
@@ -737,7 +737,7 @@ static void Sub_4417E0(YobiAction* const action)
         const std::int32_t drawX = offsetX + x;
         const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
         const std::int32_t graphicIndex = action->graphicIndex;
-        primaryIndex = world::Sub_46BD60(
+        primaryIndex = world::CachePrimaryMapGraphic_46BD60(
             graphicIndex, worldXBits, worldYBits,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), mode, descriptor);

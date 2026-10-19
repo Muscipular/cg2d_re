@@ -108,7 +108,7 @@ void Update()
     case 5:
         platform::gValue73ECC0 = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
-        detail::Sub_449DA0();
+        detail::InitializeChatInputAndLog_449DA0();
         detail::Sub_46A9E0();
         detail::Sub_467F30();
         detail::Sub_5199A0();

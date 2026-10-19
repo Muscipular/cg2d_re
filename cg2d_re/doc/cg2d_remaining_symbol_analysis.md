@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：185／636。已重命名：180。保留／未决：5。待分析：451。
+已分析：202／636。已重命名：197。保留／未决：5。待分析：434。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -25,7 +25,7 @@
 | `Sub_43C9A0` | src/Yobi/battle_scene.cpp:424 | 待分析 | — |
 | `Sub_43CA50` | src/Yobi/battle_scene.cpp:458 | 待分析 | — |
 | `Sub_43CA80` | src/Yobi/battle_scene.cpp:473 | 待分析 | — |
-| `Sub_43CB10` | src/world/MapSceneDrawing.cpp:205 | 待分析 | — |
+| `Sub_43CB10` | src/world/MapSceneDrawing.cpp:205 | 已重命名：`CaptureBattleBackgroundSnapshot_43CB10` | 重置图形缓存、绘制无标记地图和战斗背景，排序绘制后复制Back到Temp，恢复队列模式1并记录背景图号。 |
 | `Sub_43D860` | src/world/WorldActorDrawing.cpp:658 | 待分析 | — |
 | `Sub_43D970` | src/world/WorldActorDrawing.cpp:202 | 待分析 | — |
 | `Sub_43D9A0` | src/world/WorldActorDrawing.cpp:214 | 待分析 | — |
@@ -149,10 +149,10 @@
 | `Sub_449C10` | src/Yobi/environment.cpp:495 | 待分析 | — |
 | `Sub_449C90` | src/world/WorldActorDrawing.cpp:301 | 待分析 | — |
 | `Sub_449CC0` | src/world/WorldActorDrawing.cpp:317 | 待分析 | — |
-| `Sub_449DA0` | src/world/ChatHistory.cpp:117 | 待分析 | — |
-| `Sub_449FA0` | src/world/ChatHistory.cpp:216 | 待分析 | — |
-| `Sub_44A090` | src/world/ChatHistory.cpp:92 | 待分析 | — |
-| `Sub_44B050` | src/world/ChatHistory.cpp:240 | 待分析 | — |
+| `Sub_449DA0` | src/world/ChatHistory.cpp:117 | 已重命名：`InitializeChatInputAndLog_449DA0` | 清聊天记录、初始化输入上下文和19条占位记录，按日期打开冒险者聊天日志并写会话时间。 |
+| `Sub_449FA0` | src/world/ChatHistory.cpp:216 | 已重命名：`SaveChatInputHistoryEntry_449FA0` | 以索引乘0x121定位chathis.dat单条记录，写记录及文件尾最后索引，按写入结果返回。 |
+| `Sub_44A090` | src/world/ChatHistory.cpp:92 | 已重命名：`LoadChatInputHistory_44A090` | 重置历史游标并读取chathis.dat整块历史，文件缺失则创建并将游标设63；保留短读结果。 |
+| `Sub_44B050` | src/world/ChatHistory.cpp:240 | 已重命名：`AppendChatMessage_44B050` | 将宽文本转GBK后写512槽聊天环形区，写带时间日志、发布颜色字体、推进写指针并增加记录数。 |
 | `Sub_44B5C0` | src/scene/login/LoginState.cpp:65 | 已重命名：`AppendSystemLog_44B5C0` | 以追加模式写systemlog.txt和换行，返回fclose位模式。 |
 | `Sub_455A90` | src/world/SceneState.cpp:5623 | 待分析 | — |
 | `Sub_455AC0` | src/world/SceneState.cpp:6575 | 待分析 | — |
@@ -207,7 +207,7 @@
 | `Sub_468C40` | src/world/SceneState.cpp:2763 | 待分析 | — |
 | `Sub_468F30` | src/world/SceneState.cpp:5028 | 待分析 | — |
 | `Sub_468F70` | src/world/SceneState.cpp:5046 | 待分析 | — |
-| `Sub_469020` | src/world/MapSceneDrawing.cpp:198 | 待分析 | — |
+| `Sub_469020` | src/world/MapSceneDrawing.cpp:198 | 已重命名：`DrawMapSceneWithMarkers_469020` | 以markers=1转调地图场景绘制入口。 |
 | `Sub_469030` | src/world/SceneState.cpp:4480 | 待分析 | — |
 | `Sub_4691D0` | src/world/SceneState.cpp:3405 | 待分析 | — |
 | `Sub_469240` | src/world/SceneState.cpp:3345 | 待分析 | — |
@@ -245,10 +245,10 @@
 | `Sub_46BCF0` | src/world/SceneState.cpp:4898 | 待分析 | — |
 | `Sub_46BD20` | src/world/SceneState.cpp:5349 | 待分析 | — |
 | `Sub_46BD40` | src/world/SceneState.cpp:11161 | 待分析 | — |
-| `Sub_46BD60` | src/world/MapDrawCache.cpp:402 | 待分析 | — |
-| `Sub_46BE50` | src/world/MapDrawCache.cpp:334 | 待分析 | — |
-| `Sub_46C1C0` | src/world/MapDrawCache.cpp:375 | 待分析 | — |
-| `Sub_46C2F0` | src/world/MapDrawCache.cpp:368 | 待分析 | — |
+| `Sub_46BD60` | src/world/MapDrawCache.cpp:402 | 已重命名：`CachePrimaryMapGraphic_46BD60` | 在1024容量内追加主地图图形记录，保存世界和屏幕坐标、批类型及描述符，返回原槽或-1。 |
+| `Sub_46BE50` | src/world/MapDrawCache.cpp:334 | 已重命名：`CacheMapGraphicByResourceType_46BE50` | mapNo为1转主绘制缓存，大于999按资源flag分普通对象或特殊缓存，写坐标和描述符并增加数量。 |
+| `Sub_46C1C0` | src/world/MapDrawCache.cpp:375 | 已重命名：`QueueMergedMapDrawCache_46C1C0` | 逐主绘制项按before链、主项、after链顺序提交图形队列，每轮重取合并数量。 |
+| `Sub_46C2F0` | src/world/MapDrawCache.cpp:368 | 已重命名：`SortAndMergeMapDrawCache_46C2F0` | 依次按既有深度逻辑排序主缓存并合并地图绘制记录。 |
 | `Sub_46C760` | src/world/SceneState.cpp:9998 | 待分析 | — |
 | `Sub_46C840` | src/world/SceneState.cpp:2882 | 待分析 | — |
 | `Sub_46CDF0` | src/world/SceneState.cpp:10663 | 待分析 | — |
@@ -256,7 +256,7 @@
 | `Sub_46CEE0` | src/world/SceneState.cpp:3169 | 待分析 | — |
 | `Sub_46CF00` | src/world/SceneState.cpp:10562 | 待分析 | — |
 | `Sub_46CF20` | src/world/SceneState.cpp:5067 | 待分析 | — |
-| `Sub_46CF60` | src/world/MapSceneDrawing.cpp:231 | 待分析 | — |
+| `Sub_46CF60` | src/world/MapSceneDrawing.cpp:231 | 已重命名：`DrawMapScene_46CF60` | 根据移动或刷新门禁加载地图与通行数据，按等距对角线绘制地砖和对象，排序合并队列并更新上次位置、提交空间音源。 |
 | `Sub_46D9C0` | src/world/SceneState.cpp:4650 | 待分析 | — |
 | `Sub_46DA80` | src/world/SceneState.cpp:4723 | 待分析 | — |
 | `Sub_46DB00` | src/world/SceneState.cpp:3074 | 待分析 | — |
@@ -265,7 +265,7 @@
 | `Sub_46DD40` | src/Yobi/map_observation.cpp:973 | 待分析 | — |
 | `Sub_46DD90` | src/Yobi/map_observation.cpp:1108 | 待分析 | — |
 | `Sub_46DE50` | src/Yobi/map_observation.cpp:1072 | 待分析 | — |
-| `Sub_46DFF0` | src/world/MapDrawCache.cpp:427 | 待分析 | — |
+| `Sub_46DFF0` | src/world/MapDrawCache.cpp:427 | 已重命名：`CacheMapObjectGraphic_46DFF0` | 向普通地图对象缓存追加记录，描述符分非空和默认路径，保持数量发布先后顺序。 |
 | `Sub_46E0D0` | src/world/SceneState.cpp:1387 | 待分析 | — |
 | `Sub_46E2A0` | src/world/SceneState.cpp:813 | 待分析 | — |
 | `Sub_46E340` | src/world/SceneState.cpp:846 | 待分析 | — |
@@ -311,7 +311,7 @@
 | `Sub_4990A0` | src/Yobi/battle_scene.cpp:304 | 待分析 | — |
 | `Sub_49C5C0` | src/Yobi/window.cpp:905 | 待分析 | — |
 | `Sub_49C5E0` | src/Yobi/window.cpp:911 | 待分析 | — |
-| `Sub_4A76E0` | src/world/ChatHistory.cpp:201 | 待分析 | — |
+| `Sub_4A76E0` | src/world/ChatHistory.cpp:201 | 已重命名：`IncrementChatRecordCount_4A76E0` | 聊天追加调用，记录数加一并将存储值封顶512，返回未封顶加一值；聊天窗口用该数计算滚动范围。 |
 | `Sub_4ABE60` | src/Yobi/window.cpp:583 | 待分析 | — |
 | `Sub_4ABEF0` | src/Yobi/window.cpp:790 | 待分析 | — |
 | `Sub_4ACDF0` | src/Yobi/window.cpp:615 | 待分析 | — |
@@ -403,11 +403,11 @@
 | `Sub_50E770` | src/scene/character_select/CharacterSelectScene.cpp:202 | 待分析 | — |
 | `Sub_50E780` | src/network/NetworkRuntime.cpp:807 | 已重命名：`HandleVersionUpgradeReply_50E780` | ed回复存低字节，场景13按非零/零转200/100；WorldUpdate场景13调两个版本升级入口。 |
 | `Sub_50E830` | src/network/NetworkRuntime.cpp:821 | 已重命名：`HandleGuildMailResetReply_50E830` | GC回复过门禁后清当前角色公会邮件，再写guildmail.dat。 |
-| `Sub_50E850` | src/world/GuildState.cpp:133 | 待分析 | — |
-| `Sub_50EB40` | src/world/GuildState.cpp:203 | 待分析 | — |
+| `Sub_50E850` | src/world/GuildState.cpp:133 | 已重命名：`HandleGuildInfoReply_50E850` | 按base62更新掩码解析公会键、名称及头字段和附加文本；保留被读取但未存储字段。 |
+| `Sub_50EB40` | src/world/GuildState.cpp:203 | 已重命名：`HandleGuildRankDefinitionsReply_50EB40` | 按索引更新32项公会职阶的权限位及文本，-1删除；GuildDetails使用权限位判断编辑权限、PlayerProfile显示职阶名。 |
 | `Sub_50F130` | src/network/NetworkRuntime.cpp:833 | 已重命名：`HandleGuildMemberRemovalReply_50F130` | 按key查活动公会记录，清其身份/名字并重计活动数，再删除同key公会邮件。 |
 | `Sub_50F190` | src/network/NetworkRuntime.cpp:853 | 已重命名：`HandleGuildMailReply_50F190` | 解析发送名/正文/类型并反转义，写公会邮件、保存guildmail.dat，播63及家族来信提示。 |
-| `Sub_50F280` | src/world/GuildState.cpp:237 | 待分析 | — |
+| `Sub_50F280` | src/world/GuildState.cpp:237 | 已重命名：`HandleGuildRemovalReply_50F280` | 仅回复公会键匹配时重置公会状态，清并保存当前角色公会邮件，关闭详情窗口。 |
 | `Sub_50F2A0` | src/world/MailState.cpp:1003 | 已重命名：`HandlePrimaryProfileCategoriesReply_50F2A0` | 解析类别版本及编号、图号、文本记录，同步写入第一和第二100槽组，更新共享数量。 |
 | `Sub_50F3A0` | src/world/MailState.cpp:1035 | 已重命名：`HandleProfileCategoryVersionsReply_50F3A0` | 记录回复费用及所选资料编号，比较两类版本，按差异位1/2请求更新分类数据。 |
 | `Sub_50F430` | src/world/MailState.cpp:742 | 已重命名：`HandleMiniMailContactRemovalReply_50F430` | 解析联系人键、查迷你槽后调用删除入口，保留查找失败仍传-1的原行为。 |
@@ -621,7 +621,7 @@
 | `Sub_52CD30` | src/platform/MainLoopSupport.cpp:63 | 已重命名：`UpdateAudioAndSkipMciClose_52CD30` | 主循环调用音频更新后把103DE80置1；52CCE0仅以该标志跳过MCI_STOP/CLOSE，不猜通知类型。 |
 | `Sub_52E180` | src/world/SceneState.cpp:9587 | 待分析 | — |
 | `Sub_52E1D0` | src/world/SceneState.cpp:9605 | 待分析 | — |
-| `Sub_532D80` | src/world/GuildState.cpp:249 | 待分析 | — |
+| `Sub_532D80` | src/world/GuildState.cpp:249 | 已重命名：`ResetGuildStateAndCloseDetails_532D80` | 重置公会共享字段并返回关闭公会详情窗口的结果，不清邮件。 |
 | `Sub_533570` | src/scene/login/LoginSavedState.cpp:1116 | 已分析，保留原名 | 已核将9A4D20输入的51字节写逻辑映射记录首文本；该上下文另由LoginCapability3InputController绘制，但未证是账户标签/姓名/其他文本，不以猜测给业务名。 |
 | `Sub_5335B0` | src/scene/login/LoginSavedState.cpp:1139 | 已重命名：`WriteSavedPassword_5335B0` | 写映射记录text+33；CacheAutoLoginInputValues明确传password，与FF494F密码缓存对应。 |
 | `Sub_5335F0` | src/scene/login/LoginSavedState.cpp:1185 | 已重命名：`ReadSavedPassword_5335F0` | 读取映射记录text+33到输出，空映射写空串，最多51字节；与密码写入口配对。 |

@@ -409,7 +409,7 @@ std::int32_t NewBattleNumber_41F1A0(
         const float projectedNameY = action->nameOffsetB0;
         action->nameX = projectedNameX;
         action->nameY = static_cast<std::int32_t>(projectedNameY);
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
     }
     return 0;
 }
@@ -476,7 +476,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         const float nameY = action->nameOffsetB0;
         action->nameX = nameXInteger;
         action->nameY = static_cast<std::int32_t>(nameY);
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
     }
     return 0;
 }
@@ -530,7 +530,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->rebirthValue1 = 4;
     action->offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 1));
     const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
     const float projectedY = action->offset44;

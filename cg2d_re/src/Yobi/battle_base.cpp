@@ -206,13 +206,13 @@ static std::int32_t CompareBattleDrawActions_405BD0(
     if (firstY < secondY) {
         return -1;
     }
-    const auto firstOrder = std::bit_cast<std::int16_t>(first->pathPointCount_270);
-    const auto secondOrder = std::bit_cast<std::int16_t>(second->pathPointCount_270);
+    const auto firstOrder = std::bit_cast<std::int16_t>(first->pathCountOrDrawOrder_270);
+    const auto secondOrder = std::bit_cast<std::int16_t>(second->pathCountOrDrawOrder_270);
     return (firstOrder > secondOrder) - (firstOrder < secondOrder);
 }
 
 // 原函数：0x00405CB0。
-void Sub_405CB0(YobiAction* const action)
+void UpdateBattleDirectionFromAngle_405CB0(YobiAction* const action)
 {
     if (action->angle50 >= 360.0F) {
         action->angle50 = static_cast<float>(action->angle50 - 360.0);
@@ -360,7 +360,7 @@ void TurnBattleTowardPosition_4060D0(
         }
     }
     if (updateDirection == 1) {
-        Sub_405CB0(action);
+        UpdateBattleDirectionFromAngle_405CB0(action);
     }
 }
 
@@ -395,7 +395,7 @@ void TurnBattleToward_406190(
         }
     }
     if (updateDirection == 1) {
-        Sub_405CB0(action);
+        UpdateBattleDirectionFromAngle_405CB0(action);
     }
 }
 
@@ -459,7 +459,7 @@ std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
 }
 
 // 原函数：0x00406260。
-void Sub_406260(YobiAction* const action)
+void FaceBattleActorTowardFormationPosition_406260(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -468,7 +468,7 @@ void Sub_406260(YobiAction* const action)
     const float y = static_cast<float>(static_cast<double>(payload->y04) - payload->y0C);
     const float x = static_cast<float>(static_cast<double>(payload->x00) - payload->x08);
     action->angle50 = static_cast<float>(world::Sub_46F970(x, y));
-    Sub_405CB0(action);
+    UpdateBattleDirectionFromAngle_405CB0(action);
 }
 
 // 原函数：0x004390E0。
@@ -500,7 +500,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->skillMeta = {}; // E01／4391B6：每次重新初始化动作清除上次技能。
     if ((flags & 2u) == 0
         && (*reinterpret_cast<const unsigned char*>(&world::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
-        Sub_406260(cg::world::gBattleAllEntries59E980[index]);
+        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[index]);
     }
 }
 

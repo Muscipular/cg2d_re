@@ -155,7 +155,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             action->offset44 = cg::world::gBattleAllEntries59E980[second]->offset44;
             ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[first]->payload.battleActor);
             ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[second]->payload.battleActor);
-            Sub_406260(action);
+            FaceBattleActorTowardFormationPosition_406260(action);
             static_cast<void>(PlayFrame_517DA0(action, 0));
             const std::int32_t frameX = action->frameX;
             const float targetY = effect->offset44;
@@ -164,7 +164,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             if (GetBattleDistanceToPosition_4062A0(action, targetX, targetY) < 5) {
                 action->offset40 = effect->offset40;
                 action->offset44 = effect->offset44;
-                Sub_406260(action);
+                FaceBattleActorTowardFormationPosition_406260(action);
                 action->characterAction = 0;
             } else {
                 const float turnY = effect->offset44;
@@ -191,7 +191,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
             action->offset40 = effect->offset40;
             action->offset44 = effect->offset44;
-            Sub_406260(action);
+            FaceBattleActorTowardFormationPosition_406260(action);
             action->characterAction = 0;
         } else {
             MoveBattleByAngle_405EA0(action);
@@ -307,7 +307,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             if ((payload->flagsFDC & 0x2000000u) != 0) { action->fields288[1] = 1; }
             if ((payload->flagsFDC & 0x4000000u) != 0) { action->fields288[2] = 1; }
             if ((payload->flagsFDC & 0x8000000u) != 0) { action->fields288[3] = 1; }
-            Sub_406260(action);
+            FaceBattleActorTowardFormationPosition_406260(action);
             UpdateBattleAlbumFlag_4238F0(action);
             static_cast<void>(MarkDeath(payload->effect1060));
             YobiAction* const soundRider = payload->rider13C8;
@@ -332,7 +332,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
         action->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][2]);
         action->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][3]);
-        Sub_406260(action);
+        FaceBattleActorTowardFormationPosition_406260(action);
         action->characterAction = 0;
     } else {
         const std::int32_t turnPoint = cg::world::gBattlePointIndices5536FC[second];
@@ -374,7 +374,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         action->barMaximum1C0 = carrier->second04->barMaximum1C0;
         action->x = carrier->second04->x;
         action->y = carrier->second04->y;
-        Sub_406260(action);
+        FaceBattleActorTowardFormationPosition_406260(action);
         YobiAction* const directionRider = payload->rider13C8;
         directionRider->direction = action->direction;
         YobiAction* rider = payload->rider13C8;
@@ -424,7 +424,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         (*secondSlot)->flags &= ~2u;
         carrier->second04 = nullptr;
         RestoreBattleStateEffects_422370(*secondSlot);
-        Sub_406260(*secondSlot);
+        FaceBattleActorTowardFormationPosition_406260(*secondSlot);
         static_cast<void>(PlayFrame_517DA0(*secondSlot, 0));
         MoveBattleCastState_439380(*secondSlot);
         YobiAction** const firstSlot = &cg::world::gBattleAllEntries59E980[first];
@@ -440,7 +440,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         carrier->first00 = nullptr;
         RestoreBattleRideGear(firstSlot, carrier);
         RestoreBattleStateEffects_422370(*firstSlot);
-        Sub_406260(*firstSlot);
+        FaceBattleActorTowardFormationPosition_406260(*firstSlot);
         static_cast<void>(PlayFrame_517DA0(*firstSlot, 0));
         MoveBattleCastState_439380(*firstSlot);
         payload->rider13C8->phase = 0;
@@ -484,7 +484,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         action->graphicIndex = -1;
         action->lastImageNo = 0;
         ClearBattleRideAttachments(payload);
-        Sub_406260(cg::world::gBattleAllEntries59E980[second]);
+        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[second]);
         YobiAction* const directionSource = cg::world::gBattleAllEntries59E980[second];
         YobiAction* const directionRider = payload->rider13C8;
         directionRider->direction = directionSource->direction;
@@ -531,7 +531,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         firstYTarget->offset44 = action->offset44;
         RestoreBattleRideGear(&cg::world::gBattleAllEntries59E980[first], carrier);
         carrier->first00 = nullptr;
-        Sub_406260(cg::world::gBattleAllEntries59E980[first]);
+        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[first]);
         static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], 0));
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[first]);
         payload->rider13C8->phase = 0;
@@ -735,7 +735,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         payload->rider13C8->flags |= 0x14u;
         action->graphicIndex = -1;
         action->lastImageNo = 0;
-        Sub_406260(action);
+        FaceBattleActorTowardFormationPosition_406260(action);
         YobiAction* const frameEffect = payload->effect1060;
         const std::int32_t frameX = action->frameX;
         frameEffect->deltaX = frameX;

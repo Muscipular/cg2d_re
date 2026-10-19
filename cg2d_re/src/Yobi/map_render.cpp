@@ -779,7 +779,7 @@ YobiAction* NewYobiGearPet_441130(
     action->flags = 0x34u;
     (action->mapX200 = static_cast<std::int32_t>(mapX));
     (action->mapY210 = static_cast<std::int32_t>(mapY));
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
     (action->mapY1F0 = static_cast<std::int32_t>(mapY));
     const double scaledX = mapX * 64.0;

@@ -1932,8 +1932,8 @@ void Sub_43C4E0()
     gBattleCommandState5ABC3C = 0;
     gBattleSkillActionCount5ABBF4 = 0;
     gBattlePetActionCount5ABBBC = 0;
-    cg::yobi::Sub_43C040();
-    cg::yobi::Sub_43BFF0();
+    cg::yobi::DisableBattleActorIdleAnimation_43C040();
+    cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0();
     gBattleCommandX553F78 = platform::gWindowWidth - 147;
     gBattleCommandY553F7C = -106;
     gBattleCommandValue553F80 = 17;
@@ -4191,7 +4191,7 @@ void DrawBattleScene_43CBB0()
                 gCurrentSceneState = 7;
                 break;
             }
-            cg::yobi::Sub_43C9A0();
+            cg::yobi::OrientEnteringBattleSides_43C9A0();
             const std::int32_t position = std::bit_cast<std::int32_t>(gBattlePosition5ABCA8);
             const bool changed = gBattleCurrentPosition5ABCA4 != position;
             gBattleCurrentPosition5ABCA4 = position;
@@ -4225,13 +4225,13 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
-        cg::yobi::Sub_43CA80();
+        cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        if (cg::yobi::Sub_43C910() == 1) {
+        if (cg::yobi::ReturnBattleActorsToFormation_43C910() == 1) {
             if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
                 static_cast<void>(cg::yobi::MarkDeath(gBattleEntryNoticeAction5ABFB8));
                 const std::uint32_t flags = gBattlePlayerFlags5ABCAC & ~3U;
@@ -4246,7 +4246,7 @@ void DrawBattleScene_43CBB0()
         input::ProcessKeyInput_4596D0();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
-        cg::yobi::Sub_43CA80();
+        cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -4261,7 +4261,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
-        cg::yobi::Sub_43CA80();
+        cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -4304,7 +4304,7 @@ void DrawBattleScene_43CBB0()
         gBattleActiveEventMask5AAA74 = 0;
         gValue5ABB20 = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::Sub_43BAA0());
+        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         cg::yobi::ClearBattleAppendEffects_43BED0();
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
@@ -4349,7 +4349,7 @@ void DrawBattleScene_43CBB0()
         gValue5ABB20 = 1;
         gBattleActiveEventMask5AAA74 = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::Sub_43BAA0());
+        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
@@ -4385,7 +4385,7 @@ void DrawBattleScene_43CBB0()
             cg::yobi::YobiAction* const actor = gBattleEntries59E980[enemy];
             if (actor != nullptr && cg::yobi::ReadYobiBatchType(actor) == 0
                 && (cg::yobi::GetYobiActionFlagsLowByte(actor) & 2u) == 0) {
-                cg::yobi::Sub_4990A0(enemy);
+                cg::yobi::DrawBattleActorHpBar_4990A0(enemy);
             }
         }
     }
@@ -4404,7 +4404,7 @@ void DrawBattleScene_43CBB0()
                 atRest = action == 0 || action == 9 || action == 8 || action == 10 || action == 1;
             }
             if (atRest && cg::yobi::ReadYobiBatchType(actor) == 0 && (cg::yobi::GetYobiActionFlagsLowByte(actor) & 2U) == 0) {
-                cg::yobi::Sub_4990A0(index);
+                cg::yobi::DrawBattleActorHpBar_4990A0(index);
                 index = gBattleSceneIndex5ABFD8;
             }
         }
@@ -8832,7 +8832,7 @@ void Sub_50E650(
     const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
-    cg::yobi::Sub_449700(mode, duration, floor, mapX, mapY);
+    cg::yobi::ConfigureMapSceneEffect_449700(mode, duration, floor, mapX, mapY);
 }
 
 // 原函数：0x0050E210。
@@ -10198,7 +10198,7 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
             detail::gBattleFirstTurnPending5ABC6C = 0;
             gBattleTurnSnapshot5ABC08 = turn;
         }
-        cg::yobi::Sub_43BFF0();
+        cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0();
         return;
     }
     if (text[1] == 'U') {

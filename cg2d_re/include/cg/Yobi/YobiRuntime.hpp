@@ -245,7 +245,7 @@ YobiAction* MarkDeath(YobiAction* action);
 // 原471334内联终止写的native边界；不判断空指针，不对应独立原函数。
 void MarkDeathUnchecked(YobiAction* action);
 // 原函数：0x0043BAA0。
-std::int32_t Sub_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
+std::int32_t ConsumeBattleExitMessages_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0(); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
 // 原函数：0x00438550。
@@ -255,22 +255,22 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清F
 // 原函数：0x0043BED0。
 void ClearBattleAppendEffects_43BED0(); // 每次发布当前节点、取next再释放，最后清首指针。
 // 原函数：0x004990A0。
-void Sub_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
+void DrawBattleActorHpBar_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
 
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
-void Sub_43BFF0();
+void EnableCompletedBattleActorIdleAnimation_43BFF0();
 // 原函数：0x0043C040。
-void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
+void DisableBattleActorIdleAnimation_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
 // 原函数：0x0043C120。
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 // 原函数：0x0043C910。
-std::int32_t Sub_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。
+std::int32_t ReturnBattleActorsToFormation_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。
 // 原函数：0x0043C9A0。
-void Sub_43C9A0(); // 先10..19再重读玩家位处理0..9，重取对象并转向/播放。
+void OrientEnteringBattleSides_43C9A0(); // 先10..19再重读玩家位处理0..9，重取对象并转向/播放。
 // 原函数：0x0043CA50。
 std::int32_t Sub_43CA50(); // 非空战斗槽中载荷FDC bit4计数。
 // 原函数：0x0043CA80。
-void Sub_43CA80(); // 战斗原名字绘制，保留测量前Y/后X以及逐槽颜色状态。
+void DrawBattleActorNames_43CA80(); // 战斗原名字绘制，保留测量前Y/后X以及逐槽颜色状态。
 // 原43C560：发布目标标志，依原序按HP/阵营选择并处理前后排遮挡。
 std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
@@ -287,11 +287,11 @@ void ShutdownYobiActionList_404D60();
 
 // 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。
 // mode>=100且余数0时，floor实参改作已过秒数，duration写总时长槽。
-void Sub_449700(
+void ConfigureMapSceneEffect_449700(
     std::int32_t mode, std::int32_t duration, std::int32_t floor,
     std::int32_t mapX, std::int32_t mapY);
 // 原函数：0x00449160。
-void Sub_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
+void UpdateMapEnvironmentEffects_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
 
 // 原 49C5C0/49C5E0：dialog 尺寸的有符号整数分量计算。
 std::int32_t CalculateDialogTextColumns_49C5C0(std::int16_t width);

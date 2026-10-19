@@ -643,10 +643,10 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
     } else {
-        if (std::bit_cast<std::int16_t>(action->pathPointCount_270) >= 2) {
+        if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) >= 2) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
-        if (std::bit_cast<std::int16_t>(action->pathPointCount_270) >= 4) {
+        if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) >= 4) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
     }
@@ -758,7 +758,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
     if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
         const float firstWorldY = action->worldY;
         if (!(firstTargetY < firstWorldY || firstTargetY > firstWorldY)
-            && std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
+            && std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
             const std::int32_t previousX =
                 static_cast<std::int32_t>(action->mapX1E0);
             const std::int32_t previousY =
@@ -852,7 +852,7 @@ YobiAction* CreateMapActorAction_441DB0(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 
@@ -1028,12 +1028,12 @@ void ReadMapActorTarget(
 
 void ClearMapActorPathCount(YobiAction* const action) noexcept
 {
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
 }
 
 bool IsMapActorIdleAtTarget(YobiAction* const action)
 {
-    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return false;
     }
     const double x = static_cast<std::int32_t>(action->mapX200) * 64.0;
@@ -1218,25 +1218,25 @@ void ResetMapFollowerFromPath(
     if (isPlayer) {
         YobiAction* const player = world::gPlayerRuntimeSlots.action;
         if (player != nullptr) {
-            player->pathPointCount_270 = 0;
+            player->pathCountOrDrawOrder_270 = 0;
         }
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
+            std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
         static_cast<void>(world::Sub_519EC0(x, y));
     } else {
-        slot->pathPointCount_270 = 0;
+        slot->pathCountOrDrawOrder_270 = 0;
         YobiAction* const follower = slot;
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
+            std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
         SnapMapActorToPosition_442AB0(follower, x, y);
     }
     if (!isPlayer || world::gPlayerRuntimeSlots.action != nullptr) {
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
+            std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t dy = leader->pathY248[index - 1] - leader->pathY248[index];
         const std::int32_t dx = leader->pathX220[index - 1] - leader->pathX220[index];
         const float y = static_cast<float>(dy);
@@ -1286,9 +1286,9 @@ void AppendMapActorPathPoint_441F60(
     if (action == nullptr) {
         return;
     }
-    const std::uint16_t count = action->pathPointCount_270;
+    const std::uint16_t count = action->pathCountOrDrawOrder_270;
     if (count >= 10u) {
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
         SnapMapActorToPosition_442AB0(action, targetX, targetY);
         return;
     }
@@ -1296,9 +1296,9 @@ void AppendMapActorPathPoint_441F60(
         std::bit_cast<std::int16_t>(count));
     action->pathX220[xSlot] = targetX;
     const auto ySlot = static_cast<std::size_t>(
-        std::bit_cast<std::int16_t>(action->pathPointCount_270));
+        std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270));
     action->pathY248[ySlot] = targetY;
-    action->pathPointCount_270 = static_cast<std::uint16_t>(action->pathPointCount_270 + 1u);
+    action->pathCountOrDrawOrder_270 = static_cast<std::uint16_t>(action->pathCountOrDrawOrder_270 + 1u);
 }
 
 // 原函数：0x00441FC0。
@@ -1311,7 +1311,7 @@ void AppendInterpolatedMapActorPath_441FC0(
     }
     std::int32_t startX;
     std::int32_t startY;
-    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathPointCount_270);
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
     if (count > 0) {
         const auto last = static_cast<std::size_t>(count - 1);
         startX = action->pathX220[last];
@@ -1341,7 +1341,7 @@ void AppendInterpolatedMapActorPath_441FC0(
         pointCount = 1;
     }
     const std::int32_t currentCount =
-        std::bit_cast<std::int16_t>(action->pathPointCount_270);
+        std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
     pendingX[static_cast<std::size_t>(pointCount)] = targetX;
     pendingY[static_cast<std::size_t>(pointCount)] = targetY;
     ++pointCount;
@@ -1349,20 +1349,20 @@ void AppendInterpolatedMapActorPath_441FC0(
         const auto last = static_cast<std::size_t>(pointCount - 1);
         const std::int32_t finalY = pendingY[last];
         const std::int32_t finalX = pendingX[last];
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
         SnapMapActorToPosition_442AB0(action, finalX, finalY);
         return;
     }
     for (std::int32_t point = 0; point < pointCount; ++point) {
         const auto xSlot = static_cast<std::size_t>(
-            std::bit_cast<std::int16_t>(action->pathPointCount_270));
+            std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270));
         const std::int32_t x = pendingX[static_cast<std::size_t>(point)];
         action->pathX220[xSlot] = x;
         const std::int32_t y = pendingY[static_cast<std::size_t>(point)];
         const auto ySlot = static_cast<std::size_t>(
-            std::bit_cast<std::int16_t>(action->pathPointCount_270));
+            std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270));
         action->pathY248[ySlot] = y;
-        action->pathPointCount_270 = static_cast<std::uint16_t>(action->pathPointCount_270 + 1u);
+        action->pathCountOrDrawOrder_270 = static_cast<std::uint16_t>(action->pathCountOrDrawOrder_270 + 1u);
     }
 }
 
@@ -1377,7 +1377,7 @@ double StartMapActorMovement_442110(
     }
     std::int16_t pathCount = 0;
     if (!(overrideRate < 0.0F || overrideRate > 0.0F)) {
-        pathCount = std::bit_cast<std::int16_t>(action->pathPointCount_270);
+        pathCount = std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
     }
     const platform::detail::MapActorVelocityInput input {
         targetX, targetY, speed, pathCount, 0, overrideRate,
@@ -1442,12 +1442,12 @@ void PopMapActorPathPoint_442460(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathPointCount_270);
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
     if (count > 0) {
-        action->pathPointCount_270 = static_cast<std::uint16_t>(count - 1);
+        action->pathCountOrDrawOrder_270 = static_cast<std::uint16_t>(count - 1);
     }
     for (std::int32_t index = 0;
-         index < std::bit_cast<std::int16_t>(action->pathPointCount_270); ++index) {
+         index < std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270); ++index) {
         const auto slot = static_cast<std::size_t>(index);
         action->pathX220[slot] = action->pathX220[slot + 1];
         action->pathY248[slot] = action->pathY248[slot + 1];

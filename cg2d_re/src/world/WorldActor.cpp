@@ -48,7 +48,7 @@ void ApplyWorldActorActionCommand_444410(
     const std::int32_t index = payload->index;
     switch (characterAction) {
     case 0:
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
         [[fallthrough]];
     case 31:
         cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
@@ -86,7 +86,7 @@ void ApplyWorldActorActionCommand_444410(
     case 1: {
         const std::uint16_t flags = gWorldObjects[index].flags42;
         if ((flags & 0x300u) == 0x300u) {
-            if (action->pathPointCount_270 < 10) {
+            if (action->pathCountOrDrawOrder_270 < 10) {
                 cg::yobi::AppendInterpolatedMapActorPath_441FC0(action, x, y);
             } else {
                 ResetMapFollowersFromPath(action);
@@ -185,7 +185,7 @@ void ApplyWorldActorActionCommand_444410(
         return;
     case 51:
         cg::yobi::SnapMapActorToPosition_442AB0(action, x, y);
-        action->pathPointCount_270 = 0;
+        action->pathCountOrDrawOrder_270 = 0;
         cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
         action->direction = direction;
         gWorldObjects[index].value34 = -1;
@@ -704,7 +704,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190()
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
-                || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
+                || std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) <= 0) {
                 continue;
             }
         } else {
@@ -716,13 +716,13 @@ std::uint32_t UpdatePartyFollowMovement_46A190()
             const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
-                || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
+                || std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) <= 0) {
                 continue;
             }
             if (position == 0) {
                 gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
                 const std::int16_t count =
-                    std::bit_cast<std::int16_t>(action->pathPointCount_270);
+                    std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
                 if (count > 5) {
                     gPartyCatchUpRateBits_9DAD78 = 0x40000000u;
                 } else if (count >= 4) {
@@ -848,7 +848,7 @@ void AdvanceFollowersBehindPlayerLeader_46A5F0()
         const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
-            || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
+            || std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) <= 0) {
             continue;
         }
 

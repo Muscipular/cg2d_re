@@ -202,7 +202,7 @@ static void ProcessBattleMSkillWaitingState(
     }
     switch (kind) {
     case FinishKind::Caster:
-        Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         break;
     case FinishKind::LastCaster: {
         YobiAction* const last = cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C];
@@ -212,7 +212,7 @@ static void ProcessBattleMSkillWaitingState(
                 if (gBattleMSkill5AAA78 == 105) {
                     lastPayload->flash1004 = 0;
                 }
-                Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
+                FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
             }
         }
         break;
@@ -220,7 +220,7 @@ static void ProcessBattleMSkillWaitingState(
     case FinishKind::OnlyFinish:
         break;
     case FinishKind::ClearCaster:
-        Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         FinishBattleEvent_43B6C0(scene);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->frameEvent = 0;
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~2u;
@@ -234,12 +234,12 @@ static void ProcessBattleMSkillWaitingState(
         YobiAction* const caster = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
-            Sub_406260(caster);
+            FaceBattleActorTowardFormationPosition_406260(caster);
         }
         YobiAction* const last = cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &last->payload.battleActor->flagsFDC) & 2u) == 0) {
-            Sub_406260(last);
+            FaceBattleActorTowardFormationPosition_406260(last);
         }
         break;
     }
@@ -247,7 +247,7 @@ static void ProcessBattleMSkillWaitingState(
         YobiAction* const caster = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
-            Sub_406260(caster);
+            FaceBattleActorTowardFormationPosition_406260(caster);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->flash1004 = 0;
         }
@@ -258,7 +258,7 @@ static void ProcessBattleMSkillWaitingState(
         for (BattleEntryEffectRecord* effect = casterPayload->effects1C.data(); effect->position != -1; ++effect) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[effect->position];
             if (target != nullptr && target->characterAction != 10 && target->phase != 34) {
-                Sub_406260(target);
+                FaceBattleActorTowardFormationPosition_406260(target);
             }
         }
         break;

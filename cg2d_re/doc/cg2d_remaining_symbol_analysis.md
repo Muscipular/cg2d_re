@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：323／636。已重命名：312。保留／未决：11。待分析：313。
+已分析：348／636。已重命名：336。保留／未决：12。待分析：288。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -12,19 +12,19 @@
 |---|---|---|---|
 | `Sub_404A40` | src/Yobi/base.cpp:200 | 已重命名：`InitializeYobiActionList_404A40` | 分配构造头尾哨兵，建立双向链并设置优先级0/255与无效图号，返回尾哨兵。 |
 | `Sub_404D60` | src/Yobi/base.cpp:379 | 已重命名：`ShutdownYobiActionList_404D60` | 标记清理全部动作并执行更新回收，再析构释放头尾哨兵。 |
-| `Sub_405CB0` | src/Yobi/battle_base.cpp:215 | 待分析 | — |
-| `Sub_406260` | src/Yobi/battle_base.cpp:462 | 待分析 | — |
+| `Sub_405CB0` | src/Yobi/battle_base.cpp:215 | 已重命名：`UpdateBattleDirectionFromAngle_405CB0` | 角度只按原逻辑加减一次360，再按八个不等宽角区间设置战斗方向。 |
+| `Sub_406260` | src/Yobi/battle_base.cpp:462 | 已重命名：`FaceBattleActorTowardFormationPosition_406260` | 以战斗载荷阵位坐标减入场坐标求角度，再转换八方向。 |
 | `Sub_423640` | src/platform/MainLoopSupport.cpp:151 | 已重命名：`ApplyScreenShake_423640` | 按Yobi门禁复用/随机生成偏移，增减幅度并裁剪Temp回拷Back；不改RNG消费序。 |
-| `Sub_43BAA0` | src/Yobi/battle_message.cpp:3604 | 待分析 | — |
-| `Sub_43BFF0` | src/Yobi/battle_scene.cpp:318 | 待分析 | — |
-| `Sub_43C040` | src/Yobi/battle_scene.cpp:334 | 待分析 | — |
+| `Sub_43BAA0` | src/Yobi/battle_message.cpp:3604 | 已重命名：`ConsumeBattleExitMessages_43BAA0` | 扫描退出阶段战斗消息，仅消费CHT聊天和BST本人倒计时，其他头继续扫描，结束返回1。 |
+| `Sub_43BFF0` | src/Yobi/battle_scene.cpp:318 | 已重命名：`EnableCompletedBattleActorIdleAnimation_43BFF0` | 战斗场景且回合快照一致时，按完成位图置动作0x40；待机回调据该位继续播放站立动画。 |
+| `Sub_43C040` | src/Yobi/battle_scene.cpp:334 | 已重命名：`DisableBattleActorIdleAnimation_43C040` | 遍历战斗动作清0x40待机持续播放位。 |
 | `Sub_43C4B0` | src/world/SceneState.cpp:9898 | 待分析 | — |
 | `Sub_43C4E0` | src/world/SceneState.cpp:1926 | 待分析 | — |
 | `Sub_43C8F0` | src/world/SceneState.cpp:6695 | 待分析 | — |
-| `Sub_43C910` | src/Yobi/battle_scene.cpp:408 | 待分析 | — |
-| `Sub_43C9A0` | src/Yobi/battle_scene.cpp:424 | 待分析 | — |
-| `Sub_43CA50` | src/Yobi/battle_scene.cpp:458 | 待分析 | — |
-| `Sub_43CA80` | src/Yobi/battle_scene.cpp:473 | 待分析 | — |
+| `Sub_43C910` | src/Yobi/battle_scene.cpp:408 | 已重命名：`ReturnBattleActorsToFormation_43C910` | 未置到位标志FDC位1的角色设phase2回阵位，全部已到位返回1；406760到位后写该位。 |
+| `Sub_43C9A0` | src/Yobi/battle_scene.cpp:424 | 已重命名：`OrientEnteringBattleSides_43C9A0` | 按入场两阵营标志，对相应十槽以入场坐标减阵位坐标定朝向并刷新动画；场景解析C包后调用。 |
+| `Sub_43CA50` | src/Yobi/battle_scene.cpp:458 | 已分析，保留原名 | 完整遍历20槽，统计载荷flagsFDC位4；场景在数量至少2时提示等待其他玩家，目标筛选0x800也使用此位。仍缺该位生产语义，不能确定应称玩家数、待输入数或可选目标数，保留。 |
+| `Sub_43CA80` | src/Yobi/battle_scene.cpp:473 | 已重命名：`DrawBattleActorNames_43CA80` | 名称显示设置启用时遍历20槽绘制居中姓名，本人与配对宠物用颜色4，其余0。 |
 | `Sub_43CB10` | src/world/MapSceneDrawing.cpp:205 | 已重命名：`CaptureBattleBackgroundSnapshot_43CB10` | 重置图形缓存、绘制无标记地图和战斗背景，排序绘制后复制Back到Temp，恢复队列模式1并记录背景图号。 |
 | `Sub_43D860` | src/world/WorldActorDrawing.cpp:658 | 已重命名：`FaceWorldActorTowardPlayer_43D860` | 仅特殊地图模式1和category1对象，按玩家与对象坐标差设置八方向；同坐标保原实参地址低字节行为。 |
 | `Sub_43D970` | src/world/WorldActorDrawing.cpp:202 | 已重命名：`ShowWorldActorPersistentStatusIcon_43D970` | 置flags120位1；绘制442F70据此创建持续状态图标0x1AF4E，特定状态时抑制。不推断图标的疾病名称。 |
@@ -131,22 +131,22 @@
 | `Sub_447C40` | src/Yobi/map_transition.cpp:754 | 待分析 | — |
 | `Sub_447E60` | src/Yobi/map_transition.cpp:760 | 待分析 | — |
 | `Sub_448040` | src/Yobi/map_transition.cpp:838 | 待分析 | — |
-| `Sub_448290` | src/Yobi/environment.cpp:651 | 待分析 | — |
-| `Sub_4483A0` | src/Yobi/environment.cpp:528 | 待分析 | — |
-| `Sub_448810` | src/Yobi/environment.cpp:300 | 待分析 | — |
-| `Sub_448A50` | src/Yobi/environment.cpp:194 | 待分析 | — |
-| `Sub_448BF0` | src/Yobi/environment.cpp:247 | 待分析 | — |
-| `Sub_448D90` | src/Yobi/environment.cpp:361 | 待分析 | — |
-| `Sub_449160` | src/Yobi/environment.cpp:815 | 待分析 | — |
+| `Sub_448290` | src/Yobi/environment.cpp:651 | 已重命名：`EnsureTimedMapBackgroundEffect_448290` | 仅地图场景、有效玩家和59529／38251楼层创建唯一计时背景动作，设置64×48裁剪块。 |
+| `Sub_4483A0` | src/Yobi/environment.cpp:528 | 已重命名：`UpdateTimedMapBackgroundEffect_4483A0` | 按已过时间和持续秒数分阶段更新地图摇动偏移、音效及幅值，最终铺100块背景图形；保关联对象缺失路径。 |
+| `Sub_448810` | src/Yobi/environment.cpp:300 | 已重命名：`ConfigureRightEntrySceneEffect_448810` | mode0保存环境持续秒数及开始时刻，其他模式在地图场景创建／更新／移除14647图号的右侧进入对象。 |
+| `Sub_448A50` | src/Yobi/environment.cpp:194 | 已重命名：`UpdateRightEntrySceneEffect_448A50` | 正类型环境对象按阶段从右侧进入或离开，更新偏移速度与地图投影；楼层变化标死。 |
+| `Sub_448BF0` | src/Yobi/environment.cpp:247 | 已重命名：`UpdateLeftEntrySceneEffect_448BF0` | 负类型环境对象以相反偏移方向进出，保减速转折音效和地图投影逻辑。 |
+| `Sub_448D90` | src/Yobi/environment.cpp:361 | 已重命名：`ConfigureLeftEntrySceneEffect_448D90` | 解码负类型与阶段，四类选择对应图号和偏移，创建／更新／移除左侧进入对象。 |
+| `Sub_449160` | src/Yobi/environment.cpp:815 | 已重命名：`UpdateMapEnvironmentEffects_449160` | 玩家存在时确保计时背景并推进波纹，环境门禁允许时每64次生成随机方向与速度的漂移动作。 |
 | `Sub_4493C0` | src/world/SceneState.cpp:516 | 待分析 | — |
-| `Sub_449400` | src/Yobi/environment.cpp:697 | 待分析 | — |
-| `Sub_449570` | src/Yobi/environment.cpp:112 | 待分析 | — |
-| `Sub_449670` | src/Yobi/environment.cpp:684 | 待分析 | — |
-| `Sub_4496C0` | src/Yobi/environment.cpp:152 | 待分析 | — |
-| `Sub_449700` | src/Yobi/environment.cpp:754 | 待分析 | — |
-| `Sub_449A00` | src/Yobi/environment.cpp:442 | 待分析 | — |
-| `Sub_449BC0` | src/Yobi/environment.cpp:509 | 待分析 | — |
-| `Sub_449C10` | src/Yobi/environment.cpp:495 | 待分析 | — |
+| `Sub_449400` | src/Yobi/environment.cpp:697 | 已重命名：`UpdateDriftingSceneEffect_449400` | 环境漂移对象按角度移动、推进帧表并投影，指定图号叠波纹，超对应屏幕边界则销毁。 |
+| `Sub_449570` | src/Yobi/environment.cpp:112 | 已重命名：`AdvanceSceneEffectTableFrame_449570` | 按两组环境帧表推进图号和剩余时长，-1结束、-2跳帧；指定帧组直接使用资源索引。 |
+| `Sub_449670` | src/Yobi/environment.cpp:684 | 已重命名：`MoveSceneEffectAlongAngle_449670` | 归一270减角度，分别查两轴三角因子并按速度推进对象偏移，保两次独立读取幅值。 |
+| `Sub_4496C0` | src/Yobi/environment.cpp:152 | 已重命名：`ApplyRippleOffsetToSceneEffect_4496C0` | 按屏幕Y及波纹相位查正弦表，乘波纹强度后修正Y，返回乘积符号修正位。 |
+| `Sub_449700` | src/Yobi/environment.cpp:754 | 已重命名：`ConfigureMapSceneEffect_449700` | 按正百位、负类型或普通模式分发环境对象配置；普通分支创建230058图号与附属帧动画，设置进出世界坐标。 |
+| `Sub_449A00` | src/Yobi/environment.cpp:442 | 已重命名：`UpdateMovingSceneEffect_449A00` | 按阶段推进普通环境对象世界坐标并投影，地图不符或玩家消失标死，首帧后叠加波纹补偿。 |
+| `Sub_449BC0` | src/Yobi/environment.cpp:509 | 已重命名：`EnsureSceneEffectOverlay_449BC0` | 按回调查重附属环境动作，存在直接返回，否则依父优先级创建，不拥有父引用。 |
+| `Sub_449C10` | src/Yobi/environment.cpp:495 | 已重命名：`UpdateSceneEffectOverlay_449C10` | 每轮查普通移动环境父对象，按其阶段选择帧表，更新后复制父屏幕位置；父消失则标死。 |
 | `Sub_449C90` | src/world/WorldActorDrawing.cpp:301 | 已重命名：`EnableWorldActorModeMarker_449C90` | 对象回复显示模式2调用；非队伍成员时置0x100共享图标位并返回采样后标志。 |
 | `Sub_449CC0` | src/world/WorldActorDrawing.cpp:317 | 已重命名：`ClearWorldActorModeMarkerUnlessLeader_449CC0` | 对象显示模式离开2时调用，仅显式队长标记为0时清共享0x100图标位。 |
 | `Sub_449DA0` | src/world/ChatHistory.cpp:117 | 已重命名：`InitializeChatInputAndLog_449DA0` | 清聊天记录、初始化输入上下文和19条占位记录，按日期打开冒险者聊天日志并写会话时间。 |
@@ -308,7 +308,7 @@
 | `Sub_48ABC0` | src/Yobi/window.cpp:546 | 已重命名：`UpdateQuantityWindowOpeningAnimation_48ABC0` | 扩张轮廓完成后读取来源控件、图号、数量限制与回调，打开数量窗口并标记死亡。 |
 | `Sub_48AC60` | src/Yobi/window.cpp:723 | 已重命名：`CreateQuantityWindowOpeningAnimation_48AC60` | 发布数量窗口动作标志、关闭既有窗口，再按保存位置或默认位置创建展开动作，失败直接打开数量窗口。 |
 | `Sub_492250` | src/world/SceneState.cpp:1975 | 待分析 | — |
-| `Sub_4990A0` | src/Yobi/battle_scene.cpp:304 | 待分析 | — |
+| `Sub_4990A0` | src/Yobi/battle_scene.cpp:304 | 已重命名：`DrawBattleActorHpBar_4990A0` | 指定战斗槽动作有回调、HP正且未置禁止位0x2000时绘制血条。 |
 | `Sub_49C5C0` | src/Yobi/window.cpp:905 | 已重命名：`CalculateDialogTextColumns_49C5C0` | 对话与外观窗口按有符号宽度以(width-48)/9+2计算文本列数。 |
 | `Sub_49C5E0` | src/Yobi/window.cpp:911 | 已重命名：`CalculateDialogVisibleLines_49C5E0` | 对话窗口高度扣边框32和可选按钮区24，再除实际行高，供可见行数计算。 |
 | `Sub_4A76E0` | src/world/ChatHistory.cpp:201 | 已重命名：`IncrementChatRecordCount_4A76E0` | 聊天追加调用，记录数加一并将存储值封顶512，返回未封顶加一值；聊天窗口用该数计算滚动范围。 |

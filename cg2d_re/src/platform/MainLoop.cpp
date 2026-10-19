@@ -158,7 +158,7 @@ int MainLoop()
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {
-            cg::yobi::Sub_449160();
+            cg::yobi::UpdateMapEnvironmentEffects_449160();
         }
         ClearKeyFlags_459760();
 

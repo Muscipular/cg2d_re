@@ -379,7 +379,7 @@ std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
     action->flags |= hasDevice ? 0x100000u : 0x8000u;
-    Sub_406260(action);
+    FaceBattleActorTowardFormationPosition_406260(action);
     const double step = 0.02F;
     const double scaleX = action->scaleX + step;
     action->scaleX = static_cast<float>(scaleX);
@@ -862,7 +862,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
         auto* const targetPayload = target->payload.battleActor;
         target->hidden = 0;
         TurnBattleToward_406190(target, action, 1, 0.0F);
-        Sub_405CB0(target);
+        UpdateBattleDirectionFromAngle_405CB0(target);
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);

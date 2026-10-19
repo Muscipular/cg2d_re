@@ -2012,7 +2012,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
             action->nameY = 0;
             action->nameValueC0 = 0;
             action->characterAction = 9;
-            Sub_406260(action);
+            FaceBattleActorTowardFormationPosition_406260(action);
             AdvanceBattleCastState_439340(action);
         }
     }
@@ -2025,7 +2025,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
 // 原函数：0x0040BD40。
 void UpdateBattleAction40_40BD40(YobiAction* const action)
 {
-    Sub_406260(action);
+    FaceBattleActorTowardFormationPosition_406260(action);
     AdvanceBattleCastState_439340(action);
 }
 

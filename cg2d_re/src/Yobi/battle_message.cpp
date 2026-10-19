@@ -1281,7 +1281,7 @@ static void ProcessBattleMTransitionHeader(
         if (subState == 1
             && CheckBattleTurnReady_4394A0(scene, kind == BattleMTransitionHeader::Clear ? 1 : 0) == 1) {
             if (kind == BattleMTransitionHeader::PetNotice || kind == BattleMTransitionHeader::PetLeave) {
-                Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+                FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             }
             FinishBattleEvent_43B6C0(scene);
         }
@@ -1550,7 +1550,7 @@ static void ProcessBattleMDataHeader(
             AddBattleAppendEffect_43BE00(11, technique, gBattleMCasterPosition5AAA64);
         }
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
-            Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
         return;
@@ -1572,7 +1572,7 @@ static void ProcessBattleMStatusHeader(
     if (subState != 0) {
         if ((kind == BattleMStatusHeader::QueuedValue || subState == 1)
             && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
-            Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
         return;
@@ -1781,10 +1781,10 @@ static void ProcessBattleMPositionHeader(
     if (subState != 0) {
         if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             const std::int32_t otherPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
-            Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
             if (other != nullptr && other->characterAction != 10 && other->phase != 34) {
-                Sub_406260(other);
+                FaceBattleActorTowardFormationPosition_406260(other);
             }
             FinishBattleEvent_43B6C0(scene);
         }
@@ -1959,10 +1959,10 @@ static void ProcessBattleMMonsterHeader(
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             YobiAction* const defender = cg::world::gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
             if (defender == nullptr || defender->payload.battleActor->busyFD8 == 0) {
-                Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+                FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
                 if (cg::world::gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24] != nullptr) {
                     const std::int32_t petPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
-                    Sub_406260(cg::world::gBattleAllEntries59E980[petPosition]);
+                    FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[petPosition]);
                 }
                 FinishBattleEvent_43B6C0(scene);
             }
@@ -2104,7 +2104,7 @@ static void ProcessBattleMItemHeader(
         const std::int32_t mode = gBattleMValue59FA10;
         if (subState == 1 && (mode == 0 || mode == 6 || mode == 7)
             && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
-            Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
         return;
@@ -2259,7 +2259,7 @@ static void ProcessBattleMComboHeader(
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             if (target != nullptr && (*reinterpret_cast<const unsigned char*>(
                     &target->payload.battleActor->flagsFDC) & 2u) == 0) {
-                Sub_406260(target);
+                FaceBattleActorTowardFormationPosition_406260(target);
             }
             FinishBattleEvent_43B6C0(scene);
         }
@@ -2477,7 +2477,7 @@ static void ProcessBattleMGmnHeader(
             return;
         }
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
-            Sub_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
         return;
@@ -2584,7 +2584,7 @@ static void ProcessBattleMGmnHeader(
     } else if (entrance == 1) {
         SetYobiActionField30F(*slot, 0);
         (*slot)->flags |= 2u;
-        Sub_406260(*slot);
+        FaceBattleActorTowardFormationPosition_406260(*slot);
         AppendBattleCast_4392A0(scene, *slot, 171);
     } else if (entrance == 2) {
         {
@@ -2613,7 +2613,7 @@ static void ProcessBattleMGmnHeader(
         xActor->x = static_cast<std::int32_t>(static_cast<std::int64_t>(xActor->offset40));
         YobiAction* const yActor = *slot;
         yActor->y = static_cast<std::int32_t>(static_cast<std::int64_t>(yActor->offset44));
-        Sub_406260(*slot);
+        FaceBattleActorTowardFormationPosition_406260(*slot);
         AppendBattleCast_4392A0(scene, *slot, 6);
         AppendBattleCast_4392A0(scene, *slot, 10);
     }
@@ -3369,9 +3369,9 @@ void ParseBattleC_438550()
             if ((flags & 2u) == 0) {
                 actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
                 actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
-                detail::Sub_406260(actor);
+                detail::FaceBattleActorTowardFormationPosition_406260(actor);
                 if ((inputFlags & 2u) != 0) {
-                    detail::Sub_406260(actor);
+                    detail::FaceBattleActorTowardFormationPosition_406260(actor);
                     actor->characterAction = 10;
                     while (detail::PlayFrame_517DA0(actor, 1) != 1) {
                     }
@@ -3601,7 +3601,7 @@ void ParseBattleC_438550()
 
 // BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。
 // 原函数：0x0043BAA0。
-std::int32_t Sub_43BAA0()
+std::int32_t ConsumeBattleExitMessages_43BAA0()
 {
     auto* const payload = cg::world::gBattleSceneAction5ABA94->payload.battleScene;
     std::array<char, 4> header;

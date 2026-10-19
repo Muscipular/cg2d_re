@@ -78,7 +78,7 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     payload->battlePosition18 = position;
     payload->y0C = y;
     action->phase = 0;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     PlayFrame_517DA0(action, 0);
     const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
     const float screenY = action->offset44;
@@ -1057,7 +1057,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
     if (PlayFrame_517DA0(action, 1) == 1) {
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
         if (previous >= 0 && payload->castListCA4[previous] == 11 && (static_cast<std::uint8_t>(payload->flagsFDC) & 2u) == 0) {
-            Sub_406260(world::gBattleAllEntries59E980[payload->battlePosition18]);
+            FaceBattleActorTowardFormationPosition_406260(world::gBattleAllEntries59E980[payload->battlePosition18]);
         }
         AdvanceBattleCastState_439340(action);
     }

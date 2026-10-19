@@ -301,7 +301,7 @@ void InitializeBattleScene_4383F0()
 
 
 // 原函数：0x004990A0。
-void Sub_4990A0(const std::int32_t index)
+void DrawBattleActorHpBar_4990A0(const std::int32_t index)
 {
     YobiAction* const initialAction = world::gBattleEntries59E980[index];
     if (initialAction->callback != nullptr
@@ -315,7 +315,7 @@ void Sub_4990A0(const std::int32_t index)
 
 
 // 原函数：0x0043BFF0。
-void Sub_43BFF0()
+void EnableCompletedBattleActorIdleAnimation_43BFF0()
 {
     if (world::gCurrentSceneType != 10
         || cg::world::gBattleTurnSnapshot5ABC08 != cg::world::gBattleTurn5ABB74) {
@@ -331,7 +331,7 @@ void Sub_43BFF0()
 
 
 // 原函数：0x0043C040。
-void Sub_43C040()
+void DisableBattleActorIdleAnimation_43C040()
 {
     for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr) {
@@ -405,7 +405,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
 
 
 // 原函数：0x0043C910。
-std::int32_t Sub_43C910()
+std::int32_t ReturnBattleActorsToFormation_43C910()
 {
     bool pending = false;
     for (YobiAction* const action : world::gBattleEntries59E980) {
@@ -421,7 +421,7 @@ std::int32_t Sub_43C910()
 
 
 // 原函数：0x0043C9A0。
-void Sub_43C9A0()
+void OrientEnteringBattleSides_43C9A0()
 {
     const auto turnEntries = [](const std::int32_t first, const std::int32_t end) {
         for (std::int32_t index = first; index < end; ++index) {
@@ -436,7 +436,7 @@ void Sub_43C9A0()
                 const float x = static_cast<float>(xEnd - xStart);
                 const float angle = static_cast<float>(cg::world::Sub_46F970(x, y));
                 cg::world::gBattleEntries59E980[index]->angle50 = angle;
-                detail::Sub_405CB0(cg::world::gBattleEntries59E980[index]);
+                detail::UpdateBattleDirectionFromAngle_405CB0(cg::world::gBattleEntries59E980[index]);
                 static_cast<void>(detail::PlayFrame_517DA0(cg::world::gBattleEntries59E980[index], 1));
             }
         }
@@ -470,7 +470,7 @@ std::int32_t Sub_43CA50()
 
 
 // 原函数：0x0043CA80。
-void Sub_43CA80()
+void DrawBattleActorNames_43CA80()
 {
     std::int8_t color = 0;
     if (platform::gValue5F974C == 0) {

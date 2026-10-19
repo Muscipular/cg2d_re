@@ -100,7 +100,7 @@ YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
     this->mapY210 = source.mapY210;
     this->pathX220 = source.pathX220;
     this->pathY248 = source.pathY248;
-    this->pathPointCount_270 = source.pathPointCount_270;
+    this->pathCountOrDrawOrder_270 = source.pathCountOrDrawOrder_270;
     this->movementActive_272 = source.movementActive_272;
     std::memcpy(&this->worldX, &source.worldX, sizeof(source.worldX));
     std::memcpy(&this->worldY, &source.worldY, sizeof(source.worldY));

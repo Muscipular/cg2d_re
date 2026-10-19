@@ -276,7 +276,7 @@ std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
         YobiAction* const other = action->battleOpponent10;
         if (other == nullptr || other->phase != 14) {
             if ((payload->effectFlagsFE4 & 0x08000000) != 0) {
-                Sub_405CB0(action);
+                UpdateBattleDirectionFromAngle_405CB0(action);
             }
             action->characterAction = 0;
             action->value54 = (static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0x1010) != 0 ? 6.0F : 4.0F;

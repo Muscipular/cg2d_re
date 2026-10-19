@@ -275,7 +275,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             particle->effectAcceleration48 = 0.2F;
             particle->battleAttachmentParent10 = action;
             particle->phase = parentY + yOffset - 100;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
         }
     }
     if (action->field58 >= 50) {
@@ -339,7 +339,7 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             const std::int32_t parentY = action->y;
             particle->battleAttachmentParent10 = action;
             particle->nameY = parentY + yOffset - 40;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             ++payload->counts00[i];
         }
         const std::int32_t lastIndex = payload->lastIndex80 + 1;
@@ -388,7 +388,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
             particle->effectAcceleration48 = 0.1F;
             particle->battleAttachmentParent10 = action;
             particle->phase = endOffset + parentY - 100;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
         }
         ++action->nameX;
     }
@@ -433,7 +433,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     const std::int32_t parentY = parent->y;
     action->effectAcceleration48 = 0.2F;
     action->battleAttachmentParent10 = parent;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->phase = yOffset + parentY - 100;
     return action;
 }
@@ -463,7 +463,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->offset40 = static_cast<float>(offsetX);
             action->framePlayingRate = 100;
             action->flags = initialFlags | 0x40000u;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(third.offsetY);
             action->scaleX = static_cast<float>(action->scaleX * 1.5);
             action->scaleY = static_cast<float>(action->scaleY * 1.5);
@@ -489,7 +489,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->offset40 = source->offset40;
             const std::int32_t halfOffset = source->graphicOffsetY / 2;
             action->offset44 = static_cast<float>(static_cast<double>(halfOffset) + source->offset44);
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             break;
         }
         case 30:
@@ -509,7 +509,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->rebirthValue2 = 4;
             action->offset40 = source->offset40;
             action->offset44 = static_cast<float>(static_cast<double>(third.offsetY) + source->offset44);
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             break;
         }
         case 36: {
@@ -531,7 +531,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::int32_t projectedX = halfWidth + source->graphicOffsetX + x;
             action->offset40 = static_cast<float>(projectedX);
             const std::int32_t projectedY = source->y + third.offsetY;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(projectedY);
             break;
         }
@@ -559,7 +559,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::int32_t projectedX = width / 2 + source->graphicOffsetX + x;
             action->offset40 = static_cast<float>(projectedX);
             const std::int32_t projectedY = third.offsetY + source->y;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(projectedY);
             break;
         }
@@ -604,17 +604,17 @@ YobiAction* NewBattleEffect_41CD00(
                 if (currentImage >= 110180 && currentImage <= 110183) {
                     const std::int32_t halfOffset = source->graphicOffsetY / 2;
                     const double y = static_cast<double>(halfOffset) + source->offset44 + third.offsetY;
-                    action->pathPointCount_270 = 0;
+                    action->pathCountOrDrawOrder_270 = 0;
                     action->offset44 = static_cast<float>(y);
                 } else {
                     const float y = source->offset44;
-                    action->pathPointCount_270 = 0;
+                    action->pathCountOrDrawOrder_270 = 0;
                     action->offset44 = y;
                 }
             } else {
                 action->offset40 = source->offset40;
                 action->offset44 = source->offset44;
-                action->pathPointCount_270 = 0;
+                action->pathCountOrDrawOrder_270 = 0;
             }
             break;
         }
@@ -668,7 +668,7 @@ YobiAction* NewBattleEffect_41CD00(
                 TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[
                     sourcePayload->effects1C[sourcePayload->effectRunningC9C].position], 0, 0.0F);
                 const std::int32_t angle = platform::RandomRange_46FAF0(-90, 90);
-                action->pathPointCount_270 = 0;
+                action->pathCountOrDrawOrder_270 = 0;
                 action->angle50 = static_cast<float>(static_cast<double>(angle) + action->angle50);
             } else if (fixedTargetMode) {
                 auto* const payload = action->payload.battleActor;
@@ -705,7 +705,7 @@ YobiAction* NewBattleEffect_41CD00(
                 payload->skillMeta = sourcePayload->skillMeta; // E01／41E114。
                 action->offset40 = fixedTarget->offset40;
                 action->offset44 = fixedTarget->offset44;
-                action->pathPointCount_270 = 0;
+                action->pathCountOrDrawOrder_270 = 0;
             } else if (skill == 19 || skill == 23 || skill == 27) {
                 InitBattleOffsetEffect_423040(action, source, UpdateBattleMovingImpactEffect_41BB00);
             } else if (skill == 22 || skill == 26 || skill == 30) {
@@ -752,7 +752,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->rebirthValue2 = 4;
             action->offset40 = source->offset40;
             action->offset44 = source->offset44;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             break;
         }
         default: {
@@ -769,7 +769,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = initialFlags | 0x40000u;
             action->offset40 = static_cast<float>(static_cast<double>(offsetX) + source->offset40);
             const double initialY = static_cast<double>(third.offsetY) + source->offset44;
-            action->pathPointCount_270 = 0;
+            action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(initialY);
             bool deviceBlend = false;
             bool centerY = false;
@@ -1146,7 +1146,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     payload->valueFF0 = duration;
     action->field58 = 2 - duration;
     action->value54 = 10.0F;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     payload->flash1004 = 1;
@@ -1210,7 +1210,7 @@ void NewBattleProjection_418DF0(
     TurnBattleTowardPosition_4060D0(action, turnX, turnY, 0, 0.0F);
     const std::int32_t initialImage = action->imageNo;
     action->value54 = 10.0F;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     if (initialImage == 110016 || initialImage == 111055) {
         action->rebirthValue1 = 4;
         action->rebirthValue2 = 4;
@@ -1248,7 +1248,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     const float initialY = parent->offset44;
     auto* const payload = action->payload.battleActor;
     action->offset44 = initialY;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[effect->position], 0, 0.0F);
     const std::int32_t effectValue4 = effect->position4;
     const std::int32_t effectValue3 = effect->position3;
@@ -1321,7 +1321,7 @@ YobiAction* NewBattleBlastWave_419180(
     const float initialY = parent->offset44;
     auto* const payload = action->payload.battleActor;
     action->offset44 = initialY;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[effect->position], 0, 0.0F);
     action->imageNo = static_cast<std::int32_t>((action->angle50 + 11.25)
         * kBattleDirectionFrameScale);
@@ -1421,7 +1421,7 @@ YobiAction* NewBattleRangeHit_419390(
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
     action->phase = 16;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
@@ -1473,7 +1473,7 @@ YobiAction* NewBattleArcShot_419DA0(
     action->value54 = 10.0F;
     action->displayPriority = 203;
     action->offset40 = parent->offset40;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->offset44 = parent->offset44;
     TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[effect->position], 0, 0.0F);
     AppendBattleEffect_439400(action, *effect);
@@ -1531,7 +1531,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
     action->direction = parent->direction;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->phase = 0;
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
@@ -1575,7 +1575,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     action->imageNo = parentPayload->castSkill103C == 2022 ? 111141 : 103000;
     action->imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Boomerang, action->imageNo); // E08／419692。
     action->direction = 0;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     payload->battlePosition18 = parentPayload->battlePosition18;
     do {
         if (parentPayload->castSkill103C == 258) {
@@ -1769,7 +1769,7 @@ YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::i
     action->offset40 = parent->offset40;
     const std::int32_t halfOffsetY = parent->graphicOffsetY / 2;
     const double y = static_cast<double>(halfOffsetY) + parent->offset44;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->offset44 = static_cast<float>(y);
     return action;
 }
@@ -1809,7 +1809,7 @@ YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::
     const float screenY = action->offset44;
     action->x = x;
     action->y = static_cast<std::int32_t>(screenY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -1835,7 +1835,7 @@ YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const
     action->direction = 0;
     action->x = static_cast<std::int32_t>(x);
     action->y = static_cast<std::int32_t>(y);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -1867,7 +1867,7 @@ YobiAction* NewBattleTrailEffect_41E7C0(
     action->direction = 0;
     action->x = static_cast<std::int32_t>(x);
     action->y = static_cast<std::int32_t>(y);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -1908,7 +1908,7 @@ YobiAction* NewBattleRandomEffect_419FC0(
     const std::int32_t y = quarterHeight + parent->y - randomY;
     action->direction = direction;
     action->y = y;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -1933,7 +1933,7 @@ YobiAction* NewBattleScreenEffect_41A0D0(
     action->y = y;
     action->direction = direction;
     action->imageNo = imageNo;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -2091,7 +2091,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(currentY);
     const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
 }
@@ -2151,7 +2151,7 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(currentY);
     const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
 }
@@ -2184,7 +2184,7 @@ YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std
     action->displayPriority = 204;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->phase = 0;
     action->field1D0 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -2235,7 +2235,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
     action->offset44 = parent->offset44;
     payload->offsetX04 = offsetX;
     payload->offsetY08 = offsetY;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     const double x = static_cast<double>(payload->offsetX04) + action->offset40;
     action->x = static_cast<std::int32_t>(x);
@@ -2304,7 +2304,7 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
     const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
 }
@@ -2376,7 +2376,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     action->battleAttachmentParent10 = parent;
     action->x = static_cast<std::int32_t>(action->offset40);
     action->y = static_cast<std::int32_t>(action->offset44);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -2484,7 +2484,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     const float y = action->offset44;
     action->x = x;
     action->y = static_cast<std::int32_t>(y);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     if (mode == 1) {
         action->deltaY = -50;
         action->scaleX = 0.3F;
@@ -2556,7 +2556,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
     const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
 }
@@ -2648,7 +2648,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     SetYobiActionField30F(action, 0);
     action->x = 0;
     action->y = 0;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 
@@ -2766,7 +2766,7 @@ YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_
     action->rebirthValue2 = 4;
     action->direction = 0;
     action->x = x;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->y = y;
     return action;
 }
@@ -2800,7 +2800,7 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
     action->framePlayingRate = 100;
     action->displayPriority = 3;
     action->phase = phase;
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
 

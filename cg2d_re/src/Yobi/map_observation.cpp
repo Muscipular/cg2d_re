@@ -142,7 +142,7 @@ YobiAction* Sub_43F330(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = mapX * 64.0;
@@ -187,7 +187,7 @@ YobiAction* Sub_43FEB0(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = mapX * 64.0;
@@ -1084,7 +1084,7 @@ YobiAction* Sub_46DE50(
     action->flags = 0x30;
     action->mapX200 = static_cast<std::int32_t>(mapX);
     action->mapY210 = static_cast<std::int32_t>(mapY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     action->mapX1E0 = static_cast<std::int32_t>(mapX);
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
     const double scaledX = mapX * 64.0;

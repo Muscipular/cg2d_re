@@ -219,7 +219,7 @@ static std::int32_t Sub_4474E0(YobiAction* const action)
 // 原4469C0：按原递增换向顺序选一格，避开上次格及469810判定的阻挡格。
 static void Sub_4469C0(YobiAction* const action)
 {
-    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -262,9 +262,9 @@ static void Sub_4469C0(YobiAction* const action)
         payload->value06 = 0;
     }
     payload->value04 = direction;
-    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = candidateX;
-    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = candidateY;
-    ++action->pathPointCount_270;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = candidateX;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = candidateY;
+    ++action->pathCountOrDrawOrder_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -273,7 +273,7 @@ static void Sub_4469C0(YobiAction* const action)
 static void Sub_446B50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -283,12 +283,12 @@ static void Sub_446B50(YobiAction* const action)
     const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->value02);
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
-    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = x;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = x;
     const std::int16_t deltaY = world::ReadDirectionDeltaY(payload->value02);
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
-    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = y;
-    ++action->pathPointCount_270;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = y;
+    ++action->pathCountOrDrawOrder_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -308,7 +308,7 @@ static void Sub_446C10(YobiAction* const action)
     auto* const payload = action->payload.mapTransition;
     std::int32_t stepX = 0;
     std::int32_t stepY = 0;
-    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -331,11 +331,11 @@ static void Sub_446C10(YobiAction* const action)
     }
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(stepX));
-    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = x;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = x;
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(stepY));
-    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = y;
-    ++action->pathPointCount_270;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = y;
+    ++action->pathCountOrDrawOrder_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -857,7 +857,7 @@ YobiAction* Sub_448040(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->pathPointCount_270 = 0;
+    action->pathCountOrDrawOrder_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 

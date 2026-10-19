@@ -199,7 +199,7 @@ void AddBattleAppendEffect_43BE00(
 std::int32_t FindBattleAppendEffectTechnique_43BEA0(
     std::int32_t skill, std::int32_t position); // 按位置/技能查首节点，未命中-1。
 // 原函数：0x00405CB0。
-void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
+void UpdateBattleDirectionFromAngle_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
 // 原函数：0x00405E60。
 void NormalizeBattleAngle_405E60(YobiAction* action); // BSTL01：上限首样/第二角度持样/负值重取，一次加减360。
 // 原函数：0x00405EA0。
@@ -226,7 +226,7 @@ std::int32_t CountBattleActiveEntries_406360(); // BHRC01：22槽含20/21，FF8�
 // 原函数：0x004065A0。
 std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
 // 原函数：0x00406260。
-void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
+void FaceBattleActorTowardFormationPosition_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 // 原函数：0x004390E0。
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 // 原函数：0x004391E0。

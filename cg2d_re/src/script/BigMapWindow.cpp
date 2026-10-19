@@ -1,5 +1,8 @@
 #include "BigMapWindow.hpp"
+#include "BigMapSurface.hpp"
 #include "LuaUI.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "../world/WorldMapState.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include <array>
@@ -41,12 +44,14 @@ struct BigMapAnnotation {
 };
 
 struct BigMapWindow final : UIWindowInstanceEx {
-    UIMapExControl map{kBigMapWindowId, 0, 0, "bigMap", 0, 0, 1, 1, 1, 0, 0, -1, -1, {}};
+    BigMapSurface map;
     std::map<std::pair<int, int>, BigMapAnnotation> annotations;
     std::array<bool, 7> categories{true, true, true, true, true, true, true};
     int currentMap = -1, currentFloor = -1, currentGroup = -1;
     int targetX = -1, targetY = -1;
-    int dragX = 0, dragY = 0, dragMapX = 0, dragMapY = 0;
+    int dragX = 0, dragY = 0;
+    double dragMapX = 0, dragMapY = 0;
+    bool dragMoved = false;
     bool options = true, followPlayer = true, dragging = false, mapReady = false;
     bool annotationsLoaded = false;
     bool acceptsMouse = false; // 当前调度帧可接收输入，避免被其它窗口遮住时仍显示悬停。
@@ -200,14 +205,17 @@ struct BigMapWindow final : UIWindowInstanceEx {
         const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);
         const bool held = (gMouseBtnDown2 & 1) != 0;
         const int phase = ui::WindowDrag_ReadMousePhase();
-        const bool available = gWindowHasFocus == 0 && phase == 0;
+        const bool available = gWindowHasFocus == 0 && phase == 0 && platform::gWindowActiveState == 2
+            && platform::IsClientWindowForeground();
         acceptsMouse = available && focused != 0;
         if (dragging) {
             if (available && held) {
                 const int dx = mx - dragX, dy = my - dragY;
-                if (dx != 0 || dy != 0) followPlayer = false;
-                map.mapX = dragMapX - static_cast<int>(std::round((dx - 2.0 * dy) / 4.0));
-                map.mapY = dragMapY - static_cast<int>(std::round((dx + 2.0 * dy) / 4.0));
+                if (std::abs(dx) > 3 || std::abs(dy) > 3) dragMoved = true;
+                if (dragMoved) {
+                    followPlayer = false;
+                    map.PanFrom(dragMapX, dragMapY, dx, dy);
+                }
             } else dragging = false;
             // 松开或拖出窗口的当帧也拦截，避免场景收到尾部鼠标事件。
             gMouseEventState = MES_CAPTURED;
@@ -228,6 +236,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 if (index >= 0 && index < static_cast<int>(categories.size())) categories[index] = !categories[index];
             } else if (MapHit()) {
                 dragging = true;
+                dragMoved = false;
                 dragX = mx; dragY = my;
                 dragMapX = map.mapX; dragMapY = map.mapY;
             }
@@ -380,15 +389,31 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 UiText(62, 140 + i * 20, kCategoryNames[i], clip);
                 if (categories[i]) UiImage(Checked, 46, 141 + i * 20, 12, 11, clip, 0xFFFF0000u);
                 UiImage(Checkbox, 46, 143 + i * 20, 9, 9, clip);
+                if (acceptsMouse && Hit(42, 138 + i * 20, 194, 20))
+                    RendererDrawRectClipped(static_cast<short>(window.x + S(42)),
+                        static_cast<short>(window.y + S(138 + i * 20)), static_cast<short>(S(194)),
+                        static_cast<short>(S(20)), LAYER_UI, 0x503F6E83u, &clip);
             }
             UiText(184, 287, L"刷新坐标", clip, 4);
             DrawPanel(clip);
         }
-        UiText(12, 442, targetX >= 0 ? std::format(L"目标：{},{}  {}", targetX, targetY, routeStatus) : L"右键选择寻路坐标", clip, 12);
+        std::wstring hint = targetX >= 0
+            ? std::format(L"目标：{},{}  {}", targetX, targetY, routeStatus.empty() ? L"点击开始寻路" : routeStatus)
+            : L"左键拖动地图，右键选择寻路坐标";
+        if (acceptsMouse) {
+            if (ButtonHit(BigMapButton::Walk)) hint = L"开始寻路：前往右键选中的目标";
+            else if (ButtonHit(BigMapButton::Center)) hint = L"玩家居中：恢复地图跟随";
+            else if (ButtonHit(BigMapButton::Refresh)) hint = L"刷新坐标：重新读取地点标注";
+            else if (ButtonHit(BigMapButton::Toggle)) hint = options ? L"收起地图选项" : L"展开地图选项";
+            else if (ButtonHit(BigMapButton::Close)) hint = L"关闭大地图";
+        }
+        UiText(12, 442, hint, clip, 12);
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt"
             : annotations.empty() ? L"当前地图没有标注" : std::format(L"地图标注：{}处", annotations.size());
         if (missingIcons || previousUiFailures || failedUiImages)
             status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, std::max(previousUiFailures, failedUiImages));
+        const auto generation = map.Status();
+        if (!generation.empty()) status += L"  " + generation;
         UiText(12, 462, status, clip, 12);
         // 框先入队，地图标注随后：原版不透明纸面遮住菱形视口外的地图内容。
         UiImage(MapFrame, 0, 0, 640, 480, clip);
@@ -406,7 +431,9 @@ struct BigMapWindow final : UIWindowInstanceEx {
             failedUiImages += DrawAnnotations(clip);
         } else Text(window.x + S(280), window.y + S(230), L"当前地图数据未就绪", clip, 4);
         RendererBreakWindowTextBatch();
-        map.render(static_cast<short>(window.x), static_cast<short>(window.y), &clip);
+        map.Render(window.x, window.y, LAYER_UI, {clip.left, clip.top, clip.right, clip.bottom});
+        RendererDrawRectClipped(static_cast<short>(window.x), static_cast<short>(window.y),
+            static_cast<short>(window.width), static_cast<short>(window.height), LAYER_UI, 0xFF000000u, &clip);
         return stage;
     }
 

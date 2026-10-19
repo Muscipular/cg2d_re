@@ -20,6 +20,11 @@ std::int32_t DrawGraphicImage(std::int32_t imageNo,
 // BMUI01：源图坐标的透明像素查询；资源缺失或越界返回false，不暴露后端表面。
 bool IsGraphicImageTransparent(std::int32_t imageNo, std::int32_t x, std::int32_t y);
 
+// BMUI02：立即将资源图源矩形按当前调色板合成至不透明ARGB像素面；不使用主场景队列。
+// x/y对应source左上角，支持图形缓存的全部纹理节点；失败由生成器保留旧块并重试。
+bool CompositeGraphicPixels(std::int32_t imageNo, const PngRectangle& source,
+    std::int32_t x, std::int32_t y, std::uint32_t* pixels, std::int32_t width, std::int32_t height);
+
 std::int32_t DrawPixelImage(PixelImage* image,
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::uint32_t color, std::uint8_t layer, const PngRectangle* clipRectangle = nullptr);

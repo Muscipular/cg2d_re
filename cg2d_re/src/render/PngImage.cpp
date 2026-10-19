@@ -7,6 +7,7 @@
 #include "cg/resource/GraphicDecode.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/GraphicDxCache.hpp"
+#include "cg/render/Palette.hpp"
 
 #include <Windows.h>
 #include <wincodec.h>
@@ -202,6 +203,54 @@ bool IsGraphicImageTransparent(const std::int32_t imageNo, const std::int32_t x,
     if (x < 0 || y < 0 || x >= surface->w || y >= surface->h) return false;
     const auto* row = reinterpret_cast<const std::uint32_t*>(static_cast<const std::uint8_t*>(surface->pixels) + y * surface->pitch);
     return (row[x] & 0xFF000000u) == 0;
+}
+
+bool CompositeGraphicPixels(const std::int32_t imageNo, const PngRectangle& source,
+    const std::int32_t x, const std::int32_t y, std::uint32_t* const pixels,
+    const std::int32_t width, const std::int32_t height)
+{
+    if (!pixels || imageNo < 0 || imageNo >= resource::gMaxGraphicCount || !gGraphicDxCache103CFA4)
+        return false;
+    GraphicCacheItem32 graphic{};
+    graphic.imageNo = imageNo;
+    graphic.descriptor.color = 0xFFFFFFFFu;
+    static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
+    if (!LoadGraphic_522570(imageNo)) return false;
+    auto* node = gGraphicDxCache103CFA4[imageNo].head;
+    if (!node) return false;
+    for (; node; node = node->next) {
+        if (!LoadGraphicTexture_520B10(&graphic, node)) return false;
+        // 上传限流会返回成功但继续用旧色；不能把旧色烘焙进持久化地图。
+        if (node->paletteChoice != gActivePalette
+            || node->paletteVersion != static_cast<std::int16_t>(gPaletteFrameVersion)
+            || node->paletteIndex != graphic.descriptor.paletteIndex) return false;
+        node->reuseState = platform::gFrameCount;
+        const auto* surface = GetTextureSdlSurface(node->surface);
+        if (!surface) return false;
+        const int left = std::max({source[0], static_cast<int>(node->blockX), source[0] - x});
+        const int top = std::max({source[1], static_cast<int>(node->blockY), source[1] - y});
+        const int right = std::min({source[2], node->blockX + surface->w, source[0] + width - x});
+        const int bottom = std::min({source[3], node->blockY + surface->h, source[1] + height - y});
+        for (int sy = top; sy < bottom; ++sy) {
+            const auto* input = reinterpret_cast<const std::uint32_t*>(
+                static_cast<const std::uint8_t*>(surface->pixels) + (sy - node->blockY) * surface->pitch);
+            auto* output = pixels + (y + sy - source[1]) * width;
+            for (int sx = left; sx < right; ++sx) {
+                const auto color = input[sx - node->blockX];
+                const unsigned alpha = color >> 24;
+                auto& dest = output[x + sx - source[0]];
+                if (alpha == 255) dest = color;
+                else if (alpha != 0) {
+                    const unsigned inverse = 255 - alpha;
+                    const unsigned red = (((color >> 16) & 255) * alpha + ((dest >> 16) & 255) * inverse + 127) / 255;
+                    const unsigned green = (((color >> 8) & 255) * alpha + ((dest >> 8) & 255) * inverse + 127) / 255;
+                    const unsigned blue = ((color & 255) * alpha + (dest & 255) * inverse + 127) / 255;
+                    dest = 0xFF000000u | (red << 16) | (green << 8) | blue;
+                }
+            }
+        }
+    }
+    return true;
 }
 
 std::int32_t DrawPixelImage(PixelImage* const image,

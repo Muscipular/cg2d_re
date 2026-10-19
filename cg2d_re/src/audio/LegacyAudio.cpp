@@ -43,8 +43,8 @@ static constexpr std::uint32_t kRecordCount = 128;
 
 static std::int32_t gRecordIndex = -1;
 static std::array<LegacyAudioRecord, kRecordCount> gRecords {};
-static std::int32_t gFlag = 0;
-static std::int32_t gQuotient = 0;
+static std::int32_t gBgmFadeOutActive_105080C = 0;
+static std::int32_t gBgmFadeVolumeIndex_103CFB0 = 0;
 static std::uint32_t gBgmActive1050808 = 0; // 原全局：0x01050808。 原播放状态 W32；52BE60 置位，52B940 清理。
 static std::uint32_t gBgmMode1050820 = 0; // 原全局：0x01050820。 原 BGM 流式模式 W32；52B8E0 消费。
 static std::atomic<std::uint8_t> gBgmStopNotice105081C {0}; // 原全局：0x0105081C。
@@ -266,7 +266,7 @@ static std::int32_t LoadStreamingBgm_52C160(
 }
 
 std::uint32_t gValue103DE80 = 0; // 原全局：0x0103DE80。
-std::uint32_t gValue10507D4 = 0; // 原全局：0x010507D4。
+std::uint32_t gAudioDisabled_10507D4 = 0; // 原全局：0x010507D4。
 std::int32_t gBgmTarget1050818 = 0; // 原全局：0x01050818。
 std::int32_t gBgmRequest1050810 = 0; // 原全局：0x01050810。
 std::int32_t gBgmStage1050814 = 0; // 原全局：0x01050814。
@@ -274,9 +274,9 @@ volatile std::uint32_t gMciDeviceId = 0; // 原全局：0x010507EC。
 std::uint32_t gMciCloseResult = 0; // 原全局：0x010507FC。
 
 // 原函数：0x0052B9E0。
-SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
+SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(); // 原通道、请求与两张运行表初始化。
 // 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
-void Sub_52B8E0()
+void StopAndReleaseStreamingBgm_52B8E0()
 {
     if (gBgmMode1050820 == 0 || !gSdlAudioBackend.HasBgm()) {
         return;
@@ -294,26 +294,26 @@ void Sub_52B8E0()
 }
 
 // 原 [0x52B940,0x52B98E)：两路资源清理后依次清三个共享状态。
-void Sub_52B940()
+void ResetBgmPlayback_52B940()
 {
     if (gBgmMode1050820 != 0) {
-        Sub_52B8E0();
+        StopAndReleaseStreamingBgm_52B8E0();
     } else if (gSdlAudioBackend.HasBgm()) {
         gSdlAudioBackend.ReleaseBgm();
     }
-    gFlag = 0;
+    gBgmFadeOutActive_105080C = 0;
     gBgmActive1050808 = 0;
     gBgmStage1050814 = 0;
 }
 
 // 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
-void Sub_52B630()
+void ShutdownAudio_52B630()
 {
-    if (gValue10507D4 != 0) {
+    if (gAudioDisabled_10507D4 != 0) {
         return;
     }
 
-    Sub_52B8E0();
+    StopAndReleaseStreamingBgm_52B8E0();
     if (gSdlAudioBackend.HasBgm()) {
         gSdlAudioBackend.ReleaseBgm();
     }
@@ -328,7 +328,7 @@ void Sub_52B630()
 }
 
 // 原 [524230,52B627)：配置项按原栈表顺序加载；设备/样本/通道机制使用 SDL3。
-std::int32_t Sub_524230()
+std::int32_t InitializeAudioDeviceAndSamples_524230()
 {
     if (!gSdlAudioBackend.Open()) {
         return 0;
@@ -426,26 +426,26 @@ std::int32_t Sub_524230()
 std::int32_t InitializeAudio_5241A0()
 {
     if ((platform::gRendererFlags & 0x20u) != 0) {
-        gValue10507D4 = 1;
+        gAudioDisabled_10507D4 = 1;
         return 0;
     }
 
     static_cast<void>(LoadBgmConfig_524060());
     if ((static_cast<std::uint16_t>(::GetAsyncKeyState(VK_SHIFT)) & 0x8000u) != 0) {
-        gValue10507D4 = 1;
+        gAudioDisabled_10507D4 = 1;
         return 0;
     }
 
     static_cast<void>(login::detail::Sub_44B5C0("\tinitDSound() Start"));
-    const std::int32_t result = Sub_524230();
+    const std::int32_t result = InitializeAudioDeviceAndSamples_524230();
     if (result == 0) {
-        gValue10507D4 = 1;
+        gAudioDisabled_10507D4 = 1;
         return result;
     }
 
     static_cast<void>(login::detail::Sub_44B5C0("\tmusic_init() Start"));
-    static_cast<void>(Sub_52B9E0());
-    gValue10507D4 = 0;
+    static_cast<void>(InitializeSoundRuntimeState_52B9E0());
+    gAudioDisabled_10507D4 = 0;
     static_cast<void>(login::detail::Sub_44B5C0("t_music_init OK"));
     return 1;
 }
@@ -538,12 +538,12 @@ std::int32_t UpdateBgmRequest_52C910()
         return result;
     }
     case 1: {
-        const std::uint32_t result = Sub_52B990();
+        const std::uint32_t result = BeginBgmFadeOut_52B990();
         ++gBgmStage1050814;
         return std::bit_cast<std::int32_t>(result);
     }
     case 2: {
-        const std::int32_t flag = gFlag;
+        const std::int32_t flag = gBgmFadeOutActive_105080C;
         if (flag == 0) {
             gBgmStage1050814 = 3;
         }
@@ -562,7 +562,7 @@ std::int32_t UpdateBgmRequest_52C910()
 }
 
 // 原函数：0x0052CCE0。
-std::uint32_t Sub_52CCE0() noexcept
+std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept
 {
     if (gValue103DE80 == 1) {
         return 1;
@@ -575,7 +575,7 @@ std::uint32_t Sub_52CCE0() noexcept
 }
 
 // 原函数：0x0052CD40。
-SpatialAudioRecord* __cdecl Sub_52CD40()
+SpatialAudioRecord* __cdecl ResetSpatialSoundSources_52CD40()
 {
     for (auto& record : gSpatialRecords103D1C0) {
         record.value04 = -1;
@@ -585,7 +585,7 @@ SpatialAudioRecord* __cdecl Sub_52CD40()
 }
 
 // 原 [0x52B9E0,0x52BBD6)：按通道、清零区、请求、声像/音量表顺序初始化。
-SpatialAudioRecord* __cdecl Sub_52B9E0()
+SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0()
 {
     for (SoundChannelState& channel : gSoundChannels104D0C8) {
         channel.value00 = 0;
@@ -603,11 +603,11 @@ SpatialAudioRecord* __cdecl Sub_52B9E0()
     }
 
     platform::Cg2dInitializeSoundTablesX87(gPanVal103CFBC.data(), gSoundVolValue10505D0.data());
-    return Sub_52CD40();
+    return ResetSpatialSoundSources_52CD40();
 }
 
 // 原 [0x52CDE0,0x52CE97)；在同一空间音频表发布更近的屏幕坐标与距离。
-std::int32_t __cdecl Sub_52CDE0(
+std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(
     const std::int32_t index,
     const std::int32_t sourceX,
     const std::int32_t sourceY)
@@ -623,7 +623,7 @@ std::int32_t __cdecl Sub_52CDE0(
 }
 
 // 原函数：0x0052C9E0。
-std::int32_t __cdecl Sub_52C9E0(
+std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(
     const std::int32_t id, const std::int32_t x, const std::int32_t y)
 {
     if (id < 250 || id > 299) {
@@ -666,7 +666,7 @@ std::int32_t __cdecl PlaySe_52C450(
     const std::int32_t seNo, const std::int32_t screenX)
 {
     gLastSeNo58D4FC = seNo;
-    if (gValue10507D4 != 0 || platform::gEnableSound == 0
+    if (gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
         || seNo < 0 || seNo > 500 || !gSdlAudioBackend.IsOpen()) {
         return -1;
     }
@@ -745,10 +745,10 @@ std::int32_t __cdecl PlaySe_52C450(
 }
 
 // 原 [0x52C680,0x52C90D)：请求已发布后更新通道及设备，只有复制失败被视为错误。
-std::int32_t __cdecl Sub_52C680(
+std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
     const std::int32_t requestIndex, const std::int32_t isNew)
 {
-    if (gValue10507D4 != 0 || platform::gEnableSound == 0
+    if (gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
         || requestIndex < 0 || requestIndex >= 50) {
         return -1;
     }
@@ -857,7 +857,7 @@ std::int32_t __cdecl Sub_52C680(
 }
 
 // 原 [0x52CB50,0x52CC3D)：遍历唯一请求表；失败的播放请求仍清计数。
-std::int32_t __cdecl Sub_52CB50()
+std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50()
 {
     std::int32_t result = -1;
     for (std::size_t index = 0; index < gSoundRequests104C9B8.size(); ++index) {
@@ -902,7 +902,7 @@ std::int32_t __cdecl Sub_52CB50()
             request.targetPanIndex = previousPanIndex + (std::clamp)(
                 desired - previousPanIndex, -2, 2);
         }
-        result = Sub_52C680(
+        result = ApplySpatialSoundRequest_52C680(
             static_cast<std::int32_t>(index), static_cast<std::int32_t>(isNew));
         request.requestCount = 0;
     }
@@ -910,9 +910,9 @@ std::int32_t __cdecl Sub_52CB50()
 }
 
 // 原 [0x52CCA0,0x52CCD1) 与独占尾块 [0x52CC40,0x52CC96)。
-void Sub_52CCA0()
+void UpdateAudioPlayback_52CCA0()
 {
-    if (gValue10507D4 != 0) {
+    if (gAudioDisabled_10507D4 != 0) {
         return;
     }
 
@@ -921,29 +921,29 @@ void Sub_52CCA0()
             --effect.cooldown;
         }
     }
-    static_cast<void>(Sub_52CB50());
+    static_cast<void>(ProcessSpatialSoundRequests_52CB50());
     static_cast<void>(UpdateBgmRequest_52C910());
 
     if (gBgmActive1050808 == 0) {
-        gFlag = 0;
+        gBgmFadeOutActive_105080C = 0;
         return;
     }
-    if (gFlag == 0) {
+    if (gBgmFadeOutActive_105080C == 0) {
         return;
     }
-    if (gQuotient != 0 && gSdlAudioBackend.HasBgm()) {
-        --gQuotient;
+    if (gBgmFadeVolumeIndex_103CFB0 != 0 && gSdlAudioBackend.HasBgm()) {
+        --gBgmFadeVolumeIndex_103CFB0;
         static_cast<void>(gSdlAudioBackend.SetBgmVolume(
-            gSoundVolValue10505D0[static_cast<std::size_t>(gQuotient)]));
+            gSoundVolValue10505D0[static_cast<std::size_t>(gBgmFadeVolumeIndex_103CFB0)]));
         return;
     }
 
-    Sub_52B940();
+    ResetBgmPlayback_52B940();
     gRecordIndex = -1;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。
-void __cdecl Sub_52CD60()
+void __cdecl SubmitSpatialSoundSources_52CD60()
 {
     for (SpatialAudioRecord& record : gSpatialRecords103D1C0) {
         const std::int32_t id = record.value04;
@@ -959,7 +959,7 @@ void __cdecl Sub_52CD60()
             return;
         }
 
-        static_cast<void>(Sub_52C9E0(id + 249, x, y));
+        static_cast<void>(AccumulateSpatialSoundRequest_52C9E0(id + 249, x, y));
         record.value00 = 1;
     }
 }
@@ -970,36 +970,36 @@ std::int32_t ReadBgmRecordIndex58D4F8() noexcept
 }
 
 // 原函数：0x0052B990。
-std::uint32_t Sub_52B990() noexcept
+std::uint32_t BeginBgmFadeOut_52B990() noexcept
 {
     const std::int32_t index = gRecordIndex;
     if (index < 0 || static_cast<std::uint32_t>(index) >= kRecordCount) {
         return std::bit_cast<std::uint32_t>(index);
     }
 
-    gFlag = 1;
+    gBgmFadeOutActive_105080C = 1;
     const std::int32_t value00 = gRecords[static_cast<std::size_t>(index)].value40;
     const std::int32_t musicVolume = cg::platform::gMusicVolume;
     const std::uint32_t productBits =
         std::bit_cast<std::uint32_t>(value00)
         * std::bit_cast<std::uint32_t>(musicVolume);
     const std::int32_t product = std::bit_cast<std::int32_t>(productBits);
-    gQuotient = product / 15;
+    gBgmFadeVolumeIndex_103CFB0 = product / 15;
     return productBits >> 31;
 }
 
 // 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
 std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
 {
-    if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gFlag == 0) {
+    if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gBgmFadeOutActive_105080C == 0) {
         return 1;
     }
-    gFlag = 0;
-    if (audio::gValue10507D4 != 0) {
+    gBgmFadeOutActive_105080C = 0;
+    if (audio::gAudioDisabled_10507D4 != 0) {
         return -1;
     }
     if (gRecordIndex != -1) {
-        audio::Sub_52B8E0();
+        audio::StopAndReleaseStreamingBgm_52B8E0();
     }
     if (bgmId == 0xFFFFFFFEu) {
         gRecordIndex = -2;
@@ -1070,9 +1070,9 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
 }
 
 // 原52C3D0：先失败标志/当前号/enable，再原0..15钳制；实际缓冲不存在透传level。
-std::int32_t Sub_52C3D0()
+std::int32_t ApplyBgmVolume_52C3D0()
 {
-    std::int32_t result = std::bit_cast<std::int32_t>(gValue10507D4);
+    std::int32_t result = std::bit_cast<std::int32_t>(gAudioDisabled_10507D4);
     if (result == 0 && gRecordIndex != -1) {
         result = platform::gEnableMusic;
         if (result != 0) {
@@ -1148,12 +1148,12 @@ std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t 
 }
 
 // 原函数：0x00454EE0。
-std::int32_t Sub_454EE0()
+std::int32_t ShutdownFixedMusic_454EE0()
 {
     audio::gSdlAudioBackend.StopFixedMusic();
     audio::gSdlAudioBackend.ShutdownFixedMusic();
     // WAV初始化失败时，SDL设备只由音乐持有；正常WAV owner仍由52B630释放。
-    if (audio::gValue10507D4 != 0) { audio::gSdlAudioBackend.Close(); }
+    if (audio::gAudioDisabled_10507D4 != 0) { audio::gSdlAudioBackend.Close(); }
     return 0;
 }
 
@@ -1161,7 +1161,7 @@ std::int32_t Sub_454EE0()
 std::int32_t InitializeMusic_454C30(std::uintptr_t)
 {
     if (platform::CheckLegacyDxCapability_458DC0() != 0) { return 1; }
-    static_cast<void>(Sub_454EE0());
+    static_cast<void>(ShutdownFixedMusic_454EE0());
     if (!audio::gSdlAudioBackend.IsOpen() && !audio::gSdlAudioBackend.Open()) { return 1; }
     // 用户要求预转换为WAV；从本客户端内置资源载入，不再访问系统音色或解析MIDI。
     const HMODULE module = ::GetModuleHandleW(nullptr);
@@ -1177,7 +1177,7 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
 }
 
 // 原458AE0的DX设备检查改为真实SDL音频设备；独立DINPUT入口观察保留。
-std::int32_t Sub_458AE0()
+std::int32_t CheckAudioAndInputAvailability_458AE0()
 {
     platform::SdlAudioBackend probe;
     if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {

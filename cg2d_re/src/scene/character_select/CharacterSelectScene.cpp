@@ -1000,7 +1000,7 @@ std::int32_t Sub_4631D0()
             state::gValueF633F4 = element2;
             state::gValueDE0B04 = element3;
             world::gValueFDA6F8 = 0;
-            cg::audio::Sub_52B990();
+            cg::audio::BeginBgmFadeOut_52B990();
             Sub_4642C0();
         } else if (answer == 2) {
             state::gValue9A5AFC = 1;
@@ -1307,7 +1307,7 @@ static void EnterSelectedCharacter()
     world::SetCurrentSceneType(5);
     login::detail::PlaySe(59, 320, 240);
     state::gCharacterEntryState = 0;
-    cg::audio::Sub_52B990();
+    cg::audio::BeginBgmFadeOut_52B990();
     cg::yobi::YobiClearUp_404D30();
     ClearPreviewActions();
 }

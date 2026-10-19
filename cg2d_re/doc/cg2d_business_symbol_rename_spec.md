@@ -116,3 +116,36 @@
 | `gFloat1020EF0` | `gRipplePhase_1020EF0` | 上述三根共享浮点相位，回拷前扣屏幕Y位移。 |
 
 十五份源／头同步七函数和一个全局，包含登录、选人及环境动画调用。完整正文反向替换一致，旧符号零残留、新名无冲突、UTF-8无BOM／LF与差异静态检查通过；未编译、测试或运行。
+
+## BSR01-E 音频生命周期、空间请求与渐隐
+
+本组核当前LegacyAudio.cpp全文相关入口、请求生产／消费、LegacyAudioMath.cpp空间投影发布及调用方；不恢复MIDI或改动SDL后端。渐隐全局地址另经本次IDA的52B990核实。
+
+| 旧符号 | 新名称 | 证据 |
+|---|---|---|
+| `Sub_52B8E0` | `StopAndReleaseStreamingBgm_52B8E0` | 停止流式BGM，等待工作线程通知，再清模式并释放。 |
+| `Sub_52B940` | `ResetBgmPlayback_52B940` | 清理两路BGM资源并清渐隐、活动与阶段状态。 |
+| `Sub_52B630` | `ShutdownAudio_52B630` | 禁用门禁后依次释放BGM、通道、样本及设备。 |
+| `Sub_524230` | `InitializeAudioDeviceAndSamples_524230` | 打开设备、加载音效、准备通道并填BGM运行记录。 |
+| `Sub_52CCE0` | `StopAndCloseMciDevice_52CCE0` | 原门禁后调用MCI_STOP／MCI_CLOSE，保留复合返回值。 |
+| `Sub_52CD40` | `ResetSpatialSoundSources_52CD40` | 将50条空间记录的来源置-1、重新选择标志置1，不清其他字段。 |
+| `Sub_52B9E0` | `InitializeSoundRuntimeState_52B9E0` | 初始化通道、请求、声像／音量表和空间来源记录。 |
+| `Sub_52CDE0` | `UpdateNearestSpatialSoundSource_52CDE0` | 投影世界坐标，由Cg2dPublishSpatialProjectionX87比较屏幕中心距离并发布更近来源；保留重选标志分支。 |
+| `Sub_52C9E0` | `AccumulateSpatialSoundRequest_52C9E0` | 250—299映射请求槽，累计请求并保留更近来源的距离／声像／音量。 |
+| `Sub_52C680` | `ApplySpatialSoundRequest_52C680` | 将请求属性应用至通道，新请求准备、回绕并播放，旧请求更新参数。 |
+| `Sub_52CB50` | `ProcessSpatialSoundRequests_52CB50` | 遍历请求表，无请求停通道，有请求应用后清请求数。 |
+| `Sub_52CCA0` | `UpdateAudioPlayback_52CCA0` | 更新冷却、音效请求、BGM请求及渐隐。 |
+| `Sub_52CD60` | `SubmitSpatialSoundSources_52CD60` | 扫描空间来源并提交请求，保首个有效距离不符时立即返回。 |
+| `Sub_52B990` | `BeginBgmFadeOut_52B990` | 当前BGM有效时设置渐隐标志，按音乐音量初始化渐隐音量索引。 |
+| `Sub_52C3D0` | `ApplyBgmVolume_52C3D0` | 依禁用／当前曲目／开关门禁，将音乐音量钳到0—15并应用。 |
+| `Sub_454EE0` | `ShutdownFixedMusic_454EE0` | 停止／释放固定音乐；普通WAV初始化失败时关闭设备。 |
+| `Sub_458AE0` | `CheckAudioAndInputAvailability_458AE0` | 探测真实SDL音频设备及DINPUT入口，保原返回位型。 |
+| `gValue10507D4` | `gAudioDisabled_10507D4` | 5241A0在主动跳过或初始化失败时置1，成功置0；播放／更新／退出共用。不能只命名为初始化失败。 |
+| `gFlag` | `gBgmFadeOutActive_105080C` | 52B990@52B9A3置1，当前52CCA0据此逐次降音量，清理／加载时清零。 |
+| `gQuotient` | `gBgmFadeVolumeIndex_103CFB0` | 52B990@52B9D1写缩放结果，当前52CCA0每次减1并查音量表。 |
+
+十二份源／头完成十七函数与三个全局的声明、定义和全部引用迁移。完整正文反向替换与提交前一致，新名无冲突、旧符号零残留、UTF-8无BOM／LF及差异静态检查通过；未编译、测试或运行。
+
+## 本轮边界
+
+A—E累计重命名49个函数、10个全局变量及1个结构成员；每组独立静态核对并提交。初始685个Sub代码标识符中尚余636个未重命名，主要世界、网络、UI和Yobi链尚未逐项完成分析；不能将其全部记为语义不明，更不能声称全项目命名完成。已分析但语义不足的45B370／45B380明确保留，后续仍以本SPEC的证据和命名规则推进。

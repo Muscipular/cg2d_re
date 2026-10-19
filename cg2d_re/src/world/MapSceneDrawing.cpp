@@ -138,7 +138,7 @@ static void DrawNormalMapCell(
         }
     } else if (markers != 0) {
         if (tile >= 250 && tile <= 299) {
-            static_cast<void>(audio::Sub_52C9E0(tile, screenX, screenY));
+            static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(tile, screenX, screenY));
         } else if (tile >= 200 && tile <= 249) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(tile));
             audio::gBgmRequest1050810 = 1;
@@ -186,7 +186,7 @@ static void DrawNormalMapCell(
         } else if (object >= 250 && object <= 299) {
             const std::int32_t span = gMapSpanX;
             const std::int32_t rawObject = gMapObjArray[span * row + diagonal + row];
-            static_cast<void>(audio::Sub_52C9E0(rawObject, screenX, screenY));
+            static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(rawObject, screenX, screenY));
         } else if (object >= 200 && object <= 249) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(object));
             audio::gBgmRequest1050810 = 1;
@@ -356,7 +356,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         gValue9EE8E0.readCount = readCount;
     }
     temporary.reset();
-    audio::Sub_52CD60();
+    audio::SubmitSpatialSoundSources_52CD60();
 }
 
 } // namespace cg::world

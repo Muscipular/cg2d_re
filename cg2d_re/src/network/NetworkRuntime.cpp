@@ -604,7 +604,7 @@ std::int32_t __cdecl Sub_50E6C0(
     const std::int32_t sourceX,
     const std::int32_t sourceY)
 {
-    return audio::Sub_52CDE0(index, sourceX, sourceY);
+    return audio::UpdateNearestSpatialSoundSource_52CDE0(index, sourceX, sourceY);
 }
 
 // 原 [0x50CF60,0x50CF6A)：直接发布完整第二参数。

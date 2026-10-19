@@ -3524,7 +3524,7 @@ void DrawNormalScene_51C7D0()
         Sub_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
-        audio::Sub_52B940();
+        audio::ResetBgmPlayback_52B940();
         Sub_469020();
         static_cast<void>(ui::WindowRuntime_Render());
         input::ProcessKeyInput_4596D0();
@@ -3784,7 +3784,7 @@ void DrawNormalScene_51C7D0()
             Sub_46BD40();
             static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
             RenderChara_521F20();
-            audio::Sub_52B940();
+            audio::ResetBgmPlayback_52B940();
             static_cast<void>(Sub_468200());
             Sub_4691D0();
             Sub_469020();
@@ -3922,7 +3922,7 @@ void DrawNormalScene_51C7D0()
         platform::RequestRender_457010();
         static_cast<void>(audio::PlaySe_52C450(201, 320));
         gValueFF0D68 = audio::ReadBgmRecordIndex58D4F8();
-        audio::Sub_52B940();
+        audio::ResetBgmPlayback_52B940();
         ++gCurrentSceneState;
         return;
     }
@@ -4308,7 +4308,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::ClearBattleAppendEffects_43BED0();
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
-        static_cast<void>(cg::audio::Sub_52B990());
+        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(Sub_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -4352,7 +4352,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::Sub_43BAA0());
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
-        static_cast<void>(cg::audio::Sub_52B990());
+        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(Sub_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -4726,7 +4726,7 @@ void __cdecl Sub_46DA80(
     std::int32_t a3,
     std::uint32_t a4)
 {
-    audio::Sub_52CD40();
+    audio::ResetSpatialSoundSources_52CD40();
     gValue9DAD5C = a1;
     gValue9DAD68 = a4;
     gValue9DAD58 = a2;
@@ -6722,7 +6722,7 @@ std::int32_t Sub_45EEE0()
     } else if (phase == 0) {
         Sub_51D750();
         platform::gValue73ECC0 = 2;
-        cg::audio::Sub_52B990();
+        cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
         gValue58B6D0 = 1;

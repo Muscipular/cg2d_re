@@ -42,9 +42,9 @@ int ShutdownClient_457A40()
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();
-    cg::audio::Sub_454EE0();
-    audio::Sub_52B630();
-    audio::Sub_52CCE0();
+    cg::audio::ShutdownFixedMusic_454EE0();
+    audio::ShutdownAudio_52B630();
+    audio::StopAndCloseMciDevice_52CCE0();
     cg::resource::animation::AnimeUnload_45BEF0();
     cg::resource::animation::CloseFlaggedAnimationFilesAndClearCache_45BF20();
     cg::resource::CloseGraphicFiles();

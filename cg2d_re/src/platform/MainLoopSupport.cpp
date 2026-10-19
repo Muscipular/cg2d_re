@@ -62,7 +62,7 @@ std::uint32_t ResetSystemLog_44B5A0()
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。
 int Sub_52CD30(std::int32_t)
 {
-    cg::audio::Sub_52CCA0();
+    cg::audio::UpdateAudioPlayback_52CCA0();
     cg::audio::gValue103DE80 = 1;
     return 1;
 }
@@ -82,7 +82,7 @@ void RequestRender_457010() noexcept
 // 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。
 std::int32_t CheckLegacyDxCapability_458DC0()
 {
-    const std::uint32_t code = std::bit_cast<std::uint32_t>(cg::audio::Sub_458AE0());
+    const std::uint32_t code = std::bit_cast<std::uint32_t>(cg::audio::CheckAudioAndInputAvailability_458AE0());
     gDxCapabilityCode73ED38 = code;
     return code <= 0x500u ? 1 : 0;
 }

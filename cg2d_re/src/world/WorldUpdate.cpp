@@ -134,7 +134,7 @@ void Update()
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
-        cg::audio::Sub_52B990();
+        cg::audio::BeginBgmFadeOut_52B990();
         gValueD67B08.fill(0);
         return;
     case 6:
@@ -164,7 +164,7 @@ void Update()
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;
-            cg::audio::Sub_52B990();
+            cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;

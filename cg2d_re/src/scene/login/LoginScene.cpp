@@ -364,7 +364,7 @@ std::int32_t ProcessScene_45FEA0()
             world::SetPendingSceneType(1);
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
-            cg::audio::Sub_52B990();
+            cg::audio::BeginBgmFadeOut_52B990();
         } else if (const auto selectedControl = SelectedCategoryControl();
             (cg::ui::QueryUiControlInputState_45F100(&selectedControl) & 1) != 0) {
             gValue55A054 = -1;

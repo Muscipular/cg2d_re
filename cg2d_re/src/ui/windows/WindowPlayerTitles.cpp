@@ -408,8 +408,8 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 static void WindowPlayerTitles_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const name = world::GetPlayerDisplayText(1);
-    nameData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = world::GetPlayerDisplayText(1);
+    nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
@@ -418,14 +418,14 @@ static void WindowPlayerTitles_Refresh()
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const char* const title = world::GetTitleText(titleIndex);
-    titleData->text = cg::text::FromGbkWide(title);
+    const wchar_t* const title = world::GetTitleText(titleIndex);
+    titleData->text = title;
 
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
         auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         draftData->text = gTitleDraftD45FC0;
-        const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::GetPlayerDisplayText(2))) == 0;
+        const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
         auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
@@ -437,17 +437,17 @@ static void WindowPlayerTitles_Refresh()
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 1));
     }
 
-    const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::GetPlayerDisplayText(2))) == 0;
+    const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
     gCurrentWindow->elements[21].visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
         world::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
     for (std::int32_t index = 10; index < 16; ++index) {
         WindowInstance* const window = gCurrentWindow;
-        const char* const text = record->text.data();
+        const wchar_t* const text = record->text.data();
         ++record;
         auto* const data = static_cast<WindowTextData*>(window->elements[index].data);
-        data->text = cg::text::FromGbkWide(text);
+        data->text = text;
     }
 }
 
@@ -456,14 +456,14 @@ static void WindowPlayerTitles_Refresh()
 static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const char* const ownTitle = world::GetPlayerDisplayText(2);
+        const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;
-        gTitleDraftD45FC0 = cg::text::FromGbkWide(ownTitle);
+        gTitleDraftD45FC0 = ownTitle;
 
         WindowElement* const elements = gCurrentWindow->elements;
-        const char* const displayTitle = world::GetPlayerDisplayText(2);
+        const wchar_t* const displayTitle = world::GetPlayerDisplayText(2);
         auto* const data = static_cast<WindowTextData*>(elements[8].data);
-        data->text = cg::text::FromGbkWide(displayTitle);
+        data->text = displayTitle;
     }
     WindowPlayerTitles_Refresh();
     return 1;

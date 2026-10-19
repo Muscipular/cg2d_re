@@ -1080,7 +1080,7 @@ void HandleInputEnterKey_44AB60()
     if (context == &cg::ui::detail::gInputContextC8B1B8) {
         std::wstring message;
         const std::wstring text = ContextText(cg::ui::detail::gInputContextC8B1B8);
-        const std::wstring playerName = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
+        const std::wstring playerName = world::GetPlayerDisplayText(1);
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = L"您…如此厌恶自己的声音吗？" /* 原常量参考：0x00554938。 */;

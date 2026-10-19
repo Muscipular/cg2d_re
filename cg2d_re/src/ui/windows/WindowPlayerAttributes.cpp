@@ -301,8 +301,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
 static void WindowPlayerAttributes_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::GetPlayerDisplayText(1);
-    nameData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = world::GetPlayerDisplayText(1);
+    nameData->text = name;
 
     std::wstring buffer;
     const auto writeNumber = [&buffer](

@@ -720,11 +720,11 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
         otherName->text = std::format(L"{:>16}", cg::text::FromGbkWide(gTradeNameD2D654.data()));
         WindowElement* const elements = gCurrentWindow->elements;
-        const char* const playerName = world::GetPlayerDisplayText(1);
+        const wchar_t* const playerName = world::GetPlayerDisplayText(1);
         auto* const separator = static_cast<WindowTextData*>(elements[16].data);
         separator->text = L"<=>";
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
-        ownName->text = std::format(L"{:<16}", cg::text::FromGbkWide(playerName));
+        ownName->text = std::format(L"{:<16}", playerName);
         const std::int32_t y =
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =

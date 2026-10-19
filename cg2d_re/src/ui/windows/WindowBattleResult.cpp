@@ -191,7 +191,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             if (target == 0xFFFEu) {
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
                 WindowInstance* const window = gCurrentWindow;
-                name = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
+                name = world::GetPlayerDisplayText(1);
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {

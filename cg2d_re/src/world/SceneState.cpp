@@ -368,7 +368,7 @@ struct PetMapCharaSlot {
     std::int32_t value0C; // 原成员偏移：+0x0C。 50A3E0按掩码0x11写。
     std::int32_t value10; // 原成员偏移：+0x10。 50A3E0按掩码0x09写，在value0C之前消费。
     std::int32_t value14; // 原成员偏移：+0x14。 50A3E0按掩码0x21写。
-    std::array<char, 17> name18; // 原+18，旧编码名称。
+    std::wstring name18; // 原+18，内部队伍名称。
     std::array<std::byte, 3> bytes29; // 原成员偏移：+0x29。
     cg::yobi::YobiAction* action; // 原 +2C，非拥有。
 };
@@ -380,8 +380,6 @@ static_assert(offsetof(PetMapCharaSlot, value0C) == 0x0C);
 static_assert(offsetof(PetMapCharaSlot, value10) == 0x10);
 static_assert(offsetof(PetMapCharaSlot, value14) == 0x14);
 static_assert(offsetof(PetMapCharaSlot, name18) == 0x18);
-static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
-static_assert(sizeof(PetMapCharaSlot) == 0x38);
 static std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
 // 原 [9FB938,9FB942)：两次W32与末次W16清理、后续S16读取共用同一10B。
 static alignas(std::uint32_t) std::array<std::uint16_t, 5> gPetFollowOrder {};
@@ -2069,41 +2067,47 @@ std::array<TitleRecord, 64> gSortedTitlesDE03F8 {}; // 原全局：0x00DE03F8。
 
 namespace detail {
 
-// 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
+// 原 [0x5198A0,0x5198CB)：按原前向记录顺序复制，内部字符串使用值赋值。
 void CopyTitleRecords_5198A0(
-    std::uint8_t* destination,
-    const std::uint8_t* source,
+    TitleRecord* destination,
+    const TitleRecord* source,
     const std::int32_t count)
 {
     for (std::int32_t record = 0; record < count; ++record) {
-        for (std::int32_t word = 0; word < 7; ++word) {
-            std::uint32_t value;
-            std::memcpy(&value, source, sizeof(value));
-            std::memcpy(destination, &value, sizeof(value));
-            source += sizeof(value);
-            destination += sizeof(value);
-        }
+        destination[record] = source[record];
     }
 }
 
-// MC01-C8：原28B完整称号记录接std::qsort，同键与双无效项等价。
+// MC01-C8：临时引用接std::qsort，避免搬动字符串；同键与双无效项仍等价。
 // 原函数：0x005198D0。
 void SortTitleRecords_5198D0(TitleRecord* const records, const std::uint32_t count)
 {
     if (count < 2) {
         return;
     }
-    std::qsort(records, count, sizeof(TitleRecord), &CompareTitleRecordsById_5198F0);
+    const std::vector<TitleRecord> snapshot(records, records + count);
+    std::vector<const TitleRecord*> ordered;
+    ordered.reserve(count);
+    for (const TitleRecord& record : snapshot) {
+        ordered.push_back(&record);
+    }
+    std::qsort(ordered.data(), count, sizeof(const TitleRecord*),
+        [](const void* left, const void* right) {
+            return CompareTitleRecordsById_5198F0(
+                *static_cast<const TitleRecord* const*>(left),
+                *static_cast<const TitleRecord* const*>(right));
+        });
+    for (std::uint32_t index = 0; index < count; ++index) {
+        records[index] = *ordered[index];
+    }
 }
 
 // MC01-C8：非负id升序在前，负id组等价，同键返回0。
 // 原函数：0x005198F0。
 std::int32_t CompareTitleRecordsById_5198F0(const void* const left, const void* const right)
 {
-    std::int32_t rightValue;
-    std::memcpy(&rightValue, right, sizeof(rightValue));
-    std::int32_t leftValue;
-    std::memcpy(&leftValue, left, sizeof(leftValue));
+    const std::int32_t rightValue = static_cast<const TitleRecord*>(right)->id;
+    const std::int32_t leftValue = static_cast<const TitleRecord*>(left)->id;
     const bool leftUsed = leftValue >= 0;
     const bool rightUsed = rightValue >= 0;
     if (leftUsed != rightUsed) {
@@ -6122,17 +6126,17 @@ void CreatePlayerMapPresence_519A80()
     char titles[256];
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        gPlayerRuntimeSlots.ownTitle.data(), escaped, 256);
+        cg::text::ToGbk(gPlayerRuntimeSlots.ownTitle).c_str(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        gPlayerRuntimeSlots.text12A.data(), escaped, 256);
+        cg::text::ToGbk(gPlayerRuntimeSlots.text12A).c_str(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
     cg::core::NullSub_509080();
     input::EscapeGbkText(
-        gPlayerRuntimeSlots.text14B.data(), escaped, 256);
+        cg::text::ToGbk(gPlayerRuntimeSlots.text14B).c_str(), escaped, 256);
     std::strcat(titles, escaped);
     const std::int32_t value188 =
         std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value188);
@@ -6157,14 +6161,14 @@ void CreatePlayerMapPresence_519A80()
 
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
-    const char* const name, const char* const titles, const std::int32_t level,
+    const std::wstring_view name, const char* const titles, const std::int32_t level,
     const std::int32_t value188, const std::int32_t flag40,
     const std::int32_t flag80)
 {
-    const auto nameLength = static_cast<std::int32_t>(std::strlen(name));
+    const auto nameLength = static_cast<std::int32_t>(cg::text::ToGbk(name).size());
     if (nameLength <= 16) {
         // 519A80 的源就是本槽；原 rep movs 允许同源复制。
-        std::memmove(gPlayerRuntimeSlots.name.data(), name, std::strlen(name) + 1);
+        gPlayerRuntimeSlots.name = name;
     }
 
     char first[256];
@@ -6174,22 +6178,22 @@ cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
-        std::strcpy(gPlayerRuntimeSlots.ownTitle.data(), first);
+        gPlayerRuntimeSlots.ownTitle = cg::text::FromGbkWide(first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
-        std::strcpy(gPlayerRuntimeSlots.text12A.data(), second);
+        gPlayerRuntimeSlots.text12A = cg::text::FromGbkWide(second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
-        std::strcpy(gPlayerRuntimeSlots.text14B.data(), third);
+        gPlayerRuntimeSlots.text14B = cg::text::FromGbkWide(third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
-        std::strcpy(gPlayerRuntimeSlots.text15BB8.data(), fourth);
+        gPlayerRuntimeSlots.text15BB8 = cg::text::FromGbkWide(fourth);
     }
     gPlayerRuntimeSlots.level = level;
     gPlayerRuntimeSlots.value188 = static_cast<std::uint16_t>(value188);
@@ -8082,8 +8086,12 @@ std::int32_t UpdateLogoutScene_45ED90()
 
 void PlayerRuntimeSlots::ClearRaw() noexcept
 {
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
+    value00 = 0;
+    level = 0;
+    value08 = 0;
+    timerRemaining0C = 0;
+    timerMode10 = 0;
+    timerTick14 = 0;
     const platform::LegacyCryptInt::RawPayload zero{};
     hp.RestoreRaw(zero);
     maxHp.RestoreRaw(zero);
@@ -8091,11 +8099,37 @@ void PlayerRuntimeSlots::ClearRaw() noexcept
     maxFp.RestoreRaw(zero);
     value58.RestoreRaw(zero);
     value68.RestoreRaw(zero);
-    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
-    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
+    values78.fill(0);
+    valuesB0.fill(0);
+    valueB8 = 0;
+    valuesBC.fill(0);
+    valuesD4.fill(0);
+    valuesE4.fill(0);
+    valueF4 = 0;
+    valueF8 = 0;
+    valueFC = 0;
+    titleIndex100 = 0;
+    value104 = 0;
+    name.clear();
+    ownTitle.clear();
+    text12A.clear();
+    text14B.clear();
+    value16C = 0;
+    walkSpeed = 0;
+    value174 = 0;
+    imageNo = 0;
+    value17C = 0;
+    objectIndex = 0;
+    direction = 0;
+    value188 = 0;
+    flags18A = 0;
+    flags18C = 0;
+    value190 = 0;
+    options194 = 0;
+    value1A0 = 0;
     for (auto& item : items) { item = {}; }
     action = nullptr;
-    text15BB8.fill(0);
+    text15BB8.clear();
     value15BCC = 0;
     values15BD0.fill(0);
 }
@@ -8344,8 +8378,7 @@ void HandlePartyMemberReply_50A3E0(
         char name[256];
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        std::strcpy(
-            slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
+        slot.name18 = cg::text::FromGbkWide(std::strlen(name) <= 16 ? name : kUnknownText554590);
     }
     const std::uint32_t objectIndex = slot.objectIndex;
     if (objectIndex != gPlayerRuntimeSlots.objectIndex) {
@@ -8451,12 +8484,11 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 }
                 detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFDu;
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
-                detail::SetPlayerMapIdentity_51A090(name, titles, level, value40, flag1, flag2);
+                detail::SetPlayerMapIdentity_51A090(cg::text::FromGbkWide(name), titles, level, value40, flag1, flag2);
                 if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0
                     && gPetMapCharaSlots[0].flags != 0) {
                     gPetMapCharaSlots[0].level08 = gPlayerRuntimeSlots.level;
-                    std::strcpy(
-                        gPetMapCharaSlots[0].name18.data(), gPlayerRuntimeSlots.name.data());
+                    gPetMapCharaSlots[0].name18 = gPlayerRuntimeSlots.name;
                 }
                 for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
                     auto& slot = gPetMapCharaSlots[i];
@@ -9043,7 +9075,7 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 16) {
-            std::strcpy(gPlayerRuntimeSlots.name.data(), name);
+            gPlayerRuntimeSlots.name = cg::text::FromGbkWide(name);
         }
         ++field;
     }
@@ -9052,7 +9084,7 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
         input::UnescapeLegacyTextAndNotify_52D2F0(title);
         if (std::strlen(title) <= 16) {
-            std::strcpy(gPlayerRuntimeSlots.ownTitle.data(), title);
+            gPlayerRuntimeSlots.ownTitle = cg::text::FromGbkWide(title);
         }
         ++field;
     }
@@ -9845,18 +9877,17 @@ void HandlePlayerTitlesReply_50A300(const std::uintptr_t /*socket*/, const char*
         const std::int32_t id = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         if (id >= 0) {
             record.id = id;
-            std::strcpy(record.text.data(), text);
+            record.text = cg::text::FromGbkWide(text);
             record.value = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
         } else {
             record.id = -1;
-            record.text[0] = '\0';
+            record.text.clear();
             record.value = -1;
         }
         field += 3;
     }
     detail::CopyTitleRecords_5198A0(
-        reinterpret_cast<std::uint8_t*>(gSortedTitlesDE03F8.data()),
-        reinterpret_cast<const std::uint8_t*>(detail::gTitlesFF0508.data()), 64);
+        gSortedTitlesDE03F8.data(), detail::gTitlesFF0508.data(), 64);
     detail::SortTitleRecords_5198D0(gSortedTitlesDE03F8.data(), 64);
 }
 
@@ -10701,16 +10732,16 @@ void CopyPlayerBarValues(
     *maxFp = gPlayerRuntimeSlots.maxFp;
 }
 
-const char* GetTitleText(const std::int32_t index) noexcept
+const wchar_t* GetTitleText(const std::int32_t index) noexcept
 {
     // 未装备或无效索引返回空文本；修正原FF0510+index*1Ch越界读。
     if (index < 0 || index >= static_cast<std::int32_t>(detail::gTitlesFF0508.size())) {
-        return "";
+        return L"";
     }
     return detail::gTitlesFF0508[index].text.data();
 }
 
-const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
+const wchar_t* GetPlayerDisplayText(const std::int16_t mode) noexcept
 {
     switch (mode) {
     case 1: return gPlayerRuntimeSlots.name.data();

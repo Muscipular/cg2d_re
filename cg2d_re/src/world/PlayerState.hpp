@@ -162,10 +162,10 @@ struct PlayerRuntimeSlots {
     std::int32_t valueFC; // 原成员偏移：+0xFC。 原FDA7FC；与末尾15BCC共用回复门禁。
     std::int32_t titleIndex100; // 原成员偏移：+0x100。 原FDA800，直接索引FF0508原表。
     std::int32_t value104; // 原成员偏移：+0x104。 原FDA804。
-    std::array<char, 17> name; // 原 FDA808；旧编码字节。
-    std::array<char, 17> ownTitle; // 原 FDA819。
-    std::array<char, 33> text12A; // 原成员偏移：+0x12A。 原 FDA82A。
-    std::array<char, 33> text14B; // 原成员偏移：+0x14B。 原 FDA84B。
+    std::wstring name; // 原 FDA808；内部玩家名称。
+    std::wstring ownTitle; // 原 FDA819。
+    std::wstring text12A; // 原成员偏移：+0x12A。 原 FDA82A。
+    std::wstring text14B; // 原成员偏移：+0x14B。 原 FDA84B。
     std::int32_t value16C; // 原成员偏移：+0x16C。 原FDA86C。
     std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
     std::int32_t value174; // 原成员偏移：+0x174。 原 FDA874；46A700仅在到达时按S32递减。
@@ -181,7 +181,7 @@ struct PlayerRuntimeSlots {
     std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
     std::array<PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
     cg::yobi::YobiAction* action;
-    std::array<char, 17> text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
+    std::wstring text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
     std::array<std::int32_t, 3> values15BD0; // 原成员偏移：+0x15BD0。 原FF02D0/FF02D4/FF02D8。
 };
@@ -322,15 +322,9 @@ std::int32_t FindBattlePetIndex_43C4B0(); // 首个used严格1且flags6AA严格2
 struct TitleRecord {
     std::int32_t id; // 原 +0；负值表示无称号。
     std::int32_t value; // 原 +4；50A300第三字段。
-    std::array<char, 20> text; // 原 +8；原编码字节，不增加复制限长。
+    std::wstring text; // 原 +8；内部称号文本，协议入口保留原限制。
 };
 
-static_assert(std::is_standard_layout_v<TitleRecord>);
-static_assert(std::is_trivially_copyable_v<TitleRecord>);
-static_assert(offsetof(TitleRecord, id) == 0);
-static_assert(offsetof(TitleRecord, value) == 4);
-static_assert(offsetof(TitleRecord, text) == 8);
-static_assert(sizeof(TitleRecord) == 0x1C);
 extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F8。
 
 // 原函数：0x0050A300。
@@ -365,8 +359,8 @@ void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
-const char* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
-const char* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
+const wchar_t* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
+const wchar_t* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 // 原函数：0x00504B10。
 std::int32_t FindAttributeAllocationHintTarget_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
@@ -418,8 +412,8 @@ void SortTitleRecords_5198D0(TitleRecord* records, std::uint32_t count); // 原C
 // 原 50A300 唯一调用的 28 字节记录前向复制叶。
 // 原函数：0x005198A0。
 void CopyTitleRecords_5198A0(
-    std::uint8_t* destination, const std::uint8_t* source,
-    std::int32_t count);                    // 原 [0x5198A0,0x5198CB)，逐记录复制 7 个 W32。
+    TitleRecord* destination, const TitleRecord* source,
+    std::int32_t count); // 原 [0x5198A0,0x5198CB)，内部对象按值复制。
 
 // MC01-C8：5198D0的qsort回调，比较首S32；非负在前，同键/负id组返回0。
 // 原函数：0x005198F0。
@@ -440,7 +434,7 @@ void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，�
 void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
-    const char* name, const char* titles, std::int32_t level,
+    std::wstring_view name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 协议与场景共用的队伍状态、邻格交互节流时间。
 extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。

@@ -580,9 +580,9 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
     if (kind == 0) {
         std::int32_t count = 0;
         if (gSkillTargetKindCF4A10 != 1) {
-            const char* const name = world::GetPlayerDisplayText(1);
+            const wchar_t* const name = world::GetPlayerDisplayText(1);
             gSkillStatusLevelsCC31C0[0] = world::gPlayerRuntimeSlots.level;
-            gSkillStatusNamesCC4670[0] = cg::text::FromGbkWide(name);
+            gSkillStatusNamesCC4670[0] = name;
             gSkillStatusInjuriesD67600[0] = world::gPlayerRuntimeSlots.valueF4;
             const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
@@ -2486,11 +2486,11 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     }
     std::int32_t count = 0;
     if (kind != 0) {
-        const char* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
         count = 1;
         gSkillTargetKindsD2F75C[0] = 0;
         gSkillTargetCountCA0004 = count;
-        gSkillTargetNamesCB0550[0] = cg::text::FromGbkWide(name);
+        gSkillTargetNamesCB0550[0] = name;
     }
     for (std::int16_t slot = 0; slot < 5; ++slot) {
         if (world::ReadPetMapFlags(slot) == 0) {

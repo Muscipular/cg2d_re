@@ -51,10 +51,10 @@ static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::
     frameIndex = (frameIndex + 1) % frameCounts.size();
     frameCounts[frameIndex] = 0;
     std::wstring title(L"CG2D RE");
-    const char* const playerName = world::GetPlayerDisplayText(1);
+    const wchar_t* const playerName = world::GetPlayerDisplayText(1);
     if (playerName[0] != '\0') {
         title += L" - [";
-        title += text::FromGbkWide(playerName);
+        title += playerName;
         title += L"]";
     }
     title += L" 开启者,今天你揍了小吸兽了吗？";

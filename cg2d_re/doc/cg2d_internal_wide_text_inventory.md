@@ -16,7 +16,8 @@
 | WindowStorageItem/Pet/PetSummary、WindowTradeItem/Pet | 内部展示文本；银行/交易回复或玩家记录生产，窗口/提示消费 | 已宽化；尚未宽化的原宠物名称临时读取链待合并 |
 | WindowShopItem/Detail、WindowCrystalItem、WindowConfirmationItem | 内部商品名称/描述/附文；三商店回复生产、提示/确认消费 | 已宽化；旧gbkLines/stride绘制重载已移除 |
 | PetRuntimeRecord原名/自定义名 | 内部业务文本；宠物及摊位回复、UI、交易、Lua | 已宽化；ClearRaw全部逐字段清理，原加密值重置保持 |
-| 玩家自身名称/称号、TitleRecord、ReplyRecordF7C950 | 内部业务文本 | 待迁移完整生产、查询、UI/网络发送链 |
+| 玩家自身名称/称号/附文、TitleRecord、队伍槽名称 | 内部业务文本；回复生产、人物UI、窗口标题、地图身份 | 已宽化；称号对象复制/临时引用排序、玩家字段清理已迁移；场景重建临时转义串待收口 |
+| ReplyRecordF7C950 | 内部业务文本 | 待迁移完整生产、查询、UI链 |
 | YobiAction::displayName及对象构造 | 内部绘制文本；克隆、RenderChara消费 | 已宽化；删除覆盖对象的memset，普通字段成员初始化 |
 | WorldObjectRecord、Yobi名称/头顶文字 | 内部业务文本；世界及战斗回复、骑乘复制、图鉴匹配、黑名单、UI及Lua | 已宽化；玩家初始身份仍待玩家名称组统一入口 |
 | 战斗命名效果、战斗文字行 | 内部名称/显示文本；C/M解析、战斗匹配及面板绘制 | 已宽化；原协议缓冲区保留字节 |

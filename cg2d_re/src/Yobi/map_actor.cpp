@@ -903,7 +903,7 @@ std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
 }
 
 YobiAction* PublishPlayerActionIdentity(
-    const char* const name, const char* const titles,
+    const std::wstring_view name, const char* const titles,
     const std::int32_t originalNameLength, const std::int32_t level,
     const std::int32_t value188)
 {
@@ -912,7 +912,7 @@ YobiAction* PublishPlayerActionIdentity(
         return nullptr;
     }
     if (originalNameLength <= 16) {
-        action->nameC4 = cg::text::FromGbkWide(name);
+        action->nameC4 = name;
     }
 
     // 原对象阶段重新解析四段；不能使用上一轮已写回的共享称号。
@@ -964,19 +964,19 @@ void CopyYobiPlayerMaxHp(
 }
 
 void CopyInitialPlayerActionIdentity(
-    const char* const name, const char* const title, const std::int32_t* const level,
+    const std::wstring_view name, const std::wstring_view title, const std::int32_t* const level,
     const platform::LegacyCryptInt* const hp, const platform::LegacyCryptInt* const maxHp)
 {
     YobiAction* action = world::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
-    if (std::strlen(name) <= 16) {
-        action->nameC4 = cg::text::FromGbkWide(name);
+    if (cg::text::ToGbk(name).size() <= 16) {
+        action->nameC4 = name;
         action = world::gPlayerRuntimeSlots.action;
     }
-    if (std::strlen(title) <= 16) {
-        action->titleE1 = cg::text::FromGbkWide(title);
+    if (cg::text::ToGbk(title).size() <= 16) {
+        action->titleE1 = title;
         action = world::gPlayerRuntimeSlots.action;
     }
     action->field1D0 = *level;

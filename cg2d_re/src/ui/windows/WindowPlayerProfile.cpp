@@ -326,8 +326,8 @@ static void WindowPlayerProfile_Refresh()
     WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::GetPlayerDisplayText(1);
-    nameData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = world::GetPlayerDisplayText(1);
+    nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
@@ -359,13 +359,13 @@ static void WindowPlayerProfile_Refresh()
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const title = world::GetTitleText(titleIndex);
-    titleData->text = cg::text::FromGbkWide(title);
+    const wchar_t* const title = world::GetTitleText(titleIndex);
+    titleData->text = title;
 
     WindowElement* const ownTitleElements = gCurrentWindow->elements;
-    const char* const ownTitle = world::GetPlayerDisplayText(2);
+    const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
     auto* const ownTitleData = static_cast<WindowTextData*>(ownTitleElements[7].data);
-    ownTitleData->text = cg::text::FromGbkWide(ownTitle);
+    ownTitleData->text = ownTitle;
 
     WindowInstance* const tribeWindow = gCurrentWindow;
     const std::int16_t tribeIndex = world::ReadPlayerTribe();

@@ -203,17 +203,17 @@ static void WindowOwnProfile_Refresh()
         publicFlag != 0 ? 0 : 0x3C113;
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::GetPlayerDisplayText(1);
-    nameData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = world::GetPlayerDisplayText(1);
+    nameData->text = name;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
-    const char* const title = world::GetPlayerDisplayText(2);
+    const wchar_t* const title = world::GetPlayerDisplayText(2);
     auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
-    titleData->text = cg::text::FromGbkWide(title);
+    titleData->text = title;
     WindowElement* const jobElements = gCurrentWindow->elements;
     const auto& job = world::GetPlayerJobName();
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);

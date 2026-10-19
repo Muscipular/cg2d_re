@@ -575,13 +575,11 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     const std::int16_t nameMode = platform::gActorOverheadTextMode_5F974C;
     if (nameMode > 0) {
         const wchar_t* text = nullptr;
-        std::wstring playerText;
         std::int8_t color = 0;
         if (action == world::gPlayerRuntimeSlots.action) {
             if (nameMode <= 6) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
-                playerText = cg::text::FromGbkWide(world::GetPlayerDisplayText(nameMode));
-                text = playerText.c_str();
+                text = world::GetPlayerDisplayText(nameMode);
                 color = colors[nameMode - 1];
             }
         } else {

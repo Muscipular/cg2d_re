@@ -2027,7 +2027,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 42, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = world::GetPlayerDisplayText(1);
         gCurrentWindow->elements[7].visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
@@ -2607,7 +2607,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-    std::strcpy(world::gPlayerRuntimeSlots.text15BB8.data(), name);
+    world::gPlayerRuntimeSlots.text15BB8 = cg::text::FromGbkWide(name);
     if (window != nullptr) {
         window->elements[0].visible = 0;
     }

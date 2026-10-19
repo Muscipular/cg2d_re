@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string_view>
 
 namespace cg::platform {
 class LegacyCryptInt;
@@ -135,14 +136,14 @@ void BeginMapActorPhase2(YobiAction* action);
 std::uint16_t ReadYobiDirectionLow16(const YobiAction* action) noexcept;
 // 51A090 对象阶段：重新提取四段文本，每次写入按原顺序重读共享玩家。
 YobiAction* PublishPlayerActionIdentity(
-    const char* name, const char* titles, std::int32_t originalNameLength,
+    const std::wstring_view name, const char* titles, std::int32_t originalNameLength,
     std::int32_t level, std::int32_t value188);
 // 519A80 分别复制 +170/+180 的载荷；前者复用 readiness，调用方负责重读玩家。
 void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source);
 void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
 // 51A4B0跨私有布局边界；借用同一玩家来源，按原位置重读共享action。
 void CopyInitialPlayerActionIdentity(
-    const char* name, const char* title, const std::int32_t* level,
+    const std::wstring_view name, const std::wstring_view title, const std::int32_t* level,
     const platform::LegacyCryptInt* hp, const platform::LegacyCryptInt* maxHp);
 // 50B380的2E4/2E8/2EC写序；slot可指向玩家共享槽或本行固定T*。
 void UpdateMapActorMode(YobiAction*& slot, std::int32_t mode, std::int32_t imageNo);

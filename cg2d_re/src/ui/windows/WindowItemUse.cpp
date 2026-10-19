@@ -133,9 +133,9 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     gItemUseTargetsCB0EA8.fill({});
-    const char* const ownName = world::GetPlayerDisplayText(1);
+    const wchar_t* const ownName = world::GetPlayerDisplayText(1);
     const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
-    gItemUseTargetsCB0EA8[0].name = cg::text::FromGbkWide(ownName);
+    gItemUseTargetsCB0EA8[0].name = ownName;
     std::int32_t count = 1;
     gItemUseTargetCountCC40CC = count;
     gItemUseTargetsCB0EA8[0].kind = 0;
@@ -249,9 +249,9 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
     if (gItemUseTargetsCB0EA8[selected].kind == 0) {
-        const char* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
         const std::int32_t level = world::gPlayerRuntimeSlots.level;
-        gItemUseStatusRecordsCB10D8[0].name = cg::text::FromGbkWide(name);
+        gItemUseStatusRecordsCB10D8[0].name = name;
         const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         gItemUseStatusRecordsCB10D8[0].level = level;
         gItemUseStatusRecordsCB10D8[0].injury = injury;

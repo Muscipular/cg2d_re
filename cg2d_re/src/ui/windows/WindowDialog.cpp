@@ -66,7 +66,7 @@ struct HealingDialogRecord {
     std::int32_t level;
     std::int32_t health;
     std::int32_t cost; // 原成员偏移：+0x08。
-    std::array<char, 17> name; // 原成员偏移：+0x0C。
+    std::wstring name; // 原成员偏移：+0x0C。
     std::array<std::byte, 3> reserved1D; // 原成员偏移：+0x1D。
 };
 
@@ -152,11 +152,8 @@ static std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {}; // 原全局�
 
 static std::array<std::int16_t, 2> gDialogInputYD67B34 {}; // 原全局：0x00D67B34。
 
-static_assert(sizeof(HealingDialogRecord) == 32);
 
-static_assert(offsetof(HealingDialogRecord, cost) == 8);
 
-static_assert(offsetof(HealingDialogRecord, name) == 12);
 
 static std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {}; // 原全局：0x00D672F0。
 
@@ -1226,7 +1223,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
         record.health = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name));
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        std::strcpy(record.name.data(), std::strlen(name) > 16 ? "???" : name);
+        record.name = cg::text::FromGbkWide(std::strlen(name) > 16 ? "???" : name);
         const std::int32_t cost = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         const std::int32_t totalHealth = gHealingDialogHealthD2DC00;
         record.cost = cost;
@@ -1242,7 +1239,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     for (std::int32_t index = 0; index < 6; ++index) {
         const auto& record = gHealingDialogRecordsD672F0[index];
         if (record.level != 0) {
-            buffer = std::format(L"           {:3}  {:<16}", record.level, cg::text::FromGbkWide(record.name.data()));
+            buffer = std::format(L"           {:3}  {:<16}", record.level, record.name);
             gDialogLinesCB1398[index + 2].text = buffer;
         } else {
             gDialogLinesCB1398[index + 2].text.clear();

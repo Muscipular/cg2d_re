@@ -48,7 +48,7 @@ using WindowElementCallback = std::int32_t (*)(std::int32_t index, std::int32_t 
 using WindowValueCallback = void (*)(std::int32_t value);
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
-using WindowListSelectionCallback = void (*)(std::int32_t index, const char* text);
+using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
 // 原type1的24B图形载荷，六个数值字段，不含地址。
 struct WindowGraphicData {
@@ -774,7 +774,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index,
     bool showEquipmentPage = false); // 完整己方宠物提示；银行／交易开启第三页装备名称。
 // 原函数：0x004E5620。
-cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* name); // 全量清交易双侧后复制己方，最后打开43。
+cg::yobi::YobiAction* WindowTrade_ReceiveStart(std::wstring_view name); // 全量清交易双侧后复制己方，最后打开43。
 // 原函数：0x0049E800。
 cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(const char* text, WindowListSelectionCallback callback);
 // 原函数：0x00485110。

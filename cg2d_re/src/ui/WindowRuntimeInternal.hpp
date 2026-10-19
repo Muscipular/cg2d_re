@@ -130,7 +130,7 @@ inline constexpr wchar_t kMiniMailCostHint588588[] = // 原常量参考：0x0058
 struct WindowListRecordD3FAD4 {
     std::int32_t value00; // 原成员偏移：+0x00。
     std::int32_t value04; // 原成员偏移：+0x04。
-    std::array<std::array<char, 0x100>, 4> texts08; // 原成员偏移：+0x08。
+    std::array<std::wstring, 4> texts08; // 原成员偏移：+0x08。
     std::int32_t value408; // 原成员偏移：+0x408。
 };
 
@@ -375,16 +375,6 @@ static_assert(offsetof(WindowMailGroupSlotsCC1A30, selected) == 0x328);
 static_assert(offsetof(WindowMailGroupSlotsCC1A30, initialize) == 0x648);
 
 static_assert(sizeof(WindowMailGroupSlotsCC1A30) == 0x64C);
-
-static_assert(offsetof(WindowListRecordD3FAD4, value00) == 0);
-
-static_assert(offsetof(WindowListRecordD3FAD4, value04) == 4);
-
-static_assert(offsetof(WindowListRecordD3FAD4, texts08) == 8);
-
-static_assert(offsetof(WindowListRecordD3FAD4, value408) == 0x408);
-
-static_assert(sizeof(WindowListRecordD3FAD4) == 0x40C);
 
 static_assert(offsetof(WindowChoiceSlotsCC4CA0, values04) == 4);
 

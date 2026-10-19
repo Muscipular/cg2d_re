@@ -223,8 +223,8 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
         const auto& names = world::gBattleResultNamesFF0C34;
         for (std::int32_t row = 0; row < 3; ++row) {
             WindowInstance* const window = gCurrentWindow;
-            const char* const name = names[row].data();
-            static_cast<WindowTextData*>(window->elements[row + 59].data)->text = cg::text::FromGbkWide(name);
+            const wchar_t* const name = names[row].data();
+            static_cast<WindowTextData*>(window->elements[row + 59].data)->text = name;
         }
 
         const auto& skillResults = world::gBattleSkillResultsFF0C8C;

@@ -707,13 +707,12 @@ std::uint32_t InitializeAlbum_518C20()
 
 std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
 std::array<BattleSkillResultRecord, kSkillSlotCount> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
-std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
+std::array<std::wstring, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
 std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
 
 namespace detail {
 static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
 static_assert(sizeof(gBattleSkillResultsFF0C8C) == sizeof(BattleSkillResultRecord) * kSkillSlotCount); // 原15条共0x78字节。
-static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
 static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
 
 } // namespace detail
@@ -10190,9 +10189,9 @@ void HandleBattleResultsReply_50D500(const std::uintptr_t, const char* const pay
         network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 28) {
-            std::strcpy(gBattleResultNamesFF0C34[index].data(), name);
+            gBattleResultNamesFF0C34[index] = cg::text::FromGbkWide(name);
         } else {
-            gBattleResultNamesFF0C34[index][0] = '\0';
+            gBattleResultNamesFF0C34[index].clear();
         }
     }
 

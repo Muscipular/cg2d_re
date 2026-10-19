@@ -17,35 +17,23 @@ struct Window54PetOption {
     std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
     std::int32_t value04; // 原成员偏移：+0x04。
     std::int32_t slots; // 原成员偏移：+0x08。
-    std::array<char, 17> name; // 原成员偏移：+0x0C。
+    std::wstring name; // 原成员偏移：+0x0C。
     std::uint8_t allowed; // 原成员偏移：+0x1D。
     std::array<std::byte, 2> bytes1E; // 原成员偏移：+0x1E。
     std::int32_t tribe; // 原成员偏移：+0x20。
     std::uint8_t hintFlag; // 原成员偏移：+0x24。
     std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
 };
-static_assert(sizeof(Window54PetOption) == 0x28);
-static_assert(offsetof(Window54PetOption, value04) == 4);
-static_assert(offsetof(Window54PetOption, slots) == 8);
-static_assert(offsetof(Window54PetOption, name) == 0x0C);
-static_assert(offsetof(Window54PetOption, allowed) == 0x1D);
-static_assert(offsetof(Window54PetOption, tribe) == 0x20);
-static_assert(offsetof(Window54PetOption, hintFlag) == 0x24);
 
 // 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。
 struct Window54TechniqueSlot {
     std::uint16_t used;
     std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
     std::int32_t value04; // 原成员偏移：+0x04。
-    std::array<char, 25> name; // 原成员偏移：+0x08。
-    std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x21。
+    std::wstring name; // 原成员偏移：+0x08。
+    std::array<std::wstring, 2> description; // 原成员偏移：+0x21。
     std::byte byte5B; // 原成员偏移：+0x5B。
 };
-static_assert(sizeof(Window54TechniqueSlot) == 0x5C);
-static_assert(offsetof(Window54TechniqueSlot, value04) == 4);
-static_assert(offsetof(Window54TechniqueSlot, name) == 8);
-static_assert(offsetof(Window54TechniqueSlot, description) == 0x21);
-static_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);
 
 // 原D2EAB8的60H技能报价记录；未消费字节不据此定业务语义。
 struct Window54SkillRecord {
@@ -53,8 +41,8 @@ struct Window54SkillRecord {
     std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
     std::int32_t value04; // 原成员偏移：+0x04。
     std::int32_t price; // 原成员偏移：+0x08。
-    std::array<char, 25> name; // 原成员偏移：+0x0C。
-    std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x25。
+    std::wstring name; // 原成员偏移：+0x0C。
+    std::array<std::wstring, 2> description; // 原成员偏移：+0x25。
     std::byte byte5F; // 原成员偏移：+0x5F。
 };
 
@@ -137,18 +125,6 @@ static std::int32_t WindowPetSkillChoice_Draw(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static_assert(sizeof(Window54SkillRecord) == 0x60);
-
-static_assert(offsetof(Window54SkillRecord, value04) == 4);
-
-static_assert(offsetof(Window54SkillRecord, price) == 8);
-
-static_assert(offsetof(Window54SkillRecord, name) == 0x0C);
-
-static_assert(offsetof(Window54SkillRecord, description) == 0x25);
-
-static_assert(offsetof(Window54SkillRecord, byte5F) == 0x5F);
-
 // 原全局：0x00CB2224。 创建快照581800，更新/释放共同读取。
 static std::int32_t gWindow54DialogTypeCB2224 = 0; // 原全局：0x00CB2224。
 
@@ -223,12 +199,6 @@ static std::array<std::int8_t, world::kSkillSlotCount> gWindow54SkillMapCC4D04 {
 
 // 原全局：0x00C9A9A4。 止于C9A9B0窗口状态表之前。
 static std::wstring gWindow54MoneyTextC9A9A4 {}; // 原全局：0x00C9A9A4。
-
-static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
-
-static_assert(sizeof(gWindow54PetOptionsD67448) == 0xC8);
-
-static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == sizeof(Window54TechniqueSlot) * world::kPetTechniqueSlotCount);
 
 static WindowGraphicData gWindowGraphic574668 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00574668。
 
@@ -566,7 +536,7 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
             static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[1 + group * 4 + row].text, buffer.data(), row, 20));
         }
     }
-    std::memset(gWindow54SkillsD2EAB8.data(), 0, sizeof(gWindow54SkillsD2EAB8));
+    gWindow54SkillsD2EAB8.fill({});
     gWindow54ValueCB01E8 = 0;
     std::int32_t field = 6;
     for (Window54SkillRecord& record : gWindow54SkillsD2EAB8) {
@@ -575,15 +545,15 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
         }
         record.used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record.name.data(), std::strlen(buffer.data()) > 24 ? "???" : buffer.data());
+        record.name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 24 ? "???" : buffer.data());
         record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record.price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 255, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 2; ++row) {
-            static_cast<void>(input::ExtractLegacyLine_503AB0(
-                record.description[row].data(), 29, buffer.data(), row, 28));
+            static_cast<void>(input::ExtractGbkTextLine(
+                record.description[row], buffer.data(), row, 28));
         }
         ++gWindow54ValueCB01E8;
     }
@@ -635,7 +605,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
     for (std::int32_t row = 0; row < 4; ++row) {
         static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 20));
     }
-    std::memset(gWindow54PetOptionsD67448.data(), 0, sizeof(gWindow54PetOptionsD67448));
+    gWindow54PetOptionsD67448.fill({});
     const std::int32_t threshold = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
     std::int32_t field = 5;
     for (Window54PetOption& option : gWindow54PetOptionsD67448) {
@@ -644,7 +614,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
         }
         option.used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(option.name.data(), std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
+        option.name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
         option.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         option.slots = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         option.tribe = -1;
@@ -684,7 +654,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
             static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[1 + group * 4 + row].text, buffer.data(), row, 20));
         }
     }
-    std::memset(gWindow54PetOptionsD67448.data(), 0, sizeof(gWindow54PetOptionsD67448));
+    gWindow54PetOptionsD67448.fill({});
     const std::int32_t threshold = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
     gWindow54TribeCA0B2C = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
     std::int32_t field = 8;
@@ -694,7 +664,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
         }
         option.used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(option.name.data(), std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
+        option.name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
         option.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         option.slots = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         option.tribe = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
@@ -731,7 +701,7 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
     for (std::int32_t row = 0; row < 5; ++row) {
         static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 21));
     }
-    std::memset(gWindow54TechniqueSlotsD66E38.data(), 0, sizeof(gWindow54TechniqueSlotsD66E38));
+    gWindow54TechniqueSlotsD66E38.fill({});
     std::int32_t field = 4;
     for (Window54TechniqueSlot& slot : gWindow54TechniqueSlotsD66E38) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
@@ -743,14 +713,14 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
             continue;
         }
         slot.used = 1;
-        std::strcpy(slot.name.data(), std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
+        slot.name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
         slot.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 511, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 2; ++row) {
-            static_cast<void>(input::ExtractLegacyLine_503AB0(
-                slot.description[row].data(), 29, buffer.data(), row, 28));
+            static_cast<void>(input::ExtractGbkTextLine(
+                slot.description[row], buffer.data(), row, 28));
         }
     }
     WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
@@ -993,7 +963,7 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
         gWindow54ValueTextsC8B318[row].clear();
         if (selected >= 0 && gWindow54PetOptionsD67448[selected].used != 0) {
             const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
-            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(option.name.data());
+            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = option.name;
             const std::int32_t tribe = option.tribe;
             if (tribe >= 0) {
                 static_cast<WindowTextData*>(window->elements[row + 44].data)->text = gTribeNames57CB54[tribe];
@@ -1047,7 +1017,7 @@ static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const 
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (usedOption) {
-            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(gWindow54PetOptionsD67448[row].name.data());
+            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = gWindow54PetOptionsD67448[row].name;
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
@@ -1151,7 +1121,7 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
         gWindow54SkillPriceTextsCF493C[row].clear();
         // 原存在性检查不加scroll，显示内容仍取分页后的记录。
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
-            static_cast<WindowTextData*>(window->elements[row + 79].data)->text = cg::text::FromGbkWide(record.name.data());
+            static_cast<WindowTextData*>(window->elements[row + 79].data)->text = record.name;
             cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
             cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
             const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
@@ -1179,7 +1149,7 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
             gWindow54ValueTextsCB035C[row].clear();
             gWindow54ValueTextsC8B318[row].clear();
             if (used) {
-                static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(slot.name.data());
+                static_cast<WindowTextData*>(window->elements[row + 34].data)->text = slot.name;
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:3}", slot.value04);
             }
             ++row;
@@ -1309,7 +1279,7 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
                 message = gWindow54MessageC9FCE0;
             }
             static_cast<void>(WindowItem_SplitTooltipLines(
-                x, y, 3, 8, 0, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[message].description[row].data()), 0, 0));
+                x, y, 3, 8, 0, gWindow54SkillsD2EAB8[message].description[row], 0, 0));
             y += 10;
         }
     } else {
@@ -2116,18 +2086,18 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
     constexpr wchar_t learnSuffix5882E8[] = L"来学习。";
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"学习『{}』" /* 原常量参考：0x00588344。 */, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"学习『{}』" /* 原常量参考：0x00588344。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.c_str());
     std::int32_t width = cg::render::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
-    cg::text::FormatTo(buffer, L"让『{}』" /* 原常量参考：0x00588338。 */, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
+    cg::text::FormatTo(buffer, L"让『{}』" /* 原常量参考：0x00588338。 */, gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
     width = cg::render::TextMeasure(L"让『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
-        cg::text::FormatTo(buffer, L"使用『{}』的位置" /* 原常量参考：0x0058830C。 */, cg::text::FromGbkWide(slot.name.data()).c_str());
+        cg::text::FormatTo(buffer, L"使用『{}』的位置" /* 原常量参考：0x0058830C。 */, slot.name.c_str());
     } else {
         buffer = L"使用『空栏位』的位置" /* 原常量参考：0x005882F4。 */;
     }

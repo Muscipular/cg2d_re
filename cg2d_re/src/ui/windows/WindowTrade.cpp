@@ -242,7 +242,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     std::int32_t skillPosition); // 己方技能按S16索引对取名称。
 
 // 原函数：0x004E4E60。
-static void WindowTrade_RequestTargetList(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
+static void WindowTrade_RequestTargetList(std::int32_t index, const wchar_t* name); // 先发送选择请求，失败仍继续本地打开。
 
 // 原函数：0x004E4E80。
 static cg::yobi::YobiAction* WindowTrade_OpenTargetList(const char* text); // 选择表绑定真实交易回调后打开44。
@@ -306,9 +306,8 @@ static std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。 所选�
 
 static std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。 交易选择状态。
 
-static std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
+static std::wstring gTradeNameD2D654 {}; // 原全局：0x00D2D654。
 
-static_assert(sizeof(gTradeNameD2D654) == 17);
 
 // 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
 static std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
@@ -718,7 +717,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
         auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
-        otherName->text = std::format(L"{:>16}", cg::text::FromGbkWide(gTradeNameD2D654.data()));
+        otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
         WindowElement* const elements = gCurrentWindow->elements;
         const wchar_t* const playerName = world::GetPlayerDisplayText(1);
         auto* const separator = static_cast<WindowTextData*>(elements[16].data);
@@ -2692,7 +2691,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
 }
 
 // 原函数：0x004E5620。
-cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* const name)
+cg::yobi::YobiAction* WindowTrade_ReceiveStart(const std::wstring_view name)
 {
     gTradeItemsD460D0.fill({});
     gTradePetsC9C108.fill({});
@@ -2708,7 +2707,7 @@ cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* const name)
     gTradeValueD2E2B0 = 0;
     WindowTrade_SyncOwnItems(1);
     WindowTrade_CopyOwnPet(1);
-    std::strcpy(gTradeNameD2D654.data(), std::strlen(name) <= 16 ? name : "???");
+    gTradeNameD2D654 = cg::text::ToGbk(name).size() <= 16 ? name : L"???";
     gTradeValueD67CB8 = 0;
     gTradeValueD67CBC = 0;
     gTradeValueCC3EC4 = -1;
@@ -2718,7 +2717,7 @@ cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* const name)
 }
 
 // 原函数：0x004E4E60。
-static void WindowTrade_RequestTargetList(const std::int32_t index, const char* const name)
+static void WindowTrade_RequestTargetList(const std::int32_t index, const wchar_t* const name)
 {
     static_cast<void>(network::SelectTradePartnerRequest_511FF0(platform::gConnectionSocket, index));
     static_cast<void>(WindowTrade_ReceiveStart(name));
@@ -3018,7 +3017,7 @@ void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const
         return;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    static_cast<void>(detail::WindowTrade_ReceiveStart(text));
+    static_cast<void>(detail::WindowTrade_ReceiveStart(cg::text::FromGbkWide(text)));
 }
 
 // 原函数：0x0050E440。

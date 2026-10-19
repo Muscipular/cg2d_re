@@ -39,7 +39,7 @@ static std::int32_t WindowTradeTarget_SelectRow(std::int32_t index, std::int32_t
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
+static std::array<std::wstring, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
 
 static std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
 
@@ -48,7 +48,6 @@ static WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原�
 
 static std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
 
-static_assert(sizeof(gWindowListNamesCF3F20) == 170);
 
 static WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CCF0。
 
@@ -108,7 +107,7 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
 {
     gWindowListCountCF46A8 = 0;
     for (auto& name : gWindowListNamesCF3F20) {
-        name[0] = '\0';
+        name.clear();
     }
     std::array<char, 768> buffer;
     std::int32_t count = 0;
@@ -119,12 +118,8 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         count = gWindowListCountCF46A8;
-        char* const destination = gWindowListNamesCF3F20[count].data();
-        const std::size_t length = std::strlen(buffer.data()) + 1;
-        const std::size_t prefix = length & ~std::size_t{3};
-        std::memcpy(destination, buffer.data(), prefix);
+        gWindowListNamesCF3F20[count] = cg::text::FromGbkWide(buffer.data());
         gWindowListCountCF46A8 = ++count;
-        std::memcpy(destination + prefix, buffer.data() + prefix, length - prefix);
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
@@ -140,7 +135,7 @@ static void WindowTradeTarget_Refresh(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9 + line].data);
-        data->text = cg::text::FromGbkWide(gWindowListNamesCF3F20[offset + line].data());
+        data->text = gWindowListNamesCF3F20[offset + line];
     }
 }
 

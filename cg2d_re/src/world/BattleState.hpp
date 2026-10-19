@@ -47,7 +47,7 @@ static_assert(sizeof(BattleSkillResultRecord) == 8);
 // 窗口30只读借用50D500唯一结果存储，各字段仍按原指令时机读取。
 extern std::array<BattleResultRecord, 4> gBattleResultsFF0C14; // 原全局：0x00FF0C14。
 extern std::array<BattleSkillResultRecord, kSkillSlotCount> gBattleSkillResultsFF0C8C; // 原全局：0x00FF0C8C。
-extern std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34; // 原全局：0x00FF0C34。
+extern std::array<std::wstring, 3> gBattleResultNamesFF0C34; // 原全局：0x00FF0C34。
 extern std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C; // 原全局：0x00FF0D0C。
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。

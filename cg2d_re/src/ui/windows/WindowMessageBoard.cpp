@@ -126,10 +126,10 @@ void WindowMessageBoard_ResetRecords()
     for (WindowListRecordD3FAD4& record : gLoginWindowRuntime.recordsD3FAD4) {
         record.value00 = 0;
         record.value408 = 0;
-        record.texts08[1][0] = '\0';
-        record.texts08[2][0] = '\0';
-        record.texts08[3][0] = '\0';
-        record.texts08[0][0] = '\0';
+        record.texts08[1].clear();
+        record.texts08[2].clear();
+        record.texts08[3].clear();
+        record.texts08[0].clear();
         record.value04 = 0;
     }
 }
@@ -311,7 +311,7 @@ static void WindowMessageBoard_RefreshRecords()
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[first].data);
         graphic->imageNo = record.value00;
         auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
-        name->text = cg::text::FromGbkWide(record.texts08[0].data());
+        name->text = record.texts08[0];
         __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
             const std::tm* const calendar = ::_localtime64(&time);
@@ -328,7 +328,7 @@ static void WindowMessageBoard_RefreshRecords()
         }
         for (std::int32_t line = 1; line < 4; ++line) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 3 + line].data);
-            text->text = cg::text::FromGbkWide(record.texts08[line].data());
+            text->text = record.texts08[line];
         }
         gCurrentWindow->elements[first + 3].visible = record.value408 != 0 ? 1 : 0;
     }
@@ -371,19 +371,19 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
         record.value408 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
         input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
-        std::strcpy(record.texts08[0].data(), std::strlen(fieldText) > 16 ? "???" : fieldText);
+        record.texts08[0] = cg::text::FromGbkWide(std::strlen(fieldText) > 16 ? "???" : fieldText);
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
         input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
         std::strcpy(copiedText, fieldText);
         const auto length = static_cast<std::int32_t>(std::strlen(fieldText));
         if (std::strlen(fieldText) > 140) {
-            std::strcpy(record.texts08[1].data(), "");
-            std::strcpy(record.texts08[2].data(), "");
-            std::strcpy(record.texts08[3].data(), "");
+            record.texts08[1].clear();
+            record.texts08[2].clear();
+            record.texts08[3].clear();
         } else {
             std::int32_t position = 0;
             for (std::int32_t line = 1; line < 4; ++line) {
-                char* const destination = record.texts08[line].data();
+                char destination[256]{};
                 std::int32_t used = 0;
                 for (;;) {
                     const char value = copiedText[position];
@@ -405,6 +405,7 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
                     --position;
                     destination[used - 1] = '\0';
                 }
+                record.texts08[line] = cg::text::FromGbkWide(destination);
             }
         }
         offset += 0x40C;

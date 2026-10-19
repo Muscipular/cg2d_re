@@ -28,13 +28,9 @@ enum BigMapImage : int {
     CenterNormal = 641527, CenterHover = 641528, CenterPressed = 641529,
 };
 enum class BigMapButton { Toggle, Close, Refresh, Walk, Center };
-struct BigMapButtonStyle { int x, y, w, h, normal, hover, pressed; bool visible; };
 // 4.06@49A528/2C/30/38：仅图标分类1、2、3、5消费该颜色。
 static constexpr std::array<std::uint32_t, 7> kCategoryColors{
     0xFFFFFFFFu, 0xF05C20FFu, 0xF0F8F8F8u, 0xF0F84AF8u, 0xFFFFFFFFu, 0xF0FFC500u, 0xFFFFFFFFu};
-static constexpr std::array<const wchar_t*, 7> kCategoryNames{
-    L"小的地点或居所", L"伐木地点", L"挖掘地点", L"狩猎地点",
-    L"村镇大地点", L"宠物Lv1坐标", L"特定NPC"};
 
 // 4.06@4134BB/413636：外部GBK、TAB七字段；只保留当前地图，坐标相同后条覆盖。
 struct BigMapAnnotation {
@@ -63,28 +59,107 @@ static int WindowBigMap_Update(int stage);
 static int WindowBigMap_Draw(int stage);
 static int WindowBigMap_Element(int index, int events);
 static void WindowBigMap_Release();
-static WindowGraphicData gBigMapGraphic{};
-static WindowTextPrototype gBigMapText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
-static std::array<WindowElementPrototype, ElementCount> gBigMapElements = [] {
-    std::array<WindowElementPrototype, ElementCount> elements{};
-    for (int i = 0; i < ElementCount; ++i) {
-        auto& element = elements[i];
-        element.visible = 1;
-        element.mouseCallback = i < TextFirst ? &WindowBigMap_Element : &WindowElement_NoOp;
-        if (i < ButtonEnd || i >= TextEnd) {
-            element.type = WindowElementType_Graphic;
-            element.source.graphic = &gBigMapGraphic;
-        } else if (i >= TextFirst) {
-            element.type = WindowElementType_Text;
-            element.source.text = &gBigMapText;
-        } else element.type = WindowElementType_EventArea;
-    }
-    return elements;
-}();
+// 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
+static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapCloseGraphic{22509, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapRefreshGraphic{243018, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapWalkGraphic{WalkNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapCenterGraphic{CenterNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapMapNameGraphic{MapNamePlate, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapCoordinateGraphic{CoordinatePlate, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapCompassGraphic{Compass, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapPlayerGraphic{PlayerMarker, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapTargetGraphic{TargetMarker, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapCheckedGraphic{Checked, 0, 0, 0, 0, 0xFFFF0000u};
+static WindowGraphicData gBigMapCheckboxGraphic{Checkbox, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowTextPrototype gBigMapTitleText{{std::byte{12}, std::byte{12}, {}, {}}, L"大地图"};
+static WindowTextPrototype gBigMapMapNameText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapCoordinateText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapOptionsText{{std::byte{4}, std::byte{12}, {}, {}}, L"地图选项"};
+static WindowTextPrototype gBigMapWalkText{{std::byte{4}, std::byte{12}, {}, {}}, L"开始寻路"};
+static WindowTextPrototype gBigMapCenterText{{std::byte{4}, std::byte{12}, {}, {}}, L"玩家居中"};
+static WindowTextPrototype gBigMapPlayerText{{std::byte{0}, std::byte{12}, {}, {}}, L"你现在的位置"};
+static WindowTextPrototype gBigMapTargetText{{std::byte{0}, std::byte{12}, {}, {}}, L"右键点选的寻路坐标"};
+static WindowTextPrototype gBigMapDisplayText{{std::byte{4}, std::byte{12}, {}, {}}, L"显示选项"};
+static WindowTextPrototype gBigMapRefreshText{{std::byte{4}, std::byte{12}, {}, {}}, L"刷新坐标"};
+static WindowTextPrototype gBigMapHintText{{std::byte{12}, std::byte{12}, {}, {}}, L"左键拖动，双击寻路，右键选择坐标"};
+static WindowTextPrototype gBigMapStatusText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapCategoryTexts[7]{
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"伐木地点"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"挖掘地点"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"狩猎地点"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"村镇大地点"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"宠物Lv1坐标"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"特定NPC"},
+};
+
+static WindowElementPrototype gBigMapElements[]{
+    {WindowElementType_Graphic, 11, 51, 20, 18, 1, {.graphic = &gBigMapToggleGraphic}, &WindowBigMap_Element}, // Toggle
+    {WindowElementType_Graphic, 614, 6, 20, 20, 1, {.graphic = &gBigMapCloseGraphic}, &WindowBigMap_Element}, // Close
+    {WindowElementType_Graphic, 161, 286, 20, 19, 0, {.graphic = &gBigMapRefreshGraphic}, &WindowBigMap_Element}, // Refresh
+    {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapWalkGraphic}, &WindowBigMap_Element}, // Walk
+    {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapCenterGraphic}, &WindowBigMap_Element}, // Center
+    {WindowElementType_EventArea, 42, 138, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类0
+    {WindowElementType_EventArea, 42, 158, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类1
+    {WindowElementType_EventArea, 42, 178, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类2
+    {WindowElementType_EventArea, 42, 198, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类3
+    {WindowElementType_EventArea, 42, 218, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类4
+    {WindowElementType_EventArea, 42, 238, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类5
+    {WindowElementType_EventArea, 42, 258, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类6
+    {WindowElementType_EventArea, 6, 6, 602, 32, 1, {}, &WindowBigMap_Element}, // TitleArea
+    {WindowElementType_EventArea, 10, 10, 184, 38, 1, {}, &WindowBigMap_Element}, // NameArea
+    {WindowElementType_EventArea, 515, 40, 96, 81, 1, {}, &WindowBigMap_Element}, // CompassArea
+    {WindowElementType_EventArea, 8, 440, 624, 32, 1, {}, &WindowBigMap_Element}, // StatusArea
+    {WindowElementType_EventArea, 36, 52, 224, 270, 0, {}, &WindowBigMap_Element}, // OptionsArea
+    {WindowElementType_EventArea, 8, 8, 624, 464, 1, {}, &WindowBigMap_Element}, // MapArea
+    {WindowElementType_Text, 0, 16, 0, 0, 1, {.text = &gBigMapTitleText}, &WindowElement_NoOp}, // TextTitle
+    {WindowElementType_Text, 16, 20, 0, 0, 1, {.text = &gBigMapMapNameText}, &WindowElement_NoOp}, // TextMapName
+    {WindowElementType_Text, 516, 104, 0, 0, 1, {.text = &gBigMapCoordinateText}, &WindowElement_NoOp}, // TextX
+    {WindowElementType_Text, 566, 104, 0, 0, 1, {.text = &gBigMapCoordinateText}, &WindowElement_NoOp}, // TextY
+    {WindowElementType_Text, 34, 52, 0, 0, 1, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextToggle
+    {WindowElementType_Text, 34, 76, 0, 0, 0, {.text = &gBigMapWalkText}, &WindowElement_NoOp}, // TextWalk
+    {WindowElementType_Text, 34, 76, 0, 0, 0, {.text = &gBigMapCenterText}, &WindowElement_NoOp}, // TextCenter
+    {WindowElementType_Text, 44, 60, 0, 0, 0, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextOptions
+    {WindowElementType_Text, 62, 79, 0, 0, 0, {.text = &gBigMapPlayerText}, &WindowElement_NoOp}, // TextPlayer
+    {WindowElementType_Text, 62, 99, 0, 0, 0, {.text = &gBigMapTargetText}, &WindowElement_NoOp}, // TextTarget
+    {WindowElementType_Text, 44, 120, 0, 0, 0, {.text = &gBigMapDisplayText}, &WindowElement_NoOp}, // TextDisplay
+    {WindowElementType_Text, 184, 287, 0, 0, 0, {.text = &gBigMapRefreshText}, &WindowElement_NoOp}, // TextRefresh
+    {WindowElementType_Text, 12, 442, 0, 0, 1, {.text = &gBigMapHintText}, &WindowElement_NoOp}, // TextHint
+    {WindowElementType_Text, 12, 462, 0, 0, 1, {.text = &gBigMapStatusText}, &WindowElement_NoOp}, // TextStatus
+    {WindowElementType_Text, 62, 140, 0, 0, 0, {.text = &gBigMapCategoryTexts[0]}, &WindowElement_NoOp}, // 分类0名称
+    {WindowElementType_Text, 62, 160, 0, 0, 0, {.text = &gBigMapCategoryTexts[1]}, &WindowElement_NoOp}, // 分类1名称
+    {WindowElementType_Text, 62, 180, 0, 0, 0, {.text = &gBigMapCategoryTexts[2]}, &WindowElement_NoOp}, // 分类2名称
+    {WindowElementType_Text, 62, 200, 0, 0, 0, {.text = &gBigMapCategoryTexts[3]}, &WindowElement_NoOp}, // 分类3名称
+    {WindowElementType_Text, 62, 220, 0, 0, 0, {.text = &gBigMapCategoryTexts[4]}, &WindowElement_NoOp}, // 分类4名称
+    {WindowElementType_Text, 62, 240, 0, 0, 0, {.text = &gBigMapCategoryTexts[5]}, &WindowElement_NoOp}, // 分类5名称
+    {WindowElementType_Text, 62, 260, 0, 0, 0, {.text = &gBigMapCategoryTexts[6]}, &WindowElement_NoOp}, // 分类6名称
+    {WindowElementType_Graphic, 10, 10, 184, 38, 1, {.graphic = &gBigMapMapNameGraphic}, &WindowElement_NoOp}, // MapNameImage
+    {WindowElementType_Graphic, 515, 105, 46, 16, 1, {.graphic = &gBigMapCoordinateGraphic}, &WindowElement_NoOp}, // CoordinateLeftImage
+    {WindowElementType_Graphic, 565, 105, 46, 16, 1, {.graphic = &gBigMapCoordinateGraphic}, &WindowElement_NoOp}, // CoordinateRightImage
+    {WindowElementType_Graphic, 530, 40, 60, 59, 1, {.graphic = &gBigMapCompassGraphic}, &WindowElement_NoOp}, // CompassImage
+    {WindowElementType_Graphic, 44, 80, 14, 14, 0, {.graphic = &gBigMapPlayerGraphic}, &WindowElement_NoOp}, // PlayerLegendImage
+    {WindowElementType_Graphic, 44, 100, 14, 14, 0, {.graphic = &gBigMapTargetGraphic}, &WindowElement_NoOp}, // TargetLegendImage
+    {WindowElementType_Graphic, 46, 141, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类0选中标记
+    {WindowElementType_Graphic, 46, 161, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类1选中标记
+    {WindowElementType_Graphic, 46, 181, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类2选中标记
+    {WindowElementType_Graphic, 46, 201, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类3选中标记
+    {WindowElementType_Graphic, 46, 221, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类4选中标记
+    {WindowElementType_Graphic, 46, 241, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类5选中标记
+    {WindowElementType_Graphic, 46, 261, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类6选中标记
+    {WindowElementType_Graphic, 46, 143, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类0选择框
+    {WindowElementType_Graphic, 46, 163, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类1选择框
+    {WindowElementType_Graphic, 46, 183, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类2选择框
+    {WindowElementType_Graphic, 46, 203, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类3选择框
+    {WindowElementType_Graphic, 46, 223, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类4选择框
+    {WindowElementType_Graphic, 46, 243, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类5选择框
+    {WindowElementType_Graphic, 46, 263, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类6选择框
+};
+static_assert(std::size(gBigMapElements) == ElementCount);
 
 // 单实例原型；state bit1禁止通用拖动，标题事件区域负责窗口拖动。
 WindowPrototype gWindowPrototypeBigMap{2, 4, 0, 0, 640, 480, 0, ElementCount,
-    gBigMapElements.data(), &WindowBigMap_Update, &WindowBigMap_Draw, &WindowBigMap_Release};
+    gBigMapElements, &WindowBigMap_Update, &WindowBigMap_Draw, &WindowBigMap_Release};
 
 struct BigMapWindowState final {
     WindowInstance& window; // 借用原生实例，release回调先销毁本业务状态。
@@ -112,9 +187,9 @@ struct BigMapWindowState final {
         const int screenW = render::GetRendererLogicalWidth(), screenH = render::GetRendererLogicalHeight();
         window.x = std::clamp(window.x, 0, std::max(0, screenW - window.width));
         window.y = std::clamp(window.y, 0, std::max(0, screenH - window.height));
-        map.x = 8; map.y = 8;
-        map.w = window.width - 16;
-        map.h = window.height - 16;
+        const auto& viewport = window.elements[MapArea];
+        map.x = viewport.x; map.y = viewport.y;
+        map.w = viewport.width; map.h = viewport.height;
     }
 
     static const resource::GraphicInfo* Graphic(int mapNo) {
@@ -124,19 +199,6 @@ struct BigMapWindowState final {
         if (index < 0 || index >= resource::gMaxGraphicCount) return nullptr;
         const auto& info = resource::gGraphicInfo[index];
         return info.mapNo == mapNo && info.w > 0 && info.h > 0 ? &info : nullptr;
-    }
-
-    BigMapButtonStyle ButtonStyle(BigMapButton button) const {
-        switch (button) {
-        case BigMapButton::Toggle: return {11, 51, 20, 18, options ? 243030 : 243033,
-            options ? 243032 : 243035, options ? 243031 : 243034, true};
-        case BigMapButton::Close: return {window.width - 26, 6, 20, 20, 22509, 22509, 22510, true};
-        case BigMapButton::Refresh: return {161, 286, 20, 19, 243018, 243020, 243019, options};
-        case BigMapButton::Walk: return {11, 73, 18, 18, WalkNormal, WalkHover, WalkPressed, targetX >= 0 && mapReady};
-        case BigMapButton::Center: return {11, targetX >= 0 ? 97 : 73, 18, 18,
-            CenterNormal, CenterHover, CenterPressed, !followPlayer};
-        }
-        return {};
     }
 
     bool ElementHit(int index) const {
@@ -153,23 +215,51 @@ struct BigMapWindowState final {
     }
 
     void SyncControls() {
-        const auto area = [&](int index, int x, int y, int w, int h, bool visible = true) {
-            auto& element = window.elements[index];
-            element.x = x; element.y = y; element.width = w; element.height = h;
-            element.visible = visible ? 1 : 0;
-        };
-        for (int i = ButtonFirst; i < ButtonEnd; ++i) {
-            const auto style = ButtonStyle(static_cast<BigMapButton>(i - ButtonFirst));
-            area(i, style.x, style.y, style.w, style.h, style.visible);
+        // 固定布局来自原型；这里只维护业务驱动的显隐和居中按钮的动态行。
+        const int walk = ButtonFirst + static_cast<int>(BigMapButton::Walk);
+        const int center = ButtonFirst + static_cast<int>(BigMapButton::Center);
+        window.elements[ButtonFirst + static_cast<int>(BigMapButton::Refresh)].visible = options;
+        window.elements[walk].visible = targetX >= 0 && mapReady;
+        window.elements[center].visible = !followPlayer;
+        window.elements[center].y = targetX >= 0 ? 97 : 73;
+        window.elements[TextCenter].y = window.elements[center].y + 3;
+        window.elements[TextToggle].visible = !options;
+        window.elements[TextWalk].visible = !options && window.elements[walk].visible;
+        window.elements[TextCenter].visible = !options && window.elements[center].visible;
+        window.elements[OptionsArea].visible = options;
+        for (int i : {TextOptions, TextPlayer, TextTarget, TextDisplay, TextRefresh,
+                PlayerLegendImage, TargetLegendImage}) window.elements[i].visible = options;
+        for (int i = 0; i < 7; ++i) {
+            window.elements[CategoryFirst + i].visible = options;
+            window.elements[CategoryTextFirst + i].visible = options;
+            window.elements[CheckedFirst + i].visible = options && categories[i];
+            window.elements[CheckboxFirst + i].visible = options;
         }
-        for (int i = CategoryFirst; i < CategoryEnd; ++i)
-            area(i, 42, 138 + (i - CategoryFirst) * 20, 194, 20, options);
-        area(TitleArea, 6, 6, window.width - 38, 32);
-        area(NameArea, 10, 10, 184, 38);
-        area(CompassArea, 515, 40, 96, 81);
-        area(StatusArea, map.x, window.height - 40, map.w, 32);
-        area(OptionsArea, 36, 52, 224, 270, options);
-        area(MapArea, map.x, map.y, map.w, map.h);
+    }
+
+    void RefreshText() {
+        static_cast<WindowTextData*>(window.elements[TextMapName].data)->text = text::FromGbkWide(world::ReadText9DAD30());
+        static_cast<WindowTextData*>(window.elements[TextX].data)->text = std::format(L"{:3}", static_cast<int>(world::gPlayerX));
+        static_cast<WindowTextData*>(window.elements[TextY].data)->text = std::format(L"{:3}", static_cast<int>(world::gPlayerY));
+        std::wstring hint = targetX >= 0
+            ? std::format(L"目标：{},{}  {}", targetX, targetY, routeStatus.empty() ? L"点击开始寻路" : routeStatus)
+            : gBigMapHintText.text;
+        if (acceptsMouse) {
+            if (ButtonHit(BigMapButton::Walk)) hint = L"开始寻路：前往右键选中的目标";
+            else if (ButtonHit(BigMapButton::Center)) hint = L"玩家居中：恢复地图跟随";
+            else if (ButtonHit(BigMapButton::Refresh)) hint = L"刷新坐标：重新读取地点标注";
+            else if (ButtonHit(BigMapButton::Toggle)) hint = options ? L"收起地图选项" : L"展开地图选项";
+            else if (ButtonHit(BigMapButton::Close)) hint = L"关闭大地图";
+            else if (TitleHit()) hint = L"拖动标题栏移动窗口";
+        }
+        static_cast<WindowTextData*>(window.elements[TextHint].data)->text = std::move(hint);
+        std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt"
+            : annotations.empty() ? L"当前地图没有标注" : std::format(L"地图标注：{}处", annotations.size());
+        if (missingIcons || failedUiImages)
+            status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, failedUiImages);
+        const auto generation = map.Status();
+        if (!generation.empty()) status += L"  " + generation;
+        static_cast<WindowTextData*>(window.elements[TextStatus].data)->text = std::move(status);
     }
 
     UIClipRect Viewport() const {
@@ -263,6 +353,7 @@ struct BigMapWindowState final {
         const bool available = gWindowHasFocus == 0 && ui::WindowDrag_ReadMousePhase() == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
+        RefreshText();
         if (!acceptsMouse || (gMouseClickState & 2)) mapClickPending = false;
         if (movingWindow) {
             if (available && held) {
@@ -295,6 +386,21 @@ struct BigMapWindowState final {
     int OnElement(int index, int events) {
         auto& element = window.elements[index];
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : 0;
+        if (index < ButtonEnd) {
+            const bool hover = (element.state & 1) != 0, pressed = hover && (element.state & 8) != 0;
+            int imageNo = gBigMapElements[index].source.graphic->imageNo;
+            switch (static_cast<BigMapButton>(index - ButtonFirst)) {
+            case BigMapButton::Toggle:
+                imageNo = options ? (pressed ? 243031 : hover ? 243032 : 243030)
+                    : (pressed ? 243034 : hover ? 243035 : 243033);
+                break;
+            case BigMapButton::Close: if (pressed) imageNo = 22510; break;
+            case BigMapButton::Refresh: imageNo = pressed ? 243019 : hover ? 243020 : 243018; break;
+            case BigMapButton::Walk: imageNo = pressed ? WalkPressed : hover ? WalkHover : WalkNormal; break;
+            case BigMapButton::Center: imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal; break;
+            }
+            static_cast<WindowGraphicData*>(element.data)->imageNo = imageNo;
+        }
         if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & 1)) return 0;
         if (index != MapArea) {
             if (events & (2 | 4)) mapClickPending = false;
@@ -302,7 +408,10 @@ struct BigMapWindowState final {
                 if (index < ButtonEnd) {
                     switch (static_cast<BigMapButton>(index - ButtonFirst)) {
                     case BigMapButton::Close: window.state |= WIN_STATE_CLOSE; break;
-                    case BigMapButton::Toggle: options = !options; break;
+                    case BigMapButton::Toggle:
+                        options = !options;
+                        static_cast<WindowGraphicData*>(element.data)->imageNo = options ? 243031 : 243034;
+                        break;
                     case BigMapButton::Center: followPlayer = true; break;
                     case BigMapButton::Refresh: LoadAnnotations(); break;
                     case BigMapButton::Walk:
@@ -319,6 +428,7 @@ struct BigMapWindowState final {
                 }
             }
             SyncControls();
+            RefreshText();
             return 1;
         }
         if (!mapReady) return 1;
@@ -351,6 +461,7 @@ struct BigMapWindowState final {
             } else if (!getAutoCopliotState()) routeStatus.clear();
         }
         SyncControls();
+        RefreshText();
         return 1;
     }
 
@@ -373,21 +484,6 @@ struct BigMapWindowState final {
     void UiImage(int mapNo, int x, int y, int width, int height, const UIClipRect& clip,
         std::uint32_t color = 0xFFFFFFFFu) {
         ImageAt(mapNo, window.x + x, window.y + y, width, height, clip, color);
-    }
-
-    void SetText(int index, int x, int y, std::wstring_view value, int color = 0) {
-        auto& element = window.elements[index];
-        auto& data = *static_cast<WindowTextData*>(element.data);
-        element.x = x; element.y = y; element.visible = 1;
-        data.text = value;
-        data.style.color = static_cast<std::byte>(color);
-    }
-
-    void SetImage(int index, int mapNo, int x, int y, int w, int h, std::uint32_t color = 0xFFFFFFFFu) {
-        auto& element = window.elements[index];
-        auto& data = *static_cast<WindowGraphicData*>(element.data);
-        element.x = x; element.y = y; element.width = w; element.height = h; element.visible = 1;
-        data.imageNo = mapNo; data.color = color;
     }
 
     void DrawElements(const UIClipRect& clip) {
@@ -479,73 +575,20 @@ struct BigMapWindowState final {
 
     int Draw(int stage) {
         if (window.state & WIN_STATE_CLOSE) return stage;
-        const int previousUiFailures = failedUiImages;
         failedUiImages = 0;
         RendererBreakWindowTextBatch();
         const UIClipRect clip{static_cast<short>(window.x), static_cast<short>(window.y),
             static_cast<short>(window.x + window.width), static_cast<short>(window.y + window.height)};
         const auto mapClip = Viewport();
-        for (int i = TextFirst; i < ElementCount; ++i) window.elements[i].visible = 0;
-        SetText(TextTitle, (window.width - render::TextMeasure(L"大地图", kMapFont)) / 2, 16, L"大地图", 12);
-        SetText(TextMapName, 16, 20, text::FromGbkWide(world::ReadText9DAD30()), 12);
-        SetImage(MapNameImage, MapNamePlate, 10, 10, 184, 38);
         const int px = static_cast<int>(world::gPlayerX), py = static_cast<int>(world::gPlayerY);
-        const int coordinateLeft = 530, coordinateTop = 40;
-        SetText(TextX, coordinateLeft - 14, coordinateTop + 64, std::format(L"{:3}", px), 12);
-        SetText(TextY, coordinateLeft + 36, coordinateTop + 64, std::format(L"{:3}", py), 12);
-        SetImage(CoordinateLeftImage, CoordinatePlate, coordinateLeft - 15, coordinateTop + 65, 46, 16);
-        SetImage(CoordinateRightImage, CoordinatePlate, coordinateLeft + 35, coordinateTop + 65, 46, 16);
-        SetImage(CompassImage, Compass, coordinateLeft, coordinateTop, 60, 59);
-        for (int i = ButtonFirst; i < ButtonEnd; ++i) {
-            const auto style = ButtonStyle(static_cast<BigMapButton>(i - ButtonFirst));
-            if (!style.visible) continue;
-            const auto events = window.elements[i].state;
-            const int mapNo = (events & 1) ? ((events & 8) ? style.pressed : style.hover) : style.normal;
-            SetImage(i, mapNo, style.x, style.y, style.w, style.h);
-        }
-        const auto walkButton = ButtonStyle(BigMapButton::Walk), centerButton = ButtonStyle(BigMapButton::Center);
-        if (!options) SetText(TextToggle, 34, 52, L"地图选项", 4);
-        if (walkButton.visible && !options) SetText(TextWalk, 34, walkButton.y + 3, L"开始寻路", 4);
-        if (centerButton.visible && !options) SetText(TextCenter, 34, centerButton.y + 3, L"玩家居中", 4);
-        if (options) {
-            SetText(TextOptions, 44, 60, L"地图选项", 4);
-            SetText(TextPlayer, 62, 79, L"你现在的位置");
-            SetText(TextTarget, 62, 99, L"右键点选的寻路坐标");
-            SetText(TextDisplay, 44, 120, L"显示选项", 4);
-            SetImage(PlayerLegendImage, PlayerMarker, 44, 80, 14, 14);
-            SetImage(TargetLegendImage, TargetMarker, 44, 100, 14, 14);
-            for (int i = 0; i < static_cast<int>(categories.size()); ++i) {
-                SetText(CategoryTextFirst + i, 62, 140 + i * 20, kCategoryNames[i]);
-                if (categories[i]) SetImage(CheckedFirst + i, Checked, 46, 141 + i * 20, 12, 11, 0xFFFF0000u);
-                SetImage(CheckboxFirst + i, Checkbox, 46, 143 + i * 20, 9, 9);
-            }
-            SetText(TextRefresh, 184, 287, L"刷新坐标", 4);
-        }
-        std::wstring hint = targetX >= 0
-            ? std::format(L"目标：{},{}  {}", targetX, targetY, routeStatus.empty() ? L"点击开始寻路" : routeStatus)
-            : L"左键拖动，双击寻路，右键选择坐标";
-        if (acceptsMouse) {
-            if (ButtonHit(BigMapButton::Walk)) hint = L"开始寻路：前往右键选中的目标";
-            else if (ButtonHit(BigMapButton::Center)) hint = L"玩家居中：恢复地图跟随";
-            else if (ButtonHit(BigMapButton::Refresh)) hint = L"刷新坐标：重新读取地点标注";
-            else if (ButtonHit(BigMapButton::Toggle)) hint = options ? L"收起地图选项" : L"展开地图选项";
-            else if (ButtonHit(BigMapButton::Close)) hint = L"关闭大地图";
-            else if (TitleHit()) hint = L"拖动标题栏移动窗口";
-        }
-        SetText(TextHint, 12, window.height - 38, hint, 12);
-        std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt"
-            : annotations.empty() ? L"当前地图没有标注" : std::format(L"地图标注：{}处", annotations.size());
-        if (missingIcons || previousUiFailures || failedUiImages)
-            status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, std::max(previousUiFailures, failedUiImages));
-        const auto generation = map.Status();
-        if (!generation.empty()) status += L"  " + generation;
-        SetText(TextStatus, 12, window.height - 18, status, 12);
         DrawElements(clip);
         if (options) {
             for (int i = 0; i < 7; ++i) {
-                if (window.elements[CategoryFirst + i].state & 1)
-                    RendererDrawRectClipped(static_cast<short>(window.x + 42),
-                        static_cast<short>(window.y + 138 + i * 20), 194, 20, LAYER_UI, 0x503F6E83u, &clip);
+                const auto& element = window.elements[CategoryFirst + i];
+                if (element.state & 1)
+                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                        static_cast<short>(window.y + element.y), static_cast<short>(element.width),
+                        static_cast<short>(element.height), LAYER_UI, 0x503F6E83u, &clip);
             }
             DrawPanel(clip);
         }
@@ -581,7 +624,9 @@ static std::unique_ptr<BigMapWindowState> gBigMapState;
 static int WindowBigMap_Update(int stage) {
     if (stage == -1) {
         gBigMapState = std::make_unique<BigMapWindowState>(*gCurrentWindow);
-        gBigMapState->SyncControls();
+        // 初始化只处理依赖字体度量的居中位置；其余固定值由原型创建时复制。
+        const auto* title = static_cast<const WindowTextData*>(gCurrentWindow->elements[TextTitle].data);
+        gCurrentWindow->elements[TextTitle].x = (gCurrentWindow->width - render::TextMeasure(title->text, kMapFont)) / 2;
         return 1;
     }
     return gBigMapState->Update(stage);

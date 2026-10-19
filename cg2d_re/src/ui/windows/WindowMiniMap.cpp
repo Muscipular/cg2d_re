@@ -2,9 +2,6 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
-#include "cg/render/TextPendingQueue.hpp"
-#include "cg/render/PngImage.hpp"
-#include "cg/resource/GraphicInfo.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -23,21 +20,12 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(std::int32_t index, std::int32_
 // 原函数：0x00495D70。
 static std::int32_t WindowMiniMap_Update(std::int32_t value);
 
-// BMUI01：唯一大地图入口；事件区同时绘制按钮，不改原控件索引。
+// BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
 {
-    const auto& element = gCurrentWindow->elements[index];
-    const auto x = static_cast<std::int16_t>(gCurrentWindow->x + element.x);
-    const auto y = static_cast<std::int16_t>(gCurrentWindow->y + element.y);
-    render::ClearTextQueueTail_456D50(3);
-    render::DrawColoredText(x + 22, y + 2, 3, 12, 0, L"大地图", 0, 0);
-    render::ClearTextQueueTail_456D50(3);
-    const int mapNo = (events & 8) ? 243034 : (events & 1) ? 243035 : 243033;
-    if (resource::gGraphicMapNoIndex && resource::gGraphicInfo && mapNo < resource::gBinLoaderGraphicCapacity) {
-        const int imageNo = resource::gGraphicMapNoIndex[mapNo];
-        if (imageNo >= 0 && imageNo < resource::gMaxGraphicCount && resource::gGraphicInfo[imageNo].mapNo == mapNo)
-            render::DrawGraphicImage(imageNo, x, y, 20, 18, 0xDF);
-    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = (events & 1) ? 0x3B53D : 0x3B53B;
+    if (events & 1) gHoverTextD68AE8 = L"打开大地图";
     if (events & 2) WindowBigMap_Open();
     return events != 0;
 }
@@ -45,6 +33,8 @@ static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t ev
 // 控件载荷、窗口状态、组件表与原型。
 
 static WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AEF0。
+
+static WindowGraphicData gMiniMapOpenBigMapGraphic {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu};
 
 static WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AF08。
 
@@ -70,7 +60,7 @@ static WindowElementPrototype gWindowElements56AF50[8] { // 原全局：0x0056AF
     {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
     {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 2, 1, 58, 18, 1, {}, &WindowMiniMap_OpenBigMap},
+    {WindowElementType_Graphic, 143, 4, 11, 11, 1, {.graphic = &gMiniMapOpenBigMapGraphic}, &WindowMiniMap_OpenBigMap},
 };
 
 // 原型：窗口33；原全局：0x0054E6C0。

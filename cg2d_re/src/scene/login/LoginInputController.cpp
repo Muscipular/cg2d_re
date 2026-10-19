@@ -116,7 +116,7 @@ std::int32_t ProcessCapability4Input_464E30()
         keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
     }
     if (keyTriggered) {
-        const std::int32_t focus = gValue9A6E20;
+        const std::int32_t focus = gLoginInputFocusIndex_9A6E20;
         if (focus == 0) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && gInputContext9A5960.length() != 0
@@ -133,11 +133,11 @@ std::int32_t ProcessCapability4Input_464E30()
                 gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
                     passwordByteLength)));
             } else {
-                gValue9A6E20 = 1;
+                gLoginInputFocusIndex_9A6E20 = 1;
             }
         } else if (focus == 1) {
             // 已排除外部屏幕键盘，沿原关闭分支切换普通输入焦点。
-            gValue9A6E20 = 0;
+            gLoginInputFocusIndex_9A6E20 = 0;
         }
     }
 
@@ -154,7 +154,7 @@ std::int32_t ProcessCapability4Input_464E30()
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
-            gValue9A6E20 = 1;
+            gLoginInputFocusIndex_9A6E20 = 1;
         }
         if ((static_cast<std::int32_t>(gInputContext9A5960X) + offsetX
                 < platform::gLegacyMouseState.mouseX)
@@ -166,11 +166,11 @@ std::int32_t ProcessCapability4Input_464E30()
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
-            gValue9A6E20 = 0;
+            gLoginInputFocusIndex_9A6E20 = 0;
         }
 
         input::SetContext_44B330(
-            gInputContextFocusTable[gValue9A6E20]);
+            gInputContextFocusTable[gLoginInputFocusIndex_9A6E20]);
 
         const std::int32_t accountTop = static_cast<std::int32_t>(gInputContext9A5678Y) - 4;
         const std::int32_t accountLeft = static_cast<std::int32_t>(gInputContext9A5678X) - 5;

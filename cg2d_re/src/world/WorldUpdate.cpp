@@ -54,7 +54,7 @@ void Update()
     switch (sceneType) {
     case 1: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         const std::int32_t capability = render::gPaletteCapability;
         switch (capability) {
@@ -82,7 +82,7 @@ void Update()
     }
     case 2: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         login::ProcessScene_45FEA0();
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
@@ -90,14 +90,14 @@ void Update()
     }
     case 3: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         character_select::ProcessScene_460FF0();
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     }
     case 4:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         character_select::detail::ProcessCreationScene_4626A0(1);
         cg::yobi::YobiUpdateAll_404C50();
@@ -106,7 +106,7 @@ void Update()
         cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
     case 5:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
         detail::InitializeChatInputAndLog_449DA0();
         detail::ResetPendingPathEvent_46A9E0();
@@ -138,7 +138,7 @@ void Update()
         gValueD67B08.fill(0);
         return;
     case 6:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         login::ProcessState_45E960();
         goto sceneSixTail;
     case 7:
@@ -163,14 +163,14 @@ void Update()
             cg::yobi::ResetObservationGroupList_43F220();
             gSceneTransitionResetPending_58B6D0 = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750();
-            platform::gValue73ECC0 = 2;
+            platform::gFrameBackgroundMode_73ECC0 = 2;
             cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;
         } else if (sceneState == 1
             && detail::ProcessSceneTransitionEffect_51FDE0(2, 0, 0x3F19999Au) == 1) {
-            platform::gValue73ECC0 = 0;
+            platform::gFrameBackgroundMode_73ECC0 = 0;
             ++gCurrentSceneState;
         }
 
@@ -187,13 +187,13 @@ void Update()
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
         cg::yobi::YobiClearUp_404D30();
-        gValueD9F2CA = 0;
+        gNetworkDisconnectState_D9F2CA = 0;
         return;
     }
     case 12:
         return;
     case 13:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         if (render::gPaletteCapability < 3) {
             character_select::ProcessLegacyVersionScene_45E3D0();

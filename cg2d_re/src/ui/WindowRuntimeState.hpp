@@ -646,7 +646,7 @@ extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
 extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
-extern std::uint8_t gValueD67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
+extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
 extern std::int32_t gDragItemIndex584DA4; // 原全局：0x00584DA4。 4FB8F0重置与旧14的4FAEF0拖动生产共用。
 extern std::int32_t gDragImageNoD67D24; // 原全局：0x00D67D24。
 extern std::int32_t gItemDragXCC4880; // 原全局：0x00CC4880。
@@ -656,21 +656,21 @@ extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C�
 extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::int32_t gChatWindowModeD66E04; // 原全局：0x00D66E04。 原独立S32，窗口35/57选择与设置文件共用。
-extern std::uint8_t gValue57DA28; // 原全局：0x0057DA28。 原独立U8，初值FF，设置文件与物品窗口共用。
-extern std::uint8_t gValue57E42C; // 原全局：0x0057E42C。 原独立U8，初值FF，设置文件与宠物窗口共用。
+extern std::uint8_t gInventoryActorSelectionMode_57DA28; // 原全局：0x0057DA28。 原独立U8，初值FF，设置文件与物品窗口共用。
+extern std::uint8_t gBattleItemActorSelectionMode_57E42C; // 原全局：0x0057E42C。 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
-extern std::int32_t gValueCF4AAC; // 原全局：0x00CF4AAC。 原设置文件回填与多个UI入口共用的数值。
-extern std::int32_t gValueCF4690; // 原全局：0x00CF4690。
-extern std::int32_t gValueCA0440; // 原全局：0x00CA0440。
-extern std::int32_t gValueD67B38; // 原全局：0x00D67B38。
+extern std::int32_t gHotkeyLayoutMode_CF4AAC; // 原全局：0x00CF4AAC。 原设置文件回填与多个UI入口共用的数值。
+extern std::int32_t gStatusBarLayoutMode_CF4690; // 原全局：0x00CF4690。
+extern std::int32_t gShortcutBarCollapsed_CA0440; // 原全局：0x00CA0440。
+extern std::int32_t gContactsPreviewMode_D67B38; // 原全局：0x00D67B38。
 extern cg::yobi::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
 extern cg::yobi::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
 extern std::uint8_t gGatherOperationCount_D67AFC; // 原全局：0x00D67AFC。
 extern std::uint8_t gSkillOperationCount_D67AFD; // 原全局：0x00D67AFD。
 extern std::uint8_t gSkillStatusIconReferences_D67AFE; // 原全局：0x00D67AFE。
-extern std::uint8_t gValueD67B24; // 原全局：0x00D67B24。
-extern std::uint8_t gValue5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
+extern std::uint8_t gItemUseTargetReferences_D67B24; // 原全局：0x00D67B24。
+extern std::uint8_t gSkillRebirthModeEnabled_5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能请求索引，不与窗口当前选中槽合并。
 extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。
 extern std::int32_t gSkillTargetKindCF4A10; // 原全局：0x00CF4A10。
@@ -685,7 +685,7 @@ extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64
 extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
 extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopImageD2DAD0; // 原全局：0x00D2DAD0。
-extern std::int32_t gValueD2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
+extern std::int32_t gShopExchangeCurrencyItemId_D2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
 extern WindowShopDetail gShopDetailCC3210; // 原全局：0x00CC3210。 名称/32行说明/六W32同源，见窗口53 SPEC。
 extern std::int32_t gShopAvailableCF4A24; // 原全局：0x00CF4A24。 模式2指定物品数量，装载0，窗口初始化再写-1。
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 原全局：0x00C9A954。 多窗口共用的行编号缓存，非地址。

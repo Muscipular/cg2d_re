@@ -222,7 +222,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
@@ -397,7 +397,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {

@@ -12,7 +12,7 @@ extern char gDataPath[128];               // 原 0x55CF84，静态初值 data。
 extern std::int32_t gMonitorKeyboard;     // 原 0x9A6EC8。
 extern std::uint8_t gRequestedRenderMode; // 原 0x628FE0。
 // 原 0xFF4E28，W8；PE virtual-zero 初值；loader 入口清零，InitializeClient 读取。
-extern std::uint8_t gValueFF4E28;
+extern std::uint8_t gSavedStateLoadErrorCode_FF4E28;
 
 extern std::uintptr_t gInstance;       // 原 0x9A6F38，HINSTANCE 的原生承载。
 extern std::uintptr_t gCursorHandles[11]; // 原 0x9A6EF8 起，11 个原生光标引用。
@@ -25,10 +25,10 @@ extern std::int32_t gWindowActiveState; // 原 0x55CE70，初值 2。
 extern std::int32_t gStartX;           // 原 0x9A7F50。
 extern std::int32_t gStartY;           // 原 0x9A7F54。
 extern std::uint32_t gDesktopColor;    // 原 0x9A6F40。
-extern std::uint32_t gValueD67AE4;     // 原全局：0x00D67AE4。 原 bShow；0 走表驱动光标，非零走原生光标分支。
-extern std::int32_t gValue73ECBC;      // 原 0x73ECBC，W32，virtual-zero 初值。
-extern std::uint32_t gValueD67AE8;     // 原 0xD67AE8，W32，virtual-zero 初值。
-extern std::int16_t gValue5F974C;      // 原 0x5F974C，W16，virtual-zero 初值。
+extern std::uint32_t gNativeCursorEnabled_D67AE4;     // 原全局：0x00D67AE4。 原 bShow；0 走表驱动光标，非零走原生光标分支。
+extern std::int32_t gChatTextSizeMode_73ECBC;      // 原 0x73ECBC，W32，virtual-zero 初值。
+extern std::uint32_t gInvertItemSplitModifier_D67AE8;     // 原 0xD67AE8，W32，virtual-zero 初值。
+extern std::int16_t gActorOverheadTextMode_5F974C;      // 原 0x5F974C，W16，virtual-zero 初值。
 extern std::uint32_t gContactSortMode_D67CD0;     // 原 0xD67CD0，W32；保存记录 +0x313 的 live 状态。
 // 原 0x553438，signed W32；sub_520730 按当前记录 +0x315 条件恢复，映像初值 10。
 extern std::int32_t gValue553438;

@@ -196,7 +196,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         std::uint16_t flags = pet.flags6AA;
         if (flags == 1 || flags == 2) {
             if ((state & 1) != 0) {
-                WindowElement_DrawHoverFrame(window->elements + index, state, cg::render::gValueD69768);
+                WindowElement_DrawHoverFrame(window->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
                 flags = pet.flags6AA;
                 if (flags != 2) {
                     const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0

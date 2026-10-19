@@ -94,8 +94,8 @@ static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, con
         if (selected >= 0) {
             --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
         }
-        --gValueD67B24;
-        if (std::bit_cast<std::int8_t>(gValueD67B24) <= 0) {
+        --gItemUseTargetReferences_D67B24;
+        if (std::bit_cast<std::int8_t>(gItemUseTargetReferences_D67B24) <= 0) {
             gSelectedItemCB1DF4 = -1;
         }
     }
@@ -121,7 +121,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
     const std::int32_t selected = gSelectedItemCB0A44;
     gSelectedItemCB1DF4 = selected;
     ++reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
-    ++gValueD67B24;
+    ++gItemUseTargetReferences_D67B24;
     cg::yobi::YobiAction* const result = WindowTextTarget_Open(
         gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
         gItemUseTargetCountCC40CC, WindowItemUse_SelectTextTarget);
@@ -131,7 +131,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
             const std::int32_t previous = gSelectedItemCB1DF4;
             gSelectedItemCB1DF4 = -1;
             --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[previous];
-            --gValueD67B24;
+            --gItemUseTargetReferences_D67B24;
         }
     }
     return result;
@@ -206,8 +206,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
         if (selected >= 0) {
             --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
         }
-        --gValueD67B24;
-        if (std::bit_cast<std::int8_t>(gValueD67B24) <= 0) {
+        --gItemUseTargetReferences_D67B24;
+        if (std::bit_cast<std::int8_t>(gItemUseTargetReferences_D67B24) <= 0) {
             gSelectedItemCB1DF4 = -1;
         }
     }
@@ -247,7 +247,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
     }
     if (retainReference) {
         ++reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[gSelectedItemCB1DF4];
-        ++gValueD67B24;
+        ++gItemUseTargetReferences_D67B24;
     }
     return result;
 }

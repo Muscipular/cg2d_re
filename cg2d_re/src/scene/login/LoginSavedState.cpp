@@ -238,7 +238,7 @@ std::int32_t DecodeLegacyBytes_52D460(
 static std::int32_t LoadSavedPhysicalRecord_532ED0(
     const std::int32_t physicalSlot)
 {
-    cg::platform::gValueFF4E28 = 0;
+    cg::platform::gSavedStateLoadErrorCode_FF4E28 = 0;
 
     char path[0x400];
     std::uint8_t encoded[0xA20];
@@ -734,13 +734,13 @@ static std::int32_t RestoreAudioSettings_5204C0(
 static std::uint8_t* RestoreSavedScalarSettings_5205E0(
     std::uint8_t* const source)
 {
-    cg::platform::gValueD67AE4 =
+    cg::platform::gNativeCursorEnabled_D67AE4 =
         static_cast<std::uint32_t>(source[0xB0]);
-    cg::platform::gValue73ECBC =
+    cg::platform::gChatTextSizeMode_73ECBC =
         static_cast<std::int32_t>(source[0xB1]);
-    cg::platform::gValueD67AE8 =
+    cg::platform::gInvertItemSplitModifier_D67AE8 =
         static_cast<std::uint32_t>(source[0x312]);
-    cg::platform::gValue5F974C =
+    cg::platform::gActorOverheadTextMode_5F974C =
         static_cast<std::int16_t>(source[0x314]);
     cg::platform::gScanlineSyncMode =
         static_cast<std::uint16_t>(source[0x31A]);
@@ -942,14 +942,14 @@ std::uint8_t CaptureClientPreferenceBytes_520590()
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
     const std::uint8_t show =
-        static_cast<std::uint8_t>(cg::platform::gValueD67AE4);
+        static_cast<std::uint8_t>(cg::platform::gNativeCursorEnabled_D67AE4);
     const std::uint8_t value73ECBC =
-        static_cast<std::uint8_t>(cg::platform::gValue73ECBC);
+        static_cast<std::uint8_t>(cg::platform::gChatTextSizeMode_73ECBC);
     const std::uint8_t valueD67AE8 =
-        static_cast<std::uint8_t>(cg::platform::gValueD67AE8);
+        static_cast<std::uint8_t>(cg::platform::gInvertItemSplitModifier_D67AE8);
     currentBytes[0xB0] = show;
     const std::uint8_t value5F974C =
-        static_cast<std::uint8_t>(cg::platform::gValue5F974C);
+        static_cast<std::uint8_t>(cg::platform::gActorOverheadTextMode_5F974C);
     currentBytes[0xB1] = value73ECBC;
     const std::uint8_t scanlineSyncMode =
         static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);

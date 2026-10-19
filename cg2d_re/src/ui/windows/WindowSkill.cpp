@@ -344,7 +344,7 @@ WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30,
 // 原函数：0x004797C0。
 void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::int32_t second)
 {
-    if (gValue5F9754 == 0) {
+    if (gSkillRebirthModeEnabled_5F9754 == 0) {
         return;
     }
     auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
@@ -522,7 +522,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     std::strcpy(gSkillTargetNameD2F748.data(), gSkillStatusNamesCC4670[index].data());
     // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
     std::int32_t offset = 0;
-    if (gValue5F9754 != 0) {
+    if (gSkillRebirthModeEnabled_5F9754 != 0) {
         offset = 100;
     } else if (gSkillSendModeC8A970 != 0) {
         offset = 200;
@@ -1670,7 +1670,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         gCurrentWindow->elements[index].visible = 0;
         return 0;
     }
-    const std::uint8_t rebirth = gValue5F9754;
+    const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = rebirth != 0
@@ -1687,7 +1687,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
-        gValue5F9754 = rebirth != 0 ? 0 : 1;
+        gSkillRebirthModeEnabled_5F9754 = rebirth != 0 ? 0 : 1;
         occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -2167,7 +2167,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
 {
     const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
     const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
-    const std::uint8_t rebirthMode = gValue5F9754;
+    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
     if ((record->rebirthState4C48 != 0) != (rebirthMode != 0)
         || record->recipes8E8[recipe].itemId < 0) {
         return 0;
@@ -2336,7 +2336,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
                     gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previous + 1);
                     const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
-                    const bool enabled = gValue5F9754 != 0;
+                    const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
                     if ((rebirth != 0) != enabled) {
                         static_cast<void>(network::SendSkillRebirthSelection_510F50(
                             platform::gConnectionSocket, skill + (enabled ? 100 : 0)));
@@ -2355,7 +2355,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         fail();
                         return;
                     }
-                    const std::uint8_t rebirth = gValue5F9754;
+                    const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     static_cast<void>(network::SendSkillUseRequest_511EF0(
@@ -2388,7 +2388,7 @@ void WindowSkill_SyncStates()
     }
     const std::int32_t index = gSkillWindowIndexD2EA60;
     const std::int32_t rebirth = world::gSkillsF1BAFC[index].rebirthState4C48;
-    const bool enabled = gValue5F9754 != 0;
+    const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
     if ((rebirth != 0) != enabled) {
         static_cast<void>(network::SendSkillRebirthSelection_510F50(
             platform::gConnectionSocket, index + (enabled ? 100 : 0)));
@@ -2426,7 +2426,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
         // 原509080只有ret；保留调用前的文本和状态写入，不伪造文本生产。
         std::int32_t skill;
         std::int32_t level;
-        if (gValue5F9754 != 0) {
+        if (gSkillRebirthModeEnabled_5F9754 != 0) {
             skill = gUsingSkillIndexD2F32C;
             level = gUsingSkillLevelCA0AC4;
             skill += 100;

@@ -157,7 +157,7 @@ static std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。 配�
 static std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。 原装载初值-1。
 
 // 原全局：0x00D67B00。 原数值状态，47D490清零；非地址。
-static std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
+static std::int32_t gCraftPetAssistActive_D67B00 = 0; // 原全局：0x00D67B00。
 
 static std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
 
@@ -446,13 +446,13 @@ void WindowCraft_ResetSelection(const std::int32_t first, const std::int32_t sec
 // 原函数：0x0047D490。
 void WindowCraft_ResetItemSelection()
 {
-    gValueD67B00 = 0;
+    gCraftPetAssistActive_D67B00 = 0;
 }
 
 // 原函数：0x0047D4A0。
 std::int32_t WindowCraft_ReadItemSelection()
 {
-    return gValueD67B00;
+    return gCraftPetAssistActive_D67B00;
 }
 
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
@@ -481,7 +481,7 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
 // 五等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
 static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window, std::uint32_t duration)
 {
-    const std::uint8_t rebirthMode = gValue5F9754;
+    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
     gCraftDeadlineCF3B04 = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
@@ -587,7 +587,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gValueD67B00 = gSkillSendModeC8A970;
+    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
@@ -631,7 +631,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     }
     const std::int32_t active = gSkillSendModeC8A970;
     const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
-    gValueD67B00 = active;
+    gCraftPetAssistActive_D67B00 = active;
     const wchar_t* hint = nullptr;
     switch (skillId) {
     case 220: hint = L"　　　…　刻印中　…" /* 原常量参考：0x005866DC。 */; break;
@@ -681,7 +681,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
         && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 2026) {
         gSkillSendModeC8A970 = 1;
     }
-    gValueD67B00 = gSkillSendModeC8A970;
+    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
@@ -717,7 +717,7 @@ static void WindowCraft_WaitDecoration(WindowInstance* const window)
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gValueD67B00 = gSkillSendModeC8A970;
+    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　装饰中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
@@ -752,7 +752,7 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gValueD67B00 = gSkillSendModeC8A970;
+    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　精炼中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
@@ -1217,7 +1217,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t y = window->y + element->y;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
@@ -1227,7 +1227,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t y = window->y + element->y;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
@@ -1429,7 +1429,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
     if (item->count < requiredCount) {
         return;
     }
-    const std::uint8_t crystal = gValue5F9754;
+    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
     const std::int32_t level = item->level;
     if (level > WindowCraft_ReadRequiredSkillLevel(2026, crystal != 0 ? 1 : 0)) {
         return;
@@ -1599,7 +1599,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 enabled = false;
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (gSkillRebirthModeEnabled_5F9754 != 0 ? 1 : 0);
                 if (item->level > level) {
                     enabled = false;
                 }
@@ -1626,7 +1626,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-                const std::uint8_t crystal = gValue5F9754;
+                const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                 const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = gSelectedItemD460C0;
                 if (world::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
@@ -1764,7 +1764,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 }
                 cg::core::NullSub_509080();
                 std::int32_t offset = 0;
-                if (gValue5F9754 != 0) {
+                if (gSkillRebirthModeEnabled_5F9754 != 0) {
                     offset = 100;
                 } else if (gSkillSendModeC8A970 != 0) {
                     gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
@@ -2092,7 +2092,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                                 fail();
                                 return;
                             }
-                            const std::uint8_t crystal = gValue5F9754;
+                            const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                             const std::int32_t level = world::gSkillsF1BAFC[skill].level;
                             if (item->level > level + (crystal != 0 ? 1 : 0)) {
                                 world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
@@ -2114,7 +2114,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                                     rejected = true;
                                 } else {
                                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-                                    const std::uint8_t crystal = gValue5F9754;
+                                    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                                     const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                                     rejected = item->level > level + (crystal != 0 ? 1 : 0);
                                 }
@@ -2234,7 +2234,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         const WindowElement* const element = &window->elements[index];
         const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
         const std::int32_t top = element->y + 50 * (hovered / 5) + window->y;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
@@ -2299,7 +2299,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
     if (gSelectedItemD460C0 < 0) {
         return 0;
     }
-    WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
+    WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
     if ((state & 2) == 0) {
         return 0;
     }
@@ -2362,10 +2362,10 @@ static std::int32_t WindowCraft_DrawInputNotice(
     static_cast<void>(cg::render::DrawGraphic(320, 277, 226, imageNo, 0, &descriptor));
     static_cast<void>(render::DrawText_456780(
         145, 185, 4, 0, 0, first, 0,
-        static_cast<std::uint8_t>(cg::render::gValueD69768)));
+        static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     static_cast<void>(render::DrawText_456780(
         145, 205, 4, 0, 0, second, 0,
-        static_cast<std::uint8_t>(cg::render::gValueD69768)));
+        static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     cg::yobi::DrawNineGrid_49BE00(
         0x3BE34, 115, 155, 410, 150, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -2447,7 +2447,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 world::AppendChatMessage_44B050(L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (gValue5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (gSkillRebirthModeEnabled_5F9754 != 0 ? 1 : 0);
                 if (item->level > level) {
                     static_cast<void>(WindowCraft_ReleaseMaterials(6));
                     world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
@@ -2471,7 +2471,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-                    const std::uint8_t crystal = gValue5F9754;
+                    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                     const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = gSelectedItemD460C0;
                     rejected = world::gPlayerRuntimeSlots.items[slot].level
@@ -2502,7 +2502,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t y = window->y + element->y;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
@@ -2512,7 +2512,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t y = window->y + element->y;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
@@ -2804,7 +2804,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     if (gSkillSendModeC8A970 != 0) {
         const std::uint8_t mode = gSelectionModeD2D650;
         if (mode == 1 || mode == 4 || mode == 7 || mode == 16 || mode == 10 || mode == 13) {
-            if (petAvailable && gValueD67B00 != 0) {
+            if (petAvailable && gCraftPetAssistActive_D67B00 != 0) {
                 static_cast<void>(WindowCraft_AnimatePreviewPositions(gCurrentWindow, 4, 3, 5, gCraftDeadlineCF3B04));
             } else {
                 initializeMode(static_cast<std::uint8_t>(mode - 1));
@@ -2821,7 +2821,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     // 三种参数合同在读取共享状态时才选取，不能把请求值预先截为同一宽度。
     const auto sendRequest = [&](const bool recipeRequest, const bool singleTarget) {
         std::int32_t offset = 0;
-        if (gValue5F9754 != 0) {
+        if (gSkillRebirthModeEnabled_5F9754 != 0) {
             offset = 100;
         } else if (gSkillSendModeC8A970 != 0) {
             gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
@@ -2991,7 +2991,7 @@ static void WindowCraft_Release()
     if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
-    gValueD67B00 = 0;
+    gCraftPetAssistActive_D67B00 = 0;
     WindowRuntime_DecrementOperationCount();
     WindowRuntime_DecrementGatherOperationCount();
     --gSkillOperationCount_D67AFD;
@@ -3114,7 +3114,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
         const WindowElement* const element = &window->elements[index];
         const std::int32_t x = window->x + element->x;
         const std::int32_t y = window->y + element->y;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
@@ -3150,7 +3150,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
 // 原函数：0x0047E5E0。
 static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
 {
-    gValueD67B00 = 0;
+    gCraftPetAssistActive_D67B00 = 0;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
     }
@@ -3323,7 +3323,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
         const WindowElement* const element = &window->elements[index];
         const std::int32_t y = window->y + element->y;
         const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
@@ -3361,7 +3361,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
 {
     const std::int32_t entryResult = gItemWorkResultCB05FC;
     const std::int32_t selected = gSelectedItemD460C0;
-    gValueD67B00 = 0;
+    gCraftPetAssistActive_D67B00 = 0;
     if (entryResult != 0 && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
         static_cast<void>(WindowCraft_ReleaseMaterials(6));
     }

@@ -40,7 +40,7 @@ std::int32_t HitTestMouseRect_5049A0(
             static_cast<std::uint16_t>(right),
             static_cast<std::uint16_t>(bottom),
             static_cast<std::uint8_t>(layer),
-            cg::render::gValueD69768,
+            cg::render::gHoverFramePaletteIndex_D69768,
             0);
     }
     return 1;

@@ -822,9 +822,9 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 || gStallPendingD67C31 != 0) {
                 disabled = true;
             } else if ((state & 2) != 0) {
-                const std::uint8_t gate = gValueD67BE0;
+                const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
                 gStallPendingD67C31 = 1;
-                gValueD67BE0 = gate == 0 ? 1 : 0;
+                gOwnStallOpenForBusiness_D67BE0 = gate == 0 ? 1 : 0;
                 gStallItemSelection581124 = -1;
                 gStallPetSelection581128 = -1;
                 static_cast<void>(WindowStall_SubmitListings());
@@ -863,7 +863,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
         }
         case 33:
             imageGroup = 4;
-            if (gValueD67BE0 != 0) {
+            if (gOwnStallOpenForBusiness_D67BE0 != 0) {
                 disabled = true;
             } else if ((state & 2) != 0) {
                 window->state |= 0x8000u;
@@ -1241,7 +1241,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
     cg::text::FormatTo(buffer, L"{:3}", pet->lvFlag6C);
     drawText(91, 129);
     std::int32_t consumed = 0;
-    if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 != 0 && gStallOwn58111C != 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
         const std::uint32_t color = 0x80808080u;
@@ -1262,7 +1262,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 240), static_cast<std::uint16_t>(y + 90),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -1412,7 +1412,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         static_cast<void>(WindowStall_DrawCandidateAttributes(petIndex, attribute, x, y));
     }
     std::int32_t consumed = 0;
-    if (gValueD67BE0 == 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 == 0) {
         const bool own = gStallOwn58111C != 0;
         const std::int32_t position = gStallPetCandidatePageD67BD8 + row;
         bool offered = gStallPetUsedCF400C[position] != 0;
@@ -1429,7 +1429,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                     static_cast<std::uint16_t>(x + 231), static_cast<std::uint16_t>(y + 48),
-                    223, cg::render::gValueD69768, 0);
+                    223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                 consumed = 1;
             }
             if ((state & 2) != 0) {
@@ -1477,7 +1477,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
 // 原函数：0x004D04A0。
 static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int32_t state)
 {
-    if (gValueD67BE0 != 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 != 0) {
         const std::int32_t petCount = gStallPetCountD67BD4;
         const std::int32_t itemCount = gStallItemCountD67BCC;
         if (petCount + itemCount <= 0) {
@@ -1530,7 +1530,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, nameLine, 0, 0));
     }
     std::int32_t consumed = 0;
-    if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 != 0 && gStallOwn58111C != 0) {
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
         WindowInstance* const window = gCurrentWindow;
         render::GraphicDescriptor16 descriptor {};
@@ -1551,7 +1551,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -1657,7 +1657,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             if (gStallInventoryHover5817FC != slot) {
                 gStallDescriptionPageD67C3C = 0;
             }
-            const std::uint8_t gate = gValueD67BE0;
+            const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
             gStallInventoryHover5817FC = slot;
             if (gate == 0) {
                 if (gStallOwn58111C != 0 && (state & 2) != 0
@@ -1669,7 +1669,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                         cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                            223, cg::render::gValueD69768, 0);
+                            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                     }
                     if (gStallOwn58111C != 0) {
                         if ((state & 2) != 0) {
@@ -1691,7 +1691,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             }
             gStallHover581120 = slot + 8;
         }
-        if (gStallOwn58111C != 0 && gValueD67BE0 == 0 && slot == gStallItemSelection581124) {
+        if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && slot == gStallItemSelection581124) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
@@ -2015,7 +2015,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         std::memset(gStallItemUsedCC31AC.data() + 4, 0, 4);
         std::memset(gStallPetUsedCF400C.data(), 0, 4);
         std::memset(gStallItemUsedCC31AC.data() + 8, 0, 4);
-        gValueD67BE0 = 0;
+        gOwnStallOpenForBusiness_D67BE0 = 0;
         std::memset(gStallItemUsedCC31AC.data() + 12, 0, 4);
         gStallDescriptionPageD67C3C = 0;
         gStallNameD67BE4[0] = '\0';
@@ -2046,7 +2046,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
         gCurrentWindow->elements[7].visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
-            && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
+            && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, window->x, window->y, 1));
             cg::text::StoreGbk(gStallDescriptionD67BF8.data(), 57, input::ContextText(*gStallDescriptionInput581360.input.context));
@@ -2071,7 +2071,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         }
         gCurrentWindow->elements[5].visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0028
-            && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
+            && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, window->x, window->y, 1));
             cg::text::StoreGbk(gStallNameD67BE4.data(), gStallNameD67BE4.size(), input::ContextText(*gStallNameInput581130.input.context));
@@ -2092,7 +2092,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             std::memcpy(gStallNameD67BE4.data(), source, bytes);
             window->elements[5].visible = 1;
         }
-        const std::uint8_t gate = gValueD67BE0;
+        const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
         gStallHover581120 = -1;
         if (gate != 0) {
             gCurrentWindow->elements[30].visible = 0;
@@ -2139,7 +2139,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
 // 原函数：0x004D2080。
 static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t state)
 {
-    if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
     if ((state & 1) != 0) {
@@ -2166,7 +2166,7 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
 // 原函数：0x004D2170。
 static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
 {
-    if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
+    if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
     if ((state & 1) != 0) {
@@ -2554,7 +2554,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
     if (hovered) {
         gHoverTextD68AE8 = L"关闭这个视窗。";
     }
-    if ((state & 2) != 0 && gValueD67BE0 == 0 && gStallPendingD67C31 == 0) {
+    if ((state & 2) != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallPendingD67C31 == 0) {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
@@ -2563,7 +2563,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
     if (hovered) {
         graphic->imageNo = 243002;
     }
-    if ((state & 8) != 0 || gValueD67BE0 != 0 || gStallPendingD67C31 != 0) {
+    if ((state & 8) != 0 || gOwnStallOpenForBusiness_D67BE0 != 0 || gStallPendingD67C31 != 0) {
         graphic->imageNo = 243001;
     }
     return consumed;
@@ -2572,7 +2572,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
 // 原函数：0x004CDE00。
 static void WindowStall_Release()
 {
-    if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
+    if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 != 0) {
         static_cast<void>(network::CloseStallRequest_512160(platform::gConnectionSocket));
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -2605,7 +2605,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         if (window != nullptr) {
             window->elements[0].visible = 1;
         }
-        gValueD67BE0 = 0;
+        gOwnStallOpenForBusiness_D67BE0 = 0;
         gStallPendingD67C31 = 0;
         return;
     }
@@ -2632,7 +2632,7 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
     }
     world::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
-    gValueD67BE0 = 0;
+    gOwnStallOpenForBusiness_D67BE0 = 0;
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
     if (result != 0) {
         gStallMessageModeD67C34 = 1;

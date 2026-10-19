@@ -456,7 +456,7 @@ std::uint32_t gValueFF0D74 = 0; // 原全局：0x00FF0D74。
 std::uint8_t& gMapNameFirstByte_9DAD30 = gText9DAD30[0]; // 原全局：0x009DAD30。
 std::array<std::uint32_t, 7> gValueD67B08 {}; // 原全局：0x00D67B08。
 std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
-std::uint8_t gValueD9F2CA = 0; // 原全局：0x00D9F2CA。
+std::uint8_t gNetworkDisconnectState_D9F2CA = 0; // 原全局：0x00D9F2CA。
 
 const char* ReadText9DAD30() noexcept
 {
@@ -2203,7 +2203,7 @@ std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 } // namespace detail
 
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
-std::int32_t gValueD2F788 = 0; // 原全局：0x00D2F788。
+std::int32_t gPlayerUnspentAttributePoints_D2F788 = 0; // 原全局：0x00D2F788。
 std::uint16_t gPendingResultWindowMode_FF0C10 = 0; // 原全局：0x00FF0C10。
 
 // 原 0xFF0D04/0xFF0D08：50D700 写入、展示侧按 S32 读取的独立槽。
@@ -3503,7 +3503,7 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     case 101:
         if (gValue9A4B94 != 0) {
-            platform::gValue73ECC0 = 0;
+            platform::gFrameBackgroundMode_73ECC0 = 0;
             return;
         }
         [[fallthrough]];
@@ -3520,7 +3520,7 @@ void DrawNormalScene_51C7D0()
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        ui::detail::gValue5F9754 = 0;
+        ui::detail::gSkillRebirthModeEnabled_5F9754 = 0;
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
@@ -3551,7 +3551,7 @@ void DrawNormalScene_51C7D0()
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         gSceneTransitionResetPending_58B6D0 = 1;
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u));
@@ -3560,7 +3560,7 @@ void DrawNormalScene_51C7D0()
         return;
     }
     case 103:
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         if (ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u) == 1) {
             gWorldSceneInitialized_FF0D50 = 1;
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
@@ -3576,7 +3576,7 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     case 201: {
         const std::uint32_t gate = gValueD67E78;
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 14 : 16;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
@@ -3586,7 +3586,7 @@ void DrawNormalScene_51C7D0()
     }
     case 202:
         if (gMapTransitionReplyPending_C82210 != 0) {
-            platform::gValue73ECC0 = 0;
+            platform::gFrameBackgroundMode_73ECC0 = 0;
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             return;
@@ -3648,7 +3648,7 @@ void DrawNormalScene_51C7D0()
     }
     case 204: {
         const std::uint32_t gate = gValueD67E78;
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
@@ -3697,7 +3697,7 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     }
     case 251:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         static_cast<void>(DrawObservationTravelBackground_440FF0());
         ApplyPendingMapPaletteReply_51D6F0();
         static_cast<void>(NextRotationValue_455C70());
@@ -3837,7 +3837,7 @@ void DrawNormalScene_51C7D0()
             const std::uint32_t gate = gValueD67E78;
             platform::gLastRenderDt = static_cast<double>(tick);
             const std::int32_t selector = gate == 1 ? 15 : 13;
-            platform::gValue73ECC0 = 2;
+            platform::gFrameBackgroundMode_73ECC0 = 2;
             static_cast<void>(ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u));
         } else {
             const std::int32_t state = gCurrentSceneState;
@@ -3867,12 +3867,12 @@ void DrawNormalScene_51C7D0()
         return;
     }
     case 20:
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         static_cast<void>(CaptureMapTilesForTransition_51D640());
         gCurrentSceneState = 3;
         [[fallthrough]];
     case 3: {
-        platform::gValue73ECC0 = 0;
+        platform::gFrameBackgroundMode_73ECC0 = 0;
         gValueC82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
@@ -3928,7 +3928,7 @@ void DrawNormalScene_51C7D0()
     }
     case 4:
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         ++gCurrentSceneState;
@@ -4078,7 +4078,7 @@ void DrawBattleScene_43CBB0()
         gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10();
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         input::BrowseChatHistory_44A1B0();
         if (gMapResourceMode_9DAD68 == 1) {
             const std::int32_t image = gBattleBackgroundImage59F9F8;
@@ -4126,7 +4126,7 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(cg::audio::LoadAndPlayBGM(16));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
@@ -4138,9 +4138,9 @@ void DrawBattleScene_43CBB0()
     case 1:
         if (ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U) == 1) {
             CaptureBattleBackgroundSnapshot_43CB10();
-            platform::gValue73ECC0 = 3;
+            platform::gFrameBackgroundMode_73ECC0 = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
-            platform::gValue73ECC0 = 3;
+            platform::gFrameBackgroundMode_73ECC0 = 3;
             platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
@@ -4312,7 +4312,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         if (firstEffectPresent
             || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
@@ -4356,7 +4356,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         if (firstEffectPresent
             || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
@@ -4376,7 +4376,7 @@ void DrawBattleScene_43CBB0()
         break;
     }
 
-    if (platform::gValue73ECC0 == 2) {
+    if (platform::gFrameBackgroundMode_73ECC0 == 2) {
         return;
     }
     // G02：参考43D07B前置业务；保留Sub_4990A0内部的存活与可见门禁。
@@ -4410,7 +4410,7 @@ void DrawBattleScene_43CBB0()
         }
         gBattleSceneIndex5ABFD8 = ++index;
     } while (index < end);
-    if (platform::gValue73ECC0 == 2) {
+    if (platform::gFrameBackgroundMode_73ECC0 == 2) {
         return;
     }
     UpdateMapEffects_46E4A0();
@@ -6686,7 +6686,7 @@ std::int32_t InitializeWorldSceneFlags_455BD0()
 std::int32_t InitializeGameplayNotifications_504A30()
 {
     LoadChatInputHistory_44A090();
-    gValueD2F788 = 0;
+    gPlayerUnspentAttributePoints_D2F788 = 0;
     gPendingResultWindowMode_FF0C10 = 0;
     return 0;
 }
@@ -6704,7 +6704,7 @@ std::int32_t ResetBattleCommandSelection_43C8F0()
 // 原 [0x504100,0x504113)；LWR03移除旧选择备份CAFEA0，其余两槽清理及返回0保持。
 std::int32_t ResetSceneUiState_504100()
 {
-    gValueD2F788 = 0;
+    gPlayerUnspentAttributePoints_D2F788 = 0;
     gPendingResultWindowMode_FF0C10 = 0;
     return 0;
 }
@@ -6715,13 +6715,13 @@ std::int32_t ProcessLogoutTransition_45EEE0()
     const std::uint32_t phase = gLogoutTransition9A6E94;
     if (phase == 1) {
         if (ProcessSceneTransitionEffect_51FDE0(14, 8, 0x40000000U) == 1) {
-            platform::gValue73ECC0 = 0;
+            platform::gFrameBackgroundMode_73ECC0 = 0;
             render::SelectPalette(0, 0);
             return 1;
         }
     } else if (phase == 0) {
         CaptureSceneAndSelectEvenVariant_51D750();
-        platform::gValue73ECC0 = 2;
+        platform::gFrameBackgroundMode_73ECC0 = 2;
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
@@ -8904,7 +8904,7 @@ std::int32_t SendPlayerChatInput_50C940(
     }
     // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
     const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
-    const std::int32_t mode = platform::gValue73ECBC;
+    const std::int32_t mode = platform::gChatTextSizeMode_73ECBC;
     const std::int32_t range = platform::gValue554640;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
@@ -10734,7 +10734,7 @@ void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 // 原函数：0x00504B10。
 std::int32_t FindAttributeAllocationHintTarget_504B10()
 {
-    if (gValueD2F788 > 0) {
+    if (gPlayerUnspentAttributePoints_D2F788 > 0) {
         return 5;
     }
     for (std::int32_t position = 0; position < 5; ++position) {

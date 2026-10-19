@@ -378,7 +378,7 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* const text)
         gShopItemCountCB1E10 = currentCount + 1;
     }
     const std::int32_t type = world::gCurrentDialogType_581800;
-    gValueD2D608 = -1;
+    gShopExchangeCurrencyItemId_D2D608 = -1;
     gWindow69DialogTypeD2D810 = type;
     return WindowRuntime_CreateAnimation(WindowId_CrystalShop, 1, 0, nullptr);
 }
@@ -1047,7 +1047,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(const std::int32_t index, 
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             gWindow69Tooltip580850 = hovered + 8;
@@ -1071,7 +1071,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(const std::int32_t index, 
         const std::int32_t x = element.x + 50 * (slot % 5) + window->x + 26;
         const std::int32_t y = element.y + 50 * (slot / 5) + window->y + 26;
         const std::int32_t itemId = item.itemId;
-        if (itemId == gValueD2D608) {
+        if (itemId == gShopExchangeCurrencyItemId_D2D608) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                 static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
@@ -1150,11 +1150,11 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(const std::int32_t inde
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
+                const auto countFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
+                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
@@ -1164,8 +1164,8 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(const std::int32_t inde
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gWindow69ConfirmHeadingCC3F68, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow69ConfirmQuestionCC3F04, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gWindow69ConfirmHeadingCC3F68, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow69ConfirmQuestionCC3F04, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

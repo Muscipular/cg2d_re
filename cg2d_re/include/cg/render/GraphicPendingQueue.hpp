@@ -135,7 +135,7 @@ extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。
 extern std::int32_t gHoveredGraphicPendingIndex;
 
 // 原0xD69768：命中处理发布的悬停颜色；角色modal读完整W32，登录消息读低W8。
-extern std::uint32_t gValueD69768;
+extern std::uint32_t gHoverFramePaletteIndex_D69768;
 
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;

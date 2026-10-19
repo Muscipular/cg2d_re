@@ -28,7 +28,7 @@ static cg::yobi::YobiAction* gValue9A6E24 = nullptr;
 
 // 原 0x9A4BA0 只有本函数的消息读取与固定文本写入，原容量未获证。
 // 新端只为同一文本的原字节及末尾 NUL 建立最窄唯一缓冲，不据此推定原总容量。
-static std::wstring gValue9A4BA0 {};
+static std::wstring gOuterLoginErrorMessage_9A4BA0 {};
 
 // 原函数：0x0045C2D0。
 void ProcessOuterScene_45C2D0()
@@ -76,7 +76,7 @@ void ProcessOuterScene_45C2D0()
             input::SetContext_44B330(nullptr);
             return;
         case 9:
-            if (UpdateLoginMessage(gValue9A4BA0) != 0) {
+            if (UpdateLoginMessage(gOuterLoginErrorMessage_9A4BA0) != 0) {
                 world::gCurrentSceneState = 6;
                 processLoginInput = true;
             }
@@ -133,7 +133,7 @@ void ProcessOuterScene_45C2D0()
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;
-        gValue9A4BA0 = L"不正确的帐号和密码。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
+        gOuterLoginErrorMessage_9A4BA0 = L"不正确的帐号和密码。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
     }
 }
 

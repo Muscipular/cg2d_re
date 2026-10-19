@@ -19,17 +19,17 @@ std::uint16_t gCharacterCreationReplyCode = 0; // 原全局：0x00DA3B2A。
 // 原函数：0x00508E00。
 std::uint32_t StartCharacterCreationRequest()
 {
-    const std::int32_t element3 = character_select::state::gValueDE0B04;
-    const std::int32_t element2 = character_select::state::gValueF633F4;
-    const std::int32_t element1 = character_select::state::gValueFF03D0;
-    const std::int32_t element0 = character_select::state::gValueF7C948;
-    const std::int32_t attribute4 = character_select::state::gValueF7CA00;
-    const std::int32_t attribute3 = character_select::state::gValueDE0AF8;
-    const std::int32_t attribute2 = character_select::state::gValueDE03F4;
-    const std::int32_t attribute1 = character_select::state::gValueF633F0;
-    const std::int32_t attribute0 = character_select::state::gValueF633EC;
+    const std::int32_t element3 = character_select::state::gCreationSubmittedElement3_DE0B04;
+    const std::int32_t element2 = character_select::state::gCreationSubmittedElement2_F633F4;
+    const std::int32_t element1 = character_select::state::gCreationSubmittedElement1_FF03D0;
+    const std::int32_t element0 = character_select::state::gCreationSubmittedElement0_F7C948;
+    const std::int32_t attribute4 = character_select::state::gCreationSubmittedAttribute4_F7CA00;
+    const std::int32_t attribute3 = character_select::state::gCreationSubmittedAttribute3_DE0AF8;
+    const std::int32_t attribute2 = character_select::state::gCreationSubmittedAttribute2_DE03F4;
+    const std::int32_t attribute1 = character_select::state::gCreationSubmittedAttribute1_F633F0;
+    const std::int32_t attribute0 = character_select::state::gCreationSubmittedAttribute0_F633EC;
     const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
-    const std::int32_t motion = character_select::state::gValueDE0AFC;
+    const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
     const std::int32_t selected = gSelectedCharacterIndex;
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterCreationReplyCode = 0;

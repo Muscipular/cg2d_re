@@ -32,7 +32,7 @@ std::uint16_t gPendingGraphicCount = 0; // 原全局：0x01020EB8。
 std::uint32_t gPendingGraphicCount2 = 0; // 原全局：0x0073ECB8。
 std::int32_t gValue58D3C0 = -1; // 原全局：0x0058D3C0。
 std::int32_t gForceRender = 0; // 原全局：0x0073ECE4。
-std::int32_t gValue73ECC0 = 0; // 原全局：0x0073ECC0。
+std::int32_t gFrameBackgroundMode_73ECC0 = 0; // 原全局：0x0073ECC0。
 
 double gLastRenderDt = 0; // 原全局：0x0073ECC8。
 double gFrameThreshold = 1000.0 / 60.0; // 原全局：0x005590E8。
@@ -197,7 +197,7 @@ int MainLoop()
             }
         }
 
-        const std::int32_t clearMode = gValue73ECC0;
+        const std::int32_t clearMode = gFrameBackgroundMode_73ECC0;
         gForceRender = 0;
         if (clearMode == 0) {
             render::ClearSurface_4512C0();

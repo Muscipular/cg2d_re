@@ -170,7 +170,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
         data->style.color = static_cast<std::byte>(
             gLoginWindowRuntime.mailGuildColorsD6784C[currentStatus]);
     } else {
-        std::int32_t server = login::gValue55A054;
+        std::int32_t server = login::gSelectedLoginServerGroup_55A054;
         if (server >= 25) {
             server -= 25;
         }
@@ -190,7 +190,7 @@ void WindowMail_WriteContactStatus(
         const std::int16_t currentStatus = record.ReadStatus();
         data->style.color = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
     } else {
-        std::int32_t server = login::gValue55A054;
+        std::int32_t server = login::gSelectedLoginServerGroup_55A054;
         if (server >= 25) {
             server -= 25;
         }

@@ -243,7 +243,7 @@ static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, co
         return 0;
     }
     if ((state & 1) != 0) {
-        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gValueD69768);
+        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {

@@ -18,7 +18,7 @@
 namespace cg::render {
 
 // 原D69768零填充W32槽；唯一生产在下方完整507140，既有消费者仍共用此符号。
-std::uint32_t gValueD69768 = 0;
+std::uint32_t gHoverFramePaletteIndex_D69768 = 0;
 
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void DrawPaletteRectPrimitive_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
@@ -145,7 +145,7 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
             const std::uint8_t hoverLayer =
                 layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA};
             const DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
-            const std::uint32_t hover = cg::render::gValueD69768;
+            const std::uint32_t hover = cg::render::gHoverFramePaletteIndex_D69768;
             const DxGraphicEntry* const entry = dxBase + imageNo;
             const std::int32_t y = record->y;
             const std::int32_t x = record->x;

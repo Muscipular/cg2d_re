@@ -178,7 +178,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     }
     if ((events & 0x21u) != 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t image = cg::render::gValueD69768;
+        const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t windowY = window->y;
         const WindowElement* const elements = window->elements;
         const std::int32_t windowX = window->x;

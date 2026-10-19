@@ -423,13 +423,13 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
             gCurrentWindow->elements[28].visible = 1;
             auto* const inputGraphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data);
             inputGraphic->imageNo = 0x3B8DE;
-            if (platform::gValueD67AE8 != 0) {
+            if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
                 inputGraphic->imageNo = 0x3B8DB;
             }
             // 原494121改写EBP；末尾选中图也写这个借用载荷。
             graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data);
             graphic->imageNo = 0x3B8E4;
-            if (platform::gValueD67AE4 != 0) {
+            if (platform::gNativeCursorEnabled_D67AE4 != 0) {
                 graphic->imageNo = 0x3B8E1;
             }
         }
@@ -648,11 +648,11 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
-        platform::gValueD67AE8 = (platform::gValueD67AE8 - 1u) & 1u;
+        platform::gInvertItemSplitModifier_D67AE8 = (platform::gInvertItemSplitModifier_D67AE8 - 1u) & 1u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (platform::gValueD67AE8 != 0) {
+    if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
         graphic->imageNo = 0x3B8DB;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B8DD;
@@ -677,11 +677,11 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
-        platform::gValueD67AE4 = platform::gValueD67AE4 == 0 ? 1u : 0u;
+        platform::gNativeCursorEnabled_D67AE4 = platform::gNativeCursorEnabled_D67AE4 == 0 ? 1u : 0u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (platform::gValueD67AE4 != 0) {
+    if (platform::gNativeCursorEnabled_D67AE4 != 0) {
         graphic->imageNo = 0x3B8E1;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B8E3;
@@ -709,17 +709,17 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
-        const std::int32_t mode = gValueCF4AAC + 1;
-        gValueCF4AAC = mode;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC + 1;
+        gHotkeyLayoutMode_CF4AAC = mode;
         if (mode == 2) {
-            gValueCF4AAC = 0;
+            gHotkeyLayoutMode_CF4AAC = 0;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    graphic->imageNo = kSettingsKeyImages54F460[3 * gValueCF4AAC];
+    graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC];
     if ((state & 1) != 0) {
-        graphic->imageNo = kSettingsKeyImages54F460[3 * gValueCF4AAC + 2];
+        graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC + 2];
     }
     return consumed;
 }

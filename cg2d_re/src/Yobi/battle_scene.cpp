@@ -265,7 +265,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
     }
     const std::int32_t graphic = action->graphicIndex;
     const render::DxGraphicEntry* const entries = render::gGraphicDxCache103CFA4;
-    const std::uint32_t hoverImage = cg::render::gValueD69768;
+    const std::uint32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
     const std::int32_t offsetY = action->graphicOffsetY;
@@ -473,7 +473,7 @@ std::int32_t Sub_43CA50()
 void DrawBattleActorNames_43CA80()
 {
     std::int8_t color = 0;
-    if (platform::gValue5F974C == 0) {
+    if (platform::gActorOverheadTextMode_5F974C == 0) {
         return;
     }
     for (std::int32_t index = 0; index < 20; ++index) {

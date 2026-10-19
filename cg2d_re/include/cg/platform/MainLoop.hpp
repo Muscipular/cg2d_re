@@ -11,7 +11,7 @@ extern std::uint16_t gPendingGraphicCount;  // 原 0x1020EB8，仅清零 16 位�
 extern std::uint32_t gPendingGraphicCount2; // 原 0x73ECB8。
 extern std::int32_t gValue58D3C0;           // 原 0x58D3C0，实传给 0x52CD30。
 extern std::int32_t gForceRender;           // 原 0x73ECE4。
-extern std::int32_t gValue73ECC0;           // 原 0x73ECC0，清屏前分支选择，完整枚举未定。
+extern std::int32_t gFrameBackgroundMode_73ECC0;           // 原 0x73ECC0，清屏前分支选择，完整枚举未定。
 
 extern double gLastRenderDt;       // 原 0x73ECC8，共享帧截止，不是上一帧耗时。
 extern double gFrameThreshold;     // 原 0x5590E8，可写，不能合并为下面的增量。

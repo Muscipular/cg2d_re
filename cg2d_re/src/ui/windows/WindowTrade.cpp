@@ -1264,7 +1264,7 @@ static void WindowTrade_HandleOwnInventory(
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[hovered];
         if (item.used != 0) {
             const std::size_t memoLength = item.memo.size();
@@ -1422,7 +1422,7 @@ static void WindowTrade_HandleOwnPets(
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             if (world::gPetRuntimeRecords[petIndex].used != 0) {
                 gTradePreviewCC2E64 = petIndex + 300;
             }
@@ -1632,7 +1632,7 @@ static void WindowTrade_HandleSelectedItem(
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         return;
     }
@@ -1720,7 +1720,7 @@ static void WindowTrade_HandleSelectedItem(
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         const std::int32_t slot = WindowTrade_ReadSelectedItem(hovered);
         if (slot >= 0) {
             const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
@@ -1807,7 +1807,7 @@ static void WindowTrade_HandleSelectedPet(
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         return;
     }
@@ -1886,7 +1886,7 @@ static void WindowTrade_HandleSelectedPet(
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             const std::int32_t slot = WindowTrade_ReadSelectedPet(hovered);
             if (slot >= 0 && world::gPetRuntimeRecords[slot].used != 0) {
                 gTradePreviewCC2E64 = slot + 300;
@@ -2032,7 +2032,7 @@ static void WindowTrade_HandleRemoteItem(
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             const auto* const record = &gTradeItemsD460D0[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));

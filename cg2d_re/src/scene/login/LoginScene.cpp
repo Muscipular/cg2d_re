@@ -276,12 +276,12 @@ static void CopyAccountHelpLines()
 static void DrawCategoryControls()
 {
     for (std::int32_t index = 0; index < 60; ++index) {
-        if (cg::login::gValueD9F2D4[static_cast<std::size_t>(index)] > 0) {
-            if (cg::login::gValue55A054 == index) {
+        if (cg::login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0) {
+            if (cg::login::gSelectedLoginServerGroup_55A054 == index) {
                 const auto controlRecord = SelectedCategoryControl();
                 cg::ui::DrawUiControl_45EFD0(
                     &controlRecord, 10, 0, 0, 0);
-            } else if (cg::login::gValue55A054 < 0) {
+            } else if (cg::login::gSelectedLoginServerGroup_55A054 < 0) {
                 const auto controlRecord = CategoryScanRecord(index);
                 cg::ui::DrawUiControl_45EFD0(
                     &controlRecord, 10, 0, 0, 0);
@@ -298,20 +298,20 @@ static bool ReadServerAvailability(std::int32_t category, std::int32_t page, std
         return false;
     }
     const std::int32_t index = category * 20 + page * 10 + slot;
-    return cg::login::gValueD69798[static_cast<std::size_t>(index)].available != 0;
+    return cg::login::gLoginServerRecords_D69798[static_cast<std::size_t>(index)].available != 0;
 }
 
 std::int32_t gValueD69794 = 0; // 原全局：0x00D69794。
-std::array<LoginServerRecord, 800> gValueD69798 {}; // 原全局：0x00D69798。
-std::array<std::int32_t, 60> gValueD9F2D4 {}; // 原全局：0x00D9F2D4。
+std::array<LoginServerRecord, 800> gLoginServerRecords_D69798 {}; // 原全局：0x00D69798。
+std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4 {}; // 原全局：0x00D9F2D4。
 std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。
 char gPassword[64] {}; // 原全局：0x00DA38DC。
 char gExecutableDigest[64] {}; // 原全局：0x00DA3A1C。
 char gAccount[64] {}; // 原全局：0x00DA3A5C。
-std::int16_t gValueDA3B24 = 0; // 原全局：0x00DA3B24。
+std::int16_t gLoginReplyErrorCode_DA3B24 = 0; // 原全局：0x00DA3B24。
 
-static_assert(sizeof(gValueD69798) == 800 * 0xC1);
-static_assert(sizeof(gValueD9F2D4) == 60 * sizeof(std::int32_t));
+static_assert(sizeof(gLoginServerRecords_D69798) == 800 * 0xC1);
+static_assert(sizeof(gLoginServerGroupCounts_D9F2D4) == 60 * sizeof(std::int32_t));
 
 namespace detail {
 
@@ -323,12 +323,12 @@ std::int32_t GetServerAddressInfo_507D90(
     std::uint16_t* port)
 {
     if (serverIndex < 0
-        || serverIndex >= static_cast<std::int32_t>(gValueD69798.size())) {
+        || serverIndex >= static_cast<std::int32_t>(gLoginServerRecords_D69798.size())) {
         return -1;
     }
 
     VM_START
-    const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
+    const auto& record = gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)];
     std::strcpy(serverAddress, record.address.data());
     *port = static_cast<std::uint16_t>(std::atoi(record.portText.data()));
     platform::ApplyServerAddressPolicy(serverAddress, *port);
@@ -347,7 +347,7 @@ std::int32_t ProcessScene_45FEA0()
     if (world::gCurrentSceneState == 0) {
         world::gCurrentSceneState = 1;
         SetBaseWindowTitle(title);
-        world::gValueD9F2CA = 0;
+        world::gNetworkDisconnectState_D9F2CA = 0;
         world::gSceneTransitionResetPending_58B6D0 = 1;
         gSelectedServerGroup = 0;
         static_cast<void>(render::SelectPalette(27, 0));
@@ -367,7 +367,7 @@ std::int32_t ProcessScene_45FEA0()
             cg::audio::BeginBgmFadeOut_52B990();
         } else if (const auto selectedControl = SelectedCategoryControl();
             (cg::ui::QueryUiControlInputState_45F100(&selectedControl) & 1) != 0) {
-            gValue55A054 = -1;
+            gSelectedLoginServerGroup_55A054 = -1;
             gServerPage = 0;
             detail::PlaySe(54, 320, 240);
         } else {
@@ -375,11 +375,11 @@ std::int32_t ProcessScene_45FEA0()
             for (std::int32_t index = 0; index < 60; ++index) {
                 const auto categoryControl = CategoryScanRecord(index);
                 const std::int32_t input = cg::ui::QueryUiControlInputState_45F100(&categoryControl);
-                category = gValue55A054;
+                category = gSelectedLoginServerGroup_55A054;
                 if ((input & 1) != 0
-                    && gValueD9F2D4[static_cast<std::size_t>(index)] > 0
+                    && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0
                     && category < 0) {
-                    gValue55A054 = index;
+                    gSelectedLoginServerGroup_55A054 = index;
                     detail::PlaySe(51, 320, 240);
 
                     const std::int32_t sourceA = categoryControl.activeImageNo;
@@ -393,7 +393,7 @@ std::int32_t ProcessScene_45FEA0()
                             imageNo;
                         imageNo += 2;
                     }
-                    category = gValue55A054;
+                    category = gSelectedLoginServerGroup_55A054;
                     break;
                 }
             }
@@ -408,7 +408,7 @@ std::int32_t ProcessScene_45FEA0()
                         const std::int32_t page = gServerPage;
                         const std::int32_t serverIndex =
                             category * 20 + page * 10 + slot;
-                        if (gValueD69798[static_cast<std::size_t>(serverIndex)].available != 0) {
+                        if (gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)].available != 0) {
                             SetServerWindowTitle(title, serverIndex, page, slot);
                             gSelectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             gSelectedServerGroup = slot;
@@ -443,25 +443,25 @@ std::int32_t ProcessScene_45FEA0()
             break;
         case -2: {
             world::gCurrentSceneState = 100;
-            const std::int16_t error = gValueDA3B24;
+            const std::int16_t error = gLoginReplyErrorCode_DA3B24;
             if (error > 1234) {
                 CopyText(gLoginSceneMessage, kCannotConnect);
-                gValueDA3B24 = 0;
+                gLoginReplyErrorCode_DA3B24 = 0;
             } else if (error == 1234) {
-                gValueDA3B24 = 0;
+                gLoginReplyErrorCode_DA3B24 = 0;
                 CopyText(gLoginSceneMessage, L"此伺服器很拥挤。" /* 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
             } else {
                 switch (error) {
                 case 1:
                     CopyText(gLoginSceneMessage, L"版本错误" /* 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 2:
                 case 5:
                     CopyText(gLoginSceneMessage, kMultiline);
                     CopyAccountHelpLines();
                     // CopyText(gLoginMsgLines_9A620C[10], kAccountHelp4);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     // CopyText(gLoginMsgLines_9A620C[11], kAccountHelp5);
                     break;
                 case 3:
@@ -474,62 +474,62 @@ std::int32_t ProcessScene_45FEA0()
                     // CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     CopyAccountHelpLines();
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     // CopyText(gLoginMsgLines_9A620C[2], kAccountHelp4);
                     // CopyText(gLoginMsgLines_9A620C[3], kAccountHelp5);
                     break;
                 case 4:
                     CopyText(gLoginSceneMessage, L"点数不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 6:
                     CopyText(gLoginSceneMessage, kAlreadyOnline);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 7:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, kAlreadyOnline);
                     break;
                 case 8:
                     CopyText(gLoginSceneMessage, L"登入伺服器发生错误" /* 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 9:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"储值时间已到" /* 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 10:
                     CopyText(gLoginSceneMessage, L"计费方式有问题" /* 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 11:
                 case 13:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, kSuspended);
                     break;
                 case 12:
                 case 14:
                     CopyText(gLoginSceneMessage, kSuspended);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 15:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"未知的错误" /* 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 16:
                     CopyText(gLoginSceneMessage, L"伺服器负荷过重，请稍候再试。" /* 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 18:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"请休息一下滑鼠，数秒后再尝试。" /* 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 19:
                     CopyText(gLoginSceneMessage, L"此伺服器不提供试玩服务" /* 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。 */);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 20:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"此电脑没有权限登入。（行动锁上锁）" /* 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 21:
@@ -540,20 +540,20 @@ std::int32_t ProcessScene_45FEA0()
                     CopyText(gLoginMsgLines_9A620C[9], L"储值后请稍待数分钟系统处理时间。" /* 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gLoginMsgLines_9A620C[10], L" ");
                     // CopyText(gLoginMsgLines_9A620C[11], L" ");
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 case 22:
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"此帐号已使用行动锁冻结。" /* 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 23:
                     gOpenUrlAfterMessage = 1;
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     CopyText(gLoginSceneMessage, L"游戏密码已经过期。\n" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
                     break;
                 default:
                     CopyText(gLoginSceneMessage, kCannotConnect);
-                    gValueDA3B24 = 0;
+                    gLoginReplyErrorCode_DA3B24 = 0;
                     break;
                 }
             }
@@ -607,8 +607,8 @@ std::int32_t ProcessScene_45FEA0()
     cg::ui::DrawUiControl_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
     if (interactiveTail != 0) {
         DrawCategoryControls();
-        if (gValue55A054 >= 0
-            && gValueD9F2D4[static_cast<std::size_t>(gValue55A054)] > 10) {
+        if (gSelectedLoginServerGroup_55A054 >= 0
+            && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(gSelectedLoginServerGroup_55A054)] > 10) {
             cg::ui::DrawUiControl_45EFD0(&gNextPageUi, 10, 0, 0, 0);
             cg::ui::DrawUiControl_45EFD0(&gPreviousPageUi, 10, 0, 0, 0);
             if ((cg::ui::QueryUiControlInputState_45F100(&gNextPageUi) & 1) != 0) {
@@ -627,8 +627,8 @@ std::int32_t ProcessScene_45FEA0()
 
         for (std::int32_t slot = 0; slot < 10; ++slot) {
             const bool available =
-                ReadServerAvailability(gValue55A054, gServerPage, slot);
-            if (available && gValue55A054 >= 0) {
+                ReadServerAvailability(gSelectedLoginServerGroup_55A054, gServerPage, slot);
+            if (available && gSelectedLoginServerGroup_55A054 >= 0) {
                 if (gServerPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
@@ -641,7 +641,7 @@ std::int32_t ProcessScene_45FEA0()
     } else {
         DrawCategoryControls();
         for (std::int32_t slot = 0; slot < 10; ++slot) {
-            if (ReadServerAvailability(gValue55A054, gServerPage, slot)) {
+            if (ReadServerAvailability(gSelectedLoginServerGroup_55A054, gServerPage, slot)) {
                 const std::int32_t style = slot == gSelectedServerGroup ? 2 : 1;
                 if (gServerPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(

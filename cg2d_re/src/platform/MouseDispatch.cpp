@@ -139,7 +139,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     if (layer >= 0xE2) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gValueD69768;
+        hover = cg::render::gHoverFramePaletteIndex_D69768;
         x = graphic.x;
         entry = base + imageNo;
         y = graphic.y;
@@ -147,7 +147,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else if (layer >= 0xD4) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gValueD69768;
+        hover = cg::render::gHoverFramePaletteIndex_D69768;
         entry = base + imageNo;
         y = graphic.y;
         x = graphic.x;
@@ -155,7 +155,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else if (graphic.reference.action != nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gValueD69768;
+        hover = cg::render::gHoverFramePaletteIndex_D69768;
         y = graphic.y;
         entry = base + imageNo;
         x = graphic.x;
@@ -177,7 +177,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else {
         const std::int32_t imageNo = graphic.imageNo;
         const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gValueD69768;
+        hover = cg::render::gHoverFramePaletteIndex_D69768;
         y = graphic.y;
         entry = base + imageNo;
         x = graphic.x;
@@ -202,7 +202,7 @@ void UpdateQueuedTextAndGraphicHover_507140()
     const std::uint32_t color = kHoverColors58ACC8[colorIndex];
     const std::uint32_t focus = ui::detail::gWindowHasFocusCA0AB4;
     const bool hasFocus = focus != 0;
-    cg::render::gValueD69768 = color;
+    cg::render::gHoverFramePaletteIndex_D69768 = color;
     render::gHoveredGraphicPendingIndex = -1;
     if (hasFocus) {
         ui::detail::gWindowHasFocusCA0AB4 = 0;
@@ -224,7 +224,7 @@ void UpdateQueuedTextAndGraphicHover_507140()
                 std::int32_t y;
                 std::int32_t x;
                 if (type == 2) {
-                    marker = cg::render::gValueD69768;
+                    marker = cg::render::gHoverFramePaletteIndex_D69768;
                     y = selected.y;
                     x = selected.x;
                 } else {

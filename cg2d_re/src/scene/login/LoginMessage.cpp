@@ -137,7 +137,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         const std::int32_t confirmX = gMessageLayout.x
             + (gMessageLayout.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(cg::render::gValueD69768));
+            static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768));
         gMessageResult = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(gMessageLayout.y + 156),
@@ -217,7 +217,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         const std::int32_t confirmX = gMessageLayout.x
             + (gMessageLayout.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(cg::render::gValueD69768));
+            static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768));
         gMessageResult = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(gMessageLayout.y + 296),

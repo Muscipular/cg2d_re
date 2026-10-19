@@ -179,8 +179,8 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
             static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, ordinal + 1, state));
             return 0;
         }
-    } else if (std::bit_cast<std::int8_t>(gValue57E42C) == ordinal + 1) {
-        --gValue57E42C;
+    } else if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) == ordinal + 1) {
+        --gBattleItemActorSelectionMode_57E42C;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -311,7 +311,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::wstring countText;
-    if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
+    if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
@@ -335,7 +335,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, cg::render::gValueD69768, 0);
+                            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                     }
                 }
                 consumed = 1;
@@ -596,14 +596,14 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (items[hovered + 8].used != 0) {
             gBattleItemHoverCF49B0 = hovered + 8;
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() < 8) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t hoverColor = cg::render::gValueD69768;
+        const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
         const WindowElement* const elements = window->elements;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
@@ -705,7 +705,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
+    if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
         const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
@@ -725,7 +725,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                         cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, cg::render::gValueD69768, 0);
+                            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                     }
                 }
                 consumed = 1;
@@ -886,7 +886,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -894,7 +894,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
                 const WindowInstance* const window = gCurrentWindow;
-                const std::uint32_t hoverColor = cg::render::gValueD69768;
+                const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
                 const WindowElement* const elements = window->elements;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;

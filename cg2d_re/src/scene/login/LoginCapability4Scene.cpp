@@ -25,11 +25,11 @@
 namespace cg::world {
 
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
-static std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
-static std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
-static std::int32_t gValue9A4B7C = 0; // 原全局：0x009A4B7C。
+static std::int32_t gCapability4LoginFrameCounter_9A4F2C = 0; // 原全局：0x009A4F2C。
+static std::int32_t gCapability4IntroFadeAlpha_9A4D00 = 0; // 原全局：0x009A4D00。
+static std::int32_t gCapability4IntroFadePhase_9A4B7C = 0; // 原全局：0x009A4B7C。
 static std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
-static std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
+static std::wstring gCapability4LoginMessage_9A4A78 {}; // 原全局：0x009A4A78。
 
 static std::int32_t DrawCapability4Base()
 {
@@ -57,16 +57,16 @@ std::int32_t UpdateCapability4LoginScene_464840()
     switch (state) {
     case 0:
         input::SetContext_44B330(nullptr);
-        gValue9A4F2C = 0;
-        gValue9A4D00 = 0;
-        gValue9A4B7C = 0;
+        gCapability4LoginFrameCounter_9A4F2C = 0;
+        gCapability4IntroFadeAlpha_9A4D00 = 0;
+        gCapability4IntroFadePhase_9A4B7C = 0;
         world::gCurrentSceneState = 1;
         return cg::audio::LoadAndPlayBGM(42);
 
     case 1: {
-        const std::int32_t frameCounter = gValue9A4F2C;
-        const std::int32_t phase = gValue9A4B7C;
-        gValue9A4F2C = frameCounter + 1;
+        const std::int32_t frameCounter = gCapability4LoginFrameCounter_9A4F2C;
+        const std::int32_t phase = gCapability4IntroFadePhase_9A4B7C;
+        gCapability4LoginFrameCounter_9A4F2C = frameCounter + 1;
 
         std::int32_t result = phase;
         const std::uint32_t phaseBits =
@@ -74,7 +74,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
         if (phaseBits <= 3U) {
             if (phaseBits == 0U) {
                 const std::uint32_t fadeBits =
-                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    (std::bit_cast<std::uint32_t>(gCapability4IntroFadeAlpha_9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
@@ -84,7 +84,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
                 static_cast<void>(
                     cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99653, 0, -1)));
                 const std::uint32_t fadeBits =
-                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    (std::bit_cast<std::uint32_t>(gCapability4IntroFadeAlpha_9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
@@ -96,7 +96,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
                 static_cast<void>(
                     cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 4, 99654, 0, -1)));
                 const std::uint32_t fadeBits =
-                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    (std::bit_cast<std::uint32_t>(gCapability4IntroFadeAlpha_9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
@@ -110,7 +110,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
                 static_cast<void>(
                     cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 5, 99655, 0, -1)));
                 const std::uint32_t fadeBits =
-                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    (std::bit_cast<std::uint32_t>(gCapability4IntroFadeAlpha_9A4D00) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
@@ -118,12 +118,12 @@ std::int32_t UpdateCapability4LoginScene_464840()
                     cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 6, 99656, 0, fade)));
             }
 
-            gValue9A4D00 = gValue9A4D00 + 6;
-            result = gValue9A4D00;
+            gCapability4IntroFadeAlpha_9A4D00 = gCapability4IntroFadeAlpha_9A4D00 + 6;
+            result = gCapability4IntroFadeAlpha_9A4D00;
             if (result >= 255) {
                 if (phaseBits <= 2U) {
-                    gValue9A4B7C = phase + 1;
-                    gValue9A4D00 = 0;
+                    gCapability4IntroFadePhase_9A4B7C = phase + 1;
+                    gCapability4IntroFadeAlpha_9A4D00 = 0;
                 } else {
                     world::gCurrentSceneState = 2;
                 }
@@ -139,7 +139,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 2:
-        gValue9A4F2C = 0;
+        gCapability4LoginFrameCounter_9A4F2C = 0;
         gValue9A509C = 0;
         static_cast<void>(cg::login::detail::InitializeSavedState_533300());
         login::InitializeCapability4Input_465320();
@@ -147,9 +147,9 @@ std::int32_t UpdateCapability4LoginScene_464840()
         return DrawCapability4Base();
 
     case 3: {
-        gValue9A4F2C = gValue9A4F2C + 1;
-        if (gValue9A4F2C > 256) {
-            gValue9A4F2C = 0;
+        gCapability4LoginFrameCounter_9A4F2C = gCapability4LoginFrameCounter_9A4F2C + 1;
+        if (gCapability4LoginFrameCounter_9A4F2C > 256) {
+            gCapability4LoginFrameCounter_9A4F2C = 0;
         }
 
         const std::int32_t result =
@@ -190,10 +190,10 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 4: {
-        const std::uint32_t previousShow = platform::gValueD67AE4;
+        const std::uint32_t previousShow = platform::gNativeCursorEnabled_D67AE4;
         static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0());
         login::detail::RestoreCapability4CurrentSavedRecord();
-        const std::uint32_t currentShow = platform::gValueD67AE4;
+        const std::uint32_t currentShow = platform::gNativeCursorEnabled_D67AE4;
         if (currentShow != previousShow) {
             static_cast<void>(::ShowCursor(
                 std::bit_cast<std::int32_t>(currentShow)));
@@ -210,8 +210,8 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 6:
-        gValue9A4A78 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
-        if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
+        gCapability4LoginMessage_9A4A78 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
+        if (login::UpdateLoginMessage(gCapability4LoginMessage_9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }
         return ProcessCapability4CommonTail();
@@ -225,9 +225,9 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 8: {
-        gValue9A4A78 = L"确定要删除这帐号记录吗？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
+        gCapability4LoginMessage_9A4A78 = L"确定要删除这帐号记录吗？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
         const std::int32_t result =
-            login::detail::UpdateCapability4Modal_464450(gValue9A4A78);
+            login::detail::UpdateCapability4Modal_464450(gCapability4LoginMessage_9A4A78);
         if (result == 1) {
             world::gCurrentSceneState = 9;
         } else if (result == 2) {
@@ -250,8 +250,8 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 10:
-        gValue9A4A78 = L"帐号记录已成功删除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
-        if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
+        gCapability4LoginMessage_9A4A78 = L"帐号记录已成功删除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
+        if (login::UpdateLoginMessage(gCapability4LoginMessage_9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }
         return ProcessCapability4CommonTail();

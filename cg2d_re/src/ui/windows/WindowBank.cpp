@@ -795,7 +795,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind() == 2 && WindowDrag_ReadSourceIndex() >= 100) {
@@ -990,7 +990,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
@@ -1229,14 +1229,14 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
     }
     drawDragSource();
     if (hover) {
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (pet.used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
         }
     }
     if ((events & 0x20u) != 0) {
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
         if (WindowDrag_ReadKind() == 3 && WindowDrag_ReadSourceIndex() >= 100) {
             const std::int32_t level = world::gPlayerRuntimeSlots.level;
@@ -1368,13 +1368,13 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
     if (hover) {
         std::memcpy(&used, record, sizeof(used));
         if (used != 0) {
-            const std::uint32_t imageNo = cg::render::gValueD69768;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
             WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
         }
     }
     if ((events & 0x20u) != 0) {
-        const std::uint32_t imageNo = cg::render::gValueD69768;
+        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], 1, imageNo);
     }
     const WindowInstance* const window = gCurrentWindow;

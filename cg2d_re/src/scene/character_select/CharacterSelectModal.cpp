@@ -62,7 +62,7 @@ std::int32_t ProcessCharacterModal_462090(
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        cg::render::gValueD69768,
+        cg::render::gHoverFramePaletteIndex_D69768,
         std::uint8_t{214});
 
     std::wstring textBuffer;

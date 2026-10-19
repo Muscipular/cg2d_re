@@ -7,7 +7,7 @@ char gCommandLineStorage[4096] {}; // 原全局：0x009A6F48。
 char gDataPath[128] = "data"; // 原全局：0x0055CF84。
 std::int32_t gMonitorKeyboard = 0; // 原全局：0x009A6EC8。
 std::uint8_t gRequestedRenderMode = 0; // 原全局：0x00628FE0。
-std::uint8_t gValueFF4E28 = 0; // 原全局：0x00FF4E28。
+std::uint8_t gSavedStateLoadErrorCode_FF4E28 = 0; // 原全局：0x00FF4E28。
 
 std::uintptr_t gInstance = 0; // 原全局：0x009A6F38。
 std::uintptr_t gCursorHandles[11] {}; // 原全局：0x009A6EF8。
@@ -20,10 +20,10 @@ std::int32_t gWindowActiveState = 2; // 原全局：0x0055CE70。
 std::int32_t gStartX = 0; // 原全局：0x009A7F50。
 std::int32_t gStartY = 0; // 原全局：0x009A7F54。
 std::uint32_t gDesktopColor = 0; // 原全局：0x009A6F40。
-std::uint32_t gValueD67AE4 = 0; // 原全局：0x00D67AE4。
-std::int32_t gValue73ECBC = 0; // 原全局：0x0073ECBC。
-std::uint32_t gValueD67AE8 = 0; // 原全局：0x00D67AE8。
-std::int16_t gValue5F974C = 0; // 原全局：0x005F974C。
+std::uint32_t gNativeCursorEnabled_D67AE4 = 0; // 原全局：0x00D67AE4。
+std::int32_t gChatTextSizeMode_73ECBC = 0; // 原全局：0x0073ECBC。
+std::uint32_t gInvertItemSplitModifier_D67AE8 = 0; // 原全局：0x00D67AE8。
+std::int16_t gActorOverheadTextMode_5F974C = 0; // 原全局：0x005F974C。
 std::uint32_t gContactSortMode_D67CD0 = 0; // 原全局：0x00D67CD0。
 std::int32_t gValue553438 = 10; // 原全局：0x00553438。
 std::int32_t gValue55463C = 8; // 原全局：0x0055463C。

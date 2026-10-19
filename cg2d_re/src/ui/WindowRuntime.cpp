@@ -214,7 +214,7 @@ WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
 
 WindowState* gCurrentWindowState = nullptr; // 原全局：0x00CF4684。
 
-std::uint8_t gValueD67BE0 = 0; // 原全局：0x00D67BE0。
+std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
 
 std::int32_t gDragItemIndex584DA4 = -1; // 原全局：0x00584DA4。
 
@@ -260,7 +260,7 @@ WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
 
 std::int32_t gChatWindowModeD66E04 = 0; // 原全局：0x00D66E04。
 
-std::uint8_t gValue5F9754 = 0; // 原全局：0x005F9754。
+std::uint8_t gSkillRebirthModeEnabled_5F9754 = 0; // 原全局：0x005F9754。
 
 std::int32_t gChatWidthUnitsC9A930 = 0; // 原全局：0x00C9A930。
 
@@ -276,7 +276,7 @@ std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
 
 std::int32_t gShopImageD2DAD0 = 0; // 原全局：0x00D2DAD0。
 
-std::int32_t gValueD2D608 = 0; // 原全局：0x00D2D608。
+std::int32_t gShopExchangeCurrencyItemId_D2D608 = 0; // 原全局：0x00D2D608。
 
 std::int32_t gDialogValueCF4E5C = 0; // 原全局：0x00CF4E5C。
 
@@ -379,11 +379,11 @@ const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057C
 
 WindowMaterialState gMaterialOccupancyCC4894 {}; // 原全局：0x00CC4894。
 
-std::uint8_t gValue57DA28 = 0xFF; // 原全局：0x0057DA28。
+std::uint8_t gInventoryActorSelectionMode_57DA28 = 0xFF; // 原全局：0x0057DA28。
 
 std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
 
-std::uint8_t gValue57E42C = 0xFF; // 原全局：0x0057E42C。
+std::uint8_t gBattleItemActorSelectionMode_57E42C = 0xFF; // 原全局：0x0057E42C。
 
 static const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
 
@@ -393,13 +393,13 @@ static const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 
 
 static const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
 
-std::int32_t gValueCF4AAC = 0; // 原全局：0x00CF4AAC。
+std::int32_t gHotkeyLayoutMode_CF4AAC = 0; // 原全局：0x00CF4AAC。
 
-std::int32_t gValueCF4690 = 0; // 原全局：0x00CF4690。
+std::int32_t gStatusBarLayoutMode_CF4690 = 0; // 原全局：0x00CF4690。
 
-std::int32_t gValueCA0440 = 0; // 原全局：0x00CA0440。
+std::int32_t gShortcutBarCollapsed_CA0440 = 0; // 原全局：0x00CA0440。
 
-std::int32_t gValueD67B38 = 0; // 原全局：0x00D67B38。
+std::int32_t gContactsPreviewMode_D67B38 = 0; // 原全局：0x00D67B38。
 
 cg::yobi::YobiAction* gWindowActionCA0174 = nullptr; // 原全局：0x00CA0174。
 
@@ -416,7 +416,7 @@ std::uint8_t gSkillOperationCount_D67AFD = 0; // 原全局：0x00D67AFD。
 
 std::uint8_t gSkillStatusIconReferences_D67AFE = 0; // 原全局：0x00D67AFE。
 
-std::uint8_t gValueD67B24 = 0; // 原全局：0x00D67B24。
+std::uint8_t gItemUseTargetReferences_D67B24 = 0; // 原全局：0x00D67B24。
 
 std::int32_t gUsingSkillIndexD2F32C = 0; // 原全局：0x00D2F32C。
 
@@ -981,7 +981,7 @@ void WindowItem_RequestTransfer(
         return;
     }
     bool split = (platform::gKeyStates[0x11] & 2u) == 0;
-    if (platform::gValueD67AE8 != 0) {
+    if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
         split = !split;
     }
     std::int32_t count;
@@ -1225,7 +1225,7 @@ static void WindowItemDrag_Handle(
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
-                std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
+                std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
@@ -1239,7 +1239,7 @@ static void WindowItemDrag_Handle(
     const std::int32_t kind = WindowItem_ClassifyItemSlot(sourceIndex);
     if (kind == 1) {
         const world::PlayerItemRecord* item;
-        if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
+        if (std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) > 0) {
             item = &world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
@@ -1276,7 +1276,7 @@ static void WindowItemDrag_Handle(
     std::int32_t imageNo;
     const render::GraphicDescriptor16* drawDescriptor;
     if (drawKind == 1) {
-        const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+        const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
         drawDescriptor = &descriptor;
         if (mode > 0) {
             imageNo = world::gPetRuntimeRecords[
@@ -1632,7 +1632,7 @@ void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const
 {
     state->value64 = mode;
     if (mode != 0) {
-        state->mode68 = &gValue57E42C;
+        state->mode68 = &gBattleItemActorSelectionMode_57E42C;
         state->elements00[0] = &gCurrentWindow->elements[3];
         state->elements00[1] = &gCurrentWindow->elements[20];
         state->elements00[2] = &gCurrentWindow->elements[16];
@@ -1658,7 +1658,7 @@ void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const
         state->callbacks50[2] = WindowBattleItems_HandleEquipment;
         state->callbacks50[3] = WindowElement_NoOp;
     } else {
-        state->mode68 = &gValue57DA28;
+        state->mode68 = &gInventoryActorSelectionMode_57DA28;
         state->elements00[0] = &gCurrentWindow->elements[4];
         state->elements00[1] = &gCurrentWindow->elements[17];
         state->elements00[2] = &gCurrentWindow->elements[18];
@@ -2029,7 +2029,7 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
     cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-        223, cg::render::gValueD69768, 0);
+        223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     std::int32_t slot;
     world::PlayerItemRecord* item;
@@ -2535,7 +2535,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
             (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
-    const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+    const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
     gTooltipSourceD303FC = index;
     const bool petEquipment = mode > 0 && index < 6;
     const world::PlayerItemRecord* record;
@@ -2618,11 +2618,11 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
 // 原函数：0x00503CB0。
 std::int32_t WindowRuntime_CycleNameMode()
 {
-    const std::int32_t decreased = platform::gValue73ECBC - 1;
+    const std::int32_t decreased = platform::gChatTextSizeMode_73ECBC - 1;
     const bool belowFirstMode = decreased < 0;
-    platform::gValue73ECBC = decreased;
+    platform::gChatTextSizeMode_73ECBC = decreased;
     if (belowFirstMode) {
-        platform::gValue73ECBC = 2;
+        platform::gChatTextSizeMode_73ECBC = 2;
     }
     return decreased;
 }
@@ -2630,11 +2630,11 @@ std::int32_t WindowRuntime_CycleNameMode()
 // 原函数：0x00503CD0。
 static std::int32_t WindowRuntime_IncrementNameMode()
 {
-    const auto mode = static_cast<std::int16_t>(platform::gValue5F974C + 1);
+    const auto mode = static_cast<std::int16_t>(platform::gActorOverheadTextMode_5F974C + 1);
     const bool pastLastMode = mode >= 7;
-    platform::gValue5F974C = mode;
+    platform::gActorOverheadTextMode_5F974C = mode;
     if (pastLastMode) {
-        platform::gValue5F974C = 0;
+        platform::gActorOverheadTextMode_5F974C = 0;
     }
     static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
     return login::detail::SaveCurrentLoginRecord_520200();
@@ -2649,16 +2649,16 @@ static std::int32_t WindowRuntime_ResetSettings()
         gWindowStates[index].x = prototype->defaultX;
         gWindowStates[index].y = prototype->defaultY;
     }
-    gValueCF4AAC = 1;
-    gValue57DA28 = 0xFF;
-    gValue57E42C = 0xFF;
+    gHotkeyLayoutMode_CF4AAC = 1;
+    gInventoryActorSelectionMode_57DA28 = 0xFF;
+    gBattleItemActorSelectionMode_57E42C = 0xFF;
     gChatWidthUnitsC9A930 = 12;
     gChatHeightUnitsC9A938 = 4;
-    gValueCF4690 = 0;
-    gValueCA0440 = 0;
+    gStatusBarLayoutMode_CF4690 = 0;
+    gShortcutBarCollapsed_CA0440 = 0;
     gWindowStates[WindowId_MiniMap].marker50 = 0;
     gWindowStates[WindowId_Emote].marker50 = 0;
-    gValueD67B38 = 0;
+    gContactsPreviewMode_D67B38 = 0;
     return 0;
 }
 
@@ -2715,27 +2715,27 @@ static std::int32_t WindowRuntime_ApplySettings()
     const auto firstByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value08);
     const std::int32_t valueCF4AAC = gWindowSavedDataD40B30.records[24].value08;
     const auto secondByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value0C);
-    gValue57DA28 = firstByte;
+    gInventoryActorSelectionMode_57DA28 = firstByte;
     const std::int32_t width = gWindowSavedDataD40B30.records[35].value08;
-    gValueCF4AAC = valueCF4AAC;
+    gHotkeyLayoutMode_CF4AAC = valueCF4AAC;
     const std::int32_t mode = gWindowSavedDataD40B30.records[35].value10;
     gChatWidthUnitsC9A930 = width;
     const std::int32_t valueCF4690 = gWindowSavedDataD40B30.records[1].value08;
-    gValue57E42C = secondByte;
+    gBattleItemActorSelectionMode_57E42C = secondByte;
     const std::int32_t height = gWindowSavedDataD40B30.records[35].value0C;
     gChatWindowModeD66E04 = mode;
     const std::int32_t actorBars = gWindowSavedDataD40B30.records[1].value0C;
-    gValueCF4690 = valueCF4690;
+    gStatusBarLayoutMode_CF4690 = valueCF4690;
     gChatHeightUnitsC9A938 = height;
     const std::int32_t valueCA0440 = gWindowSavedDataD40B30.records[4].value08;
     world::gActorBarsEnabled5AC490 = actorBars == 1 ? 1u : 0u;
     const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
-    gValueCA0440 = valueCA0440;
+    gShortcutBarCollapsed_CA0440 = valueCA0440;
     const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
     gWindowStates[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
     const std::int32_t valueD67B38 = gWindowSavedDataD40B30.records[21].value08;
     gWindowStates[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
-    gValueD67B38 = valueD67B38;
+    gContactsPreviewMode_D67B38 = valueD67B38;
     return 1;
 }
 
@@ -2792,15 +2792,15 @@ static std::uint32_t WindowRuntime_CaptureSettings()
         gWindowSavedDataD40B30.records[index].x = gWindowStates[index].x;
         gWindowSavedDataD40B30.records[index].y = gWindowStates[index].y;
     }
-    const std::int32_t firstByte = std::bit_cast<std::int8_t>(gValue57DA28);
-    const std::int32_t secondByte = std::bit_cast<std::int8_t>(gValue57E42C);
-    const std::int32_t valueCF4AAC = gValueCF4AAC;
+    const std::int32_t firstByte = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
+    const std::int32_t secondByte = std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C);
+    const std::int32_t valueCF4AAC = gHotkeyLayoutMode_CF4AAC;
     gWindowSavedDataD40B30.records[14].value08 = firstByte;
     const std::int32_t width = gChatWidthUnitsC9A930;
     gWindowSavedDataD40B30.records[14].value0C = secondByte;
     const std::int32_t height = gChatHeightUnitsC9A938;
     gWindowSavedDataD40B30.records[35].value08 = width;
-    const std::int32_t valueCF4690 = gValueCF4690;
+    const std::int32_t valueCF4690 = gStatusBarLayoutMode_CF4690;
     gWindowSavedDataD40B30.records[24].value08 = valueCF4AAC;
     const std::int32_t mode = gChatWindowModeD66E04;
     gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
@@ -2808,12 +2808,12 @@ static std::uint32_t WindowRuntime_CaptureSettings()
     gWindowSavedDataD40B30.records[35].value0C = height;
     const std::uint32_t marker33 = gWindowStates[WindowId_MiniMap].marker50;
     gWindowSavedDataD40B30.records[35].value10 = mode;
-    const std::int32_t valueCA0440 = gValueCA0440;
+    const std::int32_t valueCA0440 = gShortcutBarCollapsed_CA0440;
     gWindowSavedDataD40B30.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
     gWindowSavedDataD40B30.records[1].value0C = actorBars == 1 ? 1 : 0;
     const std::uint32_t marker34 = gWindowStates[WindowId_Emote].marker50;
     gWindowSavedDataD40B30.records[4].value08 = valueCA0440;
-    const std::int32_t valueD67B38 = gValueD67B38;
+    const std::int32_t valueD67B38 = gContactsPreviewMode_D67B38;
     gWindowSavedDataD40B30.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
     gWindowSavedDataD40B30.records[21].value08 = valueD67B38;
     return marker33;
@@ -2946,7 +2946,7 @@ static void WindowRuntime_ResetOperationReferences()
 // 原函数：0x004C7AD0。
 static void WindowRuntime_ResetShortcutFlag()
 {
-    gValueCF4AAC = 0;
+    gHotkeyLayoutMode_CF4AAC = 0;
 }
 
 // 原函数：0x00475C10。
@@ -3029,7 +3029,7 @@ static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std
 // 原函数：0x004C7AE0。
 static void WindowRuntime_ProcessShortcuts()
 {
-    const std::int32_t mode = gValueCF4AAC;
+    const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
     if (mode != 0 && mode != 1) {
         return;
     }
@@ -3296,7 +3296,7 @@ static void WindowRuntime_ResetReferences()
 static void WindowRuntime_OpenConfiguredWindows()
 {
     static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
-    switch (gValueCF4690) {
+    switch (gStatusBarLayoutMode_CF4690) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
         break;
@@ -3309,7 +3309,7 @@ static void WindowRuntime_OpenConfiguredWindows()
     default:
         break;
     }
-    switch (gValueCA0440) {
+    switch (gShortcutBarCollapsed_CA0440) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
         break;
@@ -3339,7 +3339,7 @@ static void WindowRuntime_OpenLoginScene()
     WindowRuntime_RestoreMarkedWindows();
     WindowRuntime_ClearElementFocus();
     gSelectedItemCB1DF4 = -1;
-    gValueD67B24 = 0;
+    gItemUseTargetReferences_D67B24 = 0;
     WindowRuntime_ResetOperationReferences();
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
@@ -3404,7 +3404,7 @@ static void WindowRuntime_OpenNormalScene()
     WindowRuntime_OpenConfiguredWindows();
     WindowRuntime_RestoreMarkedWindows();
     gSelectedItemCB1DF4 = -1;
-    gValueD67B24 = 0;
+    gItemUseTargetReferences_D67B24 = 0;
     WindowRuntime_ResetOperationReferences();
     const std::int32_t inputGate = input::gChatLogSuppressed_626C14;
     gPreviewActionD67B84 = nullptr;
@@ -3599,7 +3599,7 @@ void WindowRuntime_DecrementOperationCount()
 {
     const std::int32_t remainingCount = gWindowOperationCount_D67AF8 - 1;
     gWindowOperationCount_D67AF8 = remainingCount;
-    if (remainingCount != 0 || gValue5F9754 == 0) {
+    if (remainingCount != 0 || gSkillRebirthModeEnabled_5F9754 == 0) {
         return;
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
@@ -3608,7 +3608,7 @@ void WindowRuntime_DecrementOperationCount()
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
-    gValue5F9754 = 0;
+    gSkillRebirthModeEnabled_5F9754 = 0;
     occupancy[7] = next;
     WindowSkill_SyncStates();
 }
@@ -4413,13 +4413,13 @@ std::int32_t WindowRuntime_Update()
 std::int32_t WindowRuntime_Render()
 {
     using namespace detail;
-    if (gValue5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
+    if (gSkillRebirthModeEnabled_5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
-        gValue5F9754 = 0;
+        gSkillRebirthModeEnabled_5F9754 = 0;
         occupancy[7] = decreased;
         WindowSkill_SyncStates();
     }
@@ -4693,12 +4693,12 @@ void WindowNumber_InitializeSpacing()
 
 std::uint8_t WindowRuntime_ReadUiGate() noexcept
 {
-    return detail::gValueD67BE0;
+    return detail::gOwnStallOpenForBusiness_D67BE0;
 }
 
 std::uint8_t WindowRuntime_ReadObservationFlag() noexcept
 {
-    return detail::gValue5F9754;
+    return detail::gSkillRebirthModeEnabled_5F9754;
 }
 
 // 原数据：0x00584DA4。
@@ -4823,7 +4823,7 @@ std::int32_t WindowRuntime_CloseAll()
         }
     }
     world::gValueD67B08.fill(0);
-    if (gValue5F9754 == 0) {
+    if (gSkillRebirthModeEnabled_5F9754 == 0) {
         return 0;
     }
     const std::int32_t y =
@@ -4832,7 +4832,7 @@ std::int32_t WindowRuntime_CloseAll()
         static_cast<std::int32_t>(world::gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t result = network::SendWorldActionRequest_511DD0(socket, x, y, 62);
-    gValue5F9754 = 0;
+    gSkillRebirthModeEnabled_5F9754 = 0;
     return result;
 }
 
@@ -5098,9 +5098,9 @@ void WindowRuntime_DrawCurrent()
 void WindowRuntime_ApplyObservationInputGate()
 {
     auto* const bytes = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
-    if (detail::gValue5F9754 != 0) {
+    if (detail::gSkillRebirthModeEnabled_5F9754 != 0) {
         const unsigned char previous = bytes[7];
-        detail::gValue5F9754 = 0;
+        detail::gSkillRebirthModeEnabled_5F9754 = 0;
         bytes[7] = static_cast<unsigned char>(previous - 1);
     }
     for (std::size_t index = 0; index < 8; ++index) {

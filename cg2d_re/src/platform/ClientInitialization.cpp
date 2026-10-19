@@ -230,12 +230,12 @@ int InitializeClient_4576B0()
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
     if (cg::login::detail::RestoreCurrentSavedState_5201B0() == 0) {
-        const std::wstring message = std::format(L"读入存档失败。(code = {})", static_cast<int>(gValueFF4E28));
+        const std::wstring message = std::format(L"读入存档失败。(code = {})", static_cast<int>(gSavedStateLoadErrorCode_FF4E28));
         ShowWideMessage(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
 
-    const std::uint32_t drawCursor = gValueD67AE4;
+    const std::uint32_t drawCursor = gNativeCursorEnabled_D67AE4;
     ::ShowCursor(0);
     if (drawCursor != 0) {
         const std::int32_t y = (gLegacyMouseState.mouseY + 16);

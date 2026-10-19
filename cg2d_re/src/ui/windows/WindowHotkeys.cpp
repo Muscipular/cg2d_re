@@ -316,7 +316,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const mouse = static_cast<WindowMouseData*>(elements[3].data);
     elements[2].visible = 1;
-    const std::int32_t mode = gValueCF4AAC;
+    const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
     const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
     const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
     if (maximum <= 0) {
@@ -324,7 +324,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
     }
     if ((mouse->flags & 1) != 0) {
         const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
-        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum =
             kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
         gWindowStates[WindowId_Hotkeys].value14 = static_cast<std::uint32_t>(
@@ -333,9 +333,9 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int8_t marker = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(render::gValueD69768));
+            static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768));
         const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
-        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
         const wchar_t* const text = kHotkeyTextTables56AECC[currentCategory + currentMode * 4][scroll + row];
         WindowInstance* const window = gCurrentWindow;
@@ -359,7 +359,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
                     &gHotkeyInputPrototype57DF48, x + 96, y + row * 16 + 58, 2));
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
-                    static_cast<std::uint8_t>(render::gValueD69768));
+                    static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768));
                 const std::wstring text = input::ContextText(cg::ui::detail::gInputContexts5F9758[recordIndex]);
                 WindowInstance* const window = gCurrentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);
@@ -426,7 +426,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], maximum, current));
         consumed = 1;
@@ -450,7 +450,7 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (position < maximum) {
@@ -461,7 +461,7 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t currentCategory = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
         static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], currentMaximum, current));
         consumed = 1;
@@ -496,7 +496,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], maximum, current));
         consumed = 1;
@@ -520,7 +520,7 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (maximum > 0 && std::bit_cast<std::int32_t>(windowState->value14) < maximum) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -529,14 +529,14 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
         }
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) + 10;
         windowState->value14 = static_cast<std::uint32_t>(position);
-        const std::int32_t limitMode = gValueCF4AAC;
+        const std::int32_t limitMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t limitCategory = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t limit = kHotkeyCounts56AEC4[limitCategory + limitMode * 4] - 10;
         if (position > limit) {
             windowState->value14 = static_cast<std::uint32_t>(limit);
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
-        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[limitCategory + currentMode * 4] - 10;
         static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], currentMaximum, current));
         consumed = 1;
@@ -558,7 +558,7 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
         windowState->value14 = static_cast<std::uint32_t>(

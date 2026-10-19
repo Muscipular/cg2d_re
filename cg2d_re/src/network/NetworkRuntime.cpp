@@ -612,7 +612,7 @@ std::int32_t HandleRemainingAttributePointsReply_50CF60(
     const std::uintptr_t,
     const std::int32_t value)
 {
-    world::gValueD2F788 = value;
+    world::gPlayerUnspentAttributePoints_D2F788 = value;
     return value;
 }
 
@@ -918,7 +918,7 @@ static void HandleResponse_508800(
     }
 
     login::gRequestStatus = 2;
-    login::gValueDA3B24 = std::bit_cast<std::int16_t>(
+    login::gLoginReplyErrorCode_DA3B24 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
     char diagnostic[64];
     static_cast<void>(std::sprintf(
@@ -926,7 +926,7 @@ static void HandleResponse_508800(
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
     if (value != 0) {
         if (std::strcmp(text, "busy") == 0) {
-            login::gValueDA3B24 = 1234;
+            login::gLoginReplyErrorCode_DA3B24 = 1234;
         }
         return;
     }
@@ -4382,7 +4382,7 @@ std::int32_t InitializeNetworkRuntime_508140()
     gNetworkRuntimeState.flagsD9F2C0 = 0;
     gNetworkRuntimeState.errorD9F2CC = 0;
     gNetworkRuntimeState.active = 1;
-    world::gValueD9F2CA = 0;
+    world::gNetworkDisconnectState_D9F2CA = 0;
     return 1;
 }
 
@@ -4398,10 +4398,10 @@ std::uint8_t NetworkLoop_507DF0()
         return 0;
     }
 
-    const std::uint8_t connectionState = world::gValueD9F2CA;
+    const std::uint8_t connectionState = world::gNetworkDisconnectState_D9F2CA;
     if (connectionState == 1) {
         const std::int32_t sceneType = world::SetCurrentSceneType(11);
-        world::gValueD9F2CA = 2;
+        world::gNetworkDisconnectState_D9F2CA = 2;
         return static_cast<std::uint8_t>(sceneType);
     }
     if (connectionState != 0) {
@@ -4452,7 +4452,7 @@ std::uint8_t NetworkLoop_507DF0()
             // 对端正常关闭也必须进入既有断线路径，不能继续等待登录回复。
             static_cast<void>(::closesocket(
                 static_cast<SOCKET>(platform::gConnectionSocket)));
-            world::gValueD9F2CA = 1;
+            world::gNetworkDisconnectState_D9F2CA = 1;
             gNetworkRuntimeState.errorD9F2CC = 0;
             static_cast<void>(login::detail::AppendSystemLog_44B5C0("NETWORK PEER CLOSED"));
         }
@@ -4461,7 +4461,7 @@ std::uint8_t NetworkLoop_507DF0()
             if (error > 0) {
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                world::gValueD9F2CA = 1;
+                world::gNetworkDisconnectState_D9F2CA = 1;
                 gNetworkRuntimeState.errorD9F2CC = error;
             }
         }
@@ -4503,7 +4503,7 @@ std::uint8_t NetworkLoop_507DF0()
         &sendLength,
         gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
         sizeof(sendLength));
-    if (sendLength > 0 && world::gValueD9F2CA == 0) {
+    if (sendLength > 0 && world::gNetworkDisconnectState_D9F2CA == 0) {
         const std::int32_t sent = ::send(
             static_cast<SOCKET>(platform::gConnectionSocket),
             reinterpret_cast<const char*>(gNetworkRuntimeState.queueBytes.data()),
@@ -4517,7 +4517,7 @@ std::uint8_t NetworkLoop_507DF0()
             if (error > 0) {
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                world::gValueD9F2CA = 1;
+                world::gNetworkDisconnectState_D9F2CA = 1;
                 gNetworkRuntimeState.errorD9F2CC = error;
             }
         }
@@ -4636,7 +4636,7 @@ void ShutdownNetworkRuntime_5081A0()
     gNetworkRuntimeState.compressedReceive.frameBytes = 0;
     gNetworkRuntimeState.compressedReceive.lineBytes = 0;
     login::gRequestPollingEnabled = 0;
-    world::gValueD9F2CA = 0;
+    world::gNetworkDisconnectState_D9F2CA = 0;
     static_cast<void>(::closesocket(
         static_cast<SOCKET>(platform::gConnectionSocket)));
     static_cast<void>(::WSACleanup());

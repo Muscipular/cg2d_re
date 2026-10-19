@@ -374,7 +374,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std:
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-    gValueCF4690 = 1;
+    gStatusBarLayoutMode_CF4690 = 1;
     return 1;
 }
 
@@ -387,7 +387,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, co
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CollapsedStatusBar));
-    gValueCF4690 = 2;
+    gStatusBarLayoutMode_CF4690 = 2;
     return 1;
 }
 
@@ -402,10 +402,10 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, co
     gCurrentWindow->state |= 0x8000u;
     if (scene == 10) {
         static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-        gValueCF4690 = 1;
+        gStatusBarLayoutMode_CF4690 = 1;
     } else {
         static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
-        gValueCF4690 = 0;
+        gStatusBarLayoutMode_CF4690 = 0;
     }
     return 1;
 }
@@ -509,7 +509,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                     const std::int32_t points = pet.lvFlag6C;
                     cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
                 } else {
-                    const std::int32_t points = world::gValueD2F788;
+                    const std::int32_t points = world::gPlayerUnspentAttributePoints_D2F788;
                     cg::text::FormatTo(buffer, L"现在有增加点数{}点。" /* 原常量参考：0x00556D50。 */, points);
                 }
             } else {

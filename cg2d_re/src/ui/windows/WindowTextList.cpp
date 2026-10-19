@@ -361,7 +361,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
         }
     }
     static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
-    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, gWindowModalTextC8AF88, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, gWindowModalTextC8AF88, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     cg::yobi::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -580,7 +580,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
 // 原函数：0x004AE260。
 static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
 {
-    const std::uint32_t imageNo = cg::render::gValueD69768;
+    const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
     WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], state, imageNo);
     if ((state & 2) == 0) {
         return 0;
@@ -663,7 +663,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         selected = gSelectedItem57EE0C;
     }
     if (selected >= 0) {

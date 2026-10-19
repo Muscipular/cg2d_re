@@ -31,8 +31,8 @@ std::int16_t gInputContext9A5960X = 0; // 原全局：0x009A4B8C。
 std::int16_t gInputContext9A5960Y = 0; // 原全局：0x009A4B8A。
 std::int16_t gInputContext9A5678X = 0; // 原全局：0x009A4B9E。
 std::int16_t gInputContext9A5678Y = 0; // 原全局：0x009A4B9C。
-std::int32_t gValue9A6E20 = 0; // 原全局：0x009A6E20。
-std::uint32_t gValue9A6200 = 0; // 原全局：0x009A6200。
+std::int32_t gLoginInputFocusIndex_9A6E20 = 0; // 原全局：0x009A6E20。
+std::uint32_t gCapability3LoginOverlayAlpha_9A6200 = 0; // 原全局：0x009A6200。
 
 input::InputContext* gInputContextFocusTable[3] { // 原全局：0x00559FFC。
     &gInputContext9A5960,
@@ -418,7 +418,7 @@ void InitializeInputContexts_45C7C0()
 
     input::InputContext* const initialContext =
         gInputContextFocusTable[1];
-    gValue9A6E20 = 1;
+    gLoginInputFocusIndex_9A6E20 = 1;
     input::SetContext_44B330(initialContext);
 }
 
@@ -471,9 +471,9 @@ void InitializeCapabilityInput_45F970()
         0);
     gInputContext9A5678.encrypt = 1;
 
-    gValue9A6E20 = 0;
+    gLoginInputFocusIndex_9A6E20 = 0;
     input::SetContext_44B330(gInputContextFocusTable[0]);
-    gValue9A6200 = 255;
+    gCapability3LoginOverlayAlpha_9A6200 = 255;
 }
 
 // 原函数：0x00465320。
@@ -532,9 +532,9 @@ void InitializeCapability4Input_465320()
 
     input::InputContext* const initialContext =
         gInputContextFocusTable[1];
-    gValue9A6E20 = 1;
+    gLoginInputFocusIndex_9A6E20 = 1;
     input::SetContext_44B330(initialContext);
-    gValue9A6200 = 255;
+    gCapability3LoginOverlayAlpha_9A6200 = 255;
 }
 
 // 原函数：0x00465740。

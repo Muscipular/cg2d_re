@@ -63,7 +63,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
             render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + element.width),
                 static_cast<std::uint16_t>(top + element.height),
-                0xDF, static_cast<std::uint8_t>(render::gValueD69768), 0);
+                0xDF, static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768), 0);
         }
         if ((state & 0x40) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -483,8 +483,8 @@ static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::
         if (ordinal >= 0) {
             return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, ordinal + 1, state) ? 1 : 0;
         }
-    } else if (std::bit_cast<std::int8_t>(gValue57DA28) == ordinal + 1) {
-        --gValue57DA28;
+    } else if (std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) == ordinal + 1) {
+        --gInventoryActorSelectionMode_57DA28;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -735,7 +735,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
             if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
                 continue;
             }
-            if (std::bit_cast<std::int8_t>(gValue57DA28) > 0 && source < 6) {
+            if (std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) > 0 && source < 6) {
                 WindowItem_TransferQuantity(1, source, 0, position + 8);
             } else if (source != position + 8) {
                 WindowItem_RequestTransfer(14, index, source, position + 8);
@@ -789,7 +789,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                 } else {
                     if ((world::ReadPlayerActionFlags() & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
-                        const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+                        const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
                         gSelectedItemCB0A44 = hovered + 8;
                         const std::int32_t group = mode > 0
                             ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
@@ -852,7 +852,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
         if (item.used != 0) {
             gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
@@ -951,7 +951,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
             if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
                 continue;
             }
-            if (std::bit_cast<std::int8_t>(gValue57DA28) <= 0) {
+            if (std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) <= 0) {
                 if (source != position) {
                     WindowItem_RequestTransfer(14, index, source, position);
                 }
@@ -987,7 +987,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     auto* const item = items + hovered;
     const std::int32_t hitIndex = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = gValue57DA28 != 0 ? petHints[hovered] : playerHints[hovered];
+        gHoverTextD68AE8 = gInventoryActorSelectionMode_57DA28 != 0 ? petHints[hovered] : playerHints[hovered];
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100) {
         hovered = -1;
@@ -1025,7 +1025,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                 } else {
                     if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
-                        const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+                        const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {
                             const std::int32_t group = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
@@ -1086,7 +1086,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (item->used != 0) {
             gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
@@ -1239,7 +1239,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));

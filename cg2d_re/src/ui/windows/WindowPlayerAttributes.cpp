@@ -213,7 +213,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     values[2] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
     values[3] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
     values[4] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
-    values[5] = world::gValueD2F788;
+    values[5] = world::gPlayerUnspentAttributePoints_D2F788;
     values[0] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
     std::int32_t total = 0;
     for (const std::int32_t value : values) {
@@ -312,7 +312,7 @@ static void WindowPlayerAttributes_Refresh()
         text->text = buffer;
     };
     writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");
-    writeNumber(2, world::gValueD2F788, L"{:5}");
+    writeNumber(2, world::gPlayerUnspentAttributePoints_D2F788, L"{:5}");
     for (std::int32_t index = 0; index < 5; ++index) {
         writeNumber(index + 3, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
@@ -334,7 +334,7 @@ static void WindowPlayerAttributes_Refresh()
         writeNumber(index + 21, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:4}");
     }
 
-    const std::int32_t remainingPoints = world::gValueD2F788;
+    const std::int32_t remainingPoints = world::gPlayerUnspentAttributePoints_D2F788;
     if (remainingPoints > 0) {
         const std::int32_t quick = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
         std::int32_t total = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];

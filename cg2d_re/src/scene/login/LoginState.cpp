@@ -255,15 +255,15 @@ std::int32_t AdvanceServerLoginConnection_508360()
 
 } // namespace detail
 
-std::uint16_t gValue9A6E3C = 0; // 原全局：0x009A6E3C。
+std::uint16_t gServerConnectionPhase_9A6E3C = 0; // 原全局：0x009A6E3C。
 std::uint16_t gValue9A6E3E = 0; // 原全局：0x009A6E3E。
-std::int32_t gValue55A054 = -1; // 原全局：0x0055A054。
-std::wstring gValue9A5348 {}; // 原全局：0x009A5348。
+std::int32_t gSelectedLoginServerGroup_55A054 = -1; // 原全局：0x0055A054。
+std::wstring gLoginProcessingErrorMessage_9A5348 {}; // 原全局：0x009A5348。
 
 // 原函数：0x0045D980。
 std::int32_t ResetValues_45D980()
 {
-    gValue9A6E3C = 0;
+    gServerConnectionPhase_9A6E3C = 0;
     gValue9A6E3E = 0;
     return 0;
 }
@@ -271,7 +271,7 @@ std::int32_t ResetValues_45D980()
 // 原函数：0x0045D990。
 std::int32_t UpdateServerConnection()
 {
-    std::uint16_t phase = gValue9A6E3C;
+    std::uint16_t phase = gServerConnectionPhase_9A6E3C;
     std::int32_t result = 0;
 
     if (phase == 0) {
@@ -297,34 +297,34 @@ std::int32_t UpdateServerConnection()
             96,
             4,
             1);
-        gValue9A6E3C = 2;
+        gServerConnectionPhase_9A6E3C = 2;
         phase = 2;
     }
 
     if (phase == 1) {
-        gValue9A6E3C = 2;
+        gServerConnectionPhase_9A6E3C = 2;
         phase = 2;
     }
 
     if (phase == 2) {
         cg::network::ShutdownNetworkRuntime_5081A0();
-        cg::world::blacklist::PersistAndReset_401000(gValue55A054);
+        cg::world::blacklist::PersistAndReset_401000(gSelectedLoginServerGroup_55A054);
         if (cg::network::InitializeNetworkRuntime_508140() != 0) {
-            gValue9A6E3C = 3;
+            gServerConnectionPhase_9A6E3C = 3;
             ResetServerConnectionState_508350();
-            gValue9A6E3C = 4;
+            gServerConnectionPhase_9A6E3C = 4;
             phase = 4;
         } else {
             result = -1;
-            phase = gValue9A6E3C;
+            phase = gServerConnectionPhase_9A6E3C;
         }
     } else {
-        phase = gValue9A6E3C;
+        phase = gServerConnectionPhase_9A6E3C;
     }
 
     if (phase == 3) {
         ResetServerConnectionState_508350();
-        gValue9A6E3C = 4;
+        gServerConnectionPhase_9A6E3C = 4;
         phase = 4;
     }
 
@@ -342,7 +342,7 @@ std::int32_t UpdateServerConnection()
             cg::yobi::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
-        cg::world::blacklist::LoadBlacklistFile(gValue55A054);
+        cg::world::blacklist::LoadBlacklistFile(gSelectedLoginServerGroup_55A054);
     }
 
     cg::yobi::YobiAction* const action = gServerConnectionAction;
@@ -385,10 +385,10 @@ std::int32_t ProcessState_45E960()
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
+            gLoginProcessingErrorMessage_9A5348 = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
         } else if (result == -2) {
             world::gCurrentSceneState = 100;
-            gValue9A5348 = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
+            gLoginProcessingErrorMessage_9A5348 = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
         }
     }
 
@@ -402,7 +402,7 @@ std::int32_t ProcessState_45E960()
         return sceneState;
     }
 
-    const std::int32_t result = UpdateLoginMessage(gValue9A5348);
+    const std::int32_t result = UpdateLoginMessage(gLoginProcessingErrorMessage_9A5348);
     if (result == 0) {
         return 0;
     }

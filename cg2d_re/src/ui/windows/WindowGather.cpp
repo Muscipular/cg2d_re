@@ -282,7 +282,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     const std::uint64_t tick = platform::ReadTickCount64();
     std::uint32_t duration = gSkillExtraDelayCF46C4 + 4500u;
     gWindow12TickD45D4C = tick;
-    const std::uint8_t rebirthMode = gValue5F9754;
+    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
     gWindow12DeadlineCB0F7C = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
@@ -549,7 +549,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         if (gWindow12DeadlineCB0F7C < tick) {
-            const std::uint8_t sendMode = gValue5F9754;
+            const std::uint8_t sendMode = gSkillRebirthModeEnabled_5F9754;
             gSkillExtraDelayCF46C4 = 0;
             std::int32_t skill;
             std::int32_t level;

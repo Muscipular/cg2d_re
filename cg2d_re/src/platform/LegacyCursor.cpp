@@ -209,7 +209,7 @@ void UpdateCursor_506E00()
     UpdatePulse(leftElapsed, 0x01u, gLeftMouseRepeatAnchorMs_D68DC8);
     UpdatePulse(rightElapsed, 0x02u, gRightMouseRepeatAnchorMs_D68BF0);
 
-    if (gValueD67AE4 == 0) {
+    if (gNativeCursorEnabled_D67AE4 == 0) {
         if (gLegacyMouseState.drawingSuppression == 0) {
             DrawTableCursor();
         }

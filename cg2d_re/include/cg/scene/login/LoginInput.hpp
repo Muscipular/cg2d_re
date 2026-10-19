@@ -40,8 +40,8 @@ extern std::int16_t gInputContext9A5960X; // 原 0x9A4B8C，映像零填充。
 extern std::int16_t gInputContext9A5960Y; // 原 0x9A4B8A，映像零填充。
 extern std::int16_t gInputContext9A5678X; // 原 0x9A4B9E，映像零填充。
 extern std::int16_t gInputContext9A5678Y; // 原 0x9A4B9C，映像零填充。
-extern std::int32_t gValue9A6E20;         // 原 0x9A6E20，映像零填充。
-extern std::uint32_t gValue9A6200;        // 原 0x9A6200，共享 W32，映像零填充。
+extern std::int32_t gLoginInputFocusIndex_9A6E20;         // 原 0x9A6E20，映像零填充。
+extern std::uint32_t gCapability3LoginOverlayAlpha_9A6200;        // 原 0x9A6200，共享 W32，映像零填充。
 
 // 原 0x559FFC 的三项焦点表；x64 下保留原生指针宽度。
 extern input::InputContext* gInputContextFocusTable[3];

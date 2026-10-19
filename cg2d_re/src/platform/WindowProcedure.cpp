@@ -308,7 +308,7 @@ LRESULT CALLBACK WindowProcedure(
     case WM_SYSKEYDOWN:
         RebuildRendererIfGraphicDirty();
         if (wParam32 == VK_RETURN) {
-            if (gValue73ECC0 == 2 || render::gRenderer == nullptr) {
+            if (gFrameBackgroundMode_73ECC0 == 2 || render::gRenderer == nullptr) {
                 return 0;
             }
             gWindowMode = gWindowMode != 1;

@@ -191,14 +191,14 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        cg::render::gValueD69768,
+        cg::render::gHoverFramePaletteIndex_D69768,
         std::uint8_t{214});
     detail::DrawCharacterModalButton_503A20(
         &cancelRecord,
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
-        cg::render::gValueD69768,
+        cg::render::gHoverFramePaletteIndex_D69768,
         std::uint8_t{214});
 
     const std::int32_t left = x - 192;

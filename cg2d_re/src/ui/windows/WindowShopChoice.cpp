@@ -297,7 +297,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
             static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
-            static_cast<std::uint16_t>(y + 14), 223, cg::render::gValueD69768, 0);
+            static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
         if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;

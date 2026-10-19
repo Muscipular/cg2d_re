@@ -27,9 +27,9 @@ extern input::InputContext gCreationInput9A51E8; // 原全局：0x009A51E8。
 extern std::uint8_t gValue9A5E78; // 原全局：0x009A5E78。
 extern std::int32_t gValue9A5FA4; // 原全局：0x009A5FA4。
 extern std::int32_t gValue9A5FA0; // 原全局：0x009A5FA0。
-extern std::uint32_t gValue9A5FD4; // 原全局：0x009A5FD4。
-extern std::uint32_t gValue9A50D0; // 原全局：0x009A50D0。
-extern std::uint8_t gValue9A5FD8; // 原全局：0x009A5FD8。
+extern std::uint32_t gCreationAttributePointBytes_9A5FD4; // 原全局：0x009A5FD4。
+extern std::uint32_t gCreationElementPointBytes_9A50D0; // 原全局：0x009A50D0。
+extern std::uint8_t gCreationFifthAttributePoints_9A5FD8; // 原全局：0x009A5FD8。
 extern std::uint8_t gCreationStyleIndex_9A5668; // 原全局：0x009A5668。
 extern std::uint8_t gCreationColorIndex_9A4B80; // 原全局：0x009A4B80。
 extern std::uint8_t gCreationRemainingAttributePoints_9A4D04; // 原全局：0x009A4D04。
@@ -37,16 +37,16 @@ extern std::uint8_t gCreationRemainingElementPoints_9A50C8; // 原全局：0x009
 extern std::uint8_t gCreationGraphicGeneration_9A4B88; // 原全局：0x009A4B88。
 extern std::int32_t gCreationAttributePhase_9A5AFC; // 原全局：0x009A5AFC。
 // 4631D0生产、4642C0取样及508E00请求的同源S32；不能与相邻数组合并。
-extern std::int32_t gValueF633F0; // 原全局：0x00F633F0。
-extern std::int32_t gValueF7CA00; // 原全局：0x00F7CA00。
-extern std::int32_t gValueF633EC; // 原全局：0x00F633EC。
-extern std::int32_t gValueF633F4; // 原全局：0x00F633F4。
-extern std::int32_t gValueDE0AF8; // 原全局：0x00DE0AF8。
-extern std::int32_t gValueDE03F4; // 原全局：0x00DE03F4。
-extern std::int32_t gValueFF03D0; // 原全局：0x00FF03D0。
-extern std::int32_t gValueF7C948; // 原全局：0x00F7C948。
-extern std::int32_t gValueDE0B04; // 原全局：0x00DE0B04。
-extern std::int32_t gValueDE0AFC; // 原全局：0x00DE0AFC。 4631D0生产、508E00读取的创建动作图号。
+extern std::int32_t gCreationSubmittedAttribute1_F633F0; // 原全局：0x00F633F0。
+extern std::int32_t gCreationSubmittedAttribute4_F7CA00; // 原全局：0x00F7CA00。
+extern std::int32_t gCreationSubmittedAttribute0_F633EC; // 原全局：0x00F633EC。
+extern std::int32_t gCreationSubmittedElement2_F633F4; // 原全局：0x00F633F4。
+extern std::int32_t gCreationSubmittedAttribute3_DE0AF8; // 原全局：0x00DE0AF8。
+extern std::int32_t gCreationSubmittedAttribute2_DE03F4; // 原全局：0x00DE03F4。
+extern std::int32_t gCreationSubmittedElement1_FF03D0; // 原全局：0x00FF03D0。
+extern std::int32_t gCreationSubmittedElement0_F7C948; // 原全局：0x00F7C948。
+extern std::int32_t gCreationSubmittedElement3_DE0B04; // 原全局：0x00DE0B04。
+extern std::int32_t gCreationSubmittedMotionImage_DE0AFC; // 原全局：0x00DE0AFC。 4631D0生产、508E00读取的创建动作图号。
 extern std::array<char, 24> gCreationNameFF0D18; // 原全局：0x00FF0D18。 至FF0D30前的同源原字节名称区。
 extern std::array<cg::yobi::YobiAction*, 2> gPreviewActions; // 原 0x9A6E44、0x9A6E48。
 extern cg::yobi::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。

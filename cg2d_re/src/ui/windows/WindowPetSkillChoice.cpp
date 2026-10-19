@@ -1996,7 +1996,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     }
     if ((state & 1) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::int32_t hoverImage = cg::render::gValueD69768;
+        const std::int32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;

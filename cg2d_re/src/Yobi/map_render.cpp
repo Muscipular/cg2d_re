@@ -497,7 +497,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
     }
 
-    const std::int16_t nameMode = platform::gValue5F974C;
+    const std::int16_t nameMode = platform::gActorOverheadTextMode_5F974C;
     if (nameMode > 0) {
         const char* text = nullptr;
         std::int8_t color = 0;

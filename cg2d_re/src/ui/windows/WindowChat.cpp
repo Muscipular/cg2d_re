@@ -484,14 +484,14 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         if (hovered) {
             gHoverTextD68AE8 = L"改变聊天时的文字大小。";
             consumed = 1;
-            switch (platform::gValue73ECBC) {
+            switch (platform::gChatTextSizeMode_73ECBC) {
             case 0: graphic->imageNo = 0x3BDD5; break;
             case 1: graphic->imageNo = 0x3BDDB; break;
             case 2: graphic->imageNo = 0x3BDD8; break;
             default: break;
             }
         } else {
-            switch (platform::gValue73ECBC) {
+            switch (platform::gChatTextSizeMode_73ECBC) {
             case 0: graphic->imageNo = 0x3BDD4; break;
             case 1: graphic->imageNo = 0x3BDDA; break;
             case 2: graphic->imageNo = 0x3BDD7; break;
@@ -504,10 +504,10 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             consumed = 1;
         }
         if ((state & 4) != 0) {
-            const std::int32_t mode = platform::gValue73ECBC + 1;
-            platform::gValue73ECBC = mode;
+            const std::int32_t mode = platform::gChatTextSizeMode_73ECBC + 1;
+            platform::gChatTextSizeMode_73ECBC = mode;
             if (mode > 2) {
-                platform::gValue73ECBC = 0;
+                platform::gChatTextSizeMode_73ECBC = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;

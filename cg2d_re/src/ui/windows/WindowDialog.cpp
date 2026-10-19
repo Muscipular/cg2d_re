@@ -459,7 +459,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
             static_cast<void>(render::DrawColoredText(
                 static_cast<std::int16_t>(window->x + 24),
                 static_cast<std::int16_t>(window->y + row * gMessageDialog.lineHeight + 20),
-                3, 0, 0, text, 0, static_cast<std::int8_t>(cg::render::gValueD69768)));
+                3, 0, 0, text, 0, static_cast<std::int8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
             window = gCurrentWindow;
         }
     }
@@ -483,7 +483,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
                     static_cast<std::int16_t>(inputX),
                     static_cast<std::int16_t>(window->y + gMessageDialog.inputY[row]),
                     3, 0, 0, gMessageDialog.inputTexts[row], 0,
-                    static_cast<std::int8_t>(cg::render::gValueD69768)));
+                    static_cast<std::int8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
             }
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
             ++row;
@@ -623,7 +623,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(inputX), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(inputX + inputWidth), static_cast<std::uint16_t>(top + 16),
-                223, cg::render::gValueD69768, 0);
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             if ((state & 2) != 0) {
                 const std::int32_t previous = gMessageDialog.selectedInput;
                 if (previous >= 0) {
@@ -684,7 +684,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top + offset),
                     static_cast<std::uint16_t>(left + width), static_cast<std::uint16_t>(top + offset + 20),
-                    223, cg::render::gValueD69768, 0);
+                    223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                 if ((state & 2) != 0) {
                     const std::int32_t previous = gMessageDialog.selectedInput;
                     if (previous >= 0) {
@@ -1159,7 +1159,7 @@ static std::int32_t WindowDialog_DrawHealing(
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
-                3, 0, 0, buffer, 0, static_cast<std::int8_t>(cg::render::gValueD69768)));
+                3, 0, 0, buffer, 0, static_cast<std::int8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
             if (index < 6) {
                 const std::int32_t imageIndex = WindowItem_HealthImageLevel(gHealingDialogRecordsD672F0[index].health);
                 static_cast<void>(cg::render::DrawGraphic(
@@ -1172,7 +1172,7 @@ static std::int32_t WindowDialog_DrawHealing(
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),
-        3, 0, 0, buffer, 0, static_cast<std::int8_t>(cg::render::gValueD69768)));
+        3, 0, 0, buffer, 0, static_cast<std::int8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     if (row >= visibleLines) {
         row = -1;
     }

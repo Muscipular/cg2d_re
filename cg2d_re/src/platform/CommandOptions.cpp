@@ -222,9 +222,9 @@ int ParseCommandOptions()
 int ParseIpOptions_507C80(const char* const commandLine)
 {
     std::memset(
-        login::gValueD69798.data(),
+        login::gLoginServerRecords_D69798.data(),
         0,
-        sizeof(login::gValueD69798));
+        sizeof(login::gLoginServerRecords_D69798));
     login::gValueD69794 = 0;
 
     // 原 sscanf 的目标是入参栈槽；未匹配时保留其上一次 W32 内容。
@@ -236,13 +236,13 @@ int ParseIpOptions_507C80(const char* const commandLine)
         const char* const number = match + 3;
         const int parsed = std::sscanf(number, "%d:", &index);
         if (static_cast<std::uint32_t>(index)
-            >= login::gValueD69798.size()) {
+            >= login::gLoginServerRecords_D69798.size()) {
             return parsed;
         }
 
         const char* address = number
             + (index < 10 ? 2 : index <= 99 ? 3 : 4);
-        auto& record = login::gValueD69798[static_cast<std::size_t>(index)];
+        auto& record = login::gLoginServerRecords_D69798[static_cast<std::size_t>(index)];
         std::size_t addressLength = 0;
         while (*address != '\0'
             && *address != ':'
@@ -261,7 +261,7 @@ int ParseIpOptions_507C80(const char* const commandLine)
         }
         record.portText[portLength] = 0;
         record.available = 1;
-        ++login::gValueD9F2D4[static_cast<std::size_t>(index / 20)];
+        ++login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index / 20)];
         cursor = port;
     }
     return 0;

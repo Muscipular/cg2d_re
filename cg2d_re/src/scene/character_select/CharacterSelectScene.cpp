@@ -682,9 +682,9 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
     input::InitializeContext_449CF0(
         &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
     input::SetContext_44B330(&state::gCreationInput9A51E8);
-    state::gValue9A5FD4 = 0;
-    state::gValue9A50D0 = 0;
-    state::gValue9A5FD8 = 0;
+    state::gCreationAttributePointBytes_9A5FD4 = 0;
+    state::gCreationElementPointBytes_9A50D0 = 0;
+    state::gCreationFifthAttributePoints_9A5FD8 = 0;
     const std::uint32_t version = state::gPukVersion;
     state::gCreationStyleIndex_9A5668 = 0;
     state::gCreationColorIndex_9A4B80 = 0;
@@ -703,12 +703,12 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
 // 原函数：0x004631D0。
 std::int32_t UpdateCharacterCreationAttributes_4631D0()
 {
-    auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A5FD4);
+    auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationAttributePointBytes_9A5FD4);
     const std::array<std::uint8_t*, 5> attributes {{
         attributeBytes, attributeBytes + 1, attributeBytes + 2, attributeBytes + 3,
-        &state::gValue9A5FD8,
+        &state::gCreationFifthAttributePoints_9A5FD8,
     }};
-    auto* const elements = reinterpret_cast<std::uint8_t*>(&state::gValue9A50D0);
+    auto* const elements = reinterpret_cast<std::uint8_t*>(&state::gCreationElementPointBytes_9A50D0);
     std::array<std::int8_t, 6> arrows {};
     std::array<std::int8_t, 5> attributeMinus {};
     std::array<std::int8_t, 5> attributePlus {};
@@ -965,9 +965,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
             state::gCreationAttributePhase_9A5AFC = 11;
             if (mode == 0) {
                 state::gPreviewToggleState = 0;
-                state::gValueDE0AFC = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
+                state::gCreationSubmittedMotionImage_DE0AFC = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
             } else {
-                state::gValueDE0AFC = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
+                state::gCreationSubmittedMotionImage_DE0AFC = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
                 state::gPreviewToggleState = 1;
             }
             // 原ESI沿用上方四项互斥循环终值，未知模式不是零图号。
@@ -984,21 +984,21 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
             const std::int32_t attribute0 = static_cast<std::int8_t>(*attributes[0]);
             const std::int32_t attribute1 = static_cast<std::int8_t>(*attributes[1]);
             const std::int32_t attribute2 = static_cast<std::int8_t>(*attributes[2]);
-            state::gValueF633EC = attribute0;
-            state::gValueF633F0 = attribute1;
+            state::gCreationSubmittedAttribute0_F633EC = attribute0;
+            state::gCreationSubmittedAttribute1_F633F0 = attribute1;
             const std::int32_t attribute3 = static_cast<std::int8_t>(*attributes[3]);
             const std::int32_t attribute4 = static_cast<std::int8_t>(*attributes[4]);
-            state::gValueDE0AF8 = attribute3;
-            const std::uint32_t elementSnapshot = state::gValue9A50D0;
-            state::gValueDE03F4 = attribute2;
-            state::gValueF7CA00 = attribute4;
+            state::gCreationSubmittedAttribute3_DE0AF8 = attribute3;
+            const std::uint32_t elementSnapshot = state::gCreationElementPointBytes_9A50D0;
+            state::gCreationSubmittedAttribute2_DE03F4 = attribute2;
+            state::gCreationSubmittedAttribute4_F7CA00 = attribute4;
             const std::int32_t element2 = static_cast<std::int8_t>(elements[2]);
-            state::gValueF7C948 = static_cast<std::int8_t>(elementSnapshot);
+            state::gCreationSubmittedElement0_F7C948 = static_cast<std::int8_t>(elementSnapshot);
             state::gSelectedGraphicNo = graphic;
             const std::int32_t element3 = static_cast<std::int8_t>(elements[3]);
-            state::gValueFF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
-            state::gValueF633F4 = element2;
-            state::gValueDE0B04 = element3;
+            state::gCreationSubmittedElement1_FF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
+            state::gCreationSubmittedElement2_F633F4 = element2;
+            state::gCreationSubmittedElement3_DE0B04 = element3;
             world::gValueFDA6F8 = 0;
             cg::audio::BeginBgmFadeOut_52B990();
             SaveCharacterCreationDraftSnapshot_4642C0();
@@ -1053,12 +1053,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
     drawButton(403, 381, 11, cancelState);
     drawButton(483, 381, 10, confirmState);
 
-    std::uint32_t elementSnapshot = state::gValue9A50D0;
+    std::uint32_t elementSnapshot = state::gCreationElementPointBytes_9A50D0;
     std::int32_t count = 0;
     if (static_cast<std::int8_t>(elementSnapshot) > 0) {
         do {
             cg::render::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
-            elementSnapshot = state::gValue9A50D0;
+            elementSnapshot = state::gCreationElementPointBytes_9A50D0;
             ++count;
         } while (count < static_cast<std::int8_t>(elementSnapshot));
     }
@@ -1128,27 +1128,27 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
 // 原函数：0x004642C0。
 std::int32_t SaveCharacterCreationDraftSnapshot_4642C0()
 {
-    const std::int32_t valueF633F0 = state::gValueF633F0;
-    const std::int32_t valueF633EC = state::gValueF633EC;
+    const std::int32_t valueF633F0 = state::gCreationSubmittedAttribute1_F633F0;
+    const std::int32_t valueF633EC = state::gCreationSubmittedAttribute0_F633EC;
     gCreationSnapshot.value9A50A4 = valueF633F0;
-    const std::int32_t valueF7CA00 = state::gValueF7CA00;
-    const std::int32_t valueDE03F4 = state::gValueDE03F4;
+    const std::int32_t valueF7CA00 = state::gCreationSubmittedAttribute4_F7CA00;
+    const std::int32_t valueDE03F4 = state::gCreationSubmittedAttribute2_DE03F4;
     gCreationSnapshot.value9A4B98 = valueF7CA00;
-    const std::int32_t valueF633F4 = state::gValueF633F4;
+    const std::int32_t valueF633F4 = state::gCreationSubmittedElement2_F633F4;
     gCreationSnapshot.value9A50A0 = valueF633EC;
-    const std::int32_t valueDE0AF8 = state::gValueDE0AF8;
+    const std::int32_t valueDE0AF8 = state::gCreationSubmittedAttribute3_DE0AF8;
     gCreationSnapshot.value9A5670 = valueF633F4;
     const std::int32_t value9A50C8 = std::bit_cast<std::int8_t>(state::gCreationRemainingElementPoints_9A50C8);
     gCreationSnapshot.value9A4E98 = valueDE0AF8;
-    const std::int32_t valueFF03D0 = state::gValueFF03D0;
+    const std::int32_t valueFF03D0 = state::gCreationSubmittedElement1_FF03D0;
     gCreationSnapshot.value9A4E84 = valueDE03F4;
-    const std::int32_t valueF7C948 = state::gValueF7C948;
+    const std::int32_t valueF7C948 = state::gCreationSubmittedElement0_F7C948;
     gCreationSnapshot.value9A50E4 = value9A50C8;
     gCreationSnapshot.value9A60E8 = valueFF03D0;
     const std::int32_t value9A4B88 = std::bit_cast<std::int8_t>(state::gCreationGraphicGeneration_9A4B88);
     const std::int32_t value9A4D04 = std::bit_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04);
     gCreationSnapshot.value9A5094 = valueF7C948;
-    const std::int32_t valueDE0B04 = state::gValueDE0B04;
+    const std::int32_t valueDE0B04 = state::gCreationSubmittedElement3_DE0B04;
     gCreationSnapshot.value9A57E8 = value9A4B88;
     gCreationSnapshot.value9A61F4 = valueDE0B04;
     const std::int32_t value9A5668 = std::bit_cast<std::int8_t>(state::gCreationStyleIndex_9A5668);
@@ -1163,8 +1163,8 @@ std::int32_t SaveCharacterCreationDraftSnapshot_4642C0()
 // 原函数：0x00464380。
 std::uint8_t RestoreCharacterCreationDraftSnapshot_464380()
 {
-    auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A5FD4);
-    auto* const secondBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A50D0);
+    auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationAttributePointBytes_9A5FD4);
+    auto* const secondBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationElementPointBytes_9A50D0);
     const std::uint8_t value9A50A4 = ReadCreationSnapshotByte(gCreationSnapshot.value9A50A4);
     const std::uint8_t value9A50A0 = ReadCreationSnapshotByte(gCreationSnapshot.value9A50A0);
     const std::uint8_t value9A4E84 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4E84);
@@ -1172,7 +1172,7 @@ std::uint8_t RestoreCharacterCreationDraftSnapshot_464380()
     const std::uint8_t value9A4B98 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4B98);
     firstBytes[0] = value9A50A0;
     const std::uint8_t value9A4E98 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4E98);
-    state::gValue9A5FD8 = value9A4B98;
+    state::gCreationFifthAttributePoints_9A5FD8 = value9A4B98;
     const std::uint8_t value9A5670 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5670);
     firstBytes[2] = value9A4E84;
     const std::uint8_t value9A5094 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5094);
@@ -1224,25 +1224,25 @@ input::InputContext gCreationInput9A51E8 {}; // 原全局：0x009A51E8。
 std::uint8_t gValue9A5E78 = 0; // 原全局：0x009A5E78。
 std::int32_t gValue9A5FA4 = 0; // 原全局：0x009A5FA4。
 std::int32_t gValue9A5FA0 = 0; // 原全局：0x009A5FA0。
-std::uint32_t gValue9A5FD4 = 0; // 原全局：0x009A5FD4。
-std::uint32_t gValue9A50D0 = 0; // 原全局：0x009A50D0。
-std::uint8_t gValue9A5FD8 = 0; // 原全局：0x009A5FD8。
+std::uint32_t gCreationAttributePointBytes_9A5FD4 = 0; // 原全局：0x009A5FD4。
+std::uint32_t gCreationElementPointBytes_9A50D0 = 0; // 原全局：0x009A50D0。
+std::uint8_t gCreationFifthAttributePoints_9A5FD8 = 0; // 原全局：0x009A5FD8。
 std::uint8_t gCreationStyleIndex_9A5668 = 0; // 原全局：0x009A5668。
 std::uint8_t gCreationColorIndex_9A4B80 = 0; // 原全局：0x009A4B80。
 std::uint8_t gCreationRemainingAttributePoints_9A4D04 = 0; // 原全局：0x009A4D04。
 std::uint8_t gCreationRemainingElementPoints_9A50C8 = 0; // 原全局：0x009A50C8。
 std::uint8_t gCreationGraphicGeneration_9A4B88 = 0; // 原全局：0x009A4B88。
 std::int32_t gCreationAttributePhase_9A5AFC = 0; // 原全局：0x009A5AFC。
-std::int32_t gValueF633F0 = 0; // 原全局：0x00F633F0。
-std::int32_t gValueF7CA00 = 0; // 原全局：0x00F7CA00。
-std::int32_t gValueF633EC = 0; // 原全局：0x00F633EC。
-std::int32_t gValueF633F4 = 0; // 原全局：0x00F633F4。
-std::int32_t gValueDE0AF8 = 0; // 原全局：0x00DE0AF8。
-std::int32_t gValueDE03F4 = 0; // 原全局：0x00DE03F4。
-std::int32_t gValueFF03D0 = 0; // 原全局：0x00FF03D0。
-std::int32_t gValueF7C948 = 0; // 原全局：0x00F7C948。
-std::int32_t gValueDE0B04 = 0; // 原全局：0x00DE0B04。
-std::int32_t gValueDE0AFC = 0; // 原全局：0x00DE0AFC。
+std::int32_t gCreationSubmittedAttribute1_F633F0 = 0; // 原全局：0x00F633F0。
+std::int32_t gCreationSubmittedAttribute4_F7CA00 = 0; // 原全局：0x00F7CA00。
+std::int32_t gCreationSubmittedAttribute0_F633EC = 0; // 原全局：0x00F633EC。
+std::int32_t gCreationSubmittedElement2_F633F4 = 0; // 原全局：0x00F633F4。
+std::int32_t gCreationSubmittedAttribute3_DE0AF8 = 0; // 原全局：0x00DE0AF8。
+std::int32_t gCreationSubmittedAttribute2_DE03F4 = 0; // 原全局：0x00DE03F4。
+std::int32_t gCreationSubmittedElement1_FF03D0 = 0; // 原全局：0x00FF03D0。
+std::int32_t gCreationSubmittedElement0_F7C948 = 0; // 原全局：0x00F7C948。
+std::int32_t gCreationSubmittedElement3_DE0B04 = 0; // 原全局：0x00DE0B04。
+std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC。
 std::array<char, 24> gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 std::array<cg::yobi::YobiAction*, 2> gPreviewActions {};
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
@@ -1365,7 +1365,7 @@ static std::int32_t ProcessUsageNotice()
             2, 0, 0, lines[index], 0, 0);
     }
     for (const auto& button : buttons) {
-        detail::DrawCharacterModalButton_503A20(&button, 2, 4, 1, cg::render::gValueD69768, 214);
+        detail::DrawCharacterModalButton_503A20(&button, 2, 4, 1, cg::render::gHoverFramePaletteIndex_D69768, 214);
     }
 RET:
     VM_DOLPHIN_WHITE_END
@@ -1682,7 +1682,7 @@ std::int32_t ProcessScene_460FF0()
             } else if (actionIndex == 1u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
-                const char* const serverAddress = login::gValueD69798[
+                const char* const serverAddress = login::gLoginServerRecords_D69798[
                     static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
                 if (std::strcmp(serverAddress, "taomoli") == 0) {
                     EnterSelectedCharacter();

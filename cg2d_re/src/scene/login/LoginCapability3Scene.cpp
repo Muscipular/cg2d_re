@@ -68,7 +68,7 @@ static void DrawFiveCapability3Images()
 
 static std::int32_t DrawCapability3CommonTail()
 {
-    const std::uint32_t firstAlpha = cg::login::gValue9A6200;
+    const std::uint32_t firstAlpha = cg::login::gCapability3LoginOverlayAlpha_9A6200;
     if (firstAlpha != 0U) {
         static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
             139,
@@ -187,7 +187,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
         gAlpha9A5E70 = 0;
-        login::gValue9A6200 = 0;
+        login::gCapability3LoginOverlayAlpha_9A6200 = 0;
         DrawFiveCapability3Images();
         world::gCurrentSceneState = 1;
         return ProcessCapability3CommonDispatch(1);

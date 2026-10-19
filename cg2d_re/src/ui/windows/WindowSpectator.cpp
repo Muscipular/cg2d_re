@@ -28,7 +28,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
 {
     if ((state & 1) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const std::uint32_t image = cg::render::gValueD69768;
+        const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         WindowElement* const elements = window->elements;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;

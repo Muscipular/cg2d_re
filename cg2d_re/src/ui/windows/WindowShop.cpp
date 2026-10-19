@@ -657,7 +657,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
         ++gShopItemCountCB1E10;
     }
     const std::int32_t dialogType = world::gCurrentDialogType_581800;
-    gValueD2D608 = -1;
+    gShopExchangeCurrencyItemId_D2D608 = -1;
     gShopDialogTypeCC3EC8 = dialogType;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
@@ -741,7 +741,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
     gShopValueCF467C = 0;
     gShopSelectedSlotsCB03DC.fill(static_cast<char>(-1));
     gShopItemCountCB1E10 = 20;
-    gValueD2D608 = -1;
+    gShopExchangeCurrencyItemId_D2D608 = -1;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
@@ -770,7 +770,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
-    gValueD2D608 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gShopExchangeCurrencyItemId_D2D608 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         text, '|', 7, 28, gShopTextCB0184.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(gShopTextCB0184.data());
@@ -856,7 +856,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
     std::int32_t value;
     std::memcpy(&value, &detail->itemId, sizeof(value));
     gShopValueD046C4 = 0;
-    gValueD2D608 = value;
+    gShopExchangeCurrencyItemId_D2D608 = value;
     gShopValueD672D4 = 0;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
@@ -946,7 +946,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     gShopSelectedSlotsCB03DC.fill(static_cast<char>(-1));
     gShopValueCF467C = 0;
     gShopItemCountCB1E10 = 20;
-    gValueD2D608 = value;
+    gShopExchangeCurrencyItemId_D2D608 = value;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
@@ -1527,7 +1527,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     }
     if (gMaterialOccupancyCC4894.shopMode == 2) {
         const std::int32_t previous = gShopAvailableCF4A24;
-        const std::int32_t itemId = gValueD2D608;
+        const std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
         gShopAvailableCF4A24 = 0;
         std::int32_t total = 0;
         for (const world::PlayerItemRecord& record : world::gPlayerRuntimeSlots.items) {
@@ -2114,7 +2114,7 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const std::int32_t frame = cg::render::gValueD69768;
+        const std::int32_t frame = cg::render::gHoverFramePaletteIndex_D69768;
         const WindowElement& element = window->elements[index];
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
@@ -2380,7 +2380,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             std::int32_t remaining = gShopTotalD2DAFC;
             std::int32_t price;
             std::memcpy(&price, &record->price, sizeof(price));
-            std::int32_t itemId = gValueD2D608;
+            std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
             remaining -= price;
             std::int32_t released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
@@ -2417,7 +2417,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             std::memcpy(&price, &record->price, sizeof(price));
             remaining = gShopTotalD2DAFC;
             const std::int32_t cost = price * candidate;
-            itemId = gValueD2D608;
+            itemId = gShopExchangeCurrencyItemId_D2D608;
             remaining -= cost;
             released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
@@ -2638,7 +2638,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                 message = -2;
                 break;
             }
-            const std::int32_t itemId = gValueD2D608;
+            const std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
             std::int32_t remaining = cost;
             increment = remaining;
             std::int32_t released = 0;
@@ -2679,7 +2679,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             std::int32_t deficit = -available;
             for (; slot < 28; ++slot) {
                 const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
-                if (item.used != 0 && item.itemId == gValueD2D608) {
+                if (item.used != 0 && item.itemId == gShopExchangeCurrencyItemId_D2D608) {
                     const std::int32_t count = item.count;
                     std::memcpy(&price, &record->price, sizeof(price));
                     std::int32_t candidate = (count - increment + price - 1) / price;
@@ -2945,7 +2945,7 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     const auto* const record = &gShopItemsCF4FE0[item];
     if (record->used == 0) {
@@ -3008,7 +3008,7 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
@@ -3096,7 +3096,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     if ((events & 0x20u) != 0 && WindowDrag_ReadKind() == 9) {
         const WindowInstance* const window = gCurrentWindow;
@@ -3106,7 +3106,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
     if (item < 0) {
@@ -3310,7 +3310,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gValueD69768, 0);
+            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
@@ -3340,7 +3340,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
             const WindowElement& element = window->elements[index];
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
-            if (item.itemId == gValueD2D608) {
+            if (item.itemId == gShopExchangeCurrencyItemId_D2D608) {
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                     static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
@@ -3465,11 +3465,11 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
+                const auto countFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gValueD69768);
+                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
@@ -3479,8 +3479,8 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 377), 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 393), 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 377), 4, 12, 0, gConfirmationLineCB1320, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 393), 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

@@ -79,8 +79,6 @@ struct BigMapWindow final : UIWindowInstanceEx {
         map.h = static_cast<short>(window.height);
     }
 
-    int S(int value) const { return static_cast<int>(std::round(value * window.width / 640.0)); }
-
     static const resource::GraphicInfo* Graphic(int mapNo) {
         if (mapNo <= 0 || mapNo >= resource::gBinLoaderGraphicCapacity
             || !resource::gGraphicMapNoIndex || !resource::gGraphicInfo) return nullptr;
@@ -94,7 +92,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
         switch (button) {
         case BigMapButton::Toggle: return {11, 51, 20, 18, options ? 243030 : 243033,
             options ? 243032 : 243035, options ? 243031 : 243034, true};
-        case BigMapButton::Close: return {614, 6, 20, 20, 22509, 22509, 22510, true};
+        case BigMapButton::Close: return {window.width - 26, 6, 20, 20, 22509, 22509, 22510, true};
         case BigMapButton::Refresh: return {161, 286, 20, 19, 243018, 243020, 243019, options};
         case BigMapButton::Walk: return {11, 73, 18, 18, WalkNormal, WalkHover, WalkPressed, targetX >= 0 && mapReady};
         case BigMapButton::Center: return {11, targetX >= 0 ? 97 : 73, 18, 18,
@@ -176,7 +174,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
     }
 
     bool Hit(int x, int y, int w, int h) const {
-        return MouseIsInRect(window.x + S(x), window.y + S(y), S(w), S(h));
+        return MouseIsInRect(window.x + x, window.y + y, w, h);
     }
 
     int update(int stage, int focused) override {
@@ -252,7 +250,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 startCopilot(targetX, targetY);
                 routeStatus = getAutoCopliotState() ? L"寻路中" : L"寻路未启动";
             } else if (options && Hit(42, 138, 194, 140)) {
-                const int index = ((my - window.y) * 480 / window.height - 138) / 20;
+                const int index = (my - window.y - 138) / 20;
                 if (index >= 0 && index < static_cast<int>(categories.size())) categories[index] = !categories[index];
             } else if (MapHit()) {
                 mapClickPending = true;
@@ -294,11 +292,11 @@ struct BigMapWindow final : UIWindowInstanceEx {
 
     void UiImage(int mapNo, int x, int y, int width, int height, const UIClipRect& clip,
         std::uint32_t color = 0xFFFFFFFFu) {
-        ImageAt(mapNo, window.x + S(x), window.y + S(y), S(width), S(height), clip, color);
+        ImageAt(mapNo, window.x + x, window.y + y, width, height, clip, color);
     }
 
     void UiText(int x, int y, std::wstring_view value, const UIClipRect& clip, int color = 0) const {
-        Text(window.x + S(x), window.y + S(y), value, clip, color);
+        Text(window.x + x, window.y + y, value, clip, color);
     }
 
     void Button(BigMapButton button, const UIClipRect& clip) {
@@ -328,8 +326,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
 
     void Marker(int gx, int gy, int mapNo, int size, const UIClipRect& clip) {
         const auto [x, y] = map.MapToScreen(gx, gy);
-        const int extent = S(size);
-        ImageAt(mapNo, clip.left + x - extent / 2, clip.top + y - extent / 2, extent, extent, clip);
+        ImageAt(mapNo, clip.left + x - size / 2, clip.top + y - size / 2, size, size, clip);
     }
 
     // 4.06@43869F..438877：图标气泡相对格点偏移36/44，连接线按分类染色。
@@ -344,32 +341,32 @@ struct BigMapWindow final : UIWindowInstanceEx {
             x += clip.left; y += clip.top;
             const int textWidth = render::TextMeasure(point.name, kMapFont);
             if (point.hasIcon) {
-                int cx = x, cy = y - S(36);
-                if (point.placement == 1) cy = y + S(36);
-                else if (point.placement == 2) { cx = x - S(44); cy = y; }
-                else if (point.placement == 3) { cx = x + S(44); cy = y; }
-                const int nameY = cy + S(point.extra == 18 ? -10 : 6);
+                int cx = x, cy = y - 36;
+                if (point.placement == 1) cy = y + 36;
+                else if (point.placement == 2) { cx = x - 44; cy = y; }
+                else if (point.placement == 3) { cx = x + 44; cy = y; }
+                const int nameY = cy + (point.extra == 18 ? -10 : 6);
                 Text(cx - textWidth / 2, nameY, point.name, clip);
                 const auto coordinates = std::format(L"({},{})", point.x, point.y);
-                Text(cx - render::TextMeasure(coordinates, kMapFont) / 2, nameY + S(12), coordinates, clip);
+                Text(cx - render::TextMeasure(coordinates, kMapFont) / 2, nameY + 12, coordinates, clip);
                 if (point.imageNo >= 0) {
-                    const int w = S(point.imageWidth), h = S(point.imageHeight);
+                    const int w = point.imageWidth, h = point.imageHeight;
                     if (UIRectIntersectsClipRect(cx - w / 2, cy - h / 2, w, h, &clip)
                         && render::DrawGraphicImage(point.imageNo, cx - w / 2, cy - h / 2, w, h,
                             LAYER_UI, &imageClip) < 0) ++failedIcons;
                 } else Text(cx - 3, cy - fontHeight / 2, L"?", clip, 4);
-                ImageAt(AnnotationBorder, cx - S(21), cy - S(15), S(42), S(31), clip);
-                ImageAt(AnnotationPlate, cx - S(21), cy - S(15), S(42), S(31), clip, kCategoryColors[point.category]);
+                ImageAt(AnnotationBorder, cx - 21, cy - 15, 42, 31, clip);
+                ImageAt(AnnotationPlate, cx - 21, cy - 15, 42, 31, clip, kCategoryColors[point.category]);
                 if (point.placement == 2 || point.placement == 3)
-                    ImageAt(HorizontalConnector, x - S(point.placement == 2 ? 26 : 2), y - S(2), S(28), S(5), clip, kCategoryColors[point.category]);
-                else ImageAt(VerticalConnector, x - S(3), y - S(point.placement == 1 ? 2 : 24), S(5), S(28), clip, kCategoryColors[point.category]);
+                    ImageAt(HorizontalConnector, x - (point.placement == 2 ? 26 : 2), y - 2, 28, 5, clip, kCategoryColors[point.category]);
+                else ImageAt(VerticalConnector, x - 3, y - (point.placement == 1 ? 2 : 24), 5, 28, clip, kCategoryColors[point.category]);
             } else if (point.category == 6) {
-                Text(x + S(6), y - S(6), point.name, clip, point.extra);
-                ImageAt(NpcDot, x - S(1), y - S(1), S(4), S(4), clip,
+                Text(x + 6, y - 6, point.name, clip, point.extra);
+                ImageAt(NpcDot, x - 1, y - 1, 4, 4, clip,
                     render::GetTextColor(static_cast<std::uint8_t>(point.extra)));
             } else {
                 // 地点和村镇原端为文字底条，不使用占位方块。
-                const int textY = point.category == 0 && point.placement <= 0 ? y - S(20) : y;
+                const int textY = point.category == 0 && point.placement <= 0 ? y - 20 : y;
                 Text(x - textWidth / 2, textY, point.name, clip, point.category == 4 ? 4 : 0);
                 RendererDrawRectClipped(static_cast<short>(x - textWidth / 2 - 2), static_cast<short>(textY),
                     static_cast<short>(textWidth + 4), static_cast<short>(fontHeight + 2), LAYER_UI,
@@ -385,18 +382,19 @@ struct BigMapWindow final : UIWindowInstanceEx {
         failedUiImages = 0;
         RendererBreakWindowTextBatch();
         const auto clip = Viewport();
-        const UIClipRect nameClip{static_cast<short>(window.x + S(16)), static_cast<short>(window.y + S(12)),
-            static_cast<short>(window.x + S(188)), static_cast<short>(window.y + S(45))};
-        Text(nameClip.left, window.y + S(20), text::FromGbkWide(world::ReadText9DAD30()), nameClip, 12);
+        const UIClipRect nameClip{static_cast<short>(window.x + 16), static_cast<short>(window.y + 12),
+            static_cast<short>(window.x + 188), static_cast<short>(window.y + 45)};
+        Text(nameClip.left, window.y + 20, text::FromGbkWide(world::ReadText9DAD30()), nameClip, 12);
         UiImage(MapNamePlate, 10, 10, 184, 38, clip);
         const int px = static_cast<int>(world::gPlayerX), py = static_cast<int>(world::gPlayerY);
-        // 4.06@437BC9：数字/底框的64/65是相对装饰图Y的偏移，不是窗口绝对Y。
-        constexpr int coordinateTop = 40;
-        UiText(516, coordinateTop + 64, std::format(L"{:3}", px), clip, 12);
-        UiText(566, coordinateTop + 64, std::format(L"{:3}", py), clip, 12);
-        UiImage(CoordinatePlate, 515, coordinateTop + 65, 46, 16, clip);
-        UiImage(CoordinatePlate, 565, coordinateTop + 65, 46, 16, clip);
-        UiImage(Compass, 530, coordinateTop, 60, 59, clip);
+        // 4.06@437BC9：仅移动坐标组锚点，组内64/65偏移和所有图片尺寸保持固定像素。
+        const int coordinateLeft = static_cast<int>(window.width * 530.0 / 640.0);
+        const int coordinateTop = static_cast<int>(window.width * 40.0 / 640.0);
+        UiText(coordinateLeft - 14, coordinateTop + 64, std::format(L"{:3}", px), clip, 12);
+        UiText(coordinateLeft + 36, coordinateTop + 64, std::format(L"{:3}", py), clip, 12);
+        UiImage(CoordinatePlate, coordinateLeft - 15, coordinateTop + 65, 46, 16, clip);
+        UiImage(CoordinatePlate, coordinateLeft + 35, coordinateTop + 65, 46, 16, clip);
+        UiImage(Compass, coordinateLeft, coordinateTop, 60, 59, clip);
         for (auto button : {BigMapButton::Toggle, BigMapButton::Close, BigMapButton::Refresh, BigMapButton::Walk, BigMapButton::Center})
             Button(button, clip);
         const auto walkButton = ButtonStyle(BigMapButton::Walk), centerButton = ButtonStyle(BigMapButton::Center);
@@ -417,9 +415,8 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 if (categories[i]) UiImage(Checked, 46, 141 + i * 20, 12, 11, clip, 0xFFFF0000u);
                 UiImage(Checkbox, 46, 143 + i * 20, 9, 9, clip);
                 if (acceptsMouse && Hit(42, 138 + i * 20, 194, 20))
-                    RendererDrawRectClipped(static_cast<short>(window.x + S(42)),
-                        static_cast<short>(window.y + S(138 + i * 20)), static_cast<short>(S(194)),
-                        static_cast<short>(S(20)), LAYER_UI, 0x503F6E83u, &clip);
+                    RendererDrawRectClipped(static_cast<short>(window.x + 42),
+                        static_cast<short>(window.y + 138 + i * 20), 194, 20, LAYER_UI, 0x503F6E83u, &clip);
             }
             UiText(184, 287, L"刷新坐标", clip, 4);
             DrawPanel(clip);
@@ -434,16 +431,16 @@ struct BigMapWindow final : UIWindowInstanceEx {
             else if (ButtonHit(BigMapButton::Toggle)) hint = options ? L"收起地图选项" : L"展开地图选项";
             else if (ButtonHit(BigMapButton::Close)) hint = L"关闭大地图";
         }
-        UiText(12, 442, hint, clip, 12);
+        UiText(12, window.height - 38, hint, clip, 12);
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt"
             : annotations.empty() ? L"当前地图没有标注" : std::format(L"地图标注：{}处", annotations.size());
         if (missingIcons || previousUiFailures || failedUiImages)
             status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, std::max(previousUiFailures, failedUiImages));
         const auto generation = map.Status();
         if (!generation.empty()) status += L"  " + generation;
-        UiText(12, 462, status, clip, 12);
+        UiText(12, window.height - 18, status, clip, 12);
         // 框先入队，地图标注随后：原版不透明纸面遮住菱形视口外的地图内容。
-        UiImage(MapFrame, 0, 0, 640, 480, clip);
+        ImageAt(MapFrame, window.x, window.y, window.width, window.height, clip);
         RendererBreakWindowTextBatch();
         if (mapReady) {
             if (acceptsMouse && MapHit()) {
@@ -456,7 +453,8 @@ struct BigMapWindow final : UIWindowInstanceEx {
             for (std::size_t i = 1; i < route.size(); i += 2)
                 Marker(route[i].first, route[i].second, RouteDot, 4, clip);
             failedUiImages += DrawAnnotations(clip);
-        } else Text(window.x + S(280), window.y + S(230), L"当前地图数据未就绪", clip, 4);
+        } else Text(window.x + (window.width - render::TextMeasure(L"当前地图数据未就绪", kMapFont)) / 2,
+            window.y + window.height / 2, L"当前地图数据未就绪", clip, 4);
         RendererBreakWindowTextBatch();
         map.Render(window.x, window.y, LAYER_UI, {clip.left, clip.top, clip.right, clip.bottom});
         RendererDrawRectClipped(static_cast<short>(window.x), static_cast<short>(window.y),

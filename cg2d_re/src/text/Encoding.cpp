@@ -58,6 +58,7 @@ static std::string Encode(const std::wstring_view text, const UINT codePage)
     return result;
 }
 
+std::wstring FromUtf8Wide(const std::string_view utf8) { return Decode(utf8, CP_UTF8); }
 std::wstring FromGbkWide(const std::string_view gbk) { return Decode(gbk, kGbkCodePage, 0); }
 std::wstring FromLegacyDisplayWide(const std::string_view bytes) { return Decode(bytes, CP_ACP, 0); }
 std::string ToGbk(const std::wstring_view utf16)

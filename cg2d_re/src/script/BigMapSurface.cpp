@@ -69,10 +69,12 @@ struct BigMapSurface::State {
         Append(result, resource::gMaxGraphicCount);
         // 只读元数据，不计算文件摘要；顺序保留后组覆盖语义。
         for (std::size_t i = 0; i < resource::gBinLoaderGroupCount; ++i) {
-            for (const char* name : {resource::gGraphicPaths[i], resource::gGraphicInfoPaths[i]}) {
-                result.append(name ? name : ""); result.push_back('\0');
+            for (const wchar_t* name : {resource::gGraphicPaths[i], resource::gGraphicInfoPaths[i]}) {
+                const std::wstring_view nameText(name ? name : L"");
+                result.append(reinterpret_cast<const char*>(nameText.data()), nameText.size() * sizeof(wchar_t));
+                Append(result, wchar_t{});
                 std::error_code error;
-                const std::filesystem::path path(name ? name : "");
+                const std::filesystem::path path(nameText);
                 const auto size = std::filesystem::file_size(path, error);
                 Append(result, size);
                 const auto time = std::filesystem::last_write_time(path, error).time_since_epoch().count();

@@ -67,7 +67,7 @@ static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
 // 原函数：0x0045BB20。
 // BLM01：完整12B记录，后组覆盖同号动画；临时配对容量与主表一致。
 std::int32_t AnimeInit_45BB20(
-    char* const* const dataPaths, char* const* const infoPaths)
+    wchar_t* const* const dataPaths, wchar_t* const* const infoPaths)
 {
     InitializeAnimationSlotList_45B5D0();
     for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
@@ -101,14 +101,14 @@ std::int32_t AnimeInit_45BB20(
         if (dataPaths[slot][0] == '\0' || infoPaths[slot][0] == '\0') {
             continue;
         }
-        std::FILE* const infoFile = std::fopen(infoPaths[slot], "rb");
+        std::FILE* const infoFile = _wfopen(infoPaths[slot], L"rb");
         if (infoFile == nullptr) {
             platform::ShowWideMessage(
                 L"动画索引文件开启失败：" + text::FromLegacyDisplayWide(infoPaths[slot]),
                 L"资源加载", 0);
             continue;
         }
-        detail::gAnimateFiles9A3A20[slot] = std::fopen(dataPaths[slot], "rb");
+        detail::gAnimateFiles9A3A20[slot] = _wfopen(dataPaths[slot], L"rb");
         if (detail::gAnimateFiles9A3A20[slot] == nullptr) {
             platform::ShowWideMessage(
                 L"动画文件开启失败：" + text::FromLegacyDisplayWide(dataPaths[slot]),
@@ -361,7 +361,7 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
 
 // 原函数：0x0045C040。
 // BLM01：成功的后组坐标文件覆盖所有组的共享来源，空路径继承前组。
-void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoPaths)
+void CoordLoadInit_45C040(wchar_t* const* const dataPaths, wchar_t* const* const infoPaths)
 {
     CloseCoordinateFiles();
     for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
@@ -385,9 +385,9 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
 // 原函数：0x0045BF60。
 // BLM01：临时Info文件始终关闭，仅成功后向调用方交付数据FILE。
 std::int32_t CoordLoad_45BF60(
-    std::FILE** const outputFile, const char* const dataPath, const char* const infoPath)
+    std::FILE** const outputFile, const wchar_t* const dataPath, const wchar_t* const infoPath)
 {
-    std::FILE* const infoFile = std::fopen(infoPath, "rb");
+    std::FILE* const infoFile = _wfopen(infoPath, L"rb");
     if (infoFile == nullptr) {
         platform::ShowWideMessage(
             L"坐标索引文件开启失败：" + text::FromLegacyDisplayWide(infoPath), L"资源加载", 0);
@@ -398,7 +398,7 @@ std::int32_t CoordLoad_45BF60(
         std::fclose(infoFile);
         return 0;
     }
-    std::FILE* const dataFile = std::fopen(dataPath, "rb");
+    std::FILE* const dataFile = _wfopen(dataPath, L"rb");
     if (dataFile == nullptr) {
         platform::ShowWideMessage(
             L"坐标文件开启失败：" + text::FromLegacyDisplayWide(dataPath), L"资源加载", 0);

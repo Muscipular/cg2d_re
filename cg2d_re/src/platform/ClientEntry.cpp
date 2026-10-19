@@ -327,11 +327,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         // app.ico以独立资源ID1内嵌于客户端，光标继续使用原资源实例。
         gWindowClass.hIcon = LoadIconW(instance, MAKEINTRESOURCEW(1));
 
-        // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。
-        const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);
+        // 原11个光标ID；最后一项独立读取，不再依赖路径成员布局。
         for (int slot = 0; slot < 11; ++slot) {
-            std::uint16_t resourceId;
-            std::memcpy(&resourceId, cursorBytes + slot * 12, sizeof(resourceId));
+            const auto resourceId = static_cast<std::uint16_t>(slot < 10
+                ? cg::resource::gCursorPathStorage.cursor[slot].resourceId
+                : cg::resource::gCursorPathStorage.lastCursorResourceId);
             gCursorHandles[slot] = reinterpret_cast<std::uintptr_t>(
                 LoadCursorW(resourceInstance, MAKEINTRESOURCEW(resourceId)));
         }

@@ -348,9 +348,9 @@ std::int32_t InitializeAudioDeviceAndSamples_524230()
             gSoundEffects103E7B0[static_cast<std::size_t>(entry.id)];
         effect.sampleIndex = gSampleCount104DFCC;
         const std::wstring openPath = std::format(
-            L"{}\\{}", AudioPathToWide(resource::gBinPath), entry.path);
+            L"{}\\{}", resource::gBinPath, entry.path);
         effect.path = std::format(
-            L"{}\\{}", AudioPathToWide(resource::gBinPath), entry.path);
+            L"{}\\{}", resource::gBinPath, entry.path);
         // 原52B262先检查音量，再发布；音高失败仍保留此前样本/路径/音量。
         const std::int32_t volume = static_cast<std::int8_t>(entry.volume);
         if (volume < 0) {
@@ -409,7 +409,7 @@ std::int32_t InitializeAudioDeviceAndSamples_524230()
         const BgmConfigRecord& config = gBgmConfigRecords104A3B8[index];
         LegacyAudioRecord& record = gRecords[index];
         record.path = std::format(
-            L"{}\\{}", AudioPathToWide(resource::gBinPath), config.path);
+            L"{}\\{}", resource::gBinPath, config.path);
         // 原52B53D先持有三个值，再按40/44/48发布到同源BGM运行表。
         const std::int32_t value40 = config.value40;
         const std::uint8_t value44 = config.value44;

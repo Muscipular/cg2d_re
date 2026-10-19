@@ -24,6 +24,7 @@ std::int32_t FormatTo(std::wstring& destination, const std::wstring_view format,
 }
 
 // UWF01：内部正文为UTF-16；窄字节仅在明确GBK／旧A接口边界转换。
+[[nodiscard]] std::wstring FromUtf8Wide(std::string_view utf8);
 [[nodiscard]] std::wstring FromGbkWide(std::string_view gbk);
 [[nodiscard]] std::wstring FromLegacyDisplayWide(std::string_view bytes);
 [[nodiscard]] std::string ToGbk(std::wstring_view utf16);

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #include <cstddef>
 #include <cstdint>
@@ -16,14 +17,12 @@ struct PaletteEntry {
 // 原 0x554B78：45 个物理记录；选择函数仅允许正常非负索引 0..38。
 struct PaletteFile {
     std::int16_t threshold; // 原成员偏移：+0x00。
-    char path[128]; // 原成员偏移：+0x02。
+    std::wstring path; // 原成员偏移：+0x02。
 };
 
 static_assert(sizeof(PaletteEntry) == 4);
 static_assert(offsetof(PaletteEntry, blue) == 2);
 static_assert(offsetof(PaletteEntry, flags) == 3);
-static_assert(sizeof(PaletteFile) == 130);
-static_assert(offsetof(PaletteFile, path) == 2);
 
 extern PaletteFile gPaletteFiles[45]; // 原全局：0x00554B78。
 extern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。

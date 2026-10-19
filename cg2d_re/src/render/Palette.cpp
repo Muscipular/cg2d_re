@@ -5,6 +5,7 @@
 #include "cg/render/RendererResources.hpp"
 
 #include <bit>
+#include <format>
 #include <cmath>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053C8B3；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
@@ -53,29 +54,29 @@ std::int32_t FindNearestPaletteColor_451E90(
 }
 
 PaletteFile gPaletteFiles[45] { // 原全局：0x00554B78。
-    {0, "pal\\palet_00.cgp"}, {0, "pal\\palet_01.cgp"},
-    {0, "pal\\palet_02.cgp"}, {0, "pal\\palet_03.cgp"},
-    {0, "pal\\palet_04.cgp"}, {0, "pal\\palet_05.cgp"},
-    {0, "pal\\palet_06.cgp"}, {0, "pal\\palet_07.cgp"},
-    {0, "pal\\palet_08.cgp"}, {0, "pal\\palet_09.cgp"},
-    {0, "pal\\palet_10.cgp"}, {0, "pal\\palet_11.cgp"},
-    {0, "pal\\palet_12.cgp"}, {0, "pal\\palet_13.cgp"},
-    {0, "pal\\palet_14.cgp"}, {0, "pal\\palet_15.cgp"},
-    {0, "pal\\palet_opA.cgp"}, {0, "pal\\palet_opB.cgp"},
-    {0, "pal\\palet_opC.cgp"}, {0, "pal\\palet_black.cgp"},
-    {0, "pal\\palet_white.cgp"}, {0, "pal\\palet_logo00.cgp"},
-    {0, "pal\\palet_logo01.cgp"}, {0, "pal\\palet_logo02J.cgp"},
-    {0, "pal\\palet_idpass.cgp"}, {0, "pal\\palet_opDJ.cgp"},
-    {1, "pal\\palet_logo02.cgp"}, {1, "pal\\palet_opAex.cgp"},
-    {1, "pal\\palet_opBex.cgp"}, {1, "pal\\palet_ld2.cgp"},
-    {2, "pal\\palet_ssv2.cgp"}, {1, "pal\\palet_tiex.cgp"},
-    {2, "pal\\palet_tiv2_1.cgp"}, {2, "pal\\palet_tiv2_2.cgp"},
-    {0, "pal\\palet_e_s.cgp"}, {2, "pal\\palet_logo02cn.cgp"},
-    {2, "pal\\palet_logo36cn.cgp"}, {2, "pal\\palet_logo37cn.cgp"},
-    {0, "pal\\palet_10.cgp"}, {0, "pal\\palet_06.cgp"},
-    {0, "pal\\palet_08.cgp"}, {0, "pal\\palet_04.cgp"},
-    {0, "pal\\palet_14.cgp"}, {0, "pal\\palet_15.cgp"},
-    {0, "pal\\palet_e_s.cgp"},
+    {0, L"pal\\palet_00.cgp"}, {0, L"pal\\palet_01.cgp"},
+    {0, L"pal\\palet_02.cgp"}, {0, L"pal\\palet_03.cgp"},
+    {0, L"pal\\palet_04.cgp"}, {0, L"pal\\palet_05.cgp"},
+    {0, L"pal\\palet_06.cgp"}, {0, L"pal\\palet_07.cgp"},
+    {0, L"pal\\palet_08.cgp"}, {0, L"pal\\palet_09.cgp"},
+    {0, L"pal\\palet_10.cgp"}, {0, L"pal\\palet_11.cgp"},
+    {0, L"pal\\palet_12.cgp"}, {0, L"pal\\palet_13.cgp"},
+    {0, L"pal\\palet_14.cgp"}, {0, L"pal\\palet_15.cgp"},
+    {0, L"pal\\palet_opA.cgp"}, {0, L"pal\\palet_opB.cgp"},
+    {0, L"pal\\palet_opC.cgp"}, {0, L"pal\\palet_black.cgp"},
+    {0, L"pal\\palet_white.cgp"}, {0, L"pal\\palet_logo00.cgp"},
+    {0, L"pal\\palet_logo01.cgp"}, {0, L"pal\\palet_logo02J.cgp"},
+    {0, L"pal\\palet_idpass.cgp"}, {0, L"pal\\palet_opDJ.cgp"},
+    {1, L"pal\\palet_logo02.cgp"}, {1, L"pal\\palet_opAex.cgp"},
+    {1, L"pal\\palet_opBex.cgp"}, {1, L"pal\\palet_ld2.cgp"},
+    {2, L"pal\\palet_ssv2.cgp"}, {1, L"pal\\palet_tiex.cgp"},
+    {2, L"pal\\palet_tiv2_1.cgp"}, {2, L"pal\\palet_tiv2_2.cgp"},
+    {0, L"pal\\palet_e_s.cgp"}, {2, L"pal\\palet_logo02cn.cgp"},
+    {2, L"pal\\palet_logo36cn.cgp"}, {2, L"pal\\palet_logo37cn.cgp"},
+    {0, L"pal\\palet_10.cgp"}, {0, L"pal\\palet_06.cgp"},
+    {0, L"pal\\palet_08.cgp"}, {0, L"pal\\palet_04.cgp"},
+    {0, L"pal\\palet_14.cgp"}, {0, L"pal\\palet_15.cgp"},
+    {0, L"pal\\palet_e_s.cgp"},
 };
 
 PaletteEntry gPalette[256] {}; // 原全局：0x00629B20。
@@ -202,11 +203,9 @@ int InitPalette32()
     }
 
     if (gPaletteInitialized == 0) {
-        char path[512];
-        std::sprintf(
-            path, "%s\\%s", resource::gBinPath, gPaletteFiles[0].path);
+        const auto path = std::format(L"{}\\{}", resource::gBinPath, gPaletteFiles[0].path);
         std::FILE* file =
-            std::fopen(path, "rb");
+            _wfopen(path.c_str(), L"rb");
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
             platform::ShowWideMessage(L"调色盘档案开启失败", L"Error Code = 13", 0x10);
@@ -263,11 +262,9 @@ int InitPalette32()
 // 原函数：0x00450A80。
 int ReadPalette(std::int32_t index, PaletteEntry* output)
 {
-    char path[256];
-    std::sprintf(
-        path, "%s\\%s", resource::gBinPath, gPaletteFiles[index].path);
+    const auto path = std::format(L"{}\\{}", resource::gBinPath, gPaletteFiles[index].path);
     std::FILE* file =
-        std::fopen(path, "rb");
+        _wfopen(path.c_str(), L"rb");
     if (file == nullptr) {
         platform::ShowWideMessage(L"无法打开色盘档案。", L"Error", 0x10);
         return 0;
@@ -328,11 +325,9 @@ int UpdatePalette_450BB0()
             return paletteOffset;
         }
 
-        char path[512];
-        std::sprintf(
-            path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
+        const auto path = std::format(L"{}\\{}", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
         std::FILE* file =
-            std::fopen(path, "rb");
+            _wfopen(path.c_str(), L"rb");
         if (file == nullptr) {
             return 0; // 失败不更新已加载索引；下一帧继续尝试打开。
         }

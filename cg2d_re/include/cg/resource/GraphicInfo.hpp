@@ -95,7 +95,7 @@ extern std::int32_t gGraphicStartIndices[BinLoaderMaxGroups];
 // 原[459960,45A12C)；BLM01按配置组读完整40B记录、后组覆盖MapNo，空／缺文件组跳过。
 // 主表须由GraphicAlloc按配置容量分配；0成功、3容量不足、-1分配失败。
 std::int32_t GraphicInit_459960(
-    const char* const* graphicPaths, const char* const* graphicInfoPaths);
+    const wchar_t* const* graphicPaths, const wchar_t* const* graphicInfoPaths);
 
 // 调用前提：输出指针非空且可写；实际读表前，相应全局状态须已绑定有效存储。
 // 保留原有检查，不新增空指针、负计数修复或存储容量检查。

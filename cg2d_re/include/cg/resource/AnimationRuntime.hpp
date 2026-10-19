@@ -86,10 +86,10 @@ std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 // 原[45BB20,45BEE1)；BLM01按配置组去重／覆盖与排序，空／缺文件组跳过。
 // 数据、Info路径顺序保持；0成功、3容量／分配失败、5动作数量异常。
 std::int32_t AnimeInit_45BB20(
-    char* const* dataPaths, char* const* infoPaths);
+    wchar_t* const* dataPaths, wchar_t* const* infoPaths);
 
 // 原[45C040,45C146)；BLM01每个成功坐标文件替换全部配置组的共享来源。
-void CoordLoadInit_45C040(char* const* dataPaths, char* const* infoPaths);
+void CoordLoadInit_45C040(wchar_t* const* dataPaths, wchar_t* const* infoPaths);
 
 // BLM01：关闭唯一共享坐标FILE并清空全部别名，供来源替换和退出共同调用。
 void CloseCoordinateFiles();

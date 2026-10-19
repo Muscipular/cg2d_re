@@ -31,21 +31,21 @@ std::int32_t gBinLoaderAnimeCapacity = 30500;
 
 // BLM01：六类路径的唯一拥有者，不再受旧256字节拼接槽限制。
 struct BinSet {
-    std::string graphic;
-    std::string graphicInfo;
-    std::string anime;
-    std::string animeInfo;
-    std::string coordinate;
-    std::string coordinateInfo;
+    std::wstring graphic;
+    std::wstring graphicInfo;
+    std::wstring anime;
+    std::wstring animeInfo;
+    std::wstring coordinate;
+    std::wstring coordinateInfo;
 };
 static std::array<BinSet, BinLoaderMaxGroups> gBinSets;
 
 // 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
-static bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
+static bool ReadAutoMapFileTimes(wchar_t* const* const paths, std::int32_t (&times)[3])
 {
     constexpr std::int32_t kSlots[] {0, 1, 6};
     for (std::int32_t index = 0; index < 3; ++index) {
-        std::FILE* const file = std::fopen(paths[kSlots[index]], "rb");
+        std::FILE* const file = _wfopen(paths[kSlots[index]], L"rb");
         if (file == nullptr) {
             if (index == 0) {
                 return false;
@@ -72,13 +72,13 @@ namespace cg::resource::detail {
 static_assert(std::endian::native == std::endian::little);
 
 // 原 45A420：每项读取后才比较，正文直接写共享表，短读保留已写前缀。
-[[maybe_unused]] static std::int32_t LoadAutoMapColorCache_45A420(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t LoadAutoMapColorCache_45A420(const wchar_t* const fileName, wchar_t* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    std::FILE* const file = std::fopen(fileName, "rb");
+    std::FILE* const file = _wfopen(fileName, L"rb");
     if (file == nullptr) {
         return 0;
     }
@@ -105,13 +105,13 @@ static_assert(std::endian::native == std::endian::little);
 }
 
 // 原 45A290：成功打开后忽略写入/关闭结果，不把原写回改为事务提交。
-[[maybe_unused]] static std::int32_t SaveAutoMapColorCache_45A290(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t SaveAutoMapColorCache_45A290(const wchar_t* const fileName, wchar_t* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    std::FILE* const file = std::fopen(fileName, "wb");
+    std::FILE* const file = _wfopen(fileName, L"wb");
     if (file == nullptr) {
         return 0;
     }
@@ -176,16 +176,16 @@ CursorPathStorage gCursorPathStorage { // 原全局：0x0055CE88。
         {0x74, 0x0003C3A7, 0xFFF0FFE7},
     },
     0x6E,
-    "Bin",
+    L"Bin",
 };
-char (&gBinPath)[128] = gCursorPathStorage.binPath; // 原全局：0x0055CF04。
+std::wstring& gBinPath = gCursorPathStorage.binPath; // 原全局：0x0055CF04。
 
-char* gGraphicPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D108。
-char* gGraphicInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062DA74。
-char* gAnimePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062BEE4。
-char* gAnimeInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D150。
-char* gCoordinatePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062B5C0。
-char* gCoordinateInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D12C。
+wchar_t* gGraphicPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D108。
+wchar_t* gGraphicInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062DA74。
+wchar_t* gAnimePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062BEE4。
+wchar_t* gAnimeInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D150。
+wchar_t* gCoordinatePaths[BinLoaderMaxGroups] {}; // 原全局：0x0062B5C0。
+wchar_t* gCoordinateInfoPaths[BinLoaderMaxGroups] {}; // 原全局：0x0062D12C。
 
 // 原函数：0x00456050。
 int BuildResourcePaths()
@@ -207,12 +207,12 @@ int BuildResourcePaths()
             set = {};
             if (slot < sets.size()) {
                 const YAML::Node entry = sets[slot];
-                set.graphic = entry["Graphic"].as<std::string>("");
-                set.graphicInfo = entry["GraphicInfo"].as<std::string>("");
-                set.anime = entry["Anime"].as<std::string>("");
-                set.animeInfo = entry["AnimeInfo"].as<std::string>("");
-                set.coordinate = entry["Coordinate"].as<std::string>("");
-                set.coordinateInfo = entry["CoordinateInfo"].as<std::string>("");
+                set.graphic = text::FromUtf8Wide(entry["Graphic"].as<std::string>(""));
+                set.graphicInfo = text::FromUtf8Wide(entry["GraphicInfo"].as<std::string>(""));
+                set.anime = text::FromUtf8Wide(entry["Anime"].as<std::string>(""));
+                set.animeInfo = text::FromUtf8Wide(entry["AnimeInfo"].as<std::string>(""));
+                set.coordinate = text::FromUtf8Wide(entry["Coordinate"].as<std::string>(""));
+                set.coordinateInfo = text::FromUtf8Wide(entry["CoordinateInfo"].as<std::string>(""));
             }
         }
         for (std::size_t slot = 0; slot < BinLoaderMaxGroups; ++slot) {
@@ -236,7 +236,7 @@ int BuildResourcePaths()
 }
 
 // 原函数：0x0045A130。
-std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
+std::int32_t LoadAutoMapColor_45A130(wchar_t* const* const graphicInfoPaths)
 {
     // BLM01：旧缓存不记录配置组列表和后组覆盖关系，启动时直接重建共享色表。
     static_cast<void>(graphicInfoPaths);

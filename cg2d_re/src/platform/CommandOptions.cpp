@@ -168,7 +168,8 @@ int ParseCommandOptions()
         if (std::sscanf(match + std::strlen("datafolder:"), "%s", value) == 1) gDataPath = text::FromGbkWide(value);
     }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "binfolder:"))) {
-        std::sscanf(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
+        char value[128]{};
+        if (std::sscanf(match + std::strlen("binfolder:"), "%127s", value) == 1) resource::gBinPath = text::FromGbkWide(value);
     }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "mapfolder:"))) {
         char value[128]{}; // 旧命令行解析边界，存储转为宽路径。

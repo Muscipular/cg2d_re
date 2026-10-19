@@ -118,6 +118,6 @@ std::int32_t CoordInit_45C150(std::int32_t index);
 // 原45BF60；BLM01读取版本／完整Info后交付FILE，失败不留下临时文件。
 // CoordLoadInit取得成功FILE后替换所有组的共享来源，路径顺序为数据、Info。
 std::int32_t CoordLoad_45BF60(
-    std::FILE** outputFile, const char* dataPath, const char* infoPath);
+    std::FILE** outputFile, const wchar_t* dataPath, const wchar_t* infoPath);
 
 } // namespace cg::resource::animation

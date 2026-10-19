@@ -49,7 +49,7 @@ void InitializeGraphicFirstRecords_459850()
 // 原函数：0x00459960。
 // BLM01：按配置组加载完整记录；分配容量、MapNo索引和查询上界分别承接。
 std::int32_t GraphicInit_459960(
-    const char* const* graphicPaths, const char* const* graphicInfoPaths)
+    const wchar_t* const* graphicPaths, const wchar_t* const* graphicInfoPaths)
 {
     CloseGraphicFiles();
     std::array<std::FILE*, BinLoaderMaxGroups> infoFiles {};
@@ -72,14 +72,14 @@ std::int32_t GraphicInit_459960(
         if (graphicPaths[slot][0] == '\0' || graphicInfoPaths[slot][0] == '\0') {
             continue;
         }
-        infoFiles[slot] = std::fopen(graphicInfoPaths[slot], "rb");
+        infoFiles[slot] = _wfopen(graphicInfoPaths[slot], L"rb");
         if (infoFiles[slot] == nullptr) {
             platform::ShowWideMessage(
                 L"图形索引文件开启失败：" + text::FromLegacyDisplayWide(graphicInfoPaths[slot]),
                 L"资源加载", 0);
             continue;
         }
-        gGraphicFiles[slot] = std::fopen(graphicPaths[slot], "rb");
+        gGraphicFiles[slot] = _wfopen(graphicPaths[slot], L"rb");
         if (gGraphicFiles[slot] == nullptr) {
             platform::ShowWideMessage(
                 L"图形文件开启失败：" + text::FromLegacyDisplayWide(graphicPaths[slot]),

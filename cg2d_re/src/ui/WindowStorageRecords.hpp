@@ -15,9 +15,9 @@ struct WindowStorageItem {
     std::int16_t selection; // 原成员偏移：+0x02。
     std::int32_t imageNo; // 原成员偏移：+0x04。
     std::int32_t count; // 原成员偏移：+0x08。
-    std::array<char, 29> name; // 原成员偏移：+0x0C。
-    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x29。
-    std::array<char, 17> memo; // 原成员偏移：+0xC29。
+    std::wstring name; // 原成员偏移：+0x0C。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x29。
+    std::wstring memo; // 原成员偏移：+0xC29。
     std::array<std::byte, 2> reservedC3A; // 原成员偏移：+0xC3A。
     std::int32_t pages; // 原成员偏移：+0xC3C；004E0253写DWORD。
     std::int32_t flags; // 原成员偏移：+0xC40。
@@ -39,12 +39,12 @@ struct WindowStoragePet {
     std::array<std::int32_t, 4> elements; // 原成员偏移：+0x48。
     std::int32_t value58; // 原成员偏移：+0x58；回复第11项数值。
     std::array<world::detail::PetTechniqueRecord, world::kPetTechniqueSlotCount> techniques; // 原成员偏移：+0x5C；回复只写技能名。
-    std::array<char, 17> name; // 原成员偏移：+0x5D4。
-    std::array<char, 17> speciesName; // 原成员偏移：+0x5E5。
+    std::wstring name; // 原成员偏移：+0x5D4。
+    std::wstring speciesName; // 原成员偏移：+0x5E5。
     std::array<std::byte, 2> reserved5F6; // 原成员偏移：+0x5F6。
     std::int32_t weight; // 原成员偏移：+0x5F8。
     std::int32_t maxWeight; // 原成员偏移：+0x5FC。
-    std::array<std::array<char, 29>, 6> equipmentNames; // 银行新增字段：六个装备槽的GBK物品名，空槽为空字符串。
+    std::array<std::wstring, 6> equipmentNames; // 银行新增字段：六个装备槽的GBK物品名，空槽为空字符串。
 };
 
 // 原CC4D58每组+F550的旧面板宠物摘要；4E1B10／4E1EE0消费。
@@ -62,8 +62,8 @@ struct WindowStoragePetSummary {
     std::array<std::int32_t, 5> combatStats; // 原成员偏移：+0x20。
     std::array<std::int32_t, 4> elements; // 原成员偏移：+0x34。
     std::int32_t value44; // 原成员偏移：+0x44。
-    std::array<std::array<char, 25>, 10> techniqueNames; // 原成员偏移：+0x48。
-    std::array<char, 17> name; // 原成员偏移：+0x142。
+    std::array<std::wstring, 10> techniqueNames; // 原成员偏移：+0x48。
+    std::wstring name; // 原成员偏移：+0x142。
     std::byte reserved153; // 原成员偏移：+0x153。
 };
 
@@ -93,51 +93,6 @@ struct WindowMaterialState {
     char shopMode; // 原成员偏移：+0x14；原全局：0x00CC48A8。 商店模式，保留原S8解释。
     std::array<std::byte, 3> reserved15; // 原成员偏移：+0x15；未确认用途，随整区清零。
 };
-
-
-static_assert(std::is_standard_layout_v<WindowStorageItem>);
-static_assert(std::is_trivially_copyable_v<WindowStorageItem>);
-static_assert(sizeof(WindowStorageItem) == 0xC44);
-static_assert(offsetof(WindowStorageItem, used) == 0x00);
-static_assert(offsetof(WindowStorageItem, selection) == 0x02);
-static_assert(offsetof(WindowStorageItem, imageNo) == 0x04);
-static_assert(offsetof(WindowStorageItem, count) == 0x08);
-static_assert(offsetof(WindowStorageItem, name) == 0x0C);
-static_assert(offsetof(WindowStorageItem, description) == 0x29);
-static_assert(offsetof(WindowStorageItem, memo) == 0xC29);
-static_assert(offsetof(WindowStorageItem, reservedC3A) == 0xC3A);
-static_assert(offsetof(WindowStorageItem, pages) == 0xC3C);
-static_assert(offsetof(WindowStorageItem, flags) == 0xC40);
-
-
-
-static_assert(std::is_standard_layout_v<WindowStoragePetSummary>);
-static_assert(std::is_trivially_copyable_v<WindowStoragePetSummary>);
-static_assert(sizeof(WindowStoragePetSummary) == 0x154);
-static_assert(offsetof(WindowStoragePetSummary, used) == 0x00);
-static_assert(offsetof(WindowStoragePetSummary, selection) == 0x02);
-static_assert(offsetof(WindowStoragePetSummary, tribe) == 0x04);
-static_assert(offsetof(WindowStoragePetSummary, reserved06) == 0x06);
-static_assert(offsetof(WindowStoragePetSummary, imageNo) == 0x08);
-static_assert(offsetof(WindowStoragePetSummary, level) == 0x0C);
-static_assert(offsetof(WindowStoragePetSummary, hp) == 0x10);
-static_assert(offsetof(WindowStoragePetSummary, maxHp) == 0x14);
-static_assert(offsetof(WindowStoragePetSummary, fp) == 0x18);
-static_assert(offsetof(WindowStoragePetSummary, maxFp) == 0x1C);
-static_assert(offsetof(WindowStoragePetSummary, combatStats) == 0x20);
-static_assert(offsetof(WindowStoragePetSummary, elements) == 0x34);
-static_assert(offsetof(WindowStoragePetSummary, value44) == 0x44);
-static_assert(offsetof(WindowStoragePetSummary, techniqueNames) == 0x48);
-static_assert(offsetof(WindowStoragePetSummary, name) == 0x142);
-static_assert(offsetof(WindowStoragePetSummary, reserved153) == 0x153);
-
-static_assert(std::is_standard_layout_v<WindowItemDetailGroup>);
-static_assert(std::is_trivially_copyable_v<WindowItemDetailGroup>);
-static_assert(sizeof(WindowItemDetailGroup) == 0xFBF8);
-static_assert(offsetof(WindowItemDetailGroup, items) == 0x0000);
-static_assert(offsetof(WindowItemDetailGroup, pets) == 0xF550);
-static_assert(offsetof(WindowItemDetailGroup, amount) == 0xFBF4);
-
 
 static_assert(std::is_standard_layout_v<WindowShopDetail>);
 static_assert(std::is_trivially_copyable_v<WindowShopDetail>);

@@ -220,15 +220,16 @@ static void WindowItem_BuildStorageDescription(
     auto& rows = record->description;
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = rows[line].data();
+        char row[3072]{};
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            rows[line] = cg::text::FromGbkWide(row);
             last = line;
         } else {
-            row[0] = '\0';
+            rows[line].clear();
         }
     }
     // 原回扫从最后成功行的前一行开始，空行不清整行残留。
-    while (last > 0 && std::strlen(rows[last - 1].data()) == 0) {
+    while (last > 0 && rows[last - 1].empty()) {
         --last;
     }
     record->pages = last < 0 ? std::int32_t{0} : last / 8 + 1;
@@ -299,7 +300,7 @@ void WindowBank_DrawStoredPetTooltip(
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
-        textLayer, 13, color, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
+        textLayer, 13, color, record->name, 0, 0));
     std::wstring buffer;
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
@@ -1621,13 +1622,13 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record->name.data(), std::strlen(buffer) > 28 ? "???" : buffer);
+        record->name = cg::text::FromGbkWide(std::strlen(buffer) > 28 ? "???" : buffer);
         if (network::ExtractDelimitedField_52CED0(text, '|', field + 4, 1023, buffer) != 0) {
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
         if (std::strlen(buffer) != 0) {
-            std::strcpy(record->memo.data(), buffer);
+            record->memo = cg::text::FromGbkWide(buffer);
         }
         const std::int32_t descriptionStatus =
             network::ExtractDelimitedField_52CED0(text, '|', field + 5, 1023, buffer);
@@ -1642,7 +1643,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record->name.data(), std::strlen(buffer) > 16 ? "???" : buffer);
+        record->name = cg::text::FromGbkWide(std::strlen(buffer) > 16 ? "???" : buffer);
         const std::int32_t level = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
         record->level = level;
         if (level < 0) {
@@ -1659,7 +1660,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         }
         network::ExtractDelimitedField_52CED0(text, '|', field + 12, 1023, buffer);
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        std::strcpy(record->speciesName.data(), buffer);
+        record->speciesName = cg::text::FromGbkWide(buffer);
         const std::array<std::int32_t*, 12> lastFields {
             &record->imageNo, &record->baseStats[0], &record->baseStats[1], &record->baseStats[2], &record->baseStats[3], &record->baseStats[4], &record->elements[0], &record->elements[1], &record->elements[2], &record->elements[3], &record->weight, &record->maxWeight,
         };
@@ -1675,14 +1676,14 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             network::ExtractDelimitedField_52CED0(text, '|',
                 field + 25 + world::kPetTechniqueSlotCount + static_cast<std::int32_t>(slot), 1023, buffer);
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-            std::strcpy(record->equipmentNames[slot].data(), std::strlen(buffer) > 28 ? "???" : buffer);
+            record->equipmentNames[slot] = cg::text::FromGbkWide(std::strlen(buffer) > 28 ? "???" : buffer);
         }
     };
     // 已确认银行格式：25个基本字段、20个技能名、6个装备名。
     constexpr std::int32_t petFieldCount = 25 + world::kPetTechniqueSlotCount + 6;
     switch (buffer[0]) {
     case 'A': {
-        std::memset(gItemDetailStorageCC4D58[0].items.data(), 0, sizeof(gItemDetailStorageCC4D58[0].items));
+        gItemDetailStorageCC4D58[0].items.fill({});
         for (std::int32_t index = 0; index < 20; ++index) {
             readItem(&gItemDetailStorageCC4D58[0].items[index], index, 2 + index * 6, true);
         }
@@ -1706,7 +1707,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
             auto* const record = &gItemDetailStorageCC4D58[0].items[index];
-            std::memset(record, 0, 0xC44);
+            *record = {};
             readItem(record, index, field + 1, false);
             field += 7;
             index = network::ParseDelimitedInteger_52CFA0(text, '|', field);

@@ -296,7 +296,7 @@ std::wstring gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
 
 static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原10技能时总大小0x1E00。
 
-static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
+// IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 
@@ -2581,13 +2581,13 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
     const auto* const record = &gItemDetailStorageCC4D58[0].items[index];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
-    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record->memo.data() : record->name.data());
+    const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
-    const char* const lines = record->description[page * 8].data();
+    const auto* const lines = record->description.data() + page * 8;
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
+    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // 原函数：0x0048B750。

@@ -100,14 +100,14 @@ std::int32_t ProcessCharacterSlot_461B30(
             0,
             -1);
 
-        const char* const name = record.name.data();
+        const wchar_t* const name = record.name.data();
         cg::render::DrawText_456780(
             static_cast<std::int16_t>(coordinates[0].x),
             static_cast<std::int16_t>(coordinates[0].y),
             0,
             9,
             color,
-            cg::text::FromGbkWide(name).c_str(),
+            name,
             0,
             0);
 
@@ -136,8 +136,8 @@ std::int32_t ProcessCharacterSlot_461B30(
             buffer,
             0);
 
-        const char* const text54 = record.jobText.data();
-        cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text54).c_str());
+        const wchar_t* const text54 = record.jobText.data();
+        cg::text::FormatTo(buffer, L"{}", text54);
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),

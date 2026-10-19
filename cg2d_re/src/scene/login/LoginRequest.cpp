@@ -27,7 +27,6 @@ std::uint64_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
 std::uint8_t gRequestPollingEnabled = 0; // 原全局：0x00D9F2C9。
 std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
 
-static_assert(sizeof(gCharacterRecords) == 0x128);
 
 // 原函数：0x0051B3B0。
 std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
@@ -49,23 +48,10 @@ std::int32_t HasCharacterInSlot_51B110(const std::uint32_t selectedIndex)
 }
 
 // 原函数：0x0051B140。
-std::int32_t CharacterNameExists_51B140(const char* const name)
+std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
 {
     for (const CharacterRecord& record : gCharacterRecords) {
-        const auto* const storedName =
-            reinterpret_cast<const unsigned char*>(record.name.data());
-        std::size_t index = 0;
-        for (;;) {
-            const auto inputByte = static_cast<unsigned char>(name[index]);
-            const unsigned char storedByte = storedName[index];
-            if (inputByte != storedByte) {
-                break;
-            }
-            if (inputByte == 0) {
-                return 1;
-            }
-            ++index;
-        }
+        if (record.name == name) { return 1; }
     }
     return 0;
 }

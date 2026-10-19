@@ -911,15 +911,15 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
                     try { stored = cg::text::ToGbk(utf16Name); }
                     catch (const std::system_error&) { state::gCreationAttributePhase_9A5AFC = 108; }
                     if (stored) {
-                        if (stored->size() >= state::gCreationNameFF0D18.size()) {
+                        if (stored->size() >= 24) {
                             state::gCreationAttributePhase_9A5AFC = 108;
                         } else {
-                            char* const name = state::gCreationNameFF0D18.data();
-                            std::memcpy(name, stored->c_str(), stored->size() + 1);
+                            state::gCreationNameFF0D18 = utf16Name;
+                            const auto& name = state::gCreationNameFF0D18;
                             if (login::CharacterNameExists_51B140(name) != 0) {
                                 state::gCreationAttributePhase_9A5AFC = 102;
-                            } else if (std::strstr(name, " ") != nullptr
-                                || std::strstr(name, "\x81\x40") != nullptr
+                            } else if (name.find(L' ') != std::wstring::npos
+                                || stored->find("\x81\x40") != std::string::npos
                                 || input::IsRejectedInputText_404060(utf16Name)) {
                                 state::gCreationAttributePhase_9A5AFC = 108;
                             } else if (input::ContainsPipeOrBackslash_45E770(utf16Name) == 1) {
@@ -1237,20 +1237,18 @@ std::int32_t gCreationSubmittedElement1_FF03D0 = 0; // 原全局：0x00FF03D0。
 std::int32_t gCreationSubmittedElement0_F7C948 = 0; // 原全局：0x00F7C948。
 std::int32_t gCreationSubmittedElement3_DE0B04 = 0; // 原全局：0x00DE0B04。
 std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC。
-std::array<char, 24> gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
+std::wstring gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 std::array<cg::yobi::YobiAction*, 2> gPreviewActions {};
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
 std::int16_t gPendingCharacterCount = 0; // 原全局：0x00F7CA06。
 std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
 std::uint16_t gCharacterEntryState = 0; // 原全局：0x009A6E10。
 std::int32_t gPreviewToggleState = 0; // 原全局：0x009A6E14。
-char gSelectedCharacterName[256] {}; // 原全局：0x00DA391C。
-char gDeleteCharacterName[132] {}; // 原全局：0x00DA3A9C。
+std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
+std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
 
 static_assert(sizeof(gCreateActions) == 2 * sizeof(cg::yobi::YobiAction*));
 static_assert(sizeof(gPreviewActions) == 2 * sizeof(cg::yobi::YobiAction*));
-static_assert(sizeof(gSelectedCharacterName) == 256);
-static_assert(sizeof(gDeleteCharacterName) == 132);
 
 } // namespace cg::character_select::state
 
@@ -1269,13 +1267,11 @@ static detail::CharacterSelectUiRecord gUpdateUi {
 static std::int32_t gUpdateAvailable = 0;
 static cg::yobi::YobiAction* gDeleteConfirmationAction = nullptr;
 
-static void CopyRecordName(char* destination, const login::CharacterRecord& record)
+static void CopyRecordName(std::wstring& destination, const login::CharacterRecord& record)
 {
-    char name[kLegacyNameCapacity];
-    // 与原strcpy相同，调用前提是姓名适合20字节临时区且有NUL终止。
-    std::strcpy(name, record.name.data());
+    const std::wstring name = record.name;
     cg::core::NullSub_509080();
-    std::strcpy(destination, name);
+    destination = name;
 }
 
 static void ClearPreviewActions()
@@ -1687,11 +1683,10 @@ std::int32_t ProcessScene_460FF0()
             } else if (actionIndex == 2u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 if (record.deleteFlag != 0) {
-                    char name[kLegacyNameCapacity];
-                    std::strcpy(name, record.name.data());
+                    const std::wstring name = record.name;
                     cg::core::NullSub_509080();
                     world::gCurrentSceneState = 12;
-                    std::strcpy(state::gDeleteCharacterName, name);
+                    state::gDeleteCharacterName = name;
                 } else {
                     world::gCurrentSceneState = 21;
                 }

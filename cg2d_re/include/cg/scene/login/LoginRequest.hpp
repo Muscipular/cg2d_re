@@ -14,7 +14,7 @@ inline constexpr std::size_t RequestMessageCapacity = 1024;
 
 // 原FF03E0起的角色列表记录；生产者51B1B0，登录／选择场景共用。
 struct CharacterRecord {
-    std::array<char, 17> name; // +00；旧编码姓名，最多16字节及NUL。
+    std::wstring name; // +00；旧编码姓名，最多16字节及NUL。
     std::byte reserved11; // +11；随整条记录清零的保留字节。
     std::int16_t value12; // +12；列表t3低W16，槽位按S16显示。
     std::int32_t value14; // +14；列表t13，槽位显示数值。
@@ -33,35 +33,11 @@ struct CharacterRecord {
     std::int32_t value48; // +48；列表t12经signed除10。
     std::int32_t registNumber; // +4C；列表t15／创建回复，登录／删除使用。
     std::int32_t previewState; // +50；列表t17／创建回复，预览切换值。
-    std::array<char, 64> jobText; // +54；列表t16，最多63个旧编码字节及NUL。
+    std::wstring jobText; // +54；列表t16，最多63个旧编码字节及NUL。
 };
 
 using CharacterRecordArray = std::array<CharacterRecord, CharacterRecordCount>;
 
-static_assert(std::is_standard_layout_v<CharacterRecord>);
-static_assert(std::is_trivially_copyable_v<CharacterRecord>);
-static_assert(offsetof(CharacterRecord, name) == 0x00);
-static_assert(offsetof(CharacterRecord, reserved11) == 0x11);
-static_assert(offsetof(CharacterRecord, value12) == 0x12);
-static_assert(offsetof(CharacterRecord, value14) == 0x14);
-static_assert(offsetof(CharacterRecord, graphicNo) == 0x18);
-static_assert(offsetof(CharacterRecord, value1C) == 0x1C);
-static_assert(offsetof(CharacterRecord, deleteFlag) == 0x20);
-static_assert(offsetof(CharacterRecord, graphicClass) == 0x24);
-static_assert(offsetof(CharacterRecord, value28) == 0x28);
-static_assert(offsetof(CharacterRecord, value2C) == 0x2C);
-static_assert(offsetof(CharacterRecord, value30) == 0x30);
-static_assert(offsetof(CharacterRecord, value34) == 0x34);
-static_assert(offsetof(CharacterRecord, value38) == 0x38);
-static_assert(offsetof(CharacterRecord, value3C) == 0x3C);
-static_assert(offsetof(CharacterRecord, value40) == 0x40);
-static_assert(offsetof(CharacterRecord, value44) == 0x44);
-static_assert(offsetof(CharacterRecord, value48) == 0x48);
-static_assert(offsetof(CharacterRecord, registNumber) == 0x4C);
-static_assert(offsetof(CharacterRecord, previewState) == 0x50);
-static_assert(offsetof(CharacterRecord, jobText) == 0x54);
-static_assert(sizeof(CharacterRecord) == CharacterRecordSize);
-static_assert(sizeof(CharacterRecordArray) == 0x128);
 
 // 原 [0xFF03E0,0xFF0508) 与 0xFF0C08；均有跨场景引用，映像初值为 0。
 extern CharacterRecordArray gCharacterRecords; // 原全局：0x00FF03E0。
@@ -74,7 +50,7 @@ std::int32_t ClearCharacterSlot_51B3B0(std::uint32_t selectedIndex);
 std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);
 
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
-std::int32_t CharacterNameExists_51B140(const char* name);
+std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 
 // 登录请求与其他网络处理函数共享的固定宽度存储，映像初值均为 0。
 extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。

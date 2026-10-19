@@ -52,9 +52,9 @@ static std::int32_t WriteCharacterRecord_51B1B0(
 
     const std::size_t nameLength = std::strlen(legacyName);
     if (nameLength <= 16) {
-        std::memcpy(record.name.data(), legacyName, nameLength + 1);
+        record.name = cg::text::FromGbkWide(legacyName);
     } else {
-        std::memcpy(record.name.data(), kInvalidCharacterName, sizeof(kInvalidCharacterName));
+        record.name = cg::text::FromGbkWide(kInvalidCharacterName);
     }
 
     record.graphicNo =
@@ -97,12 +97,10 @@ static std::int32_t WriteCharacterRecord_51B1B0(
     record.deleteFlag =
         cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 19);
 
+    char jobBytes[64]{};
     static_cast<void>(cg::network::ExtractDelimitedField_52CED0(
-        mutableLegacyDetail,
-        '|',
-        16,
-        static_cast<std::int32_t>(record.jobText.size() - 1),
-        record.jobText.data()));
+        mutableLegacyDetail, '|', 16, 63, jobBytes));
+    record.jobText = cg::text::FromGbkWide(jobBytes);
     return 0;
 }
 

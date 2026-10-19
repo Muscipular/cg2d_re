@@ -23,7 +23,7 @@ extern std::uint32_t gValueFF0D74;             // 原 0xFF0D74，W32。
 extern std::uint8_t& gValue9DAD30;             // 原 0x9DAD30 连续文本区的首 W8 别名。
 const char* ReadText9DAD30() noexcept; // 借用地图回复的同源文本，供窗口39复制/测宽。
 extern std::array<std::uint32_t, 7> gValueD67B08; // 原 0xD67B08，严格 7 个 DWORD。
-extern std::uint32_t gValue58B6D0;             // 原 0x58B6D0，W32，映像初值 1。
+extern std::uint32_t gSceneTransitionResetPending_58B6D0;             // 原 0x58B6D0，W32，映像初值 1。
 extern std::uint8_t gValueD9F2CA;              // 原 0xD9F2CA，W8。
 
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。

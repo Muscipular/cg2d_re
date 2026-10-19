@@ -455,7 +455,7 @@ std::uint32_t gValueD67E78 = 0; // 原全局：0x00D67E78。
 std::uint32_t gValueFF0D74 = 0; // 原全局：0x00FF0D74。
 std::uint8_t& gValue9DAD30 = gText9DAD30[0]; // 原全局：0x009DAD30。
 std::array<std::uint32_t, 7> gValueD67B08 {}; // 原全局：0x00D67B08。
-std::uint32_t gValue58B6D0 = 1; // 原全局：0x0058B6D0。
+std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
 std::uint8_t gValueD9F2CA = 0; // 原全局：0x00D9F2CA。
 
 const char* ReadText9DAD30() noexcept
@@ -2361,12 +2361,12 @@ std::uint32_t gValueC8A780 = 0; // 原全局：0x00C8A780。
 namespace detail {
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
-std::int32_t gValueC8A78C = 0; // 原全局：0x00C8A78C。
-std::int32_t gValueC8A790 = 0; // 原全局：0x00C8A790。
+std::int32_t gMouseWorldPixelX_C8A78C = 0; // 原全局：0x00C8A78C。
+std::int32_t gMouseWorldPixelY_C8A790 = 0; // 原全局：0x00C8A790。
 std::uint64_t gValueC8A794 = 0; // 原全局：0x00C8A794。
-std::uint32_t gValueC8A7A0 = 0; // 原全局：0x00C8A7A0。
+std::uint32_t gMapTargetLeftClick_C8A7A0 = 0; // 原全局：0x00C8A7A0。
 std::uint32_t gValueC8A7A4 = 0; // 原全局：0x00C8A7A4。
-std::uint32_t gValueC8A7A8 = 0; // 原全局：0x00C8A7A8。
+std::uint32_t gMapTargetInteractionClick_C8A7A8 = 0; // 原全局：0x00C8A7A8。
 std::uint32_t gValueC8A7AC = 0; // 原全局：0x00C8A7AC。
 std::uint64_t gValue55DDAC = UINT64_MAX; // 原全局：0x0055DDAC。
 std::uint32_t gValueC82208 = 0; // 原全局：0x00C82208。
@@ -3553,22 +3553,22 @@ void DrawNormalScene_51C7D0()
         const std::uint64_t tick = platform::ReadTickCount64();
         platform::gValue73ECC0 = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
-        gValue58B6D0 = 1;
-        static_cast<void>(Sub_51FDE0(15, 8, 0x40000000u));
+        gSceneTransitionResetPending_58B6D0 = 1;
+        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u));
         gCurrentSceneState = 103;
         ApplyPendingMapPaletteReply_51D6F0();
         return;
     }
     case 103:
         platform::gValue73ECC0 = 2;
-        if (Sub_51FDE0(15, 8, 0x40000000u) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u) == 1) {
             gValueFF0D50 = 1;
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             gCurrentSceneState = 20;
         }
         return;
     case 200:
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
         ui::WindowRuntime_ProcessScene();
@@ -3579,7 +3579,7 @@ void DrawNormalScene_51C7D0()
         platform::gValue73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 14 : 16;
         const std::int32_t steps = gate == 1 ? 8 : 32;
-        if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
             gCurrentSceneState = 202;
         }
         goto inputTail;
@@ -3640,7 +3640,7 @@ void DrawNormalScene_51C7D0()
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0();
@@ -3651,7 +3651,7 @@ void DrawNormalScene_51C7D0()
         platform::gValue73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
-        if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
             ui::WindowRuntime_ProcessScene();
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             const std::uint32_t changeBgm = gValueFF0D58;
@@ -3685,7 +3685,7 @@ void DrawNormalScene_51C7D0()
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0();
@@ -3838,7 +3838,7 @@ void DrawNormalScene_51C7D0()
             platform::gLastRenderDt = static_cast<double>(tick);
             const std::int32_t selector = gate == 1 ? 15 : 13;
             platform::gValue73ECC0 = 2;
-            static_cast<void>(Sub_51FDE0(selector, 8, 0x40000000u));
+            static_cast<void>(ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u));
         } else {
             const std::int32_t state = gCurrentSceneState;
             gValueFF0D50 = 1;
@@ -3854,7 +3854,7 @@ void DrawNormalScene_51C7D0()
     }
     case 2: {
         const std::int32_t selector = gValueD67E78 == 1 ? 15 : 13;
-        if (Sub_51FDE0(selector, 8, 0x40000000u) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u) == 1) {
             gCurrentSceneState = 20;
             gValueC82210 = 0;
             gValueD67E78 = 0;
@@ -3868,7 +3868,7 @@ void DrawNormalScene_51C7D0()
     }
     case 20:
         platform::gValue73ECC0 = 0;
-        static_cast<void>(Sub_51D640());
+        static_cast<void>(CaptureMapTilesForTransition_51D640());
         gCurrentSceneState = 3;
         [[fallthrough]];
     case 3: {
@@ -3876,7 +3876,7 @@ void DrawNormalScene_51C7D0()
         gValueC82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
-        static_cast<void>(Sub_46F680());
+        static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
         OpenPendingBattleResultWindow_504A50();
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(UpdateWorldMapInputAndMovement_469C90());
@@ -3915,7 +3915,7 @@ void DrawNormalScene_51C7D0()
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
         gValueC8A79C = 0;
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         ResumePlayerAfterObservation_51BEF0();
@@ -3934,7 +3934,7 @@ void DrawNormalScene_51C7D0()
         ++gCurrentSceneState;
         goto inputTail;
     case 5:
-        if (Sub_51FDE0(12, 8, 0x40000000u) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(12, 8, 0x40000000u) == 1) {
             static_cast<void>(SetCurrentSceneType(10));
         }
         goto inputTail;
@@ -4073,7 +4073,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::InitializeBattleScene_4383F0();
         gBattleEntryNoticeAction5ABFB8 = nullptr;
         gBattleExitAction5ABCDC = nullptr;
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         gBattleCommandAction5ABC00 = nullptr;
         gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
@@ -4128,7 +4128,7 @@ void DrawBattleScene_43CBB0()
         const std::uint64_t tick = platform::ReadTickCount64();
         platform::gValue73ECC0 = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
-        static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
+        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         cg::core::NullSub_509080();
@@ -4136,7 +4136,7 @@ void DrawBattleScene_43CBB0()
         break;
     }
     case 1:
-        if (Sub_51FDE0(13, 8, 0x40000000U) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U) == 1) {
             CaptureBattleBackgroundSnapshot_43CB10();
             platform::gValue73ECC0 = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
@@ -4323,7 +4323,7 @@ void DrawBattleScene_43CBB0()
         const std::int32_t currentState = gCurrentSceneState;
         const std::int32_t nextState = currentState + 1;
         clearBattleEffects();
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         gCurrentSceneState = nextState;
         [[fallthrough]];
     }
@@ -4333,7 +4333,7 @@ void DrawBattleScene_43CBB0()
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;
-        if (Sub_51FDE0(selector, 8, 0x40000000U) != 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000U) != 1) {
             break;
         }
         ui::WindowRuntime_ProcessScene();
@@ -4445,7 +4445,7 @@ void DrawBattleScene_43CBB0()
 }
 
 // 原函数：0x0051D5B0。
-void* __cdecl Sub_51D5B0()
+void* __cdecl PrepareMapTransitionObservationState_51D5B0()
 {
     const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;
     std::uint16_t low;
@@ -4937,7 +4937,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0()
     const std::uint32_t nextSequence = gValueC8221C + 1U;
     gCurrentSceneState = 200;
     gValueC8221C = nextSequence;
-    void* const result = Sub_51D5B0();
+    void* const result = PrepareMapTransitionObservationState_51D5B0();
     gValueC8220C = 1;
     gValueC82210 = 1;
     gValueC82208 = 1;
@@ -5527,7 +5527,7 @@ void AdvancePlayerLeaderFollowers_46A940()
 }
 
 // 原函数：0x0046F680。
-std::uint8_t Sub_46F680()
+std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
 {
     const float mouseY = static_cast<float>(
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
@@ -5540,11 +5540,11 @@ std::uint8_t Sub_46F680()
     const std::int32_t pixelX = static_cast<std::int32_t>(
         static_cast<std::int64_t>(projectedX + 0.5));
     const double biasedY = projectedY + 0.5;
-    gValueC8A78C = pixelX;
+    gMouseWorldPixelX_C8A78C = pixelX;
     const std::int32_t pixelY =
         static_cast<std::int32_t>(static_cast<std::int64_t>(biasedY));
     const std::int32_t adjustedX = pixelX + 32;
-    gValueC8A790 = pixelY;
+    gMouseWorldPixelY_C8A790 = pixelY;
     const std::int32_t targetY = (pixelY + 32) / 64;
     gPlayerMoveTargetY = targetY;
     const std::int32_t snappedY = targetY * 64;
@@ -5553,9 +5553,9 @@ std::uint8_t Sub_46F680()
     const float gridY = static_cast<float>(snappedY);
     const float gridX = static_cast<float>(targetX * 64);
     ProjectWorldToScreen_46CE30(gridX, gridY, &projectedX, &projectedY);
-    gValueC8A7A0 = 0;
+    gMapTargetLeftClick_C8A7A0 = 0;
     gValueC8A7A4 = 0;
-    gValueC8A7A8 = 0;
+    gMapTargetInteractionClick_C8A7A8 = 0;
     gValueC8A7AC = 0;
 
     if ((platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24)
@@ -5589,7 +5589,7 @@ std::uint8_t Sub_46F680()
     const auto leftClick = *reinterpret_cast<const unsigned char*>(
         &platform::gLegacyMouseState.edgeButtons);
     if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
-        gValueC8A7A0 = 1;
+        gMapTargetLeftClick_C8A7A0 = 1;
         gValueC8A778 = 0;
         gValueC8A794 = platform::ReadTickCount64();
     }
@@ -5608,12 +5608,12 @@ std::uint8_t Sub_46F680()
     }
     const auto rightClick = *reinterpret_cast<const unsigned char*>(
         &platform::gLegacyMouseState.edgeButtons);
-    if ((rightClick & 2u) != 0 && gValueC8A7A8 == 0) {
-        gValueC8A7A8 = 1;
+    if ((rightClick & 2u) != 0 && gMapTargetInteractionClick_C8A7A8 == 0) {
+        gMapTargetInteractionClick_C8A7A8 = 1;
     }
     if ((*reinterpret_cast<const unsigned char*>(
             &platform::gLegacyMouseState.heldButtons) & 2u) != 0
-        && gValueC8A7A8 == 0) {
+        && gMapTargetInteractionClick_C8A7A8 == 0) {
         gValueC8A7AC = 1;
     }
     return 2;
@@ -5781,7 +5781,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
     if ((ReadPlayerActionFlagsByte() & 0x80u) != 0) {
         return static_cast<std::uint8_t>(pendingIsZero);
     }
-    if (gValueC8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+    if (gMapTargetInteractionClick_C8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const std::int32_t targetY = gPlayerMoveTargetY;
         const std::int32_t targetX = gPlayerMoveTargetX;
         const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(targetX, targetY, 8, 0x1000);
@@ -5835,7 +5835,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
                     static_cast<void>(platform::RequestCursorState_506DE0(direction + 3, 0));
                 }
             }
-        } else if (gValueC8A7A0 != 0) {
+        } else if (gMapTargetLeftClick_C8A7A0 != 0) {
             const std::uint64_t now = platform::ReadTickCount64();
             if (gValue55DDAC + 250u <= now) {
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
@@ -6714,7 +6714,7 @@ std::int32_t ProcessLogoutTransition_45EEE0()
 {
     const std::uint32_t phase = gLogoutTransition9A6E94;
     if (phase == 1) {
-        if (Sub_51FDE0(14, 8, 0x40000000U) == 1) {
+        if (ProcessSceneTransitionEffect_51FDE0(14, 8, 0x40000000U) == 1) {
             platform::gValue73ECC0 = 0;
             render::SelectPalette(0, 0);
             return 1;
@@ -6725,7 +6725,7 @@ std::int32_t ProcessLogoutTransition_45EEE0()
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = gLogoutTransition9A6E94 + 1;
-        gValue58B6D0 = 1;
+        gSceneTransitionResetPending_58B6D0 = 1;
         gLogoutTransition9A6E94 = next;
         platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
@@ -6735,15 +6735,15 @@ std::int32_t ProcessLogoutTransition_45EEE0()
 }
 
 // 原[51D790,51E0A0)：完整九模式；FST后仍参与计算的值保留PC53中间精度。
-std::int32_t Sub_51D790(
+std::int32_t ProcessSceneSlideOut_51D790(
     const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
-    const std::uint32_t trigger = gValue58B6D0;
+    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::int32_t completed = 0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     if (trigger == 1) {
         completed = -1;
-        gValue58B6D0 = 0;
+        gSceneTransitionResetPending_58B6D0 = 0;
         gTransitionXFF48E8 = 0.0f;
         gTransitionAlternateXFF48EC = 0.0f;
         gTransitionYFF48F0 = 0.0f;
@@ -7027,15 +7027,15 @@ std::int32_t Sub_51D790(
 }
 
 // 原[51E0D0,51EBE0)：完整反向过渡；6/7/8初次预计算与恢复在同次调用完成。
-std::int32_t Sub_51E0D0(
+std::int32_t ProcessSceneSlideIn_51E0D0(
     const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
-    const std::uint32_t trigger = gValue58B6D0;
+    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     std::int32_t phase;
     if (trigger == 1) {
         phase = -1;
-        gValue58B6D0 = 0;
+        gSceneTransitionResetPending_58B6D0 = 0;
         gReverseTransitionPhase58B6D4 = -1;
     } else {
         phase = gReverseTransitionPhase58B6D4;
@@ -7469,7 +7469,7 @@ std::int32_t Sub_51E0D0(
 }
 
 // 原[51EC10,51EF75)：四块画面分离/合拢，坐标发布和阈值清零沿原序。
-std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
+std::int32_t ProcessSceneQuadrantTransition_51EC10(const std::int32_t mode, const std::int32_t value)
 {
     std::array<std::array<std::int32_t, 4>, 4> rectangles {{
         {0, 0, 320, 240},
@@ -7480,9 +7480,9 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
     const std::int8_t lowStep = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     const std::int32_t step = lowStep != 0 ? lowStep : 4;
     std::int32_t phase;
-    if (gValue58B6D0 == 1) {
+    if (gSceneTransitionResetPending_58B6D0 == 1) {
         phase = -1;
-        gValue58B6D0 = 0;
+        gSceneTransitionResetPending_58B6D0 = 0;
         gQuadrantTransitionPhase58B6D8 = -1;
     } else {
         phase = gQuadrantTransitionPhase58B6D8;
@@ -7626,7 +7626,7 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
 }
 
 // 原[51EF80,51F5F5)：64画块随机显隐/下落；候选仅在原拒绝路径重抽。
-std::int32_t Sub_51EF80(
+std::int32_t ProcessSceneRandomTileTransition_51EF80(
     const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
     std::int32_t selected = platform::RandomRange_46FAF0(0, 63);
@@ -7638,9 +7638,9 @@ std::int32_t Sub_51EF80(
     const std::int8_t lowCount = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     const std::int32_t count = lowCount != 0 ? lowCount : 1;
     std::int32_t phase;
-    if (gValue58B6D0 == 1) {
+    if (gSceneTransitionResetPending_58B6D0 == 1) {
         phase = -1;
-        gValue58B6D0 = 0;
+        gSceneTransitionResetPending_58B6D0 = 0;
         gTileTransitionPhase58B6DC = -1;
     } else {
         phase = gTileTransitionPhase58B6DC;
@@ -7802,11 +7802,11 @@ std::int32_t Sub_51EF80(
 }
 
 // 原[51F610,51F85F)：960个20x16画块直接BltFast，绘制后才推进共享比例。
-std::int32_t Sub_51F610(const std::int32_t value)
+std::int32_t ProcessSceneGridScaleTransition_51F610(const std::int32_t value)
 {
     bool initialize;
-    if (gValue58B6D0 == 1) {
-        gValue58B6D0 = 0;
+    if (gSceneTransitionResetPending_58B6D0 == 1) {
+        gSceneTransitionResetPending_58B6D0 = 0;
         initialize = true;
     } else {
         initialize = gImageTransitionInitializedFF4910 == 0;
@@ -7873,11 +7873,11 @@ enum class ScanlineOrigin {
 static std::int32_t ProcessScanlineTransition(
     const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
-    const std::uint32_t trigger = gValue58B6D0;
+    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
     bool initialize;
     if (trigger == 1) {
-        gValue58B6D0 = 0;
+        gSceneTransitionResetPending_58B6D0 = 0;
         initialize = true;
     } else {
         initialize = gImageTransitionInitializedFF4910 == 0;
@@ -7959,14 +7959,14 @@ std::int32_t ProcessBottomScanlineTransition_51FA70(const std::int32_t direction
 }
 
 // 原[51FC90,51FDDA)：中心上下半幅采样，每次直接复制后独立读取比例。
-std::int32_t Sub_51FC90(const std::int32_t mode, const std::int32_t value)
+std::int32_t ProcessSceneCenterScanlineTransition_51FC90(const std::int32_t mode, const std::int32_t value)
 {
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     if (step == 0) {
         step = 8;
     }
-    if (gValue58B6D0 == 1) {
-        gValue58B6D0 = 0;
+    if (gSceneTransitionResetPending_58B6D0 == 1) {
+        gSceneTransitionResetPending_58B6D0 = 0;
         // 原AND只作用于CL：非零mode的FFFFFF10加240得到0，而不是256。
         gHalfTransitionScaleFF0F7C = mode == 0 ? 240 : 0;
     }
@@ -8284,7 +8284,7 @@ void DrawPendingMapEffects_46E480()
 }
 
 // 原函数：0x00476680。
-void Sub_476680()
+void DrawChatRangeOverlay_476680()
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action == nullptr) {
@@ -8294,7 +8294,7 @@ void Sub_476680()
     std::int32_t radius = platform::gValue554640;
     std::int32_t x = cg::yobi::GetYobiActionField30(action) - radius * 64;
     std::int32_t y = cg::yobi::GetYobiActionField34(action);
-    const auto countdown = std::bit_cast<std::int32_t>(gValue626BFC);
+    const auto countdown = std::bit_cast<std::int32_t>(gChatRangeOverlayFrames_626BFC);
     x -= 31;
     y -= 23;
     if (countdown > 0) {
@@ -8326,10 +8326,10 @@ void Sub_476680()
     }
 
     // 原尾部先发布递减值，再按符号位决定是否写零。
-    const std::uint32_t remaining = gValue626BFC - 1u;
-    gValue626BFC = remaining;
+    const std::uint32_t remaining = gChatRangeOverlayFrames_626BFC - 1u;
+    gChatRangeOverlayFrames_626BFC = remaining;
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
-        gValue626BFC = 0;
+        gChatRangeOverlayFrames_626BFC = 0;
     }
 }
 
@@ -10442,7 +10442,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (detail::gValueC8220C == 0) {
             gCurrentSceneState = 200;
-            static_cast<void>(detail::Sub_51D5B0());
+            static_cast<void>(detail::PrepareMapTransitionObservationState_51D5B0());
         }
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         detail::gValueC8220C = 0;
@@ -10515,7 +10515,7 @@ std::int32_t __cdecl HandleMapNameReply_509550(
 }
 
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
-std::uint32_t Sub_51D640()
+std::uint32_t CaptureMapTilesForTransition_51D640()
 {
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
     platform::gPendingGraphicCount = 0;
@@ -10846,7 +10846,7 @@ std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
 
 // 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
 // 原函数：0x00470050。
-void Sub_470050()
+void RequestDuelWithFacingPlayer_470050()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10878,7 +10878,7 @@ void Sub_470050()
 }
 
 // 原函数：0x00470150。
-void Sub_470150()
+void RequestSpectateFacingBattle_470150()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10913,7 +10913,7 @@ void Sub_470150()
 }
 
 // 原函数：0x00470270。
-void Sub_470270()
+void RequestPartyJoinOrLeave_470270()
 {
     const bool joinTeam = detail::gValueFF0D36 == 0;
     if (joinTeam) {
@@ -10953,7 +10953,7 @@ void Sub_470270()
 }
 
 // 原函数：0x004703C0。
-void Sub_4703C0()
+void RequestFacingPlayerContactCard_4703C0()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10983,7 +10983,7 @@ void Sub_4703C0()
 }
 
 // 原函数：0x004704A0。
-void Sub_4704A0()
+void RequestNearbyPlayerTrade_4704A0()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -11019,7 +11019,7 @@ void Sub_4704A0()
 }
 
 // 原函数：0x00470670。
-void Sub_470670()
+void RequestFacingPlayerGuildInvitation_470670()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {

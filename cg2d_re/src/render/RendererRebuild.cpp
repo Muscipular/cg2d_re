@@ -60,7 +60,7 @@ void RebuildRenderer_466B80()
         static_cast<void>(ResetGraphicCache_456D30());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
     } else if (sceneType == 9) {
-        static_cast<void>(world::Sub_51D640());
+        static_cast<void>(world::CaptureMapTilesForTransition_51D640());
     }
 
     auto* palette = GetRendererPalette(gRenderer);

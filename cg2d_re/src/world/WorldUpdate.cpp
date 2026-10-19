@@ -161,7 +161,7 @@ void Update()
             cg::yobi::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
             cg::yobi::ResetObservationGroupList_43F220();
-            gValue58B6D0 = 1;
+            gSceneTransitionResetPending_58B6D0 = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750();
             platform::gValue73ECC0 = 2;
             cg::audio::BeginBgmFadeOut_52B990();
@@ -169,7 +169,7 @@ void Update()
             platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;
         } else if (sceneState == 1
-            && detail::Sub_51FDE0(2, 0, 0x3F19999Au) == 1) {
+            && detail::ProcessSceneTransitionEffect_51FDE0(2, 0, 0x3F19999Au) == 1) {
             platform::gValue73ECC0 = 0;
             ++gCurrentSceneState;
         }
@@ -356,41 +356,41 @@ std::int32_t UpdateDisconnectDialog_455C90()
 }
 
 // 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
-std::int32_t Sub_51FDE0(
+std::int32_t ProcessSceneTransitionEffect_51FDE0(
     std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)
 {
     switch (selector) {
-    case 0: return Sub_51D790(0, value, payloadBits);
-    case 1: return Sub_51E0D0(0, value, payloadBits);
-    case 2: return Sub_51D790(1, value, payloadBits);
-    case 3: return Sub_51E0D0(1, value, payloadBits);
-    case 4: return Sub_51D790(2, value, payloadBits);
-    case 5: return Sub_51E0D0(2, value, payloadBits);
-    case 6: return Sub_51D790(3, value, payloadBits);
-    case 7: return Sub_51E0D0(3, value, payloadBits);
-    case 8: return Sub_51D790(4, value, payloadBits);
-    case 9: return Sub_51E0D0(4, value, payloadBits);
-    case 10: return Sub_51D790(5, value, payloadBits);
-    case 11: return Sub_51E0D0(5, value, payloadBits);
-    case 12: return Sub_51D790(6, value, payloadBits);
-    case 13: return Sub_51E0D0(6, value, payloadBits);
-    case 14: return Sub_51D790(7, value, payloadBits);
-    case 15: return Sub_51E0D0(7, value, payloadBits);
-    case 16: return Sub_51D790(8, value, payloadBits);
-    case 17: return Sub_51E0D0(8, value, payloadBits);
-    case 18: return Sub_51EC10(0, value);
-    case 19: return Sub_51EC10(1, value);
-    case 20: return Sub_51EF80(0, value, 0);
-    case 21: return Sub_51EF80(1, value, 0);
-    case 22: return Sub_51EF80(2, value, payloadBits);
-    case 23: return Sub_51EF80(3, value, payloadBits);
+    case 0: return ProcessSceneSlideOut_51D790(0, value, payloadBits);
+    case 1: return ProcessSceneSlideIn_51E0D0(0, value, payloadBits);
+    case 2: return ProcessSceneSlideOut_51D790(1, value, payloadBits);
+    case 3: return ProcessSceneSlideIn_51E0D0(1, value, payloadBits);
+    case 4: return ProcessSceneSlideOut_51D790(2, value, payloadBits);
+    case 5: return ProcessSceneSlideIn_51E0D0(2, value, payloadBits);
+    case 6: return ProcessSceneSlideOut_51D790(3, value, payloadBits);
+    case 7: return ProcessSceneSlideIn_51E0D0(3, value, payloadBits);
+    case 8: return ProcessSceneSlideOut_51D790(4, value, payloadBits);
+    case 9: return ProcessSceneSlideIn_51E0D0(4, value, payloadBits);
+    case 10: return ProcessSceneSlideOut_51D790(5, value, payloadBits);
+    case 11: return ProcessSceneSlideIn_51E0D0(5, value, payloadBits);
+    case 12: return ProcessSceneSlideOut_51D790(6, value, payloadBits);
+    case 13: return ProcessSceneSlideIn_51E0D0(6, value, payloadBits);
+    case 14: return ProcessSceneSlideOut_51D790(7, value, payloadBits);
+    case 15: return ProcessSceneSlideIn_51E0D0(7, value, payloadBits);
+    case 16: return ProcessSceneSlideOut_51D790(8, value, payloadBits);
+    case 17: return ProcessSceneSlideIn_51E0D0(8, value, payloadBits);
+    case 18: return ProcessSceneQuadrantTransition_51EC10(0, value);
+    case 19: return ProcessSceneQuadrantTransition_51EC10(1, value);
+    case 20: return ProcessSceneRandomTileTransition_51EF80(0, value, 0);
+    case 21: return ProcessSceneRandomTileTransition_51EF80(1, value, 0);
+    case 22: return ProcessSceneRandomTileTransition_51EF80(2, value, payloadBits);
+    case 23: return ProcessSceneRandomTileTransition_51EF80(3, value, payloadBits);
     case 24:
     case 25: {
         const std::int32_t signedLow =
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
         const std::int32_t selected = signedLow != 0
             ? signedLow : (selector == 24 ? -1 : 1);
-        return Sub_51F610(selected);
+        return ProcessSceneGridScaleTransition_51F610(selected);
     }
     case 26:
     case 28: return ProcessTopScanlineTransition_51F860(-1, value);
@@ -400,8 +400,8 @@ std::int32_t Sub_51FDE0(
     case 31: return ProcessBottomScanlineTransition_51FA70(1, value);
     case 30:
     case 32: return ProcessBottomScanlineTransition_51FA70(-1, value);
-    case 34: return Sub_51FC90(0, value);
-    case 35: return Sub_51FC90(1, value);
+    case 34: return ProcessSceneCenterScanlineTransition_51FC90(0, value);
+    case 35: return ProcessSceneCenterScanlineTransition_51FC90(1, value);
     default: return 1;
     }
 }

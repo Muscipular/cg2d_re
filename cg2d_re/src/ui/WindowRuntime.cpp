@@ -3148,25 +3148,25 @@ static void WindowRuntime_ProcessShortcuts()
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
         if (world::gCurrentSceneType != 10) {
             if ((platform::gKeyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
-                world::Sub_470050();
+                world::RequestDuelWithFacingPlayer_470050();
             }
             if ((platform::gKeyStates[modeOne ? 0x4B : 0x56] & 4u) != 0) {
-                world::Sub_470150();
+                world::RequestSpectateFacingBattle_470150();
             }
             if (!modeOne && (platform::gKeyStates[0x48] & 4u) != 0) {
                 WindowRuntime_PlayShortcutEmote(9, 13);
             }
             if ((platform::gKeyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
-                world::Sub_470270();
+                world::RequestPartyJoinOrLeave_470270();
             }
             if ((platform::gKeyStates[modeOne ? 0xBA : 0xDB] & 4u) != 0) {
-                world::Sub_4703C0();
+                world::RequestFacingPlayerContactCard_4703C0();
             }
             if ((platform::gKeyStates[modeOne ? 0xDE : 0xDD] & 4u) != 0) {
-                world::Sub_4704A0();
+                world::RequestNearbyPlayerTrade_4704A0();
             }
             if ((platform::gKeyStates[modeOne ? 0xDD : 0x4D] & 4u) != 0) {
-                world::Sub_470670();
+                world::RequestFacingPlayerGuildInvitation_470670();
             }
             for (const ShortcutEmoteBinding& binding : kShortcutEmotes) {
                 const std::uint8_t key = modeOne ? binding.keyMode1 : binding.keyMode0;
@@ -3225,7 +3225,7 @@ static void WindowRuntime_ProcessShortcuts()
             if (pastLastRange) {
                 platform::gValue554640 = 1;
             }
-            world::gValue626BFC = 180;
+            world::gChatRangeOverlayFrames_626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
@@ -3235,7 +3235,7 @@ static void WindowRuntime_ProcessShortcuts()
             if (belowFirstRange) {
                 platform::gValue554640 = 5;
             }
-            world::gValue626BFC = 180;
+            world::gChatRangeOverlayFrames_626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
@@ -5091,7 +5091,7 @@ void WindowRuntime_DrawCurrent()
         window = gCurrentWindow;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    world::Sub_476680();
+    world::DrawChatRangeOverlay_476680();
 }
 
 // 原代码位置：0x00440ADB。

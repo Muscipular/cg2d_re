@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：619／636。已重命名：590。保留／未决：29。待分析：17。
+已分析：636／636。已重命名：607。保留／未决：29。待分析：0。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -283,19 +283,19 @@
 | `Sub_46F090` | src/world/SceneState.cpp:1452 | 已重命名：`CreateDirectionalMapEffect_46F090` | 按方向符号和边缘相位生成kind6/7/8记录，设置16.16位置、速度与图形变体并增加数量。 |
 | `Sub_46F160` | src/world/SceneState.cpp:1431 | 已重命名：`ClearDirectionalMapEffects_46F160` | 只清活动链kind6/7/8效果，kind8先标死共享动画，再归还记录并减少数量。 |
 | `Sub_46F1D0` | src/world/SceneState.cpp:1527 | 已重命名：`UpdateDirectionalMapEffects_46F1D0` | 非战斗场景计算定向运动及镜头补偿，生成kind6/7及延迟kind8动画，推进16.16位置、离屏回收并按变体绘图。 |
-| `Sub_46F680` | src/world/SceneState.cpp:5530 | 待分析 | — |
+| `Sub_46F680` | src/world/SceneState.cpp:5530 | 已重命名：`UpdateMapMouseTargetAndButtons_46F680` | 将鼠标屏幕坐标反投影并吸附地图格，绘目标标记，采集左右键事件及长按时间。 |
 | `Sub_46F8F0` | src/world/SceneState.cpp:10574 | 已重命名：`NormalizeAngleDegrees_46F8F0` | 通过循环加减360将浮点角度归一到一周范围。 |
 | `Sub_46F930` | src/world/SceneState.cpp:10595 | 已重命名：`LookupSineDegrees_46F930` | 归一浮点角度后取整查询360项F64正弦表；表首项0和30度0.5共同核证。 |
 | `Sub_46F950` | src/world/SceneState.cpp:10604 | 已重命名：`LookupCosineDegrees_46F950` | 角度加90后查询正弦表。 |
 | `Sub_46F970` | src/world/SceneState.cpp:10611 | 已重命名：`GetVectorAngleDegrees_46F970` | 按向量象限和分量比，查65项反正切表插值得到角度；零向量返回0。 |
 | `Sub_46FB80` | src/world/SceneState.cpp:10652 | 已重命名：`GetSquaredWorldDistance_46FB80` | 按F64计算两点坐标差的平方和，不开方。 |
-| `Sub_470050` | src/world/SceneState.cpp:10849 | 待分析 | — |
-| `Sub_470150` | src/world/SceneState.cpp:10881 | 待分析 | — |
-| `Sub_470270` | src/world/SceneState.cpp:10916 | 待分析 | — |
-| `Sub_4703C0` | src/world/SceneState.cpp:10956 | 待分析 | — |
-| `Sub_4704A0` | src/world/SceneState.cpp:10986 | 待分析 | — |
+| `Sub_470050` | src/world/SceneState.cpp:10849 | 已重命名：`RequestDuelWithFacingPlayer_470050` | 检查朝向邻格玩家、队伍身份及地图请求门禁，500毫秒节流发送对战请求并反馈音效。 |
+| `Sub_470150` | src/world/SceneState.cpp:10881 | 已重命名：`RequestSpectateFacingBattle_470150` | 检查地图观战许可及朝向对象标记/队伍门禁，节流发送观战请求。 |
+| `Sub_470270` | src/world/SceneState.cpp:10916 | 已重命名：`RequestPartyJoinOrLeave_470270` | 依当前队伍状态决定入队/离队，入队核邻格对象，节流发送请求。 |
+| `Sub_4703C0` | src/world/SceneState.cpp:10956 | 已重命名：`RequestFacingPlayerContactCard_4703C0` | 确认朝向邻格玩家及转场门禁后，节流发送交换名片请求。 |
+| `Sub_4704A0` | src/world/SceneState.cpp:10986 | 已重命名：`RequestNearbyPlayerTrade_4704A0` | 检查前方两格玩家或队伍状态，无目标提示；门禁通过后节流发送交易请求。 |
 | `Sub_4705F0` | src/platform/ClientShutdown.cpp:27 | 已重命名：`SaveUiAndAlbumThenCloseWindows_4705F0` | 正文先保存窗口设置，调用5186A0写album.dat，再返回CloseAll结果；退出入口调用。 |
-| `Sub_470670` | src/world/SceneState.cpp:11022 | 待分析 | — |
+| `Sub_470670` | src/world/SceneState.cpp:11022 | 已重命名：`RequestFacingPlayerGuildInvitation_470670` | 确认朝向玩家、地图门禁及公会等级权限，节流发送公会邀请。 |
 | `Sub_472F40` | src/world/SceneState.cpp:8691 | 已重命名：`ToggleDuelPermission_472F40` | 切换玩家options194的0x04位并发送；StatusBar提示表证实为对战许可。 |
 | `Sub_472F70` | src/world/SceneState.cpp:8702 | 已重命名：`TogglePartyChat_472F70` | 切换玩家options194的0x08位并发送；StatusBar提示表证实为普通/小队聊天。 |
 | `Sub_472FA0` | src/world/SceneState.cpp:8708 | 已重命名：`TogglePartyJoinPermission_472FA0` | 切换玩家options194的0x01位并发送；StatusBar提示表证实为组队许可。 |
@@ -304,7 +304,7 @@
 | `Sub_473030` | src/world/SceneState.cpp:8726 | 已重命名：`ToggleGuildInvitePermission_473030` | 切换玩家options194的0x40位并发送；StatusBar提示表证实为公会邀请许可。 |
 | `Sub_4758D0` | src/Yobi/window.cpp:515 | 已重命名：`UpdateWindowOpeningAnimation_4758D0` | 绘制并扩张窗口轮廓，计数达到10后打开目标窗口、标记动作死亡并清完成槽，最后仍递增计数。 |
 | `Sub_475950` | src/Yobi/window.cpp:668 | 已重命名：`CreateWindowOpeningAnimation_475950` | 定位弹窗后创建十步展开轮廓动作，支持仅高度或宽高同时展开；分配失败直接打开目标窗口。 |
-| `Sub_476680` | src/world/SceneState.cpp:8287 | 待分析 | — |
+| `Sub_476680` | src/world/SceneState.cpp:8287 | 已重命名：`DrawChatRangeOverlay_476680` | 按当前聊天半径在玩家周围铺等距格图，逐帧递减显示计数；聊天窗口改变范围时置180帧。 |
 | `Sub_48ABC0` | src/Yobi/window.cpp:546 | 已重命名：`UpdateQuantityWindowOpeningAnimation_48ABC0` | 扩张轮廓完成后读取来源控件、图号、数量限制与回调，打开数量窗口并标记死亡。 |
 | `Sub_48AC60` | src/Yobi/window.cpp:723 | 已重命名：`CreateQuantityWindowOpeningAnimation_48AC60` | 发布数量窗口动作标志、关闭既有窗口，再按保存位置或默认位置创建展开动作，失败直接打开数量窗口。 |
 | `Sub_492250` | src/world/SceneState.cpp:1975 | 已重命名：`MarkPetDetailDraftChanged_492250` | 置宠物详情草稿标志，WindowPetDetail的ResetDraftFlag和ReadDraftFlag消费。 |
@@ -594,19 +594,19 @@
 | `Sub_51BF00` | src/scene/character_select/CharacterSelectPreview.cpp:192 | 已重命名：`ConvertModernCharacterGraphicToEarlier_51BF00` | 240000段减37200，241400段按14项映射表转换旧族；205000和270000指定范围原值返回。 |
 | `Sub_51BFF0` | src/scene/character_select/CharacterSelectPreview.cpp:214 | 已重命名：`ConvertEarlierCharacterGraphicToModern_51BFF0` | 202800段加37200，其余按14项百位类别映射到241400段，无匹配原值返回。 |
 | `Sub_51C0D0` | src/world/SceneState.cpp:11070 | 已重命名：`ResolveRidingCharacterImage_51C0D0` | 按指定人物图号区间映射骑乘人物图形；ApplyPlayerRideReply创建附件后使用，不扩展区间。 |
-| `Sub_51D5B0` | src/world/SceneState.cpp:4448 | 待分析 | — |
-| `Sub_51D640` | src/world/SceneState.cpp:10518 | 待分析 | — |
+| `Sub_51D5B0` | src/world/SceneState.cpp:4448 | 已重命名：`PrepareMapTransitionObservationState_51D5B0` | 保存方向效果值，根据本人观察组及已有旅行计数进入250/252或恢复玩家，最后清观察组。 |
+| `Sub_51D640` | src/world/SceneState.cpp:10518 | 已重命名：`CaptureMapTilesForTransition_51D640` | 初始化投影并装载绘制地图地砖，临时切换队列模式绘制后复制Back至Temp，恢复模式并记时。 |
 | `Sub_51D6F0` | src/world/SceneState.cpp:3972 | 已重命名：`ApplyPendingMapPaletteReply_51D6F0` | 待回复值-1恢复时段调色板和自动模式，非负选择指定调色板并关闭自动，消费后写-2。 |
 | `Sub_51D750` | src/world/SceneState.cpp:3959 | 已重命名：`CaptureSceneAndSelectEvenVariant_51D750` | 先复制Back到Temp，再生成0至35随机值并清低位写FF48E4；当前无该槽消费者，不扩称具体视觉效果。 |
-| `Sub_51D790` | src/world/SceneState.cpp:6738 | 待分析 | — |
-| `Sub_51E0D0` | src/world/SceneState.cpp:7030 | 待分析 | — |
-| `Sub_51EC10` | src/world/SceneState.cpp:7472 | 待分析 | — |
-| `Sub_51EF80` | src/world/SceneState.cpp:7629 | 待分析 | — |
-| `Sub_51F610` | src/world/SceneState.cpp:7805 | 待分析 | — |
+| `Sub_51D790` | src/world/SceneState.cpp:6738 | 已重命名：`ProcessSceneSlideOut_51D790` | 九模式将整幅或交错/逐行画面移出；按加速度与行数推进，完成清坐标并更新转场阶段。 |
+| `Sub_51E0D0` | src/world/SceneState.cpp:7030 | 已重命名：`ProcessSceneSlideIn_51E0D0` | 九模式反向恢复整幅或逐行画面；部分模式先预计算移出状态再回移，保留精度与阶段推进。 |
+| `Sub_51EC10` | src/world/SceneState.cpp:7472 | 已重命名：`ProcessSceneQuadrantTransition_51EC10` | 将画面分成四矩形，按模式分离或合拢，阈值完成后更新转场阶段。 |
+| `Sub_51EF80` | src/world/SceneState.cpp:7629 | 已重命名：`ProcessSceneRandomTileTransition_51EF80` | 64个80x60画块随机显隐或加速下落，按状态两遍绘制，保留原RNG消费与完成门禁。 |
+| `Sub_51F610` | src/world/SceneState.cpp:7805 | 已重命名：`ProcessSceneGridScaleTransition_51F610` | 以960个20x16画块相对中心缩放位置，绘制后推进共享比例并更新完成阶段。 |
 | `Sub_51F860` | src/world/SceneState.cpp:7950 | 已重命名：`ProcessTopScanlineTransition_51F860` | 共享逐行伸缩转场逻辑，以顶部为采样和绘制原点，按方向推进高度及转场阶段。 |
 | `Sub_51FA70` | src/world/SceneState.cpp:7956 | 已重命名：`ProcessBottomScanlineTransition_51FA70` | 共享逐行伸缩转场逻辑，以底部为采样和绘制原点，按方向推进高度及转场阶段。 |
-| `Sub_51FC90` | src/world/SceneState.cpp:7962 | 待分析 | — |
-| `Sub_51FDE0` | src/world/WorldUpdate.cpp:359 | 待分析 | — |
+| `Sub_51FC90` | src/world/SceneState.cpp:7962 | 已重命名：`ProcessSceneCenterScanlineTransition_51FC90` | 上下半幅以中心逐行采样压缩/展开，按模式推进比例并返回完成状态。 |
+| `Sub_51FDE0` | src/world/WorldUpdate.cpp:359 | 已重命名：`ProcessSceneTransitionEffect_51FDE0` | 按0至35效果号分发移入移出、四分块、随机画块、格缩放和逐行转场，透传原返回值。 |
 | `Sub_520160` | src/scene/login/LoginSavedState.cpp:1010 | 已重命名：`SaveCurrentClientPreferences_520160` | 函数级try依次捕获音频/显示/快捷文/排序/BGM等并持久化，GBK容量异常返回-1；已人工补核catch，初始提取误漏。 |
 | `Sub_520200` | src/scene/login/LoginSavedState.cpp:1037 | 已重命名：`SaveCurrentLoginRecord_520200` | 包装PersistCurrentSavedRecord：复制当前记录、清密码字节、编码save.dat并回写选中物理记录，保原失败路径。 |
 | `Sub_520470` | src/scene/login/LoginSavedState.cpp:908 | 已重命名：`CaptureAudioPreferences_520470` | 保存立体声、音效/音乐音量及16字节频率选择到当前存档。 |

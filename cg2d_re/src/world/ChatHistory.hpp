@@ -47,7 +47,7 @@ extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
 extern volatile std::int32_t gChatWriteIndex_626C08; // 原全局：0x00626C08。
 extern volatile std::int32_t gChatRecordCount_C9A944; // 原全局：0x00C9A944。
 extern input::InputContext gInputContext626840; // 原全局：0x00626840。
-extern std::uint32_t gValue626BFC; // 原全局：0x00626BFC。
+extern std::uint32_t gChatRangeOverlayFrames_626BFC; // 原全局：0x00626BFC。
 extern char gLogFileName554648[16]; // 原全局：0x00554648。
 
 // 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。

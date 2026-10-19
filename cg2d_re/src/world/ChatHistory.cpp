@@ -65,7 +65,7 @@ std::uint32_t gValue626C18 = 0; // 原全局：0x00626C18。
 } // namespace cg::world::detail
 
 namespace cg::world {
-std::uint32_t gValue626BFC = 0; // 原全局：0x00626BFC。
+std::uint32_t gChatRangeOverlayFrames_626BFC = 0; // 原全局：0x00626BFC。
 char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
 
 } // namespace cg::world
@@ -126,7 +126,7 @@ void __cdecl InitializeChatInputAndLog_449DA0()
         gRecords5FB7F8[index].state = 1;
     }
     gValue626C18 = 0;
-    gValue626BFC = 0;
+    gChatRangeOverlayFrames_626BFC = 0;
 
     __time64_t timeValue = 0;
     std::FILE* const existingStream = gLogStream626C1C;

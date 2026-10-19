@@ -28,7 +28,7 @@ std::int32_t UpdateCapability3LoginScene_45F190();                 // 原 0x45F1
 // 原函数：0x00464840。
 std::int32_t UpdateCapability4LoginScene_464840();                 // 原 0x464840。
 // 原函数：0x00476680。
-void Sub_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
+void DrawChatRangeOverlay_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 // 原函数：0x0050C870。
 std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(
     std::uintptr_t socket, std::int32_t playerValue,
@@ -48,23 +48,23 @@ void HandleMapSceneEffectReply_50E650(
 std::int32_t IsObservationSceneTransitionActive_440B50(); // 原当前场景U32闭区间250..252门禁。
 // 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
 // 原函数：0x00470050。
-void Sub_470050(); // 对战请求。
+void RequestDuelWithFacingPlayer_470050(); // 对战请求。
 // 原函数：0x00470150。
-void Sub_470150(); // 观战请求，先查地图名单。
+void RequestSpectateFacingBattle_470150(); // 观战请求，先查地图名单。
 // 原函数：0x00470270。
-void Sub_470270(); // 组队请求，保留跟随分支和静默返回。
+void RequestPartyJoinOrLeave_470270(); // 组队请求，保留跟随分支和静默返回。
 // 原函数：0x004703C0。
-void Sub_4703C0(); // 名片请求，无跟随门禁。
+void RequestFacingPlayerContactCard_4703C0(); // 名片请求，无跟随门禁。
 // 原函数：0x004704A0。
-void Sub_4704A0(); // 交易请求，两格查询均执行。
+void RequestNearbyPlayerTrade_4704A0(); // 交易请求，两格查询均执行。
 // 原函数：0x00470670。
-void Sub_470670(); // 家族邀请，读取同源职级权限低U8。
+void RequestFacingPlayerGuildInvitation_470670(); // 家族邀请，读取同源职级权限低U8。
 // 原函数：0x004FA8E0。
 void RequestPlayerEmote_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
 // 原函数：0x004410E0。
 std::int32_t GetActorStatusIconCount_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
-std::uint32_t Sub_51D640();
+std::uint32_t CaptureMapTilesForTransition_51D640();
 
 // 原 dword_D460C8@0xD460C8；只保留地址身份和 W32 宽度。
 extern std::int32_t gValueD460C8;
@@ -155,33 +155,33 @@ std::int32_t UpdateLogoutScene_45ED90();                 // 原 [0x45ED90,0x45EE
 // 原函数：0x0051C7D0。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 // 原函数：0x0051D5B0。
-void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
+void* __cdecl PrepareMapTransitionObservationState_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 // 原函数：0x0051D750。
 std::uint32_t CaptureSceneAndSelectEvenVariant_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
-std::int32_t Sub_51FDE0(
+std::int32_t ProcessSceneTransitionEffect_51FDE0(
     std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
 // 51FDE0 原调用均压入三个 W32 槽；新端声明只保留目标实际读取的逻辑参数。
 // 原函数：0x0051D790。
-std::int32_t Sub_51D790(
+std::int32_t ProcessSceneSlideOut_51D790(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 // 原函数：0x0051E0D0。
-std::int32_t Sub_51E0D0(
+std::int32_t ProcessSceneSlideIn_51E0D0(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 // 原函数：0x0051EC10。
-std::int32_t Sub_51EC10(std::int32_t index, std::int32_t value);
+std::int32_t ProcessSceneQuadrantTransition_51EC10(std::int32_t index, std::int32_t value);
 // 原函数：0x0051EF80。
-std::int32_t Sub_51EF80(
+std::int32_t ProcessSceneRandomTileTransition_51EF80(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 // 原函数：0x0051F610。
-std::int32_t Sub_51F610(std::int32_t value);
+std::int32_t ProcessSceneGridScaleTransition_51F610(std::int32_t value);
 // 原函数：0x0051F860。
 std::int32_t ProcessTopScanlineTransition_51F860(std::int32_t index, std::int32_t value);
 // 原函数：0x0051FA70。
 std::int32_t ProcessBottomScanlineTransition_51FA70(std::int32_t index, std::int32_t value);
 // 原函数：0x0051FC90。
-std::int32_t Sub_51FC90(std::int32_t index, std::int32_t value);
+std::int32_t ProcessSceneCenterScanlineTransition_51FC90(std::int32_t index, std::int32_t value);
 // 原函数：0x00455C90。
 std::int32_t UpdateDisconnectDialog_455C90();                 // 原 0x455C90，返回值按任意非零判断。
 extern std::wstring gDisconnectText9A4D10;   // 原 [0x9A4D10,0x9A4D20)，独立空初值宽正文。

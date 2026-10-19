@@ -348,7 +348,7 @@ std::int32_t ProcessScene_45FEA0()
         world::gCurrentSceneState = 1;
         SetBaseWindowTitle(title);
         world::gValueD9F2CA = 0;
-        world::gValue58B6D0 = 1;
+        world::gSceneTransitionResetPending_58B6D0 = 1;
         gSelectedServerGroup = 0;
         static_cast<void>(render::SelectPalette(27, 0));
         cg::audio::LoadAndPlayBGM(17);

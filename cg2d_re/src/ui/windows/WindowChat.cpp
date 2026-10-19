@@ -463,7 +463,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
                 platform::gValue554640 = 1;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::gValue626BFC = 180;
+            world::gChatRangeOverlayFrames_626BFC = 180;
             consumed = 1;
         }
         if ((state & 4) != 0) {
@@ -473,7 +473,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
                 platform::gValue554640 = 5;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::gValue626BFC = 180;
+            world::gChatRangeOverlayFrames_626BFC = 180;
             consumed = 1;
         }
         break;

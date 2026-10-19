@@ -83,9 +83,10 @@ struct BigMapWindow final : UIWindowInstanceEx {
         // 只在越界时约束位置，避免每帧居中覆盖标题栏拖动结果。
         window.x = std::clamp(window.x, 0, std::max(0, screenW - window.width));
         window.y = std::clamp(window.y, 0, std::max(0, screenH - window.height));
-        map.x = 8; map.y = 48;
+        // 地图铺满对话框内框；标题、控件和状态文字在地图上叠加。
+        map.x = 8; map.y = 8;
         map.w = window.width - 16;
-        map.h = window.height - 96;
+        map.h = window.height - 16;
     }
 
     static const resource::GraphicInfo* Graphic(int mapNo) {
@@ -116,12 +117,14 @@ struct BigMapWindow final : UIWindowInstanceEx {
     }
 
     bool TitleHit() const {
-        // 对话框顶部为标题栏，避开右侧关闭按钮和下方矩形地图。
+        // 标题叠在地图上，拖动此区域仍只移动窗口，避开右侧关闭按钮。
         return Hit(6, 6, window.width - 38, 32);
     }
 
     bool MapHit() const {
         if (!mapReady || TitleHit() || (options && Hit(36, 52, 224, 270))) return false;
+        // 名称底板和底部状态区仍显示地图背景，但不穿透触发选点或地图拖动。
+        if (Hit(10, 10, 184, 38) || Hit(map.x, window.height - 40, map.w, 32)) return false;
         for (auto button : {BigMapButton::Toggle, BigMapButton::Close, BigMapButton::Refresh, BigMapButton::Walk, BigMapButton::Center})
             if (ButtonHit(button)) return false;
         // 坐标装饰与数字底框覆盖地图，不能从其下方选点。

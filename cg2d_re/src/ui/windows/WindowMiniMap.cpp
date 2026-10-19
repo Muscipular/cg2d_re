@@ -52,15 +52,15 @@ static WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
-static WindowElementPrototype gWindowElements56AF50[8] { // 原全局：0x0056AF50；BMUI01末尾追加入口。
+static WindowElementPrototype gWindowElements56AF50[8] { // 原全局：0x0056AF50；BMUI01入口先于背景入队，适配同层逆序绘制。
     {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &WindowMiniMap_RefreshPlayerX},
     {WindowElementType_Text, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &WindowMiniMap_RefreshPlayerY},
     {WindowElementType_Text, 160, 138, 0, 0, 1, {.text = &gWindowText56AF48}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 143, 4, 11, 11, 1, {.graphic = &gMiniMapOpenBigMapGraphic}, &WindowMiniMap_OpenBigMap},
     {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
     {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 143, 4, 11, 11, 1, {.graphic = &gMiniMapOpenBigMapGraphic}, &WindowMiniMap_OpenBigMap},
 };
 
 // 原型：窗口33；原全局：0x0054E6C0。

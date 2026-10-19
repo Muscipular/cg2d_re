@@ -622,7 +622,7 @@ static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
     0, 4, 4, 0, 1, 2, 2, 0, 1, 2, 4, 2, 2, 2, 2, 2,
     1, 1, 2, 4, 2, 2, 2, 1, 2, 0, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 2, 2, 2, 2, 0, // 大地图入口单独标记关闭非默认窗口。
+    1, 1, 1, 2, 2, 2, 2, 4, // 大地图与小地图同为4类，入口关闭其它非默认窗口。
 };
 
 static constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
@@ -3018,9 +3018,9 @@ static void WindowRuntime_ProcessShortcuts()
 {
     if ((platform::gKeyStates[0x1B] & 4u) != 0) {
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
-        if (script::CloseFocusedWindow()) {
+        if (script::CloseTopmostNonDefaultWindow()) {
             static_cast<void>(audio::PlaySe_52C450(57, 320));
-        } else if (!script::HasNonDefaultWindows()) {
+        } else {
             WindowRuntime_ToggleShortcutWindow(WindowId_Settings);
         }
         return;
@@ -4890,6 +4890,13 @@ void WindowRuntime_ProcessScene()
     default:
         return;
     }
+}
+
+// 供窗口关闭策略读取既有类别表，不复制维护窗口编号名单。
+std::uint32_t WindowRuntime_GetCategory(const std::int32_t id)
+{
+    if (id < 0 || id >= static_cast<std::int32_t>(detail::kWindowCount)) return 0;
+    return static_cast<std::uint32_t>(detail::kWindowCategories[id]);
 }
 
 // 原函数：0x00472240。

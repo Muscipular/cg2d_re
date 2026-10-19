@@ -105,10 +105,9 @@ struct ScheduledLuaWindow {
     std::shared_ptr<UIWindowInstanceEx> extension;
 };
 void PrepareLuaWindowFrame();
-// 沿场景自动开启名单保留状态栏、快捷栏、底栏和聊天栏；只标记关闭。
+// 原生类别0保留，Lua扩展窗口可关闭；均只标记关闭。
 void CloseNonDefaultWindows(int exceptId);
-bool CloseFocusedWindow();
-bool HasNonDefaultWindows(); // 不计已标记关闭的窗口及未启用的Lua窗口。
+bool CloseTopmostNonDefaultWindow(); // 与实际窗口调度共用层级顺序，没有可关闭窗口时返回false。
 std::vector<ScheduledLuaWindow> MergeLuaWindowOrder(int nativeCount);
 void FinishLuaWindowFrame();
 void NativeLuaWindowClosed(int id);

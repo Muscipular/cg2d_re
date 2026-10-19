@@ -33,11 +33,10 @@ void CgWindowClose(int id)
     }
 }
 
-// 与WindowRuntime_OpenConfiguredWindows的自动开启名单一致，含折叠样式。
+// 原生窗口统一使用kWindowCategories，Lua扩展窗口没有原生类别。
 static bool IsDefaultWindow(int id)
 {
-    return (id >= ui::WindowId_StatusBar && id <= ui::WindowId_BottomBar)
-        || id == ui::WindowId_Chat || id == ui::WindowId_CompactChat;
+    return id >= 0 && id < WIN_MAX && ui::WindowRuntime_GetCategory(id) == 0;
 }
 
 void CloseNonDefaultWindows(int exceptId)
@@ -50,43 +49,26 @@ void CloseNonDefaultWindows(int exceptId)
     for (const auto& entry : windows) close(entry->window);
 }
 
-bool CloseFocusedWindow()
+// 层号较小的窗口在前，同层按既有置前次序；关闭与绘制使用相同规则。
+static bool IsWindowAbove(const UIWindowInstance& first, const UIWindowInstance& second)
 {
-    UIWindowInstance* focused = nullptr;
-    UIWindowInstance* pending = nullptr;
-    UIWindowInstance* latest = nullptr;
-    std::uint64_t latestOrder = 0;
+    if (first.layer != second.layer) return first.layer < second.layer;
+    return windowOrder[first.id] > windowOrder[second.id];
+}
+
+bool CloseTopmostNonDefaultWindow()
+{
+    UIWindowInstance* target = nullptr;
     const auto consider = [&](UIWindowInstance& window) {
-        if (window.state & WIN_STATE_CLOSE) return;
-        if (window.id == focusedWindow) focused = &window;
-        // 当帧点击/开窗的焦点标记尚未被下一帧Prepare消费，优先处理。
-        if (window.state & WIN_STATE_FOCUS) pending = &window;
-        const auto order = windowOrder.find(window.id);
-        if (order != windowOrder.end() && (!latest || order->second > latestOrder)) {
-            latest = &window;
-            latestOrder = order->second;
-        }
+        if ((window.state & WIN_STATE_CLOSE) || IsDefaultWindow(window.id)) return;
+        if (!target || IsWindowAbove(window, *target)) target = &window;
     };
     for (auto* window : ui::detail::gWindows) if (window) consider(*window);
     for (const auto& entry : windows)
         if (entry->window.state & WIN_STATE_ACTIVE) consider(entry->window);
-    // 原焦点已关闭时，恢复到最近取得焦点的有效窗口。
-    auto* target = pending ? pending : focused ? focused : latest;
-    if (!target || IsDefaultWindow(target->id)) return false;
+    if (!target) return false;
     target->state |= WIN_STATE_CLOSE;
     return true;
-}
-
-bool HasNonDefaultWindows()
-{
-    const auto isOpen = [](const UIWindowInstance& window) {
-        return !(window.state & WIN_STATE_CLOSE) && !IsDefaultWindow(window.id);
-    };
-    for (auto* window : ui::detail::gWindows)
-        if (window && isOpen(*window)) return true;
-    for (const auto& entry : windows)
-        if ((entry->window.state & WIN_STATE_ACTIVE) && isOpen(entry->window)) return true;
-    return false;
 }
 
 void NativeLuaWindowClosed(int id)
@@ -149,8 +131,7 @@ std::vector<ScheduledLuaWindow> MergeLuaWindowOrder(int nativeCount)
             result.push_back({entry->window.id, &entry->window, entry});
     }
     std::stable_sort(result.begin(), result.end(), [](const auto& a, const auto& b) {
-        if (a.window->layer != b.window->layer) return a.window->layer < b.window->layer;
-        return windowOrder[a.window->id] > windowOrder[b.window->id];
+        return IsWindowAbove(*a.window, *b.window);
     });
     return result;
 }

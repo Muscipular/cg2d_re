@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <type_traits>
 
 namespace cg::world {
@@ -93,24 +94,12 @@ struct ContactRuntimeRecord {
     std::int32_t value04; // 原成员偏移：+0x04。
     std::int32_t value08; // 原成员偏移：+0x08。
     std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::array<char, 17> name10; // 原成员偏移：+0x10。
-    std::array<char, 17> text21; // 原成员偏移：+0x21。
-    std::array<char, 33> text32; // 原成员偏移：+0x32。
-    std::array<char, 33> text53; // 原成员偏移：+0x53。
+    std::wstring name10; // 原成员偏移：+0x10。
+    std::wstring text21; // 原成员偏移：+0x21。
+    std::wstring text32; // 原成员偏移：+0x32。
+    std::wstring text53; // 原成员偏移：+0x53。
 };
 
-static_assert(std::is_standard_layout_v<ContactRuntimeRecord>);
-static_assert(std::is_trivially_copyable_v<ContactRuntimeRecord>);
-static_assert(offsetof(ContactRuntimeRecord, used) == 0);
-static_assert(offsetof(ContactRuntimeRecord, value02) == 2);
-static_assert(offsetof(ContactRuntimeRecord, value04) == 4);
-static_assert(offsetof(ContactRuntimeRecord, value08) == 8);
-static_assert(offsetof(ContactRuntimeRecord, value0C) == 0x0C);
-static_assert(offsetof(ContactRuntimeRecord, name10) == 0x10);
-static_assert(offsetof(ContactRuntimeRecord, text21) == 0x21);
-static_assert(offsetof(ContactRuntimeRecord, text32) == 0x32);
-static_assert(offsetof(ContactRuntimeRecord, text53) == 0x53);
-static_assert(sizeof(ContactRuntimeRecord) == 0x74);
 
 extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0; // 原全局：0x00F19FB0。
 // 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
@@ -120,9 +109,9 @@ struct MiniMailContactRecord {
     std::int32_t key04; // 原成员偏移：+0x04。
     std::int32_t value08; // 原成员偏移：+0x08。
     std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::array<char, 17> name10; // 原成员偏移：+0x10。
-    std::array<char, 17> text21; // 原成员偏移：+0x21。
-    std::array<char, 33> text32; // 原成员偏移：+0x32。
+    std::wstring name10; // 原成员偏移：+0x10。
+    std::wstring text21; // 原成员偏移：+0x21。
+    std::wstring text32; // 原成员偏移：+0x32。
     std::array<std::byte, 0x21> bytes53; // 原成员偏移：+0x53。
 };
 

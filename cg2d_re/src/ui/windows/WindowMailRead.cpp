@@ -314,15 +314,15 @@ static std::uint32_t WindowMailRead_Refresh()
             line->text = buffer;
         }
     }
-    const char* name;
+    std::wstring name;
     if (category == 1) {
-        name = cg::world::gOrderedRecords1051B14[memberIndex].text18;
+        name = cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[memberIndex].text18);
     } else {
         const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         name = category == 0 ? cg::world::detail::gContactsF19FB0[contact].name10.data()
             : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
     }
-    cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(name).c_str());
+    cg::text::FormatTo(buffer, L"{}", name);
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
     nameData->text = buffer;
     const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;

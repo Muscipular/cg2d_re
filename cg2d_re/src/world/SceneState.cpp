@@ -6554,7 +6554,6 @@ namespace detail {
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void InitializePlayerRuntimeState_5199A0()
 {
-    static_assert(sizeof(gContactsF19FB0) == 0x1B30);
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
     // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
@@ -6567,7 +6566,7 @@ void InitializePlayerRuntimeState_5199A0()
     for (auto& skill : gSkillRuntimeSlots.skills) skill = {};
     gSkillRuntimeSlots.pairs = {};
     gSkillRuntimeSlots.valueF633E8 = 0;
-    std::memset(gContactsF19FB0.data(), 0, sizeof(gContactsF19FB0));
+    gContactsF19FB0.fill({});
     std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
 
     const volatile std::int16_t& selected = login::gSelectedCharacterIndex;

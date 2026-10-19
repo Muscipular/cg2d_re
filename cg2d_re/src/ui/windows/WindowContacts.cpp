@@ -411,7 +411,7 @@ static std::int32_t WindowContacts_Refresh()
             static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
-            nameData->text = cg::text::FromGbkWide(record.name);
+            nameData->text = record.name;
             cg::text::FormatTo(numberText, L"{:3}" /* 原常量参考：0x00553FCC。 */, *record.number);
             auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
             numberData->text = numberText;
@@ -419,7 +419,7 @@ static std::int32_t WindowContacts_Refresh()
             case 0:
             case 2: {
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
-                data->text = cg::text::FromGbkWide(record.text32);
+                data->text = record.text32;
                 break;
             }
             case 1: {
@@ -434,7 +434,7 @@ static std::int32_t WindowContacts_Refresh()
             }
             }
             auto* const textData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 3].data);
-            textData->text = cg::text::FromGbkWide(record.text21);
+            textData->text = record.text21;
             WindowElement* const statusElements = gCurrentWindow->elements;
             const std::int16_t status = record.ReadStatus();
             auto* const statusData = static_cast<WindowTextData*>(statusElements[textIndex + 4].data);
@@ -519,7 +519,7 @@ static std::int32_t WindowContacts_Refresh()
             continue;
         }
         auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
-        nameData->text = cg::text::FromGbkWide(record.name);
+        nameData->text = record.name;
         auto* const statusData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
         const std::int16_t status = record.ReadStatus();
         WindowMail_WriteContactStatus(record, statusData, status);
@@ -1227,7 +1227,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int3
 )" L"　从名片里删除吗？" LR"(
 )" L" " LR"(
 )" L" (确定删除时，请按住" LR"(
-)" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
+)" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, world::detail::gContactsF19FB0[index].name10);
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1259,7 +1259,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int
 从迷你邮件中删除吗？
 
  (确定删除时，请按住
-  CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
+  CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, world::detail::ReadMiniMailContact1075A90(index).name10);
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1430,7 +1430,7 @@ std::int32_t WindowContacts_CompareContactName(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
 {
-    const int order = std::strcmp(left->name10.data(), right->name10.data());
+    const int order = left->name10.compare(right->name10);
     if (order != 0) {
         return order < 0 ? -1 : 1;
     }
@@ -1474,7 +1474,7 @@ std::int32_t WindowContacts_CompareContactTitle(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
 {
-    const int order = std::strcmp(left->text32.data(), right->text32.data());
+    const int order = left->text32.compare(right->text32);
     if (order != 0) {
         return order < 0 ? -1 : 1;
     }

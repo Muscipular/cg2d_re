@@ -337,9 +337,8 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     if (category == 0 || category == 1) {
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-        const char* const name = category == 0 ? world::detail::gContactsF19FB0[target].name10.data()
-            : cg::world::gOrderedRecords1051B14[target].text18;
-        text->text = cg::text::FromGbkWide(name);
+        text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
+            : cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[target].text18);
     }
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];

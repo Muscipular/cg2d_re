@@ -140,7 +140,7 @@ MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRe
     return {
         &record.used, reinterpret_cast<const std::byte*>(&record.value02),
         &record.value08, &record.value0C,
-        record.name10.data(), record.text21.data(), record.text32.data(),
+        record.name10, record.text21, record.text32,
     };
 }
 
@@ -149,7 +149,8 @@ MailContactView WindowMail_MakeContactView(const cg::world::OrderedRecord1051B14
     return {
         &record.value08, reinterpret_cast<const std::byte*>(&record.value0A),
         &record.value10, &record.value14,
-        record.text18, record.text18 + 17, record.text18 + 34,
+        cg::text::FromGbkWide(record.text18), cg::text::FromGbkWide(record.text18 + 17),
+        cg::text::FromGbkWide(record.text18 + 34),
     };
 }
 
@@ -158,7 +159,7 @@ MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactR
     return {
         &record.used, reinterpret_cast<const std::byte*>(&record.sequence02),
         &record.value08, &record.value0C,
-        record.name10.data(), record.text21.data(), record.text32.data(),
+        record.name10, record.text21, record.text32,
     };
 }
 
@@ -247,7 +248,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const auto& record = world::detail::ReadMiniMailContact1075A90(index);
     const std::int32_t key = record.key04;
-    const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(record.name10.data()), 255);
+    const std::wstring escapedText = input::EscapeTextAndNotify(record.name10, 255);
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::RequestMiniMailContactDeletion_5117D0(socket, key, escapedText));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;

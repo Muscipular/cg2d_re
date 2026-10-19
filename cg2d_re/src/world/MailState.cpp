@@ -39,7 +39,6 @@ std::uint32_t gMailFallbackPage_CB0354 = 0; // 原全局：0x00CB0354。
 std::int32_t gViewedMailContactId_CF4FC0 = 0; // 原全局：0x00CF4FC0。
 std::int32_t gViewedMailMessageIndex_D046D4 = 0; // 原全局：0x00D046D4。
 std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490清-1，窗口63保存同一发信目标编号。
-static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
 // 三类收信共用的140H消息；文件、回复与窗口借用同一存储。
@@ -74,26 +73,11 @@ static_assert(alignof(GuildMailEntry) == 4);
 static alignas(std::uint32_t) std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
 static std::array<GuildMailEntry, 2 * 200> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
 
-struct alignas(std::uint32_t) MiniMailRuntimeSlots {
+struct MiniMailRuntimeSlots {
     std::array<MiniMailContactRecord, 20> contacts;
     std::array<MailMessage, 20 * 10> messages; // 原10763A0，20组各十条140H；保原连续访问。
 };
 
-static_assert(sizeof(MiniMailContactRecord) == 0x74);
-static_assert(std::is_standard_layout_v<MiniMailRuntimeSlots>);
-static_assert(std::is_trivially_copyable_v<MiniMailRuntimeSlots>);
-static_assert(offsetof(MiniMailContactRecord, used) == 0);
-static_assert(offsetof(MiniMailContactRecord, sequence02) == 2);
-static_assert(offsetof(MiniMailContactRecord, key04) == 4);
-static_assert(offsetof(MiniMailContactRecord, value08) == 8);
-static_assert(offsetof(MiniMailContactRecord, value0C) == 0x0C);
-static_assert(offsetof(MiniMailContactRecord, name10) == 0x10);
-static_assert(offsetof(MiniMailContactRecord, text21) == 0x21);
-static_assert(offsetof(MiniMailContactRecord, text32) == 0x32);
-static_assert(offsetof(MiniMailContactRecord, bytes53) == 0x53);
-static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
-static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
-static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
 static MiniMailRuntimeSlots gMiniMailRuntime {};
 static std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
 
@@ -195,7 +179,7 @@ static std::int32_t CompareContactIndices_4EC030(
     }
     const std::uint32_t mode = platform::gContactSortMode_D67CD0;
     if (mode == 1) {
-        const int order = std::strcmp(current.name10.data(), other.name10.data());
+        const int order = current.name10.compare(other.name10);
         if (order != 0) {
             return order < 0 ? -1 : 1;
         }
@@ -303,8 +287,8 @@ void HandleContactListReply_50D740(const std::uintptr_t, const char* const paylo
     for (ContactRuntimeRecord& record : gContactsF19FB0) {
         if (network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1) <= 0) {
             record.used = 0;
-            record.name10[0] = '\0';
-            record.text21[0] = '\0';
+            record.name10.clear();
+            record.text21.clear();
         } else {
             record.used = 1;
             if (network::ExtractDelimitedField_52CED0(
@@ -313,12 +297,12 @@ void HandleContactListReply_50D740(const std::uintptr_t, const char* const paylo
             }
             input::UnescapeLegacyTextAndNotify_52D2F0(name);
             if (std::strlen(name) <= 16) {
-                std::strcpy(record.name10.data(), name);
+                record.name10 = cg::text::FromGbkWide(name);
             }
             network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, text);
             input::UnescapeLegacyTextAndNotify_52D2F0(text);
             if (std::strlen(text) <= 16) {
-                std::strcpy(record.text21.data(), text);
+                record.text21 = cg::text::FromGbkWide(text);
             }
             record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
             record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
@@ -346,12 +330,12 @@ void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* con
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(first);
         if (std::strlen(first) <= 32) {
-            std::strcpy(record.text32.data(), first);
+            record.text32 = cg::text::FromGbkWide(first);
         }
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, second);
         input::UnescapeLegacyTextAndNotify_52D2F0(second);
         if (std::strlen(second) <= 32) {
-            std::strcpy(record.text53.data(), second);
+            record.text53 = cg::text::FromGbkWide(second);
         }
         field += 2;
     }
@@ -369,8 +353,8 @@ void HandleContactUpdateReply_50D9E0(
     ContactRuntimeRecord& record = gContactsF19FB0[index];
     if (active <= 0) {
         record.used = 0;
-        record.name10[0] = '\0';
-        record.text21[0] = '\0';
+        record.name10.clear();
+        record.text21.clear();
         return;
     }
     record.used = 1;
@@ -379,12 +363,12 @@ void HandleContactUpdateReply_50D9E0(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 255, name);
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
     if (std::strlen(name) <= 16) {
-        std::strcpy(record.name10.data(), name);
+        record.name10 = cg::text::FromGbkWide(name);
     }
     network::ExtractDelimitedField_52CED0(payload, '|', 3, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     if (std::strlen(text) <= 16) {
-        std::strcpy(record.text21.data(), text);
+        record.text21 = cg::text::FromGbkWide(text);
     }
     record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
     record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', 5);
@@ -397,12 +381,12 @@ void HandleContactUpdateReply_50D9E0(
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     if (std::strlen(text) <= 32) {
-        std::strcpy(record.text32.data(), text);
+        record.text32 = cg::text::FromGbkWide(text);
     }
     network::ExtractDelimitedField_52CED0(payload, '|', 10, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     if (std::strlen(text) <= 32) {
-        std::strcpy(record.text53.data(), text);
+        record.text53 = cg::text::FromGbkWide(text);
     }
     SortContactIndices_4EC1A0();
 }
@@ -637,8 +621,8 @@ void HandleContactMailReply_50DC70(
     const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     PrependContactMailMessage_5191C0(index, 0, name, text);
-    const char* const contactName = gContactsF19FB0[index].name10.data();
-    cg::text::FormatTo(message, kind == -1 ? L"收到从{}寄来的邮件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送来了宠物邮件！" /* 原常量参考：0x0058B064。 */, cg::text::FromGbkWide(contactName).c_str());
+    const std::wstring& contactName = gContactsF19FB0[index].name10;
+    cg::text::FormatTo(message, kind == -1 ? L"收到从{}寄来的邮件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送来了宠物邮件！" /* 原常量参考：0x0058B064。 */, contactName);
     static_cast<void>(SaveContactMailFile_519300());
     static_cast<void>(UpdateUnreadMailPageHint_518DA0());
     if (gViewedMailContactId_CF4FC0 == index) {
@@ -762,7 +746,7 @@ void HandleMiniMailReply_50F7F0(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     PrependMiniMailMessage_5343C0(index, 0, name, text);
-    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(gMiniMailRuntime.contacts[index].name10.data()).c_str());
+    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, gMiniMailRuntime.contacts[index].name10);
     static_cast<void>(UpdateUnreadMailPageHint_518DA0());
     if (gViewedMailContactId_CF4FC0 == key) {
         const std::int32_t position = gViewedMailMessageIndex_D046D4;
@@ -798,12 +782,24 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
     record.key04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
     record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
-    network::ExtractDelimitedField_52CED0(payload, '|', 4, 16, record.name10.data());
-    input::UnescapeLegacyTextAndNotify_52D2F0(record.name10.data());
-    network::ExtractDelimitedField_52CED0(payload, '|', 5, 32, record.text32.data());
-    input::UnescapeLegacyTextAndNotify_52D2F0(record.text32.data());
-    network::ExtractDelimitedField_52CED0(payload, '|', 6, 16, record.text21.data());
-    input::UnescapeLegacyTextAndNotify_52D2F0(record.text21.data());
+    {
+        char fieldBytes[17]{};
+        network::ExtractDelimitedField_52CED0(payload, '|', 4, 16, fieldBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldBytes);
+        record.name10 = cg::text::FromGbkWide(fieldBytes);
+    }
+    {
+        char fieldBytes[33]{};
+        network::ExtractDelimitedField_52CED0(payload, '|', 5, 32, fieldBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldBytes);
+        record.text32 = cg::text::FromGbkWide(fieldBytes);
+    }
+    {
+        char fieldBytes[17]{};
+        network::ExtractDelimitedField_52CED0(payload, '|', 6, 16, fieldBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldBytes);
+        record.text21 = cg::text::FromGbkWide(fieldBytes);
+    }
     const std::uint32_t sequence = gMiniMailSequence1075A88;
     record.sequence02 = static_cast<std::uint16_t>(sequence);
     gMiniMailSequence1075A88 = sequence + 1u;
@@ -824,7 +820,7 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
     }
     PrependMiniMailMessage_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(record.name10.data()).c_str());
+    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, record.name10);
     AppendChatMessage_44B050(message, 4, 3);
 }
 

@@ -247,15 +247,15 @@ inline constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221
 
 inline constexpr wchar_t kSettingsClose55331C[] = L"关闭这个视窗。"; // 原常量参考：0x0055331C。
 
-// 只借各原字段；公会记录的+8前缀不强转为另一种C++记录。
+// 数值字段只借用；文本快照供当次窗口刷新，公会记录不强转为另一种C++记录。
 struct MailContactView {
     const std::uint16_t* used;
     const std::byte* statusBytes;
     const std::int32_t* number;
     const std::int32_t* imageNo;
-    const char* name;
-    const char* text21; // 原成员偏移：+0x21。
-    const char* text32; // 原成员偏移：+0x32。
+    std::wstring name;
+    std::wstring text21; // 原成员偏移：+0x21。
+    std::wstring text32; // 原成员偏移：+0x32。
 
     std::int16_t ReadStatus() const
     {

@@ -306,7 +306,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
                 const std::int32_t key = record.key04;
                 cg::text::StoreGbk(storedText.data(), storedText.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
-                const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(record.name10.data()), 256);
+                const std::wstring escapedName = input::EscapeText(record.name10, 256);
                 const std::wstring escapedText = input::EscapeText(input::ContextText(cg::ui::detail::gInputContextD66CA8), 1024);
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
@@ -374,13 +374,13 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
         }
     } else {
         const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
-        const char* name = nullptr; // 下方只在三个已赋值的category分支读取。
+        std::wstring name; // 下方只在三个已赋值的category分支读取。
         switch (category) {
         case 0:
             name = world::detail::gContactsF19FB0[gLoginWindowRuntime.prefixD2F0B8.value04].name10.data();
             break;
         case 1:
-            name = cg::world::gOrderedRecords1051B14[gLoginWindowRuntime.prefixD2F0B8.value04].text18;
+            name = cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[gLoginWindowRuntime.prefixD2F0B8.value04].text18);
             break;
         case 2:
             name = world::detail::ReadMiniMailContact1075A90(
@@ -389,7 +389,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
         }
         if (category == 0 || category == 1 || category == 2) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
-            text->text = cg::text::FromGbkWide(name);
+            text->text = name;
         }
         if (gLoginWindowRuntime.prefixD2F0B8.value00 == 2) {
             gCurrentWindow->elements[2].visible = 0;

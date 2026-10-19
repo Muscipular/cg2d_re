@@ -77,8 +77,9 @@ void StoreGbk(char* const destination, const std::size_t capacity, const std::ws
     if (stored.size() >= capacity) {
 #ifdef MY_DEBUG
         throw GbkStorageError(ERROR_INSUFFICIENT_BUFFER, std::system_category(), "文字超过GBK字段容量");
-#endif
+#else
         return;
+#endif
     }
     std::char_traits<char>::move(destination, stored.c_str(), stored.size() + 1);
 }

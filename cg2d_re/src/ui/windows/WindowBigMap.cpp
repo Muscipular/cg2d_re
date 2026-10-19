@@ -436,11 +436,6 @@ struct BigMapWindowState final {
         return 1;
     }
 
-    void Text(int x, int y, std::wstring_view value, const UIClipRect& clip, int color = 0) const {
-        RendererDrawTextClipped(static_cast<short>(x), static_cast<short>(y), FONT_LAYER_WINDOW,
-            kMapFont, static_cast<std::uint8_t>(color), value, 0, 0, &clip);
-    }
-
     // 左上角绘制：导入图片带中心偏移，这里明确不叠加GraphicInfo.x/y。
     void ImageAt(int mapNo, int x, int y, int width, int height, const UIClipRect& clip,
         std::uint32_t color = 0xFFFFFFFFu) {
@@ -468,8 +463,9 @@ struct BigMapWindowState final {
                 const auto& data = *static_cast<const WindowTextData*>(element.data);
                 auto textClip = clip;
                 if (i == TextMapName) textClip.right = static_cast<short>(window.x + 188);
-                Text(window.x + element.x, window.y + element.y, data.text, textClip,
-                    std::to_integer<int>(data.style.color));
+                RendererDrawTextClipped(static_cast<short>(window.x + element.x),
+                    static_cast<short>(window.y + element.y), FONT_LAYER_WINDOW, kMapFont,
+                    std::to_integer<std::uint8_t>(data.style.color), data.text, 0, 0, &textClip);
             }
         }
     }
@@ -513,28 +509,35 @@ struct BigMapWindowState final {
                 else if (point.placement == 2) { cx = x - 44; cy = y; }
                 else if (point.placement == 3) { cx = x + 44; cy = y; }
                 const int nameY = cy + (point.extra == 18 ? -10 : 6);
-                Text(cx - textWidth / 2, nameY, point.name, clip);
+                RendererDrawTextClipped(static_cast<short>(cx - textWidth / 2), static_cast<short>(nameY),
+                    FONT_LAYER_WINDOW, kMapFont, 0, point.name, 0, 0, &clip);
                 const auto coordinates = std::format(L"({},{})", point.x, point.y);
-                Text(cx - render::TextMeasure(coordinates, kMapFont) / 2, nameY + 12, coordinates, clip);
+                RendererDrawTextClipped(static_cast<short>(cx - render::TextMeasure(coordinates, kMapFont) / 2),
+                    static_cast<short>(nameY + 12), FONT_LAYER_WINDOW, kMapFont, 0, coordinates, 0, 0, &clip);
                 if (point.imageNo >= 0) {
                     const int w = point.imageWidth, h = point.imageHeight;
                     if (UIRectIntersectsClipRect(cx - w / 2, cy - h / 2, w, h, &clip)
                         && render::DrawGraphicImage(point.imageNo, cx - w / 2, cy - h / 2, w, h,
                             LAYER_UI, &imageClip) < 0) ++failedIcons;
-                } else Text(cx - 3, cy - fontHeight / 2, L"?", clip, 4);
+                } else {
+                    RendererDrawTextClipped(static_cast<short>(cx - 3), static_cast<short>(cy - fontHeight / 2),
+                        FONT_LAYER_WINDOW, kMapFont, 4, L"?", 0, 0, &clip);
+                }
                 ImageAt(AnnotationBorder, cx - 21, cy - 15, 42, 31, clip);
                 ImageAt(AnnotationPlate, cx - 21, cy - 15, 42, 31, clip, kCategoryColors[point.category]);
                 if (point.placement == 2 || point.placement == 3)
                     ImageAt(HorizontalConnector, x - (point.placement == 2 ? 26 : 2), y - 2, 28, 5, clip, kCategoryColors[point.category]);
                 else ImageAt(VerticalConnector, x - 3, y - (point.placement == 1 ? 2 : 24), 5, 28, clip, kCategoryColors[point.category]);
             } else if (point.category == 6) {
-                Text(x + 6, y - 6, point.name, clip, point.extra);
+                RendererDrawTextClipped(static_cast<short>(x + 6), static_cast<short>(y - 6),
+                    FONT_LAYER_WINDOW, kMapFont, static_cast<std::uint8_t>(point.extra), point.name, 0, 0, &clip);
                 ImageAt(NpcDot, x - 1, y - 1, 4, 4, clip,
                     render::GetTextColor(static_cast<std::uint8_t>(point.extra)));
             } else {
                 // 地点和村镇原端为文字底条，不使用占位方块。
                 const int textY = point.category == 0 && point.placement <= 0 ? y - 20 : y;
-                Text(x - textWidth / 2, textY, point.name, clip, point.category == 4 ? 4 : 0);
+                RendererDrawTextClipped(static_cast<short>(x - textWidth / 2), static_cast<short>(textY),
+                    FONT_LAYER_WINDOW, kMapFont, point.category == 4 ? 4 : 0, point.name, 0, 0, &clip);
                 RendererDrawRectClipped(static_cast<short>(x - textWidth / 2 - 2), static_cast<short>(textY),
                     static_cast<short>(textWidth + 4), static_cast<short>(fontHeight + 2), LAYER_UI,
                     point.category == 4 ? 0x60000000u : 0x40000000u, &clip);
@@ -574,7 +577,8 @@ struct BigMapWindowState final {
         if (mapReady) {
             if (acceptsMouse && MapHit()) {
                 const auto point = map.ScreenToMap(gMouseX - mapClip.left, gMouseY - mapClip.top);
-                Text(gMouseX + 14, gMouseY + 14, std::format(L"{},{}", point.first, point.second), mapClip);
+                RendererDrawTextClipped(static_cast<short>(gMouseX + 14), static_cast<short>(gMouseY + 14),
+                    FONT_LAYER_WINDOW, kMapFont, 0, std::format(L"{},{}", point.first, point.second), 0, 0, &mapClip);
             }
             Marker(px, py, PlayerMarker, 14, mapClip);
             if (targetX >= 0) Marker(targetX, targetY, TargetMarker, 14, mapClip);
@@ -582,8 +586,10 @@ struct BigMapWindowState final {
             for (std::size_t i = 1; i < route.size(); i += 2)
                 Marker(route[i].first, route[i].second, RouteDot, 4, mapClip);
             failedUiImages += DrawAnnotations(mapClip);
-        } else Text(window.x + (window.width - render::TextMeasure(L"当前地图数据未就绪", kMapFont)) / 2,
-            window.y + window.height / 2, L"当前地图数据未就绪", clip, 4);
+        } else {
+            RendererDrawTextClipped(static_cast<short>(window.x + (window.width - render::TextMeasure(L"当前地图数据未就绪", kMapFont)) / 2),
+                static_cast<short>(window.y + window.height / 2), FONT_LAYER_WINDOW, kMapFont, 4, L"当前地图数据未就绪", 0, 0, &clip);
+        }
         RendererBreakWindowTextBatch();
         map.Render(window.x, window.y, LAYER_UI, {mapClip.left, mapClip.top, mapClip.right, mapClip.bottom});
         RendererDrawRectClipped(mapClip.left, mapClip.top, static_cast<short>(map.w), static_cast<short>(map.h),

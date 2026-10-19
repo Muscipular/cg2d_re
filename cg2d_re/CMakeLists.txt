@@ -127,7 +127,6 @@ set(cg2d_re_startup_sources
     src/script/LuaIO.cpp
     src/script/LuaConstants.cpp
     src/script/AutoBattle.cpp
-    src/script/BigMapWindow.cpp
     src/script/BigMapSurface.cpp
     src/script/Copilot.cpp
     src/script/controls/UIControl.cpp
@@ -222,6 +221,7 @@ set(cg2d_re_startup_sources
     src/ui/windows/WindowBattlePets.cpp
     src/ui/windows/WindowBattleResult.cpp
     src/ui/windows/WindowBattleStateNotice.cpp
+    src/ui/windows/WindowBigMap.cpp
     src/ui/windows/WindowBlacklist.cpp
     src/ui/windows/WindowBottomBar.cpp
     src/ui/windows/WindowChat.cpp

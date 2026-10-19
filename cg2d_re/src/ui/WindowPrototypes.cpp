@@ -243,6 +243,7 @@ std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130 { // 原全�
     &gWindowPrototypeStallBrowse,
     &gWindowPrototypeCrystalShop,
     &gWindowPrototypeCrystalExchangeShop, // 70
+    &gWindowPrototypeBigMap, // 71
 };
 
 } // namespace detail

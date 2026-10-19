@@ -81,6 +81,7 @@ enum WindowId : std::int32_t {
     WindowId_StallBrowse = 68, // 窗口68：浏览摊位。
     WindowId_CrystalShop = 69, // 窗口69：晶石商店69。
     WindowId_CrystalExchangeShop = 70, // 窗口70：晶石商店70。
+    WindowId_BigMap = 71, // BMWP01：大地图，仅运行期窗口，不写入旧窗口存档。
 };
 static_assert(sizeof(WindowId) == sizeof(std::int32_t));
 
@@ -111,6 +112,7 @@ void WindowRuntime_SetInventoryPages(
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
 WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
+void WindowBigMap_Open(); // 小地图按钮唯一入口，复用原生原型与单实例生命周期。
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。

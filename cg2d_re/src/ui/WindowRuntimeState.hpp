@@ -636,7 +636,8 @@ struct WindowState {
     std::uint32_t marker50; // 原成员偏移：+0x50。
 };
 
-inline constexpr std::size_t kWindowCount = 71;
+inline constexpr std::size_t kSavedWindowCount = 71; // 原WinSaveDate布局固定，新增窗口不扩展磁盘记录。
+inline constexpr std::size_t kWindowCount = 72; // 原71槽加大地图原型。
 // 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130; // 原全局：0x0057C130。
 extern WindowPrototype& gWindowPrototype54E2A0; // 原全局：0x0054E2A0。 4C93A0直接比较的原对象，不追随表槽改指向。

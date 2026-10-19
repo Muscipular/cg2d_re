@@ -35,7 +35,7 @@ struct WindowSavedRecord {
 
 struct WindowSavedData {
     std::int32_t version;
-    std::array<WindowSavedRecord, kWindowCount> records; // 原成员偏移：+0x04。
+    std::array<WindowSavedRecord, kSavedWindowCount> records; // 原成员偏移：+0x04。
 };
 
 // 4C803D/4C8B07两段顺序指令的归纳，不是原端存储表；每项执行后才读取下一键。
@@ -622,7 +622,7 @@ static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
     0, 4, 4, 0, 1, 2, 2, 0, 1, 2, 4, 2, 2, 2, 2, 2,
     1, 1, 2, 4, 2, 2, 2, 1, 2, 0, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 2, 2, 2, 2,
+    1, 1, 1, 2, 2, 2, 2, 0, // 大地图独立，不关闭其它类别窗口。
 };
 
 static constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
@@ -737,6 +737,7 @@ static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24
     &gDragPrototypes[40],
     &gDragPrototypes[32],
     &gDragPrototypes[33], // 70
+    &gDragPrototypes[41], // 71：标题及地图拖动由大地图元素回调区分。
 };
 
 static std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
@@ -2786,7 +2787,7 @@ static std::uint32_t WindowRuntime_CaptureSettings()
 {
     static_cast<void>(WindowRuntime_ClearSavedSettings());
     gWindowSavedDataD40B30.version = 0x13;
-    for (std::size_t index = 0; index < kWindowCount; ++index) {
+    for (std::size_t index = 0; index < kSavedWindowCount; ++index) {
         gWindowSavedDataD40B30.records[index].x = gWindowStates[index].x;
         gWindowSavedDataD40B30.records[index].y = gWindowStates[index].y;
     }

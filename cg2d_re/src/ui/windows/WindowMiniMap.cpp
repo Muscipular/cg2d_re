@@ -2,7 +2,6 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
-#include "../../script/BigMapWindow.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/PngImage.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -39,7 +38,7 @@ static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t ev
         if (imageNo >= 0 && imageNo < resource::gMaxGraphicCount && resource::gGraphicInfo[imageNo].mapNo == mapNo)
             render::DrawGraphicImage(imageNo, x, y, 20, 18, 0xDF);
     }
-    if (events & 2) script::OpenBigMapWindow();
+    if (events & 2) WindowBigMap_Open();
     return events != 0;
 }
 

@@ -78,6 +78,7 @@ extern WindowPrototype gWindowPrototypeOwnStall; // 原全局：0x0054EF58。
 extern WindowPrototype gWindowPrototypeStallBrowse; // 原全局：0x0054EF88。
 extern WindowPrototype gWindowPrototypeCrystalShop; // 原全局：0x0054ECC0。
 extern WindowPrototype gWindowPrototypeCrystalExchangeShop; // 原全局：0x0054ECF0。
+extern WindowPrototype gWindowPrototypeBigMap; // BMWP01：大地图原生原型。
 
 // 跨窗口共享载荷；本头只声明，中央原型文件保留唯一定义。
 extern WindowGraphicData gWindowGraphic570160; // 原全局：0x00570160。

@@ -111,8 +111,8 @@ std::uint16_t gCharacterListReplyCode = 0; // 原全局：0x00DA3B26。
 // 原函数：0x00508910。
 std::uint32_t StartCharacterListRequest()
 {
-    static_cast<void>(Sub_51B3B0(0));
-    static_cast<void>(Sub_51B3B0(1));
+    static_cast<void>(ClearCharacterSlot_51B3B0(0));
+    static_cast<void>(ClearCharacterSlot_51B3B0(1));
 
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterListReplyCode = 0;

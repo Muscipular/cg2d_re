@@ -148,13 +148,13 @@ int MainLoop()
         gPendingGraphicCount2 = 0;
         render::ResetGraphicCache_456D30();
         NetworkLoop_507DF0();
-        Sub_52CD30(gValue58D3C0);
+        UpdateAudioAndSkipMciClose_52CD30(gValue58D3C0);
         world::Update();
         script::UpdateLuaScene();
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();
             render::SortTextures_520790();
-            Sub_507140();
+            UpdateQueuedTextAndGraphicHover_507140();
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {
@@ -202,7 +202,7 @@ int MainLoop()
         if (clearMode == 0) {
             render::ClearSurface_4512C0();
         } else if (clearMode == 3) {
-            Sub_423640();
+            ApplyScreenShake_423640();
         }
         UpdateFrameDiagnostics();
         render::DrawAllQueued_520DD0();

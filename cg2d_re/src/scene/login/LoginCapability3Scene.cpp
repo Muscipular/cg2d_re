@@ -124,7 +124,7 @@ static std::int32_t ProcessCapability3InputAndDraw()
                 cg::input::ContextText(cg::login::gInputContext9A5960))) {
             return DrawCapability3CommonTail();
         }
-        static_cast<void>(cg::login::detail::Sub_520200());
+        static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200());
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
         static_cast<void>(cg::render::SelectPalette(30, 30));
         cg::world::gCurrentSceneState = 10;

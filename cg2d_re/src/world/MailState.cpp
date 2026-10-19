@@ -193,7 +193,7 @@ static std::int32_t CompareContactIndices_4EC030(
     if (!currentUsed) {
         return 0;
     }
-    const std::uint32_t mode = platform::gValueD67CD0;
+    const std::uint32_t mode = platform::gContactSortMode_D67CD0;
     if (mode == 1) {
         const int order = std::strcmp(current.name10.data(), other.name10.data());
         if (order != 0) {

@@ -24,10 +24,10 @@ namespace shutdown_detail {
 
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
-static std::int32_t Sub_4705F0()
+static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0()
 {
     static_cast<void>(ui::detail::WindowRuntime_SaveSettings());
-    world::Sub_5186A0();
+    world::SaveAlbumData_5186A0();
     return ui::WindowRuntime_CloseAll();
 }
 } // namespace shutdown_detail
@@ -38,7 +38,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 int ShutdownClient_457A40()
 {
     script::ShutdownLua();
-    shutdown_detail::Sub_4705F0();
+    shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();

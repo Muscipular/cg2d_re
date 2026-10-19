@@ -192,7 +192,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
 }
 
 // 原函数：0x00507140。
-void Sub_507140()
+void UpdateQueuedTextAndGraphicHover_507140()
 {
     const std::int16_t initialCount = std::bit_cast<std::int16_t>(gPendingGraphicCount);
     std::int32_t orderIndex = static_cast<std::int32_t>(initialCount) - 1;

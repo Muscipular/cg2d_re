@@ -775,7 +775,7 @@ static std::uint32_t RestoreSavedByteState_520700(
 {
     const std::uint32_t value =
         static_cast<std::uint32_t>(source[0x313]);
-    cg::platform::gValueD67CD0 = value;
+    cg::platform::gContactSortMode_D67CD0 = value;
     return value;
 }
 
@@ -846,7 +846,7 @@ std::int32_t InitializeSavedState_533300()
 }
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
-std::int32_t Sub_520510(const std::int32_t selected)
+std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
@@ -867,7 +867,7 @@ std::int32_t Sub_520510(const std::int32_t selected)
 }
 
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
-std::int32_t Sub_520550(const std::int32_t selected)
+std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
 {
     const auto* const currentBytes =
         reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
@@ -883,7 +883,7 @@ std::int32_t Sub_520550(const std::int32_t selected)
 }
 
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
-std::int32_t Sub_520750(const std::int32_t selected)
+std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected)
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
@@ -894,7 +894,7 @@ std::int32_t Sub_520750(const std::int32_t selected)
 }
 
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
-std::int32_t Sub_520770(const std::int32_t selected)
+std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected)
 {
     const auto* const currentBytes =
         reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
@@ -905,7 +905,7 @@ std::int32_t Sub_520770(const std::int32_t selected)
 }
 
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
-std::int32_t Sub_520470()
+std::int32_t CaptureAudioPreferences_520470()
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
@@ -937,7 +937,7 @@ std::int32_t Sub_520470()
 }
 
 // 原 sub_520590@[0x520590,0x5205D5)：将六项标量低字节写入当前记录。
-std::uint8_t Sub_520590()
+std::uint8_t CaptureClientPreferenceBytes_520590()
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
@@ -963,7 +963,7 @@ std::uint8_t Sub_520590()
 }
 
 // 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
-std::uint32_t Sub_520640()
+std::uint32_t CapturePresetChatTexts_520640()
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
@@ -985,10 +985,10 @@ std::uint32_t Sub_520640()
 }
 
 // 原 sub_5206F0@[0x5206F0,0x5206FB)：保存单字节状态并返回 AL。
-std::uint8_t Sub_5206F0()
+std::uint8_t CaptureContactSortMode_5206F0()
 {
     const std::uint8_t value =
-        static_cast<std::uint8_t>(cg::platform::gValueD67CD0);
+        static_cast<std::uint8_t>(cg::platform::gContactSortMode_D67CD0);
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
     currentBytes[0x313] = value;
@@ -1007,26 +1007,26 @@ std::uint8_t Sub_520720()
 }
 
 // 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
-std::int32_t Sub_520160()
+std::int32_t SaveCurrentClientPreferences_520160()
 try {
     const volatile std::int16_t& selectedCharacter =
         cg::login::gSelectedCharacterIndex;
-    static_cast<void>(Sub_520470());
-    static_cast<void>(Sub_520590());
+    static_cast<void>(CaptureAudioPreferences_520470());
+    static_cast<void>(CaptureClientPreferenceBytes_520590());
 
     const std::int32_t ignoredSelected = selectedCharacter;
     static_cast<void>(ignoredSelected);
     cg::core::NullSub_509080();
 
     const std::int32_t selectedForDisplay = selectedCharacter;
-    static_cast<void>(Sub_520510(selectedForDisplay));
-    static_cast<void>(Sub_520640());
-    static_cast<void>(Sub_5206F0());
+    static_cast<void>(CaptureCharacterDisplaySettings_520510(selectedForDisplay));
+    static_cast<void>(CapturePresetChatTexts_520640());
+    static_cast<void>(CaptureContactSortMode_5206F0());
 
     const std::int32_t selectedForAudio = selectedCharacter;
-    static_cast<void>(Sub_520750(selectedForAudio));
+    static_cast<void>(CaptureCharacterBgmTarget_520750(selectedForAudio));
     static_cast<void>(Sub_520720());
-    return Sub_520200();
+    return SaveCurrentLoginRecord_520200();
 }
 catch (const cg::text::GbkStorageError&) {
     m_log_iw(L"快捷文字无法按GBK保存，或已超出存档容量。");
@@ -1034,7 +1034,7 @@ catch (const cg::text::GbkStorageError&) {
 }
 
 // 原函数：0x00520200。
-std::int32_t Sub_520200()
+std::int32_t SaveCurrentLoginRecord_520200()
 {
     return PersistCurrentSavedRecord_520200();
 }
@@ -1058,13 +1058,13 @@ const char* ReadSelectedSavedDirectory()
 }
 
 // 原函数：0x005336D0。
-std::int32_t Sub_5336D0()
+std::int32_t LoadSelectedLoginRecord_5336D0()
 {
     return LoadSelectedPhysicalRecord_5336D0();
 }
 
 // 原函数：0x00533860。
-std::int32_t Sub_533860(const std::int32_t physicalSlot)
+std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot)
 {
     return DeleteSavedFiles_533860(physicalSlot);
 }
@@ -1082,8 +1082,8 @@ void RestoreCapability4CurrentSavedRecord()
 void CacheAutoLoginInputValues(const char* const account, const char* const password)
 {
     const std::int32_t selected = gSavedState.selected;
-    Sub_5335B0(password, selected);
-    Sub_533640(account, selected);
+    WriteSavedPassword_5335B0(password, selected);
+    WriteSavedAccount_533640(account, selected);
     std::strcpy(GetCurrentSavedInputValueFF494F(), password);
     std::strcpy(GetCurrentSavedInputValueFF4982(), account);
     gAutoLoginCachedPhysicalSlot = gSavedState.logicalToPhysical[selected];
@@ -1136,7 +1136,7 @@ void Sub_533570(
 }
 
 // 原函数：0x005335B0。
-void Sub_5335B0(
+void WriteSavedPassword_5335B0(
     const char* const source,
     const std::int32_t logicalSlot)
 {
@@ -1159,7 +1159,7 @@ void Sub_5335B0(
 }
 
 // 原函数：0x00533640。
-void Sub_533640(
+void WriteSavedAccount_533640(
     const char* const source,
     const std::int32_t logicalSlot)
 {
@@ -1182,7 +1182,7 @@ void Sub_533640(
 }
 
 // 原函数：0x005335F0。
-char* Sub_5335F0(
+char* ReadSavedPassword_5335F0(
     char* const output,
     const std::int32_t logicalSlot)
 {
@@ -1209,7 +1209,7 @@ char* Sub_5335F0(
 }
 
 // 原函数：0x00533680。
-char* Sub_533680(
+char* ReadSavedAccount_533680(
     char* const output,
     const std::int32_t logicalSlot)
 {
@@ -1236,7 +1236,7 @@ char* Sub_533680(
 }
 
 // 原函数：0x00533730。
-void Sub_533730()
+void SaveCredentialRecordsWithoutPasswords_533730()
 {
     SavedPhysicalRecord localRecord;
     std::uint8_t encoded[0xA20];

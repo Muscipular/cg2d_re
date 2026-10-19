@@ -144,8 +144,8 @@ bool SaveCapability4InputSlot()
         return false;
     }
     detail::Sub_533570(stored[0].data(), detail::gSelectedSavedSlot105C394);
-    detail::Sub_5335B0(stored[1].data(), detail::gSelectedSavedSlot105C394);
-    detail::Sub_533640(stored[2].data(), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedPassword_5335B0(stored[1].data(), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedAccount_533640(stored[2].data(), detail::gSelectedSavedSlot105C394);
     return true;
 }
 
@@ -491,7 +491,7 @@ void InitializeCapability4Input_465320()
     gInputContext9A5678.clearText();
     gInputContext9A5678.totalByteLength = 0;
     gInputContext9A5678.caretByteOffset = 0;
-    detail::Sub_533680(initialText, firstSelectedSlot);
+    detail::ReadSavedAccount_533680(initialText, firstSelectedSlot);
     const std::int32_t firstY = gInputContext9A5678Y;
     const std::int32_t firstX = gInputContext9A5678X;
     input::InitializeContext_449CF0(
@@ -514,7 +514,7 @@ void InitializeCapability4Input_465320()
     gInputContext9A5960.clearText();
     gInputContext9A5960.totalByteLength = 0;
     gInputContext9A5960.caretByteOffset = 0;
-    detail::Sub_5335F0(initialText, secondSelectedSlot);
+    detail::ReadSavedPassword_5335F0(initialText, secondSelectedSlot);
     const std::int32_t secondY = gInputContext9A5960Y;
     const std::int32_t secondX = gInputContext9A5960X;
     input::InitializeContext_449CF0(
@@ -545,7 +545,7 @@ void SaveAndSwitchCapability4InputSlot_465740(
         return;
     }
 
-    detail::Sub_533730();
+    detail::SaveCredentialRecordsWithoutPasswords_533730();
     detail::gSelectedSavedSlot105C394 = newSlot;
     InitializeCapability4Input_465320();
 }

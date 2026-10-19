@@ -464,7 +464,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         state::gPreviewActions[slotIndex] = nullptr;
     }
 
-    if (cg::login::Sub_51B110(slot) == 0) {
+    if (cg::login::HasCharacterInSlot_51B110(slot) == 0) {
         return;
     }
 

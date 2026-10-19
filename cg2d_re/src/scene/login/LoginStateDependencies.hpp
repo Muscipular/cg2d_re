@@ -14,8 +14,8 @@ std::int32_t GetServerAddressInfo_507D90(
     char* serverAddress,
     std::uint16_t* port);
 // 原函数：0x0044B5C0。
-std::uint32_t Sub_44B5C0(const char* text);
+std::uint32_t AppendSystemLog_44B5C0(const char* text);
 // 原函数：0x00508360。
-std::int32_t Sub_508360();
+std::int32_t AdvanceServerLoginConnection_508360();
 
 } // namespace cg::login::detail

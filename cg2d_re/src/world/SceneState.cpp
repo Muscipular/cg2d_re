@@ -660,7 +660,7 @@ void Sub_518780()
     std::FILE* const stream =
         std::fopen(path, "rb");
     if (stream == nullptr) {
-        Sub_5186A0();
+        SaveAlbumData_5186A0();
     } else {
         const std::uint32_t count =
             static_cast<std::uint32_t>(std::fread(encoded, 1, 4, stream));
@@ -678,7 +678,7 @@ void Sub_518780()
         if (decodedBytes == 0x3C00C) {
             std::memcpy(&gAlbumStorage, decoded, sizeof(gAlbumStorage));
         } else {
-            Sub_5186A0();
+            SaveAlbumData_5186A0();
         }
     }
     std::free(encoded);
@@ -724,7 +724,7 @@ void Sub_518870(
     record = AlbumRecordAt(index, selected);
     std::strcpy(record->name.data(), displayedName);
     record->fresh = static_cast<std::uint8_t>(added);
-    Sub_5186A0();
+    SaveAlbumData_5186A0();
 }
 
 // 原[518A40,518BD5)：掩码扫描后始终发送请求列表，再重读角色写版本。
@@ -3541,8 +3541,8 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(render::ResetGraphicCache_456D30());
         if (gValueFF0D58 != 0) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
-            static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
-            static_cast<void>(login::detail::Sub_520200());
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gValueFF0D68 = audio::gBgmTarget1050818;
             gValueFF0D58 = 0;
@@ -3659,8 +3659,8 @@ void DrawNormalScene_51C7D0()
             gValueD67E78 = 0;
             if (changeBgm != 0) {
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
-                static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
-                static_cast<void>(login::detail::Sub_520200());
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+                static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                 static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                 gValueFF0D68 = audio::gBgmTarget1050818;
                 gValueFF0D58 = 0;
@@ -3748,8 +3748,8 @@ void DrawNormalScene_51C7D0()
         gValueD67E78 = 0;
         if (changeBgm != 0) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
-            static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
-            static_cast<void>(login::detail::Sub_520200());
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gValueFF0D68 = audio::gBgmTarget1050818;
             gValueFF0D58 = 0;
@@ -3791,8 +3791,8 @@ void DrawNormalScene_51C7D0()
             if (audio::gBgmRequest1050810 == 0) {
                 if (gValueFF0D58 != 0) {
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
-                    static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
-                    static_cast<void>(login::detail::Sub_520200());
+                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+                    static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                     static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                     gValueFF0D68 = audio::gBgmTarget1050818;
                     gValueFF0D58 = 0;
@@ -6548,8 +6548,8 @@ void Sub_5199A0()
     const std::int16_t unusedSelected = selected;
     static_cast<void>(unusedSelected);
     cg::core::NullSub_509080();
-    static_cast<void>(login::detail::Sub_520550(selected));
-    static_cast<void>(login::detail::Sub_520770(selected));
+    static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(selected));
+    static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(selected));
 
     gValueFF0D36 = 0;
     for (PetMapCharaSlot& slot : gPetMapCharaSlots) {
@@ -8023,7 +8023,7 @@ std::int32_t Sub_45EBB0()
         if (transition == 0) {
             return transition;
         }
-        cg::login::detail::Sub_520160();
+        cg::login::detail::SaveCurrentClientPreferences_520160();
         gLogoutTransition9A6E94 = 0;
         Sub_519D50();
         Sub_446470();
@@ -8123,11 +8123,11 @@ std::int32_t Sub_45ED90()
     const std::uint32_t phase = gValue9A6204;
     if (phase == 1) {
         if (login::detail::gReplyCodeDA3B2E != 2) {
-            static_cast<void>(login::detail::Sub_508C40());
+            static_cast<void>(login::detail::BeginLogoutRequest_508C40());
         }
         ++gValue9A6204;
     } else if (phase == 2) {
-        result = login::detail::Sub_508C90();
+        result = login::detail::PollLogoutReply_508C90();
         if (result != 0) {
             cg::yobi::YobiAction* const action = gAction9A6E98;
             if (action != nullptr) {
@@ -8214,7 +8214,7 @@ const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::
 }
 
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
-void Sub_5186A0()
+void SaveAlbumData_5186A0()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
@@ -8251,7 +8251,7 @@ void Sub_518BE0()
     const std::int16_t selected = login::gSelectedCharacterIndex;
     gAlbumStorage.versions[selected] = 0;
     std::memset(AlbumRecordAt(0, selected), 0, 0x1E000);
-    Sub_5186A0();
+    SaveAlbumData_5186A0();
 }
 
 // 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。

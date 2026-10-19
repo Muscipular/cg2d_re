@@ -265,7 +265,7 @@ static std::int32_t LoadStreamingBgm_52C160(
     return 1;
 }
 
-std::uint32_t gValue103DE80 = 0; // 原全局：0x0103DE80。
+std::uint32_t gSkipMciDeviceClose_103DE80 = 0; // 原全局：0x0103DE80。
 std::uint32_t gAudioDisabled_10507D4 = 0; // 原全局：0x010507D4。
 std::int32_t gBgmTarget1050818 = 0; // 原全局：0x01050818。
 std::int32_t gBgmRequest1050810 = 0; // 原全局：0x01050810。
@@ -436,17 +436,17 @@ std::int32_t InitializeAudio_5241A0()
         return 0;
     }
 
-    static_cast<void>(login::detail::Sub_44B5C0("\tinitDSound() Start"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0("\tinitDSound() Start"));
     const std::int32_t result = InitializeAudioDeviceAndSamples_524230();
     if (result == 0) {
         gAudioDisabled_10507D4 = 1;
         return result;
     }
 
-    static_cast<void>(login::detail::Sub_44B5C0("\tmusic_init() Start"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0("\tmusic_init() Start"));
     static_cast<void>(InitializeSoundRuntimeState_52B9E0());
     gAudioDisabled_10507D4 = 0;
-    static_cast<void>(login::detail::Sub_44B5C0("t_music_init OK"));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0("t_music_init OK"));
     return 1;
 }
 
@@ -530,8 +530,8 @@ std::int32_t UpdateBgmRequest_52C910()
                     login::gSelectedCharacterIndex;
                 const std::int32_t selectedValue = selected;
                 gBgmStage1050814 = 1;
-                static_cast<void>(login::detail::Sub_520750(selectedValue));
-                result = login::detail::Sub_520200();
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(selectedValue));
+                result = login::detail::SaveCurrentLoginRecord_520200();
             }
         }
         gBgmRequest1050810 = 0;
@@ -564,7 +564,7 @@ std::int32_t UpdateBgmRequest_52C910()
 // 原函数：0x0052CCE0。
 std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept
 {
-    if (gValue103DE80 == 1) {
+    if (gSkipMciDeviceClose_103DE80 == 1) {
         return 1;
     }
 

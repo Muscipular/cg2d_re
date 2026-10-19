@@ -62,7 +62,7 @@ static cg::yobi::YobiAction* gServerConnectionAction = nullptr;
 namespace detail {
 
 // 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
-std::uint32_t Sub_44B5C0(const char* text)
+std::uint32_t AppendSystemLog_44B5C0(const char* text)
 {
     std::FILE* const file = std::fopen("systemlog.txt", "a");
     if (file == nullptr) {
@@ -74,7 +74,7 @@ std::uint32_t Sub_44B5C0(const char* text)
 }
 
 // 原函数：0x00508360。
-std::int32_t Sub_508360()
+std::int32_t AdvanceServerLoginConnection_508360()
 {
     if (network::ReadNetworkRuntimeActive() == 0) {
         return 0;
@@ -149,7 +149,7 @@ std::int32_t Sub_508360()
                 char logMessage[sizeof("CONNECT ERROR=-2147483648")];
                 static_cast<void>(std::sprintf(
                     logMessage, "CONNECT ERROR=%d", error));
-                static_cast<void>(Sub_44B5C0(logMessage));
+                static_cast<void>(AppendSystemLog_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 static_cast<void>((gRequestMessage = L"无法开始处理与伺服器的连接。"));
@@ -184,7 +184,7 @@ std::int32_t Sub_508360()
                 static_cast<SOCKET>(platform::gConnectionSocket), &writeSet) != 0) {
             gConnectionStep = 71;
             gRequestPollingEnabled = 1;
-            static_cast<void>(Sub_44B5C0("CONNECT OK"));
+            static_cast<void>(AppendSystemLog_44B5C0("CONNECT OK"));
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
@@ -217,7 +217,7 @@ std::int32_t Sub_508360()
             char diagnostic[64];
             static_cast<void>(std::sprintf(
                 diagnostic, "LOGIN QUEUE RESULT=%d", queued));
-            static_cast<void>(Sub_44B5C0(diagnostic));
+            static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
@@ -329,7 +329,7 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 4) {
-        const std::int32_t updateResult = detail::Sub_508360();
+        const std::int32_t updateResult = detail::AdvanceServerLoginConnection_508360();
         if (updateResult == 1) {
             result = 1;
         } else if (updateResult < 0) {

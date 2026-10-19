@@ -552,7 +552,7 @@ static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* cons
     if (!leftUsed) {
         return 0;
     }
-    const std::uint32_t mode = platform::gValueD67CD0;
+    const std::uint32_t mode = platform::gContactSortMode_D67CD0;
     if (mode > 4) {
         return 0;
     }

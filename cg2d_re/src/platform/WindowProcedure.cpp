@@ -359,7 +359,7 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_IME_COMPOSITION:
-        static_cast<void>(Sub_459580(std::bit_cast<std::int16_t>(
+        static_cast<void>(HandleImeCompositionFlags_459580(std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(lParam32))));
         return 0;
 

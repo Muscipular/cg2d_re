@@ -324,7 +324,7 @@ std::int32_t InitLoading_457B10()
         }
         UpdateCursor_506E00();
         render::SortTextures_520790();
-        Sub_507140();
+        UpdateQueuedTextAndGraphicHover_507140();
         static_cast<void>(render::UpdatePalette_450BB0());
         ClearKeyFlags_459760();
         const double threshold = gFrameThreshold + gLastRenderDt;

@@ -2636,8 +2636,8 @@ static std::int32_t WindowRuntime_IncrementNameMode()
     if (pastLastMode) {
         platform::gValue5F974C = 0;
     }
-    static_cast<void>(login::detail::Sub_520590());
-    return login::detail::Sub_520200();
+    static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
+    return login::detail::SaveCurrentLoginRecord_520200();
 }
 
 // CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
@@ -4851,7 +4851,7 @@ void WindowRuntime_ProcessScene()
         WindowRuntime_MarkExistingWindows();
         static_cast<void>(WindowRuntime_CloseAll());
         static_cast<void>(WindowRuntime_SaveSettings());
-        world::Sub_5186A0();
+        world::SaveAlbumData_5186A0();
         static_cast<void>(cg::world::detail::Sub_519300());
         static_cast<void>(cg::world::detail::Sub_519550());
         static_cast<void>(world::detail::Sub_534770());

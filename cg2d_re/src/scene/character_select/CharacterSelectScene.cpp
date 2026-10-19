@@ -328,11 +328,11 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
             if (gate == 1) {
                 const std::int32_t selected = login::gSelectedCharacterIndex;
                 world::gCurrentSceneState = 30;
-                cg::login::Sub_51B3B0(static_cast<std::uint32_t>(selected));
+                cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(selected));
                 const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
-                cg::login::detail::Sub_520200();
+                cg::login::detail::SaveCurrentLoginRecord_520200();
                 input::SetContext_44B330(nullptr);
                 sceneState = world::gCurrentSceneState;
             } else if (gate == 2) {
@@ -1584,12 +1584,12 @@ std::int32_t ProcessScene_460FF0()
             } else if (mainState == 14u) {
                 const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
                 if (result == 1) {
-                    cg::login::Sub_51B3B0(static_cast<std::uint32_t>(
+                    cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(
                         static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
                     const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
                     static_cast<void>(unusedSelected);
                     cg::core::NullSub_509080();
-                    cg::login::detail::Sub_520200();
+                    cg::login::detail::SaveCurrentLoginRecord_520200();
                     if (state::gPendingCharacterCount > 0) {
                         --state::gPendingCharacterCount;
                     }

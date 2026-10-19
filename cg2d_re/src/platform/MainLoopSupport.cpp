@@ -60,10 +60,10 @@ std::uint32_t ResetSystemLog_44B5A0()
 }
 
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。
-int Sub_52CD30(std::int32_t)
+int UpdateAudioAndSkipMciClose_52CD30(std::int32_t)
 {
     cg::audio::UpdateAudioPlayback_52CCA0();
-    cg::audio::gValue103DE80 = 1;
+    cg::audio::gSkipMciDeviceClose_103DE80 = 1;
     return 1;
 }
 
@@ -148,7 +148,7 @@ std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 }
 
 // 原 sub_423640@[0x423640,0x4237D5)：更新偏移/幅度后，将共享 Temp 裁剪回拷 Back。
-void Sub_423640()
+void ApplyScreenShake_423640()
 {
     std::uint32_t offsetYBits;
     if (cg::yobi::gYobiUpdateGateMode == 1

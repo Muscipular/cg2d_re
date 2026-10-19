@@ -354,13 +354,13 @@ static std::int32_t WindowSettings_Draw(const std::int32_t)
 // 原函数：0x00493E10。
 static void WindowSettings_Release()
 {
-    static_cast<void>(login::detail::Sub_520470());
-    static_cast<void>(login::detail::Sub_520590());
+    static_cast<void>(login::detail::CaptureAudioPreferences_520470());
+    static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
     const std::int32_t selected = login::gSelectedCharacterIndex;
-    static_cast<void>(login::detail::Sub_520510(selected));
-    static_cast<void>(login::detail::Sub_520640());
-    static_cast<void>(login::detail::Sub_5206F0());
-    static_cast<void>(login::detail::Sub_520200());
+    static_cast<void>(login::detail::CaptureCharacterDisplaySettings_520510(selected));
+    static_cast<void>(login::detail::CapturePresetChatTexts_520640());
+    static_cast<void>(login::detail::CaptureContactSortMode_5206F0());
+    static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }
 

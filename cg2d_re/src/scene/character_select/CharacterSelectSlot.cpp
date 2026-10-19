@@ -71,7 +71,7 @@ std::int32_t ProcessCharacterSlot_461B30(
     const login::CharacterRecord& record =
         login::gCharacterRecords[static_cast<std::size_t>(slot)];
 
-    if (cg::login::Sub_51B110(slot) != 0) {
+    if (cg::login::HasCharacterInSlot_51B110(slot) != 0) {
         style = mode;
         for (std::int32_t item = 1; item < 3; ++item) {
             detail::CharacterSelectUiRecord& uiRecord =
@@ -165,7 +165,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
     cg::render::DrawText3_456560(30, 450, 0, 4, detail::gText9A4EAC, 0);
 
-    if (state::gPukVersion >= 5u && cg::login::Sub_51B110(slot) != 0) {
+    if (state::gPukVersion >= 5u && cg::login::HasCharacterInSlot_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {
             const std::uint32_t toggle = static_cast<std::uint32_t>(
                 record.previewState);

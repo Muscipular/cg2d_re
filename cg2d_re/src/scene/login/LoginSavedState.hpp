@@ -28,37 +28,37 @@ std::int32_t RestoreCurrentSavedState_5201B0();
 std::int32_t InitializeSavedState_533300();
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
-std::int32_t Sub_520510(const std::int32_t selected);
+std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected);
 
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
-std::int32_t Sub_520550(const std::int32_t selected);
+std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected);
 
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
-std::int32_t Sub_520750(const std::int32_t selected);
+std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected);
 
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
-std::int32_t Sub_520770(const std::int32_t selected);
+std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected);
 
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
-std::int32_t Sub_520470();
+std::int32_t CaptureAudioPreferences_520470();
 
 // 原 sub_520590@[0x520590,0x5205D5)：将六项标量低字节写入当前记录。
-std::uint8_t Sub_520590();
+std::uint8_t CaptureClientPreferenceBytes_520590();
 
 // 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
-std::uint32_t Sub_520640();
+std::uint32_t CapturePresetChatTexts_520640();
 
 // 原 sub_5206F0@[0x5206F0,0x5206FB)：保存单字节状态并返回 AL。
-std::uint8_t Sub_5206F0();
+std::uint8_t CaptureContactSortMode_5206F0();
 
 // 原 sub_520720@[0x520720,0x52072B)：保存 +0x315 的低字节并返回 AL。
 std::uint8_t Sub_520720();
 
 // 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
-std::int32_t Sub_520160();
+std::int32_t SaveCurrentClientPreferences_520160();
 
 // 原函数：0x00520200。
-std::int32_t Sub_520200();
+std::int32_t SaveCurrentLoginRecord_520200();
 
 std::int32_t ReadNewSavedPhysicalSlot105C368();
 
@@ -68,10 +68,10 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(
 const char* ReadSelectedSavedDirectory();
 
 // 原函数：0x005336D0。
-std::int32_t Sub_5336D0();
+std::int32_t LoadSelectedLoginRecord_5336D0();
 
 // 原函数：0x00533860。
-std::int32_t Sub_533860(const std::int32_t physicalSlot);
+std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot);
 
 void RestoreCapability4CurrentSavedRecord();
 
@@ -101,26 +101,26 @@ void Sub_533570(
     const std::int32_t logicalSlot);
 
 // 原函数：0x005335B0。
-void Sub_5335B0(
+void WriteSavedPassword_5335B0(
     const char* const source,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533640。
-void Sub_533640(
+void WriteSavedAccount_533640(
     const char* const source,
     const std::int32_t logicalSlot);
 
 // 原函数：0x005335F0。
-char* Sub_5335F0(
+char* ReadSavedPassword_5335F0(
     char* const output,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533680。
-char* Sub_533680(
+char* ReadSavedAccount_533680(
     char* const output,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533730。
-void Sub_533730();
+void SaveCredentialRecordsWithoutPasswords_533730();
 
 } // namespace cg::login::detail

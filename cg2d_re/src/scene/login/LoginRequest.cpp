@@ -30,7 +30,7 @@ std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
 static_assert(sizeof(gCharacterRecords) == 0x128);
 
 // 原函数：0x0051B3B0。
-std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
+std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
@@ -40,7 +40,7 @@ std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
 }
 
 // 原函数：0x0051B110。
-std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
+std::int32_t HasCharacterInSlot_51B110(const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
@@ -160,7 +160,7 @@ namespace cg::login::detail {
 std::uint16_t gReplyCodeDA3B2E = 0; // 原全局：0x00DA3B2E。
 
 // 原 sub_508C40@[0x508C40,0x508C81)：登出请求启动。
-std::uint32_t Sub_508C40()
+std::uint32_t BeginLogoutRequest_508C40()
 {
     const std::uintptr_t socket = platform::gConnectionSocket;
     gReplyCodeDA3B2E = 0;
@@ -172,7 +172,7 @@ std::uint32_t Sub_508C40()
 }
 
 // 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
-std::int32_t Sub_508C90()
+std::int32_t PollLogoutReply_508C90()
 {
     if (gRequestStatus == 2) {
         const std::uint16_t replyCode = gReplyCodeDA3B2E;
@@ -195,7 +195,7 @@ std::int32_t Sub_508C90()
 }
 
 // 原函数：0x00508CF0。
-std::int32_t Sub_508CF0(
+std::int32_t HandleLogoutReply_508CF0(
     const std::uintptr_t, const char* const result, const char*)
 {
     const bool waitingForReply = gRequestStatus == 1;

@@ -158,7 +158,7 @@ std::int32_t Sub_464840()
             if (!login::SaveCapability4InputSlot()) {
                 return DrawCapability4Base();
             }
-            login::detail::Sub_533730();
+            login::detail::SaveCredentialRecordsWithoutPasswords_533730();
             static_cast<void>(login::detail::PlaySe(53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));
             world::gCurrentSceneState = 4;
@@ -191,7 +191,7 @@ std::int32_t Sub_464840()
 
     case 4: {
         const std::uint32_t previousShow = platform::gValueD67AE4;
-        static_cast<void>(login::detail::Sub_5336D0());
+        static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0());
         login::detail::RestoreCapability4CurrentSavedRecord();
         const std::uint32_t currentShow = platform::gValueD67AE4;
         if (currentShow != previousShow) {
@@ -241,7 +241,7 @@ std::int32_t Sub_464840()
             login::detail::gSelectedSavedSlot105C394;
         const std::int32_t physicalSlot =
             login::detail::ReadMappedSavedPhysicalSlot105C36C(selected);
-        static_cast<void>(login::detail::Sub_533860(physicalSlot));
+        static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(physicalSlot));
         login::ResetLoginMessage();
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();

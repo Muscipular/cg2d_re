@@ -33,7 +33,7 @@ void UpdateAudioPlayback_52CCA0();
 // 原458AE0：实际音频设备探测与旧DINPUT入口可用性检查。
 std::int32_t CheckAudioAndInputAvailability_458AE0();
 
-extern std::uint32_t gValue103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
+extern std::uint32_t gSkipMciDeviceClose_103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
 extern std::uint32_t gAudioDisabled_10507D4; // 原 0x10507D4；5241A0 写入，音效/BGM/更新入口共读。
 extern std::int32_t gBgmTarget1050818; // 原 0x1050818；BGM 请求与当前存档共用的目标 W32。
 extern std::int32_t gBgmRequest1050810; // 原 0x1050810；世界场景生产、52C910 消费的请求 W32。

@@ -177,7 +177,7 @@ void Update()
         if (detail::Sub_455C90() == 0) {
             goto sceneSixTail;
         }
-        cg::login::detail::Sub_520160();
+        cg::login::detail::SaveCurrentClientPreferences_520160();
         detail::Sub_519D50();
         detail::Sub_446470();
         cg::network::ShutdownNetworkRuntime_5081A0();

@@ -122,7 +122,7 @@ std::wstring_view QueryWindowImeDescription_4734F0() noexcept
 }
 
 // 原 sub_459580@[0x459580,0x4596C8)。四个标志分支彼此独立，顺序与旧端一致。
-char Sub_459580(const std::int16_t flags)
+char HandleImeCompositionFlags_459580(const std::int16_t flags)
 {
     const std::uint16_t flagBits = std::bit_cast<std::uint16_t>(flags);
     std::uint8_t returnByte = static_cast<std::uint8_t>(flagBits);

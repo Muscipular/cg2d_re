@@ -246,14 +246,14 @@ int InitializeClient_4576B0()
     if (initialization_detail::InitLoading_457B10() == 0) {
         return 0;
     }
-    login::detail::Sub_44B5C0("fadeInNowLoading Start");
+    login::detail::AppendSystemLog_44B5C0("fadeInNowLoading Start");
     if (initialization_detail::FadeInLoading_458390() == 0) {
         return 0;
     }
 
-    login::detail::Sub_44B5C0("initAutoMapColor Start");
+    login::detail::AppendSystemLog_44B5C0("initAutoMapColor Start");
     static_cast<void>(resource::LoadAutoMapColor_45A130(resource::gGraphicInfoPaths));
-    login::detail::Sub_44B5C0("InitSprBinFileOpen Start");
+    login::detail::AppendSystemLog_44B5C0("InitSprBinFileOpen Start");
     if (resource::animation::AnimeInit_45BB20(
             resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
         ShowWideMessage(L"Anime.bin 读取错误", kConfirmCaption, kErrorMessageFlags);
@@ -261,21 +261,21 @@ int InitializeClient_4576B0()
     }
     resource::animation::CoordLoadInit_45C040(
         resource::gCoordinatePaths, resource::gCoordinateInfoPaths);
-    login::detail::Sub_44B5C0("t_music_init Start");
+    login::detail::AppendSystemLog_44B5C0("t_music_init Start");
     static_cast<void>(audio::InitializeAudio_5241A0());
     static_cast<void>(cg::audio::InitializeMusic_454C30(gLegacyWindow));
-    login::detail::Sub_44B5C0("initAlbumStartUp Start");
+    login::detail::AppendSystemLog_44B5C0("initAlbumStartUp Start");
     static_cast<void>(world::InitializeAlbum_518C20());
 
     const double initialFrameTime = static_cast<double>(ReadTickCount64());
     world::gPendingSceneType = -1;
     gLastRenderDt = initialFrameTime;
-    login::detail::Sub_44B5C0("fadeOutNowLoading Start");
+    login::detail::AppendSystemLog_44B5C0("fadeOutNowLoading Start");
     if (initialization_detail::FadeOutLoading_4585F0() == 0) {
         return 0;
     }
     render::gRenderQueueMode103CF10 = 1;
-    login::detail::Sub_44B5C0("initGame OK");
+    login::detail::AppendSystemLog_44B5C0("initGame OK");
     static_cast<void>(ui::detail::WindowRuntime_Initialize());
     return script::InitializeLua() ? 1 : 0;
 }

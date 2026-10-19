@@ -2,9 +2,9 @@
 
 日期：2026-10-19。用户明确目标：完成此前剩余636项的逐项分析，不能以局部命名结果代替全量分析。
 
-范围固定为BSR01五组提交后的src/include代码标识符集合；635项找到唯一当前函数定义，Sub_520160暂只找到声明／引用，待查。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
+范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：0／636。已重命名：0。保留／未决：0。待分析：636。
+已分析：34／636。已重命名：30。保留／未决：4。待分析：602。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -14,7 +14,7 @@
 | `Sub_404D60` | src/Yobi/base.cpp:379 | 待分析 | — |
 | `Sub_405CB0` | src/Yobi/battle_base.cpp:215 | 待分析 | — |
 | `Sub_406260` | src/Yobi/battle_base.cpp:462 | 待分析 | — |
-| `Sub_423640` | src/platform/MainLoopSupport.cpp:151 | 待分析 | — |
+| `Sub_423640` | src/platform/MainLoopSupport.cpp:151 | 已重命名：`ApplyScreenShake_423640` | 按Yobi门禁复用/随机生成偏移，增减幅度并裁剪Temp回拷Back；不改RNG消费序。 |
 | `Sub_43BAA0` | src/Yobi/battle_message.cpp:3604 | 待分析 | — |
 | `Sub_43BFF0` | src/Yobi/battle_scene.cpp:318 | 待分析 | — |
 | `Sub_43C040` | src/Yobi/battle_scene.cpp:334 | 待分析 | — |
@@ -153,7 +153,7 @@
 | `Sub_449FA0` | src/world/ChatHistory.cpp:216 | 待分析 | — |
 | `Sub_44A090` | src/world/ChatHistory.cpp:92 | 待分析 | — |
 | `Sub_44B050` | src/world/ChatHistory.cpp:240 | 待分析 | — |
-| `Sub_44B5C0` | src/scene/login/LoginState.cpp:65 | 待分析 | — |
+| `Sub_44B5C0` | src/scene/login/LoginState.cpp:65 | 已重命名：`AppendSystemLog_44B5C0` | 以追加模式写systemlog.txt和换行，返回fclose位模式。 |
 | `Sub_455A90` | src/world/SceneState.cpp:5623 | 待分析 | — |
 | `Sub_455AC0` | src/world/SceneState.cpp:6575 | 待分析 | — |
 | `Sub_455AD0` | src/world/SceneState.cpp:6581 | 待分析 | — |
@@ -173,9 +173,9 @@
 | `Sub_455FC0` | src/world/SceneState.cpp:3423 | 待分析 | — |
 | `Sub_458F00` | src/world/SceneState.cpp:4014 | 待分析 | — |
 | `Sub_458F40` | src/world/SceneState.cpp:3987 | 待分析 | — |
-| `Sub_459580` | src/platform/imeImpl.cpp:125 | 待分析 | — |
-| `Sub_45B370` | src/resource/AnimationRuntime.cpp:70 | 待分析 | — |
-| `Sub_45B380` | src/resource/AnimationRuntime.cpp:76 | 待分析 | — |
+| `Sub_459580` | src/platform/imeImpl.cpp:125 | 已重命名：`HandleImeCompositionFlags_459580` | 按GCS_RESULTSTR/COMPSTR/COMPATTR/CURSORPOS依次提交文字、更新合成串/属性/光标；窗口消息消费者。 |
+| `Sub_45B370` | src/resource/AnimationRuntime.cpp:70 | 已分析，保留原名 | 仅转调45B380；原证据与当前初始化调用未证明被复制配置的业务用途，不猜预算/容量。 |
+| `Sub_45B380` | src/resource/AnimationRuntime.cpp:76 | 已分析，保留原名 | 只复制9A4A50至9A4A48并返回；本会话已查xrefs，前者由45751E赋10412000，后者另只作45B740循环终点地址，未见业务值消费者。 |
 | `Sub_45E7B0` | src/scene/character_select/CharacterSelectScene.cpp:210 | 待分析 | — |
 | `Sub_45E7D0` | src/scene/character_select/CharacterSelectScene.cpp:219 | 待分析 | — |
 | `Sub_45EBB0` | src/world/SceneState.cpp:8017 | 待分析 | — |
@@ -294,7 +294,7 @@
 | `Sub_470270` | src/world/SceneState.cpp:10916 | 待分析 | — |
 | `Sub_4703C0` | src/world/SceneState.cpp:10956 | 待分析 | — |
 | `Sub_4704A0` | src/world/SceneState.cpp:10986 | 待分析 | — |
-| `Sub_4705F0` | src/platform/ClientShutdown.cpp:27 | 待分析 | — |
+| `Sub_4705F0` | src/platform/ClientShutdown.cpp:27 | 已重命名：`SaveUiAndAlbumThenCloseWindows_4705F0` | 正文先保存窗口设置，调用5186A0写album.dat，再返回CloseAll结果；退出入口调用。 |
 | `Sub_470670` | src/world/SceneState.cpp:11022 | 待分析 | — |
 | `Sub_472F40` | src/world/SceneState.cpp:8691 | 待分析 | — |
 | `Sub_472F70` | src/world/SceneState.cpp:8702 | 待分析 | — |
@@ -336,13 +336,13 @@
 | `Sub_505040` | src/world/SceneState.cpp:9226 | 待分析 | — |
 | `Sub_5050B0` | src/world/SceneState.cpp:9243 | 待分析 | — |
 | `Sub_505110` | src/world/SceneState.cpp:9259 | 待分析 | — |
-| `Sub_507140` | src/platform/MouseDispatch.cpp:195 | 待分析 | — |
+| `Sub_507140` | src/platform/MouseDispatch.cpp:195 | 已重命名：`UpdateQueuedTextAndGraphicHover_507140` | 逐项命中文本、倒序命中排序图形，提交高亮、写悬停索引/光标层并描述Yobi。 |
 | `Sub_5082D0` | src/network/NetworkRuntime.cpp:581 | 待分析 | — |
 | `Sub_508310` | src/network/NetworkRuntime.cpp:591 | 待分析 | — |
-| `Sub_508360` | src/scene/login/LoginState.cpp:77 | 待分析 | — |
-| `Sub_508C40` | src/scene/login/LoginRequest.cpp:163 | 待分析 | — |
-| `Sub_508C90` | src/scene/login/LoginRequest.cpp:175 | 待分析 | — |
-| `Sub_508CF0` | src/scene/login/LoginRequest.cpp:198 | 待分析 | — |
+| `Sub_508360` | src/scene/login/LoginState.cpp:77 | 已重命名：`AdvanceServerLoginConnection_508360` | 0建非阻塞TCP/解析地址，1—70轮询连接，71发登录，等待协议回复，99成功，保600秒超时。 |
+| `Sub_508C40` | src/scene/login/LoginRequest.cpp:163 | 已重命名：`BeginLogoutRequest_508C40` | 清登出回复，调用512BD0，状态置1并记录起始tick。 |
+| `Sub_508C90` | src/scene/login/LoginRequest.cpp:175 | 已重命名：`PollLogoutReply_508C90` | 读取DA3B2E回复码及状态2，或按请求时间判断超时，写处理登出逾时消息。 |
+| `Sub_508CF0` | src/scene/login/LoginRequest.cpp:198 | 已重命名：`HandleLogoutReply_508CF0` | HMNy分派入口；比较成功字串，等待回复时写码1，主动登出通知写码2、切场景7并播60。 |
 | `Sub_509090` | src/world/SceneState.cpp:10304 | 待分析 | — |
 | `Sub_509100` | src/world/SceneState.cpp:10327 | 待分析 | — |
 | `Sub_5093C0` | src/world/SceneState.cpp:10062 | 待分析 | — |
@@ -510,7 +510,7 @@
 | `Sub_5185C0` | src/world/SceneState.cpp:9886 | 待分析 | — |
 | `Sub_518600` | src/world/SceneState.cpp:1777 | 待分析 | — |
 | `Sub_518660` | src/world/SceneState.cpp:1762 | 待分析 | — |
-| `Sub_5186A0` | src/world/SceneState.cpp:8217 | 待分析 | — |
+| `Sub_5186A0` | src/world/SceneState.cpp:8217 | 已重命名：`SaveAlbumData_5186A0` | 复制gAlbumStorage完整快照，编码后写数据目录album.dat，保原容量4及短写未关闭分支，不借命名修行为。 |
 | `Sub_518780` | src/world/SceneState.cpp:651 | 待分析 | — |
 | `Sub_518870` | src/world/SceneState.cpp:689 | 待分析 | — |
 | `Sub_518A40` | src/world/SceneState.cpp:731 | 待分析 | — |
@@ -566,8 +566,8 @@
 | `Sub_51A840` | src/world/SceneState.cpp:6261 | 待分析 | — |
 | `Sub_51B080` | src/world/SceneState.cpp:5459 | 待分析 | — |
 | `Sub_51B0F0` | src/world/SceneState.cpp:5451 | 待分析 | — |
-| `Sub_51B110` | src/scene/login/LoginRequest.cpp:43 | 待分析 | — |
-| `Sub_51B3B0` | src/scene/login/LoginRequest.cpp:33 | 待分析 | — |
+| `Sub_51B110` | src/scene/login/LoginRequest.cpp:43 | 已重命名：`HasCharacterInSlot_51B110` | 合法槽按name[0]返回0/1，越界返回-1；选人图形消费。 |
+| `Sub_51B3B0` | src/scene/login/LoginRequest.cpp:33 | 已重命名：`ClearCharacterSlot_51B3B0` | 校验角色槽索引后整条清零；角色列表请求和删除成功路径调用。 |
 | `Sub_51B3E0` | src/world/SceneState.cpp:5679 | 待分析 | — |
 | `Sub_51B530` | src/world/SceneState.cpp:1870 | 待分析 | — |
 | `Sub_51B5F0` | src/world/SceneState.cpp:9515 | 待分析 | — |
@@ -607,29 +607,29 @@
 | `Sub_51FA70` | src/world/SceneState.cpp:7956 | 待分析 | — |
 | `Sub_51FC90` | src/world/SceneState.cpp:7962 | 待分析 | — |
 | `Sub_51FDE0` | src/world/WorldUpdate.cpp:359 | 待分析 | — |
-| `Sub_520160` | src/scene/login/LoginSavedState.cpp；src/scene/login/LoginSavedState.hpp；src/world/SceneState.cpp；src/world/WorldUpdate.cpp | 待分析 | — |
-| `Sub_520200` | src/scene/login/LoginSavedState.cpp:1037 | 待分析 | — |
-| `Sub_520470` | src/scene/login/LoginSavedState.cpp:908 | 待分析 | — |
-| `Sub_520510` | src/scene/login/LoginSavedState.cpp:849 | 待分析 | — |
-| `Sub_520550` | src/scene/login/LoginSavedState.cpp:870 | 待分析 | — |
-| `Sub_520590` | src/scene/login/LoginSavedState.cpp:940 | 待分析 | — |
-| `Sub_520640` | src/scene/login/LoginSavedState.cpp:966 | 待分析 | — |
-| `Sub_5206F0` | src/scene/login/LoginSavedState.cpp:988 | 待分析 | — |
-| `Sub_520720` | src/scene/login/LoginSavedState.cpp:999 | 待分析 | — |
-| `Sub_520750` | src/scene/login/LoginSavedState.cpp:886 | 待分析 | — |
-| `Sub_520770` | src/scene/login/LoginSavedState.cpp:897 | 待分析 | — |
-| `Sub_52CD30` | src/platform/MainLoopSupport.cpp:63 | 待分析 | — |
+| `Sub_520160` | src/scene/login/LoginSavedState.cpp:1010 | 已重命名：`SaveCurrentClientPreferences_520160` | 函数级try依次捕获音频/显示/快捷文/排序/BGM等并持久化，GBK容量异常返回-1；已人工补核catch，初始提取误漏。 |
+| `Sub_520200` | src/scene/login/LoginSavedState.cpp:1037 | 已重命名：`SaveCurrentLoginRecord_520200` | 包装PersistCurrentSavedRecord：复制当前记录、清密码字节、编码save.dat并回写选中物理记录，保原失败路径。 |
+| `Sub_520470` | src/scene/login/LoginSavedState.cpp:908 | 已重命名：`CaptureAudioPreferences_520470` | 保存立体声、音效/音乐音量及16字节频率选择到当前存档。 |
+| `Sub_520510` | src/scene/login/LoginSavedState.cpp:849 | 已重命名：`CaptureCharacterDisplaySettings_520510` | 四项显示低字节写当前记录30A/30C/30E/310+角色索引，与520550互逆。 |
+| `Sub_520550` | src/scene/login/LoginSavedState.cpp:870 | 已重命名：`RestoreCharacterDisplaySettings_520550` | 从上述四组记录恢复聊天色及三个显示值，保两组交错发布。 |
+| `Sub_520590` | src/scene/login/LoginSavedState.cpp:940 | 已重命名：`CaptureClientPreferenceBytes_520590` | 将光标、聊天/显示、同步等六项设置低字节写存档B0/B1/312/314/31A/31B；不为未证单项外推名字。 |
+| `Sub_520640` | src/scene/login/LoginSavedState.cpp:966 | 已重命名：`CapturePresetChatTexts_520640` | 校验并保存24个快捷文字上下文，每项25字节GBK字段，返回末次复制长度。 |
+| `Sub_5206F0` | src/scene/login/LoginSavedState.cpp:988 | 已重命名：`CaptureContactSortMode_5206F0` | 保存D67CD0低字节到313；WindowContacts排序按钮发布，MailState及联系人/群组列表读取。 |
+| `Sub_520720` | src/scene/login/LoginSavedState.cpp:999 | 已分析，保留原名 | 当前仅保存553438低字节到315；源码只见保存/恢复，IDA xrefs另见4FE3F0/4FE440及4FE860@4FE9A3以0.1缩放显示。缺具体设置标签与实际效果消费，保留原名，不猜速度/音量。 |
+| `Sub_520750` | src/scene/login/LoginSavedState.cpp:886 | 已重命名：`CaptureCharacterBgmTarget_520750` | 把当前BGM目标低W16写316+角色索引*2，返回索引。 |
+| `Sub_520770` | src/scene/login/LoginSavedState.cpp:897 | 已重命名：`RestoreCharacterBgmTarget_520770` | 从316+索引*2读W16并恢复1050818目标，返回目标。 |
+| `Sub_52CD30` | src/platform/MainLoopSupport.cpp:63 | 已重命名：`UpdateAudioAndSkipMciClose_52CD30` | 主循环调用音频更新后把103DE80置1；52CCE0仅以该标志跳过MCI_STOP/CLOSE，不猜通知类型。 |
 | `Sub_52E180` | src/world/SceneState.cpp:9587 | 待分析 | — |
 | `Sub_52E1D0` | src/world/SceneState.cpp:9605 | 待分析 | — |
 | `Sub_532D80` | src/world/GuildState.cpp:249 | 待分析 | — |
-| `Sub_533570` | src/scene/login/LoginSavedState.cpp:1116 | 待分析 | — |
-| `Sub_5335B0` | src/scene/login/LoginSavedState.cpp:1139 | 待分析 | — |
-| `Sub_5335F0` | src/scene/login/LoginSavedState.cpp:1185 | 待分析 | — |
-| `Sub_533640` | src/scene/login/LoginSavedState.cpp:1162 | 待分析 | — |
-| `Sub_533680` | src/scene/login/LoginSavedState.cpp:1212 | 待分析 | — |
-| `Sub_5336D0` | src/scene/login/LoginSavedState.cpp:1061 | 待分析 | — |
-| `Sub_533730` | src/scene/login/LoginSavedState.cpp:1239 | 待分析 | — |
-| `Sub_533860` | src/scene/login/LoginSavedState.cpp:1067 | 待分析 | — |
+| `Sub_533570` | src/scene/login/LoginSavedState.cpp:1116 | 已分析，保留原名 | 已核将9A4D20输入的51字节写逻辑映射记录首文本；该上下文另由LoginCapability3InputController绘制，但未证是账户标签/姓名/其他文本，不以猜测给业务名。 |
+| `Sub_5335B0` | src/scene/login/LoginSavedState.cpp:1139 | 已重命名：`WriteSavedPassword_5335B0` | 写映射记录text+33；CacheAutoLoginInputValues明确传password，与FF494F密码缓存对应。 |
+| `Sub_5335F0` | src/scene/login/LoginSavedState.cpp:1185 | 已重命名：`ReadSavedPassword_5335F0` | 读取映射记录text+33到输出，空映射写空串，最多51字节；与密码写入口配对。 |
+| `Sub_533640` | src/scene/login/LoginSavedState.cpp:1162 | 已重命名：`WriteSavedAccount_533640` | 写映射记录text+66；CacheAutoLoginInputValues明确传account，与FF4982账号缓存对应。 |
+| `Sub_533680` | src/scene/login/LoginSavedState.cpp:1212 | 已重命名：`ReadSavedAccount_533680` | 读取映射记录text+66到输出，空映射写空串，最多51字节；与账号写入口配对。 |
+| `Sub_5336D0` | src/scene/login/LoginSavedState.cpp:1061 | 已重命名：`LoadSelectedLoginRecord_5336D0` | 包装LoadSelectedPhysicalRecord，将selected物理记录复制为当前记录，不混同逻辑槽映射。 |
+| `Sub_533730` | src/scene/login/LoginSavedState.cpp:1239 | 已重命名：`SaveCredentialRecordsWithoutPasswords_533730` | 遍历活动且账号/密码非空槽，复制整记录后只清副本密码，编码写各目录save.dat，失败提前返回。 |
+| `Sub_533860` | src/scene/login/LoginSavedState.cpp:1067 | 已重命名：`DeleteSavedAccountFiles_533860` | 包装DeleteSavedFiles，清自动登录槽标记并删该物理槽save.dat/mail.dat/guildmail.dat。 |
 | `Sub_533910` | src/world/MailState.cpp:841 | 待分析 | — |
 | `Sub_533950` | src/world/MailState.cpp:852 | 待分析 | — |
 | `Sub_533B00` | src/world/MailState.cpp:878 | 待分析 | — |

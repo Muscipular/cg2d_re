@@ -293,7 +293,7 @@ static std::int32_t WindowContacts_Update(const std::int32_t value)
     if (value == -1) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         const std::int32_t mode = gValueD67B38;
-        const std::uint32_t sortMode = platform::gValueD67CD0;
+        const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
         gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(mode, category);
         static_cast<void>(world::detail::Sub_518DA0());
@@ -687,7 +687,7 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     WindowContacts_ClampScroll();
-    login::detail::Sub_520200();
+    login::detail::SaveCurrentLoginRecord_520200();
     return 1;
 }
 
@@ -763,7 +763,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
             const std::int32_t oldSort = std::bit_cast<std::int32_t>(gLoginWindowRuntime.mailSortModeD67B3C);
             const std::int32_t sort = (oldSort + (index == 3 ? 4 : 6)) % 5;
             gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
-            platform::gValueD67CD0 = std::bit_cast<std::uint32_t>(sort);
+            platform::gContactSortMode_D67CD0 = std::bit_cast<std::uint32_t>(sort);
         } else {
             const std::int32_t mode = gValueD67B38;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -771,7 +771,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
             gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += index == 5 ? -step : step;
             WindowContacts_ClampScroll();
         }
-        login::detail::Sub_520200();
+        login::detail::SaveCurrentLoginRecord_520200();
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
@@ -1384,7 +1384,7 @@ static std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left
         }
     }
 
-    const std::uint32_t mode = platform::gValueD67CD0;
+    const std::uint32_t mode = platform::gContactSortMode_D67CD0;
     if (mode > 4) {
         return 0;
     }

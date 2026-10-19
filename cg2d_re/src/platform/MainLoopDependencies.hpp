@@ -30,11 +30,11 @@ void ShowModeChange_458A40();
 // 原函数：0x00457AB0。
 void KeepAlive_457AB0();
 // 原函数：0x0052CD30。
-int Sub_52CD30(std::int32_t value);
+int UpdateAudioAndSkipMciClose_52CD30(std::int32_t value);
 // 原函数：0x00507140。
-void Sub_507140();
+void UpdateQueuedTextAndGraphicHover_507140();
 // 原函数：0x00423640。
-void Sub_423640();
+void ApplyScreenShake_423640();
 // 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed);
 // 原函数：0x004589D0。

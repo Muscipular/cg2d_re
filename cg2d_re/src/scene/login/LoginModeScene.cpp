@@ -73,7 +73,7 @@ void ProcessModeScene_45C5A0()
         if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
             return;
         }
-        static_cast<void>(detail::Sub_520200());
+        static_cast<void>(detail::SaveCurrentLoginRecord_520200());
         static_cast<void>(detail::PlaySe(53, 320, 240));
         if (render::gPaletteCapability >= 1) {
             static_cast<void>(render::SelectPalette(19, 30));

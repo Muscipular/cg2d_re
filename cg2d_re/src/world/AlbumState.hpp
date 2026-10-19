@@ -46,7 +46,7 @@ const AlbumRecord* GetSelectedAlbumRecords();
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
 const char* ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t index);
 // 原函数：0x005186A0。
-void Sub_5186A0(); // 原相册保存：codec容量4，短写保留文件句柄。
+void SaveAlbumData_5186A0(); // 原相册保存：codec容量4，短写保留文件句柄。
 // 原函数：0x00518BE0。
 void Sub_518BE0(); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。

@@ -583,7 +583,7 @@ std::int32_t Sub_5082D0()
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
     std::sprintf(message, "RECV ERROR=%d", error);
-    static_cast<void>(login::detail::Sub_44B5C0(message));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
 
@@ -593,7 +593,7 @@ std::int32_t Sub_508310()
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
     std::sprintf(message, "SNED ERROR=%d", error);
-    static_cast<void>(login::detail::Sub_44B5C0(message));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
 
@@ -913,7 +913,7 @@ static void HandleResponse_508800(
     const char* const text)
 {
     if (login::gRequestStatus != 1) {
-        static_cast<void>(login::detail::Sub_44B5C0("LOGIN REPLY IGNORED"));
+        static_cast<void>(login::detail::AppendSystemLog_44B5C0("LOGIN REPLY IGNORED"));
         return;
     }
 
@@ -923,7 +923,7 @@ static void HandleResponse_508800(
     char diagnostic[64];
     static_cast<void>(std::sprintf(
         diagnostic, "LOGIN REPLY RESULT=%d", value));
-    static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+    static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
     if (value != 0) {
         if (std::strcmp(text, "busy") == 0) {
             login::gValueDA3B24 = 1234;
@@ -4284,7 +4284,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", socket, 0x4U)) return 0;
     if (TryDispatchReply<login::HandleLoginResponse_508BC0, T, T>(head, "hPUd", socket, 0x4U)) return 0;
     if (TryDispatchReply<login::HandleCharacterListResponse_5089B0, I, T>(head, "Daj", socket, 0x4U)) return 0;
-    if (TryDispatchReply<login::detail::Sub_508CF0, T, T>(head, "HMNy", socket, 0x4U)) return 0;
+    if (TryDispatchReply<login::detail::HandleLogoutReply_508CF0, T, T>(head, "HMNy", socket, 0x4U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh", socket)) return 0;
@@ -4445,7 +4445,7 @@ std::uint8_t NetworkLoop_507DF0()
                 char diagnostic[64];
                 static_cast<void>(std::sprintf(
                     diagnostic, "LOGIN RECEIVED BYTES=%d QUEUE=%d", receivedLength, queued));
-                static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+                static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
             }
         }
         else if (receivedLength == 0) {
@@ -4454,7 +4454,7 @@ std::uint8_t NetworkLoop_507DF0()
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             world::gValueD9F2CA = 1;
             gNetworkRuntimeState.errorD9F2CC = 0;
-            static_cast<void>(login::detail::Sub_44B5C0("NETWORK PEER CLOSED"));
+            static_cast<void>(login::detail::AppendSystemLog_44B5C0("NETWORK PEER CLOSED"));
         }
         else if (receivedLength == -1) {
             const std::int32_t error = detail::Sub_5082D0();
@@ -4494,7 +4494,7 @@ std::uint8_t NetworkLoop_507DF0()
             char diagnostic[64];
             static_cast<void>(std::sprintf(
                 diagnostic, "LOGIN DISPATCH RESULT=%d", dispatchResult));
-            static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+            static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
         }
     }
 
@@ -4528,7 +4528,7 @@ std::uint8_t NetworkLoop_507DF0()
                 char diagnostic[64];
                 static_cast<void>(std::sprintf(
                     diagnostic, "LOGIN SENT BYTES=%d", sent));
-                static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+                static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
             }
         }
     }

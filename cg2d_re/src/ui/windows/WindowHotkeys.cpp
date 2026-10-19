@@ -404,7 +404,7 @@ static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const st
     }
     graphic->imageNo = 0x3B539;
     gCurrentWindow->state |= 0x8000u;
-    static_cast<void>(login::detail::Sub_520640());
+    static_cast<void>(login::detail::CapturePresetChatTexts_520640());
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }

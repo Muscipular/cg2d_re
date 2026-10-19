@@ -68,10 +68,10 @@ extern CharacterRecordArray gCharacterRecords; // 原全局：0x00FF03E0。
 extern std::int16_t gSelectedCharacterIndex; // 原全局：0x00FF0C08。
 
 // 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
-std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
+std::int32_t ClearCharacterSlot_51B3B0(std::uint32_t selectedIndex);
 
 // 原 sub_51B110@[0x51B110,0x51B136)：合法槽读首字节返回 0/1，越界返回 -1。
-std::int32_t Sub_51B110(std::uint32_t selectedIndex);
+std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);
 
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
 std::int32_t CharacterNameExists_51B140(const char* name);

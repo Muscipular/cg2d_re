@@ -121,22 +121,22 @@ static std::uint32_t WindowProfileView_Refresh()
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 15].data)->imageNo =
             profile.entries410[index].value04;
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(profile.text08.data());
+    static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", profile.value108);
     static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = number;
-    static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = cg::text::FromGbkWide(profile.text110.data());
-    static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(profile.text210.data());
-    static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(profile.text310.data());
+    static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = profile.text110;
+    static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = profile.text210;
+    static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 6].data)->text = cg::text::FromGbkWide(profile.entries410[index].text08.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 6].data)->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), index, 28));
+        static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
         static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text = line;
     }
-    static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), 3, 28));
+    static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
     std::wstring& destination = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text;
     const auto units = static_cast<std::uint32_t>(line.size() + 1);
     destination = line;
@@ -192,8 +192,8 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
         if (money >= world::detail::ReadCategoryValue105FA20()) {
             const auto& profile = world::detail::gViewedProfile105ECE0;
             gMiniMailCompose105F508.target = profile.value00;
-            std::strcpy(gMiniMailCompose105F508.name.data(), profile.text08.data());
-            std::strcpy(gMiniMailCompose105F508.text104.data(), "");
+            gMiniMailCompose105F508.name = profile.text08;
+            gMiniMailCompose105F508.text104.clear();
             static_cast<void>(WindowRuntime_Open(WindowId_MiniMail));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {

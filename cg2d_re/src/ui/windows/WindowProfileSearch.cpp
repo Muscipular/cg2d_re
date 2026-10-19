@@ -159,8 +159,8 @@ static void WindowProfileSearch_RefreshResults()
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = cg::text::FromGbkWide(record.text10C.data());
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 28].data)->text = cg::text::FromGbkWide(record.text04.data());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = record.text10C;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 28].data)->text = record.text04;
         } else {
             gCurrentWindow->elements[index + 8].visible = 0;
             gCurrentWindow->elements[index + 28].visible = 0;
@@ -172,8 +172,8 @@ static void WindowProfileSearch_RefreshResults()
     case 0:
     case 1:
     case 2: {
-        const char* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(title);
+        const wchar_t* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = title;
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo =
             group == 0 ? 246045 : (group == 1 ? 0 : 246046);
         break;
@@ -307,7 +307,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if ((state & 2) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
         const std::int32_t key = record.value104;
-        const std::wstring combined = std::to_wstring(key) + L"|" + cg::text::FromGbkWide(record.text04.data());
+        const std::wstring combined = std::to_wstring(key) + L"|" + record.text04;
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;

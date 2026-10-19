@@ -107,10 +107,10 @@ static void WindowOwnProfileCategory_Refresh()
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t page = gProfileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
-        const char* const source =
-            record.used != 0 ? record.text0C.data() : "";
+        const wchar_t* const source =
+            record.used != 0 ? record.text0C.data() : L"";
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
-        data->text = cg::text::FromGbkWide(source);
+        data->text = source;
     }
 }
 

@@ -95,22 +95,22 @@ static std::uint32_t WindowProfileReply_Refresh()
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 14].data)->imageNo =
             profile.entries410[index].value04;
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text = cg::text::FromGbkWide(profile.text08.data());
+    static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{}", profile.value108);
     static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = number;
-    static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(profile.text110.data());
-    static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = cg::text::FromGbkWide(profile.text210.data());
-    static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(profile.text310.data());
+    static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = profile.text110;
+    static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = profile.text210;
+    static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 5].data)->text = cg::text::FromGbkWide(profile.entries410[index].text08.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 5].data)->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), index, 28));
+        static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
         static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = line;
     }
-    static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), 3, 28));
+    static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
     std::wstring& destination = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text;
     const auto units = static_cast<std::uint32_t>(line.size() + 1);
     destination = line;

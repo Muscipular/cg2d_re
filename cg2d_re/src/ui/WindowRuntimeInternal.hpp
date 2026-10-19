@@ -120,8 +120,8 @@ inline constexpr wchar_t kWindow13Text5868EC[] = L"关闭此视窗"; // 原常�
 // 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
 struct MiniMailComposeState {
     std::int32_t target;
-    std::array<char, 256> name;
-    std::array<char, 0x404> text104; // 原成员偏移：+0x104。
+    std::wstring name;
+    std::wstring text104; // 原成员偏移：+0x104。
 };
 
 inline constexpr wchar_t kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
@@ -367,12 +367,6 @@ std::int32_t WindowPetDetail_SavePetSequences();
 std::int32_t WindowPetDetail_HasPetSequenceChanges();
 
 static_assert(sizeof(BattlePetVitals) == 0x10);
-
-static_assert(offsetof(MiniMailComposeState, name) == 4);
-
-static_assert(offsetof(MiniMailComposeState, text104) == 0x104);
-
-static_assert(sizeof(MiniMailComposeState) == 0x508);
 
 static_assert(offsetof(WindowMailGroupSlotsCC1A30, indices) == 8);
 

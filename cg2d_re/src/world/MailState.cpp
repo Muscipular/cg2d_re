@@ -145,42 +145,10 @@ struct MiniMailRuntimeSlots {
 static MiniMailRuntimeSlots gMiniMailRuntime {};
 static std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
 
-static_assert(offsetof(ProfileEntry, value00) == 0);
-static_assert(offsetof(ProfileEntry, value04) == 4);
-static_assert(offsetof(ProfileEntry, text08) == 8);
-static_assert(sizeof(ProfileEntry) == 0x108);
-static_assert(std::is_standard_layout_v<ProfileRuntimeRecord>);
-static_assert(std::is_trivially_copyable_v<ProfileRuntimeRecord>);
-static_assert(offsetof(ProfileRuntimeRecord, value00) == 0);
-static_assert(offsetof(ProfileRuntimeRecord, value04) == 4);
-static_assert(offsetof(ProfileRuntimeRecord, text08) == 8);
-static_assert(offsetof(ProfileRuntimeRecord, value108) == 0x108);
-static_assert(offsetof(ProfileRuntimeRecord, value10C) == 0x10C);
-static_assert(offsetof(ProfileRuntimeRecord, text110) == 0x110);
-static_assert(offsetof(ProfileRuntimeRecord, text210) == 0x210);
-static_assert(offsetof(ProfileRuntimeRecord, text310) == 0x310);
-static_assert(offsetof(ProfileRuntimeRecord, entries410) == 0x410);
-static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
-static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
 // 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
 static std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
-static_assert(sizeof(gProfiles1074938) == 0x1050);
 static constexpr wchar_t kProfileDefault58F614[] = L"未设定"; // 原常量参考：0x0058F614。
-static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
-static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
-static_assert(offsetof(ProfileSearchRecord, used) == 0);
-static_assert(offsetof(ProfileSearchRecord, text04) == 4);
-static_assert(offsetof(ProfileSearchRecord, value104) == 0x104);
-static_assert(offsetof(ProfileSearchRecord, value108) == 0x108);
-static_assert(offsetof(ProfileSearchRecord, text10C) == 0x10C);
-static_assert(sizeof(ProfileSearchRecord) == 0x20C);
-static_assert(std::is_standard_layout_v<ProfileSearchRuntimeSlots>);
-static_assert(std::is_trivially_copyable_v<ProfileSearchRuntimeSlots>);
-static_assert(offsetof(ProfileSearchRuntimeSlots, value00) == 0);
-static_assert(offsetof(ProfileSearchRuntimeSlots, value04) == 4);
-static_assert(offsetof(ProfileSearchRuntimeSlots, records) == 8);
-static_assert(sizeof(ProfileSearchRuntimeSlots) == 0x28F8);
 
 struct CategoryRuntimeSlots {
     std::int32_t value00; // 原成员偏移：+0x00。 原105FA10，50F2A0发布、50F3A0比较。
@@ -191,29 +159,148 @@ struct CategoryRuntimeSlots {
     std::array<CategoryRecord, 300> records; // 原105FA24/1066464/106CEA4三组同源区。
 };
 
-static_assert(offsetof(CategoryRecord, used) == 0);
-static_assert(offsetof(CategoryRecord, bytes01) == 1);
-static_assert(offsetof(CategoryRecord, value04) == 4);
-static_assert(offsetof(CategoryRecord, value08) == 8);
-static_assert(offsetof(CategoryRecord, text0C) == 0x0C);
-static_assert(offsetof(CategoryRecord, selected10C) == 0x10C);
-static_assert(offsetof(CategoryRecord, bytes10D) == 0x10D);
-static_assert(sizeof(CategoryRecord) == 0x110);
-static_assert(std::is_standard_layout_v<CategoryRuntimeSlots>);
-static_assert(std::is_trivially_copyable_v<CategoryRuntimeSlots>);
-static_assert(offsetof(CategoryRuntimeSlots, value00) == 0);
-static_assert(offsetof(CategoryRuntimeSlots, value04) == 4);
-static_assert(offsetof(CategoryRuntimeSlots, count08) == 8);
-static_assert(offsetof(CategoryRuntimeSlots, count0C) == 0x0C);
-static_assert(offsetof(CategoryRuntimeSlots, value10) == 0x10);
-static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
-static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
 static CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
+
+// 个人资料与类别文件保留旧定长GBK布局；运行时对象只保存宽文本。
+struct ProfileDiskEntry {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<char, 256> text08;
+};
+struct ProfileDiskRecord {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<char, 256> text08;
+    std::int32_t value108;
+    std::int32_t value10C;
+    std::array<char, 256> text110;
+    std::array<char, 256> text210;
+    std::array<char, 256> text310;
+    std::array<ProfileDiskEntry, 3> entries410;
+    std::array<char, 256> text728;
+};
+struct CategoryDiskRecord {
+    std::uint8_t used;
+    std::array<std::byte, 3> bytes01;
+    std::int32_t value04;
+    std::int32_t value08;
+    std::array<char, 256> text0C;
+    std::uint8_t selected10C;
+    std::array<std::byte, 3> bytes10D;
+};
+struct CategoryDiskStorage {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::int32_t count08;
+    std::int32_t count0C;
+    std::int32_t value10;
+    std::array<CategoryDiskRecord, 300> records;
+};
+static_assert(sizeof(ProfileDiskEntry) == 0x108);
+static_assert(sizeof(ProfileDiskRecord) == 0x828);
+static_assert(offsetof(ProfileDiskRecord, entries410) == 0x410);
+static_assert(offsetof(ProfileDiskRecord, text728) == 0x728);
+static_assert(std::is_trivially_copyable_v<ProfileDiskRecord>);
+static_assert(sizeof(CategoryDiskRecord) == 0x110);
+static_assert(sizeof(CategoryDiskStorage) == 0x13ED4);
+static_assert(offsetof(CategoryDiskStorage, records) == 0x14);
+static_assert(std::is_trivially_copyable_v<CategoryDiskStorage>);
+
+static std::wstring DecodeProfileDiskText(const std::array<char, 256>& bytes)
+{
+    const auto length = std::find(bytes.begin(), bytes.end(), '\0') - bytes.begin();
+    return cg::text::FromGbkWide(std::string_view(bytes.data(), static_cast<std::size_t>(length)));
+}
+
+static ProfileDiskRecord EncodeProfile(const ProfileRuntimeRecord& record)
+{
+    ProfileDiskRecord disk{};
+    disk.value00 = record.value00;
+    disk.value04 = record.value04;
+    disk.value108 = record.value108;
+    disk.value10C = record.value10C;
+    cg::text::StoreGbk(disk.text08.data(), disk.text08.size(), record.text08);
+    cg::text::StoreGbk(disk.text110.data(), disk.text110.size(), record.text110);
+    cg::text::StoreGbk(disk.text210.data(), disk.text210.size(), record.text210);
+    cg::text::StoreGbk(disk.text310.data(), disk.text310.size(), record.text310);
+    cg::text::StoreGbk(disk.text728.data(), disk.text728.size(), record.text728);
+    for (std::size_t i = 0; i < record.entries410.size(); ++i) {
+        disk.entries410[i].value00 = record.entries410[i].value00;
+        disk.entries410[i].value04 = record.entries410[i].value04;
+        cg::text::StoreGbk(disk.entries410[i].text08.data(), disk.entries410[i].text08.size(), record.entries410[i].text08);
+    }
+    return disk;
+}
+
+// 短读只发布被覆盖的字段；数值和文本尾部来自读取前的磁盘快照。
+static void DecodeProfile(ProfileRuntimeRecord& record, const ProfileDiskRecord& disk, const std::size_t bytes)
+{
+    if (bytes > offsetof(ProfileDiskRecord, value00)) { record.value00 = disk.value00; }
+    if (bytes > offsetof(ProfileDiskRecord, value04)) { record.value04 = disk.value04; }
+    if (bytes > offsetof(ProfileDiskRecord, value108)) { record.value108 = disk.value108; }
+    if (bytes > offsetof(ProfileDiskRecord, value10C)) { record.value10C = disk.value10C; }
+    if (bytes > offsetof(ProfileDiskRecord, text08)) { record.text08 = DecodeProfileDiskText(disk.text08); }
+    if (bytes > offsetof(ProfileDiskRecord, text110)) { record.text110 = DecodeProfileDiskText(disk.text110); }
+    if (bytes > offsetof(ProfileDiskRecord, text210)) { record.text210 = DecodeProfileDiskText(disk.text210); }
+    if (bytes > offsetof(ProfileDiskRecord, text310)) { record.text310 = DecodeProfileDiskText(disk.text310); }
+    if (bytes > offsetof(ProfileDiskRecord, text728)) { record.text728 = DecodeProfileDiskText(disk.text728); }
+    for (std::size_t i = 0; i < record.entries410.size(); ++i) {
+        const std::size_t offset = offsetof(ProfileDiskRecord, entries410) + i * sizeof(ProfileDiskEntry);
+        if (bytes <= offset) { break; }
+        auto& entry = record.entries410[i];
+        const auto& source = disk.entries410[i];
+        entry.value00 = source.value00;
+        if (bytes > offset + offsetof(ProfileDiskEntry, value04)) { entry.value04 = source.value04; }
+        if (bytes > offset + offsetof(ProfileDiskEntry, text08)) { entry.text08 = DecodeProfileDiskText(source.text08); }
+    }
+}
+
+static CategoryDiskStorage EncodeCategories()
+{
+    CategoryDiskStorage disk{};
+    disk.value00 = gCategory105FA10.value00;
+    disk.value04 = gCategory105FA10.value04;
+    disk.count08 = gCategory105FA10.count08;
+    disk.count0C = gCategory105FA10.count0C;
+    disk.value10 = gCategory105FA10.value10;
+    for (std::size_t i = 0; i < disk.records.size(); ++i) {
+        const auto& record = gCategory105FA10.records[i];
+        auto& target = disk.records[i];
+        target.used = record.used;
+        target.bytes01 = record.bytes01;
+        target.value04 = record.value04;
+        target.value08 = record.value08;
+        target.selected10C = record.selected10C;
+        target.bytes10D = record.bytes10D;
+        cg::text::StoreGbk(target.text0C.data(), target.text0C.size(), record.text0C);
+    }
+    return disk;
+}
+
+static void DecodeCategories(const CategoryDiskStorage& disk, const std::size_t bytes)
+{
+    if (bytes > offsetof(CategoryDiskStorage, value00)) { gCategory105FA10.value00 = disk.value00; }
+    if (bytes > offsetof(CategoryDiskStorage, value04)) { gCategory105FA10.value04 = disk.value04; }
+    if (bytes > offsetof(CategoryDiskStorage, count08)) { gCategory105FA10.count08 = disk.count08; }
+    if (bytes > offsetof(CategoryDiskStorage, count0C)) { gCategory105FA10.count0C = disk.count0C; }
+    if (bytes > offsetof(CategoryDiskStorage, value10)) { gCategory105FA10.value10 = disk.value10; }
+    for (std::size_t i = 0; i < disk.records.size(); ++i) {
+        const std::size_t offset = offsetof(CategoryDiskStorage, records) + i * sizeof(CategoryDiskRecord);
+        if (bytes <= offset) { break; }
+        auto& record = gCategory105FA10.records[i];
+        const auto& source = disk.records[i];
+        if (bytes > offset + offsetof(CategoryDiskRecord, used)) { record.used = source.used; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, bytes01)) { record.bytes01 = source.bytes01; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, value04)) { record.value04 = source.value04; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, value08)) { record.value08 = source.value08; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, selected10C)) { record.selected10C = source.selected10C; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, bytes10D)) { record.bytes10D = source.bytes10D; }
+        if (bytes > offset + offsetof(CategoryDiskRecord, text0C)) { record.text0C = DecodeProfileDiskText(source.text0C); }
+    }
+}
 
 static constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
     L"提示！您收到来自 {} 的迷你邮件～";
-
-
 
 static MailMessageView MakeMailMessageView(MailMessage& message)
 {
@@ -299,7 +386,7 @@ std::int32_t& SelectedProfileValue04()
     return gProfiles1074938[login::gSelectedCharacterIndex].value04;
 }
 
-const char* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
+const wchar_t* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
 {
     return gCategory105FA10.records[group * 100 + index].text0C.data();
 }
@@ -892,34 +979,30 @@ void ClearMiniMailAndProfiles_533910()
         record.used = 0;
     }
     gMiniMailRuntime.messages.fill({});
-    std::memset(gProfiles1074938.data(), 0, sizeof(gProfiles1074938));
-    std::memset(&gCurrentProfile10738E8, 0, sizeof(gCurrentProfile10738E8));
+    gProfiles1074938.fill({});
+    gCurrentProfile10738E8 = {};
 }
 
 // 原函数：0x00533950。
 void InitializeDefaultProfiles_533950()
 {
     ProfileRuntimeRecord& first = gProfiles1074938[0];
-    std::strcpy(first.text08.data(), "");
-    const char* const source = "";
-    const std::size_t bytes = std::strlen(source) + 1;
+    first.text08.clear();
     first.value108 = -1;
     first.value04 = 0;
-    std::memcpy(first.text110.data(), source, bytes);
-    std::strcpy(first.text210.data(), "");
-    std::strcpy(first.text310.data(), "");
+    first.text110.clear();
+    first.text210.clear();
+    first.text310.clear();
     for (ProfileEntry& entry : first.entries410) {
         entry.value00 = 0;
         entry.value04 = 0x3C0F0;
-        cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
+        entry.text08 = kProfileDefault58F614;
     }
     // 原533AB5在最后文本复制完成前取S16角色，两次整条复制共用此值。
     const std::int16_t selected = login::gSelectedCharacterIndex;
-    cg::text::StoreGbk(first.text728.data(), first.text728.size(), kProfileDefault58F614);
-    std::memcpy(&gProfiles1074938[1], &first, sizeof(first));
-    std::memcpy(
-        &gCurrentProfile10738E8, &gProfiles1074938[selected],
-        sizeof(gCurrentProfile10738E8));
+    first.text728 = kProfileDefault58F614;
+    gProfiles1074938[1] = first;
+    gCurrentProfile10738E8 = gProfiles1074938[selected];
 }
 
 // 原函数：0x00533B00。
@@ -943,12 +1026,11 @@ std::int32_t HasProfileDraftChanges_533B00()
         return 1;
     }
     for (std::int32_t index = 0; index < 3; ++index) {
-        if (std::strcmp(saved.entries410[index].text08.data(),
-                gCurrentProfile10738E8.entries410[index].text08.data()) != 0) {
+        if (saved.entries410[index].text08 != gCurrentProfile10738E8.entries410[index].text08) {
             return 1;
         }
     }
-    return std::strcmp(saved.text728.data(), gCurrentProfile10738E8.text728.data()) != 0 ? 1 : 0;
+    return saved.text728 != gCurrentProfile10738E8.text728 ? 1 : 0;
 }
 
 // 原函数：0x00533C80。
@@ -959,21 +1041,19 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
     }
     if (mode == 0) {
         for (ProfileEntry& entry : gCurrentProfile10738E8.entries410) {
-            if (std::strcmp(entry.text08.data(), "") == 0) {
-                cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
+            if (entry.text08.empty()) {
+                entry.text08 = kProfileDefault58F614;
             }
         }
-        if (std::strcmp(
-                gCurrentProfile10738E8.text728.data(), "") == 0) {
-            cg::text::StoreGbk(gCurrentProfile10738E8.text728.data(), gCurrentProfile10738E8.text728.size(), kProfileDefault58F614);
+        if (gCurrentProfile10738E8.text728.empty()) {
+            gCurrentProfile10738E8.text728 = kProfileDefault58F614;
         }
     }
 
-    char sourceText[256];
-    std::array<std::array<char, 256>, 4> escaped;
+    std::wstring sourceText;
+    std::array<std::wstring, 4> escaped;
     for (std::int32_t index = 0; index < 3; ++index) {
-        const std::string hidden = cg::text::ToGbk(L"不公开" /* 原常量参考：0x0058F61C。 */);
-        const char* source = hidden.c_str();
+        const wchar_t* source = L"不公开"; // 原常量参考：0x0058F61C。
         if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
             if (mode == 1) {
                 const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -982,18 +1062,18 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
                 source = gCurrentProfile10738E8.entries410[index].text08.data();
             }
         }
-        std::strcpy(sourceText, source);
+        sourceText = source;
         cg::core::NullSub_509080();
-        input::EscapeGbkText(sourceText, escaped[index].data(), 256);
+        escaped[index] = input::EscapeText(sourceText, 256);
     }
     if (mode == 1) {
         const std::int16_t selected = login::gSelectedCharacterIndex;
-        std::strcpy(sourceText, gProfiles1074938[selected].text728.data());
+        sourceText = gProfiles1074938[selected].text728;
     } else {
-        std::strcpy(sourceText, gCurrentProfile10738E8.text728.data());
+        sourceText = gCurrentProfile10738E8.text728;
     }
     cg::core::NullSub_509080();
-    input::EscapeGbkText(sourceText, escaped[3].data(), 256);
+    escaped[3] = input::EscapeText(sourceText, 256);
 
     if (mode == 1) {
         const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -1002,8 +1082,8 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
         const std::uintptr_t socket = platform::gConnectionSocket;
         return network::SendPlayerProfile_511640(
-            socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
-            third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data()));
+            socket, first, escaped[0], second, escaped[1],
+            third, escaped[2], escaped[3]);
     }
 
     const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
@@ -1011,29 +1091,26 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
     const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::SendPlayerProfile_511640(
-        socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
-        third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data())));
+        socket, first, escaped[0], second, escaped[1],
+        third, escaped[2], escaped[3]));
 
     const std::int16_t selected = login::gSelectedCharacterIndex;
     ProfileRuntimeRecord& target = gProfiles1074938[selected];
-    std::strcpy(target.text08.data(), gCurrentProfile10738E8.text08.data());
+    target.text08 = gCurrentProfile10738E8.text08;
     target.entries410[0].value00 = gCurrentProfile10738E8.entries410[0].value00;
     target.entries410[0].value04 = gCurrentProfile10738E8.entries410[0].value04;
-    std::strcpy(
-        target.entries410[0].text08.data(), gCurrentProfile10738E8.entries410[0].text08.data());
+    target.entries410[0].text08 = gCurrentProfile10738E8.entries410[0].text08;
     const std::int32_t secondValue = gCurrentProfile10738E8.entries410[1].value04;
     target.entries410[1].value00 = gCurrentProfile10738E8.entries410[1].value00;
     target.entries410[1].value04 = secondValue;
-    std::strcpy(
-        target.entries410[1].text08.data(), gCurrentProfile10738E8.entries410[1].text08.data());
+    target.entries410[1].text08 = gCurrentProfile10738E8.entries410[1].text08;
     const std::int32_t thirdValue = gCurrentProfile10738E8.entries410[2].value04;
     target.entries410[2].value00 = gCurrentProfile10738E8.entries410[2].value00;
     target.entries410[2].value04 = thirdValue;
-    std::strcpy(
-        target.entries410[2].text08.data(), gCurrentProfile10738E8.entries410[2].text08.data());
+    target.entries410[2].text08 = gCurrentProfile10738E8.entries410[2].text08;
     const auto bytes = static_cast<std::int32_t>(
-        std::strlen(gCurrentProfile10738E8.text728.data()) + 1);
-    std::memcpy(target.text728.data(), gCurrentProfile10738E8.text728.data(), bytes);
+        cg::text::ToGbk(gCurrentProfile10738E8.text728).size() + 1);
+    target.text728 = gCurrentProfile10738E8.text728;
     return bytes;
 }
 
@@ -1063,14 +1140,16 @@ std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(const std::uintptr_t, co
         source.used = 1;
         source.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         source.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        char text0CBytes[256]{};
         const std::int32_t status = network::ExtractDelimitedField_52CED0(
-            payload, '|', field++, 255, source.text0C.data());
-        input::UnescapeLegacyTextAndNotify_52D2F0(source.text0C.data());
+            payload, '|', field++, 255, text0CBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text0CBytes);
+        source.text0C = cg::text::FromGbkWide(text0CBytes);
         CategoryRecord& target = gCategory105FA10.records[count + 100];
         target.used = 1;
         target.value04 = source.value04;
         target.value08 = source.value08;
-        std::strcpy(target.text0C.data(), source.text0C.data());
+        target.text0C = source.text0C;
         ++count;
         gCategory105FA10.count08 = count;
         if (status == 1) {
@@ -1114,9 +1193,11 @@ std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(const std::uintptr_t, 
         record.used = 1;
         record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        char text0CBytes[256]{};
         const std::int32_t status = network::ExtractDelimitedField_52CED0(
-            payload, '|', field++, 255, record.text0C.data());
-        input::UnescapeLegacyTextAndNotify_52D2F0(record.text0C.data());
+            payload, '|', field++, 255, text0CBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text0CBytes);
+        record.text0C = cg::text::FromGbkWide(text0CBytes);
         ++count;
         gCategory105FA10.count0C = count;
         if (status == 1) {
@@ -1179,12 +1260,16 @@ void HandleProfileSearchResultsReply_4CA330(const std::int32_t, char* const payl
         record.used = 1;
         record.value104 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         record.value108 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        char text04Bytes[256]{};
         network::ExtractDelimitedField_52CED0(
-            payload, '|', field++, 255, record.text04.data());
-        input::UnescapeLegacyTextAndNotify_52D2F0(record.text04.data());
+            payload, '|', field++, 255, text04Bytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text04Bytes);
+        record.text04 = cg::text::FromGbkWide(text04Bytes);
+        char text10CBytes[256]{};
         network::ExtractDelimitedField_52CED0(
-            payload, '|', field++, 255, record.text10C.data());
-        input::UnescapeLegacyTextAndNotify_52D2F0(record.text10C.data());
+            payload, '|', field++, 255, text10CBytes);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text10CBytes);
+        record.text10C = cg::text::FromGbkWide(text10CBytes);
     }
 }
 
@@ -1197,36 +1282,36 @@ std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* con
     record.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.text08.data(), text);
+    record.text08 = cg::text::FromGbkWide(text);
     record.value108 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     network::ExtractDelimitedField_52CED0(payload, '|', 4, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.text210.data(), text);
+    record.text210 = cg::text::FromGbkWide(text);
     network::ExtractDelimitedField_52CED0(payload, '|', 5, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.text110.data(), text);
+    record.text110 = cg::text::FromGbkWide(text);
     network::ExtractDelimitedField_52CED0(payload, '|', 6, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.text310.data(), text);
+    record.text310 = cg::text::FromGbkWide(text);
     record.value10C = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
     record.entries410[0].value00 =
         network::ParseDelimitedInteger_52CFA0(payload, '|', 8);
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.entries410[0].text08.data(), text);
+    record.entries410[0].text08 = cg::text::FromGbkWide(text);
     record.entries410[1].value00 =
         network::ParseDelimitedInteger_52CFA0(payload, '|', 10);
     network::ExtractDelimitedField_52CED0(payload, '|', 11, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.entries410[1].text08.data(), text);
+    record.entries410[1].text08 = cg::text::FromGbkWide(text);
     record.entries410[2].value00 =
         network::ParseDelimitedInteger_52CFA0(payload, '|', 12);
     network::ExtractDelimitedField_52CED0(payload, '|', 13, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.entries410[2].text08.data(), text);
+    record.entries410[2].text08 = cg::text::FromGbkWide(text);
     network::ExtractDelimitedField_52CED0(payload, '|', 14, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(record.text728.data(), text);
+    record.text728 = cg::text::FromGbkWide(text);
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
@@ -1258,32 +1343,32 @@ void HandlePlayerProfileReply_50F450(
     record.value10C = value6;
     std::strcpy(buffers[4].data(), text1);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[4].data());
-    std::strcpy(record.text08.data(), buffers[4].data());
+    record.text08 = cg::text::FromGbkWide(buffers[4].data());
     record.value108 = value2;
     std::strcpy(buffers[2].data(), text3);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[2].data());
-    std::strcpy(record.text210.data(), buffers[2].data());
+    record.text210 = cg::text::FromGbkWide(buffers[2].data());
     std::strcpy(buffers[6].data(), text4);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[6].data());
-    std::strcpy(record.text110.data(), buffers[6].data());
+    record.text110 = cg::text::FromGbkWide(buffers[6].data());
     std::strcpy(buffers[0].data(), text5);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[0].data());
-    std::strcpy(record.text310.data(), buffers[0].data());
+    record.text310 = cg::text::FromGbkWide(buffers[0].data());
     record.entries410[1].value00 = value9;
     std::strcpy(buffers[1].data(), text10);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[1].data());
-    std::strcpy(record.entries410[1].text08.data(), buffers[1].data());
+    record.entries410[1].text08 = cg::text::FromGbkWide(buffers[1].data());
     record.entries410[0].value00 = value7;
     std::strcpy(buffers[3].data(), text8);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[3].data());
-    std::strcpy(record.entries410[0].text08.data(), buffers[3].data());
+    record.entries410[0].text08 = cg::text::FromGbkWide(buffers[3].data());
     record.entries410[2].value00 = value11;
     std::strcpy(buffers[5].data(), text12);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[5].data());
-    std::strcpy(record.entries410[2].text08.data(), buffers[5].data());
+    record.entries410[2].text08 = cg::text::FromGbkWide(buffers[5].data());
     std::strcpy(buffers[7].data(), text13);
     input::UnescapeLegacyTextAndNotify_52D2F0(buffers[7].data());
-    std::strcpy(record.text728.data(), buffers[7].data());
+    record.text728 = cg::text::FromGbkWide(buffers[7].data());
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
@@ -1305,16 +1390,12 @@ void HandlePlayerProfileReply_50F450(
 // 原函数：0x005348A0。
 std::int32_t SaveProfileCategoryFile_5348A0()
 {
-    char path[1024];
-    std::sprintf(
-        path, "bin\\%s", "category.dat");
-    std::FILE* const stream =
-        std::fopen(path, "wb+");
+    auto disk = EncodeCategories();
+    std::FILE* const stream = _wfopen(L"bin\\category.dat", L"wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream)));
+    static_cast<void>(std::fwrite(&disk, 1, sizeof(disk), stream));
     static_cast<void>(std::fclose(stream));
     return 1;
 }
@@ -1322,17 +1403,14 @@ std::int32_t SaveProfileCategoryFile_5348A0()
 // 原函数：0x00534910。
 std::int32_t LoadProfileCategoryFile_534910()
 {
-    char path[1024];
-    std::sprintf(
-        path, "bin\\%s", "category.dat");
-    std::FILE* const stream =
-        std::fopen(path, "rb+");
+    auto disk = EncodeCategories();
+    std::FILE* const stream = _wfopen(L"bin\\category.dat", L"rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream)));
+    const std::size_t bytes = std::fread(&disk, 1, sizeof(disk), stream);
     static_cast<void>(std::fclose(stream));
+    DecodeCategories(disk, bytes);
     return 1;
 }
 
@@ -1340,45 +1418,36 @@ std::int32_t LoadProfileCategoryFile_534910()
 std::int32_t ResetCharacterProfile_5345A0(const std::int32_t index)
 {
     ProfileRuntimeRecord& record = gProfiles1074938[index];
-    std::strcpy(record.text08.data(), "");
-    const char* const source = "";
-    const std::size_t bytes = std::strlen(source) + 1;
+    record.text08.clear();
     record.value108 = -1;
     record.value04 = 0;
-    std::memcpy(record.text110.data(), source, bytes);
-    std::strcpy(record.text210.data(), "");
-    std::strcpy(record.text310.data(), "");
+    record.text110.clear();
+    record.text210.clear();
+    record.text310.clear();
     for (ProfileEntry& entry : record.entries410) {
         entry.value00 = 0;
         entry.value04 = 246000;
-        cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
+        entry.text08 = kProfileDefault58F614;
     }
     // 原534737在末条文本的movsd与movsb之间读取当前角色，不沿用重置实参。
-    const std::string defaultGbk = cg::text::ToGbk(kProfileDefault58F614);
-    std::memcpy(record.text728.data(), defaultGbk.data(), 4);
     const std::int16_t selected = login::gSelectedCharacterIndex;
-    std::memcpy(
-        record.text728.data() + 4, defaultGbk.c_str() + 4,
-        defaultGbk.size() + 1 - 4);
-    std::memcpy(
-        &gCurrentProfile10738E8, &gProfiles1074938[selected],
-        sizeof(gCurrentProfile10738E8));
+    record.text728 = kProfileDefault58F614;
+    gCurrentProfile10738E8 = gProfiles1074938[selected];
     return selected;
 }
 
 // 原函数：0x00534770。
 std::int32_t SavePlayerProfilesFile_534770()
 {
-    char path[1024];
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    std::FILE* const stream =
-        std::fopen(path, "wb+");
+    std::array<ProfileDiskRecord, 2> disk{};
+    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
+    const auto path = std::format(L"{}\\profile.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    std::FILE* const stream = _wfopen(path.c_str(), L"wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream)));
+    static_cast<void>(std::fwrite(&disk, 1, sizeof(disk), stream));
     static_cast<void>(std::fclose(stream));
     return 1;
 }
@@ -1386,21 +1455,23 @@ std::int32_t SavePlayerProfilesFile_534770()
 // 原函数：0x005347F0。
 std::int32_t LoadPlayerProfilesFile_5347F0()
 {
-    char path[1024];
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    std::FILE* const stream =
-        std::fopen(path, "rb+");
+    std::array<ProfileDiskRecord, 2> disk{};
+    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
+    const auto path = std::format(L"{}\\profile.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    std::FILE* const stream = _wfopen(path.c_str(), L"rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream)));
+    const std::size_t bytes = std::fread(&disk, 1, sizeof(disk), stream);
     static_cast<void>(std::fclose(stream));
+    for (std::size_t i = 0; i < disk.size(); ++i) {
+        const std::size_t offset = i * sizeof(ProfileDiskRecord);
+        if (bytes <= offset) { break; }
+        DecodeProfile(gProfiles1074938[i], disk[i], bytes - offset);
+    }
     const std::int16_t selected = login::gSelectedCharacterIndex;
-    std::memcpy(
-        &gCurrentProfile10738E8, &gProfiles1074938[selected],
-        sizeof(gCurrentProfile10738E8));
+    gCurrentProfile10738E8 = gProfiles1074938[selected];
     return 1;
 }
 

@@ -163,24 +163,27 @@ static void WindowOwnProfile_RefreshEntry(
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 1));
-        cg::text::StoreGbk(current.text08.data(), current.text08.size(), input::ContextText(*prototype->input.context));
+        const auto& text = input::ContextText(*prototype->input.context);
+        char fileBytes[256]{};
+        cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
+        current.text08 = text;
         return;
     }
 
     WindowTextData* data;
     std::size_t length;
     if (index == 0) {
-        length = std::strlen(current.text08.data()) + 1;
+        length = cg::text::ToGbk(current.text08).size() + 1;
         data = static_cast<WindowTextData*>(elements[element].data);
     } else {
         data = static_cast<WindowTextData*>(elements[element].data);
-        length = std::strlen(current.text08.data()) + 1;
+        length = cg::text::ToGbk(current.text08).size() + 1;
     }
-    data->text = cg::text::FromGbkWide(current.text08.data());
+    data->text = current.text08;
     gCurrentWindow->elements[element].visible = 1;
     const auto& saved = world::detail::ReadSelectedProfile1074938();
     std::byte color {6};
-    if (std::strcmp(saved.entries410[index].text08.data(), current.text08.data()) == 0) {
+    if (saved.entries410[index].text08 == current.text08) {
         const std::int32_t currentValue = current.value00;
         const std::int32_t savedValue = saved.entries410[index].value00;
         if (savedValue == currentValue) {
@@ -243,11 +246,14 @@ static void WindowOwnProfile_Refresh()
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gOwnProfileInputPrototype57D578, x, y, 1));
-        cg::text::StoreGbk(current.text728.data(), current.text728.size(), input::ContextText(*gOwnProfileInputPrototype57D578.input.context));
+        const auto& text = input::ContextText(*gOwnProfileInputPrototype57D578.input.context);
+        char fileBytes[256]{};
+        cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
+        current.text728 = text;
     } else {
         std::wstring line;
         for (std::int32_t index = 0; index < 4; ++index) {
-            static_cast<void>(input::ExtractGbkTextLine(
+            static_cast<void>(input::ExtractTextLine(
                 line, current.text728.data(), index, 28));
             WindowElement* const elements = gCurrentWindow->elements;
             auto* const data = static_cast<WindowTextData*>(elements[index + 12].data);
@@ -258,7 +264,7 @@ static void WindowOwnProfile_Refresh()
         }
         const auto& saved = world::detail::ReadSelectedProfile1074938();
         std::byte color {6};
-        if (std::strcmp(saved.text728.data(), current.text728.data()) == 0) {
+        if (saved.text728 == current.text728) {
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
         }
         for (std::int32_t index = 12; index < 16; ++index) {
@@ -324,9 +330,9 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     WindowInstance* const window = gCurrentWindow;
     if (gFocusedElementDataD45F94 != window->elements[index].data) {
         const auto& current = world::detail::gCurrentProfile10738E8;
-        const char* const source =
+        const wchar_t* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
-        prototype->text = cg::text::FromGbkWide(source);
+        prototype->text = source;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));

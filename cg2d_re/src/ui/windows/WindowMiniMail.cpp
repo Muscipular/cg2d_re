@@ -78,7 +78,7 @@ WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 
 // 原函数：0x004CB5D0。
 static void WindowMiniMail_Refresh()
 {
-    static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text = cg::text::FromGbkWide(gMiniMailCompose105F508.name.data());
+    static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text = gMiniMailCompose105F508.name;
     WindowInstance* const window = gCurrentWindow;
     static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
     std::int32_t divisor = 1;
@@ -167,7 +167,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
         storedText = text;
     }
-    const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(gMiniMailCompose105F508.name.data()), 256);
+    const std::wstring escapedName = input::EscapeText(gMiniMailCompose105F508.name, 256);
     const std::wstring escapedText = input::EscapeText(text, 1024);
     const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
     const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);

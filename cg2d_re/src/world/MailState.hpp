@@ -28,20 +28,20 @@ namespace cg::world::detail {
 struct ProfileEntry {
     std::int32_t value00; // 原成员偏移：+0x00。
     std::int32_t value04; // 原成员偏移：+0x04。
-    std::array<char, 0x100> text08; // 原成员偏移：+0x08。
+    std::wstring text08; // 原成员偏移：+0x08。
 };
 
 struct ProfileRuntimeRecord {
     std::int32_t value00; // 原成员偏移：+0x00。
     std::int32_t value04; // 原成员偏移：+0x04。
-    std::array<char, 0x100> text08; // 原成员偏移：+0x08。
+    std::wstring text08; // 原成员偏移：+0x08。
     std::int32_t value108; // 原成员偏移：+0x108。
     std::int32_t value10C; // 原成员偏移：+0x10C。
-    std::array<char, 0x100> text110; // 原成员偏移：+0x110。
-    std::array<char, 0x100> text210; // 原成员偏移：+0x210。
-    std::array<char, 0x100> text310; // 原成员偏移：+0x310。
+    std::wstring text110; // 原成员偏移：+0x110。
+    std::wstring text210; // 原成员偏移：+0x210。
+    std::wstring text310; // 原成员偏移：+0x310。
     std::array<ProfileEntry, 3> entries410; // 原成员偏移：+0x410。
-    std::array<char, 0x100> text728; // 原成员偏移：+0x728。
+    std::wstring text728; // 原成员偏移：+0x728。
 };
 
 // 资料解析／保存与窗口共用原唯一对象；读取者保留const引用。
@@ -58,10 +58,10 @@ std::int32_t& SelectedProfileValue04(); // 每次按当前S16角色借用持久�
 // 原4CA330生产的20条20CH搜索记录，窗口61只读借用。
 struct ProfileSearchRecord {
     std::int32_t used; // 原成员偏移：+0x00。
-    std::array<char, 0x100> text04; // 原成员偏移：+0x04。
+    std::wstring text04; // 原成员偏移：+0x04。
     std::int32_t value104; // 原成员偏移：+0x104。
     std::int32_t value108; // 原成员偏移：+0x108。
-    std::array<char, 0x100> text10C; // 原成员偏移：+0x10C。
+    std::wstring text10C; // 原成员偏移：+0x10C。
 };
 
 struct ProfileSearchRuntimeSlots {
@@ -71,7 +71,7 @@ struct ProfileSearchRuntimeSlots {
 };
 
 extern ProfileSearchRuntimeSlots gProfileSearch105C398; // 原0x0105C398；同一搜索回复对象。
-const char* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 三组标题借用，无额外索引拒绝。
+const wchar_t* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 三组标题借用，无额外索引拒绝。
 
 // 原category.dat三组各100条；窗口60只读借用，存储仍归MailState。
 struct CategoryRecord {
@@ -79,7 +79,7 @@ struct CategoryRecord {
     std::array<std::byte, 3> bytes01; // 原成员偏移：+0x01。
     std::int32_t value04; // 原成员偏移：+0x04。
     std::int32_t value08; // 原成员偏移：+0x08。
-    std::array<char, 0x100> text0C; // 原成员偏移：+0x0C。
+    std::wstring text0C; // 原成员偏移：+0x0C。
     std::uint8_t selected10C; // 原成员偏移：+0x10C。 4C9E40写选择位，与used独立。
     std::array<std::byte, 3> bytes10D; // 原成员偏移：+0x10D。
 };

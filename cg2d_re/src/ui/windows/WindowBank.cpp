@@ -373,14 +373,14 @@ static void WindowBank_Release()
 static std::int32_t WindowBank_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[36].data);
+        auto* const title = gCurrentWindow->elements[36].data.graphic;
         title->imageNo = gStorageTitleImages54F4E8[gWindowStates[WindowId_Bank].value10];
         WindowInstance* const initialWindow = gCurrentWindow;
         gWindowStates[WindowId_Bank].value28 = 0;
         gWindowStates[WindowId_Bank].value24 = 0;
-        auto* const ownPanel = static_cast<WindowGraphicData*>(initialWindow->elements[34].data);
+        auto* const ownPanel = initialWindow->elements[34].data.graphic;
         ownPanel->imageNo = 243143;
-        auto* const otherPanel = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        auto* const otherPanel = gCurrentWindow->elements[35].data.graphic;
         otherPanel->imageNo = gStoragePanelImages54F4F0[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t index = 14; index < 34; ++index) {
             gCurrentWindow->elements[index].visible = 0;
@@ -410,15 +410,15 @@ static std::int32_t WindowBank_Draw(const std::int32_t)
 {
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
-    auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
+    auto* const text = gCurrentWindow->elements[13].data.text;
     text->text = buffer;
     WindowElement* elements = gCurrentWindow->elements;
-    const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);
+    const auto* const firstScroll = elements[21].data.mouse;
     if ((*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u) != 0) {
         gWindowStates[WindowId_Bank].value24 = static_cast<std::uint32_t>(WindowScroll_ReadPosition(elements + 21, 2));
     }
     elements = gCurrentWindow->elements;
-    const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);
+    const auto* const secondScroll = elements[26].data.mouse;
     if ((*reinterpret_cast<const unsigned char*>(&secondScroll->flags) & 1u) != 0) {
         gWindowStates[WindowId_Bank].value28 = static_cast<std::uint32_t>(WindowScroll_ReadPosition(elements + 26, 2));
     }
@@ -464,8 +464,8 @@ static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::i
         WindowInstance* const window = gWindowStates[WindowId_Bank].window;
         static_cast<void>(WindowInput_ActivateElement(&gStorageInputPrototype57EBA0, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0018);
-        gFocusedElementDataD45F94 = window->elements[0].data;
-        static_cast<WindowInputData*>(window->elements[0].data)->context = &cg::ui::detail::gInputContextCA0018;
+        gFocusedElementDataD45F94 = window->elements[0].data.input;
+        window->elements[0].data.input->context = &cg::ui::detail::gInputContextCA0018;
     }
     return 0;
 }
@@ -474,7 +474,7 @@ static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::i
 static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     if (gLoginWindowRuntime.valueD67618 == 0) {
         elements[3].visible = 0;
         gCurrentWindow->elements[4].visible = 1;
@@ -498,7 +498,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const s
 static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     if (gLoginWindowRuntime.valueD67618 == 1) {
         elements[3].visible = 1;
         gCurrentWindow->elements[4].visible = 0;
@@ -521,14 +521,14 @@ static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const 
 // 原函数：0x004A9560。
 static std::int32_t WindowBank_DrawFirstPageSelection(const std::int32_t index, const std::int32_t)
 {
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243174;
+    gCurrentWindow->elements[index].data.graphic->imageNo = 243174;
     return 0;
 }
 
 // 原函数：0x004A9580。
 static std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index, const std::int32_t)
 {
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243177;
+    gCurrentWindow->elements[index].data.graphic->imageNo = 243177;
     return 0;
 }
 
@@ -536,15 +536,15 @@ static std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index,
 static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"存放物品。";
     }
     if ((state & 2) != 0) {
-        const auto* const panel = static_cast<WindowGraphicData*>(window->elements[34].data);
+        const auto* const panel = window->elements[34].data.graphic;
         static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243143 ? 55 : 51, 320));
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243143;
-        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        gCurrentWindow->elements[34].data.graphic->imageNo = 243143;
+        auto* const external = gCurrentWindow->elements[35].data.graphic;
         external->imageNo = gStoragePanelImages54F4F0[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
@@ -556,7 +556,7 @@ static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int
     if ((state & 1) != 0) {
         graphic->imageNo = 243029;
     }
-    if (static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo == 243143) {
+    if (gCurrentWindow->elements[34].data.graphic->imageNo == 243143) {
         graphic->imageNo = 243028;
     }
     return 0;
@@ -566,15 +566,15 @@ static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int
 static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"存放宠物。";
     }
     if ((state & 2) != 0) {
-        const auto* const panel = static_cast<WindowGraphicData*>(window->elements[34].data);
+        const auto* const panel = window->elements[34].data.graphic;
         static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243145 ? 55 : 51, 320));
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243145;
-        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        gCurrentWindow->elements[34].data.graphic->imageNo = 243145;
+        auto* const external = gCurrentWindow->elements[35].data.graphic;
         external->imageNo = gStoragePetImages54F4F8[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
@@ -589,7 +589,7 @@ static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int3
     if ((state & 1) != 0) {
         graphic->imageNo = 243023;
     }
-    if (static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo == 243145) {
+    if (gCurrentWindow->elements[34].data.graphic->imageNo == 243145) {
         graphic->imageNo = 243022;
     }
     return 0;
@@ -599,14 +599,14 @@ static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int3
 static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"存放金钱。";
     }
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(window->elements[30].visible != 0 ? 55 : 51, 320));
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
-        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        gCurrentWindow->elements[34].data.graphic->imageNo = 243144;
+        auto* const external = gCurrentWindow->elements[35].data.graphic;
         external->imageNo = gStorageMoneyImages54F500[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
@@ -633,14 +633,14 @@ static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::i
 static std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"提领金钱。";
     }
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(window->elements[31].visible != 0 ? 55 : 51, 320));
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
-        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        gCurrentWindow->elements[34].data.graphic->imageNo = 243144;
+        auto* const external = gCurrentWindow->elements[35].data.graphic;
         external->imageNo = gStorageMoneyImages54F500[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
@@ -1037,7 +1037,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
 // 原函数：0x004AA9C0。
 static std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
     std::int32_t result = 0;
@@ -1067,7 +1067,7 @@ static std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const
 // 原函数：0x004AAA70。
 static std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
     std::int32_t result = 0;
@@ -1343,7 +1343,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
         if (source < 100) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t level = world::gPlayerRuntimeSlots.level;
-            auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
+            auto* const text = window->elements[13].data.text;
             cg::text::FormatTo(text->text, L"{:10}", level);
         } else {
             const std::int32_t slot = source - 100;
@@ -1556,7 +1556,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
 std::int32_t WindowBank_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭这个视窗。";
     }
@@ -1578,7 +1578,7 @@ std::int32_t WindowBank_ButtonCloseIcon(const std::int32_t index, const std::int
 std::int32_t WindowBank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭此视窗";
     }

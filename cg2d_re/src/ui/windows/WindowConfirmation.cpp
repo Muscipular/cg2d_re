@@ -121,7 +121,7 @@ static std::int32_t WindowConfirmation_HandleButton(
     const std::int32_t index, const std::int32_t state, const std::int32_t idleImage,
     WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = idleImage;
     if ((state & 1) != 0) {
         graphic->imageNo = idleImage + 2;
@@ -200,7 +200,7 @@ static WindowInstance* WindowConfirmation_RequestClose()
 static wchar_t* WindowConfirmation_RefreshText()
 {
     for (std::int32_t index = 0; index < 11; ++index) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        auto* const data = gCurrentWindow->elements[index].data.text;
         data->text = L"";
     }
     std::wstring text = gWindow47Runtime.textCC426C;
@@ -210,7 +210,7 @@ static wchar_t* WindowConfirmation_RefreshText()
     std::int32_t row = 0;
     while (token != nullptr) {
         static_cast<void>(WindowConfirmation_PadText(line, token));
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
+        auto* const data = gCurrentWindow->elements[row].data.text;
         data->text = line;
         token = std::wcstok(nullptr, L"\n" /* 原常量参考：0x005531C4。 */, &context);
         ++row;

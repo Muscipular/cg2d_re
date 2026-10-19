@@ -178,13 +178,13 @@ static WindowElement* WindowPetSkills_Refresh()
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
             gCurrentWindow->elements[11].visible = 1;
-            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+            auto* const data = gCurrentWindow->elements[11].data.text;
             data->text = gLoginWindowRuntime.petNameDraftD45E74;
             const auto& compared = selectedPet();
             const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
             const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
             gCurrentWindow->elements[5].visible = changed ? 1 : 0;
-            auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+            auto* const colorData = gCurrentWindow->elements[11].data.text;
             colorData->style.color = changed ? std::byte{6} : std::byte{0};
         }
         const auto& compared = selectedPet();
@@ -203,7 +203,7 @@ static WindowElement* WindowPetSkills_Refresh()
         gCurrentWindow->elements[kPetTechniqueScrollThumbElement].visible = maximum > 0 ? 1 : 0;
         WindowElement& track = gCurrentWindow->elements[kPetTechniqueScrollTrackElement];
         track.visible = maximum > 0 ? 1 : 0;
-        auto* const mouse = static_cast<WindowMouseData*>(track.data);
+        auto* const mouse = track.data.mouse;
         if (maximum == 0) {
             mouse->flags = 0;
         }
@@ -218,7 +218,7 @@ static WindowElement* WindowPetSkills_Refresh()
             if (selectedPet().techniquesD8[techniqueIndex].used != 0) {
                 gCurrentWindow->elements[13 + row].visible = 1;
                 const auto& techniqueName = selectedPet().techniquesD8[techniqueIndex].name;
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[13 + row].data);
+                auto* const data = gCurrentWindow->elements[13 + row].data.text;
                 data->text = techniqueName;
                 gCurrentWindow->elements[23 + row].visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[techniqueIndex].fp;
@@ -237,7 +237,7 @@ static WindowElement* WindowPetSkills_Refresh()
         }
     }
     cg::text::FormatTo(buffer, L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
-    auto* const page = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
+    auto* const page = gCurrentWindow->elements[12].data.text;
     page->text = buffer;
     gCurrentWindow->elements[33].visible = 0;
     gCurrentWindow->elements[34].visible = 0;
@@ -251,7 +251,7 @@ static std::int32_t WindowPetSkills_HandleScroll(const std::int32_t index, const
 {
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     WindowElement& track = gCurrentWindow->elements[index];
-    const auto* const mouse = static_cast<const WindowMouseData*>(track.data);
+    const auto* const mouse = track.data.mouse;
     if ((mouse->flags & 1u) != 0) {
         const auto selected = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -311,7 +311,7 @@ static std::int32_t WindowPetSkills_Update(const std::int32_t value)
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
         gPetTechniqueScroll = 0;
-        static_cast<WindowMouseData*>(gCurrentWindow->elements[kPetTechniqueScrollTrackElement].data)->flags = 0;
+        gCurrentWindow->elements[kPetTechniqueScrollTrackElement].data.mouse->flags = 0;
         WindowPetDetail_InitializeDraft();
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -360,7 +360,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
@@ -387,7 +387,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = name;
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+                auto* const data = gCurrentWindow->elements[11].data.text;
                 data->text = name;
             }
             consumed = 1;
@@ -557,7 +557,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
             const auto& description = pet.techniquesD8[technique].description;
             if (input::ExtractTextLine(buffer, description, line, 26) != 0) {
                 auto* const elements = gCurrentWindow->elements;
-                auto* const data = static_cast<WindowTextData*>(elements[33 + line].data);
+                auto* const data = elements[33 + line].data.text;
                 data->text = buffer;
             }
         }

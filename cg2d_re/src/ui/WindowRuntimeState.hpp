@@ -108,6 +108,17 @@ struct WindowMouseData {
     std::int32_t deltaY; // 原成员偏移：+0x08。
 };
 
+// WEO01：由WindowElement::type标记活动成员，载荷所有权仍由窗口管理。
+union WindowElementData {
+    WindowGraphicData* graphic;
+    WindowAnimationData* animation;
+    WindowTextData* text;
+    WindowMouseData* mouse;
+    WindowInputData* input;
+    std::uint32_t* inputCaret;
+    WindowNumberData* number;
+};
+
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
 struct WindowElement {
     WindowElementType type; // 原成员偏移：+0x00。 原S32控件类型。
@@ -117,9 +128,13 @@ struct WindowElement {
     std::int32_t width; // 原成员偏移：+0x10。
     std::int32_t height; // 原成员偏移：+0x14。
     std::int32_t visible; // 原成员偏移：+0x18。
-    void* data; // 原+1C，七类数据共用；后续按type解释，不是地址数值。
+    WindowElementData data; // 原+1C；按type访问对应载荷指针。
     WindowElementCallback mouseCallback; // 原+20。
+    std::int32_t seqNo; // WEO01：窗口内绘制/鼠标顺序，小值在前，同值按原索引。
 };
+
+// WEO01：update中维护指针排序缓存；数组/数量/顺序变化或距离上次刷新满1秒时重排。
+void WindowRuntime_UpdateElementOrder(WindowInstance& window);
 
 // 原实例+40的16B可拖动区域，472D20逐项命中。
 struct WindowDragRect {
@@ -147,6 +162,10 @@ struct WindowInstance {
     WindowReleaseCallback release; // 原+38。
     std::int32_t secondaryCount; // 原+3C。
     std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。
+    WindowElement** elementsSorted; // WEO01：窗口拥有指针数组，条目借用elements中的原控件。
+    WindowElement* elementsSortedSource; // 上次排序的原数组，用于检测数组更换。
+    std::int32_t elementsSortedCount; // 有效缓存条目数。
+    std::uint64_t elementsSortedTick; // 上次排序的客户端毫秒时刻。
 };
 
 namespace detail {
@@ -542,6 +561,7 @@ struct WindowElementPrototype {
     std::int32_t visible; // 原成员偏移：+0x14。
     WindowElementPrototypeSource source; // 原成员偏移：+0x18。
     WindowElementCallback mouseCallback; // 原成员偏移：+0x1C。
+    std::int32_t seqNo = -1; // WEO01：-1使用原型索引，其余值作为实例初始顺序。
 };
 
 // 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
@@ -780,7 +800,7 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(const char* text, WindowL
 // 原函数：0x00485110。
 void WindowElement_DrawHoverFrame(WindowElement* element, std::int32_t state, std::uint32_t imageNo); // 元素外扩一像素悬停框。
 // 原函数：0x00474270。
-std::int32_t WindowScroll_ReadPosition(WindowElement* element, std::int32_t maximum); // WSP01：原整数位置换算及两高度取样，借用字节载荷。
+std::int32_t WindowScroll_ReadPosition(WindowElement* element, std::int32_t maximum); // WSP01：原整数位置换算及两高度取样，按控件类型读取滚动字段。
 // 原函数：0x004742C0。
 std::int32_t WindowScroll_SetPosition(WindowElement* element, std::int32_t maximum, std::int32_t position);
 // 原函数：0x004743B0。
@@ -988,7 +1008,8 @@ static_assert(sizeof(WindowInputReference) == 16);
 static_assert(sizeof(WindowElementPrototypeSource) == 8);
 static_assert(offsetof(WindowElementPrototype, source) == 0x18);
 static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);
-static_assert(sizeof(WindowElementPrototype) == 0x28);
+static_assert(offsetof(WindowElementPrototype, seqNo) == 0x28);
+static_assert(sizeof(WindowElementPrototype) == 0x30);
 static_assert(offsetof(WindowPrototype, width) == 0x10);
 static_assert(offsetof(WindowPrototype, height) == 0x14);
 static_assert(offsetof(WindowPrototype, elements) == 0x20);
@@ -1016,7 +1037,9 @@ static_assert(offsetof(WindowMouseData, deltaY) == 8);
 static_assert(sizeof(WindowMouseData) == 12);
 static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);
-static_assert(sizeof(WindowElement) == 0x30);
+static_assert(sizeof(WindowElementData) == sizeof(void*));
+static_assert(offsetof(WindowElement, seqNo) == 0x30);
+static_assert(sizeof(WindowElement) == 0x38);
 static_assert(offsetof(WindowInstance, state) == 0);
 static_assert(offsetof(WindowInstance, elements) == 0x30);
 static_assert(offsetof(WindowInstance, update) == 0x38);
@@ -1030,7 +1053,8 @@ static_assert(sizeof(WindowDragRect) == 16);
 static_assert(offsetof(WindowInstance, dragMouseX1C) == 0x1C);
 static_assert(offsetof(WindowInstance, dragMouseY20) == 0x20);
 static_assert(offsetof(WindowInstance, dragRects40) == 0x54);
-static_assert(sizeof(WindowInstance) == 0xF8);
+static_assert(offsetof(WindowInstance, elementsSorted) == 0xF8);
+static_assert(sizeof(WindowInstance) == 0x118);
 static_assert(offsetof(WindowState, window) == 0x10);
 static_assert(offsetof(WindowState, userState) == 0x20);
 static_assert(offsetof(WindowState, actionFlags1C) == 0x28);

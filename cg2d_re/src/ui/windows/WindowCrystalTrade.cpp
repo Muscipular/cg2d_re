@@ -10,7 +10,7 @@ namespace detail {
 // 原函数：0x004C2460。
 std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -42,7 +42,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
 // 原函数：0x004C4680。
 std::int32_t WindowCrystalTrade_DrawButton(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 243203;
     if ((state & 1) != 0) {
         graphic->imageNo = 243205;

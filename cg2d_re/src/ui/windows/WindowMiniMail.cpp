@@ -78,18 +78,18 @@ WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 
 // 原函数：0x004CB5D0。
 static void WindowMiniMail_Refresh()
 {
-    static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text = gMiniMailCompose105F508.name;
+    gCurrentWindow->elements[12].data.text->text = gMiniMailCompose105F508.name;
     WindowInstance* const window = gCurrentWindow;
     static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
         const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 3].data)->imageNo =
+        gCurrentWindow->elements[index + 3].data.graphic->imageNo =
             cost < divisor ? 0 : cost / divisor % 10 + 245520;
         divisor *= 10;
     }
     if (world::detail::ReadCategoryValue105FA20() == 0) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 245520;
+        gCurrentWindow->elements[3].data.graphic->imageNo = 245520;
     }
 }
 
@@ -102,8 +102,8 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
-        static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
+        gCurrentWindow->elements[1].data.input->context =
             &cg::ui::detail::gInputContextCA0180;
         const std::int32_t target = gMiniMailCompose105F508.target;
         gMiniMailInputPrototype580CB0.text.clear();
@@ -119,12 +119,12 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[1].data) {
+        if (gFocusedElementDataD45F94 != window->elements[1].data.input) {
             static_cast<void>(WindowInput_ActivateElement(
                 &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-            gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
-            static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+            gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
+            gCurrentWindow->elements[1].data.input->context =
                 &cg::ui::detail::gInputContextCA0180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -142,7 +142,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     if (index != 2) {
         return 0;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+    auto* const graphic = gCurrentWindow->elements[2].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 244253;

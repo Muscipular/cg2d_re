@@ -314,7 +314,7 @@ static std::int32_t WindowHotkeys_Update(const std::int32_t value)
 static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = static_cast<WindowMouseData*>(elements[3].data);
+    auto* const mouse = elements[3].data.mouse;
     elements[2].visible = 1;
     const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
     const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
@@ -393,7 +393,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 // 原函数：0x004953B0。
 static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B538;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B53A;
@@ -414,7 +414,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
@@ -446,7 +446,7 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
@@ -481,7 +481,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         if (std::bit_cast<std::int32_t>(windowState->value14) > 0) {
@@ -516,7 +516,7 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
@@ -572,7 +572,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示游戏功能视窗相关热键。" /* 原常量参考：0x00586FA4。 */;
@@ -587,7 +587,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
             current[2].y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
                 gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -613,7 +613,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示画面左上角状态显示相关热键。" /* 原常量参考：0x00586FC0。 */;
@@ -628,7 +628,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
             current[2].y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
                 gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -654,7 +654,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示画面右上角情绪动作相关热键。" /* 原常量参考：0x00586FE4。 */;
@@ -669,7 +669,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
             current[2].y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
                 gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -695,7 +695,7 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
 {
     WindowElement* const elements = gCurrentWindow->elements;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"登录常用句。" /* 原常量参考：0x00587008。 */;
@@ -733,7 +733,7 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
 // 原函数：0x00495C20。
 static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -746,9 +746,9 @@ static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const
         input::SetContext_44B330(&cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20]);
         input::LoadInitialText_44A160(savedText);
         WindowInstance* const window = gCurrentWindow;
-        gFocusedElementDataD45F94 = window->elements[0].data;
+        gFocusedElementDataD45F94 = window->elements[0].data.input;
         input::InputContext* const selectedContext = &cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20];
-        static_cast<WindowInputData*>(window->elements[0].data)->context = selectedContext;
+        window->elements[0].data.input->context = selectedContext;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }

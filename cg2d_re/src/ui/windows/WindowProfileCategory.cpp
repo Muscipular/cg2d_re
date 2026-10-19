@@ -219,8 +219,8 @@ static void WindowProfileCategory_Refresh()
             if (record.used != 0) {
                 gCurrentWindow->elements[textIndex].visible = 1;
                 gCurrentWindow->elements[textIndex + 79].visible = 1;
-                static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->text = record.text0C;
-                static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->style.color =
+                gCurrentWindow->elements[textIndex].data.text->text = record.text0C;
+                gCurrentWindow->elements[textIndex].data.text->style.color =
                     record.selected10C != 0 ? std::byte{0} : std::byte{7};
             } else {
                 gCurrentWindow->elements[textIndex].visible = 0;
@@ -275,10 +275,10 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"在此目录中搜寻";
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246042;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 246042;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0;
     }
     if ((state & 2) == 0 || WindowProfileView_ReadSelection(index) == 0) {
         return consumed;

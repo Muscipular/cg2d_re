@@ -143,40 +143,40 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
     std::int32_t row = 0;
     for (; row < 6 && offset + row < gStatusChoiceCountCC2364; ++row) {
         gCurrentWindow->elements[row + 4].visible = 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text.clear();
+        gCurrentWindow->elements[row + 10].data.text->text.clear();
+        gCurrentWindow->elements[row + 22].data.text->text.clear();
+        gCurrentWindow->elements[row + 28].data.text->text.clear();
         const wchar_t* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
-            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text, L"           {}", name);
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->style.color =
+            cg::text::FormatTo(gCurrentWindow->elements[row + 10].data.text->text, L"           {}", name);
+            gCurrentWindow->elements[row + 10].data.text->style.color =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
             gCurrentWindow->elements[row + 4].visible = 1;
             const std::int32_t imageIndex = WindowItem_HealthImageLevel(gStatusChoiceRecordsCB03D0[offset + row].injury);
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[row + 4].data)->imageNo =
+            gCurrentWindow->elements[row + 4].data.graphic->imageNo =
                 gHealthImages57E6A4[imageIndex];
             const std::int32_t level = gStatusChoiceRecordsCB03D0[offset + row].level;
-            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text, L"{:10}", level);
+            cg::text::FormatTo(gCurrentWindow->elements[row + 22].data.text->text, L"{:10}", level);
             const WindowStatusChoiceRecord* const record = gStatusChoiceRecordsCB03D0 + offset + row;
             const std::int32_t maxFp = record->maxFp;
             const std::int32_t fp = record->fp;
             const std::int32_t maxHp = record->maxHp;
             const std::int32_t hp = record->hp;
-            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text, L"                            {:6}/{:6} {:6}/{:6}", hp, maxHp, fp, maxFp);
+            cg::text::FormatTo(gCurrentWindow->elements[row + 28].data.text->text, L"                            {:6}/{:6} {:6}/{:6}", hp, maxHp, fp, maxFp);
         }
     }
     for (; row < 6; ++row) {
         gCurrentWindow->elements[row + 4].visible = 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text = L"";
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text = L"";
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text = L"";
+        gCurrentWindow->elements[row + 10].data.text->text = L"";
+        gCurrentWindow->elements[row + 22].data.text->text = L"";
+        gCurrentWindow->elements[row + 28].data.text->text = L"";
     }
 }
 
 // 原函数：0x0049FA40。
 static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭此视窗";
@@ -207,7 +207,7 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
 // 原函数：0x0049FB00。
 static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"回到前一页视窗。";

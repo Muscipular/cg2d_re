@@ -159,7 +159,7 @@ static void WindowBattleCommand_Open(
     WindowElement* const elements = gWindowStates[WindowId_BattleCommand].window->elements;
     const auto currentMode = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[13].data);
+    auto* const graphic = elements[13].data.graphic;
     switch (currentMode) {
     case 0:
     case 1:
@@ -192,7 +192,7 @@ static void WindowBattleCommand_Open(
         if (name[0] == '\0') {
             name = cg::yobi::GetYobiName(action);
         }
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = name;
+        gWindowStates[WindowId_BattleCommand].window->elements[10].data.text->text = name;
         const std::int32_t maximumPosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
@@ -201,7 +201,7 @@ static void WindowBattleCommand_Open(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
+        cg::text::FormatTo(gWindowStates[WindowId_BattleCommand].window->elements[11].data.text->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     case 4: {
@@ -218,14 +218,14 @@ static void WindowBattleCommand_Open(
         const std::int32_t namePosition = world::gBattleCurrentPosition5ABCA4;
         const wchar_t* const name = cg::yobi::GetYobiName(
             world::gBattleEntries59E980[namePosition]);
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = name;
+        gWindowStates[WindowId_BattleCommand].window->elements[10].data.text->text = name;
         const std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
             world::gBattleEntries59E980[maximumPosition]);
         const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
+        cg::text::FormatTo(gWindowStates[WindowId_BattleCommand].window->elements[11].data.text->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     default:
@@ -330,7 +330,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
                 && technique < world::kPetTechniqueSlotCount)
                 name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name;
         }
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = name;
+        gWindowStates[WindowId_BattleCommand].window->elements[12].data.text->text = name;
     }
     if (gWindowStates[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
@@ -475,7 +475,7 @@ void WindowBattleCommand_FinishAutoAction()
 // 原函数：0x004972B0。
 static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9C4;
         if (world::gBattleSelectionModes5ABC7C[0] != 0) {
@@ -513,7 +513,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, c
 // 原函数：0x004973C0。
 static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D0;
         if (world::gBattleSelectionModes5ABC7C[1] != 0) {
@@ -550,7 +550,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, c
 // 原函数：0x00497770。
 static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9D4;
         return 0;
@@ -604,7 +604,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, con
 // 原函数：0x00497900。
 static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9CB;
         return 0;
@@ -657,7 +657,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, cons
 // 原函数：0x00497A60。
 static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9D7;
         return 0;
@@ -698,7 +698,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index
 // 原函数：0x00497B80。
 static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D9;
         if (world::gBattleSelectionModes5ABC7C[7] != 0) {
@@ -737,7 +737,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, c
 static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
-    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
+    auto* const graphic = element->data.graphic;
     if (world::gBattleRebirthDisabled5ABC40 != 0
         || world::gPlayerRuntimeSlots.value08 == 0
         || world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
@@ -958,7 +958,7 @@ static void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const
 // 原函数：0x004975A0。
 static std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9C8;
         return 0;
@@ -1123,7 +1123,7 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
 // 原函数：0x00498160。
 static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         return 0;
     }

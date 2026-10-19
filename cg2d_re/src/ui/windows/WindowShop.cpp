@@ -964,8 +964,8 @@ static void WindowShop_RefreshBuyRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
+        gCurrentWindow->elements[row + 17].data.text->text.clear();
+        gCurrentWindow->elements[row + 22].data.text->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
         const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->used == 0) {
@@ -983,9 +983,9 @@ static void WindowShop_RefreshBuyRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
+            gCurrentWindow->elements[row + 17].data.text->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
+            gCurrentWindow->elements[row + 22].data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -998,18 +998,18 @@ static void WindowShop_RefreshBuyRows()
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
+            gCurrentWindow->elements[row + 17].data.text->style.color = color;
+            gCurrentWindow->elements[row + 22].data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
+        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
         record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->allowed != 0) {
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
+            gCurrentWindow->elements[row + 32].data.number->color = 0;
         } else {
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 4;
+            gCurrentWindow->elements[row + 32].data.number->color = 4;
             gCurrentWindow->elements[row + 27].visible = 1;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = kShopUnavailableHint586BF4;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
+            gCurrentWindow->elements[row + 27].data.text->text = kShopUnavailableHint586BF4;
+            gCurrentWindow->elements[row + 27].data.text->style.color =
                 std::byte{4};
         }
     }
@@ -1050,7 +1050,7 @@ static void WindowShop_RefreshBuyAmount()
     cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
     const std::int32_t currentTotal = gShopTotalD2DAFC;
     const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
-    static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
+    gCurrentWindow->elements[7].data.number->color =
         currentTotal <= money ? 0 : 6;
 }
 
@@ -1082,8 +1082,8 @@ static void WindowShop_RefreshSellRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
+        gCurrentWindow->elements[row + 17].data.text->text.clear();
+        gCurrentWindow->elements[row + 22].data.text->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
         std::int32_t index = std::bit_cast<std::int8_t>(
             gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
@@ -1104,9 +1104,9 @@ static void WindowShop_RefreshSellRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
+            gCurrentWindow->elements[row + 17].data.text->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
+            gCurrentWindow->elements[row + 22].data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1120,22 +1120,22 @@ static void WindowShop_RefreshSellRows()
             record = &gShopItemsCF4FE0[index];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
+            gCurrentWindow->elements[row + 17].data.text->style.color = color;
+            gCurrentWindow->elements[row + 22].data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
+        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         record = &gShopItemsCF4FE0[index];
         if (record->allowed != 0) {
             std::int32_t selected;
             std::memcpy(&selected, &record->selected, sizeof(selected));
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color =
+            gCurrentWindow->elements[row + 32].data.number->color =
                 selected != 0 ? 0 : 7;
         } else {
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 6;
+            gCurrentWindow->elements[row + 32].data.number->color = 6;
             gCurrentWindow->elements[row + 27].visible = 1;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊无法贩卖";
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
+            gCurrentWindow->elements[row + 27].data.text->text = L"＊无法贩卖";
+            gCurrentWindow->elements[row + 27].data.text->style.color =
                 std::byte{6};
         }
     }
@@ -1186,7 +1186,7 @@ static void WindowShop_RefreshSellAmount()
     }
     gShopTotalD2DAFC = total;
     cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
-    static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
+    gCurrentWindow->elements[7].data.number->color = 0;
 }
 
 // 原函数：0x004B8C50。
@@ -1213,8 +1213,8 @@ static void WindowShop_RefreshExchangeRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
+        gCurrentWindow->elements[row + 17].data.text->text.clear();
+        gCurrentWindow->elements[row + 22].data.text->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
         const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->used == 0) {
@@ -1232,9 +1232,9 @@ static void WindowShop_RefreshExchangeRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
+            gCurrentWindow->elements[row + 17].data.text->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
+            gCurrentWindow->elements[row + 22].data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1247,21 +1247,21 @@ static void WindowShop_RefreshExchangeRows()
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color = color;
+            gCurrentWindow->elements[row + 17].data.text->style.color = color;
+            gCurrentWindow->elements[row + 22].data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data), buffer);
+        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
         record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         const std::int32_t available = gShopAvailableCF4A24;
         std::memcpy(&price, &record->price, sizeof(price));
         const std::int32_t total = gShopTotalD2DAFC;
         if (available >= price + total) {
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
+            gCurrentWindow->elements[row + 32].data.number->color = 0;
         } else {
-            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 7;
+            gCurrentWindow->elements[row + 32].data.number->color = 7;
             gCurrentWindow->elements[row + 27].visible = 1;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text = L"＊你的数量不够加工";
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->style.color =
+            gCurrentWindow->elements[row + 27].data.text->text = L"＊你的数量不够加工";
+            gCurrentWindow->elements[row + 27].data.text->style.color =
                 std::byte{4};
         }
     }
@@ -1327,8 +1327,8 @@ static void WindowShop_RefreshDetailName()
     std::int32_t price;
     std::memcpy(&price, &gShopDetailCC3210.valueC34, sizeof(price));
     cg::text::FormatTo(gShopPriceTextsD673EC[0], L"{:10}", price);
-    WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[17].data),
-        static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), gShopDetailCC3210.name);
+    WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[17].data.text,
+        gCurrentWindow->elements[22].data.text, gShopDetailCC3210.name);
 }
 
 // 原函数：0x004B9270。
@@ -1385,11 +1385,11 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             WindowShop_RefreshBuyQuantities();
             WindowShop_RefreshBuyAmount();
             WindowShop_CountBuySlots();
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244381;
+            gCurrentWindow->elements[63].data.graphic->imageNo = 244381;
             for (std::int32_t row = 0; row < 5; ++row) {
                 gCurrentWindow->elements[52 + row].visible = 1;
                 gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleItemIcon;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
                     244382;
             }
             gCurrentWindow->elements[6].visible = 0;
@@ -1402,11 +1402,11 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             WindowShop_RefreshSellQuantities();
             WindowShop_RefreshSellAmount();
             WindowShop_CountSellItems();
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244381;
+            gCurrentWindow->elements[63].data.graphic->imageNo = 244381;
             for (std::int32_t row = 0; row < 5; ++row) {
                 gCurrentWindow->elements[52 + row].visible = 1;
                 gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleSaleSelection;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
                     244382;
             }
             gCurrentWindow->elements[6].visible = 0;
@@ -1417,11 +1417,11 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             WindowShop_RefreshExchangeQuantities();
             WindowShop_RefreshExchangeAmount();
             WindowShop_CountExchangeItems();
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244388;
+            gCurrentWindow->elements[63].data.graphic->imageNo = 244388;
             for (std::int32_t row = 0; row < 5; ++row) {
                 gCurrentWindow->elements[52 + row].visible = 1;
                 gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleItemIcon;
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
                     244389;
             }
             gCurrentWindow->elements[6].visible = 1;
@@ -1441,7 +1441,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
                 gCurrentWindow->elements[52 + row].visible = 0;
                 gCurrentWindow->elements[57 + row].visible = 0;
             }
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244388;
+            gCurrentWindow->elements[63].data.graphic->imageNo = 244388;
             gCurrentWindow->elements[17].visible = 1;
             gCurrentWindow->elements[22].visible = 1;
             gCurrentWindow->elements[27].visible = 0;
@@ -1452,7 +1452,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             gCurrentWindow->elements[52].visible = 1;
             gCurrentWindow->elements[57].visible = 1;
             gCurrentWindow->elements[52].mouseCallback = &WindowShop_HandleDetailIcon;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[57].data)->imageNo = 244389;
+            gCurrentWindow->elements[57].data.graphic->imageNo = 244389;
             gCurrentWindow->elements[6].visible = 1;
             gCurrentWindow->elements[4].visible = 0;
             break;
@@ -1467,11 +1467,11 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         gShopTooltipPageD67B8C = 0;
         gShopRowKeysC9A954[3] = -2;
         gShopRowKeysC9A954[4] = -2;
-        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
+        auto* const title = gCurrentWindow->elements[5].data.text;
         title->text = gNpcDialogLinesCC24D4[0].text;
-        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+        auto* animation = gCurrentWindow->elements[9].data.animation;
         cg::yobi::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
-        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+        animation = gCurrentWindow->elements[9].data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
@@ -1485,7 +1485,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         gCurrentWindow->elements[10].visible = 0;
     }
     WindowElement* const elements = gCurrentWindow->elements;
-    if ((static_cast<const WindowMouseData*>(elements[11].data)->flags & 1u) != 0) {
+    if ((elements[11].data.mouse->flags & 1u) != 0) {
         gShopScrollCC488C = WindowScroll_ReadPosition(elements + 11, gShopItemCountCB1E10 - 5);
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -1510,7 +1510,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     if (gMaterialOccupancyCC4894.shopMode == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
-        static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
+        gCurrentWindow->elements[7].data.number->color =
             total <= money ? 0 : 6;
     }
     if (gMaterialOccupancyCC4894.shopMode == 2) {
@@ -1607,7 +1607,7 @@ static void WindowShop_Submit(const std::int32_t selection)
 // 原函数：0x004B9F40。
 static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -1876,7 +1876,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
 // 原函数：0x004BA950。
 static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -1911,7 +1911,7 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
 // 原函数：0x004BAA50。
 static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     bool available = false;
     for (std::int32_t inventorySlot = 0; inventorySlot < 20; ++inventorySlot) {
         if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
@@ -2116,7 +2116,7 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
 // 原函数：0x004BAD10。
 static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gShopScrollCC488C > 0) {
@@ -2162,7 +2162,7 @@ static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const
 // 原函数：0x004BAE10。
 static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
@@ -2208,7 +2208,7 @@ static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std
 // 原函数：0x004BAF10。
 static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gShopScrollCC488C > 0 ? 51 : 55, 320));
@@ -2252,7 +2252,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, cons
 // 原函数：0x004BB010。
 static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
@@ -2334,7 +2334,7 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
 // 原函数：0x004BB1D0。
 static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t row = gShopScrollCC488C + index - 42;
     const bool hover = (state & 1) != 0;
     auto permitted = static_cast<std::uint8_t>(index);
@@ -2567,7 +2567,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
 // 原函数：0x004BB6E0。
 static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t row = gShopScrollCC488C + index - 47;
     const bool hover = (state & 1) != 0;
     auto permitted = static_cast<std::uint8_t>(index);

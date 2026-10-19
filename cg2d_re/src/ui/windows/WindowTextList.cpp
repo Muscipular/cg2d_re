@@ -182,7 +182,7 @@ static std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
     for (std::int32_t line = 0; line < 9; ++line) {
         const std::int32_t index = gWindowLineScrollCF46B8 + line;
         const std::int32_t count = gWindowLineCountD67B74;
-        auto* const data = static_cast<WindowTextData*>(window->elements[line + 5].data);
+        auto* const data = window->elements[line + 5].data.text;
         const std::wstring_view source =
             index < count ? std::wstring_view(gWindowLinesD67B70[index]) : std::wstring_view{};
         result = static_cast<std::uint32_t>(source.size() + 1);
@@ -228,7 +228,7 @@ void WindowTextList_ContinueDialog(const char* const text)
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     WindowInstance* const window = gWindowStates[WindowId_TextList].window;
     gWindowTitleCC4118 = cg::text::FromGbkWide(buffer.data());
-    auto* const title = static_cast<WindowTextData*>(window->elements[3].data);
+    auto* const title = window->elements[3].data.text;
     title->text = gWindowTitleCC4118;
     WindowTextList_ReleaseLines();
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
@@ -274,7 +274,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[3].visible = 1;
         gCurrentWindow->elements[4].visible = 0;
-        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        auto* const title = gCurrentWindow->elements[3].data.text;
         title->text = gWindowTitleCC4118;
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         gCurrentWindow->elements[0].visible = 0;
@@ -329,7 +329,7 @@ static std::int32_t WindowTextList_Draw(const std::int32_t)
         gCurrentWindow->elements[14].visible = 0;
     }
     WindowInstance* window = gCurrentWindow;
-    auto* const mouse = static_cast<WindowMouseData*>(window->elements[15].data);
+    auto* const mouse = window->elements[15].data.mouse;
     if ((static_cast<std::uint8_t>(mouse->flags) & 1u) != 0) {
         gWindowLineScrollCF46B8 = WindowScroll_ReadPosition(
             &window->elements[15], gWindowLineCountD67B74 - 9);
@@ -372,7 +372,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
 // 原函数：0x004ADBD0。
 static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowLineScrollCF46B8 > 0) {
@@ -401,7 +401,7 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
 // 原函数：0x004ADC80。
 static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
@@ -430,7 +430,7 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
 // 原函数：0x004ADD50。
 static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindowLineScrollCF46B8 > 0 ? 51 : 55, 320));
@@ -457,7 +457,7 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
 // 原函数：0x004ADE10。
 static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
@@ -501,7 +501,7 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t consumed = 0;
     if (elements[4].visible != 0) {
         if ((state & 1) != 0) {
@@ -513,7 +513,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
             const std::wstring packet = input::EscapeText(L"N|" + name, 255);
             gWindowTitleCC4118 = proposedTitle;
             static_cast<void>(WindowChat_RestoreInput());
-            auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+            auto* const title = gCurrentWindow->elements[3].data.text;
             title->text = gWindowTitleCC4118;
             gCurrentWindow->elements[4].visible = 0;
             gCurrentWindow->elements[2].visible = 1;
@@ -545,7 +545,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
 // 原函数：0x004AE170。
 static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
@@ -594,8 +594,8 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
     input::SetContext_44B330(&cg::ui::detail::gInputContextCC49C0);
     input::LoadInitialText_44A160(gWindowTitleCC4118);
     WindowInstance* const focusedWindow = gCurrentWindow;
-    gFocusedElementDataD45F94 = focusedWindow->elements[4].data;
-    static_cast<WindowInputData*>(focusedWindow->elements[4].data)->context = &cg::ui::detail::gInputContextCC49C0;
+    gFocusedElementDataD45F94 = focusedWindow->elements[4].data.input;
+    focusedWindow->elements[4].data.input->context = &cg::ui::detail::gInputContextCC49C0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }

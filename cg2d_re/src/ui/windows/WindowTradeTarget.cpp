@@ -134,7 +134,7 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
 static void WindowTradeTarget_Refresh(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9 + line].data);
+        auto* const data = gCurrentWindow->elements[9 + line].data.text;
         data->text = gWindowListNamesCF3F20[offset + line];
     }
 }
@@ -165,7 +165,7 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
         gCurrentWindow->elements[0].visible = 0;
     }
     WindowElement* const elements = gCurrentWindow->elements;
-    const auto* const mouse = static_cast<const WindowMouseData*>(elements[1].data);
+    const auto* const mouse = elements[1].data.mouse;
     if ((mouse->flags & 1u) != 0) {
         gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition(elements + 1, gWindowListCountCF46A8 - 5);
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
@@ -186,7 +186,7 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 // 原函数：0x0049EB50。
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowListOffsetCC3EF4 > 0) {
@@ -215,7 +215,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
 // 原函数：0x0049EC00。
 static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
@@ -243,7 +243,7 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
 // 原函数：0x0049ECC0。
 static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
@@ -270,7 +270,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
 // 原函数：0x0049ED80。
 static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
@@ -318,7 +318,7 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     std::int32_t result = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"中止。";

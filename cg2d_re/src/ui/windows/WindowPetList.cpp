@@ -382,7 +382,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
     };
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
 
     if (index >= 253 && index <= 257) {
@@ -629,7 +629,7 @@ static void WindowPetList_RefreshAttributeBar(
     const std::int32_t segments =
         world::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
     const auto show = [](const std::int32_t element, const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
+        gCurrentWindow->elements[element].data.graphic->imageNo = image;
         gCurrentWindow->elements[element].visible = 1;
     };
     if (segments == 1) {
@@ -653,11 +653,11 @@ static void WindowPetList_Refresh()
     WindowPetList_RefreshStates();
     std::wstring buffer;
     const auto copyNumber = [&buffer](const std::int32_t element) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
+        auto* const data = gCurrentWindow->elements[element].data.text;
         data->text = buffer;
     };
     const auto setImage = [](const std::int32_t element, const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
+        gCurrentWindow->elements[element].data.graphic->imageNo = image;
     };
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto* const pair = &world::gPetPairsDE0B08[row];
@@ -704,13 +704,13 @@ static void WindowPetList_Refresh()
         const wchar_t* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         WindowElement* const nameElements = gCurrentWindow->elements;
-        auto* const nameData = static_cast<WindowTextData*>(nameElements[textBase].data);
+        auto* const nameData = nameElements[textBase].data.text;
         nameData->text = name;
 
         const std::int16_t colorIndex = petIndex();
         WindowInstance* const colorWindow = gCurrentWindow;
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
-        static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->style.color =
+        colorWindow->elements[textBase].data.text->style.color =
             colorState == 3 ? std::byte{7} : std::byte{0};
         cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[petIndex()].value08);
         copyNumber(textBase + 1);
@@ -729,7 +729,7 @@ static void WindowPetList_Refresh()
             std::bit_cast<std::int16_t>(world::gPetRuntimeRecords[tribeIndex].value04);
         WindowElement* const tribeElements = tribeWindow->elements;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
-        auto* const tribeData = static_cast<WindowTextData*>(tribeElements[textBase + 4].data);
+        auto* const tribeData = tribeElements[textBase + 4].data.text;
         tribeData->text = tribeName;
 
         const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[petIndex()];
@@ -742,7 +742,7 @@ static void WindowPetList_Refresh()
             const std::int16_t followIndex = petIndex();
             WindowInstance* const followWindow = gCurrentWindow;
             const std::int32_t follow = world::gPetRuntimeRecords[followIndex].follow6D4;
-            static_cast<WindowGraphicData*>(followWindow->elements[226 + row].data)->imageNo =
+            followWindow->elements[226 + row].data.graphic->imageNo =
                 follow != 0 ? 0x3B586 : 0x3B587;
         } else {
             gCurrentWindow->elements[226 + row].visible = 0;

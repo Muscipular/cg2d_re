@@ -113,7 +113,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 // 原函数：0x0046FC60。
 static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = hover ? 1 : 0;
     if (index == 8) {

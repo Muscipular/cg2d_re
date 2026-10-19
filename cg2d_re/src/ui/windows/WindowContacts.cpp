@@ -317,7 +317,7 @@ static std::int32_t WindowContacts_Refresh()
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
-    auto* const sortGraphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[8].data);
+    auto* const sortGraphic = gCurrentWindow->elements[8].data.graphic;
     sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     WindowContacts_Sort();
     if (gContactsPreviewMode_D67B38 == 0) {
@@ -356,7 +356,7 @@ static std::int32_t WindowContacts_Refresh()
                 gCurrentWindow->elements[20].visible = 1;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-                auto* const data = static_cast<WindowTextData*>(window->elements[20].data);
+                auto* const data = window->elements[20].data.text;
                 WindowMail_WriteGuildStatus(data, status);
             }
         }
@@ -377,15 +377,15 @@ static std::int32_t WindowContacts_Refresh()
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
                 record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E0;
+                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E0;
                 break;
             case 1:
                 record = WindowMail_MakeContactView(cg::world::gOrderedRecords1051B14[recordIndex]);
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E8;
+                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E8;
                 break;
             case 2:
                 record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E0;
+                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E0;
                 break;
             }
             const std::int32_t textIndex = 30 + row * 8;
@@ -394,7 +394,7 @@ static std::int32_t WindowContacts_Refresh()
                 gCurrentWindow->elements[28 + row * 8].visible = 0;
                 gCurrentWindow->elements[27 + row * 8].visible = 0;
                 for (std::int32_t index = textIndex; index < textIndex + 5; ++index) {
-                    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+                    auto* const data = gCurrentWindow->elements[index].data.text;
                     data->text = L"";
                 }
                 continue;
@@ -410,15 +410,15 @@ static std::int32_t WindowContacts_Refresh()
             const std::int32_t anchorX = kMailImageAnchors56F790[row][0];
             static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
-            auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
+            auto* const nameData = gCurrentWindow->elements[textIndex].data.text;
             nameData->text = record.name;
             cg::text::FormatTo(numberText, L"{:3}" /* 原常量参考：0x00553FCC。 */, *record.number);
-            auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
+            auto* const numberData = gCurrentWindow->elements[textIndex + 1].data.text;
             numberData->text = numberText;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
             case 2: {
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
+                auto* const data = gCurrentWindow->elements[textIndex + 2].data.text;
                 data->text = record.text32;
                 break;
             }
@@ -428,16 +428,16 @@ static std::int32_t WindowContacts_Refresh()
                 const std::int32_t rank = member->value00;
                 const wchar_t* const text = rank == -1
                     ? L"" : cg::world::GetGuildRankText(rank);
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
+                auto* const data = gCurrentWindow->elements[textIndex + 2].data.text;
                 data->text = text;
                 break;
             }
             }
-            auto* const textData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 3].data);
+            auto* const textData = gCurrentWindow->elements[textIndex + 3].data.text;
             textData->text = record.text21;
             WindowElement* const statusElements = gCurrentWindow->elements;
             const std::int16_t status = record.ReadStatus();
-            auto* const statusData = static_cast<WindowTextData*>(statusElements[textIndex + 4].data);
+            auto* const statusData = statusElements[textIndex + 4].data.text;
             WindowMail_WriteContactStatus(record, statusData, status);
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
@@ -471,7 +471,7 @@ static std::int32_t WindowContacts_Refresh()
         gCurrentWindow->elements[20].visible = 1;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-        auto* const data = static_cast<WindowTextData*>(window->elements[20].data);
+        auto* const data = window->elements[20].data.text;
         WindowMail_WriteGuildStatus(data, status);
     } else {
         gCurrentWindow->elements[20].visible = 0;
@@ -513,14 +513,14 @@ static std::int32_t WindowContacts_Refresh()
             gCurrentWindow->elements[55 + row * 5].visible = 0;
             gCurrentWindow->elements[54 + row * 5].visible = 0;
             for (std::int32_t index = textIndex; index < textIndex + 2; ++index) {
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+                auto* const data = gCurrentWindow->elements[index].data.text;
                 data->text = L"";
             }
             continue;
         }
-        auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
+        auto* const nameData = gCurrentWindow->elements[textIndex].data.text;
         nameData->text = record.name;
-        auto* const statusData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
+        auto* const statusData = gCurrentWindow->elements[textIndex + 1].data.text;
         const std::int16_t status = record.ReadStatus();
         WindowMail_WriteContactStatus(record, statusData, status);
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -532,8 +532,7 @@ static std::int32_t WindowContacts_Refresh()
         case 1:
             if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                 const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
-                auto* const graphic = static_cast<WindowGraphicData*>(
-                    gCurrentWindow->elements[54 + row * 5].data);
+                auto* const graphic = gCurrentWindow->elements[54 + row * 5].data.graphic;
                 graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
             }
             break;
@@ -561,7 +560,7 @@ static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
         gCurrentWindow->elements[index].visible = 1;
     }
     if (mode == 0) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[7].data);
+        auto* const graphic = gCurrentWindow->elements[7].data.graphic;
         graphic->imageNo = 0x3B612;
         for (std::int32_t index = 21; index < 54; ++index) {
             gCurrentWindow->elements[index].visible = 1;
@@ -570,7 +569,7 @@ static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
             gCurrentWindow->elements[index].visible = 0;
         }
     } else if (mode == 1) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[7].data);
+        auto* const graphic = gCurrentWindow->elements[7].data.graphic;
         graphic->imageNo = 0x3B611;
         for (std::int32_t index = 21; index < 54; ++index) {
             gCurrentWindow->elements[index].visible = 0;
@@ -595,13 +594,13 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
             const std::int32_t x = gWindowElements56DB38[32].x;
             window->elements[index].x = x - 24;
         }
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data);
+        auto* const graphic = gCurrentWindow->elements[10].data.graphic;
         graphic->imageNo = 0x3B57E;
         for (std::int32_t index = 21; index < 27; ++index) {
             gCurrentWindow->elements[index].visible = 0;
         }
     } else if (category == 1) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data);
+        auto* const graphic = gCurrentWindow->elements[11].data.graphic;
         graphic->imageNo = 0x3B581;
         gCurrentWindow->elements[13].visible = 0;
         for (const std::int32_t index : {32, 40, 48}) {
@@ -617,7 +616,7 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
         for (const std::int32_t index : {34, 42, 50, 58, 63, 68, 73, 78, 83, 88, 93, 98, 20}) {
             gCurrentWindow->elements[index].visible = 0;
         }
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data);
+        auto* const graphic = gCurrentWindow->elements[12].data.graphic;
         graphic->imageNo = 0x3C116;
         for (const std::int32_t index : {32, 40, 48}) {
             WindowInstance* const window = gCurrentWindow;
@@ -649,7 +648,7 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 // 原函数：0x004A1C30。
 static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t imageOffset = index == 14 ? 0 : 3;
     graphic->imageNo = 0x3B592 + imageOffset;
     if ((state & 1) != 0) {
@@ -735,7 +734,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
 
     const std::int32_t imageOffset = (index & 1) != 0 ? 0 : 3;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
         if (index <= 2) {
@@ -777,7 +776,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
     if ((state & 8) != 0) {
         // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
-        auto* const pressed = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const pressed = gCurrentWindow->elements[index].data.graphic;
         pressed->imageNo = 0x3B557 + imageOffset;
     }
     return consumed;
@@ -786,7 +785,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 // 原函数：0x004A2610。
 static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B541;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B543;
@@ -824,7 +823,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
         return 0;
     }
     const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
@@ -837,10 +836,10 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
     }
     if ((state & 2) != 0) {
         if (category == 2) {
-            auto* const selected = static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data);
+            auto* const selected = gCurrentWindow->elements[12].data.graphic;
             selected->imageNo = 0x3C116;
         } else {
-            auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[108].data);
+            auto* const title = gCurrentWindow->elements[108].data.graphic;
             title->imageNo = category == 0 ? 0x3B9DE : 0x3B9E3;
         }
         gCurrentWindow->elements[0].visible = category == 1 ? 1 : 0;
@@ -858,7 +857,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
 // 原函数：0x004A2BD0。
 static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B9E5;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B9E7;
@@ -928,7 +927,7 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
 static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t parity = (index - 21) % 2;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t imageOffset = parity != 0 ? 3 : 0;
     graphic->imageNo = 0x3B556 + imageOffset;
     if ((state & 1) != 0) {
@@ -969,7 +968,7 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B547;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B549;
@@ -1128,7 +1127,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 // 原函数：0x004A3C70。
 static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     graphic->imageNo = hover ? 0x3B546 : 0x3B544;
     const std::int32_t consumed = hover ? 1 : 0;
@@ -1180,7 +1179,7 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
 // 原函数：0x004A32E0。
 static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B54A;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B54C;
@@ -1596,7 +1595,7 @@ static std::int32_t WindowContacts_DragScroll(const std::int32_t)
         break;
     }
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = static_cast<WindowMouseData*>(elements[17].data);
+    auto* const mouse = elements[17].data.mouse;
     if ((mouse->flags & 1) != 0) {
         if (gContactsPreviewMode_D67B38 == 0) {
             count = WindowScroll_ReadPosition(&elements[17], count - 3);

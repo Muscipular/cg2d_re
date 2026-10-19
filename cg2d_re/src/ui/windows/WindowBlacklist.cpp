@@ -195,11 +195,11 @@ static void WindowBlacklist_Refresh()
             }
             const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
             text = cg::world::blacklist::gRecords[currentPage + row].c_str();
-            destination = static_cast<WindowTextData*>(gCurrentWindow->elements[49 + row].data);
+            destination = gCurrentWindow->elements[49 + row].data.text;
         } else {
             WindowInstance* const window = gCurrentWindow;
             text = L"";
-            destination = static_cast<WindowTextData*>(window->elements[49 + row].data);
+            destination = window->elements[49 + row].data.text;
         }
         destination->text = text;
         gCurrentWindow->elements[39 + row].visible = 0;
@@ -231,10 +231,10 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
         const wchar_t* const hint = gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 0
             ? L"删除此笔黑名单。" /* 原常量参考：0x00588654。 */ : L"拒绝接收此人的发话。" /* 原常量参考：0x00588668。 */;
         gHoverTextD68AE8 = hint;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FCC;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x8FCC;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB02;
     }
     if ((state & 2) == 0) {
         return consumed;
@@ -266,7 +266,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     WindowInstance* const window = gCurrentWindow;
     void* const focused = gFocusedElementDataD45F94;
     WindowElement* const elements = window->elements;
-    void* const target = elements[0].data;
+    void* const target = elements[0].data.graphic;
     const std::int32_t y = elements[index].y;
     const bool changeFocus = focused != target;
     gBlacklistInputPrototype580EF0.y = y + 1;
@@ -275,7 +275,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     static_cast<void>(WindowInput_ActivateElement(&gBlacklistInputPrototype580EF0, windowX, windowY, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextC8B1B8);
     if (changeFocus) {
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[0].data;
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[0].data.graphic;
     }
     return 1;
 }
@@ -288,13 +288,13 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
     case 3:
     case 4: {
         const std::int32_t base = index == 3 ? 0x3B592 : 0x3B595;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+        gCurrentWindow->elements[index].data.graphic->imageNo =
             base + ((state & 1) != 0 ? 2 : 0);
         if ((state & 1) != 0) {
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
             consumed = 1;
         }
         if ((state & 0x400) != 0) {
@@ -315,7 +315,7 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
     case 5:
     case 6: {
         const std::int32_t base = index == 5 ? 0x3B556 : 0x3B559;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+        gCurrentWindow->elements[index].data.graphic->imageNo =
             base + ((state & 1) != 0 ? 2 : 0);
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 5 ? L"显示前十笔的黑名单。" /* 原常量参考：0x005886CC。 */ : L"显示后十笔的黑名单。" /* 原常量参考：0x005886B4。 */;
@@ -334,23 +334,23 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
         }
         break;
     }
     case 7:
         if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC7;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 0x8FC7;
             gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
         }
         if ((state & 1) != 0) {
             if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
-                static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC8;
+                gCurrentWindow->elements[index].data.graphic->imageNo = 0x8FC8;
             }
             gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
             consumed = 1;
         } else if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC6;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 0x8FC6;
         }
         if ((state & 2) != 0) {
             gLoginWindowRuntime.blacklistDeleteModeD67BC4 =
@@ -359,14 +359,14 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
         }
         break;
     case 8:
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+        gCurrentWindow->elements[index].data.graphic->imageNo =
             (state & 1) != 0 ? 0x8FCB : 0x8FC9;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = L"可一次删除所有的黑名单。" /* 原常量参考：0x00588680。 */;
             consumed = 1;
         }
         if ((state & 2) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FCA;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 0x8FCA;
             static_cast<void>(WindowBlacklist_ConfirmClear());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }

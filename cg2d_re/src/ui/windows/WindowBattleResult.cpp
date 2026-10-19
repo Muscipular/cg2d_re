@@ -153,7 +153,7 @@ WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u,
 static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
     if ((state & 2) != 0) {
         window->state |= 0x8000u;
@@ -192,19 +192,19 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
                 WindowInstance* const window = gCurrentWindow;
                 name = world::GetPlayerDisplayText(1);
-                auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
+                auto* const graphic = window->elements[row + 5].data.graphic;
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPetRuntimeRecords[slot].values70[25]);
                 WindowInstance* const window = gCurrentWindow;
-                auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
+                auto* const graphic = window->elements[row + 5].data.graphic;
                 graphic->imageNo = gHealthImages57E6A4[health];
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
                 const auto& pet = world::gPetRuntimeRecords[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = name;
+            gCurrentWindow->elements[row + 9].data.text->text = name;
             if (result->value02 != 0) {
                 gCurrentWindow->elements[row + 1].visible = 1;
             }
@@ -213,18 +213,18 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 ? (world::gPlayerRuntimeSlots.value68 == -1)
                 : (world::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
-                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text = L"  ---  ";
+                gCurrentWindow->elements[row + 13].data.text->text = L"  ---  ";
             } else {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, L"{:+7}", experience);
+                cg::text::FormatTo(window->elements[row + 13].data.text->text, L"{:+7}", experience);
             }
         }
         const auto& names = world::gBattleResultNamesFF0C34;
         for (std::int32_t row = 0; row < 3; ++row) {
             WindowInstance* const window = gCurrentWindow;
             const wchar_t* const name = names[row].data();
-            static_cast<WindowTextData*>(window->elements[row + 59].data)->text = name;
+            window->elements[row + 59].data.text->text = name;
         }
 
         const auto& skillResults = world::gBattleSkillResultsFF0C8C;
@@ -249,15 +249,15 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             if (level < maxLevel) {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 45].data)->text, L"{:+5}", experience);
+                cg::text::FormatTo(window->elements[row + 45].data.text->text, L"{:+5}", experience);
             } else {
-                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->text = L" --- ";
+                gCurrentWindow->elements[row + 45].data.text->text = L" --- ";
             }
             WindowInstance* const window = gCurrentWindow;
             const auto& name = skill->name;
-            static_cast<WindowTextData*>(window->elements[row + 31].data)->text = name;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 31].data)->style.color = std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->style.color = std::byte{0};
+            window->elements[row + 31].data.text->text = name;
+            gCurrentWindow->elements[row + 31].data.text->style.color = std::byte{0};
+            gCurrentWindow->elements[row + 45].data.text->style.color = std::byte{0};
             gCurrentWindow->elements[row + 17].visible = 0;
             if (result->value00 != 0) {
                 gCurrentWindow->elements[row + 17].visible = 1;
@@ -270,10 +270,10 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
         for (; row < 14; ++row) {
             WindowInstance* window = gCurrentWindow;
             const char* text = "";
-            static_cast<WindowTextData*>(window->elements[row + 31].data)->text = cg::text::FromGbkWide(text);
+            window->elements[row + 31].data.text->text = cg::text::FromGbkWide(text);
             window = gCurrentWindow;
             text = "";
-            static_cast<WindowTextData*>(window->elements[row + 45].data)->text = cg::text::FromGbkWide(text);
+            window->elements[row + 45].data.text->text = cg::text::FromGbkWide(text);
             gCurrentWindow->elements[row + 17].visible = 0;
         }
         gBattleResultCloseTickCB0F78 = platform::ReadTickCount64() + 5000u;
@@ -326,10 +326,10 @@ static std::int32_t WindowDpResult_Update(const std::int32_t value)
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
         const std::int32_t delta = world::gDpResultDelta_FF0D04;
-        cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[2].data)->text, L"DP   {:+9}", delta);
+        cg::text::FormatTo(window->elements[2].data.text->text, L"DP   {:+9}", delta);
         window = gCurrentWindow;
         const std::int32_t total = world::gDpResultTotal_FF0D08;
-        cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[3].data)->text, L"Total{:9}", total);
+        cg::text::FormatTo(window->elements[3].data.text->text, L"Total{:9}", total);
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (gBattleResultCloseTickCB0F78 < now) {

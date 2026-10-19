@@ -575,7 +575,7 @@ static void WindowTrade_SetPanelVisible(
 static void WindowTrade_SetPanelColor(
     WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     graphic->color = color;
 }
 
@@ -716,13 +716,13 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         std::memset(gTradePetSlotsCC4D28.data(), 0xFF, 4);
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
-        auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
+        auto* const otherName = textWindow->elements[15].data.text;
         otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
         WindowElement* const elements = gCurrentWindow->elements;
         const wchar_t* const playerName = world::GetPlayerDisplayText(1);
-        auto* const separator = static_cast<WindowTextData*>(elements[16].data);
+        auto* const separator = elements[16].data.text;
         separator->text = L"<=>";
-        auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
+        auto* const ownName = gCurrentWindow->elements[17].data.text;
         ownName->text = std::format(L"{:<16}", playerName);
         const std::int32_t y =
             static_cast<std::int32_t>(world::gPlayerY);
@@ -762,7 +762,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             const std::uint8_t oldStep = gTradeStepD3040C;
             WindowInstance* const firstWindow = gCurrentWindow;
             gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            const auto* first = static_cast<WindowGraphicData*>(firstWindow->elements[11].data);
+            const auto* first = firstWindow->elements[11].data.graphic;
             std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) - 10;
             if (alpha < 0) {
                 alpha = 0;
@@ -770,7 +770,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelColor(firstWindow, 11,
                 (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
             WindowInstance* const secondWindow = gCurrentWindow;
-            const auto* second = static_cast<WindowGraphicData*>(secondWindow->elements[14].data);
+            const auto* second = secondWindow->elements[14].data.graphic;
             alpha = static_cast<std::int32_t>(second->color >> 24) + 10;
             if (alpha > 255) {
                 alpha = 255;
@@ -802,7 +802,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             const std::uint8_t oldStep = gTradeStepD3040C;
             WindowInstance* const firstWindow = gCurrentWindow;
             gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            const auto* first = static_cast<WindowGraphicData*>(firstWindow->elements[11].data);
+            const auto* first = firstWindow->elements[11].data.graphic;
             std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) + 10;
             if (alpha > 255) {
                 alpha = 255;
@@ -810,7 +810,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelColor(firstWindow, 11,
                 (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
             WindowInstance* const secondWindow = gCurrentWindow;
-            const auto* second = static_cast<WindowGraphicData*>(secondWindow->elements[14].data);
+            const auto* second = secondWindow->elements[14].data.graphic;
             alpha = static_cast<std::int32_t>(second->color >> 24) - 10;
             if (alpha < 0) {
                 alpha = 0;
@@ -974,7 +974,7 @@ static std::int32_t WindowTrade_HandlePanel(
     }
     WindowElement* const scroll = &window->elements[scrollElement];
     const auto scrollFlags = reinterpret_cast<const unsigned char*>(
-        &static_cast<const WindowMouseData*>(scroll->data)->flags)[0];
+        &scroll->data.mouse->flags)[0];
     if ((scrollFlags & 1u) != 0) {
         *scrollValue = WindowScroll_ReadPosition(scroll, 2);
     }
@@ -1405,7 +1405,7 @@ static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const s
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const auto* const graphic = window->elements[index].data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -1866,7 +1866,7 @@ static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, co
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const auto* const graphic = window->elements[index].data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -1917,7 +1917,7 @@ static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, 
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const auto* const graphic = window->elements[index].data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -2114,8 +2114,8 @@ static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std:
             WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
-            gFocusedElementDataD45F94 = window->elements[0].data;
-            auto* const data = static_cast<WindowInputData*>(window->elements[0].data);
+            gFocusedElementDataD45F94 = window->elements[0].data.input;
+            auto* const data = window->elements[0].data.input;
             data->context = &cg::ui::detail::gInputContextCC21E8;
         }
     } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
@@ -2555,7 +2555,7 @@ static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 // 原函数：0x004B0A50。
 static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"向对方公开交易内容。";
@@ -2611,7 +2611,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
 // 原函数：0x004B0CF0。
 static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"还是算了。";
@@ -2641,7 +2641,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
 // 原函数：0x004B0DB0。
 static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"确定交易。";

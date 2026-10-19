@@ -281,15 +281,15 @@ static void WindowChat_RefreshGeometry()
     gChatWidthRequestC9A934 = 0;
     WindowElement* const firstElements = firstWindow->elements;
     const std::int32_t inputWidth = (currentWidth + 1) * render::GetFontMetrics(9).doubleWidth;
-    auto* graphic = static_cast<WindowGraphicData*>(firstElements[15].data);
+    auto* graphic = firstElements[15].data.graphic;
     const std::int32_t dragWidth = inputWidth + 111;
     graphic->width = inputWidth;
     graphic->height = 25;
-    graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[19].data);
+    graphic = gCurrentWindow->elements[19].data.graphic;
     graphic->width = inputWidth + 20;
     graphic->height = 25;
     gCurrentWindow->elements[16].x = inputWidth;
-    graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data);
+    graphic = gCurrentWindow->elements[17].data.graphic;
     graphic->width = dragWidth;
     const std::int32_t backgroundRows = gChatHeightUnitsC9A938 - 1;
     const std::int32_t backgroundHeight =
@@ -298,7 +298,7 @@ static void WindowChat_RefreshGeometry()
     gCurrentWindow->elements[17].y = -backgroundHeight;
     WindowElement* elements = gCurrentWindow->elements;
     const std::int32_t backgroundWidth = gChatWidthUnitsC9A930;
-    graphic = static_cast<WindowGraphicData*>(elements[18].data);
+    graphic = elements[18].data.graphic;
     graphic->width = backgroundWidth * 12 + 111;
     graphic->height = gChatHeightUnitsC9A938 == 0 ? 0 : 12;
     elements = gCurrentWindow->elements;
@@ -331,11 +331,11 @@ static void WindowChat_RefreshGeometry()
     const std::int32_t trackHeight =
         trackHeightFontWidth * gChatHeightUnitsC9A938 - 28;
     gCurrentWindow->elements[10].height = trackHeight;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->width = 14;
+    gCurrentWindow->elements[10].data.graphic->width = 14;
     const std::int32_t trackGraphicFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackGraphicHeight =
         trackGraphicFontWidth * gChatHeightUnitsC9A938 - 28;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->height = trackGraphicHeight;
+    gCurrentWindow->elements[10].data.graphic->height = trackGraphicHeight;
     gCurrentWindow->elements[11].x = scrollX;
     const std::int32_t upFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t upY = 4 - upFontWidth * gChatHeightUnitsC9A938;
@@ -375,7 +375,7 @@ static void WindowChat_RefreshGeometry()
     elements[7].x = elements[16].x + button7X;
     window = gCurrentWindow;
     const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
-    static_cast<WindowGraphicData*>(window->elements[7].data)->imageNo = color + 245192;
+    window->elements[7].data.graphic->imageNo = color + 245192;
 }
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
@@ -396,8 +396,8 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = current->elements[0].data;
-        static_cast<WindowInputData*>(current->elements[0].data)->context =
+        gFocusedElementDataD45F94 = current->elements[0].data.input;
+        current->elements[0].data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
@@ -428,11 +428,11 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     switch (index) {
     case 4:
         if ((state & 1) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC3;
+            gCurrentWindow->elements[4].data.graphic->imageNo = 0x3BDC3;
             gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
             consumed = 1;
         } else {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC4;
+            gCurrentWindow->elements[4].data.graphic->imageNo = 0x3BDC4;
         }
         if ((state & 0x400) != 0) {
             WindowChat_RequestHeightIncrease();
@@ -448,13 +448,13 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 5:
         if ((state & 1) != 0) {
             const std::int32_t image = platform::gChatRange_554640 * 3 + 0x3BDB1;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
+            gCurrentWindow->elements[5].data.graphic->imageNo = image;
             gHoverTextD68AE8 = L"切换发话的范围。";
             consumed = 1;
         } else {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t range = platform::gChatRange_554640;
-            static_cast<WindowGraphicData*>(window->elements[5].data)->imageNo = range * 3 + 0x3BDB2;
+            window->elements[5].data.graphic->imageNo = range * 3 + 0x3BDB2;
         }
         if ((state & 2) != 0) {
             const std::int32_t range = platform::gChatRange_554640 + 1;
@@ -480,7 +480,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 6: {
         WindowInstance* const hoverWindow = gCurrentWindow;
         const bool hovered = (state & 1) != 0;
-        auto* const graphic = static_cast<WindowGraphicData*>(hoverWindow->elements[6].data);
+        auto* const graphic = hoverWindow->elements[6].data.graphic;
         if (hovered) {
             gHoverTextD68AE8 = L"改变聊天时的文字大小。";
             consumed = 1;
@@ -519,11 +519,11 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         const bool hovered = (state & 1) != 0;
         WindowElement* const hoverElements = hoverWindow->elements;
         if (hovered) {
-            static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDA9;
+            hoverElements[3].data.graphic->imageNo = 0x3BDA9;
             gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示字数，点击滑鼠右键减少文字讯息显示字数。";
             consumed = 1;
         } else {
-            static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDAA;
+            hoverElements[3].data.graphic->imageNo = 0x3BDAA;
         }
         if ((state & 0x400) != 0) {
             WindowChat_RequestWidthIncrease();
@@ -575,7 +575,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 13: {
         WindowInstance* const hoverWindow = gCurrentWindow;
         const bool hovered = (state & 1) != 0;
-        static_cast<WindowGraphicData*>(hoverWindow->elements[11].data)->imageNo =
+        hoverWindow->elements[11].data.graphic->imageNo =
             hovered ? 0x3B594 : 0x3B592;
         consumed = hovered ? 1 : 0;
         if ((state & 0x400) != 0) {
@@ -586,7 +586,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             if (scroll > count) {
                 WindowInstance* const window = gCurrentWindow;
                 gChatScrollOffsetC9A940 = count;
-                static_cast<WindowGraphicData*>(window->elements[11].data)->imageNo = 0x3B593;
+                window->elements[11].data.graphic->imageNo = 0x3B593;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -597,7 +597,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     }
     case 14:
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo =
+        gCurrentWindow->elements[12].data.graphic->imageNo =
             (state & 1) != 0 ? 0x3B597 : 0x3B595;
         consumed = (state & 1) != 0 ? 1 : 0;
         if ((state & 0x400) != 0) {
@@ -606,7 +606,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             if (scroll < 0) {
                 WindowInstance* const window = gCurrentWindow;
                 gChatScrollOffsetC9A940 = 0;
-                static_cast<WindowGraphicData*>(window->elements[12].data)->imageNo = 0x3B596;
+                window->elements[12].data.graphic->imageNo = 0x3B596;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -660,8 +660,8 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
         }
         WindowElement* const focusedElements = gWindowStates[WindowId_Chat].window->elements;
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = focusedElements[0].data;
-        static_cast<WindowInputData*>(current->elements[0].data)->context =
+        gFocusedElementDataD45F94 = focusedElements[0].data.input;
+        current->elements[0].data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         consumed = 1;
@@ -681,8 +681,8 @@ static std::int32_t WindowCompactChat_Update(const std::int32_t value)
     if (value == -1) {
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = current->elements[0].data;
-        static_cast<WindowInputData*>(current->elements[0].data)->context =
+        gFocusedElementDataD45F94 = current->elements[0].data.input;
+        current->elements[0].data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     } else {
@@ -904,7 +904,7 @@ std::int32_t WindowChat_RestoreInput()
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
-        gFocusedElementDataD45F94 = gWindowStates[WindowId_CompactChat].window->elements[0].data;
+        gFocusedElementDataD45F94 = gWindowStates[WindowId_CompactChat].window->elements[0].data.input;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
     }
@@ -939,7 +939,7 @@ std::int32_t WindowChat_RestoreInput()
             }
         }
     }
-    gFocusedElementDataD45F94 = gWindowStates[WindowId_Chat].window->elements[0].data;
+    gFocusedElementDataD45F94 = gWindowStates[WindowId_Chat].window->elements[0].data.input;
     input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     return 1;
 }

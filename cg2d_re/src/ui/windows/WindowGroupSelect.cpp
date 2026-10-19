@@ -213,7 +213,7 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index
     if (index != 6 && index != 7) {
         return 0;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t idle = index == 6 ? 0x3B556 : 0x3B559;
     graphic->imageNo = idle;
     std::int32_t result = 0;
@@ -240,7 +240,7 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t ind
     if (index != 1 && index != 2) {
         return 0;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t idle = index == 1 ? 0x3B592 : 0x3B595;
     graphic->imageNo = idle;
     std::int32_t result = 0;
@@ -311,12 +311,12 @@ static void WindowGroupSelect_Refresh()
     WindowInstance* const titleWindow = gCurrentWindow;
     const std::wstring& title = mode == 0 ? gWindowText572F78.text
         : mode == 1 ? gWindowText572F80.text : gWindowText572F88.text;
-    auto* const titleData = static_cast<WindowTextData*>(titleWindow->elements[10].data);
+    auto* const titleData = titleWindow->elements[10].data.text;
     titleData->text = title;
     WindowInstance* const subtitleWindow = gCurrentWindow;
     const std::wstring& subtitle = mode == 0 ? gWindowText572F58.text
         : mode == 1 ? gWindowText572F60.text : gWindowText572F68.text;
-    auto* const subtitleData = static_cast<WindowTextData*>(subtitleWindow->elements[11].data);
+    auto* const subtitleData = subtitleWindow->elements[11].data.text;
     subtitleData->text = subtitle;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -328,7 +328,7 @@ static void WindowGroupSelect_Refresh()
             const std::wstring name = mode == 0 ? world::detail::gContactsF19FB0[source].name10
                 : mode == 1 ? cg::world::gOrderedRecords1051B14[source].name18
                     : cg::world::GetGuildRankText(position);
-            auto* const text = static_cast<WindowTextData*>(window->elements[12 + row].data);
+            auto* const text = window->elements[12 + row].data.text;
             text->text = name;
         }
         gCurrentWindow->elements[12 + row].visible = visible;
@@ -345,7 +345,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
     }
     const std::int32_t idle = index == 8 ? 0x3B556 : 0x3B559;
     std::int32_t result = 0;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
         gHoverTextD68AE8 = L"切换集团邮件。";
@@ -375,7 +375,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
         result = 1;
     }
     if ((state & 8) != 0) {
-        auto* const current = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const current = gCurrentWindow->elements[index].data.graphic;
         current->imageNo = idle + 1;
     }
     return result;
@@ -385,7 +385,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
 static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t result = 0;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3BA20;
         const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
@@ -421,7 +421,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        auto* const current = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const current = gCurrentWindow->elements[index].data.graphic;
         current->imageNo = 0x3BA1F;
     }
     return result;
@@ -432,7 +432,7 @@ static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const 
 {
     const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
     const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
     std::int32_t result = 0;
     if ((state & 1) != 0) {

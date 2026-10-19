@@ -249,9 +249,9 @@ static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
             const wchar_t* const source = cg::world::GetGuildRankText(index);
             gGuildDraftCF4018.ranks[index].text = source;
         }
-        auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+        auto* const name = gCurrentWindow->elements[9].data.text;
         name->text = cg::world::GetGuildName();
-        auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+        auto* const second = gCurrentWindow->elements[10].data.text;
         second->text = cg::world::GetGuildSecondText();
     }
     if (WindowGuildDetails_CommitFocusedInput() == 0) {
@@ -309,7 +309,7 @@ static void WindowGuildDetails_RefreshEditor()
     static_cast<void>(WindowGuildDetails_RefreshRanks());
     WindowInstance* window = gCurrentWindow;
     WindowElement* elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[0].data) {
+    if (gFocusedElementDataD45F94 == elements[0].data.input) {
         char fieldBytes[41]{};
         cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
         gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
@@ -320,10 +320,10 @@ static void WindowGuildDetails_RefreshEditor()
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[0], x, y, 1));
     } else {
         elements[9].visible = 1;
-        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+        auto* const text = gCurrentWindow->elements[9].data.text;
         text->text = gGuildDraftCF4018.name604;
         const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->style.color =
+        gCurrentWindow->elements[9].data.text->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool nameChanged = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
@@ -331,7 +331,7 @@ static void WindowGuildDetails_RefreshEditor()
 
     window = gCurrentWindow;
     elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[1].data) {
+    if (gFocusedElementDataD45F94 == elements[1].data.input) {
         elements[10].visible = 0;
         char fieldBytes[41]{};
         cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
@@ -342,10 +342,10 @@ static void WindowGuildDetails_RefreshEditor()
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 1));
     } else {
         elements[10].visible = 1;
-        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+        auto* const text = gCurrentWindow->elements[10].data.text;
         text->text = gGuildDraftCF4018.secondText634;
         const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->style.color =
+        gCurrentWindow->elements[10].data.text->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool secondChanged = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
@@ -354,18 +354,17 @@ static void WindowGuildDetails_RefreshEditor()
     for (std::int32_t row = 0; row < 7; ++row) {
         window = gCurrentWindow;
         elements = window->elements;
-        if (gFocusedElementDataD45F94 == elements[row + 2].data) {
+        if (gFocusedElementDataD45F94 == elements[row + 2].data.input) {
             elements[row + 11].visible = 0;
             WindowGuildDetails_SaveInputDraft(row + 2);
             WindowInstance* const current = gCurrentWindow;
             // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
-            static_cast<WindowTextData*>(
-                current->elements[row + 11].data)->text =
+            current->elements[row + 11].data.text->text =
                 input::ContextText(*gGuildInputs57F040[row].input.context);
         }
         window = gCurrentWindow;
         const std::int32_t rank = gGuildPageD67B78 + row;
-        auto* const text = static_cast<WindowTextData*>(window->elements[row + 11].data);
+        auto* const text = window->elements[row + 11].data.text;
         const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
         text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
     }
@@ -378,29 +377,28 @@ static std::int32_t WindowGuildDetails_RefreshRanks()
 {
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     gCurrentWindow->elements[53].visible = 0;
-    auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+    auto* const name = gCurrentWindow->elements[9].data.text;
     name->text = editable != 0 ? gGuildDraftCF4018.name604.data()
         : cg::world::GetGuildName();
-    auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+    auto* const second = gCurrentWindow->elements[10].data.text;
     second->text = editable != 0 ? gGuildDraftCF4018.secondText634.data()
         : cg::world::GetGuildSecondText();
     for (std::int32_t index = 0; index < 3; ++index) {
         WindowInstance* const window = gCurrentWindow;
         const wchar_t* const source = cg::world::GetGuildAuxText(index);
-        static_cast<WindowTextData*>(window->elements[index + 54].data)->text = source;
+        window->elements[index + 54].data.text->text = source;
     }
     std::int32_t y = 164;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         const wchar_t* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
             : cg::world::GetGuildRankText(rank);
-        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 11].data);
+        auto* const text = gCurrentWindow->elements[row + 11].data.text;
         text->text = source;
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t flags = editable != 0 ? gGuildDraftCF4018.ranks[rank].flags
                 : cg::world::ReadGuildRankFlags1051514(rank);
-            auto* const graphic = static_cast<WindowGraphicData*>(
-                gCurrentWindow->elements[18 + row * 5 + column].data);
+            auto* const graphic = gCurrentWindow->elements[18 + row * 5 + column].data.graphic;
             graphic->imageNo = (flags & (1 << column)) != 0 ? 0x3B9F6 : 0x3B9FD;
         }
         const std::uint8_t flags = editable != 0
@@ -439,7 +437,7 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
     void* const focused = gFocusedElementDataD45F94;
     WindowElement* const elements = window->elements;
     for (std::int32_t index = 0; index < 9; ++index) {
-        if (elements[index].data == focused) {
+        if (elements[index].data.input == focused) {
             return 1;
         }
     }
@@ -450,7 +448,7 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
 static void WindowGuildDetails_DragScroll(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = static_cast<WindowMouseData*>(elements[69].data);
+    auto* const mouse = elements[69].data.mouse;
     if ((mouse->flags & 1) != 0) {
         gGuildPageD67B78 = WindowScroll_ReadPosition(&elements[69], 25);
     }
@@ -500,7 +498,7 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
 // 原函数：0x004AED40。
 static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B56E;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
@@ -532,7 +530,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
     }
     WindowInstance* const window = gCurrentWindow;
     WindowElement* const elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[index].data) {
+    if (gFocusedElementDataD45F94 == elements[index].data.input) {
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
@@ -554,14 +552,14 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data;
-        static_cast<WindowInputData*>(focused->elements[index].data)->context =
+        gFocusedElementDataD45F94 = focused->elements[index].data.input;
+        focused->elements[index].data.input->context =
             &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = 33;
         break;
     }
     case 2: case 3: case 4: case 5: case 6: case 7: case 8: {
-        const std::wstring& source = static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text;
+        const std::wstring& source = gCurrentWindow->elements[index + 9].data.text->text;
         gGuildInputs57F040[index].text = source;
         WindowInstance* const current = gCurrentWindow;
         const std::int32_t y = current->y;
@@ -569,8 +567,8 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data;
-        static_cast<WindowInputData*>(focused->elements[index].data)->context =
+        gFocusedElementDataD45F94 = focused->elements[index].data.input;
+        focused->elements[index].data.input->context =
             &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
         break;
@@ -582,7 +580,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
 // 原函数：0x004AF000。
 static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t offset = index == 66 ? 0 : 3;
     graphic->imageNo = 0x3B592 + offset;
     if ((state & 1) != 0) {
@@ -629,7 +627,7 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 // 原函数：0x004AF100。
 static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 0x3B538;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B53A;

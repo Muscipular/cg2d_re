@@ -18,6 +18,7 @@ std::shared_ptr<UIWindowInstanceEx> GetExtWindowById(int id)
 
 void WindowExOpen(std::shared_ptr<UIWindowInstanceEx>& window)
 {
+    ui::WindowRuntime_UpdateElementOrder(window->window);
     windows.push_back(window);
     windowOrder[window->window.id] = ++orderSequence;
     window->window.state |= WIN_STATE_FOCUS;

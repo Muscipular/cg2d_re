@@ -209,7 +209,7 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
     WindowInstance* const window = gCurrentWindow;
     WindowElement* const elements = window->elements;
     const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
 }
 

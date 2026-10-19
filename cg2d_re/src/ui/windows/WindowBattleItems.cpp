@@ -187,7 +187,7 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         consumed = 1;
     }
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 244306;
+    gCurrentWindow->elements[index].data.graphic->imageNo = 244306;
     return consumed;
 }
 
@@ -223,22 +223,22 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     WindowInstance* const window = gCurrentWindow;
     cg::yobi::YobiAction* const source = world::gBattleEntries59E980[position];
-    auto* const data = static_cast<WindowAnimationData*>(window->elements[4].data);
+    auto* const data = window->elements[4].data.animation;
     const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(source);
     cg::yobi::SetYobiActionField2A8(data->action, imageNo);
     cg::yobi::SetYobiActionField2B8(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
+        gCurrentWindow->elements[4].data.animation->action, 5);
     cg::yobi::SetYobiActionField309(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 0);
+        gCurrentWindow->elements[4].data.animation->action, 0);
     WindowElement* const elements = gCurrentWindow->elements;
     if (elements[4].visible != 0) {
         const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
             world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
         if (currentImage >= 110350 && currentImage <= 110373) {
             cg::yobi::SetYobiActionField309(
-                static_cast<WindowAnimationData*>(elements[4].data)->action, 4);
+                elements[4].data.animation->action, 4);
             cg::yobi::SetYobiActionField310(
-                static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
+                gCurrentWindow->elements[4].data.animation->action, 4);
         }
     }
     WindowRuntime_DrawCurrent();

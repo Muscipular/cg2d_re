@@ -160,36 +160,36 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     switch (kind) {
         case 0:
         case 1: {
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+            cg::text::FormatTo(window->elements[4].data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
             const wchar_t* text = nullptr;
             if (kind == 0) {
                 text = gWindow13ResultD66E2C != 0 ? L"　变装成功了！" /* 原常量参考：0x00586AF0。 */ : L"　变装失败了！" /* 原常量参考：0x00586AE0。 */;
             } else {
                 text = gWindow13ResultD66E2C != 0 ? L"　变身成功了！" /* 原常量参考：0x00586AD0。 */ : L"　变身失败了！" /* 原常量参考：0x00586AC0。 */;
             }
-            static_cast<WindowTextData*>(window->elements[5].data)->text = text;
+            window->elements[5].data.text->text = text;
             break;
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
+                cg::text::FormatTo(window->elements[4].data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
+                cg::text::FormatTo(window->elements[5].data.text->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
+                cg::text::FormatTo(window->elements[4].data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+                window->elements[5].data.text->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
+                cg::text::FormatTo(window->elements[4].data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
+                window->elements[5].data.text->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
             } else if (gWindow13ValueD2DBF0 == 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
-                static_cast<WindowTextData*>(window->elements[5].data)->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
+                cg::text::FormatTo(window->elements[4].data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+                window->elements[5].data.text->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, gSkillTargetNameD2F748);
+                cg::text::FormatTo(window->elements[4].data.text->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, gSkillTargetNameD2F748);
                 const std::int32_t value = gWindow13ValueD2DBF0;
-                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
+                window->elements[5].data.text->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
                     : value == 2 ? L"　伤势恶化了。" /* 原常量参考：0x00586A0C。 */ : L"";
             }
             break;
@@ -198,11 +198,11 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     }
     static_cast<void>(audio::PlaySe_52C450(gWindow13ResultD66E2C != 0 ? 57 : 58, 320));
     if (gWindow13LevelUpCF468C != 0) {
-        static_cast<WindowTextData*>(window->elements[6].data)->text = kCraftLevelUp58661C;
+        window->elements[6].data.text->text = kCraftLevelUp58661C;
     } else {
-        cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[6].data)->text, kCraftExperience58660C, gWindow13ExperienceCC2E5C);
+        cg::text::FormatTo(window->elements[6].data.text->text, kCraftExperience58660C, gWindow13ExperienceCC2E5C);
     }
-    std::wstring& increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
+    std::wstring& increments = window->elements[7].data.text->text;
     increments.clear();
     if (gWindow13EnduranceCC421C != 0) {
         increments.append(std::format(kCraftEndurance586600, gWindow13EnduranceCC421C));
@@ -213,9 +213,9 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     if (gWindow13IntelligenceCC19FC != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC));
     }
-    static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
+    window->elements[2].data.animation->value04 = 1;
     cg::yobi::SetYobiActionField2B0(
-        static_cast<WindowAnimationData*>(window->elements[2].data)->action,
+        window->elements[2].data.animation->action,
         gWindow13ResultD66E2C != 0 ? 5 : 10);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -231,9 +231,9 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
     const std::int32_t imageNo =
         WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo), 0);
     cg::yobi::SetYobiActionField2A8(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
+        gCurrentWindow->elements[2].data.animation->action, imageNo);
     cg::yobi::SetYobiActionField2B8(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+        gCurrentWindow->elements[2].data.animation->action, 5);
     if (gSkillSendModeC8A970 != 0) {
         static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 1, 3, gSkillPetImageCB0A18));
     } else {
@@ -246,7 +246,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
     cg::yobi::YobiAction* const action =
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+        gCurrentWindow->elements[2].data.animation->action;
     const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
     const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
     if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
@@ -277,7 +277,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     const std::int32_t skill = gUsingSkillIndexD2F32C;
     const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
         * world::gSkillsF1BAFC[skill].fpReduce / 100;
@@ -312,7 +312,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
 static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kWindow13Text5868EC;
     }

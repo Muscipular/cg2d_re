@@ -23,7 +23,7 @@ static std::int32_t WindowMiniMap_Update(std::int32_t value);
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = (events & 1) ? 0x3B53D : 0x3B53B;
     if (events & 1) gHoverTextD68AE8 = L"打开大地图";
     if (events & 2) WindowBigMap_Open();
@@ -72,12 +72,12 @@ WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8,
 static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        auto* const data = gCurrentWindow->elements[3].data.text;
         data->text.clear();
         return 1;
     }
     if (world::IsObservationSceneTransitionActive_440B50() == 0) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        auto* const data = gCurrentWindow->elements[3].data.text;
         std::wstring& destination = data->text;
         if (destination.empty()) {
             const std::wstring& name = world::GetMapName_9DAD30();
@@ -112,7 +112,7 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
 // 原函数：0x00495E60。
 static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
-    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+    auto* const data = gCurrentWindow->elements[index].data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         data->text.clear();
         return 0;
@@ -126,7 +126,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
 // 原函数：0x00495EB0。
 static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
-    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+    auto* const data = gCurrentWindow->elements[index].data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         data->text.clear();
         return 0;

@@ -134,7 +134,7 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
         consumed = 1;
     }
     const std::int32_t selected = gLoginWindowRuntime.mailRankCF4A14;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = selected == scroll + index - 19 ? 0x3B59E : 0x3B59C;
     return consumed;
 }
@@ -143,7 +143,7 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
 static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kSettingsClose55331C;
     }
@@ -166,7 +166,7 @@ static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const 
 // 原函数：0x004A4370。
 static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
@@ -193,7 +193,7 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index
     if (index != 15 && index != 16) {
         return 0;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     const std::int32_t idle = index == 15 ? 0x3B592 : 0x3B595;
     graphic->imageNo = hover ? idle + 2 : idle;
@@ -225,12 +225,12 @@ static std::uint32_t WindowGuildRank_Refresh()
 {
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
+        auto* const data = gCurrentWindow->elements[row].data.text;
         const wchar_t* const rank = cg::world::GetGuildRankText(scroll + row + 1);
         data->text = rank;
     }
     const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;
-    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+    auto* const data = gCurrentWindow->elements[10].data.text;
     const wchar_t* const name = cg::world::gOrderedRecords1051B14[member].name18.c_str();
     const std::uint32_t length = static_cast<std::uint32_t>(cg::text::ToGbk(name).size() + 1);
     data->text = name;

@@ -147,7 +147,7 @@ static std::int32_t WindowEmote_ResetSelection()
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {

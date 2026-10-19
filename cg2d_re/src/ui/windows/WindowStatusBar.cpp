@@ -239,7 +239,7 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
 {
     WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B921;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3B921;
         window = gWindowStates[WindowId_Emote].window;
     }
     if ((state & 2) == 0) {
@@ -259,7 +259,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
 {
     WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B924;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3B924;
         window = gWindowStates[WindowId_MiniMap].window;
     }
     if ((state & 2) == 0) {
@@ -304,7 +304,7 @@ static void WindowStatusBar_Refresh()
     gStatusFpTextD45D50 = buffer;
     WindowElement* const elements = timeWindow->elements;
     const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
-    auto* const timeGraphic = static_cast<WindowGraphicData*>(elements[15].data);
+    auto* const timeGraphic = elements[15].data.graphic;
     const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
     const std::int32_t totalMinutes = hours * 60 + minutes;
     const double offset = totalMinutes * kStatusTimeScale54F638;
@@ -334,7 +334,7 @@ static void WindowStatusBar_Refresh()
         gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
     }
     const bool pointsBlink = gLoginWindowRuntime.statusHasPointsD66E24 != 0 && phase >= 30;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo =
+    gCurrentWindow->elements[13].data.graphic->imageNo =
         pointsBlink ? 0x3B953 : 0x3B954;
 
     bool injuryBlink = false;
@@ -346,11 +346,11 @@ static void WindowStatusBar_Refresh()
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
         : injury <= 75 ? 0x3B94A : 0x3B94D;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo =
+    gCurrentWindow->elements[11].data.graphic->imageNo =
         injuryImage - (injuryBlink ? 1 : 0);
     const bool mailBlink = gLoginWindowRuntime.statusHasMailCC4B5C != 0
         && gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo =
+    gCurrentWindow->elements[12].data.graphic->imageNo =
         mailBlink ? 0x3B94F : 0x3B950;
 }
 
@@ -420,7 +420,7 @@ static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::i
 static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
 {
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index - 15].data);
+    auto* const graphic = gCurrentWindow->elements[index - 15].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = hover ? 1 : 0;
     graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
@@ -523,7 +523,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         if (hover) {
             WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
-            static_cast<WindowGraphicData*>(hoverWindow->elements[13].data)->imageNo = 0x3B955;
+            hoverWindow->elements[13].data.graphic->imageNo = 0x3B955;
         }
         if ((state & 2) != 0) {
             if (candidate <= 4) {
@@ -567,7 +567,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         if (hover) {
             WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
-            static_cast<WindowGraphicData*>(hoverWindow->elements[12].data)->imageNo = 0x3B951;
+            hoverWindow->elements[12].data.graphic->imageNo = 0x3B951;
         }
         if ((state & 2) != 0) {
             world::detail::FindFirstUnreadMailContact_518F00(
@@ -639,7 +639,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                 imageWindow = gCurrentWindow;
                 image = injury <= 75 ? 0x3B94B : 0x3B94E;
             }
-            static_cast<WindowGraphicData*>(imageWindow->elements[11].data)->imageNo = image;
+            imageWindow->elements[11].data.graphic->imageNo = image;
             consumed = 1;
         }
         if ((state & 2) != 0) {

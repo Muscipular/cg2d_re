@@ -175,7 +175,7 @@ static void* WindowAlbumList_Refresh()
             const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords();
             WindowInstance* const nameWindow = gCurrentWindow;
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
-            auto* const text = static_cast<WindowTextData*>(nameWindow->elements[48 + row].data);
+            auto* const text = nameWindow->elements[48 + row].data.text;
             const auto& name = nameRecords[nameScroll + row].name;
             text->text = name;
             const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
@@ -185,7 +185,7 @@ static void* WindowAlbumList_Refresh()
             flagWindow->elements[38 + row].visible = fresh ? 1 : 0;
             result = flagWindow;
         } else {
-            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[48 + row].data);
+            auto* const text = gCurrentWindow->elements[48 + row].data.text;
             text->text.clear();
             WindowElement* const elements = gCurrentWindow->elements;
             elements[38 + row].visible = 0;
@@ -211,10 +211,10 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB02;
     }
     if ((state & 2) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
@@ -237,7 +237,7 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
     std::int32_t consumed = 0;
     switch (index) {

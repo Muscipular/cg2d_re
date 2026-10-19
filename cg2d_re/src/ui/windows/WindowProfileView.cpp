@@ -115,29 +115,29 @@ static std::uint32_t WindowProfileView_Refresh()
 {
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gViewedProfile105ECE0;
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[14].data)->imageNo =
+    gCurrentWindow->elements[14].data.graphic->imageNo =
         profile.value10C;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 15].data)->imageNo =
+        gCurrentWindow->elements[index + 15].data.graphic->imageNo =
             profile.entries410[index].value04;
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = profile.text08;
+    gCurrentWindow->elements[1].data.text->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", profile.value108);
-    static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = number;
-    static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = profile.text110;
-    static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = profile.text210;
-    static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = profile.text310;
+    gCurrentWindow->elements[2].data.text->text = number;
+    gCurrentWindow->elements[3].data.text->text = profile.text110;
+    gCurrentWindow->elements[4].data.text->text = profile.text210;
+    gCurrentWindow->elements[5].data.text->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 6].data)->text = profile.entries410[index].text08;
+        gCurrentWindow->elements[index + 6].data.text->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text = line;
+        gCurrentWindow->elements[index + 9].data.text->text = line;
     }
     static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
-    std::wstring& destination = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text;
+    std::wstring& destination = gCurrentWindow->elements[12].data.text->text;
     const auto units = static_cast<std::uint32_t>(line.size() + 1);
     destination = line;
     return units;
@@ -179,13 +179,13 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244253;
+        gCurrentWindow->elements[0].data.graphic->imageNo = 244253;
         std::wstring hint;
         cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244251;
+        gCurrentWindow->elements[0].data.graphic->imageNo = 244251;
     }
     if ((state & 2) != 0) {
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;

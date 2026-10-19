@@ -53,7 +53,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             L"切换成玩家称号视窗。",
         };
         const std::int32_t position = index - 19;
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = images[position] + 2;
             gHoverTextD68AE8 = hints[position];
@@ -82,7 +82,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
     case 23:
     case 24:
     case 25: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 243035;
             gHoverTextD68AE8 = L"开启目录视窗";
@@ -102,12 +102,12 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             consumed = 1;
         }
         if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 243034;
         }
         return consumed;
     }
     case 29: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 244420;
             gHoverTextD68AE8 = L"决定玩家简介";

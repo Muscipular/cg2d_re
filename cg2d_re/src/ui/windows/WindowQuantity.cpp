@@ -89,7 +89,7 @@ WindowInstance* WindowQuantity_Open(
     WindowInstance* const positionedWindow = gWindowStates[WindowId_Quantity].window;
     static_cast<void>(CenterPopupWindowPosition(WindowId_Quantity,
         positionedWindow->width, positionedWindow->height, positionedWindow->x, positionedWindow->y));
-    static_cast<WindowGraphicData*>(gWindowStates[WindowId_Quantity].window->elements[6].data)->imageNo = imageNo;
+    gWindowStates[WindowId_Quantity].window->elements[6].data.graphic->imageNo = imageNo;
     WindowInstance* const stateWindow = gWindowStates[WindowId_Quantity].window;
     gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);
     gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(value14);
@@ -124,8 +124,8 @@ static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::in
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
         WindowInstance* const window = gCurrentWindow;
-        gFocusedElementDataD45F94 = window->elements[0].data;
-        static_cast<WindowInputData*>(window->elements[0].data)->context = &cg::ui::detail::gInputContextCB0878;
+        gFocusedElementDataD45F94 = window->elements[0].data.input;
+        window->elements[0].data.input->context = &cg::ui::detail::gInputContextCB0878;
     }
     return 0;
 }
@@ -178,7 +178,7 @@ static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std:
 static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"增加显示数量。";
     }
@@ -207,7 +207,7 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
 static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"减少显示数量。";
     }

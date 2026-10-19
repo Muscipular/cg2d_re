@@ -94,8 +94,8 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = gCurrentWindow;
         gMailInputPrototype57E740.text.clear();
-        gFocusedElementDataD45F94 = focused->elements[1].data;
-        static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
+        gFocusedElementDataD45F94 = focused->elements[1].data.input;
+        focused->elements[1].data.input->context = &cg::ui::detail::gInputContextD66CA8;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -219,7 +219,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
     case 8:
     case 9: {
         const std::int32_t idle = index == 2 ? 0x3BE54 : index == 8 ? 0x3BE5D : 0x3BE5A;
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = idle + 2;
             gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
@@ -250,7 +250,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = idle + 1;
         }
         return consumed;
     }
@@ -261,7 +261,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
     }
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BA1D;
             gHoverTextD68AE8 = kReplyMailHint587730;
@@ -329,7 +329,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         }
     }
     if ((state & 8) != 0) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BA1C;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }
@@ -340,7 +340,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
-        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
+        auto* const text = gCurrentWindow->elements[6].data.text;
         text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
             : cg::world::gOrderedRecords1051B14[target].name18;
     }
@@ -348,7 +348,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
     const auto& pet = world::gPetRuntimeRecords[namePet];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
+    auto* const nameData = gCurrentWindow->elements[7].data.text;
     nameData->text = name;
     const std::int32_t firstPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t firstPet = gLoginWindowRuntime.choicesCC4CA0.values04[firstPosition];
@@ -358,7 +358,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         const std::int32_t secondPet = gLoginWindowRuntime.choicesCC4CA0.values04[secondPosition];
         unavailable = WindowPetMailCompose_HasGiftItem(secondPet) != 0;
     }
-    auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
+    auto* const colorData = gCurrentWindow->elements[7].data.text;
     colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
     const bool hasItem = gLoginWindowRuntime.prefixD2F0B8.value0C != -1;
     gCurrentWindow->elements[4].visible = 0;

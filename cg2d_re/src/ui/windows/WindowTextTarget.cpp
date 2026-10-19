@@ -145,16 +145,16 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
     std::int32_t row = 0;
     for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
         if (names != nullptr) {
-            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
+            auto* const text = gCurrentWindow->elements[row + 9].data.text;
             text->text = names[offset + row];
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->style.color =
+            gCurrentWindow->elements[row + 9].data.text->style.color =
                 static_cast<std::byte>(color);
             names = gTextChoiceNamesD30130;
         }
     }
     for (; row < 5; ++row) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = L"";
+        gCurrentWindow->elements[row + 9].data.text->text = L"";
     }
 }
 
@@ -166,7 +166,7 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
         gCurrentWindow->elements[index].visible = visible;
     }
     WindowElement* const elements = gCurrentWindow->elements;
-    if ((static_cast<const WindowMouseData*>(elements[1].data)->flags & 1u) != 0) {
+    if ((elements[1].data.mouse->flags & 1u) != 0) {
         gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition(elements + 1, gTextChoiceCountCC4CE4 - 5);
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
     }
@@ -186,7 +186,7 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 // 原函数：0x0049F260。
 static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gTextChoiceOffsetD2D9C0 > 0) {
@@ -215,7 +215,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
 // 原函数：0x0049F310。
 static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
@@ -243,7 +243,7 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
 // 原函数：0x0049F3D0。
 static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
@@ -270,7 +270,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
 // 原函数：0x0049F490。
 static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
@@ -317,7 +317,7 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 // 原函数：0x0049F5C0。
 static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭此视窗";

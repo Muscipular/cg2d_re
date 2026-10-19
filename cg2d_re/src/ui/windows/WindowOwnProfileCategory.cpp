@@ -103,13 +103,13 @@ static void WindowOwnProfileCategory_Refresh()
     case 2: image = 0x3C385; break;
     default: return;
     }
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
+    gCurrentWindow->elements[5].data.graphic->imageNo = image;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t page = gProfileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
         const wchar_t* const source =
             record.used != 0 ? record.text0C.data() : L"";
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
+        auto* const data = gCurrentWindow->elements[row + 9].data.text;
         data->text = source;
     }
 }
@@ -139,10 +139,10 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB02;
     }
 
     const std::int32_t selectedMode = gProfileCategory1085DA0;
@@ -151,7 +151,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         const std::int32_t selected =
             world::detail::gCurrentProfile10738E8.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB03;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB03;
         }
     }
     if ((state & 2) == 0) {
@@ -180,7 +180,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
     switch (index) {
     case 3: {

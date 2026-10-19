@@ -13,6 +13,7 @@
 #include "../world/WorldUpdateDependencies.hpp"
 
 #include <cstdio>
+#include <algorithm>
 
 namespace cg::ui {
 namespace detail {
@@ -1461,7 +1462,7 @@ std::uint8_t WindowInput_HandleNumber(
 std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"关闭这个视窗。";
@@ -1785,10 +1786,10 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
         if (mode == 0) {
             WindowItemSelector_ShowPlayerPage(state);
-            static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98146;
+            state->elements00[1]->data.graphic->imageNo = 98146;
         } else if (mode > 0) {
             WindowItemSelector_ShowPetPage(state);
-            static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
+            state->elements00[1]->data.graphic->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
                      position < world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
@@ -1820,7 +1821,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         }
         WindowItemSelector_MoveElements(state, -182);
         state->elements00[1]->visible = 1;
-        static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98146;
+        state->elements00[1]->data.graphic->imageNo = 98146;
         break;
     case 3:
         WindowItemSelector_MoveElements(state, -182);
@@ -1834,7 +1835,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
             state->elements00[1]->mouseCallback = WindowElement_NoOp;
         }
         state->elements00[1]->visible = 1;
-        static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
+        state->elements00[1]->data.graphic->imageNo = 98147;
         break;
     case 4:
         state->value60 = 0;
@@ -1962,7 +1963,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     state->previousPet74 = selected;
     pet->updated510C = 0;
     WindowElement* const nameElement = state->elements00[7];
-    auto* const nameData = static_cast<WindowTextData*>(nameElement->data);
+    auto* const nameData = nameElement->data.text;
     const wchar_t* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
     nameData->text = name;
     const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->style.font);
@@ -1972,7 +1973,7 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     WindowElement* const weightElement = state->elements00[8];
     const std::int32_t maximumWeight = pet->values6D8[2];
     const std::int32_t weight = pet->values6D8[1];
-    auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
+    auto* const weightData = weightElement->data.text;
     cg::text::FormatTo(weightData->text, L"负重:{:3}/{:3}", weight, maximumWeight);
     const std::wstring& weightText = weightData->text;
     const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->style.font);
@@ -2154,7 +2155,7 @@ bool WindowItemSelector_HandleTab(
         98142, 98140, 98142, 98141, 98145, 98143, 98145, 98144,
     };
     WindowElement* const element = state->elements00[tab + 2];
-    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
+    auto* const graphic = element->data.graphic;
     const bool hovered = (events & 1) != 0;
     bool consumed = false;
     if (hovered) {
@@ -3628,9 +3629,8 @@ std::int32_t WindowScroll_ReadPosition(WindowElement* const element, const std::
     const std::int32_t previousHeight = (element - 1)->height;
     const std::int32_t span = height - previousHeight;
     const std::int32_t halfStep = span / (maximum * 2);
-    const auto* const data = static_cast<const std::byte*>(element->data);
-    std::int32_t delta;
-    std::memcpy(&delta, data + offsetof(WindowMouseData, deltaY), sizeof(delta));
+    const std::int32_t delta = element->type == WindowElementType_Graphic
+        ? element->data.graphic->offsetY : element->data.mouse->deltaY;
     return (halfStep + delta) * maximum / span;
 }
 
@@ -3638,7 +3638,6 @@ std::int32_t WindowScroll_ReadPosition(WindowElement* const element, const std::
 std::int32_t WindowScroll_SetPosition(
     WindowElement* const element, const std::int32_t maximum, const std::int32_t position)
 {
-    auto* const data = static_cast<std::byte*>(element->data);
     std::int32_t y;
     if (maximum <= 0) {
         y = element->y;
@@ -3651,8 +3650,8 @@ std::int32_t WindowScroll_SetPosition(
     (element - 1)->y = y;
     const std::int32_t delta = y - element->y;
     // 4C0160也传入type1图形载荷；原+8写入对应其offsetY。
-    static_assert(offsetof(WindowMouseData, deltaY) == offsetof(WindowGraphicData, offsetY));
-    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
+    (element->type == WindowElementType_Graphic
+        ? element->data.graphic->offsetY : element->data.mouse->deltaY) = delta;
     return delta;
 }
 
@@ -3662,7 +3661,6 @@ std::int32_t WindowScroll_ApplyWheel(
     WindowElement* const element, std::int32_t position, std::int32_t maximum,
     const std::int32_t wheel)
 {
-    auto* const data = static_cast<std::byte*>(element->data);
     if (wheel == 0) {
         return position;
     }
@@ -3711,12 +3709,14 @@ std::int32_t WindowScroll_ApplyWheel(
     }
     const std::int32_t previousY = previous->y;
     const std::int32_t baseY = element->y;
-    std::uint32_t flags;
-    std::memcpy(&flags, data + offsetof(WindowMouseData, flags), sizeof(flags));
     const std::int32_t delta = previousY - baseY;
-    flags |= 1u;
-    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
-    std::memcpy(data + offsetof(WindowMouseData, flags), &flags, sizeof(flags));
+    if (element->type == WindowElementType_Graphic) {
+        element->data.graphic->offsetY = delta;
+        element->data.graphic->imageNo |= 1;
+    } else {
+        element->data.mouse->deltaY = delta;
+        element->data.mouse->flags |= 1u;
+    }
     return position;
 }
 
@@ -4091,7 +4091,7 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
             WindowInstance* const currentWindow = gCurrentWindow;
             WindowElement* const currentElement = &currentWindow->elements[index];
             if (currentElement->type == WindowElementType_MouseArea) {
-                auto* const data = static_cast<WindowMouseData*>(currentElement->data);
+                auto* const data = currentElement->data.mouse;
                 data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
                 WindowInstance* const yWindow = gCurrentWindow;
                 data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
@@ -4126,7 +4126,10 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
 
 void WindowRuntime_UpdateExtendedElements()
 {
-    for (std::int32_t index = 0; index < gCurrentWindow->elementCount; ++index) {
+    WindowRuntime_UpdateElementOrder(*gCurrentWindow);
+    for (std::int32_t position = 0; position < gCurrentWindow->elementsSortedCount; ++position) {
+        const auto index = static_cast<std::int32_t>(
+            gCurrentWindow->elementsSorted[position] - gCurrentWindow->elements);
         gCurrentElementIndex57C12C = index;
         if (gCurrentWindow->elements[index].visible == 1) {
             WindowRuntime_DispatchElementMouse(index);
@@ -4139,21 +4142,18 @@ void WindowRuntime_UpdateExtendedElements()
 // 原函数：0x004741A0。
 std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const std::int32_t state)
 {
-    // 窗口49的type1与普通type4共享+0/+8语义，按对象字节访问而不强转异型结构。
-    auto* const data = static_cast<std::byte*>(gCurrentWindow->elements[index].data);
-    static_assert(offsetof(WindowMouseData, flags) == offsetof(WindowGraphicData, imageNo));
-    static_assert(offsetof(WindowMouseData, deltaY) == offsetof(WindowGraphicData, offsetY));
+    // 窗口49的Graphic与普通MouseArea共享滚动语义，按活动类型读写对应字段。
+    WindowElement* const scrollElement = &gCurrentWindow->elements[index];
+    std::uint32_t flags = scrollElement->type == WindowElementType_Graphic
+        ? std::bit_cast<std::uint32_t>(scrollElement->data.graphic->imageNo)
+        : scrollElement->data.mouse->flags;
     std::int32_t result = 0;
-    if ((std::to_integer<std::uint8_t>(data[0]) & 2u) == 0) {
-        const std::uint32_t flags = 0;
-        std::memcpy(data, &flags, sizeof(flags));
-    }
+    if ((flags & 2u) == 0) flags = 0;
     if ((state & 8) != 0) {
-        const std::uint32_t flags = 3;
-        std::memcpy(data, &flags, sizeof(flags));
+        flags = 3;
         result = 1;
     }
-    if ((std::to_integer<std::uint8_t>(data[0]) & 2u) != 0) {
+    if ((flags & 2u) != 0) {
         WindowInstance* const window = gCurrentWindow;
         WindowElement* const previous = &window->elements[index - 1];
         const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->y));
@@ -4178,12 +4178,13 @@ std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const 
     const std::int32_t currentY = element->y;
     const std::int32_t previousY = element[-1].y;
     const std::int32_t delta = previousY - currentY;
-    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
-    if ((state & 8) == 0) {
-        std::uint32_t flags;
-        std::memcpy(&flags, data, sizeof(flags));
-        flags &= ~std::uint32_t{2};
-        std::memcpy(data, &flags, sizeof(flags));
+    if ((state & 8) == 0) flags &= ~std::uint32_t{2};
+    if (scrollElement->type == WindowElementType_Graphic) {
+        scrollElement->data.graphic->offsetY = delta;
+        scrollElement->data.graphic->imageNo = std::bit_cast<std::int32_t>(flags);
+    } else {
+        scrollElement->data.mouse->deltaY = delta;
+        scrollElement->data.mouse->flags = flags;
     }
     return result;
 }
@@ -4333,26 +4334,15 @@ std::int32_t WindowRuntime_Update()
             } else {
                 updateResult = invoke([&] { return gCurrentWindow->update(carried); });
                 window = gCurrentWindow;
-                // G07：页按钮先接收放下事件，避免原背包背景先重置拖动会话。
-                const std::int32_t originalCount = gWindowPrototypes57C130[window->id]->elementCount;
-                const bool hasPageElements = window->elementCount > originalCount;
-                for (std::int32_t pageIndex = originalCount; pageIndex < window->elementCount; ++pageIndex) {
-                    gCurrentElementIndex57C12C = pageIndex;
-                    if (window->elements[pageIndex].visible == 1) {
-                        static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(pageIndex); return 0; }));
-                        window = gCurrentWindow;
-                    }
-                }
-                std::int32_t elementIndex = 0;
-                gCurrentElementIndex57C12C = 0;
-                while (elementIndex < (hasPageElements ? originalCount : window->elementCount)) {
+                // WEO01：update维护排序缓存，分页的前景顺序由创建时的seqNo表达。
+                WindowRuntime_UpdateElementOrder(*window);
+                for (std::int32_t position = 0; position < window->elementsSortedCount; ++position) {
+                    const auto elementIndex = static_cast<std::int32_t>(window->elementsSorted[position] - window->elements);
+                    gCurrentElementIndex57C12C = elementIndex;
                     if (window->elements[elementIndex].visible == 1) {
                         static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementIndex); return 0; }));
                         window = gCurrentWindow;
-                        elementIndex = gCurrentElementIndex57C12C;
                     }
-                    ++elementIndex;
-                    gCurrentElementIndex57C12C = elementIndex;
                 }
             }
             const bool hasFocus = focused != 0;
@@ -4470,6 +4460,10 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
             WindowElement* const element = &window->elements[index];
             element->type = source->type;
             element->state = 0;
+            // 保留动态分页既有前景层次，原型显式seqNo优先。
+            const std::int32_t prefixCount = id == WindowId_Bank ? 2 : 0;
+            element->seqNo = source->seqNo == -1
+                ? index + (index >= prefixCount ? pageCount : 0) : source->seqNo;
             element->x = source->x;
             element->y = source->y;
             element->width = source->width;
@@ -4488,7 +4482,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                     data->width = original->width;
                     data->height = original->height;
                 }
-                element->data = data;
+                element->data.graphic = data;
                 break;
             }
             case WindowElementType_Animation: {
@@ -4501,7 +4495,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                         action, data->action, source->source.animationImageNo);
                     data->value04 = 0;
                 }
-                element->data = data;
+                element->data.animation = data;
                 break;
             }
             case WindowElementType_Text: {
@@ -4515,7 +4509,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                     data->style.color = original->style.color;
                     data->style.font = original->style.font;
                 }
-                element->data = data;
+                element->data.text = data;
                 break;
             }
             case WindowElementType_MouseArea: {
@@ -4524,14 +4518,14 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                 if (data != nullptr) {
                     data->flags = *source->source.mouseFlags;
                 }
-                element->data = data;
+                element->data.mouse = data;
                 break;
             }
             case WindowElementType_Input:
-                element->data = std::calloc(1, sizeof(WindowInputData));
+                element->data.input = static_cast<WindowInputData*>(std::calloc(1, sizeof(WindowInputData)));
                 break;
             case WindowElementType_InputCaret:
-                element->data = std::calloc(1, sizeof(std::uint32_t));
+                element->data.inputCaret = static_cast<std::uint32_t*>(std::calloc(1, sizeof(std::uint32_t)));
                 break;
             case WindowElementType_Number: {
                 auto* const data = static_cast<WindowNumberData*>(
@@ -4544,7 +4538,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                         reinterpret_cast<const unsigned char*>(original) + offsetof(WindowNumberData, color),
                         sizeof(std::uint32_t));
                 }
-                element->data = data;
+                element->data.number = data;
                 break;
             }
             default:
@@ -4609,6 +4603,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     // 初始化会发布实际尺寸；仅符合原型中心规则的窗口按最终几何居中。
     static_cast<void>(CenterPopupWindowPosition(id,
         window->width, window->height, window->x, window->y));
+    WindowRuntime_UpdateElementOrder(*window);
     gCurrentWindow = previous;
     return window;
 }
@@ -4742,45 +4737,49 @@ void WindowRuntime_Free(WindowInstance* const window)
         case WindowElementType_Graphic:
         case WindowElementType_Input: {
             void* const focusedData = gFocusedElementDataD45F94;
-            void* const elementData = element->data;
+            void* const elementData = element->type == WindowElementType_Graphic
+                ? static_cast<void*>(element->data.graphic) : static_cast<void*>(element->data.input);
             if (elementData == focusedData) {
                 static_cast<void>(WindowChat_RestoreInput());
             }
-            if (void* const data = window->elements[index].data; data != nullptr) {
-                std::free(data);
-                window->elements[index].data = nullptr;
-            }
+            std::free(elementData);
+            if (element->type == WindowElementType_Graphic) element->data.graphic = nullptr;
+            else element->data.input = nullptr;
             break;
         }
         case WindowElementType_Animation: {
-            const auto* const data = static_cast<const WindowAnimationData*>(element->data);
+            const auto* const data = element->data.animation;
             if (data != nullptr) {
                 cg::yobi::MarkDeathUnchecked(data->action);
-                std::free(window->elements[index].data);
-                window->elements[index].data = nullptr;
+                std::free(element->data.animation);
+                element->data.animation = nullptr;
             }
             break;
         }
         case WindowElementType_Text: {
-            auto* const data = static_cast<WindowTextData*>(element->data);
+            auto* const data = element->data.text;
             delete data; // 原0x0047134F：UTL02正文随原生析构释放。
-            window->elements[index].data = nullptr;
+            element->data.text = nullptr;
             break;
         }
         case WindowElementType_MouseArea:
-        case WindowElementType_InputCaret:
-        case WindowElementType_Number: {
-            void* const data = element->data;
-            if (data != nullptr) {
-                std::free(data);
-                window->elements[index].data = nullptr;
-            }
+            std::free(element->data.mouse);
+            element->data.mouse = nullptr;
             break;
-        }
+        case WindowElementType_InputCaret:
+            std::free(element->data.inputCaret);
+            element->data.inputCaret = nullptr;
+            break;
+        case WindowElementType_Number:
+            std::free(element->data.number);
+            element->data.number = nullptr;
+            break;
         default:
             break;
         }
     }
+    std::free(window->elementsSorted);
+    window->elementsSorted = nullptr;
     WindowElement* const elementsToFree = window->elements;
     if (elementsToFree != nullptr) {
         std::free(elementsToFree);
@@ -4920,6 +4919,44 @@ void WindowRuntime_CloseByCategory(const std::uint32_t mask)
     }
 }
 
+void WindowRuntime_UpdateElementOrder(WindowInstance& window)
+{
+    if (window.elementCount == 0) {
+        std::free(window.elementsSorted);
+        window.elementsSorted = nullptr;
+        window.elementsSortedSource = nullptr;
+        window.elementsSortedCount = 0;
+        return;
+    }
+    const auto now = platform::ReadTickCount64();
+    const bool changed = window.elementsSortedSource != window.elements
+        || window.elementsSortedCount != window.elementCount;
+    const auto before = [](const WindowElement* left, const WindowElement* right) {
+        return left->seqNo != right->seqNo ? left->seqNo < right->seqNo : left < right;
+    };
+    if (!changed && now - window.elementsSortedTick < 1000
+        && std::is_sorted(window.elementsSorted, window.elementsSorted + window.elementsSortedCount, before)) return;
+    if (window.elementsSortedCount != window.elementCount) {
+        auto* const sorted = static_cast<WindowElement**>(std::realloc(window.elementsSorted,
+            static_cast<std::size_t>(window.elementCount) * sizeof(WindowElement*)));
+        if (sorted == nullptr) {
+            // 不保留指向旧数组的缓存；下一次update重新尝试分配。
+            std::free(window.elementsSorted);
+            window.elementsSorted = nullptr;
+            window.elementsSortedSource = nullptr;
+            window.elementsSortedCount = 0;
+            return;
+        }
+        window.elementsSorted = sorted;
+    }
+    for (std::int32_t index = 0; index < window.elementCount; ++index)
+        window.elementsSorted[index] = &window.elements[index];
+    std::sort(window.elementsSorted, window.elementsSorted + window.elementCount, before);
+    window.elementsSortedSource = window.elements;
+    window.elementsSortedCount = window.elementCount;
+    window.elementsSortedTick = now;
+}
+
 // WDP01：完整元素分发、低W16裁剪与现场取样；见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
 void WindowRuntime_DrawCurrent()
@@ -4927,18 +4964,8 @@ void WindowRuntime_DrawCurrent()
     using namespace detail;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* window = gCurrentWindow;
-    // G07：只调整绘制访问顺序，原控件和借用指针不随排序移动。
-    const std::int32_t originalCount = window->id >= 0 && window->id < kWindowCount
-        ? gWindowPrototypes57C130[window->id]->elementCount : window->elementCount;
-    const std::int32_t pageCount = window->elementCount - originalCount;
-    const std::int32_t prefixCount = window->id == WindowId_Bank ? 2 : 0;
-    for (std::int32_t drawIndex = 0; drawIndex < window->elementCount; ++drawIndex) {
-        std::int32_t index = drawIndex;
-        if (pageCount > 0 && drawIndex >= prefixCount) {
-            index = drawIndex < prefixCount + pageCount
-                ? originalCount + drawIndex - prefixCount : drawIndex - pageCount;
-        }
-        WindowElement* const element = &window->elements[index];
+    for (std::int32_t position = 0; position < window->elementsSortedCount; ++position) {
+        WindowElement* const element = window->elementsSorted[position];
         if (element->visible == 1) {
             const std::int32_t elementX = element->x;
             const std::int32_t windowX = window->x;
@@ -4948,7 +4975,7 @@ void WindowRuntime_DrawCurrent()
             const std::int32_t y = windowY + elementY;
             switch (element->type) {
             case WindowElementType_Graphic: {
-                const auto* const data = static_cast<const WindowGraphicData*>(element->data);
+                const auto* const data = element->data.graphic;
                 const std::int32_t entryImageNo = data->imageNo;
                 if (entryImageNo == 0) {
                     break;
@@ -5013,7 +5040,7 @@ void WindowRuntime_DrawCurrent()
                 break;
             }
             case WindowElementType_Animation: {
-                const auto* const data = static_cast<const WindowAnimationData*>(element->data);
+                const auto* const data = element->data.animation;
                 const std::uint32_t stop = data->value04;
                 cg::yobi::YobiAction* const action = data->action;
                 static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
@@ -5036,7 +5063,7 @@ void WindowRuntime_DrawCurrent()
                 break;
             }
             case WindowElementType_Text: {
-                const auto* const data = static_cast<const WindowTextData*>(element->data);
+                const auto* const data = element->data.text;
                 const std::wstring& text = data->text;
 
                     const std::int32_t drawY = y - element->height;
@@ -5053,7 +5080,7 @@ void WindowRuntime_DrawCurrent()
                 break;
             }
             case WindowElementType_Input: {
-                const auto* const data = static_cast<const WindowInputData*>(element->data);
+                const auto* const data = element->data.input;
                 if (data == gFocusedElementDataD45F94) {
                     if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
                         if (input::gChatPanelVisible_C9A96C == 1) {
@@ -5069,7 +5096,7 @@ void WindowRuntime_DrawCurrent()
                 WindowChat_DrawHistory(x + 5, y);
                 break;
             case WindowElementType_Number: {
-                const auto* const data = static_cast<const WindowNumberData*>(element->data);
+                const auto* const data = element->data.number;
                 if (data != nullptr) {
                     const std::uint8_t flags = data->flags;
                     const std::int8_t color = std::bit_cast<std::int8_t>(data->color);

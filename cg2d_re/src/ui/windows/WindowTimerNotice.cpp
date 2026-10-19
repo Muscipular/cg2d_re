@@ -28,7 +28,7 @@ WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101
 static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+        auto* const data = gCurrentWindow->elements[0].data.text;
         const std::wstring& text = world::GetMapName_9DAD30();
         data->text = text;
         const std::int32_t textWidth = cg::render::TextMeasure(text, 0);

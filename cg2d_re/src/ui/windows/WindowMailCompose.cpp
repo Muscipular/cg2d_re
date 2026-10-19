@@ -104,8 +104,8 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = gCurrentWindow;
         gMailInputPrototype57E740.text.clear();
-        gFocusedElementDataD45F94 = focused->elements[1].data;
-        static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
+        gFocusedElementDataD45F94 = focused->elements[1].data.input;
+        focused->elements[1].data.input->context = &cg::ui::detail::gInputContextD66CA8;
         gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
@@ -182,14 +182,14 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[1].data) {
+        if (gFocusedElementDataD45F94 != window->elements[1].data.input) {
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
             input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
             WindowInstance* const focused = gCurrentWindow;
-            gFocusedElementDataD45F94 = focused->elements[1].data;
-            static_cast<WindowInputData*>(focused->elements[1].data)->context = &cg::ui::detail::gInputContextD66CA8;
+            gFocusedElementDataD45F94 = focused->elements[1].data.input;
+            focused->elements[1].data.input->context = &cg::ui::detail::gInputContextD66CA8;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -208,7 +208,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
     }
     std::int32_t consumed = 0;
     if (index == 2) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+        auto* const graphic = gCurrentWindow->elements[2].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BA0A;
             gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
@@ -225,11 +225,11 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = 0x3BA09;
+            gCurrentWindow->elements[2].data.graphic->imageNo = 0x3BA09;
         }
         return consumed;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data);
+    auto* const graphic = gCurrentWindow->elements[3].data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3BA1D;
         gHoverTextD68AE8 = kReplyMailHint587730;
@@ -372,7 +372,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         window->state |= 0x8000u;
     }
     if ((state & 8) != 0) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BA1C;
+        gCurrentWindow->elements[3].data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }
@@ -384,7 +384,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
     if (mode != 0) {
         const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
-            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            auto* const text = gCurrentWindow->elements[4].data.text;
             text->text = L"群组邮件" /* 原常量参考：0x00587780。 */;
             gCurrentWindow->elements[2].visible = 0;
         }
@@ -404,7 +404,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
             break;
         }
         if (category == 0 || category == 1 || category == 2) {
-            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            auto* const text = gCurrentWindow->elements[4].data.text;
             text->text = name;
         }
         if (gLoginWindowRuntime.prefixD2F0B8.value00 == 2) {

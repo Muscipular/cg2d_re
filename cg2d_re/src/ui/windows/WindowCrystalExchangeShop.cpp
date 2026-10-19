@@ -385,7 +385,7 @@ static void WindowCrystalExchangeShop_RefreshRemaining()
             const std::int32_t index = gWindow70ScrollCC4B68 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow70ItemsD30428[index].remainingC50;
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 31].data)->text, L"剩余 {:2} 个", remaining);
+            cg::text::FormatTo(window->elements[row + 31].data.text->text, L"剩余 {:2} 个", remaining);
         }
     }
 }
@@ -398,8 +398,8 @@ static void WindowCrystalExchangeShop_RefreshRows()
         WindowInstance* const initial = gCurrentWindow;
         std::wstring& price = gWindow70PriceTextsCF49C4[row];
         price.clear();
-        static_cast<WindowTextData*>(initial->elements[row + 16].data)->text.clear();
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text.clear();
+        initial->elements[row + 16].data.text->text.clear();
+        gCurrentWindow->elements[row + 21].data.text->text.clear();
         gCurrentWindow->elements[row + 26].visible = 0;
         const WindowCrystalItem* item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if (item->used == 0) {
@@ -409,9 +409,9 @@ static void WindowCrystalExchangeShop_RefreshRows()
         item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if ((item->flags & 0x100u) != 0) {
             buffer = item->tips;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->style.color =
+            gCurrentWindow->elements[row + 16].data.text->style.color =
                 std::byte{5};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->style.color =
+            gCurrentWindow->elements[row + 21].data.text->style.color =
                 std::byte{5};
         } else {
             const std::int32_t stack = item->valueC2C;
@@ -423,10 +423,10 @@ static void WindowCrystalExchangeShop_RefreshRows()
             const std::uint32_t flags =
                 gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row].flags;
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->style.color = color;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->style.color = color;
+            gCurrentWindow->elements[row + 16].data.text->style.color = color;
+            gCurrentWindow->elements[row + 21].data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data), static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data), buffer);
+        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 16].data.text, gCurrentWindow->elements[row + 21].data.text, buffer);
     }
 }
 
@@ -459,7 +459,7 @@ static void WindowCrystalExchangeShop_RefreshAmount()
     cg::text::FormatTo(gWindow70TotalTextD2D804, L"{:10}", total);
     const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
-    auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
+    auto* const number = gCurrentWindow->elements[6].data.number;
     number->color = currentTotal <= owned ? 10 : 6;
 }
 
@@ -527,7 +527,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
             gCurrentWindow->elements[56 + row].visible = 1;
             gCurrentWindow->elements[61 + row].visible = 1;
             gCurrentWindow->elements[56 + row].mouseCallback = &WindowCrystalExchangeShop_HandleItemIcon;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[61 + row].data)->imageNo =
+            gCurrentWindow->elements[61 + row].data.graphic->imageNo =
                 99939;
         }
         gCurrentWindow->elements[4].visible = 0;
@@ -540,12 +540,12 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
         gWindow70TooltipPageD67BA0 = 0;
         gShopRowKeysC9A954[3] = -2;
         gShopRowKeysC9A954[4] = -2;
-        auto* const title = static_cast<WindowTextData*>(window->elements[5].data);
+        auto* const title = window->elements[5].data.text;
         title->text = gNpcDialogLinesCC24D4[0].text;
-        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        auto* animation = gCurrentWindow->elements[8].data.animation;
         const std::int32_t imageNo = gWindow70ImageD2E43C;
         cg::yobi::SetYobiActionField2A8(animation->action, imageNo);
-        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        animation = gCurrentWindow->elements[8].data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
@@ -560,7 +560,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
         gCurrentWindow->elements[9].visible = 0;
     }
     WindowElement* const elements = gCurrentWindow->elements;
-    if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
+    if ((elements[10].data.mouse->flags & 1u) != 0) {
         gWindow70ScrollCC4B68 = WindowScroll_ReadPosition(elements + 10, gShopItemCountCB1E10 - 5);
     }
     const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
@@ -646,7 +646,7 @@ static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
 // 原函数：0x004C43C0。
 static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -729,7 +729,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
 // 原函数：0x004C46C0。
 static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t position = gWindow70ScrollCC4B68;
@@ -754,7 +754,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32
 // 原函数：0x004C4740。
 static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
@@ -780,7 +780,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t i
 // 原函数：0x004C47C0。
 static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindow70ScrollCC4B68 > 0 ? 51 : 55, 320));
@@ -804,7 +804,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int3
 // 原函数：0x004C4840。
 static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
@@ -849,7 +849,7 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, c
 // 原函数：0x004C4940。
 static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 46];
     std::int32_t consumed = 0;
@@ -884,7 +884,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
 // 原函数：0x004C4A50。
 static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const bool hover = (state & 1) != 0;
     WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 51];
     std::int32_t consumed = 0;

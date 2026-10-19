@@ -159,8 +159,8 @@ static void WindowProfileSearch_RefreshResults()
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = record.text10C;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 28].data)->text = record.text04;
+            gCurrentWindow->elements[index + 8].data.text->text = record.text10C;
+            gCurrentWindow->elements[index + 28].data.text->text = record.text04;
         } else {
             gCurrentWindow->elements[index + 8].visible = 0;
             gCurrentWindow->elements[index + 28].visible = 0;
@@ -173,8 +173,8 @@ static void WindowProfileSearch_RefreshResults()
     case 1:
     case 2: {
         const wchar_t* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = title;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo =
+        gCurrentWindow->elements[1].data.text->text = title;
+        gCurrentWindow->elements[2].data.graphic->imageNo =
             group == 0 ? 246045 : (group == 1 ? 0 : 246046);
         break;
     }
@@ -197,7 +197,7 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
         return length;
     }
     gCurrentWindow->elements[6].visible = 1;
-    std::wstring& text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data)->text;
+    std::wstring& text = gCurrentWindow->elements[6].data.text->text;
     const auto length = static_cast<std::uint32_t>(
         gProfileSearchKeyword1075988.size() + 1);
     text = gProfileSearchKeyword1075988;
@@ -236,13 +236,13 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[7].data) {
+        if (gFocusedElementDataD45F94 != window->elements[7].data.input) {
             gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
             static_cast<void>(WindowInput_ActivateElement(
                 &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
-            gFocusedElementDataD45F94 = gCurrentWindow->elements[7].data;
-            static_cast<WindowInputData*>(gCurrentWindow->elements[7].data)->context =
+            gFocusedElementDataD45F94 = gCurrentWindow->elements[7].data.input;
+            gCurrentWindow->elements[7].data.input->context =
                 &cg::ui::detail::gInputContextCB0610;
         }
         return 1;
@@ -265,7 +265,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
         L"下一页",
     };
     const std::int32_t position = index - 3;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImages[position];
@@ -300,9 +300,9 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246059;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 246059;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246060;
+        gCurrentWindow->elements[index].data.graphic->imageNo = 246060;
     }
     if ((state & 2) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
@@ -320,7 +320,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if (gWindowStates[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246058;
+            gCurrentWindow->elements[index].data.graphic->imageNo = 246058;
         }
     }
     return consumed;

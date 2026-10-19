@@ -1,5 +1,6 @@
 #pragma once
 #include <string_view>
+#include <cstdlib>
 #include "LuaHost.hpp"
 #include "controls/UIControl.hpp"
 #include "controls/ImageControl.hpp"
@@ -16,7 +17,7 @@ struct UIWindowInstanceEx {
     UIWindowInstance window{};
     UIWindowState state{};
     UIWindowInstanceEx() { state.window = &window; }
-    virtual ~UIWindowInstanceEx() = default;
+    virtual ~UIWindowInstanceEx() { std::free(window.elementsSorted); }
     virtual int render(int) = 0;
     virtual int update(int, int) = 0;
 };

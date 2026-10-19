@@ -222,7 +222,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     const std::int32_t limit = total / 2;
 
     if (index >= 29 && index <= 33) {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         std::int32_t consumed = 0;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B53D;
@@ -260,7 +260,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         break;
     case 38:
         if (character_select::state::gPukVersion < 8u) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+            gCurrentWindow->elements[index].data.graphic->imageNo =
                 0x3C111;
             return 0;
         }
@@ -272,7 +272,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     default:
         return 0;
     }
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImage;
@@ -300,7 +300,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
 // 原函数：0x004767E0。
 static void WindowPlayerAttributes_Refresh()
 {
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+    auto* const nameData = gCurrentWindow->elements[0].data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
@@ -308,7 +308,7 @@ static void WindowPlayerAttributes_Refresh()
     const auto writeNumber = [&buffer](
         const std::int32_t index, const std::int32_t value, const std::wstring_view format) {
         cg::text::FormatTo(buffer, format, value);
-        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        auto* const text = gCurrentWindow->elements[index].data.text;
         text->text = buffer;
     };
     writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");

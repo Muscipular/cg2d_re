@@ -240,9 +240,9 @@ void WindowDialog_AddImage(
     if (window != nullptr) {
         WindowElement* const element = window->elements + count + 8;
         cg::yobi::SetYobiActionField2A8(
-            static_cast<WindowAnimationData*>(element->data)->action, imageNo);
+            element->data.animation->action, imageNo);
         cg::yobi::SetYobiActionField2B8(
-            static_cast<WindowAnimationData*>(element->data)->action,
+            element->data.animation->action,
             std::bit_cast<std::int8_t>(direction));
         element->visible = 0;
         element->x = x;
@@ -366,23 +366,23 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
             window = gCurrentWindow;
-            gFocusedElementDataD45F94 = window->elements[7].data;
-            static_cast<WindowInputData*>(window->elements[7].data)->context = &cg::ui::detail::gInputContextCA02E0;
+            gFocusedElementDataD45F94 = window->elements[7].data.input;
+            window->elements[7].data.input->context = &cg::ui::detail::gInputContextCA02E0;
             gMessageDialog.selectedInput = 0;
         }
         gMessageDialog.closeCallbackPending = 1;
         for (std::int32_t index = 8; index < 18; ++index) {
             const auto& image = gMessageDialogImagesCC4B70[index - 8];
             cg::yobi::SetYobiActionField2A8(
-                static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action,
+                gCurrentWindow->elements[index].data.animation->action,
                 image.imageNo);
             cg::yobi::SetYobiActionField2B8(
-                static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action,
+                gCurrentWindow->elements[index].data.animation->action,
                 std::bit_cast<std::int8_t>(image.direction));
             cg::yobi::SetYobiActionField310(
-                static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action, 4);
+                gCurrentWindow->elements[index].data.animation->action, 4);
             cg::yobi::SetYobiActionField309(
-                static_cast<WindowAnimationData*>(gCurrentWindow->elements[index].data)->action, 4);
+                gCurrentWindow->elements[index].data.animation->action, 4);
             gCurrentWindow->elements[index].x = image.x;
             gCurrentWindow->elements[index].y = image.y;
             gCurrentWindow->elements[index].visible = 0;
@@ -556,7 +556,7 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         {245332, 245333, 245334},
         {245329, 245330, 245331},
     };
-    auto* const data = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const data = gCurrentWindow->elements[index].data.graphic;
     const bool hovered = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hovered) {
@@ -632,8 +632,8 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
                 input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
                 window = gCurrentWindow;
-                gFocusedElementDataD45F94 = window->elements[7].data;
-                static_cast<WindowInputData*>(window->elements[7].data)->context = &cg::ui::detail::gInputContextCA02E0;
+                gFocusedElementDataD45F94 = window->elements[7].data.input;
+                window->elements[7].data.input->context = &cg::ui::detail::gInputContextCA02E0;
                 const std::wstring* const texts = gMessageDialog.inputTexts.data();
                 gMessageDialog.selectedInput = selected;
                 input::LoadInitialText_44A160(texts[selected]);

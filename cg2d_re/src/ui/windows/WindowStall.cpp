@@ -424,7 +424,7 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
 // 原函数：0x004CDE40。
 static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -467,7 +467,7 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
 // 原函数：0x004CDFA0。
 static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -537,7 +537,7 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
 // 原函数：0x004CE1F0。
 static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -567,7 +567,7 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
 // 原函数：0x004CE2B0。
 static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -616,7 +616,7 @@ static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std:
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const bool ownAtEntry = gStallOwn58111C != 0;
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     std::int32_t category = index;
     if (ownAtEntry) {
         if (index == 35) {
@@ -721,8 +721,8 @@ static WindowElement* WindowStall_EditItemPrice()
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
-    gFocusedElementDataD45F94 = window->elements[1].data;
-    static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
+    gFocusedElementDataD45F94 = window->elements[1].data.input;
+    window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
     WindowElement* const elements = gCurrentWindow->elements;
     elements[1].visible = 1;
     return elements;
@@ -743,8 +743,8 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
-    gFocusedElementDataD45F94 = window->elements[1].data;
-    static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
+    gFocusedElementDataD45F94 = window->elements[1].data.input;
+    window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
     gCurrentWindow->elements[1].visible = 1;
 }
 
@@ -795,7 +795,7 @@ static std::int32_t WindowStall_RemoveListing()
 static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     bool disabled = false;
     std::int32_t imageGroup = state;
     if (gStallOwn58111C != 0) {
@@ -1694,8 +1694,8 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
         WindowInstance* const window = gCurrentWindow;
-        gFocusedElementDataD45F94 = window->elements[1].data;
-        static_cast<WindowInputData*>(window->elements[1].data)->context = &cg::ui::detail::gInputContextCF4E60;
+        gFocusedElementDataD45F94 = window->elements[1].data.input;
+        window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
     }
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {
@@ -2005,7 +2005,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
         gCurrentWindow->elements[37].visible = showScroll ? 1 : 0;
         WindowElement* elements = gCurrentWindow->elements;
-        if ((static_cast<WindowMouseData*>(elements[38].data)->flags & 1u) != 0) {
+        if ((elements[38].data.mouse->flags & 1u) != 0) {
             if (gStallModeD67BDC == 1) {
                 gStallPetPageD67BD0 = WindowScroll_ReadPosition(elements + 38, gStallPetCountD67BD4 - 3);
             } else {
@@ -2013,11 +2013,11 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             }
         }
         elements = gCurrentWindow->elements;
-        if ((static_cast<WindowMouseData*>(elements[42].data)->flags & 1u) != 0
+        if ((elements[42].data.mouse->flags & 1u) != 0
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 42, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = world::GetPlayerDisplayText(1);
+        gCurrentWindow->elements[4].data.text->text = world::GetPlayerDisplayText(1);
         gCurrentWindow->elements[7].visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
@@ -2080,7 +2080,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
         gCurrentWindow->elements[32].visible = showScroll ? 1 : 0;
         WindowElement* elements = gCurrentWindow->elements;
-        if ((static_cast<WindowMouseData*>(elements[33].data)->flags & 1u) != 0) {
+        if ((elements[33].data.mouse->flags & 1u) != 0) {
             if (gStallModeD67BDC == 1) {
                 gStallPetPageD67BD0 = WindowScroll_ReadPosition(elements + 33, gStallPetCountD67BD4 - 3);
             } else {
@@ -2088,12 +2088,12 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             }
         }
         elements = gCurrentWindow->elements;
-        if ((static_cast<WindowMouseData*>(elements[37].data)->flags & 1u) != 0
+        if ((elements[37].data.mouse->flags & 1u) != 0
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 37, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = gStallBrowseData->sellerName00;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = gStallBrowseData->stallName11;
+        gCurrentWindow->elements[4].data.text->text = gStallBrowseData->sellerName00;
+        gCurrentWindow->elements[5].data.text->text = gStallBrowseData->stallName11;
         for (std::int32_t line = 0; line < 3; ++line) {
             static_cast<void>(input::ExtractTextLine(lineText, gStallBrowseData->description22, line, 28));
             WindowInstance* const window = gCurrentWindow;
@@ -2121,15 +2121,15 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[8].data) {
+        if (gFocusedElementDataD45F94 != window->elements[8].data.input) {
             gStallDescriptionInput581360.text = gStallDescriptionD67BF8;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, x, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC2378);
             WindowInstance* const current = gCurrentWindow;
-            gFocusedElementDataD45F94 = current->elements[8].data;
-            static_cast<WindowInputData*>(current->elements[8].data)->context =
+            gFocusedElementDataD45F94 = current->elements[8].data.input;
+            current->elements[8].data.input->context =
                 &cg::ui::detail::gInputContextCC2378;
         }
         return 1;
@@ -2148,15 +2148,15 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[6].data) {
+        if (gFocusedElementDataD45F94 != window->elements[6].data.input) {
             gStallNameInput581130.text = gStallNameD67BE4;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, x, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCB0028);
             WindowInstance* const current = gCurrentWindow;
-            gFocusedElementDataD45F94 = current->elements[6].data;
-            static_cast<WindowInputData*>(current->elements[6].data)->context =
+            gFocusedElementDataD45F94 = current->elements[6].data.input;
+            current->elements[6].data.input->context =
                 &cg::ui::detail::gInputContextCB0028;
         }
         return 1;
@@ -2169,21 +2169,21 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
 {
     if (gStallOwn58111C != 0) {
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            auto* const data = gCurrentWindow->elements[9].data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2A8(source);
             cg::yobi::SetYobiActionField2A8(target, value);
         }
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            auto* const data = gCurrentWindow->elements[9].data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B0(source);
             cg::yobi::SetYobiActionField2B0(target, value);
         }
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            auto* const data = gCurrentWindow->elements[9].data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B8(source);
@@ -2235,17 +2235,17 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         }
     } else {
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            auto* const data = gCurrentWindow->elements[7].data.animation;
             const std::int32_t value = gStallBrowseData->imageNo60;
             cg::yobi::SetYobiActionField2A8(data->action, value);
         }
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            auto* const data = gCurrentWindow->elements[7].data.animation;
             const std::int32_t value = gStallBrowseData->action64;
             cg::yobi::SetYobiActionField2B0(data->action, value);
         }
         {
-            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            auto* const data = gCurrentWindow->elements[7].data.animation;
             const std::int32_t value = gStallBrowseData->direction68;
             cg::yobi::SetYobiActionField2B8(data->action, value);
         }
@@ -2528,7 +2528,7 @@ static std::int32_t WindowStall_RequestPurchase()
 static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     const bool hovered = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hovered) {

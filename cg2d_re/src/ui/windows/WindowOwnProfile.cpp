@@ -174,9 +174,9 @@ static void WindowOwnProfile_RefreshEntry(
     std::size_t length;
     if (index == 0) {
         length = cg::text::ToGbk(current.text08).size() + 1;
-        data = static_cast<WindowTextData*>(elements[element].data);
+        data = elements[element].data.text;
     } else {
-        data = static_cast<WindowTextData*>(elements[element].data);
+        data = elements[element].data.text;
         length = cg::text::ToGbk(current.text08).size() + 1;
     }
     data->text = current.text08;
@@ -190,7 +190,7 @@ static void WindowOwnProfile_RefreshEntry(
             color = saved.value04 != 0 && currentValue != 0 ? std::byte{0} : std::byte{7};
         }
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[element].data)->style.color = color;
+    gCurrentWindow->elements[element].data.text->style.color = color;
 }
 
 // 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
@@ -200,31 +200,31 @@ static void WindowOwnProfile_Refresh()
     auto& current = world::detail::gCurrentProfile10738E8;
     WindowElement* const portraitElements = gCurrentWindow->elements;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    static_cast<WindowGraphicData*>(portraitElements[18].data)->imageNo = portrait;
+    portraitElements[18].data.graphic->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data)->imageNo =
+    gCurrentWindow->elements[17].data.graphic->imageNo =
         publicFlag != 0 ? 0 : 0x3C113;
 
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+    auto* const nameData = gCurrentWindow->elements[0].data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
+    auto* const levelData = gCurrentWindow->elements[1].data.text;
     levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
     const wchar_t* const title = world::GetPlayerDisplayText(2);
-    auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
+    auto* const titleData = titleElements[2].data.text;
     titleData->text = title;
     WindowElement* const jobElements = gCurrentWindow->elements;
     const auto& job = world::GetPlayerJobName();
-    auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
+    auto* const jobData = jobElements[3].data.text;
     jobData->text = job;
 
     WindowInstance* const guildWindow = gCurrentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
+    auto* const guildData = guildWindow->elements[4].data.text;
     const wchar_t* const guild = guildIndex == -1
         ? L"" : cg::world::GetGuildName();
     guildData->text = guild;
@@ -232,7 +232,7 @@ static void WindowOwnProfile_Refresh()
     for (std::int32_t index = 0; index < 3; ++index) {
         WindowElement* const elements = gCurrentWindow->elements;
         const std::int32_t image = current.entries410[index].value04;
-        static_cast<WindowGraphicData*>(elements[index + 26].data)->imageNo = image;
+        elements[index + 26].data.graphic->imageNo = image;
     }
     WindowOwnProfile_RefreshEntry(0, &cg::ui::detail::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
     WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
@@ -256,7 +256,7 @@ static void WindowOwnProfile_Refresh()
             static_cast<void>(input::ExtractTextLine(
                 line, current.text728.data(), index, 28));
             WindowElement* const elements = gCurrentWindow->elements;
-            auto* const data = static_cast<WindowTextData*>(elements[index + 12].data);
+            auto* const data = elements[index + 12].data.text;
             data->text = line;
         }
         for (std::int32_t index = 12; index < 16; ++index) {
@@ -268,7 +268,7 @@ static void WindowOwnProfile_Refresh()
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[index].data)->style.color = color;
+            gCurrentWindow->elements[index].data.text->style.color = color;
         }
     }
     const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00();
@@ -328,7 +328,7 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[index].data) {
+    if (gFocusedElementDataD45F94 != window->elements[index].data.input) {
         const auto& current = world::detail::gCurrentProfile10738E8;
         const wchar_t* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
@@ -338,8 +338,8 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
         input::SetContext_44B330(context);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data;
-        static_cast<WindowInputData*>(focused->elements[index].data)->context = context;
+        gFocusedElementDataD45F94 = focused->elements[index].data.input;
+        focused->elements[index].data.input->context = context;
     }
     return 1;
 }

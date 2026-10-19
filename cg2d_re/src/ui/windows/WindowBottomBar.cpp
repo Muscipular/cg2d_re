@@ -88,7 +88,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & 1u;
         return 0;
     case 1: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[1].data);
+        auto* const graphic = gCurrentWindow->elements[1].data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -164,7 +164,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return 1;
     }
     case 2: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+        auto* const graphic = gCurrentWindow->elements[2].data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -198,7 +198,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 3: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data);
+        auto* const graphic = gCurrentWindow->elements[3].data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -232,7 +232,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 4: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data);
+        auto* const graphic = gCurrentWindow->elements[4].data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -270,7 +270,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     case 7: {
         const std::int32_t windowId = index == 5 ? 21 : (index == 6 ? 19 : 24);
         const std::int32_t normalImage = 0x3B96B + (index - 5) * 3;
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -294,7 +294,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 8: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[8].data);
+        auto* const graphic = gCurrentWindow->elements[8].data.graphic;
         graphic->imageNo = 0x18666;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -345,14 +345,14 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
         }
 
         WindowElement* const mainElements = gCurrentWindow->elements;
-        auto* const mainText = static_cast<WindowTextData*>(mainElements[11].data);
+        auto* const mainText = mainElements[11].data.text;
         mainText->text = gHoverTextD68AE8;
         mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
         if (gHoverTitleD68BF4.size() != 0) {
             gCurrentWindow->elements[12].visible = 1;
         }
         WindowElement* const titleElements = gCurrentWindow->elements;
-        auto* const titleText = static_cast<WindowTextData*>(titleElements[12].data);
+        auto* const titleText = titleElements[12].data.text;
         titleText->text = gHoverTitleD68BF4;
         titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
         for (std::int32_t index = 1; index <= 7; ++index) {
@@ -365,7 +365,7 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
 
     const std::wstring_view description = platform::QueryWindowImeDescription_4734F0();
     WindowElement* const elements = gCurrentWindow->elements;
-    auto* const text = static_cast<WindowTextData*>(elements[9].data);
+    auto* const text = elements[9].data.text;
     text->text = description;
     gHoverTextD68AE8.clear();
     gHoverObjectValueD68AC8 = 0;

@@ -150,15 +150,15 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[0].data) {
+    if (gFocusedElementDataD45F94 != window->elements[0].data.input) {
         gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[0].data;
-        static_cast<WindowInputData*>(focused->elements[0].data)->context =
+        gFocusedElementDataD45F94 = focused->elements[0].data.input;
+        focused->elements[0].data.input->context =
             &cg::ui::detail::gInputContextD2DC10;
     }
     return 1;
@@ -167,7 +167,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 // 原函数：0x00477600。
 static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B59E;
@@ -203,7 +203,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
     switch (index) {
     case 17:
@@ -407,26 +407,26 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 // 原函数：0x00478010。
 static void WindowPlayerTitles_Refresh()
 {
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
+    auto* const nameData = gCurrentWindow->elements[6].data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
+    auto* const levelData = gCurrentWindow->elements[7].data.text;
     levelData->text = buffer;
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+    auto* const titleData = gCurrentWindow->elements[9].data.text;
     const wchar_t* const title = world::GetTitleText(titleIndex);
     titleData->text = title;
 
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
-        auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
+        auto* const draftData = gCurrentWindow->elements[8].data.text;
         draftData->text = gTitleDraftD45FC0;
         const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
-        auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
+        auto* const colorData = gCurrentWindow->elements[8].data.text;
         colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
         gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
@@ -446,7 +446,7 @@ static void WindowPlayerTitles_Refresh()
         WindowInstance* const window = gCurrentWindow;
         const wchar_t* const text = record->text.data();
         ++record;
-        auto* const data = static_cast<WindowTextData*>(window->elements[index].data);
+        auto* const data = window->elements[index].data.text;
         data->text = text;
     }
 }
@@ -462,7 +462,7 @@ static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 
         WindowElement* const elements = gCurrentWindow->elements;
         const wchar_t* const displayTitle = world::GetPlayerDisplayText(2);
-        auto* const data = static_cast<WindowTextData*>(elements[8].data);
+        auto* const data = elements[8].data.text;
         data->text = displayTitle;
     }
     WindowPlayerTitles_Refresh();

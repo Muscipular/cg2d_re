@@ -841,7 +841,7 @@ static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::i
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA24;
+    window->elements[27].data.graphic->imageNo = 0x3BA24;
     for (std::int32_t index = 17; index <= 26; ++index) {
         window->elements[index].mouseCallback = WindowSkill_HandleSkillRow;
     }
@@ -970,7 +970,7 @@ static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::
     }
     window->elements[14].visible = 0;
     window->elements[15].visible = 0;
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA26;
+    window->elements[27].data.graphic->imageNo = 0x3BA26;
     for (std::int32_t index = 17; index <= 26; ++index) {
         window->elements[index].mouseCallback = WindowSkill_SelectSkillType;
     }
@@ -1016,7 +1016,7 @@ static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA24;
+    window->elements[27].data.graphic->imageNo = 0x3BA24;
     std::int32_t end = 0;
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
         if (world::gSkillPairsF63370[index].used != 0) {
@@ -1086,7 +1086,7 @@ static void WindowSkill_ShowBattleTechniques(
     }
     window->elements[14].visible = 0;
     window->elements[15].visible = 0;
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA26;
+    window->elements[27].data.graphic->imageNo = 0x3BA26;
     for (std::int32_t element = 17; element <= 26; ++element) {
         window->elements[element].mouseCallback = WindowSkill_SelectBattleTechnique;
     }
@@ -1485,7 +1485,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     if (name[0] == '\0') {
         name = pet->name6AC.data();
     }
-    static_cast<WindowTextData*>(window->elements[2].data)->text = name;
+    window->elements[2].data.text->text = name;
     std::int32_t index = 0;
     std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
     while (index < count) {
@@ -1504,7 +1504,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     window->elements[8].visible = 1;
     gSkillWindowMaximumCA000C = std::max(0, std::min(pet->value6A4, world::kPetTechniqueSlotCount) - 10);
     window->elements[7].visible = 1;
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
+    window->elements[27].data.graphic->imageNo = 0x3BA28;
     for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {
         window->elements[elementIndex].mouseCallback = WindowSkill_SelectPetSkill;
     }
@@ -1530,7 +1530,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     const WindowElement* const elements = window->elements;
     cg::yobi::YobiAction* const displayAction = world::gBattleEntries59E980[position];
-    auto* const textData = static_cast<WindowTextData*>(elements[2].data);
+    auto* const textData = elements[2].data.text;
     const wchar_t* const name = cg::yobi::GetYobiName(displayAction);
     textData->text = name;
     const auto* const pet = &world::gPetRuntimeRecords[petIndex];
@@ -1551,7 +1551,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     window->elements[8].visible = 1;
     gSkillWindowMaximumCA000C = std::max(0, std::min(pet->value6A4, world::kPetTechniqueSlotCount) - 10);
     window->elements[7].visible = 1;
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
+    window->elements[27].data.graphic->imageNo = 0x3BA28;
     for (std::int32_t elementIndex = 17; elementIndex <= 26; ++elementIndex) {
         window->elements[elementIndex].mouseCallback = WindowSkill_SelectRidingSkill;
     }
@@ -1587,7 +1587,7 @@ static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::
     WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
     const bool hovered = (state & 1) != 0;
-    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
+    auto* const graphic = element->data.graphic;
     std::int32_t consumed = 0;
     if (hovered) {
         const std::int32_t mode = gSkillWindowModeD672AC;
@@ -1656,7 +1656,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
     WindowInstance* const initialWindow = gCurrentWindow;
     WindowElement* const elements = initialWindow->elements;
     const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte();
-    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    auto* const graphic = elements[index].data.graphic;
     if ((actionFlags & 0x80u) != 0
         || world::IsObservationSceneTransitionActive_440B50() != 0
         || world::gPlayerRuntimeSlots.value08 == 0
@@ -1703,7 +1703,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
 // 原函数：0x0047C950。
 static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     const std::int32_t mode = gSkillWindowModeD672AC;
     std::int32_t petIndex;
     std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
@@ -1823,7 +1823,7 @@ static std::int32_t WindowSkill_Update(const std::int32_t value)
 static std::int32_t WindowSkill_Draw(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
-    const auto* const mouse = static_cast<const WindowMouseData*>(elements[11].data);
+    const auto* const mouse = elements[11].data.mouse;
     elements[10].visible = 0;
     std::int32_t mode = gSkillWindowModeD672AC;
     if (mode >= 0 && mode <= 5 && gSkillWindowMaximumCA000C > 0) {
@@ -1867,7 +1867,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = world::GetPlayerJobName();
+        gCurrentWindow->elements[1].data.text->text = world::GetPlayerJobName();
         std::int32_t usedSlots = 0;
         for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
             if (world::gSkillPairsF63370[index].used != 0) {
@@ -1884,7 +1884,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         }
         const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", usedSlots, totalSlots);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = buffer;
+        gCurrentWindow->elements[3].data.text->text = buffer;
         break;
     }
     case 1:
@@ -1903,7 +1903,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = record->name;
+        gCurrentWindow->elements[2].data.text->text = record->name;
         record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
@@ -1912,12 +1912,12 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         } else {
             cg::text::FormatTo(buffer, L"{:4}/ -- ", record->experience);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = buffer;
+        gCurrentWindow->elements[5].data.text->text = buffer;
         record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", level, maximum);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
+        gCurrentWindow->elements[9].data.text->text = buffer;
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
                 const std::int32_t hover = gSkillWindowHoverD2F744;
@@ -1941,10 +1941,10 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
         }
         const std::int32_t levelIndex = gSkillRecipeLevelC8B1B4;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = record->techniques3C[levelIndex].name;
+        gCurrentWindow->elements[2].data.text->text = record->techniques3C[levelIndex].name;
         const std::int32_t level = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
         cg::text::FormatTo(buffer, L"{:5}", level);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
+        gCurrentWindow->elements[9].data.text->text = buffer;
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
             const std::int32_t hover = gSkillWindowHoverD2F744;
@@ -1969,7 +1969,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         }
         const std::int32_t current =
             cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text, L"{:4}/{:4}", current, maximum);
+        cg::text::FormatTo(gCurrentWindow->elements[7].data.text->text, L"{:4}/{:4}", current, maximum);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
                 std::int32_t pet;
@@ -1996,7 +1996,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
 // 原函数：0x0047B3D0。
 static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gSkillWindowScrollD2D648 > 0) {
@@ -2024,7 +2024,7 @@ static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, cons
 // 原函数：0x0047B470。
 static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t position = gSkillWindowScrollD2D648;
@@ -2054,7 +2054,7 @@ static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const st
 // 原函数：0x0047B520。
 static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gSkillWindowScrollD2D648 > 0 ? 51 : 55, 320));
@@ -2081,7 +2081,7 @@ static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, con
 // 原函数：0x0047B5D0。
 static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t initialMaximum = gSkillWindowMaximumCA000C;
@@ -2146,7 +2146,7 @@ static void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA25;
+    window->elements[27].data.graphic->imageNo = 0x3BA25;
     for (std::int32_t index = 17; index <= 26; ++index) {
         window->elements[index].mouseCallback = WindowSkill_SelectRecipe;
     }

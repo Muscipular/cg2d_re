@@ -88,11 +88,11 @@ static std::uint32_t WindowPetAttributes_Refresh()
     };
     const auto copyTextAfterScan = [](const std::int32_t element, const std::wstring_view text) {
         WindowElement* const elements = gCurrentWindow->elements;
-        auto* const data = static_cast<WindowTextData*>(elements[element].data);
+        auto* const data = elements[element].data.text;
         data->text = text;
     };
     const auto copyTextBeforeScan = [](const std::int32_t element, const std::wstring_view text) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
+        auto* const data = gCurrentWindow->elements[element].data.text;
         const std::size_t length = text.size() + 1;
         data->text = text;
         return length;
@@ -137,7 +137,7 @@ static std::uint32_t WindowPetAttributes_Refresh()
             const auto& compared = selectedPet();
             const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
             const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
-            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
+            auto* const data = gCurrentWindow->elements[14].data.text;
             data->style.color = changed ? std::byte{6} : std::byte{0};
         }
         const auto& compared = selectedPet();
@@ -248,7 +248,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+        gCurrentWindow->elements[index].data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
@@ -275,7 +275,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = name;
-                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
+                auto* const data = gCurrentWindow->elements[14].data.text;
                 data->text = name;
             }
             consumed = 1;

@@ -62,7 +62,7 @@ static std::int32_t WindowBattlePets_Update(const std::int32_t)
 // 原函数：0x0049BA10。
 static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"让这只宠物归还。";

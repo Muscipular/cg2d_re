@@ -211,24 +211,21 @@ static void WindowPlayerProfile_RefreshAttributeBar(
     const std::int32_t count = world::gPlayerRuntimeSlots.valuesE4[static_cast<std::int32_t>(attribute)] / 10;
     if (count == 1) {
         auto* const graphic =
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[firstElement].data);
+            gCurrentWindow->elements[firstElement].data.graphic;
         graphic->imageNo = singleImage;
         gCurrentWindow->elements[firstElement].visible = 1;
     } else {
         for (std::int32_t index = 0; index < count; ++index) {
-            auto* const graphic = static_cast<WindowGraphicData*>(
-                gCurrentWindow->elements[firstElement + index].data);
+            auto* const graphic = gCurrentWindow->elements[firstElement + index].data.graphic;
             graphic->imageNo = middleImage;
             gCurrentWindow->elements[firstElement + index].visible = 1;
             if (index == 0) {
-                auto* const first = static_cast<WindowGraphicData*>(
-                    gCurrentWindow->elements[firstElement].data);
+                auto* const first = gCurrentWindow->elements[firstElement].data.graphic;
                 first->imageNo = firstImage;
                 gCurrentWindow->elements[firstElement].visible = 1;
             }
             if (index == count - 1) {
-                auto* const last = static_cast<WindowGraphicData*>(
-                    gCurrentWindow->elements[firstElement + index].data);
+                auto* const last = gCurrentWindow->elements[firstElement + index].data.graphic;
                 last->imageNo = lastImage;
                 gCurrentWindow->elements[firstElement + index].visible = 1;
             }
@@ -259,7 +256,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         break;
     case 21:
         if (character_select::state::gPukVersion < 8u) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+            gCurrentWindow->elements[index].data.graphic->imageNo =
                 0x3C111;
             return 0;
         }
@@ -283,7 +280,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     }
 
     std::int32_t consumed = 0;
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImage;
         gHoverTextD68AE8 = hint;
@@ -319,75 +316,75 @@ static void WindowPlayerProfile_Refresh()
 {
     WindowElement* const portraitElements = gCurrentWindow->elements;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    static_cast<WindowGraphicData*>(portraitElements[14].data)->imageNo = portrait;
+    portraitElements[14].data.graphic->imageNo = portrait;
     WindowPlayerProfile_RefreshAttributeBar(0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
     WindowPlayerProfile_RefreshAttributeBar(1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
     WindowPlayerProfile_RefreshAttributeBar(2, 45, 0x3BAD1, 0x3BAD4, 0x3BAD2, 0x3BAD3);
     WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+    auto* const nameData = gCurrentWindow->elements[0].data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
+    auto* const levelData = gCurrentWindow->elements[1].data.text;
     levelData->text = buffer;
 
     WindowElement* const jobElements = gCurrentWindow->elements;
     const auto& job = world::GetPlayerJobName();
-    auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
+    auto* const jobData = jobElements[3].data.text;
     jobData->text = job;
 
     WindowInstance* const guildWindow = gCurrentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
+    auto* const guildData = guildWindow->elements[4].data.text;
     if (guildIndex != -1) {
         const wchar_t* const guild = cg::world::GetGuildName();
         guildData->text = guild;
         const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
-        auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
+        auto* const rankData = gCurrentWindow->elements[5].data.text;
         const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
         rankData->text = rank;
     } else {
         const wchar_t* const guild = L"";
         guildData->text = guild;
-        auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
+        auto* const rankData = gCurrentWindow->elements[5].data.text;
         const wchar_t* const rank = L"";
         rankData->text = rank;
     }
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
+    auto* const titleData = gCurrentWindow->elements[6].data.text;
     const wchar_t* const title = world::GetTitleText(titleIndex);
     titleData->text = title;
 
     WindowElement* const ownTitleElements = gCurrentWindow->elements;
     const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
-    auto* const ownTitleData = static_cast<WindowTextData*>(ownTitleElements[7].data);
+    auto* const ownTitleData = ownTitleElements[7].data.text;
     ownTitleData->text = ownTitle;
 
     WindowInstance* const tribeWindow = gCurrentWindow;
     const std::int16_t tribeIndex = world::ReadPlayerTribe();
     WindowElement* const tribeElements = tribeWindow->elements;
     const wchar_t* const tribe = gTribeNames57CB54[tribeIndex];
-    auto* const tribeData = static_cast<WindowTextData*>(tribeElements[8].data);
+    auto* const tribeData = tribeElements[8].data.text;
     tribeData->text = tribe;
 
     cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value58));
-    auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+    auto* const experienceData = gCurrentWindow->elements[9].data.text;
     experienceData->text = buffer;
 
     const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
     const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
-    auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+    auto* const hpData = gCurrentWindow->elements[11].data.text;
     hpData->text = buffer;
 
     const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
     const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
-    auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
+    auto* const fpData = gCurrentWindow->elements[12].data.text;
     fpData->text = buffer;
 
     std::wstring_view nextExperience;
@@ -397,11 +394,11 @@ static void WindowPlayerProfile_Refresh()
         cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value68));
         nextExperience = buffer;
     }
-    auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+    auto* const nextData = gCurrentWindow->elements[10].data.text;
     nextData->text = nextExperience;
 
     cg::text::FormatTo(buffer, L"{:9}", world::gPlayerRuntimeSlots.value104);
-    auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
+    auto* const duelData = gCurrentWindow->elements[13].data.text;
     duelData->text = buffer;
 
     if (world::gPlayerRuntimeSlots.value1A0 == 1) {
@@ -424,13 +421,13 @@ static void WindowPlayerProfile_Refresh()
     } else {
         injuryImage = 0x3B618;
     }
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[15].data)->imageNo = injuryImage;
+    gCurrentWindow->elements[15].data.graphic->imageNo = injuryImage;
 
     const std::int32_t penalty = world::gPlayerRuntimeSlots.valueF8;
     if (penalty > 0) {
         cg::text::FormatTo(buffer, L"x{}", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;
-        auto* const penaltyData = static_cast<WindowTextData*>(penaltyElements[2].data);
+        auto* const penaltyData = penaltyElements[2].data.text;
         penaltyData->text = buffer;
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[16].visible = 1;

@@ -118,7 +118,7 @@ static std::int32_t WindowMailRead_Draw(const std::int32_t)
 // 原函数：0x004A4660。
 static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
@@ -145,7 +145,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
 // 原函数：0x004A4710。
 static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
@@ -172,7 +172,7 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kReplyMailHint587730;
@@ -291,10 +291,10 @@ static std::uint32_t WindowMailRead_Refresh()
         return cg::world::GetMiniMailMessage10763A0(contact, page);
     };
     if (category == 1 && mailSlot == -1) {
-        auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
+        auto* const time = gCurrentWindow->elements[16].data.text;
         time->text = L"";
         for (std::int32_t row = 0; row < 10; ++row) {
-            auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            auto* const line = gCurrentWindow->elements[row + 4].data.text;
             line->text = L"";
         }
     } else {
@@ -302,15 +302,15 @@ static std::uint32_t WindowMailRead_Refresh()
         *message.unread00 = std::byte{0};
         cg::text::FormatTo(buffer, L"{}", message.text02);
         const std::size_t slash = buffer.find(L'/');
-        auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
+        auto* const time = gCurrentWindow->elements[16].data.text;
         time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *readCurrentMessage().kind01;
-            auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            auto* const color = gCurrentWindow->elements[row + 4].data.text;
             color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
             const wchar_t* const text = readCurrentMessage().text14;
             static_cast<void>(input::ExtractTextLine(buffer, text, row, 28));
-            auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            auto* const line = gCurrentWindow->elements[row + 4].data.text;
             line->text = buffer;
         }
     }
@@ -323,11 +323,11 @@ static std::uint32_t WindowMailRead_Refresh()
             : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
     }
     cg::text::FormatTo(buffer, L"{}", name);
-    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
+    auto* const nameData = gCurrentWindow->elements[15].data.text;
     nameData->text = buffer;
     const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;
     cg::text::FormatTo(buffer, L"{:2}/{:2}", page, 10);
-    auto* const pageData = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
+    auto* const pageData = gCurrentWindow->elements[14].data.text;
     const std::uint32_t length = static_cast<std::uint32_t>(buffer.size() + 1);
     pageData->text = buffer;
     return length;

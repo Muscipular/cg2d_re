@@ -142,8 +142,8 @@ static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
         input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
-        static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
+        gCurrentWindow->elements[1].data.input->context =
             gWindow50InputPrototype580618.input.context;
     }
     WindowMessageBoard_RefreshRecords();
@@ -171,11 +171,11 @@ static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, con
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[index].data) {
+    if (gFocusedElementDataD45F94 != window->elements[index].data.input) {
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
         input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[index].data;
-        static_cast<WindowInputData*>(gCurrentWindow->elements[index].data)->context =
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[index].data.input;
+        gCurrentWindow->elements[index].data.input->context =
             gWindow50InputPrototype580618.input.context;
     }
     return 1;
@@ -190,7 +190,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     switch (index) {
     case 0:
     case 31: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = index == 0 ? 243002 : 244547;
             const wchar_t* const hint = index == 0
@@ -210,7 +210,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     case 12:
     case 19:
     case 26: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 36818;
             gHoverTextD68AE8 = L"删除此讯息。";
@@ -235,7 +235,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         return 1;
     }
     case 30: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[30].data);
+        auto* const graphic = gCurrentWindow->elements[30].data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 244544;
             gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
@@ -266,7 +266,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     }
     case 32:
     case 33: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
         const std::int32_t baseImage = index == 32 ? 243033 : 243030;
         if ((state & 1) != 0) {
             graphic->imageNo = baseImage + 2;
@@ -292,7 +292,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = baseImage + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = baseImage + 1;
         }
         return consumed;
     }
@@ -308,9 +308,9 @@ static void WindowMessageBoard_RefreshRecords()
     for (std::int32_t index = 0; index < 4; ++index) {
         const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
         const std::int32_t first = 2 + index * 7;
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[first].data);
+        auto* const graphic = gCurrentWindow->elements[first].data.graphic;
         graphic->imageNo = record.value00;
-        auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
+        auto* const name = gCurrentWindow->elements[first + 1].data.text;
         name->text = record.texts08[0];
         __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
@@ -321,13 +321,13 @@ static void WindowMessageBoard_RefreshRecords()
             const std::int32_t month = calendar->tm_mon;
             const std::int32_t year = calendar->tm_year;
             cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
-            auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
+            auto* const date = gCurrentWindow->elements[first + 2].data.text;
             date->text = buffer;
         } else {
             gCurrentWindow->elements[first + 2].visible = 0;
         }
         for (std::int32_t line = 1; line < 4; ++line) {
-            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 3 + line].data);
+            auto* const text = gCurrentWindow->elements[first + 3 + line].data.text;
             text->text = record.texts08[line];
         }
         gCurrentWindow->elements[first + 3].visible = record.value408 != 0 ? 1 : 0;
@@ -335,7 +335,7 @@ static void WindowMessageBoard_RefreshRecords()
     gCurrentWindow->elements[32].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
     gCurrentWindow->elements[33].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 == window->elements[1].data) {
+    if (gFocusedElementDataD45F94 == window->elements[1].data.input) {
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
     }
 }

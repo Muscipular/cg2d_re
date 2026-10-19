@@ -168,10 +168,10 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
         if (part % 2 == 0) {
             const std::int32_t element = base + part / 2;
             gCurrentWindow->elements[element].visible = 1;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = 0x3BB0C;
+            gCurrentWindow->elements[element].data.graphic->imageNo = 0x3BB0C;
         }
         if (part == count - 1 && count % 2 == 1) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[base + part / 2].data)->imageNo = 0x3BB0D;
+            gCurrentWindow->elements[base + part / 2].data.graphic->imageNo = 0x3BB0D;
         }
     }
 }
@@ -186,12 +186,12 @@ static void WindowAlbumDetail_Refresh()
         return records + index;
     };
     const auto copyBeforeScan = [](const std::int32_t index, const std::wstring_view source) {
-        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        auto* const data = gCurrentWindow->elements[index].data.text;
         data->text = source;
     };
     const auto copyAfterScan = [](const std::int32_t index, const std::wstring_view source) {
         WindowElement* const elements = gCurrentWindow->elements;
-        auto* const data = static_cast<WindowTextData*>(elements[index].data);
+        auto* const data = elements[index].data.text;
         data->text = source;
     };
     std::wstring buffer;
@@ -220,9 +220,9 @@ static void WindowAlbumDetail_Refresh()
 
         const std::int32_t image = selectedRecord()->imageNo;
         const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(image);
-        auto* const imageData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        auto* const imageData = gCurrentWindow->elements[1].data.animation;
         cg::yobi::SetYobiActionField2A8(imageData->action, mapped);
-        auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        auto* const directionData = gCurrentWindow->elements[1].data.animation;
         const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
         cg::yobi::SetYobiActionField2B8(directionData->action, direction);
 
@@ -235,7 +235,7 @@ static void WindowAlbumDetail_Refresh()
         const auto tribe = std::bit_cast<std::int8_t>(tribeRecord->tribe);
         WindowElement* const tribeElements = tribeWindow->elements;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
-        auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
+        auto* const tribeData = tribeElements[5].data.text;
         tribeData->text = tribeName;
         buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
@@ -243,12 +243,12 @@ static void WindowAlbumDetail_Refresh()
         const world::AlbumRecord* const firstMarkRecord = selectedRecord();
         WindowInstance* const firstMarkWindow = gCurrentWindow;
         const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord->mark1);
-        auto* const firstMarkData = static_cast<WindowGraphicData*>(firstMarkWindow->elements[7].data);
+        auto* const firstMarkData = firstMarkWindow->elements[7].data.graphic;
         firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
         WindowInstance* const secondMarkWindow = gCurrentWindow;
         const world::AlbumRecord* const secondMarkRecord = selectedRecord();
         const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord->mark2);
-        auto* const secondMarkData = static_cast<WindowGraphicData*>(secondMarkWindow->elements[8].data);
+        auto* const secondMarkData = secondMarkWindow->elements[8].data.graphic;
         secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
@@ -258,7 +258,7 @@ static void WindowAlbumDetail_Refresh()
             WindowAlbumDetail_DrawRating(selectedRecord()->ratings[rating], 53 + rating * 5);
         }
         const auto showSegment = [](const std::int32_t element, const std::int32_t graphic) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = graphic;
+            gCurrentWindow->elements[element].data.graphic->imageNo = graphic;
             gCurrentWindow->elements[element].visible = 1;
         };
         for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
@@ -368,10 +368,10 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = hint;
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 2;
+        gCurrentWindow->elements[index].data.graphic->imageNo = idle + 2;
         consumed = 1;
     } else {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle;
+        gCurrentWindow->elements[index].data.graphic->imageNo = idle;
     }
     if ((state & 0x400) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
@@ -387,7 +387,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         consumed = 1;
     }
     if ((state & 8) != 0) {
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 1;
+        gCurrentWindow->elements[index].data.graphic->imageNo = idle + 1;
     }
     return consumed;
 }

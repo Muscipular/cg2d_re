@@ -253,8 +253,8 @@ struct BigMapWindowState final {
             window.elements[ListRowFirst + row].visible = shown;
             window.elements[ListNameFirst + row].visible = shown;
             window.elements[ListCoordinateFirst + row].visible = shown;
-            auto& name = *static_cast<WindowTextData*>(window.elements[ListNameFirst + row].data);
-            auto& coordinate = *static_cast<WindowTextData*>(window.elements[ListCoordinateFirst + row].data);
+            auto& name = *window.elements[ListNameFirst + row].data.text;
+            auto& coordinate = *window.elements[ListCoordinateFirst + row].data.text;
             if (shown) {
                 const auto& point = *coordinateRows[position];
                 name.text = point.name;
@@ -265,7 +265,7 @@ struct BigMapWindowState final {
         const int pages = (static_cast<int>(coordinateRows.size()) + kCoordinateRows - 1) / kCoordinateRows;
         // 末屏允许不足10行时向前补齐；到达尾部显示末页。
         const int page = pages == 0 ? 0 : listFirstRow == MaxListFirstRow() ? pages : listFirstRow / kCoordinateRows + 1;
-        static_cast<WindowTextData*>(window.elements[TextListPage].data)->text = std::format(L"{} / {}", page, pages);
+        window.elements[TextListPage].data.text->text = std::format(L"{} / {}", page, pages);
     }
 
     void SetListFirstRow(int position) {
@@ -356,10 +356,10 @@ struct BigMapWindowState final {
     }
 
     void RefreshText() {
-        static_cast<WindowTextData*>(window.elements[TextMapName].data)->text = world::GetMapName_9DAD30();
-        static_cast<WindowTextData*>(window.elements[TextCurrentCoordinate].data)->text =
+        window.elements[TextMapName].data.text->text = world::GetMapName_9DAD30();
+        window.elements[TextCurrentCoordinate].data.text->text =
             std::format(L"当前：{}  {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
-        static_cast<WindowTextData*>(window.elements[TextTargetCoordinate].data)->text = targetX >= 0
+        window.elements[TextTargetCoordinate].data.text->text = targetX >= 0
             ? std::format(L"目标：{}  {}", targetX, targetY) : L"";
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt" : L"";
         if (missingIcons || failedUiImages)
@@ -368,7 +368,7 @@ struct BigMapWindowState final {
         if (!generation.empty()) status += L"  " + generation;
         window.elements[TextStatus].visible = !status.empty();
         window.elements[StatusArea].visible = !status.empty();
-        static_cast<WindowTextData*>(window.elements[TextStatus].data)->text = std::move(status);
+        window.elements[TextStatus].data.text->text = std::move(status);
     }
 
     UIClipRect Viewport() const {
@@ -527,16 +527,16 @@ struct BigMapWindowState final {
                 imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal;
                 break;
             }
-            static_cast<WindowGraphicData*>(element.data)->imageNo = imageNo;
+            element.data.graphic->imageNo = imageNo;
         }
         if (index == ListToggleTextArea && acceptsMouse && (events & 1)) {
             const int button = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
-            static_cast<WindowGraphicData*>(window.elements[button].data)->imageNo =
+            window.elements[button].data.graphic->imageNo =
                 (events & 8) ? CenterPressed : CenterHover;
         }
         if (index >= ListScrollUp && index <= ListNextPage) {
             const int base = gBigMapElements[index].source.graphic->imageNo;
-            auto& graphic = *static_cast<WindowGraphicData*>(element.data);
+            auto& graphic = *element.data.graphic;
             graphic.imageNo = base + ((element.state & 8) ? 1 : (element.state & 1) ? 2 : 0);
             const bool atEnd = (index == ListScrollUp || index == ListPreviousPage)
                 ? listFirstRow == 0 : listFirstRow == MaxListFirstRow();
@@ -593,7 +593,7 @@ struct BigMapWindowState final {
                     case BigMapButton::Toggle:
                         options = !options;
                         if (options) listOpen = false;
-                        static_cast<WindowGraphicData*>(element.data)->imageNo = options ? 243031 : 243034;
+                        element.data.graphic->imageNo = options ? 243031 : 243034;
                         break;
                     case BigMapButton::CoordinateList: ToggleCoordinateList(); break;
                     case BigMapButton::Center: followPlayer = true; break;
@@ -665,15 +665,17 @@ struct BigMapWindowState final {
     }
 
     void DrawElements(const UIClipRect& clip) {
-        for (int i = ButtonFirst; i < ElementCount; ++i) {
+        for (int position = 0; position < window.elementsSortedCount; ++position) {
+            const auto i = static_cast<int>(window.elementsSorted[position] - window.elements);
+            if (i < ButtonFirst) continue;
             const auto& element = window.elements[i];
             if (element.visible != 1) continue;
             if (element.type == WindowElementType_Graphic) {
-                const auto& data = *static_cast<const WindowGraphicData*>(element.data);
+                const auto& data = *element.data.graphic;
                 ImageAt(data.imageNo, window.x + element.x, window.y + element.y,
                     element.width, element.height, clip, data.color);
             } else if (element.type == WindowElementType_Text) {
-                const auto& data = *static_cast<const WindowTextData*>(element.data);
+                const auto& data = *element.data.text;
                 auto textClip = clip;
                 int textX = window.x + element.x;
                 if (i == TextMapName) textClip.right = static_cast<short>(window.x + 188);

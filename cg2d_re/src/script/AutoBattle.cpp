@@ -548,7 +548,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     }
     void AddGraphic(int ix, int x, int y, int w, int h, int image, ui::WindowElementCallback callback) {
         graphics[ix] = {image, 0, 0, 0, 0, 0xFFFFFFFFu};
-        elements[ix] = {ui::WindowElementType_Graphic, 0, x, y, w, h, 1, &graphics[ix], callback};
+        elements[ix] = {ui::WindowElementType_Graphic, 0, x, y, w, h, 1, {.graphic = &graphics[ix]}, callback, ix};
     }
     int update(int stage, int) override {
         if (window.id == WIN_AUTOBATTLE && clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
@@ -562,14 +562,14 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
 };
 
 static ui::WindowGraphicData& CurrentGraphic(int index) {
-    return *static_cast<ui::WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    return *gCurrentWindow->elements[index].data.graphic;
 }
 
 static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
-    panel->elements[0] = {ui::WindowElementType_EventArea, 0, 65, 0, 10, 20, 1, nullptr,
+    panel->elements[0] = {ui::WindowElementType_EventArea, 0, 65, 0, 10, 20, 1, {},
         +[](int, int mouse) {
             if (mouse & 2) {
                 simpleMode = simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;

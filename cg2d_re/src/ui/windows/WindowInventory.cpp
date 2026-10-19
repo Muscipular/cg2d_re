@@ -36,7 +36,7 @@ static void RefreshInventoryPageSelection(
     for (std::int32_t index = 0; index < window->elementCount; ++index) {
         WindowElement& element = window->elements[index];
         if (element.mouseCallback == callback) {
-            auto* const graphic = static_cast<WindowGraphicData*>(element.data);
+            auto* const graphic = element.data.graphic;
             const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
             graphic->imageNo = kInventoryPageImages[page][page == selectedPage ? 1 : 0];
         }
@@ -48,7 +48,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
 {
     WindowInstance* const window = gCurrentWindow;
     WindowElement& element = window->elements[index];
-    auto* const graphic = static_cast<WindowGraphicData*>(element.data);
+    auto* const graphic = element.data.graphic;
     const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
     auto& currentPage = gLoginWindowRuntime.bagCurrentPage;
     if ((state & 1) != 0) {
@@ -92,7 +92,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
 static std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    auto* const graphic = window->elements[index].data.graphic;
     const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
     auto& currentPage = gLoginWindowRuntime.bankCurrentPage;
     if ((state & 1) != 0) {
@@ -135,10 +135,11 @@ bool WindowInventory_CreatePageElements(WindowInstance* const window, const std:
         const std::int32_t page = bank && !bankPage ? offset - gLoginWindowRuntime.bankPageCount : offset;
         WindowElement& element = window->elements[index];
         element.type = WindowElementType_Graphic;
+        element.seqNo = (bank ? 2 : 0) + offset;
         element.visible = 1;
         element.mouseCallback = bankPage ? &WindowInventory_SwitchBankPage : &WindowInventory_SwitchBagPage;
         auto* const graphic = static_cast<WindowGraphicData*>(std::calloc(1, sizeof(WindowGraphicData)));
-        element.data = graphic;
+        element.data.graphic = graphic;
         if (graphic == nullptr) {
             return false; // 沿WindowRuntime_Open原分配失败回收路径。
         }
@@ -491,7 +492,7 @@ static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         consumed = 1;
     }
-    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 244306;
+    gCurrentWindow->elements[index].data.graphic->imageNo = 244306;
     return consumed;
 }
 
@@ -604,13 +605,13 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     const std::int32_t mappedImage =
         character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
     cg::yobi::SetYobiActionField2A8(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
+        gCurrentWindow->elements[5].data.animation->action, mappedImage);
     cg::yobi::SetYobiActionField2B8(
-        static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 5);
+        gCurrentWindow->elements[5].data.animation->action, 5);
     const std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {
         cg::yobi::AddYobiActionDrawFlags(
-            static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 4);
+            gCurrentWindow->elements[5].data.animation->action, 4);
     }
     WindowRuntime_DrawCurrent();
     return 1;
@@ -619,7 +620,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
 // 原函数：0x00488C50。
 static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     graphic->imageNo = 243000;
     if ((state & 1) != 0) {
         graphic->imageNo = 243002;
@@ -651,7 +652,7 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
 // 原函数：0x00488D30。
 static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"想放钱在地面时使用此按键。";

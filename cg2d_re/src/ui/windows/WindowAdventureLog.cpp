@@ -168,17 +168,17 @@ static void WindowAdventureLog_Refresh()
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
             const std::size_t index = static_cast<std::size_t>(page + line);
             const std::wstring_view text = index < rows.size() ? std::wstring_view(rows[index]) : std::wstring_view{};
-            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11 + line].data);
+            auto* const data = gCurrentWindow->elements[11 + line].data.text;
             data->text = text;
         }
         return;
     }
-    auto* const first = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+    auto* const first = gCurrentWindow->elements[11].data.text;
     first->text = L"无法开启冒险者日志" /* 原常量参考：0x0055358C。 */;
     for (std::int32_t line = 12; line < 25; ++line) {
         WindowInstance* const current = gCurrentWindow;
         const char* const text = "";
-        auto* const data = static_cast<WindowTextData*>(current->elements[line].data);
+        auto* const data = current->elements[line].data.text;
         data->text = cg::text::FromGbkWide(text);
     }
 }
@@ -203,10 +203,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 2 ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
@@ -222,7 +222,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
             consumed = 1;
         }
         break;
@@ -232,10 +232,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 6 ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
@@ -289,7 +289,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
                 --gLoginWindowRuntime.dayD67BC0;
             }
             WindowAdventureLog_Load();
-            auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            auto* const title = gCurrentWindow->elements[4].data.text;
             title->text = world::gLogFileName554648;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
@@ -298,7 +298,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
         }
         break;
     }

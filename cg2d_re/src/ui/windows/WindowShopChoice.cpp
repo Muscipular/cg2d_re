@@ -215,14 +215,14 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+        auto* const title = gCurrentWindow->elements[0].data.text;
         title->text = gChoiceDialog.title;
         const std::int32_t measured = cg::render::TextMeasure(gChoiceDialog.title, 1);
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = ((window->width - measured) >> 1) + 6;
-        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        auto* animation = gCurrentWindow->elements[1].data.animation;
         cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
-        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        animation = gCurrentWindow->elements[1].data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
         const std::uint8_t count = gChoiceDialog.choiceCount;
         gCurrentWindow->elements[2].height =

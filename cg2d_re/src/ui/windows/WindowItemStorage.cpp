@@ -71,8 +71,8 @@ WindowInstance* WindowItemStorage_Open(
 // 原函数：0x004AC0F0。
 static void WindowItemStorage_Release()
 {
-    if (world::gValue581800 == 34) {
-        world::gValue581800 = -1;
+    if (world::gCurrentDialogType_581800 == 34) {
+        world::gCurrentDialogType_581800 = -1;
     }
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
     if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
@@ -90,7 +90,7 @@ static std::int32_t WindowItemStorage_Update(const std::int32_t)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (world::gValue581800 != 34) {
+    if (world::gCurrentDialogType_581800 != 34) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

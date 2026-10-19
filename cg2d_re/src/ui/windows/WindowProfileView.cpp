@@ -167,7 +167,7 @@ WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
 // 原函数：0x004CB530。
 static void WindowProfileView_Release()
 {
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
 }
 

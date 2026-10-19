@@ -513,8 +513,8 @@ static void WindowInventory_Release()
         --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if (world::gValue581800 == 29) {
-        world::gValue581800 = -1;
+    if (world::gCurrentDialogType_581800 == 29) {
+        world::gCurrentDialogType_581800 = -1;
     }
     gItemSelectorCF3B10.initialized3E8 = 0;
 }
@@ -547,12 +547,12 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         const std::int32_t oldSelection = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
-        if (world::gValue581800 == 29) {
-            world::gValue581800 = -1;
+        if (world::gCurrentDialogType_581800 == 29) {
+            world::gCurrentDialogType_581800 = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if (gItemSelectionModeCC40D4 == 2 && world::gValue581800 != 29) {
+    if (gItemSelectionModeCC40D4 == 2 && world::gCurrentDialogType_581800 != 29) {
         gCurrentWindow->elements[4].mouseCallback = WindowInventory_HandleItems;
         gCurrentWindow->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t oldSelection = gSelectedItemCB0A44;
@@ -1189,11 +1189,11 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         window->elements[4].mouseCallback = WindowInventory_HandleItems;
         gCurrentWindow->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
-        const std::int32_t dialog = world::gValue581800;
+        const std::int32_t dialog = world::gCurrentDialogType_581800;
         --occupancy[selected];
         gSelectedItemCB0A44 = -1;
         if (dialog == 29) {
-            world::gValue581800 = -1;
+            world::gCurrentDialogType_581800 = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse());
     };

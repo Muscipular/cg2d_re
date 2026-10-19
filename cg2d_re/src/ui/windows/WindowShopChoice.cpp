@@ -191,7 +191,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
     const wchar_t* const* const hints, const WindowChoiceCallback callback)
 {
-    gChoiceDialog.type = world::gValue581800;
+    gChoiceDialog.type = world::gCurrentDialogType_581800;
     gChoiceDialog.title = title;
     gChoiceDialog.lines.clear();
     for (std::uint8_t row = 0; row < lineCount; ++row) { gChoiceDialog.lines.push_back(*lines[row]); }
@@ -263,7 +263,7 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    if (world::gValue581800 != gChoiceDialog.type) {
+    if (world::gCurrentDialogType_581800 != gChoiceDialog.type) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -274,8 +274,8 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 // 原函数：0x0049FF70。
 static void WindowShopChoice_Release()
 {
-    if (gChoiceDialog.closeEnabled != 0 && world::gValue581800 == gChoiceDialog.type) {
-        world::gValue581800 = -1;
+    if (gChoiceDialog.closeEnabled != 0 && world::gCurrentDialogType_581800 == gChoiceDialog.type) {
+        world::gCurrentDialogType_581800 = -1;
     }
 }
 

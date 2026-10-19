@@ -221,7 +221,7 @@ static std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 // 原函数：0x004CAB60。
 static void WindowProfileSearch_Release()
 {
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
 }

@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：409／636。已重命名：397。保留／未决：12。待分析：227。
+已分析：455／636。已重命名：439。保留／未决：16。待分析：181。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -19,7 +19,7 @@
 | `Sub_43BFF0` | src/Yobi/battle_scene.cpp:318 | 已重命名：`EnableCompletedBattleActorIdleAnimation_43BFF0` | 战斗场景且回合快照一致时，按完成位图置动作0x40；待机回调据该位继续播放站立动画。 |
 | `Sub_43C040` | src/Yobi/battle_scene.cpp:334 | 已重命名：`DisableBattleActorIdleAnimation_43C040` | 遍历战斗动作清0x40待机持续播放位。 |
 | `Sub_43C4B0` | src/world/SceneState.cpp:9898 | 待分析 | — |
-| `Sub_43C4E0` | src/world/SceneState.cpp:1926 | 待分析 | — |
+| `Sub_43C4E0` | src/world/SceneState.cpp:1926 | 已重命名：`BeginBattleCommandSelection_43C4E0` | 启动指令倒计时，清指令与技能／宠物动作计数，刷新待机标志和指令窗口位置，宠物变化时清缓存选择。 |
 | `Sub_43C8F0` | src/world/SceneState.cpp:6695 | 待分析 | — |
 | `Sub_43C910` | src/Yobi/battle_scene.cpp:408 | 已重命名：`ReturnBattleActorsToFormation_43C910` | 未置到位标志FDC位1的角色设phase2回阵位，全部已到位返回1；406760到位后写该位。 |
 | `Sub_43C9A0` | src/Yobi/battle_scene.cpp:424 | 已重命名：`OrientEnteringBattleSides_43C9A0` | 按入场两阵营标志，对相应十槽以入场坐标减阵位坐标定朝向并刷新动画；场景解析C包后调用。 |
@@ -61,7 +61,7 @@
 | `Sub_440C50` | src/Yobi/map_observation.cpp:833 | 已重命名：`UpdateObservationTravelProjection_440C50` | 依快照持续帧数计算主体屏幕轨迹与弧线，按成员deltaY排序后绘制成员和主体，每轮帧数加一。 |
 | `Sub_440F50` | src/Yobi/map_observation.cpp:1181 | 已重命名：`SavePlayerObservationTravelSnapshot_440F50` | 查包含本人的观察组，保存主体图号、原方向、时长乘60与五成员编号／图号快照。 |
 | `Sub_440FE0` | src/Yobi/map_observation.cpp:1217 | 已重命名：`BeginObservationTravelScene_440FE0` | 由快照创建旅行观察动作并启动BGM渐隐，返回场景值0x25。 |
-| `Sub_440FF0` | src/world/SceneState.cpp:1671 | 待分析 | — |
+| `Sub_440FF0` | src/world/SceneState.cpp:1671 | 已重命名：`DrawObservationTravelBackground_440FF0` | 按观察方向设定定向效果角度和强度，更新效果后以64×48图块铺满640×480背景。 |
 | `Sub_4410E0` | src/world/SceneState.cpp:10682 | 待分析 | — |
 | `Sub_4412D0` | src/Yobi/map_render.cpp:189 | 已重命名：`ResolveGearPetAnimationState_4412D0` | 遍历两附属宠物类别，根据主角色动作映射输出动画动作与末帧停留模式，保第二槽覆写语义。 |
 | `Sub_441430` | src/Yobi/map_render.cpp:235 | 已重命名：`ResolveGearPetDrawPlacement_441430` | 附属类别3至5按八方向输出绘制偏移及前后层次，保两个槽逐次处理。 |
@@ -154,7 +154,7 @@
 | `Sub_44A090` | src/world/ChatHistory.cpp:92 | 已重命名：`LoadChatInputHistory_44A090` | 重置历史游标并读取chathis.dat整块历史，文件缺失则创建并将游标设63；保留短读结果。 |
 | `Sub_44B050` | src/world/ChatHistory.cpp:240 | 已重命名：`AppendChatMessage_44B050` | 将宽文本转GBK后写512槽聊天环形区，写带时间日志、发布颜色字体、推进写指针并增加记录数。 |
 | `Sub_44B5C0` | src/scene/login/LoginState.cpp:65 | 已重命名：`AppendSystemLog_44B5C0` | 以追加模式写systemlog.txt和换行，返回fclose位模式。 |
-| `Sub_455A90` | src/world/SceneState.cpp:5623 | 待分析 | — |
+| `Sub_455A90` | src/world/SceneState.cpp:5623 | 已重命名：`IsMapBattleSpectatingAllowed_455A90` | 当前已批准取消地图观战白名单后固定返回1，保调用方其他门禁。 |
 | `Sub_455AC0` | src/world/SceneState.cpp:6575 | 待分析 | — |
 | `Sub_455AD0` | src/world/SceneState.cpp:6581 | 待分析 | — |
 | `Sub_455AE0` | src/world/SceneState.cpp:6587 | 待分析 | — |
@@ -168,10 +168,10 @@
 | `Sub_455B90` | src/world/SceneState.cpp:6641 | 待分析 | — |
 | `Sub_455BB0` | src/world/SceneState.cpp:6649 | 待分析 | — |
 | `Sub_455BD0` | src/world/SceneState.cpp:6657 | 待分析 | — |
-| `Sub_455C60` | src/world/SceneState.cpp:3417 | 待分析 | — |
+| `Sub_455C60` | src/world/SceneState.cpp:3417 | 已重命名：`ResetTimedMapNotice_455C60` | 将地图限时提示起始时刻清零，窗口39更新与创建路径据此关闭提示。 |
 | `Sub_455C90` | src/world/WorldUpdate.cpp:230 | 已重命名：`UpdateDisconnectDialog_455C90` | 创建居中断线模态框，按连接错误显示服务器提示，绘制确认按钮并处理点击后销毁，返回是否确认。 |
-| `Sub_455FC0` | src/world/SceneState.cpp:3423 | 待分析 | — |
-| `Sub_458F00` | src/world/SceneState.cpp:4014 | 待分析 | — |
+| `Sub_455FC0` | src/world/SceneState.cpp:3423 | 已重命名：`SynchronizeTimedMapNoticeWindow_455FC0` | 先清共享状态；起始时刻为零则回收创建动作，否则无窗口无动作时创建窗口39并播放提示音。 |
+| `Sub_458F00` | src/world/SceneState.cpp:4014 | 已重命名：`UpdateDayPeriodPaletteAndTimers_458F00` | 计算游戏时间分段，变化且自动模式时以3600过渡切换调色板，末尾推进玩家计时。 |
 | `Sub_458F40` | src/world/SceneState.cpp:3987 | 待分析 | — |
 | `Sub_459580` | src/platform/imeImpl.cpp:125 | 已重命名：`HandleImeCompositionFlags_459580` | 按GCS_RESULTSTR/COMPSTR/COMPATTR/CURSORPOS依次提交文字、更新合成串/属性/光标；窗口消息消费者。 |
 | `Sub_45B370` | src/resource/AnimationRuntime.cpp:70 | 已分析，保留原名 | 仅转调45B380；原证据与当前初始化调用未证明被复制配置的业务用途，不猜预算/容量。 |
@@ -238,12 +238,12 @@
 | `Sub_46AFE0` | src/world/SceneState.cpp:5415 | 待分析 | — |
 | `Sub_46B370` | src/world/SceneState.cpp:5731 | 待分析 | — |
 | `Sub_46B4B0` | src/world/WorldActor.cpp:651 | 已重命名：`TurnPlayerAndSendDirection_46B4B0` | 玩家静止且门禁允许、方向改变并超500毫秒节流后，更新朝向并发送编码方向。 |
-| `Sub_46B580` | src/world/SceneState.cpp:5079 | 待分析 | — |
+| `Sub_46B580` | src/world/SceneState.cpp:5079 | 已重命名：`GetMapDirectionBetweenPoints_46B580` | 先求两点Y差再X差，转float后调用八方向计算，返回其64位结果。 |
 | `Sub_46B5C0` | src/world/SceneState.cpp:5093 | 待分析 | — |
 | `Sub_46B6F0` | src/world/SceneState.cpp:5146 | 待分析 | — |
 | `Sub_46BC90` | src/world/SceneState.cpp:4831 | 待分析 | — |
 | `Sub_46BCF0` | src/world/SceneState.cpp:4898 | 待分析 | — |
-| `Sub_46BD20` | src/world/SceneState.cpp:5349 | 待分析 | — |
+| `Sub_46BD20` | src/world/SceneState.cpp:5349 | 已重命名：`EncodeMovementDirectionByte_46BD20` | 方向低字节按mode加小写a或大写A，保mode原高24位，供移动路径／转向协议编码。 |
 | `Sub_46BD40` | src/world/SceneState.cpp:11161 | 待分析 | — |
 | `Sub_46BD60` | src/world/MapDrawCache.cpp:402 | 已重命名：`CachePrimaryMapGraphic_46BD60` | 在1024容量内追加主地图图形记录，保存世界和屏幕坐标、批类型及描述符，返回原槽或-1。 |
 | `Sub_46BE50` | src/world/MapDrawCache.cpp:334 | 已重命名：`CacheMapGraphicByResourceType_46BE50` | mapNo为1转主绘制缓存，大于999按资源flag分普通对象或特殊缓存，写坐标和描述符并增加数量。 |
@@ -307,7 +307,7 @@
 | `Sub_476680` | src/world/SceneState.cpp:8287 | 待分析 | — |
 | `Sub_48ABC0` | src/Yobi/window.cpp:546 | 已重命名：`UpdateQuantityWindowOpeningAnimation_48ABC0` | 扩张轮廓完成后读取来源控件、图号、数量限制与回调，打开数量窗口并标记死亡。 |
 | `Sub_48AC60` | src/Yobi/window.cpp:723 | 已重命名：`CreateQuantityWindowOpeningAnimation_48AC60` | 发布数量窗口动作标志、关闭既有窗口，再按保存位置或默认位置创建展开动作，失败直接打开数量窗口。 |
-| `Sub_492250` | src/world/SceneState.cpp:1975 | 待分析 | — |
+| `Sub_492250` | src/world/SceneState.cpp:1975 | 已重命名：`MarkPetDetailDraftChanged_492250` | 置宠物详情草稿标志，WindowPetDetail的ResetDraftFlag和ReadDraftFlag消费。 |
 | `Sub_4990A0` | src/Yobi/battle_scene.cpp:304 | 已重命名：`DrawBattleActorHpBar_4990A0` | 指定战斗槽动作有回调、HP正且未置禁止位0x2000时绘制血条。 |
 | `Sub_49C5C0` | src/Yobi/window.cpp:905 | 已重命名：`CalculateDialogTextColumns_49C5C0` | 对话与外观窗口按有符号宽度以(width-48)/9+2计算文本列数。 |
 | `Sub_49C5E0` | src/Yobi/window.cpp:911 | 已重命名：`CalculateDialogVisibleLines_49C5E0` | 对话窗口高度扣边框32和可选按钮区24，再除实际行高，供可见行数计算。 |
@@ -322,7 +322,7 @@
 | `Sub_4C9E40` | src/world/MailState.cpp:1081 | 已重命名：`HandleProfileCategorySelectionReply_4C9E40` | 反转义整串后解析选择掩码，低两位分别写前两组，低位写第三组，不改活动位。 |
 | `Sub_4CA330` | src/world/MailState.cpp:1116 | 已重命名：`HandleProfileSearchResultsReply_4CA330` | 清20条搜索记录活动位，解析搜索头及编号、两段文本，-1哨兵提前结束，文本逐项反转义。 |
 | `Sub_4CAC60` | src/world/MailState.cpp:1144 | 已重命名：`HandleViewedPlayerProfileReply_4CAC60` | 解析14字段至独立查看资料对象，并按分类编号查三项图号，缺失使用246000，返回末次查询结果。 |
-| `Sub_4D3170` | src/world/SceneState.cpp:5369 | 待分析 | — |
+| `Sub_4D3170` | src/world/SceneState.cpp:5369 | 已重命名：`ResetCurrentDialogType_4D3170` | 将当前对话类型置-1；银行、商店、资料及对话窗口以该共享类型识别会话。 |
 | `Sub_4EC1A0` | src/world/MailState.cpp:283 | 已重命名：`SortContactIndices_4EC1A0` | 重建0至59联系人索引并按CompareContactIndices比较器排序，供联系人列表及未读扫描使用。 |
 | `Sub_4ED670` | src/world/SceneState.cpp:3444 | 待分析 | — |
 | `Sub_4FA8E0` | src/world/SceneState.cpp:11058 | 待分析 | — |
@@ -332,7 +332,7 @@
 | `Sub_504A50` | src/world/SceneState.cpp:3461 | 待分析 | — |
 | `Sub_504B10` | src/world/SceneState.cpp:10735 | 待分析 | — |
 | `Sub_504B60` | src/world/SceneState.cpp:10751 | 待分析 | — |
-| `Sub_504F10` | src/world/SceneState.cpp:1728 | 待分析 | — |
+| `Sub_504F10` | src/world/SceneState.cpp:1728 | 已重命名：`HasSkillRecipeForItem_504F10` | 按mode筛选技能编号族，遍历配方value10与物品ID匹配；供物品使用资格检查，不猜具体技能名称。 |
 | `Sub_505040` | src/world/SceneState.cpp:9226 | 待分析 | — |
 | `Sub_5050B0` | src/world/SceneState.cpp:9243 | 待分析 | — |
 | `Sub_505110` | src/world/SceneState.cpp:9259 | 待分析 | — |
@@ -369,7 +369,7 @@
 | `Sub_50C580` | src/world/SceneState.cpp:9394 | 待分析 | — |
 | `Sub_50C7A0` | src/world/SceneState.cpp:8763 | 待分析 | — |
 | `Sub_50C870` | src/world/SceneState.cpp:10543 | 待分析 | — |
-| `Sub_50C8D0` | src/world/SceneState.cpp:5359 | 待分析 | — |
+| `Sub_50C8D0` | src/world/SceneState.cpp:5359 | 已重命名：`SendCurrentPlayerMovementPath_50C8D0` | 采样共享移动第四参数，按当前连接发送指定XY及转换后的路径文本。 |
 | `Sub_50C900` | src/world/SceneState.cpp:9531 | 待分析 | — |
 | `Sub_50C940` | src/world/SceneState.cpp:8864 | 待分析 | — |
 | `Sub_50CAE0` | src/world/SceneState.cpp:8916 | 待分析 | — |
@@ -506,10 +506,10 @@
 | `Sub_5182B0` | src/Yobi/animation.cpp:263 | 已重命名：`GetYobiGraphicOriginOffset_5182B0` | 查询当前图形XY原点，返回动作图形偏移与资源原点之差，无效轴返回0但仍先查询资源。 |
 | `Sub_518300` | src/Yobi/animation.cpp:125 | 已重命名：`GetScaledYobiGraphicOriginOffset_518300` | 查询当前图形原点，按kind3/4/5乘1.75/1.5/1.25后从动作图形偏移减去，轴0/1返回对应分量。 |
 | `Sub_5183B0` | src/world/WorldActor.cpp:32 | 已重命名：`IsAnimationImageNumber_5183B0` | 判断图号是否在100000至199999动画区间，世界对象创建据此决定是否保留朝向。 |
-| `Sub_518580` | src/world/SceneState.cpp:1962 | 待分析 | — |
+| `Sub_518580` | src/world/SceneState.cpp:1962 | 已重命名：`BuildPetDisplayEntries_518580` | 逐宠物复制活动位、原槽索引及显示序值到配对表，本入口不排序。 |
 | `Sub_5185C0` | src/world/SceneState.cpp:9886 | 待分析 | — |
-| `Sub_518600` | src/world/SceneState.cpp:1777 | 待分析 | — |
-| `Sub_518660` | src/world/SceneState.cpp:1762 | 待分析 | — |
+| `Sub_518600` | src/world/SceneState.cpp:1777 | 已重命名：`BuildSortedSkillDisplayEntries_518600` | 从技能名是否为空生成有效位、原索引和序号，再按显示比较器排序。 |
+| `Sub_518660` | src/world/SceneState.cpp:1762 | 已重命名：`CompareSkillDisplayEntries_518660` | 有效技能排前，再按sequence升序，双无效或同序等价。 |
 | `Sub_5186A0` | src/world/SceneState.cpp:8217 | 已重命名：`SaveAlbumData_5186A0` | 复制gAlbumStorage完整快照，编码后写数据目录album.dat，保原容量4及短写未关闭分支，不借命名修行为。 |
 | `Sub_518780` | src/world/SceneState.cpp:651 | 已重命名：`LoadAlbumData_518780` | 读取album.dat前四字节并调用既有解码，长度匹配才复制相册区，否则保存当前数据；保原读取长度和错误关闭顺序。 |
 | `Sub_518870` | src/world/SceneState.cpp:689 | 已重命名：`UpdateAlbumEntry_518870` | 按编号更新当前角色图鉴图号、标志、种族、能力和属性、说明及姓名，新增置fresh并保存。 |
@@ -532,44 +532,44 @@
 | `Sub_5194F0` | src/world/MailState.cpp:1472 | 已重命名：`DeleteGuildMailEntry_5194F0` | 5195F0取最后匹配槽，找到后清整C88记录，否则返回-1。 |
 | `Sub_519550` | src/world/MailState.cpp:1404 | 已重命名：`SaveGuildMailFile_519550` | 选择账号目录guildmail.dat，写完整两角色存储并返回fclose。 |
 | `Sub_5195F0` | src/world/MailState.cpp:1451 | 已重命名：`FindLastActiveGuildMailEntry_5195F0` | 当前角色200槽，active==1且key相同则记录下标，返回最后匹配或-1。 |
-| `Sub_5196B0` | src/world/SceneState.cpp:1842 | 待分析 | — |
-| `Sub_519770` | src/world/SceneState.cpp:1905 | 待分析 | — |
-| `Sub_5198A0` | src/world/SceneState.cpp:1989 | 待分析 | — |
-| `Sub_5198D0` | src/world/SceneState.cpp:2007 | 待分析 | — |
-| `Sub_5198F0` | src/world/SceneState.cpp:2017 | 待分析 | — |
-| `Sub_519920` | src/world/SceneState.cpp:1948 | 待分析 | — |
-| `Sub_519950` | src/world/SceneState.cpp:1749 | 待分析 | — |
+| `Sub_5196B0` | src/world/SceneState.cpp:1842 | 已重命名：`SetPlayerItemDescription_5196B0` | 按旧编码分32行物品说明并转换显示文本，清未用行，计算每页8行并封顶4页。 |
+| `Sub_519770` | src/world/SceneState.cpp:1905 | 已重命名：`SetPetItemDescription_519770` | 将指定宠物物品说明分32行并计算每页8行页数，保持与玩家版不同的末尾处理。 |
+| `Sub_5198A0` | src/world/SceneState.cpp:1989 | 已重命名：`CopyTitleRecords_5198A0` | 每条称号记录按七个32位字前向复制，称号回复据此复制64条到排序表。 |
+| `Sub_5198D0` | src/world/SceneState.cpp:2007 | 已重命名：`SortTitleRecords_5198D0` | 对至少两条完整称号记录按称号ID比较器执行排序。 |
+| `Sub_5198F0` | src/world/SceneState.cpp:2017 | 已重命名：`CompareTitleRecordsById_5198F0` | 非负ID称号排前并按ID升序，负ID记录等价。 |
+| `Sub_519920` | src/world/SceneState.cpp:1948 | 已重命名：`RefreshPetCount_519920` | 遍历活动宠物并发布总数，保入口先清计数的写入。 |
+| `Sub_519950` | src/world/SceneState.cpp:1749 | 已重命名：`ResetSkillRecipeSlots_519950` | 清技能转生状态，全部配方和材料物品编号设-1，保其余字段。 |
 | `Sub_5199A0` | src/world/SceneState.cpp:6532 | 待分析 | — |
 | `Sub_519A80` | src/world/SceneState.cpp:6087 | 待分析 | — |
 | `Sub_519CD0` | src/world/SceneState.cpp:6196 | 待分析 | — |
 | `Sub_519D50` | src/world/SceneState.cpp:6390 | 待分析 | — |
 | `Sub_519E50` | src/world/SceneState.cpp:6221 | 待分析 | — |
-| `Sub_519EB0` | src/world/SceneState.cpp:4028 | 待分析 | — |
+| `Sub_519EB0` | src/world/SceneState.cpp:4028 | 已重命名：`SetPlayerObjectIndex_519EB0` | 写玩家对象编号完整32位并原样返回。 |
 | `Sub_519EC0` | src/world/SceneState.cpp:11064 | 待分析 | — |
 | `Sub_519EE0` | src/world/WorldActor.cpp:988 | 已重命名：`SynchronizePlayerMapActionPosition_519EE0` | 当前位置受阻则恢复动作格坐标，再同步世界位置、格坐标、移动步长和目标坐标到玩家动作。 |
-| `Sub_51A040` | src/world/SceneState.cpp:6240 | 待分析 | — |
-| `Sub_51A060` | src/world/SceneState.cpp:6251 | 待分析 | — |
+| `Sub_51A040` | src/world/SceneState.cpp:6240 | 已重命名：`SetPlayerFacingDirection_51A040` | 写玩家方向，并在动作存在时同步动作方向，返回方向。 |
+| `Sub_51A060` | src/world/SceneState.cpp:6251 | 已重命名：`SetPlayerAnimationState_51A060` | 玩家动作存在时设置角色动画，行走不重启，其他动作重启。 |
 | `Sub_51A090` | src/world/SceneState.cpp:6140 | 待分析 | — |
-| `Sub_51A4B0` | src/world/SceneState.cpp:6188 | 待分析 | — |
-| `Sub_51A5A0` | src/world/SceneState.cpp:6406 | 待分析 | — |
-| `Sub_51A5B0` | src/world/SceneState.cpp:6495 | 待分析 | — |
-| `Sub_51A5E0` | src/world/SceneState.cpp:6414 | 待分析 | — |
-| `Sub_51A5F0` | src/world/SceneState.cpp:6421 | 待分析 | — |
-| `Sub_51A600` | src/world/SceneState.cpp:6427 | 待分析 | — |
-| `Sub_51A610` | src/world/SceneState.cpp:6433 | 待分析 | — |
-| `Sub_51A620` | src/world/SceneState.cpp:6439 | 待分析 | — |
-| `Sub_51A630` | src/world/SceneState.cpp:6445 | 待分析 | — |
+| `Sub_51A4B0` | src/world/SceneState.cpp:6188 | 已重命名：`CopyPlayerIdentityToMapAction_51A4B0` | 将玩家姓名、自定义称号、等级与HP信息复制给初始地图动作。 |
+| `Sub_51A5A0` | src/world/SceneState.cpp:6406 | 已重命名：`MarkPlayerAsPartyLeader_51A5A0` | 置玩家共享头顶标记0x100及显式队长字节1，与队伍首槽生产对应。 |
+| `Sub_51A5B0` | src/world/SceneState.cpp:6495 | 已重命名：`ClearPlayerLeaderMarker_51A5B0` | 清玩家显式队长字节；动作空或非显示模式2时再清共享0x100图标位。 |
+| `Sub_51A5E0` | src/world/SceneState.cpp:6414 | 已重命名：`MarkPlayerAsPartyMember_51A5E0` | 置玩家flags18A位0x200，队伍状态生产与跟随门禁消费。 |
+| `Sub_51A5F0` | src/world/SceneState.cpp:6421 | 已重命名：`ClearPlayerPartyMembership_51A5F0` | 清玩家flags18A位0x200队伍成员标志。 |
+| `Sub_51A600` | src/world/SceneState.cpp:6427 | 已分析，保留原名 | 置玩家flags18A的0x4000位；与世界角色动作42／44状态开关和442F70特定图标对应，但图标所代表的业务状态缺证，保留。 |
+| `Sub_51A610` | src/world/SceneState.cpp:6433 | 已分析，保留原名 | 清玩家flags18A的0x4000位；与世界角色动作42／44状态开关和442F70特定图标对应，但图标所代表的业务状态缺证，保留。 |
+| `Sub_51A620` | src/world/SceneState.cpp:6439 | 已分析，保留原名 | 置玩家flags18A的0x8000位；与世界角色动作42／44状态开关和442F70特定图标对应，但图标所代表的业务状态缺证，保留。 |
+| `Sub_51A630` | src/world/SceneState.cpp:6445 | 已分析，保留原名 | 清玩家flags18A的0x8000位；与世界角色动作42／44状态开关和442F70特定图标对应，但图标所代表的业务状态缺证，保留。 |
 | `Sub_51A640` | src/world/WorldActor.cpp:879 | 已重命名：`MarkPlayerMovementActive_51A640` | 有玩家动作时将移动状态成员置1，供停止时切回静止动作。 |
 | `Sub_51A660` | src/world/WorldActor.cpp:889 | 已重命名：`ClearPlayerMovementActive_51A660` | 将玩家动作移动状态清0，返回入口动作指针。 |
 | `Sub_51A680` | src/world/WorldActor.cpp:899 | 已重命名：`ReadPlayerMovementActive_51A680` | 无玩家返回0，否则以有符号16位读取移动状态成员。 |
 | `Sub_51A6A0` | src/world/WorldActorDrawing.cpp:95 | 已重命名：`SetPlayerChatBubble_51A6A0` | 取得玩家动作并置聊天位、更新截止时刻，释放旧文本后按玩家名生成聊天气泡。 |
 | `Sub_51A840` | src/world/SceneState.cpp:6261 | 待分析 | — |
 | `Sub_51B080` | src/world/SceneState.cpp:5459 | 待分析 | — |
-| `Sub_51B0F0` | src/world/SceneState.cpp:5451 | 待分析 | — |
+| `Sub_51B0F0` | src/world/SceneState.cpp:5451 | 已重命名：`DetachPartyMapActions_51B0F0` | 清五成员共享记录动作指针，不标死或释放。 |
 | `Sub_51B110` | src/scene/login/LoginRequest.cpp:43 | 已重命名：`HasCharacterInSlot_51B110` | 合法槽按name[0]返回0/1，越界返回-1；选人图形消费。 |
 | `Sub_51B3B0` | src/scene/login/LoginRequest.cpp:33 | 已重命名：`ClearCharacterSlot_51B3B0` | 校验角色槽索引后整条清零；角色列表请求和删除成功路径调用。 |
 | `Sub_51B3E0` | src/world/SceneState.cpp:5679 | 待分析 | — |
-| `Sub_51B530` | src/world/SceneState.cpp:1870 | 待分析 | — |
+| `Sub_51B530` | src/world/SceneState.cpp:1870 | 已重命名：`SwapPlayerInventorySlots_51B530` | 交换两物品槽完整记录，装备区槽置0x80并重映射拖动物品悬停索引。 |
 | `Sub_51B5F0` | src/world/SceneState.cpp:9515 | 待分析 | — |
 | `Sub_51B630` | src/world/SceneState.cpp:9545 | 已重命名：`SwapPlayerOrPetItemSlots_51B630` | 组0玩家28槽，组1—5宠物6槽，范围/空基址门禁后交换完整物品记录。 |
 | `Sub_51B7D0` | src/scene/character_select/CharacterSelectPreview.cpp:307 | 已重命名：`ClassifyCharacterAnimationFamily_51B7D0` | 按100000起各动画编号区间返回资源族0/1/2/3/6/7，供动画版本兼容门禁使用；保留区间判断顺序。 |
@@ -579,14 +579,14 @@
 | `Sub_51BB80` | src/scene/character_select/CharacterSelectPreview.cpp:104 | 已重命名：`ConvertClassicCharacterGraphicToCompact_51BB80` | 将30000至97999旧图号按角色、变体、样式及颜色位映射到202800段紧凑布局，交换角色类3/4并处理70000段偏移。 |
 | `Sub_51BC50` | src/scene/character_select/CharacterSelectPreview.cpp:235 | 已重命名：`ResolveCompatibleCharacterGraphic_51BC50` | 由版本覆盖值或PUK版本决定允许族级，超范围按分类执行旧版转换或替代图号。 |
 | `Sub_51BD00` | src/scene/character_select/CharacterSelectPreview.cpp:159 | 已重命名：`ResolveFallbackCharacterGraphic_51BD00` | 按已支持资源范围返回33100或33101兼容替代图号，未匹配返回-1；不猜两个图号的性别等资源含义。 |
-| `Sub_51BDB0` | src/world/SceneState.cpp:6451 | 待分析 | — |
-| `Sub_51BDC0` | src/world/SceneState.cpp:6457 | 待分析 | — |
-| `Sub_51BDD0` | src/world/SceneState.cpp:6506 | 待分析 | — |
-| `Sub_51BDF0` | src/world/SceneState.cpp:6514 | 待分析 | — |
-| `Sub_51BE10` | src/world/SceneState.cpp:6467 | 待分析 | — |
-| `Sub_51BE20` | src/world/SceneState.cpp:6473 | 待分析 | — |
-| `Sub_51BE30` | src/world/SceneState.cpp:6479 | 待分析 | — |
-| `Sub_51BE40` | src/world/SceneState.cpp:6489 | 待分析 | — |
+| `Sub_51BDB0` | src/world/SceneState.cpp:6451 | 已重命名：`ShowPlayerPersistentStatusIcon_51BDB0` | 置玩家动作标志位1，442F70绘制持续状态图标，与世界角色43D970对应。 |
+| `Sub_51BDC0` | src/world/SceneState.cpp:6457 | 已重命名：`HidePlayerPersistentStatusIcon_51BDC0` | 清玩家动作标志位1，保两字节读取与写回。 |
+| `Sub_51BDD0` | src/world/SceneState.cpp:6506 | 已重命名：`SetPlayerStatusIcon_51BDD0` | 置玩家动作标志位2并保存图标索引，不增加世界角色版本的范围门禁。 |
+| `Sub_51BDF0` | src/world/SceneState.cpp:6514 | 已重命名：`ClearPlayerStatusIcon_51BDF0` | 清玩家动作标志位2并将图标索引归零。 |
+| `Sub_51BE10` | src/world/SceneState.cpp:6467 | 已重命名：`ShowPlayerTimedStatusIcon_51BE10` | 置玩家动作标志0x24，绘制计时图标和首次音效。 |
+| `Sub_51BE20` | src/world/SceneState.cpp:6473 | 已重命名：`ShowPlayerPetPersistentStatusIcon_51BE20` | 置玩家动作标志位8，跟随宠物绘制映射持续图标。 |
+| `Sub_51BE30` | src/world/SceneState.cpp:6479 | 已重命名：`HidePlayerPetPersistentStatusIcon_51BE30` | 清玩家动作标志位8，停止跟随宠物持续图标。 |
+| `Sub_51BE40` | src/world/SceneState.cpp:6489 | 已重命名：`ShowPlayerPetTimedStatusIcon_51BE40` | 置玩家动作标志0x50，跟随宠物绘制映射计时图标与首次音效。 |
 | `Sub_51BE50` | src/world/SceneState.cpp:11131 | 待分析 | — |
 | `Sub_51BEC0` | src/world/SceneState.cpp:11122 | 待分析 | — |
 | `Sub_51BEE0` | src/world/SceneState.cpp:11116 | 待分析 | — |
@@ -596,8 +596,8 @@
 | `Sub_51C0D0` | src/world/SceneState.cpp:11070 | 待分析 | — |
 | `Sub_51D5B0` | src/world/SceneState.cpp:4448 | 待分析 | — |
 | `Sub_51D640` | src/world/SceneState.cpp:10518 | 待分析 | — |
-| `Sub_51D6F0` | src/world/SceneState.cpp:3972 | 待分析 | — |
-| `Sub_51D750` | src/world/SceneState.cpp:3959 | 待分析 | — |
+| `Sub_51D6F0` | src/world/SceneState.cpp:3972 | 已重命名：`ApplyPendingMapPaletteReply_51D6F0` | 待回复值-1恢复时段调色板和自动模式，非负选择指定调色板并关闭自动，消费后写-2。 |
+| `Sub_51D750` | src/world/SceneState.cpp:3959 | 已重命名：`CaptureSceneAndSelectEvenVariant_51D750` | 先复制Back到Temp，再生成0至35随机值并清低位写FF48E4；当前无该槽消费者，不扩称具体视觉效果。 |
 | `Sub_51D790` | src/world/SceneState.cpp:6738 | 待分析 | — |
 | `Sub_51E0D0` | src/world/SceneState.cpp:7030 | 待分析 | — |
 | `Sub_51EC10` | src/world/SceneState.cpp:7472 | 待分析 | — |

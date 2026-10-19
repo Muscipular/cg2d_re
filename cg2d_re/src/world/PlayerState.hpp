@@ -342,7 +342,7 @@ std::int32_t Sub_52E1D0(std::int32_t index); // 四个邮件技能按原顺序�
 // 原函数：0x0052E180。
 std::int32_t Sub_52E180(
     std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
-extern std::uint32_t gValueD67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
+extern std::uint32_t gPetDetailDraftChanged_D67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
 void Sub_510150(
@@ -436,53 +436,53 @@ std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发
 
 namespace detail {
 // 原函数：0x00504F10。
-std::int32_t Sub_504F10(std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
+std::int32_t HasSkillRecipeForItem_504F10(std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
 // 原函数：0x00519950。
-void Sub_519950(std::int32_t index); // 仅重置技能尾槽及56行配方编号。
+void ResetSkillRecipeSlots_519950(std::int32_t index); // 仅重置技能尾槽及56行配方编号。
 // 原函数：0x00518600。
-void Sub_518600(
+void BuildSortedSkillDisplayEntries_518600(
     const SkillRuntimeRecord* source, SkillPairRecord* destination, std::int32_t count);
 // 原函数：0x00518660。
-std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* right);
+std::int32_t CompareSkillDisplayEntries_518660(const SkillPairRecord* left, const SkillPairRecord* right);
 // 原函数：0x0051B530。
-void Sub_51B530(std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
+void SwapPlayerInventorySlots_51B530(std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
 // 原函数：0x005196B0。
-void Sub_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
+void SetPlayerItemDescription_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
 extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。
 // 原519770：同源宠物物品32行描述与前行回扫，保持独立页数写序。
-void Sub_519770(std::int32_t petIndex, std::int32_t itemIndex, const char* text);
+void SetPetItemDescription_519770(std::int32_t petIndex, std::int32_t itemIndex, const char* text);
 // 原函数：0x00519920。
-std::int32_t Sub_519920(); // 先清计数，再扫描占用并发布。
+std::int32_t RefreshPetCount_519920(); // 先清计数，再扫描占用并发布。
 // 原函数：0x00518580。
-void Sub_518580(
+void BuildPetDisplayEntries_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
 // 原函数：0x00492250。
-void Sub_492250(); // 原[492250,49225B)，置刷新标志。
+void MarkPetDetailDraftChanged_492250(); // 原[492250,49225B)，置刷新标志。
 extern std::array<TitleRecord, 64> gTitlesFF0508; // 原全局：0x00FF0508。
 // 原函数：0x005198D0。
-void Sub_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。
+void SortTitleRecords_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。
 
 // 原 50A300 唯一调用的 28 字节记录前向复制叶。
 // 原函数：0x005198A0。
-void Sub_5198A0(
+void CopyTitleRecords_5198A0(
     std::uint8_t* destination, const std::uint8_t* source,
     std::int32_t count);                    // 原 [0x5198A0,0x5198CB)，逐记录复制 7 个 W32。
 
 // MC01-C8：5198D0的qsort回调，比较首S32；非负在前，同键/负id组返回0。
 // 原函数：0x005198F0。
-std::int32_t Sub_5198F0(const void* left, const void* right);
+std::int32_t CompareTitleRecordsById_5198F0(const void* left, const void* right);
 // 原函数：0x005199A0。
 void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 // 原函数：0x0051A4B0。
-void Sub_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
+void CopyPlayerIdentityToMapAction_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
 // 原函数：0x0051A5E0。
-void Sub_51A5E0(); // 玩家flags18A置200。
+void MarkPlayerAsPartyMember_51A5E0(); // 玩家flags18A置200。
 // 原函数：0x0051A5F0。
-void Sub_51A5F0(); // 仅清玩家flags18A的200。
+void ClearPlayerPartyMembership_51A5F0(); // 仅清玩家flags18A的200。
 // 原函数：0x0051B080。
 cg::yobi::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
 // 原函数：0x0051B0F0。
-void Sub_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
+void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x00519A80。
 void Sub_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
@@ -507,9 +507,9 @@ void Sub_519CD0(
 // 原函数：0x00519E50。
 void Sub_519E50(std::int32_t imageNo, std::int32_t direction);
 // 原函数：0x0051A040。
-std::int32_t Sub_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
+std::int32_t SetPlayerFacingDirection_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
 // 原函数：0x0051A060。
-void Sub_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
+void SetPlayerAnimationState_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
 // 原函数：0x0051A840。
 void Sub_51A840(
     std::int32_t x, std::int32_t y, std::int32_t direction,
@@ -524,28 +524,28 @@ void Sub_51A620(); // flags18A置0x8000。
 // 原函数：0x0051A630。
 void Sub_51A630(); // flags18A清0x8000。
 // 原函数：0x0051BDB0。
-void Sub_51BDB0(); // FDA88E置1，复用flags18C高W16。
+void ShowPlayerPersistentStatusIcon_51BDB0(); // FDA88E置1，复用flags18C高W16。
 // 原函数：0x0051BDC0。
-void Sub_51BDC0(); // FDA88E清1。
+void HidePlayerPersistentStatusIcon_51BDC0(); // FDA88E清1。
 // 原函数：0x0051BE10。
-void Sub_51BE10(); // FDA88E置0x24。
+void ShowPlayerTimedStatusIcon_51BE10(); // FDA88E置0x24。
 // 原函数：0x0051BE20。
-void Sub_51BE20(); // FDA88E置8。
+void ShowPlayerPetPersistentStatusIcon_51BE20(); // FDA88E置8。
 // 原函数：0x0051BE30。
-void Sub_51BE30(); // FDA88E清8。
+void HidePlayerPetPersistentStatusIcon_51BE30(); // FDA88E清8。
 // 原函数：0x0051BE40。
-void Sub_51BE40(); // FDA88E置0x50。
+void ShowPlayerPetTimedStatusIcon_51BE40(); // FDA88E置0x50。
 // 原函数：0x00519D50。
 std::int8_t Sub_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
 // 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。
 // 原函数：0x0051A5A0。
-void Sub_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
+void MarkPlayerAsPartyLeader_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
 // 原函数：0x0051A5B0。
-cg::yobi::YobiAction* Sub_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
+cg::yobi::YobiAction* ClearPlayerLeaderMarker_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
 // 原函数：0x0051BDD0。
-std::int32_t Sub_51BDD0(std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
+std::int32_t SetPlayerStatusIcon_51BDD0(std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
 // 原函数：0x0051BDF0。
-void Sub_51BDF0(); // 原 51BDF0：清动作 bit1 后清动作值，不发送。
+void ClearPlayerStatusIcon_51BDF0(); // 原 51BDF0：清动作 bit1 后清动作值，不发送。
 
 } // namespace detail
 

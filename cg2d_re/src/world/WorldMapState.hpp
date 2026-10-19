@@ -441,7 +441,7 @@ std::int32_t __cdecl Sub_469290(
     std::int32_t expectedTile, std::int32_t expectedObj,
     std::int32_t expectedHit); // 原 [0x469290,0x4693E9)，真实局部三平面校验依赖。
 // 原函数：0x0051D6F0。
-void __cdecl Sub_51D6F0(); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
+void __cdecl ApplyPendingMapPaletteReply_51D6F0(); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
 // 原函数：0x00469030。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 extern std::uint32_t gValue55DA88; // 原全局：0x0055DA88。 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
@@ -468,7 +468,7 @@ std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投�
 // 原函数：0x0046CF20。
 std::int32_t* __cdecl Sub_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
 // 原函数：0x0046B580。
-std::int64_t __cdecl Sub_46B580(
+std::int64_t __cdecl GetMapDirectionBetweenPoints_46B580(
     std::int32_t first, std::int32_t second,
     std::int32_t third, std::int32_t fourth); // PDH01：两整数差先取齐，Y/X 各落 F32，原方向 S64 透传。
 // 原函数：0x0046B5C0。
@@ -479,10 +479,10 @@ std::int32_t __cdecl Sub_46B5C0(
 // 原函数：0x0046B6F0。
 std::int32_t Sub_46B6F0(); // 完整候选/绕行/轴补走路径生成，复用三组W16路径。
 // 原函数：0x0046BD20。
-std::uint32_t __cdecl Sub_46BD20(
+std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。
 // 原函数：0x0050C8D0。
-std::int32_t __cdecl Sub_50C8D0(
+std::int32_t __cdecl SendCurrentPlayerMovementPath_50C8D0(
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
@@ -523,7 +523,7 @@ void UpdateMapEffects_46E4A0();                          // 原 0x46E4A0；三�
 // 原函数：0x0046F1D0。
 void UpdateDirectionalMapEffects_46F1D0();                          // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
 // 原函数：0x00440FF0。
-std::int32_t Sub_440FF0();                  // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
+std::int32_t DrawObservationTravelBackground_440FF0();                  // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
 // 原函数：0x0046E0D0。
 void __cdecl ConfigureDirectionalMapEffects_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 // 原函数：0x0046F160。

@@ -345,9 +345,9 @@ WindowInstance* WindowBank_Open(
 static void WindowBank_Release()
 {
     const std::uint32_t kind = gWindowStates[WindowId_Bank].value10;
-    if ((kind == 0 && world::gValue581800 == 23)
-        || (kind == 1 && world::gValue581800 == 33)) {
-        world::gValue581800 = -1;
+    if ((kind == 0 && world::gCurrentDialogType_581800 == 23)
+        || (kind == 1 && world::gCurrentDialogType_581800 == 33)) {
+        world::gCurrentDialogType_581800 = -1;
     }
     std::wstring buffer;
     buffer = input::EscapeTextAndNotify(L"C", 255);
@@ -390,11 +390,11 @@ static std::int32_t WindowBank_Update(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[WindowId_Bank].value10 == 0 && world::gValue581800 != 23) {
+    if (gWindowStates[WindowId_Bank].value10 == 0 && world::gCurrentDialogType_581800 != 23) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[WindowId_Bank].value10 == 1 && world::gValue581800 != 33) {
+    if (gWindowStates[WindowId_Bank].value10 == 1 && world::gCurrentDialogType_581800 != 33) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

@@ -310,8 +310,8 @@ WindowPrototype gWindowPrototypeCrystalShop {0, 4, 10, 30, 549, 366, 0x80010101u
 static void WindowCrystalShop_Release()
 {
     const std::int32_t type = gWindow69DialogTypeD2D810;
-    if (type == world::gValue581800) {
-        world::gValue581800 = -1;
+    if (type == world::gCurrentDialogType_581800) {
+        world::gCurrentDialogType_581800 = -1;
     }
 }
 
@@ -377,7 +377,7 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* const text)
         }
         gShopItemCountCB1E10 = currentCount + 1;
     }
-    const std::int32_t type = world::gValue581800;
+    const std::int32_t type = world::gCurrentDialogType_581800;
     gValueD2D608 = -1;
     gWindow69DialogTypeD2D810 = type;
     return WindowRuntime_CreateAnimation(WindowId_CrystalShop, 1, 0, nullptr);
@@ -561,7 +561,7 @@ static std::int32_t WindowCrystalShop_Update(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
     }
     const std::int32_t type = gWindow69DialogTypeD2D810;
-    if (type != world::gValue581800) {
+    if (type != world::gCurrentDialogType_581800) {
         gCurrentWindow->state |= 0x8000u;
     }
     gCurrentWindow->elements[9].visible = 1;

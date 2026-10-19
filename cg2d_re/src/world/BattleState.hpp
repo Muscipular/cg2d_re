@@ -144,7 +144,7 @@ extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 原全局：0x005A4A3C�
 extern std::array<char, 0x4000> gBattleMQueue59FA18; // 原全局：0x0059FA18。
 extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
 // 原函数：0x0043C4E0。
-void Sub_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
+void BeginBattleCommandSelection_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
 extern std::uint32_t gValue5ABCB0; // 原全局：0x005ABCB0。
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。

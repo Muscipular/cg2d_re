@@ -171,7 +171,7 @@ static void WindowProfile_RouteReply(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
-    if (world::gValue581800 >= 0) {
+    if (world::gCurrentDialogType_581800 >= 0) {
         switch (request) {
         case 326:
         case 327:
@@ -188,7 +188,7 @@ static void WindowProfile_RouteReply(
             break;
         }
     }
-    world::gValue581800 = type;
+    world::gCurrentDialogType_581800 = type;
     gDialogValueCF4E5C = value;
     world::gDialogRequestCC21E0 = request;
     world::gDialogTargetD2DE6C = target;

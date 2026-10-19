@@ -221,7 +221,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
 static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
-    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gValue581800 != gWindow56DialogTypeCB1DE0) {
+    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != gWindow56DialogTypeCB1DE0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -238,8 +238,8 @@ static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 // 原函数：0x004C5C00。
 static void WindowAppearance_Release()
 {
-    if (world::gValue581800 == gWindow56DialogTypeCB1DE0) {
-        world::gValue581800 = -1;
+    if (world::gCurrentDialogType_581800 == gWindow56DialogTypeCB1DE0) {
+        world::gCurrentDialogType_581800 = -1;
         gWindow56DialogTypeCB1DE0 = -1;
     }
 }
@@ -392,7 +392,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
     static_cast<void>(unusedInputCount);
     if (button == 0) {
         if (row < 0) {
-            world::gValue581800 = -1;
+            world::gCurrentDialogType_581800 = -1;
         }
         return 1;
     }
@@ -408,7 +408,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
         static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped));
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
@@ -420,7 +420,7 @@ cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     const char* const text)
 {
     WindowDialog_Reset();
-    gImageDialogTypeD2F7A0 = world::gValue581800;
+    gImageDialogTypeD2F7A0 = world::gCurrentDialogType_581800;
     gImageDialogRequestD2F7A4 = request;
     gImageDialogTargetD2F7A8 = target;
     gImageDialogImageD2F7AC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);

@@ -143,13 +143,13 @@ WindowPrototype gWindowPrototypePetDetail {0, 4, 365, 83, 245, 306, 0x80010101u,
 // 原函数：0x00492260。
 void WindowPetDetail_ResetDraftFlag()
 {
-    world::gValueD67B28 = 0;
+    world::gPetDetailDraftChanged_D67B28 = 0;
 }
 
 // 原函数：0x00492270。
 std::int32_t WindowPetDetail_ReadDraftFlag()
 {
-    return world::gValueD67B28 == 1 ? 1 : 0;
+    return world::gPetDetailDraftChanged_D67B28 == 1 ? 1 : 0;
 }
 
 // 原函数：0x00492280。

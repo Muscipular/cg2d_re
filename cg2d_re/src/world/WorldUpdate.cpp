@@ -113,7 +113,7 @@ void Update()
         detail::Sub_467F30();
         detail::Sub_5199A0();
         detail::ResetWorldObjectTable_446470();
-        detail::Sub_4D3170();
+        detail::ResetCurrentDialogType_4D3170();
         detail::Sub_455BD0();
         detail::InitializeMapEffectPool_46E2A0();
         Sub_46BD40();
@@ -162,7 +162,7 @@ void Update()
             ui::WindowRuntime_ProcessScene();
             cg::yobi::ResetObservationGroupList_43F220();
             gValue58B6D0 = 1;
-            detail::Sub_51D750();
+            detail::CaptureSceneAndSelectEvenVariant_51D750();
             platform::gValue73ECC0 = 2;
             cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();

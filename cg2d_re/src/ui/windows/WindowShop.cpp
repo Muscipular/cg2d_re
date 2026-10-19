@@ -598,8 +598,8 @@ static void WindowShop_RemoveSaleSelection()
 // 原函数：0x004B6DC0。
 static void WindowShop_Release()
 {
-    if (gShopDialogTypeCC3EC8 == world::gValue581800) {
-        world::gValue581800 = -1;
+    if (gShopDialogTypeCC3EC8 == world::gCurrentDialogType_581800) {
+        world::gCurrentDialogType_581800 = -1;
     }
     if (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode) > 0) {
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
@@ -656,7 +656,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
         record->maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         ++gShopItemCountCB1E10;
     }
-    const std::int32_t dialogType = world::gValue581800;
+    const std::int32_t dialogType = world::gCurrentDialogType_581800;
     gValueD2D608 = -1;
     gShopDialogTypeCC3EC8 = dialogType;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
@@ -746,7 +746,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    gShopDialogTypeCC3EC8 = world::gValue581800;
+    gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -809,7 +809,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    gShopDialogTypeCC3EC8 = world::gValue581800;
+    gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -862,7 +862,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    gShopDialogTypeCC3EC8 = world::gValue581800;
+    gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -951,7 +951,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    gShopDialogTypeCC3EC8 = world::gValue581800;
+    gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -1489,7 +1489,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
     }
-    if (gShopDialogTypeCC3EC8 != world::gValue581800) {
+    if (gShopDialogTypeCC3EC8 != world::gCurrentDialogType_581800) {
         gCurrentWindow->state |= 0x8000u;
     }
     gCurrentWindow->elements[10].visible = 1;

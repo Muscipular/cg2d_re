@@ -156,8 +156,8 @@ static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 // 原函数：0x004B5B50。
 static void WindowMessageBoard_Release()
 {
-    if (world::gValue581800 == 21) {
-        world::gValue581800 = -1;
+    if (world::gCurrentDialogType_581800 == 21) {
+        world::gCurrentDialogType_581800 = -1;
     }
 }
 
@@ -344,7 +344,7 @@ static void WindowMessageBoard_RefreshRecords()
 static std::int32_t WindowMessageBoard_Close()
 {
     WindowInstance* const window = gCurrentWindow;
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
     window->state |= 0x8000u;
     return audio::PlaySe_52C450(57, 320);
 }

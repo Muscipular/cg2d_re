@@ -1668,7 +1668,7 @@ void UpdateDirectionalMapEffects_46F1D0()
 }
 
 // 原函数：0x00440FF0。
-std::int32_t Sub_440FF0()
+std::int32_t DrawObservationTravelBackground_440FF0()
 {
     const std::int32_t direction = cg::yobi::ReadMapObservationDirection();
     constexpr std::array<std::int32_t, 8> angles {315, 270, 225, 180, 135, 90, 45, 0};
@@ -1725,7 +1725,7 @@ std::uint16_t gValueDA3B20 = 0; // 原全局：0x00DA3B20。
 namespace detail {
 
 // 原函数：0x00504F10。
-std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
+std::int32_t HasSkillRecipeForItem_504F10(const std::int32_t value, const std::int32_t mode)
 {
     // 原额外F633A0读取别名为pairs[6]；按用户确认，仅搜索实际技能槽。
     for (const SkillRuntimeRecord& record : gSkillsF1BAFC) {
@@ -1746,7 +1746,7 @@ std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
 }
 
 // 原函数：0x00519950。
-void Sub_519950(const std::int32_t index)
+void ResetSkillRecipeSlots_519950(const std::int32_t index)
 {
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];
     record.rebirthState4C48 = 0;
@@ -1759,7 +1759,7 @@ void Sub_519950(const std::int32_t index)
 }
 
 // 原函数：0x00518660。
-std::int32_t Sub_518660(
+std::int32_t CompareSkillDisplayEntries_518660(
     const SkillPairRecord* const left, const SkillPairRecord* const right)
 {
     const bool leftUsed = left->used != 0;
@@ -1774,7 +1774,7 @@ std::int32_t Sub_518660(
 }
 
 // 原函数：0x00518600。
-void Sub_518600(
+void BuildSortedSkillDisplayEntries_518600(
     const SkillRuntimeRecord* source, SkillPairRecord* const destination,
     const std::int32_t count)
 {
@@ -1791,7 +1791,7 @@ void Sub_518600(
     }
     std::sort(destination, destination + sortCount,
         [](const SkillPairRecord& left, const SkillPairRecord& right) {
-            return Sub_518660(&left, &right) < 0;
+            return CompareSkillDisplayEntries_518660(&left, &right) < 0;
         });
 }
 
@@ -1816,7 +1816,7 @@ static void ApplyPlayerItemFields(
     }
     network::ExtractDelimitedField_52CED0(payload, '|', nameField + 2, 767, description);
     input::UnescapeLegacyTextAndNotify_52D2F0(description);
-    Sub_5196B0(index, description);
+    SetPlayerItemDescription_5196B0(index, description);
     record.hasDescription = !record.description[0].empty() ? 1 : 0;
     record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 3);
     record.canUseInField = static_cast<std::uint16_t>(
@@ -1839,7 +1839,7 @@ static void ApplyPlayerItemFields(
 }
 
 // 原函数：0x005196B0。
-void Sub_5196B0(const std::int32_t index, const char* const text)
+void SetPlayerItemDescription_5196B0(const std::int32_t index, const char* const text)
 {
     PlayerItemRecord& record = gPlayerRuntimeSlots.items[index];
     std::int32_t last = -1;
@@ -1867,7 +1867,7 @@ void Sub_5196B0(const std::int32_t index, const char* const text)
 }
 
 // 原函数：0x0051B530。
-void Sub_51B530(const std::int32_t first, const std::int32_t second)
+void SwapPlayerInventorySlots_51B530(const std::int32_t first, const std::int32_t second)
 {
     if (first < 0 || second < 0) {
         return;
@@ -1894,7 +1894,7 @@ namespace detail {
 std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
 
 } // namespace detail
-std::uint32_t gValueD67B28 = 0; // 原全局：0x00D67B28。
+std::uint32_t gPetDetailDraftChanged_D67B28 = 0; // 原全局：0x00D67B28。
 
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
 ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
@@ -1902,7 +1902,7 @@ ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
 namespace detail {
 
 // 原函数：0x00519770。
-void Sub_519770(
+void SetPetItemDescription_519770(
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {
     PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[itemIndex];
@@ -1923,7 +1923,7 @@ void Sub_519770(
 }
 
 // 原函数：0x0043C4E0。
-void Sub_43C4E0()
+void BeginBattleCommandSelection_43C4E0()
 {
     gBattleCountdownActive5ABCB8 = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -1945,7 +1945,7 @@ void Sub_43C4E0()
 }
 
 // 原函数：0x00519920。
-std::int32_t Sub_519920()
+std::int32_t RefreshPetCount_519920()
 {
     std::int32_t count = 0;
     gPetCountDE0B00 = 0;
@@ -1959,7 +1959,7 @@ std::int32_t Sub_519920()
 }
 
 // 原函数：0x00518580。
-void Sub_518580(
+void BuildPetDisplayEntries_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
@@ -1972,9 +1972,9 @@ void Sub_518580(
 }
 
 // 原函数：0x00492250。
-void Sub_492250()
+void MarkPetDetailDraftChanged_492250()
 {
-    gValueD67B28 = 1;
+    gPetDetailDraftChanged_D67B28 = 1;
 }
 
 // 原两表均位于PE虚拟零区；5199A0后续只重置原表编号，不能清副本。
@@ -1986,7 +1986,7 @@ std::array<TitleRecord, 64> gSortedTitlesDE03F8 {}; // 原全局：0x00DE03F8。
 namespace detail {
 
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
-void Sub_5198A0(
+void CopyTitleRecords_5198A0(
     std::uint8_t* destination,
     const std::uint8_t* source,
     const std::int32_t count)
@@ -2004,17 +2004,17 @@ void Sub_5198A0(
 
 // MC01-C8：原28B完整称号记录接std::qsort，同键与双无效项等价。
 // 原函数：0x005198D0。
-void Sub_5198D0(TitleRecord* const records, const std::uint32_t count)
+void SortTitleRecords_5198D0(TitleRecord* const records, const std::uint32_t count)
 {
     if (count < 2) {
         return;
     }
-    std::qsort(records, count, sizeof(TitleRecord), &Sub_5198F0);
+    std::qsort(records, count, sizeof(TitleRecord), &CompareTitleRecordsById_5198F0);
 }
 
 // MC01-C8：非负id升序在前，负id组等价，同键返回0。
 // 原函数：0x005198F0。
-std::int32_t Sub_5198F0(const void* const left, const void* const right)
+std::int32_t CompareTitleRecordsById_5198F0(const void* const left, const void* const right)
 {
     std::int32_t rightValue;
     std::memcpy(&rightValue, right, sizeof(rightValue));
@@ -2034,7 +2034,7 @@ std::int32_t Sub_5198F0(const void* const left, const void* const right)
 } // namespace detail
 
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
-std::int32_t gValue581800 = -1;
+std::int32_t gCurrentDialogType_581800 = -1;
 std::int32_t gDialogRequestCC21E0 = 0; // 原全局：0x00CC21E0。
 std::int32_t gDialogTargetD2DE6C = 0; // 原全局：0x00D2DE6C。
 
@@ -2052,7 +2052,7 @@ std::uint16_t gValue62B5AA = 0; // 原全局：0x0062B5AA。
 std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
 
 } // namespace detail
-std::uint64_t gValue62B5B0 = 0; // 原全局：0x0062B5B0。
+std::uint64_t gMapNoticeStartTick_62B5B0 = 0; // 原全局：0x0062B5B0。
 
 namespace detail {
 std::uint32_t gValue62B308 = 0; // 原全局：0x0062B308。
@@ -3414,15 +3414,15 @@ void __cdecl Sub_4691D0()
 }
 
 // 原函数：0x00455C60。
-void Sub_455C60()
+void ResetTimedMapNotice_455C60()
 {
-    gValue62B5B0 = 0;
+    gMapNoticeStartTick_62B5B0 = 0;
 }
 
 // 原函数：0x00455FC0。
-void Sub_455FC0()
+void SynchronizeTimedMapNoticeWindow_455FC0()
 {
-    const std::uint64_t value = gValue62B5B0;
+    const std::uint64_t value = gMapNoticeStartTick_62B5B0;
     gValue62B398 = 0;
     if (value == 0) {
         cg::yobi::YobiAction* const action = gWindow39Action62B5B8;
@@ -3492,9 +3492,9 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     case 100:
         Sub_519A80();
-        Sub_455C60();
+        ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640();
-        Sub_4D3170();
+        ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
@@ -3512,8 +3512,8 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 104;
         return;
     case 104: {
-        Sub_51D6F0();
-        Sub_458F00();
+        ApplyPendingMapPaletteReply_51D6F0();
+        UpdateDayPeriodPaletteAndTimers_458F00();
         if (gValueFF0D54 < 5) {
             goto waitFrame;
         }
@@ -3556,20 +3556,20 @@ void DrawNormalScene_51C7D0()
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51FDE0(15, 8, 0x40000000u));
         gCurrentSceneState = 103;
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         return;
     }
     case 103:
         platform::gValue73ECC0 = 2;
         if (Sub_51FDE0(15, 8, 0x40000000u) == 1) {
             gValueFF0D50 = 1;
-            gValue62B5B0 = platform::ReadTickCount64();
+            gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             gCurrentSceneState = 20;
         }
         return;
     case 200:
         gValue58B6D0 = 1;
-        static_cast<void>(Sub_51D750());
+        static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
         ui::WindowRuntime_ProcessScene();
         gCurrentSceneState = 201;
@@ -3598,13 +3598,13 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 205;
         return;
     case 205: {
-        Sub_51D6F0();
-        Sub_458F00();
+        ApplyPendingMapPaletteReply_51D6F0();
+        UpdateDayPeriodPaletteAndTimers_458F00();
         if (gValueFF0D54 < 5) {
             goto waitFrame;
         }
         render::ClearSurfaceTransformCache_44D490();
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         static_cast<void>(render::UpdatePalette_450BB0());
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
@@ -3643,7 +3643,7 @@ void DrawNormalScene_51C7D0()
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         [[fallthrough]];
     }
     case 204: {
@@ -3653,7 +3653,7 @@ void DrawNormalScene_51C7D0()
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
             ui::WindowRuntime_ProcessScene();
-            gValue62B5B0 = platform::ReadTickCount64();
+            gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             const std::uint32_t changeBgm = gValueFF0D58;
             gCurrentSceneState = 20;
             gValueD67E78 = 0;
@@ -3688,7 +3688,7 @@ void DrawNormalScene_51C7D0()
         gValue58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0();
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
@@ -3698,8 +3698,8 @@ void DrawNormalScene_51C7D0()
     }
     case 251:
         platform::gValue73ECC0 = 0;
-        static_cast<void>(Sub_440FF0());
-        Sub_51D6F0();
+        static_cast<void>(DrawObservationTravelBackground_440FF0());
+        ApplyPendingMapPaletteReply_51D6F0();
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
@@ -3709,20 +3709,20 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        Sub_458F00();
+        UpdateDayPeriodPaletteAndTimers_458F00();
         return;
     case 252: {
         cg::core::NullSub_509080();
         gValueFF0D74 = 0;
         ui::WindowRuntime_ProcessScene();
-        gValue62B5B0 = platform::ReadTickCount64();
+        gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
         ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
         }
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         Sub_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
@@ -3763,17 +3763,17 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 11;
         return;
     case 11: {
-        Sub_51D6F0();
-        Sub_458F00();
+        ApplyPendingMapPaletteReply_51D6F0();
+        UpdateDayPeriodPaletteAndTimers_458F00();
         if (gValueFF0D54 < 30) {
             goto waitFrame;
         }
         gCurrentSceneState = 1;
         gValueFF0D44 = 1;
         Sub_519A80();
-        Sub_455C60();
+        ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640();
-        Sub_4D3170();
+        ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
@@ -3823,9 +3823,9 @@ void DrawNormalScene_51C7D0()
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
                 static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
             }
-            Sub_51D6F0();
+            ApplyPendingMapPaletteReply_51D6F0();
             static_cast<void>(render::UpdatePalette_450BB0());
-            Sub_458F00();
+            UpdateDayPeriodPaletteAndTimers_458F00();
             render::gRenderQueueMode103CF10 = 0;
             render::DrawAllQueued_520DD0();
             static_cast<void>(render::CopyBackToTemp());
@@ -3848,7 +3848,7 @@ void DrawNormalScene_51C7D0()
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         ++gCurrentSceneState;
         return;
     }
@@ -3863,7 +3863,7 @@ void DrawNormalScene_51C7D0()
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         return;
     }
     case 20:
@@ -3874,14 +3874,14 @@ void DrawNormalScene_51C7D0()
     case 3: {
         platform::gValue73ECC0 = 0;
         gValueC82204 = 0;
-        Sub_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
         static_cast<void>(Sub_46F680());
         Sub_504A50();
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(Sub_469C90());
         Sub_46BD40();
-        Sub_455FC0();
+        SynchronizeTimedMapNoticeWindow_455FC0();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         UpdateMapEffects_46E4A0();
@@ -3892,17 +3892,17 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        Sub_458F00();
+        UpdateDayPeriodPaletteAndTimers_458F00();
         if (gValue5ABFC4 != 1) {
             return;
         }
         static_cast<void>(Sub_519D50());
         ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(Sub_4681B0());
-        Sub_51B0F0();
-        gValue62B5B0 = 0;
-        Sub_455FC0();
-        Sub_455C60();
+        DetachPartyMapActions_51B0F0();
+        gMapNoticeStartTick_62B5B0 = 0;
+        SynchronizeTimedMapNoticeWindow_455FC0();
+        ResetTimedMapNotice_455C60();
         const std::uint32_t mask = gValue9FB918.mask;
         const std::uint32_t encoded = gValue9FB918.encoded;
         const std::uint8_t readCount = gValue9FB918.readCount;
@@ -3927,7 +3927,7 @@ void DrawNormalScene_51C7D0()
         return;
     }
     case 4:
-        static_cast<void>(Sub_51D750());
+        static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         platform::gValue73ECC0 = 2;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
@@ -3956,7 +3956,7 @@ inputTail:
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
-std::uint32_t Sub_51D750()
+std::uint32_t CaptureSceneAndSelectEvenVariant_51D750()
 {
     static_cast<void>(render::CopyBackToTemp());
     const std::uint32_t bits = static_cast<std::uint32_t>(
@@ -3969,7 +3969,7 @@ std::uint32_t Sub_51D750()
 
 // 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。
 // PTR01：原51D6F0完整20条；持有回复值，调色板调用后按原序发布模式/已消费状态，正确正文保持。
-void __cdecl Sub_51D6F0()
+void __cdecl ApplyPendingMapPaletteReply_51D6F0()
 {
     const std::int32_t value = gValueFF0D4C;
     if (value == -1) {
@@ -4011,7 +4011,7 @@ void __cdecl Sub_458F40()
 }
 
 // GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
-void __cdecl Sub_458F00()
+void __cdecl UpdateDayPeriodPaletteAndTimers_458F00()
 {
     const std::int32_t category = GetCate_458EC0(&gCgTime);
     if (gValue73ED48 != category) {
@@ -4025,7 +4025,7 @@ void __cdecl Sub_458F00()
 }
 
 // GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
-std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
+std::int32_t __cdecl SetPlayerObjectIndex_519EB0(const std::int32_t value)
 {
     gPlayerRuntimeSlots.objectIndex = std::bit_cast<std::uint32_t>(value);
     return value;
@@ -4238,7 +4238,7 @@ void DrawBattleScene_43CBB0()
                 gBattleEntryNoticeAction5ABFB8 = nullptr;
                 gBattlePlayerFlags5ABCAC = flags;
             }
-            Sub_43C4E0();
+            BeginBattleCommandSelection_43C4E0();
             gCurrentSceneState = 4;
         }
         break;
@@ -4309,7 +4309,7 @@ void DrawBattleScene_43CBB0()
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
-        static_cast<void>(Sub_51D750());
+        static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
         platform::gValue73ECC0 = 2;
@@ -4353,7 +4353,7 @@ void DrawBattleScene_43CBB0()
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
-        static_cast<void>(Sub_51D750());
+        static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
         platform::gValue73ECC0 = 2;
@@ -4872,7 +4872,7 @@ std::uint16_t Sub_46AC10()
     for (;;) {
         const std::int16_t direction = std::bit_cast<std::int16_t>(
             gPendingDirections9A86D4[static_cast<std::size_t>(index)]);
-        const std::uint32_t encoded = Sub_46BD20(direction, 0);
+        const std::uint32_t encoded = EncodeMovementDirectionByte_46BD20(direction, 0);
         const std::int16_t remaining = std::bit_cast<std::int16_t>(gValueC82202);
         gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] =
             std::bit_cast<char>(static_cast<std::uint8_t>(encoded));
@@ -4891,7 +4891,7 @@ std::uint16_t Sub_46AC10()
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     return static_cast<std::uint16_t>(
-        Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
+        SendCurrentPlayerMovementPath_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
 
 // 原 [0x46BCF0,0x46BD1D)：正数量减一后将剩余方向原地左移。
@@ -5076,7 +5076,7 @@ std::int32_t* __cdecl Sub_46CF20()
 }
 
 // PDH01：原 [0x46B580,0x46B5B3)；先算 Y/X 两整数差，再依次落 F32，透传方向 S64。
-std::int64_t __cdecl Sub_46B580(
+std::int64_t __cdecl GetMapDirectionBetweenPoints_46B580(
     const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
@@ -5239,7 +5239,7 @@ std::int32_t Sub_46B6F0()
                     deltaX -= minusX;
                     deltaY -= minusY;
                     direction = static_cast<std::int32_t>(
-                        Sub_46B580(0, 0, deltaX, deltaY));
+                        GetMapDirectionBetweenPoints_46B580(0, 0, deltaX, deltaY));
                     x = minusNextX;
                     y = minusNextY;
                 } else if (minusBlocked != 0) {
@@ -5263,7 +5263,7 @@ std::int32_t Sub_46B6F0()
                     deltaX -= plusX;
                     deltaY -= plusY;
                     direction = static_cast<std::int32_t>(
-                        Sub_46B580(0, 0, deltaX, deltaY));
+                        GetMapDirectionBetweenPoints_46B580(0, 0, deltaX, deltaY));
                     x = plusNextX;
                     y = plusNextY;
                 }
@@ -5306,7 +5306,7 @@ std::int32_t Sub_46B6F0()
             const std::size_t index = static_cast<std::size_t>(
                 std::bit_cast<std::int16_t>(gValueC82200));
             const std::uint16_t direction =
-                static_cast<std::uint16_t>(Sub_46B580(0, 0, step, 0));
+                static_cast<std::uint16_t>(GetMapDirectionBetweenPoints_46B580(0, 0, step, 0));
             // 轴补走先发布递增后的计数，再写三表，且到达后仍探测一次。
             ++gValueC82200;
             gMovePathDirections[index] = direction;
@@ -5326,7 +5326,7 @@ std::int32_t Sub_46B6F0()
             const std::size_t index = static_cast<std::size_t>(
                 std::bit_cast<std::int16_t>(gValueC82200));
             const std::uint16_t direction =
-                static_cast<std::uint16_t>(Sub_46B580(0, 0, 0, step));
+                static_cast<std::uint16_t>(GetMapDirectionBetweenPoints_46B580(0, 0, 0, step));
             ++gValueC82200;
             gMovePathDirections[index] = direction;
             gMovePathX[index] = static_cast<std::uint16_t>(x);
@@ -5346,7 +5346,7 @@ std::int32_t Sub_46B6F0()
 }
 
 // 原 [0x46BD20,0x46BD32)：AL 加法不改变先装入 EAX 的 mode 高 24 位。
-std::uint32_t __cdecl Sub_46BD20(
+std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     const std::int32_t value, const std::int32_t mode)
 {
     const std::uint8_t low = static_cast<std::uint8_t>(value);
@@ -5356,7 +5356,7 @@ std::uint32_t __cdecl Sub_46BD20(
 }
 
 // 原 [0x50C8D0,0x50C8F5)：先采独立 W32，再传文本、Y、X 与当前 socket。
-std::int32_t __cdecl Sub_50C8D0(
+std::int32_t __cdecl SendCurrentPlayerMovementPath_50C8D0(
     const std::int32_t x, const std::int32_t y,
     const char* const text)
 {
@@ -5366,9 +5366,9 @@ std::int32_t __cdecl Sub_50C8D0(
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
-void Sub_4D3170()
+void ResetCurrentDialogType_4D3170()
 {
-    gValue581800 = -1;
+    gCurrentDialogType_581800 = -1;
 }
 
 } // namespace detail
@@ -5448,7 +5448,7 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
 }
 
 // 原函数：0x0051B0F0。
-void Sub_51B0F0()
+void DetachPartyMapActions_51B0F0()
 {
     for (auto& slot : gPetMapCharaSlots) {
         slot.action = nullptr;
@@ -5465,7 +5465,7 @@ cg::yobi::YobiAction* Sub_51B080()
                 if (action != nullptr) {
                     cg::yobi::ClearMapActorPathCount(action);
                 }
-                Sub_51A5F0();
+                ClearPlayerPartyMembership_51A5F0();
             } else {
                 const std::uint32_t flags = ReadPlayerFlags18A();
                 if ((flags & 0x100u) != 0) {
@@ -5481,7 +5481,7 @@ cg::yobi::YobiAction* Sub_51B080()
         slot.objectIndex = 0;
         slot.action = nullptr;
     }
-    return Sub_51A5B0();
+    return ClearPlayerLeaderMarker_51A5B0();
 }
 
 // 原函数：0x0046A5A0。
@@ -5620,7 +5620,7 @@ std::uint8_t Sub_46F680()
 }
 
 // 原函数：0x00455A90。
-std::int32_t Sub_455A90()
+std::int32_t IsMapBattleSpectatingAllowed_455A90()
 {
     return 1; // G05：取消地图观战白名单，调用方其余条件保持。
 }
@@ -5668,7 +5668,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     static_cast<void>(network::SendWorldActionRequest_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
-    Sub_51A060(localAction);
+    SetPlayerAnimationState_51A060(localAction);
     const std::uint64_t completedAt = platform::ReadTickCount64();
     gEmoteRequestTickD67D20 = completedAt;
     return static_cast<std::uintptr_t>(completedAt);
@@ -5678,7 +5678,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 // 原函数：0x0051B3E0。
 std::uint32_t Sub_51B3E0()
 {
-    std::int32_t result = gValue581800;
+    std::int32_t result = gCurrentDialogType_581800;
     if (result != -1) {
         return std::bit_cast<std::uint32_t>(result);
     }
@@ -5759,14 +5759,14 @@ void Sub_46B370()
     if (gValueC82238 + 500u >= now) {
         return;
     }
-    static_cast<void>(Sub_51A040(direction));
-    const std::uint32_t encoded = Sub_46BD20(direction, 1);
+    static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+    const std::uint32_t encoded = EncodeMovementDirectionByte_46BD20(direction, 1);
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(Sub_50C8D0(x, y, text));
+    static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount64();
 }
 
@@ -5986,7 +5986,7 @@ void Sub_46A410(
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
             Sub_46CDF0(direction.x, direction.y));
-        static_cast<void>(Sub_51A040(value));
+        static_cast<void>(SetPlayerFacingDirection_51A040(value));
         static_cast<void>(MarkPlayerMovementActive_51A640());
     }
     SynchronizePlayerMapActionPosition_519EE0();
@@ -6004,7 +6004,7 @@ void Sub_46A700()
     }
     if (idle) {
         if (ReadPlayerMovementActive_51A680() == 1) {
-            Sub_51A060(0);
+            SetPlayerAnimationState_51A060(0);
             static_cast<void>(ClearPlayerMovementActive_51A660());
         }
         gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
@@ -6072,7 +6072,7 @@ void Sub_46A700()
             }
         }
     }
-    Sub_51A060(1);
+    SetPlayerAnimationState_51A060(1);
     static_cast<void>(MarkPlayerMovementActive_51A640());
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
@@ -6185,7 +6185,7 @@ cg::yobi::YobiAction* Sub_51A090(
 }
 
 // 原函数：0x0051A4B0。
-void Sub_51A4B0()
+void CopyPlayerIdentityToMapAction_51A4B0()
 {
     cg::yobi::CopyInitialPlayerActionIdentity(
         gPlayerRuntimeSlots.name.data(), gPlayerRuntimeSlots.ownTitle.data(),
@@ -6237,7 +6237,7 @@ void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 }
 
 // 原函数：0x0051A040。
-std::int32_t Sub_51A040(const std::int32_t direction)
+std::int32_t SetPlayerFacingDirection_51A040(const std::int32_t direction)
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     gPlayerRuntimeSlots.direction = direction;
@@ -6248,7 +6248,7 @@ std::int32_t Sub_51A040(const std::int32_t direction)
 }
 
 // 原函数：0x0051A060。
-void Sub_51A060(const std::int32_t characterAction)
+void SetPlayerAnimationState_51A060(const std::int32_t characterAction)
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
@@ -6265,34 +6265,34 @@ void Sub_51A840(
 {
     switch (characterAction) {
     case 0: case 2: case 3: case 4: case 6: case 17: case 18: case 19:
-        Sub_51A060(characterAction);
+        SetPlayerAnimationState_51A060(characterAction);
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
         cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
         gPlayerRuntimeSlots.walkSpeed = speed;
         cg::yobi::SetYobiWalkSpeed(action, speed);
-        Sub_51A060(1);
+        SetPlayerAnimationState_51A060(1);
         return;
     }
     case 5: case 7: case 8: case 9: case 10: case 11:
     case 12: case 13: case 14: case 15: case 16:
-        static_cast<void>(Sub_51A040(direction));
-        Sub_51A060(characterAction);
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+        SetPlayerAnimationState_51A060(characterAction);
         return;
     case 30: case 31:
-        static_cast<void>(Sub_51A040(direction));
-        Sub_51A060(characterAction == 30 ? 1 : 0);
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+        SetPlayerAnimationState_51A060(characterAction == 30 ? 1 : 0);
         return;
     case 40: case 41: case 42: case 44:
         static_cast<void>(Sub_519EC0(x, y));
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         static_cast<void>(Sub_4681B0());
         if (characterAction == 41) {
             if (option1 == 1) {
-                Sub_51A5A0();
+                MarkPlayerAsPartyLeader_51A5A0();
             } else {
-                static_cast<void>(Sub_51A5B0());
+                static_cast<void>(ClearPlayerLeaderMarker_51A5B0());
             }
         } else if (characterAction == 42) {
             if (option1 == 1) {
@@ -6310,46 +6310,46 @@ void Sub_51A840(
         return;
     case 45:
         if (option1 == 1) {
-            Sub_51BDB0();
+            ShowPlayerPersistentStatusIcon_51BDB0();
         } else {
-            Sub_51BDC0();
+            HidePlayerPersistentStatusIcon_51BDC0();
         }
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 46:
         if (option1 != 0) {
-            static_cast<void>(Sub_51BDD0(option1));
+            static_cast<void>(SetPlayerStatusIcon_51BDD0(option1));
         } else {
-            Sub_51BDF0();
+            ClearPlayerStatusIcon_51BDF0();
         }
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 47:
-        Sub_51BE10();
-        static_cast<void>(Sub_51A040(direction));
+        ShowPlayerTimedStatusIcon_51BE10();
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 48:
         if (option1 == 1) {
-            Sub_51BE20();
+            ShowPlayerPetPersistentStatusIcon_51BE20();
         } else {
-            Sub_51BE30();
+            HidePlayerPetPersistentStatusIcon_51BE30();
         }
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 49:
-        Sub_51BE40();
-        static_cast<void>(Sub_51A040(direction));
+        ShowPlayerPetTimedStatusIcon_51BE40();
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 50:
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 51:
         if (Sub_469810(x, y) == 0) {
             static_cast<void>(Sub_519EC0(x, y));
         }
         SynchronizePlayerMapActionPosition_519EE0();
-        static_cast<void>(Sub_51A040(direction));
-        Sub_51A060(0);
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+        SetPlayerAnimationState_51A060(0);
         static_cast<void>(Sub_4681B0());
         return;
     case 60:
@@ -6357,12 +6357,12 @@ void Sub_51A840(
             option1, option2, option3, option4, &gPlayerRuntimeSlots.imageNo);
         return;
     case 63:
-        static_cast<void>(Sub_51BDD0(option1));
-        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(SetPlayerStatusIcon_51BDD0(option1));
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 64:
-        Sub_51BDF0();
-        static_cast<void>(Sub_51A040(direction));
+        ClearPlayerStatusIcon_51BDF0();
+        static_cast<void>(SetPlayerFacingDirection_51A040(direction));
         return;
     case 70:
         cg::yobi::ApplyPlayerRideReply(option1, option2, &gPlayerRuntimeSlots.value174);
@@ -6395,7 +6395,7 @@ std::int8_t Sub_519D50()
         cg::yobi::MarkDeath(gPlayerRuntimeSlots.action);
         gPlayerRuntimeSlots.action = nullptr;
     }
-    Sub_51A5B0();
+    ClearPlayerLeaderMarker_51A5B0();
     if (Sub_51BEC0() == 0) {
         return 0;
     }
@@ -6403,7 +6403,7 @@ std::int8_t Sub_519D50()
 }
 
 // 原函数：0x0051A5A0。
-void Sub_51A5A0()
+void MarkPlayerAsPartyLeader_51A5A0()
 {
     auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 1u;
@@ -6411,14 +6411,14 @@ void Sub_51A5A0()
 }
 
 // 原函数：0x0051A5E0。
-void Sub_51A5E0()
+void MarkPlayerAsPartyMember_51A5E0()
 {
     auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18A);
     flagBytes[1] |= 2u;
 }
 
 // 原函数：0x0051A5F0。
-void Sub_51A5F0()
+void ClearPlayerPartyMembership_51A5F0()
 {
     gPlayerRuntimeSlots.flags18A &= 0xFDFFu;
 }
@@ -6448,13 +6448,13 @@ void Sub_51A630()
 }
 
 // 原函数：0x0051BDB0。
-void Sub_51BDB0()
+void ShowPlayerPersistentStatusIcon_51BDB0()
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 1u;
 }
 
 // 原函数：0x0051BDC0。
-void Sub_51BDC0()
+void HidePlayerPersistentStatusIcon_51BDC0()
 {
     auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
@@ -6464,19 +6464,19 @@ void Sub_51BDC0()
 }
 
 // 原函数：0x0051BE10。
-void Sub_51BE10()
+void ShowPlayerTimedStatusIcon_51BE10()
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x24u;
 }
 
 // 原函数：0x0051BE20。
-void Sub_51BE20()
+void ShowPlayerPetPersistentStatusIcon_51BE20()
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 8u;
 }
 
 // 原函数：0x0051BE30。
-void Sub_51BE30()
+void HidePlayerPetPersistentStatusIcon_51BE30()
 {
     auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
@@ -6486,13 +6486,13 @@ void Sub_51BE30()
 }
 
 // 原函数：0x0051BE40。
-void Sub_51BE40()
+void ShowPlayerPetTimedStatusIcon_51BE40()
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 0x50u;
 }
 
 // 原函数：0x0051A5B0。
-cg::yobi::YobiAction* Sub_51A5B0()
+cg::yobi::YobiAction* ClearPlayerLeaderMarker_51A5B0()
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     *reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) = 0;
@@ -6503,7 +6503,7 @@ cg::yobi::YobiAction* Sub_51A5B0()
 }
 
 // 原函数：0x0051BDD0。
-std::int32_t Sub_51BDD0(const std::int32_t value)
+std::int32_t SetPlayerStatusIcon_51BDD0(const std::int32_t value)
 {
     reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C)[2] |= 2u;
     gPlayerRuntimeSlots.value190 = value;
@@ -6511,7 +6511,7 @@ std::int32_t Sub_51BDD0(const std::int32_t value)
 }
 
 // 原函数：0x0051BDF0。
-void Sub_51BDF0()
+void ClearPlayerStatusIcon_51BDF0()
 {
     auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) + 2;
     std::uint16_t actionFlags;
@@ -6566,7 +6566,7 @@ void Sub_5199A0()
         title.id = -1;
     }
     for (std::int32_t index = 0; index < kSkillSlotCount; ++index) {
-        Sub_519950(index);
+        ResetSkillRecipeSlots_519950(index);
     }
     gPlayerRuntimeSlots.direction = -1;
 }
@@ -6665,7 +6665,7 @@ std::int32_t Sub_455BD0()
     gValue556C34 = 1;
     gValue62B5AA = 0;
     gValue62B5A8 = 0;
-    gValue62B5B0 = 0;
+    gMapNoticeStartTick_62B5B0 = 0;
     gValue62B308 = 0;
     gValue62B358 = 0;
     gValue62B384 = 0;
@@ -6720,7 +6720,7 @@ std::int32_t Sub_45EEE0()
             return 1;
         }
     } else if (phase == 0) {
-        Sub_51D750();
+        CaptureSceneAndSelectEvenVariant_51D750();
         platform::gValue73ECC0 = 2;
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
@@ -8430,9 +8430,9 @@ void Sub_50A3E0(
         }
     } else {
         slot.action = gPlayerRuntimeSlots.action;
-        detail::Sub_51A5E0();
+        detail::MarkPlayerAsPartyMember_51A5E0();
         if (index == 0) {
-            detail::Sub_51A5A0();
+            detail::MarkPlayerAsPartyLeader_51A5A0();
         }
     }
 }
@@ -8503,7 +8503,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 }
                 if (gPlayerRuntimeSlots.action == nullptr) {
                     detail::Sub_519CD0(mappedImage, x, y, direction);
-                    detail::Sub_51A4B0();
+                    detail::CopyPlayerIdentityToMapAction_51A4B0();
                 } else {
                     detail::Sub_519E50(mappedImage, gPlayerRuntimeSlots.direction);
                 }
@@ -8531,9 +8531,9 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                     if (slot.flags != 0
                         && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
                         slot.action = gPlayerRuntimeSlots.action;
-                        detail::Sub_51A5E0();
+                        detail::MarkPlayerAsPartyMember_51A5E0();
                         if (i == 0) {
-                            detail::Sub_51A5A0();
+                            detail::MarkPlayerAsPartyLeader_51A5A0();
                         }
                         break;
                     }
@@ -9026,10 +9026,10 @@ void Sub_50D000(
     }
     if (first == 1) {
         if (second == 1) {
-            detail::Sub_51A5E0();
+            detail::MarkPlayerAsPartyMember_51A5E0();
         }
     } else if (first == 0 && second == 1) {
-        detail::Sub_51A5F0();
+        detail::ClearPlayerPartyMembership_51A5F0();
         detail::gValueFF0D36 = 0;
         static_cast<void>(detail::Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
@@ -9236,7 +9236,7 @@ std::int32_t Sub_505040(const std::int32_t slot)
     if ((item->flags & 0x800u) == 0) {
         return 0;
     }
-    return detail::Sub_504F10(item->itemId, 0) != 0 ? 1 : 0;
+    return detail::HasSkillRecipeForItem_504F10(item->itemId, 0) != 0 ? 1 : 0;
 }
 
 // 原函数：0x005050B0。
@@ -9252,7 +9252,7 @@ std::int32_t Sub_5050B0(const std::int32_t slot)
     if ((item->flags & 0x800u) == 0) {
         return 0;
     }
-    return detail::Sub_504F10(item->itemId, 1) != 0 ? 1 : 0;
+    return detail::HasSkillRecipeForItem_504F10(item->itemId, 1) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00505110。
@@ -9314,7 +9314,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
             record.level = 0;
             record.experience = 0;
             std::memset(record.techniques3C.data(), 0, sizeof(record.techniques3C));
-            detail::Sub_519950(index);
+            detail::ResetSkillRecipeSlots_519950(index);
         } else {
             std::strcpy(
                 record.name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
@@ -9336,7 +9336,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
         }
         field += 11;
     }
-    detail::Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), kSkillSlotCount);
+    detail::BuildSortedSkillDisplayEntries_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), kSkillSlotCount);
     gValueDA3B20 = 0;
 }
 
@@ -9534,7 +9534,7 @@ void Sub_50C900(
     if (gValue9A6E0C != 0) {
         return;
     }
-    detail::Sub_51B530(first, second);
+    detail::SwapPlayerInventorySlots_51B530(first, second);
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
     ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
@@ -9652,7 +9652,7 @@ void Sub_510150(
             network::ExtractDelimitedField_52CED0(
                 payload, '|', field + 3, 767, description);
             input::UnescapeLegacyTextAndNotify_52D2F0(description);
-            detail::Sub_519770(petIndex, index, description);
+            detail::SetPetItemDescription_519770(petIndex, index, description);
             record.hasDescription = !record.description[0].empty() ? 1 : 0;
             record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
             record.canUseInField = static_cast<std::uint16_t>(
@@ -9772,9 +9772,9 @@ void Sub_50A6B0(
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         }
     }
-    detail::Sub_519920();
-    detail::Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    detail::Sub_492250();
+    detail::RefreshPetCount_519920();
+    detail::BuildPetDisplayEntries_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
+    detail::MarkPetDetailDraftChanged_492250();
     record.updated510C = 1;
 }
 
@@ -9814,9 +9814,9 @@ void Sub_50AC20(
             bit <<= 1;
         }
     }
-    detail::Sub_519920();
-    detail::Sub_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    detail::Sub_492250();
+    detail::RefreshPetCount_519920();
+    detail::BuildPetDisplayEntries_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
+    detail::MarkPetDetailDraftChanged_492250();
 }
 
 // 原函数：0x0050B0D0。
@@ -9929,10 +9929,10 @@ void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
         }
         field += 3;
     }
-    detail::Sub_5198A0(
+    detail::CopyTitleRecords_5198A0(
         reinterpret_cast<std::uint8_t*>(gSortedTitlesDE03F8.data()),
         reinterpret_cast<const std::uint8_t*>(detail::gTitlesFF0508.data()), 64);
-    detail::Sub_5198D0(gSortedTitlesDE03F8.data(), 64);
+    detail::SortTitleRecords_5198D0(gSortedTitlesDE03F8.data(), 64);
 }
 
 // 原函数：0x00519840。
@@ -10066,7 +10066,7 @@ void Sub_5093C0(
     static_cast<void>(detail::Sub_468200());
     static_cast<void>(Sub_519EC0(x, y));
     SynchronizePlayerMapActionPosition_519EE0();
-    static_cast<void>(detail::Sub_51A040(direction));
+    static_cast<void>(detail::SetPlayerFacingDirection_51A040(direction));
 }
 
 // 原函数：0x0050D080。
@@ -10096,10 +10096,10 @@ void Sub_50D120(
         static_cast<void>(detail::Sub_519D50());
         detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(Sub_4681B0());
-        detail::Sub_51B0F0();
-        gValue62B5B0 = 0;
-        detail::Sub_455FC0();
-        detail::Sub_455C60();
+        detail::DetachPartyMapActions_51B0F0();
+        gMapNoticeStartTick_62B5B0 = 0;
+        detail::SynchronizeTimedMapNoticeWindow_455FC0();
+        detail::ResetTimedMapNotice_455C60();
 
         const std::uint32_t mask = gValue9FB918.mask;
         const std::uint32_t encoded = gValue9FB918.encoded;
@@ -10545,7 +10545,7 @@ std::int32_t __cdecl Sub_50C870(
     const std::int32_t timeOffset, const std::int32_t pathValue,
     const std::int32_t adjustment)
 {
-    static_cast<void>(detail::Sub_519EB0(playerValue));
+    static_cast<void>(detail::SetPlayerObjectIndex_519EB0(playerValue));
     gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
     gValue73ED68 = static_cast<std::uint64_t>(
         ::_time64(nullptr));
@@ -10888,7 +10888,7 @@ void Sub_470150()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     std::int32_t target = 0;
-    if (detail::Sub_455A90() == 1) {
+    if (detail::IsMapBattleSpectatingAllowed_455A90() == 1) {
         const std::int32_t targetY =
             (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =

@@ -262,7 +262,7 @@ static void WindowTextList_Release()
         static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, L"C"));
     }
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
 }
 
 // 原函数：0x004AD800。
@@ -281,7 +281,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gWindowCloseRequestCC4B28 = 1;
     }
     bool close = true;
-    if (world::gValue581800 == 32) {
+    if (world::gCurrentDialogType_581800 == 32) {
         close = WindowProfile_CheckDistance(1, 1) != 0;
     } else {
         gWindowCloseRequestCC4B28 = 0;

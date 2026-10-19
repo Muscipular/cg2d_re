@@ -715,7 +715,7 @@ static std::int32_t WindowDialog_Reply(
 {
     std::wstring reply;
     if (button == 0) {
-        if (row < 0) { world::gValue581800 = -1; }
+        if (row < 0) { world::gCurrentDialogType_581800 = -1; }
     } else {
         if (gDialogReply.type == 2) {
             cg::core::NullSub_509080();
@@ -747,7 +747,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, button,
                 reply) < 0) { return 0; }
-        world::gValue581800 = -1;
+        world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -760,7 +760,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, 0,
                 reply) < 0) { return 0; }
-        world::gValue581800 = -1;
+        world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
     return 1;
@@ -834,7 +834,7 @@ static void WindowDialog_Route(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
-    std::int32_t currentType = world::gValue581800;
+    std::int32_t currentType = world::gCurrentDialogType_581800;
     cg::yobi::YobiAction* created = nullptr;
     if (currentType >= 0) {
         switch (request) {
@@ -848,7 +848,7 @@ static void WindowDialog_Route(
                 WindowRuntime_CloseByCategory(2);
                 WindowRuntime_CloseByCategory(3);
                 currentType = -1;
-                world::gValue581800 = -1;
+                world::gCurrentDialogType_581800 = -1;
             }
             break;
         default:
@@ -859,7 +859,7 @@ static void WindowDialog_Route(
     if (type == currentType) {
         switch (currentType) {
         case 21: {
-            world::gValue581800 = type;
+            world::gCurrentDialogType_581800 = type;
             gDialogValueCF4E5C = value;
             world::gDialogRequestCC21E0 = request;
             world::gDialogTargetD2DE6C = target;
@@ -912,10 +912,10 @@ static void WindowDialog_Route(
             break;
         }
     }
-    if (!enterNewType && world::gValue581800 >= 0) {
+    if (!enterNewType && world::gCurrentDialogType_581800 >= 0) {
         return;
     }
-    world::gValue581800 = type;
+    world::gCurrentDialogType_581800 = type;
     gDialogValueCF4E5C = value;
     world::gDialogRequestCC21E0 = request;
     world::gDialogTargetD2DE6C = target;
@@ -972,7 +972,7 @@ static void WindowDialog_Route(
             created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
         }
         if (created == nullptr && gWindowStates[WindowId_Bank].window == nullptr) {
-            world::gValue581800 = -1;
+            world::gCurrentDialogType_581800 = -1;
         }
         return;
     case 24:
@@ -1008,7 +1008,7 @@ static void WindowDialog_Route(
             created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
         }
         if (created == nullptr && gWindowStates[WindowId_ItemStorage].window == nullptr) {
-            world::gValue581800 = -1;
+            world::gCurrentDialogType_581800 = -1;
         }
         return;
     case 36:
@@ -1047,14 +1047,14 @@ static void WindowDialog_RouteReply(
 {
     static_cast<void>(unusedSocket);
     if (value == -1) {
-        if (type != world::gValue581800) {
+        if (type != world::gCurrentDialogType_581800) {
             return;
         }
         if (target != world::gDialogTargetD2DE6C) {
             return;
         }
         WindowRuntime_CloseByCategory(3);
-        world::gValue581800 = -1;
+        world::gCurrentDialogType_581800 = -1;
         return;
     }
     WindowDialog_Route(type, value, request, target, text);
@@ -1070,7 +1070,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
     const std::int32_t request, const std::int32_t target, char* text)
 {
     WindowDialog_Reset();
-    gDialogReply.type = world::gValue581800;
+    gDialogReply.type = world::gCurrentDialogType_581800;
     gDialogReply.request = request;
     gDialogReply.target = target;
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
@@ -1081,7 +1081,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
         inputHeight = 28;
         gDialogInputYD67B34[0] = static_cast<std::int16_t>(height - buttonHeight - 44);
     }
-    if (world::gValue581800 == 35) {
+    if (world::gCurrentDialogType_581800 == 35) {
         const std::int32_t contentHeight = height - inputHeight - buttonHeight;
         gDialogInputYD67B34[0] = static_cast<std::int16_t>(contentHeight - 118);
         gDialogInputYD67B34[1] = static_cast<std::int16_t>(contentHeight - 67);
@@ -1128,7 +1128,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
     for (std::int32_t row = 0; row < lines; ++row) {
         static_cast<void>(input::ExtractDialogTextLine(gDialogLinesCB1398[row].text, text, row, columns));
     }
-    if (world::gValue581800 == 35) {
+    if (world::gCurrentDialogType_581800 == 35) {
         return WindowDialog_Open(
             x, y, width, height, imageNo, buttons, gDialogLinesCB1398.data(),
             lines, lineHeight, gDialogReply.firstLine, 2, gDialogInputYD67B34.data(),
@@ -1205,7 +1205,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
     WindowDialog_Reset();
-    gDialogReply.type = world::gValue581800;
+    gDialogReply.type = world::gCurrentDialogType_581800;
     gDialogReply.request = request;
     gDialogReply.target = target;
     for (auto& record : gHealingDialogRecordsD672F0) {

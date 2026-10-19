@@ -17,10 +17,10 @@ extern platform::LegacyCryptInt gRippleGate; // 原全局：0x009A7FA8，波纹�
 extern platform::LegacyCryptInt gSceneTransitionValue; // 原全局：0x0073ECD0。
 
 // 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
-extern std::int32_t gValue581800;
+extern std::int32_t gCurrentDialogType_581800;
 extern std::int32_t gDialogRequestCC21E0; // 原全局：0x00CC21E0。 原对话a3，49D2E0/49D8F0生产，发送共用。
 extern std::int32_t gDialogTargetD2DE6C; // 原全局：0x00D2DE6C。 原对话a4，不是窗口51的独立参数槽。
-extern std::uint64_t gValue62B5B0; // 原全局：0x0062B5B0。
+extern std::uint64_t gMapNoticeStartTick_62B5B0; // 原全局：0x0062B5B0。
 
 // World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 // 原函数：0x0045F190。
@@ -100,19 +100,19 @@ void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，
 // 原函数：0x00458F40。
 void __cdecl Sub_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
 // 原函数：0x00458F00。
-void __cdecl Sub_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
+void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
 // 原函数：0x00519EB0。
-std::int32_t __cdecl Sub_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
+std::int32_t __cdecl SetPlayerObjectIndex_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
 // 原函数：0x00455C60。
-void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
+void ResetTimedMapNotice_455C60(); // 仅清既有62B5B0，不关闭窗口。
 // 原函数：0x00455FC0。
-void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
+void SynchronizeTimedMapNoticeWindow_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 // 原函数：0x00455A90。
-std::int32_t Sub_455A90(); // G05：所有地图允许通过观战地图门禁。
+std::int32_t IsMapBattleSpectatingAllowed_455A90(); // G05：所有地图允许通过观战地图门禁。
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 // 原函数：0x004D3170。
-void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
+void ResetCurrentDialogType_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 // 原函数：0x00455AC0。
 void Sub_455AC0(); // 原455AC0：写W32[62B2F8]=1，不定义返回。
 // 原函数：0x00455AD0。
@@ -157,7 +157,7 @@ void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D
 // 原函数：0x0051D5B0。
 void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 // 原函数：0x0051D750。
-std::uint32_t Sub_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
+std::uint32_t CaptureSceneAndSelectEvenVariant_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t Sub_51FDE0(

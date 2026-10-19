@@ -671,14 +671,14 @@ void TurnPlayerAndSendDirection_46B4B0(const std::int32_t direction)
     if (gValueC8223C + 500u >= now) {
         return;
     }
-    static_cast<void>(Sub_51A040(direction));
-    const std::uint32_t encoded = Sub_46BD20(direction, 1);
+    static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+    const std::uint32_t encoded = EncodeMovementDirectionByte_46BD20(direction, 1);
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(Sub_50C8D0(x, y, text));
+    static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(x, y, text));
     gValueC8223C = platform::ReadTickCount64();
 }
 
@@ -822,7 +822,7 @@ void MovePlayerOneStep_46B1B0(
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
             Sub_46CDF0(direction.x, direction.y));
-        static_cast<void>(Sub_51A040(value));
+        static_cast<void>(SetPlayerFacingDirection_51A040(value));
         static_cast<void>(MarkPlayerMovementActive_51A640());
     }
     SynchronizePlayerMapActionPosition_519EE0();

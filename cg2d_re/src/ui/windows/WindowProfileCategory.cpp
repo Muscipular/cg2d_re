@@ -246,7 +246,7 @@ static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 // 原函数：0x004CA300。
 static void WindowProfileCategory_Release()
 {
-    world::gValue581800 = -1;
+    world::gCurrentDialogType_581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(2));
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));

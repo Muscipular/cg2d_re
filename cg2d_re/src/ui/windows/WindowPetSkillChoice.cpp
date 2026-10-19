@@ -463,8 +463,8 @@ WindowPrototype gWindowPrototypePetSkillChoice {0, 4, 10, 30, 549, 366, 0x800101
 static void WindowPetSkillChoice_Release()
 {
     if (gWindow54LifecycleD67434 != 2
-        && gWindow54DialogTypeCB2224 == world::gValue581800) {
-        world::gValue581800 = -1;
+        && gWindow54DialogTypeCB2224 == world::gCurrentDialogType_581800) {
+        world::gCurrentDialogType_581800 = -1;
     }
     gWindow54LifecycleD67434 = 0;
 }
@@ -473,7 +473,7 @@ static void WindowPetSkillChoice_Release()
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 {
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -507,7 +507,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
 {
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -551,7 +551,7 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     const char* const text, const std::uint8_t mode)
 {
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -623,7 +623,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
         return;
     }
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -669,7 +669,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
         return;
     }
     std::array<char, 768> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -719,7 +719,7 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
         return;
     }
     std::array<char, 1536> buffer;
-    gWindow54DialogTypeCB2224 = world::gValue581800;
+    gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -1229,7 +1229,7 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
     }
-    const std::int32_t dialogType = world::gValue581800;
+    const std::int32_t dialogType = world::gCurrentDialogType_581800;
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
@@ -1435,7 +1435,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
-            world::gValue581800 = -2;
+            world::gCurrentDialogType_581800 = -2;
             break;
         }
         default:
@@ -1944,7 +1944,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
             static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
-        world::gValue581800 = -2;
+        world::gCurrentDialogType_581800 = -2;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
@@ -2043,7 +2043,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
-    world::gValue581800 = -2;
+    world::gCurrentDialogType_581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }

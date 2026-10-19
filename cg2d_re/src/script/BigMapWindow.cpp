@@ -390,11 +390,13 @@ struct BigMapWindow final : UIWindowInstanceEx {
         Text(nameClip.left, window.y + S(20), text::FromGbkWide(world::ReadText9DAD30()), nameClip, 12);
         UiImage(MapNamePlate, 10, 10, 184, 38, clip);
         const int px = static_cast<int>(world::gPlayerX), py = static_cast<int>(world::gPlayerY);
-        UiText(516, 66, std::format(L"{:3}", px), clip, 12);
-        UiText(566, 66, std::format(L"{:3}", py), clip, 12);
-        UiImage(CoordinatePlate, 515, 65, 46, 16, clip);
-        UiImage(CoordinatePlate, 565, 65, 46, 16, clip);
-        UiImage(Compass, 530, 40, 60, 59, clip);
+        // 4.06@437BC9：数字/底框的64/65是相对装饰图Y的偏移，不是窗口绝对Y。
+        constexpr int coordinateTop = 40;
+        UiText(516, coordinateTop + 64, std::format(L"{:3}", px), clip, 12);
+        UiText(566, coordinateTop + 64, std::format(L"{:3}", py), clip, 12);
+        UiImage(CoordinatePlate, 515, coordinateTop + 65, 46, 16, clip);
+        UiImage(CoordinatePlate, 565, coordinateTop + 65, 46, 16, clip);
+        UiImage(Compass, 530, coordinateTop, 60, 59, clip);
         for (auto button : {BigMapButton::Toggle, BigMapButton::Close, BigMapButton::Refresh, BigMapButton::Walk, BigMapButton::Center})
             Button(button, clip);
         const auto walkButton = ButtonStyle(BigMapButton::Walk), centerButton = ButtonStyle(BigMapButton::Center);

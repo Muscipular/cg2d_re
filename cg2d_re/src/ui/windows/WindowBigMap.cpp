@@ -27,7 +27,7 @@ enum BigMapImage : int {
     WalkNormal = 641524, WalkHover = 641525, WalkPressed = 641526,
     CenterNormal = 641527, CenterHover = 641528, CenterPressed = 641529,
 };
-enum class BigMapButton { Toggle, Close, Refresh, Walk, Center };
+enum class BigMapButton { Toggle, Close, Walk, Center };
 // 4.06@49A528/2C/30/38：仅图标分类1、2、3、5消费该颜色。
 static constexpr std::array<std::uint32_t, 7> kCategoryColors{
     0xFFFFFFFFu, 0xF05C20FFu, 0xF0F8F8F8u, 0xF0F84AF8u, 0xFFFFFFFFu, 0xF0FFC500u, 0xFFFFFFFFu};
@@ -45,11 +45,11 @@ struct BigMapAnnotation {
 
 // 前段按输入优先级排列：按钮、筛选、遮挡区域，地图最后接收事件。
 enum BigMapElement : int {
-    ButtonFirst = 0, ButtonEnd = ButtonFirst + 5,
+    ButtonFirst = 0, ButtonEnd = ButtonFirst + 4,
     CategoryFirst = ButtonEnd, CategoryEnd = CategoryFirst + 7,
     CurrentCoordinateArea = CategoryEnd, TargetCoordinateArea, TitleArea, NameArea, StatusArea, OptionsArea, MapArea,
     TextFirst, TextMapName = TextFirst, TextCurrentCoordinate, TextTargetCoordinate, TextToggle, TextWalk,
-    TextCenter, TextOptions, TextPlayer, TextTarget, TextDisplay, TextRefresh, TextStatus,
+    TextCenter, TextOptions, TextPlayer, TextTarget, TextDisplay, TextStatus,
     CategoryTextFirst, TextEnd = CategoryTextFirst + 7,
     MapNameImage = TextEnd,
     PlayerLegendImage, TargetLegendImage, CheckedFirst, CheckboxFirst = CheckedFirst + 7,
@@ -62,7 +62,6 @@ static void WindowBigMap_Release();
 // 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
 static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCloseGraphic{22509, 0, 0, 0, 0, 0xFFFFFFFFu};
-static WindowGraphicData gBigMapRefreshGraphic{243018, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapWalkGraphic{WalkNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCenterGraphic{CenterNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapMapNameGraphic{MapNamePlate, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -78,7 +77,6 @@ static WindowTextPrototype gBigMapCenterText{{std::byte{4}, std::byte{12}, {}, {
 static WindowTextPrototype gBigMapPlayerText{{std::byte{0}, std::byte{12}, {}, {}}, L"你现在的位置"};
 static WindowTextPrototype gBigMapTargetText{{std::byte{0}, std::byte{12}, {}, {}}, L"右键点选的寻路坐标"};
 static WindowTextPrototype gBigMapDisplayText{{std::byte{4}, std::byte{12}, {}, {}}, L"显示选项"};
-static WindowTextPrototype gBigMapRefreshText{{std::byte{4}, std::byte{12}, {}, {}}, L"刷新坐标"};
 static WindowTextPrototype gBigMapStatusText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
@@ -93,7 +91,6 @@ static WindowTextPrototype gBigMapCategoryTexts[7]{
 static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Graphic, 11, 51, 20, 18, 1, {.graphic = &gBigMapToggleGraphic}, &WindowBigMap_Element}, // Toggle
     {WindowElementType_Graphic, 614, 6, 20, 20, 1, {.graphic = &gBigMapCloseGraphic}, &WindowBigMap_Element}, // Close
-    {WindowElementType_Graphic, 161, 286, 20, 19, 0, {.graphic = &gBigMapRefreshGraphic}, &WindowBigMap_Element}, // Refresh
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapWalkGraphic}, &WindowBigMap_Element}, // Walk
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapCenterGraphic}, &WindowBigMap_Element}, // Center
     {WindowElementType_EventArea, 42, 138, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类0
@@ -120,7 +117,6 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Text, 62, 79, 0, 0, 0, {.text = &gBigMapPlayerText}, &WindowElement_NoOp}, // TextPlayer
     {WindowElementType_Text, 62, 99, 0, 0, 0, {.text = &gBigMapTargetText}, &WindowElement_NoOp}, // TextTarget
     {WindowElementType_Text, 44, 120, 0, 0, 0, {.text = &gBigMapDisplayText}, &WindowElement_NoOp}, // TextDisplay
-    {WindowElementType_Text, 184, 287, 0, 0, 0, {.text = &gBigMapRefreshText}, &WindowElement_NoOp}, // TextRefresh
     {WindowElementType_Text, 12, 462, 0, 0, 1, {.text = &gBigMapStatusText}, &WindowElement_NoOp}, // TextStatus
     {WindowElementType_Text, 62, 140, 0, 0, 0, {.text = &gBigMapCategoryTexts[0]}, &WindowElement_NoOp}, // 分类0名称
     {WindowElementType_Text, 62, 160, 0, 0, 0, {.text = &gBigMapCategoryTexts[1]}, &WindowElement_NoOp}, // 分类1名称
@@ -207,7 +203,6 @@ struct BigMapWindowState final {
         // 固定布局来自原型；这里只维护业务驱动的显隐和居中按钮的动态行。
         const int walk = ButtonFirst + static_cast<int>(BigMapButton::Walk);
         const int center = ButtonFirst + static_cast<int>(BigMapButton::Center);
-        window.elements[ButtonFirst + static_cast<int>(BigMapButton::Refresh)].visible = options;
         window.elements[walk].visible = targetX >= 0 && mapReady;
         window.elements[center].visible = !followPlayer;
         window.elements[center].y = targetX >= 0 ? 97 : 73;
@@ -218,7 +213,7 @@ struct BigMapWindowState final {
         window.elements[OptionsArea].visible = options;
         window.elements[TextTargetCoordinate].visible = targetX >= 0;
         window.elements[TargetCoordinateArea].visible = targetX >= 0;
-        for (int i : {TextOptions, TextPlayer, TextTarget, TextDisplay, TextRefresh,
+        for (int i : {TextOptions, TextPlayer, TextTarget, TextDisplay,
                 PlayerLegendImage, TargetLegendImage}) window.elements[i].visible = options;
         for (int i = 0; i < 7; ++i) {
             window.elements[CategoryFirst + i].visible = options;
@@ -376,7 +371,6 @@ struct BigMapWindowState final {
                     : (pressed ? 243034 : hover ? 243035 : 243033);
                 break;
             case BigMapButton::Close: if (pressed) imageNo = 22510; break;
-            case BigMapButton::Refresh: imageNo = pressed ? 243019 : hover ? 243020 : 243018; break;
             case BigMapButton::Walk: imageNo = pressed ? WalkPressed : hover ? WalkHover : WalkNormal; break;
             case BigMapButton::Center: imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal; break;
             }
@@ -394,7 +388,6 @@ struct BigMapWindowState final {
                         static_cast<WindowGraphicData*>(element.data)->imageNo = options ? 243031 : 243034;
                         break;
                     case BigMapButton::Center: followPlayer = true; break;
-                    case BigMapButton::Refresh: LoadAnnotations(); break;
                     case BigMapButton::Walk:
                         startCopilot(targetX, targetY);
                         break;

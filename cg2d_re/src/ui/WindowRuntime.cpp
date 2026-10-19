@@ -4853,7 +4853,7 @@ void WindowRuntime_ProcessScene()
         static_cast<void>(WindowRuntime_SaveSettings());
         world::SaveAlbumData_5186A0();
         static_cast<void>(cg::world::detail::Sub_519300());
-        static_cast<void>(cg::world::detail::Sub_519550());
+        static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
         static_cast<void>(world::detail::Sub_534770());
         static_cast<void>(world::detail::Sub_5348A0());
         return;

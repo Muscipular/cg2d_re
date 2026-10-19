@@ -116,7 +116,7 @@ std::uint32_t StartCharacterListRequest()
 
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterListReplyCode = 0;
-    static_cast<void>(network::Sub_512B90(socket));
+    static_cast<void>(network::SendCharacterListRequest_512B90(socket));
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;

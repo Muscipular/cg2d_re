@@ -454,7 +454,7 @@ std::int32_t Sub_518DA0()
         if (record.value08 == 0) {
             continue;
         }
-        const std::int32_t index = Sub_5195F0(record.value0C);
+        const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(record.value0C);
         if (index == -1) {
             continue;
         }
@@ -518,7 +518,7 @@ void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
         if (member.value08 == 0) {
             continue;
         }
-        const std::int32_t slot = Sub_5195F0(member.value0C);
+        const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(member.value0C);
         if (slot == -1) {
             continue;
         }
@@ -584,7 +584,7 @@ std::int32_t Sub_5190F0(const std::int32_t index)
 {
     const auto& record = cg::world::gOrderedRecords1051B14[index];
     const std::int32_t key = record.value0C;
-    const std::int32_t slot = Sub_5195F0(key);
+    const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(key);
     if (slot == -1) {
         return 0;
     }
@@ -1375,7 +1375,7 @@ std::int32_t Sub_518CB0()
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
     stream = std::fopen(path, "rb");
     if (stream == nullptr) {
-        return Sub_519550();
+        return SaveGuildMailFile_519550();
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fread(
         gGuildMailStorageDE0B30.data(), 1,
@@ -1401,7 +1401,7 @@ std::int32_t Sub_519300()
 
 // GMR01：原128B路径/完整两角色139480写/写弃返→关闭S32结果，当前MSVC FILE域保。
 // 原函数：0x00519550。
-std::int32_t Sub_519550()
+std::int32_t SaveGuildMailFile_519550()
 {
     char path[128];
     std::sprintf(
@@ -1426,7 +1426,7 @@ std::int32_t Sub_519290()
 }
 
 // 原函数：0x005194C0。
-std::int32_t Sub_5194C0()
+std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     std::memset(
@@ -1448,7 +1448,7 @@ std::int32_t Sub_5192C0(const std::int32_t number)
 
 // GML01：原selected S16/200邮件槽W32==1最后匹配，无则-1。
 // 原函数：0x005195F0。
-std::int32_t Sub_5195F0(const std::int32_t key)
+std::int32_t FindLastActiveGuildMailEntry_5195F0(const std::int32_t key)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     const GuildMailEntry* entry =
@@ -1469,9 +1469,9 @@ std::int32_t Sub_5195F0(const std::int32_t key)
 
 // GML01：原末匹配后fresh角色，整C88清零（包含active/key），原S32返回保持。
 // 原函数：0x005194F0。
-std::int32_t Sub_5194F0(const std::int32_t key)
+std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
 {
-    const std::int32_t index = Sub_5195F0(key);
+    const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(key);
     if (index == -1) {
         return index;
     }
@@ -1484,14 +1484,14 @@ std::int32_t Sub_5194F0(const std::int32_t key)
 
 // GML01：原查找门槛/分支fresh角色、空槽或九次倒序移位，kind两BYTE及name/text发布序保持。
 // 原函数：0x00519370。
-std::uintptr_t Sub_519370(
+std::uintptr_t PrependGuildMailMessage_519370(
     const std::int32_t key, const std::int32_t kind,
     const char* const name, const char* const text)
 {
     if (cg::world::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
         return 0xFFFFFFFFu;
     }
-    const std::int32_t existingIndex = Sub_5195F0(key);
+    const std::int32_t existingIndex = FindLastActiveGuildMailEntry_5195F0(key);
     GuildMailEntry* entry;
     if (existingIndex == -1) {
         const std::ptrdiff_t selected = login::gSelectedCharacterIndex;

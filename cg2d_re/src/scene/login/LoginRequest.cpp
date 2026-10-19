@@ -81,7 +81,7 @@ std::uint32_t StartLoginRequest()
     const std::int32_t field50 = record->previewState;
     const std::int32_t field4C = record->registNumber;
 
-    [[maybe_unused]] const std::int32_t queued = network::Sub_512B00(
+    [[maybe_unused]] const std::int32_t queued = network::SendCharacterLoginRequest_512B00(
         platform::gConnectionSocket,
         field4C,
         field50,
@@ -149,7 +149,7 @@ void HandleLoginResponse_508BC0(
     gRequestReplyCode = 1;
     m_log_i("CHAR LOGIN REPLY SUCCESSFUL\n");
     const std::uint64_t tick = platform::ReadTickCount64();
-    static_cast<void>(network::Sub_512DF0(socket, static_cast<std::uint32_t>(tick)));
+    static_cast<void>(network::SendLoginTimestamp_512DF0(socket, static_cast<std::uint32_t>(tick)));
 }
 
 } // namespace cg::login
@@ -164,7 +164,7 @@ std::uint32_t BeginLogoutRequest_508C40()
 {
     const std::uintptr_t socket = platform::gConnectionSocket;
     gReplyCodeDA3B2E = 0;
-    static_cast<void>(network::Sub_512BD0(socket));
+    static_cast<void>(network::SendLogoutRequest_512BD0(socket));
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;

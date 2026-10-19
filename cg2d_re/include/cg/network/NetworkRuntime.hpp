@@ -34,7 +34,7 @@ void CopyProtocolBytes_517080(
     std::int32_t capacity);
 
 // 原 [0x517040,0x517080)：先清输出 W32，再按参数首指针选择复制来源。
-void Sub_517040(
+void ReadProtocolCommandHeader_517040(
     std::uint32_t* output,
     std::uint8_t* destination,
     std::int32_t capacity,
@@ -102,7 +102,7 @@ std::uint8_t* EscapeProtocolText_5171F0(std::wstring_view text);
 std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
 
 // 原 [0x5171B0,0x5171E2)：非空反转义，空参复制共享 593850 文本。
-std::uint8_t* Sub_5171B0(const char* text);
+std::uint8_t* DecodeOptionalProtocolText_5171B0(const char* text);
 
 // 原 sub_517480@[0x517480,0x517502)：记录、观察并发送协议行缓冲。
 std::int32_t SendProtocolBuffer_517480(
@@ -110,27 +110,27 @@ std::int32_t SendProtocolBuffer_517480(
     char* buffer);
 
 // 原 sub_512C10@[0x512C10,0x512C58)：构造 Or 文本命令并透传发送返回。
-std::int32_t Sub_512C10(std::uintptr_t socket, std::wstring_view text);
+std::int32_t SendConnectionProbe_512C10(std::uintptr_t socket, std::wstring_view text);
 
 // 原 sub_512DF0@[0x512DF0,0x512E38)：构造 CCL 计时命令并透传发送返回。
-std::int32_t Sub_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
+std::int32_t SendLoginTimestamp_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
 
 // 原 sub_512D30@[0x512D30,0x512D9B)：依序追加版本整数与文本，发送 Xoee。
-std::int32_t Sub_512D30(
+std::int32_t SendVersionUpgradeRequest_512D30(
     std::uintptr_t socket, std::int32_t version, std::wstring_view payload);
 
 // 原 sub_512DA0@[0x512DA0,0x512DE8)：追加单个整数并发送 IPy。
-std::int32_t Sub_512DA0(std::uintptr_t socket, std::int32_t value);
+std::int32_t SendCraftDuration_512DA0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512B00@[0x512B00,0x512B8E)：依次追加三项整数并发送 emRV 命令。
-std::int32_t Sub_512B00(
+std::int32_t SendCharacterLoginRequest_512B00(
     std::uintptr_t socket,
     std::int32_t field4C,
     std::int32_t field50,
     std::int32_t field18);
 
 // 原 sub_512AB0@[0x512AB0,0x512AF8)：追加登记号并发送 Godf 命令。
-std::int32_t Sub_512AB0(std::uintptr_t socket, std::int32_t registNumber);
+std::int32_t SendCharacterDeletionRequest_512AB0(std::uintptr_t socket, std::int32_t registNumber);
 
 // 原 sub_5128C0@[0x5128C0,0x512AAC)：依序追加十二项整数与第二项文本，发送 aSEl。
 std::int32_t Sub_5128C0(
@@ -177,7 +177,7 @@ std::int32_t Sub_510710(
     std::int32_t sixth);
 
 // 原510AC0：iVfo四整数，逐项采容量/格式化/追加，透传发送返回。
-std::int32_t Sub_510AC0(
+std::int32_t SendItemUseRequest_510AC0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
     std::int32_t item, std::int32_t target);
 
@@ -187,7 +187,7 @@ std::int32_t Sub_510B80(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);
 
 // 原 sub_510810@[0x510810,0x51087B)：两整数依序追加并发送 KeOX。
-std::int32_t Sub_510810(
+std::int32_t SendPlayerCoordinates_510810(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
@@ -499,25 +499,25 @@ std::int32_t Sub_512720(
 std::int32_t Sub_5127B0(std::uintptr_t socket, std::int32_t value);
 
 // 原 [0x512B90,0x512BCC)：Gp 角色列表请求，追加共享文本并发送。
-std::int32_t Sub_512B90(std::uintptr_t socket);
+std::int32_t SendCharacterListRequest_512B90(std::uintptr_t socket);
 
 // 原 [0x512BD0,0x512C0C)：WA 登出请求，追加共享文本并发送。
-std::int32_t Sub_512BD0(std::uintptr_t socket);
+std::int32_t SendLogoutRequest_512BD0(std::uintptr_t socket);
 
 // 原 [0x512C60,0x512C9C)：DE 保活发送，追加共享 593850 原字节文本。
-std::int32_t Sub_512C60(std::uintptr_t socket);
+std::int32_t SendKeepAliveRequest_512C60(std::uintptr_t socket);
 
 // 原五个无额外参数的请求叶；各自构造命令、追加同一 593850 文本并透传发送返回。
 // 原函数：0x00511CD0。
-std::int32_t Sub_511CD0(std::uintptr_t socket); // as
+std::int32_t RequestItemTargetAttributes_511CD0(std::uintptr_t socket); // as
 // 原函数：0x00511FB0。
-std::int32_t Sub_511FB0(std::uintptr_t socket); // ixH
+std::int32_t SendTradeRequest_511FB0(std::uintptr_t socket); // ixH
 // 原函数：0x00512230。
-std::int32_t Sub_512230(std::uintptr_t socket); // suI
+std::int32_t WithdrawTradeConfirmation_512230(std::uintptr_t socket); // suI
 // 原函数：0x00512570。
-std::int32_t Sub_512570(std::uintptr_t socket); // ih
+std::int32_t ToggleBattleRowRequest_512570(std::uintptr_t socket); // ih
 // 原函数：0x00512CF0。
-std::int32_t Sub_512CF0(std::uintptr_t socket); // lO
+std::int32_t RequestLogoutToTown_512CF0(std::uintptr_t socket); // lO
 
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(

@@ -191,7 +191,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
 static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const char*)
 {
     if (index == -3) {
-        static_cast<void>(network::Sub_511CD0(platform::gConnectionSocket));
+        static_cast<void>(network::RequestItemTargetAttributes_511CD0(platform::gConnectionSocket));
         return 0;
     }
     if (index >= 0) {
@@ -199,7 +199,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
+        static_cast<void>(network::SendItemUseRequest_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
         const std::int32_t selected = gSelectedItemCB1DF4;

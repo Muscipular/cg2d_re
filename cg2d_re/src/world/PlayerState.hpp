@@ -243,7 +243,7 @@ void Sub_50C900(
 // 原函数：0x0051B5F0。
 std::int32_t Sub_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
 // 原51B630：玩家/宠物容器间整条换位，不改装备标志或同步UI。
-void Sub_51B630(
+void SwapPlayerOrPetItemSlots_51B630(
     std::int32_t firstGroup, std::int32_t firstIndex,
     std::int32_t secondGroup, std::int32_t secondIndex);
 

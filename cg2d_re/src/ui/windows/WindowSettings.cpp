@@ -587,7 +587,7 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
-        static_cast<void>(network::Sub_512CF0(platform::gConnectionSocket));
+        static_cast<void>(network::RequestLogoutToTown_512CF0(platform::gConnectionSocket));
         if (world::gCurrentSceneType == 10) {
             world::gCurrentSceneState = 7;
         }

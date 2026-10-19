@@ -240,8 +240,8 @@ void Sub_50F280(const std::uintptr_t, const std::int32_t key)
         return;
     }
     ResetGuildRuntimeFields();
-    static_cast<void>(cg::world::detail::Sub_5194C0());
-    static_cast<void>(cg::world::detail::Sub_519550());
+    static_cast<void>(cg::world::detail::ClearCurrentCharacterGuildMail_5194C0());
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(ui::WindowGuildDetails_RequestClose());
 }
 

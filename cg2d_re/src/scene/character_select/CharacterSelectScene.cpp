@@ -1672,9 +1672,9 @@ std::int32_t ProcessScene_460FF0()
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 world::Sub_518BE0();
                 cg::world::detail::Sub_519290();
-                cg::world::detail::Sub_5194C0();
+                cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
                 cg::world::detail::Sub_519300();
-                cg::world::detail::Sub_519550();
+                cg::world::detail::SaveGuildMailFile_519550();
                 world::SetCurrentSceneType(4);
                 login::detail::PlaySe(53, 320, 240);
                 cg::yobi::YobiClearUp_404D30();
@@ -1755,13 +1755,13 @@ std::int32_t ProcessScene_460FF0()
             const std::uint8_t pukVersion = state::gPukVersion;
             sceneResult = static_cast<std::int32_t>(pukVersion);
             if (pukVersion == 0u || pukVersion == 2u) {
-                sceneResult = detail::Sub_512D30(
+                sceneResult = detail::SendVersionUpgradeRequest_512D30(
                     platform::gConnectionSocket, 2, state::kVersion20);
             } else if (pukVersion == 5u || pukVersion == 6u) {
-                sceneResult = detail::Sub_512D30(
+                sceneResult = detail::SendVersionUpgradeRequest_512D30(
                     platform::gConnectionSocket, 4, state::kVersion30);
             } else if (pukVersion == 7u) {
-                sceneResult = detail::Sub_512D30(
+                sceneResult = detail::SendVersionUpgradeRequest_512D30(
                     platform::gConnectionSocket, 5, detail::gVersionPayload9A5C10);
             }
             world::gCurrentSceneState = 0;

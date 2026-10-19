@@ -111,7 +111,7 @@ void KeepAlive_457AB0()
 
     const std::uintptr_t socket = gConnectionSocket;
     gKeepAliveBaselineTick = tick;
-    static_cast<void>(network::Sub_512C60(socket));
+    static_cast<void>(network::SendKeepAliveRequest_512C60(socket));
 }
 
 // 原函数：0x0053B4BF。

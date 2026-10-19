@@ -24,7 +24,7 @@ std::uint32_t StartCharacterDeletionRequest()
     const CharacterRecord* const record = gCharacterRecords.data() + selected;
     const std::int32_t registNumber = record->registNumber;
 
-    network::Sub_512AB0(socket, registNumber);
+    network::SendCharacterDeletionRequest_512AB0(socket, registNumber);
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;

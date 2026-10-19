@@ -67,7 +67,7 @@ namespace cg::network {
 namespace detail {
 
 // 原50E680只取socket后的type/repeats；第三已解析字段不被原本体读取。
-void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::int32_t)
+void HandleServerSoundPlayback_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::int32_t)
 {
     if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(type, repeats)); }
     else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
@@ -578,7 +578,7 @@ std::uint8_t* Sub_517730(
 }
 
 // 原 sub_5082D0/508310：先记录 Winsock 错误，再过滤 would-block。
-std::int32_t Sub_5082D0()
+std::int32_t ReadAndLogReceiveError_5082D0()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
@@ -588,7 +588,7 @@ std::int32_t Sub_5082D0()
 }
 
 // 原函数：0x00508310。
-std::int32_t Sub_508310()
+std::int32_t ReadAndLogSendError_508310()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
@@ -598,7 +598,7 @@ std::int32_t Sub_508310()
 }
 
 // 原 [0x50E6C0,0x50E6D8)：只转发后三个 W32 参数，透传空间音频生产者返回。
-std::int32_t __cdecl Sub_50E6C0(
+std::int32_t __cdecl HandleSpatialSoundSourceReply_50E6C0(
     const std::uintptr_t,
     const std::int32_t index,
     const std::int32_t sourceX,
@@ -608,7 +608,7 @@ std::int32_t __cdecl Sub_50E6C0(
 }
 
 // 原 [0x50CF60,0x50CF6A)：直接发布完整第二参数。
-std::int32_t Sub_50CF60(
+std::int32_t HandleRemainingAttributePointsReply_50CF60(
     const std::uintptr_t,
     const std::int32_t value)
 {
@@ -617,7 +617,7 @@ std::int32_t Sub_50CF60(
 }
 
 // 原 [0x50CF20,0x50CF55)：仅第二参数控制固定提示入队。
-void Sub_50CF20(
+void HandleFailureNoticeReply_50CF20(
     const std::uintptr_t,
     const std::int32_t status,
     const std::int32_t,
@@ -642,7 +642,7 @@ std::uint16_t Sub_50D3B0(
 }
 
 // 原 [0x50E310,0x50E33B)：先读门禁，只有合法范围才依序发布两槽。
-std::int32_t Sub_50E310(
+std::int32_t HandleMapBgmChangeReply_50E310(
     const std::uintptr_t,
     const std::int32_t value)
 {
@@ -658,7 +658,7 @@ std::int32_t Sub_50E310(
 }
 
 // 原 [0x50E630,0x50E64C)：唯一 caller 不消费未定义的早退 EAX。
-void Sub_50E630(
+void HandlePaletteTransitionReply_50E630(
     const std::uintptr_t,
     const std::int32_t index,
     const std::int32_t steps)
@@ -670,7 +670,7 @@ void Sub_50E630(
 }
 
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
-std::int32_t Sub_50D700(
+std::int32_t HandleDuelPointResultReply_50D700(
     const std::uintptr_t,
     const char* const payload)
 {
@@ -788,7 +788,7 @@ void Sub_50DD80(
 }
 
 // 原函数：0x0050E6E0。
-void Sub_50E6E0(const std::uintptr_t, const char* const text)
+void HandleServerAddressChangeReply_50E6E0(const std::uintptr_t, const char* const text)
 {
     char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
     if (previous[0] != '\0') {
@@ -804,7 +804,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
 }
 
 // 原函数：0x0050E780。
-std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)
+std::int32_t HandleVersionUpgradeReply_50E780(const std::uintptr_t, const std::int32_t value)
 {
     const std::int32_t sceneType = world::gCurrentSceneType;
     const auto lowByte = static_cast<std::uint8_t>(value);
@@ -818,19 +818,19 @@ std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)
 }
 
 // 原函数：0x0050E830。
-std::int32_t Sub_50E830(const std::uintptr_t)
+std::int32_t HandleGuildMailResetReply_50E830(const std::uintptr_t)
 {
     const std::uint32_t state = world::gValue9A6E0C;
     if (state != 0) {
         return std::bit_cast<std::int32_t>(state);
     }
-    cg::world::detail::Sub_5194C0();
-    return cg::world::detail::Sub_519550();
+    cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
+    return cg::world::detail::SaveGuildMailFile_519550();
 }
 
 // GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
 // 原函数：0x0050F130。
-std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
+std::int32_t HandleGuildMemberRemovalReply_50F130(const std::uintptr_t, const std::int32_t key)
 {
     const std::uint32_t gate = world::gValue9A6E0C;
     if (gate != 0) {
@@ -845,12 +845,12 @@ std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
     record->value0C = -1;
     cg::world::gOrderedRecordCount1051510 =
         cg::world::CountRecordsValue08EqualOne_50EF50();
-    return world::detail::Sub_5194F0(key);
+    return world::detail::DeleteGuildMailEntry_5194F0(key);
 }
 
 // GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。
 // 原函数：0x0050F190。
-void Sub_50F190(
+void HandleGuildMailReply_50F190(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
@@ -862,29 +862,29 @@ void Sub_50F190(
     const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
+    static_cast<void>(world::detail::PrependGuildMailMessage_519370(key, 0, name, text));
     const char* const recordName =
         (cg::world::gOrderedRecords1051B14.data() + index)->text18;
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
-    static_cast<void>(cg::world::detail::Sub_519550());
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::Sub_44B050(message, 4, 3);
 }
 
 // 原函数：0x00510460。
-void Sub_510460(
+void HandleInventorySlotSwapReply_510460(
     const std::uintptr_t, const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
     if (world::gValue9A6E0C != 0) {
         return;
     }
-    world::Sub_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
+    world::SwapPlayerOrPetItemSlots_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
 }
 
 // IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。
 // 原函数：0x00510490。
-void Sub_510490(const std::uintptr_t, const char* const text)
+void HandleItemDetailReply_510490(const std::uintptr_t, const char* const text)
 {
     auto& record = world::gReplyRecordF7C950;
     if (ExtractDelimitedField_52CED0(text, ',', 1, 31, record.text04.data()) != 0) {
@@ -1112,7 +1112,7 @@ void CopyProtocolBytes_517080(
 }
 
 // 原函数：0x00517040。
-void Sub_517040(
+void ReadProtocolCommandHeader_517040(
     std::uint32_t* const output,
     std::uint8_t* const destination,
     const std::int32_t capacity,
@@ -1488,7 +1488,7 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
 }
 
 // 原函数：0x005171B0。
-std::uint8_t* Sub_5171B0(const char* const text)
+std::uint8_t* DecodeOptionalProtocolText_5171B0(const char* const text)
 {
     if (text != nullptr) {
         return UnescapeProtocolText_5172D0(text);
@@ -1540,7 +1540,7 @@ std::int32_t SendProtocolBuffer_517480(
 }
 
 // 原函数：0x00512C10。
-std::int32_t Sub_512C10(
+std::int32_t SendConnectionProbe_512C10(
     const std::uintptr_t socket,
     const std::wstring_view text)
 {
@@ -1559,7 +1559,7 @@ std::int32_t Sub_512C10(
 }
 
 // 原 [0x512B90,0x512BCC)：列表请求的三次共享缓冲读取保持独立。
-std::int32_t Sub_512B90(const std::uintptr_t socket)
+std::int32_t SendCharacterListRequest_512B90(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "Gp"));
@@ -1575,7 +1575,7 @@ std::int32_t Sub_512B90(const std::uintptr_t socket)
 }
 
 // 原 [0x512BD0,0x512C0C)：登出请求的三次共享缓冲读取保持独立。
-std::int32_t Sub_512BD0(const std::uintptr_t socket)
+std::int32_t SendLogoutRequest_512BD0(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "WA"));
@@ -1591,7 +1591,7 @@ std::int32_t Sub_512BD0(const std::uintptr_t socket)
 }
 
 // 原 [0x512C60,0x512C9C)：保活命令后追加 593850 当前文本并发送。
-std::int32_t Sub_512C60(const std::uintptr_t socket)
+std::int32_t SendKeepAliveRequest_512C60(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "DE"));
@@ -1607,7 +1607,7 @@ std::int32_t Sub_512C60(const std::uintptr_t socket)
 }
 
 // 原 [0x511CD0,0x511D0C)：as 请求，追加共享原字节文本。
-std::int32_t Sub_511CD0(const std::uintptr_t socket)
+std::int32_t RequestItemTargetAttributes_511CD0(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "as"));
@@ -1623,7 +1623,7 @@ std::int32_t Sub_511CD0(const std::uintptr_t socket)
 }
 
 // 原 [0x511FB0,0x511FEC)：ixH 请求，追加共享原字节文本。
-std::int32_t Sub_511FB0(const std::uintptr_t socket)
+std::int32_t SendTradeRequest_511FB0(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "ixH"));
@@ -1639,7 +1639,7 @@ std::int32_t Sub_511FB0(const std::uintptr_t socket)
 }
 
 // 原 [0x512230,0x51226C)：suI 请求，追加共享原字节文本。
-std::int32_t Sub_512230(const std::uintptr_t socket)
+std::int32_t WithdrawTradeConfirmation_512230(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "suI"));
@@ -1655,7 +1655,7 @@ std::int32_t Sub_512230(const std::uintptr_t socket)
 }
 
 // 原 [0x512570,0x5125AC)：ih 请求，追加共享原字节文本。
-std::int32_t Sub_512570(const std::uintptr_t socket)
+std::int32_t ToggleBattleRowRequest_512570(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "ih"));
@@ -1671,7 +1671,7 @@ std::int32_t Sub_512570(const std::uintptr_t socket)
 }
 
 // 原 [0x512CF0,0x512D2C)：lO 请求，追加共享原字节文本。
-std::int32_t Sub_512CF0(const std::uintptr_t socket)
+std::int32_t RequestLogoutToTown_512CF0(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "lO"));
@@ -1687,7 +1687,7 @@ std::int32_t Sub_512CF0(const std::uintptr_t socket)
 }
 
 // 原 [0x512DF0,0x512E38)：容量仅在命令构造之后、整数格式化之前采样。
-std::int32_t Sub_512DF0(
+std::int32_t SendLoginTimestamp_512DF0(
     const std::uintptr_t socket,
     const std::uint32_t tickBits)
 {
@@ -1707,7 +1707,7 @@ std::int32_t Sub_512DF0(
 }
 
 // 原 [0x512D30,0x512D9B)：两项分别采样容量，格式化后重读输出缓冲。
-std::int32_t Sub_512D30(
+std::int32_t SendVersionUpgradeRequest_512D30(
     const std::uintptr_t socket,
     const std::int32_t version,
     const std::wstring_view payload)
@@ -1737,7 +1737,7 @@ std::int32_t Sub_512D30(
 }
 
 // 原 [0x512DA0,0x512DE8)：命令构造后采一次容量，再格式化和追加整数。
-std::int32_t Sub_512DA0(
+std::int32_t SendCraftDuration_512DA0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -1806,7 +1806,7 @@ std::int32_t Sub_510570(
 }
 
 // 原 [0x512B00,0x512B8E)：每项均先读容量，格式化后重新读取输出缓冲。
-std::int32_t Sub_512B00(
+std::int32_t SendCharacterLoginRequest_512B00(
     const std::uintptr_t socket,
     const std::int32_t field4C,
     const std::int32_t field50,
@@ -1845,7 +1845,7 @@ std::int32_t Sub_512B00(
 }
 
 // 原 [0x512AB0,0x512AF8)：一次容量采样，输出缓冲在各调用点重新读取。
-std::int32_t Sub_512AB0(
+std::int32_t SendCharacterDeletionRequest_512AB0(
     const std::uintptr_t socket,
     const std::int32_t registNumber)
 {
@@ -2093,7 +2093,7 @@ std::int32_t Sub_510710(
 }
 
 // 原函数：0x00510AC0。
-std::int32_t Sub_510AC0(
+std::int32_t SendItemUseRequest_510AC0(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t item, const std::int32_t target)
 {
@@ -2170,7 +2170,7 @@ std::int32_t Sub_510B80(
 }
 
 // 原 [0x510810,0x51087B)：两轮各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_510810(
+std::int32_t SendPlayerCoordinates_510810(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -4070,7 +4070,7 @@ static Value DecodeDispatchArgument(
     if constexpr (std::is_same_v<Value, std::int32_t>) {
         return ParseProtocolInteger_517190(gNetworkRuntimeState.pointerTable58B614[index]);
     } else {
-        std::uint8_t* const decoded = Sub_5171B0(gNetworkRuntimeState.pointerTable58B614[index]);
+        std::uint8_t* const decoded = DecodeOptionalProtocolText_5171B0(gNetworkRuntimeState.pointerTable58B614[index]);
         std::int32_t capacity;
         std::uint8_t** workspace;
         // 原85字段分两种基址/容量读取顺序；槽解引用均在两次读取后。
@@ -4168,7 +4168,7 @@ std::int32_t NetworkDispatch_512E40(
     receivedArguments.push_back(nullptr);
     std::uint32_t headerValue;
     char head[1024];
-    Sub_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
+    ReadProtocolCommandHeader_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
         gNetworkRuntimeState.pointerTable58B614);
     // 服务端明文头直接是原命令（如whV），不再执行原密文命令逆变换。
     for (auto& [header, handler] : gNetworkRuntimeState.receiveHandlers) {
@@ -4198,7 +4198,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
     if (TryDispatchReply<world::Sub_50D120, I, I>(head, "dAgg", socket)) return 0;
     if (TryDispatchReply<world::Sub_50D500, T>(head, "Gn", socket)) return 0;
-    if (TryDispatchReply<Sub_50D700, T>(head, "hB", socket)) return 0;
+    if (TryDispatchReply<HandleDuelPointResultReply_50D700, T>(head, "hB", socket)) return 0;
     if (TryDispatchReply<world::Sub_50D3C0, T>(head, "LYIm", socket)) return 0;
     if (TryDispatchReply<world::Sub_50BFD0, T>(head, "ELoy", socket)) return 0;
     if (TryDispatchReply<world::Sub_50C260, T>(head, "rU", socket)) return 0;
@@ -4215,13 +4215,13 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50D740, T>(head, "gnxd", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D9E0, I, T>(head, "vI", socket, 0x4U)) return 0;
-    if (TryDispatchReply<Sub_50E830>(head, "GC", socket)) return 0;
+    if (TryDispatchReply<HandleGuildMailResetReply_50E830>(head, "GC", socket)) return 0;
     if (TryDispatchReply<cg::world::Sub_50E850, T>(head, "aDn", socket)) return 0;
     if (TryDispatchReply<cg::world::Sub_50EB40, T>(head, "znv", socket)) return 0;
     if (TryDispatchReply<cg::world::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
     if (TryDispatchReply<cg::world::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket, 0x4U)) return 0;
-    if (TryDispatchReply<Sub_50F130, I>(head, "oRut", socket)) return 0;
-    if (TryDispatchReply<Sub_50F190, I, T, I>(head, "Rll", socket, 0x4U)) return 0;
+    if (TryDispatchReply<HandleGuildMemberRemovalReply_50F130, I>(head, "oRut", socket)) return 0;
+    if (TryDispatchReply<HandleGuildMailReply_50F190, I, T, I>(head, "Rll", socket, 0x4U)) return 0;
     if (TryDispatchReply<cg::world::Sub_50F280, I>(head, "frQp", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F3A0, T>(head, "HNP", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F2A0, T>(head, "eZT", socket)) return 0;
@@ -4265,18 +4265,18 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::WindowTrade_ReceivePetSkillReply, I, T>(head, "Yq", socket, 0x4U)) return 0;
     if (TryDispatchReply<ui::WindowTrade_ReceiveRemoteResetReply>(head, "xEg", socket)) return 0;
     if (TryDispatchReply<ui::WindowTrade_ReceiveCloseReply, I>(head, "We", socket)) return 0;
-    if (TryDispatchReply<Sub_50CF20, I, I, I, I>(head, "BHe", socket)) return 0;
-    if (TryDispatchReply<Sub_50CF60, I>(head, "kg", socket)) return 0;
+    if (TryDispatchReply<HandleFailureNoticeReply_50CF20, I, I, I, I>(head, "BHe", socket)) return 0;
+    if (TryDispatchReply<HandleRemainingAttributePointsReply_50CF60, I>(head, "kg", socket)) return 0;
     if (TryDispatchReply<world::Sub_50CF70, I, I>(head, "sA", socket)) return 0;
     if (TryDispatchReply<world::Sub_50BFC0, I>(head, "Ov", socket)) return 0;
     if (TryDispatchReply<ui::WindowDialog_ReceiveReply, I, I, I, I, T>(head, "BZ", socket, 0x20U)) return 0;
     if (TryDispatchReply<world::Sub_50E1A0, I, I, T>(head, "zzd", socket, 0x8U)) return 0;
     if (TryDispatchReply<world::Sub_50E210, I>(head, "TFCu", socket)) return 0;
-    if (TryDispatchReply<Sub_50E310, I>(head, "wiB", socket)) return 0;
-    if (TryDispatchReply<Sub_50E630, I, I>(head, "bJg", socket)) return 0;
+    if (TryDispatchReply<HandleMapBgmChangeReply_50E310, I>(head, "wiB", socket)) return 0;
+    if (TryDispatchReply<HandlePaletteTransitionReply_50E630, I, I>(head, "bJg", socket)) return 0;
     if (TryDispatchReply<world::Sub_50E650, I, I, I, I, I>(head, "PVfz", socket)) return 0;
-    if (TryDispatchReply<Sub_50E680, I, I, I>(head, "murD", socket)) return 0;
-    if (TryDispatchReply<Sub_50E6C0, I, I, I>(head, "ftaN", socket)) return 0;
+    if (TryDispatchReply<HandleServerSoundPlayback_50E680, I, I, I>(head, "murD", socket)) return 0;
+    if (TryDispatchReply<HandleSpatialSoundSourceReply_50E6C0, I, I, I>(head, "ftaN", socket)) return 0;
     if (TryDispatchReply<world::Sub_509550, T>(head, "TeD", socket)) return 0;
     if (TryDispatchReply<world::Sub_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM", socket)) return 0;
     if (TryDispatchReply<HandleResponse_508800, I, T>(head, "whV", socket, 0x4U)) return 0;
@@ -4288,9 +4288,9 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh", socket)) return 0;
-    if (TryDispatchReply<Sub_50E6E0, T>(head, "lSZ", socket)) return 0;
+    if (TryDispatchReply<HandleServerAddressChangeReply_50E6E0, T>(head, "lSZ", socket)) return 0;
     if (TryDispatchReply<character_select::detail::Sub_50E770, I>(head, "PfM", socket)) return 0;
-    if (TryDispatchReply<Sub_50E780, I>(head, "ed", socket)) return 0;
+    if (TryDispatchReply<HandleVersionUpgradeReply_50E780, I>(head, "ed", socket)) return 0;
     // COR10：追踪器已移除，旧tq配置仍按两个整数解码后忽略。
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "tq", socket)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceiveOpenReply, I>(head, "Tmrx", socket)) return 0;
@@ -4298,8 +4298,8 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::WindowStall_ReceiveBrowseReply, I, I, T, T, T, T>(head, "ft", socket, 0x68U)) return 0;
     if (TryDispatchReply<ui::WindowStall_ReceivePurchaseReply, I>(head, "Yx", socket)) return 0;
     static_cast<void>(TryDispatchReply<world::Sub_510150, I, T>(head, "iKe", socket, 0x4U));
-    static_cast<void>(TryDispatchReply<Sub_510460, I, I, I, I>(head, "kiG", socket));
-    static_cast<void>(TryDispatchReply<Sub_510490, T>(head, "TgX", socket));
+    static_cast<void>(TryDispatchReply<HandleInventorySlotSwapReply_510460, I, I, I, I>(head, "kiG", socket));
+    static_cast<void>(TryDispatchReply<HandleItemDetailReply_510490, T>(head, "TgX", socket));
     return -1;
 }
 
@@ -4457,7 +4457,7 @@ std::uint8_t NetworkLoop_507DF0()
             static_cast<void>(login::detail::AppendSystemLog_44B5C0("NETWORK PEER CLOSED"));
         }
         else if (receivedLength == -1) {
-            const std::int32_t error = detail::Sub_5082D0();
+            const std::int32_t error = detail::ReadAndLogReceiveError_5082D0();
             if (error > 0) {
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
@@ -4513,7 +4513,7 @@ std::uint8_t NetworkLoop_507DF0()
             gNetworkRuntimeState.lastTickD9F2C4 = platform::ReadTickCount64();
         }
         if (sent == -1) {
-            const std::int32_t error = detail::Sub_508310();
+            const std::int32_t error = detail::ReadAndLogSendError_508310();
             if (error > 0) {
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
@@ -4537,7 +4537,7 @@ std::uint8_t NetworkLoop_507DF0()
     if (gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
         && gNetworkRuntimeState.active == 1) {
         return static_cast<std::uint8_t>(
-            Sub_512C10(platform::gConnectionSocket, L"nr"));
+            SendConnectionProbe_512C10(platform::gConnectionSocket, L"nr"));
     }
     return static_cast<std::uint8_t>(now);
 }

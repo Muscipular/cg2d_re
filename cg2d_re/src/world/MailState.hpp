@@ -233,20 +233,20 @@ std::int32_t Sub_518CB0();
 // 原 [519300,51936C) 与 [519550,5195BC)：各自重取保存路径，写唯一共享缓冲。
 std::int32_t Sub_519300();
 // 原函数：0x00519550。
-std::int32_t Sub_519550(); // GMR01：完整两角色共享区/当前MSVC FILE，写弃返后透传关闭S32结果。
+std::int32_t SaveGuildMailFile_519550(); // GMR01：完整两角色共享区/当前MSVC FILE，写弃返后透传关闭S32结果。
 
 // 原 519290/5194C0：按同一 S16 所选角色清第一/第二邮件组，不保存文件，返回 0。
 std::int32_t Sub_519290();
 // 原函数：0x005194C0。
-std::int32_t Sub_5194C0();
+std::int32_t ClearCurrentCharacterGuildMail_5194C0();
 // 原 5192C0：清所选角色的一个普通邮件编号，不检查编号范围，返回 0。
 std::int32_t Sub_5192C0(std::int32_t number);
 // GML01：原5195F0，200槽active W32==1/key最后匹配，selected只取一次，无则-1。
-std::int32_t Sub_5195F0(std::int32_t key);
+std::int32_t FindLastActiveGuildMailEntry_5195F0(std::int32_t key);
 // GML01：原5194F0，末匹配后fresh角色/active-key零写及整槽清零，返-1或0。
-std::int32_t Sub_5194F0(std::int32_t key);
+std::int32_t DeleteGuildMailEntry_5194F0(std::int32_t key);
 // GML01：原519370，查找后分支fresh角色；W32哨兵/含NUL长度或原生满组地址+4。
-std::uintptr_t Sub_519370(
+std::uintptr_t PrependGuildMailMessage_519370(
     std::int32_t key, std::int32_t kind, const char* name, const char* text);
 
 // 原 50EC50 的 50EE4A–50EEA1 公共尾：全 key 比较，不检查活动位、不保存文件。

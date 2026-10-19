@@ -4993,7 +4993,7 @@ std::int32_t __cdecl Sub_46AC90()
     gValueB65A7C = 0;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    return network::Sub_510810(platform::gConnectionSocket, x, y);
+    return network::SendPlayerCoordinates_510810(platform::gConnectionSocket, x, y);
 }
 
 // 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
@@ -9542,7 +9542,7 @@ void Sub_50C900(
 }
 
 // 原函数：0x0051B630。
-void Sub_51B630(
+void SwapPlayerOrPetItemSlots_51B630(
     const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
@@ -11011,7 +11011,7 @@ void Sub_4704A0()
         && (gValueC821D8 == 0)) {
         const std::uint64_t now = platform::ReadTickCount64();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-            static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
+            static_cast<void>(network::SendTradeRequest_511FB0(platform::gConnectionSocket));
             ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
         }
     }

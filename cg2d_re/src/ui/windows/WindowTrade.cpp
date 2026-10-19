@@ -2674,7 +2674,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {
-        static_cast<void>(network::Sub_512230(platform::gConnectionSocket));
+        static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
         const std::int32_t previous = gTradeValueCC4224;
         gTradeValueD2E2B0 = 0;
         if (previous == 2) {
@@ -2714,7 +2714,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
                     gTradeValueD67CB8 = 1;
                     gTradeValueD67CBC = 1;
                 } else {
-                    static_cast<void>(network::Sub_512230(platform::gConnectionSocket));
+                    static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
                     const std::int32_t previous = gTradeValueCC4224;
                     gTradeValueD2E2B0 = 0;
                     if (previous == 2) {

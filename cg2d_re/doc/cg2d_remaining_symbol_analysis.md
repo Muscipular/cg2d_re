@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：34／636。已重命名：30。保留／未决：4。待分析：602。
+已分析：75／636。已重命名：70。保留／未决：5。待分析：561。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -337,8 +337,8 @@
 | `Sub_5050B0` | src/world/SceneState.cpp:9243 | 待分析 | — |
 | `Sub_505110` | src/world/SceneState.cpp:9259 | 待分析 | — |
 | `Sub_507140` | src/platform/MouseDispatch.cpp:195 | 已重命名：`UpdateQueuedTextAndGraphicHover_507140` | 逐项命中文本、倒序命中排序图形，提交高亮、写悬停索引/光标层并描述Yobi。 |
-| `Sub_5082D0` | src/network/NetworkRuntime.cpp:581 | 待分析 | — |
-| `Sub_508310` | src/network/NetworkRuntime.cpp:591 | 待分析 | — |
+| `Sub_5082D0` | src/network/NetworkRuntime.cpp:581 | 已重命名：`ReadAndLogReceiveError_5082D0` | 读WSAGetLastError，记录RECV ERROR，再把WOULDBLOCK映为0。 |
+| `Sub_508310` | src/network/NetworkRuntime.cpp:591 | 已重命名：`ReadAndLogSendError_508310` | 读WSAGetLastError，记录原SNED ERROR拼写，再把WOULDBLOCK映为0。 |
 | `Sub_508360` | src/scene/login/LoginState.cpp:77 | 已重命名：`AdvanceServerLoginConnection_508360` | 0建非阻塞TCP/解析地址，1—70轮询连接，71发登录，等待协议回复，99成功，保600秒超时。 |
 | `Sub_508C40` | src/scene/login/LoginRequest.cpp:163 | 已重命名：`BeginLogoutRequest_508C40` | 清登出回复，调用512BD0，状态置1并记录起始tick。 |
 | `Sub_508C90` | src/scene/login/LoginRequest.cpp:175 | 已重命名：`PollLogoutReply_508C90` | 读取DA3B2E回复码及状态2，或按请求时间判断超时，写处理登出逾时消息。 |
@@ -374,17 +374,17 @@
 | `Sub_50C940` | src/world/SceneState.cpp:8864 | 待分析 | — |
 | `Sub_50CAE0` | src/world/SceneState.cpp:8916 | 待分析 | — |
 | `Sub_50CE10` | src/world/SceneState.cpp:8782 | 待分析 | — |
-| `Sub_50CF20` | src/network/NetworkRuntime.cpp:620 | 待分析 | — |
-| `Sub_50CF60` | src/network/NetworkRuntime.cpp:611 | 待分析 | — |
+| `Sub_50CF20` | src/network/NetworkRuntime.cpp:620 | 已重命名：`HandleFailureNoticeReply_50CF20` | BHe回复仅status==0时显示失败了，其余三字段未读；名称只表达已证提示行为，不猜具体动作。 |
+| `Sub_50CF60` | src/network/NetworkRuntime.cpp:611 | 已重命名：`HandleRemainingAttributePointsReply_50CF60` | kg回复写D2F788；WindowPlayerAttributes加点按钮和状态栏读取剩余点数。 |
 | `Sub_50CF70` | src/world/SceneState.cpp:8754 | 待分析 | — |
 | `Sub_50CF90` | src/world/SceneState.cpp:10281 | 待分析 | — |
 | `Sub_50D000` | src/world/SceneState.cpp:9021 | 待分析 | — |
 | `Sub_50D080` | src/world/SceneState.cpp:10073 | 待分析 | — |
 | `Sub_50D120` | src/world/SceneState.cpp:10089 | 待分析 | — |
-| `Sub_50D3B0` | src/network/NetworkRuntime.cpp:635 | 待分析 | — |
+| `Sub_50D3B0` | src/network/NetworkRuntime.cpp:635 | 已分析，保留原名 | sZWu回复仅写低W16到FF0D34；当前源码只在角色数据重置时清零。IDA xrefs也只有50D3B5写及519CBD清零，未见业务消费者，保留原名。 |
 | `Sub_50D3C0` | src/world/SceneState.cpp:10167 | 待分析 | — |
 | `Sub_50D500` | src/world/SceneState.cpp:10226 | 待分析 | — |
-| `Sub_50D700` | src/network/NetworkRuntime.cpp:673 | 待分析 | — |
+| `Sub_50D700` | src/network/NetworkRuntime.cpp:673 | 已重命名：`HandleDuelPointResultReply_50D700` | hB文本两个base62字段写FF0D04/08，结果类型置2；WindowBattleResult明确显示DP变化及总数。 |
 | `Sub_50D740` | src/world/MailState.cpp:295 | 待分析 | — |
 | `Sub_50D8C0` | src/world/MailState.cpp:334 | 待分析 | — |
 | `Sub_50D9E0` | src/world/MailState.cpp:362 | 待分析 | — |
@@ -392,21 +392,21 @@
 | `Sub_50DD80` | src/network/NetworkRuntime.cpp:693 | 待分析 | — |
 | `Sub_50E1A0` | src/world/SceneState.cpp:8805 | 待分析 | — |
 | `Sub_50E210` | src/world/SceneState.cpp:8839 | 待分析 | — |
-| `Sub_50E310` | src/network/NetworkRuntime.cpp:645 | 待分析 | — |
+| `Sub_50E310` | src/network/NetworkRuntime.cpp:645 | 已重命名：`HandleMapBgmChangeReply_50E310` | 门禁为0且值200—249时写FF0D5C并置FF0D58；地图场景消费后SelectBgmTarget并清标志。 |
 | `Sub_50E5B0` | src/world/SceneState.cpp:8258 | 待分析 | — |
 | `Sub_50E5D0` | src/world/SceneState.cpp:8265 | 待分析 | — |
-| `Sub_50E630` | src/network/NetworkRuntime.cpp:661 | 待分析 | — |
+| `Sub_50E630` | src/network/NetworkRuntime.cpp:661 | 已重命名：`HandlePaletteTransitionReply_50E630` | 非场景10时把index/steps交SelectPalette，保场景门禁。 |
 | `Sub_50E650` | src/world/SceneState.cpp:8830 | 待分析 | — |
-| `Sub_50E680` | src/network/NetworkRuntime.cpp:70 | 待分析 | — |
-| `Sub_50E6C0` | src/network/NetworkRuntime.cpp:601 | 待分析 | — |
-| `Sub_50E6E0` | src/network/NetworkRuntime.cpp:791 | 待分析 | — |
+| `Sub_50E680` | src/network/NetworkRuntime.cpp:70 | 已重命名：`HandleServerSoundPlayback_50E680` | 收包type<1000播音效，否则type-1000播固定音乐；第二字段分别作声像/重复数，末字段未读。 |
+| `Sub_50E6C0` | src/network/NetworkRuntime.cpp:601 | 已重命名：`HandleSpatialSoundSourceReply_50E6C0` | 转发index/sourceX/sourceY到最近空间音源发布函数，socket不读。 |
+| `Sub_50E6E0` | src/network/NetworkRuntime.cpp:791 | 已重命名：`HandleServerAddressChangeReply_50E6E0` | 比较已存IP文本，变化时显示IP变更/可能重连提示并保存新地址。 |
 | `Sub_50E770` | src/scene/character_select/CharacterSelectScene.cpp:202 | 待分析 | — |
-| `Sub_50E780` | src/network/NetworkRuntime.cpp:807 | 待分析 | — |
-| `Sub_50E830` | src/network/NetworkRuntime.cpp:821 | 待分析 | — |
+| `Sub_50E780` | src/network/NetworkRuntime.cpp:807 | 已重命名：`HandleVersionUpgradeReply_50E780` | ed回复存低字节，场景13按非零/零转200/100；WorldUpdate场景13调两个版本升级入口。 |
+| `Sub_50E830` | src/network/NetworkRuntime.cpp:821 | 已重命名：`HandleGuildMailResetReply_50E830` | GC回复过门禁后清当前角色公会邮件，再写guildmail.dat。 |
 | `Sub_50E850` | src/world/GuildState.cpp:133 | 待分析 | — |
 | `Sub_50EB40` | src/world/GuildState.cpp:203 | 待分析 | — |
-| `Sub_50F130` | src/network/NetworkRuntime.cpp:833 | 待分析 | — |
-| `Sub_50F190` | src/network/NetworkRuntime.cpp:853 | 待分析 | — |
+| `Sub_50F130` | src/network/NetworkRuntime.cpp:833 | 已重命名：`HandleGuildMemberRemovalReply_50F130` | 按key查活动公会记录，清其身份/名字并重计活动数，再删除同key公会邮件。 |
+| `Sub_50F190` | src/network/NetworkRuntime.cpp:853 | 已重命名：`HandleGuildMailReply_50F190` | 解析发送名/正文/类型并反转义，写公会邮件、保存guildmail.dat，播63及家族来信提示。 |
 | `Sub_50F280` | src/world/GuildState.cpp:237 | 待分析 | — |
 | `Sub_50F2A0` | src/world/MailState.cpp:1003 | 待分析 | — |
 | `Sub_50F3A0` | src/world/MailState.cpp:1035 | 待分析 | — |
@@ -416,17 +416,17 @@
 | `Sub_50F8E0` | src/world/MailState.cpp:1055 | 待分析 | — |
 | `Sub_50F9E0` | src/world/MailState.cpp:778 | 待分析 | — |
 | `Sub_510150` | src/world/SceneState.cpp:9620 | 待分析 | — |
-| `Sub_510460` | src/network/NetworkRuntime.cpp:875 | 待分析 | — |
-| `Sub_510490` | src/network/NetworkRuntime.cpp:887 | 待分析 | — |
+| `Sub_510460` | src/network/NetworkRuntime.cpp:875 | 已重命名：`HandleInventorySlotSwapReply_510460` | kiG四字段过门禁后调用51B630，交换玩家28槽或宠物6槽物品。 |
+| `Sub_510490` | src/network/NetworkRuntime.cpp:887 | 已重命名：`HandleItemDetailReply_510490` | TgX回复解两文本/一个标量/24属性至F7C950；物品提示窗按属性表及能减少使用文字展示。 |
 | `Sub_510570` | src/network/NetworkRuntime.cpp:1761 | 待分析 | — |
 | `Sub_510630` | src/network/NetworkRuntime.cpp:1973 | 待分析 | — |
 | `Sub_510710` | src/network/NetworkRuntime.cpp:2030 | 待分析 | — |
-| `Sub_510810` | src/network/NetworkRuntime.cpp:2173 | 待分析 | — |
+| `Sub_510810` | src/network/NetworkRuntime.cpp:2173 | 已重命名：`SendPlayerCoordinates_510810` | KeOX发两整数；46AC90读取当前玩家X/Y调用。只命名已证坐标发送，不推断服务端动作。 |
 | `Sub_510880` | src/network/NetworkRuntime.cpp:2343 | 待分析 | — |
 | `Sub_5108F0` | src/network/NetworkRuntime.cpp:4010 | 待分析 | — |
 | `Sub_510940` | src/network/NetworkRuntime.cpp:2373 | 待分析 | — |
 | `Sub_510A00` | src/network/NetworkRuntime.cpp:3813 | 待分析 | — |
-| `Sub_510AC0` | src/network/NetworkRuntime.cpp:2096 | 待分析 | — |
+| `Sub_510AC0` | src/network/NetworkRuntime.cpp:2096 | 已重命名：`SendItemUseRequest_510AC0` | iVfo按x/y/item/target四整数发送；物品属性目标确认消费。 |
 | `Sub_510B80` | src/network/NetworkRuntime.cpp:2117 | 待分析 | — |
 | `Sub_510CE0` | src/network/NetworkRuntime.cpp:3773 | 待分析 | — |
 | `Sub_510DA0` | src/network/NetworkRuntime.cpp:3925 | 待分析 | — |
@@ -458,20 +458,20 @@
 | `Sub_511BC0` | src/network/NetworkRuntime.cpp:3033 | 待分析 | — |
 | `Sub_511C30` | src/network/NetworkRuntime.cpp:3063 | 待分析 | — |
 | `Sub_511C80` | src/network/NetworkRuntime.cpp:3084 | 待分析 | — |
-| `Sub_511CD0` | src/network/NetworkRuntime.cpp:1610 | 待分析 | — |
+| `Sub_511CD0` | src/network/NetworkRuntime.cpp:1610 | 已重命名：`RequestItemTargetAttributes_511CD0` | as空参数命令，WindowItemUse_SelectAttributeTarget的索引-3分支请求目标属性。 |
 | `Sub_511D10` | src/network/NetworkRuntime.cpp:3105 | 待分析 | — |
 | `Sub_511D60` | src/network/NetworkRuntime.cpp:3126 | 待分析 | — |
 | `Sub_511DD0` | src/network/NetworkRuntime.cpp:3156 | 待分析 | — |
 | `Sub_511E60` | src/network/NetworkRuntime.cpp:3195 | 待分析 | — |
 | `Sub_511EF0` | src/network/NetworkRuntime.cpp:3234 | 待分析 | — |
-| `Sub_511FB0` | src/network/NetworkRuntime.cpp:1626 | 待分析 | — |
+| `Sub_511FB0` | src/network/NetworkRuntime.cpp:1626 | 已重命名：`SendTradeRequest_511FB0` | ixH空参数命令；世界交互先查前方交易对象，成功并过500毫秒门禁后发送。 |
 | `Sub_511FF0` | src/network/NetworkRuntime.cpp:3282 | 待分析 | — |
 | `Sub_512040` | src/network/NetworkRuntime.cpp:3298 | 待分析 | — |
 | `Sub_5120D0` | src/network/NetworkRuntime.cpp:3337 | 待分析 | — |
 | `Sub_512160` | src/network/NetworkRuntime.cpp:3376 | 待分析 | — |
 | `Sub_512190` | src/network/NetworkRuntime.cpp:3386 | 待分析 | — |
 | `Sub_5121E0` | src/network/NetworkRuntime.cpp:3407 | 待分析 | — |
-| `Sub_512230` | src/network/NetworkRuntime.cpp:1642 | 待分析 | — |
+| `Sub_512230` | src/network/NetworkRuntime.cpp:1642 | 已重命名：`WithdrawTradeConfirmation_512230` | suI空参数命令，交易算了按钮和已确认状态的撤回分支共用。 |
 | `Sub_512270` | src/network/NetworkRuntime.cpp:3443 | 待分析 | — |
 | `Sub_5122C0` | src/network/NetworkRuntime.cpp:3464 | 待分析 | — |
 | `Sub_512310` | src/network/NetworkRuntime.cpp:3485 | 待分析 | — |
@@ -480,26 +480,26 @@
 | `Sub_512400` | src/network/NetworkRuntime.cpp:3548 | 待分析 | — |
 | `Sub_512470` | src/network/NetworkRuntime.cpp:3578 | 待分析 | — |
 | `Sub_5124E0` | src/network/NetworkRuntime.cpp:3636 | 待分析 | — |
-| `Sub_512570` | src/network/NetworkRuntime.cpp:1658 | 待分析 | — |
+| `Sub_512570` | src/network/NetworkRuntime.cpp:1658 | 已重命名：`ToggleBattleRowRequest_512570` | ih空参数命令，玩家简介前排/后排按钮按当前value1A0发切换请求。 |
 | `Sub_5125B0` | src/network/NetworkRuntime.cpp:3675 | 待分析 | — |
 | `Sub_512620` | src/network/NetworkRuntime.cpp:3706 | 待分析 | — |
 | `Sub_512720` | src/network/NetworkRuntime.cpp:4026 | 待分析 | — |
 | `Sub_5127B0` | src/network/NetworkRuntime.cpp:3428 | 待分析 | — |
 | `Sub_512800` | src/network/NetworkRuntime.cpp:1867 | 待分析 | — |
 | `Sub_5128C0` | src/network/NetworkRuntime.cpp:1918 | 待分析 | — |
-| `Sub_512AB0` | src/network/NetworkRuntime.cpp:1848 | 待分析 | — |
-| `Sub_512B00` | src/network/NetworkRuntime.cpp:1809 | 待分析 | — |
-| `Sub_512B90` | src/network/NetworkRuntime.cpp:1562 | 待分析 | — |
-| `Sub_512BD0` | src/network/NetworkRuntime.cpp:1578 | 待分析 | — |
-| `Sub_512C10` | src/network/NetworkRuntime.cpp:1543 | 待分析 | — |
-| `Sub_512C60` | src/network/NetworkRuntime.cpp:1594 | 待分析 | — |
-| `Sub_512CF0` | src/network/NetworkRuntime.cpp:1674 | 待分析 | — |
-| `Sub_512D30` | src/network/NetworkRuntime.cpp:1710 | 待分析 | — |
-| `Sub_512DA0` | src/network/NetworkRuntime.cpp:1740 | 待分析 | — |
-| `Sub_512DF0` | src/network/NetworkRuntime.cpp:1690 | 待分析 | — |
+| `Sub_512AB0` | src/network/NetworkRuntime.cpp:1848 | 已重命名：`SendCharacterDeletionRequest_512AB0` | Godf发送注册号；CharacterDeletionRequest调用。 |
+| `Sub_512B00` | src/network/NetworkRuntime.cpp:1809 | 已重命名：`SendCharacterLoginRequest_512B00` | emRV发送注册号/预览状态/图号；StartLoginRequest从选中CharacterRecord取值。 |
+| `Sub_512B90` | src/network/NetworkRuntime.cpp:1562 | 已重命名：`SendCharacterListRequest_512B90` | Gp空参数命令，CharacterListRequest清两槽后发送。 |
+| `Sub_512BD0` | src/network/NetworkRuntime.cpp:1578 | 已重命名：`SendLogoutRequest_512BD0` | WA空参数命令，由BeginLogoutRequest发送并等待HMNy。 |
+| `Sub_512C10` | src/network/NetworkRuntime.cpp:1543 | 已重命名：`SendConnectionProbe_512C10` | Or命令加一个文本；NetworkLoop空闲30秒且active时发送nr探测。 |
+| `Sub_512C60` | src/network/NetworkRuntime.cpp:1594 | 已重命名：`SendKeepAliveRequest_512C60` | DE空参数命令，平台KeepAlive_457AB0消费。 |
+| `Sub_512CF0` | src/network/NetworkRuntime.cpp:1674 | 已重命名：`RequestLogoutToTown_512CF0` | lO空参数命令，设置窗口明确提示登出并回到城内登入点。 |
+| `Sub_512D30` | src/network/NetworkRuntime.cpp:1710 | 已重命名：`SendVersionUpgradeRequest_512D30` | Xoee发送版本整数及正文；两套版本升级场景和选人升级路径消费。 |
+| `Sub_512DA0` | src/network/NetworkRuntime.cpp:1740 | 已重命名：`SendCraftDuration_512DA0` | IPy发送一整数，WindowCraft_FinishWait在重生/水晶倍率后传duration/1000。 |
+| `Sub_512DF0` | src/network/NetworkRuntime.cpp:1690 | 已重命名：`SendLoginTimestamp_512DF0` | CCL加tick低W32；角色登录成功回复后采当前时间发送。 |
 | `Sub_516C90` | src/network/NetworkRuntime.cpp:3853 | 待分析 | — |
-| `Sub_517040` | src/network/NetworkRuntime.cpp:1115 | 待分析 | — |
-| `Sub_5171B0` | src/network/NetworkRuntime.cpp:1491 | 待分析 | — |
+| `Sub_517040` | src/network/NetworkRuntime.cpp:1115 | 已重命名：`ReadProtocolCommandHeader_517040` | 取协议参数首字符串，空值按空串，容量内复制到head；输出辅助W32置0。 |
+| `Sub_5171B0` | src/network/NetworkRuntime.cpp:1491 | 已重命名：`DecodeOptionalProtocolText_5171B0` | 非空调协议文本反转义，空值写空串并返回共用token缓冲。 |
 | `Sub_5176B0` | src/network/NetworkRuntime.cpp:470 | 待分析 | — |
 | `Sub_517730` | src/network/NetworkRuntime.cpp:514 | 待分析 | — |
 | `Sub_517880` | src/Yobi/animation.cpp:283 | 待分析 | — |
@@ -527,11 +527,11 @@
 | `Sub_519290` | src/world/MailState.cpp:1421 | 待分析 | — |
 | `Sub_5192C0` | src/world/MailState.cpp:1439 | 待分析 | — |
 | `Sub_519300` | src/world/MailState.cpp:1387 | 待分析 | — |
-| `Sub_519370` | src/world/MailState.cpp:1487 | 待分析 | — |
-| `Sub_5194C0` | src/world/MailState.cpp:1429 | 待分析 | — |
-| `Sub_5194F0` | src/world/MailState.cpp:1472 | 待分析 | — |
-| `Sub_519550` | src/world/MailState.cpp:1404 | 待分析 | — |
-| `Sub_5195F0` | src/world/MailState.cpp:1451 | 待分析 | — |
+| `Sub_519370` | src/world/MailState.cpp:1487 | 已重命名：`PrependGuildMailMessage_519370` | 检查公会key，找/建200槽之一，已有槽倒移9条历史，写首消息未读/类型/名字/正文。 |
+| `Sub_5194C0` | src/world/MailState.cpp:1429 | 已重命名：`ClearCurrentCharacterGuildMail_5194C0` | 按选中角色定位200条公会邮件，整组清零。 |
+| `Sub_5194F0` | src/world/MailState.cpp:1472 | 已重命名：`DeleteGuildMailEntry_5194F0` | 5195F0取最后匹配槽，找到后清整C88记录，否则返回-1。 |
+| `Sub_519550` | src/world/MailState.cpp:1404 | 已重命名：`SaveGuildMailFile_519550` | 选择账号目录guildmail.dat，写完整两角色存储并返回fclose。 |
+| `Sub_5195F0` | src/world/MailState.cpp:1451 | 已重命名：`FindLastActiveGuildMailEntry_5195F0` | 当前角色200槽，active==1且key相同则记录下标，返回最后匹配或-1。 |
 | `Sub_5196B0` | src/world/SceneState.cpp:1842 | 待分析 | — |
 | `Sub_519770` | src/world/SceneState.cpp:1905 | 待分析 | — |
 | `Sub_5198A0` | src/world/SceneState.cpp:1989 | 待分析 | — |
@@ -571,7 +571,7 @@
 | `Sub_51B3E0` | src/world/SceneState.cpp:5679 | 待分析 | — |
 | `Sub_51B530` | src/world/SceneState.cpp:1870 | 待分析 | — |
 | `Sub_51B5F0` | src/world/SceneState.cpp:9515 | 待分析 | — |
-| `Sub_51B630` | src/world/SceneState.cpp:9545 | 待分析 | — |
+| `Sub_51B630` | src/world/SceneState.cpp:9545 | 已重命名：`SwapPlayerOrPetItemSlots_51B630` | 组0玩家28槽，组1—5宠物6槽，范围/空基址门禁后交换完整物品记录。 |
 | `Sub_51B7D0` | src/scene/character_select/CharacterSelectPreview.cpp:307 | 待分析 | — |
 | `Sub_51B910` | src/scene/character_select/CharacterSelectPreview.cpp:361 | 待分析 | — |
 | `Sub_51BA10` | src/scene/character_select/CharacterSelectPreview.cpp:76 | 待分析 | — |

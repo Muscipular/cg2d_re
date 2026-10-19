@@ -100,7 +100,7 @@ static std::int32_t WindowMailRead_Update(const std::int32_t value)
     if (value == -1) {
         WindowMailRead_FindUnread();
         static_cast<void>(cg::world::detail::Sub_519300());
-        static_cast<void>(cg::world::detail::Sub_519550());
+        static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
         static_cast<void>(world::detail::Sub_518DA0());
         cg::core::NullSub_509080();
     }
@@ -228,7 +228,7 @@ static void WindowMailRead_FindUnread()
         static_cast<void>(cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey));
         const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        const std::int32_t slot = cg::world::detail::Sub_5195F0(mailKey);
+        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
         if (slot == -1) {
             cg::world::detail::gValueD046D4 = 0;
             return;
@@ -271,7 +271,7 @@ static std::uint32_t WindowMailRead_Refresh()
         memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
         const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        mailSlot = cg::world::detail::Sub_5195F0(mailKey);
+        mailSlot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
     const auto readCurrentMessage = [category, mailSlot]() -> cg::world::MailMessageView {
@@ -357,7 +357,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         identity = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
         const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        const std::int32_t slot = cg::world::detail::Sub_5195F0(mailKey);
+        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
         const std::int16_t selected = login::gSelectedCharacterIndex;
         const std::int32_t page = cg::world::detail::gValueD046D4;
         message = cg::world::GetGuildMailMessageDE0B30(selected, slot, page);

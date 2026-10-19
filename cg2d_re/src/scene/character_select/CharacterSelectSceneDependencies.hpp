@@ -119,7 +119,7 @@ std::int32_t Sub_4C5650(
     std::int32_t fifth,
     std::int32_t ones);
 
-using cg::network::Sub_512D30;
+using cg::network::SendVersionUpgradeRequest_512D30;
 
 // BRT01：原9A5C10正常只读首NUL；新端1B owner静态存活，由创建/升级共享。
 // 1B是已证读足迹对应容量，不冒称原未使用预留尾部长度。

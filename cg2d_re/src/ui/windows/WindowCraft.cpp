@@ -493,7 +493,7 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
         duration = static_cast<std::uint32_t>(gCraftDeadlineCF3B04) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
         gCraftDeadlineCF3B04 = duration;
     }
-    static_cast<void>(network::Sub_512DA0(
+    static_cast<void>(network::SendCraftDuration_512DA0(
         platform::gConnectionSocket, static_cast<std::int32_t>(duration / 1000u)));
     const std::uint64_t tick = platform::ReadTickCount64();
     gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;

@@ -1,7 +1,7 @@
 #include "../LuaUI.hpp"
 
 namespace cg::script {
-UICanvasControl::UICanvasControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks)
+UICanvasControl::UICanvasControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks)
     : UIControl(winId, generation, id, TYPE_CANVAS, name, x, y, w, h, visible, callbacks) {
     hitable = false;
     SetShapes(std::move(shapes));

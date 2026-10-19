@@ -26,7 +26,7 @@ struct UIMapExControl : UIControl {
     int lastClickX = -1;
     int lastClickY = -1;
 
-    UIMapExControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks);
+    UIMapExControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks);
 
     int AddPoint(MapExPoint point);
     int RemovePoints(int mapX, int mapY);
@@ -78,7 +78,7 @@ private:
         int width = 0;
         int height = 0;
         bool loaded = false;
-        std::string fileName;
+        std::wstring fileName;
         std::vector<unsigned short> tileData;
         std::vector<unsigned short> objData;
         std::vector<unsigned short> hitData;

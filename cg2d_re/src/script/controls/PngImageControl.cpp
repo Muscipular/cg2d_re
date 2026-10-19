@@ -1,7 +1,7 @@
 #include "../LuaUI.hpp"
 
 namespace cg::script {
-UIPngImageControl::UIPngImageControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, PngImageData data, LuaCallbackRefs callbacks)
+UIPngImageControl::UIPngImageControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, PngImageData data, LuaCallbackRefs callbacks)
     : UIControl(winId, generation, id, TYPE_PNG_IMAGE, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
 }
 

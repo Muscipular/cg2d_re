@@ -45,7 +45,7 @@ struct CanvasPreparedShape {
 };
 
 struct CanvasShape : CanvasPreparedShape {
-    std::string path; // M/L/H/V/Q/C/Z及小写相对命令，按参考规则解析。
+    std::wstring path; // M/L/H/V/Q/C/Z及小写相对命令，按参考规则解析。
 };
 
 // 路径修改后调用一次：重建points／triangles／closed，解析失败清空这些准备数据。

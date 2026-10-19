@@ -19,11 +19,13 @@ static void ApplyTextInputLimit(InputContext& context, int maxLength)
     context.maxLine = 1;
     context.maxCharPerLine = ClampTextInputMaxLength(maxLength);
 }
-static void SetInputContextText(InputContext& context, const char* value, int maxLength)
+static void SetInputContextText(InputContext& context, std::wstring_view value, int maxLength)
 {
     ApplyTextInputLimit(context, maxLength);
-    const std::string_view bytes = value ? value : "";
-    context.setText(text::FromGbkWide(bytes.substr(0, GbkPrefixLength(bytes, ClampTextInputMaxLength(maxLength)))));
+    // maxLength是Lua旧GBK字节容量；仅超限时截断，正常内部赋值不经窄编码往返。
+    const auto bytes = text::ToGbk(value);
+    const auto length = GbkPrefixLength(bytes, ClampTextInputMaxLength(maxLength));
+    context.setText(length == bytes.size() ? std::wstring(value) : text::FromGbkWide(std::string_view(bytes).substr(0, length)));
     context.caretByteOffset = context.totalByteLength;
     context.field158 = 0;
 }
@@ -65,7 +67,7 @@ static void PushControlRef(lua_State* L, LuaControlRef ref) {
     luaL_setmetatable(L, CName(LuaControlRef));
 }
 
-static int CallControlTextCallback(lua_State* L, int callbackRef, const char* name, LuaControlRef controlRef, const char* text) {
+static int CallControlTextCallback(lua_State* L, int callbackRef, const char* name, LuaControlRef controlRef, std::wstring_view value) {
     if (!IsLuaControlAttached(controlRef)) return 0;
     if (callbackRef == LUA_REF_NONE) {
         return 0;
@@ -75,7 +77,7 @@ static int CallControlTextCallback(lua_State* L, int callbackRef, const char* na
     lua_rawgeti(L, LUA_REGISTRYINDEX, callbackRef);
     if (lua_isfunction(L, -1)) {
         PushControlRef(L, controlRef);
-        lua_pushstring(L, text ? text : "");
+        Push(L, value);
         if (lua_pcall(L, 2, 1, 0) != 0) {
             m_log_i("[LUA] call lua %s error: %s\n", name, lua_tostring(L, -1));
         } else if (!lua_isnil(L, -1)) {
@@ -86,7 +88,7 @@ static int CallControlTextCallback(lua_State* L, int callbackRef, const char* na
     return result;
 }
 
-UITextInputControl::UITextInputControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks)
+UITextInputControl::UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks)
     : UIControl(winId, generation, id, TYPE_TEXT_INPUT, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
     this->data.maxLength = ClampTextInputMaxLength(this->data.maxLength);
     setTextInputText(this->data.lastText.c_str());
@@ -136,11 +138,11 @@ void UITextInputControl::focusTextInput() {
     InputSetContext(&data.context);
 }
 
-void UITextInputControl::setTextInputText(const char* text) {
-    std::string value = text ? text : "";
+void UITextInputControl::setTextInputText(std::wstring_view text) {
+    const std::wstring value(text); // 调用方可借用context.text，先持有再更新context。
     data.maxLength = ClampTextInputMaxLength(data.maxLength);
     SetInputContextText(data.context, value.c_str(), data.maxLength);
-    data.lastText = text::ToGbk(data.context.text);
+    data.lastText = data.context.text;
 }
 
 void UITextInputControl::syncTextInputText() {
@@ -150,7 +152,7 @@ void UITextInputControl::syncTextInputText() {
         enter = true;
     }
 
-    std::string value = text::ToGbk(data.context.text);
+    const std::wstring value = data.context.text;
     LuaControlRef controlRef{winId, generation, id};
     if (value != data.lastText) {
         data.lastText = value;

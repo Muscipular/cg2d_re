@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
+#include <string>
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
@@ -84,9 +85,8 @@ extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
 extern std::int32_t gMapCachePathKey_9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
-// 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
-std::int32_t __cdecl FormatMapDataPath_468520(
-    char* buffer, std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
+// 原468520；调用方传入9E0434当前值，内部路径改为宽字符串。
+std::wstring FormatMapDataPath_468520( std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
 extern std::uint32_t gMapResourceMode_9DAD68; // 原全局：0x009DAD68。
 
 // 原 [0xAF10D8,0xB65A7B)；.aut 每项三个原始字节，供地图颜色消费者共享。
@@ -296,7 +296,7 @@ std::int32_t __cdecl EnsureMapCacheFile_468570(
     std::int32_t a7); // 原 [0x468570,0x4687A3)，旧文件比较或新建。
 // 原函数：0x004687B0。
 std::int32_t __cdecl CreateEmptyMapCacheFile_4687B0(
-    const char* path, std::int32_t first, std::int32_t second,
+    const wchar_t* path, std::int32_t first, std::int32_t second,
     std::int32_t height, std::int32_t width); // 原 [0x4687B0,0x4688A0)，三平面零值文件创建叶。
 // 原函数：0x004688A0。
 std::int32_t __cdecl WriteMapCacheRectangle_4688A0(

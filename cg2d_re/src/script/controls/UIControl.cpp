@@ -205,8 +205,8 @@ void UIEmitControlLeaveIfNeeded(LuaControlRef controlRef, LuaCallbackRefs callba
     CallControlCallback(callbacks.owner, callbacks.onLeave, "UIControl.onLeave", controlRef, MouseFlag_Leave);
 }
 
-UIControl::UIControl(int winId, uint32_t generation, int id, TYPE type, const char* name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks)
-    : winId(winId), generation(generation), id(id), type(type), visible(visible), mouseState(MOUSE_NONE), name(name == nullptr ? "" : name), x(x), y(y), w(w), h(h), callbacks(callbacks) {
+UIControl::UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks)
+    : winId(winId), generation(generation), id(id), type(type), visible(visible), mouseState(MOUSE_NONE), name(name), x(x), y(y), w(w), h(h), callbacks(callbacks) {
 }
 
 UIControl::~UIControl() {
@@ -279,7 +279,7 @@ void UIControl::blurTextInput() {
 void UIControl::focusTextInput() {
 }
 
-void UIControl::setTextInputText(const char* text) {
+void UIControl::setTextInputText(std::wstring_view text) {
     (void) text;
 }
 
@@ -389,12 +389,12 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
     return result;
 }
 
-int RendererDrawPngClipped(const char* path, RECT16* rect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
+int RendererDrawPngClipped(const wchar_t* path, RECT16* rect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
 {
     render::PngRectangle source{}, target{};
     if (rect) source = {rect->left, rect->top, rect->right, rect->bottom};
     if (clip) target = {clip->left, clip->top, clip->right, clip->bottom};
-    return render::DrawPngImage(text::FromGbkWide(path).c_str(), rect ? &source : nullptr,
+    return render::DrawPngImage(path, rect ? &source : nullptr,
         x, y, w, h, color, static_cast<uint8_t>(layer), clip ? &target : nullptr);
 }
 PngTexture* RendererCreateSurfaceTexture(int w, int h) { return render::CreatePixelImage(w, h); }

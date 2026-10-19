@@ -9,7 +9,7 @@ int ClampTextInputMaxLength(int maxLength);
 struct UITextInputControl : UIControl {
     TextInputData data;
 
-    UITextInputControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks);
+    UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks);
 
     ~UITextInputControl() override;
 
@@ -26,7 +26,7 @@ struct UITextInputControl : UIControl {
 
     void focusTextInput() override;
 
-    void setTextInputText(const char* text) override;
+    void setTextInputText(std::wstring_view text) override;
 
     void syncTextInputText() override;
 };

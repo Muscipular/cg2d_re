@@ -47,6 +47,7 @@
 #include "ChatHistory.hpp"
 #include "MailState.hpp"
 #include "PetTechniqueRecord.hpp"
+#include <format>
 #include "PlayerState.hpp"
 #include "WorldMapState.hpp"
 #include "WorldObjectState.hpp"
@@ -357,8 +358,8 @@ static constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20�
 static constexpr wchar_t kCutCaption55DE30[] = L"档案错误"; // 原常量参考：0x0055DE30。
 
 // 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
-static constexpr char kMapPathPrefix[] = "map";
-static constexpr char kMapReadMode[] = "rb";
+static constexpr wchar_t kMapPathPrefix[] = L"map";
+static constexpr wchar_t kMapReadMode[] = L"rb";
 static constexpr char kUnknownText554590[] = "???"; // 原常量参考：0x00554590。
 
 // 原 [9DAD30,9DAD4A)；按用户要求改为宽字符串，协议入口保留原24字节名称判断。
@@ -2378,22 +2379,18 @@ std::int32_t __cdecl EnsureMapCacheFile_468570(
         return 0;
     }
 
-    char path[256];
-    FormatMapDataPath_468520(path, a2, a1, a3);
+    const auto path = FormatMapDataPath_468520(a2, a1, a3);
     std::FILE* const file =
-        std::fopen(path, kMapReadMode);
+        _wfopen(path.c_str(), kMapReadMode);
     if (file == nullptr) {
-        ::_mkdir(kMapPathPrefix);
-        char directory[256];
-        std::sprintf(
-            directory, "%s\\%d", kMapPathPrefix, a2);
-        ::_mkdir(directory);
+        ::_wmkdir(kMapPathPrefix);
+        auto directory = std::format(L"{}\\{}", kMapPathPrefix, a2);
+        ::_wmkdir(directory.c_str());
         if (a2 > 0) {
-            std::sprintf(
-                directory, "%s\\%d\\%d", kMapPathPrefix, a2, a1);
-            ::_mkdir(directory);
+            directory = std::format(L"{}\\{}\\{}", kMapPathPrefix, a2, a1);
+            ::_wmkdir(directory.c_str());
         }
-        return CreateEmptyMapCacheFile_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
+        return CreateEmptyMapCacheFile_4687B0(path.c_str(), a6, a7, a4, a5) >= 0 ? 1 : -1;
     }
 
     ::_fseeki64(file, 0, SEEK_SET);
@@ -2418,21 +2415,21 @@ std::int32_t __cdecl EnsureMapCacheFile_468570(
         || a4 != oldFourth || a5 != oldFifth
         || std::strcmp(label, "MAP") != 0
         || version != 1 || a2 == 2) {
-        return CreateEmptyMapCacheFile_4687B0(path, a6, a7, a4, a5) < 0 ? -1 : 0;
+        return CreateEmptyMapCacheFile_4687B0(path.c_str(), a6, a7, a4, a5) < 0 ? -1 : 0;
     }
     return 0;
 }
 
 // 原 [0x4687B0,0x4688A0)：四字段头后，三平面逐 WORD 写零。
 std::int32_t __cdecl CreateEmptyMapCacheFile_4687B0(
-    const char* const path,
+    const wchar_t* const path,
     const std::int32_t first,
     const std::int32_t second,
     const std::int32_t height,
     const std::int32_t width)
 {
     std::FILE* const file =
-        std::fopen(path, "wb");
+        _wfopen(path, L"wb");
     if (file == nullptr) {
         return -1;
     }
@@ -2464,10 +2461,9 @@ std::int32_t __cdecl WriteMapCacheRectangle_4688A0(
     const std::uint16_t* const tile, const std::uint16_t* const obj,
     std::uint16_t* const hit)
 {
-    char path[256];
-    FormatMapDataPath_468520(path, mapId, gMapCachePathKey_9E0434, floor);
+    const auto path = FormatMapDataPath_468520(mapId, gMapCachePathKey_9E0434, floor);
     std::FILE* const file =
-        std::fopen(path, "rb+");
+        _wfopen(path.c_str(), L"rb+");
     if (file == nullptr) {
         return -1;
     }
@@ -2730,10 +2726,9 @@ std::int32_t __cdecl ReadMapCacheRectangle_468C40(
     std::uint16_t* const tile, std::uint16_t* const obj,
     std::uint16_t* const hit)
 {
-    char path[256];
-    FormatMapDataPath_468520(path, mapId, gMapCachePathKey_9E0434, floor);
+    const auto path = FormatMapDataPath_468520(mapId, gMapCachePathKey_9E0434, floor);
     std::FILE* const file =
-        std::fopen(path, kMapReadMode);
+        _wfopen(path.c_str(), kMapReadMode);
     if (file == nullptr) {
         ::PostQuitMessage(0);
         return -1;
@@ -2848,10 +2843,9 @@ std::int32_t LoadAutoMapWindow_46C840(
     const std::int32_t mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
     std::memset(gAutoMapIndexWindow9DAD7C, 0, sizeof(gAutoMapIndexWindow9DAD7C));
     std::memset(gAutoMapColorWindow9CF6EC, 0, sizeof(gAutoMapColorWindow9CF6EC));
-    char path[256];
-    FormatMapDataPath_468520(path, mapId, gMapCachePathKey_9E0434, floor);
+    const auto path = FormatMapDataPath_468520(mapId, gMapCachePathKey_9E0434, floor);
     std::FILE* const file =
-        std::fopen(path, kMapReadMode);
+        _wfopen(path.c_str(), kMapReadMode);
     if (file == nullptr) {
         return 0;
     }
@@ -9818,19 +9812,16 @@ void CenterBattleLayoutToWindow()
     appliedOffsetY = offsetY;
 }
 
-// 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
-std::int32_t __cdecl FormatMapDataPath_468520(
-    char* const buffer,
+// 原[0x468520,0x46856A)；零mapId忽略第三参，路径布局保持，返回内部宽文本。
+std::wstring FormatMapDataPath_468520(
     const std::int32_t mapId,
     const std::int32_t value9E0434,
     const std::int32_t floor)
 {
     if (mapId == 0) {
-        return std::sprintf(
-            buffer, "%s\\%d\\%d.dat", kMapPathPrefix, 0, floor);
+        return std::format(L"{}\\{}\\{}.dat", kMapPathPrefix, 0, floor);
     }
-    return std::sprintf(
-        buffer, "%s\\%d\\%d\\%d.dat", kMapPathPrefix, mapId, value9E0434, floor);
+    return std::format(L"{}\\{}\\{}\\{}.dat", kMapPathPrefix, mapId, value9E0434, floor);
 }
 
 // 原函数：0x0046C760。

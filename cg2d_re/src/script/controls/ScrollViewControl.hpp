@@ -13,7 +13,7 @@ struct UIScrollViewControl : UIControl {
     int dragOffsetY = 0;
     std::vector<std::unique_ptr<UIControl>> children;
 
-    UIScrollViewControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks);
+    UIScrollViewControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks);
 
     bool render(short ox, short oy) override;
     bool render(short ox, short oy, const UIClipRect* clipRect) override;

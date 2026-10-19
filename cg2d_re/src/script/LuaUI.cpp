@@ -227,6 +227,15 @@ static std::string LuaGetStringField(lua_State* L, int index, const char* field,
     return result;
 }
 
+// Lua业务字符串在属性入口解码；缺省值直接沿用内部宽文本。
+static std::wstring LuaGetWideStringField(lua_State* L, int index, const char* field, std::wstring_view defaultVal = {}) {
+    index = LuaAbsIndex(L, index);
+    lua_getfield(L, index, field);
+    std::wstring result = lua_isnil(L, -1) ? std::wstring(defaultVal) : text::FromGbkWide(luaL_checkstring(L, -1));
+    lua_pop(L, 1);
+    return result;
+}
+
 static bool LuaReadNumberIntField(lua_State* L, int index, const char* field, int& value) {
     index = LuaAbsIndex(L, index);
     lua_getfield(L, index, field);
@@ -432,7 +441,7 @@ static bool LuaReadPngRectField(lua_State* L, int index, const char* field, RECT
 }
 
 static void LuaReadPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, UIControl::PngImageState& state) {
-    state.path = LuaGetStringField(L, index, imageField, "");
+    state.path = LuaGetWideStringField(L, index, imageField);
     state.hasRect = LuaReadPngRectField(L, index, rectField, state.rect);
 }
 
@@ -496,7 +505,7 @@ static bool LuaReadCanvasShape(lua_State* L, int index, CanvasShape& shape) {
     shape.x2 = static_cast<float>(LuaGetIntField(L, index, "x2", 0));
     shape.y2 = static_cast<float>(LuaGetIntField(L, index, "y2", 0));
     shape.radius = static_cast<float>(LuaGetIntField(L, index, "radius", LuaGetIntField(L, index, "r", 0)));
-    shape.path = LuaGetStringField(L, index, "d", "");
+    shape.path = LuaGetWideStringField(L, index, "d");
     return true;
 }
 
@@ -528,7 +537,7 @@ static std::vector<CanvasShape> LuaReadCanvasShapes(lua_State* L, int index) {
 
 static void LuaSetPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, UIControl::PngImageState& state) {
     if (LuaHasField(L, index, imageField)) {
-        state.path = LuaGetStringField(L, index, imageField, state.path.c_str());
+        state.path = LuaGetWideStringField(L, index, imageField, state.path);
     }
     if (LuaHasField(L, index, rectField)) {
         state.hasRect = LuaReadPngRectField(L, index, rectField, state.rect);
@@ -729,42 +738,42 @@ UIControl* LuaWindow::AddControl(std::unique_ptr<UIControl> control, int parentI
     return controls.back().get();
 }
 
-UIControl* LuaWindow::AddImage(const char* name, int x, int y, int w, int h, int visible, UIControl::ImageData data, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::ImageData data, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UIImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddAnime(const char* name, int x, int y, int w, int h, int visible, UIControl::AnimeData data, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::AnimeData data, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UIAnimeControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddText(const char* name, int x, int y, int w, int h, int visible, UIControl::TextData data, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddText(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextData data, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UITextControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddPngImage(const char* name, int x, int y, int w, int h, int visible, UIControl::PngImageData data, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddPngImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::PngImageData data, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UIPngImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddCanvas(const char* name, int x, int y, int w, int h, int visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddCanvas(std::wstring_view name, int x, int y, int w, int h, int visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UICanvasControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(shapes), callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddTextInput(const char* name, int x, int y, int w, int h, int visible, UIControl::TextInputData data, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddTextInput(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextInputData data, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UITextInputControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddScrollView(const char* name, int x, int y, int w, int h, int visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddScrollView(std::wstring_view name, int x, int y, int w, int h, int visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UIScrollViewControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, contentHeight, scrollY, barWidth, scrollStep, callbacks), parentId);
 }
 
-UIControl* LuaWindow::AddMapEx(const char* name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
+UIControl* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
     int controlId = nextControlId++;
     return AddControl(std::make_unique<UIMapExControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, ResolveLuaMapX(mapX), ResolveLuaMapY(mapY), ResolveLuaMapId(mapId), ResolveLuaFloor(floor), callbacks), parentId);
 }
@@ -1135,7 +1144,7 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
     if (strcmp(key, "id") == 0 || strcmp(key, "controlId") == 0) {
         lua_pushinteger(L, control->id);
     } else if (strcmp(key, "name") == 0) {
-        lua_pushstring(L, control->name.c_str());
+        Push(L, control->name);
     } else if (strcmp(key, "x") == 0) {
         lua_pushinteger(L, control->x);
     } else if (strcmp(key, "y") == 0) {
@@ -1198,11 +1207,11 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
             return;
         }
         if (strcmp(key, "image") == 0) {
-            lua_pushstring(L, data->image.path.c_str());
+            Push(L, data->image.path);
         } else if (strcmp(key, "imageHover") == 0) {
-            lua_pushstring(L, data->imageHover.path.c_str());
+            Push(L, data->imageHover.path);
         } else if (strcmp(key, "imagePress") == 0) {
-            lua_pushstring(L, data->imagePress.path.c_str());
+            Push(L, data->imagePress.path);
         } else if (strcmp(key, "color") == 0) {
             LuaPushColor(L, data->color);
         } else if (strcmp(key, "imageRect") == 0) {
@@ -1363,7 +1372,7 @@ LuaFunctionEx(LuaControlRef, Set) {
         return 1;
     }
     if (LuaHasField(L, 2, "name")) {
-        control->name = LuaGetStringField(L, 2, "name", control->name.c_str());
+        control->name = LuaGetWideStringField(L, 2, "name", control->name);
     }
     if (LuaHasField(L, 2, "x")) {
         control->x = static_cast<short>(LuaGetIntField(L, 2, "x", control->x));
@@ -1440,8 +1449,7 @@ LuaFunctionEx(LuaControlRef, Set) {
         }
     } else if (auto textData = control->textData()) {
         if (LuaHasField(L, 2, "text")) {
-            const auto currentText = text::ToGbk(textData->text);
-            textData->text = text::FromGbkWide(LuaGetStringField(L, 2, "text", currentText.c_str()));
+            textData->text = LuaGetWideStringField(L, 2, "text", textData->text);
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
             textData->font = static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textData->font))));
@@ -1452,11 +1460,10 @@ LuaFunctionEx(LuaControlRef, Set) {
     } else if (auto textInputData = control->textInputData()) {
         if (LuaHasField(L, 2, "maxLength")) {
             textInputData->maxLength = ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", textInputData->maxLength));
-            control->setTextInputText(text::ToGbk(textInputData->context.text).c_str());
+            control->setTextInputText(textInputData->context.text);
         }
         if (LuaHasField(L, 2, "text")) {
-            const auto currentText = text::ToGbk(textInputData->context.text);
-            const auto value = LuaGetStringField(L, 2, "text", currentText.c_str());
+            const auto value = LuaGetWideStringField(L, 2, "text", textInputData->context.text);
             control->setTextInputText(value.c_str());
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
@@ -1637,7 +1644,7 @@ LuaFunctionEx(LuaWindowRef, AddImage) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", -1));
     int imageHover = LuaGetIntField(L, 2, "imageHover", image);
@@ -1665,7 +1672,7 @@ LuaFunctionEx(LuaWindowRef, AddPngImage) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     auto data = LuaReadPngImageData(L, 2);
     auto control = window->AddPngImage(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
@@ -1690,7 +1697,7 @@ LuaFunctionEx(LuaWindowRef, AddCanvas) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     auto control = window->AddCanvas(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", LuaGetIntField(L, 2, "w", 0)), LuaGetIntField(L, 2, "height", LuaGetIntField(L, 2, "h", 0)), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, LuaReadCanvasShapes(L, 2), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
@@ -1714,7 +1721,7 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     UIControl::AnimeData data{
         -1,
@@ -1747,12 +1754,12 @@ LuaFunctionEx(LuaWindowRef, AddText) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     UIControl::TextData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
-        text::FromGbkWide(LuaGetStringField(L, 2, "text", ""))
+        LuaGetWideStringField(L, 2, "text")
     };
     auto control = window->AddText(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
@@ -1776,13 +1783,13 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     UIControl::TextInputData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", TEXT_INPUT_MAX_LENGTH)),
-        LuaGetStringField(L, 2, "text", "")
+        LuaGetWideStringField(L, 2, "text")
     };
     auto control = window->AddTextInput(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
@@ -1806,7 +1813,7 @@ LuaFunctionEx(LuaWindowRef, AddScrollView) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     auto control = window->AddScrollView(
         name.c_str(),
@@ -1842,7 +1849,7 @@ LuaFunctionEx(LuaWindowRef, AddMapEx) {
         return luaL_argerror(L, 2, "param is not a table");
     }
 
-    auto name = LuaGetStringField(L, 2, "name", "");
+    auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, window);
     auto control = window->AddMapEx(
         name.c_str(),

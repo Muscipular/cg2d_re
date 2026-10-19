@@ -269,9 +269,7 @@ struct BigMapSurface::State {
     }
 
     bool Initialize() {
-        char name[260]{};
-        world::FormatMapDataPath_468520(name, group, pathGroup, floor);
-        mapPath = name;
+        mapPath = world::FormatMapDataPath_468520(group, pathGroup, floor);
         if (!ReadMap(true)) return false;
         // 4.06@412B49，维度判断严格按顺序。
         divisor = width <= 64 && height <= 48 ? 4 : width <= 256 && height <= 192 ? 8
@@ -285,7 +283,7 @@ struct BigMapSurface::State {
         resourceStamp = ResourceStamp(); paletteStamp = PaletteStamp();
         if (mode == 1) cutStamp = CutStamp();
         paletteVersion = render::gPaletteFrameVersion; paletteChoice = render::gActivePalette;
-        cachePath = std::filesystem::path("data/cache/bigmap") / std::format("{}_{}_{}_{}.bmc", group, pathGroup, floor, mode);
+        cachePath = std::filesystem::path(L"data/cache/bigmap") / std::format(L"{}_{}_{}_{}.bmc", group, pathGroup, floor, mode);
         loaded = true;
         SyncVisible();
         LoadCache();

@@ -7,9 +7,9 @@
 
 #include <algorithm>
 #include <cmath>
-#include <cctype>
+#include <cwctype>
 #include <cstddef>
-#include <cstdlib>
+#include <cwchar>
 #include <utility>
 
 namespace cg::render {
@@ -165,7 +165,7 @@ static void BuildPathTriangles(CanvasShape& shape)
 // 参考路径解析器，直接写入调用者准备阶段的轮廓与闭合状态。
 class CanvasPathParser {
 public:
-    CanvasPathParser(const std::string& path, std::int32_t segments, std::vector<CanvasPoint>& points, bool& closed)
+    CanvasPathParser(const std::wstring& path, std::int32_t segments, std::vector<CanvasPoint>& points, bool& closed)
         : current(path.c_str()), segments(ClampCanvasSegments(segments)), points(points), closed(closed)
         {
     }
@@ -174,53 +174,53 @@ public:
     {
         CanvasPoint currentPoint{};
         CanvasPoint startPoint{};
-        char command = 0;
+        wchar_t command = 0;
         bool hasStart = false;
         while (true) {
             SkipSeparators();
-            if (*current == '\0') {
+            if (*current == L'\0') {
                 return true;
             }
-            if (std::isalpha(static_cast<unsigned char>(*current))) {
+            if (std::iswalpha(*current)) {
                 command = *current++;
             } else if (command == 0)
             {
                 return false;
             }
 
-            bool relative = std::islower(static_cast<unsigned char>(command)) != 0;
-            switch (std::toupper(static_cast<unsigned char>(command))) {
-                case 'M':
+            bool relative = std::iswlower(command) != 0;
+            switch (std::towupper(command)) {
+                case L'M':
                     if (!ParseMove(relative, currentPoint, startPoint, hasStart, command)) {
                         return false;
                     }
                     break;
-                case 'L':
+                case L'L':
                     if (!ParseLine(relative, currentPoint)) {
                         return false;
                     }
                     break;
-                case 'H':
+                case L'H':
                     if (!ParseHorizontal(relative, currentPoint)) {
                         return false;
                     }
                     break;
-                case 'V':
+                case L'V':
                     if (!ParseVertical(relative, currentPoint)) {
                         return false;
                     }
                     break;
-                case 'Q':
+                case L'Q':
                     if (!ParseQuad(relative, currentPoint)) {
                         return false;
                     }
                     break;
-                case 'C':
+                case L'C':
                     if (!ParseCubic(relative, currentPoint)) {
                         return false;
                     }
                     break;
-                case 'Z':
+                case L'Z':
                     if (hasStart) {
                         if (points.empty() || !SamePoint(points.back(), startPoint)) {
                             points.push_back(startPoint);
@@ -237,14 +237,14 @@ public:
     }
 
 private:
-    const char* current;
+    const wchar_t* current;
     std::int32_t segments;
     std::vector<CanvasPoint>& points;
     bool& closed;
 
     void SkipSeparators()
     {
-        while (*current == ' ' || *current == '\t' || *current == '\r' || *current == '\n' || *current == ',') {
+        while (*current == L' ' || *current == L'\t' || *current == L'\r' || *current == L'\n' || *current == L',') {
             ++current;
         }
     }
@@ -252,14 +252,14 @@ private:
     bool HasNumber()
     {
         SkipSeparators();
-        return *current == '-' || *current == '+' || *current == '.' || std::isdigit(static_cast<unsigned char>(*current));
+        return *current == L'-' || *current == L'+' || *current == L'.' || std::iswdigit(*current);
     }
 
     bool ParseNumber(float& value)
     {
         SkipSeparators();
-        char* end = nullptr;
-        value = std::strtof(current, &end);
+        wchar_t* end = nullptr;
+        value = std::wcstof(current, &end);
         if (end == current) {
             return false;
         }
@@ -279,7 +279,7 @@ private:
         return true;
     }
 
-    bool ParseMove(bool relative, CanvasPoint& currentPoint, CanvasPoint& startPoint, bool& hasStart, char& command)
+    bool ParseMove(bool relative, CanvasPoint& currentPoint, CanvasPoint& startPoint, bool& hasStart, wchar_t& command)
     {
         CanvasPoint point{};
         if (!ParsePoint(relative, currentPoint, point)) {
@@ -289,7 +289,7 @@ private:
         startPoint = point;
         hasStart = true;
         points.push_back(point);
-        command = relative ? 'l' : 'L';
+        command = relative ? L'l' : L'L';
         while (HasNumber()) {
             if (!ParsePoint(relative, currentPoint, point)) {
                 return false;

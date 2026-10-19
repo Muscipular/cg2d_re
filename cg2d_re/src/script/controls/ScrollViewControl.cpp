@@ -43,7 +43,7 @@ static void ResetChildrenProcessStates(const std::vector<std::unique_ptr<UIContr
     }
 }
 
-UIScrollViewControl::UIScrollViewControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks)
+UIScrollViewControl::UIScrollViewControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks)
     : UIControl(winId, generation, id, TYPE_SCROLL_VIEW, name, x, y, w, h, visible, callbacks), contentHeight(contentHeight), barWidth(barWidth), scrollStep(scrollStep) {
     this->contentHeight = std::max(0, this->contentHeight);
     if (this->barWidth <= 0) {

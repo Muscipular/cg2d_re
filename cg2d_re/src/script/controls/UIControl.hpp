@@ -75,7 +75,7 @@ struct UIControl {
         std::wstring text; // 内部宽文本；仅Lua读写属性时转换GBK。
     };
     struct PngImageState {
-        std::string path;
+        std::wstring path;
         RECT16 rect{};
         bool hasRect = false;
     };
@@ -89,7 +89,7 @@ struct UIControl {
         uint8_t color;
         uint8_t font;
         int maxLength;
-        std::string lastText;
+        std::wstring lastText;
         bool focused = false;
         InputContext* previousInput = nullptr;
         InputContext context{};
@@ -103,12 +103,12 @@ struct UIControl {
     uint8_t mouseState = MOUSE_NONE;
     bool hitable = true;
     int parentId = 0;
-    std::string name{};
+    std::wstring name{};
 
     short x, y, w, h;
     LuaCallbackRefs callbacks;
 
-    UIControl(int winId, uint32_t generation, int id, TYPE type, const char* name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks);
+    UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks);
 
     virtual ~UIControl();
 
@@ -137,7 +137,7 @@ struct UIControl {
 
     virtual void focusTextInput();
 
-    virtual void setTextInputText(const char* text);
+    virtual void setTextInputText(std::wstring_view text);
 
     virtual void syncTextInputText();
 };
@@ -148,7 +148,7 @@ bool UIPointInClipRect(int x, int y, const UIClipRect* clipRect);
 bool UIRectIntersectsClipRect(int x, int y, int w, int h, const UIClipRect* clipRect);
 void UIEmitControlLeaveIfNeeded(LuaControlRef controlRef, LuaCallbackRefs callbacks, uint8_t previousMouseState, uint8_t mouseState);
 int RendererDrawRectClipped(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t layer, COLORREF color, const UIClipRect* clipRect);
-int RendererDrawPngClipped(const char* path, RECT16* loadPngRect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
+int RendererDrawPngClipped(const wchar_t* path, RECT16* loadPngRect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
 PngTexture* RendererCreateSurfaceTexture(int width, int height);
 bool RendererUpdateSurfaceTexture(PngTexture* texture, const uint32_t* pixels, int width, int height);
 void RendererReleaseSurfaceTexture(PngTexture* texture);

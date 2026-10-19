@@ -5,7 +5,7 @@ namespace cg::script {
 struct UIPngImageControl : UIControl {
     PngImageData data;
 
-    UIPngImageControl(int winId, uint32_t generation, int id, const char* name, short x, short y, short w, short h, uint8_t visible, PngImageData data, LuaCallbackRefs callbacks);
+    UIPngImageControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, PngImageData data, LuaCallbackRefs callbacks);
 
     bool render(short ox, short oy) override;
     bool render(short ox, short oy, const UIClipRect* clipRect) override;

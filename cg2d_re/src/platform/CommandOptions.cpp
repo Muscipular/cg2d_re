@@ -10,6 +10,7 @@
 #include "cg/world/SceneState.hpp"
 #include "StartupNative.hpp"
 
+#include "cg/text/Encoding.hpp"
 #include <bit>
 #include <cstddef>
 #include <cstdlib>
@@ -20,7 +21,7 @@
 namespace cg::platform {
 
 // char gNewestText[128] = "/update/newestV2.txt"; // 原全局：0x0058ADA8。
-char gMapPath[128] = "map"; // 原全局：0x0055DA00。
+std::wstring gMapPath = L"map"; // 原全局：0x0055DA00。
 std::int32_t gDeviceBitsPerPixel = 8; // 原全局：0x00554B70。
 std::uint16_t gScanlineSyncMode = 1; // 原全局：0x00554B74。
 std::int32_t gNoDelay = 1; // 原全局：0x0055CE68。
@@ -163,13 +164,15 @@ int ParseCommandOptions()
         std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
     }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "datafolder:"))) {
-        std::sscanf(match + std::strlen("datafolder:"), "%s", gDataPath);
+        char value[128]{}; // 旧命令行解析边界，存储转为宽路径。
+        if (std::sscanf(match + std::strlen("datafolder:"), "%s", value) == 1) gDataPath = text::FromGbkWide(value);
     }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "binfolder:"))) {
         std::sscanf(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
     }
     if (char* match = const_cast<char*>(std::strstr(gCommandLine, "mapfolder:"))) {
-        std::sscanf(match + std::strlen("mapfolder:"), "%s", gMapPath);
+        char value[128]{}; // 旧命令行解析边界，存储转为宽路径。
+        if (std::sscanf(match + std::strlen("mapfolder:"), "%s", value) == 1) gMapPath = text::FromGbkWide(value);
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。

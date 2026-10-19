@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #include "cg/platform/Startup.hpp"
 
@@ -10,7 +11,7 @@ namespace cg::platform {
 extern char gNewestText[128];
 
 // 原 [0x55DA00,0x55DA80) 的可写路径快照；初值 map，区间内未见其他引用。
-extern char gMapPath[128];
+extern std::wstring gMapPath;
 
 // 原 [0xFF4E30,0xFF4EB8)；实际为待提交图形存储的 0x88 字节前缀。
 // IDA 的 char[144] 旧类型会越过 0xFF4EB8 队列边界，不能作为容量证据。

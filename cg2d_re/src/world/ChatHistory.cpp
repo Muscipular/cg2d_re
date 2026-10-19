@@ -39,7 +39,7 @@ volatile std::int32_t gChatWriteIndex_626C08 = 0; // 原全局：0x00626C08。
 } // namespace cg::world
 
 namespace cg::world::detail {
-char gLogPath62699C[260] {}; // 原全局：0x0062699C。
+std::wstring gLogPath62699C; // 原全局：0x0062699C。
 std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
 
 } // namespace cg::world::detail
@@ -61,7 +61,7 @@ input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
 
 namespace cg::world {
 std::uint32_t gChatRangeOverlayFrames_626BFC = 0; // 原全局：0x00626BFC。
-char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
+std::wstring gLogFileName554648 = L"chat_000000.txt"; // 原全局：0x00554648。
 
 } // namespace cg::world
 
@@ -70,38 +70,50 @@ namespace cg::world::detail {
 ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
 std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
 
-static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
-static_assert(std::is_standard_layout_v<ChatHistory621FF8>);
-static_assert(std::is_trivially_copyable_v<ChatHistory621FF8>);
-static_assert(sizeof(gChatHistory621FF8.records[0]) == 0x121);
-static_assert(sizeof(gChatHistory621FF8.records) == 0x4840);
-static_assert(offsetof(ChatHistory621FF8, tail626838) == 0x4840);
-static_assert(sizeof(ChatHistory621FF8) == 0x4844);
+// 文件边界：64项GBK记录和尾索引保持原磁盘布局。
+struct ChatHistoryDisk {
+    char records[64][0x121];
+    std::uint32_t tail;
+};
+static_assert(std::is_trivially_copyable_v<ChatHistoryDisk>);
+static_assert(offsetof(ChatHistoryDisk, tail) == 0x4840);
+static_assert(sizeof(ChatHistoryDisk) == 0x4844);
 
-static constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658。
-static constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
-static constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
-static constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
+static ChatHistoryDisk EncodeChatHistory()
+{
+    ChatHistoryDisk disk{};
+    for (std::size_t i = 0; i < gChatHistory621FF8.records.size(); ++i)
+        text::StoreGbk(disk.records[i], sizeof(disk.records[i]), gChatHistory621FF8.records[i]);
+    disk.tail = gChatHistory621FF8.tail626838;
+    return disk;
+}
+
+static void DecodeChatHistory(const ChatHistoryDisk& disk)
+{
+    for (std::size_t i = 0; i < gChatHistory621FF8.records.size(); ++i)
+        gChatHistory621FF8.records[i] = text::FromGbkWide(disk.records[i]);
+    gChatHistory621FF8.tail626838 = disk.tail;
+}
 
 // 原 [0x44A090,0x44A15B)：保留短读已写入的字节及 rb 失败后创建文件的顺序。
 std::int32_t LoadChatInputHistory_44A090()
 {
     gCursor62683C = -1;
-    char path[128];
-    std::sprintf(
-        path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
+    const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
 
-    std::FILE* const readStream = std::fopen(path, "rb");
+    auto disk = EncodeChatHistory(); // 先保存旧值，短读仍保留未覆盖的历史。
+    std::FILE* const readStream = _wfopen(path.c_str(), L"rb");
     if (readStream != nullptr) {
         const std::uint32_t count =
-            static_cast<std::uint32_t>(std::fread(&gChatHistory621FF8, 0x4844, 1, readStream));
+            static_cast<std::uint32_t>(std::fread(&disk, sizeof(disk), 1, readStream));
         std::fclose(readStream);
+        DecodeChatHistory(disk);
         return count >= 1 ? 1 : 0;
     }
 
-    std::FILE* const writeStream = std::fopen(path, "wb");
+    std::FILE* const writeStream = _wfopen(path.c_str(), L"wb");
     if (writeStream != nullptr) {
-        std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream);
+        std::fwrite(&disk, sizeof(disk), 1, writeStream);
         std::fclose(writeStream);
     }
     gCursor62683C = 63;
@@ -111,7 +123,7 @@ std::int32_t LoadChatInputHistory_44A090()
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
 void __cdecl InitializeChatInputAndLog_449DA0()
 {
-    std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
+    for (auto& record : gRecords5FB7F8) record = {};
     cg::ui::detail::gInputContext626AA0.reset();
     input::InitializeContext_449CF0(
         &cg::ui::detail::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
@@ -128,30 +140,23 @@ void __cdecl InitializeChatInputAndLog_449DA0()
         return;
     }
 
-    ::_mkdir(kLogDirectory_554658);
+    ::_wmkdir(L"Log");
     timeValue = ::_time64(nullptr);
     const std::tm* const legacyTime =
         ::_localtime64(&timeValue);
     const std::int32_t fileMonth = legacyTime->tm_mon;
     const std::int32_t fileDay = legacyTime->tm_mday;
     const std::int32_t fileYear = legacyTime->tm_year;
-    std::sprintf(
-        gLogFileName554648,
-        "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
-        fileYear % 100, fileMonth + 1, fileDay);
-    std::sprintf(
-        gLogPath62699C,
-        kPathFormat_553514,
-        kLogDirectory_554658,
-        gLogFileName554648);
+    gLogFileName554648 = std::format(L"chat_{:02}{:02}{:02}.txt", fileYear % 100, fileMonth + 1, fileDay);
+    gLogPath62699C = std::format(L"Log\\{}", gLogFileName554648);
 
     std::FILE* const readStream =
-        std::fopen(gLogPath62699C, "r" /* 原常量参考：0x00554908。 */);
+        _wfopen(gLogPath62699C.c_str(), L"r" /* 原常量参考：0x00554908。 */);
     gLogStream626C1C = readStream;
     std::FILE* gate;
     if (readStream == nullptr) {
         std::FILE* const appendStream =
-            std::fopen(gLogPath62699C, kAppendMode_554904);
+            _wfopen(gLogPath62699C.c_str(), L"a");
         gLogStream626C1C = appendStream;
         std::fprintf(appendStream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
 
@@ -167,7 +172,7 @@ void __cdecl InitializeChatInputAndLog_449DA0()
     } else {
         std::fclose(readStream);
         std::FILE* const appendStream =
-            std::fopen(gLogPath62699C, kAppendMode_554904);
+            _wfopen(gLogPath62699C.c_str(), L"a");
         gLogStream626C1C = appendStream;
         gate = appendStream;
     }
@@ -209,17 +214,17 @@ namespace cg::world {
 // 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
 std::int32_t SaveChatInputHistoryEntry_449FA0(const std::int32_t index)
 {
-    char path[128];
-    std::sprintf(
-        path, detail::kPathFormat_553514, platform::gDataPath, detail::kChatHistoryName554910);
+    const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
 
-    std::FILE* const stream = std::fopen(path, "r+b");
+    std::FILE* const stream = _wfopen(path.c_str(), L"r+b");
     if (stream == nullptr) {
         return 0;
     }
 
     ::_fseeki64(stream, static_cast<std::int64_t>(static_cast<std::uint32_t>(index * 0x121)), SEEK_SET);
-    if (static_cast<std::uint32_t>(std::fwrite(detail::gChatHistory621FF8.records[index], 0x121, 1, stream)) < 1) {
+    char diskRecord[0x121]{};
+    text::StoreGbk(diskRecord, sizeof(diskRecord), detail::gChatHistory621FF8.records[index]);
+    if (static_cast<std::uint32_t>(std::fwrite(diskRecord, sizeof(diskRecord), 1, stream)) < 1) {
         std::fclose(stream);
         return 0;
     }
@@ -240,34 +245,21 @@ void AppendChatMessage_44B050(
         return;
     }
 
-    std::string stored;
-    try {
-        stored = cg::text::ToGbk(message);
-        if (stored.size() >= sizeof(gRecords5FB7F8[0].text)) {
-            throw cg::text::GbkStorageError(122, std::system_category(), "文字超过聊天记录GBK容量");
+    // 显示记录只持有宽文本；日志GBK字节限制在文件写入边界检查。
+    const std::FILE* const gate = detail::gLogStream626C1C;
+    std::string logBytes;
+    if (gate != nullptr) {
+        try {
+            logBytes = text::ToGbk(message);
+            if (logBytes.size() >= 0x124)
+                throw text::GbkStorageError(122, std::system_category(), "文字超过聊天日志GBK容量");
+        } catch (const std::system_error&) {
+            m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
+            return;
         }
     }
-    catch (const std::system_error&) {
-        m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
-        return;
-    }
-    const char* const text = stored.c_str();
     std::int32_t index = gChatWriteIndex_626C08;
-    char* const destination = gRecords5FB7F8[index].text;
-    const std::size_t length = std::strlen(text) + 1;
-    const std::size_t wordCount = length / sizeof(std::uint32_t);
-    for (std::size_t word = 0; word < wordCount; ++word) {
-        const std::size_t offset = word * sizeof(std::uint32_t);
-        std::uint32_t copied;
-        std::memcpy(&copied, text + offset, sizeof(copied));
-        std::memcpy(destination + offset, &copied, sizeof(copied));
-    }
-
-    const std::FILE* const gate = detail::gLogStream626C1C;
-    for (std::size_t offset = wordCount * sizeof(std::uint32_t);
-         offset < length; ++offset) {
-        destination[offset] = text[offset];
-    }
+    gRecords5FB7F8[index].text = message;
 
     if (gate != nullptr) {
         __time64_t timeValue = color;
@@ -282,9 +274,9 @@ void AppendChatMessage_44B050(
         std::fprintf(
             detail::gLogStream626C1C,
             " %02d:%02d:%02d\x81\x40%s\n",
-            hour, minute, second, gRecords5FB7F8[index].text);
+            hour, minute, second, logBytes.c_str());
         std::fclose(detail::gLogStream626C1C);
-        std::FILE* const newStream = std::fopen(detail::gLogPath62699C, "a");
+        std::FILE* const newStream = _wfopen(detail::gLogPath62699C.c_str(), L"a");
         index = gChatWriteIndex_626C08;
         detail::gLogStream626C1C = newStream;
     }

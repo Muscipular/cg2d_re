@@ -842,8 +842,8 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
     std::int32_t processedRecords = 0;
     for (;;) {
         auto& source = world::gRecords5FB7F8[logIndex];
-        if (source.text[0] == '\0') { return; }
-        const std::wstring contents = cg::text::FromGbkWide(source.text);
+        if (source.text.empty()) { return; }
+        const auto& contents = source.text;
         const auto rows = render::Font::split(contents, source.fontType, width);
         const std::int32_t lineCount = static_cast<std::int32_t>(rows.size());
 

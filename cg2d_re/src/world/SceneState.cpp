@@ -195,20 +195,106 @@ static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 static std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
 static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
 
-// 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久对象；见场景证据 §58。
-struct AlbumStorage {
+// IWT01：磁盘记录仅在存取边界构造，布局继续固定为80H/3C00CH。
+struct AlbumDiskRecord {
+    std::uint8_t used; // +00：记录存在标记。
+    std::uint8_t mark1; // +01：详情第一图标索引，消费时解释为S8。
+    std::uint8_t mark2; // +02：详情第二图标索引，消费时解释为S8。
+    std::uint8_t tribe; // +03：种族索引，消费时解释为S8。
+    std::int32_t number; // +04：协议编号。
+    std::int32_t imageNo; // +08：预览图号。
+    std::array<std::int32_t, 5> ratings; // +0C：五组评级。
+    std::array<std::int32_t, 4> attributes; // +20：四项属性，战斗匹配只判断非零。
+    std::int32_t value30; // +30：详情独立显示值，具体业务名称未证。
+    std::array<char, 17> name; // +34：原编码名称及NUL。
+    std::array<std::array<char, 29>, 2> description; // +45：两行原编码说明。
+    std::uint8_t fresh; // +7F：新记录标记。
+};
+
+static_assert(std::is_standard_layout_v<AlbumDiskRecord>);
+static_assert(std::is_trivially_copyable_v<AlbumDiskRecord>);
+static_assert(sizeof(AlbumDiskRecord) == 0x80);
+static_assert(alignof(AlbumDiskRecord) == 4);
+static_assert(offsetof(AlbumDiskRecord, used) == 0x0);
+static_assert(offsetof(AlbumDiskRecord, mark1) == 0x1);
+static_assert(offsetof(AlbumDiskRecord, mark2) == 0x2);
+static_assert(offsetof(AlbumDiskRecord, tribe) == 0x3);
+static_assert(offsetof(AlbumDiskRecord, number) == 0x4);
+static_assert(offsetof(AlbumDiskRecord, imageNo) == 0x8);
+static_assert(offsetof(AlbumDiskRecord, ratings) == 0xC);
+static_assert(offsetof(AlbumDiskRecord, attributes) == 0x20);
+static_assert(offsetof(AlbumDiskRecord, value30) == 0x30);
+static_assert(offsetof(AlbumDiskRecord, name) == 0x34);
+static_assert(offsetof(AlbumDiskRecord, description) == 0x45);
+static_assert(offsetof(AlbumDiskRecord, fresh) == 0x7F);
+
+
+struct AlbumDiskStorage {
     std::array<char, 4> signature; // +00：CCA及NUL。
     std::array<std::int32_t, 2> versions; // +04：两角色的回复版本。
-    std::array<AlbumRecord, 2 * 960> records; // +0C：两组连续记录。
+    std::array<AlbumDiskRecord, 2 * 960> records; // +0C：两组连续记录。
 };
-static_assert(std::is_standard_layout_v<AlbumStorage>);
-static_assert(std::is_trivially_copyable_v<AlbumStorage>);
-static_assert(offsetof(AlbumStorage, signature) == 0);
-static_assert(offsetof(AlbumStorage, versions) == 4);
-static_assert(offsetof(AlbumStorage, records) == 0x0C);
-static_assert(sizeof(AlbumStorage) == 0x3C00C);
-static_assert(alignof(AlbumStorage) == 4);
-static AlbumStorage gAlbumStorage {};
+static_assert(std::is_standard_layout_v<AlbumDiskStorage>);
+static_assert(std::is_trivially_copyable_v<AlbumDiskStorage>);
+static_assert(offsetof(AlbumDiskStorage, signature) == 0);
+static_assert(offsetof(AlbumDiskStorage, versions) == 4);
+static_assert(offsetof(AlbumDiskStorage, records) == 0x0C);
+static_assert(sizeof(AlbumDiskStorage) == 0x3C00C);
+static_assert(alignof(AlbumDiskStorage) == 4);
+
+// 内部相册不再与磁盘结构共享内存布局。
+struct AlbumStorage {
+    std::array<char, 4> signature; // 文件格式魔数，不是显示文本。
+    std::array<std::int32_t, 2> versions;
+    std::array<AlbumRecord, 2 * 960> records;
+};
+static AlbumStorage gAlbumStorage{};
+
+static void DecodeAlbumStorage(const AlbumDiskStorage& disk)
+{
+    gAlbumStorage.signature = disk.signature;
+    gAlbumStorage.versions = disk.versions;
+    for (std::size_t i = 0; i < disk.records.size(); ++i) {
+        const auto& source = disk.records[i];
+        auto& target = gAlbumStorage.records[i];
+        target.used = source.used;
+        target.mark1 = source.mark1;
+        target.mark2 = source.mark2;
+        target.tribe = source.tribe;
+        target.number = source.number;
+        target.imageNo = source.imageNo;
+        target.ratings = source.ratings;
+        target.attributes = source.attributes;
+        target.value30 = source.value30;
+        target.fresh = source.fresh;
+        target.name = text::FromGbkWide(source.name.data());
+        for (std::size_t line = 0; line < source.description.size(); ++line)
+            target.description[line] = text::FromGbkWide(source.description[line].data());
+    }
+}
+
+static void EncodeAlbumStorage(AlbumDiskStorage& disk)
+{
+    disk.signature = gAlbumStorage.signature;
+    disk.versions = gAlbumStorage.versions;
+    for (std::size_t i = 0; i < disk.records.size(); ++i) {
+        const auto& source = gAlbumStorage.records[i];
+        auto& target = disk.records[i];
+        target.used = source.used;
+        target.mark1 = source.mark1;
+        target.mark2 = source.mark2;
+        target.tribe = source.tribe;
+        target.number = source.number;
+        target.imageNo = source.imageNo;
+        target.ratings = source.ratings;
+        target.attributes = source.attributes;
+        target.value30 = source.value30;
+        target.fresh = source.fresh;
+        text::StoreGbk(target.name.data(), target.name.size(), source.name);
+        for (std::size_t line = 0; line < source.description.size(); ++line)
+            text::StoreGbk(target.description[line].data(), target.description[line].size(), source.description[line]);
+    }
+}
 
 // 借用唯一相册记录；index从0开始，selected保持原S16符号扩展。
 static AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
@@ -621,7 +707,9 @@ std::int32_t NextRotationValue_455C70()
 std::uint32_t InitializeAlbum_518C20()
 {
     constexpr char kAlbumSignature[] = "CCA";
-    std::memset(&gAlbumStorage, 0, sizeof(gAlbumStorage));
+    gAlbumStorage.signature = {};
+    gAlbumStorage.versions = {};
+    for (auto& record : gAlbumStorage.records) record = {};
     std::memcpy(gAlbumStorage.signature.data(), kAlbumSignature, sizeof(kAlbumSignature));
     return 4;
 }
@@ -655,11 +743,9 @@ void LoadAlbumData_518780()
         std::malloc(0x78018));
     auto* const decoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", platform::gDataPath, "album.dat");
+    const auto path = std::format(L"{}\\album.dat", platform::gDataPath);
     std::FILE* const stream =
-        std::fopen(path, "rb");
+        _wfopen(path.c_str(), L"rb");
     if (stream == nullptr) {
         SaveAlbumData_5186A0();
     } else {
@@ -677,7 +763,9 @@ void LoadAlbumData_518780()
         static_cast<void>(login::detail::DecodeLegacyBytes_52D460(
             encoded, static_cast<std::int32_t>(count), 0, decoded, &decodedBytes));
         if (decodedBytes == 0x3C00C) {
-            std::memcpy(&gAlbumStorage, decoded, sizeof(gAlbumStorage));
+            auto disk = std::make_unique<AlbumDiskStorage>();
+            std::memcpy(disk.get(), decoded, sizeof(*disk));
+            DecodeAlbumStorage(*disk);
         } else {
             SaveAlbumData_5186A0();
         }
@@ -713,17 +801,19 @@ void UpdateAlbumEntry_518870(
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     std::int16_t selected = login::gSelectedCharacterIndex;
     for (std::int32_t line = 0; line < 2; ++line) {
-        char* const destination = AlbumRecordAt(index, selected)->description[line].data();
+        auto& destination = AlbumRecordAt(index, selected)->description[line];
+        char bytes[29]{}; // 协议行按原28字节容量提取后解码。
         const std::int32_t result = input::ExtractLegacyLine_503AB0(
-            destination, 29, text, line, 28);
+            bytes, 29, text, line, 28);
+        destination = cg::text::FromGbkWide(bytes);
         selected = login::gSelectedCharacterIndex;
         if (result == 0) {
-            AlbumRecordAt(index, selected)->description[line][0] = 0;
+            AlbumRecordAt(index, selected)->description[line].clear();
         }
     }
     const char* const displayedName = std::strlen(name) > 16 ? "???" : name;
     record = AlbumRecordAt(index, selected);
-    std::strcpy(record->name.data(), displayedName);
+    record->name = cg::text::FromGbkWide(displayedName);
     record->fresh = static_cast<std::uint8_t>(added);
     SaveAlbumData_5186A0();
 }
@@ -8041,11 +8131,11 @@ const AlbumRecord* GetSelectedAlbumRecords()
     return AlbumRecordAt(0, selected);
 }
 
-const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
+const std::wstring& ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
 {
     AlbumRecord* const record = AlbumRecordAt(index, selected);
     record->fresh = 0;
-    return record->name.data();
+    return record->name;
 }
 
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
@@ -8053,20 +8143,18 @@ void SaveAlbumData_5186A0()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", platform::gDataPath, "album.dat");
+    const auto path = std::format(L"{}\\album.dat", platform::gDataPath);
     std::FILE* const stream =
-        std::fopen(path, "wb");
+        _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {
         std::free(encoded);
         return;
     }
-    std::array<std::uint8_t, 0x3C00C> snapshot;
-    std::memcpy(snapshot.data(), &gAlbumStorage, snapshot.size());
+    auto snapshot = std::make_unique<AlbumDiskStorage>();
+    EncodeAlbumStorage(*snapshot);
     std::int32_t encodedBytes;
     login::detail::EncodeLegacyBytes_52D310(
-        snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
+        reinterpret_cast<std::uint8_t*>(snapshot.get()), 0x3C00C, 0, encoded, &encodedBytes, 4);
     const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
     const std::uint32_t written =
         static_cast<std::uint32_t>(std::fwrite(encoded, 1, static_cast<std::uint32_t>(count), stream));
@@ -8085,7 +8173,7 @@ void ClearCurrentCharacterAlbum_518BE0()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
     gAlbumStorage.versions[selected] = 0;
-    std::memset(AlbumRecordAt(0, selected), 0, 0x1E000);
+    std::fill_n(AlbumRecordAt(0, selected), 960, AlbumRecord{});
     SaveAlbumData_5186A0();
 }
 

@@ -978,7 +978,7 @@ void BrowseChatHistory_44A1B0()
             selected = 63;
             gCursor62683C = selected;
         }
-        if (gChatHistory621FF8.records[selected][0] == '\0'
+        if (gChatHistory621FF8.records[selected].empty()
             || (selected == tail && previous != -1)) {
             gCursor62683C = previous;
             return;
@@ -1008,7 +1008,7 @@ void BrowseChatHistory_44A1B0()
     initialContext->totalByteLength = 0;
     gCurrentInputData->clearText();
     gCurrentInputData->caretByteOffset = 0;
-    LoadInitialText_44A160(cg::text::FromGbkWide(gChatHistory621FF8.records[gCursor62683C]).c_str());
+    LoadInitialText_44A160(gChatHistory621FF8.records[gCursor62683C].c_str());
     const std::wstring contents = ContextText(*gCurrentInputData);
     const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth());
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
@@ -1032,7 +1032,7 @@ void HandleInputEnterKey_44AB60()
         std::string stored;
         try {
             stored = cg::text::ToGbk(ContextText(*context));
-            if (stored.size() >= sizeof(world::detail::gChatHistory621FF8.records[0])) {
+            if (stored.size() >= 0x121) {
                 throw cg::text::GbkStorageError(122, std::system_category(), "文字超过聊天历史GBK容量");
             }
             // 先验证P|之后的转义正文，再发布历史；此预检不调用原通知空叶。
@@ -1052,27 +1052,11 @@ void HandleInputEnterKey_44AB60()
             nextIndex = 0;
             history.tail626838 = 0;
         }
-        const char* const previousText = history.records[oldIndex];
-        bool sameAsPrevious = false;
-        std::size_t comparisonIndex = 0;
-        for (;;) {
-            const auto inputByte =
-                static_cast<unsigned char>(stored[comparisonIndex]);
-            const auto previousByte =
-                static_cast<unsigned char>(previousText[comparisonIndex]);
-            if (inputByte != previousByte) {
-                break;
-            }
-            if (inputByte == 0) {
-                sameAsPrevious = true;
-                break;
-            }
-            ++comparisonIndex;
-        }
+        const bool sameAsPrevious = ContextText(*context) == history.records[oldIndex];
         if (sameAsPrevious) {
             history.tail626838 = static_cast<std::uint32_t>(oldIndex);
         } else {
-            std::strcpy(history.records[nextIndex], stored.c_str());
+            history.records[nextIndex] = ContextText(*context);
             static_cast<void>(world::SaveChatInputHistoryEntry_449FA0(
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;

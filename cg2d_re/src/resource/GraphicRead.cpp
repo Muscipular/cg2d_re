@@ -1,3 +1,4 @@
+#include <format>
 #include "cg/resource/GraphicRead.hpp"
 
 #include "cg/resource/GraphicDecode.hpp"
@@ -311,16 +312,13 @@ std::int16_t ResolveAnimationPalette(
 // 原 522900；唯一 caller 弃返回，保留文件、共享头、跨次索引和入队副作用。
 static void LoadIndependentPaletteIndex_522900()
 {
-    char directory[256] {};
-    char fileName[256] {};
-    ::GetCurrentDirectoryA(256, directory);
-    if (directory[255] != '\\') {
-        std::strcat(directory, "\\");
-    }
-    std::sprintf(
-        fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
+    wchar_t directory[256]{};
+    ::GetCurrentDirectoryW(256, directory);
+    std::wstring prefix(directory);
+    if (directory[255] != L'\\') prefix += L'\\';
+    const auto fileName = std::format(L"{}{}\\CGLoadSpr.dbf", prefix, platform::gDataPath);
     std::FILE* const file =
-        std::fopen(fileName, "rb");
+        _wfopen(fileName.c_str(), L"rb");
     if (file == nullptr) {
         return;
     }

@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <cstdio>
 #include <string_view>
+#include <string>
+#include <array>
 #include "cg/Yobi/YobiRuntime.hpp"
 
 #include <cstdint>
@@ -15,7 +17,7 @@ namespace cg::world::detail {
 
 // 原 [0x621FF8,0x62683C)：64 项记录与尾槽一次传输，游标不在文件块内。
 struct ChatHistory621FF8 {
-    char records[64][0x121];
+    std::array<std::wstring, 64> records; // 磁盘记录在ChatHistory.cpp边界转换。
     std::uint32_t tail626838; // 原全局：0x00626838。
 };
 
@@ -29,26 +31,20 @@ namespace cg::world {
 
 // 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
 struct Record5FB7F8 {
-    char text[0x124]; // 原成员偏移：+0x00。
+    std::wstring text; // 原成员偏移：+0x00。
     std::int32_t color; // 原成员偏移：+0x124。
     std::int32_t state; // 原成员偏移：+0x128。
     std::int32_t field12C; // 原成员偏移：+0x12C。
     std::int32_t fontType; // 原成员偏移：+0x130。
 };
 
-static_assert(offsetof(Record5FB7F8, text) == 0x000);
-static_assert(offsetof(Record5FB7F8, color) == 0x124);
-static_assert(offsetof(Record5FB7F8, state) == 0x128);
-static_assert(offsetof(Record5FB7F8, field12C) == 0x12C);
-static_assert(offsetof(Record5FB7F8, fontType) == 0x130);
-static_assert(sizeof(Record5FB7F8) == 0x134);
 
 extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
 extern volatile std::int32_t gChatWriteIndex_626C08; // 原全局：0x00626C08。
 extern volatile std::int32_t gChatRecordCount_C9A944; // 原全局：0x00C9A944。
 extern input::InputContext gInputContext626840; // 原全局：0x00626840。
 extern std::uint32_t gChatRangeOverlayFrames_626BFC; // 原全局：0x00626BFC。
-extern char gLogFileName554648[16]; // 原全局：0x00554648。
+extern std::wstring gLogFileName554648; // 原全局：0x00554648。
 
 // 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。
 extern std::int32_t gPlayerUnspentAttributePoints_D2F788; // 原全局：0x00D2F788。
@@ -75,7 +71,7 @@ std::int32_t SaveChatInputHistoryEntry_449FA0(std::int32_t index); // 原 [0x449
 extern std::uint32_t gChatMinimumIntervalMs; // G06：SpDt重复发言间隔，默认200毫秒。
 
 namespace detail {
-extern char gLogPath62699C[260]; // 原全局：0x0062699C。
+extern std::wstring gLogPath62699C; // 原全局：0x0062699C。
 extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
 extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
 // 原函数：0x004A76E0。

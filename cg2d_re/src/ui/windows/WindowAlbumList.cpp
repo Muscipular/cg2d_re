@@ -176,8 +176,8 @@ static void* WindowAlbumList_Refresh()
             WindowInstance* const nameWindow = gCurrentWindow;
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
             auto* const text = static_cast<WindowTextData*>(nameWindow->elements[48 + row].data);
-            const char* const name = nameRecords[nameScroll + row].name.data();
-            text->text = cg::text::FromGbkWide(name);
+            const auto& name = nameRecords[nameScroll + row].name;
+            text->text = name;
             const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
             const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
             const bool fresh = flagRecords[flagScroll + row].fresh != 0;
@@ -186,8 +186,7 @@ static void* WindowAlbumList_Refresh()
             result = flagWindow;
         } else {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[48 + row].data);
-            const char* const source = "";
-            text->text = cg::text::FromGbkWide(source);
+            text->text.clear();
             WindowElement* const elements = gCurrentWindow->elements;
             elements[38 + row].visible = 0;
             result = elements;

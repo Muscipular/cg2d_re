@@ -215,8 +215,8 @@ static void WindowAlbumDetail_Refresh()
         }
         const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
         const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
-        const char* const name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
-        copyBeforeScan(2, cg::text::FromGbkWide(name));
+        const auto& name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
+        copyBeforeScan(2, name);
 
         const std::int32_t image = selectedRecord()->imageNo;
         const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(image);

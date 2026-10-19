@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <string_view>
 
 #include <cstdint>
 
@@ -76,16 +78,16 @@ std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot);
 void RestoreCapability4CurrentSavedRecord();
 
 // ALM02：参数已按50字节验证；同步当前记录和选中账号槽，仅写内存，供返回登录界面使用。
-void CacheAutoLoginInputValues(const char* account, const char* password);
+void CacheAutoLoginInputValues(std::wstring_view account, std::wstring_view password);
 
 // 当前记录的密码／账号缓存；分别对应FF494F／FF4982。
-char* GetCurrentSavedInputValueFF494F();
+std::wstring& GetCurrentSavedInputValueFF494F();
 
-char* GetCurrentSavedInputValueFF4982();
+std::wstring& GetCurrentSavedInputValueFF4982();
 
-char* GetCurrentSavedStallNameFF4D18();
+std::wstring& GetCurrentSavedStallNameFF4D18();
 
-char* GetCurrentSavedStallDescriptionFF4D28();
+std::wstring& GetCurrentSavedStallDescriptionFF4D28();
 
 // 当前存档索引状态；借用存档模块唯一存储。
 extern std::int32_t& gSelectedSavedSlot105C394;
@@ -97,27 +99,27 @@ extern std::int32_t& gVisibleSavedSlotCount105C364;
 
 // 原函数：0x00533570。
 void Sub_533570(
-    const char* const source,
+    std::wstring_view source,
     const std::int32_t logicalSlot);
 
 // 原函数：0x005335B0。
 void WriteSavedPassword_5335B0(
-    const char* const source,
+    std::wstring_view source,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533640。
 void WriteSavedAccount_533640(
-    const char* const source,
+    std::wstring_view source,
     const std::int32_t logicalSlot);
 
 // 原函数：0x005335F0。
-char* ReadSavedPassword_5335F0(
-    char* const output,
+std::wstring& ReadSavedPassword_5335F0(
+    std::wstring& output,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533680。
-char* ReadSavedAccount_533680(
-    char* const output,
+std::wstring& ReadSavedAccount_533680(
+    std::wstring& output,
     const std::int32_t logicalSlot);
 
 // 原函数：0x00533730。

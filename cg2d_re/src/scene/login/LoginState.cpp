@@ -199,17 +199,17 @@ std::int32_t AdvanceServerLoginConnection_508360()
             network::WriteProtocolModeDA3B22(0);
 
             char adapterScratch[16];
-            char passwordCopy[sizeof(gPassword)]; // ALM02：密码副本沿既有64字节请求变量容量。
+            std::wstring passwordCopy;
             char adapterId[44];
             static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
-            std::strcpy(passwordCopy, gPassword);
+            passwordCopy = gPassword;
             std::strcpy(adapterId, adapterScratch);
-            std::strcpy(gPassword, passwordCopy);
+            gPassword = passwordCopy;
             const std::int32_t queued = network::SendAccountLoginRequest_512800(
                 platform::gConnectionSocket,
-                cg::text::FromGbkWide(gExecutableDigest),
-                cg::text::FromGbkWide(passwordCopy),
-                cg::text::FromGbkWide(gAccount),
+                gExecutableDigest,
+                passwordCopy,
+                gAccount,
                 cg::text::FromGbkWide(adapterId));
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;

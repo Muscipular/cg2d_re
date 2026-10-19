@@ -14,6 +14,7 @@
 #include "cg/platform/Startup.hpp"
 
 #include <bit>
+#include <algorithm>
 #include <format>
 #include <string>
 #include <cstddef>
@@ -32,15 +33,70 @@ struct SavedPath final {
     std::wstring text; // 原成员偏移：+0x00。
 };
 
-struct SavedRecordPart final {
-    std::int32_t value0; // 原成员偏移：+0x00。
-    char text[316]; // 原成员偏移：+0x04。
-    std::uint8_t tailBytes[4]; // 原成员偏移：+0x140。
+// 旧save.dat的0x510字节磁盘格式。未解释区域按原字节保留。
+struct SavedDiskRecord final {
+    std::int32_t version;
+    std::array<std::array<char, 51>, 3> inputs04;
+    std::uint8_t stereo9D;
+    std::uint8_t effect9E;
+    std::uint8_t music9F;
+    std::array<std::uint8_t, 16> frequenciesA0;
+    std::uint8_t cursorB0;
+    std::uint8_t chatSizeB1;
+    std::array<std::array<char, 25>, 24> presetsB2;
+    std::array<std::uint8_t, 8> display30A;
+    std::uint8_t split312;
+    std::uint8_t sort313;
+    std::uint8_t overhead314;
+    std::uint8_t value315;
+    std::array<std::uint16_t, 2> bgm316;
+    std::uint8_t scanline31A;
+    std::uint8_t value31B;
+    std::array<std::uint8_t, 0xE4> reserved31C;
+    std::array<char, 16> stallName400;
+    std::array<char, 113> stallDescription410;
+    std::array<std::uint8_t, 0x8F> reserved481;
 };
+static_assert(sizeof(SavedDiskRecord) == 0x510);
+static_assert(offsetof(SavedDiskRecord, inputs04) == 4);
+static_assert(offsetof(SavedDiskRecord, frequenciesA0) == 0xA0);
+static_assert(offsetof(SavedDiskRecord, presetsB2) == 0xB2);
+static_assert(offsetof(SavedDiskRecord, display30A) == 0x30A);
+static_assert(offsetof(SavedDiskRecord, bgm316) == 0x316);
+static_assert(offsetof(SavedDiskRecord, stallName400) == 0x400);
+static_assert(offsetof(SavedDiskRecord, stallDescription410) == 0x410);
+static_assert(std::is_trivially_copyable_v<SavedDiskRecord>);
 
 struct SavedPhysicalRecord final {
-    SavedRecordPart parts[4]; // 原成员偏移：+0x00。
+    std::int32_t version{};
+    std::array<std::wstring, 3> inputs04;
+    std::uint8_t stereo9D{};
+    std::uint8_t effect9E{};
+    std::uint8_t music9F{};
+    std::array<std::uint8_t, 16> frequenciesA0{};
+    std::uint8_t cursorB0{};
+    std::uint8_t chatSizeB1{};
+    std::array<std::wstring, 24> presetsB2;
+    std::array<std::uint8_t, 8> display30A{};
+    std::uint8_t split312{};
+    std::uint8_t sort313{};
+    std::uint8_t overhead314{};
+    std::uint8_t value315{};
+    std::array<std::uint16_t, 2> bgm316{};
+    std::uint8_t scanline31A{};
+    std::uint8_t value31B{};
+    std::array<std::uint8_t, 0xE4> reserved31C{};
+    std::wstring stallName400;
+    std::wstring stallDescription410;
+    std::array<std::uint8_t, 0x8F> reserved481{};
 };
+
+template<std::size_t N>
+static std::wstring DecodeSavedText(const std::array<char, N>& bytes)
+{
+    const auto end = std::find(bytes.begin(), bytes.end(), '\0');
+    return cg::text::FromGbkWide(std::string_view(bytes.data(), static_cast<std::size_t>(end - bytes.begin())));
+}
 
 struct SavedStateStorage final {
     SavedPath paths[10]; // 原成员偏移：+0x00。
@@ -53,19 +109,91 @@ struct SavedStateStorage final {
     std::int32_t selected; // 原成员偏移：+0x3CFC。
 };
 
+static SavedDiskRecord EncodeSavedRecord(const SavedPhysicalRecord& record, const bool savePassword = true)
+{
+    SavedDiskRecord disk{};
+    disk.version = record.version;
+    disk.stereo9D = record.stereo9D;
+    disk.effect9E = record.effect9E;
+    disk.music9F = record.music9F;
+    disk.frequenciesA0 = record.frequenciesA0;
+    disk.cursorB0 = record.cursorB0;
+    disk.chatSizeB1 = record.chatSizeB1;
+    disk.display30A = record.display30A;
+    disk.split312 = record.split312;
+    disk.sort313 = record.sort313;
+    disk.overhead314 = record.overhead314;
+    disk.value315 = record.value315;
+    disk.bgm316 = record.bgm316;
+    disk.scanline31A = record.scanline31A;
+    disk.value31B = record.value31B;
+    disk.reserved31C = record.reserved31C;
+    disk.reserved481 = record.reserved481;
+    for (std::size_t i = 0; i < disk.inputs04.size(); ++i) {
+        if (i != 1 || savePassword) { cg::text::StoreGbk(disk.inputs04[i].data(), disk.inputs04[i].size(), record.inputs04[i]); }
+    }
+    for (std::size_t i = 0; i < disk.presetsB2.size(); ++i) {
+        cg::text::StoreGbk(disk.presetsB2[i].data(), disk.presetsB2[i].size(), record.presetsB2[i]);
+    }
+    const std::string name = cg::text::ToGbk(record.stallName400);
+    std::size_t length = 0;
+    while (length < name.size()) {
+        const auto lead = static_cast<unsigned char>(name[length]);
+        const std::size_t next = length + (lead >= 0x81 && lead <= 0xFE ? 2 : 1);
+        if (next >= disk.stallName400.size() || next > name.size()) { break; }
+        length = next;
+    }
+    std::copy_n(name.data(), length, disk.stallName400.data());
+    cg::text::StoreGbk(disk.stallDescription410.data(), disk.stallDescription410.size(), record.stallDescription410);
+    return disk;
+}
 
-static_assert(std::is_standard_layout_v<SavedRecordPart>);
-static_assert(std::is_trivially_copyable_v<SavedRecordPart>);
-static_assert(sizeof(SavedRecordPart) == 0x144);
-static_assert(offsetof(SavedRecordPart, value0) == 0x0);
-static_assert(offsetof(SavedRecordPart, text) == 0x4);
-static_assert(offsetof(SavedRecordPart, tailBytes) == 0x140);
+static void DecodeSavedRecord(SavedPhysicalRecord& record, const SavedDiskRecord& disk, const std::size_t bytes)
+{
+    if (bytes > offsetof(SavedDiskRecord, version)) { record.version = disk.version; }
+    if (bytes > offsetof(SavedDiskRecord, stereo9D)) { record.stereo9D = disk.stereo9D; }
+    if (bytes > offsetof(SavedDiskRecord, effect9E)) { record.effect9E = disk.effect9E; }
+    if (bytes > offsetof(SavedDiskRecord, music9F)) { record.music9F = disk.music9F; }
+    if (bytes > offsetof(SavedDiskRecord, frequenciesA0)) { record.frequenciesA0 = disk.frequenciesA0; }
+    if (bytes > offsetof(SavedDiskRecord, cursorB0)) { record.cursorB0 = disk.cursorB0; }
+    if (bytes > offsetof(SavedDiskRecord, chatSizeB1)) { record.chatSizeB1 = disk.chatSizeB1; }
+    if (bytes > offsetof(SavedDiskRecord, display30A)) { record.display30A = disk.display30A; }
+    if (bytes > offsetof(SavedDiskRecord, split312)) { record.split312 = disk.split312; }
+    if (bytes > offsetof(SavedDiskRecord, sort313)) { record.sort313 = disk.sort313; }
+    if (bytes > offsetof(SavedDiskRecord, overhead314)) { record.overhead314 = disk.overhead314; }
+    if (bytes > offsetof(SavedDiskRecord, value315)) { record.value315 = disk.value315; }
+    if (bytes > offsetof(SavedDiskRecord, bgm316)) { record.bgm316 = disk.bgm316; }
+    if (bytes > offsetof(SavedDiskRecord, scanline31A)) { record.scanline31A = disk.scanline31A; }
+    if (bytes > offsetof(SavedDiskRecord, value31B)) { record.value31B = disk.value31B; }
+    if (bytes > offsetof(SavedDiskRecord, reserved31C)) { record.reserved31C = disk.reserved31C; }
+    if (bytes > offsetof(SavedDiskRecord, reserved481)) { record.reserved481 = disk.reserved481; }
+    for (std::size_t i = 0; i < disk.inputs04.size(); ++i) {
+        if (bytes > offsetof(SavedDiskRecord, inputs04) + i * 51) { record.inputs04[i] = DecodeSavedText(disk.inputs04[i]); }
+    }
+    for (std::size_t i = 0; i < disk.presetsB2.size(); ++i) {
+        if (bytes > offsetof(SavedDiskRecord, presetsB2) + i * 25) { record.presetsB2[i] = DecodeSavedText(disk.presetsB2[i]); }
+    }
+    if (bytes > offsetof(SavedDiskRecord, stallName400)) { record.stallName400 = DecodeSavedText(disk.stallName400); }
+    if (bytes > offsetof(SavedDiskRecord, stallDescription410)) { record.stallDescription410 = DecodeSavedText(disk.stallDescription410); }
+}
 
-static_assert(std::is_standard_layout_v<SavedPhysicalRecord>);
-static_assert(std::is_trivially_copyable_v<SavedPhysicalRecord>);
-static_assert(sizeof(SavedPhysicalRecord) == 0x510);
-static_assert(offsetof(SavedPhysicalRecord, parts) == 0x0);
-
+// 默认值只建立内部对象；文件编码留在写出边界。
+static SavedPhysicalRecord MakeDefaultSavedRecord()
+{
+    SavedPhysicalRecord record{};
+    record.version = 0x7002;
+    record.effect9E = static_cast<std::uint8_t>(cg::platform::gEffectVolume);
+    record.stereo9D = static_cast<std::uint8_t>(cg::platform::gUseStereo);
+    record.music9F = static_cast<std::uint8_t>(cg::platform::gMusicVolume);
+    std::copy_n(cg::platform::gBgmFrequencySelectionPrefix, record.frequenciesA0.size(), record.frequenciesA0.begin());
+    record.scanline31A = static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
+    for (std::size_t i = 0; i < 2; ++i) {
+        record.display30A[2 + i] = 8;
+        record.display30A[4 + i] = 5;
+        record.display30A[6 + i] = 1;
+    }
+    return record;
+}
 
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 static SavedStateStorage gSavedState {}; // 原全局：0x01058698。
@@ -247,17 +375,19 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
     }
 
     std::fclose(file);
+    if (bytesRead <= 1 || bytesRead > sizeof(SavedDiskRecord) + 1) { return 0; }
+    auto disk = EncodeSavedRecord(gSavedState.records[physicalSlot]);
     (void)cg::login::detail::DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
         0,
-        reinterpret_cast<std::uint8_t*>(
-            &gSavedState.records[physicalSlot]),
+        reinterpret_cast<std::uint8_t*>(&disk),
         &decodedBytes);
+    DecodeSavedRecord(gSavedState.records[physicalSlot], disk, static_cast<std::size_t>(decodedBytes));
     if (decodedBytes != 0x510) {
         return 0;
     }
-    return gSavedState.records[physicalSlot].parts[0].value0 == 0x7002
+    return gSavedState.records[physicalSlot].version == 0x7002
         ? 1
         : 0;
 }
@@ -266,86 +396,8 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
 static std::int32_t WriteDefaultSavedFile_532FC0(
     const wchar_t* const fileName)
 {
-    SavedPhysicalRecord raw;
-    std::memset(&raw, 0, sizeof(raw));
+    auto raw = EncodeSavedRecord(MakeDefaultSavedRecord());
     auto* const rawBytes = reinterpret_cast<std::uint8_t*>(&raw);
-
-    raw.parts[0].value0 = 0x7002;
-    rawBytes[0x6A] = 0;
-    rawBytes[0x37] = 0;
-
-    const std::uint8_t effectVolume =
-        static_cast<std::uint8_t>(cg::platform::gEffectVolume);
-    const std::uint8_t musicVolume =
-        static_cast<std::uint8_t>(cg::platform::gMusicVolume);
-    rawBytes[0x04] = 0;
-
-    const std::uint8_t useStereo =
-        static_cast<std::uint8_t>(cg::platform::gUseStereo);
-    rawBytes[0x9E] = effectVolume;
-
-    std::uint32_t bgmDwordAt4;
-    std::memcpy(
-        &bgmDwordAt4,
-        cg::platform::gBgmFrequencySelectionPrefix + 4,
-        sizeof(bgmDwordAt4));
-    rawBytes[0x9D] = useStereo;
-
-    std::uint32_t bgmDwordAt0;
-    std::memcpy(
-        &bgmDwordAt0,
-        cg::platform::gBgmFrequencySelectionPrefix,
-        sizeof(bgmDwordAt0));
-    rawBytes[0x9F] = musicVolume;
-
-    std::uint32_t bgmDwordAt8;
-    std::memcpy(
-        &bgmDwordAt8,
-        cg::platform::gBgmFrequencySelectionPrefix + 8,
-        sizeof(bgmDwordAt8));
-    std::memcpy(
-        rawBytes + 0xA0,
-        &bgmDwordAt0,
-        sizeof(bgmDwordAt0));
-
-    std::uint32_t bgmDwordAt12;
-    std::memcpy(
-        &bgmDwordAt12,
-        cg::platform::gBgmFrequencySelectionPrefix + 12,
-        sizeof(bgmDwordAt12));
-    std::memcpy(
-        rawBytes + 0xA4,
-        &bgmDwordAt4,
-        sizeof(bgmDwordAt4));
-
-    const std::uint8_t scanlineSyncMode =
-        static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
-    std::memcpy(
-        rawBytes + 0xA8,
-        &bgmDwordAt8,
-        sizeof(bgmDwordAt8));
-    std::memcpy(
-        rawBytes + 0xAC,
-        &bgmDwordAt12,
-        sizeof(bgmDwordAt12));
-    rawBytes[0xB0] = 0;
-    rawBytes[0xB1] = 0;
-    rawBytes[0x31A] = scanlineSyncMode;
-
-    for (std::int32_t index = 0; index < 2; ++index) {
-        rawBytes[0x30C + index] = 8;
-        rawBytes[0x30E + index] = 5;
-        rawBytes[0x310 + index] = 1;
-    }
-
-    std::uint8_t* cursor = rawBytes + 0xB2;
-    for (std::int32_t index = 0; index < 24; ++index) {
-        *cursor = 0;
-        cursor += 0x19;
-    }
-    rawBytes[0x312] = 0;
-    rawBytes[0x313] = 0;
-    rawBytes[0x314] = 0;
 
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
@@ -377,79 +429,9 @@ static std::int32_t WriteDefaultSavedFile_532FC0(
 }
 
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。
-static char* InitializeSavedPhysicalRecord_5331A0(
-    const std::int32_t physicalSlot)
+static void InitializeSavedPhysicalRecord_5331A0(const std::int32_t physicalSlot)
 {
-    SavedPhysicalRecord& record = gSavedState.records[physicalSlot];
-    std::memset(&record, 0, sizeof(record));
-    auto* const recordBytes = reinterpret_cast<std::uint8_t*>(&record);
-
-    record.parts[0].value0 = 0x7002;
-    recordBytes[0x6A] = 0;
-    recordBytes[0x37] = 0;
-
-    const std::uint8_t effectVolume =
-        static_cast<std::uint8_t>(cg::platform::gEffectVolume);
-    recordBytes[0x04] = 0;
-
-    const std::uint8_t useStereo =
-        static_cast<std::uint8_t>(cg::platform::gUseStereo);
-    recordBytes[0x9D] = useStereo;
-
-    const std::uint8_t musicVolume =
-        static_cast<std::uint8_t>(cg::platform::gMusicVolume);
-    recordBytes[0x9E] = effectVolume;
-
-    std::uint32_t bgmDword0;
-    std::memcpy(
-        &bgmDword0,
-        cg::platform::gBgmFrequencySelectionPrefix,
-        sizeof(bgmDword0));
-    recordBytes[0x9F] = musicVolume;
-
-    std::uint32_t bgmDword1;
-    std::memcpy(
-        &bgmDword1,
-        cg::platform::gBgmFrequencySelectionPrefix + 4,
-        sizeof(bgmDword1));
-    std::memcpy(recordBytes + 0xA0, &bgmDword0, sizeof(bgmDword0));
-
-    std::uint32_t bgmDword2;
-    std::memcpy(
-        &bgmDword2,
-        cg::platform::gBgmFrequencySelectionPrefix + 8,
-        sizeof(bgmDword2));
-    std::memcpy(recordBytes + 0xA4, &bgmDword1, sizeof(bgmDword1));
-
-    std::uint32_t bgmDword3;
-    std::memcpy(
-        &bgmDword3,
-        cg::platform::gBgmFrequencySelectionPrefix + 12,
-        sizeof(bgmDword3));
-    std::memcpy(recordBytes + 0xA8, &bgmDword2, sizeof(bgmDword2));
-
-    const std::uint8_t scanlineSyncMode =
-        static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
-    std::memcpy(recordBytes + 0xAC, &bgmDword3, sizeof(bgmDword3));
-    recordBytes[0xB0] = 0;
-    recordBytes[0xB1] = 0;
-    recordBytes[0x31A] = scanlineSyncMode;
-
-    for (std::int32_t index = 0; index < 2; ++index) {
-        recordBytes[0x30C + index] = 8;
-        recordBytes[0x30E + index] = 5;
-        recordBytes[0x310 + index] = 1;
-    }
-
-    char* cursor = reinterpret_cast<char*>(recordBytes + 0xB2);
-    for (std::int32_t index = 0; index < 24; ++index) {
-        *cursor = 0;
-        cursor += 0x19;
-    }
-    recordBytes[0x312] = 0;
-    recordBytes[0x313] = 0;
-    recordBytes[0x314] = 0;
-    return cursor;
+    gSavedState.records[physicalSlot] = MakeDefaultSavedRecord();
 }
 
 // 原 sub_533360@[0x533360,0x5333CF)：复位保存状态。
@@ -464,10 +446,7 @@ static std::int32_t ResetSavedState_533360()
         gSavedState.paths[index].text = std::format(L"data\\{}", index);
         gSavedState.active[index] = 0;
         gSavedState.logicalToPhysical[index] = -1;
-        std::memset(
-            &gSavedState.records[0],
-            0,
-            sizeof(gSavedState.records[0]));
+        gSavedState.records[0] = {};
     }
     return 0;
 }
@@ -560,17 +539,17 @@ static std::int32_t RebuildSavedSlotMap_533470()
 // 原 sub_533530@[0x533530,0x533563)：迁移三份旧保存文件。
 static std::int32_t MigrateLegacySavedFiles_533530()
 {
-    (void)::CopyFileA(
-        "data\\save.dat",
-        "data\\0\\save.dat",
+    (void)::CopyFileW(
+        L"data\\save.dat",
+        L"data\\0\\save.dat",
         FALSE);
-    (void)::CopyFileA(
-        "data\\mail.dat",
-        "data\\0\\mail.dat",
+    (void)::CopyFileW(
+        L"data\\mail.dat",
+        L"data\\0\\mail.dat",
         FALSE);
-    return static_cast<std::int32_t>(::CopyFileA(
-        "data\\guildmail.dat",
-        "data\\0\\guildmail.dat",
+    return static_cast<std::int32_t>(::CopyFileW(
+        L"data\\guildmail.dat",
+        L"data\\0\\guildmail.dat",
         FALSE));
 }
 
@@ -580,10 +559,8 @@ static std::int32_t LoadSelectedPhysicalRecord_5336D0()
     const std::int32_t selected = gSavedState.selected;
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
-    std::memcpy(
-        &gCurrentSavedRecord,
-        &gSavedState.records[selected],
-        sizeof(gCurrentSavedRecord));
+    if (selected < 0 || selected >= 10) { return -1; }
+    gCurrentSavedRecord = gSavedState.records[selected];
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
@@ -593,28 +570,22 @@ static std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
     const std::int32_t selected = gSavedState.selected;
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
-    std::memcpy(
-        &gSavedState.records[selected],
-        &gCurrentSavedRecord,
-        sizeof(gCurrentSavedRecord));
+    if (selected < 0 || selected >= 10) { return -1; }
+    gSavedState.records[selected] = gCurrentSavedRecord;
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
 // 原 sub_520200@[0x520200,0x5202DE)：持久化当前保存记录。
 static std::int32_t PersistCurrentSavedRecord_520200()
 {
-    SavedPhysicalRecord localRecord;
+    auto localRecord = EncodeSavedRecord(gCurrentSavedRecord, false);
     std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
 
-    std::memcpy(
-        &localRecord,
-        &gCurrentSavedRecord,
-        sizeof(localRecord));
+
     auto* const localBytes =
         reinterpret_cast<std::uint8_t*>(&localRecord);
-    std::memset(localBytes + 0x37, 0, 0x33);
     cg::login::detail::EncodeLegacyBytes_52D310(
         localBytes,
         0x510,
@@ -624,8 +595,10 @@ static std::int32_t PersistCurrentSavedRecord_520200()
         0xA20);
 
     const std::int32_t selected = gSavedState.selected;
+    if (selected < 0 || selected >= 10) { return 0; }
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[selected];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
     path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
 
     std::FILE* const file =
@@ -650,6 +623,7 @@ static std::int32_t PersistCurrentSavedRecord_520200()
 static std::int32_t DeleteSavedFiles_533860(
     const std::int32_t physicalSlot)
 {
+    if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
     if (gAutoLoginCachedPhysicalSlot == physicalSlot) {
         gAutoLoginCachedPhysicalSlot = -1;
     }
@@ -673,56 +647,47 @@ static std::int32_t ReturnOne_4A4210() noexcept
 
 // 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。
 static std::int32_t RestoreAudioSettings_5204C0(
-    const std::uint8_t* const currentBytes)
+    const SavedPhysicalRecord& current)
 {
     cg::platform::gUseStereo =
-        static_cast<std::int32_t>(currentBytes[0x9D]);
+        static_cast<std::int32_t>(current.stereo9D);
     cg::platform::gEffectVolume =
-        static_cast<std::int32_t>(currentBytes[0x9E]);
+        static_cast<std::int32_t>(current.effect9E);
     cg::platform::gMusicVolume =
-        static_cast<std::int32_t>(currentBytes[0x9F]);
+        static_cast<std::int32_t>(current.music9F);
 
     std::int32_t index = 0;
     for (; index < 16; ++index) {
-        const std::uint8_t value = currentBytes[0xA0 + index];
+        const std::uint8_t value = current.frequenciesA0[index];
         cg::platform::gBgmFrequencySelectionPrefix[index] = value;
     }
     return index;
 }
 
 // 原 sub_5205E0@[0x5205E0,0x52063B)：从记录恢复六项标量设置。
-static std::uint8_t* RestoreSavedScalarSettings_5205E0(
-    std::uint8_t* const source)
+static void RestoreSavedScalarSettings_5205E0(
+    const SavedPhysicalRecord& current)
 {
     cg::platform::gNativeCursorEnabled_D67AE4 =
-        static_cast<std::uint32_t>(source[0xB0]);
+        static_cast<std::uint32_t>(current.cursorB0);
     cg::platform::gChatTextSizeMode_73ECBC =
-        static_cast<std::int32_t>(source[0xB1]);
+        static_cast<std::int32_t>(current.chatSizeB1);
     cg::platform::gInvertItemSplitModifier_D67AE8 =
-        static_cast<std::uint32_t>(source[0x312]);
+        static_cast<std::uint32_t>(current.split312);
     cg::platform::gActorOverheadTextMode_5F974C =
-        static_cast<std::int16_t>(source[0x314]);
+        static_cast<std::int16_t>(current.overhead314);
     cg::platform::gScanlineSyncMode =
-        static_cast<std::uint16_t>(source[0x31A]);
+        static_cast<std::uint16_t>(current.scanline31A);
     cg::platform::gValueD68858 =
-        static_cast<std::uint32_t>(source[0x31B]);
-    return source;
+        static_cast<std::uint32_t>(current.value31B);
 }
 
 // 原 sub_520690@[0x520690,0x5206EE)：恢复 24 项保存输入文本。
-static std::int32_t RestoreSavedInputContexts_520690(
-    const std::uint8_t* const source)
+static std::int32_t RestoreSavedInputContexts_520690(const SavedPhysicalRecord& current)
 {
-    const std::uint8_t* sourceText = source + 0xB2;
-    for (std::size_t contextIndex = 0; contextIndex < 24;
-         ++contextIndex, sourceText += 0x19) {
-        const std::uint8_t* sourceEnd = sourceText;
-        while (*sourceEnd != 0) {
-            ++sourceEnd;
-        }
-
-        cg::input::InputContext& context = cg::ui::detail::gInputContexts5F9758[contextIndex];
-        context.setText(cg::text::FromGbkWide(std::string_view(reinterpret_cast<const char*>(sourceText), static_cast<std::size_t>(sourceEnd - sourceText))));
+    for (std::size_t i = 0; i < current.presetsB2.size(); ++i) {
+        auto& context = cg::ui::detail::gInputContexts5F9758[i];
+        context.setText(current.presetsB2[i]);
         context.totalByteLength = static_cast<std::int32_t>(context.text.size());
         context.caretByteOffset = context.totalByteLength;
     }
@@ -731,10 +696,10 @@ static std::int32_t RestoreSavedInputContexts_520690(
 
 // 原 sub_520700@[0x520700,0x520712)：从记录恢复单字节状态。
 static std::uint32_t RestoreSavedByteState_520700(
-    const std::uint8_t* const source)
+    const SavedPhysicalRecord& current)
 {
     const std::uint32_t value =
-        static_cast<std::uint32_t>(source[0x313]);
+        static_cast<std::uint32_t>(current.sort313);
     cg::platform::gContactSortMode_D67CD0 = value;
     return value;
 }
@@ -742,9 +707,9 @@ static std::uint32_t RestoreSavedByteState_520700(
 // 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
 static std::uint8_t RestoreCurrentSavedValue_520730()
 {
-    const auto* const currentBytes =
-        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
-    const std::uint8_t value = currentBytes[0x315];
+    if (selected < 0 || selected >= 2) { return -1; }
+    auto& current = gCurrentSavedRecord;
+    const std::uint8_t value = current.value315;
     if (value != 0) {
         cg::platform::gValue553438 = static_cast<std::int32_t>(value);
     }
@@ -758,12 +723,12 @@ std::int32_t RestoreCurrentSavedState_5201B0()
         return 0;
     }
 
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
-    (void)RestoreAudioSettings_5204C0(currentBytes);
-    (void)RestoreSavedScalarSettings_5205E0(currentBytes);
-    (void)RestoreSavedInputContexts_520690(currentBytes);
-    (void)RestoreSavedByteState_520700(currentBytes);
+    if (selected < 0 || selected >= 2) { return -1; }
+    auto& current = gCurrentSavedRecord;
+    (void)RestoreAudioSettings_5204C0(current);
+    (void)RestoreSavedScalarSettings_5205E0(current);
+    (void)RestoreSavedInputContexts_520690(current);
+    (void)RestoreSavedByteState_520700(current);
     (void)RestoreCurrentSavedValue_520730();
     return 1;
 }
@@ -773,11 +738,10 @@ std::int32_t InitializeSavedState_533300()
 {
     // 返回入口会重读磁盘；仅保留自动登录槽的两个内存字段，不将密码写入存档。
     const std::int32_t cachedPhysicalSlot = gAutoLoginCachedPhysicalSlot;
-    char cachedCredentials[2 * LoginInputValueCapacity];
+    std::array<std::wstring, 2> cachedCredentials;
     if (cachedPhysicalSlot != -1) {
-        std::memcpy(cachedCredentials,
-            gSavedState.records[cachedPhysicalSlot].parts[0].text + 0x33,
-            sizeof(cachedCredentials));
+        cachedCredentials[0] = gSavedState.records[cachedPhysicalSlot].inputs04[1];
+        cachedCredentials[1] = gSavedState.records[cachedPhysicalSlot].inputs04[2];
     }
     (void)ResetSavedState_533360();
     const std::int32_t location = ProbeSavedStateLocation_5333D0();
@@ -792,24 +756,21 @@ std::int32_t InitializeSavedState_533300()
     }
 
     if (cachedPhysicalSlot != -1) {
-        std::memcpy(
-            gSavedState.records[cachedPhysicalSlot].parts[0].text + 0x33,
-            cachedCredentials, sizeof(cachedCredentials));
+        gSavedState.records[cachedPhysicalSlot].inputs04[1] = cachedCredentials[0];
+        gSavedState.records[cachedPhysicalSlot].inputs04[2] = cachedCredentials[1];
     }
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[0];
-    std::memcpy(
-        &gCurrentSavedRecord,
-        &gSavedState.records[physicalSlot],
-        sizeof(gCurrentSavedRecord));
+    if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
+    gCurrentSavedRecord = gSavedState.records[physicalSlot];
     return 1;
 }
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
 std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    if (selected < 0 || selected >= 2) { return -1; }
+    auto& current = gCurrentSavedRecord;
     const volatile std::int32_t& color =
         cg::ui::detail::gInputContext626AA0.field140;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
@@ -817,26 +778,26 @@ std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
     const volatile std::int32_t& third = cg::platform::gChatNotificationSoundEnabled_554644;
     const std::uint8_t colorByte = static_cast<std::uint8_t>(color);
     const std::uint8_t firstByte = static_cast<std::uint8_t>(first);
-    currentBytes[0x30A + selected] = colorByte;
+    current.display30A[0 + selected] = colorByte;
     const std::uint8_t secondByte = static_cast<std::uint8_t>(second);
-    currentBytes[0x30C + selected] = firstByte;
+    current.display30A[2 + selected] = firstByte;
     const std::uint8_t thirdByte = static_cast<std::uint8_t>(third);
-    currentBytes[0x30E + selected] = secondByte;
-    currentBytes[0x310 + selected] = thirdByte;
+    current.display30A[4 + selected] = secondByte;
+    current.display30A[6 + selected] = thirdByte;
     return selected;
 }
 
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
 std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
 {
-    const auto* const currentBytes =
-        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
-    const std::int32_t color = currentBytes[0x30A + selected];
-    const std::int32_t first = currentBytes[0x30C + selected];
+    if (selected < 0 || selected >= 2) { return -1; }
+    auto& current = gCurrentSavedRecord;
+    const std::int32_t color = current.display30A[0 + selected];
+    const std::int32_t first = current.display30A[2 + selected];
     cg::ui::detail::gInputContext626AA0.field140 = color;
     cg::platform::gValue55463C = first;
-    const std::int32_t second = currentBytes[0x30E + selected];
-    const std::int32_t third = currentBytes[0x310 + selected];
+    const std::int32_t second = current.display30A[4 + selected];
+    const std::int32_t third = current.display30A[6 + selected];
     cg::platform::gChatRange_554640 = second;
     cg::platform::gChatNotificationSoundEnabled_554644 = third;
     return selected;
@@ -845,21 +806,19 @@ std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
 std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected)
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    auto& current = gCurrentSavedRecord;
     const std::uint16_t target =
         static_cast<std::uint16_t>(cg::audio::gBgmTarget1050818);
-    std::memcpy(currentBytes + 0x316 + selected * 2, &target, sizeof(target));
+    current.bgm316[selected] = target;
     return selected;
 }
 
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
 std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected)
 {
-    const auto* const currentBytes =
-        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
+    auto& current = gCurrentSavedRecord;
     std::uint16_t target;
-    std::memcpy(&target, currentBytes + 0x316 + selected * 2, sizeof(target));
+    target = current.bgm316[selected];
     cg::audio::gBgmTarget1050818 = target;
     return target;
 }
@@ -867,8 +826,7 @@ std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected)
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
 std::int32_t CaptureAudioPreferences_520470()
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    auto& current = gCurrentSavedRecord;
     const std::uint8_t stereo =
         static_cast<std::uint8_t>(cg::platform::gUseStereo);
     const std::uint8_t effect =
@@ -882,65 +840,59 @@ std::int32_t CaptureAudioPreferences_520470()
     std::uint32_t third;
     std::uint32_t fourth;
 
-    currentBytes[0x9D] = stereo;
+    current.stereo9D = stereo;
     std::memcpy(&first, frequencies, sizeof(first));
-    currentBytes[0x9E] = effect;
+    current.effect9E = effect;
     std::memcpy(&second, frequencies + 4, sizeof(second));
-    currentBytes[0x9F] = music;
+    current.music9F = music;
     std::memcpy(&third, frequencies + 8, sizeof(third));
-    std::memcpy(currentBytes + 0xA0, &first, sizeof(first));
+    std::memcpy(current.frequenciesA0.data() + 0, &first, sizeof(first));
     std::memcpy(&fourth, frequencies + 12, sizeof(fourth));
-    std::memcpy(currentBytes + 0xA4, &second, sizeof(second));
-    std::memcpy(currentBytes + 0xA8, &third, sizeof(third));
-    std::memcpy(currentBytes + 0xAC, &fourth, sizeof(fourth));
+    std::memcpy(current.frequenciesA0.data() + 4, &second, sizeof(second));
+    std::memcpy(current.frequenciesA0.data() + 8, &third, sizeof(third));
+    std::memcpy(current.frequenciesA0.data() + 12, &fourth, sizeof(fourth));
     return std::bit_cast<std::int32_t>(fourth);
 }
 
 // 原 sub_520590@[0x520590,0x5205D5)：将六项标量低字节写入当前记录。
 std::uint8_t CaptureClientPreferenceBytes_520590()
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    auto& current = gCurrentSavedRecord;
     const std::uint8_t show =
         static_cast<std::uint8_t>(cg::platform::gNativeCursorEnabled_D67AE4);
     const std::uint8_t value73ECBC =
         static_cast<std::uint8_t>(cg::platform::gChatTextSizeMode_73ECBC);
     const std::uint8_t valueD67AE8 =
         static_cast<std::uint8_t>(cg::platform::gInvertItemSplitModifier_D67AE8);
-    currentBytes[0xB0] = show;
+    current.cursorB0 = show;
     const std::uint8_t value5F974C =
         static_cast<std::uint8_t>(cg::platform::gActorOverheadTextMode_5F974C);
-    currentBytes[0xB1] = value73ECBC;
+    current.chatSizeB1 = value73ECBC;
     const std::uint8_t scanlineSyncMode =
         static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
-    currentBytes[0x312] = valueD67AE8;
+    current.split312 = valueD67AE8;
     const std::uint8_t valueD68858 =
         static_cast<std::uint8_t>(cg::platform::gValueD68858);
-    currentBytes[0x314] = value5F974C;
-    currentBytes[0x31A] = scanlineSyncMode;
-    currentBytes[0x31B] = valueD68858;
+    current.overhead314 = value5F974C;
+    current.scanline31A = scanlineSyncMode;
+    current.value31B = valueD68858;
     return value5F974C;
 }
 
 // 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
 std::uint32_t CapturePresetChatTexts_520640()
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
-    std::array<std::string, 24> storedTexts;
-    for (std::size_t index = 0; index < storedTexts.size(); ++index) {
-        storedTexts[index] = cg::text::ToGbk(cg::input::ContextText(cg::ui::detail::gInputContexts5F9758[index]));
-        if (storedTexts[index].size() >= 0x19) {
+    std::array<std::wstring, 24> texts;
+    std::uint32_t result = 0;
+    for (std::size_t i = 0; i < texts.size(); ++i) {
+        texts[i] = cg::input::ContextText(cg::ui::detail::gInputContexts5F9758[i]);
+        const auto bytes = cg::text::ToGbk(texts[i]).size();
+        if (bytes >= 0x19) {
             throw cg::text::GbkStorageError(122, std::system_category(), "快捷文字超过原存档字段容量");
         }
+        result = static_cast<std::uint32_t>(bytes + 1);
     }
-    std::uint32_t result = 0;
-    for (std::size_t index = 0; index < 24; ++index) {
-        const char* const text = storedTexts[index].c_str();
-        const std::size_t bytes = std::strlen(text) + 1;
-        result = static_cast<std::uint32_t>(bytes);
-        std::memcpy(currentBytes + 0xB2 + index * 0x19, text, bytes);
-    }
+    gCurrentSavedRecord.presetsB2 = std::move(texts);
     return result;
 }
 
@@ -949,9 +901,8 @@ std::uint8_t CaptureContactSortMode_5206F0()
 {
     const std::uint8_t value =
         static_cast<std::uint8_t>(cg::platform::gContactSortMode_D67CD0);
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
-    currentBytes[0x313] = value;
+    auto& current = gCurrentSavedRecord;
+    current.sort313 = value;
     return value;
 }
 
@@ -960,9 +911,8 @@ std::uint8_t Sub_520720()
 {
     const std::uint8_t value =
         static_cast<std::uint8_t>(cg::platform::gValue553438);
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
-    currentBytes[0x315] = value;
+    auto& current = gCurrentSavedRecord;
+    current.value315 = value;
     return value;
 }
 
@@ -1007,13 +957,16 @@ std::int32_t ReadNewSavedPhysicalSlot105C368()
 std::int32_t ReadMappedSavedPhysicalSlot105C36C(
     const std::int32_t index)
 {
+    if (index < 0 || index >= 10) { return -1; }
     return gSavedState.logicalToPhysical[index];
 }
 
 const wchar_t* ReadSelectedSavedDirectory()
 {
     const std::int32_t selected = gSavedState.selected;
+    if (selected < 0 || selected >= 10) { return L""; }
     const std::int32_t physicalSlot = gSavedState.logicalToPhysical[selected];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return L""; }
     return gSavedState.paths[physicalSlot].text.c_str();
 }
 
@@ -1031,174 +984,109 @@ std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot)
 
 void RestoreCapability4CurrentSavedRecord()
 {
-    auto* const currentBytes =
-        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
-    (void)RestoreAudioSettings_5204C0(currentBytes);
-    (void)RestoreSavedScalarSettings_5205E0(currentBytes);
-    (void)RestoreSavedInputContexts_520690(currentBytes);
-    (void)RestoreSavedByteState_520700(currentBytes);
+    auto& current = gCurrentSavedRecord;
+    (void)RestoreAudioSettings_5204C0(current);
+    (void)RestoreSavedScalarSettings_5205E0(current);
+    (void)RestoreSavedInputContexts_520690(current);
+    (void)RestoreSavedByteState_520700(current);
 }
 
-void CacheAutoLoginInputValues(const char* const account, const char* const password)
+void CacheAutoLoginInputValues(const std::wstring_view account, const std::wstring_view password)
 {
     const std::int32_t selected = gSavedState.selected;
+    if (selected < 0 || selected >= 10) { return; }
     WriteSavedPassword_5335B0(password, selected);
     WriteSavedAccount_533640(account, selected);
-    std::strcpy(GetCurrentSavedInputValueFF494F(), password);
-    std::strcpy(GetCurrentSavedInputValueFF4982(), account);
+    GetCurrentSavedInputValueFF494F() = password;
+    GetCurrentSavedInputValueFF4982() = account;
     gAutoLoginCachedPhysicalSlot = gSavedState.logicalToPhysical[selected];
 }
 
-char* GetCurrentSavedInputValueFF494F()
+std::wstring& GetCurrentSavedInputValueFF494F()
 {
-    return gCurrentSavedRecord.parts[0].text + 0x33;
+    return gCurrentSavedRecord.inputs04[1];
 }
 
-char* GetCurrentSavedInputValueFF4982()
+std::wstring& GetCurrentSavedInputValueFF4982()
 {
-    return gCurrentSavedRecord.parts[0].text + 0x66;
+    return gCurrentSavedRecord.inputs04[2];
 }
 
-char* GetCurrentSavedStallNameFF4D18()
+std::wstring& GetCurrentSavedStallNameFF4D18()
 {
-    return reinterpret_cast<char*>(&gCurrentSavedRecord) + 0x400;
+    return gCurrentSavedRecord.stallName400;
 }
 
-char* GetCurrentSavedStallDescriptionFF4D28()
+std::wstring& GetCurrentSavedStallDescriptionFF4D28()
 {
-    return reinterpret_cast<char*>(&gCurrentSavedRecord) + 0x410;
+    return gCurrentSavedRecord.stallDescription410;
 }
 
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected; // 原全局：0x0105C394。
 std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount; // 原全局：0x0105C364。
 
 // 原函数：0x00533570。
-void Sub_533570(
-    const char* const source,
-    const std::int32_t logicalSlot)
+void Sub_533570(const std::wstring_view source, const std::int32_t logicalSlot)
 {
-    if (source == nullptr) {
-        return;
-    }
-
-    if (std::strlen(source) >= 51) {
+    if (logicalSlot < 0 || logicalSlot >= 10) { return; }
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return; }
+    if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    for (std::int32_t index = 0; index < 51; ++index) {
-        const std::int32_t physicalSlot =
-            gSavedState.logicalToPhysical[logicalSlot];
-        gSavedState.records[physicalSlot].parts[0].text[index] =
-            source[index];
-        if (source[index] == '\0') {
-            return;
-        }
-    }
+    gSavedState.records[physicalSlot].inputs04[0] = source;
 }
 
 // 原函数：0x005335B0。
-void WriteSavedPassword_5335B0(
-    const char* const source,
-    const std::int32_t logicalSlot)
+void WriteSavedPassword_5335B0(const std::wstring_view source, const std::int32_t logicalSlot)
 {
-    if (source == nullptr) {
-        return;
-    }
-
-    if (std::strlen(source) >= 51) {
+    if (logicalSlot < 0 || logicalSlot >= 10) { return; }
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return; }
+    if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    for (std::int32_t index = 0; index < 51; ++index) {
-        const std::int32_t physicalSlot =
-            gSavedState.logicalToPhysical[logicalSlot];
-        gSavedState.records[physicalSlot].parts[0].text[0x33 + index] =
-            source[index];
-        if (source[index] == '\0') {
-            return;
-        }
-    }
+    gSavedState.records[physicalSlot].inputs04[1] = source;
 }
 
 // 原函数：0x00533640。
-void WriteSavedAccount_533640(
-    const char* const source,
-    const std::int32_t logicalSlot)
+void WriteSavedAccount_533640(const std::wstring_view source, const std::int32_t logicalSlot)
 {
-    if (source == nullptr) {
-        return;
-    }
-
-    if (std::strlen(source) >= 51) {
+    if (logicalSlot < 0 || logicalSlot >= 10) { return; }
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return; }
+    if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    for (std::int32_t index = 0; index < 51; ++index) {
-        const std::int32_t physicalSlot =
-            gSavedState.logicalToPhysical[logicalSlot];
-        gSavedState.records[physicalSlot].parts[0].text[0x66 + index] =
-            source[index];
-        if (source[index] == '\0') {
-            return;
-        }
-    }
+    gSavedState.records[physicalSlot].inputs04[2] = source;
 }
 
 // 原函数：0x005335F0。
-char* ReadSavedPassword_5335F0(
-    char* const output,
-    const std::int32_t logicalSlot)
+std::wstring& ReadSavedPassword_5335F0(std::wstring& output, const std::int32_t logicalSlot)
 {
-    if (output == nullptr) {
-        return output;
-    }
-
-    if (gSavedState.logicalToPhysical[logicalSlot] == -1) {
-        output[0] = '\0';
-        return output;
-    }
-
-    for (std::int32_t index = 0; index < 51; ++index) {
-        const std::int32_t physicalSlot =
-            gSavedState.logicalToPhysical[logicalSlot];
-        const char value =
-            gSavedState.records[physicalSlot].parts[0].text[0x33 + index];
-        output[index] = value;
-        if (value == '\0') {
-            return output;
-        }
-    }
+    output.clear();
+    if (logicalSlot < 0 || logicalSlot >= 10) { return output; }
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return output; }
+    output = gSavedState.records[physicalSlot].inputs04[1];
     return output;
 }
 
 // 原函数：0x00533680。
-char* ReadSavedAccount_533680(
-    char* const output,
-    const std::int32_t logicalSlot)
+std::wstring& ReadSavedAccount_533680(std::wstring& output, const std::int32_t logicalSlot)
 {
-    if (output == nullptr) {
-        return output;
-    }
-
-    if (gSavedState.logicalToPhysical[logicalSlot] == -1) {
-        output[0] = '\0';
-        return output;
-    }
-
-    for (std::int32_t index = 0; index < 51; ++index) {
-        const std::int32_t physicalSlot =
-            gSavedState.logicalToPhysical[logicalSlot];
-        const char value =
-            gSavedState.records[physicalSlot].parts[0].text[0x66 + index];
-        output[index] = value;
-        if (value == '\0') {
-            return output;
-        }
-    }
+    output.clear();
+    if (logicalSlot < 0 || logicalSlot >= 10) { return output; }
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return output; }
+    output = gSavedState.records[physicalSlot].inputs04[2];
     return output;
 }
 
 // 原函数：0x00533730。
 void SaveCredentialRecordsWithoutPasswords_533730()
 {
-    SavedPhysicalRecord localRecord;
+    SavedDiskRecord localRecord;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
     std::wstring path;
@@ -1210,24 +1098,10 @@ void SaveCredentialRecordsWithoutPasswords_533730()
             continue;
         }
 
-        const auto* const recordBytes =
-            reinterpret_cast<const std::uint8_t*>(
-                &gSavedState.records[physicalSlot]);
-        if (recordBytes[0x6A] == 0) {
-            continue;
-        }
-        if (recordBytes[0x37] == 0) {
-            continue;
-        }
-
-        std::memcpy(
-            &localRecord,
-            &gSavedState.records[physicalSlot],
-            sizeof(localRecord));
-        auto* const localBytes =
-            reinterpret_cast<std::uint8_t*>(&localRecord);
-        std::memset(localBytes + 0x37, 0, 0x33);
-        localBytes[0x37] = 0;
+        const auto& record = gSavedState.records[physicalSlot];
+        if (record.inputs04[2].empty() || record.inputs04[1].empty()) { continue; }
+        localRecord = EncodeSavedRecord(record, false);
+        auto* const localBytes = reinterpret_cast<std::uint8_t*>(&localRecord);
 
         cg::login::detail::EncodeLegacyBytes_52D310(
             localBytes,

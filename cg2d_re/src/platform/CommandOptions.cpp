@@ -132,11 +132,11 @@ static void ApplyAutoLoginCommandLine(const char* commandLine)
     if (serverIndex >= 0 && !account.empty() && !password.empty()
         && account.size() < login::LoginInputValueCapacity
         && password.size() < login::LoginInputValueCapacity) {
-        login::detail::CacheAutoLoginInputValues(account.c_str(), password.c_str());
+        login::detail::CacheAutoLoginInputValues(text::FromGbkWide(account), text::FromGbkWide(password));
         world::gCurrentSceneState = 2;
         world::gCurrentSceneType = 2;
-        std::strcpy(login::gPassword, password.c_str());
-        std::strcpy(login::gAccount, account.c_str());
+        login::gPassword = text::FromGbkWide(password);
+        login::gAccount = text::FromGbkWide(account);
         login::gSelectedServerIndex = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(serverIndex));
         gAutoLoginPending = true;

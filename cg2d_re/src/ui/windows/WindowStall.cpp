@@ -173,7 +173,7 @@ static std::int32_t WindowStall_HandlePetRow(std::int32_t index, std::int32_t st
 static std::wstring gStallMessageC8A978 {}; // 原全局：0x00C8A978。
 
 // 原全局：0x00D67BE4。 原strncpy16及D67BF4终止字节。
-static std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
+static std::wstring gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
 
 // 原全局：0x00D67C31。 请求与回复共用等待标记。
 static std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
@@ -209,7 +209,7 @@ static std::int32_t gStallDescriptionPageD67C3C = 0; // 原全局：0x00D67C3C�
 
 static std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8。
 
-static std::array<char, 57> gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
+static std::wstring gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
 
 static WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
     {{&cg::ui::detail::gInputContextCB0028}, WindowInputReferenceKind::Context},
@@ -936,12 +936,9 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
 static std::int32_t WindowStall_SubmitListings()
 {
     std::wstring buffer;
-    char name[33] {};
-    cg::text::StoreGbk(name, sizeof(name), L"无名店铺");
-    char description[113] {};
-    cg::text::StoreGbk(description, sizeof(description), L"老板没什么可介绍的");
+    std::wstring name = L"无名店铺";
+    std::wstring description = L"老板没什么可介绍的";
     std::wstring offers;
-    char escaped[276];
     std::int32_t count = gStallItemCountD67BCC;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
@@ -987,29 +984,22 @@ static std::int32_t WindowStall_SubmitListings()
         }
     }
     offers = input::EscapeTextAndNotify(offers, 275);
-    const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
-    if (nameLength != 0) {
-        std::sprintf(name, "%s", gStallNameD67BE4.data());
-    }
-    cg::core::NullSub_509080();
-    input::EscapeGbkText(name, escaped, 275);
-    std::strncpy(name, escaped, static_cast<std::uint32_t>(32));
-    const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
-    name[32] = '\0';
-    if (descriptionLength != 0) {
-        std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
-    }
-    cg::core::NullSub_509080();
-    input::EscapeGbkText(description, escaped, 275);
-    std::strncpy(description, escaped, static_cast<std::uint32_t>(112));
+    if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
+    name = input::EscapeTextAndNotify(name, 275);
+    // 原发布字段最多32/112字节；截断仅作用于此次协议字段。
+    const auto nameBytes = cg::text::ToGbk(name);
+    name = cg::text::FromGbkWide(nameBytes.substr(0, 32));
+    if (!gStallDescriptionD67BF8.empty()) { description = gStallDescriptionD67BF8; }
+    description = input::EscapeTextAndNotify(description, 275);
+    const auto descriptionBytes = cg::text::ToGbk(description);
+    description = cg::text::FromGbkWide(descriptionBytes.substr(0, 112));
     const std::uintptr_t socket = platform::gConnectionSocket;
-    description[112] = '\0';
-    static_cast<void>(network::PublishStallRequest_5120D0(socket, cg::text::FromGbkWide(name), cg::text::FromGbkWide(description), offers));
+    static_cast<void>(network::PublishStallRequest_5120D0(socket, name, description, offers));
     if (!gStallNameInput581130.input.context->empty()) {
-        std::strcpy(login::detail::GetCurrentSavedStallNameFF4D18(), name);
+        login::detail::GetCurrentSavedStallNameFF4D18() = name;
     }
     if (!gStallDescriptionInput581360.input.context->empty()) {
-        std::strcpy(login::detail::GetCurrentSavedStallDescriptionFF4D28(), description);
+        login::detail::GetCurrentSavedStallDescriptionFF4D28() = description;
     }
     gStallMessageC8A978 = L"摆摊请求中";
     WindowInstance* const window = gCurrentWindow;
@@ -2002,8 +1992,8 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         gOwnStallOpenForBusiness_D67BE0 = 0;
         std::memset(gStallItemUsedCC31AC.data() + 12, 0, 4);
         gStallDescriptionPageD67C3C = 0;
-        gStallNameD67BE4[0] = '\0';
-        gStallDescriptionD67BF8[0] = '\0';
+        gStallNameD67BE4.clear();
+        gStallDescriptionD67BF8.clear();
         std::memset(gStallItemUsedCC31AC.data() + 16, 0, 4);
         gStallPetUsedCF400C[4] = 0;
         initial->elements[0].visible = 0;
@@ -2033,11 +2023,12 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, window->x, window->y, 1));
-            cg::text::StoreGbk(gStallDescriptionD67BF8.data(), 57, input::ContextText(*gStallDescriptionInput581360.input.context));
-            gStallDescriptionD67BF8[56] = '\0';
-        } else if (std::strlen(gStallDescriptionD67BF8.data()) != 0) {
+            char fieldBytes[57]{};
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gStallDescriptionInput581360.input.context));
+            gStallDescriptionD67BF8 = input::ContextText(*gStallDescriptionInput581360.input.context);
+        } else if (!gStallDescriptionD67BF8.empty()) {
             for (std::int32_t line = 0; line < 3; ++line) {
-                static_cast<void>(input::ExtractGbkTextLine(lineText, gStallDescriptionD67BF8.data(), line, 28));
+                static_cast<void>(input::ExtractTextLine(lineText, gStallDescriptionD67BF8, line, 28));
                 WindowInstance* const window = gCurrentWindow;
                 WindowElement* const current = window->elements;
                 const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -2047,10 +2038,9 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
                 static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
             }
         } else {
-            const char* const source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
-            const std::size_t bytes = std::strlen(source) + 1;
+            const auto& source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
             WindowInstance* const window = gCurrentWindow;
-            std::memcpy(gStallDescriptionD67BF8.data(), source, bytes);
+            gStallDescriptionD67BF8 = source;
             window->elements[7].visible = 1;
         }
         gCurrentWindow->elements[5].visible = 0;
@@ -2058,9 +2048,10 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, window->x, window->y, 1));
-            cg::text::StoreGbk(gStallNameD67BE4.data(), gStallNameD67BE4.size(), input::ContextText(*gStallNameInput581130.input.context));
-            gStallNameD67BE4[16] = '\0';
-        } else if (std::strlen(gStallNameD67BE4.data()) != 0) {
+            char fieldBytes[17]{};
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gStallNameInput581130.input.context));
+            gStallNameD67BE4 = input::ContextText(*gStallNameInput581130.input.context);
+        } else if (!gStallNameD67BE4.empty()) {
             WindowInstance* const window = gCurrentWindow;
             WindowElement* const current = window->elements;
             const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -2068,12 +2059,11 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             const std::int16_t x = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(current[6].x + window->x));
             static_cast<void>(render::DrawText_456780(x, y, 3, 4,
-                std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), cg::text::FromGbkWide(gStallNameD67BE4.data()).c_str(), 0, 0));
+                std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), gStallNameD67BE4, 0, 0));
         } else {
-            const char* const source = login::detail::GetCurrentSavedStallNameFF4D18();
-            const std::size_t bytes = std::strlen(source) + 1;
+            const auto& source = login::detail::GetCurrentSavedStallNameFF4D18();
             WindowInstance* const window = gCurrentWindow;
-            std::memcpy(gStallNameD67BE4.data(), source, bytes);
+            gStallNameD67BE4 = source;
             window->elements[5].visible = 1;
         }
         const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
@@ -2132,7 +2122,7 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
         if (gFocusedElementDataD45F94 != window->elements[8].data) {
-            gStallDescriptionInput581360.text = cg::text::FromGbkWide(gStallDescriptionD67BF8.data());
+            gStallDescriptionInput581360.text = gStallDescriptionD67BF8;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, x, y, 0));
@@ -2159,7 +2149,7 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
         if (gFocusedElementDataD45F94 != window->elements[6].data) {
-            gStallNameInput581130.text = cg::text::FromGbkWide(gStallNameD67BE4.data());
+            gStallNameInput581130.text = gStallNameD67BE4;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, x, y, 0));
@@ -2599,15 +2589,11 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         gStallPendingD67C31 = 0;
         return;
     }
-    char name[33];
-    cg::text::StoreGbk(name, sizeof(name), L"无名店铺");
+    std::wstring name = L"无名店铺";
     world::SetPlayerActionFlags(0x1000u);
-    std::memset(name + 9, 0, 24);
-    if (std::strlen(gStallNameD67BE4.data()) != 0) {
-        std::sprintf(name, "%s", gStallNameD67BE4.data());
-    }
+    if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-    world::gPlayerRuntimeSlots.text15BB8 = cg::text::FromGbkWide(name);
+    world::gPlayerRuntimeSlots.text15BB8 = name;
     if (window != nullptr) {
         window->elements[0].visible = 0;
     }

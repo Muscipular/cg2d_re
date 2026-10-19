@@ -314,9 +314,9 @@ static bool ReadServerAvailability(std::int32_t category, std::int32_t page, std
 std::array<LoginServerRecord, 800> gLoginServerRecords_D69798 {}; // 原全局：0x00D69798。
 std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4 {}; // 原全局：0x00D9F2D4。
 std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。
-char gPassword[64] {}; // 原全局：0x00DA38DC。
-char gExecutableDigest[64] {}; // 原全局：0x00DA3A1C。
-char gAccount[64] {}; // 原全局：0x00DA3A5C。
+std::wstring gPassword {}; // 原全局：0x00DA38DC。
+std::wstring gExecutableDigest {}; // 原全局：0x00DA3A1C。
+std::wstring gAccount {}; // 原全局：0x00DA3A5C。
 std::int16_t gLoginReplyErrorCode_DA3B24 = 0; // 原全局：0x00DA3B24。
 
 static_assert(sizeof(gLoginServerRecords_D69798) == 800 * 0xC1);
@@ -422,7 +422,9 @@ std::int32_t ProcessScene_45FEA0()
                             gSelectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             gSelectedServerGroup = slot;
                             detail::PlaySe(53, 320, 240);
-                            platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
+                            char digestBytes[64]{}; // 摘要接口返回ASCII十六进制字节。
+                            platform::ComputeExecutableDigest_5202E0(digestBytes);
+                            gExecutableDigest = cg::text::FromGbkWide(digestBytes);
                             ReadInputValueFF494F_5203E0(gPassword);
                             ReadInputValueFF4982_520440(gAccount);
                             IncrementSceneState();

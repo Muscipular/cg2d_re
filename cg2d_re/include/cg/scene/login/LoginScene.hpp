@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <string>
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -26,9 +27,9 @@ static_assert(sizeof(LoginServerRecord) == 0xC1);
 extern std::array<LoginServerRecord, 800> gLoginServerRecords_D69798; // 原 0xD69798，映像零填充。
 extern std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4;       // 原 0xD9F2D4，映像零填充。
 extern std::int16_t gSelectedServerIndex; // 原 0x58AD94，服务器索引，映像初值 -1。
-extern char gPassword[64];               // 原DA38DC，密码／NLD01第2文本，映像零填充。
-extern char gExecutableDigest[64];       // 原DA3A1C，可执行文件摘要／NLD01第1文本，映像零填充。
-extern char gAccount[64];                // 原DA3A5C，账号／NLD01第3文本，映像零填充。
+extern std::wstring gPassword;               // 原DA38DC，密码／NLD01第2文本，映像零填充。
+extern std::wstring gExecutableDigest;       // 原DA3A1C，可执行文件摘要／NLD01第1文本，映像零填充。
+extern std::wstring gAccount;                // 原DA3A5C，账号／NLD01第3文本，映像零填充。
 extern std::int16_t gLoginReplyErrorCode_DA3B24;                       // 原 0xDA3B24，映像零填充。
 
 // 原 LoginScene::Process@0x45FEA0。

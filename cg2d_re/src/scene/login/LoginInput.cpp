@@ -90,27 +90,21 @@ static void DrawCapability4SavedSlotGraphic(
 
 static const wchar_t* WriteStoredInputValue(
     const wchar_t* const source,
-    char* const storedValue)
+    std::wstring& storedValue)
 {
     if (source == nullptr) {
         return nullptr;
     }
 
-    cg::text::StoreGbk(storedValue, kStoredInputValueSize, source);
+    char bytes[kStoredInputValueSize]{};
+    cg::text::StoreGbk(bytes, sizeof(bytes), source);
+    storedValue = source;
     return source + std::wcslen(source);
 }
 
-static char* ReadStoredInputValue(
-    char* const output,
-    const char* const storedValue)
+static std::wstring& ReadStoredInputValue(std::wstring& output, const std::wstring& storedValue)
 {
-    for (std::size_t index = 0; index < kStoredInputValueSize; ++index) {
-        const char value = storedValue[index];
-        output[index] = value;
-        if (value == '\0') {
-            return output;
-        }
-    }
+    output = storedValue;
     return output;
 }
 
@@ -126,8 +120,8 @@ bool SaveInputValues(const std::wstring_view first, const std::wstring_view seco
         m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
-    std::strcpy(detail::GetCurrentSavedInputValueFF494F(), firstStored.data());
-    std::strcpy(detail::GetCurrentSavedInputValueFF4982(), secondStored.data());
+    detail::GetCurrentSavedInputValueFF494F() = first;
+    detail::GetCurrentSavedInputValueFF4982() = second;
     return true;
 }
 
@@ -143,9 +137,9 @@ bool SaveCapability4InputSlot()
         m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
-    detail::Sub_533570(stored[0].data(), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedPassword_5335B0(stored[1].data(), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedAccount_533640(stored[2].data(), detail::gSelectedSavedSlot105C394);
+    detail::Sub_533570(input::ContextText(gInputContext9A4D20), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedPassword_5335B0(input::ContextText(gInputContext9A5960), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedAccount_533640(input::ContextText(gInputContext9A5678), detail::gSelectedSavedSlot105C394);
     return true;
 }
 
@@ -158,14 +152,9 @@ const wchar_t* WriteInputValueFF494F_5203B0(const wchar_t* const source)
 }
 
 // 原函数：0x005203E0。
-char* ReadInputValueFF494F_5203E0(char* const output)
+std::wstring& ReadInputValueFF494F_5203E0(std::wstring& output)
 {
-    if (output == nullptr) {
-        return nullptr;
-    }
-    return ReadStoredInputValue(
-        output,
-        detail::GetCurrentSavedInputValueFF494F());
+    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF494F());
 }
 
 // 原函数：0x00520410。
@@ -177,14 +166,9 @@ const wchar_t* WriteInputValueFF4982_520410(const wchar_t* const source)
 }
 
 // 原函数：0x00520440。
-char* ReadInputValueFF4982_520440(char* const output)
+std::wstring& ReadInputValueFF4982_520440(std::wstring& output)
 {
-    if (output == nullptr) {
-        return nullptr;
-    }
-    return ReadStoredInputValue(
-        output,
-        detail::GetCurrentSavedInputValueFF4982());
+    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF4982());
 }
 
 // 原函数：0x005036F0。
@@ -328,8 +312,8 @@ void DrawLoginControl_503780(
 // 原函数：0x0045C7C0。
 void InitializeInputContexts_45C7C0()
 {
-    char firstInitialText[256] {};
-    char secondInitialText[256] {};
+    std::wstring firstInitialText;
+    std::wstring secondInitialText;
 
     const std::int32_t capability =
         resource::ProbePaletteCapability_45C970();
@@ -350,7 +334,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            cg::text::FromGbkWide(firstInitialText),
+            firstInitialText,
             1,
             20,
             0,
@@ -370,7 +354,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            cg::text::FromGbkWide(secondInitialText),
+            secondInitialText,
             1,
             20,
             0,
@@ -389,7 +373,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            cg::text::FromGbkWide(firstInitialText),
+            firstInitialText,
             1,
             20,
             0,
@@ -409,7 +393,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            cg::text::FromGbkWide(secondInitialText),
+            secondInitialText,
             1,
             23,
             0,
@@ -425,8 +409,8 @@ void InitializeInputContexts_45C7C0()
 // 原函数：0x0045F970。
 void InitializeCapabilityInput_45F970()
 {
-    char firstInitialText[256] {};
-    char secondInitialText[256] {};
+    std::wstring firstInitialText;
+    std::wstring secondInitialText;
 
     render::gPaletteCapability =
         resource::ProbePaletteCapability_45C970();
@@ -444,7 +428,7 @@ void InitializeCapabilityInput_45F970()
         0,
         0,
         3,
-        cg::text::FromGbkWide(firstInitialText),
+        firstInitialText,
         1,
         20,
         0,
@@ -464,7 +448,7 @@ void InitializeCapabilityInput_45F970()
         0,
         0,
         3,
-        cg::text::FromGbkWide(secondInitialText),
+        secondInitialText,
         1,
         20,
         0,
@@ -479,7 +463,7 @@ void InitializeCapabilityInput_45F970()
 // 原函数：0x00465320。
 void InitializeCapability4Input_465320()
 {
-    char initialText[256] {};
+    std::wstring initialText;
 
     render::gPaletteCapability =
         resource::ProbePaletteCapability_45C970();
@@ -501,7 +485,7 @@ void InitializeCapability4Input_465320()
         0,
         0,
         3,
-        cg::text::FromGbkWide(initialText),
+        initialText,
         1,
         23,
         0,
@@ -524,7 +508,7 @@ void InitializeCapability4Input_465320()
         0,
         0,
         3,
-        cg::text::FromGbkWide(initialText),
+        initialText,
         1,
         20,
         0,

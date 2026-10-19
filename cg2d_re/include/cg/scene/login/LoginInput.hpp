@@ -56,11 +56,11 @@ bool SaveCapability4InputSlot();
 // 原 sub_5203B0@[0x5203B0,0x5203D6)，写入 0xFF494F 的51字节密码槽。
 const wchar_t* WriteInputValueFF494F_5203B0(const wchar_t* source);
 // 原 sub_5203E0@[0x5203E0,0x520409)，读取 0xFF494F 的51字节密码槽。
-char* ReadInputValueFF494F_5203E0(char* output);
+std::wstring& ReadInputValueFF494F_5203E0(std::wstring& output);
 // 原 sub_520410@[0x520410,0x520436)，写入 0xFF4982 的51字节账号槽。
 const wchar_t* WriteInputValueFF4982_520410(const wchar_t* source);
 // 原 sub_520440@[0x520440,0x520469)，读取 0xFF4982 的51字节账号槽。
-char* ReadInputValueFF4982_520440(char* output);
+std::wstring& ReadInputValueFF4982_520440(std::wstring& output);
 
 // 原 sub_5036F0@[0x5036F0,0x50377E)：登录控件命中与鼠标状态位打包。
 std::int32_t QueryLoginControlState_5036F0(

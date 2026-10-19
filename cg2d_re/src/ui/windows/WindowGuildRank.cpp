@@ -226,14 +226,14 @@ static std::uint32_t WindowGuildRank_Refresh()
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
-        const char* const rank = cg::world::GetGuildRankText(scroll + row + 1);
-        data->text = cg::text::FromGbkWide(rank);
+        const wchar_t* const rank = cg::world::GetGuildRankText(scroll + row + 1);
+        data->text = rank;
     }
     const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
-    const char* const name = cg::world::gOrderedRecords1051B14[member].text18;
-    const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(name) + 1);
-    data->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = cg::world::gOrderedRecords1051B14[member].name18.c_str();
+    const std::uint32_t length = static_cast<std::uint32_t>(cg::text::ToGbk(name).size() + 1);
+    data->text = name;
     return length;
 }
 

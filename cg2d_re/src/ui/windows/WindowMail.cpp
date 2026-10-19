@@ -149,8 +149,8 @@ MailContactView WindowMail_MakeContactView(const cg::world::OrderedRecord1051B14
     return {
         &record.value08, reinterpret_cast<const std::byte*>(&record.value0A),
         &record.value10, &record.value14,
-        cg::text::FromGbkWide(record.text18), cg::text::FromGbkWide(record.text18 + 17),
-        cg::text::FromGbkWide(record.text18 + 34),
+        record.name18, record.title29,
+        record.text3A,
     };
 }
 

@@ -343,18 +343,18 @@ static void WindowPlayerProfile_Refresh()
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     if (guildIndex != -1) {
-        const char* const guild = cg::world::GetGuildName();
-        guildData->text = cg::text::FromGbkWide(guild);
+        const wchar_t* const guild = cg::world::GetGuildName();
+        guildData->text = guild;
         const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
-        const char* const rank = cg::world::GetGuildRankText(rankIndex);
-        rankData->text = cg::text::FromGbkWide(rank);
+        const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
+        rankData->text = rank;
     } else {
-        const char* const guild = "";
-        guildData->text = cg::text::FromGbkWide(guild);
+        const wchar_t* const guild = L"";
+        guildData->text = guild;
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
-        const char* const rank = "";
-        rankData->text = cg::text::FromGbkWide(rank);
+        const wchar_t* const rank = L"";
+        rankData->text = rank;
     }
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;

@@ -1,6 +1,7 @@
 #include "cg/world/GuildState.hpp"
 
 #include "cg/input/Input.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
@@ -26,32 +27,20 @@ struct GuildHeader10514A8 {
     std::int32_t value08; // 原成员偏移：+0x08。
     std::int32_t value0C; // 原成员偏移：+0x0C。
     std::int32_t value10; // 原成员偏移：+0x10。
-    std::array<std::array<char, 41>, 2> texts14; // 原成员偏移：+0x14。
+    std::array<std::wstring, 2> texts14; // 原成员偏移：+0x14。
     std::array<std::byte, 2> bytes66; // 原成员偏移：+0x66。
 };
 
 // 原1051514的32条30H文本记录，末3B未消费，不据此补业务含义。
 struct GuildTextRecord1051514 {
     std::int32_t value00; // 原成员偏移：+0x00。
-    std::array<char, 41> text04; // 原成员偏移：+0x04。
+    std::wstring text04; // 原成员偏移：+0x04。
     std::array<std::byte, 3> bytes2D; // 原成员偏移：+0x2D。
 };
 
-static_assert(offsetof(GuildHeader10514A8, value04) == 4);
-static_assert(offsetof(GuildHeader10514A8, value08) == 8);
-static_assert(offsetof(GuildHeader10514A8, value0C) == 0x0C);
-static_assert(offsetof(GuildHeader10514A8, value10) == 0x10);
-static_assert(offsetof(GuildHeader10514A8, texts14) == 0x14);
-static_assert(offsetof(GuildHeader10514A8, bytes66) == 0x66);
-static_assert(sizeof(GuildHeader10514A8) == 0x68);
-static_assert(offsetof(GuildTextRecord1051514, text04) == 4);
-static_assert(offsetof(GuildTextRecord1051514, bytes2D) == 0x2D);
-static_assert(sizeof(GuildTextRecord1051514) == 0x30);
 static GuildHeader10514A8 gGuildHeader10514A8 {}; // 原全局：0x010514A8。
 static std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {}; // 原全局：0x01051514。
-static std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
-static_assert(sizeof(gGuildTextRecords1051514) == 0x600);
-static_assert(sizeof(gGuildTexts1057BF4) == 0x7B);
+static std::array<std::wstring, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
 
 // 532D80和532DF0的同序窄写；两条路径的邮件副作用由各自caller处理。
 static void ResetGuildRuntimeFields()
@@ -59,20 +48,20 @@ static void ResetGuildRuntimeFields()
     gGuildHeader10514A8.key00 = -1;
     gGuildHeader10514A8.value08 = -1;
     gGuildHeader10514A8.value04 = -1;
-    gGuildHeader10514A8.texts14[0][0] = '\0';
-    gGuildHeader10514A8.texts14[1][0] = '\0';
+    gGuildHeader10514A8.texts14[0].clear();
+    gGuildHeader10514A8.texts14[1].clear();
     for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
         record.value00 = -1;
         record.value08 = 0;
-        record.text18[0] = '\0';
-        record.text18[0x11] = '\0';
+        record.name18.clear();
+        record.title29.clear();
     }
     for (GuildTextRecord1051514& record : gGuildTextRecords1051514) {
         record.value00 = 0;
-        record.text04[0] = '\0';
+        record.text04.clear();
     }
     for (auto& text : gGuildTexts1057BF4) {
-        text[0] = '\0';
+        text.clear();
     }
     gOrderedRecordCount1051510 = 0;
 }
@@ -89,11 +78,13 @@ std::int32_t ReadGuildTextIndex10514B0() noexcept
 
 std::int32_t ReadGuildRankFlags1051514(const std::int32_t index) noexcept
 {
+    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return 0; }
     return gGuildTextRecords1051514[index].value00;
 }
 
 std::uint8_t ReadGuildRankFlagsByte1051514(const std::int32_t index) noexcept
 {
+    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return 0; }
     const auto* const bytes = reinterpret_cast<const unsigned char*>(
         &gGuildTextRecords1051514[index].value00);
     return bytes[0];
@@ -109,23 +100,25 @@ std::int32_t ReadGuildOwnKey10514B8() noexcept
     return gGuildHeader10514A8.value10;
 }
 
-const char* GetGuildName() noexcept
+const wchar_t* GetGuildName() noexcept
 {
     return gGuildHeader10514A8.texts14[0].data();
 }
 
-const char* GetGuildSecondText() noexcept
+const wchar_t* GetGuildSecondText() noexcept
 {
     return gGuildHeader10514A8.texts14[1].data();
 }
 
-const char* GetGuildAuxText(const std::int32_t index) noexcept
+const wchar_t* GetGuildAuxText(const std::int32_t index) noexcept
 {
+    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTexts1057BF4.size()) { return L""; }
     return gGuildTexts1057BF4[index].data();
 }
 
-const char* GetGuildRankText(const std::int32_t index) noexcept
+const wchar_t* GetGuildRankText(const std::int32_t index) noexcept
 {
+    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return L""; }
     return gGuildTextRecords1051514[index].text04.data();
 }
 
@@ -141,12 +134,12 @@ void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
     std::array<char, 256> first;
     std::array<char, 256> second;
     std::array<char, 256> tail;
-    const auto readText = [&](char* const buffer, char* const destination) {
+    const auto readText = [&](char* const buffer, std::wstring& destination) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field, 255, buffer));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
         if (std::strlen(buffer) <= 40) {
-            std::strcpy(destination, buffer);
+            destination = cg::text::FromGbkWide(buffer);
         }
         ++field;
     };
@@ -156,10 +149,10 @@ void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
         ++field;
     }
     if ((mask & 0x05u) != 0) {
-        readText(first.data(), gGuildHeader10514A8.texts14[0].data());
+        readText(first.data(), gGuildHeader10514A8.texts14[0]);
     }
     if ((mask & 0x09u) != 0) {
-        readText(second.data(), gGuildHeader10514A8.texts14[1].data());
+        readText(second.data(), gGuildHeader10514A8.texts14[1]);
     }
     if ((mask & 0x11u) != 0) {
         gGuildHeader10514A8.value08 =
@@ -185,13 +178,13 @@ void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
         ++field;
     }
     if ((mask & 0x201u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[0].data());
+        readText(tail.data(), gGuildTexts1057BF4[0]);
     }
     if ((mask & 0x401u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[1].data());
+        readText(tail.data(), gGuildTexts1057BF4[1]);
     }
     if ((mask & 0x801u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[2].data());
+        readText(tail.data(), gGuildTexts1057BF4[2]);
     }
     if ((mask & 0x1001u) != 0) {
         gGuildHeader10514A8.value10 =
@@ -216,16 +209,21 @@ void HandleGuildRankDefinitionsReply_50EB40(const std::uintptr_t, const char* co
             network::ParseDelimitedInteger_52CFA0(text, '|', field - 2);
         const std::int32_t value =
             network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
+        if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) {
+            field += 3;
+            --remaining;
+            continue;
+        }
         if (value == -1) {
             gGuildTextRecords1051514[index].value00 = 0;
-            gGuildTextRecords1051514[index].text04[0] = '\0';
+            gGuildTextRecords1051514[index].text04.clear();
         } else {
             static_cast<void>(network::ExtractDelimitedField_52CED0(
                 text, '|', field, 255, buffer.data()));
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
             if (std::strlen(buffer.data()) <= 40) {
                 gGuildTextRecords1051514[index].value00 = value;
-                std::strcpy(gGuildTextRecords1051514[index].text04.data(), buffer.data());
+                gGuildTextRecords1051514[index].text04 = cg::text::FromGbkWide(buffer.data());
             }
         }
         field += 3;
@@ -271,10 +269,10 @@ static OrderedRecord1051B14* ResetOrderedRecord_50EF20(
 {
     record->value04 = 0;
     record->value00 = 0;
-    record->text18[0] = '\0';
-    record->text18[0x11] = '\0';
-    record->text18[0x22] = '\0';
-    record->text18[0x43] = '\0';
+    record->name18.clear();
+    record->title29.clear();
+    record->text3A.clear();
+    record->text5B.clear();
     record->value08 = 0;
     record->value0A = 0;
     record->value0C = -1;
@@ -308,13 +306,13 @@ static std::int32_t ParseOrderedRecord_50EF70(
         encoded.data(), '|', 1, 255, first.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(first.data());
     if (std::strlen(first.data()) <= 0x10) {
-        std::strcpy(record.text18, first.data());
+        record.name18 = cg::text::FromGbkWide(first.data());
     }
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         encoded.data(), '|', 2, 255, second.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(second.data());
     if (std::strlen(second.data()) <= 0x10) {
-        std::strcpy(record.text18 + 0x11, second.data());
+        record.title29 = cg::text::FromGbkWide(second.data());
     }
     record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
     record.value10 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
@@ -393,13 +391,13 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
                 encoded.data(), '|', 1, 255, first.data()));
             input::UnescapeLegacyTextAndNotify_52D2F0(first.data());
             if (std::strlen(first.data()) <= 0x10) {
-                std::strcpy(record.text18, first.data());
+                record.name18 = cg::text::FromGbkWide(first.data());
             }
             static_cast<void>(network::ExtractDelimitedField_52CED0(
                 encoded.data(), '|', 2, 255, second.data()));
             input::UnescapeLegacyTextAndNotify_52D2F0(second.data());
             if (std::strlen(second.data()) <= 0x10) {
-                std::strcpy(record.text18 + 0x11, second.data());
+                record.title29 = cg::text::FromGbkWide(second.data());
             }
             record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
             record.value10 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3);

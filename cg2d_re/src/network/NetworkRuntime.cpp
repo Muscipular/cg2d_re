@@ -838,12 +838,14 @@ std::int32_t HandleGuildMemberRemovalReply_50F130(const std::uintptr_t, const st
         return std::bit_cast<std::int32_t>(gate);
     }
     const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    auto* const record = cg::world::gOrderedRecords1051B14.data() + index;
-    record->value00 = -1;
-    record->value08 = 0;
-    record->text18[0] = '\0';
-    record->text18[0x11] = '\0';
-    record->value0C = -1;
+    if (index >= 0 && static_cast<std::size_t>(index) < cg::world::gOrderedRecords1051B14.size()) {
+        auto& record = cg::world::gOrderedRecords1051B14[index];
+        record.value00 = -1;
+        record.value08 = 0;
+        record.name18.clear();
+        record.title29.clear();
+        record.value0C = -1;
+    }
     cg::world::gOrderedRecordCount1051510 =
         cg::world::CountRecordsValue08EqualOne_50EF50();
     return world::detail::DeleteGuildMailEntry_5194F0(key);
@@ -865,9 +867,9 @@ void HandleGuildMailReply_50F190(
     const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
         key, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text)));
-    const char* const recordName =
-        (cg::world::gOrderedRecords1051B14.data() + index)->text18;
-    cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());
+    const wchar_t* const recordName = index >= 0 && static_cast<std::size_t>(index) < cg::world::gOrderedRecords1051B14.size()
+        ? cg::world::gOrderedRecords1051B14[index].name18.c_str() : L"";
+    cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, recordName);
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::AppendChatMessage_44B050(message, 4, 3);

@@ -426,10 +426,10 @@ static std::int32_t WindowContacts_Refresh()
                 const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
                 privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 const std::int32_t rank = member->value00;
-                const char* const text = rank == -1
-                    ? "" : cg::world::GetGuildRankText(rank);
+                const wchar_t* const text = rank == -1
+                    ? L"" : cg::world::GetGuildRankText(rank);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
-                data->text = cg::text::FromGbkWide(text);
+                data->text = text;
                 break;
             }
             }
@@ -1243,7 +1243,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::
 从家族会员名单中删除吗？
 
  (确定删除时，请按住
-  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[index].text18).c_str());
+  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::world::gOrderedRecords1051B14[index].name18.c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1444,7 +1444,7 @@ std::int32_t WindowContacts_CompareGuildName(
     const cg::world::OrderedRecord1051B14* const left,
     const cg::world::OrderedRecord1051B14* const right)
 {
-    const int order = std::strcmp(left->text18, right->text18);
+    const int order = left->name18.compare(right->name18);
     if (order != 0) {
         return order < 0 ? -1 : 1;
     }

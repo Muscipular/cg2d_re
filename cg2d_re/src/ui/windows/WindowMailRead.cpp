@@ -316,7 +316,7 @@ static std::uint32_t WindowMailRead_Refresh()
     }
     std::wstring name;
     if (category == 1) {
-        name = cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[memberIndex].text18);
+        name = cg::world::gOrderedRecords1051B14[memberIndex].name18;
     } else {
         const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         name = category == 0 ? cg::world::detail::gContactsF19FB0[contact].name10.data()

@@ -326,8 +326,8 @@ static void WindowGroupSelect_Refresh()
         if (visible != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::wstring name = mode == 0 ? world::detail::gContactsF19FB0[source].name10
-                : cg::text::FromGbkWide(mode == 1 ? cg::world::gOrderedRecords1051B14[source].text18
-                    : cg::world::GetGuildRankText(position));
+                : mode == 1 ? cg::world::gOrderedRecords1051B14[source].name18
+                    : cg::world::GetGuildRankText(position);
             auto* const text = static_cast<WindowTextData*>(window->elements[12 + row].data);
             text->text = name;
         }

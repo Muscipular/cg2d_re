@@ -396,7 +396,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
             name = world::detail::gContactsF19FB0[gLoginWindowRuntime.prefixD2F0B8.value04].name10.data();
             break;
         case 1:
-            name = cg::text::FromGbkWide(cg::world::gOrderedRecords1051B14[gLoginWindowRuntime.prefixD2F0B8.value04].text18);
+            name = cg::world::gOrderedRecords1051B14[gLoginWindowRuntime.prefixD2F0B8.value04].name18;
             break;
         case 2:
             name = world::detail::ReadMiniMailContact1075A90(

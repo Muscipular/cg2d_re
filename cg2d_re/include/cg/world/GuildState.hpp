@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 namespace cg::world {
 
@@ -15,7 +16,10 @@ struct OrderedRecord1051B14 final {
     std::int32_t value0C; // 原成员偏移：+0x0C。
     std::int32_t value10; // 原成员偏移：+0x10。
     std::int32_t value14; // 原成员偏移：+0x14。
-    char text18[100]; // 原成员偏移：+0x18。
+    std::wstring name18; // 原+18：成员姓名，最多16个GBK字节。
+    std::wstring title29; // 原+29：成员称号，最多16个GBK字节。
+    std::wstring text3A; // 原+3A：第一附文。
+    std::wstring text5B; // 原+5B：第二附文。
 };
 static_assert(offsetof(OrderedRecord1051B14, value04) == 0x04);
 static_assert(offsetof(OrderedRecord1051B14, value08) == 0x08);
@@ -23,8 +27,6 @@ static_assert(offsetof(OrderedRecord1051B14, value0A) == 0x0A);
 static_assert(offsetof(OrderedRecord1051B14, value0C) == 0x0C);
 static_assert(offsetof(OrderedRecord1051B14, value10) == 0x10);
 static_assert(offsetof(OrderedRecord1051B14, value14) == 0x14);
-static_assert(offsetof(OrderedRecord1051B14, text18) == 0x18);
-static_assert(sizeof(OrderedRecord1051B14) == 0x7C);
 
 extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14; // 原全局：0x01051B14。
 extern std::int32_t gOrderedRecordCount1051510; // 原全局：0x01051510。 50EEB0 写计数，532D80 清零。
@@ -44,10 +46,10 @@ std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21
 std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗口21三行按钮只读权限首字节。
 std::int32_t ReadGuildStatus10514AC() noexcept; // 窗口21公会状态，借header.value04。
 std::int32_t ReadGuildOwnKey10514B8() noexcept; // 窗口21成员本人判断，借header.value10。
-const char* GetGuildName() noexcept; // 同源texts14[0]，原字节借用。
-const char* GetGuildSecondText() noexcept; // 窗口48借用同一公会头的第二文本。
-const char* GetGuildAuxText(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
-const char* GetGuildRankText(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
+const wchar_t* GetGuildName() noexcept; // 同源texts14[0]，宽文本借用。
+const wchar_t* GetGuildSecondText() noexcept; // 窗口48借用同一公会头的第二文本。
+const wchar_t* GetGuildAuxText(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
+const wchar_t* GetGuildRankText(std::int32_t index) noexcept; // 职级文本，无效索引返回空文本。
 
 // GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;

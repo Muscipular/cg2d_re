@@ -6,7 +6,7 @@ namespace cg::resource {
 
 // 原 9A4A50、D2D5FC、CC3E68；其他消费者须复用同一槽。
 extern std::uint32_t gValue9A4A50; // 原全局：0x009A4A50。
-extern std::uint32_t gValueD2D5FC; // 原全局：0x00D2D5FC。
+extern std::uint32_t gAlbumEntryLimit_D2D5FC; // 原全局：0x00D2D5FC。
 extern std::uint32_t gValueCC3E68; // 原全局：0x00CC3E68。
 
 // 原4574E0；BLM01按配置容量发布四块、联合失败或按序清零，旧路径探测由加载器承接。

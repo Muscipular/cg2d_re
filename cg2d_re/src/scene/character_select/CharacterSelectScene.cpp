@@ -999,7 +999,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
             state::gCreationSubmittedElement1_FF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
             state::gCreationSubmittedElement2_F633F4 = element2;
             state::gCreationSubmittedElement3_DE0B04 = element3;
-            world::gValueFDA6F8 = 0;
+            world::gInitialPlayerDuelPoints_FDA6F8 = 0;
             cg::audio::BeginBgmFadeOut_52B990();
             SaveCharacterCreationDraftSnapshot_4642C0();
         } else if (answer == 2) {

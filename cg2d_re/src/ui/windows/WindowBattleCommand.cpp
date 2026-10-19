@@ -321,11 +321,11 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
     const auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
         const char* name;
-        if (world::gValue553F84 < 0) {
+        if (world::gSelectedBattlePetTechniqueIndex_553F84 < 0) {
             name = "";
         } else {
             const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
-            const std::int32_t technique = world::gValue553F84;
+            const std::int32_t technique = world::gSelectedBattlePetTechniqueIndex_553F84;
             name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name.data();
         }
         static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = cg::text::FromGbkWide(name);
@@ -1032,13 +1032,13 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         const std::int32_t count = world::gBattlePetActionCount5ABBBC;
         world::gBattleCommandState5ABC3C = 5;
         world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gValue553F90 = world::FindBattlePetIndex_43C4B0();
+        world::gLastBattleCommandPetIndex_553F90 = world::FindBattlePetIndex_43C4B0();
         WindowBattleCommand_Close();
         return;
     }
-    world::gValue553F84 = technique;
+    world::gSelectedBattlePetTechniqueIndex_553F84 = technique;
     const std::int32_t targetPet = world::FindBattlePetIndex_43C4B0();
-    const std::int32_t targetTechnique = world::gValue553F84;
+    const std::int32_t targetTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(world::gPetRuntimeRecords[targetPet]
             .techniquesD8[targetTechnique].target)));
@@ -1046,12 +1046,12 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         world::gBattleCurrentPosition5ABCA4);
     if (cg::yobi::CheckBattleCommand_43C560(position, target) == 0) {
         const std::int32_t idPet = world::FindBattlePetIndex_43C4B0();
-        const std::int32_t idTechnique = world::gValue553F84;
+        const std::int32_t idTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
         const std::int32_t targetIndex =
             world::gPetRuntimeRecords[idPet].techniquesD8[idTechnique].techniqueId >= 200600
             ? world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4)
             : world::FindBattlePetIndex_43C4B0();
-        const std::int32_t currentTechnique = world::gValue553F84;
+        const std::int32_t currentTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
@@ -1062,7 +1062,7 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         const std::int32_t count = world::gBattlePetActionCount5ABBBC;
         world::gBattleCommandState5ABC3C = 5;
         world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gValue553F90 = world::FindBattlePetIndex_43C4B0();
+        world::gLastBattleCommandPetIndex_553F90 = world::FindBattlePetIndex_43C4B0();
         WindowBattleCommand_Close();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1086,20 +1086,20 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
         const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
         world::gBattlePetActionCount5ABBBC = count + 1;
         world::gBattleCommandState5ABC3C = 5;
-        world::gValue553F90 = pet;
+        world::gLastBattleCommandPetIndex_553F90 = pet;
         WindowBattleCommand_Close();
         return;
     }
     world::gBattleSelectionMode5ABC70 = 0;
     const auto targetPet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
-    world::gValue553F84 = technique;
+    world::gSelectedBattlePetTechniqueIndex_553F84 = technique;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(world::gPetRuntimeRecords[targetPet]
             .techniquesD8[technique].target)));
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     if (cg::yobi::CheckBattleCommand_43C560(position, target) == 0) {
         const std::uint32_t pet = world::gBattleRidePet5ABC38;
-        const std::int32_t currentTechnique = world::gValue553F84;
+        const std::int32_t currentTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
@@ -1111,7 +1111,7 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
         const auto currentPet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
         world::gBattlePetActionCount5ABBBC = count + 1;
         world::gBattleCommandState5ABC3C = 5;
-        world::gValue553F90 = currentPet;
+        world::gLastBattleCommandPetIndex_553F90 = currentPet;
         WindowBattleCommand_Close();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1147,7 +1147,7 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index
                 reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C)[0];
             world::gBattlePetCommandPhase553F88 = 1;
             const bool riding = actionState == 4;
-            world::gValue553F84 = -1;
+            world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
             gBattlePetSkillWindowActionCC423C = riding
                 ? WindowSkill_OpenRidingSkills(&WindowBattleCommand_SelectRidingSkill) : WindowSkill_OpenPetSkills(&WindowBattleCommand_SelectPetSkill);
         }
@@ -1236,7 +1236,7 @@ void WindowBattleCommand_Dispatch()
                     cg::world::gBattlePlayerActionState5ABC74 = 0;
                     break;
                 }
-                const std::int32_t technique = cg::world::gValue553F84;
+                const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                 bool open = technique == -1 || cg::world::gBattleSelectionMode5ABC70 != 0;
                 if (!open) {
                     const std::uint32_t flags = cg::world::gBattlePetSkillFlags5ABB78;
@@ -1249,7 +1249,7 @@ void WindowBattleCommand_Dispatch()
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
-                    const std::int32_t currentTechnique = cg::world::gValue553F84;
+                    const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                     const auto target =
                         std::bit_cast<std::int16_t>(cg::world::gPetRuntimeRecords[pet].techniquesD8[currentTechnique].target);
                     const std::int32_t currentPosition = cg::world::gBattleCurrentPosition5ABCA4;
@@ -1258,7 +1258,7 @@ void WindowBattleCommand_Dispatch()
                 }
                 if (open) {
                     cg::world::gBattlePetCommandPhase553F88 = 1;
-                    cg::world::gValue553F84 = -1;
+                    cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
                     static_cast<void>(WindowSkill_OpenRidingSkills(&WindowBattleCommand_SelectRidingSkill));
                 }
                 cg::world::gBattlePetSkillGraphicIndex553F8C = -2;
@@ -1306,13 +1306,13 @@ void WindowBattleCommand_Dispatch()
         if ((flags & 0x10u) != 0) {
             const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
             cg::world::gBattleRebirthDisabled5ABC40 = 0;
-            cg::world::gBattleSelectionMode5ABC70 = count == 0 ? cg::world::gValue5ABB70 : cg::world::gValue5ABB6C;
+            cg::world::gBattleSelectionMode5ABC70 = count == 0 ? cg::world::gBattleFirstActionSelectionMode_5ABB70 : cg::world::gBattleSecondActionSelectionMode_5ABB6C;
         } else if (cg::world::gBattleSkillActionCount5ABBF4 == 0) {
-            const std::int32_t mode = cg::world::gValue5ABB70;
+            const std::int32_t mode = cg::world::gBattleFirstActionSelectionMode_5ABB70;
             cg::world::gBattleRebirthDisabled5ABC40 = 0;
             cg::world::gBattleSelectionMode5ABC70 = mode;
         } else {
-            cg::world::gBattleSelectionMode5ABC70 = cg::world::gValue5ABB6C;
+            cg::world::gBattleSelectionMode5ABC70 = cg::world::gBattleSecondActionSelectionMode_5ABB6C;
         }
         WindowBattleCommand_ResetTargets(cg::world::gBattleResetValues5ABB84.data(), 9);
         WindowBattleCommand_ResetSelection();
@@ -1408,21 +1408,21 @@ void WindowBattleCommand_Dispatch()
                 std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
                 if (!singleAction) {
                     cg::world::gBattleCommandState5ABC3C = 0;
-                    cg::world::gValue5ABB70 = mode;
+                    cg::world::gBattleFirstActionSelectionMode_5ABB70 = mode;
                     if (mode == 6) {
                         mode = 0;
                         cg::world::gBattleSkillUsed5ABC68 = 1;
-                        cg::world::gValue5ABB70 = 0;
-                        cg::world::gValue5ABB6C = 0;
+                        cg::world::gBattleFirstActionSelectionMode_5ABB70 = 0;
+                        cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
                     } else if (mode >= 2 && mode <= 6) {
                         cg::world::gBattleSkillUsed5ABC68 = 1;
-                        cg::world::gValue5ABB6C = 0;
+                        cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
                     }
                 } else {
-                    cg::world::gValue5ABB70 = mode;
+                    cg::world::gBattleFirstActionSelectionMode_5ABB70 = mode;
                     if (mode == 6) {
                         mode = 0;
-                        cg::world::gValue5ABB70 = 0;
+                        cg::world::gBattleFirstActionSelectionMode_5ABB70 = 0;
                     }
                     cg::world::gBattleCommandState5ABC3C = 3;
                 }
@@ -1431,9 +1431,9 @@ void WindowBattleCommand_Dispatch()
                 }
             } else {
                 const std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
-                cg::world::gValue5ABB6C = mode;
+                cg::world::gBattleSecondActionSelectionMode_5ABB6C = mode;
                 if (mode == 6) {
-                    cg::world::gValue5ABB6C = 0;
+                    cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
                 }
                 world::gCurrentSceneState = 5;
             }
@@ -1453,20 +1453,20 @@ void WindowBattleCommand_Dispatch()
             world::gCurrentSceneState = 5;
             break;
         }
-        const std::int32_t technique = cg::world::gValue553F84;
+        const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
         bool open = technique == -1
             || (cg::world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
         if (!open) {
             const std::int32_t position = cg::world::GetBattlePetPosition_405B40(cg::world::gBattleCurrentPosition5ABCA4);
             cg::yobi::YobiAction* const action = cg::world::gBattleEntries59E980[position];
             const std::int32_t pet = cg::world::FindBattlePetIndex_43C4B0();
-            const std::int32_t currentTechnique = cg::world::gValue553F84;
+            const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
             const std::int32_t cost = cg::world::gPetRuntimeRecords[pet].techniquesD8[currentTechnique].fp;
             open = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action);
         }
         if (!open) {
             const std::int32_t pet = cg::world::FindBattlePetIndex_43C4B0();
-            const std::int32_t currentTechnique = cg::world::gValue553F84;
+            const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
             const auto target =
                 std::bit_cast<std::int16_t>(cg::world::gPetRuntimeRecords[pet].techniquesD8[currentTechnique].target);
             const std::int32_t position = cg::world::GetBattlePetPosition_405B40(cg::world::gBattleCurrentPosition5ABCA4);
@@ -1474,7 +1474,7 @@ void WindowBattleCommand_Dispatch()
         }
         if (open) {
             cg::world::gBattlePetCommandPhase553F88 = 1;
-            cg::world::gValue553F84 = -1;
+            cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
             static_cast<void>(WindowSkill_OpenPetSkills(&WindowBattleCommand_SelectPetSkill));
         }
         cg::world::gBattlePetSkillGraphicIndex553F8C = -2;
@@ -1487,7 +1487,7 @@ void WindowBattleCommand_Dispatch()
         if (cg::world::gBattlePetCommandPhase553F88 == 3) {
             const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120();
             if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
-                const std::int32_t technique = cg::world::gValue553F84;
+                const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                 cg::text::FormatTo(buffer, L"W|{:X}|{:X}", static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer));
                 cg::yobi::FlushBattleEntries_43C060();
@@ -1553,7 +1553,7 @@ void WindowBattleCommand_Dispatch()
                 cg::yobi::FlushBattleEntries_43C060();
                 const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
                 cg::world::gBattlePetCommandPhase553F88 = 1;
-                cg::world::gValue553F84 = -1;
+                cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
                 if (pet < 0) {
                     static_cast<void>(WindowSkill_OpenPetSkills(&WindowBattleCommand_SelectPetSkill));
                 } else {
@@ -1569,13 +1569,13 @@ void WindowBattleCommand_Dispatch()
                 if ((clicks & 1u) != 0) {
                     cg::yobi::FlushBattleEntries_43C060();
                     cg::world::gBattlePetCommandPhase553F88 = 1;
-                    cg::world::gValue553F84 = -1;
+                    cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
                     clickedReturn = true;
                 }
             }
-            if (!clickedReturn && cg::world::gValue553F84 != -1) {
+            if (!clickedReturn && cg::world::gSelectedBattlePetTechniqueIndex_553F84 != -1) {
                 const std::int32_t namePet = cg::world::FindBattlePetIndex_43C4B0();
-                const std::int32_t nameTechnique = cg::world::gValue553F84;
+                const std::int32_t nameTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                 buffer = std::format(L"{:<16}", cg::text::FromGbkWide(cg::world::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name.data()));
                 const std::int32_t nameY = cg::world::gBattleCommandY553F7C;
                 const std::int32_t nameX = cg::world::gBattleCommandX553F78;
@@ -1584,7 +1584,7 @@ void WindowBattleCommand_Dispatch()
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(nameY - 15)),
                     2, 0, 0, buffer, 0));
                 const std::int32_t costPet = cg::world::FindBattlePetIndex_43C4B0();
-                const std::int32_t costTechnique = cg::world::gValue553F84;
+                const std::int32_t costTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                 cg::text::FormatTo(buffer, L"{:4}", cg::world::gPetRuntimeRecords[costPet].techniquesD8[costTechnique].fp);
                 const std::int32_t costY = cg::world::gBattleCommandY553F7C;
                 const std::int32_t costX = cg::world::gBattleCommandX553F78;
@@ -1609,7 +1609,7 @@ void WindowBattleCommand_Dispatch()
             const std::int32_t count = cg::world::gBattlePetActionCount5ABBBC;
             cg::world::gBattleCommandState5ABC3C = 5;
             cg::world::gBattlePetActionCount5ABBBC = count + 1;
-            cg::world::gValue553F90 = cg::world::FindBattlePetIndex_43C4B0();
+            cg::world::gLastBattleCommandPetIndex_553F90 = cg::world::FindBattlePetIndex_43C4B0();
             WindowBattleCommand_Close();
         }
         break;

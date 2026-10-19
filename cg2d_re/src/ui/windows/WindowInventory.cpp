@@ -391,7 +391,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
     if ((*reinterpret_cast<const unsigned char*>(&state) & 2u) != 0) {
         gCurrentWindow->state |= 0x2000u;
     }
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t currentCount = count;
     std::int32_t slot = 0;
     while (slot < currentCount) {
@@ -421,7 +421,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
 std::int32_t WindowInventory_OpenSpecialSelection(const char* const text)
 {
     const std::int32_t selected = std::atoi(text);
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const unsigned char previous = occupancy[selected];
     gSelectedItemCB0A44 = selected;
     occupancy[selected] = static_cast<unsigned char>(previous + 1);
@@ -510,7 +510,7 @@ static void WindowInventory_Release()
         gWindowStates[WindowId_Inventory].window->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
-        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
+        --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
         static_cast<void>(WindowDrag_ResetMouse());
     }
     if (world::gCurrentDialogType_581800 == 29) {
@@ -546,7 +546,7 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         gCurrentWindow->elements[17].mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t oldSelection = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
-        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
+        --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[oldSelection];
         if (world::gCurrentDialogType_581800 == 29) {
             world::gCurrentDialogType_581800 = -1;
         }
@@ -558,7 +558,7 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         const std::int32_t oldSelection = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         gItemSelectionModeCC40D4 = 0;
-        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
+        --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[oldSelection];
         static_cast<void>(WindowDrag_ResetMouse());
     }
 updateSelector:
@@ -710,7 +710,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (state != 0) {
@@ -931,7 +931,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
     }
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && (WindowDrag_ReadKind() != 2 || WindowDrag_ReadSourceIndex() >= 100)) {
@@ -1141,7 +1141,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t hovered = -1;
     std::int32_t consumed = 0;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if ((events & 0x20u) != 0 && WindowDrag_ReadKind() == 1 && WindowDrag_ReadFocusWindowId() == 14) {
         events |= 1u;
         if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {

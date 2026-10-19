@@ -635,7 +635,7 @@ static std::int32_t WindowTrade_AddItem(const std::int32_t index, const std::int
         return 0;
     }
     gTradeItemSlotsCF3AE8[index] = static_cast<std::uint8_t>(slot);
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = hover[slot];
     gTradeItemMarksD2D61C[slot] = 1;
     hover[slot] = static_cast<std::uint8_t>(previous + 1);
@@ -679,7 +679,7 @@ static std::int32_t WindowTrade_RemoveItem(const std::int32_t index)
         return -1;
     }
     gTradeItemSlotsCF3AE8[index] = 0xFF;
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = hover[slot];
     gTradeItemMarksD2D61C[slot] = 0;
     hover[slot] = static_cast<std::uint8_t>(previous - 1);
@@ -1150,7 +1150,7 @@ static void WindowTrade_HandleOwnInventory(
     const std::uint32_t color = 0x80FFFFFFu;
     dimmed.color = color;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
         events &= 0x9Fu;
@@ -3046,7 +3046,7 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
 // 原函数：0x0050E3C0。
 void WindowTrade_ReceiveTargetReply(const std::uintptr_t, const char* const text)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -3058,10 +3058,10 @@ void WindowTrade_ReceiveTargetReply(const std::uintptr_t, const char* const text
 // 原函数：0x0050E3F0。
 void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const std::int32_t)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    if (world::gValueD67E78 != 0) {
+    if (world::gLogoutToTownPending_D67E78 != 0) {
         static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 0));
         return;
     }
@@ -3075,7 +3075,7 @@ void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const
 // 原函数：0x0050E440。
 std::int32_t WindowTrade_ReceiveCancelReply(const std::uintptr_t)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3090,7 +3090,7 @@ std::int32_t WindowTrade_ReceiveCancelReply(const std::uintptr_t)
 // 原函数：0x0050E470。
 std::int32_t WindowTrade_ReceiveStateReply(const std::uintptr_t, const std::int32_t value)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3105,7 +3105,7 @@ std::int32_t WindowTrade_ReceiveStateReply(const std::uintptr_t, const std::int3
 // 原函数：0x0050E4A0。
 std::int32_t WindowTrade_ReceiveItemReply(const std::uintptr_t, const char* const text)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3120,7 +3120,7 @@ std::int32_t WindowTrade_ReceiveItemReply(const std::uintptr_t, const char* cons
 std::int32_t WindowTrade_ReceivePetReply(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3135,7 +3135,7 @@ std::int32_t WindowTrade_ReceivePetReply(
 std::int32_t WindowTrade_ReceivePetSkillReply(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3149,7 +3149,7 @@ std::int32_t WindowTrade_ReceivePetSkillReply(
 // 原函数：0x0050E530。
 std::int32_t WindowTrade_ReceiveRemoteResetReply(const std::uintptr_t)
 {
-    const std::int32_t scene = world::gValue9A6E0C;
+    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -3169,7 +3169,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(const std::uintptr_t)
 // 原函数：0x0050E570。
 void WindowTrade_ReceiveCloseReply(const std::uintptr_t, const std::int32_t value)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

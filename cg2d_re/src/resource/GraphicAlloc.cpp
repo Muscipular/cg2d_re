@@ -13,7 +13,7 @@
 namespace cg::resource {
 
 std::uint32_t gValue9A4A50 = 0; // 原全局：0x009A4A50。
-std::uint32_t gValueD2D5FC = 0; // 原全局：0x00D2D5FC。
+std::uint32_t gAlbumEntryLimit_D2D5FC = 0; // 原全局：0x00D2D5FC。
 std::uint32_t gValueCC3E68 = 0; // 原全局：0x00CC3E68。
 
 // 原函数：0x004574E0；BLM01容量取配置，原失败清理与四块清零序保持。
@@ -22,7 +22,7 @@ std::int32_t GraphicAlloc_4574E0()
     animation::gMaxAnimateCount9A4A4C = gBinLoaderAnimeCapacity;
     gValue9A4A50 = 10412000;
     gMaxGraphicCount = gBinLoaderGraphicCapacity;
-    gValueD2D5FC = 0x3C0;
+    gAlbumEntryLimit_D2D5FC = 0x3C0;
     gValueCC3E68 = 0x40;
 
     // BLM01：四块分配／清零与加载器共用配置容量，记录仍只拓宽原生指针。

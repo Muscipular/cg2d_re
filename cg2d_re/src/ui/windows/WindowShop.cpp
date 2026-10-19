@@ -602,7 +602,7 @@ static void WindowShop_Release()
         world::gCurrentDialogType_581800 = -1;
     }
     if (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode) > 0) {
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         for (std::int32_t slot = 0; slot < 28; ++slot) {
             --occupancy[slot];
         }
@@ -742,7 +742,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
     gShopSelectedSlotsCB03DC.fill(static_cast<char>(-1));
     gShopItemCountCB1E10 = 20;
     gShopExchangeCurrencyItemId_D2D608 = -1;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -805,7 +805,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
         }
         ++gShopItemCountCB1E10;
     }
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -858,7 +858,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
     gShopValueD046C4 = 0;
     gShopExchangeCurrencyItemId_D2D608 = value;
     gShopValueD672D4 = 0;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -947,7 +947,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     gShopValueCF467C = 0;
     gShopItemCountCB1E10 = 20;
     gShopExchangeCurrencyItemId_D2D608 = value;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }

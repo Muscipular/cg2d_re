@@ -867,7 +867,7 @@ void WindowItemDrag_RemapHover(const std::int32_t first, const std::int32_t seco
     WindowCraft_ResetSelection(first, second);
     WindowTrade_RemapTextListSelection(first, second);
     WindowSkill_AdjustSpecialHoverCount(first, second);
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const unsigned char secondValue = hover[second];
     const unsigned char firstValue = hover[first];
     hover[first] = secondValue;
@@ -2046,7 +2046,7 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
     }
     if (item->used != 0) {
         const auto* const occupancy =
-            reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+            reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         if (occupancy[slot] != 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
@@ -2854,7 +2854,7 @@ static void WindowRuntime_MarkExistingWindows()
 // 原函数：0x004722A0。
 static void WindowRuntime_ResetMouseAndItemFlags()
 {
-    world::gValueD67B08.fill(0);
+    world::gInventorySlotUseCounts_D67B08.fill(0);
     gMouseValue57C110 = 0;
     gDragSourceIndex57C114 = 0;
     gDragCallback57C118 = nullptr;
@@ -3219,21 +3219,21 @@ static void WindowRuntime_ProcessShortcuts()
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x27] & 4u) != 0) {
-            const std::int32_t range = platform::gValue554640 + 1;
+            const std::int32_t range = platform::gChatRange_554640 + 1;
             const bool pastLastRange = range > 5;
-            platform::gValue554640 = range;
+            platform::gChatRange_554640 = range;
             if (pastLastRange) {
-                platform::gValue554640 = 1;
+                platform::gChatRange_554640 = 1;
             }
             world::gChatRangeOverlayFrames_626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
-            const std::int32_t range = platform::gValue554640 - 1;
+            const std::int32_t range = platform::gChatRange_554640 - 1;
             const bool belowFirstRange = range < 1;
-            platform::gValue554640 = range;
+            platform::gChatRange_554640 = range;
             if (belowFirstRange) {
-                platform::gValue554640 = 5;
+                platform::gChatRange_554640 = 5;
             }
             world::gChatRangeOverlayFrames_626BFC = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -3605,7 +3605,7 @@ void WindowRuntime_DecrementOperationCount()
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, 62));
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
     gSkillRebirthModeEnabled_5F9754 = 0;
@@ -4315,8 +4315,8 @@ std::int32_t WindowRuntime_Update()
         }
     };
     std::int32_t carried = 1;
-    world::gValueC8A77C = 0;
-    world::gValueC8A780 = 0;
+    world::gMapTargetInputOverride_C8A77C = 0;
+    world::gMapTargetDrawOverride_C8A780 = 0;
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
     script::PrepareLuaWindowFrame();
@@ -4399,7 +4399,7 @@ std::int32_t WindowRuntime_Update()
     gCurrentWindowIdD67A1C = 0;
     if (phase == 1
         && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
-        world::gValueC8A780 = 1;
+        world::gMapTargetDrawOverride_C8A780 = 1;
         *reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
@@ -4417,7 +4417,7 @@ std::int32_t WindowRuntime_Render()
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, 62));
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
         gSkillRebirthModeEnabled_5F9754 = 0;
         occupancy[7] = decreased;
@@ -4822,7 +4822,7 @@ std::int32_t WindowRuntime_CloseAll()
             gWindows[index] = nullptr;
         }
     }
-    world::gValueD67B08.fill(0);
+    world::gInventorySlotUseCounts_D67B08.fill(0);
     if (gSkillRebirthModeEnabled_5F9754 == 0) {
         return 0;
     }
@@ -4878,7 +4878,7 @@ void WindowRuntime_ProcessScene()
             static_cast<void>(WindowRuntime_CloseAll());
             WindowRuntime_OpenNormalScene();
             if (world::gCurrentSceneState == 250) {
-                auto* const bytes = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                 for (std::size_t index = 0; index < 8; ++index) {
                     bytes[index] = static_cast<unsigned char>(bytes[index] + 1);
                 }
@@ -5097,7 +5097,7 @@ void WindowRuntime_DrawCurrent()
 // 原代码位置：0x00440ADB。
 void WindowRuntime_ApplyObservationInputGate()
 {
-    auto* const bytes = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if (detail::gSkillRebirthModeEnabled_5F9754 != 0) {
         const unsigned char previous = bytes[7];
         detail::gSkillRebirthModeEnabled_5F9754 = 0;

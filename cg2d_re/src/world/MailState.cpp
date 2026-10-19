@@ -294,7 +294,7 @@ void SortContactIndices_4EC1A0()
 // 原函数：0x0050D740。
 void HandleContactListReply_50D740(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char name[256];
@@ -333,7 +333,7 @@ void HandleContactListReply_50D740(const std::uintptr_t, const char* const paylo
 // 原函数：0x0050D8C0。
 void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char first[256];
@@ -362,7 +362,7 @@ void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* con
 void HandleContactUpdateReply_50D9E0(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     const std::int32_t active = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);

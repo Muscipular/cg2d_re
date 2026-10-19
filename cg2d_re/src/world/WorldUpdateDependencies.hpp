@@ -79,10 +79,10 @@ extern std::uint16_t gValue62B318; // 原全局：0x0062B318。
 extern std::uint32_t gValue62B328; // 原全局：0x0062B328。
 extern std::uint16_t gValue62B3B0; // 原全局：0x0062B3B0。
 extern std::uint16_t gValue556C34; // 原全局：0x00556C34。
-extern std::uint16_t gValue62B5AA; // 原全局：0x0062B5AA。
+extern std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA; // 原全局：0x0062B5AA。
 extern std::uint16_t gValue62B5A8; // 原全局：0x0062B5A8。
-extern std::uint32_t gValue62B308; // 原全局：0x0062B308。
-extern std::uint32_t gValue62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
+extern std::uint32_t gMapTargetInputAndDrawOverride_62B308; // 原全局：0x0062B308。
+extern std::uint32_t gMapTargetInputAndDrawOverride_62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
 extern std::uint32_t gValue62B358; // 原全局：0x0062B358。
 extern std::uint32_t gValue62B384; // 原全局：0x0062B384。
 extern std::uint32_t gValue62B310; // 原全局：0x0062B310。
@@ -149,7 +149,7 @@ std::int32_t ProcessLogoutScene_45EBB0();                 // 原 0x45EBB0。
 std::int32_t ProcessLogoutTransition_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
 // 原函数：0x0045ED80。
 void ResetLogoutScene_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
-extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。
+extern std::uint32_t gLogoutRequestScenePhase_9A6204;         // 原 0x9A6204；45ED90 后续复用。
 // 原函数：0x0045ED90。
 std::int32_t UpdateLogoutScene_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 // 原函数：0x0051C7D0。

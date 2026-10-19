@@ -347,7 +347,7 @@ void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::in
     if (gSkillRebirthModeEnabled_5F9754 == 0) {
         return;
     }
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if (first == 7) {
         hover[7] = static_cast<unsigned char>(hover[7] + 1);
         hover[second] = static_cast<unsigned char>(hover[second] - 1);
@@ -763,13 +763,13 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
     }
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source != pairIndex && world::gValueDA3B20 == 0) {
+        if (source != pairIndex && world::gSkillReorderPending_DA3B20 == 0) {
             const std::int32_t targetSkill =
                 std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
             const std::int32_t sourceSkill =
                 std::bit_cast<std::int16_t>(world::gSkillPairsF63370[source].index);
             static_cast<void>(network::SwapPlayerSkillOrderRequest_512470(platform::gConnectionSocket, sourceSkill, targetSkill));
-            world::gValueDA3B20 = 1;
+            world::gSkillReorderPending_DA3B20 = 1;
         }
         WindowDrag_Reset();
     }
@@ -1685,7 +1685,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         const std::uint8_t previous = occupancy[7];
         gSkillRebirthModeEnabled_5F9754 = rebirth != 0 ? 0 : 1;
         occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));

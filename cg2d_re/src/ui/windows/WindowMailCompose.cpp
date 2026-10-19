@@ -73,7 +73,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
             petWindow->state |= 0x8000u;
             const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
             if (oldSlot != -1) {
-                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                 auto count = occupancy[oldSlot];
                 gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
                 --count;
@@ -163,7 +163,7 @@ void WindowMailCompose_Release()
     gLoginWindowRuntime.mailDraftCF4BC8.value0C = oldSlot;
     cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()), gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
     if (oldSlot != -1) {
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         auto count = occupancy[oldSlot];
         gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
         --count;

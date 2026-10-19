@@ -853,8 +853,8 @@ std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
     const volatile std::int32_t& color =
         cg::ui::detail::gInputContext626AA0.field140;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
-    const volatile std::int32_t& second = cg::platform::gValue554640;
-    const volatile std::int32_t& third = cg::platform::gValue554644;
+    const volatile std::int32_t& second = cg::platform::gChatRange_554640;
+    const volatile std::int32_t& third = cg::platform::gChatNotificationSoundEnabled_554644;
     const std::uint8_t colorByte = static_cast<std::uint8_t>(color);
     const std::uint8_t firstByte = static_cast<std::uint8_t>(first);
     currentBytes[0x30A + selected] = colorByte;
@@ -877,8 +877,8 @@ std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
     cg::platform::gValue55463C = first;
     const std::int32_t second = currentBytes[0x30E + selected];
     const std::int32_t third = currentBytes[0x310 + selected];
-    cg::platform::gValue554640 = second;
-    cg::platform::gValue554644 = third;
+    cg::platform::gChatRange_554640 = second;
+    cg::platform::gChatNotificationSoundEnabled_554644 = third;
     return selected;
 }
 

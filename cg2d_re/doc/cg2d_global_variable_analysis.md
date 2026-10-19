@@ -4,16 +4,16 @@
 
 本轮单线程，使用当前源码和必要的只读IDA数据流证据；每批逆替换全文验证、更新进度并提交，最终沿本次命名任务已有授权执行build.bat Debug，不运行客户端/测试或计算摘要。
 
-已分析：133／217。已重命名：121。保留：12。待分析：84。
+已分析：170／217。已重命名：158。保留：12。待分析：47。
 
 | 原变量 | 结论／新名称 | 证据及缺口 |
 |---|---|---|
 | `gValue553438` | 已分析，保留原名 | 映像初值10，存档315字节恢复/保存，仅见持久化回环，无业务读取；缺业务含义证据，保留。 |
-| `gValue553F84` | 待分析 | — |
-| `gValue553F90` | 待分析 | — |
+| `gValue553F84` | 已重命名：`gSelectedBattlePetTechniqueIndex_553F84` | 保存已选宠物或骑乘技能序号，供技能名/消耗显示、合法性校验与W指令发送使用；-1表示未选择。 |
+| `gValue553F90` | 已重命名：`gLastBattleCommandPetIndex_553F90` | 提交战斗指令时保存普通出战或骑乘宠物槽；新一轮选择发现宠物槽变化即清除缓存技能。 |
 | `gValue55463C` | 已分析，保留原名 | 初值8，仅角色显示设置保存/恢复，无实际显示消费者；缺业务含义证据，保留。 |
-| `gValue554640` | 待分析 | — |
-| `gValue554644` | 待分析 | — |
+| `gValue554640` | 已重命名：`gChatRange_554640` | 聊天按钮在1至5之间切换范围，发送聊天消息携带此值，地图范围提示读取同值。 |
+| `gValue554644` | 已重命名：`gChatNotificationSoundEnabled_554644` | 聊天与战斗文本到达时据此播放提示音74；设置切换并持久化，不是所有音效的总开关。 |
 | `gValue556C14` | 待分析 | — |
 | `gValue556C34` | 待分析 | — |
 | `gValue559508` | 已重命名：`gGameTimeEpochSeconds_559508` | UpdateGameTime从协议时间减此常量后换算游戏年月日，保留0x3AE805E7。 |
@@ -26,14 +26,14 @@
 | `gValue57E42C` | 已重命名：`gBattleItemActorSelectionMode_57E42C` | 战斗物品窗口独立本人/宠物选择模式，正值分支及宠物删除序号修正共用。 |
 | `gValue58589C` | 已重命名：`gHoverDescriptionEnabled_58589C` | 物品拖动复位置1，命中描述需本值非零且输入门禁为0。 |
 | `gValue58D3C0` | 待分析 | — |
-| `gValue593FC0` | 待分析 | — |
-| `gValue5ABB1C` | 待分析 | — |
-| `gValue5ABB20` | 待分析 | — |
-| `gValue5ABB28` | 待分析 | — |
-| `gValue5ABB6C` | 待分析 | — |
-| `gValue5ABB70` | 待分析 | — |
-| `gValue5ABCB0` | 待分析 | — |
-| `gValue5ABFC4` | 待分析 | — |
+| `gValue593FC0` | 已重命名：`gServerConnectionErrorPresent_593FC0` | 连接复位清零；断线场景据非零值显示网络错误编号和换服提示，否则显示普通断线提示；未见非零生产者，限定显示分支角色。 |
+| `gValue5ABB1C` | 已重命名：`gBattleEventDispatchBusy_5ABB1C` | 战斗事件调度前置1，事件回调结束清0；存在活动事件且本值非零时阻止再次推进调度。 |
+| `gValue5ABB20` | 已重命名：`gBattleExitRequested_5ABB20` | 战斗退出处理写1，调度器检测等于1后切换场景7；保留原初值及复位时序。 |
+| `gValue5ABB28` | 已重命名：`gBattleTurnMessagesExhausted_5ABB28` | 战斗M消息读取到流尾时置1；待活动事件清空且回合就绪后清零并推进下一回合。 |
+| `gValue5ABB6C` | 已重命名：`gBattleSecondActionSelectionMode_5ABB6C` | 战斗操作数大于0时恢复此选择模式；选择指令后缓存第二动作模式。 |
+| `gValue5ABB70` | 已重命名：`gBattleFirstActionSelectionMode_5ABB70` | 战斗操作数为0时恢复此选择模式；选择指令后缓存第一动作模式。 |
+| `gValue5ABCB0` | 已重命名：`gBattleExitNotificationPending_5ABCB0` | 战斗流回复第二字符为U时置1；战斗绘制尾部消费该通知、进入场景7并清零。 |
+| `gValue5ABFC4` | 已重命名：`gBattleEntryPending_5ABFC4` | 战斗进入回复type大于0时置1；普通场景检测后开始入战，战斗场景消费并清零。 |
 | `gValue5F974C` | 已重命名：`gActorOverheadTextMode_5F974C` | 0不显示，1..6选择角色名/称号等头顶文本；地图及战斗绘制消费，设置循环和存档。 |
 | `gValue5F9754` | 已重命名：`gSkillRebirthModeEnabled_5F9754` | 技能重生按钮切换并发送相应动作，制造/采集/技能使用据其选择模式，计时结束或操作归零清除。 |
 | `gValue626C10` | 待分析 | — |
@@ -43,7 +43,7 @@
 | `gValue626C28` | 已重命名：`gInputInsertRejected_626C28` | Input字符提交失败或溢出回滚路径置1；当前无读取，名字仅描述已证生产事件。 |
 | `gValue62B2DC` | 待分析 | — |
 | `gValue62B2F8` | 待分析 | — |
-| `gValue62B308` | 待分析 | — |
+| `gValue62B308` | 已重命名：`gMapTargetInputAndDrawOverride_62B308` | 世界初始化及旋转值更新时清零，地图目标输入和绘制两处门禁读取；未见非零生产者，名称仅描述共同消费者作用。 |
 | `gValue62B30C` | 待分析 | — |
 | `gValue62B310` | 待分析 | — |
 | `gValue62B318` | 待分析 | — |
@@ -59,11 +59,11 @@
 | `gValue62B384` | 待分析 | — |
 | `gValue62B388` | 待分析 | — |
 | `gValue62B38C` | 待分析 | — |
-| `gValue62B398` | 待分析 | — |
+| `gValue62B398` | 已重命名：`gMapTargetInputAndDrawOverride_62B398` | 地图提示窗口同步时清零，地图目标输入和绘制两处门禁读取；未见非零生产者，不推定具体启用场景。 |
 | `gValue62B3A0` | 待分析 | — |
 | `gValue62B3B0` | 待分析 | — |
 | `gValue62B5A8` | 待分析 | — |
-| `gValue62B5AA` | 待分析 | — |
+| `gValue62B5AA` | 已重命名：`gPlayerMovementAndFacingBlocked_62B5AA` | 非零时阻止玩家移动、鼠标转向及显式转向；世界初始化清零，当前未见非零生产者。 |
 | `gValue73ECBC` | 已重命名：`gChatTextSizeMode_73ECBC` | 聊天按钮明确提示改变文字大小，0..2循环并随聊天发送；不沿用旧CycleNameMode误判为名字显示。 |
 | `gValue73ECC0` | 已重命名：`gFrameBackgroundMode_73ECC0` | 主循环0清背景、3执行战斗震屏背景；2保留转场输出并阻止切换窗口模式，保留全部数值。 |
 | `gValue73ED40` | 已重命名：`gGameTimeAdjustmentSeconds_73ED40` | 协议校时尾字段写入，UpdateGameTime按S32扩展后加至校准时间。 |
@@ -75,31 +75,31 @@
 | `gValue9A4A50` | 待分析 | — |
 | `gValue9A4A78` | 已重命名：`gCapability4LoginMessage_9A4A78` | 能力4登录ID密码提示、删除账号确认和完成提示共用文本。 |
 | `gValue9A4B7C` | 已重命名：`gCapability4IntroFadePhase_9A4B7C` | 能力4开场选0..3叠图层，alpha到255推进阶段。 |
-| `gValue9A4B94` | 待分析 | — |
+| `gValue9A4B94` | 已重命名：`gWorldEntryRepliesPendingMask_9A4B94` | 世界地图初始化设为3；地图CRC匹配或数据回复清位0，本人世界对象创建或刷新清位1；进入场景等待掩码归零。 |
 | `gValue9A4BA0` | 已重命名：`gOuterLoginErrorMessage_9A4BA0` | 外层登录失败时保存账号密码不正确文本，UpdateLoginMessage展示。 |
 | `gValue9A4D00` | 已重命名：`gCapability4IntroFadeAlpha_9A4D00` | 能力4开场四图逐段淡入，左移24作颜色alpha，每帧加6。 |
 | `gValue9A4F2C` | 已重命名：`gCapability4LoginFrameCounter_9A4F2C` | 能力4登录每帧递增，输入页超过256清0，阶段重置清0。 |
 | `gValue9A509C` | 已分析，保留原名 | 能力4登录进入输入页仅清0，无读取消费；缺业务含义证据，保留。 |
 | `gValue9A50D0` | 已重命名：`gCreationElementPointBytes_9A50D0` | 建角四元素点共用W32按四字节访问，分配限制、绘制及草稿恢复使用。 |
 | `gValue9A5348` | 已重命名：`gLoginProcessingErrorMessage_9A5348` | 登入超时/失败路径设置的动态提示文本，由登录消息窗口消费。 |
-| `gValue9A5674` | 待分析 | — |
-| `gValue9A594C` | 待分析 | — |
-| `gValue9A5AC0` | 待分析 | — |
+| `gValue9A5674` | 已重命名：`gLogoutPanelRows_9A5674` | 登出提示窗口设置行数2并乘48计算高度。 |
+| `gValue9A594C` | 已重命名：`gLogoutPanelColumns_9A594C` | 登出提示按测量文本宽度除64加2计算列数，再乘64计算宽度。 |
+| `gValue9A5AC0` | 已重命名：`gLogoutPanelLeft_9A5AC0` | 登出提示窗口计算并保存左侧坐标，用于后续窗口定位。 |
 | `gValue9A5E78` | 已分析，保留原名 | 建角初始化清字节0，无读取用途；缺业务含义证据，保留。 |
 | `gValue9A5FA0` | 已分析，保留原名 | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
 | `gValue9A5FA4` | 已分析，保留原名 | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
 | `gValue9A5FD4` | 已重命名：`gCreationAttributePointBytes_9A5FD4` | 建角前四属性点共用W32按四字节访问，编辑和草稿恢复使用，保留打包布局。 |
 | `gValue9A5FD8` | 已重命名：`gCreationFifthAttributePoints_9A5FD8` | 建角第五属性独立字节，与前四打包字节共同分配30点，不猜具体属性名称。 |
-| `gValue9A61F8` | 待分析 | — |
+| `gValue9A61F8` | 已重命名：`gLogoutPanelTop_9A61F8` | 登出提示窗口计算并保存顶部坐标，用于后续窗口定位。 |
 | `gValue9A6200` | 已重命名：`gCapability3LoginOverlayAlpha_9A6200` | 登录输入初始化置255，能力3场景尾部为245152叠图组成白色alpha；场景重置清0。 |
-| `gValue9A6204` | 待分析 | — |
-| `gValue9A6E0C` | 待分析 | — |
+| `gValue9A6204` | 已重命名：`gLogoutRequestScenePhase_9A6204` | 登出请求场景复位为0，依次创建提示窗口、发送请求并轮询；控制阶段0、1、2。 |
+| `gValue9A6E0C` | 已重命名：`gGameplayRepliesSuppressed_9A6E0C` | 退出场景入口置1、进入世界场景清0；地图、物品、聊天、交易等回复据此早退，属于游戏回复处理门禁。 |
 | `gValue9A6E20` | 已重命名：`gLoginInputFocusIndex_9A6E20` | 登录控制器选账号/密码上下文表并切换焦点，保留0/1索引。 |
 | `gValue9A6E24` | 待分析 | — |
 | `gValue9A6E3C` | 已重命名：`gServerConnectionPhase_9A6E3C` | 连接服务器窗口创建、网络初始化、请求轮询共用阶段，重置为0。 |
 | `gValue9A6E3E` | 已分析，保留原名 | 连接状态复位仅清0，无读取消费；缺业务含义证据，保留。 |
 | `gValue9A6F44` | 已重命名：`gConsumedCursorState_9A6F44` | 光标更新帧尾保存已消费状态，WM_SETCURSOR据此索引光标句柄。 |
-| `gValue9A7F78` | 待分析 | — |
+| `gValue9A7F78` | 已重命名：`gMapAttachmentDrawCount_9A7F78` | 地图附属绘制缓存清理时归零，追加条目后递增，绘制遍历读取该计数。 |
 | `gValue9A7F7C` | 已重命名：`gMapRectangleRequestPlayerX_9A7F7C` | 请求前方缺失地图后保存当时玩家X；当前无消费者，仅按已证采样命名。 |
 | `gValue9A7F80` | 已重命名：`gMapRectangleRequestPlayerY_9A7F80` | 请求前方缺失地图后保存当时玩家Y；当前无消费者，仅按已证采样命名。 |
 | `gValue9A86D8` | 已重命名：`gMapTransitionRequestPending_9A86D8` | 普通命中转场请求置1，匹配回复序号清0，供移动门禁。 |
@@ -139,7 +139,7 @@
 | `gValueC821D8` | 已重命名：`gPlayerCoordinateSyncPending_C821D8` | 坐标同步请求赋1，初始化/战斗返回清0；地图移动及面对玩家交互据其阻塞。 |
 | `gValueC821E8` | 已分析，保留原名 | 源码在初始化清零，50D080、5093F0、50D120及普通场景恢复时接收9FB918载荷；IDA逐字节核C821E8..F7仅构造/析构及写字段，无数值读消费者，无法确认具体业务量。 |
 | `gValueC821FC` | 已重命名：`gPlayerPathRebuildPending_C821FC` | 点击/连续移动取新目标置1，玩家空闲且方向队列空时清0并规划路径。 |
-| `gValueC82204` | 待分析 | — |
+| `gValueC82204` | 已重命名：`gMapSurfaceCacheEnabled_C82204` | 绘制队列类型6/7据非零值执行地图临时表面与后备表面复制；每帧清零、截图临时保存恢复，当前未见非零写入，名称限定消费者作用。 |
 | `gValueC82208` | 已重命名：`gMapRectangleRequestPending_C82208` | 地图变更置1，CRC匹配、数据回复或转场失败等路径清0，参与地图刷新门禁。 |
 | `gValueC8220C` | 已重命名：`gMapTransitionObservationPrepared_C8220C` | 普通转场请求准备观察旅行后置1，地图变化回复据0决定是否补准备并清此位。 |
 | `gValueC82210` | 已重命名：`gMapTransitionReplyPending_C82210` | 转场请求置1，scene202等待；匹配转场回复或指定地图数据回复清0。 |
@@ -153,8 +153,8 @@
 | `gValueC8223C` | 已重命名：`gLastExplicitFacingRequestTick_C8223C` | TurnPlayerAndSendDirection独立的500毫秒节流槽，与鼠标目标转向计时分开。 |
 | `gValueC8A774` | 已重命名：`gMapLeftButtonSuppressed_C8A774` | 地图鼠标采样要求其为0才接受左键单次与持续事件；当前仅零初始化。 |
 | `gValueC8A778` | 已重命名：`gMapLeftHoldDurationMs_C8A778` | 左键持续时写当前tick减按下起点；500毫秒门槛触发连续移动，松开清0。 |
-| `gValueC8A77C` | 待分析 | — |
-| `gValueC8A780` | 待分析 | — |
+| `gValueC8A77C` | 已重命名：`gMapTargetInputOverride_C8A77C` | 窗口每帧清零，地图目标输入门禁读取并允许越过常规层级条件；当前无非零生产者，只命名已证门禁用途。 |
+| `gValueC8A780` | 已重命名：`gMapTargetDrawOverride_C8A780` | 窗口处理鼠标阶段时置1并提升鼠标层级；地图目标绘制据此允许越过层级限制，帧前清零。 |
 | `gValueC8A794` | 已重命名：`gMapLeftPressTick_C8A794` | 左键单次记录tick，持续事件用于计算长按时长，松开/恢复移动时清0。 |
 | `gValueC8A79C` | 已重命名：`gContinuousMapMovementActive_C8A79C` | 长按达到500毫秒置1，左键点击清0；激活时周期刷新移动目标并改变光标。 |
 | `gValueC8A7A4` | 已重命名：`gMapTargetLeftHeld_C8A7A4` | 地图鼠标采样每帧清0，允许的左键持续事件置1。 |
@@ -162,12 +162,12 @@
 | `gValueC9A96C` | 已重命名：`gChatPanelVisible_C9A96C` | InputCaret和WindowChat绘制/按钮/输入共用可见门禁，Home切换；场景恢复置1。 |
 | `gValueCA0440` | 已重命名：`gShortcutBarCollapsed_CA0440` | 0普通快捷栏、1折叠快捷栏，展开/收起按钮写入并保存。 |
 | `gValueCC3E68` | 待分析 | — |
-| `gValueCC4D34` | 待分析 | — |
-| `gValueCC4D3C` | 待分析 | — |
+| `gValueCC4D34` | 已重命名：`gWindowInteractionOriginX_CC4D34` | 交互窗口保存起始地图X坐标，距离检查与玩家当前世界坐标除64后的X比较；多个窗口共用。 |
+| `gValueCC4D3C` | 已重命名：`gWindowInteractionOriginY_CC4D3C` | 交互窗口保存起始地图Y坐标，距离检查与玩家当前世界坐标除64后的Y比较；多个窗口共用。 |
 | `gValueCF4690` | 已重命名：`gStatusBarLayoutMode_CF4690` | 0完整、1紧凑、2折叠状态栏，按钮写模式后场景恢复据其开对应窗口。 |
 | `gValueCF4AAC` | 已重命名：`gHotkeyLayoutMode_CF4AAC` | 设置界面循环键位方案，快捷键读取/显示/记录表据此选择，保存记录持久化。 |
 | `gValueCF4B6C` | 待分析 | — |
-| `gValueD2D5FC` | 待分析 | — |
+| `gValueD2D5FC` | 已重命名：`gAlbumEntryLimit_D2D5FC` | GraphicAlloc设为0x3C0；图鉴更新校验编号上限、图鉴掩码同步遍历使用此上限。 |
 | `gValueD2D608` | 已重命名：`gShopExchangeCurrencyItemId_D2D608` | 商店回复提供交换货币物品ID，统计持有数量、扣除数量及禁选对应物品使用。 |
 | `gValueD2F788` | 已重命名：`gPlayerUnspentAttributePoints_D2F788` | 属性点回复写入，玩家属性窗口显示剩余点并参与加点提示，进入场景清0。 |
 | `gValueD460C8` | 已重命名：`gInputAndHoverSuppressed_D460C8` | RenderInput非零跳过文本输入；MouseDispatch同值阻止悬停描述处理，当前仅零初始化。 |
@@ -178,11 +178,11 @@
 | `gValueD67AFD` | 已重命名：`gSkillOperationCount_D67AFD` | 技能相关窗口/目标选择增减，技能拖动要求为0，保留字节计数语义。 |
 | `gValueD67AFE` | 已重命名：`gSkillStatusIconReferences_D67AFE` | 技能/采集/制造窗口持有时增减，归零才清对应工作状态图标，与一般技能操作数独立。 |
 | `gValueD67B00` | 已重命名：`gCraftPetAssistActive_D67B00` | 制造等待阶段取特殊技能/水晶/宠物FP条件写入，推进动画要求宠物可用且本值非零，关闭清0。 |
-| `gValueD67B08` | 待分析 | — |
+| `gValueD67B08` | 已重命名：`gInventorySlotUseCounts_D67B08` | 7个32位单元按28个字节访问，记录物品槽被拖动、目标选择、材料与交易占用的引用计数；交换物品时交换对应字节，保持原存储类型。 |
 | `gValueD67B24` | 已重命名：`gItemUseTargetReferences_D67B24` | 物品文本/属性目标窗口打开增减，引用数归零清选中物品，场景复位清0。 |
 | `gValueD67B38` | 已重命名：`gContactsPreviewMode_D67B38` | 联系人按钮提示预览/详细切换，列表行布局和绘制按此模式分支。 |
 | `gValueD67BE0` | 已重命名：`gOwnStallOpenForBusiness_D67BE0` | 本人摊位营业按钮切换并提交列表，非零禁止编辑/关闭窗口及选择上架条目。 |
-| `gValueD67E78` | 待分析 | — |
+| `gValueD67E78` | 已重命名：`gLogoutToTownPending_D67E78` | 设置窗口登出并回到城内登入点按钮发送回城请求后置1；用于回城过渡和回复抑制，返回地图时清零。 |
 | `gValueD68858` | 已分析，保留原名 | 仅存档31B字节恢复及保存，无运行消费，具体偏好未知；缺业务含义证据，保留。 |
 | `gValueD68BF0` | 已重命名：`gRightMouseRepeatAnchorMs_D68BF0` | 右键UpdatePulse的独立经过时间锚点，保持右侧先取pulse的读取序。 |
 | `gValueD68DC4` | 已重命名：`gRequestedCursorState_D68DC4` | RequestCursorState发布，本帧绘图/原生光标读取，帧尾消费后清0。 |
@@ -192,7 +192,7 @@
 | `gValueD69798` | 已重命名：`gLoginServerRecords_D69798` | 800条LoginServerRecord，命令配置填充地址/可用性，登录选服及窗口标题读取。 |
 | `gValueD9F2CA` | 已重命名：`gNetworkDisconnectState_D9F2CA` | 收发错误/对端关闭置1，网络轮询切断线场景后置2，初始化/关闭清0。 |
 | `gValueD9F2D4` | 已重命名：`gLoginServerGroupCounts_D9F2D4` | 配置每20服务器按index/20累加，选服组可用及第二页判断使用。 |
-| `gValueDA3B20` | 待分析 | — |
+| `gValueDA3B20` | 已重命名：`gSkillReorderPending_DA3B20` | 技能槽拖放发送重排请求后置1，技能回复处理尾部清零；非零时禁止继续发送重排。 |
 | `gValueDA3B24` | 已重命名：`gLoginReplyErrorCode_DA3B24` | 登录回复低W16错误码，busy文本映射1234；登录场景按码选择错误提示并清除。 |
 | `gValueDE03F4` | 已重命名：`gCreationSubmittedAttribute2_DE03F4` | 建角确认采第3属性为S8扩展值，草稿快照及创建请求读取；图形标签尚未证明具体属性名，按已证序号命名。 |
 | `gValueDE0AF8` | 已重命名：`gCreationSubmittedAttribute3_DE0AF8` | 建角确认采第4属性为S8扩展值，草稿快照及创建请求读取；图形标签尚未证明具体属性名，按已证序号命名。 |
@@ -204,7 +204,7 @@
 | `gValueF7C948` | 已重命名：`gCreationSubmittedElement0_F7C948` | 建角确认采第1元素为S8扩展值，快照及请求读取；保留原元素序号，不猜标签顺序。 |
 | `gValueF7CA00` | 已重命名：`gCreationSubmittedAttribute4_F7CA00` | 建角确认采第5属性为S8扩展值，草稿快照及创建请求读取；图形标签尚未证明具体属性名，按已证序号命名。 |
 | `gValueF7CA04` | 待分析 | — |
-| `gValueFDA6F8` | 待分析 | — |
+| `gValueFDA6F8` | 已重命名：`gInitialPlayerDuelPoints_FDA6F8` | 建角确认清零，初始化玩家时写入value104；Lua键duelPoint及玩家资料界面对战胜利值显示证实目标字段用途。 |
 | `gValueFF03D0` | 已重命名：`gCreationSubmittedElement1_FF03D0` | 建角确认采第2元素为S8扩展值，快照及请求读取；保留原元素序号，不猜标签顺序。 |
 | `gValueFF03D8` | 待分析 | — |
 | `gValueFF0D04` | 已重命名：`gDpResultDelta_FF0D04` | DP回复写变化量，WindowBattleResult的DP结果窗口按增量显示。 |
@@ -212,8 +212,8 @@
 | `gValueFF0D30` | 待分析 | — |
 | `gValueFF0D32` | 待分析 | — |
 | `gValueFF0D34` | 待分析 | — |
-| `gValueFF0D36` | 待分析 | — |
-| `gValueFF0D38` | 待分析 | — |
+| `gValueFF0D36` | 已重命名：`gPartyActive_FF0D36` | 队伍回复存在成员时置1，离队或成员不足时清零；移动、跟随及组队操作共用，队长身份另由玩家标志0x100区分。 |
+| `gValueFF0D38` | 已重命名：`gLastAdjacentInteractionTick_FF0D38` | 相邻格交互记录当前时刻，并据此执行500毫秒节流。 |
 | `gValueFF0D40` | 已重命名：`gCurrentSceneTypeStorage_FF0D40` | SceneState的gCurrentSceneType直接引用本槽，命令初始化写1；仅命名原存储，不改别名。 |
 | `gValueFF0D44` | 待分析 | — |
 | `gValueFF0D4C` | 已重命名：`gPendingMapPaletteIndex_FF0D4C` | 地图名回复的数字字段，-1使用时段调色板、非负选择固定调色板、消费后置-2。 |
@@ -222,6 +222,6 @@
 | `gValueFF0D58` | 已重命名：`gMapBgmChangePending_FF0D58` | BGM回复及地图改变携BGM号时置1，场景播放保存完清0。 |
 | `gValueFF0D5C` | 已重命名：`gPendingMapBgmIndex_FF0D5C` | BGM回复保存200..249或地图变更指定号；场景更新选为BGM目标并消费。 |
 | `gValueFF0D68` | 已重命名：`gWorldBgmResumeIndex_FF0D68` | 保存普通场景当前选定或入战前读取的BGM号，返回地图无新指定时恢复。 |
-| `gValueFF0D74` | 待分析 | — |
-| `gValueFF48E4` | 待分析 | — |
+| `gValueFF0D74` | 已重命名：`gObservationTravelTransitionCount_FF0D74` | 观察组旅行转场首次从0进入阶段250，后续进入252并递增；旅行完成清零。 |
+| `gValueFF48E4` | 已重命名：`gCapturedSceneTransitionVariant_FF48E4` | 捕获场景到临时表面后，将0至35随机结果低字节清最低位并存入此槽；当前无后续读取，仅命名已证选择结果。 |
 | `gValueFF4E28` | 已重命名：`gSavedStateLoadErrorCode_FF4E28` | 存档恢复清0，启动读取存档失败消息包含本错误码，当前无其他生产。 |

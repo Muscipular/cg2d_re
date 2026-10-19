@@ -66,8 +66,8 @@ extern std::uint32_t gPlayerPathRebuildPending_C821FC; // 原全局：0x00C821FC
 extern std::uint16_t gMapTransitionRequestPending_9A86D8; // 原全局：0x009A86D8。
 extern std::uint16_t gDirectionalMapTransitionPending_9FB92E; // 原全局：0x009FB92E。
 extern std::uint16_t gMapMovementInputBlocked_C82220; // 原全局：0x00C82220。
-extern std::uint32_t gValueC8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
-extern std::uint32_t gValueC8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
+extern std::uint32_t gMapTargetInputOverride_C8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
+extern std::uint32_t gMapTargetDrawOverride_C8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gCurrentDayPeriod_73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
 extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
@@ -217,7 +217,7 @@ namespace detail {
 extern std::uint32_t gPrimaryMapGraphicCount_9FB934; // 原全局：0x009FB934。
 extern std::uint32_t gMapObjectGraphicCount_9FB928; // 原全局：0x009FB928。
 extern std::uint32_t gSpecialMapGraphicCount_9A86C0; // 原全局：0x009A86C0。
-extern std::uint32_t gValue9A7F78; // 原全局：0x009A7F78。
+extern std::uint32_t gMapAttachmentDrawCount_9A7F78; // 原全局：0x009A7F78。
 // 原函数：0x0046BE50。
 void CacheMapGraphicByResourceType_46BE50(
     std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
@@ -251,7 +251,7 @@ extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC�
 extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
 
 // 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
-extern std::uint8_t gValue9A4B94; // 原全局：0x009A4B94。
+extern std::uint8_t gWorldEntryRepliesPendingMask_9A4B94; // 原全局：0x009A4B94。
 // 原 9A86D4 起始的方向 W16；已证调用链最多访问前两项。
 extern std::array<std::uint16_t, 2> gPendingDirections9A86D4;
 // 原 AF0FF8/C75014/C750DC；三组 100 项 W16 路径队列共用 C82200 数量。

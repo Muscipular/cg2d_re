@@ -307,7 +307,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto& items = world::gPlayerRuntimeSlots.items;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::wstring countText;
@@ -702,7 +702,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorD2F338, &items, &count)) {
         return 0;
     }
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {

@@ -137,7 +137,7 @@ extern std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC; // 原全
 extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原全局：0x00F63370。
 // 原479FBE按S8索引读取U16；按用户确认，-1现表示未选中，不再读取原末条技能+4C44。
 std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
-extern std::uint16_t gValueDA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
+extern std::uint16_t gSkillReorderPending_DA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
 // 原函数：0x00505040。
 std::int32_t IsItemEligibleForDecoration_505040(std::int32_t slot); // 说明/类别/flag800及制造配方条件。
 // 原函数：0x005050B0。
@@ -384,7 +384,7 @@ extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F
 void HandlePlayerTitlesReply_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
 std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
-extern std::int32_t gValueFDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
+extern std::int32_t gInitialPlayerDuelPoints_FDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 // 原函数：0x0050BFA0。
 std::uint32_t HandlePlayerOptionsReply_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 // 原函数：0x0050BFC0。
@@ -494,8 +494,8 @@ extern std::uint16_t gValueFF0D30; // 原全局：0x00FF0D30。
 extern std::uint16_t gValueFF0D32; // 原全局：0x00FF0D32。
 extern std::uint16_t gValueF7CA04; // 原全局：0x00F7CA04。
 extern std::uint16_t gValueFF03D8; // 原全局：0x00FF03D8。
-extern std::uint16_t gValueFF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
-extern std::uint64_t gValueFF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
+extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
+extern std::uint64_t gLastAdjacentInteractionTick_FF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。
 std::uint32_t RequestAdjacentWorldInteraction_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;

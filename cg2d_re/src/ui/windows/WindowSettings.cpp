@@ -593,7 +593,7 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
         }
         static_cast<void>(audio::PlaySe_52C450(60, 320));
         consumed = 1;
-        world::gValueD67E78 = 1;
+        world::gLogoutToTownPending_D67E78 = 1;
     }
     graphic->imageNo = 0x3B8D1;
     if ((state & 1) != 0) {
@@ -913,12 +913,12 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
     }
     if ((state & 2) != 0) {
         window->state |= 0x2000u;
-        platform::gValue554644 = static_cast<std::int32_t>(
-            (static_cast<std::uint32_t>(platform::gValue554644) - 1u) & 1u);
+        platform::gChatNotificationSoundEnabled_554644 = static_cast<std::int32_t>(
+            (static_cast<std::uint32_t>(platform::gChatNotificationSoundEnabled_554644) - 1u) & 1u);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (platform::gValue554644 != 0) {
+    if (platform::gChatNotificationSoundEnabled_554644 != 0) {
         graphic->imageNo = 0x3BE7B;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BE7D;

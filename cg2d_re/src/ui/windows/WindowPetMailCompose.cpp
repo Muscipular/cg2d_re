@@ -144,7 +144,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
             if (previous != -1) {
                 --occupancy[previous];
@@ -164,7 +164,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
         if (selected >= 0) {
             static_cast<void>(WindowItemDrag_Start(selected, 1));
             const std::int32_t current = gLoginWindowRuntime.prefixD2F0B8.value0C;
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             auto count = occupancy[current];
             gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
             --count;

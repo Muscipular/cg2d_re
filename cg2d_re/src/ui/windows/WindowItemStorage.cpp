@@ -231,7 +231,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::gPlayerRuntimeSlots.items[position + 8];

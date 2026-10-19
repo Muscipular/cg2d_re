@@ -50,7 +50,7 @@ void Update()
     }
 
     const std::int32_t sceneType = gCurrentSceneType;
-    gValueC82204 = 0;
+    gMapSurfaceCacheEnabled_C82204 = 0;
     switch (sceneType) {
     case 1: {
         const ui::LegacyUiLayoutScope layout;
@@ -117,8 +117,8 @@ void Update()
         detail::InitializeWorldSceneFlags_455BD0();
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();
-        gValue5ABFC4 = 0;
-        gValue9A6E0C = 0;
+        gBattleEntryPending_5ABFC4 = 0;
+        gGameplayRepliesSuppressed_9A6E0C = 0;
         detail::InitializeGameplayNotifications_504A30();
         detail::ResetBattleCommandSelection_43C8F0();
         detail::ResetSceneUiState_504100();
@@ -126,16 +126,16 @@ void Update()
         detail::LoadContactAndGuildMailFiles_518CB0();
         gPendingMapBgmIndex_FF0D5C = 0xFFFFFFFFu;
         gMapBgmChangePending_FF0D58 = 0;
-        gValueD67E78 = 0;
+        gLogoutToTownPending_D67E78 = 0;
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
-        gValueFF0D74 = 0;
+        gObservationTravelTransitionCount_FF0D74 = 0;
         gMapNameFirstByte_9DAD30 = 0;
         SetCurrentSceneType(6);
         cg::audio::BeginBgmFadeOut_52B990();
-        gValueD67B08.fill(0);
+        gInventorySlotUseCounts_D67B08.fill(0);
         return;
     case 6:
         platform::gFrameBackgroundMode_73ECC0 = 0;
@@ -290,7 +290,7 @@ std::int32_t UpdateDisconnectDialog_455C90()
     std::wstring_view secondText;
     std::wstring_view thirdText;
     std::wstring errorText;
-    const bool connectionError = login::gValue593FC0 != 0;
+    const bool connectionError = login::gServerConnectionErrorPresent_593FC0 != 0;
     if (connectionError) {
         cg::text::FormatTo(errorText, L"伺服器连线中断({})", network::ReadNetworkErrorD9F2CC());
         secondText = errorText;

@@ -15,9 +15,9 @@ static void WindowProfile_RouteReply(
 // 控件载荷、窗口状态、组件表与原型。
 
 // 原全局：0x00CC4D34。 4D3020保存x/y数值，非CryptInt对象。
-static std::int32_t gValueCC4D34 = 0; // 原全局：0x00CC4D34。
+static std::int32_t gWindowInteractionOriginX_CC4D34 = 0; // 原全局：0x00CC4D34。
 
-static std::int32_t gValueCC4D3C = 0; // 原全局：0x00CC4D3C。
+static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4D3C。
 
 // 窗口函数实现。
 
@@ -130,8 +130,8 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
 // 原函数：0x004D3020。
 std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y)
 {
-    gValueCC4D34 = x;
-    gValueCC4D3C = y;
+    gWindowInteractionOriginX_CC4D34 = x;
+    gWindowInteractionOriginY_CC4D3C = y;
     return x;
 }
 
@@ -148,7 +148,7 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
             static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
         return 0;
     }
-    double distanceX = static_cast<double>(gValueCC4D34 * 64)
+    double distanceX = static_cast<double>(gWindowInteractionOriginX_CC4D34 * 64)
         - std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits));
     if (distanceX < 0.0) {
@@ -157,7 +157,7 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
     if (distanceX >= rangeX * 64) {
         return 1;
     }
-    double distanceY = static_cast<double>(gValueCC4D3C * 64)
+    double distanceY = static_cast<double>(gWindowInteractionOriginY_CC4D3C * 64)
         - std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits));
     if (distanceY < 0.0) {
@@ -222,10 +222,10 @@ void WindowProfile_ReceiveReply(
     const std::uintptr_t, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    if (world::gValueD67E78 != 0) {
+    if (world::gLogoutToTownPending_D67E78 != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

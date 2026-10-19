@@ -663,7 +663,7 @@ void TurnPlayerAndSendDirection_46B4B0(const std::int32_t direction)
     }
     const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     if (movementY < 0.0F || movementY > 0.0F
-        || gValue62B5AA != 0 || gMapMovementInputBlocked_C82220 != 0
+        || gPlayerMovementAndFacingBlocked_62B5AA != 0 || gMapMovementInputBlocked_C82220 != 0
         || action->direction == direction) {
         return;
     }
@@ -831,7 +831,7 @@ void MovePlayerOneStep_46B1B0(
 // 原函数：0x0046A5F0。
 void AdvanceFollowersBehindPlayerLeader_46A5F0()
 {
-    if (gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
+    if (gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
         return;
     }
     for (std::size_t position = 1; position < 5; ++position) {

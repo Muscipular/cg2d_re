@@ -35,7 +35,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
     const std::int32_t sceneType = world::gCurrentSceneType;
-    const std::uint32_t exitRequested = cg::world::gValue5ABB20;
+    const std::uint32_t exitRequested = cg::world::gBattleExitRequested_5ABB20;
     if (!(sceneType == 10
             && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
         && exitRequested != 1) {
@@ -44,20 +44,20 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     const std::uint32_t activeEvents = cg::world::gBattleActiveEventMask5AAA74;
     if (activeEvents == 0) {
         gBattlePendingGroupCount5ABB24 = 0;
-    } else if (cg::world::gValue5ABB1C != 0) {
+    } else if (cg::world::gBattleEventDispatchBusy_5ABB1C != 0) {
         return;
     }
     const bool exiting = exitRequested == 1;
-    cg::world::gValue5ABB1C = 1;
+    cg::world::gBattleEventDispatchBusy_5ABB1C = 1;
     if (exiting) {
         world::gCurrentSceneState = 7;
         return;
     }
-    if (cg::world::gValue5ABB28 == 1) {
+    if (cg::world::gBattleTurnMessagesExhausted_5ABB28 == 1) {
         if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, 1) != 0) {
             const std::uint32_t turn = cg::world::gBattleTurnSnapshot5ABC08;
-            cg::world::gValue5ABB28 = 0;
-            cg::world::gValue5ABB1C = 0;
+            cg::world::gBattleTurnMessagesExhausted_5ABB28 = 0;
+            cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
             gBattlePendingGroupCount5ABB24 = 0;
             cg::world::gBattleTurnSnapshot5ABC08 = turn + 1U;
             world::gCurrentSceneState = 2;
@@ -97,7 +97,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         }
         std::array<char, 4> header;
         if (GetBattleMHeader_439070(header.data()) == 1) {
-            cg::world::gValue5ABB28 = 1;
+            cg::world::gBattleTurnMessagesExhausted_5ABB28 = 1;
             return;
         }
         if (previousEvent != nullptr && priorSource == source) {
@@ -237,7 +237,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        cg::world::gValue5ABB1C = 0;
+        cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
         payload->waitCountAC = 0;
     } else {
         const std::uint32_t eventBit = 1u << payload->eventSlot60;
@@ -251,7 +251,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        cg::world::gValue5ABB1C = 0;
+        cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -292,7 +292,7 @@ void InitializeBattleScene_4383F0()
     cg::world::gBattleAllEntries59E980.fill(nullptr);
     cg::world::gBattleActiveEventMask5AAA74 = 0;
     detail::gBattlePendingGroupCount5ABB24 = 0;
-    cg::world::gValue5ABB20 = 0;
+    cg::world::gBattleExitRequested_5ABB20 = 0;
     gYobiScreenOffsetRising = 0;
     gYobiScreenOffsetAmplitude = 0;
     gYobiUpdateGateMode = 0;

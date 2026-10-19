@@ -166,7 +166,7 @@ static std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
 // 原函数：0x004A6D80。
 std::int32_t WindowChat_ResetState()
 {
-    platform::gValue554640 = 1;
+    platform::gChatRange_554640 = 1;
     gChatScrollOffsetC9A940 = 0;
     world::gChatRecordCount_C9A944 = 0;
     gChatWidthRequestC9A934 = 0;
@@ -447,30 +447,30 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     case 5:
         if ((state & 1) != 0) {
-            const std::int32_t image = platform::gValue554640 * 3 + 0x3BDB1;
+            const std::int32_t image = platform::gChatRange_554640 * 3 + 0x3BDB1;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
             gHoverTextD68AE8 = L"切换发话的范围。";
             consumed = 1;
         } else {
             WindowInstance* const window = gCurrentWindow;
-            const std::int32_t range = platform::gValue554640;
+            const std::int32_t range = platform::gChatRange_554640;
             static_cast<WindowGraphicData*>(window->elements[5].data)->imageNo = range * 3 + 0x3BDB2;
         }
         if ((state & 2) != 0) {
-            const std::int32_t range = platform::gValue554640 + 1;
-            platform::gValue554640 = range;
+            const std::int32_t range = platform::gChatRange_554640 + 1;
+            platform::gChatRange_554640 = range;
             if (range > 5) {
-                platform::gValue554640 = 1;
+                platform::gChatRange_554640 = 1;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             world::gChatRangeOverlayFrames_626BFC = 180;
             consumed = 1;
         }
         if ((state & 4) != 0) {
-            const std::int32_t range = platform::gValue554640 - 1;
-            platform::gValue554640 = range;
+            const std::int32_t range = platform::gChatRange_554640 - 1;
+            platform::gChatRange_554640 = range;
             if (range < 1) {
-                platform::gValue554640 = 5;
+                platform::gChatRange_554640 = 5;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             world::gChatRangeOverlayFrames_626BFC = 180;

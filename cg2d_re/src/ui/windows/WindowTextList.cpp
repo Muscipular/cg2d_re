@@ -245,7 +245,7 @@ static void WindowTextList_Release()
 {
     WindowTextList_ReleaseLines();
     if (gSelectedItem57EE0C >= 0) {
-        auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         const unsigned char value = hover[gSelectedItem57EE0C];
         if (std::bit_cast<std::int8_t>(value) >= 0) {
             hover[gSelectedItem57EE0C] = static_cast<unsigned char>(value - 1);
@@ -615,7 +615,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 8) {
         events &= 0x9Fu;
         consumed = 1;

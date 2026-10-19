@@ -1202,7 +1202,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         const std::int32_t font = TakeBattleMInteger_438F70(scene);
         payload->messageValueA4 = TakeBattleMInteger_438F70(scene);
         TakeBattleMString_438FE0(scene, initialMessage.data(), 256);
-        if (platform::gValue554644 != 0) {
+        if (platform::gChatNotificationSoundEnabled_554644 != 0) {
             static_cast<void>(audio::PlaySe_52C450(74, 320));
         }
         cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(initialMessage.data()), color, font);
@@ -1233,7 +1233,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             const std::int32_t font = TakeBattleMInteger_438F70(scene);
             payload->messageValueA4 = TakeBattleMInteger_438F70(scene);
             TakeBattleMString_438FE0(scene, queuedMessage.data(), 256);
-            if (platform::gValue554644 != 0) {
+            if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(queuedMessage.data()), color, font);
@@ -1467,7 +1467,7 @@ static void ProcessBattleMDataHeader(
             gBattleMMessageValue59FA14 = duration;
             std::array<char, 256> message;
             TakeBattleMString_438FE0(scene, message.data(), 256);
-            if (platform::gValue554644 != 0) {
+            if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
@@ -3625,7 +3625,7 @@ std::int32_t ConsumeBattleExitMessages_43BAA0()
             const std::int32_t font = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
             payload->messageValueA4 = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
             detail::TakeBattleMString_438FE0(cg::world::gBattleSceneAction5ABA94, message.data(), 256);
-            if (platform::gValue554644 != 0) {
+            if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);

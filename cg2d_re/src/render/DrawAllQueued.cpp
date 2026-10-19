@@ -429,7 +429,7 @@ void DrawAllQueued_520DD0()
                 break;
             }
             case 6:
-                if (world::gValueC82204 != 0) {
+                if (world::gMapSurfaceCacheEnabled_C82204 != 0) {
                     const auto offsetX = std::bit_cast<std::int32_t>(world::gMapProjectionOffsetX_C3500C);
                     std::int32_t destinationX = 0;
                     std::int32_t destinationY = 0;
@@ -451,7 +451,7 @@ void DrawAllQueued_520DD0()
                 }
                 break;
             case 7:
-                if (world::gValueC82204 != 0) {
+                if (world::gMapSurfaceCacheEnabled_C82204 != 0) {
                     static_cast<void>(CopyBackToTemp());
                 }
                 break;

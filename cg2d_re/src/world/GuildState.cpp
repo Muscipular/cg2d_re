@@ -132,7 +132,7 @@ const char* GetGuildRankText(const std::int32_t index) noexcept
 // 原函数：0x0050E850。
 void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     const auto mask = static_cast<std::uint32_t>(
@@ -202,7 +202,7 @@ void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
 // 原函数：0x0050EB40。
 void HandleGuildRankDefinitionsReply_50EB40(const std::uintptr_t, const char* const text)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     std::int32_t remaining = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -330,7 +330,7 @@ static std::int32_t ParseOrderedRecord_50EF70(
 std::uintptr_t UpdateOrderedRecords_50EEB0(
     std::uintptr_t, std::uint32_t, const char* const text)
 {
-    const std::uint32_t gate = world::gValue9A6E0C;
+    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return gate;
     }
@@ -361,7 +361,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     std::uintptr_t, const char* const text)
 {
-    const std::uint32_t gate = world::gValue9A6E0C;
+    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return gate;
     }

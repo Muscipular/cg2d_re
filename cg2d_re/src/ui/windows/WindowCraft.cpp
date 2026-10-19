@@ -350,7 +350,7 @@ std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
 // 原函数：0x0047DC20。
 static std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
 {
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if (index < 6) {
         const std::int32_t slot = gSelectedSlotsCA0A90[index];
         if (slot < 0) {
@@ -1012,7 +1012,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                             gSelectionImagesCF3FF4[destination] = imageNo;
                             gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
                             gMaterialIndicesCA0458[destination] = -1;
-                            auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                            auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                             const unsigned char previous = hover[source];
                             gItemMarksD67290[source] = 1;
                             hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1048,7 +1048,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     gSelectionImagesCF3FF4[destination] = imageNo;
                     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
                     gMaterialIndicesCA0458[destination] = material;
-                    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                     const unsigned char previous = hover[source];
                     gItemMarksD67290[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1094,7 +1094,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     gSelectionImagesCF3FF4[destination] = item->imageNo;
                     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
                     gMaterialIndicesCA0458[destination] = 0;
-                    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                     const unsigned char previous = hover[source];
                     gItemMarksD67290[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1347,7 +1347,7 @@ static void WindowCraft_ReleaseMaterialSlot(
     gSelectionImagesCF3FF4[destination] = item->imageNo;
     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
     gMaterialIndicesCA0458[destination] = material;
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     hover[source] = static_cast<unsigned char>(hover[source] + 1);
     gItemMarksD67290[source] = 1;
 }
@@ -1925,7 +1925,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -2414,7 +2414,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
             gSelectedImageCC3ED8 = item->imageNo;
             gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
             const std::int32_t skill = gCraftSkillIndexCC2368;
-            auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+            auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const unsigned char previous = hover[source];
             const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
             hover[source] = static_cast<unsigned char>(previous + 1);

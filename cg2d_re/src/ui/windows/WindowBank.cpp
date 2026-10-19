@@ -673,7 +673,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.color = dimmedColor;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {

@@ -204,7 +204,7 @@ static std::int32_t DrawAutoMap32(
 }
 
 std::uint32_t gBackgroundColor = 0; // 原全局：0x0062B0A8。
-std::uint32_t gValueFF48E4 = 0; // 原全局：0x00FF48E4。
+std::uint32_t gCapturedSceneTransitionVariant_FF48E4 = 0; // 原全局：0x00FF48E4。
 
 std::int32_t GetCpuSurfaceWidth() noexcept { return platform::gWindowWidth; }
 std::int32_t GetCpuSurfaceHeight() noexcept { return platform::gWindowHeight; }

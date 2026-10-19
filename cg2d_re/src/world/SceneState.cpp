@@ -446,15 +446,15 @@ std::int32_t gPendingSceneState = 0; // 原全局：0x00FF0D60。
 std::int32_t gCurrentSceneState = 0; // 原全局：0x00FF0D64。
 std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 
-std::uint8_t gValueC82204 = 0; // 原全局：0x00C82204。
-std::uint32_t gValue5ABFC4 = 0; // 原全局：0x005ABFC4。
-std::uint32_t gValue9A6E0C = 0; // 原全局：0x009A6E0C。
+std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
+std::uint32_t gBattleEntryPending_5ABFC4 = 0; // 原全局：0x005ABFC4。
+std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
 std::uint32_t gPendingMapBgmIndex_FF0D5C = 0; // 原全局：0x00FF0D5C。
 std::uint32_t gMapBgmChangePending_FF0D58 = 0; // 原全局：0x00FF0D58。
-std::uint32_t gValueD67E78 = 0; // 原全局：0x00D67E78。
-std::uint32_t gValueFF0D74 = 0; // 原全局：0x00FF0D74。
+std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
+std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
 std::uint8_t& gMapNameFirstByte_9DAD30 = gText9DAD30[0]; // 原全局：0x009DAD30。
-std::array<std::uint32_t, 7> gValueD67B08 {}; // 原全局：0x00D67B08。
+std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
 std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
 std::uint8_t gNetworkDisconnectState_D9F2CA = 0; // 原全局：0x00D9F2CA。
 
@@ -484,7 +484,7 @@ volatile std::uint32_t gWorldCurrentYBits = 0; // 原 0x9DAD50。
 volatile std::uint32_t gWorldProjectionReferenceXBits = 0; // 原 0xC751A8。
 volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
-static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
+static_assert(sizeof(gInventorySlotUseCounts_D67B08) == 7 * sizeof(std::uint32_t));
 
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
@@ -605,7 +605,7 @@ std::int32_t InitializeRotationTable_46FB20()
 std::int32_t NextRotationValue_455C70()
 {
     gValue62B348 = 0;
-    detail::gValue62B308 = 0;
+    detail::gMapTargetInputAndDrawOverride_62B308 = 0;
     const std::int32_t value =
         gRotationTableC8A7B0[static_cast<std::size_t>(gRotationCursorC8A940)];
     const std::int32_t next = gRotationCursorC8A940 + 1;
@@ -694,7 +694,7 @@ void UpdateAlbumEntry_518870(
     const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
     const std::int32_t value30, char* const text, const char* const name)
 {
-    if (number < 1 || number > std::bit_cast<std::int32_t>(resource::gValueD2D5FC)) {
+    if (number < 1 || number > std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC)) {
         return;
     }
     const std::int32_t index = number - 1;
@@ -731,7 +731,7 @@ void UpdateAlbumEntry_518870(
 void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* const payload)
 {
     std::vector<std::int32_t> requests;
-    std::int32_t limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+    std::int32_t limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
     std::int32_t groups = limit >> 5;
     if ((static_cast<std::uint8_t>(limit) & 0x20u) != 0) {
         ++groups;
@@ -744,7 +744,7 @@ void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* co
         if (network::ParseDelimitedIntegerStatus_52CFF0(payload, '|', ordinal, &mask) > 1) {
             break;
         }
-        limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+        limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
         std::int16_t selected = login::gSelectedCharacterIndex;
         std::uint32_t bit = 1;
         for (std::int32_t position = 0; position < 32 && index < limit; ++position) {
@@ -757,7 +757,7 @@ void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* co
                 }
                 if (request) {
                     requests.push_back(index + 1);
-                    limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+                    limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
                     selected = login::gSelectedCharacterIndex;
                 }
             } else {
@@ -1720,7 +1720,7 @@ void MarkPlayerChatActive() noexcept
 // 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
 std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
 std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
-std::uint16_t gValueDA3B20 = 0; // 原全局：0x00DA3B20。
+std::uint16_t gSkillReorderPending_DA3B20 = 0; // 原全局：0x00DA3B20。
 
 namespace detail {
 
@@ -1939,8 +1939,8 @@ void BeginBattleCommandSelection_43C4E0()
     gBattleCommandValue553F80 = 17;
     gBattleSkillUsed5ABC68 = 0;
     const std::int32_t pet = FindBattlePetIndex_43C4B0();
-    if (gValue553F90 != pet) {
-        gValue553F84 = -1;
+    if (gLastBattleCommandPetIndex_553F90 != pet) {
+        gSelectedBattlePetTechniqueIndex_553F84 = -1;
     }
 }
 
@@ -2048,15 +2048,15 @@ std::uint16_t gValue62B318 = 0; // 原全局：0x0062B318。
 std::uint32_t gValue62B328 = 0; // 原全局：0x0062B328。
 std::uint16_t gValue62B3B0 = 0; // 原全局：0x0062B3B0。
 std::uint16_t gValue556C34 = 1; // 原全局：0x00556C34。
-std::uint16_t gValue62B5AA = 0; // 原全局：0x0062B5AA。
+std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA = 0; // 原全局：0x0062B5AA。
 std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
 
 } // namespace detail
 std::uint64_t gMapNoticeStartTick_62B5B0 = 0; // 原全局：0x0062B5B0。
 
 namespace detail {
-std::uint32_t gValue62B308 = 0; // 原全局：0x0062B308。
-std::uint32_t gValue62B398 = 0; // 原全局：0x0062B398。
+std::uint32_t gMapTargetInputAndDrawOverride_62B308 = 0; // 原全局：0x0062B308。
+std::uint32_t gMapTargetInputAndDrawOverride_62B398 = 0; // 原全局：0x0062B398。
 std::uint32_t gValue62B358 = 0; // 原全局：0x0062B358。
 std::uint32_t gValue62B384 = 0; // 原全局：0x0062B384。
 std::uint32_t gValue62B310 = 0; // 原全局：0x0062B310。
@@ -2074,7 +2074,7 @@ std::uint32_t gValue62B38C = 0; // 原全局：0x0062B38C。
 std::uint32_t gPrimaryMapGraphicCount_9FB934 = 0; // 原全局：0x009FB934。
 std::uint32_t gMapObjectGraphicCount_9FB928 = 0; // 原全局：0x009FB928。
 std::uint32_t gSpecialMapGraphicCount_9A86C0 = 0; // 原全局：0x009A86C0。
-std::uint32_t gValue9A7F78 = 0; // 原全局：0x009A7F78。
+std::uint32_t gMapAttachmentDrawCount_9A7F78 = 0; // 原全局：0x009A7F78。
 
 } // namespace detail
 
@@ -2083,9 +2083,9 @@ std::int32_t gBattleBackgroundImage59F9F8 = 0;
 std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
 std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
 std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
-std::uint32_t gValue5ABB1C = 0; // 原全局：0x005ABB1C。
-std::uint32_t gValue5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
-std::uint32_t gValue5ABB28 = 0; // 原全局：0x005ABB28。
+std::uint32_t gBattleEventDispatchBusy_5ABB1C = 0; // 原全局：0x005ABB1C。
+std::uint32_t gBattleExitRequested_5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
+std::uint32_t gBattleTurnMessagesExhausted_5ABB28 = 0; // 原全局：0x005ABB28。
 
 namespace detail {
 std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
@@ -2190,7 +2190,7 @@ std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
 std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 
 namespace detail {
-std::uint32_t gValue5ABCB0 = 0; // 原全局：0x005ABCB0。
+std::uint32_t gBattleExitNotificationPending_5ABCB0 = 0; // 原全局：0x005ABCB0。
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
@@ -2219,25 +2219,25 @@ std::uint16_t gValueFF0D30 = 0; // 原全局：0x00FF0D30。
 std::uint16_t gValueFF0D32 = 0; // 原全局：0x00FF0D32。
 std::uint16_t gValueF7CA04 = 0; // 原全局：0x00F7CA04。
 std::uint16_t gValueFF03D8 = 0; // 原全局：0x00FF03D8。
-std::uint16_t gValueFF0D36 = 0; // 原全局：0x00FF0D36。
-std::uint64_t gValueFF0D38 = 0; // 原全局：0x00FF0D38。
+std::uint16_t gPartyActive_FF0D36 = 0; // 原全局：0x00FF0D36。
+std::uint64_t gLastAdjacentInteractionTick_FF0D38 = 0; // 原全局：0x00FF0D38。
 
 // 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
-std::uint32_t gValue9A6204 = 0;
+std::uint32_t gLogoutRequestScenePhase_9A6204 = 0;
 // 原 45ED90 的四个布局 W32 与非拥有 action 槽，均只由本体直接读写。
-std::int32_t gValue9A5674 = 0; // 原全局：0x009A5674。
-std::int32_t gValue9A594C = 0; // 原全局：0x009A594C。
-std::int32_t gValue9A61F8 = 0; // 原全局：0x009A61F8。
-std::int32_t gValue9A5AC0 = 0; // 原全局：0x009A5AC0。
+std::int32_t gLogoutPanelRows_9A5674 = 0; // 原全局：0x009A5674。
+std::int32_t gLogoutPanelColumns_9A594C = 0; // 原全局：0x009A594C。
+std::int32_t gLogoutPanelTop_9A61F8 = 0; // 原全局：0x009A61F8。
+std::int32_t gLogoutPanelLeft_9A5AC0 = 0; // 原全局：0x009A5AC0。
 cg::yobi::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
 
 } // namespace detail
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
-std::int32_t gValue5ABB70 = 0; // 原全局：0x005ABB70。
-std::int32_t gValue5ABB6C = 0; // 原全局：0x005ABB6C。
-std::int32_t gValue553F90 = -1; // 原全局：0x00553F90。
-std::int32_t gValue553F84 = -1; // 原全局：0x00553F84。
+std::int32_t gBattleFirstActionSelectionMode_5ABB70 = 0; // 原全局：0x005ABB70。
+std::int32_t gBattleSecondActionSelectionMode_5ABB6C = 0; // 原全局：0x005ABB6C。
+std::int32_t gLastBattleCommandPetIndex_553F90 = -1; // 原全局：0x00553F90。
+std::int32_t gSelectedBattlePetTechniqueIndex_553F84 = -1; // 原全局：0x00553F84。
 
 namespace detail {
 
@@ -2303,7 +2303,7 @@ std::uint32_t gPlayerMovementStepYBits_9EE900 = 0; // 原全局：0x009EE900。
 std::uint32_t gPartyCatchUpRateBits_9DAD78 = 0; // 原全局：0x009DAD78。
 
 namespace detail {
-std::uint8_t gValue9A4B94 = 0; // 原全局：0x009A4B94。
+std::uint8_t gWorldEntryRepliesPendingMask_9A4B94 = 0; // 原全局：0x009A4B94。
 
 } // namespace detail
 std::uint16_t gMovePathCount_C82200 = 0; // 原全局：0x00C82200。
@@ -2355,8 +2355,8 @@ std::uint32_t gMapLeftButtonSuppressed_C8A774 = 0; // 原全局：0x00C8A774。
 std::uint64_t gMapLeftHoldDurationMs_C8A778 = 0; // 原全局：0x00C8A778。
 
 } // namespace detail
-std::uint32_t gValueC8A77C = 0; // 原全局：0x00C8A77C。
-std::uint32_t gValueC8A780 = 0; // 原全局：0x00C8A780。
+std::uint32_t gMapTargetInputOverride_C8A77C = 0; // 原全局：0x00C8A77C。
+std::uint32_t gMapTargetDrawOverride_C8A780 = 0; // 原全局：0x00C8A780。
 
 namespace detail {
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
@@ -3256,7 +3256,7 @@ std::int32_t* InitializeWorldMapState_467F30()
     gValueC27FE8 = std::int32_t{0};
     second.reset();
 
-    gValue9A4B94 = 3;
+    gWorldEntryRepliesPendingMask_9A4B94 = 3;
     static_cast<void>(UpdatePlayerMapWindow_468200());
     gMovePathCount_C82200 = 0;
     gPendingDirectionCount_C82202 = 0;
@@ -3423,7 +3423,7 @@ void ResetTimedMapNotice_455C60()
 void SynchronizeTimedMapNoticeWindow_455FC0()
 {
     const std::uint64_t value = gMapNoticeStartTick_62B5B0;
-    gValue62B398 = 0;
+    gMapTargetInputAndDrawOverride_62B398 = 0;
     if (value == 0) {
         cg::yobi::YobiAction* const action = gWindow39Action62B5B8;
         if (action != nullptr) {
@@ -3488,7 +3488,7 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 100;
         gValueFF0D44 = 0;
         gWorldSceneInitialized_FF0D50 = 0;
-        gValue5ABFC4 = 0;
+        gBattleEntryPending_5ABFC4 = 0;
         [[fallthrough]];
     case 100:
         CreatePlayerMapPresence_519A80();
@@ -3502,7 +3502,7 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 101;
         [[fallthrough]];
     case 101:
-        if (gValue9A4B94 != 0) {
+        if (gWorldEntryRepliesPendingMask_9A4B94 != 0) {
             platform::gFrameBackgroundMode_73ECC0 = 0;
             return;
         }
@@ -3575,7 +3575,7 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 201;
         [[fallthrough]];
     case 201: {
-        const std::uint32_t gate = gValueD67E78;
+        const std::uint32_t gate = gLogoutToTownPending_D67E78;
         platform::gFrameBackgroundMode_73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 14 : 16;
         const std::int32_t steps = gate == 1 ? 8 : 32;
@@ -3647,7 +3647,7 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     }
     case 204: {
-        const std::uint32_t gate = gValueD67E78;
+        const std::uint32_t gate = gLogoutToTownPending_D67E78;
         platform::gFrameBackgroundMode_73ECC0 = 2;
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
@@ -3656,7 +3656,7 @@ void DrawNormalScene_51C7D0()
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             const std::uint32_t changeBgm = gMapBgmChangePending_FF0D58;
             gCurrentSceneState = 20;
-            gValueD67E78 = 0;
+            gLogoutToTownPending_D67E78 = 0;
             if (changeBgm != 0) {
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
                 static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
@@ -3713,7 +3713,7 @@ void DrawNormalScene_51C7D0()
         return;
     case 252: {
         cg::core::NullSub_509080();
-        gValueFF0D74 = 0;
+        gObservationTravelTransitionCount_FF0D74 = 0;
         ui::WindowRuntime_ProcessScene();
         gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
         ClearDirectionalMapEffects_46F160();
@@ -3745,7 +3745,7 @@ void DrawNormalScene_51C7D0()
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
         const std::uint32_t changeBgm = gMapBgmChangePending_FF0D58;
-        gValueD67E78 = 0;
+        gLogoutToTownPending_D67E78 = 0;
         if (changeBgm != 0) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
             static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
@@ -3834,7 +3834,7 @@ void DrawNormalScene_51C7D0()
             platform::gPendingGraphicCount2 = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
             const std::uint64_t tick = platform::ReadTickCount64();
-            const std::uint32_t gate = gValueD67E78;
+            const std::uint32_t gate = gLogoutToTownPending_D67E78;
             platform::gLastRenderDt = static_cast<double>(tick);
             const std::int32_t selector = gate == 1 ? 15 : 13;
             platform::gFrameBackgroundMode_73ECC0 = 2;
@@ -3853,11 +3853,11 @@ void DrawNormalScene_51C7D0()
         return;
     }
     case 2: {
-        const std::int32_t selector = gValueD67E78 == 1 ? 15 : 13;
+        const std::int32_t selector = gLogoutToTownPending_D67E78 == 1 ? 15 : 13;
         if (ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u) == 1) {
             gCurrentSceneState = 20;
             gMapTransitionReplyPending_C82210 = 0;
-            gValueD67E78 = 0;
+            gLogoutToTownPending_D67E78 = 0;
         }
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
@@ -3873,7 +3873,7 @@ void DrawNormalScene_51C7D0()
         [[fallthrough]];
     case 3: {
         platform::gFrameBackgroundMode_73ECC0 = 0;
-        gValueC82204 = 0;
+        gMapSurfaceCacheEnabled_C82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
@@ -3893,7 +3893,7 @@ void DrawNormalScene_51C7D0()
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         UpdateDayPeriodPaletteAndTimers_458F00();
-        if (gValue5ABFC4 != 1) {
+        if (gBattleEntryPending_5ABFC4 != 1) {
             return;
         }
         static_cast<void>(DestroyPlayerMapPresence_519D50());
@@ -3963,7 +3963,7 @@ std::uint32_t CaptureSceneAndSelectEvenVariant_51D750()
         platform::RandomRange_46FAF0(0, 35));
     const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
     const std::uint32_t result = (bits & 0xFFFFFF00u) | low;
-    render::gValueFF48E4 = result;
+    render::gCapturedSceneTransitionVariant_FF48E4 = result;
     return result;
 }
 
@@ -4053,7 +4053,7 @@ void DrawBattleScene_43CBB0()
     };
     switch (state) {
     case 0: {
-        gValue5ABFC4 = 0;
+        gBattleEntryPending_5ABFC4 = 0;
         std::memset(gBattleNamedEffects5ABCE0.data(), 0, sizeof(gBattleNamedEffects5ABCE0));
         std::int32_t title = 0;
         while (title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size())
@@ -4302,7 +4302,7 @@ void DrawBattleScene_43CBB0()
         break;
     case 7: {
         gBattleActiveEventMask5AAA74 = 0;
-        gValue5ABB20 = 1;
+        gBattleExitRequested_5ABB20 = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         cg::yobi::ClearBattleAppendEffects_43BED0();
@@ -4332,7 +4332,7 @@ void DrawBattleScene_43CBB0()
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;
+        const std::int32_t selector = gLogoutToTownPending_D67E78 == 1 ? 14 : 12;
         if (ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000U) != 1) {
             break;
         }
@@ -4346,7 +4346,7 @@ void DrawBattleScene_43CBB0()
         return;
     }
     case 9: {
-        gValue5ABB20 = 1;
+        gBattleExitRequested_5ABB20 = 1;
         gBattleActiveEventMask5AAA74 = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
@@ -4414,9 +4414,9 @@ void DrawBattleScene_43CBB0()
         return;
     }
     UpdateMapEffects_46E4A0();
-    if (gValue5ABCB0 == 1) {
+    if (gBattleExitNotificationPending_5ABCB0 == 1) {
         gCurrentSceneState = 7;
-        gValue5ABCB0 = 0;
+        gBattleExitNotificationPending_5ABCB0 = 0;
     }
     cg::yobi::YobiAction* const exitAction = gBattleExitAction5ABCDC;
     if (exitAction != nullptr && cg::yobi::ReadYobiActionHpOnce(exitAction) > 0) {
@@ -4451,7 +4451,7 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0()
     std::uint16_t low;
     std::memcpy(&low, &gMapCharaSceneSlots.valueC8A744, sizeof(low));
     gMapCharaSceneSlots.valueC8A740 = current;
-    const std::uint32_t gate = gValueD67E78;
+    const std::uint32_t gate = gLogoutToTownPending_D67E78;
     std::memcpy(
         reinterpret_cast<std::uint8_t*>(&gMapCharaSceneSlots.valueC8A744) + sizeof(low),
         &low, sizeof(low));
@@ -4459,19 +4459,19 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0()
     if (gate != 0
         || cg::yobi::FindObservationGroupByMember_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
-        const std::uint32_t currentGate = gValueD67E78;
-        gValueFF0D74 = 0;
+        const std::uint32_t currentGate = gLogoutToTownPending_D67E78;
+        gObservationTravelTransitionCount_FF0D74 = 0;
         if (currentGate != 0) {
             ResumePlayerAfterObservation_51BEF0();
         }
-    } else if (gValueFF0D74 == 0) {
+    } else if (gObservationTravelTransitionCount_FF0D74 == 0) {
         gCurrentSceneState = 250;
         static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50());
-        ++gValueFF0D74;
+        ++gObservationTravelTransitionCount_FF0D74;
     } else {
-        const std::uint32_t count = gValueFF0D74;
+        const std::uint32_t count = gObservationTravelTransitionCount_FF0D74;
         gCurrentSceneState = 252;
-        gValueFF0D74 = count + 1u;
+        gObservationTravelTransitionCount_FF0D74 = count + 1u;
     }
     return cg::yobi::ClearObservationGroups_43F230();
 }
@@ -4881,7 +4881,7 @@ std::uint16_t SendPendingMovementDirections_46AC10()
             break;
         }
     }
-    if (gValueFF0D36 != 0) {
+    if (gPartyActive_FF0D36 != 0) {
         const std::uint32_t flags = ReadPlayerFlags18A();
         if ((flags & 0x100u) == 0) {
             return static_cast<std::uint16_t>(flags);
@@ -5385,7 +5385,7 @@ std::int16_t ReadPetFollowIndex(const std::size_t position) noexcept
 // 原函数：0x0046A990。
 void RebuildPartyFollowOrder_46A990()
 {
-    if (gValueFF0D36 == 0) {
+    if (gPartyActive_FF0D36 == 0) {
         return;
     }
     gPetFollowOrder.fill(0xFFFFu);
@@ -5487,7 +5487,7 @@ cg::yobi::YobiAction* ClearPartyMembershipState_51B080()
 // 原函数：0x0046A5A0。
 void AppendFirstFollowerPathPoint_46A5A0(const std::int32_t x, const std::int32_t y)
 {
-    if (gValueFF0D36 == 0) {
+    if (gPartyActive_FF0D36 == 0) {
         return;
     }
     // 原FDA88A一次W32取样，复用同一已证跨字段边界。
@@ -5507,7 +5507,7 @@ void AppendFirstFollowerPathPoint_46A5A0(const std::int32_t x, const std::int32_
 // 原函数：0x0046A940。
 void AdvancePlayerLeaderFollowers_46A940()
 {
-    if (gValueFF0D36 == 0) {
+    if (gPartyActive_FF0D36 == 0) {
         return;
     }
     const std::uint32_t flags = ReadPlayerFlags18A();
@@ -5562,7 +5562,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
-            || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
+            || gMapTargetDrawOverride_C8A780 != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || gMapTargetInputAndDrawOverride_62B398 != 0)
         && gContinuousMapMovementActive_C8A79C == 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0xFFFFFFFFu;
@@ -5580,7 +5580,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
-            || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
+            || gMapTargetInputOverride_C8A77C != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || gMapTargetInputAndDrawOverride_62B398 != 0)) {
         gMapLeftHoldDurationMs_C8A778 = 0;
         gMapLeftPressTick_C8A794 = 0;
         return static_cast<std::uint8_t>(mouseBelowLimit);
@@ -5716,14 +5716,14 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0()
     const std::int32_t direction = static_cast<std::int32_t>(
         GetEightWayMapDirection_46CDF0(differenceX, differenceY));
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gValueFF0D38 + 500u >= now) {
+    if (gLastAdjacentInteractionTick_FF0D38 + 500u >= now) {
         return static_cast<std::uint32_t>(now);
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(network::SendPositionDirectionInteraction_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint64_t sentAt = platform::ReadTickCount64();
-    gValueFF0D38 = sentAt;
+    gLastAdjacentInteractionTick_FF0D38 = sentAt;
     return static_cast<std::uint32_t>(sentAt);
 }
 
@@ -5739,7 +5739,7 @@ void TurnPlayerTowardCursorTarget_46B370()
     }
     const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     if (movementY < 0.0F || movementY > 0.0F
-        || gValue62B5AA != 0 || gMapMovementInputBlocked_C82220 != 0) {
+        || gPlayerMovementAndFacingBlocked_62B5AA != 0 || gMapMovementInputBlocked_C82220 != 0) {
         return;
     }
     if ((gPlayerX == static_cast<std::int32_t>(gPlayerMoveTargetX))
@@ -5800,8 +5800,8 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
                 platform::gConnectionSocket, 3, secondIndex));
         }
     }
-    if ((gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
-        && gValue62B5AA == 0 && gMapMovementInputBlocked_C82220 == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+    if ((gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
+        && gPlayerMovementAndFacingBlocked_62B5AA == 0 && gMapMovementInputBlocked_C82220 == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const bool forceContinuousMove = gMapLeftHoldDurationMs_C8A778 >= 500u;
         if (forceContinuousMove) {
             gContinuousMapMovementActive_C8A79C = 1;
@@ -5847,7 +5847,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
         }
     }
     RebuildPartyFollowOrder_46A990();
-    if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
+    if (gPartyActive_FF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
         return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190());
     }
     return static_cast<std::uint8_t>(UpdatePlayerPathMovement_469FC0());
@@ -6524,7 +6524,7 @@ void ClearPlayerStatusIcon_51BDF0()
 } // namespace detail
 
 // 原FDA6F8位于六块清零范围之外；后续角色创建与此处复制共用。
-std::int32_t gValueFDA6F8 = 0;
+std::int32_t gInitialPlayerDuelPoints_FDA6F8 = 0;
 
 namespace detail {
 
@@ -6551,7 +6551,7 @@ void InitializePlayerRuntimeState_5199A0()
     static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(selected));
     static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(selected));
 
-    gValueFF0D36 = 0;
+    gPartyActive_FF0D36 = 0;
     for (PetMapCharaSlot& slot : gPetMapCharaSlots) {
         slot.flags = 0;
         slot.objectIndex = 0;
@@ -6559,7 +6559,7 @@ void InitializePlayerRuntimeState_5199A0()
     }
 
     const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
-    const std::int32_t value = gValueFDA6F8;
+    const std::int32_t value = gInitialPlayerDuelPoints_FDA6F8;
     gPlayerRuntimeSlots.value17C = selectedGraphic;
     gPlayerRuntimeSlots.value104 = value;
     for (TitleRecord& title : gTitlesFF0508) {
@@ -6663,10 +6663,10 @@ std::int32_t InitializeWorldSceneFlags_455BD0()
     gValue62B328 = 0;
     gValue62B3B0 = 1;
     gValue556C34 = 1;
-    gValue62B5AA = 0;
+    gPlayerMovementAndFacingBlocked_62B5AA = 0;
     gValue62B5A8 = 0;
     gMapNoticeStartTick_62B5B0 = 0;
-    gValue62B308 = 0;
+    gMapTargetInputAndDrawOverride_62B308 = 0;
     gValue62B358 = 0;
     gValue62B384 = 0;
     gValue62B310 = 0;
@@ -6694,10 +6694,10 @@ std::int32_t InitializeGameplayNotifications_504A30()
 // 原 [0x43C8F0,0x43C90A)；按序写四个独立 S32 槽并返回完整 -1。
 std::int32_t ResetBattleCommandSelection_43C8F0()
 {
-    gValue5ABB70 = 0;
-    gValue5ABB6C = 0;
-    gValue553F90 = -1;
-    gValue553F84 = -1;
+    gBattleFirstActionSelectionMode_5ABB70 = 0;
+    gBattleSecondActionSelectionMode_5ABB6C = 0;
+    gLastBattleCommandPetIndex_553F90 = -1;
+    gSelectedBattlePetTechniqueIndex_553F84 = -1;
     return -1;
 }
 
@@ -8018,7 +8018,7 @@ std::int32_t ProcessLogoutScene_45EBB0()
 {
     std::int32_t sceneState = gCurrentSceneState;
     if (sceneState == 0) {
-        gValue9A6E0C = 1;
+        gGameplayRepliesSuppressed_9A6E0C = 1;
         const std::int32_t transition = ProcessLogoutTransition_45EEE0();
         if (transition == 0) {
             return transition;
@@ -8095,37 +8095,37 @@ std::int32_t ProcessLogoutScene_45EBB0()
 // 原 [0x45ED80,0x45ED8B)：只清场景 7 阶段槽，不定义返回值。
 void ResetLogoutScene_45ED80()
 {
-    gValue9A6204 = 0;
+    gLogoutRequestScenePhase_9A6204 = 0;
 }
 
 // 原 [0x45ED90,0x45EEDA)：场景 7 请求进度与结果展示。
 std::int32_t UpdateLogoutScene_45ED90()
 {
     std::int32_t result = 0;
-    if (gValue9A6204 == 0) {
+    if (gLogoutRequestScenePhase_9A6204 == 0) {
         const std::uint32_t initialTextWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(gText55BAE0, 0));
-        gValue9A6204 = 1;
+        gLogoutRequestScenePhase_9A6204 = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
-        gValue9A5674 = 2;
-        gValue9A594C = columns;
+        gLogoutPanelRows_9A5674 = 2;
+        gLogoutPanelColumns_9A594C = columns;
         const std::int32_t actionWidth = columns * 64;
-        const std::int32_t actionHeight = gValue9A5674 * 48;
+        const std::int32_t actionHeight = gLogoutPanelRows_9A5674 * 48;
         // 原45ED90按640×480居中；场景7无布局偏移，背景与文字共用当前画布中心。
         const std::int32_t left = (platform::gWindowWidth - actionWidth) / 2;
         const std::int32_t top = (platform::gWindowHeight - actionHeight) / 2;
-        gValue9A61F8 = top;
-        gValue9A5AC0 = left;
+        gLogoutPanelTop_9A61F8 = top;
+        gLogoutPanelLeft_9A5AC0 = left;
         gAction9A6E98 = cg::yobi::CreateModalAction_5044E0(
             left, top, actionWidth, actionHeight, 4, 1);
     }
 
-    const std::uint32_t phase = gValue9A6204;
+    const std::uint32_t phase = gLogoutRequestScenePhase_9A6204;
     if (phase == 1) {
         if (login::detail::gReplyCodeDA3B2E != 2) {
             static_cast<void>(login::detail::BeginLogoutRequest_508C40());
         }
-        ++gValue9A6204;
+        ++gLogoutRequestScenePhase_9A6204;
     } else if (phase == 2) {
         result = login::detail::PollLogoutReply_508C90();
         if (result != 0) {
@@ -8140,13 +8140,13 @@ std::int32_t UpdateLogoutScene_45ED90()
 
     cg::yobi::YobiAction* const action = gAction9A6E98;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t rows = gValue9A5674;
-        const std::int32_t top = gValue9A61F8;
+        const std::int32_t rows = gLogoutPanelRows_9A5674;
+        const std::int32_t top = gLogoutPanelTop_9A61F8;
         const std::int32_t drawY = top + (48 * rows - 16) / 2;
         const std::int32_t textWidth = cg::render::TextMeasure(gText55BAE0, 0);
-        const std::int32_t columns = gValue9A594C;
+        const std::int32_t columns = gLogoutPanelColumns_9A594C;
         const std::int32_t horizontalWidth = columns * 64 - textWidth;
-        const std::int32_t left = gValue9A5AC0;
+        const std::int32_t left = gLogoutPanelLeft_9A5AC0;
         const std::int32_t drawX = horizontalWidth / 2 + left;
         static_cast<void>(render::DrawText3_456560(
             static_cast<std::int16_t>(drawX),
@@ -8291,7 +8291,7 @@ void DrawChatRangeOverlay_476680()
         return;
     }
 
-    std::int32_t radius = platform::gValue554640;
+    std::int32_t radius = platform::gChatRange_554640;
     std::int32_t x = cg::yobi::GetYobiActionField30(action) - radius * 64;
     std::int32_t y = cg::yobi::GetYobiActionField34(action);
     const auto countdown = std::bit_cast<std::int32_t>(gChatRangeOverlayFrames_626BFC);
@@ -8308,7 +8308,7 @@ void DrawChatRangeOverlay_476680()
                 if (sideCount > 0) {
                     do {
                         static_cast<void>(render::QueueGraphicWithResourceOffset_521C80(x, y, 100, 3, 0, nullptr));
-                        radius = platform::gValue554640;
+                        radius = platform::gChatRange_554640;
                         ++column;
                         x += 32;
                         sideCount = radius * 2 + 1;
@@ -8337,7 +8337,7 @@ void DrawChatRangeOverlay_476680()
 void HandlePartyMemberReply_50A3E0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     const std::uint32_t mask = static_cast<std::uint32_t>(
@@ -8373,7 +8373,7 @@ void HandlePartyMemberReply_50A3E0(
             }
         }
         if (count <= 1) {
-            detail::gValueFF0D36 = 0;
+            detail::gPartyActive_FF0D36 = 0;
             static_cast<void>(detail::ClearPartyMembershipState_51B080());
             return;
         }
@@ -8384,7 +8384,7 @@ void HandlePartyMemberReply_50A3E0(
     }
 
     detail::gValueFF0D32 = 0;
-    detail::gValueFF0D36 = 1;
+    detail::gPartyActive_FF0D36 = 1;
     slot.flags = 1;
     std::int32_t field = 2;
     if ((mask & 3u) != 0) {
@@ -8440,7 +8440,7 @@ void HandlePartyMemberReply_50A3E0(
 // 原函数：0x0050B380。
 void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (ReadRippleGateOnce() != 0) {
@@ -8517,7 +8517,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 } else if (static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18C) == 0) {
                     gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
                 }
-                detail::gValue9A4B94 &= 0xFDu;
+                detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFDu;
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
                 detail::SetPlayerMapIdentity_51A090(name, titles, level, value40, flag1, flag2);
                 if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0
@@ -8631,7 +8631,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
 // 原函数：0x0050BCD0。
 void HandleWorldActorActionsReply_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (ReadRippleGateOnce() != 0) {
@@ -8732,7 +8732,7 @@ std::int32_t ToggleGuildInvitePermission_473030()
 std::uint32_t HandlePlayerOptionsReply_50BFA0(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {
-    const std::uint32_t gate = gValue9A6E0C;
+    const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return gate;
     }
@@ -8764,7 +8764,7 @@ std::uint32_t HandlePlayerTimerReply_50C7A0(
     const std::uintptr_t /*socket*/, const std::int32_t seconds,
     const std::int32_t mode)
 {
-    const std::uint32_t gate = gValue9A6E0C;
+    const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return gate;
     }
@@ -8794,7 +8794,7 @@ std::int32_t HandleSystemChatReply_50CE10(const std::uintptr_t /*socket*/, const
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
-    const std::int32_t soundEnabled = platform::gValue554644;
+    const std::int32_t soundEnabled = platform::gChatNotificationSoundEnabled_554644;
     if (soundEnabled != 0) {
         return audio::PlaySe_52C450(74, 320);
     }
@@ -8839,7 +8839,7 @@ void HandleMapSceneEffectReply_50E650(
 std::int32_t HandleNotificationSoundReply_50E210(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {
-    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gGameplayRepliesSuppressed_9A6E0C);
     if (gate != 0) {
         return gate;
     }
@@ -8872,16 +8872,16 @@ std::int32_t SendPlayerChatInput_50C940(
     const std::int32_t gate = gChatGateDA3B54;
     const std::uint8_t disabled = gChatDisabledDA3B4C;
     const bool restricted = disabled != 0
-        || (gate == 0 && detail::gValueFF0D36 != 0
+        || (gate == 0 && detail::gPartyActive_FF0D36 != 0
             && (ReadPlayerOptions194LowByte() & 8u) != 0);
     if (restricted) {
         const std::uint64_t tick = platform::ReadTickCount64();
         if (tick - gChatCurrentTickDA3B40 > 180000u) {
             gChatDisabledDA3B4C = 0;
-        } else if (gChatGateDA3B54 != 0 || detail::gValueFF0D36 == 0
+        } else if (gChatGateDA3B54 != 0 || detail::gPartyActive_FF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
             AppendChatMessage_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
-            const std::int32_t sound = platform::gValue554644;
+            const std::int32_t sound = platform::gChatNotificationSoundEnabled_554644;
             if (sound != 0) {
                 return audio::PlaySe_52C450(74, 320);
             }
@@ -8894,7 +8894,7 @@ std::int32_t SendPlayerChatInput_50C940(
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < gChatMinimumIntervalMs) {
             AppendChatMessage_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
-            std::int32_t result = platform::gValue554644;
+            std::int32_t result = platform::gChatNotificationSoundEnabled_554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
             }
@@ -8905,7 +8905,7 @@ std::int32_t SendPlayerChatInput_50C940(
     // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
     const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
     const std::int32_t mode = platform::gChatTextSizeMode_73ECBC;
-    const std::int32_t range = platform::gValue554640;
+    const std::int32_t range = platform::gChatRange_554640;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
@@ -8917,7 +8917,7 @@ void HandlePlayerChatReply_50CAE0(
     const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
     const char* const payload, const std::int32_t color, const std::int32_t font)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char kind[2];
@@ -9000,7 +9000,7 @@ void HandlePlayerChatReply_50CAE0(
             AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
         }
     }
-    if (platform::gValue554644 != 0) {
+    if (platform::gChatNotificationSoundEnabled_554644 != 0) {
         static_cast<void>(audio::PlaySe_52C450(74, 320));
     }
     if (objectIndex < 0) {
@@ -9021,7 +9021,7 @@ void HandlePlayerChatReply_50CAE0(
 void HandlePartyMembershipReply_50D000(
     const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (first == 1) {
@@ -9030,7 +9030,7 @@ void HandlePartyMembershipReply_50D000(
         }
     } else if (first == 0 && second == 1) {
         detail::ClearPlayerPartyMembership_51A5F0();
-        detail::gValueFF0D36 = 0;
+        detail::gPartyActive_FF0D36 = 0;
         static_cast<void>(detail::ClearPartyMembershipState_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(gPlayerRuntimeSlots.direction));
@@ -9046,7 +9046,7 @@ void HandlePartyMembershipReply_50D000(
 std::int32_t HandlePlayerPrimaryStatsReply_509650(
     const std::uintptr_t /*socket*/, const char* const payload)
 {
-    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gGameplayRepliesSuppressed_9A6E0C);
     if (gate != 0) {
         return gate;
     }
@@ -9137,7 +9137,7 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(
 // MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
 void HandlePlayerSecondaryStatsReply_509BA0(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     const auto flags = static_cast<std::uint32_t>(
@@ -9207,7 +9207,7 @@ void HandlePlayerSecondaryStatsReply_509BA0(const std::uintptr_t, const char* co
 // 原函数：0x00509E30。
 void HandlePlayerProfessionReply_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     gSkillRuntimeSlots.valueF633E8 =
@@ -9272,7 +9272,7 @@ std::int32_t IsItemEligibleForRefining_505110(const std::int32_t slot)
 // 原函数：0x00509EB0。
 void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char name[256];
@@ -9337,14 +9337,14 @@ void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char*
         field += 11;
     }
     detail::BuildSortedSkillDisplayEntries_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), kSkillSlotCount);
-    gValueDA3B20 = 0;
+    gSkillReorderPending_DA3B20 = 0;
 }
 
 // 原函数：0x0050A120。
 void HandlePlayerSkillTechniquesReply_50A120(
     const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (skillIndex < 0 || skillIndex >= kSkillSlotCount) {
@@ -9394,7 +9394,7 @@ void HandlePlayerSkillTechniquesReply_50A120(
 void HandleSkillRecipesReply_50C580(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
         return;
     }
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];
@@ -9433,7 +9433,7 @@ void HandleSkillRecipesReply_50C580(
 // 原函数：0x0050BF20。
 void HandleWorldObjectRemovalReply_50BF20(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     std::int32_t field = 1;
@@ -9456,7 +9456,7 @@ void HandleWorldObjectRemovalReply_50BF20(const std::uintptr_t, const char* cons
 // 原函数：0x0050BFD0。
 void HandleFullPlayerInventoryReply_50BFD0(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char name[256];
@@ -9482,7 +9482,7 @@ void HandleFullPlayerInventoryReply_50BFD0(const std::uintptr_t, const char* con
 // 原函数：0x0050C260。
 void HandlePlayerInventoryUpdatesReply_50C260(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char name[256];
@@ -9531,7 +9531,7 @@ std::int32_t CountInventoryItemQuantity_51B5F0(const std::int32_t itemId)
 void HandleInventorySlotSwapReply_50C900(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     detail::SwapPlayerInventorySlots_51B530(first, second);
@@ -9620,7 +9620,7 @@ std::int32_t HasPetMailTechnique_52E1D0(const std::int32_t index)
 void HandlePetInventoryUpdatesReply_510150(
     const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
 {
-    if (gValue9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
         return;
     }
     char name[256];
@@ -9683,7 +9683,7 @@ void HandlePetInventoryUpdatesReply_510150(
 void HandlePetPrimaryStatsReply_50A6B0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
     const auto flags = static_cast<std::uint32_t>(
@@ -9782,7 +9782,7 @@ void HandlePetPrimaryStatsReply_50A6B0(
 void HandlePetSecondaryStatsReply_50AC20(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
     const auto flags = static_cast<std::uint32_t>(
@@ -9823,7 +9823,7 @@ void HandlePetSecondaryStatsReply_50AC20(
 void HandlePetTechniquesReply_50B0D0(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
-    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
     PetRuntimeRecord& record = gPetRuntimeRecords[index];
@@ -9909,7 +9909,7 @@ std::int32_t FindBattlePetIndex_43C4B0()
 // 原函数：0x0050A300。
 void HandlePlayerTitlesReply_50A300(const std::uintptr_t /*socket*/, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     char text[256];
@@ -10089,10 +10089,10 @@ void Sub_50D080(
 void HandleBattleEntryReply_50D120(
     const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    if (gValueD67E78 != 0) {
+    if (gLogoutToTownPending_D67E78 != 0) {
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
@@ -10125,7 +10125,7 @@ void HandleBattleEntryReply_50D120(
     }
     if (type > 0) {
         const bool modeTwo = type == 2;
-        gValue5ABFC4 = 1;
+        gBattleEntryPending_5ABFC4 = 1;
         gBattleType5ABFC8 = type;
         if (modeTwo) {
             gBattleModeFlag5ABFCC = 1;
@@ -10142,9 +10142,9 @@ void HandleBattleEntryReply_50D120(
                 detail::gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
             }
         }
-        gValue5ABB1C = 0;
+        gBattleEventDispatchBusy_5ABB1C = 0;
         gBattleBackgroundImage59F9F8 = imageNo;
-        gValue5ABB28 = 0;
+        gBattleTurnMessagesExhausted_5ABB28 = 0;
         detail::gBattleCWriteIndex5AAA6C = 0;
         detail::gBattleCReadIndex5AAA44 = 0;
         detail::gBattleMWriteIndex5A3A1C = 0;
@@ -10202,7 +10202,7 @@ void HandleBattleStreamReply_50D3C0(const std::uintptr_t, const char* const text
         return;
     }
     if (text[1] == 'U') {
-        detail::gValue5ABCB0 = 1;
+        detail::gBattleExitNotificationPending_5ABCB0 = 1;
         return;
     }
     if (kind == 'M') {
@@ -10225,7 +10225,7 @@ void HandleBattleStreamReply_50D3C0(const std::uintptr_t, const char* const text
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(const std::uintptr_t, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     gPendingResultWindowMode_FF0C10 = 1;
@@ -10282,7 +10282,7 @@ void __cdecl HandleMapTransitionReply_50CF90(
     const std::uintptr_t, const std::int32_t sequence,
     const std::int32_t status)
 {
-    if (gValue9A6E0C != 0) {
+    if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (std::bit_cast<std::int16_t>(detail::gPendingMapTransitionSequence_9DAD54) == sequence) {
@@ -10308,7 +10308,7 @@ void __cdecl HandleMapRectangleCrcReply_509090(
     const std::int32_t yEnd, const std::int32_t expectedTile,
     const std::int32_t expectedObj, const std::int32_t expectedHit)
 {
-    if (gValue9A6E0C != 0 ||
+    if (gGameplayRepliesSuppressed_9A6E0C != 0 ||
         detail::CheckMapRectangleCrcAndRequest_469290(
             first, floor, xStart, yStart, xEnd, yEnd,
             expectedTile, expectedObj, expectedHit) == 0) {
@@ -10317,9 +10317,9 @@ void __cdecl HandleMapRectangleCrcReply_509090(
     if (gMapFloor == floor) {
         detail::gMapRectangleRequestPending_C82208 = 0;
     }
-    if ((detail::gValue9A4B94 & 1u) != 0) {
+    if ((detail::gWorldEntryRepliesPendingMask_9A4B94 & 1u) != 0) {
         detail::InvalidateMapDrawPosition_4691D0();
-        detail::gValue9A4B94 &= 0xFEu;
+        detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFEu;
     }
 }
 
@@ -10331,7 +10331,7 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(
     const std::int32_t yEnd, const char* const payload)
 {
     // 原入口只采一次 W32 门禁，非零时透传该样本。
-    const std::uint32_t gate = gValue9A6E0C;
+    const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -10402,9 +10402,9 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(
         detail::gMapRectangleRequestPending_C82208 = 0;
     }
     // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
-    const std::uint8_t replyFlags = detail::gValue9A4B94;
+    const std::uint8_t replyFlags = detail::gWorldEntryRepliesPendingMask_9A4B94;
     const std::int32_t currentMapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
-    detail::gValue9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
+    detail::gWorldEntryRepliesPendingMask_9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
 
     if (currentMapId == mapId
         && gMapFloor == floor
@@ -10437,7 +10437,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(
     const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
     const std::int32_t a13)
 {
-    const std::uint8_t priorFlag = detail::gValue9A4B94;
+    const std::uint8_t priorFlag = detail::gWorldEntryRepliesPendingMask_9A4B94;
     detail::gMapRectangleRequestPending_C82208 = 1;
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (detail::gMapTransitionObservationPrepared_C8220C == 0) {
@@ -10524,11 +10524,11 @@ std::uint32_t CaptureMapTilesForTransition_51D640()
     static_cast<void>(detail::LoadAndDrawMapTiles_469030());
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
-    const std::uint8_t previousC82204 = gValueC82204;
-    gValueC82204 = 0;
+    const std::uint8_t previousC82204 = gMapSurfaceCacheEnabled_C82204;
+    gMapSurfaceCacheEnabled_C82204 = 0;
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0();
-    gValueC82204 = previousC82204;
+    gMapSurfaceCacheEnabled_C82204 = previousC82204;
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
     platform::gPendingGraphicCount = 0;
@@ -10860,7 +10860,7 @@ void RequestDuelWithFacingPlayer_470050()
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
     const std::int32_t target = detail::HasWorldObjectAt_4450D0(targetX, targetY, 8);
-    const std::uint16_t follow = detail::gValueFF0D36;
+    const std::uint16_t follow = detail::gPartyActive_FF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
@@ -10895,7 +10895,7 @@ void RequestSpectateFacingBattle_470150()
             (gPlayerX + static_cast<std::int32_t>(deltaX));
         target = detail::HasWorldObjectAtWithFlags_4451F0(targetX, targetY, 8, 0xC400, 0);
     }
-    const std::uint16_t follow = detail::gValueFF0D36;
+    const std::uint16_t follow = detail::gPartyActive_FF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
@@ -10915,7 +10915,7 @@ void RequestSpectateFacingBattle_470150()
 // 原函数：0x00470270。
 void RequestPartyJoinOrLeave_470270()
 {
-    const bool joinTeam = detail::gValueFF0D36 == 0;
+    const bool joinTeam = detail::gPartyActive_FF0D36 == 0;
     if (joinTeam) {
         const std::int32_t direction = gPlayerRuntimeSlots.direction;
         if (direction < 0) {
@@ -11002,7 +11002,7 @@ void RequestNearbyPlayerTrade_4704A0()
     const std::int32_t secondX =
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = detail::HasWorldObjectAt_4450D0(secondX, secondY, 8);
-    if (detail::gValueFF0D36 != 1 && first != 1 && second != 1) {
+    if (detail::gPartyActive_FF0D36 != 1 && first != 1 && second != 1) {
         AppendChatMessage_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -11163,7 +11163,7 @@ std::int32_t ResetMapDrawCacheCounts_46BD40()
     detail::gPrimaryMapGraphicCount_9FB934 = 0;
     detail::gMapObjectGraphicCount_9FB928 = 0;
     detail::gSpecialMapGraphicCount_9A86C0 = 0;
-    detail::gValue9A7F78 = 0;
+    detail::gMapAttachmentDrawCount_9A7F78 = 0;
     return 0;
 }
 

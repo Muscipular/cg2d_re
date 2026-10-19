@@ -646,7 +646,7 @@ std::int32_t HandleMapBgmChangeReply_50E310(
     const std::uintptr_t,
     const std::int32_t value)
 {
-    const std::uint32_t gate = world::gValue9A6E0C;
+    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0U) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -674,7 +674,7 @@ std::int32_t HandleDuelPointResultReply_50D700(
     const std::uintptr_t,
     const char* const payload)
 {
-    const std::uint32_t gate = world::gValue9A6E0C;
+    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0U) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -697,7 +697,7 @@ void HandleMapActorTransitionReply_50DD80(
     const std::int32_t withRecord, const std::int32_t mode,
     const char* const payload)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -820,7 +820,7 @@ std::int32_t HandleVersionUpgradeReply_50E780(const std::uintptr_t, const std::i
 // 原函数：0x0050E830。
 std::int32_t HandleGuildMailResetReply_50E830(const std::uintptr_t)
 {
-    const std::uint32_t state = world::gValue9A6E0C;
+    const std::uint32_t state = world::gGameplayRepliesSuppressed_9A6E0C;
     if (state != 0) {
         return std::bit_cast<std::int32_t>(state);
     }
@@ -832,7 +832,7 @@ std::int32_t HandleGuildMailResetReply_50E830(const std::uintptr_t)
 // 原函数：0x0050F130。
 std::int32_t HandleGuildMemberRemovalReply_50F130(const std::uintptr_t, const std::int32_t key)
 {
-    const std::uint32_t gate = world::gValue9A6E0C;
+    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -876,7 +876,7 @@ void HandleInventorySlotSwapReply_510460(
     const std::uintptr_t, const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
-    if (world::gValue9A6E0C != 0) {
+    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     world::SwapPlayerOrPetItemSlots_51B630(firstGroup, firstIndex, secondGroup, secondIndex);

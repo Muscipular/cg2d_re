@@ -188,7 +188,7 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
         gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
         gLoginWindowRuntime.prefixD2F0B8.value00 = category;
         if (oldSlot != -1) {
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             auto value = occupancy[oldSlot];
             gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
             --value;

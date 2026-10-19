@@ -12,10 +12,10 @@
 namespace cg::world {
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84：43C8F0 顺序重置的独立 S32 槽。
-extern std::int32_t gValue5ABB70; // 原全局：0x005ABB70。
-extern std::int32_t gValue5ABB6C; // 原全局：0x005ABB6C。
-extern std::int32_t gValue553F90; // 原全局：0x00553F90。
-extern std::int32_t gValue553F84; // 原全局：0x00553F84。
+extern std::int32_t gBattleFirstActionSelectionMode_5ABB70; // 原全局：0x005ABB70。
+extern std::int32_t gBattleSecondActionSelectionMode_5ABB6C; // 原全局：0x005ABB6C。
+extern std::int32_t gLastBattleCommandPetIndex_553F90; // 原全局：0x00553F90。
+extern std::int32_t gSelectedBattlePetTechniqueIndex_553F84; // 原全局：0x00553F84。
 // 原函数：0x0050D120。
 void HandleBattleEntryReply_50D120(
     std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
@@ -58,9 +58,9 @@ extern std::int32_t gBattleBackgroundImage59F9F8;
 extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
 extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
-extern std::uint32_t gValue5ABB1C; // 原全局：0x005ABB1C。
-extern std::uint32_t gValue5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
-extern std::uint32_t gValue5ABB28; // 原全局：0x005ABB28。
+extern std::uint32_t gBattleEventDispatchBusy_5ABB1C; // 原全局：0x005ABB1C。
+extern std::uint32_t gBattleExitRequested_5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
+extern std::uint32_t gBattleTurnMessagesExhausted_5ABB28; // 原全局：0x005ABB28。
 extern std::array<char, 0x1000> gBattleCText5A3A20; // 原全局：0x005A3A20。 场景从C队列复制的活动原字节文本。
 extern std::int32_t gBattleCOffset5ABA80; // 原全局：0x005ABA80。 438550先写2；438450/4384C0消费，与C队列索引独立。
 extern std::uint32_t gBattleFieldFlags5ABB58; // 原全局：0x005ABB58。 438550发布完整W32，43CBB0随后检查bit20。
@@ -146,7 +146,7 @@ extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
 // 原函数：0x0043C4E0。
 void BeginBattleCommandSelection_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
-extern std::uint32_t gValue5ABCB0; // 原全局：0x005ABCB0。
+extern std::uint32_t gBattleExitNotificationPending_5ABCB0; // 原全局：0x005ABCB0。
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。

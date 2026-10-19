@@ -468,7 +468,7 @@ void DrawGearNormal_46C060(
     if (primaryIndex < 0) {
         return;
     }
-    const auto initialCount = std::bit_cast<std::int32_t>(detail::gValue9A7F78);
+    const auto initialCount = std::bit_cast<std::int32_t>(detail::gMapAttachmentDrawCount_9A7F78);
     if (initialCount >= detail::kSourceCapacity) {
         return;
     }
@@ -484,7 +484,7 @@ void DrawGearNormal_46C060(
         }
         tail->after = detail::gMapDrawAttachments9E0438.data() + initialCount;
     }
-    const auto count = std::bit_cast<std::int32_t>(detail::gValue9A7F78);
+    const auto count = std::bit_cast<std::int32_t>(detail::gMapAttachmentDrawCount_9A7F78);
     detail::MapDrawRecord& record = detail::gMapDrawAttachments9E0438[count];
     record.imageNo = imageNo;
     const std::uint32_t worldXBits = detail::gMapDrawPrimary9EE918[primaryIndex].worldXBits;
@@ -498,7 +498,7 @@ void DrawGearNormal_46C060(
     detail::WriteMapDrawDescriptor(record.descriptor, descriptor);
     record.before = nullptr;
     record.after = nullptr;
-    detail::gValue9A7F78 = static_cast<std::uint32_t>(count + 1);
+    detail::gMapAttachmentDrawCount_9A7F78 = static_cast<std::uint32_t>(count + 1);
 }
 
 } // namespace cg::world

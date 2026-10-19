@@ -216,7 +216,7 @@ void Sub_43F220();
 // 原 43F230：标死链上 action 并清头；空链原返回寄存器无对象合同。
 void* Sub_43F230();
 // 原440920：只拦截动作81/82；未使用方向仍保留，返回完整0/1。
-std::int32_t Sub_440920(
+std::int32_t HandleMapObservationActionReply_440920(
     std::int32_t objectIndex, std::int32_t x, std::int32_t y,
     std::int32_t unusedDirection, std::int32_t characterAction, const char* row);
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。

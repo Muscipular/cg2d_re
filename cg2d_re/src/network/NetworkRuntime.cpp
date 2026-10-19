@@ -757,7 +757,7 @@ void HandleMapActorTransitionReply_50DD80(
     const std::int32_t flag1 = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
     const std::int32_t flag2 = std::atoi(field);
-    if (world::Sub_445A60(
+    if (world::RegisterWorldObjectWithoutAction_445A60(
             recordIndex, recordImageNo, recordX, recordY, recordDirection,
             name, titles, level, static_cast<std::uint16_t>(value40),
             flag1, flag2, type) == 0) {
@@ -4238,7 +4238,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::Sub_50A6B0, I, T>(head, "IsSy", socket, 0x4U)) return 0;
     if (TryDispatchReply<world::Sub_50AC20, I, T>(head, "AU", socket, 0x4U)) return 0;
     if (TryDispatchReply<world::Sub_50AEF0, T>(head, "TNT", socket)) return 0;
-    if (TryDispatchReply<world::Sub_50B380, T>(head, "nsY", socket)) return 0;
+    if (TryDispatchReply<world::HandleMapObjectListReply_50B380, T>(head, "nsY", socket)) return 0;
     if (TryDispatchReply<world::Sub_50A3E0, I, T>(head, "JJQj", socket, 0x4U)) return 0;
     if (TryDispatchReply<world::Sub_50A300, T>(head, "Sc", socket)) return 0;
     if (TryDispatchReply<world::Sub_50BCD0, T>(head, "NI", socket)) return 0;

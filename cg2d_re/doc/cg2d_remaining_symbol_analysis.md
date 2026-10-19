@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：244／636。已重命名：239。保留／未决：5。待分析：392。
+已分析：286／636。已重命名：275。保留／未决：11。待分析：350。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -26,17 +26,17 @@
 | `Sub_43CA50` | src/Yobi/battle_scene.cpp:458 | 待分析 | — |
 | `Sub_43CA80` | src/Yobi/battle_scene.cpp:473 | 待分析 | — |
 | `Sub_43CB10` | src/world/MapSceneDrawing.cpp:205 | 已重命名：`CaptureBattleBackgroundSnapshot_43CB10` | 重置图形缓存、绘制无标记地图和战斗背景，排序绘制后复制Back到Temp，恢复队列模式1并记录背景图号。 |
-| `Sub_43D860` | src/world/WorldActorDrawing.cpp:658 | 待分析 | — |
-| `Sub_43D970` | src/world/WorldActorDrawing.cpp:202 | 待分析 | — |
-| `Sub_43D9A0` | src/world/WorldActorDrawing.cpp:214 | 待分析 | — |
-| `Sub_43D9D0` | src/world/WorldActorDrawing.cpp:226 | 待分析 | — |
-| `Sub_43DA10` | src/world/WorldActorDrawing.cpp:241 | 待分析 | — |
-| `Sub_43DA40` | src/world/WorldActorDrawing.cpp:253 | 待分析 | — |
-| `Sub_43DA70` | src/world/WorldActorDrawing.cpp:265 | 待分析 | — |
-| `Sub_43DAA0` | src/world/WorldActorDrawing.cpp:277 | 待分析 | — |
-| `Sub_43DAD0` | src/world/WorldActorDrawing.cpp:289 | 待分析 | — |
-| `Sub_43DB00` | src/world/WorldActorDrawing.cpp:692 | 待分析 | — |
-| `Sub_43DB30` | src/world/WorldActorDrawing.cpp:704 | 待分析 | — |
+| `Sub_43D860` | src/world/WorldActorDrawing.cpp:658 | 已重命名：`FaceWorldActorTowardPlayer_43D860` | 仅特殊地图模式1和category1对象，按玩家与对象坐标差设置八方向；同坐标保原实参地址低字节行为。 |
+| `Sub_43D970` | src/world/WorldActorDrawing.cpp:202 | 已重命名：`ShowWorldActorPersistentStatusIcon_43D970` | 置flags120位1；绘制442F70据此创建持续状态图标0x1AF4E，特定状态时抑制。不推断图标的疾病名称。 |
+| `Sub_43D9A0` | src/world/WorldActorDrawing.cpp:214 | 已重命名：`HideWorldActorPersistentStatusIcon_43D9A0` | 清flags120位1，442F70据此回收持续状态图标。 |
+| `Sub_43D9D0` | src/world/WorldActorDrawing.cpp:226 | 已重命名：`SetWorldActorStatusIcon_43D9D0` | 检查状态图标索引范围、越界归零，置flags120位2并写value124，442F70据索引查图标表绘制。 |
+| `Sub_43DA10` | src/world/WorldActorDrawing.cpp:241 | 已重命名：`ClearWorldActorStatusIcon_43DA10` | 清flags120位2并清图标索引，绘制入口不再选择索引图标。 |
+| `Sub_43DA40` | src/world/WorldActorDrawing.cpp:253 | 已重命名：`ShowWorldActorTimedStatusIcon_43DA40` | 置flags120位0x24，绘制入口创建0x1AF4D图标并一次播音，600计数后清显示位。 |
+| `Sub_43DA70` | src/world/WorldActorDrawing.cpp:265 | 已重命名：`ShowActorPetPersistentStatusIcon_43DA70` | 置flags120位8，442F70在附属宠物绘制分支将其映射为持续图标位1。 |
+| `Sub_43DAA0` | src/world/WorldActorDrawing.cpp:277 | 已重命名：`HideActorPetPersistentStatusIcon_43DAA0` | 清flags120位8，停止附属宠物持续状态图标的显示映射。 |
+| `Sub_43DAD0` | src/world/WorldActorDrawing.cpp:289 | 已重命名：`ShowActorPetTimedStatusIcon_43DAD0` | 置flags120位0x50，附属宠物绘制时映射为计时图标及首次声音位0x24。 |
+| `Sub_43DB00` | src/world/WorldActorDrawing.cpp:692 | 已重命名：`SuspendWorldActorForObservation_43DB00` | 观察81/82动作对成员调用，置flags120位0x80，地图角色更新入口据此直接返回。 |
+| `Sub_43DB30` | src/world/WorldActorDrawing.cpp:704 | 已重命名：`ResumeWorldActorAfterObservation_43DB30` | 清flags120位0x80，恢复观察成员的地图角色更新。 |
 | `Sub_43DD00` | src/Yobi/map_actor.cpp:355 | 待分析 | — |
 | `Sub_43E490` | src/Yobi/map_actor.cpp:527 | 待分析 | — |
 | `Sub_43EFC0` | src/Yobi/map_actor.cpp:1458 | 待分析 | — |
@@ -55,7 +55,7 @@
 | `Sub_440070` | src/Yobi/map_observation.cpp:682 | 待分析 | — |
 | `Sub_440440` | src/Yobi/map_observation.cpp:402 | 待分析 | — |
 | `Sub_4408C0` | src/Yobi/map_observation.cpp:213 | 待分析 | — |
-| `Sub_440920` | src/Yobi/map_observation.cpp:1011 | 待分析 | — |
+| `Sub_440920` | src/Yobi/map_observation.cpp:1011 | 已重命名：`HandleMapObservationActionReply_440920` | 处理动作81/82，解析七参数创建观察动作并绑定五成员，将成员置观察暂停位；81还关闭本人相关窗口并隐藏源图像。 |
 | `Sub_440B50` | src/world/SceneState.cpp:10675 | 待分析 | — |
 | `Sub_440B70` | src/Yobi/map_observation.cpp:927 | 待分析 | — |
 | `Sub_440C50` | src/Yobi/map_observation.cpp:833 | 待分析 | — |
@@ -77,43 +77,43 @@
 | `Sub_442730` | src/Yobi/map_actor.cpp:1518 | 待分析 | — |
 | `Sub_4428F0` | src/Yobi/map_actor.cpp:1571 | 待分析 | — |
 | `Sub_442AB0` | src/Yobi/map_actor.cpp:1258 | 待分析 | — |
-| `Sub_442BD0` | src/world/WorldActorDrawing.cpp:355 | 待分析 | — |
-| `Sub_442C00` | src/world/WorldActorDrawing.cpp:116 | 待分析 | — |
-| `Sub_442C40` | src/world/WorldActorDrawing.cpp:330 | 待分析 | — |
-| `Sub_442C70` | src/world/WorldActorDrawing.cpp:342 | 待分析 | — |
-| `Sub_442CA0` | src/world/WorldActorDrawing.cpp:130 | 待分析 | — |
-| `Sub_442CD0` | src/world/WorldActorDrawing.cpp:142 | 待分析 | — |
-| `Sub_442D00` | src/world/WorldActorDrawing.cpp:154 | 待分析 | — |
-| `Sub_442D30` | src/world/WorldActorDrawing.cpp:166 | 待分析 | — |
-| `Sub_442D60` | src/world/WorldActorDrawing.cpp:178 | 待分析 | — |
-| `Sub_442D90` | src/world/WorldActorDrawing.cpp:190 | 待分析 | — |
-| `Sub_442DC0` | src/world/WorldActorDrawing.cpp:71 | 待分析 | — |
-| `Sub_442F70` | src/Yobi/map_render.cpp:317 | 待分析 | — |
+| `Sub_442BD0` | src/world/WorldActorDrawing.cpp:355 | 已重命名：`MarkWorldActorAsPartyLeader_442BD0` | 置共享头顶图标位0x100及显式队长marker44=1；队伍首槽生产调用。 |
+| `Sub_442C00` | src/world/WorldActorDrawing.cpp:116 | 已重命名：`ClearWorldActorLeaderMarker_442C00` | 清显式队长标记，动作显示模式不是2时同时清0x100图标位；与队伍首槽设置路径对应。 |
+| `Sub_442C40` | src/world/WorldActorDrawing.cpp:330 | 已重命名：`MarkWorldActorAsPartyMember_442C40` | 置flags42位0x200；队伍记录生产调用，动作更新据此采用共享速度并绘制血条。 |
+| `Sub_442C70` | src/world/WorldActorDrawing.cpp:342 | 已重命名：`ClearWorldActorPartyMembership_442C70` | 全局观察门禁为0且动作存在时清队伍成员位0x200，保留先查门禁顺序。 |
+| `Sub_442CA0` | src/world/WorldActorDrawing.cpp:130 | 已分析，保留原名 | 动作42参数非负时置flags42位0x4000并保存value10C，442F70选择图标0x1AF43；缺图标资源含义或带业务标签的命令发送者，保留，不猜交易／战斗。 |
+| `Sub_442CD0` | src/world/WorldActorDrawing.cpp:142 | 已分析，保留原名 | 动作42参数负值时清0x4000并返回标志地址；配对442CA0只证图标0x1AF43，实际状态含义未证。 |
+| `Sub_442D00` | src/world/WorldActorDrawing.cpp:154 | 已分析，保留原名 | 动作44参数非负时置flags42位0x8000并保存value10C，442F70选择图标0x1AF42；缺图标含义及业务标签，保留。 |
+| `Sub_442D30` | src/world/WorldActorDrawing.cpp:166 | 已分析，保留原名 | 动作44参数负值时清0x8000；与442D00配对，当前仅证特定图标关闭，不能确定业务状态。 |
+| `Sub_442D60` | src/world/WorldActorDrawing.cpp:178 | 已分析，保留原名 | 动作40参数非负时置flags42位0x400并存value10C，绘制0x1AF41且暂停原角色动作；缺图标及状态业务定义，保留。 |
+| `Sub_442D90` | src/world/WorldActorDrawing.cpp:190 | 已分析，保留原名 | 动作40参数负值时以0xEBFF清0x400和0x1000两位；当前绘制证据仅解释0x400对应0x1AF41，额外清位及状态业务未完全明确。 |
+| `Sub_442DC0` | src/world/WorldActorDrawing.cpp:71 | 已重命名：`SetWorldActorChatBubble_442DC0` | 设置世界对象聊天位与到期时刻，在特殊地图模式朝向玩家，释放旧文本后生成双行聊天内容。 |
+| `Sub_442F70` | src/Yobi/map_render.cpp:317 | 已重命名：`DrawMapActorOverlaysAndAttachments_442F70` | 依玩家或对象状态维护头顶标记、限时聊天文本、名称和状态图标，再绘制装备／附属宠物及血条，保清位与读槽顺序。 |
 | `Sub_444000` | src/Yobi/map_render.cpp:148 | 待分析 | — |
 | `Sub_4441A0` | src/Yobi/map_render.cpp:65 | 待分析 | — |
 | `Sub_444260` | src/Yobi/map_render.cpp:100 | 待分析 | — |
-| `Sub_444410` | src/world/WorldActor.cpp:38 | 待分析 | — |
-| `Sub_444FA0` | src/world/WorldObjectState.cpp:52 | 待分析 | — |
+| `Sub_444410` | src/world/WorldActor.cpp:38 | 已重命名：`ApplyWorldActorActionCommand_444410` | 按角色动作命令分发移动、原地动作、状态图标、队伍标记、附件、骑乘及变身，保所有指令与参数发布顺序。 |
+| `Sub_444FA0` | src/world/WorldObjectState.cpp:52 | 已重命名：`FindWorldObjectSlot_444FA0` | 从缓存游标到高水位、再从0到游标分两段查占用对象编号，命中更新游标并返回槽。 |
 | `Sub_445030` | src/world/WorldActor.cpp:509 | 待分析 | — |
 | `Sub_4450D0` | src/world/WorldActor.cpp:538 | 待分析 | — |
 | `Sub_445160` | src/world/WorldActor.cpp:565 | 待分析 | — |
 | `Sub_4451F0` | src/world/WorldActor.cpp:592 | 待分析 | — |
 | `Sub_4452A0` | src/world/WorldActor.cpp:622 | 待分析 | — |
 | `Sub_445350` | src/world/WorldActor.cpp:363 | 待分析 | — |
-| `Sub_445A60` | src/world/WorldObjectState.cpp:224 | 待分析 | — |
-| `Sub_445D20` | src/world/WorldActorDrawing.cpp:368 | 待分析 | — |
-| `Sub_445F40` | src/world/WorldActorDrawing.cpp:429 | 待分析 | — |
-| `Sub_446130` | src/world/WorldObjectState.cpp:75 | 待分析 | — |
-| `Sub_4461E0` | src/world/WorldObjectState.cpp:107 | 待分析 | — |
-| `Sub_446210` | src/world/WorldObjectState.cpp:122 | 待分析 | — |
-| `Sub_4462E0` | src/world/WorldObjectState.cpp:284 | 待分析 | — |
-| `Sub_446470` | src/world/WorldObjectState.cpp:142 | 待分析 | — |
-| `Sub_4464D0` | src/world/WorldObjectState.cpp:161 | 待分析 | — |
-| `Sub_446610` | src/world/WorldObjectState.cpp:34 | 待分析 | — |
+| `Sub_445A60` | src/world/WorldObjectState.cpp:224 | 已重命名：`RegisterWorldObjectWithoutAction_445A60` | 拒绝重复编号、取得空槽后记录图号、坐标、朝向、姓名称号及分类标志，动作保持空。 |
+| `Sub_445D20` | src/world/WorldActorDrawing.cpp:368 | 已重命名：`UpsertGroundItemObject_445D20` | 地面物品回复的图号／标签分支调用，查或建category2对象与动作，更新坐标、标签和附加值，置绘制0x400。 |
+| `Sub_445F40` | src/world/WorldActorDrawing.cpp:429 | 已重命名：`UpsertGroundGoldObject_445F40` | 对象回复按金额选金币图号并生成金币标签后调用，查或建category4记录，更新数量、坐标及0x800绘制标志。 |
+| `Sub_446130` | src/world/WorldObjectState.cpp:75 | 已重命名：`ReserveWorldObjectSlot_446130` | 1000容量内增加占用计数及高水位，推进空槽游标并返回旧槽；本函数不写记录活动位。 |
+| `Sub_4461E0` | src/world/WorldObjectState.cpp:107 | 已重命名：`MapWorldObjectTypeToDrawFlags_4461E0` | 类型1/32映射角色绘制位0x100、3映射0x200，其余0x1000，供对象和Yobi动作绘制标志。 |
+| `Sub_446210` | src/world/WorldObjectState.cpp:122 | 已重命名：`MapWorldObjectTypeToCategory_446210` | 将网络对象类型映射对象分类位：1至8，6/13/27至0x11，32至0x21，71至0x101，其余1。 |
+| `Sub_4462E0` | src/world/WorldObjectState.cpp:284 | 已重命名：`RemoveWorldObject_4462E0` | 本人编号转玩家动作清理，其他编号查槽清附件和主动作，更新数量／空槽游标／高水位，全空保留旧上界。 |
+| `Sub_446470` | src/world/WorldObjectState.cpp:142 | 已重命名：`ResetWorldObjectTable_446470` | 清全表指定字段、姓名首字节及计数游标，不释放原动作。 |
+| `Sub_4464D0` | src/world/WorldObjectState.cpp:161 | 已重命名：`ClearWorldObjectsAndActions_4464D0` | 仅清占用槽，先清附件再标死主动作，清标志与计数游标；保留姓名及空槽字段。 |
+| `Sub_446610` | src/world/WorldObjectState.cpp:34 | 已重命名：`DetachWorldObjectActions_446610` | 遍历占用世界对象槽，只清动作指针和待转方向，不标死或释放；调用方先清Yobi动作。 |
 | `Sub_446640` | src/world/WorldActor.cpp:315 | 待分析 | — |
 | `Sub_4467D0` | src/world/WorldActor.cpp:947 | 待分析 | — |
-| `Sub_4468F0` | src/world/WorldObjectState.cpp:45 | 待分析 | — |
-| `Sub_446900` | src/world/WorldObjectState.cpp:192 | 待分析 | — |
+| `Sub_4468F0` | src/world/WorldObjectState.cpp:45 | 已重命名：`ResetMapActorDrawKeys_4468F0` | 将地图角色图号与坐标去重表数量归零。 |
+| `Sub_446900` | src/world/WorldObjectState.cpp:192 | 已重命名：`RegisterMapActorDrawKey_446900` | 按图形索引与地图坐标检测本帧重复，重复返回1，否则100容量内追加并返回0。 |
 | `Sub_446970` | src/Yobi/map_transition.cpp:86 | 待分析 | — |
 | `Sub_446990` | src/Yobi/map_transition.cpp:95 | 待分析 | — |
 | `Sub_4469C0` | src/Yobi/map_transition.cpp:220 | 待分析 | — |
@@ -147,8 +147,8 @@
 | `Sub_449A00` | src/Yobi/environment.cpp:442 | 待分析 | — |
 | `Sub_449BC0` | src/Yobi/environment.cpp:509 | 待分析 | — |
 | `Sub_449C10` | src/Yobi/environment.cpp:495 | 待分析 | — |
-| `Sub_449C90` | src/world/WorldActorDrawing.cpp:301 | 待分析 | — |
-| `Sub_449CC0` | src/world/WorldActorDrawing.cpp:317 | 待分析 | — |
+| `Sub_449C90` | src/world/WorldActorDrawing.cpp:301 | 已重命名：`EnableWorldActorModeMarker_449C90` | 对象回复显示模式2调用；非队伍成员时置0x100共享图标位并返回采样后标志。 |
+| `Sub_449CC0` | src/world/WorldActorDrawing.cpp:317 | 已重命名：`ClearWorldActorModeMarkerUnlessLeader_449CC0` | 对象显示模式离开2时调用，仅显式队长标记为0时清共享0x100图标位。 |
 | `Sub_449DA0` | src/world/ChatHistory.cpp:117 | 已重命名：`InitializeChatInputAndLog_449DA0` | 清聊天记录、初始化输入上下文和19条占位记录，按日期打开冒险者聊天日志并写会话时间。 |
 | `Sub_449FA0` | src/world/ChatHistory.cpp:216 | 已重命名：`SaveChatInputHistoryEntry_449FA0` | 以索引乘0x121定位chathis.dat单条记录，写记录及文件尾最后索引，按写入结果返回。 |
 | `Sub_44A090` | src/world/ChatHistory.cpp:92 | 已重命名：`LoadChatInputHistory_44A090` | 重置历史游标并读取chathis.dat整块历史，文件缺失则创建并将游标设63；保留短读结果。 |
@@ -359,7 +359,7 @@
 | `Sub_50AC20` | src/world/SceneState.cpp:9782 | 待分析 | — |
 | `Sub_50AEF0` | src/world/WorldActor.cpp:911 | 待分析 | — |
 | `Sub_50B0D0` | src/world/SceneState.cpp:9823 | 待分析 | — |
-| `Sub_50B380` | src/world/SceneState.cpp:8441 | 待分析 | — |
+| `Sub_50B380` | src/world/SceneState.cpp:8441 | 已重命名：`HandleMapObjectListReply_50B380` | 逐制表符记录按字段存在性识别角色、地面物品或金币，更新对应对象与动作及队伍引用，金币按金额选图号和标签。 |
 | `Sub_50BCD0` | src/world/SceneState.cpp:8632 | 待分析 | — |
 | `Sub_50BF20` | src/world/SceneState.cpp:9434 | 待分析 | — |
 | `Sub_50BFA0` | src/world/SceneState.cpp:8732 | 待分析 | — |
@@ -562,7 +562,7 @@
 | `Sub_51A640` | src/world/WorldActor.cpp:879 | 待分析 | — |
 | `Sub_51A660` | src/world/WorldActor.cpp:889 | 待分析 | — |
 | `Sub_51A680` | src/world/WorldActor.cpp:899 | 待分析 | — |
-| `Sub_51A6A0` | src/world/WorldActorDrawing.cpp:95 | 待分析 | — |
+| `Sub_51A6A0` | src/world/WorldActorDrawing.cpp:95 | 已重命名：`SetPlayerChatBubble_51A6A0` | 取得玩家动作并置聊天位、更新截止时刻，释放旧文本后按玩家名生成聊天气泡。 |
 | `Sub_51A840` | src/world/SceneState.cpp:6261 | 待分析 | — |
 | `Sub_51B080` | src/world/SceneState.cpp:5459 | 待分析 | — |
 | `Sub_51B0F0` | src/world/SceneState.cpp:5451 | 待分析 | — |

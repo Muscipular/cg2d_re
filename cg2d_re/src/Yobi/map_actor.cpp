@@ -700,7 +700,7 @@ static void Sub_4417E0(YobiAction* const action)
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {
-                world::Sub_4462E0(world::detail::gWorldObjects[
+                world::RemoveWorldObject_4462E0(world::detail::gWorldObjects[
                     static_cast<std::size_t>(index)].objectIndex);
                 return;
             }
@@ -708,7 +708,7 @@ static void Sub_4417E0(YobiAction* const action)
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t firstGraphicIndex = action->graphicIndex;
-        if (world::Sub_446900(firstGraphicIndex, mapX, mapY) == 0) {
+        if (world::RegisterMapActorDrawKey_446900(firstGraphicIndex, mapX, mapY) == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
             const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
             const std::int32_t drawY = offsetY + action->y;
@@ -742,7 +742,7 @@ static void Sub_4417E0(YobiAction* const action)
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), mode, descriptor);
     }
-    Sub_442F70(action, primaryIndex);
+    DrawMapActorOverlaysAndAttachments_442F70(action, primaryIndex);
 }
 
 // 原函数：0x004424B0。

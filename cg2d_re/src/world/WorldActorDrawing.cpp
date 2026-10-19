@@ -68,7 +68,7 @@ static void AllocateActorChatText(
 }
 
 // 原函数：0x00442DC0。
-void Sub_442DC0(
+void SetWorldActorChatBubble_442DC0(
     cg::yobi::YobiAction* const action, const std::int32_t duration,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
@@ -82,7 +82,7 @@ void Sub_442DC0(
     flagBytes[1] |= 0x20u;
     const std::uint64_t tick = platform::ReadTickCount64();
     payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
-    Sub_43D860(action);
+    FaceWorldActorTowardPlayer_43D860(action);
     auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
         delete previousText;
@@ -92,7 +92,7 @@ void Sub_442DC0(
 }
 
 // 原函数：0x0051A6A0。
-void Sub_51A6A0(
+void SetPlayerChatBubble_51A6A0(
     const std::int32_t duration, const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
@@ -113,7 +113,7 @@ void Sub_51A6A0(
 }
 
 // 原函数：0x00442C00。
-void Sub_442C00(cg::yobi::YobiAction* const action)
+void ClearWorldActorLeaderMarker_442C00(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -199,7 +199,7 @@ std::uint16_t* Sub_442D90(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043D970。
-std::uint16_t* Sub_43D970(cg::yobi::YobiAction* const action)
+std::uint16_t* ShowWorldActorPersistentStatusIcon_43D970(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -211,7 +211,7 @@ std::uint16_t* Sub_43D970(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043D9A0。
-std::uint16_t* Sub_43D9A0(cg::yobi::YobiAction* const action)
+std::uint16_t* HideWorldActorPersistentStatusIcon_43D9A0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -223,7 +223,7 @@ std::uint16_t* Sub_43D9A0(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043D9D0。
-void Sub_43D9D0(cg::yobi::YobiAction* const action, std::int32_t value)
+void SetWorldActorStatusIcon_43D9D0(cg::yobi::YobiAction* const action, std::int32_t value)
 {
     if (action == nullptr) {
         return;
@@ -238,7 +238,7 @@ void Sub_43D9D0(cg::yobi::YobiAction* const action, std::int32_t value)
 }
 
 // 原函数：0x0043DA10。
-void Sub_43DA10(cg::yobi::YobiAction* const action)
+void ClearWorldActorStatusIcon_43DA10(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -250,7 +250,7 @@ void Sub_43DA10(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DA40。
-std::uint16_t* Sub_43DA40(cg::yobi::YobiAction* const action)
+std::uint16_t* ShowWorldActorTimedStatusIcon_43DA40(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -262,7 +262,7 @@ std::uint16_t* Sub_43DA40(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DA70。
-std::uint16_t* Sub_43DA70(cg::yobi::YobiAction* const action)
+std::uint16_t* ShowActorPetPersistentStatusIcon_43DA70(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -274,7 +274,7 @@ std::uint16_t* Sub_43DA70(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DAA0。
-std::uint16_t* Sub_43DAA0(cg::yobi::YobiAction* const action)
+std::uint16_t* HideActorPetPersistentStatusIcon_43DAA0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -286,7 +286,7 @@ std::uint16_t* Sub_43DAA0(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DAD0。
-std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* const action)
+std::uint16_t* ShowActorPetTimedStatusIcon_43DAD0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -298,7 +298,7 @@ std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x00449C90。
-std::uint16_t Sub_449C90(cg::yobi::YobiAction* const action)
+std::uint16_t EnableWorldActorModeMarker_449C90(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return 0;
@@ -314,7 +314,7 @@ std::uint16_t Sub_449C90(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x00449CC0。
-void Sub_449CC0(cg::yobi::YobiAction* const action)
+void ClearWorldActorModeMarkerUnlessLeader_449CC0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -327,7 +327,7 @@ void Sub_449CC0(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x00442C40。
-std::uint16_t* Sub_442C40(cg::yobi::YobiAction* const action)
+std::uint16_t* MarkWorldActorAsPartyMember_442C40(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -339,7 +339,7 @@ std::uint16_t* Sub_442C40(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x00442C70。
-void Sub_442C70(cg::yobi::YobiAction* const action)
+void ClearWorldActorPartyMembership_442C70(cg::yobi::YobiAction* const action)
 {
     if (Sub_440B50() != 0) {
         return;
@@ -352,7 +352,7 @@ void Sub_442C70(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x00442BD0。
-void Sub_442BD0(cg::yobi::YobiAction* const action)
+void MarkWorldActorAsPartyLeader_442BD0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -365,15 +365,15 @@ void Sub_442BD0(cg::yobi::YobiAction* const action)
 
 // WOP01：类别2记录更新；两坐标mask/encoded/count先取齐，保创建失败与fresh action序。
 // 原函数：0x00445D20。
-void Sub_445D20(
+void UpsertGroundItemObject_445D20(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const std::int32_t value48,
     const char* const name, const std::int32_t value50)
 {
-    std::int32_t index = Sub_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
     if (index < 0) {
-        index = Sub_446130();
+        index = ReserveWorldObjectSlot_446130();
         if (index < 0) {
             return;
         }
@@ -426,15 +426,15 @@ void Sub_445D20(
 
 // WOP01：类别4记录更新；两坐标encoded/mask/count先取齐，不补类别2专用字段。
 // 原函数：0x00445F40。
-void Sub_445F40(
+void UpsertGroundGoldObject_445F40(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const std::int32_t value4C,
     const std::wstring_view name)
 {
-    std::int32_t index = Sub_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
     if (index < 0) {
-        index = Sub_446130();
+        index = ReserveWorldObjectSlot_446130();
         if (index < 0) {
             return;
         }
@@ -655,7 +655,7 @@ void RenderChara_521F20()
 namespace cg::world {
 
 // 原函数：0x0043D860。
-void Sub_43D860(cg::yobi::YobiAction* const action)
+void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* const action)
 {
     cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
     if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
@@ -689,7 +689,7 @@ void Sub_43D860(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DB00。
-std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
+std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
@@ -701,7 +701,7 @@ std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0043DB30。
-std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* const action)
+std::uint16_t* ResumeWorldActorAfterObservation_43DB30(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;

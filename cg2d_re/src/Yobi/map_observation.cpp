@@ -479,7 +479,7 @@ static void Sub_440440(YobiAction* const action)
             if (currentIndex == world::gPlayerRuntimeSlots.objectIndex) {
                 world::Sub_51BEF0();
             } else {
-                world::Sub_43DB30(source);
+                world::ResumeWorldActorAfterObservation_43DB30(source);
             }
         }
     } else if (initialPhase == 3) {
@@ -1008,7 +1008,7 @@ void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexc
 }
 
 // 原函数：0x00440920。
-std::int32_t Sub_440920(
+std::int32_t HandleMapObservationActionReply_440920(
     const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unusedDirection,
     const std::int32_t characterAction, const char* const row)
@@ -1036,7 +1036,7 @@ std::int32_t Sub_440920(
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
                 world::Sub_51BEE0();
             } else {
-                world::Sub_43DB00(world::FindObjectYobi_4462B0(member));
+                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
             }
         }
         return 1;
@@ -1060,7 +1060,7 @@ std::int32_t Sub_440920(
                 world::Sub_51BEE0();
                 ui::WindowRuntime_ApplyObservationInputGate();
             } else {
-                world::Sub_43DB00(world::FindObjectYobi_4462B0(member));
+                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
             }
         }
         source->imageNo = 0;

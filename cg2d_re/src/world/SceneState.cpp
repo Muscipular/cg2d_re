@@ -3875,7 +3875,7 @@ void DrawNormalScene_51C7D0()
         platform::gValue73ECC0 = 0;
         gValueC82204 = 0;
         Sub_51D6F0();
-        Sub_4468F0();
+        ResetMapActorDrawKeys_4468F0();
         static_cast<void>(Sub_46F680());
         Sub_504A50();
         static_cast<void>(NextRotationValue_455C70());
@@ -3897,7 +3897,7 @@ void DrawNormalScene_51C7D0()
             return;
         }
         static_cast<void>(Sub_519D50());
-        Sub_4464D0();
+        ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(Sub_4681B0());
         Sub_51B0F0();
         gValue62B5B0 = 0;
@@ -4340,7 +4340,7 @@ void DrawBattleScene_43CBB0()
         render::ClearSurfaceTransformCache_44D490();
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         cg::yobi::YobiClearUp_404D30();
-        Sub_446610();
+        DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
         return;
@@ -4366,7 +4366,7 @@ void DrawBattleScene_43CBB0()
         }
         clearBattleEffects();
         cg::yobi::YobiClearUp_404D30();
-        Sub_446610();
+        DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
         static_cast<void>(SetPendingSceneType(7));
@@ -5474,7 +5474,7 @@ cg::yobi::YobiAction* Sub_51B080()
                         cg::yobi::ClearMapActorPathCount(action);
                     }
                 }
-                Sub_442C70(slot.action);
+                ClearWorldActorPartyMembership_442C70(slot.action);
             }
         }
         slot.flags = 0;
@@ -8026,7 +8026,7 @@ std::int32_t Sub_45EBB0()
         cg::login::detail::SaveCurrentClientPreferences_520160();
         gLogoutTransition9A6E94 = 0;
         Sub_519D50();
-        Sub_446470();
+        ResetWorldObjectTable_446470();
         cg::yobi::YobiClearUp_404D30();
         sceneState = gCurrentSceneState;
         ++sceneState;
@@ -8350,7 +8350,7 @@ void Sub_50A3E0(
                 cg::yobi::YobiAction* const action =
                     FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
                 if (action != nullptr) {
-                    detail::Sub_442C70(action);
+                    detail::ClearWorldActorPartyMembership_442C70(action);
                 }
             }
         }
@@ -8421,9 +8421,9 @@ void Sub_50A3E0(
             FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
             slot.action = action;
-            detail::Sub_442C40(action);
+            detail::MarkWorldActorAsPartyMember_442C40(action);
             if (index == 0) {
-                detail::Sub_442BD0(action);
+                detail::MarkWorldActorAsPartyLeader_442BD0(action);
             }
         } else {
             slot.action = nullptr;
@@ -8438,7 +8438,7 @@ void Sub_50A3E0(
 }
 
 // 原函数：0x0050B380。
-void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
+void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -8548,18 +8548,18 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
                 if (object != nullptr) {
                     cg::yobi::UpdateMapActorMode(object, mode, attachmentImage);
                     if (mode == 2) {
-                        detail::Sub_449C90(object);
+                        detail::EnableWorldActorModeMarker_449C90(object);
                     } else {
-                        detail::Sub_449CC0(object);
+                        detail::ClearWorldActorModeMarkerUnlessLeader_449CC0(object);
                     }
                     for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
                         auto& slot = gPetMapCharaSlots[i];
                         if (slot.flags != 0
                             && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
                             slot.action = object;
-                            detail::Sub_442C40(object);
+                            detail::MarkWorldActorAsPartyMember_442C40(object);
                             if (i == 0) {
-                                detail::Sub_442BD0(object);
+                                detail::MarkWorldActorAsPartyLeader_442BD0(object);
                             }
                             break;
                         }
@@ -8586,7 +8586,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             input::UnescapeLegacyTextAndNotify_52D2F0(label);
             const std::int32_t value50 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 7);
-            detail::Sub_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
+            detail::UpsertGroundItemObject_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
             continue;
         }
 
@@ -8623,7 +8623,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             } else {
                 imageNo = 0x6B11;
             }
-            detail::Sub_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
+            detail::UpsertGroundGoldObject_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
         }
     }
 }
@@ -8654,7 +8654,7 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
         const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
         const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
-        if (cg::yobi::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
+        if (cg::yobi::HandleMapObservationActionReply_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
             continue;
         }
         const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
@@ -8670,7 +8670,7 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         }
         cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action != nullptr) {
-            detail::Sub_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
+            detail::ApplyWorldActorActionCommand_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
             continue;
         }
         std::int32_t index = 0;
@@ -9008,11 +9008,11 @@ void Sub_50CAE0(
     }
     if (gPlayerRuntimeSlots.action != nullptr
         && gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        detail::Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
+        detail::SetPlayerChatBubble_51A6A0(1000, snapshot, drawColor, drawFont, length);
     } else {
         cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action != nullptr) {
-            detail::Sub_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
+            detail::SetWorldActorChatBubble_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
         }
     }
 }
@@ -9440,7 +9440,7 @@ void Sub_50BF20(const std::uintptr_t, const char* const payload)
     std::int32_t objectIndex =
         network::ParseDelimitedBase62_52D0D0(payload, ',', field);
     while (objectIndex != -1) {
-        Sub_4462E0(objectIndex);
+        RemoveWorldObject_4462E0(objectIndex);
         for (auto& slot : gPetMapCharaSlots) {
             if (slot.flags != 0
                 && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
@@ -10094,7 +10094,7 @@ void Sub_50D120(
     }
     if (gValueD67E78 != 0) {
         static_cast<void>(detail::Sub_519D50());
-        detail::Sub_4464D0();
+        detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(Sub_4681B0());
         detail::Sub_51B0F0();
         gValue62B5B0 = 0;
@@ -10117,7 +10117,7 @@ void Sub_50D120(
         detail::gValueF7CA04 = 0;
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         cg::yobi::YobiClearUp_404D30();
-        detail::Sub_446610();
+        detail::DetachWorldObjectActions_446610();
 
         cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
@@ -10456,7 +10456,7 @@ std::int32_t __cdecl Sub_5093F0(
         static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
         static_cast<std::uint32_t>(a10), a12);
     static_cast<void>(detail::Sub_468330(a6, a7));
-    detail::Sub_4464D0();
+    detail::ClearWorldObjectsAndActions_4464D0();
 
     const std::uint32_t mask = gValue9FB918.mask;
     const std::uint32_t encoded = gValue9FB918.encoded;

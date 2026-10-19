@@ -103,27 +103,27 @@ cg::yobi::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01�
 // 原函数：0x0050AEF0。
 void Sub_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 // 原函数：0x0050B380。
-void Sub_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
+void HandleMapObjectListReply_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 // 原函数：0x0050BCD0。
 void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
 // 原函数：0x0050BF20。
 void Sub_50BF20(std::uintptr_t unusedSocket, const char* payload); // 删除编号后清首个匹配地图槽引用。
 // 原函数：0x0043DB00。
-std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DB30。
-std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* action); // flags120原W16清80，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* ResumeWorldActorAfterObservation_43DB30(cg::yobi::YobiAction* action); // flags120原W16清80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00446900。
-std::int32_t Sub_446900(
+std::int32_t RegisterMapActorDrawKey_446900(
     std::int32_t graphicIndex, std::int32_t mapX, std::int32_t mapY);
 // WOP01：只生产无action记录；已存在/领取失败返0，原字段/文本生产完成返1。
 // 原函数：0x00445A60。
-std::int32_t Sub_445A60(
+std::int32_t RegisterWorldObjectWithoutAction_445A60(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,
     const char* titles, std::int32_t level, std::uint16_t value40,
     std::int32_t flag1, std::int32_t flag2, std::int32_t type);
 // 原函数：0x004462E0。
-void Sub_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
+void RemoveWorldObject_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
 void Sub_4467D0(std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
 // 原函数：0x00519EE0。
@@ -135,19 +135,19 @@ void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 // 原函数：0x0046B4B0。
 void Sub_46B4B0(std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 // 原函数：0x00444FA0。
-std::int32_t Sub_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
+std::int32_t FindWorldObjectSlot_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
 // 原函数：0x00449C90。
-std::uint16_t Sub_449C90(cg::yobi::YobiAction* action); // 同一次W16 flags42取样/条件置100并返低W16结果；NULL返0。
+std::uint16_t EnableWorldActorModeMarker_449C90(cg::yobi::YobiAction* action); // 同一次W16 flags42取样/条件置100并返低W16结果；NULL返0。
 // 原函数：0x00449CC0。
-void Sub_449CC0(cg::yobi::YobiAction* action); // marker44为0才清flags42的100。
+void ClearWorldActorModeMarkerUnlessLeader_449CC0(cg::yobi::YobiAction* action); // marker44为0才清flags42的100。
 // 原函数：0x00442C40。
-std::uint16_t* Sub_442C40(cg::yobi::YobiAction* action); // flags42高BYTE置2，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* MarkWorldActorAsPartyMember_442C40(cg::yobi::YobiAction* action); // flags42高BYTE置2，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00442C70。
-void Sub_442C70(cg::yobi::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
+void ClearWorldActorPartyMembership_442C70(cg::yobi::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
 // 原函数：0x00442BD0。
-void Sub_442BD0(cg::yobi::YobiAction* action); // flags42置100，再marker44=1。
+void MarkWorldActorAsPartyLeader_442BD0(cg::yobi::YobiAction* action); // flags42置100，再marker44=1。
 // 原函数：0x00442C00。
-void Sub_442C00(cg::yobi::YobiAction* action); // 清marker44，非模式2才清flags42的100。
+void ClearWorldActorLeaderMarker_442C00(cg::yobi::YobiAction* action); // 清marker44，非模式2才清flags42的100。
 // 原函数：0x00442CA0。
 void Sub_442CA0(cg::yobi::YobiAction* action, std::int32_t value); // 置4000，再写value10C。
 // 原函数：0x00442CD0。
@@ -161,36 +161,36 @@ void Sub_442D60(cg::yobi::YobiAction* action, std::int32_t value); // 置0400，
 // 原函数：0x00442D90。
 std::uint16_t* Sub_442D90(cg::yobi::YobiAction* action); // flags42原W16 AND EBFF，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D970。
-std::uint16_t* Sub_43D970(cg::yobi::YobiAction* action); // flags120低BYTE置1，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* ShowWorldActorPersistentStatusIcon_43D970(cg::yobi::YobiAction* action); // flags120低BYTE置1，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D9A0。
-std::uint16_t* Sub_43D9A0(cg::yobi::YobiAction* action); // flags120原W16清1，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* HideWorldActorPersistentStatusIcon_43D9A0(cg::yobi::YobiAction* action); // flags120原W16清1，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D9D0。
-void Sub_43D9D0(cg::yobi::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
+void SetWorldActorStatusIcon_43D9D0(cg::yobi::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
 // 原函数：0x0043DA10。
-void Sub_43DA10(cg::yobi::YobiAction* action); // flags120清2，再清value124。
+void ClearWorldActorStatusIcon_43DA10(cg::yobi::YobiAction* action); // flags120清2，再清value124。
 // 原函数：0x0043DA40。
-std::uint16_t* Sub_43DA40(cg::yobi::YobiAction* action); // flags120低BYTE置24，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* ShowWorldActorTimedStatusIcon_43DA40(cg::yobi::YobiAction* action); // flags120低BYTE置24，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DA70。
-std::uint16_t* Sub_43DA70(cg::yobi::YobiAction* action); // flags120低BYTE置8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* ShowActorPetPersistentStatusIcon_43DA70(cg::yobi::YobiAction* action); // flags120低BYTE置8，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DAA0。
-std::uint16_t* Sub_43DAA0(cg::yobi::YobiAction* action); // flags120原W16清8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* HideActorPetPersistentStatusIcon_43DAA0(cg::yobi::YobiAction* action); // flags120原W16清8，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DAD0。
-std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* action); // flags120低BYTE置50，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* ShowActorPetTimedStatusIcon_43DAD0(cg::yobi::YobiAction* action); // flags120低BYTE置50，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00444410。
-void Sub_444410(
+void ApplyWorldActorActionCommand_444410(
     cg::yobi::YobiAction* action, std::int32_t x, std::int32_t y,
     std::int32_t direction, std::int32_t characterAction, std::int32_t option1,
     std::int32_t option2, std::int32_t option3, std::int32_t option4);
 // 原函数：0x00446130。
-std::int32_t Sub_446130(); // WOL01：空槽领取返回旧游标，只推进计数/游标，保持记录。
+std::int32_t ReserveWorldObjectSlot_446130(); // WOL01：空槽领取返回旧游标，只推进计数/游标，保持记录。
 // 原函数：0x004461E0。
-std::uint32_t Sub_4461E0(std::int32_t type); // WOL01：类型转flags114，返回完整W32。
+std::uint32_t MapWorldObjectTypeToDrawFlags_4461E0(std::int32_t type); // WOL01：类型转flags114，返回完整W32。
 // 原函数：0x00446210。
-std::uint32_t Sub_446210(std::int32_t type); // WOL01：71索引/五目标完整W32返回，父写category才截低W16。
+std::uint32_t MapWorldObjectTypeToCategory_446210(std::int32_t type); // WOL01：71索引/五目标完整W32返回，父写category才截低W16。
 // 原函数：0x005183B0。
 std::int32_t Sub_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
 // 原函数：0x004468F0。
-void Sub_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
+void ResetMapActorDrawKeys_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
 // 原445350完整实体生产/更新；仅新建方向门禁、两坐标取样与四文本槽两阶段复用沿MOP01 SPEC。
 void Sub_445350(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
@@ -200,13 +200,13 @@ void Sub_445350(
     std::int32_t type);
 // WOP01：类别2生产或更新；已有记录不补建action，保领取/创建失败及两坐标取样序。
 // 原函数：0x00445D20。
-void Sub_445D20(
+void UpsertGroundItemObject_445D20(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value48,
     const char* name, std::int32_t value50);
 // WOP01：类别4生产或更新；原两坐标先取齐再发布，保原名字门槛和flags尾。
 // 原函数：0x00445F40。
-void Sub_445F40(
+void UpsertGroundGoldObject_445F40(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value4C,
     std::wstring_view name);
@@ -231,9 +231,9 @@ std::int32_t Sub_4452A0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t excluded42, std::uint16_t excluded120);
 // 原函数：0x00446470。
-void Sub_446470(); // WLR01：只清引用/原字段的整表重置，无释放或标死。
+void ResetWorldObjectTable_446470(); // WLR01：只清引用/原字段的整表重置，无释放或标死。
 // 原函数：0x00446610。
-void Sub_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
+void DetachWorldObjectActions_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
 // 原函数：0x0046A5F0。
 void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 // 原函数：0x0046A190。
@@ -248,7 +248,7 @@ cg::yobi::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
 // 原函数：0x0051A680。
 std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 // 原函数：0x004464D0。
-void __cdecl Sub_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
+void __cdecl ClearWorldObjectsAndActions_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
 // 原函数：0x00446640。
 void Sub_446640(); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
 

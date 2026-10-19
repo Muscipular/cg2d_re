@@ -1059,7 +1059,7 @@ static void WindowDialog_RouteReply(
     }
     WindowDialog_Route(type, value, request, target, text);
     cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
-    world::Sub_43D860(action);
+    world::FaceWorldActorTowardPlayer_43D860(action);
 }
 
 // 原函数：0x0049DF30。

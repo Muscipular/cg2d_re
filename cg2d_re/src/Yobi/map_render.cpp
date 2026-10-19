@@ -314,7 +314,7 @@ void DrawGear_441570(
 }
 
 // 原函数：0x00442F70。
-void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
+void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 {
     if (action == nullptr) {
         return;

@@ -35,7 +35,7 @@ std::int32_t Sub_5183B0(const std::int32_t imageNo)
 }
 
 // 原函数：0x00444410。
-void Sub_444410(
+void ApplyWorldActorActionCommand_444410(
     cg::yobi::YobiAction* const action, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction, const std::int32_t characterAction,
     const std::int32_t option1, const std::int32_t option2,
@@ -127,9 +127,9 @@ void Sub_444410(
         return;
     case 41:
         if (option1 == 1) {
-            Sub_442BD0(action);
+            MarkWorldActorAsPartyLeader_442BD0(action);
         } else {
-            Sub_442C00(action);
+            ClearWorldActorLeaderMarker_442C00(action);
         }
         action->direction = direction;
         return;
@@ -153,34 +153,34 @@ void Sub_444410(
         return;
     case 45:
         if (option1 == 1) {
-            Sub_43D970(action);
+            ShowWorldActorPersistentStatusIcon_43D970(action);
         } else {
-            Sub_43D9A0(action);
+            HideWorldActorPersistentStatusIcon_43D9A0(action);
         }
         action->direction = direction;
         return;
     case 46:
         if (option1 != 0) {
-            Sub_43D9D0(action, option1);
+            SetWorldActorStatusIcon_43D9D0(action, option1);
         } else {
-            Sub_43DA10(action);
+            ClearWorldActorStatusIcon_43DA10(action);
         }
         action->direction = direction;
         return;
     case 47:
-        Sub_43DA40(action);
+        ShowWorldActorTimedStatusIcon_43DA40(action);
         action->direction = direction;
         return;
     case 48:
         if (option1 == 1) {
-            Sub_43DA70(action);
+            ShowActorPetPersistentStatusIcon_43DA70(action);
         } else {
-            Sub_43DAA0(action);
+            HideActorPetPersistentStatusIcon_43DAA0(action);
         }
         action->direction = direction;
         return;
     case 49:
-        Sub_43DAD0(action);
+        ShowActorPetTimedStatusIcon_43DAD0(action);
         action->direction = direction;
         return;
     case 51:
@@ -254,11 +254,11 @@ void Sub_444410(
         return;
     }
     case 63:
-        Sub_43D9D0(action, option1);
+        SetWorldActorStatusIcon_43D9D0(action, option1);
         action->direction = direction;
         return;
     case 64:
-        Sub_43DA10(action);
+        ClearWorldActorStatusIcon_43DA10(action);
         action->direction = direction;
         return;
     case 70:
@@ -369,10 +369,10 @@ void Sub_445350(
     const std::int32_t flag1, const std::int32_t flag2,
     const std::int32_t type)
 {
-    std::int32_t index = Sub_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
     std::int32_t selectedDirection = direction;
     if (index < 0) {
-        index = Sub_446130();
+        index = ReserveWorldObjectSlot_446130();
         if (index < 0) {
             return;
         }
@@ -388,7 +388,7 @@ void Sub_445350(
         }
         record.used = 2;
         record.action->payload.mapActor->index = index;
-        record.category = static_cast<std::uint16_t>(Sub_446210(type));
+        record.category = static_cast<std::uint16_t>(MapWorldObjectTypeToCategory_446210(type));
         record.objectIndex = objectIndex;
         record.value34 = -1;
     }
@@ -441,7 +441,7 @@ void Sub_445350(
         }
         record.textB8[0] = '\0';
     }
-    const std::uint32_t flags = Sub_4461E0(type);
+    const std::uint32_t flags = MapWorldObjectTypeToDrawFlags_4461E0(type);
     record.flags114 = flags;
     const auto levelBits = static_cast<std::uint32_t>(level);
     if ((flags & 0x1000u) != 0
@@ -949,7 +949,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
     if (objectIndex < 0) {
         return;
     }
-    const std::int32_t index = detail::Sub_444FA0(objectIndex);
+    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);
     if (index < 0) {
         return;
     }

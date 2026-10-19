@@ -112,7 +112,7 @@ void Update()
         detail::Sub_46A9E0();
         detail::Sub_467F30();
         detail::Sub_5199A0();
-        detail::Sub_446470();
+        detail::ResetWorldObjectTable_446470();
         detail::Sub_4D3170();
         detail::Sub_455BD0();
         detail::Sub_46E2A0();
@@ -157,7 +157,7 @@ void Update()
         const std::int32_t sceneState = gCurrentSceneState;
         if (sceneState == 0) {
             detail::Sub_519D50();
-            detail::Sub_446470();
+            detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
             cg::yobi::Sub_43F220();
@@ -179,7 +179,7 @@ void Update()
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
         detail::Sub_519D50();
-        detail::Sub_446470();
+        detail::ResetWorldObjectTable_446470();
         cg::network::ShutdownNetworkRuntime_5081A0();
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;

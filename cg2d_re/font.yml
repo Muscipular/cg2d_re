@@ -9,7 +9,7 @@
 # Missing or failed IDs fall back to 0. ID 6 had no original font handle.
 fonts:
   - id: 0
-    family: "SimSun"
+    family: "宋体"
     width: 9
     height: 17
     full_width: 17
@@ -19,7 +19,7 @@ fonts:
     style: normal
     weight: 700
   - id: 1
-    family: "SimSun"
+    family: "宋体"
     width: 8
     height: 15
     full_width: 15
@@ -29,7 +29,7 @@ fonts:
     style: normal
     weight: 700
   - id: 2
-    family: "SimSun"
+    family: "宋体"
     width: 11
     height: 21
     full_width: 21
@@ -39,7 +39,7 @@ fonts:
     style: normal
     weight: 700
   - id: 3
-    family: "SimSun"
+    family: "宋体"
     width: 9
     height: 17
     full_width: 17
@@ -49,7 +49,7 @@ fonts:
     style: normal
     weight: 700
   - id: 4
-    family: "SimSun"
+    family: "宋体"
     width: 8
     height: 15
     full_width: 15
@@ -59,7 +59,7 @@ fonts:
     style: normal
     weight: 700
   - id: 5
-    family: "SimSun"
+    family: "宋体"
     width: 11
     height: 21
     full_width: 21
@@ -69,7 +69,7 @@ fonts:
     style: normal
     weight: 700
   - id: 7
-    family: "SimSun"
+    family: "宋体"
     width: 25
     height: 49
     full_width: 49
@@ -79,7 +79,7 @@ fonts:
     style: normal
     weight: 700
   - id: 8
-    family: "SimSun"
+    family: "宋体"
     width: 5
     height: 11
     full_width: 10
@@ -89,7 +89,7 @@ fonts:
     style: normal
     weight: 400
   - id: 9
-    family: "SimSun"
+    family: "宋体"
     width: 6
     height: 12
     full_width: 12
@@ -99,7 +99,7 @@ fonts:
     style: normal
     weight: 400
   - id: 10
-    family: "SimSun"
+    family: "宋体"
     width: 8
     height: 16
     full_width: 16
@@ -109,7 +109,7 @@ fonts:
     style: normal
     weight: 400
   - id: 11
-    family: "SimSun"
+    family: "宋体"
     width: 10
     height: 20
     full_width: 20
@@ -119,7 +119,7 @@ fonts:
     style: normal
     weight: 400
   - id: 12
-    family: "SimSun"
+    family: "宋体"
     width: 6
     height: 12
     full_width: 12
@@ -129,7 +129,7 @@ fonts:
     style: normal
     weight: 400
   - id: 13
-    family: "SimSun"
+    family: "宋体"
     width: 7
     height: 13
     full_width: 13

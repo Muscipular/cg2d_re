@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：75／636。已重命名：70。保留／未决：5。待分析：561。
+已分析：103／636。已重命名：98。保留／未决：5。待分析：533。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -389,7 +389,7 @@
 | `Sub_50D8C0` | src/world/MailState.cpp:334 | 待分析 | — |
 | `Sub_50D9E0` | src/world/MailState.cpp:362 | 待分析 | — |
 | `Sub_50DC70` | src/world/MailState.cpp:628 | 待分析 | — |
-| `Sub_50DD80` | src/network/NetworkRuntime.cpp:693 | 待分析 | — |
+| `Sub_50DD80` | src/network/NetworkRuntime.cpp:693 | 已重命名：`HandleMapActorTransitionReply_50DD80` | lDuJ回复按版本转图号，按withRecord解析12字段并创建世界记录，再由mode选择448040过渡动作；保先生产记录后验mode。 |
 | `Sub_50E1A0` | src/world/SceneState.cpp:8805 | 待分析 | — |
 | `Sub_50E210` | src/world/SceneState.cpp:8839 | 待分析 | — |
 | `Sub_50E310` | src/network/NetworkRuntime.cpp:645 | 已重命名：`HandleMapBgmChangeReply_50E310` | 门禁为0且值200—249时写FF0D5C并置FF0D58；地图场景消费后SelectBgmTarget并清标志。 |
@@ -418,38 +418,38 @@
 | `Sub_510150` | src/world/SceneState.cpp:9620 | 待分析 | — |
 | `Sub_510460` | src/network/NetworkRuntime.cpp:875 | 已重命名：`HandleInventorySlotSwapReply_510460` | kiG四字段过门禁后调用51B630，交换玩家28槽或宠物6槽物品。 |
 | `Sub_510490` | src/network/NetworkRuntime.cpp:887 | 已重命名：`HandleItemDetailReply_510490` | TgX回复解两文本/一个标量/24属性至F7C950；物品提示窗按属性表及能减少使用文字展示。 |
-| `Sub_510570` | src/network/NetworkRuntime.cpp:1761 | 待分析 | — |
-| `Sub_510630` | src/network/NetworkRuntime.cpp:1973 | 待分析 | — |
-| `Sub_510710` | src/network/NetworkRuntime.cpp:2030 | 待分析 | — |
+| `Sub_510570` | src/network/NetworkRuntime.cpp:1761 | 已重命名：`SendPlayerMovementPath_510570` | zA发送两坐标/文本/序值；50C8D0调用方传gMoveDirectionText9E03D0和玩家坐标，WorldActor移动链同用。 |
+| `Sub_510630` | src/network/NetworkRuntime.cpp:1973 | 已重命名：`SendMapTransitionRequest_510630` | pg五整数，由46ADA0/46AEA0传探测类型、请求序号、玩家XY和地图值，随后更新地图请求状态。 |
+| `Sub_510710` | src/network/NetworkRuntime.cpp:2030 | 已重命名：`RequestMapRectangle_510710` | UUN六整数，46AF30及地图校验失败路径传地图ID/楼层/起止XY，申请矩形区域。 |
 | `Sub_510810` | src/network/NetworkRuntime.cpp:2173 | 已重命名：`SendPlayerCoordinates_510810` | KeOX发两整数；46AC90读取当前玩家X/Y调用。只命名已证坐标发送，不推断服务端动作。 |
-| `Sub_510880` | src/network/NetworkRuntime.cpp:2343 | 待分析 | — |
+| `Sub_510880` | src/network/NetworkRuntime.cpp:2343 | 已重命名：`SendDuelRequest_510880` | ik两整数，对战交互通过前方对象门禁后发送当前玩家XY，源码地址注释明确对战。 |
 | `Sub_5108F0` | src/network/NetworkRuntime.cpp:4010 | 待分析 | — |
-| `Sub_510940` | src/network/NetworkRuntime.cpp:2373 | 待分析 | — |
+| `Sub_510940` | src/network/NetworkRuntime.cpp:2373 | 已重命名：`SendSpectateRequest_510940` | IMv两整数，世界观战入口发送玩家XY，保命令大小写。 |
 | `Sub_510A00` | src/network/NetworkRuntime.cpp:3813 | 待分析 | — |
 | `Sub_510AC0` | src/network/NetworkRuntime.cpp:2096 | 已重命名：`SendItemUseRequest_510AC0` | iVfo按x/y/item/target四整数发送；物品属性目标确认消费。 |
-| `Sub_510B80` | src/network/NetworkRuntime.cpp:2117 | 待分析 | — |
+| `Sub_510B80` | src/network/NetworkRuntime.cpp:2117 | 已重命名：`SendPositionDirectionInteraction_510B80` | fIM三整数为玩家XY及目标方向；世界目标探测成功后500毫秒节流发送，保原时间种子/RNG消费。名称不猜NPC类型。 |
 | `Sub_510CE0` | src/network/NetworkRuntime.cpp:3773 | 待分析 | — |
 | `Sub_510DA0` | src/network/NetworkRuntime.cpp:3925 | 待分析 | — |
 | `Sub_510E30` | src/network/NetworkRuntime.cpp:3608 | 待分析 | — |
 | `Sub_510EC0` | src/network/NetworkRuntime.cpp:3958 | 待分析 | — |
 | `Sub_510F50` | src/network/NetworkRuntime.cpp:3991 | 待分析 | — |
-| `Sub_510FA0` | src/network/NetworkRuntime.cpp:2484 | 待分析 | — |
-| `Sub_511030` | src/network/NetworkRuntime.cpp:2203 | 待分析 | — |
-| `Sub_5110B0` | src/network/NetworkRuntime.cpp:2549 | 待分析 | — |
-| `Sub_511190` | src/network/NetworkRuntime.cpp:2236 | 待分析 | — |
-| `Sub_5111E0` | src/network/NetworkRuntime.cpp:2403 | 待分析 | — |
-| `Sub_511250` | src/network/NetworkRuntime.cpp:2252 | 待分析 | — |
-| `Sub_5112C0` | src/network/NetworkRuntime.cpp:2274 | 待分析 | — |
-| `Sub_511350` | src/network/NetworkRuntime.cpp:2313 | 待分析 | — |
-| `Sub_5113C0` | src/network/NetworkRuntime.cpp:2433 | 待分析 | — |
-| `Sub_511430` | src/network/NetworkRuntime.cpp:2463 | 待分析 | — |
-| `Sub_511480` | src/network/NetworkRuntime.cpp:2510 | 待分析 | — |
-| `Sub_511510` | src/network/NetworkRuntime.cpp:2585 | 待分析 | — |
-| `Sub_5115F0` | src/network/NetworkRuntime.cpp:2642 | 待分析 | — |
-| `Sub_511640` | src/network/NetworkRuntime.cpp:2663 | 待分析 | — |
-| `Sub_511760` | src/network/NetworkRuntime.cpp:2738 | 待分析 | — |
-| `Sub_5117D0` | src/network/NetworkRuntime.cpp:2768 | 待分析 | — |
-| `Sub_511840` | src/network/NetworkRuntime.cpp:2798 | 待分析 | — |
+| `Sub_510FA0` | src/network/NetworkRuntime.cpp:2484 | 已重命名：`SendContactMail_510FA0` | CV目标索引/正文/标志，普通联系人单发和群发调用，发送后写普通邮件历史。 |
+| `Sub_511030` | src/network/NetworkRuntime.cpp:2203 | 已重命名：`RequestAlbumEntries_511030` | kza先数量再索引列表；相册位图/版本比较生成index+1列表并调用。 |
+| `Sub_5110B0` | src/network/NetworkRuntime.cpp:2549 | 已重命名：`SendContactPetMail_5110B0` | rMsv目标/宠物/物品/正文/标志，WindowPetMailCompose普通联系人分支。 |
+| `Sub_511190` | src/network/NetworkRuntime.cpp:2236 | 已重命名：`RequestContactDeletion_511190` | FPkR一整数，WindowMail_DeleteContact传联系人索引并清本地邮件。 |
+| `Sub_5111E0` | src/network/NetworkRuntime.cpp:2403 | 已重命名：`SendContactCardRequest_5111E0` | vcAz两整数，名片交互入口传玩家XY，保原协议字段。 |
+| `Sub_511250` | src/network/NetworkRuntime.cpp:2252 | 已重命名：`SendGuildTextUpdate_511250` | Ufm类型+文字，公会名称提交type2、描述提交type3，均已校验/转义。 |
+| `Sub_5112C0` | src/network/NetworkRuntime.cpp:2274 | 已重命名：`SendGuildRankDefinition_5112C0` | GY职级索引、权限位及文字，WindowGuildDetails_SubmitRanks逐项发送变化。 |
+| `Sub_511350` | src/network/NetworkRuntime.cpp:2313 | 已重命名：`SendGuildMemberRankChange_511350` | uHb成员key及rank+1，WindowGuildRank确认称号按钮调用。 |
+| `Sub_5113C0` | src/network/NetworkRuntime.cpp:2433 | 已重命名：`SendGuildInvitation_5113C0` | npzi两整数，前方对象/公会邀请权限核对后发玩家XY，提示明确邀请对方加入家族。 |
+| `Sub_511430` | src/network/NetworkRuntime.cpp:2463 | 已重命名：`RequestGuildMemberDeletion_511430` | dbQC成员key，WindowMail_DeleteGuildMember使用选中公会记录的value0C。 |
+| `Sub_511480` | src/network/NetworkRuntime.cpp:2510 | 已重命名：`SendGuildMail_511480` | uId目标/正文/标志；公会成员key或group+400H群发，发送后写公会邮件历史。 |
+| `Sub_511510` | src/network/NetworkRuntime.cpp:2585 | 已重命名：`SendGuildPetMail_511510` | PfqV同五字段，宠物邮件窗口category1使用公会成员key。 |
+| `Sub_5115F0` | src/network/NetworkRuntime.cpp:2642 | 已重命名：`RequestProfileCategoryUpdates_5115F0` | HoW一整数，50F3A0对比两分类版本后生成位1/2变化mask并发送。 |
+| `Sub_511640` | src/network/NetworkRuntime.cpp:2663 | 已重命名：`SendPlayerProfile_511640` | Ot三组公开标志/文字及末描述；MailState从当前/保存的ProfileRuntimeRecord读取并转义发送。 |
+| `Sub_511760` | src/network/NetworkRuntime.cpp:2738 | 已重命名：`RequestPlayerProfile_511760` | TLKH类别/目标，联系人普通、公会、迷你邮件分别0/1/2，地图对象3；消费来源均为查看对象资料交互。 |
+| `Sub_5117D0` | src/network/NetworkRuntime.cpp:2768 | 已重命名：`RequestMiniMailContactDeletion_5117D0` | wD key及名字，WindowMail_DeleteMiniMailContact转义目标名后发送并删除本地记录。 |
+| `Sub_511840` | src/network/NetworkRuntime.cpp:2798 | 已重命名：`SendMiniMail_511840` | GH正文及标志，迷你邮件发送方组key/名字/正文并转义后调用，写迷你邮件历史。 |
 | `Sub_5118B0` | src/network/NetworkRuntime.cpp:2828 | 待分析 | — |
 | `Sub_511900` | src/network/NetworkRuntime.cpp:2850 | 待分析 | — |
 | `Sub_511A00` | src/network/NetworkRuntime.cpp:2916 | 待分析 | — |
@@ -485,8 +485,8 @@
 | `Sub_512620` | src/network/NetworkRuntime.cpp:3706 | 待分析 | — |
 | `Sub_512720` | src/network/NetworkRuntime.cpp:4026 | 待分析 | — |
 | `Sub_5127B0` | src/network/NetworkRuntime.cpp:3428 | 待分析 | — |
-| `Sub_512800` | src/network/NetworkRuntime.cpp:1867 | 待分析 | — |
-| `Sub_5128C0` | src/network/NetworkRuntime.cpp:1918 | 待分析 | — |
+| `Sub_512800` | src/network/NetworkRuntime.cpp:1867 | 已重命名：`SendAccountLoginRequest_512800` | JFVf依次发已有摘要字符串、口令、账号、适配器；连接阶段71调用；本任务不计算任何摘要。 |
+| `Sub_5128C0` | src/network/NetworkRuntime.cpp:1918 | 已重命名：`SendCharacterCreationRequest_5128C0` | aSEl一整数一文本后11整数；CharacterCreationRequest传选中槽、姓名、图形/动作、五属性及四元素。 |
 | `Sub_512AB0` | src/network/NetworkRuntime.cpp:1848 | 已重命名：`SendCharacterDeletionRequest_512AB0` | Godf发送注册号；CharacterDeletionRequest调用。 |
 | `Sub_512B00` | src/network/NetworkRuntime.cpp:1809 | 已重命名：`SendCharacterLoginRequest_512B00` | emRV发送注册号/预览状态/图号；StartLoginRequest从选中CharacterRecord取值。 |
 | `Sub_512B90` | src/network/NetworkRuntime.cpp:1562 | 已重命名：`SendCharacterListRequest_512B90` | Gp空参数命令，CharacterListRequest清两槽后发送。 |
@@ -500,8 +500,8 @@
 | `Sub_516C90` | src/network/NetworkRuntime.cpp:3853 | 待分析 | — |
 | `Sub_517040` | src/network/NetworkRuntime.cpp:1115 | 已重命名：`ReadProtocolCommandHeader_517040` | 取协议参数首字符串，空值按空串，容量内复制到head；输出辅助W32置0。 |
 | `Sub_5171B0` | src/network/NetworkRuntime.cpp:1491 | 已重命名：`DecodeOptionalProtocolText_5171B0` | 非空调协议文本反转义，空值写空串并返回共用token缓冲。 |
-| `Sub_5176B0` | src/network/NetworkRuntime.cpp:470 | 待分析 | — |
-| `Sub_517730` | src/network/NetworkRuntime.cpp:514 | 待分析 | — |
+| `Sub_5176B0` | src/network/NetworkRuntime.cpp:470 | 已重命名：`DecodeProtocolBase62_5176B0` | 逐字乘62，0—9/a—z/A—Z映射0—61，支持负号；非法字节返回0。 |
+| `Sub_517730` | src/network/NetworkRuntime.cpp:514 | 已重命名：`EncodeProtocolBase62_517730` | 同字符表按除62余数逆序输出，保负号、单字符忽略容量及容量不足不补NUL的既有行为。 |
 | `Sub_517880` | src/Yobi/animation.cpp:283 | 待分析 | — |
 | `Sub_5182B0` | src/Yobi/animation.cpp:263 | 待分析 | — |
 | `Sub_518300` | src/Yobi/animation.cpp:125 | 待分析 | — |

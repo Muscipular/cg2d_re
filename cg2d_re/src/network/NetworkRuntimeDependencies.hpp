@@ -45,7 +45,7 @@ std::int32_t HandleDuelPointResultReply_50D700(std::uintptr_t socket, const char
 
 // LDT01／原50DD80：双门禁后按模式创建专用动作；带记录时先解析并调用445A60。
 // 外层图号/关联编号与payload中的记录图号/对象编号保持独立。
-void Sub_50DD80(
+void HandleMapActorTransitionReply_50DD80(
     std::uintptr_t unusedSocket, std::int32_t objectIndex,
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int32_t withRecord,
@@ -84,11 +84,11 @@ std::int32_t NetworkDispatch_512E40(
 
 // 原 sub_5176B0@0x5176B0 已在 NetworkRuntime.cpp 还原；
 // 此处只保留 detail 边界的唯一声明。
-std::int32_t Sub_5176B0(const char* text);
+std::int32_t DecodeProtocolBase62_5176B0(const char* text);
 
 // 原 sub_517730@0x517730 已在 NetworkRuntime.cpp 还原；
 // 此处只保留 detail 边界的唯一声明。
-std::uint8_t* Sub_517730(
+std::uint8_t* EncodeProtocolBase62_517730(
     std::int32_t value,
     std::uint8_t* destination,
     std::int32_t capacity);

@@ -133,7 +133,7 @@ std::int32_t SendCharacterLoginRequest_512B00(
 std::int32_t SendCharacterDeletionRequest_512AB0(std::uintptr_t socket, std::int32_t registNumber);
 
 // 原 sub_5128C0@[0x5128C0,0x512AAC)：依序追加十二项整数与第二项文本，发送 aSEl。
-std::int32_t Sub_5128C0(
+std::int32_t SendCharacterCreationRequest_5128C0(
     std::uintptr_t socket,
     std::int32_t field1,
     std::wstring_view field2,
@@ -150,7 +150,7 @@ std::int32_t Sub_5128C0(
     std::int32_t field13);
 
 // 原 sub_510630@[0x510630,0x510704)：五整数依序追加并发送 pg。
-std::int32_t Sub_510630(
+std::int32_t SendMapTransitionRequest_510630(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -159,7 +159,7 @@ std::int32_t Sub_510630(
     std::int32_t fifth);
 
 // 原 sub_510570@[0x510570,0x510621)：两整数、文本、末整数依序追加并发送 zA。
-std::int32_t Sub_510570(
+std::int32_t SendPlayerMovementPath_510570(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -167,7 +167,7 @@ std::int32_t Sub_510570(
     std::int32_t fourth);
 
 // 原 sub_510710@[0x510710,0x510807)：六整数依序追加并发送 UUN。
-std::int32_t Sub_510710(
+std::int32_t RequestMapRectangle_510710(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -183,7 +183,7 @@ std::int32_t SendItemUseRequest_510AC0(
 
 // NFI01：fIM三整数/普通空格，原time/RNG消费与发送返回保持；原17替换不接现明文格式。
 // 原函数：0x00510B80。
-std::int32_t Sub_510B80(
+std::int32_t SendPositionDirectionInteraction_510B80(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);
 
 // 原 sub_510810@[0x510810,0x51087B)：两整数依序追加并发送 KeOX。
@@ -194,17 +194,17 @@ std::int32_t SendPlayerCoordinates_510810(
 
 // 原快捷交互请求：两整数独立采容量/格式化/追加，透传真实发送返回。
 // 原函数：0x00510880。
-std::int32_t Sub_510880(
+std::int32_t SendDuelRequest_510880(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // ik
 // 原函数：0x00510940。
-std::int32_t Sub_510940(
+std::int32_t SendSpectateRequest_510940(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // IMv
 // 原函数：0x005111E0。
-std::int32_t Sub_5111E0(
+std::int32_t SendContactCardRequest_5111E0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // vcAz
 
 // NLD01／原512800：摘要、口令、账号、适配器四文本原序发送JFVf，末发送S32透传。
-std::int32_t Sub_512800(
+std::int32_t SendAccountLoginRequest_512800(
     std::uintptr_t socket,
     std::wstring_view executableDigest,
     std::wstring_view password,
@@ -212,55 +212,55 @@ std::int32_t Sub_512800(
     std::wstring_view adapterId);
 
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。
-std::int32_t Sub_511030(
+std::int32_t RequestAlbumEntries_511030(
     std::uintptr_t socket, const std::int32_t* values,
     std::int32_t count);
 
 // 原511190：FPkR联系人删除请求，整数保持S32，返回实际发送结果。
-std::int32_t Sub_511190(std::uintptr_t socket, std::int32_t value);
+std::int32_t RequestContactDeletion_511190(std::uintptr_t socket, std::int32_t value);
 
 // 原511250：Ufm公会文本变更，容量/输出各自重取，返回真实发送结果。
-std::int32_t Sub_511250(
+std::int32_t SendGuildTextUpdate_511250(
     std::uintptr_t socket, std::int32_t kind, std::wstring_view text);
 
 // 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
-std::int32_t Sub_5112C0(
+std::int32_t SendGuildRankDefinition_5112C0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::wstring_view text);
 
 // 原 sub_511350@[0x511350,0x5113BB)：追加两个 W32 整数并发送 uHb。
-std::int32_t Sub_511350(
+std::int32_t SendGuildMemberRankChange_511350(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_5113C0@[0x5113C0,0x51142B)：追加两个 W32 整数并发送 npzi。
-std::int32_t Sub_5113C0(
+std::int32_t SendGuildInvitation_5113C0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_511430@[0x511430,0x511478)：追加一个 W32 整数并发送 dbQC。
-std::int32_t Sub_511430(std::uintptr_t socket, std::int32_t value);
+std::int32_t RequestGuildMemberDeletion_511430(std::uintptr_t socket, std::int32_t value);
 
 // 原510FA0：CV按整数/文本/整数分段采容量并发送，不共用uId命令头。
-std::int32_t Sub_510FA0(
+std::int32_t SendContactMail_510FA0(
     std::uintptr_t socket, std::int32_t first, std::wstring_view text, std::int32_t third);
 // 原 sub_511480@[0x511480,0x51150E)：依次追加整数、原字节文本和整数并发送 uId。
-std::int32_t Sub_511480(
+std::int32_t SendGuildMail_511480(
     std::uintptr_t socket,
     std::int32_t first,
     std::wstring_view text,
     std::int32_t third);
 
 // 原5110B0：普通宠物邮件rMsv，三整数/文本/末整数各自采容量并发送。
-std::int32_t Sub_5110B0(
+std::int32_t SendContactPetMail_5110B0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second,
     std::int32_t third, std::wstring_view text, std::int32_t fifth);
 // 原 sub_511510@[0x511510,0x5115E4)：三整数、原字节文本、末整数发送 PfqV。
-std::int32_t Sub_511510(
+std::int32_t SendGuildPetMail_511510(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -269,10 +269,10 @@ std::int32_t Sub_511510(
     std::int32_t fifth);
 
 // 原 sub_5115F0@[0x5115F0,0x511638)：追加 W32 整数并发送 HoW。
-std::int32_t Sub_5115F0(std::uintptr_t socket, std::int32_t value);
+std::int32_t RequestProfileCategoryUpdates_5115F0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511640@[0x511640,0x51175A)：七项整数/文本按原序发送 Ot。
-std::int32_t Sub_511640(
+std::int32_t SendPlayerProfile_511640(
     std::uintptr_t socket,
     std::int32_t field1,
     std::wstring_view text2,
@@ -283,19 +283,19 @@ std::int32_t Sub_511640(
     std::wstring_view text7);
 
 // 原 sub_511760@[0x511760,0x5117CB)：构造 TLKH、追加两个整数并发送。
-std::int32_t Sub_511760(
+std::int32_t RequestPlayerProfile_511760(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_5117D0@[0x5117D0,0x51183B)：构造 wD、追加整数与原字节文本并发送。
-std::int32_t Sub_5117D0(
+std::int32_t RequestMiniMailContactDeletion_5117D0(
     std::uintptr_t socket,
     std::int32_t value,
     std::wstring_view text);
 
 // 原 sub_511840@[0x511840,0x5118AB)：构造 GH、追加原字节文本与整数并发送。
-std::int32_t Sub_511840(
+std::int32_t SendMiniMail_511840(
     std::uintptr_t socket,
     std::wstring_view text,
     std::int32_t value);

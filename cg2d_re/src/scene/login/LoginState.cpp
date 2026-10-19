@@ -205,7 +205,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             std::strcpy(passwordCopy, gPassword);
             std::strcpy(adapterId, adapterScratch);
             std::strcpy(gPassword, passwordCopy);
-            const std::int32_t queued = network::Sub_512800(
+            const std::int32_t queued = network::SendAccountLoginRequest_512800(
                 platform::gConnectionSocket,
                 cg::text::FromGbkWide(gExecutableDigest),
                 cg::text::FromGbkWide(passwordCopy),

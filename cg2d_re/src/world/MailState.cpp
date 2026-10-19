@@ -953,7 +953,7 @@ std::int32_t Sub_533C80(const std::int32_t mode)
         const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
         const std::uintptr_t socket = platform::gConnectionSocket;
-        return network::Sub_511640(
+        return network::SendPlayerProfile_511640(
             socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
             third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data()));
     }
@@ -962,7 +962,7 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     const std::int32_t second = gCurrentProfile10738E8.entries410[1].value00;
     const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_511640(
+    static_cast<void>(network::SendPlayerProfile_511640(
         socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
         third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data())));
 
@@ -1046,7 +1046,7 @@ std::int32_t Sub_50F3A0(const std::uintptr_t socket, const char* const payload)
         mask |= 2;
     }
     if (mask != 0) {
-        return network::Sub_5115F0(socket, mask);
+        return network::RequestProfileCategoryUpdates_5115F0(socket, mask);
     }
     return previous;
 }

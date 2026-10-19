@@ -467,7 +467,7 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
 }
 
 // 原函数：0x005176B0。
-std::int32_t Sub_5176B0(const char* const text)
+std::int32_t DecodeProtocolBase62_5176B0(const char* const text)
 {
     const auto* cursor =
         reinterpret_cast<const unsigned char*>(text);
@@ -511,7 +511,7 @@ std::int32_t Sub_5176B0(const char* const text)
 }
 
 // 原函数：0x00517730。
-std::uint8_t* Sub_517730(
+std::uint8_t* EncodeProtocolBase62_517730(
     const std::int32_t value,
     std::uint8_t* const destination,
     const std::int32_t capacity)
@@ -690,7 +690,7 @@ std::int32_t HandleDuelPointResultReply_50D700(
 
 // LDT01：外层图号先转换；有记录先生产12字段再检查mode，无记录先检查mode。
 // 原函数：0x0050DD80。
-void Sub_50DD80(
+void HandleMapActorTransitionReply_50DD80(
     const std::uintptr_t, const std::int32_t objectIndex,
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
@@ -1131,7 +1131,7 @@ void ReadProtocolCommandHeader_517040(
 std::uint8_t* FormatProtocolInteger_517670(const std::int32_t value)
 {
     static_cast<void>(
-        detail::Sub_517730(value, gNetworkRuntimeState.integerFormatScratch, 64));
+        detail::EncodeProtocolBase62_517730(value, gNetworkRuntimeState.integerFormatScratch, 64));
     return gNetworkRuntimeState.integerFormatScratch;
 }
 
@@ -1222,7 +1222,7 @@ std::int32_t ParseProtocolInteger_517190(const char* const text)
     if (text == nullptr) {
         return 0;
     }
-    return detail::Sub_5176B0(text);
+    return detail::DecodeProtocolBase62_5176B0(text);
 }
 
 // 原 [0x52CEA0,0x52CECB)：分隔符仅在低位字节上匹配。
@@ -1758,7 +1758,7 @@ std::int32_t SendCraftDuration_512DA0(
 }
 
 // 原 [0x510570,0x510621)：四项各自采容量、格式化后重读共享输出缓冲。
-std::int32_t Sub_510570(
+std::int32_t SendPlayerMovementPath_510570(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -1864,7 +1864,7 @@ std::int32_t SendCharacterDeletionRequest_512AB0(
 }
 
 // NLD01／原512800：摘要、口令、账号、适配器四轮独立采容量，转义后重读输出缓冲。
-std::int32_t Sub_512800(
+std::int32_t SendAccountLoginRequest_512800(
     const std::uintptr_t socket,
     const std::wstring_view executableDigest,
     const std::wstring_view password,
@@ -1915,7 +1915,7 @@ std::int32_t Sub_512800(
 }
 
 // 原 [0x5128C0,0x512AAC)：每项独立读取容量，格式化后重读输出缓冲。
-std::int32_t Sub_5128C0(
+std::int32_t SendCharacterCreationRequest_5128C0(
     const std::uintptr_t socket,
     const std::int32_t field1,
     const std::wstring_view field2,
@@ -1970,7 +1970,7 @@ std::int32_t Sub_5128C0(
 }
 
 // 原 [0x510630,0x510704)：五轮各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_510630(
+std::int32_t SendMapTransitionRequest_510630(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2027,7 +2027,7 @@ std::int32_t Sub_510630(
 }
 
 // 原 [0x510710,0x510807)：六轮各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_510710(
+std::int32_t RequestMapRectangle_510710(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2114,7 +2114,7 @@ std::int32_t SendItemUseRequest_510AC0(
 
 // NFI01：fIM三Base62整数按现明文普通空格发送；保原time/seed/rand与共享缓冲时序。
 // 原函数：0x00510B80。
-std::int32_t Sub_510B80(
+std::int32_t SendPositionDirectionInteraction_510B80(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t direction)
 {
@@ -2200,7 +2200,7 @@ std::int32_t SendPlayerCoordinates_510810(
 }
 
 // 原 [0x511030,0x5110AE)：先追加数量，再逐项读取 W32 并分别采容量。
-std::int32_t Sub_511030(
+std::int32_t RequestAlbumEntries_511030(
     const std::uintptr_t socket,
     const std::int32_t* values,
     const std::int32_t count)
@@ -2233,7 +2233,7 @@ std::int32_t Sub_511030(
 }
 
 // 原 [0x511190,0x5111D8)：FPkR单整数发送；容量先采，输出缓冲独立重取。
-std::int32_t Sub_511190(
+std::int32_t RequestContactDeletion_511190(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -2249,7 +2249,7 @@ std::int32_t Sub_511190(
 }
 
 // 原函数：0x00511250。
-std::int32_t Sub_511250(
+std::int32_t SendGuildTextUpdate_511250(
     const std::uintptr_t socket, const std::int32_t kind, const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2271,7 +2271,7 @@ std::int32_t Sub_511250(
 }
 
 // 原 [0x5112C0,0x51134E)：两整数、文本各自采容量并重读输出缓冲。
-std::int32_t Sub_5112C0(
+std::int32_t SendGuildRankDefinition_5112C0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2310,7 +2310,7 @@ std::int32_t Sub_5112C0(
 }
 
 // 原 [0x511350,0x5113BB)：两整数分别采容量并在格式化后重读输出缓冲。
-std::int32_t Sub_511350(
+std::int32_t SendGuildMemberRankChange_511350(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2340,7 +2340,7 @@ std::int32_t Sub_511350(
 }
 
 // 原 [0x510880,0x5108EB)：对战请求，发送坐标不是目标格坐标。
-std::int32_t Sub_510880(
+std::int32_t SendDuelRequest_510880(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2370,7 +2370,7 @@ std::int32_t Sub_510880(
 }
 
 // 原 [0x510940,0x5109AB)：观战命令原字节为大小写敏感的IMv。
-std::int32_t Sub_510940(
+std::int32_t SendSpectateRequest_510940(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2400,7 +2400,7 @@ std::int32_t Sub_510940(
 }
 
 // 原 [0x5111E0,0x51124B)：名片请求，两字段分别采容量并重读共享缓冲。
-std::int32_t Sub_5111E0(
+std::int32_t SendContactCardRequest_5111E0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2430,7 +2430,7 @@ std::int32_t Sub_5111E0(
 }
 
 // 原 [0x5113C0,0x51142B)：两整数各自采容量并在格式化后重读输出缓冲。
-std::int32_t Sub_5113C0(
+std::int32_t SendGuildInvitation_5113C0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2460,7 +2460,7 @@ std::int32_t Sub_5113C0(
 }
 
 // 原 [0x511430,0x511478)：单次采容量、格式化后重读输出缓冲发送。
-std::int32_t Sub_511430(
+std::int32_t RequestGuildMemberDeletion_511430(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -2481,7 +2481,7 @@ std::int32_t Sub_511430(
 }
 
 // 原[510FA0,51102E)：三次采容量与格式化后的输出地址重取独立。
-std::int32_t Sub_510FA0(
+std::int32_t SendContactMail_510FA0(
     const std::uintptr_t socket, const std::int32_t first,
     const std::wstring_view text, const std::int32_t third)
 {
@@ -2507,7 +2507,7 @@ std::int32_t Sub_510FA0(
 }
 
 // 原 [0x511480,0x51150E)：整数、文本、整数分别采容量并重读输出缓冲。
-std::int32_t Sub_511480(
+std::int32_t SendGuildMail_511480(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::wstring_view text,
@@ -2546,7 +2546,7 @@ std::int32_t Sub_511480(
 }
 
 // 原[5110B0,511184)：五字段各自采容量，格式化后重取输出地址。
-std::int32_t Sub_5110B0(
+std::int32_t SendContactPetMail_5110B0(
     const std::uintptr_t socket, const std::int32_t first, const std::int32_t second,
     const std::int32_t third, const std::wstring_view text, const std::int32_t fifth)
 {
@@ -2582,7 +2582,7 @@ std::int32_t Sub_5110B0(
 }
 
 // 原 [0x511510,0x5115E4)：三整数、文本、末整数分别采容量并重读输出缓冲。
-std::int32_t Sub_511510(
+std::int32_t SendGuildPetMail_511510(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2639,7 +2639,7 @@ std::int32_t Sub_511510(
 }
 
 // 原 [0x5115F0,0x511638)：单次采容量、整数格式化后重读缓冲发送。
-std::int32_t Sub_5115F0(
+std::int32_t RequestProfileCategoryUpdates_5115F0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -2660,7 +2660,7 @@ std::int32_t Sub_5115F0(
 }
 
 // 原 [0x511640,0x51175A)：七项依次采容量、格式化并重读输出缓冲。
-std::int32_t Sub_511640(
+std::int32_t SendPlayerProfile_511640(
     const std::uintptr_t socket,
     const std::int32_t field1,
     const std::wstring_view text2,
@@ -2735,7 +2735,7 @@ std::int32_t Sub_511640(
 }
 
 // 原 [0x511760,0x5117CB)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511760(
+std::int32_t RequestPlayerProfile_511760(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -2765,7 +2765,7 @@ std::int32_t Sub_511760(
 }
 
 // 原 [0x5117D0,0x51183B)：整数、文本各自采容量并在格式化后重读输出缓冲。
-std::int32_t Sub_5117D0(
+std::int32_t RequestMiniMailContactDeletion_5117D0(
     const std::uintptr_t socket,
     const std::int32_t value,
     const std::wstring_view text)
@@ -2795,7 +2795,7 @@ std::int32_t Sub_5117D0(
 }
 
 // 原 [0x511840,0x5118AB)：文本、整数各自采容量并在格式化后重读输出缓冲。
-std::int32_t Sub_511840(
+std::int32_t SendMiniMail_511840(
     const std::uintptr_t socket,
     const std::wstring_view text,
     const std::int32_t value)
@@ -4211,7 +4211,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::Sub_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket, 0x30000U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket, 0x4U)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo", socket)) return 0;
-    if (TryDispatchReply<Sub_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket, 0x100U)) return 0;
+    if (TryDispatchReply<HandleMapActorTransitionReply_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket, 0x100U)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D740, T>(head, "gnxd", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D9E0, I, T>(head, "vI", socket, 0x4U)) return 0;

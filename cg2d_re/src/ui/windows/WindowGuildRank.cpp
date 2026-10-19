@@ -179,7 +179,7 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
         const std::int32_t rank = gLoginWindowRuntime.mailRankCF4A14;
         const std::int32_t key = gLoginWindowRuntime.mailMemberKeyD45F88;
         const std::uintptr_t socket = platform::gConnectionSocket;
-        static_cast<void>(network::Sub_511350(socket, key, rank + 1));
+        static_cast<void>(network::SendGuildMemberRankChange_511350(socket, key, rank + 1));
         WindowInstance* const window = gCurrentWindow;
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));

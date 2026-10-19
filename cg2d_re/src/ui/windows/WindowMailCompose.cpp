@@ -261,21 +261,21 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                         if (groupMode == 0) {
                             const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_510FA0(socket, contact, packet, 0));
+                            static_cast<void>(network::SendContactMail_510FA0(socket, contact, packet, 0));
                             WindowMail_FormatTimestamp(timestamp);
                             world::detail::Sub_5191C0(contact, 1, timestamp, storedText.data());
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
                             const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
-                            static_cast<void>(network::Sub_511480(socket, key, packet, 0));
+                            static_cast<void>(network::SendGuildMail_511480(socket, key, packet, 0));
                             WindowMail_FormatTimestamp(timestamp);
                             static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                                 key, 1, timestamp, storedText.data()));
                         } else {
                             const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_511480(socket, group + 0x400, packet, 0));
+                            static_cast<void>(network::SendGuildMail_511480(socket, group + 0x400, packet, 0));
                             for (std::int32_t member = 0; member < 200; ++member) {
                                 const std::int32_t memberGroup = cg::world::gOrderedRecords1051B14[member].value00;
                                 const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
@@ -310,7 +310,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 const std::wstring escapedText = input::EscapeText(input::ContextText(cg::ui::detail::gInputContextD66CA8), 1024);
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
-                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
+                static_cast<void>(network::SendMiniMail_511840(platform::gConnectionSocket, packet, 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 world::detail::Sub_5343C0(currentContact, 1, timestamp, storedText.data());
@@ -331,9 +331,9 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 packet = input::EscapeTextAndNotify(combined, 1024);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511480(socket, target, packet, 0));
+                    static_cast<void>(network::SendGuildMail_511480(socket, target, packet, 0));
                 } else {
-                    static_cast<void>(network::Sub_510FA0(socket, target, packet, 0));
+                    static_cast<void>(network::SendContactMail_510FA0(socket, target, packet, 0));
                 }
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {

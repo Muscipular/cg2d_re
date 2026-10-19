@@ -301,9 +301,9 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511510(socket, target, pet, item, packet, 0));
+                    static_cast<void>(network::SendGuildPetMail_511510(socket, target, pet, item, packet, 0));
                 } else {
-                    static_cast<void>(network::Sub_5110B0(socket, target, pet, item, packet, 0));
+                    static_cast<void>(network::SendContactPetMail_5110B0(socket, target, pet, item, packet, 0));
                 }
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {

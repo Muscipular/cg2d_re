@@ -768,7 +768,7 @@ void Sub_518A40(const std::int32_t version, const char* const payload)
         }
     }
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_511030(
+    static_cast<void>(network::RequestAlbumEntries_511030(
         socket, requests.empty() ? nullptr : requests.data(),
         static_cast<std::int32_t>(requests.size())));
     const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -2745,7 +2745,7 @@ std::uint32_t Sub_46AF30()
         const std::int32_t floor = gMapFloor;
         const std::int32_t mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
         const std::uintptr_t socket = platform::gConnectionSocket;
-        static_cast<void>(network::Sub_510710(
+        static_cast<void>(network::RequestMapRectangle_510710(
             socket, mapId, floor, startX, startY, endX, endY));
         ++index;
     }
@@ -3395,7 +3395,7 @@ std::int32_t __cdecl Sub_469290(
         && expectedHit == hitCheck) {
         return 1;
     }
-    static_cast<void>(network::Sub_510710(
+    static_cast<void>(network::RequestMapRectangle_510710(
         platform::gConnectionSocket,
         first, floor, xStart, yStart, xEnd, yEnd));
     return 0;
@@ -4926,7 +4926,7 @@ void* __cdecl Sub_46ADA0()
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gValueC8221C;
-    static_cast<void>(network::Sub_510630(
+    static_cast<void>(network::SendMapTransitionRequest_510630(
         platform::gConnectionSocket,
         detectedCode,
         std::bit_cast<std::int32_t>(sequence),
@@ -5010,7 +5010,7 @@ std::int32_t __cdecl Sub_46AEA0()
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uint32_t sequence = gValueC8221C;
-    static_cast<void>(network::Sub_510630(
+    static_cast<void>(network::SendMapTransitionRequest_510630(
         platform::gConnectionSocket,
         2,
         std::bit_cast<std::int32_t>(sequence),
@@ -5361,7 +5361,7 @@ std::int32_t __cdecl Sub_50C8D0(
     const char* const text)
 {
     const std::int32_t fourth = std::bit_cast<std::int32_t>(gValue9EE8F8);
-    return network::Sub_510570(
+    return network::SendPlayerMovementPath_510570(
         platform::gConnectionSocket, x, y, cg::text::FromGbkWide(text), fourth);
 }
 
@@ -5721,7 +5721,7 @@ std::uint32_t Sub_51B3E0()
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
+    static_cast<void>(network::SendPositionDirectionInteraction_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint64_t sentAt = platform::ReadTickCount64();
     gValueFF0D38 = sentAt;
     return static_cast<std::uint32_t>(sentAt);
@@ -5796,7 +5796,7 @@ std::uint8_t Sub_469C90()
         const std::int32_t secondX = gPlayerMoveTargetX;
         const std::int32_t secondIndex = Sub_445160(secondX, secondY, 8);
         if (secondIndex != -1) {
-            static_cast<void>(network::Sub_511760(
+            static_cast<void>(network::RequestPlayerProfile_511760(
                 platform::gConnectionSocket, 3, secondIndex));
         }
     }
@@ -10871,7 +10871,7 @@ void Sub_470050()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
+        static_cast<void>(network::SendDuelRequest_510880(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10906,7 +10906,7 @@ void Sub_470150()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
+        static_cast<void>(network::SendSpectateRequest_510940(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10976,7 +10976,7 @@ void Sub_4703C0()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
+        static_cast<void>(network::SendContactCardRequest_5111E0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -11048,7 +11048,7 @@ void Sub_470670()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
+        static_cast<void>(network::SendGuildInvitation_5113C0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));

@@ -713,7 +713,7 @@ static std::int32_t WindowGuildDetails_SubmitName()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()), 256);
-    static_cast<void>(network::Sub_511250(
+    static_cast<void>(network::SendGuildTextUpdate_511250(
         platform::gConnectionSocket, 2, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return WindowChat_RestoreInput();
@@ -736,7 +736,7 @@ static std::int32_t WindowGuildDetails_SubmitDescription()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()), 256);
-    static_cast<void>(network::Sub_511250(
+    static_cast<void>(network::SendGuildTextUpdate_511250(
         platform::gConnectionSocket, 3, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return WindowChat_RestoreInput();
@@ -765,7 +765,7 @@ static std::int32_t WindowGuildDetails_SubmitRanks()
             const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(draft), 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
             const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::Sub_5112C0(socket, index, flags, escapedText));
+            static_cast<void>(network::SendGuildRankDefinition_5112C0(socket, index, flags, escapedText));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }

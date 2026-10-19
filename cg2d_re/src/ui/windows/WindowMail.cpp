@@ -216,7 +216,7 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
 std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-    static_cast<void>(network::Sub_511190(platform::gConnectionSocket, index));
+    static_cast<void>(network::RequestContactDeletion_511190(platform::gConnectionSocket, index));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     static_cast<void>(world::detail::Sub_5192C0(currentIndex));
     static_cast<void>(cg::world::detail::Sub_519300());
@@ -234,7 +234,7 @@ std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t key = cg::world::gOrderedRecords1051B14[index].value0C;
-    static_cast<void>(network::Sub_511430(socket, key));
+    static_cast<void>(network::RequestGuildMemberDeletion_511430(socket, key));
     static_cast<void>(cg::world::detail::Sub_519300());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -249,7 +249,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int
     const std::int32_t key = record.key04;
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(record.name10.data()), 255);
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_5117D0(socket, key, escapedText));
+    static_cast<void>(network::RequestMiniMailContactDeletion_5117D0(socket, key, escapedText));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     world::detail::Sub_534480(currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));

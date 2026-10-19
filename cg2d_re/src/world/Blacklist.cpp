@@ -9,50 +9,22 @@
 
 namespace cg::world::blacklist {
 
-static bool EqualPairedBytes(
-    const volatile std::uint8_t* left,
-    const volatile std::uint8_t* right)
-{
-    for (;;) {
-        const std::uint8_t firstLeft = left[0];
-        const std::uint8_t firstRight = right[0];
-        if (firstLeft != firstRight) {
-            return false;
-        }
-        if (firstLeft == 0) {
-            return true;
-        }
-
-        const std::uint8_t secondLeft = left[1];
-        const std::uint8_t secondRight = right[1];
-        if (secondLeft != secondRight) {
-            return false;
-        }
-        left += 2;
-        right += 2;
-        if (secondLeft == 0) {
-            return true;
-        }
-    }
-}
-
 // 原函数：0x004011A0。
 static std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
-    PathBuffer localPath {};
-    std::sprintf(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    const auto localPath = std::format(L"data\\blacklist_{}.txt", fileId);
 
-    if (std::strcmp(gPath.data(), localPath.data()) != 0) {
+    if (gPath != localPath) {
         return 0;
     }
 
-    std::FILE* const file = std::fopen(gPath.data(), "w");
+    std::FILE* const file = _wfopen(gPath.c_str(), L"w");
     for (const Record& record : gRecords) {
         if (record[0] == 0) {
             break;
         }
 
-        std::fputs(reinterpret_cast<const char*>(record.data()), file);
+        std::fputs(cg::text::ToGbk(record).c_str(), file);
         std::fputs("\n", file);
     }
 
@@ -65,38 +37,32 @@ PathBuffer gPath {}; // 原全局：0x0059364C。
 std::int32_t gCursor = 0; // 原全局：0x0059384C。
 std::int32_t gCurrentFileId = -1; // 原全局：0x005531A0。
 
-static_assert(sizeof(Record) == 17);
-static_assert(sizeof(RecordTable) == 0x6A4);
-static_assert(sizeof(PathBuffer) == 0x200);
 
 // 原函数：0x00401030。
 std::int8_t LoadBlacklistFile(const std::int32_t fileId)
 {
-    std::memset(gPath.data(), 0, sizeof(gPath));
-    std::memset(gRecords.data(), 0, sizeof(gRecords));
-    std::sprintf(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    gPath.clear();
+    gRecords.fill({});
+    gPath = std::format(L"data\\blacklist_{}.txt", fileId);
 
-    std::FILE* const file = std::fopen(gPath.data(), "rb+");
+    std::FILE* const file = _wfopen(gPath.c_str(), L"rb+");
     if (file != nullptr) {
         std::rewind(file);
         if (std::feof(file) == 0) {
             for (;;) {
-                std::fgets(
-                    reinterpret_cast<char*>(
-                        gRecords[static_cast<std::size_t>(gCursor)].data()),
-                    static_cast<int>(kRecordSize),
-                    file);
+                if (gCursor < 0 || gCursor >= static_cast<std::int32_t>(kRecordCount)) { break; }
+                char record[kRecordSize]{};
+                std::fgets(record, static_cast<int>(kRecordSize), file);
 
                 const std::int32_t cursor = gCursor;
-                Record& record = gRecords[static_cast<std::size_t>(cursor)];
                 if (record[0] == 0
                     || record[0] == '\n'
                     || (record[0] == '\r' && record[1] == '\n')) {
                     const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(cursor);
                     gCursor = std::bit_cast<std::int32_t>(cursorBits - std::uint32_t {1});
-                    std::memset(record.data(), 0, sizeof(record));
+                    gRecords[static_cast<std::size_t>(cursor)].clear();
                 } else {
-                    for (std::size_t i = 0; i < kRecordSize; ++i) {
+                    for (std::size_t i = 0; i + 1 < kRecordSize; ++i) {
                         if (record[i] == 0) {
                             break;
                         }
@@ -110,6 +76,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
                         }
                     }
 
+                    gRecords[static_cast<std::size_t>(cursor)] = cg::text::FromGbkWide(record);
                     const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(cursor);
                     gCursor = std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
                     if (gCursor == static_cast<std::int32_t>(kRecordCount)) {
@@ -150,23 +117,9 @@ std::int32_t GetBlacklistCount_401190()
 // 原函数：0x004013D0。
 std::uint8_t ContainsBlacklistRecord_4013D0(const std::wstring_view name)
 {
-    // 公开名称为UTF-16，只在此处编码为原GBK记录。
-    std::string stored;
-    try { stored = cg::text::ToGbk(name); }
-    catch (const std::system_error&) { return 0; }
-    const char* const storedName = stored.c_str();
-    const auto* const inputBytes =
-        reinterpret_cast<const volatile std::uint8_t*>(storedName);
+    if (name.empty()) { return 0; }
     for (const Record& record : gRecords) {
-        if (EqualPairedBytes(
-                inputBytes,
-                reinterpret_cast<const volatile std::uint8_t*>(
-                    ""))) {
-            continue;
-        }
-        if (EqualPairedBytes(record.data(), inputBytes)) {
-            return 1;
-        }
+        if (record == name) { return 1; }
     }
     return 0;
 }
@@ -174,38 +127,13 @@ std::uint8_t ContainsBlacklistRecord_4013D0(const std::wstring_view name)
 // 原函数：0x00401270。
 std::int8_t AddBlacklistRecord_401270(const std::wstring_view name)
 {
-    // 公开名称为UTF-16，只在此处编码为原GBK记录。
-    std::string stored;
-    try { stored = cg::text::ToGbk(name); }
-    catch (const std::system_error&) { return 0; }
-    const char* const storedName = stored.c_str();
-    if (gCursor == static_cast<std::int32_t>(kRecordCount)) {
+    if (gCursor < 0 || gCursor >= static_cast<std::int32_t>(kRecordCount)) {
         return 0;
     }
-
     for (Record& record : gRecords) {
-        if (record[0] != 0) {
-            continue;
-        }
-
-        std::size_t byteCount = 0;
-        do {
-            ++byteCount;
-        } while (storedName[byteCount - 1] != '\0');
-
-        std::uint8_t* const destination = record.data();
-        const std::size_t wordCopyByteCount = byteCount & ~std::size_t {3};
-        for (std::size_t i = 0; i < wordCopyByteCount; ++i) {
-            destination[i] = static_cast<std::uint8_t>(storedName[i]);
-        }
-
-        // 原4012BF在四字节分组复制后取游标，余数字节复制后才发布。
-        const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(gCursor);
-        const std::int32_t nextCursor =
-            std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
-        for (std::size_t i = wordCopyByteCount; i < byteCount; ++i) {
-            destination[i] = static_cast<std::uint8_t>(storedName[i]);
-        }
+        if (!record.empty()) { continue; }
+        const std::int32_t nextCursor = gCursor + 1;
+        record = name;
         gCursor = nextCursor;
         break;
     }
@@ -220,49 +148,20 @@ std::int8_t AddBlacklistRecord_401270(const std::wstring_view name)
 // 原函数：0x004012F0。
 std::int8_t RemoveBlacklistRecord_4012F0(const std::wstring_view name)
 {
-    // 公开名称为UTF-16，只在此处编码为原GBK记录。
-    std::string stored;
-    try { stored = cg::text::ToGbk(name); }
-    catch (const std::system_error&) { return 0; }
-    const char* const storedName = stored.c_str();
-    const auto* const inputBytes =
-        reinterpret_cast<const volatile std::uint8_t*>(storedName);
+    if (gCursor < 0 || gCursor > static_cast<std::int32_t>(kRecordCount)) { return 0; }
     std::size_t i = 0;
     for (; i < kRecordCount; ++i) {
-        if (EqualPairedBytes(gRecords[i].data(), inputBytes)) {
-            break;
-        }
+        if (gRecords[i] == name) { break; }
     }
-
-    if (i >= kRecordCount) {
-        return 0;
-    }
-
+    if (i >= kRecordCount) { return 0; }
     const std::int32_t oldCursor = gCursor;
     while (static_cast<std::int32_t>(i) != oldCursor) {
-        // 原记录表尾的下一槽起点是共享路径起点。
-        const std::uint8_t* const source = i + 1 == kRecordCount
-            ? reinterpret_cast<const std::uint8_t*>(gPath.data())
-            : gRecords[i + 1].data();
-        std::size_t byteCount = 0;
-        do {
-            ++byteCount;
-        } while (source[byteCount - 1] != 0);
-
-        std::uint8_t* const destination = gRecords[i].data();
-        for (std::size_t byteIndex = 0; byteIndex < byteCount; ++byteIndex) {
-            destination[byteIndex] = source[byteIndex];
-        }
-
-        ++i;
-        if (i >= kRecordCount) {
-            return 0;
-        }
+        // 原表尾下一槽借用路径；显式对象赋值，不跨越字符串对象内存。
+        gRecords[i] = i + 1 == kRecordCount ? gPath : gRecords[i + 1];
+        if (++i >= kRecordCount) { return 0; }
     }
-
-    const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(oldCursor);
-    gCursor = std::bit_cast<std::int32_t>(cursorBits - std::uint32_t {1});
-    std::memset(gRecords[i].data(), 0, kRecordSize);
+    gCursor = oldCursor - 1;
+    gRecords[i].clear();
 
     const std::int32_t fileId = gCurrentFileId;
     if (fileId >= 0) {
@@ -277,7 +176,7 @@ std::int8_t ClearBlacklistRecords_401470()
     if (gRecords[0][0] == 0 || gCursor == 0) {
         return 0;
     }
-    std::memset(gRecords.data(), 0, sizeof(gRecords));
+    gRecords.fill({});
     gCursor = 0;
     const std::int32_t fileId = gCurrentFileId;
     if (fileId >= 0) {

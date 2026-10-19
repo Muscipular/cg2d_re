@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <string_view>
 
 namespace cg::world::blacklist {
@@ -11,9 +12,9 @@ inline constexpr std::size_t kRecordCount = 100;
 inline constexpr std::size_t kRecordSize = 17;
 inline constexpr std::size_t kPathSize = 512;
 
-using Record = std::array<std::uint8_t, kRecordSize>;
+using Record = std::wstring;
 using RecordTable = std::array<Record, kRecordCount>;
-using PathBuffer = std::array<char, kPathSize>;
+using PathBuffer = std::wstring;
 
 // 原 0x592FA8，固定 100 条、每条 17 字节的黑名单记录。
 extern RecordTable gRecords;

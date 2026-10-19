@@ -171,9 +171,9 @@ static void WindowBlacklist_Refresh()
         gCurrentWindow->elements[9 + row * 3].visible = 0;
         gCurrentWindow->elements[10 + row * 3].visible = 0;
         gCurrentWindow->elements[11 + row * 3].visible = 0;
-        const char* const recordAddress =
-            reinterpret_cast<const char*>(cg::world::blacklist::gRecords[row].data());
-        const char* text;
+        const wchar_t* const recordAddress =
+            cg::world::blacklist::gRecords[row].c_str();
+        const wchar_t* text;
         WindowTextData* destination;
         // 原门禁比较静态记录地址，不是记录首字节；空记录也绘行号。
         if (recordAddress != nullptr) {
@@ -194,14 +194,14 @@ static void WindowBlacklist_Refresh()
                     x, y, 223, digit + 0x3B6B4, 0, &descriptor));
             }
             const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
-            text = reinterpret_cast<const char*>(cg::world::blacklist::gRecords[currentPage + row].data());
+            text = cg::world::blacklist::gRecords[currentPage + row].c_str();
             destination = static_cast<WindowTextData*>(gCurrentWindow->elements[49 + row].data);
         } else {
             WindowInstance* const window = gCurrentWindow;
-            text = "";
+            text = L"";
             destination = static_cast<WindowTextData*>(window->elements[49 + row].data);
         }
-        destination->text = cg::text::FromGbkWide(text);
+        destination->text = text;
         gCurrentWindow->elements[39 + row].visible = 0;
     }
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextC8B1B8) {
@@ -241,24 +241,23 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     }
     if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
         const std::int32_t recordIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
-        const char* const record = reinterpret_cast<const char*>(cg::world::blacklist::gRecords[recordIndex].data());
-        if (std::strcmp(record, "") != 0) {
+        const wchar_t* const record = cg::world::blacklist::gRecords[recordIndex].c_str();
+        if (record[0] != L'\0') {
             std::wstring message;
-            char name[17] {};
-            std::strcpy(name, record);
-            if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
-                const wchar_t* const format = cg::world::blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(name)) != 0
+            const std::wstring name(record);
+            if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+                const wchar_t* const format = cg::world::blacklist::RemoveBlacklistRecord_4012F0(name) != 0
                     ? L"已从黑名单列表中移除{}" /* 原常量参考：0x0058863C。 */ : L"无法将{}从黑名单列表中移除" /* 原常量参考：0x00588620。 */;
-                cg::text::FormatTo(message, format, cg::text::FromGbkWide(name).c_str());
+                cg::text::FormatTo(message, format, name.c_str());
             } else {
-                cg::text::FormatTo(message, L"{}不在黑名单列表中" /* 原常量参考：0x0058860C。 */, cg::text::FromGbkWide(name).c_str());
+                cg::text::FormatTo(message, L"{}不在黑名单列表中" /* 原常量参考：0x0058860C。 */, name.c_str());
             }
             world::AppendChatMessage_44B050(message, 4, 3);
         }
     }
     const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
-    const char* const currentRecord = reinterpret_cast<const char*>(cg::world::blacklist::gRecords[currentIndex].data());
-    if (std::strlen(currentRecord) != 0) {
+    const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
+    if (currentRecord[0] != L'\0') {
         cg::ui::detail::gInputContextC8B1B8.reset();
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         world::AppendChatMessage_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);

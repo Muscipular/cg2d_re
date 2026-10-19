@@ -65,7 +65,7 @@ std::int32_t ReadNewSavedPhysicalSlot105C368();
 std::int32_t ReadMappedSavedPhysicalSlot105C36C(
     const std::int32_t index);
 
-const char* ReadSelectedSavedDirectory();
+const wchar_t* ReadSelectedSavedDirectory();
 
 // 原函数：0x005336D0。
 std::int32_t LoadSelectedLoginRecord_5336D0();

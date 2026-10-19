@@ -14,6 +14,8 @@
 #include "cg/platform/Startup.hpp"
 
 #include <bit>
+#include <format>
+#include <string>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -27,7 +29,7 @@
 namespace cg::login::detail {
 
 struct SavedPath final {
-    char text[0x100]; // 原成员偏移：+0x00。
+    std::wstring text; // 原成员偏移：+0x00。
 };
 
 struct SavedRecordPart final {
@@ -51,10 +53,6 @@ struct SavedStateStorage final {
     std::int32_t selected; // 原成员偏移：+0x3CFC。
 };
 
-static_assert(std::is_standard_layout_v<SavedPath>);
-static_assert(std::is_trivially_copyable_v<SavedPath>);
-static_assert(sizeof(SavedPath) == 0x100);
-static_assert(offsetof(SavedPath, text) == 0x0);
 
 static_assert(std::is_standard_layout_v<SavedRecordPart>);
 static_assert(std::is_trivially_copyable_v<SavedRecordPart>);
@@ -68,17 +66,6 @@ static_assert(std::is_trivially_copyable_v<SavedPhysicalRecord>);
 static_assert(sizeof(SavedPhysicalRecord) == 0x510);
 static_assert(offsetof(SavedPhysicalRecord, parts) == 0x0);
 
-static_assert(std::is_standard_layout_v<SavedStateStorage>);
-static_assert(std::is_trivially_copyable_v<SavedStateStorage>);
-static_assert(sizeof(SavedStateStorage) == 0x3D00);
-static_assert(offsetof(SavedStateStorage, paths) == 0x0000);
-static_assert(offsetof(SavedStateStorage, records) == 0x0A00);
-static_assert(offsetof(SavedStateStorage, active) == 0x3CA0);
-static_assert(offsetof(SavedStateStorage, mappingCount) == 0x3CC8);
-static_assert(offsetof(SavedStateStorage, visibleCount) == 0x3CCC);
-static_assert(offsetof(SavedStateStorage, newPhysical) == 0x3CD0);
-static_assert(offsetof(SavedStateStorage, logicalToPhysical) == 0x3CD4);
-static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 static SavedStateStorage gSavedState {}; // 原全局：0x01058698。
@@ -240,17 +227,13 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
 {
     cg::platform::gSavedStateLoadErrorCode_FF4E28 = 0;
 
-    char path[0x400];
+    std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t decodedBytes;
-    std::sprintf(
-        path,
-        "%s\\%s",
-        gSavedState.paths[physicalSlot].text,
-        "save.dat");
+    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
 
     std::FILE* const file =
-        std::fopen(path, "rb+");
+        _wfopen(path.c_str(), L"rb+");
     if (file == nullptr) {
         return 0;
     }
@@ -281,7 +264,7 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
 
 // 原 sub_532FC0@[0x532FC0,0x53319A)：写出一份默认保存记录。
 static std::int32_t WriteDefaultSavedFile_532FC0(
-    const char* const fileName)
+    const wchar_t* const fileName)
 {
     SavedPhysicalRecord raw;
     std::memset(&raw, 0, sizeof(raw));
@@ -375,7 +358,7 @@ static std::int32_t WriteDefaultSavedFile_532FC0(
         0xA20);
 
     std::FILE* const file =
-        std::fopen(fileName, "wb+");
+        _wfopen(fileName, L"wb+");
     if (file == nullptr) {
         return 0;
     }
@@ -478,10 +461,7 @@ static std::int32_t ResetSavedState_533360()
     gSavedState.mappingCount = 0;
 
     for (std::int32_t index = 0; index < 10; ++index) {
-        std::sprintf(
-            gSavedState.paths[index].text,
-            "data\\%d",
-            index);
+        gSavedState.paths[index].text = std::format(L"data\\{}", index);
         gSavedState.active[index] = 0;
         gSavedState.logicalToPhysical[index] = -1;
         std::memset(
@@ -495,15 +475,11 @@ static std::int32_t ResetSavedState_533360()
 // 原 sub_5333D0@[0x5333D0,0x533461)：探测当前与旧版保存位置。
 static std::int32_t ProbeSavedStateLocation_5333D0()
 {
-    char path[0x400];
+    std::wstring path;
     for (std::int32_t index = 0; index < 10; ++index) {
-        std::sprintf(
-            path,
-            "%s\\%s",
-            gSavedState.paths[index].text,
-            "save.dat");
+        path = std::format(L"{}\\save.dat", gSavedState.paths[index].text);
         std::FILE* const file =
-            std::fopen(path, "rb+");
+            _wfopen(path.c_str(), L"rb+");
         if (file != nullptr) {
             std::fclose(file);
             return 0;
@@ -511,7 +487,7 @@ static std::int32_t ProbeSavedStateLocation_5333D0()
     }
 
     std::FILE* const legacyFile =
-        std::fopen("data\\save.dat", "rb+");
+        _wfopen(L"data\\save.dat", L"rb+");
     if (legacyFile != nullptr) {
         std::fclose(legacyFile);
         return 1;
@@ -628,7 +604,7 @@ static std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
 static std::int32_t PersistCurrentSavedRecord_520200()
 {
     SavedPhysicalRecord localRecord;
-    char path[0x400];
+    std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
 
@@ -650,14 +626,10 @@ static std::int32_t PersistCurrentSavedRecord_520200()
     const std::int32_t selected = gSavedState.selected;
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[selected];
-    std::sprintf(
-        path,
-        "%s\\%s",
-        gSavedState.paths[physicalSlot].text,
-        "save.dat");
+    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
 
     std::FILE* const file =
-        std::fopen(path, "wb+");
+        _wfopen(path.c_str(), L"wb+");
     std::int32_t result = file != nullptr ? 1 : 0;
     const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
         encoded,
@@ -681,28 +653,16 @@ static std::int32_t DeleteSavedFiles_533860(
     if (gAutoLoginCachedPhysicalSlot == physicalSlot) {
         gAutoLoginCachedPhysicalSlot = -1;
     }
-    char path[0x400];
+    std::wstring path;
 
-    std::sprintf(
-        path,
-        "%s\\%s",
-        gSavedState.paths[physicalSlot].text,
-        "save.dat");
-    (void)::DeleteFileA(path);
+    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
+    (void)::DeleteFileW(path.c_str());
 
-    std::sprintf(
-        path,
-        "%s\\%s",
-        gSavedState.paths[physicalSlot].text,
-        "mail.dat");
-    (void)::DeleteFileA(path);
+    path = std::format(L"{}\\mail.dat", gSavedState.paths[physicalSlot].text);
+    (void)::DeleteFileW(path.c_str());
 
-    std::sprintf(
-        path,
-        "%s\\%s",
-        gSavedState.paths[physicalSlot].text,
-        "guildmail.dat");
-    return static_cast<std::int32_t>(::DeleteFileA(path));
+    path = std::format(L"{}\\guildmail.dat", gSavedState.paths[physicalSlot].text);
+    return static_cast<std::int32_t>(::DeleteFileW(path.c_str()));
 }
 
 // 存档无参调用适配；原4A4210不读取参数，共用窗口侧真实实现。
@@ -827,7 +787,7 @@ std::int32_t InitializeSavedState_533300()
         (void)MigrateLegacySavedFiles_533530();
         (void)RebuildSavedSlotMap_533470();
     } else if (location == 2) {
-        (void)WriteDefaultSavedFile_532FC0("data\\0\\save.dat");
+        (void)WriteDefaultSavedFile_532FC0(L"data\\0\\save.dat");
         (void)RebuildSavedSlotMap_533470();
     }
 
@@ -1050,11 +1010,11 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(
     return gSavedState.logicalToPhysical[index];
 }
 
-const char* ReadSelectedSavedDirectory()
+const wchar_t* ReadSelectedSavedDirectory()
 {
     const std::int32_t selected = gSavedState.selected;
     const std::int32_t physicalSlot = gSavedState.logicalToPhysical[selected];
-    return gSavedState.paths[physicalSlot].text;
+    return gSavedState.paths[physicalSlot].text.c_str();
 }
 
 // 原函数：0x005336D0。
@@ -1241,7 +1201,7 @@ void SaveCredentialRecordsWithoutPasswords_533730()
     SavedPhysicalRecord localRecord;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
-    char path[0x400];
+    std::wstring path;
 
     for (std::int32_t physicalSlot = 0;
          physicalSlot < 10;
@@ -1276,14 +1236,10 @@ void SaveCredentialRecordsWithoutPasswords_533730()
             encoded,
             &encodedBytes,
             0xA20);
-        std::sprintf(
-            path,
-            "%s\\%s",
-            gSavedState.paths[physicalSlot].text,
-            "save.dat");
+        path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
 
         std::FILE* const file =
-            std::fopen(path, "wb+");
+            _wfopen(path.c_str(), L"wb+");
         if (file == nullptr) {
             return;
         }

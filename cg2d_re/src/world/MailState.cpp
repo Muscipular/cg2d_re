@@ -1442,7 +1442,7 @@ std::int32_t SavePlayerProfilesFile_534770()
     std::array<ProfileDiskRecord, 2> disk{};
     for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
     const auto path = std::format(L"{}\\profile.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     std::FILE* const stream = _wfopen(path.c_str(), L"wb+");
     if (stream == nullptr) {
         return 0;
@@ -1458,7 +1458,7 @@ std::int32_t LoadPlayerProfilesFile_5347F0()
     std::array<ProfileDiskRecord, 2> disk{};
     for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
     const auto path = std::format(L"{}\\profile.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     std::FILE* const stream = _wfopen(path.c_str(), L"rb+");
     if (stream == nullptr) {
         return 0;
@@ -1479,7 +1479,7 @@ std::int32_t LoadPlayerProfilesFile_5347F0()
 std::int32_t LoadContactAndGuildMailFiles_518CB0()
 {
     const auto mailPath = std::format(L"{}\\mail.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     std::FILE* stream = _wfopen(mailPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveContactMailFile_519300();
@@ -1497,7 +1497,7 @@ std::int32_t LoadContactAndGuildMailFiles_518CB0()
     }
 
     const auto guildPath = std::format(L"{}\\guildmail.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     stream = _wfopen(guildPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveGuildMailFile_519550();
@@ -1518,7 +1518,7 @@ std::int32_t LoadContactAndGuildMailFiles_518CB0()
 std::int32_t SaveContactMailFile_519300()
 {
     const auto path = std::format(L"{}\\mail.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     std::vector<MailDiskMessage> disk(gMailStorageF7CA08.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
         disk[i] = EncodeMailMessage(gMailStorageF7CA08[i]);
@@ -1535,7 +1535,7 @@ std::int32_t SaveContactMailFile_519300()
 std::int32_t SaveGuildMailFile_519550()
 {
     const auto path = std::format(L"{}\\guildmail.dat",
-        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+        login::detail::ReadSelectedSavedDirectory());
     std::vector<GuildMailDiskEntry> disk(gGuildMailStorageDE0B30.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
         disk[i] = EncodeGuildMailEntry(gGuildMailStorageDE0B30[i]);

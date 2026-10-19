@@ -73,7 +73,7 @@ static std::int32_t SelectGraphicIndex(std::int32_t converted)
 namespace detail {
 
 // 原函数：0x0051BA10。
-std::int32_t Sub_51BA10(const std::int32_t imageNo)
+std::int32_t ClassifyCharacterGraphicFamily_51BA10(const std::int32_t imageNo)
 {
     if (imageNo >= 30000 && imageNo <= 98000) {
         return 0;
@@ -101,7 +101,7 @@ std::int32_t Sub_51BA10(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051BB80。
-std::int32_t Sub_51BB80(std::int32_t imageNo)
+std::int32_t ConvertClassicCharacterGraphicToCompact_51BB80(std::int32_t imageNo)
 {
     if (imageNo < 30000 || imageNo > 97999) {
         return imageNo;
@@ -128,7 +128,7 @@ std::int32_t Sub_51BB80(std::int32_t imageNo)
 }
 
 // 原函数：0x0051BAC0。
-std::int32_t Sub_51BAC0(const std::int32_t imageNo)
+std::int32_t ConvertCompactCharacterGraphicToClassic_51BAC0(const std::int32_t imageNo)
 {
     if (imageNo < 202800 || imageNo > 204199) {
         return imageNo;
@@ -156,7 +156,7 @@ std::int32_t Sub_51BAC0(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051BD00。
-std::int32_t Sub_51BD00(const std::int32_t imageNo)
+std::int32_t ResolveFallbackCharacterGraphic_51BD00(const std::int32_t imageNo)
 {
     if (imageNo >= 200000 && imageNo <= 200399) {
         return 33100;
@@ -189,7 +189,7 @@ std::int32_t Sub_51BD00(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051BF00。
-std::int32_t Sub_51BF00(const std::int32_t imageNo)
+std::int32_t ConvertModernCharacterGraphicToEarlier_51BF00(const std::int32_t imageNo)
 {
     if (imageNo >= 240000 && imageNo < 241400) {
         return imageNo - 37200;
@@ -211,7 +211,7 @@ std::int32_t Sub_51BF00(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051BFF0。
-std::int32_t Sub_51BFF0(const std::int32_t imageNo)
+std::int32_t ConvertEarlierCharacterGraphicToModern_51BFF0(const std::int32_t imageNo)
 {
     if (imageNo >= 202800 && imageNo <= 204200) {
         return imageNo + 37200;
@@ -232,13 +232,13 @@ std::int32_t Sub_51BFF0(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051BC50。
-std::int32_t Sub_51BC50(const std::int32_t imageNo)
+std::int32_t ResolveCompatibleCharacterGraphic_51BC50(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
         version = state::gPukVersion;
     }
-    const std::int32_t category = Sub_51BA10(imageNo);
+    const std::int32_t category = ClassifyCharacterGraphicFamily_51BA10(imageNo);
     const std::int32_t allowedCategory = version >= 7 ? 6 : (version >= 3 ? 3 : 0);
     if (allowedCategory >= category || category == 0) {
         return imageNo;
@@ -247,16 +247,16 @@ std::int32_t Sub_51BC50(const std::int32_t imageNo)
     case 1:
     case 2:
     case 6:
-        return Sub_51BD00(imageNo);
+        return ResolveFallbackCharacterGraphic_51BD00(imageNo);
     case 3:
-        return Sub_51BAC0(imageNo);
+        return ConvertCompactCharacterGraphicToClassic_51BAC0(imageNo);
     case 4:
         if (allowedCategory == 0) {
-            return Sub_51BAC0(Sub_51BF00(imageNo));
+            return ConvertCompactCharacterGraphicToClassic_51BAC0(ConvertModernCharacterGraphicToEarlier_51BF00(imageNo));
         }
-        return Sub_51BF00(imageNo);
+        return ConvertModernCharacterGraphicToEarlier_51BF00(imageNo);
     case 5:
-        return allowedCategory == 0 ? Sub_51BD00(imageNo) : Sub_51BF00(imageNo);
+        return allowedCategory == 0 ? ResolveFallbackCharacterGraphic_51BD00(imageNo) : ConvertModernCharacterGraphicToEarlier_51BF00(imageNo);
     default:
         return imageNo;
     }
@@ -272,7 +272,7 @@ std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
     if (version == 0xFF) {
         version = state::gPukVersion;
     }
-    const std::int32_t category = detail::Sub_51B7D0(imageNo);
+    const std::int32_t category = detail::ClassifyCharacterAnimationFamily_51B7D0(imageNo);
     std::int32_t allowedCategory;
     if (version >= 8) {
         allowedCategory = 7;
@@ -295,7 +295,7 @@ std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
     case 5:
     case 6:
     case 7:
-        return detail::Sub_51B910(imageNo);
+        return detail::ResolveFallbackCharacterAnimation_51B910(imageNo);
     default:
         return imageNo;
     }
@@ -304,7 +304,7 @@ std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
 namespace detail {
 
 // 原函数：0x0051B7D0。
-std::int32_t Sub_51B7D0(const std::int32_t imageNo)
+std::int32_t ClassifyCharacterAnimationFamily_51B7D0(const std::int32_t imageNo)
 {
     if (imageNo >= 100000 && imageNo <= 103102) {
         return 0;
@@ -358,7 +358,7 @@ std::int32_t Sub_51B7D0(const std::int32_t imageNo)
 }
 
 // 原函数：0x0051B910。
-std::int32_t Sub_51B910(const std::int32_t imageNo)
+std::int32_t ResolveFallbackCharacterAnimation_51B910(const std::int32_t imageNo)
 {
     if (imageNo >= 106000 && imageNo <= 106048) {
         return 100900;
@@ -400,7 +400,7 @@ std::int32_t Sub_51B910(const std::int32_t imageNo)
 }
 
 // 原函数：0x004C56E0。
-std::int32_t* Sub_4C56E0(
+std::int32_t* DecomposeCharacterAppearanceGraphic_4C56E0(
     const std::int32_t imageNo,
     std::int32_t* const outBase,
     std::int32_t* const outClass,
@@ -408,7 +408,7 @@ std::int32_t* Sub_4C56E0(
     std::int32_t* const outFifth,
     std::int32_t* const outOnes)
 {
-    const std::int32_t imageClass = Sub_51BA10(imageNo);
+    const std::int32_t imageClass = ClassifyCharacterGraphicFamily_51BA10(imageNo);
     *outClass = 0;
     if (imageClass >= 1) {
         *outClass = 1;
@@ -417,7 +417,7 @@ std::int32_t* Sub_4C56E0(
         *outClass = 2;
     }
 
-    const std::int32_t converted = Sub_51BFF0(Sub_51BB80(imageNo));
+    const std::int32_t converted = ConvertEarlierCharacterGraphicToModern_51BFF0(ConvertClassicCharacterGraphicToCompact_51BB80(imageNo));
     const std::int32_t ones = converted % 5;
     *outOnes = ones;
     const std::int32_t withoutOnes = converted - ones;
@@ -431,7 +431,7 @@ std::int32_t* Sub_4C56E0(
 }
 
 // 原函数：0x004C5650。
-std::int32_t Sub_4C5650(
+std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
     const std::int32_t base,
     const std::int32_t imageClass,
     const std::int32_t quarter,
@@ -442,10 +442,10 @@ std::int32_t Sub_4C5650(
         return base + 25 * quarter + 5 * fifth + ones;
     }
     if (imageClass == 1) {
-        return Sub_51BF00(base) + 25 * quarter + 5 * fifth + ones;
+        return ConvertModernCharacterGraphicToEarlier_51BF00(base) + 25 * quarter + 5 * fifth + ones;
     }
     if (imageClass == 0) {
-        return Sub_51BAC0(Sub_51BF00(base))
+        return ConvertCompactCharacterGraphicToClassic_51BAC0(ConvertModernCharacterGraphicToEarlier_51BF00(base))
             + 1000 * quarter + 10 * fifth + ones;
     }
     return base;
@@ -479,8 +479,8 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         record.graphicNo = 33100;
     }
 
-    const std::int32_t converted = detail::Sub_51BFF0(
-        detail::Sub_51BB80(record.graphicNo));
+    const std::int32_t converted = detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
+        detail::ConvertClassicCharacterGraphicToCompact_51BB80(record.graphicNo));
 
     const std::int32_t oldPreviewState =
         record.previewState;

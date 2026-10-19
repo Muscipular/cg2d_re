@@ -89,7 +89,7 @@ static std::uint32_t WindowProfileReply_Refresh()
 {
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gReceivedProfile1074110;
-    const std::int32_t image = character_select::detail::Sub_51BC50(profile.value10C);
+    const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(profile.value10C);
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo = image;
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 14].data)->imageNo =

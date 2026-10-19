@@ -46,7 +46,7 @@ std::int32_t ProcessCharacterModal_462090(
         return 0;
     }
 
-    if ((detail::Sub_503990(&uiRecord) & 1) != 0) {
+    if ((detail::ReadCharacterModalButtonMouseState_503990(&uiRecord) & 1) != 0) {
         result = 1;
         login::detail::PlaySe(79, 320, 240);
         cg::yobi::YobiAction* const actionToDestroy =
@@ -57,7 +57,7 @@ std::int32_t ProcessCharacterModal_462090(
         }
     }
 
-    detail::Sub_503A20(
+    detail::DrawCharacterModalButton_503A20(
         &uiRecord,
         std::uint8_t{2},
         std::int8_t{4},

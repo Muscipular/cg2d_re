@@ -158,8 +158,8 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
     if (version == 0xFF) {
         version = character_select::state::gPukVersion;
     }
-    const std::int32_t converted = character_select::detail::Sub_51BFF0(
-        character_select::detail::Sub_51BB80(world::gPlayerRuntimeSlots.value17C));
+    const std::int32_t converted = character_select::detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
+        character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(world::gPlayerRuntimeSlots.value17C));
     gWindow56MinimumCB0F80 = 0;
     if (converted >= 241400) {
         gWindow56MinimumCB0F80 = 1;
@@ -199,7 +199,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
             gCurrentWindow->elements[index].visible = 0;
         }
     }
-    static_cast<void>(character_select::detail::Sub_4C56E0(
+    static_cast<void>(character_select::detail::DecomposeCharacterAppearanceGraphic_4C56E0(
         world::gPlayerRuntimeSlots.value17C, &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
         &gWindow56QuarterCC3E88, &gWindow56FifthCB0F88, &gWindow56OnesCF4680));
     const std::int32_t ones = gWindow56OnesCF4680;
@@ -207,7 +207,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
     const std::int32_t quarter = gWindow56QuarterCC3E88;
     const std::int32_t imageClass = gWindow56ClassCC466C;
     const std::int32_t base = gWindow56BaseCB0F8C;
-    const std::int32_t image = character_select::detail::Sub_4C5650(
+    const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
         base, imageClass, quarter, fifth, ones);
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
     cg::yobi::YobiAction* const action = animation->action;
@@ -255,7 +255,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
         const std::int32_t quarter = gWindow56QuarterCC3E88;
         const std::int32_t imageClass = gWindow56ClassCC466C;
         const std::int32_t base = gWindow56BaseCB0F8C;
-        const std::int32_t image = character_select::detail::Sub_4C5650(
+        const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         std::array<char, 156> buffer;
         std::sprintf(buffer.data(), "%d", image);
@@ -300,7 +300,7 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
         const std::int32_t fifth = gWindow56FifthCB0F88;
         const std::int32_t quarter = gWindow56QuarterCC3E88;
         const std::int32_t base = gWindow56BaseCB0F8C;
-        const std::int32_t image = character_select::detail::Sub_4C5650(
+        const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
         consumed = 1;
@@ -334,7 +334,7 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
         const std::int32_t quarter = gWindow56QuarterCC3E88;
         const std::int32_t base = gWindow56BaseCB0F8C;
         const std::int32_t imageClass = gWindow56ClassCC466C;
-        const std::int32_t image = character_select::detail::Sub_4C5650(
+        const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
         consumed = 1;
@@ -368,7 +368,7 @@ static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, co
         const std::int32_t imageClass = gWindow56ClassCC466C;
         const std::int32_t fifth = gWindow56FifthCB0F88;
         const std::int32_t base = gWindow56BaseCB0F8C;
-        const std::int32_t image = character_select::detail::Sub_4C5650(
+        const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
         consumed = 1;

@@ -171,9 +171,9 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         return 0;
     }
 
-    if ((detail::Sub_503990(&confirmRecord) & 1) != 0) {
+    if ((detail::ReadCharacterModalButtonMouseState_503990(&confirmRecord) & 1) != 0) {
         result = 1;
-    } else if ((detail::Sub_503990(&cancelRecord) & 1) != 0) {
+    } else if ((detail::ReadCharacterModalButtonMouseState_503990(&cancelRecord) & 1) != 0) {
         result = 2;
     }
 
@@ -186,14 +186,14 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         }
     }
 
-    detail::Sub_503A20(
+    detail::DrawCharacterModalButton_503A20(
         &confirmRecord,
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
         cg::render::gValueD69768,
         std::uint8_t{214});
-    detail::Sub_503A20(
+    detail::DrawCharacterModalButton_503A20(
         &cancelRecord,
         std::uint8_t{2},
         std::int8_t{4},

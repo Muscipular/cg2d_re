@@ -366,7 +366,7 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
     do {
         auto& record = gLoginWindowRuntime.recordsD3FAD4[offset / 0x40C];
         const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        record.value00 = character_select::detail::Sub_51BC50(imageNo);
+        record.value00 = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(imageNo);
         record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record.value408 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));

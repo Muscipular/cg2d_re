@@ -394,7 +394,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         } else {
             source = cg::world::detail::ReadMiniMailContact1075A90(identity).value0C;
         }
-        image = character_select::detail::Sub_51BC50(source);
+        image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(source);
         window = gCurrentWindow;
     } else if (category == 2) {
         window = gCurrentWindow;

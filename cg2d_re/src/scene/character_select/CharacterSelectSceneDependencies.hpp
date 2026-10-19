@@ -43,9 +43,9 @@ static_assert(offsetof(CharacterModalUiRecord, text) == 0x18);
 static_assert(sizeof(CharacterModalUiRecord) == 0x20);
 
 // sub_503990@0x503990 与 sub_503A20@0x503A20 的还原入口。
-std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord);
+std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRecord* uiRecord);
 // 原函数：0x00503A20。
-std::int32_t Sub_503A20(
+std::int32_t DrawCharacterModalButton_503A20(
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,
     std::int8_t color,
@@ -55,56 +55,56 @@ std::int32_t Sub_503A20(
 
 
 // 原函数：0x0045E7B0。
-std::int32_t Sub_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
+std::int32_t ResetCharacterCreationRequest_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
 // 原函数：0x0045E7D0。
-std::int32_t Sub_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。
+std::int32_t UpdateCharacterCreationRequest_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。
 
 // 原4626A0完整本体；WorldUpdate按D01显式传入口gate=1，不使用默认参数。
 void ProcessCreationScene_4626A0(std::int32_t entryGate);
 
 // 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
-std::int32_t Sub_464290(const cg::ui::UiControlBounds* rectangle);
+std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBounds* rectangle);
 
 // 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。
-void Sub_462870();
+void AdvanceCharacterCreationScene_462870();
 
 // 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。
-void Sub_462880(std::uint8_t resetSelection);
+void InitializeCharacterAppearanceSelection_462880(std::uint8_t resetSelection);
 
 // 原函数：0x00462930。
-std::int32_t Sub_462930(); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。
+std::int32_t UpdateCharacterAppearanceSelection_462930(); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。
 // 原函数：0x00463100。
-std::uint32_t Sub_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
+std::uint32_t InitializeCharacterCreationAttributes_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
 // 原函数：0x004631D0。
-std::int32_t Sub_4631D0(); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
+std::int32_t UpdateCharacterCreationAttributes_4631D0(); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
 // 原函数：0x004642C0。
-std::int32_t Sub_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
+std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
 // 原函数：0x00464380。
-std::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
+std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
 
 // 原 [0x50E770,0x50E77A)：忽略 socket，取第二个 S32 的低字节写 Puk 版本 W8 并返回。
-std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::int32_t pukVersion);
+std::uint8_t HandlePukVersionReply_50E770(std::uintptr_t unusedSocket, std::int32_t pukVersion);
 
 // 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。
-std::int32_t Sub_51BA10(std::int32_t imageNo);
+std::int32_t ClassifyCharacterGraphicFamily_51BA10(std::int32_t imageNo);
 // 原 [0x51BF00,0x51BFEF)：三段早退后按 signed 商索引 14 项局部图号表。
-std::int32_t Sub_51BF00(std::int32_t imageNo);
+std::int32_t ConvertModernCharacterGraphicToEarlier_51BF00(std::int32_t imageNo);
 // 原 [0x51BAC0,0x51BB76)：旧图号逆变换，仅在有效区间分解。
-std::int32_t Sub_51BAC0(std::int32_t imageNo);
+std::int32_t ConvertCompactCharacterGraphicToClassic_51BAC0(std::int32_t imageNo);
 // 原 [0x51BD00,0x51BDA8)：按图号区间映射 33100/33101 或 -1。
-std::int32_t Sub_51BD00(std::int32_t imageNo);
+std::int32_t ResolveFallbackCharacterGraphic_51BD00(std::int32_t imageNo);
 // 原 [0x51BFF0,0x51C0CA)：14 项类别查找及特殊区间转换。
-std::int32_t Sub_51BFF0(std::int32_t imageNo);
+std::int32_t ConvertEarlierCharacterGraphicToModern_51BFF0(std::int32_t imageNo);
 // 原 [0x51BB80,0x51BC4E)：旧图号的分段换算，类别 3/4 交换。
-std::int32_t Sub_51BB80(std::int32_t imageNo);
+std::int32_t ConvertClassicCharacterGraphicToCompact_51BB80(std::int32_t imageNo);
 // 原 [0x51BC50,0x51BCFF)：按覆盖/Puk允许类别回退，独立于51B740。
-std::int32_t Sub_51BC50(std::int32_t imageNo);
+std::int32_t ResolveCompatibleCharacterGraphic_51BC50(std::int32_t imageNo);
 // 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。
-std::int32_t Sub_51B7D0(std::int32_t imageNo);
+std::int32_t ClassifyCharacterAnimationFamily_51B7D0(std::int32_t imageNo);
 // 原 [0x51B910,0x51BA08)：图号映射至 100900/100901/100902/110598 或 -1。
-std::int32_t Sub_51B910(std::int32_t imageNo);
+std::int32_t ResolveFallbackCharacterAnimation_51B910(std::int32_t imageNo);
 // 原 [0x4C56E0,0x4C5789)：依序写类别、余数及三层分解，返回首个输出指针。
-std::int32_t* Sub_4C56E0(
+std::int32_t* DecomposeCharacterAppearanceGraphic_4C56E0(
     std::int32_t imageNo,
     std::int32_t* outBase,
     std::int32_t* outClass,
@@ -112,7 +112,7 @@ std::int32_t* Sub_4C56E0(
     std::int32_t* outFifth,
     std::int32_t* outOnes);
 // 原 [0x4C5650,0x4C56DA)：按类别组合五项图号分量，其他类别透传首参。
-std::int32_t Sub_4C5650(
+std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
     std::int32_t base,
     std::int32_t imageClass,
     std::int32_t quarter,

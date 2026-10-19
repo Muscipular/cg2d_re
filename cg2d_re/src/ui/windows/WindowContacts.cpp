@@ -402,7 +402,7 @@ static std::int32_t WindowContacts_Refresh()
             const std::uint32_t color = 0xFFFFFFFFu;
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-            const std::int32_t image = character_select::detail::Sub_51BC50(*record.imageNo);
+            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*record.imageNo);
             const std::int32_t anchorY = kMailImageAnchors56F790[row][1];
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t y = window->y + anchorY - 5;
@@ -1078,7 +1078,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 
         // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
         WindowElement* const element = &gCurrentWindow->elements[index];
-        const std::int32_t image = character_select::detail::Sub_51BC50(*recordImage);
+        const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
         const std::int32_t elementY = element->y;
         WindowInstance* const currentWindow = gCurrentWindow;
         const std::int32_t windowY = currentWindow->y;

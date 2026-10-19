@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：202／636。已重命名：197。保留／未决：5。待分析：434。
+已分析：226／636。已重命名：221。保留／未决：5。待分析：410。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -176,22 +176,22 @@
 | `Sub_459580` | src/platform/imeImpl.cpp:125 | 已重命名：`HandleImeCompositionFlags_459580` | 按GCS_RESULTSTR/COMPSTR/COMPATTR/CURSORPOS依次提交文字、更新合成串/属性/光标；窗口消息消费者。 |
 | `Sub_45B370` | src/resource/AnimationRuntime.cpp:70 | 已分析，保留原名 | 仅转调45B380；原证据与当前初始化调用未证明被复制配置的业务用途，不猜预算/容量。 |
 | `Sub_45B380` | src/resource/AnimationRuntime.cpp:76 | 已分析，保留原名 | 只复制9A4A50至9A4A48并返回；本会话已查xrefs，前者由45751E赋10412000，后者另只作45B740循环终点地址，未见业务值消费者。 |
-| `Sub_45E7B0` | src/scene/character_select/CharacterSelectScene.cpp:210 | 待分析 | — |
-| `Sub_45E7D0` | src/scene/character_select/CharacterSelectScene.cpp:219 | 待分析 | — |
+| `Sub_45E7B0` | src/scene/character_select/CharacterSelectScene.cpp:210 | 已重命名：`ResetCharacterCreationRequest_45E7B0` | 将建角请求进度归零，重置所选角色个人资料并保存profile.dat。 |
+| `Sub_45E7D0` | src/scene/character_select/CharacterSelectScene.cpp:219 | 已重命名：`UpdateCharacterCreationRequest_45E7D0` | 创建创造角色中提示框，启动并轮询建角请求，完成释放提示动作并返回成功1或失败2，等待时绘制提示。 |
 | `Sub_45EBB0` | src/world/SceneState.cpp:8017 | 待分析 | — |
 | `Sub_45ED80` | src/world/SceneState.cpp:8096 | 待分析 | — |
 | `Sub_45ED90` | src/world/SceneState.cpp:8102 | 待分析 | — |
 | `Sub_45EEE0` | src/world/SceneState.cpp:6713 | 待分析 | — |
 | `Sub_45EF80` | src/scene/login/LoginCapability3Scene.cpp:48 | 待分析 | — |
 | `Sub_45F190` | src/scene/login/LoginCapability3Scene.cpp:175 | 待分析 | — |
-| `Sub_462870` | src/scene/character_select/CharacterSelectScene.cpp:394 | 待分析 | — |
-| `Sub_462880` | src/scene/character_select/CharacterSelectScene.cpp:401 | 待分析 | — |
-| `Sub_462930` | src/scene/character_select/CharacterSelectScene.cpp:434 | 待分析 | — |
-| `Sub_463100` | src/scene/character_select/CharacterSelectScene.cpp:669 | 待分析 | — |
-| `Sub_4631D0` | src/scene/character_select/CharacterSelectScene.cpp:704 | 待分析 | — |
-| `Sub_464290` | src/scene/character_select/CharacterSelectScene.cpp:1201 | 待分析 | — |
-| `Sub_4642C0` | src/scene/character_select/CharacterSelectScene.cpp:1129 | 待分析 | — |
-| `Sub_464380` | src/scene/character_select/CharacterSelectScene.cpp:1164 | 待分析 | — |
+| `Sub_462870` | src/scene/character_select/CharacterSelectScene.cpp:394 | 已重命名：`AdvanceCharacterCreationScene_462870` | 清Yobi动作后将当前场景子状态加一，角色创建场景分发调用。 |
+| `Sub_462880` | src/scene/character_select/CharacterSelectScene.cpp:401 | 已重命名：`InitializeCharacterAppearanceSelection_462880` | 可选重置版本族、角色和变体索引，创建两组方向5的预览动作并解除输入上下文。 |
+| `Sub_462930` | src/scene/character_select/CharacterSelectScene.cpp:434 | 已重命名：`UpdateCharacterAppearanceSelection_462930` | 处理14角色选择、版本切换、四种变体与预览旋转，绘制选择界面及双预览动画，确认1取消2。 |
+| `Sub_463100` | src/scene/character_select/CharacterSelectScene.cpp:669 | 已重命名：`InitializeCharacterCreationAttributes_463100` | 释放两组预览动作，初始化姓名输入、五项属性及四元素分配和剩余点数，按PUK版本设外观代。 |
+| `Sub_4631D0` | src/scene/character_select/CharacterSelectScene.cpp:704 | 已重命名：`UpdateCharacterCreationAttributes_4631D0` | 处理外观样式颜色、五项属性和四元素加减，检查姓名与剩余点数，确认后发布建角参数并存快照；绘制同页。 |
+| `Sub_464290` | src/scene/character_select/CharacterSelectScene.cpp:1201 | 已重命名：`HitTestCharacterCreationControl_464290` | 将建角控件左上宽高转换为边界，调用鼠标矩形命中接口并返回结果。 |
+| `Sub_4642C0` | src/scene/character_select/CharacterSelectScene.cpp:1129 | 已重命名：`SaveCharacterCreationDraftSnapshot_4642C0` | 依原顺序复制已发布属性、元素及当前外观选项、剩余点数和姓名输入至建角快照。 |
+| `Sub_464380` | src/scene/character_select/CharacterSelectScene.cpp:1164 | 已重命名：`RestoreCharacterCreationDraftSnapshot_464380` | 将建角快照低字节恢复到属性／元素编辑存储、选项与姓名输入，保留逐字节写入顺序。 |
 | `Sub_464840` | src/scene/login/LoginCapability4Scene.cpp:48 | 待分析 | — |
 | `Sub_467F30` | src/world/SceneState.cpp:3230 | 待分析 | — |
 | `Sub_4681B0` | src/world/SceneState.cpp:10024 | 待分析 | — |
@@ -316,8 +316,8 @@
 | `Sub_4ABEF0` | src/Yobi/window.cpp:790 | 待分析 | — |
 | `Sub_4ACDF0` | src/Yobi/window.cpp:615 | 待分析 | — |
 | `Sub_4ACE80` | src/Yobi/window.cpp:847 | 待分析 | — |
-| `Sub_4C5650` | src/scene/character_select/CharacterSelectPreview.cpp:434 | 待分析 | — |
-| `Sub_4C56E0` | src/scene/character_select/CharacterSelectPreview.cpp:403 | 待分析 | — |
+| `Sub_4C5650` | src/scene/character_select/CharacterSelectPreview.cpp:434 | 已重命名：`ComposeCharacterAppearanceGraphic_4C5650` | 按资源代组合基图与三个外观分量，旧代先逆映射并使用1000/10/1步距。 |
+| `Sub_4C56E0` | src/scene/character_select/CharacterSelectPreview.cpp:403 | 已重命名：`DecomposeCharacterAppearanceGraphic_4C56E0` | 将角色图号归一现代布局，输出资源代、基图及4×5×5变体分量，供外观窗口编辑。 |
 | `Sub_4C9490` | src/world/MailState.cpp:678 | 已重命名：`ResetMiniMailSequenceAndSelection_4C9490` | 将迷你邮件序号清零、共享发信目标选择写-1。 |
 | `Sub_4C9E40` | src/world/MailState.cpp:1081 | 已重命名：`HandleProfileCategorySelectionReply_4C9E40` | 反转义整串后解析选择掩码，低两位分别写前两组，低位写第三组，不改活动位。 |
 | `Sub_4CA330` | src/world/MailState.cpp:1116 | 已重命名：`HandleProfileSearchResultsReply_4CA330` | 清20条搜索记录活动位，解析搜索头及编号、两段文本，-1哨兵提前结束，文本逐项反转义。 |
@@ -326,8 +326,8 @@
 | `Sub_4EC1A0` | src/world/MailState.cpp:283 | 已重命名：`SortContactIndices_4EC1A0` | 重建0至59联系人索引并按CompareContactIndices比较器排序，供联系人列表及未读扫描使用。 |
 | `Sub_4ED670` | src/world/SceneState.cpp:3444 | 待分析 | — |
 | `Sub_4FA8E0` | src/world/SceneState.cpp:11058 | 待分析 | — |
-| `Sub_503990` | src/scene/character_select/CharacterModalButton.cpp:10 | 待分析 | — |
-| `Sub_503A20` | src/scene/character_select/CharacterModalButton.cpp:65 | 待分析 | — |
+| `Sub_503990` | src/scene/character_select/CharacterModalButton.cpp:10 | 已重命名：`ReadCharacterModalButtonMouseState_503990` | 对模态按钮矩形命中测试，将边沿、按住、脉冲及附加鼠标位编码为返回状态，未命中为0。 |
+| `Sub_503A20` | src/scene/character_select/CharacterModalButton.cpp:65 | 已重命名：`DrawCharacterModalButton_503A20` | 按悬停模式绘制按钮高亮区域，再在记录坐标绘制标签文本并返回绘制结果。 |
 | `Sub_504A30` | src/world/SceneState.cpp:6686 | 待分析 | — |
 | `Sub_504A50` | src/world/SceneState.cpp:3461 | 待分析 | — |
 | `Sub_504B10` | src/world/SceneState.cpp:10735 | 待分析 | — |
@@ -400,7 +400,7 @@
 | `Sub_50E680` | src/network/NetworkRuntime.cpp:70 | 已重命名：`HandleServerSoundPlayback_50E680` | 收包type<1000播音效，否则type-1000播固定音乐；第二字段分别作声像/重复数，末字段未读。 |
 | `Sub_50E6C0` | src/network/NetworkRuntime.cpp:601 | 已重命名：`HandleSpatialSoundSourceReply_50E6C0` | 转发index/sourceX/sourceY到最近空间音源发布函数，socket不读。 |
 | `Sub_50E6E0` | src/network/NetworkRuntime.cpp:791 | 已重命名：`HandleServerAddressChangeReply_50E6E0` | 比较已存IP文本，变化时显示IP变更/可能重连提示并保存新地址。 |
-| `Sub_50E770` | src/scene/character_select/CharacterSelectScene.cpp:202 | 待分析 | — |
+| `Sub_50E770` | src/scene/character_select/CharacterSelectScene.cpp:202 | 已重命名：`HandlePukVersionReply_50E770` | 保存回复PUK版本低字节并返回该字节，影响角色资源与建角界面选项。 |
 | `Sub_50E780` | src/network/NetworkRuntime.cpp:807 | 已重命名：`HandleVersionUpgradeReply_50E780` | ed回复存低字节，场景13按非零/零转200/100；WorldUpdate场景13调两个版本升级入口。 |
 | `Sub_50E830` | src/network/NetworkRuntime.cpp:821 | 已重命名：`HandleGuildMailResetReply_50E830` | GC回复过门禁后清当前角色公会邮件，再写guildmail.dat。 |
 | `Sub_50E850` | src/world/GuildState.cpp:133 | 已重命名：`HandleGuildInfoReply_50E850` | 按base62更新掩码解析公会键、名称及头字段和附加文本；保留被读取但未存储字段。 |
@@ -572,13 +572,13 @@
 | `Sub_51B530` | src/world/SceneState.cpp:1870 | 待分析 | — |
 | `Sub_51B5F0` | src/world/SceneState.cpp:9515 | 待分析 | — |
 | `Sub_51B630` | src/world/SceneState.cpp:9545 | 已重命名：`SwapPlayerOrPetItemSlots_51B630` | 组0玩家28槽，组1—5宠物6槽，范围/空基址门禁后交换完整物品记录。 |
-| `Sub_51B7D0` | src/scene/character_select/CharacterSelectPreview.cpp:307 | 待分析 | — |
-| `Sub_51B910` | src/scene/character_select/CharacterSelectPreview.cpp:361 | 待分析 | — |
-| `Sub_51BA10` | src/scene/character_select/CharacterSelectPreview.cpp:76 | 待分析 | — |
-| `Sub_51BAC0` | src/scene/character_select/CharacterSelectPreview.cpp:131 | 待分析 | — |
-| `Sub_51BB80` | src/scene/character_select/CharacterSelectPreview.cpp:104 | 待分析 | — |
-| `Sub_51BC50` | src/scene/character_select/CharacterSelectPreview.cpp:235 | 待分析 | — |
-| `Sub_51BD00` | src/scene/character_select/CharacterSelectPreview.cpp:159 | 待分析 | — |
+| `Sub_51B7D0` | src/scene/character_select/CharacterSelectPreview.cpp:307 | 已重命名：`ClassifyCharacterAnimationFamily_51B7D0` | 按100000起各动画编号区间返回资源族0/1/2/3/6/7，供动画版本兼容门禁使用；保留区间判断顺序。 |
+| `Sub_51B910` | src/scene/character_select/CharacterSelectPreview.cpp:361 | 已重命名：`ResolveFallbackCharacterAnimation_51B910` | 按动画编号范围返回100900、100901、100902或110598兼容动画，未匹配-1。 |
+| `Sub_51BA10` | src/scene/character_select/CharacterSelectPreview.cpp:76 | 已重命名：`ClassifyCharacterGraphicFamily_51BA10` | 按角色图号范围返回0至5资源族，供版本兼容转换与外观编辑分解使用。 |
+| `Sub_51BAC0` | src/scene/character_select/CharacterSelectPreview.cpp:131 | 已重命名：`ConvertCompactCharacterGraphicToClassic_51BAC0` | 将202800至204199紧凑图号分解后转换回旧角色图号布局，与51BB80的类别交换和跳段对应。 |
+| `Sub_51BB80` | src/scene/character_select/CharacterSelectPreview.cpp:104 | 已重命名：`ConvertClassicCharacterGraphicToCompact_51BB80` | 将30000至97999旧图号按角色、变体、样式及颜色位映射到202800段紧凑布局，交换角色类3/4并处理70000段偏移。 |
+| `Sub_51BC50` | src/scene/character_select/CharacterSelectPreview.cpp:235 | 已重命名：`ResolveCompatibleCharacterGraphic_51BC50` | 由版本覆盖值或PUK版本决定允许族级，超范围按分类执行旧版转换或替代图号。 |
+| `Sub_51BD00` | src/scene/character_select/CharacterSelectPreview.cpp:159 | 已重命名：`ResolveFallbackCharacterGraphic_51BD00` | 按已支持资源范围返回33100或33101兼容替代图号，未匹配返回-1；不猜两个图号的性别等资源含义。 |
 | `Sub_51BDB0` | src/world/SceneState.cpp:6451 | 待分析 | — |
 | `Sub_51BDC0` | src/world/SceneState.cpp:6457 | 待分析 | — |
 | `Sub_51BDD0` | src/world/SceneState.cpp:6506 | 待分析 | — |
@@ -591,8 +591,8 @@
 | `Sub_51BEC0` | src/world/SceneState.cpp:11122 | 待分析 | — |
 | `Sub_51BEE0` | src/world/SceneState.cpp:11116 | 待分析 | — |
 | `Sub_51BEF0` | src/world/SceneState.cpp:467 | 待分析 | — |
-| `Sub_51BF00` | src/scene/character_select/CharacterSelectPreview.cpp:192 | 待分析 | — |
-| `Sub_51BFF0` | src/scene/character_select/CharacterSelectPreview.cpp:214 | 待分析 | — |
+| `Sub_51BF00` | src/scene/character_select/CharacterSelectPreview.cpp:192 | 已重命名：`ConvertModernCharacterGraphicToEarlier_51BF00` | 240000段减37200，241400段按14项映射表转换旧族；205000和270000指定范围原值返回。 |
+| `Sub_51BFF0` | src/scene/character_select/CharacterSelectPreview.cpp:214 | 已重命名：`ConvertEarlierCharacterGraphicToModern_51BFF0` | 202800段加37200，其余按14项百位类别映射到241400段，无匹配原值返回。 |
 | `Sub_51C0D0` | src/world/SceneState.cpp:11070 | 待分析 | — |
 | `Sub_51D5B0` | src/world/SceneState.cpp:4448 | 待分析 | — |
 | `Sub_51D640` | src/world/SceneState.cpp:10518 | 待分析 | — |

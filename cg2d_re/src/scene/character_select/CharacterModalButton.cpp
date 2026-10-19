@@ -7,7 +7,7 @@
 
 namespace cg::character_select::detail {
 // 原函数：0x00503990。
-std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
+std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRecord* uiRecord)
 {
     const std::int32_t top = uiRecord->top;
     const std::int32_t left = uiRecord->left;
@@ -62,7 +62,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
 }
 
 // 原函数：0x00503A20。
-std::int32_t Sub_503A20(
+std::int32_t DrawCharacterModalButton_503A20(
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,
     std::int8_t color,

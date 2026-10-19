@@ -278,7 +278,7 @@ void WindowMail_SortIndices(
 }
 
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
-void WindowMail_FormatTimestamp(char* const destination)
+void WindowMail_FormatTimestamp(std::wstring& destination)
 {
     __time64_t time;
     time = ::_time64(nullptr);
@@ -288,7 +288,7 @@ void WindowMail_FormatTimestamp(char* const destination)
     const std::int32_t day = calendar->tm_mday;
     const std::int32_t month = calendar->tm_mon;
     const std::int32_t year = calendar->tm_year;
-    std::sprintf(destination, "%4d/%2d/%2d %02d:%02d",
+    cg::text::FormatTo(destination, L"{:4}/{:2}/{:2} {:02}:{:02}",
         year + 1900, month + 1, day, hour, minute);
 }
 

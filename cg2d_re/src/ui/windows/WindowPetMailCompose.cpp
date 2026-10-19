@@ -283,8 +283,8 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             }
             if (allowed) {
                 std::wstring text;
-                std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
-                char timestamp[64];
+                std::wstring storedText; // 内部正文；写文件前仍执行原300字节容量预检。
+                std::wstring timestamp;
                 std::int32_t target;
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
@@ -294,7 +294,11 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
                     text = input::ContextText(cg::ui::detail::gInputContextD66CA8);
                 }
-                cg::text::StoreGbk(storedText.data(), storedText.size(), text);
+                {
+                    char fileBytes[300]{};
+                    cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
+                    storedText = text;
+                }
                 const std::wstring packet = input::EscapeTextAndNotify(text, 600);
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
@@ -308,9 +312,9 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {
                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
-                        target, 1, timestamp, storedText.data()));
+                        target, 1, timestamp, storedText));
                 } else {
-                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText.data());
+                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText);
                 }
                 static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());

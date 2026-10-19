@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <string_view>
 #include <type_traits>
 
 namespace cg::world {
@@ -12,8 +13,8 @@ namespace cg::world {
 struct MailMessageView {
     std::byte* unread00; // 所指原成员偏移：+0x00。
     const std::byte* kind01; // 所指原成员偏移：+0x01。
-    const char* text02; // 所指原成员偏移：+0x02。
-    const char* text14; // 所指原成员偏移：+0x14。
+    const wchar_t* text02; // 所指原成员偏移：+0x02。
+    const wchar_t* text14; // 所指原成员偏移：+0x14。
 };
 
 MailMessageView GetMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
@@ -137,7 +138,7 @@ void HandleContactMailReply_50DC70(
     const char* payload, std::int32_t unusedFourth); // 普通收信：插入/保存/扫描/通知。
 // 原函数：0x005191C0。
 void PrependContactMailMessage_5191C0(
-    std::int32_t index, std::int32_t kind, const char* name, const char* text); // 九次倒序搬移后写首条。
+    std::int32_t index, std::int32_t kind, std::wstring_view name, std::wstring_view text); // 九次倒序搬移后写首条。
 // 原函数：0x00518DA0。
 std::int32_t UpdateUnreadMailPageHint_518DA0(); // SHP01：三类首未读U16类别/页提示，迷你倒序，无则原备用页/返0。
 // 原函数：0x00518F00。
@@ -155,14 +156,14 @@ std::int32_t FindFreeMiniMailContactSlot_5343A0(); // 返回首个used==0的槽�
 // 原函数：0x004C9490。
 void ResetMiniMailSequenceAndSelection_4C9490(); // 先清迷你序号，再将共享选择槽写-1。
 // 原函数：0x00534520。
-std::int32_t FormatMailTimestamp_534520(char* destination); // 原time32/localtime格式化并复制时间戳，返回0。
+std::int32_t FormatMailTimestamp_534520(std::wstring& destination); // 原time32/localtime格式化并复制时间戳，返回0。
 // 原函数：0x005343C0。
 void PrependMiniMailMessage_5343C0(
-    std::int32_t index, std::int32_t kind, const char* name, const char* text); // 同源迷你邮件九次搬移/写首条。
+    std::int32_t index, std::int32_t kind, std::wstring_view name, std::wstring_view text); // 同源迷你邮件九次搬移/写首条。
 // 原函数：0x00534480。
-void RemoveMiniMailContact_534480(std::int32_t index); // 原20次清理，每轮两次读取共享593850，不新增索引拒绝。
+void RemoveMiniMailContact_534480(std::int32_t index); // 保留最多20条清理，负索引或超出存储范围不访问。
 // 原函数：0x0050F430。
-void HandleMiniMailContactRemovalReply_50F430(std::uintptr_t unusedSocket, const char* payload); // 查槽后无条件删除，包括-1。
+void HandleMiniMailContactRemovalReply_50F430(std::uintptr_t unusedSocket, const char* payload); // 查槽后删除，-1不访问记录。
 // 原函数：0x0050F7F0。
 void HandleMiniMailReply_50F7F0(
     std::uintptr_t unusedSocket, std::int32_t key,
@@ -236,7 +237,7 @@ std::int32_t FindLastActiveGuildMailEntry_5195F0(std::int32_t key);
 std::int32_t DeleteGuildMailEntry_5194F0(std::int32_t key);
 // GML01：原519370，查找后分支fresh角色；W32哨兵/含NUL长度或原生满组地址+4。
 std::uintptr_t PrependGuildMailMessage_519370(
-    std::int32_t key, std::int32_t kind, const char* name, const char* text);
+    std::int32_t key, std::int32_t kind, std::wstring_view name, std::wstring_view text);
 
 // 原 50EC50 的 50EE4A–50EEA1 公共尾：全 key 比较，不检查活动位、不保存文件。
 // selected 由父入口在计数后、计数发布前读取；返回最后邮件决定的零或表末游标。

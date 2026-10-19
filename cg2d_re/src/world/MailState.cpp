@@ -2,6 +2,9 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
 #include "cg/text/Encoding.hpp"
+#include <format>
+#include <memory>
+#include <vector>
 
 #include "../scene/login/LoginInputDependencies.hpp"
 
@@ -41,36 +44,97 @@ std::int32_t gViewedMailMessageIndex_D046D4 = 0; // 原全局：0x00D046D4。
 std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490清-1，窗口63保存同一发信目标编号。
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
-// 三类收信共用的140H消息；文件、回复与窗口借用同一存储。
+// 三类收信共用内部对象；固定磁盘布局仅在存取时转换。
 struct MailMessage {
     std::byte unread; // +00：未读标记，窗口可清零。
     std::byte kind; // +01：收信类别低字节。
-    std::array<char, 18> name; // +02：原编码名称。
-    std::array<char, 300> text; // +14：原编码正文，保既有复制长度规则。
+    std::wstring name; // 原+02：完整日期文本。
+    std::wstring text; // 原+14：内部邮件正文。
 };
 struct GuildMailEntry {
     std::int32_t key; // +00：公会成员键。
     std::uint32_t active; // +04：查找要求恰为1，未读扫描只判断非零。
     std::array<MailMessage, 10> messages; // +08：同一成员的十条消息。
 };
-static_assert(std::is_standard_layout_v<MailMessage>);
-static_assert(std::is_trivially_copyable_v<MailMessage>);
-static_assert(offsetof(MailMessage, unread) == 0);
-static_assert(offsetof(MailMessage, kind) == 1);
-static_assert(offsetof(MailMessage, name) == 2);
-static_assert(offsetof(MailMessage, text) == 0x14);
-static_assert(sizeof(MailMessage) == 0x140);
-static_assert(alignof(MailMessage) == 1);
-static_assert(std::is_standard_layout_v<GuildMailEntry>);
-static_assert(std::is_trivially_copyable_v<GuildMailEntry>);
-static_assert(offsetof(GuildMailEntry, key) == 0);
-static_assert(offsetof(GuildMailEntry, active) == 4);
-static_assert(offsetof(GuildMailEntry, messages) == 8);
-static_assert(sizeof(GuildMailEntry) == 0xC88);
-static_assert(alignof(GuildMailEntry) == 4);
+
+// 文件边界：旧版mail.dat/guildmail.dat布局保持，不直接存取含wstring的对象。
+struct MailDiskMessage {
+    std::byte unread;
+    std::byte kind;
+    std::array<char, 18> name;
+    std::array<char, 300> text;
+};
+struct GuildMailDiskEntry {
+    std::int32_t key;
+    std::uint32_t active;
+    std::array<MailDiskMessage, 10> messages;
+};
+static_assert(sizeof(MailDiskMessage) == 0x140);
+static_assert(std::is_trivially_copyable_v<MailDiskMessage>);
+static_assert(offsetof(MailDiskMessage, text) == 0x14);
+static_assert(sizeof(GuildMailDiskEntry) == 0xC88);
+static_assert(std::is_trivially_copyable_v<GuildMailDiskEntry>);
+static_assert(offsetof(GuildMailDiskEntry, messages) == 8);
+
+static MailDiskMessage EncodeMailMessage(const MailMessage& message)
+{
+    MailDiskMessage disk{};
+    disk.unread = message.unread;
+    disk.kind = message.kind;
+    const std::string dateBytes = cg::text::ToGbk(message.name);
+    std::size_t dateLength = 0;
+    while (dateLength < dateBytes.size()) {
+        const auto lead = static_cast<unsigned char>(dateBytes[dateLength]);
+        const std::size_t next = dateLength + (lead >= 0x81 && lead <= 0xFE ? 2 : 1);
+        if (next >= disk.name.size() || next > dateBytes.size()) {
+            break;
+        }
+        dateLength = next;
+    }
+    std::copy_n(dateBytes.data(), dateLength, disk.name.data());
+    cg::text::StoreGbk(disk.text.data(), disk.text.size(), message.text);
+    return disk;
+}
+
+// 只发布实际读到的字段，短读不改变尚未覆盖的内部完整日期/正文。
+static void DecodeMailMessage(MailMessage& message, const MailDiskMessage& disk, const std::size_t bytes)
+{
+    if (bytes > 0) { message.unread = disk.unread; }
+    if (bytes > 1) { message.kind = disk.kind; }
+    if (bytes > offsetof(MailDiskMessage, name)) {
+        const auto length = std::find(disk.name.begin(), disk.name.end(), '\0') - disk.name.begin();
+        message.name = cg::text::FromGbkWide(std::string_view(disk.name.data(), static_cast<std::size_t>(length)));
+    }
+    if (bytes > offsetof(MailDiskMessage, text)) {
+        const auto length = std::find(disk.text.begin(), disk.text.end(), '\0') - disk.text.begin();
+        message.text = cg::text::FromGbkWide(std::string_view(disk.text.data(), static_cast<std::size_t>(length)));
+    }
+}
+
+static GuildMailDiskEntry EncodeGuildMailEntry(const GuildMailEntry& entry)
+{
+    GuildMailDiskEntry disk{};
+    disk.key = entry.key;
+    disk.active = entry.active;
+    for (std::size_t i = 0; i < entry.messages.size(); ++i) {
+        disk.messages[i] = EncodeMailMessage(entry.messages[i]);
+    }
+    return disk;
+}
+
+static void DecodeGuildMailEntry(GuildMailEntry& entry, const GuildMailDiskEntry& disk, const std::size_t bytes)
+{
+    if (bytes > 0) { entry.key = disk.key; }
+    if (bytes > offsetof(GuildMailDiskEntry, active)) { entry.active = disk.active; }
+    for (std::size_t i = 0; i < entry.messages.size(); ++i) {
+        const std::size_t offset = offsetof(GuildMailDiskEntry, messages) + i * sizeof(MailDiskMessage);
+        if (bytes <= offset) { break; }
+        DecodeMailMessage(entry.messages[i], disk.messages[i], bytes - offset);
+    }
+}
 
 // 连续消息数组保留原跨联系人步进；UI只经既有视图借用。
-static alignas(std::uint32_t) std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
+static std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
 static std::array<GuildMailEntry, 2 * 200> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
 
 struct MiniMailRuntimeSlots {
@@ -149,14 +213,7 @@ static CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 static constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
     L"提示！您收到来自 {} 的迷你邮件～";
 
-static constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
-static constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
-static constexpr std::ptrdiff_t kGuildMailGroupBytes = 0x9CA40;
-static constexpr std::ptrdiff_t kGuildMailEntryBytes = 0xC88;
-static constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
 
-static_assert(sizeof(gMailStorageF7CA08) == 2 * 60 * 10 * 0x140);
-static_assert(sizeof(gGuildMailStorageDE0B30) == 2 * 200 * 0xC88);
 
 static MailMessageView MakeMailMessageView(MailMessage& message)
 {
@@ -394,7 +451,7 @@ void HandleContactUpdateReply_50D9E0(
 // 原函数：0x005191C0。
 void PrependContactMailMessage_5191C0(
     const std::int32_t index, const std::int32_t kind,
-    const char* const name, const char* const text)
+    const std::wstring_view name, const std::wstring_view text)
 {
     if (gContactsF19FB0[index].used == 0) {
         return;
@@ -403,14 +460,12 @@ void PrependContactMailMessage_5191C0(
     MailMessage* const entry = gMailStorageF7CA08.data()
         + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::ptrdiff_t message = 9; message > 0; --message) {
-        std::memcpy(
-            entry + message,
-            entry + (message - 1), kMailMessageBytes);
+        entry[message] = entry[message - 1];
     }
     entry->unread = kind == 0 ? std::byte{1} : std::byte{0};
     entry->kind = static_cast<std::byte>(static_cast<std::uint8_t>(kind));
-    std::memcpy(entry->name.data(), name, std::strlen(name) + 1);
-    std::memcpy(entry->text.data(), text, std::strlen(text) + 1);
+    entry->name = name;
+    entry->text = text;
 }
 
 // SHP01：原三类未读提示，迷你倒序；U16类别后发布W32页，未命中持有备用页。
@@ -620,7 +675,7 @@ void HandleContactMailReply_50DC70(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 299, text);
     const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    PrependContactMailMessage_5191C0(index, 0, name, text);
+    PrependContactMailMessage_5191C0(index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
     const std::wstring& contactName = gContactsF19FB0[index].name10;
     cg::text::FormatTo(message, kind == -1 ? L"收到从{}寄来的邮件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送来了宠物邮件！" /* 原常量参考：0x0058B064。 */, contactName);
     static_cast<void>(SaveContactMailFile_519300());
@@ -666,7 +721,7 @@ void ResetMiniMailSequenceAndSelection_4C9490()
 }
 
 // 原函数：0x00534520。
-std::int32_t FormatMailTimestamp_534520(char* const destination)
+std::int32_t FormatMailTimestamp_534520(std::wstring& destination)
 {
     __time64_t timeValue;
     timeValue = ::_time64(nullptr);
@@ -677,17 +732,14 @@ std::int32_t FormatMailTimestamp_534520(char* const destination)
     const std::int32_t day = localTime->tm_mday;
     const std::int32_t month = localTime->tm_mon;
     const std::int32_t year = localTime->tm_year;
-    char timestamp[256];
-    std::sprintf(
-        timestamp, "%4d/%2d/%2d %02d:%02d", year + 1900, month + 1, day, hours, minutes);
-    std::strcpy(destination, timestamp);
+    destination = std::format(L"{:4}/{:2}/{:2} {:02}:{:02}", year + 1900, month + 1, day, hours, minutes);
     return 0;
 }
 
 // 原函数：0x005343C0。
 void PrependMiniMailMessage_5343C0(
     const std::int32_t index, const std::int32_t kind,
-    const char* const name, const char* const text)
+    const std::wstring_view name, const std::wstring_view text)
 {
     if (gMiniMailRuntime.contacts[index].used == 0) {
         return;
@@ -695,28 +747,28 @@ void PrependMiniMailMessage_5343C0(
     MailMessage* const entry = gMiniMailRuntime.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::ptrdiff_t message = 9; message > 0; --message) {
-        std::memcpy(
-            entry + message,
-            entry + (message - 1), kMailMessageBytes);
+        entry[message] = entry[message - 1];
     }
     entry->unread = kind == 0 ? std::byte{1} : std::byte{0};
     entry->kind = static_cast<std::byte>(static_cast<std::uint8_t>(kind));
-    std::memcpy(entry->name.data(), name, std::strlen(name) + 1);
-    std::memcpy(entry->text.data(), text, std::strlen(text) + 1);
+    entry->name = name;
+    entry->text = text;
 }
 
 // 原函数：0x00534480。
 void RemoveMiniMailContact_534480(const std::int32_t index)
 {
+    if (index < 0 || index >= static_cast<std::int32_t>(gMiniMailRuntime.contacts.size())) {
+        return;
+    }
     gMiniMailRuntime.contacts[index].used = 0;
     MailMessage* const first = gMiniMailRuntime.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
-    for (std::ptrdiff_t message = 0; message < 20; ++message) {
+    const auto remaining = static_cast<std::ptrdiff_t>(gMiniMailRuntime.messages.size()) - index * 10;
+    for (std::ptrdiff_t message = 0; message < std::min(std::ptrdiff_t{20}, remaining); ++message) {
         MailMessage* const entry = first + message;
-        const char* text = "";
-        std::memcpy(entry->text.data(), text, std::strlen(text) + 1);
-        text = "";
-        std::memcpy(entry->name.data(), text, std::strlen(text) + 1);
+        entry->text.clear();
+        entry->name.clear();
         entry->unread = std::byte{0};
         entry->kind = std::byte{0};
     }
@@ -745,7 +797,7 @@ void HandleMiniMailReply_50F7F0(
     network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    PrependMiniMailMessage_5343C0(index, 0, name, text);
+    PrependMiniMailMessage_5343C0(index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, gMiniMailRuntime.contacts[index].name10);
     static_cast<void>(UpdateUnreadMailPageHint_518DA0());
     if (gViewedMailContactId_CF4FC0 == key) {
@@ -767,12 +819,11 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
     }
     MailMessage* const first = gMiniMailRuntime.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
-    for (std::ptrdiff_t message = 0; message < 20; ++message) {
+    const auto remaining = static_cast<std::ptrdiff_t>(gMiniMailRuntime.messages.size()) - index * 10;
+    for (std::ptrdiff_t message = 0; message < std::min(std::ptrdiff_t{20}, remaining); ++message) {
         MailMessage* const entry = first + message;
-        const char* text = "";
-        std::memcpy(entry->text.data(), text, std::strlen(text) + 1);
-        text = "";
-        std::memcpy(entry->name.data(), text, std::strlen(text) + 1);
+        entry->text.clear();
+        entry->name.clear();
         entry->unread = std::byte{0};
         entry->kind = std::byte{0};
     }
@@ -812,13 +863,14 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
     input::UnescapeLegacyTextAndNotify_52D2F0(timestamp);
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 1023, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    static_cast<void>(FormatMailTimestamp_534520(timestamp));
+    std::wstring formattedTimestamp;
+    static_cast<void>(FormatMailTimestamp_534520(formattedTimestamp));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     if (gProfiles1074938[selected].value00 == key) {
-        PrependMiniMailMessage_5343C0(index, 1, timestamp, text);
+        PrependMiniMailMessage_5343C0(index, 1, formattedTimestamp, cg::text::FromGbkWide(text));
         return;
     }
-    PrependMiniMailMessage_5343C0(index, 0, timestamp, text);
+    PrependMiniMailMessage_5343C0(index, 0, formattedTimestamp, cg::text::FromGbkWide(text));
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, record.name10);
     AppendChatMessage_44B050(message, 4, 3);
@@ -827,8 +879,8 @@ void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* co
 // 原函数：0x00518C80。
 std::int32_t ClearContactAndGuildMailStorage_518C80()
 {
-    std::memset(gMailStorageF7CA08.data(), 0, sizeof(gMailStorageF7CA08));
-    std::memset(gGuildMailStorageDE0B30.data(), 0, sizeof(gGuildMailStorageDE0B30));
+    gMailStorageF7CA08.fill({});
+    gGuildMailStorageDE0B30.fill({});
     gMailContactPage_CB1384 = 0;
     return 0;
 }
@@ -839,7 +891,7 @@ void ClearMiniMailAndProfiles_533910()
     for (MiniMailContactRecord& record : gMiniMailRuntime.contacts) {
         record.used = 0;
     }
-    std::memset(gMiniMailRuntime.messages.data(), 0, sizeof(gMiniMailRuntime.messages));
+    gMiniMailRuntime.messages.fill({});
     std::memset(gProfiles1074938.data(), 0, sizeof(gProfiles1074938));
     std::memset(&gCurrentProfile10738E8, 0, sizeof(gCurrentProfile10738E8));
 }
@@ -1355,61 +1407,73 @@ std::int32_t LoadPlayerProfilesFile_5347F0()
 // 原函数：0x00518CB0。
 std::int32_t LoadContactAndGuildMailFiles_518CB0()
 {
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    std::FILE* stream =
-        std::fopen(path, "rb");
+    const auto mailPath = std::format(L"{}\\mail.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    std::FILE* stream = _wfopen(mailPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveContactMailFile_519300();
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        gMailStorageF7CA08.data(), 1, sizeof(gMailStorageF7CA08), stream)));
-    static_cast<void>(std::fclose(stream));
+    std::unique_ptr<std::FILE, decltype(&std::fclose)> file(stream, &std::fclose);
+    // 先编码旧值，保留短读时未覆盖的记录部分。
+    std::vector<MailDiskMessage> mailDisk(gMailStorageF7CA08.size());
+    for (std::size_t i = 0; i < mailDisk.size(); ++i) {
+        mailDisk[i] = EncodeMailMessage(gMailStorageF7CA08[i]);
+    }
+    const std::size_t mailBytes = std::fread(mailDisk.data(), 1, mailDisk.size() * sizeof(MailDiskMessage), stream);
+    static_cast<void>(std::fclose(file.release()));
+    for (std::size_t i = 0; i * sizeof(MailDiskMessage) < mailBytes; ++i) {
+        DecodeMailMessage(gMailStorageF7CA08[i], mailDisk[i], mailBytes - i * sizeof(MailDiskMessage));
+    }
 
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    stream = std::fopen(path, "rb");
+    const auto guildPath = std::format(L"{}\\guildmail.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    stream = _wfopen(guildPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveGuildMailFile_519550();
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        gGuildMailStorageDE0B30.data(), 1,
-        sizeof(gGuildMailStorageDE0B30), stream)));
-    return std::fclose(stream);
+    file.reset(stream);
+    std::vector<GuildMailDiskEntry> guildDisk(gGuildMailStorageDE0B30.size());
+    for (std::size_t i = 0; i < guildDisk.size(); ++i) {
+        guildDisk[i] = EncodeGuildMailEntry(gGuildMailStorageDE0B30[i]);
+    }
+    const std::size_t guildBytes = std::fread(guildDisk.data(), 1, guildDisk.size() * sizeof(GuildMailDiskEntry), stream);
+    for (std::size_t i = 0; i * sizeof(GuildMailDiskEntry) < guildBytes; ++i) {
+        DecodeGuildMailEntry(gGuildMailStorageDE0B30[i], guildDisk[i], guildBytes - i * sizeof(GuildMailDiskEntry));
+    }
+    return std::fclose(file.release());
 }
 
 // 原函数：0x00519300。
 std::int32_t SaveContactMailFile_519300()
 {
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    std::FILE* const stream =
-        std::fopen(path, "wb");
+    const auto path = std::format(L"{}\\mail.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    std::vector<MailDiskMessage> disk(gMailStorageF7CA08.size());
+    for (std::size_t i = 0; i < disk.size(); ++i) {
+        disk[i] = EncodeMailMessage(gMailStorageF7CA08[i]);
+    }
+    std::FILE* const stream = _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        gMailStorageF7CA08.data(), 1, sizeof(gMailStorageF7CA08), stream)));
+    static_cast<void>(std::fwrite(disk.data(), 1, disk.size() * sizeof(MailDiskMessage), stream));
     return std::fclose(stream);
 }
 
-// GMR01：原128B路径/完整两角色139480写/写弃返→关闭S32结果，当前MSVC FILE域保。
 // 原函数：0x00519550。
 std::int32_t SaveGuildMailFile_519550()
 {
-    char path[128];
-    std::sprintf(
-        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    std::FILE* const stream =
-        std::fopen(path, "wb");
+    const auto path = std::format(L"{}\\guildmail.dat",
+        cg::text::FromGbkWide(login::detail::ReadSelectedSavedDirectory()));
+    std::vector<GuildMailDiskEntry> disk(gGuildMailStorageDE0B30.size());
+    for (std::size_t i = 0; i < disk.size(); ++i) {
+        disk[i] = EncodeGuildMailEntry(gGuildMailStorageDE0B30[i]);
+    }
+    std::FILE* const stream = _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        gGuildMailStorageDE0B30.data(), 1,
-        sizeof(gGuildMailStorageDE0B30), stream)));
+    static_cast<void>(std::fwrite(disk.data(), 1, disk.size() * sizeof(GuildMailDiskEntry), stream));
     return std::fclose(stream);
 }
 
@@ -1417,7 +1481,7 @@ std::int32_t SaveGuildMailFile_519550()
 std::int32_t ClearCurrentCharacterContactMail_519290()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
-    std::memset(gMailStorageF7CA08.data() + selected * 60 * 10, 0, kMailGroupBytes);
+    std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10, 60 * 10, MailMessage{});
     return 0;
 }
 
@@ -1425,9 +1489,7 @@ std::int32_t ClearCurrentCharacterContactMail_519290()
 std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
-    std::memset(
-        gGuildMailStorageDE0B30.data() + selected * 200,
-        0, kGuildMailGroupBytes);
+    std::fill_n(gGuildMailStorageDE0B30.data() + selected * 200, 200, GuildMailEntry{});
     return 0;
 }
 
@@ -1435,10 +1497,8 @@ std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 std::int32_t ClearContactMailMessages_5192C0(const std::int32_t number)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
-    std::memset(
-        gMailStorageF7CA08.data() + selected * 60 * 10
-            + static_cast<std::ptrdiff_t>(number) * 10,
-        0, kMailNumberBytes);
+    std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10
+        + static_cast<std::ptrdiff_t>(number) * 10, 10, MailMessage{});
     return 0;
 }
 
@@ -1474,7 +1534,7 @@ std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
         + selected * 200 + static_cast<std::ptrdiff_t>(index);
-    std::memset(entry, 0, kGuildMailEntryBytes);
+    *entry = {};
     return 0;
 }
 
@@ -1482,7 +1542,7 @@ std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
 // 原函数：0x00519370。
 std::uintptr_t PrependGuildMailMessage_519370(
     const std::int32_t key, const std::int32_t kind,
-    const char* const name, const char* const text)
+    const std::wstring_view name, const std::wstring_view text)
 {
     if (cg::world::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
         return 0xFFFFFFFFu;
@@ -1491,7 +1551,8 @@ std::uintptr_t PrependGuildMailMessage_519370(
     GuildMailEntry* entry;
     if (existingIndex == -1) {
         const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
-        const std::ptrdiff_t groupOffset = selected * kGuildMailGroupBytes;
+        const std::ptrdiff_t groupBytes = 200 * sizeof(GuildMailEntry);
+        const std::ptrdiff_t groupOffset = selected * groupBytes;
         std::int32_t index = 0;
         for (; index < 200; ++index) {
             entry = gGuildMailStorageDE0B30.data() + selected * 200 + index;
@@ -1503,7 +1564,7 @@ std::uintptr_t PrependGuildMailMessage_519370(
         if (index == 200) {
             // 原 EAX 是满组末地址再加 4；保持原生宽度，不构造越界指针。
             return reinterpret_cast<std::uintptr_t>(gGuildMailStorageDE0B30.data())
-                + static_cast<std::uintptr_t>(groupOffset + kGuildMailGroupBytes + 4);
+                + static_cast<std::uintptr_t>(groupOffset + groupBytes + 4);
         }
         const std::uint32_t active = 1;
         entry->key = key;
@@ -1512,18 +1573,14 @@ std::uintptr_t PrependGuildMailMessage_519370(
         const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
         entry = gGuildMailStorageDE0B30.data() + selected * 200 + existingIndex;
         for (std::ptrdiff_t message = 9; message != 0; --message) {
-            std::memcpy(
-                &entry->messages[message],
-                &entry->messages[message - 1],
-                kMailMessageBytes);
+            entry->messages[message] = entry->messages[message - 1];
         }
     }
     entry->messages[0].unread = static_cast<std::byte>(kind == 0);
     entry->messages[0].kind = static_cast<std::byte>(static_cast<std::uint8_t>(kind));
-    const std::uint32_t nameBytes = static_cast<std::uint32_t>(std::strlen(name) + 1);
-    std::memcpy(entry->messages[0].name.data(), name, nameBytes);
-    const std::uint32_t textBytes = static_cast<std::uint32_t>(std::strlen(text) + 1);
-    std::memcpy(entry->messages[0].text.data(), text, textBytes);
+    entry->messages[0].name = name;
+    const auto textBytes = static_cast<std::uint32_t>(cg::text::ToGbk(text).size() + 1);
+    entry->messages[0].text = text;
     return textBytes;
 }
 
@@ -1548,7 +1605,7 @@ std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(const std::int16_t sel
         result = keyEnd;
         if (!found) {
             result = 0;
-            std::memset(entry, 0, kGuildMailEntryBytes);
+            *entry = {};
         }
         ++entry;
     }

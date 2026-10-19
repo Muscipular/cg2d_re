@@ -300,7 +300,7 @@ static std::uint32_t WindowMailRead_Refresh()
     } else {
         const cg::world::MailMessageView message = readCurrentMessage();
         *message.unread00 = std::byte{0};
-        cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(message.text02).c_str());
+        cg::text::FormatTo(buffer, L"{}", message.text02);
         const std::size_t slash = buffer.find(L'/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
@@ -308,8 +308,8 @@ static std::uint32_t WindowMailRead_Refresh()
             const std::byte kind = *readCurrentMessage().kind01;
             auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
             color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
-            const char* const text = readCurrentMessage().text14;
-            static_cast<void>(input::ExtractGbkTextLine(buffer, text, row, 28));
+            const wchar_t* const text = readCurrentMessage().text14;
+            static_cast<void>(input::ExtractTextLine(buffer, text, row, 28));
             auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
             line->text = buffer;
         }

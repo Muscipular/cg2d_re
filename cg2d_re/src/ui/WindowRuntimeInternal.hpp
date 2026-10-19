@@ -349,7 +349,7 @@ void WindowMail_SortIndices(
     std::int32_t (*compare)(const std::int32_t*, const std::int32_t*));
 
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
-void WindowMail_FormatTimestamp(char* const destination);
+void WindowMail_FormatTimestamp(std::wstring& destination);
 
 // 原函数：0x00492260。
 void WindowPetDetail_ResetDraftFlag();

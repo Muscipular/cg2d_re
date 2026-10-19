@@ -161,8 +161,12 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         return consumed;
     }
     const std::wstring text = input::ContextText(cg::ui::detail::gInputContextCA0180);
-    std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
-    cg::text::StoreGbk(storedText.data(), storedText.size(), text);
+    std::wstring storedText; // 内部正文；写文件前仍执行原300字节容量预检。
+    {
+        char fileBytes[300]{};
+        cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
+        storedText = text;
+    }
     const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(gMiniMailCompose105F508.name.data()), 256);
     const std::wstring escapedText = input::EscapeText(text, 1024);
     const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
@@ -183,10 +187,10 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         const std::int32_t day = calendar->tm_mday;
         const std::int32_t month = calendar->tm_mon;
         const std::int32_t year = calendar->tm_year;
-        char timestamp[64];
-        std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
+        std::wstring timestamp;
+        cg::text::FormatTo(timestamp, L"{:4}/{:2}/{:2} {:02}:{:02}",
             year + 1900, month + 1, day, hour, minute);
-        world::detail::PrependMiniMailMessage_5343C0(contact, 1, timestamp, storedText.data());
+        world::detail::PrependMiniMailMessage_5343C0(contact, 1, timestamp, storedText);
     }
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));

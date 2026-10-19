@@ -863,7 +863,8 @@ void HandleGuildMailReply_50F190(
     const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    static_cast<void>(world::detail::PrependGuildMailMessage_519370(key, 0, name, text));
+    static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+        key, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text)));
     const char* const recordName =
         (cg::world::gOrderedRecords1051B14.data() + index)->text18;
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, cg::text::FromGbkWide(recordName).c_str());

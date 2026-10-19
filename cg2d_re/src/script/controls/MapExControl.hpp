@@ -32,6 +32,12 @@ struct UIMapExControl : UIControl {
     int RemovePoints(int mapX, int mapY);
     const std::vector<MapExPoint>& GetPoints() const;
 
+    // BMUI01：同步现有地图缓存；坐标相对于控件左上角，不含窗口偏移。
+    bool PrepareMap();
+    std::pair<int, int> MapToScreen(int gridX, int gridY) const;
+    std::pair<int, int> ScreenToMap(int screenX, int screenY) const;
+    bool IsExplored(int gridX, int gridY) const;
+
     bool render(short ox, short oy) override;
     bool render(short ox, short oy, const UIClipRect* clipRect) override;
 
@@ -107,7 +113,6 @@ private:
     int loadedFloor = -1;
     int tileBuildFrameCounter = 0;
 
-    bool PrepareMap();
     bool LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void ResetMapCache(int effectiveMapId, int effectiveGroup, int effectiveFloor);

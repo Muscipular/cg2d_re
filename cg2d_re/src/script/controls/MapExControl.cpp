@@ -841,6 +841,28 @@ bool UIMapExControl::render(short ox, short oy, const UIClipRect* clipRect) {
     return true;
 }
 
+std::pair<int, int> UIMapExControl::MapToScreen(int gridX, int gridY) const {
+    return {w / 2 + 2 * (gridX - mapX + gridY - mapY),
+        h / 2 + gridY - mapY - (gridX - mapX)};
+}
+
+std::pair<int, int> UIMapExControl::ScreenToMap(int screenX, int screenY) const {
+    const int dx = screenX - w / 2, dy = screenY - h / 2;
+    return {mapX + MapExDivRoundNearest(dx - 2 * dy, 4),
+        mapY + MapExDivRoundNearest(dx + 2 * dy, 4)};
+}
+
+bool UIMapExControl::IsExplored(int gridX, int gridY) const {
+    if (gridX < 0 || gridY < 0 || gridX >= mapWidth || gridY >= mapHeight) return false;
+    const int localX = gridX - visibleMap.startX, localY = gridY - visibleMap.startY;
+    if (visibleMap.loaded && std::abs(gridX - visibleMap.playerX) <= MAP_EX_VISIBLE_RADIUS
+        && std::abs(gridY - visibleMap.playerY) <= MAP_EX_VISIBLE_RADIUS
+        && localX >= 0 && localY >= 0 && localX < visibleMap.width && localY < visibleMap.height) {
+        return (visibleMap.hitData[MapExIndex(visibleMap.width, localX, localY)] & 0x4000) != 0;
+    }
+    return diskMap.loaded && (diskMap.hitData[MapExIndex(diskMap.width, gridX, gridY)] & 0x4000) != 0;
+}
+
 void UIMapExControl::UpdateMouseMapPos(short ox, short oy, const UIClipRect* clipRect) {
     if (visible != 1 || !hitable || w <= 0 || h <= 0) {
         lastMouseX = -1;
@@ -856,10 +878,9 @@ void UIMapExControl::UpdateMouseMapPos(short ox, short oy, const UIClipRect* cli
         return;
     }
 
-    int screenX = (gMouseX - absX) - w / 2;
-    int screenY = (gMouseY - absY) - h / 2;
-    lastMouseX = mapX + MapExDivRoundNearest(screenX - 2 * screenY, 4);
-    lastMouseY = mapY + MapExDivRoundNearest(screenX + 2 * screenY, 4);
+    const auto position = ScreenToMap(gMouseX - absX, gMouseY - absY);
+    lastMouseX = position.first;
+    lastMouseY = position.second;
     if (gMouseClickState & 0x01) {
         lastClickX = lastMouseX;
         lastClickY = lastMouseY;

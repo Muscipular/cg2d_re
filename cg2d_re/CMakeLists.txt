@@ -127,6 +127,7 @@ set(cg2d_re_startup_sources
     src/script/LuaIO.cpp
     src/script/LuaConstants.cpp
     src/script/AutoBattle.cpp
+    src/script/BigMapWindow.cpp
     src/script/Copilot.cpp
     src/script/controls/UIControl.cpp
     src/script/controls/ImageControl.cpp

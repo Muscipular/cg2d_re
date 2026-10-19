@@ -2,6 +2,8 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
+#include "../../script/BigMapWindow.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -19,6 +21,20 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(std::int32_t index, std::int32_
 
 // 原函数：0x00495D70。
 static std::int32_t WindowMiniMap_Update(std::int32_t value);
+
+// BMUI01：唯一大地图入口；事件区同时绘制按钮，不改原控件索引。
+static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
+{
+    const auto& element = gCurrentWindow->elements[index];
+    const auto x = static_cast<std::int16_t>(gCurrentWindow->x + element.x);
+    const auto y = static_cast<std::int16_t>(gCurrentWindow->y + element.y);
+    render::ClearTextQueueTail_456D50(3);
+    render::DrawColoredText(x + 4, y + 2, 3, 12, 0, L"大地图", 0, 0);
+    render::ClearTextQueueTail_456D50(3);
+    render::DrawRectangle(x, y, 48, 17, 0xDF, (events & 1) ? 0xFF53677Du : 0xFF344353u);
+    if (events & 2) script::OpenBigMapWindow();
+    return events != 0;
+}
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -40,7 +56,7 @@ static WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
-static WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF50。
+static WindowElementPrototype gWindowElements56AF50[8] { // 原全局：0x0056AF50；BMUI01末尾追加入口。
     {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &WindowMiniMap_RefreshPlayerX},
     {WindowElementType_Text, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &WindowMiniMap_RefreshPlayerY},
@@ -48,10 +64,11 @@ static WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF
     {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
     {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 2, 1, 48, 17, 1, {}, &WindowMiniMap_OpenBigMap},
 };
 
 // 原型：窗口33；原全局：0x0054E6C0。
-WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 7, gWindowElements56AF50, &WindowMiniMap_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 33: 54E6C0
+WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8, gWindowElements56AF50, &WindowMiniMap_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 33: 54E6C0
 
 // 窗口函数实现。
 

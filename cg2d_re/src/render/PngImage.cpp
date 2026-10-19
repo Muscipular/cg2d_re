@@ -5,6 +5,8 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/resource/GraphicDecode.hpp"
+#include "cg/resource/GraphicInfo.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 
 #include <Windows.h>
 #include <wincodec.h>
@@ -168,6 +170,23 @@ bool UpdatePixelImage(PixelImage* const image, const std::uint32_t* const pixels
 
 void ReleasePixelImage(PixelImage* const image) { delete image; }
 
+std::int32_t DrawGraphicImage(const std::int32_t imageNo,
+    const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
+    const std::uint8_t layer, const PngRectangle* const clipRectangle)
+{
+    if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount || !gGraphicDxCache103CFA4) return -1;
+    if (LoadGraphic_522570(imageNo) == 0) return -1;
+    const auto& entry = gGraphicDxCache103CFA4[imageNo];
+    if (!entry.head) return -1;
+    PixelImage image;
+    image.width = static_cast<std::int16_t>(entry.width);
+    image.height = static_cast<std::int16_t>(entry.height);
+    image.surface.Bind(entry.head->surface);
+    const auto index = DrawPixelImage(&image, x, y, width, height, 0xFFFFFFFFu, layer, clipRectangle);
+    if (index >= 0) GetPngRuntime().batches[index].graphicIndex = imageNo;
+    return index;
+}
+
 std::int32_t DrawPixelImage(PixelImage* const image,
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
     const std::uint32_t color, const std::uint8_t layer, const PngRectangle* const clipRectangle)
@@ -185,6 +204,7 @@ std::int32_t DrawPixelImage(PixelImage* const image,
     if (index < 0) return index;
     auto& batch = runtime.batches[index];
     batch.surface.Bind(image->surface.Get());
+    batch.graphicIndex = -1;
     batch.source = source;
     batch.destination = destination;
     batch.color = color;
@@ -365,6 +385,7 @@ std::int32_t DrawPngImage(
     const auto drawHeight = static_cast<std::int16_t>(destination[3] - destination[1]);
     batch.destination = {drawX, drawY, drawX + drawWidth, drawY + drawHeight};
     batch.color = color;
+    batch.graphicIndex = -1;
     auto& record = gLegacyPendingStorage.records[index];
     record.reference.pngImage = &batch;
     record.batchType = GraphicBatch_PngImage;
@@ -373,6 +394,21 @@ std::int32_t DrawPngImage(
 
 void DrawPngImageBatch(const PngImageBatch& batch)
 {
+    if (batch.graphicIndex >= 0) {
+        // 同图可能先按场景色调绘制：到本批消费时再选择原色，避免共享缓存串色。
+        GraphicCacheItem32 graphic{};
+        graphic.imageNo = batch.graphicIndex;
+        graphic.descriptor.color = batch.color;
+        graphic.descriptor.mixFlags = GraphicMixFlag_OriginalPalette;
+        static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
+        if (LoadGraphic_522570(graphic.imageNo) == 0) return;
+        TextureNode* const node = gGraphicDxCache103CFA4[graphic.imageNo].head;
+        if (!node || LoadGraphicTexture_520B10(&graphic, node) == 0) return;
+        node->reuseState = platform::gFrameCount;
+        static_cast<void>(RenderImageTexture(
+            node->surface, batch.source, batch.destination, GraphicMixFlag_None, batch.color));
+        return;
+    }
     static_cast<void>(RenderImageTexture(
         batch.surface.Get(), batch.source, batch.destination, GraphicMixFlag_None, batch.color));
 }

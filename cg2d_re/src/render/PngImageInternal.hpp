@@ -18,6 +18,7 @@ struct PngImageBatch {
     TextureRectangle source;
     TextureRectangle destination;
     std::uint32_t color;
+    std::int32_t graphicIndex = -1; // BMUI01：资源缩略图在消费时装载调色板，普通像素图为-1。
 };
 
 void DrawPngImageBatch(const PngImageBatch& batch);

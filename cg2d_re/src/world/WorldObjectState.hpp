@@ -101,7 +101,7 @@ namespace cg::world {
 // 原函数：0x004462B0。
 cg::yobi::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
 // 原函数：0x0050AEF0。
-void Sub_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
+void HandlePartyActorVitalsReply_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 // 原函数：0x0050B380。
 void HandleMapObjectListReply_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 // 原函数：0x0050BCD0。
@@ -125,15 +125,15 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
 // 原函数：0x004462E0。
 void RemoveWorldObject_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
-void Sub_4467D0(std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
+void RecreateWorldObjectAction_4467D0(std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
 // 原函数：0x00519EE0。
-void Sub_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
+void SynchronizePlayerMapActionPosition_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
 
 namespace detail {
 // 原函数：0x00521F20。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 // 原函数：0x0046B4B0。
-void Sub_46B4B0(std::int32_t direction); // 原完整转向门禁、发布与节流发送。
+void TurnPlayerAndSendDirection_46B4B0(std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 // 原函数：0x00444FA0。
 std::int32_t FindWorldObjectSlot_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
 // 原函数：0x00449C90。
@@ -188,11 +188,11 @@ std::uint32_t MapWorldObjectTypeToDrawFlags_4461E0(std::int32_t type); // WOL01�
 // 原函数：0x00446210。
 std::uint32_t MapWorldObjectTypeToCategory_446210(std::int32_t type); // WOL01：71索引/五目标完整W32返回，父写category才截低W16。
 // 原函数：0x005183B0。
-std::int32_t Sub_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
+std::int32_t IsAnimationImageNumber_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
 // 原函数：0x004468F0。
 void ResetMapActorDrawKeys_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
 // 原445350完整实体生产/更新；仅新建方向门禁、两坐标取样与四文本槽两阶段复用沿MOP01 SPEC。
-void Sub_445350(
+void UpsertWorldActor_445350(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,
     const char* titles, const char* extraText, std::int32_t level,
@@ -212,22 +212,22 @@ void UpsertGroundGoldObject_445F40(
     std::wstring_view name);
 // WGQ01：类别/必需flags120命中返对象编号，否则-1；掩码0不命中。
 // 原函数：0x00445030。
-std::int32_t Sub_445030(
+std::int32_t FindWorldObjectAtWithActionFlags_445030(
     std::int32_t x, std::int32_t y, std::uint16_t category, std::uint16_t flags);
 // 原函数：0x004450D0。
-std::int32_t Sub_4450D0(
+std::int32_t HasWorldObjectAt_4450D0(
     std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：类别命中返完整0/1。
 // 原函数：0x00445160。
-std::int32_t Sub_445160(
+std::int32_t FindWorldObjectAt_445160(
     std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：命中返对象编号，否则-1。
 // WGQ01：包含掩码0分别跳过对应字段，非零要求原W16交集，返完整0/1。
 // 原函数：0x004451F0。
-std::int32_t Sub_4451F0(
+std::int32_t HasWorldObjectAtWithFlags_4451F0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t flags42Mask, std::uint16_t flags120Mask);
 // WGQ01：排除掩码0仍读取原W16字段，42失败不取120，返完整0/1。
 // 原函数：0x004452A0。
-std::int32_t Sub_4452A0(
+std::int32_t HasWorldObjectAtWithoutFlags_4452A0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t excluded42, std::uint16_t excluded120);
 // 原函数：0x00446470。
@@ -235,22 +235,22 @@ void ResetWorldObjectTable_446470(); // WLR01：只清引用/原字段的整表�
 // 原函数：0x00446610。
 void DetachWorldObjectActions_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
 // 原函数：0x0046A5F0。
-void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+void AdvanceFollowersBehindPlayerLeader_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 // 原函数：0x0046A190。
-std::uint32_t Sub_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
+std::uint32_t UpdatePartyFollowMovement_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
 // 原函数：0x0046B1B0。
 void MovePlayerOneStep_46B1B0(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 普通移动：先通知跟随对象，再快照/计算速度。
 // 原函数：0x0051A640。
-cg::yobi::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
+cg::yobi::YobiAction* MarkPlayerMovementActive_51A640(); // 原+272置1，返回入口借用指针。
 // 原函数：0x0051A660。
-cg::yobi::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
+cg::yobi::YobiAction* ClearPlayerMovementActive_51A660(); // 原+272清0，返回入口借用指针。
 // 原函数：0x0051A680。
-std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
+std::int32_t ReadPlayerMovementActive_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 // 原函数：0x004464D0。
 void __cdecl ClearWorldObjectsAndActions_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
 // 原函数：0x00446640。
-void Sub_446640(); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
+void RecreateMissingWorldObjectActions_446640(); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
 
 } // namespace detail
 

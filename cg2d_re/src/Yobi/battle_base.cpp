@@ -206,8 +206,8 @@ static std::int32_t CompareBattleDrawActions_405BD0(
     if (firstY < secondY) {
         return -1;
     }
-    const auto firstOrder = std::bit_cast<std::int16_t>(first->field270);
-    const auto secondOrder = std::bit_cast<std::int16_t>(second->field270);
+    const auto firstOrder = std::bit_cast<std::int16_t>(first->pathPointCount_270);
+    const auto secondOrder = std::bit_cast<std::int16_t>(second->pathPointCount_270);
     return (firstOrder > secondOrder) - (firstOrder < secondOrder);
 }
 

@@ -142,12 +142,12 @@ YobiAction* Sub_43F330(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     action->worldX = static_cast<float>(scaledX);
     action->worldY = static_cast<float>(mapY * 64.0);
 
@@ -187,12 +187,12 @@ YobiAction* Sub_43FEB0(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     action->phase = 3;
     const float worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
@@ -1084,12 +1084,12 @@ YobiAction* Sub_46DE50(
     action->flags = 0x30;
     action->mapX200 = static_cast<std::int32_t>(mapX);
     action->mapY210 = static_cast<std::int32_t>(mapY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     action->mapX1E0 = static_cast<std::int32_t>(mapX);
     action->mapY1F0 = static_cast<std::int32_t>(mapY);
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
     const auto worldY = static_cast<float>(mapY * 64.0);

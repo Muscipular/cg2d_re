@@ -78,7 +78,7 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     payload->battlePosition18 = position;
     payload->y0C = y;
     action->phase = 0;
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     PlayFrame_517DA0(action, 0);
     const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
     const float screenY = action->offset44;

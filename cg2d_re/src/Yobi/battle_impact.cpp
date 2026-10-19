@@ -1303,7 +1303,7 @@ void InitBattleTargetEffect_422E50(
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
     action->offset40 = target->offset40;
     action->offset44 = target->offset44;
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
 }
 
 // 原函数：0x00423040。
@@ -1353,7 +1353,7 @@ void InitBattleOffsetEffect_423040(
     const double targetY = target->offset44;
     const std::int32_t halfHeight = render::ReadGraphicDxHeight(graphic) / 2;
     const double y = targetY - 200.0 - halfHeight;
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     action->offset44 = static_cast<float>(y);
 }
 
@@ -1404,7 +1404,7 @@ void InitBattleCenterEffect_4231D0(
         sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
     TurnBattleToward_406190(action, target, 0, 0.0F);
     const std::int32_t angleOffset = platform::RandomRange_46FAF0(-90, 90);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     action->angle50 = static_cast<float>(static_cast<double>(angleOffset) + action->angle50);
 }
 
@@ -1451,7 +1451,7 @@ void InitBattleLowerEffect_423350(
     action->offset40 = target->offset40;
     const std::int32_t halfOffset = target->graphicOffsetY / 2;
     const double y = static_cast<double>(halfOffset) + target->offset44;
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     action->offset44 = static_cast<float>(y);
 }
 
@@ -1506,7 +1506,7 @@ void InitBattleScreenYEffect_4234B0(
         *side = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position >= 10 ? 1 : -1;
     }
     const std::int32_t y = target->y + 1;
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     action->offset44 = static_cast<float>(y);
 }
 
@@ -1556,7 +1556,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
     const float screenY = action->offset44;
     action->x = screenX;
     action->y = static_cast<std::int32_t>(screenY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     return action;
 }
 

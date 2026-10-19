@@ -29,7 +29,7 @@ namespace cg::world::detail {
 
 // YGOS01：完整S32动画图号区间判定；仅445350方向门禁调用，不新增公头接口。
 // 原函数：0x005183B0。
-std::int32_t Sub_5183B0(const std::int32_t imageNo)
+std::int32_t IsAnimationImageNumber_5183B0(const std::int32_t imageNo)
 {
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
 }
@@ -48,10 +48,10 @@ void ApplyWorldActorActionCommand_444410(
     const std::int32_t index = payload->index;
     switch (characterAction) {
     case 0:
-        action->field270 = 0;
+        action->pathPointCount_270 = 0;
         [[fallthrough]];
     case 31:
-        cg::yobi::Sub_43EFC0(action, 0, 1);
+        cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
         action->direction = direction;
         return;
     case 50: {
@@ -86,43 +86,43 @@ void ApplyWorldActorActionCommand_444410(
     case 1: {
         const std::uint16_t flags = gWorldObjects[index].flags42;
         if ((flags & 0x300u) == 0x300u) {
-            if (action->field270 < 10) {
-                cg::yobi::Sub_441FC0(action, x, y);
+            if (action->pathPointCount_270 < 10) {
+                cg::yobi::AppendInterpolatedMapActorPath_441FC0(action, x, y);
             } else {
                 ResetMapFollowersFromPath(action);
-                cg::yobi::Sub_441F60(action, x, y);
+                cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
                 gWorldObjects[index].value34 = -1;
             }
         } else {
-            cg::yobi::Sub_441F60(action, x, y);
+            cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
         }
         if (characterAction == 1) {
             action->walkSpeed = option1;
         }
-        cg::yobi::Sub_43EFC0(action, 1, 0);
+        cg::yobi::SetMapActorAnimationState_43EFC0(action, 1, 0);
         return;
     }
     case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
     case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17:
     case 18: case 19:
-        cg::yobi::Sub_43EFC0(action, characterAction, 1);
+        cg::yobi::SetMapActorAnimationState_43EFC0(action, characterAction, 1);
         if (characterAction == 18 || characterAction == 19) {
             action->lastCharacterAction = -1;
         }
         action->direction = direction;
         return;
     case 30:
-        cg::yobi::Sub_43EFC0(action, 1, 1);
+        cg::yobi::SetMapActorAnimationState_43EFC0(action, 1, 1);
         action->direction = direction;
         return;
     case 40:
         if (option1 >= 0) {
             Sub_442D60(action, option1);
-            cg::yobi::Sub_43EFC0(action, 0, 1);
+            cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
         } else {
             Sub_442D90(action);
         }
-        cg::yobi::Sub_442AB0(action, x, y);
+        cg::yobi::SnapMapActorToPosition_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 41:
@@ -139,7 +139,7 @@ void ApplyWorldActorActionCommand_444410(
         } else {
             Sub_442CD0(action);
         }
-        cg::yobi::Sub_442AB0(action, x, y);
+        cg::yobi::SnapMapActorToPosition_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 44:
@@ -148,7 +148,7 @@ void ApplyWorldActorActionCommand_444410(
         } else {
             Sub_442D30(action);
         }
-        cg::yobi::Sub_442AB0(action, x, y);
+        cg::yobi::SnapMapActorToPosition_442AB0(action, x, y);
         action->direction = direction;
         return;
     case 45:
@@ -184,9 +184,9 @@ void ApplyWorldActorActionCommand_444410(
         action->direction = direction;
         return;
     case 51:
-        cg::yobi::Sub_442AB0(action, x, y);
-        action->field270 = 0;
-        cg::yobi::Sub_43EFC0(action, 0, 1);
+        cg::yobi::SnapMapActorToPosition_442AB0(action, x, y);
+        action->pathPointCount_270 = 0;
+        cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
         action->direction = direction;
         gWorldObjects[index].value34 = -1;
         return;
@@ -312,7 +312,7 @@ void ApplyWorldActorActionCommand_444410(
 
 // WBR01：批量补建空action；未知类别仍保创建，仅跳过名字/flags尾，原主体保持。
 // 原函数：0x00446640。
-void Sub_446640()
+void RecreateMissingWorldObjectActions_446640()
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
         auto& record = gWorldObjects[index];
@@ -326,7 +326,7 @@ void Sub_446640()
             static_cast<std::int32_t>(record.coordinate0C);
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         cg::yobi::YobiAction* action =
-            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
         record.action = action;
         if (action == nullptr) {
             continue;
@@ -360,7 +360,7 @@ void Sub_446640()
 
 // MOP01：完整对象生产/更新；两坐标三值先取、四256B文本槽原复用关系沿SPEC，原失败/字段宽度保持。
 // 原函数：0x00445350。
-void Sub_445350(
+void UpsertWorldActor_445350(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const char* const name,
@@ -376,11 +376,11 @@ void Sub_445350(
         if (index < 0) {
             return;
         }
-        if (type > 3 && gValue9DAD68 == 0 && Sub_5183B0(imageNo) == 0) {
+        if (type > 3 && gValue9DAD68 == 0 && IsAnimationImageNumber_5183B0(imageNo) == 0) {
             selectedDirection = 0;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::Sub_441DB0(imageNo, mapX, mapY, selectedDirection);
+            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, selectedDirection);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -506,7 +506,7 @@ void Sub_445350(
 
 // WGQ01：X→fresh Y→类别/必需flags120，返对象编号或-1；保比较读取/RNG与动态上界。
 // 原函数：0x00445030。
-std::int32_t Sub_445030(
+std::int32_t FindWorldObjectAtWithActionFlags_445030(
     const std::int32_t x, const std::int32_t y,
     const std::uint16_t category, const std::uint16_t flags)
 {
@@ -535,7 +535,7 @@ std::int32_t Sub_445030(
 
 // WGQ01：X→fresh Y→类别，返完整0/1，无额外flags门禁；原主体保持。
 // 原函数：0x004450D0。
-std::int32_t Sub_4450D0(
+std::int32_t HasWorldObjectAt_4450D0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
     std::int32_t upperBound = gWorldObjectUpperBound;
@@ -562,7 +562,7 @@ std::int32_t Sub_4450D0(
 
 // WGQ01：X→fresh Y→类别，返对象编号或-1，无标志门禁；保动态上界。
 // 原函数：0x00445160。
-std::int32_t Sub_445160(
+std::int32_t FindWorldObjectAt_445160(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
     std::int32_t upperBound = gWorldObjectUpperBound;
@@ -589,7 +589,7 @@ std::int32_t Sub_445160(
 
 // WGQ01：包含掩码0分别跳过相应W16字段，原X/fresh Y/类别后再检查，返完整0/1。
 // 原函数：0x004451F0。
-std::int32_t Sub_4451F0(
+std::int32_t HasWorldObjectAtWithFlags_4451F0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)
 {
@@ -619,7 +619,7 @@ std::int32_t Sub_4451F0(
 
 // WGQ01：排除掩码0仍沿原W16字段读取，42失败不取120，返完整0/1；主体保持。
 // 原函数：0x004452A0。
-std::int32_t Sub_4452A0(
+std::int32_t HasWorldObjectAtWithoutFlags_4452A0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t excluded42, const std::uint16_t excluded120)
 {
@@ -648,7 +648,7 @@ std::int32_t Sub_4452A0(
 }
 
 // 原函数：0x0046B4B0。
-void Sub_46B4B0(const std::int32_t direction)
+void TurnPlayerAndSendDirection_46B4B0(const std::int32_t direction)
 {
     if (direction < 0 || direction > 7) {
         return;
@@ -657,11 +657,11 @@ void Sub_46B4B0(const std::int32_t direction)
     if (action == nullptr) {
         return;
     }
-    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
     if (movementX < 0.0F || movementX > 0.0F) {
         return;
     }
-    const float movementY = std::bit_cast<float>(gValue9EE900);
+    const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     if (movementY < 0.0F || movementY > 0.0F
         || gValue62B5AA != 0 || gValueC82220 != 0
         || action->direction == direction) {
@@ -683,7 +683,7 @@ void Sub_46B4B0(const std::int32_t direction)
 }
 
 // 原函数：0x0046A190。
-std::uint32_t Sub_46A190()
+std::uint32_t UpdatePartyFollowMovement_46A190()
 {
     for (std::size_t position = 0; position < 5; ++position) {
         const std::int16_t index = ReadPetFollowIndex(position);
@@ -704,7 +704,7 @@ std::uint32_t Sub_46A190()
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
-                || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+                || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
                 continue;
             }
         } else {
@@ -716,19 +716,19 @@ std::uint32_t Sub_46A190()
             const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
-                || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+                || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
                 continue;
             }
             if (position == 0) {
-                gValue9DAD78 = 0x3F800000u;
+                gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
                 const std::int16_t count =
-                    std::bit_cast<std::int16_t>(action->field270);
+                    std::bit_cast<std::int16_t>(action->pathPointCount_270);
                 if (count > 5) {
-                    gValue9DAD78 = 0x40000000u;
+                    gPartyCatchUpRateBits_9DAD78 = 0x40000000u;
                 } else if (count >= 4) {
-                    gValue9DAD78 = 0x3FCCCCCDu;
+                    gPartyCatchUpRateBits_9DAD78 = 0x3FCCCCCDu;
                 } else if (count >= 2) {
-                    gValue9DAD78 = 0x3F99999Au;
+                    gPartyCatchUpRateBits_9DAD78 = 0x3F99999Au;
                 }
             }
         }
@@ -740,9 +740,9 @@ std::uint32_t Sub_46A190()
         if (isPlayer) {
             Sub_46A410(nextX, nextY, speed);
         } else {
-            cg::yobi::Sub_4422F0(action, nextX, nextY, speed);
+            cg::yobi::StartPartyMemberMovement_4422F0(action, nextX, nextY, speed);
         }
-        cg::yobi::Sub_442460(action);
+        cg::yobi::PopMapActorPathPoint_442460(action);
         // 两路末项前视均在消费前丢弃，不扩展原五槽顺序表。
         if (position + 1 >= 5) {
             continue;
@@ -756,7 +756,7 @@ std::uint32_t Sub_46A190()
             static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =
             static_cast<std::int32_t>(action->mapX1E0);
-        cg::yobi::Sub_441F60(next, x, y);
+        cg::yobi::AppendMapActorPathPoint_441F60(next, x, y);
     }
 
     for (std::size_t position = 0; position < 5; ++position) {
@@ -768,7 +768,7 @@ std::uint32_t Sub_46A190()
         if (ReadPetMapObjectIndex(index) == playerIndex) {
             Sub_46A700();
         } else {
-            cg::yobi::Sub_4428F0(ReadPetMapAction(index));
+            cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(index));
         }
     }
     static_cast<void>(Sub_468200());
@@ -793,7 +793,7 @@ void MovePlayerOneStep_46B1B0(
             static_cast<std::int32_t>(player->mapY1F0);
         const std::int32_t previousX =
             static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.action->mapX1E0);
-        static_cast<void>(cg::yobi::Sub_442110(
+        static_cast<void>(cg::yobi::StartMapActorMovement_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
 
@@ -814,22 +814,22 @@ void MovePlayerOneStep_46B1B0(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    gValue9EE8FC = std::bit_cast<std::uint32_t>(
+    gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
         static_cast<float>(direction.unroundedX * rate * 4.0F));
-    gValue9EE900 = std::bit_cast<std::uint32_t>(
+    gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
         static_cast<float>(static_cast<double>(direction.y) * rate * 4.0F));
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
             Sub_46CDF0(direction.x, direction.y));
         static_cast<void>(Sub_51A040(value));
-        static_cast<void>(Sub_51A640());
+        static_cast<void>(MarkPlayerMovementActive_51A640());
     }
-    Sub_519EE0();
+    SynchronizePlayerMapActionPosition_519EE0();
 }
 
 // 原函数：0x0046A5F0。
-void Sub_46A5F0()
+void AdvanceFollowersBehindPlayerLeader_46A5F0()
 {
     if (gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
         return;
@@ -848,7 +848,7 @@ void Sub_46A5F0()
         const double targetY = static_cast<std::int32_t>(action->mapY210) * 64.0;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
-            || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+            || std::bit_cast<std::int16_t>(action->pathPointCount_270) <= 0) {
             continue;
         }
 
@@ -856,8 +856,8 @@ void Sub_46A5F0()
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t nextX = action->pathX220[0];
         static_cast<void>(
-            cg::yobi::Sub_442110(action, nextX, nextY, speed, 0.0F));
-        cg::yobi::Sub_442460(action);
+            cg::yobi::StartMapActorMovement_442110(action, nextX, nextY, speed, 0.0F));
+        cg::yobi::PopMapActorPathPoint_442460(action);
         // 原末位置的9FB942前视值无论正负都被丢弃；不虚构第六槽。
         if (position + 1 >= 5) {
             continue;
@@ -871,35 +871,35 @@ void Sub_46A5F0()
             static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =
             static_cast<std::int32_t>(action->mapX1E0);
-        cg::yobi::Sub_441F60(nextAction, x, y);
+        cg::yobi::AppendMapActorPathPoint_441F60(nextAction, x, y);
     }
 }
 
 // 原函数：0x0051A640。
-cg::yobi::YobiAction* Sub_51A640()
+cg::yobi::YobiAction* MarkPlayerMovementActive_51A640()
 {
     cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        action->field272 = 1;
+        action->movementActive_272 = 1;
     }
     return action;
 }
 
 // 原函数：0x0051A660。
-cg::yobi::YobiAction* Sub_51A660()
+cg::yobi::YobiAction* ClearPlayerMovementActive_51A660()
 {
     cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        action->field272 = 0;
+        action->movementActive_272 = 0;
     }
     return action;
 }
 
 // 原函数：0x0051A680。
-std::int32_t Sub_51A680()
+std::int32_t ReadPlayerMovementActive_51A680()
 {
     cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
-    return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->field272);
+    return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->movementActive_272);
 }
 
 } // namespace cg::world::detail
@@ -908,7 +908,7 @@ namespace cg::world {
 
 
 // 原函数：0x0050AEF0。
-void Sub_50AEF0(const std::uintptr_t, const char* const payload)
+void HandlePartyActorVitalsReply_50AEF0(const std::uintptr_t, const char* const payload)
 {
     char text[2048];
     for (std::int32_t field = 3; field < 28; field += 5) {
@@ -944,7 +944,7 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
 
 // WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
 // 原函数：0x004467D0。
-void Sub_4467D0(const std::int32_t objectIndex)
+void RecreateWorldObjectAction_4467D0(const std::int32_t objectIndex)
 {
     if (objectIndex < 0) {
         return;
@@ -964,7 +964,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
         static_cast<std::int32_t>(record.coordinate0C);
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     cg::yobi::YobiAction* action =
-        cg::yobi::Sub_441DB0(imageNo, mapX, mapY, direction);
+        cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
     record.action = action;
     if (action == nullptr) {
         return;
@@ -985,7 +985,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
 
 
 // 原函数：0x00519EE0。
-void Sub_519EE0()
+void SynchronizePlayerMapActionPosition_519EE0()
 {
     if (cg::world::gPlayerRuntimeSlots.action == nullptr) {
         return;
@@ -1009,10 +1009,10 @@ void Sub_519EE0()
     action = cg::world::gPlayerRuntimeSlots.action;
     action->mapY1F0 = gPlayerY;
     action = cg::world::gPlayerRuntimeSlots.action;
-    action->field27C = detail::gValue9EE8FC;
-    const std::uint32_t movementY = detail::gValue9EE900;
+    action->movementStepXBits_27C = detail::gPlayerMovementStepXBits_9EE8FC;
+    const std::uint32_t movementY = detail::gPlayerMovementStepYBits_9EE900;
     action = cg::world::gPlayerRuntimeSlots.action;
-    action->field280 = movementY;
+    action->movementStepYBits_280 = movementY;
     action = cg::world::gPlayerRuntimeSlots.action;
     action->mapX200 = gPlayerSnapshotX;
     action = cg::world::gPlayerRuntimeSlots.action;

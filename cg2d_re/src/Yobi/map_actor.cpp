@@ -29,7 +29,7 @@ namespace detail {
 
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
 // 原函数：0x004417E0。
-static void Sub_4417E0(YobiAction* action);
+static void UpdateAndQueueMapActor_4417E0(YobiAction* action);
 
 // 原43E535/43EA41等到格转向分支；每个CryptInt比较只读取一次。
 static void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t index)
@@ -352,7 +352,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
 }
 
 // 原函数：0x0043DD00。
-std::int32_t Sub_43DD00(
+std::int32_t ParseMapActorAttachments_43DD00(
     YobiAction* const action, const char* const text, std::int32_t field)
 {
     MapActorPayload* const payload =
@@ -504,7 +504,7 @@ std::int32_t Sub_43DD00(
             x += dx;
             y += dy;
         }
-        YobiAction* const child = Sub_441DB0(imageNo, x, y, direction);
+        YobiAction* const child = CreateMapActorAction_441DB0(imageNo, x, y, direction);
         payload->action2C = child;
         if (child == nullptr) {
             return field;
@@ -524,7 +524,7 @@ std::int32_t Sub_43DD00(
 }
 
 // 原函数：0x0043E490。
-std::int32_t Sub_43E490(YobiAction* const action)
+std::int32_t UpdateMapActorTransitionPhase_43E490(YobiAction* const action)
 {
     const float worldY = action->worldY;
     auto* const payload = action->payload.mapActor;
@@ -541,12 +541,12 @@ std::int32_t Sub_43E490(YobiAction* const action)
     case 0:
         return 0;
     case 1:
-        Sub_4424B0(action);
+        UpdateMapActorPathMovement_4424B0(action);
         ApplyPendingMapActorDirection(action, index);
         UpdateActorMountPhase(action, payload);
         return 1;
     case 2:
-        Sub_4424B0(action);
+        UpdateMapActorPathMovement_4424B0(action);
         ApplyPendingMapActorDirection(action, index);
         UpdateActorDismountPhase(action, payload);
         return 1;
@@ -560,7 +560,7 @@ std::int32_t Sub_43E490(YobiAction* const action)
 }
 
 // 原函数：0x004417E0。
-static void Sub_4417E0(YobiAction* const action)
+static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
 {
     auto* payload = action->payload.mapActor;
     std::int32_t index = payload->index;
@@ -579,7 +579,7 @@ static void Sub_4417E0(YobiAction* const action)
                         static_cast<std::size_t>(index)].flags120)[0] & 0x80u) != 0) {
         return;
     }
-    if (Sub_43E490(action) != 0) {
+    if (UpdateMapActorTransitionPhase_43E490(action) != 0) {
         return;
     }
     if (world::gPlayerRuntimeSlots.action != action) {
@@ -588,7 +588,7 @@ static void Sub_4417E0(YobiAction* const action)
         if ((reinterpret_cast<const unsigned char*>(
                     &world::detail::gWorldObjects[
                         static_cast<std::size_t>(index)].flags42)[1] & 2u) == 0) {
-            Sub_4424B0(action);
+            UpdateMapActorPathMovement_4424B0(action);
             useSharedRate = false;
         } else {
             useSharedRate = true;
@@ -636,17 +636,17 @@ static void Sub_4417E0(YobiAction* const action)
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
     if (useSharedRate) {
-        if (std::bit_cast<float>(world::gValue9DAD78) >= 1.2F) {
+        if (std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78) >= 1.2F) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
-        if (std::bit_cast<float>(world::gValue9DAD78) >= 1.6F) {
+        if (std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78) >= 1.6F) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
     } else {
-        if (std::bit_cast<std::int16_t>(action->field270) >= 2) {
+        if (std::bit_cast<std::int16_t>(action->pathPointCount_270) >= 2) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
-        if (std::bit_cast<std::int16_t>(action->field270) >= 4) {
+        if (std::bit_cast<std::int16_t>(action->pathPointCount_270) >= 4) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
     }
@@ -746,7 +746,7 @@ static void Sub_4417E0(YobiAction* const action)
 }
 
 // 原函数：0x004424B0。
-void Sub_4424B0(YobiAction* const action)
+void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
@@ -758,7 +758,7 @@ void Sub_4424B0(YobiAction* const action)
     if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
         const float firstWorldY = action->worldY;
         if (!(firstTargetY < firstWorldY || firstTargetY > firstWorldY)
-            && std::bit_cast<std::int16_t>(action->field270) > 0) {
+            && std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
             const std::int32_t previousX =
                 static_cast<std::int32_t>(action->mapX1E0);
             const std::int32_t previousY =
@@ -767,13 +767,13 @@ void Sub_4424B0(YobiAction* const action)
             const std::int32_t nextX = action->pathX220[0];
             const std::int32_t speed = action->walkSpeed;
             const float rate =
-                static_cast<float>(Sub_442110(action, nextX, nextY, speed, 0.0F));
-            Sub_442460(action);
+                static_cast<float>(StartMapActorMovement_442110(action, nextX, nextY, speed, 0.0F));
+            PopMapActorPathPoint_442460(action);
             if ((action->flags & 0x200000u) == 0) {
                 auto* const payload = action->payload.mapActor;
                 YobiAction* const child = payload->action2C;
                 if (child != nullptr) {
-                    Sub_442110(child, previousX, previousY, child->walkSpeed, rate);
+                    StartMapActorMovement_442110(child, previousX, previousY, child->walkSpeed, rate);
                 }
             }
         }
@@ -781,20 +781,20 @@ void Sub_4424B0(YobiAction* const action)
 
     const float targetX = static_cast<float>(static_cast<std::int32_t>(action->mapX200) * 64.0);
     const float targetY = static_cast<float>(static_cast<std::int32_t>(action->mapY210) * 64.0);
-    const float movementX = std::bit_cast<float>(action->field27C);
+    const float movementX = std::bit_cast<float>(action->movementStepXBits_27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
-        const float movementY = std::bit_cast<float>(action->field280);
+        const float movementY = std::bit_cast<float>(action->movementStepYBits_280);
         idle = !(movementY < 0.0F || movementY > 0.0F);
     }
     if (idle) {
-        if (action->field272 != 0) {
-            Sub_43EFC0(action, 0, 0);
+        if (action->movementActive_272 != 0) {
+            SetMapActorAnimationState_43EFC0(action, 0, 0);
         }
-        action->field272 = 0;
+        action->movementActive_272 = 0;
     } else {
-        const float stepY = std::bit_cast<float>(action->field280);
-        const float stepX = std::bit_cast<float>(action->field27C);
+        const float stepY = std::bit_cast<float>(action->movementStepYBits_280);
+        const float stepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const float worldY = action->worldY;
         const float worldX = action->worldX;
         const double distance = world::Sub_46FB80(
@@ -804,18 +804,18 @@ void Sub_4424B0(YobiAction* const action)
         const double squaredStep = squaredY + squaredX;
         if (!(squaredStep >= distance)) {
             action->worldX = static_cast<float>(
-                static_cast<double>(std::bit_cast<float>(action->field27C))
+                static_cast<double>(std::bit_cast<float>(action->movementStepXBits_27C))
                 + action->worldX);
             action->worldY = static_cast<float>(
-                static_cast<double>(std::bit_cast<float>(action->field280))
+                static_cast<double>(std::bit_cast<float>(action->movementStepYBits_280))
                 + action->worldY);
         } else {
             action->worldX = targetX;
             action->worldY = targetY;
-            action->field27C = 0;
-            action->field280 = 0;
+            action->movementStepXBits_27C = 0;
+            action->movementStepYBits_280 = 0;
         }
-        Sub_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, 1, 0);
     }
 
     // 此入口先写count，不使用encoded优先的通用operator=(int32_t)。
@@ -830,7 +830,7 @@ void Sub_4424B0(YobiAction* const action)
 } // namespace detail
 
 // 原函数：0x00441DB0。
-YobiAction* Sub_441DB0(
+YobiAction* CreateMapActorAction_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
 {
@@ -839,7 +839,7 @@ YobiAction* Sub_441DB0(
         return nullptr;
     }
     action->direction = direction;
-    action->callback = detail::Sub_4417E0;
+    action->callback = detail::UpdateAndQueueMapActor_4417E0;
     action->imageNo = imageNo;
     action->characterAction = 0;
     action->displayPriority = 10;
@@ -852,13 +852,13 @@ YobiAction* Sub_441DB0(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     action->phase = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
@@ -1004,7 +1004,7 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
     char buffer[2048];
     network::ExtractDelimitedField_52CED0(text, '|', 17, 2047, buffer);
     if (std::strlen(buffer) != 0) {
-        detail::Sub_43DD00(action, text, 17);
+        detail::ParseMapActorAttachments_43DD00(action, text, 17);
     } else if (payload->action2C != nullptr) {
         MarkDeath(payload->action2C);
         payload->action2C = nullptr;
@@ -1028,12 +1028,12 @@ void ReadMapActorTarget(
 
 void ClearMapActorPathCount(YobiAction* const action) noexcept
 {
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
 }
 
 bool IsMapActorIdleAtTarget(YobiAction* const action)
 {
-    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
         return false;
     }
     const double x = static_cast<std::int32_t>(action->mapX200) * 64.0;
@@ -1218,25 +1218,25 @@ void ResetMapFollowerFromPath(
     if (isPlayer) {
         YobiAction* const player = world::gPlayerRuntimeSlots.action;
         if (player != nullptr) {
-            player->field270 = 0;
+            player->pathPointCount_270 = 0;
         }
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->field270) - position;
+            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
         static_cast<void>(world::Sub_519EC0(x, y));
     } else {
-        slot->field270 = 0;
+        slot->pathPointCount_270 = 0;
         YobiAction* const follower = slot;
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->field270) - position;
+            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
-        Sub_442AB0(follower, x, y);
+        SnapMapActorToPosition_442AB0(follower, x, y);
     }
     if (!isPlayer || world::gPlayerRuntimeSlots.action != nullptr) {
         const std::int32_t index =
-            std::bit_cast<std::int16_t>(leader->field270) - position;
+            std::bit_cast<std::int16_t>(leader->pathPointCount_270) - position;
         const std::int32_t dy = leader->pathY248[index - 1] - leader->pathY248[index];
         const std::int32_t dx = leader->pathX220[index - 1] - leader->pathX220[index];
         const float y = static_cast<float>(dy);
@@ -1249,13 +1249,13 @@ void ResetMapFollowerFromPath(
         }
     }
     if (isPlayer) {
-        world::Sub_519EE0();
+        world::SynchronizePlayerMapActionPosition_519EE0();
         static_cast<void>(world::Sub_4681B0());
     }
 }
 
 // 原函数：0x00442AB0。
-void Sub_442AB0(
+void SnapMapActorToPosition_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
 {
@@ -1272,37 +1272,37 @@ void Sub_442AB0(
     assignCoordinate(action->mapX200, targetX);
     assignCoordinate(action->mapY210, targetY);
     const double worldX = targetX;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     action->worldX = static_cast<float>(worldX * 64.0F);
     action->worldY = static_cast<float>(targetY * 64.0);
 }
 
 // 原函数：0x00441F60。
-void Sub_441F60(
+void AppendMapActorPathPoint_441F60(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
 {
     if (action == nullptr) {
         return;
     }
-    const std::uint16_t count = action->field270;
+    const std::uint16_t count = action->pathPointCount_270;
     if (count >= 10u) {
-        action->field270 = 0;
-        Sub_442AB0(action, targetX, targetY);
+        action->pathPointCount_270 = 0;
+        SnapMapActorToPosition_442AB0(action, targetX, targetY);
         return;
     }
     const auto xSlot = static_cast<std::size_t>(
         std::bit_cast<std::int16_t>(count));
     action->pathX220[xSlot] = targetX;
     const auto ySlot = static_cast<std::size_t>(
-        std::bit_cast<std::int16_t>(action->field270));
+        std::bit_cast<std::int16_t>(action->pathPointCount_270));
     action->pathY248[ySlot] = targetY;
-    action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
+    action->pathPointCount_270 = static_cast<std::uint16_t>(action->pathPointCount_270 + 1u);
 }
 
 // 原函数：0x00441FC0。
-void Sub_441FC0(
+void AppendInterpolatedMapActorPath_441FC0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
 {
@@ -1311,7 +1311,7 @@ void Sub_441FC0(
     }
     std::int32_t startX;
     std::int32_t startY;
-    const std::int16_t count = std::bit_cast<std::int16_t>(action->field270);
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathPointCount_270);
     if (count > 0) {
         const auto last = static_cast<std::size_t>(count - 1);
         startX = action->pathX220[last];
@@ -1341,7 +1341,7 @@ void Sub_441FC0(
         pointCount = 1;
     }
     const std::int32_t currentCount =
-        std::bit_cast<std::int16_t>(action->field270);
+        std::bit_cast<std::int16_t>(action->pathPointCount_270);
     pendingX[static_cast<std::size_t>(pointCount)] = targetX;
     pendingY[static_cast<std::size_t>(pointCount)] = targetY;
     ++pointCount;
@@ -1349,25 +1349,25 @@ void Sub_441FC0(
         const auto last = static_cast<std::size_t>(pointCount - 1);
         const std::int32_t finalY = pendingY[last];
         const std::int32_t finalX = pendingX[last];
-        action->field270 = 0;
-        Sub_442AB0(action, finalX, finalY);
+        action->pathPointCount_270 = 0;
+        SnapMapActorToPosition_442AB0(action, finalX, finalY);
         return;
     }
     for (std::int32_t point = 0; point < pointCount; ++point) {
         const auto xSlot = static_cast<std::size_t>(
-            std::bit_cast<std::int16_t>(action->field270));
+            std::bit_cast<std::int16_t>(action->pathPointCount_270));
         const std::int32_t x = pendingX[static_cast<std::size_t>(point)];
         action->pathX220[xSlot] = x;
         const std::int32_t y = pendingY[static_cast<std::size_t>(point)];
         const auto ySlot = static_cast<std::size_t>(
-            std::bit_cast<std::int16_t>(action->field270));
+            std::bit_cast<std::int16_t>(action->pathPointCount_270));
         action->pathY248[ySlot] = y;
-        action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
+        action->pathPointCount_270 = static_cast<std::uint16_t>(action->pathPointCount_270 + 1u);
     }
 }
 
 // 原函数：0x00442110。
-double Sub_442110(
+double StartMapActorMovement_442110(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY, const std::int32_t speed,
     const float overrideRate)
@@ -1377,7 +1377,7 @@ double Sub_442110(
     }
     std::int16_t pathCount = 0;
     if (!(overrideRate < 0.0F || overrideRate > 0.0F)) {
-        pathCount = std::bit_cast<std::int16_t>(action->field270);
+        pathCount = std::bit_cast<std::int16_t>(action->pathPointCount_270);
     }
     const platform::detail::MapActorVelocityInput input {
         targetX, targetY, speed, pathCount, 0, overrideRate,
@@ -1385,8 +1385,8 @@ double Sub_442110(
     };
     platform::detail::MapActorVelocity velocity;
     platform::detail::Cg2dMapActorVelocity(&input, &velocity);
-    action->field27C = std::bit_cast<std::uint32_t>(velocity.stepX);
-    action->field280 = std::bit_cast<std::uint32_t>(velocity.stepY);
+    action->movementStepXBits_27C = std::bit_cast<std::uint32_t>(velocity.stepX);
+    action->movementStepYBits_280 = std::bit_cast<std::uint32_t>(velocity.stepY);
     // 本入口先取齐encoded/mask/readCount，再按该顺序发布；不同于4422F0。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
@@ -1398,13 +1398,13 @@ double Sub_442110(
         || velocity.directionY < 0.0F || velocity.directionY > 0.0F) {
         action->direction = static_cast<std::int32_t>(
             world::Sub_46CDF0(velocity.directionX, velocity.directionY));
-        action->field272 = 1;
+        action->movementActive_272 = 1;
     }
     return velocity.rate;
 }
 
 // 原函数：0x004422F0。
-void Sub_4422F0(
+void StartPartyMemberMovement_4422F0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY, const std::int32_t speed)
 {
@@ -1421,9 +1421,9 @@ void Sub_4422F0(
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
     const double rate = speed;
     const float percent = 0.01F;
-    action->field27C = std::bit_cast<std::uint32_t>(
+    action->movementStepXBits_27C = std::bit_cast<std::uint32_t>(
         static_cast<float>(rate * direction.x * 4.0F * percent));
-    action->field280 = std::bit_cast<std::uint32_t>(
+    action->movementStepYBits_280 = std::bit_cast<std::uint32_t>(
         static_cast<float>(rate * direction.y * 4.0F * percent));
 
     action->mapX200 = static_cast<std::int32_t>(targetX);
@@ -1432,22 +1432,22 @@ void Sub_4422F0(
         || direction.y < 0.0F || direction.y > 0.0F) {
         action->direction = static_cast<std::int32_t>(
             world::Sub_46CDF0(direction.x, direction.y));
-        action->field272 = 1;
+        action->movementActive_272 = 1;
     }
 }
 
 // 原函数：0x00442460。
-void Sub_442460(YobiAction* const action)
+void PopMapActorPathPoint_442460(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    const std::int16_t count = std::bit_cast<std::int16_t>(action->field270);
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->pathPointCount_270);
     if (count > 0) {
-        action->field270 = static_cast<std::uint16_t>(count - 1);
+        action->pathPointCount_270 = static_cast<std::uint16_t>(count - 1);
     }
     for (std::int32_t index = 0;
-         index < std::bit_cast<std::int16_t>(action->field270); ++index) {
+         index < std::bit_cast<std::int16_t>(action->pathPointCount_270); ++index) {
         const auto slot = static_cast<std::size_t>(index);
         action->pathX220[slot] = action->pathX220[slot + 1];
         action->pathY248[slot] = action->pathY248[slot + 1];
@@ -1455,7 +1455,7 @@ void Sub_442460(YobiAction* const action)
 }
 
 // 原函数：0x0043EFC0。
-void Sub_43EFC0(
+void SetMapActorAnimationState_43EFC0(
     YobiAction* const action, const std::int32_t characterAction,
     const std::int32_t restart)
 {
@@ -1515,27 +1515,27 @@ void Sub_43EFC0(
 }
 
 // 原函数：0x00442730。
-void Sub_442730(YobiAction* const action)
+void StepMapActorMovement_442730(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
     const float targetX = static_cast<float>(static_cast<std::int32_t>(action->mapX200) * 64.0);
     const float targetY = static_cast<float>(static_cast<std::int32_t>(action->mapY210) * 64.0);
-    const float movementX = std::bit_cast<float>(action->field27C);
+    const float movementX = std::bit_cast<float>(action->movementStepXBits_27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
-        const float movementY = std::bit_cast<float>(action->field280);
+        const float movementY = std::bit_cast<float>(action->movementStepYBits_280);
         idle = !(movementY < 0.0F || movementY > 0.0F);
     }
     if (idle) {
-        if (action->field272 != 0) {
-            Sub_43EFC0(action, 0, 0);
+        if (action->movementActive_272 != 0) {
+            SetMapActorAnimationState_43EFC0(action, 0, 0);
         }
-        action->field272 = 0;
+        action->movementActive_272 = 0;
     } else {
-        const float stepY = std::bit_cast<float>(action->field280);
-        const float stepX = std::bit_cast<float>(action->field27C);
+        const float stepY = std::bit_cast<float>(action->movementStepYBits_280);
+        const float stepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const float worldY = action->worldY;
         const float worldX = action->worldX;
         const double distance = world::Sub_46FB80(
@@ -1545,18 +1545,18 @@ void Sub_442730(YobiAction* const action)
         const double squaredStep = squaredY + squaredX;
         if (!(squaredStep >= distance)) {
             action->worldX = static_cast<float>(
-                static_cast<double>(std::bit_cast<float>(action->field27C))
+                static_cast<double>(std::bit_cast<float>(action->movementStepXBits_27C))
                 + action->worldX);
             action->worldY = static_cast<float>(
-                static_cast<double>(std::bit_cast<float>(action->field280))
+                static_cast<double>(std::bit_cast<float>(action->movementStepYBits_280))
                 + action->worldY);
         } else {
             action->worldX = targetX;
             action->worldY = targetY;
-            action->field27C = 0;
-            action->field280 = 0;
+            action->movementStepXBits_27C = 0;
+            action->movementStepYBits_280 = 0;
         }
-        Sub_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, 1, 0);
     }
 
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -1568,33 +1568,33 @@ void Sub_442730(YobiAction* const action)
 }
 
 // 原函数：0x004428F0。
-void Sub_4428F0(YobiAction* const action)
+void StepPartyMemberMovement_4428F0(YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
     const float targetX = static_cast<float>(static_cast<std::int32_t>(action->mapX200) * 64.0);
     const float targetY = static_cast<float>(static_cast<std::int32_t>(action->mapY210) * 64.0);
-    const float movementX = std::bit_cast<float>(action->field27C);
+    const float movementX = std::bit_cast<float>(action->movementStepXBits_27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
-        const float movementY = std::bit_cast<float>(action->field280);
+        const float movementY = std::bit_cast<float>(action->movementStepYBits_280);
         idle = !(movementY < 0.0F || movementY > 0.0F);
     }
     if (idle) {
-        if (action->field272 != 0) {
-            Sub_43EFC0(action, 0, 0);
+        if (action->movementActive_272 != 0) {
+            SetMapActorAnimationState_43EFC0(action, 0, 0);
         }
-        action->field272 = 0;
+        action->movementActive_272 = 0;
     } else {
-        const float rateX = std::bit_cast<float>(world::gValue9DAD78);
-        const float rawStepX = std::bit_cast<float>(action->field27C);
+        const float rateX = std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78);
+        const float rawStepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const double scaledX = static_cast<double>(rateX) * rawStepX;
         const float worldY = action->worldY;
         const float worldX = action->worldX;
         const float stepX = static_cast<float>(scaledX);
-        const float rateY = std::bit_cast<float>(world::gValue9DAD78);
-        const float rawStepY = std::bit_cast<float>(action->field280);
+        const float rateY = std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78);
+        const float rawStepY = std::bit_cast<float>(action->movementStepYBits_280);
         const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
         const double distance = world::Sub_46FB80(
             worldX, worldY, targetX, targetY);
@@ -1609,10 +1609,10 @@ void Sub_4428F0(YobiAction* const action)
         } else {
             action->worldX = targetX;
             action->worldY = targetY;
-            action->field27C = 0;
-            action->field280 = 0;
+            action->movementStepXBits_27C = 0;
+            action->movementStepYBits_280 = 0;
         }
-        Sub_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, 1, 0);
     }
 
     // 倍率入口与442730不同：mask→encoded→count，不提前复制目标载荷。

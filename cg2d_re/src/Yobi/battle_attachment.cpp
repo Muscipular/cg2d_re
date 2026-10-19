@@ -318,7 +318,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     action->displayPriority = 9;
     action->direction = direction;
     action->phase = 0;
-    action->field270 = 1;
+    action->pathPointCount_270 = 1;
     action->battleAttachmentParent10 = parent;
     action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -350,7 +350,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     action->direction = parent->direction;
     action->displayPriority = 9;
     action->phase = 0;
-    action->field270 = 2;
+    action->pathPointCount_270 = 2;
     action->battleAttachmentParent10 = parent;
     action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -383,11 +383,11 @@ YobiAction* NewBattleAuxGear_422B00(
     const std::int32_t direction = parent->direction;
     action->displayPriority = 9;
     action->direction = direction;
-    const std::uint16_t field270 = static_cast<std::uint16_t>(sortIndex);
+    const std::uint16_t pathPointCount_270 = static_cast<std::uint16_t>(sortIndex);
     action->phase = 0;
     action->battleAttachmentParent10 = parent;
     const std::int32_t position = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
-    action->field270 = field270;
+    action->pathPointCount_270 = pathPointCount_270;
     action->value1D4 = position;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     YobiAction* const source = action->battleAttachmentParent10;

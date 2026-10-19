@@ -62,7 +62,7 @@ static std::array<std::int32_t, 17> gActorStatusImages5542F4 { // 原全局：0x
 static std::uint32_t gChatBubbles554338 = 1; // 原全局：0x00554338。
 
 // 原4441A0：一次动画完成时清可选父槽再标死，未完成则走地图入队。
-static void Sub_4441A0(YobiAction* const action)
+static void UpdateOneShotMapAnimation_4441A0(YobiAction* const action)
 {
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -97,7 +97,7 @@ static void Sub_4441A0(YobiAction* const action)
 }
 
 // 原444260：无payload附件，仅借用可选的父引用槽，不改变通用释放逻辑。
-YobiAction* Sub_444260(
+YobiAction* CreateOneShotMapAnimation_444260(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t characterAction,
     const std::int32_t direction, const std::uint8_t displayPriority,
@@ -109,7 +109,7 @@ YobiAction* Sub_444260(
     }
     action->imageNo = imageNo;
     action->characterAction = characterAction;
-    action->callback = Sub_4441A0;
+    action->callback = UpdateOneShotMapAnimation_4441A0;
     action->direction = direction;
     action->displayPriority = displayPriority;
     action->flags = 0x20u;
@@ -118,8 +118,8 @@ YobiAction* Sub_444260(
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
     (action->mapY1F0 = static_cast<std::int32_t>(mapY));
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
     const auto worldY = static_cast<float>(mapY * 64.0);
@@ -136,7 +136,7 @@ YobiAction* Sub_444260(
 }
 
 // 原函数：0x004417A0。
-std::int32_t Sub_4417A0(const std::int32_t imageNo)
+std::int32_t GetActorOverheadOffset_4417A0(const std::int32_t imageNo)
 {
     if (imageNo >= 100000 && imageNo <= 100999) {
         return gActorHeightOffsets554204[static_cast<std::size_t>((imageNo - 100000) / 25)];
@@ -145,7 +145,7 @@ std::int32_t Sub_4417A0(const std::int32_t imageNo)
 }
 
 // 原函数：0x00444000。
-YobiAction* Sub_444000(
+YobiAction* CreateMapAttachmentAction_444000(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t characterAction,
     const std::int32_t direction, const std::uint8_t displayPriority)
@@ -169,8 +169,8 @@ YobiAction* Sub_444000(
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
     const auto worldY = static_cast<float>(mapY * 64.0);
@@ -186,7 +186,7 @@ YobiAction* Sub_444000(
 }
 
 // 原函数：0x004412D0。
-void Sub_4412D0(
+void ResolveGearPetAnimationState_4412D0(
     YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
     std::int32_t* const characterAction, std::int32_t* const revert)
 {
@@ -232,7 +232,7 @@ void Sub_4412D0(
 }
 
 // 原函数：0x00441430。
-void Sub_441430(
+void ResolveGearPetDrawPlacement_441430(
     YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
     std::int32_t* const x, std::int32_t* const y, std::uint8_t* const before)
 {
@@ -388,7 +388,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
-        payload->action04 = Sub_444000(imageNo, mapX, mapY, 0, 0, 10);
+        payload->action04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, 0, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
                && payload->action04 != nullptr) {
         MarkDeath(payload->action04);
@@ -410,7 +410,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             YobiAction* const animatedChild = payload->action04;
             AdvanceYobiAnimationFrame_517880(animatedChild, 100, 0, 0);
             const std::int32_t imageNo = action->imageNo;
-            const std::int32_t height = Sub_4417A0(imageNo);
+            const std::int32_t height = GetActorOverheadOffset_4417A0(imageNo);
             YobiAction* const yOffsetChild = payload->action04;
             const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(yOffsetChild, 1);
             const std::int32_t currentY = action->y;
@@ -446,7 +446,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             if (stateIndex != 0) {
                 const std::int32_t firstMeasureFont = payload->font28;
                 std::int32_t width = cg::render::TextMeasure((*drawableText)[0], firstMeasureFont);
-                const std::int32_t height = Sub_4417A0(action->imageNo);
+                const std::int32_t height = GetActorOverheadOffset_4417A0(action->imageNo);
                 std::int32_t y = height + action->y - 32;
                 const std::int32_t metricFont = payload->font28;
                 const std::int32_t bottom =
@@ -540,7 +540,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     const auto positionStatus = [&](YobiAction*& slot) {
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
         slot->x = offsetX + action->x;
-        const std::int32_t height = Sub_4417A0(action->imageNo);
+        const std::int32_t height = GetActorOverheadOffset_4417A0(action->imageNo);
         const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(slot, 1);
         slot->y = height + offsetY + action->y - 20;
         const std::int32_t worldX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
@@ -595,7 +595,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->action4C == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-            YobiAction* const child = Sub_444000(statusImage, mapX, mapY, 0, 0, 10);
+            YobiAction* const child = CreateMapAttachmentAction_444000(statusImage, mapX, mapY, 0, 0, 10);
             payload->action4C = child;
             child->rebirthValue1 = 4;
             payload->action4C->rebirthValue2 = 4;
@@ -618,7 +618,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             if (payload->action0C == nullptr) {
                 const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-                payload->action0C = Sub_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
+                payload->action0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
@@ -645,7 +645,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->action10 == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-            YobiAction* const child = Sub_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
+            YobiAction* const child = CreateMapAttachmentAction_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
             payload->action10 = child;
             child->rebirthValue1 = 4;
             payload->action10->rebirthValue2 = 4;
@@ -690,8 +690,8 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->action38 != nullptr) {
             payload->action38->direction = action->direction;
         }
-        Sub_4412D0(action, primaryIndex, &characterAction, &revert);
-        Sub_441430(action, primaryIndex, &x, &y, &before);
+        ResolveGearPetAnimationState_4412D0(action, primaryIndex, &characterAction, &revert);
+        ResolveGearPetDrawPlacement_441430(action, primaryIndex, &x, &y, &before);
         if (payload->kind3C == 6 && payload->action34->characterAction == 10) {
             payload->action34->graphicIndex = -1;
         }
@@ -779,12 +779,12 @@ YobiAction* NewYobiGearPet_441130(
     action->flags = 0x34u;
     (action->mapX200 = static_cast<std::int32_t>(mapX));
     (action->mapY210 = static_cast<std::int32_t>(mapY));
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
     (action->mapY1F0 = static_cast<std::int32_t>(mapY));
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     action->phase = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;

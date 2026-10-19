@@ -114,7 +114,7 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。
 
 // 原441DB0：独立载荷、四次坐标赋值/投影；4417E0与实体尾442F70正文已有，完整链/运行未验。
-YobiAction* Sub_441DB0(
+YobiAction* CreateMapActorAction_441DB0(
     std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction);
 // LDT01／原448040：独立载荷、同临时槽四次坐标赋值/投影与tick；447E60及十种模式已有本体。
@@ -172,30 +172,30 @@ void ResetMapFollowerFromPath(
     bool isPlayer, std::int32_t* playerDirection);
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
 // 原441F60：单点入队；原U16满队列分支清计数并重置到终点。
-void Sub_441F60(
+void AppendMapActorPathPoint_441F60(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY);
 // 原441FC0：轴差恰为2时补中间点，按整批容量决定入队或位置重置。
-void Sub_441FC0(
+void AppendInterpolatedMapActorPath_441FC0(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY);
 // 原442AB0：四次独立坐标赋值、清移动分量与世界坐标重置；不清路径计数。
-void Sub_442AB0(
+void SnapMapActorToPosition_442AB0(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY);
 // 原函数：0x00442110。
-double Sub_442110(
+double StartMapActorMovement_442110(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY,
     std::int32_t speed, float overrideRate);
 // 原4422F0：不按路径计数加速，两轴方向先落F32再乘完整S32速度。
-void Sub_4422F0(
+void StartPartyMemberMovement_4422F0(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY,
     std::int32_t speed);
 // 原函数：0x00442460。
-void Sub_442460(YobiAction* action); // 原 +270 S16 计数及两组路径交错左移。
+void PopMapActorPathPoint_442460(YobiAction* action); // 原 +270 S16 计数及两组路径交错左移。
 // 原函数：0x00442730。
-void Sub_442730(YobiAction* action); // 原普通跟随推进，不启动或弹出路径。
+void StepMapActorMovement_442730(YobiAction* action); // 原普通跟随推进，不启动或弹出路径。
 // 原函数：0x004428F0。
-void Sub_4428F0(YobiAction* action); // 原9DAD78倍率推进，当前位置以mask优先写回。
+void StepPartyMemberMovement_4428F0(YobiAction* action); // 原9DAD78倍率推进，当前位置以mask优先写回。
 // 原函数：0x0043EFC0。
-void Sub_43EFC0(
+void SetMapActorAnimationState_43EFC0(
     YobiAction* action, std::int32_t characterAction,
     std::int32_t restart); // 主对象/坐骑动作映射及附件播放重置。
 

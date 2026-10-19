@@ -4237,7 +4237,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::Sub_509BA0, T>(head, "UU", socket)) return 0;
     if (TryDispatchReply<world::Sub_50A6B0, I, T>(head, "IsSy", socket, 0x4U)) return 0;
     if (TryDispatchReply<world::Sub_50AC20, I, T>(head, "AU", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::Sub_50AEF0, T>(head, "TNT", socket)) return 0;
+    if (TryDispatchReply<world::HandlePartyActorVitalsReply_50AEF0, T>(head, "TNT", socket)) return 0;
     if (TryDispatchReply<world::HandleMapObjectListReply_50B380, T>(head, "nsY", socket)) return 0;
     if (TryDispatchReply<world::Sub_50A3E0, I, T>(head, "JJQj", socket, 0x4U)) return 0;
     if (TryDispatchReply<world::Sub_50A300, T>(head, "Sc", socket)) return 0;

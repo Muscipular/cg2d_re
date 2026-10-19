@@ -54,11 +54,11 @@ static_assert(offsetof(MapActorPayload, chatDeadline14) == 0x28);
 static_assert(sizeof(MapActorPayload::chatDeadline14) == 8);
 
 // 原函数：0x004424B0。
-void Sub_4424B0(YobiAction* action); // 完整逐帧推进与当前位置 CryptInt 更新。
+void UpdateMapActorPathMovement_4424B0(YobiAction* action); // 完整逐帧推进与当前位置 CryptInt 更新。
 // 原43E490：完整阶段0..3及默认分支；非零阻断4417E0后续处理。
-std::int32_t Sub_43E490(YobiAction* action);
+std::int32_t UpdateMapActorTransitionPhase_43E490(YobiAction* action);
 // 原43DD00：按字段消费EF挂件、骑乘及附属实体，返回下一字段序号。
-std::int32_t Sub_43DD00(YobiAction* action, const char* payload, std::int32_t field);
+std::int32_t ParseMapActorAttachments_43DD00(YobiAction* action, const char* payload, std::int32_t field);
 
 } // namespace detail
 

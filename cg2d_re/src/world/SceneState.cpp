@@ -2296,11 +2296,11 @@ namespace detail {
  // 原全局：0x00C821D8。
 std::uint32_t gValueAF10C0 = 0; // 原全局：0x00AF10C0。
 std::uint32_t gValue9EE8F8 = 0; // 原全局：0x009EE8F8。
-std::uint32_t gValue9EE8FC = 0; // 原全局：0x009EE8FC。
-std::uint32_t gValue9EE900 = 0; // 原全局：0x009EE900。
+std::uint32_t gPlayerMovementStepXBits_9EE8FC = 0; // 原全局：0x009EE8FC。
+std::uint32_t gPlayerMovementStepYBits_9EE900 = 0; // 原全局：0x009EE900。
 
 } // namespace detail
-std::uint32_t gValue9DAD78 = 0; // 原全局：0x009DAD78。
+std::uint32_t gPartyCatchUpRateBits_9DAD78 = 0; // 原全局：0x009DAD78。
 
 namespace detail {
 std::uint8_t gValue9A4B94 = 0; // 原全局：0x009A4B94。
@@ -3207,9 +3207,9 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     gPlayerSnapshotY.encoded = snapshotYEncoded;
     gPlayerSnapshotY.mask = snapshotYMask;
 
-    gValue9EE8FC = 0;
-    gValue9EE900 = 0;
-    gValue9DAD78 = 0x3F800000u;
+    gPlayerMovementStepXBits_9EE8FC = 0;
+    gPlayerMovementStepYBits_9EE900 = 0;
+    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
 
     gValue9EE8D0 = std::int32_t{-1};
 
@@ -3493,7 +3493,7 @@ void DrawNormalScene_51C7D0()
     case 100:
         Sub_519A80();
         Sub_455C60();
-        Sub_446640();
+        RecreateMissingWorldObjectActions_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::Sub_43F220();
@@ -3772,7 +3772,7 @@ void DrawNormalScene_51C7D0()
         gValueFF0D44 = 1;
         Sub_519A80();
         Sub_455C60();
-        Sub_446640();
+        RecreateMissingWorldObjectActions_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::Sub_43F220();
@@ -5430,7 +5430,7 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action)) {
         return;
     }
-    gValue9DAD78 = 0x3F800000u;
+    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
     for (std::int32_t i = index; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
@@ -5439,7 +5439,7 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
                 std::int32_t nextX;
                 std::int32_t nextY;
                 cg::yobi::ReadMapActorTarget(action, slot.action, &nextX, &nextY);
-                cg::yobi::Sub_441F60(action, x, y);
+                cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
                 x = nextX;
                 y = nextY;
             }
@@ -5501,7 +5501,7 @@ void Sub_46A5A0(const std::int32_t x, const std::int32_t y)
     }
     cg::yobi::YobiAction* const action =
         gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
-    cg::yobi::Sub_441F60(action, x, y);
+    cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
 }
 
 // 原函数：0x0046A940。
@@ -5522,7 +5522,7 @@ void Sub_46A940()
         }
         cg::yobi::YobiAction* const action =
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
-        cg::yobi::Sub_442730(action);
+        cg::yobi::StepMapActorMovement_442730(action);
     }
 }
 
@@ -5702,7 +5702,7 @@ std::uint32_t Sub_51B3E0()
     }
     const std::int32_t targetY = gPlayerMoveTargetY;
     const std::int32_t targetX = gPlayerMoveTargetX;
-    result = Sub_4450D0(targetX, targetY, 7);
+    result = HasWorldObjectAt_4450D0(targetX, targetY, 7);
     if (result == 0) {
         return 0;
     }
@@ -5733,11 +5733,11 @@ void Sub_46B370()
     if (gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
-    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
     if (movementX < 0.0F || movementX > 0.0F) {
         return;
     }
-    const float movementY = std::bit_cast<float>(gValue9EE900);
+    const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     if (movementY < 0.0F || movementY > 0.0F
         || gValue62B5AA != 0 || gValueC82220 != 0) {
         return;
@@ -5784,7 +5784,7 @@ std::uint8_t Sub_469C90()
     if (gValueC8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const std::int32_t targetY = gPlayerMoveTargetY;
         const std::int32_t targetX = gPlayerMoveTargetX;
-        const std::int32_t objectIndex = Sub_445030(targetX, targetY, 8, 0x1000);
+        const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(targetX, targetY, 8, 0x1000);
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose());
             static_cast<void>(ui::WindowOwnStall_RequestClose());
@@ -5794,7 +5794,7 @@ std::uint8_t Sub_469C90()
         static_cast<void>(Sub_51B3E0());
         const std::int32_t secondY = gPlayerMoveTargetY;
         const std::int32_t secondX = gPlayerMoveTargetX;
-        const std::int32_t secondIndex = Sub_445160(secondX, secondY, 8);
+        const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);
         if (secondIndex != -1) {
             static_cast<void>(network::RequestPlayerProfile_511760(
                 platform::gConnectionSocket, 3, secondIndex));
@@ -5848,7 +5848,7 @@ std::uint8_t Sub_469C90()
     }
     Sub_46A990();
     if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
-        return static_cast<std::uint8_t>(Sub_46A190());
+        return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190());
     }
     return static_cast<std::uint8_t>(Sub_469FC0());
 }
@@ -5857,7 +5857,7 @@ std::uint8_t Sub_469C90()
 std::uint16_t Sub_469FC0()
 {
     const std::uint32_t stopped = gValue9EE8B8;
-    gValue9DAD78 = 0x3F800000u;
+    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
     if (stopped != 0) {
         return static_cast<std::uint16_t>(stopped);
     }
@@ -5888,7 +5888,7 @@ std::uint16_t Sub_469FC0()
                         if (pendingCount != 0) {
                             return pendingCount;
                         }
-                        Sub_46B4B0(std::bit_cast<std::int16_t>(gValue55D9FC));
+                        TurnPlayerAndSendDirection_46B4B0(std::bit_cast<std::int16_t>(gValue55D9FC));
                         pathCount = std::bit_cast<std::int16_t>(gValueC82200);
                         gValue55D9FC = 0xFFFFu;
                     }
@@ -5932,7 +5932,7 @@ std::uint16_t Sub_469FC0()
             }
         }
     }
-    Sub_46A5F0();
+    AdvanceFollowersBehindPlayerLeader_46A5F0();
     const std::uint32_t stoppedAfterFollow = gValue9EE8B8;
     gValueC8222E = 0;
     if (stoppedAfterFollow != 0) {
@@ -5972,14 +5972,14 @@ void Sub_46A410(
     if (gPlayerRuntimeSlots.action != nullptr) {
         const double rate = speed;
         const float percent = 0.01F;
-        gValue9EE8FC = std::bit_cast<std::uint32_t>(
+        gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.unroundedX * 4.0F * percent));
-        gValue9EE900 = std::bit_cast<std::uint32_t>(
+        gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.y * 4.0F * percent));
     } else {
-        gValue9EE8FC = std::bit_cast<std::uint32_t>(
+        gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
             static_cast<float>(direction.unroundedX * 4.0F));
-        gValue9EE900 = std::bit_cast<std::uint32_t>(
+        gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
             static_cast<float>(direction.y * 4.0));
     }
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
@@ -5987,29 +5987,29 @@ void Sub_46A410(
         const auto value = static_cast<std::int32_t>(
             Sub_46CDF0(direction.x, direction.y));
         static_cast<void>(Sub_51A040(value));
-        static_cast<void>(Sub_51A640());
+        static_cast<void>(MarkPlayerMovementActive_51A640());
     }
-    Sub_519EE0();
+    SynchronizePlayerMapActionPosition_519EE0();
 }
 
 // 原函数：0x0046A700。
 void Sub_46A700()
 {
     static_cast<void>(Sub_46CEC0());
-    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
-        const float movementY = std::bit_cast<float>(gValue9EE900);
+        const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
         idle = !(movementY < 0.0F || movementY > 0.0F);
     }
     if (idle) {
-        if (Sub_51A680() == 1) {
+        if (ReadPlayerMovementActive_51A680() == 1) {
             Sub_51A060(0);
-            static_cast<void>(Sub_51A660());
+            static_cast<void>(ClearPlayerMovementActive_51A660());
         }
         gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
         static_cast<void>(Sub_46CEE0());
-        Sub_519EE0();
+        SynchronizePlayerMapActionPosition_519EE0();
         return;
     }
 
@@ -6017,13 +6017,13 @@ void Sub_46A700()
     const double scaledTargetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
-    const float rateX = std::bit_cast<float>(gValue9DAD78);
-    const float rawStepX = std::bit_cast<float>(gValue9EE8FC);
+    const float rateX = std::bit_cast<float>(gPartyCatchUpRateBits_9DAD78);
+    const float rawStepX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
     const double scaledX = static_cast<double>(rateX) * rawStepX;
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float stepX = static_cast<float>(scaledX);
-    const float rateY = std::bit_cast<float>(gValue9DAD78);
-    const float rawStepY = std::bit_cast<float>(gValue9EE900);
+    const float rateY = std::bit_cast<float>(gPartyCatchUpRateBits_9DAD78);
+    const float rawStepY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
     const double distance = Sub_46FB80(
         std::bit_cast<float>(worldXBits), std::bit_cast<float>(worldYBits),
@@ -6043,8 +6043,8 @@ void Sub_46A700()
         const double gridX = targetX * 0.015625;
         gWorldCurrentXBits = std::bit_cast<std::uint32_t>(targetX);
         gWorldCurrentYBits = std::bit_cast<std::uint32_t>(targetY);
-        gValue9EE8FC = 0;
-        gValue9EE900 = 0;
+        gPlayerMovementStepXBits_9EE8FC = 0;
+        gPlayerMovementStepYBits_9EE900 = 0;
         gValueC8222E = 1;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
         gPlayerX = static_cast<std::int32_t>(x);
@@ -6073,14 +6073,14 @@ void Sub_46A700()
         }
     }
     Sub_51A060(1);
-    static_cast<void>(Sub_51A640());
+    static_cast<void>(MarkPlayerMovementActive_51A640());
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         gMapCharaSceneSlots.value55DE98 =
             cg::yobi::ReadYobiDirectionLow16(action);
     }
     static_cast<void>(Sub_46CEE0());
-    Sub_519EE0();
+    SynchronizePlayerMapActionPosition_519EE0();
 }
 
 // 原函数：0x00519A80。
@@ -6203,12 +6203,12 @@ void Sub_519CD0(
     if (oldAction != nullptr) {
         Sub_519E50(imageNo, direction);
         static_cast<void>(Sub_519EC0(x, y));
-        Sub_519EE0();
+        SynchronizePlayerMapActionPosition_519EE0();
         return;
     }
 
     cg::yobi::YobiAction* const action =
-        cg::yobi::Sub_441DB0(imageNo, x, y, direction);
+        cg::yobi::CreateMapActorAction_441DB0(imageNo, x, y, direction);
     gPlayerRuntimeSlots.action = action;
     if (action != nullptr) {
         cg::yobi::SetYobiPlayerFlag(action);
@@ -6252,7 +6252,7 @@ void Sub_51A060(const std::int32_t characterAction)
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        cg::yobi::Sub_43EFC0(
+        cg::yobi::SetMapActorAnimationState_43EFC0(
             action, characterAction, characterAction == 1 ? 0 : 1);
     }
 }
@@ -6347,7 +6347,7 @@ void Sub_51A840(
         if (Sub_469810(x, y) == 0) {
             static_cast<void>(Sub_519EC0(x, y));
         }
-        Sub_519EE0();
+        SynchronizePlayerMapActionPosition_519EE0();
         static_cast<void>(Sub_51A040(direction));
         Sub_51A060(0);
         static_cast<void>(Sub_4681B0());
@@ -8541,7 +8541,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
             } else {
                 const std::int32_t mappedImage =
                     character_select::ResolveCharacterImageForVersion(imageNo);
-                detail::Sub_445350(
+                detail::UpsertWorldActor_445350(
                     objectIndex, mappedImage, x, y, direction, name, titles,
                     extraText, level, value40, flag1, flag2, type);
                 object = FindObjectYobi_4462B0(objectIndex);
@@ -10065,7 +10065,7 @@ void Sub_5093C0(
 {
     static_cast<void>(detail::Sub_468200());
     static_cast<void>(Sub_519EC0(x, y));
-    Sub_519EE0();
+    SynchronizePlayerMapActionPosition_519EE0();
     static_cast<void>(detail::Sub_51A040(direction));
 }
 
@@ -10859,7 +10859,7 @@ void Sub_470050()
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t target = detail::Sub_4450D0(targetX, targetY, 8);
+    const std::int32_t target = detail::HasWorldObjectAt_4450D0(targetX, targetY, 8);
     const std::uint16_t follow = detail::gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
@@ -10893,7 +10893,7 @@ void Sub_470150()
             (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
             (gPlayerX + static_cast<std::int32_t>(deltaX));
-        target = detail::Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
+        target = detail::HasWorldObjectAtWithFlags_4451F0(targetX, targetY, 8, 0xC400, 0);
     }
     const std::uint16_t follow = detail::gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
@@ -10928,7 +10928,7 @@ void Sub_470270()
             (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
             (gPlayerX + static_cast<std::int32_t>(deltaX));
-        if (detail::Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
+        if (detail::HasWorldObjectAtWithoutFlags_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
         }
@@ -10966,7 +10966,7 @@ void Sub_4703C0()
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (detail::Sub_4450D0(targetX, targetY, 8) != 1
+    if (detail::HasWorldObjectAt_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
         || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10996,12 +10996,12 @@ void Sub_4704A0()
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t firstX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t first = detail::Sub_4450D0(firstX, firstY, 8);
+    const std::int32_t first = detail::HasWorldObjectAt_4450D0(firstX, firstY, 8);
     const std::int32_t secondY =
         (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
     const std::int32_t secondX =
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
-    const std::int32_t second = detail::Sub_4450D0(secondX, secondY, 8);
+    const std::int32_t second = detail::HasWorldObjectAt_4450D0(secondX, secondY, 8);
     if (detail::gValueFF0D36 != 1 && first != 1 && second != 1) {
         AppendChatMessage_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -11032,7 +11032,7 @@ void Sub_470670()
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (detail::Sub_4450D0(targetX, targetY, 8) != 1
+    if (detail::HasWorldObjectAt_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
         || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));

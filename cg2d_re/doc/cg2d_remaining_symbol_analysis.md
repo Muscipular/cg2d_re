@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：286／636。已重命名：275。保留／未决：11。待分析：350。
+已分析：323／636。已重命名：312。保留／未决：11。待分析：313。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -37,9 +37,9 @@
 | `Sub_43DAD0` | src/world/WorldActorDrawing.cpp:289 | 已重命名：`ShowActorPetTimedStatusIcon_43DAD0` | 置flags120位0x50，附属宠物绘制时映射为计时图标及首次声音位0x24。 |
 | `Sub_43DB00` | src/world/WorldActorDrawing.cpp:692 | 已重命名：`SuspendWorldActorForObservation_43DB00` | 观察81/82动作对成员调用，置flags120位0x80，地图角色更新入口据此直接返回。 |
 | `Sub_43DB30` | src/world/WorldActorDrawing.cpp:704 | 已重命名：`ResumeWorldActorAfterObservation_43DB30` | 清flags120位0x80，恢复观察成员的地图角色更新。 |
-| `Sub_43DD00` | src/Yobi/map_actor.cpp:355 | 待分析 | — |
-| `Sub_43E490` | src/Yobi/map_actor.cpp:527 | 待分析 | — |
-| `Sub_43EFC0` | src/Yobi/map_actor.cpp:1458 | 待分析 | — |
+| `Sub_43DD00` | src/Yobi/map_actor.cpp:355 | 已重命名：`ParseMapActorAttachments_43DD00` | 解析附属标志及EF终止序列，更新装备、双附属宠物、骑乘和跟随宠物，返回消费后的字段位置。 |
+| `Sub_43E490` | src/Yobi/map_actor.cpp:527 | 已重命名：`UpdateMapActorTransitionPhase_43E490` | 投影后按阶段分发上骑、下骑和旋转变身过渡，过渡时更新路径／朝向并返回1，普通阶段0。 |
+| `Sub_43EFC0` | src/Yobi/map_actor.cpp:1458 | 已重命名：`SetMapActorAnimationState_43EFC0` | 设置角色和坐骑动作，按骑乘资源族映射角色动作；restart使主动作及骑乘／双附属动作重新取帧。 |
 | `Sub_43F180` | src/Yobi/map_observation.cpp:772 | 待分析 | — |
 | `Sub_43F1B0` | src/Yobi/map_observation.cpp:791 | 待分析 | — |
 | `Sub_43F1F0` | src/Yobi/map_observation.cpp:1135 | 待分析 | — |
@@ -63,20 +63,20 @@
 | `Sub_440FE0` | src/Yobi/map_observation.cpp:1217 | 待分析 | — |
 | `Sub_440FF0` | src/world/SceneState.cpp:1671 | 待分析 | — |
 | `Sub_4410E0` | src/world/SceneState.cpp:10682 | 待分析 | — |
-| `Sub_4412D0` | src/Yobi/map_render.cpp:189 | 待分析 | — |
-| `Sub_441430` | src/Yobi/map_render.cpp:235 | 待分析 | — |
-| `Sub_4417A0` | src/Yobi/map_render.cpp:139 | 待分析 | — |
-| `Sub_4417E0` | src/Yobi/map_actor.cpp:563 | 待分析 | — |
-| `Sub_441DB0` | src/Yobi/map_actor.cpp:833 | 待分析 | — |
-| `Sub_441F60` | src/Yobi/map_actor.cpp:1282 | 待分析 | — |
-| `Sub_441FC0` | src/Yobi/map_actor.cpp:1305 | 待分析 | — |
-| `Sub_442110` | src/Yobi/map_actor.cpp:1370 | 待分析 | — |
-| `Sub_4422F0` | src/Yobi/map_actor.cpp:1407 | 待分析 | — |
-| `Sub_442460` | src/Yobi/map_actor.cpp:1440 | 待分析 | — |
-| `Sub_4424B0` | src/Yobi/map_actor.cpp:749 | 待分析 | — |
-| `Sub_442730` | src/Yobi/map_actor.cpp:1518 | 待分析 | — |
-| `Sub_4428F0` | src/Yobi/map_actor.cpp:1571 | 待分析 | — |
-| `Sub_442AB0` | src/Yobi/map_actor.cpp:1258 | 待分析 | — |
+| `Sub_4412D0` | src/Yobi/map_render.cpp:189 | 已重命名：`ResolveGearPetAnimationState_4412D0` | 遍历两附属宠物类别，根据主角色动作映射输出动画动作与末帧停留模式，保第二槽覆写语义。 |
+| `Sub_441430` | src/Yobi/map_render.cpp:235 | 已重命名：`ResolveGearPetDrawPlacement_441430` | 附属类别3至5按八方向输出绘制偏移及前后层次，保两个槽逐次处理。 |
+| `Sub_4417A0` | src/Yobi/map_render.cpp:139 | 已重命名：`GetActorOverheadOffset_4417A0` | 100000至100999图号按每25个查头顶高度偏移表，其余-88；气泡和状态图标据此定位。 |
+| `Sub_4417E0` | src/Yobi/map_actor.cpp:563 | 已重命名：`UpdateAndQueueMapActor_4417E0` | 遵守观察门禁，处理过渡和移动、动画帧倍率、骑乘附属及地面物品范围／去重，提交地图绘制与头顶附件。 |
+| `Sub_441DB0` | src/Yobi/map_actor.cpp:833 | 已重命名：`CreateMapActorAction_441DB0` | 分配带MapActor载荷的动作，绑定地图更新回调，初始化方向、图号、路径数量及地图世界屏幕坐标。 |
+| `Sub_441F60` | src/Yobi/map_actor.cpp:1282 | 已重命名：`AppendMapActorPathPoint_441F60` | 将目标格追加到十点路径队列；已满时清队列并直接同步至目标。 |
+| `Sub_441FC0` | src/Yobi/map_actor.cpp:1305 | 已重命名：`AppendInterpolatedMapActorPath_441FC0` | 从末路径点或当前目标出发，距离两格时补一个中间点后追加目标，超过十点则清队列并直接定位。 |
+| `Sub_442110` | src/Yobi/map_actor.cpp:1370 | 已重命名：`StartMapActorMovement_442110` | 根据目标、速度、路径积压和可选倍率计算步长，保存目标格、方向和移动状态，返回实际倍率。 |
+| `Sub_4422F0` | src/Yobi/map_actor.cpp:1407 | 已重命名：`StartPartyMemberMovement_4422F0` | 按目标方向和速度百分比计算基本步长，更新目标格及移动朝向，供共享追赶倍率推进使用。 |
+| `Sub_442460` | src/Yobi/map_actor.cpp:1440 | 已重命名：`PopMapActorPathPoint_442460` | 减少正路径计数并前移剩余XY坐标，空动作直接返回。 |
+| `Sub_4424B0` | src/Yobi/map_actor.cpp:749 | 已重命名：`UpdateMapActorPathMovement_4424B0` | 到达目标时消费下一路径点并让跟随宠物走前一格，再按步长推进、更新动作状态与格坐标。 |
+| `Sub_442730` | src/Yobi/map_actor.cpp:1518 | 已重命名：`StepMapActorMovement_442730` | 按当前步长趋近目标，步长覆盖剩余距离时对齐并清速度，更新站立／移动动作与格坐标。 |
+| `Sub_4428F0` | src/Yobi/map_actor.cpp:1571 | 已重命名：`StepPartyMemberMovement_4428F0` | 将基本步长乘共享追赶倍率后推进，目标到达处理及格坐标更新与普通移动链对应。 |
+| `Sub_442AB0` | src/Yobi/map_actor.cpp:1258 | 已重命名：`SnapMapActorToPosition_442AB0` | 将动作当前格和目标格同时设为指定位置，清移动步长并将世界坐标设格坐标乘64。 |
 | `Sub_442BD0` | src/world/WorldActorDrawing.cpp:355 | 已重命名：`MarkWorldActorAsPartyLeader_442BD0` | 置共享头顶图标位0x100及显式队长marker44=1；队伍首槽生产调用。 |
 | `Sub_442C00` | src/world/WorldActorDrawing.cpp:116 | 已重命名：`ClearWorldActorLeaderMarker_442C00` | 清显式队长标记，动作显示模式不是2时同时清0x100图标位；与队伍首槽设置路径对应。 |
 | `Sub_442C40` | src/world/WorldActorDrawing.cpp:330 | 已重命名：`MarkWorldActorAsPartyMember_442C40` | 置flags42位0x200；队伍记录生产调用，动作更新据此采用共享速度并绘制血条。 |
@@ -89,17 +89,17 @@
 | `Sub_442D90` | src/world/WorldActorDrawing.cpp:190 | 已分析，保留原名 | 动作40参数负值时以0xEBFF清0x400和0x1000两位；当前绘制证据仅解释0x400对应0x1AF41，额外清位及状态业务未完全明确。 |
 | `Sub_442DC0` | src/world/WorldActorDrawing.cpp:71 | 已重命名：`SetWorldActorChatBubble_442DC0` | 设置世界对象聊天位与到期时刻，在特殊地图模式朝向玩家，释放旧文本后生成双行聊天内容。 |
 | `Sub_442F70` | src/Yobi/map_render.cpp:317 | 已重命名：`DrawMapActorOverlaysAndAttachments_442F70` | 依玩家或对象状态维护头顶标记、限时聊天文本、名称和状态图标，再绘制装备／附属宠物及血条，保清位与读槽顺序。 |
-| `Sub_444000` | src/Yobi/map_render.cpp:148 | 待分析 | — |
-| `Sub_4441A0` | src/Yobi/map_render.cpp:65 | 待分析 | — |
-| `Sub_444260` | src/Yobi/map_render.cpp:100 | 待分析 | — |
+| `Sub_444000` | src/Yobi/map_render.cpp:148 | 已重命名：`CreateMapAttachmentAction_444000` | 创建无自主回调的地图附属动作，设置图号、方向、优先级及三类坐标；由父角色维护并绘制。 |
+| `Sub_4441A0` | src/Yobi/map_render.cpp:65 | 已重命名：`UpdateOneShotMapAnimation_4441A0` | 投影世界坐标并推进一次性动画，结束清父完成槽并标死，否则入地图主绘制缓存。 |
+| `Sub_444260` | src/Yobi/map_render.cpp:100 | 已重命名：`CreateOneShotMapAnimation_444260` | 创建带一次播放更新回调的地图动画，初始化图号、动作、方向、地图世界屏幕坐标及可选完成槽。 |
 | `Sub_444410` | src/world/WorldActor.cpp:38 | 已重命名：`ApplyWorldActorActionCommand_444410` | 按角色动作命令分发移动、原地动作、状态图标、队伍标记、附件、骑乘及变身，保所有指令与参数发布顺序。 |
 | `Sub_444FA0` | src/world/WorldObjectState.cpp:52 | 已重命名：`FindWorldObjectSlot_444FA0` | 从缓存游标到高水位、再从0到游标分两段查占用对象编号，命中更新游标并返回槽。 |
-| `Sub_445030` | src/world/WorldActor.cpp:509 | 待分析 | — |
-| `Sub_4450D0` | src/world/WorldActor.cpp:538 | 待分析 | — |
-| `Sub_445160` | src/world/WorldActor.cpp:565 | 待分析 | — |
-| `Sub_4451F0` | src/world/WorldActor.cpp:592 | 待分析 | — |
-| `Sub_4452A0` | src/world/WorldActor.cpp:622 | 待分析 | — |
-| `Sub_445350` | src/world/WorldActor.cpp:363 | 待分析 | — |
+| `Sub_445030` | src/world/WorldActor.cpp:509 | 已重命名：`FindWorldObjectAtWithActionFlags_445030` | 按坐标、类别与必需动作状态位扫描，返回首对象编号或-1，保动态高水位与逐次坐标读取。 |
+| `Sub_4450D0` | src/world/WorldActor.cpp:538 | 已重命名：`HasWorldObjectAt_4450D0` | 按地图坐标和类别查询有无活动且有动作的对象，返回0/1。 |
+| `Sub_445160` | src/world/WorldActor.cpp:565 | 已重命名：`FindWorldObjectAt_445160` | 按地图坐标和类别返回首活动对象编号，无匹配-1。 |
+| `Sub_4451F0` | src/world/WorldActor.cpp:592 | 已重命名：`HasWorldObjectAtWithFlags_4451F0` | 在坐标类别匹配后分别检查两组包含标志，零掩码跳过对应检查，返回0/1。 |
+| `Sub_4452A0` | src/world/WorldActor.cpp:622 | 已重命名：`HasWorldObjectAtWithoutFlags_4452A0` | 在坐标类别匹配后排除两组指定标志，保先42后120的短路顺序。 |
+| `Sub_445350` | src/world/WorldActor.cpp:363 | 已重命名：`UpsertWorldActor_445350` | 查或建世界角色对象，按类型与地图模式处理朝向，更新坐标、等级、姓名称号和动作显示字段，保持两阶段独立文本解析。 |
 | `Sub_445A60` | src/world/WorldObjectState.cpp:224 | 已重命名：`RegisterWorldObjectWithoutAction_445A60` | 拒绝重复编号、取得空槽后记录图号、坐标、朝向、姓名称号及分类标志，动作保持空。 |
 | `Sub_445D20` | src/world/WorldActorDrawing.cpp:368 | 已重命名：`UpsertGroundItemObject_445D20` | 地面物品回复的图号／标签分支调用，查或建category2对象与动作，更新坐标、标签和附加值，置绘制0x400。 |
 | `Sub_445F40` | src/world/WorldActorDrawing.cpp:429 | 已重命名：`UpsertGroundGoldObject_445F40` | 对象回复按金额选金币图号并生成金币标签后调用，查或建category4记录，更新数量、坐标及0x800绘制标志。 |
@@ -110,8 +110,8 @@
 | `Sub_446470` | src/world/WorldObjectState.cpp:142 | 已重命名：`ResetWorldObjectTable_446470` | 清全表指定字段、姓名首字节及计数游标，不释放原动作。 |
 | `Sub_4464D0` | src/world/WorldObjectState.cpp:161 | 已重命名：`ClearWorldObjectsAndActions_4464D0` | 仅清占用槽，先清附件再标死主动作，清标志与计数游标；保留姓名及空槽字段。 |
 | `Sub_446610` | src/world/WorldObjectState.cpp:34 | 已重命名：`DetachWorldObjectActions_446610` | 遍历占用世界对象槽，只清动作指针和待转方向，不标死或释放；调用方先清Yobi动作。 |
-| `Sub_446640` | src/world/WorldActor.cpp:315 | 待分析 | — |
-| `Sub_4467D0` | src/world/WorldActor.cpp:947 | 待分析 | — |
+| `Sub_446640` | src/world/WorldActor.cpp:315 | 已重命名：`RecreateMissingWorldObjectActions_446640` | 遍历占用且动作空的对象，按存储图号和坐标重建动作；仅指定类别补姓名及绘制标志。 |
+| `Sub_4467D0` | src/world/WorldActor.cpp:947 | 已重命名：`RecreateWorldObjectAction_4467D0` | 按对象编号仅为占用且动作空的槽重建动作，恢复等级、姓名、称号和显示标志。 |
 | `Sub_4468F0` | src/world/WorldObjectState.cpp:45 | 已重命名：`ResetMapActorDrawKeys_4468F0` | 将地图角色图号与坐标去重表数量归零。 |
 | `Sub_446900` | src/world/WorldObjectState.cpp:192 | 已重命名：`RegisterMapActorDrawKey_446900` | 按图形索引与地图坐标检测本帧重复，重复返回1，否则100容量内追加并返回0。 |
 | `Sub_446970` | src/Yobi/map_transition.cpp:86 | 待分析 | — |
@@ -217,10 +217,10 @@
 | `Sub_469870` | src/world/SceneState.cpp:2579 | 待分析 | — |
 | `Sub_469C90` | src/world/SceneState.cpp:5774 | 待分析 | — |
 | `Sub_469FC0` | src/world/SceneState.cpp:5857 | 待分析 | — |
-| `Sub_46A190` | src/world/WorldActor.cpp:686 | 待分析 | — |
+| `Sub_46A190` | src/world/WorldActor.cpp:686 | 已重命名：`UpdatePartyFollowMovement_46A190` | 按五成员跟随顺序在到达路径点后启动下一步，首成员积压决定共享追赶倍率，传递位置给后继，再推进全队位置与投影参考。 |
 | `Sub_46A410` | src/world/SceneState.cpp:5952 | 待分析 | — |
 | `Sub_46A5A0` | src/world/SceneState.cpp:5488 | 待分析 | — |
-| `Sub_46A5F0` | src/world/WorldActor.cpp:832 | 待分析 | — |
+| `Sub_46A5F0` | src/world/WorldActor.cpp:832 | 已重命名：`AdvanceFollowersBehindPlayerLeader_46A5F0` | 本人有队长位时，从第二成员起启动已到达目标的下一路径点，并将前继位置交给后继。 |
 | `Sub_46A700` | src/world/SceneState.cpp:5996 | 待分析 | — |
 | `Sub_46A940` | src/world/SceneState.cpp:5508 | 待分析 | — |
 | `Sub_46A990` | src/world/SceneState.cpp:5386 | 待分析 | — |
@@ -237,7 +237,7 @@
 | `Sub_46AF30` | src/world/SceneState.cpp:2730 | 待分析 | — |
 | `Sub_46AFE0` | src/world/SceneState.cpp:5415 | 待分析 | — |
 | `Sub_46B370` | src/world/SceneState.cpp:5731 | 待分析 | — |
-| `Sub_46B4B0` | src/world/WorldActor.cpp:651 | 待分析 | — |
+| `Sub_46B4B0` | src/world/WorldActor.cpp:651 | 已重命名：`TurnPlayerAndSendDirection_46B4B0` | 玩家静止且门禁允许、方向改变并超500毫秒节流后，更新朝向并发送编码方向。 |
 | `Sub_46B580` | src/world/SceneState.cpp:5079 | 待分析 | — |
 | `Sub_46B5C0` | src/world/SceneState.cpp:5093 | 待分析 | — |
 | `Sub_46B6F0` | src/world/SceneState.cpp:5146 | 待分析 | — |
@@ -357,7 +357,7 @@
 | `Sub_50A3E0` | src/world/SceneState.cpp:8337 | 待分析 | — |
 | `Sub_50A6B0` | src/world/SceneState.cpp:9683 | 待分析 | — |
 | `Sub_50AC20` | src/world/SceneState.cpp:9782 | 待分析 | — |
-| `Sub_50AEF0` | src/world/WorldActor.cpp:911 | 待分析 | — |
+| `Sub_50AEF0` | src/world/WorldActor.cpp:911 | 已重命名：`HandlePartyActorVitalsReply_50AEF0` | 解析最多五组对象编号、HP上限和另一资源条当前／上限，将四值写入已存在地图动作，供成员血条绘制。 |
 | `Sub_50B0D0` | src/world/SceneState.cpp:9823 | 待分析 | — |
 | `Sub_50B380` | src/world/SceneState.cpp:8441 | 已重命名：`HandleMapObjectListReply_50B380` | 逐制表符记录按字段存在性识别角色、地面物品或金币，更新对应对象与动作及队伍引用，金币按金额选图号和标签。 |
 | `Sub_50BCD0` | src/world/SceneState.cpp:8632 | 待分析 | — |
@@ -505,7 +505,7 @@
 | `Sub_517880` | src/Yobi/animation.cpp:283 | 已重命名：`AdvanceYobiAnimationFrame_517880` | 动作／方向／图号变化重置帧状态；静态图加载偏移与翻转，动画按动作方向选帧、倍率等待和循环／末帧停留更新。 |
 | `Sub_5182B0` | src/Yobi/animation.cpp:263 | 已重命名：`GetYobiGraphicOriginOffset_5182B0` | 查询当前图形XY原点，返回动作图形偏移与资源原点之差，无效轴返回0但仍先查询资源。 |
 | `Sub_518300` | src/Yobi/animation.cpp:125 | 已重命名：`GetScaledYobiGraphicOriginOffset_518300` | 查询当前图形原点，按kind3/4/5乘1.75/1.5/1.25后从动作图形偏移减去，轴0/1返回对应分量。 |
-| `Sub_5183B0` | src/world/WorldActor.cpp:32 | 待分析 | — |
+| `Sub_5183B0` | src/world/WorldActor.cpp:32 | 已重命名：`IsAnimationImageNumber_5183B0` | 判断图号是否在100000至199999动画区间，世界对象创建据此决定是否保留朝向。 |
 | `Sub_518580` | src/world/SceneState.cpp:1962 | 待分析 | — |
 | `Sub_5185C0` | src/world/SceneState.cpp:9886 | 待分析 | — |
 | `Sub_518600` | src/world/SceneState.cpp:1777 | 待分析 | — |
@@ -546,7 +546,7 @@
 | `Sub_519E50` | src/world/SceneState.cpp:6221 | 待分析 | — |
 | `Sub_519EB0` | src/world/SceneState.cpp:4028 | 待分析 | — |
 | `Sub_519EC0` | src/world/SceneState.cpp:11064 | 待分析 | — |
-| `Sub_519EE0` | src/world/WorldActor.cpp:988 | 待分析 | — |
+| `Sub_519EE0` | src/world/WorldActor.cpp:988 | 已重命名：`SynchronizePlayerMapActionPosition_519EE0` | 当前位置受阻则恢复动作格坐标，再同步世界位置、格坐标、移动步长和目标坐标到玩家动作。 |
 | `Sub_51A040` | src/world/SceneState.cpp:6240 | 待分析 | — |
 | `Sub_51A060` | src/world/SceneState.cpp:6251 | 待分析 | — |
 | `Sub_51A090` | src/world/SceneState.cpp:6140 | 待分析 | — |
@@ -559,9 +559,9 @@
 | `Sub_51A610` | src/world/SceneState.cpp:6433 | 待分析 | — |
 | `Sub_51A620` | src/world/SceneState.cpp:6439 | 待分析 | — |
 | `Sub_51A630` | src/world/SceneState.cpp:6445 | 待分析 | — |
-| `Sub_51A640` | src/world/WorldActor.cpp:879 | 待分析 | — |
-| `Sub_51A660` | src/world/WorldActor.cpp:889 | 待分析 | — |
-| `Sub_51A680` | src/world/WorldActor.cpp:899 | 待分析 | — |
+| `Sub_51A640` | src/world/WorldActor.cpp:879 | 已重命名：`MarkPlayerMovementActive_51A640` | 有玩家动作时将移动状态成员置1，供停止时切回静止动作。 |
+| `Sub_51A660` | src/world/WorldActor.cpp:889 | 已重命名：`ClearPlayerMovementActive_51A660` | 将玩家动作移动状态清0，返回入口动作指针。 |
+| `Sub_51A680` | src/world/WorldActor.cpp:899 | 已重命名：`ReadPlayerMovementActive_51A680` | 无玩家返回0，否则以有符号16位读取移动状态成员。 |
 | `Sub_51A6A0` | src/world/WorldActorDrawing.cpp:95 | 已重命名：`SetPlayerChatBubble_51A6A0` | 取得玩家动作并置聊天位、更新截止时刻，释放旧文本后按玩家名生成聊天气泡。 |
 | `Sub_51A840` | src/world/SceneState.cpp:6261 | 待分析 | — |
 | `Sub_51B080` | src/world/SceneState.cpp:5459 | 待分析 | — |

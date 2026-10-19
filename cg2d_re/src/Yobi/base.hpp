@@ -149,12 +149,12 @@ struct YobiAction {
     platform::LegacyCryptInt mapY210; // 原成员偏移：+0x210。
     std::array<std::int32_t, 10> pathX220; // 原 +220..+247，路径X。
     std::array<std::int32_t, 10> pathY248; // 原 +248..+26F，路径Y。
-    std::uint16_t field270; // 原 +270；路径按S16消费，地图创建只清本W16。
-    std::uint16_t field272; // 原 +272；移动动作标志，不与路径计数合并。
+    std::uint16_t pathPointCount_270; // 原 +270；路径按S16消费，地图创建只清本W16。
+    std::uint16_t movementActive_272; // 原 +272；移动动作标志，不与路径计数合并。
     float worldX; // 原 +274/+278，地图投影输入，与 CryptInt 两组坐标独立。
     float worldY; // 原成员偏移：+0x278。
-    std::uint32_t field27C; // 原成员偏移：+0x27C。
-    std::uint32_t field280; // 原成员偏移：+0x280。
+    std::uint32_t movementStepXBits_27C; // 原成员偏移：+0x27C。
+    std::uint32_t movementStepYBits_280; // 原成员偏移：+0x280。
     std::int32_t walkSpeed; // 原成员偏移：+0x284。
     std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。
     YobiExtraState290 extraState290; // 原+290..2A3；不作为本机地址存储。

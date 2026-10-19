@@ -55,7 +55,7 @@ extern platform::LegacyCryptInt gValue9E03C0; // 原全局：0x009E03C0。
 extern platform::LegacyCryptInt gValue9FB918; // 原全局：0x009FB918。
 extern platform::LegacyCryptInt gValueAF0FE8; // 原全局：0x00AF0FE8。
 extern platform::LegacyCryptInt gValueC821D8; // 原全局：0x00C821D8。
-extern std::uint32_t gValue9DAD78; // 原全局：0x009DAD78。 原 F32 位槽，移动/绘制链共享。
+extern std::uint32_t gPartyCatchUpRateBits_9DAD78; // 原全局：0x009DAD78。 原 F32 位槽，移动/绘制链共享。
 
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
 std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
@@ -247,8 +247,8 @@ extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
 extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
 extern std::uint32_t gValueAF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
 extern std::uint32_t gValue9EE8F8; // 原全局：0x009EE8F8。 原 509460 写入、50C8D0 读取的独立 W32。
-extern std::uint32_t gValue9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
-extern std::uint32_t gValue9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
+extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
+extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
 
 // 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
 extern std::uint8_t gValue9A4B94; // 原全局：0x009A4B94。

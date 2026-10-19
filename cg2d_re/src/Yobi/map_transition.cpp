@@ -124,7 +124,7 @@ static std::int32_t Sub_4473B0(YobiAction* const action)
     }
     const std::int32_t step = payload->step34;
     if (step <= -20) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -177,7 +177,7 @@ static std::int32_t Sub_4474E0(YobiAction* const action)
     }
     const std::int32_t step = payload->step34;
     if (step > 30) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -219,7 +219,7 @@ static std::int32_t Sub_4474E0(YobiAction* const action)
 // 原4469C0：按原递增换向顺序选一格，避开上次格及469810判定的阻挡格。
 static void Sub_4469C0(YobiAction* const action)
 {
-    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -262,9 +262,9 @@ static void Sub_4469C0(YobiAction* const action)
         payload->value06 = 0;
     }
     payload->value04 = direction;
-    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = candidateX;
-    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = candidateY;
-    ++action->field270;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = candidateX;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = candidateY;
+    ++action->pathPointCount_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -273,7 +273,7 @@ static void Sub_4469C0(YobiAction* const action)
 static void Sub_446B50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -283,12 +283,12 @@ static void Sub_446B50(YobiAction* const action)
     const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->value02);
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
-    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = x;
     const std::int16_t deltaY = world::ReadDirectionDeltaY(payload->value02);
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
-    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
-    ++action->field270;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = y;
+    ++action->pathPointCount_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -308,7 +308,7 @@ static void Sub_446C10(YobiAction* const action)
     auto* const payload = action->payload.mapTransition;
     std::int32_t stepX = 0;
     std::int32_t stepY = 0;
-    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+    if (std::bit_cast<std::int16_t>(action->pathPointCount_270) > 0) {
         return;
     }
     if ((world::gPlayerX != world::gValue9EE8D0)
@@ -331,11 +331,11 @@ static void Sub_446C10(YobiAction* const action)
     }
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(stepX));
-    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
+    action->pathX220[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = x;
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(stepY));
-    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
-    ++action->field270;
+    action->pathY248[std::bit_cast<std::int16_t>(action->pathPointCount_270)] = y;
+    ++action->pathPointCount_270;
     payload->mapX08 = static_cast<std::int32_t>(action->mapX1E0);
     payload->mapY0C = static_cast<std::int32_t>(action->mapY1F0);
 }
@@ -343,11 +343,11 @@ static void Sub_446C10(YobiAction* const action)
 // 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
 bool TransitionMovementIdle(const YobiAction* const action)
 {
-    const float movementX = std::bit_cast<float>(action->field27C);
+    const float movementX = std::bit_cast<float>(action->movementStepXBits_27C);
     if (movementX < 0.0F || movementX > 0.0F) {
         return false;
     }
-    const float movementY = std::bit_cast<float>(action->field280);
+    const float movementY = std::bit_cast<float>(action->movementStepYBits_280);
     return !(movementY < 0.0F || movementY > 0.0F);
 }
 
@@ -454,24 +454,24 @@ static std::int32_t UpdateTransitionTrail(
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->counter10 = 0;
-        action->field27C = 0;
-        action->field280 = 0;
+        action->movementStepXBits_27C = 0;
+        action->movementStepYBits_280 = 0;
         payload->height3C = 0;
         payload->velocity40 = -15;
         payload->trailGraphic44.fill(-1);
     }
     const std::int32_t counter = payload->counter10;
     if (counter >= 40) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     if (counter >= 30) {
         payload->height3C = 0;
     } else {
-        const double deltaX = std::bit_cast<float>(action->field27C);
+        const double deltaX = std::bit_cast<float>(action->movementStepXBits_27C);
         action->worldX = static_cast<float>(deltaX + action->worldX);
-        const double deltaY = std::bit_cast<float>(action->field280);
+        const double deltaY = std::bit_cast<float>(action->movementStepYBits_280);
         action->worldY = static_cast<float>(deltaY + action->worldY);
         const std::int32_t velocity = payload->velocity40;
         const std::int32_t height = payload->height3C;
@@ -541,13 +541,13 @@ static std::int32_t Sub_446D80(YobiAction* const action)
     auto* const payload = action->payload.mapTransition;
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
         || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 8000u < tick && TransitionMovementIdle(action)) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -561,7 +561,7 @@ static std::int32_t Sub_446D80(YobiAction* const action)
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 1u;
         }
     }
@@ -575,14 +575,14 @@ static std::int32_t Sub_446D80(YobiAction* const action)
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 2u;
         }
     }
     if (TransitionMovementIdle(action)) {
         Sub_4469C0(action);
     }
-    Sub_4424B0(action);
+    UpdateMapActorPathMovement_4424B0(action);
     YobiAction* const first = payload->slots18.attachments.action18;
     if (first != nullptr) {
         first->worldX = action->worldX;
@@ -611,7 +611,7 @@ static std::int32_t Sub_446FA0(YobiAction* const action)
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action18 =
-                Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
     }
     if (payload->slots18.attachments.action1C == nullptr) {
@@ -623,12 +623,12 @@ static std::int32_t Sub_446FA0(YobiAction* const action)
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action1C =
-                Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 1200u < tick) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
     }
     return 0;
@@ -644,7 +644,7 @@ static std::int32_t Sub_447070(YobiAction* const action)
         payload->value24 = 0;
     }
     if (payload->value24 > 800) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -671,7 +671,7 @@ static std::int32_t Sub_447230(YobiAction* const action)
         payload->value20 = 0.0F;
         payload->value24 = 800;
     } else if (payload->value24 <= 0) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 1;
     }
@@ -698,20 +698,20 @@ static std::int32_t Sub_447610(YobiAction* const action)
     }
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
         || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     if (TransitionMovementIdle(action)) {
         Sub_446B50(action);
     }
-    Sub_4424B0(action);
+    UpdateMapActorPathMovement_4424B0(action);
     DrawMovingTransition(action, payload, -1);
     return 0;
 }
@@ -730,7 +730,7 @@ static std::int32_t Sub_447820(YobiAction* const action)
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::Sub_4467D0(payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -739,7 +739,7 @@ static std::int32_t Sub_447820(YobiAction* const action)
             || TransitionDistance(&action->mapY1F0, &world::gPlayerY) > 1)) {
         Sub_446C10(action);
     }
-    Sub_4424B0(action);
+    UpdateMapActorPathMovement_4424B0(action);
     DrawMovingTransition(action, payload, 1);
     return 0;
 }
@@ -857,13 +857,13 @@ YobiAction* Sub_448040(
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
-    action->field270 = 0;
+    action->pathPointCount_270 = 0;
     assignCoordinate(action->mapX1E0, mapX);
     assignCoordinate(action->mapY1F0, mapY);
 
     const double scaledX = mapX * 64.0;
-    action->field27C = 0;
-    action->field280 = 0;
+    action->movementStepXBits_27C = 0;
+    action->movementStepYBits_280 = 0;
     const auto worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
     const auto worldY = static_cast<float>(mapY * 64.0);

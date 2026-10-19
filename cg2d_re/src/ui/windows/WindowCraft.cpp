@@ -324,25 +324,15 @@ WindowPrototype gWindowPrototypeCraft {0, 4, 37, 102, 563, 239, 0x80010101u, 31,
 std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
 {
     const std::int8_t pairIndex = std::bit_cast<std::int8_t>(gSkillPairIndexD67AD8);
-    const std::int16_t skillIndex = std::bit_cast<std::int16_t>(
-        world::gSkillPairsF63370[pairIndex].index);
+    if (pairIndex < 0 || pairIndex >= world::kSkillSlotCount) return 0;
+    const std::int16_t skillIndex = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+    if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount) return 0;
+    const auto& recipes = world::gSkillsF1BAFC[skillIndex].recipes8E8;
     const std::int32_t recipeIndex = gRecipeIndex5846BC;
-    // 原4F4660按整条技能记录取址；配方-1仍从原+820读取，不能随技术扩容移到新增槽。
-    const auto* const skill = reinterpret_cast<const std::byte*>(&world::gSkillsF1BAFC[skillIndex]);
-    const std::ptrdiff_t itemsOffset =
-        static_cast<std::ptrdiff_t>(recipeIndex == -1 ? 0x8E8 : offsetof(world::SkillRuntimeRecord, recipes8E8))
-        + static_cast<std::ptrdiff_t>(recipeIndex)
-            * static_cast<std::ptrdiff_t>(sizeof(world::SkillRecipeRecord))
-        + static_cast<std::ptrdiff_t>(offsetof(world::SkillRecipeRecord, items6C));
-    for (std::int32_t index = 0; index < 5; ++index) {
-        const auto* const item = skill + itemsOffset + index * sizeof(world::SkillRecipeItem);
-        std::int32_t requiredItemId;
-        std::memcpy(&requiredItemId, item, sizeof(requiredItemId));
-        if (requiredItemId == itemId) {
-            std::int32_t count;
-            std::memcpy(&count, item + offsetof(world::SkillRecipeItem, count), sizeof(count));
-            return count;
-        }
+    // IWT01：未选择时不再将技术区解释为配方；有效索引直接按材料结构读取。
+    if (recipeIndex < 0 || recipeIndex >= static_cast<std::int32_t>(recipes.size())) return 0;
+    for (const auto& item : recipes[recipeIndex].items6C) {
+        if (item.itemId == itemId) return item.count;
     }
     return 0;
 }
@@ -1358,8 +1348,8 @@ static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillI
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
         const world::SkillPairRecord pair = world::gSkillPairsF63370[index];
         const std::int16_t skillIndex = std::bit_cast<std::int16_t>(pair.index);
-        world::SkillRuntimeRecord skill;
-        std::memcpy(&skill, &world::gSkillsF1BAFC[skillIndex], sizeof(skill));
+        if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount) continue;
+        const auto& skill = world::gSkillsF1BAFC[skillIndex];
         if (skill.skillId != skillId || pair.used == 0) {
             continue;
         }
@@ -3158,7 +3148,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     const std::int32_t skillId = world::gSkillsF1BAFC[skillIndex].skillId;
     const std::wstring name = skillId == 255 || skillId == 2026
         ? gCraftNameCF46D4
-        : cg::text::FromGbkWide(world::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data());
+        : world::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name;
     static_cast<WindowTextData*>(window->elements[9].data)->text = name;
     const std::int32_t result = gCraftResultCC46D8;
     auto* const resultText = static_cast<WindowTextData*>(window->elements[10].data);

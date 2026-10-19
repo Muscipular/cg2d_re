@@ -701,7 +701,7 @@ static void WindowSkill_DrawSkillRow(
     const std::int8_t nameColor = enabled != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(skill->name.data()).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, skill->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:2}", skill->level);
     WindowNumber_Draw(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
@@ -883,11 +883,11 @@ static void WindowSkill_HandleTechniqueRow(
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const char* const name =
-        world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
+    const auto& name =
+        world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(name).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, name, 0, 0));
     std::wstring buffer;
     const std::int32_t level =
         world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
@@ -929,7 +929,7 @@ static void WindowSkill_HandleRecipeRow(
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(row->name.data()).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, row->name, 0, 0));
     const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     std::wstring buffer;
@@ -1846,8 +1846,8 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
         position = gSkillWindowScrollD2D648;
     }
     std::wstring buffer;
-    const auto drawDescription = [&](const char* text, const std::int32_t line, const std::int32_t columns) {
-        if (input::ExtractGbkTextLine(buffer, text, line, columns) != 0) {
+    const auto drawDescription = [&](std::wstring_view text, const std::int32_t line, const std::int32_t columns) {
+        if (input::ExtractTextLine(buffer, text, line, columns) != 0) {
             const WindowInstance* const window = gCurrentWindow;
             const auto y = static_cast<std::int16_t>(window->y + 208 + 12 * line);
             const auto x = static_cast<std::int16_t>(window->x + 23);
@@ -1872,7 +1872,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::GetPlayerJobName());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = world::GetPlayerJobName();
         std::int32_t usedSlots = 0;
         for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
             if (world::gSkillPairsF63370[index].used != 0) {
@@ -1908,7 +1908,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(record->name.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = record->name;
         record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
@@ -1946,22 +1946,17 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
             gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
         }
         const std::int32_t levelIndex = gSkillRecipeLevelC8B1B4;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(record->techniques3C[levelIndex].name.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = record->techniques3C[levelIndex].name;
         const std::int32_t level = world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
         cg::text::FormatTo(buffer, L"{:5}", level);
         static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
             const std::int32_t hover = gSkillWindowHoverD2F744;
-            // 原47ABC0无悬停门禁；hover=-1读取技能记录+7E5，保留跨字段别名。
-            const std::ptrdiff_t descriptionOffset =
-                static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, recipes8E8))
-                + static_cast<std::ptrdiff_t>(hover)
-                    * static_cast<std::ptrdiff_t>(sizeof(world::SkillRecipeRecord))
-                + static_cast<std::ptrdiff_t>(offsetof(world::SkillRecipeRecord, description));
-            const char* const description = reinterpret_cast<const char*>(&world::gSkillsF1BAFC[skill])
-                + descriptionOffset;
-            drawDescription(description, line, 28);
+            // IWT01：未悬停(-1)不读前一条记录区域，有效索引直接读取配方说明。
+            const auto& recipes = world::gSkillsF1BAFC[skill].recipes8E8;
+            if (hover >= 0 && hover < static_cast<std::int32_t>(recipes.size()))
+                drawDescription(recipes[hover].description, line, 28);
         }
         break;
     }
@@ -1991,7 +1986,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                     hover = gSkillWindowHoverD2F744;
                     pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 }
-                drawDescription(world::gPetRuntimeRecords[pet].techniquesD8[hover].description.data(), line, 26);
+                drawDescription(cg::text::FromGbkWide(world::gPetRuntimeRecords[pet].techniquesD8[hover].description.data()), line, 26);
             }
         }
         break;

@@ -215,9 +215,9 @@ static void WindowOwnProfile_Refresh()
     auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
     titleData->text = cg::text::FromGbkWide(title);
     WindowElement* const jobElements = gCurrentWindow->elements;
-    const char* const job = world::GetPlayerJobName();
+    const auto& job = world::GetPlayerJobName();
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
-    jobData->text = cg::text::FromGbkWide(job);
+    jobData->text = job;
 
     WindowInstance* const guildWindow = gCurrentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();

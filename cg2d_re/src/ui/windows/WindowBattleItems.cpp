@@ -286,17 +286,11 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     if (usableLevel > levelLimit) {
         usableLevel = levelLimit;
     }
-    // 原技能+24+94H*等级；等级0是experience，不能改作技术数组[-1]。
+    // 原+24+94H*等级：等级0为experience，等级1起为前一技术的FP字段。
     const auto readBombCost = [skillIndex](const std::int32_t level) {
-        const auto* const skill = reinterpret_cast<const std::byte*>(
-            &world::gSkillsF1BAFC[skillIndex]);
-        const std::ptrdiff_t offset =
-            static_cast<std::ptrdiff_t>(offsetof(world::SkillRuntimeRecord, experience))
-            + static_cast<std::ptrdiff_t>(level)
-                * static_cast<std::ptrdiff_t>(sizeof(world::SkillTechniqueRecord));
-        std::int32_t cost;
-        std::memcpy(&cost, skill + offset, sizeof(cost));
-        return cost;
+        if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount || level < 0 || level > world::kTechniqueSlotCount) return 0;
+        const auto& skill = world::gSkillsF1BAFC[skillIndex];
+        return level == 0 ? skill.experience : skill.techniques3C[level - 1].value7C;
     };
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};

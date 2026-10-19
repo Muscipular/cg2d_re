@@ -346,20 +346,13 @@ static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x
 
 // 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
 struct SkillRuntimeSlots {
-    std::array<char, 0x1C> jobName;
+    std::wstring jobName;
     std::array<SkillRuntimeRecord, kSkillSlotCount> skills;
     std::array<SkillPairRecord, kSkillSlotCount> pairs;
     std::uint32_t valueF633E8; // 原全局：0x00F633E8。 509E30只写低U8，保留其余字节。
 };
 
-static_assert(std::is_standard_layout_v<SkillRuntimeSlots>);
-static_assert(std::is_trivially_copyable_v<SkillRuntimeSlots>);
-static_assert(offsetof(SkillRuntimeSlots, jobName) == 0);
-static_assert(offsetof(SkillRuntimeSlots, skills) == 0x1C);
-// 原偏移0x47890／0x47908、总大小0x4790C；现按扩容后的成员连续布局核对。
-static_assert(offsetof(SkillRuntimeSlots, pairs) == 0x1C + sizeof(SkillRuntimeRecord) * kSkillSlotCount);
-static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == offsetof(SkillRuntimeSlots, pairs) + sizeof(SkillPairRecord) * kSkillSlotCount);
-static_assert(sizeof(SkillRuntimeSlots) == offsetof(SkillRuntimeSlots, valueF633E8) + sizeof(std::uint32_t));
+// 内部文本对象采用正常赋值，旧清零块的二进制偏移不再约束此类型。
 static SkillRuntimeSlots gSkillRuntimeSlots {};
 
 static std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
@@ -6567,7 +6560,10 @@ void InitializePlayerRuntimeState_5199A0()
         record.ClearRaw();
     }
     gPetMapCharaSlots.fill({});
-    std::memset(&gSkillRuntimeSlots, 0, sizeof(gSkillRuntimeSlots));
+    gSkillRuntimeSlots.jobName.clear();
+    for (auto& skill : gSkillRuntimeSlots.skills) skill = {};
+    gSkillRuntimeSlots.pairs = {};
+    gSkillRuntimeSlots.valueF633E8 = 0;
     std::memset(gContactsF19FB0.data(), 0, sizeof(gContactsF19FB0));
     std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
 
@@ -9134,8 +9130,7 @@ void HandlePlayerProfessionReply_509E30(const std::uintptr_t, const std::int32_t
     gSkillRuntimeSlots.valueF633E8 =
         (gSkillRuntimeSlots.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::strcpy(
-        gSkillRuntimeSlots.jobName.data(), std::strlen(text) < 24 ? text : kUnknownText554590);
+    gSkillRuntimeSlots.jobName = cg::text::FromGbkWide(std::strlen(text) < 24 ? text : kUnknownText554590);
 }
 
 std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
@@ -9231,14 +9226,13 @@ void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char*
         }
         SkillRuntimeRecord& record = gSkillsF1BAFC[index];
         if (std::strlen(name) == 0 && level < 0 && experience < 0) {
-            record.name[0] = '\0';
+            record.name.clear();
             record.level = 0;
             record.experience = 0;
-            std::memset(record.techniques3C.data(), 0, sizeof(record.techniques3C));
+            record.techniques3C.fill({});
             detail::ResetSkillRecipeSlots_519950(index);
         } else {
-            std::strcpy(
-                record.name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
+            record.name = cg::text::FromGbkWide(std::strlen(name) <= 24 ? name : kUnknownText554590);
             record.level = level;
             record.experience = experience;
             record.maxLevel = maxLevel;
@@ -9272,7 +9266,7 @@ void HandlePlayerSkillTechniquesReply_50A120(
         return;
     }
     auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
-    std::memset(techniques.data(), 0, sizeof(techniques));
+    techniques.fill({});
     SkillTechniqueRecord* target = techniques.data();
     char name[256];
     char description[256];
@@ -9297,10 +9291,8 @@ void HandlePlayerSkillTechniquesReply_50A120(
             continue;
         }
         target->used88 = 1;
-        std::strcpy(target->name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
-        std::strcpy(
-            target->description.data(),
-            std::strlen(description) <= 96 ? description : kUnknownText554590);
+        target->name = cg::text::FromGbkWide(std::strlen(name) <= 24 ? name : kUnknownText554590);
+        target->description = cg::text::FromGbkWide(std::strlen(description) <= 96 ? description : kUnknownText554590);
         target->value7C = value7C;
         target->value80 = value80;
         target->value90 = static_cast<std::int32_t>((packed >> 12) & 0xFu);
@@ -9330,12 +9322,12 @@ void HandleSkillRecipesReply_50C580(
         network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 28) {
-            std::strcpy(recipe.name.data(), name);
+            recipe.name = cg::text::FromGbkWide(name);
         }
         network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, description);
         input::UnescapeLegacyTextAndNotify_52D2F0(description);
         if (std::strlen(description) <= 56) {
-            std::strcpy(recipe.description.data(), description);
+            recipe.description = cg::text::FromGbkWide(description);
         }
         recipe.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         recipe.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
@@ -9344,7 +9336,7 @@ void HandleSkillRecipesReply_50C580(
             network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
             input::UnescapeLegacyTextAndNotify_52D2F0(name);
             if (std::strlen(name) <= 28) {
-                std::strcpy(item.name.data(), name);
+                item.name = cg::text::FromGbkWide(name);
             }
             item.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         }
@@ -10615,9 +10607,9 @@ std::int32_t CountFreeInventorySlots_518C60()
     return count;
 }
 
-const char* GetPlayerJobName() noexcept
+const std::wstring& GetPlayerJobName() noexcept
 {
-    return gSkillRuntimeSlots.jobName.data();
+    return gSkillRuntimeSlots.jobName;
 }
 
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)

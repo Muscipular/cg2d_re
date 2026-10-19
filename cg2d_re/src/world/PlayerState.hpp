@@ -24,12 +24,12 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(std::uintptr_t socket, const c
 void HandlePlayerSecondaryStatsReply_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
 void HandlePlayerProfessionReply_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
-const char* GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
+const std::wstring& GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
 
 // 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
 struct SkillTechniqueRecord {
-    std::array<char, 25> name; // 原成员偏移：+0x00。
-    std::array<char, 97> description; // 原成员偏移：+0x19。
+    std::wstring name; // 原成员偏移：+0x00。
+    std::wstring description; // 原成员偏移：+0x19。
     std::array<std::byte, 2> bytes7A; // 原成员偏移：+0x7A。
     std::int32_t value7C; // 原成员偏移：+0x7C。
     std::int32_t value80; // 原成员偏移：+0x80。
@@ -40,25 +40,12 @@ struct SkillTechniqueRecord {
     std::int32_t value90; // 原成员偏移：+0x90。
 };
 
-static_assert(std::is_standard_layout_v<SkillTechniqueRecord>);
-static_assert(std::is_trivially_copyable_v<SkillTechniqueRecord>);
-static_assert(offsetof(SkillTechniqueRecord, name) == 0);
-static_assert(offsetof(SkillTechniqueRecord, description) == 0x19);
-static_assert(offsetof(SkillTechniqueRecord, bytes7A) == 0x7A);
-static_assert(offsetof(SkillTechniqueRecord, value7C) == 0x7C);
-static_assert(offsetof(SkillTechniqueRecord, value80) == 0x80);
-static_assert(offsetof(SkillTechniqueRecord, value84) == 0x84);
-static_assert(offsetof(SkillTechniqueRecord, used88) == 0x88);
-static_assert(offsetof(SkillTechniqueRecord, bytes89) == 0x89);
-static_assert(offsetof(SkillTechniqueRecord, value8C) == 0x8C);
-static_assert(offsetof(SkillTechniqueRecord, value90) == 0x90);
-static_assert(sizeof(SkillTechniqueRecord) == 0x94);
 
 // 原技能配方材料0x28字节，50C580生产、519950只清itemId、4F4630查count。
 struct SkillRecipeItem {
     std::int32_t itemId;
     std::int32_t count; // 原成员偏移：+0x04。
-    std::array<char, 29> name; // 原成员偏移：+0x08。
+    std::wstring name; // 原成员偏移：+0x08。
     std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
 };
 
@@ -68,15 +55,15 @@ struct SkillRecipeRecord {
     std::int32_t level; // 原成员偏移：+0x08。
     std::int32_t value0C; // 原成员偏移：+0x0C。
     std::int32_t value10; // 原成员偏移：+0x10。
-    std::array<char, 29> name; // 原成员偏移：+0x14。
-    std::array<char, 57> description; // 原成员偏移：+0x31。
+    std::wstring name; // 原成员偏移：+0x14。
+    std::wstring description; // 原成员偏移：+0x31。
     std::array<std::byte, 2> bytes6A; // 原成员偏移：+0x6A。
     std::array<SkillRecipeItem, 5> items6C; // 原成员偏移：+0x6C。
 };
 
 // 原F1BAFC起的技能记录；未消费字段不计最终业务映射。
 struct SkillRuntimeRecord {
-    std::array<char, 25> name;
+    std::wstring name;
     std::array<std::uint8_t, 2> requiredSlots19; // 原成员偏移：+0x19。 回复写低U8；4740F0读S16，窗口54读低S8。
     std::byte byte1B; // 原成员偏移：+0x1B。
     std::int32_t level; // 原成员偏移：+0x1C。
@@ -98,36 +85,7 @@ struct SkillPairRecord {
     std::int32_t sequence; // 原成员偏移：+0x04。
 };
 
-static_assert(sizeof(SkillRecipeItem) == 0x28);
-static_assert(offsetof(SkillRecipeItem, count) == 4);
-static_assert(offsetof(SkillRecipeItem, name) == 8);
-static_assert(offsetof(SkillRecipeItem, bytes25) == 0x25);
-static_assert(offsetof(SkillRecipeRecord, value04) == 4);
-static_assert(offsetof(SkillRecipeRecord, level) == 8);
-static_assert(offsetof(SkillRecipeRecord, value0C) == 0x0C);
-static_assert(offsetof(SkillRecipeRecord, value10) == 0x10);
-static_assert(offsetof(SkillRecipeRecord, name) == 0x14);
-static_assert(offsetof(SkillRecipeRecord, description) == 0x31);
-static_assert(offsetof(SkillRecipeRecord, bytes6A) == 0x6A);
-static_assert(offsetof(SkillRecipeRecord, items6C) == 0x6C);
-static_assert(sizeof(SkillRecipeRecord) == 0x134);
-static_assert(std::is_standard_layout_v<SkillRuntimeRecord>);
-static_assert(std::is_trivially_copyable_v<SkillRuntimeRecord>);
-static_assert(offsetof(SkillRuntimeRecord, requiredSlots19) == 0x19);
-static_assert(offsetof(SkillRuntimeRecord, byte1B) == 0x1B);
-static_assert(offsetof(SkillRuntimeRecord, level) == 0x1C);
-static_assert(offsetof(SkillRuntimeRecord, maxLevel) == 0x20);
-static_assert(offsetof(SkillRuntimeRecord, experience) == 0x24);
-static_assert(offsetof(SkillRuntimeRecord, nextExperience) == 0x28);
-static_assert(offsetof(SkillRuntimeRecord, canRebirth) == 0x2C);
-static_assert(offsetof(SkillRuntimeRecord, skillId) == 0x30);
-static_assert(offsetof(SkillRuntimeRecord, fpReduce) == 0x34);
-static_assert(offsetof(SkillRuntimeRecord, sequence) == 0x38);
-static_assert(offsetof(SkillRuntimeRecord, techniques3C) == 0x3C);
-// 原偏移及大小为0x8E8／0x4C48／0x4C4C；扩容后按实际数组长度核对。
-static_assert(offsetof(SkillRuntimeRecord, recipes8E8) == 0x3C + sizeof(SkillTechniqueRecord) * kTechniqueSlotCount);
-static_assert(offsetof(SkillRuntimeRecord, rebirthState4C48) == offsetof(SkillRuntimeRecord, recipes8E8) + sizeof(SkillRecipeRecord) * 56);
-static_assert(sizeof(SkillRuntimeRecord) == offsetof(SkillRuntimeRecord, rebirthState4C48) + sizeof(std::int32_t));
+// IWT01：以上为内部对象，文本宽化后不再断言旧字节布局；SkillPair仍为纯数值记录。
 static_assert(offsetof(SkillPairRecord, used) == 0);
 static_assert(offsetof(SkillPairRecord, index) == 2);
 static_assert(offsetof(SkillPairRecord, sequence) == 4);

@@ -95,19 +95,13 @@ YobiAction* ConstructWindowSelectorPreview(const std::int32_t index, std::uint32
 }
 
 
-// SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
+// IWT01：未选择宠物时仅初始化预览属性，不读取负索引图号。
 void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)
 {
     action->flags = flags;
     action->callback = nullptr;
-    // 原固定来源F5E988归技能块，不建立负宠物槽或独立影子值。
-    static_assert(0x3C + 3 * 0x94 + 0x19 + 83 == 0x264);
-    std::int32_t imageNo;
-    std::memcpy(&imageNo,
-        world::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,
-        sizeof(imageNo));
+    // 原4C6274/4C627F使用pet[-1]图号地址。未选宠物不读取；DrawPreview在有效选择后设置图号。
     action->displayPriority = 0xDF;
-    action->imageNo = imageNo;
     action->direction = 5;
 }
 

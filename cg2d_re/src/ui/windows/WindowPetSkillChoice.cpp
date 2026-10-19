@@ -1083,7 +1083,7 @@ static void WindowPetSkillChoice_RefreshLearnRows(
                 window->elements[row + 49].visible = 1;
                 window->elements[row + 59].visible = 1;
                 const world::SkillRuntimeRecord& skill = world::gSkillsF1BAFC[index];
-                static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(skill.name.data());
+                static_cast<WindowTextData*>(window->elements[row + 34].data)->text = skill.name;
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", requiredSlots);

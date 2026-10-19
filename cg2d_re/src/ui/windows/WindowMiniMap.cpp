@@ -4,6 +4,8 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 #include "../../script/BigMapWindow.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/PngImage.hpp"
+#include "cg/resource/GraphicInfo.hpp"
 
 namespace cg::ui {
 namespace detail {
@@ -29,9 +31,14 @@ static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t ev
     const auto x = static_cast<std::int16_t>(gCurrentWindow->x + element.x);
     const auto y = static_cast<std::int16_t>(gCurrentWindow->y + element.y);
     render::ClearTextQueueTail_456D50(3);
-    render::DrawColoredText(x + 4, y + 2, 3, 12, 0, L"大地图", 0, 0);
+    render::DrawColoredText(x + 22, y + 2, 3, 12, 0, L"大地图", 0, 0);
     render::ClearTextQueueTail_456D50(3);
-    render::DrawRectangle(x, y, 48, 17, 0xDF, (events & 1) ? 0xFF53677Du : 0xFF344353u);
+    const int mapNo = (events & 8) ? 243034 : (events & 1) ? 243035 : 243033;
+    if (resource::gGraphicMapNoIndex && resource::gGraphicInfo && mapNo < resource::gBinLoaderGraphicCapacity) {
+        const int imageNo = resource::gGraphicMapNoIndex[mapNo];
+        if (imageNo >= 0 && imageNo < resource::gMaxGraphicCount && resource::gGraphicInfo[imageNo].mapNo == mapNo)
+            render::DrawGraphicImage(imageNo, x, y, 20, 18, 0xDF);
+    }
     if (events & 2) script::OpenBigMapWindow();
     return events != 0;
 }
@@ -64,7 +71,7 @@ static WindowElementPrototype gWindowElements56AF50[8] { // 原全局：0x0056AF
     {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
     {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 2, 1, 48, 17, 1, {}, &WindowMiniMap_OpenBigMap},
+    {WindowElementType_EventArea, 2, 1, 58, 18, 1, {}, &WindowMiniMap_OpenBigMap},
 };
 
 // 原型：窗口33；原全局：0x0054E6C0。

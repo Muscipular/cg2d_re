@@ -26,6 +26,8 @@ inline constexpr std::int32_t kMaxFontId = 32;
 // FC01：查询私有字体map；未注册或加载失败时统一回退0号，不插入新条目。
 [[nodiscard]] std::int32_t ResolveFontId(std::int32_t id) noexcept;
 [[nodiscard]] const FontMetrics& GetFontMetrics(std::int32_t id) noexcept;
+// BMUI01：图形标记与文字共用现有128色表，返回0xAARRGGBB。
+[[nodiscard]] std::uint32_t GetTextColor(std::uint8_t color) noexcept;
 
 // 原456190/456530；FC01统一管理字体、私有集合和GDI+会话，支持重复初始化/释放。
 std::int32_t InitializeFont_456190(std::int32_t family);

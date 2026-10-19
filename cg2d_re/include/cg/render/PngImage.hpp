@@ -16,7 +16,9 @@ using PngRectangle = std::array<std::int32_t, 4>;
 // BMUI01：资源图形序号按指定尺寸缩放/裁剪，复用图形缓存与像素图队列；失败返回负值。
 std::int32_t DrawGraphicImage(std::int32_t imageNo,
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
-    std::uint8_t layer, const PngRectangle* clipRectangle = nullptr);
+    std::uint8_t layer, const PngRectangle* clipRectangle = nullptr, std::uint32_t color = 0xFFFFFFFFu);
+// BMUI01：源图坐标的透明像素查询；资源缺失或越界返回false，不暴露后端表面。
+bool IsGraphicImageTransparent(std::int32_t imageNo, std::int32_t x, std::int32_t y);
 
 std::int32_t DrawPixelImage(PixelImage* image,
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,

@@ -172,7 +172,7 @@ void ReleasePixelImage(PixelImage* const image) { delete image; }
 
 std::int32_t DrawGraphicImage(const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
-    const std::uint8_t layer, const PngRectangle* const clipRectangle)
+    const std::uint8_t layer, const PngRectangle* const clipRectangle, const std::uint32_t color)
 {
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount || !gGraphicDxCache103CFA4) return -1;
     if (LoadGraphic_522570(imageNo) == 0) return -1;
@@ -182,9 +182,26 @@ std::int32_t DrawGraphicImage(const std::int32_t imageNo,
     image.width = static_cast<std::int16_t>(entry.width);
     image.height = static_cast<std::int16_t>(entry.height);
     image.surface.Bind(entry.head->surface);
-    const auto index = DrawPixelImage(&image, x, y, width, height, 0xFFFFFFFFu, layer, clipRectangle);
+    const auto index = DrawPixelImage(&image, x, y, width, height, color, layer, clipRectangle);
     if (index >= 0) GetPngRuntime().batches[index].graphicIndex = imageNo;
     return index;
+}
+
+bool IsGraphicImageTransparent(const std::int32_t imageNo, const std::int32_t x, const std::int32_t y)
+{
+    if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount || !gGraphicDxCache103CFA4) return false;
+    GraphicCacheItem32 graphic{};
+    graphic.imageNo = imageNo;
+    graphic.descriptor.mixFlags = GraphicMixFlag_OriginalPalette;
+    static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
+    if (!LoadGraphic_522570(imageNo)) return false;
+    auto* node = gGraphicDxCache103CFA4[imageNo].head;
+    if (!node || !LoadGraphicTexture_520B10(&graphic, node)) return false;
+    node->reuseState = platform::gFrameCount;
+    const SDL_Surface* surface = GetTextureSdlSurface(node->surface);
+    if (x < 0 || y < 0 || x >= surface->w || y >= surface->h) return false;
+    const auto* row = reinterpret_cast<const std::uint32_t*>(static_cast<const std::uint8_t*>(surface->pixels) + y * surface->pitch);
+    return (row[x] & 0xFF000000u) == 0;
 }
 
 std::int32_t DrawPixelImage(PixelImage* const image,

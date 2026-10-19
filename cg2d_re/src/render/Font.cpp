@@ -49,6 +49,8 @@ static constexpr std::array<std::uint32_t, 128> kTextColors {{
     0xFFFF87FFU, 0xFFFFAF5FU, 0xFFFFAFAFU, 0xFFFFAFFFU, 0xFFFFD75FU, 0xFFFFD7AFU, 0xFFFFD7FFU, 0xFFFFFF5FU,
     0xFFFFFFAFU, 0xFF121212U, 0xFF262626U, 0xFF3A3A3AU, 0xFF626262U, 0xFF767676U, 0xFF8A8A8AU, 0xFF000000U,
 }};
+std::uint32_t GetTextColor(const std::uint8_t color) noexcept { return kTextColors[color & 0x7FU]; }
+
 static std::array<std::int32_t, 8> gDerived558F30 {}; // 原全局：0x00558F30。
 static std::array<std::int32_t, 8> gDerived5545AC {}; // 原全局：0x005545AC。
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。

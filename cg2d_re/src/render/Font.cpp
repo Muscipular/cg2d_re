@@ -22,6 +22,7 @@
 #include <memory>
 #include <set>
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 #include <system_error>
 
@@ -60,10 +61,11 @@ static HFONT CreateLegacyFont(
     const std::int32_t height,
     const std::int32_t width,
     const std::int32_t weight,
-    const wchar_t* const face)
+    const wchar_t* const face,
+    const bool italic = false)
 {
     return ::CreateFontW(
-        height, width, 0, 0, weight, 0, 0, 0,
+        height, width, 0, 0, weight, italic ? TRUE : FALSE, 0, 0,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, 0x11, face);
 }
@@ -73,8 +75,8 @@ static const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
     return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
 }
 
-// FC01：原字体表迁入font.yml；这里只保留0号兜底，单/双格宽度一致。
-static constexpr FontMetrics kFallbackFontMetrics {9, 17, 18, 17, 0, 17, 0, 0};
+// FC02：原字体表仍在font.yml；0号兜底恢复迁移前布局与字形度量。
+static constexpr FontMetrics kFallbackFontMetrics {9, 17, 17, 17, 0, 0, 0, 0};
 
 // FC01：会话先于所有GDI+资源创建，并在它们释放后关闭。
 class FontSession final {
@@ -106,6 +108,21 @@ struct FontResource final {
         if (handle != nullptr) { static_cast<void>(::DeleteObject(handle)); }
     }
 };
+
+// FC02：系统字体沿迁移前CreateFontW/HFONT路径；DC在成功和异常路径均释放。
+static void CreateSystemFont(FontResource& resource, const std::wstring& family,
+    const int width, const int height, const int weight, const bool italic)
+{
+    resource.handle = CreateLegacyFont(height, width, weight, family.c_str(), italic);
+    if (resource.handle == nullptr) { throw std::runtime_error("CreateFontW创建字体失败"); }
+    const std::unique_ptr<std::remove_pointer_t<HDC>, decltype(&::DeleteDC)> dc(
+        ::CreateCompatibleDC(nullptr), &::DeleteDC);
+    if (dc == nullptr) { throw std::runtime_error("创建字体DC失败"); }
+    resource.font = std::make_unique<Gdiplus::Font>(dc.get(), resource.handle);
+    if (resource.font->GetLastStatus() != Gdiplus::Ok) {
+        throw std::runtime_error("从HFONT创建GDI+字体失败");
+    }
+}
 
 static std::unique_ptr<FontSession> gFontSession;
 static std::map<std::int32_t, std::unique_ptr<FontResource>> gFonts;
@@ -149,6 +166,15 @@ static std::unique_ptr<FontResource> LoadConfiguredFont(
     if (width < 1 || width > 255 || height < 1 || height > 255) {
         throw std::runtime_error("width和height必须在1到255之间");
     }
+    const int fullWidth = entry["full_width"] ? entry["full_width"].as<int>() : width * 2;
+    const int glyphHeight = entry["glyph_height"] ? entry["glyph_height"].as<int>() : height;
+    const int rasterWidth = entry["raster_width"] ? entry["raster_width"].as<int>() : 0;
+    const int rasterHeight = entry["raster_height"] ? entry["raster_height"].as<int>() : height;
+    if ((fullWidth != width * 2 && fullWidth != width * 2 - 1)
+        || glyphHeight < 0 || glyphHeight > 255 || rasterWidth < 0 || rasterWidth > 255
+        || rasterHeight < 1 || rasterHeight > 255) {
+        throw std::runtime_error("字体布局或栅格尺寸配置无效");
+    }
     if (styleName != "normal" && styleName != "italic") {
         throw std::runtime_error("style只支持normal或italic");
     }
@@ -157,6 +183,7 @@ static std::unique_ptr<FontResource> LoadConfiguredFont(
         | (styleName == "italic" ? Gdiplus::FontStyleItalic : Gdiplus::FontStyleRegular);
     auto resource = std::make_unique<FontResource>();
     if (entry["file"]) {
+        if (rasterWidth != 0) { throw std::runtime_error("私有字体文件不支持非零raster_width"); }
         const auto file = directory / std::filesystem::path(DecodeFontUtf8(entry["file"].as<std::string>()));
         resource->collection = std::make_unique<Gdiplus::PrivateFontCollection>();
         if (resource->collection->AddFontFile(file.c_str()) != Gdiplus::Ok) {
@@ -166,13 +193,17 @@ static std::unique_ptr<FontResource> LoadConfiguredFont(
     const Gdiplus::FontFamily family(familyName.c_str(), resource->collection.get());
     if (family.GetLastStatus() != Gdiplus::Ok) { throw std::runtime_error("找不到指定字体族"); }
     if (!family.IsStyleAvailable(style)) { throw std::runtime_error("字体族不支持指定风格或粗细"); }
-    const auto emHeight = family.GetEmHeight(style);
-    const auto lineSpacing = family.GetLineSpacing(style);
-    if (emHeight == 0 || lineSpacing == 0) { throw std::runtime_error("字体行距无效"); }
-    const Gdiplus::REAL size = static_cast<Gdiplus::REAL>(height) * emHeight / lineSpacing;
-    resource->font = std::make_unique<Gdiplus::Font>(&family, size, style, Gdiplus::UnitPixel);
+    if (resource->collection == nullptr) {
+        CreateSystemFont(*resource, familyName, rasterWidth, rasterHeight, weight, styleName == "italic");
+    } else {
+        const auto emHeight = family.GetEmHeight(style);
+        const auto lineSpacing = family.GetLineSpacing(style);
+        if (emHeight == 0 || lineSpacing == 0) { throw std::runtime_error("字体行距无效"); }
+        const Gdiplus::REAL size = static_cast<Gdiplus::REAL>(rasterHeight) * emHeight / lineSpacing;
+        resource->font = std::make_unique<Gdiplus::Font>(&family, size, style, Gdiplus::UnitPixel);
+    }
     if (resource->font->GetLastStatus() != Gdiplus::Ok) { throw std::runtime_error("创建配置字体失败"); }
-    resource->metrics = {width, height, width * 2, height, 0, static_cast<std::uint8_t>(height), 0, 0};
+    resource->metrics = {width, height, fullWidth, height, 0, static_cast<std::uint8_t>(glyphHeight), 0, 0};
     return resource;
 }
 
@@ -341,18 +372,7 @@ std::int32_t InitializeFont_456190(const std::int32_t)
     gFontSession = std::make_unique<FontSession>();
     auto resource = std::make_unique<FontResource>();
     resource->metrics = kFallbackFontMetrics;
-    resource->handle = CreateLegacyFont(16, 0, FW_BOLD, kFaceName5590E0);
-    if (resource->handle != nullptr) {
-        const HDC dc = ::CreateCompatibleDC(nullptr);
-        if (dc != nullptr) {
-            // GDI+复制HFONT属性；DC立即释放，HFONT由本记录继续持有。
-            resource->font.reset(new Gdiplus::Font(dc, resource->handle));
-            static_cast<void>(::DeleteDC(dc));
-        }
-    }
-    if (resource->font == nullptr || resource->font->GetLastStatus() != Gdiplus::Ok) {
-        throw std::runtime_error("无法创建0号默认字体");
-    }
+    CreateSystemFont(*resource, kFaceName5590E0, 0, 16, FW_BOLD, false);
     gFonts.emplace(0, std::move(resource));
     LoadFontConfiguration();
 

@@ -11,6 +11,7 @@
 #include <fstream>
 #include <format>
 #include <string_view>
+#include <vector>
 
 namespace cg::ui::detail {
 
@@ -18,6 +19,7 @@ namespace cg::ui::detail {
 using namespace cg::script;
 
 static constexpr int kMapFont = 12;
+static constexpr int kCoordinateRows = 10;
 // 原资源ID升序重编号，见BMUI01；查MapNo，不依赖资源组内seqNo。
 enum BigMapImage : int {
     RouteDot = 641510, Checked = 641511, PlayerMarker = 641513,
@@ -27,7 +29,7 @@ enum BigMapImage : int {
     WalkNormal = 641524, WalkHover = 641525, WalkPressed = 641526,
     CenterNormal = 641527, CenterHover = 641528, CenterPressed = 641529,
 };
-enum class BigMapButton { Toggle, Close, Walk, Center };
+enum class BigMapButton { Toggle, Close, Walk, Center, CoordinateList };
 // 4.06@49A528/2C/30/38：仅图标分类1、2、3、5消费该颜色。
 static constexpr std::array<std::uint32_t, 7> kCategoryColors{
     0xFFFFFFFFu, 0xF05C20FFu, 0xF0F8F8F8u, 0xF0F84AF8u, 0xFFFFFFFFu, 0xF0FFC500u, 0xFFFFFFFFu};
@@ -45,12 +47,15 @@ struct BigMapAnnotation {
 
 // 前段按输入优先级排列：按钮、筛选、遮挡区域，地图最后接收事件。
 enum BigMapElement : int {
-    ButtonFirst = 0, ButtonEnd = ButtonFirst + 4,
+    ButtonFirst = 0, ButtonEnd = ButtonFirst + 5,
     CategoryFirst = ButtonEnd, CategoryEnd = CategoryFirst + 7,
-    CurrentCoordinateArea = CategoryEnd, TargetCoordinateArea, TitleArea, NameArea, StatusArea, OptionsArea, MapArea,
+    ListToggleTextArea = CategoryEnd, ListScrollThumb, ListScrollTrack, ListScrollUp, ListScrollDown,
+    ListPreviousPage, ListNextPage, ListRowFirst, ListRowEnd = ListRowFirst + kCoordinateRows, ListPanelArea = ListRowEnd,
+    CurrentCoordinateArea, TargetCoordinateArea, TitleArea, NameArea, StatusArea, OptionsArea, MapArea,
     TextFirst, TextMapName = TextFirst, TextCurrentCoordinate, TextTargetCoordinate, TextToggle, TextWalk,
     TextCenter, TextOptions, TextPlayer, TextTarget, TextDisplay, TextStatus,
-    CategoryTextFirst, TextEnd = CategoryTextFirst + 7,
+    CategoryTextFirst, ListNameFirst = CategoryTextFirst + 7, ListCoordinateFirst = ListNameFirst + kCoordinateRows,
+    TextListToggle = ListCoordinateFirst + kCoordinateRows, TextListEmpty, TextListPage, TextEnd,
     MapNameImage = TextEnd,
     PlayerLegendImage, TargetLegendImage, CheckedFirst, CheckboxFirst = CheckedFirst + 7,
     ElementCount = CheckboxFirst + 7,
@@ -64,6 +69,13 @@ static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCloseGraphic{22509, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapWalkGraphic{WalkNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCenterGraphic{CenterNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapListGraphic{CenterNormal, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapScrollThumbGraphic{243096, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapScrollUpGraphic{243090, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapScrollDownGraphic{243093, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapPreviousPageGraphic{243030, 0, 0, 0, 0, 0xFFFFFFFFu};
+static WindowGraphicData gBigMapNextPageGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
+static std::uint32_t gBigMapListScrollFlags = 0;
 static WindowGraphicData gBigMapMapNameGraphic{MapNamePlate, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapPlayerGraphic{PlayerMarker, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapTargetGraphic{TargetMarker, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -78,6 +90,9 @@ static WindowTextPrototype gBigMapPlayerText{{std::byte{0}, std::byte{12}, {}, {
 static WindowTextPrototype gBigMapTargetText{{std::byte{0}, std::byte{12}, {}, {}}, L"右键点选的寻路坐标"};
 static WindowTextPrototype gBigMapDisplayText{{std::byte{0}, std::byte{12}, {}, {}}, L"显示选项"};
 static WindowTextPrototype gBigMapStatusText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapListText{{std::byte{0}, std::byte{12}, {}, {}}, L"坐标列表"};
+static WindowTextPrototype gBigMapListRowText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapListEmptyText{{std::byte{0}, std::byte{12}, {}, {}}, L"暂无坐标"};
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"伐木地点"},
@@ -93,19 +108,38 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Graphic, 610, 10, 20, 20, 1, {.graphic = &gBigMapCloseGraphic}, &WindowBigMap_Element}, // Close
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapWalkGraphic}, &WindowBigMap_Element}, // Walk
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapCenterGraphic}, &WindowBigMap_Element}, // Center
-    {WindowElementType_EventArea, 42, 138, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类0
-    {WindowElementType_EventArea, 42, 158, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类1
-    {WindowElementType_EventArea, 42, 178, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类2
-    {WindowElementType_EventArea, 42, 198, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类3
-    {WindowElementType_EventArea, 42, 218, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类4
-    {WindowElementType_EventArea, 42, 238, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类5
-    {WindowElementType_EventArea, 42, 258, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类6
+    {WindowElementType_Graphic, 92, 51, 18, 18, 1, {.graphic = &gBigMapListGraphic}, &WindowBigMap_Element}, // CoordinateList
+    {WindowElementType_EventArea, 42, 159, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类0
+    {WindowElementType_EventArea, 42, 179, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类1
+    {WindowElementType_EventArea, 42, 199, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类2
+    {WindowElementType_EventArea, 42, 219, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类3
+    {WindowElementType_EventArea, 42, 239, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类4
+    {WindowElementType_EventArea, 42, 259, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类5
+    {WindowElementType_EventArea, 42, 279, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类6
+    {WindowElementType_EventArea, 115, 51, 48, 18, 1, {}, &WindowBigMap_Element}, // ListToggleTextArea
+    {WindowElementType_Graphic, 333, 94, 11, 14, 0, {.graphic = &gBigMapScrollThumbGraphic}, &WindowElement_NoOp}, // ListScrollThumb，紧邻滚动区域前一项
+    {WindowElementType_MouseArea, 332, 94, 12, 178, 0, {.mouseFlags = &gBigMapListScrollFlags}, &WindowBigMap_Element}, // ListScrollTrack
+    {WindowElementType_Graphic, 333, 83, 11, 11, 0, {.graphic = &gBigMapScrollUpGraphic}, &WindowBigMap_Element}, // ListScrollUp
+    {WindowElementType_Graphic, 333, 272, 11, 11, 0, {.graphic = &gBigMapScrollDownGraphic}, &WindowBigMap_Element}, // ListScrollDown
+    {WindowElementType_Graphic, 102, 293, 20, 20, 0, {.graphic = &gBigMapPreviousPageGraphic}, &WindowBigMap_Element}, // ListPreviousPage
+    {WindowElementType_Graphic, 124, 293, 20, 20, 0, {.graphic = &gBigMapNextPageGraphic}, &WindowBigMap_Element}, // ListNextPage
+    {WindowElementType_EventArea, 102, 83, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行0
+    {WindowElementType_EventArea, 102, 103, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行1
+    {WindowElementType_EventArea, 102, 123, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行2
+    {WindowElementType_EventArea, 102, 143, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行3
+    {WindowElementType_EventArea, 102, 163, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行4
+    {WindowElementType_EventArea, 102, 183, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行5
+    {WindowElementType_EventArea, 102, 203, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行6
+    {WindowElementType_EventArea, 102, 223, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行7
+    {WindowElementType_EventArea, 102, 243, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行8
+    {WindowElementType_EventArea, 102, 263, 222, 20, 0, {}, &WindowBigMap_Element}, // 坐标行9
+    {WindowElementType_EventArea, 92, 73, 260, 250, 0, {}, &WindowBigMap_Element}, // ListPanelArea
     {WindowElementType_EventArea, 513, 10, 96, 17, 1, {}, &WindowBigMap_Element}, // 当前坐标底色与遮挡
     {WindowElementType_EventArea, 513, 26, 96, 17, 0, {}, &WindowBigMap_Element}, // 目标坐标底色与遮挡
     {WindowElementType_EventArea, 6, 6, 602, 32, 1, {}, &WindowBigMap_Element}, // TitleArea
     {WindowElementType_EventArea, 12, 12, 184, 38, 1, {}, &WindowBigMap_Element}, // NameArea
     {WindowElementType_EventArea, 8, 440, 624, 32, 1, {}, &WindowBigMap_Element}, // StatusArea
-    {WindowElementType_EventArea, 36, 52, 224, 270, 0, {}, &WindowBigMap_Element}, // OptionsArea
+    {WindowElementType_EventArea, 36, 73, 224, 270, 0, {}, &WindowBigMap_Element}, // OptionsArea
     {WindowElementType_EventArea, 8, 8, 624, 464, 1, {}, &WindowBigMap_Element}, // MapArea
     {WindowElementType_Text, 18, 20, 0, 0, 1, {.text = &gBigMapMapNameText}, &WindowElement_NoOp}, // TextMapName
     {WindowElementType_Text, 516, 12, 0, 0, 1, {.text = &gBigMapCoordinateText}, &WindowElement_NoOp}, // TextCurrentCoordinate
@@ -113,35 +147,58 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Text, 34, 52, 0, 0, 1, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextToggle
     {WindowElementType_Text, 34, 76, 0, 0, 0, {.text = &gBigMapWalkText}, &WindowElement_NoOp}, // TextWalk
     {WindowElementType_Text, 34, 76, 0, 0, 0, {.text = &gBigMapCenterText}, &WindowElement_NoOp}, // TextCenter
-    {WindowElementType_Text, 44, 60, 0, 0, 0, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextOptions
-    {WindowElementType_Text, 62, 79, 0, 0, 0, {.text = &gBigMapPlayerText}, &WindowElement_NoOp}, // TextPlayer
-    {WindowElementType_Text, 62, 99, 0, 0, 0, {.text = &gBigMapTargetText}, &WindowElement_NoOp}, // TextTarget
-    {WindowElementType_Text, 44, 120, 0, 0, 0, {.text = &gBigMapDisplayText}, &WindowElement_NoOp}, // TextDisplay
+    {WindowElementType_Text, 44, 81, 0, 0, 0, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextOptions
+    {WindowElementType_Text, 62, 100, 0, 0, 0, {.text = &gBigMapPlayerText}, &WindowElement_NoOp}, // TextPlayer
+    {WindowElementType_Text, 62, 120, 0, 0, 0, {.text = &gBigMapTargetText}, &WindowElement_NoOp}, // TextTarget
+    {WindowElementType_Text, 44, 141, 0, 0, 0, {.text = &gBigMapDisplayText}, &WindowElement_NoOp}, // TextDisplay
     {WindowElementType_Text, 12, 462, 0, 0, 1, {.text = &gBigMapStatusText}, &WindowElement_NoOp}, // TextStatus
-    {WindowElementType_Text, 62, 140, 0, 0, 0, {.text = &gBigMapCategoryTexts[0]}, &WindowElement_NoOp}, // 分类0名称
-    {WindowElementType_Text, 62, 160, 0, 0, 0, {.text = &gBigMapCategoryTexts[1]}, &WindowElement_NoOp}, // 分类1名称
-    {WindowElementType_Text, 62, 180, 0, 0, 0, {.text = &gBigMapCategoryTexts[2]}, &WindowElement_NoOp}, // 分类2名称
-    {WindowElementType_Text, 62, 200, 0, 0, 0, {.text = &gBigMapCategoryTexts[3]}, &WindowElement_NoOp}, // 分类3名称
-    {WindowElementType_Text, 62, 220, 0, 0, 0, {.text = &gBigMapCategoryTexts[4]}, &WindowElement_NoOp}, // 分类4名称
-    {WindowElementType_Text, 62, 240, 0, 0, 0, {.text = &gBigMapCategoryTexts[5]}, &WindowElement_NoOp}, // 分类5名称
-    {WindowElementType_Text, 62, 260, 0, 0, 0, {.text = &gBigMapCategoryTexts[6]}, &WindowElement_NoOp}, // 分类6名称
+    {WindowElementType_Text, 62, 161, 0, 0, 0, {.text = &gBigMapCategoryTexts[0]}, &WindowElement_NoOp}, // 分类0名称
+    {WindowElementType_Text, 62, 181, 0, 0, 0, {.text = &gBigMapCategoryTexts[1]}, &WindowElement_NoOp}, // 分类1名称
+    {WindowElementType_Text, 62, 201, 0, 0, 0, {.text = &gBigMapCategoryTexts[2]}, &WindowElement_NoOp}, // 分类2名称
+    {WindowElementType_Text, 62, 221, 0, 0, 0, {.text = &gBigMapCategoryTexts[3]}, &WindowElement_NoOp}, // 分类3名称
+    {WindowElementType_Text, 62, 241, 0, 0, 0, {.text = &gBigMapCategoryTexts[4]}, &WindowElement_NoOp}, // 分类4名称
+    {WindowElementType_Text, 62, 261, 0, 0, 0, {.text = &gBigMapCategoryTexts[5]}, &WindowElement_NoOp}, // 分类5名称
+    {WindowElementType_Text, 62, 281, 0, 0, 0, {.text = &gBigMapCategoryTexts[6]}, &WindowElement_NoOp}, // 分类6名称
+    {WindowElementType_Text, 102, 85, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称0
+    {WindowElementType_Text, 102, 105, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称1
+    {WindowElementType_Text, 102, 125, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称2
+    {WindowElementType_Text, 102, 145, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称3
+    {WindowElementType_Text, 102, 165, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称4
+    {WindowElementType_Text, 102, 185, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称5
+    {WindowElementType_Text, 102, 205, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称6
+    {WindowElementType_Text, 102, 225, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称7
+    {WindowElementType_Text, 102, 245, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称8
+    {WindowElementType_Text, 102, 265, 144, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点名称9
+    {WindowElementType_Text, 252, 85, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标0
+    {WindowElementType_Text, 252, 105, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标1
+    {WindowElementType_Text, 252, 125, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标2
+    {WindowElementType_Text, 252, 145, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标3
+    {WindowElementType_Text, 252, 165, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标4
+    {WindowElementType_Text, 252, 185, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标5
+    {WindowElementType_Text, 252, 205, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标6
+    {WindowElementType_Text, 252, 225, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标7
+    {WindowElementType_Text, 252, 245, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标8
+    {WindowElementType_Text, 252, 265, 72, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // 地点坐标9
+    {WindowElementType_Text, 115, 52, 0, 0, 1, {.text = &gBigMapListText}, &WindowElement_NoOp}, // TextListToggle
+    {WindowElementType_Text, 102, 85, 222, 16, 0, {.text = &gBigMapListEmptyText}, &WindowElement_NoOp}, // TextListEmpty
+    {WindowElementType_Text, 154, 297, 170, 16, 0, {.text = &gBigMapListRowText}, &WindowElement_NoOp}, // TextListPage
     {WindowElementType_Graphic, 10, 10, 184, 38, 1, {.graphic = &gBigMapMapNameGraphic}, &WindowElement_NoOp}, // MapNameImage
-    {WindowElementType_Graphic, 44, 80, 14, 14, 0, {.graphic = &gBigMapPlayerGraphic}, &WindowElement_NoOp}, // PlayerLegendImage
-    {WindowElementType_Graphic, 44, 100, 14, 14, 0, {.graphic = &gBigMapTargetGraphic}, &WindowElement_NoOp}, // TargetLegendImage
-    {WindowElementType_Graphic, 46, 141, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类0选中标记
-    {WindowElementType_Graphic, 46, 161, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类1选中标记
-    {WindowElementType_Graphic, 46, 181, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类2选中标记
-    {WindowElementType_Graphic, 46, 201, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类3选中标记
-    {WindowElementType_Graphic, 46, 221, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类4选中标记
-    {WindowElementType_Graphic, 46, 241, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类5选中标记
-    {WindowElementType_Graphic, 46, 261, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类6选中标记
-    {WindowElementType_Graphic, 46, 143, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类0选择框
-    {WindowElementType_Graphic, 46, 163, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类1选择框
-    {WindowElementType_Graphic, 46, 183, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类2选择框
-    {WindowElementType_Graphic, 46, 203, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类3选择框
-    {WindowElementType_Graphic, 46, 223, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类4选择框
-    {WindowElementType_Graphic, 46, 243, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类5选择框
-    {WindowElementType_Graphic, 46, 263, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类6选择框
+    {WindowElementType_Graphic, 44, 101, 14, 14, 0, {.graphic = &gBigMapPlayerGraphic}, &WindowElement_NoOp}, // PlayerLegendImage
+    {WindowElementType_Graphic, 44, 121, 14, 14, 0, {.graphic = &gBigMapTargetGraphic}, &WindowElement_NoOp}, // TargetLegendImage
+    {WindowElementType_Graphic, 46, 162, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类0选中标记
+    {WindowElementType_Graphic, 46, 182, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类1选中标记
+    {WindowElementType_Graphic, 46, 202, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类2选中标记
+    {WindowElementType_Graphic, 46, 222, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类3选中标记
+    {WindowElementType_Graphic, 46, 242, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类4选中标记
+    {WindowElementType_Graphic, 46, 262, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类5选中标记
+    {WindowElementType_Graphic, 46, 282, 12, 11, 0, {.graphic = &gBigMapCheckedGraphic}, &WindowElement_NoOp}, // 分类6选中标记
+    {WindowElementType_Graphic, 46, 164, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类0选择框
+    {WindowElementType_Graphic, 46, 184, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类1选择框
+    {WindowElementType_Graphic, 46, 204, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类2选择框
+    {WindowElementType_Graphic, 46, 224, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类3选择框
+    {WindowElementType_Graphic, 46, 244, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类4选择框
+    {WindowElementType_Graphic, 46, 264, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类5选择框
+    {WindowElementType_Graphic, 46, 284, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp}, // 分类6选择框
 };
 static_assert(std::size(gBigMapElements) == ElementCount);
 
@@ -153,6 +210,10 @@ struct BigMapWindowState final {
     WindowInstance& window; // 借用原生实例，release回调先销毁本业务状态。
     BigMapSurface map;
     std::map<std::pair<int, int>, BigMapAnnotation> annotations;
+    std::vector<const BigMapAnnotation*> coordinateRows; // 借用annotations节点，重载前先清空。
+    int listFirstRow = 0, listMapWidth = -1, listMapHeight = -1;
+    int lastListClickX = -1, lastListClickY = -1;
+    bool listOpen = false, listDirty = true, scrollingList = false;
     std::array<bool, 7> categories{true, true, true, true, true, true, true};
     int currentMap = -1, currentFloor = -1, currentGroup = -1;
     int targetX = -1, targetY = -1;
@@ -168,7 +229,71 @@ struct BigMapWindowState final {
     int missingIcons = 0;
     int failedUiImages = 0;
 
-    explicit BigMapWindowState(WindowInstance& instance) : window(instance) { Layout(); }
+    explicit BigMapWindowState(WindowInstance& instance) : window(instance) {
+        Layout();
+        // 原型保持固定布局；仅初始化时按当前字体度量入口的10px间距。
+        const auto& label = window.elements[TextToggle];
+        const int listButton = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
+        const int shift = label.x + render::TextMeasure(gBigMapOptionsText.text, kMapFont) + 10
+            - gBigMapElements[listButton].x;
+        window.elements[listButton].x += shift;
+        for (int i = ListToggleTextArea; i <= ListPanelArea; ++i) window.elements[i].x += shift;
+        for (int i = ListNameFirst; i < TextEnd; ++i) window.elements[i].x += shift;
+        window.elements[ListToggleTextArea].width = render::TextMeasure(gBigMapListText.text, kMapFont);
+    }
+
+    int MaxListFirstRow() const {
+        return std::max(0, static_cast<int>(coordinateRows.size()) - kCoordinateRows);
+    }
+
+    void RefreshListRows() {
+        for (int row = 0; row < kCoordinateRows; ++row) {
+            const int position = listFirstRow + row;
+            const bool shown = listOpen && position < static_cast<int>(coordinateRows.size());
+            window.elements[ListRowFirst + row].visible = shown;
+            window.elements[ListNameFirst + row].visible = shown;
+            window.elements[ListCoordinateFirst + row].visible = shown;
+            auto& name = *static_cast<WindowTextData*>(window.elements[ListNameFirst + row].data);
+            auto& coordinate = *static_cast<WindowTextData*>(window.elements[ListCoordinateFirst + row].data);
+            if (shown) {
+                const auto& point = *coordinateRows[position];
+                name.text = point.name;
+                coordinate.text = std::format(L"{}, {}", point.x, point.y);
+            } else { name.text.clear(); coordinate.text.clear(); }
+        }
+        window.elements[TextListEmpty].visible = listOpen && coordinateRows.empty();
+        const int pages = (static_cast<int>(coordinateRows.size()) + kCoordinateRows - 1) / kCoordinateRows;
+        // 末屏允许不足10行时向前补齐；到达尾部显示末页。
+        const int page = pages == 0 ? 0 : listFirstRow == MaxListFirstRow() ? pages : listFirstRow / kCoordinateRows + 1;
+        static_cast<WindowTextData*>(window.elements[TextListPage].data)->text = std::format(L"{} / {}", page, pages);
+    }
+
+    void SetListFirstRow(int position) {
+        const int next = std::clamp(position, 0, MaxListFirstRow());
+        if (next != listFirstRow) lastListClickX = lastListClickY = -1;
+        listFirstRow = next;
+        WindowScroll_SetPosition(&window.elements[ListScrollTrack], MaxListFirstRow(), listFirstRow);
+        RefreshListRows();
+    }
+
+    void RebuildCoordinateList() {
+        coordinateRows.clear();
+        for (const auto& [position, point] : annotations) {
+            if (categories[point.category] && point.x >= 0 && point.y >= 0
+                && point.x < map.mapWidth && point.y < map.mapHeight) coordinateRows.push_back(&point);
+        }
+        listDirty = false;
+        listMapWidth = map.mapWidth; listMapHeight = map.mapHeight;
+        lastListClickX = lastListClickY = -1;
+        SetListFirstRow(0);
+    }
+
+    void ToggleCoordinateList() {
+        listOpen = !listOpen;
+        if (listOpen) options = false;
+        scrollingList = false;
+        lastListClickX = lastListClickY = -1;
+    }
 
     void Layout() {
         const int screenW = render::GetRendererLogicalWidth(), screenH = render::GetRendererLogicalHeight();
@@ -207,7 +332,7 @@ struct BigMapWindowState final {
         window.elements[center].visible = !followPlayer;
         window.elements[center].y = targetX >= 0 ? 97 : 73;
         window.elements[TextCenter].y = window.elements[center].y + 3;
-        window.elements[TextToggle].visible = !options;
+        window.elements[TextToggle].visible = 1;
         window.elements[TextWalk].visible = !options && window.elements[walk].visible;
         window.elements[TextCenter].visible = !options && window.elements[center].visible;
         window.elements[OptionsArea].visible = options;
@@ -221,6 +346,13 @@ struct BigMapWindowState final {
             window.elements[CheckedFirst + i].visible = options && categories[i];
             window.elements[CheckboxFirst + i].visible = options;
         }
+        window.elements[ListPanelArea].visible = listOpen;
+        window.elements[TextListPage].visible = listOpen;
+        window.elements[ListPreviousPage].visible = listOpen;
+        window.elements[ListNextPage].visible = listOpen;
+        for (int i : {ListScrollThumb, ListScrollTrack, ListScrollUp, ListScrollDown})
+            window.elements[i].visible = listOpen && MaxListFirstRow() > 0;
+        RefreshListRows();
     }
 
     void RefreshText() {
@@ -245,6 +377,9 @@ struct BigMapWindowState final {
     }
 
     void LoadAnnotations() {
+        coordinateRows.clear();
+        listDirty = true;
+        scrollingList = false;
         annotations.clear();
         missingIcons = 0;
         // 二进制读保留GBK字节；不使用系统默认编码，不回退旧EXE/内嵌数据。
@@ -323,15 +458,30 @@ struct BigMapWindowState final {
             map.mapY = static_cast<int>(world::gPlayerY);
         }
         mapReady = map.PrepareMap();
+        if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
         SyncControls();
         const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);
         const bool held = (gMouseBtnDown2 & 1) != 0;
         const bool available = gWindowHasFocus == 0 && ui::WindowDrag_ReadMousePhase() == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
+        if (listOpen && acceptsMouse && ElementHit(ListPanelArea)) {
+            const int wheel = LuaPeekMouseWheelDelta();
+            if (wheel != 0) {
+                const int step = wheel / 120 != 0 ? wheel / 120 : wheel > 0 ? 1 : -1;
+                SetListFirstRow(listFirstRow - step);
+                LuaConsumeMouseWheelDelta();
+            }
+        }
         RefreshText();
         if (!acceptsMouse || (gMouseClickState & 2)) mapClickPending = false;
-        if (movingWindow) {
+        if (scrollingList) {
+            const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
+            WindowElement_HandleVerticalScroll(ListScrollTrack, heldScroll ? 8 : 0);
+            SetListFirstRow(WindowScroll_ReadPosition(&window.elements[ListScrollTrack], MaxListFirstRow()));
+            scrollingList = heldScroll;
+            acceptsMouse = false; // 捕获帧由上面统一处理，防止其它子控件再次响应。
+        } else if (movingWindow) {
             if (available && held) {
                 window.x = dragWindowX + mx - dragX;
                 window.y = dragWindowY + my - dragY;
@@ -373,26 +523,88 @@ struct BigMapWindowState final {
             case BigMapButton::Close: if (pressed) imageNo = 22510; break;
             case BigMapButton::Walk: imageNo = pressed ? WalkPressed : hover ? WalkHover : WalkNormal; break;
             case BigMapButton::Center: imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal; break;
+            case BigMapButton::CoordinateList:
+                imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal;
+                break;
             }
             static_cast<WindowGraphicData*>(element.data)->imageNo = imageNo;
         }
+        if (index == ListToggleTextArea && acceptsMouse && (events & 1)) {
+            const int button = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
+            static_cast<WindowGraphicData*>(window.elements[button].data)->imageNo =
+                (events & 8) ? CenterPressed : CenterHover;
+        }
+        if (index >= ListScrollUp && index <= ListNextPage) {
+            const int base = gBigMapElements[index].source.graphic->imageNo;
+            auto& graphic = *static_cast<WindowGraphicData*>(element.data);
+            graphic.imageNo = base + ((element.state & 8) ? 1 : (element.state & 1) ? 2 : 0);
+            const bool atEnd = (index == ListScrollUp || index == ListPreviousPage)
+                ? listFirstRow == 0 : listFirstRow == MaxListFirstRow();
+            graphic.color = atEnd ? 0x80FFFFFFu : 0xFFFFFFFFu;
+        }
         if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & 1)) return 0;
+        if (index == ListScrollTrack) {
+            if ((events & 8) && MaxListFirstRow() > 0) {
+                scrollingList = true;
+                mapClickPending = false;
+                WindowElement_HandleVerticalScroll(index, events);
+                SetListFirstRow(WindowScroll_ReadPosition(&element, MaxListFirstRow()));
+            }
+            return 1;
+        }
         if (index != MapArea) {
             if (events & (2 | 4)) mapClickPending = false;
+            if (index >= ListRowFirst && index < ListRowEnd) {
+                const int position = listFirstRow + index - ListRowFirst;
+                if (mapReady && position >= 0 && position < static_cast<int>(coordinateRows.size())
+                    && (events & (2 | 0x100))) {
+                    const auto& point = *coordinateRows[position];
+                    const bool doubleClick = (events & 0x100) && lastListClickX == point.x && lastListClickY == point.y;
+                    const bool retarget = getAutoCopliotState() && (targetX != point.x || targetY != point.y);
+                    targetX = point.x; targetY = point.y;
+                    followPlayer = false;
+                    // 列表保持展开，目标居中到其右侧可见地图，避免标记落在面板后面。
+                    const auto& panel = window.elements[ListPanelArea];
+                    const int visibleLeft = std::clamp(panel.x + panel.width, map.x, map.x + map.w);
+                    const int visibleCenterX = (visibleLeft + map.x + map.w) / 2;
+                    map.PanFrom(point.x, point.y, visibleCenterX - (map.x + map.w / 2), 0);
+                    dragging = movingWindow = false;
+                    if (doubleClick || retarget) startCopilot(targetX, targetY);
+                    lastListClickX = point.x; lastListClickY = point.y;
+                    SyncControls();
+                    RefreshText();
+                }
+                return 1;
+            }
+            if (index >= ListScrollUp && index <= ListNextPage) {
+                if (events & 0x400) {
+                    if (index == ListScrollUp) SetListFirstRow(listFirstRow - 1);
+                    else if (index == ListScrollDown) SetListFirstRow(listFirstRow + 1);
+                    else if (index == ListPreviousPage) SetListFirstRow(((std::max(1, listFirstRow) - 1) / kCoordinateRows) * kCoordinateRows);
+                    else SetListFirstRow((listFirstRow / kCoordinateRows + 1) * kCoordinateRows);
+                }
+                return 1;
+            }
             if (events & 2) {
+                lastListClickX = lastListClickY = -1;
                 if (index < ButtonEnd) {
                     switch (static_cast<BigMapButton>(index - ButtonFirst)) {
                     case BigMapButton::Close: window.state |= WIN_STATE_CLOSE; break;
                     case BigMapButton::Toggle:
                         options = !options;
+                        if (options) listOpen = false;
                         static_cast<WindowGraphicData*>(element.data)->imageNo = options ? 243031 : 243034;
                         break;
+                    case BigMapButton::CoordinateList: ToggleCoordinateList(); break;
                     case BigMapButton::Center: followPlayer = true; break;
                     case BigMapButton::Walk:
                         startCopilot(targetX, targetY);
                         break;
                     }
-                } else if (index < CategoryEnd) categories[index - CategoryFirst] = !categories[index - CategoryFirst];
+                } else if (index >= CategoryFirst && index < CategoryEnd) {
+                    categories[index - CategoryFirst] = !categories[index - CategoryFirst];
+                    RebuildCoordinateList();
+                } else if (index == ListToggleTextArea) ToggleCoordinateList();
                 else if (index == TitleArea) {
                     movingWindow = true;
                     dragging = false;
@@ -404,6 +616,7 @@ struct BigMapWindowState final {
             RefreshText();
             return 1;
         }
+        if (events & (2 | 4)) lastListClickX = lastListClickY = -1;
         if (!mapReady) return 1;
         const auto point = map.ScreenToMap(static_cast<int>(gMouseX) - window.x - map.x,
             static_cast<int>(gMouseY) - window.y - map.y);
@@ -462,8 +675,17 @@ struct BigMapWindowState final {
             } else if (element.type == WindowElementType_Text) {
                 const auto& data = *static_cast<const WindowTextData*>(element.data);
                 auto textClip = clip;
+                int textX = window.x + element.x;
                 if (i == TextMapName) textClip.right = static_cast<short>(window.x + 188);
-                RendererDrawTextClipped(static_cast<short>(window.x + element.x),
+                if ((i >= ListNameFirst && i < TextListToggle) || i == TextListEmpty || i == TextListPage) {
+                    textClip.left = static_cast<short>(std::max<int>(clip.left, textX));
+                    textClip.right = static_cast<short>(std::min<int>(clip.right, textX + element.width));
+                    textClip.top = static_cast<short>(std::max<int>(clip.top, window.y + element.y));
+                    textClip.bottom = static_cast<short>(std::min<int>(clip.bottom, window.y + element.y + element.height));
+                    if (i >= ListCoordinateFirst && i < TextListToggle)
+                        textX += std::max(0, element.width - render::TextMeasure(data.text, std::to_integer<char>(data.style.font)));
+                }
+                RendererDrawTextClipped(static_cast<short>(textX),
                     static_cast<short>(window.y + element.y), FONT_LAYER_WINDOW, std::to_integer<char>(data.style.font),
                     std::to_integer<std::uint8_t>(data.style.color), data.text, 0, 0, &textClip);
             }
@@ -471,7 +693,7 @@ struct BigMapWindowState final {
     }
 
     void DrawPanel(const UIClipRect& clip) {
-        // 4.06@4774CB：3列×5行，锚点(73,79)，步长(74,54)。
+        // 4.06@4774CB：3列×5行、步长(74,54)；面板下移21px，为两个入口保留独立一行。
         // 边框先入队，底纹后入队，适配本线同层逆序绘制。
         for (int row = 0; row < 5; ++row) {
             for (int col = 0; col < 3; ++col) {
@@ -479,12 +701,33 @@ struct BigMapWindowState final {
                     : col == 0 ? 245383 : col == 2 ? 245385 : 0;
                 if (mapNo) {
                     if (const auto* graphic = Graphic(mapNo))
-                        UiImage(mapNo, 73 + col * 74 + graphic->x, 79 + row * 54 + graphic->y, graphic->w, graphic->h, clip);
+                        UiImage(mapNo, 73 + col * 74 + graphic->x, 100 + row * 54 + graphic->y, graphic->w, graphic->h, clip);
                     else ++failedUiImages;
                 }
-                UiImage(245384, 36 + col * 74, 52 + row * 54, 76, 54, clip);
+                UiImage(245384, 36 + col * 74, 73 + row * 54, 76, 54, clip);
             }
         }
+    }
+
+    void DrawCoordinateList(const UIClipRect& clip) {
+        for (int row = 0; row < kCoordinateRows; ++row) {
+            const auto& element = window.elements[ListRowFirst + row];
+            const int position = listFirstRow + row;
+            if (!element.visible || position >= static_cast<int>(coordinateRows.size())) continue;
+            const auto& point = *coordinateRows[position];
+            if ((element.state & 1) || (targetX == point.x && targetY == point.y))
+                RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                    static_cast<short>(window.y + element.y), static_cast<short>(element.width),
+                    static_cast<short>(element.height), LAYER_UI, 0x803F6E83u, &clip);
+        }
+        const auto& track = window.elements[ListScrollTrack];
+        if (track.visible)
+            RendererDrawRectClipped(static_cast<short>(window.x + track.x), static_cast<short>(window.y + track.y),
+                static_cast<short>(track.width), static_cast<short>(track.height), LAYER_UI, 0x80000000u, &clip);
+        const auto& panel = window.elements[ListPanelArea];
+        yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel.x), static_cast<short>(window.y + panel.y),
+            static_cast<short>(panel.width), static_cast<short>(panel.height), LAYER_UI, -1,
+            std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
     }
 
     void Marker(int gx, int gy, int mapNo, int size, const UIClipRect& clip) {
@@ -573,6 +816,7 @@ struct BigMapWindowState final {
             }
             DrawPanel(clip);
         }
+        if (listOpen) DrawCoordinateList(clip);
         RendererBreakWindowTextBatch();
         if (mapReady) {
             if (acceptsMouse && MapHit()) {

@@ -136,7 +136,8 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 if (end == std::string::npos) { ++count; break; }
                 begin = end + 1;
             }
-            if (count < 5 || std::atoi(fields[0].c_str()) != currentMap) continue;
+            // mapdesc首列对应地图文件的楼层号（如1000）；currentMap是路径分组，普通地图为0。
+            if (count < 5 || std::atoi(fields[0].c_str()) != currentFloor) continue;
             BigMapAnnotation point;
             point.category = std::atoi(fields[1].c_str());
             if (point.category < 0 || point.category >= static_cast<int>(categories.size())) continue;

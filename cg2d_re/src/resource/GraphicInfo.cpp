@@ -75,14 +75,14 @@ std::int32_t GraphicInit_459960(
         infoFiles[slot] = _wfopen(graphicInfoPaths[slot], L"rb");
         if (infoFiles[slot] == nullptr) {
             platform::ShowWideMessage(
-                L"图形索引文件开启失败：" + text::FromLegacyDisplayWide(graphicInfoPaths[slot]),
+                L"图形索引文件开启失败：" + std::wstring(graphicInfoPaths[slot]),
                 L"资源加载", 0);
             continue;
         }
         gGraphicFiles[slot] = _wfopen(graphicPaths[slot], L"rb");
         if (gGraphicFiles[slot] == nullptr) {
             platform::ShowWideMessage(
-                L"图形文件开启失败：" + text::FromLegacyDisplayWide(graphicPaths[slot]),
+                L"图形文件开启失败：" + std::wstring(graphicPaths[slot]),
                 L"资源加载", 0);
             std::fclose(infoFiles[slot]);
             infoFiles[slot] = nullptr;

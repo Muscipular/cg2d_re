@@ -104,14 +104,14 @@ std::int32_t AnimeInit_45BB20(
         std::FILE* const infoFile = _wfopen(infoPaths[slot], L"rb");
         if (infoFile == nullptr) {
             platform::ShowWideMessage(
-                L"动画索引文件开启失败：" + text::FromLegacyDisplayWide(infoPaths[slot]),
+                L"动画索引文件开启失败：" + std::wstring(infoPaths[slot]),
                 L"资源加载", 0);
             continue;
         }
         detail::gAnimateFiles9A3A20[slot] = _wfopen(dataPaths[slot], L"rb");
         if (detail::gAnimateFiles9A3A20[slot] == nullptr) {
             platform::ShowWideMessage(
-                L"动画文件开启失败：" + text::FromLegacyDisplayWide(dataPaths[slot]),
+                L"动画文件开启失败：" + std::wstring(dataPaths[slot]),
                 L"资源加载", 0);
             std::fclose(infoFile);
             continue;
@@ -390,7 +390,7 @@ std::int32_t CoordLoad_45BF60(
     std::FILE* const infoFile = _wfopen(infoPath, L"rb");
     if (infoFile == nullptr) {
         platform::ShowWideMessage(
-            L"坐标索引文件开启失败：" + text::FromLegacyDisplayWide(infoPath), L"资源加载", 0);
+            L"坐标索引文件开启失败：" + std::wstring(infoPath), L"资源加载", 0);
         return 0;
     }
     std::uint8_t version;
@@ -401,7 +401,7 @@ std::int32_t CoordLoad_45BF60(
     std::FILE* const dataFile = _wfopen(dataPath, L"rb");
     if (dataFile == nullptr) {
         platform::ShowWideMessage(
-            L"坐标文件开启失败：" + text::FromLegacyDisplayWide(dataPath), L"资源加载", 0);
+            L"坐标文件开启失败：" + std::wstring(dataPath), L"资源加载", 0);
         std::fclose(infoFile);
         return 0;
     }

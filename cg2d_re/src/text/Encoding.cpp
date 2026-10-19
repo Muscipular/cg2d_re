@@ -67,8 +67,9 @@ std::string ToGbk(const std::wstring_view utf16)
     catch (const std::system_error& error) {
 #ifdef MY_DEBUG
         throw GbkStorageError(error.code(), "文字无法编码为GBK");
-#endif
+#else
         return "";
+#endif
     }
 }
 

@@ -1,6 +1,6 @@
 # IWT01 内部文本迁移清单
 
-此清单按实际字段读写链登记，不以含char的文件数作为完成率。各组生产—存储—消费及生命周期已完成静态核对，待统一编译。
+此清单按实际字段读写链登记，不以含char的文件数作为完成率。各组生产—存储—消费及生命周期已完成静态核对，2026-10-20通过build.bat Debug统一编译及链接；未启动客户端。
 
 | 对象/接口 | 分类与读写链 | 当前状态 |
 | --- | --- | --- |
@@ -40,3 +40,22 @@
 | 网络原始封包、文件原始字节、压缩/像素/数值状态 | 边界格式或非文本二进制 | 保留字节类型，具体用途见下表 |
 
 涉及wstring对象的memset/memcpy/calloc/realloc/fread/fwrite必须随所属组一起处理；不得以结构名含Record或历史偏移固定为由跳过。
+
+## 最终保留的窄字节类别（2026-10-20）
+
+| 位置/类型 | 保留原因 |
+| --- | --- |
+| NetworkRuntime原始队列、协议字典、Extract/Parse/转义工具、Receive/Handle回复参数 | 未解析协议及逐字段解码边界，编码长度按原字节数 |
+| BattleState的C/M队列、battle_message的TakeBattle/String/Header及preview/ignored局部缓冲 | 含控制命令的原始战斗协议；业务名称和显示行解码后为wstring |
+| SceneState的gMoveDirectionText、WindowBattlePets/Items/Command及WindowInventory的packet | 已编码方向/战斗动作/扩展命令载荷，不是显示文本 |
+| AlbumDisk、ChatHistoryDisk、MailDisk、ProfileDisk、CategoryDisk、SavedDisk | 旧文件布局专用记录；仅边界读写，运行对象没有GBK影子副本 |
+| RendererResources的update.dat正文、BigMapSurface的stamp/identity、MapEx的magic | 文件正文、缓存二进制标识或魔数；不是路径或用户文本 |
+| WindowBigMap的line/fields、BinLoader/Font的YAML scalar、LuaIO的文件/YAML数据 | 文件读取/外部解析器边界；载入业务字段后解码 |
+| LuaData/LuaUI的字段键、函数名、元表名和Lua tostring局部缓冲 | Lua C API标识及返回值适配，遵守现有外部GBK合同 |
+| LuaBridgeValue/stringValue、header、packet回调快照 | 通用Lua值及原始封包跨回调传递，保持Lua二进制字符串和显式长度，不能按显示文字解码 |
+| platformTool的DNS字符串及摘要字节、SDL driver、系统异常what()/Lua错误 | 窄字符外部API或编码适配边界；自有诊断格式及SDL错误缓存已宽化 |
+| UI回复局部name/description/line及容量预检fileBytes、Encoding/Input的GBK临时串 | 原协议/存档容量与分行边界，之后立即解码；不作为长期业务状态 |
+| gShopSelectedSlots、char font/hover、像素/压缩及数值标志 | 数值或二进制数据，非文本 |
+| src/tools中的历史MIDI工具 | 按现行项目规则排除，不进入当前客户端及本次迁移 |
+
+生命周期复核：Yobi对象在分配后construct_at、释放前destroy_at；文字行使用wstring数组new[]/delete[]。玩家、宠物、技能、邮件、标题、公会和窗口运行对象采用对象赋值/逐字段清理；文件IO只作用于独立磁盘记录。仍存在的memcpy/memset仅用于数值、指针联合体、协议/文件字节及像素等平凡对象。

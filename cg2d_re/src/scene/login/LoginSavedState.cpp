@@ -707,7 +707,6 @@ static std::uint32_t RestoreSavedByteState_520700(
 // 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
 static std::uint8_t RestoreCurrentSavedValue_520730()
 {
-    if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const std::uint8_t value = current.value315;
     if (value != 0) {
@@ -723,7 +722,6 @@ std::int32_t RestoreCurrentSavedState_5201B0()
         return 0;
     }
 
-    if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     (void)RestoreAudioSettings_5204C0(current);
     (void)RestoreSavedScalarSettings_5205E0(current);
@@ -806,6 +804,7 @@ std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
 std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected)
 {
+    if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const std::uint16_t target =
         static_cast<std::uint16_t>(cg::audio::gBgmTarget1050818);
@@ -816,6 +815,7 @@ std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected)
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
 std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected)
 {
+    if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     std::uint16_t target;
     target = current.bgm316[selected];

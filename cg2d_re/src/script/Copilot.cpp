@@ -423,8 +423,8 @@ static void syncVisibleCache()
 
 static std::wstring makeMapFileName()
 {
-    return gMapId ? std::format(L"map\\{}\\{}\\{}.dat", gMapId, gMapGroup, gMapFloor)
-        : std::format(L"map\\0\\{}.dat", gMapFloor);
+    return gMapId ? std::format(L"map\\{}\\{}\\{}.dat", gMapId, gMapGroup, static_cast<std::int32_t>(gMapFloor))
+        : std::format(L"map\\0\\{}.dat", static_cast<std::int32_t>(gMapFloor));
 }
 
 static bool loadDiskMap()

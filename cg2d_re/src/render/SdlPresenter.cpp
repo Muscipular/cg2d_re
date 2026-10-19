@@ -702,19 +702,19 @@ void TakeScreenshot_453760()
     const HDC compatible = CreateCompatibleDC(desktop);
     std::wstring message;
     if (compatible == nullptr) {
-        message = std::format(L"画面储存失败(G1)。({})" /* 原常量参考：0x00556640。 */, cg::text::FromGbkWide(path));
+        message = std::format(L"画面储存失败(G1)。({})" /* 原常量参考：0x00556640。 */, path);
     } else {
         const HBITMAP bitmap = CreateCompatibleBitmap(desktop, 640, 480);
         if (bitmap == nullptr) {
-            message = std::format(L"画面储存失败(G2)。({})" /* 原常量参考：0x0055661C。 */, cg::text::FromGbkWide(path));
+            message = std::format(L"画面储存失败(G2)。({})" /* 原常量参考：0x0055661C。 */, path);
         } else {
             const HGDIOBJ previous = SelectObject(compatible, bitmap);
             if (!BitBlt(compatible, 0, 0, 640, 480, desktop, origin.x, origin.y, SRCCOPY)) {
-                message = std::format(L"画面储存失败(G3)。({})" /* 原常量参考：0x005565F8。 */, cg::text::FromGbkWide(path));
+                message = std::format(L"画面储存失败(G3)。({})" /* 原常量参考：0x005565F8。 */, path);
             } else {
                 static_cast<void>(SelectObject(compatible, previous));
                 if (GetDIBits(compatible, bitmap, 0, 480, pixels, &bitmapInfo, DIB_RGB_COLORS) == 0) {
-                    message = std::format(L"画面储存失败(G4)。({})" /* 原常量参考：0x005565D4。 */, cg::text::FromGbkWide(path));
+                    message = std::format(L"画面储存失败(G4)。({})" /* 原常量参考：0x005565D4。 */, path);
                 } else {
                     static_cast<void>(DeleteObject(bitmap));
                     // 保留原成功支路的释放参数及失败残留，详见截图局部适配裁决。
@@ -723,9 +723,9 @@ void TakeScreenshot_453760()
                     static_cast<void>(ReleaseDC(
                         reinterpret_cast<HWND>(platform::gLegacyWindow), desktop));
                     if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path.c_str()) != 0) {
-                        message = std::format(L"画面已储存。({})" /* 原常量参考：0x005565BC。 */, cg::text::FromGbkWide(path));
+                        message = std::format(L"画面已储存。({})" /* 原常量参考：0x005565BC。 */, path);
                     } else {
-                        message = std::format(L"画面储存失败(7)。({})" /* 原常量参考：0x00556598。 */, cg::text::FromGbkWide(path));
+                        message = std::format(L"画面储存失败(7)。({})" /* 原常量参考：0x00556598。 */, path);
                     }
                 }
             }

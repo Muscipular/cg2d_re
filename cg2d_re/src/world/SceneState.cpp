@@ -2182,11 +2182,6 @@ std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {}; // 原全局�
 std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
 std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
 
-namespace detail {
-static_assert(sizeof(BattleNamedEffectRecord) == 36);
-static_assert(offsetof(BattleNamedEffectRecord, value) == 32);
-
-} // namespace detail
 cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
 std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
 constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
@@ -8463,10 +8458,10 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
                 std::array<std::wstring, 4> titleTexts;
                 for (std::size_t i = 0; i < titleTexts.size(); ++i) {
-                    char field[256]{};
-                    network::ExtractDelimitedField_52CED0(titles, '|', static_cast<std::int32_t>(i + 1), 255, field);
-                    input::UnescapeLegacyText_52D150(field);
-                    titleTexts[i] = cg::text::FromGbkWide(field);
+                    char titleBytes[256]{};
+                    network::ExtractDelimitedField_52CED0(titles, '|', static_cast<std::int32_t>(i + 1), 255, titleBytes);
+                    input::UnescapeLegacyText_52D150(titleBytes);
+                    titleTexts[i] = cg::text::FromGbkWide(titleBytes);
                 }
                 detail::SetPlayerMapIdentity_51A090(cg::text::FromGbkWide(name), titleTexts, level, value40, flag1, flag2);
                 if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0

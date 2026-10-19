@@ -1283,7 +1283,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
         if (count <= 0) {
             row = 1;
         }
-        static_cast<WindowTextData*>(window->elements[9 + row].data)->text = std::format(L"{:<24}{:3}", cg::text::FromGbkWide(requirement->name.data()).c_str(), count);
+        static_cast<WindowTextData*>(window->elements[9 + row].data)->text = std::format(L"{:<24}{:3}", requirement->name, count);
         recipe = gCraftRecipeIndexD2D638;
         ++row;
     }

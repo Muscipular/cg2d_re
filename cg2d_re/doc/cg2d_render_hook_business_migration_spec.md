@@ -106,6 +106,8 @@ R04 仅静态核对；资源真实 PNG、外部文件／裁剪／缓存淘汰与
 
 ### R05 接线裁决
 
+> 2026-10-19 GRT04 更正：以下 `Info Flag & 8` 为参考 Hook 的历史规则，不能作为原端已知标志。索引透明度现按查表后的RGB零色生成Alpha，具体证据与实施边界见 [GRT04](cg2d_gpu_whole_texture_spec.md#原端色键规则修正grt04)；本节相关旧约定由其覆盖。
+
 节点及完整图像面统一 ARGB8888，实际行采样面也采用 ARGB8888，CPU Back／GDI 呈现仍按不带屏幕透明度的既有32位输出消费。索引上传保持原调色板／行序，RGB来自同一颜色表，Info Flag & 8 或索引非零时 Alpha=255，否则=0；PNG BGRA四通道原样保留。资源纹理关闭RGB色键，避免索引0被明确标为不透明时仍遭剔除；AutoMap的既有独立色键和Temp／Back无混合复制保持。
 
 旧 renderer 的 colorKeyEnabled 实际同时控制纹理设备绘制入口，改名为 textureDrawingEnabled 并在 ARGB 设备成功后发布；真实SDL色键仅由对应面查询，不能用旧字段把ARGB纹理重新按RGB剔除。普通纹理始终采用 SRCALPHA／INVSRCALPHA，diffuse Alpha继续调制；无纹理矩形的原不透明／淡入及ONE／ONE加法分支保持，采样白色补255 Alpha以保纯色矩形。模式1的资源复制显式采用Alpha混合，AutoMap／Temp复制保持原模式。

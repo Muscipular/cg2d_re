@@ -784,10 +784,8 @@ void LoadTextureFromBuffer32_450400(
         return;
     }
 
-    // GRT03：Info.flag 合并 Flag1／Flag2，按 GetGraphicFlag1 取十进制低两位属性。
-    // 例如河岸地块的 301 不能直接 & 8，否则透明索引 0 会被误写为不透明黑色。
-    const std::uint16_t graphicFlags = resource::gGraphicInfo[resource::gGraphicDataBuffer].flag % 100u;
-    const bool opaqueZero = (graphicFlags & 8u) != 0;
+    // GRT04：原 0x523278／0x44C896 使用零色色键，与 GraphicInfo.flag 无关。
+    // 查表后的 RGB 零色转透明 Alpha；调色板已将普通黑色映射为非零值。
     const std::uint8_t* row = source + y * sourceWidth + x;
     std::uint32_t* target = surface->pixels.get();
     for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
@@ -798,8 +796,8 @@ void LoadTextureFromBuffer32_450400(
             } else {
                 target[column] = gPaletteAutoMap[index];
             }
-            target[column] = (target[column] & 0x00FFFFFFu)
-                | ((opaqueZero || index != 0) ? 0xFF000000u : 0u);
+            const std::uint32_t color = target[column] & 0x00FFFFFFu;
+            target[column] = color | (color != 0 ? 0xFF000000u : 0u);
         }
         if (rowIndex + 1 < height) {
             row -= sourceWidth;

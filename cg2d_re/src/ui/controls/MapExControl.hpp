@@ -5,7 +5,7 @@
 #include <vector>
 #include "UIControl.hpp"
 
-namespace cg::script {
+namespace cg::ui {
 struct UIMapExControl : UIControl {
     struct MapExPoint {
         int mapX = 0;
@@ -26,7 +26,7 @@ struct UIMapExControl : UIControl {
     int lastClickX = -1;
     int lastClickY = -1;
 
-    UIMapExControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks);
+    UIMapExControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks);
 
     int AddPoint(MapExPoint point);
     int RemovePoints(int mapX, int mapY);
@@ -126,4 +126,4 @@ private:
     void TrimMapTileCache(int startTileX, int endTileX, int startTileY, int endTileY);
     void UpdateMouseMapPos(short ox, short oy, const UIClipRect* clipRect);
 };
-} // namespace cg::script
+} // namespace cg::ui

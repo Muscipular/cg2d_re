@@ -1,7 +1,7 @@
-#include "../LuaUI.hpp"
+#include "../WindowComponents.hpp"
 
-namespace cg::script {
-static constexpr int LUA_REF_NONE = -1;
+namespace cg::ui {
+using namespace component_detail;
 
 bool UIClipRectValid(const UIClipRect& rect) {
     return rect.right > rect.left && rect.bottom > rect.top;
@@ -64,7 +64,7 @@ static bool UIClipDestRect(int& x, int& y, int& w, int& h, const UIClipRect* cli
     return true;
 }
 
-int RendererDrawRectClipped(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t layer, COLORREF color, const UIClipRect* clipRect) {
+int RendererDrawRectClipped(int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect) {
     int drawX = x;
     int drawY = y;
     int drawW = w;
@@ -87,12 +87,12 @@ int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, 
 
 
 // 与字体测宽共用UTF-16步进；裁剪仅保留完整字符，不拆开代理对。
-void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
+void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
     if (msg.empty()) {
         return;
     }
     if (!clipRect) {
-        InfoRenderText(x, y, layer, fontType, colorType, msg, hoverMode, hoverFrame);
+        InfoRenderText(static_cast<int16_t>(x), static_cast<int16_t>(y), layer, fontType, colorType, msg, hoverMode, hoverFrame);
         return;
     }
 
@@ -126,91 +126,34 @@ void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char f
     }
 
     if (!clippedText.empty()) {
-        InfoRenderText(static_cast<__int16>(drawX), y, layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
+        InfoRenderText(static_cast<int16_t>(drawX), static_cast<int16_t>(y), layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
     }
 }
 
-static void PushControlRef(lua_State* L, LuaControlRef ref) {
-    auto data = static_cast<LuaControlRef*>(lua_newuserdata(L, sizeof(LuaControlRef)));
-    *data = ref;
-    luaL_setmetatable(L, CName(LuaControlRef));
+void UIEmitControlLeaveIfNeeded(WindowControlRef ref, WindowEventBinding callbacks,
+    uint8_t previousMouseState, uint8_t mouseState) {
+    if (previousMouseState == UIControl::MOUSE_HOVER && mouseState == UIControl::MOUSE_NONE
+        && callbacks && IsControlAttached(ref)) callbacks->mouse(ref, MouseFlag_Leave);
+}
+static int EmitControlEvents(WindowControlRef ref, WindowEventBinding callbacks, int flags) {
+    return flags && callbacks && IsControlAttached(ref) ? callbacks->mouse(ref, flags) : 0;
 }
 
-static int CallControlCallback(lua_State* L, int callbackRef, const char* name, LuaControlRef controlRef, int eventFlags) {
-    if (!IsLuaControlAttached(controlRef)) return 0;
-    if (callbackRef == LUA_REF_NONE) {
-        return 1;
-    }
-    int top = lua_gettop(L);
-    int result = 0;
-    lua_rawgeti(L, LUA_REGISTRYINDEX, callbackRef);
-    if (lua_isfunction(L, -1)) {
-        PushControlRef(L, controlRef);
-        lua_pushinteger(L, eventFlags);
-        if (lua_pcall(L, 2, 1, 0) != 0) {
-            m_log_iw(L"[LUA] call lua %hs error: %hs\n", name, lua_tostring(L, -1));
-        } else if (!lua_isnil(L, -1)) {
-            result = lua_toboolean(L, -1) ? 1 : 0;
-        }
-    }
-    lua_settop(L, top);
-    return result;
-}
-
-static int EmitControlEvents(LuaControlRef controlRef, LuaCallbackRefs callbacks, int eventFlags) {
-    if (eventFlags == MouseFlag_None) {
-        return 0;
-    }
-    int result = 0;
-    do {
-        result |= CallControlCallback(callbacks.owner, callbacks.onEvent, "UIControl.onEvent", controlRef, eventFlags);
-        if (result & 2) {
-            break;
-        }
-        if (eventFlags & (MouseFlag_Hover | MouseFlag_DragFinish)) {
-            result |= CallControlCallback(callbacks.owner, callbacks.onHover, "UIControl.onHover", controlRef, eventFlags);
-            if (result & 2) {
-                break;
-            }
-        }
-        if (eventFlags & MouseFlag_LDownEvent) {
-            result |= CallControlCallback(callbacks.owner, callbacks.onClick, "UIControl.onClick", controlRef, eventFlags);
-            if (result & 2) {
-                break;
-            }
-        }
-        if (eventFlags & (MouseFlag_Dragging | MouseFlag_LDownEvent | MouseFlag_LHoldPhysical | MouseFlag_LRepeatDown)) {
-            result |= CallControlCallback(callbacks.owner, callbacks.onPress, "UIControl.onPress", controlRef, eventFlags);
-            if (result & 2) {
-                break;
-            }
-        }
-        if (eventFlags & MouseFlag_Dragging) {
-            result |= CallControlCallback(callbacks.owner, callbacks.onDrag, "UIControl.onDrag", controlRef, eventFlags);
-            if (result & 2) {
-                break;
-            }
-        }
-        if (eventFlags & MouseFlag_DragFinish) {
-            result |= CallControlCallback(callbacks.owner, callbacks.onDrop, "UIControl.onDrop", controlRef, eventFlags);
-        }
-    } while (false);
-    return result;
-}
-
-void UIEmitControlLeaveIfNeeded(LuaControlRef controlRef, LuaCallbackRefs callbacks, uint8_t previousMouseState, uint8_t mouseState) {
-    if (previousMouseState != UIControl::MOUSE_HOVER || mouseState != UIControl::MOUSE_NONE) {
-        return;
-    }
-    CallControlCallback(callbacks.owner, callbacks.onLeave, "UIControl.onLeave", controlRef, MouseFlag_Leave);
-}
-
-UIControl::UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks)
-    : winId(winId), generation(generation), id(id), type(type), visible(visible), mouseState(MOUSE_NONE), name(name), x(x), y(y), w(w), h(h), callbacks(callbacks) {
+UIControl::UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks)
+    : winId(winId), generation(generation), id(id), type(type), mouseState(MOUSE_NONE), name(name), callbacks(std::move(callbacks)) {
+    draft.x = x; draft.y = y; draft.width = w; draft.height = h; draft.visible = visible;
+    draft.component = this;
+    draft.seqNo = -id; // 旧Lua控件后加入者优先。
+    static constexpr WindowElementType types[] = {WindowElementType_EventArea,
+        WindowElementType_Graphic, WindowElementType_Text, WindowElementType_PngImage,
+        WindowElementType_Input, WindowElementType_Animation, WindowElementType_ScrollView,
+        WindowElementType_MapEx, WindowElementType_Canvas};
+    draft.type = types[type];
 }
 
 UIControl::~UIControl() {
-    callbacks.clear(callbacks.owner);
+    if (callbacks) callbacks->release(element());
+    delete element().properties;
 }
 
 bool UIControl::render(short /*offsetX*/, short /*offsetY*/) {
@@ -223,7 +166,7 @@ bool UIControl::render(short offsetX, short offsetY, const UIClipRect* clipRect)
 }
 
 bool UIControl::isHitable() const {
-    if (visible != 1) {
+    if (element().visible != 1) {
         return false;
     }
     return hitable;
@@ -291,15 +234,16 @@ bool UIControl::process(int index, int hasFocused, int captured) {
 }
 
 bool UIControl::process(int /*index*/, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
-    const int absX = this->x + ox;
-    const int absY = this->y + oy;
-    const int width = this->w;
-    const int height = this->h;
+    if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || !(windowOwner->state & WIN_STATE_ACTIVE)))) return false;
+    const int absX = element().x + ox;
+    const int absY = element().y + oy;
+    const int width = element().width;
+    const int height = element().height;
     BOOL isMouseInRect = MouseIsInRect(absX, absY, width, height) && UIPointInClipRect(gMouseX, gMouseY, clipRect);
     bool isFullyInClip = !clipRect || (absX >= clipRect->left && absY >= clipRect->top && absX + width <= clipRect->right && absY + height <= clipRect->bottom);
     const uint8_t previousMouseState = mouseState;
 
-    if (type == TYPE_TEXT_INPUT && (visible != 1 || !hitable)) {
+    if (type == TYPE_TEXT_INPUT && (element().visible != 1 || !hitable)) {
         blurTextInput();
         mouseState = MOUSE_NONE;
         UIEmitControlLeaveIfNeeded({winId, generation, id}, callbacks, previousMouseState, mouseState);
@@ -308,6 +252,7 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
     if (type == TYPE_TEXT_INPUT) {
         auto inputData = textInputData();
         syncTextInputText();
+        if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || !(windowOwner->state & WIN_STATE_ACTIVE)))) return false;
         if (inputData && inputData->focused && !isFullyInClip) {
             blurTextInput();
             mouseState = MOUSE_NONE;
@@ -318,7 +263,7 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
             blurTextInput();
         }
     }
-    if (visible != 1 || !isHitable()) {
+    if (element().visible != 1 || !isHitable()) {
         mouseState = MOUSE_NONE;
         UIEmitControlLeaveIfNeeded({winId, generation, id}, callbacks, previousMouseState, mouseState);
         return false;
@@ -376,8 +321,8 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
         mouseState = MOUSE_NONE;
     }
 
-    LuaControlRef controlRef{winId, generation, id};
-    LuaCallbackRefs callbackCopy = callbacks;
+    WindowControlRef controlRef{winId, generation, id};
+    WindowEventBinding callbackCopy = callbacks;
     UIEmitControlLeaveIfNeeded(controlRef, callbackCopy, previousMouseState, mouseState);
     int result = EmitControlEvents(controlRef, callbackCopy, eventFlags);
     if (result) {
@@ -412,4 +357,4 @@ int RendererDrawCanvasClipped(int x, int y, int w, int h, uint8_t layer, const s
     if (clip) target = {clip->left, clip->top, clip->right, clip->bottom};
     return render::DrawCanvasClipped(x, y, w, h, layer, shapes, clip ? &target : nullptr);
 }
-} // namespace cg::script
+} // namespace cg::ui

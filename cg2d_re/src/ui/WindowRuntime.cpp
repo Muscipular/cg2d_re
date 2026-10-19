@@ -2,6 +2,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "WindowRuntimeInternal.hpp"
+#include "WindowComponents.hpp"
 #include "../script/LuaUI.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -4108,7 +4109,19 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
             }
         }
     }
-    if (element->visible == 1 && element->mouseCallback(index, events) != 0) {
+    int handled = 0;
+    const int ownerId = window->id;
+    const auto ownerGeneration = window->generation;
+    if (element->visible == 1) {
+        if (element->mouseCallback) handled = element->mouseCallback(index, events);
+        const auto* live = WindowRuntime_FindInstance(ownerId);
+        if (live == window && live->generation == ownerGeneration && window->binding
+            && !(window->state & 0x8000u) && !window->scriptHidden) {
+            handled |= window->binding->elementEvent(*element, index, events);
+            if (!(window->state & 0x8000u) && !window->scriptHidden) handled |= window->binding->event(index, events);
+        }
+    }
+    if (handled != 0) {
         phase = gMousePhase57C128;
         auto* const eventByte = reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4);
@@ -4308,9 +4321,9 @@ std::int32_t WindowRuntime_Update()
     world::gMapTargetDrawOverride_C8A780 = 0;
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
-    script::PrepareLuaWindowFrame();
+    PrepareWindowFrame();
     const std::int32_t count = WindowRuntime_CompactAndReorder();
-    const auto scheduledWindows = script::MergeLuaWindowOrder(count);
+    const auto scheduledWindows = MergeWindowOrder(count);
     const bool hasWindows = !scheduledWindows.empty();
     gWindowUpdateCountCC4844 = count;
     if (hasWindows) {
@@ -4334,11 +4347,15 @@ std::int32_t WindowRuntime_Update()
             } else {
                 updateResult = invoke([&] { return gCurrentWindow->update(carried); });
                 window = gCurrentWindow;
+                if (window->binding && !(window->state & 0x8000u)) window->binding->update();
                 // WEO01：update维护排序缓存，分页的前景顺序由创建时的seqNo表达。
                 WindowRuntime_UpdateElementOrder(*window);
                 for (std::int32_t position = 0; position < window->elementsSortedCount; ++position) {
                     const auto elementIndex = static_cast<std::int32_t>(window->elementsSorted[position] - window->elements);
                     gCurrentElementIndex57C12C = elementIndex;
+                    if ((window->state & 0x8000u) || window->scriptHidden) break;
+                    if (window->binding) window->binding->elementUpdate(window->elements[elementIndex]);
+                    if ((window->state & 0x8000u) || window->scriptHidden) break;
                     if (window->elements[elementIndex].visible == 1) {
                         static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementIndex); return 0; }));
                         window = gCurrentWindow;
@@ -4363,7 +4380,14 @@ std::int32_t WindowRuntime_Update()
                 }
                 updateResult = 0;
             }
-            carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(updateResult); });
+            if (!extension && window->binding && !(window->state & 0x8000u) && !window->scriptHidden) {
+                for (int i = 0; i < window->elementsSortedCount && !(window->state & 0x8000u) && !window->scriptHidden; ++i)
+                    window->binding->elementDraw(*window->elementsSorted[i]);
+            }
+            if (!(window->state & 0x8000u) && !window->scriptHidden) {
+                carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(updateResult); });
+                if (!extension && window->binding && !(window->state & 0x8000u) && !window->scriptHidden) window->binding->draw();
+            }
             const std::int32_t currentCount = static_cast<std::int32_t>(scheduledWindows.size());
             ++index;
             if (index >= currentCount) {
@@ -4382,7 +4406,7 @@ std::int32_t WindowRuntime_Update()
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
     if (!encodingFailed) { reportedFailure = false; reportedContext = nullptr; reportedText.clear(); }
-    script::FinishLuaWindowFrame();
+    FinishWindowFrame();
     return 1;
 
 }
@@ -4437,6 +4461,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     }
     WindowPrototype* const prototype = gWindowPrototypes57C130[id];
     window->id = id;
+    WindowRuntime_EnsureIdentity(*window);
     window->state = prototype->state;
     window->layer = prototype->layer;
     window->width = prototype->width;
@@ -4458,6 +4483,9 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         WindowElementPrototype* source = prototype->elements;
         for (std::int32_t index = 0; index < count; ++index, ++source) {
             WindowElement* const element = &window->elements[index];
+            element->refUpdate = element->refDraw = element->refEvent = -1;
+            element->refClick = element->refPress = element->refHover = element->refLeave = -1;
+            element->refDrag = element->refDrop = element->refChange = element->refEnter = -1;
             element->type = source->type;
             element->state = 0;
             // 保留动态分页既有前景层次，原型显式seqNo优先。
@@ -4718,8 +4746,10 @@ void WindowDrag_Cancel()
 void WindowRuntime_Free(WindowInstance* const window)
 {
     using namespace detail;
-    script::NativeLuaWindowClosed(window->id);
+    window->state |= 0x8000u;
+    NativeWindowClosed(window->id);
     window->release();
+    WindowRuntime_ReleaseBindings(*window);
     gCurrentWindowState = &gWindowStates[window->id];
     gCurrentWindowState->x = window->x;
     gCurrentWindowState->y = window->y;
@@ -4733,6 +4763,8 @@ void WindowRuntime_Free(WindowInstance* const window)
     }
     for (std::int32_t index = 0; index < window->elementCount; ++index) {
         WindowElement* const element = &window->elements[index];
+        delete element->properties;
+        element->properties = nullptr;
         switch (element->type) {
         case WindowElementType_Graphic:
         case WindowElementType_Input: {
@@ -4966,6 +4998,16 @@ void WindowRuntime_DrawCurrent()
     WindowInstance* window = gCurrentWindow;
     for (std::int32_t position = 0; position < window->elementsSortedCount; ++position) {
         WindowElement* const element = window->elementsSorted[position];
+        if (auto* component = element->component) {
+            if (component->attached && component->parentId == 0 && !(window->state & 0x8000u)) {
+                if (window->binding) window->binding->elementDraw(*element);
+                if (component->attached && !(window->state & 0x8000u) && (window->state & 2u)) {
+                    component_detail::RendererBreakWindowTextBatch();
+                    component->render(static_cast<short>(window->x), static_cast<short>(window->y));
+                }
+            }
+            continue;
+        }
         if (element->visible == 1) {
             const std::int32_t elementX = element->x;
             const std::int32_t windowX = window->x;

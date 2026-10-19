@@ -10,6 +10,8 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <map>
+#include <variant>
 
 namespace cg::input {
 class InputContext;
@@ -29,6 +31,16 @@ struct MiniMailContactRecord;
 
 namespace cg::ui {
 
+struct UIControl;
+struct UIPngImageControl;
+struct UICanvasControl;
+struct UIMapExControl;
+struct UIScrollViewControl;
+struct WindowComponentStore;
+struct WindowBinding;
+// LUP01：Lua扩展属性由UI对象拥有，仅允许原始字符串和S32整数。
+using WindowPropertyMap = std::map<std::string, std::variant<std::string, std::int32_t>>;
+
 // 原控件type的S32编号；创建、绘制、输入及释放共用同一类型。
 enum WindowElementType : std::int32_t {
     WindowElementType_EventArea = 0, // 事件区域。
@@ -39,6 +51,10 @@ enum WindowElementType : std::int32_t {
     WindowElementType_Input = 5, // 输入上下文。
     WindowElementType_InputCaret = 6, // 输入光标。
     WindowElementType_Number = 7, // 数字图片文本。
+    WindowElementType_PngImage = 8, // LUP01：PNG组件。
+    WindowElementType_Canvas = 9, // LUP01：画布组件。
+    WindowElementType_MapEx = 10, // LUP01：地图组件。
+    WindowElementType_ScrollView = 11, // LUP01：滚动容器组件。
 };
 static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
@@ -117,6 +133,10 @@ union WindowElementData {
     WindowInputData* input;
     std::uint32_t* inputCaret;
     WindowNumberData* number;
+    UIPngImageControl* pngImage;
+    UICanvasControl* canvas;
+    UIMapExControl* mapEx;
+    UIScrollViewControl* scrollView;
 };
 
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
@@ -131,6 +151,19 @@ struct WindowElement {
     WindowElementData data; // 原+1C；按type访问对应载荷指针。
     WindowElementCallback mouseCallback; // 原+20。
     std::int32_t seqNo; // WEO01：窗口内绘制/鼠标顺序，小值在前，同值按原索引。
+    UIControl* component = nullptr; // LUP01：原生组件，窗口存储拥有；空值沿旧处理。
+    WindowPropertyMap* properties = nullptr; // 按需创建，随控件释放。
+    std::int32_t refUpdate = -1; // Lua registry引用，桥接负责调用/解绑。
+    std::int32_t refDraw = -1;
+    std::int32_t refEvent = -1;
+    std::int32_t refClick = -1;
+    std::int32_t refPress = -1;
+    std::int32_t refHover = -1;
+    std::int32_t refLeave = -1;
+    std::int32_t refDrag = -1;
+    std::int32_t refDrop = -1;
+    std::int32_t refChange = -1;
+    std::int32_t refEnter = -1;
 };
 
 // WEO01：update中维护指针排序缓存；数组/数量/顺序变化或距离上次刷新满1秒时重排。
@@ -166,6 +199,14 @@ struct WindowInstance {
     WindowElement* elementsSortedSource; // 上次排序的原数组，用于检测数组更换。
     std::int32_t elementsSortedCount; // 有效缓存条目数。
     std::uint64_t elementsSortedTick; // 上次排序的客户端毫秒时刻。
+    WindowComponentStore* components = nullptr; // LUP01：动态元素和组件的唯一owner。
+    WindowBinding* binding = nullptr; // LUP01：随窗口释放的外部事件绑定。
+    std::uint32_t generation = 0; // LUP01：每次创建实例分配新代次。
+    WindowPropertyMap* properties = nullptr; // 按需创建，随窗口释放。
+    std::int32_t refUpdate = -1;
+    std::int32_t refDraw = -1;
+    std::int32_t refEvent = -1;
+    bool scriptHidden = false; // 旧原生state不含统一visible位，脚本显隐独立门控。
 };
 
 namespace detail {
@@ -1039,7 +1080,7 @@ static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);
 static_assert(sizeof(WindowElementData) == sizeof(void*));
 static_assert(offsetof(WindowElement, seqNo) == 0x30);
-static_assert(sizeof(WindowElement) == 0x38);
+static_assert(sizeof(WindowElement) == 0x78);
 static_assert(offsetof(WindowInstance, state) == 0);
 static_assert(offsetof(WindowInstance, elements) == 0x30);
 static_assert(offsetof(WindowInstance, update) == 0x38);
@@ -1054,7 +1095,7 @@ static_assert(offsetof(WindowInstance, dragMouseX1C) == 0x1C);
 static_assert(offsetof(WindowInstance, dragMouseY20) == 0x20);
 static_assert(offsetof(WindowInstance, dragRects40) == 0x54);
 static_assert(offsetof(WindowInstance, elementsSorted) == 0xF8);
-static_assert(sizeof(WindowInstance) == 0x118);
+static_assert(sizeof(WindowInstance) == 0x148);
 static_assert(offsetof(WindowState, window) == 0x10);
 static_assert(offsetof(WindowState, userState) == 0x20);
 static_assert(offsetof(WindowState, actionFlags1C) == 0x28);

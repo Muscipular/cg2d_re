@@ -1,10 +1,11 @@
-#include "../LuaUI.hpp"
+#include "../WindowComponents.hpp"
 
-namespace cg::script {
+namespace cg::ui {
+using namespace component_detail;
 static constexpr uint8_t ANIME_ACTION_PRIO = 2;
 static constexpr char ANIME_DISP_PRIO = -33;
 
-UIAnimeControl::UIAnimeControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, LuaCallbackRefs callbacks)
+UIAnimeControl::UIAnimeControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_ANIME, name, x, y, w, h, visible, callbacks), data(data) {
     resetAction();
 }
@@ -27,6 +28,7 @@ void UIAnimeControl::resetAction() {
     action->direction = data.dir;
     action->displayPriority = static_cast<std::uint8_t>(ANIME_DISP_PRIO);
     actionAnimeNo = data.animeNo;
+    animationPayload.action = action;
 }
 
 void UIAnimeControl::releaseAction() {
@@ -36,14 +38,15 @@ void UIAnimeControl::releaseAction() {
 
     YobiMarkDeath(action);
     action = nullptr;
+    animationPayload.action = nullptr;
     actionAnimeNo = -1;
 }
 
 bool UIAnimeControl::render(short ox, short oy) {
-    if (visible != 1) {
+    if (element().visible != 1) {
         return true;
     }
-    if (!UIRectIntersectsClipRect(ox + x, oy + y, w, h, nullptr)) {
+    if (!UIRectIntersectsClipRect(ox + element().x, oy + element().y, element().width, element().height, nullptr)) {
         return true;
     }
     if (!action || actionAnimeNo != data.animeNo) {
@@ -91,8 +94,8 @@ bool UIAnimeControl::render(short ox, short oy) {
     // int graphicOffsetY = action->h - frameOffsetY;
 
     render::DrawGraphic2_521DD0(
-        ox + x /*- action->w / 2*/ + w / 2,
-        oy + y /*- action->h / 2*/ + h / 2,
+        ox + element().x /*- action->w / 2*/ + element().width / 2,
+        oy + element().y /*- action->h / 2*/ + element().height / 2,
         LAYER_UI,
         graphicNo,
         0,
@@ -102,7 +105,7 @@ bool UIAnimeControl::render(short ox, short oy) {
 }
 
 bool UIAnimeControl::render(short ox, short oy, const UIClipRect* clipRect) {
-    if (!UIRectIntersectsClipRect(ox + x, oy + y, w, h, clipRect)) {
+    if (!UIRectIntersectsClipRect(ox + element().x, oy + element().y, element().width, element().height, clipRect)) {
         return true;
     }
     return render(ox, oy);
@@ -115,4 +118,4 @@ UIControl::AnimeData* UIAnimeControl::animeData() {
 const UIControl::AnimeData* UIAnimeControl::animeData() const {
     return &data;
 }
-} // namespace cg::script
+} // namespace cg::ui

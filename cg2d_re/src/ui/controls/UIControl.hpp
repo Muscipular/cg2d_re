@@ -4,9 +4,15 @@
 #include <string_view>
 #include <memory>
 #include <vector>
-#include "../LuaHost.hpp"
+#include "../WindowComponentHost.hpp"
 
-namespace cg::script {
+namespace cg::ui {
+using component_detail::InputContext;
+using component_detail::COLORREF;
+using component_detail::RECT16;
+using component_detail::PngTexture;
+using component_detail::CanvasShape;
+using component_detail::YobiAction;
 struct UIClipRect {
     short left = 0;
     short top = 0;
@@ -14,31 +20,20 @@ struct UIClipRect {
     short bottom = 0;
 };
 
-struct LuaWindowRef {
-    int winId = -1;
-    uint32_t generation = 0;
-};
-
-struct LuaControlRef {
+// UI只识别事件接口；Lua注册表引用封装在脚本侧实现中。
+struct WindowControlRef {
     int winId = -1;
     uint32_t generation = 0;
     int controlId = 0;
 };
-
-struct LuaCallbackRefs {
-    lua_State* owner = nullptr; // registry引用所属状态。
-    int onEvent = -1;
-    int onClick = -1;
-    int onPress = -1;
-    int onHover = -1;
-    int onLeave = -1;
-    int onDrag = -1;
-    int onDrop = -1;
-    int onChange = -1;
-    int onEnter = -1;
-
-    void clear(lua_State* L);
+struct WindowElementEvents {
+    virtual ~WindowElementEvents() = default;
+    virtual int mouse(WindowControlRef, int) { return 0; }
+    virtual int text(WindowControlRef, bool, std::wstring_view) { return 0; }
+    virtual void attach(WindowElement&) {}
+    virtual void release(WindowElement&) {}
 };
+using WindowEventBinding = std::shared_ptr<WindowElementEvents>;
 
 struct UIControl {
     enum TYPE : uint8_t {
@@ -57,11 +52,11 @@ struct UIControl {
         MOUSE_HOVER = 1,
         MOUSE_PRESS = 2, //LeftDown
     };
-    struct ImageData {
-        int imageNo;
-        int imageHover;
-        int imagePress;
-        COLORREF color;
+    struct ImageData : WindowGraphicData {
+        int imageHover = 0;
+        int imagePress = 0;
+        ImageData(int image = 0, int hover = 0, int press = 0, COLORREF tint = 0xffffffff)
+            : WindowGraphicData{image, 0, 0, 0, 0, tint}, imageHover(hover), imagePress(press) {}
     };
     struct AnimeData {
         int animeNo;
@@ -69,10 +64,9 @@ struct UIControl {
         int dir;
         int revertPlay;
     };
-    struct TextData {
-        uint8_t color;
-        uint8_t font;
-        std::wstring text; // 内部宽文本；仅Lua读写属性时转换GBK。
+    struct TextData : WindowTextData {
+        TextData(uint8_t color = 0, uint8_t font = 0, std::wstring value = {})
+            : WindowTextData{{std::byte{color}, std::byte{font}, {}, {}}, std::move(value)} {}
     };
     struct PngImageState {
         std::wstring path;
@@ -99,16 +93,25 @@ struct UIControl {
     uint32_t generation;
     int id;
     TYPE type;
-    uint8_t visible;
     uint8_t mouseState = MOUSE_NONE;
     bool hitable = true;
     int parentId = 0;
     std::wstring name{};
 
-    short x, y, w, h;
-    LuaCallbackRefs callbacks;
+    WindowEventBinding callbacks;
+    WindowInstance* windowOwner = nullptr; // 借用所属窗口。
+    bool attached = true; // 清空时立即失效，回收由UI安全点执行。
+    WindowElement draft{}; // 尚未发布的新控件；发布后活动属性仅在窗口数组。
+    WindowElement* currentElement = &draft;
+    WindowElement& element() { return *currentElement; }
+    const WindowElement& element() const { return *currentElement; }
+    WindowAnimationData animationPayload{};
+    WindowInputData inputPayload{};
+    virtual void bindPayload(); // 将union绑定到组件实际载荷。
+    WindowControlRef ref() const { return {winId, generation, id}; }
 
-    UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, LuaCallbackRefs callbacks);
+
+    UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks);
 
     virtual ~UIControl();
 
@@ -146,8 +149,10 @@ bool UIIntersectClipRect(UIClipRect& out, const UIClipRect* a, const UIClipRect&
 bool UIClipRectValid(const UIClipRect& rect);
 bool UIPointInClipRect(int x, int y, const UIClipRect* clipRect);
 bool UIRectIntersectsClipRect(int x, int y, int w, int h, const UIClipRect* clipRect);
-void UIEmitControlLeaveIfNeeded(LuaControlRef controlRef, LuaCallbackRefs callbacks, uint8_t previousMouseState, uint8_t mouseState);
-int RendererDrawRectClipped(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t layer, COLORREF color, const UIClipRect* clipRect);
+bool IsControlAttached(const WindowControlRef& ref);
+void UIResetControlProcessState(UIControl* control);
+void UIEmitControlLeaveIfNeeded(WindowControlRef controlRef, WindowEventBinding callbacks, uint8_t previousMouseState, uint8_t mouseState);
+int RendererDrawRectClipped(int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect);
 int RendererDrawPngClipped(const wchar_t* path, RECT16* loadPngRect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
 PngTexture* RendererCreateSurfaceTexture(int width, int height);
 bool RendererUpdateSurfaceTexture(PngTexture* texture, const uint32_t* pixels, int width, int height);
@@ -155,6 +160,5 @@ void RendererReleaseSurfaceTexture(PngTexture* texture);
 int RendererDrawSurfaceTextureClipped(PngTexture* texture, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
 int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect);
 int RendererDrawCanvasClipped(int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clipRect);
-void RendererBreakWindowTextBatch();
-void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
-} // namespace cg::script
+void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
+} // namespace cg::ui

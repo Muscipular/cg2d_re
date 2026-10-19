@@ -1,13 +1,13 @@
 #pragma once
 #include "UIControl.hpp"
 
-namespace cg::script {
+namespace cg::ui {
 struct UIAnimeControl : UIControl {
     AnimeData data;
     YobiAction* action = nullptr;
     int actionAnimeNo = -1;
 
-    UIAnimeControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, LuaCallbackRefs callbacks);
+    UIAnimeControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, WindowEventBinding callbacks);
     ~UIAnimeControl() override;
 
     bool render(short ox, short oy) override;
@@ -19,4 +19,4 @@ struct UIAnimeControl : UIControl {
     void resetAction();
     void releaseAction();
 };
-} // namespace cg::script
+} // namespace cg::ui

@@ -1,7 +1,7 @@
 #pragma once
 #include "UIControl.hpp"
 
-namespace cg::script {
+namespace cg::ui {
 inline constexpr int TEXT_INPUT_MAX_LENGTH = 287;
 
 int ClampTextInputMaxLength(int maxLength);
@@ -9,7 +9,7 @@ int ClampTextInputMaxLength(int maxLength);
 struct UITextInputControl : UIControl {
     TextInputData data;
 
-    UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks);
+    UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks);
 
     ~UITextInputControl() override;
 
@@ -30,4 +30,4 @@ struct UITextInputControl : UIControl {
 
     void syncTextInputText() override;
 };
-} // namespace cg::script
+} // namespace cg::ui

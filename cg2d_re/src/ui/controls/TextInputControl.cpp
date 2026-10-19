@@ -1,7 +1,7 @@
-#include "../LuaUI.hpp"
+#include "../WindowComponents.hpp"
 
-namespace cg::script {
-static constexpr int LUA_REF_NONE = -1;
+namespace cg::ui {
+using namespace component_detail;
 static UITextInputControl* gFocusedTextInput = nullptr;
 int ClampTextInputMaxLength(int length) { return length <= 0 || length > TEXT_INPUT_MAX_LENGTH ? TEXT_INPUT_MAX_LENGTH : length; }
 static std::size_t GbkPrefixLength(std::string_view value, int limit)
@@ -61,34 +61,7 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
         context.field158 = static_cast<int>(text::Next(context.text, context.field158));
     }
 }
-static void PushControlRef(lua_State* L, LuaControlRef ref) {
-    auto data = static_cast<LuaControlRef*>(lua_newuserdata(L, sizeof(LuaControlRef)));
-    *data = ref;
-    luaL_setmetatable(L, CName(LuaControlRef));
-}
-
-static int CallControlTextCallback(lua_State* L, int callbackRef, const char* name, LuaControlRef controlRef, std::wstring_view value) {
-    if (!IsLuaControlAttached(controlRef)) return 0;
-    if (callbackRef == LUA_REF_NONE) {
-        return 0;
-    }
-    int top = lua_gettop(L);
-    int result = 0;
-    lua_rawgeti(L, LUA_REGISTRYINDEX, callbackRef);
-    if (lua_isfunction(L, -1)) {
-        PushControlRef(L, controlRef);
-        Push(L, value);
-        if (lua_pcall(L, 2, 1, 0) != 0) {
-            m_log_iw(L"[LUA] call lua %hs error: %hs\n", name, lua_tostring(L, -1));
-        } else if (!lua_isnil(L, -1)) {
-            result = lua_toboolean(L, -1) ? 1 : 0;
-        }
-    }
-    lua_settop(L, top);
-    return result;
-}
-
-UITextInputControl::UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, LuaCallbackRefs callbacks)
+UITextInputControl::UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_TEXT_INPUT, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
     this->data.maxLength = ClampTextInputMaxLength(this->data.maxLength);
     setTextInputText(this->data.lastText.c_str());
@@ -153,13 +126,13 @@ void UITextInputControl::syncTextInputText() {
     }
 
     const std::wstring value = data.context.text;
-    LuaControlRef controlRef{winId, generation, id};
+    WindowControlRef controlRef{winId, generation, id};
     if (value != data.lastText) {
         data.lastText = value;
-        CallControlTextCallback(callbacks.owner, callbacks.onChange, "UIControl.onChange", controlRef, data.lastText.c_str());
+        if (callbacks && IsControlAttached(controlRef)) callbacks->text(controlRef, false, data.lastText);
     }
     if (enter) {
-        CallControlTextCallback(callbacks.owner, callbacks.onEnter, "UIControl.onEnter", controlRef, value.c_str());
+        if (callbacks && IsControlAttached(controlRef)) callbacks->text(controlRef, true, value);
     }
 }
 
@@ -168,13 +141,13 @@ bool UITextInputControl::render(short ox, short oy) {
 }
 
 bool UITextInputControl::render(short ox, short oy, const UIClipRect* clipRect) {
-    if (visible != 1) {
+    if (element().visible != 1) {
         blurTextInput();
         return true;
     }
-    const int absX = ox + x;
-    const int absY = oy + y;
-    const bool fullyVisible = !clipRect || (absX >= clipRect->left && absY >= clipRect->top && absX + w <= clipRect->right && absY + h <= clipRect->bottom);
+    const int absX = ox + element().x;
+    const int absY = oy + element().y;
+    const bool fullyVisible = !clipRect || (absX >= clipRect->left && absY >= clipRect->top && absX + element().width <= clipRect->right && absY + element().height <= clipRect->bottom);
     if (!fullyVisible) {
         blurTextInput();
     }
@@ -187,23 +160,23 @@ bool UITextInputControl::render(short ox, short oy, const UIClipRect* clipRect) 
         data.context.field13C = data.font;
         data.context.field140 = data.color;
         ApplyTextInputLimit(data.context, data.maxLength);
-        data.context.field14C = h;
+        data.context.field14C = element().height;
         data.context.encrypt = 0;
-        data.context.field130 = w > 6 ? w - 6 : 0;
+        data.context.field130 = element().width > 6 ? element().width - 6 : 0;
         UpdateTextInputLineStart(data.context, data.maxLength);
         RendererDrawInputText(&data.context);
     }
-    if (w > 0 && h > 0) {
+    if (element().width > 0 && element().height > 0) {
         auto rectX = static_cast<int16_t>(absX);
         auto rectY = static_cast<int16_t>(absY);
         COLORREF background = focused ? static_cast<COLORREF>(0xa0000000) : static_cast<COLORREF>(0x70000000);
-        RendererDrawRectClipped(rectX, rectY, w, h, LAYER_UI, background, clipRect);
+        RendererDrawRectClipped(rectX, rectY, element().width, element().height, LAYER_UI, background, clipRect);
         COLORREF border = focused ? 0xffffffff : 0xff707070;
-        RendererDrawRectClipped(rectX, rectY, w, 1, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(rectX, static_cast<int16_t>(absY + h - 1), w, 1, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(rectX, rectY, 1, h, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(static_cast<int16_t>(absX + w - 1), rectY, 1, h, LAYER_UI, border, clipRect);
+        RendererDrawRectClipped(rectX, rectY, element().width, 1, LAYER_UI, border, clipRect);
+        RendererDrawRectClipped(rectX, static_cast<int16_t>(absY + element().height - 1), element().width, 1, LAYER_UI, border, clipRect);
+        RendererDrawRectClipped(rectX, rectY, 1, element().height, LAYER_UI, border, clipRect);
+        RendererDrawRectClipped(static_cast<int16_t>(absX + element().width - 1), rectY, 1, element().height, LAYER_UI, border, clipRect);
     }
     return true;
 }
-} // namespace cg::script
+} // namespace cg::ui

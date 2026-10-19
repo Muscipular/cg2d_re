@@ -546,6 +546,13 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
         window.state = WIN_STATE_ACTIVE; window.layer = 4;
         window.elementCount = count; window.elements = elements.data();
     }
+    ~AutoBattleWindow() override {
+        // 自有数组必须在派生对象仍有效时解除绑定，基类仅释放排序缓存。
+        ui::WindowRuntime_ReleaseBindings(window);
+        for (auto& element : elements) { delete element.properties; element.properties = nullptr; }
+        window.elements = nullptr;
+        window.elementCount = 0;
+    }
     void AddGraphic(int ix, int x, int y, int w, int h, int image, ui::WindowElementCallback callback) {
         graphics[ix] = {image, 0, 0, 0, 0, 0xFFFFFFFFu};
         elements[ix] = {ui::WindowElementType_Graphic, 0, x, y, w, h, 1, {.graphic = &graphics[ix]}, callback, ix};

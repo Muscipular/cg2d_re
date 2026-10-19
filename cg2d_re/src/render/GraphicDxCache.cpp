@@ -526,7 +526,15 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     const std::size_t pixels = static_cast<std::size_t>(width) * height;
     DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
     if (pixels > kGraphicTexturePixelBudget) {
-        m_log("[render] graphic %d exceeds texture cache capacity: %dx%d\n", imageNo, width, height);
+        // 负尺寸转为 size_t 后也会进入既有容量拒绝分支，需区分资源尺寸错误。
+        if (width < 0 || height < 0) {
+            const auto& info = resource::gGraphicInfo[imageNo];
+            m_log("[render] graphic %d has invalid resource dimensions: %dx%d (mapNo=%d, fileIndex=%d, offset=%u, length=%u)\n",
+                imageNo, width, height, info.mapNo, static_cast<int>(info.fileIndex),
+                static_cast<unsigned int>(info.offset), static_cast<unsigned int>(info.length));
+        } else {
+            m_log("[render] graphic %d exceeds texture cache capacity: %dx%d\n", imageNo, width, height);
+        }
         return;
     }
     const auto evict = [](TextureNode& node) {

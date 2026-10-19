@@ -20,14 +20,14 @@
 namespace cg::resource::animation::detail {
 
 std::array<std::uint32_t, BinLoaderMaxGroups> gFileCloseFlags9A29D0 {}; // 原全局：0x009A29D0。
-std::array<MainSlot, 256> gMainSlots9A29F8 {}; // 原全局：0x009A29F8。
-MainSlot gLeftSentinel9A3A00 {}; // 原全局：0x009A3A00。
-MainSlot gRightSentinel9A3A10 {}; // 原全局：0x009A3A10。
+std::array<MainSlot, 256> gAnimationSlots_9A29F8 {}; // 原全局：0x009A29F8。
+MainSlot gAnimationSlotListTail_9A3A00 {}; // 原全局：0x009A3A00。
+MainSlot gAnimationSlotListHead_9A3A10 {}; // 原全局：0x009A3A10。
 std::array<std::FILE*, BinLoaderMaxGroups> gAnimateFiles9A3A20 {}; // 原全局：0x009A3A20。
 std::array<std::FILE*, BinLoaderMaxGroups> gCoordinateFiles9A2988 {}; // 原全局：0x009A2988。
 std::array<CacheSlot, 256> gCacheSlots9A3A48 {}; // 原全局：0x009A3A48。
-std::uint32_t gActiveCount9A4A68 = 0; // 原全局：0x009A4A68。
-std::uint32_t gActiveBytes9A4A6C = 0; // 原全局：0x009A4A6C。
+std::uint32_t gLoadedAnimationCount_9A4A68 = 0; // 原全局：0x009A4A68。
+std::uint32_t gLoadedAnimationAccountedBytes_9A4A6C = 0; // 原全局：0x009A4A6C。
 void* gCleanupAllocation9A4A54 = nullptr; // 原全局：0x009A4A54。
 
 } // namespace cg::resource::animation::detail
@@ -85,7 +85,7 @@ std::uint32_t Sub_45B380()
 std::int32_t AnimeInit_45BB20(
     char* const* const dataPaths, char* const* const infoPaths)
 {
-    Sub_45B5D0();
+    InitializeAnimationSlotList_45B5D0();
     for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
         if (file != nullptr) {
             std::fclose(file);
@@ -238,10 +238,10 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
 {
     const auto fileIndex = static_cast<std::uint16_t>(gAnimateRecords9A4A58[index].fileIndex);
     if (gAnimateRecords9A4A58[index].actionList != nullptr) {
-        Sub_45B5B0(static_cast<detail::MainSlot*>(gAnimateRecords9A4A58[index].listNode));
+        MoveAnimationSlotToTail_45B5B0(static_cast<detail::MainSlot*>(gAnimateRecords9A4A58[index].listNode));
         return 1;
     }
-    detail::MainSlot* const slot = Sub_45B530();
+    detail::MainSlot* const slot = AcquireOldestAnimationSlot_45B530();
     if (slot == nullptr) {
         return 0;
     }
@@ -260,8 +260,8 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     }
     slot->index = index;
     gAnimateRecords9A4A58[index].listNode = slot;
-    Sub_45B590(slot);
-    slot->value04 = 28u * gAnimateRecords9A4A58[index].count;
+    AppendAnimationSlotToTail_45B590(slot);
+    slot->accountedBytes_04 = 28u * gAnimateRecords9A4A58[index].count;
     std::memset(gAnimateRecords9A4A58[index].actionList, 0,
         sizeof(detail::ActionEntry) * gAnimateRecords9A4A58[index].count);
     if (gAnimateRecords9A4A58[index].count > 10000) {
@@ -310,7 +310,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
             Sub_45B440(&slot->index);
             return 0;
         }
-        slot->value04 += 12u * action->frameCount;
+        slot->accountedBytes_04 += 12u * action->frameCount;
         static_cast<std::uint32_t>(std::fread(buffer, static_cast<std::uint32_t>(10u * action->frameCount), 1, file));
         for (std::uint32_t frameIndex = 0; frameIndex < action->frameCount; ++frameIndex) {
             const std::uint16_t* const source = buffer + frameIndex * 5;
@@ -330,9 +330,9 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
         Sub_45B440(&slot->index);
         return 0;
     }
-    slot->value04 += 8u * gAnimateRecords9A4A58[index].coordinateCount;
-    ++detail::gActiveCount9A4A68;
-    detail::gActiveBytes9A4A6C += slot->value04;
+    slot->accountedBytes_04 += 8u * gAnimateRecords9A4A58[index].coordinateCount;
+    ++detail::gLoadedAnimationCount_9A4A68;
+    detail::gLoadedAnimationAccountedBytes_9A4A6C += slot->accountedBytes_04;
     return 1;
 }
 

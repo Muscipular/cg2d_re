@@ -127,7 +127,7 @@ std::int32_t Sub_45B650(std::int32_t* const slotIndex)
 std::int32_t Sub_45B630()
 {
     std::int32_t result = 0;
-    for (detail::MainSlot& slot : detail::gMainSlots9A29F8) {
+    for (detail::MainSlot& slot : detail::gAnimationSlots_9A29F8) {
         result = Sub_45B440(&slot.index);
     }
     return result;

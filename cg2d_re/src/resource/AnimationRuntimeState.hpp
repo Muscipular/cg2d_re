@@ -70,7 +70,7 @@ static_assert(offsetof(CoordinateEntry, y) == 6);
 // 原 9A29F8 的 0x10 字节槽，+8/+C 为双向链引用。
 struct MainSlot {
     std::int32_t index; // 原成员偏移：+0x00。
-    std::uint32_t value04; // 原成员偏移：+0x04。
+    std::uint32_t accountedBytes_04; // 原+04：按原端结构大小累计的记账字节，非x64实际分配大小。
     MainSlot* next; // 原成员偏移：+0x08。
     MainSlot* previous; // 原成员偏移：+0x0C。
 };
@@ -86,14 +86,14 @@ struct CacheSlot {
 static_assert(sizeof(CacheSlot) == 0x10);
 
 extern std::array<std::uint32_t, BinLoaderMaxGroups> gFileCloseFlags9A29D0; // 原全局：0x009A29D0。
-extern std::array<MainSlot, 256> gMainSlots9A29F8; // 原全局：0x009A29F8。
-extern MainSlot gLeftSentinel9A3A00; // 原全局：0x009A3A00。
-extern MainSlot gRightSentinel9A3A10; // 原全局：0x009A3A10。
+extern std::array<MainSlot, 256> gAnimationSlots_9A29F8; // 原全局：0x009A29F8。
+extern MainSlot gAnimationSlotListTail_9A3A00; // 原全局：0x009A3A00。
+extern MainSlot gAnimationSlotListHead_9A3A10; // 原全局：0x009A3A10。
 extern std::array<std::FILE*, BinLoaderMaxGroups> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
 extern std::array<std::FILE*, BinLoaderMaxGroups> gCoordinateFiles9A2988; // 原全局：0x009A2988。
 extern std::array<CacheSlot, 256> gCacheSlots9A3A48; // 原全局：0x009A3A48。
-extern std::uint32_t gActiveCount9A4A68; // 原全局：0x009A4A68。
-extern std::uint32_t gActiveBytes9A4A6C; // 原全局：0x009A4A6C。
+extern std::uint32_t gLoadedAnimationCount_9A4A68; // 原全局：0x009A4A68。
+extern std::uint32_t gLoadedAnimationAccountedBytes_9A4A6C; // 原全局：0x009A4A6C。
 // 原 9A4A54：AnimeInit 错误路径交给 free 的独立槽；载荷类型未证，释放后不清。
 extern void* gCleanupAllocation9A4A54;
 
@@ -104,13 +104,13 @@ namespace cg::resource::animation {
 // 原函数：0x0045B440。
 std::int32_t Sub_45B440(std::int32_t* slotIndex); // ACL01：真实slotIndex/0或1，held table按原条件重取。
 // 原函数：0x0045B590。
-std::int32_t Sub_45B590(detail::MainSlot* slot); // ACL01：持尾前驱按原序挂链，返回零。
+std::int32_t AppendAnimationSlotToTail_45B590(detail::MainSlot* slot); // ACL01：持尾前驱按原序挂链，返回零。
 // 原函数：0x0045B5B0。
-std::int32_t Sub_45B5B0(detail::MainSlot* slot); // ACL01：前后指针先取齐，再摘链/挂尾。
+std::int32_t MoveAnimationSlotToTail_45B5B0(detail::MainSlot* slot); // ACL01：前后指针先取齐，再摘链/挂尾。
 // 原函数：0x0045B5D0。
-std::int32_t Sub_45B5D0(); // ACL01：原256主槽及两哨兵初始化，正文保持。
+std::int32_t InitializeAnimationSlotList_45B5D0(); // ACL01：原256主槽及两哨兵初始化，正文保持。
 // 原函数：0x0045B530。
-detail::MainSlot* Sub_45B530(); // ACL01：清理非零后取齐数量/字节，返回真实oldest或空。
+detail::MainSlot* AcquireOldestAnimationSlot_45B530(); // ACL01：清理非零后取齐数量/字节，返回真实oldest或空。
 
 // 原 45C150：仅在有文件/action、无已加载坐标且 count 非零时加载；保留计数门禁。
 std::int32_t CoordInit_45C150(std::int32_t index);

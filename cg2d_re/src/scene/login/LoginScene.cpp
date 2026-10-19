@@ -319,7 +319,6 @@ std::wstring gExecutableDigest {}; // 原全局：0x00DA3A1C。
 std::wstring gAccount {}; // 原全局：0x00DA3A5C。
 std::int16_t gLoginReplyErrorCode_DA3B24 = 0; // 原全局：0x00DA3B24。
 
-static_assert(sizeof(gLoginServerRecords_D69798) == 800 * 0xC1);
 static_assert(sizeof(gLoginServerGroupCounts_D9F2D4) == 60 * sizeof(std::int32_t));
 
 namespace detail {
@@ -328,7 +327,7 @@ namespace detail {
 // 原函数：0x00507D90。
 std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
-    char* serverAddress,
+    std::wstring& serverAddress,
     std::uint16_t* port)
 {
     if (serverIndex < 0
@@ -338,8 +337,8 @@ std::int32_t GetServerAddressInfo_507D90(
 
     VM_START
     const auto& record = gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)];
-    std::strcpy(serverAddress, record.address.data());
-    *port = static_cast<std::uint16_t>(std::atoi(record.portText.data()));
+    serverAddress = record.address;
+    *port = static_cast<std::uint16_t>(std::wcstol(record.portText.c_str(), nullptr, 10));
     platform::ApplyServerAddressPolicy(serverAddress, *port);
     VM_END
     return 0;

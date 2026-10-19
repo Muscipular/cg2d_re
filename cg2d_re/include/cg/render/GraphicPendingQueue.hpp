@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <type_traits>
 
 namespace cg::yobi {
@@ -115,18 +116,12 @@ static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 // 原 [0xFF4E30,0x1020EB8) 的唯一 x64 承载，不是原内存镜像；前缀别名位置不变。
 // 原 0x1020EB8 的 W16 计数复用 platform 既有存储。
 struct LegacyPendingStorage {
-    char prefix[0x88]; // 原全局：0x00FF4E30。
+    std::wstring savedPath; // 原FF4E30：启动时写入的保存路径。
+    std::uint8_t precedingBatchType{}; // 原prefix+5C：旧索引-2的类型槽。
     std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records; // 原全局：0x00FF4EB8。
     std::array<GraphicCache3, MAX_QUEUE_SIZE> cache3; // 原全局：0x0101CEB8。
 };
 
-static_assert(offsetof(LegacyPendingStorage, prefix) == 0x00000);
-static_assert(offsetof(LegacyPendingStorage, records) == 0x00088);
-static_assert(offsetof(LegacyPendingStorage, cache3) == 0x30088);
-static_assert(sizeof(LegacyPendingStorage) == 0x34088);
-static_assert(alignof(LegacyPendingStorage) == 0x08);
-static_assert(std::is_standard_layout_v<LegacyPendingStorage>);
-static_assert(std::is_trivially_copyable_v<LegacyPendingStorage>);
 
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
 extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。

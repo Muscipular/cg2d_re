@@ -419,11 +419,12 @@ void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::uint8_t type)
 {
     if (index == -2) {
-        // 原 records[-2].batchType 落到 prefix+0x5C；不能按新端 48B 步长推算。
-        render::gLegacyPendingStorage.prefix[0x5C] = std::bit_cast<char>(type);
+        // 原records[-2].batchType对应具名类型槽，不依赖路径的存储布局。
+        render::gLegacyPendingStorage.precedingBatchType = type;
         return;
     }
 
+    if (index < 0 || static_cast<std::size_t>(index) >= render::gLegacyPendingStorage.records.size()) { return; }
     render::GraphicCacheItem32* const record =
         render::gLegacyPendingStorage.records.data() + index;
     record->batchType = type;

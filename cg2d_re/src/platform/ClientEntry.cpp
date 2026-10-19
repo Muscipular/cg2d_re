@@ -21,10 +21,10 @@ static bool gClientDiagnosticsEnabled = false; // CTM01/A11：仅WinMain寿命�
 // 借用已连接的控制台；只释放本次AllocConsole成功创建的实例。
 class ClientDiagnosticsConsole final {
 public:
-    explicit ClientDiagnosticsConsole(const char* const commandLine) noexcept
+    explicit ClientDiagnosticsConsole(const std::wstring& commandLine) noexcept
     {
-        gClientDiagnosticsEnabled = std::strstr(commandLine, "--debug") != nullptr
-            || std::strstr(::GetCommandLineA(), "--debug") != nullptr;
+        gClientDiagnosticsEnabled = commandLine.find(L"--debug") != std::wstring::npos
+            || std::wcsstr(::GetCommandLineW(), L"--debug") != nullptr;
 #ifdef MY_DEBUG
         gClientDiagnosticsEnabled = true;
 #endif
@@ -302,7 +302,7 @@ WNDCLASSW gWindowClass {}; // 原全局：0x009A6ED0。
 } // namespace cg::platform
 
 // 原 WinMain@0x465790；保持真实入口函数边界，只有 Win32 句柄与结构采用 x64 SDK ABI。
-int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)
+int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR commandLine, int showCommand)
 {
     using namespace cg::platform;
     static_cast<void>(ReadTickCount64()); // CTM01：在入口建立统一启动计时基线。

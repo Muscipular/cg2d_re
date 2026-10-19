@@ -7,7 +7,7 @@
 | UIControl::name、TextData::text、TextInputData::lastText | 内部文本；LuaUI创建/属性读写、TextInputControl回调边界 | 已宽化；Lua的GBK字节容量保留 |
 | PngImageState::path、CanvasShape::path | 内部路径文本；Lua属性输入、PNG宽路径、画布宽字符命令解析 | 已宽化 |
 | FormatMapDataPath、MapEx文件名、BigMap缓存路径 | 内部文件名；SceneState地图读写、MapEx、BigMap | 已宽化，文件内容保持 |
-| gDataPath、gMapPath | 内部配置路径；命令行解析后解码，图鉴/聊天/GraphicRead消费 | 已宽化；命令行整体迁移待后续 |
+| gDataPath、gMapPath | 内部配置路径；命令行解析后解码，图鉴/聊天/GraphicRead消费 | 已宽化；命令行整体已迁移为宽文本 |
 | AlbumRecord | 内部名称/说明；回复解析、列表/详情、相册存取 | 已宽化；仅AlbumDiskRecord/AlbumDiskStorage保留固定文件布局 |
 | ChatHistory621FF8、Record5FB7F8 | 内部输入历史/显示文本；Input生产、WindowChat消费、历史文件存取 | 已宽化；ChatHistoryDisk仅为文件边界，聊天气泡待迁移 |
 | 聊天日志路径/文件名 | 内部路径；ChatHistory写日志、WindowAdventureLog读取 | 已宽化；日志文件内容仍为GBK |
@@ -34,6 +34,7 @@
 | 登录输入/账号密码、快捷聊天存档、自身摆摊文本 | 内部文本；输入、自动登录、存档及摆摊请求 | 已宽化；SavedDiskRecord单独保留510H布局，摊位名保存按用户确认截到15个GBK字节，密码不写磁盘 |
 | BinLoader六类资源路径、Bin目录、调色板路径 | 内部路径文本；YAML/命令行输入、资源与音频/大地图消费 | 已宽化，YAML的UTF-8路径在读入边界解码，文件打开使用_wfopen |
 | 登录存档目录及黑名单名称/路径 | 内部路径与业务文本；文件与窗口消费 | 已宽化；登录保存打开/删除使用宽接口，黑名单仅在文件读写时转换GBK |
+| 启动命令行、服务器地址/端口文本 | 内部配置文本；wWinMain/命令解析、自动登录与连接 | 已宽化；IPv4/DNS及校验字节仅在外部接口边界转换 |
 | Lua文件路径、其余资源与音频路径 | 内部路径文本 | 待迁移；path不属于保留窄文本的文件边界 |
 | 业务日志、格式化、比较与剩余窄文本 | 内部文本或外部API临时适配 | 待最终逐项复核 |
 | 网络原始封包、文件原始字节、压缩/像素/数值状态 | 边界格式或非文本二进制 | 保留字节类型；仍需在最终残留核对中逐项注明实际用途 |

@@ -1,4 +1,5 @@
 #include "cg/platform/platformTool.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include <cstdlib>
 
@@ -179,20 +180,20 @@ static std::string ResolveServerPolicyAddress(const std::string& hostname)
 }
 
 // A10/SAP01：保留地址映射与校验退出；CUN01将使用提示移至人物选择页。
-void ApplyServerAddressPolicy(char* const serverAddress, std::uint16_t& port)
+void ApplyServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
 {
     VM_HARD_START
 #ifdef TAOMOLI
-    if (std::strcmp(serverAddress, "taomoli") == 0 && port <= 9)
+    if (serverAddress == L"taomoli" && port <= 9)
     {
-        std::strcpy(serverAddress, "218.78.128.210");
+        serverAddress = L"218.78.128.210";
         port = static_cast<std::uint16_t>(9030 + port);
     }
     else
 #endif
     {
         const std::string address = ResolveServerPolicyAddress(
-            std::format("{}.{}.re.cg.qoq.im", serverAddress, port));
+            cg::text::ToGbk(std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port)));
         if (!address.empty() && sha256ToString(address + "_re.cg.qoq.im") != "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/)
         {
             std::_Exit(std::random_device()());

@@ -7,8 +7,8 @@
 
 namespace cg::platform {
 
-extern char* gCommandLine;                // 原 0x9A6EC4；原生指针。
-extern char gCommandLineStorage[4096];    // 原 0x9A6F48，ReadSetupIni 的持久化输出。
+extern std::wstring gCommandLine;                // 原 0x9A6EC4；原生指针。
+extern std::wstring gCommandLineStorage;    // 原 0x9A6F48，ReadSetupIni 的持久化输出。
 extern std::wstring gDataPath;               // 原 0x55CF84，静态初值 data。
 extern std::int32_t gMonitorKeyboard;     // 原 0x9A6EC8。
 extern std::uint8_t gRequestedRenderMode; // 原 0x628FE0。

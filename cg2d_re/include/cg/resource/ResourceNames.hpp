@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace cg::resource {
 
@@ -14,12 +15,8 @@ enum ResourceNameTable {
     ResourceNameTableCount = 6
 };
 
-// 仅复刻原 VA [0x556F84, 0x558A84) 的连续字节布局，不宣称原源码存在同名全局。
-// 必须可写：ParseCmdOpt 的 sprintf 与坐标别名复制会原地改写名称。
-extern char gResourceNames[ResourceNameTableCount][9][128]; // 原全局：0x00556F84。
+// 原名称表的历史接口声明；当前加载使用ResourcePaths的配置路径。
+extern std::wstring gResourceNames[ResourceNameTableCount][9]; // 原全局：0x00556F84。
 
-static_assert(sizeof(gResourceNames) == 0x1B00, "Resource name storage size mismatch");
-static_assert(sizeof(gResourceNames[0]) == 0x480, "Resource name table stride mismatch");
-static_assert(sizeof(gResourceNames[0][0]) == 0x80, "Resource name slot stride mismatch");
 
 } // namespace cg::resource

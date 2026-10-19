@@ -8,7 +8,7 @@
 namespace cg::platform {
 
 // 原 0x58ADA8 起的 128 字节可写快照；newest: 写入，后续用途不在本项展开。
-extern char gNewestText[128];
+extern std::wstring gNewestText;
 
 // 原 [0x55DA00,0x55DA80) 的可写路径快照；初值 map，区间内未见其他引用。
 extern std::wstring gMapPath;
@@ -41,7 +41,7 @@ extern std::uint8_t& gRendererMode;       // 原 0x62A640，与 MainLoop.hpp 的
 
 // 原 sub_507C80：一个只读命令文本参数，原 x86 为 cdecl；调用方清理 4 字节。
 // 会清理并解析 IP: 表及修改相关计数；返回 0 或越界退出时的 sscanf 返回值。
-extern int ParseIpOptions_507C80(const char* commandLine);
+extern int ParseIpOptions_507C80(const wchar_t* commandLine);
 
 // A08：选人入口在状态11且角色存在时调用；仅目标槽成功消费一次标记。
 bool ConsumeAutoLoginCharacterSlot(std::uint32_t slot) noexcept;

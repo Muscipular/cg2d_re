@@ -15,12 +15,13 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
+#include <cwchar>
 #include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <string>
 
 namespace cg::platform {
 
-// char gNewestText[128] = "/update/newestV2.txt"; // 原全局：0x0058ADA8。
+// std::wstring gNewestText = L"/update/newestV2.txt"; // 原全局：0x0058ADA8。
 std::wstring gMapPath = L"map"; // 原全局：0x0055DA00。
 std::int32_t gDeviceBitsPerPixel = 8; // 原全局：0x00554B70。
 std::uint16_t gScanlineSyncMode = 1; // 原全局：0x00554B74。
@@ -62,17 +63,17 @@ static std::int32_t gAutoLoginCharacterSlot = -1;
 
 // A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
 static bool ParseCommandArgumentValue(
-    const char* commandLine, const char* key, std::string& outValue)
+    const wchar_t* commandLine, const wchar_t* key, std::wstring& outValue)
 {
     if (commandLine == nullptr || key == nullptr) {
         return false;
     }
 
-    const char* p = std::strstr(commandLine, key);
+    const wchar_t* p = std::wcsstr(commandLine, key);
     if (p == nullptr) {
         return false;
     }
-    p += std::strlen(key);
+    p += std::wcslen(key);
 
     while (*p == ' ' || *p == '\t') {
         ++p;
@@ -81,13 +82,13 @@ static bool ParseCommandArgumentValue(
         return false;
     }
 
-    const char* start = p;
-    const char* end = nullptr;
+    const wchar_t* start = p;
+    const wchar_t* end = nullptr;
     if (*p == '"') {
         start = p + 1;
-        end = std::strchr(start, '"');
+        end = std::wcschr(start, '"');
         if (end == nullptr) {
-            end = start + std::strlen(start);
+            end = start + std::wcslen(start);
         }
     } else {
         end = start;
@@ -104,24 +105,24 @@ static bool ParseCommandArgumentValue(
 }
 
 // A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
-static void ApplyAutoLoginCommandLine(const char* commandLine)
+static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
 {
-    std::string account;
-    std::string password;
-    std::string serverText;
-    std::string characterSlotText;
+    std::wstring account;
+    std::wstring password;
+    std::wstring serverText;
+    std::wstring characterSlotText;
     std::int32_t serverIndex = -1;
 
-    if (ParseCommandArgumentValue(commandLine, "/uu:", account)
-        && ParseCommandArgumentValue(commandLine, "/pw:", password)
-        && ParseCommandArgumentValue(commandLine, "/sv:", serverText)
-        && ParseCommandArgumentValue(commandLine, "/cv:", characterSlotText)) {
-        char* endPtr = nullptr;
-        long value = std::strtol(serverText.c_str(), &endPtr, 10);
+    if (ParseCommandArgumentValue(commandLine, L"/uu:", account)
+        && ParseCommandArgumentValue(commandLine, L"/pw:", password)
+        && ParseCommandArgumentValue(commandLine, L"/sv:", serverText)
+        && ParseCommandArgumentValue(commandLine, L"/cv:", characterSlotText)) {
+        wchar_t* endPtr = nullptr;
+        long value = std::wcstol(serverText.c_str(), &endPtr, 10);
         serverIndex = (endPtr != nullptr && *endPtr == '\0')
             ? static_cast<std::int32_t>(value) : -1;
         endPtr = nullptr;
-        value = std::strtol(characterSlotText.c_str(), &endPtr, 10);
+        value = std::wcstol(characterSlotText.c_str(), &endPtr, 10);
         gAutoLoginCharacterSlot = (endPtr != nullptr && *endPtr == '\0')
             ? static_cast<std::int32_t>(value) : -1;
         if (gAutoLoginCharacterSlot > 1) {
@@ -130,13 +131,13 @@ static void ApplyAutoLoginCommandLine(const char* commandLine)
     }
 
     if (serverIndex >= 0 && !account.empty() && !password.empty()
-        && account.size() < login::LoginInputValueCapacity
-        && password.size() < login::LoginInputValueCapacity) {
-        login::detail::CacheAutoLoginInputValues(text::FromGbkWide(account), text::FromGbkWide(password));
+        && text::ToGbk(account).size() < login::LoginInputValueCapacity
+        && text::ToGbk(password).size() < login::LoginInputValueCapacity) {
+        login::detail::CacheAutoLoginInputValues(account, password);
         world::gCurrentSceneState = 2;
         world::gCurrentSceneType = 2;
-        login::gPassword = text::FromGbkWide(password);
-        login::gAccount = text::FromGbkWide(account);
+        login::gPassword = password;
+        login::gAccount = account;
         login::gSelectedServerIndex = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(serverIndex));
         gAutoLoginPending = true;
@@ -156,43 +157,43 @@ bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
 // 原 ParseCmdOpt@0x465F00；原参数见 doc/cg2d_command_options.md，A08扩展见ALM01 SPEC。
 int ParseCommandOptions()
 {
-    char savedata[128] {};
-    // if (char* match = const_cast<char*>(std::strstr(gCommandLine, "newest:"))) {
-    //     std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
+    wchar_t savedata[128] {};
+    // if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"newest:"))) {
+    //     std::swscanf(match + std::wcslen(L"newest:"), L"%127ls", gNewestText);
     // }
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "savedata:"))) {
-        std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"savedata:"))) {
+        std::swscanf(match + std::wcslen(L"savedata:"), L"%127ls", savedata);
     }
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "datafolder:"))) {
-        char value[128]{}; // 旧命令行解析边界，存储转为宽路径。
-        if (std::sscanf(match + std::strlen("datafolder:"), "%s", value) == 1) gDataPath = text::FromGbkWide(value);
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"datafolder:"))) {
+        wchar_t value[128]{}; // 旧命令行解析边界，存储转为宽路径。
+        if (std::swscanf(match + std::wcslen(L"datafolder:"), L"%127ls", value) == 1) gDataPath = value;
     }
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "binfolder:"))) {
-        char value[128]{};
-        if (std::sscanf(match + std::strlen("binfolder:"), "%127s", value) == 1) resource::gBinPath = text::FromGbkWide(value);
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"binfolder:"))) {
+        wchar_t value[128]{};
+        if (std::swscanf(match + std::wcslen(L"binfolder:"), L"%127ls", value) == 1) resource::gBinPath = value;
     }
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "mapfolder:"))) {
-        char value[128]{}; // 旧命令行解析边界，存储转为宽路径。
-        if (std::sscanf(match + std::strlen("mapfolder:"), "%s", value) == 1) gMapPath = text::FromGbkWide(value);
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"mapfolder:"))) {
+        wchar_t value[128]{}; // 旧命令行解析边界，存储转为宽路径。
+        if (std::swscanf(match + std::wcslen(L"mapfolder:"), L"%127ls", value) == 1) gMapPath = value;
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
-    std::sprintf(cg::render::gLegacyPendingStorage.prefix, "data\\0\\%s", "save.dat");
+    cg::render::gLegacyPendingStorage.savedPath = L"data\\0\\save.dat";
 
-    if (const_cast<char*>(std::strstr(gCommandLine, "windowmode"))) {
+    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"windowmode"))) {
         gWindowMode = 1;
     }
     HDC deviceContext = GetDC(reinterpret_cast<HWND>(gLegacyWindow));
     gDeviceBitsPerPixel = GetDeviceCaps(deviceContext, BITSPIXEL);
     ReleaseDC(reinterpret_cast<HWND>(gLegacyWindow), deviceContext);
 
-    if (const_cast<char*>(std::strstr(gCommandLine, "nodelay"))) {
+    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"nodelay"))) {
         gNoDelay = 0;
     }
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "winpos:"))) {
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"winpos:"))) {
         int x;
         int y;
-        std::sscanf(match + std::strlen("winpos:"), "%d,%d", &x, &y);
+        std::swscanf(match + std::wcslen(L"winpos:"), L"%d,%d", &x, &y);
         if (x >= 0 && y >= 0) {
             gStartX = x;
             gStartY = y;
@@ -201,68 +202,67 @@ int ParseCommandOptions()
 
     gRendererFlags = 0;
     gRendererMode = 1;
-    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "3Ddevice:"))) {
-        std::sscanf(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
+    if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"3Ddevice:"))) {
+        std::swscanf(match + std::wcslen(L"3Ddevice:"), L"%d", &gRendererModeStorage);
     }
-    if (const_cast<char*>(std::strstr(gCommandLine, "soundoff"))) {
+    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"soundoff"))) {
         gEnableSound = 0;
     }
-    if (const_cast<char*>(std::strstr(gCommandLine, "musicoff"))) {
+    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"musicoff"))) {
         gEnableMusic = 0;
     }
     if (gRequestedRenderMode) {
         gRendererMode = gRequestedRenderMode;
     }
-    if (const_cast<char*>(std::strstr(gCommandLine, "onlyactive"))) {
+    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"onlyactive"))) {
         gRendererFlags |= 0x10;
     }
     gCurrentSceneTypeStorage_FF0D40 = 1;
-    const int result = ParseIpOptions_507C80(gCommandLine);
-    ApplyAutoLoginCommandLine(::GetCommandLineA());
+    const int result = ParseIpOptions_507C80(gCommandLine.c_str());
+    ApplyAutoLoginCommandLine(::GetCommandLineW());
     return result;
 }
 
 // 原函数：0x00507C80。
-int ParseIpOptions_507C80(const char* const commandLine)
+int ParseIpOptions_507C80(const wchar_t* const commandLine)
 {
-    std::memset(
-        login::gLoginServerRecords_D69798.data(),
-        0,
-        sizeof(login::gLoginServerRecords_D69798));
+    login::gLoginServerRecords_D69798.fill({});
 
     // 原 sscanf 的目标是入参栈槽；未匹配时保留其上一次 W32 内容。
     int index = std::bit_cast<int>(
         static_cast<std::uint32_t>(
             reinterpret_cast<std::uintptr_t>(commandLine)));
-    const char* cursor = commandLine;
-    while (const char* const match = const_cast<char*>(std::strstr(cursor, "IP:"))) {
-        const char* const number = match + 3;
-        const int parsed = std::sscanf(number, "%d:", &index);
+    const wchar_t* cursor = commandLine;
+    while (const wchar_t* const match = const_cast<wchar_t*>(std::wcsstr(cursor, L"IP:"))) {
+        const wchar_t* const number = match + 3;
+        const int parsed = std::swscanf(number, L"%d:", &index);
         if (static_cast<std::uint32_t>(index)
             >= login::gLoginServerRecords_D69798.size()) {
             return parsed;
         }
 
-        const char* address = number
+        const wchar_t* address = number
             + (index < 10 ? 2 : index <= 99 ? 3 : 4);
         auto& record = login::gLoginServerRecords_D69798[static_cast<std::size_t>(index)];
+        record.address.clear();
         std::size_t addressLength = 0;
         while (*address != '\0'
             && *address != ':'
             && addressLength < 0x7F) {
-            record.address[addressLength++] = *address++;
+            record.address.push_back(*address++);
+            ++addressLength;
         }
-        record.address[addressLength] = 0;
 
-        const char* port = address + 1;
+        const wchar_t* port = *address != L'\0' ? address + 1 : address;
+        record.portText.clear();
         std::size_t portLength = 0;
         while (*port != '\0'
             && *port != ' '
             && *port != '\t'
             && portLength < 0x3F) {
-            record.portText[portLength++] = *port++;
+            record.portText.push_back(*port++);
+            ++portLength;
         }
-        record.portText[portLength] = 0;
         record.available = 1;
         ++login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index / 20)];
         cursor = port;

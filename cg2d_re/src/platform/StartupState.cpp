@@ -2,8 +2,8 @@
 
 namespace cg::platform {
 
-char* gCommandLine = nullptr; // 原全局：0x009A6EC4。
-char gCommandLineStorage[4096] {}; // 原全局：0x009A6F48。
+std::wstring gCommandLine; // 原全局：0x009A6EC4。
+std::wstring gCommandLineStorage; // 原全局：0x009A6F48。
 std::wstring gDataPath = L"data"; // 原全局：0x0055CF84。
 std::int32_t gMonitorKeyboard = 0; // 原全局：0x009A6EC8。
 std::uint8_t gRequestedRenderMode = 0; // 原全局：0x00628FE0。

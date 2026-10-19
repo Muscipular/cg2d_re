@@ -320,15 +320,17 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
     WindowRuntime_DrawCurrent();
     const auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
-        const char* name;
+        std::wstring_view name;
         if (world::gSelectedBattlePetTechniqueIndex_553F84 < 0) {
-            name = "";
+            name = {};
         } else {
             const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
             const std::int32_t technique = world::gSelectedBattlePetTechniqueIndex_553F84;
-            name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name.data();
+            if (pet >= 0 && pet < static_cast<std::int32_t>(world::gPetRuntimeRecords.size())
+                && technique < world::kPetTechniqueSlotCount)
+                name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name;
         }
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = name;
     }
     if (gWindowStates[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
@@ -1576,7 +1578,7 @@ void WindowBattleCommand_Dispatch()
             if (!clickedReturn && cg::world::gSelectedBattlePetTechniqueIndex_553F84 != -1) {
                 const std::int32_t namePet = cg::world::FindBattlePetIndex_43C4B0();
                 const std::int32_t nameTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
-                buffer = std::format(L"{:<16}", cg::text::FromGbkWide(cg::world::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name.data()));
+                buffer = std::format(L"{:<16}", cg::world::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name);
                 const std::int32_t nameY = cg::world::gBattleCommandY553F7C;
                 const std::int32_t nameX = cg::world::gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(

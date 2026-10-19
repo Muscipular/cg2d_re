@@ -1669,7 +1669,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         for (std::int32_t skill = 0; skill < world::kPetTechniqueSlotCount; ++skill) {
             network::ExtractDelimitedField_52CED0(text, '|', field + 25 + skill, 1023, buffer);
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-            std::strcpy(record->techniques[skill].name.data(), std::strlen(buffer) > 24 ? "???" : buffer);
+            record->techniques[skill].name = cg::text::FromGbkWide(std::strlen(buffer) > 24 ? "???" : buffer);
         }
         for (std::size_t slot = 0; slot < record->equipmentNames.size(); ++slot) {
             network::ExtractDelimitedField_52CED0(text, '|',
@@ -1686,7 +1686,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         for (std::int32_t index = 0; index < 20; ++index) {
             readItem(&gItemDetailStorageCC4D58[0].items[index], index, 2 + index * 6, true);
         }
-        std::memset(gPetStorageD64E18.data(), 0, sizeof(gPetStorageD64E18));
+        gPetStorageD64E18.fill({});
         for (std::int32_t index = 0; index < 5; ++index) {
             readPet(&gPetStorageD64E18[index], 122 + index * petFieldCount);
         }
@@ -1718,7 +1718,7 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
             auto* const record = &gPetStorageD64E18[index];
-            std::memset(record, 0, sizeof(*record));
+            *record = {};
             readPet(record, field + 1);
             field += 1 + petFieldCount;
             index = network::ParseDelimitedInteger_52CFA0(text, '|', field);

@@ -9743,7 +9743,7 @@ void HandlePetTechniquesReply_50B0D0(
     if (record.used == 0) {
         return;
     }
-    std::memset(record.techniquesD8.data(), 0, sizeof(record.techniquesD8));
+    record.techniquesD8.fill({});
     char name[256];
     char description[256];
     std::int32_t field = 2;
@@ -9773,8 +9773,8 @@ void HandlePetTechniquesReply_50B0D0(
         }
         detail::PetTechniqueRecord& technique = record.techniquesD8[techniqueIndex];
         if (std::strlen(name) == 0) {
-            technique.name[0] = '\0';
-            technique.description[0] = '\0';
+            technique.name.clear();
+            technique.description.clear();
             technique.fp = 0;
             technique.used = 0;
             // 原50B230不推进字段；不把空名称改成跳过本条或结束解析。
@@ -9782,10 +9782,8 @@ void HandlePetTechniquesReply_50B0D0(
         }
         technique.used = 1;
         technique.techniqueId = techniqueId;
-        std::strcpy(technique.name.data(), std::strlen(name) <= 24 ? name : "???");
-        std::strcpy(
-            technique.description.data(),
-            std::strlen(description) <= 96 ? description : "???");
+        technique.name = cg::text::FromGbkWide(std::strlen(name) <= 24 ? name : "???");
+        technique.description = cg::text::FromGbkWide(std::strlen(description) <= 96 ? description : "???");
         field += 8;
         technique.fp = fp;
         technique.field = static_cast<std::uint16_t>(techniqueField);

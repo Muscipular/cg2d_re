@@ -403,7 +403,7 @@ static int SendBattleAction(lua_State* L)
             }
             m_log_i("B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
             B_TARGET_FLAGS targetFlags = cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].target;
-            m_log_i("B_ACTION_ATTACK tech %d %d %s\n", cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
+            m_log_iw(L"B_ACTION_ATTACK tech %d %d %ls\n", cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
             auto target = checkAndGetTarget(petPos, param3, targetFlags);
             m_log_i("B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {

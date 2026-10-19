@@ -217,9 +217,9 @@ static WindowElement* WindowPetSkills_Refresh()
             const std::int32_t techniqueIndex = gPetTechniqueScroll + row;
             if (selectedPet().techniquesD8[techniqueIndex].used != 0) {
                 gCurrentWindow->elements[13 + row].visible = 1;
-                const char* const techniqueName = selectedPet().techniquesD8[techniqueIndex].name.data();
+                const auto& techniqueName = selectedPet().techniquesD8[techniqueIndex].name;
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[13 + row].data);
-                data->text = cg::text::FromGbkWide(techniqueName);
+                data->text = techniqueName;
                 gCurrentWindow->elements[23 + row].visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[techniqueIndex].fp;
                 cg::text::FormatTo(buffer, L"{:3}", fp);
@@ -282,7 +282,7 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 5)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
-        5, 12, 0, cg::text::FromGbkWide(world::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name.data()).c_str(),
+        5, 12, 0, world::gPetRuntimeRecords[namePet].techniquesD8[nameTechnique].name,
         0, 0));
     const auto costPet = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -554,8 +554,8 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
                 world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
             const auto& pet = world::gPetRuntimeRecords[selected];
             const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[gPetTechniqueScroll + index - 37].index);
-            const char* const description = pet.techniquesD8[technique].description.data();
-            if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
+            const auto& description = pet.techniquesD8[technique].description;
+            if (input::ExtractTextLine(buffer, description, line, 26) != 0) {
                 auto* const elements = gCurrentWindow->elements;
                 auto* const data = static_cast<WindowTextData*>(elements[33 + line].data);
                 data->text = buffer;

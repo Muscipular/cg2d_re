@@ -110,29 +110,6 @@ static_assert(offsetof(WindowStorageItem, pages) == 0xC3C);
 static_assert(offsetof(WindowStorageItem, flags) == 0xC40);
 
 
-static_assert(std::is_standard_layout_v<WindowStoragePet>);
-static_assert(std::is_trivially_copyable_v<WindowStoragePet>);
-static_assert(sizeof(WindowStoragePet) == 0x600 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10) + 176); // 六个29字节名称及尾部对齐。
-static_assert(offsetof(WindowStoragePet, used) == 0x00);
-static_assert(offsetof(WindowStoragePet, tribe) == 0x02);
-static_assert(offsetof(WindowStoragePet, imageNo) == 0x04);
-static_assert(offsetof(WindowStoragePet, level) == 0x08);
-static_assert(offsetof(WindowStoragePet, hp) == 0x0C);
-static_assert(offsetof(WindowStoragePet, maxHp) == 0x10);
-static_assert(offsetof(WindowStoragePet, fp) == 0x14);
-static_assert(offsetof(WindowStoragePet, maxFp) == 0x18);
-static_assert(offsetof(WindowStoragePet, combatStats) == 0x1C);
-static_assert(offsetof(WindowStoragePet, baseStats) == 0x30);
-static_assert(offsetof(WindowStoragePet, combatValue44) == 0x44);
-static_assert(offsetof(WindowStoragePet, elements) == 0x48);
-static_assert(offsetof(WindowStoragePet, value58) == 0x58);
-static_assert(offsetof(WindowStoragePet, techniques) == 0x5C);
-static_assert(offsetof(WindowStoragePet, name) == 0x5D4 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
-static_assert(offsetof(WindowStoragePet, speciesName) == 0x5E5 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
-static_assert(offsetof(WindowStoragePet, reserved5F6) == 0x5F6 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
-static_assert(offsetof(WindowStoragePet, weight) == 0x5F8 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
-static_assert(offsetof(WindowStoragePet, maxWeight) == 0x5FC + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
-static_assert(offsetof(WindowStoragePet, equipmentNames) == 0x600 + sizeof(world::detail::PetTechniqueRecord) * (world::kPetTechniqueSlotCount - 10));
 
 static_assert(std::is_standard_layout_v<WindowStoragePetSummary>);
 static_assert(std::is_trivially_copyable_v<WindowStoragePetSummary>);

@@ -1088,14 +1088,14 @@ static std::int32_t WindowStall_DrawPetSkills(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const char* const text = pet.techniquesD8[skillIndex].name.data();
+    const wchar_t* const text = pet.techniquesD8[skillIndex].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
             0, 0, 5, 1, 0, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-            5, 12, 0, cg::text::FromGbkWide(text).c_str(), 0, 0));
+            5, 12, 0, text, 0, 0));
     }
     const std::int32_t shortY = static_cast<std::int16_t>(y);
     const std::int32_t shortX = static_cast<std::int16_t>(x);
@@ -2463,7 +2463,7 @@ static void WindowStall_OpenBrowse(
         pet.values6D8[0] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         pet.lvFlag6C = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         const std::int32_t techniqueCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        std::memset(pet.techniquesD8.data(), 0, sizeof(pet.techniquesD8));
+        pet.techniquesD8.fill({});
         for (std::int32_t technique = 0; technique < techniqueCount; ++technique) {
             techniqueDescription[0] = '\0';
             std::memset(techniqueDescription + 1, 0, sizeof(techniqueDescription) - 1);
@@ -2475,16 +2475,15 @@ static void WindowStall_OpenBrowse(
             }
             auto& record = pet.techniquesD8[slot];
             if (std::strlen(techniqueName) == 0) {
-                record.name[0] = '\0';
-                record.description[0] = '\0';
+                record.name.clear();
+                record.description.clear();
                 record.fp = 0;
                 record.used = 0;
             } else {
                 record.used = 1;
                 record.techniqueId = 0;
-                std::strcpy(record.name.data(), std::strlen(techniqueName) <= 24 ? techniqueName : "???");
-                std::strcpy(record.description.data(),
-                    std::strlen(techniqueDescription) <= 96 ? techniqueDescription : "???");
+                record.name = cg::text::FromGbkWide(std::strlen(techniqueName) <= 24 ? techniqueName : "???");
+                record.description = cg::text::FromGbkWide(std::strlen(techniqueDescription) <= 96 ? techniqueDescription : "???");
                 record.fp = 0;
                 record.field = 0;
                 record.target = 0;

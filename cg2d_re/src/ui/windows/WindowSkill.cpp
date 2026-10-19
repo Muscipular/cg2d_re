@@ -1298,7 +1298,7 @@ static void WindowSkill_DrawPetSkillRow(
     }
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
@@ -1335,7 +1335,7 @@ static void WindowSkill_DrawRidingSkillRow(
     }
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
@@ -1986,7 +1986,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                     hover = gSkillWindowHoverD2F744;
                     pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 }
-                drawDescription(cg::text::FromGbkWide(world::gPetRuntimeRecords[pet].techniquesD8[hover].description.data()), line, 26);
+                drawDescription(world::gPetRuntimeRecords[pet].techniquesD8[hover].description, line, 26);
             }
         }
         break;

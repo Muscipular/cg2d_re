@@ -5,7 +5,9 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "../world/WorldMapState.hpp"
 #include "cg/resource/GraphicInfo.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include <array>
+#include <bit>
 #include <fstream>
 #include <format>
 #include <string_view>
@@ -16,7 +18,7 @@ static constexpr int kBigMapWindowId = 82; // 扩展窗口，不占原71槽；10
 static constexpr int kMapFont = 12;
 // 原资源ID升序重编号，见BMUI01；查MapNo，不依赖资源组内seqNo。
 enum BigMapImage : int {
-    RouteDot = 641510, Checked = 641511, MapFrame = 641512, PlayerMarker = 641513,
+    RouteDot = 641510, Checked = 641511, PlayerMarker = 641513,
     MapNamePlate = 641514, TargetMarker = 641515, NpcDot = 641516, CoordinatePlate = 641517,
     AnnotationPlate = 641518, AnnotationBorder = 641519, VerticalConnector = 641520,
     HorizontalConnector = 641521, Checkbox = 641522, Compass = 641523,
@@ -50,7 +52,9 @@ struct BigMapWindow final : UIWindowInstanceEx {
     int currentMap = -1, currentFloor = -1, currentGroup = -1;
     int targetX = -1, targetY = -1;
     int dragX = 0, dragY = 0;
+    int dragWindowX = 0, dragWindowY = 0;
     double dragMapX = 0, dragMapY = 0;
+    bool positionInitialized = false, movingWindow = false;
     bool dragMoved = false;
     bool mapClickPending = false; // 首次左击来自地图且未拖动，才允许后续原生双击寻路。
     bool options = false, followPlayer = true, dragging = false, mapReady = false;
@@ -69,14 +73,19 @@ struct BigMapWindow final : UIWindowInstanceEx {
 
     void Layout() {
         const int screenW = render::GetRendererLogicalWidth(), screenH = render::GetRendererLogicalHeight();
-        const double scale = std::min(screenW / 640.0, screenH / 480.0);
-        window.width = static_cast<int>(640 * scale);
-        window.height = static_cast<int>(480 * scale);
-        window.x = (screenW - window.width) / 2;
-        window.y = (screenH - window.height) / 2;
-        map.x = map.y = 0;
-        map.w = static_cast<short>(window.width);
-        map.h = static_cast<short>(window.height);
+        window.width = 640;
+        window.height = 480;
+        if (!positionInitialized) {
+            window.x = (screenW - window.width) / 2;
+            window.y = (screenH - window.height) / 2;
+            positionInitialized = true;
+        }
+        // 只在越界时约束位置，避免每帧居中覆盖标题栏拖动结果。
+        window.x = std::clamp(window.x, 0, std::max(0, screenW - window.width));
+        window.y = std::clamp(window.y, 0, std::max(0, screenH - window.height));
+        map.x = 8; map.y = 48;
+        map.w = window.width - 16;
+        map.h = window.height - 96;
     }
 
     static const resource::GraphicInfo* Graphic(int mapNo) {
@@ -106,14 +115,18 @@ struct BigMapWindow final : UIWindowInstanceEx {
         return b.visible && Hit(b.x, b.y, b.w, b.h);
     }
 
+    bool TitleHit() const {
+        // 对话框顶部为标题栏，避开右侧关闭按钮和下方矩形地图。
+        return Hit(6, 6, window.width - 38, 32);
+    }
+
     bool MapHit() const {
-        if (!mapReady || (options && Hit(36, 52, 224, 270))) return false;
+        if (!mapReady || TitleHit() || (options && Hit(36, 52, 224, 270))) return false;
         for (auto button : {BigMapButton::Toggle, BigMapButton::Close, BigMapButton::Refresh, BigMapButton::Walk, BigMapButton::Center})
             if (ButtonHit(button)) return false;
-        const int x = static_cast<int>(gMouseX) - window.x, y = static_cast<int>(gMouseY) - window.y;
-        if (x < 0 || y < 0 || x >= window.width || y >= window.height) return false;
-        const auto* frame = Graphic(MapFrame);
-        return frame && render::IsGraphicImageTransparent(frame->seqNo, x * frame->w / window.width, y * frame->h / window.height);
+        // 坐标装饰与数字底框覆盖地图，不能从其下方选点。
+        if (Hit(515, 40, 96, 81)) return false;
+        return Hit(map.x, map.y, map.w, map.h);
     }
 
     UIClipRect Viewport() const {
@@ -181,6 +194,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
         if (world::gCurrentSceneType != SCENE_NORMAL) {
             window.state |= WIN_STATE_CLOSE;
             dragging = false;
+            movingWindow = false;
             mapClickPending = false;
             return stage;
         }
@@ -192,6 +206,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
             currentGroup = world::gMapCachePathKey_9E0434;
             targetX = targetY = -1;
             dragging = false;
+            movingWindow = false;
             mapClickPending = false;
             followPlayer = true;
             routeStatus.clear();
@@ -210,6 +225,16 @@ struct BigMapWindow final : UIWindowInstanceEx {
             && platform::IsClientWindowForeground();
         acceptsMouse = available && focused != 0;
         if (!acceptsMouse || (gMouseClickState & 2)) mapClickPending = false;
+        if (movingWindow) {
+            if (available && held) {
+                window.x = dragWindowX + mx - dragX;
+                window.y = dragWindowY + my - dragY;
+                Layout();
+            } else movingWindow = false;
+            gMouseEventState = MES_CAPTURED;
+            gWindowHasFocus = 1;
+            return stage;
+        }
         // 原鼠标双击事件带0x11（含左按下）。先于拖动处理，避免快速双击被捕获分支吞掉。
         if (acceptsMouse && mapClickPending && (gMouseClickState & 0x10) && MapHit()) {
             mapClickPending = false;
@@ -241,9 +266,15 @@ struct BigMapWindow final : UIWindowInstanceEx {
         }
         if (!available || !focused) return stage;
         if (gMouseClickState & 1) {
+            window.state |= WIN_STATE_FOCUS;
             mapClickPending = false;
             if (ButtonHit(BigMapButton::Close)) window.state |= WIN_STATE_CLOSE;
-            else if (ButtonHit(BigMapButton::Toggle)) options = !options;
+            else if (TitleHit()) {
+                movingWindow = true;
+                dragging = false;
+                dragX = mx; dragY = my;
+                dragWindowX = window.x; dragWindowY = window.y;
+            } else if (ButtonHit(BigMapButton::Toggle)) options = !options;
             else if (ButtonHit(BigMapButton::Center)) followPlayer = true;
             else if (ButtonHit(BigMapButton::Refresh)) LoadAnnotations();
             else if (ButtonHit(BigMapButton::Walk)) {
@@ -381,7 +412,10 @@ struct BigMapWindow final : UIWindowInstanceEx {
         const int previousUiFailures = failedUiImages;
         failedUiImages = 0;
         RendererBreakWindowTextBatch();
-        const auto clip = Viewport();
+        const UIClipRect clip{static_cast<short>(window.x), static_cast<short>(window.y),
+            static_cast<short>(window.x + window.width), static_cast<short>(window.y + window.height)};
+        const auto mapClip = Viewport();
+        UiText((window.width - render::TextMeasure(L"大地图", kMapFont)) / 2, 16, L"大地图", clip, 12);
         const UIClipRect nameClip{static_cast<short>(window.x + 16), static_cast<short>(window.y + 12),
             static_cast<short>(window.x + 188), static_cast<short>(window.y + 45)};
         Text(nameClip.left, window.y + 20, text::FromGbkWide(world::ReadText9DAD30()), nameClip, 12);
@@ -398,11 +432,11 @@ struct BigMapWindow final : UIWindowInstanceEx {
         for (auto button : {BigMapButton::Toggle, BigMapButton::Close, BigMapButton::Refresh, BigMapButton::Walk, BigMapButton::Center})
             Button(button, clip);
         const auto walkButton = ButtonStyle(BigMapButton::Walk), centerButton = ButtonStyle(BigMapButton::Center);
-        if (!options) UiText(34, 52, L"地图选项", clip, 12);
+        if (!options) UiText(34, 52, L"地图选项", clip, 4);
         if (walkButton.visible && !options)
-            UiText(34, walkButton.y + 3, L"开始寻路", clip, 12);
+            UiText(34, walkButton.y + 3, L"开始寻路", clip, 4);
         if (centerButton.visible && !options)
-            UiText(34, centerButton.y + 3, L"玩家居中", clip, 12);
+            UiText(34, centerButton.y + 3, L"玩家居中", clip, 4);
         if (options) {
             UiText(44, 60, L"地图选项", clip, 4);
             UiText(62, 79, L"你现在的位置", clip);
@@ -430,6 +464,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
             else if (ButtonHit(BigMapButton::Refresh)) hint = L"刷新坐标：重新读取地点标注";
             else if (ButtonHit(BigMapButton::Toggle)) hint = options ? L"收起地图选项" : L"展开地图选项";
             else if (ButtonHit(BigMapButton::Close)) hint = L"关闭大地图";
+            else if (TitleHit()) hint = L"拖动标题栏移动窗口";
         }
         UiText(12, window.height - 38, hint, clip, 12);
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt"
@@ -439,26 +474,28 @@ struct BigMapWindow final : UIWindowInstanceEx {
         const auto generation = map.Status();
         if (!generation.empty()) status += L"  " + generation;
         UiText(12, window.height - 18, status, clip, 12);
-        // 框先入队，地图标注随后：原版不透明纸面遮住菱形视口外的地图内容。
-        ImageAt(MapFrame, window.x, window.y, window.width, window.height, clip);
         RendererBreakWindowTextBatch();
         if (mapReady) {
             if (acceptsMouse && MapHit()) {
-                const auto point = map.ScreenToMap(gMouseX - clip.left, gMouseY - clip.top);
-                Text(gMouseX + 14, gMouseY + 14, std::format(L"{},{}", point.first, point.second), clip);
+                const auto point = map.ScreenToMap(gMouseX - mapClip.left, gMouseY - mapClip.top);
+                Text(gMouseX + 14, gMouseY + 14, std::format(L"{},{}", point.first, point.second), mapClip);
             }
-            Marker(px, py, PlayerMarker, 14, clip);
-            if (targetX >= 0) Marker(targetX, targetY, TargetMarker, 14, clip);
+            Marker(px, py, PlayerMarker, 14, mapClip);
+            if (targetX >= 0) Marker(targetX, targetY, TargetMarker, 14, mapClip);
             const auto route = getAutoCopliotRoute();
             for (std::size_t i = 1; i < route.size(); i += 2)
-                Marker(route[i].first, route[i].second, RouteDot, 4, clip);
-            failedUiImages += DrawAnnotations(clip);
+                Marker(route[i].first, route[i].second, RouteDot, 4, mapClip);
+            failedUiImages += DrawAnnotations(mapClip);
         } else Text(window.x + (window.width - render::TextMeasure(L"当前地图数据未就绪", kMapFont)) / 2,
             window.y + window.height / 2, L"当前地图数据未就绪", clip, 4);
         RendererBreakWindowTextBatch();
-        map.Render(window.x, window.y, LAYER_UI, {clip.left, clip.top, clip.right, clip.bottom});
-        RendererDrawRectClipped(static_cast<short>(window.x), static_cast<short>(window.y),
-            static_cast<short>(window.width), static_cast<short>(window.height), LAYER_UI, 0xFF000000u, &clip);
+        map.Render(window.x, window.y, LAYER_UI, {mapClip.left, mapClip.top, mapClip.right, mapClip.bottom});
+        RendererDrawRectClipped(mapClip.left, mapClip.top, static_cast<short>(map.w), static_cast<short>(map.h),
+            LAYER_UI, 0xFF000000u, &mapClip);
+        // 与WindowDialog一致的245300九宫格、中心透明度和拼块尺寸；同层逆序绘制，背景最后入队。
+        yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x), static_cast<short>(window.y),
+            static_cast<short>(window.width), static_cast<short>(window.height), LAYER_UI, -1,
+            std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
         return stage;
     }
 

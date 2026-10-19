@@ -1,5 +1,15 @@
 # 自定义字体配置 SPEC（FC01）
 
+## 2026-10-19 字体显示回归修正（FC02，覆盖下文冲突条款）
+
+- 用户反馈迁移后字体显示与原来不一致。源码对照确认：FC01把原CreateFontW/HFONT创建路径改成按行距换算GDI+ em大小，并合并独立的布局与字形度量。本次恢复原有效字体的创建参数和度量，不把配置迁移作为改变原字体显示的授权。
+- 无file的系统字体恢复CreateFontW → Gdiplus::Font(HDC, HFONT)；原字号、GDI宽度、粗细、charset、quality、pitch及绘制参数均按迁移前代码恢复。私有文件继续使用私有字体集合，不更改其现有路径。
+- 保留width/height作为半角布局宽度和布局高度，新增可选英文配置：full_width（旧doubleWidth，默认width*2）、glyph_height（字形图集高度，默认height，0表示沿布局高度）、raster_width（系统CreateFontW宽度，默认0自动选宽）、raster_height（创建字体的高度，默认height）。这些字段用于准确承载原配置，不在代码中按ID硬编码旧表。
+- full_width须为2*width或2*width-1，以保持原MeasureGlyphSize取整后的半角宽度；glyph_height为0～255，raster_width为0～255，raster_height为1～255。私有字体使用raster_height按其行距换算em大小；非零raster_width只支持系统字体，私有文件配置不接受无法生效的非零值。
+- 原13项配置写入全部实际参数；0号代码兜底恢复原度量{9,17,17,17,0,0,0,0}及16像素粗体创建。原6号未创建字体，仍按用户已确认规则回退0号。
+- 保留用户工作区将family由SimSun改成宋体的修改，不混入本次提交；本次只提交新增配置字段。map、ID范围和0号回退保持。
+- 逐项静态比对原CreateFontW参数、布局/栅格尺寸及绘制设置，再执行本轮编译。遵守现有不运行客户端/测试限制，不以编译结果声称视觉验收完成。
+
 ## 授权与范围
 
 - 2026-10-19 用户确认使用英文 YAML、按字体 ID 的 map 存储、查询缺失时回退 0 号，并要求先写 SPEC 再执行。

@@ -22,7 +22,7 @@ enum AnimeActionFlag : std::uint16_t {
     AnimeActionFlag_Light = 0x0008,
     AnimeActionFlag_Field = 0x0010,
     AnimeActionFlag_Shield = 0x0020,
-    AnimeActionFlag_Title = 0x0040, // 仅保留资源位值；当前4.06消费未证。
+    AnimeActionFlag_Title = 0x0040, // AT01自定义：底部中心贴人物顶部中心，本人物挂件组置顶。
     AnimeActionFlag_LockPos = 0x0080, // 不叠加人物Coordinate，仍可叠加坐骑Coordinate。
     AnimeActionFlag_ChPal = 0x0100, // 仅保留资源位值；图档前两字节指定调色板的消费未证。
     AnimeActionFlag_Wing = 0x0200, // 主挂件方向遮挡、动作及部分帧跟随。

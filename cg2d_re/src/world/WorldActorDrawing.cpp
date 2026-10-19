@@ -4,6 +4,8 @@
 #include "../Yobi/window.hpp"
 #include "../Yobi/map_actor.hpp"
 #include "../Yobi/battle_base.hpp"
+#include "../Yobi/battle_attachment.hpp"
+#include "../Yobi/animation.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "WorldObjectState.hpp"
 #include "cg/world/Blacklist.hpp"
@@ -643,6 +645,13 @@ void RenderChara_521F20()
         const std::int32_t queuedImageNo = record->imageNo;
         if (queuedImageNo >= 3096 && queuedImageNo <= 3105) {
             render::gSpecialGraphicPending = 1;
+        }
+        if (const auto* const anchor = cg::yobi::detail::GetBattleTitleAnchor(action)) {
+            // 此时人物和骑乘均已更新；在最终队列坐标处对齐，避免叠加称号自身偏移。
+            if (!cg::yobi::detail::GetYobiTitleTopLeft(anchor, action, true, record->x, record->y)) {
+                action->cacheIndex = -2;
+                continue;
+            }
         }
         ++platform::gPendingGraphicCount;
         ++order;

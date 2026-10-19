@@ -18,5 +18,8 @@ std::int32_t PlayFrame_517DA0(
 std::uint16_t GetYobiAnimeActionFlags(const YobiAction* action) noexcept;
 void GetYobiAttachmentCoordinate(
     const YobiAction* action, std::int32_t& x, std::int32_t& y, bool applyFlip = true) noexcept;
+// AT01：完整帧矩形对齐，输出称号左上角；地图不缩放，战斗使用各对象实际缩放。
+bool GetYobiTitleTopLeft(const YobiAction* actor, const YobiAction* title,
+    bool scaled, std::int32_t& x, std::int32_t& y);
 
 } // namespace cg::yobi::detail

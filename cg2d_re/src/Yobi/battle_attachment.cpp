@@ -188,6 +188,21 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     action->y = parent->y + static_cast<std::int16_t>(yOffset);
 }
 
+const YobiAction* GetBattleTitleAnchor(const YobiAction* const action)
+{
+    if (action->callback != UpdateBattleAttachment_421F90
+        || (GetYobiAnimeActionFlags(action) & resource::animation::AnimeActionFlag_Title) == 0) {
+        return nullptr;
+    }
+    const YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent == nullptr || parent->payloadKind != YobiPayloadKind::BattleActor
+        || parent->payload.battleActor->gear13B4 != action) {
+        return nullptr;
+    }
+    const YobiAction* const rider = parent->payload.battleActor->rider13C8;
+    return rider != nullptr ? rider : parent;
+}
+
 // AF406：战斗排序完成后承接4.06@46E910后的WING/FIELD/SHIELD层选择。
 void ResolveBattleGearLayer406(YobiAction* const action)
 {
@@ -201,6 +216,9 @@ void ResolveBattleGearLayer406(YobiAction* const action)
         return;
     }
     const std::uint16_t flags = GetYobiAnimeActionFlags(action);
+    if ((flags & AnimeActionFlag_Title) != 0) {
+        return; // AT01：保留排序器分配的本人物挂件组最前景层。
+    }
     if ((flags & AnimeActionFlag_Wing) != 0) {
         // 本线每个对象独立分配层；保留正常前景层，只把背向挂件放到人物之前。
         if (parent->direction >= 4 && parent->direction <= 6) {

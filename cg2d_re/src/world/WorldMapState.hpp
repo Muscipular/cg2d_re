@@ -24,6 +24,8 @@ std::int32_t CachePrimaryMapGraphic_46BD60(
 void CacheMapObjectGraphic_46DFF0(
     std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
     std::int16_t x, std::int16_t y, const render::GraphicDescriptor16* descriptor);
+// AT01：before=2将称号插到前景链头，队列逆序绘制时位于该人物挂件最上方。
+inline constexpr std::int32_t kMapAttachmentFrontmost = 2;
 // 原 46C060：挂接主项的前绘/后绘链；batch 保留低 W8，不布尔化。
 void DrawGearNormal_46C060(
     std::int32_t primaryIndex, std::int32_t before, std::int32_t imageNo,

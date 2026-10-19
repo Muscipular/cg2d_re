@@ -484,7 +484,11 @@ void DrawGearNormal_46C060(
         return;
     }
     detail::MapDrawRecord* tail = detail::gMapDrawPrimary9EE918.data() + primaryIndex;
-    if (before != 0) {
+    detail::MapDrawRecord* nextForeground = nullptr;
+    if (before == kMapAttachmentFrontmost) {
+        nextForeground = tail->before;
+        tail->before = detail::gMapDrawAttachments9E0438.data() + initialCount;
+    } else if (before != 0) {
         while (tail->before != nullptr) {
             tail = tail->before;
         }
@@ -507,8 +511,16 @@ void DrawGearNormal_46C060(
     record.batchType = batchType;
     record.sourceIndex = primaryIndex;
     detail::WriteMapDrawDescriptor(record.descriptor, descriptor);
-    record.before = nullptr;
+    record.before = nextForeground;
     record.after = nullptr;
+    if (before == kMapAttachmentFrontmost && detail::gMapDrawPrimary9EE918[primaryIndex].descriptor.clipMode == 1) {
+        // DrawGraphic3不加图形XY；与人物当前裁剪路径使用同一基点差。
+        std::int16_t actorX, actorY, titleX, titleY;
+        resource::GetGraphicXY(detail::gMapDrawPrimary9EE918[primaryIndex].imageNo, &actorX, &actorY);
+        resource::GetGraphicXY(imageNo, &titleX, &titleY);
+        record.x = static_cast<std::int16_t>(x + titleX - actorX);
+        record.y = static_cast<std::int16_t>(y + titleY - actorY);
+    }
     detail::gMapAttachmentDrawCount_9A7F78 = static_cast<std::uint32_t>(count + 1);
 }
 

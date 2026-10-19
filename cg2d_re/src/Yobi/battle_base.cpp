@@ -843,6 +843,29 @@ std::int32_t SortBattleActions_405C30()
         [](YobiAction* const left, YobiAction* const right) {
             return detail::CompareBattleDrawActions_405BD0(&left, &right) < 0;
         });
+    // AT01：先将每个主称号移到本人物/骑乘/辅助挂件之后，再分配原有层号。
+    // 其他对象相互次序保持，不把称号提至场景固定高层。
+    for (std::uint32_t titleIndex = 0; titleIndex < count; ++titleIndex) {
+        YobiAction* const title = detail::gDrawYobiList59E57C[titleIndex];
+        if (detail::GetBattleTitleAnchor(title) == nullptr) {
+            continue;
+        }
+        const YobiAction* const parent = title->battleAttachmentParent10;
+        std::uint32_t last = titleIndex;
+        for (std::uint32_t sibling = titleIndex + 1; sibling < count; ++sibling) {
+            const YobiAction* const candidate = detail::gDrawYobiList59E57C[sibling];
+            if (candidate == parent || (candidate->callback == detail::UpdateBattleAttachment_421F90
+                && candidate->battleAttachmentParent10 == parent)) {
+                last = sibling;
+            }
+        }
+        if (last != titleIndex) {
+            std::rotate(detail::gDrawYobiList59E57C.begin() + titleIndex,
+                detail::gDrawYobiList59E57C.begin() + titleIndex + 1,
+                detail::gDrawYobiList59E57C.begin() + last + 1);
+            --titleIndex; // 重查移到当前位置的对象，避免漏过另一人物的称号。
+        }
+    }
     std::int32_t index = 0;
     if (detail::gDrawYobiCount59E578 > 0) {
         do {

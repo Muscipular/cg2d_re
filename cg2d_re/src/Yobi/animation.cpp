@@ -32,6 +32,31 @@ void GetYobiAttachmentCoordinate(
     y = coordinateY;
 }
 
+bool GetYobiTitleTopLeft(const YobiAction* const actor, const YobiAction* const title,
+    const bool scaled, std::int32_t& x, std::int32_t& y)
+{
+    if (actor->graphicIndex < 0 || title->graphicIndex < 0
+        || render::LoadGraphic_522570(actor->graphicIndex) == 0
+        || render::LoadGraphic_522570(title->graphicIndex) == 0) {
+        return false;
+    }
+    const float actorScaleX = scaled ? actor->scaleX : 1.0F;
+    const float actorScaleY = scaled ? actor->scaleY : 1.0F;
+    const float titleScaleX = scaled ? title->scaleX : 1.0F;
+    const float titleScaleY = scaled ? title->scaleY : 1.0F;
+    const auto actorWidth = static_cast<std::int32_t>(render::ReadGraphicDxWidth(actor->graphicIndex) * static_cast<double>(actorScaleX));
+    const auto titleWidth = static_cast<std::int32_t>(render::ReadGraphicDxWidth(title->graphicIndex) * static_cast<double>(titleScaleX));
+    const auto titleHeight = static_cast<std::int32_t>(render::ReadGraphicDxHeight(title->graphicIndex) * static_cast<double>(titleScaleY));
+    if (actorWidth <= 0 || titleWidth <= 0 || titleHeight <= 0) {
+        return false;
+    }
+    // graphicOffset已包含当前帧坐标与翻转修正；称号自身偏移不再重复叠加。
+    x = actor->x + static_cast<std::int32_t>(actor->graphicOffsetX * static_cast<double>(actorScaleX))
+        + (actorWidth - titleWidth) / 2;
+    y = actor->y + static_cast<std::int32_t>(actor->graphicOffsetY * static_cast<double>(actorScaleY)) - titleHeight;
+    return true;
+}
+
 // 原两播放入口的同源翻转段；只有真实图形加载非零后才按需读取各个 DX 尺寸。
 static void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraphicIndex)
 {

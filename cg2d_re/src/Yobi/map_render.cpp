@@ -376,6 +376,17 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
             || ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0 && parent->characterAction == 10))) {
         return;
     }
+    if ((flags & AnimeActionFlag_Title) != 0) {
+        std::int32_t titleX, titleY;
+        if (!GetYobiTitleTopLeft(parent, gear, false, titleX, titleY)) {
+            return;
+        }
+        std::int16_t graphicX, graphicY;
+        resource::GetGraphicXY(gear->graphicIndex, &graphicX, &graphicY);
+        world::DrawGearNormal_46C060(primaryIndex, world::kMapAttachmentFrontmost, gear->graphicIndex,
+            static_cast<std::int16_t>(titleX - graphicX), static_cast<std::int16_t>(titleY - graphicY), &gear->drawMode, 0);
+        return;
+    }
     // 4.06@4365A6/43695F：WING共享关联主体的绘制基点，不叠加翅膀动画帧偏移。
     YobiAction* const origin = (flags & AnimeActionFlag_Wing) != 0 ? (ride != nullptr ? ride : parent) : gear;
     const std::int32_t x = origin->x + static_cast<std::int16_t>(offsetX) + GetYobiGraphicOriginOffset_5182B0(origin, 0);

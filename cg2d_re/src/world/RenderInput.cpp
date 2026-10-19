@@ -81,8 +81,8 @@ static void DrawCandidateEntry(
 {
     const std::int32_t oldUnits = units; // UTL01：本地累计值现在是实际像素，非旧GBK字节列。
     input::InputContext* const context = input::gCurrentInputData;
-    const std::int32_t fontType = context->field13C;
-    const std::int32_t height = render::gFontMetrics[static_cast<std::size_t>(fontType)].doubleHeight;
+    const std::int32_t fontType = render::ResolveFontId(context->field13C);
+    const std::int32_t height = render::GetFontMetrics(fontType).doubleHeight;
     const std::wstring number = std::to_wstring(std::bit_cast<std::int32_t>(pageIndex + 1U));
     const std::int32_t numberWidth = cg::render::TextMeasure(number, fontType);
     const std::int32_t left = (context->x + targetStart) + oldUnits;
@@ -147,7 +147,7 @@ void RenderInput_4590E0()
             static_cast<void>(ImmGetDescriptionW(keyboardLayout, description.data(), static_cast<UINT>(description.size())));
             const std::wstring contents(description.data());
             std::size_t end = 0;
-            const std::int32_t widthLimit = render::gFontMetrics[1].sWidth * 10;
+            const std::int32_t widthLimit = render::GetFontMetrics(1).sWidth * 10;
             while (end < contents.size()) {
                 const std::size_t next = text::Next(contents, end);
                 if (render::Font::measure(contents, 1, static_cast<std::int32_t>(next)) > widthLimit) {
@@ -186,7 +186,7 @@ void RenderInput_4590E0()
     const std::int32_t renderMode = context->field138;
     const std::uint8_t baseLayer = renderMode == 0 ? 0xD2U : 0xE0U;
     const std::uint8_t compositionModeByte = static_cast<std::uint8_t>(context->field138);
-    const std::int32_t compositionFontType = context->field13C;
+    const std::int32_t compositionFontType = render::ResolveFontId(context->field13C);
     const std::int8_t compositionMode = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(compositionModeByte + 1U));
     const std::int32_t compositionY = context->y;
@@ -202,8 +202,7 @@ void RenderInput_4590E0()
     const std::int32_t boxY = boxContext->y;
     const std::int32_t boxX = boxContext->x;
     const std::int32_t boxFontType = boxContext->field13C;
-    const std::int32_t boxHeight = render::gFontMetrics[
-        static_cast<std::size_t>(boxFontType)].doubleHeight;
+    const std::int32_t boxHeight = render::GetFontMetrics(boxFontType).doubleHeight;
     cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(boxX - 1), static_cast<std::uint16_t>(boxY - 1),
         static_cast<std::uint16_t>(boxX + compositionWidth), static_cast<std::uint16_t>(boxY + boxHeight),
@@ -233,8 +232,7 @@ void RenderInput_4590E0()
         const std::int32_t highlightY = highlightContext->y;
         const std::int32_t highlightX = highlightContext->x;
         const std::int32_t highlightFontType = highlightContext->field13C;
-        const std::int32_t highlightHeight = render::gFontMetrics[
-            static_cast<std::size_t>(highlightFontType)].doubleHeight;
+        const std::int32_t highlightHeight = render::GetFontMetrics(highlightFontType).doubleHeight;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>((highlightX + targetStart) - 1),
             static_cast<std::uint16_t>(highlightY - 1),

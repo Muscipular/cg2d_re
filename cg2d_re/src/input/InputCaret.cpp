@@ -18,13 +18,13 @@ static void DrawBasicCaret()
 {
     input::InputContext* const context = input::gCurrentInputData;
     const std::int32_t color = context->field140;
-    const std::int32_t fontType = context->field13C;
+    const std::int32_t fontType = render::ResolveFontId(context->field13C);
     const std::int8_t renderMode = static_cast<std::int8_t>(
         static_cast<std::uint8_t>(context->field138) + 1U);
     const std::int32_t y = context->y;
     const std::int32_t x = context->x;
     const std::int32_t halfCaretWidth =
-        render::gFontMetrics[static_cast<std::size_t>(fontType)].sWidth
+        render::GetFontMetrics(fontType).sWidth
         / 2;
     const std::int32_t drawX = x - halfCaretWidth;
     static_cast<void>(render::DrawText2_456670(
@@ -42,7 +42,7 @@ static void DrawImeCaret()
     input::InputContext* const preMeasureContext =
         input::gCurrentInputData;
     const std::int32_t color = preMeasureContext->field140;
-    const std::int32_t fontType = preMeasureContext->field13C;
+    const std::int32_t fontType = render::ResolveFontId(preMeasureContext->field13C);
     const std::int8_t renderMode = static_cast<std::int8_t>(
         static_cast<std::uint8_t>(preMeasureContext->field138) + 1U);
     const std::int32_t y = preMeasureContext->y;
@@ -60,8 +60,7 @@ static void DrawImeCaret()
         postMeasureContext->field13C;
     const std::int32_t postMeasureX = postMeasureContext->x;
     const std::int32_t halfCaretWidth =
-        render::gFontMetrics[
-            static_cast<std::size_t>(postMeasureFontType)].sWidth
+        render::GetFontMetrics(postMeasureFontType).sWidth
         / 2;
     const std::int32_t drawX = measuredWidth + (postMeasureX - halfCaretWidth);
     static_cast<void>(render::DrawText2_456670(

@@ -820,7 +820,7 @@ static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
 void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents)
 {
     const auto font = std::to_integer<std::uint8_t>(first->style.font);
-    const auto rows = render::Font::split(contents, font, 20 * render::gFontMetrics[font].sWidth);
+    const auto rows = render::Font::split(contents, font, 20 * render::GetFontMetrics(font).sWidth);
     const std::size_t prefix = rows.front().size();
     first->text = contents.substr(0, prefix);
     second->text = contents.substr(prefix);
@@ -1496,7 +1496,7 @@ std::int32_t WindowItem_SplitTooltipLines(
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-            renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
+            renderMode, static_cast<std::int8_t>(render::ResolveFontId(fontType)),
             color, prefix, value7, marker));
         x += cg::render::TextMeasure(prefix, fontType);
         text.remove_prefix(delimiter + 2);
@@ -1508,7 +1508,7 @@ std::int32_t WindowItem_SplitTooltipLines(
     return render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-        renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
+        renderMode, static_cast<std::int8_t>(render::ResolveFontId(fontType)),
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gTooltipColorD67D30)),
         text, value7, marker);
 }

@@ -42,7 +42,7 @@ static bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& w
     }
     const std::uint8_t fontType = text.fontType;
     const std::int32_t y = text.y;
-    const std::int32_t height = render::gFontMetrics[fontType].doubleHeight;
+    const std::int32_t height = render::GetFontMetrics(fontType).doubleHeight;
     if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height + 2))) {
         return false;
     }
@@ -232,7 +232,7 @@ void UpdateQueuedTextAndGraphicHover_507140()
                     x = selected.x;
                     marker = selected.marker;
                 }
-                const std::int32_t height = render::gFontMetrics[selected.fontType].doubleHeight;
+                const std::int32_t height = render::GetFontMetrics(selected.fontType).doubleHeight;
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 3), static_cast<std::uint16_t>(y - 4),
                     static_cast<std::uint16_t>(x + width + 2), static_cast<std::uint16_t>(y + height + 4),

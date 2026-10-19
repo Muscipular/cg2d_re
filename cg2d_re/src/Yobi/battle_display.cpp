@@ -145,10 +145,10 @@ YobiAction* NewBattleText_4217F0(
     const std::int32_t count = payload->lineCount08;
     std::int32_t height = 80;
     if (count > 0) {
-        height = render::gFontMetrics[payload->fontType0C].sHeight + 80;
+        height = render::GetFontMetrics(payload->fontType0C).sHeight + 80;
     }
     if (count > 1) {
-        height += count * (render::gFontMetrics[payload->fontType0C].sHeight + 1);
+        height += count * (render::GetFontMetrics(payload->fontType0C).sHeight + 1);
     }
     payload->panel00 = CreateModalAction_5044E0((640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
     static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -389,7 +389,7 @@ std::int32_t NewBattleNumber_41F1A0(
         static_cast<void>(resource::GetGraphicXY(
             static_cast<std::uint32_t>(action->graphicIndex), &graphicX, &graphicY));
         const double graphicOffsetX = graphicX;
-        const std::int32_t advance = render::gFontMetrics[fontType].sWidth * index;
+        const std::int32_t advance = render::GetFontMetrics(fontType).sWidth * index;
         action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
         action->offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
         const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
@@ -456,7 +456,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         static_cast<void>(resource::GetGraphicXY(
             static_cast<std::uint32_t>(action->graphicIndex), &graphicX, &graphicY));
         const std::int32_t graphicXValue = graphicX;
-        const std::int32_t fontWidth = render::gFontMetrics[2].sWidth;
+        const std::int32_t fontWidth = render::GetFontMetrics(2).sWidth;
         const double graphicOffsetX = graphicXValue;
         const std::int32_t advance = fontWidth * index;
         action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);

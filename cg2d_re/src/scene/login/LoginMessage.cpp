@@ -233,7 +233,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     if (gMessageState == 0) {
         gMessageState = 1;
         const std::int32_t messageHeight =
-            (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2) + 96;
+            (lineCount - 1) * (cg::render::GetFontMetrics(0).doubleHeight + 2) + 96;
         gMessageResult = -2;
         gMessageLayout.width = RoundMessageWidth(maximumTextWidth);
         gMessageLayout.height = messageHeight;
@@ -249,7 +249,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     }
 
     const std::int32_t lineOffset =
-        (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2);
+        (lineCount - 1) * (cg::render::GetFontMetrics(0).doubleHeight + 2);
     const std::int32_t left = gMessageLayout.x + (gMessageLayout.width - 66) / 2;
     const std::int32_t top = gMessageLayout.y + lineOffset + 61;
     const bool hovered = cg::ui::HitTestMouseRect_5049A0(left, top, left + 66, top + 17, -1) != 0;
@@ -272,7 +272,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             + (gMessageLayout.width - maximumTextWidth) / 2;
         for (std::int32_t index = 0; index < lineCount; ++index) {
             const std::int32_t y = gMessageLayout.y
-                + index * (cg::render::gFontMetrics[0].doubleHeight + 2)
+                + index * (cg::render::GetFontMetrics(0).doubleHeight + 2)
                 + 30;
             cg::render::DrawText_456780(
                 static_cast<std::int16_t>(textX),
@@ -286,7 +286,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         }
 
         const std::int32_t graphicY = gMessageLayout.y
-            + (lineCount - 1) * (cg::render::gFontMetrics[0].doubleHeight + 2)
+            + (lineCount - 1) * (cg::render::GetFontMetrics(0).doubleHeight + 2)
             + 69;
         cg::render::DrawGraphic(
             gMessageLayout.x + gMessageLayout.width / 2,

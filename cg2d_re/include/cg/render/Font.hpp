@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -22,12 +21,13 @@ struct FontMetrics {
     std::uint8_t field17; // 原成员偏移：+0x17。
 };
 
-inline constexpr std::size_t kFontTypeCount = 14;
+inline constexpr std::int32_t kMaxFontId = 32;
 
-// 原 gFontList@0x558F68 的唯一地址中性度量状态，索引有效域为 0..13。
-extern std::array<FontMetrics, kFontTypeCount> gFontMetrics;
+// FC01：查询私有字体map；未注册或加载失败时统一回退0号，不插入新条目。
+[[nodiscard]] std::int32_t ResolveFontId(std::int32_t id) noexcept;
+[[nodiscard]] const FontMetrics& GetFontMetrics(std::int32_t id) noexcept;
 
-// 原 456190/456530；GDI 句柄由字体边界唯一持有，退出后保留原槽残值。
+// 原456190/456530；FC01统一管理字体、私有集合和GDI+会话，支持重复初始化/释放。
 std::int32_t InitializeFont_456190(std::int32_t family);
 // 原函数：0x00456530。
 std::int32_t ReleaseFont_456530();

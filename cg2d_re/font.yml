@@ -1,0 +1,84 @@
+# UTF-8. Paths are relative to this file. Restart the client after editing.
+# Optional: file: "fonts/custom.ttf"
+# id: 0..32; width: half-width pixels; height: cell pixels.
+# style: normal / italic; weight: 400 / 700.
+# Missing or failed IDs fall back to 0. ID 6 had no original font handle.
+fonts:
+  - id: 0
+    family: "SimSun"
+    width: 9
+    height: 17
+    style: normal
+    weight: 700
+  - id: 1
+    family: "SimSun"
+    width: 8
+    height: 15
+    style: normal
+    weight: 700
+  - id: 2
+    family: "SimSun"
+    width: 11
+    height: 21
+    style: normal
+    weight: 700
+  - id: 3
+    family: "SimSun"
+    width: 9
+    height: 17
+    style: normal
+    weight: 700
+  - id: 4
+    family: "SimSun"
+    width: 8
+    height: 15
+    style: normal
+    weight: 700
+  - id: 5
+    family: "SimSun"
+    width: 11
+    height: 21
+    style: normal
+    weight: 700
+  - id: 7
+    family: "SimSun"
+    width: 25
+    height: 49
+    style: normal
+    weight: 700
+  - id: 8
+    family: "SimSun"
+    width: 5
+    height: 11
+    style: normal
+    weight: 400
+  - id: 9
+    family: "SimSun"
+    width: 6
+    height: 12
+    style: normal
+    weight: 400
+  - id: 10
+    family: "SimSun"
+    width: 8
+    height: 16
+    style: normal
+    weight: 400
+  - id: 11
+    family: "SimSun"
+    width: 10
+    height: 20
+    style: normal
+    weight: 400
+  - id: 12
+    family: "SimSun"
+    width: 6
+    height: 12
+    style: normal
+    weight: 400
+  - id: 13
+    family: "SimSun"
+    width: 7
+    height: 13
+    style: normal
+    weight: 700

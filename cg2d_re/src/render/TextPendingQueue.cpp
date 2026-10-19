@@ -113,7 +113,7 @@ std::int32_t DrawText2_456670(
     entry.y = y;
     entry.renderMode = std::bit_cast<std::uint8_t>(renderMode);
     entry.color = std::bit_cast<std::uint8_t>(color);
-    entry.fontType = std::bit_cast<std::uint8_t>(fontType);
+    entry.fontType = static_cast<std::uint8_t>(ResolveFontId(fontType));
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = 0xF9;
 
@@ -170,7 +170,7 @@ std::int32_t DrawText_456780(
     entry.y = y;
     entry.renderMode = renderMode;
     entry.color = std::bit_cast<std::uint8_t>(color);
-    entry.fontType = std::bit_cast<std::uint8_t>(fontType);
+    entry.fontType = static_cast<std::uint8_t>(ResolveFontId(fontType));
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = std::bit_cast<std::uint8_t>(marker);
 

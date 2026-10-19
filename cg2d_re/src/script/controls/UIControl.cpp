@@ -101,7 +101,7 @@ static int MeasureAcpChar(const char* text, int offset, int length, char fontTyp
     memcpy(ch, text + offset, length);
     int width = FontMeasure(ch, fontType, length);
     if (width <= 0) {
-        width = render::gFontMetrics[static_cast<uint8_t>(fontType)].sWidth * length;
+        width = render::GetFontMetrics(fontType).sWidth * length;
     }
     return width;
 }
@@ -115,7 +115,7 @@ void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char f
         return;
     }
 
-    const auto& font = render::gFontMetrics[static_cast<uint8_t>(fontType)];
+    const auto& font = render::GetFontMetrics(fontType);
     int fontHeight = font.fontHeight > 0 ? font.fontHeight : font.sHeight;
     if (fontHeight <= 0) {
         fontHeight = 16;

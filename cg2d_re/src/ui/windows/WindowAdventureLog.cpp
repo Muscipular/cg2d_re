@@ -142,7 +142,7 @@ static void WindowAdventureLog_Load()
     while (std::feof(current) == 0) {
         char buffer[3000] {};
         static_cast<void>(std::fgets(buffer, 1000, current));
-        const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
+        const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::GetFontMetrics(0).sWidth);
         gLoginWindowRuntime.logViewerMaximumD67BB4 += static_cast<std::int32_t>(lines.size()) - 1;
         const std::int32_t count = gLoginWindowRuntime.logViewerMaximumD67BB4;
         current = gLoginWindowRuntime.logViewerFileD67BB8;
@@ -165,7 +165,7 @@ static void WindowAdventureLog_Refresh()
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
         static_cast<void>(::_fseeki64(gLoginWindowRuntime.logViewerFileD67BB8, 0, SEEK_SET));
         while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
-            const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
+            const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::GetFontMetrics(0).sWidth);
             rows.insert(rows.end(), lines.begin(), lines.end());
         }
         for (std::int32_t line = 0; line < 14; ++line) {

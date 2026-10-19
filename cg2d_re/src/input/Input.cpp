@@ -153,7 +153,7 @@ void SetVisibleUtf16Offset(InputContext& context, const std::size_t utf16Offset)
 std::vector<TextLine> SplitLines(const InputContext& context)
 {
     const std::wstring contents = ContextText(context);
-    const std::int32_t widthLimit = context.maxCharPerLine * render::gFontMetrics[static_cast<std::size_t>(context.field13C)].sWidth;
+    const std::int32_t widthLimit = context.maxCharPerLine * render::GetFontMetrics(context.field13C).sWidth;
     std::vector<TextLine> lines;
     std::size_t start = 0;
     do {

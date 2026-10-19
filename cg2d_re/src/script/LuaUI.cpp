@@ -1443,7 +1443,7 @@ LuaFunctionEx(LuaControlRef, Set) {
             textData->text = LuaGetStringField(L, 2, "text", textData->text.c_str());
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
-            textData->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textData->font)) & 0xff);
+            textData->font = static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textData->font))));
         }
         if (LuaHasField(L, 2, "color")) {
             textData->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", textData->color) & 0xff);
@@ -1459,7 +1459,7 @@ LuaFunctionEx(LuaControlRef, Set) {
             control->setTextInputText(value.c_str());
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
-            textInputData->font = static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textInputData->font)) & 0xff);
+            textInputData->font = static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textInputData->font))));
         }
         if (LuaHasField(L, 2, "color")) {
             textInputData->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", textInputData->color) & 0xff);
@@ -1750,7 +1750,7 @@ LuaFunctionEx(LuaWindowRef, AddText) {
     int parentId = LuaReadParentId(L, 2, window);
     UIControl::TextData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
-        static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)) & 0xff),
+        static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         LuaGetStringField(L, 2, "text", "")
     };
     auto control = window->AddText(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
@@ -1779,7 +1779,7 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
     int parentId = LuaReadParentId(L, 2, window);
     UIControl::TextInputData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
-        static_cast<uint8_t>(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)) & 0xff),
+        static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", TEXT_INPUT_MAX_LENGTH)),
         LuaGetStringField(L, 2, "text", "")
     };

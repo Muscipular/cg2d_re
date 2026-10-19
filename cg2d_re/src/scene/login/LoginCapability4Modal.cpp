@@ -102,7 +102,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         const std::int32_t roundedWidth = MultiplyW32(
             AddW32(maximumTextWidth, 95) / 64,
             64);
-        const std::int32_t lineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+        const std::int32_t lineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
         const std::int32_t lineOffset = MultiplyW32(
             SubtractW32(lineCount, 1),
             lineStep);
@@ -127,7 +127,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
 
     const std::int32_t lastLineIndex = SubtractW32(lineCount, 1);
 
-    const std::int32_t leftHitLineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+    const std::int32_t leftHitLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t leftHitBaseY = AddW32(
         gCapability4ModalY,
         MultiplyW32(lastLineIndex, leftHitLineStep));
@@ -147,7 +147,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         leftHitBottom,
         -1) != 0;
 
-    const std::int32_t rightHitLineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+    const std::int32_t rightHitLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t rightHitBaseY = AddW32(
         gCapability4ModalY,
         MultiplyW32(lastLineIndex, rightHitLineStep));
@@ -199,7 +199,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     wchar_t* drawLine = splitText.data();
     std::int32_t lineIndex = 0;
     while (lineIndex < lineCount) {
-        const std::int32_t textLineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+        const std::int32_t textLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
         const std::int32_t textY = AddW32(
             AddW32(
                 gCapability4ModalY,
@@ -221,7 +221,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         lineIndex = AddW32(lineIndex, 1);
     }
 
-    const std::int32_t leftGraphicLineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+    const std::int32_t leftGraphicLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t leftGraphicY = AddW32(
         AddW32(
             gCapability4ModalY,
@@ -240,7 +240,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         &kGraphicDescriptor);
 
     const std::int32_t rightGraphicYBase = gCapability4ModalY;
-    const std::int32_t rightGraphicLineStep = AddW32(cg::render::gFontMetrics[0].doubleHeight, 2);
+    const std::int32_t rightGraphicLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t rightGraphicY = AddW32(
         AddW32(
             rightGraphicYBase,

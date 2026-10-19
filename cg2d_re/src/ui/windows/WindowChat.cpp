@@ -257,30 +257,30 @@ static void WindowChat_RefreshGeometry()
     gChatHeightRequestC9A93C = 0;
     gChatWidthUnitsC9A930 = width;
     if (width > 37) {
-        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 12;
         window->x += 26 * fontWidth;
     }
     if (gChatWidthUnitsC9A930 < 12) {
-        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 37;
         window->x -= 26 * fontWidth;
     }
     if (gChatWidthRequestC9A934 == 1) {
         WindowInstance* const window = gWindowStates[WindowId_Chat].window;
-        window->x -= render::gFontMetrics[9].doubleWidth;
+        window->x -= render::GetFontMetrics(9).doubleWidth;
     }
     if (gChatWidthRequestC9A934 == -1) {
         WindowInstance* const window = gWindowStates[WindowId_Chat].window;
-        window->x += render::gFontMetrics[9].doubleWidth;
+        window->x += render::GetFontMetrics(9).doubleWidth;
     }
     const std::int32_t currentWidth = gChatWidthUnitsC9A930;
     WindowInstance* const firstWindow = gCurrentWindow;
     gChatWidthRequestC9A934 = 0;
     WindowElement* const firstElements = firstWindow->elements;
-    const std::int32_t inputWidth = (currentWidth + 1) * render::gFontMetrics[9].doubleWidth;
+    const std::int32_t inputWidth = (currentWidth + 1) * render::GetFontMetrics(9).doubleWidth;
     auto* graphic = static_cast<WindowGraphicData*>(firstElements[15].data);
     const std::int32_t dragWidth = inputWidth + 111;
     graphic->width = inputWidth;
@@ -293,7 +293,7 @@ static void WindowChat_RefreshGeometry()
     graphic->width = dragWidth;
     const std::int32_t backgroundRows = gChatHeightUnitsC9A938 - 1;
     const std::int32_t backgroundHeight =
-        backgroundRows * render::gFontMetrics[9].doubleWidth;
+        backgroundRows * render::GetFontMetrics(9).doubleWidth;
     graphic->height = backgroundHeight;
     gCurrentWindow->elements[17].y = -backgroundHeight;
     WindowElement* elements = gCurrentWindow->elements;
@@ -310,40 +310,40 @@ static void WindowChat_RefreshGeometry()
     gCurrentWindow->elements[2].width = inputWidth + 125;
     const std::int32_t rows = gChatHeightUnitsC9A938 - 1;
     WindowInstance* const hitWindow = gCurrentWindow;
-    const std::int32_t hitHeight = rows * render::gFontMetrics[9].doubleWidth;
+    const std::int32_t hitHeight = rows * render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollX = inputWidth + 97;
     hitWindow->elements[2].height = hitHeight + 16;
     gCurrentWindow->elements[9].x = scrollX;
-    const std::int32_t scrollFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t scrollFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollY = 17 - scrollFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[9].y = scrollY;
     gCurrentWindow->elements[9].width = 14;
-    const std::int32_t scrollHeightFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t scrollHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollHeight =
         scrollHeightFontWidth * gChatHeightUnitsC9A938 - 28;
     gCurrentWindow->elements[9].height = scrollHeight;
     gCurrentWindow->elements[10].x = scrollX;
-    const std::int32_t trackYFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t trackYFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackY = 17 - trackYFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[10].y = trackY;
     gCurrentWindow->elements[10].width = 14;
-    const std::int32_t trackHeightFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t trackHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackHeight =
         trackHeightFontWidth * gChatHeightUnitsC9A938 - 28;
     gCurrentWindow->elements[10].height = trackHeight;
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->width = 14;
-    const std::int32_t trackGraphicFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t trackGraphicFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackGraphicHeight =
         trackGraphicFontWidth * gChatHeightUnitsC9A938 - 28;
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->height = trackGraphicHeight;
     gCurrentWindow->elements[11].x = scrollX;
-    const std::int32_t upFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t upFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t upY = 4 - upFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[11].y = upY;
     gCurrentWindow->elements[12].x = scrollX;
     gCurrentWindow->elements[12].y = -12;
     gCurrentWindow->elements[13].x = scrollX;
-    const std::int32_t upHitFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t upHitFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t upHitY = -upHitFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[13].y = upHitY;
     gCurrentWindow->elements[14].x = scrollX;
@@ -801,7 +801,7 @@ void WindowChat_DrawInput(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
-    const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t widthUnits = gChatWidthUnitsC9A930;
     const std::int32_t width = fontWidth * widthUnits;
     WindowInput_ScrollAndDraw(context, width);
@@ -823,10 +823,10 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
     std::int32_t totalHeight = 0;
     std::int32_t width;
     if (gChatWindowModeD66E04 == 1) {
-        width = render::gFontMetrics[9].doubleWidth * 44;
+        width = render::GetFontMetrics(9).doubleWidth * 44;
     } else {
         const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;
-        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         width = widthUnits * fontWidth;
     }
     std::int32_t logIndex = world::gChatWriteIndex_626C08;
@@ -836,12 +836,9 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
         logIndex = 511;
     }
     for (auto& record : world::gRecords5FB7F8) {
-        if (record.fontType > 14 || WindowChat_PreviousFont(logIndex) < 0) {
-            record.fontType = 0;
-        }
+        record.fontType = render::ResolveFontId(record.fontType);
     }
-    std::int32_t drawY = y - render::gFontMetrics[
-        world::gRecords5FB7F8[logIndex].fontType].doubleHeight;
+    std::int32_t drawY = y - render::GetFontMetrics(world::gRecords5FB7F8[logIndex].fontType).doubleHeight;
     std::int32_t processedRecords = 0;
     for (;;) {
         auto& source = world::gRecords5FB7F8[logIndex];
@@ -855,8 +852,8 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
             const wchar_t* row = rows.back().c_str();
             for (std::int32_t line = 0; line < lineCount; ++line) {
                 const std::int32_t font = record.fontType;
-                totalHeight += render::gFontMetrics[font].doubleHeight;
-                const std::int32_t fontHeight = render::gFontMetrics[9].doubleHeight;
+                totalHeight += render::GetFontMetrics(font).doubleHeight;
+                const std::int32_t fontHeight = render::GetFontMetrics(9).doubleHeight;
                 const std::int32_t heightUnits = gChatHeightUnitsC9A938;
                 const std::int32_t heightLimit = fontHeight * heightUnits;
                 if (totalHeight > heightLimit) {
@@ -875,19 +872,12 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
 
                 std::int32_t spacingFont;
                 if (line + 1 == lineCount) {
-                    const std::int32_t previous = WindowChat_PreviousFont(logIndex);
-                    if (previous > 14 || previous < 0) {
-                        WindowChat_PreviousFont(logIndex) = 0;
-                    }
-                    spacingFont = WindowChat_PreviousFont(logIndex);
+                    spacingFont = render::ResolveFontId(WindowChat_PreviousFont(logIndex));
                 } else {
-                    if (record.fontType > 14 || WindowChat_PreviousFont(logIndex) < 0) {
-                        record.fontType = 0;
-                    }
-                    spacingFont = record.fontType;
+                    spacingFont = render::ResolveFontId(record.fontType);
                 }
                 if (line + 1 < lineCount) { row = rows[static_cast<std::size_t>(lineCount - line - 2)].c_str(); }
-                drawY -= render::gFontMetrics[spacingFont].doubleHeight;
+                drawY -= render::GetFontMetrics(spacingFont).doubleHeight;
             }
         }
 

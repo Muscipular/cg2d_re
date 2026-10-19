@@ -37,7 +37,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
             }
             // 原0x004569E9..0x00456A19：按当前颜色／字体／模式／Y／X取样。
             const std::int32_t color = context->field140;
-            const std::int32_t fontType = context->field13C;
+            const std::int32_t fontType = ResolveFontId(context->field13C);
             const std::int8_t renderMode = static_cast<std::int8_t>(context->field138);
             const std::int32_t y = context->field134;
             const std::int32_t x = context->field130;
@@ -51,7 +51,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         entry.y = static_cast<std::int16_t>(context->field134);
         entry.renderMode = static_cast<std::uint8_t>(context->field138);
         entry.color = static_cast<std::uint8_t>(context->field140);
-        entry.fontType = static_cast<std::uint8_t>(context->field13C);
+        entry.fontType = static_cast<std::uint8_t>(ResolveFontId(context->field13C));
         entry.value7 = 0;
         const std::size_t visibleStart = input::ContextUtf16Offset(*context, context->field158);
         const std::wstring_view visible(contents.data() + visibleStart, contents.size() - visibleStart);

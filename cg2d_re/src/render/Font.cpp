@@ -1,5 +1,6 @@
 #include "cg/render/Font.hpp"
 #include "cg/text/Encoding.hpp"
+#include "cg/core/m_log.hpp"
 
 #include "cg/render/TextPendingQueue.hpp"
 #include "BackTextDrawing.hpp"
@@ -9,25 +10,25 @@
 #include <objidl.h>
 #include <gdiplus.h>
 #include <SDL3/SDL_surface.h>
+#include <yaml-cpp/yaml.h>
 
+#include <array>
 #include <bit>
 #include <cstring>
+#include <filesystem>
+#include <fstream>
 #include <limits>
 #include <map>
 #include <memory>
+#include <set>
+#include <stdexcept>
 #include <utility>
 #include <system_error>
 
 namespace cg::render {
 
-// 原0x005590E0：字体仍统一宋体；UTL01使用UTF-16字体名与CreateFontW。
+// 原0x005590E0：FC01保留宋体作为内置默认，配置可按ID覆盖。
 static constexpr wchar_t kFaceName5590E0[] = L"宋体";
-static std::array<const wchar_t*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
-    kFaceName5590E0, kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
-};
-
-// 原 gFontList 每项 +00 是 GDI 句柄；与 0x14 字节度量分开承载。
-static std::array<HFONT, kFontTypeCount> gFontHandles558F68 {}; // 原全局：0x00558F68。
 // R06：参考128项色表按D3DCOLOR_XRGB的实际宏位序承接，不按颜色名称交换通道。
 static constexpr std::array<std::uint32_t, 128> kTextColors {{
     0xFFFFFFFFU, 0xFF00FFFFU, 0xFFFF00FFU, 0xFF0000FFU, 0xFFFFFF00U, 0xFF00FF00U, 0xFFFF0000U, 0xFFA0A0A4U,
@@ -72,46 +73,154 @@ static const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
     return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
 }
 
-std::array<FontMetrics, kFontTypeCount> gFontMetrics {{ // 原全局：0x00558F68。
-    {9, 17, 17, 17, 0, 0, 0, 0},
-    {8, 15, 15, 15, 0, 0, 0, 0},
-    {11, 21, 21, 21, 0, 0, 0, 0},
-    {9, 17, 17, 17, 0, 0, 0, 0},
-    {8, 15, 15, 15, 0, 0, 0, 0},
-    {11, 21, 21, 21, 0, 0, 0, 0},
-    {11, 21, 21, 21, 1, 20, 0, 0},
-    {25, 49, 49, 49, -1, 48, 0, 0},
-    {5, 11, 10, 11, 0, 11, 0, 0},
-    {6, 12, 12, 12, -1, 12, 0, 0},
-    {8, 16, 16, 16, -1, 16, 0, 0},
-    {10, 20, 20, 20, -1, 20, 0, 0},
-    {6, 12, 12, 12, 0, 12, 0, 0},
-    {7, 13, 13, 13, 0, 12, 0, 0},
-}};
+// FC01：原字体表迁入font.yml；这里只保留0号兜底，单/双格宽度一致。
+static constexpr FontMetrics kFallbackFontMetrics {9, 17, 18, 17, 0, 17, 0, 0};
+
+// FC01：会话先于所有GDI+资源创建，并在它们释放后关闭。
+class FontSession final {
+public:
+    FontSession()
+    {
+        Gdiplus::GdiplusStartupInput startup;
+        if (Gdiplus::GdiplusStartup(&token_, &startup, nullptr) != Gdiplus::Ok) {
+            throw std::runtime_error("字体系统GDI+初始化失败");
+        }
+    }
+    ~FontSession() { Gdiplus::GdiplusShutdown(token_); }
+    FontSession(const FontSession&) = delete;
+    FontSession& operator=(const FontSession&) = delete;
+private:
+    ULONG_PTR token_ = 0;
+};
+
+// FC01：每项同时拥有度量与绘制字体；Font必须先于私有集合及HFONT销毁。
+struct FontResource final {
+    FontMetrics metrics {};
+    HFONT handle = nullptr;
+    std::unique_ptr<Gdiplus::PrivateFontCollection> collection;
+    std::unique_ptr<Gdiplus::Font> font;
+
+    ~FontResource()
+    {
+        font.reset();
+        if (handle != nullptr) { static_cast<void>(::DeleteObject(handle)); }
+    }
+};
+
+static std::unique_ptr<FontSession> gFontSession;
+static std::map<std::int32_t, std::unique_ptr<FontResource>> gFonts;
+
+std::int32_t ResolveFontId(const std::int32_t id) noexcept
+{
+    return gFonts.find(id) == gFonts.end() ? 0 : id;
+}
+
+const FontMetrics& GetFontMetrics(const std::int32_t id) noexcept
+{
+    const auto found = gFonts.find(ResolveFontId(id));
+    return found == gFonts.end() ? kFallbackFontMetrics : found->second->metrics;
+}
+
+// 配置边界严格按UTF-8解码；路径与族名不经过游戏协议的GBK转换。
+static std::wstring DecodeFontUtf8(const std::string& value)
+{
+    if (value.empty() || value.find('\0') != std::string::npos
+        || value.size() > static_cast<std::size_t>((std::numeric_limits<int>::max)())) {
+        throw std::runtime_error("字体名称或文件路径为空、含NUL或过长");
+    }
+    const int length = static_cast<int>(value.size());
+    const int count = ::MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, value.data(), length, nullptr, 0);
+    if (count == 0) { throw std::runtime_error("字体名称或路径不是有效UTF-8"); }
+    std::wstring result(static_cast<std::size_t>(count), L'\0');
+    if (::MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, value.data(), length, result.data(), count) != count) {
+        throw std::runtime_error("字体名称或路径UTF-8转换失败");
+    }
+    return result;
+}
+
+static std::unique_ptr<FontResource> LoadConfiguredFont(
+    const YAML::Node& entry, const std::filesystem::path& directory)
+{
+    const std::wstring familyName = DecodeFontUtf8(entry["family"].as<std::string>());
+    const int width = entry["width"].as<int>();
+    const int height = entry["height"].as<int>();
+    const std::string styleName = entry["style"].as<std::string>();
+    const int weight = entry["weight"].as<int>();
+    if (width < 1 || width > 255 || height < 1 || height > 255) {
+        throw std::runtime_error("width和height必须在1到255之间");
+    }
+    if (styleName != "normal" && styleName != "italic") {
+        throw std::runtime_error("style只支持normal或italic");
+    }
+    if (weight != 400 && weight != 700) { throw std::runtime_error("weight只支持400或700"); }
+    const int style = (weight == 700 ? Gdiplus::FontStyleBold : Gdiplus::FontStyleRegular)
+        | (styleName == "italic" ? Gdiplus::FontStyleItalic : Gdiplus::FontStyleRegular);
+    auto resource = std::make_unique<FontResource>();
+    if (entry["file"]) {
+        const auto file = directory / std::filesystem::path(DecodeFontUtf8(entry["file"].as<std::string>()));
+        resource->collection = std::make_unique<Gdiplus::PrivateFontCollection>();
+        if (resource->collection->AddFontFile(file.c_str()) != Gdiplus::Ok) {
+            throw std::runtime_error("字体文件无法加载或格式不受GDI+支持");
+        }
+    }
+    const Gdiplus::FontFamily family(familyName.c_str(), resource->collection.get());
+    if (family.GetLastStatus() != Gdiplus::Ok) { throw std::runtime_error("找不到指定字体族"); }
+    if (!family.IsStyleAvailable(style)) { throw std::runtime_error("字体族不支持指定风格或粗细"); }
+    const auto emHeight = family.GetEmHeight(style);
+    const auto lineSpacing = family.GetLineSpacing(style);
+    if (emHeight == 0 || lineSpacing == 0) { throw std::runtime_error("字体行距无效"); }
+    const Gdiplus::REAL size = static_cast<Gdiplus::REAL>(height) * emHeight / lineSpacing;
+    resource->font = std::make_unique<Gdiplus::Font>(&family, size, style, Gdiplus::UnitPixel);
+    if (resource->font->GetLastStatus() != Gdiplus::Ok) { throw std::runtime_error("创建配置字体失败"); }
+    resource->metrics = {width, height, width * 2, height, 0, static_cast<std::uint8_t>(height), 0, 0};
+    return resource;
+}
+
+static void LoadFontConfiguration()
+{
+    try {
+        const auto path = std::filesystem::absolute(L"font.yml");
+        if (!std::filesystem::exists(path)) { return; }
+        std::ifstream stream(path, std::ios::binary);
+        if (!stream) { throw std::runtime_error("无法打开font.yml"); }
+        const YAML::Node root = YAML::Load(stream);
+        if (!root.IsMap() || !root["fonts"].IsSequence()) {
+            throw std::runtime_error("font.yml根节点必须包含fonts列表");
+        }
+        const YAML::Node entries = root["fonts"];
+        std::set<int> ids;
+        // 先完整核对ID，防止重复/越界配置只发布了前半部分。
+        for (const auto& entry : entries) {
+            const int id = entry["id"].as<int>();
+            if (id < 0 || id > kMaxFontId || !ids.insert(id).second) {
+                throw std::runtime_error("字体id必须在0到32之间且不能重复");
+            }
+        }
+        for (const auto& entry : entries) {
+            const int id = entry["id"].as<int>();
+            try {
+                auto font = LoadConfiguredFont(entry, path.parent_path());
+                gFonts.insert_or_assign(id, std::move(font));
+            } catch (const std::exception& error) {
+                if (id != 0) { gFonts.erase(id); }
+                static_cast<void>(error);
+                m_log_i("font.yml 字体%d加载失败，使用0号字体：%s\n", id, error.what());
+            }
+        }
+    } catch (const std::exception& error) {
+        static_cast<void>(error);
+        m_log_i("font.yml读取失败，使用0号默认字体：%s\n", error.what());
+    }
+}
 
 // R06：度量与栅格缓存共用单／双格尺寸，保持完整UTF-16字符。
 static SIZE MeasureGlyphSize(const std::wstring_view character, const std::int32_t fontType)
 {
-    const FontMetrics& metrics = gFontMetrics[static_cast<std::size_t>(fontType)];
+    const FontMetrics& metrics = GetFontMetrics(fontType);
     std::int32_t height = metrics.fontHeight != 0 ? metrics.fontHeight : metrics.doubleHeight;
     if (height == 0) { height = metrics.sHeight; }
     const std::int32_t halfWidth = (metrics.doubleWidth + 1) / 2;
-    SIZE size {character.front() < 0x80 ? halfWidth : halfWidth * 2, height};
-    if (height != 0) { return size; }
-
-    const HDC dc = ::CreateCompatibleDC(nullptr);
-    if (dc == nullptr) {
-        throw std::system_error(static_cast<int>(::GetLastError()), std::system_category(), "创建文字度量DC失败");
-    }
-    const HGDIOBJ previous = ::SelectObject(dc, gFontHandles558F68[static_cast<std::size_t>(fontType)]);
-    const BOOL measured = ::GetTextExtentPoint32W(dc, character.data(), static_cast<int>(character.size()), &size);
-    const DWORD error = measured ? ERROR_SUCCESS : ::GetLastError();
-    static_cast<void>(::SelectObject(dc, previous));
-    static_cast<void>(::DeleteDC(dc));
-    if (!measured) {
-        throw std::system_error(static_cast<int>(error), std::system_category(), "Unicode文字度量失败");
-    }
-    return size;
+    return {character.front() < 0x80 ? halfWidth : halfWidth * 2, height};
 }
 
 // R06：图集独立持有纹理；字符键包含字体类型及最多两个UTF-16码元。
@@ -122,37 +231,22 @@ public:
         TextureRectangle source; // 图集中的实际字形矩形，不含两像素间隔。
     };
 
-    FontGlyphCache()
-    {
-        Gdiplus::GdiplusStartupInput startup;
-        if (Gdiplus::GdiplusStartup(&token_, &startup, nullptr) != Gdiplus::Ok) {
-            token_ = 0;
-        }
-    }
-
-    ~FontGlyphCache()
-    {
-        atlases_.clear();
-        if (token_ != 0) { Gdiplus::GdiplusShutdown(token_); }
-    }
-
     const Glyph* FindOrCreate(const std::wstring_view character, const std::uint8_t fontType)
     {
+        const std::int32_t fontId = ResolveFontId(fontType);
+        const auto registered = gFonts.find(fontId);
+        if (registered == gFonts.end()) { return nullptr; }
         const std::uint32_t units = static_cast<std::uint16_t>(character[0])
             | (character.size() == 2 ? static_cast<std::uint32_t>(character[1]) << 16U : 0U);
-        const std::uint64_t key = (static_cast<std::uint64_t>(fontType) << 32U) | units;
+        const std::uint64_t key = (static_cast<std::uint64_t>(fontId) << 32U) | units;
         const auto found = glyphs_.find(key);
         if (found != glyphs_.end()) { return &found->second; }
-        if (token_ == 0) { return nullptr; }
-
-        const SIZE size = MeasureGlyphSize(character, fontType);
+        const SIZE size = MeasureGlyphSize(character, fontId);
         Gdiplus::Bitmap bitmap(size.cx, size.cy, PixelFormat32bppARGB);
         if (bitmap.GetLastStatus() != Gdiplus::Ok) { return nullptr; }
-        const HDC dc = ::CreateCompatibleDC(nullptr);
-        if (dc == nullptr) { return nullptr; }
         bool rendered;
         {
-            Gdiplus::Font font(dc, gFontHandles558F68[fontType]);
+            const Gdiplus::Font& font = *registered->second->font;
             Gdiplus::Graphics graphics(&bitmap);
             Gdiplus::SolidBrush brush(Gdiplus::Color(255, 255, 255, 255));
             Gdiplus::StringFormat format;
@@ -167,7 +261,6 @@ public:
                 && graphics.DrawString(character.data(), static_cast<int>(character.size()), &font,
                     Gdiplus::PointF(static_cast<Gdiplus::REAL>(size.cx / 2), 0), &format, &brush) == Gdiplus::Ok;
         }
-        static_cast<void>(::DeleteDC(dc));
         if (!rendered) { return nullptr; }
 
         Atlas* atlas = nullptr;
@@ -230,7 +323,6 @@ private:
         std::int32_t y = 0;
         std::int32_t rowHeight = 0;
     };
-    ULONG_PTR token_ = 0;
     std::vector<std::unique_ptr<Atlas>> atlases_;
     std::map<std::uint64_t, Glyph> glyphs_;
 };
@@ -242,56 +334,31 @@ void ResetFontGlyphCache() noexcept
     gFontGlyphCache.reset();
 }
 
-// 原 [456190,456528)：旧句柄只删除不清槽，索引 6 不创建新句柄。
-std::int32_t InitializeFont_456190(const std::int32_t family)
+// 原[456190,456528)；FC01先保证0号兜底，再从font.yml注册所有字体。
+std::int32_t InitializeFont_456190(const std::int32_t)
 {
-    ResetFontGlyphCache();
-    const std::array<const wchar_t*, 3> initialFaces {
-        kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
-    };
-    for (HFONT handle : gFontHandles558F68) {
-        if (handle != nullptr) {
-            static_cast<void>(::DeleteObject(handle));
+    static_cast<void>(ReleaseFont_456530());
+    gFontSession = std::make_unique<FontSession>();
+    auto resource = std::make_unique<FontResource>();
+    resource->metrics = kFallbackFontMetrics;
+    resource->handle = CreateLegacyFont(16, 0, FW_BOLD, kFaceName5590E0);
+    if (resource->handle != nullptr) {
+        const HDC dc = ::CreateCompatibleDC(nullptr);
+        if (dc != nullptr) {
+            // GDI+复制HFONT属性；DC立即释放，HFONT由本记录继续持有。
+            resource->font.reset(new Gdiplus::Font(dc, resource->handle));
+            static_cast<void>(::DeleteDC(dc));
         }
     }
-
-    const wchar_t* const initialFace = initialFaces[static_cast<std::size_t>(family)];
-    constexpr std::array<std::int32_t, 3> kBoldHeights {16, 14, 20};
-    for (std::size_t index = 0; index < kBoldHeights.size(); ++index) {
-        gFontHandles558F68[index] =
-            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, initialFace);
+    if (resource->font == nullptr || resource->font->GetLastStatus() != Gdiplus::Ok) {
+        throw std::runtime_error("无法创建0号默认字体");
     }
-    for (std::size_t index = 0; index < kBoldHeights.size(); ++index) {
-        gFontHandles558F68[index + 3] =
-            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, kFaceName5590E0);
-    }
-
-    for (std::size_t index = 7; index <= 12; ++index) {
-        FontMetrics& metrics = gFontMetrics[index];
-        std::int8_t familyIndex = metrics.familyIndex;
-        if (familyIndex < 0) {
-            familyIndex = std::bit_cast<std::int8_t>(
-                static_cast<std::uint8_t>(family));
-            metrics.familyIndex = familyIndex;
-        }
-        const std::int32_t width = index == 7 ? 0 : metrics.sWidth;
-        const wchar_t* const face = gFaceFamilies558F08[
-            static_cast<std::size_t>(familyIndex)];
-        const std::int32_t height = metrics.fontHeight;
-        const std::int32_t weight = index == 7 ? FW_BOLD : FW_NORMAL;
-        gFontHandles558F68[index] =
-            CreateLegacyFont(height, width, weight, face);
-    }
-    gFontHandles558F68[13] = CreateLegacyFont(12, 0, FW_BOLD, kFaceName5590E0);
-
-    for (std::size_t index = 0; index < 8; ++index) {
-        gDerived558F30[index] =
-            static_cast<std::int32_t>(gFontMetrics[index + 6].fontHeight / 4) - 1;
-    }
+    gFonts.emplace(0, std::move(resource));
+    LoadFontConfiguration();
 
     std::int32_t result = 0;
     for (std::size_t index = 0; index < 8; ++index) {
-        const FontMetrics& metrics = gFontMetrics[index + 6];
+        const FontMetrics& metrics = GetFontMetrics(static_cast<std::int32_t>(index + 6));
         const std::int32_t width = metrics.doubleWidth;
         const std::int32_t height = metrics.fontHeight;
         gDerived558F30[index] = height / 4 - 1;
@@ -307,15 +374,13 @@ std::int32_t InitializeFont_456190(const std::int32_t family)
     return result;
 }
 
-// 原 [456530,456554)：末项无句柄返回零，否则透传其 DeleteObject 返回。
+// 原[456530,456554)；FC01先清图集，再销毁字体和私有集合，最后关闭GDI+。
 std::int32_t ReleaseFont_456530()
 {
     ResetFontGlyphCache();
-    std::int32_t result = 0;
-    for (HFONT handle : gFontHandles558F68) {
-        result = handle == nullptr ? 0 : ::DeleteObject(handle);
-    }
-    return result;
+    gFonts.clear();
+    gFontSession.reset();
+    return 0;
 }
 
 // 原函数：0x00456D70。R06：按链顺序与每条文字的纹理批次提交缓存字形。

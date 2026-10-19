@@ -195,7 +195,7 @@ static std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
 static void WindowTextList_RebuildLines(char* const text)
 {
     const std::wstring contents = cg::text::FromGbkWide(text);
-    gWindowLinesD67B70 = render::Font::split(contents, 0, 30 * render::gFontMetrics[0].sWidth);
+    gWindowLinesD67B70 = render::Font::split(contents, 0, 30 * render::GetFontMetrics(0).sWidth);
     gWindowLineCountD67B74 = static_cast<std::int32_t>(gWindowLinesD67B70.size());
 }
 

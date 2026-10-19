@@ -50,7 +50,7 @@ static void AllocateActorChatText(
     else if (std::strncmp(text, familyPrefix.c_str(), familyPrefix.size()) == 0) { offset += static_cast<std::int32_t>(familyPrefix.size()); }
     const std::int32_t remaining = length - offset;
     const std::wstring contents = cg::text::FromGbkWide(std::string_view(text + offset, static_cast<std::size_t>(remaining)));
-    const std::int32_t width = render::gFontMetrics[font].sWidth * 40;
+    const std::int32_t width = render::GetFontMetrics(font).sWidth * 40;
     std::size_t split = 0;
     while (split < contents.size()) {
         const std::size_t next = cg::text::Next(contents, split);

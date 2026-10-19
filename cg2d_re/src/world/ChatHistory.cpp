@@ -239,9 +239,6 @@ void AppendChatMessage_44B050(
     if (color >= 13) {
         return;
     }
-    if (fontType >= 14) {
-        return;
-    }
 
     std::string stored;
     try {
@@ -294,7 +291,7 @@ void AppendChatMessage_44B050(
 
     Record5FB7F8& record = gRecords5FB7F8[index];
     record.color = color;
-    record.fontType = fontType;
+    record.fontType = render::ResolveFontId(fontType);
     record.state = 0;
     const std::int32_t nextIndex = index + 1;
     gChatWriteIndex_626C08 = nextIndex;

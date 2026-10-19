@@ -450,7 +450,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 std::int32_t y = height + action->y - 32;
                 const std::int32_t metricFont = payload->font28;
                 const std::int32_t bottom =
-                    render::gFontMetrics[metricFont].doubleHeight + y + 8;
+                    render::GetFontMetrics(metricFont).doubleHeight + y + 8;
                 if (!(*payload->text1C)[1].empty()) {
                     const std::wstring& secondMeasureText = (*payload->text1C)[1];
                     const std::int32_t secondWidth =
@@ -469,7 +469,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     const auto x = static_cast<std::int16_t>(
                         static_cast<std::int32_t>(actionX) - width / 2);
                     cg::render::DrawText_456780(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
-                    y -= render::gFontMetrics[payload->font28].doubleHeight;
+                    y -= render::GetFontMetrics(payload->font28).doubleHeight;
                 }
                 const std::int32_t halfWidth = width / 2;
                 const std::wstring& text = (*payload->text1C)[0];

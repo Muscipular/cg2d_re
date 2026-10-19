@@ -464,7 +464,7 @@ struct BigMapWindowState final {
                 auto textClip = clip;
                 if (i == TextMapName) textClip.right = static_cast<short>(window.x + 188);
                 RendererDrawTextClipped(static_cast<short>(window.x + element.x),
-                    static_cast<short>(window.y + element.y), FONT_LAYER_WINDOW, kMapFont,
+                    static_cast<short>(window.y + element.y), FONT_LAYER_WINDOW, std::to_integer<char>(data.style.font),
                     std::to_integer<std::uint8_t>(data.style.color), data.text, 0, 0, &textClip);
             }
         }

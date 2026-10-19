@@ -4391,6 +4391,11 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 按用户要求删除BigMapWindowState::Text，8个调用点直接使用宽文本RendererDrawTextClipped；保留原坐标窄化、字体、颜色、文本层及裁剪参数，不引入替代包装函数。
 - git diff --check及build.bat Debug编译链接通过（退出码0，改动模块无警告）。用户既有大地图样式改动保留，仅暂存本轮差异；未运行或部署客户端，未新增测试。
 
+## 494. 修正大地图文本控件字体属性传递（2026-10-19）
+
+- 用户指出上轮移除Text包装后仍固定传kMapFont，未消费原型中的font属性。已将DrawElements文本分支改为传data.style.font，颜色/文字/裁剪沿各控件实例；底层测宽和裁剪随传入字体生效。地图标注等无控件样式的专用绘制仍用其既有kMapFont。
+- build.bat Debug编译链接通过（退出码0，改动模块无警告），差异静态核对通过；仅提交字体传递修正，保留用户已有字体、颜色和坐标改动。未运行或部署客户端，未新增测试。
+
 ## 490. 网络LZ4解压大小日志（2026-10-19）
 
 - 按用户要求，在DecodeCompressedProtocolFrame每块成功解压并通过容量检查后使用m_log记录compressed与decoded字节数；compressed为实际LZ4块长度，不包含协议帧头及块长度字段，decoded为本块实际解压输出长度。

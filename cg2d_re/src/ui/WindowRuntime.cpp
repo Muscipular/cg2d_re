@@ -622,7 +622,7 @@ static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
     0, 4, 4, 0, 1, 2, 2, 0, 1, 2, 4, 2, 2, 2, 2, 2,
     1, 1, 2, 4, 2, 2, 2, 1, 2, 0, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 2, 2, 2, 2, 0, // 大地图独立，不关闭其它类别窗口。
+    1, 1, 1, 2, 2, 2, 2, 0, // 大地图入口单独标记关闭非默认窗口。
 };
 
 static constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
@@ -3016,6 +3016,13 @@ static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std
 // 原函数：0x004C7AE0。
 static void WindowRuntime_ProcessShortcuts()
 {
+    if ((platform::gKeyStates[0x1B] & 4u) != 0) {
+        platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
+        if (script::CloseFocusedWindow()) {
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        return;
+    }
     const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
     if (mode != 0 && mode != 1) {
         return;
@@ -3191,10 +3198,6 @@ static void WindowRuntime_ProcessShortcuts()
             WindowRuntime_CloseByCategory(7);
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
-        if ((platform::gKeyStates[0x1B] & 4u) != 0) {
-            WindowRuntime_CloseByCategory(7);
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
-        }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
             if (input::gChatPanelVisible_C9A96C == 1) {
                 input::gChatPanelVisible_C9A96C = 0;
@@ -3250,9 +3253,6 @@ static void WindowRuntime_ProcessShortcuts()
             }
         }
         return;
-    }
-    if ((platform::gKeyStates[0x1B] & 4u) != 0) {
-        WindowRuntime_ToggleShortcutWindow(24);
     }
     if ((platform::gKeyStates[0x7A] & 4u) != 0) {
         static_cast<void>(WindowRuntime_IncrementNameMode());

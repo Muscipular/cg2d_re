@@ -624,8 +624,11 @@ void WindowBigMap_Open() {
     if (auto* existing = detail::gWindowStates[WindowId_BigMap].window) {
         existing->state &= ~std::uint32_t{0x8000};
         existing->state |= 0x2000u;
+        script::CloseNonDefaultWindows(WindowId_BigMap);
         return;
     }
-    static_cast<void>(WindowRuntime_Open(WindowId_BigMap));
+    if (WindowRuntime_Open(WindowId_BigMap)) {
+        script::CloseNonDefaultWindows(WindowId_BigMap);
+    }
 }
 } // namespace cg::ui

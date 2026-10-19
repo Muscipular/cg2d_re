@@ -821,7 +821,7 @@ void MovePlayerOneStep_46B1B0(
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
-            Sub_46CDF0(direction.x, direction.y));
+            GetEightWayMapDirection_46CDF0(direction.x, direction.y));
         static_cast<void>(SetPlayerFacingDirection_51A040(value));
         static_cast<void>(MarkPlayerMovementActive_51A640());
     }

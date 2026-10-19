@@ -117,7 +117,7 @@ extern std::int32_t gBattleBombLevelD67B2C; // 原全局：0x00D67B2C。 仅炸�
 // 原函数：0x00405B40。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 // 原函数：0x00518C60。
-std::int32_t Sub_518C60(); // BEI01：玩家slot8..27逐used W16统计空槽，S32返回；十九调用点仅来源/本父两消费有据，全owner/运行待。
+std::int32_t CountFreeInventorySlots_518C60(); // BEI01：玩家slot8..27逐used W16统计空槽，S32返回；十九调用点仅来源/本父两消费有据，全owner/运行待。
 extern std::uint32_t gBattlePlayerFlags5ABCAC; // 原全局：0x005ABCAC。
 extern std::uint32_t gBattleSkillFlags5ABC04; // 原全局：0x005ABC04。
 extern std::uint32_t gBattlePetSkillFlags5ABB78; // 原全局：0x005ABB78。
@@ -134,7 +134,7 @@ std::int32_t Sub_4ED670(); // 四角色/宠物与十五技能结果字段恰1检
 // 原函数：0x00504A50。
 void Sub_504A50(); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
 // 原函数：0x0043C8F0。
-std::int32_t Sub_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
+std::int32_t ResetBattleCommandSelection_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 原全局：0x005ABC6C。 50D3C0的A消息严格1时消费。
 extern std::int32_t gBattleCWriteIndex5AAA6C; // 原全局：0x005AAA6C。
 extern std::int32_t gBattleCReadIndex5AAA44; // 原全局：0x005AAA44。

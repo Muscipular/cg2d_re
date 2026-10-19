@@ -228,7 +228,7 @@ void SetWorldActorStatusIcon_43D9D0(cg::yobi::YobiAction* const action, std::int
     if (action == nullptr) {
         return;
     }
-    if (value < 0 || value >= Sub_4410E0()) {
+    if (value < 0 || value >= GetActorStatusIconCount_4410E0()) {
         value = 0;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
@@ -341,7 +341,7 @@ std::uint16_t* MarkWorldActorAsPartyMember_442C40(cg::yobi::YobiAction* const ac
 // 原函数：0x00442C70。
 void ClearWorldActorPartyMembership_442C70(cg::yobi::YobiAction* const action)
 {
-    if (Sub_440B50() != 0) {
+    if (IsObservationSceneTransitionActive_440B50() != 0) {
         return;
     }
     if (action == nullptr) {

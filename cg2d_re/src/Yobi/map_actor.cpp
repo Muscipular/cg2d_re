@@ -566,7 +566,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     std::int32_t index = payload->index;
     std::int32_t primaryIndex = -1;
     bool useSharedRate = true;
-    if (world::Sub_440B50() != 0) {
+    if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         return;
     }
     YobiAction* player = world::gPlayerRuntimeSlots.action;
@@ -797,7 +797,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
         const float stepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const float worldY = action->worldY;
         const float worldX = action->worldX;
-        const double distance = world::Sub_46FB80(
+        const double distance = world::GetSquaredWorldDistance_46FB80(
             worldX, worldY, targetX, targetY);
         const double squaredY = static_cast<double>(stepY) * stepY;
         const double squaredX = static_cast<double>(stepX) * stepX;
@@ -1242,7 +1242,7 @@ void ResetMapFollowerFromPath(
         const float y = static_cast<float>(dy);
         const float x = static_cast<float>(dx);
         const std::int32_t direction =
-            static_cast<std::int32_t>(world::Sub_46CDF0(x, y));
+            static_cast<std::int32_t>(world::GetEightWayMapDirection_46CDF0(x, y));
         slot->direction = (direction + 4) % 8;
         if (isPlayer) {
             *playerDirection = slot->direction;
@@ -1397,7 +1397,7 @@ double StartMapActorMovement_442110(
     if (velocity.directionX < 0.0F || velocity.directionX > 0.0F
         || velocity.directionY < 0.0F || velocity.directionY > 0.0F) {
         action->direction = static_cast<std::int32_t>(
-            world::Sub_46CDF0(velocity.directionX, velocity.directionY));
+            world::GetEightWayMapDirection_46CDF0(velocity.directionX, velocity.directionY));
         action->movementActive_272 = 1;
     }
     return velocity.rate;
@@ -1431,7 +1431,7 @@ void StartPartyMemberMovement_4422F0(
     if (direction.x < 0.0F || direction.x > 0.0F
         || direction.y < 0.0F || direction.y > 0.0F) {
         action->direction = static_cast<std::int32_t>(
-            world::Sub_46CDF0(direction.x, direction.y));
+            world::GetEightWayMapDirection_46CDF0(direction.x, direction.y));
         action->movementActive_272 = 1;
     }
 }
@@ -1538,7 +1538,7 @@ void StepMapActorMovement_442730(YobiAction* const action)
         const float stepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const float worldY = action->worldY;
         const float worldX = action->worldX;
-        const double distance = world::Sub_46FB80(
+        const double distance = world::GetSquaredWorldDistance_46FB80(
             worldX, worldY, targetX, targetY);
         const double squaredY = static_cast<double>(stepY) * stepY;
         const double squaredX = static_cast<double>(stepX) * stepX;
@@ -1596,7 +1596,7 @@ void StepPartyMemberMovement_4428F0(YobiAction* const action)
         const float rateY = std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78);
         const float rawStepY = std::bit_cast<float>(action->movementStepYBits_280);
         const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
-        const double distance = world::Sub_46FB80(
+        const double distance = world::GetSquaredWorldDistance_46FB80(
             worldX, worldY, targetX, targetY);
         const double squaredY = static_cast<double>(stepY) * stepY;
         const double squaredX = static_cast<double>(stepX) * stepX;

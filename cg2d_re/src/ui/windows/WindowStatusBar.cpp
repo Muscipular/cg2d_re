@@ -314,11 +314,11 @@ static void WindowStatusBar_Refresh()
     timeGraphic->height = 9;
     WindowStatusBar_DrawTimer(8, &descriptor);
 
-    const std::int32_t points = world::Sub_504B10();
+    const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
     const std::int32_t initialInjury = world::gPlayerRuntimeSlots.valueF4;
     gLoginWindowRuntime.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
-        const std::int32_t pet = world::Sub_504B60();
+        const std::int32_t pet = world::FindFirstInjuredPet_504B60();
         gLoginWindowRuntime.statusHasInjuryD046C8 = 0;
         if (pet != -1) {
             gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
@@ -445,8 +445,8 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
     };
     std::int32_t (*const toggleCallbacks[6])() {
-        &world::Sub_472F40, &world::Sub_472F70, &world::Sub_472FA0,
-        &world::Sub_472FD0, &world::Sub_473000, &world::Sub_473030,
+        &world::ToggleDuelPermission_472F40, &world::TogglePartyChat_472F70, &world::TogglePartyJoinPermission_472FA0,
+        &world::ToggleContactCardExchangePermission_472FD0, &world::ToggleTradePermission_473000, &world::ToggleGuildInvitePermission_473030,
     };
     const std::int32_t slot = index - 17;
     const bool enabled = (options & masks[slot]) != 0;
@@ -471,7 +471,7 @@ static std::int32_t WindowStatusBar_ReadInjuredPetIndex()
     if (world::gPlayerRuntimeSlots.valueF4 != 0) {
         return 0;
     }
-    const std::int32_t pet = world::Sub_504B60();
+    const std::int32_t pet = world::FindFirstInjuredPet_504B60();
     return pet == -1 ? -1 : pet + 10;
 }
 
@@ -497,7 +497,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     std::wstring buffer;
     switch (index) {
     case 13: {
-        const std::int32_t candidate = world::Sub_504B10();
+        const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10();
         const bool hover = (state & 1) != 0;
         if (hover) {
             if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {

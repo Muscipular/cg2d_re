@@ -1042,7 +1042,7 @@ void WindowItem_RequestPetTransfer(
 // 原函数：0x004EA670。
 std::int32_t WindowPet_HasSkill25600(const std::int32_t index)
 {
-    return world::Sub_52E180(index, 25600) != 0 ? 1 : 0;
+    return world::HasPetTechnique_52E180(index, 25600) != 0 ? 1 : 0;
 }
 
 // 原函数：0x0048D540。
@@ -1223,7 +1223,7 @@ static void WindowItemDrag_Handle(
     if (message != 0) {
         if (message == 2 && gItemDragModeCC4C9C != 0
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
-            && world::Sub_440B50() == 0) {
+            && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
@@ -3021,7 +3021,7 @@ static void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
 
 static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
 {
-    world::Sub_4FA8E0(action);
+    world::RequestPlayerEmote_4FA8E0(action);
     static_cast<void>(WindowEmote_Select(selected));
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -3122,27 +3122,27 @@ static void WindowRuntime_ProcessShortcuts()
         }
         if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_472F40());
+            static_cast<void>(world::ToggleDuelPermission_472F40());
         }
         if ((platform::gKeyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_472F70());
+            static_cast<void>(world::TogglePartyChat_472F70());
         }
         if ((platform::gKeyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_472FA0());
+            static_cast<void>(world::TogglePartyJoinPermission_472FA0());
         }
         if ((platform::gKeyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_472FD0());
+            static_cast<void>(world::ToggleContactCardExchangePermission_472FD0());
         }
         if ((platform::gKeyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_473000());
+            static_cast<void>(world::ToggleTradePermission_473000());
         }
         if ((platform::gKeyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::Sub_473030());
+            static_cast<void>(world::ToggleGuildInvitePermission_473030());
         }
 
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。

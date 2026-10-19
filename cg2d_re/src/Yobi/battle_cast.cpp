@@ -2873,14 +2873,14 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     constexpr float kCastStepScale = 1.0F / 60.0F; // 60帧水平位移的每帧比例。
     const float xStep = static_cast<float>(static_cast<double>(horizontalDistance)
         * kCastStepScale);
-    const double cosine = world::Sub_46F950(cosineAngle);
+    const double cosine = world::LookupCosineDegrees_46F950(cosineAngle);
     const std::int32_t screenY = copy->y;
     copy->value54 = static_cast<float>(std::abs(cosine) * xStep);
     const std::int32_t verticalDistance = std::abs(copyPayload->moveTargetYFEC - screenY);
     const float sineAngle = copy->angle50;
     std::int32_t currentDuration = copy->extraState290.castDuration294;
     const float yStep = static_cast<float>(static_cast<double>(verticalDistance) / currentDuration);
-    const double sine = world::Sub_46F930(sineAngle);
+    const double sine = world::LookupSineDegrees_46F930(sineAngle);
     currentDuration = copy->extraState290.castDuration294;
     const float savedY = copy->offset44;
     copy->field58 = 100;

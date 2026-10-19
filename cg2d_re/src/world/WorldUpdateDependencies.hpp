@@ -41,11 +41,11 @@ void Sub_50E1A0(
 // 原函数：0x0050E210。
 std::int32_t Sub_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
 // 原函数：0x0050E650。
-void Sub_50E650(
+void HandleMapSceneEffectReply_50E650(
     std::uintptr_t socket, std::int32_t mode, std::int32_t duration,
     std::int32_t floor, std::int32_t mapX, std::int32_t mapY); // PVfz原序转449700，socket未用。
 // 原函数：0x00440B50。
-std::int32_t Sub_440B50(); // 原当前场景U32闭区间250..252门禁。
+std::int32_t IsObservationSceneTransitionActive_440B50(); // 原当前场景U32闭区间250..252门禁。
 // 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
 // 原函数：0x00470050。
 void Sub_470050(); // 对战请求。
@@ -60,9 +60,9 @@ void Sub_4704A0(); // 交易请求，两格查询均执行。
 // 原函数：0x00470670。
 void Sub_470670(); // 家族邀请，读取同源职级权限低U8。
 // 原函数：0x004FA8E0。
-void Sub_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
+void RequestPlayerEmote_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
 // 原函数：0x004410E0。
-std::int32_t Sub_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
+std::int32_t GetActorStatusIconCount_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
 std::uint32_t Sub_51D640();
 
@@ -148,10 +148,10 @@ std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 // 原函数：0x0045EEE0。
 std::int32_t Sub_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
 // 原函数：0x0045ED80。
-void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
+void ResetLogoutScene_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
 extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。
 // 原函数：0x0045ED90。
-std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
+std::int32_t UpdateLogoutScene_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 // 原函数：0x0051C7D0。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 // 原函数：0x0051D5B0。
@@ -177,9 +177,9 @@ std::int32_t Sub_51EF80(
 // 原函数：0x0051F610。
 std::int32_t Sub_51F610(std::int32_t value);
 // 原函数：0x0051F860。
-std::int32_t Sub_51F860(std::int32_t index, std::int32_t value);
+std::int32_t ProcessTopScanlineTransition_51F860(std::int32_t index, std::int32_t value);
 // 原函数：0x0051FA70。
-std::int32_t Sub_51FA70(std::int32_t index, std::int32_t value);
+std::int32_t ProcessBottomScanlineTransition_51FA70(std::int32_t index, std::int32_t value);
 // 原函数：0x0051FC90。
 std::int32_t Sub_51FC90(std::int32_t index, std::int32_t value);
 // 原函数：0x00455C90。

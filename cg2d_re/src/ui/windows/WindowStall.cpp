@@ -2491,7 +2491,7 @@ static void WindowStall_OpenBrowse(
                 record.sequence = 0;
             }
         }
-        world::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), world::kPetTechniqueSlotCount);
+        world::BuildPetTechniqueDisplayEntries_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), world::kPetTechniqueSlotCount);
     }
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     static_cast<void>(WindowRuntime_CreateAnimation(WindowId_StallBrowse, 1, 0, nullptr));

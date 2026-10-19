@@ -1095,12 +1095,12 @@ void UpdateBattleArcProjection_418F10(YobiAction* const action)
         action->direction = 0;
     }
     const float amplitude = static_cast<float>(squared);
-    const double xFactor = world::Sub_46F950(action->angle50);
+    const double xFactor = world::LookupCosineDegrees_46F950(action->angle50);
     const std::int32_t xStep = static_cast<std::int32_t>(xFactor * amplitude);
     const std::int32_t x = action->x + xStep;
     const float yAngle = action->angle50;
     action->x = x;
-    const double yFactor = world::Sub_46F930(yAngle);
+    const double yFactor = world::LookupSineDegrees_46F930(yAngle);
     const std::int32_t yStep = static_cast<std::int32_t>(yFactor * amplitude);
     const std::int32_t nextY = action->y + yStep;
     const std::int32_t next = action->field58 + 1;

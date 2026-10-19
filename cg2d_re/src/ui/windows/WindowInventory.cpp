@@ -640,7 +640,7 @@ static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const 
 static void WindowInventory_DropMoney(const std::int32_t amount)
 {
     if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
-        && world::Sub_440B50() == 0) {
+        && world::IsObservationSceneTransitionActive_440B50() == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::DropGoldRequest_510DA0(platform::gConnectionSocket, x, y, amount));
@@ -788,7 +788,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                     static_cast<void>(WindowDrag_Start(1, 0, nullptr));
                 } else {
                     if ((world::ReadPlayerActionFlags() & 0x80u) == 0
-                        && world::Sub_440B50() == 0) {
+                        && world::IsObservationSceneTransitionActive_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
                         gSelectedItemCB0A44 = hovered + 8;
                         const std::int32_t group = mode > 0
@@ -1024,7 +1024,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                     static_cast<void>(WindowDrag_Start(1, 0, nullptr));
                 } else {
                     if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
-                        && world::Sub_440B50() == 0) {
+                        && world::IsObservationSceneTransitionActive_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {

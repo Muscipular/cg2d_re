@@ -75,7 +75,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         for (std::int32_t index = 0; index < 5; ++index) {
             const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
             if (world::gPetRuntimeRecords[pet].used != 0
-                && world::Sub_52E1D0(pet) == 1) {
+                && world::HasPetMailTechnique_52E1D0(pet) == 1) {
                 ++gLoginWindowRuntime.choicesCC4CA0.value00;
             }
         }
@@ -103,7 +103,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         if (world::gPetRuntimeRecords[pet].used == 0) {
             continue;
         }
-        const std::int32_t available = world::Sub_52E1D0(pet);
+        const std::int32_t available = world::HasPetMailTechnique_52E1D0(pet);
         if (available == 1) {
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = pet;

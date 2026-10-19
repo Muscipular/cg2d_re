@@ -1670,7 +1670,7 @@ std::int32_t ProcessScene_460FF0()
 
             if (actionIndex == 0u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-                world::Sub_518BE0();
+                world::ClearCurrentCharacterAlbum_518BE0();
                 cg::world::detail::ClearCurrentCharacterContactMail_519290();
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
                 cg::world::detail::SaveContactMailFile_519300();

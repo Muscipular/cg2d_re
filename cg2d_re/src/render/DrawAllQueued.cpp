@@ -459,7 +459,7 @@ void DrawAllQueued_520DD0()
                 static_cast<void>(ApplyScreenRipple_521870());
                 break;
             case 9:
-                world::Sub_46E480();
+                world::DrawPendingMapEffects_46E480();
                 break;
             case 10:
                 DrawFixedScaleSprite(graphic, 0.25f);

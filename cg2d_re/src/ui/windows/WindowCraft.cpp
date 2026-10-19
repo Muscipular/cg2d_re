@@ -520,7 +520,7 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
     case 217: case 218: case 2031: case 2032: state = 12; break;
     default: break;
     }
-    if (world::Sub_51BEC0() != state) {
+    if (world::GetPlayerStatusIcon_51BEC0() != state) {
         static_cast<void>(world::Sub_51BE50(state));
     }
 }
@@ -860,7 +860,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
-    if (world::Sub_51BEC0() != 9) {
+    if (world::GetPlayerStatusIcon_51BEC0() != 9) {
         static_cast<void>(world::Sub_51BE50(9));
     }
     return WindowCraft_Create();
@@ -1077,7 +1077,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     return;
                 }
                 if (mode == 9) {
-                    if (world::Sub_505110(source) == 0) {
+                    if (world::IsItemEligibleForRefining_505110(source) == 0) {
                         return;
                     }
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
@@ -1193,7 +1193,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     } else if (mode == 9) {
         for (std::int32_t position = 0; position < 6; ++position) {
             const std::int32_t slot = gSelectedSlotsCA0A90[position];
-            if (slot >= 0 && world::Sub_505110(slot + 8) == 0) {
+            if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(position));
             }
         }
@@ -2167,7 +2167,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         return;
                     }
                     case 9: {
-                        if (world::Sub_505110(hovered + 8) == 0) {
+                        if (world::IsItemEligibleForRefining_505110(hovered + 8) == 0) {
                             return;
                         }
                         const std::int32_t slot = firstFreeSlot();
@@ -2912,7 +2912,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             std::int32_t selected = -1;
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
-                if (slot >= 0 && world::Sub_505110(slot + 8) != 0) {
+                if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) != 0) {
                     selected = gSelectedSlotsCA0A90[index] + 8;
                     break;
                 }
@@ -3001,7 +3001,7 @@ static void WindowCraft_Release()
     static_cast<void>(WindowCraft_ReleaseMaterials(6));
     --gValueD67AFE;
     if (gValueD67AFE == 0) {
-        const std::int32_t state = world::Sub_51BEC0();
+        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if (state >= 9 && state <= 12) {
             static_cast<void>(world::Sub_51BE50(0));
         }

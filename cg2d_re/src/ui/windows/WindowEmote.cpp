@@ -164,7 +164,7 @@ static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std:
         gHoverTextD68AE8 = kEmoteHints5871B0[index];
     }
     if ((state & 2) != 0) {
-        world::Sub_4FA8E0(kEmoteButtonActions[index]);
+        world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
         static_cast<void>(WindowEmote_Select(index));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;

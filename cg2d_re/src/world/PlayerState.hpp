@@ -23,7 +23,7 @@ std::int32_t Sub_509650(std::uintptr_t socket, const char* payload); // MPR01：
 // 原函数：0x00509BA0。
 void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
-void Sub_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
+void HandlePlayerProfessionReply_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
 const char* GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
 
 // 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
@@ -143,7 +143,7 @@ std::int32_t Sub_505040(std::int32_t slot); // 说明/类别/flag800及制造配
 // 原函数：0x005050B0。
 std::int32_t Sub_5050B0(std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
 // 原函数：0x00505110。
-std::int32_t Sub_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
+std::int32_t IsItemEligibleForRefining_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
 // 原函数：0x00509EB0。
 void Sub_509EB0(std::uintptr_t socket, const char* payload);
 // 原函数：0x0050A120。
@@ -238,7 +238,7 @@ void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28�
 // 原函数：0x0050C260。
 void Sub_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号的14字段增量回复。
 // 原函数：0x0050C900。
-void Sub_50C900(
+void HandleInventorySlotSwapReply_50C900(
     std::uintptr_t unusedSocket, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
 // 原函数：0x0051B5F0。
 std::int32_t Sub_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
@@ -338,9 +338,9 @@ static_assert(sizeof(PetPairRecord) == 8);
 extern std::array<PetRuntimeRecord, 5> gPetRuntimeRecords; // 原全局：0x00F633F8。
 extern std::array<PetPairRecord, 5> gPetPairsDE0B08; // 原全局：0x00DE0B08。
 // 原函数：0x0052E1D0。
-std::int32_t Sub_52E1D0(std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
+std::int32_t HasPetMailTechnique_52E1D0(std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
 // 原函数：0x0052E180。
-std::int32_t Sub_52E180(
+std::int32_t HasPetTechnique_52E180(
     std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
 extern std::uint32_t gPetDetailDraftChanged_D67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
@@ -356,14 +356,14 @@ void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50B0D0(
     std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 技能回复，无CryptInt门禁。
 // 原函数：0x005185C0。
-void Sub_5185C0(
+void BuildPetTechniqueDisplayEntries_5185C0(
     const detail::PetTechniqueRecord* source, SkillPairRecord* destination,
     std::int32_t count); // 保留全部used和sequence，按源序写低W16索引，不排序。
 // 原函数：0x0050CF70。
-std::int32_t Sub_50CF70(
+std::int32_t HandlePetAttributePointsReply_50CF70(
     std::uintptr_t socket, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 // 原函数：0x0043C4B0。
-std::int32_t Sub_43C4B0(); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
+std::int32_t FindBattlePetIndex_43C4B0(); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
 
 // 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
 struct TitleRecord {
@@ -386,23 +386,23 @@ void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复�
 std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
 extern std::int32_t gValueFDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 // 原函数：0x0050BFA0。
-std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
+std::uint32_t HandlePlayerOptionsReply_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 // 原函数：0x0050BFC0。
-std::uint16_t Sub_50BFC0(
+std::uint16_t HandlePlayerBattleRowReply_50BFC0(
     std::uintptr_t socket, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 // 原函数：0x00472F40。
-std::int32_t Sub_472F40(); // 同源玩家选项切换04后发送。
+std::int32_t ToggleDuelPermission_472F40(); // 同源玩家选项切换04后发送。
 std::uint8_t ReadPlayerOptions194LowByte() noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。
 // 原函数：0x00472F70。
-std::int32_t Sub_472F70(); // 切换08后发送。
+std::int32_t TogglePartyChat_472F70(); // 切换08后发送。
 // 原函数：0x00472FA0。
-std::int32_t Sub_472FA0(); // 切换01后发送。
+std::int32_t TogglePartyJoinPermission_472FA0(); // 切换01后发送。
 // 原函数：0x00472FD0。
-std::int32_t Sub_472FD0(); // 切换10后发送。
+std::int32_t ToggleContactCardExchangePermission_472FD0(); // 切换10后发送。
 // 原函数：0x00473000。
-std::int32_t Sub_473000(); // 切换20后发送。
+std::int32_t ToggleTradePermission_473000(); // 切换20后发送。
 // 原函数：0x00473030。
-std::int32_t Sub_473030(); // 切换40后发送。
+std::int32_t ToggleGuildInvitePermission_473030(); // 切换40后发送。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::uint8_t ReadPlayerActionFlagsByte() noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。
@@ -416,9 +416,9 @@ const char* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称�
 const char* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 // 原函数：0x00504B10。
-std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
+std::int32_t FindAttributeAllocationHintTarget_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。
-std::int32_t Sub_504B60(); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
+std::int32_t FindFirstInjuredPet_504B60(); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
 std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
 cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
@@ -426,11 +426,11 @@ std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 原函数：0x00519EC0。
 std::uint32_t Sub_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 // 原函数：0x0051BEE0。
-void Sub_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
+void SuspendPlayerForObservation_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 // 原函数：0x0051C0D0。
 std::int32_t Sub_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
 // 原函数：0x0051BEC0。
-std::int32_t Sub_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
+std::int32_t GetPlayerStatusIcon_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
 // 原函数：0x0051BE50。
 std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
 

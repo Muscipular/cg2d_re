@@ -434,7 +434,7 @@ void OrientEnteringBattleSides_43C9A0()
                 const double xEnd = payload->x08;
                 const double xStart = payload->x00;
                 const float x = static_cast<float>(xEnd - xStart);
-                const float angle = static_cast<float>(cg::world::Sub_46F970(x, y));
+                const float angle = static_cast<float>(cg::world::GetVectorAngleDegrees_46F970(x, y));
                 cg::world::gBattleEntries59E980[index]->angle50 = angle;
                 detail::UpdateBattleDirectionFromAngle_405CB0(cg::world::gBattleEntries59E980[index]);
                 static_cast<void>(detail::PlayFrame_517DA0(cg::world::gBattleEntries59E980[index], 1));

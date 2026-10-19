@@ -670,7 +670,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
             gWindow69Message580854 = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t freeSlots = world::Sub_518C60();
+            const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
             if (gWindow69SlotsCA0AC8 > freeSlots) {
                 gWindow69Message580854 = -3;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));

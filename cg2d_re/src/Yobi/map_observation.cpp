@@ -1034,7 +1034,7 @@ std::int32_t HandleMapObservationActionReply_440920(
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
-                world::Sub_51BEE0();
+                world::SuspendPlayerForObservation_51BEE0();
             } else {
                 world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
             }
@@ -1057,7 +1057,7 @@ std::int32_t HandleMapObservationActionReply_440920(
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
                 ui::WindowRuntime_CloseByCategory(3);
                 world::gCurrentDialogType_581800 = -1;
-                world::Sub_51BEE0();
+                world::SuspendPlayerForObservation_51BEE0();
                 ui::WindowRuntime_ApplyObservationInputGate();
             } else {
                 world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));

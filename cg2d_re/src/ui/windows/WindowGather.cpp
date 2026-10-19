@@ -186,7 +186,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
         default:
             break;
     }
-    if (mode != 0 && world::Sub_51BEC0() != mode) {
+    if (mode != 0 && world::GetPlayerStatusIcon_51BEC0() != mode) {
         static_cast<void>(world::Sub_51BE50(mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
@@ -214,7 +214,7 @@ static void WindowGather_Release()
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
     gValueD67AFE = skillReferences;
     if (skillReferences == 0) {
-        const std::int32_t state = world::Sub_51BEC0();
+        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {
             static_cast<void>(world::Sub_51BE50(0));
         }
@@ -581,7 +581,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
-            } else if (world::Sub_518C60() <= 0) {
+            } else if (world::CountFreeInventorySlots_518C60() <= 0) {
                 world::AppendChatMessage_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
@@ -679,7 +679,7 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
     if (!enoughFp && (state & 1) != 0) {
         gHoverTextD68AE8 = kWindow12NoFp5864F0;
     }
-    if (world::Sub_518C60() <= 0 || !enoughFp) {
+    if (world::CountFreeInventorySlots_518C60() <= 0 || !enoughFp) {
         graphic->imageNo = 0x3B56C;
         return 0;
     }

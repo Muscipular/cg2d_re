@@ -129,7 +129,7 @@ static void DrawNormalMapCell(
     const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
 {
-    const std::int32_t tile = Sub_46CF00(gMapTileArray[index]);
+    const std::int32_t tile = ResolveMapGraphicNumber_46CF00(gMapTileArray[index]);
     if (tile > 999) {
         if (screenX >= -32 && screenX < platform::gWindowWidth + 32 && screenY >= -24 && screenY < platform::gWindowHeight + 24) {
             const std::uint8_t layer =
@@ -145,7 +145,7 @@ static void DrawNormalMapCell(
         }
     }
 
-    const std::int32_t object = Sub_46CF00(gMapObjArray[index]);
+    const std::int32_t object = ResolveMapGraphicNumber_46CF00(gMapObjArray[index]);
     if (object > 999) {
         std::int32_t imageNo;
         static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
@@ -207,7 +207,7 @@ void CaptureBattleBackgroundSnapshot_43CB10()
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
-    static_cast<void>(Sub_46BD40());
+    static_cast<void>(ResetMapDrawCacheCounts_46BD40());
     DrawMapScene_46CF60(0);
     const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));

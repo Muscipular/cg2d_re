@@ -409,7 +409,7 @@ static std::int32_t WindowSkill_ReadCrystalElement()
 // 原函数：0x004799D0。
 std::int32_t WindowSkill_ReadBattlePetImage()
 {
-    const std::int32_t index = world::Sub_43C4B0();
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
     return index < 0 ? 0 : world::gPetRuntimeRecords[index].imageNo6A0;
 }
 
@@ -445,7 +445,7 @@ static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const
 // 原函数：0x00479AB0。
 std::int32_t WindowSkill_CheckPetFp()
 {
-    const std::int32_t index = world::Sub_43C4B0();
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
     if (index < 0) {
         return 0;
     }
@@ -467,7 +467,7 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
     if (level < 1) {
         return 0;
     }
-    const std::int32_t index = world::Sub_43C4B0();
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
     if (index < 0 || WindowSkill_FindPetTechnique(index) == 0) {
         return 0;
     }
@@ -496,7 +496,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
         const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
-        if (skillCount == 0 && world::Sub_51BEC0() == 13) {
+        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
             static_cast<void>(world::Sub_51BE50(0));
         }
         return 1;
@@ -1118,7 +1118,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
             consumed = 1;
         } else {
             if (world::gSkillsF1BAFC[skillIndex].skillId == 72
-                && world::Sub_518C60() == 0) {
+                && world::CountFreeInventorySlots_518C60() == 0) {
                 world::AppendChatMessage_44B050(L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1273,8 +1273,8 @@ static void WindowSkill_DrawPetSkillRow(
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
-    const std::int32_t petIndex = world::Sub_43C4B0();
-    const std::int32_t pairPetIndex = world::Sub_43C4B0();
+    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0();
+    const std::int32_t pairPetIndex = world::FindBattlePetIndex_43C4B0();
     const auto technique = std::bit_cast<std::int16_t>(
         world::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
@@ -1347,10 +1347,10 @@ static void WindowSkill_DrawRidingSkillRow(
 static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = index - 17;
-    std::int32_t pairPet = world::Sub_43C4B0();
+    std::int32_t pairPet = world::FindBattlePetIndex_43C4B0();
     auto technique = std::bit_cast<std::int16_t>(
         world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-    const std::int32_t namePet = world::Sub_43C4B0();
+    const std::int32_t namePet = world::FindBattlePetIndex_43C4B0();
     if (world::gPetRuntimeRecords[namePet].techniquesD8[technique].name[0] == '\0') {
         return 0;
     }
@@ -1358,17 +1358,17 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
     std::int8_t visualState = 0;
     const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
-        pairPet = world::Sub_43C4B0();
+        pairPet = world::FindBattlePetIndex_43C4B0();
         technique = std::bit_cast<std::int16_t>(
             world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-        const std::int32_t costPet = world::Sub_43C4B0();
+        const std::int32_t costPet = world::FindBattlePetIndex_43C4B0();
         const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = world::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
-                const std::int32_t pet = world::Sub_43C4B0();
+                const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
                     world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
                 gPetSkillSelectionCallbackCC4D14(selected);
@@ -1481,7 +1481,7 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
     for (std::int32_t index = 10; index <= 16; ++index) {
         window->elements[index].visible = 1;
     }
-    const std::int32_t petIndex = world::Sub_43C4B0();
+    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0();
     if (petIndex < 0) {
         return;
     }
@@ -1663,7 +1663,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
     const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte();
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
     if ((actionFlags & 0x80u) != 0
-        || world::Sub_440B50() != 0
+        || world::IsObservationSceneTransitionActive_440B50() != 0
         || world::gPlayerRuntimeSlots.value08 == 0
         || world::gPlayerRuntimeSlots.timerRemaining0C <= 0
         || world::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth == 0) {
@@ -1713,7 +1713,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
     std::int32_t petIndex;
     std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
     if (mode == 5) {
-        petIndex = world::Sub_43C4B0();
+        petIndex = world::FindBattlePetIndex_43C4B0();
         position = world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4);
     } else if (mode == 6) {
         position = world::gBattleCurrentPosition5ABCA4;
@@ -1985,7 +1985,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 std::int32_t pet;
                 std::int32_t hover;
                 if (mode == 5) {
-                    pet = world::Sub_43C4B0();
+                    pet = world::FindBattlePetIndex_43C4B0();
                     hover = gSkillWindowHoverD2F744;
                 } else {
                     hover = gSkillWindowHoverD2F744;
@@ -2176,7 +2176,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
     const bool clicked = (state & 2) != 0;
     if (clicked) {
         bool allowed = (world::ReadPlayerActionFlags() & 0x80u) == 0
-            && world::Sub_440B50() == 0;
+            && world::IsObservationSceneTransitionActive_440B50() == 0;
         if (allowed) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
             allowed = world::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
@@ -2248,7 +2248,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
             const auto activate = [&] {
                 const auto actionBlocked = [] {
                     return (world::ReadPlayerActionFlags() & 0x80u) != 0
-                        || world::Sub_440B50() != 0;
+                        || world::IsObservationSceneTransitionActive_440B50() != 0;
                 };
                 const auto insufficientFp = [&] {
                     const auto* const current = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
@@ -2270,7 +2270,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         fail();
                         return;
                     }
-                    if (world::Sub_518C60() <= 0) {
+                    if (world::CountFreeInventorySlots_518C60() <= 0) {
                         world::AppendChatMessage_44B050(L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;
@@ -2404,7 +2404,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
         const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
-        if (skillCount == 0 && world::Sub_51BEC0() == 13) {
+        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
             static_cast<void>(world::Sub_51BE50(0));
         }
         return 1;
@@ -2459,7 +2459,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     ++gValueD67AFE;
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
-        if (world::Sub_51BEC0() != 13) {
+        if (world::GetPlayerStatusIcon_51BEC0() != 13) {
             static_cast<void>(world::Sub_51BE50(13));
         }
     } else {

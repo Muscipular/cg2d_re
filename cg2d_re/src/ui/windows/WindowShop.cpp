@@ -1647,7 +1647,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                     break;
                 }
-                const std::int32_t freeSlots = world::Sub_518C60();
+                const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
                 if (gShopValueC8AF74 > freeSlots) {
                     gShopMessage580848 = -3;
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2393,7 +2393,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
                     ++released;
                 }
             }
-            std::int32_t available = released + world::Sub_518C60();
+            std::int32_t available = released + world::CountFreeInventorySlots_518C60();
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &gShopItemsCF4FE0[item].count, sizeof(count));
@@ -2430,7 +2430,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
                     ++released;
                 }
             }
-            available = released + world::Sub_518C60();
+            available = released + world::CountFreeInventorySlots_518C60();
             std::int32_t occupied = 0;
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
@@ -2654,7 +2654,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
                     ++released;
                 }
             }
-            std::int32_t available = released + world::Sub_518C60();
+            std::int32_t available = released + world::CountFreeInventorySlots_518C60();
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &gShopItemsCF4FE0[item].count, sizeof(count));

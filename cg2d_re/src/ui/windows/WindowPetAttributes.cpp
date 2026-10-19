@@ -295,7 +295,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
         if ((state & 2) != 0) {
             if (world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
-                && world::Sub_440B50() == 0) {
+                && world::IsObservationSceneTransitionActive_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);

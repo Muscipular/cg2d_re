@@ -398,10 +398,10 @@ static void DrawTransitionOrbit(
     float angle, const bool allowMapAtZero)
 {
     for (std::int32_t point = 0; point < 3; ++point) {
-        const double xFactor = world::Sub_46F950(angle);
+        const double xFactor = world::LookupCosineDegrees_46F950(angle);
         const float offsetX = static_cast<float>(
             xFactor * payload->value24);
-        const double yFactor = world::Sub_46F930(angle);
+        const double yFactor = world::LookupSineDegrees_46F930(angle);
         const double offsetY = yFactor * payload->value24;
         const float projectedY = static_cast<float>(
             offsetY + action->worldY);
@@ -442,7 +442,7 @@ static void DrawTransitionOrbit(
                 drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
         }
         angle = static_cast<float>(angle + 120.0);
-        world::Sub_46F8F0(&angle);
+        world::NormalizeAngleDegrees_46F8F0(&angle);
     }
 }
 

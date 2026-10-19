@@ -379,7 +379,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (items[3].used == 1 && items[3].itemType != 7) {
                 ++weapons;
             }
-            if (world::Sub_518C60() < weapons) {
+            if (world::CountFreeInventorySlots_518C60() < weapons) {
                 world::AppendChatMessage_44B050(noSpace, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (weapons == 0) {
@@ -475,7 +475,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         ++occupiedHands;
                     }
                     // 原49A510以未加8的hover索引读取battleUseFlag。
-                    if (occupiedHands == 2 && world::Sub_518C60() == 0
+                    if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
                         && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
                         world::AppendChatMessage_44B050(noSpace, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -759,7 +759,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 if (world::gPlayerRuntimeSlots.items[3].used == 1) {
                     ++occupiedHands;
                 }
-                if (occupiedHands == 2 && world::Sub_518C60() == 0
+                if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
                     && (*reinterpret_cast<const unsigned char*>(
                         &world::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
                     world::AppendChatMessage_44B050(noSpace, 4, 3);
@@ -832,7 +832,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 if (items[3].used == 1 && items[3].itemType != 7) {
                     ++weapons;
                 }
-                if (world::Sub_518C60() < weapons) {
+                if (world::CountFreeInventorySlots_518C60() < weapons) {
                     world::AppendChatMessage_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (weapons == 0) {

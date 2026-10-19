@@ -53,7 +53,7 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
     gCurrentWindow->elements[1].visible = 0;
-    if (world::Sub_43C4B0() != -1) {
+    if (world::FindBattlePetIndex_43C4B0() != -1) {
         gCurrentWindow->elements[1].visible = 1;
     }
     return 1;
@@ -68,7 +68,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
         gHoverTextD68AE8 = L"让这只宠物归还。";
     }
     if ((state & 2) != 0) {
-        if (world::Sub_43C4B0() != -1) {
+        if (world::FindBattlePetIndex_43C4B0() != -1) {
             std::array<char, 768> buffer;
             std::sprintf(buffer.data(), "M|%X", 255u);
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));

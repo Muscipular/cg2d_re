@@ -45,7 +45,7 @@ void RebuildRenderer_466B80()
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(ResetGraphicCache_456D30());
-        static_cast<void>(world::Sub_46BD40());
+        static_cast<void>(world::ResetMapDrawCacheCounts_46BD40());
         world::DrawMapScene_46CF60(0);
         static_cast<void>(cg::render::DrawBattleBackgroundScaled(
             200, world::gBattleBackgroundImage59F9F8));

@@ -116,11 +116,11 @@ void Update()
         detail::ResetCurrentDialogType_4D3170();
         detail::Sub_455BD0();
         detail::InitializeMapEffectPool_46E2A0();
-        Sub_46BD40();
+        ResetMapDrawCacheCounts_46BD40();
         gValue5ABFC4 = 0;
         gValue9A6E0C = 0;
         detail::Sub_504A30();
-        detail::Sub_43C8F0();
+        detail::ResetBattleCommandSelection_43C8F0();
         detail::ResetSceneUiState_504100();
         detail::ClearContactAndGuildMailStorage_518C80();
         detail::LoadContactAndGuildMailFiles_518CB0();
@@ -393,13 +393,13 @@ std::int32_t Sub_51FDE0(
         return Sub_51F610(selected);
     }
     case 26:
-    case 28: return Sub_51F860(-1, value);
+    case 28: return ProcessTopScanlineTransition_51F860(-1, value);
     case 27:
-    case 33: return Sub_51F860(1, value);
+    case 33: return ProcessTopScanlineTransition_51F860(1, value);
     case 29:
-    case 31: return Sub_51FA70(1, value);
+    case 31: return ProcessBottomScanlineTransition_51FA70(1, value);
     case 30:
-    case 32: return Sub_51FA70(-1, value);
+    case 32: return ProcessBottomScanlineTransition_51FA70(-1, value);
     case 34: return Sub_51FC90(0, value);
     case 35: return Sub_51FC90(1, value);
     default: return 1;

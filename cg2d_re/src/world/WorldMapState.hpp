@@ -82,7 +82,7 @@ extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9
 extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
 // 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
-std::int32_t __cdecl Sub_468520(
+std::int32_t __cdecl FormatMapDataPath_468520(
     char* buffer, std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
 extern std::uint32_t gValue9DAD68; // 原全局：0x009DAD68。
 
@@ -135,17 +135,17 @@ std::int32_t Sub_46C760(std::int32_t x, std::int32_t y);
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
 void __cdecl DrawMapScene_46CF60(std::int32_t value);
 // 原函数：0x0046CF00。
-std::int32_t __cdecl Sub_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
+std::int32_t __cdecl ResolveMapGraphicNumber_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
 // 原函数：0x0046F8F0。
-void __cdecl Sub_46F8F0(float* value);      // WDG01：非拥有 F32 指针，比较/更新分别取样，重复归一到 [0,360)。
+void __cdecl NormalizeAngleDegrees_46F8F0(float* value);      // WDG01：非拥有 F32 指针，比较/更新分别取样，重复归一到 [0,360)。
 // 原函数：0x0046F930。
-double __cdecl Sub_46F930(float angle);     // 原 [0x46F930,0x46F94E)，截断后查 360 项 F64 原表。
+double __cdecl LookupSineDegrees_46F930(float angle);     // 原 [0x46F930,0x46F94E)，截断后查 360 项 F64 原表。
 // 原函数：0x0046F950。
-double __cdecl Sub_46F950(float angle);     // 原 [0x46F950,0x46F967)，F32 加 90 后调用 46F930。
+double __cdecl LookupCosineDegrees_46F950(float angle);     // 原 [0x46F950,0x46F967)，F32 加 90 后调用 46F930。
 // 原函数：0x0046F970。
-double __cdecl Sub_46F970(float first, float second); // 原 [0x46F970,0x46FACF)，65 项原表插值。
+double __cdecl GetVectorAngleDegrees_46F970(float first, float second); // 原 [0x46F970,0x46FACF)，65 项原表插值。
 // 原函数：0x0046CDF0。
-std::int64_t __cdecl Sub_46CDF0(float first, float second); // WDG01：原 F32 偏移/落点/乘数与归一化，正常转换返回 S64。
+std::int64_t __cdecl GetEightWayMapDirection_46CDF0(float first, float second); // WDG01：原 F32 偏移/落点/乘数与归一化，正常转换返回 S64。
 // 原函数：0x0050A3E0。
 void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
 // 原函数：0x0050D000。
@@ -205,11 +205,11 @@ static_assert(sizeof(MapEffectRecord) == 0x58);
 static_assert(alignof(MapEffectRecord) == 8);
 extern MapEffectRecord* gActiveMapEffectHead; // 原0x00C8A72C；唯一活动链首。
 // 原函数：0x0046E480。
-void Sub_46E480();                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
+void DrawPendingMapEffects_46E480();                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
 // 原函数：0x0046BD40。
-std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
+std::int32_t ResetMapDrawCacheCounts_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 // 原 46FB80：先X差再Y差，返回Y平方+X平方的F64值。
-double Sub_46FB80(float x, float y, float targetX, float targetY);
+double GetSquaredWorldDistance_46FB80(float x, float y, float targetX, float targetY);
 
 namespace detail {
 
@@ -413,9 +413,9 @@ std::int32_t* Sub_467F30();                // 原 [0x467F30,0x4681AB)，透传 4
 // 原函数：0x00468200。
 std::uint16_t __cdecl Sub_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 // 原函数：0x0046CEC0。
-std::int32_t __cdecl Sub_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
+std::int32_t __cdecl GetPlayerMapCoordinateSum_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
 // 原函数：0x0046CEE0。
-std::int32_t __cdecl Sub_46CEE0();         // 原 [0x46CEE0,0x46CEFB)，并写 AF10C0。
+std::int32_t __cdecl StorePlayerMapCoordinateSum_46CEE0();         // 原 [0x46CEE0,0x46CEFB)，并写 AF10C0。
 // 原函数：0x00468330。
 std::uint32_t __cdecl Sub_468330(
     std::int32_t x, std::int32_t y);        // 原 [0x468330,0x468511)，返回 Y 浮点位型。
@@ -424,15 +424,15 @@ std::int16_t* __cdecl Sub_468290(
     std::int16_t* xStart, std::int16_t* yStart,
     std::int16_t* xEnd, std::int16_t* yEnd); // 原 [0x468290,0x4682D7)，原地裁剪并返回末指针。
 // 原函数：0x00468C00。
-std::int32_t __cdecl Sub_468C00(
+std::int32_t __cdecl SetMapCellHitValue_468C00(
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 // 原函数：0x0046AE60。
 std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // MHT01：原边界/索引序与命中低 BYTE，返 S32 0/1。
 // 原函数：0x00469240。
-std::int32_t __cdecl Sub_469240(
+std::int32_t __cdecl CalculateMapDataCrc_469240(
     const std::uint8_t* bytes, std::int32_t length); // 原 [0x469240,0x469284)，三平面校验的 W16 查表叶。
 // 原函数：0x004691D0。
-void __cdecl Sub_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
+void __cdecl InvalidateMapDrawPosition_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
 // 原函数：0x00469290。
 std::int32_t __cdecl Sub_469290(
     std::int32_t first, std::int32_t floor,
@@ -466,7 +466,7 @@ std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序�
 // 原函数：0x00468F70。
 std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。
 // 原函数：0x0046CF20。
-std::int32_t* __cdecl Sub_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
+std::int32_t* __cdecl InitializeMapGraphicNumberTable_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
 // 原函数：0x0046B580。
 std::int64_t __cdecl GetMapDirectionBetweenPoints_46B580(
     std::int32_t first, std::int32_t second,

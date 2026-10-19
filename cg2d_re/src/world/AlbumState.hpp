@@ -48,12 +48,12 @@ const char* ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t inde
 // 原函数：0x005186A0。
 void SaveAlbumData_5186A0(); // 原相册保存：codec容量4，短写保留文件句柄。
 // 原函数：0x00518BE0。
-void Sub_518BE0(); // 原所选角色相册组清理及保存。
+void ClearCurrentCharacterAlbum_518BE0(); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。
-void Sub_50E5B0(
+void HandleAlbumEntryMaskReply_50E5B0(
     std::uintptr_t socket, std::int32_t version, const char* payload); // 相册同步回复，socket未用。
 // 原函数：0x0050E5D0。
-void Sub_50E5D0(
+void HandleAlbumEntryReply_50E5D0(
     std::uintptr_t socket, std::int32_t number, std::int32_t imageNo,
     std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
     std::int32_t value0C, std::int32_t value10, std::int32_t value14,

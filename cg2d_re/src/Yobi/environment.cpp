@@ -684,11 +684,11 @@ static void EnsureTimedMapBackgroundEffect_448290()
 static void MoveSceneEffectAlongAngle_449670(YobiAction* const action)
 {
     float angle = static_cast<float>(270.0 - action->angle50);
-    world::Sub_46F8F0(&angle);
-    const double xFactor = world::Sub_46F950(angle);
+    world::NormalizeAngleDegrees_46F8F0(&angle);
+    const double xFactor = world::LookupCosineDegrees_46F950(angle);
     action->offset40 = static_cast<float>(
         action->offset40 - xFactor * action->value54);
-    const double yFactor = world::Sub_46F930(angle);
+    const double yFactor = world::LookupSineDegrees_46F930(angle);
     action->offset44 = static_cast<float>(
         yFactor * action->value54 + action->offset44);
 }

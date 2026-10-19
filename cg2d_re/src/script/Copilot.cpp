@@ -174,7 +174,7 @@ static void setDiskState(std::vector<unsigned char>& state, int width, int heigh
 
 static void applySingleCellRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::Sub_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -231,7 +231,7 @@ static void applyFootprintRule(std::vector<unsigned char>& state, int width, int
 
 static void applyObjectRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::Sub_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
     if (imageId > 999) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -551,7 +551,7 @@ struct CellGraphicInfo {
 static CellGraphicInfo readCellGraphicInfo(unsigned short raw)
 {
     CellGraphicInfo info;
-    info.imageId = world::Sub_46CF00(raw);
+    info.imageId = world::ResolveMapGraphicNumber_46CF00(raw);
     if (info.imageId > 999 || (info.imageId >= 60 && info.imageId <= 79)) {
         resource::GetGraphicMapNoIndex(info.imageId, &info.seqNo);
         resource::GetGraphicFlag1(info.seqNo, &info.flag);
@@ -564,7 +564,7 @@ static CellGraphicInfo readCellGraphicInfo(unsigned short raw)
 
 static unsigned char rawBlockState(unsigned short raw)
 {
-    int imageId = world::Sub_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;

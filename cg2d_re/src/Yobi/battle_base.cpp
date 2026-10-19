@@ -262,11 +262,11 @@ void NormalizeBattleAngle_405E60(YobiAction* const action)
 // 原函数：0x00405EA0。
 void MoveBattleByAngle_405EA0(YobiAction* const action)
 {
-    const double xFactor = world::Sub_46F950(action->angle50);
+    const double xFactor = world::LookupCosineDegrees_46F950(action->angle50);
     const double xStep = xFactor * action->value54;
     const float yAngle = action->angle50;
     action->offset40 = static_cast<float>(xStep + action->offset40);
-    const double yFactor = world::Sub_46F930(yAngle);
+    const double yFactor = world::LookupSineDegrees_46F930(yAngle);
     action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);
 }
 
@@ -280,7 +280,7 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     const std::int32_t referenceX = cg::world::gBattleGraphicPoints553758[1][2] - cg::world::gBattleGraphicPoints553758[0][2];
     const float referenceDeltaY = static_cast<float>(referenceY);
     const float referenceDeltaX = static_cast<float>(referenceX);
-    const double referenceAngle = world::Sub_46F970(referenceDeltaX, referenceDeltaY);
+    const double referenceAngle = world::GetVectorAngleDegrees_46F970(referenceDeltaX, referenceDeltaY);
     float reference = static_cast<float>(referenceAngle);
     if (referenceAngle > 180.0) {
         reference = static_cast<float>(reference - 360.0);
@@ -289,7 +289,7 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     }
     const float deltaY = static_cast<float>(static_cast<double>(targetY) - sourceY);
     const float deltaX = static_cast<float>(static_cast<double>(targetX) - sourceX);
-    double difference = world::Sub_46F970(deltaX, deltaY);
+    double difference = world::GetVectorAngleDegrees_46F970(deltaX, deltaY);
     if (!(reference >= 0.0F)) {
         difference -= reference + 360.0;
     }
@@ -321,7 +321,7 @@ double GetBattleAngleDifference_406060(YobiAction* const source, YobiAction* con
     }
     const float deltaY = static_cast<float>(static_cast<double>(target->offset44) - source->offset44);
     const float deltaX = static_cast<float>(static_cast<double>(target->offset40) - source->offset40);
-    const double targetAngle = world::Sub_46F970(deltaX, deltaY);
+    const double targetAngle = world::GetVectorAngleDegrees_46F970(deltaX, deltaY);
     const double difference = targetAngle - source->angle50;
     if (difference > 180.0) {
         return difference - 360.0;
@@ -340,9 +340,9 @@ void TurnBattleTowardPosition_4060D0(
     const float deltaY = static_cast<float>(static_cast<double>(y) - action->offset44);
     const float deltaX = static_cast<float>(static_cast<double>(x) - action->offset40);
     if (step == 0.0F || std::isnan(step)) {
-        action->angle50 = static_cast<float>(world::Sub_46F970(deltaX, deltaY));
+        action->angle50 = static_cast<float>(world::GetVectorAngleDegrees_46F970(deltaX, deltaY));
     } else {
-        double difference = world::Sub_46F970(deltaX, deltaY) - action->angle50;
+        double difference = world::GetVectorAngleDegrees_46F970(deltaX, deltaY) - action->angle50;
         if (difference > 180.0) {
             difference -= 360.0;
         } else if (!(difference > -180.0)) {
@@ -375,9 +375,9 @@ void TurnBattleToward_406190(
     const float y = static_cast<float>(static_cast<double>(target->offset44) - action->offset44);
     const float x = static_cast<float>(static_cast<double>(target->offset40) - action->offset40);
     if (step == 0.0F || std::isnan(step)) {
-        action->angle50 = static_cast<float>(world::Sub_46F970(x, y));
+        action->angle50 = static_cast<float>(world::GetVectorAngleDegrees_46F970(x, y));
     } else {
-        double difference = world::Sub_46F970(x, y) - action->angle50;
+        double difference = world::GetVectorAngleDegrees_46F970(x, y) - action->angle50;
         if (difference > 180.0) {
             difference -= 360.0;
         } else if (!(difference > -180.0)) {
@@ -467,7 +467,7 @@ void FaceBattleActorTowardFormationPosition_406260(YobiAction* const action)
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const float y = static_cast<float>(static_cast<double>(payload->y04) - payload->y0C);
     const float x = static_cast<float>(static_cast<double>(payload->x00) - payload->x08);
-    action->angle50 = static_cast<float>(world::Sub_46F970(x, y));
+    action->angle50 = static_cast<float>(world::GetVectorAngleDegrees_46F970(x, y));
     UpdateBattleDirectionFromAngle_405CB0(action);
 }
 

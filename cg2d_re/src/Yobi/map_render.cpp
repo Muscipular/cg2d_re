@@ -575,7 +575,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     if (statusMask != 0 || (state & 2u) != 0 || (state & 0x1000u) != 0) {
         std::int32_t statusImage = 0;
         if ((state & 2u) != 0) {
-            if (value < 0 || value >= world::Sub_4410E0()) {
+            if (value < 0 || value >= world::GetActorStatusIconCount_4410E0()) {
                 value = 0;
             }
             statusImage = gActorStatusImages5542F4[value];

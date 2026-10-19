@@ -114,7 +114,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         if (world::gPetRuntimeRecords[petIndex].used == 0) {
             continue;
         }
-        const std::int32_t available = world::Sub_52E1D0(petIndex);
+        const std::int32_t available = world::HasPetMailTechnique_52E1D0(petIndex);
         if (available == 1) {
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
             gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = petIndex;
@@ -134,7 +134,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
     if ((world::ReadPlayerActionFlags() & 0x80u) != 0
-        || world::Sub_440B50() != 0) {
+        || world::IsObservationSceneTransitionActive_440B50() != 0) {
         for (auto& pair : gLoginWindowRuntime.choicesCC4CA0.pairs18) {
             pair[1] = 0;
         }

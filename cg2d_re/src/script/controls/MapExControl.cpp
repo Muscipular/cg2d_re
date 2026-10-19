@@ -64,7 +64,7 @@ static void MapExPlotDiamond(std::vector<uint32_t>& pixels, int width, int heigh
 }
 
 static int MapExDecodeMapNo(unsigned short raw) {
-    return world::Sub_46CF00(raw);
+    return world::ResolveMapGraphicNumber_46CF00(raw);
 }
 
 static uint8_t MapExColorIndexFromMapNo(int mapNo) {
@@ -198,7 +198,7 @@ bool UIMapExControl::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup,
     next.floor = effectiveFloor;
 
     char fileName[260] = {};
-    world::Sub_468520(fileName, effectiveMapId, effectiveGroup, effectiveFloor);
+    world::FormatMapDataPath_468520(fileName, effectiveMapId, effectiveGroup, effectiveFloor);
     next.fileName = fileName;
 
     FILE* file = fopen(fileName, "rb");

@@ -224,7 +224,7 @@ struct BigMapWindowState final {
     }
 
     void RefreshText() {
-        static_cast<WindowTextData*>(window.elements[TextMapName].data)->text = text::FromGbkWide(world::ReadText9DAD30());
+        static_cast<WindowTextData*>(window.elements[TextMapName].data)->text = world::GetMapName_9DAD30();
         static_cast<WindowTextData*>(window.elements[TextCurrentCoordinate].data)->text =
             std::format(L"当前：{}, {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
         static_cast<WindowTextData*>(window.elements[TextTargetCoordinate].data)->text = targetX >= 0

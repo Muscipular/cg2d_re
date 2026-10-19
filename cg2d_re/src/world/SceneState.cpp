@@ -361,8 +361,8 @@ static constexpr char kMapPathPrefix[] = "map";
 static constexpr char kMapReadMode[] = "rb";
 static constexpr char kUnknownText554590[] = "???"; // 原常量参考：0x00554590。
 
-// 原 [9DAD30,9DAD4A)；地图回复的 24 字节正文和 NUL，首字节另有世界重置写者。
-static std::array<std::uint8_t, 26> gText9DAD30 {}; // 原全局：0x009DAD30。
+// 原 [9DAD30,9DAD4A)；按用户要求改为宽字符串，协议入口保留原24字节名称判断。
+static std::wstring gMapName_9DAD30; // 原全局：0x009DAD30；UI复制和测宽直接消费宽文本。
 
 // 原 55DAAC/55DBAC；两表各 256 项，原始内容分别为逐位反转与 0x1021 多项式表。
 static constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC { // 原常量参考：0x0055DAAC。
@@ -432,7 +432,6 @@ static std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x00
     0x4046800000000000ULL,
 };
 
-static_assert(sizeof(gText9DAD30) == 26);
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
 static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
@@ -451,14 +450,18 @@ std::uint32_t gPendingMapBgmIndex_FF0D5C = 0; // 原全局：0x00FF0D5C。
 std::uint32_t gMapBgmChangePending_FF0D58 = 0; // 原全局：0x00FF0D58。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
 std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
-std::uint8_t& gMapNameFirstByte_9DAD30 = gText9DAD30[0]; // 原全局：0x009DAD30。
 std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
 std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
 std::uint8_t gNetworkDisconnectState_D9F2CA = 0; // 原全局：0x00D9F2CA。
 
-const char* ReadText9DAD30() noexcept
+const std::wstring& GetMapName_9DAD30() noexcept
 {
-    return reinterpret_cast<const char*>(gText9DAD30.data());
+    return gMapName_9DAD30;
+}
+
+void ClearMapName_9DAD30() noexcept
+{
+    gMapName_9DAD30.clear();
 }
 
 // 原函数：0x0051BEF0。
@@ -10299,7 +10302,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(
 }
 
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
-// PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
+// 原地图名分段字节复制按用户要求改为GBK转宽字符串赋值；提取、长度判断、调色板和返回保持。
 std::int32_t __cdecl HandleMapNameReply_509550(
     const std::uintptr_t, char* const payload)
 {
@@ -10312,11 +10315,8 @@ std::int32_t __cdecl HandleMapNameReply_509550(
 
     const char* const selected =
         std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
-    const std::size_t selectedBytes = std::strlen(selected) + 1;
-    const std::size_t wordBytes = selectedBytes & ~std::size_t{3};
-    std::memcpy(gText9DAD30.data(), selected, wordBytes);
+    gMapName_9DAD30 = cg::text::FromGbkWide(selected);
     detail::gPendingMapPaletteIndex_FF0D4C = -2;
-    std::memcpy(gText9DAD30.data() + wordBytes, selected + wordBytes, selectedBytes & 3u);
 
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         payload, '|', 2, 31, number.data()));

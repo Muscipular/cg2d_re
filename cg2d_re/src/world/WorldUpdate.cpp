@@ -132,7 +132,7 @@ void Update()
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         gObservationTravelTransitionCount_FF0D74 = 0;
-        gMapNameFirstByte_9DAD30 = 0;
+        ClearMapName_9DAD30();
         SetCurrentSceneType(6);
         cg::audio::BeginBgmFadeOut_52B990();
         gInventorySlotUseCounts_D67B08.fill(0);

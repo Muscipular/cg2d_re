@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <string>
 
 namespace cg::world {
 
@@ -20,8 +21,8 @@ extern std::uint32_t gPendingMapBgmIndex_FF0D5C;             // 原 0xFF0D5C，W
 extern std::uint32_t gMapBgmChangePending_FF0D58;             // 原 0xFF0D58，W32。
 extern std::uint32_t gLogoutToTownPending_D67E78;             // 原 0xD67E78，W32。
 extern std::uint32_t gObservationTravelTransitionCount_FF0D74;             // 原 0xFF0D74，W32。
-extern std::uint8_t& gMapNameFirstByte_9DAD30;             // 原 0x9DAD30 连续文本区的首 W8 别名。
-const char* ReadText9DAD30() noexcept; // 借用地图回复的同源文本，供窗口39复制/测宽。
+const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
+void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
 extern std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08; // 原 0xD67B08，严格 7 个 DWORD。
 extern std::uint32_t gSceneTransitionResetPending_58B6D0;             // 原 0x58B6D0，W32，映像初值 1。
 extern std::uint8_t gNetworkDisconnectState_D9F2CA;              // 原 0xD9F2CA，W8。

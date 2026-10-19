@@ -89,10 +89,10 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
     if (world::IsObservationSceneTransitionActive_440B50() == 0) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
         std::wstring& destination = data->text;
-        if (destination[0] == '\0') {
-            const char* const name = world::ReadText9DAD30();
-            destination = cg::text::FromGbkWide(name);
-            const std::int32_t measured = cg::render::TextMeasure(cg::text::FromGbkWide(name).c_str(), 12);
+        if (destination.empty()) {
+            const std::wstring& name = world::GetMapName_9DAD30();
+            destination = name;
+            const std::int32_t measured = cg::render::TextMeasure(name, 12);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t width = window->width;
             WindowElement* const elements = window->elements;

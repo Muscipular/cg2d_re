@@ -348,3 +348,9 @@ TUE01扩展（用户要求检查其它绘制入口）：连同测宽及局部dra
 | `src/ui/windows/WindowStall.cpp` | 1 | `message` |
 
 另保留 `platform::gWindowClassName` 和 `character_select::detail::gVersionPayload9A5C10` 两项共享存储；前者只读但跨窗口注册／创建使用，后者沿BRT01唯一零前缀对象合同。动态文字选择变量、可写配置和按索引访问的文字表继续保持原实现。
+
+## 地图名称宽字符串（2026-10-19，用户明确要求）
+
+地图名称原gText9DAD30字节数组改为唯一std::wstring存储gMapName_9DAD30。沿用用户已命名的GetMapName_9DAD30，返回const std::wstring&；WorldUpdate重置通过ClearMapName_9DAD30调用clear，不再暴露首字节别名。
+
+HandleMapNameReply_509550在原位反转义、字段提取及原24字节超长判断后，统一将选定GBK文本转换为宽字符串。小地图、大地图和地图提示直接复制/测宽宽文本，移除各UI读取端重复GBK转换。原协议字段提取、未知名称回退和调色板字段处理保持；仅此名称存储类型及原分段字节复制被用户要求的宽字符串赋值替代，不扩大到其它协议或全局文字。

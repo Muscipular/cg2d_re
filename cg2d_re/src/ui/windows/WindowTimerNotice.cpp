@@ -29,9 +29,9 @@ static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-        const char* const text = world::ReadText9DAD30();
-        data->text = cg::text::FromGbkWide(text);
-        const std::int32_t textWidth = cg::render::TextMeasure(cg::text::FromGbkWide(text).c_str(), 0);
+        const std::wstring& text = world::GetMapName_9DAD30();
+        data->text = text;
+        const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = (window->width - textWidth) >> 1;
     } else {

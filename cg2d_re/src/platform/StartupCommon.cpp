@@ -2,6 +2,7 @@
 
 #include "cg/platform/Startup.hpp"
 
+#include <string>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <direct.h> // 原CRT接口：0x0053DD2F、0x0053C654；原参数／返回合同由直接调用承接。
 
@@ -27,13 +28,12 @@ std::uint32_t CaptureDesktopColor()
 // 原函数：0x00532E70。
 int CreateSaveDirectories()
 {
-    char directory[256];
-    ::_chdir("data");
+    ::_wchdir(L"data");
     for (int i = 0; i < 10; ++i) {
-        std::sprintf(directory, "%d", i);
-        ::_mkdir(directory);
+        const auto directory = std::to_wstring(i);
+        ::_wmkdir(directory.c_str());
     }
-    ::_chdir("..");
+    ::_wchdir(L"..");
     return 1;
 }
 

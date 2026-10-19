@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <format>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -420,15 +421,10 @@ static void syncVisibleCache()
     }
 }
 
-static std::string makeMapFileName()
+static std::wstring makeMapFileName()
 {
-    char fileName[260] = {};
-    if (gMapId) {
-        std::snprintf(fileName, sizeof(fileName), "map\\%d\\%d\\%d.dat", gMapId, gMapGroup, gMapFloor);
-    } else {
-        std::snprintf(fileName, sizeof(fileName), "map\\0\\%d.dat", gMapFloor);
-    }
-    return fileName;
+    return gMapId ? std::format(L"map\\{}\\{}\\{}.dat", gMapId, gMapGroup, gMapFloor)
+        : std::format(L"map\\0\\{}.dat", gMapFloor);
 }
 
 static bool loadDiskMap()
@@ -460,7 +456,7 @@ static bool loadDiskMap()
         return false;
     };
 
-    FILE* file = std::fopen(makeMapFileName().c_str(), "rb");
+    FILE* file = _wfopen(makeMapFileName().c_str(), L"rb");
     if (!file) {
         return fail("open");
     }

@@ -31,7 +31,7 @@ struct Md5Context final {
 };
 
 // 原函数：0x00403660。
-static bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
+static bool ComputeFileDigest(const wchar_t* path, std::array<std::uint8_t, 16>& digest)
 {
     Md5Context context {};
     // 原402B70／402D30：MD5初始化与轮变换由系统提供，非HMAC。
@@ -44,7 +44,7 @@ static bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& di
         return false;
     }
 
-    const HANDLE file = ::CreateFileA(
+    const HANDLE file = ::CreateFileW(
         path,
         GENERIC_READ,
         FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -87,37 +87,32 @@ static bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& di
 }
 
 // 原函数：0x00403750。
-static std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
+static std::wstring EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
 {
-    constexpr char kDigits[] = "0123456789abcdef";
-    std::array<char, 33> text {};
+    constexpr wchar_t kDigits[] = L"0123456789abcdef";
+    std::wstring text(32, L'\0');
     for (std::size_t index = 0; index < digest.size(); ++index) {
         text[index * 2] = kDigits[digest[index] >> 4u];
         text[index * 2 + 1] = kDigits[digest[index] & 0x0Fu];
     }
-    text[32] = '\0';
     return text;
 }
 
 // 原函数：0x005202E0。
-char* ComputeExecutableDigest_5202E0(char* output)
+const wchar_t* ComputeExecutableDigest_5202E0(std::wstring& output)
 {
-    if (output == nullptr) {
-        return nullptr;
-    }
 
-    char path[256] {};
-    static_cast<void>(::GetModuleFileNameA(nullptr, path, 0xFFu));
+    wchar_t path[256] {};
+    static_cast<void>(::GetModuleFileNameW(nullptr, path, 0xFFu));
 
     std::array<std::uint8_t, 16> digest {};
     if (!ComputeFileDigest(path, digest)) {
-        std::strcpy(output, "");
+        output.clear();
         return nullptr;
     }
 
-    const std::array<char, 33> text = EncodeLowerHex(digest);
-    std::memcpy(output, text.data(), text.size());
-    return output;
+    output = EncodeLowerHex(digest);
+    return output.c_str();
 }
 
 } // namespace cg::platform

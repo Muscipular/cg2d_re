@@ -132,8 +132,8 @@ struct NetworkRuntimeState {
     std::uint8_t* reservedTripleBuffer2; // 原全局：0x0058B60C。 三倍容量保留缓冲区，当前仅有生命周期操作。
     std::uint8_t* reservedTripleBuffer3; // 原全局：0x0058B610。 三倍容量保留缓冲区，当前仅有生命周期操作。
     SendProtocolObserver sendObserver58B61C; // 原全局：0x0058B61C。
-    char sendLogPathDA3B58[0x400]; // 原全局：0x00DA3B58。
-    std::string receiveLogPathDA3F9C; // 原全局：0x00DA3F9C。 原字节路径；固定容量未证，不据相邻地址猜测。
+    std::wstring sendLogPathDA3B58; // 原全局：0x00DA3B58。
+    std::wstring receiveLogPathDA3F9C; // 原全局：0x00DA3F9C。
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
@@ -146,7 +146,7 @@ struct NetworkRuntimeState {
     std::uint32_t receiveResetD9F3C4; // 原全局：0x00D9F3C4。
     std::uint32_t frameModuloD9F3C8; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
-    std::array<char, 0x104> addressTextDA33D8; // 原全局：0x00DA33D8。 原lSZ回复缓存，非空时按strstr判断变化。
+    std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
@@ -433,8 +433,8 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
         observer(0U, buffer);
     }
     if (gNetworkRuntimeState.receiveLogPathDA3F9C.c_str()[0] != '\0') {
-        std::FILE* const file = std::fopen(
-            gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), "a+");
+        std::FILE* const file = _wfopen(
+            gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), L"a+");
         if (file != nullptr) {
             static_cast<void>(std::fprintf(file, "%s\n", buffer));
             static_cast<void>(std::fclose(file));
@@ -791,17 +791,18 @@ void HandleMapActorTransitionReply_50DD80(
 // 原函数：0x0050E6E0。
 void HandleServerAddressChangeReply_50E6E0(const std::uintptr_t, const char* const text)
 {
-    char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
-    if (previous[0] != '\0') {
-        if (const_cast<char*>(std::strstr(previous, text)) != nullptr) {
+    auto& previous = gNetworkRuntimeState.addressTextDA33D8;
+    const auto address = cg::text::FromGbkWide(text);
+    if (!previous.empty()) {
+        if (previous.find(address) != std::wstring::npos) {
             return;
         }
         std::wstring message;
-        cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
+        cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, previous, address);
         world::AppendChatMessage_44B050(message, 4, 3);
         world::AppendChatMessage_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
-    std::strcpy(previous, text);
+    previous = address;
 }
 
 // 原函数：0x0050E780。
@@ -1520,9 +1521,9 @@ std::int32_t SendProtocolBuffer_517480(
 {
     // UTL02：5171F0已将各文本token编码为GBK；日志、观察者和回调共用原协议字节。
     if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
-        std::FILE* const file = std::fopen(
-            gNetworkRuntimeState.sendLogPathDA3B58,
-            "a+");
+        std::FILE* const file = _wfopen(
+            gNetworkRuntimeState.sendLogPathDA3B58.c_str(),
+            L"a+");
         if (file != nullptr) {
             static_cast<void>(std::fprintf(file, "->%s\n", buffer));
             static_cast<void>(std::fclose(file));

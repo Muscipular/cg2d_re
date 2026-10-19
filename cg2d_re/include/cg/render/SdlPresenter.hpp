@@ -93,7 +93,7 @@ void Flip_44C560();
 
 // 原 453E80：原序写入已排好行的 BGR24 BMP；失败保留部分文件，返回 0/1。
 std::int32_t SaveScreenshotBitmap_453E80(
-    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const char* path);
+    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const wchar_t* path);
 
 // 原 453760：SDL 后端沿原 GDI 路径截取客户区屏幕原点的 640x480，并写原序文件/消息。
 void TakeScreenshot_453760();

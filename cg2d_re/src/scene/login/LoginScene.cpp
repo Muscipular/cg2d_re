@@ -421,9 +421,7 @@ std::int32_t ProcessScene_45FEA0()
                             gSelectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             gSelectedServerGroup = slot;
                             detail::PlaySe(53, 320, 240);
-                            char digestBytes[64]{}; // 摘要接口返回ASCII十六进制字节。
-                            platform::ComputeExecutableDigest_5202E0(digestBytes);
-                            gExecutableDigest = cg::text::FromGbkWide(digestBytes);
+                            platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
                             ReadInputValueFF494F_5203E0(gPassword);
                             ReadInputValueFF4982_520440(gAccount);
                             IncrementSceneState();

@@ -2731,7 +2731,7 @@ static std::int32_t WindowRuntime_LoadSettings()
 {
     static_cast<void>(WindowRuntime_ResetSettings());
     std::FILE* const stream =
-        std::fopen("data\\WinSaveDate", "rb+");
+        _wfopen(L"data\\WinSaveDate", L"rb+");
     if (stream == nullptr) {
         static_cast<void>(WindowRuntime_ResetSettings());
         return 0;
@@ -2810,7 +2810,7 @@ static std::uint32_t WindowRuntime_CaptureSettings()
 std::int32_t WindowRuntime_SaveSettings()
 {
     std::FILE* const stream =
-        std::fopen("data\\WinSaveDate", "wb+");
+        _wfopen(L"data\\WinSaveDate", L"wb+");
     if (stream != nullptr) {
         static_cast<void>(WindowRuntime_CaptureSettings());
         static_cast<void>(static_cast<std::uint32_t>(std::fwrite(

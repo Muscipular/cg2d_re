@@ -605,7 +605,7 @@ void Flip_44C560()
 
 // 原函数：0x00453E80。
 std::int32_t SaveScreenshotBitmap_453E80(
-    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const char* path)
+    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const wchar_t* path)
 {
     static_assert(sizeof(BITMAPFILEHEADER) == 14);
     static_assert(offsetof(BITMAPFILEHEADER, bfSize) == 2);
@@ -628,7 +628,7 @@ std::int32_t SaveScreenshotBitmap_453E80(
     infoHeader.biBitCount = 24;
     infoHeader.biCompression = BI_RGB;
 
-    const HANDLE file = CreateFileA(
+    const HANDLE file = CreateFileW(
         path, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (file == INVALID_HANDLE_VALUE) {
         return 0;
@@ -656,21 +656,21 @@ void TakeScreenshot_453760()
 {
     POINT origin {0, 0};
     static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
-    if (::_mkdir("screenshot" /* 原常量参考：0x00556738。 */) != 0
+    if (::_wmkdir(L"screenshot" /* 原常量参考：0x00556738。 */) != 0
         && errno != 17) {
         return;
     }
     __time64_t time;
     time = ::_time64(nullptr);
     const std::tm* const calendar = ::_localtime64(&time);
-    char path[256];
+    std::wstring path;
     std::int32_t sequence = 0;
     for (; sequence < 1000; ++sequence) {
         const std::int32_t month = calendar->tm_mon;
         const std::int32_t day = calendar->tm_mday;
         const std::int32_t year = calendar->tm_year;
-        std::sprintf(path, "screenshot\\CG%02d%02d%02d_%03d.bmp" /* 原常量参考：0x00556714。 */, year % 100, month + 1, day, sequence);
-        std::FILE* const probe = std::fopen(path, "r" /* 原常量参考：0x00554908。 */);
+        path = std::format(L"screenshot\\CG{:02}{:02}{:02}_{:03}.bmp", year % 100, month + 1, day, sequence);
+        std::FILE* const probe = _wfopen(path.c_str(), L"r" /* 原常量参考：0x00554908。 */);
         if (probe == nullptr) {
             break;
         }
@@ -722,7 +722,7 @@ void TakeScreenshot_453760()
                         reinterpret_cast<HWND>(platform::gLegacyWindow), compatible));
                     static_cast<void>(ReleaseDC(
                         reinterpret_cast<HWND>(platform::gLegacyWindow), desktop));
-                    if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path) != 0) {
+                    if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path.c_str()) != 0) {
                         message = std::format(L"画面已储存。({})" /* 原常量参考：0x005565BC。 */, cg::text::FromGbkWide(path));
                     } else {
                         message = std::format(L"画面储存失败(7)。({})" /* 原常量参考：0x00556598。 */, cg::text::FromGbkWide(path));

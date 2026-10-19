@@ -192,9 +192,9 @@ static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
     }
 
     static const HMODULE resourceModule = [instance]() -> HMODULE {
-        std::string modulePath(MAX_PATH, '\0');
+        std::wstring modulePath(MAX_PATH, L'\0');
         for (;;) {
-            const DWORD length = GetModuleFileNameA(
+            const DWORD length = GetModuleFileNameW(
                 instance, modulePath.data(), static_cast<DWORD>(modulePath.size()));
             if (length == 0) {
                 return nullptr;
@@ -205,13 +205,13 @@ static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
             }
             modulePath.resize(modulePath.size() * 2);
         }
-        const std::size_t separator = modulePath.find_last_of("\\/");
-        if (separator == std::string::npos) {
+        const std::size_t separator = modulePath.find_last_of(L"\\/");
+        if (separator == std::wstring::npos) {
             return nullptr;
         }
         modulePath.resize(separator + 1);
-        modulePath += "cg2d.exe";
-        return LoadLibraryExA(modulePath.c_str(), nullptr,
+        modulePath += L"cg2d.exe";
+        return LoadLibraryExW(modulePath.c_str(), nullptr,
             LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
     }();
     return resourceModule != nullptr ? resourceModule : instance;

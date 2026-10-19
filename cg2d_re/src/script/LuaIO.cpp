@@ -1,4 +1,5 @@
 #include "LuaUI.hpp"
+#include "cg/text/Encoding.hpp"
 #include <yaml-cpp/yaml.h>
 #include <filesystem>
 #include <fstream>
@@ -47,7 +48,7 @@ static bool BuildLuaFilePath(lua_State* L, int index, std::filesystem::path& pat
     if (ec) {
         return false;
     }
-    path = cwd / "data" / "luaUI" / std::string(name, len);
+    path = cwd / L"data" / L"luaUI" / cg::text::FromGbkWide(std::string_view(name, len));
     return true;
 }
 

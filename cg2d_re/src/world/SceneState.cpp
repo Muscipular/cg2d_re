@@ -427,7 +427,7 @@ static std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // �
 
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
-static constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
+static constexpr wchar_t kCutReadMode554920[] = L"rb"; // 原常量参考：0x00554920。
 
 static constexpr wchar_t kCutCaption5536B8[] = L"确认"; // 原常量参考：0x005536B8。
 static constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
@@ -3116,11 +3116,9 @@ void __cdecl ResetCutMapData_46DC60()
 std::int32_t __cdecl LoadCutMapData_46DB00(std::int32_t selected)
 {
     ResetCutMapData_46DC60();
-    char path[256];
-    std::sprintf(
-        path, "bin\\PUK2\\cutdat\\%d.cut" /* 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。 */ /* 原常量参考：0x0055DE50。 */, selected);
+    const auto path = std::format(L"bin\\PUK2\\cutdat\\{}.cut", selected);
     std::FILE* const file =
-        std::fopen(path, kCutReadMode554920);
+        _wfopen(path.c_str(), kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(L"cut地图档开启失败。" /* 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。 */ /* 原常量参考：0x0055DE3C。 */, kCutCaption5536B8, 0x10);
         const std::int32_t response =
@@ -3153,11 +3151,9 @@ std::int32_t __cdecl LoadCutMapData_46DB00(std::int32_t selected)
 // 原 [0x46DC90,0x46DD35)；失败保留表，成功单次读取并返回完整关闭结果。
 std::int32_t __cdecl LoadAutoMapColorData_46DC90(std::int32_t selected)
 {
-    char path[256];
-    std::sprintf(
-        path, "bin\\PUK2\\cutdat\\%d.aut" /* 原 0x55DE7C/0x55DE68；.aut 相对路径与打开失败的第一正文。 */ /* 原常量参考：0x0055DE7C。 */, selected);
+    const auto path = std::format(L"bin\\PUK2\\cutdat\\{}.aut", selected);
     std::FILE* const file =
-        std::fopen(path, kCutReadMode554920);
+        _wfopen(path.c_str(), kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(L"aut地图档开启失败。" /* 原常量参考：0x0055DE68。 */, kCutCaption5536B8, 0x10);
         const std::int32_t response =

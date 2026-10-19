@@ -87,8 +87,8 @@ static void WriteRendererModeFile(const bool fallback)
     if (fallback) {
         buffer[0] = '1'; // 原 55638C 的 31 00。
     }
-    const HANDLE file = ::CreateFileA(
-        "data\\update.dat", GENERIC_WRITE, 0, nullptr,
+    const HANDLE file = ::CreateFileW(
+        L"data\\update.dat", GENERIC_WRITE, 0, nullptr,
         CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (file != INVALID_HANDLE_VALUE) {
         if (!fallback) {

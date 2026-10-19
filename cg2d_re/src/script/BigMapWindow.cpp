@@ -52,7 +52,8 @@ struct BigMapWindow final : UIWindowInstanceEx {
     int dragX = 0, dragY = 0;
     double dragMapX = 0, dragMapY = 0;
     bool dragMoved = false;
-    bool options = true, followPlayer = true, dragging = false, mapReady = false;
+    bool mapClickPending = false; // 首次左击来自地图且未拖动，才允许后续原生双击寻路。
+    bool options = false, followPlayer = true, dragging = false, mapReady = false;
     bool annotationsLoaded = false;
     bool acceptsMouse = false; // 当前调度帧可接收输入，避免被其它窗口遮住时仍显示悬停。
     int missingIcons = 0;
@@ -182,6 +183,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
         if (world::gCurrentSceneType != SCENE_NORMAL) {
             window.state |= WIN_STATE_CLOSE;
             dragging = false;
+            mapClickPending = false;
             return stage;
         }
         Layout();
@@ -192,6 +194,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
             currentGroup = world::gMapCachePathKey_9E0434;
             targetX = targetY = -1;
             dragging = false;
+            mapClickPending = false;
             followPlayer = true;
             routeStatus.clear();
             LoadAnnotations();
@@ -208,11 +211,27 @@ struct BigMapWindow final : UIWindowInstanceEx {
         const bool available = gWindowHasFocus == 0 && phase == 0 && platform::gWindowActiveState == 2
             && platform::IsClientWindowForeground();
         acceptsMouse = available && focused != 0;
+        if (!acceptsMouse || (gMouseClickState & 2)) mapClickPending = false;
+        // 原鼠标双击事件带0x11（含左按下）。先于拖动处理，避免快速双击被捕获分支吞掉。
+        if (acceptsMouse && mapClickPending && (gMouseClickState & 0x10) && MapHit()) {
+            mapClickPending = false;
+            dragging = false;
+            const auto point = map.ScreenToMap(mx - window.x - map.x, my - window.y - map.y);
+            if (point.first >= 0 && point.second >= 0 && point.first < map.mapWidth && point.second < map.mapHeight) {
+                targetX = point.first; targetY = point.second;
+                startCopilot(targetX, targetY);
+                routeStatus = getAutoCopliotState() ? L"寻路中" : L"寻路未启动";
+            }
+            gMouseEventState = MES_CAPTURED;
+            gWindowHasFocus = 1;
+            return stage;
+        }
         if (dragging) {
             if (available && held) {
                 const int dx = mx - dragX, dy = my - dragY;
                 if (std::abs(dx) > 3 || std::abs(dy) > 3) dragMoved = true;
                 if (dragMoved) {
+                    mapClickPending = false;
                     followPlayer = false;
                     map.PanFrom(dragMapX, dragMapY, dx, dy);
                 }
@@ -224,6 +243,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
         }
         if (!available || !focused) return stage;
         if (gMouseClickState & 1) {
+            mapClickPending = false;
             if (ButtonHit(BigMapButton::Close)) window.state |= WIN_STATE_CLOSE;
             else if (ButtonHit(BigMapButton::Toggle)) options = !options;
             else if (ButtonHit(BigMapButton::Center)) followPlayer = true;
@@ -235,6 +255,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
                 const int index = ((my - window.y) * 480 / window.height - 138) / 20;
                 if (index >= 0 && index < static_cast<int>(categories.size())) categories[index] = !categories[index];
             } else if (MapHit()) {
+                mapClickPending = true;
                 dragging = true;
                 dragMoved = false;
                 dragX = mx; dragY = my;
@@ -244,8 +265,12 @@ struct BigMapWindow final : UIWindowInstanceEx {
         if ((gMouseClickState & 2) && MapHit()) {
             const auto point = map.ScreenToMap(mx - window.x - map.x, my - window.y - map.y);
             if (point.first >= 0 && point.second >= 0 && point.first < map.mapWidth && point.second < map.mapHeight) {
+                const bool retarget = getAutoCopliotState() && (targetX != point.first || targetY != point.second);
                 targetX = point.first; targetY = point.second;
-                routeStatus.clear();
+                if (retarget) {
+                    startCopilot(targetX, targetY);
+                    routeStatus = getAutoCopliotState() ? L"寻路中" : L"寻路未启动";
+                } else if (!getAutoCopliotState()) routeStatus.clear();
             }
         }
         return stage; // 调度器根据focused统一吞掉窗口内事件。
@@ -399,7 +424,7 @@ struct BigMapWindow final : UIWindowInstanceEx {
         }
         std::wstring hint = targetX >= 0
             ? std::format(L"目标：{},{}  {}", targetX, targetY, routeStatus.empty() ? L"点击开始寻路" : routeStatus)
-            : L"左键拖动地图，右键选择寻路坐标";
+            : L"左键拖动，双击寻路，右键选择坐标";
         if (acceptsMouse) {
             if (ButtonHit(BigMapButton::Walk)) hint = L"开始寻路：前往右键选中的目标";
             else if (ButtonHit(BigMapButton::Center)) hint = L"玩家居中：恢复地图跟随";

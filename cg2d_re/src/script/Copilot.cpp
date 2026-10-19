@@ -1524,7 +1524,8 @@ static bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Po
 } // namespace copilot_detail
 
 
-void autoCopilot(int x, int y)
+// 目标改变时可只刷新显示路径；已有移动段仍沿原忙碌门禁完成，不提前发出下一段。
+static void PlanCopilot(int x, int y, bool routeOnly)
 {
     if (copilot_detail::skipSceneNotReady("autoCopilot")) {
         return;
@@ -1549,7 +1550,7 @@ void autoCopilot(int x, int y)
         copilot_detail::clearCopilotRoute();
         return;
     }
-    if (copilot_detail::isBusy()) {
+    if (!routeOnly && copilot_detail::isBusy()) {
         // m_log_i("[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
         return;
     }
@@ -1557,7 +1558,7 @@ void autoCopilot(int x, int y)
         copilot_detail::clearCopilotRoute();
         return;
     }
-    if (copilot_detail::tryUseCachedWaypoint(player, target)) {
+    if (!routeOnly && copilot_detail::tryUseCachedWaypoint(player, target)) {
         return;
     }
 
@@ -1569,6 +1570,7 @@ void autoCopilot(int x, int y)
     if (fullPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use fullPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
+        if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
         copilot_detail::requestMove(waypoint);
         return;
@@ -1579,6 +1581,7 @@ void autoCopilot(int x, int y)
     if (optimisticPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use optimisticPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
+        if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
         copilot_detail::requestMove(waypoint);
         return;
@@ -1589,6 +1592,7 @@ void autoCopilot(int x, int y)
     if (localPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint)) {
         // m_log_i("[copilot] use localPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
+        if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
         copilot_detail::requestMove(waypoint);
         return;
@@ -1599,6 +1603,7 @@ void autoCopilot(int x, int y)
     if (nearPath && copilot_detail::pickVisibleWaypoint(path, player, waypoint, true)) {
         // m_log_i("[copilot] use nearPath waypoint=%d,%d\n", waypoint.x, waypoint.y);
         copilot_detail::cacheCopilotRoute(path);
+        if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
         copilot_detail::requestMove(waypoint);
         return;
@@ -1607,6 +1612,11 @@ void autoCopilot(int x, int y)
     // m_log_i("[copilot] no path player=%d,%d target=%d,%d\n", player.x, player.y, target.x, target.y);
     // logNoPathDetail(player, target);
     copilot_detail::clearCopilotRoute();
+}
+
+void autoCopilot(int x, int y)
+{
+    PlanCopilot(x, y, false);
 }
 
 void startCopilot(int x, int y)
@@ -1629,6 +1639,7 @@ void startCopilot(int x, int y)
     copilot_detail::gHasLastRequestedWaypoint = false;
     copilot_detail::clearCopilotRoute();
     m_log_i("[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), world::gCurrentSceneType, world::gCurrentSceneState);
+    PlanCopilot(x, y, true);
 }
 
 void stopCopilot()

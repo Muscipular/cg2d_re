@@ -439,7 +439,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                     ? world::gPlayerRuntimeSlots.imageNo
                     : std::bit_cast<std::int32_t>(
                         world::detail::gWorldObjects[payload->index].imageNo);
-                action->imageNo = world::Sub_51C0D0(original);
+                action->imageNo = world::ResolveRidingCharacterImage_51C0D0(original);
             };
             if (payload->action44 != nullptr) {
                 payload->action44->imageNo = imageNo;
@@ -1174,7 +1174,7 @@ void ApplyPlayerRideReply(
         const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
         payload->action44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
-            world::Sub_51C0D0(world::gPlayerRuntimeSlots.imageNo);
+            world::ResolveRidingCharacterImage_51C0D0(world::gPlayerRuntimeSlots.imageNo);
         world::gPlayerRuntimeSlots.action->imageNo = mappedPlayer;
         world::gPlayerRuntimeSlots.action->phase = 1;
         payload->counter48 = 0;

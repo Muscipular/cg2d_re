@@ -105,9 +105,9 @@ void HandlePartyActorVitalsReply_50AEF0(std::uintptr_t unusedSocket, const char*
 // 原函数：0x0050B380。
 void HandleMapObjectListReply_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 // 原函数：0x0050BCD0。
-void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
+void HandleWorldActorActionsReply_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
 // 原函数：0x0050BF20。
-void Sub_50BF20(std::uintptr_t unusedSocket, const char* payload); // 删除编号后清首个匹配地图槽引用。
+void HandleWorldObjectRemovalReply_50BF20(std::uintptr_t unusedSocket, const char* payload); // 删除编号后清首个匹配地图槽引用。
 // 原函数：0x0043DB00。
 std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DB30。

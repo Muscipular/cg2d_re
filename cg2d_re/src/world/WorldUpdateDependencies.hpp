@@ -30,16 +30,16 @@ std::int32_t UpdateCapability4LoginScene_464840();                 // 原 0x4648
 // 原函数：0x00476680。
 void Sub_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 // 原函数：0x0050C870。
-std::int32_t __cdecl Sub_50C870(
+std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(
     std::uintptr_t socket, std::int32_t playerValue,
     std::int32_t timeOffset, std::int32_t pathValue,
     std::int32_t adjustment); // GTP01：PudO 校时，持有 category，两 time/旧 adjustment 与最后 S32 返回保。
 // 原函数：0x0050E1A0。
-void Sub_50E1A0(
+void HandleDirectionalMapEffectsReply_50E1A0(
     std::uintptr_t socket, std::int32_t mask, std::int32_t value,
     const char* unusedText); // 三效果半字写入后调用既有46E0D0。
 // 原函数：0x0050E210。
-std::int32_t Sub_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
+std::int32_t HandleNotificationSoundReply_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
 // 原函数：0x0050E650。
 void HandleMapSceneEffectReply_50E650(
     std::uintptr_t socket, std::int32_t mode, std::int32_t duration,
@@ -98,7 +98,7 @@ extern std::uint32_t gValue62B38C; // 原全局：0x0062B38C。
 // 原函数：0x004590E0。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00458F40。
-void __cdecl Sub_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
+void __cdecl UpdatePlayerCountdown_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
 // 原函数：0x00458F00。
 void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
 // 原函数：0x00519EB0。
@@ -138,15 +138,15 @@ void Sub_455B90(); // 原455B90：仅FF0D40不等于10时写W32[62B338]=1，不�
 // 原函数：0x00455BB0。
 void Sub_455BB0(); // 原455BB0：仅FF0D40不等于10时写W32[62B36C]=1，不定义返回。
 // 原函数：0x00455BD0。
-std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
+std::int32_t InitializeWorldSceneFlags_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 // 原函数：0x00504A30。
-std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
+std::int32_t InitializeGameplayNotifications_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 // 原函数：0x00504100。
 std::int32_t ResetSceneUiState_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
 // 原函数：0x0045EBB0。
-std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
+std::int32_t ProcessLogoutScene_45EBB0();                 // 原 0x45EBB0。
 // 原函数：0x0045EEE0。
-std::int32_t Sub_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
+std::int32_t ProcessLogoutTransition_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
 // 原函数：0x0045ED80。
 void ResetLogoutScene_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
 extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。

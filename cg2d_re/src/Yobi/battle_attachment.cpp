@@ -405,7 +405,7 @@ std::int32_t SetBattleRider_4222B0(
     auto* const payload = action->payload.battleActor;
     if (ridingImageNo > 0) {
         if (payload->rider13C8 == nullptr) {
-            const std::int32_t mapped = world::Sub_51C0D0(imageNo);
+            const std::int32_t mapped = world::ResolveRidingCharacterImage_51C0D0(imageNo);
             YobiAction* const rider = NewBattleRider_4221F0(action, mapped);
             payload->rider13C8 = rider;
             rider->phase = 0;
@@ -413,7 +413,7 @@ std::int32_t SetBattleRider_4222B0(
             payload->rider13C8->characterAction = 0;
         }
         if (payload->rider13C8 != nullptr) {
-            const std::int32_t mapped = world::Sub_51C0D0(imageNo);
+            const std::int32_t mapped = world::ResolveRidingCharacterImage_51C0D0(imageNo);
             payload->rider13C8->imageNo = mapped;
         }
         action->imageNo = ridingImageNo;

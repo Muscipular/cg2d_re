@@ -284,7 +284,7 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
 void RemoveWorldObject_4462E0(const std::int32_t objectIndex)
 {
     if (cg::world::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        static_cast<void>(detail::Sub_519D50());
+        static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         return;
     }
     const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);

@@ -326,7 +326,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
-        action->imageNo = world::Sub_51C0D0(source->imageNo);
+        action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
         static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     } else {
@@ -409,7 +409,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
-        action->imageNo = world::Sub_51C0D0(source->imageNo);
+        action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
         if (action->phase == 4) {
             action->direction = source->direction;

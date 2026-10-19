@@ -104,31 +104,31 @@ std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0();         // 原 [0x4
 // 原函数：0x00469810。
 std::int32_t __cdecl IsMapCellBlocked_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
 // 原函数：0x0050CF90。
-void __cdecl Sub_50CF90(
+void __cdecl HandleMapTransitionReply_50CF90(
     std::uintptr_t socket, std::int32_t sequence,
     std::int32_t status); // 原 [0x50CF90,0x50CFF7)，地图回复序号与状态清理。
 // 原函数：0x00509090。
-void __cdecl Sub_509090(
+void __cdecl HandleMapRectangleCrcReply_509090(
     std::uintptr_t socket, std::int32_t first,
     std::int32_t floor, std::int32_t xStart,
     std::int32_t yStart, std::int32_t xEnd,
     std::int32_t yEnd, std::int32_t expectedTile,
     std::int32_t expectedObj, std::int32_t expectedHit); // 原 [0x509090,0x5090FC)，地图校验回复回调。
 // 原函数：0x00509100。
-std::int32_t __cdecl Sub_509100(
+std::int32_t __cdecl HandleMapRectangleDataReply_509100(
     std::uintptr_t socket, std::int32_t mapId,
     std::int32_t floor, std::int32_t xStart,
     std::int32_t yStart, std::int32_t xEnd,
     std::int32_t yEnd, const char* payload); // 原 [0x509100,0x5093B6)，连续局部帧地图增量回复。
 // 原函数：0x005093F0。
-std::int32_t __cdecl Sub_5093F0(
+std::int32_t __cdecl HandleMapChangeReply_5093F0(
     std::uintptr_t a1, std::int32_t a2, std::int32_t a3,
     std::int32_t a4, std::int32_t a5, std::int32_t a6,
     std::int32_t a7, std::int32_t a8, std::int32_t a9,
     std::int32_t a10, std::int32_t a11, std::int32_t a12,
     std::int32_t a13); // 原 [0x5093F0,0x509548)，地图保存及场景状态发布。
 // 原函数：0x00509550。
-std::int32_t __cdecl Sub_509550(
+std::int32_t __cdecl HandleMapNameReply_509550(
     std::uintptr_t socket, char* payload); // PTR01：原完整回复，地图名整词/状态/尾字节及解析持值顺序保持。
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
 std::int32_t DrawCurrentAutoMap_46C760(std::int32_t x, std::int32_t y);
@@ -147,9 +147,9 @@ double __cdecl GetVectorAngleDegrees_46F970(float first, float second); // 原 [
 // 原函数：0x0046CDF0。
 std::int64_t __cdecl GetEightWayMapDirection_46CDF0(float first, float second); // WDG01：原 F32 偏移/落点/乘数与归一化，正常转换返回 S64。
 // 原函数：0x0050A3E0。
-void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void HandlePartyMemberReply_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
 // 原函数：0x0050D000。
-void Sub_50D000(
+void HandlePartyMembershipReply_50D000(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 跟随状态回复。
 // 原函数：0x005093C0。
 void HandlePlayerPositionReply_5093C0(

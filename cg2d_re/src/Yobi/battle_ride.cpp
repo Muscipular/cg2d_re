@@ -103,7 +103,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         const std::int32_t second = payload->effects1C[index].position4;
         auto* const carrier = effect->payload.battleRideCarrier;
         if (payload->rider13C8 == nullptr) {
-            const std::int32_t image = world::Sub_51C0D0(effect->imageNo);
+            const std::int32_t image = world::ResolveRidingCharacterImage_51C0D0(effect->imageNo);
             YobiAction* const rider = NewBattleRider_4221F0(action, image);
             payload->rider13C8 = rider;
             rider->phase = 1;
@@ -706,7 +706,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     YobiAction* const initialRider = payload->rider13C8;
     if (initialRider == nullptr) {
         payload->baseImage13AC = action->imageNo;
-        const std::int32_t imageNo = world::Sub_51C0D0(action->imageNo);
+        const std::int32_t imageNo = world::ResolveRidingCharacterImage_51C0D0(action->imageNo);
         YobiAction* const rider = NewBattleRider_4221F0(action, imageNo);
         payload->rider13C8 = rider;
         rider->phase = 1;

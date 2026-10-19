@@ -19,9 +19,9 @@ inline constexpr std::int32_t kTechniqueSlotCount = 30;
 static_assert(kSkillSlotCount <= 32); // 现有战斗P封包以32位掩码表示技能可用状态。
 
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
-std::int32_t Sub_509650(std::uintptr_t socket, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
+std::int32_t HandlePlayerPrimaryStatsReply_509650(std::uintptr_t socket, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
 // 原函数：0x00509BA0。
-void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
+void HandlePlayerSecondaryStatsReply_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
 void HandlePlayerProfessionReply_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
 const char* GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
@@ -139,18 +139,18 @@ extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原�
 std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
 extern std::uint16_t gValueDA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
 // 原函数：0x00505040。
-std::int32_t Sub_505040(std::int32_t slot); // 说明/类别/flag800及制造配方条件。
+std::int32_t IsItemEligibleForDecoration_505040(std::int32_t slot); // 说明/类别/flag800及制造配方条件。
 // 原函数：0x005050B0。
-std::int32_t Sub_5050B0(std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
+std::int32_t IsItemEligibleForPetDecoration_5050B0(std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
 // 原函数：0x00505110。
 std::int32_t IsItemEligibleForRefining_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
 // 原函数：0x00509EB0。
-void Sub_509EB0(std::uintptr_t socket, const char* payload);
+void HandlePlayerSkillsReply_509EB0(std::uintptr_t socket, const char* payload);
 // 原函数：0x0050A120。
-void Sub_50A120(
+void HandlePlayerSkillTechniquesReply_50A120(
     std::uintptr_t unusedSocket, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。
 // 原函数：0x0050C580。
-void Sub_50C580(
+void HandleSkillRecipesReply_50C580(
     std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 固定56行、每行五材料。
 
 // 原FDA8A4起的28条玩家物品；NIO01在网络字段解析后持有UTF-16，注释偏移仅作原端参考。
@@ -234,14 +234,14 @@ static_assert(offsetof(PlayerRuntimeSlots, flags18C)
 extern PlayerRuntimeSlots gPlayerRuntimeSlots; // 原全局：0x00FDA700；中央有序构造。
 
 // 原函数：0x0050BFD0。
-void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
+void HandleFullPlayerInventoryReply_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
 // 原函数：0x0050C260。
-void Sub_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号的14字段增量回复。
+void HandlePlayerInventoryUpdatesReply_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号的14字段增量回复。
 // 原函数：0x0050C900。
 void HandleInventorySlotSwapReply_50C900(
     std::uintptr_t unusedSocket, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
 // 原函数：0x0051B5F0。
-std::int32_t Sub_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
+std::int32_t CountInventoryItemQuantity_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
 // 原51B630：玩家/宠物容器间整条换位，不改装备标志或同步UI。
 void SwapPlayerOrPetItemSlots_51B630(
     std::int32_t firstGroup, std::int32_t firstIndex,
@@ -345,15 +345,15 @@ std::int32_t HasPetTechnique_52E180(
 extern std::uint32_t gPetDetailDraftChanged_D67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
-void Sub_510150(
+void HandlePetInventoryUpdatesReply_510150(
     std::uintptr_t unusedSocket, std::int32_t petIndex, const char* payload);
 
 // 原函数：0x0050A6B0。
-void Sub_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void HandlePetPrimaryStatsReply_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
 // 原函数：0x0050AC20。
-void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
+void HandlePetSecondaryStatsReply_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
 // 原函数：0x0050B0D0。
-void Sub_50B0D0(
+void HandlePetTechniquesReply_50B0D0(
     std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 技能回复，无CryptInt门禁。
 // 原函数：0x005185C0。
 void BuildPetTechniqueDisplayEntries_5185C0(
@@ -381,7 +381,7 @@ static_assert(sizeof(TitleRecord) == 0x1C);
 extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F8。
 
 // 原函数：0x0050A300。
-void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
+void HandlePlayerTitlesReply_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
 std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
 extern std::int32_t gValueFDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
@@ -428,11 +428,11 @@ std::uint32_t SetPlayerMapCoordinates_519EC0(std::int32_t x, std::int32_t y); //
 // 原函数：0x0051BEE0。
 void SuspendPlayerForObservation_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 // 原函数：0x0051C0D0。
-std::int32_t Sub_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
+std::int32_t ResolveRidingCharacterImage_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
 // 原函数：0x0051BEC0。
 std::int32_t GetPlayerStatusIcon_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
 // 原函数：0x0051BE50。
-std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
+std::int8_t RequestPlayerStatusIcon_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
 
 namespace detail {
 // 原函数：0x00504F10。
@@ -472,7 +472,7 @@ void CopyTitleRecords_5198A0(
 // 原函数：0x005198F0。
 std::int32_t CompareTitleRecordsById_5198F0(const void* left, const void* right);
 // 原函数：0x005199A0。
-void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
+void InitializePlayerRuntimeState_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 // 原函数：0x0051A4B0。
 void CopyPlayerIdentityToMapAction_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
 // 原函数：0x0051A5E0。
@@ -480,13 +480,13 @@ void MarkPlayerAsPartyMember_51A5E0(); // 玩家flags18A置200。
 // 原函数：0x0051A5F0。
 void ClearPlayerPartyMembership_51A5F0(); // 仅清玩家flags18A的200。
 // 原函数：0x0051B080。
-cg::yobi::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
+cg::yobi::YobiAction* ClearPartyMembershipState_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
 // 原函数：0x0051B0F0。
 void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x00519A80。
-void Sub_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
+void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
-cg::yobi::YobiAction* Sub_51A090(
+cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     const char* name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 519A80 公共尾清理；后续协议/场景必须复用这些独立 W16 槽。
@@ -497,21 +497,21 @@ extern std::uint16_t gValueFF03D8; // 原全局：0x00FF03D8。
 extern std::uint16_t gValueFF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
 extern std::uint64_t gValueFF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。
-std::uint32_t Sub_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
+std::uint32_t RequestAdjacentWorldInteraction_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 // 原函数：0x00519CD0。
-void Sub_519CD0(
+void CreateOrUpdatePlayerMapActor_519CD0(
     std::int32_t imageNo, std::int32_t x, std::int32_t y,
     std::int32_t direction); // 原 519CD0：创建并发布玩家，或更新已有玩家。
 // 原函数：0x00519E50。
-void Sub_519E50(std::int32_t imageNo, std::int32_t direction);
+void SetPlayerMapAppearance_519E50(std::int32_t imageNo, std::int32_t direction);
 // 原函数：0x0051A040。
 std::int32_t SetPlayerFacingDirection_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
 // 原函数：0x0051A060。
 void SetPlayerAnimationState_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
 // 原函数：0x0051A840。
-void Sub_51A840(
+void ApplyPlayerActionCommand_51A840(
     std::int32_t x, std::int32_t y, std::int32_t direction,
     std::int32_t characterAction, std::int32_t option1, std::int32_t option2,
     std::int32_t option3, std::int32_t option4); // 完整玩家动作回复分支。
@@ -536,7 +536,7 @@ void HidePlayerPetPersistentStatusIcon_51BE30(); // FDA88E清8。
 // 原函数：0x0051BE40。
 void ShowPlayerPetTimedStatusIcon_51BE40(); // FDA88E置0x50。
 // 原函数：0x00519D50。
-std::int8_t Sub_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
+std::int8_t DestroyPlayerMapPresence_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
 // 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。
 // 原函数：0x0051A5A0。
 void MarkPlayerAsPartyLeader_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。

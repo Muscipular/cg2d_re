@@ -521,7 +521,7 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
     default: break;
     }
     if (world::GetPlayerStatusIcon_51BEC0() != state) {
-        static_cast<void>(world::Sub_51BE50(state));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(state));
     }
 }
 
@@ -861,7 +861,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
     if (world::GetPlayerStatusIcon_51BEC0() != 9) {
-        static_cast<void>(world::Sub_51BE50(9));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
     }
     return WindowCraft_Create();
 }
@@ -881,7 +881,7 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
-    static_cast<void>(world::Sub_51BE50(9));
+    static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
     return WindowCraft_Create();
 }
 
@@ -1056,7 +1056,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 }
                 if (mode == 6 || mode == 15) {
                     const std::int32_t accepted = mode == 6
-                        ? world::Sub_505040(source) : world::Sub_5050B0(source);
+                        ? world::IsItemEligibleForDecoration_505040(source) : world::IsItemEligibleForPetDecoration_5050B0(source);
                     if (accepted == 0) {
                         return;
                     }
@@ -1169,7 +1169,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 continue;
             }
             const std::int32_t accepted = mode == 6
-                ? world::Sub_505040(slot + 8) : world::Sub_5050B0(slot + 8);
+                ? world::IsItemEligibleForDecoration_505040(slot + 8) : world::IsItemEligibleForPetDecoration_5050B0(slot + 8);
             if (accepted == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(position));
                 continue;
@@ -2147,8 +2147,8 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                     case 15: {
                         const std::uint8_t currentMode = gSelectionModeD2D650;
                         const std::int32_t allowed = currentMode == 6
-                            ? world::Sub_505040(hovered + 8)
-                            : world::Sub_5050B0(hovered + 8);
+                            ? world::IsItemEligibleForDecoration_505040(hovered + 8)
+                            : world::IsItemEligibleForPetDecoration_5050B0(hovered + 8);
                         if (allowed == 0) {
                             return;
                         }
@@ -3003,7 +3003,7 @@ static void WindowCraft_Release()
     if (gValueD67AFE == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if (state >= 9 && state <= 12) {
-            static_cast<void>(world::Sub_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
     }
 }

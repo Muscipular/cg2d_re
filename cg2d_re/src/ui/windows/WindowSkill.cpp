@@ -497,7 +497,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
         if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-            static_cast<void>(world::Sub_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
         return 1;
     }
@@ -2405,7 +2405,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
         gValueD67AFD = count;
         gValueD67AFE = skillCount;
         if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-            static_cast<void>(world::Sub_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
         return 1;
     }
@@ -2460,10 +2460,10 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
         if (world::GetPlayerStatusIcon_51BEC0() != 13) {
-            static_cast<void>(world::Sub_51BE50(13));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(13));
         }
     } else {
-        static_cast<void>(world::Sub_51BE50(0));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }
     WindowRuntime_IncrementOperationCount();
     ++gValueD67AFD;

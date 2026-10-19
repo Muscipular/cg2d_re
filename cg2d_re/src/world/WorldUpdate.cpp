@@ -111,15 +111,15 @@ void Update()
         detail::InitializeChatInputAndLog_449DA0();
         detail::ResetPendingPathEvent_46A9E0();
         detail::InitializeWorldMapState_467F30();
-        detail::Sub_5199A0();
+        detail::InitializePlayerRuntimeState_5199A0();
         detail::ResetWorldObjectTable_446470();
         detail::ResetCurrentDialogType_4D3170();
-        detail::Sub_455BD0();
+        detail::InitializeWorldSceneFlags_455BD0();
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();
         gValue5ABFC4 = 0;
         gValue9A6E0C = 0;
-        detail::Sub_504A30();
+        detail::InitializeGameplayNotifications_504A30();
         detail::ResetBattleCommandSelection_43C8F0();
         detail::ResetSceneUiState_504100();
         detail::ClearContactAndGuildMailStorage_518C80();
@@ -142,7 +142,7 @@ void Update()
         login::ProcessState_45E960();
         goto sceneSixTail;
     case 7:
-        detail::Sub_45EBB0();
+        detail::ProcessLogoutScene_45EBB0();
         cg::yobi::YobiUpdateAll_404C50();
         return;
     case 8:
@@ -156,7 +156,7 @@ void Update()
     case 11: {
         const std::int32_t sceneState = gCurrentSceneState;
         if (sceneState == 0) {
-            detail::Sub_519D50();
+            detail::DestroyPlayerMapPresence_519D50();
             detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
@@ -178,7 +178,7 @@ void Update()
             goto sceneSixTail;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
-        detail::Sub_519D50();
+        detail::DestroyPlayerMapPresence_519D50();
         detail::ResetWorldObjectTable_446470();
         cg::network::ShutdownNetworkRuntime_5081A0();
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();

@@ -52,20 +52,20 @@ extern char gLogFileName554648[16]; // 原全局：0x00554648。
 
 // 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。
 extern std::int32_t gValueD2F788; // 原全局：0x00D2F788。
-extern std::uint16_t gValueFF0C10; // 原全局：0x00FF0C10。
+extern std::uint16_t gPendingResultWindowMode_FF0C10; // 原全局：0x00FF0C10。
 
 // 原函数：0x0044B050。
 void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
 // 原函数：0x0050C940。
-std::int32_t Sub_50C940(
+std::int32_t SendPlayerChatInput_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
 // 原函数：0x0050C7A0。
-std::uint32_t Sub_50C7A0(
+std::uint32_t HandlePlayerTimerReply_50C7A0(
     std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
 // 原函数：0x0050CE10。
-std::int32_t Sub_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。
+std::int32_t HandleSystemChatReply_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。
 // 原函数：0x0050CAE0。
-void Sub_50CAE0(
+void HandlePlayerChatReply_50CAE0(
     std::uintptr_t socket, std::int32_t objectIndex, const char* payload,
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。
 // 原函数：0x0043D860。

@@ -187,7 +187,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
             break;
     }
     if (mode != 0 && world::GetPlayerStatusIcon_51BEC0() != mode) {
-        static_cast<void>(world::Sub_51BE50(mode));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
         WindowInstance* const window = gWindowStates[id].window;
@@ -216,7 +216,7 @@ static void WindowGather_Release()
     if (skillReferences == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {
-            static_cast<void>(world::Sub_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
     }
 }

@@ -2204,7 +2204,7 @@ std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
 std::int32_t gValueD2F788 = 0; // 原全局：0x00D2F788。
-std::uint16_t gValueFF0C10 = 0; // 原全局：0x00FF0C10。
+std::uint16_t gPendingResultWindowMode_FF0C10 = 0; // 原全局：0x00FF0C10。
 
 // 原 0xFF0D04/0xFF0D08：50D700 写入、展示侧按 S32 读取的独立槽。
 std::int32_t gValueFF0D04 = 0; // 原全局：0x00FF0D04。
@@ -3441,7 +3441,7 @@ void SynchronizeTimedMapNoticeWindow_455FC0()
 }
 
 // 原函数：0x004ED670。
-std::int32_t Sub_4ED670()
+std::int32_t ShouldPlayBattleResultSound_4ED670()
 {
     std::int32_t result = 0;
     for (const BattleResultRecord& record : gBattleResultsFF0C14) {
@@ -3458,25 +3458,25 @@ std::int32_t Sub_4ED670()
 }
 
 // 原函数：0x00504A50。
-void Sub_504A50()
+void OpenPendingBattleResultWindow_504A50()
 {
-    const std::int16_t mode = std::bit_cast<std::int16_t>(gValueFF0C10);
+    const std::int16_t mode = std::bit_cast<std::int16_t>(gPendingResultWindowMode_FF0C10);
     if (mode <= 0) {
         return;
     }
     if (mode == 1) {
         static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_BattleResult, 1, 0, nullptr));
-        if (Sub_4ED670() != 0) {
+        if (ShouldPlayBattleResultSound_4ED670() != 0) {
             static_cast<void>(audio::PlaySe_52C450(64, 320));
         }
         gValueFF0D44 = 0;
-        gValueFF0C10 = 0;
+        gPendingResultWindowMode_FF0C10 = 0;
     } else if (mode == 2) {
         static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_DpResult, 1, 0, nullptr));
         gValueFF0D44 = 0;
-        gValueFF0C10 = 0;
+        gPendingResultWindowMode_FF0C10 = 0;
     } else {
-        gValueFF0C10 = 0;
+        gPendingResultWindowMode_FF0C10 = 0;
     }
 }
 
@@ -3491,7 +3491,7 @@ void DrawNormalScene_51C7D0()
         gValue5ABFC4 = 0;
         [[fallthrough]];
     case 100:
-        Sub_519A80();
+        CreatePlayerMapPresence_519A80();
         ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640();
         ResetCurrentDialogType_4D3170();
@@ -3770,7 +3770,7 @@ void DrawNormalScene_51C7D0()
         }
         gCurrentSceneState = 1;
         gValueFF0D44 = 1;
-        Sub_519A80();
+        CreatePlayerMapPresence_519A80();
         ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640();
         ResetCurrentDialogType_4D3170();
@@ -3877,7 +3877,7 @@ void DrawNormalScene_51C7D0()
         ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
         static_cast<void>(Sub_46F680());
-        Sub_504A50();
+        OpenPendingBattleResultWindow_504A50();
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(UpdateWorldMapInputAndMovement_469C90());
         ResetMapDrawCacheCounts_46BD40();
@@ -3896,7 +3896,7 @@ void DrawNormalScene_51C7D0()
         if (gValue5ABFC4 != 1) {
             return;
         }
-        static_cast<void>(Sub_519D50());
+        static_cast<void>(DestroyPlayerMapPresence_519D50());
         ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         DetachPartyMapActions_51B0F0();
@@ -3984,7 +3984,7 @@ void __cdecl ApplyPendingMapPaletteReply_51D6F0()
 }
 
 // GTP01：原 [0x458F40,0x458FC2)；旧 tick/remaining 先齐取，持有 ADD 结果判断，保原归零/tick 发布。
-void __cdecl Sub_458F40()
+void __cdecl UpdatePlayerCountdown_458F40()
 {
     const std::int32_t scene = gCurrentSceneType;
     if (scene == 9) {
@@ -4021,7 +4021,7 @@ void __cdecl UpdateDayPeriodPaletteAndTimers_458F00()
             static_cast<void>(render::SelectPalette(category, 3600));
         }
     }
-    Sub_458F40();
+    UpdatePlayerCountdown_458F40();
 }
 
 // GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
@@ -4075,7 +4075,7 @@ void DrawBattleScene_43CBB0()
         gBattleExitAction5ABCDC = nullptr;
         gValue58B6D0 = 1;
         gBattleCommandAction5ABC00 = nullptr;
-        gValueFF0C10 = 3;
+        gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10();
         platform::gValue73ECC0 = 2;
@@ -4254,7 +4254,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(NextRotationValue_455C70());
         ui::detail::WindowBattleCommand_Dispatch();
         RenderChara_521F20();
-        Sub_458F40();
+        UpdatePlayerCountdown_458F40();
         break;
     case 5: {
         input::ProcessKeyInput_4596D0();
@@ -4267,7 +4267,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        Sub_458F40();
+        UpdatePlayerCountdown_458F40();
         const std::int32_t readIndex = gBattleMReadIndex5AAA68;
         if (readIndex != gBattleMWriteIndex5A3A1C) {
             const char* const source = gBattleMQueue59FA18.data() + readIndex * 0x1000;
@@ -4298,7 +4298,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        Sub_458F40();
+        UpdatePlayerCountdown_458F40();
         break;
     case 7: {
         gBattleActiveEventMask5AAA74 = 0;
@@ -5456,7 +5456,7 @@ void DetachPartyMapActions_51B0F0()
 }
 
 // 原函数：0x0051B080。
-cg::yobi::YobiAction* Sub_51B080()
+cg::yobi::YobiAction* ClearPartyMembershipState_51B080()
 {
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
@@ -5676,7 +5676,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 
 // NFI01：邻格fIM生产，保两轴双读/F32桥/两tick和先Y后X；现发送普通空格，父主体保持。
 // 原函数：0x0051B3E0。
-std::uint32_t Sub_51B3E0()
+std::uint32_t RequestAdjacentWorldInteraction_51B3E0()
 {
     std::int32_t result = gCurrentDialogType_581800;
     if (result != -1) {
@@ -5791,7 +5791,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
             static_cast<void>(network::RequestStallContents_512190(platform::gConnectionSocket, objectIndex));
         }
         TurnPlayerTowardCursorTarget_46B370();
-        static_cast<void>(Sub_51B3E0());
+        static_cast<void>(RequestAdjacentWorldInteraction_51B3E0());
         const std::int32_t secondY = gPlayerMoveTargetY;
         const std::int32_t secondX = gPlayerMoveTargetX;
         const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);
@@ -6084,12 +6084,12 @@ void AdvancePlayerWorldMovement_46A700()
 }
 
 // 原函数：0x00519A80。
-void Sub_519A80()
+void CreatePlayerMapPresence_519A80()
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    Sub_519CD0(gPlayerRuntimeSlots.imageNo, x, y, direction);
+    CreateOrUpdatePlayerMapActor_519CD0(gPlayerRuntimeSlots.imageNo, x, y, direction);
     const auto flags = static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
@@ -6113,7 +6113,7 @@ void Sub_519A80()
     const std::int32_t value188 =
         std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value188);
     const std::int32_t level = gPlayerRuntimeSlots.level;
-    Sub_51A090(
+    SetPlayerMapIdentity_51A090(
         gPlayerRuntimeSlots.name.data(), titles, level, value188, flag40, flag80);
 
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
@@ -6137,7 +6137,7 @@ void Sub_519A80()
 }
 
 // 原函数：0x0051A090。
-cg::yobi::YobiAction* Sub_51A090(
+cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     const char* const name, const char* const titles, const std::int32_t level,
     const std::int32_t value188, const std::int32_t flag40,
     const std::int32_t flag80)
@@ -6193,7 +6193,7 @@ void CopyPlayerIdentityToMapAction_51A4B0()
 }
 
 // 原函数：0x00519CD0。
-void Sub_519CD0(
+void CreateOrUpdatePlayerMapActor_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
@@ -6201,7 +6201,7 @@ void Sub_519CD0(
     gPlayerRuntimeSlots.imageNo = imageNo;
     gPlayerRuntimeSlots.direction = direction;
     if (oldAction != nullptr) {
-        Sub_519E50(imageNo, direction);
+        SetPlayerMapAppearance_519E50(imageNo, direction);
         static_cast<void>(SetPlayerMapCoordinates_519EC0(x, y));
         SynchronizePlayerMapActionPosition_519EE0();
         return;
@@ -6218,7 +6218,7 @@ void Sub_519CD0(
 }
 
 // 原函数：0x00519E50。
-void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
+void SetPlayerMapAppearance_519E50(const std::int32_t imageNo, const std::int32_t direction)
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     gPlayerRuntimeSlots.imageNo = imageNo;
@@ -6231,7 +6231,7 @@ void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
     cg::yobi::YobiAction* const current = gPlayerRuntimeSlots.action;
     if (cg::yobi::ReadMapActorAttachment44(current) != nullptr) {
         const std::int32_t mapped =
-            Sub_51C0D0(cg::yobi::GetYobiActionField2A8(current));
+            ResolveRidingCharacterImage_51C0D0(cg::yobi::GetYobiActionField2A8(current));
         cg::yobi::SetYobiActionField2A8(gPlayerRuntimeSlots.action, mapped);
     }
 }
@@ -6258,7 +6258,7 @@ void SetPlayerAnimationState_51A060(const std::int32_t characterAction)
 }
 
 // 原函数：0x0051A840。
-void Sub_51A840(
+void ApplyPlayerActionCommand_51A840(
     const std::int32_t x, const std::int32_t y, const std::int32_t direction,
     const std::int32_t characterAction, const std::int32_t option1,
     const std::int32_t option2, const std::int32_t option3, const std::int32_t option4)
@@ -6387,7 +6387,7 @@ void Sub_51A840(
 }
 
 // 原函数：0x00519D50。
-std::int8_t Sub_519D50()
+std::int8_t DestroyPlayerMapPresence_519D50()
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action != nullptr) {
@@ -6399,7 +6399,7 @@ std::int8_t Sub_519D50()
     if (GetPlayerStatusIcon_51BEC0() == 0) {
         return 0;
     }
-    return Sub_51BE50(0);
+    return RequestPlayerStatusIcon_51BE50(0);
 }
 
 // 原函数：0x0051A5A0。
@@ -6529,7 +6529,7 @@ std::int32_t gValueFDA6F8 = 0;
 namespace detail {
 
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
-void Sub_5199A0()
+void InitializePlayerRuntimeState_5199A0()
 {
     static_assert(sizeof(gContactsF19FB0) == 0x1B30);
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
@@ -6654,7 +6654,7 @@ void Sub_455BB0()
 }
 
 // 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。
-std::int32_t Sub_455BD0()
+std::int32_t InitializeWorldSceneFlags_455BD0()
 {
     gValue556C14 = 1;
     gValue62B34E = 0;
@@ -6683,11 +6683,11 @@ std::int32_t Sub_455BD0()
 }
 
 // 原 [0x504A30,0x504A43)：先加载记录，弃返回，再清两槽并返回完整零。
-std::int32_t Sub_504A30()
+std::int32_t InitializeGameplayNotifications_504A30()
 {
     LoadChatInputHistory_44A090();
     gValueD2F788 = 0;
-    gValueFF0C10 = 0;
+    gPendingResultWindowMode_FF0C10 = 0;
     return 0;
 }
 
@@ -6705,12 +6705,12 @@ std::int32_t ResetBattleCommandSelection_43C8F0()
 std::int32_t ResetSceneUiState_504100()
 {
     gValueD2F788 = 0;
-    gValueFF0C10 = 0;
+    gPendingResultWindowMode_FF0C10 = 0;
     return 0;
 }
 
 // 原函数：0x0045EEE0。
-std::int32_t Sub_45EEE0()
+std::int32_t ProcessLogoutTransition_45EEE0()
 {
     const std::uint32_t phase = gLogoutTransition9A6E94;
     if (phase == 1) {
@@ -8014,18 +8014,18 @@ std::int32_t Sub_51FC90(const std::int32_t mode, const std::int32_t value)
 }
 
 // 原函数：0x0045EBB0。
-std::int32_t Sub_45EBB0()
+std::int32_t ProcessLogoutScene_45EBB0()
 {
     std::int32_t sceneState = gCurrentSceneState;
     if (sceneState == 0) {
         gValue9A6E0C = 1;
-        const std::int32_t transition = Sub_45EEE0();
+        const std::int32_t transition = ProcessLogoutTransition_45EEE0();
         if (transition == 0) {
             return transition;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
         gLogoutTransition9A6E94 = 0;
-        Sub_519D50();
+        DestroyPlayerMapPresence_519D50();
         ResetWorldObjectTable_446470();
         cg::yobi::YobiClearUp_404D30();
         sceneState = gCurrentSceneState;
@@ -8334,7 +8334,7 @@ void Sub_476680()
 }
 
 // 原函数：0x0050A3E0。
-void Sub_50A3E0(
+void HandlePartyMemberReply_50A3E0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
@@ -8374,7 +8374,7 @@ void Sub_50A3E0(
         }
         if (count <= 1) {
             detail::gValueFF0D36 = 0;
-            static_cast<void>(detail::Sub_51B080());
+            static_cast<void>(detail::ClearPartyMembershipState_51B080());
             return;
         }
         if (next >= 0 && (x >= 0 || y >= 0)) {
@@ -8502,10 +8502,10 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                     gPlayerRuntimeSlots.direction = direction;
                 }
                 if (gPlayerRuntimeSlots.action == nullptr) {
-                    detail::Sub_519CD0(mappedImage, x, y, direction);
+                    detail::CreateOrUpdatePlayerMapActor_519CD0(mappedImage, x, y, direction);
                     detail::CopyPlayerIdentityToMapAction_51A4B0();
                 } else {
-                    detail::Sub_519E50(mappedImage, gPlayerRuntimeSlots.direction);
+                    detail::SetPlayerMapAppearance_519E50(mappedImage, gPlayerRuntimeSlots.direction);
                 }
                 object = gPlayerRuntimeSlots.action;
                 cg::yobi::UpdateMapActorMode(
@@ -8519,7 +8519,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 }
                 detail::gValue9A4B94 &= 0xFDu;
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
-                detail::Sub_51A090(name, titles, level, value40, flag1, flag2);
+                detail::SetPlayerMapIdentity_51A090(name, titles, level, value40, flag1, flag2);
                 if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0
                     && gPetMapCharaSlots[0].flags != 0) {
                     gPetMapCharaSlots[0].level08 = gPlayerRuntimeSlots.level;
@@ -8629,7 +8629,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
 }
 
 // 原函数：0x0050BCD0。
-void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
+void HandleWorldActorActionsReply_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -8664,7 +8664,7 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         if (gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
             cg::yobi::YobiAction* const player = gPlayerRuntimeSlots.action;
             if (player != nullptr && cg::yobi::GetYobiActionField2A8(player) != 0) {
-                detail::Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
+                detail::ApplyPlayerActionCommand_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
             }
             continue;
         }
@@ -8760,7 +8760,7 @@ std::int32_t HandlePetAttributePointsReply_50CF70(
 }
 
 // PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
-std::uint32_t Sub_50C7A0(
+std::uint32_t HandlePlayerTimerReply_50C7A0(
     const std::uintptr_t /*socket*/, const std::int32_t seconds,
     const std::int32_t mode)
 {
@@ -8779,7 +8779,7 @@ std::uint32_t Sub_50C7A0(
 }
 
 // 原函数：0x0050CE10。
-std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
+std::int32_t HandleSystemChatReply_50CE10(const std::uintptr_t /*socket*/, const char* const text)
 {
     char source[2024];
     char command[512];
@@ -8802,7 +8802,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
 }
 
 // 原函数：0x0050E1A0。
-void Sub_50E1A0(
+void HandleDirectionalMapEffectsReply_50E1A0(
     const std::uintptr_t /*socket*/, const std::int32_t mask,
     const std::int32_t value, const char* const /*unusedText*/)
 {
@@ -8836,7 +8836,7 @@ void HandleMapSceneEffectReply_50E650(
 }
 
 // 原函数：0x0050E210。
-std::int32_t Sub_50E210(
+std::int32_t HandleNotificationSoundReply_50E210(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {
     const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
@@ -8861,7 +8861,7 @@ std::int32_t Sub_50E210(
 
 // CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
 // 原函数：0x0050C940。
-std::int32_t Sub_50C940(
+std::int32_t SendPlayerChatInput_50C940(
     const input::InputContext* const context, const std::int32_t color)
 {
     const auto chatText = text::ToGbk(input::ContextText(*context));
@@ -8913,7 +8913,7 @@ std::int32_t Sub_50C940(
 }
 
 // 原函数：0x0050CAE0。
-void Sub_50CAE0(
+void HandlePlayerChatReply_50CAE0(
     const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
     const char* const payload, const std::int32_t color, const std::int32_t font)
 {
@@ -9018,7 +9018,7 @@ void Sub_50CAE0(
 }
 
 // 原函数：0x0050D000。
-void Sub_50D000(
+void HandlePartyMembershipReply_50D000(
     const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
 {
     if (gValue9A6E0C != 0) {
@@ -9031,7 +9031,7 @@ void Sub_50D000(
     } else if (first == 0 && second == 1) {
         detail::ClearPlayerPartyMembership_51A5F0();
         detail::gValueFF0D36 = 0;
-        static_cast<void>(detail::Sub_51B080());
+        static_cast<void>(detail::ClearPartyMembershipState_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(gPlayerRuntimeSlots.direction));
         const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
@@ -9043,7 +9043,7 @@ void Sub_50D000(
 }
 
 // MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
-std::int32_t Sub_509650(
+std::int32_t HandlePlayerPrimaryStatsReply_509650(
     const std::uintptr_t /*socket*/, const char* const payload)
 {
     const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
@@ -9135,7 +9135,7 @@ std::int32_t Sub_509650(
 }
 
 // MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
-void Sub_509BA0(const std::uintptr_t, const char* const payload)
+void HandlePlayerSecondaryStatsReply_509BA0(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -9223,7 +9223,7 @@ std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
 }
 
 // 原函数：0x00505040。
-std::int32_t Sub_505040(const std::int32_t slot)
+std::int32_t IsItemEligibleForDecoration_505040(const std::int32_t slot)
 {
     const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
     if (item->hasDescription == 0) {
@@ -9240,7 +9240,7 @@ std::int32_t Sub_505040(const std::int32_t slot)
 }
 
 // 原函数：0x005050B0。
-std::int32_t Sub_5050B0(const std::int32_t slot)
+std::int32_t IsItemEligibleForPetDecoration_5050B0(const std::int32_t slot)
 {
     const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
     if (item->hasDescription == 0) {
@@ -9270,7 +9270,7 @@ std::int32_t IsItemEligibleForRefining_505110(const std::int32_t slot)
 }
 
 // 原函数：0x00509EB0。
-void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
+void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -9341,7 +9341,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
 }
 
 // 原函数：0x0050A120。
-void Sub_50A120(
+void HandlePlayerSkillTechniquesReply_50A120(
     const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
@@ -9391,7 +9391,7 @@ void Sub_50A120(
 }
 
 // 原函数：0x0050C580。
-void Sub_50C580(
+void HandleSkillRecipesReply_50C580(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
@@ -9431,7 +9431,7 @@ void Sub_50C580(
 }
 
 // 原函数：0x0050BF20。
-void Sub_50BF20(const std::uintptr_t, const char* const payload)
+void HandleWorldObjectRemovalReply_50BF20(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -9454,7 +9454,7 @@ void Sub_50BF20(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x0050BFD0。
-void Sub_50BFD0(const std::uintptr_t, const char* const payload)
+void HandleFullPlayerInventoryReply_50BFD0(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -9480,7 +9480,7 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x0050C260。
-void Sub_50C260(const std::uintptr_t, const char* const payload)
+void HandlePlayerInventoryUpdatesReply_50C260(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -9512,7 +9512,7 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x0051B5F0。
-std::int32_t Sub_51B5F0(const std::int32_t itemId)
+std::int32_t CountInventoryItemQuantity_51B5F0(const std::int32_t itemId)
 {
     std::int32_t count = 0;
     if (itemId <= 0) {
@@ -9617,7 +9617,7 @@ std::int32_t HasPetMailTechnique_52E1D0(const std::int32_t index)
 }
 
 // 原函数：0x00510150。
-void Sub_510150(
+void HandlePetInventoryUpdatesReply_510150(
     const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
 {
     if (gValue9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
@@ -9680,7 +9680,7 @@ void Sub_510150(
 }
 
 // 原函数：0x0050A6B0。
-void Sub_50A6B0(
+void HandlePetPrimaryStatsReply_50A6B0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
@@ -9779,7 +9779,7 @@ void Sub_50A6B0(
 }
 
 // 原函数：0x0050AC20。
-void Sub_50AC20(
+void HandlePetSecondaryStatsReply_50AC20(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
@@ -9820,7 +9820,7 @@ void Sub_50AC20(
 }
 
 // 原函数：0x0050B0D0。
-void Sub_50B0D0(
+void HandlePetTechniquesReply_50B0D0(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
@@ -9907,7 +9907,7 @@ std::int32_t FindBattlePetIndex_43C4B0()
 }
 
 // 原函数：0x0050A300。
-void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
+void HandlePlayerTitlesReply_50A300(const std::uintptr_t /*socket*/, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -10086,14 +10086,14 @@ void Sub_50D080(
 }
 
 // 原函数：0x0050D120。
-void Sub_50D120(
+void HandleBattleEntryReply_50D120(
     const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
 {
     if (gValue9A6E0C != 0) {
         return;
     }
     if (gValueD67E78 != 0) {
-        static_cast<void>(detail::Sub_519D50());
+        static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         detail::DetachPartyMapActions_51B0F0();
@@ -10164,7 +10164,7 @@ void Sub_50D120(
 }
 
 // 原函数：0x0050D3C0。
-void Sub_50D3C0(const std::uintptr_t, const char* const text)
+void HandleBattleStreamReply_50D3C0(const std::uintptr_t, const char* const text)
 {
     const char kind = text[0];
     if (kind == 'C') {
@@ -10223,12 +10223,12 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
 }
 
 // 原函数：0x0050D500。
-void Sub_50D500(const std::uintptr_t, const char* const payload)
+void HandleBattleResultsReply_50D500(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
     }
-    gValueFF0C10 = 1;
+    gPendingResultWindowMode_FF0C10 = 1;
     char row[2048];
     char entry[2048];
     char name[2048];
@@ -10278,7 +10278,7 @@ void Sub_50D500(const std::uintptr_t, const char* const payload)
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
-void __cdecl Sub_50CF90(
+void __cdecl HandleMapTransitionReply_50CF90(
     const std::uintptr_t, const std::int32_t sequence,
     const std::int32_t status)
 {
@@ -10301,7 +10301,7 @@ void __cdecl Sub_50CF90(
 }
 
 // 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
-void __cdecl Sub_509090(
+void __cdecl HandleMapRectangleCrcReply_509090(
     const std::uintptr_t, const std::int32_t first,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
@@ -10324,7 +10324,7 @@ void __cdecl Sub_509090(
 }
 
 // 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
-std::int32_t __cdecl Sub_509100(
+std::int32_t __cdecl HandleMapRectangleDataReply_509100(
     const std::uintptr_t, const std::int32_t mapId,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
@@ -10430,7 +10430,7 @@ std::int32_t __cdecl Sub_509100(
 }
 
 // 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
-std::int32_t __cdecl Sub_5093F0(
+std::int32_t __cdecl HandleMapChangeReply_5093F0(
     const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
     const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
     const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
@@ -10444,7 +10444,7 @@ std::int32_t __cdecl Sub_5093F0(
             gCurrentSceneState = 200;
             static_cast<void>(detail::Sub_51D5B0());
         }
-        static_cast<void>(detail::Sub_519D50());
+        static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         detail::gValueC8220C = 0;
     }
 
@@ -10479,7 +10479,7 @@ std::int32_t __cdecl Sub_5093F0(
 
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 // PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
-std::int32_t __cdecl Sub_509550(
+std::int32_t __cdecl HandleMapNameReply_509550(
     const std::uintptr_t, char* const payload)
 {
     std::array<char, 256> text;
@@ -10540,7 +10540,7 @@ std::uint32_t Sub_51D640()
 }
 
 // GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
-std::int32_t __cdecl Sub_50C870(
+std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(
     const std::uintptr_t, const std::int32_t playerValue,
     const std::int32_t timeOffset, const std::int32_t pathValue,
     const std::int32_t adjustment)
@@ -11067,7 +11067,7 @@ std::uint32_t SetPlayerMapCoordinates_519EC0(const std::int32_t x, const std::in
 }
 
 // 原函数：0x0051C0D0。
-std::int32_t Sub_51C0D0(const std::int32_t imageNo)
+std::int32_t ResolveRidingCharacterImage_51C0D0(const std::int32_t imageNo)
 {
     // 保留原区段顺序和两种除法，不扩展为通用图号规则。
     struct ImageRange {
@@ -11128,7 +11128,7 @@ std::int32_t GetPlayerStatusIcon_51BEC0()
 }
 
 // 原函数：0x0051BE50。
-std::int8_t Sub_51BE50(const std::int32_t requested)
+std::int8_t RequestPlayerStatusIcon_51BE50(const std::int32_t requested)
 {
     const std::uint8_t flags =
         reinterpret_cast<const std::uint8_t*>(&gPlayerRuntimeSlots.flags18C)[2];

@@ -455,7 +455,7 @@ static void WindowCrystalExchangeShop_RefreshAmount()
     }
     gWindow70TotalCB0F74 = total;
     cg::text::FormatTo(gWindow70TotalTextD2D804, L"{:10}", total);
-    const std::int32_t owned = world::Sub_51B5F0(gWindow70ValueD6791C);
+    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
     number->color = currentTotal <= owned ? 10 : 6;
@@ -561,7 +561,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow70ScrollCC4B68 = WindowScroll_ReadPosition(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    const std::int32_t owned = world::Sub_51B5F0(gWindow70ValueD6791C);
+    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
     cg::text::FormatTo(gWindow70BalanceTextCF3F14, L"{:10}", owned);
     if (gWindow70Message580864 >= 0) {
         gWindow70Message580864 = -1;
@@ -655,7 +655,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t balance = world::Sub_51B5F0(gWindow70ValueD6791C);
+        const std::int32_t balance = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
         if (balance < gWindow70TotalCB0F74) {
             gWindow70Message580864 = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -694,7 +694,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
                 left.visible = 1;
                 left.x = 296;
                 left.y = 343;
-                left.value = world::Sub_51B5F0(itemId);
+                left.value = world::CountInventoryItemQuantity_51B5F0(itemId);
                 const std::int32_t total = gWindow70TotalCB0F74;
                 right.visible = 1;
                 right.x = 454;

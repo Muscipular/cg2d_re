@@ -276,7 +276,7 @@ void ApplyWorldActorActionCommand_444410(
             payload->action44->imageNo = image;
             const std::int32_t original =
                 std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
-            action->imageNo = Sub_51C0D0(original);
+            action->imageNo = ResolveRidingCharacterImage_51C0D0(original);
             action->phase = 1;
         } else {
             action->phase = 2;

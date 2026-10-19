@@ -148,7 +148,7 @@ static void WindowSkillResult_Release()
     gValueD67AFD = references;
     gValueD67AFE = skillReferences;
     if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-        static_cast<void>(world::Sub_51BE50(0));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }
     gWindowStates[WindowId_SkillResult].window->state |= 0x8000u;
 }

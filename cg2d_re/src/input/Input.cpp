@@ -1079,7 +1079,7 @@ void HandleInputEnterKey_44AB60()
         }
         const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
         world::detail::gCursor62683C = -1;
-        static_cast<void>(world::Sub_50C940(context, color));
+        static_cast<void>(world::SendPlayerChatInput_50C940(context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;
         gCurrentInputData->clearText();

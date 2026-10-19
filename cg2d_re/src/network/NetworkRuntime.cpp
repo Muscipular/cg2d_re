@@ -4191,7 +4191,7 @@ std::int32_t NetworkDispatch_512E40(
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;
     using T = char*;
-    if (TryDispatchReply<world::Sub_5093C0, I, I, I>(head, "QBt", socket)) return 0;
+    if (TryDispatchReply<world::HandlePlayerPositionReply_5093C0, I, I, I>(head, "QBt", socket)) return 0;
     if (TryDispatchReply<world::Sub_509090, I, I, I, I, I, I, I, I, I>(head, "jmb", socket)) return 0;
     if (TryDispatchReply<world::Sub_509100, I, I, I, I, I, I, T>(head, "aBS", socket)) return 0;
     if (TryDispatchReply<world::Sub_50CF90, I, I>(head, "EZ", socket)) return 0;

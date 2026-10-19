@@ -1224,7 +1224,7 @@ void ResetMapFollowerFromPath(
             std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
-        static_cast<void>(world::Sub_519EC0(x, y));
+        static_cast<void>(world::SetPlayerMapCoordinates_519EC0(x, y));
     } else {
         slot->pathCountOrDrawOrder_270 = 0;
         YobiAction* const follower = slot;
@@ -1250,7 +1250,7 @@ void ResetMapFollowerFromPath(
     }
     if (isPlayer) {
         world::SynchronizePlayerMapActionPosition_519EE0();
-        static_cast<void>(world::Sub_4681B0());
+        static_cast<void>(world::RestorePlayerMovementSnapshot_4681B0());
     }
 }
 

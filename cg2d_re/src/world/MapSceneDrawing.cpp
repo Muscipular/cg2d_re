@@ -245,7 +245,7 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
         const std::int32_t loadXStart = gMapXStart;
         const std::int32_t floor = gMapFloor;
         const auto mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
-        if (detail::Sub_468C40(
+        if (detail::ReadMapCacheRectangle_468C40(
                 mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
             return;
@@ -255,19 +255,19 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
         const std::int32_t walkYStart = gMapYStart;
         const std::int32_t walkXStart = gMapXStart;
         if (cutMode) {
-            static_cast<void>(detail::Sub_46D9C0(
+            static_cast<void>(detail::BuildMapWalkability_46D9C0(
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         } else {
-            static_cast<void>(detail::Sub_4693F0(
+            static_cast<void>(detail::BuildGraphicMapWalkability_4693F0(
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         }
         if (detail::gValue9EE8B8 != 0) {
             const auto direction = std::bit_cast<std::int16_t>(detail::gValue9EE8A4);
-            if (detail::Sub_469870(direction) == 0) {
+            if (detail::FindMissingMapRectanglesAhead_469870(direction) == 0) {
                 detail::gValue9EE8B8 = 0;
                 detail::gValue55DA88 = 1;
             }
@@ -278,7 +278,7 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
         detail::gValue9EE910 = 0;
     }
 
-    static_cast<void>(detail::Sub_468F70());
+    static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
     const std::int32_t xStart = gMapXStart;
     const std::int32_t yEnd = detail::gMapYEnd;
     const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);

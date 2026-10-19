@@ -424,7 +424,7 @@ cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 原函数：0x00519EC0。
-std::uint32_t Sub_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
+std::uint32_t SetPlayerMapCoordinates_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 // 原函数：0x0051BEE0。
 void SuspendPlayerForObservation_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 // 原函数：0x0051C0D0。

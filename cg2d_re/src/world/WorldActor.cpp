@@ -738,7 +738,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190()
         const std::int32_t speed = first->walkSpeed;
         const std::int32_t nextX = action->pathX220[0];
         if (isPlayer) {
-            Sub_46A410(nextX, nextY, speed);
+            SetPlayerMovementTarget_46A410(nextX, nextY, speed);
         } else {
             cg::yobi::StartPartyMemberMovement_4422F0(action, nextX, nextY, speed);
         }
@@ -766,12 +766,12 @@ std::uint32_t UpdatePartyFollowMovement_46A190()
         }
         const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
         if (ReadPetMapObjectIndex(index) == playerIndex) {
-            Sub_46A700();
+            AdvancePlayerWorldMovement_46A700();
         } else {
             cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(index));
         }
     }
-    static_cast<void>(Sub_468200());
+    static_cast<void>(UpdatePlayerMapWindow_468200());
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     gWorldProjectionReferenceXBits = worldXBits;
@@ -992,7 +992,7 @@ void SynchronizePlayerMapActionPosition_519EE0()
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    const std::int32_t blocked = Sub_469810(x, y);
+    const std::int32_t blocked = IsMapCellBlocked_469810(x, y);
     cg::yobi::YobiAction* action = cg::world::gPlayerRuntimeSlots.action;
     if (blocked != 0) {
         gPlayerX = action->mapX1E0;

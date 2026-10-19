@@ -425,7 +425,7 @@ void DrawAllQueued_520DD0()
             case 5: {
                 const std::int32_t y = graphic->y;
                 const std::int32_t x = graphic->x;
-                static_cast<void>(world::Sub_46C760(x, y));
+                static_cast<void>(world::DrawCurrentAutoMap_46C760(x, y));
                 break;
             }
             case 6:

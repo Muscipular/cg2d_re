@@ -109,8 +109,8 @@ void Update()
         platform::gValue73ECC0 = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
         detail::InitializeChatInputAndLog_449DA0();
-        detail::Sub_46A9E0();
-        detail::Sub_467F30();
+        detail::ResetPendingPathEvent_46A9E0();
+        detail::InitializeWorldMapState_467F30();
         detail::Sub_5199A0();
         detail::ResetWorldObjectTable_446470();
         detail::ResetCurrentDialogType_4D3170();

@@ -346,7 +346,7 @@ static std::int32_t ReceiveProtocolLine(
         if (newline != nullptr) {
             const std::size_t lineLength = static_cast<std::size_t>(newline - state.lines.data()) + 1;
             if (capacity <= static_cast<std::int32_t>(lineLength)) {
-                ::OutputDebugStringA("\nBuffer Too Small\n");
+                ::OutputDebugStringW(L"\nBuffer Too Small\n");
                 return -1;
             }
             std::memcpy(destination, state.lines.data(), lineLength);

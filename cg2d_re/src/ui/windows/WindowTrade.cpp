@@ -2562,42 +2562,35 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
     }
     std::int32_t result = 0;
     if ((state & 2) != 0) {
-        std::array<char, 156> buffer;
-        std::array<char, 1024> petSource;
-        std::array<char, 1024> itemSource;
-        std::array<char, 1024> petCopy;
-        std::array<char, 1024> itemCopy;
-        itemSource[0] = '\0';
-        petSource[0] = '\0';
+        std::wstring petSource;
+        std::wstring itemSource;
         std::int32_t count = 0;
         for (std::int32_t position = 0; position < 20; ++position) {
             const std::int32_t slot = WindowTrade_ReadSelectedItem(position);
             if (slot >= 0) {
                 if (count != 0) {
-                    std::strcat(itemSource.data(), "|");
+                    itemSource += L"|";
                 }
-                std::sprintf(buffer.data(), "%d|%d", slot, position);
-                std::strcat(itemSource.data(), buffer.data());
+                itemSource += std::format(L"{}|{}", slot, position);
                 ++count;
             }
         }
-        std::strncpy(itemCopy.data(), itemSource.data(), static_cast<std::uint32_t>(1024));
+        const auto itemCopy = itemSource;
         count = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
             const std::int32_t slot = WindowTrade_ReadSelectedPet(position);
             if (slot >= 0) {
                 if (count != 0) {
-                    std::strcat(petSource.data(), "|");
+                    petSource += L"|";
                 }
-                std::sprintf(buffer.data(), "%d|%d", slot, position);
-                std::strcat(petSource.data(), buffer.data());
+                petSource += std::format(L"{}|{}", slot, position);
                 ++count;
             }
         }
-        std::strncpy(petCopy.data(), petSource.data(), static_cast<std::uint32_t>(1024));
+        const auto petCopy = petSource;
         const std::int32_t amount = gTradeValueD046D0;
         static_cast<void>(network::SendTradeOffer_512040(
-            platform::gConnectionSocket, cg::text::FromGbkWide(itemCopy.data()), cg::text::FromGbkWide(petCopy.data()), amount));
+            platform::gConnectionSocket, itemCopy, petCopy, amount));
         WindowInstance* const window = gCurrentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;

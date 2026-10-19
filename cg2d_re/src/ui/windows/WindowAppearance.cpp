@@ -257,8 +257,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
         const std::int32_t base = gWindow56BaseCB0F8C;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
-        std::array<char, 156> buffer;
-        std::sprintf(buffer.data(), "%d", image);
+        const auto buffer = std::to_wstring(image);
         const std::int32_t target = world::gDialogTargetD2DE6C;
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -266,7 +265,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromGbkWide(buffer.data())));
+            platform::gConnectionSocket, x, y, request, target, 1, buffer));
         gCurrentWindow->state |= 0x8000u;
         consumed = 1;
     }

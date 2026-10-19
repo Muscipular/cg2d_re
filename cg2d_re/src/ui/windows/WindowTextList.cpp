@@ -551,8 +551,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
         gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
     }
     if ((state & 2) != 0) {
-        std::array<char, 156> buffer;
-        std::sprintf(buffer.data(), "I|%d", gSelectedItem57EE0C);
+        const auto buffer = std::format(L"I|{}", gSelectedItem57EE0C);
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
@@ -560,7 +559,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(buffer.data())));
+            platform::gConnectionSocket, x, y, request, target, 0, buffer));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }

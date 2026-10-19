@@ -424,7 +424,7 @@ void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，�
 void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
-    std::wstring_view name, const char* titles, std::int32_t level,
+    std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 协议与场景共用的队伍状态、邻格交互节流时间。
 extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。

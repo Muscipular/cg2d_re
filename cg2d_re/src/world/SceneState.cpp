@@ -6117,22 +6117,13 @@ void CreatePlayerMapPresence_519A80()
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
 
-    char escaped[256];
-    char titles[256];
+    std::array<std::wstring, 4> titles;
     cg::core::NullSub_509080();
-    input::EscapeGbkText(
-        cg::text::ToGbk(gPlayerRuntimeSlots.ownTitle).c_str(), escaped, 256);
-    std::strcpy(titles, escaped);
-    std::strcat(titles, "|");
+    titles[0] = gPlayerRuntimeSlots.ownTitle;
     cg::core::NullSub_509080();
-    input::EscapeGbkText(
-        cg::text::ToGbk(gPlayerRuntimeSlots.text12A).c_str(), escaped, 256);
-    std::strcat(titles, escaped);
-    std::strcat(titles, "|");
+    titles[1] = gPlayerRuntimeSlots.text12A;
     cg::core::NullSub_509080();
-    input::EscapeGbkText(
-        cg::text::ToGbk(gPlayerRuntimeSlots.text14B).c_str(), escaped, 256);
-    std::strcat(titles, escaped);
+    titles[2] = gPlayerRuntimeSlots.text14B;
     const std::int32_t value188 =
         std::bit_cast<std::int16_t>(gPlayerRuntimeSlots.value188);
     const std::int32_t level = gPlayerRuntimeSlots.level;
@@ -6156,7 +6147,7 @@ void CreatePlayerMapPresence_519A80()
 
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
-    const std::wstring_view name, const char* const titles, const std::int32_t level,
+    const std::wstring_view name, const std::array<std::wstring, 4>& titles, const std::int32_t level,
     const std::int32_t value188, const std::int32_t flag40,
     const std::int32_t flag80)
 {
@@ -6166,29 +6157,21 @@ cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
         gPlayerRuntimeSlots.name = name;
     }
 
-    char first[256];
-    char second[256];
-    char third[256];
-    char fourth[256];
-    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-    input::UnescapeLegacyTextAndNotify_52D2F0(first);
-    if (std::strlen(first) <= 16) {
-        gPlayerRuntimeSlots.ownTitle = cg::text::FromGbkWide(first);
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[0]).size() <= 16) {
+        gPlayerRuntimeSlots.ownTitle = titles[0];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
-    input::UnescapeLegacyTextAndNotify_52D2F0(second);
-    if (std::strlen(second) <= 32) {
-        gPlayerRuntimeSlots.text12A = cg::text::FromGbkWide(second);
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[1]).size() <= 32) {
+        gPlayerRuntimeSlots.text12A = titles[1];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
-    input::UnescapeLegacyTextAndNotify_52D2F0(third);
-    if (std::strlen(third) <= 32) {
-        gPlayerRuntimeSlots.text14B = cg::text::FromGbkWide(third);
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[2]).size() <= 32) {
+        gPlayerRuntimeSlots.text14B = titles[2];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
-    input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
-    if (std::strlen(fourth) <= 16) {
-        gPlayerRuntimeSlots.text15BB8 = cg::text::FromGbkWide(fourth);
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[3]).size() <= 16) {
+        gPlayerRuntimeSlots.text15BB8 = titles[3];
     }
     gPlayerRuntimeSlots.level = level;
     gPlayerRuntimeSlots.value188 = static_cast<std::uint16_t>(value188);
@@ -8478,7 +8461,14 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
                 }
                 detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFDu;
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
-                detail::SetPlayerMapIdentity_51A090(cg::text::FromGbkWide(name), titles, level, value40, flag1, flag2);
+                std::array<std::wstring, 4> titleTexts;
+                for (std::size_t i = 0; i < titleTexts.size(); ++i) {
+                    char field[256]{};
+                    network::ExtractDelimitedField_52CED0(titles, '|', static_cast<std::int32_t>(i + 1), 255, field);
+                    input::UnescapeLegacyText_52D150(field);
+                    titleTexts[i] = cg::text::FromGbkWide(field);
+                }
+                detail::SetPlayerMapIdentity_51A090(cg::text::FromGbkWide(name), titleTexts, level, value40, flag1, flag2);
                 if ((gPlayerRuntimeSlots.flags18A & 0x100u) != 0
                     && gPetMapCharaSlots[0].flags != 0) {
                     gPetMapCharaSlots[0].level08 = gPlayerRuntimeSlots.level;
@@ -8886,76 +8876,31 @@ void HandlePlayerChatReply_50CAE0(
     char source[2024];
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 2023, source);
     input::UnescapeLegacyTextAndNotify_52D2F0(source);
-    const auto length = static_cast<std::int32_t>(std::strlen(source));
-    char snapshot[2048];
-    if (length > 0) {
-        std::memcpy(snapshot, source, static_cast<std::size_t>(length));
-    }
+    const std::wstring snapshot = cg::text::FromGbkWide(source);
     std::int32_t drawColor = color;
     std::int32_t drawFont = font;
     if (input::gChatLogSuppressed_626C14 == 0) {
-        char name[64];
-        char stripped[32];
-        std::memset(name, 0, sizeof(name));
-        const std::size_t initialLength = std::strlen(source);
+        std::wstring name;
         gChatGateDA3B54 = 0;
-        if (initialLength != 0) {
-            std::uint32_t cursor = 0;
-            for (;;) {
-                if (source[cursor] == ':' && source[cursor + 1] == ' ') {
-                    std::strncpy(name, source, static_cast<std::uint32_t>(cursor));
-                    name[cursor] = '\0';
-                    break;
-                }
-                ++cursor;
-                if (cursor >= std::strlen(source)) {
-                    break;
-                }
-            }
+        const std::size_t separator = snapshot.find(L": ");
+        if (separator != std::wstring::npos) {
+            name = snapshot.substr(0, separator);
         }
-        const auto stripPrefix = [&](const std::uint32_t prefixLength) {
-            std::uint32_t cursor = 0;
-            if (std::strlen(name) != prefixLength) {
-                do {
-                    stripped[cursor] = name[cursor + prefixLength];
-                    ++cursor;
-                } while (cursor < std::strlen(name) - prefixLength);
-            }
-            stripped[cursor] = '\0';
-            std::memset(name, 0, sizeof(name));
-            std::strcpy(name, stripped);
-        };
-        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
+        if (name.starts_with(L"[MIC]")) {
             gChatGateDA3B54 = 1;
-            stripPrefix(5);
-        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
-            stripPrefix(4);
+            name.erase(0, 5);
+        } else if (name.starts_with(L"[GP]")) {
+            name.erase(0, 4);
         }
-        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
             return;
         }
         if (color < 0) {
             drawColor = 0;
             drawFont = 1;
         }
-        const char* const sharedText = "";
-        bool sameAsSharedText = false;
-        std::size_t comparisonIndex = 0;
-        for (;;) {
-            const auto sourceByte = static_cast<unsigned char>(source[comparisonIndex]);
-            const auto sharedByte =
-                static_cast<unsigned char>(sharedText[comparisonIndex]);
-            if (sourceByte != sharedByte) {
-                break;
-            }
-            if (sourceByte == 0) {
-                sameAsSharedText = true;
-                break;
-            }
-            ++comparisonIndex;
-        }
-        if (!sameAsSharedText) {
-            AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
+        if (!snapshot.empty()) {
+            AppendChatMessage_44B050(snapshot, drawColor, drawFont);
         }
     }
     if (platform::gChatNotificationSoundEnabled_554644 != 0) {
@@ -8966,11 +8911,11 @@ void HandlePlayerChatReply_50CAE0(
     }
     if (gPlayerRuntimeSlots.action != nullptr
         && gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        detail::SetPlayerChatBubble_51A6A0(1000, snapshot, drawColor, drawFont, length);
+        detail::SetPlayerChatBubble_51A6A0(1000, snapshot, drawColor, drawFont);
     } else {
         cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action != nullptr) {
-            detail::SetWorldActorChatBubble_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
+            detail::SetWorldActorChatBubble_442DC0(action, 1000, snapshot, drawColor, drawFont);
         }
     }
 }

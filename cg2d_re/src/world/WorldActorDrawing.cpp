@@ -28,6 +28,7 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include <array>
+#include <algorithm>
 #include <new>
 #include <bit>
 #include <cstddef>
@@ -40,18 +41,16 @@
 namespace cg::world::detail {
 
 static void AllocateActorChatText(
-    cg::yobi::detail::MapActorPayload* const payload, const wchar_t* const name,
-    const char* const text, const std::int32_t color,
-    const std::int32_t font, const std::int32_t length)
+    cg::yobi::detail::MapActorPayload* const payload, const std::wstring_view name,
+    const std::wstring_view text, const std::int32_t color,
+    const std::int32_t font)
 {
-    // 聊天源仍为协议GBK；按姓名编码字节数定位正文，气泡内部保存宽文本。
-    std::int32_t offset = static_cast<std::int32_t>(cg::text::ToGbk(name).size()) + 2;
-    const std::string familyPrefix = cg::text::ToGbk(L"[家族]" /* 原常量参考：0x00554580。 */);
-    if (std::strncmp(text, "[GP]", 4) == 0) { offset += 4; }
-    else if (std::strncmp(text, "[MIC]", 5) == 0) { offset += 5; }
-    else if (std::strncmp(text, familyPrefix.c_str(), familyPrefix.size()) == 0) { offset += static_cast<std::int32_t>(familyPrefix.size()); }
-    const std::int32_t remaining = length - offset;
-    const std::wstring contents = cg::text::FromGbkWide(std::string_view(text + offset, static_cast<std::size_t>(remaining)));
+    std::size_t offset = name.size() + 2;
+    if (text.starts_with(L"[GP]")) { offset += 4; }
+    else if (text.starts_with(L"[MIC]")) { offset += 5; }
+    else if (text.starts_with(L"[家族]")) { offset += 4; }
+    const std::wstring contents(text.substr((std::min)(offset, text.size())));
+    const auto remaining = static_cast<std::int32_t>(cg::text::ToGbk(contents).size());
     const std::int32_t width = render::GetFontMetrics(font).sWidth * 40;
     std::size_t split = 0;
     while (split < contents.size()) {
@@ -72,8 +71,8 @@ static void AllocateActorChatText(
 // 原函数：0x00442DC0。
 void SetWorldActorChatBubble_442DC0(
     cg::yobi::YobiAction* const action, const std::int32_t duration,
-    const char* const text, const std::int32_t color,
-    const std::int32_t font, const std::int32_t length)
+    const std::wstring_view text, const std::int32_t color,
+    const std::int32_t font)
 {
     if (action == nullptr) {
         return;
@@ -90,13 +89,13 @@ void SetWorldActorChatBubble_442DC0(
         delete previousText;
         payload->text1C = nullptr;
     }
-    AllocateActorChatText(payload, action->nameC4.data(), text, color, font, length);
+    AllocateActorChatText(payload, action->nameC4.data(), text, color, font);
 }
 
 // 原函数：0x0051A6A0。
 void SetPlayerChatBubble_51A6A0(
-    const std::int32_t duration, const char* const text, const std::int32_t color,
-    const std::int32_t font, const std::int32_t length)
+    const std::int32_t duration, const std::wstring_view text, const std::int32_t color,
+    const std::int32_t font)
 {
     cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
@@ -111,7 +110,7 @@ void SetPlayerChatBubble_51A6A0(
         delete previousText;
         payload->text1C = nullptr;
     }
-    AllocateActorChatText(payload, cg::world::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font, length);
+    AllocateActorChatText(payload, cg::world::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font);
 }
 
 // 原函数：0x00442C00。

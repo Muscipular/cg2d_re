@@ -81,12 +81,12 @@ void __cdecl InitializeChatInputAndLog_449DA0();                 // 原 [0x449DA
 void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
 // 原函数：0x00442DC0。
 void SetWorldActorChatBubble_442DC0(
-    cg::yobi::YobiAction* action, std::int32_t duration, const char* text,
-    std::int32_t color, std::int32_t font, std::int32_t length);
+    cg::yobi::YobiAction* action, std::int32_t duration, std::wstring_view text,
+    std::int32_t color, std::int32_t font);
 // 原函数：0x0051A6A0。
 void SetPlayerChatBubble_51A6A0(
-    std::int32_t duration, const char* text, std::int32_t color,
-    std::int32_t font, std::int32_t length); // 同源玩家头顶文本生产。
+    std::int32_t duration, std::wstring_view text, std::int32_t color,
+    std::int32_t font); // 同源玩家头顶文本生产。
 // 原函数：0x0044A090。
 std::int32_t LoadChatInputHistory_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
 

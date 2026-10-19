@@ -1,4 +1,5 @@
 #include "map_actor.hpp"
+#include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
 #include "map_transition.hpp"
@@ -903,7 +904,7 @@ std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
 }
 
 YobiAction* PublishPlayerActionIdentity(
-    const std::wstring_view name, const char* const titles,
+    const std::wstring_view name, const std::array<std::wstring, 4>& titles,
     const std::int32_t originalNameLength, const std::int32_t level,
     const std::int32_t value188)
 {
@@ -915,34 +916,26 @@ YobiAction* PublishPlayerActionIdentity(
         action->nameC4 = name;
     }
 
-    // 原对象阶段重新解析四段；不能使用上一轮已写回的共享称号。
-    char first[256];
-    char second[256];
-    char third[256];
-    char fourth[256];
-    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-    input::UnescapeLegacyTextAndNotify_52D2F0(first);
-    if (std::strlen(first) <= 16) {
+    // 使用原始回复的独立文本快照，不借用上一轮写回的共享称号。
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[0]).size() <= 16) {
         action = world::gPlayerRuntimeSlots.action;
-        action->titleE1 = cg::text::FromGbkWide(first);
+        action->titleE1 = titles[0];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
-    input::UnescapeLegacyTextAndNotify_52D2F0(second);
-    if (std::strlen(second) <= 32) {
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[1]).size() <= 32) {
         action = world::gPlayerRuntimeSlots.action;
-        action->text102 = cg::text::FromGbkWide(second);
+        action->text102 = titles[1];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
-    input::UnescapeLegacyTextAndNotify_52D2F0(third);
-    if (std::strlen(third) <= 32) {
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[2]).size() <= 32) {
         action = world::gPlayerRuntimeSlots.action;
-        action->text123 = cg::text::FromGbkWide(third);
+        action->text123 = titles[2];
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
-    input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
-    if (std::strlen(fourth) <= 16) {
+    cg::core::NullSub_509080();
+    if (cg::text::ToGbk(titles[3]).size() <= 16) {
         action = world::gPlayerRuntimeSlots.action;
-        action->text31C = cg::text::FromGbkWide(fourth);
+        action->text31C = titles[3];
     }
     action = world::gPlayerRuntimeSlots.action;
     action->field1D0 = level;

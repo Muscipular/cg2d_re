@@ -23,7 +23,7 @@ include("${CMAKE_CURRENT_BINARY_DIR}/GenerateVersion.cmake")
 add_custom_target(cg2d_re_version
     COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/GenerateVersion.cmake"
     BYPRODUCTS "${CMAKE_CURRENT_BINARY_DIR}/generated/version.h"
-    COMMENT "更新客户端版本头"
+    COMMENT "Updating client version header"
     VERBATIM)
 
 # 用户提供的本地SDK；只向自有客户端目标传播，不影响第三方库构建缓存。

@@ -11,6 +11,21 @@ enable_language(C RC)
 option(TAOMOLI "启用 TAOMOLI 编译分支" OFF)
 option(TMD "在非Debug配置中启用Themida保护标记" OFF)
 
+# VG01：vTag由构建者指定；版本头在配置与每次构建时更新，仅内容变化时改写。
+set(vTag "" CACHE STRING "显示版本后缀，例如beta；留空表示无后缀")
+if(NOT "${vTag}" MATCHES "^[A-Za-z0-9._+-]*$")
+    message(FATAL_ERROR "vTag只允许英文数字及点、下划线、加号、减号。")
+endif()
+find_package(Git REQUIRED)
+configure_file(src/platform/GenerateVersion.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/GenerateVersion.cmake" @ONLY)
+include("${CMAKE_CURRENT_BINARY_DIR}/GenerateVersion.cmake")
+add_custom_target(cg2d_re_version
+    COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/GenerateVersion.cmake"
+    BYPRODUCTS "${CMAKE_CURRENT_BINARY_DIR}/generated/version.h"
+    COMMENT "更新客户端版本头"
+    VERBATIM)
+
 # 用户提供的本地SDK；只向自有客户端目标传播，不影响第三方库构建缓存。
 add_library(cg2d_re_tmd INTERFACE)
 if(TMD)
@@ -312,7 +327,11 @@ add_executable(cg2d_re_client WIN32
 )
 
 set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF OUTPUT_NAME cg2d_re)
+add_dependencies(cg2d_re_client cg2d_re_version)
 target_include_directories(cg2d_re_client PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+# 版本只由登录模块消费，避免生成目录变化影响其他源文件的编译命令。
+set_property(SOURCE src/scene/login/LoginScene.cpp APPEND PROPERTY
+    INCLUDE_DIRECTORIES "${CMAKE_CURRENT_BINARY_DIR}/generated")
 target_compile_features(cg2d_re_client PRIVATE cxx_std_20)
 target_compile_options(cg2d_re_client PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/arch:AVX2>")

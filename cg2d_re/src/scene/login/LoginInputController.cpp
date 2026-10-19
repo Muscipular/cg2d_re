@@ -40,7 +40,6 @@ static constexpr LoginSceneControl32 kHighSecondControl {
 static constexpr std::array<std::int32_t, 4> kBackgroundImages {
     22002, 22212, 22311, 22311,
 };
-extern wchar_t kVersion[];
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
 using Capability4InputButton32 = cg::ui::UiControlRecord;
@@ -193,13 +192,7 @@ std::int32_t ProcessCapability4Input_464E30()
 
     cg::ui::DrawUiControl_45EFD0(&loginButton, 207, 0, 0, 0);
     cg::ui::DrawUiControl_45EFD0(&exitButton, 207, 0, 0, 0);
-    static_cast<void>(render::DrawText3_456560(
-        460,
-        462,
-        0,
-        render::gPaletteCapability >= 1 ? 3 : 0,
-        kVersion,
-        0));
+    static_cast<void>(DrawClientVersion(460, 462, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;
 }
 
@@ -373,8 +366,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
         kBackgroundImages[backgroundIndex],
         0,
         nullptr)));
-    static_cast<void>(cg::render::DrawText3_456560(
-        540, 424, 0, 0, kVersion, 0));
+    static_cast<void>(DrawClientVersion(540, 424, 0));
     return result;
 }
 

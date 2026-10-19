@@ -1,0 +1,20 @@
+# VG01：配置时固化路径和后缀；年月及HEAD在每次调用时重新获取。
+execute_process(
+    COMMAND "@GIT_EXECUTABLE@" -C "@CMAKE_CURRENT_SOURCE_DIR@" rev-parse --verify HEAD
+    RESULT_VARIABLE cg_version_git_result
+    OUTPUT_VARIABLE cg_version_git_hash
+    ERROR_VARIABLE cg_version_git_error
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+if(NOT cg_version_git_result EQUAL 0 OR NOT cg_version_git_hash MATCHES "^[0-9a-fA-F]+$")
+    message(FATAL_ERROR "无法读取版本提交号：${cg_version_git_error}")
+endif()
+string(LENGTH "${cg_version_git_hash}" cg_version_hash_length)
+if(cg_version_hash_length LESS 8)
+    message(FATAL_ERROR "版本提交号不足8位。")
+endif()
+string(SUBSTRING "${cg_version_git_hash}" 0 8 cg_version_git_short)
+string(TIMESTAMP cg_version_date "%y.%m")
+string(REGEX REPLACE "\\.0([1-9])$" ".\\1" cg_version_date "${cg_version_date}")
+set(CG_CLIENT_VERSION "${cg_version_date}@vTag@@${cg_version_git_short}")
+configure_file("@CMAKE_CURRENT_SOURCE_DIR@/src/platform/version.h.in"
+    "@CMAKE_CURRENT_BINARY_DIR@/generated/version.h" @ONLY)

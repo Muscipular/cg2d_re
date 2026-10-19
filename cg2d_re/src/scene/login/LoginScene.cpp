@@ -1,4 +1,6 @@
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/render/Font.hpp"
+#include "version.h"
 #include "cg/scene/login/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -20,6 +22,7 @@
 #include <shellapi.h>
 
 #include <array>
+#include <algorithm>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
@@ -34,7 +37,14 @@ namespace cg::login {
 
 // 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
 static constexpr wchar_t kWindowName[] = L"魔力宝贝";
-wchar_t kVersion[] = L"1.0.0";
+static constexpr wchar_t kVersion[] = CG_CLIENT_VERSION_W;
+
+std::int32_t DrawClientVersion(const std::int16_t preferredX, const std::int16_t y, const std::int8_t color)
+{
+    const auto x = static_cast<std::int16_t>(std::clamp(
+        620 - render::TextMeasure(kVersion, 0), 0, static_cast<int>(preferredX)));
+    return render::DrawText3_456560(x, y, 0, color, kVersion, 0);
+}
 // 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kCannotConnect[] =
     L"无法连上伺服器。 ";
@@ -656,7 +666,7 @@ std::int32_t ProcessScene_45FEA0()
     static_cast<void>(render::HasLegacy3DDevice_44B610());
     cg::render::QueueOriginalPaletteGraphic_45F090(49, 67, 3, 0x3BEA3, 0, -1);
     cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 0x3BEA2, 0, -1), true);
-    return cg::render::DrawText3_456560(540, 424, 0, 0, kVersion, 0);
+    return DrawClientVersion(540, 424, 0);
 }
 
 } // namespace cg::login

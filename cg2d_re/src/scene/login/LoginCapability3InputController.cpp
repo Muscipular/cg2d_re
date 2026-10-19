@@ -19,7 +19,6 @@
 #include <cstring>
 
 namespace cg::login {
-extern wchar_t kVersion[];
 
 // 原 sub_45FA70 栈上按钮记录，固定 7×W32。
 using Capability3InputButton32 = cg::ui::UiControlRecord;
@@ -171,13 +170,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         &primaryButton, 207, 0, 0, nonzeroMode);
     cg::ui::DrawUiControl_45EFD0(
         &secondaryButton, 207, 0, 0, nonzeroMode);
-    static_cast<void>(render::DrawText3_456560(
-        540,
-        424,
-        0,
-        render::gPaletteCapability >= 1 ? 3 : 0,
-        kVersion,
-        0));
+    static_cast<void>(DrawClientVersion(540, 424, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;
 }
 

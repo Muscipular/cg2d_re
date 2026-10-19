@@ -1,0 +1,5 @@
+#pragma once
+
+// CMake自动生成；请通过vTag设置版本后缀，不直接编辑生成文件。
+#define CG_CLIENT_VERSION "@CG_CLIENT_VERSION@"
+#define CG_CLIENT_VERSION_W L"@CG_CLIENT_VERSION@"

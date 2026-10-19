@@ -69,15 +69,15 @@ static WindowGraphicData gBigMapPlayerGraphic{PlayerMarker, 0, 0, 0, 0, 0xFFFFFF
 static WindowGraphicData gBigMapTargetGraphic{TargetMarker, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCheckedGraphic{Checked, 0, 0, 0, 0, 0xFFFF0000u};
 static WindowGraphicData gBigMapCheckboxGraphic{Checkbox, 0, 0, 0, 0, 0xFFFFFFFFu};
-static WindowTextPrototype gBigMapMapNameText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
-static WindowTextPrototype gBigMapCoordinateText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
-static WindowTextPrototype gBigMapOptionsText{{std::byte{4}, std::byte{12}, {}, {}}, L"地图选项"};
-static WindowTextPrototype gBigMapWalkText{{std::byte{4}, std::byte{12}, {}, {}}, L"开始寻路"};
-static WindowTextPrototype gBigMapCenterText{{std::byte{4}, std::byte{12}, {}, {}}, L"玩家居中"};
+static WindowTextPrototype gBigMapMapNameText{{std::byte{127}, std::byte{5}, {}, {}}, L""};
+static WindowTextPrototype gBigMapCoordinateText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapOptionsText{{std::byte{0}, std::byte{12}, {}, {}}, L"地图选项"};
+static WindowTextPrototype gBigMapWalkText{{std::byte{0}, std::byte{12}, {}, {}}, L"开始寻路"};
+static WindowTextPrototype gBigMapCenterText{{std::byte{0}, std::byte{12}, {}, {}}, L"玩家居中"};
 static WindowTextPrototype gBigMapPlayerText{{std::byte{0}, std::byte{12}, {}, {}}, L"你现在的位置"};
 static WindowTextPrototype gBigMapTargetText{{std::byte{0}, std::byte{12}, {}, {}}, L"右键点选的寻路坐标"};
-static WindowTextPrototype gBigMapDisplayText{{std::byte{4}, std::byte{12}, {}, {}}, L"显示选项"};
-static WindowTextPrototype gBigMapStatusText{{std::byte{12}, std::byte{12}, {}, {}}, L""};
+static WindowTextPrototype gBigMapDisplayText{{std::byte{0}, std::byte{12}, {}, {}}, L"显示选项"};
+static WindowTextPrototype gBigMapStatusText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"伐木地点"},
@@ -90,7 +90,7 @@ static WindowTextPrototype gBigMapCategoryTexts[7]{
 
 static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Graphic, 11, 51, 20, 18, 1, {.graphic = &gBigMapToggleGraphic}, &WindowBigMap_Element}, // Toggle
-    {WindowElementType_Graphic, 614, 6, 20, 20, 1, {.graphic = &gBigMapCloseGraphic}, &WindowBigMap_Element}, // Close
+    {WindowElementType_Graphic, 610, 10, 20, 20, 1, {.graphic = &gBigMapCloseGraphic}, &WindowBigMap_Element}, // Close
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapWalkGraphic}, &WindowBigMap_Element}, // Walk
     {WindowElementType_Graphic, 11, 73, 18, 18, 0, {.graphic = &gBigMapCenterGraphic}, &WindowBigMap_Element}, // Center
     {WindowElementType_EventArea, 42, 138, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类0
@@ -100,14 +100,14 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_EventArea, 42, 218, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类4
     {WindowElementType_EventArea, 42, 238, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类5
     {WindowElementType_EventArea, 42, 258, 194, 20, 0, {}, &WindowBigMap_Element}, // 分类6
-    {WindowElementType_EventArea, 516, 12, 60, 16, 1, {}, &WindowBigMap_Element}, // 当前坐标底色与遮挡
-    {WindowElementType_EventArea, 516, 28, 60, 16, 0, {}, &WindowBigMap_Element}, // 目标坐标底色与遮挡
+    {WindowElementType_EventArea, 513, 10, 96, 17, 1, {}, &WindowBigMap_Element}, // 当前坐标底色与遮挡
+    {WindowElementType_EventArea, 513, 26, 96, 17, 0, {}, &WindowBigMap_Element}, // 目标坐标底色与遮挡
     {WindowElementType_EventArea, 6, 6, 602, 32, 1, {}, &WindowBigMap_Element}, // TitleArea
-    {WindowElementType_EventArea, 10, 10, 184, 38, 1, {}, &WindowBigMap_Element}, // NameArea
+    {WindowElementType_EventArea, 12, 12, 184, 38, 1, {}, &WindowBigMap_Element}, // NameArea
     {WindowElementType_EventArea, 8, 440, 624, 32, 1, {}, &WindowBigMap_Element}, // StatusArea
     {WindowElementType_EventArea, 36, 52, 224, 270, 0, {}, &WindowBigMap_Element}, // OptionsArea
     {WindowElementType_EventArea, 8, 8, 624, 464, 1, {}, &WindowBigMap_Element}, // MapArea
-    {WindowElementType_Text, 16, 20, 0, 0, 1, {.text = &gBigMapMapNameText}, &WindowElement_NoOp}, // TextMapName
+    {WindowElementType_Text, 18, 20, 0, 0, 1, {.text = &gBigMapMapNameText}, &WindowElement_NoOp}, // TextMapName
     {WindowElementType_Text, 516, 12, 0, 0, 1, {.text = &gBigMapCoordinateText}, &WindowElement_NoOp}, // TextCurrentCoordinate
     {WindowElementType_Text, 516, 28, 0, 0, 0, {.text = &gBigMapCoordinateText}, &WindowElement_NoOp}, // TextTargetCoordinate
     {WindowElementType_Text, 34, 52, 0, 0, 1, {.text = &gBigMapOptionsText}, &WindowElement_NoOp}, // TextToggle
@@ -226,9 +226,9 @@ struct BigMapWindowState final {
     void RefreshText() {
         static_cast<WindowTextData*>(window.elements[TextMapName].data)->text = world::GetMapName_9DAD30();
         static_cast<WindowTextData*>(window.elements[TextCurrentCoordinate].data)->text =
-            std::format(L"当前：{}, {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
+            std::format(L"当前：{}  {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
         static_cast<WindowTextData*>(window.elements[TextTargetCoordinate].data)->text = targetX >= 0
-            ? std::format(L"目标：{} {}", targetX, targetY) : L"";
+            ? std::format(L"目标：{}  {}", targetX, targetY) : L"";
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt" : L"";
         if (missingIcons || failedUiImages)
             status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, failedUiImages);

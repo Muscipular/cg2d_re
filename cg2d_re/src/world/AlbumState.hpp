@@ -63,9 +63,9 @@ void Sub_50E5D0(
 
 namespace detail {
 // 原函数：0x00518780。
-void Sub_518780(); // 原相册加载：读取4字节，长度不符调用5186A0。
+void LoadAlbumData_518780(); // 原相册加载：读取4字节，长度不符调用5186A0。
 // 原函数：0x00518870。
-void Sub_518870(
+void UpdateAlbumEntry_518870(
     std::int32_t number, std::int32_t imageNo,
     std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
     std::int32_t value0C, std::int32_t value10, std::int32_t value14,
@@ -73,7 +73,7 @@ void Sub_518870(
     std::int32_t value24, std::int32_t value28, std::int32_t value2C,
     std::int32_t value30, char* text, const char* name); // 同源相册记录逐字段更新。
 // 原函数：0x00518A40。
-void Sub_518A40(std::int32_t version, const char* payload); // 位掩码同步，先请求后发布版本。
+void SynchronizeAlbumEntryMask_518A40(std::int32_t version, const char* payload); // 位掩码同步，先请求后发布版本。
 
 } // namespace detail
 

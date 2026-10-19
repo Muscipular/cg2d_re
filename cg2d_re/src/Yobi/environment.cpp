@@ -820,7 +820,7 @@ void UpdateMapEnvironmentEffects_449160()
     }
     detail::EnsureTimedMapBackgroundEffect_448290();
     render::AdvanceRipplePhase_520910();
-    if (world::Sub_4493C0() == 0) {
+    if (world::IsMapDriftEffectAllowed_4493C0() == 0) {
         return;
     }
     const auto counter = static_cast<std::uint8_t>(effectSpawnCounter + 1);

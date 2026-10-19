@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：387／636。已重命名：375。保留／未决：12。待分析：249。
+已分析：409／636。已重命名：397。保留／未决：12。待分析：227。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -138,7 +138,7 @@
 | `Sub_448BF0` | src/Yobi/environment.cpp:247 | 已重命名：`UpdateLeftEntrySceneEffect_448BF0` | 负类型环境对象以相反偏移方向进出，保减速转折音效和地图投影逻辑。 |
 | `Sub_448D90` | src/Yobi/environment.cpp:361 | 已重命名：`ConfigureLeftEntrySceneEffect_448D90` | 解码负类型与阶段，四类选择对应图号和偏移，创建／更新／移除左侧进入对象。 |
 | `Sub_449160` | src/Yobi/environment.cpp:815 | 已重命名：`UpdateMapEnvironmentEffects_449160` | 玩家存在时确保计时背景并推进波纹，环境门禁允许时每64次生成随机方向与速度的漂移动作。 |
-| `Sub_4493C0` | src/world/SceneState.cpp:516 | 待分析 | — |
+| `Sub_4493C0` | src/world/SceneState.cpp:516 | 已重命名：`IsMapDriftEffectAllowed_4493C0` | 地图楼层40000至40999或命中静态白名单才允许漂移环境对象生成。 |
 | `Sub_449400` | src/Yobi/environment.cpp:697 | 已重命名：`UpdateDriftingSceneEffect_449400` | 环境漂移对象按角度移动、推进帧表并投影，指定图号叠波纹，超对应屏幕边界则销毁。 |
 | `Sub_449570` | src/Yobi/environment.cpp:112 | 已重命名：`AdvanceSceneEffectTableFrame_449570` | 按两组环境帧表推进图号和剩余时长，-1结束、-2跳帧；指定帧组直接使用资源索引。 |
 | `Sub_449670` | src/Yobi/environment.cpp:684 | 已重命名：`MoveSceneEffectAlongAngle_449670` | 归一270减角度，分别查两轴三角因子并按速度推进对象偏移，保两次独立读取幅值。 |
@@ -169,7 +169,7 @@
 | `Sub_455BB0` | src/world/SceneState.cpp:6649 | 待分析 | — |
 | `Sub_455BD0` | src/world/SceneState.cpp:6657 | 待分析 | — |
 | `Sub_455C60` | src/world/SceneState.cpp:3417 | 待分析 | — |
-| `Sub_455C90` | src/world/WorldUpdate.cpp:230 | 待分析 | — |
+| `Sub_455C90` | src/world/WorldUpdate.cpp:230 | 已重命名：`UpdateDisconnectDialog_455C90` | 创建居中断线模态框，按连接错误显示服务器提示，绘制确认按钮并处理点击后销毁，返回是否确认。 |
 | `Sub_455FC0` | src/world/SceneState.cpp:3423 | 待分析 | — |
 | `Sub_458F00` | src/world/SceneState.cpp:4014 | 待分析 | — |
 | `Sub_458F40` | src/world/SceneState.cpp:3987 | 待分析 | — |
@@ -266,23 +266,23 @@
 | `Sub_46DD90` | src/Yobi/map_observation.cpp:1108 | 已重命名：`UpdateRegisteredMapGraphicAction_46DD90` | 先投影当前世界坐标，再推进动画，按地图格坐标与mapOffset入地图对象缓存。 |
 | `Sub_46DE50` | src/Yobi/map_observation.cpp:1072 | 已重命名：`CreateRegisteredMapGraphicAction_46DE50` | 创建无回调地图图形动作，初始化图号、坐标和显示标志，供注册表维护与手动更新绘制。 |
 | `Sub_46DFF0` | src/world/MapDrawCache.cpp:427 | 已重命名：`CacheMapObjectGraphic_46DFF0` | 向普通地图对象缓存追加记录，描述符分非空和默认路径，保持数量发布先后顺序。 |
-| `Sub_46E0D0` | src/world/SceneState.cpp:1387 | 待分析 | — |
-| `Sub_46E2A0` | src/world/SceneState.cpp:813 | 待分析 | — |
-| `Sub_46E340` | src/world/SceneState.cpp:846 | 待分析 | — |
-| `Sub_46E390` | src/world/SceneState.cpp:870 | 待分析 | — |
-| `Sub_46E3E0` | src/world/SceneState.cpp:896 | 待分析 | — |
+| `Sub_46E0D0` | src/world/SceneState.cpp:1387 | 已重命名：`ConfigureDirectionalMapEffects_46E0D0` | 按掩码8/16解包粒子强度、角度和速度；掩码32配置延迟动画，零掩码清两类强度及附属动作。 |
+| `Sub_46E2A0` | src/world/SceneState.cpp:813 | 已重命名：`InitializeMapEffectPool_46E2A0` | 将固定效果记录串为空闲双链，清活动头并初始化各效果状态槽，返回尾记录。 |
+| `Sub_46E340` | src/world/SceneState.cpp:846 | 已重命名：`AcquireMapEffectRecord_46E340` | 从空闲头摘记录并插入活动头，不新增内存分配或清载荷。 |
+| `Sub_46E390` | src/world/SceneState.cpp:870 | 已重命名：`ReleaseMapEffectRecord_46E390` | 从活动链摘指定效果并放回空闲头，清kind，保持原前后链更新顺序。 |
+| `Sub_46E3E0` | src/world/SceneState.cpp:896 | 已重命名：`OffsetMapEffectForPlayerDirection_46E3E0` | 按共享八方向对XY作一或二像素补偿，返回原被修改指针或无效方向值。 |
 | `Sub_46E480` | src/world/SceneState.cpp:8278 | 待分析 | — |
-| `Sub_46E4A0` | src/world/SceneState.cpp:1377 | 待分析 | — |
-| `Sub_46E4C0` | src/world/SceneState.cpp:1300 | 待分析 | — |
-| `Sub_46E4E0` | src/world/SceneState.cpp:1060 | 待分析 | — |
-| `Sub_46E6C0` | src/world/SceneState.cpp:1120 | 待分析 | — |
-| `Sub_46E940` | src/world/SceneState.cpp:1178 | 待分析 | — |
-| `Sub_46EBB0` | src/world/SceneState.cpp:1241 | 待分析 | — |
-| `Sub_46ED50` | src/world/SceneState.cpp:1307 | 待分析 | — |
-| `Sub_46F000` | src/world/SceneState.cpp:1499 | 待分析 | — |
-| `Sub_46F090` | src/world/SceneState.cpp:1452 | 待分析 | — |
-| `Sub_46F160` | src/world/SceneState.cpp:1431 | 待分析 | — |
-| `Sub_46F1D0` | src/world/SceneState.cpp:1527 | 待分析 | — |
+| `Sub_46E4A0` | src/world/SceneState.cpp:1377 | 已重命名：`UpdateMapEffects_46E4A0` | 依次推进短线、像素簇、飘动及定向图形效果，保原调用顺序。 |
+| `Sub_46E4C0` | src/world/SceneState.cpp:1300 | 已重命名：`AdvanceMapParticleCycles_46E4C0` | 先推进kind1再推进kind2各cycles轮，返回第二路结果。 |
+| `Sub_46E4E0` | src/world/SceneState.cpp:1060 | 已重命名：`UpdateMapStreakParticles_46E4E0` | 按强度和计时生成kind1短线粒子，推进速度及方向补偿，出窗口回收；SurfaceState将其绘为四像素斜线。 |
+| `Sub_46E6C0` | src/world/SceneState.cpp:1120 | 已重命名：`UpdateMapClusterParticles_46E6C0` | 按强度生成kind2粒子，推进到740×480边界回收；SurfaceState按variant绘制3×3或4×4像素簇。 |
+| `Sub_46E940` | src/world/SceneState.cpp:1178 | 已重命名：`AdvanceMapClusterParticlesCycles_46E940` | 按给定循环数批量生成和推进kind2粒子，使用streak间隔计数并维护活动数量。 |
+| `Sub_46EBB0` | src/world/SceneState.cpp:1241 | 已重命名：`AdvanceMapStreakParticlesCycles_46EBB0` | 按给定循环数批量生成和推进kind1短线粒子，保低强度阈值分支及固定640×480边界。 |
+| `Sub_46ED50` | src/world/SceneState.cpp:1307 | 已重命名：`UpdateMapFlutterParticles_46ED50` | 按强度生成kind4粒子，每次随机扰动XY并周期更新相位和绘制参数，落出480边界回收。 |
+| `Sub_46F000` | src/world/SceneState.cpp:1499 | 已重命名：`ApplyMapCameraDeltaToEffectOffset_46F000` | 投影世界原点与上次投影比较，把镜头差值加到XY输出后更新缓存，首次仅记录基准。 |
+| `Sub_46F090` | src/world/SceneState.cpp:1452 | 已重命名：`CreateDirectionalMapEffect_46F090` | 按方向符号和边缘相位生成kind6/7/8记录，设置16.16位置、速度与图形变体并增加数量。 |
+| `Sub_46F160` | src/world/SceneState.cpp:1431 | 已重命名：`ClearDirectionalMapEffects_46F160` | 只清活动链kind6/7/8效果，kind8先标死共享动画，再归还记录并减少数量。 |
+| `Sub_46F1D0` | src/world/SceneState.cpp:1527 | 已重命名：`UpdateDirectionalMapEffects_46F1D0` | 非战斗场景计算定向运动及镜头补偿，生成kind6/7及延迟kind8动画，推进16.16位置、离屏回收并按变体绘图。 |
 | `Sub_46F680` | src/world/SceneState.cpp:5530 | 待分析 | — |
 | `Sub_46F8F0` | src/world/SceneState.cpp:10574 | 待分析 | — |
 | `Sub_46F930` | src/world/SceneState.cpp:10595 | 待分析 | — |
@@ -511,9 +511,9 @@
 | `Sub_518600` | src/world/SceneState.cpp:1777 | 待分析 | — |
 | `Sub_518660` | src/world/SceneState.cpp:1762 | 待分析 | — |
 | `Sub_5186A0` | src/world/SceneState.cpp:8217 | 已重命名：`SaveAlbumData_5186A0` | 复制gAlbumStorage完整快照，编码后写数据目录album.dat，保原容量4及短写未关闭分支，不借命名修行为。 |
-| `Sub_518780` | src/world/SceneState.cpp:651 | 待分析 | — |
-| `Sub_518870` | src/world/SceneState.cpp:689 | 待分析 | — |
-| `Sub_518A40` | src/world/SceneState.cpp:731 | 待分析 | — |
+| `Sub_518780` | src/world/SceneState.cpp:651 | 已重命名：`LoadAlbumData_518780` | 读取album.dat前四字节并调用既有解码，长度匹配才复制相册区，否则保存当前数据；保原读取长度和错误关闭顺序。 |
+| `Sub_518870` | src/world/SceneState.cpp:689 | 已重命名：`UpdateAlbumEntry_518870` | 按编号更新当前角色图鉴图号、标志、种族、能力和属性、说明及姓名，新增置fresh并保存。 |
+| `Sub_518A40` | src/world/SceneState.cpp:731 | 已重命名：`SynchronizeAlbumEntryMask_518A40` | 按回复位图保留／清条目，对缺失或版本落后条目形成请求列表，始终发送请求后重取角色并写版本。 |
 | `Sub_518BE0` | src/world/SceneState.cpp:8249 | 待分析 | — |
 | `Sub_518C60` | src/world/SceneState.cpp:10707 | 待分析 | — |
 | `Sub_518C80` | src/world/MailState.cpp:832 | 已重命名：`ClearContactAndGuildMailStorage_518C80` | 清零普通与公会两角色邮件内存区及邮件页号，不执行文件删除。 |
@@ -590,7 +590,7 @@
 | `Sub_51BE50` | src/world/SceneState.cpp:11131 | 待分析 | — |
 | `Sub_51BEC0` | src/world/SceneState.cpp:11122 | 待分析 | — |
 | `Sub_51BEE0` | src/world/SceneState.cpp:11116 | 待分析 | — |
-| `Sub_51BEF0` | src/world/SceneState.cpp:467 | 待分析 | — |
+| `Sub_51BEF0` | src/world/SceneState.cpp:467 | 已重命名：`ResumePlayerAfterObservation_51BEF0` | 清玩家动作状态字节的观察暂停位；成员落地及退出观察调用，与世界对象恢复入口对应。 |
 | `Sub_51BF00` | src/scene/character_select/CharacterSelectPreview.cpp:192 | 已重命名：`ConvertModernCharacterGraphicToEarlier_51BF00` | 240000段减37200，241400段按14项映射表转换旧族；205000和270000指定范围原值返回。 |
 | `Sub_51BFF0` | src/scene/character_select/CharacterSelectPreview.cpp:214 | 已重命名：`ConvertEarlierCharacterGraphicToModern_51BFF0` | 202800段加37200，其余按14项百位类别映射到241400段，无匹配原值返回。 |
 | `Sub_51C0D0` | src/world/SceneState.cpp:11070 | 待分析 | — |

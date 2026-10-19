@@ -27,7 +27,7 @@ extern std::uint32_t gValue58B6D0;             // 原 0x58B6D0，W32，映像初
 extern std::uint8_t gValueD9F2CA;              // 原 0xD9F2CA，W8。
 
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
-void Sub_51BEF0() noexcept;
+void ResumePlayerAfterObservation_51BEF0() noexcept;
 
 // 原世界等距投影状态的当前值与帧末快照；八槽均为独立 uint32_t，映像初值 0。
 extern std::uint32_t gWorldProjectionSourceA;   // 原 0x9EE908，R32。
@@ -56,7 +56,7 @@ bool IsValidPetIndex_51C410(std::int32_t index) noexcept;
 std::int32_t IsMapFloorAllowed_448240() noexcept;
 
 // 原 sub_4493C0@0x4493C0；只采样一次 gMapFloor，判定闭区间及四项表，返回 0/1。
-std::int32_t Sub_4493C0() noexcept;
+std::int32_t IsMapDriftEffectAllowed_4493C0() noexcept;
 
 // 原 sub_46CE30@0x46CE30；X/Y 各写四字节，返回借用的 outX，不检查输出指针。
 float* ProjectWorldToScreen_46CE30(

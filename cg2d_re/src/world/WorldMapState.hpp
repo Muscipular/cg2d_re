@@ -499,42 +499,42 @@ std::int32_t __cdecl Sub_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 �
 std::int32_t __cdecl Sub_46AB60();        // 原 [0x46AB60,0x46ABCD)，pending 倒计时与分发。
 // render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
 // 原函数：0x0046E2A0。
-MapEffectRecord* Sub_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
+MapEffectRecord* InitializeMapEffectPool_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
 // 原函数：0x0046E340。
-MapEffectRecord* Sub_46E340();             // 原 0x46E340；空闲首项转为活动首项。
+MapEffectRecord* AcquireMapEffectRecord_46E340();             // 原 0x46E340；空闲首项转为活动首项。
 // 原函数：0x0046E390。
-MapEffectRecord* Sub_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
+MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
 // 原函数：0x0046E3E0。
-std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
+std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
 // 原函数：0x0046E4E0。
-void Sub_46E4E0();                          // 原 0x46E4E0；EAX 不具统一返回合同。
+void UpdateMapStreakParticles_46E4E0();                          // 原 0x46E4E0；EAX 不具统一返回合同。
 // 原函数：0x0046E6C0。
-void Sub_46E6C0();                          // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
+void UpdateMapClusterParticles_46E6C0();                          // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
 // 原函数：0x0046E940。
-std::int32_t __cdecl Sub_46E940(std::int32_t cycles); // 原 0x46E940；多轮 kind 2 更新。
+std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles); // 原 0x46E940；多轮 kind 2 更新。
 // 原函数：0x0046EBB0。
-std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles); // 原 0x46EBB0；多轮 kind 1 更新。
+std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles); // 原 0x46EBB0；多轮 kind 1 更新。
 // 原函数：0x0046E4C0。
-std::int32_t __cdecl Sub_46E4C0(std::int32_t cycles); // 原 0x46E4C0；双效果更新，透传后者返回。
+std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(std::int32_t cycles); // 原 0x46E4C0；双效果更新，透传后者返回。
 // 原函数：0x0046ED50。
-void Sub_46ED50();                          // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
+void UpdateMapFlutterParticles_46ED50();                          // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
 // 原函数：0x0046E4A0。
-void Sub_46E4A0();                          // 原 0x46E4A0；三效果生产后尾接 46F1D0。
+void UpdateMapEffects_46E4A0();                          // 原 0x46E4A0；三效果生产后尾接 46F1D0。
 // 原函数：0x0046F1D0。
-void Sub_46F1D0();                          // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
+void UpdateDirectionalMapEffects_46F1D0();                          // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
 // 原函数：0x00440FF0。
 std::int32_t Sub_440FF0();                  // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
 // 原函数：0x0046E0D0。
-void __cdecl Sub_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
+void __cdecl ConfigureDirectionalMapEffects_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 // 原函数：0x0046F160。
-void Sub_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
+void ClearDirectionalMapEffects_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
 // 原函数：0x0046F090。
-MapEffectRecord* Sub_46F090(
+MapEffectRecord* CreateDirectionalMapEffect_46F090(
     std::int16_t kind, std::int32_t horizontalSign,
     std::int32_t verticalSign, std::int32_t phase,
     std::int32_t speed, std::int32_t graphicIndex); // 原 0x46F090；效果记录生产。
 // 原函数：0x0046F000。
-std::int32_t __cdecl Sub_46F000(std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
+std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
 // 原函数：0x00469C90。
 std::uint8_t Sub_469C90(); // 完整移动输入、目标交互与普通/跟随分流。
 // 原函数：0x0046F680。

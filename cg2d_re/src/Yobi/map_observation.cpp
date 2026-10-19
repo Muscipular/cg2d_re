@@ -477,7 +477,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->values[action->field1D0];
             if (currentIndex == world::gPlayerRuntimeSlots.objectIndex) {
-                world::Sub_51BEF0();
+                world::ResumePlayerAfterObservation_51BEF0();
             } else {
                 world::ResumeWorldActorAfterObservation_43DB30(source);
             }

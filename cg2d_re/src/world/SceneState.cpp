@@ -232,7 +232,7 @@ static constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     37631,
 };
 
-// 原 0x5541F4；Sub_4493C0 按原顺序匹配的四项地图楼层表。
+// 原 0x5541F4；IsMapDriftEffectAllowed_4493C0 按原顺序匹配的四项地图楼层表。
 static constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     59000,
     59001,
@@ -464,7 +464,7 @@ const char* ReadText9DAD30() noexcept
 }
 
 // 原函数：0x0051BEF0。
-void Sub_51BEF0() noexcept
+void ResumePlayerAfterObservation_51BEF0() noexcept
 {
     gPlayerRuntimeSlots.flags18C &= 0xFF7FFFFFu;
 }
@@ -513,7 +513,7 @@ std::int32_t IsMapFloorAllowed_448240() noexcept
 }
 
 // 原 sub_4493C0@[0x4493C0, 0x4493F2)；先判断闭区间，再按原表顺序匹配。
-std::int32_t Sub_4493C0() noexcept
+std::int32_t IsMapDriftEffectAllowed_4493C0() noexcept
 {
     const std::int32_t mapFloor = gMapFloor;
     if (mapFloor >= 40000 && mapFloor <= 40999) {
@@ -648,7 +648,7 @@ std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // �
 namespace detail {
 
 // 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
-void Sub_518780()
+void LoadAlbumData_518780()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
@@ -686,7 +686,7 @@ void Sub_518780()
 }
 
 // 原[518870,518A36)：相册记录更新，分行调用后重读角色而不固定首记录地址。
-void Sub_518870(
+void UpdateAlbumEntry_518870(
     const std::int32_t number, const std::int32_t imageNo,
     const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
     const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
@@ -728,7 +728,7 @@ void Sub_518870(
 }
 
 // 原[518A40,518BD5)：掩码扫描后始终发送请求列表，再重读角色写版本。
-void Sub_518A40(const std::int32_t version, const char* const payload)
+void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* const payload)
 {
     std::vector<std::int32_t> requests;
     std::int32_t limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
@@ -810,7 +810,7 @@ static void ClearMapEffectAction(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0046E2A0。
-MapEffectRecord* Sub_46E2A0()
+MapEffectRecord* InitializeMapEffectPool_46E2A0()
 {
     gFreeMapEffectHead = &gMapEffectRecords[0];
     gMapEffectRecords[0].prev = nullptr;
@@ -843,7 +843,7 @@ MapEffectRecord* Sub_46E2A0()
 }
 
 // 原函数：0x0046E340。
-MapEffectRecord* Sub_46E340()
+MapEffectRecord* AcquireMapEffectRecord_46E340()
 {
     MapEffectRecord* const record = gFreeMapEffectHead;
     if (record == nullptr) {
@@ -867,7 +867,7 @@ MapEffectRecord* Sub_46E340()
 }
 
 // 原函数：0x0046E390。
-MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
+MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* const record)
 {
     if (record == nullptr) {
         return record;
@@ -893,7 +893,7 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
 }
 
 // 原函数：0x0046E3E0。
-std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* const x, std::int32_t* const y)
+std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* const x, std::int32_t* const y)
 {
     const std::int16_t direction =
         std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
@@ -972,7 +972,7 @@ static void ApplyMapEffectDirection(MapEffectRecord& record)
 
 static MapEffectRecord* CreateMapEffectKind1AtZero()
 {
-    MapEffectRecord* const record = Sub_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return nullptr;
     }
@@ -1001,7 +1001,7 @@ static void CreateMapEffectKind1()
 // 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
 static MapEffectRecord* CreateMapEffectKind2AtZero()
 {
-    MapEffectRecord* const record = Sub_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return nullptr;
     }
@@ -1035,7 +1035,7 @@ static void CreateMapEffectKind2()
 
 static void CreateMapEffectKind4()
 {
-    MapEffectRecord* const record = Sub_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return;
     }
@@ -1057,7 +1057,7 @@ static void CreateMapEffectKind4()
 }
 
 // 原函数：0x0046E4E0。
-void Sub_46E4E0()
+void UpdateMapStreakParticles_46E4E0()
 {
     const std::uint8_t started = gMapEffectStartedC8224C;
     if ((started & 1u) == 0) {
@@ -1105,7 +1105,7 @@ void Sub_46E4E0()
             if (finalX >= platform::gWindowWidth
                 || record->y >= platform::gWindowHeight) {
                 MapEffectRecord* const next = record->next;
-                Sub_46E390(record);
+                ReleaseMapEffectRecord_46E390(record);
                 --gMapCharaSceneSlots.valueC8A742;
                 record = next;
                 continue;
@@ -1117,7 +1117,7 @@ void Sub_46E4E0()
 }
 
 // 原函数：0x0046E6C0。
-void Sub_46E6C0()
+void UpdateMapClusterParticles_46E6C0()
 {
     const std::uint8_t started = gMapEffectStartedC82240;
     if ((started & 1u) == 0) {
@@ -1163,7 +1163,7 @@ void Sub_46E6C0()
             if (finalX >= 740
                 || record->y >= 480) {
                 MapEffectRecord* const next = record->next;
-                Sub_46E390(record);
+                ReleaseMapEffectRecord_46E390(record);
                 --gMapCharaSceneSlots.valueC8A748;
                 record = next;
                 continue;
@@ -1175,7 +1175,7 @@ void Sub_46E6C0()
 }
 
 // 原函数：0x0046E940。
-std::int32_t __cdecl Sub_46E940(std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         gCurrentSceneType == 10
@@ -1223,7 +1223,7 @@ std::int32_t __cdecl Sub_46E940(std::int32_t cycles)
                 if (finalX >= 740
                     || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
-                    Sub_46E390(record);
+                    ReleaseMapEffectRecord_46E390(record);
                     --gMapCharaSceneSlots.valueC8A748;
                     record = next;
                     continue;
@@ -1238,7 +1238,7 @@ std::int32_t __cdecl Sub_46E940(std::int32_t cycles)
 }
 
 // 原函数：0x0046EBB0。
-std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         gCurrentSceneType == 10
@@ -1283,7 +1283,7 @@ std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles)
                 if (finalX >= 640
                     || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
-                    Sub_46E390(record);
+                    ReleaseMapEffectRecord_46E390(record);
                     --gMapCharaSceneSlots.valueC8A742;
                     record = next;
                     continue;
@@ -1297,14 +1297,14 @@ std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles)
 }
 
 // 原函数：0x0046E4C0。
-std::int32_t __cdecl Sub_46E4C0(const std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(const std::int32_t cycles)
 {
-    static_cast<void>(Sub_46EBB0(cycles));
-    return Sub_46E940(cycles);
+    static_cast<void>(AdvanceMapStreakParticlesCycles_46EBB0(cycles));
+    return AdvanceMapClusterParticlesCycles_46E940(cycles);
 }
 
 // 原函数：0x0046ED50。
-void Sub_46ED50()
+void UpdateMapFlutterParticles_46ED50()
 {
     const std::uint8_t started = gMapEffectStartedC8A728;
     if ((started & 1u) == 0) {
@@ -1362,7 +1362,7 @@ void Sub_46ED50()
             ApplyMapEffectDirection(*record);
             if (record->y >= 480) {
                 MapEffectRecord* const next = record->next;
-                Sub_46E390(record);
+                ReleaseMapEffectRecord_46E390(record);
                 --gMapCharaSceneSlots.valueC8A750;
                 record = next;
                 continue;
@@ -1374,17 +1374,17 @@ void Sub_46ED50()
 }
 
 // 原函数：0x0046E4A0。
-void Sub_46E4A0()
+void UpdateMapEffects_46E4A0()
 {
-    Sub_46E4E0();
-    Sub_46E6C0();
+    UpdateMapStreakParticles_46E4E0();
+    UpdateMapClusterParticles_46E6C0();
     // 原 46E4AA/46E4AF 两次调用的 509080 仅有 retn。
-    Sub_46ED50();
-    Sub_46F1D0();
+    UpdateMapFlutterParticles_46ED50();
+    UpdateDirectionalMapEffects_46F1D0();
 }
 
 // 原函数：0x0046E0D0。
-void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
+void __cdecl ConfigureDirectionalMapEffects_46E0D0(const std::int32_t mask, const std::int32_t value)
 {
     if (mask == 0) {
         cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
@@ -1428,7 +1428,7 @@ void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
 }
 
 // 原函数：0x0046F160。
-void Sub_46F160()
+void ClearDirectionalMapEffects_46F160()
 {
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
@@ -1442,19 +1442,19 @@ void Sub_46F160()
             gMapCharaSceneSlots.actionC8A764 = nullptr;
         }
         MapEffectRecord* const next = record->next;
-        Sub_46E390(record);
+        ReleaseMapEffectRecord_46E390(record);
         --gMapCharaSceneSlots.valueC8A756;
         record = next;
     }
 }
 
 // 原函数：0x0046F090。
-MapEffectRecord* Sub_46F090(
+MapEffectRecord* CreateDirectionalMapEffect_46F090(
     const std::int16_t kind, const std::int32_t horizontalSign,
     const std::int32_t verticalSign, const std::int32_t phase,
     const std::int32_t speed, const std::int32_t graphicIndex)
 {
-    MapEffectRecord* const record = Sub_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return record;
     }
@@ -1496,7 +1496,7 @@ MapEffectRecord* Sub_46F090(
 }
 
 // 原函数：0x0046F000。
-std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
+std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* const x, std::int32_t* const y)
 {
     float projectedX;
     float projectedY;
@@ -1524,7 +1524,7 @@ std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
 }
 
 // 原函数：0x0046F1D0。
-void Sub_46F1D0()
+void UpdateDirectionalMapEffects_46F1D0()
 {
     if (gCurrentSceneType == 10) {
         return;
@@ -1538,14 +1538,14 @@ void Sub_46F1D0()
         &gMapCharaSceneSlots.valueC8A75C, direction);
     std::int32_t cameraX = 0;
     std::int32_t cameraY = 0;
-    Sub_46F000(&cameraX, &cameraY);
+    ApplyMapCameraDeltaToEffectOffset_46F000(&cameraX, &cameraY);
     platform::detail::MapEffectMotion motion;
     platform::detail::Cg2dMapEffectMotion(
         direction, cameraX, cameraY, &motion);
 
     if (gMapCharaSceneSlots.value55DEA2 == 0) {
         const std::int32_t phase = gMapCharaSceneSlots.valueC8A760;
-        Sub_46F090(8, motion.horizontalSign, motion.verticalSign,
+        CreateDirectionalMapEffect_46F090(8, motion.horizontalSign, motion.verticalSign,
             phase, 2000, phase % 3);
         gMapCharaSceneSlots.actionC8A764 =
             cg::yobi::NewYobiAction_404AE0(3, 0);
@@ -1590,7 +1590,7 @@ void Sub_46F1D0()
         const std::int32_t recordSpeed =
             platform::Rand16() % 1000 + minimumSpeed;
         const std::int32_t phase = platform::Rand16();
-        Sub_46F090(kind, motion.horizontalSign, motion.verticalSign,
+        CreateDirectionalMapEffect_46F090(kind, motion.horizontalSign, motion.verticalSign,
             phase, recordSpeed, graphicIndex);
     };
     spawn(6, gMapCharaSceneSlots.valueC8A752, 1000);
@@ -1626,7 +1626,7 @@ void Sub_46F1D0()
                     gMapCharaSceneSlots.actionC8A764 = nullptr;
                 }
                 MapEffectRecord* const next = record->next;
-                Sub_46E390(record);
+                ReleaseMapEffectRecord_46E390(record);
                 --gMapCharaSceneSlots.valueC8A756;
                 record = next;
                 continue;
@@ -1680,7 +1680,7 @@ std::int32_t Sub_440FF0()
     gMapCharaSceneSlots.valueC8A754 = 2;
     gMapCharaSceneSlots.value55DE9C = 6.0F;
     gMapCharaSceneSlots.value55DEA0 = angle;
-    Sub_46F1D0();
+    UpdateDirectionalMapEffects_46F1D0();
 
     std::int32_t result = 0;
     for (std::int32_t y = 0; y < 480; y += 48) {
@@ -3618,7 +3618,7 @@ void DrawNormalScene_51C7D0()
         if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
-            Sub_46E2A0();
+            InitializeMapEffectPool_46E2A0();
         }
         gMapCharaSceneSlots.valueC8A75C = 0;
         gMapCharaSceneSlots.valueC8A758 = 0;
@@ -3626,11 +3626,11 @@ void DrawNormalScene_51C7D0()
         input::BrowseChatHistory_44A1B0();
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
-        Sub_46F160();
+        ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(Sub_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -3672,11 +3672,11 @@ void DrawNormalScene_51C7D0()
     }
     case 250: {
         ui::WindowRuntime_ProcessScene();
-        Sub_46F160();
+        ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(Sub_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -3716,11 +3716,11 @@ void DrawNormalScene_51C7D0()
         gValueFF0D74 = 0;
         ui::WindowRuntime_ProcessScene();
         gValue62B5B0 = platform::ReadTickCount64();
-        Sub_46F160();
+        ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(Sub_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
         }
         Sub_51D6F0();
         Sub_46BD40();
@@ -3808,7 +3808,7 @@ void DrawNormalScene_51C7D0()
             if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
                 || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
-                Sub_46E2A0();
+                InitializeMapEffectPool_46E2A0();
             }
             gMapCharaSceneSlots.valueC8A75C = 0;
             gMapCharaSceneSlots.valueC8A758 = 0;
@@ -3817,11 +3817,11 @@ void DrawNormalScene_51C7D0()
             RenderInput_4590E0();
             render::SortTextures_520790();
             static_cast<void>(render::ClearSurface_4512C0());
-            Sub_46F160();
+            ClearDirectionalMapEffects_46F160();
             if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
                 || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-                static_cast<void>(Sub_46E4C0(80));
+                static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
             }
             Sub_51D6F0();
             static_cast<void>(render::UpdatePalette_450BB0());
@@ -3884,7 +3884,7 @@ void DrawNormalScene_51C7D0()
         Sub_455FC0();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
-        Sub_46E4A0();
+        UpdateMapEffects_46E4A0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
@@ -3918,7 +3918,7 @@ void DrawNormalScene_51C7D0()
         gValue58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
-        Sub_51BEF0();
+        ResumePlayerAfterObservation_51BEF0();
         platform::RequestRender_457010();
         static_cast<void>(audio::PlaySe_52C450(201, 320));
         gValueFF0D68 = audio::ReadBgmRecordIndex58D4F8();
@@ -4067,7 +4067,7 @@ void DrawBattleScene_43CBB0()
         }
         if (gMapCharaSceneSlots.valueC8A73E != 0
             || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
-            static_cast<void>(Sub_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
         cg::yobi::YobiClearUp_404D30();
         cg::yobi::InitializeBattleScene_4383F0();
@@ -4318,7 +4318,7 @@ void DrawBattleScene_43CBB0()
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
-            static_cast<void>(Sub_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
         const std::int32_t currentState = gCurrentSceneState;
         const std::int32_t nextState = currentState + 1;
@@ -4362,7 +4362,7 @@ void DrawBattleScene_43CBB0()
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
-            static_cast<void>(Sub_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
         clearBattleEffects();
         cg::yobi::YobiClearUp_404D30();
@@ -4413,7 +4413,7 @@ void DrawBattleScene_43CBB0()
     if (platform::gValue73ECC0 == 2) {
         return;
     }
-    Sub_46E4A0();
+    UpdateMapEffects_46E4A0();
     if (gValue5ABCB0 == 1) {
         gCurrentSceneState = 7;
         gValue5ABCB0 = 0;
@@ -4462,7 +4462,7 @@ void* __cdecl Sub_51D5B0()
         const std::uint32_t currentGate = gValueD67E78;
         gValueFF0D74 = 0;
         if (currentGate != 0) {
-            Sub_51BEF0();
+            ResumePlayerAfterObservation_51BEF0();
         }
     } else if (gValueFF0D74 == 0) {
         gCurrentSceneState = 250;
@@ -8258,7 +8258,7 @@ void Sub_518BE0()
 void Sub_50E5B0(
     const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
 {
-    detail::Sub_518A40(version, payload);
+    detail::SynchronizeAlbumEntryMask_518A40(version, payload);
 }
 
 // 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
@@ -8270,7 +8270,7 @@ void Sub_50E5D0(
     const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
     const std::int32_t value30, char* const text, const char* const name)
 {
-    detail::Sub_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
+    detail::UpdateAlbumEntry_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
 }
 
@@ -8823,7 +8823,7 @@ void Sub_50E1A0(
             gMapCharaSceneSlots.valueC8A74E = low;
         }
     }
-    detail::Sub_46E0D0(mask, value);
+    detail::ConfigureDirectionalMapEffects_46E0D0(mask, value);
 }
 
 // 原函数：0x0050E650。

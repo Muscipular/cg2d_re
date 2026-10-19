@@ -115,7 +115,7 @@ void Update()
         detail::ResetWorldObjectTable_446470();
         detail::Sub_4D3170();
         detail::Sub_455BD0();
-        detail::Sub_46E2A0();
+        detail::InitializeMapEffectPool_46E2A0();
         Sub_46BD40();
         gValue5ABFC4 = 0;
         gValue9A6E0C = 0;
@@ -128,7 +128,7 @@ void Update()
         gValueFF0D58 = 0;
         gValueD67E78 = 0;
         cg::core::NullSub_509080();
-        detail::Sub_518780();
+        detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         gValueFF0D74 = 0;
@@ -174,7 +174,7 @@ void Update()
             ++gCurrentSceneState;
         }
 
-        if (detail::Sub_455C90() == 0) {
+        if (detail::UpdateDisconnectDialog_455C90() == 0) {
             goto sceneSixTail;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
@@ -227,7 +227,7 @@ static std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
 static std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
 // 原函数：0x00455C90。
-std::int32_t Sub_455C90()
+std::int32_t UpdateDisconnectDialog_455C90()
 {
     cg::render::GraphicDescriptor16 descriptor {
         0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,

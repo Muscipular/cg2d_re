@@ -3020,6 +3020,8 @@ static void WindowRuntime_ProcessShortcuts()
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
         if (script::CloseFocusedWindow()) {
             static_cast<void>(audio::PlaySe_52C450(57, 320));
+        } else if (!script::HasNonDefaultWindows()) {
+            WindowRuntime_ToggleShortcutWindow(WindowId_Settings);
         }
         return;
     }

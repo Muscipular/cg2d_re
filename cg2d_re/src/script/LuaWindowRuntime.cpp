@@ -77,6 +77,18 @@ bool CloseFocusedWindow()
     return true;
 }
 
+bool HasNonDefaultWindows()
+{
+    const auto isOpen = [](const UIWindowInstance& window) {
+        return !(window.state & WIN_STATE_CLOSE) && !IsDefaultWindow(window.id);
+    };
+    for (auto* window : ui::detail::gWindows)
+        if (window && isOpen(*window)) return true;
+    for (const auto& entry : windows)
+        if ((entry->window.state & WIN_STATE_ACTIVE) && isOpen(entry->window)) return true;
+    return false;
+}
+
 void NativeLuaWindowClosed(int id)
 {
     windowOrder.erase(id);

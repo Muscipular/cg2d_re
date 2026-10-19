@@ -355,7 +355,7 @@ static std::int32_t WindowPetList_SendStates(const std::array<std::int32_t, 5>& 
     const std::int32_t second = values[1];
     const std::int32_t first = values[0];
     const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_511AE0(socket, first, second, third, fourth, fifth);
+    return network::SendPetStates_511AE0(socket, first, second, third, fourth, fifth);
 }
 
 // 原函数：0x0048D4E0。

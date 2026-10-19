@@ -85,7 +85,7 @@ static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 
 static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char*)
 {
     if (index >= 0) {
-        static_cast<void>(network::Sub_511D10(platform::gConnectionSocket, index));
+        static_cast<void>(network::SelectItemTextTarget_511D10(platform::gConnectionSocket, index));
         gItemUseTargetCB0A48 = index;
         return 0;
     }

@@ -311,16 +311,16 @@ static void WindowItem_TransferQuantity(
         if (from == to) {
             const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
             const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::Sub_516C90(
+            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
                 platform::gConnectionSocket, sourceGroup, source, targetGroup, target, -1));
         } else {
             const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::Sub_516C90(
+            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
                 platform::gConnectionSocket, sourceGroup, source, 0, target, -1));
         }
     } else if (to != 0) {
         const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-        static_cast<void>(network::Sub_516C90(
+        static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
             platform::gConnectionSocket, 0, source, targetGroup, target, -1));
     }
 }
@@ -643,7 +643,7 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
         && world::Sub_440B50() == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
+        static_cast<void>(network::DropGoldRequest_510DA0(platform::gConnectionSocket, x, y, amount));
     }
 }
 
@@ -797,7 +797,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                             static_cast<std::int32_t>(world::gPlayerY);
                         const std::int32_t x =
                             static_cast<std::int32_t>(world::gPlayerX);
-                        static_cast<void>(network::Sub_510A00(
+                        static_cast<void>(network::BeginItemUseRequest_510A00(
                             platform::gConnectionSocket, x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -1029,14 +1029,14 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {
                             const std::int32_t group = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-                            static_cast<void>(network::Sub_516C90(
+                            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
                                 platform::gConnectionSocket, group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
                                 static_cast<std::int32_t>(world::gPlayerY);
                             const std::int32_t x =
                                 static_cast<std::int32_t>(world::gPlayerX);
-                            static_cast<void>(network::Sub_510A00(
+                            static_cast<void>(network::BeginItemUseRequest_510A00(
                                 platform::gConnectionSocket, x, y, hovered, 0));
                         }
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -1204,7 +1204,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
-                static_cast<void>(network::Sub_511D60(
+                static_cast<void>(network::SendItemTargetPair_511D60(
                     platform::gConnectionSocket, hovered + 8, selected));
             } else if (mode == 2) {
                 cg::text::FormatTo(buffer, L"{}", hovered + 8);
@@ -1215,7 +1215,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::Sub_512620(
+                static_cast<void>(network::SendDialogResponse_512620(
                     platform::gConnectionSocket, x, y, request, target, 0, escaped));
                 leaveSelection();
             }

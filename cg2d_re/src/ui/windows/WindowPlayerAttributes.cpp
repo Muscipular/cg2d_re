@@ -233,7 +233,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         }
         if ((state & 2) != 0) {
             if (values[index - 29] < limit) {
-                static_cast<void>(network::Sub_5123B0(platform::gConnectionSocket, index - 29));
+                static_cast<void>(network::IncreasePlayerAttributeRequest_5123B0(platform::gConnectionSocket, index - 29));
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
             }
             return 1;

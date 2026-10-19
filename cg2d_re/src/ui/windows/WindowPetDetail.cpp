@@ -424,7 +424,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, escapedText));
+            static_cast<void>(network::RenamePetRequest_5125B0(socket, pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -456,7 +456,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
                 const std::uintptr_t socket = platform::gConnectionSocket;
-                static_cast<void>(network::Sub_510E30(socket, x, y, pet));
+                static_cast<void>(network::DropPetRequest_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {

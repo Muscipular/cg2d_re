@@ -1706,7 +1706,7 @@ static std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
     const std::uint32_t sampledOptions = gPlayerRuntimeSlots.options194;
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
-    return network::Sub_511A00(socket, value);
+    return network::SendPlayerOptions_511A00(socket, value);
 }
 
 void MarkPlayerChatActive() noexcept
@@ -4342,7 +4342,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::YobiClearUp_404D30();
         Sub_446610();
         cg::world::gRippleGate = std::int32_t{0};
-        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
+        static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
         return;
     }
     case 9: {
@@ -5665,7 +5665,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(network::Sub_511DD0(
+    static_cast<void>(network::SendWorldActionRequest_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     Sub_51A060(localAction);
@@ -5788,7 +5788,7 @@ std::uint8_t Sub_469C90()
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose());
             static_cast<void>(ui::WindowOwnStall_RequestClose());
-            static_cast<void>(network::Sub_512190(platform::gConnectionSocket, objectIndex));
+            static_cast<void>(network::RequestStallContents_512190(platform::gConnectionSocket, objectIndex));
         }
         Sub_46B370();
         static_cast<void>(Sub_51B3E0());
@@ -6066,7 +6066,7 @@ void Sub_46A700()
                         static_cast<std::int32_t>(gPlayerSnapshotY);
                     const std::int32_t snapshotX =
                         static_cast<std::int32_t>(gPlayerSnapshotX);
-                    static_cast<void>(network::Sub_511DD0(
+                    static_cast<void>(network::SendWorldActionRequest_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
             }
@@ -8909,7 +8909,7 @@ std::int32_t Sub_50C940(
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
+    return network::SendChatMessage_511900(socket, x, y, packet, sendColor, range, mode);
 }
 
 // 原函数：0x0050CAE0。
@@ -9037,7 +9037,7 @@ void Sub_50D000(
         const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
         static_cast<void>(
-            network::Sub_512720(platform::gConnectionSocket, x, y, direction));
+            network::SendPlayerPositionAndDirection_512720(platform::gConnectionSocket, x, y, direction));
     }
     detail::gValueFF0D32 = 0;
 }
@@ -9331,7 +9331,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
                 const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 const std::int32_t value = index + (flag != 0 ? 100 : 0);
-                static_cast<void>(network::Sub_510F50(socket, value));
+                static_cast<void>(network::SendSkillRebirthSelection_510F50(socket, value));
             }
         }
         field += 11;
@@ -10120,7 +10120,7 @@ void Sub_50D120(
         detail::Sub_446610();
 
         cg::world::gRippleGate = std::int32_t{0};
-        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
+        static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
         return;
     }
     if (type > 0) {
@@ -10946,7 +10946,7 @@ void Sub_470270()
         const std::int32_t mode = joinTeam ? 1 : 0;
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
+        static_cast<void>(network::SendTeamJoinLeaveRequest_511A50(platform::gConnectionSocket, x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -11143,7 +11143,7 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
     const std::int32_t result =
-        network::Sub_511E60(platform::gConnectionSocket, x, y, value);
+        network::SendPlayerMotionRequest_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
     auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntimeSlots.flags18C) + 2;
     actionBytes[0] |= 2u;

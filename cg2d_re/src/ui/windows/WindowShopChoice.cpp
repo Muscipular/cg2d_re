@@ -181,7 +181,7 @@ static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
+    return network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 
 // 原函数：0x0049FCA0。
@@ -327,7 +327,7 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return network::Sub_512620(
+    return network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 

@@ -259,7 +259,7 @@ static void WindowTextList_Release()
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, L"C"));
     }
     world::gValue581800 = -1;
@@ -524,7 +524,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, packet));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -559,7 +559,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(buffer.data())));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;

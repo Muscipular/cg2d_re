@@ -287,7 +287,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, commands[position], packet));
     return 1;
 }
@@ -313,7 +313,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;
     }

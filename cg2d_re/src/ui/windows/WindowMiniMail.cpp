@@ -171,7 +171,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {

@@ -1345,7 +1345,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -1398,7 +1398,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             break;
@@ -1414,7 +1414,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             break;
@@ -1433,7 +1433,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
             world::gValue581800 = -2;
             break;
@@ -1873,7 +1873,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1942,7 +1942,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped));
         world::gValue581800 = -2;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2041,7 +2041,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     world::gValue581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -2091,7 +2091,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText));
             gCurrentWindow->state &= ~2u;
             acceptImage = 245324;

@@ -2825,7 +2825,7 @@ std::int32_t SendMiniMail_511840(
 }
 
 // 原 [0x5118B0,0x5118F8)：单次容量采样、整数格式化后重读缓冲发送。
-std::int32_t Sub_5118B0(
+std::int32_t SetProfileVisibilityRequest_5118B0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -2847,7 +2847,7 @@ std::int32_t Sub_5118B0(
 
 // 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
 // CTS01：原六字段逐项容量→token→新buffer→append，末发送S32透传。
-std::int32_t Sub_511900(
+std::int32_t SendChatMessage_511900(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2913,7 +2913,7 @@ std::int32_t Sub_511900(
 }
 
 // 原 [0x511A00,0x511A48)：构造命令后只采一次容量，追加并发送。
-std::int32_t Sub_511A00(
+std::int32_t SendPlayerOptions_511A00(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -2934,7 +2934,7 @@ std::int32_t Sub_511A00(
 }
 
 // 原 [0x511A50,0x511ADE)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511A50(
+std::int32_t SendTeamJoinLeaveRequest_511A50(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -2973,7 +2973,7 @@ std::int32_t Sub_511A50(
 }
 
 // 原 [0x511AE0,0x511BB4)：五项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511AE0(
+std::int32_t SendPetStates_511AE0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3030,7 +3030,7 @@ std::int32_t Sub_511AE0(
 }
 
 // 原 [0x511BC0,0x511C2B)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511BC0(
+std::int32_t MovePetSlotRequest_511BC0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -3060,7 +3060,7 @@ std::int32_t Sub_511BC0(
 }
 
 // 原 [0x511C30,0x511C78)：构造命令后只采一次容量，追加并发送。
-std::int32_t Sub_511C30(
+std::int32_t RequestSkillTargetAttributes_511C30(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3081,7 +3081,7 @@ std::int32_t Sub_511C30(
 }
 
 // 原 [0x511C80,0x511CC8)：一次容量采样，整数 token 追加后发送。
-std::int32_t Sub_511C80(
+std::int32_t SelectSkillTextTarget_511C80(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3102,7 +3102,7 @@ std::int32_t Sub_511C80(
 }
 
 // 原 [0x511D10,0x511D58)：一次容量采样，整数 token 追加后发送。
-std::int32_t Sub_511D10(
+std::int32_t SelectItemTextTarget_511D10(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3123,7 +3123,7 @@ std::int32_t Sub_511D10(
 }
 
 // 原 [0x511D60,0x511DCB)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511D60(
+std::int32_t SendItemTargetPair_511D60(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -3153,7 +3153,7 @@ std::int32_t Sub_511D60(
 }
 
 // 原 [0x511DD0,0x511E5E)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511DD0(
+std::int32_t SendWorldActionRequest_511DD0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3192,7 +3192,7 @@ std::int32_t Sub_511DD0(
 }
 
 // 原 [0x511E60,0x511EEE)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511E60(
+std::int32_t SendPlayerMotionRequest_511E60(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3231,7 +3231,7 @@ std::int32_t Sub_511E60(
 }
 
 // 原 [0x511EF0,0x511FA1)：三个整数及文本各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_511EF0(
+std::int32_t SendSkillUseRequest_511EF0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3279,7 +3279,7 @@ std::int32_t Sub_511EF0(
 }
 
 // 原 [0x511FF0,0x512038)：容量在格式化前采样，追加和发送各自重读缓冲。
-std::int32_t Sub_511FF0(
+std::int32_t SelectTradePartnerRequest_511FF0(
     const std::uintptr_t socket, const std::int32_t index)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -3295,7 +3295,7 @@ std::int32_t Sub_511FF0(
 }
 
 // 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_512040(
+std::int32_t SendTradeOffer_512040(
     const std::uintptr_t socket,
     const std::wstring_view first,
     const std::wstring_view second,
@@ -3334,7 +3334,7 @@ std::int32_t Sub_512040(
 }
 
 // 原 [0x5120D0,0x51215E)：三段文本各自采容量、格式化后重读输出缓冲。
-std::int32_t Sub_5120D0(
+std::int32_t PublishStallRequest_5120D0(
     const std::uintptr_t socket,
     const std::wstring_view first,
     const std::wstring_view second,
@@ -3373,7 +3373,7 @@ std::int32_t Sub_5120D0(
 }
 
 // 原 [0x512160,0x512185)：建命令后重读缓冲并完整透传发送返回。
-std::int32_t Sub_512160(const std::uintptr_t socket)
+std::int32_t CloseStallRequest_512160(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "JMh"));
@@ -3383,7 +3383,7 @@ std::int32_t Sub_512160(const std::uintptr_t socket)
 }
 
 // 原 [0x512190,0x5121D8)：一次容量采样，整数 token 追加后发送。
-std::int32_t Sub_512190(
+std::int32_t RequestStallContents_512190(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3404,7 +3404,7 @@ std::int32_t Sub_512190(
 }
 
 // 原 [0x5121E0,0x512228)：容量在格式化前采样，追加及发送时重读缓冲。
-std::int32_t Sub_5121E0(
+std::int32_t PurchaseStallOffer_5121E0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3425,7 +3425,7 @@ std::int32_t Sub_5121E0(
 }
 
 // 原函数：0x005127B0。
-std::int32_t Sub_5127B0(const std::uintptr_t socket, const std::int32_t value)
+std::int32_t SelectBankPageRequest_5127B0(const std::uintptr_t socket, const std::int32_t value)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer), "rh"));
@@ -3440,7 +3440,7 @@ std::int32_t Sub_5127B0(const std::uintptr_t socket, const std::int32_t value)
 }
 
 // 原 [0x512270,0x5122B8)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t Sub_512270(
+std::int32_t SendTradeDecision_512270(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3461,7 +3461,7 @@ std::int32_t Sub_512270(
 }
 
 // 原 [0x5122C0,0x512308)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t Sub_5122C0(
+std::int32_t SelectPlayerTitleRequest_5122C0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3482,7 +3482,7 @@ std::int32_t Sub_5122C0(
 }
 
 // 原 [0x512310,0x512358)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t Sub_512310(
+std::int32_t DeletePlayerTitleRequest_512310(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3503,7 +3503,7 @@ std::int32_t Sub_512310(
 }
 
 // 原 [0x512360,0x5123A8)：转义前采容量，追加与发送各自重读缓冲。
-std::int32_t Sub_512360(
+std::int32_t SetCustomPlayerTitleRequest_512360(
     const std::uintptr_t socket,
     const std::wstring_view text)
 {
@@ -3524,7 +3524,7 @@ std::int32_t Sub_512360(
 }
 
 // 原 [0x5123B0,0x5123F8)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t Sub_5123B0(
+std::int32_t IncreasePlayerAttributeRequest_5123B0(
     const std::uintptr_t socket,
     const std::int32_t value)
 {
@@ -3545,7 +3545,7 @@ std::int32_t Sub_5123B0(
 }
 
 // 原 [0x512400,0x51246B)：两轮分别采容量、格式化后重读共享缓冲。
-std::int32_t Sub_512400(
+std::int32_t IncreasePetAttributeRequest_512400(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -3575,7 +3575,7 @@ std::int32_t Sub_512400(
 }
 
 // 原 [0x512470,0x5124DB)：两轮分别采容量、格式化后重读共享缓冲。
-std::int32_t Sub_512470(
+std::int32_t SwapPlayerSkillOrderRequest_512470(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second)
@@ -3605,7 +3605,7 @@ std::int32_t Sub_512470(
 }
 
 // 原 [0x510E30,0x510EBE)：放地请求，容量读取先于格式化，缓冲读取在其后。
-std::int32_t Sub_510E30(
+std::int32_t DropPetRequest_510E30(
     const std::uintptr_t socket,
     const std::int32_t x,
     const std::int32_t y,
@@ -3633,7 +3633,7 @@ std::int32_t Sub_510E30(
 }
 
 // 原 [0x5124E0,0x51256E)：三轮分别采容量、格式化后重读共享缓冲。
-std::int32_t Sub_5124E0(
+std::int32_t SwapPetSkillOrderRequest_5124E0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3672,7 +3672,7 @@ std::int32_t Sub_5124E0(
 }
 
 // 原 [0x5125B0,0x51261B)：两轮各自采容量、格式化后重读共享输出缓冲。
-std::int32_t Sub_5125B0(
+std::int32_t RenamePetRequest_5125B0(
     const std::uintptr_t socket,
     const std::int32_t value,
     const std::wstring_view text)
@@ -3703,7 +3703,7 @@ std::int32_t Sub_5125B0(
 
 // 原 [0x512620,0x512717)：六轮分别采容量、格式化后重读共享输出缓冲。
 // SDM01：原512620完整77条；xD五S32及文本各先容量再token/fresh输出，当前原字段/LF明文及S32返回保。
-std::int32_t Sub_512620(
+std::int32_t SendDialogResponse_512620(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
@@ -3770,7 +3770,7 @@ std::int32_t Sub_512620(
 
 // IMT01：原55条，四S32字段容量先格式/输出重读及S32发送返回，当前原字段/LF明文，正确正文保。
 // 原函数：0x00510CE0。
-std::int32_t Sub_510CE0(
+std::int32_t DropItemRequest_510CE0(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t group, const std::int32_t index)
 {
@@ -3810,7 +3810,7 @@ std::int32_t Sub_510CE0(
 }
 
 // 原函数：0x00510A00。
-std::int32_t Sub_510A00(
+std::int32_t BeginItemUseRequest_510A00(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t group)
 {
@@ -3850,7 +3850,7 @@ std::int32_t Sub_510A00(
 }
 
 // 原函数：0x00516C90。
-std::int32_t Sub_516C90(
+std::int32_t MoveItemBetweenOwnersRequest_516C90(
     const std::uintptr_t socket, const std::int32_t sourceGroup, const std::int32_t source,
     const std::int32_t targetGroup, const std::int32_t target, const std::int32_t amount)
 {
@@ -3922,7 +3922,7 @@ std::int32_t SendBattlePacket_5109B0(
 }
 
 // MDR01：原510DA0完整44条；woz三个S32，各容量先token/fresh输出，末真实S32发送结果，原字段/LF明文。
-std::int32_t Sub_510DA0(
+std::int32_t DropGoldRequest_510DA0(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t amount)
 {
@@ -3955,7 +3955,7 @@ std::int32_t Sub_510DA0(
 }
 
 // 原函数：0x00510EC0。
-std::int32_t Sub_510EC0(
+std::int32_t MoveItemStackRequest_510EC0(
     const std::uintptr_t socket, const std::int32_t source,
     const std::int32_t target, const std::int32_t amount)
 {
@@ -3988,7 +3988,7 @@ std::int32_t Sub_510EC0(
 }
 
 // 原函数：0x00510F50。
-std::int32_t Sub_510F50(
+std::int32_t SendSkillRebirthSelection_510F50(
     const std::uintptr_t socket, const std::int32_t value)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -4007,7 +4007,7 @@ std::int32_t Sub_510F50(
 }
 
 // 原函数：0x005108F0。
-std::int32_t Sub_5108F0(
+std::int32_t AcknowledgeBattleExit_5108F0(
     const std::uintptr_t socket, const std::int32_t value)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -4023,7 +4023,7 @@ std::int32_t Sub_5108F0(
 }
 
 // 原 [0x512720,0x5127AE)：三项各自采容量、格式化后重读共享输出缓冲。
-std::int32_t Sub_512720(
+std::int32_t SendPlayerPositionAndDirection_512720(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,

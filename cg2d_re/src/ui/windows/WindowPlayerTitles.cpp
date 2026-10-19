@@ -187,9 +187,9 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
             const std::int32_t originalIndex = world::FindTitleIndexById(id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
-                    static_cast<void>(network::Sub_512310(platform::gConnectionSocket, originalIndex));
+                    static_cast<void>(network::DeletePlayerTitleRequest_512310(platform::gConnectionSocket, originalIndex));
                 } else {
-                    static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, originalIndex));
+                    static_cast<void>(network::SelectPlayerTitleRequest_5122C0(platform::gConnectionSocket, originalIndex));
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -248,7 +248,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         }
         if ((state & 2) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
-            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, escapedText));
+            static_cast<void>(network::SetCustomPlayerTitleRequest_512360(platform::gConnectionSocket, escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(WindowChat_RestoreInput());
             consumed = 1;
@@ -267,7 +267,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(0x3B574);
         }
         if ((state & 2) != 0) {
-            static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, -1));
+            static_cast<void>(network::SelectPlayerTitleRequest_5122C0(platform::gConnectionSocket, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {

@@ -1773,7 +1773,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 const std::int32_t request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
                 const std::int32_t selected = gSelectedItemD460C0;
                 const std::int32_t skill = gCraftSkillIndexCC2368;
-                static_cast<void>(network::Sub_511EF0(
+                static_cast<void>(network::SendSkillUseRequest_511EF0(
                     platform::gConnectionSocket, skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
@@ -2840,7 +2840,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             }
             skill = gCraftSkillIndexCC2368;
         }
-        static_cast<void>(network::Sub_511EF0(
+        static_cast<void>(network::SendSkillUseRequest_511EF0(
             platform::gConnectionSocket, skill + offset, request, target, requestText));
     };
     bool hideControls = false;

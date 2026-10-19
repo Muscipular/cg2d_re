@@ -265,7 +265,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromGbkWide(buffer.data())));
         gCurrentWindow->state |= 0x8000u;
         consumed = 1;
@@ -406,7 +406,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped));
     world::gValue581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));

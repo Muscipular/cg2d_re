@@ -561,7 +561,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
                 skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             }
-            static_cast<void>(network::Sub_511EF0(
+            static_cast<void>(network::SendSkillUseRequest_511EF0(
                 platform::gConnectionSocket, skill, level, -1, L""));
             gWindow12PetImageCB10CC = WindowSkill_ReadBattlePetImage();
             gWindow12CrystalLevelCC3E90 = WindowSkill_ReadCrystalLevel();

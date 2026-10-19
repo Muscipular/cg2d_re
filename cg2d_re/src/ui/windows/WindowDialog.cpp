@@ -745,7 +745,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, button,
+        if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, button,
                 reply) < 0) { return 0; }
         world::gValue581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -758,7 +758,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0,
+        if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, 0,
                 reply) < 0) { return 0; }
         world::gValue581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));

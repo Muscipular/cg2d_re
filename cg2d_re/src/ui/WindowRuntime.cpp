@@ -948,7 +948,7 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
         target = gItemMoveTargetD2DBF8;
     }
     if (source < 100 && target < 100) {
-        return network::Sub_510EC0(platform::gConnectionSocket, source, target, amount);
+        return network::MoveItemStackRequest_510EC0(platform::gConnectionSocket, source, target, amount);
     }
     if (source < 8) {
         return source;
@@ -967,7 +967,7 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    return network::Sub_512620(
+    return network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply);
 }
 
@@ -1022,7 +1022,7 @@ void WindowItem_RequestPetTransfer(
         return;
     }
     if (source < 100 && target < 100) {
-        static_cast<void>(network::Sub_511BC0(platform::gConnectionSocket, source, target));
+        static_cast<void>(network::MovePetSlotRequest_511BC0(platform::gConnectionSocket, source, target));
         return;
     }
     if (gWindowStates[WindowId_Bank].window == nullptr) {
@@ -1035,7 +1035,7 @@ void WindowItem_RequestPetTransfer(
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
 }
 
@@ -1231,7 +1231,7 @@ static void WindowItemDrag_Handle(
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_510CE0(
+            static_cast<void>(network::DropItemRequest_510CE0(
                 platform::gConnectionSocket, x, y, group, sourceIndex));
         }
         return;
@@ -3604,7 +3604,7 @@ void WindowRuntime_DecrementOperationCount()
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
+    static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
@@ -4416,7 +4416,7 @@ std::int32_t WindowRuntime_Render()
     if (gValue5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
+        static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
         gValue5F9754 = 0;
@@ -4831,7 +4831,7 @@ std::int32_t WindowRuntime_CloseAll()
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
     const std::uintptr_t socket = platform::gConnectionSocket;
-    const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
+    const std::int32_t result = network::SendWorldActionRequest_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;
     return result;
 }

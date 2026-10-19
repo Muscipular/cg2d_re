@@ -229,7 +229,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
         return 1;
@@ -255,7 +255,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close());
@@ -286,7 +286,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(WindowMessageBoard_Close());
             consumed = 1;

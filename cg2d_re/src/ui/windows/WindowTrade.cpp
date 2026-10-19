@@ -706,7 +706,7 @@ static void WindowTrade_Release()
         window->state |= 0x8000u;
     }
     if (gTradeValueD67B80 == 0) {
-        static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 0));
+        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 0));
         gTradeValueD67CBC = 1;
     }
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -2645,7 +2645,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
         }
         std::strncpy(petCopy.data(), petSource.data(), static_cast<std::uint32_t>(1024));
         const std::int32_t amount = gTradeValueD046D0;
-        static_cast<void>(network::Sub_512040(
+        static_cast<void>(network::SendTradeOffer_512040(
             platform::gConnectionSocket, cg::text::FromGbkWide(itemCopy.data()), cg::text::FromGbkWide(petCopy.data()), amount));
         WindowInstance* const window = gCurrentWindow;
         gTradeValueD2E2B0 = 1;
@@ -2709,7 +2709,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
             const std::uint64_t tick = platform::ReadTickCount64();
             if (gWindowActionTick62B5AC + 500u < tick) {
                 if (phase == 1) {
-                    static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 1));
+                    static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 1));
                     gTradeValueD2E2B0 = 2;
                     gTradeValueD67CB8 = 1;
                     gTradeValueD67CBC = 1;
@@ -2768,7 +2768,7 @@ cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* const name)
 // 原函数：0x004E4E60。
 static void WindowTrade_RequestTargetList(const std::int32_t index, const char* const name)
 {
-    static_cast<void>(network::Sub_511FF0(platform::gConnectionSocket, index));
+    static_cast<void>(network::SelectTradePartnerRequest_511FF0(platform::gConnectionSocket, index));
     static_cast<void>(WindowTrade_ReceiveStart(name));
 }
 
@@ -3062,7 +3062,7 @@ void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const
         return;
     }
     if (world::gValueD67E78 != 0) {
-        static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 0));
+        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 0));
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

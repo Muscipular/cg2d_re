@@ -719,7 +719,7 @@ static std::int32_t WindowStall_AddListing(const std::int32_t value)
 // 原函数：0x004CE8A0。
 static std::int32_t WindowStall_RequestClose()
 {
-    return network::Sub_512160(platform::gConnectionSocket);
+    return network::CloseStallRequest_512160(platform::gConnectionSocket);
 }
 
 // 原函数：0x004CED50。
@@ -1020,7 +1020,7 @@ static std::int32_t WindowStall_SubmitListings()
     std::strncpy(description, escaped, static_cast<std::uint32_t>(112));
     const std::uintptr_t socket = platform::gConnectionSocket;
     description[112] = '\0';
-    static_cast<void>(network::Sub_5120D0(socket, cg::text::FromGbkWide(name), cg::text::FromGbkWide(description), offers));
+    static_cast<void>(network::PublishStallRequest_5120D0(socket, cg::text::FromGbkWide(name), cg::text::FromGbkWide(description), offers));
     if (!gStallNameInput581130.input.context->empty()) {
         std::strcpy(login::detail::GetCurrentSavedStallNameFF4D18(), name);
     }
@@ -2534,7 +2534,7 @@ static std::int32_t WindowStall_RequestPurchase()
     }
     const std::uintptr_t socket = platform::gConnectionSocket;
     gStallPendingD67C31 = 1;
-    static_cast<void>(network::Sub_5121E0(socket, value));
+    static_cast<void>(network::PurchaseStallOffer_5121E0(socket, value));
     constexpr wchar_t message[] = L"购买请求中";
     const auto length = static_cast<std::int32_t>(std::size(message));
     gStallMessageModeD67C34 = 0;
@@ -2573,7 +2573,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
 static void WindowStall_Release()
 {
     if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
-        static_cast<void>(network::Sub_512160(platform::gConnectionSocket));
+        static_cast<void>(network::CloseStallRequest_512160(platform::gConnectionSocket));
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }

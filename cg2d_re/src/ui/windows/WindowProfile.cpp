@@ -35,7 +35,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             consumed = 1;
         }
         if ((state & 2) != 0) {
-            static_cast<void>(network::Sub_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
+            static_cast<void>(network::SetProfileVisibilityRequest_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
             if (!visible) {
                 static_cast<void>(world::detail::Sub_533C80(1));
             }

@@ -996,7 +996,7 @@ std::int32_t Sub_534290()
     const std::int32_t enabled = gProfiles1074938[selected].value04;
     static_cast<void>(Sub_533C80(1));
     const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_5118B0(socket, enabled != 0 ? 1 : 0);
+    return network::SetProfileVisibilityRequest_5118B0(socket, enabled != 0 ? 1 : 0);
 }
 
 // 原函数：0x0050F2A0。

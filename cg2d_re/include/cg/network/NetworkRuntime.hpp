@@ -301,10 +301,10 @@ std::int32_t SendMiniMail_511840(
     std::int32_t value);
 
 // 原 sub_5118B0@[0x5118B0,0x5118F8)：构造 lz、追加单整数并发送。
-std::int32_t Sub_5118B0(std::uintptr_t socket, std::int32_t value);
+std::int32_t SetProfileVisibilityRequest_5118B0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
-std::int32_t Sub_511900(
+std::int32_t SendChatMessage_511900(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -314,17 +314,17 @@ std::int32_t Sub_511900(
     std::int32_t sixth); // CTS01：见聊天发送完整合同。
 
 // 原 sub_511A00@[0x511A00,0x511A48)：构造 dcMv、追加一个整数并发送。
-std::int32_t Sub_511A00(std::uintptr_t socket, std::int32_t value);
+std::int32_t SendPlayerOptions_511A00(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511A50@[0x511A50,0x511ADE)：构造 zn、追加三个整数并发送。
-std::int32_t Sub_511A50(
+std::int32_t SendTeamJoinLeaveRequest_511A50(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third);
 
 // 原 sub_511AE0@[0x511AE0,0x511BB4)：构造 LKQy、追加五个整数并发送。
-std::int32_t Sub_511AE0(
+std::int32_t SendPetStates_511AE0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -333,42 +333,42 @@ std::int32_t Sub_511AE0(
     std::int32_t fifth);
 
 // 原 sub_511BC0@[0x511BC0,0x511C2B)：构造 Ukuy、追加两个整数并发送。
-std::int32_t Sub_511BC0(
+std::int32_t MovePetSlotRequest_511BC0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_511C30@[0x511C30,0x511C78)：构造 iET、追加一个整数并发送。
-std::int32_t Sub_511C30(std::uintptr_t socket, std::int32_t value);
+std::int32_t RequestSkillTargetAttributes_511C30(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511C80@[0x511C80,0x511CC8)：构造 McVa、追加一个整数并发送。
-std::int32_t Sub_511C80(std::uintptr_t socket, std::int32_t value);
+std::int32_t SelectSkillTextTarget_511C80(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511D10@[0x511D10,0x511D58)：构造 mjCv、追加一个整数并发送。
-std::int32_t Sub_511D10(std::uintptr_t socket, std::int32_t value);
+std::int32_t SelectItemTextTarget_511D10(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511D60@[0x511D60,0x511DCB)：构造 BG、追加两个整数并发送。
-std::int32_t Sub_511D60(
+std::int32_t SendItemTargetPair_511D60(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_511DD0@[0x511DD0,0x511E5E)：构造 MIS、追加三个整数并发送。
-std::int32_t Sub_511DD0(
+std::int32_t SendWorldActionRequest_511DD0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third);
 
 // 原 sub_511E60@[0x511E60,0x511EEE)：构造 klF、追加三个整数并发送。
-std::int32_t Sub_511E60(
+std::int32_t SendPlayerMotionRequest_511E60(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third);
 
 // 原 sub_511EF0@[0x511EF0,0x511FA1)：构造 sM、追加三个整数及文本并发送。
-std::int32_t Sub_511EF0(
+std::int32_t SendSkillUseRequest_511EF0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -376,71 +376,71 @@ std::int32_t Sub_511EF0(
     std::wstring_view text);
 
 // 原 sub_511FF0@[0x511FF0,0x512038)：构造 QeuC、追加选择编号并发送。
-std::int32_t Sub_511FF0(std::uintptr_t socket, std::int32_t index);
+std::int32_t SelectTradePartnerRequest_511FF0(std::uintptr_t socket, std::int32_t index);
 
 // 原 sub_512040@[0x512040,0x5120CE)：构造 aiAb、追加两段文本及整数并发送。
-std::int32_t Sub_512040(
+std::int32_t SendTradeOffer_512040(
     std::uintptr_t socket,
     std::wstring_view first,
     std::wstring_view second,
     std::int32_t third);
 
 // 原 sub_5120D0@[0x5120D0,0x51215E)：构造 ylGN、追加三段文本并发送。
-std::int32_t Sub_5120D0(
+std::int32_t PublishStallRequest_5120D0(
     std::uintptr_t socket,
     std::wstring_view first,
     std::wstring_view second,
     std::wstring_view third);
 
 // 原 sub_512160@[0x512160,0x512185)：构造 JMh 并直接发送。
-std::int32_t Sub_512160(std::uintptr_t socket);
+std::int32_t CloseStallRequest_512160(std::uintptr_t socket);
 
 // 原 sub_512190@[0x512190,0x5121D8)：构造 ElVN、追加一个整数并发送。
-std::int32_t Sub_512190(std::uintptr_t socket, std::int32_t value);
+std::int32_t RequestStallContents_512190(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_5121E0@[0x5121E0,0x512228)：构造 wAo、追加一个整数并发送。
-std::int32_t Sub_5121E0(std::uintptr_t socket, std::int32_t value);
+std::int32_t PurchaseStallOffer_5121E0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512270@[0x512270,0x5122B8)：构造 OU、追加一个整数并发送。
-std::int32_t Sub_512270(std::uintptr_t socket, std::int32_t value);
+std::int32_t SendTradeDecision_512270(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_5122C0@[0x5122C0,0x512308)：构造 zGp、追加一个整数并发送。
-std::int32_t Sub_5122C0(std::uintptr_t socket, std::int32_t value);
+std::int32_t SelectPlayerTitleRequest_5122C0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512310@[0x512310,0x512358)：构造 tj、追加一个整数并发送。
-std::int32_t Sub_512310(std::uintptr_t socket, std::int32_t value);
+std::int32_t DeletePlayerTitleRequest_512310(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512360@[0x512360,0x5123A8)：构造 ACwB、追加原字节文本并发送。
-std::int32_t Sub_512360(std::uintptr_t socket, std::wstring_view text);
+std::int32_t SetCustomPlayerTitleRequest_512360(std::uintptr_t socket, std::wstring_view text);
 
 // 原 sub_5123B0@[0x5123B0,0x5123F8)：构造 IHw、追加一个整数并发送。
-std::int32_t Sub_5123B0(std::uintptr_t socket, std::int32_t value);
+std::int32_t IncreasePlayerAttributeRequest_5123B0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512400@[0x512400,0x51246B)：构造 kjSK、追加两个整数并发送。
-std::int32_t Sub_512400(
+std::int32_t IncreasePetAttributeRequest_512400(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_512470@[0x512470,0x5124DB)：构造 Noeb、追加两个整数并发送。
-std::int32_t Sub_512470(
+std::int32_t SwapPlayerSkillOrderRequest_512470(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second);
 
 // 原 sub_5124E0@[0x5124E0,0x51256E)：构造 HJQp、追加三个整数并发送。
-std::int32_t Sub_5124E0(
+std::int32_t SwapPetSkillOrderRequest_5124E0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third);
 
 // 原 sub_5125B0@[0x5125B0,0x51261B)：构造 ycX、追加整数及原字节文本并发送。
-std::int32_t Sub_5125B0(
+std::int32_t RenamePetRequest_5125B0(
     std::uintptr_t socket, std::int32_t value, std::wstring_view text);
 
 // 原 sub_512620@[0x512620,0x512717)：构造 xD、追加五整数与原字节文本并发送。
-std::int32_t Sub_512620(
+std::int32_t SendDialogResponse_512620(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
@@ -450,18 +450,18 @@ std::int32_t Sub_512620(
     std::wstring_view text); // SDM01：xD五整数+文本，六容量/输出独立取样，真实S32结果透传。
 
 // 原 [0x510F50,0x510F98)：构造fS、追加一个整数，技能回复使用共享连接调用。
-std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);
+std::int32_t SendSkillRebirthSelection_510F50(std::uintptr_t socket, std::int32_t value);
 
 // 原[510E30,510EBE)：FvWm放地请求，三轮各自读取容量与共享缓冲。
-std::int32_t Sub_510E30(
+std::int32_t DropPetRequest_510E30(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t pet);
 
 // 原[510EC0,510F4E)：构造yi，依次追加来源槽号、目标槽号及数量并发送。
-std::int32_t Sub_510EC0(
+std::int32_t MoveItemStackRequest_510EC0(
     std::uintptr_t socket, std::int32_t source, std::int32_t target, std::int32_t amount);
 
 // 原510DA0：woz丢钱请求，按X/Y/数量逐字段追加并透传发送返回。
-std::int32_t Sub_510DA0(
+std::int32_t DropGoldRequest_510DA0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount); // MDR01：woz三个S32/三容量和输出取样，真实S32发送结果透传。
 
 // 原5109B0：Rg战斗请求，转义一项原字节文本并透传发送结果。
@@ -471,32 +471,32 @@ std::int32_t SendBattlePacket_5109B0(std::uintptr_t socket, std::wstring_view te
 std::int32_t SendIuEPacket_516D70(std::uintptr_t socket);
 
 // 原[510CE0,510D91)：构造QpfE，依次追加X/Y/组号/物品槽号并发送。
-std::int32_t Sub_510CE0(
+std::int32_t DropItemRequest_510CE0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
     std::int32_t group, std::int32_t index); // IMT01：QpfE四原字段/独立容量与buffer重读，当前LF明文，S32透传；全owner/互通待。
 
 // 原510A00：Ak物品使用，依次追加X/Y/物品槽号/组号并透传发送结果。
-std::int32_t Sub_510A00(
+std::int32_t BeginItemUseRequest_510A00(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
     std::int32_t index, std::int32_t group);
 
 // 原516C90：Cpa跨组物品移动，五个数值保持S32及原字段顺序。
-std::int32_t Sub_516C90(
+std::int32_t MoveItemBetweenOwnersRequest_516C90(
     std::uintptr_t socket, std::int32_t sourceGroup, std::int32_t source,
     std::int32_t targetGroup, std::int32_t target, std::int32_t amount);
 
 // 原[5108F0,510938)：构造eL并追加一个整数，透传共享协议缓冲发送返回。
-std::int32_t Sub_5108F0(std::uintptr_t socket, std::int32_t value);
+std::int32_t AcknowledgeBattleExit_5108F0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512720@[0x512720,0x5127AE)：构造 cZt、追加三个整数并发送。
-std::int32_t Sub_512720(
+std::int32_t SendPlayerPositionAndDirection_512720(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third);
 
 // 原[5127B0,5127F8)：rh存放分页请求，追加整数后透传发送结果。
-std::int32_t Sub_5127B0(std::uintptr_t socket, std::int32_t value);
+std::int32_t SelectBankPageRequest_5127B0(std::uintptr_t socket, std::int32_t value);
 
 // 原 [0x512B90,0x512BCC)：Gp 角色列表请求，追加共享文本并发送。
 std::int32_t SendCharacterListRequest_512B90(std::uintptr_t socket);

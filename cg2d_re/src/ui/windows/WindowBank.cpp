@@ -357,7 +357,7 @@ static void WindowBank_Release()
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
     if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
@@ -484,7 +484,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const s
     if ((state & 2) != 0) {
         gLoginWindowRuntime.valueD67618 = 0;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(network::Sub_5127B0(platform::gConnectionSocket, 1));
+        static_cast<void>(network::SelectBankPageRequest_5127B0(platform::gConnectionSocket, 1));
     }
     graphic->imageNo = 243173;
     if ((state & 1) != 0) {
@@ -508,7 +508,7 @@ static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const 
     if ((state & 2) != 0) {
         gLoginWindowRuntime.valueD67618 = 1;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(network::Sub_5127B0(platform::gConnectionSocket, 2));
+        static_cast<void>(network::SelectBankPageRequest_5127B0(platform::gConnectionSocket, 2));
     }
     graphic->imageNo = 243176;
     if ((state & 1) != 0) {
@@ -1325,7 +1325,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::Sub_512620(
+                static_cast<void>(network::SendDialogResponse_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             }
         }
@@ -1460,7 +1460,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::Sub_512620(
+            static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             window = gCurrentWindow;
             const std::int32_t confirmed = std::bit_cast<std::int32_t>(window->elements[index].state);

@@ -646,7 +646,7 @@ static void WindowCrystalShop_Submit(const std::int32_t value)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
 }

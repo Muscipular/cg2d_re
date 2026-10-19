@@ -1611,7 +1611,7 @@ static void WindowShop_Submit(const std::int32_t selection)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::Sub_512620(
+    static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
 }
@@ -1905,7 +1905,7 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::Sub_512620(
+        static_cast<void>(network::SendDialogResponse_512620(
             platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));

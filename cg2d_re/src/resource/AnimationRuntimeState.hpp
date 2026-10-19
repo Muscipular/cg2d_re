@@ -102,7 +102,7 @@ extern void* gCleanupAllocation9A4A54;
 namespace cg::resource::animation {
 
 // 原函数：0x0045B440。
-std::int32_t Sub_45B440(std::int32_t* slotIndex); // ACL01：真实slotIndex/0或1，held table按原条件重取。
+std::int32_t ReleaseAnimationSlotResources_45B440(std::int32_t* slotIndex); // ACL01：真实slotIndex/0或1，held table按原条件重取。
 // 原函数：0x0045B590。
 std::int32_t AppendAnimationSlotToTail_45B590(detail::MainSlot* slot); // ACL01：持尾前驱按原序挂链，返回零。
 // 原函数：0x0045B5B0。

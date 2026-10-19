@@ -72,7 +72,7 @@ namespace cg::resource::detail {
 static_assert(std::endian::native == std::endian::little);
 
 // 原 45A420：每项读取后才比较，正文直接写共享表，短读保留已写前缀。
-[[maybe_unused]] static std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t LoadAutoMapColorCache_45A420(const char* const fileName, char* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
@@ -105,7 +105,7 @@ static_assert(std::endian::native == std::endian::little);
 }
 
 // 原 45A290：成功打开后忽略写入/关闭结果，不把原写回改为事务提交。
-[[maybe_unused]] static std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicInfoPaths)
+[[maybe_unused]] static std::int32_t SaveAutoMapColorCache_45A290(const char* const fileName, char* const* const graphicInfoPaths)
 {
     std::int32_t times[3] {};
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
@@ -128,7 +128,7 @@ static_assert(std::endian::native == std::endian::little);
 }
 
 // 原 45A190：取色调用后才重取图形表；调色板读取失败不清已有颜色。
-static void Sub_45A190()
+static void RebuildAutoMapColors_45A190()
 {
     const std::int32_t count = gMaxGraphicCount;
     render::PaletteEntry palette[256] {};
@@ -240,7 +240,7 @@ std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
 {
     // BLM01：旧缓存不记录配置组列表和后组覆盖关系，启动时直接重建共享色表。
     static_cast<void>(graphicInfoPaths);
-    detail::Sub_45A190();
+    detail::RebuildAutoMapColors_45A190();
     return 1;
 }
 

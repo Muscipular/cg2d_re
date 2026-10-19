@@ -59,3 +59,21 @@
 ## BSR01-A 实施结果
 
 四份资源源／头文件完成首组四函数、五全局和一个成员重命名；同步清理扫描对槽数组的引用，补记账字段说明。全部改动按名称反向替换并剔除注释后与提交前正文一致；活动源／头／脚本中九个旧函数／全局符号无残留，其他类型的value04保持。UTF-8无BOM／LF及差异静态检查通过，未编译、测试或运行。全项目其余符号继续按证据分组分析。
+
+## BSR01-B 资源清理及自动地图颜色
+
+| 旧函数 | 新名称 | 当前源码及地址证据 |
+|---|---|---|
+| `Sub_45B440` | `ReleaseAnimationSlotResources_45B440` | AnimationCleanup：释放帧、动作表及坐标，清链接并置槽索引-1；本次IDA核0x45B477／45B4BF／45B4F8／45B514。 |
+| `Sub_45B650` | `ReleaseAnimationCacheSlotResources_45B650` | 同文件独立缓存表的帧、动作表及buffer清理；原45B650既有ACL01证据，不外推未知载荷。 |
+| `Sub_45B630` | `ReleaseAllAnimationSlotResources_45B630` | 同文件遍历256主槽，返回末次清理值。 |
+| `Sub_45B740` | `ReleaseAllAnimationCacheSlotResources_45B740` | 同文件遍历256独立缓存槽，返回末次清理值。 |
+| `Sub_45BF20` | `CloseFlaggedAnimationFilesAndClearCache_45BF20` | 同文件按标志关闭文件、清标志，再调45B740；本次IDA核45BF23／45BF34／45BF3C／45BF53，当前已批准32槽及清FILE引用差异保留。 |
+| `Sub_457670` | `FreePrimaryGraphicResourceTables_457670` | GraphicAlloc：仅释放主动画表、DX图形表和图形信息表，明确不含第四块动画缓存表。 |
+| `Sub_45A420` | `LoadAutoMapColorCache_45A420` | ResourcePaths：检查版本2、三项文件时间及零标记，再读共享自动地图颜色表。 |
+| `Sub_45A290` | `SaveAutoMapColorCache_45A290` | 同文件写版本、文件时间、零标记及颜色表；保留原忽略写入结果的行为。 |
+| `Sub_45A190` | `RebuildAutoMapColors_45A190` | 同文件读取调色板，按图形信息mapNo和已证索引范围重建颜色表。 |
+
+本组九份源／头完成九函数的全部引用迁移。完整正文反向替换后与提交前一致，旧符号及新名称冲突、UTF-8无BOM／LF、差异静态检查通过，未编译、测试或运行。
+
+补查未知值：IDA对9A4A50的直接引用只有45751E初始化和45B380读取；9A4A48除45B385写入，另在45B752作为缓存槽循环的边界地址出现，不能据地址引用推断业务值消费。45B370／45B380及两个gValue继续保留。

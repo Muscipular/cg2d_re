@@ -94,6 +94,6 @@ std::int32_t AnimeLoadAction_45B760(std::int32_t index);
 // 原函数：0x0045BEF0。
 std::int32_t AnimeUnload_45BEF0(); // 32槽文件关闭后256主槽清理，真实末返回。
 // 原函数：0x0045BF20。
-std::int32_t Sub_45BF20(); // 32槽flag关闭后256P4槽清理，已批FILE引用清空保。
+std::int32_t CloseFlaggedAnimationFilesAndClearCache_45BF20(); // 32槽flag关闭后256P4槽清理，已批FILE引用清空保。
 
 } // namespace cg::resource::animation

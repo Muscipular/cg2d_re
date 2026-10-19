@@ -9,7 +9,7 @@
 namespace cg::resource::animation {
 
 // ACL01：原45B440完整78条复用ATP01；index/held table条件重取、同快照free/原末发布保持。
-std::int32_t Sub_45B440(std::int32_t* const slotIndex)
+std::int32_t ReleaseAnimationSlotResources_45B440(std::int32_t* const slotIndex)
 {
     std::int32_t index = *slotIndex;
     if (index < 0) {
@@ -66,7 +66,7 @@ std::int32_t Sub_45B440(std::int32_t* const slotIndex)
 }
 
 // ACL01：原45B650完整78条复用ATP01；count单W16，held table/条件重取与同快照free，不猜P4生产。
-std::int32_t Sub_45B650(std::int32_t* const slotIndex)
+std::int32_t ReleaseAnimationCacheSlotResources_45B650(std::int32_t* const slotIndex)
 {
     std::int32_t index = *slotIndex;
     if (index < 0) {
@@ -124,21 +124,21 @@ std::int32_t Sub_45B650(std::int32_t* const slotIndex)
 }
 
 // ACL01：原45B630完整10条；固定256个实际主槽清理，返回最后一次S32结果，正文保持。
-std::int32_t Sub_45B630()
+std::int32_t ReleaseAllAnimationSlotResources_45B630()
 {
     std::int32_t result = 0;
     for (detail::MainSlot& slot : detail::gAnimationSlots_9A29F8) {
-        result = Sub_45B440(&slot.index);
+        result = ReleaseAnimationSlotResources_45B440(&slot.index);
     }
     return result;
 }
 
 // ACL01：原45B740完整10条；固定256个实际P4槽清理，返回最后一次S32结果，正文保持。
-std::int32_t Sub_45B740()
+std::int32_t ReleaseAllAnimationCacheSlotResources_45B740()
 {
     std::int32_t result = 0;
     for (detail::CacheSlot& slot : detail::gCacheSlots9A3A48) {
-        result = Sub_45B650(&slot.index);
+        result = ReleaseAnimationCacheSlotResources_45B650(&slot.index);
     }
     return result;
 }
@@ -172,11 +172,11 @@ std::int32_t AnimeUnload_45BEF0()
         }
     }
     CloseCoordinateFiles();
-    return Sub_45B630();
+    return ReleaseAllAnimationSlotResources_45B630();
 }
 
 // ACL01：原45BF20；BLM01标志槽扩为32，MC01-B已批清FILE owner差异保持。
-std::int32_t Sub_45BF20()
+std::int32_t CloseFlaggedAnimationFilesAndClearCache_45BF20()
 {
     for (std::size_t slot = 0; slot < detail::gFileCloseFlags9A29D0.size(); ++slot) {
         if (detail::gFileCloseFlags9A29D0[slot] != 0) {
@@ -186,7 +186,7 @@ std::int32_t Sub_45BF20()
             detail::gFileCloseFlags9A29D0[slot] = 0;
         }
     }
-    return Sub_45B740();
+    return ReleaseAllAnimationCacheSlotResources_45B740();
 }
 
 } // namespace cg::resource::animation

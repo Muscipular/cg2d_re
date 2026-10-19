@@ -46,9 +46,9 @@ int ShutdownClient_457A40()
     audio::Sub_52B630();
     audio::Sub_52CCE0();
     cg::resource::animation::AnimeUnload_45BEF0();
-    cg::resource::animation::Sub_45BF20();
+    cg::resource::animation::CloseFlaggedAnimationFilesAndClearCache_45BF20();
     cg::resource::CloseGraphicFiles();
-    cg::resource::Sub_457670();
+    cg::resource::FreePrimaryGraphicResourceTables_457670();
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
     cg::yobi::Sub_404D60();

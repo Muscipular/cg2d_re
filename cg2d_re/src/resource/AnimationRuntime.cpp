@@ -255,7 +255,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     gAnimateRecords9A4A58[index].actionList = static_cast<detail::ActionEntry*>(
         std::malloc(sizeof(detail::ActionEntry) * gAnimateRecords9A4A58[index].count));
     if (gAnimateRecords9A4A58[index].actionList == nullptr) {
-        Sub_45B440(&slot->index);
+        ReleaseAnimationSlotResources_45B440(&slot->index);
         return 0;
     }
     slot->index = index;
@@ -265,7 +265,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     std::memset(gAnimateRecords9A4A58[index].actionList, 0,
         sizeof(detail::ActionEntry) * gAnimateRecords9A4A58[index].count);
     if (gAnimateRecords9A4A58[index].count > 10000) {
-        Sub_45B440(&slot->index);
+        ReleaseAnimationSlotResources_45B440(&slot->index);
         return 0;
     }
 
@@ -301,13 +301,13 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
             action->value14 = 0xFFFFFFFFu;
         }
         if (action->frameCount >= 10000) {
-            Sub_45B440(&slot->index);
+            ReleaseAnimationSlotResources_45B440(&slot->index);
             return 0;
         }
         action->frames = static_cast<detail::FrameEntry*>(
             std::malloc(sizeof(detail::FrameEntry) * action->frameCount));
         if (action->frames == nullptr) {
-            Sub_45B440(&slot->index);
+            ReleaseAnimationSlotResources_45B440(&slot->index);
             return 0;
         }
         slot->accountedBytes_04 += 12u * action->frameCount;
@@ -327,7 +327,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
         }
     }
     if (CoordInit_45C150(index) == 0) {
-        Sub_45B440(&slot->index);
+        ReleaseAnimationSlotResources_45B440(&slot->index);
         return 0;
     }
     slot->accountedBytes_04 += 8u * gAnimateRecords9A4A58[index].coordinateCount;

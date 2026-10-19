@@ -88,7 +88,7 @@ std::int32_t GraphicAlloc_4574E0()
 }
 
 // GAP01：原457670完整19条；P1/P2/P3逐次一次取样/同快照free，不清槽或新增释放。
-void Sub_457670()
+void FreePrimaryGraphicResourceTables_457670()
 {
     animation::AnimateRecord* const animate = animation::gAnimateRecords9A4A58;
     if (animate != nullptr) {

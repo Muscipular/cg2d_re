@@ -49,7 +49,7 @@ detail::MainSlot* AcquireOldestAnimationSlot_45B530()
     }
     oldest->next->previous = &detail::gAnimationSlotListHead_9A3A10;
     detail::gAnimationSlotListHead_9A3A10.next = oldest->next;
-    if (Sub_45B440(&oldest->index) != 0) {
+    if (ReleaseAnimationSlotResources_45B440(&oldest->index) != 0) {
         const std::uint32_t count = detail::gLoadedAnimationCount_9A4A68;
         const std::uint32_t bytes = detail::gLoadedAnimationAccountedBytes_9A4A6C;
         detail::gLoadedAnimationCount_9A4A68 = count - 1u;

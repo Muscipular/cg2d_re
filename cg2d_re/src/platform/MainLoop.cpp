@@ -30,7 +30,6 @@ std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
 std::int32_t gRendererLost = 0; // 原全局：0x0062B064。
 std::uint16_t gPendingGraphicCount = 0; // 原全局：0x01020EB8。
 std::uint32_t gPendingGraphicCount2 = 0; // 原全局：0x0073ECB8。
-std::int32_t gValue58D3C0 = -1; // 原全局：0x0058D3C0。
 std::int32_t gForceRender = 0; // 原全局：0x0073ECE4。
 std::int32_t gFrameBackgroundMode_73ECC0 = 0; // 原全局：0x0073ECC0。
 
@@ -148,7 +147,7 @@ int MainLoop()
         gPendingGraphicCount2 = 0;
         render::ResetGraphicCache_456D30();
         NetworkLoop_507DF0();
-        UpdateAudioAndSkipMciClose_52CD30(gValue58D3C0);
+        UpdateAudioAndSkipMciClose_52CD30(-1);
         world::Update();
         script::UpdateLuaScene();
         if (gWindowActiveState != 0) {

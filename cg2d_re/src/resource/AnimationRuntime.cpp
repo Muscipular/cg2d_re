@@ -39,9 +39,6 @@ AnimeCacheRecord* gAnimateCache9A4A5C = nullptr; // 原全局：0x009A4A5C。
 std::int32_t gAnimateCount9A4A60 = 0; // 原全局：0x009A4A60。
 std::int32_t gMaxAnimateCount9A4A4C = 0; // 原全局：0x009A4A4C。
 
-// 原45B380独立W32复制目标，不是9A3A48缓存数组的一过尾记录。
-static std::uint32_t gValue9A4A48 = 0; // 原全局：0x009A4A48。
-
 // 原AnimeInit磁盘记录和临时配对项；BLM01按配置容量分配，字段仍保持原宽度。
 struct AnimeInfoDiskRecord {
     std::uint32_t animeNo; // 原成员偏移：+0x00。
@@ -65,20 +62,6 @@ static_assert(sizeof(AnimeInfoPair) == 0x10);
 static_assert(offsetof(AnimeInfoPair, count) == 0x08);
 static_assert(offsetof(AnimeInfoPair, flag) == 0x0A);
 static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
-
-// 原函数：0x0045B370。
-std::uint32_t Sub_45B370()
-{
-    return Sub_45B380();
-}
-
-// 原函数：0x0045B380。
-std::uint32_t Sub_45B380()
-{
-    const std::uint32_t value = gValue9A4A50;
-    gValue9A4A48 = value;
-    return value;
-}
 
 // 原函数：0x0045BB20。
 // BLM01：完整12B记录，后组覆盖同号动画；临时配对容量与主表一致。

@@ -176,7 +176,7 @@ platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
 
 namespace cg::platform {
 
-// AIS01原553058/55305C：场景值后、动画共享值前；各项仍即时登记。
+// AIS01原553058/55305C：场景值后，各项仍即时登记；GVC01清理后续无消费动画复制初始化器。
 struct GraphicInfoContainersStartup final {
     GraphicInfoContainersStartup()
     {
@@ -188,16 +188,6 @@ struct GraphicInfoContainersStartup final {
 
 static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
 static GraphicInfoContainersStartup gGraphicInfoContainersStartup;
-
-// 原CRT553060；前两Graphic容器已由AIS01原序调用，不重复构造。
-struct AnimationSharedValueStaticInitializer {
-    AnimationSharedValueStaticInitializer()
-    {
-        static_cast<void>(cg::resource::animation::Sub_45B370());
-    }
-};
-
-static const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
 
 } // namespace cg::platform
 

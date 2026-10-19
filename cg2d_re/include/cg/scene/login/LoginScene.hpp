@@ -23,7 +23,6 @@ static_assert(alignof(LoginServerRecord) == 1);
 static_assert(sizeof(LoginServerRecord) == 0xC1);
 
 // 以下存储均被 LoginScene::Process 之外的原函数交叉引用，保持唯一公开定义。
-extern std::int32_t gValueD69794;                       // 原 0xD69794，仅 507C80 清零。
 extern std::array<LoginServerRecord, 800> gLoginServerRecords_D69798; // 原 0xD69798，映像零填充。
 extern std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4;       // 原 0xD9F2D4，映像零填充。
 extern std::int16_t gSelectedServerIndex; // 原 0x58AD94，服务器索引，映像初值 -1。

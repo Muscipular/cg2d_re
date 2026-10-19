@@ -78,7 +78,6 @@ namespace detail {
 extern char gLogPath62699C[260]; // 原全局：0x0062699C。
 extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
 extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
-extern std::uint32_t gValue626C18; // 原全局：0x00626C18。
 // 原函数：0x004A76E0。
 std::int32_t IncrementChatRecordCount_4A76E0();
 // 原函数：0x00449DA0。

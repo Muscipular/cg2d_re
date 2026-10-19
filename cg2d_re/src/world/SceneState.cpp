@@ -71,8 +71,6 @@ namespace cg::world {
 // 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
 static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
 static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
-static std::uint32_t gValue62B348 = 0; // 原全局：0x0062B348。
-static std::int32_t gValueFF0D44 = 0; // 原全局：0x00FF0D44。 原普通场景与结果窗口分派共用的写入槽。
 static std::int32_t gWorldSceneInitialized_FF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
 static std::int32_t gWorldSceneWaitFrames_FF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
 static std::int32_t gWorldBgmResumeIndex_FF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
@@ -604,7 +602,6 @@ std::int32_t InitializeRotationTable_46FB20()
 // 原 455C70 跳入独占尾块 [46FB50,46FB74)：先清状态，再推进游标。
 std::int32_t NextRotationValue_455C70()
 {
-    gValue62B348 = 0;
     detail::gMapTargetInputAndDrawOverride_62B308 = 0;
     const std::int32_t value =
         gRotationTableC8A7B0[static_cast<std::size_t>(gRotationCursorC8A940)];
@@ -2040,16 +2037,8 @@ std::int32_t gDialogTargetD2DE6C = 0; // 原全局：0x00D2DE6C。
 
 namespace detail {
 
-// 原 455BD0 的 23 个独立 W16/W32 共享槽；仅两个 556C 槽的映像初值为 1。
-std::uint16_t gValue556C14 = 1; // 原全局：0x00556C14。
-std::uint16_t gValue62B34E = 0; // 原全局：0x0062B34E。
-std::uint16_t gValue62B34C = 0; // 原全局：0x0062B34C。
-std::uint16_t gValue62B318 = 0; // 原全局：0x0062B318。
-std::uint32_t gValue62B328 = 0; // 原全局：0x0062B328。
-std::uint16_t gValue62B3B0 = 0; // 原全局：0x0062B3B0。
-std::uint16_t gValue556C34 = 1; // 原全局：0x00556C34。
+// 原455BD0保留的移动门禁；无消费者槽已按GVC01清理。
 std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA = 0; // 原全局：0x0062B5AA。
-std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
 
 } // namespace detail
 std::uint64_t gMapNoticeStartTick_62B5B0 = 0; // 原全局：0x0062B5B0。
@@ -2057,18 +2046,6 @@ std::uint64_t gMapNoticeStartTick_62B5B0 = 0; // 原全局：0x0062B5B0。
 namespace detail {
 std::uint32_t gMapTargetInputAndDrawOverride_62B308 = 0; // 原全局：0x0062B308。
 std::uint32_t gMapTargetInputAndDrawOverride_62B398 = 0; // 原全局：0x0062B398。
-std::uint32_t gValue62B358 = 0; // 原全局：0x0062B358。
-std::uint32_t gValue62B384 = 0; // 原全局：0x0062B384。
-std::uint32_t gValue62B310 = 0; // 原全局：0x0062B310。
-std::uint32_t gValue62B364 = 0; // 原全局：0x0062B364。
-std::uint32_t gValue62B338 = 0; // 原全局：0x0062B338。
-std::uint32_t gValue62B36C = 0; // 原全局：0x0062B36C。
-std::uint32_t gValue62B2F8 = 0; // 原全局：0x0062B2F8。
-std::uint32_t gValue62B324 = 0; // 原全局：0x0062B324。
-std::uint32_t gValue62B30C = 0; // 原全局：0x0062B30C。
-std::uint32_t gValue62B388 = 0; // 原全局：0x0062B388。
-std::uint32_t gValue62B3A0 = 0; // 原全局：0x0062B3A0。
-std::uint32_t gValue62B38C = 0; // 原全局：0x0062B38C。
 
 // 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
 std::uint32_t gPrimaryMapGraphicCount_9FB934 = 0; // 原全局：0x009FB934。
@@ -2210,15 +2187,8 @@ std::uint16_t gPendingResultWindowMode_FF0C10 = 0; // 原全局：0x00FF0C10。
 std::int32_t gDpResultDelta_FF0D04 = 0; // 原全局：0x00FF0D04。
 std::int32_t gDpResultTotal_FF0D08 = 0; // 原全局：0x00FF0D08。
 
-// 原 0xFF0D34：50D3B0 写入、5199A0 清零的独立 W16 槽。
-std::uint16_t gValueFF0D34 = 0;
-
 namespace detail {
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
-std::uint16_t gValueFF0D30 = 0; // 原全局：0x00FF0D30。
-std::uint16_t gValueFF0D32 = 0; // 原全局：0x00FF0D32。
-std::uint16_t gValueF7CA04 = 0; // 原全局：0x00F7CA04。
-std::uint16_t gValueFF03D8 = 0; // 原全局：0x00FF03D8。
 std::uint16_t gPartyActive_FF0D36 = 0; // 原全局：0x00FF0D36。
 std::uint64_t gLastAdjacentInteractionTick_FF0D38 = 0; // 原全局：0x00FF0D38。
 
@@ -2256,13 +2226,9 @@ std::uint32_t gMapProjectionOffsetX_C3500C = 0; // 原全局：0x00C3500C。
 std::uint32_t gMapProjectionOffsetY_C75010 = 0; // 原全局：0x00C75010。
 
 namespace detail {
-std::uint32_t gValue9EE8A0 = 0; // 原全局：0x009EE8A0。
-std::uint32_t gValue9ED438 = 0; // 原全局：0x009ED438。
 std::uint32_t gDirectionalMapTransitionHeading_9ED440 = 0; // 原全局：0x009ED440。
 
-// 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 的 W32 目标。
-std::uint32_t gValueC35008 = 0; // 原全局：0x00C35008。
-std::uint32_t gValue9DAD2C = 0; // 原全局：0x009DAD2C。
+// 原0x9FB930/0xC821D4；4682E0发布的地图宽高。
 std::uint32_t gMapWidth_9FB930 = 0; // 原全局：0x009FB930。
 std::uint32_t gMapHeight_C821D4 = 0; // 原全局：0x00C821D4。
 
@@ -2342,10 +2308,6 @@ std::uint16_t gContinuousMapMovementActive_C8A79C = 0; // 原全局：0x00C8A79C
 std::uint16_t gMapTransitionRequestPending_9A86D8 = 0; // 原全局：0x009A86D8。
 std::uint16_t gDirectionalMapTransitionPending_9FB92E = 0; // 原全局：0x009FB92E。
 
-namespace detail {
-std::uint16_t gValueB65A7C = 0; // 原全局：0x00B65A7C。
-
-} // namespace detail
 std::uint16_t gMapMovementInputBlocked_C82220 = 0; // 原全局：0x00C82220。
 
 namespace detail {
@@ -2381,13 +2343,11 @@ std::int32_t gDayPeriodPaletteEnabled_73ED44 = 0; // 原全局：0x0073ED44。
 std::int32_t gCurrentDayPeriod_73ED48 = 0; // 原全局：0x0073ED48。
 
 namespace detail {
-std::uint32_t gValueC82224 = 0; // 原全局：0x00C82224。
 std::uint32_t gMapTransitionRequestSequence_C8221C = 0; // 原全局：0x00C8221C。
 std::uint16_t gPendingMapTransitionSequence_9DAD54 = 0; // 原全局：0x009DAD54。
 std::uint16_t gMissingMapRectangleCount_9DAD56 = 0; // 原全局：0x009DAD56。
 std::uint16_t gPendingDirectionalTransitionSequence_9FB92C = 0; // 原全局：0x009FB92C。
 std::uint16_t gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu; // 原全局：0x0055D9FC。
-std::uint16_t gValueC821D0 = 0; // 原全局：0x00C821D0。
 std::uint16_t gMapWindowReloadPending_9EE910 = 0; // 原全局：0x009EE910。
 
 } // namespace detail
@@ -3275,7 +3235,6 @@ std::int32_t* InitializeWorldMapState_467F30()
 
     gMapTransitionRequestPending_9A86D8 = 0;
     gDirectionalMapTransitionPending_9FB92E = 0;
-    gValueB65A7C = 0;
     gMapMovementInputBlocked_C82220 = 0;
     gMapLeftHoldDurationMs_C8A778 = 0;
     gMapLeftPressTick_C8A794 = 0;
@@ -3283,13 +3242,11 @@ std::int32_t* InitializeWorldMapState_467F30()
     gMapTransitionReplyPending_C82210 = 0;
     gMapTransitionAwaitingRectangle_C82214 = 0;
     gMapNameReceivedDuringTransition_C82218 = 0;
-    gValueC82224 = 0;
     gPendingMapTransitionSequence_9DAD54 = 0xFFFFu;
     gPendingDirectionalTransitionSequence_9FB92C = 0xFFFFu;
     gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu;
 
     static_cast<void>(ResetMapProjectionState_468F30());
-    gValueC821D0 = 0;
     gMapWindowReloadPending_9EE910 = 0;
     return InitializeMapGraphicNumberTable_46CF20();
 }
@@ -3469,11 +3426,9 @@ void OpenPendingBattleResultWindow_504A50()
         if (ShouldPlayBattleResultSound_4ED670() != 0) {
             static_cast<void>(audio::PlaySe_52C450(64, 320));
         }
-        gValueFF0D44 = 0;
         gPendingResultWindowMode_FF0C10 = 0;
     } else if (mode == 2) {
         static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_DpResult, 1, 0, nullptr));
-        gValueFF0D44 = 0;
         gPendingResultWindowMode_FF0C10 = 0;
     } else {
         gPendingResultWindowMode_FF0C10 = 0;
@@ -3486,7 +3441,6 @@ void DrawNormalScene_51C7D0()
     switch (gCurrentSceneState) {
     case 0:
         gCurrentSceneState = 100;
-        gValueFF0D44 = 0;
         gWorldSceneInitialized_FF0D50 = 0;
         gBattleEntryPending_5ABFC4 = 0;
         [[fallthrough]];
@@ -3769,7 +3723,6 @@ void DrawNormalScene_51C7D0()
             goto waitFrame;
         }
         gCurrentSceneState = 1;
-        gValueFF0D44 = 1;
         CreatePlayerMapPresence_519A80();
         ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640();
@@ -3912,8 +3865,6 @@ void DrawNormalScene_51C7D0()
         gPlayerCoordinateSyncPending_C821D8 = std::int32_t{0};
         cg::world::gRippleGate = std::int32_t{1};
         gDirectionalMapTransitionPending_9FB92E = 0;
-        gValueFF03D8 = 0;
-        gValueF7CA04 = 0;
         gContinuousMapMovementActive_C8A79C = 0;
         gSceneTransitionResetPending_58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
@@ -4699,19 +4650,17 @@ std::int32_t __cdecl IsMapTransitionCellActive_46AD00(const std::int32_t x, cons
     return value == 8 && category == 2;
 }
 
-// 原 [0x4682E0, 0x468330)；六次写入后传递四个原参数。
+// 原 [0x4682E0, 0x468330)；GVC01去掉两次无消费者写入，保留参数与资源初始化顺序。
 void __cdecl SetWorldMapMetadata_4682E0(
     std::uint32_t a1,
     std::int32_t a2,
     std::uint32_t a3,
     std::uint32_t a4,
-    std::uint32_t a5,
-    std::uint32_t a6,
+    std::uint32_t,
+    std::uint32_t,
     std::uint32_t a7,
     std::int32_t a8)
 {
-    gValueC35008 = a5;
-    gValue9DAD2C = a6;
     gMapWidth_9FB930 = a3;
     gMapHeight_C821D4 = a4;
     gCurrentMapId_9A86DC = a1;
@@ -4990,7 +4939,6 @@ std::int32_t __cdecl RequestPlayerCoordinateSynchronization_46AC90()
     gPlayerCoordinateSyncPending_C821D8 = std::int32_t{1};
 
     gMapMovementInputBlocked_C82220 = 1;
-    gValueB65A7C = 0;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     return network::SendPlayerCoordinates_510810(platform::gConnectionSocket, x, y);
@@ -5019,7 +4967,6 @@ std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0()
         std::bit_cast<std::int32_t>(mapValue)));
 
     const std::uint32_t nextSequence = gMapTransitionRequestSequence_C8221C + 1U;
-    gValueB65A7C = 1;
     gMapTransitionRequestSequence_C8221C = nextSequence;
     return std::bit_cast<std::int32_t>(nextSequence);
 }
@@ -5033,8 +4980,6 @@ std::int32_t __cdecl ResetMapProjectionState_468F30()
     gWorldProjectionSourceB = 0;
     gWorldProjectionSnapshotA = 0;
     gWorldProjectionSnapshotB = 0;
-    gValue9EE8A0 = 0;
-    gValue9ED438 = 0;
     gWorldProjectionSourceC = 0;
     gWorldProjectionSourceD = 0;
     gWorldProjectionSnapshotC = 0;
@@ -6129,11 +6074,6 @@ void CreatePlayerMapPresence_519A80()
             }
         }
     }
-    gValueFF0D30 = 0;
-    gValueFF0D32 = 0;
-    gValueF7CA04 = 0;
-    gValueFF03D8 = 0;
-    gValueFF0D34 = 0;
 }
 
 // 原函数：0x0051A090。
@@ -6571,114 +6511,12 @@ void InitializePlayerRuntimeState_5199A0()
     gPlayerRuntimeSlots.direction = -1;
 }
 
-// 原函数：0x00455AC0。
-void Sub_455AC0()
-{
-    gValue62B2F8 = 1;
-}
-
-// 原函数：0x00455AD0。
-void Sub_455AD0()
-{
-    gValue62B324 = 1;
-}
-
-// 原函数：0x00455AE0。
-void Sub_455AE0()
-{
-    gValue62B30C = 1;
-}
-
-// 原函数：0x00455AF0。
-void Sub_455AF0()
-{
-    gValue62B388 = 1;
-}
-
-// 原函数：0x00455B00。
-void Sub_455B00()
-{
-    gValue62B3A0 = 1;
-}
-
-// 原函数：0x00455B10。
-void Sub_455B10()
-{
-    gValue62B38C = 1;
-}
-
-// 原函数：0x00455B20。
-void Sub_455B20()
-{
-    if (gCurrentSceneType != 10) {
-        gValue62B358 = 1;
-    }
-}
-
-// 原函数：0x00455B40。
-void Sub_455B40()
-{
-    gValue62B384 = 1;
-}
-
-// 原函数：0x00455B50。
-void Sub_455B50()
-{
-    if (gCurrentSceneType != 10) {
-        gValue62B310 = 1;
-    }
-}
-
-// 原函数：0x00455B70。
-void Sub_455B70()
-{
-    if (gCurrentSceneType != 10) {
-        gValue62B364 = 1;
-    }
-}
-
-// 原函数：0x00455B90。
-void Sub_455B90()
-{
-    if (gCurrentSceneType != 10) {
-        gValue62B338 = 1;
-    }
-}
-
-// 原函数：0x00455BB0。
-void Sub_455BB0()
-{
-    if (gCurrentSceneType != 10) {
-        gValue62B36C = 1;
-    }
-}
-
-// 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。
+// 原 [0x455BD0,0x455C56)：GVC01清理无消费者槽，保留有效状态重置顺序及返回零。
 std::int32_t InitializeWorldSceneFlags_455BD0()
 {
-    gValue556C14 = 1;
-    gValue62B34E = 0;
-    gValue62B34C = 0;
-    gValue62B318 = 0;
-    gValue62B328 = 0;
-    gValue62B3B0 = 1;
-    gValue556C34 = 1;
     gPlayerMovementAndFacingBlocked_62B5AA = 0;
-    gValue62B5A8 = 0;
     gMapNoticeStartTick_62B5B0 = 0;
     gMapTargetInputAndDrawOverride_62B308 = 0;
-    gValue62B358 = 0;
-    gValue62B384 = 0;
-    gValue62B310 = 0;
-    gValue62B364 = 0;
-    gValue62B338 = 0;
-    gValue62B36C = 0;
-    gValue62B2F8 = 0;
-    gValue62B324 = 0;
-    gValue62B30C = 0;
-    gValue62B388 = 0;
-    gValue62B3A0 = 0;
-    gValue62B38C = 0;
     return 0;
 }
 
@@ -8383,7 +8221,6 @@ void HandlePartyMemberReply_50A3E0(
         return;
     }
 
-    detail::gValueFF0D32 = 0;
     detail::gPartyActive_FF0D36 = 1;
     slot.flags = 1;
     std::int32_t field = 2;
@@ -9039,7 +8876,6 @@ void HandlePartyMembershipReply_50D000(
         static_cast<void>(
             network::SendPlayerPositionAndDirection_512720(platform::gConnectionSocket, x, y, direction));
     }
-    detail::gValueFF0D32 = 0;
 }
 
 // MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
@@ -10034,7 +9870,6 @@ std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0()
     gPlayerPathRebuildPending_C821FC = 0;
     detail::gMapLeftHoldDurationMs_C8A778 = 0;
     detail::gMapLeftPressTick_C8A794 = 0;
-    detail::gValueC82224 = 0;
     return 0;
 }
 
@@ -10113,8 +9948,6 @@ void HandleBattleEntryReply_50D120(
         cg::world::gRippleGate = std::int32_t{1};
 
         gDirectionalMapTransitionPending_9FB92E = 0;
-        detail::gValueFF03D8 = 0;
-        detail::gValueF7CA04 = 0;
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         cg::yobi::YobiClearUp_404D30();
         detail::DetachWorldObjectActions_446610();
@@ -10129,18 +9962,8 @@ void HandleBattleEntryReply_50D120(
         gBattleType5ABFC8 = type;
         if (modeTwo) {
             gBattleModeFlag5ABFCC = 1;
-            detail::gValueC821D0 = 0;
-            detail::gValueB65A7C = 1;
         } else {
-            const bool modeThree = type == 3;
             gBattleModeFlag5ABFCC = 0;
-            if (modeThree) {
-                detail::gValueC821D0 = 1;
-                detail::gValueB65A7C = 0;
-            } else {
-                detail::gValueC821D0 = 0;
-                detail::gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
-            }
         }
         gBattleEventDispatchBusy_5ABB1C = 0;
         gBattleBackgroundImage59F9F8 = imageNo;
@@ -10159,8 +9982,6 @@ void HandleBattleEntryReply_50D120(
         return;
     }
     gPlayerCoordinateSyncPending_C821D8 = std::int32_t{0};
-    detail::gValueFF03D8 = 0;
-    detail::gValueF7CA04 = 0;
 }
 
 // 原函数：0x0050D3C0。

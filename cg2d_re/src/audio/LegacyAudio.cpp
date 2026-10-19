@@ -54,7 +54,6 @@ static constexpr int kFixedMusicResourceId = 1001;
 
 // 原454C30为固定音乐生成的独立128槽，不能借普通WAV BGM的另一音量表。
 static std::array<std::int32_t, 128> gFixedMusicVolume62B0C8 {}; // 原全局：0x0062B0C8。
-static std::uint8_t gValue62B2DC = 0xFF; // 原全局：0x0062B2DC。 原加载W8=FFH，4553B0在实际播放前清0；不当作SDL通知。
 
 // 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
 // 配置路径读入后即转为UTF-16，数值字段仍保持原宽度。
@@ -1126,7 +1125,6 @@ std::int32_t PlayFixedMusicSegment_4553B0()
 {
     if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
     if (!gSdlAudioBackend.HasFixedMusicPlayback()) { return 0; }
-    gValue62B2DC = 0;
     ApplyFixedMusicVolume_455400(127);
     return gSdlAudioBackend.PlayFixedMusic() ? 1 : 0;
 }

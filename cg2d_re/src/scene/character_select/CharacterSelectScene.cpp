@@ -676,9 +676,6 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
     if (second != nullptr) {
         cg::yobi::MarkDeath(second);
     }
-    state::gValue9A5E78 = 0;
-    state::gValue9A5FA4 = 0;
-    state::gValue9A5FA0 = 0;
     input::InitializeContext_449CF0(
         &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
     input::SetContext_44B330(&state::gCreationInput9A51E8);
@@ -1221,9 +1218,6 @@ std::uint8_t gCreationCharacterIndex_9A4CFC = 0; // 原全局：0x009A4CFC。
 std::uint8_t gCreationVariantIndex_9A5B00 = 0; // 原全局：0x009A5B00。
 std::array<cg::yobi::YobiAction*, 2> gCreateActions {};
 input::InputContext gCreationInput9A51E8 {}; // 原全局：0x009A51E8。
-std::uint8_t gValue9A5E78 = 0; // 原全局：0x009A5E78。
-std::int32_t gValue9A5FA4 = 0; // 原全局：0x009A5FA4。
-std::int32_t gValue9A5FA0 = 0; // 原全局：0x009A5FA0。
 std::uint32_t gCreationAttributePointBytes_9A5FD4 = 0; // 原全局：0x009A5FD4。
 std::uint32_t gCreationElementPointBytes_9A50D0 = 0; // 原全局：0x009A50D0。
 std::uint8_t gCreationFifthAttributePoints_9A5FD8 = 0; // 原全局：0x009A5FD8。

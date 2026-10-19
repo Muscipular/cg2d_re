@@ -24,9 +24,6 @@ extern std::uint8_t gCreationVariantIndex_9A5B00; // 原 0x9A5B00，创建界面
 extern std::array<cg::yobi::YobiAction*, 2> gCreateActions; // 原 0x9A4CB4/0x9A4CB8，非拥有。
 // 创建页463100/4631D0及确认快照共用；两个W32同时被按字节访问。
 extern input::InputContext gCreationInput9A51E8; // 原全局：0x009A51E8。
-extern std::uint8_t gValue9A5E78; // 原全局：0x009A5E78。
-extern std::int32_t gValue9A5FA4; // 原全局：0x009A5FA4。
-extern std::int32_t gValue9A5FA0; // 原全局：0x009A5FA0。
 extern std::uint32_t gCreationAttributePointBytes_9A5FD4; // 原全局：0x009A5FD4。
 extern std::uint32_t gCreationElementPointBytes_9A50D0; // 原全局：0x009A50D0。
 extern std::uint8_t gCreationFifthAttributePoints_9A5FD8; // 原全局：0x009A5FD8。

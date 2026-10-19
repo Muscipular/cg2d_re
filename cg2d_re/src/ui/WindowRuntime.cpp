@@ -481,8 +481,6 @@ static WindowSavedData gWindowSavedDataD40B30 {}; // 原全局：0x00D40B30。
 
 static std::int32_t gWindowSavedLengthCC4238 = 0; // 原全局：0x00CC4238。
 
-static std::uint32_t gValueCF4B6C = 0; // 原全局：0x00CF4B6C。 原4705D0独立清零槽，不扩展用途。
-
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
 Window47RuntimeSlots gWindow47Runtime {};
@@ -3421,7 +3419,6 @@ std::int32_t WindowRuntime_Initialize()
 {
     static_cast<void>(WindowChat_ResetState());
     static_cast<void>(WindowRuntime_LoadSettings());
-    gValueCF4B6C = 0;
     WindowRuntime_ClearSavedWindowMarkers();
     return world::detail::LoadProfileCategoryFile_534910();
 }

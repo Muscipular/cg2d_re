@@ -5,9 +5,8 @@
 
 namespace cg::login {
 
-// 原 sub_45D980@0x45D980 与其后继 sub_45D990 仅按 16 位访问这两个存储。
+// 原45D980复位、45D990推进的16位连接阶段。
 extern std::uint16_t gServerConnectionPhase_9A6E3C; // 原 0x9A6E3C，映像初值 0。
-extern std::uint16_t gValue9A6E3E; // 原 0x9A6E3E，映像初值 0。
 extern std::int32_t gSelectedLoginServerGroup_55A054;  // 原 0x55A054，映像初值 -1；跨登录场景共享。
 extern std::wstring gLoginProcessingErrorMessage_9A5348;      // 原 0x9A5348，映像零填充；内部持有动态 UTF-16。
 

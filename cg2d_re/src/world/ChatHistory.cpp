@@ -59,11 +59,6 @@ input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
 
 } // namespace cg::world
 
-namespace cg::world::detail {
-std::uint32_t gValue626C18 = 0; // 原全局：0x00626C18。
-
-} // namespace cg::world::detail
-
 namespace cg::world {
 std::uint32_t gChatRangeOverlayFrames_626BFC = 0; // 原全局：0x00626BFC。
 char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
@@ -125,7 +120,6 @@ void __cdecl InitializeChatInputAndLog_449DA0()
     for (std::size_t index = 0; index < 19; ++index) {
         gRecords5FB7F8[index].state = 1;
     }
-    gValue626C18 = 0;
     gChatRangeOverlayFrames_626BFC = 0;
 
     __time64_t timeValue = 0;

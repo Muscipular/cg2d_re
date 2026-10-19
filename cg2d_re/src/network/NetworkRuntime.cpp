@@ -631,13 +631,12 @@ void HandleFailureNoticeReply_50CF20(
     world::AppendChatMessage_44B050(L"失败了！", 4, 3);
 }
 
-// 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
+// 原 [0x50D3B0,0x50D3BC)：GVC01清理无消费存储，保留低W16转换、返回及协议入口。
 std::uint16_t Sub_50D3B0(
     const std::uintptr_t,
     const std::int32_t value)
 {
     const std::uint16_t bits = static_cast<std::uint16_t>(value);
-    world::gValueFF0D34 = bits;
     return bits;
 }
 

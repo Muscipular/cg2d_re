@@ -8,10 +8,6 @@
 
 namespace cg::world {
 
-
-// 原FF0D34：世界状态持有，网络回复写入的W16字段。
-extern std::uint16_t gValueFF0D34;
-
 // 原73ECD0，508CF0与多个场景/UI共享；显式CRT生命周期，禁止创建登录副本。
 extern platform::LegacyCryptInt gRippleGate; // 原全局：0x009A7FA8，波纹门禁。
 extern platform::LegacyCryptInt gSceneTransitionValue; // 原全局：0x0073ECD0。
@@ -71,30 +67,10 @@ extern std::int32_t gInputAndHoverSuppressed_D460C8;
 
 namespace detail {
 
-// 原 455BD0 的 23 个独立共享槽；W16/W32 类型仅承载原位模式。
-extern std::uint16_t gValue556C14; // 原全局：0x00556C14。
-extern std::uint16_t gValue62B34E; // 原全局：0x0062B34E。
-extern std::uint16_t gValue62B34C; // 原全局：0x0062B34C。
-extern std::uint16_t gValue62B318; // 原全局：0x0062B318。
-extern std::uint32_t gValue62B328; // 原全局：0x0062B328。
-extern std::uint16_t gValue62B3B0; // 原全局：0x0062B3B0。
-extern std::uint16_t gValue556C34; // 原全局：0x00556C34。
+// 原455BD0等入口仍有消费者的共享门禁；无消费者槽已按GVC01清理。
 extern std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA; // 原全局：0x0062B5AA。
-extern std::uint16_t gValue62B5A8; // 原全局：0x0062B5A8。
 extern std::uint32_t gMapTargetInputAndDrawOverride_62B308; // 原全局：0x0062B308。
 extern std::uint32_t gMapTargetInputAndDrawOverride_62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
-extern std::uint32_t gValue62B358; // 原全局：0x0062B358。
-extern std::uint32_t gValue62B384; // 原全局：0x0062B384。
-extern std::uint32_t gValue62B310; // 原全局：0x0062B310。
-extern std::uint32_t gValue62B364; // 原全局：0x0062B364。
-extern std::uint32_t gValue62B338; // 原全局：0x0062B338。
-extern std::uint32_t gValue62B36C; // 原全局：0x0062B36C。
-extern std::uint32_t gValue62B2F8; // 原全局：0x0062B2F8。
-extern std::uint32_t gValue62B324; // 原全局：0x0062B324。
-extern std::uint32_t gValue62B30C; // 原全局：0x0062B30C。
-extern std::uint32_t gValue62B388; // 原全局：0x0062B388。
-extern std::uint32_t gValue62B3A0; // 原全局：0x0062B3A0。
-extern std::uint32_t gValue62B38C; // 原全局：0x0062B38C。
 // 原函数：0x004590E0。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00458F40。
@@ -113,32 +89,8 @@ std::int32_t IsMapBattleSpectatingAllowed_455A90(); // G05：所有地图允许�
 std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 // 原函数：0x004D3170。
 void ResetCurrentDialogType_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
-// 原函数：0x00455AC0。
-void Sub_455AC0(); // 原455AC0：写W32[62B2F8]=1，不定义返回。
-// 原函数：0x00455AD0。
-void Sub_455AD0(); // 原455AD0：写W32[62B324]=1，不定义返回。
-// 原函数：0x00455AE0。
-void Sub_455AE0(); // 原455AE0：写W32[62B30C]=1，不定义返回。
-// 原函数：0x00455AF0。
-void Sub_455AF0(); // 原455AF0：写W32[62B388]=1，不定义返回。
-// 原函数：0x00455B00。
-void Sub_455B00(); // 原455B00：写W32[62B3A0]=1，不定义返回。
-// 原函数：0x00455B10。
-void Sub_455B10(); // 原455B10：写W32[62B38C]=1，不定义返回。
-// 原函数：0x00455B20。
-void Sub_455B20(); // 原455B20：仅FF0D40不等于10时写W32[62B358]=1，不定义返回。
-// 原函数：0x00455B40。
-void Sub_455B40(); // 原455B40：写W32[62B384]=1，不定义返回。
-// 原函数：0x00455B50。
-void Sub_455B50(); // 原455B50：仅FF0D40不等于10时写W32[62B310]=1，不定义返回。
-// 原函数：0x00455B70。
-void Sub_455B70(); // 原455B70：仅FF0D40不等于10时写W32[62B364]=1，不定义返回。
-// 原函数：0x00455B90。
-void Sub_455B90(); // 原455B90：仅FF0D40不等于10时写W32[62B338]=1，不定义返回。
-// 原函数：0x00455BB0。
-void Sub_455BB0(); // 原455BB0：仅FF0D40不等于10时写W32[62B36C]=1，不定义返回。
 // 原函数：0x00455BD0。
-std::int32_t InitializeWorldSceneFlags_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
+std::int32_t InitializeWorldSceneFlags_455BD0();                 // GVC01保留有效状态重置及返回0，已清理原无消费者槽。
 // 原函数：0x00504A30。
 std::int32_t InitializeGameplayNotifications_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 // 原函数：0x00504100。

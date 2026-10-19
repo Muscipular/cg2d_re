@@ -225,7 +225,6 @@ int ParseIpOptions_507C80(const char* const commandLine)
         login::gLoginServerRecords_D69798.data(),
         0,
         sizeof(login::gLoginServerRecords_D69798));
-    login::gValueD69794 = 0;
 
     // 原 sscanf 的目标是入参栈槽；未匹配时保留其上一次 W32 内容。
     int index = std::bit_cast<int>(

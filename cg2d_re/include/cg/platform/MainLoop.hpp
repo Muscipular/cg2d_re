@@ -9,7 +9,6 @@ extern std::uint8_t gSupportedRenderMode;   // 原 0x628FEA，不能与请求模
 extern std::int32_t gRendererLost;          // 原 0x62B064，恢复门槛。
 extern std::uint16_t gPendingGraphicCount;  // 原 0x1020EB8，仅清零 16 位。
 extern std::uint32_t gPendingGraphicCount2; // 原 0x73ECB8。
-extern std::int32_t gValue58D3C0;           // 原 0x58D3C0，实传给 0x52CD30。
 extern std::int32_t gForceRender;           // 原 0x73ECE4。
 extern std::int32_t gFrameBackgroundMode_73ECC0;           // 原 0x73ECC0，清屏前分支选择，完整枚举未定。
 

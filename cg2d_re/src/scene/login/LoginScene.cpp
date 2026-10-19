@@ -301,7 +301,6 @@ static bool ReadServerAvailability(std::int32_t category, std::int32_t page, std
     return cg::login::gLoginServerRecords_D69798[static_cast<std::size_t>(index)].available != 0;
 }
 
-std::int32_t gValueD69794 = 0; // 原全局：0x00D69794。
 std::array<LoginServerRecord, 800> gLoginServerRecords_D69798 {}; // 原全局：0x00D69798。
 std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4 {}; // 原全局：0x00D9F2D4。
 std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。

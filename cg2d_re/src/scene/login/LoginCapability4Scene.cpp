@@ -28,7 +28,6 @@ namespace cg::world {
 static std::int32_t gCapability4LoginFrameCounter_9A4F2C = 0; // 原全局：0x009A4F2C。
 static std::int32_t gCapability4IntroFadeAlpha_9A4D00 = 0; // 原全局：0x009A4D00。
 static std::int32_t gCapability4IntroFadePhase_9A4B7C = 0; // 原全局：0x009A4B7C。
-static std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
 static std::wstring gCapability4LoginMessage_9A4A78 {}; // 原全局：0x009A4A78。
 
 static std::int32_t DrawCapability4Base()
@@ -140,7 +139,6 @@ std::int32_t UpdateCapability4LoginScene_464840()
 
     case 2:
         gCapability4LoginFrameCounter_9A4F2C = 0;
-        gValue9A509C = 0;
         static_cast<void>(cg::login::detail::InitializeSavedState_533300());
         login::InitializeCapability4Input_465320();
         world::gCurrentSceneState = 3;

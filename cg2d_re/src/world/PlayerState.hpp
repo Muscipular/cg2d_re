@@ -489,11 +489,7 @@ void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发�
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     const char* name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
-// 519A80 公共尾清理；后续协议/场景必须复用这些独立 W16 槽。
-extern std::uint16_t gValueFF0D30; // 原全局：0x00FF0D30。
-extern std::uint16_t gValueFF0D32; // 原全局：0x00FF0D32。
-extern std::uint16_t gValueF7CA04; // 原全局：0x00F7CA04。
-extern std::uint16_t gValueFF03D8; // 原全局：0x00FF03D8。
+// 协议与场景共用的队伍状态、邻格交互节流时间。
 extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
 extern std::uint64_t gLastAdjacentInteractionTick_FF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。

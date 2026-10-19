@@ -4,18 +4,20 @@
 
 本轮单线程，使用当前源码和必要的只读IDA数据流证据；每批逆替换全文验证、更新进度并提交，最终沿本次命名任务已有授权执行build.bat Debug，不运行客户端/测试或计算摘要。
 
-已分析：217／217。已重命名：158。保留：59。待分析：0。
+命名阶段已分析217／217，158项重命名、59项当时保留。
+
+后续按用户要求进行GVC01清理：从59项中删除48项、继续保留11项；逐项依据见[cg2d_unused_global_cleanup_spec.md](cg2d_unused_global_cleanup_spec.md)。下表同步清理后的状态，原命名阶段证据保留。
 
 | 原变量 | 结论／新名称 | 证据及缺口 |
 |---|---|---|
-| `gValue553438` | 已分析，保留原名 | 映像初值10，存档315字节恢复/保存，仅见持久化回环，无业务读取；缺业务含义证据，保留。 |
+| `gValue553438` | 已分析，保留原名 | 映像初值10，存档315字节恢复/保存，仅见持久化回环，无业务读取；缺业务含义证据，保留。 GVC01继续保留：存档315字节恢复/保存有实际读取，删除会改变持久化内容。 |
 | `gValue553F84` | 已重命名：`gSelectedBattlePetTechniqueIndex_553F84` | 保存已选宠物或骑乘技能序号，供技能名/消耗显示、合法性校验与W指令发送使用；-1表示未选择。 |
 | `gValue553F90` | 已重命名：`gLastBattleCommandPetIndex_553F90` | 提交战斗指令时保存普通出战或骑乘宠物槽；新一轮选择发现宠物槽变化即清除缓存技能。 |
-| `gValue55463C` | 已分析，保留原名 | 初值8，仅角色显示设置保存/恢复，无实际显示消费者；缺业务含义证据，保留。 |
+| `gValue55463C` | 已分析，保留原名 | 初值8，仅角色显示设置保存/恢复，无实际显示消费者；缺业务含义证据，保留。 GVC01继续保留：显示设置30C+selected字节回环，保存使用volatile引用读取，保持存档与访问行为。 |
 | `gValue554640` | 已重命名：`gChatRange_554640` | 聊天按钮在1至5之间切换范围，发送聊天消息携带此值，地图范围提示读取同值。 |
 | `gValue554644` | 已重命名：`gChatNotificationSoundEnabled_554644` | 聊天与战斗文本到达时据此播放提示音74；设置切换并持久化，不是所有音效的总开关。 |
-| `gValue556C14` | 已分析，保留原名 | 静态初值及世界初始化均为1，无读取，具体开关用途未证。 |
-| `gValue556C34` | 已分析，保留原名 | 静态初值及世界初始化均为1，无读取，具体开关用途未证。 |
+| `gValue556C14` | 后续已删除（GVC01） | 静态初值及世界初始化均为1，无读取，具体开关用途未证。 |
+| `gValue556C34` | 后续已删除（GVC01） | 静态初值及世界初始化均为1，无读取，具体开关用途未证。 |
 | `gValue559508` | 已重命名：`gGameTimeEpochSeconds_559508` | UpdateGameTime从协议时间减此常量后换算游戏年月日，保留0x3AE805E7。 |
 | `gValue55A054` | 已重命名：`gSelectedLoginServerGroup_55A054` | 组选择写入，页/服务器可用性查询及黑名单/邮件文件选择使用；-1无选中。 |
 | `gValue55D9FC` | 已重命名：`gPlayerPathFinalFacingDirection_55D9FC` | 路径未到达点击目标时保存最终朝向，路径消费完后发送并重置FFFF。 |
@@ -25,7 +27,7 @@
 | `gValue57DA28` | 已重命名：`gInventoryActorSelectionMode_57DA28` | 物品窗口选本人或宠物：正值为宠物选择序号，其他值为本人/未选；设置持有同一字节。 |
 | `gValue57E42C` | 已重命名：`gBattleItemActorSelectionMode_57E42C` | 战斗物品窗口独立本人/宠物选择模式，正值分支及宠物删除序号修正共用。 |
 | `gValue58589C` | 已重命名：`gHoverDescriptionEnabled_58589C` | 物品拖动复位置1，命中描述需本值非零且输入门禁为0。 |
-| `gValue58D3C0` | 已分析，保留原名 | 初值-1，由主循环传给UpdateAudioAndSkipMciClose_52CD30，但该函数未读取这个实参；缺有效消费者，不能推定为音频模式。 |
+| `gValue58D3C0` | 后续已删除（GVC01） | 初值-1，由主循环传给UpdateAudioAndSkipMciClose_52CD30，但该函数未读取这个实参；缺有效消费者，不能推定为音频模式。 |
 | `gValue593FC0` | 已重命名：`gServerConnectionErrorPresent_593FC0` | 连接复位清零；断线场景据非零值显示网络错误编号和换服提示，否则显示普通断线提示；未见非零生产者，限定显示分支角色。 |
 | `gValue5ABB1C` | 已重命名：`gBattleEventDispatchBusy_5ABB1C` | 战斗事件调度前置1，事件回调结束清0；存在活动事件且本值非零时阻止再次推进调度。 |
 | `gValue5ABB20` | 已重命名：`gBattleExitRequested_5ABB20` | 战斗退出处理写1，调度器检测等于1后切换场景7；保留原初值及复位时序。 |
@@ -36,33 +38,33 @@
 | `gValue5ABFC4` | 已重命名：`gBattleEntryPending_5ABFC4` | 战斗进入回复type大于0时置1；普通场景检测后开始入战，战斗场景消费并清零。 |
 | `gValue5F974C` | 已重命名：`gActorOverheadTextMode_5F974C` | 0不显示，1..6选择角色名/称号等头顶文本；地图及战斗绘制消费，设置循环和存档。 |
 | `gValue5F9754` | 已重命名：`gSkillRebirthModeEnabled_5F9754` | 技能重生按钮切换并发送相应动作，制造/采集/技能使用据其选择模式，计时结束或操作归零清除。 |
-| `gValue626C10` | 已分析，保留原名 | 追加聊天消息时写20；源码及IDA仅见44B162写入，无读取，不能据常量推定闪烁或倒计时。 |
+| `gValue626C10` | 已分析，保留原名 | 追加聊天消息时写20；源码及IDA仅见44B162写入，无读取，不能据常量推定闪烁或倒计时。 GVC01继续保留：变量声明为volatile，写入本身具有可观察语义；本次不撤销该合同。 |
 | `gValue626C14` | 已重命名：`gChatLogSuppressed_626C14` | Home隐藏聊天时置1，回复据此跳过日志与名字过滤；打开聊天/计时回复清0，气泡仍按原逻辑处理。 |
-| `gValue626C18` | 已分析，保留原名 | 聊天输入和记录初始化写0；IDA449E05仅写，缺业务读取。 |
+| `gValue626C18` | 后续已删除（GVC01） | 聊天输入和记录初始化写0；IDA449E05仅写，缺业务读取。 |
 | `gValue626C20` | 已重命名：`gInputLineOverflowRollbackMode_626C20` | Input超过maxLine时，0执行截断，非0可恢复旧文本；不改变原模式分支。 |
 | `gValue626C28` | 已重命名：`gInputInsertRejected_626C28` | Input字符提交失败或溢出回滚路径置1；当前无读取，名字仅描述已证生产事件。 |
-| `gValue62B2DC` | 已分析，保留原名 | 音频播放前写0，静态初值0xFF；源码及IDA仅见4553CA写入，无读取，无法确认业务状态含义。 |
-| `gValue62B2F8` | 已分析，保留原名 | 原函数455AC0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B2DC` | 后续已删除（GVC01） | 音频播放前写0，静态初值0xFF；源码及IDA仅见4553CA写入，无读取，无法确认业务状态含义。 |
+| `gValue62B2F8` | 后续已删除（GVC01） | 原函数455AC0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
 | `gValue62B308` | 已重命名：`gMapTargetInputAndDrawOverride_62B308` | 世界初始化及旋转值更新时清零，地图目标输入和绘制两处门禁读取；未见非零生产者，名称仅描述共同消费者作用。 |
-| `gValue62B30C` | 已分析，保留原名 | 原函数455AE0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B310` | 已分析，保留原名 | 原函数455B50非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B318` | 已分析，保留原名 | 仅世界初始化写0，无读取，具体状态用途未证。 |
-| `gValue62B324` | 已分析，保留原名 | 原函数455AD0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B328` | 已分析，保留原名 | 仅世界初始化写0，无读取，具体状态用途未证。 |
-| `gValue62B338` | 已分析，保留原名 | 原函数455B90非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B348` | 已分析，保留原名 | 旋转值更新时清0，无读取；无法确认具体业务标志。 |
-| `gValue62B34C` | 已分析，保留原名 | 仅世界初始化写0，无读取，具体状态用途未证。 |
-| `gValue62B34E` | 已分析，保留原名 | 仅世界初始化写0，无读取，具体状态用途未证。 |
-| `gValue62B358` | 已分析，保留原名 | 原函数455B20非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B364` | 已分析，保留原名 | 原函数455B70非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B36C` | 已分析，保留原名 | 原函数455BB0非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B384` | 已分析，保留原名 | 原函数455B40无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B388` | 已分析，保留原名 | 原函数455AF0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B38C` | 已分析，保留原名 | 原函数455B10无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B30C` | 后续已删除（GVC01） | 原函数455AE0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B310` | 后续已删除（GVC01） | 原函数455B50非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B318` | 后续已删除（GVC01） | 仅世界初始化写0，无读取，具体状态用途未证。 |
+| `gValue62B324` | 后续已删除（GVC01） | 原函数455AD0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B328` | 后续已删除（GVC01） | 仅世界初始化写0，无读取，具体状态用途未证。 |
+| `gValue62B338` | 后续已删除（GVC01） | 原函数455B90非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B348` | 后续已删除（GVC01） | 旋转值更新时清0，无读取；无法确认具体业务标志。 |
+| `gValue62B34C` | 后续已删除（GVC01） | 仅世界初始化写0，无读取，具体状态用途未证。 |
+| `gValue62B34E` | 后续已删除（GVC01） | 仅世界初始化写0，无读取，具体状态用途未证。 |
+| `gValue62B358` | 后续已删除（GVC01） | 原函数455B20非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B364` | 后续已删除（GVC01） | 原函数455B70非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B36C` | 后续已删除（GVC01） | 原函数455BB0非战斗时置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B384` | 后续已删除（GVC01） | 原函数455B40无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B388` | 后续已删除（GVC01） | 原函数455AF0无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B38C` | 后续已删除（GVC01） | 原函数455B10无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
 | `gValue62B398` | 已重命名：`gMapTargetInputAndDrawOverride_62B398` | 地图提示窗口同步时清零，地图目标输入和绘制两处门禁读取；未见非零生产者，不推定具体启用场景。 |
-| `gValue62B3A0` | 已分析，保留原名 | 原函数455B00无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
-| `gValue62B3B0` | 已分析，保留原名 | 静态初值0、世界初始化写1，无读取，不能判断启用的业务功能。 |
-| `gValue62B5A8` | 已分析，保留原名 | 仅世界初始化写0，无读取，不能根据相邻移动门禁变量推断自身用途。 |
+| `gValue62B3A0` | 后续已删除（GVC01） | 原函数455B00无条件置1，世界初始化455BD0清0；源码和IDA只见这两处写入，缺消费者及设置函数调用来源，具体请求含义未证。 |
+| `gValue62B3B0` | 后续已删除（GVC01） | 静态初值0、世界初始化写1，无读取，不能判断启用的业务功能。 |
+| `gValue62B5A8` | 后续已删除（GVC01） | 仅世界初始化写0，无读取，不能根据相邻移动门禁变量推断自身用途。 |
 | `gValue62B5AA` | 已重命名：`gPlayerMovementAndFacingBlocked_62B5AA` | 非零时阻止玩家移动、鼠标转向及显式转向；世界初始化清零，当前未见非零生产者。 |
 | `gValue73ECBC` | 已重命名：`gChatTextSizeMode_73ECBC` | 聊天按钮明确提示改变文字大小，0..2循环并随聊天发送；不沿用旧CycleNameMode误判为名字显示。 |
 | `gValue73ECC0` | 已重命名：`gFrameBackgroundMode_73ECC0` | 主循环0清背景、3执行战斗震屏背景；2保留转场输出并阻止切换窗口模式，保留全部数值。 |
@@ -71,23 +73,23 @@
 | `gValue73ED48` | 已重命名：`gCurrentDayPeriod_73ED48` | GetCate结果，控制调色板变化并供环境图形选择读取。 |
 | `gValue73ED4C` | 已重命名：`gServerTimeAtSyncSeconds_73ED4C` | 回复时保存服务器时间值，计算为now+本值-epoch-本地采样时间+修正。 |
 | `gValue73ED68` | 已重命名：`gLocalTimeAtSyncSeconds_73ED68` | 处理校时回复时采本机_time64，UpdateGameTime减去以计算同步后经过时间。 |
-| `gValue9A4A48` | 已分析，保留原名 | 仅接收9A4A50复制值；IDA中该地址另作缓存槽数组尾边界，并非此整数的数值消费，不能据初值猜测内存预算。 |
-| `gValue9A4A50` | 已分析，保留原名 | 初值10412000，仅复制给9A4A48；未见业务消费，数字含义未证。 |
+| `gValue9A4A48` | 后续已删除（GVC01） | 仅接收9A4A50复制值；IDA中该地址另作缓存槽数组尾边界，并非此整数的数值消费，不能据初值猜测内存预算。 |
+| `gValue9A4A50` | 后续已删除（GVC01） | 初值10412000，仅复制给9A4A48；未见业务消费，数字含义未证。 |
 | `gValue9A4A78` | 已重命名：`gCapability4LoginMessage_9A4A78` | 能力4登录ID密码提示、删除账号确认和完成提示共用文本。 |
 | `gValue9A4B7C` | 已重命名：`gCapability4IntroFadePhase_9A4B7C` | 能力4开场选0..3叠图层，alpha到255推进阶段。 |
 | `gValue9A4B94` | 已重命名：`gWorldEntryRepliesPendingMask_9A4B94` | 世界地图初始化设为3；地图CRC匹配或数据回复清位0，本人世界对象创建或刷新清位1；进入场景等待掩码归零。 |
 | `gValue9A4BA0` | 已重命名：`gOuterLoginErrorMessage_9A4BA0` | 外层登录失败时保存账号密码不正确文本，UpdateLoginMessage展示。 |
 | `gValue9A4D00` | 已重命名：`gCapability4IntroFadeAlpha_9A4D00` | 能力4开场四图逐段淡入，左移24作颜色alpha，每帧加6。 |
 | `gValue9A4F2C` | 已重命名：`gCapability4LoginFrameCounter_9A4F2C` | 能力4登录每帧递增，输入页超过256清0，阶段重置清0。 |
-| `gValue9A509C` | 已分析，保留原名 | 能力4登录进入输入页仅清0，无读取消费；缺业务含义证据，保留。 |
+| `gValue9A509C` | 后续已删除（GVC01） | 能力4登录进入输入页仅清0，无读取消费；缺业务含义证据，保留。 |
 | `gValue9A50D0` | 已重命名：`gCreationElementPointBytes_9A50D0` | 建角四元素点共用W32按四字节访问，分配限制、绘制及草稿恢复使用。 |
 | `gValue9A5348` | 已重命名：`gLoginProcessingErrorMessage_9A5348` | 登入超时/失败路径设置的动态提示文本，由登录消息窗口消费。 |
 | `gValue9A5674` | 已重命名：`gLogoutPanelRows_9A5674` | 登出提示窗口设置行数2并乘48计算高度。 |
 | `gValue9A594C` | 已重命名：`gLogoutPanelColumns_9A594C` | 登出提示按测量文本宽度除64加2计算列数，再乘64计算宽度。 |
 | `gValue9A5AC0` | 已重命名：`gLogoutPanelLeft_9A5AC0` | 登出提示窗口计算并保存左侧坐标，用于后续窗口定位。 |
-| `gValue9A5E78` | 已分析，保留原名 | 建角初始化清字节0，无读取用途；缺业务含义证据，保留。 |
-| `gValue9A5FA0` | 已分析，保留原名 | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
-| `gValue9A5FA4` | 已分析，保留原名 | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
+| `gValue9A5E78` | 后续已删除（GVC01） | 建角初始化清字节0，无读取用途；缺业务含义证据，保留。 |
+| `gValue9A5FA0` | 后续已删除（GVC01） | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
+| `gValue9A5FA4` | 后续已删除（GVC01） | 建角初始化清S32为0，无读取用途；缺业务含义证据，保留。 |
 | `gValue9A5FD4` | 已重命名：`gCreationAttributePointBytes_9A5FD4` | 建角前四属性点共用W32按四字节访问，编辑和草稿恢复使用，保留打包布局。 |
 | `gValue9A5FD8` | 已重命名：`gCreationFifthAttributePoints_9A5FD8` | 建角第五属性独立字节，与前四打包字节共同分配30点，不猜具体属性名称。 |
 | `gValue9A61F8` | 已重命名：`gLogoutPanelTop_9A61F8` | 登出提示窗口计算并保存顶部坐标，用于后续窗口定位。 |
@@ -95,16 +97,16 @@
 | `gValue9A6204` | 已重命名：`gLogoutRequestScenePhase_9A6204` | 登出请求场景复位为0，依次创建提示窗口、发送请求并轮询；控制阶段0、1、2。 |
 | `gValue9A6E0C` | 已重命名：`gGameplayRepliesSuppressed_9A6E0C` | 退出场景入口置1、进入世界场景清0；地图、物品、聊天、交易等回复据此早退，属于游戏回复处理门禁。 |
 | `gValue9A6E20` | 已重命名：`gLoginInputFocusIndex_9A6E20` | 登录控制器选账号/密码上下文表并切换焦点，保留0/1索引。 |
-| `gValue9A6E24` | 已分析，保留原名 | 外层登录场景仅置空后传给动作销毁；无非空生产者，不能确定所指动作的业务身份。 |
+| `gValue9A6E24` | 后续已删除（GVC01） | 外层登录场景仅置空后传给动作销毁；无非空生产者，不能确定所指动作的业务身份。 |
 | `gValue9A6E3C` | 已重命名：`gServerConnectionPhase_9A6E3C` | 连接服务器窗口创建、网络初始化、请求轮询共用阶段，重置为0。 |
-| `gValue9A6E3E` | 已分析，保留原名 | 连接状态复位仅清0，无读取消费；缺业务含义证据，保留。 |
+| `gValue9A6E3E` | 后续已删除（GVC01） | 连接状态复位仅清0，无读取消费；缺业务含义证据，保留。 |
 | `gValue9A6F44` | 已重命名：`gConsumedCursorState_9A6F44` | 光标更新帧尾保存已消费状态，WM_SETCURSOR据此索引光标句柄。 |
 | `gValue9A7F78` | 已重命名：`gMapAttachmentDrawCount_9A7F78` | 地图附属绘制缓存清理时归零，追加条目后递增，绘制遍历读取该计数。 |
 | `gValue9A7F7C` | 已重命名：`gMapRectangleRequestPlayerX_9A7F7C` | 请求前方缺失地图后保存当时玩家X；当前无消费者，仅按已证采样命名。 |
 | `gValue9A7F80` | 已重命名：`gMapRectangleRequestPlayerY_9A7F80` | 请求前方缺失地图后保存当时玩家Y；当前无消费者，仅按已证采样命名。 |
 | `gValue9A86D8` | 已重命名：`gMapTransitionRequestPending_9A86D8` | 普通命中转场请求置1，匹配回复序号清0，供移动门禁。 |
 | `gValue9A86DC` | 已重命名：`gCurrentMapId_9A86DC` | SetWorldMapMetadata发布地图ID，地图缓存路径、数据回复匹配及脚本MapId消费。 |
-| `gValue9DAD2C` | 已分析，保留原名 | SetWorldMapMetadata保存第6实参（地图回复第9实参、地图文件头对应字段）；该全局无读取，头字段业务含义未证。 |
+| `gValue9DAD2C` | 后续已删除（GVC01） | SetWorldMapMetadata保存第6实参（地图回复第9实参、地图文件头对应字段）；该全局无读取，头字段业务含义未证。 |
 | `gValue9DAD30` | 已重命名：`gMapNameFirstByte_9DAD30` | 直接引用地图名文本区首字节，进入世界时置0清名称，保留引用身份。 |
 | `gValue9DAD54` | 已重命名：`gPendingMapTransitionSequence_9DAD54` | 保存普通转场请求序号低W16，回复按S16比较；初始化FFFF。 |
 | `gValue9DAD58` | 已重命名：`gMapSceneResourceFloor_9DAD58` | 资源初始化复制当前floor；当前无读取。 |
@@ -112,32 +114,32 @@
 | `gValue9DAD60` | 已重命名：`gMapSceneSelectedResourceSnapshot_9DAD60` | 模式1选择楼层或覆盖资源号后保存，选择值同时交CUT/AUT加载器；本槽无独立消费者，不推定专属于CUT。 |
 | `gValue9DAD64` | 已重命名：`gMapSceneSelectedResourceMirror_9DAD64` | 模式1与9DAD60同时保存同一资源选择值，当前无独立读取，不推定专属于AUT。 |
 | `gValue9DAD68` | 已重命名：`gMapResourceMode_9DAD68` | 元数据设置模式，等于1加载CUT/AUT并采用相应绘图/通行平面/CRC掩码。 |
-| `gValue9E03C0` | 已分析，保留原名 | 世界初始化及地图切换写0；IDA逐字段仅见写入和构造/析构，无值读取，具体状态用途缺证。 |
+| `gValue9E03C0` | 已分析，保留原名 | 世界初始化及地图切换写0；IDA逐字段仅见写入和构造/析构，无值读取，具体状态用途缺证。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
 | `gValue9E0434` | 已重命名：`gMapCachePathKey_9E0434` | 世界时间回复发布，非零地图ID的三级缓存路径中作为中间目录键；不推定服务器/实例身份。 |
-| `gValue9ED438` | 已分析，保留原名 | 地图投影状态复位清0；IDA468F55仅写，缺业务值读取。 |
+| `gValue9ED438` | 后续已删除（GVC01） | 地图投影状态复位清0；IDA468F55仅写，缺业务值读取。 |
 | `gValue9ED440` | 已重命名：`gDirectionalMapTransitionHeading_9ED440` | 路径探测类别2时记录八方向，发送对应转场请求的方向参数。 |
-| `gValue9EE8A0` | 已分析，保留原名 | 地图投影状态复位清0；IDA468F50仅写，缺坐标或计数等业务值读取。 |
+| `gValue9EE8A0` | 后续已删除（GVC01） | 地图投影状态复位清0；IDA468F50仅写，缺坐标或计数等业务值读取。 |
 | `gValue9EE8A4` | 已重命名：`gRequestedMapRectangleDirection_9EE8A4` | 请求缺失地图时保存首方向，地图重读时据该方向再探测缺失区域。 |
 | `gValue9EE8B8` | 已重命名：`gWaitingForMapRectangleData_9EE8B8` | 缺失前方地图请求置1暂停自由移动，绘制重读后按缺失探测结果清除。 |
 | `gValue9EE8D0` | 已重命名：`gLastMapDrawPlayerX_9EE8D0` | 地图绘制比较玩家X变化后刷新，并复制当前X快照；位置重置写-1使之失效。 |
 | `gValue9EE8E0` | 已重命名：`gLastMapDrawPlayerY_9EE8E0` | 地图绘制比较玩家Y变化后刷新，并复制当前Y快照；位置重置写-1使之失效。 |
-| `gValue9EE8F8` | 已分析，保留原名 | 保存地图回复第13实参，发送移动路径时作为第4整数原样回传；仅能证实透传，无法确定业务含义，不猜测序号或令牌。 |
+| `gValue9EE8F8` | 已分析，保留原名 | 保存地图回复第13实参，发送移动路径时作为第4整数原样回传；仅能证实透传，无法确定业务含义，不猜测序号或令牌。 GVC01继续保留：地图回复值随移动路径请求回传，有协议消费者。 |
 | `gValue9EE910` | 已重命名：`gMapWindowReloadPending_9EE910` | 当前地图邻近矩形回复置1，DrawMapScene触发窗口重读后清0。 |
-| `gValue9FB918` | 已分析，保留原名 | 50D080首整数赋值，地图/战斗恢复复制载荷到C821E8；IDA逐字段核同一复制链，无业务数值读取，不能推定遭遇率等属性。 |
+| `gValue9FB918` | 已分析，保留原名 | 50D080首整数赋值，地图/战斗恢复复制载荷到C821E8；IDA逐字段核同一复制链，无业务数值读取，不能推定遭遇率等属性。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
 | `gValue9FB92C` | 已重命名：`gPendingDirectionalTransitionSequence_9FB92C` | 保存带方向转场序号低W16，回复按S16比较成功后清等待。 |
 | `gValue9FB92E` | 已重命名：`gDirectionalMapTransitionPending_9FB92E` | 类别2带方向转场请求置1，匹配成功回复清0，供移动门禁。 |
-| `gValueAF0FE8` | 已分析，保留原名 | 50D080第二整数赋值；当前及IDA AF0FE8..F7仅构造/析构及写入，无读取用途。 |
+| `gValueAF0FE8` | 已分析，保留原名 | 50D080第二整数赋值；当前及IDA AF0FE8..F7仅构造/析构及写入，无读取用途。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
 | `gValueAF10C0` | 已重命名：`gPlayerMapCoordinateSum_AF10C0` | StorePlayerMapCoordinateSum写玩家X+Y；当前无读取，不命名为排序深度。 |
 | `gValueAF10C8` | 已重命名：`gMapRectangleRequestStartTick_AF10C8` | 缺失地图请求发出后记录tick；当前无读取，不推定超时用途。 |
-| `gValueB65A7C` | 已分析，保留原名 | 同步时清0、方向转场置1，战斗类型分支写0或1；IDA仅见写入，无读取消费，不能据战斗类型猜测对战标志。 |
-| `gValueC27FE8` | 已分析，保留原名 | 加密整数世界初始化清零、设置玩家地图位置时写-1；IDA逐字段仅见写入和构造/析构；46DD76引用基址作为前方注册动作数组尾边界，不是数值读取。 |
-| `gValueC27FF8` | 已分析，保留原名 | 加密整数世界初始化清零、设置玩家地图位置时写-1；IDA逐字段仅见写入和构造/析构，没有值读取，不能猜测坐标缓存用途。 |
-| `gValueC35008` | 已分析，保留原名 | SetWorldMapMetadata保存第5实参（地图回复第8实参、地图文件头对应字段）；该全局无读取，头字段业务含义未证。 |
+| `gValueB65A7C` | 后续已删除（GVC01） | 同步时清0、方向转场置1，战斗类型分支写0或1；IDA仅见写入，无读取消费，不能据战斗类型猜测对战标志。 |
+| `gValueC27FE8` | 已分析，保留原名 | 加密整数世界初始化清零、设置玩家地图位置时写-1；IDA逐字段仅见写入和构造/析构；46DD76引用基址作为前方注册动作数组尾边界，不是数值读取。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
+| `gValueC27FF8` | 已分析，保留原名 | 加密整数世界初始化清零、设置玩家地图位置时写-1；IDA逐字段仅见写入和构造/析构，没有值读取，不能猜测坐标缓存用途。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
+| `gValueC35008` | 后续已删除（GVC01） | SetWorldMapMetadata保存第5实参（地图回复第8实参、地图文件头对应字段）；该全局无读取，头字段业务含义未证。 |
 | `gValueC3500C` | 已重命名：`gMapProjectionOffsetX_C3500C` | 绘制队列加到地图投影X的偏移；投影初始化/重置清0。 |
 | `gValueC75010` | 已重命名：`gMapProjectionOffsetY_C75010` | 绘制队列加到地图投影Y的偏移；投影初始化/重置清0。 |
-| `gValueC821D0` | 已分析，保留原名 | 世界初始化清0，战斗类型3置1而其他分支清0；IDA仅见写入，类型业务含义及消费者未证。 |
+| `gValueC821D0` | 后续已删除（GVC01） | 世界初始化清0，战斗类型3置1而其他分支清0；IDA仅见写入，类型业务含义及消费者未证。 |
 | `gValueC821D8` | 已重命名：`gPlayerCoordinateSyncPending_C821D8` | 坐标同步请求赋1，初始化/战斗返回清0；地图移动及面对玩家交互据其阻塞。 |
-| `gValueC821E8` | 已分析，保留原名 | 源码在初始化清零，50D080、5093F0、50D120及普通场景恢复时接收9FB918载荷；IDA逐字节核C821E8..F7仅构造/析构及写字段，无数值读消费者，无法确认具体业务量。 |
+| `gValueC821E8` | 已分析，保留原名 | 源码在初始化清零，50D080、5093F0、50D120及普通场景恢复时接收9FB918载荷；IDA逐字节核C821E8..F7仅构造/析构及写字段，无数值读消费者，无法确认具体业务量。 GVC01继续保留：LegacyCryptInt默认构造及整数赋值经NextMask调用Rand16；删除会改变共享随机数消费次数/顺序，保持整个对象与写入。 |
 | `gValueC821FC` | 已重命名：`gPlayerPathRebuildPending_C821FC` | 点击/连续移动取新目标置1，玩家空闲且方向队列空时清0并规划路径。 |
 | `gValueC82204` | 已重命名：`gMapSurfaceCacheEnabled_C82204` | 绘制队列类型6/7据非零值执行地图临时表面与后备表面复制；每帧清零、截图临时保存恢复，当前未见非零写入，名称限定消费者作用。 |
 | `gValueC82208` | 已重命名：`gMapRectangleRequestPending_C82208` | 地图变更置1，CRC匹配、数据回复或转场失败等路径清0，参与地图刷新门禁。 |
@@ -147,7 +149,7 @@
 | `gValueC82218` | 已重命名：`gMapNameReceivedDuringTransition_C82218` | 转场等待期间收到地图名回复置1，数据回复结束与初始化清0，当前无读取消费者。 |
 | `gValueC8221C` | 已重命名：`gMapTransitionRequestSequence_C8221C` | 两类转场请求共同读取并递增的完整W32序号。 |
 | `gValueC82220` | 已重命名：`gMapMovementInputBlocked_C82220` | 地图请求开始置1，坐标/两转场等待均清除后复位；阻止移动和鼠标转向。 |
-| `gValueC82224` | 已分析，保留原名 | 世界初始化及恢复移动状态时清0；IDA468167、4681F0仅写，无业务读取。 |
+| `gValueC82224` | 后续已删除（GVC01） | 世界初始化及恢复移动状态时清0；IDA468167、4681F0仅写，无业务读取。 |
 | `gValueC8222E` | 已重命名：`gPlayerReachedMovementTarget_C8222E` | 移动帧先清0，到达目标并更新格坐标时置1，路径事件据其递减步数。 |
 | `gValueC82238` | 已重命名：`gLastCursorFacingRequestTick_C82238` | 朝鼠标目标转向入口用500毫秒节流，发送后重采tick。 |
 | `gValueC8223C` | 已重命名：`gLastExplicitFacingRequestTick_C8223C` | TurnPlayerAndSendDirection独立的500毫秒节流槽，与鼠标目标转向计时分开。 |
@@ -161,12 +163,12 @@
 | `gValueC8A7AC` | 已重命名：`gMapTargetRightHeld_C8A7AC` | 地图鼠标采样每帧清0，无单次右键事件时记录持续右键。 |
 | `gValueC9A96C` | 已重命名：`gChatPanelVisible_C9A96C` | InputCaret和WindowChat绘制/按钮/输入共用可见门禁，Home切换；场景恢复置1。 |
 | `gValueCA0440` | 已重命名：`gShortcutBarCollapsed_CA0440` | 0普通快捷栏、1折叠快捷栏，展开/收起按钮写入并保存。 |
-| `gValueCC3E68` | 已分析，保留原名 | GraphicAlloc仅写0x40，无读取；不能仅据初始化位置命名资源容量。 |
+| `gValueCC3E68` | 后续已删除（GVC01） | GraphicAlloc仅写0x40，无读取；不能仅据初始化位置命名资源容量。 |
 | `gValueCC4D34` | 已重命名：`gWindowInteractionOriginX_CC4D34` | 交互窗口保存起始地图X坐标，距离检查与玩家当前世界坐标除64后的X比较；多个窗口共用。 |
 | `gValueCC4D3C` | 已重命名：`gWindowInteractionOriginY_CC4D3C` | 交互窗口保存起始地图Y坐标，距离检查与玩家当前世界坐标除64后的Y比较；多个窗口共用。 |
 | `gValueCF4690` | 已重命名：`gStatusBarLayoutMode_CF4690` | 0完整、1紧凑、2折叠状态栏，按钮写模式后场景恢复据其开对应窗口。 |
 | `gValueCF4AAC` | 已重命名：`gHotkeyLayoutMode_CF4AAC` | 设置界面循环键位方案，快捷键读取/显示/记录表据此选择，保存记录持久化。 |
-| `gValueCF4B6C` | 已分析，保留原名 | 仅窗口运行时复位写0，无读取消费，具体状态含义未证。 |
+| `gValueCF4B6C` | 后续已删除（GVC01） | 仅窗口运行时复位写0，无读取消费，具体状态含义未证。 |
 | `gValueD2D5FC` | 已重命名：`gAlbumEntryLimit_D2D5FC` | GraphicAlloc设为0x3C0；图鉴更新校验编号上限、图鉴掩码同步遍历使用此上限。 |
 | `gValueD2D608` | 已重命名：`gShopExchangeCurrencyItemId_D2D608` | 商店回复提供交换货币物品ID，统计持有数量、扣除数量及禁选对应物品使用。 |
 | `gValueD2F788` | 已重命名：`gPlayerUnspentAttributePoints_D2F788` | 属性点回复写入，玩家属性窗口显示剩余点并参与加点提示，进入场景清0。 |
@@ -183,12 +185,12 @@
 | `gValueD67B38` | 已重命名：`gContactsPreviewMode_D67B38` | 联系人按钮提示预览/详细切换，列表行布局和绘制按此模式分支。 |
 | `gValueD67BE0` | 已重命名：`gOwnStallOpenForBusiness_D67BE0` | 本人摊位营业按钮切换并提交列表，非零禁止编辑/关闭窗口及选择上架条目。 |
 | `gValueD67E78` | 已重命名：`gLogoutToTownPending_D67E78` | 设置窗口登出并回到城内登入点按钮发送回城请求后置1；用于回城过渡和回复抑制，返回地图时清零。 |
-| `gValueD68858` | 已分析，保留原名 | 仅存档31B字节恢复及保存，无运行消费，具体偏好未知；缺业务含义证据，保留。 |
+| `gValueD68858` | 已分析，保留原名 | 仅存档31B字节恢复及保存，无运行消费，具体偏好未知；缺业务含义证据，保留。 GVC01继续保留：存档31B字节恢复/保存有实际读取，保持原字节回环。 |
 | `gValueD68BF0` | 已重命名：`gRightMouseRepeatAnchorMs_D68BF0` | 右键UpdatePulse的独立经过时间锚点，保持右侧先取pulse的读取序。 |
 | `gValueD68DC4` | 已重命名：`gRequestedCursorState_D68DC4` | RequestCursorState发布，本帧绘图/原生光标读取，帧尾消费后清0。 |
 | `gValueD68DC8` | 已重命名：`gLeftMouseRepeatAnchorMs_D68DC8` | 左键UpdatePulse的经过时间锚点：500毫秒后启动、每100毫秒重复。 |
 | `gValueD69768` | 已重命名：`gHoverFramePaletteIndex_D69768` | MouseDispatch每帧取60项悬停颜色表发布，文字/矩形/命中框绘制使用其低字节调色板值。 |
-| `gValueD69794` | 已分析，保留原名 | 命令选项初始化仅清0，声明和定义外无读写消费者；缺业务含义证据，保留。 |
+| `gValueD69794` | 后续已删除（GVC01） | 命令选项初始化仅清0，声明和定义外无读写消费者；缺业务含义证据，保留。 |
 | `gValueD69798` | 已重命名：`gLoginServerRecords_D69798` | 800条LoginServerRecord，命令配置填充地址/可用性，登录选服及窗口标题读取。 |
 | `gValueD9F2CA` | 已重命名：`gNetworkDisconnectState_D9F2CA` | 收发错误/对端关闭置1，网络轮询切断线场景后置2，初始化/关闭清0。 |
 | `gValueD9F2D4` | 已重命名：`gLoginServerGroupCounts_D9F2D4` | 配置每20服务器按index/20累加，选服组可用及第二页判断使用。 |
@@ -203,19 +205,19 @@
 | `gValueF633F4` | 已重命名：`gCreationSubmittedElement2_F633F4` | 建角确认采第3元素为S8扩展值，快照及请求读取；保留原元素序号，不猜标签顺序。 |
 | `gValueF7C948` | 已重命名：`gCreationSubmittedElement0_F7C948` | 建角确认采第1元素为S8扩展值，快照及请求读取；保留原元素序号，不猜标签顺序。 |
 | `gValueF7CA00` | 已重命名：`gCreationSubmittedAttribute4_F7CA00` | 建角确认采第5属性为S8扩展值，草稿快照及创建请求读取；图形标签尚未证明具体属性名，按已证序号命名。 |
-| `gValueF7CA04` | 已分析，保留原名 | 玩家创建、战斗进入与返回中清0；IDA50D214、50D3A2、519CAF、51D37E均为写入，缺消费者。 |
+| `gValueF7CA04` | 后续已删除（GVC01） | 玩家创建、战斗进入与返回中清0；IDA50D214、50D3A2、519CAF、51D37E均为写入，缺消费者。 |
 | `gValueFDA6F8` | 已重命名：`gInitialPlayerDuelPoints_FDA6F8` | 建角确认清零，初始化玩家时写入value104；Lua键duelPoint及玩家资料界面对战胜利值显示证实目标字段用途。 |
 | `gValueFF03D0` | 已重命名：`gCreationSubmittedElement1_FF03D0` | 建角确认采第2元素为S8扩展值，快照及请求读取；保留原元素序号，不猜标签顺序。 |
-| `gValueFF03D8` | 已分析，保留原名 | 玩家创建、战斗进入与返回中清0；IDA50D20D、50D39B、519CB6、51D377均为写入，缺消费者。 |
+| `gValueFF03D8` | 后续已删除（GVC01） | 玩家创建、战斗进入与返回中清0；IDA50D20D、50D39B、519CB6、51D377均为写入，缺消费者。 |
 | `gValueFF0D04` | 已重命名：`gDpResultDelta_FF0D04` | DP回复写变化量，WindowBattleResult的DP结果窗口按增量显示。 |
 | `gValueFF0D08` | 已重命名：`gDpResultTotal_FF0D08` | DP回复写总量，DP结果窗口与变化量独立读取显示。 |
-| `gValueFF0D30` | 已分析，保留原名 | 创建玩家地图对象时清0；IDA519CA1仅写，缺业务读取。 |
-| `gValueFF0D32` | 已分析，保留原名 | 创建玩家、队伍和离队回复中清0；IDA50A502、50D021、50D075、519CA8均为写入，无业务读取。 |
-| `gValueFF0D34` | 已分析，保留原名 | sZWu回复低16位写入，创建玩家地图对象时清零；无业务读取消费，协议数值含义未证。 |
+| `gValueFF0D30` | 后续已删除（GVC01） | 创建玩家地图对象时清0；IDA519CA1仅写，缺业务读取。 |
+| `gValueFF0D32` | 后续已删除（GVC01） | 创建玩家、队伍和离队回复中清0；IDA50A502、50D021、50D075、519CA8均为写入，无业务读取。 |
+| `gValueFF0D34` | 后续已删除（GVC01） | sZWu回复低16位写入，创建玩家地图对象时清零；无业务读取消费，协议数值含义未证。 |
 | `gValueFF0D36` | 已重命名：`gPartyActive_FF0D36` | 队伍回复存在成员时置1，离队或成员不足时清零；移动、跟随及组队操作共用，队长身份另由玩家标志0x100区分。 |
 | `gValueFF0D38` | 已重命名：`gLastAdjacentInteractionTick_FF0D38` | 相邻格交互记录当前时刻，并据此执行500毫秒节流。 |
 | `gValueFF0D40` | 已重命名：`gCurrentSceneTypeStorage_FF0D40` | SceneState的gCurrentSceneType直接引用本槽，命令初始化写1；仅命名原存储，不改别名。 |
-| `gValueFF0D44` | 已分析，保留原名 | 普通场景与结果窗口写0或1，无读取，不能仅据写入位置命名消费状态。 |
+| `gValueFF0D44` | 后续已删除（GVC01） | 普通场景与结果窗口写0或1，无读取，不能仅据写入位置命名消费状态。 |
 | `gValueFF0D4C` | 已重命名：`gPendingMapPaletteIndex_FF0D4C` | 地图名回复的数字字段，-1使用时段调色板、非负选择固定调色板、消费后置-2。 |
 | `gValueFF0D50` | 已重命名：`gWorldSceneInitialized_FF0D50` | 普通地图入场完成置1，返回地图分支只认1后重建显示；初始场景清0。 |
 | `gValueFF0D54` | 已重命名：`gWorldSceneWaitFrames_FF0D54` | 普通场景等待每帧递增，入场/地图变更分别以5或30帧门槛继续。 |
@@ -226,7 +228,7 @@
 | `gValueFF48E4` | 已重命名：`gCapturedSceneTransitionVariant_FF48E4` | 捕获场景到临时表面后，将0至35随机结果低字节清最低位并存入此槽；当前无后续读取，仅命名已证选择结果。 |
 | `gValueFF4E28` | 已重命名：`gSavedStateLoadErrorCode_FF4E28` | 存档恢复清0，启动读取存档失败消息包含本错误码，当前无其他生产。 |
 
-## 验收结果
+## 命名阶段验收结果（清理前）
 
 - 217项全部完成分析；158项按业务名称_原地址重命名，59项因证据不足保留，逐项见上表。gValueC821E8仅见初始化、载荷复制与写字段，缺数值读取消费者，未强行推定含义。
 - 台账与源码活动标识符集合一致；113份源/头文件将158个新名逆替换后与本轮修改前全文一致，UTF-8/LF及旧名引用检查通过。

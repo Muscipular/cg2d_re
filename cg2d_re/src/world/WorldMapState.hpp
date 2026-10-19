@@ -234,13 +234,9 @@ extern std::uint16_t gPlayerReachedMovementTarget_C8222E;
 extern std::uint32_t gPendingPathEventActive_C82230; // 原全局：0x00C82230。
 extern std::int16_t gPendingPathEventSteps_C82234; // 原全局：0x00C82234。
 extern std::int16_t gPendingPathEventType_C82236; // 原全局：0x00C82236。
-extern std::uint32_t gValue9EE8A0; // 原全局：0x009EE8A0。
-extern std::uint32_t gValue9ED438; // 原全局：0x009ED438。
 extern std::uint32_t gDirectionalMapTransitionHeading_9ED440; // 原全局：0x009ED440。 原 46AA00 写、46AEA0 读取的独立 W32。
 
-// 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 顺序写入。
-extern std::uint32_t gValueC35008; // 原全局：0x00C35008。
-extern std::uint32_t gValue9DAD2C; // 原全局：0x009DAD2C。
+// 原0x9FB930/0xC821D4；4682E0发布的地图宽高。
 extern std::uint32_t gMapWidth_9FB930; // 原全局：0x009FB930。
 extern std::uint32_t gMapHeight_C821D4; // 原全局：0x00C821D4。
 extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
@@ -262,7 +258,6 @@ extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
 extern std::uint32_t gWaitingForMapRectangleData_9EE8B8; // 原全局：0x009EE8B8。
 extern std::uint16_t gRequestedMapRectangleDirection_9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
 extern std::uint16_t gContinuousMapMovementActive_C8A79C; // 原全局：0x00C8A79C。
-extern std::uint16_t gValueB65A7C; // 原全局：0x00B65A7C。
 extern std::uint64_t gLastCursorFacingRequestTick_C82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
 extern std::uint64_t gLastExplicitFacingRequestTick_C8223C; // 原全局：0x00C8223C。 CTM01转向发送的本地64位毫秒。
 extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
@@ -284,12 +279,10 @@ extern std::uint32_t gMapTransitionAwaitingRectangle_C82214; // 原全局：0x00
 extern std::uint32_t gMapNameReceivedDuringTransition_C82218; // 原全局：0x00C82218。
 extern std::int32_t gPendingMapPaletteIndex_FF0D4C; // 原全局：0x00FF0D4C。 原地图回复数值 W32，51D6F0 消费。
 extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
-extern std::uint32_t gValueC82224; // 原全局：0x00C82224。
 extern std::uint32_t gMapTransitionRequestSequence_C8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gPendingMapTransitionSequence_9DAD54; // 原全局：0x009DAD54。
 extern std::uint16_t gPendingDirectionalTransitionSequence_9FB92C; // 原全局：0x009FB92C。
 extern std::uint16_t gPlayerPathFinalFacingDirection_55D9FC; // 原全局：0x0055D9FC。
-extern std::uint16_t gValueC821D0; // 原全局：0x00C821D0。
 extern std::uint16_t gMapWindowReloadPending_9EE910; // 原全局：0x009EE910。
 
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。

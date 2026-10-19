@@ -256,7 +256,6 @@ std::int32_t AdvanceServerLoginConnection_508360()
 } // namespace detail
 
 std::uint16_t gServerConnectionPhase_9A6E3C = 0; // 原全局：0x009A6E3C。
-std::uint16_t gValue9A6E3E = 0; // 原全局：0x009A6E3E。
 std::int32_t gSelectedLoginServerGroup_55A054 = -1; // 原全局：0x0055A054。
 std::wstring gLoginProcessingErrorMessage_9A5348 {}; // 原全局：0x009A5348。
 
@@ -264,7 +263,6 @@ std::wstring gLoginProcessingErrorMessage_9A5348 {}; // 原全局：0x009A5348�
 std::int32_t ResetValues_45D980()
 {
     gServerConnectionPhase_9A6E3C = 0;
-    gValue9A6E3E = 0;
     return 0;
 }
 

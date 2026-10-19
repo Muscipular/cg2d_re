@@ -225,3 +225,10 @@
 | `gValueFF0D74` | 已重命名：`gObservationTravelTransitionCount_FF0D74` | 观察组旅行转场首次从0进入阶段250，后续进入252并递增；旅行完成清零。 |
 | `gValueFF48E4` | 已重命名：`gCapturedSceneTransitionVariant_FF48E4` | 捕获场景到临时表面后，将0至35随机结果低字节清最低位并存入此槽；当前无后续读取，仅命名已证选择结果。 |
 | `gValueFF4E28` | 已重命名：`gSavedStateLoadErrorCode_FF4E28` | 存档恢复清0，启动读取存档失败消息包含本错误码，当前无其他生产。 |
+
+## 验收结果
+
+- 217项全部完成分析；158项按业务名称_原地址重命名，59项因证据不足保留，逐项见上表。gValueC821E8仅见初始化、载荷复制与写字段，缺数值读取消费者，未强行推定含义。
+- 台账与源码活动标识符集合一致；113份源/头文件将158个新名逆替换后与本轮修改前全文一致，UTF-8/LF及旧名引用检查通过。
+- 2026-10-19执行build.bat Debug，windows-msvc-x64配置、Debug编译和链接成功，退出码0，生成build/windows-msvc-x64/Debug/cg2d_re.exe。
+- 编译仍报告C4701可能未初始化、C4505未引用内部函数、C4244窄化转换警告；未因命名工作更改相关行为。未运行客户端或测试，未修改IDA数据库。

@@ -577,7 +577,7 @@ struct BigMapWindowState final {
         if (mapReady) {
             if (acceptsMouse && MapHit()) {
                 const auto point = map.ScreenToMap(gMouseX - mapClip.left, gMouseY - mapClip.top);
-                RendererDrawTextClipped(static_cast<short>(gMouseX + 14), static_cast<short>(gMouseY + 14),
+                RendererDrawTextClipped(static_cast<short>(gMouseX + 24), static_cast<short>(gMouseY),
                     FONT_LAYER_WINDOW, kMapFont, 0, std::format(L"{},{}", point.first, point.second), 0, 0, &mapClip);
             }
             Marker(px, py, PlayerMarker, 14, mapClip);

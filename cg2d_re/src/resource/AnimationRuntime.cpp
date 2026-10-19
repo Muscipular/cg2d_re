@@ -6,6 +6,7 @@
 
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/GraphicInfo.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
@@ -129,7 +130,7 @@ std::int32_t AnimeInit_45BB20(
             pairs[index].animeNo = key;
             pairs[index].offset = info.offset;
             pairs[index].count = info.count;
-            pairs[index].flag = info.flag > 1 ? 0 : info.flag;
+            pairs[index].flag = info.flag; // AF406：完整保存格式值，只用bit0决定动作头长度。
             pairs[index].fileIndex = static_cast<std::int16_t>(slot);
             if (info.count > 10000u) {
                 platform::ShowWideMessage(
@@ -256,7 +257,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     std::uint16_t buffer[1000];
     for (std::int32_t actionIndex = 0;
          actionIndex < gAnimateRecords9A4A58[index].count; ++actionIndex) {
-        static_cast<std::uint32_t>(std::fread(buffer, static_cast<std::uint32_t>(gAnimateRecords9A4A58[index].flag >= 1 ? 20 : 12), 1, file));
+        static_cast<std::uint32_t>(std::fread(buffer, static_cast<std::uint32_t>((gAnimateRecords9A4A58[index].flag & 1u) != 0 ? 20 : 12), 1, file));
         auto* const action = static_cast<detail::ActionEntry*>(
             gAnimateRecords9A4A58[index].actionList) + actionIndex;
         action->frames = nullptr;
@@ -273,7 +274,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
                 action->duration = 1;
             }
         }
-        if (gAnimateRecords9A4A58[index].flag >= 1) {
+        if ((gAnimateRecords9A4A58[index].flag & 1u) != 0) {
             action->paletteIndex = static_cast<std::int16_t>(buffer[6]);
             action->revert = buffer[7];
             action->value14 = buffer[8];
@@ -353,6 +354,7 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
             + static_cast<std::uint32_t>(graphicBase);
         destination->x = buffer[coordinate].x;
         destination->y = buffer[coordinate].y;
+        render::SetGraphicCoordinate(destination->graphicIndex, destination->x, destination->y);
     }
     return 1;
 }

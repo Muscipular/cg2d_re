@@ -14,6 +14,20 @@ struct CacheActionEntry;
 
 namespace cg::resource::animation {
 
+// AF406：20字节动作头+0x0E属性；与AnimeInfo格式位、帧音效flag分别存储。
+enum AnimeActionFlag : std::uint16_t {
+    AnimeActionFlag_RevLeft = 0x0001,
+    AnimeActionFlag_RevTop = 0x0002,
+    AnimeActionFlag_LockPal = 0x0004,
+    AnimeActionFlag_Light = 0x0008,
+    AnimeActionFlag_Field = 0x0010,
+    AnimeActionFlag_Shield = 0x0020,
+    AnimeActionFlag_Title = 0x0040, // 仅保留资源位值；当前4.06消费未证。
+    AnimeActionFlag_LockPos = 0x0080, // 不叠加人物Coordinate，仍可叠加坐骑Coordinate。
+    AnimeActionFlag_ChPal = 0x0100, // 仅保留资源位值；图档前两字节指定调色板的消费未证。
+    AnimeActionFlag_Wing = 0x0200, // 主挂件方向遮挡、动作及部分帧跟随。
+};
+
 // 原 gAnimate 记录为 0x24 字节；三个原 W32 指针在 x64 承载为原生指针。
 struct AnimateRecord {
     std::uint32_t animeNo;                   // 原 +00，查询与排序键。

@@ -313,21 +313,85 @@ void DrawGear_441570(
     }
 }
 
+// AF406：4.06@40AE4E..40B171，地图主挂件与坐骑共享人物的世界排序位置。
+static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t primaryIndex)
+{
+    using enum resource::animation::AnimeActionFlag;
+    auto* const payload = parent->payload.mapActor;
+    YobiAction* const gear = payload->action30;
+    if (gear == nullptr) {
+        return;
+    }
+    gear->x = parent->x;
+    gear->y = parent->y;
+    gear->direction = parent->direction;
+    if (gear->graphicIndex < 0) {
+        // 4.06创建时先取首帧发布动作属性，本次尚不提交挂件。
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, 1, 0));
+        return;
+    }
+    const std::uint16_t flags = GetYobiAnimeActionFlags(gear);
+    YobiAction* const ride = payload->action44;
+    std::int32_t offsetX = 0;
+    std::int32_t offsetY = 0;
+    if ((flags & AnimeActionFlag_LockPos) == 0) {
+        GetYobiAttachmentCoordinate(parent, offsetX, offsetY);
+    }
+    if (ride != nullptr) {
+        std::int32_t rideX;
+        std::int32_t rideY;
+        GetYobiAttachmentCoordinate(ride, rideX, rideY);
+        offsetX += rideX;
+        offsetY += rideY;
+    }
+    std::int32_t before = 1; // 同层逆序消费：before链在人物之后实际绘制。
+    std::uint8_t layer = 10;
+    std::int32_t stopAtEnd = 0;
+    const YobiAction* syncSource = nullptr;
+    if ((flags & AnimeActionFlag_Wing) != 0) {
+        gear->characterAction = parent->characterAction;
+        const std::int32_t image = parent->imageNo;
+        if (parent->characterAction == 6
+            && ((image >= 100250 && image <= 100273) || (image >= 100650 && image <= 100655))) {
+            return;
+        }
+        syncSource = ride != nullptr ? ride : parent;
+        before = gear->direction >= 4 && gear->direction <= 6 ? 0 : 1;
+        if (gear->characterAction == 10) {
+            layer = 9; // 4.06层5，对应本线普通地图层10的下一层。
+        }
+    } else if ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0) {
+        stopAtEnd = 3;
+        layer = (flags & AnimeActionFlag_Field) != 0 ? 8 : 10;
+        offsetX = 0;
+        offsetY = 0;
+    } else {
+        const std::int32_t parentAction = parent->characterAction;
+        gear->characterAction = parentAction >= 2 && parentAction <= 4 ? 0
+            : parentAction == 8 ? 3 : parentAction;
+    }
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, stopAtEnd, 0, syncSource));
+    if ((flags & AnimeActionFlag_Wing) == 0
+        && (parent->phase != 0
+            || ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0 && parent->characterAction == 10))) {
+        return;
+    }
+    // 4.06@4365A6/43695F：WING共享关联主体的绘制基点，不叠加翅膀动画帧偏移。
+    YobiAction* const origin = (flags & AnimeActionFlag_Wing) != 0 ? (ride != nullptr ? ride : parent) : gear;
+    const std::int32_t x = origin->x + static_cast<std::int16_t>(offsetX) + GetYobiGraphicOriginOffset_5182B0(origin, 0);
+    const std::int32_t y = origin->y + static_cast<std::int16_t>(offsetY) + GetYobiGraphicOriginOffset_5182B0(origin, 1);
+    world::DrawGearNormal_46C060(primaryIndex, before, gear->graphicIndex,
+        static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), &gear->drawMode, 0, layer);
+}
+
 // 原函数：0x00442F70。
 void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 {
     if (action == nullptr) {
         return;
     }
-    std::int32_t frameX = action->frameX;
     auto* const payload = action->payload.mapActor;
-    std::int32_t frameY = action->frameY;
-    YobiAction* const initialRide = payload->action44;
     std::int32_t stateIndex = payload->index;
-    if (initialRide != nullptr) {
-        frameX += initialRide->frameX;
-        frameY += initialRide->frameY;
-    }
 
     std::uint16_t flags;
     std::uint16_t state;
@@ -662,21 +726,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         payload->action10 = nullptr;
     }
 
-    if (payload->action30 != nullptr) {
-        payload->action30->characterAction = action->characterAction == 8 ? 3 : 0;
-        payload->action30->direction = action->direction;
-        if (AdvanceYobiAnimationFrame_517880(payload->action30, 100, 0, 0) == 0) {
-            const render::GraphicDescriptor16* const descriptor = &payload->action30->drawMode;
-            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(payload->action30, 1);
-            const std::int32_t y = offsetY + action->y + frameY;
-            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(payload->action30, 0);
-            const std::int32_t x = offsetX + action->x + frameX;
-            const std::int32_t graphicIndex = payload->action30->graphicIndex;
-            world::DrawGearNormal_46C060(
-                primaryIndex, 1, graphicIndex, static_cast<std::int16_t>(x),
-                static_cast<std::int16_t>(y), descriptor, 0);
-        }
-    }
+    DrawMapMainGear406(action, primaryIndex);
     if ((payload->action34 != nullptr || payload->action38 != nullptr)
         && payload->action44 == nullptr) {
         std::int32_t characterAction = 0;

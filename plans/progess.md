@@ -1217,3 +1217,5 @@ BSR02完成物品技能称号与玩家状态46项分析，42改名、4保留及3
 - 2026-10-19：按用户要求完成GRT04，移除未经原端证实的Flag1位8透明规则，索引图按查表后的RGB零色色键生成Alpha；更正R05/GRT03说明并保留PNG自身Alpha。本轮build.bat Debug配置、编译、链接成功（退出码0），画面未运行验收。
 
 - 2026-10-19：用户确认挂件按4.06、GraphicInfo.flag仍保留16位；记录AF406方案，动作级FIELD/SHIELD/LOCKPOS/WING接地图与战斗主挂件，截图命名作为线索，未证TITLE/CHPAL不补造实现。进入编码。
+
+- 2026-10-19：AF406地图/战斗主挂件完成动作标志、Coordinate、方向层级和WING帧同步接线；保留GraphicInfo完整16位，TITLE/CHPAL仅保留位值。最终build.bat Debug配置、编译、链接成功，差异静态检查通过；未运行客户端，画面待验收。

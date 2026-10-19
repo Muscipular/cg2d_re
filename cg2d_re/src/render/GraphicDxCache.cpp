@@ -456,6 +456,39 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
     return gGraphicDxCache103CFA4[imageNo].head != nullptr ? 1 : 0;
 }
 
+std::uint16_t ReadGraphicAnimeActionFlags(const std::int32_t imageNo) noexcept
+{
+    return imageNo >= 0 && imageNo < resource::gMaxGraphicCount
+        ? gGraphicDxCache103CFA4[imageNo].animeActionFlags : 0;
+}
+
+void SetGraphicAnimeActionFlags(const std::uint32_t imageNo, const std::uint16_t flags) noexcept
+{
+    if (imageNo < static_cast<std::uint32_t>(resource::gMaxGraphicCount)) {
+        gGraphicDxCache103CFA4[imageNo].animeActionFlags = flags;
+    }
+}
+
+void ReadGraphicCoordinate(
+    const std::int32_t imageNo, std::int16_t& x, std::int16_t& y) noexcept
+{
+    x = 0;
+    y = 0;
+    if (imageNo >= 0 && imageNo < resource::gMaxGraphicCount) {
+        x = gGraphicDxCache103CFA4[imageNo].coordinateX;
+        y = gGraphicDxCache103CFA4[imageNo].coordinateY;
+    }
+}
+
+void SetGraphicCoordinate(
+    const std::uint32_t imageNo, const std::int16_t x, const std::int16_t y) noexcept
+{
+    if (imageNo < static_cast<std::uint32_t>(resource::gMaxGraphicCount)) {
+        gGraphicDxCache103CFA4[imageNo].coordinateX = x;
+        gGraphicDxCache103CFA4[imageNo].coordinateY = y;
+    }
+}
+
 std::int16_t ReadGraphicDxWidth(const std::int32_t imageNo) noexcept
 {
     return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].width);

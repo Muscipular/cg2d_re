@@ -89,7 +89,7 @@ static_assert(offsetof(TextureNode, paletteVersion) == 0x22);
 static_assert(offsetof(TextureNode, paletteIndex) == 0x24);
 static_assert(offsetof(TextureNode, unknownTail) == 0x26);
 
-// 原 0x10 字节 DX 条目的 x64 承载；引用均非拥有，底层 SDL 资源另行管理。
+// 原0x10字节DX条目的x64承载，追加AF406动作/Coordinate元数据；引用均非拥有。
 struct DxGraphicEntry {
     TextureNode* head;          // 原 +00 的非拥有节点引用。
     std::uint16_t width;       // 原 +04 的 W16 位模式。
@@ -99,16 +99,22 @@ struct DxGraphicEntry {
     std::uint8_t value0D;     // 原 +0D，意义未证。
     std::uint8_t flag;        // 原 +0E。
     std::uint8_t value0F;     // 原 +0F，意义未证。
+    std::uint16_t animeActionFlags; // AF406：4.06图形缓存+24，20B动作头+0E完整属性。
+    std::int16_t coordinateX; // AF406：4.06图形表+18，Coordinate独立坐标，不含动画帧偏移。
+    std::int16_t coordinateY; // AF406：4.06图形表+1A。
 };
 
 static_assert(std::is_standard_layout_v<DxGraphicEntry>);
 static_assert(std::is_trivially_copyable_v<DxGraphicEntry>);
-static_assert(sizeof(DxGraphicEntry) == 0x20);
+static_assert(sizeof(DxGraphicEntry) == 0x28);
 static_assert(offsetof(DxGraphicEntry, head) == 0);
 static_assert(offsetof(DxGraphicEntry, width) == 0x08);
 static_assert(offsetof(DxGraphicEntry, height) == 0x0A);
 static_assert(offsetof(DxGraphicEntry, palette) == 0x10);
 static_assert(offsetof(DxGraphicEntry, value0C) == 0x18);
+static_assert(offsetof(DxGraphicEntry, animeActionFlags) == 0x1C);
+static_assert(offsetof(DxGraphicEntry, coordinateX) == 0x1E);
+static_assert(offsetof(DxGraphicEntry, coordinateY) == 0x20);
 
 // 原 103CFA4；由 GraphicAlloc 发布，失败或释放后不由该入口清槽。
 extern DxGraphicEntry* gGraphicDxCache103CFA4;

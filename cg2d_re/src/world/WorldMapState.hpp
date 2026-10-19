@@ -28,7 +28,8 @@ void CacheMapObjectGraphic_46DFF0(
 void DrawGearNormal_46C060(
     std::int32_t primaryIndex, std::int32_t before, std::int32_t imageNo,
     std::int16_t x, std::int16_t y,
-    const render::GraphicDescriptor16* descriptor, std::uint8_t batchType);
+    const render::GraphicDescriptor16* descriptor, std::uint8_t batchType,
+    std::uint8_t layer = 10); // AF406：FIELD/倒地WING单独层，普通挂件仍走人物前后链。
 
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 按序清零的独立 W32 槽。
 extern std::uint32_t gMapProjectionOffsetX_C3500C; // 原全局：0x00C3500C。

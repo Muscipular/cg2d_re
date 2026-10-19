@@ -384,6 +384,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
     YobiAction* action,
     std::int32_t rate,
     std::int32_t stopAtEnd,
-    std::uint32_t flipStatic);
+    std::uint32_t flipStatic,
+    const YobiAction* syncSource = nullptr);
 
 } // namespace cg::yobi

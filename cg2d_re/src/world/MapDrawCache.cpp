@@ -463,9 +463,20 @@ void CacheMapObjectGraphic_46DFF0(
 void DrawGearNormal_46C060(
     const std::int32_t primaryIndex, const std::int32_t before,
     const std::int32_t imageNo, const std::int16_t x, const std::int16_t y,
-    const render::GraphicDescriptor16* const descriptor, const std::uint8_t batchType)
+    const render::GraphicDescriptor16* const descriptor, const std::uint8_t batchType,
+    const std::uint8_t layer)
 {
     if (primaryIndex < 0) {
+        return;
+    }
+    if (layer != 10) {
+        // AF406：4.06的FIELD/倒地WING使用独立层，裁剪门禁仍跟随主对象。
+        const auto& primary = detail::gMapDrawPrimary9EE918[primaryIndex];
+        if (primary.descriptor.clipMode == 1) {
+            static_cast<void>(render::DrawGraphic3_520970(x, y, layer, imageNo, 0, 0, batchType, descriptor));
+        } else {
+            static_cast<void>(render::DrawGraphic2_521DD0(x, y, layer, imageNo, 0, batchType, descriptor));
+        }
         return;
     }
     const auto initialCount = std::bit_cast<std::int32_t>(detail::gMapAttachmentDrawCount_9A7F78);

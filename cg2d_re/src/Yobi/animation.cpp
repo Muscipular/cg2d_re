@@ -16,6 +16,22 @@ namespace cg::yobi {
 
 namespace detail {
 
+std::uint16_t GetYobiAnimeActionFlags(const YobiAction* const action) noexcept
+{
+    return render::ReadGraphicAnimeActionFlags(action->graphicIndex);
+}
+
+void GetYobiAttachmentCoordinate(
+    const YobiAction* const action, std::int32_t& x, std::int32_t& y, const bool applyFlip) noexcept
+{
+    std::int16_t coordinateX;
+    std::int16_t coordinateY;
+    render::ReadGraphicCoordinate(action->graphicIndex, coordinateX, coordinateY);
+    x = applyFlip && (action->drawMode.mixFlags & render::GraphicMixFlag_FlipX) != 0
+        ? -static_cast<std::int32_t>(coordinateX) : coordinateX;
+    y = coordinateY;
+}
+
 // 原两播放入口的同源翻转段；只有真实图形加载非零后才按需读取各个 DX 尺寸。
 static void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraphicIndex)
 {
@@ -44,7 +60,8 @@ static void ApplyYobiAnimeFrame(
     YobiAction* const action,
     const std::int32_t animeIndex,
     const resource::animation::detail::ActionEntry* const selected,
-    const resource::animation::detail::FrameEntry* const frames)
+    const resource::animation::detail::FrameEntry* const frames,
+    const YobiAction* const syncSource)
 {
     const std::uint16_t flag = frames[action->frameIndex].flag;
     if (flag != 0) {
@@ -57,6 +74,10 @@ static void ApplyYobiAnimeFrame(
     const auto* const graphicFrame = &frames[action->frameIndex];
     action->drawMode.mixFlags &= ~cg::render::GraphicMixFlag_FlipMask;
     action->graphicIndex = static_cast<std::int32_t>(graphicFrame->graphicIndex);
+    // AF406：4.06@470759按图号共享完整动作属性，不能从mixFlags低字节反推。
+    if ((resource::animation::gAnimateRecords9A4A58[animeIndex].flag & 1u) != 0) {
+        render::SetGraphicAnimeActionFlags(graphicFrame->graphicIndex, selected->revert);
+    }
     std::int16_t offsetX;
     std::int16_t offsetY;
     resource::GetGraphicXY(graphicFrame->graphicIndex, &offsetX, &offsetY);
@@ -115,9 +136,16 @@ static void ApplyYobiAnimeFrame(
     if ((mode & render::GraphicMixFlag_FlipY) != 0) {
         action->frameY = -action->frameY;
     }
-    const std::int32_t remaining = action->frameRemain - 1;
-    action->frameIndex = frameIndex + 1u;
-    action->frameRemain = remaining;
+    // 4.06@4707E5..47080B：取帧后同步下一帧，不重放同步源的帧事件。
+    const std::int32_t characterAction = action->characterAction;
+    if (syncSource != nullptr
+        && (GetYobiAnimeActionFlags(action) & resource::animation::AnimeActionFlag_Wing) != 0
+        && (characterAction == 5 || characterAction == 8 || characterAction == 9 || characterAction == 10)) {
+        action->frameIndex = syncSource->frameIndex;
+    } else {
+        action->frameIndex = frameIndex + 1u;
+        --action->frameRemain;
+    }
 }
 
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
@@ -149,7 +177,8 @@ std::int32_t GetScaledYobiGraphicOriginOffset_518300(
 }
 
 // 原函数：0x00517DA0。
-std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopAtEnd)
+std::int32_t PlayFrame_517DA0(
+    YobiAction* const action, const std::int32_t stopAtEnd, const YobiAction* const syncSource)
 {
     if (action == nullptr || action->hidden == 1) {
         return 0;
@@ -253,7 +282,7 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
+    ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource);
     return 0;
 }
 
@@ -284,7 +313,8 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
     YobiAction* const action,
     const std::int32_t rate,
     const std::int32_t stopAtEnd,
-    const std::uint32_t flipStatic)
+    const std::uint32_t flipStatic,
+    const YobiAction* const syncSource)
 {
     if (action == nullptr || action->hidden == 1) {
         return 0;
@@ -389,7 +419,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
+    detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource);
     return 0;
 }
 

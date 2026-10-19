@@ -110,9 +110,10 @@ void SyncBattleRider_421FB0(YobiAction* const action)
     action->scaleY = parent->scaleY;
 }
 
-// 原[4225D0,42277A)：播放非零返回会隐藏主装备，不改变装备自己的缩放。
+// 原[4225D0,42277A)身份/绘制属性接线；主挂件动作及坐标按AF406，不改变装备自己的缩放。
 void SyncBattleGear_4225D0(YobiAction* const action)
 {
+    using enum resource::animation::AnimeActionFlag;
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
     YobiAction* const registered = world::gBattleAllEntries59E980[position];
@@ -124,7 +125,16 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     }
     action->deltaX = parent->x;
     action->deltaY = parent->y;
-    action->characterAction = parent->characterAction == 8 ? 3 : 0;
+    const std::uint16_t animeFlags = GetYobiAnimeActionFlags(action);
+    const bool wing = (animeFlags & AnimeActionFlag_Wing) != 0;
+    const bool fixedPlacement = !wing && (animeFlags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0;
+    const std::int32_t parentAction = parent->characterAction;
+    if (wing) {
+        action->characterAction = parentAction;
+    } else if (!fixedPlacement) {
+        action->characterAction = parentAction >= 2 && parentAction <= 4 ? 0
+            : parentAction == 8 ? 3 : parentAction;
+    }
     const std::uint32_t flags = payload->flagsFDC;
     std::uint32_t extraFlags = 0;
     if ((flags & 0x10000000u) != 0) {
@@ -136,22 +146,16 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     if ((flags & 0x2000u) != 0) {
         extraFlags = 2;
     }
-    bool play;
-    if (parent->phase != 0) {
-        play = true;
-    } else if (action->characterAction != 0) {
-        action->characterAction = 0;
-        play = (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & 0x60u) == 0;
-    } else {
-        play = (*reinterpret_cast<const unsigned char*>(&parent->flags) & 0x40u) != 0 && (flags & 0x60u) == 0;
-    }
-    const std::int32_t parentDirection = parent->direction;
-    if (action->direction != parentDirection) {
-        action->direction = parentDirection;
-        play = true;
-    }
-    if (play && PlayFrame_517DA0(action, 0) != 0) {
+    action->direction = parent->direction;
+    const std::int32_t image = parent->imageNo;
+    const bool suppressWing = wing && parentAction == 6
+        && ((image >= 100250 && image <= 100273) || (image >= 100650 && image <= 100655));
+    if (suppressWing || (fixedPlacement && parentAction == 10)) {
         extraFlags = 2;
+    } else {
+        const std::int32_t stopAtEnd = wing ? parent->playRevert : 0;
+        // 4.06@46EA79持续播放，返回值不作为主挂件隐藏条件。
+        static_cast<void>(PlayFrame_517DA0(action, stopAtEnd, wing ? parent : nullptr));
     }
     std::uint32_t drawFlags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
     action->flags = drawFlags;
@@ -164,30 +168,46 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     action->color2 = parent->color2;
     action->rebirthValue1 = parent->rebirthValue1;
     action->rebirthValue2 = parent->rebirthValue2;
-    YobiAction* const rider = payload->rider13C8;
-    if (rider != nullptr) {
-        const std::int32_t frameX = rider->frameX;
-        const float xScale = parent->scaleX;
-        const std::int32_t xOffset = static_cast<std::int32_t>(
-            static_cast<double>(frameX) * xScale);
-        action->x = xOffset + rider->x;
-        YobiAction* const currentRider = payload->rider13C8;
-        const std::int32_t frameY = currentRider->frameY;
-        const float yScale = parent->scaleX;
-        const std::int32_t yOffset = static_cast<std::int32_t>(
-            static_cast<double>(frameY) * yScale);
-        action->y = yOffset + currentRider->y;
-    } else {
-        const std::int32_t frameX = parent->frameX;
-        const float xScale = parent->scaleX;
-        const std::int32_t xOffset = static_cast<std::int32_t>(
-            static_cast<double>(frameX) * xScale);
-        action->x = xOffset + parent->x;
-        const std::int32_t frameY = parent->frameY;
-        const float yScale = parent->scaleY;
-        const std::int32_t yOffset = static_cast<std::int32_t>(
-            static_cast<double>(frameY) * yScale);
-        action->y = yOffset + parent->y;
+    // AF406：4.06@46E83A之后只叠加Coordinate，不把人物动画帧偏移重复加入挂件。
+    std::int32_t xOffset = 0;
+    std::int32_t yOffset = 0;
+    if (!fixedPlacement) {
+        if ((animeFlags & AnimeActionFlag_LockPos) == 0) {
+            GetYobiAttachmentCoordinate(parent, xOffset, yOffset, false);
+        }
+        YobiAction* const rider = payload->rider13C8;
+        if (rider != nullptr) {
+            std::int32_t riderX;
+            std::int32_t riderY;
+            GetYobiAttachmentCoordinate(rider, riderX, riderY);
+            xOffset += riderX;
+            yOffset += riderY;
+        }
+    }
+    action->x = parent->x + static_cast<std::int16_t>(xOffset);
+    action->y = parent->y + static_cast<std::int16_t>(yOffset);
+}
+
+// AF406：战斗排序完成后承接4.06@46E910后的WING/FIELD/SHIELD层选择。
+void ResolveBattleGearLayer406(YobiAction* const action)
+{
+    using enum resource::animation::AnimeActionFlag;
+    if (action->callback != UpdateBattleAttachment_421F90) {
+        return;
+    }
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent == nullptr || parent->payloadKind != YobiPayloadKind::BattleActor
+        || parent->payload.battleActor->gear13B4 != action) {
+        return;
+    }
+    const std::uint16_t flags = GetYobiAnimeActionFlags(action);
+    if ((flags & AnimeActionFlag_Wing) != 0) {
+        // 本线每个对象独立分配层；保留正常前景层，只把背向挂件放到人物之前。
+        if (parent->direction >= 4 && parent->direction <= 6) {
+            action->displayPriority = static_cast<std::uint8_t>(parent->displayPriority - 1);
+        }
+    } else if ((flags & AnimeActionFlag_Field) != 0) {
+        action->displayPriority = 2;
     }
 }
 

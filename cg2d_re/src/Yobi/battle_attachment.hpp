@@ -10,7 +10,8 @@ void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变
 // 原函数：0x00421FB0。
 void SyncBattleRider_421FB0(YobiAction* action); // 非零phase仅同步绘制属性；零phase另映射动作并投影。
 // 原函数：0x004225D0。
-void SyncBattleGear_4225D0(YobiAction* action); // 骑乘两轴均用父scaleX，Y轴重取骑乘引用。
+void SyncBattleGear_4225D0(YobiAction* action); // AF406：主挂件动作、独立Coordinate及隐藏条件。
+void ResolveBattleGearLayer406(YobiAction* action); // AF406：最终排序之后解析主挂件层，辅助宠物不参与。
 // 原函数：0x00422780。
 void SyncBattleAuxGear_422780(YobiAction* action, std::int32_t index); // type/动作/方向映射；身份检查前复制方向。
 // 原函数：0x004221F0。

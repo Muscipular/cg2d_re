@@ -851,6 +851,9 @@ std::int32_t SortBattleActions_405C30()
             ++index;
             action->displayPriority = priority;
         } while (index < detail::gDrawYobiCount59E578);
+        for (std::int32_t gearIndex = 0; gearIndex < detail::gDrawYobiCount59E578; ++gearIndex) {
+            detail::ResolveBattleGearLayer406(detail::gDrawYobiList59E57C[gearIndex]);
+        }
     }
     return index;
 }

@@ -76,8 +76,8 @@ struct WindowItemDetailGroup {
 
 // 原CC3210独立详情；4B77E0整区清零／生产，六个S32仍属同一对象。
 struct WindowShopDetail {
-    std::array<char, 29> name; // 原成员偏移：+0x00。
-    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x1D。
+    std::wstring name; // 原成员偏移：+0x00；内部宽文本。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x1D；内部描述行。
     std::array<std::byte, 3> reservedC1D; // 原成员偏移：+0xC1D。
     std::int32_t imageNo; // 原成员偏移：+0xC20。
     std::int32_t quantity; // 原成员偏移：+0xC24。
@@ -94,18 +94,7 @@ struct WindowMaterialState {
     std::array<std::byte, 3> reserved15; // 原成员偏移：+0x15；未确认用途，随整区清零。
 };
 
-static_assert(std::is_standard_layout_v<WindowShopDetail>);
-static_assert(std::is_trivially_copyable_v<WindowShopDetail>);
-static_assert(sizeof(WindowShopDetail) == 0xC38);
-static_assert(offsetof(WindowShopDetail, name) == 0x00);
-static_assert(offsetof(WindowShopDetail, description) == 0x1D);
-static_assert(offsetof(WindowShopDetail, reservedC1D) == 0xC1D);
-static_assert(offsetof(WindowShopDetail, imageNo) == 0xC20);
-static_assert(offsetof(WindowShopDetail, quantity) == 0xC24);
-static_assert(offsetof(WindowShopDetail, itemId) == 0xC28);
-static_assert(offsetof(WindowShopDetail, price) == 0xC2C);
-static_assert(offsetof(WindowShopDetail, capacity) == 0xC30);
-static_assert(offsetof(WindowShopDetail, valueC34) == 0xC34);
+// IWT01：商店详情为内部对象，旧字节偏移仅作来源说明。
 
 static_assert(std::is_standard_layout_v<WindowMaterialState>);
 static_assert(std::is_trivially_copyable_v<WindowMaterialState>);

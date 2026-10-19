@@ -31,8 +31,8 @@ static std::int32_t CalculateRepeatedShopQuantity(
 // 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
 struct WindowShopItem {
     char used; // 原成员偏移：+0x00；按原字节判非零。
-    std::array<char, 29> name; // 原成员偏移：+0x01。
-    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x1E。
+    std::wstring name; // 原成员偏移：+0x01。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x1E。
     std::array<std::byte, 2> reservedC1E; // 原成员偏移：+0xC1E。
     std::int32_t imageNo; // 原成员偏移：+0xC20。
     std::int32_t price; // 原成员偏移：+0xC24。
@@ -44,27 +44,10 @@ struct WindowShopItem {
     char allowed; // 原成员偏移：+0xC3C；原U8／S8转换由使用方保留。
     std::array<std::byte, 3> reservedC3D; // 原成员偏移：+0xC3D。
     std::int32_t flags; // 原成员偏移：+0xC40；位标志按原位型读取。
-    std::array<char, 20> memo; // 原成员偏移：+0xC44；至记录末端的附文存储区，不另定逻辑长度。
+    std::wstring memo; // 原成员偏移：+0xC44；内部附文。
 };
 
-static_assert(std::is_standard_layout_v<WindowShopItem>);
-static_assert(std::is_trivially_copyable_v<WindowShopItem>);
-static_assert(sizeof(WindowShopItem) == 0xC58);
-static_assert(offsetof(WindowShopItem, used) == 0x00);
-static_assert(offsetof(WindowShopItem, name) == 0x01);
-static_assert(offsetof(WindowShopItem, description) == 0x1E);
-static_assert(offsetof(WindowShopItem, reservedC1E) == 0xC1E);
-static_assert(offsetof(WindowShopItem, imageNo) == 0xC20);
-static_assert(offsetof(WindowShopItem, price) == 0xC24);
-static_assert(offsetof(WindowShopItem, selected) == 0xC28);
-static_assert(offsetof(WindowShopItem, inventoryIndex) == 0xC2C);
-static_assert(offsetof(WindowShopItem, count) == 0xC30);
-static_assert(offsetof(WindowShopItem, maximum) == 0xC34);
-static_assert(offsetof(WindowShopItem, valueC38) == 0xC38);
-static_assert(offsetof(WindowShopItem, allowed) == 0xC3C);
-static_assert(offsetof(WindowShopItem, reservedC3D) == 0xC3D);
-static_assert(offsetof(WindowShopItem, flags) == 0xC40);
-static_assert(offsetof(WindowShopItem, memo) == 0xC44);
+// IWT01：商品文本为内部对象，不再依赖原C58H字节布局。
 
 // 回调与内部函数前置声明。
 
@@ -190,7 +173,6 @@ static std::int32_t WindowShop_Draw(std::int32_t value);
 // 控件载荷、窗口状态、组件表与原型。
 
 static std::array<WindowShopItem, 20> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
-static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
 
 static constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊现在无法装备"; // 原常量参考：0x00586BF4。
 
@@ -208,7 +190,7 @@ static std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {}; // 原全局：0x
 static std::array<char, 20> gShopSelectedSlotsCB03DC {}; // 原全局：0x00CB03DC。
 static_assert(sizeof(gShopSelectedSlotsCB03DC) == 20);
 
-static std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。 模式2字段7反转义结果，不套商品名回退。
+static std::wstring gShopTextCB0184; // 原全局：0x00CB0184。 模式2字段7反转义后的内部宽文本。
 
 static std::int32_t gShopValueCAFEA4 = 0; // 原全局：0x00CAFEA4。
 
@@ -483,7 +465,7 @@ static std::int32_t WindowItem_DrawShopTooltip(
     const auto* record = &gShopItemsCF4FE0[index];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
-    std::wstring title = cg::text::FromGbkWide(record->memo.data());
+    std::wstring title = record->memo;
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
@@ -491,9 +473,9 @@ static std::int32_t WindowItem_DrawShopTooltip(
         std::int32_t count;
         std::memcpy(&count, &record->count, sizeof(count));
         if (count <= 1) {
-            title = cg::text::FromGbkWide(record->name.data());
+            title = record->name;
         } else {
-            title = std::format(L"{}({})", cg::text::FromGbkWide(record->name.data()), count);
+            title = std::format(L"{}({})", record->name, count);
             key = gTooltipSourceD303FC;
         }
         record = &gShopItemsCF4FE0[key - 300];
@@ -502,10 +484,10 @@ static std::int32_t WindowItem_DrawShopTooltip(
     }
     const wchar_t* const footer = record->allowed == 0 && showUnavailable != 0
         ? kShopUnavailableHint586BF4 : nullptr;
-    const char* const lines = record->description[page * 8].data();
+    const auto* const lines = record->description.data() + page * 8;
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, footer, 4);
+    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, footer, 4);
 }
 
 // 原函数：0x004B6C50。
@@ -639,17 +621,18 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
         auto* const record = &gShopItemsCF4FE0[index];
         record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
         record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record->description[row].data();
+            char line[3072]{};
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
+            record->description[row] = cg::text::FromGbkWide(line);
         }
         record->allowed = static_cast<char>(
             network::ParseDelimitedInteger_52CFA0(text, '|', field++));
@@ -693,7 +676,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
         auto* const record = &gShopItemsCF4FE0[index];
         record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
         record->count = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
@@ -703,16 +686,17 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) != 0) {
-            std::strcpy(record->memo.data(), buffer.data());
+            record->memo = cg::text::FromGbkWide(buffer.data());
         }
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 20; ++row) {
-            char* const line = record->description[row].data();
+            char line[3072]{};
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
+            record->description[row] = cg::text::FromGbkWide(line);
         }
         const auto value = static_cast<std::uint8_t>(
             network::ParseDelimitedInteger_52CFA0(text, '|', field++));
@@ -772,8 +756,9 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
     }
     gShopExchangeCurrencyItemId_D2D608 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
     static_cast<void>(network::ExtractDelimitedField_52CED0(
-        text, '|', 7, 28, gShopTextCB0184.data()));
-    input::UnescapeLegacyTextAndNotify_52D2F0(gShopTextCB0184.data());
+        text, '|', 7, 28, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    gShopTextCB0184 = cg::text::FromGbkWide(buffer.data());
     gShopItemsCF4FE0.fill({});
     gShopItemCountCB1E10 = 0;
     std::int32_t field = 8;
@@ -785,7 +770,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
         record->used = 1;
         record->allowed = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
         record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         const std::int32_t maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
@@ -798,10 +783,11 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record->description[row].data();
+            char line[3072]{};
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
+            record->description[row] = cg::text::FromGbkWide(line);
         }
         ++gShopItemCountCB1E10;
     }
@@ -818,7 +804,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894.shopMode = 3;
-    std::memset(&gShopDetailCC3210, 0, sizeof(gShopDetailCC3210));
+    gShopDetailCC3210 = {};
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -840,14 +826,15 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
     detail->itemId = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 10, 768, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    std::strncpy(detail->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), static_cast<std::uint32_t>(29));
+    detail->name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 11, 767, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 32; ++row) {
-        char* const line = detail->description[row].data();
+        char line[3072]{};
         if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
             line[0] = '\0';
         }
+        detail->description[row] = cg::text::FromGbkWide(line);
     }
     detail->quantity = network::ParseDelimitedInteger_52CFA0(text, '|', 12);
     detail->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 13);
@@ -896,7 +883,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
         auto* const record = &gShopItemsCF4FE0[index];
         record->used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        std::strcpy(record->name.data(), std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        record->name = cg::text::FromGbkWide(std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
         record->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->price = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record->inventoryIndex = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
@@ -907,16 +894,17 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) != 0) {
-            std::strcpy(record->memo.data(), buffer.data());
+            record->memo = cg::text::FromGbkWide(buffer.data());
         }
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', field++, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 32; ++row) {
-            char* const line = record->description[row].data();
+            char line[3072]{};
             if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
                 line[0] = '\0';
             }
+            record->description[row] = cg::text::FromGbkWide(line);
         }
         ++gShopReplyItemCountCF4B58;
     }
@@ -994,7 +982,7 @@ static void WindowShop_RefreshBuyRows()
         std::uint32_t flags;
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record->memo.data());
+            buffer = record->memo;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
@@ -1003,9 +991,9 @@ static void WindowShop_RefreshBuyRows()
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record->name.data());
+                buffer = record->name;
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", record->name, count));
             }
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -1115,7 +1103,7 @@ static void WindowShop_RefreshSellRows()
         std::uint32_t flags;
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record->memo.data());
+            buffer = record->memo;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
@@ -1124,9 +1112,9 @@ static void WindowShop_RefreshSellRows()
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record->name.data());
+                buffer = record->name;
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", record->name, count));
             }
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = &gShopItemsCF4FE0[index];
@@ -1243,7 +1231,7 @@ static void WindowShop_RefreshExchangeRows()
         std::uint32_t flags;
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(record->memo.data());
+            buffer = record->memo;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->style.color =
@@ -1252,9 +1240,9 @@ static void WindowShop_RefreshExchangeRows()
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
             if (count <= 1) {
-                buffer = cg::text::FromGbkWide(record->name.data());
+                buffer = record->name;
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(record->name.data()).c_str(), count));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", record->name, count));
             }
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -1340,7 +1328,7 @@ static void WindowShop_RefreshDetailName()
     std::memcpy(&price, &gShopDetailCC3210.valueC34, sizeof(price));
     cg::text::FormatTo(gShopPriceTextsD673EC[0], L"{:10}", price);
     WindowRuntime_FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[17].data),
-        static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), cg::text::FromGbkWide(gShopDetailCC3210.name.data()));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), gShopDetailCC3210.name);
 }
 
 // 原函数：0x004B9270。
@@ -1668,7 +1656,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                 }
                 WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
                 preview.visible = 1;
-                std::strcpy(preview.name.data(), record->name.data());
+                preview.name = record->name;
                 std::int32_t imageNo;
                 std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
                 preview.color = 0;
@@ -1725,10 +1713,10 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                 std::uint32_t flags;
                 std::memcpy(&flags, &record->flags, sizeof(flags));
                 if ((flags & 0x100u) != 0) {
-                    std::strcpy(preview.name.data(), record->memo.data());
+                    preview.name = record->memo;
                     preview.color = 5;
                 } else {
-                    std::strcpy(preview.name.data(), record->name.data());
+                    preview.name = record->name;
                     preview.color = (flags & 0x200u) != 0 ? 1 : 0;
                 }
                 std::int32_t imageNo;
@@ -1766,9 +1754,8 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
         case 3: {
             WindowConfirmationItem& preview = gConfirmationItemsCB1E40[0];
             preview.visible = 1;
-            const std::size_t length = std::strlen(gShopDetailCC3210.name.data()) + 1;
             gConfirmationCallbackC8B088 = &WindowShop_Submit;
-            std::memcpy(preview.name.data(), gShopDetailCC3210.name.data(), length);
+            preview.name = gShopDetailCC3210.name;
             std::int32_t imageNo;
             std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
             preview.color = 0;
@@ -1811,7 +1798,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
                 WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
                 preview.visible = 1;
                 const auto* const record = &gShopItemsCF4FE0[item];
-                std::strcpy(preview.name.data(), record->name.data());
+                preview.name = record->name;
                 preview.color = 0;
                 // 原flags来源按紧凑显示项推进，不跟随选择槽映射。
                 std::uint32_t flags;
@@ -1853,7 +1840,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
         }
         if (overlayReady) {
             if (mode == 2) {
-                cg::text::FormatTo(gConfirmationLineCB1320, kShopConfirmHeadings[textMode], cg::text::FromGbkWide(gShopTextCB0184.data()).c_str());
+                cg::text::FormatTo(gConfirmationLineCB1320, kShopConfirmHeadings[textMode], gShopTextCB0184);
             } else {
                 cg::text::FormatTo(gConfirmationLineCB1320, kShopConfirmHeadings[textMode]);
             }
@@ -3128,16 +3115,16 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         const auto* const record = &gShopItemsCF4FE0[item];
         std::wstring buffer;
         std::uint32_t flags = 0;
-        if (std::strlen(record->memo.data()) != 0) {
+        if (!record->memo.empty()) {
             std::memcpy(&flags, &record->flags, sizeof(flags));
         }
         if ((flags & 0x100u) != 0) {
-            cg::text::FormatTo(buffer, L"{}[kok]", cg::text::FromGbkWide(record->name.data()).c_str());
+            cg::text::FormatTo(buffer, L"{}[kok]", record->name);
             gHoverTextD68AE8 = buffer;
         } else {
             std::memcpy(&flags, &record->flags, sizeof(flags));
             if ((flags & 0x200u) != 0) {
-                cg::text::FormatTo(buffer, L"{}[han]", cg::text::FromGbkWide(record->memo.data()).c_str());
+                cg::text::FormatTo(buffer, L"{}[han]", record->memo);
                 gHoverTextD68AE8 = buffer;
             }
         }
@@ -3473,7 +3460,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
-                    4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
+                    4, 12, nameColor, item.name, 0, nameFrame));
             }
             static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));

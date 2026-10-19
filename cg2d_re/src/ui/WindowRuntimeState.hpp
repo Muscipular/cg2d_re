@@ -402,21 +402,15 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
-// 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，数值布局保持48B。
+// 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，文本采用宽字符串。
 struct WindowConfirmationItem {
     std::int32_t imageNo; // +00。
     std::int32_t quantity; // +04，数量文本第二项。
     std::int32_t factor; // +08，非零时显示乘数前缀。
     std::int32_t color; // +0C，绘制只读低S8。
-    std::array<char, 31> name; // +10原字节文本。
+    std::wstring name; // 原+10；内部宽文本。
     std::uint8_t visible; // +2F，不与名称分配另一份重叠存储。
 };
-static_assert(sizeof(WindowConfirmationItem) == 48);
-static_assert(offsetof(WindowConfirmationItem, quantity) == 4);
-static_assert(offsetof(WindowConfirmationItem, factor) == 8);
-static_assert(offsetof(WindowConfirmationItem, color) == 12);
-static_assert(offsetof(WindowConfirmationItem, name) == 16);
-static_assert(offsetof(WindowConfirmationItem, visible) == 47);
 
 // 普通/晶石商店各两条确认数值，不持有指针。
 struct WindowConfirmationAmount {
@@ -433,30 +427,18 @@ static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
 // 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
 struct WindowCrystalItem {
     std::uint8_t used; // 原成员偏移：+0x00。
-    std::array<char, 29> name; // 原成员偏移：+0x01。
-    std::array<char, 3072> description; // 原成员偏移：+0x1E。
+    std::wstring name; // 原成员偏移：+0x01。
+    std::array<std::wstring, 32> description; // 原+0x1E；内部按行存放。
     std::array<std::byte, 2> bytesC1E; // 原成员偏移：+0xC1E。
     std::int32_t imageNo; // 原成员偏移：+0xC20。
     std::int32_t valueC24; // 原成员偏移：+0xC24。
     std::int32_t selectedCount; // +C28，两种晶石商店共用的数量字段语义。
     std::int32_t valueC2C; // 原成员偏移：+0xC2C。
     std::uint32_t flags; // 原成员偏移：+0xC30。
-    std::array<char, 24> tips; // 原成员偏移：+0xC34。
+    std::wstring tips; // 原成员偏移：+0xC34。
     std::int32_t limitC4C; // 原成员偏移：+0xC4C。
     std::int32_t remainingC50; // 原成员偏移：+0xC50。
 };
-static_assert(sizeof(WindowCrystalItem) == 0xC54);
-static_assert(offsetof(WindowCrystalItem, used) == 0);
-static_assert(offsetof(WindowCrystalItem, name) == 1);
-static_assert(offsetof(WindowCrystalItem, description) == 0x1E);
-static_assert(offsetof(WindowCrystalItem, imageNo) == 0xC20);
-static_assert(offsetof(WindowCrystalItem, valueC24) == 0xC24);
-static_assert(offsetof(WindowCrystalItem, selectedCount) == 0xC28);
-static_assert(offsetof(WindowCrystalItem, valueC2C) == 0xC2C);
-static_assert(offsetof(WindowCrystalItem, flags) == 0xC30);
-static_assert(offsetof(WindowCrystalItem, tips) == 0xC34);
-static_assert(offsetof(WindowCrystalItem, limitC4C) == 0xC4C);
-static_assert(offsetof(WindowCrystalItem, remainingC50) == 0xC50);
 
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
@@ -774,10 +756,6 @@ std::int32_t WindowItem_SplitTooltipLines(
 std::int32_t WindowItem_DrawTooltip(
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const std::wstring* lines, std::int32_t lineCount, const wchar_t* footer, std::int8_t footerColor);
-std::int32_t WindowItem_DrawTooltip(
-    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
-    const char* gbkLines, std::int32_t stride, std::int32_t lineCount,
-    const wchar_t* footer, std::int8_t footerColor); // TDR01：完整层5提示，S16正文坐标/色彩续接、可选标题footer与真实背景返回保持。
 // 原函数：0x0048B1A0。
 std::int32_t WindowItem_DrawEquipmentTooltip(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 // 原函数：0x0048B350。

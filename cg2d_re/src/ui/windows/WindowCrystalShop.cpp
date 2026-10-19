@@ -138,7 +138,7 @@ static std::wstring gWindow69ConfirmAcceptD2E81C {}; // 原全局：0x00D2E81C�
 
 static std::wstring gWindow69ConfirmCancelCB076C {}; // 原全局：0x00CB076C。
 
-static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
+// IWT01：晶石商品为含宽文本的内部记录。
 
 static WindowGraphicData gWindowGraphic5756F0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005756F0。
 
@@ -336,7 +336,7 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* const text)
         }
     }
     gShopItemCountCB1E10 = 0;
-    std::memset(gWindow69ItemsCB2230.data(), 0, sizeof(gWindow69ItemsCB2230));
+    gWindow69ItemsCB2230.fill({});
     std::int32_t field = 8;
     for (WindowCrystalItem* item = gWindow69ItemsCB2230.data();
          item != gWindow69ItemsCB2230.data() + gWindow69ItemsCB2230.size(); ++item, field += 7) {
@@ -346,9 +346,9 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* const text)
         gWindow69ItemsCB2230[gShopItemCountCB1E10].used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) > 28) {
-            std::strcpy(item->name.data(), "???");
+            item->name = L"???";
         } else {
-            std::strcpy(gWindow69ItemsCB2230[gShopItemCountCB1E10].name.data(), buffer.data());
+            gWindow69ItemsCB2230[gShopItemCountCB1E10].name = cg::text::FromGbkWide(buffer.data());
         }
         item->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
         item->valueC24 = network::ParseDelimitedInteger_52CFA0(text, '|', field);
@@ -367,12 +367,14 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* const text)
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         std::int32_t currentCount = gShopItemCountCB1E10;
         for (std::int32_t row = 0; row < 32; ++row) {
+            auto& destination = gWindow69ItemsCB2230[currentCount].description[row];
+            char line[3072]{};
             const std::int32_t copied = input::ExtractLegacyLine_503AB0(
-                gWindow69ItemsCB2230[currentCount].description.data() + row * 96,
-                3072, buffer.data(), row, 32);
+                line, 3072, buffer.data(), row, 32);
+            destination = cg::text::FromGbkWide(line);
             currentCount = gShopItemCountCB1E10;
             if (copied == 0) {
-                gWindow69ItemsCB2230[currentCount].description[row * 96] = '\0';
+                gWindow69ItemsCB2230[currentCount].description[row].clear();
             }
         }
         gShopItemCountCB1E10 = currentCount + 1;
@@ -417,7 +419,7 @@ static void WindowCrystalShop_RefreshRows()
         cg::text::FormatTo(price, L"{:10}", item->valueC24);
         item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
         if ((item->flags & 0x100u) != 0) {
-            buffer = cg::text::FromGbkWide(item->tips.data());
+            buffer = item->tips;
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->style.color =
                 std::byte{5};
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->style.color =
@@ -425,9 +427,9 @@ static void WindowCrystalShop_RefreshRows()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({}{})", cg::text::FromGbkWide(item->name.data()).c_str(), L"堆叠数", stack));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({}{})", item->name, L"堆叠数", stack));
             } else {
-                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", cg::text::FromGbkWide(item->name.data()).c_str(), L"不可堆叠"));
+                static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", item->name, L"不可堆叠"));
             }
             const std::uint32_t flags =
                 gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row].flags;
@@ -687,7 +689,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(const std::int32_t index, const s
                     }
                     WindowConfirmationItem& preview = gWindow69ConfirmItemsD2E458[count];
                     preview.visible = 1;
-                    std::strcpy(preview.name.data(), item.name.data());
+                    preview.name = item.name;
                     const std::int32_t imageNo = item.imageNo;
                     preview.color = 0;
                     preview.imageNo = imageNo;
@@ -1158,7 +1160,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(const std::int32_t inde
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
-                    4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
+                    4, 12, nameColor, item.name, 0, nameFrame));
             }
             static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
@@ -1202,18 +1204,18 @@ static std::int32_t WindowCrystalShop_ShowTooltip(
     gTooltipSourceD303FC = key;
     const WindowCrystalItem* const item = &gWindow69ItemsCB2230[index];
     const std::uint32_t flags = item->flags;
-    std::wstring title = cg::text::FromGbkWide(item->tips.data());
+    std::wstring title = item->tips;
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
     } else {
-        title = cg::text::FromGbkWide(item->name.data());
+        title = item->name;
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
-    const char* const lines = item->description.data() + page * 768;
+    const auto* const lines = item->description.data() + page * 8;
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 4);
+    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 4);
 }
 
 } // namespace detail

@@ -1573,18 +1573,6 @@ std::int32_t WindowItem_DrawTooltip(
         lineCount, footer, footerColor);
 }
 
-// 原0x0048B810：尚未迁移的固定GBK记录适配；保留原步长与即时逐行解码。
-std::int32_t WindowItem_DrawTooltip(
-    const std::int32_t x, const std::int32_t y,
-    const wchar_t* const title, const std::int8_t titleColor,
-    const char* const gbkLines, const std::int32_t stride, const std::int32_t lineCount,
-    const wchar_t* const footer, const std::int8_t footerColor)
-{
-    return WindowItem_DrawTooltipLines(x, y, title, titleColor,
-        [gbkLines, stride](const std::int32_t line) { return cg::text::FromGbkWide(gbkLines + line * stride); },
-        lineCount, footer, footerColor);
-}
-
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // 原函数：0x004C61B0。
 WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* const state, const std::int32_t previewIndex)
@@ -2608,10 +2596,10 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     gTooltipSourceD303FC = 400;
-    const std::wstring title = cg::text::FromGbkWide(gShopDetailCC3210.name.data());
+    const auto& title = gShopDetailCC3210.name;
     return WindowItem_DrawTooltip(
-        x, y, title.c_str(), 0, gShopDetailCC3210.description[page * 8].data(),
-        96, 8, nullptr, 0);
+        x, y, title.c_str(), 0, gShopDetailCC3210.description.data() + page * 8,
+        8, nullptr, 0);
 }
 
 // 原函数：0x00503CB0。

@@ -108,7 +108,7 @@ std::int32_t DrawGraphic3_520970(
 }
 
 // 原函数：0x0045F090。
-std::int32_t Sub_45F090(
+std::int32_t QueueOriginalPaletteGraphic_45F090(
     const std::int32_t x,
     const std::int32_t y,
     const std::uint8_t layer,
@@ -132,7 +132,7 @@ std::int32_t Sub_45F090(
 }
 
 // 原函数：0x00521C80。
-std::int32_t Sub_521C80(
+std::int32_t QueueGraphicWithResourceOffset_521C80(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
     const std::int32_t imageNo, const std::int32_t value4,
     const GraphicDescriptor16* const descriptor)

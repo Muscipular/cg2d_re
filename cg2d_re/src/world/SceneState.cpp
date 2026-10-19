@@ -8307,7 +8307,7 @@ void Sub_476680()
                 std::int32_t column = 0;
                 if (sideCount > 0) {
                     do {
-                        static_cast<void>(render::Sub_521C80(x, y, 100, 3, 0, nullptr));
+                        static_cast<void>(render::QueueGraphicWithResourceOffset_521C80(x, y, 100, 3, 0, nullptr));
                         radius = platform::gValue554640;
                         ++column;
                         x += 32;

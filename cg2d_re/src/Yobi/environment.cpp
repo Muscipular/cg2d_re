@@ -819,7 +819,7 @@ void Sub_449160()
         return;
     }
     detail::Sub_448290();
-    render::Sub_520910();
+    render::AdvanceRipplePhase_520910();
     if (world::Sub_4493C0() == 0) {
         return;
     }

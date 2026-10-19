@@ -271,7 +271,7 @@ std::int32_t ProcessScene_462330()
     render::gGraphicCache4Queue[3] = 0;
     static_cast<void>(ProcessCharacterSlot_461B30(0, 1));
     static_cast<void>(ProcessCharacterSlot_461B30(1, 1));
-    return cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1);
+    return cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1);
 }
 
 } // namespace cg::character_select

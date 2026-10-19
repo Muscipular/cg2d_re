@@ -55,22 +55,22 @@ static bool Sub_45EF80()
 static void DrawFiveCapability3Images()
 {
     static_cast<void>(
-        cg::render::Sub_45F090(638, 478, 3, 245152, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245152, 0, -1));
     static_cast<void>(
-        cg::render::Sub_45F090(638, 478, 3, 245150, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245150, 0, -1));
     static_cast<void>(
-        cg::render::Sub_45F090(638, 478, 3, 245156, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245156, 0, -1));
     static_cast<void>(
-        cg::render::Sub_45F090(638, 478, 3, 245157, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245157, 0, -1));
     static_cast<void>(
-        cg::render::Sub_45F090(638, 478, 3, 245151, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245151, 0, -1));
 }
 
 static std::int32_t DrawCapability3CommonTail()
 {
     const std::uint32_t firstAlpha = cg::login::gValue9A6200;
     if (firstAlpha != 0U) {
-        static_cast<void>(cg::render::Sub_45F090(
+        static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
             139,
             350,
             206,
@@ -81,7 +81,7 @@ static std::int32_t DrawCapability3CommonTail()
 
     const std::int32_t secondAlpha = gAlpha9A5E70;
     if (secondAlpha != 0) {
-        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
             0,
             0,
             206,
@@ -92,7 +92,7 @@ static std::int32_t DrawCapability3CommonTail()
 
     const std::int32_t thirdAlpha = gAlpha9A4CA0;
     if (thirdAlpha != 0) {
-        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
             0,
             0,
             206,
@@ -103,7 +103,7 @@ static std::int32_t DrawCapability3CommonTail()
 
     const std::int32_t fourthAlpha = gAlpha9A4D08;
     if (fourthAlpha != 0) {
-        return cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(
+        return cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
             0,
             0,
             3,

@@ -1649,7 +1649,7 @@ std::int32_t ProcessScene_460FF0()
         const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
         if (secondaryState <= 20u
             && (secondaryState <= 9u || secondaryState >= 19u)) {
-            sceneResult = cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
+            sceneResult = cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
             break;
         }
 
@@ -1728,7 +1728,7 @@ std::int32_t ProcessScene_460FF0()
                 uiStyle = 1;
             }
             cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
-            cg::render::Sub_45F090(252, 392, 4, 245078, 0, -1);
+            cg::render::QueueOriginalPaletteGraphic_45F090(252, 392, 4, 245078, 0, -1);
         }
 
         if (uiStyle == 0
@@ -1741,7 +1741,7 @@ std::int32_t ProcessScene_460FF0()
             login::detail::PlaySe(54, 320, 240);
         }
         cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
-        cg::render::StretchGraphicToScreen(cg::render::Sub_45F090(0, 0, 3, 245060, 0, -1), true);
+        cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG
         if (world::gCurrentSceneState == kUsageNoticeState) {

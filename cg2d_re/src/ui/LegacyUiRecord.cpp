@@ -102,7 +102,7 @@ void DrawUiControl_45EFD0(
 
     const std::int32_t drawY = controlRecord->bounds.top;
     const std::int32_t drawX = controlRecord->bounds.left;
-    static_cast<void>(cg::render::Sub_45F090(
+    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
         drawX,
         drawY,
         renderLayer,

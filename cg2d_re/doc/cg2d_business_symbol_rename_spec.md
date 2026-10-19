@@ -99,3 +99,20 @@
 | `gValue626C0C` | `gInputCaretBlinkPhase_626C0C` | InputCaret中0—39循环、20开始显示；编辑及IME写20。 |
 
 十三份源／头全部引用同步，完整正文反向替换与提交前一致，旧符号零残留、新名无冲突、UTF-8无BOM／LF及差异静态检查通过。未编译、测试或运行；其他输入gValue和未证字段保持。
+
+## BSR01-D 绘图队列与波纹
+
+依据当前DrawGraphic、GraphicPendingQueue、SurfaceState及其地址注释，保留现有SDL实现。
+
+| 旧符号 | 新名称 | 证据 |
+|---|---|---|
+| `Sub_45F090` | `QueueOriginalPaletteGraphic_45F090` | 设置OriginalPalette描述符并调用DrawGraphic3入队；返回队列索引。 |
+| `Sub_521C80` | `QueueGraphicWithResourceOffset_521C80` | 大于999的图号查资源索引和XY偏移，加到入队坐标。 |
+| `Sub_522210` | `DrawQueuedPaletteRect_522210` | 解包队列项四个S16矩形边界，按图号高位选择三种绘制模式。 |
+| `Sub_451350` | `DrawPaletteRectPrimitive_451350` | 裁剪矩形，按调色板／扩展色绘制轮廓、填充或单行。 |
+| `Sub_520910` | `AdvanceRipplePhase_520910` | 波纹相位加0.25f。 |
+| `Sub_520930` | `WrapRipplePhase_520930` | 原位反复加减64.0f，保持循环与浮点行为。 |
+| `Sub_521870` | `ApplyScreenRipple_521870` | 地图门禁后复制Back到Temp，按正弦表偏移回拷8行条带，并推进强度。 |
+| `gFloat1020EF0` | `gRipplePhase_1020EF0` | 上述三根共享浮点相位，回拷前扣屏幕Y位移。 |
+
+十五份源／头同步七函数和一个全局，包含登录、选人及环境动画调用。完整正文反向替换一致，旧符号零残留、新名无冲突、UTF-8无BOM／LF与差异静态检查通过；未编译、测试或运行。

@@ -414,7 +414,7 @@ void DrawAllQueued_520DD0()
                 DrawSprite(graphic);
                 break;
             case 2:
-                Sub_522210(graphic, std::bit_cast<std::uint32_t>(graphic->imageNo));
+                DrawQueuedPaletteRect_522210(graphic, std::bit_cast<std::uint32_t>(graphic->imageNo));
                 break;
             case 3:
                 FillDirtyArea_520AD0(graphic);
@@ -456,7 +456,7 @@ void DrawAllQueued_520DD0()
                 }
                 break;
             case 8:
-                static_cast<void>(Sub_521870());
+                static_cast<void>(ApplyScreenRipple_521870());
                 break;
             case 9:
                 world::Sub_46E480();

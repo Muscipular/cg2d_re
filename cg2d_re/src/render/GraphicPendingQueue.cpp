@@ -21,7 +21,7 @@ namespace cg::render {
 std::uint32_t gValueD69768 = 0;
 
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
-void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
+void DrawPaletteRectPrimitive_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
 
 // 原比较器 0x5222A0：layer 按 unsigned8 升序，cacheIndex 按 signed16 降序。
 static int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
@@ -110,7 +110,7 @@ std::int32_t gGraphicDirty = 0; // 原全局：0x01020EE8。
 std::uint32_t gRenderQueueMode103CF10 = 0; // 原全局：0x0103CF10。
 std::int32_t gGraphicPaletteUploadCount = 0; // 原全局：0x01020ECC。
 volatile std::uint32_t gRippleIntegerPhaseBits = 0; // 原 0x1020EEC。
-float gFloat1020EF0 = 0.0f; // 原全局：0x01020EF0。
+float gRipplePhase_1020EF0 = 0.0f; // 原全局：0x01020EF0。
 volatile std::uint32_t gRipplePreviousWorldXBits = 0; // 原 0x1020EF4。
 volatile std::uint32_t gRipplePreviousWorldYBits = 0; // 原 0x1020EF8。
 volatile std::uint32_t gRippleStrengthBits = 0; // 原 0x1020EFC。
@@ -200,13 +200,13 @@ std::uint32_t BackupValues_5208F0()
 }
 
 // 原函数：0x00520910。
-void Sub_520910()
+void AdvanceRipplePhase_520910()
 {
-    gFloat1020EF0 += 0.25f;
+    gRipplePhase_1020EF0 += 0.25f;
 }
 
 // 原函数：0x00520930。
-void Sub_520930(float* value)
+void WrapRipplePhase_520930(float* value)
 {
     for (;;) {
         if (*value >= 64.0f) {
@@ -251,7 +251,7 @@ std::int32_t QueueMap_521AA0(
 }
 
 // 原函数：0x00522210。
-void Sub_522210(
+void DrawQueuedPaletteRect_522210(
     const GraphicCacheItem32* const graphic,
     const std::uint32_t imageNoBits)
 {
@@ -269,11 +269,11 @@ void Sub_522210(
 
     const std::uint16_t color = static_cast<std::uint16_t>(imageNoBits);
     if ((imageNoBits & 0x20000000u) != 0) {
-        Sub_451350(&rect, color, 0);
+        DrawPaletteRectPrimitive_451350(&rect, color, 0);
     } else if ((imageNoBits & 0x10000000u) != 0) {
-        Sub_451350(&rect, color, 1);
+        DrawPaletteRectPrimitive_451350(&rect, color, 1);
     } else if ((imageNoBits & 0x40000000u) != 0) {
-        Sub_451350(&rect, color, 2);
+        DrawPaletteRectPrimitive_451350(&rect, color, 2);
     }
 }
 
@@ -307,7 +307,7 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 }
 
 // 原函数：0x00521870。
-std::int32_t Sub_521870()
+std::int32_t ApplyScreenRipple_521870()
 {
     // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。
     std::array<std::int32_t, 4> sourceRectangle;
@@ -341,12 +341,12 @@ std::int32_t Sub_521870()
     CalculateRippleScreenDelta(&xDelta, &yDelta);
     static_cast<void>(xDelta);
 
-    const float phase = gFloat1020EF0;
-    gFloat1020EF0 = static_cast<float>(
+    const float phase = gRipplePhase_1020EF0;
+    gRipplePhase_1020EF0 = static_cast<float>(
         static_cast<double>(phase) - yDelta);
-    Sub_520930(&gFloat1020EF0);
+    WrapRipplePhase_520930(&gRipplePhase_1020EF0);
     const std::int32_t integerPhase =
-        static_cast<std::int32_t>(gFloat1020EF0);
+        static_cast<std::int32_t>(gRipplePhase_1020EF0);
     std::int32_t strip = 0;
     sourceRectangle[2] = GetCpuSurfaceWidth();
     gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);

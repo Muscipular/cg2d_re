@@ -600,7 +600,7 @@ std::int32_t ClearSurface_4512C0() noexcept
 }
 
 // 原函数：0x00451350。
-void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t mode)
+void DrawPaletteRectPrimitive_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t mode)
 {
     if (rect->left >= GetRendererLogicalWidth() || rect->right < 0
         || rect->top >= GetRendererLogicalHeight() || rect->bottom < 0) {

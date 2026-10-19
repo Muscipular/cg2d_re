@@ -156,7 +156,7 @@ extern std::int32_t gLastUnrefreshedPaletteFrameVersion;
 extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
 
 // 原 flt_1020EF0@0x1020EF0；浮点相位的唯一零初始化存储。
-extern float gFloat1020EF0;
+extern float gRipplePhase_1020EF0;
 
 extern volatile std::uint32_t gRipplePreviousWorldXBits; // 原 0x1020EF4，F32。
 extern volatile std::uint32_t gRipplePreviousWorldYBits; // 原 0x1020EF8，F32。
@@ -174,13 +174,13 @@ void DrawMatchingGraphicHover_507090(std::int32_t value4);
 std::uint32_t BackupValues_5208F0();
 
 // 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
-void Sub_520910();
+void AdvanceRipplePhase_520910();
 
 // 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
-void Sub_520930(float* value);
+void WrapRipplePhase_520930(float* value);
 
 // 原 sub_521870@[0x521870,0x5219B5)：共享 CPU Back/Temp 的波纹条带回拷。
-std::int32_t Sub_521870();
+std::int32_t ApplyScreenRipple_521870();
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
 void SortTextures_520790();
@@ -190,7 +190,7 @@ void DrawAllQueued_520DD0();
 
 // 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，
 // 按图号高位标志选择真实 451350 绘制模式；不修改记录。
-void Sub_522210(const GraphicCacheItem32* graphic, std::uint32_t imageNoBits);
+void DrawQueuedPaletteRect_522210(const GraphicCacheItem32* graphic, std::uint32_t imageNoBits);
 
 // 原 Renderer::FillDirtyArea@[0x520AD0,0x520B09)：从记录取坐标、
 // 颜色与混合模式；仅底层返回原 surface-busy 位型时写 gGraphicDirty。
@@ -252,7 +252,7 @@ std::int32_t DrawGraphic3_520970(
 std::int32_t QueueMap_521AA0(std::int32_t x, std::int32_t y, std::uint8_t layer);
 
 // 原 521C80：图号 <=999 也入队；较大图号先 mapNo 查询，再叠加图形偏移。
-std::int32_t Sub_521C80(
+std::int32_t QueueGraphicWithResourceOffset_521C80(
     std::int32_t x, std::int32_t y, std::uint8_t layer,
     std::int32_t imageNo, std::int32_t value4,
     const GraphicDescriptor16* descriptor);
@@ -264,7 +264,7 @@ std::int32_t DrawGraphic2_521DD0(
     std::uint8_t batchType, const GraphicDescriptor16* descriptor);
 
 // 原 sub_45F090@[0x45F090,0x45F0FA)：固定混合模式的 legacy 图形提交包装。
-std::int32_t Sub_45F090(
+std::int32_t QueueOriginalPaletteGraphic_45F090(
     std::int32_t x,
     std::int32_t y,
     std::uint8_t layer,

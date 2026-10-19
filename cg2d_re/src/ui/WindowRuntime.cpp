@@ -2465,10 +2465,10 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(textColor)), text, 0, 0));
     };
     const std::int32_t length =
-        static_cast<std::int32_t>(std::strlen(world::gReplyRecordF7C950.text04.data()));
+        static_cast<std::int32_t>(cg::text::ToGbk(world::gReplyRecordF7C950.text04).size());
     if (length > 0) {
         drawText(100 - (12 * length) / 2 / 2, 9, 0,
-            cg::text::FromGbkWide(world::gReplyRecordF7C950.text04.data()), TextCoordinateOrder::Title);
+            world::gReplyRecordF7C950.text04, TextCoordinateOrder::Title);
     }
     if (world::gReplyRecordF7C950.value48 == 1) {
         drawText(64, 28, 0, L"(有特殊称号)",
@@ -2499,7 +2499,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         ++lines;
     }
     if (world::gReplyRecordF7C950.hasText24 != 0) {
-        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", cg::text::FromGbkWide(world::gReplyRecordF7C950.text25.data()).c_str());
+        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", world::gReplyRecordF7C950.text25);
         drawText(28, 188, 0, buffer, TextCoordinateOrder::WindowBeforeElements);
         drawText(28, 204, 0, L"力消耗",
             TextCoordinateOrder::WindowBeforeElements);

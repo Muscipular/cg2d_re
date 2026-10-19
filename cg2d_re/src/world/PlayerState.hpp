@@ -257,24 +257,14 @@ static_assert(offsetof(PetRuntimeRecord, flags6AA) == offsetof(PetRuntimeRecord,
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {
     std::int32_t used; // 原成员偏移：+0x00。
-    std::array<char, 32> text04; // 原成员偏移：+0x04。
+    std::wstring text04; // 原成员偏移：+0x04。
     std::uint8_t hasText24; // 原成员偏移：+0x24。 第2文本不等于单空格；空串同样为1。
-    std::array<char, 32> text25; // 原成员偏移：+0x25。
+    std::wstring text25; // 原成员偏移：+0x25。
     std::array<std::byte, 3> bytes45; // 原成员偏移：+0x45。
     std::int32_t value48; // 原成员偏移：+0x48。
     std::array<std::int32_t, 24> values4C; // 原成员偏移：+0x4C。
 };
 
-static_assert(std::is_standard_layout_v<ReplyRecordF7C950>);
-static_assert(std::is_trivially_copyable_v<ReplyRecordF7C950>);
-static_assert(offsetof(ReplyRecordF7C950, used) == 0);
-static_assert(offsetof(ReplyRecordF7C950, text04) == 4);
-static_assert(offsetof(ReplyRecordF7C950, hasText24) == 0x24);
-static_assert(offsetof(ReplyRecordF7C950, text25) == 0x25);
-static_assert(offsetof(ReplyRecordF7C950, bytes45) == 0x45);
-static_assert(offsetof(ReplyRecordF7C950, value48) == 0x48);
-static_assert(offsetof(ReplyRecordF7C950, values4C) == 0x4C);
-static_assert(sizeof(ReplyRecordF7C950) == 0xAC);
 extern ReplyRecordF7C950 gReplyRecordF7C950; // 原全局：0x00F7C950。
 
 // 原DE0B08，每项8B；索引是数值，不是地址。

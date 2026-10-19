@@ -888,17 +888,23 @@ void HandleInventorySlotSwapReply_510460(
 void HandleItemDetailReply_510490(const std::uintptr_t, const char* const text)
 {
     auto& record = world::gReplyRecordF7C950;
-    if (ExtractDelimitedField_52CED0(text, ',', 1, 31, record.text04.data()) != 0) {
+    char title[32]{};
+    const auto titleResult = ExtractDelimitedField_52CED0(text, ',', 1, 31, title);
+    record.text04 = cg::text::FromGbkWide(title);
+    if (titleResult != 0) {
         record.used = 0;
         return;
     }
     record.used = 1;
-    input::UnescapeLegacyTextAndNotify_52D2F0(record.text04.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    record.text04 = cg::text::FromGbkWide(title);
+    char description[32]{};
     static_cast<void>(ExtractDelimitedField_52CED0(
-        text, ',', 2, 31, record.text25.data()));
-    input::UnescapeLegacyTextAndNotify_52D2F0(record.text25.data());
+        text, ',', 2, 31, description));
+    input::UnescapeLegacyTextAndNotify_52D2F0(description);
+    record.text25 = cg::text::FromGbkWide(description);
     record.hasText24 = static_cast<std::uint8_t>(
-        std::strcmp(record.text25.data(), " ") != 0);
+        record.text25 != L" ");
     record.value48 = ParseDelimitedInteger_52CFA0(text, ',', 3);
     for (std::int32_t index = 0; index < 24; ++index) {
         record.values4C[index] = ParseDelimitedInteger_52CFA0(text, ',', index + 4);

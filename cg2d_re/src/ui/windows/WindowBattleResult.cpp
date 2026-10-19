@@ -325,10 +325,10 @@ static std::int32_t WindowDpResult_Update(const std::int32_t value)
         const std::uint64_t now = platform::ReadTickCount64();
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
-        const std::int32_t delta = world::gValueFF0D04;
+        const std::int32_t delta = world::gDpResultDelta_FF0D04;
         cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[2].data)->text, L"DP   {:+9}", delta);
         window = gCurrentWindow;
-        const std::int32_t total = world::gValueFF0D08;
+        const std::int32_t total = world::gDpResultTotal_FF0D08;
         cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[3].data)->text, L"Total{:9}", total);
     }
     const std::uint64_t now = platform::ReadTickCount64();

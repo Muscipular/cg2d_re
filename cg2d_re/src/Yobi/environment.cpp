@@ -835,7 +835,7 @@ void UpdateMapEnvironmentEffects_449160()
     action->callback = detail::UpdateDriftingSceneEffect_449400;
     action->displayPriority = 30;
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
-    const auto timeCategory = static_cast<std::uint8_t>(world::gValue73ED48);
+    const auto timeCategory = static_cast<std::uint8_t>(world::gCurrentDayPeriod_73ED48);
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
     const std::int32_t speed = platform::RandomRange_46FAF0(0, 200);

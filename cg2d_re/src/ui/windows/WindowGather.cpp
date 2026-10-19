@@ -161,10 +161,10 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
     gSkillExtraDelayCF46C4 = 2000;
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFD = references;
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillOperationCount_D67AFD = references;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     std::int32_t mode = 0;
     switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470)].skillId) {
         case 225:
@@ -206,13 +206,13 @@ static void WindowGather_Release()
     if (mode == 1 || mode == 2) {
         WindowRuntime_DecrementGatherOperationCount();
     }
-    const std::uint8_t previousReferences = gValueD67AFD;
+    const std::uint8_t previousReferences = gSkillOperationCount_D67AFD;
     WindowInstance* const window = gWindowStates[WindowId_Gather].window;
-    gValueD67AFD = static_cast<std::uint8_t>(previousReferences - 1);
+    gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
     // 原4856C1..4856CD：W8减后发布，分支消费同一结果。
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
-    gValueD67AFE = skillReferences;
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     if (skillReferences == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {

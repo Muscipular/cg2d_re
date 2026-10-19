@@ -337,8 +337,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         }
 
         gWindowClass.hCursor = nullptr;
-        gValueD68DC4 = 0;
-        gValue9A6F44 = 0;
+        gRequestedCursorState_D68DC4 = 0;
+        gConsumedCursorState_9A6F44 = 0;
         gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         gWindowClass.lpszMenuName = nullptr;
         gWindowClass.lpszClassName = gWindowClassName;

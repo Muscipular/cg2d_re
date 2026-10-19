@@ -651,8 +651,8 @@ std::int32_t HandleMapBgmChangeReply_50E310(
         return std::bit_cast<std::int32_t>(gate);
     }
     if (value >= 200 && value <= 249) {
-        world::gValueFF0D5C = static_cast<std::uint32_t>(value);
-        world::gValueFF0D58 = 1;
+        world::gPendingMapBgmIndex_FF0D5C = static_cast<std::uint32_t>(value);
+        world::gMapBgmChangePending_FF0D58 = 1;
     }
     return value;
 }
@@ -680,11 +680,11 @@ std::int32_t HandleDuelPointResultReply_50D700(
     }
 
     world::gPendingResultWindowMode_FF0C10 = 2;
-    world::gValueFF0D04 =
+    world::gDpResultDelta_FF0D04 =
         ParseDelimitedBase62_52D0D0(payload, '|', 1);
     const std::int32_t second =
         ParseDelimitedBase62_52D0D0(payload, '|', 2);
-    world::gValueFF0D08 = second;
+    world::gDpResultTotal_FF0D08 = second;
     return second;
 }
 

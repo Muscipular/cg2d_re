@@ -112,13 +112,13 @@ static void DrawTableCursor()
     const cg::render::GraphicDescriptor16 descriptor =
         MakeCursorDescriptor();
 
-    const std::uint32_t imageState = gValueD68DC4;
+    const std::uint32_t imageState = gRequestedCursorState_D68DC4;
     const std::int32_t image = ReadCursorImage(imageState);
     const std::int32_t mouseY = (gLegacyMouseState.mouseY + 16);
-    const std::uint32_t yState = gValueD68DC4;
+    const std::uint32_t yState = gRequestedCursorState_D68DC4;
     const std::int32_t y = mouseY + ReadCursorOffsetY(yState);
     const std::int32_t mouseX = (gLegacyMouseState.mouseX + 16);
-    const std::uint32_t xState = gValueD68DC4;
+    const std::uint32_t xState = gRequestedCursorState_D68DC4;
     const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
     cg::render::DrawGraphic(
@@ -129,7 +129,7 @@ static void UpdateNativeCursor()
 {
     // 原全局：0x00D68BE8；本函数保存上一次光标状态。
     static std::uint32_t previousCursorState = 0;
-    const std::uint32_t currentState = gValueD68DC4;
+    const std::uint32_t currentState = gRequestedCursorState_D68DC4;
     if (currentState != previousCursorState) {
         // 原端未检查 API 结果且会继续读取未初始化局部；新端只将局部清零以避免 UB。
         POINT point {};
@@ -140,12 +140,12 @@ static void UpdateNativeCursor()
 
         if (point.x >= 0 && point.x < clientRect.right
             && point.y >= 0 && point.y < clientRect.bottom) {
-            const std::uint32_t handleState = gValueD68DC4;
+            const std::uint32_t handleState = gRequestedCursorState_D68DC4;
             SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));
         }
     }
 
-    previousCursorState = gValueD68DC4;
+    previousCursorState = gRequestedCursorState_D68DC4;
 
     if (gLegacyMouseState.drawingSuppression == 0) {
         const std::int32_t y = (gLegacyMouseState.mouseY + 16);
@@ -161,16 +161,16 @@ std::int32_t RequestCursorState_506DE0(
     const std::int32_t force) noexcept
 {
     if (force != 0) {
-        gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);
+        gRequestedCursorState_D68DC4 = std::bit_cast<std::uint32_t>(requestedState);
         return requestedState;
     }
 
-    const std::uint32_t currentState = gValueD68DC4;
+    const std::uint32_t currentState = gRequestedCursorState_D68DC4;
     if (currentState != 0) {
         return std::bit_cast<std::int32_t>(currentState);
     }
 
-    gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);
+    gRequestedCursorState_D68DC4 = std::bit_cast<std::uint32_t>(requestedState);
     return requestedState;
 }
 
@@ -206,8 +206,8 @@ void UpdateCursor_506E00()
         rightElapsed = gLegacyMouseState.rightElapsed;
     }
 
-    UpdatePulse(leftElapsed, 0x01u, gValueD68DC8);
-    UpdatePulse(rightElapsed, 0x02u, gValueD68BF0);
+    UpdatePulse(leftElapsed, 0x01u, gLeftMouseRepeatAnchorMs_D68DC8);
+    UpdatePulse(rightElapsed, 0x02u, gRightMouseRepeatAnchorMs_D68BF0);
 
     if (gValueD67AE4 == 0) {
         if (gLegacyMouseState.drawingSuppression == 0) {
@@ -217,9 +217,9 @@ void UpdateCursor_506E00()
         UpdateNativeCursor();
     }
 
-    const std::uint32_t consumedState = gValueD68DC4;
-    gValueD68DC4 = 0;
-    gValue9A6F44 = consumedState;
+    const std::uint32_t consumedState = gRequestedCursorState_D68DC4;
+    gRequestedCursorState_D68DC4 = 0;
+    gConsumedCursorState_9A6F44 = consumedState;
     ResetLegacyMouseTail_506DD0();
 }
 

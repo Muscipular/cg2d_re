@@ -23,10 +23,10 @@ static_assert(offsetof(GameTime, sTick) == 16);
 static_assert(offsetof(GameTime, minutes) == 20);
 
 extern GameTime gCgTime; // 原全局：0x0073ED50。
-extern std::uint32_t gValue559508; // 原全局：0x00559508。 原静态字节 0x3AE805E7，时间计算基值。
-extern std::uint32_t gValue73ED40; // 原全局：0x0073ED40。 原 0x50C8C2 写入，完整业务角色仍待上游核对。
-extern std::uint32_t gValue73ED4C; // 原全局：0x0073ED4C。 原 0x50C880 写入。
-extern std::uint64_t gValue73ED68; // 原全局：0x0073ED68。 原 0x50C890 写入，与输出对象不重叠。
+extern std::uint32_t gGameTimeEpochSeconds_559508; // 原全局：0x00559508。 原静态字节 0x3AE805E7，时间计算基值。
+extern std::uint32_t gGameTimeAdjustmentSeconds_73ED40; // 原全局：0x0073ED40。 原 0x50C8C2 写入，完整业务角色仍待上游核对。
+extern std::uint32_t gServerTimeAtSyncSeconds_73ED4C; // 原全局：0x0073ED4C。 原 0x50C880 写入。
+extern std::uint64_t gLocalTimeAtSyncSeconds_73ED68; // 原全局：0x0073ED68。 原 0x50C890 写入，与输出对象不重叠。
 
 // GTP01：原 [0x458DE0,0x458EBB)；六 W32 原写序/两独立采样合同，返回末次 phase/192 商。
 // output 须指向有效 GameTime；写入顺序为 year/month/day/hours/minutes/sTick。

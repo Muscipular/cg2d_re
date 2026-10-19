@@ -792,11 +792,11 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFD = references;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillOperationCount_D67AFD = references;
     const std::int32_t skillId = world::gSkillsF1BAFC[currentSkill].skillId;
-    gValueD67AFE = skillReferences;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     WindowCraft_SelectState(skillId);
     return WindowCraft_Create();
 }
@@ -812,11 +812,11 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const s
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    gValueD67AFD = references;
+    gSkillOperationCount_D67AFD = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create();
 }
@@ -836,11 +836,11 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    gValueD67AFD = references;
+    gSkillOperationCount_D67AFD = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create();
 }
@@ -856,10 +856,10 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const s
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFD = references;
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillOperationCount_D67AFD = references;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     if (world::GetPlayerStatusIcon_51BEC0() != 9) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
     }
@@ -877,10 +877,10 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount();
     WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFD = references;
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillOperationCount_D67AFD = references;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
     return WindowCraft_Create();
 }
@@ -2994,13 +2994,13 @@ static void WindowCraft_Release()
     gValueD67B00 = 0;
     WindowRuntime_DecrementOperationCount();
     WindowRuntime_DecrementGatherOperationCount();
-    --gValueD67AFD;
+    --gSkillOperationCount_D67AFD;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
     }
     static_cast<void>(WindowCraft_ReleaseMaterials(6));
-    --gValueD67AFE;
-    if (gValueD67AFE == 0) {
+    --gSkillStatusIconReferences_D67AFE;
+    if (gSkillStatusIconReferences_D67AFE == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if (state >= 9 && state <= 12) {
             static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));

@@ -376,7 +376,7 @@ void UpsertWorldActor_445350(
         if (index < 0) {
             return;
         }
-        if (type > 3 && gValue9DAD68 == 0 && IsAnimationImageNumber_5183B0(imageNo) == 0) {
+        if (type > 3 && gMapResourceMode_9DAD68 == 0 && IsAnimationImageNumber_5183B0(imageNo) == 0) {
             selectedDirection = 0;
         }
         cg::yobi::YobiAction* const action =
@@ -663,12 +663,12 @@ void TurnPlayerAndSendDirection_46B4B0(const std::int32_t direction)
     }
     const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
     if (movementY < 0.0F || movementY > 0.0F
-        || gValue62B5AA != 0 || gValueC82220 != 0
+        || gValue62B5AA != 0 || gMapMovementInputBlocked_C82220 != 0
         || action->direction == direction) {
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gValueC8223C + 500u >= now) {
+    if (gLastExplicitFacingRequestTick_C8223C + 500u >= now) {
         return;
     }
     static_cast<void>(SetPlayerFacingDirection_51A040(direction));
@@ -679,7 +679,7 @@ void TurnPlayerAndSendDirection_46B4B0(const std::int32_t direction)
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(x, y, text));
-    gValueC8223C = platform::ReadTickCount64();
+    gLastExplicitFacingRequestTick_C8223C = platform::ReadTickCount64();
 }
 
 // 原函数：0x0046A190。

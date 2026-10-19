@@ -239,11 +239,11 @@ void UpdateQueuedTextAndGraphicHover_507140()
                     type == 2 ? 218 : 214, marker, type == 2 ? 0 : 1);
                 render::SortTextures_520790();
             }
-            const std::int32_t inputGate = world::gValueD460C8;
+            const std::int32_t inputGate = world::gInputAndHoverSuppressed_D460C8;
             render::gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
-            if (inputGateIsZero && ui::detail::gValue58589C != 0) {
+            if (inputGateIsZero && ui::detail::gHoverDescriptionEnabled_58589C != 0) {
                 ui::detail::gHoverObjectValueD68AC8 = 0;
             }
             return;
@@ -274,7 +274,7 @@ void UpdateQueuedTextAndGraphicHover_507140()
                 render::DrawMatchingGraphicHover_507090(value4);
             }
             render::SortTextures_520790();
-            if (world::gValueD460C8 == 0 && ui::detail::gValue58589C != 0) {
+            if (world::gInputAndHoverSuppressed_D460C8 == 0 && ui::detail::gHoverDescriptionEnabled_58589C != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(&graphic);
                 if (ui::detail::gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 1;

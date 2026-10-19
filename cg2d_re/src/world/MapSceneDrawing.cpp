@@ -20,7 +20,7 @@
 namespace cg::world::detail {
 
 // 原已加载 55DA8C=10000，只有 46CF60 读取/递增/清零。
-static std::uint32_t gValue55DA8C = 10000;
+static std::uint32_t gFramesSinceMapWindowReload_55DA8C = 10000;
 
 // 原 46D179：tile 与静态 obj 的描述符写序不同，不统一重建描述符。
 static void DrawCutTile(
@@ -231,20 +231,20 @@ namespace cg::world {
 void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
-    const std::uint32_t mode = gValue9DAD68;
-    const std::uint32_t previousCount = detail::gValue55DA8C;
+    const std::uint32_t mode = gMapResourceMode_9DAD68;
+    const std::uint32_t previousCount = detail::gFramesSinceMapWindowReload_55DA8C;
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
-    detail::gValue55DA8C = previousCount + 1u;
-    if ((gPlayerX != gValue9EE8D0)
-        || (gPlayerY != gValue9EE8E0)
-        || detail::gValue9EE910 != 0) {
+    detail::gFramesSinceMapWindowReload_55DA8C = previousCount + 1u;
+    if ((gPlayerX != gLastMapDrawPlayerX_9EE8D0)
+        || (gPlayerY != gLastMapDrawPlayerY_9EE8E0)
+        || detail::gMapWindowReloadPending_9EE910 != 0) {
         const std::int32_t loadYEnd = detail::gMapYEnd;
         const std::int32_t loadXEnd = detail::gMapXEnd;
         const std::int32_t loadYStart = gMapYStart;
         const std::int32_t loadXStart = gMapXStart;
         const std::int32_t floor = gMapFloor;
-        const auto mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+        const auto mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
         if (detail::ReadMapCacheRectangle_468C40(
                 mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
@@ -265,17 +265,17 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         }
-        if (detail::gValue9EE8B8 != 0) {
-            const auto direction = std::bit_cast<std::int16_t>(detail::gValue9EE8A4);
+        if (detail::gWaitingForMapRectangleData_9EE8B8 != 0) {
+            const auto direction = std::bit_cast<std::int16_t>(detail::gRequestedMapRectangleDirection_9EE8A4);
             if (detail::FindMissingMapRectanglesAhead_469870(direction) == 0) {
-                detail::gValue9EE8B8 = 0;
-                detail::gValue55DA88 = 1;
+                detail::gWaitingForMapRectangleData_9EE8B8 = 0;
+                detail::gAutoMapWindowDirty_55DA88 = 1;
             }
         } else {
-            detail::gValue55DA88 = 1;
+            detail::gAutoMapWindowDirty_55DA88 = 1;
         }
-        detail::gValue55DA8C = 0;
-        detail::gValue9EE910 = 0;
+        detail::gFramesSinceMapWindowReload_55DA8C = 0;
+        detail::gMapWindowReloadPending_9EE910 = 0;
     }
 
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
@@ -326,16 +326,16 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        gValue9EE8D0.readCount = readCount;
-        gValue9EE8D0.encoded = encoded;
-        gValue9EE8D0.mask = mask;
+        gLastMapDrawPlayerX_9EE8D0.readCount = readCount;
+        gLastMapDrawPlayerX_9EE8D0.encoded = encoded;
+        gLastMapDrawPlayerX_9EE8D0.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        gValue9EE8D0.mask = mask;
-        gValue9EE8D0.encoded = encoded;
-        gValue9EE8D0.readCount = readCount;
+        gLastMapDrawPlayerX_9EE8D0.mask = mask;
+        gLastMapDrawPlayerX_9EE8D0.encoded = encoded;
+        gLastMapDrawPlayerX_9EE8D0.readCount = readCount;
     }
     temporary.reset();
     const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
@@ -344,16 +344,16 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        gValue9EE8E0.readCount = readCount;
-        gValue9EE8E0.encoded = encoded;
-        gValue9EE8E0.mask = mask;
+        gLastMapDrawPlayerY_9EE8E0.readCount = readCount;
+        gLastMapDrawPlayerY_9EE8E0.encoded = encoded;
+        gLastMapDrawPlayerY_9EE8E0.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        gValue9EE8E0.mask = mask;
-        gValue9EE8E0.encoded = encoded;
-        gValue9EE8E0.readCount = readCount;
+        gLastMapDrawPlayerY_9EE8E0.mask = mask;
+        gLastMapDrawPlayerY_9EE8E0.encoded = encoded;
+        gLastMapDrawPlayerY_9EE8E0.readCount = readCount;
     }
     temporary.reset();
     audio::SubmitSpatialSoundSources_52CD60();

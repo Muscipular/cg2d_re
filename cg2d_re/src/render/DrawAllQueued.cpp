@@ -430,7 +430,7 @@ void DrawAllQueued_520DD0()
             }
             case 6:
                 if (world::gValueC82204 != 0) {
-                    const auto offsetX = std::bit_cast<std::int32_t>(world::gValueC3500C);
+                    const auto offsetX = std::bit_cast<std::int32_t>(world::gMapProjectionOffsetX_C3500C);
                     std::int32_t destinationX = 0;
                     std::int32_t destinationY = 0;
                     TextureRectangle rectangle {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
@@ -440,7 +440,7 @@ void DrawAllQueued_520DD0()
                     } else if (offsetX < 0) {
                         rectangle[0] = -offsetX;
                     }
-                    const auto offsetY = std::bit_cast<std::int32_t>(world::gValueC75010);
+                    const auto offsetY = std::bit_cast<std::int32_t>(world::gMapProjectionOffsetY_C75010);
                     if (offsetY > 0) {
                         rectangle[3] = GetCpuSurfaceHeight() - offsetY;
                         destinationY = offsetY;

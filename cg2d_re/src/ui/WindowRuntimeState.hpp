@@ -652,7 +652,7 @@ extern std::int32_t gDragImageNoD67D24; // 原全局：0x00D67D24。
 extern std::int32_t gItemDragXCC4880; // 原全局：0x00CC4880。
 extern std::int32_t gItemDragYCC4884; // 原全局：0x00CC4884。
 extern std::int32_t gDraggingCA0B28; // 原全局：0x00CA0B28。
-extern std::int32_t gValue58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
+extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
 extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::int32_t gChatWindowModeD66E04; // 原全局：0x00D66E04。 原独立S32，窗口35/57选择与设置文件共用。
@@ -666,9 +666,9 @@ extern std::int32_t gValueD67B38; // 原全局：0x00D67B38。
 extern cg::yobi::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
 extern cg::yobi::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
-extern std::uint8_t gValueD67AFC; // 原全局：0x00D67AFC。
-extern std::uint8_t gValueD67AFD; // 原全局：0x00D67AFD。
-extern std::uint8_t gValueD67AFE; // 原全局：0x00D67AFE。
+extern std::uint8_t gGatherOperationCount_D67AFC; // 原全局：0x00D67AFC。
+extern std::uint8_t gSkillOperationCount_D67AFD; // 原全局：0x00D67AFD。
+extern std::uint8_t gSkillStatusIconReferences_D67AFE; // 原全局：0x00D67AFE。
 extern std::uint8_t gValueD67B24; // 原全局：0x00D67B24。
 extern std::uint8_t gValue5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能请求索引，不与窗口当前选中槽合并。

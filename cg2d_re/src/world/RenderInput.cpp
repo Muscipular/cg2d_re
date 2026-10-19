@@ -22,7 +22,7 @@
 
 namespace cg::world {
 
-std::int32_t gValueD460C8 = 0; // 原全局：0x00D460C8。
+std::int32_t gInputAndHoverSuppressed_D460C8 = 0; // 原全局：0x00D460C8。
 
 } // namespace cg::world
 
@@ -137,7 +137,7 @@ void RenderInput_4590E0()
     std::array<BYTE, 256> keyboardState;
     static_cast<void>(GetKeyboardState(keyboardState.data()));
 
-    const std::int32_t descriptionGate = gValueD460C8;
+    const std::int32_t descriptionGate = gInputAndHoverSuppressed_D460C8;
     const std::uint8_t capsState = keyboardState[VK_CAPITAL];
     input::InputContext* context = input::gCurrentInputData;
     if (descriptionGate == 0 && context != nullptr) {

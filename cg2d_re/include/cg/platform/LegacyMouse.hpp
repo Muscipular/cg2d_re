@@ -49,8 +49,8 @@ static_assert(sizeof(LegacyMouseState::rightElapsed) == 8);
 extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8；中央有序构造。
 
 // 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
-extern std::uint64_t gValueD68BF0; // 原全局：0x00D68BF0。
-extern std::uint64_t gValueD68DC8; // 原全局：0x00D68DC8。
+extern std::uint64_t gRightMouseRepeatAnchorMs_D68BF0; // 原全局：0x00D68BF0。
+extern std::uint64_t gLeftMouseRepeatAnchorMs_D68DC8; // 原全局：0x00D68DC8。
 
 // 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。
 std::int32_t ResetLegacyMouseState_506870();

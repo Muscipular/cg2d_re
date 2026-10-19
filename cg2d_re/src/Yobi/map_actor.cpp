@@ -623,7 +623,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             || characterAction == 6 ? 0 : 1;
     }
     std::uint32_t flipStatic = 0;
-    if (world::gValue9DAD68 == 1) {
+    if (world::gMapResourceMode_9DAD68 == 1) {
         payload = action->payload.mapActor;
         index = payload->index;
         if (player != action) {

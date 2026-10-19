@@ -19,7 +19,7 @@ std::int32_t ResetLegacyMouseState_506870()
     // 原整块零字节：普通字段直接清零，不重构十成员或消费RNG。
     constexpr std::size_t tail = offsetof(LegacyMouseState, heldButtons);
     std::memset(reinterpret_cast<std::byte*>(&state) + tail, 0, sizeof(state) - tail);
-    gValueD68DC4 = 0;
+    gRequestedCursorState_D68DC4 = 0;
     state.valueD68DB8 = -1;
     return 0;
 }

@@ -95,7 +95,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "surprisal") { Push(L, (cg::world::gBattlePlayerFlags5ABCAC & 3u)); return 1; }
     if (key == "mapX") { Push(L, cg::world::gPlayerX); return 1; }
     if (key == "mapY") { Push(L, cg::world::gPlayerY); return 1; }
-    if (key == "mapId") { Push(L, cg::world::gValue9A86DC); return 1; }
+    if (key == "mapId") { Push(L, cg::world::gCurrentMapId_9A86DC); return 1; }
     if (key == "floor") { Push(L, static_cast<int>(world::gMapFloor)); return 1; }
     if (key == "vit") { Push(L, p.values78[0]); return 1; }
     if (key == "str") { Push(L, p.values78[1]); return 1; }

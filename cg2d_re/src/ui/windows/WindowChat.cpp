@@ -206,8 +206,8 @@ WindowInstance* WindowChat_SwitchMode()
         result = WindowRuntime_Open(WindowId_Chat);
         gChatWindowModeD66E04 = 0;
     }
-    input::gValue626C14 = 0;
-    input::gValueC9A96C = 1;
+    input::gChatLogSuppressed_626C14 = 0;
+    input::gChatPanelVisible_C9A96C = 1;
     return result;
 }
 
@@ -421,7 +421,7 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
 // 原函数：0x004A6FC0。
 static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
-    if (input::gValueC9A96C == 0) {
+    if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -628,7 +628,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
 // 原函数：0x004A6EA0。
 static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_t state)
 {
-    if (input::gValueC9A96C == 0) {
+    if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -696,7 +696,7 @@ static std::int32_t WindowCompactChat_Update(const std::int32_t value)
 // 原函数：0x004A82C0。
 static std::int32_t WindowChat_Draw(const std::int32_t)
 {
-    if (input::gValueC9A96C != 0) {
+    if (input::gChatPanelVisible_C9A96C != 0) {
         WindowRuntime_DrawCurrent();
     }
     return 1;

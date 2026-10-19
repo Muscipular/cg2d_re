@@ -109,13 +109,13 @@ extern InputContext gInputContext1050B80; // 原全局：0x01050B80。 旧87公�
 extern InputContext gInputContext1051348; // 原全局：0x01051348。 旧90公会普通邮件草稿，独立于宠物邮件输入。
 extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95三项资料输入，原15CH步长，末界不含105132C。
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
-extern std::int32_t gValueC9A96C;
+extern std::int32_t gChatPanelVisible_C9A96C;
 
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gInputCaretBlinkPhase_626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
-extern std::int32_t gValue626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
-extern std::int32_t gValue626C20; // 原全局：0x00626C20。 超过 maxLine 时选择截断或回滚分支。
-extern std::int32_t gValue626C28; // 原全局：0x00626C28。 特定回滚路径写 1。
+extern std::int32_t gChatLogSuppressed_626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
+extern std::int32_t gInputLineOverflowRollbackMode_626C20; // 原全局：0x00626C20。 超过 maxLine 时选择截断或回滚分支。
+extern std::int32_t gInputInsertRejected_626C28; // 原全局：0x00626C28。 特定回滚路径写 1。
 
 // 原 Input::SetContext@[0x44B330,0x44B33A)。
 void SetContext_44B330(InputContext* context);

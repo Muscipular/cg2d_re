@@ -103,11 +103,11 @@ InputContext gInputContext1050B80 {}; // 原全局：0x01050B80。
 InputContext gInputContext1051348 {}; // 原全局：0x01051348。
 InputContext gInputContexts1050F18[3] {}; // 原全局：0x01050F18。
 InputContext* gCurrentInputData = nullptr; // 原全局：0x00626C04。
-std::int32_t gValueC9A96C = 0; // 原全局：0x00C9A96C。
+std::int32_t gChatPanelVisible_C9A96C = 0; // 原全局：0x00C9A96C。
 std::int32_t gInputCaretBlinkPhase_626C0C = 0; // 原全局：0x00626C0C。
-std::int32_t gValue626C14 = 0; // 原全局：0x00626C14。
-std::int32_t gValue626C20 = 0; // 原全局：0x00626C20。
-std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
+std::int32_t gChatLogSuppressed_626C14 = 0; // 原全局：0x00626C14。
+std::int32_t gInputLineOverflowRollbackMode_626C20 = 0; // 原全局：0x00626C20。
+std::int32_t gInputInsertRejected_626C28 = 0; // 原全局：0x00626C28。
 
 static constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
@@ -232,7 +232,7 @@ void AppendText(const std::wstring_view utf16)
         edit.caret += unit.size();
         try {
             if (!edit.commit()) {
-                gValue626C28 = 1;
+                gInputInsertRejected_626C28 = 1;
                 return;
             }
         } catch (const std::system_error&) {
@@ -241,7 +241,7 @@ void AppendText(const std::wstring_view utf16)
         }
         const auto lines = SplitLines(*context);
         if (context->maxLine > 0 && lines.size() > static_cast<std::size_t>(context->maxLine)) {
-            if (gValue626C20 == 0) {
+            if (gInputLineOverflowRollbackMode_626C20 == 0) {
                 edit.contents.resize(lines[static_cast<std::size_t>(context->maxLine - 1)].end);
                 edit.caret = (std::min)(edit.caret, edit.contents.size());
                 static_cast<void>(edit.commit());
@@ -249,7 +249,7 @@ void AppendText(const std::wstring_view utf16)
                 edit.contents = old;
                 edit.caret = oldCaret;
                 static_cast<void>(edit.commit());
-                gValue626C28 = 1;
+                gInputInsertRejected_626C28 = 1;
             }
         }
         gInputCaretBlinkPhase_626C0C = 20;

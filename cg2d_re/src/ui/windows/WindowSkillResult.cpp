@@ -122,11 +122,11 @@ std::int32_t WindowSkillResult_ReadPreviewImage(const std::int32_t imageNo, cons
 static cg::yobi::YobiAction* WindowSkillResult_Open()
 {
     WindowRuntime_IncrementOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
-    gValueD67AFD = references;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
+    gSkillOperationCount_D67AFD = references;
     WindowInstance* const previous = gWindowStates[WindowId_Craft].window;
-    gValueD67AFE = skillReferences;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     if (previous != nullptr) {
         previous->state |= 0x8000u;
     }
@@ -143,10 +143,10 @@ static cg::yobi::YobiAction* WindowSkillResult_Open()
 static void WindowSkillResult_Release()
 {
     WindowRuntime_DecrementOperationCount();
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
-    gValueD67AFD = references;
-    gValueD67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
+    gSkillOperationCount_D67AFD = references;
+    gSkillStatusIconReferences_D67AFE = skillReferences;
     if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }

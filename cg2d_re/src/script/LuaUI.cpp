@@ -56,7 +56,7 @@ static int ResolveLuaMapY(int mapY) {
 }
 
 static int ResolveLuaMapId(int mapId) {
-    return mapId >= 0 ? mapId : world::gValue9A86DC;
+    return mapId >= 0 ? mapId : world::gCurrentMapId_9A86DC;
 }
 
 static int ResolveLuaFloor(int floor) {

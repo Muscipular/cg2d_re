@@ -320,8 +320,8 @@ void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGro
 }
 
 bool UIMapExControl::PrepareMap() {
-    int effectiveMapId = EffectiveMapExValue(mapId, world::gValue9A86DC);
-    int effectiveGroup = world::gValue9E0434;
+    int effectiveMapId = EffectiveMapExValue(mapId, world::gCurrentMapId_9A86DC);
+    int effectiveGroup = world::gMapCachePathKey_9E0434;
     int effectiveFloor = EffectiveMapExValue(floor, world::gMapFloor);
     if (effectiveMapId != loadedMapId || effectiveGroup != loadedMapGroup || effectiveFloor != loadedFloor) {
         ResetMapCache(effectiveMapId, effectiveGroup, effectiveFloor);
@@ -334,7 +334,7 @@ bool UIMapExControl::PrepareMap() {
         return false;
     }
 
-    int mode = world::gValue9DAD68 == 1 ? 1 : 0;
+    int mode = world::gMapResourceMode_9DAD68 == 1 ? 1 : 0;
     int nextBufferW = 2 * (mapWidth + mapHeight) + 2;
     int nextBufferH = mapWidth + mapHeight + 2;
     if (mapBufferW != nextBufferW || mapBufferH != nextBufferH || mapBufferMode != mode) {
@@ -344,7 +344,7 @@ bool UIMapExControl::PrepareMap() {
         mapBufferMode = mode;
     }
 
-    if (static_cast<std::uint32_t>(effectiveMapId) == world::gValue9A86DC && effectiveGroup == world::gValue9E0434 && effectiveFloor == world::gMapFloor) {
+    if (static_cast<std::uint32_t>(effectiveMapId) == world::gCurrentMapId_9A86DC && effectiveGroup == world::gMapCachePathKey_9E0434 && effectiveFloor == world::gMapFloor) {
         SyncVisibleMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor);
     } else {
         visibleMap = VisibleMapCache{};

@@ -27,8 +27,8 @@
 
 namespace cg::platform {
 
-std::uint64_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
-std::uint64_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
+std::uint64_t gRightMouseRepeatAnchorMs_D68BF0 = 0; // 原全局：0x00D68BF0。
+std::uint64_t gLeftMouseRepeatAnchorMs_D68DC8 = 0; // 原全局：0x00D68DC8。
 
 // 原CRT553004..553010：保留以下两值的构造顺序；其后三个防护值按PRM01移除。
 // 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
@@ -213,10 +213,10 @@ platform::LegacyCryptInt gPlayerSnapshotX{}; // 原全局：0x00C751C0。
 platform::LegacyCryptInt gPlayerSnapshotY{}; // 原全局：0x00C751B0。
 
 // 原0x00467C70／0x00467C80／0x00467CA0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValue9EE8D0{}; // 原全局：0x009EE8D0。
+platform::LegacyCryptInt gLastMapDrawPlayerX_9EE8D0{}; // 原全局：0x009EE8D0。
 
 // 原0x00467CB0／0x00467CC0／0x00467CE0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValue9EE8E0{}; // 原全局：0x009EE8E0。
+platform::LegacyCryptInt gLastMapDrawPlayerY_9EE8E0{}; // 原全局：0x009EE8E0。
 
 // 原0x00467CF0／0x00467D00／0x00467D30：原中央位置直接构造，MSVC承接逆序析构。
 platform::LegacyCryptInt gValueC27FF8{}; // 原全局：0x00C27FF8。
@@ -239,7 +239,7 @@ platform::LegacyCryptInt gValue9FB918{}; // 原全局：0x009FB918。
 platform::LegacyCryptInt gValueAF0FE8{}; // 原全局：0x00AF0FE8。
 
 // 原0x00467EB0／0x00467EC0／0x00467EE0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValueC821D8{}; // 原全局：0x00C821D8。
+platform::LegacyCryptInt gPlayerCoordinateSyncPending_C821D8{}; // 原全局：0x00C821D8。
 
 // 原0x00467EF0／0x00467F00／0x00467F20：原中央位置直接构造，MSVC承接逆序析构。
 platform::LegacyCryptInt gRippleGate{}; // 原全局：0x009A7FA8。

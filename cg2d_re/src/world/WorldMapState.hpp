@@ -31,9 +31,9 @@ void DrawGearNormal_46C060(
     const render::GraphicDescriptor16* descriptor, std::uint8_t batchType);
 
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 按序清零的独立 W32 槽。
-extern std::uint32_t gValueC3500C; // 原全局：0x00C3500C。
-extern std::uint32_t gValueC75010; // 原全局：0x00C75010。
-extern std::uint32_t gValue9A86DC; // 原全局：0x009A86DC。
+extern std::uint32_t gMapProjectionOffsetX_C3500C; // 原全局：0x00C3500C。
+extern std::uint32_t gMapProjectionOffsetY_C75010; // 原全局：0x00C75010。
+extern std::uint32_t gCurrentMapId_9A86DC; // 原全局：0x009A86DC。
 
 // 原 9DEF64/9DEF60/9DEF62/9DEF5E 与 9A86E0/9ED43C；地图窗口的六个 S16 槽。
 extern std::int16_t gMapXStart; // 原全局：0x009DEF64。
@@ -44,8 +44,8 @@ extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
 extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
 extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取，中央启动位置直接构造。
 extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取，中央启动位置直接构造。
-extern platform::LegacyCryptInt gValue9EE8D0; // 原全局：0x009EE8D0。
-extern platform::LegacyCryptInt gValue9EE8E0; // 原全局：0x009EE8E0。
+extern platform::LegacyCryptInt gLastMapDrawPlayerX_9EE8D0; // 原全局：0x009EE8D0。
+extern platform::LegacyCryptInt gLastMapDrawPlayerY_9EE8E0; // 原全局：0x009EE8E0。
 extern platform::LegacyCryptInt gValueC27FF8; // 原全局：0x00C27FF8。
 extern platform::LegacyCryptInt gValueC27FE8; // 原全局：0x00C27FE8。
 extern platform::LegacyCryptInt gMoveTargetX9A7F88; // 原全局：0x009A7F88。 原玩家移动目标 X。
@@ -54,7 +54,7 @@ extern platform::LegacyCryptInt gValueC821E8; // 原全局：0x00C821E8。
 extern platform::LegacyCryptInt gValue9E03C0; // 原全局：0x009E03C0。
 extern platform::LegacyCryptInt gValue9FB918; // 原全局：0x009FB918。
 extern platform::LegacyCryptInt gValueAF0FE8; // 原全局：0x00AF0FE8。
-extern platform::LegacyCryptInt gValueC821D8; // 原全局：0x00C821D8。
+extern platform::LegacyCryptInt gPlayerCoordinateSyncPending_C821D8; // 原全局：0x00C821D8。
 extern std::uint32_t gPartyCatchUpRateBits_9DAD78; // 原全局：0x009DAD78。 原 F32 位槽，移动/绘制链共享。
 
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
@@ -62,13 +62,13 @@ std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
 extern std::uint16_t gMovePathCount_C82200; // 原全局：0x00C82200。
 extern std::uint16_t gPendingDirectionCount_C82202; // 原全局：0x00C82202。
-extern std::uint32_t gValueC821FC; // 原全局：0x00C821FC。
-extern std::uint16_t gValue9A86D8; // 原全局：0x009A86D8。
-extern std::uint16_t gValue9FB92E; // 原全局：0x009FB92E。
-extern std::uint16_t gValueC82220; // 原全局：0x00C82220。
+extern std::uint32_t gPlayerPathRebuildPending_C821FC; // 原全局：0x00C821FC。
+extern std::uint16_t gMapTransitionRequestPending_9A86D8; // 原全局：0x009A86D8。
+extern std::uint16_t gDirectionalMapTransitionPending_9FB92E; // 原全局：0x009FB92E。
+extern std::uint16_t gMapMovementInputBlocked_C82220; // 原全局：0x00C82220。
 extern std::uint32_t gValueC8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
 extern std::uint32_t gValueC8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
-extern std::int32_t gValue73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
+extern std::int32_t gCurrentDayPeriod_73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
 extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
 extern std::uint32_t& gBattleSceneEffectC8A768; // 原全局：0x00C8A768。 413070按两W16写入，别名既有场景效果owner。
@@ -79,12 +79,12 @@ extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
-extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
+extern std::int32_t gMapCachePathKey_9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
 // 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
 std::int32_t __cdecl FormatMapDataPath_468520(
     char* buffer, std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
-extern std::uint32_t gValue9DAD68; // 原全局：0x009DAD68。
+extern std::uint32_t gMapResourceMode_9DAD68; // 原全局：0x009DAD68。
 
 // 原 [0xAF10D8,0xB65A7B)；.aut 每项三个原始字节，供地图颜色消费者共享。
 struct AutRecordAF10D8 {
@@ -228,7 +228,7 @@ void SortAndMergeMapDrawCache_46C2F0();
 std::int32_t QueueMergedMapDrawCache_46C1C0();
 
 // 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
-extern std::uint16_t gValueC8222E;
+extern std::uint16_t gPlayerReachedMovementTarget_C8222E;
 
 // 原 0xC82230/0xC82234/0xC82236；46A9E0 清零，后续 46AA00/46AB60 共用。
 extern std::uint32_t gPendingPathEventActive_C82230; // 原全局：0x00C82230。
@@ -236,7 +236,7 @@ extern std::int16_t gPendingPathEventSteps_C82234; // 原全局：0x00C82234。
 extern std::int16_t gPendingPathEventType_C82236; // 原全局：0x00C82236。
 extern std::uint32_t gValue9EE8A0; // 原全局：0x009EE8A0。
 extern std::uint32_t gValue9ED438; // 原全局：0x009ED438。
-extern std::uint32_t gValue9ED440; // 原全局：0x009ED440。 原 46AA00 写、46AEA0 读取的独立 W32。
+extern std::uint32_t gDirectionalMapTransitionHeading_9ED440; // 原全局：0x009ED440。 原 46AA00 写、46AEA0 读取的独立 W32。
 
 // 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 顺序写入。
 extern std::uint32_t gValueC35008; // 原全局：0x00C35008。
@@ -245,7 +245,7 @@ extern std::uint32_t gMapWidth_9FB930; // 原全局：0x009FB930。
 extern std::uint32_t gMapHeight_C821D4; // 原全局：0x00C821D4。
 extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
 extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
-extern std::uint32_t gValueAF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
+extern std::uint32_t gPlayerMapCoordinateSum_AF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
 extern std::uint32_t gValue9EE8F8; // 原全局：0x009EE8F8。 原 509460 写入、50C8D0 读取的独立 W32。
 extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
 extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
@@ -259,38 +259,38 @@ inline constexpr std::size_t kMovePathCapacity = 100;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathX;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
-extern std::uint32_t gValue9EE8B8; // 原全局：0x009EE8B8。
-extern std::uint16_t gValue9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
-extern std::uint16_t gValueC8A79C; // 原全局：0x00C8A79C。
+extern std::uint32_t gWaitingForMapRectangleData_9EE8B8; // 原全局：0x009EE8B8。
+extern std::uint16_t gRequestedMapRectangleDirection_9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
+extern std::uint16_t gContinuousMapMovementActive_C8A79C; // 原全局：0x00C8A79C。
 extern std::uint16_t gValueB65A7C; // 原全局：0x00B65A7C。
-extern std::uint64_t gValueC82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
-extern std::uint64_t gValueC8223C; // 原全局：0x00C8223C。 CTM01转向发送的本地64位毫秒。
-extern std::uint32_t gValueC8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
-extern std::uint64_t gValueC8A778; // 原全局：0x00C8A778。
+extern std::uint64_t gLastCursorFacingRequestTick_C82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
+extern std::uint64_t gLastExplicitFacingRequestTick_C8223C; // 原全局：0x00C8223C。 CTM01转向发送的本地64位毫秒。
+extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
+extern std::uint64_t gMapLeftHoldDurationMs_C8A778; // 原全局：0x00C8A778。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
 extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
 extern std::int32_t gMouseWorldPixelX_C8A78C; // 原全局：0x00C8A78C。 原鼠标世界像素X。
 extern std::int32_t gMouseWorldPixelY_C8A790; // 原全局：0x00C8A790。 原鼠标世界像素Y。
-extern std::uint64_t gValueC8A794; // 原全局：0x00C8A794。
+extern std::uint64_t gMapLeftPressTick_C8A794; // 原全局：0x00C8A794。
 extern std::uint32_t gMapTargetLeftClick_C8A7A0; // 原全局：0x00C8A7A0。 原46F680目标格左键单次事件。
-extern std::uint32_t gValueC8A7A4; // 原全局：0x00C8A7A4。 原目标格左键持续事件。
+extern std::uint32_t gMapTargetLeftHeld_C8A7A4; // 原全局：0x00C8A7A4。 原目标格左键持续事件。
 extern std::uint32_t gMapTargetInteractionClick_C8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
-extern std::uint32_t gValueC8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
-extern std::uint64_t gValue55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
-extern std::uint32_t gValueC82208; // 原全局：0x00C82208。 原地图请求 W32；50CF90、509090、509100 等共享。
-extern std::uint32_t gValueC8220C; // 原全局：0x00C8220C。
-extern std::uint32_t gValueC82210; // 原全局：0x00C82210。
-extern std::uint32_t gValueC82214; // 原全局：0x00C82214。
-extern std::uint32_t gValueC82218; // 原全局：0x00C82218。
-extern std::int32_t gValueFF0D4C; // 原全局：0x00FF0D4C。 原地图回复数值 W32，51D6F0 消费。
-extern std::int32_t gValue73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
+extern std::uint32_t gMapTargetRightHeld_C8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
+extern std::uint64_t gLastMapMoveTargetTick_55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
+extern std::uint32_t gMapRectangleRequestPending_C82208; // 原全局：0x00C82208。 原地图请求 W32；50CF90、509090、509100 等共享。
+extern std::uint32_t gMapTransitionObservationPrepared_C8220C; // 原全局：0x00C8220C。
+extern std::uint32_t gMapTransitionReplyPending_C82210; // 原全局：0x00C82210。
+extern std::uint32_t gMapTransitionAwaitingRectangle_C82214; // 原全局：0x00C82214。
+extern std::uint32_t gMapNameReceivedDuringTransition_C82218; // 原全局：0x00C82218。
+extern std::int32_t gPendingMapPaletteIndex_FF0D4C; // 原全局：0x00FF0D4C。 原地图回复数值 W32，51D6F0 消费。
+extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
 extern std::uint32_t gValueC82224; // 原全局：0x00C82224。
-extern std::uint32_t gValueC8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
-extern std::uint16_t gValue9DAD54; // 原全局：0x009DAD54。
-extern std::uint16_t gValue9FB92C; // 原全局：0x009FB92C。
-extern std::uint16_t gValue55D9FC; // 原全局：0x0055D9FC。
+extern std::uint32_t gMapTransitionRequestSequence_C8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
+extern std::uint16_t gPendingMapTransitionSequence_9DAD54; // 原全局：0x009DAD54。
+extern std::uint16_t gPendingDirectionalTransitionSequence_9FB92C; // 原全局：0x009FB92C。
+extern std::uint16_t gPlayerPathFinalFacingDirection_55D9FC; // 原全局：0x0055D9FC。
 extern std::uint16_t gValueC821D0; // 原全局：0x00C821D0。
-extern std::uint16_t gValue9EE910; // 原全局：0x009EE910。
+extern std::uint16_t gMapWindowReloadPending_9EE910; // 原全局：0x009EE910。
 
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 // 原函数：0x00468570。
@@ -322,10 +322,10 @@ std::int32_t __cdecl ReadMapCacheRectangle_468C40(
     std::uint16_t* hit); // 原 [0x468C40,0x468F25)，真实三平面文件装载依赖。
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
-extern std::uint32_t gValue9DAD5C; // 原全局：0x009DAD5C。
-extern std::int32_t gValue9DAD58; // 原全局：0x009DAD58。
-extern std::int32_t gValue9DAD60; // 原全局：0x009DAD60。
-extern std::int32_t gValue9DAD64; // 原全局：0x009DAD64。
+extern std::uint32_t gMapSceneResourceMapId_9DAD5C; // 原全局：0x009DAD5C。
+extern std::int32_t gMapSceneResourceFloor_9DAD58; // 原全局：0x009DAD58。
+extern std::int32_t gMapSceneSelectedResourceSnapshot_9DAD60; // 原全局：0x009DAD60。
+extern std::int32_t gMapSceneSelectedResourceMirror_9DAD64; // 原全局：0x009DAD64。
 
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
@@ -444,7 +444,7 @@ std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
 void __cdecl ApplyPendingMapPaletteReply_51D6F0(); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
 // 原函数：0x00469030。
 std::int32_t __cdecl LoadAndDrawMapTiles_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
-extern std::uint32_t gValue55DA88; // 原全局：0x0055DA88。 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
+extern std::uint32_t gAutoMapWindowDirty_55DA88; // 原全局：0x0055DA88。 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
 std::int32_t LoadAutoMapWindow_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。

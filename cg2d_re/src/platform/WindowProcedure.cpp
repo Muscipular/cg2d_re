@@ -268,7 +268,7 @@ LRESULT CALLBACK WindowProcedure(
 
     case WM_SETCURSOR:
         if (static_cast<std::uint16_t>(lParam32) == HTCLIENT) {
-            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[gValue9A6F44]));
+            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[gConsumedCursorState_9A6F44]));
             return 1;
         }
         return DefWindowProcW(window, message, wParam, lParam);

@@ -48,7 +48,7 @@ std::int8_t ReadBgmFrequencySelectionByte(const std::uint8_t id) noexcept
     return std::bit_cast<std::int8_t>(bytes[id]);
 }
 
-std::int32_t gValueFF0D40 = 0; // 原全局：0x00FF0D40。
+std::int32_t gCurrentSceneTypeStorage_FF0D40 = 0; // 原全局：0x00FF0D40。
 std::int32_t gRendererModeStorage = 0; // 原全局：0x0062A640。
 std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0]; // 原全局：0x0062A640。
 
@@ -212,7 +212,7 @@ int ParseCommandOptions()
     if (const_cast<char*>(std::strstr(gCommandLine, "onlyactive"))) {
         gRendererFlags |= 0x10;
     }
-    gValueFF0D40 = 1;
+    gCurrentSceneTypeStorage_FF0D40 = 1;
     const int result = ParseIpOptions_507C80(gCommandLine);
     ApplyAutoLoginCommandLine(::GetCommandLineA());
     return result;

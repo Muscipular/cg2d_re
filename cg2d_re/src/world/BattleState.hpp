@@ -50,8 +50,8 @@ extern std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34; // 原全�
 extern std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C; // 原全局：0x00FF0D0C。
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
-extern std::int32_t gValueFF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
-extern std::int32_t gValueFF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
+extern std::int32_t gDpResultDelta_FF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
+extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;

@@ -124,15 +124,15 @@ void Update()
         detail::ResetSceneUiState_504100();
         detail::ClearContactAndGuildMailStorage_518C80();
         detail::LoadContactAndGuildMailFiles_518CB0();
-        gValueFF0D5C = 0xFFFFFFFFu;
-        gValueFF0D58 = 0;
+        gPendingMapBgmIndex_FF0D5C = 0xFFFFFFFFu;
+        gMapBgmChangePending_FF0D58 = 0;
         gValueD67E78 = 0;
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         gValueFF0D74 = 0;
-        gValue9DAD30 = 0;
+        gMapNameFirstByte_9DAD30 = 0;
         SetCurrentSceneType(6);
         cg::audio::BeginBgmFadeOut_52B990();
         gValueD67B08.fill(0);

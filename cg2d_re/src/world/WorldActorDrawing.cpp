@@ -658,7 +658,7 @@ namespace cg::world {
 void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* const action)
 {
     cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
-    if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
+    if (player == nullptr || action == nullptr || gMapResourceMode_9DAD68 != 1) {
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);

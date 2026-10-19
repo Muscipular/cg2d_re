@@ -222,8 +222,8 @@ static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gValue9EE8D0)
-        || (world::gPlayerY != world::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
+        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
         return;
     }
     auto* const payload = action->payload.mapTransition;
@@ -276,8 +276,8 @@ static void AppendStraightTransitionStep_446B50(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gValue9EE8D0)
-        || (world::gPlayerY != world::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
+        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
         return;
     }
     const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->value02);
@@ -311,8 +311,8 @@ static void AppendTransitionStepTowardPlayer_446C10(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gValue9EE8D0)
-        || (world::gPlayerY != world::gValue9EE8E0)) {
+    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
+        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
         return;
     }
     if (TransitionDistance(&world::gPlayerX, &action->mapX1E0) <= 1

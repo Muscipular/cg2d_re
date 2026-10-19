@@ -67,7 +67,7 @@ std::int32_t GetActorStatusIconCount_4410E0();                 // 原 [0x4410E0,
 std::uint32_t CaptureMapTilesForTransition_51D640();
 
 // 原 dword_D460C8@0xD460C8；只保留地址身份和 W32 宽度。
-extern std::int32_t gValueD460C8;
+extern std::int32_t gInputAndHoverSuppressed_D460C8;
 
 namespace detail {
 

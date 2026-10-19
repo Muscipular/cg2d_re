@@ -37,8 +37,8 @@ extern std::int32_t gValue55463C;
 extern std::int32_t gValue554640; // 原全局：0x00554640。
 extern std::int32_t gValue554644; // 原全局：0x00554644。
 extern std::uint32_t gValueD68858;     // 原 0xD68858，W32，virtual-zero 初值。
-extern std::uint32_t gValueD68DC4;     // 原全局：0x00D68DC4。 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
-extern std::uint32_t gValue9A6F44;     // 原全局：0x009A6F44。 原 CursorUpdate 尾部保存的本帧已消费光标状态。
+extern std::uint32_t gRequestedCursorState_D68DC4;     // 原全局：0x00D68DC4。 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
+extern std::uint32_t gConsumedCursorState_9A6F44;     // 原全局：0x009A6F44。 原 CursorUpdate 尾部保存的本帧已消费光标状态。
 extern std::int32_t gVersionMajor;    // 原 0x9A7F58。
 extern std::int32_t gVersionMinor;    // 原 0x9A7F5C。
 extern std::int32_t gVersionPatch;    // 原 0x9A7F60。

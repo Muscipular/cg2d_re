@@ -92,7 +92,7 @@ void DrawAndAdvanceInputCaret_44A410()
         return;
     }
     if (initialContext == &cg::ui::detail::gInputContext626AA0
-        && input::gValueC9A96C == 0) {
+        && input::gChatPanelVisible_C9A96C == 0) {
         return;
     }
 

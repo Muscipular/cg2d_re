@@ -7,22 +7,22 @@
 namespace cg::world {
 
 GameTime gCgTime {}; // 原全局：0x0073ED50。
-std::uint32_t gValue559508 = 0x3AE805E7; // 原全局：0x00559508。
-std::uint32_t gValue73ED40 = 0; // 原全局：0x0073ED40。
-std::uint32_t gValue73ED4C = 0; // 原全局：0x0073ED4C。
-std::uint64_t gValue73ED68 = 0; // 原全局：0x0073ED68。
+std::uint32_t gGameTimeEpochSeconds_559508 = 0x3AE805E7; // 原全局：0x00559508。
+std::uint32_t gGameTimeAdjustmentSeconds_73ED40 = 0; // 原全局：0x0073ED40。
+std::uint32_t gServerTimeAtSyncSeconds_73ED4C = 0; // 原全局：0x0073ED4C。
+std::uint64_t gLocalTimeAtSyncSeconds_73ED68 = 0; // 原全局：0x0073ED68。
 
 // GTP01：原 [0x458DE0,0x458EBB)；六 W32 按 year/month/day/hours/minutes/sTick 发布，返 phase 商。
 int UpdateGameTime(GameTime* output)
 {
     const std::uint64_t now = static_cast<std::uint64_t>(::_time64(nullptr));
-    const std::uint64_t base = gValue559508;
-    const std::uint64_t sample = gValue73ED68;
-    std::uint64_t offset = gValue73ED4C;
+    const std::uint64_t base = gGameTimeEpochSeconds_559508;
+    const std::uint64_t sample = gLocalTimeAtSyncSeconds_73ED68;
+    std::uint64_t offset = gServerTimeAtSyncSeconds_73ED4C;
     offset -= base;
     // 协议校时值仍为W32位型；本地时间计算按其原S32符号扩展。
     const std::uint64_t adjustment = static_cast<std::uint64_t>(
-        std::bit_cast<std::int32_t>(gValue73ED40));
+        std::bit_cast<std::int32_t>(gGameTimeAdjustmentSeconds_73ED40));
     offset -= sample;
     std::uint64_t time = now + offset;
     time += adjustment;

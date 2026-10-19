@@ -50,17 +50,17 @@ constexpr int kReplanMoveDistance = 5;
 
 static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
 static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
-static auto& gMoveRequest = world::gValueC821FC;
+static auto& gMoveRequest = world::gPlayerPathRebuildPending_C821FC;
 static auto& gPathCount = world::gMovePathCount_C82200;
 static auto& gMoveQueueCount = world::gPendingDirectionCount_C82202;
-static auto& gMoveLock = world::gValueC82220;
-static auto& gTileEventLock = world::gValue9A86D8;
-static auto& gTargetEventLock = world::gValue9FB92E;
+static auto& gMoveLock = world::gMapMovementInputBlocked_C82220;
+static auto& gTileEventLock = world::gMapTransitionRequestPending_9A86D8;
+static auto& gTargetEventLock = world::gDirectionalMapTransitionPending_9FB92E;
 static auto& gMapWidth = world::gMapSpanX;
 static auto& gMapHeight = world::gMapSpanY;
 static auto& gMoveBlockMap = world::gMapWalkabilityArray;
-static auto& gMapId = world::gValue9A86DC;
-static auto& gMapGroup = world::gValue9E0434;
+static auto& gMapId = world::gCurrentMapId_9A86DC;
+static auto& gMapGroup = world::gMapCachePathKey_9E0434;
 static auto& gMapFloor = world::gMapFloor;
 
 static std::unordered_map<uint64_t, unsigned char> gKnownMap;

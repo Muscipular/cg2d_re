@@ -5,7 +5,7 @@
 
 namespace cg::world {
 
-// 原 0xFF0D40；引用 platform::gValueFF0D40，不建立第二份当前场景类型存储。
+// 原 0xFF0D40；引用 platform::gCurrentSceneTypeStorage_FF0D40，不建立第二份当前场景类型存储。
 extern std::int32_t& gCurrentSceneType;
 
 extern std::int32_t gPendingSceneState; // 原 0xFF0D60。
@@ -16,11 +16,11 @@ extern std::int32_t gPendingSceneType;  // 原 0xFF0D6C。
 extern std::uint8_t gValueC82204;              // 原 0xC82204，W8。
 extern std::uint32_t gValue5ABFC4;             // 原 0x5ABFC4，W32。
 extern std::uint32_t gValue9A6E0C;             // 原 0x9A6E0C，W32。
-extern std::uint32_t gValueFF0D5C;             // 原 0xFF0D5C，W32。
-extern std::uint32_t gValueFF0D58;             // 原 0xFF0D58，W32。
+extern std::uint32_t gPendingMapBgmIndex_FF0D5C;             // 原 0xFF0D5C，W32。
+extern std::uint32_t gMapBgmChangePending_FF0D58;             // 原 0xFF0D58，W32。
 extern std::uint32_t gValueD67E78;             // 原 0xD67E78，W32。
 extern std::uint32_t gValueFF0D74;             // 原 0xFF0D74，W32。
-extern std::uint8_t& gValue9DAD30;             // 原 0x9DAD30 连续文本区的首 W8 别名。
+extern std::uint8_t& gMapNameFirstByte_9DAD30;             // 原 0x9DAD30 连续文本区的首 W8 别名。
 const char* ReadText9DAD30() noexcept; // 借用地图回复的同源文本，供窗口39复制/测宽。
 extern std::array<std::uint32_t, 7> gValueD67B08; // 原 0xD67B08，严格 7 个 DWORD。
 extern std::uint32_t gSceneTransitionResetPending_58B6D0;             // 原 0x58B6D0，W32，映像初值 1。

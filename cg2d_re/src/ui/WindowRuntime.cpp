@@ -226,7 +226,7 @@ std::int32_t gItemDragYCC4884 = 0; // 原全局：0x00CC4884。
 
 std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
 
-std::int32_t gValue58589C = 1; // 原全局：0x0058589C。
+std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
 
 void* gFocusedElementDataD45F94 = nullptr; // 原全局：0x00D45F94。
 
@@ -408,13 +408,13 @@ cg::yobi::YobiAction* gWindowActionD2E928 = nullptr; // 原全局：0x00D2E928�
 cg::yobi::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
 
 // 原全局：0x00D67AF8。 原窗口操作计数，不随指针扩宽。
-static std::int32_t gValueD67AF8 = 0; // 原全局：0x00D67AF8。
+static std::int32_t gWindowOperationCount_D67AF8 = 0; // 原全局：0x00D67AF8。
 
-std::uint8_t gValueD67AFC = 0; // 原全局：0x00D67AFC。
+std::uint8_t gGatherOperationCount_D67AFC = 0; // 原全局：0x00D67AFC。
 
-std::uint8_t gValueD67AFD = 0; // 原全局：0x00D67AFD。
+std::uint8_t gSkillOperationCount_D67AFD = 0; // 原全局：0x00D67AFD。
 
-std::uint8_t gValueD67AFE = 0; // 原全局：0x00D67AFE。
+std::uint8_t gSkillStatusIconReferences_D67AFE = 0; // 原全局：0x00D67AFE。
 
 std::uint8_t gValueD67B24 = 0; // 原全局：0x00D67B24。
 
@@ -882,7 +882,7 @@ std::int32_t WindowItem_ResetItemDrag()
     gItemDragXCC4880 = 0;
     gItemDragYCC4884 = 0;
     gDraggingCA0B28 = 0;
-    gValue58589C = 1;
+    gHoverDescriptionEnabled_58589C = 1;
     return 0;
 }
 
@@ -2917,19 +2917,19 @@ static void WindowRuntime_RestoreMarkedWindows()
 // 原函数：0x00479640。
 static void WindowRuntime_ResetOperationCount()
 {
-    gValueD67AF8 = 0;
+    gWindowOperationCount_D67AF8 = 0;
 }
 
 // 原函数：0x004796C0。
 static void WindowRuntime_ResetGatherOperationCount()
 {
-    gValueD67AFC = 0;
+    gGatherOperationCount_D67AFC = 0;
 }
 
 // 原函数：0x004796F0。
 static void WindowRuntime_ResetSkillOperationCount()
 {
-    gValueD67AFD = 0;
+    gSkillOperationCount_D67AFD = 0;
 }
 
 // 原函数：0x00479610。
@@ -2940,7 +2940,7 @@ static void WindowRuntime_ResetOperationReferences()
     WindowRuntime_ResetOperationCount();
     WindowRuntime_ResetGatherOperationCount();
     WindowRuntime_ResetSkillOperationCount();
-    gValueD67AFE = 0;
+    gSkillStatusIconReferences_D67AFE = 0;
 }
 
 // 原函数：0x004C7AD0。
@@ -3209,12 +3209,12 @@ static void WindowRuntime_ProcessShortcuts()
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
-            if (input::gValueC9A96C == 1) {
-                input::gValueC9A96C = 0;
-                input::gValue626C14 = 1;
+            if (input::gChatPanelVisible_C9A96C == 1) {
+                input::gChatPanelVisible_C9A96C = 0;
+                input::gChatLogSuppressed_626C14 = 1;
             } else {
-                input::gValueC9A96C = 1;
-                input::gValue626C14 = 0;
+                input::gChatPanelVisible_C9A96C = 1;
+                input::gChatLogSuppressed_626C14 = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -3342,7 +3342,7 @@ static void WindowRuntime_OpenLoginScene()
     gValueD67B24 = 0;
     WindowRuntime_ResetOperationReferences();
     gPreviewActionD67B84 = nullptr;
-    input::gValueC9A96C = 1;
+    input::gChatPanelVisible_C9A96C = 1;
     static_cast<void>(WindowChat_RestoreInput());
 }
 
@@ -3381,7 +3381,7 @@ static void WindowRuntime_OpenBattleScene()
     WindowRuntime_ResetOperationReferences();
     WindowInstance* const window22 = gWindowStates[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
-    input::gValueC9A96C = 1;
+    input::gChatPanelVisible_C9A96C = 1;
     if (window22 == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
     }
@@ -3406,10 +3406,10 @@ static void WindowRuntime_OpenNormalScene()
     gSelectedItemCB1DF4 = -1;
     gValueD67B24 = 0;
     WindowRuntime_ResetOperationReferences();
-    const std::int32_t inputGate = input::gValue626C14;
+    const std::int32_t inputGate = input::gChatLogSuppressed_626C14;
     gPreviewActionD67B84 = nullptr;
     if (inputGate == 0) {
-        input::gValueC9A96C = 1;
+        input::gChatPanelVisible_C9A96C = 1;
     }
     if (gWindowStates[WindowId_MailCompose].window == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
@@ -3579,26 +3579,26 @@ std::int32_t WindowRuntime_DrawCompactFrame(const std::int32_t)
 // 原函数：0x004796D0。
 void WindowRuntime_IncrementGatherOperationCount()
 {
-    ++gValueD67AFC;
+    ++gGatherOperationCount_D67AFC;
 }
 
 // 原函数：0x004796E0。
 void WindowRuntime_DecrementGatherOperationCount()
 {
-    --gValueD67AFC;
+    --gGatherOperationCount_D67AFC;
 }
 
 // 原函数：0x00479650。
 void WindowRuntime_IncrementOperationCount()
 {
-    ++gValueD67AF8;
+    ++gWindowOperationCount_D67AF8;
 }
 
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount()
 {
-    const std::int32_t remainingCount = gValueD67AF8 - 1;
-    gValueD67AF8 = remainingCount;
+    const std::int32_t remainingCount = gWindowOperationCount_D67AF8 - 1;
+    gWindowOperationCount_D67AF8 = remainingCount;
     if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
@@ -5061,7 +5061,7 @@ void WindowRuntime_DrawCurrent()
                 const auto* const data = static_cast<const WindowInputData*>(element->data);
                 if (data == gFocusedElementDataD45F94) {
                     if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
-                        if (input::gValueC9A96C == 1) {
+                        if (input::gChatPanelVisible_C9A96C == 1) {
                             WindowChat_DrawInput(data->context);
                         }
                     } else if (data != nullptr) {

@@ -368,7 +368,7 @@ void MarkDeathUnchecked(YobiAction* const action)
 void YobiClearUp_404D30()
 {
     YobiAction* current = detail::gYobiActionStart->next;
-    Sub_46DD40();
+    ClearRegisteredMapActions_46DD40();
     while (current != detail::gYobiActionEnd) {
         current->deathFlag = 1;
         current = current->next;

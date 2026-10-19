@@ -130,7 +130,7 @@ void Update()
         cg::core::NullSub_509080();
         detail::Sub_518780();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::Sub_43F220();
+        cg::yobi::ResetObservationGroupList_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
@@ -160,7 +160,7 @@ void Update()
             detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
-            cg::yobi::Sub_43F220();
+            cg::yobi::ResetObservationGroupList_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;

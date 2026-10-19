@@ -42,7 +42,7 @@ enum class YobiPayloadKind : std::uint8_t {
 
 
 // 原46DD40：清除地图注册标记并给对应动作标死。
-void Sub_46DD40();
+void ClearRegisteredMapActions_46DD40();
 
 
 // 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
@@ -200,9 +200,9 @@ void SetMapActorAnimationState_43EFC0(
     std::int32_t restart); // 主对象/坐骑动作映射及附件播放重置。
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
-YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
+YobiAction* CreateRegisteredMapGraphicAction_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 // 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。
-void Sub_46DD90(YobiAction* action);
+void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* action);
 // 46CF60 同步借用唯一 399x399 注册表槽；指针不拥有对象，不新增索引门禁。
 std::uint8_t& MapYobiRegistryFlagAt(std::int32_t index) noexcept;
 YobiAction*& MapYobiRegistryActionAt(std::int32_t index) noexcept;
@@ -210,21 +210,21 @@ YobiAction*& MapYobiRegistryActionAt(std::int32_t index) noexcept;
 void SetYobiMapOffsetX(YobiAction* action, std::int32_t value) noexcept;
 void SetYobiMapOffsetY(YobiAction* action, std::int32_t value) noexcept;
 // 原函数：0x0043F1F0。
-YobiAction* Sub_43F1F0(std::uint32_t value);
+YobiAction* FindObservationGroupByMember_43F1F0(std::uint32_t value);
 // 原函数：0x0043F220。
-void Sub_43F220();
+void ResetObservationGroupList_43F220();
 // 原 43F230：标死链上 action 并清头；空链原返回寄存器无对象合同。
-void* Sub_43F230();
+void* ClearObservationGroups_43F230();
 // 原440920：只拦截动作81/82；未使用方向仍保留，返回完整0/1。
 std::int32_t HandleMapObservationActionReply_440920(
     std::int32_t objectIndex, std::int32_t x, std::int32_t y,
     std::int32_t unusedDirection, std::int32_t characterAction, const char* row);
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。
-void* Sub_440F50();
+void* SavePlayerObservationTravelSnapshot_440F50();
 // 440FF0 借用同一 5F9740 方向值，不复制观察状态。
 std::int32_t ReadMapObservationDirection() noexcept;
 // 原 440FE0：创建地图观察节点、更新 BGM 状态并返回 0x25。
-std::int32_t Sub_440FE0();
+std::int32_t BeginObservationTravelScene_440FE0();
 // 原5182B0：先查询，再按低BYTE轴先取S16输出/后取当前S32偏移；完整合同沿YGOS01。
 std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* action, std::uint8_t axis);
 

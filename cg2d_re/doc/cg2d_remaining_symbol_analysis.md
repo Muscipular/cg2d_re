@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：365／636。已重命名：353。保留／未决：12。待分析：271。
+已分析：387／636。已重命名：375。保留／未决：12。待分析：249。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -40,27 +40,27 @@
 | `Sub_43DD00` | src/Yobi/map_actor.cpp:355 | 已重命名：`ParseMapActorAttachments_43DD00` | 解析附属标志及EF终止序列，更新装备、双附属宠物、骑乘和跟随宠物，返回消费后的字段位置。 |
 | `Sub_43E490` | src/Yobi/map_actor.cpp:527 | 已重命名：`UpdateMapActorTransitionPhase_43E490` | 投影后按阶段分发上骑、下骑和旋转变身过渡，过渡时更新路径／朝向并返回1，普通阶段0。 |
 | `Sub_43EFC0` | src/Yobi/map_actor.cpp:1458 | 已重命名：`SetMapActorAnimationState_43EFC0` | 设置角色和坐骑动作，按骑乘资源族映射角色动作；restart使主动作及骑乘／双附属动作重新取帧。 |
-| `Sub_43F180` | src/Yobi/map_observation.cpp:772 | 待分析 | — |
-| `Sub_43F1B0` | src/Yobi/map_observation.cpp:791 | 待分析 | — |
-| `Sub_43F1F0` | src/Yobi/map_observation.cpp:1135 | 待分析 | — |
-| `Sub_43F220` | src/Yobi/map_observation.cpp:1153 | 待分析 | — |
-| `Sub_43F230` | src/Yobi/map_observation.cpp:1159 | 待分析 | — |
-| `Sub_43F290` | src/Yobi/map_observation.cpp:227 | 待分析 | — |
-| `Sub_43F330` | src/Yobi/map_observation.cpp:123 | 待分析 | — |
-| `Sub_43F520` | src/Yobi/map_observation.cpp:573 | 待分析 | — |
-| `Sub_43F910` | src/Yobi/map_observation.cpp:318 | 待分析 | — |
-| `Sub_43FD90` | src/Yobi/map_observation.cpp:814 | 待分析 | — |
-| `Sub_43FE00` | src/Yobi/map_observation.cpp:259 | 待分析 | — |
-| `Sub_43FEB0` | src/Yobi/map_observation.cpp:170 | 待分析 | — |
-| `Sub_440070` | src/Yobi/map_observation.cpp:682 | 待分析 | — |
-| `Sub_440440` | src/Yobi/map_observation.cpp:402 | 待分析 | — |
-| `Sub_4408C0` | src/Yobi/map_observation.cpp:213 | 待分析 | — |
+| `Sub_43F180` | src/Yobi/map_observation.cpp:772 | 已重命名：`AppendObservationGroup_43F180` | 将观察动作追加单链尾；空链设置头并返回空，非空返回新增动作。 |
+| `Sub_43F1B0` | src/Yobi/map_observation.cpp:791 | 已重命名：`UnlinkObservationGroup_43F1B0` | 从观察单链解除指定动作，返回被解除载荷，不释放动作或成员。 |
+| `Sub_43F1F0` | src/Yobi/map_observation.cpp:1135 | 已重命名：`FindObservationGroupByMember_43F1F0` | 遍历观察组及每组五个成员编号，返回首个包含目标编号的组，无匹配空。 |
+| `Sub_43F220` | src/Yobi/map_observation.cpp:1153 | 已重命名：`ResetObservationGroupList_43F220` | 仅将观察组链表头清空，不释放动作。 |
+| `Sub_43F230` | src/Yobi/map_observation.cpp:1159 | 已重命名：`ClearObservationGroups_43F230` | 逐组标死成员与主体，最后清链头，返回末个动作；保当前空链返回约定。 |
+| `Sub_43F290` | src/Yobi/map_observation.cpp:227 | 已重命名：`CreateBoardingObservationMember_43F290` | 按成员编号查本人或世界动作，创建隐藏成员副本，借用父指针与槽号，初始phase1。 |
+| `Sub_43F330` | src/Yobi/map_observation.cpp:123 | 已重命名：`CreateDepartingObservationGroup_43F330` | 创建phase1观察组合动作，保存图号、地图位置、方向和时长值，挂入观察链表，后续成员汇合并螺旋离开。 |
+| `Sub_43F520` | src/Yobi/map_observation.cpp:573 | 已重命名：`UpdateDepartingObservationGroup_43F520` | 等待五成员汇合后推进主体螺旋上升和旋转，按顺序绘制成员，非本人观察且离屏后解除链表并销毁。 |
+| `Sub_43F910` | src/Yobi/map_observation.cpp:318 | 已重命名：`UpdateBoardingObservationMember_43F910` | 同步源角色图号与父方向，按槽偏移和抛物线插值完成成员汇合；更新绘制位置与阶段。 |
+| `Sub_43FD90` | src/Yobi/map_observation.cpp:814 | 已重命名：`AddObservationMemberSlotOffset_43FD90` | 按三组图号、五成员槽和八方向查表累加XY偏移，返回Y指针。 |
+| `Sub_43FE00` | src/Yobi/map_observation.cpp:259 | 已重命名：`CreateLandingObservationMember_43FE00` | 按成员编号复制图号／方向／屏幕坐标为隐藏动作，初始化落地计数与phase3。 |
+| `Sub_43FEB0` | src/Yobi/map_observation.cpp:170 | 已重命名：`CreateArrivingObservationGroup_43FEB0` | 创建phase3观察组合动作，初始化坐标、图号和朝向并挂观察链表，回调负责成员落地与主体离开。 |
+| `Sub_440070` | src/Yobi/map_observation.cpp:682 | 已重命名：`UpdateArrivingObservationGroup_440070` | 按帧推进到达主体轨迹，50帧后触发成员落地，全部落地且主体离屏时解除链表并清理。 |
+| `Sub_440440` | src/Yobi/map_observation.cpp:402 | 已重命名：`UpdateLandingObservationMember_440440` | 按父槽偏移绘制成员，从phase4抛物线落地至phase5，完成后恢复本人或世界对象观察暂停位。 |
+| `Sub_4408C0` | src/Yobi/map_observation.cpp:213 | 已重命名：`SetObservationGroupMembers_4408C0` | 将五个正对象编号写入观察载荷成员槽，非正输入保留原值。 |
 | `Sub_440920` | src/Yobi/map_observation.cpp:1011 | 已重命名：`HandleMapObservationActionReply_440920` | 处理动作81/82，解析七参数创建观察动作并绑定五成员，将成员置观察暂停位；81还关闭本人相关窗口并隐藏源图像。 |
 | `Sub_440B50` | src/world/SceneState.cpp:10675 | 待分析 | — |
-| `Sub_440B70` | src/Yobi/map_observation.cpp:927 | 待分析 | — |
-| `Sub_440C50` | src/Yobi/map_observation.cpp:833 | 待分析 | — |
-| `Sub_440F50` | src/Yobi/map_observation.cpp:1181 | 待分析 | — |
-| `Sub_440FE0` | src/Yobi/map_observation.cpp:1217 | 待分析 | — |
+| `Sub_440B70` | src/Yobi/map_observation.cpp:927 | 已重命名：`CreateObservationTravelFromSnapshot_440B70` | 用共享图号、方向、五成员及成员图号快照创建观察旅行主体和附属动作，绑定屏幕轨迹回调。 |
+| `Sub_440C50` | src/Yobi/map_observation.cpp:833 | 已重命名：`UpdateObservationTravelProjection_440C50` | 依快照持续帧数计算主体屏幕轨迹与弧线，按成员deltaY排序后绘制成员和主体，每轮帧数加一。 |
+| `Sub_440F50` | src/Yobi/map_observation.cpp:1181 | 已重命名：`SavePlayerObservationTravelSnapshot_440F50` | 查包含本人的观察组，保存主体图号、原方向、时长乘60与五成员编号／图号快照。 |
+| `Sub_440FE0` | src/Yobi/map_observation.cpp:1217 | 已重命名：`BeginObservationTravelScene_440FE0` | 由快照创建旅行观察动作并启动BGM渐隐，返回场景值0x25。 |
 | `Sub_440FF0` | src/world/SceneState.cpp:1671 | 待分析 | — |
 | `Sub_4410E0` | src/world/SceneState.cpp:10682 | 待分析 | — |
 | `Sub_4412D0` | src/Yobi/map_render.cpp:189 | 已重命名：`ResolveGearPetAnimationState_4412D0` | 遍历两附属宠物类别，根据主角色动作映射输出动画动作与末帧停留模式，保第二槽覆写语义。 |
@@ -262,9 +262,9 @@
 | `Sub_46DB00` | src/world/SceneState.cpp:3074 | 待分析 | — |
 | `Sub_46DC60` | src/world/SceneState.cpp:3065 | 待分析 | — |
 | `Sub_46DC90` | src/world/SceneState.cpp:3112 | 待分析 | — |
-| `Sub_46DD40` | src/Yobi/map_observation.cpp:973 | 待分析 | — |
-| `Sub_46DD90` | src/Yobi/map_observation.cpp:1108 | 待分析 | — |
-| `Sub_46DE50` | src/Yobi/map_observation.cpp:1072 | 待分析 | — |
+| `Sub_46DD40` | src/Yobi/map_observation.cpp:973 | 已重命名：`ClearRegisteredMapActions_46DD40` | 遍历地图动作注册表，对活动位严格1的槽先清位再标死动作，保指针原值。 |
+| `Sub_46DD90` | src/Yobi/map_observation.cpp:1108 | 已重命名：`UpdateRegisteredMapGraphicAction_46DD90` | 先投影当前世界坐标，再推进动画，按地图格坐标与mapOffset入地图对象缓存。 |
+| `Sub_46DE50` | src/Yobi/map_observation.cpp:1072 | 已重命名：`CreateRegisteredMapGraphicAction_46DE50` | 创建无回调地图图形动作，初始化图号、坐标和显示标志，供注册表维护与手动更新绘制。 |
 | `Sub_46DFF0` | src/world/MapDrawCache.cpp:427 | 已重命名：`CacheMapObjectGraphic_46DFF0` | 向普通地图对象缓存追加记录，描述符分非空和默认路径，保持数量发布先后顺序。 |
 | `Sub_46E0D0` | src/world/SceneState.cpp:1387 | 待分析 | — |
 | `Sub_46E2A0` | src/world/SceneState.cpp:813 | 待分析 | — |

@@ -71,13 +71,13 @@ static void DrawCutObject(
         const std::int32_t index = 399 * mapX + startY + row;
         if (cg::yobi::MapYobiRegistryFlagAt(index) != 0) {
             cg::yobi::YobiAction* const action = cg::yobi::MapYobiRegistryActionAt(index);
-            cg::yobi::Sub_46DD90(action);
+            cg::yobi::UpdateRegisteredMapGraphicAction_46DD90(action);
             return;
         }
         const std::int32_t mapY = startY + row;
         cg::yobi::MapYobiRegistryFlagAt(index) = 1;
         const std::int32_t imageNo = cut.value00;
-        cg::yobi::YobiAction* const action = cg::yobi::Sub_46DE50(imageNo, mapX, mapY);
+        cg::yobi::YobiAction* const action = cg::yobi::CreateRegisteredMapGraphicAction_46DE50(imageNo, mapX, mapY);
         const std::int32_t publishX = gMapXStart + column;
         const std::int32_t publishY = gMapYStart;
         const std::int32_t offsetX = cut.value0E;

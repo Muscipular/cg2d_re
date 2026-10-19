@@ -114,13 +114,13 @@ YobiAction* NewMapCharaAction()
 
 // 两种观察节点的真实回调，声明供以下生产入口绑定。
 // 原函数：0x0043F520。
-static void Sub_43F520(YobiAction* action);
+static void UpdateDepartingObservationGroup_43F520(YobiAction* action);
 
 // 原函数：0x00440070。
-static void Sub_440070(YobiAction* action);
+static void UpdateArrivingObservationGroup_440070(YobiAction* action);
 
 // 原函数：0x0043F330。
-YobiAction* Sub_43F330(
+YobiAction* CreateDepartingObservationGroup_43F330(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
     const std::int32_t value170)
@@ -130,7 +130,7 @@ YobiAction* Sub_43F330(
         return nullptr;
     }
     action->imageNo = imageNo;
-    action->callback = Sub_43F520;
+    action->callback = UpdateDepartingObservationGroup_43F520;
     action->characterAction = 0;
     action->direction = direction;
     action->field58 = direction;
@@ -162,12 +162,12 @@ YobiAction* Sub_43F330(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(Sub_43F180(action));
+    static_cast<void>(AppendObservationGroup_43F180(action));
     return action;
 }
 
 // 原函数：0x0043FEB0。
-YobiAction* Sub_43FEB0(
+YobiAction* CreateArrivingObservationGroup_43FEB0(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
 {
@@ -176,7 +176,7 @@ YobiAction* Sub_43FEB0(
         return nullptr;
     }
     action->direction = direction;
-    action->callback = Sub_440070;
+    action->callback = UpdateArrivingObservationGroup_440070;
     action->imageNo = imageNo;
     action->characterAction = 3;
     action->displayPriority = 10;
@@ -205,12 +205,12 @@ YobiAction* Sub_43FEB0(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(Sub_43F180(action));
+    static_cast<void>(AppendObservationGroup_43F180(action));
     return action;
 }
 
 // 原函数：0x004408C0。
-void Sub_4408C0(
+void SetObservationGroupMembers_4408C0(
     YobiAction* const action, const std::int32_t first, const std::int32_t second,
     const std::int32_t third, const std::int32_t fourth, const std::int32_t fifth)
 {
@@ -224,7 +224,7 @@ void Sub_4408C0(
 }
 
 // 原函数：0x0043F290。
-static YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
+static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
@@ -256,7 +256,7 @@ static YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index
 }
 
 // 原函数：0x0043FE00。
-static YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
+static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
@@ -315,7 +315,7 @@ static void SetObservationChildAction(
 }
 
 // 原函数：0x0043F910。
-static void Sub_43F910(YobiAction* const action)
+static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     YobiAction* const parent = action->observationParent10;
@@ -337,7 +337,7 @@ static void Sub_43F910(YobiAction* const action)
     const std::int32_t slotDirection = parent->direction;
     const std::int32_t slot = action->field1D0;
     const std::int32_t parentImageNo = parent->imageNo;
-    Sub_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
+    AddObservationMemberSlotOffset_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
     const std::int32_t parentY = parent->y;
     const std::int32_t initialPhase = action->phase;
     const std::int32_t parentX = parent->x;
@@ -399,7 +399,7 @@ static void Sub_43F910(YobiAction* const action)
 }
 
 // 原函数：0x00440440。
-static void Sub_440440(YobiAction* const action)
+static void UpdateLandingObservationMember_440440(YobiAction* const action)
 {
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
@@ -423,7 +423,7 @@ static void Sub_440440(YobiAction* const action)
     const std::int32_t slotDirection = parent->direction;
     const std::int32_t slot = action->field1D0;
     const std::int32_t parentImageNo = parent->imageNo;
-    Sub_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
+    AddObservationMemberSlotOffset_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
     std::int32_t parentX = parent->x;
     const std::int32_t initialPhase = action->phase;
     std::int32_t parentY = parent->y;
@@ -504,7 +504,7 @@ static void Sub_440440(YobiAction* const action)
         const std::int32_t drawDirection = parent->direction;
         const std::int32_t drawImageNo = parent->imageNo;
         const std::int32_t drawSlot = action->field1D0;
-        Sub_43FD90(drawImageNo, drawSlot, drawDirection, &slotX, &slotY);
+        AddObservationMemberSlotOffset_43FD90(drawImageNo, drawSlot, drawDirection, &slotX, &slotY);
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t drawY = GetYobiGraphicOriginOffset_5182B0(action, 1) + shiftY + relativeY + parentY;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
@@ -570,7 +570,7 @@ static void DrawObservationChildren(
 }
 
 // 原函数：0x0043F520。
-static void Sub_43F520(YobiAction* const action)
+static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
 {
     const float worldY = action->worldY;
     auto* const payload = action->payload.mapChara;
@@ -613,9 +613,9 @@ static void Sub_43F520(YobiAction* const action)
             x += static_cast<std::int32_t>(offset[0]);
             y += static_cast<std::int32_t>(offset[1]);
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
-            if (Sub_43F1F0(world::gPlayerRuntimeSlots.objectIndex) == nullptr
+            if (FindObservationGroupByMember_43F1F0(world::gPlayerRuntimeSlots.objectIndex) == nullptr
                 && frame > 300 && (x < -300 || x > 940)) {
-                Sub_43F1B0(action);
+                UnlinkObservationGroup_43F1B0(action);
                 for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
                     YobiAction* const child = payload->partyActions[index];
                     if (child != nullptr) {
@@ -645,7 +645,7 @@ static void Sub_43F520(YobiAction* const action)
         for (std::int32_t index = 0; index < 5; ++index) {
             if (payload->values[index] != 0) {
                 if (payload->partyActions[index] == nullptr) {
-                    payload->partyActions[index] = Sub_43F290(action, index);
+                    payload->partyActions[index] = CreateBoardingObservationMember_43F290(action, index);
                 }
                 YobiAction* const child = payload->partyActions[index];
                 if (child == nullptr || child->phase != 2) {
@@ -664,7 +664,7 @@ static void Sub_43F520(YobiAction* const action)
     for (std::int32_t index = 0; index < 5; ++index) {
         YobiAction* const child = payload->partyActions[index];
         if (child != nullptr) {
-            Sub_43F910(child);
+            UpdateBoardingObservationMember_43F910(child);
             order[count++] = static_cast<std::int8_t>(index);
         }
     }
@@ -679,7 +679,7 @@ static void Sub_43F520(YobiAction* const action)
 }
 
 // 原函数：0x00440070。
-static void Sub_440070(YobiAction* const action)
+static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
 {
     const float worldY = action->worldY;
     auto* const payload = action->payload.mapChara;
@@ -723,7 +723,7 @@ static void Sub_440070(YobiAction* const action)
         }
     }
     if (action->phase == 5 && (x < -300 || x > 940 || y < -300 || y > 780)) {
-        Sub_43F1B0(action);
+        UnlinkObservationGroup_43F1B0(action);
         for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
             YobiAction* const child = payload->partyActions[index];
             if (child != nullptr) {
@@ -749,7 +749,7 @@ static void Sub_440070(YobiAction* const action)
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
     for (std::int32_t index = 0; index < 5; ++index) {
         if (payload->values[index] != 0 && payload->partyActions[index] == nullptr) {
-            payload->partyActions[index] = Sub_43FE00(action, index);
+            payload->partyActions[index] = CreateLandingObservationMember_43FE00(action, index);
         }
     }
     std::array<std::int8_t, 5> order;
@@ -757,7 +757,7 @@ static void Sub_440070(YobiAction* const action)
     for (std::int32_t index = 0; index < 5; ++index) {
         YobiAction* const child = payload->partyActions[index];
         if (child != nullptr) {
-            Sub_440440(child);
+            UpdateLandingObservationMember_440440(child);
             order[count++] = static_cast<std::int8_t>(index);
         }
     }
@@ -769,7 +769,7 @@ static void Sub_440070(YobiAction* const action)
 }
 
 // 原函数：0x0043F180。
-YobiAction* Sub_43F180(YobiAction* const action)
+YobiAction* AppendObservationGroup_43F180(YobiAction* const action)
 {
     YobiAction* current = gMapCharaHead;
     if (current == nullptr) {
@@ -788,7 +788,7 @@ YobiAction* Sub_43F180(YobiAction* const action)
 }
 
 // 原函数：0x0043F1B0。
-void* Sub_43F1B0(YobiAction* const action)
+void* UnlinkObservationGroup_43F1B0(YobiAction* const action)
 {
     YobiAction* current = gMapCharaHead;
     if (current == action) {
@@ -811,7 +811,7 @@ void* Sub_43F1B0(YobiAction* const action)
 }
 
 // 原函数：0x0043FD90。
-std::int32_t* Sub_43FD90(
+std::int32_t* AddObservationMemberSlotOffset_43FD90(
     const std::int32_t imageNo, const std::int32_t slot,
     const std::int32_t direction, std::int32_t* const x, std::int32_t* const y)
 {
@@ -830,7 +830,7 @@ std::int32_t* Sub_43FD90(
 }
 
 // 原 440C50；唯一 callback 写者为 440B70，见 Yobi 观察回调 SPEC。
-static void Sub_440C50(YobiAction* const action)
+static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
 {
     auto* const payload = action->payload.mapChara;
     const std::int32_t initialFrame = payload->frame;
@@ -860,7 +860,7 @@ static void Sub_440C50(YobiAction* const action)
         YobiAction* const child = payload->partyActions[index];
         const std::int32_t direction = child->direction;
         const std::int32_t slot = child->field1D0;
-        Sub_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
+        AddObservationMemberSlotOffset_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
         const std::int32_t graphicX = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], 0);
         const std::int32_t frameX = action->frameX;
         const std::int32_t parentX = action->x;
@@ -924,14 +924,14 @@ static void Sub_440C50(YobiAction* const action)
 }
 
 // 原函数：0x00440B70。
-YobiAction* Sub_440B70()
+YobiAction* CreateObservationTravelFromSnapshot_440B70()
 {
     YobiAction* const action = NewMapCharaAction();
     if (action == nullptr) {
         return nullptr;
     }
 
-    action->callback = Sub_440C50;
+    action->callback = UpdateObservationTravelProjection_440C50;
     action->imageNo = gMapImage5F9734;
     action->characterAction = 3;
     const std::int32_t initialDirection = gMapDirection5F9740;
@@ -941,7 +941,7 @@ YobiAction* Sub_440B70()
     action->flags = 0x20;
     action->x = -100;
     action->y = -100;
-    static_cast<void>(Sub_43F180(action));
+    static_cast<void>(AppendObservationGroup_43F180(action));
     for (std::size_t index = 0; index < payload->values.size(); ++index) {
         payload->values[index] = 0;
         payload->partyActions[index] = nullptr;
@@ -970,7 +970,7 @@ YobiAction* Sub_440B70()
 } // namespace detail
 
 // 原函数：0x0046DD40。
-void Sub_46DD40()
+void ClearRegisteredMapActions_46DD40()
 {
     for (std::size_t row = 0; row < detail::kYobiRegistryRowCount; ++row) {
         const std::size_t rowOffset = row * detail::kYobiRegistryColumnCount;
@@ -1029,8 +1029,8 @@ std::int32_t HandleMapObservationActionReply_440920(
     }
     if (characterAction == 82) {
         const std::int32_t imageNo = character_select::ResolveCharacterImageForVersion(values[0]);
-        YobiAction* const observer = detail::Sub_43FEB0(imageNo, x, y, values[1]);
-        detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        YobiAction* const observer = detail::CreateArrivingObservationGroup_43FEB0(imageNo, x, y, values[1]);
+        detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
@@ -1049,9 +1049,9 @@ std::int32_t HandleMapObservationActionReply_440920(
             static_cast<std::int32_t>(source->mapY1F0);
         const std::int32_t sourceX =
             static_cast<std::int32_t>(source->mapX1E0);
-        YobiAction* const observer = detail::Sub_43F330(
+        YobiAction* const observer = detail::CreateDepartingObservationGroup_43F330(
             source->imageNo, sourceX, sourceY, direction, value170);
-        detail::Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
@@ -1069,7 +1069,7 @@ std::int32_t HandleMapObservationActionReply_440920(
 }
 
 // 原函数：0x0046DE50。
-YobiAction* Sub_46DE50(
+YobiAction* CreateRegisteredMapGraphicAction_46DE50(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -1105,7 +1105,7 @@ YobiAction* Sub_46DE50(
 }
 
 // 原函数：0x0046DD90。
-void Sub_46DD90(YobiAction* const action)
+void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* const action)
 {
     const float sceneY = action->worldY;
     const float sceneX = action->worldX;
@@ -1132,7 +1132,7 @@ void Sub_46DD90(YobiAction* const action)
 }
 
 // 原函数：0x0043F1F0。
-YobiAction* Sub_43F1F0(const std::uint32_t value)
+YobiAction* FindObservationGroupByMember_43F1F0(const std::uint32_t value)
 {
     YobiAction* current = detail::gMapCharaHead;
     while (current != nullptr) {
@@ -1150,13 +1150,13 @@ YobiAction* Sub_43F1F0(const std::uint32_t value)
 }
 
 // 原函数：0x0043F220。
-void Sub_43F220()
+void ResetObservationGroupList_43F220()
 {
     detail::gMapCharaHead = nullptr;
 }
 
 // 原函数：0x0043F230。
-void* Sub_43F230()
+void* ClearObservationGroups_43F230()
 {
     YobiAction* current = detail::gMapCharaHead;
     YobiAction* last = nullptr;
@@ -1178,10 +1178,10 @@ void* Sub_43F230()
 }
 
 // 原函数：0x00440F50。
-void* Sub_440F50()
+void* SavePlayerObservationTravelSnapshot_440F50()
 {
     YobiAction* const action =
-        Sub_43F1F0(world::gPlayerRuntimeSlots.objectIndex);
+        FindObservationGroupByMember_43F1F0(world::gPlayerRuntimeSlots.objectIndex);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1214,9 +1214,9 @@ std::int32_t ReadMapObservationDirection() noexcept
 }
 
 // 原函数：0x00440FE0。
-std::int32_t Sub_440FE0()
+std::int32_t BeginObservationTravelScene_440FE0()
 {
-    static_cast<void>(detail::Sub_440B70());
+    static_cast<void>(detail::CreateObservationTravelFromSnapshot_440B70());
     static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
     return 0x25;
 }

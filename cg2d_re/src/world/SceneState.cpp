@@ -3496,7 +3496,7 @@ void DrawNormalScene_51C7D0()
         RecreateMissingWorldObjectActions_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::Sub_43F220();
+        cg::yobi::ResetObservationGroupList_43F220();
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         gCurrentSceneState = 101;
@@ -3689,7 +3689,7 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         Sub_51D6F0();
-        const std::int32_t bgm = cg::yobi::Sub_440FE0();
+        const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0();
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
         gValueFF0D68 = audio::gBgmTarget1050818;
@@ -3775,7 +3775,7 @@ void DrawNormalScene_51C7D0()
         RecreateMissingWorldObjectActions_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::Sub_43F220();
+        cg::yobi::ResetObservationGroupList_43F220();
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         if (gValueFF0D50 == 1) {
             platform::gPendingGraphicCount = 0;
@@ -3917,7 +3917,7 @@ void DrawNormalScene_51C7D0()
         gValueC8A79C = 0;
         gValue58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(cg::yobi::Sub_43F230());
+        static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         Sub_51BEF0();
         platform::RequestRender_457010();
         static_cast<void>(audio::PlaySe_52C450(201, 320));
@@ -3930,7 +3930,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(Sub_51D750());
         platform::gValue73ECC0 = 2;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(cg::yobi::Sub_43F230());
+        static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         ++gCurrentSceneState;
         goto inputTail;
     case 5:
@@ -4457,7 +4457,7 @@ void* __cdecl Sub_51D5B0()
         &low, sizeof(low));
 
     if (gate != 0
-        || cg::yobi::Sub_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
+        || cg::yobi::FindObservationGroupByMember_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
         const std::uint32_t currentGate = gValueD67E78;
         gValueFF0D74 = 0;
@@ -4466,14 +4466,14 @@ void* __cdecl Sub_51D5B0()
         }
     } else if (gValueFF0D74 == 0) {
         gCurrentSceneState = 250;
-        static_cast<void>(cg::yobi::Sub_440F50());
+        static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50());
         ++gValueFF0D74;
     } else {
         const std::uint32_t count = gValueFF0D74;
         gCurrentSceneState = 252;
         gValueFF0D74 = count + 1u;
     }
-    return cg::yobi::Sub_43F230();
+    return cg::yobi::ClearObservationGroups_43F230();
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
@@ -4739,7 +4739,7 @@ void __cdecl Sub_46DA80(
     gValue9DAD64 = selected;
     Sub_46DB00(selected);
     Sub_46DC90(selected);
-    cg::yobi::Sub_46DD40();
+    cg::yobi::ClearRegisteredMapActions_46DD40();
 }
 
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
@@ -6729,7 +6729,7 @@ std::int32_t Sub_45EEE0()
         gLogoutTransition9A6E94 = next;
         platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::Sub_43F230();
+        cg::yobi::ClearObservationGroups_43F230();
     }
     return 0;
 }
